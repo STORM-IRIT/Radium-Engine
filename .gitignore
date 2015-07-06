@@ -26,3 +26,16 @@
 *.exe
 *.out
 *.app
+
+# Backup files and other machine-local stuff
+*.user
+*.svn
+*.autosave
+*.dropbox.attr
+*~
+
+# Binary asset files
+*.obj
+*.fbx
+
+
