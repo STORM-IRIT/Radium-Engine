@@ -54,6 +54,15 @@ endif(MSVC OR MSVC_IDE)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
+# EXTERNALS
+# TODO Move this in another cmake config file
+set(EXTERNAL_DIR ${CMAKE_SOURCE_DIR}/3rdPartyLibraries)
+
+# Eigen
+set(EIGEN_INC ${EXTERNAL_DIR}/Eigen)
+
+add_subdirectory(3rdPartyLibraries)
 add_subdirectory(Engine)
 add_subdirectory(MainApplication)
+
 

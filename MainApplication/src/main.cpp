@@ -2,7 +2,7 @@
 
 int main()
 {
-    RadiumEngine::Engine engine;
+    Ra::Engine engine;
     engine.sayHello();
 
     return 0;

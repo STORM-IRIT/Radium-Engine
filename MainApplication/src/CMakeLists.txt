@@ -1,7 +1,6 @@
 set(TARGET radium)
 
 find_package(OpenGL     REQUIRED)
-find_package(Eigen3     REQUIRED)
 
 set(HEADER_PATH .)
 
@@ -16,7 +15,7 @@ set(HEADER ${HEADER_FILES})
 include_directories(
     ${HEADER_PATH}
     ${CMAKE_SOURCE_DIR}/Engine/include
-    ${EIGEN3_INCLUDE_DIR}
+    ${EIGEN_INC}
 )
 
 add_executable(

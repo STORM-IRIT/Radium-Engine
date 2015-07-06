@@ -4,7 +4,6 @@ set(LIBRARY_VERSION "0.1.0")
 set(LIBRARY_SOVERSION "0.1")
 
 find_package(OpenGL     REQUIRED)
-find_package(Eigen3     REQUIRED)
 
 set(HEADER_PATH ../include)
 
@@ -18,7 +17,7 @@ set(HEADER ${HEADER_FILES})
 
 include_directories(
   ${HEADER_PATH}
-  ${EIGEN3_INCLUDE_DIR}
+  ${EIGEN_INC}
 )
 
 add_library(
