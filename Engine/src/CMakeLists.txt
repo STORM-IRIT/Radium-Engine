@@ -1,0 +1,45 @@
+set(TARGET radiumEngine)
+
+set(LIBRARY_VERSION "0.1.0")
+set(LIBRARY_SOVERSION "0.1")
+
+find_package(OpenGL     REQUIRED)
+find_package(Eigen3     REQUIRED)
+
+set(HEADER_PATH ../include)
+
+set(LIBS ${OPENGL_LIBRARIES})
+
+file(GLOB SOURCE_FILES *.cpp)
+set(SOURCE ${SOURCE_FILES})
+
+file(GLOB HEADER_FILES ${HEADER_PATH}/*.h ${HEADER_PATH}/*.hpp)
+set(HEADER ${HEADER_FILES})
+
+include_directories(
+  ${HEADER_PATH}
+  ${EIGEN3_INCLUDE_DIR}
+)
+
+add_library(
+ ${TARGET} SHARED # STATIC ?
+ ${SOURCE}
+ ${HEADER}
+)
+
+SET_TARGET_PROPERTIES(
+  ${TARGET}
+  PROPERTIES
+  VERSION ${LIBRARY_VERSION}
+  SOVERSION ${LIBRARY_SOVERSION}
+)
+
+target_link_libraries(
+  ${TARGET}
+  ${LIBS}
+)
+
+INSTALL(
+  TARGETS ${TARGET}
+  DESTINATION ${LIB_INSTALL_DIR}
+)
