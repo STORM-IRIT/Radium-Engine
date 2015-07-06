@@ -1,0 +1,73 @@
+# Coding conventions for Radium
+
+Mainly inspired by https://google-styleguide.googlecode.com/svn/trunk/cppguide.html
+
+## Headers 
+
+* Every .cpp must have an associated .hpp file
+* use .inl files for inline functions definitions and include it in the .hpp
+* All headers should have include guards in the form `#ifndef HEADER_NAME_HPP_` 
+* Every class should have its own header.
+* Always use < > in include directives and never " "
+* Keep headers in order : Class header, system libraries, other libraries, other headers from project.
+* forward declare as much as you can
+
+## Functions
+* use const reference or value to pass input parameters
+* use references for passing output parameters
+* output parameters appear last.
+
+## Scope and names
+* use anonymous namespaces for file local variables / functions. no classes with only static functions !
+* Use `namespace Ra { }` for all radium engine code, plus a sub-namespace for each module (e.g. `Ra::Physics`)
+* never use  the `using` instruction for a whole namespace
+* put all non member functions in a namespace (no top level global functions)
+* declare pointers and ref attached to their type : `void* a`, `const Foo& bar`
+* macros and defined constants should be in capitals.
+
+## Variables
+* declarations should always be made on separate lines; (no `int a, b, c;`)
+* initialize variables on the line of declaration whenever possible
+* no global variables. If really necessary, prefix with `g_`
+* use C++11 `nullptr` for null pointers.
+* use `auto` only when it helps readability.
+
+## Code style
+* Indentation style : 4-spaces
+* Brace style : keep it consistent across files.
+* Case style : CamelCase
+* Only classes have their first letter capitalized. Functions and variables don't. 
+* Class members have the `m_` prefix. Other prefixes (apart from `g_`) are discouraged.
+* no ifs / for / while one-liners. Braces everywhere. Even for cases in a switch.
+* separate different clauses in a boolean expression with parens.
+`( (a || b) && ( c+d < 0) )`
+* use c++ style casts unless converting a value (e.g. `int x = int(f))`. Avoid `const_cast` if possible.
+* use prefix increments (`++i` and not `i++`)
+* use `const` everywhere possible. use `constexpr` for const values.
+* line length should be kept at 80 (soft limit) and not exceed 120 (hard limit)
+* no need for () for a return statement.
+
+## Class design
+* constructors should be trival. All complex work goes in an `init()` function
+* use explicit for all one-arguments constructors
+* use = delete for preventing copy constructor and other
+compiler-generated functions
+* use `struct` for trivial PODs where all data is public and `class` for
+everything else.
+* no other inheritance than public
+* if multiple inheritance, all parent classes but one have to be interfaces (= pure virtual classes)
+* composition is better than inheritance
+* if the class has virtual methods then the destructor is virtual
+* use `override` when overriding a virtual method.
+* use operator overloading only if the meaning is non-ambiguous (only for arithmetic-like syntax).
+* be consistent with operators (i.e. if you overload + and = also overload +=).
+* declare : public functions (constructors first), private functions, public variables, private variables.
+* declare nested types and enums before functions
+* do not abuse function overloading.
+* avoid `mutable`
+* getters and setter should have a consistent name with the variable.
+
+## Non-negociable
+* No exceptions, no  RTTI, no dynamic cast, no gotos.
+
+
