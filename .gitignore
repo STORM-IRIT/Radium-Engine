@@ -33,9 +33,14 @@
 *.autosave
 *.dropbox.attr
 *~
+.idea/
+*.orig
 
 # Binary asset files
 *.obj
 *.fbx
 
-
+# Output Directories
+build/
+bin-debug/
+lib-debug/
