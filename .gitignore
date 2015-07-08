@@ -39,8 +39,14 @@
 # Binary asset files
 *.obj
 *.fbx
+*.dae
 
 # Output Directories
 build/
 bin-debug/
 lib-debug/
+bin/
+lib/
+
+# Mercurial stuff (e.g from Eigen)
+.hg*
