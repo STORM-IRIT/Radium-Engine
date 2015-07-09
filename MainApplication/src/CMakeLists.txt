@@ -4,7 +4,7 @@ find_package(OpenGL     REQUIRED)
 
 set(HEADER_PATH .)
 
-set(LIBS radiumCore radiumEngine ${OPENGL_LIBRARIES})
+set(LIBS radiumEngine radiumCore ${OPENGL_LIBRARIES})
 
 file(GLOB SOURCE_FILES *.cpp)
 set(SOURCE ${SOURCE_FILES})
