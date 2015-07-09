@@ -1,7 +1,6 @@
-set(TARGET radiumEngine)
+set(TARGET radiumCore)
 
 set(LIBRARY_VERSION "0.1.0")
-set(LIBRARY_SOVERSION "0.1")
 
 find_package(OpenGL     REQUIRED)
 
@@ -12,12 +11,14 @@ set(LIBS ${OPENGL_LIBRARIES})
 file(GLOB SOURCE_FILES *.cpp)
 set(SOURCE ${SOURCE_FILES})
 
-file(GLOB HEADER_FILES ${HEADER_PATH}/*.h ${HEADER_PATH}/*.hpp)
+file(GLOB_RECURSE HEADER_FILES ${HEADER_PATH}/*.h ${HEADER_PATH}/*.hpp)
 set(HEADER ${HEADER_FILES})
+
+file(GLOB_RECURSE INL_FILES ${HEADER_PATH}/*.inl)
+set(INL ${HEADER_FILES})
 
 include_directories(
   ${HEADER_PATH}
-  ${CMAKE_SOURCE_DIR}/Core/include
   ${EIGEN_INC}
 )
 
@@ -25,13 +26,13 @@ add_library(
  ${TARGET} STATIC
  ${SOURCE}
  ${HEADER}
+ ${INL}
 )
 
 SET_TARGET_PROPERTIES(
   ${TARGET}
   PROPERTIES
   VERSION ${LIBRARY_VERSION}
-  SOVERSION ${LIBRARY_SOVERSION}
 )
 
 target_link_libraries(

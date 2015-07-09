@@ -4,7 +4,7 @@ find_package(OpenGL     REQUIRED)
 
 set(HEADER_PATH .)
 
-set(LIBS radiumEngine ${OPENGL_LIBRARIES})
+set(LIBS radiumCore radiumEngine ${OPENGL_LIBRARIES})
 
 file(GLOB SOURCE_FILES *.cpp)
 set(SOURCE ${SOURCE_FILES})
@@ -14,6 +14,7 @@ set(HEADER ${HEADER_FILES})
 
 include_directories(
     ${HEADER_PATH}
+    ${CMAKE_SOURCE_DIR}/Core/include
     ${CMAKE_SOURCE_DIR}/Engine/include
     ${EIGEN_INC}
 )

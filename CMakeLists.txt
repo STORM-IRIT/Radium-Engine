@@ -3,7 +3,7 @@ project(RadiumEngine)
 cmake_minimum_required(VERSION 2.8)
 
 if (UNIX)
-  set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DOSG_NOTIFY_LEVEL=DEBUG ${CMAKE_CXX_FLAGS_DEBUG} -pthread -g3 -std=c++11 -msse4.2")
+  set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -DOSG_NOTIFY_LEVEL=DEBUG ${CMAKE_CXX_FLAGS_DEBUG} -pthread -g3 -std=c++11 -msse4.2")
   set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -pthread -O3 -ffast-math -mfpmath=sse -msse4.2 -std=c++11")
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-pthread -g3 ${CMAKE_CXX_FLAGS_RELEASE}")
 endif(UNIX)
@@ -62,6 +62,7 @@ set(EXTERNAL_DIR ${CMAKE_SOURCE_DIR}/3rdPartyLibraries)
 set(EIGEN_INC ${EXTERNAL_DIR}/Eigen)
 
 add_subdirectory(3rdPartyLibraries)
+add_subdirectory(Core)
 add_subdirectory(Engine)
 add_subdirectory(MainApplication)
 
