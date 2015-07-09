@@ -13,6 +13,8 @@
 // General config
 // Use this to use double precision for all vectors
 // #define CORE_USE_DOUBLE
+// Use this to force vec3 to be aligned for vectorization (not working yet)
+// #define CORE_USE_ALIGNED_VEC3
 
 namespace Ra {
 
@@ -22,10 +24,11 @@ namespace Ra {
     /// Our default Eigen vector type is the 4D vector.
     typedef Eigen::Vector4f Vector4;
 
-    /// We will use an aligned vector for 3D vectors.
-    ///typedef Eigen::AlignedVector3<float> Vector3;
+#ifndef CORE_USE_ALIGNED_VEC3
     typedef Eigen::Vector3f Vector3;
-
+#else
+    typedef Eigen::AlignedVector3<float> Vector3;
+#endif
     typedef Eigen::Quaternionf Quaternion;
 
     typedef Eigen::Affine3f Transform;
@@ -35,8 +38,11 @@ namespace Ra {
 
     typedef Eigen::Vector4d Vector4;
 
-    //typedef Eigen::AlignedVector3<double> Vector3;
-    typedef Eigen::Vector3d Vector3;
+#ifndef CORE_USE_ALIGNED_VEC3
+    typedef Eigen::Vector3f Vector3;
+#else
+    typedef Eigen::AlignedVector3<float> Vector3;
+#endif
 
     typedef Eigen::Quaterniond Quaternion;
 
