@@ -81,7 +81,7 @@ namespace Ra
         {
             // Random guessing value from the size of the format string.
             int size = strlen(fmt) * 2;
-            int final_size = 0;
+            int finalSize = 0;
             str.clear();
 
             std::unique_ptr<char[]> buffer;
@@ -101,7 +101,7 @@ namespace Ra
                 // gives us the required buffer size.
                 if (finalSize >= size)
                 {
-                    size = std::max(size + 1, final_size);
+                    size = std::max(size + 1, finalSize);
                 }
                 else
                 {
@@ -120,7 +120,7 @@ namespace Ra
             std::string toAppend;
             va_list args;
             va_start(args, fmt);
-            int result = stringPrintf(to_append, fmt, args);
+            int result = stringPrintf(toAppend, fmt, args);
             str += toAppend;
             va_end(args);
             return result;

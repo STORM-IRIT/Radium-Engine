@@ -1,8 +1,8 @@
 #ifndef RADIUMENGINE_RAY_H
 #define RADIUMENGINE_RAY_H
 
-#include <math/Vector.h>
-#include "Vector.hpp"
+#include <math/Vector.hpp>
+//#include "Vector.hpp"
 
 namespace Ra
 {
