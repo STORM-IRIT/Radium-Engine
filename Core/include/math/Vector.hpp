@@ -32,6 +32,8 @@ namespace Ra {
     typedef Eigen::Quaternionf Quaternion;
 
     typedef Eigen::Affine3f Transform;
+
+    typedef Eigen::AlignedBox3f Aabb;
     // Todo : storage transform using quaternions ?
 #else //
     typedef double Scalar;
@@ -48,8 +50,14 @@ namespace Ra {
 
     typedef Eigen::Affine3d Transform;
 
+    typedef Eigen::AlignedBox3d Aabb;
 
 #endif
+
+    // For consistency we redefine vector3i in our namespace
+
+    typedef Eigen::Vector3i Vector3i;
+
 } // end namespace Ra
 
 #endif// RADIUMENGINE_VECTOR_HPP_
