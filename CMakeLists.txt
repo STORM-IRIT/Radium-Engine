@@ -1,6 +1,6 @@
 project(RadiumEngine)
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.11)
 
 if (UNIX)
   set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -DOSG_NOTIFY_LEVEL=DEBUG ${CMAKE_CXX_FLAGS_DEBUG} -pthread -g3 -std=c++11 -msse4.2")
