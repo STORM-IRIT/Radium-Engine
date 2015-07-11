@@ -1,6 +1,10 @@
+#include "Grid.hpp"
+
 namespace Ra
 {
     // Anonymous helper functions to convert to/from multi-dimensional indices
+    // If we want to  make the grid row-major we just need to overload these functions
+    // by reversing the loops.
     namespace
     {
 
@@ -90,7 +94,7 @@ namespace Ra
     template<typename T, uint D>
     inline const T& Grid<T, D>::at(const Grid<T, D>::IdxVector& idx) const
     {
-        const uint linIdx = idxVectorToLinear(idx);
+        const uint linIdx = idxVectorToLinear<T,D>(idx, sizeVector());
         CORE_ASSERT(linIdx < m_data.size(), "Invalid vector index");
         return m_data[linIdx];
     }

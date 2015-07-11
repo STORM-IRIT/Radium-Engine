@@ -1,3 +1,5 @@
+#include "MeshUtils.hpp"
+
 namespace Ra
 {
     namespace MeshUtils

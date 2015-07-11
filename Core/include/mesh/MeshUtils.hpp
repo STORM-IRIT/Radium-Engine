@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_MESH_UTILS_HPP
 #define RADIUMENGINE_MESH_UTILS_HPP
 
+#include <array>
+
 #include <mesh/TriangleMesh.hpp>
 
 namespace Ra

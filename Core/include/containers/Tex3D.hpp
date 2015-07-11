@@ -21,7 +21,7 @@ namespace Ra
         inline const Aabb& getAabb() const;
 
         /// Tri-linear interpolation of the grid values at position v.
-        T fetch(const Vector3& v);
+        T fetch(const Vector3& v) const;
 
     private:
         /// The bounding box of the portion of space represented.
