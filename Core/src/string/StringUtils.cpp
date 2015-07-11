@@ -2,6 +2,7 @@
 
 #include <cstring>
 #include <cstdarg>
+#include <cstdio>
 #include <memory>
 
 namespace Ra
@@ -11,7 +12,7 @@ namespace Ra
         std::string getFileExt(const std::string& str)
         {
             std::string res;
-            unsigned pos = str.find_last_of('.');
+            ulong pos = str.find_last_of('.');
             res = pos < str.size() ? str.substr(pos) : "";
             return res;
         }
@@ -20,7 +21,7 @@ namespace Ra
         std::string getDirName(const std::string& path)
         {
             // We remove any trailing slashes.
-            unsigned int pos = path.find_last_not_of('/');
+            ulong pos = path.find_last_not_of('/');
 
             // Don't strip the last / from "/"
             if (pos == std::string::npos)
@@ -56,7 +57,7 @@ namespace Ra
         {
             std::string res;
             // We remove any trailing slashes.
-            unsigned int pos = path.find_last_not_of('/');
+            ulong pos = path.find_last_not_of('/');
             // Don't strip the last / from "/"
             if (pos == std::string::npos)
             {
@@ -80,7 +81,7 @@ namespace Ra
         int stringPrintf(std::string& str, const char* fmt, ...)
         {
             // Random guessing value from the size of the format string.
-            int size = strlen(fmt) * 2;
+            size_t size = strlen(fmt) * 2;
             int finalSize = 0;
             str.clear();
 
@@ -101,7 +102,7 @@ namespace Ra
                 // gives us the required buffer size.
                 if (finalSize >= size)
                 {
-                    size = std::max(size + 1, finalSize);
+                    size = std::max(size + 1, size_t(finalSize));
                 }
                 else
                 {
