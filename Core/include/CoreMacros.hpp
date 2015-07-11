@@ -13,8 +13,8 @@
 
 // A good reference : http://sourceforge.net/p/predef/
 
-#ifndef CORE_H_
-#define CORE_H_
+#ifndef RADIUMENGINE_CORE_HPP
+#define RADIUMENGINE_CORE_HPP
 
 #include <assert.h>
 #include <stdio.h>
@@ -194,6 +194,14 @@ typedef unsigned short  ushort;
 typedef unsigned int    uint;
 typedef unsigned long   ulong;
 
+// Use this to use double precision for all maths
+// #define CORE_USE_DOUBLE
+#ifndef CORE_USE_DOUBLE
+typedef float Scalar;
+#else
+typedef double Scalar;
+#endif
+
 // ----------------------------------------------------------------------------
 // Debug tools
 // ----------------------------------------------------------------------------
@@ -248,4 +256,4 @@ namespace compile_time_utils
     #pragma GCC diagnostic ignored "-Wunused-local-typedefs"
 #endif
 
-#endif // CORE_H_ include guard.
+#endif // RADIUMENGINE_CORE_HPP 

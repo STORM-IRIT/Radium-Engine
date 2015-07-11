@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_VECTOR_HPP_
-#define RADIUMENGINE_VECTOR_HPP_
+#ifndef RADIUMENGINE_VECTOR_HPP
+#define RADIUMENGINE_VECTOR_HPP
 
 /// This file contains typedefs and basic vector classes and functions
 
@@ -14,8 +14,6 @@
 
 
 // General config
-// Use this to use double precision for all vectors
-// #define CORE_USE_DOUBLE
 // Use this to force vec3 to be aligned for vectorization (FIXME not working yet)
 // #define CORE_USE_ALIGNED_VEC3
 
@@ -25,46 +23,29 @@ namespace Ra
     // Common vector types
     //
 
-#ifndef CORE_USE_DOUBLE
-    typedef float Scalar;
-
     /// Our default Eigen vector type is the 4D vector.
-    typedef Eigen::Vector4f Vector4;
+    typedef Eigen::Matrix<Scalar, 4, 1> Vector4;
 
 #ifndef CORE_USE_ALIGNED_VEC3
-    typedef Eigen::Vector3f Vector3;
+    typedef Eigen::Matrix<Scalar, 3, 1> Vector3;
 #else
-    typedef Eigen::AlignedVector3<float> Vector3;
+    typedef Eigen::AlignedVector3<Scalar> Vector3;
 #endif
-    typedef Eigen::Quaternionf Quaternion;
 
-    typedef Eigen::Affine3f Transform;
+	typedef Eigen::Matrix<Scalar, 2, 1> Vector2; 
 
-    typedef Eigen::AlignedBox3f Aabb;
+    typedef Eigen::Quaternion<Scalar> Quaternion;
+
+    typedef Eigen::Transform<Scalar, 3, Affine> Transform;
+
+    typedef Eigen::AlignedBox<Scalar, 3> Aabb;
     // Todo : storage transform using quaternions ?
-#else //
-    typedef double Scalar;
 
-    typedef Eigen::Vector4d Vector4;
-
-#ifndef CORE_USE_ALIGNED_VEC3
-    typedef Eigen::Vector3f Vector3;
-#else
-    typedef Eigen::AlignedVector3<float> Vector3;
-#endif
-
-    typedef Eigen::Quaterniond Quaternion;
-
-    typedef Eigen::Affine3d Transform;
-
-    typedef Eigen::AlignedBox3d Aabb;
-
-#endif
-
-    // For consistency we redefine vector3i in our namespace
-
+    // For consistency we redefine VectorXi in our namespace
+	typedef Eigen::Vector2i Vector2i;
     typedef Eigen::Vector3i Vector3i;
 
+	typedef Vector4 Color;
 
     //
     // Vector functions
@@ -91,8 +72,9 @@ namespace Ra
     inline Quaternion operator+ (const Quaternion& q1, const Quaternion& q2);
     inline Quaternion operator* (const Scalar& k, const Quaternion& q);
 
-} // end namespace Ra
 
+} // end namespace Ra
 #include <math/Vector.inl>
 
-#endif// RADIUMENGINE_VECTOR_HPP_
+#endif// RADIUMENGINE_VECTOR_HPP
+
