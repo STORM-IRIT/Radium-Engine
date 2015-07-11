@@ -1,8 +1,11 @@
 #ifndef RADIUMENGINE_VECTOR_HPP_
 #define RADIUMENGINE_VECTOR_HPP_
 
-/// This file contains typedefs and basic vector classes.
-/// Internally, the underlying storage class for 3D vectors and 4D vectors are Eigen's vector4;
+/// This file contains typedefs and basic vector classes and functions
+
+#include <cmath>
+#include <functional>
+
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include <unsupported/Eigen/AlignedVector3>
@@ -13,10 +16,14 @@
 // General config
 // Use this to use double precision for all vectors
 // #define CORE_USE_DOUBLE
-// Use this to force vec3 to be aligned for vectorization (not working yet)
+// Use this to force vec3 to be aligned for vectorization (FIXME not working yet)
 // #define CORE_USE_ALIGNED_VEC3
 
-namespace Ra {
+namespace Ra
+{
+    //
+    // Common vector types
+    //
 
 #ifndef CORE_USE_DOUBLE
     typedef float Scalar;
@@ -58,6 +65,28 @@ namespace Ra {
 
     typedef Eigen::Vector3i Vector3i;
 
+
+    //
+    // Vector functions
+    //
+    namespace Vector
+    {
+        /// Component-wise floor() function on a floating-point vector.
+        template<typename Vector>
+        inline Vector floor(const Vector& v);
+
+        /// Component-wise floor() function on a floating-point vector.
+        template<typename Vector>
+        inline Vector ceil(const Vector& v);
+
+        /// Component-wise clamp() function on a floating-point vector.
+        template<typename Vector>
+        inline Vector clamp(const Vector& v, const Vector& min, const Vector& max);
+    }
+
+
 } // end namespace Ra
+
+#include <math/Vector.inl>
 
 #endif// RADIUMENGINE_VECTOR_HPP_
