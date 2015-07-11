@@ -2,8 +2,6 @@
 #define RADIUMENGINE_MESH_UTILS_HPP
 
 #include <mesh/TriangleMesh.hpp>
-#include <bits/stl_bvector.h>
-#include "TriangleMesh.hpp"
 
 namespace Ra
 {
