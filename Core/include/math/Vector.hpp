@@ -84,6 +84,12 @@ namespace Ra
         inline Vector clamp(const Vector& v, const Vector& min, const Vector& max);
     }
 
+    //
+    // Quaternion functions
+    //
+
+    inline Quaternion operator+ (const Quaternion& q1, const Quaternion& q2);
+    inline Quaternion operator* (const Scalar& k, const Quaternion& q);
 
 } // end namespace Ra
 

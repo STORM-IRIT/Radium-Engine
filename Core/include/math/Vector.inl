@@ -27,4 +27,14 @@ namespace Ra
         result.cwiseMax(min);
         return result;
     }
+
+    Quaternion operator+ (const Quaternion& q1, const Quaternion& q2)
+    {
+        return Quaternion(q1.coeffs()+q2.coeffs());
+    }
+
+    Quaternion operator* (const Scalar& k, const Quaternion& q)
+    {
+        return Quaternion(k* q.coeffs());
+    }
 }

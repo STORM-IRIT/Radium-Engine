@@ -7,6 +7,7 @@
 namespace Ra
 {
     /// A structure representing a ray in space with an origin and a direction.
+    // TODO : use Eigen parametrized line ?
     struct Ray
     {
     public:

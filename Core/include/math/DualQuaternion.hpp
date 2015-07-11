@@ -20,8 +20,9 @@ namespace Ra
         /// Construct a dual-quaternion from two quaternions.
         DualQuaternion(const Quaternion& q0, const Quaternion& qe) : m_q0(q0), m_qe(qe) { }
 
-        /// Copy constructor.
+        /// Default copy constructor and assignment operator.
         DualQuaternion (const DualQuaternion& other) = default;
+        DualQuaternion& operator= ( const DualQuaternion& ) = default;
 
         /// todo : conversion to/from Transform
 
@@ -32,7 +33,6 @@ namespace Ra
         inline void setQe(const Quaternion& qe);
 
         /// Operators
-        inline DualQuaternion operator= ( const DualQuaternion& ) = default;
 
         inline DualQuaternion operator+ ( const DualQuaternion& other);
         inline DualQuaternion operator* ( Scalar scalar );
@@ -41,9 +41,9 @@ namespace Ra
         inline DualQuaternion& operator *=( Scalar scalar );
 
         /// Other methods
-        
+
         /// Normalize the quaternion with the dual-number norm (divides q0 and qe
-        /// by q0's norm). 
+        /// by q0's norm).
         inline void normalize();
 
     private:
