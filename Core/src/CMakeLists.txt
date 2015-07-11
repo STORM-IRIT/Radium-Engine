@@ -15,7 +15,7 @@ file(GLOB_RECURSE HEADER_FILES ${HEADER_PATH}/*.h ${HEADER_PATH}/*.hpp)
 set(HEADER ${HEADER_FILES})
 
 file(GLOB_RECURSE INL_FILES ${HEADER_PATH}/*.inl)
-set(INL ${HEADER_FILES})
+set(INL ${INL_FILES})
 
 include_directories(
   ${HEADER_PATH}
