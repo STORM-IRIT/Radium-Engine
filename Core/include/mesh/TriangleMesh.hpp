@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_TRIANGLE_MESH_H
-#define RADIUMENGINE_TRIANGLE_MESH_H
+#ifndef RADIUMENGINE_TRIANGLEMESH_HPP
+#define RADIUMENGINE_TRIANGLEMESH_HPP
 
 #include <math/Vector.hpp>
 #include <containers/VectorArray.hpp>
@@ -26,9 +26,8 @@ namespace Ra{
         VectorArray<Vector3>  m_normals;
         VectorArray<Triangle> m_triangles;
     };
-
-
 }
 
 #include <mesh/TriangleMesh.inl>
-#endif //RADIUMENGINE_TRIANGLE_MESH_H
+
+#endif //RADIUMENGINE_TRIANGLEMESH_HPP

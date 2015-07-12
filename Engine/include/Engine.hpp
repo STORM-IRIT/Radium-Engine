@@ -1,5 +1,5 @@
-#ifndef ENGINE_HEADER
-#define ENGINE_HEADER
+#ifndef RADIUMENGINE_ENGINE_HPP
+#define RADIUMENGINE_ENGINE_HPP
 
 namespace Ra
 {
@@ -10,6 +10,6 @@ public:
     void sayHello();
 };
 
-} // namespace RadiumEngine
+} // namespace Ra
 
-#endif // ENGINE_HEADER
+#endif // RADIUMENGINE_ENGINE_HPP

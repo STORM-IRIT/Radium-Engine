@@ -14,7 +14,7 @@ find_package(OpenGL     REQUIRED)
 set(HEADER_PATH .)
 set(UI_PATH Gui/ui)
 
-set(QT_LIBS Qt5::Core ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})
+set(QT_LIBS ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})
 set(LIBS radiumEngine radiumCore ${QT_LIBS} ${OPENGL_LIBRARIES})
 
 file(GLOB_RECURSE SOURCE_FILES *.cpp)

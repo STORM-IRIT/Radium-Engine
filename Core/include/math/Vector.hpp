@@ -12,7 +12,6 @@
 
 #include <CoreMacros.hpp>
 
-
 // General config
 // Use this to force vec3 to be aligned for vectorization (FIXME not working yet)
 // #define CORE_USE_ALIGNED_VEC3
@@ -36,7 +35,7 @@ namespace Ra
 
     typedef Eigen::Quaternion<Scalar> Quaternion;
 
-    typedef Eigen::Transform<Scalar, 3, Affine> Transform;
+    typedef Eigen::Transform<Scalar, 3, Eigen::Affine> Transform;
 
     typedef Eigen::AlignedBox<Scalar, 3> Aabb;
     // Todo : storage transform using quaternions ?

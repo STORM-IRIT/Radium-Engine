@@ -1,5 +1,8 @@
-#ifndef RADIUMENGINE_MESH_UTILS_HPP
-#define RADIUMENGINE_MESH_UTILS_HPP
+#ifndef RADIUMENGINE_MESHUTILS_HPP
+#define RADIUMENGINE_MESHUTILS_HPP
+
+#include <vector>
+#include <array>
 
 #include <array>
 
@@ -38,4 +41,4 @@ namespace Ra
 
 #include <mesh/MeshUtils.inl>
 
-#endif //RADIUMENGINE_MESH_UTILS_HPP
+#endif //RADIUMENGINE_MESHUTILS_HPP

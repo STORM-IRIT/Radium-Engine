@@ -1,8 +1,7 @@
-#ifndef RADIUMENGINE_RAY_H
-#define RADIUMENGINE_RAY_H
+#ifndef RADIUMENGINE_RAY_HPP
+#define RADIUMENGINE_RAY_HPP
 
 #include <math/Vector.hpp>
-//#include "Vector.hpp"
 
 namespace Ra
 {
@@ -32,4 +31,4 @@ namespace Ra
 
 }
 
-#endif //RADIUMENGINE_RAY_H
+#endif //RADIUMENGINE_RAY_HPP

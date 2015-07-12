@@ -1,5 +1,14 @@
 #include <string/StringUtils.hpp>
 
+#include <CoreMacros.hpp>
+
+#ifdef OS_WINDOWS
+#define NOMINMAX				// Avoid C2039 MSVC compiler error
+#undef vsnprintf
+#define vsnprintf(buffer, count, format, argptr) vsnprintf_s(buffer, count, count, format, argptr)
+#endif
+
+#include <algorithm> // std::min std::max
 #include <cstring>
 #include <cstdarg>
 #include <cstdio>

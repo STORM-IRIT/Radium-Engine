@@ -1,8 +1,9 @@
-#ifndef RADIUMENGINE_GRID_H
-#define RADIUMENGINE_GRID_H
+#ifndef RADIUMENGINE_GRID_HPP
+#define RADIUMENGINE_GRID_HPP
 
 #include <Eigen/Core>
 #include <CoreMacros.hpp>
+
 namespace Ra
 {
     /// This class stores a D-dimensional grid of elements of arbitrary type.
@@ -74,4 +75,4 @@ namespace Ra
 
 #include <containers/Grid.inl>
 
-#endif //RADIUMENGINE_GRID_H
+#endif //RADIUMENGINE_GRID_HPP
