@@ -4,9 +4,9 @@ namespace Ra
 {
     namespace MeshUtils
     {
-        inline float getTriangleArea(const TriangleMesh& mesh, uint triIdx)
+        inline float getTriangleArea(const TriangleMesh& mesh, TriangleIdx triIdx)
         {
-            std::array <Vector3, 3> v;
+            std::array<Vector3, 3> v;
             getTriangleVertices(mesh, triIdx, v);
 
             const Vector3 edge0 = v[1] - v[0];
@@ -15,9 +15,9 @@ namespace Ra
             return (edge0.cross(edge1)).norm() / 2.f;
         }
 
-        inline Vector3 getTriangleNormal(const TriangleMesh& mesh, uint triIdx)
+        inline Vector3 getTriangleNormal(const TriangleMesh& mesh, TriangleIdx triIdx)
         {
-            std::array <Vector3, 3> v;
+            std::array<Vector3, 3> v;
             getTriangleVertices(mesh, triIdx, v);
 
             const Vector3 edge0 = v[1] - v[0];
@@ -25,13 +25,21 @@ namespace Ra
             return edge0.cross(edge1).normalized();
         }
 
-        inline void getTriangleVertices(const TriangleMesh& mesh, uint triIdx, std::array <Vector3, 3>& verticesOut)
+        inline void getTriangleVertices(const TriangleMesh& mesh, TriangleIdx triIdx,
+                                        std::array<Vector3, 3>& verticesOut)
         {
             const Triangle& tri = mesh.m_triangles[triIdx];
             for (uint i = 0; i < 3; ++i)
             {
                 verticesOut[i] = mesh.m_vertices[tri[i]];
             }
+        }
+
+        inline Aabb getAabb(const TriangleMesh& mesh)
+        {
+            const Vector3 min = mesh.m_vertices.getMap().rowwise().minCoeff();
+            const Vector3 max = mesh.m_vertices.getMap().rowwise().maxCoeff();
+            return Aabb(min, max);
         }
     }
 }
