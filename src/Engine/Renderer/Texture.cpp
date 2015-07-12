@@ -1,0 +1,281 @@
+#include <Engine/Renderer/Texture.hpp>
+
+#include <cstdio>
+
+namespace Ra
+{
+
+Texture::Texture(std::string name, uint target, TextureType type, uint zoffset)
+        : m_textureId(0)
+        , m_name(name)
+        , m_target(target)
+        , m_type(type)
+        , m_zoffset(zoffset)
+        , m_pixels(nullptr)
+        , m_bytesPerPixel(0)
+        , m_width(1)
+        , m_height(1)
+        , m_depth(1)
+{
+}
+
+Texture::~Texture()
+{
+    deleteGL();
+    delete[] m_pixels;
+}
+
+void Texture::setBPP(int bpp)
+{
+    switch (bpp)
+    {
+        case GL_LUMINANCE:
+            // FIXME: Check alpha
+        case GL_LUMINANCE_ALPHA:
+        {
+            m_bytesPerPixel = 1;
+        } break;
+
+        case GL_DEPTH_COMPONENT24:
+        case GL_RGB:
+        case GL_SRGB:
+        case GL_SRGB8:
+        {
+            m_bytesPerPixel = 3;
+        } break;
+
+        case GL_DEPTH24_STENCIL8:
+        case GL_RGBA:
+        case GL_BGRA:
+        case GL_R32F:
+        {
+            m_bytesPerPixel = 4;
+        } break;
+
+        case GL_RG32F:
+        {
+            m_bytesPerPixel = 8;
+        } break;
+
+        case GL_RGB32F:
+        {
+            m_bytesPerPixel = 12;
+        } break;
+
+        case GL_RGBA32F:
+        {
+            m_bytesPerPixel = 16;
+        } break;
+
+        default:
+        {
+            fprintf(stderr, "Problem with texture color mode (%08x) - (Texture %s).\n",
+                    bpp, m_name.c_str());
+            m_bytesPerPixel = 0;
+        }
+    }
+}
+
+void Texture::initGL(uint bpp, uint w, uint format, uint type, void* data)
+{
+    GL_ASSERT(glGenTextures(1, &m_textureId));
+    GL_ASSERT(glBindTexture(m_target, m_textureId));
+    GL_ASSERT(glTexImage1D(m_target, 0, bpp, w, 0, format, type, data));
+
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_WRAP_S, GL_REPEAT));
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+
+    setBPP(bpp);
+
+    m_width = w;
+
+    if (data && m_bytesPerPixel)
+    {
+        m_pixels = new unsigned char[m_width * m_bytesPerPixel];
+        std::memcpy(m_pixels, data, m_width * m_bytesPerPixel);
+    }
+}
+
+void Texture::initGL(uint internal, uint w, uint h, uint format, uint type, void* data)
+{
+    GL_ASSERT(glGenTextures(1, &m_textureId));
+    GL_ASSERT(glBindTexture(m_target, m_textureId));
+    GL_ASSERT(glTexImage2D(m_target, 0, internal, w, h, 0, format, type, data));
+
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+
+    setBPP(internal);
+
+    m_width  = w;
+    m_height = h;
+
+    if (data && m_bytesPerPixel)
+    {
+        m_pixels = new unsigned char[m_width * m_height * m_bytesPerPixel];
+        memcpy(m_pixels, data, m_width * m_height * m_bytesPerPixel);
+    }
+}
+
+void Texture::initGL(uint bpp, uint w, uint h, uint d, uint format, uint type, void* data)
+{
+    GL_ASSERT(glGenTextures(1, &m_textureId));
+    GL_ASSERT(glBindTexture(m_target, m_textureId));
+    GL_ASSERT(glTexImage3D(m_target, 0, bpp, w, h, d, 0, format, type, data));
+
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_REPEAT));
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, GL_REPEAT));
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, GL_REPEAT));
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+
+    setBPP(bpp);
+
+    m_width  = w;
+    m_height = h;
+    m_depth  = d;
+
+    if (data && m_bytesPerPixel)
+    {
+        m_pixels = new unsigned char[m_width * m_height * m_depth * m_bytesPerPixel];
+        memcpy(m_pixels, data, m_width * m_height * m_depth * m_bytesPerPixel);
+    }
+}
+
+void Texture::initCubeGL(uint bpp, uint w, uint h, uint format, uint type, void** data)
+{
+    GL_ASSERT(glGenTextures(1, &m_textureId));
+    GL_ASSERT(glBindTexture(m_target, m_textureId));
+
+    // FIXME Type was forced to GL_Scalar, check calls for this method.
+    GL_ASSERT(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, bpp, w, h, 0, format, type, data[0]));
+    GL_ASSERT(glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, bpp, w, h, 0, format, type, data[1]));
+    GL_ASSERT(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, bpp, w, h, 0, format, type, data[2]));
+    GL_ASSERT(glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, bpp, w, h, 0, format, type, data[3]));
+    GL_ASSERT(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, bpp, w, h, 0, format, type, data[4]));
+    GL_ASSERT(glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, bpp, w, h, 0, format, type, data[5]));
+
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
+
+    GL_ASSERT(glGenerateMipmap(m_target));
+    /*
+      GL_ASSERT(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE));
+      GL_ASSERT(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+      GL_ASSERT(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+    */
+}
+
+void Texture::genMipmap(GLenum minFilter, GLenum magFilter)
+{
+    GL_ASSERT(glBindTexture(m_target, m_textureId));
+
+    GL_ASSERT(glTexParameteri(m_target, GL_TEXTURE_MIN_FILTER, minFilter));
+    GL_ASSERT(glTexParameteri(m_target, GL_TEXTURE_MAG_FILTER, magFilter));
+
+    GL_ASSERT(glGenerateMipmap(m_target));
+}
+
+void Texture::setFilter(uint minFilter, uint magFilter)
+{
+    GL_ASSERT(glBindTexture(m_target, m_textureId));
+
+    GL_ASSERT(glTexParameteri(m_target, GL_TEXTURE_MIN_FILTER, minFilter));
+    GL_ASSERT(glTexParameteri(m_target, GL_TEXTURE_MAG_FILTER, magFilter));
+}
+
+void Texture::setClamp(GLenum wrapS)
+{
+    assert(m_type == TEXTURE_1D && "setClamp(s) cannot be called for this texture type.");
+
+    GL_ASSERT(glBindTexture(m_target, m_textureId));
+
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_WRAP_S, wrapS));
+}
+
+void Texture::setClamp(GLenum wrapS, GLenum wrapT)
+{
+    assert((m_type == TEXTURE_2D) || (m_type == TEXTURE_CUBE) && "setClamp(s, t) cannot be called for this texture type.");
+
+    GL_ASSERT(glBindTexture(m_target, m_textureId));
+
+    if (m_type == TEXTURE_2D)
+    {
+        GL_ASSERT(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS));
+        GL_ASSERT(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapT));
+    }
+    else
+    {
+        GL_ASSERT(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, wrapS));
+        GL_ASSERT(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, wrapT));
+    }
+}
+
+void Texture::setClamp(GLenum wrapS, GLenum wrapT, GLenum wrapR)
+{
+    assert(m_type == TEXTURE_3D && "setClamp(s, t, r) cannot be called for this texture type.");
+
+    GL_ASSERT(glBindTexture(m_target, m_textureId));
+
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, wrapS));
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, wrapT));
+    GL_ASSERT(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, wrapR));
+}
+
+void Texture::bind(int unit)
+{
+    GLenum texUnit = GL_TEXTURE0 + unit;
+    GL_ASSERT(glActiveTexture(texUnit));
+    GL_ASSERT(glBindTexture(m_target, m_textureId));
+}
+
+void Texture::deleteGL()
+{
+    GL_ASSERT(glDeleteTextures(1, &m_textureId));
+}
+
+uint Texture::getId() const
+{
+    return m_textureId;
+}
+
+uint Texture::getTarget() const
+{
+    return m_target;
+}
+
+Texture::TextureType Texture::getType() const
+{
+    return m_type;
+}
+
+std::string Texture::getName() const
+{
+    return m_name;
+}
+
+uint Texture::getZOffset() const
+{
+    return m_zoffset;
+}
+
+Color Texture::getTexel(Scalar u) const
+{
+    // TODO (Charly)
+    return Color(0, 0, 0, 1);
+}
+Color Texture::getTexel(Scalar u, Scalar v) const
+{
+    // TODO (Charly)
+    return Color(0, 0, 0, 1);
+}
+Color Texture::getTexel(Scalar u, Scalar v, Scalar w) const
+{
+    // TODO (Charly)
+    return Color(0, 0, 0, 1);
+}
+
+} // namespace Ra

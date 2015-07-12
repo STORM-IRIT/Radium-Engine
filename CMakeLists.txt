@@ -62,8 +62,7 @@ set(EXTERNAL_DIR ${CMAKE_SOURCE_DIR}/3rdPartyLibraries)
 set(EIGEN_INC ${EXTERNAL_DIR}/Eigen)
 
 add_subdirectory(3rdPartyLibraries)
-add_subdirectory(Core)
-add_subdirectory(Engine)
-add_subdirectory(MainApplication)
+add_subdirectory(src)
+
 
 
