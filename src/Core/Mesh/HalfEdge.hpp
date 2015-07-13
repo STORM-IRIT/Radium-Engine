@@ -42,7 +42,7 @@ namespace Ra
 
     private:
         // Internal building function called by update and the constructor.
-        void build();
+        void build(const TriangleMesh& mesh);
 
     private:
         /// Container holding the half edges.

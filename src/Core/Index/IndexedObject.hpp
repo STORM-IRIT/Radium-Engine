@@ -1,7 +1,10 @@
 #ifndef RADIUMENGINE_INDEXEDOBJECT_HPP
 #define RADIUMENGINE_INDEXEDOBJECT_HPP
 
-#include <index/Index.hpp>
+#include <Core/Index/Index.hpp>
+
+namespace Ra
+{
 
 class IndexedObject {
 public:
@@ -15,5 +18,7 @@ public:
     /// VARIABLE
     Index idx;
 };
+
+} // namespace Ra
 
 #endif // RADIUMENGINE_INDEXEDOBJECT_HPP

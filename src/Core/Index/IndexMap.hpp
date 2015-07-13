@@ -5,7 +5,10 @@
 #include <algorithm>
 #include <assert.h>
 
-#include <index/Index.hpp>
+#include <Core/Index/Index.hpp>
+
+namespace Ra
+{
 
 template <typename T>
 class IndexMap {
@@ -82,6 +85,8 @@ private:
     std::deque< Index > m_free;
 };
 
-#include <index/IndexMap.inl>
+} // namespace Ra
+
+#include <Core/Index/IndexMap.inl>
 
 #endif // INDEXMAP_HPP

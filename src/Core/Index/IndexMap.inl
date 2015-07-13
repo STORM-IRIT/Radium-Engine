@@ -1,4 +1,5 @@
-#include <index/IndexMap.hpp>
+namespace Ra
+{
 
 /// CONSTRUCTOR
 template <typename T>
@@ -56,7 +57,7 @@ inline T IndexMap<T>::at( const Index& idx ) const {
     IndexMapEntry imp( idx );
     typename std::deque< IndexMapEntry >::const_iterator it = std::find( m_data.begin(), m_data.end(), imp );
     assert( it != m_data.end() );
-    return it->obj;
+    return it->m_obj;
 }
 
 template <typename T>
@@ -71,14 +72,14 @@ inline bool IndexMap<T>::at( const Index& idx, T& obj ) const {
     IndexMapEntry imp( idx );
     typename std::deque< IndexMapEntry >::const_iterator it = std::find( m_data.begin(), m_data.end(), imp );
     if( it == m_data.end() ) return false;
-    obj = it->obj;
+    obj = it->m_obj;
     return true;
 }
 
 template <typename T>
 inline bool IndexMap<T>::at( const int i, T& obj ) const {
     if( ( i < 0 ) || ( i >= m_data.size() ) || m_data.empty() ) return false;
-    obj = m_data.at( i ).obj;
+    obj = m_data.at( i ).m_obj;
     return true;
 }
 
@@ -87,13 +88,13 @@ inline T& IndexMap<T>::access( const Index& idx ) {
     IndexMapEntry imp( idx );
     typename std::deque< IndexMapEntry >::iterator it = std::find( m_data.begin(), m_data.end(), imp );
     assert( it != m_data.end() );
-    return it->obj;
+    return it->m_obj;
 }
 
 template <typename T>
 inline T& IndexMap<T>::access( const int i ) {
     assert( ( i >= 0 ) || ( i < m_data.size() ) || m_data.empty() );
-    return m_data[i].obj;
+    return m_data[i].m_obj;
 }
 
 template <typename T>
@@ -102,14 +103,14 @@ inline bool IndexMap<T>::access( const Index& idx, T& obj ) {
     IndexMapEntry imp( idx );
     typename std::deque< IndexMapEntry >::iterator it = std::find( m_data.begin(), m_data.end(), imp );
     if( it == m_data.end() ) return false;
-    obj = it->obj;
+    obj = it->m_obj;
     return true;
 }
 
 template <typename T>
 inline bool IndexMap<T>::access( const int i, T& obj ) {
     if( ( i < 0 ) || ( i >= m_data.size() ) || m_data.empty() ) return false;
-    obj = m_data[i].obj;
+    obj = m_data[i].m_obj;
     return true;
 }
 
@@ -138,7 +139,7 @@ inline bool IndexMap<T>::contain( const Index& idx ) const {
 template <typename T>
 inline Index IndexMap<T>::index( const int i ) const {
     if( ( i < 0 ) || ( i >= m_data.size() ) || m_data.empty() ) return Index::INVALID_IDX();
-    return m_data[i].idx;
+    return m_data[i].m_idx;
 }
 
 /// OPERATOR
@@ -177,11 +178,13 @@ inline bool IndexMap<T>::remove_free_index( Index& idx ) {
     m_free.pop_front();
     if( m_free.empty() ) {
         Index next = idx + 1;
-        if( next.is_valid() ) {
-            if( next.value() > m_data.size() ) {
+        if( next.isValid() ) {
+            if( next.getValue() > m_data.size() ) {
                 m_free.push_back( next );
             }
         }
     }
     return true;
 }
+
+} // namespace Ra

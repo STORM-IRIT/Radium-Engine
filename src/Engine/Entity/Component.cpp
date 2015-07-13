@@ -1,16 +1,14 @@
 #include <Engine/Entity/Component.hpp>
 
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/System/System.hpp>
+#include <Engine/Entity/System.hpp>
 
 namespace Ra
 {
 
-Component::Component(uint id, System* system)
-    : m_id(id)
-    , m_system(system)
+void Component::setSystem(System* system)
 {
-    m_system->addComponent(this, id);
+    m_system = system;
 }
 
 void Component::setEntity(Entity* entity)

@@ -1,5 +1,3 @@
-#include "HalfEdge.hpp"
-
 namespace Ra
 {
     HalfEdgeData::HalfEdgeData(const TriangleMesh& mesh)
@@ -27,8 +25,8 @@ namespace Ra
 
     inline HalfEdgeIdx HalfEdgeData::getFirstTriangleHalfEdge(TriangleIdx t) const
     {
-        CORE_ASSERT(i != InvalidIdx && i < m_triangleToHalfEdge.size(), "Invalid Index");
-        return m_triangleToHalfEdge[i];
+        CORE_ASSERT(t != InvalidIdx && t < m_triangleToHalfEdge.size(), "Invalid Index");
+        return m_triangleToHalfEdge[t];
     }
 
     inline void HalfEdgeData::update(const TriangleMesh& mesh)
