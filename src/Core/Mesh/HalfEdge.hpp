@@ -13,11 +13,16 @@ namespace Ra
         HalfEdgeIdx m_prev; // Previous half edge along the face.
         HalfEdgeIdx m_pair; // Oppositely oriented half-edge
         HalfEdgeIdx m_next; // Next half edge around the face
-        TriangleIdx m_leftTriIdx; // Face the half-edge borders
+        TriangleIdx m_leftTriIdx; // Face the half-edge borders (may be invalid)
         VertexIdx m_endVertexIdx; // Vertex at the end of the edge;
     };
 
     /// Structure holding the half-edge data of one mesh.
+    /// Note on non manifold edges : if the mesh is non-closed, two half edges will be constructed
+    /// even on the border edges, however the "outer" half-edge will have invalid 
+    /// face and prev/next indices.
+    /// Edges shared by more than 2 triangles are not supported and will cause an assert during 
+    /// the call to build(). 
     class HalfEdgeData
     {
     public:
