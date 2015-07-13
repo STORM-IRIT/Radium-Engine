@@ -1,5 +1,7 @@
 #include <MainApplication/Viewer/Viewer.hpp>
 
+
+#include <iostream>
 #include <Engine/Renderer/ForwardRenderer.hpp>
 
 // FIXME (Charly) :
@@ -25,7 +27,15 @@ void Viewer::initializeGL()
 	makeCurrent();
 
 	initializeOpenGLFunctions();
-	m_renderer = std::make_shared<ForwardRenderer>(width(), height());
+
+    std::cout<<"***Radium Engine Viewer***"<<std::endl;
+    std::cout<<"Renderer : "<<glGetString(GL_RENDERER)<<std::endl;
+    std::cout<<"Vendor : "<<glGetString(GL_VENDOR)<<std::endl;
+    std::cout<<"OpenGL v."<<glGetString(GL_VERSION)<<std::endl;
+    std::cout<<"GLSL v. "<<glGetString(GL_SHADING_LANGUAGE_VERSION)<<std::endl;
+
+    m_renderer = std::make_shared<ForwardRenderer>(width(), height());
+
 }
 
 void Viewer::paintGL()
