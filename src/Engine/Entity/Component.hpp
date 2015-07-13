@@ -62,18 +62,6 @@ public:
      */
     virtual void setTransform(Transform* transform);
 
-    /**
-     * @brief setId
-     * @param id ID of the component.
-     */
-    virtual void setId(Index id) final { idx = id; }
-
-    /**
-     * @brief getId
-     * @return ID of the component.
-     */
-    virtual Index getId() const final { return idx; }
-
 protected:
     System* m_system;
     Entity* m_entity;

@@ -4,6 +4,7 @@
 #include <map>
 
 #include <Core/CoreMacros.hpp>
+#include <Core/Index/Index.hpp>
 
 namespace Ra
 {
@@ -39,17 +40,17 @@ public:
      * @param component The component to be added to the system
      * @param id The component id
      */
-    void addComponent(Component* component, uint id);
+    void addComponent(Component* component);
 
     /**
      * @brief Remove a component from the system.
      *
      * @param id The id of the component to remove
      */
-    void removeComponent(uint id);
+    void removeComponent(Index idx);
 
-private:
-    std::map<uint, Component*> m_components;
+protected:
+    std::map<Index, Component*> m_components;
 };
 
 } // namespace Ra

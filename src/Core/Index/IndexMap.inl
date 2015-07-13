@@ -63,7 +63,7 @@ inline T IndexMap<T>::at( const Index& idx ) const {
 template <typename T>
 inline T IndexMap<T>::at( const int i ) const {
     assert( ( i >= 0 ) || ( i < m_data.size() ) || m_data.empty() );
-    return m_data.at( i ).obj;
+    return m_data.at( i ).m_obj;
 }
 
 template <typename T>
@@ -116,7 +116,7 @@ inline bool IndexMap<T>::access( const int i, T& obj ) {
 
 /// SIZE
 template <typename T>
-inline unsigned int IndexMap<T>::size() const { return m_data.size(); }
+inline uint IndexMap<T>::size() const { return m_data.size(); }
 
 template <typename T>
 inline void IndexMap<T>::clear() { m_data.clear(); m_free.clear(); m_free.push_back( Index( 0 ) ); }

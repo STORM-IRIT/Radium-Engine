@@ -40,7 +40,7 @@ public:
     inline bool  access( const int      i, T& obj );
 
     /// SIZE
-    inline unsigned int size() const;
+    inline uint size() const;
     inline void         clear();
 
     /// QUERY

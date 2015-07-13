@@ -1,16 +1,55 @@
 #ifndef RADIUMENGINE_ENTITYMANAGER_HPP
 #define RADIUMENGINE_ENTITYMANAGER_HPP
 
+#include <memory>
+#include <vector>
+
 #include <Core/Utils/Singleton.hpp>
+#include <Core/Index/IndexMap.hpp>
 
 namespace Ra
 {
+
+class Entity;
 
 class EntityManager : public Singleton<EntityManager>
 {
     friend class Singleton<EntityManager>;
 
 public:
+    /**
+     * @brief Create an entity (kind of a factory).
+     * Manager has the pointer ownership.
+     * @return The created entity.
+     */
+    Entity* createEntity();
+
+    /**
+     * @brief Remove an entity given its index. Also deletes the pointer.
+     * @param idx Index if the entity to remove.
+     */
+    void removeEntity(Index idx);
+
+    /**
+     * @brief Remove a given entity. Also deletes the pointer.
+     * @param entity The entity to remove.
+     */
+    void removeEntity(Entity* entity);
+
+    /**
+     * @brief Get an entity given its index.
+     * @param idx Index of the component to retrieve.
+     * @return The entity if found in the map, nullptr otherwise.
+     */
+    Entity* getEntity(Index idx) const;
+
+    /**
+     * @brief Get all entities from the manager.
+     * This might be usefull to be able to display and navigate through them
+     * in a GUI for example.
+     * @return A list containing all entities from the manager.
+     */
+    std::vector<Entity*> getEntities() const;
 
 private:
     /// CONSTRUCTOR
@@ -18,6 +57,9 @@ private:
 
     /// DESTRUCTOR
     virtual ~EntityManager();
+
+private:
+    IndexMap<std::shared_ptr<Entity>> m_entities;
 };
 
 } // namespace Ra

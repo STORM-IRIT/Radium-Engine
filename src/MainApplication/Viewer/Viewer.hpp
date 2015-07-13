@@ -6,7 +6,7 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 
-#include <Engine/Renderer/Renderer.hpp>
+#include <Engine/Renderer/RenderSystem.hpp>
 
 namespace Ra
 {
@@ -38,7 +38,7 @@ protected:
 	virtual void keyPressEvent(QKeyEvent* event) override;
 
 private:
-	std::shared_ptr<Renderer> m_renderer;
+    std::shared_ptr<RenderSystem> m_renderer;
 };
 
 } // namespace Ra

@@ -29,7 +29,7 @@ ForwardRenderer::ForwardRenderer()
 }
 
 ForwardRenderer::ForwardRenderer(uint width, uint height)
-	: Renderer(width, height)
+    : RenderSystem(width, height)
 	, m_camera(nullptr)
 	, m_shaderManager(nullptr)
 	, m_passthroughShader(nullptr)
@@ -68,7 +68,7 @@ void ForwardRenderer::initBuffers()
 {
 }
 
-void ForwardRenderer::render()
+void ForwardRenderer::update()
 {
 	GL_ASSERT(glDepthMask(GL_TRUE));
 	GL_ASSERT(glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE));
@@ -81,6 +81,11 @@ void ForwardRenderer::render()
     GL_ASSERT(glClearColor(0.8, 0.1, 0.1, 1.0));
 
     GL_ASSERT(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
+
+    for (const auto& c : m_components)
+    {
+
+    }
 }
 
 void ForwardRenderer::resize(uint width, uint height)

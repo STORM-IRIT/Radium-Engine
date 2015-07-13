@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include <Engine/Renderer/Renderer.hpp>
+#include <Engine/Renderer/RenderSystem.hpp>
 
 namespace Ra
 {
@@ -12,7 +12,7 @@ class Camera;
 class ShaderProgram;
 class ShaderProgramManager;
 
-class ForwardRenderer : public Renderer
+class ForwardRenderer : public RenderSystem
 {
 public:
 	/// CONSTRUCTOR 
@@ -25,7 +25,7 @@ public:
 
 	virtual void initialize() override;
 
-	virtual void render() override;
+    virtual void update() override;
 
 	virtual void resize(uint width, uint height) override;
 

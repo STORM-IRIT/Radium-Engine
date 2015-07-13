@@ -43,7 +43,7 @@ void Viewer::paintGL()
 	makeCurrent();
 //    glClearColor(1.0, 0.1, 0.1, 1.0);
 //    glClear(GL_COLOR_BUFFER_BIT);
-	m_renderer->render();
+    m_renderer->update();
 }
 
 void Viewer::resizeGL(int width, int height)

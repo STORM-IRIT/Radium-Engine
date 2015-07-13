@@ -2,6 +2,8 @@
 
 #include <cstdio>
 
+#include <Engine/Entity/Component.hpp>
+
 namespace Ra
 {
 
@@ -14,22 +16,23 @@ System::~System()
     m_components.clear();
 }
 
-void System::addComponent(Component *component, uint id)
+void System::addComponent(Component* component)
 {
+    Index idx = component->idx;
     char buff[100];
-    snprintf(buff, 100, "A component of id %ud has already been added to the system.", id);
-    assert(m_components.find(id) != m_components.end() && buff);
+    snprintf(buff, 100, "A component of index %ud has already been added to the system.", idx.getValue());
+    CORE_ASSERT(m_components.find(idx) != m_components.end(), buff);
 
-    m_components[id] = component;
+    m_components[idx] = component;
 }
 
-void System::removeComponent(uint id)
+void System::removeComponent(Index idx)
 {
     char buff[100];
-    snprintf(buff, 100, "The component of id %ud does not exist in the system.", id);
-    assert(m_components.find(id) != m_components.end() && buff);
+    snprintf(buff, 100, "The component of id %ud does not exist in the system.", idx.getValue());
+    CORE_ASSERT(m_components.find(idx) != m_components.end(), buff);
 
-    m_components.erase(m_components.find(id));
+    m_components.erase(m_components.find(idx));
 }
 
 } // namespace Ra
