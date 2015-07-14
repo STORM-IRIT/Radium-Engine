@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_VIEWER_HPP
-#define RADIUMENGINE_VIEWER_HPP
+#ifndef RADIUMENGINE_VIEWERMT_HPP
+#define RADIUMENGINE_VIEWERMT_HPP
 
 #include <memory>
 
@@ -11,19 +11,26 @@
 namespace Ra
 {
 
+class EngineThread;
+
 // FIXME (Charly) : Which way do we want to be able to change renderers ?
 //					Can it be done during runtime ? Must it be at startup ? ...
 //					For now, default ForwardRenderer is used.
-class Viewer : public QOpenGLWidget, protected QOpenGLFunctions
+class ViewerMT : public QOpenGLWidget, protected QOpenGLFunctions
 {
     Q_OBJECT
 
+    friend class EngineThread;
+
 public:
     /// CONSTRUCTOR
-    explicit Viewer(QWidget* parent = nullptr);
+    explicit ViewerMT(QWidget* parent = nullptr);
 
     /// DESTRUCTOR
-    ~Viewer();
+    ~ViewerMT();
+
+public slots:
+    void clearEngine();
 
 protected:
     /// OPENGL
@@ -38,13 +45,20 @@ protected:
     virtual void wheelEvent(QWheelEvent* event) override;
     virtual void keyReleaseEvent(QKeyEvent* event) override;
     virtual void keyPressEvent(QKeyEvent* event) override;
+//    virtual void closeEvent(QCloseEvent* event) override;
+    virtual void paintEvent(QPaintEvent* event) override {}
+//    virtual void resizeEvent(QResizeEvent* event) override;
+
+private:
+
 
 private:
     void mouseEventQtToRadium(QMouseEvent* qtEvent, MouseEvent* raEvent);
     void keyEventQtToRadium(QKeyEvent* qtEvent, KeyEvent* raEvent);
 
 private:
-    std::shared_ptr<RenderSystem> m_renderer;
+//    std::shared_ptr<RenderSystem> m_renderer;
+    EngineThread* m_engineThread;
 };
 
 } // namespace Ra

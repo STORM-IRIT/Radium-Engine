@@ -1,10 +1,14 @@
-#include <MainApplication/Viewer/Viewer.hpp>
+#include <MainApplication/Viewer/ViewerMT.hpp>
 
 #include <iostream>
 
 #include <QTimer>
 #include <QMouseEvent>
 #include <QKeyEvent>
+#include <QThread>
+#include <QApplication>
+
+#include <MainApplication/Viewer/EngineThread.hpp>
 
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/ComponentManager.hpp>
@@ -24,7 +28,7 @@
 namespace Ra
 {
 
-Viewer::Viewer(QWidget* parent)
+ViewerMT::ViewerMT(QWidget* parent)
     : QOpenGLWidget(parent)
 {
     // Allow Viewer to receive events
@@ -36,103 +40,96 @@ Viewer::Viewer(QWidget* parent)
     timer->start(1000.0 / 60.0);
 }
 
-Viewer::~Viewer()
+ViewerMT::~ViewerMT()
 {
 }
 
-void Viewer::initializeGL()
+void ViewerMT::initializeGL()
 {
     makeCurrent();
 
     initializeOpenGLFunctions();
 
-    std::cout<<"***Radium Engine Viewer***"<<std::endl;
-    std::cout<<"Renderer : "<<glGetString(GL_RENDERER)<<std::endl;
-    std::cout<<"Vendor : "<<glGetString(GL_VENDOR)<<std::endl;
-    std::cout<<"OpenGL v."<<glGetString(GL_VERSION)<<std::endl;
-    std::cout<<"GLSL v."<<glGetString(GL_SHADING_LANGUAGE_VERSION)<<std::endl;
+    m_engineThread = new EngineThread(this, context()->currentContext(),
+                                      context()->currentContext()->surface(), format());
+    context()->moveToThread(m_engineThread);
 
-    ComponentManager* cManager = ComponentManager::createInstance();
-    EntityManager* eManager = EntityManager::createInstance();
+    m_engineThread->initialize(width(), height());
+    connect(m_engineThread, SIGNAL(finished()), m_engineThread, SLOT(deleteLater()));
+    connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(clearEngine()));
 
-    m_renderer = std::make_shared<ForwardRenderer>(width(), height());
-    m_renderer->initialize();
-
-    Mesh* mesh = new Mesh("Mesh");
-    VertexData v0, v1, v2;
-    v0.position = Vector3(-0.5, -0.5, 0);
-    v1.position = Vector3(0, 0.5, 0);
-    v2.position = Vector3(0.5, -0.5, 0);
-    MeshData d;
-    d.vertices = {v0, v1, v2};
-    d.indices  = {0, 2, 1};
-    mesh->loadGeometry(d);
-
-    Entity* ent = eManager->createEntity();
-    DrawableComponent* comp = new DrawableComponent();
-    comp->addDrawable(mesh);
-
-    cManager->addComponent(comp);
-    ent->addComponent(comp);
-    m_renderer->addComponent(comp);
+    doneCurrent();
+    m_engineThread->start();
 }
 
-void Viewer::paintGL()
+void ViewerMT::clearEngine()
 {
-    makeCurrent();
+    fprintf(stderr, "About to quit, clearing engine stuff...\n");
+
+    if (m_engineThread != nullptr && m_engineThread->isRunning())
+    {
+        m_engineThread->requestInterruption();
+        m_engineThread->wait();
+    }
+}
+
+void ViewerMT::paintGL()
+{
+    doneCurrent();
+//	makeCurrent();
     // TODO(Charly): Remove this, just temporary to ensure everything works fine.
-    static Scalar rotation = 0.0;
-    rotation += 0.01;
-
-    Entity* ent = EntityManager::getInstancePtr()->getEntity(0);
-    ent->setTransform(Transform(AngleAxis(std::sin(rotation), Vector3(0.0, 1.0, 0.0))));
-
-    m_renderer->update();
 }
 
-void Viewer::resizeGL(int width, int height)
+void ViewerMT::resizeGL(int width, int height)
 {
-    makeCurrent();
-    m_renderer->resize(width, height);
+    doneCurrent();
+//	makeCurrent();
+    m_engineThread->resize(width, height);
 }
 
-void Viewer::mousePressEvent(QMouseEvent* event)
+void ViewerMT::mousePressEvent(QMouseEvent* event)
 {
     MouseEvent e;
     mouseEventQtToRadium(event, &e);
     e.event = MouseEventType::MOUSE_PRESSED;
 
-    if (!m_renderer->handleMouseEvent(e))
-    {
-        QOpenGLWidget::mousePressEvent(event);
-    }
+    m_engineThread->mousePressEvent(event);
+
+//    if (!m_renderer->handleMouseEvent(e))
+//    {
+//        QOpenGLWidget::mousePressEvent(event);
+//    }
+
+
 }
 
-void Viewer::mouseReleaseEvent(QMouseEvent* event)
+void ViewerMT::mouseReleaseEvent(QMouseEvent* event)
 {
     MouseEvent e;
     mouseEventQtToRadium(event, &e);
     e.event = MouseEventType::MOUSE_RELEASED;
 
-    if (!m_renderer->handleMouseEvent(e))
-    {
-        QOpenGLWidget::mouseReleaseEvent(event);
-    }
+    m_engineThread->mouseReleaseEvent(event);
+
+//    if (!m_renderer->handleMouseEvent(e))
+//    {
+//        QOpenGLWidget::mouseReleaseEvent(event);
+//    }
 }
 
-void Viewer::mouseMoveEvent(QMouseEvent* event)
+void ViewerMT::mouseMoveEvent(QMouseEvent* event)
 {
     MouseEvent e;
     mouseEventQtToRadium(event, &e);
     e.event = MouseEventType::MOUSE_MOVED;
 
-    if (!m_renderer->handleMouseEvent(e))
-    {
-        QOpenGLWidget::mouseMoveEvent(event);
-    }
+//    if (!m_renderer->handleMouseEvent(e))
+//    {
+//        QOpenGLWidget::mouseMoveEvent(event);
+//    }
 }
 
-void Viewer::wheelEvent(QWheelEvent* event)
+void ViewerMT::wheelEvent(QWheelEvent* event)
 {
     MouseEvent e;
     e.event = MouseEventType::MOUSE_WHEEL;
@@ -145,37 +142,37 @@ void Viewer::wheelEvent(QWheelEvent* event)
     e.relativeXPosition = x / static_cast<Scalar>(width());
     e.relativeYPosition = y / static_cast<Scalar>(height());
 
-    if (!m_renderer->handleMouseEvent(e))
-    {
-        QOpenGLWidget::wheelEvent(event);
-    }
+//    if (!m_renderer->handleMouseEvent(e))
+//    {
+//        QOpenGLWidget::wheelEvent(event);
+//    }
 }
 
-void Viewer::keyPressEvent(QKeyEvent* event)
+void ViewerMT::keyPressEvent(QKeyEvent* event)
 {
     KeyEvent e;
     keyEventQtToRadium(event, &e);
     e.event = KeyEventType::KEY_PRESSED;
 
-    if (!m_renderer->handleKeyEvent(e))
-    {
-        QOpenGLWidget::keyPressEvent(event);
-    }
+//    if (!m_renderer->handleKeyEvent(e))
+//    {
+//        QOpenGLWidget::keyPressEvent(event);
+//    }
 }
 
-void Viewer::keyReleaseEvent(QKeyEvent* event)
+void ViewerMT::keyReleaseEvent(QKeyEvent* event)
 {
     KeyEvent e;
     keyEventQtToRadium(event, &e);
     e.event = KeyEventType::KEY_RELEASED;
 
-    if (!m_renderer->handleKeyEvent(e))
-    {
-        QOpenGLWidget::keyReleaseEvent(event);
-    }
+//    if (!m_renderer->handleKeyEvent(e))
+//    {
+//        QOpenGLWidget::keyReleaseEvent(event);
+//    }
 }
 
-void Viewer::mouseEventQtToRadium(QMouseEvent* qtEvent, MouseEvent* raEvent)
+void ViewerMT::mouseEventQtToRadium(QMouseEvent* qtEvent, MouseEvent* raEvent)
 {
     switch (qtEvent->button())
     {
@@ -224,7 +221,7 @@ void Viewer::mouseEventQtToRadium(QMouseEvent* qtEvent, MouseEvent* raEvent)
     raEvent->relativeYPosition = y / static_cast<Scalar>(height());
 }
 
-void Viewer::keyEventQtToRadium(QKeyEvent* qtEvent, KeyEvent* raEvent)
+void ViewerMT::keyEventQtToRadium(QKeyEvent* qtEvent, KeyEvent* raEvent)
 {
     raEvent->key = qtEvent->key();
 

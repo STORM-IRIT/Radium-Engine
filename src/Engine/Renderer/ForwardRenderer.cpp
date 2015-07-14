@@ -1,5 +1,7 @@
 #include <Engine/Renderer/ForwardRenderer.hpp>
 
+#include <iostream>
+
 #include <QtCore>
 
 #include <Engine/Renderer/OpenGL.hpp>
@@ -58,6 +60,9 @@ void ForwardRenderer::initialize()
 	initBuffers();
 
 	m_camera = std::make_shared<Camera>();
+    m_camera->setPosition(Vector3(0, 2, -5), Camera::ModeType::TARGET);
+    m_camera->setTargetPoint(Vector3(0, 0, 0));
+    m_camera->updateProjMatrix(m_width, m_height);
 }
 
 void ForwardRenderer::initShaders()
@@ -77,8 +82,9 @@ void ForwardRenderer::update()
     GL_ASSERT(glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE));
     GL_ASSERT(glEnable(GL_DEPTH_TEST));
 
-    GL_ASSERT(glEnable(GL_CULL_FACE));
-    GL_ASSERT(glCullFace(GL_BACK));
+//    GL_ASSERT(glEnable(GL_CULL_FACE));
+    GL_ASSERT(glDisable(GL_CULL_FACE));
+//    GL_ASSERT(glCullFace(GL_BACK));
 
 //    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 //    glDrawBuffer(GL_BACK);
@@ -89,6 +95,8 @@ void ForwardRenderer::update()
     GL_ASSERT(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 
     m_blinnPhongShader->bind();
+
+    m_camera->updateViewMatrix();
 
     m_blinnPhongShader->setUniform("view", m_camera->getViewMatrix());
     m_blinnPhongShader->setUniform("proj", m_camera->getProjMatrix());
@@ -107,6 +115,8 @@ void ForwardRenderer::resize(uint width, uint height)
     m_width = width;
     m_height = height;
     glViewport(0, 0, m_width, m_height);
+
+    m_camera->updateProjMatrix(m_width, m_height);
 
     // Reset framebuffer state
     GL_ASSERT(glBindFramebuffer(GL_FRAMEBUFFER, 0));

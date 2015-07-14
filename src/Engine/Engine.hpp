@@ -7,7 +7,6 @@ namespace Ra
 class Engine
 {
 public:
-    void sayHello();
 };
 
 } // namespace Ra
