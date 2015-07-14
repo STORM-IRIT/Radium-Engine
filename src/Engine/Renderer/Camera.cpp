@@ -8,15 +8,15 @@ namespace Ra {
 /// CONSTRUCTOR
 /// -------------------- ///
 Camera::Camera() :
-    m_frame     ( Transform()           ),
+    m_frame     ( Transform::Identity() ),
     m_fov       ( M_PI * 50.0 / 180.0   ),
     m_zNear     ( 1.0                   ),
     m_zFar      ( 1000.0                ),
     m_focalPoint( 1.0                   ),
     m_zoomFactor( 1.0                   ),
     m_projType  ( ProjType::PERSPECTIVE ),
-    m_viewMatrix( Matrix4()             ),
-    m_projMatrix( Matrix4()             )
+    m_viewMatrix( Matrix4::Identity()   ),
+    m_projMatrix( Matrix4::Identity()   )
 {
     updateViewMatrix();
 }
@@ -50,6 +50,7 @@ Camera::~Camera() { }
 void Camera::applyTransform( const Transform& T,
                              const ModeType mode ) {
     Transform trans;
+    trans.setIdentity();
     switch( mode ) {
     case ModeType::FREE: {
         trans.translation() = -getPosition();
@@ -80,7 +81,7 @@ void Camera::updateViewMatrix() {
     const Vector3 s = f.cross( up );
     const Vector3 u = s.cross( f  );
 
-    Matrix4 T;
+    Matrix4 T(Matrix4::Identity());
     T.block< 3, 1 >( 0, 3 ) = -e;
 
     m_viewMatrix.setIdentity();

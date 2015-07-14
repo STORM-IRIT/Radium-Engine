@@ -19,7 +19,7 @@ inline Vector3 Camera::getPosition() const {
 
 inline void Camera::setPosition( const Vector3& position,
                                  const ModeType mode ) {
-    Transform T;
+    Transform T(Transform::Identity());
     T.translation() = ( position - getPosition() );
     applyTransform( T, mode );
 }
