@@ -5,6 +5,8 @@
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Index/Index.hpp>
+#include <Core/Event/KeyEvent.hpp>
+#include <Core/Event/MouseEvent.hpp>
 
 namespace Ra
 {
@@ -43,11 +45,31 @@ public:
     void addComponent(Component* component);
 
     /**
-     * @brief Remove a component from the system.
+     * @brief Remove a component from the system given its index.
      *
      * @param id The id of the component to remove
      */
     void removeComponent(Index idx);
+
+    /**
+      * @brief Remove a component from the system.
+      * @param component The component to remove
+      */
+    void removeComponent(Component* component);
+
+    /**
+     * @brief Handle a keyboard event.
+     * @param event The keyboard event to handle
+     * @return true if the event has been handled, false otherwise.
+     */
+    virtual bool handleKeyEvent(const KeyEvent& event) { return false; }
+
+    /**
+     * @brief Handle a mouse event.
+     * @param event The mouse event to handle
+     * @return true if the event has been handled, false otherwise.
+     */
+    virtual bool handleMouseEvent(const MouseEvent& event) { return false; }
 
 protected:
     std::map<Index, Component*> m_components;

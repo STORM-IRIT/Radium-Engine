@@ -38,6 +38,8 @@ namespace Ra
     typedef Eigen::Transform<Scalar, 3, Eigen::Affine> Transform;
 
     typedef Eigen::AlignedBox<Scalar, 3> Aabb;
+
+    typedef Eigen::AngleAxis<Scalar> AngleAxis;
     // Todo : storage transform using quaternions ?
 
     // For consistency we redefine VectorXi in our namespace

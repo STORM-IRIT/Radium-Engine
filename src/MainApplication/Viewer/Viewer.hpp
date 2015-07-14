@@ -28,14 +28,20 @@ public:
 protected:
 	/// OPENGL
 	virtual void initializeGL() override;
-	virtual void paintGL() override;
+    virtual void paintGL() override;
 	virtual void resizeGL(int width, int height) override;
 
 	/// INTERACTION
 	virtual void mousePressEvent(QMouseEvent* event) override;
+    virtual void mouseReleaseEvent(QMouseEvent* event) override;
 	virtual void mouseMoveEvent(QMouseEvent* event) override;
 	virtual void wheelEvent(QWheelEvent* event) override;
+    virtual void keyReleaseEvent(QKeyEvent* event) override;
 	virtual void keyPressEvent(QKeyEvent* event) override;
+
+private:
+    void mouseEventQtToRadium(QMouseEvent* qtEvent, MouseEvent* raEvent);
+    void keyEventQtToRadium(QKeyEvent* qtEvent, KeyEvent* raEvent);
 
 private:
     std::shared_ptr<RenderSystem> m_renderer;

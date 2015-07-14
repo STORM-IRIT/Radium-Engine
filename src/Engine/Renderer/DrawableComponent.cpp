@@ -1,8 +1,10 @@
 #include <Engine/Renderer/DrawableComponent.hpp>
 
 #include <cstdio>
+#include <iostream>
 
 #include <Core/CoreMacros.hpp>
+#include <Core/Math/Matrix.hpp>
 #include <Engine/Renderer/Drawable.hpp>
 #include <Engine/Renderer/ShaderProgram.hpp>
 
@@ -28,7 +30,6 @@ DrawableComponent::~DrawableComponent()
 
 void DrawableComponent::update()
 {
-    // TODO (Charly): set shader model uniform
     m_shaderProgram->setUniform("model", m_transform->matrix());
 
     for (const auto& drawable : m_drawables)

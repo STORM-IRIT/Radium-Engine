@@ -14,8 +14,4 @@ MainWindow::~MainWindow()
     // Child QObjects will automatically be deleted
 }
 
-void MainWindow::fpsCounter()
-{
-}
-
 } // namespace Ra

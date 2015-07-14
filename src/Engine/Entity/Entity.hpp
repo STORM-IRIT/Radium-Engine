@@ -22,12 +22,15 @@ public:
     void setTransform(const Transform& transform) { m_transform = transform; }
     void setTransform(const Matrix4& transform) { m_transform = Transform(transform); }
     const Transform& getTransform() const { return m_transform; }
+    Transform& getTransform() { return m_transform; }
     Matrix4 getTransformAsMatrix() const { return m_transform.matrix(); }
 
     void addComponent(Component* component);
-    Component* getComponent(Index idx);
+
     void removeComponent(Index idx);
     void removeComponent(Component* component);
+
+    Component* getComponent(Index idx);
 
 private:
     typedef std::pair<Index, Component*> ComponentByIndex;

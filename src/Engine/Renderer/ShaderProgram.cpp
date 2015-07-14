@@ -299,7 +299,7 @@ void ShaderProgram::bind()
 	{
 		throw std::runtime_error("Shader non initialized !");
 	}
-	GL_ASSERT(glUseProgram(m_shaderId));
+    GL_ASSERT(glUseProgram(m_shaderId));
 	m_binded = true;
 }
 

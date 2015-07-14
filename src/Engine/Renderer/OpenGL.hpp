@@ -33,8 +33,8 @@ namespace RA
     {\
         GLuint err = glGetError(); \
         if (err != GL_NO_ERROR) { \
-            std::cerr << "OpenGL error (" << __FILE__ << ":" << __LINE__ << ", glCheckError()) : " \
-                      << gluErrorString(err) << "(" << err << ")" << std::endl; \
+            fprintf(stderr, "OpenGL error (%s:%d, glCheckError()) : %s (%d).\n",\
+                    __FILE__, __LINE__, gluErrorString(err), err);\
 		} \
     }
 

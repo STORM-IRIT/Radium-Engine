@@ -41,8 +41,6 @@ public:
 	 */
 	virtual void resize(uint width, uint height) = 0;
 
-	// TODO (Charly) :	Define a MouseEvent and KeyboardEvent structure,
-	//					and send events from the GUI to the renderer.
 	/** 
 	 * @brief Handle a keyboard event from the GUI.
 	 * @param event The event description
@@ -50,7 +48,7 @@ public:
 	 * If the event has not been consumed, the basic behaviour will be to broadcast the event
 	 * to the other GUI components.
 	 */
-	//virtual bool handleKeyEvent(const KeyEvent& event) = 0;
+    virtual bool handleKeyEvent(const KeyEvent& event) override { return false; }
 
 	/**
 	* @brief Handle a mouse event from the GUI.
@@ -59,7 +57,7 @@ public:
 	* If the event has not been consumed, the basic behaviour will be to broadcast the event
 	* to the other GUI components.
 	*/
-	//virtual bool handleMouseEvent(const MouseEvent& event) = 0;
+    virtual bool handleMouseEvent(const MouseEvent& event) override { return false; }
 
 	/** 
 	 * @brief Getter for the renderer viewport width.

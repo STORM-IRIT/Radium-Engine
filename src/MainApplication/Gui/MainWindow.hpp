@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <ui_MainWindow.h>
 
+#include <qdebug.h>
+
 namespace Ra
 {
 
@@ -16,10 +18,6 @@ public:
     virtual ~MainWindow();
 
 private:
-    float m_fpsTimer;
-
-private slots:
-    void fpsCounter();
 };
 
 } // namespace Ra
