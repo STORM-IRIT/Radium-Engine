@@ -25,6 +25,7 @@ int main(int argc, char** argv)
     format.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
 	QSurfaceFormat::setDefaultFormat(format);
 
+//#define WITH_MT
 #ifdef WITH_MT
     Ra::MainWindowMT w;
 #else

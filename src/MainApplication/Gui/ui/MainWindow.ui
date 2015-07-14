@@ -22,7 +22,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
-     <widget class="Ra::ViewerMT" name="m_viewer" native="true"/>
+     <widget class="Ra::Viewer" name="m_viewer" native="true"/>
     </item>
    </layout>
   </widget>
@@ -69,9 +69,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>Ra::ViewerMT</class>
+   <class>Ra::Viewer</class>
    <extends>QWidget</extends>
-   <header>MainApplication/Viewer/ViewerMT.hpp</header>
+   <header>MainApplication/Viewer/Viewer.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
