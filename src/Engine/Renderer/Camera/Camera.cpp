@@ -127,7 +127,7 @@ void Engine::Camera::updateProjMatrix( const Scalar& width, const Scalar& height
 
         case ProjType::PERSPECTIVE: {
             // Compute projection matrix as describe in the doc of gluPerspective()
-            const Scalar f     = std::tan( ( M_PI * 0.5f ) - ( m_fov * 0.5f ) );
+            const Scalar f     = std::tan( ( M_PI * 0.5f ) - ( m_fov * m_zoomFactor * 0.5f ) );
             const Scalar ratio = width / height;
             const Scalar diff  = m_zNear - m_zFar;
 

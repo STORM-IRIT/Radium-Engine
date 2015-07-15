@@ -190,7 +190,7 @@ public:
     // Set the projection matrix to 'projectionMatrix'.
     inline void setProjMatrix( const Core::Matrix4& projectionMatrix );
 
-    // Update the projection matrix.
+    // Update the projection matrix accordingly to the 'width' and 'height' of the viewport.
     void updateProjMatrix( const Scalar& width, const Scalar& height );
 
 private:
