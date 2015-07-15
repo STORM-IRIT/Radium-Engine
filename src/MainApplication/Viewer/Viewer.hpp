@@ -6,10 +6,13 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 
-#include <Engine/Renderer/RenderSystem.hpp>
-
 namespace Ra
 {
+
+class RadiumEngine;
+class RenderSystem;
+class KeyEvent;
+class MouseEvent;
 
 // FIXME (Charly) : Which way do we want to be able to change renderers ?
 //					Can it be done during runtime ? Must it be at startup ? ...
@@ -24,6 +27,8 @@ public:
 
     /// DESTRUCTOR
     ~Viewer();
+
+    void quit();
 
 protected:
     /// OPENGL
@@ -44,7 +49,8 @@ private:
     void keyEventQtToRadium(QKeyEvent* qtEvent, KeyEvent* raEvent);
 
 private:
-    std::shared_ptr<RenderSystem> m_renderer;
+    RadiumEngine* m_engine;
+    RenderSystem* m_renderer;
 };
 
 } // namespace Ra

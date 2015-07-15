@@ -26,7 +26,6 @@ void Entity::addComponent(Component* component)
 
     m_components.insert(ComponentByIndex(idx, component));
 
-    component->setTransform(&m_transform);
     component->setEntity(this);
 }
 

@@ -9,6 +9,7 @@
 namespace Ra
 {
 
+// Just forwards everything to the viewer.
 class MainWindow : public QMainWindow, private Ui::MainWindow
 {
     Q_OBJECT
@@ -18,6 +19,7 @@ public:
     virtual ~MainWindow();
 
 private:
+
 };
 
 } // namespace Ra

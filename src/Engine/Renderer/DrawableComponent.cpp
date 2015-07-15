@@ -5,6 +5,7 @@
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/Matrix.hpp>
+#include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Drawable.hpp>
 #include <Engine/Renderer/ShaderProgram.hpp>
 
@@ -30,7 +31,7 @@ DrawableComponent::~DrawableComponent()
 
 void DrawableComponent::update()
 {
-    m_shaderProgram->setUniform("model", m_transform->matrix());
+    m_shaderProgram->setUniform("model", m_entity->getTransformAsMatrix());
 
     for (const auto& drawable : m_drawables)
     {

@@ -29,24 +29,13 @@ namespace
 }
 
 ForwardRenderer::ForwardRenderer()
-	: ForwardRenderer(1, 1)
-{
-}
-
-ForwardRenderer::ForwardRenderer(uint width, uint height)
-    : RenderSystem(width, height)
+    : RenderSystem()
 	, m_camera(nullptr)
 	, m_shaderManager(nullptr)
 	, m_passthroughShader(nullptr)
 	, m_blinnPhongShader(nullptr)
 	, m_quadShader(nullptr)
 {
-    std::string shaderPath("../Shaders");
-	std::string defaultShader("Default");
-
-	// TODO (Charly) : Material Manager ?
-
-	m_shaderManager = ShaderProgramManager::createInstance(shaderPath, defaultShader);
 }
 
 ForwardRenderer::~ForwardRenderer()
@@ -54,8 +43,16 @@ ForwardRenderer::~ForwardRenderer()
 	ShaderProgramManager::destroyInstance();
 }
 
-void ForwardRenderer::initialize()
+void ForwardRenderer::initializeGL(uint width, uint height)
 {
+    m_width = width;
+    m_height = height;
+
+    std::string shaderPath("../Shaders");
+    std::string defaultShader("Default");
+
+    m_shaderManager = ShaderProgramManager::createInstance(shaderPath, defaultShader);
+
 	initShaders();
 	initBuffers();
 
@@ -76,7 +73,7 @@ void ForwardRenderer::initBuffers()
 {
 }
 
-void ForwardRenderer::update()
+void ForwardRenderer::render()
 {
     GL_ASSERT(glDepthMask(GL_TRUE));
     GL_ASSERT(glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE));

@@ -18,6 +18,12 @@ class System
 public:
     System();
     virtual ~System();
+
+    /**
+     * @brief Initialize system.
+     */
+    virtual void initialize() = 0;
+
     /**
      * @brief Pure virtual method to be overrided by any system.
      * A very basic version of this method could be to iterate on components

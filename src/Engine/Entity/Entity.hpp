@@ -2,6 +2,8 @@
 #define RADIUMENGINE_ENTITY_HPP
 
 #include <map>
+#include <mutex>
+#include <thread>
 
 #include <Core/Index/IndexedObject.hpp>
 #include <Core/Index/Index.hpp>
@@ -19,11 +21,10 @@ public:
     Entity();
     ~Entity();
 
-    void setTransform(const Transform& transform) { m_transform = transform; }
-    void setTransform(const Matrix4& transform) { m_transform = Transform(transform); }
-    const Transform& getTransform() const { return m_transform; }
-    Transform& getTransform() { return m_transform; }
-    Matrix4 getTransformAsMatrix() const { return m_transform.matrix(); }
+    inline void setTransform(const Transform& transform);
+    inline void setTransform(const Matrix4& transform);
+    Transform getTransform() const;
+    Matrix4 getTransformAsMatrix() const;
 
     void addComponent(Component* component);
 
@@ -37,8 +38,12 @@ private:
     std::map<Index, Component*> m_components;
 
     Transform m_transform;
+
+    mutable std::mutex m_transformMutex;
 };
 
 } // namespace Ra
+
+#include <Engine/Entity/Entity.inl>
 
 #endif // RADIUMENGINE_ENTITY_HPP

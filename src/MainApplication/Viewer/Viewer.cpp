@@ -10,7 +10,7 @@
 #include <Engine/Entity/ComponentManager.hpp>
 #include <Engine/Entity/EntityManager.hpp>
 #include <Engine/Entity/Entity.hpp>
-
+#include <Engine/Engine.hpp>
 #include <Engine/Renderer/DrawableComponent.hpp>
 #include <Engine/Renderer/ForwardRenderer.hpp>
 #include <Engine/Renderer/Mesh.hpp>
@@ -43,51 +43,35 @@ Viewer::~Viewer()
 void Viewer::initializeGL()
 {
     makeCurrent();
-
     initializeOpenGLFunctions();
 
-    std::cout<<"***Radium Engine Viewer***"<<std::endl;
-    std::cout<<"Renderer : "<<glGetString(GL_RENDERER)<<std::endl;
-    std::cout<<"Vendor : "<<glGetString(GL_VENDOR)<<std::endl;
-    std::cout<<"OpenGL v."<<glGetString(GL_VERSION)<<std::endl;
-    std::cout<<"GLSL v."<<glGetString(GL_SHADING_LANGUAGE_VERSION)<<std::endl;
+    std::cerr<<"***Radium Engine Viewer***"<<std::endl;
+    std::cerr<<"Renderer : " << glGetString(GL_RENDERER)<<std::endl;
+    std::cerr<<"Vendor   : " << glGetString(GL_VENDOR)<<std::endl;
+    std::cerr<<"OpenGL   : " << glGetString(GL_VERSION)<<std::endl;
+    std::cerr<<"GLSL     : " << glGetString(GL_SHADING_LANGUAGE_VERSION)<<std::endl;
 
-    ComponentManager* cManager = ComponentManager::createInstance();
-    EntityManager* eManager = EntityManager::createInstance();
+    m_engine = new RadiumEngine;
+    m_engine->initialize();
 
-    m_renderer = std::make_shared<ForwardRenderer>(width(), height());
-    m_renderer->initialize();
+    m_renderer = static_cast<RenderSystem*>(m_engine->getSystem("RenderSystem"));
+    m_renderer->initializeGL(width(), height());
+    m_engine->setupScene();
 
-    Mesh* mesh = new Mesh("Mesh");
-    VertexData v0, v1, v2;
-    v0.position = Vector3(-0.5, -0.5, 0);
-    v1.position = Vector3(0, 0.5, 0);
-    v2.position = Vector3(0.5, -0.5, 0);
-    MeshData d;
-    d.vertices = {v0, v1, v2};
-    d.indices  = {0, 2, 1};
-    mesh->loadGeometry(d);
-
-    Entity* ent = eManager->createEntity();
-    DrawableComponent* comp = new DrawableComponent();
-    comp->addDrawable(mesh);
-
-    cManager->addComponent(comp);
-    ent->addComponent(comp);
-    m_renderer->addComponent(comp);
+    m_engine->start();
 }
 
 void Viewer::paintGL()
 {
     makeCurrent();
     // TODO(Charly): Remove this, just temporary to ensure everything works fine.
-    static Scalar rotation = 0.0;
-    rotation += 0.01;
+//    static Scalar rotation = 0.0;
+//    rotation += 0.01;
 
-    Entity* ent = EntityManager::getInstancePtr()->getEntity(0);
-    ent->setTransform(Transform(AngleAxis(std::sin(rotation), Vector3(0.0, 1.0, 0.0))));
+//    Entity* ent = EntityManager::getInstancePtr()->getEntity(0);
+//    ent->setTransform(Transform(AngleAxis(std::sin(rotation), Vector3(0.0, 1.0, 0.0))));
 
-    m_renderer->update();
+    m_renderer->render();
 }
 
 void Viewer::resizeGL(int width, int height)
@@ -244,6 +228,13 @@ void Viewer::keyEventQtToRadium(QKeyEvent* qtEvent, KeyEvent* raEvent)
     {
         raEvent->modifier |= Modifier::ALT_KEY;
     }
+}
+
+void Viewer::quit()
+{
+    m_engine->quit();
+    fprintf(stderr, "About to quit... Cleaning RadiumEngine memory.\n");
+    std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
 } // namespace Ra

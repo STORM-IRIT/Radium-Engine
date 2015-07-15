@@ -16,9 +16,4 @@ void Component::setEntity(Entity* entity)
     m_entity = entity;
 }
 
-void Component::setTransform(Transform* transform)
-{
-    m_transform = transform;
-}
-
 } // namespace Ra

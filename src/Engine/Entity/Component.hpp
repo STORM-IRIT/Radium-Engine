@@ -54,18 +54,9 @@ public:
      */
     virtual void setEntity(Entity* entity);
 
-    /**
-     * @brief Set pointer to the parent entity transform.
-     * This is useful to avoid many Entity::getTransform() or Entity::setTransform()
-     * calls each time a component needs it.
-     * @param transform
-     */
-    virtual void setTransform(Transform* transform);
-
 protected:
     System* m_system;
     Entity* m_entity;
-    Transform* m_transform;
 };
 
 } // namespace Ra

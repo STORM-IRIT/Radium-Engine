@@ -18,14 +18,12 @@ public:
 	/// CONSTRUCTOR 
 	ForwardRenderer();
 
-	ForwardRenderer(uint width, uint height);
-
 	/// DESCTRUCTOR
 	virtual ~ForwardRenderer();
 
-	virtual void initialize() override;
+    virtual void initializeGL(uint width, uint height) override;
 
-    virtual void update() override;
+    virtual void render() override;
 
 	virtual void resize(uint width, uint height) override;
 

@@ -13,28 +13,30 @@ class RenderSystem : public System
 {
 public:
 	/// CONSTRUCTOR
-    RenderSystem() : RenderSystem(1, 1) {}
-
-	/**
-	 * @brief Constructor taking base viewport size.
-	 * @param width Viewport width
-	 * @param height Viewport height
-	 */
-    RenderSystem(uint width, uint height)
-        : System(), m_width(width), m_height(height) {}
+    RenderSystem() : System() {}
 
 	/// DESTRUCTOR
     virtual ~RenderSystem() = default;
 
 	/** 
-	 * @brief Initialize Renderer. Must be overrided.
+     * @brief Initialize generic renderer stuff. Nothing by default.
 	 */
-	virtual void initialize() = 0;
+    virtual void initialize() override{}
+
+    /**
+     * @brief Initialize OpenGL stuff.
+     */
+    virtual void initializeGL(uint width, uint height) = 0;
+
+    /**
+     * @brief Render the scene
+     */
+    virtual void render() = 0;
 
 	/**
-	 * @brief Method in charge of rendering the scene. Must be overrided.
+     * @brief Update stuff in the scene, does nothing by default.
 	 */
-    virtual void update() = 0;
+    virtual void update() override {}
 
     virtual void update(Scalar dt) override {}
 
