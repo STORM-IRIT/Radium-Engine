@@ -11,9 +11,9 @@
 #include <Engine/Entity/EntityManager.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Engine.hpp>
-#include <Engine/Renderer/DrawableComponent.hpp>
+#include <Engine/Renderer/Drawable/DrawableComponent.hpp>
 #include <Engine/Renderer/ForwardRenderer.hpp>
-#include <Engine/Renderer/Mesh.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
 
 // FIXME (Charly) :
 //  For now, we are just calling the Renderer::render() method here

@@ -4,11 +4,11 @@
 
 #include <QtCore>
 
-#include <Engine/Renderer/OpenGL.hpp>
-#include <Engine/Renderer/Camera.hpp>
-#include <Engine/Renderer/ShaderProgram.hpp>
-#include <Engine/Renderer/ShaderProgramManager.hpp>
-#include <Engine/Renderer/DrawableComponent.hpp>
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
+#include <Engine/Renderer/Shader/ShaderProgram.hpp>
+#include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
+#include <Engine/Renderer/Drawable/DrawableComponent.hpp>
 
 namespace Ra
 {

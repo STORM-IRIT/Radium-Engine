@@ -6,7 +6,7 @@
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/Vector.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
-#include <Engine/Renderer/Drawable.hpp>
+#include <Engine/Renderer/Drawable/Drawable.hpp>
 
 namespace Ra { namespace Engine {
 

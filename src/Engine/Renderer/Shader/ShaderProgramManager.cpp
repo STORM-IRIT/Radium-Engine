@@ -1,9 +1,9 @@
-#include <Engine/Renderer/ShaderProgramManager.hpp>
+#include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
 
 #include <cstdio>
 
-#include <Engine/Renderer/ShaderConfiguration.hpp>
-#include <Engine/Renderer/ShaderProgram.hpp>
+#include <Engine/Renderer/Shader/ShaderConfiguration.hpp>
+#include <Engine/Renderer/Shader/ShaderProgram.hpp>
 
 // TODO (Charly) :  Remove Exceptions uses
 

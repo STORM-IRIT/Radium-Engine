@@ -5,7 +5,7 @@
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/Vector.hpp>
-#include <Engine/Renderer/OpenGL.hpp>
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
 namespace Ra { namespace Engine {
 

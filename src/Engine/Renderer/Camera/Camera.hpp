@@ -226,6 +226,6 @@ protected:
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Renderer/Camera.inl>
+#include <Engine/Renderer/Camera/Camera.inl>
 
 #endif // RADIUMENGINE_CAMERA_HPP

@@ -1,8 +1,8 @@
-#include <Engine/Renderer/ShaderConfiguration.hpp>
+#include <Engine/Renderer/Shader/ShaderConfiguration.hpp>
 
 #include <sstream>
 
-#include <Engine/Renderer/OpenGL.hpp>
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
 namespace Ra
 {

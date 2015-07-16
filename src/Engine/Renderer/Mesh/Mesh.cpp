@@ -1,7 +1,7 @@
-#include <Engine/Renderer/Mesh.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
 
 #include <Core/Mesh/MeshUtils.hpp>
-#include <Engine/Renderer/OpenGL.hpp>
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
 namespace Ra
 {

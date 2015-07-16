@@ -1,4 +1,4 @@
-#include <Engine/Renderer/DrawableComponent.hpp>
+#include <Engine/Renderer/Drawable/DrawableComponent.hpp>
 
 #include <cstdio>
 #include <iostream>
@@ -6,8 +6,8 @@
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/Matrix.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Renderer/Drawable.hpp>
-#include <Engine/Renderer/ShaderProgram.hpp>
+#include <Engine/Renderer/Drawable/Drawable.hpp>
+#include <Engine/Renderer/Shader/ShaderProgram.hpp>
 
 namespace Ra
 {

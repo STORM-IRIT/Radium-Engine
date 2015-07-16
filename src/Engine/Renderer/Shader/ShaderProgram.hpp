@@ -9,7 +9,7 @@
 #include <Core/Math/Vector.hpp>
 #include <Core/Math/Matrix.hpp>
 
-#include <Engine/Renderer/ShaderConfiguration.hpp>
+#include <Engine/Renderer/Shader/ShaderConfiguration.hpp>
 
 namespace Ra { namespace Engine { class Texture; } }
 

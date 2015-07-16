@@ -11,8 +11,8 @@
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Entity/EntityManager.hpp>
 #include <Engine/Renderer/ForwardRenderer.hpp>
-#include <Engine/Renderer/Mesh.hpp>
-#include <Engine/Renderer/DrawableComponent.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/Drawable/DrawableComponent.hpp>
 
 namespace Ra
 {

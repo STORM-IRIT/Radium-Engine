@@ -1,8 +1,8 @@
-#include <Engine/Renderer/FBO.hpp>
+#include <Engine/Renderer/OpenGL/FBO.hpp>
 
 #include <cstdio>
 
-#include <Engine/Renderer/Texture.hpp>
+#include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra
 {

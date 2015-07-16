@@ -1,4 +1,4 @@
-#include <Engine/Renderer/ShaderProgram.hpp>
+#include <Engine/Renderer/Shader/ShaderProgram.hpp>
 
 #include <algorithm>
 #include <iostream>
@@ -14,8 +14,8 @@
 #define getCurrentDir getcwd
 #endif
 
-#include <Engine/Renderer/OpenGL.hpp>
-#include <Engine/Renderer/Texture.hpp>
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra
 {

@@ -29,6 +29,6 @@ protected:
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Renderer/Drawable.inl>
+#include <Engine/Renderer/Drawable/Drawable.inl>
 
 #endif // RADIUMENGINE_DRAWABLE_HPP

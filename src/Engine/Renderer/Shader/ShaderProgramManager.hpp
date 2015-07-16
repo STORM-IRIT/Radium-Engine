@@ -5,7 +5,7 @@
 #include <map>
 
 #include <Core/Utils/Singleton.hpp>
-#include <Engine/Renderer/ShaderConfiguration.hpp>
+#include <Engine/Renderer/Shader/ShaderConfiguration.hpp>
 
 // TODO (Charly) :  Since ShaderProgramManager has the responsability for the shaders,
 //                  use shared_ptrs here

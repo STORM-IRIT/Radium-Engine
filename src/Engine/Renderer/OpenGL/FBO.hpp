@@ -4,7 +4,7 @@
 #include <map>
 
 #include <Core/CoreMacros.hpp>
-#include <Engine/Renderer/OpenGL.hpp>
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
 namespace Ra { namespace Engine { class Texture; } }
 
