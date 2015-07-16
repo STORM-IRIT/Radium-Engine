@@ -3,16 +3,8 @@
 
 #include <Core/CoreMacros.hpp>
 
-#ifdef OS_LINUX
-#include <X11/Xlib.h>
-#endif
-
-
 int main(int argc, char** argv)
 {
-#ifdef OS_LINUX
-    XInitThreads();
-#endif
     QApplication app(argc, argv);
 
     QSurfaceFormat format;
