@@ -49,10 +49,44 @@ namespace Ra { namespace Core
                 // The number in duplicates_map will be 'i' if no duplicates are found
                 // up to v_i, or the index of the first vertex equal to v_i.
                 duplicatesMap[i] = (duplicatePos - mesh.m_vertices.cbegin());
-                CORE_ASSERT(duplicatesMap[i] >= 0 && duplicatesMap[i] <= i, " Invalid vertex indices");
+                CORE_ASSERT( duplicatesMap[i] <= i, " Invalid vertex indices");
                 hasDuplicates = (hasDuplicates || duplicatesMap[i] != i);
             }
             return hasDuplicates;
         }
+
+        TriangleMesh makeBox(const Vector3& halfExts)
+        {
+            Aabb aabb (-halfExts, halfExts);
+            return makeBox(aabb);
+        }
+
+        TriangleMesh makeBox(const Aabb &aabb)
+        {
+            TriangleMesh result;
+            result.m_vertices = {
+                aabb.corner(Aabb::BottomLeftFloor),
+                aabb.corner(Aabb::BottomRightFloor),
+                aabb.corner(Aabb::TopLeftFloor),
+                aabb.corner(Aabb::TopRightFloor),
+                aabb.corner(Aabb::BottomLeftCeil),
+                aabb.corner(Aabb::BottomRightCeil),
+                aabb.corner(Aabb::TopLeftCeil),
+                aabb.corner(Aabb::TopRightCeil)};
+            result.m_triangles = {
+                Triangle(0,2,1), Triangle(2,3,1), // Floor
+                Triangle(0,1,4), Triangle(4,1,5), // Front
+                Triangle(3,2,6), Triangle(3,6,7), // Back
+                Triangle(1,5,3), Triangle(3,5,7), // Right
+                Triangle(0,4,2), Triangle(2,4,6), // Left
+                Triangle(4,5,6), Triangle(5,6,7)  // Top
+            };
+
+            getAutoNormals(result, result.m_normals);
+            return result;
+
+        }
+
+
     }
 }}

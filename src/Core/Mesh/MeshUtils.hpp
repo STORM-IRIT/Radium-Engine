@@ -1,4 +1,4 @@
-#ifndef RADIUMENGINE_MESHUTILS_HPP
+﻿#ifndef RADIUMENGINE_MESHUTILS_HPP
 #define RADIUMENGINE_MESHUTILS_HPP
 
 #include <vector>
@@ -33,6 +33,16 @@ namespace Ra { namespace Core
         /// Finds the duplicate vertices in a mesh, returning an array indicating for each vertex where to find the
         /// first occurrence.
         bool findDuplicates(const TriangleMesh& mesh, std::vector<VertexIdx>& duplicatesMap);
+
+        //
+        // Primitive construction
+        //
+
+        /// Create an axis-aligned cubic mesh with the given half extents, centered on the origin.
+        TriangleMesh makeBox( const Vector3& halfExts = Vector3(0.5f,0.5f,0.5f) );
+
+        /// Create an axis-aligned cubic mesh
+        TriangleMesh makeBox( const Aabb& aabb );
 
     }
 }}
