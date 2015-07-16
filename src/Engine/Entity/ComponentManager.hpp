@@ -7,10 +7,9 @@
 #include <Core/Index/Index.hpp>
 #include <Core/Index/IndexMap.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine { class Component; } }
 
-class Component;
+namespace Ra { namespace Engine {
 
 class ComponentManager : public Core::Singleton<ComponentManager>
 {
@@ -54,6 +53,7 @@ private:
     Core::IndexMap<std::shared_ptr<Component>> m_components;
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_COMPONENTMANAGER_HPP

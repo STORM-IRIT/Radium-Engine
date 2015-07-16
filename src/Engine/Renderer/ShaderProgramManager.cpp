@@ -10,27 +10,27 @@
 namespace Ra
 {
 
-ShaderProgramManager::ShaderProgramManager(const std::string& shaderPath,
-										   const std::string& defaultShaderProgram)
+Engine::ShaderProgramManager::ShaderProgramManager(const std::string& shaderPath,
+                                                   const std::string& defaultShaderProgram)
 	: m_shaderPath(shaderPath)
 {
 	ShaderConfiguration config = getDefaultShaderConfiguration(defaultShaderProgram);
 	m_defaultShaderProgram = new ShaderProgram(config);
 }
 
-ShaderProgramManager::~ShaderProgramManager()
+Engine::ShaderProgramManager::~ShaderProgramManager()
 {
 	m_shaderPrograms.clear();
 	m_shaderProgramStatus.clear();
 }
 
-ShaderProgram* ShaderProgramManager::addShaderProgram(const std::string& name)
+Engine::ShaderProgram* Engine::ShaderProgramManager::addShaderProgram(const std::string& name)
 {
 	ShaderConfiguration config = getDefaultShaderConfiguration(name);
 	return addShaderProgram(config);
 }
 
-ShaderProgram* ShaderProgramManager::addShaderProgram(const ShaderConfiguration& config)
+Engine::ShaderProgram* Engine::ShaderProgramManager::addShaderProgram(const ShaderConfiguration& config)
 {
 	ShaderProgram* ret;
 
@@ -73,7 +73,7 @@ int ShaderProgramManager::getShaderId(const std::string& name) const
 }
 #endif
 
-ShaderProgram* ShaderProgramManager::getShaderProgram(const ShaderConfiguration& config)
+Engine::ShaderProgram* Engine::ShaderProgramManager::getShaderProgram(const ShaderConfiguration& config)
 {
 	//Z_ASSERT(m_shaderPrograms.find(name) != m_shaderPrograms.end(), "ShaderProgram not in the map.");
 	ShaderProgram* ret;
@@ -91,7 +91,7 @@ ShaderProgram* ShaderProgramManager::getShaderProgram(const ShaderConfiguration&
 	return ret;
 }
 
-void ShaderProgramManager::reloadAllShaderPrograms()
+void Engine::ShaderProgramManager::reloadAllShaderPrograms()
 {
 	// For each shader in the map
 	for (auto shader : m_shaderPrograms)
@@ -137,7 +137,7 @@ void ShaderProgramManager::reloadAllShaderPrograms()
 	}
 }
 
-void ShaderProgramManager::reloadNotCompiledShaderPrograms()
+void Engine::ShaderProgramManager::reloadNotCompiledShaderPrograms()
 {
 	for (auto shader : m_shaderPrograms)
 	{
@@ -162,29 +162,29 @@ void ShaderProgramManager::reloadNotCompiledShaderPrograms()
 	}
 }
 
-ShaderConfiguration ShaderProgramManager::getDefaultShaderConfiguration(const std::string& shaderName)
+Engine::ShaderConfiguration Engine::ShaderProgramManager::getDefaultShaderConfiguration(const std::string& shaderName)
 {
 	return ShaderConfiguration(shaderName, m_shaderPath);
 }
 
-ShaderProgram* ShaderProgramManager::getDefaultShaderProgram() const
+Engine::ShaderProgram* Engine::ShaderProgramManager::getDefaultShaderProgram() const
 {
 	return m_defaultShaderProgram;
 }
 
-std::string ShaderProgramManager::getFullShaderName(const std::string& shaderName)
+std::string Engine::ShaderProgramManager::getFullShaderName(const std::string& shaderName)
 {
 	std::stringstream ss;
 	ss << m_shaderPath << '/' << shaderName;
 	return ss.str();
 }
 
-void ShaderProgramManager::insertShader(const ShaderConfiguration& config,
-                                        ShaderProgram* shader,
-                                        const ShaderProgramStatus& status)
+void Engine::ShaderProgramManager::insertShader(const ShaderConfiguration& config,
+                                                ShaderProgram* shader,
+                                                const ShaderProgramStatus& status)
 {
 	m_shaderPrograms.insert(std::pair<ShaderConfiguration, ShaderProgram*>(config, shader));
 	m_shaderProgramStatus.insert(std::pair<ShaderConfiguration, ShaderProgramStatus>(config, status));
 }
 
-}
+} // namespace Ra

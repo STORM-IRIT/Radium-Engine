@@ -51,10 +51,10 @@ void Viewer::initializeGL()
     std::cerr<<"OpenGL   : " << glGetString(GL_VERSION)<<std::endl;
     std::cerr<<"GLSL     : " << glGetString(GL_SHADING_LANGUAGE_VERSION)<<std::endl;
 
-    m_engine = new RadiumEngine;
+    m_engine = new Engine::RadiumEngine;
     m_engine->initialize();
 
-    m_renderer = static_cast<RenderSystem*>(m_engine->getSystem("RenderSystem"));
+    m_renderer = static_cast<Engine::RenderSystem*>(m_engine->getSystem("RenderSystem"));
     m_renderer->initializeGL(width(), height());
     m_engine->setupScene();
 

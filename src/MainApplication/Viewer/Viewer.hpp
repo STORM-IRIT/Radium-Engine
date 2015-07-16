@@ -6,15 +6,14 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 
+namespace Ra { namespace Core { class KeyEvent; } }
+namespace Ra { namespace Core { class MouseEvent; } }
+namespace Ra { namespace Engine { class RadiumEngine; } }
+namespace Ra { namespace Engine { class RenderSystem; } }
+
 namespace Ra
 {
 
-class RadiumEngine;
-class RenderSystem;
-namespace Core {
-    class KeyEvent;
-    class MouseEvent;
-}
 // FIXME (Charly) : Which way do we want to be able to change renderers ?
 //					Can it be done during runtime ? Must it be at startup ? ...
 //					For now, default ForwardRenderer is used.
@@ -50,8 +49,8 @@ private:
     void keyEventQtToRadium(QKeyEvent* qtEvent, Core::KeyEvent* raEvent);
 
 private:
-    RadiumEngine* m_engine;
-    RenderSystem* m_renderer;
+    Engine::RadiumEngine* m_engine;
+    Engine::RenderSystem* m_renderer;
 };
 
 } // namespace Ra

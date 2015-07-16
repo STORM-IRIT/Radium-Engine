@@ -7,8 +7,7 @@
 #include <Core/Math/Vector.hpp>
 #include <Engine/Renderer/Drawable.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine {
 
 struct VertexData
 {
@@ -58,6 +57,7 @@ private:
     // TODO(Charly): BBox ?
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_MESH_HPP

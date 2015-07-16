@@ -7,11 +7,10 @@
 
 #include <Engine/Entity/Component.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine { class Drawable; } }
+namespace Ra { namespace Engine { class ShaderProgram; } }
 
-class Drawable;
-class ShaderProgram;
+namespace Ra { namespace Engine {
 
 class DrawableComponent : public Component
 {
@@ -72,6 +71,7 @@ private:
     ShaderProgram* m_shaderProgram;
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_DRAWABLECOMPONENT_HPP

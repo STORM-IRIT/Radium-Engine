@@ -5,11 +5,10 @@
 namespace Ra
 {
 
-EntityManager::~EntityManager()
+Engine::EntityManager::~EntityManager()
 {
     for (int i = 0; i < m_entities.size(); ++i)
     {
-        // FIXME (Charly): Check if every accessed idx is guaranted to exist.
         auto ent = m_entities[i];
         CORE_ASSERT(ent.unique(), "Non-unique entity about to be removed.");
         ent.reset();
@@ -18,14 +17,14 @@ EntityManager::~EntityManager()
     m_entities.clear();
 }
 
-Entity* EntityManager::createEntity()
+Engine::Entity* Engine::EntityManager::createEntity()
 {
-    std::shared_ptr<Entity> ent = std::make_shared<Entity>();
+    std::shared_ptr<Engine::Entity> ent = std::make_shared<Engine::Entity>();
     ent->idx = m_entities.insert(ent);
     return ent.get();
 }
 
-void EntityManager::removeEntity(Core::Index idx)
+void Engine::EntityManager::removeEntity(Core::Index idx)
 {
     CORE_ASSERT(idx != Core::Index::INVALID_IDX() && m_entities.contain(idx),
                 "Trying to remove an entity that has not been added to the manager.");
@@ -38,16 +37,16 @@ void EntityManager::removeEntity(Core::Index idx)
     m_entities.remove(idx);
 }
 
-void EntityManager::removeEntity(Entity* entity)
+void Engine::EntityManager::removeEntity(Engine::Entity* entity)
 {
     removeEntity(entity->idx);
 }
 
-Entity* EntityManager::getEntity(Core::Index idx) const
+Engine::Entity* Engine::EntityManager::getEntity(Core::Index idx) const
 {
     CORE_ASSERT(idx != Core::Index::INVALID_IDX(), "Trying to access an invalid component.");
 
-    Entity* ent = nullptr;
+    Engine::Entity* ent = nullptr;
 
     if (m_entities.contain(idx))
     {
@@ -57,9 +56,9 @@ Entity* EntityManager::getEntity(Core::Index idx) const
     return ent;
 }
 
-std::vector<Entity*> EntityManager::getEntities() const
+std::vector<Engine::Entity*> Engine::EntityManager::getEntities() const
 {
-    std::vector<Entity*> entities;
+    std::vector<Engine::Entity*> entities;
     uint size = m_entities.size();
 
     entities.reserve(size);

@@ -8,11 +8,10 @@
 
 #include <Core/CoreMacros.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine { class System; } }
+namespace Ra { namespace Engine { class Entity; } }
 
-class System;
-class Entity;
+namespace Ra { namespace Engine {
 
 class RadiumEngine
 {
@@ -44,6 +43,7 @@ private:
     Scalar m_angle;
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_ENGINE_HPP

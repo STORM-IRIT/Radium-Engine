@@ -6,8 +6,9 @@
 #include <Core/CoreMacros.hpp>
 #include <Engine/Renderer/OpenGL.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine { class Texture; } }
+
+namespace Ra { namespace Engine {
 
 class Texture;
 
@@ -52,6 +53,7 @@ private:
     bool m_isBound;
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_FBO_HPP

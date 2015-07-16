@@ -28,7 +28,7 @@ namespace
 	};
 }
 
-ForwardRenderer::ForwardRenderer()
+Engine::ForwardRenderer::ForwardRenderer()
     : RenderSystem()
 	, m_camera(nullptr)
 	, m_shaderManager(nullptr)
@@ -38,12 +38,12 @@ ForwardRenderer::ForwardRenderer()
 {
 }
 
-ForwardRenderer::~ForwardRenderer()
+Engine::ForwardRenderer::~ForwardRenderer()
 {
-	ShaderProgramManager::destroyInstance();
+    ShaderProgramManager::destroyInstance();
 }
 
-void ForwardRenderer::initializeGL(uint width, uint height)
+void Engine::ForwardRenderer::initializeGL(uint width, uint height)
 {
     m_width = width;
     m_height = height;
@@ -56,24 +56,24 @@ void ForwardRenderer::initializeGL(uint width, uint height)
 	initShaders();
 	initBuffers();
 
-	m_camera = std::make_shared<Camera>();
+    m_camera = std::make_shared<Camera>();
     m_camera->setPosition(Core::Vector3(0, 2, -5), Camera::ModeType::TARGET);
     m_camera->setTargetPoint(Core::Vector3(0, 0, 0));
     m_camera->updateProjMatrix(m_width, m_height);
 }
 
-void ForwardRenderer::initShaders()
+void Engine::ForwardRenderer::initShaders()
 {
 //	m_passthroughShader = m_shaderManager->addShaderProgram("PassThrough");
 	m_blinnPhongShader  = m_shaderManager->addShaderProgram("BlinnPhong");
 //	m_quadShader        = m_shaderManager->addShaderProgram("Quad");
 }
 
-void ForwardRenderer::initBuffers()
+void Engine::ForwardRenderer::initBuffers()
 {
 }
 
-void ForwardRenderer::render()
+void Engine::ForwardRenderer::render()
 {
     GL_ASSERT(glDepthMask(GL_TRUE));
     GL_ASSERT(glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE));
@@ -107,7 +107,7 @@ void ForwardRenderer::render()
     }
 }
 
-void ForwardRenderer::resize(uint width, uint height)
+void Engine::ForwardRenderer::resize(uint width, uint height)
 {
     m_width = width;
     m_height = height;
@@ -121,7 +121,7 @@ void ForwardRenderer::resize(uint width, uint height)
     GL_ASSERT(glReadBuffer(GL_BACK));
 }
 
-bool ForwardRenderer::handleMouseEvent(const Core::MouseEvent& event)
+bool Engine::ForwardRenderer::handleMouseEvent(const Core::MouseEvent& event)
 {
     switch (event.event)
     {
@@ -153,7 +153,7 @@ bool ForwardRenderer::handleMouseEvent(const Core::MouseEvent& event)
     return false;
 }
 
-bool ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
+bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
 {
     switch (event.key)
     {

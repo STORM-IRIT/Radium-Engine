@@ -15,6 +15,7 @@
 #endif
 
 #include <Engine/Renderer/OpenGL.hpp>
+#include <Engine/Renderer/Texture.hpp>
 
 namespace Ra
 {
@@ -44,12 +45,12 @@ namespace
 	}
 }
 
-ShaderObject::ShaderObject()
+Engine::ShaderObject::ShaderObject()
 	: m_id(0)
 {
 }
 
-ShaderObject::~ShaderObject()
+Engine::ShaderObject::~ShaderObject()
 {
 	if (m_id != 0)
 	{
@@ -58,9 +59,9 @@ ShaderObject::~ShaderObject()
 	}
 }
 
-void ShaderObject::loadAndCompile(uint type,
-								  const std::string& filename,
-								  const std::set<std::string>& properties)
+void Engine::ShaderObject::loadAndCompile(uint type,
+                                          const std::string& filename,
+                                          const std::set<std::string>& properties)
 {
 	m_filename = filename;
 	m_type = type;
@@ -73,18 +74,18 @@ void ShaderObject::loadAndCompile(uint type,
 	check();
 }
 
-void ShaderObject::reloadAndCompile(const std::set<std::string>& properties)
+void Engine::ShaderObject::reloadAndCompile(const std::set<std::string>& properties)
 {
 	std::cerr << "Reloading shader " << m_filename << std::endl;
 	loadAndCompile(m_type, m_filename, properties);
 }
 
-unsigned int ShaderObject::getId() const
+unsigned int Engine::ShaderObject::getId() const
 {
 	return m_id;
 }
 
-std::string ShaderObject::load()
+std::string Engine::ShaderObject::load()
 {
 	std::ostringstream error;
 	std::string shader;
@@ -107,7 +108,7 @@ std::string ShaderObject::load()
 	return shader;
 }
 
-void ShaderObject::compile(const std::string& shader, const std::set<std::string>& properties)
+void Engine::ShaderObject::compile(const std::string& shader, const std::set<std::string>& properties)
 {
 	const char* data[3];
 	data[0] = "#version 400\n";
@@ -125,7 +126,7 @@ void ShaderObject::compile(const std::string& shader, const std::set<std::string
 	GL_ASSERT(glCompileShader(m_id));
 }
 
-void ShaderObject::check()
+void Engine::ShaderObject::check()
 {
 	GLint ok;
 	std::stringstream error;
@@ -141,7 +142,7 @@ void ShaderObject::check()
 	}
 }
 
-bool ShaderObject::parseFile(const std::string& filename, std::string& content)
+bool Engine::ShaderObject::parseFile(const std::string& filename, std::string& content)
 {
 	std::ifstream ifs(filename.c_str(), std::ios::in);
 	if (!ifs)
@@ -157,7 +158,7 @@ bool ShaderObject::parseFile(const std::string& filename, std::string& content)
 	return true;
 }
 
-ShaderProgram:: ShaderProgram()
+Engine::ShaderProgram:: ShaderProgram()
 	: m_shaderId(0)
 	, m_binded(false)
 {
@@ -167,7 +168,7 @@ ShaderProgram:: ShaderProgram()
 	}
 }
 
-ShaderProgram::ShaderProgram(const ShaderConfiguration& config)
+Engine::ShaderProgram::ShaderProgram(const Engine::ShaderConfiguration& config)
 	: ShaderProgram()
 {
 	load(config);
@@ -180,7 +181,7 @@ ShaderProgram::ShaderProgram(const ShaderConfiguration& config)
 //    load(config);
 //}
 
-ShaderProgram::~ShaderProgram()
+Engine::ShaderProgram::~ShaderProgram()
 {
 	if (m_shaderId != 0)
 	{
@@ -196,67 +197,67 @@ ShaderProgram::~ShaderProgram()
 	}
 }
 
-void ShaderProgram::loadVertShader(const std::string& name,
-								   const std::set<std::string>& props)
+void Engine::ShaderProgram::loadVertShader(const std::string& name,
+                                           const std::set<std::string>& props)
 {
-	ShaderObject* vertShader = new ShaderObject;
+    Engine::ShaderObject* vertShader = new Engine::ShaderObject;
     vertShader->loadAndCompile(GL_VERTEX_SHADER, name + ".vert.glsl", props);
     m_shaderObjects[VERT_SHADER] = vertShader;
 }
 
-void ShaderProgram::loadFragShader(const std::string& name,
-								   const std::set<std::string>& props)
+void Engine::ShaderProgram::loadFragShader(const std::string& name,
+                                           const std::set<std::string>& props)
 {
-	ShaderObject* fragShader = new ShaderObject;
+    Engine::ShaderObject* fragShader = new Engine::ShaderObject;
     fragShader->loadAndCompile(GL_FRAGMENT_SHADER, name + ".frag.glsl", props);
     m_shaderObjects[FRAG_SHADER] = fragShader;
 }
 
-void ShaderProgram::loadTessShader(const std::string& name,
-								   const std::set<std::string>& props,
-								   const ShaderConfiguration::ShaderType& type)
+void Engine::ShaderProgram::loadTessShader(const std::string& name,
+                                           const std::set<std::string>& props,
+                                           const Engine::ShaderConfiguration::ShaderType& type)
 {
 	// TODO
-        if (type & ShaderConfiguration::TESC_SHADER)
+        if (type & Engine::ShaderConfiguration::TESC_SHADER)
         {
-            ShaderObject* tessCShader = new ShaderObject;
+            Engine::ShaderObject* tessCShader = new Engine::ShaderObject;
             tessCShader->loadAndCompile(GL_TESS_CONTROL_SHADER, name + ".tesc.glsl", props);
             m_shaderObjects[TESC_SHADER] = tessCShader;
         }
 
-        if (type & ShaderConfiguration::TESE_SHADER)
+        if (type & Engine::ShaderConfiguration::TESE_SHADER)
         {
-            ShaderObject* tessEShader = new ShaderObject;
+            Engine::ShaderObject* tessEShader = new Engine::ShaderObject;
             tessEShader->loadAndCompile(GL_TESS_EVALUATION_SHADER, name + ".tese.glsl", props);
             m_shaderObjects[TESE_SHADER] = tessEShader;
         }
 }
 
-void ShaderProgram::loadGeomShader(const std::string& name,
-								   const std::set<std::string>& props,
-								   const ShaderConfiguration::ShaderType& type)
+void Engine::ShaderProgram::loadGeomShader(const std::string& name,
+                                           const std::set<std::string>& props,
+                                           const Engine::ShaderConfiguration::ShaderType& type)
 {
-    if (type & ShaderConfiguration::GEOM_SHADER)
+    if (type & Engine::ShaderConfiguration::GEOM_SHADER)
 	{
-		ShaderObject* geomShader = new ShaderObject;
+        Engine::ShaderObject* geomShader = new Engine::ShaderObject;
         geomShader->loadAndCompile(GL_GEOMETRY_SHADER, name + ".geom.glsl", props);
         m_shaderObjects[GEOM_SHADER] = geomShader;
 	}
 }
 
-void ShaderProgram::loadCompShader(const std::string &name,
-                                   const std::set<std::string>& props,
-                                   const ShaderConfiguration::ShaderType &type)
+void Engine::ShaderProgram::loadCompShader(const std::string &name,
+                                           const std::set<std::string>& props,
+                                           const Engine::ShaderConfiguration::ShaderType &type)
 {
-    if (type & ShaderConfiguration::COMP_SHADER)
+    if (type & Engine::ShaderConfiguration::COMP_SHADER)
     {
-        ShaderObject* compShader = new ShaderObject;
+        Engine::ShaderObject* compShader = new Engine::ShaderObject;
         compShader->loadAndCompile(GL_COMPUTE_SHADER, name + ".comp.glsl", props);
         m_shaderObjects[COMP_SHADER] = compShader;
     }
 }
 
-void ShaderProgram::load(const ShaderConfiguration& shaderConfig)
+void Engine::ShaderProgram::load(const Engine::ShaderConfiguration& shaderConfig)
 {
 	std::cerr << "Loading shader " << shaderConfig.getName() << std::hex << " <type = " << shaderConfig.getType() << ">\n";
 	m_configuration = shaderConfig;
@@ -275,14 +276,9 @@ void ShaderProgram::load(const ShaderConfiguration& shaderConfig)
 	link();
 }
 
-void ShaderProgram::link()
+void Engine::ShaderProgram::link()
 {
-	//    GL_ASSERT(glBindAttribLocation(m_shaderId, 0, "position"));
-	//    GL_ASSERT(glBindAttribLocation(m_shaderId, 1, "normal"));
-	//    GL_ASSERT(glBindAttribLocation(m_shaderId, 2, "tangent"));
-	//    GL_ASSERT(glBindAttribLocation(m_shaderId, 3, "texcoord"));
-
-	for (auto shader : m_shaderObjects)
+    for (auto shader : m_shaderObjects)
 	{
 		if (shader)
 		{
@@ -293,7 +289,7 @@ void ShaderProgram::link()
 	GL_ASSERT(glLinkProgram(m_shaderId));
 }
 
-void ShaderProgram::bind()
+void Engine::ShaderProgram::bind()
 {
 	if (0 == m_shaderId)
 	{
@@ -303,33 +299,13 @@ void ShaderProgram::bind()
 	m_binded = true;
 }
 
-void ShaderProgram::unbind()
+void Engine::ShaderProgram::unbind()
 {
 	GL_ASSERT(glUseProgram(0));
 	m_binded = false;
 }
 
-//bool ShaderProgram::exists(const std::string& filename)
-//{
-//  std::ifstream ifs(filename.c_str(), std::ios::in);
-//  return !(!ifs);
-//}
-//
-//void ShaderProgram::addProperty(const std::string& property)
-//{
-//  m_properties.push_back(property);
-//}
-//
-//void ShaderProgram::delProperty(const std::string& property)
-//{
-//  auto it = std::find(m_properties.begin(), m_properties.end(), property);
-//  if (it != m_properties.end())
-//  {
-//      m_properties.erase(it);
-//  }
-//}
-
-void ShaderProgram::reload()
+void Engine::ShaderProgram::reload()
 {
 	for (unsigned int i = 0; i < m_shaderObjects.size(); ++i)
 	{
@@ -343,9 +319,9 @@ void ShaderProgram::reload()
 	link();
 }
 
-ShaderConfiguration ShaderProgram::getBasicConfiguration() const
+Engine::ShaderConfiguration Engine::ShaderProgram::getBasicConfiguration() const
 {
-	ShaderConfiguration basicConfig;
+    Engine::ShaderConfiguration basicConfig;
 	basicConfig.setName(m_configuration.getName());
 	basicConfig.setPath(m_configuration.getPath());
 	basicConfig.setType(m_configuration.getType());
@@ -353,50 +329,57 @@ ShaderConfiguration ShaderProgram::getBasicConfiguration() const
 	return basicConfig;
 }
 
-void ShaderProgram::setUniform(const char* name, int value) const
+void Engine::ShaderProgram::setUniform(const char* name, int value) const
 {
 	GL_ASSERT(glUniform1i(glGetUniformLocation(m_shaderId, name), value));
 }
-void ShaderProgram::setUniform(const char* name, unsigned int value) const
+
+void Engine::ShaderProgram::setUniform(const char* name, unsigned int value) const
 {
 	GL_ASSERT(glUniform1ui(glGetUniformLocation(m_shaderId, name), value));
 }
-void ShaderProgram::setUniform(const char* name, Scalar value) const
+
+void Engine::ShaderProgram::setUniform(const char* name, Scalar value) const
 {
 	GL_ASSERT(glUniform1f(glGetUniformLocation(m_shaderId, name), value));
 }
 
-void ShaderProgram::setUniform(const char* name, const Core::Vector2&  value) const
+void Engine::ShaderProgram::setUniform(const char* name, const Core::Vector2&  value) const
 {
 	GL_ASSERT(glUniform2fv(glGetUniformLocation(m_shaderId, name), 1, value.data()));
 }
-void ShaderProgram::setUniform(const char* name, const Core::Vector3& value) const
+
+void Engine::ShaderProgram::setUniform(const char* name, const Core::Vector3& value) const
 {
 	GL_ASSERT(glUniform3fv(glGetUniformLocation(m_shaderId, name), 1, value.data()));
 }
-void ShaderProgram::setUniform(const char* name, const Core::Vector4& value) const
+
+void Engine::ShaderProgram::setUniform(const char* name, const Core::Vector4& value) const
 {
 	GL_ASSERT(glUniform4fv(glGetUniformLocation(m_shaderId, name), 1, value.data()));
 }
 
-void ShaderProgram::setUniform(const char* name, const Core::Matrix2& value) const
+void Engine::ShaderProgram::setUniform(const char* name, const Core::Matrix2& value) const
 {
 	GL_ASSERT(glUniformMatrix2fv(glGetUniformLocation(m_shaderId, name), 1, GL_FALSE,
 		value.data()));
 }
-void ShaderProgram::setUniform(const char* name, const Core::Matrix3& value) const
+
+void Engine::ShaderProgram::setUniform(const char* name, const Core::Matrix3& value) const
 {
 	GL_ASSERT(glUniformMatrix3fv(glGetUniformLocation(m_shaderId, name), 1, GL_FALSE, value.data()));
 }
-void ShaderProgram::setUniform(const char* name, const Core::Matrix4& value) const
+
+void Engine::ShaderProgram::setUniform(const char* name, const Core::Matrix4& value) const
 {
 	GL_ASSERT(glUniformMatrix4fv(glGetUniformLocation(m_shaderId, name), 1, GL_FALSE, value.data()));
 }
+
 // TODO : Provide Texture support
-//void ShaderProgram::setUniform(const char* name, Texture* tex, int texUnit) const
-//{
-//	tex->bind(texUnit);
-//	GL_ASSERT(glUniform1i(glGetUniformLocation(m_shaderId, name), texUnit));
-//}
+void Engine::ShaderProgram::setUniform(const char* name, Engine::Texture* tex, int texUnit) const
+{
+    tex->bind(texUnit);
+    GL_ASSERT(glUniform1i(glGetUniformLocation(m_shaderId, name), texUnit));
+}
 
 } // namespace Ra

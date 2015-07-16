@@ -5,11 +5,10 @@
 #include <Core/Math/Vector.hpp>
 #include <Core/Index/IndexedObject.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine { class System; } }
+namespace Ra { namespace Engine { class Entity; } }
 
-class System;
-class Entity;
+namespace Ra { namespace Engine {
 
 /**
  * @brief A component is an element that can be updated by a system.
@@ -59,6 +58,7 @@ protected:
     Entity* m_entity;
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_COMPONENT_HPP

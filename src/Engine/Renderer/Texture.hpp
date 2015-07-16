@@ -7,8 +7,7 @@
 #include <Core/Math/Vector.hpp>
 #include <Engine/Renderer/OpenGL.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine {
 
 class Texture
 {
@@ -303,6 +302,7 @@ private:
     uint m_depth;
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_TEXTURE_HPP

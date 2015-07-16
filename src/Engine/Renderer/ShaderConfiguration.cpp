@@ -7,21 +7,21 @@
 namespace Ra
 {
 
-ShaderConfiguration::ShaderConfiguration(const std::string& name,
-										 const std::string& path,
-										 const ShaderType& type)
-										 : m_name(name)
-										 , m_shaderPath(path)
-										 , m_type(type)
+Engine::ShaderConfiguration::ShaderConfiguration(const std::string& name,
+                                                 const std::string& path,
+                                                 const ShaderType& type)
+    : m_name(name)
+    , m_shaderPath(path)
+    , m_type(type)
 {
 }
 
-void ShaderConfiguration::addProperty(const std::string& prop)
+void Engine::ShaderConfiguration::addProperty(const std::string& prop)
 {
 	m_properties.insert(prop);
 }
 
-void ShaderConfiguration::addProperties(const std::list<std::string>& props)
+void Engine::ShaderConfiguration::addProperties(const std::list<std::string>& props)
 {
 	for (const auto& prop : props)
 	{
@@ -29,12 +29,12 @@ void ShaderConfiguration::addProperties(const std::list<std::string>& props)
 	}
 }
 
-void ShaderConfiguration::removeProperty(const std::string& prop)
+void Engine::ShaderConfiguration::removeProperty(const std::string& prop)
 {
 	m_properties.erase(prop);
 }
 
-bool ShaderConfiguration::operator<(const ShaderConfiguration& o) const
+bool Engine::ShaderConfiguration::operator<(const Engine::ShaderConfiguration& o) const
 {
 	bool res;
 
@@ -76,50 +76,50 @@ bool ShaderConfiguration::operator<(const ShaderConfiguration& o) const
 	return res;
 }
 
-void ShaderConfiguration::setName(const std::string& name)
+void Engine::ShaderConfiguration::setName(const std::string& name)
 {
 	m_name = name;
 }
 
-void ShaderConfiguration::setPath(const std::string& path)
+void Engine::ShaderConfiguration::setPath(const std::string& path)
 {
 	m_shaderPath = path;
 }
 
-void ShaderConfiguration::setType(const ShaderConfiguration::ShaderType& type)
+void Engine::ShaderConfiguration::setType(const Engine::ShaderConfiguration::ShaderType& type)
 {
 	m_type = type;
 }
 
-std::string ShaderConfiguration::getName() const
+std::string Engine::ShaderConfiguration::getName() const
 {
 	return m_name;
 }
 
-std::string ShaderConfiguration::getPath() const
+std::string Engine::ShaderConfiguration::getPath() const
 {
 	return m_shaderPath;
 }
 
-std::string ShaderConfiguration::getFullName() const
+std::string Engine::ShaderConfiguration::getFullName() const
 {
 	std::stringstream ss;
 	ss << m_shaderPath << '/' << m_name;
 	return ss.str();
 }
 
-ShaderConfiguration::ShaderType ShaderConfiguration::getType() const
+Engine::ShaderConfiguration::ShaderType Engine::ShaderConfiguration::getType() const
 {
 	return m_type;
 }
 
-std::set<std::string> ShaderConfiguration::getProperties() const
+std::set<std::string> Engine::ShaderConfiguration::getProperties() const
 {
 	return m_properties;
 }
 
 
-std::string ShaderType::getShaderTypeString(unsigned int type)
+std::string Engine::ShaderType::getShaderTypeString(unsigned int type)
 {
 	std::stringstream ss;
 	switch (type)

@@ -1,22 +1,23 @@
 #include <Engine/Entity/Entity.hpp>
 
 #include <Core/CoreMacros.hpp>
+#include <Core/String/StringUtils.hpp>
 #include <Engine/Entity/Component.hpp>
 
 namespace Ra
 {
 
-Entity::Entity()
-    : IndexedObject()
+Engine::Entity::Entity()
+    : Core::IndexedObject()
     , m_transform(Core::Transform::Identity())
 {
 }
 
-Entity::~Entity()
+Engine::Entity::~Entity()
 {
 }
 
-void Entity::addComponent(Component* component)
+void Engine::Entity::addComponent(Engine::Component* component)
 {
     Core::Index idx = component->idx;
 
@@ -29,11 +30,11 @@ void Entity::addComponent(Component* component)
     component->setEntity(this);
 }
 
-Component* Entity::getComponent(Core::Index idx)
+Engine::Component* Engine::Entity::getComponent(Core::Index idx)
 {
     CORE_ASSERT(idx != Core::Index::INVALID_IDX(), "Trying to access an invalid component");
 
-    Component* comp = nullptr;
+    Engine::Component* comp = nullptr;
 
     auto it = m_components.find(idx);
     if (it != m_components.end())
@@ -44,16 +45,16 @@ Component* Entity::getComponent(Core::Index idx)
     return comp;
 }
 
-void Entity::removeComponent(Core::Index idx)
+void Engine::Entity::removeComponent(Core::Index idx)
 {
-    char buff[100];
-    snprintf(buff, 100, "The component of id %ud is not part of the entity.", idx.getValue());
-    CORE_ASSERT(m_components.find(idx) != m_components.end(), buff);
+    std::string err;
+    Core::StringUtils::stringPrintf(err, "The component of id %ud is not part of the entity.", idx.getValue());
+    CORE_ASSERT(m_components.find(idx) != m_components.end(), err.c_str());
 
     m_components.erase(idx);
 }
 
-void Entity::removeComponent(Component* component)
+void Engine::Entity::removeComponent(Engine::Component* component)
 {
     removeComponent(component->idx);
 }

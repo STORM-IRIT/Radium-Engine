@@ -10,10 +10,9 @@
 #include <Core/Math/Vector.hpp>
 #include <Core/Math/Matrix.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine { class Component; } }
 
-class Component;
+namespace Ra { namespace Engine {
 
 class Entity : public Core::IndexedObject
 {
@@ -34,14 +33,15 @@ public:
     Component* getComponent(Core::Index idx);
 
 private:
-    typedef std::pair<Core::Index, Component*> ComponentByIndex;
-    std::map<Core::Index, Component*> m_components;
+    typedef std::pair<Core::Index, Engine::Component*> ComponentByIndex;
+    std::map<Core::Index, Engine::Component*> m_components;
 
     Core::Transform m_transform;
 
     mutable std::mutex m_transformMutex;
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #include <Engine/Entity/Entity.inl>

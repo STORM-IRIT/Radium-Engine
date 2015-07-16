@@ -7,10 +7,9 @@
 #include <Core/Utils/Singleton.hpp>
 #include <Core/Index/IndexMap.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine { class Entity; } }
 
-class Entity;
+namespace Ra { namespace Engine {
 
 class EntityManager : public Core::Singleton<EntityManager>
 {
@@ -62,6 +61,7 @@ private:
     Core::IndexMap<std::shared_ptr<Entity>> m_entities;
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_ENTITYMANAGER_HPP

@@ -5,12 +5,11 @@
 
 #include <Engine/Renderer/RenderSystem.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine { class Camera; } }
+namespace Ra { namespace Engine { class ShaderProgram; } }
+namespace Ra { namespace Engine { class ShaderProgramManager; } }
 
-class Camera;
-class ShaderProgram;
-class ShaderProgramManager;
+namespace Ra { namespace Engine {
 
 class ForwardRenderer : public RenderSystem
 {
@@ -44,6 +43,7 @@ private:
 	ShaderProgram* m_quadShader;
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_FORWARDRENDERER_HPP

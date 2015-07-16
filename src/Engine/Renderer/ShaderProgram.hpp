@@ -11,8 +11,9 @@
 
 #include <Engine/Renderer/ShaderConfiguration.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine { class Texture; } }
+
+namespace Ra { namespace Engine {
 
 class ShaderObject
 {
@@ -86,7 +87,7 @@ public:
     void setUniform(const char* name, const Core::Matrix4& value) const;
 
 	// TODO (Charly) : Add Texture support
-	//void setUniform(const char* name, Texture* tex, int texUnit) const;
+    void setUniform(const char* name, Texture* tex, int texUnit) const;
 
 private:
 	//  bool exists(const std::string& filename);
@@ -113,6 +114,7 @@ private:
 	bool m_binded;
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_SHADERPROGRAM_HPP

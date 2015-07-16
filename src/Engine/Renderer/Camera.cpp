@@ -7,31 +7,31 @@ namespace Ra {
 /// -------------------- ///
 /// CONSTRUCTOR
 /// -------------------- ///
-Camera::Camera() :
-    m_frame     ( Core::Transform::Identity() ),
-    m_fov       ( M_PI * 50.0 / 180.0	),
-    m_zNear     ( 1.0                   ),
-    m_zFar      ( 1000.0                ),
-    m_focalPoint( 1.0                   ),
-    m_zoomFactor( 1.0                   ),
-    m_projType  ( ProjType::PERSPECTIVE ),
-    m_viewMatrix( Core::Matrix4::Identity()),
-    m_projMatrix( Core::Matrix4::Identity())
+Engine::Camera::Camera()
+    : m_frame     ( Core::Transform::Identity() )
+    , m_fov       ( M_PI * 50.0 / 180.0	        )
+    , m_zNear     ( 1.0                         )
+    , m_zFar      ( 1000.0                      )
+    , m_focalPoint( 1.0                         )
+    , m_zoomFactor( 1.0                         )
+    , m_projType  ( ProjType::PERSPECTIVE       )
+    , m_viewMatrix( Core::Matrix4::Identity()   )
+    , m_projMatrix( Core::Matrix4::Identity()   )
 {
     updateViewMatrix();
 }
 
-Camera::Camera( const Camera& cam ) :
-    // FIXME : = default ?
-    m_frame     ( cam.m_frame      ),
-    m_fov       ( cam.m_fov        ),
-    m_zNear     ( cam.m_zNear      ),
-    m_zFar      ( cam.m_zFar       ),
-    m_focalPoint( cam.m_focalPoint ),
-    m_zoomFactor( cam.m_zoomFactor ),
-    m_projType  ( cam.m_projType   ),
-    m_viewMatrix( cam.m_viewMatrix ),
-    m_projMatrix( cam.m_projMatrix )
+// FIXME: = default ?
+Engine::Camera::Camera( const Engine::Camera& cam )
+    : m_frame     ( cam.m_frame      )
+    , m_fov       ( cam.m_fov        )
+    , m_zNear     ( cam.m_zNear      )
+    , m_zFar      ( cam.m_zFar       )
+    , m_focalPoint( cam.m_focalPoint )
+    , m_zoomFactor( cam.m_zoomFactor )
+    , m_projType  ( cam.m_projType   )
+    , m_viewMatrix( cam.m_viewMatrix )
+    , m_projMatrix( cam.m_projMatrix )
 {}
 
 
@@ -40,7 +40,7 @@ Camera::Camera( const Camera& cam ) :
 /// -------------------- ///
 /// DESTRUCTOR
 /// -------------------- ///
-Camera::~Camera() { }
+Engine::Camera::~Camera() { }
 
 
 
@@ -48,8 +48,8 @@ Camera::~Camera() { }
 /// -------------------- ///
 /// FRAME
 /// -------------------- ///
-void Camera::applyTransform( const Core::Transform& T,
-                             const ModeType mode ) {
+void Engine::Camera::applyTransform( const Core::Transform& T,
+                                     const ModeType mode ) {
     Core::Transform trans;
     trans.setIdentity();
     switch( mode ) {
@@ -74,7 +74,7 @@ void Camera::applyTransform( const Core::Transform& T,
 /// -------------------- ///
 /// VIEW MATRIX
 /// -------------------- ///
-void Camera::updateViewMatrix() {
+void Engine::Camera::updateViewMatrix() {
     const Core::Vector3 e  = getPosition();
     const Core::Vector3 f  = getDirection().normalized();
     const Core::Vector3 up = getUpVector().normalized();
@@ -99,7 +99,7 @@ void Camera::updateViewMatrix() {
 /// -------------------- ///
 /// PROJECTION MATRIX
 /// -------------------- ///
-void Camera::updateProjMatrix( const Scalar& width, const Scalar& height ) {
+void Engine::Camera::updateProjMatrix( const Scalar& width, const Scalar& height ) {
     switch( m_projType ) {
         case ProjType::ORTHOGRAPHIC: {
             const Scalar dx = m_zoomFactor * 0.5f;

@@ -17,37 +17,37 @@
 namespace Ra
 {
 
-RadiumEngine::RadiumEngine()
+Engine::RadiumEngine::RadiumEngine()
     : m_quit(false)
     , m_angle(0.0)
 {
 }
 
-void RadiumEngine::initialize()
+void Engine::RadiumEngine::initialize()
 {
-    System* renderSystem = new ForwardRenderer;
+    Engine::System* renderSystem = new Engine::ForwardRenderer;
     renderSystem->initialize();
 
-    m_systems["RenderSystem"] = std::shared_ptr<System>(renderSystem);
+    m_systems["RenderSystem"] = std::shared_ptr<Engine::System>(renderSystem);
 }
 
-void RadiumEngine::setupScene()
+void Engine::RadiumEngine::setupScene()
 {
-    ComponentManager* cManager = ComponentManager::createInstance();
-    EntityManager* eManager = EntityManager::createInstance();
+    Engine::ComponentManager* cManager = Engine::ComponentManager::createInstance();
+    Engine::EntityManager* eManager = Engine::EntityManager::createInstance();
 
-    Mesh* mesh = new Mesh("Mesh");
-    VertexData v0, v1, v2;
+    Engine::Mesh* mesh = new Engine::Mesh("Mesh");
+    Engine::VertexData v0, v1, v2;
     v0.position = Core::Vector3(-0.5, -0.5, 0);
     v1.position = Core::Vector3(0, 0.5, 0);
     v2.position = Core::Vector3(0.5, -0.5, 0);
-    MeshData d;
+    Engine::MeshData d;
     d.vertices = {v0, v1, v2};
     d.indices  = {0, 2, 1};
     mesh->loadGeometry(d);
 
     m_entity = eManager->createEntity();
-    DrawableComponent* comp = new DrawableComponent();
+    Engine::DrawableComponent* comp = new Engine::DrawableComponent();
     comp->addDrawable(mesh);
 
     cManager->addComponent(comp);
@@ -56,14 +56,14 @@ void RadiumEngine::setupScene()
     m_systems["RenderSystem"]->addComponent(comp);
 }
 
-void RadiumEngine::start()
+void Engine::RadiumEngine::start()
 {
 
     std::thread t(&RadiumEngine::run, this);
     t.detach();
 }
 
-void RadiumEngine::run()
+void Engine::RadiumEngine::run()
 {
     while (!quitRequested())
     {
@@ -77,7 +77,7 @@ void RadiumEngine::run()
     cleanup();
 }
 
-void RadiumEngine::cleanup()
+void Engine::RadiumEngine::cleanup()
 {
     for (auto& system : m_systems)
     {
@@ -85,13 +85,13 @@ void RadiumEngine::cleanup()
     }
 }
 
-void RadiumEngine::quit()
+void Engine::RadiumEngine::quit()
 {
     std::lock_guard<std::mutex> lock(m_quitMutex);
     m_quit = true;
 }
 
-bool RadiumEngine::quitRequested()
+bool Engine::RadiumEngine::quitRequested()
 {
     bool quit;
     std::lock_guard<std::mutex> lock(m_quitMutex);
@@ -99,9 +99,9 @@ bool RadiumEngine::quitRequested()
     return quit;
 }
 
-System* RadiumEngine::getSystem(const std::string& system) const
+Engine::System* Engine::RadiumEngine::getSystem(const std::string& system) const
 {
-    System* sys = nullptr;
+    Engine::System* sys = nullptr;
     auto it = m_systems.find(system);
 
     if (it != m_systems.end())

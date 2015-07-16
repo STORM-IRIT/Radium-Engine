@@ -4,8 +4,7 @@
 #include <Core/Math/Vector.hpp>
 #include <Core/Math/Matrix.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine {
 
 // The class Camera defines a camera in 3D space with
 class Camera
@@ -224,6 +223,7 @@ protected:
     Core::Matrix4   m_projMatrix; // Projection matrix
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #include <Engine/Renderer/Camera.inl>

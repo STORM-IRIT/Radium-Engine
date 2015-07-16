@@ -6,7 +6,7 @@
 namespace Ra
 {
 
-ComponentManager::~ComponentManager()
+Engine::ComponentManager::~ComponentManager()
 {
     for (int i = 0; i < m_components.size(); ++i)
     {
@@ -19,7 +19,7 @@ ComponentManager::~ComponentManager()
     m_components.clear();
 }
 
-void ComponentManager::addComponent(Component* component)
+void Engine::ComponentManager::addComponent(Engine::Component* component)
 {
     CORE_ASSERT(component->idx == Core::Index::INVALID_IDX(),
                 "The component has already been added to the Manager.");
@@ -27,7 +27,7 @@ void ComponentManager::addComponent(Component* component)
     component->idx = m_components.insert(std::shared_ptr<Component>(component));
 }
 
-void ComponentManager::removeComponent(Core::Index idx)
+void Engine::ComponentManager::removeComponent(Core::Index idx)
 {
     CORE_ASSERT(idx != Core::Index::INVALID_IDX() && m_components.contain(idx),
                 "Trying to remove a component thas has not been added to the manager.");
@@ -40,16 +40,16 @@ void ComponentManager::removeComponent(Core::Index idx)
     m_components.remove(idx);
 }
 
-void ComponentManager::removeComponent(Component* component)
+void Engine::ComponentManager::removeComponent(Engine::Component* component)
 {
     removeComponent(component->idx);
 }
 
-Component* ComponentManager::getComponent(Core::Index idx) const
+Engine::Component* Engine::ComponentManager::getComponent(Core::Index idx) const
 {
     CORE_ASSERT(idx != Core::Index::INVALID_IDX(), "Trying to access an invalid component.");
 
-    Component* comp = nullptr;
+    Engine::Component* comp = nullptr;
 
     if (m_components.contain(idx))
     {

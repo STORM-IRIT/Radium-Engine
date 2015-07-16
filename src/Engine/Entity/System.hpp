@@ -8,10 +8,9 @@
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine { class Component; } }
 
-class Component;
+namespace Ra { namespace Engine {
 
 class System
 {
@@ -81,6 +80,7 @@ protected:
     std::map<Core::Index, Component*> m_components;
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_SYSTEM_HPP

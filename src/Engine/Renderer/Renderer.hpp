@@ -5,8 +5,7 @@
 
 #include <Core/CoreMacros.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine {
 
 class Renderer
 {
@@ -93,6 +92,7 @@ protected:
 	uint m_height;
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_RENDERER_HPP

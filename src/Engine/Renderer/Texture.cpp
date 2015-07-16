@@ -5,27 +5,27 @@
 namespace Ra
 {
 
-Texture::Texture(std::string name, uint target, TextureType type, uint zoffset)
-        : m_textureId(0)
-        , m_name(name)
-        , m_target(target)
-        , m_type(type)
-        , m_zoffset(zoffset)
-        , m_pixels(nullptr)
-        , m_bytesPerPixel(0)
-        , m_width(1)
-        , m_height(1)
-        , m_depth(1)
+Engine::Texture::Texture(std::string name, uint target, TextureType type, uint zoffset)
+    : m_textureId(0)
+    , m_name(name)
+    , m_target(target)
+    , m_type(type)
+    , m_zoffset(zoffset)
+    , m_pixels(nullptr)
+    , m_bytesPerPixel(0)
+    , m_width(1)
+    , m_height(1)
+    , m_depth(1)
 {
 }
 
-Texture::~Texture()
+Engine::Texture::~Texture()
 {
     deleteGL();
     delete[] m_pixels;
 }
 
-void Texture::setBPP(int bpp)
+void Engine::Texture::setBPP(int bpp)
 {
     switch (bpp)
     {
@@ -76,7 +76,7 @@ void Texture::setBPP(int bpp)
     }
 }
 
-void Texture::initGL(uint bpp, uint w, uint format, uint type, void* data)
+void Engine::Texture::initGL(uint bpp, uint w, uint format, uint type, void* data)
 {
     GL_ASSERT(glGenTextures(1, &m_textureId));
     GL_ASSERT(glBindTexture(m_target, m_textureId));
@@ -97,7 +97,7 @@ void Texture::initGL(uint bpp, uint w, uint format, uint type, void* data)
     }
 }
 
-void Texture::initGL(uint internal, uint w, uint h, uint format, uint type, void* data)
+void Engine::Texture::initGL(uint internal, uint w, uint h, uint format, uint type, void* data)
 {
     GL_ASSERT(glGenTextures(1, &m_textureId));
     GL_ASSERT(glBindTexture(m_target, m_textureId));
@@ -120,7 +120,7 @@ void Texture::initGL(uint internal, uint w, uint h, uint format, uint type, void
     }
 }
 
-void Texture::initGL(uint bpp, uint w, uint h, uint d, uint format, uint type, void* data)
+void Engine::Texture::initGL(uint bpp, uint w, uint h, uint d, uint format, uint type, void* data)
 {
     GL_ASSERT(glGenTextures(1, &m_textureId));
     GL_ASSERT(glBindTexture(m_target, m_textureId));
@@ -145,7 +145,7 @@ void Texture::initGL(uint bpp, uint w, uint h, uint d, uint format, uint type, v
     }
 }
 
-void Texture::initCubeGL(uint bpp, uint w, uint h, uint format, uint type, void** data)
+void Engine::Texture::initCubeGL(uint bpp, uint w, uint h, uint format, uint type, void** data)
 {
     GL_ASSERT(glGenTextures(1, &m_textureId));
     GL_ASSERT(glBindTexture(m_target, m_textureId));
@@ -169,7 +169,7 @@ void Texture::initCubeGL(uint bpp, uint w, uint h, uint format, uint type, void*
     */
 }
 
-void Texture::genMipmap(GLenum minFilter, GLenum magFilter)
+void Engine::Texture::genMipmap(GLenum minFilter, GLenum magFilter)
 {
     GL_ASSERT(glBindTexture(m_target, m_textureId));
 
@@ -179,7 +179,7 @@ void Texture::genMipmap(GLenum minFilter, GLenum magFilter)
     GL_ASSERT(glGenerateMipmap(m_target));
 }
 
-void Texture::setFilter(uint minFilter, uint magFilter)
+void Engine::Texture::setFilter(uint minFilter, uint magFilter)
 {
     GL_ASSERT(glBindTexture(m_target, m_textureId));
 
@@ -187,7 +187,7 @@ void Texture::setFilter(uint minFilter, uint magFilter)
     GL_ASSERT(glTexParameteri(m_target, GL_TEXTURE_MAG_FILTER, magFilter));
 }
 
-void Texture::setClamp(GLenum wrapS)
+void Engine::Texture::setClamp(GLenum wrapS)
 {
     assert(m_type == TEXTURE_1D && "setClamp(s) cannot be called for this texture type.");
 
@@ -196,7 +196,7 @@ void Texture::setClamp(GLenum wrapS)
     GL_ASSERT(glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_WRAP_S, wrapS));
 }
 
-void Texture::setClamp(GLenum wrapS, GLenum wrapT)
+void Engine::Texture::setClamp(GLenum wrapS, GLenum wrapT)
 {
     assert((m_type == TEXTURE_2D) || (m_type == TEXTURE_CUBE) && "setClamp(s, t) cannot be called for this texture type.");
 
@@ -214,7 +214,7 @@ void Texture::setClamp(GLenum wrapS, GLenum wrapT)
     }
 }
 
-void Texture::setClamp(GLenum wrapS, GLenum wrapT, GLenum wrapR)
+void Engine::Texture::setClamp(GLenum wrapS, GLenum wrapT, GLenum wrapR)
 {
     assert(m_type == TEXTURE_3D && "setClamp(s, t, r) cannot be called for this texture type.");
 
@@ -225,54 +225,54 @@ void Texture::setClamp(GLenum wrapS, GLenum wrapT, GLenum wrapR)
     GL_ASSERT(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, wrapR));
 }
 
-void Texture::bind(int unit)
+void Engine::Texture::bind(int unit)
 {
     GLenum texUnit = GL_TEXTURE0 + unit;
     GL_ASSERT(glActiveTexture(texUnit));
     GL_ASSERT(glBindTexture(m_target, m_textureId));
 }
 
-void Texture::deleteGL()
+void Engine::Texture::deleteGL()
 {
     GL_ASSERT(glDeleteTextures(1, &m_textureId));
 }
 
-uint Texture::getId() const
+uint Engine::Texture::getId() const
 {
     return m_textureId;
 }
 
-uint Texture::getTarget() const
+uint Engine::Texture::getTarget() const
 {
     return m_target;
 }
 
-Texture::TextureType Texture::getType() const
+Engine::Texture::TextureType Engine::Texture::getType() const
 {
     return m_type;
 }
 
-std::string Texture::getName() const
+std::string Engine::Texture::getName() const
 {
     return m_name;
 }
 
-uint Texture::getZOffset() const
+uint Engine::Texture::getZOffset() const
 {
     return m_zoffset;
 }
 
-Core::Color Texture::getTexel(Scalar u) const
+Core::Color Engine::Texture::getTexel(Scalar u) const
 {
     // TODO (Charly)
     return Core::Color(0, 0, 0, 1);
 }
-Core::Color Texture::getTexel(Scalar u, Scalar v) const
+Core::Color Engine::Texture::getTexel(Scalar u, Scalar v) const
 {
     // TODO (Charly)
     return Core::Color(0, 0, 0, 1);
 }
-Core::Color Texture::getTexel(Scalar u, Scalar v, Scalar w) const
+Core::Color Engine::Texture::getTexel(Scalar u, Scalar v, Scalar w) const
 {
     // TODO (Charly)
     return Core::Color(0, 0, 0, 1);

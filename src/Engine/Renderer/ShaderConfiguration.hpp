@@ -7,8 +7,7 @@
 
 #include <Core/CoreMacros.hpp>
 
-namespace Ra
-{
+namespace Ra { namespace Engine {
 
 struct ShaderType
 {
@@ -62,6 +61,7 @@ private:
 	std::set<std::string> m_properties;
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_SHADERCONFIGURATION_HPP

@@ -7,7 +7,7 @@
 namespace Ra
 {
 
-FBO::FBO(Components components, uint width, uint height)
+Engine::FBO::FBO(Components components, uint width, uint height)
     : m_components(components)
     , m_width(width ? width : 1)
     , m_height(height ? height : 1)
@@ -16,19 +16,19 @@ FBO::FBO(Components components, uint width, uint height)
     GL_ASSERT(glGenFramebuffers(1, &m_fboID));
 }
 
-FBO::~FBO()
+Engine::FBO::~FBO()
 {
     GL_ASSERT(glDeleteFramebuffers(1, &m_fboID));
     m_textures.clear();
 }
 
-void FBO::bind()
+void Engine::FBO::bind()
 {
     GL_ASSERT(glBindFramebuffer(GL_FRAMEBUFFER, m_fboID));
     m_isBound = true;
 }
 
-void FBO::unbind(bool complete)
+void Engine::FBO::unbind(bool complete)
 {
     m_isBound = false;
     if (complete)
@@ -37,26 +37,26 @@ void FBO::unbind(bool complete)
     }
 }
 
-void FBO::attachTexture(uint attachment, Texture *texture, uint level)
+void Engine::FBO::attachTexture(uint attachment, Engine::Texture *texture, uint level)
 {
     assert(m_isBound && "FBO must be bound to attach a texture.");
 
     switch (texture->getType())
     {
-        case Texture::TEXTURE_1D:
+        case Engine::Texture::TEXTURE_1D:
         {
             GL_ASSERT(glFramebufferTexture1D(GL_FRAMEBUFFER, attachment, texture->getTarget(),
                                              texture->getId(), level));
         } break;
 
-        case Texture::TEXTURE_2D:
-        case Texture::TEXTURE_CUBE:
+        case Engine::Texture::TEXTURE_2D:
+        case Engine::Texture::TEXTURE_CUBE:
         {
             GL_ASSERT(glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, texture->getTarget(),
                                              texture->getId(), level));
         } break;
 
-        case Texture::TEXTURE_3D:
+        case Engine::Texture::TEXTURE_3D:
         {
             GL_ASSERT(glFramebufferTexture3D(GL_FRAMEBUFFER, attachment, texture->getTarget(),
                                              texture->getId(), level, texture->getZOffset()));
@@ -66,28 +66,28 @@ void FBO::attachTexture(uint attachment, Texture *texture, uint level)
     m_textures[attachment] = texture;
 }
 
-void FBO::detachTexture(uint attachment)
+void Engine::FBO::detachTexture(uint attachment)
 {
     assert(m_isBound && "FBO must be bound to detach a texture.");
     assert(m_textures.find(attachment) != m_textures.end() &&
             "Trying to detach a non attached texture.");
 
-    Texture* texture = m_textures[attachment];
+    Engine::Texture* texture = m_textures[attachment];
 
     switch (texture->getType())
     {
-        case Texture::TEXTURE_1D:
+        case Engine::Texture::TEXTURE_1D:
         {
             GL_ASSERT(glFramebufferTexture1D(GL_FRAMEBUFFER, attachment, 0, 0, 0));
         } break;
 
-        case Texture::TEXTURE_2D:
-        case Texture::TEXTURE_CUBE:
+        case Engine::Texture::TEXTURE_2D:
+        case Engine::Texture::TEXTURE_CUBE:
         {
             GL_ASSERT(glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, 0, 0, 0));
         } break;
 
-        case Texture::TEXTURE_3D:
+        case Engine::Texture::TEXTURE_3D:
         {
             GL_ASSERT(glFramebufferTexture3D(GL_FRAMEBUFFER, attachment, 0, 0, 0, 0));
         } break;
@@ -96,7 +96,7 @@ void FBO::detachTexture(uint attachment)
     m_textures.erase(attachment);
 }
 
-void FBO::check() const
+void Engine::FBO::check() const
 {
     // TODO: More verbose check
     GLenum fboStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
@@ -151,13 +151,13 @@ void FBO::check() const
     assert(fboStatus == GL_FRAMEBUFFER_COMPLETE && "Something went wrong with the Framebuffer.\n");
 }
 
-void FBO::setSize(uint width, uint height)
+void Engine::FBO::setSize(uint width, uint height)
 {
     m_width = width;
     m_height = height;
 }
 
-void FBO::clear(Components components)
+void Engine::FBO::clear(Components components)
 {
     assert(m_isBound && "FBO must be bound before calling clear().");
 

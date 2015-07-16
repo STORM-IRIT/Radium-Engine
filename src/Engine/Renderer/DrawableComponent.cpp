@@ -12,12 +12,12 @@
 namespace Ra
 {
 
-DrawableComponent::DrawableComponent()
-    : Component()
+Engine::DrawableComponent::DrawableComponent()
+    : Engine::Component()
 {
 }
 
-DrawableComponent::~DrawableComponent()
+Engine::DrawableComponent::~DrawableComponent()
 {
     for (auto& drawable : m_drawables)
     {
@@ -29,7 +29,7 @@ DrawableComponent::~DrawableComponent()
     m_drawables.clear();
 }
 
-void DrawableComponent::update()
+void Engine::DrawableComponent::update()
 {
     m_shaderProgram->setUniform("model", m_entity->getTransformAsMatrix());
 
@@ -39,7 +39,7 @@ void DrawableComponent::update()
     }
 }
 
-void DrawableComponent::addDrawable(Drawable* drawable)
+void Engine::DrawableComponent::addDrawable(Engine::Drawable* drawable)
 {
     std::string name = drawable->getName();
 
@@ -52,7 +52,7 @@ void DrawableComponent::addDrawable(Drawable* drawable)
     m_drawables.insert(DrawableByName(name, std::shared_ptr<Drawable>(drawable)));
 }
 
-void DrawableComponent::removeDrawable(const std::string& name)
+void Engine::DrawableComponent::removeDrawable(const std::string& name)
 {
     auto drawable = m_drawables.find(name);
     if (drawable == m_drawables.end())
@@ -66,15 +66,15 @@ void DrawableComponent::removeDrawable(const std::string& name)
     m_drawables.erase(drawable);
 }
 
-void DrawableComponent::removeDrawable(Drawable* drawable)
+void Engine::DrawableComponent::removeDrawable(Engine::Drawable* drawable)
 {
     removeDrawable(drawable->getName());
 }
 
-Drawable* DrawableComponent::getDrawable(const std::string &name) const
+Engine::Drawable* Engine::DrawableComponent::getDrawable(const std::string &name) const
 {
     auto drawable = m_drawables.find(name);
-    Drawable* ret = nullptr;
+    Engine::Drawable* ret = nullptr;
 
     if (drawable != m_drawables.end())
     {
@@ -84,9 +84,9 @@ Drawable* DrawableComponent::getDrawable(const std::string &name) const
     return ret;
 }
 
-std::vector<Drawable*> DrawableComponent::getDrawables() const
+std::vector<Engine::Drawable*> Engine::DrawableComponent::getDrawables() const
 {
-    std::vector<Drawable*> drawables;
+    std::vector<Engine::Drawable*> drawables;
     drawables.reserve(m_drawables.size());
 
     for (const auto& drawable : m_drawables)
@@ -97,7 +97,7 @@ std::vector<Drawable*> DrawableComponent::getDrawables() const
     return drawables;
 }
 
-void DrawableComponent::setShaderProgram(ShaderProgram* shader)
+void Engine::DrawableComponent::setShaderProgram(Engine::ShaderProgram* shader)
 {
     m_shaderProgram = shader;
 }

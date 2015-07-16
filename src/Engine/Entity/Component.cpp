@@ -6,12 +6,12 @@
 namespace Ra
 {
 
-void Component::setSystem(System* system)
+void Engine::Component::setSystem(Engine::System* system)
 {
     m_system = system;
 }
 
-void Component::setEntity(Entity* entity)
+void Engine::Component::setEntity(Engine::Entity* entity)
 {
     m_entity = entity;
 }

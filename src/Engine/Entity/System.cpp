@@ -1,43 +1,43 @@
 #include <Engine/Entity/System.hpp>
 
-#include <cstdio>
-
+#include <Core/String/StringUtils.hpp>
 #include <Engine/Entity/Component.hpp>
 
 namespace Ra
 {
 
-System::System()
+Engine::System::System()
 {
 }
 
-System::~System()
+Engine::System::~System()
 {
     m_components.clear();
 }
 
-void System::addComponent(Component* component)
+void Engine::System::addComponent(Engine::Component* component)
 {
     Core::Index idx = component->idx;
-    char buff[100];
-    snprintf(buff, 100, "A component of index %u has already been added to the system.", idx.getValue());
-    CORE_ASSERT(m_components.find(idx) == m_components.end(), buff);
+
+    std::string err;
+    Core::StringUtils::stringPrintf(err, "A component of index %u has already been added to the system.", idx.getValue());
+    CORE_ASSERT(m_components.find(idx) == m_components.end(), err.c_str());
 
     m_components[idx] = component;
 
     component->setSystem(this);
 }
 
-void System::removeComponent(Core::Index idx)
+void Engine::System::removeComponent(Core::Index idx)
 {
-    char buff[100];
-    snprintf(buff, 100, "The component of id %ud does not exist in the system.", idx.getValue());
-    CORE_ASSERT(m_components.find(idx) != m_components.end(), buff);
+    std::string err;
+    Core::StringUtils::stringPrintf(err, "The component of id %ud does not exist in the system.", idx.getValue());
+    CORE_ASSERT(m_components.find(idx) != m_components.end(), err.c_str());
 
     m_components.erase(m_components.find(idx));
 }
 
-void System::removeComponent(Component* component)
+void Engine::System::removeComponent(Engine::Component* component)
 {
     removeComponent(component->idx);
 }

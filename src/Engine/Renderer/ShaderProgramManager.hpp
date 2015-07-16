@@ -5,15 +5,15 @@
 #include <map>
 
 #include <Core/Utils/Singleton.hpp>
+#include <Engine/Renderer/ShaderConfiguration.hpp>
 
 // TODO (Charly) :  Since ShaderProgramManager has the responsability for the shaders,
 //                  use shared_ptrs here
 
-namespace Ra
-{
+namespace Ra { namespace Engine { class ShaderProgram; } }
+namespace Ra { namespace Engine { class Engine; } }
 
-class ShaderProgram;
-class ShaderConfiguration;
+namespace Ra { namespace Engine {
 
 class ShaderProgramManager : public Core::Singleton<ShaderProgramManager>
 {
@@ -58,6 +58,7 @@ private:
 	int m_defaultShaderId;
 };
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_SHADERMANAGER_HPP

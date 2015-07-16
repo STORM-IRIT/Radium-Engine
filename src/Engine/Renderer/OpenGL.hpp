@@ -12,8 +12,8 @@
 #include <GL/glu.h>
 #include <cstdio>
 
-namespace RA
-{
+namespace Ra { namespace Engine {
+
 #ifdef _DEBUG
 #define GL_ASSERT(x) \
     x; { \
@@ -46,6 +46,7 @@ namespace RA
 #define glFlushError() 
 #endif
 
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_OPENGL_HPP

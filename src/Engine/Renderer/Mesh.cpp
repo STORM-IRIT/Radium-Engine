@@ -5,23 +5,22 @@
 namespace Ra
 {
 
-Mesh::Mesh(const std::string& name)
-    : Drawable(name)
+Engine::Mesh::Mesh(const std::string& name)
+    : Engine::Drawable(name)
     , m_initialized(false)
     , m_numVertices(0)
     , m_numIndices(0)
 {
 }
 
-Mesh::~Mesh()
+Engine::Mesh::~Mesh()
 {
     GL_ASSERT(glDeleteBuffers(1, &m_ibo));
     GL_ASSERT(glDeleteBuffers(1, &m_vbo));
     GL_ASSERT(glDeleteVertexArrays(1, &m_vao));
 }
 
-GLuint vbo;
-void Mesh::draw()
+void Engine::Mesh::draw()
 {
     if (!m_initialized)
     {
@@ -32,7 +31,7 @@ void Mesh::draw()
     GL_ASSERT(glDrawElements(GL_TRIANGLES, m_numIndices, GL_UNSIGNED_INT, (void*)0));
 }
 
-void Mesh::loadGeometry(const MeshData& data, bool recomputeNormals)
+void Engine::Mesh::loadGeometry(const Engine::MeshData& data, bool recomputeNormals)
 {
     m_data = data;
 
@@ -47,7 +46,7 @@ void Mesh::loadGeometry(const MeshData& data, bool recomputeNormals)
     initGL();
 }
 
-void Mesh::initGL()
+void Engine::Mesh::initGL()
 {
     GL_ASSERT(glGenVertexArrays(1, &m_vao));
     GL_ASSERT(glBindVertexArray(m_vao));
@@ -103,7 +102,7 @@ void Mesh::initGL()
     m_initialized = true;
 }
 
-void Mesh::computeNormals()
+void Engine::Mesh::computeNormals()
 {
 #if 0
     // Set normals to 0

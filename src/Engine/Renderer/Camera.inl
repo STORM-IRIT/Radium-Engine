@@ -5,55 +5,55 @@ namespace Ra {
 /// -------------------- ///
 /// FRAME
 /// -------------------- ///
-inline Core::Transform Camera::getFrame() const {
+inline Core::Transform Engine::Camera::getFrame() const {
     return m_frame;
 }
 
-inline void Camera::setFrame( const Core::Transform& frame ) {
+inline void Engine::Camera::setFrame( const Core::Transform& frame ) {
     m_frame = frame;
 }
 
-inline Core::Vector3 Camera::getPosition() const {
+inline Core::Vector3 Engine::Camera::getPosition() const {
     return ( m_frame.translation() );
 }
 
-inline void Camera::setPosition( const Core::Vector3& position,
-                                 const ModeType mode ) {
+inline void Engine::Camera::setPosition( const Core::Vector3& position,
+                                         const ModeType mode ) {
     Core::Transform T(Core::Transform::Identity());
     T.translation() = ( position - getPosition() );
     applyTransform( T, mode );
 }
 
-inline Core::Vector3 Camera::getDirection() const {
+inline Core::Vector3 Engine::Camera::getDirection() const {
     return ( m_frame.affine().block< 3, 1 >( 0, 2 ) );
 }
 
-inline void Camera::setDirection( const Core::Vector3& direction ) {
+inline void Engine::Camera::setDirection( const Core::Vector3& direction ) {
     Core::Transform T = computeRotation( getDirection(), direction.normalized(), getUpVector() );
     applyTransform( T, ModeType::FREE );
 }
 
-inline Core::Vector3 Camera::getUpVector() const {
+inline Core::Vector3 Engine::Camera::getUpVector() const {
     return ( m_frame.affine().block< 3, 1 >( 0, 1 ) );
 }
 
-inline void Camera::setUpVector( const Core::Vector3& upVector ) {
+inline void Engine::Camera::setUpVector( const Core::Vector3& upVector ) {
     Core::Transform T = computeRotation( getUpVector(), upVector.normalized(), getRightVector() );
     applyTransform( T, ModeType::FREE );
 }
 
-inline Core::Vector3 Camera::getRightVector() const {
+inline Core::Vector3 Engine::Camera::getRightVector() const {
     return ( m_frame.affine().block< 3, 1 >( 0, 0 ) );
 }
 
-inline void Camera::setRightVector( const Core::Vector3& rightVector ) {
+inline void Engine::Camera::setRightVector( const Core::Vector3& rightVector ) {
     Core::Transform T = computeRotation( getRightVector(), rightVector.normalized(), getDirection() );
     applyTransform( T, ModeType::FREE );
 }
 
-inline Core::Transform Camera::computeRotation( const Core::Vector3& v0,
-                                                const Core::Vector3& v1,
-                                                const Core::Vector3& defaultAxis ) const {
+inline Core::Transform Engine::Camera::computeRotation( const Core::Vector3& v0,
+                                                        const Core::Vector3& v1,
+                                                        const Core::Vector3& defaultAxis ) const {
     Core::Transform T;
     T.setIdentity();
     Scalar angle = acos( v0.dot( v1 ) );
@@ -76,11 +76,11 @@ inline Core::Transform Camera::computeRotation( const Core::Vector3& v0,
 /// -------------------- ///
 /// FIELD OF VIEW
 /// -------------------- ///
-inline Scalar Camera::getFOV() const {
+inline Scalar Engine::Camera::getFOV() const {
     return m_fov;
 }
 
-inline void Camera::setFOV( const Scalar fov ) {
+inline void Engine::Camera::setFOV( const Scalar fov ) {
     m_fov = fov;
 }
 
@@ -90,11 +90,11 @@ inline void Camera::setFOV( const Scalar fov ) {
 /// -------------------- ///
 /// Z NEAR
 /// -------------------- ///
-inline Scalar Camera::getZNear() const {
+inline Scalar Engine::Camera::getZNear() const {
     return m_zNear;
 }
 
-inline void Camera::setZNear( const Scalar zNear ) {
+inline void Engine::Camera::setZNear( const Scalar zNear ) {
     m_zNear = zNear;
 }
 
@@ -104,11 +104,11 @@ inline void Camera::setZNear( const Scalar zNear ) {
 /// -------------------- ///
 /// Z FAR
 /// -------------------- ///
-inline Scalar Camera::getZFar() const {
+inline Scalar Engine::Camera::getZFar() const {
     return m_zFar;
 }
 
-inline void Camera::setZFar( const Scalar zFar ) {
+inline void Engine::Camera::setZFar( const Scalar zFar ) {
     m_zFar = zFar;
 }
 
@@ -118,21 +118,21 @@ inline void Camera::setZFar( const Scalar zFar ) {
 /// -------------------- ///
 /// FOCAL POINT
 /// -------------------- ///
-inline Core::Vector3 Camera::getTargetPoint() const {
+inline Core::Vector3 Engine::Camera::getTargetPoint() const {
     return ( getPosition() + getFocalPointDistance() * getDirection() );
 }
 
-inline void Camera::setTargetPoint( const Core::Vector3& targetPoint ) {
+inline void Engine::Camera::setTargetPoint( const Core::Vector3& targetPoint ) {
     Core::Vector3 direction = targetPoint - getPosition();
     setFocalPointDistance( direction.norm() );
     setDirection( direction );
 }
 
-inline Scalar Camera::getFocalPointDistance() const {
+inline Scalar Engine::Camera::getFocalPointDistance() const {
     return m_focalPoint;
 }
 
-inline void Camera::setFocalPointDistance( const Scalar focalPointDistance ) {
+inline void Engine::Camera::setFocalPointDistance( const Scalar focalPointDistance ) {
     m_focalPoint = focalPointDistance;
 }
 
@@ -142,11 +142,11 @@ inline void Camera::setFocalPointDistance( const Scalar focalPointDistance ) {
 /// -------------------- ///
 /// ZOOM FACTOR
 /// -------------------- ///
-inline Scalar Camera::getZoomFactor() const {
+inline Scalar Engine::Camera::getZoomFactor() const {
     return m_zoomFactor;
 }
 
-inline void Camera::setZoomFactor( const Scalar& zoomFactor ) {
+inline void Engine::Camera::setZoomFactor( const Scalar& zoomFactor ) {
     m_zoomFactor = zoomFactor;
 }
 
@@ -156,11 +156,11 @@ inline void Camera::setZoomFactor( const Scalar& zoomFactor ) {
 /// -------------------- ///
 /// PROJECTION TYPE
 /// -------------------- ///
-inline Camera::ProjType Camera::getProjType() const {
+inline Engine::Camera::ProjType Engine::Camera::getProjType() const {
     return m_projType;
 }
 
-inline void Camera::setProjType( const ProjType& projectionType ) {
+inline void Engine::Camera::setProjType( const ProjType& projectionType ) {
     m_projType = projectionType;
 }
 
@@ -170,11 +170,11 @@ inline void Camera::setProjType( const ProjType& projectionType ) {
 /// -------------------- ///
 /// VIEW MATRIX
 /// -------------------- ///
-inline Core::Matrix4 Camera::getViewMatrix() const {
+inline Core::Matrix4 Engine::Camera::getViewMatrix() const {
     return m_viewMatrix;
 }
 
-inline void Camera::setViewMatrix( const Core::Matrix4& viewMatrix ) {
+inline void Engine::Camera::setViewMatrix( const Core::Matrix4& viewMatrix ) {
     m_viewMatrix = viewMatrix;
 }
 
@@ -183,11 +183,11 @@ inline void Camera::setViewMatrix( const Core::Matrix4& viewMatrix ) {
 /// -------------------- ///
 /// PROJECTION MATRIX
 /// -------------------- ///
-inline Core::Matrix4 Camera::getProjMatrix() const {
+inline Core::Matrix4 Engine::Camera::getProjMatrix() const {
     return m_projMatrix;
 }
 
-inline void Camera::setProjMatrix( const Core::Matrix4& projectionMatrix ) {
+inline void Engine::Camera::setProjMatrix( const Core::Matrix4& projectionMatrix ) {
     m_projMatrix = projectionMatrix;
 }
 
