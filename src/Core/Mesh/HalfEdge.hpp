@@ -3,7 +3,7 @@
 
 #include <Core/Mesh/MeshTypes.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
     struct TriangleMesh;
 
@@ -57,7 +57,7 @@ namespace Ra
         /// Array mapping one triangle to one of the half edges starting from it.
         std::vector<HalfEdgeIdx> m_triangleToHalfEdge;
     };
-}
+}}
 
 #include <Core/Mesh/HalfEdge.inl>
 

@@ -25,9 +25,9 @@ Entity* EntityManager::createEntity()
     return ent.get();
 }
 
-void EntityManager::removeEntity(Index idx)
+void EntityManager::removeEntity(Core::Index idx)
 {
-    CORE_ASSERT(idx != Index::INVALID_IDX() && m_entities.contain(idx),
+    CORE_ASSERT(idx != Core::Index::INVALID_IDX() && m_entities.contain(idx),
                 "Trying to remove an entity that has not been added to the manager.");
 
     auto ent = m_entities[idx];
@@ -43,9 +43,9 @@ void EntityManager::removeEntity(Entity* entity)
     removeEntity(entity->idx);
 }
 
-Entity* EntityManager::getEntity(Index idx) const
+Entity* EntityManager::getEntity(Core::Index idx) const
 {
-    CORE_ASSERT(idx != Index::INVALID_IDX(), "Trying to access an invalid component.");
+    CORE_ASSERT(idx != Core::Index::INVALID_IDX(), "Trying to access an invalid component.");
 
     Entity* ent = nullptr;
 

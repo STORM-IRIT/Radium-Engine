@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace Ra
+namespace Ra { namespace Core
 {
     /// A collection of utilities for std::string.
     namespace StringUtils
@@ -48,6 +48,6 @@ namespace Ra
         /// @return a vector containing n substrings given a split token.
         std::vector<std::string> splitString(const std::string& str, char token);
     }
-}
+}}
 
 #endif //RADIUMENGINE_STRINGUTILS_HPP

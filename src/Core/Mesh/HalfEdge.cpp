@@ -3,7 +3,7 @@
 #include <map>
 #include <Core/Mesh/TriangleMesh.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
     namespace
     {
@@ -120,4 +120,4 @@ namespace Ra
             }
         }
     }
-}
+}}

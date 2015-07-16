@@ -1,4 +1,4 @@
-namespace Ra
+namespace Ra { namespace Core
 {
 
 /// COPY
@@ -20,4 +20,4 @@ inline void Index::setValue( const int i ) { m_idx = ( i < 0 ) ? s_invalid : i; 
        inline Index& Index::operator++() { m_idx++; return *this; }
        inline Index& Index::operator--() { if( m_idx != s_invalid ) m_idx--; return *this; }
 
-} // namespace Ra
+}} // namespace Ra::Core

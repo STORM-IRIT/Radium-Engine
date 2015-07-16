@@ -4,7 +4,7 @@
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/Vector.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
     // todo : enclose this in a more specific namespace ?
     typedef Vector2i Edge;
@@ -15,6 +15,6 @@ namespace Ra
     typedef uint HalfEdgeIdx;
 
     enum {InvalidIdx = uint(-1)};
-}
+}}
 
 #endif //RADIUMENGINE_MESHTYPES_HPP

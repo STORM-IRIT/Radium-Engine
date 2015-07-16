@@ -4,7 +4,7 @@
 #include <Core/CoreMacros.hpp>
 #include <Core/Event/EventEnums.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
 
 struct MouseEvent
@@ -31,6 +31,6 @@ struct MouseEvent
     Scalar wheelDelta;
 };
 
-}
+}}
 
 #endif // RADIUMENGINE_MOUSEEVENT_HPP

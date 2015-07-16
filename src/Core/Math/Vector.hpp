@@ -16,7 +16,7 @@
 // Use this to force vec3 to be aligned for vectorization (FIXME not working yet)
 // #define CORE_USE_ALIGNED_VEC3
 
-namespace Ra
+namespace Ra { namespace Core
 {
     //
     // Common vector types
@@ -74,7 +74,8 @@ namespace Ra
     inline Quaternion operator* (const Scalar& k, const Quaternion& q);
 
 
-} // end namespace Ra
+}} // end namespace Ra::Core
+
 #include <Core/Math/Vector.inl>
 
 #endif// RADIUMENGINE_VECTOR_HPP

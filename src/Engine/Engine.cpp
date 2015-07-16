@@ -38,9 +38,9 @@ void RadiumEngine::setupScene()
 
     Mesh* mesh = new Mesh("Mesh");
     VertexData v0, v1, v2;
-    v0.position = Vector3(-0.5, -0.5, 0);
-    v1.position = Vector3(0, 0.5, 0);
-    v2.position = Vector3(0.5, -0.5, 0);
+    v0.position = Core::Vector3(-0.5, -0.5, 0);
+    v1.position = Core::Vector3(0, 0.5, 0);
+    v2.position = Core::Vector3(0.5, -0.5, 0);
     MeshData d;
     d.vertices = {v0, v1, v2};
     d.indices  = {0, 2, 1};
@@ -70,8 +70,8 @@ void RadiumEngine::run()
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
         m_angle += 0.05;
-        m_entity->setTransform(Transform(AngleAxis(std::sin(m_angle),
-                                                   Vector3(0.0, 1.0, 0.0))));
+        m_entity->setTransform(Core::Transform(Core::AngleAxis(std::sin(m_angle),
+                                                   Core::Vector3(0.0, 1.0, 0.0))));
     }
 
     cleanup();

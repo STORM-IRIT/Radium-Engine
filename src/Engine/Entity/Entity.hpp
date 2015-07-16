@@ -15,29 +15,29 @@ namespace Ra
 
 class Component;
 
-class Entity : public IndexedObject
+class Entity : public Core::IndexedObject
 {
 public:
     Entity();
     ~Entity();
 
-    inline void setTransform(const Transform& transform);
-    inline void setTransform(const Matrix4& transform);
-    Transform getTransform() const;
-    Matrix4 getTransformAsMatrix() const;
+    inline void setTransform(const Core::Transform& transform);
+    inline void setTransform(const Core::Matrix4& transform);
+    Core::Transform getTransform() const;
+    Core::Matrix4 getTransformAsMatrix() const;
 
     void addComponent(Component* component);
 
-    void removeComponent(Index idx);
+    void removeComponent(Core::Index idx);
     void removeComponent(Component* component);
 
-    Component* getComponent(Index idx);
+    Component* getComponent(Core::Index idx);
 
 private:
-    typedef std::pair<Index, Component*> ComponentByIndex;
-    std::map<Index, Component*> m_components;
+    typedef std::pair<Core::Index, Component*> ComponentByIndex;
+    std::map<Core::Index, Component*> m_components;
 
-    Transform m_transform;
+    Core::Transform m_transform;
 
     mutable std::mutex m_transformMutex;
 };

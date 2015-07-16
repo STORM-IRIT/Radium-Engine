@@ -21,15 +21,15 @@ ComponentManager::~ComponentManager()
 
 void ComponentManager::addComponent(Component* component)
 {
-    CORE_ASSERT(component->idx == Index::INVALID_IDX(),
+    CORE_ASSERT(component->idx == Core::Index::INVALID_IDX(),
                 "The component has already been added to the Manager.");
 
     component->idx = m_components.insert(std::shared_ptr<Component>(component));
 }
 
-void ComponentManager::removeComponent(Index idx)
+void ComponentManager::removeComponent(Core::Index idx)
 {
-    CORE_ASSERT(idx != Index::INVALID_IDX() && m_components.contain(idx),
+    CORE_ASSERT(idx != Core::Index::INVALID_IDX() && m_components.contain(idx),
                 "Trying to remove a component thas has not been added to the manager.");
 
     auto comp = m_components[idx];
@@ -45,9 +45,9 @@ void ComponentManager::removeComponent(Component* component)
     removeComponent(component->idx);
 }
 
-Component* ComponentManager::getComponent(Index idx) const
+Component* ComponentManager::getComponent(Core::Index idx) const
 {
-    CORE_ASSERT(idx != Index::INVALID_IDX(), "Trying to access an invalid component.");
+    CORE_ASSERT(idx != Core::Index::INVALID_IDX(), "Trying to access an invalid component.");
 
     Component* comp = nullptr;
 

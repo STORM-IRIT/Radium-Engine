@@ -12,9 +12,9 @@ namespace Ra
 
 class Component;
 
-class ComponentManager : public Singleton<ComponentManager>
+class ComponentManager : public Core::Singleton<ComponentManager>
 {
-    friend class Singleton<ComponentManager>;
+    friend class Core::Singleton<ComponentManager>;
 
 public:
     /**
@@ -28,7 +28,7 @@ public:
      * @brief Remove a component given its index. Also deletes the pointer.
      * @param idx Index of the component to remove.
      */
-    void removeComponent(Index idx);
+    void removeComponent(Core::Index idx);
 
     /**
      * @brief Remove a given component. Also deletes the pointer.
@@ -41,7 +41,7 @@ public:
      * @param idx Index of the component to retrieve.
      * @return The component if found in the map, nullptr otherwise.
      */
-    Component* getComponent(Index idx) const;
+    Component* getComponent(Core::Index idx) const;
 
 private:
     /// CONSTRUCTOR
@@ -51,7 +51,7 @@ private:
     virtual ~ComponentManager();
 
 private:
-    IndexMap<std::shared_ptr<Component>> m_components;
+    Core::IndexMap<std::shared_ptr<Component>> m_components;
 };
 
 } // namespace Ra

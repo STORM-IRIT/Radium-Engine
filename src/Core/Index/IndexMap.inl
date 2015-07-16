@@ -1,4 +1,4 @@
-namespace Ra
+namespace Ra { namespace Core
 {
 
 /// CONSTRUCTOR
@@ -187,4 +187,4 @@ inline bool IndexMap<T>::remove_free_index( Index& idx ) {
     return true;
 }
 
-} // namespace Ra
+}} // namespace Ra::Core

@@ -57,8 +57,8 @@ void ForwardRenderer::initializeGL(uint width, uint height)
 	initBuffers();
 
 	m_camera = std::make_shared<Camera>();
-    m_camera->setPosition(Vector3(0, 2, -5), Camera::ModeType::TARGET);
-    m_camera->setTargetPoint(Vector3(0, 0, 0));
+    m_camera->setPosition(Core::Vector3(0, 2, -5), Camera::ModeType::TARGET);
+    m_camera->setTargetPoint(Core::Vector3(0, 0, 0));
     m_camera->updateProjMatrix(m_width, m_height);
 }
 
@@ -121,27 +121,27 @@ void ForwardRenderer::resize(uint width, uint height)
     GL_ASSERT(glReadBuffer(GL_BACK));
 }
 
-bool ForwardRenderer::handleMouseEvent(const MouseEvent& event)
+bool ForwardRenderer::handleMouseEvent(const Core::MouseEvent& event)
 {
     switch (event.event)
     {
-        case MouseEventType::MOUSE_RELEASED:
+        case Core::MouseEventType::MOUSE_RELEASED:
         {
             switch (event.button)
             {
-                case MouseButton::MOUSE_LEFT_BUTTON:
+                case Core::MouseButton::MOUSE_LEFT_BUTTON:
                 {
                     fprintf(stderr, "Left button released at (%.0f %.0f) - relative position is (%0.3f %0.3f)\n",
                            event.absoluteXPosition, event.absoluteYPosition, event.relativeXPosition, event.relativeYPosition);
                 } break;
 
-                case MouseButton::MOUSE_MIDDLE_BUTTON:
+                case Core::MouseButton::MOUSE_MIDDLE_BUTTON:
                 {
                     fprintf(stderr, "Middle button released at (%.0f %.0f) - relative position is (%0.3f %0.3f)\n",
                            event.absoluteXPosition, event.absoluteYPosition, event.relativeXPosition, event.relativeYPosition);
                 } break;
 
-                case MouseButton::MOUSE_RIGHT_BUTTON:
+                case Core::MouseButton::MOUSE_RIGHT_BUTTON:
                 {
                     fprintf(stderr, "Right button released at (%.0f %.0f) - relative position is (%0.3f %0.3f)\n",
                            event.absoluteXPosition, event.absoluteYPosition, event.relativeXPosition, event.relativeYPosition);
@@ -153,15 +153,15 @@ bool ForwardRenderer::handleMouseEvent(const MouseEvent& event)
     return false;
 }
 
-bool ForwardRenderer::handleKeyEvent(const KeyEvent &event)
+bool ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
 {
     switch (event.key)
     {
         // Reload shaders on Ctrl+R
         case Qt::Key_R:
         {
-            if (event.event == KeyEventType::KEY_RELEASED
-                    && event.modifier & Modifier::CTRL_KEY)
+            if (event.event == Core::KeyEventType::KEY_RELEASED
+                    && event.modifier & Core::Modifier::CTRL_KEY)
             {
                 ShaderProgramManager::getInstancePtr()->reloadAllShaderPrograms();
                 return true;

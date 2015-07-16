@@ -5,7 +5,7 @@
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/MeshTypes.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
     /// A very basic structure representing a triangle mesh which stores the bare minimum :
     /// vertices, faces and normals. See MeshUtils for geometric functions operating on a mesh.
@@ -27,7 +27,7 @@ namespace Ra
         VectorArray<Vector3>  m_normals;
         VectorArray<Triangle> m_triangles;
     };
-}
+}}
 
 #include <Core/Mesh/TriangleMesh.inl>
 

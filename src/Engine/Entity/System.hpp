@@ -55,7 +55,7 @@ public:
      *
      * @param id The id of the component to remove
      */
-    void removeComponent(Index idx);
+    void removeComponent(Core::Index idx);
 
     /**
       * @brief Remove a component from the system.
@@ -68,17 +68,17 @@ public:
      * @param event The keyboard event to handle
      * @return true if the event has been handled, false otherwise.
      */
-    virtual bool handleKeyEvent(const KeyEvent& event) { return false; }
+    virtual bool handleKeyEvent(const Core::KeyEvent& event) { return false; }
 
     /**
      * @brief Handle a mouse event.
      * @param event The mouse event to handle
      * @return true if the event has been handled, false otherwise.
      */
-    virtual bool handleMouseEvent(const MouseEvent& event) { return false; }
+    virtual bool handleMouseEvent(const Core::MouseEvent& event) { return false; }
 
 protected:
-    std::map<Index, Component*> m_components;
+    std::map<Core::Index, Component*> m_components;
 };
 
 } // namespace Ra

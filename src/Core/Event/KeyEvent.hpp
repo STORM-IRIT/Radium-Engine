@@ -3,7 +3,7 @@
 
 #include <Core/Event/EventEnums.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
 
 struct KeyEvent
@@ -17,6 +17,6 @@ struct KeyEvent
     int modifier;
 };
 
-} // namespace Ra
+}} // namespace Ra::Core
 
 #endif // RADIUMENGINE_KEYEVENT_HPP

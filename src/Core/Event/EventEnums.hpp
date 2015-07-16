@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_EVENTENUMS_HPP
 #define RADIUMENGINE_EVENTENUMS_HPP
 
-namespace Ra
+namespace Ra { namespace Core
 {
 
 namespace Modifier
@@ -44,6 +44,6 @@ namespace MouseButton
     };
 }
 
-} // namespace Ra
+}} // namespace Ra::Core
 
 #endif // RADIUMENGINE_EVENTENUMS_HPP

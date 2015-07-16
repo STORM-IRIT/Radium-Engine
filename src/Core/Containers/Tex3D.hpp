@@ -4,7 +4,7 @@
 #include <Core/Math/Vector.hpp>
 #include <Core/Containers/Grid.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
     /// This class stores a discretized 3D function defined inside a 3D
     /// bounding box. It evaluates the function at a given point in space
@@ -31,6 +31,6 @@ namespace Ra
         Vector3 m_cellSize;
     };
 
-}
+}}
 #include <Core/Containers/Tex3D.inl>
 #endif //RADIUMENGINE_TEX3D_HPP

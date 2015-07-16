@@ -3,7 +3,7 @@
 
 #include <limits>
 
-namespace Ra
+namespace Ra { namespace Core
 {
 
 class Index {
@@ -63,7 +63,7 @@ private:
     static const int s_maxIdx = std::numeric_limits<int>::max();
 };
 
-} // namespace Ra
+}} // namespace Ra::Core
 
 #include <Core/Index/Index.inl>
 

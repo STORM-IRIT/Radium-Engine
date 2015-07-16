@@ -4,12 +4,12 @@
 #include <Eigen/Core>
 #include <Core/CoreMacros.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
     /// This class stores a D-dimensional grid of elements of arbitrary type.
     /// in a contiguous memory block. Elements are stored in column-major order.
     /// e.g. for a 3x3x3 array the element vector looks like
-    //  [A000, A100, A200, A010,... A222].
+    ///  [A000, A100, A200, A010,... A222].
     /// Elements are accessible with a D-dimensional Vector, or linearly with
     /// iterators, thanks to the std-like interface provided.
     template <typename T, uint D>
@@ -71,7 +71,7 @@ namespace Ra
 
     };
 
-}
+}}
 
 #include <Core/Containers/Grid.inl>
 

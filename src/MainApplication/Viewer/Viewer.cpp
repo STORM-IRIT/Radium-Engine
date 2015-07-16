@@ -82,9 +82,9 @@ void Viewer::resizeGL(int width, int height)
 
 void Viewer::mousePressEvent(QMouseEvent* event)
 {
-    MouseEvent e;
+    Core::MouseEvent e;
     mouseEventQtToRadium(event, &e);
-    e.event = MouseEventType::MOUSE_PRESSED;
+    e.event = Core::MouseEventType::MOUSE_PRESSED;
 
     if (!m_renderer->handleMouseEvent(e))
     {
@@ -94,9 +94,9 @@ void Viewer::mousePressEvent(QMouseEvent* event)
 
 void Viewer::mouseReleaseEvent(QMouseEvent* event)
 {
-    MouseEvent e;
+    Core::MouseEvent e;
     mouseEventQtToRadium(event, &e);
-    e.event = MouseEventType::MOUSE_RELEASED;
+    e.event = Core::MouseEventType::MOUSE_RELEASED;
 
     if (!m_renderer->handleMouseEvent(e))
     {
@@ -106,9 +106,9 @@ void Viewer::mouseReleaseEvent(QMouseEvent* event)
 
 void Viewer::mouseMoveEvent(QMouseEvent* event)
 {
-    MouseEvent e;
+    Core::MouseEvent e;
     mouseEventQtToRadium(event, &e);
-    e.event = MouseEventType::MOUSE_MOVED;
+    e.event = Core::MouseEventType::MOUSE_MOVED;
 
     if (!m_renderer->handleMouseEvent(e))
     {
@@ -118,8 +118,8 @@ void Viewer::mouseMoveEvent(QMouseEvent* event)
 
 void Viewer::wheelEvent(QWheelEvent* event)
 {
-    MouseEvent e;
-    e.event = MouseEventType::MOUSE_WHEEL;
+    Core::MouseEvent e;
+    e.event = Core::MouseEventType::MOUSE_WHEEL;
     e.wheelDelta = static_cast<Scalar>(event->delta());
 
     Scalar x = static_cast<Scalar>(event->x());
@@ -137,9 +137,9 @@ void Viewer::wheelEvent(QWheelEvent* event)
 
 void Viewer::keyPressEvent(QKeyEvent* event)
 {
-    KeyEvent e;
+    Core::KeyEvent e;
     keyEventQtToRadium(event, &e);
-    e.event = KeyEventType::KEY_PRESSED;
+    e.event = Core::KeyEventType::KEY_PRESSED;
 
     if (!m_renderer->handleKeyEvent(e))
     {
@@ -149,9 +149,9 @@ void Viewer::keyPressEvent(QKeyEvent* event)
 
 void Viewer::keyReleaseEvent(QKeyEvent* event)
 {
-    KeyEvent e;
+    Core::KeyEvent e;
     keyEventQtToRadium(event, &e);
-    e.event = KeyEventType::KEY_RELEASED;
+    e.event = Core::KeyEventType::KEY_RELEASED;
 
     if (!m_renderer->handleKeyEvent(e))
     {
@@ -159,23 +159,23 @@ void Viewer::keyReleaseEvent(QKeyEvent* event)
     }
 }
 
-void Viewer::mouseEventQtToRadium(QMouseEvent* qtEvent, MouseEvent* raEvent)
+void Viewer::mouseEventQtToRadium(QMouseEvent* qtEvent, Core::MouseEvent* raEvent)
 {
     switch (qtEvent->button())
     {
         case Qt::LeftButton:
         {
-            raEvent->button = MouseButton::MOUSE_LEFT_BUTTON;
+            raEvent->button = Core::MouseButton::MOUSE_LEFT_BUTTON;
         } break;
 
         case Qt::MiddleButton:
         {
-            raEvent->button = MouseButton::MOUSE_MIDDLE_BUTTON;
+            raEvent->button = Core::MouseButton::MOUSE_MIDDLE_BUTTON;
         } break;
 
         case Qt::RightButton:
         {
-            raEvent->button = MouseButton::MOUSE_RIGHT_BUTTON;
+            raEvent->button = Core::MouseButton::MOUSE_RIGHT_BUTTON;
         } break;
 
         default:
@@ -187,17 +187,17 @@ void Viewer::mouseEventQtToRadium(QMouseEvent* qtEvent, MouseEvent* raEvent)
 
     if (qtEvent->modifiers().testFlag(Qt::ControlModifier))
     {
-        raEvent->modifier |= Modifier::CTRL_KEY;
+        raEvent->modifier |= Core::Modifier::CTRL_KEY;
     }
 
     if (qtEvent->modifiers().testFlag(Qt::ShiftModifier))
     {
-        raEvent->modifier |= Modifier::SHIFT_KEY;
+        raEvent->modifier |= Core::Modifier::SHIFT_KEY;
     }
 
     if (qtEvent->modifiers().testFlag(Qt::AltModifier))
     {
-        raEvent->modifier |= Modifier::ALT_KEY;
+        raEvent->modifier |= Core::Modifier::ALT_KEY;
     }
 
     Scalar x = static_cast<Scalar>(qtEvent->x());
@@ -208,7 +208,7 @@ void Viewer::mouseEventQtToRadium(QMouseEvent* qtEvent, MouseEvent* raEvent)
     raEvent->relativeYPosition = y / static_cast<Scalar>(height());
 }
 
-void Viewer::keyEventQtToRadium(QKeyEvent* qtEvent, KeyEvent* raEvent)
+void Viewer::keyEventQtToRadium(QKeyEvent* qtEvent, Core::KeyEvent* raEvent)
 {
     raEvent->key = qtEvent->key();
 
@@ -216,17 +216,17 @@ void Viewer::keyEventQtToRadium(QKeyEvent* qtEvent, KeyEvent* raEvent)
 
     if (qtEvent->modifiers().testFlag(Qt::ControlModifier))
     {
-        raEvent->modifier |= Modifier::CTRL_KEY;
+        raEvent->modifier |= Core::Modifier::CTRL_KEY;
     }
 
     if (qtEvent->modifiers().testFlag(Qt::ShiftModifier))
     {
-        raEvent->modifier |= Modifier::SHIFT_KEY;
+        raEvent->modifier |= Core::Modifier::SHIFT_KEY;
     }
 
     if (qtEvent->modifiers().testFlag(Qt::AltModifier))
     {
-        raEvent->modifier |= Modifier::ALT_KEY;
+        raEvent->modifier |= Core::Modifier::ALT_KEY;
     }
 }
 

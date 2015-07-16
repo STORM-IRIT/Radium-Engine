@@ -5,7 +5,7 @@
 
 #include <Core/Math/Vector.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
     /// This class is a wrapper around a std::vector of Ra::Vectors (aka Eigen::Vector4)
     /// which allow to use the stdlib's dynamic array implementation, yet pass it as 
@@ -37,7 +37,7 @@ namespace Ra
         }
 
     };
-}
+}}
 
 
 #endif //RADIUMENGINE_VECTORARRAY_HPP

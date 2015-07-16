@@ -262,20 +262,20 @@ uint Texture::getZOffset() const
     return m_zoffset;
 }
 
-Color Texture::getTexel(Scalar u) const
+Core::Color Texture::getTexel(Scalar u) const
 {
     // TODO (Charly)
-    return Color(0, 0, 0, 1);
+    return Core::Color(0, 0, 0, 1);
 }
-Color Texture::getTexel(Scalar u, Scalar v) const
+Core::Color Texture::getTexel(Scalar u, Scalar v) const
 {
     // TODO (Charly)
-    return Color(0, 0, 0, 1);
+    return Core::Color(0, 0, 0, 1);
 }
-Color Texture::getTexel(Scalar u, Scalar v, Scalar w) const
+Core::Color Texture::getTexel(Scalar u, Scalar v, Scalar w) const
 {
     // TODO (Charly)
-    return Color(0, 0, 0, 1);
+    return Core::Color(0, 0, 0, 1);
 }
 
 } // namespace Ra

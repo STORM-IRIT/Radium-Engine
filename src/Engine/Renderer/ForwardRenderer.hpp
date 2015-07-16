@@ -27,8 +27,8 @@ public:
 
 	virtual void resize(uint width, uint height) override;
 
-    virtual bool handleMouseEvent(const MouseEvent& event) override;
-    virtual bool handleKeyEvent(const KeyEvent& event) override;
+    virtual bool handleMouseEvent(const Core::MouseEvent& event) override;
+    virtual bool handleKeyEvent(const Core::KeyEvent& event) override;
 
 private:
 	void initShaders();

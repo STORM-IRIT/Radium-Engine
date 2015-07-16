@@ -3,7 +3,7 @@
 
 #include <Core/Math/Vector.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
     /// A structure representing a ray in space with an origin and a direction.
     // TODO : use Eigen parametrized line ?
@@ -29,6 +29,6 @@ namespace Ra
         Vector3 m_direction;
     };
 
-}
+}}
 
 #endif //RADIUMENGINE_RAY_HPP

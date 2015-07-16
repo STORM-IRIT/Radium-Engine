@@ -16,7 +16,7 @@ class Entity;
  * It is also linked to some other components in an entity.
  * Each component share a transform through their entity.
  */
-class Component : public IndexedObject
+class Component : public Core::IndexedObject
 {
 public:
     /// CONSTRUCTOR

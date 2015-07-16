@@ -12,7 +12,7 @@ namespace Ra
 
 struct VertexData
 {
-    Vector3 position;
+    Core::Vector3 position;
 //    Vector3 normal;
 //    Vector3 tangent;
 //    Vector3 texcoord;

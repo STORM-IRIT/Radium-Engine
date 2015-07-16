@@ -8,20 +8,21 @@ namespace Ra {
 /// CONSTRUCTOR
 /// -------------------- ///
 Camera::Camera() :
-    m_frame     ( Transform::Identity() ),
-    m_fov       ( M_PI * 50.0 / 180.0   ),
+    m_frame     ( Core::Transform::Identity() ),
+    m_fov       ( M_PI * 50.0 / 180.0	),
     m_zNear     ( 1.0                   ),
     m_zFar      ( 1000.0                ),
     m_focalPoint( 1.0                   ),
     m_zoomFactor( 1.0                   ),
     m_projType  ( ProjType::PERSPECTIVE ),
-    m_viewMatrix( Matrix4::Identity()   ),
-    m_projMatrix( Matrix4::Identity()   )
+    m_viewMatrix( Core::Matrix4::Identity()),
+    m_projMatrix( Core::Matrix4::Identity())
 {
     updateViewMatrix();
 }
 
 Camera::Camera( const Camera& cam ) :
+    // FIXME : = default ?
     m_frame     ( cam.m_frame      ),
     m_fov       ( cam.m_fov        ),
     m_zNear     ( cam.m_zNear      ),
@@ -47,9 +48,9 @@ Camera::~Camera() { }
 /// -------------------- ///
 /// FRAME
 /// -------------------- ///
-void Camera::applyTransform( const Transform& T,
+void Camera::applyTransform( const Core::Transform& T,
                              const ModeType mode ) {
-    Transform trans;
+    Core::Transform trans;
     trans.setIdentity();
     switch( mode ) {
     case ModeType::FREE: {
@@ -74,14 +75,14 @@ void Camera::applyTransform( const Transform& T,
 /// VIEW MATRIX
 /// -------------------- ///
 void Camera::updateViewMatrix() {
-    const Vector3 e  = getPosition();
-    const Vector3 f  = getDirection().normalized();
-    const Vector3 up = getUpVector().normalized();
+    const Core::Vector3 e  = getPosition();
+    const Core::Vector3 f  = getDirection().normalized();
+    const Core::Vector3 up = getUpVector().normalized();
 
-    const Vector3 s = f.cross( up );
-    const Vector3 u = s.cross( f  );
+    const Core::Vector3 s = f.cross( up );
+    const Core::Vector3 u = s.cross( f  );
 
-    Matrix4 T(Matrix4::Identity());
+    Core::Matrix4 T(Core::Matrix4::Identity());
     T.block< 3, 1 >( 0, 3 ) = -e;
 
     m_viewMatrix.setIdentity();
@@ -110,7 +111,7 @@ void Camera::updateProjMatrix( const Scalar& width, const Scalar& height ) {
             const Scalar t =  dy; // top
             const Scalar b = -dy; // bottom
 
-            Vector3 tr;
+            Core::Vector3 tr;
             tr( 0 ) = -( r + l ) / ( r - l );
             tr( 1 ) = -( t + b ) / ( t - b );
             tr( 2 ) = -( ( m_zFar + m_zNear ) / ( m_zFar - m_zNear ) );

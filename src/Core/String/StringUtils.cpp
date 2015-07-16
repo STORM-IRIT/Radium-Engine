@@ -15,7 +15,7 @@
 #include <memory>
 #include <sstream>
 
-namespace Ra
+namespace Ra { namespace Core
 {
     namespace StringUtils
     {
@@ -151,4 +151,4 @@ namespace Ra
             return items;
         }
     }
-}
+}}

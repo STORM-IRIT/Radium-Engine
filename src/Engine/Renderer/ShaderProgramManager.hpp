@@ -15,9 +15,9 @@ namespace Ra
 class ShaderProgram;
 class ShaderConfiguration;
 
-class ShaderProgramManager : public Singleton<ShaderProgramManager>
+class ShaderProgramManager : public Core::Singleton<ShaderProgramManager>
 {
-	friend class Singleton<ShaderProgramManager>;
+    friend class Core::Singleton<ShaderProgramManager>;
 
 	enum class ShaderProgramStatus
 	{

@@ -3,7 +3,7 @@
 
 #include <Core/Math/Vector.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
     /// Dual quaternions are based on the dual-numbers algebra, somewhat
     /// analogous to complex numbers, but with the imaginary unit `e` defined
@@ -52,7 +52,7 @@ namespace Ra
         /// dual part
         Quaternion m_qe;
     };
-}
+}} // namespace Ra::Core
 
 #include <Core/Math/DualQuaternion.inl>
 

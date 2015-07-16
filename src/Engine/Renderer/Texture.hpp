@@ -264,7 +264,7 @@ public:
      * @param u The texel coordinate.
      * @return The texel color.
      */
-    Color getTexel(Scalar u) const;
+    Core::Color getTexel(Scalar u) const;
 
     /**
      * @brief Perform a 2D texture lookup.
@@ -272,7 +272,7 @@ public:
      * @param v The v texel coordinate.
      * @return The texel color.
      */
-    Color getTexel(Scalar u, Scalar v) const;
+    Core::Color getTexel(Scalar u, Scalar v) const;
 
     /**
      * @brief Perform a 3D texture lookup.
@@ -281,7 +281,7 @@ public:
      * @param s The third texel coordinate.
      * @return The texel color.
      */
-    Color getTexel(Scalar u, Scalar v, Scalar s) const;
+    Core::Color getTexel(Scalar u, Scalar v, Scalar s) const;
 
 private:
     Texture(const Texture&) = delete;

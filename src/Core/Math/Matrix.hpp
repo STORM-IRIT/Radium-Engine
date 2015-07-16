@@ -7,13 +7,13 @@
 
 #include <Core/CoreMacros.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
 
 	typedef Eigen::Matrix<Scalar, 4, 4> Matrix4;
 	typedef Eigen::Matrix<Scalar, 3, 3> Matrix3;
 	typedef Eigen::Matrix<Scalar, 2, 2> Matrix2;
 
-} // namespace Ra;
+}} // namespace Ra::Core
 
 #endif // RADIUMENGINE_MATRIX_HPP

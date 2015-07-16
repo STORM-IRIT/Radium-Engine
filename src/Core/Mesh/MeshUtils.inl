@@ -1,6 +1,6 @@
 #include "MeshUtils.hpp"
 
-namespace Ra
+namespace Ra { namespace Core
 {
     namespace MeshUtils
     {
@@ -42,4 +42,4 @@ namespace Ra
             return Aabb(min, max);
         }
     }
-}
+}}

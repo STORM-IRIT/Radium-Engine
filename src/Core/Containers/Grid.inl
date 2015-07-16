@@ -1,6 +1,6 @@
 #include "Grid.hpp"
 
-namespace Ra
+namespace Ra { namespace Core
 {
     // Anonymous helper functions to convert to/from multi-dimensional indices
     // If we want to  make the grid row-major we just need to overload these functions
@@ -155,4 +155,4 @@ namespace Ra
     {
         return m_data.cend();
     }
-}
+}}

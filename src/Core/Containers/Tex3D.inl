@@ -1,6 +1,6 @@
 #include "Tex3D.hpp"
 
-namespace Ra
+namespace Ra { namespace Core
 {
     template<typename T>
     Tex3D<T>::Tex3D(const Vector3i& resolution,
@@ -62,4 +62,4 @@ namespace Ra
         T result = c0 * (1.f - diff.z()) + c1 * diff.z();
         return result;
     }
-}
+}}

@@ -1,6 +1,6 @@
 #include "DualQuaternion.hpp"
 
-namespace Ra
+namespace Ra { namespace Core
 {
 
     inline const Quaternion& DualQuaternion::getQ0() const
@@ -49,4 +49,4 @@ namespace Ra
         m_q0.normalize();
         m_qe = (1.f/norm)* m_qe;
     }
-}
+}}

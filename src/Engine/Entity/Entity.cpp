@@ -8,7 +8,7 @@ namespace Ra
 
 Entity::Entity()
     : IndexedObject()
-    , m_transform(Transform::Identity())
+    , m_transform(Core::Transform::Identity())
 {
 }
 
@@ -18,7 +18,7 @@ Entity::~Entity()
 
 void Entity::addComponent(Component* component)
 {
-    Index idx = component->idx;
+    Core::Index idx = component->idx;
 
     char err[100];
     snprintf(err, 100, "Component %d has already been added to the entity.", idx.getValue());
@@ -29,9 +29,9 @@ void Entity::addComponent(Component* component)
     component->setEntity(this);
 }
 
-Component* Entity::getComponent(Index idx)
+Component* Entity::getComponent(Core::Index idx)
 {
-    CORE_ASSERT(idx != Index::INVALID_IDX(), "Trying to access an invalid component");
+    CORE_ASSERT(idx != Core::Index::INVALID_IDX(), "Trying to access an invalid component");
 
     Component* comp = nullptr;
 
@@ -44,7 +44,7 @@ Component* Entity::getComponent(Index idx)
     return comp;
 }
 
-void Entity::removeComponent(Index idx)
+void Entity::removeComponent(Core::Index idx)
 {
     char buff[100];
     snprintf(buff, 100, "The component of id %ud is not part of the entity.", idx.getValue());

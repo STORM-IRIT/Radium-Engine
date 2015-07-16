@@ -5,7 +5,7 @@
 #include <cstdio>
 #include <typeinfo>
 
-namespace Ra
+namespace Ra { namespace Core
 {
 
 template <typename T>
@@ -68,6 +68,6 @@ private:
 
 template <typename T> T* Singleton<T>::s_instance = nullptr;
 
-} // namespace Ra
+}} // namespace Ra::Core
 
 #endif // RADIUMENGINE_SINGLETON_HPP

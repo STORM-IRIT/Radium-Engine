@@ -48,43 +48,43 @@ public:
     /// FRAME
     /// -------------------- ///
     // Return the frame of the camera
-    inline Transform getFrame() const;
+    inline Core::Transform getFrame() const;
 
     // Set the frame of the camera to 'frame'
-    inline void setFrame( const Transform& frame );
+    inline void setFrame( const Core::Transform& frame );
 
     // Return the position.
-    inline Vector3 getPosition() const;
+    inline Core::Vector3 getPosition() const;
 
     // Set the position of the camera to 'position'.
     // If 'mode' is TARGET, the camera will be rotated in order to keep facing the FOCAL POINT
-    inline void setPosition( const Vector3& position,
+    inline void setPosition( const Core::Vector3& position,
                              const ModeType mode = ModeType::FREE );
 
     // Return the direction.
-    inline Vector3 getDirection() const;
+    inline Core::Vector3 getDirection() const;
 
     // Set the direction of the camera to 'direction'.
     // The other vectors will be rotated accordingly.
-    inline void setDirection( const Vector3& direction );
+    inline void setDirection( const Core::Vector3& direction );
 
     // Return the up vector.
-    inline Vector3 getUpVector() const;
+    inline Core::Vector3 getUpVector() const;
 
     // Set the up vector of the camera to 'upVector'.
     // The other vectors will be rotated accordingly.
-    inline void setUpVector( const Vector3& upVector );
+    inline void setUpVector( const Core::Vector3& upVector );
 
     // Return the right vector.
-    inline Vector3 getRightVector() const;
+    inline Core::Vector3 getRightVector() const;
 
     // Set the right vector of the camera to 'rightVector'.
     // The other vectors will be rotated accordingly.
-    inline void setRightVector( const Vector3& rightVector );
+    inline void setRightVector( const Core::Vector3& rightVector );
 
     // Apply the transformation 'T' to the camera.
     // If 'mode' is TARGET, the camera will be rotated in order to keep facing the FOCAL POINT
-    void applyTransform( const Transform& T,
+    void applyTransform( const Core::Transform& T,
                          const ModeType mode = ModeType::FREE );
 
 
@@ -130,10 +130,10 @@ public:
     /// FOCAL POINT
     /// -------------------- ///
     // Return the focal point.
-    inline Vector3 getTargetPoint() const;
+    inline Core::Vector3 getTargetPoint() const;
 
     // Set the focal point to 'focalPoint'.
-    inline void setTargetPoint( const Vector3& targetPoint );
+    inline void setTargetPoint( const Core::Vector3& targetPoint );
 
     // Return the distance of the  focal point from the camera.
     inline Scalar getFocalPointDistance() const;
@@ -171,10 +171,10 @@ public:
     /// VIEW MATRIX
     /// -------------------- ///
     // Return the view matrix.
-    inline Matrix4 getViewMatrix() const;
+    inline Core::Matrix4 getViewMatrix() const;
 
     // Set the view matrix to 'viewMatrix'.
-    inline void setViewMatrix( const Matrix4& viewMatrix );
+    inline void setViewMatrix( const Core::Matrix4& viewMatrix );
 
     // Update the view matrix.
     void updateViewMatrix();
@@ -186,10 +186,10 @@ public:
     /// PROJECTION MATRIX
     /// -------------------- ///
     // Return the projection matrix.
-    inline Matrix4 getProjMatrix() const;
+    inline Core::Matrix4 getProjMatrix() const;
 
     // Set the projection matrix to 'projectionMatrix'.
-    inline void setProjMatrix( const Matrix4& projectionMatrix );
+    inline void setProjMatrix( const Core::Matrix4& projectionMatrix );
 
     // Update the projection matrix.
     void updateProjMatrix( const Scalar& width, const Scalar& height );
@@ -200,15 +200,15 @@ private:
     /// -------------------- ///
     // Compute the rotation that brings 'v0' in 'v1'.
     // If 'v0' and 'v1' are opposite, uses 'defaultAxis' as the default rotation axis
-    inline Transform computeRotation( const Vector3& v0,
-                                      const Vector3& v1,
-                                      const Vector3& defaultAxis ) const;
+    inline Core::Transform computeRotation( const Core::Vector3& v0,
+                                      const Core::Vector3& v1,
+                                      const Core::Vector3& defaultAxis ) const;
 
 protected:
     /// -------------------- ///
     /// VARIABLE
     /// -------------------- ///
-    Transform m_frame;      // Camera frame
+    Core::Transform m_frame;      // Camera frame
 
     Scalar    m_fov;        // Field of view
     Scalar    m_zNear;      // Z Near plane distance
@@ -220,8 +220,8 @@ protected:
 
     ProjType  m_projType;   // Projection type
 
-    Matrix4   m_viewMatrix; // View matrix
-    Matrix4   m_projMatrix; // Projection matrix
+    Core::Matrix4   m_viewMatrix; // View matrix
+    Core::Matrix4   m_projMatrix; // Projection matrix
 };
 
 } // namespace Ra

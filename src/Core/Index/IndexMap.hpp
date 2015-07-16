@@ -7,7 +7,7 @@
 
 #include <Core/Index/Index.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
 
 template <typename T>
@@ -85,7 +85,7 @@ private:
     std::deque< Index > m_free;
 };
 
-} // namespace Ra
+}} // namespace Ra::Core
 
 #include <Core/Index/IndexMap.inl>
 

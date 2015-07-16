@@ -77,13 +77,13 @@ public:
 	void setUniform(const char* name, uint value) const;
 	void setUniform(const char* name, Scalar value) const;
 
-	void setUniform(const char* name, const Vector2&  value) const;
-	void setUniform(const char* name, const Vector3& value) const;
-	void setUniform(const char* name, const Vector4& value) const;
+    void setUniform(const char* name, const Core::Vector2&  value) const;
+    void setUniform(const char* name, const Core::Vector3& value) const;
+    void setUniform(const char* name, const Core::Vector4& value) const;
 
-	void setUniform(const char* name, const Matrix2& value) const;
-	void setUniform(const char* name, const Matrix3& value) const;
-	void setUniform(const char* name, const Matrix4& value) const;
+    void setUniform(const char* name, const Core::Matrix2& value) const;
+    void setUniform(const char* name, const Core::Matrix3& value) const;
+    void setUniform(const char* name, const Core::Matrix4& value) const;
 
 	// TODO (Charly) : Add Texture support
 	//void setUniform(const char* name, Texture* tex, int texUnit) const;

@@ -1,6 +1,6 @@
 #include "TriangleMesh.hpp"
 
-namespace Ra {
+namespace Ra { namespace Core {
     inline void TriangleMesh::clear() {
         m_vertices.clear();
         m_normals.clear();
@@ -24,4 +24,4 @@ namespace Ra {
             }
         }
     }
-}
+}}

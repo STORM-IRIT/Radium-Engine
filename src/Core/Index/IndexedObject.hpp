@@ -3,7 +3,7 @@
 
 #include <Core/Index/Index.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
 
 class IndexedObject {
@@ -19,6 +19,6 @@ public:
     Index idx;
 };
 
-} // namespace Ra
+}} // namespace Ra::Core
 
 #endif // RADIUMENGINE_INDEXEDOBJECT_HPP

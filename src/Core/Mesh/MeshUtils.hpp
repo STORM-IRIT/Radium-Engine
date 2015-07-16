@@ -6,7 +6,7 @@
 
 #include <Core/Mesh/TriangleMesh.hpp>
 
-namespace Ra
+namespace Ra { namespace Core
 {
     /// Functions to operate on a TriangleMesh
     namespace MeshUtils
@@ -35,7 +35,7 @@ namespace Ra
         bool findDuplicates(const TriangleMesh& mesh, std::vector<VertexIdx>& duplicatesMap);
 
     }
-}
+}}
 
 #include <Core/Mesh/MeshUtils.inl>
 

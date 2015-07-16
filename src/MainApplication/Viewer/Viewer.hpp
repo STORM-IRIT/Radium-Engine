@@ -11,9 +11,10 @@ namespace Ra
 
 class RadiumEngine;
 class RenderSystem;
-class KeyEvent;
-class MouseEvent;
-
+namespace Core {
+    class KeyEvent;
+    class MouseEvent;
+}
 // FIXME (Charly) : Which way do we want to be able to change renderers ?
 //					Can it be done during runtime ? Must it be at startup ? ...
 //					For now, default ForwardRenderer is used.
@@ -45,8 +46,8 @@ protected:
     virtual void keyPressEvent(QKeyEvent* event) override;
 
 private:
-    void mouseEventQtToRadium(QMouseEvent* qtEvent, MouseEvent* raEvent);
-    void keyEventQtToRadium(QKeyEvent* qtEvent, KeyEvent* raEvent);
+    void mouseEventQtToRadium(QMouseEvent* qtEvent, Core::MouseEvent* raEvent);
+    void keyEventQtToRadium(QKeyEvent* qtEvent, Core::KeyEvent* raEvent);
 
 private:
     RadiumEngine* m_engine;

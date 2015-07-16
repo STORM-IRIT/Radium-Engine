@@ -2,7 +2,7 @@
 
 #include <set>
 
-namespace Ra
+namespace Ra { namespace Core
 {
     namespace MeshUtils
     {
@@ -55,4 +55,4 @@ namespace Ra
             return hasDuplicates;
         }
     }
-}
+}}

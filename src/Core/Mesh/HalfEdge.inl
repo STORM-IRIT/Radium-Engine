@@ -1,4 +1,4 @@
-namespace Ra
+namespace Ra { namespace Core
 {
     HalfEdgeData::HalfEdgeData(const TriangleMesh& mesh)
     {
@@ -41,4 +41,4 @@ namespace Ra
         m_vertexToHalfEdge.clear();
         m_triangleToHalfEdge.clear();
     }
-}
+}}

@@ -12,9 +12,9 @@ namespace Ra
 
 class Entity;
 
-class EntityManager : public Singleton<EntityManager>
+class EntityManager : public Core::Singleton<EntityManager>
 {
-    friend class Singleton<EntityManager>;
+    friend class Core::Singleton<EntityManager>;
 
 public:
     /**
@@ -28,7 +28,7 @@ public:
      * @brief Remove an entity given its index. Also deletes the pointer.
      * @param idx Index if the entity to remove.
      */
-    void removeEntity(Index idx);
+    void removeEntity(Core::Index idx);
 
     /**
      * @brief Remove a given entity. Also deletes the pointer.
@@ -41,7 +41,7 @@ public:
      * @param idx Index of the component to retrieve.
      * @return The entity if found in the map, nullptr otherwise.
      */
-    Entity* getEntity(Index idx) const;
+    Entity* getEntity(Core::Index idx) const;
 
     /**
      * @brief Get all entities from the manager.
@@ -59,7 +59,7 @@ private:
     virtual ~EntityManager();
 
 private:
-    IndexMap<std::shared_ptr<Entity>> m_entities;
+    Core::IndexMap<std::shared_ptr<Entity>> m_entities;
 };
 
 } // namespace Ra
