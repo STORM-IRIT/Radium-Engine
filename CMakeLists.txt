@@ -8,9 +8,11 @@ if (UNIX)
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-pthread -g3 ${CMAKE_CXX_FLAGS_RELEASE}")
 endif(UNIX)
 
-if (${USE_DOUBLE} STREQUAL "true")
+if ("${USE_DOUBLE}" STREQUAL "true")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_USE_DOUBLE")
-  message("Compile using doubles.")
+  message("Compile using double precision.")
+else()
+  message("Compile using single precision.")
 endif()
 
 # CMake setups
