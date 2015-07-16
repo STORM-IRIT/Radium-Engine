@@ -24,22 +24,36 @@ namespace Ra { namespace Core
 
     /// Our default Eigen vector type is the 4D vector.
     typedef Eigen::Matrix<Scalar, 4, 1> Vector4;
+    typedef Eigen::Vector4f             Vector4f;
+    typedef Eigen::Vector4d             Vector4d;
 
 #ifndef CORE_USE_ALIGNED_VEC3
     typedef Eigen::Matrix<Scalar, 3, 1> Vector3;
+    typedef Eigen::Vector3f             Vector3f;
+    typedef Eigen::Vector3d             Vector3d;
 #else
     typedef Eigen::AlignedVector3<Scalar> Vector3;
 #endif
 
 	typedef Eigen::Matrix<Scalar, 2, 1> Vector2; 
+    typedef Eigen::Vector2f             Vector2f;
+    typedef Eigen::Vector2d             Vector2d;
 
     typedef Eigen::Quaternion<Scalar> Quaternion;
+    typedef Eigen::Quaternionf        Quaternionf;
+    typedef Eigen::Quaterniond        Quaterniond;
 
     typedef Eigen::Transform<Scalar, 3, Eigen::Affine> Transform;
+    typedef Eigen::Affine3f                            Transformf;
+    typedef Eigen::Affine3d                            Transformd;
 
     typedef Eigen::AlignedBox<Scalar, 3> Aabb;
+    typedef Eigen::AlignedBox3f          Aabbf;
+    typedef Eigen::AlignedBox3d          Aabbd;
 
     typedef Eigen::AngleAxis<Scalar> AngleAxis;
+    typedef Eigen::AngleAxisf        AngleAxisf;
+    typedef Eigen::AngleAxisd        AngleAxisd;
     // Todo : storage transform using quaternions ?
 
     // For consistency we redefine VectorXi in our namespace

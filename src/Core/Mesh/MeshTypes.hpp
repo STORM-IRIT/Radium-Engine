@@ -4,8 +4,8 @@
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/Vector.hpp>
 
-namespace Ra { namespace Core
-{
+namespace Ra { namespace Core {
+
     // todo : enclose this in a more specific namespace ?
     typedef Vector2i Edge;
     typedef Vector3i Triangle;
