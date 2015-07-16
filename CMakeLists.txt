@@ -3,9 +3,10 @@ project(RadiumEngine)
 cmake_minimum_required(VERSION 2.8.11)
 
 if (UNIX)
-  set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -DOSG_NOTIFY_LEVEL=DEBUG ${CMAKE_CXX_FLAGS_DEBUG} -pthread -g3 -std=c++11 -msse4.2")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -pthread -O3 -ffast-math -mfpmath=sse -msse4.2 -std=c++11")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-pthread -g3 ${CMAKE_CXX_FLAGS_RELEASE}")
+  set(CMAKE_CXX_FLAGS                "-Wall -Wextra  -pthread -std=c++11 -msse4.2 -Wno-sign-compare -Wno-unused-parameter ${CMAKE_CXX_FLAGS}")
+  set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -DOSG_NOTIFY_LEVEL=DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -O3 -ffast-math -mfpmath=sse -std=c++11")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 ${CMAKE_CXX_FLAGS_RELEASE}")
 endif(UNIX)
 
 if ("${USE_DOUBLE}" STREQUAL "true")

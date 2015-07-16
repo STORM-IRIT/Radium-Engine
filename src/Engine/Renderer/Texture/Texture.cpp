@@ -198,7 +198,8 @@ void Engine::Texture::setClamp(GLenum wrapS)
 
 void Engine::Texture::setClamp(GLenum wrapS, GLenum wrapT)
 {
-    assert((m_type == TEXTURE_2D) || (m_type == TEXTURE_CUBE) && "setClamp(s, t) cannot be called for this texture type.");
+    CORE_ASSERT((m_type == TEXTURE_2D) || (m_type == TEXTURE_CUBE),
+                "setClamp(s, t) cannot be called for this texture type.");
 
     GL_ASSERT(glBindTexture(m_target, m_textureId));
 
@@ -216,7 +217,7 @@ void Engine::Texture::setClamp(GLenum wrapS, GLenum wrapT)
 
 void Engine::Texture::setClamp(GLenum wrapS, GLenum wrapT, GLenum wrapR)
 {
-    assert(m_type == TEXTURE_3D && "setClamp(s, t, r) cannot be called for this texture type.");
+    CORE_ASSERT(m_type == TEXTURE_3D, "setClamp(s, t, r) cannot be called for this texture type.");
 
     GL_ASSERT(glBindTexture(m_target, m_textureId));
 

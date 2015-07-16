@@ -104,7 +104,7 @@ void Engine::Mesh::initGL()
     // Indices
     GL_ASSERT(glGenBuffers(1, &m_ibo));
     GL_ASSERT(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
-    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_data.m_triangles.size() * sizeof(Core::Vector3i),
+    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_data.m_triangles.size() * sizeof(Core::Triangle),
                            m_data.m_triangles.data(), GL_STATIC_DRAW));
 
     GL_ASSERT(glBindVertexArray(0));

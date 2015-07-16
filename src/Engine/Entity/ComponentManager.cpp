@@ -8,7 +8,7 @@ namespace Ra
 
 Engine::ComponentManager::~ComponentManager()
 {
-    for (int i = 0; i < m_components.size(); ++i)
+    for (uint i = 0; i < m_components.size(); ++i)
     {
         // FIXME (Charly): Check if every accessed idx is guaranted to exist.
         auto comp = m_components[i];

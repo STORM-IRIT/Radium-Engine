@@ -7,7 +7,7 @@ namespace Ra
 
 Engine::EntityManager::~EntityManager()
 {
-    for (int i = 0; i < m_entities.size(); ++i)
+    for (uint i = 0; i < m_entities.size(); ++i)
     {
         auto ent = m_entities[i];
         CORE_ASSERT(ent.unique(), "Non-unique entity about to be removed.");
@@ -63,7 +63,7 @@ std::vector<Engine::Entity*> Engine::EntityManager::getEntities() const
 
     entities.reserve(size);
 
-    for (int i = 0; i < size; ++i)
+    for (uint i = 0; i < size; ++i)
     {
         entities.push_back(m_entities.at(i).get());
     }

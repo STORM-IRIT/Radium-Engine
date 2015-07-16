@@ -62,7 +62,7 @@ inline T IndexMap<T>::at( const Index& idx ) const {
 
 template <typename T>
 inline T IndexMap<T>::at( const int i ) const {
-    assert( ( i >= 0 ) || ( i < m_data.size() ) || m_data.empty() );
+    assert( ( i >= 0 ) || ( uint(i) < m_data.size() ) || m_data.empty() );
     return m_data.at( i ).m_obj;
 }
 
@@ -93,7 +93,7 @@ inline T& IndexMap<T>::access( const Index& idx ) {
 
 template <typename T>
 inline T& IndexMap<T>::access( const int i ) {
-    assert( ( i >= 0 ) || ( i < m_data.size() ) || m_data.empty() );
+    assert( ( i >= 0 ) || ( uint(i) < m_data.size() ) || m_data.empty() );
     return m_data[i].m_obj;
 }
 

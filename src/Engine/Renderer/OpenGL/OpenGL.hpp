@@ -24,7 +24,7 @@ namespace Ra { namespace Engine {
 				fprintf(stderr, "OpenGL error (%s:%d, %s) : ERROR_UNKNOWN_BY_GLU (%d)\n", \
 						__FILE__, __LINE__, __STRING(x), err); \
 			else \
-				fprintf(stderr, "OpenGL error (%s:%s, %s) : %s (%d)\n", \
+                fprintf(stderr, "OpenGL error (%s:%d, %s) : %s (%d)\n", \
 						__FILE__, __LINE__, __STRING(x), errBuf, err); \
 		} \
     }
