@@ -3,7 +3,10 @@ Coolest engine ever made #yolo #swag
 
 
 ## Dependencies 
-Eigen (libeigen3-dev)
+* Eigen 3.2+ (in repository)
+* OpenGL 3+
+* QT Core, Widgets and OpenGL v5.4+ 
+* To build : CMake 2.8.11+  
 
 ## Building
 ```
