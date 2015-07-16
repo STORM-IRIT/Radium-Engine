@@ -355,6 +355,7 @@ void Engine::ShaderProgram::setUniform(const char* name, Scalar value) const
 void Engine::ShaderProgram::setUniform(const char* name, const Core::Vector2& value) const
 {
     GL_ASSERT(glUniform2fv(glGetUniformLocation(m_shaderId, name), 1, value.data()));
+}
 #else
 void Engine::ShaderProgram::setUniform(const char* name, const Core::Vector2& value) const
 {
