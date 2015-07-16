@@ -1,5 +1,6 @@
 #include <Engine/Renderer/Mesh.hpp>
 
+#include <Core/Mesh/MeshUtils.hpp>
 #include <Engine/Renderer/OpenGL.hpp>
 
 namespace Ra
@@ -8,14 +9,13 @@ namespace Ra
 Engine::Mesh::Mesh(const std::string& name)
     : Engine::Drawable(name)
     , m_initialized(false)
-    , m_numVertices(0)
-    , m_numIndices(0)
 {
 }
 
 Engine::Mesh::~Mesh()
 {
     GL_ASSERT(glDeleteBuffers(1, &m_ibo));
+    GL_ASSERT(glDeleteBuffers(1, &m_nbo));
     GL_ASSERT(glDeleteBuffers(1, &m_vbo));
     GL_ASSERT(glDeleteVertexArrays(1, &m_vao));
 }
@@ -28,17 +28,14 @@ void Engine::Mesh::draw()
     }
 
     GL_ASSERT(glBindVertexArray(m_vao));
-    GL_ASSERT(glDrawElements(GL_TRIANGLES, m_numIndices, GL_UNSIGNED_INT, (void*)0));
+    GL_ASSERT(glDrawElements(GL_TRIANGLES, 3* m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
 }
 
-void Engine::Mesh::loadGeometry(const Engine::MeshData& data, bool recomputeNormals)
+void Engine::Mesh::loadGeometry(const Core::TriangleMesh &data, bool recomputeNormals)
 {
     m_data = data;
 
-    m_numVertices = m_data.vertices.size();
-    m_numIndices  = m_data.indices.size();
-
-    if (recomputeNormals)
+    if ( m_data.m_normals.size() == 0 || recomputeNormals)
     {
         computeNormals();
     }
@@ -48,34 +45,49 @@ void Engine::Mesh::loadGeometry(const Engine::MeshData& data, bool recomputeNorm
 
 void Engine::Mesh::initGL()
 {
+
+    // VAO activation.
     GL_ASSERT(glGenVertexArrays(1, &m_vao));
     GL_ASSERT(glBindVertexArray(m_vao));
 
-    GL_ASSERT(glGenBuffers(1, &m_vbo));
-
-    GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
-    GL_ASSERT(glBufferData(GL_ARRAY_BUFFER, m_numVertices * sizeof(VertexData),
-                           m_data.vertices[0].position.data(), GL_STATIC_DRAW));
-
-    GLuint step = sizeof(VertexData);
-    GLboolean normalized = GL_FALSE;
+    // Common values for GL data functions.
+#if defined CORE_USE_DOUBLE
+    GLenum type = GL_DOUBLE;
+#else
     GLenum type = GL_FLOAT;
-
+#endif
+    GLboolean normalized = GL_FALSE;
     GLuint index = 0;
     GLuint size = 3;
-    GLvoid* ptr = (void*)0;
+    GLvoid* ptr = nullptr;
+
+
 
     // Position
-    GL_ASSERT(glVertexAttribPointer(index, size, type, normalized, step, ptr));
+    GL_ASSERT(glGenBuffers(1, &m_vbo));
+    GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    GL_ASSERT(glBufferData(GL_ARRAY_BUFFER,
+                           m_data.m_vertices.size() * sizeof(Core::Vector3),
+                           m_data.m_vertices.data(), GL_STATIC_DRAW));
+
+    GL_ASSERT(glVertexAttribPointer(index, size, type, normalized, sizeof(Core::Vector3), ptr));
+    GL_ASSERT(glEnableVertexAttribArray(index));
+
+    // Normal
+    CORE_ASSERT(m_data.m_normals.size() == m_data.m_vertices.size(),
+                " Normal data is missing or incomplete.");
+
+    ++index;
+    GL_ASSERT(glGenBuffers(1, &m_nbo));
+    GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_nbo));
+    GL_ASSERT(glBufferData(GL_ARRAY_BUFFER,
+                           m_data.m_normals.size() * sizeof(Core::Vector3),
+                           m_data.m_normals.data(), GL_STATIC_DRAW));
+
+    GL_ASSERT(glVertexAttribPointer(index, size, type, normalized, sizeof(Core::Vector3), ptr));
     GL_ASSERT(glEnableVertexAttribArray(index));
 
 #if 0
-    // Normal
-    ++index;
-    ptr = static_cast<char*>(nullptr) + 1 * sizeof(Vector3);
-    GL_ASSERT(glVertexAttribPointer(index, size, type, normalized, step, ptr));
-    GL_ASSERT(glEnableVertexAttribArray(index));
-
     // Tangent
     ++index;
     ptr = static_cast<char*>(nullptr) + 2 * sizeof(Vector3);
@@ -92,8 +104,8 @@ void Engine::Mesh::initGL()
     // Indices
     GL_ASSERT(glGenBuffers(1, &m_ibo));
     GL_ASSERT(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
-    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_numIndices * sizeof(uint),
-                           m_data.indices.data(), GL_STATIC_DRAW));
+    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_data.m_triangles.size() * sizeof(Core::Vector3i),
+                           m_data.m_triangles.data(), GL_STATIC_DRAW));
 
     GL_ASSERT(glBindVertexArray(0));
 
@@ -104,38 +116,7 @@ void Engine::Mesh::initGL()
 
 void Engine::Mesh::computeNormals()
 {
-#if 0
-    // Set normals to 0
-    for (auto& vertex : m_data.vertices)
-    {
-        vertex.normal = Vector3(0, 0, 0);
-    }
-
-    // Compute face normals and accumulate
-    for (unsigned int i = 0; i < m_data.indices.size(); i += 3)
-    {
-        Vector3 v0 = m_data.vertices.at(m_data.indices.at(i + 0)).position;
-        Vector3 v1 = m_data.vertices.at(m_data.indices.at(i + 1)).position;
-        Vector3 v2 = m_data.vertices.at(m_data.indices.at(i + 2)).position;
-
-        Vector3 v0v1 = v1 - v0;
-        Vector3 v0v2 = v2 - v0;
-        Vector3 tmp = v0v1.cross(v0v2);
-        Vector3 n = tmp.normalized();
-
-        m_data.vertices.at(m_data.indices.at(i + 0)).normal += n;
-        m_data.vertices.at(m_data.indices.at(i + 1)).normal += n;
-        m_data.vertices.at(m_data.indices.at(i + 2)).normal += n;
-
-        assert(!isnan(n.x()) || !isnan(n.y()) || !isnan(n.z()));
-    }
-
-    // Normalize
-    for (auto& vertex : m_data.vertices)
-    {
-        vertex.normal.normalize();
-    }
-#endif
+    Core::MeshUtils::getAutoNormals( m_data, m_data.m_normals );
 }
 
 } // namespace Ra

@@ -7,10 +7,9 @@
 
 namespace Ra { namespace Core
 {
-    /// This class is a wrapper around a std::vector of Ra::Vectors (aka Eigen::Vector4)
+    /// This class is a wrapper around a std::vector of Core::Vectors (aka Eigen::Vector4)
     /// which allow to use the stdlib's dynamic array implementation, yet pass it as 
     /// a matrix when Eigen needs it with the getMap() method.
-    /// V must be an aligned type of Vectors from Eigen.
 
     // see https://forum.kde.org/viewtopic.php?f=74&t=126959
 
@@ -24,6 +23,9 @@ namespace Ra { namespace Core
         typedef Eigen::Map<const Matrix, Eigen::Aligned> ConstMatrixMap;
 
     public:
+        /// Inheriting constructors from std::vector
+        using std::vector<V>::vector;
+
         /// Returns the array as an Eigen Matrix Map
         MatrixMap getMap()
         {

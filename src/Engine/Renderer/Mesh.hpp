@@ -5,25 +5,10 @@
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/Vector.hpp>
+#include <Core/Mesh/TriangleMesh.hpp>
 #include <Engine/Renderer/Drawable.hpp>
 
 namespace Ra { namespace Engine {
-
-struct VertexData
-{
-    Core::Vector3 position;
-//    Vector3 normal;
-//    Vector3 tangent;
-//    Vector3 texcoord;
-
-    // TODO(Charly): Add skinning stuff
-};
-
-struct MeshData
-{
-    std::vector<VertexData> vertices;
-    std::vector<uint>       indices;
-};
 
 class Mesh : public Drawable
 {
@@ -31,8 +16,8 @@ public:
     Mesh(const std::string& name);
     virtual ~Mesh();
 
-    void loadGeometry(const MeshData& data, bool computeNormals = false);
-    const MeshData& getMeshData() const { return m_data; }
+    void loadGeometry(const Core::TriangleMesh &data, bool computeNormals = false);
+    const Core::TriangleMesh& getMeshData() const { return m_data; }
 
     virtual void draw() override;
 
@@ -43,18 +28,14 @@ private:
     void computeNormals();
 
 private:
-    bool m_initialized;
-
-    uint m_numVertices;
-    uint m_numIndices;
+    Core::TriangleMesh m_data;
 
     uint m_vao;
     uint m_vbo;
+    uint m_nbo;
     uint m_ibo;
+    bool m_initialized;
 
-    MeshData m_data;
-
-    // TODO(Charly): BBox ?
 };
 
 } // namespace Engine

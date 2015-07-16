@@ -37,13 +37,13 @@ void Engine::RadiumEngine::setupScene()
     Engine::EntityManager* eManager = Engine::EntityManager::createInstance();
 
     Engine::Mesh* mesh = new Engine::Mesh("Mesh");
-    Engine::VertexData v0, v1, v2;
-    v0.position = Core::Vector3(-0.5, -0.5, 0);
-    v1.position = Core::Vector3(0, 0.5, 0);
-    v2.position = Core::Vector3(0.5, -0.5, 0);
-    Engine::MeshData d;
-    d.vertices = {v0, v1, v2};
-    d.indices  = {0, 2, 1};
+    Core::Vector3 v0(-0.5, -0.5, 0);
+    Core::Vector3 v1(0, 0.5, 0);
+    Core::Vector3 v2 (0.5, -0.5, 0);
+
+    Core::TriangleMesh d;
+    d.m_vertices = {v0, v1, v2};
+    d.m_triangles= {Core::Vector3i(0, 2, 1)};
     mesh->loadGeometry(d);
 
     m_entity = eManager->createEntity();
