@@ -35,6 +35,7 @@
 *~
 .idea/
 *.orig
+.swp
 
 # Binary asset files
 *.obj
