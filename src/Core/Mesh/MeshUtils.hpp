@@ -39,11 +39,23 @@ namespace Ra { namespace Core
         //
 
         /// Create an axis-aligned cubic mesh with the given half extents, centered on the origin.
-        TriangleMesh makeBox( const Vector3& halfExts = Vector3(0.5f,0.5f,0.5f) );
+        TriangleMesh makeBox(const Vector3& halfExts = Vector3(0.5f, 0.5f, 0.5f));
 
         /// Create an axis-aligned cubic mesh
-        TriangleMesh makeBox( const Aabb& aabb );
+        TriangleMesh makeBox(const Aabb& aabb);
 
+        /// Create a parametric sphere of given radius. Template parameters set the resolution.
+        template<uint U = 16, uint V = U>
+        TriangleMesh makeParametricSphere(Scalar radius = 1.f);
+
+
+        //
+        // Checks
+        //
+
+        /// Check that the mesh is well built, asserting when it is not.
+        /// only compiles to something when in debug mode.
+        void checkConsistency(const TriangleMesh& mesh);
     }
 }}
 

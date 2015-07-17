@@ -1,6 +1,6 @@
 #include <Core/Mesh/MeshUtils.hpp>
 
-#include <set>
+#include <Core/String/StringUtils.hpp>
 
 namespace Ra { namespace Core
 {
@@ -49,7 +49,7 @@ namespace Ra { namespace Core
                 // The number in duplicates_map will be 'i' if no duplicates are found
                 // up to v_i, or the index of the first vertex equal to v_i.
                 duplicatesMap[i] = (duplicatePos - mesh.m_vertices.cbegin());
-                CORE_ASSERT( duplicatesMap[i] <= i, " Invalid vertex indices");
+                CORE_ASSERT(duplicatesMap[i] <= i, " Invalid vertex indices");
                 hasDuplicates = (hasDuplicates || duplicatesMap[i] != i);
             }
             return hasDuplicates;
@@ -57,36 +57,66 @@ namespace Ra { namespace Core
 
         TriangleMesh makeBox(const Vector3& halfExts)
         {
-            Aabb aabb (-halfExts, halfExts);
+            Aabb aabb(-halfExts, halfExts);
             return makeBox(aabb);
         }
 
-        TriangleMesh makeBox(const Aabb &aabb)
+        TriangleMesh makeBox(const Aabb& aabb)
         {
             TriangleMesh result;
             result.m_vertices = {
-                aabb.corner(Aabb::BottomLeftFloor),
-                aabb.corner(Aabb::BottomRightFloor),
-                aabb.corner(Aabb::TopLeftFloor),
-                aabb.corner(Aabb::TopRightFloor),
-                aabb.corner(Aabb::BottomLeftCeil),
-                aabb.corner(Aabb::BottomRightCeil),
-                aabb.corner(Aabb::TopLeftCeil),
-                aabb.corner(Aabb::TopRightCeil)};
+                    aabb.corner(Aabb::BottomLeftFloor),
+                    aabb.corner(Aabb::BottomRightFloor),
+                    aabb.corner(Aabb::TopLeftFloor),
+                    aabb.corner(Aabb::TopRightFloor),
+                    aabb.corner(Aabb::BottomLeftCeil),
+                    aabb.corner(Aabb::BottomRightCeil),
+                    aabb.corner(Aabb::TopLeftCeil),
+                    aabb.corner(Aabb::TopRightCeil)};
             result.m_triangles = {
-                Triangle(0,2,1), Triangle(2,3,1), // Floor
-                Triangle(0,1,4), Triangle(4,1,5), // Front
-                Triangle(3,2,6), Triangle(3,6,7), // Back
-                Triangle(1,5,3), Triangle(3,5,7), // Right
-                Triangle(0,4,2), Triangle(2,4,6), // Left
-                Triangle(4,5,6), Triangle(5,6,7)  // Top
+                    Triangle(0, 2, 1), Triangle(2, 3, 1), // Floor
+                    Triangle(0, 1, 4), Triangle(4, 1, 5), // Front
+                    Triangle(3, 2, 6), Triangle(3, 6, 7), // Back
+                    Triangle(1, 5, 3), Triangle(3, 5, 7), // Right
+                    Triangle(0, 4, 2), Triangle(2, 4, 6), // Left
+                    Triangle(4, 5, 6), Triangle(5, 6, 7)  // Top
             };
 
             getAutoNormals(result, result.m_normals);
+            checkConsistency(result);
             return result;
 
         }
 
+
+        void checkConsistency(const TriangleMesh& mesh)
+        {
+        #ifdef CORE_DEBUG
+            std::vector<bool> visited(mesh.m_vertices.size(), false);
+            for (uint t = 0 ; t < mesh.m_triangles.size(); ++t)
+            {
+                const Triangle& tri = mesh.m_triangles[t];
+                for (uint i = 0; i < 3; ++i)
+                {
+                    std::string errStr;
+                    StringUtils::stringPrintf(errStr, "Vertex %d is in triangle %d (#%d) is out of bounds", tri[i],t,i);
+                    CORE_ASSERT(tri[i] < mesh.m_vertices.size(), errStr.c_str());
+                    visited[tri[i]] = true;
+                }
+            }
+
+            for (uint v = 0; v < visited.size(); ++v)
+            {
+                std::string errStr;
+                StringUtils::stringPrintf(errStr, "Vertex %d does not belong to any triangle", v);
+                CORE_ASSERT(visited[v], errStr.c_str());
+            }
+
+            // Normals are optional but if they are present then every vertex should have one.
+            CORE_ASSERT(mesh.m_normals.size() ==  0 || mesh.m_normals.size() == mesh.m_vertices.size(),
+            "Inconsistent number of normals");
+        #endif
+        }
 
     }
 }}
