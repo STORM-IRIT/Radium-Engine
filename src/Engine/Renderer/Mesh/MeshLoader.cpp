@@ -64,17 +64,12 @@ void runThroughNodes(const aiNode* node, const aiScene* scene,
 {
     static int currentMesh = 0;
 
-    Core::Matrix4 matrix;
-
     if (node->mNumChildren == 0 && node->mNumMeshes == 0)
     {
         return;
     }
 
-    aiMatrix4x4 aiMatrix = node->mTransformation;
-    assimpToCore(aiMatrix, matrix);
-
-    matrix = transform * matrix;
+    Core::Matrix4 matrix = transform * assimpToCore(node->mTransformation);
 
     if (node->mNumMeshes > 0)
     {
