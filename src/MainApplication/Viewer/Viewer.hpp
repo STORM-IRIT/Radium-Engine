@@ -29,6 +29,7 @@ public:
     ~Viewer();
 
     void quit();
+    void loadFile(const QString& path);
 
 protected:
     /// OPENGL

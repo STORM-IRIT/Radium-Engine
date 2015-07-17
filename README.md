@@ -1,12 +1,19 @@
 # Radium-Engine
 Coolest engine ever made #yolo #swag
 
-
 ## Dependencies 
 * Eigen 3.2+ (in repository)
+* Assimp (submodule : will be handled later, you can use package version)
 * OpenGL 3+
 * QT Core, Widgets and OpenGL v5.4+ 
-* To build : CMake 2.8.11+  
+* To build : CMake 2.8.11+
+
+## Getting submodules
+```
+$ cd 3rdPartyLibraries
+$ git submodule init
+$ git submodule update
+```
 
 ## Building
 ```

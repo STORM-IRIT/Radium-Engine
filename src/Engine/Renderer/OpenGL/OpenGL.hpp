@@ -42,7 +42,7 @@ namespace Ra { namespace Engine {
 
 #else
 #define GL_ASSERT(x) x
-#define GL_CHECK_ERROR() 
+#define GL_CHECK_ERROR {}
 #define glFlushError() 
 #endif
 

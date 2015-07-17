@@ -15,8 +15,12 @@ Engine::Mesh::Mesh(const std::string& name)
 Engine::Mesh::~Mesh()
 {
     GL_ASSERT(glDeleteBuffers(1, &m_ibo));
+
+    GL_ASSERT(glDeleteBuffers(1, &m_bbo));
+    GL_ASSERT(glDeleteBuffers(1, &m_tbo));
     GL_ASSERT(glDeleteBuffers(1, &m_nbo));
     GL_ASSERT(glDeleteBuffers(1, &m_vbo));
+
     GL_ASSERT(glDeleteVertexArrays(1, &m_vao));
 }
 
@@ -35,10 +39,27 @@ void Engine::Mesh::loadGeometry(const Core::TriangleMesh &data, bool recomputeNo
 {
     m_data = data;
 
-    if ( m_data.m_normals.size() == 0 || recomputeNormals)
+    if (m_data.m_normals.size() == 0 || recomputeNormals)
     {
         computeNormals();
     }
+
+    initGL();
+}
+
+void Engine::Mesh::loadGeometry(const Core::TriangleMesh &data,
+                                const Core::VectorArray<Core::Vector3>& tangents,
+                                const Core::VectorArray<Core::Vector3>& bitangents,
+                                bool recomputeNormals)
+{
+    m_data = data;
+    if (m_data.m_normals.size() == 0 || recomputeNormals)
+    {
+        computeNormals();
+    }
+
+    m_tangents = tangents;
+    m_bitangents = bitangents;
 
     initGL();
 }
@@ -60,8 +81,6 @@ void Engine::Mesh::initGL()
     GLuint index = 0;
     GLuint size = 3;
     GLvoid* ptr = nullptr;
-
-
 
     // Position
     GL_ASSERT(glGenBuffers(1, &m_vbo));
@@ -87,13 +106,39 @@ void Engine::Mesh::initGL()
     GL_ASSERT(glVertexAttribPointer(index, size, type, normalized, sizeof(Core::Vector3), ptr));
     GL_ASSERT(glEnableVertexAttribArray(index));
 
-#if 0
-    // Tangent
-    ++index;
-    ptr = static_cast<char*>(nullptr) + 2 * sizeof(Vector3);
-    GL_ASSERT(glVertexAttribPointer(index, size, type, normalized, step, ptr));
-    GL_ASSERT(glEnableVertexAttribArray(index));
+    if (m_tangents.size() != 0)
+    {
+        CORE_ASSERT(m_tangents.size() == m_data.m_vertices.size(),
+                    "Tangent data is incomplete.");
 
+        ++index;
+        GL_ASSERT(glGenBuffers(1, &m_tbo));
+        GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_tbo));
+        GL_ASSERT(glBufferData(GL_ARRAY_BUFFER,
+                               m_tangents.size() * sizeof(Core::Vector3),
+                               m_tangents.data(), GL_STATIC_DRAW));
+
+        GL_ASSERT(glVertexAttribPointer(index, size, type, normalized, sizeof(Core::Vector3), ptr));
+        GL_ASSERT(glEnableVertexAttribArray(index));
+    }
+
+    if (m_bitangents.size() != 0)
+    {
+        CORE_ASSERT(m_bitangents.size() == m_data.m_vertices.size(),
+                    "Bitangent data is incomplete.");
+
+        ++index;
+        GL_ASSERT(glGenBuffers(1, &m_tbo));
+        GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_tbo));
+        GL_ASSERT(glBufferData(GL_ARRAY_BUFFER,
+                               m_bitangents.size() * sizeof(Core::Vector3),
+                               m_bitangents.data(), GL_STATIC_DRAW));
+
+        GL_ASSERT(glVertexAttribPointer(index, size, type, normalized, sizeof(Core::Vector3), ptr));
+        GL_ASSERT(glEnableVertexAttribArray(index));
+    }
+
+#if 0
     // Texcoord
     ++index;
     ptr = static_cast<char*>(nullptr) + 3 * sizeof(Vector3);
@@ -116,7 +161,7 @@ void Engine::Mesh::initGL()
 
 void Engine::Mesh::computeNormals()
 {
-    Core::MeshUtils::getAutoNormals( m_data, m_data.m_normals );
+    Core::MeshUtils::getAutoNormals(m_data, m_data.m_normals);
 }
 
 } // namespace Ra

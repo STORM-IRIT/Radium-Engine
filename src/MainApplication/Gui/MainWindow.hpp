@@ -18,6 +18,11 @@ public:
     explicit MainWindow(QWidget* parent = nullptr);
     virtual ~MainWindow();
 
+    void createConnections();
+
+private slots:
+    void loadFile();
+
 private:
 
 };

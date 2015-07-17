@@ -46,6 +46,8 @@ public:
      */
     virtual void setSystem(System* system);
 
+
+
     /**
      * @brief Set entity the component is part of.
      * This method is called by the entity.

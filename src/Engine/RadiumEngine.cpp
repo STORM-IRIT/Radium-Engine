@@ -1,10 +1,11 @@
-#include <Engine/Engine.hpp>
+#include <Engine/RadiumEngine.hpp>
 
 #include <thread>
 #include <chrono>
 #include <mutex>
 #include <cstdio>
 
+#include <Core/String/StringUtils.hpp>
 #include <Engine/Entity/System.hpp>
 #include <Engine/Entity/ComponentManager.hpp>
 #include <Engine/Entity/Component.hpp>
@@ -12,6 +13,7 @@
 #include <Engine/Entity/EntityManager.hpp>
 #include <Engine/Renderer/ForwardRenderer.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/Mesh/MeshLoader.hpp>
 #include <Engine/Renderer/Drawable/DrawableComponent.hpp>
 
 namespace Ra
@@ -19,7 +21,6 @@ namespace Ra
 
 Engine::RadiumEngine::RadiumEngine()
     : m_quit(false)
-    , m_angle(0.0)
 {
 }
 
@@ -33,27 +34,8 @@ void Engine::RadiumEngine::initialize()
 
 void Engine::RadiumEngine::setupScene()
 {
-    Engine::ComponentManager* cManager = Engine::ComponentManager::createInstance();
-    Engine::EntityManager* eManager = Engine::EntityManager::createInstance();
-
-    Engine::Mesh* mesh = new Engine::Mesh("Mesh");
-    Core::Vector3 v0(-0.5, -0.5, 0);
-    Core::Vector3 v1(0, 0.5, 0);
-    Core::Vector3 v2 (0.5, -0.5, 0);
-
-    Core::TriangleMesh d;
-    d.m_vertices = {v0, v1, v2};
-    d.m_triangles= {Core::Vector3i(0, 2, 1)};
-    mesh->loadGeometry(d);
-
-    m_entity = eManager->createEntity();
-    Engine::DrawableComponent* comp = new Engine::DrawableComponent();
-    comp->addDrawable(mesh);
-
-    cManager->addComponent(comp);
-    m_entity->addComponent(comp);
-
-    m_systems["RenderSystem"]->addComponent(comp);
+    m_componentManager = ComponentManager::createInstance();
+    m_entityManager    = EntityManager::createInstance();
 }
 
 void Engine::RadiumEngine::start()
@@ -69,9 +51,9 @@ void Engine::RadiumEngine::run()
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
-        m_angle += 0.05;
-        m_entity->setTransform(Core::Transform(Core::AngleAxis(std::sin(m_angle),
-                                                   Core::Vector3(0.0, 1.0, 0.0))));
+//        m_angle += 0.05;
+//        m_entity->setTransform(Core::Transform(Core::AngleAxis(std::sin(m_angle),
+//                                                   Core::Vector3(0.0, 1.0, 0.0))));
     }
 
     cleanup();
@@ -110,6 +92,32 @@ Engine::System* Engine::RadiumEngine::getSystem(const std::string& system) const
     }
 
     return sys;
+}
+
+Engine::Entity* Engine::RadiumEngine::createEntity()
+{
+    std::lock_guard<std::mutex> lock(m_managersMutex);
+    return m_entityManager->createEntity();
+}
+
+void Engine::RadiumEngine::addComponent(Component* component,
+                                        Entity* entity,
+                                        const std::string& system)
+{
+    std::string err;
+    Core::StringUtils::stringPrintf(err, "System \"%s\" : No such system.\n", system.c_str());
+
+    std::lock_guard<std::mutex> lock(m_managersMutex);
+    CORE_ASSERT(m_systems.find(system) != m_systems.end(), err.c_str());
+
+    m_componentManager->addComponent(component);
+    entity->addComponent(component);
+    m_systems[system]->addComponent(component);
+}
+
+void Engine::RadiumEngine::loadFile(const std::string& file)
+{
+    MeshLoader::loadFile(file, this);
 }
 
 } // namespace RadiumEngine

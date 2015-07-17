@@ -6,11 +6,11 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/ComponentManager.hpp>
 #include <Engine/Entity/EntityManager.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Engine.hpp>
 #include <Engine/Renderer/Drawable/DrawableComponent.hpp>
 #include <Engine/Renderer/ForwardRenderer.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -29,6 +29,7 @@ Viewer::Viewer(QWidget* parent)
 {
     // Allow Viewer to receive events
     setFocusPolicy(Qt::StrongFocus);
+    setMinimumSize(QSize(800, 600));
 
     // TODO(Charly): Remove this, call update from the engine thread.
     QTimer* timer = new QTimer(this);
@@ -78,6 +79,13 @@ void Viewer::resizeGL(int width, int height)
 {
     makeCurrent();
     m_renderer->resize(width, height);
+}
+
+void Viewer::loadFile(const QString& path)
+{
+    makeCurrent();
+    m_engine->loadFile(path.toStdString());
+    doneCurrent();
 }
 
 void Viewer::mousePressEvent(QMouseEvent* event)

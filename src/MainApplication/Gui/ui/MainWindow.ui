@@ -40,13 +40,13 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionOpen_mesh"/>
+    <addaction name="actionOpenMesh"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFILE"/>
   </widget>
-  <action name="actionOpen_mesh">
+  <action name="actionOpenMesh">
    <property name="text">
     <string>Open mesh...</string>
    </property>

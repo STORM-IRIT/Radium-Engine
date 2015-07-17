@@ -3,8 +3,9 @@
 #include <thread>
 
 #include <QApplication>
+#include <QFileDialog>
 
-#include <Engine/Engine.hpp>
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderSystem.hpp>
 
 namespace Ra
@@ -15,12 +16,29 @@ MainWindow::MainWindow(QWidget* parent)
 {
     setupUi(this);
 
-    connect(qApp, &QApplication::aboutToQuit, m_viewer, &Viewer::quit);
+    createConnections();
 }
 
 MainWindow::~MainWindow()
 {
     // Child QObjects will automatically be deleted
+}
+
+void MainWindow::createConnections()
+{
+    connect(qApp, &QApplication::aboutToQuit, m_viewer, &Viewer::quit);
+
+    connect(actionOpenMesh, &QAction::triggered, this, &MainWindow::loadFile);
+}
+
+void MainWindow::loadFile()
+{
+    fprintf(stderr, "ahah\n");
+    QString path = QFileDialog::getOpenFileName(this, QString(), "..");
+    if (path.size() > 0)
+    {
+        m_viewer->loadFile(path);
+    }
 }
 
 } // namespace Ra

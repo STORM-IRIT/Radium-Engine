@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 #if defined (CORE_DEBUG)
     std::cerr<<"(Debug Build)"<<std::endl;
  #else
-    std::cerr<<"(Release Build)"<<std:endl;
+    std::cerr<<"(Release Build)"<<std::endl;
 #endif
     std::cerr<<"Floating point format : ";
 #if defined(CORE_USE_DOUBLE)

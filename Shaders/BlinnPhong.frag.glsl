@@ -1,6 +1,7 @@
 out vec4 fragColor;
 
-in vec4 varPosition;
+in vec3 varPosition;
+in vec3 varNormal;
 
 void main()
 {
