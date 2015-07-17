@@ -124,8 +124,9 @@ inline Core::Vector3 Engine::Camera::getTargetPoint() const {
 
 inline void Engine::Camera::setTargetPoint( const Core::Vector3& targetPoint ) {
     Core::Vector3 direction = targetPoint - getPosition();
-    setFocalPointDistance( direction.norm() );
-    setDirection( direction );
+    Scalar        norm      = direction.norm();
+    setFocalPointDistance( norm );
+    if( norm != 0.0 ) setDirection( direction );
 }
 
 inline Scalar Engine::Camera::getFocalPointDistance() const {
@@ -133,7 +134,12 @@ inline Scalar Engine::Camera::getFocalPointDistance() const {
 }
 
 inline void Engine::Camera::setFocalPointDistance( const Scalar focalPointDistance ) {
-    m_focalPoint = focalPointDistance;
+    if( focalPointDistance < 0.0f ) {
+        m_focalPoint = -focalPointDistance;
+        setDirection( -getDirection() );
+    } else {
+        m_focalPoint = focalPointDistance;
+    }
 }
 
 
