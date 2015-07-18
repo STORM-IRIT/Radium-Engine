@@ -33,9 +33,10 @@
 *.autosave
 *.dropbox.attr
 *~
-.idea/
 *.orig
-.swp
+*.swp
+*.old
+.idea/
 
 # Binary asset files
 *.obj
