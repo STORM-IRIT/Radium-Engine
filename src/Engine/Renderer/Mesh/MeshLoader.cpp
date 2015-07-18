@@ -11,6 +11,9 @@
 #include <Core/String/StringUtils.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
+#include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/Shader/ShaderProgram.hpp>
+#include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/Drawable/DrawableComponent.hpp>
 
@@ -19,6 +22,8 @@ namespace Ra
 
 namespace
 {
+const Engine::ShaderConfiguration blinnPhongShaderConfiguration("BlinnPhong", "../Shaders");
+
 void assimpToCore(const aiVector3D& inVector, Core::Vector3& outVector);
 void assimpToCore(const aiColor4D& inColor, Core::Color& outColor);
 void assimpToCore(const aiMatrix4x4& inMatrix, Core::Matrix4& outMatrix);
@@ -31,6 +36,10 @@ void runThroughNodes(const aiNode* node, const aiScene* scene,
                      const Core::Matrix4& transform, Engine::RadiumEngine* engine);
 
 void loadMesh(const aiMesh* mesh, Engine::DrawableComponent* component, const std::string& name);
+
+void loadMaterial(const aiMaterial* mat, Engine::DrawableComponent* component, const std::string& name);
+void loadDefaultMaterial(Engine::DrawableComponent* component, const std::string& name);
+
 }
 
 void Engine::MeshLoader::loadFile(const std::string& name, RadiumEngine* engine)
@@ -86,6 +95,20 @@ void runThroughNodes(const aiNode* node, const aiScene* scene,
             Core::StringUtils::stringPrintf(name, "Mesh_%s_%u", node->mName.C_Str(), currentMesh++);
 
             loadMesh(mesh, component, name);
+
+            if (scene->HasMaterials())
+            {
+                aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+                name.clear();
+                Core::StringUtils::stringPrintf(name, "Material_%u", mesh->mMaterialIndex);
+
+                loadMaterial(material, component, name);
+            }
+            else
+            {
+                name = "Material_default";
+                loadDefaultMaterial(component, name);
+            }
         }
     }
 
@@ -127,6 +150,47 @@ void loadMesh(const aiMesh* mesh, Engine::DrawableComponent* component, const st
     component->addDrawable(emesh);
 }
 
+void loadMaterial(const aiMaterial* mat, Engine::DrawableComponent* component, const std::string& name)
+{
+    if (mat == nullptr)
+    {
+        loadDefaultMaterial(component, name);
+        return;
+    }
+
+    // TODO(Charly): Handle different shader programs
+    // TODO(Charly): Handle transparency
+    Engine::ShaderProgram* shader = Engine::ShaderProgramManager::getInstancePtr()->getShaderProgram(blinnPhongShaderConfiguration);
+
+    Engine::Material* material = new Engine::Material(name);
+    material->setShaderProgram(shader);
+
+    aiColor4D color;
+    if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_DIFFUSE, color))
+    {
+        Core::Color c = assimpToCore(color);
+        material->setKd(c);
+        fprintf(stderr, "%s kd : %.3f %.3f %.3f\n", name.c_str(), c.x(), c.y(), c.z());
+    }
+
+    if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_SPECULAR, color))
+    {
+        Core::Color c = assimpToCore(color);
+        material->setKs(c);
+        fprintf(stderr, "%s ks : %.3f %.3f %.3f\n", name.c_str(), c[0], c[1], c[2]);
+    }
+
+    component->setMaterial(material);
+}
+
+void loadDefaultMaterial(Engine::DrawableComponent* component, const std::string& name)
+{
+    Engine::ShaderProgram* shader = Engine::ShaderProgramManager::getInstancePtr()->getShaderProgram(blinnPhongShaderConfiguration);
+    Engine::Material* material = new Engine::Material(name);
+    material->setShaderProgram(shader);
+    component->setMaterial(material);
+}
+
 void assimpToCore(const aiVector3D& inVector, Core::Vector3& outVector)
 {
     for (uint i = 0; i < 3; ++i)
@@ -139,7 +203,7 @@ void assimpToCore(const aiColor4D& inColor, Core::Color& outColor)
 {
     for (uint i = 0; i < 4; ++i)
     {
-        outColor[0] = inColor[i];
+        outColor[i] = inColor[i];
     }
 }
 

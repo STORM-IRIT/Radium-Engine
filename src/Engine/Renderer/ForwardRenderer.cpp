@@ -9,6 +9,8 @@
 #include <Engine/Renderer/Shader/ShaderProgram.hpp>
 #include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Drawable/DrawableComponent.hpp>
+#include <Engine/Renderer/Light/Light.hpp>
+#include <Engine/Renderer/Light/DirLight.hpp>
 
 namespace Ra
 {
@@ -32,9 +34,6 @@ Engine::ForwardRenderer::ForwardRenderer()
     : RenderSystem()
 	, m_camera(nullptr)
 	, m_shaderManager(nullptr)
-	, m_passthroughShader(nullptr)
-	, m_blinnPhongShader(nullptr)
-	, m_quadShader(nullptr)
 {
 }
 
@@ -65,7 +64,7 @@ void Engine::ForwardRenderer::initializeGL(uint width, uint height)
 void Engine::ForwardRenderer::initShaders()
 {
 //	m_passthroughShader = m_shaderManager->addShaderProgram("PassThrough");
-	m_blinnPhongShader  = m_shaderManager->addShaderProgram("BlinnPhong");
+    m_shaderManager->addShaderProgram("BlinnPhong");
 //	m_quadShader        = m_shaderManager->addShaderProgram("Quad");
 }
 
@@ -78,10 +77,11 @@ void Engine::ForwardRenderer::render()
     GL_ASSERT(glDepthMask(GL_TRUE));
     GL_ASSERT(glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE));
     GL_ASSERT(glEnable(GL_DEPTH_TEST));
+    GL_ASSERT(glDepthFunc(GL_LEQUAL));
 
-//    GL_ASSERT(glEnable(GL_CULL_FACE));
-    GL_ASSERT(glDisable(GL_CULL_FACE));
-//    GL_ASSERT(glCullFace(GL_BACK));
+    GL_ASSERT(glEnable(GL_CULL_FACE));
+//    GL_ASSERT(glDisable(GL_CULL_FACE));
+    GL_ASSERT(glCullFace(GL_BACK));
 
 //    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 //    glDrawBuffer(GL_BACK);
@@ -91,20 +91,41 @@ void Engine::ForwardRenderer::render()
 
     GL_ASSERT(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 
-    m_blinnPhongShader->bind();
-
     m_camera->updateViewMatrix();
 
-    m_blinnPhongShader->setUniform("view", m_camera->getViewMatrix());
-    m_blinnPhongShader->setUniform("proj", m_camera->getProjMatrix());
+    Core::Matrix4 view = m_camera->getViewMatrix();
+    Core::Matrix4 proj = m_camera->getProjMatrix();
 
-    for (const auto& c : m_components)
+    // FIXME(Charly): Add z-prepass
+
+    GL_ASSERT(glEnable(GL_BLEND));
+    GL_ASSERT(glBlendEquation(GL_FUNC_ADD));
+    GL_ASSERT(glBlendFunc(GL_ONE, GL_ONE));
+
+    if (m_lights.size() > 0)
     {
-        DrawableComponent* dc = static_cast<DrawableComponent*>(c.second);
-
-        dc->setShaderProgram(m_blinnPhongShader);
-        dc->update();
+        for (const auto& l : m_lights)
+        {
+            for (const auto& c : m_components)
+            {
+                DrawableComponent* dc = static_cast<DrawableComponent*>(c.second);
+                dc->draw(view, proj, l);
+            }
+        }
     }
+    else
+    {
+        DirectionalLight l;
+        l.setDirection(Core::Vector3(0, -1, 0));
+
+        for (const auto& c : m_components)
+        {
+            DrawableComponent* dc = static_cast<DrawableComponent*>(c.second);
+            dc->draw(view, proj, &l);
+        }
+    }
+
+    GL_ASSERT(glDisable(GL_BLEND));
 }
 
 void Engine::ForwardRenderer::resize(uint width, uint height)

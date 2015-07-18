@@ -5,10 +5,13 @@
 #include <string>
 #include <memory>
 
+#include <Core/Math/Matrix.hpp>
 #include <Engine/Entity/Component.hpp>
 
-namespace Ra { namespace Engine { class Drawable; } }
+namespace Ra { namespace Engine { class Drawable;      } }
 namespace Ra { namespace Engine { class ShaderProgram; } }
+namespace Ra { namespace Engine { class Material;      } }
+namespace Ra { namespace Engine { class Light;         } }
 
 namespace Ra { namespace Engine {
 
@@ -18,8 +21,12 @@ public:
     DrawableComponent();
     virtual ~DrawableComponent();
 
-    virtual void update() override;
+    virtual void update() override {}
     virtual void update(Scalar dt) override {}
+
+    void draw(const Core::Matrix4& viewMatrix,
+              const Core::Matrix4& projMatrix,
+              Light* light);
 
     /**
      * @brief Attach a drawable to a DrawableComponent.
@@ -57,18 +64,14 @@ public:
      */
     std::vector<Drawable*> getDrawables() const;
 
-    /**
-     * @brief Set the shader program to be used by the DrawableComponent.
-     * It is basically used to set model transform uniform to the GPU.
-     * @param shader The shader to use.
-     */
-    void setShaderProgram(ShaderProgram* shader);
+    void setMaterial(Material* material);
 
 private:
     typedef std::pair<std::string, std::shared_ptr<Drawable>> DrawableByName;
     std::map<std::string, std::shared_ptr<Drawable>> m_drawables;
 
     ShaderProgram* m_shaderProgram;
+    Material* m_material;
 };
 
 } // namespace Engine

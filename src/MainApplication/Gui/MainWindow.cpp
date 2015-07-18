@@ -33,7 +33,6 @@ void MainWindow::createConnections()
 
 void MainWindow::loadFile()
 {
-    fprintf(stderr, "ahah\n");
     QString path = QFileDialog::getOpenFileName(this, QString(), "..");
     if (path.size() > 0)
     {

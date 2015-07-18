@@ -6,14 +6,17 @@
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/Matrix.hpp>
 #include <Engine/Entity/Entity.hpp>
+#include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Drawable/Drawable.hpp>
 #include <Engine/Renderer/Shader/ShaderProgram.hpp>
+#include <Engine/Renderer/Light/Light.hpp>
 
 namespace Ra
 {
 
 Engine::DrawableComponent::DrawableComponent()
     : Engine::Component()
+    , m_material(nullptr)
 {
 }
 
@@ -27,11 +30,40 @@ Engine::DrawableComponent::~DrawableComponent()
     }
 
     m_drawables.clear();
+
+    delete m_material;
 }
 
-void Engine::DrawableComponent::update()
+void Engine::DrawableComponent::draw(const Core::Matrix4& viewMatrix,
+                                     const Core::Matrix4& projMatrix,
+                                     Light* light)
 {
-    m_shaderProgram->setUniform("model", m_entity->getTransformAsMatrix());
+    // TODO(Charly): Potential optimization
+    //                  -> Keep sure all materials are ordered.
+    if (nullptr == m_material)
+    {
+        return;
+    }
+
+    ShaderProgram* shader = m_material->getShaderProgram();
+    if (nullptr == shader)
+    {
+        return;
+    }
+
+    shader->bind();
+
+    Core::Matrix4 modelMatrix = m_entity->getTransformAsMatrix();
+    Core::Matrix4 mvpMatrix = projMatrix * viewMatrix * modelMatrix;
+    // TODO(Charly): Add normal matrix
+
+    shader->setUniform("model", modelMatrix);
+    shader->setUniform("view", viewMatrix);
+    shader->setUniform("proj", projMatrix);
+    shader->setUniform("mvp", mvpMatrix);
+
+    m_material->bind();
+    light->bind(shader);
 
     for (const auto& drawable : m_drawables)
     {
@@ -97,9 +129,9 @@ std::vector<Engine::Drawable*> Engine::DrawableComponent::getDrawables() const
     return drawables;
 }
 
-void Engine::DrawableComponent::setShaderProgram(Engine::ShaderProgram* shader)
+void Engine::DrawableComponent::setMaterial(Material* material)
 {
-    m_shaderProgram = shader;
+    m_material = material;
 }
 
 } // namespace Ra

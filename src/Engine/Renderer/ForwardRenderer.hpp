@@ -1,13 +1,15 @@
 #ifndef RADIUMENGINE_FORWARDRENDERER_HPP
 #define RADIUMENGINE_FORWARDRENDERER_HPP
 
+#include <vector>
 #include <memory>
 
 #include <Engine/Renderer/RenderSystem.hpp>
 
-namespace Ra { namespace Engine { class Camera; } }
-namespace Ra { namespace Engine { class ShaderProgram; } }
+namespace Ra { namespace Engine { class Camera;               } }
+namespace Ra { namespace Engine { class ShaderProgram;        } }
 namespace Ra { namespace Engine { class ShaderProgramManager; } }
+namespace Ra { namespace Engine { class Light;                } }
 
 namespace Ra { namespace Engine {
 
@@ -38,9 +40,7 @@ private:
 	
 	ShaderProgramManager* m_shaderManager;
 
-	ShaderProgram* m_passthroughShader;
-	ShaderProgram* m_blinnPhongShader;
-	ShaderProgram* m_quadShader;
+    std::vector<Light*> m_lights;
 };
 
 } // namespace Engine
