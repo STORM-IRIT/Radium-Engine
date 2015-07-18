@@ -44,10 +44,12 @@ namespace Ra { namespace Core
         /// Create an axis-aligned cubic mesh
         TriangleMesh makeBox(const Aabb& aabb);
 
-        /// Create a parametric sphere of given radius. Template parameters set the resolution.
+        /// Create a parametric spheric mesh of given radius. Template parameters set the resolution.
         template<uint U = 16, uint V = U>
         TriangleMesh makeParametricSphere(Scalar radius = 1.f);
 
+        /// Create a spheric mesh by subdivision of an icosaherdon.
+        TriangleMesh makeGeodesicSphere(Scalar radius =1.f, uint numSubdiv = 3);
 
         //
         // Checks

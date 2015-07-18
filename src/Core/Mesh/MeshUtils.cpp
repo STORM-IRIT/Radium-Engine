@@ -88,6 +88,88 @@ namespace Ra { namespace Core
 
         }
 
+        TriangleMesh makeGeodesicSphere(Scalar radius, uint numSubdiv)
+        {
+            TriangleMesh result;
+            // First, make an icosahedron.
+            // Top vertex
+            result.m_vertices.push_back(Vector3(0,0,radius));
+
+            const Scalar sq5_5 = radius * std::sqrt(5)/5.f;
+
+            // Middle vertices are on pentagons inscribed on a circle of radius 2*sqrt(5)
+            for (int i = 0; i < 5 ; ++i)
+            {
+                for (int j = 0; j < 2 ; ++j)
+                {
+                    const Scalar theta = (Scalar(i) + (j*0.5)) * Scalar(M_PI) * 2.f / 5.f;
+
+                    const Scalar x = 2.f * sq5_5 * std::cos(theta);
+                    const Scalar y = 2.f * sq5_5 * std::sin(theta);
+                    const Scalar z = j ==0 ? sq5_5 : -sq5_5;
+                    result.m_vertices.push_back(Vector3(x,y,z));
+                }
+            }
+
+            // Bottom vertex
+            result.m_vertices.push_back(Vector3(0,0,-radius));
+
+            for (int i = 0; i < 5; ++i)
+            {
+                uint i1 = (i+1)%5;
+                // Top triangles
+                result.m_triangles.push_back(Triangle(0, 2*i+1, (2*i1 +1)));
+
+                // Bottom triangles
+                result.m_triangles.push_back(Triangle(2*i+2, 11, (2*i1 +2)));
+
+            }
+            for (uint i = 0; i < 10; ++i)
+            {
+                uint i1 = (i+0) %10 +1;
+                uint i2 = (i+1) %10 +1;
+                uint i3 = (i+2) %10 +1;
+                result.m_triangles.push_back(Triangle(i3,i2,i1));
+            }
+
+
+            for (uint n = 0; n < numSubdiv; ++n)
+            {
+                VectorArray<Triangle> newTris= result.m_triangles;
+                // Now subdivide every face into 4 triangles.
+                for (uint i = 0 ; i < result.m_triangles.size(); ++i)
+                {
+                    const Triangle& tri = result.m_triangles[i];
+                    std::array<Vector3,3> triVertices;
+                    std::array<uint,3> middles;
+
+                    getTriangleVertices(result,i, triVertices);
+
+                    for (int v = 0; v < 3 ; ++v)
+                    {
+                        middles[v] = result.m_vertices.size();
+                        result.m_vertices.push_back(0.5f* (triVertices[v] + triVertices[(v+1)%3]));
+                    }
+
+                    newTris.push_back(Triangle(tri[0],middles[0], middles[2]));
+                    newTris.push_back(Triangle(middles[0], tri[1], middles[1]));
+                    newTris.push_back(Triangle(middles[2], middles[1], tri[2]));
+                    newTris.push_back(Triangle(middles[0], middles[1], middles[2]));
+
+                }
+                result.m_triangles = newTris;
+            }
+
+            // Project vertices on the sphere
+            for (auto& vertex : result.m_vertices)
+            {
+                const Scalar r = radius / vertex.norm();
+                vertex *= r;
+            }
+            checkConsistency(result);
+            return result;
+        }
+
 
         void checkConsistency(const TriangleMesh& mesh)
         {
