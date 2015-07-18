@@ -9,6 +9,7 @@ uniform mat4 mvp;
 
 out vec3 varPosition;
 out vec3 varNormal;
+out vec3 varEye;
 
 void main()
 {
@@ -17,10 +18,13 @@ void main()
     mat4 modelView = view * model;
     mat4 normalMat = transpose(inverse(modelView));
 
-    vec4 pos = modelView * vec4(inPosition, 1.0);
+    vec4 pos = model * vec4(inPosition, 1.0);
     pos /= pos.w;
-    vec4 normal = modelView * vec4(inNormal, 0.0);
+    vec4 normal = model * vec4(inNormal, 0.0);
+
+    vec3 eye = -view[3].xyz * mat3(view);
 
     varPosition = vec3(pos);
     varNormal   = vec3(normal);
+    varEye = vec3(eye);
 }

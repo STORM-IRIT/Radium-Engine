@@ -9,7 +9,7 @@ namespace Ra {
 /// -------------------- ///
 Engine::Camera::Camera()
     : m_frame     ( Core::Transform::Identity() )
-    , m_fov       ( M_PI * 50.0 / 180.0	        )
+    , m_fov       ( M_PI * 60.0 / 180.0	        )
     , m_zNear     ( 1.0                         )
     , m_zFar      ( 1000.0                      )
     , m_focalPoint( 1.0                         )

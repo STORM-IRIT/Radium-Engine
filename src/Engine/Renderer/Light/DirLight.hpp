@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_POINTLIGHT_HPP
-#define RADIUMENGINE_POINTLIGHT_HPP
+#ifndef RADIUMENGINE_DIRLIGHT_HPP
+#define RADIUMENGINE_DIRLIGHT_HPP
 
 #include <Engine/Renderer/Light/Light.hpp>
 

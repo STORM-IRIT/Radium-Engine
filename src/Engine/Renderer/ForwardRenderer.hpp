@@ -39,8 +39,6 @@ private:
 	std::shared_ptr<Camera> m_camera;
 	
 	ShaderProgramManager* m_shaderManager;
-
-    std::vector<Light*> m_lights;
 };
 
 } // namespace Engine

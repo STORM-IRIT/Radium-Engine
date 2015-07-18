@@ -2,9 +2,12 @@
 #define RADIUMENGINE_RENDERER_HPP
 
 #include <string>
+#include <vector>
 
 #include <Core/CoreMacros.hpp>
 #include <Engine/Entity/System.hpp>
+
+namespace Ra { namespace Engine { class Light; } }
 
 namespace Ra { namespace Engine {
 
@@ -95,9 +98,13 @@ public:
 	 */
 	virtual void debugTexture(uint texIdx) {}
 
+    void addLight(Light* light) { m_lights.push_back(light); }
+
 protected:
 	uint m_width;
 	uint m_height;
+
+    std::vector<Light*> m_lights;
 };
 
 } // namespace Engine

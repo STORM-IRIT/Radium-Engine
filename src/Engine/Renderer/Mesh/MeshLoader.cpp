@@ -11,11 +11,15 @@
 #include <Core/String/StringUtils.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
+#include <Engine/Renderer/RenderSystem.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Shader/ShaderProgram.hpp>
 #include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/Drawable/DrawableComponent.hpp>
+#include <Engine/Renderer/Light/DirLight.hpp>
+#include <Engine/Renderer/Light/SpotLight.hpp>
+#include <Engine/Renderer/Light/PointLight.hpp>
 
 namespace Ra
 {
@@ -40,6 +44,7 @@ void loadMesh(const aiMesh* mesh, Engine::DrawableComponent* component, const st
 void loadMaterial(const aiMaterial* mat, Engine::DrawableComponent* component, const std::string& name);
 void loadDefaultMaterial(Engine::DrawableComponent* component, const std::string& name);
 
+void loadLights(const aiScene* scene, Engine::RadiumEngine* engine);
 }
 
 void Engine::MeshLoader::loadFile(const std::string& name, RadiumEngine* engine)
@@ -63,6 +68,11 @@ void Engine::MeshLoader::loadFile(const std::string& name, RadiumEngine* engine)
     }
 
     runThroughNodes(scene->mRootNode, scene, Core::Matrix4::Identity(), engine);
+
+    if (scene->HasLights())
+    {
+        loadLights(scene, engine);
+    }
 }
 
 namespace
@@ -191,6 +201,109 @@ void loadDefaultMaterial(Engine::DrawableComponent* component, const std::string
     component->setMaterial(material);
 }
 
+void loadLights(const aiScene* scene, Engine::RadiumEngine* engine)
+{
+    Engine::RenderSystem* renderer = static_cast<Engine::RenderSystem*>(
+                engine->getSystem("RenderSystem"));
+    for (uint i = 0; i < scene->mNumLights; ++i)
+    {
+        aiLight* ailight = scene->mLights[i];
+
+        aiString name = ailight->mName;
+        aiNode* node = scene->mRootNode->FindNode(name);
+
+        Core::Matrix4 transform(Core::Matrix4::Identity());
+
+        if (node != nullptr)
+        {
+            transform = assimpToCore(scene->mRootNode->mTransformation) *
+                    assimpToCore(node->mTransformation);
+        }
+
+        Core::Color color(ailight->mColorDiffuse.r,
+                          ailight->mColorDiffuse.g,
+                          ailight->mColorDiffuse.b, 1.0);
+
+        switch (ailight->mType)
+        {
+            case aiLightSource_DIRECTIONAL:
+            {
+                Core::Vector4 dir(ailight->mDirection[0],
+                                  ailight->mDirection[1],
+                                  ailight->mDirection[2], 0.0);
+                dir = transform.transpose().inverse() * dir;
+
+                Core::Vector3 finalDir(dir.x(), dir.y(), dir.z());
+                finalDir = -finalDir;
+
+                Engine::DirectionalLight* light = new Engine::DirectionalLight;
+                light->setColor(color);
+                light->setDirection(finalDir);
+
+                renderer->addLight(light);
+
+            } break;
+
+            case aiLightSource_POINT:
+            {
+                Core::Vector4 pos(ailight->mPosition[0],
+                                  ailight->mPosition[1],
+                                  ailight->mPosition[2], 1.0);
+                pos = transform * pos;
+                pos /= pos.w();
+
+                Engine::PointLight* light = new Engine::PointLight;
+                light->setColor(color);
+                light->setPosition(Core::Vector3(pos.x(), pos.y(), pos.z()));
+                light->setAttenuation(ailight->mAttenuationConstant,
+                                      ailight->mAttenuationLinear,
+                                      ailight->mAttenuationQuadratic);
+
+                renderer->addLight(light);
+
+            } break;
+
+            case aiLightSource_SPOT:
+            {
+                Core::Vector4 pos(ailight->mPosition[0],
+                                  ailight->mPosition[1],
+                                  ailight->mPosition[2], 1.0);
+                pos = transform * pos;
+                pos /= pos.w();
+
+                Core::Vector4 dir(ailight->mDirection[0],
+                                  ailight->mDirection[1],
+                                  ailight->mDirection[2], 0.0);
+                dir = transform.transpose().inverse() * dir;
+
+                Core::Vector3 finalDir(dir.x(), dir.y(), dir.z());
+                finalDir = -finalDir;
+
+                Engine::SpotLight* light = new Engine::SpotLight;
+                light->setColor(color);
+                light->setPosition(Core::Vector3(pos.x(), pos.y(), pos.z()));
+                light->setDirection(finalDir);
+
+                light->setAttenuation(ailight->mAttenuationConstant,
+                                      ailight->mAttenuationLinear,
+                                      ailight->mAttenuationQuadratic);
+
+                light->setInnerAngleInRadians(ailight->mAngleInnerCone);
+                light->setOuterAngleInRadians(ailight->mAngleOuterCone);
+
+                renderer->addLight(light);
+
+            } break;
+
+            case aiLightSource_UNDEFINED:
+            default:
+            {
+                fprintf(stderr, "Light %s has undefined type.\n", name.C_Str());
+            } break;
+        }
+    }
+}
+
 void assimpToCore(const aiVector3D& inVector, Core::Vector3& outVector)
 {
     for (uint i = 0; i < 3; ++i)
@@ -216,7 +329,6 @@ void assimpToCore(const aiMatrix4x4& inMatrix, Core::Matrix4& outMatrix)
             outMatrix(i, j) = inMatrix[i][j];
         }
     }
-
 }
 
 Core::Vector3 assimpToCore(const aiVector3D& vector)

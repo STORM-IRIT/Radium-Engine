@@ -65,36 +65,74 @@ out vec4 fragColor;
 
 in vec3 varPosition;
 in vec3 varNormal;
+in vec3 varEye;
 
-vec3 blinnPhongPoint()
+vec3 blinnPhongInternal(vec3 d, vec3 n)
 {
-    return vec3(1, 0, 0);
+    vec3 direction = normalize(d);
+    vec3 normal = normalize(n);
+    float diffFactor = dot(normal, -direction);
+
+    vec3 diff = vec3(0);
+    vec3 spec = vec3(0);
+
+    if (diffFactor > 0.0)
+    {
+        diff = diffFactor * light.color.xyz * material.kd.xyz;
+
+        vec3 vertToEye = normalize(varEye - varPosition);
+        vec3 lightReflect = normalize(reflect(direction, normal));
+        float specFactor = dot(vertToEye, lightReflect);
+
+        if (specFactor > 0.0)
+        {
+            specFactor = pow(specFactor, 64.0);
+            spec = specFactor * light.color.xyz * material.ks.xyz;
+        }
+    }
+
+    return diff + spec;
 }
 
 vec3 blinnPhongSpot()
 {
-    return vec3(0, 1, 0);
+    vec3 dir = light.spot.direction;
+    vec3 color;
+
+    float d = length(dir);
+    float attenuation = light.spot.attenuation.constant +
+                        light.spot.attenuation.linear * d +
+                        light.spot.attenuation.quadratic * d * d;
+    attenuation = 1.0 / attenuation;
+
+    vec3 lightToPixel = normalize(varPosition - light.spot.position);
+
+    float cosRealAngle = dot(lightToPixel, -normalize(dir));
+    float cosSpotOuter = cos(light.spot.innerAngle / 2.0);
+
+    float radialAttenuation = pow(clamp((cosRealAngle - cosSpotOuter) /
+                                        (1.0 - cosSpotOuter), 0.0, 1.0), 1.6);
+
+    color = blinnPhongInternal(-dir, varNormal);
+    return color * attenuation * radialAttenuation;
+}
+
+vec3 blinnPhongPoint()
+{
+    vec3 dir = varPosition - light.point.position;
+    vec3 color = blinnPhongInternal(normalize(dir), normalize(varNormal));
+
+    float d = length(dir);
+    float attenuation = light.point.attenuation.constant +
+                        light.point.attenuation.linear * d +
+                        light.point.attenuation.quadratic * d * d;
+
+    return color / attenuation;
 }
 
 vec3 blinnPhongDirectional()
 {
-    vec3 normal = normalize(varNormal);
-    vec3 lightDir = -normalize(light.directional.direction);
-
-    float lambertian = max(dot(lightDir, normal), 0.0);
-    float specular = 0.0;
-
-    if (lambertian > 0.0)
-    {
-        vec3 reflectDir = reflect(-lightDir, normal);
-        vec3 viewDir = normalize(-varPosition);
-
-        float specAngle = max(dot(reflectDir, viewDir), 0.0);
-        specular = pow(specAngle, 32.0); // FIXME(Charly): Specular exponent as ks.w
-    }
-
-    return vec3(lambertian * light.color * material.kd +
-                specular * light.color * material.ks);
+    return blinnPhongInternal(light.directional.direction, normalize(varNormal));
 }
 
 void main()

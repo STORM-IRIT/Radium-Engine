@@ -56,7 +56,7 @@ void Engine::ForwardRenderer::initializeGL(uint width, uint height)
 	initBuffers();
 
     m_camera = std::make_shared<Camera>();
-    m_camera->setPosition(Core::Vector3(0, 2, -5), Camera::ModeType::TARGET);
+    m_camera->setPosition(Core::Vector3(5, 5, -10), Camera::ModeType::TARGET);
     m_camera->setTargetPoint(Core::Vector3(0, 0, 0));
     m_camera->updateProjMatrix(m_width, m_height);
 }
@@ -116,7 +116,7 @@ void Engine::ForwardRenderer::render()
     else
     {
         DirectionalLight l;
-        l.setDirection(Core::Vector3(0, -1, 0));
+        l.setDirection(Core::Vector3(0.3, -1, 0));
 
         for (const auto& c : m_components)
         {

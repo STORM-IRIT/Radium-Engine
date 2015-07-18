@@ -17,6 +17,7 @@ Engine::DirectionalLight::~DirectionalLight()
 
 void Engine::DirectionalLight::bind(ShaderProgram* shader)
 {
+    fprintf(stderr, "Binding DirLight\n");
     Light::bind(shader);
 
     shader->setUniform("light.directional.direction", m_direction);
