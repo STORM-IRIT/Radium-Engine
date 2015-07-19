@@ -171,13 +171,11 @@ void main()
     }
 
     float d1 = min(min(gTriDistance.x, gTriDistance.y), gTriDistance.z);
-    float d = amplify(d1, 40, -0.5);
+    float d = amplify(d1, 10, -0.1);
 
-    if (d > 0.7) discard;
+    if (d > 0.5) discard;
 
-    color = amplify(d1, 40, -0.5) * color;
-
-
+    color = d * color;
 
     fragColor = vec4(color, 1.0);
 }
