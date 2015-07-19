@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_HALFEDGE_HPP
 #define RADIUMENGINE_HALFEDGE_HPP
 
+#include <vector>
+
 #include <Core/Mesh/MeshTypes.hpp>
 
 namespace Ra { namespace Core

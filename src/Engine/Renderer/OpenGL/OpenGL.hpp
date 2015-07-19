@@ -10,6 +10,8 @@
 #define GL_GLEXT_PROTOTYPES 1
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <GL/glext.h>
+
 #include <cstdio>
 
 namespace Ra { namespace Engine {

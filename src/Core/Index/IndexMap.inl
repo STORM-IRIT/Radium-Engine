@@ -179,7 +179,7 @@ inline bool IndexMap<T>::remove_free_index( Index& idx ) {
     if( m_free.empty() ) {
         Index next = idx + 1;
         if( next.isValid() ) {
-            if( next.getValue() > m_data.size() ) {
+            if( uint(next.getValue()) > m_data.size() ) {
                 m_free.push_back( next );
             }
         }

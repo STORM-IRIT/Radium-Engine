@@ -6,8 +6,8 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 
-namespace Ra { namespace Core { class KeyEvent; } }
-namespace Ra { namespace Core { class MouseEvent; } }
+namespace Ra { namespace Core { struct KeyEvent; } }
+namespace Ra { namespace Core { struct MouseEvent; } }
 namespace Ra { namespace Engine { class RadiumEngine; } }
 namespace Ra { namespace Engine { class RenderSystem; } }
 

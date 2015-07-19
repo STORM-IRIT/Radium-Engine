@@ -2,6 +2,7 @@
 #define RADIUMENGINE_DRAWABLECOMPONENT_HPP
 
 #include <map>
+#include <vector>
 #include <string>
 #include <memory>
 

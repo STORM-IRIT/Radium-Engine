@@ -87,7 +87,7 @@ void Engine::ForwardRenderer::render()
 //    glDrawBuffer(GL_BACK);
 
     glViewport(0, 0, m_width, m_height);
-    GL_ASSERT(glClearColor(0.1, 0.1, 0.1, 1.0));
+    GL_ASSERT(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
 
     GL_ASSERT(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 
@@ -146,23 +146,23 @@ bool Engine::ForwardRenderer::handleMouseEvent(const Core::MouseEvent& event)
 {
     switch (event.event)
     {
-        case Core::MouseEventType::MOUSE_RELEASED:
+        case Core::MouseEventType::RA_MOUSE_RELEASED:
         {
             switch (event.button)
             {
-                case Core::MouseButton::MOUSE_LEFT_BUTTON:
+                case Core::MouseButton::RA_MOUSE_LEFT_BUTTON:
                 {
                     fprintf(stderr, "Left button released at (%.0f %.0f) - relative position is (%0.3f %0.3f)\n",
                            event.absoluteXPosition, event.absoluteYPosition, event.relativeXPosition, event.relativeYPosition);
                 } break;
 
-                case Core::MouseButton::MOUSE_MIDDLE_BUTTON:
+                case Core::MouseButton::RA_MOUSE_MIDDLE_BUTTON:
                 {
                     fprintf(stderr, "Middle button released at (%.0f %.0f) - relative position is (%0.3f %0.3f)\n",
                            event.absoluteXPosition, event.absoluteYPosition, event.relativeXPosition, event.relativeYPosition);
                 } break;
 
-                case Core::MouseButton::MOUSE_RIGHT_BUTTON:
+                case Core::MouseButton::RA_MOUSE_RIGHT_BUTTON:
                 {
                     fprintf(stderr, "Right button released at (%.0f %.0f) - relative position is (%0.3f %0.3f)\n",
                            event.absoluteXPosition, event.absoluteYPosition, event.relativeXPosition, event.relativeYPosition);
@@ -181,8 +181,8 @@ bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
         // Reload shaders on Ctrl+R
         case Qt::Key_R:
         {
-            if (event.event == Core::KeyEventType::KEY_RELEASED
-                    && event.modifier & Core::Modifier::CTRL_KEY)
+            if (event.event == Core::KeyEventType::RA_KEY_RELEASED
+                    && event.modifier & Core::Modifier::RA_CTRL_KEY)
             {
                 ShaderProgramManager::getInstancePtr()->reloadAllShaderPrograms();
                 return true;

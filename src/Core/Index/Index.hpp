@@ -2,6 +2,7 @@
 #define RADIUMENGINE_INDEX_HPP
 
 #include <limits>
+#include <Core/CoreMacros.hpp>
 
 namespace Ra { namespace Core
 {

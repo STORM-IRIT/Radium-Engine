@@ -53,7 +53,7 @@ public:
     inline T&         operator[]( const Index& idx );
     inline T&         operator[]( const int      i );
     inline Index&     operator<<( const T&     obj );
-    inline IndexMap& operator>>( const Index& idx );
+    inline IndexMap&  operator>>( const Index& idx );
 
 protected:
     /// MAP ENTRY CLASS

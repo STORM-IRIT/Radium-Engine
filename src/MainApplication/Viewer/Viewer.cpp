@@ -97,7 +97,7 @@ void Gui::Viewer::mousePressEvent(QMouseEvent* event)
 {
     Core::MouseEvent e;
     mouseEventQtToRadium(event, &e);
-    e.event = Core::MouseEventType::MOUSE_PRESSED;
+    e.event = Core::MouseEventType::RA_MOUSE_PRESSED;
 
     if (!m_renderer->handleMouseEvent(e))
     {
@@ -109,7 +109,7 @@ void Gui::Viewer::mouseReleaseEvent(QMouseEvent* event)
 {
     Core::MouseEvent e;
     mouseEventQtToRadium(event, &e);
-    e.event = Core::MouseEventType::MOUSE_RELEASED;
+    e.event = Core::MouseEventType::RA_MOUSE_RELEASED;
 
     if (!m_renderer->handleMouseEvent(e))
     {
@@ -121,7 +121,7 @@ void Gui::Viewer::mouseMoveEvent(QMouseEvent* event)
 {
     Core::MouseEvent e;
     mouseEventQtToRadium(event, &e);
-    e.event = Core::MouseEventType::MOUSE_MOVED;
+    e.event = Core::MouseEventType::RA_MOUSE_MOVED;
 
     if (!m_renderer->handleMouseEvent(e))
     {
@@ -132,7 +132,7 @@ void Gui::Viewer::mouseMoveEvent(QMouseEvent* event)
 void Gui::Viewer::wheelEvent(QWheelEvent* event)
 {
     Core::MouseEvent e;
-    e.event = Core::MouseEventType::MOUSE_WHEEL;
+    e.event = Core::MouseEventType::RA_MOUSE_WHEEL;
     e.wheelDelta = static_cast<Scalar>(event->delta());
 
     Scalar x = static_cast<Scalar>(event->x());
@@ -152,7 +152,7 @@ void Gui::Viewer::keyPressEvent(QKeyEvent* event)
 {
     Core::KeyEvent e;
     keyEventQtToRadium(event, &e);
-    e.event = Core::KeyEventType::KEY_PRESSED;
+    e.event = Core::KeyEventType::RA_KEY_PRESSED;
 
     if (!m_renderer->handleKeyEvent(e))
     {
@@ -164,7 +164,7 @@ void Gui::Viewer::keyReleaseEvent(QKeyEvent* event)
 {
     Core::KeyEvent e;
     keyEventQtToRadium(event, &e);
-    e.event = Core::KeyEventType::KEY_RELEASED;
+    e.event = Core::KeyEventType::RA_KEY_RELEASED;
 
     if (!m_renderer->handleKeyEvent(e))
     {
@@ -178,17 +178,17 @@ void Gui::Viewer::mouseEventQtToRadium(QMouseEvent* qtEvent, Core::MouseEvent* r
     {
         case Qt::LeftButton:
         {
-            raEvent->button = Core::MouseButton::MOUSE_LEFT_BUTTON;
+            raEvent->button = Core::MouseButton::RA_MOUSE_LEFT_BUTTON;
         } break;
 
         case Qt::MiddleButton:
         {
-            raEvent->button = Core::MouseButton::MOUSE_MIDDLE_BUTTON;
+            raEvent->button = Core::MouseButton::RA_MOUSE_MIDDLE_BUTTON;
         } break;
 
         case Qt::RightButton:
         {
-            raEvent->button = Core::MouseButton::MOUSE_RIGHT_BUTTON;
+            raEvent->button = Core::MouseButton::RA_MOUSE_RIGHT_BUTTON;
         } break;
 
         default:
@@ -200,17 +200,17 @@ void Gui::Viewer::mouseEventQtToRadium(QMouseEvent* qtEvent, Core::MouseEvent* r
 
     if (qtEvent->modifiers().testFlag(Qt::ControlModifier))
     {
-        raEvent->modifier |= Core::Modifier::CTRL_KEY;
+        raEvent->modifier |= Core::Modifier::RA_CTRL_KEY;
     }
 
     if (qtEvent->modifiers().testFlag(Qt::ShiftModifier))
     {
-        raEvent->modifier |= Core::Modifier::SHIFT_KEY;
+        raEvent->modifier |= Core::Modifier::RA_SHIFT_KEY;
     }
 
     if (qtEvent->modifiers().testFlag(Qt::AltModifier))
     {
-        raEvent->modifier |= Core::Modifier::ALT_KEY;
+        raEvent->modifier |= Core::Modifier::RA_ALT_KEY;
     }
 
     Scalar x = static_cast<Scalar>(qtEvent->x());
@@ -229,17 +229,17 @@ void Gui::Viewer::keyEventQtToRadium(QKeyEvent* qtEvent, Core::KeyEvent* raEvent
 
     if (qtEvent->modifiers().testFlag(Qt::ControlModifier))
     {
-        raEvent->modifier |= Core::Modifier::CTRL_KEY;
+        raEvent->modifier |= Core::Modifier::RA_CTRL_KEY;
     }
 
     if (qtEvent->modifiers().testFlag(Qt::ShiftModifier))
     {
-        raEvent->modifier |= Core::Modifier::SHIFT_KEY;
+        raEvent->modifier |= Core::Modifier::RA_SHIFT_KEY;
     }
 
     if (qtEvent->modifiers().testFlag(Qt::AltModifier))
     {
-        raEvent->modifier |= Core::Modifier::ALT_KEY;
+        raEvent->modifier |= Core::Modifier::RA_ALT_KEY;
     }
 }
 
