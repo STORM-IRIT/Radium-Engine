@@ -29,7 +29,7 @@ namespace Ra { namespace Core
     {
     public:
         /// Build the half edge data from a mesh.
-        HalfEdgeData(const TriangleMesh& mesh);
+        inline HalfEdgeData(const TriangleMesh& mesh);
 
         /// Completely rebuilds the data from the given mesh.
         inline void update(const TriangleMesh& mesh);
@@ -38,14 +38,20 @@ namespace Ra { namespace Core
         inline void clear();
 
         // Accessors to underlying data.
-        inline HalfEdge& operator[](HalfEdgeIdx i);
         inline const HalfEdge& operator[](HalfEdgeIdx i) const;
 
-        /// Returns one of the half edges starting from given vertex.
-        inline HalfEdgeIdx getFirstVertexHalfEdge(VertexIdx i) const;
+        inline const HalfEdge& next( HalfEdgeIdx i) const;
+        inline const HalfEdge& prev( HalfEdgeIdx i) const;
+        inline const HalfEdge& pair( HalfEdgeIdx i) const;
+
+        /// Returns the half edges starting from given vertex.
+        inline const std::vector<HalfEdgeIdx>& getVertexHalfEdges(VertexIdx i) const;
 
         /// Returns one of the half edges around given triangle.
         inline HalfEdgeIdx getFirstTriangleHalfEdge(TriangleIdx t) const;
+
+        /// Checks the structure is internally consistent (in debug mode).
+        void checkConsistency() const;
 
     private:
         // Internal building function called by update and the constructor.
@@ -55,10 +61,19 @@ namespace Ra { namespace Core
         /// Container holding the half edges.
         std::vector<HalfEdge> m_halfEdgeList;
         /// Array mapping one vertex to one of the half edges starting from it.
-        std::vector<HalfEdgeIdx> m_vertexToHalfEdge;
+        std::vector<std::vector<HalfEdgeIdx>> m_vertexToHalfEdge;
         /// Array mapping one triangle to one of the half edges starting from it.
         std::vector<HalfEdgeIdx> m_triangleToHalfEdge;
     };
+
+    namespace AdjacencyQueries
+    {
+        void getVertexFaces(const TriangleMesh& mesh, const HalfEdgeData& heData,
+                      VertexIdx vertex, std::vector<TriangleIdx>& facesOut);
+
+        void getFirstRing(const TriangleMesh& mesh, const HalfEdgeData& heData,
+                      VertexIdx vertex, std::vector<VertexIdx>& ringOut);
+    }
 }}
 
 #include <Core/Mesh/HalfEdge.inl>

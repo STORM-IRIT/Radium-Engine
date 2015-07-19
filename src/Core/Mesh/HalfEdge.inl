@@ -1,6 +1,6 @@
 namespace Ra { namespace Core
 {
-    HalfEdgeData::HalfEdgeData(const TriangleMesh& mesh)
+    inline HalfEdgeData::HalfEdgeData(const TriangleMesh& mesh)
     {
         build(mesh);
     }
@@ -11,15 +11,10 @@ namespace Ra { namespace Core
         return m_halfEdgeList[i];
     }
 
-    inline HalfEdge& HalfEdgeData::operator[](HalfEdgeIdx i)
-    {
-        CORE_ASSERT(i != InvalidIdx && i < m_halfEdgeList.size(), "Invalid Index");
-        return m_halfEdgeList[i];
-    }
-
-    inline HalfEdgeIdx HalfEdgeData::getFirstVertexHalfEdge(VertexIdx i) const
+    inline const std::vector<HalfEdgeIdx>& HalfEdgeData::getVertexHalfEdges(VertexIdx i) const
     {
         CORE_ASSERT(i != InvalidIdx && i < m_vertexToHalfEdge.size(), "Invalid Index");
+        CORE_ASSERT( !m_vertexToHalfEdge[i].empty(), "Isolated vertex");
         return m_vertexToHalfEdge[i];
     }
 
