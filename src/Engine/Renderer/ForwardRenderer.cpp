@@ -34,6 +34,9 @@ Engine::ForwardRenderer::ForwardRenderer()
     : RenderSystem()
 	, m_camera(nullptr)
 	, m_shaderManager(nullptr)
+    , m_camRotateStarted(false)
+    , m_camZoomStarted(false)
+    , m_camPanStarted(false)
 {
 }
 
@@ -146,26 +149,103 @@ bool Engine::ForwardRenderer::handleMouseEvent(const Core::MouseEvent& event)
 {
     switch (event.event)
     {
+        case Core::MouseEventType::RA_MOUSE_PRESSED:
+        {
+            switch (event.button)
+            {
+                case Core::MouseButton::RA_MOUSE_LEFT_BUTTON:
+                {
+                    m_camRotateStarted = true;
+                    m_lastMouseX = event.relativeXPosition;
+                    m_lastMouseY = event.relativeYPosition;
+
+                    return true;
+                } break;
+
+                case Core::MouseButton::RA_MOUSE_MIDDLE_BUTTON:
+                {
+                    m_camZoomStarted = true;
+                    m_lastMouseX = event.relativeXPosition;
+                    m_lastMouseY = event.relativeYPosition;
+
+                    return true;
+                } break;
+
+                case Core::MouseButton::RA_MOUSE_RIGHT_BUTTON:
+                {
+                    m_camPanStarted = true;
+                    m_lastMouseX = event.relativeXPosition;
+                    m_lastMouseY = event.relativeYPosition;
+
+                    return true;
+                } break;
+            }
+        } break;
+
+        case Core::MouseEventType::RA_MOUSE_MOVED:
+        {
+            bool handled = false;
+
+            Scalar dx = event.relativeXPosition - m_lastMouseX;
+            Scalar dy = event.relativeYPosition - m_lastMouseY;
+
+            if (m_camRotateStarted)
+            {
+                m_camera->rotateRight(dx);
+                m_camera->rotateUp(dy);
+
+                handled = true;
+            }
+
+            if (m_camZoomStarted)
+            {
+                m_camera->walkForward(dy);
+
+                handled = true;
+            }
+
+            if (m_camPanStarted)
+            {
+                m_camera->strafeRight(-dx);
+                m_camera->moveUpward(dy);
+
+                handled = true;
+            }
+
+            m_lastMouseX = event.relativeXPosition;
+            m_lastMouseY = event.relativeYPosition;
+
+            if (handled)
+            {
+                return handled;
+            }
+        }
+
         case Core::MouseEventType::RA_MOUSE_RELEASED:
         {
             switch (event.button)
             {
                 case Core::MouseButton::RA_MOUSE_LEFT_BUTTON:
                 {
-                    // return true;
+                    m_camRotateStarted = false;
+                    return true;
                 } break;
 
                 case Core::MouseButton::RA_MOUSE_MIDDLE_BUTTON:
                 {
-                    // return true;
+                    m_camZoomStarted = false;
+                    return true;
                 } break;
 
                 case Core::MouseButton::RA_MOUSE_RIGHT_BUTTON:
                 {
-                    // return true;
+                    m_camPanStarted = false;
+                    return true;
                 } break;
             }
         } break;
+
+
     }
 
     return false;

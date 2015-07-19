@@ -209,6 +209,10 @@ public:
     inline void walkForward(Scalar amount);
     // Move the camera backward by given amount
     inline void walkBackward(Scalar amount);
+    // Move the camera upward by given amount
+    inline void moveUpward(Scalar amount);
+    // Move the camera downward by given amount
+    inline void moveDownward(Scalar amount);
 
     // Rotate the camera upside by given amount
     inline void rotateUp(Scalar amount);
@@ -218,6 +222,11 @@ public:
     inline void rotateLeft(Scalar amount);
     // Rotate the camera to the right by given amount
     inline void rotateRight(Scalar amount);
+
+    // No effect :/
+    inline void zoomIn(Scalar amount);
+    // No effect :/
+    inline void zoomOut(Scalar amount);
 
 private:
     /// -------------------- ///

@@ -233,6 +233,22 @@ inline void Engine::Camera::walkForward(Scalar amount)
     setPosition(pos + amount * front);
 }
 
+inline void Engine::Camera::moveUpward(Scalar amount)
+{
+    Core::Vector3 pos = getPosition();
+    Core::Vector3 up = getUpVector();
+
+    setPosition(pos + amount * up);
+}
+
+inline void Engine::Camera::moveDownward(Scalar amount)
+{
+    Core::Vector3 pos = getPosition();
+    Core::Vector3 up = getUpVector();
+
+    setPosition(pos - amount * up);
+}
+
 inline void Engine::Camera::rotateUp(Scalar amount)
 {
     Core::Transform t(Core::AngleAxis(amount, getRightVector()));
@@ -255,6 +271,16 @@ inline void Engine::Camera::rotateRight(Scalar amount)
 {
     Core::Transform t(Core::AngleAxis(-amount, Core::Vector3(0, 1, 0)));
     applyTransform(t);
+}
+
+inline void Engine::Camera::zoomIn(Scalar amount)
+{
+    setZoomFactor(getZoomFactor() - amount);
+}
+
+inline void Engine::Camera::zoomOut(Scalar amount)
+{
+    setZoomFactor(getZoomFactor() + amount);
 }
 
 } // End of Ra

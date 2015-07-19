@@ -39,6 +39,12 @@ private:
 	std::shared_ptr<Camera> m_camera;
 	
 	ShaderProgramManager* m_shaderManager;
+
+    Scalar m_lastMouseX;
+    Scalar m_lastMouseY;
+    bool m_camZoomStarted;
+    bool m_camRotateStarted;
+    bool m_camPanStarted;
 };
 
 } // namespace Engine
