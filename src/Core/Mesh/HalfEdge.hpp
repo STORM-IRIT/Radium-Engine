@@ -2,6 +2,7 @@
 #define RADIUMENGINE_HALFEDGE_HPP
 
 #include <vector>
+#include <array>
 
 #include <Core/Mesh/MeshTypes.hpp>
 
@@ -68,11 +69,19 @@ namespace Ra { namespace Core
 
     namespace AdjacencyQueries
     {
+        /// Gets the faces which contain a given vertex.
         void getVertexFaces(const TriangleMesh& mesh, const HalfEdgeData& heData,
                       VertexIdx vertex, std::vector<TriangleIdx>& facesOut);
 
+        /// Gets the neighbours of a vertex.
+        // FIXME return them in order
         void getFirstRing(const TriangleMesh& mesh, const HalfEdgeData& heData,
                       VertexIdx vertex, std::vector<VertexIdx>& ringOut);
+
+        /// Gets the faces adjacent to a given triangle, in order. Note that
+        /// the face indices may be invalid (if the triangle is on the border)
+        void getAdjacentFaces(const TriangleMesh& mesh, const HalfEdgeData& heData,
+                      TriangleIdx triangle, std::array<TriangleIdx,3> &adjOut);
     }
 }}
 

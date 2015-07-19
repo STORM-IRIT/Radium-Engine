@@ -192,4 +192,18 @@ namespace Ra { namespace Core
             ringOut.push_back(heData[idx].m_endVertexIdx);
         }
     }
+
+
+    void AdjacencyQueries::getAdjacentFaces(const TriangleMesh& mesh, const HalfEdgeData& heData, TriangleIdx triangle, std::array<TriangleIdx,3>& adjOut)
+    {
+        HalfEdgeIdx currentHe =  heData.getFirstTriangleHalfEdge(triangle);
+        for (uint i = 0; i < 3 ; ++i)
+        {
+            const HalfEdge& flipHe = heData[heData[currentHe].m_pair];
+            adjOut[i] = flipHe.m_leftTriIdx;
+            currentHe = heData[currentHe].m_next;
+        }
+    }
+
+
 }}
