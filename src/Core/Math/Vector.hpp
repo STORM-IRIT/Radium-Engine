@@ -54,7 +54,13 @@ namespace Ra { namespace Core
     typedef Eigen::AngleAxis<Scalar> AngleAxis;
     typedef Eigen::AngleAxisf        AngleAxisf;
     typedef Eigen::AngleAxisd        AngleAxisd;
-    // Todo : storage transform using quaternions ?
+
+    typedef Eigen::Translation<Scalar,3> Translation;
+    typedef Eigen::Translation3f 		 Translationf;
+    typedef Eigen::Translation3d 		 Translationd;
+
+// Todo : storage transform using quaternions ?
+
 
     // For consistency we redefine VectorXi in our namespace
 	typedef Eigen::Vector2i Vector2i;

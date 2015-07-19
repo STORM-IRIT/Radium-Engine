@@ -74,12 +74,12 @@ namespace Ra { namespace Core
                     aabb.corner(Aabb::TopLeftCeil),
                     aabb.corner(Aabb::TopRightCeil)};
             result.m_triangles = {
-                    Triangle(0, 2, 1), Triangle(2, 3, 1), // Floor
+                    Triangle(0, 2, 1), Triangle(1, 2, 3), // Floor
                     Triangle(0, 1, 4), Triangle(4, 1, 5), // Front
                     Triangle(3, 2, 6), Triangle(3, 6, 7), // Back
-                    Triangle(1, 5, 3), Triangle(3, 5, 7), // Right
-                    Triangle(0, 4, 2), Triangle(2, 4, 6), // Left
-                    Triangle(4, 5, 6), Triangle(5, 6, 7)  // Top
+                    Triangle(5, 1, 3), Triangle(5, 3, 7), // Right
+                    Triangle(2, 0, 4), Triangle(2, 4, 6), // Left
+                    Triangle(4, 5, 6), Triangle(6, 5, 7)  // Top
             };
 
             getAutoNormals(result, result.m_normals);
@@ -129,7 +129,8 @@ namespace Ra { namespace Core
                 uint i1 = (i+0) %10 +1;
                 uint i2 = (i+1) %10 +1;
                 uint i3 = (i+2) %10 +1;
-                result.m_triangles.push_back(Triangle(i3,i2,i1));
+                i %2 ?  result.m_triangles.push_back(Triangle(i3,i2,i1))
+                      : result.m_triangles.push_back(Triangle(i2,i3,i1));
             }
 
 
