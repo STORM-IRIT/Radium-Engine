@@ -99,7 +99,7 @@ void Gui::Viewer::mousePressEvent(QMouseEvent* event)
     mouseEventQtToRadium(event, &e);
     e.event = Core::MouseEventType::RA_MOUSE_PRESSED;
 
-    if (!m_renderer->handleMouseEvent(e))
+    if (!m_engine->handleMouseEvent(e))
     {
         QOpenGLWidget::mousePressEvent(event);
     }
@@ -111,7 +111,7 @@ void Gui::Viewer::mouseReleaseEvent(QMouseEvent* event)
     mouseEventQtToRadium(event, &e);
     e.event = Core::MouseEventType::RA_MOUSE_RELEASED;
 
-    if (!m_renderer->handleMouseEvent(e))
+    if (!m_engine->handleMouseEvent(e))
     {
         QOpenGLWidget::mouseReleaseEvent(event);
     }
@@ -123,7 +123,7 @@ void Gui::Viewer::mouseMoveEvent(QMouseEvent* event)
     mouseEventQtToRadium(event, &e);
     e.event = Core::MouseEventType::RA_MOUSE_MOVED;
 
-    if (!m_renderer->handleMouseEvent(e))
+    if (!m_engine->handleMouseEvent(e))
     {
         QOpenGLWidget::mouseMoveEvent(event);
     }
@@ -142,7 +142,7 @@ void Gui::Viewer::wheelEvent(QWheelEvent* event)
     e.relativeXPosition = x / static_cast<Scalar>(width());
     e.relativeYPosition = y / static_cast<Scalar>(height());
 
-    if (!m_renderer->handleMouseEvent(e))
+    if (!m_engine->handleMouseEvent(e))
     {
         QOpenGLWidget::wheelEvent(event);
     }
@@ -154,7 +154,7 @@ void Gui::Viewer::keyPressEvent(QKeyEvent* event)
     keyEventQtToRadium(event, &e);
     e.event = Core::KeyEventType::RA_KEY_PRESSED;
 
-    if (!m_renderer->handleKeyEvent(e))
+    if (!m_engine->handleKeyEvent(e))
     {
         QOpenGLWidget::keyPressEvent(event);
     }
@@ -166,7 +166,7 @@ void Gui::Viewer::keyReleaseEvent(QKeyEvent* event)
     keyEventQtToRadium(event, &e);
     e.event = Core::KeyEventType::RA_KEY_RELEASED;
 
-    if (!m_renderer->handleKeyEvent(e))
+    if (!m_engine->handleKeyEvent(e))
     {
         QOpenGLWidget::keyReleaseEvent(event);
     }

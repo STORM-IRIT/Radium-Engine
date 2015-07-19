@@ -9,11 +9,13 @@
 
 #include <Core/CoreMacros.hpp>
 
-namespace Ra { namespace Engine { class System; } }
-namespace Ra { namespace Engine { class Entity; } }
-namespace Ra { namespace Engine { class Component; } }
-namespace Ra { namespace Engine { class EntityManager; } }
-namespace Ra { namespace Engine { class ComponentManager; } }
+namespace Ra { namespace Core   { class MouseEvent;         } }
+namespace Ra { namespace Core   { class KeyEvent;           } }
+namespace Ra { namespace Engine { class System;             } }
+namespace Ra { namespace Engine { class Entity;             } }
+namespace Ra { namespace Engine { class Component;          } }
+namespace Ra { namespace Engine { class EntityManager;      } }
+namespace Ra { namespace Engine { class ComponentManager;   } }
 
 namespace Ra { namespace Engine {
 
@@ -39,6 +41,9 @@ public:
     std::vector<Entity*> getEntities() const;
 
     bool loadFile(const std::string& file);
+
+    bool handleMouseEvent(const Core::MouseEvent& event);
+    bool handleKeyEvent(const Core::KeyEvent& event);
 
 private:
     void run();

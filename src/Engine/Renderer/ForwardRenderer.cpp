@@ -152,20 +152,17 @@ bool Engine::ForwardRenderer::handleMouseEvent(const Core::MouseEvent& event)
             {
                 case Core::MouseButton::RA_MOUSE_LEFT_BUTTON:
                 {
-                    fprintf(stderr, "Left button released at (%.0f %.0f) - relative position is (%0.3f %0.3f)\n",
-                           event.absoluteXPosition, event.absoluteYPosition, event.relativeXPosition, event.relativeYPosition);
+                    // return true;
                 } break;
 
                 case Core::MouseButton::RA_MOUSE_MIDDLE_BUTTON:
                 {
-                    fprintf(stderr, "Middle button released at (%.0f %.0f) - relative position is (%0.3f %0.3f)\n",
-                           event.absoluteXPosition, event.absoluteYPosition, event.relativeXPosition, event.relativeYPosition);
+                    // return true;
                 } break;
 
                 case Core::MouseButton::RA_MOUSE_RIGHT_BUTTON:
                 {
-                    fprintf(stderr, "Right button released at (%.0f %.0f) - relative position is (%0.3f %0.3f)\n",
-                           event.absoluteXPosition, event.absoluteYPosition, event.relativeXPosition, event.relativeYPosition);
+                    // return true;
                 } break;
             }
         } break;
@@ -192,26 +189,74 @@ bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
         // Handle camera moving. Just an example.
         case Qt::Key_A:
         {
-            printf("Moving the camera left.\n");
-            return true;
+            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
+            {
+                m_camera->strafeLeft(0.1);
+                return true;
+            }
         } break;
 
         case Qt::Key_D:
         {
-            printf("Moving the camera right.\n");
-            return true;
+            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
+            {
+                m_camera->strafeRight(0.1);
+                return true;
+            }
         } break;
 
         case Qt::Key_W:
         {
-            printf("Moving the camera up.\n");
-            return true;
+            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
+            {
+                m_camera->walkForward(0.1);
+                return true;
+            }
         } break;
 
         case Qt::Key_S:
         {
-            printf("Moving the camera down.\n");
-            return true;
+            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
+            {
+                m_camera->walkBackward(0.1);
+                return true;
+            }
+        } break;
+
+        case Qt::Key_Up:
+        {
+            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
+            {
+                m_camera->rotateDown(M_PI / 50.0);
+                return true;
+            }
+        } break;
+
+        case Qt::Key_Down:
+        {
+            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
+            {
+                m_camera->rotateUp(M_PI / 50.0);
+                return true;
+            }
+        } break;
+
+        case Qt::Key_Left:
+        {
+            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
+            {
+                m_camera->rotateLeft(M_PI / 50.0);
+                return true;
+            }
+        } break;
+
+        case Qt::Key_Right:
+        {
+            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
+            {
+                m_camera->rotateRight(M_PI / 50.0);
+                return true;
+            }
         } break;
     }
 

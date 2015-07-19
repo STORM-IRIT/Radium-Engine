@@ -49,7 +49,9 @@ Engine::Camera::~Camera() { }
 /// FRAME
 /// -------------------- ///
 void Engine::Camera::applyTransform( const Core::Transform& T,
-                                     const ModeType mode ) {
+                                     const ModeType mode )
+{
+    std::lock_guard<std::mutex> lock(m_cameraMutex);
     Core::Transform trans;
     trans.setIdentity();
     switch( mode ) {
@@ -75,6 +77,8 @@ void Engine::Camera::applyTransform( const Core::Transform& T,
 /// VIEW MATRIX
 /// -------------------- ///
 void Engine::Camera::updateViewMatrix() {
+    std::lock_guard<std::mutex> lock(m_cameraMutex);
+
     const Core::Vector3 e  = getPosition();
     const Core::Vector3 f  = getDirection().normalized();
     const Core::Vector3 up = getUpVector().normalized();
@@ -100,6 +104,8 @@ void Engine::Camera::updateViewMatrix() {
 /// PROJECTION MATRIX
 /// -------------------- ///
 void Engine::Camera::updateProjMatrix( const Scalar& width, const Scalar& height ) {
+    std::lock_guard<std::mutex> lock(m_cameraMutex);
+
     switch( m_projType ) {
         case ProjType::ORTHOGRAPHIC: {
             const Scalar dx = m_zoomFactor * 0.5f;

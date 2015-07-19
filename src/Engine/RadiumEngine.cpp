@@ -6,6 +6,9 @@
 #include <cstdio>
 
 #include <Core/String/StringUtils.hpp>
+#include <Core/Event/EventEnums.hpp>
+#include <Core/Event/KeyEvent.hpp>
+#include <Core/Event/MouseEvent.hpp>
 #include <Engine/Entity/System.hpp>
 #include <Engine/Entity/ComponentManager.hpp>
 #include <Engine/Entity/Component.hpp>
@@ -125,5 +128,33 @@ std::vector<Engine::Entity*> Engine::RadiumEngine::getEntities() const
     std::lock_guard<std::mutex> lock(m_managersMutex);
     return m_entityManager->getEntities();
 }
+
+bool Engine::RadiumEngine::handleKeyEvent(const Core::KeyEvent &event)
+{
+    for (const auto& system : m_systems)
+    {
+        if (system.second->handleKeyEvent(event))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Engine::RadiumEngine::handleMouseEvent(const Core::MouseEvent &event)
+{
+    for (const auto& system : m_systems)
+    {
+        if (system.second->handleMouseEvent(event))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
 
 } // namespace RadiumEngine

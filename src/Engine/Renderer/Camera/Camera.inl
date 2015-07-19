@@ -197,4 +197,65 @@ inline void Engine::Camera::setProjMatrix( const Core::Matrix4& projectionMatrix
     m_projMatrix = projectionMatrix;
 }
 
+/// ------------------------ ///
+/// HIGH LEVEL MANIPULATIONS
+/// ------------------------ ///
+
+inline void Engine::Camera::strafeLeft(Scalar amount)
+{
+    Core::Vector3 pos = getPosition();
+    Core::Vector3 right = getRightVector();
+
+    setPosition(pos + amount * right);
+}
+
+inline void Engine::Camera::strafeRight(Scalar amount)
+{
+    Core::Vector3 pos = getPosition();
+    Core::Vector3 right = getRightVector();
+
+    setPosition(pos - amount * right);
+}
+
+inline void Engine::Camera::walkBackward(Scalar amount)
+{
+    Core::Vector3 pos = getPosition();
+    Core::Vector3 front = getDirection();
+
+    setPosition(pos - amount * front);
+}
+
+inline void Engine::Camera::walkForward(Scalar amount)
+{
+    Core::Vector3 pos = getPosition();
+    Core::Vector3 front = getDirection();
+
+    setPosition(pos + amount * front);
+}
+
+inline void Engine::Camera::rotateUp(Scalar amount)
+{
+    Core::Transform t(Core::AngleAxis(amount, getRightVector()));
+    applyTransform(t);
+}
+
+inline void Engine::Camera::rotateDown(Scalar amount)
+{
+    Core::Transform t(Core::AngleAxis(-amount, getRightVector()));
+    applyTransform(t);
+}
+
+inline void Engine::Camera::rotateLeft(Scalar amount)
+{
+    Core::Transform t(Core::AngleAxis(amount, Core::Vector3(0, 1, 0)));
+    applyTransform(t);
+}
+
+inline void Engine::Camera::rotateRight(Scalar amount)
+{
+    Core::Transform t(Core::AngleAxis(-amount, Core::Vector3(0, 1, 0)));
+    applyTransform(t);
+}
+
 } // End of Ra
+

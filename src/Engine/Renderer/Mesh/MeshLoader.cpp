@@ -189,16 +189,12 @@ void loadMaterial(const aiMaterial* mat, Engine::DrawableComponent* component, c
     aiColor4D color;
     if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_DIFFUSE, color))
     {
-        Core::Color c = assimpToCore(color);
-        material->setKd(c);
-        fprintf(stderr, "%s kd : %.3f %.3f %.3f\n", name.c_str(), c.x(), c.y(), c.z());
+        material->setKd(assimpToCore(color));
     }
 
     if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_SPECULAR, color))
     {
-        Core::Color c = assimpToCore(color);
-        material->setKs(c);
-        fprintf(stderr, "%s ks : %.3f %.3f %.3f\n", name.c_str(), c[0], c[1], c[2]);
+        material->setKs(assimpToCore(color));
     }
 
     component->setMaterial(material);
