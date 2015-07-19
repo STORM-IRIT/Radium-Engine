@@ -176,7 +176,7 @@ void main()
     float d = amplify(d1, 40, -0.5);
 
     // FIXME(Charly): Add uniform
-    if (!plainRendering)
+    if (plainRendering == 0)
     {
         if (d > 0.7)
         {
