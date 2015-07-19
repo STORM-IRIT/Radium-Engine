@@ -1,3 +1,5 @@
+#include "Material.hpp"
+
 namespace Ra
 {
 
@@ -6,14 +8,64 @@ inline const std::string& Engine::Material::getName() const
     return m_name;
 }
 
-inline void Engine::Material::setShaderProgram(ShaderProgram* shader)
+inline void Engine::Material::setDefaultShaderProgram(ShaderProgram* shader)
 {
-    m_shader = shader;
+    m_defaultShader = shader;
+
+    if (nullptr == m_currentShader)
+    {
+        m_currentShader = shader;
+    }
 }
 
-inline Engine::ShaderProgram* Engine::Material::getShaderProgram() const
+inline void Engine::Material::setContourShaderProgram(ShaderProgram* shader)
 {
-    return m_shader;
+    m_contourShader = shader;
+
+    if (nullptr == m_currentShader)
+    {
+        m_currentShader = shader;
+    }
+}
+
+inline void Engine::Material::setWireframeShaderProgram(ShaderProgram* shader)
+{
+    m_wireframeShader = shader;
+
+    if (nullptr == m_currentShader)
+    {
+        m_currentShader = shader;
+    }
+}
+
+inline Engine::ShaderProgram* Engine::Material::getCurrentShaderProgram() const
+{
+    return m_currentShader;
+}
+
+inline void Engine::Material::changeMode(const Material::MaterialMode& mode)
+{
+    switch (mode)
+    {
+        case MODE_DEFAULT:
+        {
+            m_currentShader = m_defaultShader;
+        } break;
+
+        case MODE_CONTOUR:
+        {
+            m_currentShader = m_contourShader;
+        } break;
+
+        case MODE_WIREFRAME:
+        {
+            m_currentShader = m_wireframeShader;
+        } break;
+
+        default:
+        {
+        } break;
+    }
 }
 
 inline void Engine::Material::setKd(const Core::Color& kd)

@@ -45,7 +45,7 @@ void Engine::DrawableComponent::draw(const Core::Matrix4& viewMatrix,
         return;
     }
 
-    ShaderProgram* shader = m_material->getShaderProgram();
+    ShaderProgram* shader = m_material->getCurrentShaderProgram();
     if (nullptr == shader)
     {
         return;
@@ -134,23 +134,17 @@ void Engine::DrawableComponent::setMaterial(Material* material)
     m_material = material;
 }
 
-namespace
-{
-Core::Color savedColor;
-}
-
 void Engine::DrawableComponent::setSelected(bool selected)
 {
     m_isSelected = selected;
 
     if (selected)
     {
-        savedColor = m_material->getKd();
-        m_material->setKd(Core::Color(0.8, 0.2, 0.4, 1.0));
+        m_material->changeMode(Material::MODE_CONTOUR);
     }
     else
     {
-        m_material->setKd(savedColor);
+        m_material->changeMode(Material::MODE_DEFAULT);
     }
 }
 

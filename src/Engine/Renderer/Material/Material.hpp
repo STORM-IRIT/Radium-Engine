@@ -20,6 +20,13 @@ public:
         MAT_TRANSPARENT
     };
 
+    enum MaterialMode
+    {
+        MODE_DEFAULT,
+        MODE_CONTOUR,
+        MODE_WIREFRAME
+    };
+
     enum TextureType
     {
         TEX_DIFFUSE,
@@ -34,10 +41,14 @@ public:
 
     void bind();
 
+    inline void changeMode(const MaterialMode& mode);
+
     inline const std::string& getName() const;
 
-    inline void setShaderProgram(ShaderProgram* shader);
-    inline ShaderProgram* getShaderProgram() const;
+    inline void setDefaultShaderProgram(ShaderProgram* shader);
+    inline void setContourShaderProgram(ShaderProgram* shader);
+    inline void setWireframeShaderProgram(ShaderProgram* shader);
+    inline ShaderProgram* getCurrentShaderProgram() const;
 
     inline void setKd(const Core::Color& kd);
     inline void setKs(const Core::Color& ks);
@@ -53,7 +64,10 @@ public:
 private:
     std::string m_name;
 
-    ShaderProgram* m_shader;
+    ShaderProgram* m_currentShader;
+    ShaderProgram* m_defaultShader;
+    ShaderProgram* m_contourShader;
+    ShaderProgram* m_wireframeShader;
 
     Core::Color m_kd;
     Core::Color m_ks;

@@ -26,7 +26,11 @@ namespace Ra
 
 namespace
 {
-const Engine::ShaderConfiguration blinnPhongShaderConfiguration("BlinnPhong", "../Shaders");
+const Engine::ShaderConfiguration defaultShaderConf("BlinnPhong", "../Shaders");
+const Engine::ShaderConfiguration contourShaderConf("BlinnPhongContour", "../Shaders",
+                                                    Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM);
+const Engine::ShaderConfiguration wireframeShaderConf("BlinnPhongWireframe", "../Shaders",
+                                                      Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM);
 
 void assimpToCore(const aiVector3D& inVector, Core::Vector3& outVector);
 void assimpToCore(const aiColor4D& inColor, Core::Color& outColor);
@@ -172,10 +176,15 @@ void loadMaterial(const aiMaterial* mat, Engine::DrawableComponent* component, c
 
     // TODO(Charly): Handle different shader programs
     // TODO(Charly): Handle transparency
-    Engine::ShaderProgram* shader = Engine::ShaderProgramManager::getInstancePtr()->getShaderProgram(blinnPhongShaderConfiguration);
+    Engine::ShaderProgramManager& manager = Engine::ShaderProgramManager::getInstanceRef();
+    Engine::ShaderProgram* defaultShader = manager.addShaderProgram(defaultShaderConf);
+    Engine::ShaderProgram* contourShader = manager.getShaderProgram(contourShaderConf);
+    Engine::ShaderProgram* wireframeShader = manager.getShaderProgram(wireframeShaderConf);
 
     Engine::Material* material = new Engine::Material(name);
-    material->setShaderProgram(shader);
+    material->setDefaultShaderProgram(defaultShader);
+    material->setContourShaderProgram(contourShader);
+    material->setWireframeShaderProgram(wireframeShader);
 
     aiColor4D color;
     if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_DIFFUSE, color))
@@ -197,9 +206,15 @@ void loadMaterial(const aiMaterial* mat, Engine::DrawableComponent* component, c
 
 void loadDefaultMaterial(Engine::DrawableComponent* component, const std::string& name)
 {
-    Engine::ShaderProgram* shader = Engine::ShaderProgramManager::getInstancePtr()->getShaderProgram(blinnPhongShaderConfiguration);
+    Engine::ShaderProgramManager& manager = Engine::ShaderProgramManager::getInstanceRef();
+    Engine::ShaderProgram* defaultShader = manager.addShaderProgram(defaultShaderConf);
+    Engine::ShaderProgram* contourShader = manager.getShaderProgram(contourShaderConf);
+    Engine::ShaderProgram* wireframeShader = manager.getShaderProgram(wireframeShaderConf);
+
     Engine::Material* material = new Engine::Material(name);
-    material->setShaderProgram(shader);
+    material->setDefaultShaderProgram(defaultShader);
+    material->setContourShaderProgram(contourShader);
+    material->setWireframeShaderProgram(wireframeShader);
     component->setMaterial(material);
 }
 
