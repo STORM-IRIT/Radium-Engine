@@ -66,6 +66,8 @@ public:
 
     void setMaterial(Material* material);
 
+    virtual void setSelected(bool selected) override;
+
 private:
     typedef std::pair<std::string, std::shared_ptr<Drawable>> DrawableByName;
     std::map<std::string, std::shared_ptr<Drawable>> m_drawables;

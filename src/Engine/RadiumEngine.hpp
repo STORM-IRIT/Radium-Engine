@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 #include <memory>
+#include <vector>
 
 #include <Core/CoreMacros.hpp>
 
@@ -35,7 +36,9 @@ public:
     Entity* createEntity();
     void addComponent(Component* component, Entity* entity, const std::string& system);
 
-    void loadFile(const std::string& file);
+    std::vector<Entity*> getEntities() const;
+
+    bool loadFile(const std::string& file);
 
 private:
     void run();
@@ -43,8 +46,8 @@ private:
 
 private:
     bool m_quit;
-    std::mutex m_quitMutex;
-    std::mutex m_managersMutex;
+    mutable std::mutex m_quitMutex;
+    mutable std::mutex m_managersMutex;
 
     std::map<std::string, std::shared_ptr<System>> m_systems;
 

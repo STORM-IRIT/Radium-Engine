@@ -1,5 +1,6 @@
 #include <Engine/Entity/EntityManager.hpp>
 
+#include <Core/String/StringUtils.hpp>
 #include <Engine/Entity/Entity.hpp>
 
 namespace Ra
@@ -20,6 +21,18 @@ Engine::EntityManager::~EntityManager()
 Engine::Entity* Engine::EntityManager::createEntity()
 {
     std::shared_ptr<Engine::Entity> ent = std::make_shared<Engine::Entity>();
+    ent->idx = m_entities.insert(ent);
+
+    std::string name;
+    Core::StringUtils::stringPrintf(name, "Entity_%u", ent->idx.getValue());
+    ent->rename(name);
+
+    return ent.get();
+}
+
+Engine::Entity* Engine::EntityManager::createEntity(const std::string& name)
+{
+    std::shared_ptr<Engine::Entity> ent = std::make_shared<Engine::Entity>(name);
     ent->idx = m_entities.insert(ent);
     return ent.get();
 }

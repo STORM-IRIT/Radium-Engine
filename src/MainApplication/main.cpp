@@ -31,7 +31,7 @@ int main(int argc, char** argv)
     format.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
     QSurfaceFormat::setDefaultFormat(format);
 
-    Ra::MainWindow w;
+    Ra::Gui::MainWindow w;
     w.show();
     return app.exec();
 }

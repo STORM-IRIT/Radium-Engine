@@ -7,8 +7,9 @@
 namespace Ra
 {
 
-Engine::Entity::Entity()
+Engine::Entity::Entity(const std::string& name)
     : Core::IndexedObject()
+    , m_name(name)
     , m_transform(Core::Transform::Identity())
 {
 }
@@ -57,6 +58,29 @@ void Engine::Entity::removeComponent(Core::Index idx)
 void Engine::Entity::removeComponent(Engine::Component* component)
 {
     removeComponent(component->idx);
+}
+
+std::vector<Engine::Component*> Engine::Entity::getComponents() const
+{
+    std::vector<Engine::Component*> components;
+
+    for (const auto& comp : m_components)
+    {
+        components.push_back(comp.second);
+    }
+
+    return components;
+}
+
+void Engine::Entity::setSelected(bool selected)
+{
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_isSelected = selected;
+
+    for (auto& comp : m_components)
+    {
+        comp.second->setSelected(selected);
+    }
 }
 
 } // namespace Ra

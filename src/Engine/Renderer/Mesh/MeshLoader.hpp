@@ -9,7 +9,7 @@ namespace Ra { namespace Engine {
 
 namespace MeshLoader
 {
-    void loadFile(const std::string& name, RadiumEngine* engine);
+    bool loadFile(const std::string& name, RadiumEngine* engine);
 } // namespace MeshLoader;
 
 } // namespace Engine

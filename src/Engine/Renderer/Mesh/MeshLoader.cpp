@@ -47,7 +47,7 @@ void loadDefaultMaterial(Engine::DrawableComponent* component, const std::string
 void loadLights(const aiScene* scene, Engine::RadiumEngine* engine);
 }
 
-void Engine::MeshLoader::loadFile(const std::string& name, RadiumEngine* engine)
+bool Engine::MeshLoader::loadFile(const std::string& name, RadiumEngine* engine)
 {
     fprintf(stderr, "Loading file \"%s\"...\n", name.c_str());
 
@@ -64,7 +64,7 @@ void Engine::MeshLoader::loadFile(const std::string& name, RadiumEngine* engine)
     {
         fprintf(stderr, "Error while loading file \"%s\" :\n\t%s.\n",
                  name.c_str(), importer.GetErrorString());
-        return;
+        return false;
     }
 
     runThroughNodes(scene->mRootNode, scene, Core::Matrix4::Identity(), engine);
@@ -73,6 +73,8 @@ void Engine::MeshLoader::loadFile(const std::string& name, RadiumEngine* engine)
     {
         loadLights(scene, engine);
     }
+
+    return true;
 }
 
 namespace

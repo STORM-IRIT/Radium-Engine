@@ -46,8 +46,6 @@ public:
      */
     virtual void setSystem(System* system);
 
-
-
     /**
      * @brief Set entity the component is part of.
      * This method is called by the entity.
@@ -55,9 +53,13 @@ public:
      */
     virtual void setEntity(Entity* entity);
 
+    virtual void setSelected(bool selected);
+
 protected:
     System* m_system;
     Entity* m_entity;
+
+    bool m_isSelected;
 };
 
 } // namespace Engine

@@ -11,8 +11,7 @@ namespace Ra { namespace Core { class MouseEvent; } }
 namespace Ra { namespace Engine { class RadiumEngine; } }
 namespace Ra { namespace Engine { class RenderSystem; } }
 
-namespace Ra
-{
+namespace Ra { namespace Gui {
 
 // FIXME (Charly) : Which way do we want to be able to change renderers ?
 //					Can it be done during runtime ? Must it be at startup ? ...
@@ -29,7 +28,12 @@ public:
     ~Viewer();
 
     void quit();
-    void loadFile(const QString& path);
+    bool loadFile(const QString& path);
+
+    Engine::RadiumEngine* getEngine() const { return m_engine; }
+
+signals:
+    void entitiesUpdated();
 
 protected:
     /// OPENGL
@@ -54,6 +58,7 @@ private:
     Engine::RenderSystem* m_renderer;
 };
 
+} // namespace Gui
 } // namespace Ra
 
 #endif // RADIUMENGINE_VIEWER_HPP

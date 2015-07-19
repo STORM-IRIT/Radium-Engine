@@ -23,6 +23,8 @@ public:
      */
     Entity* createEntity();
 
+    Entity* createEntity(const std::string& name);
+
     /**
      * @brief Remove an entity given its index. Also deletes the pointer.
      * @param idx Index if the entity to remove.

@@ -115,9 +115,15 @@ void Engine::RadiumEngine::addComponent(Component* component,
     m_systems[system]->addComponent(component);
 }
 
-void Engine::RadiumEngine::loadFile(const std::string& file)
+bool Engine::RadiumEngine::loadFile(const std::string& file)
 {
-    MeshLoader::loadFile(file, this);
+    return MeshLoader::loadFile(file, this);
+}
+
+std::vector<Engine::Entity*> Engine::RadiumEngine::getEntities() const
+{
+    std::lock_guard<std::mutex> lock(m_managersMutex);
+    return m_entityManager->getEntities();
 }
 
 } // namespace RadiumEngine

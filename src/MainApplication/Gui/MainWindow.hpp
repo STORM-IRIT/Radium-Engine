@@ -6,8 +6,10 @@
 
 #include <qdebug.h>
 
-namespace Ra
-{
+namespace Ra { namespace Engine { class Entity; } }
+namespace Ra { namespace Gui { class EntityTreeModel; } }
+
+namespace Ra { namespace Gui {
 
 // Just forwards everything to the viewer.
 class MainWindow : public QMainWindow, private Ui::MainWindow
@@ -22,11 +24,23 @@ public:
 
 private slots:
     void loadFile();
+    void clicked(QModelIndex index);
+    void activated(QModelIndex index);
+
+public slots:
+    void entitiesUpdated();
+
+signals:
+    void entitiesUpdated(const std::vector<Engine::Entity*>&);
 
 private:
+    void updateEntitiesTree();
 
+private:
+    EntityTreeModel* m_entityTreeModel;
 };
 
+} // namespace Gui
 } // namespace Ra
 
 #endif // RADIUMENGINE_MAINWINDOW_HPP

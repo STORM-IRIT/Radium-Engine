@@ -16,4 +16,9 @@ void Engine::Component::setEntity(Engine::Entity* entity)
     m_entity = entity;
 }
 
+void Engine::Component::setSelected(bool selected)
+{
+    m_isSelected = selected;
+}
+
 } // namespace Ra

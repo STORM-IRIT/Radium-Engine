@@ -24,7 +24,7 @@
 namespace Ra
 {
 
-Viewer::Viewer(QWidget* parent)
+Gui::Viewer::Viewer(QWidget* parent)
     : QOpenGLWidget(parent)
 {
     // Allow Viewer to receive events
@@ -37,11 +37,11 @@ Viewer::Viewer(QWidget* parent)
     timer->start(1000.0 / 60.0);
 }
 
-Viewer::~Viewer()
+Gui::Viewer::~Viewer()
 {
 }
 
-void Viewer::initializeGL()
+void Gui::Viewer::initializeGL()
 {
     makeCurrent();
     initializeOpenGLFunctions();
@@ -60,9 +60,12 @@ void Viewer::initializeGL()
     m_engine->setupScene();
 
     m_engine->start();
+
+    loadFile("../Scenes/spheres.dae");
+    emit entitiesUpdated();
 }
 
-void Viewer::paintGL()
+void Gui::Viewer::paintGL()
 {
     makeCurrent();
     // TODO(Charly): Remove this, just temporary to ensure everything works fine.
@@ -75,20 +78,22 @@ void Viewer::paintGL()
     m_renderer->render();
 }
 
-void Viewer::resizeGL(int width, int height)
+void Gui::Viewer::resizeGL(int width, int height)
 {
     makeCurrent();
     m_renderer->resize(width, height);
 }
 
-void Viewer::loadFile(const QString& path)
+bool Gui::Viewer::loadFile(const QString& path)
 {
     makeCurrent();
-    m_engine->loadFile(path.toStdString());
+    bool result = m_engine->loadFile(path.toStdString());
     doneCurrent();
+
+    return result;
 }
 
-void Viewer::mousePressEvent(QMouseEvent* event)
+void Gui::Viewer::mousePressEvent(QMouseEvent* event)
 {
     Core::MouseEvent e;
     mouseEventQtToRadium(event, &e);
@@ -100,7 +105,7 @@ void Viewer::mousePressEvent(QMouseEvent* event)
     }
 }
 
-void Viewer::mouseReleaseEvent(QMouseEvent* event)
+void Gui::Viewer::mouseReleaseEvent(QMouseEvent* event)
 {
     Core::MouseEvent e;
     mouseEventQtToRadium(event, &e);
@@ -112,7 +117,7 @@ void Viewer::mouseReleaseEvent(QMouseEvent* event)
     }
 }
 
-void Viewer::mouseMoveEvent(QMouseEvent* event)
+void Gui::Viewer::mouseMoveEvent(QMouseEvent* event)
 {
     Core::MouseEvent e;
     mouseEventQtToRadium(event, &e);
@@ -124,7 +129,7 @@ void Viewer::mouseMoveEvent(QMouseEvent* event)
     }
 }
 
-void Viewer::wheelEvent(QWheelEvent* event)
+void Gui::Viewer::wheelEvent(QWheelEvent* event)
 {
     Core::MouseEvent e;
     e.event = Core::MouseEventType::MOUSE_WHEEL;
@@ -143,7 +148,7 @@ void Viewer::wheelEvent(QWheelEvent* event)
     }
 }
 
-void Viewer::keyPressEvent(QKeyEvent* event)
+void Gui::Viewer::keyPressEvent(QKeyEvent* event)
 {
     Core::KeyEvent e;
     keyEventQtToRadium(event, &e);
@@ -155,7 +160,7 @@ void Viewer::keyPressEvent(QKeyEvent* event)
     }
 }
 
-void Viewer::keyReleaseEvent(QKeyEvent* event)
+void Gui::Viewer::keyReleaseEvent(QKeyEvent* event)
 {
     Core::KeyEvent e;
     keyEventQtToRadium(event, &e);
@@ -167,7 +172,7 @@ void Viewer::keyReleaseEvent(QKeyEvent* event)
     }
 }
 
-void Viewer::mouseEventQtToRadium(QMouseEvent* qtEvent, Core::MouseEvent* raEvent)
+void Gui::Viewer::mouseEventQtToRadium(QMouseEvent* qtEvent, Core::MouseEvent* raEvent)
 {
     switch (qtEvent->button())
     {
@@ -216,7 +221,7 @@ void Viewer::mouseEventQtToRadium(QMouseEvent* qtEvent, Core::MouseEvent* raEven
     raEvent->relativeYPosition = y / static_cast<Scalar>(height());
 }
 
-void Viewer::keyEventQtToRadium(QKeyEvent* qtEvent, Core::KeyEvent* raEvent)
+void Gui::Viewer::keyEventQtToRadium(QKeyEvent* qtEvent, Core::KeyEvent* raEvent)
 {
     raEvent->key = qtEvent->key();
 
@@ -238,7 +243,7 @@ void Viewer::keyEventQtToRadium(QKeyEvent* qtEvent, Core::KeyEvent* raEvent)
     }
 }
 
-void Viewer::quit()
+void Gui::Viewer::quit()
 {
     m_engine->quit();
     fprintf(stderr, "About to quit... Cleaning RadiumEngine memory.\n");
