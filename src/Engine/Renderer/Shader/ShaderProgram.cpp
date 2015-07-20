@@ -55,11 +55,10 @@ Engine::ShaderObject::~ShaderObject()
 	if (m_id != 0)
 	{
 		GL_ASSERT(glDeleteShader(m_id));
-		//GL_ASSERT(glDeleteShader(m_id));
 	}
 }
 
-void Engine::ShaderObject::loadAndCompile(uint type,
+bool Engine::ShaderObject::loadAndCompile(uint type,
                                           const std::string& filename,
                                           const std::set<std::string>& properties)
 {
@@ -69,15 +68,18 @@ void Engine::ShaderObject::loadAndCompile(uint type,
 	GL_ASSERT(m_id = glCreateShader(type));
 
 	std::string shader = load();
-	compile(shader, properties);
+    if(shader != "")
+    {
+        compile(shader, properties);
+    }
 
-	check();
+	return check();
 }
 
-void Engine::ShaderObject::reloadAndCompile(const std::set<std::string>& properties)
+bool Engine::ShaderObject::reloadAndCompile(const std::set<std::string>& properties)
 {
 	std::cerr << "Reloading shader " << m_filename << std::endl;
-	loadAndCompile(m_type, m_filename, properties);
+	return loadAndCompile(m_type, m_filename, properties);
 }
 
 unsigned int Engine::ShaderObject::getId() const
@@ -87,16 +89,17 @@ unsigned int Engine::ShaderObject::getId() const
 
 std::string Engine::ShaderObject::load()
 {
-	std::ostringstream error;
 	std::string shader;
 
-	if (!parseFile(m_filename, shader))
+    bool ok = parseFile(m_filename, shader);
+	if ( !ok )
 	{
+        std::ostringstream error;
 		error << m_filename << " not found.";
 		char currentPath[FILENAME_MAX];
 		getCurrentDir(currentPath, sizeof(currentPath));
-		std::cerr << "Error : " << error.str() << " (current directory : " << currentPath << ")\n";
-		throw std::runtime_error(error.str());
+        CORE_WARN_IF(!ok, error.str().c_str());
+        shader = "";
 	}
 
 	// Keep sure last character is a 0
@@ -126,7 +129,7 @@ void Engine::ShaderObject::compile(const std::string& shader, const std::set<std
 	GL_ASSERT(glCompileShader(m_id));
 }
 
-void Engine::ShaderObject::check()
+bool Engine::ShaderObject::check()
 {
 	GLint ok;
 	std::stringstream error;
@@ -136,10 +139,10 @@ void Engine::ShaderObject::check()
 	{
 		error << m_filename << " not compiled.\n";
 		error << getShaderInfoLog(m_id);
-		std::cerr << error.str() << std::endl;
+        CORE_WARN_IF(!ok, error.str().c_str());
 		glDeleteShader(m_id);
-		throw std::runtime_error(error.str());
 	}
+    return !(!ok);
 }
 
 bool Engine::ShaderObject::parseFile(const std::string& filename, std::string& content)
@@ -165,6 +168,7 @@ Engine::ShaderProgram:: ShaderProgram()
 	for (int i = 0; i < m_shaderObjects.size(); ++i)
 	{
 		m_shaderObjects[i] = nullptr;
+        m_shaderStatus[i]  = false;
 	}
 }
 
@@ -173,13 +177,6 @@ Engine::ShaderProgram::ShaderProgram(const Engine::ShaderConfiguration& config)
 {
 	load(config);
 }
-
-//ShaderProgram::ShaderProgram(const std::string& filename)
-//    : ShaderProgram()
-//{
-//    ShaderConfiguration config(filename);
-//    load(config);
-//}
 
 Engine::ShaderProgram::~ShaderProgram()
 {
@@ -197,20 +194,38 @@ Engine::ShaderProgram::~ShaderProgram()
 	}
 }
 
+bool Engine::ShaderProgram::isOk() const
+{
+    bool ok = true;
+    for (uint i = 0; i < SHADER_TYPE_COUNT; ++i)
+    {
+		uint t = m_configuration.getType();
+        uint s = (1<<i);
+        uint r = t & s;
+        if (m_configuration.getType() & (1 <<i))
+        {
+            ok = ( ok && m_shaderStatus[i]);
+        }
+    }
+    return ok;
+}
+
 void Engine::ShaderProgram::loadVertShader(const std::string& name,
                                            const std::set<std::string>& props)
 {
     Engine::ShaderObject* vertShader = new Engine::ShaderObject;
-    vertShader->loadAndCompile(GL_VERTEX_SHADER, name + ".vert.glsl", props);
+    bool status = vertShader->loadAndCompile(GL_VERTEX_SHADER, name + ".vert.glsl", props);
     m_shaderObjects[VERT_SHADER] = vertShader;
+    m_shaderStatus[VERT_SHADER] = status;
 }
 
 void Engine::ShaderProgram::loadFragShader(const std::string& name,
                                            const std::set<std::string>& props)
 {
     Engine::ShaderObject* fragShader = new Engine::ShaderObject;
-    fragShader->loadAndCompile(GL_FRAGMENT_SHADER, name + ".frag.glsl", props);
+    bool status = fragShader->loadAndCompile(GL_FRAGMENT_SHADER, name + ".frag.glsl", props);
     m_shaderObjects[FRAG_SHADER] = fragShader;
+    m_shaderStatus[FRAG_SHADER] = status;
 }
 
 void Engine::ShaderProgram::loadTessShader(const std::string& name,
@@ -221,15 +236,17 @@ void Engine::ShaderProgram::loadTessShader(const std::string& name,
         if (type & Engine::ShaderConfiguration::TESC_SHADER)
         {
             Engine::ShaderObject* tessCShader = new Engine::ShaderObject;
-            tessCShader->loadAndCompile(GL_TESS_CONTROL_SHADER, name + ".tesc.glsl", props);
+            bool status = tessCShader->loadAndCompile(GL_TESS_CONTROL_SHADER, name + ".tesc.glsl", props);
             m_shaderObjects[TESC_SHADER] = tessCShader;
+            m_shaderStatus[TESC_SHADER] = status;
         }
 
         if (type & Engine::ShaderConfiguration::TESE_SHADER)
         {
             Engine::ShaderObject* tessEShader = new Engine::ShaderObject;
-            tessEShader->loadAndCompile(GL_TESS_EVALUATION_SHADER, name + ".tese.glsl", props);
+            bool status =tessEShader->loadAndCompile(GL_TESS_EVALUATION_SHADER, name + ".tese.glsl", props);
             m_shaderObjects[TESE_SHADER] = tessEShader;
+            m_shaderStatus[TESE_SHADER] = status;
         }
 }
 
@@ -240,8 +257,9 @@ void Engine::ShaderProgram::loadGeomShader(const std::string& name,
     if (type & Engine::ShaderConfiguration::GEOM_SHADER)
 	{
         Engine::ShaderObject* geomShader = new Engine::ShaderObject;
-        geomShader->loadAndCompile(GL_GEOMETRY_SHADER, name + ".geom.glsl", props);
+        bool status = geomShader->loadAndCompile(GL_GEOMETRY_SHADER, name + ".geom.glsl", props);
         m_shaderObjects[GEOM_SHADER] = geomShader;
+        m_shaderStatus[GEOM_SHADER] = status;
 	}
 }
 
@@ -252,8 +270,9 @@ void Engine::ShaderProgram::loadCompShader(const std::string &name,
     if (type & Engine::ShaderConfiguration::COMP_SHADER)
     {
         Engine::ShaderObject* compShader = new Engine::ShaderObject;
-        compShader->loadAndCompile(GL_COMPUTE_SHADER, name + ".comp.glsl", props);
+        bool status = compShader->loadAndCompile(GL_COMPUTE_SHADER, name + ".comp.glsl", props);
         m_shaderObjects[COMP_SHADER] = compShader;
+        m_shaderStatus[COMP_SHADER] = status;
     }
 }
 
@@ -291,10 +310,7 @@ void Engine::ShaderProgram::link()
 
 void Engine::ShaderProgram::bind()
 {
-	if (0 == m_shaderId)
-	{
-		throw std::runtime_error("Shader non initialized !");
-	}
+    CORE_ASSERT(m_shaderId != 0, "Shader is not initialized");
     GL_ASSERT(glUseProgram(m_shaderId));
 	m_binded = true;
 }

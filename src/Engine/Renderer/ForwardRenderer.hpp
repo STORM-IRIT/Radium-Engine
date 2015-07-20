@@ -42,8 +42,8 @@ private:
 
     Scalar m_lastMouseX;
     Scalar m_lastMouseY;
-    bool m_camZoomStarted;
     bool m_camRotateStarted;
+    bool m_camZoomStarted;
     bool m_camPanStarted;
 };
 

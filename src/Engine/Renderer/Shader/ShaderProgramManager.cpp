@@ -5,7 +5,7 @@
 #include <Engine/Renderer/Shader/ShaderConfiguration.hpp>
 #include <Engine/Renderer/Shader/ShaderProgram.hpp>
 
-// TODO (Charly) :  Remove Exceptions uses
+#include <Core/String/StringUtils.hpp>
 
 namespace Ra
 {
@@ -41,41 +41,29 @@ Engine::ShaderProgram* Engine::ShaderProgramManager::addShaderProgram(const Shad
 	}
 	else
 	{
-		try
-		{
-			// Try to load the shader
-			ShaderProgram* shader = new ShaderProgram(config);
-			insertShader(config, shader, ShaderProgramStatus::COMPILED);
-			ret = shader;
-		}
-		catch (std::exception& e)
-		{
-			// Shader encountered an error :
-			//  -> Print error message,
-			//  -> Set it as not compiled
-			//  -> Replace it by default shader
-                        fprintf(stderr, "Error occurred while loading shader program %s :\n%s\nDefault shader program used instead.\n",
-                                        config.getName().c_str(), e.what());
-
-			insertShader(config, m_defaultShaderProgram, ShaderProgramStatus::NOT_COMPILED);
-			ret = m_defaultShaderProgram;
-		}
+        // Try to load the shader
+        ShaderProgram* shader = new ShaderProgram(config);
+        if (shader->isOk())
+        {
+            insertShader(config, shader, ShaderProgramStatus::COMPILED);
+            ret = shader;
+        }
+        else
+        {
+            std::string error;
+            Core::StringUtils::stringPrintf(error,
+                          "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
+                          config.getName().c_str());
+            CORE_WARN_IF(true, error.c_str());
+            ret = m_defaultShaderProgram;
+        }
 	}
 
 	return ret;
 }
 
-#if 0
-int ShaderProgramManager::getShaderId(const std::string& name) const
-{
-	Z_ASSERT(m_shaderPrograms.find(name) != m_shaderPrograms.end(), "ShaderProgram not in the map.");
-	return m_shaderPrograms.at(name)->getId();
-}
-#endif
-
 Engine::ShaderProgram* Engine::ShaderProgramManager::getShaderProgram(const ShaderConfiguration& config)
 {
-	//Z_ASSERT(m_shaderPrograms.find(name) != m_shaderPrograms.end(), "ShaderProgram not in the map.");
 	ShaderProgram* ret;
 
 	if (m_shaderPrograms.find(config) != m_shaderPrograms.end())
@@ -99,40 +87,35 @@ void Engine::ShaderProgramManager::reloadAllShaderPrograms()
 		if (m_shaderProgramStatus.at(shader.first) == ShaderProgramStatus::COMPILED)
 		{
 			// Shader program has already been compiled successfully, try to reload it
-			try
-			{
-				shader.second->reload();
-			}
-			catch (std::exception& e)
-			{
-				// Shader encountered an error :
-				//  -> Print error message,
-				//  -> Set it as not compiled
-				//  -> Replace it by default shader
-				fprintf(stderr, "Error occurred while loading shader program %s :\n%s\nDefault shader program used instead.\n",
-                                                shader.first.getName().c_str(), e.what());
-
-				m_shaderPrograms.at(shader.first) = m_defaultShaderProgram;
+            shader.second->reload();
+            if (!shader.second->isOk())
+            {
+                std::string error;
+                Core::StringUtils::stringPrintf(error,
+                      "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
+                      shader.first.getName().c_str());
+                CORE_WARN_IF(true, error.c_str());
+                m_shaderPrograms.at(shader.first) = m_defaultShaderProgram;
 				m_shaderProgramStatus.at(shader.first) = ShaderProgramStatus::NOT_COMPILED;
-			}
+            }
 		}
 		else
 		{
-			// Shader program has not been compiled properly, create a new shader
-			try
-			{
-				ShaderProgram* newShader = new ShaderProgram(shader.first);
-
+            ShaderProgram* newShader = new ShaderProgram(shader.first);
+            if (newShader->isOk())
+            {
 				// Ok compiled, register it in the map
 				m_shaderPrograms.at(shader.first) = newShader;
 				m_shaderProgramStatus.at(shader.first) = ShaderProgramStatus::COMPILED;
 			}
-			catch (std::exception& e)
-			{
-				// Still not compiled, print exception. Keep default shader.
-				fprintf(stderr, "Error occurred while loading shader program %s:\n%s\n\nDefault shader program used instead.\n",
-                                                shader.first.getName().c_str(), e.what());
-			}
+            else
+            {
+                std::string error;
+                Core::StringUtils::stringPrintf(error,
+                          "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
+                          shader.first.getName().c_str());
+                CORE_WARN_IF(true, error.c_str());
+            }
 		}
 	}
 }
@@ -144,19 +127,21 @@ void Engine::ShaderProgramManager::reloadNotCompiledShaderPrograms()
 		// Just look not compiled shaders
 		if (m_shaderProgramStatus.at(shader.first) == ShaderProgramStatus::NOT_COMPILED)
 		{
-			try
-			{
-				ShaderProgram* newShader = new ShaderProgram(shader.first);
 
+            ShaderProgram* newShader = new ShaderProgram(shader.first);
+            if (newShader->isOk())
+            {
 				// Ok compiled, register it in the map
 				m_shaderPrograms.at(shader.first) = newShader;
 				m_shaderProgramStatus.at(shader.first) = ShaderProgramStatus::COMPILED;
 			}
-			catch (std::exception& e)
+            else
 			{
-				// Still not compiled, print exception. Keep default shader.
-				fprintf(stderr, "Error occurred while loading shader program %s :\n%s\nDefault shader program used instead.\n",
-                                                shader.first.getName().c_str(), e.what());
+                std::string error;
+                Core::StringUtils::stringPrintf(error,
+                        "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
+                        shader.first.getName().c_str());
+                CORE_WARN_IF(true, error.c_str());
 			}
 		}
 	}

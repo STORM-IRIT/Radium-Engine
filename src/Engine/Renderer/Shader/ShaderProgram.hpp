@@ -21,11 +21,11 @@ public:
 	ShaderObject();
 	~ShaderObject();
 
-	void loadAndCompile(uint type,
+	bool loadAndCompile(uint type,
 						const std::string& filename,
 						const std::set<std::string>& properties);
 
-	void reloadAndCompile(const std::set<std::string>& properties);
+	bool reloadAndCompile(const std::set<std::string>& properties);
 
 	uint getId() const;
 
@@ -33,7 +33,7 @@ private:
 	bool parseFile(const std::string& filename, std::string& content);
 	std::string load();
 	void compile(const std::string& shader, const std::set<std::string>& properties);
-	void check();
+	bool check();
 
 private:
 	uint m_id;
@@ -44,13 +44,14 @@ private:
 
 class ShaderProgram
 {
+    // Todo : remove duplicate flag in ShaderConfig
 	enum ShaderType
 	{
         VERT_SHADER = 0,
+        FRAG_SHADER,
+        GEOM_SHADER,
         TESC_SHADER,
         TESE_SHADER,
-        GEOM_SHADER,
-        FRAG_SHADER,
         COMP_SHADER,
 		SHADER_TYPE_COUNT
 	};
@@ -61,6 +62,8 @@ public:
 
 	void load(const ShaderConfiguration& shaderConfig);
 	void reload();
+
+    bool isOk() const;
 
 	ShaderConfiguration getBasicConfiguration() const;
 	//void addProperty(const std::string& property);
@@ -110,6 +113,7 @@ private:
 	ShaderConfiguration m_configuration;
 	uint m_shaderId;
 	std::array<ShaderObject*, SHADER_TYPE_COUNT> m_shaderObjects;
+	std::array<bool, SHADER_TYPE_COUNT> m_shaderStatus;
 
 	bool m_binded;
 };

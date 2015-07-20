@@ -225,10 +225,12 @@ namespace compile_time_utils
 // Note : there is a way to print it as a warning instead on StackOverflow
 #define STATIC_SIZEOF(TYPE) compile_time_utils::size<sizeof(TYPE)> static_sizeof
 
-// Custom assert macros.
+// Custom assert, warn and error macros.
 // Standard assert has two main drawbacks : on some OSes it aborts the program,
 // and the debugger will break in assert.c or and not where the calling code
-// uses assert().
+// uses assert(). CORE_ASSERT guarantees a breakpoint when in a debugger,
+// and always prints a useful message.
+// CORE_WARN_IF has the same effect but it will only print a message.
 #ifdef CORE_DEBUG
     #define CORE_ASSERT( EXP, DESC )                   \
     MACRO_START                                        \
@@ -239,12 +241,33 @@ namespace compile_time_utils
         BREAKPOINT(0);                                 \
     }                                                  \
     MACRO_END
+
+    #define CORE_WARN_IF( EXP, DESC )                  \
+    MACRO_START                                        \
+    if (UNLIKELY((EXP))) {                             \
+        fprintf(stderr,                                \
+        "%s:%i: WARNING `%s` : %s\n",                  \
+        __FILE__,__LINE__, #EXP, DESC);                \
+    }                                                  \
+    MACRO_END
 #else
     #define CORE_ASSERT( EXP, DESC ) UNUSED(EXP)
+    #define CORE_WARN_IF( EXP, DESC ) UNUSED(EXP)
 #endif
 
+// Print an error and break, even in release.
+#define CORE_ERROR( DESC )              \
+MACRO_START                             \
+    fprintf(stderr,                     \
+    "%s:%i: ERROR : %s\n",              \
+    __FILE__,__LINE__, DESC);           \
+BREAKPOINT(0)                           \
+MACRO_END
+
+
+
 // ----------------------------------------------------------------------------
-// Explicit warning disables.
+// Explicit compiler warning disables.
 // ----------------------------------------------------------------------------
 
 // With the most sensitive warning settings, using this file can trigger lots

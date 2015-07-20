@@ -19,13 +19,13 @@ class ShaderConfiguration
 public:
 	enum ShaderType
 	{
-        VERT_SHADER = 0x1,
-        FRAG_SHADER = 0x2,
-        GEOM_SHADER = 0x4,
-        TESC_SHADER = 0x8,
-        TESE_SHADER = 0x10,
+        VERT_SHADER = 1<<0,
+        FRAG_SHADER = 1<<1,
+        GEOM_SHADER = 1<<2,
+        TESC_SHADER = 1<<3,
+        TESE_SHADER = 1<<4,
+		COMP_SHADER = 1<<5,
         TESS_SET = TESC_SHADER | TESE_SHADER, // 0x18
-        COMP_SHADER = 0x20,
 
         DEFAULT_SHADER_PROGRAM = VERT_SHADER | FRAG_SHADER, // 0x3
         DEFAULT_SHADER_PROGRAM_W_GEOM = DEFAULT_SHADER_PROGRAM | GEOM_SHADER, // 0x7
