@@ -1,9 +1,11 @@
 #ifndef RADIUMENGINE_OPENGL_HPP
 #define RADIUMENGINE_OPENGL_HPP
 
+#include <Core/CoreMacros.hpp>
+
 #ifdef OS_WINDOWS
 #include <windows.h>
-
+#include <GL/glew.h>
 # define __STRING(x) #x
 #endif // OS_WINDOWS
 

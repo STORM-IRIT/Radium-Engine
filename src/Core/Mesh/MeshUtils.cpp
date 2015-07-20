@@ -95,14 +95,14 @@ namespace Ra { namespace Core
             // Top vertex
             result.m_vertices.push_back(Vector3(0,0,radius));
 
-            const Scalar sq5_5 = radius * std::sqrt(5)/5.f;
+            const Scalar sq5_5 = radius * std::sqrt(5.f)/5.f;
 
             // Middle vertices are on pentagons inscribed on a circle of radius 2*sqrt(5)
             for (int i = 0; i < 5 ; ++i)
             {
                 for (int j = 0; j < 2 ; ++j)
                 {
-                    const Scalar theta = (Scalar(i) + (j*0.5)) * Scalar(M_PI) * 2.f / 5.f;
+                    const Scalar theta = (Scalar(i) + (j*0.5f)) * Scalar(M_PI) * 2.f / 5.f;
 
                     const Scalar x = 2.f * sq5_5 * std::cos(theta);
                     const Scalar y = 2.f * sq5_5 * std::sin(theta);
@@ -183,7 +183,7 @@ namespace Ra { namespace Core
                 {
                     std::string errStr;
                     StringUtils::stringPrintf(errStr, "Vertex %d is in triangle %d (#%d) is out of bounds", tri[i],t,i);
-                    CORE_ASSERT(tri[i] < mesh.m_vertices.size(), errStr.c_str());
+                    CORE_ASSERT(uint(tri[i]) < mesh.m_vertices.size(), errStr.c_str());
                     visited[tri[i]] = true;
                 }
             }

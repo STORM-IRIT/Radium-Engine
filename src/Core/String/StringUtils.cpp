@@ -110,7 +110,7 @@ namespace Ra { namespace Core
 
                 // If our buffer was too small, we know that final_size
                 // gives us the required buffer size.
-                if (finalSize >= size)
+                if (uint(finalSize) >= size)
                 {
                     size = std::max(size + 1, size_t(finalSize));
                 }

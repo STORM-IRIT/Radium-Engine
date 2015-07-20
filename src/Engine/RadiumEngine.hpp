@@ -9,8 +9,8 @@
 
 #include <Core/CoreMacros.hpp>
 
-namespace Ra { namespace Core   { class MouseEvent;         } }
-namespace Ra { namespace Core   { class KeyEvent;           } }
+namespace Ra { namespace Core   { struct MouseEvent;        } }
+namespace Ra { namespace Core   { struct KeyEvent;          } }
 namespace Ra { namespace Engine { class System;             } }
 namespace Ra { namespace Engine { class Entity;             } }
 namespace Ra { namespace Engine { class Component;          } }

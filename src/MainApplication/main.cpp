@@ -1,7 +1,15 @@
+#include <Core/CoreMacros.hpp>
+
+#if defined (OS_WINDOWS)
+    #include <GL/glew.h>
+#endif
+
 #include <iostream>
 #include <QApplication>
-#include <Core/CoreMacros.hpp>
+
 #include <MainApplication/Gui/MainWindow.hpp>
+
+
 
 int main(int argc, char** argv)
 {
@@ -18,6 +26,10 @@ int main(int argc, char** argv)
     std::cerr<<"single precision"<<std::endl;
 #endif
 
+#if defined (OS_WINDOWS)
+    glewExperimental = GL_TRUE;
+    glewInit();
+#endif
 
     QApplication app(argc, argv);
 

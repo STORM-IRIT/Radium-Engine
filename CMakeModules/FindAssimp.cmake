@@ -9,13 +9,16 @@ FIND_PATH( Assimp_INCLUDE_DIR assimp/mesh.h
   /usr/include
   /usr/local/include
   /opt/local/include
+  ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Assimp/include
 )
 
-FIND_LIBRARY( Assimp_LIBRARY assimp
+FIND_LIBRARY( Assimp_LIBRARY
+  NAMES assimp assimp32.lib
   /usr/lib64
   /usr/lib
   /usr/local/lib
   /opt/local/lib
+  ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Assimp/lib32
 )
 
 IF(Assimp_INCLUDE_DIR AND Assimp_LIBRARY)

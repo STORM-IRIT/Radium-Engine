@@ -2,6 +2,7 @@
 #define RADIUMENGINE_ENTITY_HPP
 
 #include <string>
+#include <vector>
 #include <map>
 #include <mutex>
 #include <thread>

@@ -165,7 +165,7 @@ Engine::ShaderProgram:: ShaderProgram()
 	: m_shaderId(0)
 	, m_binded(false)
 {
-	for (int i = 0; i < m_shaderObjects.size(); ++i)
+	for (uint i = 0; i < m_shaderObjects.size(); ++i)
 	{
 		m_shaderObjects[i] = nullptr;
         m_shaderStatus[i]  = false;

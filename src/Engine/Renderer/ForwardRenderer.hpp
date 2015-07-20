@@ -2,6 +2,7 @@
 #define RADIUMENGINE_FORWARDRENDERER_HPP
 
 #include <vector>
+#include <array>
 #include <memory>
 
 #include <Engine/Renderer/RenderSystem.hpp>

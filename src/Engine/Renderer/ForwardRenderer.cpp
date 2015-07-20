@@ -385,7 +385,7 @@ bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
         {
             if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
             {
-                m_camera->strafeLeft(0.1);
+                m_camera->strafeLeft(0.1f);
                 return true;
             }
         } break;
@@ -394,7 +394,7 @@ bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
         {
             if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
             {
-                m_camera->strafeRight(0.1);
+                m_camera->strafeRight(0.1f);
                 return true;
             }
         } break;
@@ -403,7 +403,7 @@ bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
         {
             if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
             {
-                m_camera->walkForward(0.1);
+                m_camera->walkForward(0.1f);
                 return true;
             }
         } break;
@@ -412,7 +412,7 @@ bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
         {
             if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
             {
-                m_camera->walkBackward(0.1);
+                m_camera->walkBackward(0.1f);
                 return true;
             }
         } break;
@@ -421,7 +421,7 @@ bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
         {
             if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
             {
-                m_camera->rotateDown(M_PI / 50.0);
+                m_camera->rotateDown(M_PI / 50.0f);
                 return true;
             }
         } break;
@@ -430,7 +430,7 @@ bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
         {
             if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
             {
-                m_camera->rotateUp(M_PI / 50.0);
+                m_camera->rotateUp(M_PI / 50.0f);
                 return true;
             }
         } break;
@@ -439,7 +439,7 @@ bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
         {
             if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
             {
-                m_camera->rotateLeft(M_PI / 50.0);
+                m_camera->rotateLeft(M_PI / 50.0f);
                 return true;
             }
         } break;
@@ -448,7 +448,7 @@ bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
         {
             if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
             {
-                m_camera->rotateRight(M_PI / 50.0);
+                m_camera->rotateRight(M_PI / 50.0f);
                 return true;
             }
         } break;
