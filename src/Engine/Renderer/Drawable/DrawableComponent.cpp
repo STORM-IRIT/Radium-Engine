@@ -36,6 +36,20 @@ Engine::DrawableComponent::~DrawableComponent()
 
 void Engine::DrawableComponent::draw(const Core::Matrix4& viewMatrix,
                                      const Core::Matrix4& projMatrix,
+                                     ShaderProgram *shader)
+{
+    Core::Matrix4 modelMatrix = m_entity->getTransformAsMatrix();
+    Core::Matrix4 mvp = projMatrix * viewMatrix * modelMatrix;
+    shader->setUniform("mvp", mvp);
+
+    for (const auto& drawable : m_drawables)
+    {
+        drawable.second->draw();
+    }
+}
+
+void Engine::DrawableComponent::draw(const Core::Matrix4& viewMatrix,
+                                     const Core::Matrix4& projMatrix,
                                      Light* light)
 {
     // TODO(Charly): Potential optimization

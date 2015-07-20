@@ -27,6 +27,9 @@ public:
 
     void draw(const Core::Matrix4& viewMatrix,
               const Core::Matrix4& projMatrix,
+              ShaderProgram* shader);
+    void draw(const Core::Matrix4& viewMatrix,
+              const Core::Matrix4& projMatrix,
               Light* light);
 
     /**

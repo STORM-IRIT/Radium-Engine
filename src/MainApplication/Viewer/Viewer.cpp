@@ -5,13 +5,19 @@
 #include <QTimer>
 #include <QMouseEvent>
 #include <QKeyEvent>
+#include <QPainter>
 
+#include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Mesh/TriangleMesh.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/ComponentManager.hpp>
 #include <Engine/Entity/EntityManager.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Drawable/DrawableComponent.hpp>
+#include <Engine/Renderer/Shader/ShaderProgram.hpp>
+#include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
+#include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/ForwardRenderer.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
@@ -43,7 +49,6 @@ Gui::Viewer::~Viewer()
 
 void Gui::Viewer::initializeGL()
 {
-    makeCurrent();
     initializeOpenGLFunctions();
 
     std::cerr<<"***Radium Engine Viewer***"<<std::endl;
@@ -61,26 +66,46 @@ void Gui::Viewer::initializeGL()
 
     m_engine->start();
 
-    loadFile("../Scenes/spheres.dae");
+//    loadFile("../Scenes/stanford_dragon/dragon.obj");
+
+    Core::TriangleMesh d = Core::MeshUtils::makeGeodesicSphere(5, 1);
+    Engine::Entity* ent = m_engine->createEntity();
+    Engine::DrawableComponent* comp = new Engine::DrawableComponent;
+    m_engine->addComponent(comp, ent, "RenderSystem");
+    Engine::Mesh* mesh = new Engine::Mesh("mesh");
+    mesh->loadGeometry(d);
+    comp->addDrawable(mesh);
+    Engine::Material* mat = new Engine::Material("material");
+
+
+    const Engine::ShaderConfiguration defaultShaderConf("BlinnPhong", "../Shaders");
+    const Engine::ShaderConfiguration contourShaderConf("BlinnPhongContour", "../Shaders",
+                                                        Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM);
+    const Engine::ShaderConfiguration wireframeShaderConf("BlinnPhongWireframe", "../Shaders",
+                                                          Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM);
+
+    Engine::ShaderProgramManager* m = Engine::ShaderProgramManager::getInstancePtr();
+    mat->setDefaultShaderProgram(m->getShaderProgram(defaultShaderConf));
+    mat->setContourShaderProgram(m->getShaderProgram(contourShaderConf));
+    mat->setWireframeShaderProgram(m->getShaderProgram(wireframeShaderConf));
+    comp->setMaterial(mat);
+
     emit entitiesUpdated();
 }
 
 void Gui::Viewer::paintGL()
 {
-    makeCurrent();
     // TODO(Charly): Remove this, just temporary to ensure everything works fine.
 //    static Scalar rotation = 0.0;
 //    rotation += 0.01;
 
 //    Entity* ent = EntityManager::getInstancePtr()->getEntity(0);
 //    ent->setTransform(Transform(AngleAxis(std::sin(rotation), Vector3(0.0, 1.0, 0.0))));
-
     m_renderer->render();
 }
 
 void Gui::Viewer::resizeGL(int width, int height)
 {
-    makeCurrent();
     m_renderer->resize(width, height);
 }
 

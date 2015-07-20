@@ -7,7 +7,7 @@ namespace Ra {
 namespace Engine {
 namespace Plugin {
 
-bool PluginManager::loadPlugins( const std::string& path ) {
+void PluginManager::loadPlugins( const std::string& path ) {
     loadStaticPlugins();
     loadDynamicPlugins( path );
 }
@@ -26,7 +26,7 @@ void PluginManager::loadStaticPlugins() {
 
 void PluginManager::loadDynamicPlugins( const std::string& path ) {
     QDir pluginsDir( QString( path ) );
-    QObjectList list();
+    QObjectList list;
 
     foreach( QString fileName, pluginsDir.entryList( QDir::Files ) ) {
         QPluginLoader loader( pluginsDir.absoluteFilePath( fileName ) );
@@ -50,6 +50,3 @@ void PluginManager::loadDynamicPlugins( const std::string& path ) {
 } // namespace Plugin
 } // namespace Engine
 } // namespace Ra
-
-
-#endif // RADIUMENGINE_PLUGINMANAGER_HPP

@@ -1,6 +1,7 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
 #include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Mesh/HalfEdge.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
 namespace Ra
@@ -32,7 +33,8 @@ void Engine::Mesh::draw()
     }
 
     GL_ASSERT(glBindVertexArray(m_vao));
-    GL_ASSERT(glDrawElements(GL_TRIANGLES, 3* m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
+    GL_ASSERT(glDrawElements(GL_TRIANGLES_ADJACENCY, 6 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
+//    GL_ASSERT(glDrawElements(GL_TRIANGLES, 3 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
 }
 
 void Engine::Mesh::loadGeometry(const Core::TriangleMesh &data, bool recomputeNormals)
@@ -66,6 +68,59 @@ void Engine::Mesh::loadGeometry(const Core::TriangleMesh &data,
 
 void Engine::Mesh::initGL()
 {
+    std::vector<uint> adjacency;
+
+    Core::HalfEdgeData heData(m_data);
+
+    Core::TriangleIdx triangleIdx = 0;
+    for (; triangleIdx < m_data.m_triangles.size(); ++triangleIdx)
+    {
+        Core::Triangle triangle = m_data.m_triangles[triangleIdx];
+        Core::HalfEdgeIdx currentHe = heData.getFirstTriangleHalfEdge(triangleIdx);
+
+        const Core::HalfEdge& he0 = heData[currentHe];
+        const Core::HalfEdge& he1 = heData[he0.m_next];
+        const Core::HalfEdge& he2 = heData[he1.m_next];
+        const Core::HalfEdge& he3 = heData[he2.m_next];
+
+        const Core::HalfEdge& ph0 = heData[he0.m_pair];
+        const Core::HalfEdge& ph1 = heData[he1.m_pair];
+        const Core::HalfEdge& ph2 = heData[he2.m_pair];
+
+        Core::HalfEdgeIdx v0 = he2.m_endVertexIdx;
+        Core::HalfEdgeIdx v1 = he0.m_endVertexIdx;
+        Core::HalfEdgeIdx v2 = he1.m_endVertexIdx;
+
+        Core::HalfEdgeIdx a0 = ph0.m_leftTriIdx != Core::InvalidIdx ? heData[ph0.m_next].m_endVertexIdx : v0;
+        Core::HalfEdgeIdx a1 = ph1.m_leftTriIdx != Core::InvalidIdx ? heData[ph1.m_next].m_endVertexIdx : v1;
+        Core::HalfEdgeIdx a2 = ph2.m_leftTriIdx != Core::InvalidIdx ? heData[ph2.m_next].m_endVertexIdx : v2;
+
+        adjacency.push_back(v0);
+        adjacency.push_back(a1);
+        adjacency.push_back(v1);
+        adjacency.push_back(a0);
+        adjacency.push_back(v2);
+        adjacency.push_back(a2);
+//        for (uint i = 0 ; i < 3 ; ++i)
+//        {
+//            // L'half edge de l'autre cote te donne acces a la face voisine
+//            const Core::HalfEdge& flipHe = heData[heData[currentHe].m_pair];
+
+//            // Si cette face existe (i.e. on est pas au bord)
+//            if (flipHe.m_leftTriIdx != Core::InvalidIdx)
+//            {
+//                // Alors le vertex qu'on cherche est au bout de l'half edge suivante !
+//                verticesOut[i] = heData[flipHe.m_next].m_endVertexIdx;
+//            }
+//            else
+//            {
+//                // Sinon on fait quoi ?
+//            }
+
+//            // Maintenant on avance d'un cran !
+//            currentHe = heData[currentHe].m_next;
+//        }
+    }
 
     // VAO activation.
     GL_ASSERT(glGenVertexArrays(1, &m_vao));
@@ -149,8 +204,8 @@ void Engine::Mesh::initGL()
     // Indices
     GL_ASSERT(glGenBuffers(1, &m_ibo));
     GL_ASSERT(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
-    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_data.m_triangles.size() * sizeof(Core::Triangle),
-                           m_data.m_triangles.data(), GL_STATIC_DRAW));
+    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER, adjacency.size() * sizeof(uint), adjacency.data(), GL_STATIC_DRAW));
+//    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_data.m_triangles.size() * sizeof(Core::Triangle), m_data.m_triangles.data(), GL_STATIC_DRAW));
 
     GL_ASSERT(glBindVertexArray(0));
 

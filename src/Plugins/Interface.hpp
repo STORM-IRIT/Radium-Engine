@@ -42,12 +42,11 @@ private:
 
 };
 
-#define INTERFACE_IID "Radium.Engine.Plugins.Interface"
-Q_DECLARE_INTERFACE( Interface, INTERFACE_IID )
-
 } // namespace Plugin
 } // namespace Engine
 } // namespace Ra
 
+#define INTERFACE_IID "Radium.Engine.Plugins.Interface"
+Q_DECLARE_INTERFACE( Ra::Engine::Plugin::Interface, INTERFACE_IID )
 
 #endif // RADIUMENGINE_INTERFACE_HPP

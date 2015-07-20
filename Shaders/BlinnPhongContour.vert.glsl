@@ -12,6 +12,9 @@ out vec3 varNormal;
 out vec3 varEye;
 out vec3 varVar;
 
+out vec3 varPositionInCamera;
+out vec3 varNormalInCamera;
+
 void main()
 {
     gl_Position = mvp * vec4(inPosition, 1.0);
@@ -29,5 +32,6 @@ void main()
     varNormal   = vec3(normal);
     varEye = vec3(eye);
 
-    varVar = vec3(1, 0, 1);
+    varPositionInCamera = vec3(view * model * vec4(inPosition, 1.0));
+    varNormalInCamera = vec3(normalMat * vec4(inNormal, 0.0));
 }

@@ -20,7 +20,7 @@ public:
         COLOR = 1 << 0,
         DEPTH = 1 << 1,
         STENCIL = 1 << 2,
-        ALL = COLOR | DEPTH | STENCIL
+        ALL_COMPONENTS = COLOR | DEPTH | STENCIL
     };
 
     FBO(Components components, uint width, uint height);

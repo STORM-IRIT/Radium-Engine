@@ -30,7 +30,7 @@ namespace Ra { namespace Core
     {
     public:
         /// Build the half edge data from a mesh.
-        inline HalfEdgeData(const TriangleMesh& mesh);
+        inline explicit HalfEdgeData(const TriangleMesh& mesh);
 
         /// Completely rebuilds the data from the given mesh.
         inline void update(const TriangleMesh& mesh);

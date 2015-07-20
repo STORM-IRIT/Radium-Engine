@@ -148,7 +148,7 @@ void Engine::Camera::updateProjMatrix( const Scalar& width, const Scalar& height
         } break;
 
         default: break;
-        }
+    }
 }
 
 } // End of Ra

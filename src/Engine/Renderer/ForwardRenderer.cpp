@@ -11,6 +11,9 @@
 #include <Engine/Renderer/Drawable/DrawableComponent.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/Texture/Texture.hpp>
+#include <Engine/Renderer/OpenGL/FBO.hpp>
 
 namespace Ra
 {
@@ -34,6 +37,12 @@ Engine::ForwardRenderer::ForwardRenderer()
     : RenderSystem()
 	, m_camera(nullptr)
 	, m_shaderManager(nullptr)
+    , m_depthShader(nullptr)
+    , m_quadShader(nullptr)
+    , m_quadMesh(nullptr)
+    , m_fbo(nullptr)
+    , m_displayedTexture(nullptr)
+    , m_displayedIsDepth(false)
     , m_camRotateStarted(false)
     , m_camZoomStarted(false)
     , m_camPanStarted(false)
@@ -50,92 +59,181 @@ void Engine::ForwardRenderer::initializeGL(uint width, uint height)
     m_width = width;
     m_height = height;
 
+    m_camera = std::make_shared<Camera>();
+    m_camera->setPosition(Core::Vector3(0, 2, -5), Camera::ModeType::TARGET);
+    m_camera->setTargetPoint(Core::Vector3(0, 0, 0));
+    m_camera->updateProjMatrix(m_width, m_height);
+
     std::string shaderPath("../Shaders");
     std::string defaultShader("Default");
 
     m_shaderManager = ShaderProgramManager::createInstance(shaderPath, defaultShader);
 
 	initShaders();
-	initBuffers();
+    initBuffers();
 
-    m_camera = std::make_shared<Camera>();
-    m_camera->setPosition(Core::Vector3(0, 2, -5), Camera::ModeType::TARGET);
-    m_camera->setTargetPoint(Core::Vector3(0, 0, 0));
-    m_camera->updateProjMatrix(m_width, m_height);
+    Core::TriangleMesh mesh;
+    mesh.m_vertices.push_back({ Scalar(-1), Scalar(-1), Scalar(0) });
+    mesh.m_vertices.push_back({ Scalar(-1), Scalar( 1), Scalar(0) });
+    mesh.m_vertices.push_back({ Scalar( 1), Scalar( 1), Scalar(0) });
+    mesh.m_vertices.push_back({ Scalar( 1), Scalar(-1), Scalar(0) });
+    mesh.m_normals.push_back ({ Scalar( 0), Scalar( 0), Scalar(0) });
+    mesh.m_normals.push_back ({ Scalar( 0), Scalar( 0), Scalar(0) });
+    mesh.m_normals.push_back ({ Scalar( 0), Scalar( 0), Scalar(0) });
+    mesh.m_normals.push_back ({ Scalar( 0), Scalar( 0), Scalar(0) });
+
+    mesh.m_triangles.push_back({ Core::TriangleIdx(0), Core::TriangleIdx(2), Core::TriangleIdx(1) });
+    mesh.m_triangles.push_back({ Core::TriangleIdx(0), Core::TriangleIdx(3), Core::TriangleIdx(2) });
+
+    m_quadMesh = new Mesh("quad");
+    m_quadMesh->loadGeometry(mesh);
 }
 
 void Engine::ForwardRenderer::initShaders()
 {
-//	m_passthroughShader = m_shaderManager->addShaderProgram("PassThrough");
+    m_depthShader = m_shaderManager->addShaderProgram("DepthPass");
     m_shaderManager->addShaderProgram("BlinnPhong");
-//	m_quadShader        = m_shaderManager->addShaderProgram("Quad");
+
+    m_quadShader  = m_shaderManager->addShaderProgram("Quad");
 }
 
 void Engine::ForwardRenderer::initBuffers()
 {
+    m_fbo = new FBO(FBO::Components(FBO::COLOR | FBO::DEPTH), m_width, m_height);
+
+    m_textures[TEXTURE_DEPTH] = new Texture("Depth", GL_TEXTURE_2D);
+    m_textures[TEXTURE_COLOR] = new Texture("Color", GL_TEXTURE_2D);
+
+    resize(m_width, m_height);
+
+    m_displayedTexture = m_textures[TEXTURE_COLOR];
 }
 
 void Engine::ForwardRenderer::render()
 {
+    int qtFtw;
+    GL_ASSERT(glGetIntegerv(GL_FRAMEBUFFER_BINDING, &qtFtw));
+
+    m_fbo->bind();
     GL_ASSERT(glDepthMask(GL_TRUE));
-    GL_ASSERT(glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE));
-    GL_ASSERT(glEnable(GL_DEPTH_TEST));
-    GL_ASSERT(glDepthFunc(GL_LEQUAL));
+    GL_ASSERT(glColorMask(1, 1, 1, 1));
 
-    GL_ASSERT(glEnable(GL_CULL_FACE));
-//    GL_ASSERT(glDisable(GL_CULL_FACE));
-    GL_ASSERT(glCullFace(GL_BACK));
-
-//    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-//    glDrawBuffer(GL_BACK);
-
-    glViewport(0, 0, m_width, m_height);
     GL_ASSERT(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
+    GL_ASSERT(glClearDepth(1.0));
+    m_fbo->clear(FBO::Components(FBO::COLOR | FBO::DEPTH));
 
-    GL_ASSERT(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
+    GL_ASSERT(glDrawBuffers(1, buffers));
 
     m_camera->updateViewMatrix();
 
     Core::Matrix4 view = m_camera->getViewMatrix();
     Core::Matrix4 proj = m_camera->getProjMatrix();
 
-    // FIXME(Charly): Add z-prepass
-
-    GL_ASSERT(glEnable(GL_BLEND));
-    GL_ASSERT(glBlendEquation(GL_FUNC_ADD));
-    GL_ASSERT(glBlendFunc(GL_ONE, GL_ONE));
-
-    if (m_lights.size() > 0)
+    // Z Prepass
     {
-        for (const auto& l : m_lights)
-        {
-            for (const auto& c : m_components)
-            {
-                DrawableComponent* dc = static_cast<DrawableComponent*>(c.second);
-                dc->draw(view, proj, l);
-            }
-        }
-    }
-    else
-    {
-        DirectionalLight l;
-        l.setDirection(Core::Vector3(0.3, -1, 0));
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LESS);
+        glColorMask(0, 0, 0, 0);
+        glDepthMask(GL_TRUE);
+
+        glDisable(GL_BLEND);
+
+        m_depthShader->bind();
 
         for (const auto& c : m_components)
         {
             DrawableComponent* dc = static_cast<DrawableComponent*>(c.second);
-            dc->draw(view, proj, &l);
+            dc->draw(view, proj, m_depthShader);
         }
     }
 
-    GL_ASSERT(glDisable(GL_BLEND));
+    // Light passes
+    if (1)
+    {
+        glDepthFunc(GL_LEQUAL);
+        glColorMask(1, 1, 1, 1);
+        glDepthMask(GL_FALSE);
+//        glDisable(GL_DEPTH_TEST);
+
+        GL_ASSERT(glEnable(GL_BLEND));
+        GL_ASSERT(glBlendFunc(GL_ONE, GL_ONE));
+
+        if (m_lights.size() > 0)
+        {
+            for (const auto& l : m_lights)
+            {
+                for (const auto& c : m_components)
+                {
+                    DrawableComponent* dc = static_cast<DrawableComponent*>(c.second);
+                    dc->draw(view, proj, l);
+                }
+            }
+        }
+        else
+        {
+            DirectionalLight l;
+            l.setDirection(Core::Vector3(0.3, 1, 0));
+
+            for (const auto& c : m_components)
+            {
+                DrawableComponent* dc = static_cast<DrawableComponent*>(c.second);
+                dc->draw(view, proj, &l);
+            }
+        }
+    }
+
+    m_fbo->unbind(true);
+
+    GL_ASSERT(glBindFramebuffer(GL_FRAMEBUFFER, qtFtw));
+//    GL_ASSERT(glDrawBuffers(1, buffers));
+
+    GL_ASSERT(glClearColor(0.0, 0.0, 0.0, 0.0));
+    GL_ASSERT(glClearDepth(1.0));
+    GL_ASSERT(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+
+//    m_fbo->unbind(true);
+    GL_ASSERT(glViewport(0, 0, m_width, m_height));
+
+    m_quadShader->bind();
+    m_quadShader->setUniform("isDepthTexture", m_displayedIsDepth ? 1 : 0);
+    m_quadShader->setUniform("zNear", m_camera->getZNear());
+    m_quadShader->setUniform("zFar", m_camera->getZFar());
+    m_quadShader->setUniform("depth", m_textures[TEXTURE_DEPTH], 0);
+    m_quadShader->setUniform("color", m_textures[TEXTURE_COLOR], 1);
+    m_quadMesh->draw();
 }
 
-void Engine::ForwardRenderer::resize(uint width, uint height)
+void Engine::ForwardRenderer::resize(uint w, uint h)
 {
-    m_width = width;
-    m_height = height;
+    m_width = w;
+    m_height = h;
     glViewport(0, 0, m_width, m_height);
+
+    if (m_textures[TEXTURE_DEPTH]->getId() != 0)
+    {
+        m_textures[TEXTURE_DEPTH]->deleteGL();
+    }
+    if (m_textures[TEXTURE_COLOR]->getId() != 0)
+    {
+        m_textures[TEXTURE_COLOR]->deleteGL();
+    }
+
+    m_textures[TEXTURE_DEPTH]->initGL(GL_DEPTH_COMPONENT24, w, h, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr);
+    m_textures[TEXTURE_DEPTH]->setFilter(GL_NEAREST, GL_NEAREST);
+    m_textures[TEXTURE_DEPTH]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+
+    m_textures[TEXTURE_COLOR]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
+    m_textures[TEXTURE_COLOR]->setFilter(GL_NEAREST, GL_NEAREST);
+    m_textures[TEXTURE_COLOR]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+
+    m_fbo->bind();
+    m_fbo->setSize(w, h);
+    m_fbo->attachTexture(GL_DEPTH_ATTACHMENT, m_textures[TEXTURE_DEPTH]);
+    m_fbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[TEXTURE_COLOR]);
+    m_fbo->check();
+    m_fbo->unbind(true);
+
+    GL_CHECK_ERROR;
 
     m_camera->updateProjMatrix(m_width, m_height);
 
@@ -143,6 +241,17 @@ void Engine::ForwardRenderer::resize(uint width, uint height)
     GL_ASSERT(glBindFramebuffer(GL_FRAMEBUFFER, 0));
     GL_ASSERT(glDrawBuffer(GL_BACK));
     GL_ASSERT(glReadBuffer(GL_BACK));
+}
+
+void Engine::ForwardRenderer::debugTexture(uint texIdx)
+{
+    if (texIdx > TEXTURE_COUNT)
+    {
+        return;
+    }
+
+    m_displayedTexture = m_textures[texIdx];
+    m_displayedIsDepth = (texIdx == 0);
 }
 
 bool Engine::ForwardRenderer::handleMouseEvent(const Core::MouseEvent& event)
@@ -245,6 +354,11 @@ bool Engine::ForwardRenderer::handleMouseEvent(const Core::MouseEvent& event)
             }
         } break;
 
+        case Core::MouseEventType::RA_MOUSE_WHEEL:
+        {
+            m_camera->zoomIn(event.wheelDelta > 0 ? 0.1 : -0.1);
+            m_camera->updateProjMatrix(m_width, m_height);
+        }
 
     }
 

@@ -66,7 +66,7 @@ out vec4 fragColor;
 in vec3 gPosition;
 in vec3 gNormal;
 in vec3 gEye;
-in vec3 gTriDistance;
+flat in int gIsEdge;
 
 vec3 blinnPhongInternal(vec3 d, vec3 n)
 {
@@ -136,46 +136,39 @@ vec3 blinnPhongDirectional()
     return blinnPhongInternal(light.directional.direction, normalize(gNormal));
 }
 
-float amplify(float d, float scale, float offset)
-{
-    d = scale * d + offset;
-    d = clamp(d, 0, 1);
-    d = 1 - exp2(-2 * d * d);
-    return d;
-}
-
 void main()
 {
     vec3 color;
-    switch (light.type)
+    bool isEdge = bool(gIsEdge);
+    if (isEdge)
     {
-        case 0:
-        {
-            color = blinnPhongDirectional();
-        } break;
-
-        case 1:
-        {
-            color = blinnPhongPoint();
-        } break;
-
-        case 2:
-        {
-            color = blinnPhongSpot();
-        } break;
-
-        default:
-        {
-            color = vec3(0, 0, 0);
-        } break;
+        color = vec3(1, 0, 0);
     }
+    else
+    {
+        switch (light.type)
+        {
+            case 0:
+            {
+                color = blinnPhongDirectional();
+            } break;
 
-    float d1 = min(min(gTriDistance.x, gTriDistance.y), gTriDistance.z);
-    float d = amplify(d1, 10, -0.1);
+            case 1:
+            {
+                color = blinnPhongPoint();
+            } break;
 
-    if (d > 0.5) discard;
+            case 2:
+            {
+                color = blinnPhongSpot();
+            } break;
 
-    color = d * color;
+            default:
+            {
+                color = vec3(0, 0, 0);
+            } break;
+        }
+    }
 
     fragColor = vec4(color, 1.0);
 }
