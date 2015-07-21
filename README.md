@@ -6,6 +6,7 @@ Coolest engine ever made #yolo #swag
 * Assimp (submodule : will be handled later, you can use package version)
 * OpenGL 3+
 * QT Core, Widgets and OpenGL v5.4+ 
+* GLEW (used on Windows only for now)
 * To build : CMake 2.8.11+
 
 ## Getting submodules
@@ -46,14 +47,17 @@ Since Radium requires the C++11 advanced features such as constexpr, we need a r
  
 ### Dependencies
 * Most installations of the Windows SDK forget to include GLEXT.
-** You might need to download `glext.h`from the OpenGL registry and add it in your system GL header folder (to me it was `C:\Program Files (x86)\Windows Kits\8.1\Include\um\gl`).
-** TODO : include it in the source.
+ * You might need to download `glext.h`from the OpenGL registry and add it in your system GL header folder (to me it was `C:\Program Files (x86)\Windows Kits\8.1\Include\um\gl`).
+ * TODO : include it in the source.
 * On windows GLEW is required for all the fancy OpenGL functions such as `glBindBuffers` (sad but true...).
-** Dowload GLEW and create a Glew folder in 3rdPartyLibraries (so that CMake finds it automagically).
+ * Dowload GLEW and create a Glew folder in 3rdPartyLibraries (so that CMake finds it automagically).
 
 ### Build
 
-* Use cmake-gui and set the `CMAKE_PREFIX_PATH` in the cache (see above). It should find the assimp directories and the GLEW directories automatically. IF not, set them manually in the GUI.
+* Use cmake-gui and set the `CMAKE_PREFIX_PATH` in the cache (see above) to the Qt base folder.
+* The assimp directories and the GLEW directories should be automatically detected ifthey are in your 3rd party folder. If not, set them manually in the GUI.
+
+### Run
 
 * Don't forget to copy the DLLs in the executable folder (use `depends.exe` to figure out which).
 * So far the precompiled assimp for windows seems to have a bug which prevents me to run the app on Win... [https://github.com/assimp/assimp/issues/302]
