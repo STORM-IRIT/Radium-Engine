@@ -199,9 +199,6 @@ bool Engine::ShaderProgram::isOk() const
     bool ok = true;
     for (uint i = 0; i < SHADER_TYPE_COUNT; ++i)
     {
-		uint t = m_configuration.getType();
-        uint s = (1<<i);
-        uint r = t & s;
         if (m_configuration.getType() & (1 <<i))
         {
             ok = ( ok && m_shaderStatus[i]);
