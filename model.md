@@ -31,4 +31,19 @@ a high-resolution mesh (display component) and a physics component (a convex sha
 Each Component is related to a *System*. The Engine loads several Systems (statically
 or from a plugin) and they keep the Components of all Entities in the scene updated.
 
+For example, an Entity may have a Physics Component (which represent its collision shape), 
+and the engine's corresponding Physics System will update its position according to the physics
+engine's result.
 
+Each System has an `update(float dt)` method which should update each Component's data accordingly
+(ideally each in its own thread).
+
+### Drawables and the renderer
+
+Each Component may have some *Drawables* which are (usually) OpenGL objects. When a Component has 
+changed it needs to tell its drawables to update their internal data (such as OpenGL VBOs).
+
+The Drawables are drawn by the *Renderer* which lives in a separated thread. Each frame it grabs all 
+the drawables (which should be double-buffered in case we are mid-VBO update) and calls `draw()` on them.
+
+(TODO : a nice class schema).
