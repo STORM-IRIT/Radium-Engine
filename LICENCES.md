@@ -21,6 +21,9 @@ You can get the Qt source at [https://www.qt.io/download-open-source]
 A copy of the LGPL is included in this repository, or can be obtained at
 [http://www.gnu.org/licenses/lgpl.html]
 
+Additionnaly some of our source code files use code from Qt examples files 
+redistributed under the BSD-licence.
+
 ## Eigen
 
 Eigen is released under the MPL v2, which makes Radium Engine a 
