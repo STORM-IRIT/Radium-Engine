@@ -48,10 +48,14 @@ Mainly inspired by https://google-styleguide.googlecode.com/svn/trunk/cppguide.h
 * no need for () for a return statement.
 
 ## Class design
-* constructors should be trival. All complex work goes in an `init()` function
-* use explicit for all one-arguments constructors
-* use = delete for preventing copy constructor and other
-compiler-generated functions
+* Constructors should be trival. All complex work goes in an `init()` function
+* Try to order class members by size (biggest to smallest)
+* Any class containing a fixed-size `Ra::Core::Vector` or `Matrix`member must declare `RA_CORE_ALIGNED_NEW`
+* Try to declare these fixed-size vectors all together, and preferably first in the class.
+* Never pass a fixed-size vector by value to a function (only ref and const ref). Using them as return value is fine.
+* use `explicit` for all one-arguments constructors 
+* use `= delete` for preventing copy constructor and other compiler-generated functions
+* use `= default` for default compiler-generated function (copy constructor,  assignment operator)
 * use `struct` for trivial PODs where all data is public and `class` for
 everything else.
 * no other inheritance than public
