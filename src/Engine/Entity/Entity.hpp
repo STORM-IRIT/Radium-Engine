@@ -19,6 +19,7 @@ namespace Ra { namespace Engine {
 class Entity : public Core::IndexedObject
 {
 public:
+    RA_CORE_ALIGNED_NEW
     explicit Entity(const std::string& name = "");
     ~Entity();
 
@@ -41,12 +42,13 @@ public:
     std::vector<Component*> getComponents() const;
 
 private:
+    Core::Transform m_transform;
+
     std::string m_name;
 
     typedef std::pair<Core::Index, Engine::Component*> ComponentByIndex;
     std::map<Core::Index, Engine::Component*> m_components;
 
-    Core::Transform m_transform;
 
     mutable std::mutex m_mutex;
     bool m_isSelected;

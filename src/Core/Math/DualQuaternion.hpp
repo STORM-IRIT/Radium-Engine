@@ -14,6 +14,8 @@ namespace Ra { namespace Core
     {
 
     public:
+        RA_CORE_ALIGNED_NEW
+
         // Construct an uninitialized dual quaternion.
         DualQuaternion() {}
 

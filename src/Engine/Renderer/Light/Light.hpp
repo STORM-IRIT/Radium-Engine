@@ -18,6 +18,7 @@ public:
     };
 
 public:
+    RA_CORE_ALIGNED_NEW
     Light(const LightType& type);
     virtual ~Light();
 
@@ -29,10 +30,10 @@ public:
     virtual void bind(ShaderProgram* shader);
 
 private:
-    LightType m_type;
-
     // FIXME(Charly): Add color intensity
     Core::Color m_color;
+
+    LightType m_type;
 };
 
 } // namespace Engine

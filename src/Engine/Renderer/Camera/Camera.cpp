@@ -9,14 +9,14 @@ namespace Ra {
 /// -------------------- ///
 Engine::Camera::Camera()
     : m_frame     ( Core::Transform::Identity() )
+    , m_viewMatrix( Core::Matrix4::Identity() )
+    , m_projMatrix( Core::Matrix4::Identity() )
     , m_fov       ( M_PI * 60.0 / 180.0	        )
     , m_zNear     ( 0.1                         )
     , m_zFar      ( 1000.0                      )
     , m_focalPoint( 1.0                         )
     , m_zoomFactor( 1.0                         )
     , m_projType  ( ProjType::PERSPECTIVE       )
-    , m_viewMatrix( Core::Matrix4::Identity()   )
-    , m_projMatrix( Core::Matrix4::Identity()   )
 {
     updateViewMatrix();
 }
@@ -24,14 +24,14 @@ Engine::Camera::Camera()
 // FIXME: = default ?
 Engine::Camera::Camera( const Engine::Camera& cam )
     : m_frame     ( cam.m_frame      )
+    , m_viewMatrix( cam.m_viewMatrix )
+    , m_projMatrix( cam.m_projMatrix )
     , m_fov       ( cam.m_fov        )
     , m_zNear     ( cam.m_zNear      )
     , m_zFar      ( cam.m_zFar       )
     , m_focalPoint( cam.m_focalPoint )
     , m_zoomFactor( cam.m_zoomFactor )
     , m_projType  ( cam.m_projType   )
-    , m_viewMatrix( cam.m_viewMatrix )
-    , m_projMatrix( cam.m_projMatrix )
 {}
 
 

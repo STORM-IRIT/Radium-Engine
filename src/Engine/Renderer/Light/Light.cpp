@@ -6,8 +6,9 @@ namespace Ra
 {
 
 Engine::Light::Light(const LightType& type)
-    : m_type(type)
-    , m_color(1.0, 1.0, 1.0, 1.0)
+    : m_color(1.0, 1.0, 1.0, 1.0)
+    , m_type(type)
+
 {
 }
 

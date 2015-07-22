@@ -36,6 +36,8 @@ public:
     };
 
 public:
+    RA_CORE_ALIGNED_NEW
+
     explicit Material(const std::string& name);
     ~Material();
 
@@ -62,15 +64,15 @@ public:
     inline Texture* getTexture(const TextureType& type) const;
 
 private:
+    Core::Color m_kd;
+    Core::Color m_ks;
+
     std::string m_name;
 
     ShaderProgram* m_currentShader;
     ShaderProgram* m_defaultShader;
     ShaderProgram* m_contourShader;
     ShaderProgram* m_wireframeShader;
-
-    Core::Color m_kd;
-    Core::Color m_ks;
 
     MaterialType  m_materialType;
 

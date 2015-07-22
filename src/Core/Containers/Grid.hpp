@@ -26,6 +26,8 @@ namespace Ra { namespace Core
         typedef typename std::vector<T>::const_iterator ConstIterator;
 
     public:
+        RA_CORE_ALIGNED_NEW
+
         // Construct a grid of a given size and fill it with the given value.
         Grid( const IdxVector& size = IdxVector::Zero(), const T& val = T());
         // Construct a grid of a given size with values in ()-major format

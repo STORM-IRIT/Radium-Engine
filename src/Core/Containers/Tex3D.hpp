@@ -13,9 +13,12 @@ namespace Ra { namespace Core
     class Tex3D : public Grid<T, 3>
     {
     public:
-        // A useful shortcut.
-    public:
+        RA_CORE_ALIGNED_NEW
+
+        /// Construct a Tex3D with the given resolution in the box given by two points.
         Tex3D( const Vector3i& resolution, const Vector3& start, const Vector3& end );
+
+        /// Construct a Tex3D with the give resulution in the given AABB.
         Tex3D( const Vector3i& resolution, const Aabb& aabb);
 
         inline const Aabb& getAabb() const;

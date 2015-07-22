@@ -10,6 +10,8 @@ namespace Ra { namespace Core
     struct Ray
     {
     public:
+        RA_CORE_ALIGNED_NEW
+
         /// Default constructor initializes the position and direction to zero.
         Ray() : m_origin(Vector3::Zero()), m_direction(Vector3::Zero()) { }
 

@@ -9,8 +9,8 @@ namespace Ra
 
 Engine::Entity::Entity(const std::string& name)
     : Core::IndexedObject()
-    , m_name(name)
     , m_transform(Core::Transform::Identity())
+    , m_name(name)
 {
 }
 

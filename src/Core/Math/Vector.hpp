@@ -33,6 +33,8 @@ namespace Ra { namespace Core
     typedef Eigen::Vector3d             Vector3d;
 #else
     typedef Eigen::AlignedVector3<Scalar> Vector3;
+    typedef Eigen::AlignedVector3<float> Vector3f;
+    typedef Eigen::AlignedVector3<double> Vector3d;
 #endif
 
 	typedef Eigen::Matrix<Scalar, 2, 1> Vector2; 
@@ -93,6 +95,10 @@ namespace Ra { namespace Core
     inline Quaternion operator+ (const Quaternion& q1, const Quaternion& q2);
     inline Quaternion operator* (const Scalar& k, const Quaternion& q);
 
+    // Use this macro in the public: section of a class
+    // when declaring objects containing Vector or Matrices.
+    // http://eigen.tuxfamily.org/dox-devel/group__TopicStructHavingEigenMembers.html
+#define  RA_CORE_ALIGNED_NEW EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
 }} // end namespace Ra::Core
 

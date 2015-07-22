@@ -10,6 +10,7 @@ namespace Ra { namespace Engine {
 class DirectionalLight : public Light
 {
 public:
+    RA_CORE_ALIGNED_NEW
     DirectionalLight();
     virtual ~DirectionalLight();
 

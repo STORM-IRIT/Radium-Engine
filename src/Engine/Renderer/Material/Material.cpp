@@ -7,13 +7,14 @@ namespace Ra
 {
 
 Engine::Material::Material(const std::string& name)
-    : m_name(name)
+    : m_kd(1.0, 1.0, 1.0, 1.0)
+    , m_ks(1.0, 1.0, 1.0, 1.0)
+    , m_name(name)
     , m_currentShader(nullptr)
     , m_defaultShader(nullptr)
     , m_contourShader(nullptr)
     , m_wireframeShader(nullptr)
-    , m_kd(1.0, 1.0, 1.0, 1.0)
-    , m_ks(1.0, 1.0, 1.0, 1.0)
+
     , m_materialType(MAT_OPAQUE)
 {
 }

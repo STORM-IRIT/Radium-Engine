@@ -28,6 +28,8 @@ public:
     /// -------------------- ///
     /// CONSTRUCTOR
     /// -------------------- ///
+    RA_CORE_ALIGNED_NEW
+
     // Default constructor
     Camera();
 
@@ -244,6 +246,9 @@ protected:
     /// -------------------- ///
     Core::Transform m_frame;      // Camera frame
 
+    Core::Matrix4   m_viewMatrix; // View matrix
+    Core::Matrix4   m_projMatrix; // Projection matrix
+
     Scalar    m_fov;        // Field of view
     Scalar    m_zNear;      // Z Near plane distance
     Scalar    m_zFar;       // Z Far plane distance
@@ -253,9 +258,6 @@ protected:
     Scalar    m_zoomFactor; // Zoom factor
 
     ProjType  m_projType;   // Projection type
-
-    Core::Matrix4   m_viewMatrix; // View matrix
-    Core::Matrix4   m_projMatrix; // Projection matrix
 
     std::mutex m_cameraMutex;
 };

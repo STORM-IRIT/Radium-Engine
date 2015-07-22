@@ -20,6 +20,8 @@ public:
     };
 
 public:
+    RA_CORE_ALIGNED_NEW
+
     PointLight();
     virtual ~PointLight();
 

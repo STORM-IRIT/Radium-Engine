@@ -172,7 +172,7 @@ void Engine::ForwardRenderer::render()
         else
         {
             DirectionalLight l;
-            l.setDirection(Core::Vector3(0.3, 1, 0));
+            l.setDirection(Core::Vector3(0.3f, 1, 0));
 
             for (const auto& c : m_components)
             {
@@ -421,7 +421,7 @@ bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
         {
             if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
             {
-                m_camera->rotateDown(M_PI / 50.0f);
+                m_camera->rotateDown(Scalar(M_PI) / 50.0f);
                 return true;
             }
         } break;
@@ -430,7 +430,7 @@ bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
         {
             if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
             {
-                m_camera->rotateUp(M_PI / 50.0f);
+                m_camera->rotateUp(Scalar(M_PI) / 50.0f);
                 return true;
             }
         } break;
@@ -439,7 +439,7 @@ bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
         {
             if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
             {
-                m_camera->rotateLeft(M_PI / 50.0f);
+                m_camera->rotateLeft(Scalar(M_PI) / 50.0f);
                 return true;
             }
         } break;
@@ -448,7 +448,7 @@ bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
         {
             if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
             {
-                m_camera->rotateRight(M_PI / 50.0f);
+                m_camera->rotateRight(Scalar(M_PI) / 50.0f);
                 return true;
             }
         } break;
