@@ -6,19 +6,19 @@
 # Assimp_LIBRARIES - link these to use Assimp
 
 FIND_PATH( Assimp_INCLUDE_DIR assimp/mesh.h
+  ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Assimp/include
   /usr/include
   /usr/local/include
   /opt/local/include
-  ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Assimp/include
 )
 
 FIND_LIBRARY( Assimp_LIBRARY
-  NAMES assimp assimp32.lib
+  NAMES assimp assimp32.lib assimp.lib
+  ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Assimp/lib/Release
   /usr/lib64
   /usr/lib
   /usr/local/lib
   /opt/local/lib
-  ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Assimp/lib32
 )
 
 IF(Assimp_INCLUDE_DIR AND Assimp_LIBRARY)

@@ -9,23 +9,23 @@
 #
 
 FIND_PATH( GLEW_INCLUDE_DIR GL/glew.h
+		${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Glew/include
 		/usr/include
 		/usr/local/include
 		/sw/include
 		/opt/local/include
-		${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Glew/include
 		DOC "The directory where GL/glew.h resides")
 
 FIND_LIBRARY( GLEW_LIBRARY
 		NAMES GLEW glew glew32.lib
 		PATHS
+		${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Glew/lib/Release/Win32
 		/usr/lib64
 		/usr/lib
 		/usr/local/lib64
 		/usr/local/lib
 		/sw/lib
 		/opt/local/lib
-		${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Glew/lib/Release/Win32
 		DOC "The GLEW library")
 
 
