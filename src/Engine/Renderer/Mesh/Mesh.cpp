@@ -103,7 +103,7 @@ void Engine::Mesh::initGL()
         adjacency.push_back(a0);
         adjacency.push_back(v2);
         adjacency.push_back(a2);
-
+    }
 
     // VAO activation.
     GL_ASSERT(glGenVertexArrays(1, &m_vao));

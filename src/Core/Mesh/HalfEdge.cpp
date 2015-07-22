@@ -184,12 +184,12 @@ namespace Ra { namespace Core
             if (t != InvalidIdx) { facesOut.push_back(t); }
         }
     }
-    void AdjacencyQueries::getFirstRing(const TriangleMesh& mesh, const HalfEdgeData& heData, VertexIdx vertex, std::vector<VertexIdx>& ringOut)
+    void AdjacencyQueries::getVertexNeighbors(const TriangleMesh& mesh, const HalfEdgeData& heData, VertexIdx vertex, std::vector<VertexIdx>& neighborsOut)
     {
         CORE_ASSERT( vertex < mesh.m_vertices.size(), "Invalid vertex index");
         for ( HalfEdgeIdx idx : heData.getVertexHalfEdges(vertex))
         {
-            ringOut.push_back(heData[idx].m_endVertexIdx);
+            neighborsOut.push_back(heData[idx].m_endVertexIdx);
         }
     }
 

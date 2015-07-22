@@ -69,10 +69,13 @@ namespace Ra { namespace Core
         void getVertexFaces(const TriangleMesh& mesh, const HalfEdgeData& heData,
                       VertexIdx vertex, std::vector<TriangleIdx>& facesOut);
 
-        /// Gets the neighbours of a vertex.
-        // FIXME return them in order
-        void getFirstRing(const TriangleMesh& mesh, const HalfEdgeData& heData,
-                      VertexIdx vertex, std::vector<VertexIdx>& ringOut);
+        /// Gets the neighbours of a vertex, unordered.
+        void getVertexNeighbors(const TriangleMesh& mesh, const HalfEdgeData& heData,
+                      VertexIdx vertex, std::vector<VertexIdx>& neighborsOut);
+
+        /// Gets the neighbours of a vertex in order.(TODO)
+        void getVertexFirstRing(const TriangleMesh& mesh, const HalfEdgeData& heData,
+                                VertexIdx vertex, std::vector<VertexIdx>& ringOut);
 
         /// Gets the faces adjacent to a given triangle, in order. Note that
         /// the face indices may be invalid (if the triangle is on the border)
