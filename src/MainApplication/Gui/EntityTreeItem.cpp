@@ -121,7 +121,7 @@ bool Gui::EntityTreeItem::insertColumns(uint position, uint columns)
         m_itemData.insert(position, ItemData());
     }
 
-    foreach (EntityTreeItem* child, m_childItems)
+    for (EntityTreeItem* child : m_childItems)
     {
         child->insertColumns(position, columns);
     }

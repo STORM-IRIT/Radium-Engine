@@ -41,10 +41,6 @@ namespace Ra { namespace Core
         // Accessors to underlying data.
         inline const HalfEdge& operator[](HalfEdgeIdx i) const;
 
-        inline const HalfEdge& next( HalfEdgeIdx i) const;
-        inline const HalfEdge& prev( HalfEdgeIdx i) const;
-        inline const HalfEdge& pair( HalfEdgeIdx i) const;
-
         /// Returns the half edges starting from given vertex.
         inline const std::vector<HalfEdgeIdx>& getVertexHalfEdges(VertexIdx i) const;
 

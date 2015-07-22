@@ -75,22 +75,24 @@ void Engine::Mesh::initGL()
     Core::TriangleIdx triangleIdx = 0;
     for (; triangleIdx < m_data.m_triangles.size(); ++triangleIdx)
     {
-        Core::Triangle triangle = m_data.m_triangles[triangleIdx];
         Core::HalfEdgeIdx currentHe = heData.getFirstTriangleHalfEdge(triangleIdx);
 
+        // For each side of the triangle.
         const Core::HalfEdge& he0 = heData[currentHe];
         const Core::HalfEdge& he1 = heData[he0.m_next];
         const Core::HalfEdge& he2 = heData[he1.m_next];
-        const Core::HalfEdge& he3 = heData[he2.m_next];
 
+        // We get the opposing half edge.
         const Core::HalfEdge& ph0 = heData[he0.m_pair];
         const Core::HalfEdge& ph1 = heData[he1.m_pair];
         const Core::HalfEdge& ph2 = heData[he2.m_pair];
 
+        // The vertices of the triangle.
         Core::HalfEdgeIdx v0 = he2.m_endVertexIdx;
         Core::HalfEdgeIdx v1 = he0.m_endVertexIdx;
         Core::HalfEdgeIdx v2 = he1.m_endVertexIdx;
 
+        // And the vertices opposite each edge.
         Core::HalfEdgeIdx a0 = ph0.m_leftTriIdx != Core::InvalidIdx ? heData[ph0.m_next].m_endVertexIdx : v0;
         Core::HalfEdgeIdx a1 = ph1.m_leftTriIdx != Core::InvalidIdx ? heData[ph1.m_next].m_endVertexIdx : v1;
         Core::HalfEdgeIdx a2 = ph2.m_leftTriIdx != Core::InvalidIdx ? heData[ph2.m_next].m_endVertexIdx : v2;
@@ -101,26 +103,7 @@ void Engine::Mesh::initGL()
         adjacency.push_back(a0);
         adjacency.push_back(v2);
         adjacency.push_back(a2);
-//        for (uint i = 0 ; i < 3 ; ++i)
-//        {
-//            // L'half edge de l'autre cote te donne acces a la face voisine
-//            const Core::HalfEdge& flipHe = heData[heData[currentHe].m_pair];
 
-//            // Si cette face existe (i.e. on est pas au bord)
-//            if (flipHe.m_leftTriIdx != Core::InvalidIdx)
-//            {
-//                // Alors le vertex qu'on cherche est au bout de l'half edge suivante !
-//                verticesOut[i] = heData[flipHe.m_next].m_endVertexIdx;
-//            }
-//            else
-//            {
-//                // Sinon on fait quoi ?
-//            }
-
-//            // Maintenant on avance d'un cran !
-//            currentHe = heData[currentHe].m_next;
-//        }
-    }
 
     // VAO activation.
     GL_ASSERT(glGenVertexArrays(1, &m_vao));

@@ -21,7 +21,7 @@ namespace Ra { namespace Core
         inline void clear();
 
         /// Appends another mesh to this one.
-        inline void append( const TriangleMesh& other);
+        inline void append( const TriangleMesh& other );
 
         VectorArray<Vector3>  m_vertices;
         VectorArray<Vector3>  m_normals;

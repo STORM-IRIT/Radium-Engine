@@ -45,7 +45,7 @@ namespace Ra { namespace Core
     // According to this document [2], it is necessary to use a special allocator to enforce
     // alignment...
     // But actually it is not necessary to do so in C++11 [3] (it is actually harmful
-    // as it removes some vector features such as initializer lists.
+    // as it removes some vector features such as initializer lists).
 
     // [1] https://forum.kde.org/viewtopic.php?f=74&t=126959
     // [2] http://eigen.tuxfamily.org/dox-devel/group__TopicStlContainers.html
