@@ -18,25 +18,25 @@
 namespace Ra
 {
 
-namespace 
+namespace
 {
-	const GLenum buffers[] =
-	{
-		GL_COLOR_ATTACHMENT0,
-		GL_COLOR_ATTACHMENT1,
-		GL_COLOR_ATTACHMENT2,
-		GL_COLOR_ATTACHMENT3,
-		GL_COLOR_ATTACHMENT4,
-		GL_COLOR_ATTACHMENT5,
-		GL_COLOR_ATTACHMENT6,
-		GL_COLOR_ATTACHMENT7
-	};
+    const GLenum buffers[] =
+    {
+        GL_COLOR_ATTACHMENT0,
+        GL_COLOR_ATTACHMENT1,
+        GL_COLOR_ATTACHMENT2,
+        GL_COLOR_ATTACHMENT3,
+        GL_COLOR_ATTACHMENT4,
+        GL_COLOR_ATTACHMENT5,
+        GL_COLOR_ATTACHMENT6,
+        GL_COLOR_ATTACHMENT7
+    };
 }
 
 Engine::ForwardRenderer::ForwardRenderer()
     : RenderSystem()
-	, m_camera(nullptr)
-	, m_shaderManager(nullptr)
+    , m_camera(nullptr)
+    , m_shaderManager(nullptr)
     , m_depthShader(nullptr)
     , m_quadShader(nullptr)
     , m_quadMesh(nullptr)
@@ -69,7 +69,7 @@ void Engine::ForwardRenderer::initializeGL(uint width, uint height)
 
     m_shaderManager = ShaderProgramManager::createInstance(shaderPath, defaultShader);
 
-	initShaders();
+    initShaders();
     initBuffers();
 
     Core::TriangleMesh mesh;
@@ -356,7 +356,7 @@ bool Engine::ForwardRenderer::handleMouseEvent(const Core::MouseEvent& event)
 
         case Core::MouseEventType::RA_MOUSE_WHEEL:
         {
-            m_camera->zoomIn(event.wheelDelta > 0 ? 0.1 : -0.1);
+            m_camera->walkForward( m_camera->getFocalPointDistance() * event.wheelDelta * 0.01 );//zoomIn(event.wheelDelta > 0 ? 0.1 : -0.1);
             m_camera->updateProjMatrix(m_width, m_height);
         }
 

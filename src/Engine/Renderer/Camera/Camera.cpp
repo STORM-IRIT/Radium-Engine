@@ -3,15 +3,17 @@
 #include <cmath>
 
 namespace Ra {
+namespace Engine {
+
 
 /// -------------------- ///
 /// CONSTRUCTOR
 /// -------------------- ///
-Engine::Camera::Camera()
+Camera::Camera()
     : m_frame     ( Core::Transform::Identity() )
-    , m_viewMatrix( Core::Matrix4::Identity() )
-    , m_projMatrix( Core::Matrix4::Identity() )
-    , m_fov       ( M_PI * 60.0 / 180.0	        )
+    , m_viewMatrix( Core::Matrix4::Identity()   )
+    , m_projMatrix( Core::Matrix4::Identity()   )
+    , m_fov       ( M_PI / 4.0                  )
     , m_zNear     ( 0.1                         )
     , m_zFar      ( 1000.0                      )
     , m_focalPoint( 1.0                         )
@@ -22,7 +24,7 @@ Engine::Camera::Camera()
 }
 
 // FIXME: = default ?
-Engine::Camera::Camera( const Engine::Camera& cam )
+Camera::Camera( const Camera& cam )
     : m_frame     ( cam.m_frame      )
     , m_viewMatrix( cam.m_viewMatrix )
     , m_projMatrix( cam.m_projMatrix )
@@ -40,7 +42,7 @@ Engine::Camera::Camera( const Engine::Camera& cam )
 /// -------------------- ///
 /// DESTRUCTOR
 /// -------------------- ///
-Engine::Camera::~Camera() { }
+Camera::~Camera() { }
 
 
 
@@ -48,7 +50,7 @@ Engine::Camera::~Camera() { }
 /// -------------------- ///
 /// FRAME
 /// -------------------- ///
-void Engine::Camera::applyTransform( const Core::Transform& T,
+void Camera::applyTransform( const Core::Transform& T,
                                      const ModeType mode )
 {
     std::lock_guard<std::mutex> lock(m_cameraMutex);
@@ -76,7 +78,7 @@ void Engine::Camera::applyTransform( const Core::Transform& T,
 /// -------------------- ///
 /// VIEW MATRIX
 /// -------------------- ///
-void Engine::Camera::updateViewMatrix() {
+void Camera::updateViewMatrix() {
     std::lock_guard<std::mutex> lock(m_cameraMutex);
 
     const Core::Vector3 e  = getPosition();
@@ -103,7 +105,7 @@ void Engine::Camera::updateViewMatrix() {
 /// -------------------- ///
 /// PROJECTION MATRIX
 /// -------------------- ///
-void Engine::Camera::updateProjMatrix( const Scalar& width, const Scalar& height ) {
+void Camera::updateProjMatrix( const Scalar& width, const Scalar& height ) {
     std::lock_guard<std::mutex> lock(m_cameraMutex);
 
     switch( m_projType ) {
@@ -151,4 +153,5 @@ void Engine::Camera::updateProjMatrix( const Scalar& width, const Scalar& height
     }
 }
 
+} // End of Engine
 } // End of Ra
