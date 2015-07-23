@@ -281,8 +281,6 @@ void Gui::EntityTreeModel::insertComponents(Engine::Entity *entity, EntityTreeIt
 {
     std::vector<Engine::Component*> components = entity->getComponents();
 
-
-    uint i = 0;
     for (const auto comp : components)
     {
         std::string name;
