@@ -6,11 +6,13 @@
 #include <cmath>
 #include <functional>
 
+#include <Core/CoreMacros.hpp>
+
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include <unsupported/Eigen/AlignedVector3>
 
-#include <Core/CoreMacros.hpp>
+
 
 // General config
 // Use this to force vec3 to be aligned for vectorization (FIXME not working yet)

@@ -261,7 +261,7 @@ MACRO_START                             \
     fprintf(stderr,                     \
     "%s:%i: ERROR : %s\n",              \
     __FILE__,__LINE__, DESC);           \
-BREAKPOINT(0)                           \
+    BREAKPOINT(0);                      \
 MACRO_END
 
 
@@ -278,5 +278,7 @@ MACRO_END
 // Triggered by the typedef in static assert.
     #pragma GCC diagnostic ignored "-Wunused-local-typedefs"
 #endif
+
+#define eigen_assert(XXX) CORE_ASSERT(XXX, "Eigen Assert");
 
 #endif // RADIUMENGINE_CORE_HPP 

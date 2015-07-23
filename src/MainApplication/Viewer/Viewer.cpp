@@ -1,5 +1,6 @@
 #include <MainApplication/Viewer/Viewer.hpp>
 
+
 #include <iostream>
 
 #include <QTimer>
@@ -9,6 +10,8 @@
 
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/String/StringUtils.hpp>
+
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/ComponentManager.hpp>
@@ -56,6 +59,22 @@ void Gui::Viewer::initializeGL()
     std::cerr<<"Vendor   : " << glGetString(GL_VENDOR)<<std::endl;
     std::cerr<<"OpenGL   : " << glGetString(GL_VERSION)<<std::endl;
     std::cerr<<"GLSL     : " << glGetString(GL_SHADING_LANGUAGE_VERSION)<<std::endl;
+
+
+#if defined (OS_WINDOWS)
+    glewExperimental = GL_TRUE;
+    GLuint result = glewInit();
+    if (result != GLEW_OK)
+    {
+        std::string errorStr;
+        Ra::Core::StringUtils::stringPrintf(errorStr, " GLEW init failed : %s", glewGetErrorString(result));
+        CORE_ERROR(errorStr.c_str());
+    }
+    else
+    {
+        std::cout << "GLEW v." << glewGetString(GLEW_VERSION) << std::endl;
+    }
+#endif
 
     m_engine = new Engine::RadiumEngine;
     m_engine->initialize();
