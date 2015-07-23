@@ -3,6 +3,11 @@
 
 namespace Ra { namespace Engine {
 
+class DrawableManager
+{
+
+};
+
 } // namespace Engine
 } // namespace Ra
 
