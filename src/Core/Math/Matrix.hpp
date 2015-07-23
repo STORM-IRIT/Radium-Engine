@@ -2,10 +2,11 @@
 #define RADIUMENGINE_MATRIX_HPP
 
 /// This file contains typedefs and basic matrix classes.
+#include <Core/CoreMacros.hpp>
+
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
-#include <Core/CoreMacros.hpp>
 
 namespace Ra { namespace Core
 {

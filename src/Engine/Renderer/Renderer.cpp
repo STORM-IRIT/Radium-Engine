@@ -64,7 +64,7 @@ void Engine::Renderer::initialize()
 {
 
     // TODO(Charly): Remove camera stuff
-    m_camera = std::make_shared<Camera>();
+    m_camera = std::shared_ptr<Camera>( new Camera() );
     m_camera->setPosition(Core::Vector3(0, 2, -5), Camera::ModeType::TARGET);
     m_camera->setTargetPoint(Core::Vector3(0, 0, 0));
     m_camera->updateProjMatrix(m_width, m_height);

@@ -1,6 +1,11 @@
 #ifndef RADIUMENGINE_VIEWER_HPP
 #define RADIUMENGINE_VIEWER_HPP
 
+#include <Core/CoreMacros.hpp>
+#if defined (OS_WINDOWS)
+#include <GL/glew.h>
+#endif
+
 #include <memory>
 
 #include <QOpenGLWidget>

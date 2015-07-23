@@ -100,6 +100,7 @@ std::string Engine::ShaderObject::load()
 		getCurrentDir(currentPath, sizeof(currentPath));
         CORE_WARN_IF(!ok, error.str().c_str());
         shader = "";
+        return shader;
 	}
 
 	// Keep sure last character is a 0

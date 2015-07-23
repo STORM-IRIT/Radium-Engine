@@ -20,7 +20,7 @@ Engine::EntityManager::~EntityManager()
 
 Engine::Entity* Engine::EntityManager::createEntity()
 {
-    std::shared_ptr<Engine::Entity> ent = std::make_shared<Engine::Entity>();
+    std::shared_ptr<Engine::Entity> ent(new Entity());
     ent->idx = m_entities.insert(ent);
 
     std::string name;

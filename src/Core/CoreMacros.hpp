@@ -239,7 +239,7 @@ namespace compile_time_utils
         "%s:%i: Assertion `%s` failed : %s\n",         \
         __FILE__,__LINE__, #EXP, DESC);                \
         BREAKPOINT(0);                                 \
-    }                                                  \
+    } else {}                                          \
     MACRO_END
 
     #define CORE_WARN_IF( EXP, DESC )                  \
@@ -248,7 +248,7 @@ namespace compile_time_utils
         fprintf(stderr,                                \
         "%s:%i: WARNING `%s` : %s\n",                  \
         __FILE__,__LINE__, #EXP, DESC);                \
-    }                                                  \
+    } else{}                                           \
     MACRO_END
 #else
     #define CORE_ASSERT( EXP, DESC ) UNUSED(EXP)
@@ -261,7 +261,7 @@ MACRO_START                             \
     fprintf(stderr,                     \
     "%s:%i: ERROR : %s\n",              \
     __FILE__,__LINE__, DESC);           \
-BREAKPOINT(0)                           \
+    BREAKPOINT(0);                      \
 MACRO_END
 
 
@@ -278,5 +278,7 @@ MACRO_END
 // Triggered by the typedef in static assert.
     #pragma GCC diagnostic ignored "-Wunused-local-typedefs"
 #endif
+
+#define eigen_assert(XXX) CORE_ASSERT(XXX, "Eigen Assert");
 
 #endif // RADIUMENGINE_CORE_HPP 
