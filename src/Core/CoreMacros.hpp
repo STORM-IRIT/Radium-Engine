@@ -239,7 +239,7 @@ namespace compile_time_utils
         "%s:%i: Assertion `%s` failed : %s\n",         \
         __FILE__,__LINE__, #EXP, DESC);                \
         BREAKPOINT(0);                                 \
-    }                                                  \
+    } else {}                                          \
     MACRO_END
 
     #define CORE_WARN_IF( EXP, DESC )                  \
@@ -248,7 +248,7 @@ namespace compile_time_utils
         fprintf(stderr,                                \
         "%s:%i: WARNING `%s` : %s\n",                  \
         __FILE__,__LINE__, #EXP, DESC);                \
-    }                                                  \
+    } else{}                                           \
     MACRO_END
 #else
     #define CORE_ASSERT( EXP, DESC ) UNUSED(EXP)
