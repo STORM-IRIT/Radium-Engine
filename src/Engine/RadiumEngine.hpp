@@ -17,6 +17,9 @@ namespace Ra { namespace Engine { class Component;          } }
 namespace Ra { namespace Engine { class EntityManager;      } }
 namespace Ra { namespace Engine { class ComponentManager;   } }
 
+// FIXME(Charly): Should the engine know about the renderer ?
+namespace Ra { namespace Engine { class Renderer;           } }
+
 namespace Ra { namespace Engine {
 
 class RadiumEngine
@@ -32,6 +35,9 @@ public:
     void cleanup();
 
     void quit();
+
+    // FIXME(Charly): Should the engine know the renderer ?
+    Renderer* getRenderer() const { return m_renderer; }
 
     System* getSystem(const std::string& system) const;
 
@@ -58,6 +64,8 @@ private:
 
     EntityManager* m_entityManager;
     ComponentManager* m_componentManager;
+
+    Renderer* m_renderer;
 };
 
 } // namespace Engine

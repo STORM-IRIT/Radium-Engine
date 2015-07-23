@@ -8,8 +8,15 @@ namespace Ra
 {
 
 Engine::Mesh::Mesh(const std::string& name)
-    : Engine::Drawable(name)
+    : m_name(name)
     , m_initialized(false)
+    , m_vao(0)
+    , m_vbo(0)
+    , m_nbo(0)
+    , m_tbo(0)
+    , m_bbo(0)
+    , m_cbo(0)
+    , m_ibo(0)
 {
 }
 
@@ -17,6 +24,7 @@ Engine::Mesh::~Mesh()
 {
     GL_ASSERT(glDeleteBuffers(1, &m_ibo));
 
+    GL_ASSERT(glDeleteBuffers(1, &m_cbo));
     GL_ASSERT(glDeleteBuffers(1, &m_bbo));
     GL_ASSERT(glDeleteBuffers(1, &m_tbo));
     GL_ASSERT(glDeleteBuffers(1, &m_nbo));
@@ -37,21 +45,10 @@ void Engine::Mesh::draw()
 //    GL_ASSERT(glDrawElements(GL_TRIANGLES, 3 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
 }
 
-void Engine::Mesh::loadGeometry(const Core::TriangleMesh &data, bool recomputeNormals)
-{
-    m_data = data;
-
-    if (m_data.m_normals.size() == 0 || recomputeNormals)
-    {
-        computeNormals();
-    }
-
-    initGL();
-}
-
 void Engine::Mesh::loadGeometry(const Core::TriangleMesh &data,
-                                const Core::VectorArray<Core::Vector3>& tangents,
-                                const Core::VectorArray<Core::Vector3>& bitangents,
+                                const Vector3Array& tangents,
+                                const Vector3Array& bitangents,
+                                const Vector3Array& texcoords,
                                 bool recomputeNormals)
 {
     m_data = data;
@@ -62,13 +59,7 @@ void Engine::Mesh::loadGeometry(const Core::TriangleMesh &data,
 
     m_tangents = tangents;
     m_bitangents = bitangents;
-
-    initGL();
-}
-
-void Engine::Mesh::initGL()
-{
-    std::vector<uint> adjacency;
+    m_texcoords = texcoords;
 
     Core::HalfEdgeData heData(m_data);
 
@@ -97,19 +88,31 @@ void Engine::Mesh::initGL()
         Core::HalfEdgeIdx a1 = ph1.m_leftTriIdx != Core::InvalidIdx ? heData[ph1.m_next].m_endVertexIdx : v1;
         Core::HalfEdgeIdx a2 = ph2.m_leftTriIdx != Core::InvalidIdx ? heData[ph2.m_next].m_endVertexIdx : v2;
 
-        adjacency.push_back(v0);
-        adjacency.push_back(a1);
-        adjacency.push_back(v1);
-        adjacency.push_back(a0);
-        adjacency.push_back(v2);
-        adjacency.push_back(a2);
+        m_adjacentTriangles.push_back(v0);
+        m_adjacentTriangles.push_back(a1);
+        m_adjacentTriangles.push_back(v1);
+        m_adjacentTriangles.push_back(a0);
+        m_adjacentTriangles.push_back(v2);
+        m_adjacentTriangles.push_back(a2);
     }
+}
 
-    // VAO activation.
-    GL_ASSERT(glGenVertexArrays(1, &m_vao));
-    GL_ASSERT(glBindVertexArray(m_vao));
+void Engine::Mesh::updateGL()
+{
+    if (m_vao == 0)
+    {
+        // VAO activation.
+        GL_ASSERT(glGenVertexArrays(1, &m_vao));
+        GL_ASSERT(glBindVertexArray(m_vao));
 
-    // Common values for GL data functions.
+        GL_ASSERT(glGenBuffers(1, &m_vbo));
+        GL_ASSERT(glGenBuffers(1, &m_nbo));
+        GL_ASSERT(glGenBuffers(1, &m_tbo));
+        GL_ASSERT(glGenBuffers(1, &m_bbo));
+        GL_ASSERT(glGenBuffers(1, &m_cbo));
+        GL_ASSERT(glGenBuffers(1, &m_ibo));
+    }
+        // Common values for GL data functions.
 #if defined CORE_USE_DOUBLE
     GLenum type = GL_DOUBLE;
 #else
@@ -121,13 +124,13 @@ void Engine::Mesh::initGL()
     GLvoid* ptr = nullptr;
 
     // Position
-    GL_ASSERT(glGenBuffers(1, &m_vbo));
     GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
     GL_ASSERT(glBufferData(GL_ARRAY_BUFFER,
                            m_data.m_vertices.size() * sizeof(Core::Vector3),
                            m_data.m_vertices.data(), GL_STATIC_DRAW));
 
-    GL_ASSERT(glVertexAttribPointer(index, size, type, normalized, sizeof(Core::Vector3), ptr));
+    GL_ASSERT(glVertexAttribPointer(index, size, type, normalized,
+                                    sizeof(Core::Vector3), ptr));
     GL_ASSERT(glEnableVertexAttribArray(index));
 
     // Normal
@@ -135,13 +138,13 @@ void Engine::Mesh::initGL()
                 " Normal data is missing or incomplete.");
 
     ++index;
-    GL_ASSERT(glGenBuffers(1, &m_nbo));
     GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_nbo));
     GL_ASSERT(glBufferData(GL_ARRAY_BUFFER,
                            m_data.m_normals.size() * sizeof(Core::Vector3),
                            m_data.m_normals.data(), GL_STATIC_DRAW));
 
-    GL_ASSERT(glVertexAttribPointer(index, size, type, normalized, sizeof(Core::Vector3), ptr));
+    GL_ASSERT(glVertexAttribPointer(index, size, type, normalized,
+                                    sizeof(Core::Vector3), ptr));
     GL_ASSERT(glEnableVertexAttribArray(index));
 
     if (m_tangents.size() != 0)
@@ -150,13 +153,13 @@ void Engine::Mesh::initGL()
                     "Tangent data is incomplete.");
 
         ++index;
-        GL_ASSERT(glGenBuffers(1, &m_tbo));
         GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_tbo));
         GL_ASSERT(glBufferData(GL_ARRAY_BUFFER,
                                m_tangents.size() * sizeof(Core::Vector3),
                                m_tangents.data(), GL_STATIC_DRAW));
 
-        GL_ASSERT(glVertexAttribPointer(index, size, type, normalized, sizeof(Core::Vector3), ptr));
+        GL_ASSERT(glVertexAttribPointer(index, size, type, normalized,
+                                        sizeof(Core::Vector3), ptr));
         GL_ASSERT(glEnableVertexAttribArray(index));
     }
 
@@ -166,29 +169,42 @@ void Engine::Mesh::initGL()
                     "Bitangent data is incomplete.");
 
         ++index;
-        GL_ASSERT(glGenBuffers(1, &m_tbo));
-        GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_tbo));
+        GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_bbo));
         GL_ASSERT(glBufferData(GL_ARRAY_BUFFER,
                                m_bitangents.size() * sizeof(Core::Vector3),
                                m_bitangents.data(), GL_STATIC_DRAW));
 
-        GL_ASSERT(glVertexAttribPointer(index, size, type, normalized, sizeof(Core::Vector3), ptr));
+        GL_ASSERT(glVertexAttribPointer(index, size, type, normalized,
+                                        sizeof(Core::Vector3), ptr));
         GL_ASSERT(glEnableVertexAttribArray(index));
     }
 
-#if 0
-    // Texcoord
-    ++index;
-    ptr = static_cast<char*>(nullptr) + 3 * sizeof(Vector3);
-    GL_ASSERT(glVertexAttribPointer(index, size, type, normalized, step, ptr));
-    GL_ASSERT(glEnableVertexAttribArray(index));
+    if (m_texcoords.size() != 0)
+    {
+        CORE_ASSERT(m_texcoords.size() == m_data.m_vertices.size(),
+                    "Texcoords data is incomplete");
 
-#endif
+        ++index;
+        GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_cbo));
+        GL_ASSERT(glBufferData(GL_ARRAY_BUFFER,
+                               m_texcoords.size() * sizeof(Core::Vector3),
+                               m_texcoords.data(), GL_STATIC_DRAW));
+
+        GL_ASSERT(glVertexAttribPointer(index, size, type, normalized,
+                                        sizeof(Core::Vector3), ptr));
+        GL_ASSERT(glEnableVertexAttribArray(index));
+    }
+
     // Indices
-    GL_ASSERT(glGenBuffers(1, &m_ibo));
     GL_ASSERT(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
-    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER, adjacency.size() * sizeof(uint), adjacency.data(), GL_STATIC_DRAW));
-//    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_data.m_triangles.size() * sizeof(Core::Triangle), m_data.m_triangles.data(), GL_STATIC_DRAW));
+    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+                           m_adjacentTriangles.size() * sizeof(uint),
+                           m_adjacentTriangles.data(), GL_STATIC_DRAW));
+    /*
+    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+                           m_data.m_triangles.size() * sizeof(Core::Triangle),
+                           m_data.m_triangles.data(), GL_STATIC_DRAW));
+                           */
 
     GL_ASSERT(glBindVertexArray(0));
 

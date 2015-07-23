@@ -14,10 +14,8 @@
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Entity/EntityManager.hpp>
-#include <Engine/Renderer/ForwardRenderer.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/Mesh/MeshLoader.hpp>
-#include <Engine/Renderer/Drawable/DrawableComponent.hpp>
 
 namespace Ra
 {
@@ -29,10 +27,6 @@ Engine::RadiumEngine::RadiumEngine()
 
 void Engine::RadiumEngine::initialize()
 {
-    Engine::System* renderSystem = new Engine::ForwardRenderer;
-    renderSystem->initialize();
-
-    m_systems["RenderSystem"] = std::shared_ptr<Engine::System>(renderSystem);
 }
 
 void Engine::RadiumEngine::setupScene()
@@ -53,10 +47,6 @@ void Engine::RadiumEngine::run()
     while (!quitRequested())
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-//        m_angle += 0.05;
-//        m_entity->setTransform(Core::Transform(Core::AngleAxis(std::sin(m_angle),
-//                                                   Core::Vector3(0.0, 1.0, 0.0))));
     }
 
     cleanup();
@@ -120,7 +110,9 @@ void Engine::RadiumEngine::addComponent(Component* component,
 
 bool Engine::RadiumEngine::loadFile(const std::string& file)
 {
-    return MeshLoader::loadFile(file, this);
+    // FIXME(Charly): Mesh loader stuff
+    return false;
+//    return MeshLoader::loadFile(file, this);
 }
 
 std::vector<Engine::Entity*> Engine::RadiumEngine::getEntities() const

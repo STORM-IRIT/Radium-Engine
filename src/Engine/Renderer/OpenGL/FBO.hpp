@@ -27,6 +27,9 @@ public:
     ~FBO();
 
     void bind();
+
+    // Binds and sets viewport
+    void useAsTarget();
     void unbind(bool complete = false);
 
     void attachTexture(uint attachment, Texture* texture, uint level = 0);

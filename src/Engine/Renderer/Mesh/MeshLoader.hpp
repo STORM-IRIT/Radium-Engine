@@ -3,6 +3,8 @@
 
 #include <string>
 
+#if 0
+
 namespace Ra { namespace Engine { class RadiumEngine; } }
 
 namespace Ra { namespace Engine {
@@ -14,5 +16,7 @@ namespace MeshLoader
 
 } // namespace Engine
 } // namespace Ra
+
+#endif
 
 #endif

@@ -93,7 +93,7 @@
 // ----------------------------------------------------------------------------
 
 // Macro to avoid the "unused variable" warning with no side-effects.
-#define UNUSED(X) ((void) sizeof(X))
+#define CORE_UNUSED(X) ((void) sizeof(X))
 
 // Wrapper for multiline macros
 // In debug we use the standard do..while(0) which is 'nice' to read and debug

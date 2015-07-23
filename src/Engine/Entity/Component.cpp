@@ -16,6 +16,11 @@ void Engine::Component::setEntity(Engine::Entity* entity)
     m_entity = entity;
 }
 
+const Engine::Entity* Engine::Component::getEntity() const
+{
+    return m_entity;
+}
+
 void Engine::Component::setSelected(bool selected)
 {
     m_isSelected = selected;

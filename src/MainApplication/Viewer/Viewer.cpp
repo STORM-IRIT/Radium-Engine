@@ -7,6 +7,8 @@
 #include <QKeyEvent>
 #include <QPainter>
 
+#include <Core/Event/KeyEvent.hpp>
+#include <Core/Event/MouseEvent.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -14,12 +16,12 @@
 #include <Engine/Entity/ComponentManager.hpp>
 #include <Engine/Entity/EntityManager.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Renderer/Drawable/DrawableComponent.hpp>
 #include <Engine/Renderer/Shader/ShaderProgram.hpp>
 #include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
-#include <Engine/Renderer/ForwardRenderer.hpp>
+#include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
 
 // FIXME (Charly) :
 //  For now, we are just calling the Renderer::render() method here
@@ -57,51 +59,50 @@ void Gui::Viewer::initializeGL()
     std::cerr<<"OpenGL   : " << glGetString(GL_VERSION)<<std::endl;
     std::cerr<<"GLSL     : " << glGetString(GL_SHADING_LANGUAGE_VERSION)<<std::endl;
 
+    // FIXME(Charly): Move this in MainWindow
     m_engine = new Engine::RadiumEngine;
     m_engine->initialize();
 
-    m_renderer = static_cast<Engine::RenderSystem*>(m_engine->getSystem("RenderSystem"));
-    m_renderer->initializeGL(width(), height());
-    m_engine->setupScene();
+    m_renderer = new Engine::Renderer(m_engine, width(), height());
+    m_renderer->initialize();
+
+    m_camera = new Engine::Camera;
+//    m_engine->setupScene();
 
     m_engine->start();
 
 //    loadFile("../Scenes/stanford_dragon/dragon.obj");
 
-    Core::TriangleMesh d = Core::MeshUtils::makeGeodesicSphere(5, 1);
-    Engine::Entity* ent = m_engine->createEntity();
-    Engine::DrawableComponent* comp = new Engine::DrawableComponent;
-    m_engine->addComponent(comp, ent, "RenderSystem");
-    Engine::Mesh* mesh = new Engine::Mesh("mesh");
-    mesh->loadGeometry(d);
-    comp->addDrawable(mesh);
-    Engine::Material* mat = new Engine::Material("material");
+//    Core::TriangleMesh d = Core::MeshUtils::makeGeodesicSphere(5, 1);
+//    Engine::Entity* ent = m_engine->createEntity();
+//    Engine::FancyMeshDrawable* comp = new Engine::FancyMeshDrawable;
+//    m_engine->addComponent(comp, ent, "RenderSystem");
+//    Engine::Mesh* mesh = new Engine::Mesh("mesh");
+//    mesh->loadGeometry(d);
+//    comp->addDrawable(mesh);
+//    Engine::Material* mat = new Engine::Material("material");
 
 
-    const Engine::ShaderConfiguration defaultShaderConf("BlinnPhong", "../Shaders");
-    const Engine::ShaderConfiguration contourShaderConf("BlinnPhongContour", "../Shaders",
-                                                        Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM);
-    const Engine::ShaderConfiguration wireframeShaderConf("BlinnPhongWireframe", "../Shaders",
-                                                          Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM);
+//    const Engine::ShaderConfiguration defaultShaderConf("BlinnPhong", "../Shaders");
+//    const Engine::ShaderConfiguration contourShaderConf("BlinnPhongContour", "../Shaders",
+//                                                        Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM);
+//    const Engine::ShaderConfiguration wireframeShaderConf("BlinnPhongWireframe", "../Shaders",
+//                                                          Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM);
 
-    Engine::ShaderProgramManager* m = Engine::ShaderProgramManager::getInstancePtr();
-    mat->setDefaultShaderProgram(m->getShaderProgram(defaultShaderConf));
-    mat->setContourShaderProgram(m->getShaderProgram(contourShaderConf));
-    mat->setWireframeShaderProgram(m->getShaderProgram(wireframeShaderConf));
-    comp->setMaterial(mat);
+//    Engine::ShaderProgramManager* m = Engine::ShaderProgramManager::getInstancePtr();
+//    mat->setDefaultShaderProgram(m->getShaderProgram(defaultShaderConf));
+//    mat->setContourShaderProgram(m->getShaderProgram(contourShaderConf));
+//    mat->setWireframeShaderProgram(m->getShaderProgram(wireframeShaderConf));
+//    comp->setMaterial(mat);
 
-    emit entitiesUpdated();
+//    emit entitiesUpdated();
 }
 
 void Gui::Viewer::paintGL()
 {
-    // TODO(Charly): Remove this, just temporary to ensure everything works fine.
-//    static Scalar rotation = 0.0;
-//    rotation += 0.01;
-
-//    Entity* ent = EntityManager::getInstancePtr()->getEntity(0);
-//    ent->setTransform(Transform(AngleAxis(std::sin(rotation), Vector3(0.0, 1.0, 0.0))));
-    m_renderer->render();
+    // TODO(Charly): Setup data, camera handled there.
+    Engine::RenderData data;
+    m_renderer->render(data);
 }
 
 void Gui::Viewer::resizeGL(int width, int height)
@@ -124,10 +125,9 @@ void Gui::Viewer::mousePressEvent(QMouseEvent* event)
     mouseEventQtToRadium(event, &e);
     e.event = Core::MouseEventType::RA_MOUSE_PRESSED;
 
-    if (!m_engine->handleMouseEvent(e))
-    {
-        QOpenGLWidget::mousePressEvent(event);
-    }
+    m_renderer->handleMouseEvent(e);
+    m_engine->handleMouseEvent(e);
+    QOpenGLWidget::mousePressEvent(event);
 }
 
 void Gui::Viewer::mouseReleaseEvent(QMouseEvent* event)
@@ -136,10 +136,9 @@ void Gui::Viewer::mouseReleaseEvent(QMouseEvent* event)
     mouseEventQtToRadium(event, &e);
     e.event = Core::MouseEventType::RA_MOUSE_RELEASED;
 
-    if (!m_engine->handleMouseEvent(e))
-    {
-        QOpenGLWidget::mouseReleaseEvent(event);
-    }
+    m_renderer->handleMouseEvent(e);
+    m_engine->handleMouseEvent(e);
+    QOpenGLWidget::mouseReleaseEvent(event);
 }
 
 void Gui::Viewer::mouseMoveEvent(QMouseEvent* event)
@@ -148,10 +147,9 @@ void Gui::Viewer::mouseMoveEvent(QMouseEvent* event)
     mouseEventQtToRadium(event, &e);
     e.event = Core::MouseEventType::RA_MOUSE_MOVED;
 
-    if (!m_engine->handleMouseEvent(e))
-    {
-        QOpenGLWidget::mouseMoveEvent(event);
-    }
+    m_renderer->handleMouseEvent(e);
+    m_engine->handleMouseEvent(e);
+    QOpenGLWidget::mouseMoveEvent(event);
 }
 
 void Gui::Viewer::wheelEvent(QWheelEvent* event)
@@ -167,10 +165,9 @@ void Gui::Viewer::wheelEvent(QWheelEvent* event)
     e.relativeXPosition = x / static_cast<Scalar>(width());
     e.relativeYPosition = y / static_cast<Scalar>(height());
 
-    if (!m_engine->handleMouseEvent(e))
-    {
-        QOpenGLWidget::wheelEvent(event);
-    }
+    m_renderer->handleMouseEvent(e);
+    m_engine->handleMouseEvent(e);
+    QOpenGLWidget::wheelEvent(event);
 }
 
 void Gui::Viewer::keyPressEvent(QKeyEvent* event)
@@ -179,10 +176,9 @@ void Gui::Viewer::keyPressEvent(QKeyEvent* event)
     keyEventQtToRadium(event, &e);
     e.event = Core::KeyEventType::RA_KEY_PRESSED;
 
-    if (!m_engine->handleKeyEvent(e))
-    {
-        QOpenGLWidget::keyPressEvent(event);
-    }
+    m_renderer->handleKeyEvent(e);
+    m_engine->handleKeyEvent(e);
+    QOpenGLWidget::keyPressEvent(event);
 }
 
 void Gui::Viewer::keyReleaseEvent(QKeyEvent* event)
@@ -191,10 +187,9 @@ void Gui::Viewer::keyReleaseEvent(QKeyEvent* event)
     keyEventQtToRadium(event, &e);
     e.event = Core::KeyEventType::RA_KEY_RELEASED;
 
-    if (!m_engine->handleKeyEvent(e))
-    {
-        QOpenGLWidget::keyReleaseEvent(event);
-    }
+    m_renderer->handleKeyEvent(e);
+    m_engine->handleKeyEvent(e);
+    QOpenGLWidget::keyReleaseEvent(event);
 }
 
 void Gui::Viewer::mouseEventQtToRadium(QMouseEvent* qtEvent, Core::MouseEvent* raEvent)

@@ -6,7 +6,7 @@
 #include <QFileDialog>
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderSystem.hpp>
+#include <Engine/Renderer/Renderer.hpp>
 #include <MainApplication/Gui/EntityTreeModel.hpp>
 
 namespace Ra

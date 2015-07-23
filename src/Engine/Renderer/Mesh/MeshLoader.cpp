@@ -1,3 +1,4 @@
+#if 0
 #include <Engine/Renderer/Mesh/MeshLoader.hpp>
 
 #include <assimp/Importer.hpp>
@@ -11,15 +12,21 @@
 #include <Core/String/StringUtils.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Renderer/RenderSystem.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Shader/ShaderProgram.hpp>
 #include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/Drawable/DrawableComponent.hpp>
+#include <Engine/Renderer/FancyMeshPlugin/FancyMeshDrawable.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/SpotLight.hpp>
 #include <Engine/Renderer/Light/PointLight.hpp>
+
+// FIXME(Charly): Only needed for the lights, remove this ASAP
+#include <Engine/Renderer/Renderer.hpp>
+
+// FIXME(Charly): Many stuff to fix here to have the compatibility with the new
+//                Drawables architecture.
+// FIXME(Charly): Shouldn't MeshLoader move into the FancyMeshPlugin ?
 
 namespace Ra
 {
@@ -43,10 +50,10 @@ Core::Matrix4 assimpToCore(const aiMatrix4x4& matrix);
 void runThroughNodes(const aiNode* node, const aiScene* scene,
                      const Core::Matrix4& transform, Engine::RadiumEngine* engine);
 
-void loadMesh(const aiMesh* mesh, Engine::DrawableComponent* component, const std::string& name);
+void loadMesh(const aiMesh* mesh, Engine::FancyMeshDrawable* component, const std::string& name);
 
-void loadMaterial(const aiMaterial* mat, Engine::DrawableComponent* component, const std::string& name);
-void loadDefaultMaterial(Engine::DrawableComponent* component, const std::string& name);
+void loadMaterial(const aiMaterial* mat, Engine::FancyMeshDrawable* component, const std::string& name);
+void loadDefaultMaterial(Engine::FancyMeshDrawable* component, const std::string& name);
 
 void loadLights(const aiScene* scene, Engine::RadiumEngine* engine);
 }
@@ -99,7 +106,7 @@ void runThroughNodes(const aiNode* node, const aiScene* scene,
     if (node->mNumMeshes > 0)
     {
         Engine::Entity* entity = engine->createEntity();
-        Engine::DrawableComponent* component = new Engine::DrawableComponent;
+        Engine::FancyMeshDrawable* component = new Engine::FancyMeshDrawable;
         engine->addComponent(component, entity, "RenderSystem");
 
         entity->setTransform(matrix);
@@ -134,7 +141,7 @@ void runThroughNodes(const aiNode* node, const aiScene* scene,
     }
 }
 
-void loadMesh(const aiMesh* mesh, Engine::DrawableComponent* component, const std::string& name)
+void loadMesh(const aiMesh* mesh, Engine::FancyMeshDrawable* component, const std::string& name)
 {
     Core::TriangleMesh data;
     Engine::Mesh* emesh = new Engine::Mesh(name);
@@ -166,7 +173,7 @@ void loadMesh(const aiMesh* mesh, Engine::DrawableComponent* component, const st
     component->addDrawable(emesh);
 }
 
-void loadMaterial(const aiMaterial* mat, Engine::DrawableComponent* component, const std::string& name)
+void loadMaterial(const aiMaterial* mat, Engine::FancyMeshDrawable* component, const std::string& name)
 {
     if (mat == nullptr)
     {
@@ -200,7 +207,7 @@ void loadMaterial(const aiMaterial* mat, Engine::DrawableComponent* component, c
     component->setMaterial(material);
 }
 
-void loadDefaultMaterial(Engine::DrawableComponent* component, const std::string& name)
+void loadDefaultMaterial(Engine::FancyMeshDrawable* component, const std::string& name)
 {
     Engine::ShaderProgramManager& manager = Engine::ShaderProgramManager::getInstanceRef();
     Engine::ShaderProgram* defaultShader = manager.addShaderProgram(defaultShaderConf);
@@ -216,8 +223,7 @@ void loadDefaultMaterial(Engine::DrawableComponent* component, const std::string
 
 void loadLights(const aiScene* scene, Engine::RadiumEngine* engine)
 {
-    Engine::RenderSystem* renderer = static_cast<Engine::RenderSystem*>(
-                engine->getSystem("RenderSystem"));
+    Engine::Renderer* renderer = engine->getRenderer();
     for (uint i = 0; i < scene->mNumLights; ++i)
     {
         aiLight* ailight = scene->mLights[i];
@@ -369,3 +375,4 @@ Core::Matrix4 assimpToCore(const aiMatrix4x4& matrix)
 
 
 } // namespace Ra
+#endif

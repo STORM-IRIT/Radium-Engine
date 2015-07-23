@@ -1,19 +1,22 @@
-#include <Engine/Renderer/ForwardRenderer.hpp>
+#include <Engine/Renderer/Renderer.hpp>
 
 #include <iostream>
 
 #include <QtCore>
 
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Shader/ShaderProgram.hpp>
 #include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
-#include <Engine/Renderer/Drawable/DrawableComponent.hpp>
+#include <Engine/Renderer/Drawable/Drawable.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/OpenGL/FBO.hpp>
+#include <Core/Event/KeyEvent.hpp>
+#include <Core/Event/MouseEvent.hpp>
 
 namespace Ra
 {
@@ -33,32 +36,34 @@ namespace
     };
 }
 
-Engine::ForwardRenderer::ForwardRenderer()
-    : RenderSystem()
+Engine::Renderer::Renderer(RadiumEngine* engine, uint width, uint height)
+    : m_width(width)
+    , m_height(height)
     , m_camera(nullptr)
     , m_shaderManager(nullptr)
-    , m_depthShader(nullptr)
-    , m_quadShader(nullptr)
-    , m_quadMesh(nullptr)
-    , m_fbo(nullptr)
     , m_displayedTexture(nullptr)
     , m_displayedIsDepth(false)
+    , m_depthShader(nullptr)
+    , m_compositingShader(nullptr)
+    , m_drawScreenShader(nullptr)
+    , m_quadMesh(nullptr)
+    , m_fbo(nullptr)
+    , m_postprocessFbo(nullptr)
     , m_camRotateStarted(false)
     , m_camZoomStarted(false)
     , m_camPanStarted(false)
 {
 }
 
-Engine::ForwardRenderer::~ForwardRenderer()
+Engine::Renderer::~Renderer()
 {
     ShaderProgramManager::destroyInstance();
 }
 
-void Engine::ForwardRenderer::initializeGL(uint width, uint height)
+void Engine::Renderer::initialize()
 {
-    m_width = width;
-    m_height = height;
 
+    // TODO(Charly): Remove camera stuff
     m_camera = std::make_shared<Camera>();
     m_camera->setPosition(Core::Vector3(0, 2, -5), Camera::ModeType::TARGET);
     m_camera->setTargetPoint(Core::Vector3(0, 0, 0));
@@ -87,38 +92,72 @@ void Engine::ForwardRenderer::initializeGL(uint width, uint height)
 
     m_quadMesh = new Mesh("quad");
     m_quadMesh->loadGeometry(mesh);
+    m_quadMesh->updateGL();
 }
 
-void Engine::ForwardRenderer::initShaders()
+void Engine::Renderer::initShaders()
 {
     m_depthShader = m_shaderManager->addShaderProgram("DepthPass");
     m_shaderManager->addShaderProgram("BlinnPhong");
 
-    m_quadShader  = m_shaderManager->addShaderProgram("Quad");
+    m_compositingShader = m_shaderManager->addShaderProgram("Compose");
+
+    m_drawScreenShader  = m_shaderManager->addShaderProgram("DrawScreen");
 }
 
-void Engine::ForwardRenderer::initBuffers()
+void Engine::Renderer::initBuffers()
 {
     m_fbo = new FBO(FBO::Components(FBO::COLOR | FBO::DEPTH), m_width, m_height);
+    m_postprocessFbo = new FBO(FBO::Components(FBO::COLOR), m_width, m_height);
 
     m_textures[TEXTURE_DEPTH] = new Texture("Depth", GL_TEXTURE_2D);
     m_textures[TEXTURE_COLOR] = new Texture("Color", GL_TEXTURE_2D);
+    m_finalTexture = new Texture("Final", GL_TEXTURE_2D);
 
     resize(m_width, m_height);
 
     m_displayedTexture = m_textures[TEXTURE_COLOR];
 }
 
-void Engine::ForwardRenderer::render()
+void Engine::Renderer::render(const RenderData& data)
 {
-    int qtFtw;
-    GL_ASSERT(glGetIntegerv(GL_FRAMEBUFFER_BINDING, &qtFtw));
+    saveExternalFBOInternal();
+
+    std::vector<std::shared_ptr<Drawable>> drawables;
+    updateDrawablesInternal(data, drawables);
+    renderInternal(data, drawables);
+    postProcessInternal(data, drawables);
+
+    drawScreenInternal();
+}
+
+void Engine::Renderer::saveExternalFBOInternal()
+{
+    GL_ASSERT(glGetIntegerv(GL_FRAMEBUFFER_BINDING, &m_qtPlz));
+}
+
+void Engine::Renderer::updateDrawablesInternal(const RenderData &renderData,
+                                               const std::vector<std::shared_ptr<Drawable> > &drawables)
+{
+    CORE_UNUSED(renderData);
+
+    for (auto& d : drawables)
+    {
+        d->updateGL();
+    }
+}
+
+void Engine::Renderer::renderInternal(const RenderData& renderData,
+                                      const std::vector<std::shared_ptr<Drawable>>& drawables)
+{
+    m_fbo->useAsTarget();
+    GL_ASSERT(glDepthMask(GL_TRUE));
 
     m_fbo->bind();
     GL_ASSERT(glDepthMask(GL_TRUE));
     GL_ASSERT(glColorMask(1, 1, 1, 1));
 
-    GL_ASSERT(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
+    GL_ASSERT(glClearColor(0.2f, 0.2f, 0.2f, 1.0f));
     GL_ASSERT(glClearDepth(1.0));
     m_fbo->clear(FBO::Components(FBO::COLOR | FBO::DEPTH));
 
@@ -126,6 +165,7 @@ void Engine::ForwardRenderer::render()
 
     m_camera->updateViewMatrix();
 
+    // TODO(Charly): Remove camera, use renderData stuff here
     Core::Matrix4 view = m_camera->getViewMatrix();
     Core::Matrix4 proj = m_camera->getProjMatrix();
 
@@ -140,70 +180,92 @@ void Engine::ForwardRenderer::render()
 
         m_depthShader->bind();
 
-        for (const auto& c : m_components)
+        for (const auto& d : drawables)
         {
-            DrawableComponent* dc = static_cast<DrawableComponent*>(c.second);
-            dc->draw(view, proj, m_depthShader);
+            d->draw(view, proj, m_depthShader);
         }
     }
 
     // Light passes
-    if (1)
+    glDepthFunc(GL_LEQUAL);
+    glColorMask(1, 1, 1, 1);
+    glDepthMask(GL_FALSE);
+
+    GL_ASSERT(glEnable(GL_BLEND));
+    GL_ASSERT(glBlendFunc(GL_ONE, GL_ONE));
+
+    if (m_lights.size() > 0)
     {
-        glDepthFunc(GL_LEQUAL);
-        glColorMask(1, 1, 1, 1);
-        glDepthMask(GL_FALSE);
-//        glDisable(GL_DEPTH_TEST);
-
-        GL_ASSERT(glEnable(GL_BLEND));
-        GL_ASSERT(glBlendFunc(GL_ONE, GL_ONE));
-
-        if (m_lights.size() > 0)
+        for (const auto& l : m_lights)
         {
-            for (const auto& l : m_lights)
+            for (const auto& d : drawables)
             {
-                for (const auto& c : m_components)
-                {
-                    DrawableComponent* dc = static_cast<DrawableComponent*>(c.second);
-                    dc->draw(view, proj, l);
-                }
-            }
-        }
-        else
-        {
-            DirectionalLight l;
-            l.setDirection(Core::Vector3(0.3f, 1, 0));
-
-            for (const auto& c : m_components)
-            {
-                DrawableComponent* dc = static_cast<DrawableComponent*>(c.second);
-                dc->draw(view, proj, &l);
+                d->draw(view, proj, l);
             }
         }
     }
+    else
+    {
+        DirectionalLight l;
+        l.setDirection(Core::Vector3(0.3f, 1, 0));
 
-    m_fbo->unbind(true);
+        for (const auto& d : drawables)
+        {
+            d->draw(view, proj, &l);
+        }
+    }
+}
 
-    GL_ASSERT(glBindFramebuffer(GL_FRAMEBUFFER, qtFtw));
-//    GL_ASSERT(glDrawBuffers(1, buffers));
+void Engine::Renderer::postProcessInternal(const RenderData &renderData,
+                                           const std::vector<std::shared_ptr<Drawable>>& drawables)
+{
+    CORE_UNUSED(renderData);
+    CORE_UNUSED(drawables);
+
+    m_postprocessFbo->useAsTarget();
 
     GL_ASSERT(glClearColor(0.0, 0.0, 0.0, 0.0));
+    GL_ASSERT(glClear(GL_COLOR_BUFFER_BIT));
+
+    GL_ASSERT(glDrawBuffers(1, buffers));
+
+    m_compositingShader->bind();
+    m_compositingShader->setUniform("color", m_textures[TEXTURE_COLOR], 0);
+
+    m_quadMesh->draw();
+
+    m_postprocessFbo->unbind();
+}
+
+void Engine::Renderer::drawScreenInternal()
+{
+    if (m_qtPlz == 0)
+    {
+        GL_ASSERT(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+        glDrawBuffer(GL_BACK);
+    }
+    else
+    {
+        GL_ASSERT(glBindFramebuffer(GL_FRAMEBUFFER, m_qtPlz));
+        GL_ASSERT(glDrawBuffers(1, buffers));
+    }
+
+    GL_ASSERT(glClearColor(0.0, 0.0, 0.0, 0.0));
+    // FIXME(Charly): Do we really need to clear the depth buffer ?
     GL_ASSERT(glClearDepth(1.0));
     GL_ASSERT(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
-//    m_fbo->unbind(true);
     GL_ASSERT(glViewport(0, 0, m_width, m_height));
 
-    m_quadShader->bind();
-    m_quadShader->setUniform("isDepthTexture", m_displayedIsDepth ? 1 : 0);
-    m_quadShader->setUniform("zNear", m_camera->getZNear());
-    m_quadShader->setUniform("zFar", m_camera->getZFar());
-    m_quadShader->setUniform("depth", m_textures[TEXTURE_DEPTH], 0);
-    m_quadShader->setUniform("color", m_textures[TEXTURE_COLOR], 1);
+    m_drawScreenShader->bind();
+    m_drawScreenShader->setUniform("isDepthTexture", m_displayedIsDepth ? 1 : 0);
+    m_drawScreenShader->setUniform("zNear", m_camera->getZNear());
+    m_drawScreenShader->setUniform("zFar", m_camera->getZFar());
+    m_drawScreenShader->setUniform("screenTexture", m_displayedTexture, 0);
     m_quadMesh->draw();
 }
 
-void Engine::ForwardRenderer::resize(uint w, uint h)
+void Engine::Renderer::resize(uint w, uint h)
 {
     m_width = w;
     m_height = h;
@@ -218,6 +280,11 @@ void Engine::ForwardRenderer::resize(uint w, uint h)
         m_textures[TEXTURE_COLOR]->deleteGL();
     }
 
+    if (m_finalTexture->getId() != 0)
+    {
+        m_finalTexture->deleteGL();
+    }
+
     m_textures[TEXTURE_DEPTH]->initGL(GL_DEPTH_COMPONENT24, w, h, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr);
     m_textures[TEXTURE_DEPTH]->setFilter(GL_NEAREST, GL_NEAREST);
     m_textures[TEXTURE_DEPTH]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
@@ -226,6 +293,11 @@ void Engine::ForwardRenderer::resize(uint w, uint h)
     m_textures[TEXTURE_COLOR]->setFilter(GL_NEAREST, GL_NEAREST);
     m_textures[TEXTURE_COLOR]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
+    m_finalTexture->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
+    // FIXME(Charly): Filtering here ?
+    m_finalTexture->setFilter(GL_NEAREST, GL_NEAREST);
+    m_finalTexture->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+
     m_fbo->bind();
     m_fbo->setSize(w, h);
     m_fbo->attachTexture(GL_DEPTH_ATTACHMENT, m_textures[TEXTURE_DEPTH]);
@@ -233,28 +305,39 @@ void Engine::ForwardRenderer::resize(uint w, uint h)
     m_fbo->check();
     m_fbo->unbind(true);
 
+    m_postprocessFbo->bind();
+    m_postprocessFbo->setSize(w, h);
+    m_postprocessFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_finalTexture);
+    m_postprocessFbo->check();
+    m_postprocessFbo->unbind(true);
+
     GL_CHECK_ERROR;
 
+    // TODO(Charly): Remove camera stuff from the renderer
     m_camera->updateProjMatrix(m_width, m_height);
 
     // Reset framebuffer state
     GL_ASSERT(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+
     GL_ASSERT(glDrawBuffer(GL_BACK));
     GL_ASSERT(glReadBuffer(GL_BACK));
 }
 
-void Engine::ForwardRenderer::debugTexture(uint texIdx)
+void Engine::Renderer::debugTexture(uint texIdx)
 {
     if (texIdx > TEXTURE_COUNT)
     {
-        return;
+        m_displayedTexture = m_finalTexture;
+        m_displayedIsDepth = false;
     }
-
-    m_displayedTexture = m_textures[texIdx];
-    m_displayedIsDepth = (texIdx == 0);
+    else
+    {
+        m_displayedTexture = m_textures[texIdx];
+        m_displayedIsDepth = (texIdx == 0);
+    }
 }
 
-bool Engine::ForwardRenderer::handleMouseEvent(const Core::MouseEvent& event)
+bool Engine::Renderer::handleMouseEvent(const Core::MouseEvent& event)
 {
     switch (event.event)
     {
@@ -365,7 +448,7 @@ bool Engine::ForwardRenderer::handleMouseEvent(const Core::MouseEvent& event)
     return false;
 }
 
-bool Engine::ForwardRenderer::handleKeyEvent(const Core::KeyEvent &event)
+bool Engine::Renderer::handleKeyEvent(const Core::KeyEvent &event)
 {
     switch (event.key)
     {

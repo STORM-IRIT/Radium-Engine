@@ -6,10 +6,11 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 
-namespace Ra { namespace Core { struct KeyEvent; } }
-namespace Ra { namespace Core { struct MouseEvent; } }
+namespace Ra { namespace Core   { struct KeyEvent;    } }
+namespace Ra { namespace Core   { struct MouseEvent;  } }
 namespace Ra { namespace Engine { class RadiumEngine; } }
-namespace Ra { namespace Engine { class RenderSystem; } }
+namespace Ra { namespace Engine { class Renderer;     } }
+namespace Ra { namespace Engine { class Camera;       } }
 
 namespace Ra { namespace Gui {
 
@@ -55,7 +56,9 @@ private:
 
 private:
     Engine::RadiumEngine* m_engine;
-    Engine::RenderSystem* m_renderer;
+    Engine::Renderer* m_renderer;
+
+    Engine::Camera* m_camera;
 };
 
 } // namespace Gui

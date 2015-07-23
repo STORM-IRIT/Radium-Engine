@@ -5,6 +5,7 @@
 #include <string>
 
 #include <Core/Math/Vector.hpp>
+#include <Engine/Renderer/Shader/ShaderConfiguration.hpp>
 
 namespace Ra { namespace Engine { class Texture; } }
 namespace Ra { namespace Engine { class ShaderProgram; } }
@@ -41,15 +42,26 @@ public:
     explicit Material(const std::string& name);
     ~Material();
 
+    void updateGL();
+
     void bind();
+
+    /**
+     * @brief Bind the material given a shader. This can be useful for a
+     * deferred renderer, where only one shader is used in the geometry pass
+     * (Which will also register colors, etc)
+     *
+     * @param shader
+     */
+    void bind(ShaderProgram* shader);
 
     inline void changeMode(const MaterialMode& mode);
 
     inline const std::string& getName() const;
 
-    inline void setDefaultShaderProgram(ShaderProgram* shader);
-    inline void setContourShaderProgram(ShaderProgram* shader);
-    inline void setWireframeShaderProgram(ShaderProgram* shader);
+    inline void setDefaultShaderProgram(const ShaderConfiguration& shader);
+    inline void setContourShaderProgram(const ShaderConfiguration& shader);
+    inline void setWireframeShaderProgram(const ShaderConfiguration& shader);
     inline ShaderProgram* getCurrentShaderProgram() const;
 
     inline void setKd(const Core::Color& kd);
@@ -68,6 +80,13 @@ private:
     Core::Color m_ks;
 
     std::string m_name;
+
+    bool m_isDirty;
+    MaterialMode m_mode;
+
+    ShaderConfiguration m_defaultShaderConfiguration;
+    ShaderConfiguration m_contourShaderConfiguration;
+    ShaderConfiguration m_wireframeShaderConfiguration;
 
     ShaderProgram* m_currentShader;
     ShaderProgram* m_defaultShader;

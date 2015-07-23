@@ -53,6 +53,8 @@ public:
      */
     virtual void setEntity(Entity* entity);
 
+    virtual const Entity* getEntity() const;
+
     virtual void setSelected(bool selected);
 
 protected:
