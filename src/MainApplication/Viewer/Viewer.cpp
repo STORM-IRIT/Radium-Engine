@@ -26,6 +26,8 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 
+#include <MainApplication/Gui/MainWindow.hpp>
+
 // FIXME (Charly) :
 //  For now, we are just calling the Renderer::render() method here
 //  We need to create a QThread, that will call periodically Engine::update() method.
@@ -74,7 +76,6 @@ void Gui::Viewer::initializeGL()
     }
 #endif
 
-
     m_renderer = new Engine::Renderer(width(), height());
     m_renderer->initialize();
 
@@ -121,26 +122,12 @@ void Gui::Viewer::resizeGL(int width, int height)
     m_renderer->resize(width, height);
 }
 
-bool Gui::Viewer::loadFile(const QString& path)
-{
-    makeCurrent();
-//    bool result = m_engine->loadFile(path.toStdString());
-    doneCurrent();
-
-    return false;;//result;
-}
-/*
 void Gui::Viewer::mousePressEvent(QMouseEvent* event)
 {
-    Core::MouseEvent e;
-    mouseEventQtToRadium(event, &e);
-    e.event = Core::MouseEventType::RA_MOUSE_PRESSED;
-
-    m_renderer->handleMouseEvent(e);
-    m_engine->handleMouseEvent(e);
     QOpenGLWidget::mousePressEvent(event);
-}
 
+}
+/*
 void Gui::Viewer::mouseReleaseEvent(QMouseEvent* event)
 {
     Core::MouseEvent e;
@@ -202,7 +189,7 @@ void Gui::Viewer::keyReleaseEvent(QKeyEvent* event)
     m_engine->handleKeyEvent(e);
     QOpenGLWidget::keyReleaseEvent(event);
 }
-
+*/
 void Gui::Viewer::mouseEventQtToRadium(QMouseEvent* qtEvent, Core::MouseEvent* raEvent)
 {
     switch (qtEvent->button())
@@ -272,10 +259,6 @@ void Gui::Viewer::keyEventQtToRadium(QKeyEvent* qtEvent, Core::KeyEvent* raEvent
     {
         raEvent->modifier |= Core::Modifier::RA_ALT_KEY;
     }
-}
-*/
-void Gui::Viewer::quit()
-{
 }
 
 } // namespace Ra

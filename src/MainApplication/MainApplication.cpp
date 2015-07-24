@@ -14,8 +14,8 @@ namespace Ra
             : QApplication(argc, argv)
             , m_mainWindow(nullptr)
             , m_engine(nullptr)
-            , m_frameTimer(new QTimer(this))
             , m_viewer(nullptr)
+            , m_frameTimer(new QTimer(this))
     {
         // Boilerplate print.
 
@@ -40,9 +40,8 @@ namespace Ra
         std::cerr << "single precision" << std::endl;
 #endif
 
-
         // Handle command line arguments.
-
+        // TODO ( e.g fps limit)
 
         // Create default format for Qt.
         QSurfaceFormat format;
@@ -77,23 +76,27 @@ namespace Ra
     void MainApplication::viewerReady(Gui::Viewer* viewer)
     {
         m_viewer = viewer;
+        CORE_ASSERT( m_viewer->parent()->parent() == m_mainWindow.get(), "Viewer is not setup");
     }
 
     void MainApplication::radiumFrame()
     {
         QTime currentTime = QTime::currentTime();
 
-       long elapsed = m_frameTime.msecsTo(currentTime);
-       m_frameTime = currentTime;
+        long elapsed = m_frameTime.msecsTo(currentTime);
+        m_frameTime = currentTime;
 
-       std::cout<<1000.f / elapsed << "FPS\n";
+        // Gather user input and dispatch it.
 
-       m_viewer->update();
+        // Run one frame of tasks
+
+        // Draw call.
+        m_viewer->update();
 
     }
     MainApplication::~MainApplication() {
         fprintf(stderr, "About to quit... Cleaning RadiumEngine memory.\n");
-    //    std::this_thread::sleep_for(std::chrono::seconds(1));
+        m_engine->quit();
     }
 
 }
