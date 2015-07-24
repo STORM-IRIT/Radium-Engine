@@ -34,6 +34,8 @@ public:
                       const Core::Matrix4& proj,
                       Light* light) = 0;
 
+    virtual Drawable* clone() = 0;
+
     virtual void setVisible(bool visible) final;
     virtual bool isVisible() const final;
 
