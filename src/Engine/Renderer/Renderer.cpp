@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-#include <QtCore>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
@@ -36,7 +35,7 @@ namespace
     };
 }
 
-Engine::Renderer::Renderer(RadiumEngine* engine, uint width, uint height)
+Engine::Renderer::Renderer( uint width, uint height)
     : m_width(width)
     , m_height(height)
     , m_camera(nullptr)
@@ -53,6 +52,7 @@ Engine::Renderer::Renderer(RadiumEngine* engine, uint width, uint height)
     , m_camZoomStarted(false)
     , m_camPanStarted(false)
 {
+    m_time.start();
 }
 
 Engine::Renderer::~Renderer()
@@ -124,7 +124,7 @@ void Engine::Renderer::initBuffers()
 void Engine::Renderer::render(const RenderData& data)
 {
     saveExternalFBOInternal();
-    m_totalTime += data.dt;
+    m_totalTime = m_time.elapsed()/1000.f;
 //    m_totalTime += 1.0 / 60.0;
 
     std::vector<std::shared_ptr<Drawable>> drawables;

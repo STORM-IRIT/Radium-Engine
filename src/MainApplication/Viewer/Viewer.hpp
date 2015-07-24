@@ -36,9 +36,8 @@ public:
     void quit();
     bool loadFile(const QString& path);
 
-    Engine::RadiumEngine* getEngine() const { return m_engine; }
-
 signals:
+    void ready( Gui::Viewer* );
     void entitiesUpdated();
 
 protected:
@@ -46,7 +45,7 @@ protected:
     virtual void initializeGL() override;
     virtual void paintGL() override;
     virtual void resizeGL(int width, int height) override;
-
+/* TODO : move this to main loop
     /// INTERACTION
     virtual void mousePressEvent(QMouseEvent* event) override;
     virtual void mouseReleaseEvent(QMouseEvent* event) override;
@@ -58,11 +57,10 @@ protected:
 private:
     void mouseEventQtToRadium(QMouseEvent* qtEvent, Core::MouseEvent* raEvent);
     void keyEventQtToRadium(QKeyEvent* qtEvent, Core::KeyEvent* raEvent);
-
+*/
 private:
-    Engine::RadiumEngine* m_engine;
+    //Engine::RadiumEngine* m_engine;
     Engine::Renderer* m_renderer;
-
     Engine::Camera* m_camera;
 };
 

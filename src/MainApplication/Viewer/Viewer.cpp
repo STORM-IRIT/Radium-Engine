@@ -42,10 +42,6 @@ Gui::Viewer::Viewer(QWidget* parent)
     setFocusPolicy(Qt::StrongFocus);
     setMinimumSize(QSize(800, 600));
 
-    // TODO(Charly): Remove this, call update from the engine thread.
-    QTimer* timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(1000.0 / 60.0);
 }
 
 Gui::Viewer::~Viewer()
@@ -78,16 +74,14 @@ void Gui::Viewer::initializeGL()
     }
 #endif
 
-    m_engine = new Engine::RadiumEngine;
-    m_engine->initialize();
 
-    m_renderer = new Engine::Renderer(m_engine, width(), height());
+    m_renderer = new Engine::Renderer(width(), height());
     m_renderer->initialize();
 
     m_camera = new Engine::Camera;
 //    m_engine->setupScene();
-
-    m_engine->start();
+    emit ready(this);
+  //  m_engine->start();
 
 //    loadFile("../Scenes/stanford_dragon/dragon.obj");
 
@@ -130,12 +124,12 @@ void Gui::Viewer::resizeGL(int width, int height)
 bool Gui::Viewer::loadFile(const QString& path)
 {
     makeCurrent();
-    bool result = m_engine->loadFile(path.toStdString());
+//    bool result = m_engine->loadFile(path.toStdString());
     doneCurrent();
 
-    return result;
+    return false;;//result;
 }
-
+/*
 void Gui::Viewer::mousePressEvent(QMouseEvent* event)
 {
     Core::MouseEvent e;
@@ -279,12 +273,9 @@ void Gui::Viewer::keyEventQtToRadium(QKeyEvent* qtEvent, Core::KeyEvent* raEvent
         raEvent->modifier |= Core::Modifier::RA_ALT_KEY;
     }
 }
-
+*/
 void Gui::Viewer::quit()
 {
-    m_engine->quit();
-    fprintf(stderr, "About to quit... Cleaning RadiumEngine memory.\n");
-    std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
 } // namespace Ra

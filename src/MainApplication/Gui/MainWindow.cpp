@@ -48,6 +48,7 @@ void Gui::MainWindow::createConnections()
     connect(m_entitiesTreeView, SIGNAL(clicked(QModelIndex)), m_entityTreeModel, SLOT(handleSelect(QModelIndex)));
 
     connect(m_viewer, SIGNAL(entitiesUpdated()), this, SLOT(entitiesUpdated()));
+    connect(m_viewer, SIGNAL(ready(Gui::Viewer*)), qApp, SLOT(viewerReady(Gui::Viewer*)));
 }
 
 void Gui::MainWindow::activated(QModelIndex index)
@@ -62,7 +63,7 @@ void Gui::MainWindow::clicked(QModelIndex index)
 
 void Gui::MainWindow::entitiesUpdated()
 {
-    emit entitiesUpdated(m_viewer->getEngine()->getEntities());
+    //emit entitiesUpdated(m_viewer->getEngine()->getEntities());
 }
 
 void Gui::MainWindow::loadFile()
@@ -76,7 +77,7 @@ void Gui::MainWindow::loadFile()
 
     if (res)
     {
-        emit entitiesUpdated(m_viewer->getEngine()->getEntities());
+//        emit entitiesUpdated(m_viewer->getEngine()->getEntities());
     }
 }
 

@@ -4,7 +4,7 @@
 #include <vector>
 #include <array>
 #include <memory>
-
+#include <QTime>
 #include <Core/Math/Matrix.hpp>
 
 namespace Ra { namespace Core   { struct MouseEvent;          } }
@@ -40,7 +40,7 @@ public:
 
 public:
 	/// CONSTRUCTOR 
-    Renderer(RadiumEngine* engine, uint width, uint height);
+    Renderer(uint width, uint height);
 
 	/// DESCTRUCTOR
     virtual ~Renderer();
@@ -214,6 +214,7 @@ private:
     bool m_camPanStarted;
 
     Scalar m_totalTime;
+    QTime m_time;
 };
 
 } // namespace Engine
