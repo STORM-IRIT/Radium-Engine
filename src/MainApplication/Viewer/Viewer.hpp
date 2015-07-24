@@ -10,14 +10,12 @@
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
-#include <MainApplication/Gui/MainWindow.hpp>
 
 namespace Ra { namespace Core   { struct KeyEvent;    } }
 namespace Ra { namespace Core   { struct MouseEvent;  } }
 namespace Ra { namespace Engine { class RadiumEngine; } }
 namespace Ra { namespace Engine { class Renderer;     } }
 namespace Ra { namespace Engine { class Camera;       } }
-namespace Ra { namespace Gui    { class MainWindow;   } }
 
 namespace Ra { namespace Gui {
 
@@ -61,8 +59,7 @@ protected:
     virtual void keyPressEvent(QKeyEvent* event) override;
 */
 private:
-    Gui::MainWindow* getMainWindow() { return static_cast<Gui::MainWindow*>(parent()->parent()); }
-    Core::Mou mouseEventQtToRadium(QMouseEvent* qtEvent, Core::MouseEvent* raEvent);
+    void mouseEventQtToRadium(QMouseEvent* qtEvent, Core::MouseEvent* raEvent);
     void keyEventQtToRadium(QKeyEvent* qtEvent, Core::KeyEvent* raEvent);
 
 private:

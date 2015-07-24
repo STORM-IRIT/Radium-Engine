@@ -7,6 +7,8 @@
 #include <mutex>
 #include <thread>
 
+#include <Core/CoreMacros.hpp>
+
 namespace Ra { namespace Engine { class Drawable; } }
 
 namespace Ra { namespace Engine {

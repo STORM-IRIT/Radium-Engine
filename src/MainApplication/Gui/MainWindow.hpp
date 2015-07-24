@@ -8,6 +8,7 @@
 
 namespace Ra { namespace Engine { class Entity; } }
 namespace Ra { namespace Gui { class EntityTreeModel; } }
+namespace Ra { namespace Gui { class Viewer; } }
 
 namespace Ra { namespace Gui {
 
