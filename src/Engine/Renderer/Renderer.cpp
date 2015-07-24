@@ -93,6 +93,8 @@ void Engine::Renderer::initialize()
     m_quadMesh = new Mesh("quad");
     m_quadMesh->loadGeometry(mesh);
     m_quadMesh->updateGL();
+
+    m_totalTime = 0.0;
 }
 
 void Engine::Renderer::initShaders()
@@ -122,6 +124,8 @@ void Engine::Renderer::initBuffers()
 void Engine::Renderer::render(const RenderData& data)
 {
     saveExternalFBOInternal();
+    m_totalTime += data.dt;
+//    m_totalTime += 1.0 / 60.0;
 
     std::vector<std::shared_ptr<Drawable>> drawables;
     updateDrawablesInternal(data, drawables);
@@ -262,6 +266,7 @@ void Engine::Renderer::drawScreenInternal()
     m_drawScreenShader->setUniform("zNear", m_camera->getZNear());
     m_drawScreenShader->setUniform("zFar", m_camera->getZFar());
     m_drawScreenShader->setUniform("screenTexture", m_displayedTexture, 0);
+    m_drawScreenShader->setUniform("totalTime", m_totalTime);
     m_quadMesh->draw();
 }
 

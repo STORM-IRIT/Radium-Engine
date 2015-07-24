@@ -212,6 +212,8 @@ private:
     bool m_camRotateStarted;
     bool m_camZoomStarted;
     bool m_camPanStarted;
+
+    Scalar m_totalTime;
 };
 
 } // namespace Engine
