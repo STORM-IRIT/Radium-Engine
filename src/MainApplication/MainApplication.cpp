@@ -87,7 +87,10 @@ namespace Ra
         m_frameTime = currentTime;
 
         // Gather user input and dispatch it.
+        m_mainWindow->getKeyEvents();
+        m_mainWindow->getMouseEvents();
 
+        m_mainWindow->flushEvents();
         // Run one frame of tasks
 
         // Draw call.

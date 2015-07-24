@@ -49,18 +49,14 @@ protected:
     virtual void initializeGL() override;
     virtual void paintGL() override;
     virtual void resizeGL(int width, int height) override;
-// TODO : move this to main loop
+
     /// INTERACTION
+    // We intercept the mouse events in this widget to get the coordinates of the mouse
+    // in screen space.
     virtual void mousePressEvent(QMouseEvent* event) override;
-/*    virtual void mouseReleaseEvent(QMouseEvent* event) override;
+    virtual void mouseReleaseEvent(QMouseEvent* event) override;
     virtual void mouseMoveEvent(QMouseEvent* event) override;
     virtual void wheelEvent(QWheelEvent* event) override;
-    virtual void keyReleaseEvent(QKeyEvent* event) override;
-    virtual void keyPressEvent(QKeyEvent* event) override;
-*/
-private:
-    void mouseEventQtToRadium(QMouseEvent* qtEvent, Core::MouseEvent* raEvent);
-    void keyEventQtToRadium(QKeyEvent* qtEvent, Core::KeyEvent* raEvent);
 
 private:
     Engine::Renderer* m_renderer;

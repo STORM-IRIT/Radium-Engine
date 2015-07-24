@@ -353,8 +353,8 @@ bool Engine::Renderer::handleMouseEvent(const Core::MouseEvent& event)
                 case Core::MouseButton::RA_MOUSE_LEFT_BUTTON:
                 {
                     m_camRotateStarted = true;
-                    m_lastMouseX = event.relativeXPosition;
-                    m_lastMouseY = event.relativeYPosition;
+                    m_lastMouseX = event.absoluteXPosition / Scalar(m_width);
+                    m_lastMouseY = event.absoluteYPosition / Scalar(m_height);
 
                     return true;
                 } break;
@@ -362,8 +362,8 @@ bool Engine::Renderer::handleMouseEvent(const Core::MouseEvent& event)
                 case Core::MouseButton::RA_MOUSE_MIDDLE_BUTTON:
                 {
                     m_camZoomStarted = true;
-                    m_lastMouseX = event.relativeXPosition;
-                    m_lastMouseY = event.relativeYPosition;
+                    m_lastMouseX = event.absoluteXPosition / Scalar(m_width);
+                    m_lastMouseY = event.absoluteYPosition / Scalar(m_height);
 
                     return true;
                 } break;
@@ -371,8 +371,8 @@ bool Engine::Renderer::handleMouseEvent(const Core::MouseEvent& event)
                 case Core::MouseButton::RA_MOUSE_RIGHT_BUTTON:
                 {
                     m_camPanStarted = true;
-                    m_lastMouseX = event.relativeXPosition;
-                    m_lastMouseY = event.relativeYPosition;
+                    m_lastMouseX = event.absoluteXPosition / Scalar(m_width);
+                    m_lastMouseY = event.absoluteYPosition / Scalar(m_height);
 
                     return true;
                 } break;
@@ -383,8 +383,8 @@ bool Engine::Renderer::handleMouseEvent(const Core::MouseEvent& event)
         {
             bool handled = false;
 
-            Scalar dx = event.relativeXPosition - m_lastMouseX;
-            Scalar dy = event.relativeYPosition - m_lastMouseY;
+            Scalar dx = event.absoluteXPosition / Scalar(m_width) - m_lastMouseX;
+            Scalar dy = event.absoluteYPosition / Scalar(m_height) - m_lastMouseY;
 
             if (m_camRotateStarted)
             {
@@ -409,8 +409,8 @@ bool Engine::Renderer::handleMouseEvent(const Core::MouseEvent& event)
                 handled = true;
             }
 
-            m_lastMouseX = event.relativeXPosition;
-            m_lastMouseY = event.relativeYPosition;
+            m_lastMouseX = event.absoluteXPosition / Scalar(m_width);
+            m_lastMouseY = event.absoluteYPosition / Scalar(m_height);
 
             if (handled)
             {
