@@ -46,7 +46,7 @@ public:
 
     std::vector<Entity*> getEntities() const;
 
-    bool loadFile(const std::string& file);
+    bool loadFile(std::string file);
 
     bool handleMouseEvent(const Core::MouseEvent& event);
     bool handleKeyEvent(const Core::KeyEvent& event);

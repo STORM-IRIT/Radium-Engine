@@ -4,6 +4,7 @@
 #include <chrono>
 #include <mutex>
 #include <cstdio>
+#include <iostream>
 
 #include <Core/String/StringUtils.hpp>
 #include <Core/Event/EventEnums.hpp>
@@ -108,11 +109,12 @@ void Engine::RadiumEngine::addComponent(Component* component,
     m_systems[system]->addComponent(component);
 }
 
-bool Engine::RadiumEngine::loadFile(const std::string& file)
+bool Engine::RadiumEngine::loadFile(std::string file)
 {
     // FIXME(Charly): Mesh loader stuff
+    std::cout << " Engine loading file" << file << std::endl;
     return false;
-//    return MeshLoader::loadFile(file, this);
+    //    return MeshLoader::loadFile(file, this);
 }
 
 std::vector<Engine::Entity*> Engine::RadiumEngine::getEntities() const

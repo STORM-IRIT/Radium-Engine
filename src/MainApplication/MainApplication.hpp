@@ -23,6 +23,9 @@ namespace Ra
         /// Advance the engine for one frame. Called by an internal timer.
         void radiumFrame();
 
+        void loadFile(QString path);
+
+
         /// Callback slot for the viewer.
         void viewerReady( Gui::Viewer* viewer );
 

@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <QTimer>
+#include <Core/String/StringUtils.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
@@ -71,6 +72,13 @@ namespace Ra
         connect(m_frameTimer, SIGNAL(timeout()), this, SLOT(radiumFrame()));
         m_frameTimer->start(1000.0 / 60.0);
 
+    }
+
+    void MainApplication::loadFile(QString  path)
+    {
+        std::string pathStr;
+        Core::StringUtils::stringPrintf(pathStr, "%s", path.toStdString().c_str());
+        bool res = m_engine->loadFile(pathStr);
     }
 
     void MainApplication::viewerReady(Gui::Viewer* viewer)

@@ -37,6 +37,7 @@ public slots:
     void entitiesUpdated();
 
 signals:
+    void fileLoading(const QString path);
     void entitiesUpdated(const std::vector<Engine::Entity*>&);
 
 private:

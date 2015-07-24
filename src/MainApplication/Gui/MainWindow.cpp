@@ -36,6 +36,7 @@ Gui::MainWindow::~MainWindow()
 void Gui::MainWindow::createConnections()
 {
     connect(actionOpenMesh, &QAction::triggered, this, &MainWindow::loadFile);
+    connect(this, SIGNAL(fileLoading(QString)), qApp, SLOT(loadFile(QString)));
     connect(this, SIGNAL(entitiesUpdated(const std::vector<Engine::Entity*>&)),
             m_entityTreeModel, SLOT(entitiesUpdated(const std::vector<Engine::Entity*>&)));
 
@@ -71,12 +72,7 @@ void Gui::MainWindow::loadFile()
     QString path = QFileDialog::getOpenFileName(this, QString(), "..");
     if (path.size() > 0)
     {
-//        res = m_viewer->loadFile(path);
-    }
-
-    if (res)
-    {
-//        emit entitiesUpdated(m_viewer->getEngine()->getEntities());
+        emit fileLoading(path);
     }
 }
 
