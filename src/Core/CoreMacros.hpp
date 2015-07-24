@@ -251,8 +251,8 @@ namespace compile_time_utils
     } else{}                                           \
     MACRO_END
 #else
-    #define CORE_ASSERT( EXP, DESC ) UNUSED(EXP)
-    #define CORE_WARN_IF( EXP, DESC ) UNUSED(EXP)
+    #define CORE_ASSERT( EXP, DESC ) CORE_UNUSED(EXP)
+    #define CORE_WARN_IF( EXP, DESC ) CORE_UNUSED(EXP)
 #endif
 
 // Print an error and break, even in release.

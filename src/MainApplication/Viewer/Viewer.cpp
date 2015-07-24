@@ -115,7 +115,6 @@ void Gui::Viewer::initializeGL()
 
 //    emit entitiesUpdated();
 }
-
 void Gui::Viewer::paintGL()
 {
     // TODO(Charly): Setup data, camera handled there.
