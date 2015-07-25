@@ -67,6 +67,8 @@ namespace Ra
         // Maybe we should do it directly (i.e. grab the viewer from the main window).
         CORE_ASSERT(m_viewer != nullptr, "GUI or OpenGL was not initialized");
 
+        emit starting();
+
         m_frameTime = QTime::currentTime();
 
         connect(m_frameTimer, SIGNAL(timeout()), this, SLOT(radiumFrame()));
@@ -93,6 +95,8 @@ namespace Ra
         long elapsed = m_frameTime.msecsTo(currentTime);
         m_frameTime = currentTime;
 
+        emit preFrame();
+
         // Gather user input and dispatch it.
         m_mainWindow->getKeyEvents();
         m_mainWindow->getMouseEvents();
@@ -103,9 +107,12 @@ namespace Ra
         // Draw call.
         m_viewer->update();
 
+        emit postFrame();
+
     }
     MainApplication::~MainApplication() {
         fprintf(stderr, "About to quit... Cleaning RadiumEngine memory.\n");
+        emit stopping();
         m_engine->quit();
     }
 

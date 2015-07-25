@@ -73,7 +73,6 @@ void Gui::Viewer::initializeGL()
 	glewExperimental = GL_TRUE;
 
 	GLuint result = glewInit();
-	GL_CHECK_ERROR;
 	if (result != GLEW_OK)
 	{
 		std::string errorStr;
@@ -82,7 +81,8 @@ void Gui::Viewer::initializeGL()
 	}
 	else
 	{
-		std::cout << "GLEW v." << glewGetString(GLEW_VERSION) << std::endl;
+		std::cout << "GLEW     : " << glewGetString(GLEW_VERSION) << std::endl;
+	    GL_CHECK_ERROR;
 	}
 
 #endif

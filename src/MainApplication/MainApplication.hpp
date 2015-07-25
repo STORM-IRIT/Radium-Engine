@@ -19,6 +19,20 @@ namespace Ra
         MainApplication(int argc, char** argv);
         ~MainApplication();
 
+    signals:
+        /// Fired when the engine has just started, before the frame timer is set.
+        void starting();
+
+        /// Fired at the start of a frame.
+        void preFrame();
+
+        /// Fired at the end of a frame.
+        void postFrame();
+
+        /// Fired when the engine is about to stop.
+        void stopping();
+
+
     public slots:
         /// Advance the engine for one frame. Called by an internal timer.
         void radiumFrame();
