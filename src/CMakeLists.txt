@@ -60,7 +60,7 @@ file(GLOB_RECURSE engine_geom_glsl ../Shaders/*.geom.glsl)
 file(GLOB_RECURSE engine_tesc_glsl ../Shaders/*.tesc.glsl)
 file(GLOB_RECURSE engine_tese_glsl ../Shaders/*.tese.glsl)
 file(GLOB_RECURSE engine_comp_glsl ../Shaders/*.comp.glsl)
-
+								  
 set(engine_libs ${GLEW_LIBRARIES} ${Assimp_LIBRARIES} ${Qt5OpenGL_LIBRARIES} ${OPENGL_LIBRARIES})
 
 add_library(
@@ -69,11 +69,11 @@ add_library(
  ${engine_headers}
  ${engine_inlines}
 
- ${engine_vert_glsl}
+ ${engine_vert_glsl} 
  ${engine_frag_glsl}
  ${engine_geom_glsl}
- ${engine_tese_glsl}
  ${engine_tesc_glsl}
+ ${engine_tese_glsl}
  ${engine_comp_glsl}
 )
 
@@ -133,3 +133,7 @@ target_link_libraries(
  ${app_target}
  ${app_libs}
 )
+
+if (WIN32)
+ include(CMakeGenerateTrees.txt)
+endif(WIN32)
