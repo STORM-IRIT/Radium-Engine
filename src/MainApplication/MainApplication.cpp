@@ -76,8 +76,7 @@ namespace Ra
 
     void MainApplication::loadFile(QString  path)
     {
-        std::string pathStr;
-        Core::StringUtils::stringPrintf(pathStr, "%s", path.toStdString().c_str());
+        std::string pathStr = path.toLocal8Bit();
         bool res = m_engine->loadFile(pathStr);
     }
 
