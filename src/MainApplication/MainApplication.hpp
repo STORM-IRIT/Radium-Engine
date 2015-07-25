@@ -4,6 +4,7 @@
 #include <MainApplication/Viewer/Viewer.hpp>
 
 class QTimer;
+namespace Ra { namespace Core{ class TaskQueue;}}
 namespace Ra { namespace Engine { class RadiumEngine;}}
 namespace Ra { namespace Gui { class Viewer;}}
 namespace Ra { namespace Gui { class MainWindow;}}
@@ -49,6 +50,8 @@ namespace Ra
 
         /// Instance of the radium engine.
         std::unique_ptr<Engine::RadiumEngine> m_engine;
+
+        std::unique_ptr<Core::TaskQueue> m_taskQueue;
 
         /// Pointer to OpenGL Viewer for render call (belongs to MainWindow).
         Gui::Viewer* m_viewer;
