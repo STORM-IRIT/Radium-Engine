@@ -7,6 +7,6 @@ uniform sampler2D color;
 void main()
 {
     vec4 value = vec4(texture(color, varTexcoord));
-    fragColor = value;
+	fragColor = value;
 }
 

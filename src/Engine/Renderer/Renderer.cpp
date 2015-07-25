@@ -118,7 +118,7 @@ void Engine::Renderer::initBuffers()
 
     resize(m_width, m_height);
 
-    m_displayedTexture = m_textures[TEXTURE_COLOR];
+    m_displayedTexture = m_finalTexture;
 }
 
 void Engine::Renderer::render(const RenderData& data)
@@ -218,6 +218,8 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
             d->draw(view, proj, &l);
         }
     }
+
+	m_fbo->unbind();
 }
 
 void Engine::Renderer::postProcessInternal(const RenderData &renderData,
@@ -227,11 +229,14 @@ void Engine::Renderer::postProcessInternal(const RenderData &renderData,
     CORE_UNUSED(drawables);
 
     m_postprocessFbo->useAsTarget();
+	GL_ASSERT(glDrawBuffers(1, buffers));
 
-    GL_ASSERT(glClearColor(0.0, 0.0, 0.0, 0.0));
-    GL_ASSERT(glClear(GL_COLOR_BUFFER_BIT));
-
-    GL_ASSERT(glDrawBuffers(1, buffers));
+	GL_ASSERT(glClearColor(0.0, 0.0, 0.0, 0.0));
+	// FIXME(Charly): Do we really need to clear the depth buffer ?
+	GL_ASSERT(glClearDepth(1.0));
+	GL_ASSERT(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+	
+	GL_ASSERT(glDepthFunc(GL_ALWAYS));
 
     m_compositingShader->bind();
     m_compositingShader->setUniform("color", m_textures[TEXTURE_COLOR], 0);
@@ -239,6 +244,8 @@ void Engine::Renderer::postProcessInternal(const RenderData &renderData,
     m_quadMesh->draw();
 
     m_postprocessFbo->unbind();
+
+	GL_ASSERT(glDepthFunc(GL_LESS));
 }
 
 void Engine::Renderer::drawScreenInternal()
@@ -259,6 +266,8 @@ void Engine::Renderer::drawScreenInternal()
     GL_ASSERT(glClearDepth(1.0));
     GL_ASSERT(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
+	GL_ASSERT(glDepthFunc(GL_ALWAYS));
+
     GL_ASSERT(glViewport(0, 0, m_width, m_height));
 
     m_drawScreenShader->bind();
@@ -268,6 +277,8 @@ void Engine::Renderer::drawScreenInternal()
     m_drawScreenShader->setUniform("screenTexture", m_displayedTexture, 0);
     m_drawScreenShader->setUniform("totalTime", m_totalTime);
     m_quadMesh->draw();
+
+	GL_ASSERT(glDepthFunc(GL_LESS));
 }
 
 void Engine::Renderer::resize(uint w, uint h)

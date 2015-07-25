@@ -24,9 +24,6 @@ void main()
         value.rgb = vec3(z);
     }
 
-//    fragColor = value;
-    float c = abs(sin(totalTime));
-    fragColor = vec4(c, 1.0 - c, 0, 1);
-//    fragColor = vec4(vTexcoord, 0, 1);
+    fragColor = value;
 }
 

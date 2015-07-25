@@ -14,6 +14,7 @@
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Core/String/StringUtils.hpp>
 
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/ComponentManager.hpp>
@@ -60,7 +61,7 @@ Gui::Viewer::~Viewer()
 
 void Gui::Viewer::initializeGL()
 {
-    initializeOpenGLFunctions();
+	initializeOpenGLFunctions();
 
     std::cerr<<"***Radium Engine Viewer***"<<std::endl;
     std::cerr<<"Renderer : " << glGetString(GL_RENDERER)<<std::endl;
@@ -68,20 +69,22 @@ void Gui::Viewer::initializeGL()
     std::cerr<<"OpenGL   : " << glGetString(GL_VERSION)<<std::endl;
     std::cerr<<"GLSL     : " << glGetString(GL_SHADING_LANGUAGE_VERSION)<<std::endl;
 
-
 #if defined (OS_WINDOWS)
-    glewExperimental = GL_TRUE;
-    GLuint result = glewInit();
-    if (result != GLEW_OK)
-    {
-        std::string errorStr;
-        Ra::Core::StringUtils::stringPrintf(errorStr, " GLEW init failed : %s", glewGetErrorString(result));
-        CORE_ERROR(errorStr.c_str());
-    }
-    else
-    {
-        std::cout << "GLEW v." << glewGetString(GLEW_VERSION) << std::endl;
-    }
+	glewExperimental = GL_TRUE;
+
+	GLuint result = glewInit();
+	GL_CHECK_ERROR;
+	if (result != GLEW_OK)
+	{
+		std::string errorStr;
+		Ra::Core::StringUtils::stringPrintf(errorStr, " GLEW init failed : %s", glewGetErrorString(result));
+		CORE_ERROR(errorStr.c_str());
+	}
+	else
+	{
+		std::cout << "GLEW v." << glewGetString(GLEW_VERSION) << std::endl;
+	}
+
 #endif
 
     m_renderer = new Engine::Renderer(width(), height());
