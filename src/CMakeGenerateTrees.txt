@@ -22,6 +22,9 @@ source_group("Core\\Mesh" FILES ${Core_Mesh_SUB})
 file(GLOB Core_String_SUB Core/String/*)
 source_group("Core\\String" FILES ${Core_String_SUB})
 
+file(GLOB Core_Tasks_SUB Core/Tasks/*)
+source_group("Core\\Tasks" FILES ${Core_Tasks_SUB})
+
 file(GLOB Core_Utils_SUB Core/Utils/*)
 source_group("Core\\Utils" FILES ${Core_Utils_SUB})
 
@@ -64,13 +67,13 @@ source_group("Engine\\Renderer\\Texture" FILES ${Engine_Renderer_Texture_SUB})
 file(GLOB Engine_Entity_SUB Engine/Entity/*)
 source_group("Engine\\Entity" FILES ${Engine_Entity_SUB})
 
-source_group("Shaders" FILES ${engine_vert_glsl} 
-							 ${engine_frag_glsl}
-							 ${engine_geom_glsl}
-							 ${engine_tesc_glsl}
-							 ${engine_tese_glsl}
-							 ${engine_comp_glsl})
-							 
+source_group("Shaders" FILES ${engine_vert_glsl}
+			     ${engine_frag_glsl}
+			     ${engine_geom_glsl}
+			     ${engine_tesc_glsl}
+			     ${engine_tese_glsl}
+			     ${engine_comp_glsl})
+
 #------------------------------------------------------------------
 #------------------------ MAIN APPLICATION ------------------------
 #------------------------------------------------------------------

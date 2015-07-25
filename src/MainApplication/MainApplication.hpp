@@ -4,6 +4,7 @@
 #include <MainApplication/Viewer/Viewer.hpp>
 
 class QTimer;
+namespace Ra { namespace Core{ class TaskQueue;}}
 namespace Ra { namespace Engine { class RadiumEngine;}}
 namespace Ra { namespace Gui { class Viewer;}}
 namespace Ra { namespace Gui { class MainWindow;}}
@@ -18,6 +19,20 @@ namespace Ra
     public:
         MainApplication(int argc, char** argv);
         ~MainApplication();
+
+    signals:
+        /// Fired when the engine has just started, before the frame timer is set.
+        void starting();
+
+        /// Fired at the start of a frame.
+        void preFrame();
+
+        /// Fired at the end of a frame.
+        void postFrame();
+
+        /// Fired when the engine is about to stop.
+        void stopping();
+
 
     public slots:
         /// Advance the engine for one frame. Called by an internal timer.
@@ -35,6 +50,8 @@ namespace Ra
 
         /// Instance of the radium engine.
         std::unique_ptr<Engine::RadiumEngine> m_engine;
+
+        std::unique_ptr<Core::TaskQueue> m_taskQueue;
 
         /// Pointer to OpenGL Viewer for render call (belongs to MainWindow).
         Gui::Viewer* m_viewer;

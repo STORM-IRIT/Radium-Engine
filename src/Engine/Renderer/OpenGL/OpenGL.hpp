@@ -39,7 +39,7 @@ namespace Ra { namespace Engine {
         if (err != GL_NO_ERROR) { \
             fprintf(stderr, "OpenGL error (%s:%d, glCheckError()) : %s (0x% 04x).\n",\
                     __FILE__, __LINE__, gluErrorString(err), err);\
-		} \
+	    } \
     }
 
 #define glFlushError() glGetError()

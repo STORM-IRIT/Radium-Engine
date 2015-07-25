@@ -110,7 +110,7 @@ void Engine::RadiumEngine::addComponent(Component* component,
     m_systems[system]->addComponent(component);
 }
 
-bool Engine::RadiumEngine::loadFile(std::string file)
+bool Engine::RadiumEngine::loadFile(const std::string& file)
 {
     std::cout << " Engine loading file" << file << std::endl;
 

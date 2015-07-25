@@ -4,19 +4,24 @@
 
 #include <iostream>
 #include <QTimer>
+
 #include <Core/String/StringUtils.hpp>
+#include <Core/Tasks/Task.hpp>
+#include <Core/Tasks/TaskQueue.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
 
+
 namespace Ra
 {
     MainApplication::MainApplication(int argc, char** argv)
-            : QApplication(argc, argv)
-            , m_mainWindow(nullptr)
-            , m_engine(nullptr)
-            , m_viewer(nullptr)
-            , m_frameTimer(new QTimer(this))
+        : QApplication(argc, argv)
+        , m_mainWindow(nullptr)
+        , m_engine(nullptr)
+        , m_taskQueue(nullptr)
+        , m_viewer(nullptr)
+        , m_frameTimer(new QTimer(this))
     {
         // Boilerplate print.
 
@@ -63,9 +68,14 @@ namespace Ra
         m_engine.reset(new Engine::RadiumEngine);
         m_engine->initialize();
 
+        // Create task queue
+        m_taskQueue.reset(new Core::TaskQueue(std::thread::hardware_concurrency() - 1));
+
         // Wait for callback from  gui to  start the engine.
         // Maybe we should do it directly (i.e. grab the viewer from the main window).
         CORE_ASSERT(m_viewer != nullptr, "GUI or OpenGL was not initialized");
+
+        emit starting();
 
         m_frameTime = QTime::currentTime();
 
@@ -75,8 +85,7 @@ namespace Ra
 
     void MainApplication::loadFile(QString path)
     {
-        std::string pathStr;
-        Core::StringUtils::stringPrintf(pathStr, "%s", path.toStdString().c_str());
+        std::string pathStr = path.toLocal8Bit();
         bool res = m_engine->loadFile(pathStr);
     }
 
@@ -93,21 +102,45 @@ namespace Ra
         long elapsed = m_frameTime.msecsTo(currentTime);
         m_frameTime = currentTime;
 
+        emit preFrame();
+
         // Gather user input and dispatch it.
         m_mainWindow->getKeyEvents();
         m_mainWindow->getMouseEvents();
 
         m_mainWindow->flushEvents();
+
+        for (int i = 0; i < 10; ++i)
+        {
+            Core::DummyTask* task = new Core::DummyTask;
+            Core::DummyTaskParams p; p.m_iters = 3*(i % 7);
+            task->init(&p);
+            Core::TaskQueue::TaskId id = m_taskQueue->registerTask(task);
+            if (i > 0)
+            {
+                m_taskQueue->addDependency(id / 2, id);
+            }
+            m_taskQueue->queueTask(id);
+        }
+
+
         // Run one frame of tasks
+        m_taskQueue->processTaskQueue();
+        
+        m_taskQueue->flushTaskQueue();
+
 
         // Draw call.
         m_viewer->update();
+
+        emit postFrame();
     }
 
-	MainApplication::~MainApplication()
-	{
-		fprintf(stderr, "About to quit... Cleaning RadiumEngine memory.\n");
-		m_engine->quit();
-	}
+    MainApplication::~MainApplication()
+    {
+        fprintf(stderr, "About to quit... Cleaning RadiumEngine memory.\n");
+	emit stopping();
+	m_engine->quit();
+    }
 
 }
