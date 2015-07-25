@@ -15,6 +15,8 @@
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Mesh/MeshLoader.hpp>
 
+#include <Engine/Renderer/FancyMeshPlugin/FancyMeshSystem.hpp>
+
 namespace Ra
 {
 
@@ -28,6 +30,9 @@ void Engine::RadiumEngine::initialize()
 	m_drawableManager.reset(new DrawableManager);
 	m_componentManager.reset(new ComponentManager);
 	m_entityManager.reset(new EntityManager);
+
+	FancyMeshSystem* system = new FancyMeshSystem(this);
+	m_systems["FancyMeshSystem"] = std::shared_ptr<FancyMeshSystem>(system);
 }
 
 void Engine::RadiumEngine::setupScene()
@@ -112,8 +117,6 @@ void Engine::RadiumEngine::addComponent(Component* component,
 
 bool Engine::RadiumEngine::loadFile(const std::string& file)
 {
-    std::cout << " Engine loading file" << file << std::endl;
-
 	for (auto& system : m_systems)
 	{
 		system.second->handleFileLoading(file);

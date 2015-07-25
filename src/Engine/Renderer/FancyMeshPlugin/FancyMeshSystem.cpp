@@ -36,7 +36,11 @@ void Engine::FancyMeshSystem::handleFileLoading(const std::string& filename)
 	EntityManager* entityManager = m_engine->getEntityManager();
 	ComponentManager* componentManager = m_engine->getComponentManager();
 
+	printf("FancyMeshSystem::Loading file %s\n", filename.c_str());
+
 	std::vector<FancyComponentData> componentsData = FancyMeshLoader::loadFile(filename);
+
+	printf("Found %u components to create\n", componentsData.size());
 
 	for (uint i = 0; i < componentsData.size(); ++i)
 	{

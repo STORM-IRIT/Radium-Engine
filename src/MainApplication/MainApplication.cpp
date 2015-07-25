@@ -67,6 +67,7 @@ namespace Ra
         // Create engine
         m_engine.reset(new Engine::RadiumEngine);
         m_engine->initialize();
+		m_engine->start();
 
         // Create task queue
         m_taskQueue.reset(new Core::TaskQueue(std::thread::hardware_concurrency() - 1));
