@@ -2,6 +2,7 @@
 
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Entity/System.hpp>
+#include <Engine/Renderer/Drawable/DrawableManager.hpp>
 
 namespace Ra
 {
@@ -19,6 +20,11 @@ void Engine::Component::setEntity(Engine::Entity* entity)
 const Engine::Entity* Engine::Component::getEntity() const
 {
     return m_entity;
+}
+
+void Engine::Component::setDrawableManager(DrawableManager* manager)
+{
+	m_drawableManager = manager;
 }
 
 void Engine::Component::setSelected(bool selected)

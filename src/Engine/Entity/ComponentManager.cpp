@@ -6,6 +6,10 @@
 namespace Ra
 {
 
+Engine::ComponentManager::ComponentManager()
+{
+}
+
 Engine::ComponentManager::~ComponentManager()
 {
     for (uint i = 0; i < m_components.size(); ++i)

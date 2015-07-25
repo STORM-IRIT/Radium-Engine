@@ -11,11 +11,8 @@
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
 #include <Engine/Entity/System.hpp>
-#include <Engine/Entity/ComponentManager.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Entity/EntityManager.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/Mesh/MeshLoader.hpp>
 
 namespace Ra
@@ -28,17 +25,17 @@ Engine::RadiumEngine::RadiumEngine()
 
 void Engine::RadiumEngine::initialize()
 {
+	m_drawableManager.reset(new DrawableManager);
+	m_componentManager.reset(new ComponentManager);
+	m_entityManager.reset(new EntityManager);
 }
 
 void Engine::RadiumEngine::setupScene()
 {
-    m_componentManager = ComponentManager::createInstance();
-    m_entityManager    = EntityManager::createInstance();
 }
 
 void Engine::RadiumEngine::start()
 {
-
     std::thread t(&RadiumEngine::run, this);
     t.detach();
 }
@@ -59,6 +56,10 @@ void Engine::RadiumEngine::cleanup()
     {
         system.second.reset();
     }
+
+	m_drawableManager.reset();
+	m_componentManager.reset();
+	m_entityManager.reset();
 }
 
 void Engine::RadiumEngine::quit()
@@ -111,10 +112,14 @@ void Engine::RadiumEngine::addComponent(Component* component,
 
 bool Engine::RadiumEngine::loadFile(std::string file)
 {
-    // FIXME(Charly): Mesh loader stuff
     std::cout << " Engine loading file" << file << std::endl;
-    return false;
-    //    return MeshLoader::loadFile(file, this);
+
+	for (auto& system : m_systems)
+	{
+		system.second->handleFileLoading(file);
+	}
+
+    return true;
 }
 
 std::vector<Engine::Entity*> Engine::RadiumEngine::getEntities() const
@@ -149,6 +154,20 @@ bool Engine::RadiumEngine::handleMouseEvent(const Core::MouseEvent &event)
     return false;
 }
 
+
+Engine::DrawableManager* Engine::RadiumEngine::getDrawableManager() const
+{
+	return m_drawableManager.get(); 
+}
+
+Engine::EntityManager* Engine::RadiumEngine::getEntityManager() const
+{
+	return m_entityManager.get(); 
+}
+Engine::ComponentManager* Engine::RadiumEngine::getComponentManager() const
+{
+	return m_componentManager.get();
+}
 
 
 } // namespace RadiumEngine

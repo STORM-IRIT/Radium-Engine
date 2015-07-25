@@ -5,8 +5,9 @@
 #include <Core/Math/Vector.hpp>
 #include <Core/Index/IndexedObject.hpp>
 
-namespace Ra { namespace Engine { class System; } }
-namespace Ra { namespace Engine { class Entity; } }
+namespace Ra { namespace Engine { class System;          } }
+namespace Ra { namespace Engine { class Entity;          } }
+namespace Ra { namespace Engine { class DrawableManager; } }
 
 namespace Ra { namespace Engine {
 
@@ -26,13 +27,13 @@ public:
     /// DESTRUCTOR
     virtual ~Component() {}
 
-    /**
-     * @brief Pure virtual method to be overrided by any component.
-     * This update method is time agnostic (e.g. called by a render system).
-     */
-    virtual void update() = 0;
-
-    /**
+	/**
+	* @brief Pure virtual method to be overrided by any component.
+	* When this method is called you are guaranteed to know your system and your entity
+	*/
+	virtual void initialize() = 0;
+    
+	/**
      * @brief Pure virtual method to be overrided by any component.
      * This update method depends on time (e.g. called by a physics system).
      * @param dt Time elapsed since last call.
@@ -52,6 +53,8 @@ public:
      * @param entity The entity the component is part of.
      */
     virtual void setEntity(Entity* entity);
+	
+	virtual void setDrawableManager(DrawableManager* drawableMananger);
 
     virtual const Entity* getEntity() const;
 
@@ -60,6 +63,7 @@ public:
 protected:
     System* m_system;
     Entity* m_entity;
+	DrawableManager* m_drawableManager;
 
     bool m_isSelected;
 };

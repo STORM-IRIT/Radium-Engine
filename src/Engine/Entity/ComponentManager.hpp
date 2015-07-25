@@ -11,11 +11,15 @@ namespace Ra { namespace Engine { class Component; } }
 
 namespace Ra { namespace Engine {
 
-class ComponentManager : public Core::Singleton<ComponentManager>
+class ComponentManager
 {
-    friend class Core::Singleton<ComponentManager>;
-
 public:
+	/// CONSTRUCTOR
+	ComponentManager();
+
+	/// DESTRUCTOR
+	virtual ~ComponentManager();
+
     /**
      * @brief Add a component to the manager.
      * Manager takes ownership of the component. It also sets its index.
@@ -41,13 +45,6 @@ public:
      * @return The component if found in the map, nullptr otherwise.
      */
     Component* getComponent(Core::Index idx) const;
-
-private:
-    /// CONSTRUCTOR
-    ComponentManager() {}
-
-    /// DESTRUCTOR
-    virtual ~ComponentManager();
 
 private:
     Core::IndexMap<std::shared_ptr<Component>> m_components;

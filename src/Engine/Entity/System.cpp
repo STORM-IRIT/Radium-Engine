@@ -1,12 +1,14 @@
 #include <Engine/Entity/System.hpp>
 
 #include <Core/String/StringUtils.hpp>
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Component.hpp>
 
 namespace Ra
 {
 
-Engine::System::System()
+Engine::System::System(RadiumEngine* engine)
+	: m_engine(engine)
 {
 }
 

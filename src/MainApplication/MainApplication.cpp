@@ -71,10 +71,9 @@ namespace Ra
 
         connect(m_frameTimer, SIGNAL(timeout()), this, SLOT(radiumFrame()));
         m_frameTimer->start(1000.0 / 60.0);
-
     }
 
-    void MainApplication::loadFile(QString  path)
+    void MainApplication::loadFile(QString path)
     {
         std::string pathStr;
         Core::StringUtils::stringPrintf(pathStr, "%s", path.toStdString().c_str());
@@ -103,11 +102,12 @@ namespace Ra
 
         // Draw call.
         m_viewer->update();
+    }
 
-    }
-    MainApplication::~MainApplication() {
-        fprintf(stderr, "About to quit... Cleaning RadiumEngine memory.\n");
-        m_engine->quit();
-    }
+	MainApplication::~MainApplication()
+	{
+		fprintf(stderr, "About to quit... Cleaning RadiumEngine memory.\n");
+		m_engine->quit();
+	}
 
 }

@@ -35,7 +35,11 @@ public:
                       const Vector3Array& bitangents = Vector3Array(),
                       const Vector3Array& texcoords = Vector3Array(),
                       bool computeNormals = false);
+
     const Core::TriangleMesh& getMeshData() const { return m_data; }
+	const Vector3Array& getTangents() const { return m_tangents; }
+	const Vector3Array& getBitangents() const { return m_bitangents; }
+	const Vector3Array& getTexcoords() const { return m_texcoords; }
 
     void updateGL();
 

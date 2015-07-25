@@ -31,19 +31,6 @@ Engine::FancyMeshDrawable::~FancyMeshDrawable()
     }
 
     m_meshes.clear();
-
-    delete m_material;
-}
-
-void Engine::FancyMeshDrawable::updateGL()
-{
-    m_material->updateGL();
-    for (auto& mesh : m_meshes)
-    {
-        mesh.second->updateGL();
-    }
-
-    m_isDirty = false;
 }
 
 void Engine::FancyMeshDrawable::draw(const Core::Matrix4& viewMatrix,
@@ -148,9 +135,41 @@ Engine::Mesh* Engine::FancyMeshDrawable::getMesh(const std::string &name) const
     return ret;
 }
 
-void Engine::FancyMeshDrawable::setMaterial(Material* material)
+void Engine::FancyMeshDrawable::updateGLInternal()
 {
-    m_material = material;
+	m_material->updateGL();
+	for (auto& mesh : m_meshes)
+	{
+		mesh.second->updateGL();
+	}
+
+	m_isDirty = false;
+}
+
+Engine::Drawable* Engine::FancyMeshDrawable::cloneInternal()
+{
+	// FIXME(Charly): Did I forget to clone something ?
+	FancyMeshDrawable* drawable = new FancyMeshDrawable(m_name);
+
+	for (const auto& it : m_meshes)
+	{
+		Mesh* oldMesh = getMesh(it.first);
+		Mesh* newMesh = new Mesh(oldMesh->getName());
+		newMesh->loadGeometry(oldMesh->getMeshData(),
+							  oldMesh->getTangents(),
+							  oldMesh->getBitangents(),
+							  oldMesh->getTexcoords());
+
+		drawable->addMesh(newMesh);
+	}
+
+	// FancyMesh materials do not require particular attention,
+	// just share the pointer.
+	drawable->setMaterial(m_material);
+	drawable->setVisible(m_visible);
+	drawable->setComponent(m_component);
+
+	return drawable;
 }
 
 //void Engine::FancyMeshDrawable::setSelected(bool selected)

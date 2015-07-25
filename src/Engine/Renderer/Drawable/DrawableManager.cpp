@@ -2,8 +2,6 @@
 
 #include <Core/CoreMacros.hpp>
 
-#include <Engine/Renderer/Drawable/Drawable.hpp>
-
 namespace Ra
 {
 
@@ -17,6 +15,26 @@ Engine::DrawableManager::~DrawableManager()
 
 }
 
+Core::Index Engine::DrawableManager::addDrawable(Drawable* drawable)
+{
+	// Avoid data race in the std::maps
+	std::lock_guard<std::mutex> lock(m_doubleBufferMutex);
+
+	std::shared_ptr<Drawable> newDrawable(drawable);
+	return m_drawables.insert(newDrawable);
+}
+
+void Engine::DrawableManager::removeDrawable(const Core::Index & index)
+{
+	std::lock_guard<std::mutex> lock(m_doubleBufferMutex);
+
+	// FIXME(Charly): Should we check if the drawable is in 
+	// the double buffer map ?
+	std::shared_ptr<Drawable> drawable = m_drawables.at(index);
+	m_drawables.remove(index);
+	drawable.reset();
+}
+
 std::vector<std::shared_ptr<Engine::Drawable>> Engine::DrawableManager::getDrawables() const
 {
     // Take the mutex
@@ -25,15 +43,22 @@ std::vector<std::shared_ptr<Engine::Drawable>> Engine::DrawableManager::getDrawa
     // Copy each element in m_drawables
     std::vector<std::shared_ptr<Drawable>> drawables;
 
-    for (const auto& drawable : m_drawables)
-    {
-        drawables.push_back(drawable);
-    }
+	for (uint i = 0; i < m_drawables.size(); ++i)
+	{
+		drawables.push_back(m_drawables.at(i));
+	}
 
     return drawables;
 }
 
 std::shared_ptr<Engine::Drawable> Engine::DrawableManager::update(uint index)
+{
+	Core::Index idx(index);
+
+	return update(idx);
+}
+
+std::shared_ptr<Engine::Drawable> Engine::DrawableManager::update(const Core::Index& index)
 {
     // A drawable should never be updated if it is already in use.
     // It might be :

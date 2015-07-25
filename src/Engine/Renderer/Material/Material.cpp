@@ -22,6 +22,7 @@ Engine::Material::Material(const std::string& name)
 
 Engine::Material::~Material()
 {
+	m_textures.clear();
 }
 
 void Engine::Material::updateGL()

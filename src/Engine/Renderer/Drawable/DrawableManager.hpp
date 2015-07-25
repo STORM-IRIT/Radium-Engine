@@ -7,9 +7,10 @@
 #include <mutex>
 #include <thread>
 
+#include <Core/Index/Index.hpp>
+#include <Core/Index/IndexMap.hpp>
 #include <Core/CoreMacros.hpp>
-
-namespace Ra { namespace Engine { class Drawable; } }
+#include <Engine/Renderer/Drawable/Drawable.hpp>
 
 namespace Ra { namespace Engine {
 
@@ -19,14 +20,18 @@ public:
     DrawableManager();
     ~DrawableManager();
 
-    std::vector<std::shared_ptr<Drawable>> getDrawables() const;
+	Core::Index addDrawable(Drawable* drawable);
+	void removeDrawable(const Core::Index& index);
+	
+	std::vector<std::shared_ptr<Drawable>> getDrawables() const;
 
-    std::shared_ptr<Drawable> update(uint index);
+	std::shared_ptr<Drawable> update(uint index);
+    std::shared_ptr<Drawable> update(const Core::Index& index);
     void doneUpdating(uint index);
 
 private:
-    std::vector<std::shared_ptr<Drawable>> m_drawables;
-    std::map<uint, std::shared_ptr<Drawable>> m_doubleBuffer;
+    Core::IndexMap<std::shared_ptr<Drawable>> m_drawables;
+    std::map<Core::Index, std::shared_ptr<Drawable>> m_doubleBuffer;
 
     mutable std::mutex m_doubleBufferMutex;
 };

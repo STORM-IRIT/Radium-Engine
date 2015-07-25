@@ -8,6 +8,7 @@
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
 
+namespace Ra { namespace Engine { class RadiumEngine; } }
 namespace Ra { namespace Engine { class Component; } }
 
 namespace Ra { namespace Engine {
@@ -15,21 +16,13 @@ namespace Ra { namespace Engine {
 class System
 {
 public:
-    System();
+    System(RadiumEngine* engine);
     virtual ~System();
 
     /**
      * @brief Initialize system.
      */
     virtual void initialize() = 0;
-
-    /**
-     * @brief Pure virtual method to be overrided by any system.
-     * A very basic version of this method could be to iterate on components
-     * and just call Component::udate() method on them.
-     * This update method is time agnostic (e.g. render system).
-     */
-    virtual void update() = 0;
 
     /**
      * @brief Pure virtual method to be overrided by any system.
@@ -76,7 +69,15 @@ public:
      */
     virtual bool handleMouseEvent(const Core::MouseEvent& event) { return false; }
 
+	/**
+	 * @brief Handle a file loading event. Does nothing by default.
+	 * @param file The file to load
+	 */
+	virtual void handleFileLoading(const std::string& filename) { }
+
 protected:
+	RadiumEngine* m_engine;
+
     std::map<Core::Index, Component*> m_components;
 };
 

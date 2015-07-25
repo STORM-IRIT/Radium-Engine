@@ -14,6 +14,7 @@ namespace Ra { namespace Engine { class Material;      } }
 namespace Ra { namespace Engine { class Light;         } }
 namespace Ra { namespace Engine { class Mesh;          } }
 
+// FIXME(Charly): Do we really want this to be in Engine namespace ? 
 namespace Ra { namespace Engine {
 
 class FancyMeshDrawable : public Drawable
@@ -21,8 +22,6 @@ class FancyMeshDrawable : public Drawable
 public:
     FancyMeshDrawable(const std::string& name);
     virtual ~FancyMeshDrawable();
-
-    virtual void updateGL() override;
 
     virtual void draw(const Core::Matrix4& viewMatrix,
                       const Core::Matrix4& projMatrix,
@@ -62,14 +61,15 @@ public:
      */
     Mesh* getMesh(const std::string& name) const;
 
-    void setMaterial(Material* material);
-
 //    virtual void setSelected(bool selected);
+
+protected:
+	virtual void updateGLInternal() override;
+	virtual Drawable* cloneInternal() override;
 
 private:
     typedef std::pair<std::string, std::shared_ptr<Mesh>> MeshByName;
     std::map<std::string, std::shared_ptr<Mesh>> m_meshes;
-
 };
 
 } // namespace Engine

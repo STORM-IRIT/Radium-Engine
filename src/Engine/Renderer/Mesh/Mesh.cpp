@@ -61,40 +61,45 @@ void Engine::Mesh::loadGeometry(const Core::TriangleMesh &data,
     m_bitangents = bitangents;
     m_texcoords = texcoords;
 
-    Core::HalfEdgeData heData(m_data);
+	computeAdjacency();
+}
 
-    Core::TriangleIdx triangleIdx = 0;
-    for (; triangleIdx < m_data.m_triangles.size(); ++triangleIdx)
-    {
-        Core::HalfEdgeIdx currentHe = heData.getFirstTriangleHalfEdge(triangleIdx);
+void Engine::Mesh::computeAdjacency()
+{
+	Core::HalfEdgeData heData(m_data);
 
-        // For each side of the triangle.
-        const Core::HalfEdge& he0 = heData[currentHe];
-        const Core::HalfEdge& he1 = heData[he0.m_next];
-        const Core::HalfEdge& he2 = heData[he1.m_next];
+	Core::TriangleIdx triangleIdx = 0;
+	for (; triangleIdx < m_data.m_triangles.size(); ++triangleIdx)
+	{
+		Core::HalfEdgeIdx currentHe = heData.getFirstTriangleHalfEdge(triangleIdx);
 
-        // We get the opposing half edge.
-        const Core::HalfEdge& ph0 = heData[he0.m_pair];
-        const Core::HalfEdge& ph1 = heData[he1.m_pair];
-        const Core::HalfEdge& ph2 = heData[he2.m_pair];
+		// For each side of the triangle.
+		const Core::HalfEdge& he0 = heData[currentHe];
+		const Core::HalfEdge& he1 = heData[he0.m_next];
+		const Core::HalfEdge& he2 = heData[he1.m_next];
 
-        // The vertices of the triangle.
-        Core::HalfEdgeIdx v0 = he2.m_endVertexIdx;
-        Core::HalfEdgeIdx v1 = he0.m_endVertexIdx;
-        Core::HalfEdgeIdx v2 = he1.m_endVertexIdx;
+		// We get the opposing half edge.
+		const Core::HalfEdge& ph0 = heData[he0.m_pair];
+		const Core::HalfEdge& ph1 = heData[he1.m_pair];
+		const Core::HalfEdge& ph2 = heData[he2.m_pair];
 
-        // And the vertices opposite each edge.
-        Core::HalfEdgeIdx a0 = ph0.m_leftTriIdx != Core::InvalidIdx ? heData[ph0.m_next].m_endVertexIdx : v0;
-        Core::HalfEdgeIdx a1 = ph1.m_leftTriIdx != Core::InvalidIdx ? heData[ph1.m_next].m_endVertexIdx : v1;
-        Core::HalfEdgeIdx a2 = ph2.m_leftTriIdx != Core::InvalidIdx ? heData[ph2.m_next].m_endVertexIdx : v2;
+		// The vertices of the triangle.
+		Core::HalfEdgeIdx v0 = he2.m_endVertexIdx;
+		Core::HalfEdgeIdx v1 = he0.m_endVertexIdx;
+		Core::HalfEdgeIdx v2 = he1.m_endVertexIdx;
 
-        m_adjacentTriangles.push_back(v0);
-        m_adjacentTriangles.push_back(a1);
-        m_adjacentTriangles.push_back(v1);
-        m_adjacentTriangles.push_back(a0);
-        m_adjacentTriangles.push_back(v2);
-        m_adjacentTriangles.push_back(a2);
-    }
+		// And the vertices opposite each edge.
+		Core::HalfEdgeIdx a0 = ph0.m_leftTriIdx != Core::InvalidIdx ? heData[ph0.m_next].m_endVertexIdx : v0;
+		Core::HalfEdgeIdx a1 = ph1.m_leftTriIdx != Core::InvalidIdx ? heData[ph1.m_next].m_endVertexIdx : v1;
+		Core::HalfEdgeIdx a2 = ph2.m_leftTriIdx != Core::InvalidIdx ? heData[ph2.m_next].m_endVertexIdx : v2;
+
+		m_adjacentTriangles.push_back(v0);
+		m_adjacentTriangles.push_back(a1);
+		m_adjacentTriangles.push_back(v1);
+		m_adjacentTriangles.push_back(a0);
+		m_adjacentTriangles.push_back(v2);
+		m_adjacentTriangles.push_back(a2);
+	}
 }
 
 void Engine::Mesh::updateGL()

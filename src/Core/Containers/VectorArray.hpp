@@ -7,8 +7,6 @@
 namespace Ra { namespace Core
 {
 
-
-
     /// This class is a wrapper around a std::vector of Core::Vectors.
     /// which allow to use the stdlib's dynamic array implementation, yet pass it as
     /// a matrix when Eigen needs it with the getMap() method.
@@ -39,6 +37,10 @@ namespace Ra { namespace Core
 
     };
 
+	// Convenience typedefs
+	typedef VectorArray<Vector2> Vector2Array;
+	typedef VectorArray<Vector3> Vector3Array;
+	typedef VectorArray<Vector4> Vector4Array;
 
     // Notes :
     // Using a map for eigen integration was recommended by [1].
