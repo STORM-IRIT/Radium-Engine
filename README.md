@@ -60,4 +60,5 @@ Since Radium requires the C++11 advanced features such as constexpr, we need a r
 ### Run
 
 * Don't forget to copy the DLLs in the executable folder (use `depends.exe` to figure out which).
-* So far the precompiled assimp for windows seems to have a bug which prevents me to run the app on Win... [https://github.com/assimp/assimp/issues/302]
+* Set "radium" as your startup project
+* Change the application working directory to `$(ProjectDir)..` (go to the "radium" project properties, *Debugging* menu, *Working Directory*) to get the shaders to load properly.
