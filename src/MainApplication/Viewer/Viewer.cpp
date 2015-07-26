@@ -46,7 +46,7 @@ namespace
 {
 
 Gui::Viewer::Viewer(QWidget* parent)
-    : QOpenGLWidget(parent)
+    : QOpenGLWidget(parent),m_interactionState(NONE)
 {
     // Allow Viewer to receive events
     setFocusPolicy(Qt::StrongFocus);
