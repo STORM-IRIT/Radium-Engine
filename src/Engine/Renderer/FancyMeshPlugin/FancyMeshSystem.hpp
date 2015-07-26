@@ -4,6 +4,7 @@
 #include <Engine/Entity/System.hpp>
 
 namespace Ra { namespace Engine { class RadiumEngine; } }
+namespace Ra { namespace Engine { class Component;    } }
 
 namespace Ra { namespace Engine {
 
@@ -16,6 +17,8 @@ public:
 	virtual void initialize() override;
 	virtual void update(Scalar dt) override;
 	virtual void handleFileLoading(const std::string& filename) override;
+
+    virtual Component* createComponent(const std::string& name) override;
 
 private:
 };

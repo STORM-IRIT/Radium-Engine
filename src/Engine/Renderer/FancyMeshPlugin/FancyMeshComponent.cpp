@@ -9,8 +9,8 @@
 namespace Ra
 {
 
-Engine::FancyMeshComponent::FancyMeshComponent()
-	: Component()
+Engine::FancyMeshComponent::FancyMeshComponent(const std::string& name)
+    : Component(name)
 {
 }
 

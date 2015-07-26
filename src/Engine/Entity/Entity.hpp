@@ -35,10 +35,10 @@ public:
 
     void addComponent(Component* component);
 
-    void removeComponent(Core::Index idx);
+    void removeComponent(const std::string& name);
     void removeComponent(Component* component);
 
-    Component* getComponent(Core::Index idx);
+    Component* getComponent(const std::string& name);
     std::vector<Component*> getComponents() const;
 
 private:
@@ -46,9 +46,8 @@ private:
 
     std::string m_name;
 
-    typedef std::pair<Core::Index, Engine::Component*> ComponentByIndex;
-    std::map<Core::Index, Engine::Component*> m_components;
-
+    typedef std::pair<std::string, Engine::Component*> ComponentByName;
+    std::map<std::string, Engine::Component*> m_components;
 
     mutable std::mutex m_mutex;
     bool m_isSelected;

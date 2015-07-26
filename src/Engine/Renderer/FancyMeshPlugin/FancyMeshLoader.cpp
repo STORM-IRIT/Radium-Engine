@@ -80,7 +80,7 @@ std::vector<Engine::FancyComponentData> Engine::FancyMeshLoader::loadFile(const 
 
     runThroughNodes(scene->mRootNode, scene, Core::Matrix4::Identity());
 
-    fprintf(stderr, "Loaded successfully. Vector size : %u\n", dataVector.size());
+    fprintf(stderr, "Loaded successfully. Vector size : %zu\n", dataVector.size());
 
 	return dataVector;
 }

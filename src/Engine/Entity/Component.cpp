@@ -7,29 +7,10 @@
 namespace Ra
 {
 
-void Engine::Component::setSystem(Engine::System* system)
+Engine::Component::Component(const std::string& name)
+    : m_name(name)
 {
-    m_system = system;
 }
 
-void Engine::Component::setEntity(Engine::Entity* entity)
-{
-    m_entity = entity;
-}
-
-const Engine::Entity* Engine::Component::getEntity() const
-{
-    return m_entity;
-}
-
-void Engine::Component::setDrawableManager(DrawableManager* manager)
-{
-	m_drawableManager = manager;
-}
-
-void Engine::Component::setSelected(bool selected)
-{
-    m_isSelected = selected;
-}
 
 } // namespace Ra

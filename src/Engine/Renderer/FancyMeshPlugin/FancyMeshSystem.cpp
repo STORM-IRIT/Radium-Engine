@@ -1,5 +1,6 @@
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshSystem.hpp>
 
+#include <Core/String/StringUtils.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshComponent.hpp>
@@ -32,47 +33,46 @@ void Engine::FancyMeshSystem::update(Scalar dt)
 void Engine::FancyMeshSystem::handleFileLoading(const std::string& filename)
 {
 	// TODO
-	DrawableManager* drawableManager = m_engine->getDrawableManager();
-	EntityManager* entityManager = m_engine->getEntityManager();
-	ComponentManager* componentManager = m_engine->getComponentManager();
-
 	printf("FancyMeshSystem::Loading file %s\n", filename.c_str());
 
 	std::vector<FancyComponentData> componentsData = FancyMeshLoader::loadFile(filename);
 
-	printf("Found %u components to create\n", componentsData.size());
+    printf("Found %zu components to create\n", componentsData.size());
 
 	for (uint i = 0; i < componentsData.size(); ++i)
 	{
 		FancyComponentData data = componentsData[i];
 
 		// Retrieve entity if exist, create it otherwise
-		Entity* entity;
-		if (entityManager->entityExists(data.name))
-		{
-			entity = entityManager->getEntity(data.name);
-		}
-		else
-		{
-			entity = entityManager->createEntity(data.name);
-		}
+        m_engine->getEntityManager()->getOrCreateEntity(data.name)->setTransform(data.transform);
 
-		entity->setTransform(data.transform);
+        FancyMeshComponent* component =
+                static_cast<FancyMeshComponent*>(createComponent(data.name));
 
-		FancyMeshComponent* component = new FancyMeshComponent;
-		componentManager->addComponent(component);
-
-		component->setSystem(this);
-		component->setEntity(entity);
-		component->setDrawableManager(drawableManager);
-
-		entity->addComponent(component);
-		addComponent(component);
-
-		component->initialize();
-
-		component->handleMeshLoading(data);
+        component->handleMeshLoading(data);
 	}
+}
+
+Engine::Component* Engine::FancyMeshSystem::createComponent(const std::string &name)
+{
+    static uint componentId = 0;
+    Entity* entity = m_engine->getEntityManager()->getOrCreateEntity(name);
+
+    std::string componentName;
+    Core::StringUtils::stringPrintf(componentName, "FancyMeshComponent_%s_u",
+                                    name.c_str(), componentId++);
+    FancyMeshComponent* component = new FancyMeshComponent(componentName);
+
+    component->setSystem(this);
+    component->setEntity(entity);
+    component->setDrawableManager(m_engine->getDrawableManager());
+
+    entity->addComponent(component);
+    addComponent(component);
+
+    component->initialize();
+
+    return component;
 }
 
 }

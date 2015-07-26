@@ -20,24 +20,21 @@ Engine::Entity::~Entity()
 
 void Engine::Entity::addComponent(Engine::Component* component)
 {
-    Core::Index idx = component->idx;
-
+    std::string name = component->getName();
     char err[100];
-    snprintf(err, 100, "Component %d has already been added to the entity.", idx.getValue());
-    CORE_ASSERT(m_components.find(idx) == m_components.end(), err);
+    snprintf(err, 100, "Component \"%s\" has already been added to the entity.", name.c_str());
+    CORE_ASSERT(m_components.find(name) == m_components.end(), err);
 
-    m_components.insert(ComponentByIndex(idx, component));
+    m_components.insert(ComponentByName(name, component));
 
     component->setEntity(this);
 }
 
-Engine::Component* Engine::Entity::getComponent(Core::Index idx)
+Engine::Component* Engine::Entity::getComponent(const std::string& name)
 {
-    CORE_ASSERT(idx != Core::Index::INVALID_IDX(), "Trying to access an invalid component");
-
     Engine::Component* comp = nullptr;
 
-    auto it = m_components.find(idx);
+    auto it = m_components.find(name);
     if (it != m_components.end())
     {
         comp = it->second;
@@ -46,18 +43,19 @@ Engine::Component* Engine::Entity::getComponent(Core::Index idx)
     return comp;
 }
 
-void Engine::Entity::removeComponent(Core::Index idx)
+void Engine::Entity::removeComponent(const std::string& name)
 {
     std::string err;
-    Core::StringUtils::stringPrintf(err, "The component of id %ud is not part of the entity.", idx.getValue());
-    CORE_ASSERT(m_components.find(idx) != m_components.end(), err.c_str());
+    Core::StringUtils::stringPrintf(err, "The component \"%s\" is not part of the entity \"%s\"",
+                                    name.c_str(), m_name.c_str());
+    CORE_ASSERT(m_components.find(name) != m_components.end(), err.c_str());
 
-    m_components.erase(idx);
+    m_components.erase(name);
 }
 
 void Engine::Entity::removeComponent(Engine::Component* component)
 {
-    removeComponent(component->idx);
+    removeComponent(component->getName());
 }
 
 std::vector<Engine::Component*> Engine::Entity::getComponents() const

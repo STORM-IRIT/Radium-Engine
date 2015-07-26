@@ -2,6 +2,7 @@
 #define RADIUMENGINE_SYSTEM_HPP
 
 #include <map>
+#include <memory>
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Index/Index.hpp>
@@ -47,7 +48,7 @@ public:
      *
      * @param id The id of the component to remove
      */
-    void removeComponent(Core::Index idx);
+    void removeComponent(const std::string& name);
 
     /**
       * @brief Remove a component from the system.
@@ -75,10 +76,18 @@ public:
 	 */
 	virtual void handleFileLoading(const std::string& filename) { }
 
+    /**
+     * @brief Handle all the logic behind a component creation.
+     * @param name Name of the entity the component should belong to.
+     * @return The created component.
+     */
+    // FIXME(Charly): Better name ?
+    virtual Component* createComponent(const std::string& name) = 0;
+
 protected:
 	RadiumEngine* m_engine;
 
-    std::map<Core::Index, Component*> m_components;
+    std::map<std::string, std::shared_ptr<Component>> m_components;
 };
 
 } // namespace Engine

@@ -16,11 +16,11 @@ namespace Ra { namespace Engine {
  * It is also linked to some other components in an entity.
  * Each component share a transform through their entity.
  */
-class Component : public Core::IndexedObject
+class Component
 {
 public:
     /// CONSTRUCTOR
-    Component() : IndexedObject() {}
+    Component(const std::string& name);
 
     // FIXME (Charly) : Should destructor call something like
     //                  System::removeComponent(this) ?
@@ -60,7 +60,11 @@ public:
 
     virtual void setSelected(bool selected);
 
+    virtual const std::string& getName() const;
+
 protected:
+    std::string m_name;
+
     System* m_system;
     Entity* m_entity;
 	DrawableManager* m_drawableManager;
@@ -70,5 +74,7 @@ protected:
 
 } // namespace Engine
 } // namespace Ra
+
+#include <Engine/Entity/Component.inl>
 
 #endif // RADIUMENGINE_COMPONENT_HPP

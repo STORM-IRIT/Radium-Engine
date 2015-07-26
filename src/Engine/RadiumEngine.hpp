@@ -10,7 +10,6 @@
 #include <Core/CoreMacros.hpp>
 
 #include <Engine/Renderer/Drawable/DrawableManager.hpp>
-#include <Engine/Entity/ComponentManager.hpp>
 #include <Engine/Entity/EntityManager.hpp>
 
 namespace Ra { namespace Core   { struct MouseEvent;        } }
@@ -43,11 +42,6 @@ public:
 
     System* getSystem(const std::string& system) const;
 
-    Entity* createEntity();
-    void addComponent(Component* component, Entity* entity, const std::string& system);
-
-    std::vector<Entity*> getEntities() const;
-
     bool loadFile(const std::string & file);
 
     bool handleMouseEvent(const Core::MouseEvent& event);
@@ -56,7 +50,6 @@ public:
 	/// Manager getters
 	DrawableManager*  getDrawableManager()  const;
 	EntityManager*    getEntityManager()    const;
-	ComponentManager* getComponentManager() const;
 
 private:
     void run();
@@ -71,9 +64,8 @@ private:
 	
 	std::unique_ptr<DrawableManager>  m_drawableManager;
     std::unique_ptr<EntityManager>    m_entityManager;
-	std::unique_ptr<ComponentManager> m_componentManager;
 
-	// FIXME(Charly): Pointer to the renderer needed ? 
+    // FIXME(Charly): Pointer to the renderer needed ?
     Renderer* m_renderer;
 };
 

@@ -1,4 +1,4 @@
-#include <Engine/RadiumEngine.hpp>
+ #include <Engine/RadiumEngine.hpp>
 
 #include <thread>
 #include <chrono>
@@ -28,7 +28,6 @@ Engine::RadiumEngine::RadiumEngine()
 void Engine::RadiumEngine::initialize()
 {
 	m_drawableManager.reset(new DrawableManager);
-	m_componentManager.reset(new ComponentManager);
 	m_entityManager.reset(new EntityManager);
 
 	FancyMeshSystem* system = new FancyMeshSystem(this);
@@ -63,7 +62,6 @@ void Engine::RadiumEngine::cleanup()
     }
 
 	m_drawableManager.reset();
-	m_componentManager.reset();
 	m_entityManager.reset();
 }
 
@@ -94,27 +92,6 @@ Engine::System* Engine::RadiumEngine::getSystem(const std::string& system) const
     return sys;
 }
 
-Engine::Entity* Engine::RadiumEngine::createEntity()
-{
-    std::lock_guard<std::mutex> lock(m_managersMutex);
-    return m_entityManager->createEntity();
-}
-
-void Engine::RadiumEngine::addComponent(Component* component,
-                                        Entity* entity,
-                                        const std::string& system)
-{
-    std::string err;
-    Core::StringUtils::stringPrintf(err, "System \"%s\" : No such system.\n", system.c_str());
-
-    std::lock_guard<std::mutex> lock(m_managersMutex);
-    CORE_ASSERT(m_systems.find(system) != m_systems.end(), err.c_str());
-
-    m_componentManager->addComponent(component);
-    entity->addComponent(component);
-    m_systems[system]->addComponent(component);
-}
-
 bool Engine::RadiumEngine::loadFile(const std::string& file)
 {
 	for (auto& system : m_systems)
@@ -123,12 +100,6 @@ bool Engine::RadiumEngine::loadFile(const std::string& file)
 	}
 
     return true;
-}
-
-std::vector<Engine::Entity*> Engine::RadiumEngine::getEntities() const
-{
-    std::lock_guard<std::mutex> lock(m_managersMutex);
-    return m_entityManager->getEntities();
 }
 
 bool Engine::RadiumEngine::handleKeyEvent(const Core::KeyEvent &event)
@@ -157,7 +128,6 @@ bool Engine::RadiumEngine::handleMouseEvent(const Core::MouseEvent &event)
     return false;
 }
 
-
 Engine::DrawableManager* Engine::RadiumEngine::getDrawableManager() const
 {
 	return m_drawableManager.get(); 
@@ -167,10 +137,5 @@ Engine::EntityManager* Engine::RadiumEngine::getEntityManager() const
 {
 	return m_entityManager.get(); 
 }
-Engine::ComponentManager* Engine::RadiumEngine::getComponentManager() const
-{
-	return m_componentManager.get();
-}
-
 
 } // namespace RadiumEngine

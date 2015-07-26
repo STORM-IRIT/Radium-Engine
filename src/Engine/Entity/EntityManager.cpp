@@ -22,6 +22,16 @@ Engine::EntityManager::~EntityManager()
     m_entities.clear();
 }
 
+Engine::Entity* Engine::EntityManager::getOrCreateEntity(const std::string &name)
+{
+    if (entityExists(name))
+    {
+        return getEntity(name);
+    }
+
+    return createEntity(name);
+}
+
 Engine::Entity* Engine::EntityManager::createEntity()
 {
     std::shared_ptr<Engine::Entity> ent(new Entity());
@@ -37,25 +47,14 @@ Engine::Entity* Engine::EntityManager::createEntity()
     return ent.get();
 }
 
-Engine::Entity* Engine::EntityManager::createEntity(const std::string& name)
-{
-    std::shared_ptr<Engine::Entity> ent = std::make_shared<Engine::Entity>(name);
-    ent->idx = m_entities.insert(ent);
-	
-	m_entitiesName.insert(std::pair<std::string, Core::Index>(
-		ent->getName(), ent->idx));
-
-    return ent.get();
-}
-
 bool Engine::EntityManager::entityExists(const std::string& name) const
 {
-	if (m_entitiesName.find(name) != m_entitiesName.end())
-	{
-		return true;
-	}
+    if (m_entitiesName.find(name) != m_entitiesName.end())
+    {
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
 void Engine::EntityManager::removeEntity(Core::Index idx)
@@ -92,18 +91,6 @@ Engine::Entity* Engine::EntityManager::getEntity(Core::Index idx) const
     return ent;
 }
 
-Engine::Entity* Engine::EntityManager::getEntity(const std::string& name) const
-{
-	Engine::Entity* ent = nullptr;
-	
-	if (entityExists(name))
-	{
-		ent = getEntity(m_entitiesName.at(name));
-	}
-
-	return ent;
-}
-
 std::vector<Engine::Entity*> Engine::EntityManager::getEntities() const
 {
     std::vector<Engine::Entity*> entities;
@@ -118,5 +105,22 @@ std::vector<Engine::Entity*> Engine::EntityManager::getEntities() const
 
     return entities;
 }
+
+Engine::Entity* Engine::EntityManager::createEntity(const std::string& name)
+{
+    std::shared_ptr<Engine::Entity> ent = std::make_shared<Engine::Entity>(name);
+    ent->idx = m_entities.insert(ent);
+
+    m_entitiesName.insert(std::pair<std::string, Core::Index>(
+        ent->getName(), ent->idx));
+
+    return ent.get();
+}
+
+Engine::Entity* Engine::EntityManager::getEntity(const std::string& name) const
+{
+    return m_entities.at(m_entitiesName.at(name)).get();
+}
+
 
 } // namespace Ra

@@ -17,7 +17,6 @@
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Component.hpp>
-#include <Engine/Entity/ComponentManager.hpp>
 #include <Engine/Entity/EntityManager.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Shader/ShaderProgram.hpp>

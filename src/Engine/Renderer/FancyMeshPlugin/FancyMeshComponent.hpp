@@ -10,7 +10,7 @@ namespace Ra { namespace Engine {
 class FancyMeshComponent : public Component
 {
 public:
-	FancyMeshComponent();
+    FancyMeshComponent(const std::string& name);
 	virtual ~FancyMeshComponent();
 
 	virtual void initialize() override;
