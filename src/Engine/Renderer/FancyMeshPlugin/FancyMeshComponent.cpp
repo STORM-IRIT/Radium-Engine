@@ -25,10 +25,6 @@ void Engine::FancyMeshComponent::initialize()
 {
 }
 
-void Engine::FancyMeshComponent::update(Scalar dt)
-{
-}
-
 void Engine::FancyMeshComponent::addMeshDrawable( const Core::TriangleMesh& mesh, const std::string& name )
 {
 	FancyMeshDrawable* drawable = new FancyMeshDrawable(name);

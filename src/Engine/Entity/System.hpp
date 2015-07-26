@@ -9,7 +9,9 @@
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
 
+namespace Ra { namespace Core   { class TaskQueue;  } }
 namespace Ra { namespace Engine { class RadiumEngine; } }
+namespace Ra { namespace Engine { class FrameInfo; } }
 namespace Ra { namespace Engine { class Component; } }
 namespace Ra { namespace Engine { class Entity; } }
 
@@ -34,7 +36,7 @@ public:
      *
      * @param dt Time elapsed since last call.
      */
-    virtual void update(Scalar dt) = 0;
+    virtual void generateTasks(Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo) = 0;
 
     /**
      * @brief Add a component to the system.

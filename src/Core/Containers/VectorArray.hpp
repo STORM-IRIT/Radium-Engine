@@ -16,8 +16,8 @@ namespace Ra { namespace Core
     public:
         // Type shortcuts
         typedef Eigen::Matrix<Scalar, V::RowsAtCompileTime, Eigen::Dynamic> Matrix;
-        typedef Eigen::Map<Matrix, Eigen::Aligned> MatrixMap;
-        typedef Eigen::Map<const Matrix, Eigen::Aligned> ConstMatrixMap;
+        typedef Eigen::Map<Matrix> MatrixMap;
+        typedef Eigen::Map<const Matrix> ConstMatrixMap;
 
     public:
         /// Inheriting constructors from std::vector

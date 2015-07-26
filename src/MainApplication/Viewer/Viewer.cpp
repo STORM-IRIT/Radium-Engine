@@ -1,6 +1,5 @@
 #include <MainApplication/Viewer/Viewer.hpp>
 
-
 #include <iostream>
 
 #include <QTimer>

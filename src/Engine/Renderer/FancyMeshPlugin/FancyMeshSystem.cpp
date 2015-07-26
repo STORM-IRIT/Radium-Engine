@@ -22,14 +22,6 @@ void Engine::FancyMeshSystem::initialize()
 {
 }
 
-void Engine::FancyMeshSystem::update(Scalar dt)
-{
-	for (auto& c : m_components)
-	{
-		c.second->update(dt);
-	}
-}
-
 void Engine::FancyMeshSystem::handleFileLoading(const std::string& filename)
 {
 	// TODO
@@ -61,16 +53,20 @@ Engine::Component* Engine::FancyMeshSystem::addComponentToEntity( Engine::Entity
     std::string componentName = "FancyMeshComponent_" + entity->getName() + std::to_string(componentId++);
     FancyMeshComponent* component = new FancyMeshComponent(componentName);
 
-    component->setSystem(this);
     component->setEntity(entity);
     component->setDrawableManager(m_engine->getDrawableManager());
 
     entity->addComponent(component);
-    addComponent(component);
+    this->addComponent(component);
 
     component->initialize();
 
     return component;
+}
+
+void Engine::FancyMeshSystem::generateTasks(Core::TaskQueue * taskQueue, const Engine::FrameInfo & frameInfo)
+{
+    // Do nothing, as this system only displays meshes.
 }
 
 Engine::FancyMeshComponent * Engine::FancyMeshSystem::addDisplayMeshToEntity(Engine::Entity * entity, const Core::TriangleMesh & mesh)
