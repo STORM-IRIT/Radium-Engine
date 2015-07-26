@@ -21,7 +21,11 @@ Core::Index Engine::DrawableManager::addDrawable(Drawable* drawable)
 	std::lock_guard<std::mutex> lock(m_doubleBufferMutex);
 
 	std::shared_ptr<Drawable> newDrawable(drawable);
-	return m_drawables.insert(newDrawable);
+    Core::Index idx = m_drawables.insert(newDrawable);
+
+    newDrawable->idx = idx;
+
+    return idx;
 }
 
 void Engine::DrawableManager::removeDrawable(const Core::Index & index)

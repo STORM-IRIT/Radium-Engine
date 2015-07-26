@@ -39,7 +39,6 @@ Engine::Renderer::Renderer(uint width, uint height)
     : m_engine(nullptr)
     , m_width(width)
     , m_height(height)
-    , m_camera(nullptr)
     , m_shaderManager(nullptr)
     , m_displayedTexture(nullptr)
     , m_displayedIsDepth(false)
@@ -49,9 +48,6 @@ Engine::Renderer::Renderer(uint width, uint height)
     , m_quadMesh(nullptr)
     , m_fbo(nullptr)
     , m_postprocessFbo(nullptr)
-    , m_camRotateStarted(false)
-    , m_camZoomStarted(false)
-    , m_camPanStarted(false)
 {
     m_time.start();
 }
@@ -63,12 +59,6 @@ Engine::Renderer::~Renderer()
 
 void Engine::Renderer::initialize()
 {
-    // TODO(Charly): Remove camera stuff
-    m_camera = std::shared_ptr<Camera>( new Camera() );
-    m_camera->setPosition(Core::Vector3(0, 2, -5), Camera::ModeType::TARGET);
-    m_camera->setTargetPoint(Core::Vector3(0, 0, 0));
-    m_camera->updateProjMatrix(m_width, m_height);
-
     std::string shaderPath("../Shaders");
     std::string defaultShader("Default");
 
@@ -113,6 +103,7 @@ void Engine::Renderer::initBuffers()
     m_textures[TEXTURE_AMBIENT]  = new Texture("Ambient", GL_TEXTURE_2D);
     m_textures[TEXTURE_POSITION] = new Texture("Position", GL_TEXTURE_2D);
     m_textures[TEXTURE_NORMAL]   = new Texture("Normal", GL_TEXTURE_2D);
+    m_textures[TEXTURE_PICKING]  = new Texture("Picking", GL_TEXTURE_2D);
     m_textures[TEXTURE_COLOR]    = new Texture("Color", GL_TEXTURE_2D);
 
     m_finalTexture = new Texture("Final", GL_TEXTURE_2D);
@@ -165,23 +156,22 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     GL_ASSERT(glDepthMask(GL_TRUE));
     GL_ASSERT(glColorMask(1, 1, 1, 1));
 
-    GL_ASSERT(glDrawBuffers(4, buffers));
+    GL_ASSERT(glDrawBuffers(5, buffers));
 
     Core::Color clearColor(0.2, 0.2, 0.2, 1.0);
     Core::Color clearEmpty(0.0, 0.0, 0.0, 0.0);
+    Core::Color clearPicking(1.0, 1.0, 1.0, 1.0);
     Scalar clearDepth = 1.0;
 
     GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearColor.data())); // Clear ambient
     GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearEmpty.data()));  // Clear position
     GL_ASSERT(glClearBufferfv(GL_COLOR, 2, clearEmpty.data()));  // Clear normal
-    GL_ASSERT(glClearBufferfv(GL_COLOR, 3, clearEmpty.data()));  // Clear color
+    GL_ASSERT(glClearBufferfv(GL_COLOR, 3, clearPicking.data()));  // Clear picking
+    GL_ASSERT(glClearBufferfv(GL_COLOR, 4, clearEmpty.data()));  // Clear color
     GL_ASSERT(glClearBufferfv(GL_DEPTH, 0, &clearDepth));       // Clear depth
 
-    m_camera->updateViewMatrix();
-
-    // TODO(Charly): Remove camera, use renderData stuff here
-    Core::Matrix4 view = m_camera->getViewMatrix();
-    Core::Matrix4 proj = m_camera->getProjMatrix();
+    Core::Matrix4 view = renderData.viewMatrix;
+    Core::Matrix4 proj = renderData.projMatrix;
 
     // Z + Ambient Prepass
     GL_ASSERT(glEnable(GL_DEPTH_TEST));
@@ -190,12 +180,19 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
 
     GL_ASSERT(glDisable(GL_BLEND));
 
-    GL_ASSERT(glDrawBuffers(3, buffers)); // Draw ambient texture
+    GL_ASSERT(glDrawBuffers(4, buffers)); // Draw ambient, position, normal, picking
 
     m_depthAmbientShader->bind();
 
     for (const auto& d : drawables)
     {
+        // Object ID
+        int index = d->idx.getValue();
+        Scalar r = Scalar((index & 0x000000FF) >> 0);
+        Scalar g = Scalar((index & 0x0000FF00) >> 8);
+        Scalar b = Scalar((index & 0x00FF0000) >> 16);
+
+        m_depthAmbientShader->setUniform("objectId", Core::Vector3(r, g, b));
         d->draw(view, proj, m_depthAmbientShader);
     }
 
@@ -206,7 +203,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     GL_ASSERT(glEnable(GL_BLEND));
     GL_ASSERT(glBlendFunc(GL_ONE, GL_ONE));
 
-    GL_ASSERT(glDrawBuffers(1, buffers + 3)); // Draw color texture
+    GL_ASSERT(glDrawBuffers(1, buffers + 4)); // Draw color texture
 
     if (m_lights.size() > 0)
     {
@@ -291,8 +288,6 @@ void Engine::Renderer::drawScreenInternal()
 
     m_drawScreenShader->bind();
     m_drawScreenShader->setUniform("isDepthTexture", m_displayedIsDepth ? 1 : 0);
-    m_drawScreenShader->setUniform("zNear", m_camera->getZNear());
-    m_drawScreenShader->setUniform("zFar", m_camera->getZFar());
     m_drawScreenShader->setUniform("screenTexture", m_finalTexture, 0);
 
     m_drawScreenShader->setUniform("depth", m_textures[TEXTURE_DEPTH], 1);
@@ -300,6 +295,7 @@ void Engine::Renderer::drawScreenInternal()
     m_drawScreenShader->setUniform("position", m_textures[TEXTURE_POSITION], 3);
     m_drawScreenShader->setUniform("normal", m_textures[TEXTURE_NORMAL], 4);
     m_drawScreenShader->setUniform("color", m_textures[TEXTURE_COLOR], 5);
+    m_drawScreenShader->setUniform("picking", m_textures[TEXTURE_PICKING], 6);
 
     m_drawScreenShader->setUniform("totalTime", m_totalTime);
     m_quadMesh->draw();
@@ -329,6 +325,10 @@ void Engine::Renderer::resize(uint w, uint h)
     {
         m_textures[TEXTURE_NORMAL]->deleteGL();
     }
+    if (m_textures[TEXTURE_PICKING]->getId() != 0)
+    {
+        m_textures[TEXTURE_PICKING]->deleteGL();
+    }
     if (m_textures[TEXTURE_COLOR]->getId() != 0)
     {
         m_textures[TEXTURE_COLOR]->deleteGL();
@@ -355,6 +355,10 @@ void Engine::Renderer::resize(uint w, uint h)
     m_textures[TEXTURE_NORMAL]->setFilter(GL_LINEAR, GL_LINEAR);
     m_textures[TEXTURE_NORMAL]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
+    m_textures[TEXTURE_PICKING]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
+    m_textures[TEXTURE_PICKING]->setFilter(GL_LINEAR, GL_LINEAR);
+    m_textures[TEXTURE_PICKING]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+
     m_textures[TEXTURE_COLOR]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
     m_textures[TEXTURE_COLOR]->setFilter(GL_LINEAR, GL_LINEAR);
     m_textures[TEXTURE_COLOR]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
@@ -369,7 +373,8 @@ void Engine::Renderer::resize(uint w, uint h)
     m_fbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[TEXTURE_AMBIENT]);
     m_fbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[TEXTURE_POSITION]);
     m_fbo->attachTexture(GL_COLOR_ATTACHMENT2, m_textures[TEXTURE_NORMAL]);
-    m_fbo->attachTexture(GL_COLOR_ATTACHMENT3, m_textures[TEXTURE_COLOR]);
+    m_fbo->attachTexture(GL_COLOR_ATTACHMENT3, m_textures[TEXTURE_PICKING]);
+    m_fbo->attachTexture(GL_COLOR_ATTACHMENT4, m_textures[TEXTURE_COLOR]);
     m_fbo->check();
     m_fbo->unbind(true);
 
@@ -380,9 +385,6 @@ void Engine::Renderer::resize(uint w, uint h)
     m_postprocessFbo->unbind(true);
 
     GL_CHECK_ERROR;
-
-    // TODO(Charly): Remove camera stuff from the renderer
-    m_camera->updateProjMatrix(m_width, m_height);
 
     // Reset framebuffer state
     GL_ASSERT(glBindFramebuffer(GL_FRAMEBUFFER, 0));
@@ -405,212 +407,9 @@ void Engine::Renderer::debugTexture(uint texIdx)
     }
 }
 
-bool Engine::Renderer::handleMouseEvent(const Core::MouseEvent& event)
-{
-    switch (event.event)
-    {
-        case Core::MouseEventType::RA_MOUSE_PRESSED:
-        {
-            switch (event.button)
-            {
-                case Core::MouseButton::RA_MOUSE_LEFT_BUTTON:
-                {
-                    m_camRotateStarted = true;
-                    m_lastMouseX = event.absoluteXPosition / Scalar(m_width);
-                    m_lastMouseY = event.absoluteYPosition / Scalar(m_height);
-
-                    return true;
-                } break;
-
-                case Core::MouseButton::RA_MOUSE_MIDDLE_BUTTON:
-                {
-                    m_camZoomStarted = true;
-                    m_lastMouseX = event.absoluteXPosition / Scalar(m_width);
-                    m_lastMouseY = event.absoluteYPosition / Scalar(m_height);
-
-                    return true;
-                } break;
-
-                case Core::MouseButton::RA_MOUSE_RIGHT_BUTTON:
-                {
-                    m_camPanStarted = true;
-                    m_lastMouseX = event.absoluteXPosition / Scalar(m_width);
-                    m_lastMouseY = event.absoluteYPosition / Scalar(m_height);
-
-                    return true;
-                } break;
-            }
-        } break;
-
-        case Core::MouseEventType::RA_MOUSE_MOVED:
-        {
-            bool handled = false;
-
-            Scalar dx = event.absoluteXPosition / Scalar(m_width) - m_lastMouseX;
-            Scalar dy = event.absoluteYPosition / Scalar(m_height) - m_lastMouseY;
-
-            if (m_camRotateStarted)
-            {
-                m_camera->rotateRight(dx);
-                m_camera->rotateUp(dy);
-
-                handled = true;
-            }
-
-            if (m_camZoomStarted)
-            {
-                m_camera->walkForward(dy);
-
-                handled = true;
-            }
-
-            if (m_camPanStarted)
-            {
-                m_camera->strafeRight(-dx);
-                m_camera->moveUpward(dy);
-
-                handled = true;
-            }
-
-            m_lastMouseX = event.absoluteXPosition / Scalar(m_width);
-            m_lastMouseY = event.absoluteYPosition / Scalar(m_height);
-
-            if (handled)
-            {
-                return handled;
-            }
-        }
-
-        case Core::MouseEventType::RA_MOUSE_RELEASED:
-        {
-            switch (event.button)
-            {
-                case Core::MouseButton::RA_MOUSE_LEFT_BUTTON:
-                {
-                    m_camRotateStarted = false;
-                    return true;
-                } break;
-
-                case Core::MouseButton::RA_MOUSE_MIDDLE_BUTTON:
-                {
-                    m_camZoomStarted = false;
-                    return true;
-                } break;
-
-                case Core::MouseButton::RA_MOUSE_RIGHT_BUTTON:
-                {
-                    m_camPanStarted = false;
-                    return true;
-                } break;
-            }
-        } break;
-
-        case Core::MouseEventType::RA_MOUSE_WHEEL:
-        {
-            m_camera->walkForward( m_camera->getFocalPointDistance() * event.wheelDelta * 0.01 );//zoomIn(event.wheelDelta > 0 ? 0.1 : -0.1);
-            m_camera->updateProjMatrix(m_width, m_height);
-        }
-
-    }
-
-    return false;
-}
-
 void Engine::Renderer::reloadShaders()
 {
     ShaderProgramManager::getInstancePtr()->reloadAllShaderPrograms();
-}
-
-bool Engine::Renderer::handleKeyEvent(const Core::KeyEvent &event)
-{
-    switch (event.key)
-    {
-        // Reload shaders on Ctrl+R
-        case Qt::Key_R:
-        {
-            if (event.event == Core::KeyEventType::RA_KEY_RELEASED
-                    && event.modifier & Core::Modifier::RA_CTRL_KEY)
-            {
-                ShaderProgramManager::getInstancePtr()->reloadAllShaderPrograms();
-                return true;
-            }
-        } break;
-
-        // Handle camera moving. Just an example.
-        case Qt::Key_A:
-        {
-            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
-            {
-                m_camera->strafeLeft(0.1f);
-                return true;
-            }
-        } break;
-
-        case Qt::Key_D:
-        {
-            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
-            {
-                m_camera->strafeRight(0.1f);
-                return true;
-            }
-        } break;
-
-        case Qt::Key_W:
-        {
-            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
-            {
-                m_camera->walkForward(0.1f);
-                return true;
-            }
-        } break;
-
-        case Qt::Key_S:
-        {
-            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
-            {
-                m_camera->walkBackward(0.1f);
-                return true;
-            }
-        } break;
-
-        case Qt::Key_Up:
-        {
-            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
-            {
-                m_camera->rotateDown(Scalar(M_PI) / 50.0f);
-                return true;
-            }
-        } break;
-
-        case Qt::Key_Down:
-        {
-            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
-            {
-                m_camera->rotateUp(Scalar(M_PI) / 50.0f);
-                return true;
-            }
-        } break;
-
-        case Qt::Key_Left:
-        {
-            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
-            {
-                m_camera->rotateLeft(Scalar(M_PI) / 50.0f);
-                return true;
-            }
-        } break;
-
-        case Qt::Key_Right:
-        {
-            if (event.event == Core::KeyEventType::RA_KEY_PRESSED)
-            {
-                m_camera->rotateRight(Scalar(M_PI) / 50.0f);
-                return true;
-            }
-        } break;
-    }
-
-    return false;
 }
 
 } // namespace Ra

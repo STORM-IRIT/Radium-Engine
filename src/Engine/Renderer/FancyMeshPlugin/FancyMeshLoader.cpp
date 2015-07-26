@@ -197,10 +197,18 @@ void loadMaterial(const aiMaterial* mat, Engine::FancyComponentData& data)
     {
         material->setKd(assimpToCore(color));
     }
+    else
+    {
+        material->setKd(Core::Color(1, 0, 0, 1));
+    }
 
     if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_SPECULAR, color))
     {
         material->setKs(assimpToCore(color));
+    }
+    else
+    {
+        material->setKs(Core::Color(1, 0, 0, 1));
     }
 
 	data.material = material;

@@ -6,7 +6,8 @@ namespace Ra
 {
 
 Engine::Drawable::Drawable(const std::string& name)
-	: m_name(name)
+    : IndexedObject()
+    , m_name(name)
 	, m_material(nullptr)
 	, m_isDirty(true)
 {

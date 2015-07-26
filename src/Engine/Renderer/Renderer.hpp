@@ -37,6 +37,7 @@ public:
         TEXTURE_AMBIENT,
         TEXTURE_POSITION,
         TEXTURE_NORMAL,
+        TEXTURE_PICKING,
         TEXTURE_COLOR,
         TEXTURE_COUNT
     };
@@ -84,13 +85,6 @@ public:
      * @param height The new viewport height
      */
     virtual void resize(uint width, uint height);
-
-    // FIXME(Charly): Should renderer handle some event logic ?
-    // TODO(Charly) : Remove camera logic from the renderer.
-    virtual bool handleMouseEvent(const Core::MouseEvent& event);
-
-    // FIXME(Charly): Should renderer handle some event logic ?
-    virtual bool handleKeyEvent(const Core::KeyEvent& event);
 
     /**
      * @brief Change the texture that is displayed on screen.
@@ -169,9 +163,6 @@ protected:
     uint m_width;
     uint m_height;
 
-
-	std::shared_ptr<Camera> m_camera;
-	
 	ShaderProgramManager* m_shaderManager;
 
     // FIXME(Charly): Should we change "displayedTexture" to "debuggedTexture" ?
@@ -214,11 +205,7 @@ private:
     std::array<Texture*, TEXTURE_COUNT> m_textures;
 
     // FIXME(Charly): Camera stuff, needs to be moved to the viewer.
-    Scalar m_lastMouseX;
-    Scalar m_lastMouseY;
-    bool m_camRotateStarted;
-    bool m_camZoomStarted;
-    bool m_camPanStarted;
+
 
     Scalar m_totalTime;
     QTime m_time;

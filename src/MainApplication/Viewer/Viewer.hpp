@@ -31,6 +31,14 @@ class Viewer : public QOpenGLWidget, protected QOpenGLFunctions
 {
     Q_OBJECT
 
+private:
+    enum InteractionState
+    {
+        NONE,
+        CAMERA,
+        MANIPULATION
+    };
+
 public:
     /// CONSTRUCTOR
     explicit Viewer(QWidget* parent = nullptr);
@@ -67,6 +75,14 @@ private:
     Engine::RadiumEngine* m_engine;
     Engine::Renderer* m_renderer;
     Engine::Camera* m_camera;
+
+    InteractionState m_interactionState;
+
+    Scalar m_lastMouseX;
+    Scalar m_lastMouseY;
+    bool m_camRotateStarted;
+    bool m_camZoomStarted;
+    bool m_camPanStarted;
 };
 
 } // namespace Gui

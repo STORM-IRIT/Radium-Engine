@@ -90,35 +90,11 @@ void Gui::Viewer::initializeGL()
     m_renderer->initialize();
 
     m_camera = new Engine::Camera;
-//    m_engine->setupScene();
+    m_camera->setPosition(Core::Vector3(0, 0, -5), Engine::Camera::ModeType::TARGET);
+    m_camera->setTargetPoint(Core::Vector3(0, 0, 0));
+    m_camera->updateProjMatrix(width(), height());
+
     emit ready(this);
-  //  m_engine->start();
-
-//    loadFile("../Scenes/stanford_dragon/dragon.obj");
-
-//    Core::TriangleMesh d = Core::MeshUtils::makeGeodesicSphere(5, 1);
-//    Engine::Entity* ent = m_engine->createEntity();
-//    Engine::FancyMeshDrawable* comp = new Engine::FancyMeshDrawable;
-//    m_engine->addComponent(comp, ent, "RenderSystem");
-//    Engine::Mesh* mesh = new Engine::Mesh("mesh");
-//    mesh->loadGeometry(d);
-//    comp->addDrawable(mesh);
-//    Engine::Material* mat = new Engine::Material("material");
-
-
-//    const Engine::ShaderConfiguration defaultShaderConf("BlinnPhong", "../Shaders");
-//    const Engine::ShaderConfiguration contourShaderConf("BlinnPhongContour", "../Shaders",
-//                                                        Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM);
-//    const Engine::ShaderConfiguration wireframeShaderConf("BlinnPhongWireframe", "../Shaders",
-//                                                          Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM);
-
-//    Engine::ShaderProgramManager* m = Engine::ShaderProgramManager::getInstancePtr();
-//    mat->setDefaultShaderProgram(m->getShaderProgram(defaultShaderConf));
-//    mat->setContourShaderProgram(m->getShaderProgram(contourShaderConf));
-//    mat->setWireframeShaderProgram(m->getShaderProgram(wireframeShaderConf));
-//    comp->setMaterial(mat);
-
-//    emit entitiesUpdated();
 }
 
 void Gui::Viewer::setRadiumEngine(Engine::RadiumEngine* engine)
@@ -131,30 +107,107 @@ void Gui::Viewer::paintGL()
 {
     // TODO(Charly): Setup data, camera handled there.
     Engine::RenderData data;
+    m_camera->updateViewMatrix();
+    data.projMatrix = m_camera->getProjMatrix();
+    data.viewMatrix = m_camera->getViewMatrix();
+
     m_renderer->render(data);
 }
 
 void Gui::Viewer::resizeGL(int width, int height)
 {
+    m_camera->updateProjMatrix(width, height);
+
     m_renderer->resize(width, height);
 }
 
 void Gui::Viewer::mousePressEvent(QMouseEvent* event)
 {
-    QOpenGLWidget::mousePressEvent(event);
-    getMainWin(this)->viewerMousePressEvent(event);
+    switch (event->button())
+    {
+        case Qt::LeftButton:
+        {
+            if (m_interactionState != NONE)
+            {
+                // TODO(Charly): Handle interaction mode.
+                break;
+            }
 
+            m_interactionState = CAMERA;
+
+
+            if (event->modifiers().testFlag(Qt::NoModifier))
+            {
+                m_camRotateStarted = true;
+            }
+
+            if (event->modifiers().testFlag(Qt::ControlModifier))
+            {
+                m_camPanStarted = true;
+            }
+
+            if (event->modifiers().testFlag(Qt::ShiftModifier))
+            {
+                m_camZoomStarted = true;
+            }
+
+            m_lastMouseX = Scalar(event->x());
+            m_lastMouseY = Scalar(event->y());
+
+        } break;
+
+        case Qt::RightButton:
+        {
+            // Check picking
+        } break;
+
+        default:
+        {
+        } break;
+    }
 }
 void Gui::Viewer::mouseReleaseEvent(QMouseEvent* event)
 {
-    QOpenGLWidget::mouseReleaseEvent(event);
-    getMainWin(this)->viewerMouseReleaseEvent(event);
+    if (m_interactionState == CAMERA)
+    {
+        m_interactionState = NONE;
+
+        m_camRotateStarted = false;
+        m_camPanStarted = false;
+        m_camZoomStarted = false;
+    }
 }
 
 void Gui::Viewer::mouseMoveEvent(QMouseEvent* event)
 {
-    QOpenGLWidget::mouseMoveEvent(event);
-    getMainWin(this)->viewerMouseMoveEvent(event);
+    if (m_interactionState == CAMERA)
+    {
+        Scalar mouseX(event->pos().x());
+        Scalar mouseY(event->pos().y());
+
+        Scalar dx = (mouseX - m_lastMouseX) / Scalar(width());
+        Scalar dy = (mouseY - m_lastMouseY) / Scalar(height());
+
+        if (m_camRotateStarted)
+        {
+            m_camera->rotateRight(dx);
+            m_camera->rotateUp(dy);
+        }
+
+        if (m_camPanStarted)
+        {
+            m_camera->strafeRight(-dx);
+            m_camera->moveUpward(dy);
+        }
+
+        if (m_camZoomStarted)
+        {
+            m_camera->walkForward(dy);
+        }
+
+        m_lastMouseX = mouseX;
+        m_lastMouseY = mouseY;
+    }
 }
 
 void Gui::Viewer::wheelEvent(QWheelEvent* event)

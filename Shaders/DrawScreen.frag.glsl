@@ -8,6 +8,7 @@ uniform sampler2D ambient;
 uniform sampler2D position;
 uniform sampler2D normal;
 uniform sampler2D color;
+uniform sampler2D picking;
 
 uniform int isDepthTexture;
 uniform float zNear;
@@ -24,6 +25,7 @@ void main()
     vec4 positionValue  = vec4(texture(position , varTexcoord));
     vec4 normalValue    = vec4(texture(normal   , varTexcoord));
     vec4 colorValue     = vec4(texture(color    , varTexcoord));
+    vec4 pickingValue   = vec4(texture(picking  , varTexcoord));
 
     // depth -> linearize
     float n = 1.0;
@@ -34,8 +36,9 @@ void main()
 
 //    positionValue = positionValue.xyz != vec3(0) ? positionValue / 2 + 0.5 : vec4(0);
     normalValue = normalValue.xyz != vec3(0) ? normalValue / 2 + 0.5 : vec4(0);
+    pickingValue.xyz = pickingValue.xyz != vec3(1) ? pickingValue.xyz / 255 : vec3(1);
 
-//    value = normalValue;
+    value = pickingValue;
 
     fragColor = value;
 }

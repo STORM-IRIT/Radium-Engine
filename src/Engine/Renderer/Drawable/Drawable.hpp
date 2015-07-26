@@ -5,6 +5,7 @@
 #include <mutex>
 #include <memory>
 
+#include <Core/Index/IndexedObject.hpp>
 #include <Core/Math/Matrix.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 
@@ -14,7 +15,7 @@ namespace Ra { namespace Engine { class Component;     } }
 
 namespace Ra { namespace Engine {
 
-class Drawable
+class Drawable : public Core::IndexedObject
 {
 public:
     // FIXME(Charly): Set component in the constructor ?
