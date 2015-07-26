@@ -34,7 +34,6 @@ void Engine::System::addComponent(Engine::Component* component)
 
     m_components[name] = comp;
 
-    comp->setSystem(this);
 }
 
 void Engine::System::removeComponent(const std::string& name)

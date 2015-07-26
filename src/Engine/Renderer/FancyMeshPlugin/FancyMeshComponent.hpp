@@ -14,7 +14,6 @@ public:
 	virtual ~FancyMeshComponent();
 
 	virtual void initialize() override;
-	virtual void update(Scalar dt) override;
 
     void addMeshDrawable(const Core::TriangleMesh& mesh, const std::string& name);
 

@@ -1,12 +1,7 @@
 namespace Ra
 {
 
-inline void Engine::Component::setSystem(Engine::System* system)
-{
-    m_system = system;
-}
-
-inline void Engine::Component::setEntity(Engine::Entity* entity)
+inline void Engine::Component::setEntity(const Engine::Entity* entity)
 {
     m_entity = entity;
 }

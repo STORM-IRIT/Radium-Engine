@@ -32,27 +32,12 @@ public:
 	* When this method is called you are guaranteed to know your system and your entity
 	*/
 	virtual void initialize() = 0;
-    
-	/**
-     * @brief Pure virtual method to be overrided by any component.
-     * This update method depends on time (e.g. called by a physics system).
-     * @param dt Time elapsed since last call.
-     */
-    virtual void update(Scalar dt) = 0;
-
-    /**
-     * @brief Set system the component is updated by.
-     * This method is called by the system.
-     * @param system The system the component is updated by.
-     */
-    virtual void setSystem(System* system);
-
     /**
      * @brief Set entity the component is part of.
      * This method is called by the entity.
      * @param entity The entity the component is part of.
      */
-    virtual void setEntity(Entity* entity);
+    virtual void setEntity(const Entity* entity);
 	
 	virtual void setDrawableManager(DrawableManager* drawableMananger);
 
@@ -65,8 +50,8 @@ public:
 protected:
     std::string m_name;
 
-    System* m_system;
-    Entity* m_entity;
+    const Entity* m_entity;
+
 	DrawableManager* m_drawableManager;
 
     bool m_isSelected;

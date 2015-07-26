@@ -20,10 +20,11 @@ public:
 	virtual ~FancyMeshSystem();
 
 	virtual void initialize() override;
-	virtual void update(Scalar dt) override;
 	virtual void handleFileLoading(const std::string& filename) override;
 
     virtual Component* addComponentToEntity( Engine::Entity* entity ) override;
+
+    virtual void generateTasks(Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo) override;
 
     // Specialized factory methods for this systems.
     FancyMeshComponent* addDisplayMeshToEntity(Engine::Entity* entity, const Core::TriangleMesh& mesh);
