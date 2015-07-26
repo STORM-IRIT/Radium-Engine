@@ -100,10 +100,7 @@ void Engine::Renderer::initialize()
 void Engine::Renderer::initShaders()
 {
     m_depthAmbientShader = m_shaderManager->addShaderProgram("DepthAmbientPass");
-    m_shaderManager->addShaderProgram("BlinnPhong");
-
     m_compositingShader = m_shaderManager->addShaderProgram("Compose");
-
     m_drawScreenShader  = m_shaderManager->addShaderProgram("DrawScreen");
 }
 

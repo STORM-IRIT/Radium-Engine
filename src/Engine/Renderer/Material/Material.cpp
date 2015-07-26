@@ -19,6 +19,10 @@ Engine::Material::Material(const std::string& name)
     , m_wireframeShader(nullptr)
     , m_materialType(MAT_OPAQUE)
 {
+    ShaderProgramManager& manager  = ShaderProgramManager::getInstanceRef();
+    m_defaultShaderConfiguration   = manager.getDefaultShaderProgram()->getBasicConfiguration();
+    m_contourShaderConfiguration   = manager.getDefaultShaderProgram()->getBasicConfiguration();
+    m_wireframeShaderConfiguration = manager.getDefaultShaderProgram()->getBasicConfiguration();
 }
 
 Engine::Material::~Material()
