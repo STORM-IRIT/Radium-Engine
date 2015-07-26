@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <Core/Math/Vector.hpp>
+#include <Core/Containers/AlignedAllocator.hpp>
 
 namespace Ra { namespace Core
 {

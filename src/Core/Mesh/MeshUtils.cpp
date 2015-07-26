@@ -8,7 +8,6 @@ namespace Ra { namespace Core
     {
         void getAutoNormals(TriangleMesh& mesh, VectorArray<Vector3>& normalsOut)
         {
-
             const uint numVertices = mesh.m_vertices.size();
             const uint numTriangles = mesh.m_triangles.size();
 

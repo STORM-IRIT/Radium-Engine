@@ -35,7 +35,7 @@ const Engine::ShaderConfiguration wireframeShaderConf("BlinnPhongWireframe", "..
                                                       Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM);
 
 std::string filepath;
-std::vector<Engine::FancyComponentData> dataVector;
+static DataVector dataVector;
 
 void assimpToCore(const aiVector3D& inVector, Core::Vector3& outVector);
 void assimpToCore(const aiColor4D& inColor, Core::Color& outColor);
@@ -54,7 +54,7 @@ void loadMaterial(const aiMaterial* mat, Engine::FancyComponentData& data);
 void loadDefaultMaterial(Engine::FancyComponentData& data);
 }
 
-std::vector<Engine::FancyComponentData> Engine::FancyMeshLoader::loadFile(const std::string & name)
+DataVector Engine::FancyMeshLoader::loadFile(const std::string & name)
 {
     fprintf(stderr, "Loading file \"%s\"...\n", name.c_str());
 

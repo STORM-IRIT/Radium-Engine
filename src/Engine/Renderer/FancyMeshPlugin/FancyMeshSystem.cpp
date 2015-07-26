@@ -27,7 +27,7 @@ void Engine::FancyMeshSystem::handleFileLoading(const std::string& filename)
 	// TODO
 	printf("FancyMeshSystem::Loading file %s\n", filename.c_str());
 
-	std::vector<FancyComponentData> componentsData = FancyMeshLoader::loadFile(filename);
+	DataVector componentsData = FancyMeshLoader::loadFile(filename);
 
     printf("Found %zu components to create\n", componentsData.size());
 

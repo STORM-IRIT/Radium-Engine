@@ -23,11 +23,11 @@ struct FancyMeshData
 
 struct FancyComponentData
 {
-	std::string name;
-	
+    RA_CORE_ALIGNED_NEW
 	Core::Matrix4 transform;
 	std::vector<FancyMeshData> meshes;
 
+	std::string name;
 	Material* material;
 };
 
