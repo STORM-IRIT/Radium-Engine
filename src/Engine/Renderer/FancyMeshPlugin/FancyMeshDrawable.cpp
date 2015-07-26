@@ -64,6 +64,7 @@ void Engine::FancyMeshDrawable::draw(const Core::Matrix4& viewMatrix,
         return;
     }
 
+
     ShaderProgram* shader = m_material->getCurrentShaderProgram();
     if (nullptr == shader)
     {
@@ -140,7 +141,7 @@ void Engine::FancyMeshDrawable::updateGLInternal()
 	m_material->updateGL();
 	for (auto& mesh : m_meshes)
 	{
-		mesh.second->updateGL();
+        mesh.second->updateGL();
 	}
 
 	m_isDirty = false;

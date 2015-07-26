@@ -75,6 +75,7 @@ namespace Ra
         // Wait for callback from  gui to  start the engine.
         // Maybe we should do it directly (i.e. grab the viewer from the main window).
         CORE_ASSERT(m_viewer != nullptr, "GUI or OpenGL was not initialized");
+        m_viewer->setRadiumEngine(m_engine.get());
 
         emit starting();
 
@@ -86,7 +87,7 @@ namespace Ra
 
     void MainApplication::loadFile(QString path)
     {
-        std::string pathStr = path.toLocal8Bit();
+        std::string pathStr = path.toLocal8Bit().data();
         bool res = m_engine->loadFile(pathStr);
     }
 
@@ -111,18 +112,18 @@ namespace Ra
 
         m_mainWindow->flushEvents();
 
-        for (int i = 0; i < 10; ++i)
-        {
-            Core::DummyTask* task = new Core::DummyTask;
-            Core::DummyTaskParams p; p.m_iters = 3*(i % 7);
-            task->init(&p);
-            Core::TaskQueue::TaskId id = m_taskQueue->registerTask(task);
-            if (i > 0)
-            {
-                m_taskQueue->addDependency(id / 2, id);
-            }
-            m_taskQueue->queueTask(id);
-        }
+//        for (int i = 0; i < 10; ++i)
+//        {
+//            Core::DummyTask* task = new Core::DummyTask;
+//            Core::DummyTaskParams p; p.m_iters = 3*(i % 7);
+//            task->init(&p);
+//            Core::TaskQueue::TaskId id = m_taskQueue->registerTask(task);
+//            if (i > 0)
+//            {
+//                m_taskQueue->addDependency(id / 2, id);
+//            }
+//            m_taskQueue->queueTask(id);
+//        }
 
 
         // Run one frame of tasks
@@ -140,8 +141,8 @@ namespace Ra
     MainApplication::~MainApplication()
     {
         fprintf(stderr, "About to quit... Cleaning RadiumEngine memory.\n");
-	emit stopping();
-	m_engine->quit();
+        emit stopping();
+        m_engine->quit();
     }
 
 }

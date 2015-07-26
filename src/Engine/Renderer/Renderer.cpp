@@ -35,14 +35,15 @@ namespace
     };
 }
 
-Engine::Renderer::Renderer( uint width, uint height)
-    : m_width(width)
+Engine::Renderer::Renderer(uint width, uint height)
+    : m_engine(nullptr)
+    , m_width(width)
     , m_height(height)
     , m_camera(nullptr)
     , m_shaderManager(nullptr)
     , m_displayedTexture(nullptr)
     , m_displayedIsDepth(false)
-    , m_depthShader(nullptr)
+    , m_depthAmbientShader(nullptr)
     , m_compositingShader(nullptr)
     , m_drawScreenShader(nullptr)
     , m_quadMesh(nullptr)
@@ -62,7 +63,6 @@ Engine::Renderer::~Renderer()
 
 void Engine::Renderer::initialize()
 {
-
     // TODO(Charly): Remove camera stuff
     m_camera = std::shared_ptr<Camera>( new Camera() );
     m_camera->setPosition(Core::Vector3(0, 2, -5), Camera::ModeType::TARGET);
@@ -99,7 +99,7 @@ void Engine::Renderer::initialize()
 
 void Engine::Renderer::initShaders()
 {
-    m_depthShader = m_shaderManager->addShaderProgram("DepthPass");
+    m_depthAmbientShader = m_shaderManager->addShaderProgram("DepthAmbientPass");
     m_shaderManager->addShaderProgram("BlinnPhong");
 
     m_compositingShader = m_shaderManager->addShaderProgram("Compose");
@@ -112,8 +112,10 @@ void Engine::Renderer::initBuffers()
     m_fbo = new FBO(FBO::Components(FBO::COLOR | FBO::DEPTH), m_width, m_height);
     m_postprocessFbo = new FBO(FBO::Components(FBO::COLOR), m_width, m_height);
 
-    m_textures[TEXTURE_DEPTH] = new Texture("Depth", GL_TEXTURE_2D);
-    m_textures[TEXTURE_COLOR] = new Texture("Color", GL_TEXTURE_2D);
+    m_textures[TEXTURE_DEPTH]   = new Texture("Depth", GL_TEXTURE_2D);
+    m_textures[TEXTURE_COLOR]   = new Texture("Color", GL_TEXTURE_2D);
+    m_textures[TEXTURE_AMBIENT] = new Texture("Ambient", GL_TEXTURE_2D);
+
     m_finalTexture = new Texture("Final", GL_TEXTURE_2D);
 
     resize(m_width, m_height);
@@ -123,11 +125,16 @@ void Engine::Renderer::initBuffers()
 
 void Engine::Renderer::render(const RenderData& data)
 {
+    std::vector<std::shared_ptr<Drawable>> drawables;
+    if (m_engine != nullptr)
+    {
+        drawables = m_engine->getDrawableManager()->getDrawables();
+    }
+
     saveExternalFBOInternal();
     m_totalTime = m_time.elapsed()/1000.f;
 //    m_totalTime += 1.0 / 60.0;
 
-    std::vector<std::shared_ptr<Drawable>> drawables;
     updateDrawablesInternal(data, drawables);
     renderInternal(data, drawables);
     postProcessInternal(data, drawables);
@@ -155,17 +162,19 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
                                       const std::vector<std::shared_ptr<Drawable>>& drawables)
 {
     m_fbo->useAsTarget();
-    GL_ASSERT(glDepthMask(GL_TRUE));
 
-    m_fbo->bind();
     GL_ASSERT(glDepthMask(GL_TRUE));
     GL_ASSERT(glColorMask(1, 1, 1, 1));
 
-    GL_ASSERT(glClearColor(0.2f, 0.2f, 0.2f, 1.0f));
-    GL_ASSERT(glClearDepth(1.0));
-    m_fbo->clear(FBO::Components(FBO::COLOR | FBO::DEPTH));
+    GL_ASSERT(glDrawBuffers(2, buffers));
 
-    GL_ASSERT(glDrawBuffers(1, buffers));
+    Core::Color clearColor(0.2, 0.2, 0.2, 1.0);
+    Core::Color clearGeom(0.0, 0.0, 0.0, 0.0);
+    Scalar clearDepth = 1.0;
+
+    GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearColor.data())); // Clear ambient
+    GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearGeom.data()));  // Clear color
+    GL_ASSERT(glClearBufferfv(GL_DEPTH, 0, &clearDepth));       // Clear depth
 
     m_camera->updateViewMatrix();
 
@@ -173,30 +182,30 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     Core::Matrix4 view = m_camera->getViewMatrix();
     Core::Matrix4 proj = m_camera->getProjMatrix();
 
-    // Z Prepass
+    // Z + Ambient Prepass
+    GL_ASSERT(glEnable(GL_DEPTH_TEST));
+    GL_ASSERT(glDepthFunc(GL_LESS));
+    GL_ASSERT(glDepthMask(GL_TRUE));
+
+    GL_ASSERT(glDisable(GL_BLEND));
+
+    GL_ASSERT(glDrawBuffers(1, buffers)); // Draw ambient texture
+
+    m_depthAmbientShader->bind();
+
+    for (const auto& d : drawables)
     {
-        glEnable(GL_DEPTH_TEST);
-        glDepthFunc(GL_LESS);
-        glColorMask(0, 0, 0, 0);
-        glDepthMask(GL_TRUE);
-
-        glDisable(GL_BLEND);
-
-        m_depthShader->bind();
-
-        for (const auto& d : drawables)
-        {
-            d->draw(view, proj, m_depthShader);
-        }
+        d->draw(view, proj, m_depthAmbientShader);
     }
 
-    // Light passes
-    glDepthFunc(GL_LEQUAL);
-    glColorMask(1, 1, 1, 1);
-    glDepthMask(GL_FALSE);
+    // Light pass
+    GL_ASSERT(glDepthFunc(GL_LEQUAL));
+    GL_ASSERT(glDepthMask(GL_FALSE));
 
     GL_ASSERT(glEnable(GL_BLEND));
     GL_ASSERT(glBlendFunc(GL_ONE, GL_ONE));
+
+    GL_ASSERT(glDrawBuffers(1, buffers + 1)); // Draw color texture
 
     if (m_lights.size() > 0)
     {
@@ -219,7 +228,11 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
         }
     }
 
-	m_fbo->unbind();
+    GL_ASSERT(glDisable(GL_BLEND));
+    GL_ASSERT(glDepthMask(GL_TRUE));
+    GL_ASSERT(glDepthFunc(GL_LESS));
+
+    m_fbo->unbind();
 }
 
 void Engine::Renderer::postProcessInternal(const RenderData &renderData,
@@ -228,24 +241,29 @@ void Engine::Renderer::postProcessInternal(const RenderData &renderData,
     CORE_UNUSED(renderData);
     CORE_UNUSED(drawables);
 
-    m_postprocessFbo->useAsTarget();
-	GL_ASSERT(glDrawBuffers(1, buffers));
+    m_postprocessFbo->useAsTarget(m_width, m_height);
 
-	GL_ASSERT(glClearColor(0.0, 0.0, 0.0, 0.0));
-	// FIXME(Charly): Do we really need to clear the depth buffer ?
-	GL_ASSERT(glClearDepth(1.0));
-	GL_ASSERT(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+    GL_ASSERT(glDepthMask(GL_TRUE));
+    GL_ASSERT(glColorMask(1, 1, 1, 1));
+
+    GL_ASSERT(glClearColor(1.0, 0.0, 0.0, 0.0));
+    GL_ASSERT(glClearDepth(0.0));
+    m_postprocessFbo->clear(FBO::Components(FBO::COLOR | FBO::DEPTH));
+
+    // FIXME(Charly): Do we really need to clear the depth buffer ?
+    GL_ASSERT(glDrawBuffers(1, buffers));
+
+    GL_ASSERT(glDepthFunc(GL_ALWAYS));
 	
-	GL_ASSERT(glDepthFunc(GL_ALWAYS));
-
     m_compositingShader->bind();
-    m_compositingShader->setUniform("color", m_textures[TEXTURE_COLOR], 0);
+    m_compositingShader->setUniform("ambient", m_textures[TEXTURE_AMBIENT], 0);
+    m_compositingShader->setUniform("color", m_textures[TEXTURE_COLOR], 1);
 
     m_quadMesh->draw();
 
-    m_postprocessFbo->unbind();
+    GL_ASSERT(glDepthFunc(GL_LESS));
 
-	GL_ASSERT(glDepthFunc(GL_LESS));
+    m_postprocessFbo->unbind();
 }
 
 void Engine::Renderer::drawScreenInternal()
@@ -264,9 +282,9 @@ void Engine::Renderer::drawScreenInternal()
     GL_ASSERT(glClearColor(0.0, 0.0, 0.0, 0.0));
     // FIXME(Charly): Do we really need to clear the depth buffer ?
     GL_ASSERT(glClearDepth(1.0));
-    GL_ASSERT(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+    GL_ASSERT(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 
-	GL_ASSERT(glDepthFunc(GL_ALWAYS));
+    GL_ASSERT(glDepthFunc(GL_ALWAYS));
 
     GL_ASSERT(glViewport(0, 0, m_width, m_height));
 
@@ -274,7 +292,11 @@ void Engine::Renderer::drawScreenInternal()
     m_drawScreenShader->setUniform("isDepthTexture", m_displayedIsDepth ? 1 : 0);
     m_drawScreenShader->setUniform("zNear", m_camera->getZNear());
     m_drawScreenShader->setUniform("zFar", m_camera->getZFar());
-    m_drawScreenShader->setUniform("screenTexture", m_displayedTexture, 0);
+    m_drawScreenShader->setUniform("screenTexture", m_finalTexture, 0);
+
+    m_drawScreenShader->setUniform("color0", m_textures[TEXTURE_COLOR], 1);
+    m_drawScreenShader->setUniform("color1", m_textures[TEXTURE_DEPTH], 2);
+
     m_drawScreenShader->setUniform("totalTime", m_totalTime);
     m_quadMesh->draw();
 
@@ -295,6 +317,10 @@ void Engine::Renderer::resize(uint w, uint h)
     {
         m_textures[TEXTURE_COLOR]->deleteGL();
     }
+    if (m_textures[TEXTURE_AMBIENT]->getId() != 0)
+    {
+        m_textures[TEXTURE_AMBIENT]->deleteGL();
+    }
 
     if (m_finalTexture->getId() != 0)
     {
@@ -302,22 +328,26 @@ void Engine::Renderer::resize(uint w, uint h)
     }
 
     m_textures[TEXTURE_DEPTH]->initGL(GL_DEPTH_COMPONENT24, w, h, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr);
-    m_textures[TEXTURE_DEPTH]->setFilter(GL_NEAREST, GL_NEAREST);
+    m_textures[TEXTURE_DEPTH]->setFilter(GL_LINEAR, GL_LINEAR);
     m_textures[TEXTURE_DEPTH]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
     m_textures[TEXTURE_COLOR]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
-    m_textures[TEXTURE_COLOR]->setFilter(GL_NEAREST, GL_NEAREST);
+    m_textures[TEXTURE_COLOR]->setFilter(GL_LINEAR, GL_LINEAR);
     m_textures[TEXTURE_COLOR]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
+    m_textures[TEXTURE_AMBIENT]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
+    m_textures[TEXTURE_AMBIENT]->setFilter(GL_LINEAR, GL_LINEAR);
+    m_textures[TEXTURE_AMBIENT]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+
     m_finalTexture->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
-    // FIXME(Charly): Filtering here ?
-    m_finalTexture->setFilter(GL_NEAREST, GL_NEAREST);
+    m_finalTexture->setFilter(GL_LINEAR, GL_LINEAR);
     m_finalTexture->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
     m_fbo->bind();
     m_fbo->setSize(w, h);
     m_fbo->attachTexture(GL_DEPTH_ATTACHMENT, m_textures[TEXTURE_DEPTH]);
-    m_fbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[TEXTURE_COLOR]);
+    m_fbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[TEXTURE_AMBIENT]);
+    m_fbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[TEXTURE_COLOR]);
     m_fbo->check();
     m_fbo->unbind(true);
 

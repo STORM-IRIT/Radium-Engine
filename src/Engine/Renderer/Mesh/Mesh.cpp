@@ -10,6 +10,7 @@ namespace Ra
 Engine::Mesh::Mesh(const std::string& name)
     : m_name(name)
     , m_initialized(false)
+    , m_isDirty(true)
     , m_vao(0)
     , m_vbo(0)
     , m_nbo(0)
@@ -104,12 +105,23 @@ void Engine::Mesh::computeAdjacency()
 
 void Engine::Mesh::updateGL()
 {
+    if (!m_isDirty)
+    {
+        return;
+    }
+
     if (m_vao == 0)
     {
-        // VAO activation.
+        // Create VAO if it does not exist
         GL_ASSERT(glGenVertexArrays(1, &m_vao));
-        GL_ASSERT(glBindVertexArray(m_vao));
+    }
 
+    // Bind it
+    GL_ASSERT(glBindVertexArray(m_vao));
+
+    if (!m_initialized)
+    {
+        // Generate buffer objects if they do not exist
         GL_ASSERT(glGenBuffers(1, &m_vbo));
         GL_ASSERT(glGenBuffers(1, &m_nbo));
         GL_ASSERT(glGenBuffers(1, &m_tbo));
@@ -117,7 +129,8 @@ void Engine::Mesh::updateGL()
         GL_ASSERT(glGenBuffers(1, &m_cbo));
         GL_ASSERT(glGenBuffers(1, &m_ibo));
     }
-        // Common values for GL data functions.
+
+    // Common values for GL data functions.
 #if defined CORE_USE_DOUBLE
     GLenum type = GL_DOUBLE;
 #else
@@ -216,6 +229,7 @@ void Engine::Mesh::updateGL()
     GL_CHECK_ERROR;
 
     m_initialized = true;
+    m_isDirty = false;
 }
 
 void Engine::Mesh::computeNormals()

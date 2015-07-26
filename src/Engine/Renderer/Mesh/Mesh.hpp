@@ -41,6 +41,7 @@ public:
 	const Vector3Array& getBitangents() const { return m_bitangents; }
 	const Vector3Array& getTexcoords() const { return m_texcoords; }
 
+    void setDirty() { m_isDirty = true; }
     void updateGL();
 
     void draw();
@@ -54,6 +55,7 @@ private:
 private:
     std::string m_name;
     bool m_initialized;
+    bool m_isDirty;
 
     Core::TriangleMesh m_data;
     Vector3Array m_texcoords;

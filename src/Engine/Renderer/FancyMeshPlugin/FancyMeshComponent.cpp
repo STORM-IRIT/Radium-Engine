@@ -34,13 +34,15 @@ void Engine::FancyMeshComponent::handleMeshLoading(const FancyComponentData& dat
 	drawable->setComponent(this);
 	drawable->setVisible(true);
 
+    fprintf(stderr, "About to create drawable\n");
+
 	for (uint i = 0; i < data.meshes.size(); ++i)
 	{
 		FancyMeshData meshData = data.meshes[i];
 
 		std::string meshName;
 		Core::StringUtils::stringPrintf(meshName, "%s_mesh_%u", 
-										data.name, i);
+                                        data.name.c_str(), i);
 
 		Mesh* mesh = new Mesh(meshName);
 		mesh->loadGeometry(meshData.mesh, meshData.tangents, 
@@ -51,6 +53,8 @@ void Engine::FancyMeshComponent::handleMeshLoading(const FancyComponentData& dat
 	drawable->setMaterial(data.material);
 
 	m_drawable = m_drawableManager->addDrawable(drawable);
+
+    fprintf(stderr, "Done creating drawable, index : %u\n", m_drawable.getValue());
 }
 
 }

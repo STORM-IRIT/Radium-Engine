@@ -35,6 +35,7 @@ public:
     {
         TEXTURE_DEPTH = 0,
         TEXTURE_COLOR = 1,
+        TEXTURE_AMBIENT = 2,
         TEXTURE_COUNT
     };
 
@@ -46,6 +47,8 @@ public:
     virtual ~Renderer();
 
     virtual void initialize();
+
+    void setEngine(RadiumEngine* engine) { m_engine = engine; }
 
     /**
      * @brief Tell the renderer it needs to render.
@@ -193,7 +196,7 @@ protected:
 
 private:
     // Default renderer logic here, no need to be accessed by overriding renderers.
-    ShaderProgram* m_depthShader;
+    ShaderProgram* m_depthAmbientShader;
     ShaderProgram* m_compositingShader;
     ShaderProgram* m_drawScreenShader;
 

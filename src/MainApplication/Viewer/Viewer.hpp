@@ -38,6 +38,8 @@ public:
     /// DESTRUCTOR
     ~Viewer();
 
+    void setRadiumEngine(Engine::RadiumEngine* engine);
+
     void quit();
 
 signals:
@@ -59,6 +61,7 @@ protected:
     virtual void wheelEvent(QWheelEvent* event) override;
 
 private:
+    Engine::RadiumEngine* m_engine;
     Engine::Renderer* m_renderer;
     Engine::Camera* m_camera;
 };

@@ -15,7 +15,6 @@ Engine::EntityManager::~EntityManager()
     for (uint i = 0; i < m_entities.size(); ++i)
     {
         auto ent = m_entities[i];
-        CORE_ASSERT(ent.unique(), "Non-unique entity about to be removed.");
         ent.reset();
     }
 

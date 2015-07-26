@@ -121,6 +121,13 @@ void Gui::Viewer::initializeGL()
 
 //    emit entitiesUpdated();
 }
+
+void Gui::Viewer::setRadiumEngine(Engine::RadiumEngine* engine)
+{
+    m_engine = engine;
+    m_renderer->setEngine(engine);
+}
+
 void Gui::Viewer::paintGL()
 {
     // TODO(Charly): Setup data, camera handled there.

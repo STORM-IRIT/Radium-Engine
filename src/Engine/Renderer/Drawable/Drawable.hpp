@@ -3,6 +3,7 @@
 
 #include <string>
 #include <mutex>
+#include <memory>
 
 #include <Core/Math/Matrix.hpp>
 #include <Engine/Renderer/Material/Material.hpp>

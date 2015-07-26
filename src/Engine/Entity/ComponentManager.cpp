@@ -16,7 +16,6 @@ Engine::ComponentManager::~ComponentManager()
     {
         // FIXME (Charly): Check if every accessed idx is guaranted to exist.
         auto comp = m_components[i];
-        CORE_ASSERT(comp.unique(), "Non-unique component about to be removed.");
         comp.reset();
     }
 

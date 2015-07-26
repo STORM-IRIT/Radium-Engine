@@ -35,6 +35,7 @@ inline Engine::ShaderProgram* Engine::Material::getCurrentShaderProgram() const
 inline void Engine::Material::changeMode(const Material::MaterialMode& mode)
 {
     m_mode = mode;
+    m_isDirty = true;
 }
 
 inline void Engine::Material::setKd(const Core::Color& kd)

@@ -75,12 +75,12 @@ std::vector<Engine::FancyComponentData> Engine::FancyMeshLoader::loadFile(const 
         return dataVector;
     }
 
-	printf("About to load file %s :\n", name.c_str());
-	printf("\tFound %d meshes and %d materials\n", scene->mNumMeshes, scene->mNumMaterials);
+    fprintf(stderr, "About to load file %s :\n", name.c_str());
+    fprintf(stderr, "\tFound %d meshes and %d materials\n", scene->mNumMeshes, scene->mNumMaterials);
 
     runThroughNodes(scene->mRootNode, scene, Core::Matrix4::Identity());
 
-	printf("Loaded successfully. Vector size : %d\n", dataVector.size());
+    fprintf(stderr, "Loaded successfully. Vector size : %u\n", dataVector.size());
 
 	return dataVector;
 }
@@ -91,8 +91,7 @@ namespace
 void runThroughNodes(const aiNode* node, const aiScene* scene,
                      const Core::Matrix4& transform)
 {
-    static int currentMesh = 0;
-	printf("RunThroughNodes\n");
+    fprintf(stderr, "RunThroughNodes\n");
 
     if (node->mNumChildren == 0 && node->mNumMeshes == 0)
     {
