@@ -11,6 +11,7 @@ namespace Ra
 Engine::Material::Material(const std::string& name)
     : m_kd(1.0, 1.0, 1.0, 1.0)
     , m_ks(1.0, 1.0, 1.0, 1.0)
+	, m_ns(1.0)
     , m_name(name)
     , m_isDirty(true)
     , m_mode(MODE_DEFAULT)
@@ -88,6 +89,7 @@ void Engine::Material::bind(ShaderProgram *shader)
 
     shader->setUniform("material.kd", m_kd);
     shader->setUniform("material.ks", m_ks);
+	shader->setUniform("material.ns", m_ns);
 
     Texture* tex = nullptr;
     uint texUnit = 0;
@@ -130,6 +132,19 @@ void Engine::Material::bind(ShaderProgram *shader)
     {
         shader->setUniform("material.tex.hasNormal", 0);
     }
+
+	tex = m_textures[TEX_SHININESS];
+	if (tex != nullptr)
+	{
+		tex->bind(texUnit);
+		shader->setUniform("material.tex.ns", tex, texUnit);
+		shader->setUniform("material.tex.hasNs", 1);
+		++texUnit;
+	}
+	else
+	{
+		shader->setUniform("material.tex.hasNs", 0);
+	}
 
     tex = m_textures[TEX_ALPHA];
     if (tex != nullptr)

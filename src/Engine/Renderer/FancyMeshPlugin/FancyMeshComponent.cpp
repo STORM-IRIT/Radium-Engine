@@ -49,9 +49,9 @@ void Engine::FancyMeshComponent::handleMeshLoading(const FancyComponentData& dat
 	{
 		FancyMeshData meshData = data.meshes[i];
 
-		std::string meshName;
-		Core::StringUtils::stringPrintf(meshName, "%s_mesh_%u", 
-                                        data.name.c_str(), i);
+		std::stringstream ss;
+		ss << data.name << "_mesh_" << i;
+		std::string meshName = ss.str();
 
 		Mesh* mesh = new Mesh(meshName);
 		mesh->loadGeometry(meshData.mesh, meshData.tangents, 

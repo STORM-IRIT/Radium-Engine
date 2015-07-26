@@ -119,57 +119,57 @@ void runThroughNodes(const aiNode* node, const aiScene* scene,
 			loadDefaultMaterial(data);
 		}
 
-        for (uint i = 0; i < node->mNumMeshes; ++i)
-        {
+		for (uint i = 0; i < node->mNumMeshes; ++i)
+		{
 			Engine::FancyMeshData meshData;
 
-            aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            loadMesh(mesh, meshData);
+			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+			loadMesh(mesh, meshData);
 
 			data.meshes.push_back(meshData);
-        }
+		}
 
 		dataVector.push_back(data);
-    }
+	}
 
-    for (uint i = 0; i < node->mNumChildren; ++i)
-    {
-        runThroughNodes(node->mChildren[i], scene, matrix);
-    }
+	for (uint i = 0; i < node->mNumChildren; ++i)
+	{
+		runThroughNodes(node->mChildren[i], scene, matrix);
+	}
 }
 
 void loadMesh(const aiMesh* mesh, Engine::FancyMeshData& data)
 {
-    Core::TriangleMesh meshData;
-    Core::Vector3Array tangents;
-    Core::Vector3Array bitangents;
+	Core::TriangleMesh meshData;
+	Core::Vector3Array tangents;
+	Core::Vector3Array bitangents;
 	Core::Vector3Array texcoords;
 
-    for (uint i = 0; i < mesh->mNumVertices; ++i)
-    {
+	for (uint i = 0; i < mesh->mNumVertices; ++i)
+	{
 		meshData.m_vertices.push_back(assimpToCore(mesh->mVertices[i]));
 		meshData.m_normals.push_back(assimpToCore(mesh->mNormals[i]));
 
-        if (mesh->HasTangentsAndBitangents())
-        {
-            tangents.push_back(assimpToCore(mesh->mTangents[i]));
-            bitangents.push_back(assimpToCore(mesh->mBitangents[i]));
-        }
+		if (mesh->HasTangentsAndBitangents())
+		{
+			tangents.push_back(assimpToCore(mesh->mTangents[i]));
+			bitangents.push_back(assimpToCore(mesh->mBitangents[i]));
+		}
 
 		// FIXME(Charly): What do texture coords indices mean ? 
 		if (mesh->HasTextureCoords(0))
 		{
 			texcoords.push_back(assimpToCore(mesh->mTextureCoords[0][i]));
 		}
-    }
+	}
 
-    for (uint i = 0; i < mesh->mNumFaces; ++i)
-    {
-        aiFace f = mesh->mFaces[i];
+	for (uint i = 0; i < mesh->mNumFaces; ++i)
+	{
+		aiFace f = mesh->mFaces[i];
 
 		meshData.m_triangles.push_back(
-                    Core::Triangle(f.mIndices[0], f.mIndices[1], f.mIndices[2]));
-    }
+			Core::Triangle(f.mIndices[0], f.mIndices[1], f.mIndices[2]));
+	}
 
 	data.mesh = meshData;
 	data.tangents = tangents;
@@ -180,61 +180,73 @@ void loadMesh(const aiMesh* mesh, Engine::FancyMeshData& data)
 void loadMaterial(const aiMaterial* mat, Engine::FancyComponentData& data)
 {
 	std::string materialName = data.name.append("_Material");
-    if (mat == nullptr)
-    {
-        loadDefaultMaterial(data);
-        return;
-    }
+	if (mat == nullptr)
+	{
+		loadDefaultMaterial(data);
+		return;
+	}
 
-    // TODO(Charly): Handle different shader programs
-    // TODO(Charly): Handle transparency
-    Engine::Material* material = new Engine::Material(materialName);
+	// TODO(Charly): Handle different shader programs
+	// TODO(Charly): Handle transparency
+	Engine::Material* material = new Engine::Material(materialName);
 
-    material->setDefaultShaderProgram(defaultShaderConf);
-    material->setContourShaderProgram(contourShaderConf);
-    material->setWireframeShaderProgram(wireframeShaderConf);
+	material->setDefaultShaderProgram(defaultShaderConf);
+	material->setContourShaderProgram(contourShaderConf);
+	material->setWireframeShaderProgram(wireframeShaderConf);
 
-    aiColor4D color;
-    if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_DIFFUSE, color))
-    {
-        material->setKd(assimpToCore(color));
-    }
-    else
-    {
-        material->setKd(Core::Color(1, 0, 0, 1));
-    }
+	aiColor4D color;
+	if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_DIFFUSE, color))
+	{
+		material->setKd(assimpToCore(color));
+	}
+	else
+	{
+		material->setKd(Core::Color(0, 0, 0, 1));
+	}
 
-    if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_SPECULAR, color))
-    {
-        material->setKs(assimpToCore(color));
-    }
-    else
-    {
-        material->setKs(Core::Color(1, 0, 0, 1));
-    }
+	if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_SPECULAR, color))
+	{
+		material->setKs(assimpToCore(color));
+	}
+	else
+	{
+		material->setKs(Core::Color(0, 0, 0, 1));
+	}
+
+	Scalar shininess;
+	if (AI_SUCCESS == mat->Get(AI_MATKEY_SHININESS, shininess))
+	{
+		material->setNs(shininess);
+	}
+	else
+	{
+		material->setKs(Core::Color(0, 0, 0, 1));
+		material->setNs(1.0);
+	}
 
     aiString name;
     if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_DIFFUSE, 0), name))
     {
-        fprintf(stderr, "Found kd texture\n");
         material->addTexture(Engine::Material::TEX_DIFFUSE, filepath + "/" + std::string(name.C_Str()));
     }
 
     if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_SPECULAR, 0), name))
     {
-        fprintf(stderr, "Found ks texture\n");
         material->addTexture(Engine::Material::TEX_SPECULAR, filepath + "/" + std::string(name.C_Str()));
     }
 
     if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_NORMALS, 0), name))
     {
-        fprintf(stderr, "Found n texture\n");
         material->addTexture(Engine::Material::TEX_NORMAL, filepath + "/" + std::string(name.C_Str()));
     }
 
+	if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_SHININESS, 0), name))
+	{
+		material->addTexture(Engine::Material::TEX_SHININESS, filepath + "/" + std::string(name.C_Str()));
+	}
+
     if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_OPACITY, 0), name))
     {
-        fprintf(stderr, "Found a texture\n");
         material->addTexture(Engine::Material::TEX_ALPHA, filepath + "/" + std::string(name.C_Str()));
     }
 

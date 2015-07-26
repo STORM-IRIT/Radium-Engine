@@ -13,7 +13,7 @@ namespace Ra { namespace Engine {
 class TextureManager : public Core::Singleton<TextureManager>
 {
 private:
-    friend class Singleton<TextureManager>;
+    friend class Core::Singleton<TextureManager>;
     typedef std::pair<std::string, Texture*> TexturePair;
 
 public:

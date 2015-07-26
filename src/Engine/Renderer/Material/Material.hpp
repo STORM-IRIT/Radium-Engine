@@ -33,6 +33,7 @@ public:
         TEX_DIFFUSE,
         TEX_SPECULAR,
         TEX_NORMAL,
+		TEX_SHININESS,
         TEX_ALPHA
     };
 
@@ -66,10 +67,12 @@ public:
 
     inline void setKd(const Core::Color& kd);
     inline void setKs(const Core::Color& ks);
+	inline void setNs(Scalar ns);
     inline void setMaterialType(const MaterialType& type);
 
     inline const Core::Color& getKd() const;
     inline const Core::Color& getKs() const;
+	inline Scalar getNs() const;
     inline const MaterialType& getMaterialType() const;
 
     inline void addTexture(const TextureType& type, Texture* texture);
@@ -79,6 +82,7 @@ public:
 private:
     Core::Color m_kd;
     Core::Color m_ks;
+	Scalar m_ns;
 
     std::string m_name;
 

@@ -48,6 +48,11 @@ inline void Engine::Material::setKs(const Core::Color& ks)
     m_ks = ks;
 }
 
+inline void Engine::Material::setNs(Scalar ns)
+{
+	m_ns = ns;
+}
+
 inline void Engine::Material::setMaterialType(const MaterialType& type)
 {
     m_materialType = type;
@@ -73,6 +78,11 @@ inline const Core::Color& Engine::Material::getKd() const
 inline const Core::Color& Engine::Material::getKs() const
 {
     return m_ks;
+}
+
+inline Scalar Engine::Material::getNs() const
+{
+	return m_ns;
 }
 
 inline const Engine::Material::MaterialType& Engine::Material::getMaterialType() const

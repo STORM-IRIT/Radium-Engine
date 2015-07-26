@@ -2,11 +2,13 @@ struct Textures
 {
     int hasKd;
     int hasKs;
+	int hasNs;
     int hasNormal;
     int hasAlpha;
 
     sampler2D kd;
     sampler2D ks;
+	sampler2D ns;
     sampler2D normal;
     sampler2D alpha;
 };
@@ -15,6 +17,8 @@ struct Material
 {
     vec4 kd;
     vec4 ks;
+
+	float ns;
 
     Textures tex;
 };
@@ -92,6 +96,16 @@ vec3 getKs()
     }
 }
 
+float getNs()
+{
+	if (material.tex.hasNs == 1)
+	{
+		return texture(material.tex.ns, vTexcoord.xy).r;
+	}
+
+	return material.ns;
+}
+
 vec3 getNormal()
 {
     float dir = gl_FrontFacing ? 1.0 : -1.0;
@@ -121,12 +135,12 @@ vec3 blinnPhongInternal(vec3 d, vec3 n)
         diff = diffFactor * light.color.xyz * getKd();
 
         vec3 vertToEye = normalize(vEye - vPosition);
-        vec3 lightReflect = normalize(reflect(direction, normal));
+        vec3 lightReflect = normalize(reflect(-direction, normal));
         float specFactor = dot(vertToEye, lightReflect);
 
         if (specFactor > 0.0)
         {
-            specFactor = pow(specFactor, 64.0);
+            specFactor = pow(specFactor, getNs());
             spec = specFactor * light.color.xyz * getKs();
         }
     }
@@ -201,6 +215,6 @@ void main()
         } break;
     }
 
-//    color = vec3(1);
+    //color = vec3(getNs() / 128.0);
     fragColor = vec4(color, 1.0);
 }
