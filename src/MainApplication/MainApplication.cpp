@@ -12,7 +12,6 @@
 #include <Engine/Renderer/Renderer.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
 
-
 namespace Ra
 {
     MainApplication::MainApplication(int argc, char** argv)
@@ -67,6 +66,8 @@ namespace Ra
         // Create engine
         m_engine.reset(new Engine::RadiumEngine);
         m_engine->initialize();
+
+        m_engine->setupScene();
 
         // Create task queue
         m_taskQueue.reset(new Core::TaskQueue(std::thread::hardware_concurrency() - 1));

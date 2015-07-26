@@ -108,7 +108,7 @@ std::vector<Engine::Entity*> Engine::EntityManager::getEntities() const
 
 Engine::Entity* Engine::EntityManager::createEntity(const std::string& name)
 {
-    std::shared_ptr<Engine::Entity> ent = std::make_shared<Engine::Entity>(name);
+    std::shared_ptr<Engine::Entity> ent = std::shared_ptr<Engine::Entity>(new Engine::Entity(name));
     ent->idx = m_entities.insert(ent);
 
     m_entitiesName.insert(std::pair<std::string, Core::Index>(

@@ -11,6 +11,7 @@
 
 namespace Ra { namespace Engine { class RadiumEngine; } }
 namespace Ra { namespace Engine { class Component; } }
+namespace Ra { namespace Engine { class Entity; } }
 
 namespace Ra { namespace Engine {
 
@@ -81,8 +82,7 @@ public:
      * @param name Name of the entity the component should belong to.
      * @return The created component.
      */
-    // FIXME(Charly): Better name ?
-    virtual Component* createComponent(const std::string& name) = 0;
+    virtual Component* addComponentToEntity( Engine::Entity* entity ) = 0;
 
 protected:
 	RadiumEngine* m_engine;

@@ -138,6 +138,7 @@ Engine::Mesh* Engine::FancyMeshDrawable::getMesh(const std::string &name) const
 
 void Engine::FancyMeshDrawable::updateGLInternal()
 {
+    CORE_ASSERT(m_material, "No material");
 	m_material->updateGL();
 	for (auto& mesh : m_meshes)
 	{

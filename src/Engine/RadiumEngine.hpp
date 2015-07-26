@@ -30,6 +30,7 @@ public:
     ~RadiumEngine();
 
     void initialize();
+    void setupScene();
     void cleanup();
 
     // FIXME(Charly): Should the engine know the renderer ?
@@ -51,7 +52,7 @@ private:
 
 private:
     bool m_quit;
-    mutable std::mutex m_quitMutex;
+//    mutable std::mutex m_quitMutex;
     mutable std::mutex m_managersMutex;
 
     std::map<std::string, std::shared_ptr<System>> m_systems;

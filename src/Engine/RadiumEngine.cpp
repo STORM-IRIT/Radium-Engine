@@ -16,6 +16,10 @@
 #include <Engine/Renderer/Mesh/MeshLoader.hpp>
 
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshSystem.hpp>
+#include <Engine/Renderer/FancyMeshPlugin/FancyMeshComponent.hpp>
+
+#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
 
 namespace Ra
 {
@@ -37,6 +41,15 @@ void Engine::RadiumEngine::initialize()
     // FIXME(Charly): FancyMeshSystem should not be initialized here.
 	FancyMeshSystem* system = new FancyMeshSystem(this);
 	m_systems["FancyMeshSystem"] = std::shared_ptr<FancyMeshSystem>(system);
+}
+
+
+void Engine::RadiumEngine::setupScene()
+{
+    // Code to add a cube.
+    Entity * cubeEntity = m_entityManager->getOrCreateEntity("Cube");
+    static_cast<FancyMeshSystem*>(m_systems["FancyMeshSystem"].get())
+        ->addDisplayMeshToEntity(cubeEntity,Core::MeshUtils::makeBox());
 }
 
 void Engine::RadiumEngine::cleanup()

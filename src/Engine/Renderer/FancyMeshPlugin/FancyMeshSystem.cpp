@@ -44,23 +44,21 @@ void Engine::FancyMeshSystem::handleFileLoading(const std::string& filename)
 		FancyComponentData data = componentsData[i];
 
 		// Retrieve entity if exist, create it otherwise
-        m_engine->getEntityManager()->getOrCreateEntity(data.name)->setTransform(data.transform);
+        Engine::Entity* e = m_engine->getEntityManager()->getOrCreateEntity(data.name);
+        e->setTransform(data.transform);
 
         FancyMeshComponent* component =
-                static_cast<FancyMeshComponent*>(createComponent(data.name));
+                static_cast<FancyMeshComponent*>(addComponentToEntity(e));
 
         component->handleMeshLoading(data);
 	}
 }
 
-Engine::Component* Engine::FancyMeshSystem::createComponent(const std::string &name)
+Engine::Component* Engine::FancyMeshSystem::addComponentToEntity( Engine::Entity* entity )
 {
-    static uint componentId = 0;
-    Entity* entity = m_engine->getEntityManager()->getOrCreateEntity(name);
+    uint componentId = entity->getComponents().size();
 
-    std::string componentName;
-    Core::StringUtils::stringPrintf(componentName, "FancyMeshComponent_%s_u",
-                                    name.c_str(), componentId++);
+    std::string componentName = "FancyMeshComponent_" + entity->getName() + std::to_string(componentId++);
     FancyMeshComponent* component = new FancyMeshComponent(componentName);
 
     component->setSystem(this);
@@ -73,6 +71,13 @@ Engine::Component* Engine::FancyMeshSystem::createComponent(const std::string &n
     component->initialize();
 
     return component;
+}
+
+Engine::FancyMeshComponent * Engine::FancyMeshSystem::addDisplayMeshToEntity(Engine::Entity * entity, const Core::TriangleMesh & mesh)
+{
+    FancyMeshComponent* comp = static_cast<FancyMeshComponent*> (addComponentToEntity(entity));
+    comp->addMeshDrawable(mesh, "Mesh Drawable");
+    return comp;
 }
 
 }

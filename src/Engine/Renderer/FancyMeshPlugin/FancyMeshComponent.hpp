@@ -16,7 +16,9 @@ public:
 	virtual void initialize() override;
 	virtual void update(Scalar dt) override;
 
-	void handleMeshLoading(const FancyComponentData& data);
+    void addMeshDrawable(const Core::TriangleMesh& mesh, const std::string& name);
+
+    void handleMeshLoading(const FancyComponentData& data);
 
 private:
 	Core::Index m_drawable;
