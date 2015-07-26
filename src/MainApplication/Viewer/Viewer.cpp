@@ -164,4 +164,11 @@ void Gui::Viewer::wheelEvent(QWheelEvent* event)
     getMainWin(this)->viewerWheelEvent(event);
 }
 
+void Gui::Viewer::reloadShaders()
+{
+    makeCurrent();
+    m_renderer->reloadShaders();
+    doneCurrent();
+}
+
 } // namespace Ra

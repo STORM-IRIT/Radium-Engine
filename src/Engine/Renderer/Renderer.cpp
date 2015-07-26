@@ -112,9 +112,11 @@ void Engine::Renderer::initBuffers()
     m_fbo = new FBO(FBO::Components(FBO::COLOR | FBO::DEPTH), m_width, m_height);
     m_postprocessFbo = new FBO(FBO::Components(FBO::COLOR), m_width, m_height);
 
-    m_textures[TEXTURE_DEPTH]   = new Texture("Depth", GL_TEXTURE_2D);
-    m_textures[TEXTURE_COLOR]   = new Texture("Color", GL_TEXTURE_2D);
-    m_textures[TEXTURE_AMBIENT] = new Texture("Ambient", GL_TEXTURE_2D);
+    m_textures[TEXTURE_DEPTH]    = new Texture("Depth", GL_TEXTURE_2D);
+    m_textures[TEXTURE_AMBIENT]  = new Texture("Ambient", GL_TEXTURE_2D);
+    m_textures[TEXTURE_POSITION] = new Texture("Position", GL_TEXTURE_2D);
+    m_textures[TEXTURE_NORMAL]   = new Texture("Normal", GL_TEXTURE_2D);
+    m_textures[TEXTURE_COLOR]    = new Texture("Color", GL_TEXTURE_2D);
 
     m_finalTexture = new Texture("Final", GL_TEXTURE_2D);
 
@@ -166,14 +168,16 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     GL_ASSERT(glDepthMask(GL_TRUE));
     GL_ASSERT(glColorMask(1, 1, 1, 1));
 
-    GL_ASSERT(glDrawBuffers(2, buffers));
+    GL_ASSERT(glDrawBuffers(4, buffers));
 
     Core::Color clearColor(0.2, 0.2, 0.2, 1.0);
-    Core::Color clearGeom(0.0, 0.0, 0.0, 0.0);
+    Core::Color clearEmpty(0.0, 0.0, 0.0, 0.0);
     Scalar clearDepth = 1.0;
 
     GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearColor.data())); // Clear ambient
-    GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearGeom.data()));  // Clear color
+    GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearEmpty.data()));  // Clear position
+    GL_ASSERT(glClearBufferfv(GL_COLOR, 2, clearEmpty.data()));  // Clear normal
+    GL_ASSERT(glClearBufferfv(GL_COLOR, 3, clearEmpty.data()));  // Clear color
     GL_ASSERT(glClearBufferfv(GL_DEPTH, 0, &clearDepth));       // Clear depth
 
     m_camera->updateViewMatrix();
@@ -189,7 +193,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
 
     GL_ASSERT(glDisable(GL_BLEND));
 
-    GL_ASSERT(glDrawBuffers(1, buffers)); // Draw ambient texture
+    GL_ASSERT(glDrawBuffers(3, buffers)); // Draw ambient texture
 
     m_depthAmbientShader->bind();
 
@@ -205,7 +209,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     GL_ASSERT(glEnable(GL_BLEND));
     GL_ASSERT(glBlendFunc(GL_ONE, GL_ONE));
 
-    GL_ASSERT(glDrawBuffers(1, buffers + 1)); // Draw color texture
+    GL_ASSERT(glDrawBuffers(1, buffers + 3)); // Draw color texture
 
     if (m_lights.size() > 0)
     {
@@ -294,8 +298,11 @@ void Engine::Renderer::drawScreenInternal()
     m_drawScreenShader->setUniform("zFar", m_camera->getZFar());
     m_drawScreenShader->setUniform("screenTexture", m_finalTexture, 0);
 
-    m_drawScreenShader->setUniform("color0", m_textures[TEXTURE_COLOR], 1);
-    m_drawScreenShader->setUniform("color1", m_textures[TEXTURE_DEPTH], 2);
+    m_drawScreenShader->setUniform("depth", m_textures[TEXTURE_DEPTH], 1);
+    m_drawScreenShader->setUniform("ambient", m_textures[TEXTURE_AMBIENT], 2);
+    m_drawScreenShader->setUniform("position", m_textures[TEXTURE_POSITION], 3);
+    m_drawScreenShader->setUniform("normal", m_textures[TEXTURE_NORMAL], 4);
+    m_drawScreenShader->setUniform("color", m_textures[TEXTURE_COLOR], 5);
 
     m_drawScreenShader->setUniform("totalTime", m_totalTime);
     m_quadMesh->draw();
@@ -313,13 +320,21 @@ void Engine::Renderer::resize(uint w, uint h)
     {
         m_textures[TEXTURE_DEPTH]->deleteGL();
     }
-    if (m_textures[TEXTURE_COLOR]->getId() != 0)
-    {
-        m_textures[TEXTURE_COLOR]->deleteGL();
-    }
     if (m_textures[TEXTURE_AMBIENT]->getId() != 0)
     {
         m_textures[TEXTURE_AMBIENT]->deleteGL();
+    }
+    if (m_textures[TEXTURE_POSITION]->getId() != 0)
+    {
+        m_textures[TEXTURE_POSITION]->deleteGL();
+    }
+    if (m_textures[TEXTURE_NORMAL]->getId() != 0)
+    {
+        m_textures[TEXTURE_NORMAL]->deleteGL();
+    }
+    if (m_textures[TEXTURE_COLOR]->getId() != 0)
+    {
+        m_textures[TEXTURE_COLOR]->deleteGL();
     }
 
     if (m_finalTexture->getId() != 0)
@@ -331,13 +346,21 @@ void Engine::Renderer::resize(uint w, uint h)
     m_textures[TEXTURE_DEPTH]->setFilter(GL_LINEAR, GL_LINEAR);
     m_textures[TEXTURE_DEPTH]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
-    m_textures[TEXTURE_COLOR]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
-    m_textures[TEXTURE_COLOR]->setFilter(GL_LINEAR, GL_LINEAR);
-    m_textures[TEXTURE_COLOR]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
-
     m_textures[TEXTURE_AMBIENT]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
     m_textures[TEXTURE_AMBIENT]->setFilter(GL_LINEAR, GL_LINEAR);
     m_textures[TEXTURE_AMBIENT]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+
+    m_textures[TEXTURE_POSITION]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
+    m_textures[TEXTURE_POSITION]->setFilter(GL_LINEAR, GL_LINEAR);
+    m_textures[TEXTURE_POSITION]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+
+    m_textures[TEXTURE_NORMAL]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
+    m_textures[TEXTURE_NORMAL]->setFilter(GL_LINEAR, GL_LINEAR);
+    m_textures[TEXTURE_NORMAL]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+
+    m_textures[TEXTURE_COLOR]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
+    m_textures[TEXTURE_COLOR]->setFilter(GL_LINEAR, GL_LINEAR);
+    m_textures[TEXTURE_COLOR]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
     m_finalTexture->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
     m_finalTexture->setFilter(GL_LINEAR, GL_LINEAR);
@@ -347,7 +370,9 @@ void Engine::Renderer::resize(uint w, uint h)
     m_fbo->setSize(w, h);
     m_fbo->attachTexture(GL_DEPTH_ATTACHMENT, m_textures[TEXTURE_DEPTH]);
     m_fbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[TEXTURE_AMBIENT]);
-    m_fbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[TEXTURE_COLOR]);
+    m_fbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[TEXTURE_POSITION]);
+    m_fbo->attachTexture(GL_COLOR_ATTACHMENT2, m_textures[TEXTURE_NORMAL]);
+    m_fbo->attachTexture(GL_COLOR_ATTACHMENT3, m_textures[TEXTURE_COLOR]);
     m_fbo->check();
     m_fbo->unbind(true);
 
@@ -492,6 +517,11 @@ bool Engine::Renderer::handleMouseEvent(const Core::MouseEvent& event)
     }
 
     return false;
+}
+
+void Engine::Renderer::reloadShaders()
+{
+    ShaderProgramManager::getInstancePtr()->reloadAllShaderPrograms();
 }
 
 bool Engine::Renderer::handleKeyEvent(const Core::KeyEvent &event)

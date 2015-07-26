@@ -34,8 +34,10 @@ public:
     enum TexturesFBO
     {
         TEXTURE_DEPTH = 0,
-        TEXTURE_COLOR = 1,
-        TEXTURE_AMBIENT = 2,
+        TEXTURE_AMBIENT,
+        TEXTURE_POSITION,
+        TEXTURE_NORMAL,
+        TEXTURE_COLOR,
         TEXTURE_COUNT
     };
 
@@ -116,6 +118,8 @@ public:
     // FIXME(Charly): Not sure the lights should be handled by the renderer.
     //                How to do this ?
     void addLight(Light* light) { m_lights.push_back(light); }
+
+    void reloadShaders();
 
 protected:
 

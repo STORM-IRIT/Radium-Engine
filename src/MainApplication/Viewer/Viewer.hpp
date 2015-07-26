@@ -46,6 +46,9 @@ signals:
     void ready( Gui::Viewer* );
     void entitiesUpdated();
 
+public slots:
+    void reloadShaders();
+
 protected:
     /// OPENGL
     virtual void initializeGL() override;

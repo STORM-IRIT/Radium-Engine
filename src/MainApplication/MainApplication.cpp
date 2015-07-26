@@ -107,8 +107,8 @@ namespace Ra
         emit preFrame();
 
         // Gather user input and dispatch it.
-        m_mainWindow->getKeyEvents();
-        m_mainWindow->getMouseEvents();
+        auto keyEvents = m_mainWindow->getKeyEvents();
+        auto mouseEvents = m_mainWindow->getMouseEvents();
 
         m_mainWindow->flushEvents();
 

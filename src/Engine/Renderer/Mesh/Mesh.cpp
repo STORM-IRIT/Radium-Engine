@@ -53,7 +53,7 @@ void Engine::Mesh::loadGeometry(const Core::TriangleMesh &data,
                                 bool recomputeNormals)
 {
     m_data = data;
-    if (m_data.m_normals.size() == 0 || recomputeNormals)
+//    if (m_data.m_normals.size() == 0 || recomputeNormals)
     {
         computeNormals();
     }

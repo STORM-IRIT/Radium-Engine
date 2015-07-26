@@ -23,7 +23,6 @@ public:
 
     void createConnections();
 
-
     inline const std::vector<Core::KeyEvent>& getKeyEvents() const;
     inline const std::vector<Core::MouseEvent>& getMouseEvents() const;
     inline void flushEvents();

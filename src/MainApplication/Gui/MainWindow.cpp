@@ -36,6 +36,8 @@ Gui::MainWindow::~MainWindow()
 void Gui::MainWindow::createConnections()
 {
     connect(actionOpenMesh, &QAction::triggered, this, &MainWindow::loadFile);
+    connect(actionReload_Shaders, &QAction::triggered, m_viewer, &Gui::Viewer::reloadShaders);
+
     connect(this, SIGNAL(fileLoading(QString)), qApp, SLOT(loadFile(QString)));
     connect(this, SIGNAL(entitiesUpdated(const std::vector<Engine::Entity*>&)),
             m_entityTreeModel, SLOT(entitiesUpdated(const std::vector<Engine::Entity*>&)));
@@ -49,6 +51,7 @@ void Gui::MainWindow::createConnections()
 
     connect(m_viewer, SIGNAL(entitiesUpdated()), this, SLOT(entitiesUpdated()));
     connect(m_viewer, SIGNAL(ready(Gui::Viewer*)), qApp, SLOT(viewerReady(Gui::Viewer*)));
+
 }
 
 void Gui::MainWindow::activated(QModelIndex index)
