@@ -38,7 +38,7 @@ void main()
     normalValue = normalValue.xyz != vec3(0) ? normalValue / 2 + 0.5 : vec4(0);
     pickingValue.xyz = pickingValue.xyz != vec3(1) ? pickingValue.xyz / 255 : vec3(1);
 
-    value = pickingValue;
+//    value = pickingValue;
 
     fragColor = value;
 }
