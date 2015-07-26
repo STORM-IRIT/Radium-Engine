@@ -11,7 +11,7 @@
 
 namespace Ra { namespace Core   { class TaskQueue;  } }
 namespace Ra { namespace Engine { class RadiumEngine; } }
-namespace Ra { namespace Engine { class FrameInfo; } }
+namespace Ra { namespace Engine { struct FrameInfo; } }
 namespace Ra { namespace Engine { class Component; } }
 namespace Ra { namespace Engine { class Entity; } }
 

@@ -74,6 +74,7 @@ namespace Ra {
             CORE_ASSERT(m_taskQueue.empty(), " You have unprocessed tasks ");
             m_tasks.clear();
             m_dependencies.clear();
+            m_remainingDependencies.clear();
         }
 
         void TaskQueue::runTask(TaskQueue::TaskId task)

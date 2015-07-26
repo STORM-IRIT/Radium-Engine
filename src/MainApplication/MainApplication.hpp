@@ -1,6 +1,7 @@
 #include <memory>
 #include <QApplication>
 #include <QTime>
+
 #include <MainApplication/Viewer/Viewer.hpp>
 
 class QTimer;

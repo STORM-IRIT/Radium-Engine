@@ -22,7 +22,7 @@ namespace Ra { namespace Core
 
     struct DummyTaskParams : public TaskParams
     {
-        uint m_iters;
+        Scalar m_param;
     };
 
     class DummyTask : public Task
@@ -32,8 +32,9 @@ namespace Ra { namespace Core
 
         virtual void process() override;
 
+        Scalar m_data;
+
         static std::mutex s_ioMutex;
-        uint m_iters;
     };
 }}
 

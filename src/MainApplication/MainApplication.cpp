@@ -112,19 +112,7 @@ namespace Ra
 
         m_mainWindow->flushEvents();
 
-//        for (int i = 0; i < 10; ++i)
-//        {
-//            Core::DummyTask* task = new Core::DummyTask;
-//            Core::DummyTaskParams p; p.m_iters = 3*(i % 7);
-//            task->init(&p);
-//            Core::TaskQueue::TaskId id = m_taskQueue->registerTask(task);
-//            if (i > 0)
-//            {
-//                m_taskQueue->addDependency(id / 2, id);
-//            }
-//            m_taskQueue->queueTask(id);
-//        }
-
+        m_engine->getTasks(m_taskQueue.get(), Scalar(elapsed) / 1000.f);
 
         // Run one frame of tasks
         m_taskQueue->processTaskQueue();

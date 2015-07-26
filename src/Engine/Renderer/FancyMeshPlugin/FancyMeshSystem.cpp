@@ -1,8 +1,11 @@
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshSystem.hpp>
 
 #include <Core/String/StringUtils.hpp>
+#include <Core/Tasks/Task.hpp>
+#include <Core/Tasks/TaskQueue.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
+#include <Engine/Entity/FrameInfo.hpp>
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshComponent.hpp>
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshLoader.hpp>
 
@@ -67,6 +70,10 @@ Engine::Component* Engine::FancyMeshSystem::addComponentToEntity( Engine::Entity
 void Engine::FancyMeshSystem::generateTasks(Core::TaskQueue * taskQueue, const Engine::FrameInfo & frameInfo)
 {
     // Do nothing, as this system only displays meshes.
+    Core::DummyTask* task = new Core::DummyTask;
+    Core::DummyTaskParams p; p.m_param= frameInfo.m_dt;
+    task->init(&p);
+    taskQueue->queueTask(taskQueue->registerTask(task));
 }
 
 Engine::FancyMeshComponent * Engine::FancyMeshSystem::addDisplayMeshToEntity(Engine::Entity * entity, const Core::TriangleMesh & mesh)

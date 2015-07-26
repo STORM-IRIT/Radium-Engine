@@ -7,19 +7,15 @@ namespace Ra {
         std::mutex DummyTask::s_ioMutex;
         void DummyTask::init(const TaskParams * params)
         {
-            m_iters = static_cast<const DummyTaskParams*>(params)->m_iters;
+            m_data = static_cast<const DummyTaskParams*>(params)->m_param;
         }
 
         void DummyTask::process()
         {
-            for (uint i = 0; i < m_iters; ++i)
-            {
-                s_ioMutex.lock();
-                //std::cout << "Dummy task reporting" << std::endl;
-                //std::cout << "on thread " << std::this_thread::get_id() << std::endl;
-                s_ioMutex.unlock();
-                //std::this_thread::sleep_for(std::chrono::microseconds(100));
-            }
+           /*   s_ioMutex.lock();
+                std::cout << "Dummy task reporting" <<m_data<< std::endl;
+                std::cout << "on thread " << std::this_thread::get_id() << std::endl;
+                s_ioMutex.unlock();*/
         }
     }
 }

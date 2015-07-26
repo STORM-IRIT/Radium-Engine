@@ -10,6 +10,7 @@
 #include <Core/Event/EventEnums.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
+#include <Engine/Entity/FrameInfo.hpp>
 #include <Engine/Entity/System.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
@@ -61,6 +62,16 @@ void Engine::RadiumEngine::cleanup()
 
 	m_entityManager.reset();
     m_drawableManager.reset();
+}
+
+void Engine::RadiumEngine::getTasks(Core::TaskQueue* taskQueue,  Scalar dt)
+{
+    FrameInfo frameInfo;
+    frameInfo.m_dt = dt;
+    for (auto& syst : m_systems)
+    {
+        syst.second->generateTasks(taskQueue, frameInfo);
+    }
 }
 
 Engine::System* Engine::RadiumEngine::getSystem(const std::string& system) const

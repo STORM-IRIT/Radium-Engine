@@ -12,6 +12,7 @@
 #include <Engine/Renderer/Drawable/DrawableManager.hpp>
 #include <Engine/Entity/EntityManager.hpp>
 
+namespace Ra { namespace Core   { class TaskQueue;          } }
 namespace Ra { namespace Core   { struct MouseEvent;        } }
 namespace Ra { namespace Core   { struct KeyEvent;          } }
 namespace Ra { namespace Engine { class System;             } }
@@ -32,6 +33,8 @@ public:
     void initialize();
     void setupScene();
     void cleanup();
+
+    void getTasks(Core::TaskQueue* taskQueue, Scalar dt);
 
     // FIXME(Charly): Should the engine know the renderer ?
     Renderer* getRenderer() const { return m_renderer; }
