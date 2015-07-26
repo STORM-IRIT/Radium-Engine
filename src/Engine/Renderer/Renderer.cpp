@@ -188,9 +188,9 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     {
         // Object ID
         int index = d->idx.getValue();
-        Scalar r = Scalar((index & 0x000000FF) >> 0);
-        Scalar g = Scalar((index & 0x0000FF00) >> 8);
-        Scalar b = Scalar((index & 0x00FF0000) >> 16);
+        Scalar r = Scalar((index & 0x000000FF) >> 0) / 255.0;
+        Scalar g = Scalar((index & 0x0000FF00) >> 8) / 255.0;
+        Scalar b = Scalar((index & 0x00FF0000) >> 16) / 255.0;
 
         m_depthAmbientShader->setUniform("objectId", Core::Vector3(r, g, b));
         d->draw(view, proj, m_depthAmbientShader);
@@ -410,6 +410,22 @@ void Engine::Renderer::debugTexture(uint texIdx)
 void Engine::Renderer::reloadShaders()
 {
     ShaderProgramManager::getInstancePtr()->reloadAllShaderPrograms();
+}
+
+int Engine::Renderer::checkPicking(Scalar x, Scalar y) const
+{
+    Core::Color color = m_textures[TEXTURE_PICKING]->getTexel(x, y);
+
+    if (color == Core::Color(1.0, 1.0, 1.0, 1.0))
+    {
+        return -1;
+    }
+    color = color * 255;
+
+    uint id = color.x() + color.y() * 256 + color.z() * 256 * 256;
+    return id;
+
+//    int index = d->idx.getValue();
 }
 
 } // namespace Ra

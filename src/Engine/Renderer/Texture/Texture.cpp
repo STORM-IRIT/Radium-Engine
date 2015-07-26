@@ -92,7 +92,7 @@ void Engine::Texture::initGL(uint bpp, uint w, uint format, uint type, void* dat
 
     if (data && m_bytesPerPixel)
     {
-        m_pixels = new unsigned char[m_width * m_bytesPerPixel];
+        m_pixels = new Scalar[m_width * m_bytesPerPixel];
         std::memcpy(m_pixels, data, m_width * m_bytesPerPixel);
     }
 }
@@ -115,7 +115,7 @@ void Engine::Texture::initGL(uint internal, uint w, uint h, uint format, uint ty
 
     if (data && m_bytesPerPixel)
     {
-        m_pixels = new unsigned char[m_width * m_height * m_bytesPerPixel];
+        m_pixels = new Scalar[m_width * m_height * m_bytesPerPixel];
         memcpy(m_pixels, data, m_width * m_height * m_bytesPerPixel);
     }
 }
@@ -140,7 +140,7 @@ void Engine::Texture::initGL(uint bpp, uint w, uint h, uint d, uint format, uint
 
     if (data && m_bytesPerPixel)
     {
-        m_pixels = new unsigned char[m_width * m_height * m_depth * m_bytesPerPixel];
+        m_pixels = new Scalar[m_width * m_height * m_depth * m_bytesPerPixel];
         memcpy(m_pixels, data, m_width * m_height * m_depth * m_bytesPerPixel);
     }
 }
@@ -263,20 +263,19 @@ uint Engine::Texture::getZOffset() const
     return m_zoffset;
 }
 
-Core::Color Engine::Texture::getTexel(Scalar u) const
+Core::Color Engine::Texture::getTexel(uint u, uint v)
 {
-    // TODO (Charly)
-    return Core::Color(0, 0, 0, 1);
-}
-Core::Color Engine::Texture::getTexel(Scalar u, Scalar v) const
-{
-    // TODO (Charly)
-    return Core::Color(0, 0, 0, 1);
-}
-Core::Color Engine::Texture::getTexel(Scalar u, Scalar v, Scalar w) const
-{
-    // TODO (Charly)
-    return Core::Color(0, 0, 0, 1);
+    Scalar* pixels = new Scalar[m_width * m_height * 4];
+
+    GL_ASSERT(glBindTexture(GL_TEXTURE_2D, m_textureId));
+    GL_ASSERT(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_FLOAT, pixels));
+
+    uint idx = (v * m_width + u) * 4;
+    Core::Color color(pixels[idx+0], pixels[idx+1], pixels[idx+2], 1.0);
+
+    delete[] pixels;
+
+    return color;
 }
 
 } // namespace Ra
