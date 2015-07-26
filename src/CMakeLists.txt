@@ -3,11 +3,23 @@ set(library_version "0.1.0")
 # Find packages
 find_package(OpenGL     REQUIRED)
 find_package(Assimp     REQUIRED)
-find_package(FreeImage  REQUIRED)
 find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
 find_package(GLEW 	REQUIRED) #only used on windows builds.
+
+if(WIN32)
+	if (CMAKE_SIZEOF_VOID_P EQUAL 4)
+		set(FREEIMAGE_DIR ${EXTERNAL_DIR}/FreeImage/Windows/x32)
+	else()
+		set(FREEIMAGE_DIR ${EXTERNAL_DIR}/FreeImage/Windows/x64)
+	endif()
+	set(FREEIMAGE_INCLUDE_DIR ${FREEIMAGE_DIR})
+	set(FREEIMAGE_LIBRARY ${FREEIMAGE_DIR}/FreeImage.lib)
+else(WIN32)
+	find_package(FreeImage  REQUIRED)
+endif(WIN32)
+message("FreeImage : ${FREEIMAGE_LIBRARY}")
 
 include_directories(
  .
