@@ -18,7 +18,9 @@ namespace Ra {
         {
             m_tasks.emplace_back(std::unique_ptr<Task>(task));
             m_dependencies.push_back(std::vector<TaskId>());
+            m_remainingDependencies.push_back(0);
             CORE_ASSERT(m_tasks.size() == m_dependencies.size(), "Inconsistent task list");
+            CORE_ASSERT(m_tasks.size() == m_remainingDependencies.size(), "Inconsistent task list");
             return TaskId(m_tasks.size() - 1);
         }
 
@@ -31,10 +33,12 @@ namespace Ra {
             // Todo : check for cycles.
 
             m_dependencies[predecessor].push_back(successor);
+            ++m_remainingDependencies[successor];
         }
 
         void TaskQueue::queueTask(TaskQueue::TaskId task)
         {
+            CORE_ASSERT(m_remainingDependencies[task] == 0, " Task has unsatisfied dependencies");
             m_taskQueue.push_front(task);
         }
 
@@ -82,7 +86,13 @@ namespace Ra {
             --m_processingTasks;
             for (auto t : m_dependencies[task])
             {
-                queueTask(t);
+                uint& nDepends = m_remainingDependencies[t];
+                CORE_ASSERT(nDepends > 0, "Inconsistency in dependencies");
+                --nDepends;
+                if ( nDepends == 0)
+                {
+                    queueTask(t);
+                }
             }
             m_taskQueueMutex.unlock();
         }
