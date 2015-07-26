@@ -12,5 +12,10 @@ Engine::Component::Component(const std::string& name)
 {
 }
 
+Engine::Component::~Component()
+{
+    fprintf(stderr, "Component::~Component()\n");
+}
+
 
 } // namespace Ra

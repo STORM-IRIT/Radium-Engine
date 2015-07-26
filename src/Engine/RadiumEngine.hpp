@@ -27,15 +27,10 @@ class RadiumEngine
 {
 public:
     RadiumEngine();
-    ~RadiumEngine() {}
-
-    void start();
+    ~RadiumEngine();
 
     void initialize();
-    void setupScene();
     void cleanup();
-
-    void quit();
 
     // FIXME(Charly): Should the engine know the renderer ?
     Renderer* getRenderer() const { return m_renderer; }
@@ -53,7 +48,6 @@ public:
 
 private:
     void run();
-    bool quitRequested();
 
 private:
     bool m_quit;

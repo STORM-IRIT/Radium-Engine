@@ -14,6 +14,11 @@ Engine::System::System(RadiumEngine* engine)
 
 Engine::System::~System()
 {
+    for (auto& component : m_components)
+    {
+        component.second.reset();
+    }
+
     m_components.clear();
 }
 

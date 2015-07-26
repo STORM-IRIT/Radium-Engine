@@ -12,7 +12,7 @@ Engine::DrawableManager::DrawableManager()
 
 Engine::DrawableManager::~DrawableManager()
 {
-
+    fprintf(stderr, "DrawableManager::~DrawableManager\n");
 }
 
 Core::Index Engine::DrawableManager::addDrawable(Drawable* drawable)

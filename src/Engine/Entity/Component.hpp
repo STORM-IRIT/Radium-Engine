@@ -25,7 +25,7 @@ public:
     // FIXME (Charly) : Should destructor call something like
     //                  System::removeComponent(this) ?
     /// DESTRUCTOR
-    virtual ~Component() {}
+    virtual ~Component();
 
 	/**
 	* @brief Pure virtual method to be overrided by any component.

@@ -25,33 +25,18 @@ Engine::RadiumEngine::RadiumEngine()
 {
 }
 
+Engine::RadiumEngine::~RadiumEngine()
+{
+}
+
 void Engine::RadiumEngine::initialize()
 {
 	m_drawableManager.reset(new DrawableManager);
 	m_entityManager.reset(new EntityManager);
 
+    // FIXME(Charly): FancyMeshSystem should not be initialized here.
 	FancyMeshSystem* system = new FancyMeshSystem(this);
 	m_systems["FancyMeshSystem"] = std::shared_ptr<FancyMeshSystem>(system);
-}
-
-void Engine::RadiumEngine::setupScene()
-{
-}
-
-void Engine::RadiumEngine::start()
-{
-    std::thread t(&RadiumEngine::run, this);
-    t.detach();
-}
-
-void Engine::RadiumEngine::run()
-{
-    while (!quitRequested())
-    {
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }
-
-    cleanup();
 }
 
 void Engine::RadiumEngine::cleanup()
@@ -61,22 +46,8 @@ void Engine::RadiumEngine::cleanup()
         system.second.reset();
     }
 
-	m_drawableManager.reset();
 	m_entityManager.reset();
-}
-
-void Engine::RadiumEngine::quit()
-{
-    std::lock_guard<std::mutex> lock(m_quitMutex);
-    m_quit = true;
-}
-
-bool Engine::RadiumEngine::quitRequested()
-{
-    bool quit;
-    std::lock_guard<std::mutex> lock(m_quitMutex);
-    quit = m_quit;
-    return quit;
+    m_drawableManager.reset();
 }
 
 Engine::System* Engine::RadiumEngine::getSystem(const std::string& system) const
