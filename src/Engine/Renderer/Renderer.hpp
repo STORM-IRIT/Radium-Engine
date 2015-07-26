@@ -18,6 +18,7 @@ namespace Ra { namespace Engine { class RadiumEngine;         } }
 namespace Ra { namespace Engine { class ShaderProgram;        } }
 namespace Ra { namespace Engine { class ShaderProgramManager; } }
 namespace Ra { namespace Engine { class Texture;              } }
+namespace Ra { namespace Engine { class TextureManager;       } }
 
 namespace Ra { namespace Engine {
 
@@ -165,6 +166,7 @@ protected:
     uint m_height;
 
 	ShaderProgramManager* m_shaderManager;
+    TextureManager* m_textureManager;
 
     // FIXME(Charly): Should we change "displayedTexture" to "debuggedTexture" ?
     //                It would make more sense if we are able to show the

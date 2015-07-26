@@ -16,7 +16,6 @@ Engine::FancyMeshComponent::FancyMeshComponent(const std::string& name)
 
 Engine::FancyMeshComponent::~FancyMeshComponent()
 {
-    fprintf(stderr, "FancyMeshComponent::~FancyMeshComponent()\n");
 	// TODO(Charly): Should we ask the drawable manager to delete our drawable ?
 	m_drawableManager->removeDrawable(m_drawable);
 }

@@ -273,7 +273,7 @@ private:
     TextureType m_type;
     uint m_zoffset;
 
-    Scalar* m_pixels;
+    unsigned char* m_pixels;
     uint m_bytesPerPixel;
     uint m_width;
     uint m_height;

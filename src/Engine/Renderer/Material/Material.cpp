@@ -3,6 +3,7 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Shader/ShaderProgram.hpp>
 #include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
+#include <Engine/Renderer/Texture/TextureManager.hpp>
 
 namespace Ra
 {
@@ -61,6 +62,14 @@ void Engine::Material::updateGL()
             m_currentShader = m_wireframeShader;
         } break;
     }
+
+    // Load textures
+    TextureManager& texManager = TextureManager::getInstanceRef();
+    for (const auto& tex : m_pendingTextures)
+    {
+        addTexture(tex.first, texManager.getOrLoadTexture(tex.second));
+    }
+    m_pendingTextures.clear();
 
     m_isDirty = false;
 }

@@ -34,6 +34,7 @@ const Engine::ShaderConfiguration contourShaderConf("BlinnPhongContour", "../Sha
 const Engine::ShaderConfiguration wireframeShaderConf("BlinnPhongWireframe", "../Shaders",
                                                       Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM);
 
+std::string filepath;
 std::vector<Engine::FancyComponentData> dataVector;
 
 void assimpToCore(const aiVector3D& inVector, Core::Vector3& outVector);
@@ -78,6 +79,9 @@ std::vector<Engine::FancyComponentData> Engine::FancyMeshLoader::loadFile(const 
     fprintf(stderr, "About to load file %s :\n", name.c_str());
     fprintf(stderr, "\tFound %d meshes and %d materials\n", scene->mNumMeshes, scene->mNumMaterials);
 
+    filepath = Core::StringUtils::getDirName(name);
+    fprintf(stderr, "Path : %s\n", filepath.c_str());
+
     runThroughNodes(scene->mRootNode, scene, Core::Matrix4::Identity());
 
     fprintf(stderr, "Loaded successfully. Vector size : %zu\n", dataVector.size());
@@ -91,8 +95,6 @@ namespace
 void runThroughNodes(const aiNode* node, const aiScene* scene,
                      const Core::Matrix4& transform)
 {
-    fprintf(stderr, "RunThroughNodes\n");
-
     if (node->mNumChildren == 0 && node->mNumMeshes == 0)
     {
         return;
@@ -209,6 +211,31 @@ void loadMaterial(const aiMaterial* mat, Engine::FancyComponentData& data)
     else
     {
         material->setKs(Core::Color(1, 0, 0, 1));
+    }
+
+    aiString name;
+    if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_DIFFUSE, 0), name))
+    {
+        fprintf(stderr, "Found kd texture\n");
+        material->addTexture(Engine::Material::TEX_DIFFUSE, filepath + "/" + std::string(name.C_Str()));
+    }
+
+    if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_SPECULAR, 0), name))
+    {
+        fprintf(stderr, "Found ks texture\n");
+        material->addTexture(Engine::Material::TEX_SPECULAR, filepath + "/" + std::string(name.C_Str()));
+    }
+
+    if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_NORMALS, 0), name))
+    {
+        fprintf(stderr, "Found n texture\n");
+        material->addTexture(Engine::Material::TEX_NORMAL, filepath + "/" + std::string(name.C_Str()));
+    }
+
+    if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_OPACITY, 0), name))
+    {
+        fprintf(stderr, "Found a texture\n");
+        material->addTexture(Engine::Material::TEX_ALPHA, filepath + "/" + std::string(name.C_Str()));
     }
 
 	data.material = material;

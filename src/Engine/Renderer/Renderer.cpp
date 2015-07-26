@@ -4,10 +4,11 @@
 
 
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
+#include <Engine/Renderer/Texture/TextureManager.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Shader/ShaderProgram.hpp>
-#include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Drawable/Drawable.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
@@ -63,6 +64,7 @@ void Engine::Renderer::initialize()
     std::string defaultShader("Default");
 
     m_shaderManager = ShaderProgramManager::createInstance(shaderPath, defaultShader);
+    m_textureManager = TextureManager::createInstance();
 
     initShaders();
     initBuffers();

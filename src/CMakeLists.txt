@@ -3,15 +3,17 @@ set(library_version "0.1.0")
 # Find packages
 find_package(OpenGL     REQUIRED)
 find_package(Assimp     REQUIRED)
+find_package(FreeImage  REQUIRED)
 find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
-find_package(GLEW 		REQUIRED) #only used on windows builds.
+find_package(GLEW 	REQUIRED) #only used on windows builds.
 
 include_directories(
  .
  ${EIGEN_INC}
  ${Assimp_INCLUDE_DIR}
+ ${FREEIMAGE_INCLUDE_DIR}
  ${GLEW_INCLUDE_DIR}
 )
 
@@ -61,7 +63,12 @@ file(GLOB_RECURSE engine_tesc_glsl ../Shaders/*.tesc.glsl)
 file(GLOB_RECURSE engine_tese_glsl ../Shaders/*.tese.glsl)
 file(GLOB_RECURSE engine_comp_glsl ../Shaders/*.comp.glsl)
 								  
-set(engine_libs ${GLEW_LIBRARIES} ${Assimp_LIBRARIES} ${Qt5OpenGL_LIBRARIES} ${OPENGL_LIBRARIES})
+set(engine_libs
+    ${GLEW_LIBRARIES}
+    ${Assimp_LIBRARIES}
+    ${FREEIMAGE_LIBRARY}
+    ${Qt5OpenGL_LIBRARIES}
+    ${OPENGL_LIBRARIES})
 
 add_library(
  ${engine_target} STATIC

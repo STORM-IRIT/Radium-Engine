@@ -52,7 +52,7 @@ namespace Ra { namespace Core
     private:
         /// Maximum number of concurently running tasks.
         const uint m_numThreads; 
-        /// Storage for the tasks (task will be deleted by flushQueue)
+        /// Storage for the tasks (task will be deleted
         std::vector< std::unique_ptr<Task> > m_tasks;
         /// For each task, stores which tasks depend on it.
         std::vector< std::vector <TaskId> > m_dependencies;

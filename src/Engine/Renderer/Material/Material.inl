@@ -59,6 +59,12 @@ inline void Engine::Material::addTexture(const TextureType& type, Texture* textu
     m_textures[type] = texture;
 }
 
+inline void Engine::Material::addTexture(const TextureType& type, const std::string& texture)
+{
+    m_pendingTextures[type] = texture;
+    m_isDirty = true;
+}
+
 inline const Core::Color& Engine::Material::getKd() const
 {
     return m_kd;

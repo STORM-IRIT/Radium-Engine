@@ -92,7 +92,7 @@ void Engine::Texture::initGL(uint bpp, uint w, uint format, uint type, void* dat
 
     if (data && m_bytesPerPixel)
     {
-        m_pixels = new Scalar[m_width * m_bytesPerPixel];
+        m_pixels = new unsigned char[m_width * m_bytesPerPixel];
         std::memcpy(m_pixels, data, m_width * m_bytesPerPixel);
     }
 }
@@ -115,7 +115,7 @@ void Engine::Texture::initGL(uint internal, uint w, uint h, uint format, uint ty
 
     if (data && m_bytesPerPixel)
     {
-        m_pixels = new Scalar[m_width * m_height * m_bytesPerPixel];
+        m_pixels = new unsigned char[m_width * m_height * m_bytesPerPixel];
         memcpy(m_pixels, data, m_width * m_height * m_bytesPerPixel);
     }
 }
@@ -140,7 +140,7 @@ void Engine::Texture::initGL(uint bpp, uint w, uint h, uint d, uint format, uint
 
     if (data && m_bytesPerPixel)
     {
-        m_pixels = new Scalar[m_width * m_height * m_depth * m_bytesPerPixel];
+        m_pixels = new unsigned char[m_width * m_height * m_depth * m_bytesPerPixel];
         memcpy(m_pixels, data, m_width * m_height * m_depth * m_bytesPerPixel);
     }
 }

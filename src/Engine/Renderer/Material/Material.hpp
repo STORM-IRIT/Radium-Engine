@@ -73,6 +73,7 @@ public:
     inline const MaterialType& getMaterialType() const;
 
     inline void addTexture(const TextureType& type, Texture* texture);
+    inline void addTexture(const TextureType& type, const std::string& texture);
     inline Texture* getTexture(const TextureType& type) const;
 
 private:
@@ -96,6 +97,7 @@ private:
     MaterialType  m_materialType;
 
     std::map<TextureType, Texture*> m_textures;
+    std::map<TextureType, std::string> m_pendingTextures;
 };
 
 } // namespace Engine
