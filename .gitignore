@@ -12,6 +12,7 @@
 *.so
 *.dylib
 *.dll
+!FreeImage.dll
 
 # Fortran module files
 *.mod
@@ -21,6 +22,7 @@
 *.la
 *.a
 *.lib
+!FreeImage.lib
 
 # Executables
 *.exe
