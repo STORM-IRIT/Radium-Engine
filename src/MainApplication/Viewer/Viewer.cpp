@@ -47,6 +47,7 @@ namespace
 
 Gui::Viewer::Viewer(QWidget* parent)
     : QOpenGLWidget(parent)
+    , m_interactionState(NONE)
 {
     // Allow Viewer to receive events
     setFocusPolicy(Qt::StrongFocus);
@@ -159,6 +160,10 @@ void Gui::Viewer::mousePressEvent(QMouseEvent* event)
         case Qt::RightButton:
         {
             // Check picking
+            makeCurrent();
+            int clicked = m_renderer->checkPicking(event->x(), height() - event->y());
+            fprintf(stderr, "Clicked object %d\n", clicked);
+            doneCurrent();
         } break;
 
         default:

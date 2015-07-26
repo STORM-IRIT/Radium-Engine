@@ -114,6 +114,7 @@ public:
     void addLight(Light* light) { m_lights.push_back(light); }
 
     void reloadShaders();
+    int checkPicking(Scalar x, Scalar y) const;
 
 protected:
 
