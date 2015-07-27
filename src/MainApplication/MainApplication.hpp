@@ -34,6 +34,9 @@ namespace Ra
         /// Fired when the engine is about to stop.
         void stopping();
 
+		/// Fired when the scene has changed.
+		void sceneChanged(const Core::Aabb&);
+
 
     public slots:
         /// Advance the engine for one frame. Called by an internal timer.
@@ -44,6 +47,10 @@ namespace Ra
 
         /// Callback slot for the viewer.
         void viewerReady( Gui::Viewer* viewer );
+
+	private:
+		/// Create signal / slots connections
+		void createConnections();
 
     private:
         /// Application main window and GUI root class.

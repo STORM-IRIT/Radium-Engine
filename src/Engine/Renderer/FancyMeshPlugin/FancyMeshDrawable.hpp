@@ -68,6 +68,9 @@ protected:
 	virtual Drawable* cloneInternal() override;
 
 private:
+	void recomputeBbox();
+
+private:
     typedef std::pair<std::string, std::shared_ptr<Mesh>> MeshByName;
     std::map<std::string, std::shared_ptr<Mesh>> m_meshes;
 };

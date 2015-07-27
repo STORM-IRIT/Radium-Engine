@@ -198,38 +198,6 @@ public:
     // Update the projection matrix accordingly to the 'width' and 'height' of the viewport.
     void updateProjMatrix( const Scalar& width, const Scalar& height );
 
-
-
-    /// ------------------------ ///
-    /// HIGH LEVEL MANIPULATIONS
-    /// ------------------------ ///
-    // Move the camera to the right by given amount
-    inline void strafeRight(Scalar amount);
-    // Move the camera to the left by given amount
-    inline void strafeLeft(Scalar amount);
-    // Move the camera forward by given amount
-    inline void walkForward(Scalar amount);
-    // Move the camera backward by given amount
-    inline void walkBackward(Scalar amount);
-    // Move the camera upward by given amount
-    inline void moveUpward(Scalar amount);
-    // Move the camera downward by given amount
-    inline void moveDownward(Scalar amount);
-
-    // Rotate the camera upside by given amount
-    inline void rotateUp(Scalar amount);
-    // Rotate the camera downside by given amount
-    inline void rotateDown(Scalar amount);
-    // Rotate the camera to the left by given amount
-    inline void rotateLeft(Scalar amount);
-    // Rotate the camera to the right by given amount
-    inline void rotateRight(Scalar amount);
-
-    // No effect :/
-    inline void zoomIn(Scalar amount);
-    // No effect :/
-    inline void zoomOut(Scalar amount);
-
 private:
     /// -------------------- ///
     /// FRAME

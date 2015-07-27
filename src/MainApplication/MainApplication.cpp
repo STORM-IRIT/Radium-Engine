@@ -6,6 +6,8 @@
 #include <QTimer>
 
 #include <Core/String/StringUtils.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Math/Vector.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -77,6 +79,8 @@ namespace Ra
         CORE_ASSERT(m_viewer != nullptr, "GUI or OpenGL was not initialized");
         m_viewer->setRadiumEngine(m_engine.get());
 
+		createConnections();
+
         emit starting();
 
         m_frameTime = QTime::currentTime();
@@ -85,10 +89,31 @@ namespace Ra
         m_frameTimer->start(1000.0 / 60.0);
     }
 
+	void MainApplication::createConnections()
+	{
+		connect(this, SIGNAL(sceneChanged(const Core::Aabb&)), 
+				m_viewer, SLOT(sceneChanged(const Core::Aabb&)));
+	}
+
     void MainApplication::loadFile(QString path)
     {
         std::string pathStr = path.toLocal8Bit().data();
         bool res = m_engine->loadFile(pathStr);
+
+		if (res)
+		{
+			auto drawables = m_engine->getDrawableManager()->getDrawables();
+
+			Core::Aabb sceneBBox;
+			sceneBBox.setEmpty();
+
+			for (const auto& drawable : drawables)
+			{
+				sceneBBox.extend(drawable->getBoundingBoxInWorld());
+			}
+
+			emit(sceneChanged(sceneBBox));
+		}
     }
 
     void MainApplication::viewerReady(Gui::Viewer* viewer)

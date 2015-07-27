@@ -45,6 +45,16 @@ public:
 	virtual void setMaterial(Material* material);
 	virtual void setMaterial(std::shared_ptr<Material> material);
 
+	/**
+	 * @brief Get the bounding box of the drawable. 
+	 * How the bbox is computed only depends on the reimplentation of the drawable.
+	 * Hence, it is all the developer's responsibility to have it updated properly.
+	 *
+	 * @return The drawable bbox
+	 */
+	inline const Core::Aabb& getBoundingBox() const;
+	Core::Aabb getBoundingBoxInWorld() const;
+
 protected:
 	virtual void updateGLInternal() = 0;
 	virtual Drawable* cloneInternal() = 0;
@@ -61,6 +71,8 @@ protected:
     std::shared_ptr<Material> m_material;
 
     bool m_isDirty;
+
+	Core::Aabb m_boundingBox;
 };
 
 } // namespace Engine

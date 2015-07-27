@@ -54,7 +54,7 @@ Engine::Texture* Engine::TextureManager::addTexture(const std::string& filename)
     }
 
     std::string error = "Something went wrong while trying to load " + filename + ".";
-    CORE_ASSERT(dib, error.c_str());
+    //CORE_ASSERT(dib, error.c_str());
 
     if (nullptr == dib)
     {

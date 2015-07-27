@@ -11,11 +11,13 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 
-namespace Ra { namespace Core   { struct KeyEvent;    } }
-namespace Ra { namespace Core   { struct MouseEvent;  } }
-namespace Ra { namespace Engine { class RadiumEngine; } }
-namespace Ra { namespace Engine { class Renderer;     } }
-namespace Ra { namespace Engine { class Camera;       } }
+#include <Core/Math/Vector.hpp>
+
+namespace Ra { namespace Core   { struct KeyEvent;       } }
+namespace Ra { namespace Core   { struct MouseEvent;     } }
+namespace Ra { namespace Engine { class RadiumEngine;    } }
+namespace Ra { namespace Engine { class Renderer;        } }
+namespace Ra { namespace Engine { class CameraInterface; } }
 
 namespace Ra { namespace Gui {
 
@@ -48,14 +50,13 @@ public:
 
     void setRadiumEngine(Engine::RadiumEngine* engine);
 
-    void quit();
-
 signals:
     void ready( Gui::Viewer* );
     void entitiesUpdated();
 
 public slots:
     void reloadShaders();
+	void sceneChanged(const Core::Aabb& bbox);
 
 protected:
     /// OPENGL
@@ -72,17 +73,16 @@ protected:
     virtual void wheelEvent(QWheelEvent* event) override;
 
 private:
+	// FIXME(Charly): Find a better way to handle mouse events ?
+	static Core::MouseEvent mouseEventQtToRadium(const QMouseEvent* qtEvent);
+
+private:
     Engine::RadiumEngine* m_engine;
     Engine::Renderer* m_renderer;
-    Engine::Camera* m_camera;
+    
+	std::unique_ptr<Engine::CameraInterface> m_camera;
 
     InteractionState m_interactionState;
-
-    Scalar m_lastMouseX;
-    Scalar m_lastMouseY;
-    bool m_camRotateStarted;
-    bool m_camZoomStarted;
-    bool m_camPanStarted;
 };
 
 } // namespace Gui

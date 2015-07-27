@@ -38,4 +38,9 @@ inline void Engine::Drawable::setMaterial(std::shared_ptr<Material> material)
 	m_material = material;
 }
 
+inline const Core::Aabb& Engine::Drawable::getBoundingBox() const
+{
+	return m_boundingBox;
+}
+
 } // namespace Ra

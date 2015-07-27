@@ -42,8 +42,26 @@
 
 # Binary asset files
 *.obj
+*.mtl
 *.fbx
 *.dae
+
+# Texture asset files
+*.tga
+*.jpeg
+*.jpg
+*.png
+*.gif
+*.tif
+
+# Compressed asset files
+*.zip
+*.rar
+*.7z
+*.tar.gz
+
+# Misc
+*Thumbs.db
 
 # Output Directories
 build/

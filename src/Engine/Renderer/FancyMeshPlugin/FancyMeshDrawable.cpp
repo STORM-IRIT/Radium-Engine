@@ -5,6 +5,7 @@
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/Matrix.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
@@ -102,6 +103,8 @@ void Engine::FancyMeshDrawable::addMesh(Mesh* mesh)
     }
 
     m_meshes.insert(MeshByName(name, std::shared_ptr<Mesh>(mesh)));
+
+	recomputeBbox();
 }
 
 void Engine::FancyMeshDrawable::removeMesh(const std::string& name)
@@ -116,6 +119,8 @@ void Engine::FancyMeshDrawable::removeMesh(const std::string& name)
     CORE_ASSERT(mesh->second.unique(), "Non-unique mesh about to be removed.");
     mesh->second.reset();
     m_meshes.erase(mesh);
+
+	recomputeBbox();
 }
 
 void Engine::FancyMeshDrawable::removeMesh(Engine::Mesh* mesh)
@@ -172,6 +177,16 @@ Engine::Drawable* Engine::FancyMeshDrawable::cloneInternal()
 	drawable->setComponent(m_component);
 
 	return drawable;
+}
+
+void Engine::FancyMeshDrawable::recomputeBbox()
+{
+	m_boundingBox.setEmpty();
+
+	for (const auto& mesh : m_meshes)
+	{
+		m_boundingBox.extend(Core::MeshUtils::getAabb(mesh.second->getMeshData()));
+	}
 }
 
 //void Engine::FancyMeshDrawable::setSelected(bool selected)

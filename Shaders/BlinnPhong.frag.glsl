@@ -191,6 +191,7 @@ vec3 blinnPhongDirectional()
 
 void main()
 {
+
     vec3 color;
     switch (light.type)
     {
@@ -215,6 +216,15 @@ void main()
         } break;
     }
 
-    //color = vec3(getNs() / 128.0);
+	if (material.tex.hasAlpha == 1)
+	{
+		float alpha = texture(material.tex.alpha, vTexcoord.xy).r; 
+		if (alpha < 0.1)
+		{
+			discard;
+		}
+		//color = vec3(1, 1, 0);
+	}
+
     fragColor = vec4(color, 1.0);
 }

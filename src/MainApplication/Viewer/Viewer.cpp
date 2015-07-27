@@ -23,7 +23,7 @@
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/Camera/Camera.hpp>
+#include <Engine/Renderer/Camera/TrackballCamera.hpp>
 
 #include <MainApplication/Gui/MainWindow.hpp>
 
@@ -51,7 +51,6 @@ Gui::Viewer::Viewer(QWidget* parent)
     // Allow Viewer to receive events
     setFocusPolicy(Qt::StrongFocus);
     setMinimumSize(QSize(800, 600));
-
 }
 
 Gui::Viewer::~Viewer()
@@ -89,11 +88,8 @@ void Gui::Viewer::initializeGL()
     m_renderer = new Engine::Renderer(width(), height());
     m_renderer->initialize();
 
-    m_camera = new Engine::Camera;
-    m_camera->setPosition(Core::Vector3(0, 0, -5), Engine::Camera::ModeType::TARGET);
-    m_camera->setTargetPoint(Core::Vector3(0, 0, 0));
-    m_camera->updateProjMatrix(width(), height());
-
+	m_camera.reset(new Engine::TrackballCamera(width(), height()));
+    
     emit ready(this);
 }
 
@@ -107,7 +103,6 @@ void Gui::Viewer::paintGL()
 {
     // TODO(Charly): Setup data, camera handled there.
     Engine::RenderData data;
-    m_camera->updateViewMatrix();
     data.projMatrix = m_camera->getProjMatrix();
     data.viewMatrix = m_camera->getViewMatrix();
 
@@ -116,14 +111,13 @@ void Gui::Viewer::paintGL()
 
 void Gui::Viewer::resizeGL(int width, int height)
 {
-    m_camera->updateProjMatrix(width, height);
-
+	m_camera->resizeViewport(width, height);
     m_renderer->resize(width, height);
 }
 
 void Gui::Viewer::mousePressEvent(QMouseEvent* event)
 {
-    switch (event->button())
+	switch (event->button())
     {
         case Qt::LeftButton:
         {
@@ -133,26 +127,12 @@ void Gui::Viewer::mousePressEvent(QMouseEvent* event)
                 break;
             }
 
-            m_interactionState = CAMERA;
-
-
-            if (event->modifiers().testFlag(Qt::NoModifier))
-            {
-                m_camRotateStarted = true;
-            }
-
-            if (event->modifiers().testFlag(Qt::ControlModifier))
-            {
-                m_camPanStarted = true;
-            }
-
-            if (event->modifiers().testFlag(Qt::ShiftModifier))
-            {
-                m_camZoomStarted = true;
-            }
-
-            m_lastMouseX = Scalar(event->x());
-            m_lastMouseY = Scalar(event->y());
+			Core::MouseEvent e = mouseEventQtToRadium(event);
+			e.event = Core::MouseEventType::RA_MOUSE_PRESSED;
+			if (m_camera->handleMouseEvent(&e))
+			{
+				m_interactionState = CAMERA;
+			}
 
         } break;
 
@@ -172,46 +152,24 @@ void Gui::Viewer::mousePressEvent(QMouseEvent* event)
 }
 void Gui::Viewer::mouseReleaseEvent(QMouseEvent* event)
 {
-    if (m_interactionState == CAMERA)
-    {
-        m_interactionState = NONE;
+	if (m_interactionState == CAMERA)
+	{
+		Core::MouseEvent e = mouseEventQtToRadium(event);
+		e.event = Core::MouseEventType::RA_MOUSE_RELEASED;
+		m_camera->handleMouseEvent(&e);
 
-        m_camRotateStarted = false;
-        m_camPanStarted = false;
-        m_camZoomStarted = false;
-    }
+		m_interactionState = NONE;
+	}
 }
 
 void Gui::Viewer::mouseMoveEvent(QMouseEvent* event)
 {
-    if (m_interactionState == CAMERA)
-    {
-        Scalar mouseX(event->pos().x());
-        Scalar mouseY(event->pos().y());
-
-        Scalar dx = (mouseX - m_lastMouseX) / Scalar(width());
-        Scalar dy = (mouseY - m_lastMouseY) / Scalar(height());
-
-        if (m_camRotateStarted)
-        {
-            m_camera->rotateRight(dx);
-            m_camera->rotateUp(dy);
-        }
-
-        if (m_camPanStarted)
-        {
-            m_camera->strafeRight(-dx);
-            m_camera->moveUpward(dy);
-        }
-
-        if (m_camZoomStarted)
-        {
-            m_camera->walkForward(dy);
-        }
-
-        m_lastMouseX = mouseX;
-        m_lastMouseY = mouseY;
-    }
+	if (m_interactionState == CAMERA)
+	{
+		Core::MouseEvent e = mouseEventQtToRadium(event);
+		e.event = Core::MouseEventType::RA_MOUSE_MOVED;
+		m_camera->handleMouseEvent(&e);
+	}
 }
 
 void Gui::Viewer::wheelEvent(QWheelEvent* event)
@@ -225,6 +183,63 @@ void Gui::Viewer::reloadShaders()
     makeCurrent();
     m_renderer->reloadShaders();
     doneCurrent();
+}
+
+Core::MouseEvent Gui::Viewer::mouseEventQtToRadium(const QMouseEvent* qtEvent)
+{
+	Core::MouseEvent raEvent;
+	switch (qtEvent->button())
+	{
+		case Qt::LeftButton:
+		{
+			raEvent.button = Core::MouseButton::RA_MOUSE_LEFT_BUTTON;
+		} break;
+
+		case Qt::MiddleButton:
+		{
+			raEvent.button = Core::MouseButton::RA_MOUSE_MIDDLE_BUTTON;
+		} break;
+
+		case Qt::RightButton:
+		{
+			raEvent.button = Core::MouseButton::RA_MOUSE_RIGHT_BUTTON;
+		} break;
+
+		default:
+		{
+		} break;
+	}
+
+	raEvent.modifier = 0;
+
+	if (qtEvent->modifiers().testFlag(Qt::NoModifier))
+	{
+		raEvent.modifier = Core::Modifier::RA_EMPTY;
+	}
+
+	if (qtEvent->modifiers().testFlag(Qt::ControlModifier))
+	{
+		raEvent.modifier |= Core::Modifier::RA_CTRL_KEY;
+	}
+
+	if (qtEvent->modifiers().testFlag(Qt::ShiftModifier))
+	{
+		raEvent.modifier |= Core::Modifier::RA_SHIFT_KEY;
+	}
+
+	if (qtEvent->modifiers().testFlag(Qt::AltModifier))
+	{
+		raEvent.modifier |= Core::Modifier::RA_ALT_KEY;
+	}
+
+	raEvent.absoluteXPosition = qtEvent->x();
+	raEvent.absoluteYPosition = qtEvent->y();
+	return raEvent;
+}
+
+void Gui::Viewer::sceneChanged(const Core::Aabb& aabb)
+{
+	m_camera->moveCameraToFitAabb(aabb);
 }
 
 } // namespace Ra
