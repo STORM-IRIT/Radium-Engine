@@ -16,47 +16,46 @@ namespace Ra { namespace Engine {
 class CameraInterface
 {
 public:
-	// FIXME(Charly): width / height ?
-	CameraInterface(uint width, uint height);
-	virtual ~CameraInterface();
+    // FIXME(Charly): width / height ?
+    CameraInterface(uint width, uint height);
+    virtual ~CameraInterface();
 
-	void resizeViewport(uint width, uint height);
+    void resizeViewport(uint width, uint height);
 
-	Core::Matrix4 getProjMatrix() const;
-	Core::Matrix4 getViewMatrix() const;
+    Core::Matrix4 getProjMatrix() const;
+    Core::Matrix4 getViewMatrix() const;
 
-	void setCameraSensitivity(Scalar sensitivity);
+    void setCameraSensitivity(Scalar sensitivity);
 
-	void setCameraFov(Scalar fov);
-	void setCameraFovInDegrees(Scalar fov);
-	void setCameraZNear(Scalar zNear);
-	void setCameraZFar(Scalar zFar);
+    void setCameraFov(Scalar fov);
+    void setCameraFovInDegrees(Scalar fov);
+    void setCameraZNear(Scalar zNear);
+    void setCameraZFar(Scalar zFar);
 
-	void mapCameraBehaviourToAabb(const Core::Aabb& aabb);
-	void unmapCameraBehaviourToAabb();
+    void mapCameraBehaviourToAabb(const Core::Aabb& aabb);
+    void unmapCameraBehaviourToAabb();
 
-	virtual void moveCameraToFitAabb(const Core::Aabb& aabb);
-	virtual void moveCameraTo(const Core::Vector3& position);
-	
-	/// @return true if the event has been taken into account, false otherwise
-	virtual bool handleMouseEvent(Core::MouseEvent* event) = 0;
-	/// @return true if the event has been taken into account, false otherwise
-	virtual bool handleKeyEvent(Core::KeyEvent* event) = 0;
+    virtual void moveCameraToFitAabb(const Core::Aabb& aabb);
+    virtual void moveCameraTo(const Core::Vector3& position);
+
+    /// @return true if the event has been taken into account, false otherwise
+    virtual bool handleMouseEvent(Core::MouseEvent* event) = 0;
+    /// @return true if the event has been taken into account, false otherwise
+    virtual bool handleKeyEvent(Core::KeyEvent* event) = 0;
 
 protected:
-	uint m_width;
-	uint m_height;
+    Core::Aabb m_targetedAabb;
 
-	mutable bool m_viewIsDirty;
-	mutable bool m_projIsDirty;
+    Scalar m_targetedAabbVolume;
+    Scalar m_cameraSensitivity;
 
-	mutable std::unique_ptr<Camera> m_camera;
+    uint m_width;
+    uint m_height;
 
-	bool m_mapCameraBahaviourToAabb;
-	Core::Aabb m_targetedAabb;
-	Scalar m_targetedAabbVolume;
-
-	Scalar m_cameraSensitivity;
+    mutable std::unique_ptr<Camera> m_camera;
+    mutable bool m_viewIsDirty;
+    mutable bool m_projIsDirty;
+    bool m_mapCameraBahaviourToAabb;
 };
 
 } // namespace Ra

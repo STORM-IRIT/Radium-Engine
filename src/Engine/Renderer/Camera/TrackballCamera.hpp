@@ -11,33 +11,34 @@ namespace Ra { namespace Engine {
 class TrackballCamera : public CameraInterface
 {
 public:
-	TrackballCamera(uint width, uint height);
-	virtual ~TrackballCamera();
+    TrackballCamera(uint width, uint height);
+    virtual ~TrackballCamera();
 
-	virtual bool handleMouseEvent(Core::MouseEvent* event) override;
-	virtual bool handleKeyEvent(Core::KeyEvent* event) override;
+    virtual bool handleMouseEvent(Core::MouseEvent* event) override;
+    virtual bool handleKeyEvent(Core::KeyEvent* event) override;
 
-	virtual void moveCameraTo(const Core::Vector3& position) override;
-	virtual void moveCameraToFitAabb(const Core::Aabb& aabb) override;
-
-private:
-	void handleCameraRotate(Scalar dx, Scalar dy);
-	void handleCameraPan(Scalar dx, Scalar dy);
-	void handleCameraZoom(Scalar dx, Scalar dy);
+    virtual void moveCameraTo(const Core::Vector3& position) override;
+    virtual void moveCameraToFitAabb(const Core::Aabb& aabb) override;
 
 private:
-	Scalar m_lastMouseX;
-	Scalar m_lastMouseY;
+    void handleCameraRotate(Scalar dx, Scalar dy);
+    void handleCameraPan(Scalar dx, Scalar dy);
+    void handleCameraZoom(Scalar dx, Scalar dy);
 
-	bool m_cameraRotateMode;
-	bool m_cameraPanMode;
-	bool m_cameraZoomMode;
+private:
+    Core::Vector3 m_cameraPosition;
+    Core::Vector3 m_trackballCenter;
 
-	// Scale manipulation speed given distance to center
-	Scalar m_distanceToCenter;
+    // Scale manipulation speed given distance to center
+    Scalar m_distanceToCenter;
+    Scalar m_lastMouseX;
+    Scalar m_lastMouseY;
 
-	Core::Vector3 m_cameraPosition;
-	Core::Vector3 m_trackballCenter;
+    bool m_cameraRotateMode;
+    bool m_cameraPanMode;
+    bool m_cameraZoomMode;
+
+
 };
 
 } // namespace Engine
