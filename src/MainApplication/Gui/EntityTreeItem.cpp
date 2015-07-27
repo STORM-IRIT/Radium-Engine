@@ -158,7 +158,7 @@ bool Gui::EntityTreeItem::removeColumns(uint position, uint columns)
 
     foreach (EntityTreeItem* child, m_childItems)
     {
-        removeColumns(position, columns);
+        child->removeColumns(position, columns);
     }
 
     return true;

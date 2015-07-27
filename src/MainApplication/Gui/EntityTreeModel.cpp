@@ -283,8 +283,7 @@ void Gui::EntityTreeModel::insertComponents(Engine::Entity *entity, EntityTreeIt
 
     for (const auto comp : components)
     {
-        std::string name;
-        Core::StringUtils::stringPrintf(name, "Component_%u", comp->idx.getValue());
+        std::string name = comp->getName();
         EntityTreeItem* item;
 
         QVector<EntityTreeItem::ItemData> vec;

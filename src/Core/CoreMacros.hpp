@@ -93,7 +93,7 @@
 // ----------------------------------------------------------------------------
 
 // Macro to avoid the "unused variable" warning with no side-effects.
-#define UNUSED(X) ((void) sizeof(X))
+#define CORE_UNUSED(X) ((void) sizeof(X))
 
 // Wrapper for multiline macros
 // In debug we use the standard do..while(0) which is 'nice' to read and debug
@@ -251,8 +251,8 @@ namespace compile_time_utils
     } else{}                                           \
     MACRO_END
 #else
-    #define CORE_ASSERT( EXP, DESC ) UNUSED(EXP)
-    #define CORE_WARN_IF( EXP, DESC ) UNUSED(EXP)
+    #define CORE_ASSERT( EXP, DESC ) CORE_UNUSED(EXP)
+    #define CORE_WARN_IF( EXP, DESC ) CORE_UNUSED(EXP)
 #endif
 
 // Print an error and break, even in release.

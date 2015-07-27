@@ -11,41 +11,66 @@
 
 namespace Ra { namespace Engine {
 
-class Mesh : public Drawable
+// FIXME(Charly): If I want to draw a mesh as lines, points, etc,
+//                should I send lines, ... to the GPU, or handle the way
+//                I want them displayed in a geometry shader, and always
+//                send adjacent triangles to the GPU ?
+//                The latter solution would be faster (no if / else) in
+//                the updateGL, draw methods, but would require more work
+//                for the plugin developper (or we can just provide shaders
+//                for this kind of renderings ...)
+
+class Mesh
 {
+private:
+    typedef Core::VectorArray<Core::Vector3> Vector3Array;
 public:
     Mesh(const std::string& name);
-    virtual ~Mesh();
+    ~Mesh();
 
-    void loadGeometry(const Core::TriangleMesh &data, bool computeNormals = false);
+    const std::string& getName() const { return m_name; }
+
     void loadGeometry(const Core::TriangleMesh &data,
-                      const Core::VectorArray<Core::Vector3>& tangents,
-                      const Core::VectorArray<Core::Vector3>& bitangents,
+                      const Vector3Array& tangents = Vector3Array(),
+                      const Vector3Array& bitangents = Vector3Array(),
+                      const Vector3Array& texcoords = Vector3Array(),
                       bool computeNormals = false);
-    const Core::TriangleMesh& getMeshData() const { return m_data; }
 
-    virtual void draw() override;
+    const Core::TriangleMesh& getMeshData() const { return m_data; }
+	const Vector3Array& getTangents() const { return m_tangents; }
+	const Vector3Array& getBitangents() const { return m_bitangents; }
+	const Vector3Array& getTexcoords() const { return m_texcoords; }
+
+    void setDirty() { m_isDirty = true; }
+    void updateGL();
+
+    void draw();
 
 private:
     Mesh(const Mesh&) = delete;
     void operator=(const Mesh&) = delete;
-    void initGL();
     void computeNormals();
+    void computeAdjacency();
 
 private:
+    std::string m_name;
+    bool m_initialized;
+    bool m_isDirty;
+
     Core::TriangleMesh m_data;
-    Core::VectorArray<Core::Vector3> m_tangents;
-    Core::VectorArray<Core::Vector3> m_bitangents;
+    Vector3Array m_texcoords;
+    Vector3Array m_tangents;
+    Vector3Array m_bitangents;
+    std::vector<uint> m_adjacentTriangles;
 
     uint m_vao;
     uint m_vbo;
     uint m_nbo;
     uint m_tbo;
     uint m_bbo;
+    uint m_cbo;
 
     uint m_ibo;
-
-    bool m_initialized;
 };
 
 } // namespace Engine

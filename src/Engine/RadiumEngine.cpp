@@ -1,23 +1,26 @@
-#include <Engine/RadiumEngine.hpp>
+ #include <Engine/RadiumEngine.hpp>
 
 #include <thread>
 #include <chrono>
 #include <mutex>
 #include <cstdio>
+#include <iostream>
 
 #include <Core/String/StringUtils.hpp>
 #include <Core/Event/EventEnums.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
+#include <Engine/Entity/FrameInfo.hpp>
 #include <Engine/Entity/System.hpp>
-#include <Engine/Entity/ComponentManager.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Entity/EntityManager.hpp>
-#include <Engine/Renderer/ForwardRenderer.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/Mesh/MeshLoader.hpp>
-#include <Engine/Renderer/Drawable/DrawableComponent.hpp>
+
+#include <Engine/Renderer/FancyMeshPlugin/FancyMeshSystem.hpp>
+#include <Engine/Renderer/FancyMeshPlugin/FancyMeshComponent.hpp>
+
+#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
 
 namespace Ra
 {
@@ -27,39 +30,27 @@ Engine::RadiumEngine::RadiumEngine()
 {
 }
 
+Engine::RadiumEngine::~RadiumEngine()
+{
+}
+
 void Engine::RadiumEngine::initialize()
 {
-    Engine::System* renderSystem = new Engine::ForwardRenderer;
-    renderSystem->initialize();
+	m_drawableManager.reset(new DrawableManager);
+	m_entityManager.reset(new EntityManager);
 
-    m_systems["RenderSystem"] = std::shared_ptr<Engine::System>(renderSystem);
+    // FIXME(Charly): FancyMeshSystem should not be initialized here.
+	FancyMeshSystem* system = new FancyMeshSystem(this);
+	m_systems["FancyMeshSystem"] = std::shared_ptr<FancyMeshSystem>(system);
 }
+
 
 void Engine::RadiumEngine::setupScene()
 {
-    m_componentManager = ComponentManager::createInstance();
-    m_entityManager    = EntityManager::createInstance();
-}
-
-void Engine::RadiumEngine::start()
-{
-
-    std::thread t(&RadiumEngine::run, this);
-    t.detach();
-}
-
-void Engine::RadiumEngine::run()
-{
-    while (!quitRequested())
-    {
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-//        m_angle += 0.05;
-//        m_entity->setTransform(Core::Transform(Core::AngleAxis(std::sin(m_angle),
-//                                                   Core::Vector3(0.0, 1.0, 0.0))));
-    }
-
-    cleanup();
+    // Code to add a cube.
+    Entity * cubeEntity = m_entityManager->getOrCreateEntity("Cube");
+    static_cast<FancyMeshSystem*>(m_systems["FancyMeshSystem"].get())
+        ->addDisplayMeshToEntity(cubeEntity,Core::MeshUtils::makeBox());
 }
 
 void Engine::RadiumEngine::cleanup()
@@ -68,20 +59,19 @@ void Engine::RadiumEngine::cleanup()
     {
         system.second.reset();
     }
+
+	m_entityManager.reset();
+    m_drawableManager.reset();
 }
 
-void Engine::RadiumEngine::quit()
+void Engine::RadiumEngine::getTasks(Core::TaskQueue* taskQueue,  Scalar dt)
 {
-    std::lock_guard<std::mutex> lock(m_quitMutex);
-    m_quit = true;
-}
-
-bool Engine::RadiumEngine::quitRequested()
-{
-    bool quit;
-    std::lock_guard<std::mutex> lock(m_quitMutex);
-    quit = m_quit;
-    return quit;
+    FrameInfo frameInfo;
+    frameInfo.m_dt = dt;
+    for (auto& syst : m_systems)
+    {
+        syst.second->generateTasks(taskQueue, frameInfo);
+    }
 }
 
 Engine::System* Engine::RadiumEngine::getSystem(const std::string& system) const
@@ -97,36 +87,14 @@ Engine::System* Engine::RadiumEngine::getSystem(const std::string& system) const
     return sys;
 }
 
-Engine::Entity* Engine::RadiumEngine::createEntity()
-{
-    std::lock_guard<std::mutex> lock(m_managersMutex);
-    return m_entityManager->createEntity();
-}
-
-void Engine::RadiumEngine::addComponent(Component* component,
-                                        Entity* entity,
-                                        const std::string& system)
-{
-    std::string err;
-    Core::StringUtils::stringPrintf(err, "System \"%s\" : No such system.\n", system.c_str());
-
-    std::lock_guard<std::mutex> lock(m_managersMutex);
-    CORE_ASSERT(m_systems.find(system) != m_systems.end(), err.c_str());
-
-    m_componentManager->addComponent(component);
-    entity->addComponent(component);
-    m_systems[system]->addComponent(component);
-}
-
 bool Engine::RadiumEngine::loadFile(const std::string& file)
 {
-    return MeshLoader::loadFile(file, this);
-}
+	for (auto& system : m_systems)
+	{
+		system.second->handleFileLoading(file);
+	}
 
-std::vector<Engine::Entity*> Engine::RadiumEngine::getEntities() const
-{
-    std::lock_guard<std::mutex> lock(m_managersMutex);
-    return m_entityManager->getEntities();
+    return true;
 }
 
 bool Engine::RadiumEngine::handleKeyEvent(const Core::KeyEvent &event)
@@ -155,6 +123,14 @@ bool Engine::RadiumEngine::handleMouseEvent(const Core::MouseEvent &event)
     return false;
 }
 
+Engine::DrawableManager* Engine::RadiumEngine::getDrawableManager() const
+{
+	return m_drawableManager.get(); 
+}
 
+Engine::EntityManager* Engine::RadiumEngine::getEntityManager() const
+{
+	return m_entityManager.get(); 
+}
 
 } // namespace RadiumEngine

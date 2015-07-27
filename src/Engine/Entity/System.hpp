@@ -2,20 +2,25 @@
 #define RADIUMENGINE_SYSTEM_HPP
 
 #include <map>
+#include <memory>
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
 
+namespace Ra { namespace Core   { class TaskQueue;  } }
+namespace Ra { namespace Engine { class RadiumEngine; } }
+namespace Ra { namespace Engine { struct FrameInfo; } }
 namespace Ra { namespace Engine { class Component; } }
+namespace Ra { namespace Engine { class Entity; } }
 
 namespace Ra { namespace Engine {
 
 class System
 {
 public:
-    System();
+    System(RadiumEngine* engine);
     virtual ~System();
 
     /**
@@ -27,19 +32,11 @@ public:
      * @brief Pure virtual method to be overrided by any system.
      * A very basic version of this method could be to iterate on components
      * and just call Component::udate() method on them.
-     * This update method is time agnostic (e.g. render system).
-     */
-    virtual void update() = 0;
-
-    /**
-     * @brief Pure virtual method to be overrided by any system.
-     * A very basic version of this method could be to iterate on components
-     * and just call Component::udate() method on them.
      * This update depends on time (e.g. physics system).
      *
      * @param dt Time elapsed since last call.
      */
-    virtual void update(Scalar dt) = 0;
+    virtual void generateTasks(Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo) = 0;
 
     /**
      * @brief Add a component to the system.
@@ -54,7 +51,7 @@ public:
      *
      * @param id The id of the component to remove
      */
-    void removeComponent(Core::Index idx);
+    void removeComponent(const std::string& name);
 
     /**
       * @brief Remove a component from the system.
@@ -76,8 +73,23 @@ public:
      */
     virtual bool handleMouseEvent(const Core::MouseEvent& event) { return false; }
 
+	/**
+	 * @brief Handle a file loading event. Does nothing by default.
+	 * @param file The file to load
+	 */
+	virtual void handleFileLoading(const std::string& filename) { }
+
+    /**
+     * @brief Handle all the logic behind a component creation.
+     * @param name Name of the entity the component should belong to.
+     * @return The created component.
+     */
+    virtual Component* addComponentToEntity( Engine::Entity* entity ) = 0;
+
 protected:
-    std::map<Core::Index, Component*> m_components;
+	RadiumEngine* m_engine;
+
+    std::map<std::string, std::shared_ptr<Component>> m_components;
 };
 
 } // namespace Engine

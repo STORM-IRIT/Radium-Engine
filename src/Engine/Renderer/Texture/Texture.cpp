@@ -263,20 +263,19 @@ uint Engine::Texture::getZOffset() const
     return m_zoffset;
 }
 
-Core::Color Engine::Texture::getTexel(Scalar u) const
+Core::Color Engine::Texture::getTexel(uint u, uint v)
 {
-    // TODO (Charly)
-    return Core::Color(0, 0, 0, 1);
-}
-Core::Color Engine::Texture::getTexel(Scalar u, Scalar v) const
-{
-    // TODO (Charly)
-    return Core::Color(0, 0, 0, 1);
-}
-Core::Color Engine::Texture::getTexel(Scalar u, Scalar v, Scalar w) const
-{
-    // TODO (Charly)
-    return Core::Color(0, 0, 0, 1);
+    Scalar* pixels = new Scalar[m_width * m_height * 4];
+
+    GL_ASSERT(glBindTexture(GL_TEXTURE_2D, m_textureId));
+    GL_ASSERT(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_FLOAT, pixels));
+
+    uint idx = (v * m_width + u) * 4;
+    Core::Color color(pixels[idx+0], pixels[idx+1], pixels[idx+2], 1.0);
+
+    delete[] pixels;
+
+    return color;
 }
 
 } // namespace Ra

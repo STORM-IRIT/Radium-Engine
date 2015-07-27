@@ -6,12 +6,26 @@ find_package(Assimp     REQUIRED)
 find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
-find_package(GLEW 		REQUIRED) #only used on windows builds.
+find_package(GLEW 	REQUIRED) #only used on windows builds.
+
+if(WIN32)
+	if (CMAKE_SIZEOF_VOID_P EQUAL 4)
+		set(FREEIMAGE_DIR ${EXTERNAL_DIR}/FreeImage/Windows/x32)
+	else()
+		set(FREEIMAGE_DIR ${EXTERNAL_DIR}/FreeImage/Windows/x64)
+	endif()
+	set(FREEIMAGE_INCLUDE_DIR ${FREEIMAGE_DIR})
+	set(FREEIMAGE_LIBRARY ${FREEIMAGE_DIR}/FreeImage.lib)
+else(WIN32)
+	find_package(FreeImage  REQUIRED)
+endif(WIN32)
+message("FreeImage : ${FREEIMAGE_LIBRARY}")
 
 include_directories(
  .
  ${EIGEN_INC}
  ${Assimp_INCLUDE_DIR}
+ ${FREEIMAGE_INCLUDE_DIR}
  ${GLEW_INCLUDE_DIR}
 )
 
@@ -60,8 +74,13 @@ file(GLOB_RECURSE engine_geom_glsl ../Shaders/*.geom.glsl)
 file(GLOB_RECURSE engine_tesc_glsl ../Shaders/*.tesc.glsl)
 file(GLOB_RECURSE engine_tese_glsl ../Shaders/*.tese.glsl)
 file(GLOB_RECURSE engine_comp_glsl ../Shaders/*.comp.glsl)
-
-set(engine_libs ${GLEW_LIBRARIES} ${Assimp_LIBRARIES} ${Qt5OpenGL_LIBRARIES} ${OPENGL_LIBRARIES})
+								  
+set(engine_libs
+    ${GLEW_LIBRARIES}
+    ${Assimp_LIBRARIES}
+    ${FREEIMAGE_LIBRARY}
+    ${Qt5OpenGL_LIBRARIES}
+    ${OPENGL_LIBRARIES})
 
 add_library(
  ${engine_target} STATIC
@@ -69,11 +88,11 @@ add_library(
  ${engine_headers}
  ${engine_inlines}
 
- ${engine_vert_glsl}
+ ${engine_vert_glsl} 
  ${engine_frag_glsl}
  ${engine_geom_glsl}
- ${engine_tese_glsl}
  ${engine_tesc_glsl}
+ ${engine_tese_glsl}
  ${engine_comp_glsl}
 )
 
@@ -133,3 +152,7 @@ target_link_libraries(
  ${app_target}
  ${app_libs}
 )
+
+if (WIN32)
+ include(CMakeGenerateTrees.txt)
+endif(WIN32)

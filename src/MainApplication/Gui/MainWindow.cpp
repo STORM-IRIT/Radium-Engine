@@ -1,12 +1,13 @@
 #include <MainApplication/Gui/MainWindow.hpp>
 
-#include <thread>
-
 #include <QApplication>
 #include <QFileDialog>
+#include <QMouseEvent>
+#include <QKeyEvent>
+
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderSystem.hpp>
+#include <Engine/Renderer/Renderer.hpp>
 #include <MainApplication/Gui/EntityTreeModel.hpp>
 
 namespace Ra
@@ -34,9 +35,10 @@ Gui::MainWindow::~MainWindow()
 
 void Gui::MainWindow::createConnections()
 {
-    connect(qApp, &QApplication::aboutToQuit, m_viewer, &Viewer::quit);
-
     connect(actionOpenMesh, &QAction::triggered, this, &MainWindow::loadFile);
+    connect(actionReload_Shaders, &QAction::triggered, m_viewer, &Gui::Viewer::reloadShaders);
+
+    connect(this, SIGNAL(fileLoading(QString)), qApp, SLOT(loadFile(QString)));
     connect(this, SIGNAL(entitiesUpdated(const std::vector<Engine::Entity*>&)),
             m_entityTreeModel, SLOT(entitiesUpdated(const std::vector<Engine::Entity*>&)));
 
@@ -48,6 +50,8 @@ void Gui::MainWindow::createConnections()
     connect(m_entitiesTreeView, SIGNAL(clicked(QModelIndex)), m_entityTreeModel, SLOT(handleSelect(QModelIndex)));
 
     connect(m_viewer, SIGNAL(entitiesUpdated()), this, SLOT(entitiesUpdated()));
+    connect(m_viewer, SIGNAL(ready(Gui::Viewer*)), qApp, SLOT(viewerReady(Gui::Viewer*)));
+
 }
 
 void Gui::MainWindow::activated(QModelIndex index)
@@ -62,7 +66,7 @@ void Gui::MainWindow::clicked(QModelIndex index)
 
 void Gui::MainWindow::entitiesUpdated()
 {
-    emit entitiesUpdated(m_viewer->getEngine()->getEntities());
+    //emit entitiesUpdated(m_viewer->getEngine()->getEntities());
 }
 
 void Gui::MainWindow::loadFile()
@@ -71,13 +75,116 @@ void Gui::MainWindow::loadFile()
     QString path = QFileDialog::getOpenFileName(this, QString(), "..");
     if (path.size() > 0)
     {
-        res = m_viewer->loadFile(path);
-    }
-
-    if (res)
-    {
-        emit entitiesUpdated(m_viewer->getEngine()->getEntities());
+        emit fileLoading(path);
     }
 }
+
+void Gui::MainWindow::keyPressEvent(QKeyEvent * event)
+{
+    QMainWindow::keyPressEvent(event);
+    m_keyEvents.push_back(keyEventQtToRadium(event));
+}
+
+void Gui::MainWindow::keyReleaseEvent(QKeyEvent * event)
+{
+    QMainWindow::keyReleaseEvent(event);
+    m_keyEvents.push_back(keyEventQtToRadium(event));
+}
+
+Core::MouseEvent Gui::MainWindow::wheelEventQtToRadium(const QWheelEvent* qtEvent)
+{
+    Core::MouseEvent raEvent;
+    raEvent.wheelDelta = qtEvent->delta();
+    if (qtEvent->modifiers().testFlag(Qt::ControlModifier))
+    {
+        raEvent.modifier |= Core::Modifier::RA_CTRL_KEY;
+    }
+
+    if (qtEvent->modifiers().testFlag(Qt::ShiftModifier))
+    {
+        raEvent.modifier |= Core::Modifier::RA_SHIFT_KEY;
+    }
+
+    if (qtEvent->modifiers().testFlag(Qt::AltModifier))
+    {
+        raEvent.modifier |= Core::Modifier::RA_ALT_KEY;
+    }
+
+    raEvent.absoluteXPosition = qtEvent->x();
+    raEvent.absoluteYPosition = qtEvent->y();
+    return raEvent;
+}
+
+Core::MouseEvent Gui::MainWindow::mouseEventQtToRadium(const QMouseEvent* qtEvent)
+{
+    Core::MouseEvent raEvent;
+    switch (qtEvent->button())
+    {
+        case Qt::LeftButton:
+        {
+            raEvent.button = Core::MouseButton::RA_MOUSE_LEFT_BUTTON;
+        } break;
+
+        case Qt::MiddleButton:
+        {
+            raEvent.button = Core::MouseButton::RA_MOUSE_MIDDLE_BUTTON;
+        } break;
+
+        case Qt::RightButton:
+        {
+            raEvent.button = Core::MouseButton::RA_MOUSE_RIGHT_BUTTON;
+        } break;
+
+        default:
+        {
+        } break;
+    }
+
+    raEvent.modifier = 0;
+
+    if (qtEvent->modifiers().testFlag(Qt::ControlModifier))
+    {
+        raEvent.modifier |= Core::Modifier::RA_CTRL_KEY;
+    }
+
+    if (qtEvent->modifiers().testFlag(Qt::ShiftModifier))
+    {
+        raEvent.modifier |= Core::Modifier::RA_SHIFT_KEY;
+    }
+
+    if (qtEvent->modifiers().testFlag(Qt::AltModifier))
+    {
+        raEvent.modifier |= Core::Modifier::RA_ALT_KEY;
+    }
+
+    raEvent.absoluteXPosition = qtEvent->x();
+    raEvent.absoluteYPosition = qtEvent->y();
+    return raEvent;
+}
+
+Core::KeyEvent Gui::MainWindow::keyEventQtToRadium(const QKeyEvent* qtEvent)
+{
+    Core::KeyEvent raEvent;
+    raEvent.key = qtEvent->key();
+
+    raEvent.modifier = 0;
+
+    if (qtEvent->modifiers().testFlag(Qt::ControlModifier))
+    {
+        raEvent.modifier |= Core::Modifier::RA_CTRL_KEY;
+    }
+
+    if (qtEvent->modifiers().testFlag(Qt::ShiftModifier))
+    {
+        raEvent.modifier |= Core::Modifier::RA_SHIFT_KEY;
+    }
+
+    if (qtEvent->modifiers().testFlag(Qt::AltModifier))
+    {
+        raEvent.modifier |= Core::Modifier::RA_ALT_KEY;
+    }
+    return raEvent;
+}
+
 
 } // namespace Ra

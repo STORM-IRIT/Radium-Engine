@@ -17,18 +17,13 @@ struct MouseEvent
     /// Modifier has been used ? Ctrl, Alt, Shift
     int modifier;
 
-    /// X mouse position in [0,1] when the event occured.
-    Scalar relativeXPosition;
-    /// Y mouse position in [0,1] when the event occured.
-    Scalar relativeYPosition;
-
     /// X mouse position in [width, height] when the event occured.
-    Scalar absoluteXPosition;
+    int absoluteXPosition;
     /// Y mouse position in [width, height] when the event occured.
-    Scalar absoluteYPosition;
+    int absoluteYPosition;
 
     /// Wheel delta. Is only set for WheelEvent, undefined otherwise.
-    Scalar wheelDelta;
+    int wheelDelta;
 };
 
 }}

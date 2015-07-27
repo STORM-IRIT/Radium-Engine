@@ -28,6 +28,18 @@ void Engine::FBO::bind()
     m_isBound = true;
 }
 
+void Engine::FBO::useAsTarget()
+{
+    bind();
+    GL_ASSERT(glViewport(0, 0, m_width, m_height));
+}
+
+void Engine::FBO::useAsTarget(uint width, uint height)
+{
+    bind();
+    GL_ASSERT(glViewport(0, 0, width, height));
+}
+
 void Engine::FBO::unbind(bool complete)
 {
     m_isBound = false;

@@ -27,6 +27,10 @@ if (MSVC)
 	set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi ${CMAKE_CXX_FLAGS_RELEASE}")
 endif(MSVC)
 
+# Problem with Qt linking
+# FIXME(Charly): Not sure if this should be done on Linux
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_COMPILING_QSTRING_COMPAT_CPP")
+
 if ("${USE_DOUBLE}" STREQUAL "true")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_USE_DOUBLE")
   message("Compile using double precision.")

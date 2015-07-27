@@ -5,8 +5,9 @@
 #include <Core/Math/Vector.hpp>
 #include <Core/Index/IndexedObject.hpp>
 
-namespace Ra { namespace Engine { class System; } }
-namespace Ra { namespace Engine { class Entity; } }
+namespace Ra { namespace Engine { class System;          } }
+namespace Ra { namespace Engine { class Entity;          } }
+namespace Ra { namespace Engine { class DrawableManager; } }
 
 namespace Ra { namespace Engine {
 
@@ -15,54 +16,50 @@ namespace Ra { namespace Engine {
  * It is also linked to some other components in an entity.
  * Each component share a transform through their entity.
  */
-class Component : public Core::IndexedObject
+class Component
 {
 public:
     /// CONSTRUCTOR
-    Component() : IndexedObject() {}
+    Component(const std::string& name);
 
     // FIXME (Charly) : Should destructor call something like
     //                  System::removeComponent(this) ?
     /// DESTRUCTOR
-    virtual ~Component() {}
+    virtual ~Component();
 
-    /**
-     * @brief Pure virtual method to be overrided by any component.
-     * This update method is time agnostic (e.g. called by a render system).
-     */
-    virtual void update() = 0;
-
-    /**
-     * @brief Pure virtual method to be overrided by any component.
-     * This update method depends on time (e.g. called by a physics system).
-     * @param dt Time elapsed since last call.
-     */
-    virtual void update(Scalar dt) = 0;
-
-    /**
-     * @brief Set system the component is updated by.
-     * This method is called by the system.
-     * @param system The system the component is updated by.
-     */
-    virtual void setSystem(System* system);
-
+	/**
+	* @brief Pure virtual method to be overrided by any component.
+	* When this method is called you are guaranteed to know your system and your entity
+	*/
+	virtual void initialize() = 0;
     /**
      * @brief Set entity the component is part of.
      * This method is called by the entity.
      * @param entity The entity the component is part of.
      */
-    virtual void setEntity(Entity* entity);
+    virtual void setEntity(const Entity* entity);
+	
+	virtual void setDrawableManager(DrawableManager* drawableMananger);
+
+    virtual const Entity* getEntity() const;
 
     virtual void setSelected(bool selected);
 
+    virtual const std::string& getName() const;
+
 protected:
-    System* m_system;
-    Entity* m_entity;
+    std::string m_name;
+
+    const Entity* m_entity;
+
+	DrawableManager* m_drawableManager;
 
     bool m_isSelected;
 };
 
 } // namespace Engine
 } // namespace Ra
+
+#include <Engine/Entity/Component.inl>
 
 #endif // RADIUMENGINE_COMPONENT_HPP

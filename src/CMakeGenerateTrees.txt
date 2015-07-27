@@ -1,0 +1,90 @@
+#------------------------------------------------------------------
+#------------------------------ CORE ------------------------------
+#------------------------------------------------------------------
+file(GLOB Core_SUB Core/CoreMacros.hpp)
+source_group("Core" FILES ${Core_SUB})
+
+file(GLOB Core_Containers_SUB Core/Containers/*)
+source_group("Core\\Containers" FILES ${Core_Containers_SUB})
+
+file(GLOB Core_Event_SUB Core/Event/*)
+source_group("Core\\Event" FILES ${Core_Event_SUB})
+
+file(GLOB Core_Index_SUB Core/Index/*)
+source_group("Core\\Index" FILES ${Core_Index_SUB})
+
+file(GLOB Core_Math_SUB Core/Math/*)
+source_group("Core\\Math" FILES ${Core_Math_SUB})
+
+file(GLOB Core_Mesh_SUB Core/Mesh/*)
+source_group("Core\\Mesh" FILES ${Core_Mesh_SUB})
+
+file(GLOB Core_String_SUB Core/String/*)
+source_group("Core\\String" FILES ${Core_String_SUB})
+
+file(GLOB Core_Tasks_SUB Core/Tasks/*)
+source_group("Core\\Tasks" FILES ${Core_Tasks_SUB})
+
+file(GLOB Core_Utils_SUB Core/Utils/*)
+source_group("Core\\Utils" FILES ${Core_Utils_SUB})
+
+#------------------------------------------------------------------
+#----------------------------- ENGINE -----------------------------
+#------------------------------------------------------------------
+file(GLOB Engine_SUB Engine/RadiumEngine.hpp Engine/RadiumEngine.cpp)
+source_group("Engine" FILES ${Engine_SUB})
+
+file(GLOB Engine_Renderer_SUB Engine/Renderer/Renderer.hpp Engine/Renderer/Renderer.cpp)
+source_group("Engine\\Renderer" FILES ${Engine_Renderer_SUB})
+
+file(GLOB Engine_Renderer_Camera_SUB Engine/Renderer/Camera/*)
+source_group("Engine\\Renderer\\Camera" FILES ${Engine_Renderer_Camera_SUB})
+
+file(GLOB Engine_Renderer_Drawable_SUB Engine/Renderer/Drawable/*)
+source_group("Engine\\Renderer\\Drawable" FILES ${Engine_Renderer_Drawable_SUB})
+
+file(GLOB Engine_Renderer_FancyMeshPlugin_SUB Engine/Renderer/FancyMeshPlugin/*)
+source_group("Engine\\Renderer\\FancyMeshPlugin" FILES ${Engine_Renderer_FancyMeshPlugin_SUB})
+
+file(GLOB Engine_Renderer_Light_SUB Engine/Renderer/Light/*)
+source_group("Engine\\Renderer\\Light" FILES ${Engine_Renderer_Light_SUB})
+
+file(GLOB Engine_Renderer_Material_SUB Engine/Renderer/Material/*)
+source_group("Engine\\Renderer\\Material" FILES ${Engine_Renderer_Material_SUB})
+
+file(GLOB Engine_Renderer_Mesh_SUB Engine/Renderer/Mesh/*)
+source_group("Engine\\Renderer\\Mesh" FILES ${Engine_Renderer_Mesh_SUB})
+
+file(GLOB Engine_Renderer_OpenGL_SUB Engine/Renderer/OpenGL/*)
+source_group("Engine\\Renderer\\OpenGL" FILES ${Engine_Renderer_OpenGL_SUB})
+
+file(GLOB Engine_Renderer_Shader_SUB Engine/Renderer/Shader/*)
+source_group("Engine\\Renderer\\Shader" FILES ${Engine_Renderer_Shader_SUB})
+
+file(GLOB Engine_Renderer_Texture_SUB Engine/Renderer/Texture/*)
+source_group("Engine\\Renderer\\Texture" FILES ${Engine_Renderer_Texture_SUB})
+
+file(GLOB Engine_Entity_SUB Engine/Entity/*)
+source_group("Engine\\Entity" FILES ${Engine_Entity_SUB})
+
+source_group("Shaders" FILES ${engine_vert_glsl}
+			     ${engine_frag_glsl}
+			     ${engine_geom_glsl}
+			     ${engine_tesc_glsl}
+			     ${engine_tese_glsl}
+			     ${engine_comp_glsl})
+
+#------------------------------------------------------------------
+#------------------------ MAIN APPLICATION ------------------------
+#------------------------------------------------------------------
+file(GLOB MainApplication_SUB MainApplication/*)
+source_group("MainApplication" FILES ${MainApplication_SUB})
+
+file(GLOB MainApplication_GUI_SUB MainApplication/Gui/*)
+source_group("MainApplication\\Gui" FILES ${MainApplication_GUI_SUB})
+
+file(GLOB MainApplication_GUI_UI_SUB MainApplication/Gui/ui/*)
+source_group("MainApplication\\Gui\\ui" FILES ${MainApplication_GUI_UI_SUB})
+
+file(GLOB MainApplication_Viewer_SUB MainApplication/Viewer/*)
+source_group("MainApplication\\Viewer" FILES ${MainApplication_Viewer_SUB})

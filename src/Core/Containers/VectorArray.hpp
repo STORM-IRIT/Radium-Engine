@@ -3,11 +3,10 @@
 
 #include <vector>
 #include <Core/Math/Vector.hpp>
+#include <Core/Containers/AlignedAllocator.hpp>
 
 namespace Ra { namespace Core
 {
-
-
 
     /// This class is a wrapper around a std::vector of Core::Vectors.
     /// which allow to use the stdlib's dynamic array implementation, yet pass it as
@@ -18,8 +17,8 @@ namespace Ra { namespace Core
     public:
         // Type shortcuts
         typedef Eigen::Matrix<Scalar, V::RowsAtCompileTime, Eigen::Dynamic> Matrix;
-        typedef Eigen::Map<Matrix, Eigen::Aligned> MatrixMap;
-        typedef Eigen::Map<const Matrix, Eigen::Aligned> ConstMatrixMap;
+        typedef Eigen::Map<Matrix> MatrixMap;
+        typedef Eigen::Map<const Matrix> ConstMatrixMap;
 
     public:
         /// Inheriting constructors from std::vector
@@ -39,6 +38,10 @@ namespace Ra { namespace Core
 
     };
 
+	// Convenience typedefs
+	typedef VectorArray<Vector2> Vector2Array;
+	typedef VectorArray<Vector3> Vector3Array;
+	typedef VectorArray<Vector4> Vector4Array;
 
     // Notes :
     // Using a map for eigen integration was recommended by [1].

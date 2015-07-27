@@ -25,10 +25,10 @@ namespace Ra { namespace Engine {
         if (err != GL_NO_ERROR) { \
             const GLubyte* errBuf = gluErrorString(err); \
             if (errBuf == nullptr) \
-				fprintf(stderr, "OpenGL error (%s:%d, %s) : ERROR_UNKNOWN_BY_GLU (%d)\n", \
+                fprintf(stderr, "OpenGL error (%s:%d, %s) : ERROR_UNKNOWN_BY_GLU (0x%04x)\n", \
 						__FILE__, __LINE__, __STRING(x), err); \
 			else \
-                fprintf(stderr, "OpenGL error (%s:%d, %s) : %s (%d)\n", \
+                fprintf(stderr, "OpenGL error (%s:%d, %s) : %s (0x%04x)\n", \
 						__FILE__, __LINE__, __STRING(x), errBuf, err); \
 		} \
     }
@@ -37,9 +37,9 @@ namespace Ra { namespace Engine {
     {\
         GLuint err = glGetError(); \
         if (err != GL_NO_ERROR) { \
-            fprintf(stderr, "OpenGL error (%s:%d, glCheckError()) : %s (%d).\n",\
+            fprintf(stderr, "OpenGL error (%s:%d, glCheckError()) : %s (0x%04x).\n",\
                     __FILE__, __LINE__, gluErrorString(err), err);\
-		} \
+	    } \
     }
 
 #define glFlushError() glGetError()

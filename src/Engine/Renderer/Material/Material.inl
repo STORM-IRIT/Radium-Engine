@@ -1,5 +1,3 @@
-#include "Material.hpp"
-
 namespace Ra
 {
 
@@ -8,34 +6,25 @@ inline const std::string& Engine::Material::getName() const
     return m_name;
 }
 
-inline void Engine::Material::setDefaultShaderProgram(ShaderProgram* shader)
+inline void Engine::Material::setDefaultShaderProgram(
+        const ShaderConfiguration& shader)
 {
-    m_defaultShader = shader;
-
-    if (nullptr == m_currentShader)
-    {
-        m_currentShader = shader;
-    }
+    m_defaultShaderConfiguration = shader;
+    m_isDirty = true;
 }
 
-inline void Engine::Material::setContourShaderProgram(ShaderProgram* shader)
+inline void Engine::Material::setContourShaderProgram(
+        const ShaderConfiguration& shader)
 {
-    m_contourShader = shader;
-
-    if (nullptr == m_currentShader)
-    {
-        m_currentShader = shader;
-    }
+    m_contourShaderConfiguration = shader;
+    m_isDirty = true;
 }
 
-inline void Engine::Material::setWireframeShaderProgram(ShaderProgram* shader)
+inline void Engine::Material::setWireframeShaderProgram(
+        const ShaderConfiguration& shader)
 {
-    m_wireframeShader = shader;
-
-    if (nullptr == m_currentShader)
-    {
-        m_currentShader = shader;
-    }
+    m_wireframeShaderConfiguration = shader;
+    m_isDirty = true;
 }
 
 inline Engine::ShaderProgram* Engine::Material::getCurrentShaderProgram() const
@@ -45,27 +34,8 @@ inline Engine::ShaderProgram* Engine::Material::getCurrentShaderProgram() const
 
 inline void Engine::Material::changeMode(const Material::MaterialMode& mode)
 {
-    switch (mode)
-    {
-        case MODE_DEFAULT:
-        {
-            m_currentShader = m_defaultShader;
-        } break;
-
-        case MODE_CONTOUR:
-        {
-            m_currentShader = m_contourShader;
-        } break;
-
-        case MODE_WIREFRAME:
-        {
-            m_currentShader = m_wireframeShader;
-        } break;
-
-        default:
-        {
-        } break;
-    }
+    m_mode = mode;
+    m_isDirty = true;
 }
 
 inline void Engine::Material::setKd(const Core::Color& kd)
@@ -76,6 +46,11 @@ inline void Engine::Material::setKd(const Core::Color& kd)
 inline void Engine::Material::setKs(const Core::Color& ks)
 {
     m_ks = ks;
+}
+
+inline void Engine::Material::setNs(Scalar ns)
+{
+	m_ns = ns;
 }
 
 inline void Engine::Material::setMaterialType(const MaterialType& type)
@@ -89,6 +64,12 @@ inline void Engine::Material::addTexture(const TextureType& type, Texture* textu
     m_textures[type] = texture;
 }
 
+inline void Engine::Material::addTexture(const TextureType& type, const std::string& texture)
+{
+    m_pendingTextures[type] = texture;
+    m_isDirty = true;
+}
+
 inline const Core::Color& Engine::Material::getKd() const
 {
     return m_kd;
@@ -97,6 +78,11 @@ inline const Core::Color& Engine::Material::getKd() const
 inline const Core::Color& Engine::Material::getKs() const
 {
     return m_ks;
+}
+
+inline Scalar Engine::Material::getNs() const
+{
+	return m_ns;
 }
 
 inline const Engine::Material::MaterialType& Engine::Material::getMaterialType() const

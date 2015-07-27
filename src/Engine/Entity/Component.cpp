@@ -2,23 +2,19 @@
 
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Entity/System.hpp>
+#include <Engine/Renderer/Drawable/DrawableManager.hpp>
 
 namespace Ra
 {
 
-void Engine::Component::setSystem(Engine::System* system)
+Engine::Component::Component(const std::string& name )
+    : m_name(name)
 {
-    m_system = system;
 }
 
-void Engine::Component::setEntity(Engine::Entity* entity)
+Engine::Component::~Component()
 {
-    m_entity = entity;
 }
 
-void Engine::Component::setSelected(bool selected)
-{
-    m_isSelected = selected;
-}
 
 } // namespace Ra
