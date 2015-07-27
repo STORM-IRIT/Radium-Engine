@@ -3,18 +3,24 @@
 
 #include <memory>
 
+#include <QObject>
+#include <QKeyEvent>
+#include <QMouseEvent>
+
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/Vector.hpp>
 #include <Core/Math/Matrix.hpp>
 
 namespace Ra { namespace Core   { struct MouseEvent; } }
 namespace Ra { namespace Core   { struct KeyEvent; } }
-namespace Ra { namespace Engine { struct Camera; } }
+namespace Ra { namespace Engine { class  Camera; } }
 
-namespace Ra { namespace Engine {
+namespace Ra { namespace Gui {
 
-class CameraInterface
+class CameraInterface : public QObject
 {
+    Q_OBJECT
+
 public:
     // FIXME(Charly): width / height ?
     CameraInterface(uint width, uint height);
@@ -25,6 +31,20 @@ public:
     Core::Matrix4 getProjMatrix() const;
     Core::Matrix4 getViewMatrix() const;
 
+
+    /// @return true if the event has been taken into account, false otherwise
+    virtual bool handleMousePressEvent(QMouseEvent* event) = 0;
+    /// @return true if the event has been taken into account, false otherwise
+    virtual bool handleMouseReleaseEvent(QMouseEvent* event) = 0;
+    /// @return true if the event has been taken into account, false otherwise
+    virtual bool handleMouseMoveEvent(QMouseEvent* event) = 0;
+
+    /// @return true if the event has been taken into account, false otherwise
+    virtual bool handleKeyPressEvent(QKeyEvent* event) = 0;
+    /// @return true if the event has been taken into account, false otherwise
+    virtual bool handleKeyReleaseEvent(QKeyEvent* event) = 0;
+
+public slots:
     void setCameraSensitivity(Scalar sensitivity);
 
     void setCameraFov(Scalar fov);
@@ -38,10 +58,7 @@ public:
     virtual void moveCameraToFitAabb(const Core::Aabb& aabb);
     virtual void moveCameraTo(const Core::Vector3& position);
 
-    /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleMouseEvent(Core::MouseEvent* event) = 0;
-    /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleKeyEvent(Core::KeyEvent* event) = 0;
+    virtual void resetCamera() = 0;
 
 protected:
     Core::Aabb m_targetedAabb;
@@ -52,7 +69,7 @@ protected:
     uint m_width;
     uint m_height;
 
-    mutable std::unique_ptr<Camera> m_camera;
+    mutable std::unique_ptr<Engine::Camera> m_camera;
     mutable bool m_viewIsDirty;
     mutable bool m_projIsDirty;
     bool m_mapCameraBahaviourToAabb;
