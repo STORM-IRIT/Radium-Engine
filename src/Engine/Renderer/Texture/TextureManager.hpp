@@ -29,6 +29,7 @@ private:
 
 private:
     std::map<std::string, Texture*> m_textures;
+    bool m_verbose;
 };
 
 } // namespace Engine

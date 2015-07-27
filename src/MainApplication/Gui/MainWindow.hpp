@@ -32,12 +32,21 @@ private slots:
     void clicked(QModelIndex index);
     void activated(QModelIndex index);
 
+    void setCameraPosition();
+    void setCameraTarget();
+
 public slots:
     void entitiesUpdated();
+    void cameraPositionChanged(const Core::Vector3& p);
+    void cameraTargetChanged(const Core::Vector3& p);
 
 signals:
     void fileLoading(const QString path);
     void entitiesUpdated(const std::vector<Engine::Entity*>&);
+
+signals:
+    void setCameraPosition(const Core::Vector3&);
+    void setCameraTarget(const Core::Vector3&);
 
 private:
     // Basic I/O management

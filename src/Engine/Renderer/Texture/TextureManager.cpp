@@ -10,6 +10,7 @@ namespace Ra
 {
 
 Engine::TextureManager::TextureManager()
+    : m_verbose(false)
 {
 }
 
@@ -71,10 +72,13 @@ Engine::Texture* Engine::TextureManager::addTexture(const std::string& filename)
     int w = FreeImage_GetWidth(dib);
     int h = FreeImage_GetHeight(dib);
 
-    fprintf(stderr,
-            "Image stats (%s) :\n\tBPP    : %08x\n"
-            "\tFormat : %08x\n\tSize   : %ux%u\n",
-            filename.c_str(), bpp, format, w, h);
+    if (m_verbose)
+    {
+        fprintf(stderr,
+                "Image stats (%s) :\n\tBPP    : %08x\n"
+                "\tFormat : %08x\n\tSize   : %ux%u\n",
+                filename.c_str(), bpp, format, w, h);
+    }
 
     CORE_ASSERT(data, "Data is null");
 
