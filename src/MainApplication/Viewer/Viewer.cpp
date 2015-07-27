@@ -23,7 +23,7 @@
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/Camera/TrackballCamera.hpp>
+#include <MainApplication/Viewer/TrackballCamera.hpp>
 
 #include <MainApplication/Gui/MainWindow.hpp>
 
@@ -51,6 +51,8 @@ Gui::Viewer::Viewer(QWidget* parent)
     // Allow Viewer to receive events
     setFocusPolicy(Qt::StrongFocus);
     setMinimumSize(QSize(800, 600));
+
+    m_camera.reset(new Gui::TrackballCamera(width(), height()));
 }
 
 Gui::Viewer::~Viewer()
@@ -87,8 +89,6 @@ void Gui::Viewer::initializeGL()
 
     m_renderer = new Engine::Renderer(width(), height());
     m_renderer->initialize();
-
-	m_camera.reset(new Engine::TrackballCamera(width(), height()));
     
     emit ready(this);
 }
@@ -127,9 +127,7 @@ void Gui::Viewer::mousePressEvent(QMouseEvent* event)
                 break;
             }
 
-			Core::MouseEvent e = mouseEventQtToRadium(event);
-			e.event = Core::MouseEventType::RA_MOUSE_PRESSED;
-			if (m_camera->handleMouseEvent(&e))
+            if (m_camera->handleMousePressEvent(event))
 			{
 				m_interactionState = CAMERA;
 			}
@@ -154,9 +152,7 @@ void Gui::Viewer::mouseReleaseEvent(QMouseEvent* event)
 {
 	if (m_interactionState == CAMERA)
 	{
-		Core::MouseEvent e = mouseEventQtToRadium(event);
-		e.event = Core::MouseEventType::RA_MOUSE_RELEASED;
-		m_camera->handleMouseEvent(&e);
+        m_camera->handleMouseReleaseEvent(event);
 
 		m_interactionState = NONE;
 	}
@@ -166,9 +162,7 @@ void Gui::Viewer::mouseMoveEvent(QMouseEvent* event)
 {
 	if (m_interactionState == CAMERA)
 	{
-		Core::MouseEvent e = mouseEventQtToRadium(event);
-		e.event = Core::MouseEventType::RA_MOUSE_MOVED;
-		m_camera->handleMouseEvent(&e);
+        m_camera->handleMouseMoveEvent(event);
 	}
 }
 

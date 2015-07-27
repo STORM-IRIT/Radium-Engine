@@ -17,7 +17,8 @@ namespace Ra { namespace Core   { struct KeyEvent;       } }
 namespace Ra { namespace Core   { struct MouseEvent;     } }
 namespace Ra { namespace Engine { class RadiumEngine;    } }
 namespace Ra { namespace Engine { class Renderer;        } }
-namespace Ra { namespace Engine { class CameraInterface; } }
+
+namespace Ra { namespace Gui    { class CameraInterface; } }
 
 namespace Ra { namespace Gui {
 
@@ -49,6 +50,7 @@ public:
     ~Viewer();
 
     void setRadiumEngine(Engine::RadiumEngine* engine);
+    CameraInterface* getCamera() { return m_camera.get(); }
 
 signals:
     void ready( Gui::Viewer* );
@@ -80,7 +82,7 @@ private:
     Engine::RadiumEngine* m_engine;
     Engine::Renderer* m_renderer;
     
-	std::unique_ptr<Engine::CameraInterface> m_camera;
+    std::unique_ptr<CameraInterface> m_camera;
 
     InteractionState m_interactionState;
 };

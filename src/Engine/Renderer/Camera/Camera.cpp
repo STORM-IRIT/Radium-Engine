@@ -54,21 +54,31 @@ void Camera::applyTransform( const Core::Transform& T,
                                      const ModeType mode )
 {
     std::lock_guard<std::mutex> lock(m_cameraMutex);
-    Core::Transform trans;
-    trans.setIdentity();
-    switch( mode ) {
-    case ModeType::FREE: {
-        trans.translation() = -getPosition();
-    } break;
-    case ModeType::TARGET: {
-        trans.translation() = -getTargetPoint();
-    } break;
-    default: break;
-    }
-    m_frame = trans.inverse( Eigen::Affine ) * T * trans * m_frame;
+    Core::Transform t1, t2;
+    t1.setIdentity();
+    t2.setIdentity();
+    switch( mode )
+    {
+        case ModeType::FREE:
+        {
+            t1.translation() = -getPosition();
+            t2.translation() =  getPosition();
+        } break;
 
-    if( mode == ModeType::TARGET ) {
-        m_focalPoint = ( getPosition() - trans.translation() ).norm();
+        case ModeType::TARGET:
+        {
+            t1.translation() = -getTargetPoint();
+            t2.translation() =  getTargetPoint();
+        } break;
+
+        default: break;
+    }
+
+    m_frame = t2 * T * t1 * m_frame;
+
+    if( mode == ModeType::TARGET )
+    {
+        m_focalPoint = ( getPosition() - t1.translation() ).norm();
     }
 }
 

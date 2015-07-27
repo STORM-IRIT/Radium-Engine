@@ -99,7 +99,7 @@
           <item>
            <widget class="QTabWidget" name="tabWidget">
             <property name="currentIndex">
-             <number>1</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="tab">
              <attribute name="title">
@@ -376,6 +376,24 @@
                </widget>
               </item>
              </layout>
+            </widget>
+            <widget class="QWidget" name="camera_tab">
+             <attribute name="title">
+              <string>Camera</string>
+             </attribute>
+             <widget class="QPushButton" name="m_cameraResetButton">
+              <property name="geometry">
+               <rect>
+                <x>80</x>
+                <y>70</y>
+                <width>95</width>
+                <height>31</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Reset Camera</string>
+              </property>
+             </widget>
             </widget>
            </widget>
           </item>

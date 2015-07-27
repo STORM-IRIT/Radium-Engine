@@ -9,6 +9,7 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <MainApplication/Gui/EntityTreeModel.hpp>
+#include <MainApplication/Viewer/CameraInterface.hpp>
 
 namespace Ra
 {
@@ -52,6 +53,8 @@ void Gui::MainWindow::createConnections()
     connect(m_viewer, SIGNAL(entitiesUpdated()), this, SLOT(entitiesUpdated()));
     connect(m_viewer, SIGNAL(ready(Gui::Viewer*)), qApp, SLOT(viewerReady(Gui::Viewer*)));
 
+    connect(m_cameraResetButton, SIGNAL(released()),
+            m_viewer->getCamera(), SLOT(resetCamera()));
 }
 
 void Gui::MainWindow::activated(QModelIndex index)
