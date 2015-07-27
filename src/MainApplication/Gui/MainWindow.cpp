@@ -71,7 +71,6 @@ void Gui::MainWindow::entitiesUpdated()
 
 void Gui::MainWindow::loadFile()
 {
-    bool res = false;
     QString path = QFileDialog::getOpenFileName(this, QString(), "..");
     if (path.size() > 0)
     {
