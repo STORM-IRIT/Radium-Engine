@@ -103,14 +103,18 @@ void Gui::Viewer::paintGL()
 {
     // TODO(Charly): Setup data, camera handled there.
     Engine::RenderData data;
+
+    m_cameraMutex.lock();
     data.projMatrix = m_camera->getProjMatrix();
     data.viewMatrix = m_camera->getViewMatrix();
-
+    m_cameraMutex.unlock();
     m_renderer->render(data);
 }
 
 void Gui::Viewer::resizeGL(int width, int height)
 {
+    std::lock_guard<std::mutex> lockCam(m_cameraMutex);
+    std::lock_guard<std::mutex> lockRend(m_rendererMutex);
 	m_camera->resizeViewport(width, height);
     m_renderer->resize(width, height);
 }
@@ -150,6 +154,8 @@ void Gui::Viewer::mousePressEvent(QMouseEvent* event)
         } break;
     }
 }
+
+
 void Gui::Viewer::mouseReleaseEvent(QMouseEvent* event)
 {
 	if (m_interactionState == CAMERA)
@@ -240,6 +246,26 @@ Core::MouseEvent Gui::Viewer::mouseEventQtToRadium(const QMouseEvent* qtEvent)
 void Gui::Viewer::sceneChanged(const Core::Aabb& aabb)
 {
 	m_camera->moveCameraToFitAabb(aabb);
+}
+
+void Gui::Viewer::runRenderThread()
+{
+    // lock renderer
+    // see OpenGlWidget implementatin of render(),
+    std::cout<<"MT Rendering "<<std::this_thread::get_id()<<std::endl;
+    // call to render
+    // return
+}
+
+void Gui::Viewer::startRendering()
+{
+    // move the context to thread.
+    m_renderThread = std::thread(&Viewer::runRenderThread, this);
+}
+
+void Gui::Viewer::waitForRendering()
+{
+    m_renderThread.join();
 }
 
 } // namespace Ra

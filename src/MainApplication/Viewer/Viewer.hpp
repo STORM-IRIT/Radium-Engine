@@ -7,6 +7,8 @@
 #endif
 
 #include <memory>
+#include <thread>
+#include <mutex>
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
@@ -50,6 +52,9 @@ public:
 
     void setRadiumEngine(Engine::RadiumEngine* engine);
 
+    void startRendering();
+
+    void waitForRendering();
 signals:
     void ready( Gui::Viewer* );
     void entitiesUpdated();
@@ -64,6 +69,7 @@ protected:
     virtual void paintGL() override;
     virtual void resizeGL(int width, int height) override;
 
+    virtual void paintEvent(QPaintEvent* e) override {}
     /// INTERACTION
     // We intercept the mouse events in this widget to get the coordinates of the mouse
     // in screen space.
@@ -73,6 +79,9 @@ protected:
     virtual void wheelEvent(QWheelEvent* event) override;
 
 private:
+
+    void runRenderThread();
+
 	// FIXME(Charly): Find a better way to handle mouse events ?
 	static Core::MouseEvent mouseEventQtToRadium(const QMouseEvent* qtEvent);
 
@@ -81,6 +90,9 @@ private:
     Engine::Renderer* m_renderer;
     
 	std::unique_ptr<Engine::CameraInterface> m_camera;
+    std::thread m_renderThread;
+    std::mutex m_cameraMutex;
+    std::mutex m_rendererMutex;
 
     InteractionState m_interactionState;
 };
