@@ -3,10 +3,11 @@ Coolest engine ever made #yolo #swag
 
 ## Dependencies 
 * Eigen 3.2+ (in repository)
-* Assimp (submodule : will be handled later, you can use package version)
+* Assimp (included as a submodule)
 * OpenGL 3+
-* QT Core, Widgets and OpenGL v5.4+ 
+* Qt Core, Qt Widgets and Qt OpenGL v5.4+ 
 * GLEW (used on Windows only for now)
+* FreeImage (for texture loading)
 * To build : CMake 2.8.11+
 
 ## Getting submodules
@@ -16,7 +17,7 @@ $ git submodule init
 $ git submodule update
 ```
 
-## Building
+## Building on Linux
 ```
 $ mkdir build
 $ cd build
