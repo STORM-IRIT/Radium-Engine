@@ -185,58 +185,6 @@ void Gui::Viewer::reloadShaders()
     doneCurrent();
 }
 
-Core::MouseEvent Gui::Viewer::mouseEventQtToRadium(const QMouseEvent* qtEvent)
-{
-	Core::MouseEvent raEvent;
-	switch (qtEvent->button())
-	{
-		case Qt::LeftButton:
-		{
-			raEvent.button = Core::MouseButton::RA_MOUSE_LEFT_BUTTON;
-		} break;
-
-		case Qt::MiddleButton:
-		{
-			raEvent.button = Core::MouseButton::RA_MOUSE_MIDDLE_BUTTON;
-		} break;
-
-		case Qt::RightButton:
-		{
-			raEvent.button = Core::MouseButton::RA_MOUSE_RIGHT_BUTTON;
-		} break;
-
-		default:
-		{
-		} break;
-	}
-
-	raEvent.modifier = 0;
-
-	if (qtEvent->modifiers().testFlag(Qt::NoModifier))
-	{
-		raEvent.modifier = Core::Modifier::RA_EMPTY;
-	}
-
-	if (qtEvent->modifiers().testFlag(Qt::ControlModifier))
-	{
-		raEvent.modifier |= Core::Modifier::RA_CTRL_KEY;
-	}
-
-	if (qtEvent->modifiers().testFlag(Qt::ShiftModifier))
-	{
-		raEvent.modifier |= Core::Modifier::RA_SHIFT_KEY;
-	}
-
-	if (qtEvent->modifiers().testFlag(Qt::AltModifier))
-	{
-		raEvent.modifier |= Core::Modifier::RA_ALT_KEY;
-	}
-
-	raEvent.absoluteXPosition = qtEvent->x();
-	raEvent.absoluteYPosition = qtEvent->y();
-	return raEvent;
-}
-
 void Gui::Viewer::sceneChanged(const Core::Aabb& aabb)
 {
 	m_camera->moveCameraToFitAabb(aabb);

@@ -54,39 +54,33 @@ Core::Matrix4 Gui::CameraInterface::getViewMatrix() const
     return m_camera->getViewMatrix();
 }
 
-void Gui::CameraInterface::setCameraSensitivity(Scalar sensitivity)
+void Gui::CameraInterface::setCameraSensitivity(double sensitivity)
 {
     m_cameraSensitivity = sensitivity;
 }
 
-void Gui::CameraInterface::setCameraFov(Scalar fov)
+void Gui::CameraInterface::setCameraFov(double fov)
 {
     m_camera->setFOV(fov);
     m_projIsDirty = true;
 }
 
-void Gui::CameraInterface::setCameraFovInDegrees(Scalar fov)
+void Gui::CameraInterface::setCameraFovInDegrees(double fov)
 {
     m_camera->setFOV(fov * M_PI / 180.0);
     m_projIsDirty = true;
 }
 
-void Gui::CameraInterface::setCameraZNear(Scalar zNear)
+void Gui::CameraInterface::setCameraZNear(double zNear)
 {
     m_camera->setZNear(zNear);
     m_projIsDirty = true;
 }
 
-void Gui::CameraInterface::setCameraZFar(Scalar zFar)
+void Gui::CameraInterface::setCameraZFar(double zFar)
 {
     m_camera->setZFar(zFar);
     m_projIsDirty = true;
-}
-
-void Gui::CameraInterface::moveCameraTo(const Core::Vector3& position)
-{
-    m_camera->setPosition(position);
-    m_viewIsDirty = true;
 }
 
 void Gui::CameraInterface::mapCameraBehaviourToAabb(const Core::Aabb& aabb)

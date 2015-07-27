@@ -29,7 +29,8 @@ public:
     virtual bool handleKeyReleaseEvent(QKeyEvent* event) override;
 
 public slots:
-    virtual void moveCameraTo(const Core::Vector3& position) override;
+    virtual void setCameraPosition(const Core::Vector3& position) override;
+    virtual void setCameraTarget(const Core::Vector3 &target) override;
     virtual void moveCameraToFitAabb(const Core::Aabb& aabb) override;
 
     virtual void resetCamera() override;
@@ -49,6 +50,8 @@ private:
     Scalar m_distanceToCenter;
     Scalar m_lastMouseX;
     Scalar m_lastMouseY;
+
+    Scalar m_quickCameraModifier;
 
     bool m_cameraRotateMode;
     bool m_cameraPanMode;

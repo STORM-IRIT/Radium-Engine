@@ -21,12 +21,12 @@ Gui::MainWindow::MainWindow(QWidget* parent)
 
     QStringList headers;
     headers << tr("Entities -> Components");
-
     m_entityTreeModel = new EntityTreeModel(headers);
-
     m_entitiesTreeView->setModel(m_entityTreeModel);
 
     createConnections();
+
+    m_viewer->getCamera()->resetCamera();
 }
 
 Gui::MainWindow::~MainWindow()
@@ -55,6 +55,24 @@ void Gui::MainWindow::createConnections()
 
     connect(m_cameraResetButton, SIGNAL(released()),
             m_viewer->getCamera(), SLOT(resetCamera()));
+
+    connect(m_setCameraPositionButton, SIGNAL(released()),
+            this, SLOT(setCameraPosition()));
+    connect(m_setCameraTargetButton, SIGNAL(released()),
+            this, SLOT(setCameraTarget()));
+
+    connect(this, SIGNAL(setCameraPosition(const Core::Vector3&)),
+            m_viewer->getCamera(), SLOT(setCameraPosition(const Core::Vector3&)));
+    connect(this, SIGNAL(setCameraTarget(const Core::Vector3&)),
+            m_viewer->getCamera(), SLOT(setCameraTarget(const Core::Vector3&)));
+
+    connect(m_viewer->getCamera(), SIGNAL(cameraPositionChanged(const Core::Vector3&)),
+            this, SLOT(cameraPositionChanged(const Core::Vector3&)));
+    connect(m_viewer->getCamera(), SIGNAL(cameraTargetChanged(const Core::Vector3&)),
+            this, SLOT(cameraTargetChanged(const Core::Vector3&)));
+
+    connect(m_cameraSensitivity, SIGNAL(valueChanged(double)),
+            m_viewer->getCamera(), SLOT(setCameraSensitivity(double)));
 }
 
 void Gui::MainWindow::activated(QModelIndex index)
@@ -70,6 +88,36 @@ void Gui::MainWindow::clicked(QModelIndex index)
 void Gui::MainWindow::entitiesUpdated()
 {
     //emit entitiesUpdated(m_viewer->getEngine()->getEntities());
+}
+
+void Gui::MainWindow::cameraPositionChanged(const Core::Vector3 &p)
+{
+    m_cameraPositionX->setValue(p.x());
+    m_cameraPositionY->setValue(p.y());
+    m_cameraPositionZ->setValue(p.z());
+}
+
+void Gui::MainWindow::cameraTargetChanged(const Core::Vector3 &p)
+{
+    m_cameraTargetX->setValue(p.x());
+    m_cameraTargetY->setValue(p.y());
+    m_cameraTargetZ->setValue(p.z());
+}
+
+void Gui::MainWindow::setCameraPosition()
+{
+    Core::Vector3 P(m_cameraPositionX->value(),
+                    m_cameraPositionY->value(),
+                    m_cameraPositionZ->value());
+    emit setCameraPosition(P);
+}
+
+void Gui::MainWindow::setCameraTarget()
+{
+    Core::Vector3 T(m_cameraTargetX->value(),
+                    m_cameraTargetY->value(),
+                    m_cameraTargetZ->value());
+    emit setCameraTarget(T);
 }
 
 void Gui::MainWindow::loadFile()

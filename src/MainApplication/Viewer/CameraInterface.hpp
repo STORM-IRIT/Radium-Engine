@@ -31,7 +31,6 @@ public:
     Core::Matrix4 getProjMatrix() const;
     Core::Matrix4 getViewMatrix() const;
 
-
     /// @return true if the event has been taken into account, false otherwise
     virtual bool handleMousePressEvent(QMouseEvent* event) = 0;
     /// @return true if the event has been taken into account, false otherwise
@@ -45,20 +44,26 @@ public:
     virtual bool handleKeyReleaseEvent(QKeyEvent* event) = 0;
 
 public slots:
-    void setCameraSensitivity(Scalar sensitivity);
+    void setCameraSensitivity(double sensitivity);
 
-    void setCameraFov(Scalar fov);
-    void setCameraFovInDegrees(Scalar fov);
-    void setCameraZNear(Scalar zNear);
-    void setCameraZFar(Scalar zFar);
+    void setCameraFov(double fov);
+    void setCameraFovInDegrees(double fov);
+    void setCameraZNear(double zNear);
+    void setCameraZFar(double zFar);
 
     void mapCameraBehaviourToAabb(const Core::Aabb& aabb);
     void unmapCameraBehaviourToAabb();
 
     virtual void moveCameraToFitAabb(const Core::Aabb& aabb);
-    virtual void moveCameraTo(const Core::Vector3& position);
+
+    virtual void setCameraPosition(const Core::Vector3& position) = 0;
+    virtual void setCameraTarget(const Core::Vector3& target) = 0;
 
     virtual void resetCamera() = 0;
+
+signals:
+    void cameraPositionChanged(const Core::Vector3&);
+    void cameraTargetChanged(const Core::Vector3&);
 
 protected:
     Core::Aabb m_targetedAabb;
