@@ -7,7 +7,6 @@
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/Vector.hpp>
-#include <Core/Math/Matrix.hpp>
 
 #include <Engine/Renderer/Shader/ShaderConfiguration.hpp>
 

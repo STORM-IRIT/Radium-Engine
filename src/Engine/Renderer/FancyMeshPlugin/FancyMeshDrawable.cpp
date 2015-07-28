@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include <Core/CoreMacros.hpp>
-#include <Core/Math/Matrix.hpp>
+#include <Core/Math/Vector.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>

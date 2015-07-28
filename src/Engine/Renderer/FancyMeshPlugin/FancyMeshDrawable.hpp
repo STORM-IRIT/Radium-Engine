@@ -6,7 +6,7 @@
 #include <string>
 #include <memory>
 
-#include <Core/Math/Matrix.hpp>
+#include <Core/Math/Vector.hpp>
 #include <Engine/Renderer/Drawable/Drawable.hpp>
 
 namespace Ra { namespace Engine { class ShaderProgram; } }

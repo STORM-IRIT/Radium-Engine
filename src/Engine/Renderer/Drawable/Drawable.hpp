@@ -6,7 +6,7 @@
 #include <memory>
 
 #include <Core/Index/IndexedObject.hpp>
-#include <Core/Math/Matrix.hpp>
+#include <Core/Math/Vector.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 
 namespace Ra { namespace Engine { class Light;         } }

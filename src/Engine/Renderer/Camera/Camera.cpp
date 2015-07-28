@@ -1,6 +1,7 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 
 #include <cmath>
+#include <iostream>
 
 namespace Ra {
 namespace Engine {
@@ -16,7 +17,6 @@ Camera::Camera()
     , m_fov       ( M_PI / 4.0                  )
     , m_zNear     ( 0.1                         )
     , m_zFar      ( 1000.0                      )
-    , m_focalPoint( 1.0                         )
     , m_zoomFactor( 1.0                         )
     , m_projType  ( ProjType::PERSPECTIVE       )
 {
@@ -31,7 +31,6 @@ Camera::Camera( const Camera& cam )
     , m_fov       ( cam.m_fov        )
     , m_zNear     ( cam.m_zNear      )
     , m_zFar      ( cam.m_zFar       )
-    , m_focalPoint( cam.m_focalPoint )
     , m_zoomFactor( cam.m_zoomFactor )
     , m_projType  ( cam.m_projType   )
 {}
@@ -50,36 +49,17 @@ Camera::~Camera() { }
 /// -------------------- ///
 /// FRAME
 /// -------------------- ///
-void Camera::applyTransform( const Core::Transform& T,
-                                     const ModeType mode )
+void Camera::applyTransform( const Core::Transform& T)
 {
-    std::lock_guard<std::mutex> lock(m_cameraMutex);
     Core::Transform t1, t2;
     t1.setIdentity();
     t2.setIdentity();
-    switch( mode )
     {
-        case ModeType::FREE:
-        {
             t1.translation() = -getPosition();
             t2.translation() =  getPosition();
-        } break;
-
-        case ModeType::TARGET:
-        {
-            t1.translation() = -getTargetPoint();
-            t2.translation() =  getTargetPoint();
-        } break;
-
-        default: break;
     }
 
     m_frame = t2 * T * t1 * m_frame;
-
-    if( mode == ModeType::TARGET )
-    {
-        m_focalPoint = ( getPosition() - t1.translation() ).norm();
-    }
 }
 
 
@@ -89,8 +69,6 @@ void Camera::applyTransform( const Core::Transform& T,
 /// VIEW MATRIX
 /// -------------------- ///
 void Camera::updateViewMatrix() {
-    std::lock_guard<std::mutex> lock(m_cameraMutex);
-
     const Core::Vector3 e  = getPosition();
     const Core::Vector3 f  = getDirection().normalized();
     const Core::Vector3 up = getUpVector().normalized();
@@ -107,6 +85,10 @@ void Camera::updateViewMatrix() {
     m_viewMatrix.block< 1, 3 >( 2, 0 ) = -f;
 
     m_viewMatrix = m_viewMatrix * T;
+        std::cout<<"======"<<std::endl;
+        std::cout<<m_viewMatrix<<std::endl;
+        std::cout<<m_frame.matrix()<<std::endl;
+
 }
 
 
@@ -116,7 +98,6 @@ void Camera::updateViewMatrix() {
 /// PROJECTION MATRIX
 /// -------------------- ///
 void Camera::updateProjMatrix( const Scalar& width, const Scalar& height ) {
-    std::lock_guard<std::mutex> lock(m_cameraMutex);
 
     switch( m_projType ) {
         case ProjType::ORTHOGRAPHIC: {
@@ -145,7 +126,7 @@ void Camera::updateProjMatrix( const Scalar& width, const Scalar& height ) {
 
         case ProjType::PERSPECTIVE: {
             // Compute projection matrix as describe in the doc of gluPerspective()
-            const Scalar f     = std::tan( ( M_PI * 0.5f ) - ( m_fov * m_zoomFactor * 0.5f ) );
+            const Scalar f     = std::tan( ( Scalar(M_PI) * 0.5f ) - ( m_fov * m_zoomFactor * 0.5f ) );
             const Scalar ratio = width / height;
             const Scalar diff  = m_zNear - m_zFar;
 

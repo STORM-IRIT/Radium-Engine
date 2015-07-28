@@ -9,7 +9,6 @@
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/Vector.hpp>
-#include <Core/Math/Matrix.hpp>
 
 namespace Ra { namespace Core   { struct MouseEvent; } }
 namespace Ra { namespace Core   { struct KeyEvent; } }

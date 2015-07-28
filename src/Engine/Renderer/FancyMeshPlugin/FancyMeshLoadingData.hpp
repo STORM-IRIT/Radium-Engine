@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include <Core/Math/Matrix.hpp>
+#include <Core/Math/Vector.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 

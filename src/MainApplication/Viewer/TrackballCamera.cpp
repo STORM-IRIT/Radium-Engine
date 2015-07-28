@@ -29,15 +29,15 @@ Gui::TrackballCamera::~TrackballCamera()
 void Gui::TrackballCamera::resetCamera()
 {
     m_camera->setFrame(Core::Transform::Identity());
-    m_camera->setTargetPoint(Core::Vector3(0, 0, 0));
-    m_camera->setPosition(Core::Vector3(0, 0, -1), Engine::Camera::ModeType::TARGET);
+    m_trackballCenter = Core::Vector3::Zero();
+    m_camera->setPosition(Core::Vector3(0, 0, -1));
     m_distanceToCenter = (m_cameraPosition - m_trackballCenter).norm();
     updatePhiTheta();
 
     m_viewIsDirty = true;
 
     emit cameraPositionChanged(m_camera->getPosition());
-    emit cameraTargetChanged(m_camera->getTargetPoint());
+    emit cameraTargetChanged(m_trackballCenter);
 }
 
 bool Gui::TrackballCamera::handleMousePressEvent(QMouseEvent* event)
@@ -106,7 +106,7 @@ bool Gui::TrackballCamera::handleMouseMoveEvent(QMouseEvent *event)
     m_lastMouseY = event->pos().y();
 
     emit cameraPositionChanged(m_camera->getPosition());
-    emit cameraTargetChanged(m_camera->getTargetPoint());
+    emit cameraTargetChanged(m_trackballCenter);
 
     return true;
 }
@@ -134,38 +134,37 @@ bool Gui::TrackballCamera::handleKeyReleaseEvent(QKeyEvent*)
 
 void Gui::TrackballCamera::setCameraPosition(const Core::Vector3& position)
 {
-    m_camera->setPosition(position, Engine::Camera::ModeType::TARGET);
+    m_camera->setPosition(position);
+    m_camera->setDirection(m_trackballCenter - position);
 
     m_viewIsDirty = true;
     updatePhiTheta();
 
     emit cameraPositionChanged(m_camera->getPosition());
-    emit cameraTargetChanged(m_camera->getTargetPoint());
+    emit cameraTargetChanged(m_trackballCenter);
 }
 
 void Gui::TrackballCamera::setCameraTarget(const Core::Vector3 &target)
 {
     // FIXME(Charly): Bug when we set the target point, then rotate the camera again
-    return;
+    //return;
 
-    m_camera->setTargetPoint(target);
-
+    m_trackballCenter = target;
     m_viewIsDirty = true;
     updatePhiTheta();
 
     emit cameraPositionChanged(m_camera->getPosition());
-    emit cameraTargetChanged(m_camera->getTargetPoint());
+    emit cameraTargetChanged(m_trackballCenter);
 }
 
 void Gui::TrackballCamera::moveCameraToFitAabb(const Core::Aabb& aabb)
 {
     CameraInterface::moveCameraToFitAabb(aabb);
-    m_distanceToCenter = std::min((m_camera->getPosition() - m_camera->getTargetPoint()).norm(),
-                                  Scalar(100.0));
+    m_distanceToCenter = std::min((m_camera->getPosition() -m_trackballCenter).norm(), Scalar(100.0));
     updatePhiTheta();
 
     emit cameraPositionChanged(m_camera->getPosition());
-    emit cameraTargetChanged(m_camera->getTargetPoint());
+    emit cameraTargetChanged(m_trackballCenter);
 }
 
 void Gui::TrackballCamera::handleCameraRotate(Scalar dx, Scalar dy)
@@ -180,7 +179,7 @@ void Gui::TrackballCamera::handleCameraRotate(Scalar dx, Scalar dy)
     Scalar dphi = phi - m_phi;
     Scalar dtheta = theta - m_theta;
 
-    const Core::Vector3 C = m_camera->getTargetPoint();
+    const Core::Vector3 C = m_trackballCenter;
     const Core::Vector3 P0 = m_camera->getPosition();
     const Scalar r = (C-P0).norm();
     // Compute new camera position, on the sphere of radius r centered on C
@@ -206,7 +205,7 @@ void Gui::TrackballCamera::handleCameraRotate(Scalar dx, Scalar dy)
     R1 = Core::AngleAxis(-dphi, U);
     R2 = Core::AngleAxis(-dtheta, R);
 
-    m_camera->applyTransform(T * R1 * R2, Engine::Camera::ModeType::FREE);
+    m_camera->applyTransform(T * R1 * R2);
 
     m_phi = phi;
     m_theta = theta;
@@ -225,7 +224,8 @@ void Gui::TrackballCamera::handleCameraPan(Scalar dx, Scalar dy)
     Core::Vector3 t = x * R + y * U;
     T.translate(t);
 
-    m_camera->applyTransform(T, Engine::Camera::ModeType::FREE);
+    m_camera->applyTransform(T);
+    m_trackballCenter += t;
 
     m_viewIsDirty = true;
 }
@@ -239,9 +239,9 @@ void Gui::TrackballCamera::handleCameraZoom(Scalar dx, Scalar dy)
     Core::Vector3 t = y * F;
     T.translate(t);
 
-    m_camera->applyTransform(T, Engine::Camera::ModeType::TARGET);
+    m_camera->applyTransform(T);
 
-    m_distanceToCenter = std::min(Scalar(100.0), (m_camera->getPosition() - m_camera->getTargetPoint()).norm());
+    m_distanceToCenter = std::min(Scalar(100.0), (m_camera->getPosition() - m_trackballCenter).norm());
 
     m_viewIsDirty = true;
 }
@@ -249,7 +249,7 @@ void Gui::TrackballCamera::handleCameraZoom(Scalar dx, Scalar dy)
 void Gui::TrackballCamera::updatePhiTheta()
 {
     const Core::Vector3 P = m_camera->getPosition();
-    const Core::Vector3 C = m_camera->getTargetPoint();
+    const Core::Vector3 C = m_trackballCenter;
     const Scalar r = m_distanceToCenter;
 
     m_theta = std::acos((P.y() - C.y()) / r);
