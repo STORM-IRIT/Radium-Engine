@@ -12,12 +12,11 @@ namespace Engine {
 /// -------------------- ///
 Camera::Camera()
     : m_frame     ( Core::Transform::Identity() )
-    , m_viewMatrix( Core::Matrix4::Identity()   )
     , m_projMatrix( Core::Matrix4::Identity()   )
-    , m_fov       ( M_PI / 4.0                  )
-    , m_zNear     ( 0.1                         )
-    , m_zFar      ( 1000.0                      )
-    , m_zoomFactor( 1.0                         )
+    , m_fov       ( Scalar(M_PI / 4.0f )        )
+    , m_zNear     ( Scalar(0.1f)                )
+    , m_zFar      ( Scalar(1000.0f)             )
+    , m_zoomFactor( Scalar(1.0f)                )
     , m_projType  ( ProjType::PERSPECTIVE       )
 {
     updateViewMatrix();
@@ -26,7 +25,6 @@ Camera::Camera()
 // FIXME: = default ?
 Camera::Camera( const Camera& cam )
     : m_frame     ( cam.m_frame      )
-    , m_viewMatrix( cam.m_viewMatrix )
     , m_projMatrix( cam.m_projMatrix )
     , m_fov       ( cam.m_fov        )
     , m_zNear     ( cam.m_zNear      )
@@ -35,64 +33,33 @@ Camera::Camera( const Camera& cam )
     , m_projType  ( cam.m_projType   )
 {}
 
-
-
-
 /// -------------------- ///
 /// DESTRUCTOR
 /// -------------------- ///
 Camera::~Camera() { }
-
-
-
 
 /// -------------------- ///
 /// FRAME
 /// -------------------- ///
 void Camera::applyTransform( const Core::Transform& T)
 {
-    Core::Transform t1, t2;
-    t1.setIdentity();
-    t2.setIdentity();
-    {
-            t1.translation() = -getPosition();
-            t2.translation() =  getPosition();
-    }
 
-    m_frame = t2 * T * t1 * m_frame;
+    Core::Transform t1 = Core::Transform::Identity();
+    Core::Transform t2 = Core::Transform::Identity();
+    t1.translation() = -getPosition();
+    t2.translation() = getPosition();
+
+    m_frame = t2 * T * t1* m_frame;
 }
-
-
 
 
 /// -------------------- ///
 /// VIEW MATRIX
 /// -------------------- ///
-void Camera::updateViewMatrix() {
-    const Core::Vector3 e  = getPosition();
-    const Core::Vector3 f  = getDirection().normalized();
-    const Core::Vector3 up = getUpVector().normalized();
-
-    const Core::Vector3 s = f.cross( up );
-    const Core::Vector3 u = s.cross( f  );
-
-    Core::Matrix4 T(Core::Matrix4::Identity());
-    T.block< 3, 1 >( 0, 3 ) = -e;
-
-    m_viewMatrix.setIdentity();
-    m_viewMatrix.block< 1, 3 >( 0, 0 ) =  s;
-    m_viewMatrix.block< 1, 3 >( 1, 0 ) =  u;
-    m_viewMatrix.block< 1, 3 >( 2, 0 ) = -f;
-
-    m_viewMatrix = m_viewMatrix * T;
-        std::cout<<"======"<<std::endl;
-        std::cout<<m_viewMatrix<<std::endl;
-        std::cout<<m_frame.matrix()<<std::endl;
-
+void Camera::updateViewMatrix()
+{
+    m_viewMatrix = m_frame.inverse().matrix();
 }
-
-
-
 
 /// -------------------- ///
 /// PROJECTION MATRIX

@@ -30,9 +30,10 @@ public:
     ~Camera();
 
     ///
-    /// FRAME
+    /// Getters and setters for view matrix parameters. 
     ///
-    // Return the frame of the camera
+    // Return the frame of the camera.
+    // Where Y is the up vector and -Z is the direction vector.
     inline Core::Transform getFrame() const;
 
     // Set the frame of the camera to 'frame'
@@ -42,10 +43,9 @@ public:
     inline Core::Vector3 getPosition() const;
 
     // Set the position of the camera to 'position'.
-    // If 'mode' is TARGET, the camera will be rotated in order to keep facing the FOCAL POINT
     inline void setPosition( const Core::Vector3& position);
 
-    // Return the direction.
+    // Return the direction the camera is looking at.
     inline Core::Vector3 getDirection() const;
 
     // Set the direction of the camera to 'direction'.
@@ -58,21 +58,16 @@ public:
     // Set the up vector of the camera to 'upVector'.
     // The other vectors will be rotated accordingly.
     inline void setUpVector( const Core::Vector3& upVector );
-
-    // Return the right vector.
+    
     inline Core::Vector3 getRightVector() const;
 
-    // Set the right vector of the camera to 'rightVector'.
-    // The other vectors will be rotated accordingly.
-    inline void setRightVector( const Core::Vector3& rightVector );
 
     // Apply the transformation 'T' to the camera.
-    // If 'mode' is TARGET, the camera will be rotated in order to keep facing the FOCAL POINT
     void applyTransform( const Core::Transform& T);
 
 
     //
-    // Getters and setters for individual parameters.
+    // Getters and setters for projection matrix parameters.
     //
 
     // Return the Field Of View.
@@ -111,13 +106,8 @@ public:
     // Return the view matrix.
     inline Core::Matrix4 getViewMatrix() const;
 
-    // Set the view matrix to 'viewMatrix'.
-    inline void setViewMatrix( const Core::Matrix4& viewMatrix );
-
     // Update the view matrix.
     void updateViewMatrix();
-
-
 
 
     /// -------------------- ///

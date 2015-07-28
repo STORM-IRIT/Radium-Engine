@@ -3,7 +3,6 @@
 namespace Ra {
 namespace Engine {
 
-
 /// -------------------- ///
 /// FRAME
 /// -------------------- ///
@@ -20,18 +19,16 @@ inline Core::Vector3 Camera::getPosition() const {
 }
 
 inline void Camera::setPosition( const Core::Vector3& position) {
-    Core::Transform T(Core::Transform::Identity());
-    T.translation() = ( position - getPosition() );
-    applyTransform(T);
+    m_frame.translation() = position;
 }
 
 inline Core::Vector3 Camera::getDirection() const {
-    return ( m_frame.affine().block< 3, 1 >( 0, 2 ) );
+    return ( -m_frame.affine().block< 3, 1 >( 0, 2 ) );
 }
 
 inline void Camera::setDirection( const Core::Vector3& direction ) {
     Core::Transform T = Core::Transform::Identity();
-    T.rotate( Core::Math::computeRotation(getDirection(), direction.normalized(), getUpVector()));
+    T.rotate( Core::Math::computeRotation(getDirection().normalized(), direction.normalized(), getUpVector()));
     applyTransform(T);
 }
 
@@ -48,12 +45,12 @@ inline void Camera::setUpVector( const Core::Vector3& upVector ) {
 inline Core::Vector3 Camera::getRightVector() const {
     return ( m_frame.affine().block< 3, 1 >( 0, 0 ) );
 }
-
+/*
 inline void Camera::setRightVector( const Core::Vector3& rightVector ) {
     Core::Transform T = Core::Transform::Identity();
     T.rotate(Core::Math::computeRotation( getRightVector(), rightVector.normalized(), getDirection()));
     applyTransform(T);
-}
+}*/
 
 /// -------------------- ///
 /// FIELD OF VIEW
@@ -117,9 +114,6 @@ inline Core::Matrix4 Camera::getViewMatrix() const {
     return m_viewMatrix;
 }
 
-inline void Camera::setViewMatrix( const Core::Matrix4& viewMatrix ) {
-    m_viewMatrix = viewMatrix;
-}
 
 /// -------------------- ///
 /// PROJECTION MATRIX
