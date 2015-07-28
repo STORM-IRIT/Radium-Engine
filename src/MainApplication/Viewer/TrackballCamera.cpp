@@ -1,7 +1,7 @@
 #include <MainApplication/Viewer/TrackballCamera.hpp>
 
 #include <cmath>
-#include <algorithm>
+#include <QmessageBox>
 
 #include <Core/Event/MouseEvent.hpp>
 #include <Core/Event/KeyEvent.hpp>
@@ -12,7 +12,7 @@ namespace Ra
 
 Gui::TrackballCamera::TrackballCamera(uint width, uint height)
     : CameraInterface(width, height)
-    , m_cameraPosition(0, 0, -1)
+    , m_cameraPosition(0, 0, 1)
     , m_trackballCenter(0, 0, 0)
     , m_quickCameraModifier(1.0)
     , m_cameraRotateMode(false)
@@ -30,7 +30,7 @@ void Gui::TrackballCamera::resetCamera()
 {
     m_camera->setFrame(Core::Transform::Identity());
     m_trackballCenter = Core::Vector3::Zero();
-    m_camera->setPosition(Core::Vector3(0, 0, -1));
+    m_camera->setPosition(Core::Vector3(0, 0, 1));
     m_distanceToCenter = (m_cameraPosition - m_trackballCenter).norm();
     updatePhiTheta();
 
@@ -134,6 +134,14 @@ bool Gui::TrackballCamera::handleKeyReleaseEvent(QKeyEvent*)
 
 void Gui::TrackballCamera::setCameraPosition(const Core::Vector3& position)
 {
+
+    if (position == m_trackballCenter)
+    {
+        QMessageBox::warning(nullptr,
+            "Error", "Position cannot be set to target point");
+        return;
+    }
+
     m_camera->setPosition(position);
     m_camera->setDirection(m_trackballCenter - position);
 
@@ -150,6 +158,7 @@ void Gui::TrackballCamera::setCameraTarget(const Core::Vector3 &target)
     //return;
 
     m_trackballCenter = target;
+    m_camera->setDirection(target - m_camera->getPosition());
     m_viewIsDirty = true;
     updatePhiTheta();
 
@@ -160,6 +169,7 @@ void Gui::TrackballCamera::setCameraTarget(const Core::Vector3 &target)
 void Gui::TrackballCamera::moveCameraToFitAabb(const Core::Aabb& aabb)
 {
     CameraInterface::moveCameraToFitAabb(aabb);
+    m_trackballCenter = aabb.center();
     m_distanceToCenter = std::min((m_camera->getPosition() -m_trackballCenter).norm(), Scalar(100.0));
     updatePhiTheta();
 
@@ -200,7 +210,7 @@ void Gui::TrackballCamera::handleCameraRotate(Scalar dx, Scalar dy)
     Core::Transform R2(Core::Transform::Identity());
 
     Core::Vector3 U = Core::Vector3(0, 1, 0);
-    Core::Vector3 R = m_camera->getRightVector().normalized();
+    Core::Vector3 R = -m_camera->getRightVector().normalized();
 
     R1 = Core::AngleAxis(-dphi, U);
     R2 = Core::AngleAxis(-dtheta, R);
@@ -217,7 +227,7 @@ void Gui::TrackballCamera::handleCameraPan(Scalar dx, Scalar dy)
     Scalar x = dx * m_distanceToCenter * m_cameraSensitivity * m_quickCameraModifier;
     Scalar y = dy * m_distanceToCenter * m_cameraSensitivity * m_quickCameraModifier;
     // Move camera and trackball center, keep the distance to the center
-    Core::Vector3 R = m_camera->getRightVector();
+    Core::Vector3 R = -m_camera->getRightVector();
     Core::Vector3 U = m_camera->getUpVector();
 
     Core::Transform T(Core::Transform::Identity());
@@ -254,6 +264,7 @@ void Gui::TrackballCamera::updatePhiTheta()
 
     m_theta = std::acos((P.y() - C.y()) / r);
     m_phi   = std::atan((P.z() - C.z()) / (P.x() - C.x()));
+    CORE_ASSERT(isfinite(m_theta) && isfinite(m_phi), "Error in trackball camera");
 }
 
 } // namespace Ra

@@ -32,9 +32,9 @@ namespace Ra { namespace Core
     Matrix3 Math::computeRotation(const Vector3& a, const Vector3& b, const Vector3& defaultAxis)
     {
         // http://math.stackexchange.com/questions/180418/calculate-rotation-matrix-to-align-vector-a-to-vector-b-in-3d/476311#476311
-        CORE_ASSERT( (a.norm() - 1.f < std::numeric_limits<Scalar>::epsilon())
-                  && (b.norm() - 1.f < std::numeric_limits<Scalar>::epsilon())
-        , "Expected unit vectors");
+        CORE_ASSERT( (a.norm() - 1.f < 0.001f)
+                  && (b.norm() - 1.f < 0.001f) 
+                  , "Expected unit vectors");
 
         const Vector3 v = a.cross(b);
         const Scalar sin2 = v.squaredNorm(); // sinus of the angle (a,b) squared
