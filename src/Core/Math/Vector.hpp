@@ -118,15 +118,6 @@ namespace Ra { namespace Core
     inline Quaternion operator+ (const Quaternion& q1, const Quaternion& q2);
     inline Quaternion operator* (const Scalar& k, const Quaternion& q);
 
-    // Other math functions
-    namespace Math
-    {
-        /// Computes the Transform (pure rotation) which transforms a to b.
-        /// If a and b are oposite, defaultAxis is used as the axis of rotation.
-        inline Matrix3 computeRotation( const Vector3& a, const Vector3& b, const Vector3& defaultAxis);
-    }
-
-
 
     // Use this macro in the public: section of a class
     // when declaring objects containing Vector or Matrices.
