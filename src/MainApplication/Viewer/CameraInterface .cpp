@@ -111,8 +111,6 @@ void Gui::CameraInterface::moveCameraToFitAabb(const Core::Aabb& aabb)
     newPos.z() = newZ;
 
     m_camera->setPosition(newPos);
-    m_camera->setTargetPoint(boxCenter);
-
 
     m_viewIsDirty = true;
 

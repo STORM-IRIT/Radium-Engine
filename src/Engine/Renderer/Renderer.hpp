@@ -5,7 +5,7 @@
 #include <array>
 #include <memory>
 #include <QTime>
-#include <Core/Math/Matrix.hpp>
+#include <Core/Math/Vector.hpp>
 
 namespace Ra { namespace Core   { struct MouseEvent;          } }
 namespace Ra { namespace Core   { struct KeyEvent;            } }

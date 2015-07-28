@@ -24,7 +24,6 @@ namespace Ra { namespace Core
     // Common vector types
     //
 
-    /// Our default Eigen vector type is the 4D vector.
     typedef Eigen::Matrix<Scalar, 4, 1> Vector4;
     typedef Eigen::Vector4f             Vector4f;
     typedef Eigen::Vector4d             Vector4d;
@@ -42,6 +41,30 @@ namespace Ra { namespace Core
 	typedef Eigen::Matrix<Scalar, 2, 1> Vector2; 
     typedef Eigen::Vector2f             Vector2f;
     typedef Eigen::Vector2d             Vector2d;
+
+    typedef Eigen::Vector2i Vector2i;
+    typedef Eigen::Vector3i Vector3i;
+    typedef Eigen::Vector4i Vector4i;
+
+    //
+    // Common matrix types
+    //
+
+    typedef Eigen::Matrix<Scalar, 4, 4> Matrix4;
+	typedef Eigen::Matrix<Scalar, 3, 3> Matrix3;
+	typedef Eigen::Matrix<Scalar, 2, 2> Matrix2;
+
+    typedef Eigen::Matrix4f Matrix4f;
+    typedef Eigen::Matrix3f Matrix3f;
+    typedef Eigen::Matrix2f Matrix2f;
+
+    typedef Eigen::Matrix4d Matrix4d;
+    typedef Eigen::Matrix3d Matrix3d;
+    typedef Eigen::Matrix2d Matrix2d;
+
+    //
+    // Transforms and rotations
+    //
 
     typedef Eigen::Quaternion<Scalar> Quaternion;
     typedef Eigen::Quaternionf        Quaternionf;
@@ -65,15 +88,13 @@ namespace Ra { namespace Core
 
 // Todo : storage transform using quaternions ?
 
-
-    // For consistency we redefine VectorXi in our namespace
-	typedef Eigen::Vector2i Vector2i;
-    typedef Eigen::Vector3i Vector3i;
-
-	typedef Vector4 Color;
+    //
+    // Misc types
+	//
+    typedef Vector4 Color;
 
     //
-    // Vector functions
+    // Vector Functions
     //
     namespace Vector
     {
@@ -96,6 +117,16 @@ namespace Ra { namespace Core
 
     inline Quaternion operator+ (const Quaternion& q1, const Quaternion& q2);
     inline Quaternion operator* (const Scalar& k, const Quaternion& q);
+
+    // Other math functions
+    namespace Math
+    {
+        /// Computes the Transform (pure rotation) which transforms a to b.
+        /// If a and b are oposite, defaultAxis is used as the axis of rotation.
+        inline Matrix3 computeRotation( const Vector3& a, const Vector3& b, const Vector3& defaultAxis);
+    }
+
+
 
     // Use this macro in the public: section of a class
     // when declaring objects containing Vector or Matrices.

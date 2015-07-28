@@ -53,12 +53,12 @@ private:
 
     Scalar m_quickCameraModifier;
 
+    Scalar m_phi;
+    Scalar m_theta;
+
     bool m_cameraRotateMode;
     bool m_cameraPanMode;
     bool m_cameraZoomMode;
-
-    Scalar m_phi;
-    Scalar m_theta;
 };
 
 } // namespace Engine

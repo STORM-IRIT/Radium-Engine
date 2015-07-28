@@ -10,7 +10,6 @@
 #include <Core/Index/IndexedObject.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Math/Vector.hpp>
-#include <Core/Math/Matrix.hpp>
 
 namespace Ra { namespace Engine { class Component; } }
 
