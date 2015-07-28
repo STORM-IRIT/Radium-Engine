@@ -260,10 +260,12 @@ void Gui::TrackballCamera::updatePhiTheta()
 {
     const Core::Vector3 P = m_camera->getPosition();
     const Core::Vector3 C = m_trackballCenter;
-    const Scalar r = m_distanceToCenter;
+    const Core::Vector3 R = P - C;
+    const Scalar r = R.norm();
 
-    m_theta = std::acos((P.y() - C.y()) / r);
-    m_phi   = std::atan((P.z() - C.z()) / (P.x() - C.x()));
+
+    m_theta = std::acos(R.y() / r);
+    m_phi   = std::atan(R.z() / R.x());
     CORE_ASSERT(isfinite(m_theta) && isfinite(m_phi), "Error in trackball camera");
 }
 

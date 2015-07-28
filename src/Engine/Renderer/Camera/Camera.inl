@@ -28,7 +28,7 @@ inline Core::Vector3 Camera::getDirection() const {
 
 inline void Camera::setDirection( const Core::Vector3& direction ) {
     Core::Transform T = Core::Transform::Identity();
-    T.rotate( Core::Math::computeRotation(getDirection().normalized(), direction.normalized(), getUpVector()));
+    T.rotate(Core::Quaternion::FromTwoVectors(getDirection().normalized(), direction.normalized()));
     applyTransform(T);
 }
 
@@ -38,7 +38,7 @@ inline Core::Vector3 Camera::getUpVector() const {
 
 inline void Camera::setUpVector( const Core::Vector3& upVector ) {
     Core::Transform T = Core::Transform::Identity();
-    T.rotate(Core::Math::computeRotation( getUpVector(), upVector.normalized(), getRightVector()));
+    T.rotate(Core::Quaternion::FromTwoVectors(getUpVector(), upVector.normalized()));
     applyTransform(T);
 }
 
