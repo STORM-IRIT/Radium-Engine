@@ -45,7 +45,7 @@ class RenderThread : public QThread, protected QOpenGLFunctions
 {
 public:
     RenderThread(Ra::Gui::Viewer* viewer, Ra::Engine::Renderer* renderer)
-    : QThread(viewer), m_viewer(viewer), m_renderer(renderer)
+    : QThread(viewer), m_viewer(viewer), m_renderer(renderer), isInit(false)
     {
     }
 
@@ -61,7 +61,12 @@ public:
         // Grab the context
         m_viewer->makeCurrent();
 
-        initializeOpenGLFunctions();
+        if(!isInit)
+        {
+            initializeOpenGLFunctions();
+            isInit = true;
+        }
+
         CORE_ASSERT(glGetString(GL_VERSION)!= 0, "GL context unavailable");
         // render will lock the renderer itself.
         m_renderer->render(m_renderData);
@@ -74,6 +79,7 @@ public:
     Ra::Engine::RenderData m_renderData;
     Ra::Gui::Viewer* m_viewer;
     Ra::Engine::Renderer* m_renderer;
+    bool isInit;
 };
 
 }
