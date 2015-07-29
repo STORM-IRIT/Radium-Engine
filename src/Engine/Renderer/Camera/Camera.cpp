@@ -10,28 +10,18 @@ namespace Engine {
 /// -------------------- ///
 /// CONSTRUCTOR
 /// -------------------- ///
-Camera::Camera()
+Camera::Camera(Scalar height, Scalar width)
     : m_frame     ( Core::Transform::Identity() )
     , m_projMatrix( Core::Matrix4::Identity()   )
     , m_fov       ( Scalar(M_PI / 4.0f )        )
     , m_zNear     ( Scalar(0.1f)                )
     , m_zFar      ( Scalar(1000.0f)             )
     , m_zoomFactor( Scalar(1.0f)                )
+    , m_height    ( height                      )
+    , m_width     ( width                       )
     , m_projType  ( ProjType::PERSPECTIVE       )
 {
-    updateViewMatrix();
 }
-
-// FIXME: = default ?
-Camera::Camera( const Camera& cam )
-    : m_frame     ( cam.m_frame      )
-    , m_projMatrix( cam.m_projMatrix )
-    , m_fov       ( cam.m_fov        )
-    , m_zNear     ( cam.m_zNear      )
-    , m_zFar      ( cam.m_zFar       )
-    , m_zoomFactor( cam.m_zoomFactor )
-    , m_projType  ( cam.m_projType   )
-{}
 
 /// -------------------- ///
 /// DESTRUCTOR
@@ -52,24 +42,16 @@ void Camera::applyTransform( const Core::Transform& T)
     m_frame = t2 * T * t1* m_frame;
 }
 
-
-/// -------------------- ///
-/// VIEW MATRIX
-/// -------------------- ///
-void Camera::updateViewMatrix()
-{
-    m_viewMatrix = m_frame.inverse().matrix();
-}
-
 /// -------------------- ///
 /// PROJECTION MATRIX
 /// -------------------- ///
-void Camera::updateProjMatrix( const Scalar& width, const Scalar& height ) {
+void Camera::updateProjMatrix() {
+
 
     switch( m_projType ) {
         case ProjType::ORTHOGRAPHIC: {
             const Scalar dx = m_zoomFactor * 0.5f;
-            const Scalar dy = height * dx / width;
+            const Scalar dy = m_height * dx / m_width;
             // ------------
             // Compute projection matrix as describe in the doc of gluPerspective()
             const Scalar l = -dx; // left
@@ -94,7 +76,7 @@ void Camera::updateProjMatrix( const Scalar& width, const Scalar& height ) {
         case ProjType::PERSPECTIVE: {
             // Compute projection matrix as describe in the doc of gluPerspective()
             const Scalar f     = std::tan( ( Scalar(M_PI) * 0.5f ) - ( m_fov * m_zoomFactor * 0.5f ) );
-            const Scalar ratio = width / height;
+            const Scalar ratio = m_width / m_height;
             const Scalar diff  = m_zNear - m_zFar;
 
             m_projMatrix.setZero();

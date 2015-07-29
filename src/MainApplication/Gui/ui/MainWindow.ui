@@ -40,7 +40,7 @@
      <x>0</x>
      <y>0</y>
      <width>1204</width>
-     <height>27</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFILE">
@@ -441,6 +441,9 @@
                          <verstretch>0</verstretch>
                         </sizepolicy>
                        </property>
+                       <property name="decimals">
+                        <number>6</number>
+                       </property>
                        <property name="minimum">
                         <double>-100000.000000000000000</double>
                        </property>
@@ -464,6 +467,9 @@
                          <verstretch>0</verstretch>
                         </sizepolicy>
                        </property>
+                       <property name="decimals">
+                        <number>6</number>
+                       </property>
                        <property name="minimum">
                         <double>-100000.000000000000000</double>
                        </property>
@@ -486,6 +492,9 @@
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
+                       </property>
+                       <property name="decimals">
+                        <number>6</number>
                        </property>
                        <property name="minimum">
                         <double>-100000.000000000000000</double>
@@ -538,6 +547,9 @@
                          <verstretch>0</verstretch>
                         </sizepolicy>
                        </property>
+                       <property name="decimals">
+                        <number>6</number>
+                       </property>
                        <property name="minimum">
                         <double>-100000.000000000000000</double>
                        </property>
@@ -561,6 +573,9 @@
                          <verstretch>0</verstretch>
                         </sizepolicy>
                        </property>
+                       <property name="decimals">
+                        <number>6</number>
+                       </property>
                        <property name="minimum">
                         <double>-100000.000000000000000</double>
                        </property>
@@ -583,6 +598,9 @@
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
+                       </property>
+                       <property name="decimals">
+                        <number>6</number>
                        </property>
                        <property name="minimum">
                         <double>-100000.000000000000000</double>

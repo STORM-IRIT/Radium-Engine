@@ -1,6 +1,7 @@
 #include <MainApplication/Viewer/TrackballCamera.hpp>
 
 #include <cmath>
+#include <iostream>
 #include <QmessageBox>
 
 #include <Core/Event/MouseEvent.hpp>
@@ -12,7 +13,6 @@ namespace Ra
 
 Gui::TrackballCamera::TrackballCamera(uint width, uint height)
     : CameraInterface(width, height)
-    , m_cameraPosition(0, 0, 1)
     , m_trackballCenter(0, 0, 0)
     , m_quickCameraModifier(1.0)
     , m_cameraRotateMode(false)
@@ -31,10 +31,7 @@ void Gui::TrackballCamera::resetCamera()
     m_camera->setFrame(Core::Transform::Identity());
     m_trackballCenter = Core::Vector3::Zero();
     m_camera->setPosition(Core::Vector3(0, 0, 1));
-    m_distanceToCenter = (m_cameraPosition - m_trackballCenter).norm();
     updatePhiTheta();
-
-    m_viewIsDirty = true;
 
     emit cameraPositionChanged(m_camera->getPosition());
     emit cameraTargetChanged(m_trackballCenter);
@@ -75,8 +72,8 @@ bool Gui::TrackballCamera::handleMousePressEvent(QMouseEvent* event)
 
 bool Gui::TrackballCamera::handleMouseMoveEvent(QMouseEvent *event)
 {
-    Scalar dx = (event->pos().x() - m_lastMouseX) / m_width;
-    Scalar dy = (event->pos().y() - m_lastMouseY) / m_height;
+    Scalar dx = (event->pos().x() - m_lastMouseX) / m_camera->getWidth();
+    Scalar dy = (event->pos().y() - m_lastMouseY) / m_camera->getHeight();
 
     if (event->modifiers().testFlag(Qt::AltModifier))
     {
@@ -141,11 +138,9 @@ void Gui::TrackballCamera::setCameraPosition(const Core::Vector3& position)
             "Error", "Position cannot be set to target point");
         return;
     }
-
     m_camera->setPosition(position);
     m_camera->setDirection(m_trackballCenter - position);
 
-    m_viewIsDirty = true;
     updatePhiTheta();
 
     emit cameraPositionChanged(m_camera->getPosition());
@@ -154,12 +149,15 @@ void Gui::TrackballCamera::setCameraPosition(const Core::Vector3& position)
 
 void Gui::TrackballCamera::setCameraTarget(const Core::Vector3 &target)
 {
-    // FIXME(Charly): Bug when we set the target point, then rotate the camera again
-    //return;
+    if (m_camera->getPosition() == m_trackballCenter)
+    {
+        QMessageBox::warning(nullptr,
+            "Error", "Target cannot be set to current camera position");
+        return;
+    }
 
     m_trackballCenter = target;
     m_camera->setDirection(target - m_camera->getPosition());
-    m_viewIsDirty = true;
     updatePhiTheta();
 
     emit cameraPositionChanged(m_camera->getPosition());
@@ -170,7 +168,6 @@ void Gui::TrackballCamera::moveCameraToFitAabb(const Core::Aabb& aabb)
 {
     CameraInterface::moveCameraToFitAabb(aabb);
     m_trackballCenter = aabb.center();
-    m_distanceToCenter = std::min((m_camera->getPosition() -m_trackballCenter).norm(), Scalar(100.0));
     updatePhiTheta();
 
     emit cameraPositionChanged(m_camera->getPosition());
@@ -219,13 +216,12 @@ void Gui::TrackballCamera::handleCameraRotate(Scalar dx, Scalar dy)
 
     m_phi = phi;
     m_theta = theta;
-    m_viewIsDirty = true;
 }
 
 void Gui::TrackballCamera::handleCameraPan(Scalar dx, Scalar dy)
 {
-    Scalar x = dx * m_distanceToCenter * m_cameraSensitivity * m_quickCameraModifier;
-    Scalar y = dy * m_distanceToCenter * m_cameraSensitivity * m_quickCameraModifier;
+    Scalar x = dx * m_cameraSensitivity * m_quickCameraModifier;
+    Scalar y = dy * m_cameraSensitivity * m_quickCameraModifier;
     // Move camera and trackball center, keep the distance to the center
     Core::Vector3 R = -m_camera->getRightVector();
     Core::Vector3 U = m_camera->getUpVector();
@@ -236,13 +232,11 @@ void Gui::TrackballCamera::handleCameraPan(Scalar dx, Scalar dy)
 
     m_camera->applyTransform(T);
     m_trackballCenter += t;
-
-    m_viewIsDirty = true;
 }
 
 void Gui::TrackballCamera::handleCameraZoom(Scalar dx, Scalar dy)
 {
-    Scalar y = dy * m_distanceToCenter * m_cameraSensitivity * m_quickCameraModifier;
+    Scalar y = dy * m_cameraSensitivity * m_quickCameraModifier;
     Core::Vector3 F = m_camera->getDirection();
 
     Core::Transform T(Core::Transform::Identity());
@@ -250,10 +244,6 @@ void Gui::TrackballCamera::handleCameraZoom(Scalar dx, Scalar dy)
     T.translate(t);
 
     m_camera->applyTransform(T);
-
-    m_distanceToCenter = std::min(Scalar(100.0), (m_camera->getPosition() - m_trackballCenter).norm());
-
-    m_viewIsDirty = true;
 }
 
 void Gui::TrackballCamera::updatePhiTheta()
@@ -265,7 +255,7 @@ void Gui::TrackballCamera::updatePhiTheta()
 
 
     m_theta = std::acos(R.y() / r);
-    m_phi   = std::atan(R.z() / R.x());
+    m_phi   = (R.z() == 0.f && R.x() == 0.f) ? 0.f : std::atan2(R.z() , R.x());
     CORE_ASSERT(isfinite(m_theta) && isfinite(m_phi), "Error in trackball camera");
 }
 

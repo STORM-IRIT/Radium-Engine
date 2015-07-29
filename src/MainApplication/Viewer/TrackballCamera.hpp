@@ -43,11 +43,8 @@ private:
     void updatePhiTheta();
 
 private:
-    Core::Vector3 m_cameraPosition;
     Core::Vector3 m_trackballCenter;
 
-    // Scale manipulation speed given distance to center
-    Scalar m_distanceToCenter;
     Scalar m_lastMouseX;
     Scalar m_lastMouseY;
 

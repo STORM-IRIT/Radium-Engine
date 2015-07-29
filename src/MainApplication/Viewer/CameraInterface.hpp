@@ -70,11 +70,7 @@ protected:
     Scalar m_targetedAabbVolume;
     Scalar m_cameraSensitivity;
 
-    uint m_width;
-    uint m_height;
-
     mutable std::unique_ptr<Engine::Camera> m_camera;
-    mutable bool m_viewIsDirty;
     mutable bool m_projIsDirty;
     bool m_mapCameraBahaviourToAabb;
 };

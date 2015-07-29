@@ -3,9 +3,6 @@
 namespace Ra {
 namespace Engine {
 
-/// -------------------- ///
-/// FRAME
-/// -------------------- ///
 inline Core::Transform Camera::getFrame() const {
     return m_frame;
 }
@@ -45,60 +42,57 @@ inline void Camera::setUpVector( const Core::Vector3& upVector ) {
 inline Core::Vector3 Camera::getRightVector() const {
     return ( m_frame.affine().block< 3, 1 >( 0, 0 ) );
 }
-/*
-inline void Camera::setRightVector( const Core::Vector3& rightVector ) {
-    Core::Transform T = Core::Transform::Identity();
-    T.rotate(Core::Math::computeRotation( getRightVector(), rightVector.normalized(), getDirection()));
-    applyTransform(T);
-}*/
 
-/// -------------------- ///
-/// FIELD OF VIEW
-/// -------------------- ///
 inline Scalar Camera::getFOV() const {
     return m_fov;
 }
 
 inline void Camera::setFOV( const Scalar fov ) {
     m_fov = fov;
+    updateProjMatrix();
 }
 
-/// -------------------- ///
-/// Z NEAR
-/// -------------------- ///
 inline Scalar Camera::getZNear() const {
     return m_zNear;
 }
 
 inline void Camera::setZNear( const Scalar zNear ) {
     m_zNear = zNear;
+    updateProjMatrix();
 }
 
-/// -------------------- ///
-/// Z FAR
-/// -------------------- ///
 inline Scalar Camera::getZFar() const {
     return m_zFar;
 }
 
 inline void Camera::setZFar( const Scalar zFar ) {
     m_zFar = zFar;
+    updateProjMatrix();
 }
 
-/// -------------------- ///
-/// ZOOM FACTOR
-/// -------------------- ///
 inline Scalar Camera::getZoomFactor() const {
     return m_zoomFactor;
 }
 
 inline void Camera::setZoomFactor( const Scalar& zoomFactor ) {
     m_zoomFactor = zoomFactor;
+    updateProjMatrix();
 }
 
-/// -------------------- ///
-/// PROJECTION TYPE
-/// -------------------- ///
+inline Scalar Camera::getWidth() const {
+    return m_width;
+}
+
+inline Scalar Camera::getHeight() const {
+    return m_height;
+}
+
+inline void Camera::resize(Scalar width, Scalar height) {
+    m_width = width;
+    m_height = height;
+    updateProjMatrix();
+}
+
 inline Camera::ProjType Camera::getProjType() const {
     return m_projType;
 }
@@ -107,23 +101,12 @@ inline void Camera::setProjType( const ProjType& projectionType ) {
     m_projType = projectionType;
 }
 
-/// -------------------- ///
-/// VIEW MATRIX
-/// -------------------- ///
 inline Core::Matrix4 Camera::getViewMatrix() const {
-    return m_viewMatrix;
+    return m_frame.inverse().matrix();
 }
 
-
-/// -------------------- ///
-/// PROJECTION MATRIX
-/// -------------------- ///
 inline Core::Matrix4 Camera::getProjMatrix() const {
     return m_projMatrix;
-}
-
-inline void Camera::setProjMatrix( const Core::Matrix4& projectionMatrix ) {
-    m_projMatrix = projectionMatrix;
 }
 
 } // End of Engine
