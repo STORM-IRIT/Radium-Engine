@@ -118,7 +118,6 @@ namespace Ra { namespace Core
     inline Quaternion operator+ (const Quaternion& q1, const Quaternion& q2);
     inline Quaternion operator* (const Scalar& k, const Quaternion& q);
 
-
     // Use this macro in the public: section of a class
     // when declaring objects containing Vector or Matrices.
     // http://eigen.tuxfamily.org/dox-devel/group__TopicStructHavingEigenMembers.html
