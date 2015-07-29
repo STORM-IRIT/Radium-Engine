@@ -50,9 +50,6 @@ void Gui::MainWindow::createConnections()
 
     connect(m_entitiesTreeView, SIGNAL(clicked(QModelIndex)), m_entityTreeModel, SLOT(handleSelect(QModelIndex)));
 
-    connect(m_viewer, SIGNAL(entitiesUpdated()), this, SLOT(entitiesUpdated()));
-    connect(m_viewer, SIGNAL(ready(Gui::Viewer*)), qApp, SLOT(viewerReady(Gui::Viewer*)));
-
     connect(m_cameraResetButton, SIGNAL(released()),
             m_viewer->getCamera(), SLOT(resetCamera()));
 
@@ -236,5 +233,9 @@ Core::KeyEvent Gui::MainWindow::keyEventQtToRadium(const QKeyEvent* qtEvent)
     return raEvent;
 }
 
+Gui::Viewer* Gui::MainWindow::getViewer()
+{
+    return m_viewer;
+}
 
 } // namespace Ra

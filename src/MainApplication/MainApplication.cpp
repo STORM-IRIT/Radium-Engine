@@ -65,19 +65,24 @@ namespace Ra
         m_mainWindow.reset(new Gui::MainWindow);
         m_mainWindow->show();
 
+        // Allow all events to be processed (thus the viewer should have
+        // initialized the OpenGL context..
+        processEvents();
+
+        m_viewer = m_mainWindow->getViewer();
+        CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized");
+        CORE_ASSERT( m_viewer->context()->isValid(), "OpenGL was not initialized" );
+
         // Create engine
         m_engine.reset(new Engine::RadiumEngine);
         m_engine->initialize();
-
         m_engine->setupScene();
+
+        // Pass the engine to the renderer to complete the initialization process.
+        m_viewer->initRenderer(m_engine.get());
 
         // Create task queue with N-1 threads (we keep one for rendering).
         m_taskQueue.reset(new Core::TaskQueue(std::thread::hardware_concurrency() - 1));
-
-        // Wait for callback from  gui to  start the engine.
-        // Maybe we should do it directly (i.e. grab the viewer from the main window).
-        CORE_ASSERT(m_viewer != nullptr, "GUI or OpenGL was not initialized");
-        m_viewer->setRadiumEngine(m_engine.get());
 
 		createConnections();
 
@@ -86,13 +91,11 @@ namespace Ra
         m_frameTime = QTime::currentTime();
 
         connect(m_frameTimer, SIGNAL(timeout()), this, SLOT(radiumFrame()));
-        m_frameTimer->start(1000.0 / 60.0);
+        m_frameTimer->start(1000 / 60);
     }
 
 	void MainApplication::createConnections()
 	{
-		connect(this, SIGNAL(sceneChanged(const Core::Aabb&)), 
-				m_viewer, SLOT(sceneChanged(const Core::Aabb&)));
 	}
 
     void MainApplication::loadFile(QString path)
