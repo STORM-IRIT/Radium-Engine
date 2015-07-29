@@ -2,7 +2,7 @@
 
 #include <cmath>
 #include <iostream>
-#include <QmessageBox>
+#include <QMessageBox>
 
 #include <Core/Event/MouseEvent.hpp>
 #include <Core/Event/KeyEvent.hpp>
@@ -178,7 +178,7 @@ void Gui::TrackballCamera::handleCameraRotate(Scalar dx, Scalar dy)
 {
     Scalar x = dx * m_cameraSensitivity * m_quickCameraModifier;
     Scalar y = -dy * m_cameraSensitivity * m_quickCameraModifier;
-    constexpr Scalar Pi = M_PI;
+    constexpr Scalar Pi(M_PI);
 
     Scalar phi = m_phi + x; // Keep phi between -pi and pi
     Scalar theta = std::min(std::max(m_theta + y, Scalar(0.0)), Pi);
@@ -256,7 +256,7 @@ void Gui::TrackballCamera::updatePhiTheta()
 
     m_theta = std::acos(R.y() / r);
     m_phi   = (R.z() == 0.f && R.x() == 0.f) ? 0.f : std::atan2(R.z() , R.x());
-    CORE_ASSERT(isfinite(m_theta) && isfinite(m_phi), "Error in trackball camera");
+    CORE_ASSERT(std::isfinite(m_theta) && std::isfinite(m_phi), "Error in trackball camera");
 }
 
 } // namespace Ra
