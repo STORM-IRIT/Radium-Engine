@@ -17,8 +17,8 @@ Camera::Camera(Scalar height, Scalar width)
     , m_zNear     ( Scalar(0.1f)                )
     , m_zFar      ( Scalar(1000.0f)             )
     , m_zoomFactor( Scalar(1.0f)                )
-    , m_height    ( height                      )
     , m_width     ( width                       )
+    , m_height    ( height                      )
     , m_projType  ( ProjType::PERSPECTIVE       )
 {
 }
