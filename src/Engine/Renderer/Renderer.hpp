@@ -4,7 +4,10 @@
 #include <vector>
 #include <array>
 #include <memory>
+#include <mutex>
+
 #include <QTime>
+
 #include <Core/Math/Vector.hpp>
 
 namespace Ra { namespace Core   { struct MouseEvent;          } }
@@ -54,6 +57,9 @@ public:
 
     void setEngine(RadiumEngine* engine) { m_engine = engine; }
 
+    void lockRendering()   { m_renderMutex.lock();}
+    void unlockRendering() { m_renderMutex.unlock();}
+
     /**
      * @brief Tell the renderer it needs to render.
      * This method does the following steps :
@@ -101,14 +107,6 @@ public:
     //                its own viewport, without hiding the final texture.)
     virtual void debugTexture(uint texIdx);
 
-    /**
-     * @brief Take a screenshot of the current renderer state
-     * This method does not have to be overrided, but does nothing by default.
-     * @param filename The file to save the screenshot to
-     * @return True if the screenshot has been saved successfully, false otherwise.
-     */
-    // FIXME(Charly): Let Qt handle this ? Does nothing for now anyways
-    virtual bool takeScreenshot(const std::string& filename) { return false; }
 
     // FIXME(Charly): Not sure the lights should be handled by the renderer.
     //                How to do this ?
@@ -207,11 +205,10 @@ private:
 
     std::array<Texture*, TEXTURE_COUNT> m_textures;
 
-    // FIXME(Charly): Camera stuff, needs to be moved to the viewer.
-
-
     Scalar m_totalTime;
     QTime m_time;
+
+    std::mutex m_renderMutex;
 };
 
 } // namespace Engine

@@ -40,19 +40,63 @@ namespace
         //Assumption : main window is our grand parent. This is checked in MainApplication
         return static_cast<Ra::Gui::MainWindow*>(w->parent()->parent());
     }
+
+class RenderThread : public QThread, protected QOpenGLFunctions
+{
+public:
+    RenderThread(Ra::Gui::Viewer* viewer, Ra::Engine::Renderer* renderer)
+    : QThread(viewer), m_viewer(viewer), m_renderer(renderer)
+    {
+    }
+
+    virtual ~RenderThread() {}
+
+    // This is the function that gets called in the render thread
+    virtual void run() override
+    {
+        // check that the context has  correctly been moved from the main thread.
+        CORE_ASSERT(m_viewer->context()->thread() == QThread::currentThread(),
+                    "Context is in the wrong thread");
+
+        // Grab the context
+        m_viewer->makeCurrent();
+
+        initializeOpenGLFunctions();
+        CORE_ASSERT(glGetString(GL_VERSION)!= 0, "GL context unavailable");
+        // render will lock the renderer itself.
+        m_renderer->render(m_renderData);
+
+        // Give back viewer context to main thread.
+        m_viewer->doneCurrent();
+        m_viewer->context()->moveToThread( qApp->thread() );
+    }
+
+    Ra::Engine::RenderData m_renderData;
+    Ra::Gui::Viewer* m_viewer;
+    Ra::Engine::Renderer* m_renderer;
+};
+
 }
-    namespace Ra
+
+namespace Ra
 {
 
 Gui::Viewer::Viewer(QWidget* parent)
     : QOpenGLWidget(parent)
     , m_interactionState(NONE)
+    , m_renderThread(nullptr)
 {
     // Allow Viewer to receive events
     setFocusPolicy(Qt::StrongFocus);
     setMinimumSize(QSize(800, 600));
 
     m_camera.reset(new Gui::TrackballCamera(width(), height()));
+
+    connect(this, &QOpenGLWidget::aboutToCompose, this, &Viewer::onAboutToCompose);
+    connect(this, &QOpenGLWidget::frameSwapped,   this, &Viewer::onFrameSwapped);
+    connect(this, &QOpenGLWidget::aboutToResize,  this, &Viewer::onAboutToResize);
+    connect(this, &QOpenGLWidget::resized,        this, &Viewer::onResized);
+
 }
 
 Gui::Viewer::~Viewer()
@@ -89,32 +133,47 @@ void Gui::Viewer::initializeGL()
 
     m_renderer = new Engine::Renderer(width(), height());
     m_renderer->initialize();
-    
+
+    m_renderThread = new RenderThread(this, m_renderer);
+
     emit ready(this);
 }
 
 void Gui::Viewer::setRadiumEngine(Engine::RadiumEngine* engine)
 {
-    m_engine = engine;
     m_renderer->setEngine(engine);
 }
 
-void Gui::Viewer::paintGL()
-{
-    // TODO(Charly): Setup data, camera handled there.
-    Engine::RenderData data;
 
-    m_cameraMutex.lock();
-    data.projMatrix = m_camera->getProjMatrix();
-    data.viewMatrix = m_camera->getViewMatrix();
-    m_cameraMutex.unlock();
-    m_renderer->render(data);
+void Gui::Viewer::onAboutToCompose()
+{
+    // This slot function is called from the main thread as part of the event loop
+    // when the GUI is about to update. We have to wait for the rendering to finish.
+    m_renderer->lockRendering();
+};
+
+void Gui::Viewer::onFrameSwapped()
+{
+    // This slot is called from the main thread as part of the event loop when the
+    // GUI has finished displaying the rendered image, so we unlock the renderer.
+    m_renderer->unlockRendering();
+}
+
+void Gui::Viewer::onAboutToResize()
+{
+    // Like swap buffers, resizing is a blocking operation and we have to wait for the rendering
+    // to finish before resizing.
+    m_renderer->lockRendering();
+}
+
+void Gui::Viewer::onResized()
+{
+    m_renderer->unlockRendering();
 }
 
 void Gui::Viewer::resizeGL(int width, int height)
 {
-    std::lock_guard<std::mutex> lockCam(m_cameraMutex);
-    std::lock_guard<std::mutex> lockRend(m_rendererMutex);
+    // Renderer should have been locked by previous events.
 	m_camera->resizeViewport(width, height);
     m_renderer->resize(width, height);
 }
@@ -190,24 +249,25 @@ void Gui::Viewer::sceneChanged(const Core::Aabb& aabb)
 	m_camera->moveCameraToFitAabb(aabb);
 }
 
-void Gui::Viewer::runRenderThread()
-{
-    // lock renderer
-    // see OpenGlWidget implementatin of render(),
-    std::cout<<"MT Rendering "<<std::this_thread::get_id()<<std::endl;
-    // call to render
-    // return
-}
-
 void Gui::Viewer::startRendering()
 {
-    // move the context to thread.
-    m_renderThread = std::thread(&Viewer::runRenderThread, this);
+    CORE_ASSERT(m_renderThread != nullptr, "Renderer is not initialized");
+    doneCurrent();
+    context()->moveToThread(m_renderThread);
+    // Fill data from the main thread (we want to make sure that the
+    // camera is not going to be updated in the meantime)
+    Engine::RenderData& data = static_cast<RenderThread*>(m_renderThread)->m_renderData;
+    data.projMatrix = m_camera->getProjMatrix();
+    data.viewMatrix = m_camera->getViewMatrix();
+    m_renderThread->start();
 }
 
 void Gui::Viewer::waitForRendering()
 {
-    m_renderThread.join();
+    m_renderThread->wait();
+    CORE_ASSERT( context()->thread() == QThread::currentThread(),
+                 "Context has not been properly given back to main thread.");
+    makeCurrent();
 }
 
 } // namespace Ra

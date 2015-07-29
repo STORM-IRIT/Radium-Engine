@@ -65,7 +65,7 @@ Engine::ShaderProgram* Engine::ShaderProgramManager::addShaderProgram(const Shad
 Engine::ShaderProgram* Engine::ShaderProgramManager::getShaderProgram(const ShaderConfiguration& config)
 {
 	ShaderProgram* ret;
-
+	const uint x = m_shaderPrograms.size();
 	if (m_shaderPrograms.find(config) != m_shaderPrograms.end())
 	{
 		// Already in the map

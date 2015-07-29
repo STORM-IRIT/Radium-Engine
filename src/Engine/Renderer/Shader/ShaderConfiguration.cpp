@@ -3,6 +3,7 @@
 #include <sstream>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <iostream>
 
 namespace Ra
 {

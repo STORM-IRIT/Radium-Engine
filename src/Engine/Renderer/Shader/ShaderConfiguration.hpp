@@ -44,6 +44,7 @@ public:
 
 	bool operator<(const ShaderConfiguration& other) const;
 
+
 	void setName(const std::string& name);
 	void setPath(const std::string& path);
 	void setType(const ShaderType&  type);

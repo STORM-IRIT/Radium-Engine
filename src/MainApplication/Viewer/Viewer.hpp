@@ -12,6 +12,7 @@
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <QThread>
 
 #include <Core/Math/Vector.hpp>
 
@@ -64,14 +65,23 @@ signals:
 public slots:
     void reloadShaders();
 	void sceneChanged(const Core::Aabb& bbox);
+private slots:
+    void onAboutToCompose();
+    void onAboutToResize();
+    void onFrameSwapped();
+    void onResized();
 
-protected:
+
+private:
     /// OPENGL
     virtual void initializeGL() override;
-    virtual void paintGL() override;
+    //virtual void paintGL() override;
     virtual void resizeGL(int width, int height) override;
 
+
+    // Paint event is set to a no-op to prevent synchronous rendering.
     virtual void paintEvent(QPaintEvent* e) override {}
+
     /// INTERACTION
     // We intercept the mouse events in this widget to get the coordinates of the mouse
     // in screen space.
@@ -80,23 +90,20 @@ protected:
     virtual void mouseMoveEvent(QMouseEvent* event) override;
     virtual void wheelEvent(QWheelEvent* event) override;
 
-private:
-
     void runRenderThread();
 
 	// FIXME(Charly): Find a better way to handle mouse events ?
 	static Core::MouseEvent mouseEventQtToRadium(const QMouseEvent* qtEvent);
 
 private:
-    Engine::RadiumEngine* m_engine;
     Engine::Renderer* m_renderer;
     
     std::unique_ptr<CameraInterface> m_camera;
-    std::thread m_renderThread;
-    std::mutex m_cameraMutex;
-    std::mutex m_rendererMutex;
-
     InteractionState m_interactionState;
+
+    QThread* m_renderThread; // We have to use a QThread for MT rendering
+    std::mutex m_cameraMutex;
+
 };
 
 } // namespace Gui

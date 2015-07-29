@@ -71,7 +71,7 @@ namespace Ra
 
         m_engine->setupScene();
 
-        // Create task queue
+        // Create task queue with N-1 threads (we keep one for rendering).
         m_taskQueue.reset(new Core::TaskQueue(std::thread::hardware_concurrency() - 1));
 
         // Wait for callback from  gui to  start the engine.
@@ -129,7 +129,7 @@ namespace Ra
         long elapsed = m_frameTime.msecsTo(currentTime);
         m_frameTime = currentTime;
 
-        emit preFrame();
+        m_viewer->startRendering();
 
         // Gather user input and dispatch it.
         auto keyEvents = m_mainWindow->getKeyEvents();
@@ -145,10 +145,10 @@ namespace Ra
         m_taskQueue->flushTaskQueue();
 
 
-        // Draw call.
+        // Block until frame is fully rendered.
+        m_viewer->waitForRendering();
         m_viewer->update();
 
-        emit postFrame();
     }
 
     MainApplication::~MainApplication()
