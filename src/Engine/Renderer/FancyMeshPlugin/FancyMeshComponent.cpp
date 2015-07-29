@@ -37,6 +37,20 @@ void Engine::FancyMeshComponent::addMeshDrawable( const Core::TriangleMesh& mesh
     m_drawable = m_drawableManager->addDrawable(drawable);
 }
 
+void Engine::FancyMeshComponent::addMeshDrawable( const Core::TriangleMesh& mesh, const std::string& name, Material* material )
+{
+    FancyMeshDrawable* drawable = new FancyMeshDrawable(name);
+    drawable->setComponent(this);
+    drawable->setVisible(true);
+    drawable->setMaterial(material);
+
+    Mesh* displayMesh = new Mesh(name);
+    displayMesh->loadGeometry(mesh);
+    drawable->addMesh(displayMesh);
+    m_drawable = m_drawableManager->addDrawable(drawable);
+}
+
+
 void Engine::FancyMeshComponent::handleMeshLoading(const FancyComponentData& data)
 {
 	FancyMeshDrawable* drawable = new FancyMeshDrawable(data.name);

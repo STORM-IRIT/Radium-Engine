@@ -14,7 +14,7 @@ Gui::CameraInterface::CameraInterface(uint width, uint height)
 
     setCameraFovInDegrees(60.0f);
     setCameraZNear(0.1f);
-    setCameraZFar(1000000.0f);
+    setCameraZFar(1000.0f);
 }
 
 Gui::CameraInterface::~CameraInterface()

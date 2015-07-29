@@ -9,5 +9,5 @@ uniform Material material;
 
 void main()
 {
-    fragColor = vec4(material.kd.xyz, 1);
+    fragColor = vec4(material.kd.xyz, material.kd.a);
 }

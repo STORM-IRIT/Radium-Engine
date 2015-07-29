@@ -69,7 +69,7 @@ void Engine::Texture::setBPP(int bpp)
 
         default:
         {
-            fprintf(stderr, "Problem with texture color mode (%08x) - (Texture %s).\n",
+            fprintf(stderr, "Problem with texture color mode (0x%08x) - (Texture %s).\n",
                     bpp, m_name.c_str());
             m_bytesPerPixel = 0;
         }

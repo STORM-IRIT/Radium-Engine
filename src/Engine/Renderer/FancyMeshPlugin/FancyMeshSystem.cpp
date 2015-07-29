@@ -83,4 +83,13 @@ Engine::FancyMeshComponent * Engine::FancyMeshSystem::addDisplayMeshToEntity(Eng
     return comp;
 }
 
+Engine::FancyMeshComponent* Engine::FancyMeshSystem::addDisplayMeshToEntity(Engine::Entity *entity,
+                                                                            const Core::TriangleMesh &mesh,
+                                                                            Engine::Material *material)
+{
+    FancyMeshComponent* comp = static_cast<FancyMeshComponent*>(addComponentToEntity(entity));
+    comp->addMeshDrawable(mesh, "Mesh Drawable", material);
+    return comp;
+}
+
 }

@@ -44,6 +44,7 @@ public:
 
 	virtual void setMaterial(Material* material);
 	virtual void setMaterial(std::shared_ptr<Material> material);
+    virtual Material* getMaterial() const;
 
 	/**
 	 * @brief Get the bounding box of the drawable. 

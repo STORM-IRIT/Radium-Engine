@@ -32,18 +32,6 @@ struct RenderData
 class Renderer
 {
 public:
-    enum TexturesFBO
-    {
-        TEXTURE_DEPTH = 0,
-        TEXTURE_AMBIENT,
-        TEXTURE_POSITION,
-        TEXTURE_NORMAL,
-        TEXTURE_PICKING,
-        TEXTURE_COLOR,
-        TEXTURE_COUNT
-    };
-
-public:
 	/// CONSTRUCTOR 
     Renderer(uint width, uint height);
 
@@ -171,6 +159,7 @@ protected:
     // FIXME(Charly): Should we change "displayedTexture" to "debuggedTexture" ?
     //                It would make more sense if we are able to show the
     //                debugged texture in its own viewport.
+
     /**
      * @brief The texture that will be displayed on screen. If no call to
      * @see debugTexture has been done, this is just a pointer to
@@ -179,10 +168,15 @@ protected:
     Texture* m_displayedTexture;
 
     /**
+     * @brief The texture that must be filled by the @see renderInternal method.
+     */
+    std::unique_ptr<Texture> m_renderpassTexture;
+
+    /**
      * @brief The texture that must be filled by the @see postProcessInternal
      * method.
      */
-    Texture* m_finalTexture;
+    std::unique_ptr<Texture> m_finalTexture;
 
     /**
      * @brief Tell the DrawScreen shader if a depth map is beeing debugged.
@@ -193,22 +187,41 @@ protected:
     std::vector<Light*> m_lights;
 
 private:
+    enum RenderPassTextures
+    {
+        RENDERPASS_TEXTURE_DEPTH = 0,
+        RENDERPASS_TEXTURE_AMBIENT,
+        RENDERPASS_TEXTURE_POSITION,
+        RENDERPASS_TEXTURE_NORMAL,
+        RENDERPASS_TEXTURE_PICKING,
+        RENDERPASS_TEXTURE_LIGHTED,
+        RENDERPASS_TEXTURE_COUNT
+    };
+
+    enum OITPassTextures
+    {
+        OITPASS_TEXTURE_ACCUM,
+        OITPASS_TEXTURE_REVEALAGE,
+        OITPASS_TEXTURE_COUNT
+    };
+
     // Default renderer logic here, no need to be accessed by overriding renderers.
     ShaderProgram* m_depthAmbientShader;
-    ShaderProgram* m_compositingShader;
+    ShaderProgram* m_renderpassCompositingShader;
+    ShaderProgram* m_oiTransparencyShader;
+    ShaderProgram* m_postprocessShader;
     ShaderProgram* m_drawScreenShader;
 
-    Mesh* m_quadMesh;
+    std::unique_ptr<Mesh> m_quadMesh;
 
     int m_qtPlz;
 
-    FBO* m_fbo;
-    FBO* m_postprocessFbo;
+    std::unique_ptr<FBO> m_fbo;
+    std::unique_ptr<FBO> m_oitFbo;
+    std::unique_ptr<FBO> m_postprocessFbo;
 
-    std::array<Texture*, TEXTURE_COUNT> m_textures;
-
-    // FIXME(Charly): Camera stuff, needs to be moved to the viewer.
-
+    std::array<std::unique_ptr<Texture>, RENDERPASS_TEXTURE_COUNT> m_renderpassTextures;
+    std::array<std::unique_ptr<Texture>, OITPASS_TEXTURE_COUNT> m_oitTextures;
 
     Scalar m_totalTime;
     QTime m_time;

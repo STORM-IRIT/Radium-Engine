@@ -37,16 +37,24 @@ namespace Ra { namespace Core
         //
         // Primitive construction
         //
+        /// Create a 2D quad mesh given half extents, centered on the origin with x axis as normal
+        TriangleMesh makeXNormalQuad(const Vector2& halfExts = Vector2(0.5, 0.5));
+
+        /// Create a 2D quad mesh given half extents, centered on the origin with y axis as normal
+        TriangleMesh makeYNormalQuad(const Vector2& halfExts = Vector2(0.5, 0.5));
+
+        /// Create a 2D quad mesh given half extents, centered on the origin with z axis as normal
+        TriangleMesh makeZNormalQuad(const Vector2& halfExts = Vector2(0.5, 0.5));
 
         /// Create an axis-aligned cubic mesh with the given half extents, centered on the origin.
-        TriangleMesh makeBox(const Vector3& halfExts = Vector3(0.5f, 0.5f, 0.5f));
+        TriangleMesh makeBox(const Vector3& halfExts = Vector3(0.5, 0.5, 0.5));
 
         /// Create an axis-aligned cubic mesh
         TriangleMesh makeBox(const Aabb& aabb);
 
         /// Create a parametric spheric mesh of given radius. Template parameters set the resolution.
         template<uint U = 16, uint V = U>
-        TriangleMesh makeParametricSphere(Scalar radius = 1.f);
+        TriangleMesh makeParametricSphere(Scalar radius = 1.0);
 
         /// Create a spheric mesh by subdivision of an icosaherdon.
         TriangleMesh makeGeodesicSphere(Scalar radius =1.f, uint numSubdiv = 3);

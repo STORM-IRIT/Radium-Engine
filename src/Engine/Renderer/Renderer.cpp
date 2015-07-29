@@ -44,7 +44,7 @@ Engine::Renderer::Renderer(uint width, uint height)
     , m_displayedTexture(nullptr)
     , m_displayedIsDepth(false)
     , m_depthAmbientShader(nullptr)
-    , m_compositingShader(nullptr)
+    , m_postprocessShader(nullptr)
     , m_drawScreenShader(nullptr)
     , m_quadMesh(nullptr)
     , m_fbo(nullptr)
@@ -82,7 +82,7 @@ void Engine::Renderer::initialize()
     mesh.m_triangles.push_back({ Core::TriangleIdx(0), Core::TriangleIdx(2), Core::TriangleIdx(1) });
     mesh.m_triangles.push_back({ Core::TriangleIdx(0), Core::TriangleIdx(3), Core::TriangleIdx(2) });
 
-    m_quadMesh = new Mesh("quad");
+    m_quadMesh.reset(new Mesh("quad"));
     m_quadMesh->loadGeometry(mesh);
     m_quadMesh->updateGL();
 
@@ -92,27 +92,37 @@ void Engine::Renderer::initialize()
 void Engine::Renderer::initShaders()
 {
     m_depthAmbientShader = m_shaderManager->addShaderProgram("DepthAmbientPass");
-    m_compositingShader = m_shaderManager->addShaderProgram("Compose");
+    m_renderpassCompositingShader = m_shaderManager->addShaderProgram("RenderPassCompose");
+    m_oiTransparencyShader = m_shaderManager->addShaderProgram("OITransparency");
+    m_postprocessShader = m_shaderManager->addShaderProgram("PostProcess");
     m_drawScreenShader  = m_shaderManager->addShaderProgram("DrawScreen");
 }
 
 void Engine::Renderer::initBuffers()
 {
-    m_fbo = new FBO(FBO::Components(FBO::COLOR | FBO::DEPTH), m_width, m_height);
-    m_postprocessFbo = new FBO(FBO::Components(FBO::COLOR), m_width, m_height);
+    m_fbo.reset(new FBO(FBO::Components(FBO::COLOR | FBO::DEPTH), m_width, m_height));
+    m_oitFbo.reset(new FBO(FBO::Components(FBO::COLOR), m_width, m_height));
+    m_postprocessFbo.reset(new FBO(FBO::Components(FBO::COLOR), m_width, m_height));
 
-    m_textures[TEXTURE_DEPTH]    = new Texture("Depth", GL_TEXTURE_2D);
-    m_textures[TEXTURE_AMBIENT]  = new Texture("Ambient", GL_TEXTURE_2D);
-    m_textures[TEXTURE_POSITION] = new Texture("Position", GL_TEXTURE_2D);
-    m_textures[TEXTURE_NORMAL]   = new Texture("Normal", GL_TEXTURE_2D);
-    m_textures[TEXTURE_PICKING]  = new Texture("Picking", GL_TEXTURE_2D);
-    m_textures[TEXTURE_COLOR]    = new Texture("Color", GL_TEXTURE_2D);
+    // Render pass
+    m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]      .reset(new Texture("Depth", GL_TEXTURE_2D));
+    m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT]    .reset(new Texture("Ambient", GL_TEXTURE_2D));
+    m_renderpassTextures[RENDERPASS_TEXTURE_POSITION]   .reset(new Texture("Position", GL_TEXTURE_2D));
+    m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL]     .reset(new Texture("Normal", GL_TEXTURE_2D));
+    m_renderpassTextures[RENDERPASS_TEXTURE_PICKING]    .reset(new Texture("Picking", GL_TEXTURE_2D));
+    m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED]    .reset(new Texture("Color", GL_TEXTURE_2D));
+    m_renderpassTexture                                 .reset(new Texture("RenderPass", GL_TEXTURE_2D));
 
-    m_finalTexture = new Texture("Final", GL_TEXTURE_2D);
+    // OIT pass
+    m_oitTextures[OITPASS_TEXTURE_ACCUM]                .reset(new Texture("OITAccum", GL_TEXTURE_2D));
+    m_oitTextures[OITPASS_TEXTURE_REVEALAGE]            .reset(new Texture("OITPRevealage", GL_TEXTURE_2D));
+
+    // Post process pass
+    m_finalTexture                                      .reset(new Texture("Final", GL_TEXTURE_2D));
 
     resize(m_width, m_height);
 
-    m_displayedTexture = m_finalTexture;
+    m_displayedTexture = m_finalTexture.get();
 }
 
 void Engine::Renderer::render(const RenderData& data)
@@ -153,23 +163,44 @@ void Engine::Renderer::updateDrawablesInternal(const RenderData &renderData,
 void Engine::Renderer::renderInternal(const RenderData& renderData,
                                       const std::vector<std::shared_ptr<Drawable>>& drawables)
 {
+    uint size = drawables.size();
+    std::vector<uint> opaque; opaque.reserve(size);
+    std::vector<uint> transparent; transparent.reserve(size);
+
+    // Get translucent objects
+    for (uint i = 0; i < size; ++i)
+    {
+        Material::MaterialType type = drawables[i]->getMaterial()->getMaterialType();
+        if (type == Material::MAT_TRANSPARENT)
+        {
+            transparent.push_back(i);
+        }
+        else
+        {
+            opaque.push_back(i);
+        }
+    }
+    uint numOpaque = opaque.size();
+    uint numTransparent = transparent.size();
+
     m_fbo->useAsTarget();
 
     GL_ASSERT(glDepthMask(GL_TRUE));
     GL_ASSERT(glColorMask(1, 1, 1, 1));
 
-    GL_ASSERT(glDrawBuffers(5, buffers));
+    GL_ASSERT(glDrawBuffers(6, buffers));
 
-    Core::Color clearColor(0.2, 0.2, 0.2, 1.0);
-    Core::Color clearEmpty(0.0, 0.0, 0.0, 0.0);
-    Core::Color clearPicking(1.0, 1.0, 1.0, 1.0);
-    Scalar clearDepth = 1.0;
+    const Core::Color clearColor(0.75, 0.75, 0.75, 1.0);
+    const Core::Color clearZeros(0.0, 0.0, 0.0, 0.0);
+    const Core::Color clearOnes(1.0, 1.0, 1.0, 1.0);
+    const Scalar clearDepth = 1.0;
 
     GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearColor.data())); // Clear ambient
-    GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearEmpty.data()));  // Clear position
-    GL_ASSERT(glClearBufferfv(GL_COLOR, 2, clearEmpty.data()));  // Clear normal
-    GL_ASSERT(glClearBufferfv(GL_COLOR, 3, clearPicking.data()));  // Clear picking
-    GL_ASSERT(glClearBufferfv(GL_COLOR, 4, clearEmpty.data()));  // Clear color
+    GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearZeros.data()));  // Clear position
+    GL_ASSERT(glClearBufferfv(GL_COLOR, 2, clearZeros.data()));  // Clear normal
+    GL_ASSERT(glClearBufferfv(GL_COLOR, 3, clearOnes.data()));  // Clear picking
+    GL_ASSERT(glClearBufferfv(GL_COLOR, 4, clearZeros.data()));  // Clear color
+    GL_ASSERT(glClearBufferfv(GL_COLOR, 5, clearZeros.data()));  // Clear renderpass
     GL_ASSERT(glClearBufferfv(GL_DEPTH, 0, &clearDepth));       // Clear depth
 
     Core::Matrix4 view = renderData.viewMatrix;
@@ -186,8 +217,9 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
 
     m_depthAmbientShader->bind();
 
-    for (const auto& d : drawables)
+    for (uint i = 0; i < numOpaque; ++i)
     {
+        auto d = drawables[opaque[i]];
         // Object ID
         int index = d->idx.getValue();
         Scalar r = Scalar((index & 0x000000FF) >> 0) / 255.0;
@@ -211,9 +243,9 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     {
         for (const auto& l : m_lights)
         {
-            for (const auto& d : drawables)
+            for (uint i = 0; i < numOpaque; ++i)
             {
-                d->draw(view, proj, l);
+                drawables[opaque[i]]->draw(view, proj, l);
             }
         }
     }
@@ -222,11 +254,61 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
         DirectionalLight l;
         l.setDirection(Core::Vector3(0.3f, 1, 0));
 
-        for (const auto& d : drawables)
+        for (uint i = 0; i < numOpaque; ++i)
         {
-            d->draw(view, proj, &l);
+            drawables[opaque[i]]->draw(view, proj, &l);
         }
     }
+
+    m_fbo->unbind();
+
+    m_oitFbo->useAsTarget();
+
+    GL_ASSERT(glDrawBuffers(2, buffers));
+
+    // RT0 stores a sum, RT1 stores a product.
+    GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearZeros.data())); // Clear
+    GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearOnes.data()));  // Clear
+
+    GL_ASSERT(glEnable(GL_BLEND));
+    GL_ASSERT(glBlendEquation(GL_FUNC_ADD));
+    GL_ASSERT(glBlendFunci(0, GL_ONE, GL_ONE));
+    GL_ASSERT(glBlendFunci(1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA));
+
+    m_oiTransparencyShader->bind();
+    // FIXME(Charly): weight parameter tweakability ?
+    m_oiTransparencyShader->setUniform("depthScale", Scalar(0.5));
+
+    for (uint i = 0; i < numTransparent; ++i)
+    {
+        drawables[transparent[i]]->draw(view, proj, m_oiTransparencyShader);
+    }
+
+    GL_ASSERT(glDisable(GL_BLEND));
+
+    m_oitFbo->unbind();
+
+    // Draw renderpass texture
+    m_fbo->bind();
+    GL_ASSERT(glDrawBuffers(1, buffers + 5));
+    GL_ASSERT(glDepthFunc(GL_ALWAYS));
+
+    m_renderpassCompositingShader->bind();
+
+    m_renderpassCompositingShader->setUniform("ambient", m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT].get(), 0);
+    m_renderpassCompositingShader->setUniform("color", m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED].get(), 1);
+    m_renderpassCompositingShader->setUniform("renderpass", 0);
+    m_quadMesh->draw();
+
+    GL_ASSERT(glEnable(GL_BLEND));
+    GL_ASSERT(glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA));
+
+    m_renderpassCompositingShader->setUniform("oitSumColor", m_oitTextures[OITPASS_TEXTURE_ACCUM].get(), 2);
+    m_renderpassCompositingShader->setUniform("oitSumWeight", m_oitTextures[OITPASS_TEXTURE_REVEALAGE].get(), 3);
+    m_renderpassCompositingShader->setUniform("renderpass", 1);
+    m_quadMesh->draw();
+
+    GL_ASSERT(glDepthFunc(GL_LESS));
 
     GL_ASSERT(glDisable(GL_BLEND));
     GL_ASSERT(glDepthMask(GL_TRUE));
@@ -240,6 +322,8 @@ void Engine::Renderer::postProcessInternal(const RenderData &renderData,
 {
     CORE_UNUSED(renderData);
     CORE_UNUSED(drawables);
+
+    // This pass does nothing by default
 
     m_postprocessFbo->useAsTarget(m_width, m_height);
 
@@ -255,9 +339,8 @@ void Engine::Renderer::postProcessInternal(const RenderData &renderData,
 
     GL_ASSERT(glDepthFunc(GL_ALWAYS));
 	
-    m_compositingShader->bind();
-    m_compositingShader->setUniform("ambient", m_textures[TEXTURE_AMBIENT], 0);
-    m_compositingShader->setUniform("color", m_textures[TEXTURE_COLOR], 1);
+    m_postprocessShader->bind();
+    m_postprocessShader->setUniform("renderpassColor", m_renderpassTexture.get(), 0);
 
     m_quadMesh->draw();
 
@@ -289,15 +372,18 @@ void Engine::Renderer::drawScreenInternal()
     GL_ASSERT(glViewport(0, 0, m_width, m_height));
 
     m_drawScreenShader->bind();
-    m_drawScreenShader->setUniform("isDepthTexture", m_displayedIsDepth ? 1 : 0);
-    m_drawScreenShader->setUniform("screenTexture", m_finalTexture, 0);
+    m_drawScreenShader->setUniform("screenTexture", m_finalTexture.get(), 0);
 
-    m_drawScreenShader->setUniform("depth", m_textures[TEXTURE_DEPTH], 1);
-    m_drawScreenShader->setUniform("ambient", m_textures[TEXTURE_AMBIENT], 2);
-    m_drawScreenShader->setUniform("position", m_textures[TEXTURE_POSITION], 3);
-    m_drawScreenShader->setUniform("normal", m_textures[TEXTURE_NORMAL], 4);
-    m_drawScreenShader->setUniform("color", m_textures[TEXTURE_COLOR], 5);
-    m_drawScreenShader->setUniform("picking", m_textures[TEXTURE_PICKING], 6);
+    m_drawScreenShader->setUniform("depth", m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH].get(), 1);
+    m_drawScreenShader->setUniform("ambient", m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT].get(), 2);
+    m_drawScreenShader->setUniform("position", m_renderpassTextures[RENDERPASS_TEXTURE_POSITION].get(), 3);
+    m_drawScreenShader->setUniform("normal", m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL].get(), 4);
+    m_drawScreenShader->setUniform("color", m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED].get(), 5);
+    m_drawScreenShader->setUniform("picking", m_renderpassTextures[RENDERPASS_TEXTURE_PICKING].get(), 6);
+    m_drawScreenShader->setUniform("renderpass", m_renderpassTexture.get(), 7);
+
+    m_drawScreenShader->setUniform("oitAccum", m_oitTextures[OITPASS_TEXTURE_ACCUM].get(), 8);
+    m_drawScreenShader->setUniform("oitRevealage", m_oitTextures[OITPASS_TEXTURE_REVEALAGE].get(), 9);
 
     m_drawScreenShader->setUniform("totalTime", m_totalTime);
     m_quadMesh->draw();
@@ -311,29 +397,42 @@ void Engine::Renderer::resize(uint w, uint h)
     m_height = h;
     glViewport(0, 0, m_width, m_height);
 
-    if (m_textures[TEXTURE_DEPTH]->getId() != 0)
+    if (m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]->getId() != 0)
     {
-        m_textures[TEXTURE_DEPTH]->deleteGL();
+        m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]->deleteGL();
     }
-    if (m_textures[TEXTURE_AMBIENT]->getId() != 0)
+    if (m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT]->getId() != 0)
     {
-        m_textures[TEXTURE_AMBIENT]->deleteGL();
+        m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT]->deleteGL();
     }
-    if (m_textures[TEXTURE_POSITION]->getId() != 0)
+    if (m_renderpassTextures[RENDERPASS_TEXTURE_POSITION]->getId() != 0)
     {
-        m_textures[TEXTURE_POSITION]->deleteGL();
+        m_renderpassTextures[RENDERPASS_TEXTURE_POSITION]->deleteGL();
     }
-    if (m_textures[TEXTURE_NORMAL]->getId() != 0)
+    if (m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL]->getId() != 0)
     {
-        m_textures[TEXTURE_NORMAL]->deleteGL();
+        m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL]->deleteGL();
     }
-    if (m_textures[TEXTURE_PICKING]->getId() != 0)
+    if (m_renderpassTextures[RENDERPASS_TEXTURE_PICKING]->getId() != 0)
     {
-        m_textures[TEXTURE_PICKING]->deleteGL();
+        m_renderpassTextures[RENDERPASS_TEXTURE_PICKING]->deleteGL();
     }
-    if (m_textures[TEXTURE_COLOR]->getId() != 0)
+    if (m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED]->getId() != 0)
     {
-        m_textures[TEXTURE_COLOR]->deleteGL();
+        m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED]->deleteGL();
+    }
+    if (m_renderpassTexture->getId() != 0)
+    {
+        m_renderpassTexture->deleteGL();
+    }
+
+    if (m_oitTextures[OITPASS_TEXTURE_ACCUM]->getId() != 0)
+    {
+        m_oitTextures[OITPASS_TEXTURE_ACCUM]->deleteGL();
+    }
+    if (m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->getId() != 0)
+    {
+        m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->deleteGL();
     }
 
     if (m_finalTexture->getId() != 0)
@@ -341,29 +440,41 @@ void Engine::Renderer::resize(uint w, uint h)
         m_finalTexture->deleteGL();
     }
 
-    m_textures[TEXTURE_DEPTH]->initGL(GL_DEPTH_COMPONENT24, w, h, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr);
-    m_textures[TEXTURE_DEPTH]->setFilter(GL_LINEAR, GL_LINEAR);
-    m_textures[TEXTURE_DEPTH]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+    m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]->initGL(GL_DEPTH_COMPONENT24, w, h, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr);
+    m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]->setFilter(GL_LINEAR, GL_LINEAR);
+    m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
-    m_textures[TEXTURE_AMBIENT]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
-    m_textures[TEXTURE_AMBIENT]->setFilter(GL_LINEAR, GL_LINEAR);
-    m_textures[TEXTURE_AMBIENT]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+    m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
+    m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT]->setFilter(GL_LINEAR, GL_LINEAR);
+    m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
-    m_textures[TEXTURE_POSITION]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
-    m_textures[TEXTURE_POSITION]->setFilter(GL_LINEAR, GL_LINEAR);
-    m_textures[TEXTURE_POSITION]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+    m_renderpassTextures[RENDERPASS_TEXTURE_POSITION]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
+    m_renderpassTextures[RENDERPASS_TEXTURE_POSITION]->setFilter(GL_LINEAR, GL_LINEAR);
+    m_renderpassTextures[RENDERPASS_TEXTURE_POSITION]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
-    m_textures[TEXTURE_NORMAL]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
-    m_textures[TEXTURE_NORMAL]->setFilter(GL_LINEAR, GL_LINEAR);
-    m_textures[TEXTURE_NORMAL]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+    m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
+    m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL]->setFilter(GL_LINEAR, GL_LINEAR);
+    m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
-    m_textures[TEXTURE_PICKING]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
-    m_textures[TEXTURE_PICKING]->setFilter(GL_LINEAR, GL_LINEAR);
-    m_textures[TEXTURE_PICKING]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+    m_renderpassTextures[RENDERPASS_TEXTURE_PICKING]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
+    m_renderpassTextures[RENDERPASS_TEXTURE_PICKING]->setFilter(GL_LINEAR, GL_LINEAR);
+    m_renderpassTextures[RENDERPASS_TEXTURE_PICKING]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
-    m_textures[TEXTURE_COLOR]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
-    m_textures[TEXTURE_COLOR]->setFilter(GL_LINEAR, GL_LINEAR);
-    m_textures[TEXTURE_COLOR]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+    m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
+    m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED]->setFilter(GL_LINEAR, GL_LINEAR);
+    m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+
+    m_renderpassTexture->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
+    m_renderpassTexture->setFilter(GL_LINEAR, GL_LINEAR);
+    m_renderpassTexture->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+
+    m_oitTextures[OITPASS_TEXTURE_ACCUM]->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
+    m_oitTextures[OITPASS_TEXTURE_ACCUM]->setFilter(GL_LINEAR, GL_LINEAR);
+    m_oitTextures[OITPASS_TEXTURE_ACCUM]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+
+    m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->initGL(GL_R32F, w, h, GL_RED, GL_FLOAT, nullptr);
+    m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->setFilter(GL_LINEAR, GL_LINEAR);
+    m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
     m_finalTexture->initGL(GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr);
     m_finalTexture->setFilter(GL_LINEAR, GL_LINEAR);
@@ -371,18 +482,26 @@ void Engine::Renderer::resize(uint w, uint h)
 
     m_fbo->bind();
     m_fbo->setSize(w, h);
-    m_fbo->attachTexture(GL_DEPTH_ATTACHMENT, m_textures[TEXTURE_DEPTH]);
-    m_fbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[TEXTURE_AMBIENT]);
-    m_fbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[TEXTURE_POSITION]);
-    m_fbo->attachTexture(GL_COLOR_ATTACHMENT2, m_textures[TEXTURE_NORMAL]);
-    m_fbo->attachTexture(GL_COLOR_ATTACHMENT3, m_textures[TEXTURE_PICKING]);
-    m_fbo->attachTexture(GL_COLOR_ATTACHMENT4, m_textures[TEXTURE_COLOR]);
+    m_fbo->attachTexture(GL_DEPTH_ATTACHMENT, m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH].get());
+    m_fbo->attachTexture(GL_COLOR_ATTACHMENT0, m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT].get());
+    m_fbo->attachTexture(GL_COLOR_ATTACHMENT1, m_renderpassTextures[RENDERPASS_TEXTURE_POSITION].get());
+    m_fbo->attachTexture(GL_COLOR_ATTACHMENT2, m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL].get());
+    m_fbo->attachTexture(GL_COLOR_ATTACHMENT3, m_renderpassTextures[RENDERPASS_TEXTURE_PICKING].get());
+    m_fbo->attachTexture(GL_COLOR_ATTACHMENT4, m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED].get());
+    m_fbo->attachTexture(GL_COLOR_ATTACHMENT5, m_renderpassTexture.get());
+    m_fbo->check();
+    m_fbo->unbind(true);
+
+    m_oitFbo->bind();
+    m_oitFbo->setSize(w, h);
+    m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_oitTextures[OITPASS_TEXTURE_ACCUM].get());
+    m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT1, m_oitTextures[OITPASS_TEXTURE_REVEALAGE].get());
     m_fbo->check();
     m_fbo->unbind(true);
 
     m_postprocessFbo->bind();
     m_postprocessFbo->setSize(w, h);
-    m_postprocessFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_finalTexture);
+    m_postprocessFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_finalTexture.get());
     m_postprocessFbo->check();
     m_postprocessFbo->unbind(true);
 
@@ -397,14 +516,14 @@ void Engine::Renderer::resize(uint w, uint h)
 
 void Engine::Renderer::debugTexture(uint texIdx)
 {
-    if (texIdx > TEXTURE_COUNT)
+    if (texIdx > RENDERPASS_TEXTURE_COUNT)
     {
-        m_displayedTexture = m_finalTexture;
+        m_displayedTexture = m_finalTexture.get();
         m_displayedIsDepth = false;
     }
     else
     {
-        m_displayedTexture = m_textures[texIdx];
+        m_displayedTexture = m_renderpassTextures[texIdx].get();
         m_displayedIsDepth = (texIdx == 0);
     }
 }
@@ -416,7 +535,7 @@ void Engine::Renderer::reloadShaders()
 
 int Engine::Renderer::checkPicking(Scalar x, Scalar y) const
 {
-    Core::Color color = m_textures[TEXTURE_PICKING]->getTexel(x, y);
+    Core::Color color = m_renderpassTextures[RENDERPASS_TEXTURE_PICKING]->getTexel(x, y);
 
     if (color == Core::Color(1.0, 1.0, 1.0, 1.0))
     {

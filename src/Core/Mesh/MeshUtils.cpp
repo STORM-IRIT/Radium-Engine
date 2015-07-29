@@ -54,6 +54,60 @@ namespace Ra { namespace Core
             return hasDuplicates;
         }
 
+        TriangleMesh makeXNormalQuad(const Vector2& halfExts)
+        {
+            TriangleMesh result;
+
+            result.m_vertices = {
+                Vector3(0.0, halfExts[0],-halfExts[1]),
+                Vector3(0.0,-halfExts[0],-halfExts[1]),
+                Vector3(0.0,-halfExts[0], halfExts[1]),
+                Vector3(0.0, halfExts[0], halfExts[1])
+            };
+
+            result.m_triangles = {
+                Triangle(0, 1, 2), Triangle(0, 2, 3)
+            };
+
+            return result;
+        }
+
+        TriangleMesh makeYNormalQuad(const Vector2& halfExts)
+        {
+            TriangleMesh result;
+
+            result.m_vertices = {
+                Vector3( halfExts[0], 0.0,-halfExts[1]),
+                Vector3(-halfExts[0], 0.0,-halfExts[1]),
+                Vector3(-halfExts[0], 0.0, halfExts[1]),
+                Vector3( halfExts[0], 0.0, halfExts[1])
+            };
+
+            result.m_triangles = {
+                Triangle(0, 1, 2), Triangle(0, 2, 3)
+            };
+
+            return result;
+        }
+
+        TriangleMesh makeZNormalQuad(const Vector2& halfExts)
+        {
+            TriangleMesh result;
+
+            result.m_vertices = {
+                Vector3( halfExts[0],-halfExts[1], 0.0),
+                Vector3(-halfExts[0],-halfExts[1], 0.0),
+                Vector3(-halfExts[0], halfExts[1], 0.0),
+                Vector3( halfExts[0], halfExts[1], 0.0)
+            };
+
+            result.m_triangles = {
+                Triangle(0, 1, 2), Triangle(0, 2, 3)
+            };
+
+            return result;
+        }
+
         TriangleMesh makeBox(const Vector3& halfExts)
         {
             Aabb aabb(-halfExts, halfExts);

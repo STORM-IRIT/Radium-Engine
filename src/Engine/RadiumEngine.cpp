@@ -48,9 +48,49 @@ void Engine::RadiumEngine::initialize()
 void Engine::RadiumEngine::setupScene()
 {
     // Code to add a cube.
-    Entity * cubeEntity = m_entityManager->getOrCreateEntity("Cube");
+    Material* m0 = new Material("Material0");
+    m0->setKd(Core::Color(1.0, 0.0, 0.0, 0.75));
+    m0->setKs(Core::Color(0.0, 0.0, 0.0, 1.0));
+    m0->setMaterialType(Material::MAT_TRANSPARENT);
+//    m0->setDefaultShaderProgram(ShaderConfiguration("BlinnPhong", "../Shaders"));
+
+    Material* m1 = new Material("Material1");
+    m1->setKd(Core::Color(1.0, 1.0, 0.0, 0.75));
+    m1->setKs(Core::Color(0.0, 0.0, 0.0, 1.0));
+    m1->setMaterialType(Material::MAT_TRANSPARENT);
+//    m1->setDefaultShaderProgram(ShaderConfiguration("BlinnPhong", "../Shaders"));
+
+    Material* m2 = new Material("Material2");
+    m2->setKd(Core::Color(0.0, 0.0, 1.0, 0.75));
+    m2->setKs(Core::Color(0.0, 0.0, 0.0, 1.0));
+    m2->setMaterialType(Material::MAT_TRANSPARENT);
+//    m2->setDefaultShaderProgram(ShaderConfiguration("BlinnPhong", "../Shaders"));
+
+    Core::Transform transform;
+
+    Entity* plane0Entity = m_entityManager->getOrCreateEntity("Plane0");
     static_cast<FancyMeshSystem*>(m_systems["FancyMeshSystem"].get())
-        ->addDisplayMeshToEntity(cubeEntity,Core::MeshUtils::makeBox());
+        ->addDisplayMeshToEntity(plane0Entity, Core::MeshUtils::makeZNormalQuad(Core::Vector2(10, 10)), m0);
+
+    transform.setIdentity();
+    transform.translation() = Core::Vector3(0, 0, 70);
+    plane0Entity->setTransform(transform);
+
+    Entity* plane1Entity = m_entityManager->getOrCreateEntity("Plane1");
+    static_cast<FancyMeshSystem*>(m_systems["FancyMeshSystem"].get())
+        ->addDisplayMeshToEntity(plane1Entity, Core::MeshUtils::makeZNormalQuad(Core::Vector2(10, 10)), m1);
+
+    transform.setIdentity();
+    transform.translation() = Core::Vector3(0, 0, 60);
+    plane1Entity->setTransform(transform);
+
+    Entity* plane2Entity = m_entityManager->getOrCreateEntity("Plane2");
+    static_cast<FancyMeshSystem*>(m_systems["FancyMeshSystem"].get())
+        ->addDisplayMeshToEntity(plane2Entity, Core::MeshUtils::makeZNormalQuad(Core::Vector2(10, 10)), m2);
+
+    transform.setIdentity();
+    transform.translation() = Core::Vector3(0, 0, 50);
+    plane2Entity->setTransform(transform);
 }
 
 void Engine::RadiumEngine::cleanup()

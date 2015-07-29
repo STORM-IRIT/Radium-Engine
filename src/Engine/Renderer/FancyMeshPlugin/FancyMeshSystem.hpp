@@ -8,6 +8,7 @@ namespace Ra { namespace Core { struct TriangleMesh; } }
 
 namespace Ra { namespace Engine { class RadiumEngine;      } }
 namespace Ra { namespace Engine { class Entity;            } }
+namespace Ra { namespace Engine { class Material;          } }
 namespace Ra { namespace Engine { class Component;         } }
 namespace Ra { namespace Engine { class FancyMeshComponent;} }
 
@@ -28,6 +29,9 @@ public:
 
     // Specialized factory methods for this systems.
     FancyMeshComponent* addDisplayMeshToEntity(Engine::Entity* entity, const Core::TriangleMesh& mesh);
+    FancyMeshComponent* addDisplayMeshToEntity(Engine::Entity* entity,
+                                               const Core::TriangleMesh& mesh,
+                                               Engine::Material* material);
 
 private:
 };

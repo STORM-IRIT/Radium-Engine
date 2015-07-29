@@ -2,13 +2,13 @@ struct Textures
 {
     int hasKd;
     int hasKs;
-	int hasNs;
+    int hasNs;
     int hasNormal;
     int hasAlpha;
 
     sampler2D kd;
     sampler2D ks;
-	sampler2D ns;
+    sampler2D ns;
     sampler2D normal;
     sampler2D alpha;
 };
@@ -18,7 +18,7 @@ struct Material
     vec4 kd;
     vec4 ks;
 
-	float ns;
+    float ns;
 
     Textures tex;
 };

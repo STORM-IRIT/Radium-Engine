@@ -33,6 +33,11 @@ inline void Engine::Drawable::setMaterial(Material* material)
 	m_material = std::shared_ptr<Material>(material); 
 }
 
+inline Engine::Material* Engine::Drawable::getMaterial() const
+{
+    return m_material.get();
+}
+
 inline void Engine::Drawable::setMaterial(std::shared_ptr<Material> material)
 {
 	m_material = material;

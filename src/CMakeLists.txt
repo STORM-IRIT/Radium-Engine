@@ -39,7 +39,7 @@ file(GLOB_RECURSE core_inlines Core/*.inl)
 set(core_libs ${OPENGL_LIBRARIES})
 
 add_library(
- ${core_target} STATIC
+ ${core_target} SHARED
  ${core_sources}
  ${core_headers}
  ${core_inlines}
@@ -83,7 +83,7 @@ set(engine_libs
     ${OPENGL_LIBRARIES})
 
 add_library(
- ${engine_target} STATIC
+ ${engine_target} SHARED
  ${engine_sources}
  ${engine_headers}
  ${engine_inlines}

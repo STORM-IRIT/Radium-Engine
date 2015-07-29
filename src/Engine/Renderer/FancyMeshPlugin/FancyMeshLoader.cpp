@@ -196,7 +196,12 @@ void loadMaterial(const aiMaterial* mat, Engine::FancyComponentData& data)
 	aiColor4D color;
 	if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_DIFFUSE, color))
 	{
-		material->setKd(assimpToCore(color));
+        Core::Color c = assimpToCore(color);
+        material->setKd(c);
+        if (c.w() < 1.0)
+        {
+            material->setMaterialType(Engine::Material::MAT_TRANSPARENT);
+        }
 	}
 	else
 	{
@@ -247,6 +252,7 @@ void loadMaterial(const aiMaterial* mat, Engine::FancyComponentData& data)
     if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_OPACITY, 0), name))
     {
         material->addTexture(Engine::Material::TEX_ALPHA, filepath + "/" + std::string(name.C_Str()));
+        material->setMaterialType(Engine::Material::MAT_TRANSPARENT);
     }
 
 	data.material = material;
