@@ -40,6 +40,7 @@ namespace
 class RenderThread : public QThread, protected QOpenGLFunctions
 {
 public:
+    RA_CORE_ALIGNED_NEW
     RenderThread(Ra::Gui::Viewer* viewer, Ra::Engine::Renderer* renderer)
     : QThread(viewer), m_viewer(viewer), m_renderer(renderer), isInit(false)
     {
@@ -258,7 +259,7 @@ void Gui::Viewer::reloadShaders()
 
 // Asynchronous rendering implementation
 
-void Gui::Viewer::startRendering()
+void Gui::Viewer::startRendering( const Scalar dt )
 {
     CORE_ASSERT(m_renderThread != nullptr,
                 "Render thread is not initialized (should have been done in initGL)");
@@ -271,6 +272,7 @@ void Gui::Viewer::startRendering()
     Engine::RenderData& data = static_cast<RenderThread*>(m_renderThread)->m_renderData;
     data.projMatrix = m_camera->getProjMatrix();
     data.viewMatrix = m_camera->getViewMatrix();
+    data.dt = dt;
 
     // Launch the thread, calling the run() method.
     m_renderThread->start();

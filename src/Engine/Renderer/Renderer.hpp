@@ -27,9 +27,9 @@ namespace Ra { namespace Engine {
 
 struct RenderData
 {
-    Scalar dt;
     Core::Matrix4 viewMatrix;
     Core::Matrix4 projMatrix;
+    Scalar dt;
 };
 
 class Renderer

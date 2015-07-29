@@ -131,8 +131,9 @@ namespace Ra
 
         long elapsed = m_frameTime.msecsTo(currentTime);
         m_frameTime = currentTime;
+        const Scalar dt = Scalar(elapsed)/ 1000.f;
 
-        m_viewer->startRendering();
+        m_viewer->startRendering(dt);
 
         // Gather user input and dispatch it.
         auto keyEvents = m_mainWindow->getKeyEvents();
@@ -140,7 +141,7 @@ namespace Ra
 
         m_mainWindow->flushEvents();
 
-        m_engine->getTasks(m_taskQueue.get(), Scalar(elapsed) / 1000.f);
+        m_engine->getTasks(m_taskQueue.get(), dt);
 
         // Run one frame of tasks
         m_taskQueue->processTaskQueue();

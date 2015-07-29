@@ -65,7 +65,7 @@ public:
     CameraInterface* getCamera() { return m_camera.get(); }
 
     /// Start asynchronous rendering in a separate thread.
-    void startRendering();
+    void startRendering(const Scalar dt);
 
     /// Blocks until rendering is finished.
     void waitForRendering();
