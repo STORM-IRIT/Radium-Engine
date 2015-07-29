@@ -20,11 +20,11 @@ public:
     ///
     RA_CORE_ALIGNED_NEW
 
-    // Default constructor
-    Camera();
+    // Default constructor with usual default values.
+    Camera( Scalar height, Scalar width);
 
     // Copy constructor
-    Camera( const Camera& cam );
+    Camera( const Camera& cam ) = default;
 
     /// DESTRUCTOR
     ~Camera();
@@ -100,14 +100,18 @@ public:
     // Set the projection type to 'projectionType'.
     inline void setProjType( const ProjType& projectionType );
 
+    // Return the dimensions of the viewport.
+    inline Scalar getWidth() const;
+    inline Scalar getHeight() const;
+
+    // Change the viewport size.
+    inline void resize(Scalar width, Scalar height);
+
     /// -------------------- ///
     /// VIEW MATRIX
     /// -------------------- ///
     // Return the view matrix.
     inline Core::Matrix4 getViewMatrix() const;
-
-    // Update the view matrix.
-    void updateViewMatrix();
 
 
     /// -------------------- ///
@@ -116,20 +120,15 @@ public:
     // Return the projection matrix.
     inline Core::Matrix4 getProjMatrix() const;
 
-    // Set the projection matrix to 'projectionMatrix'.
-    inline void setProjMatrix( const Core::Matrix4& projectionMatrix );
-
-    // Update the projection matrix accordingly to the 'width' and 'height' of the viewport.
-    void updateProjMatrix( const Scalar& width, const Scalar& height );
+    // Update the projection matrix according.
+    void updateProjMatrix();
 
 
 protected:
     /// -------------------- ///
     /// VARIABLE
     /// -------------------- ///
-    Core::Transform m_frame;      // Camera frame
-
-    Core::Matrix4   m_viewMatrix; // View matrix
+    Core::Transform m_frame;      // Camera frame (inverse of the view matrix)
     Core::Matrix4   m_projMatrix; // Projection matrix
 
     Scalar    m_fov;        // Field of view
@@ -137,6 +136,9 @@ protected:
     Scalar    m_zFar;       // Z Far plane distance
 
     Scalar    m_zoomFactor; // Zoom factor (modifies the field of view)
+
+    Scalar m_width;
+    Scalar m_height;
 
     ProjType  m_projType;   // Projection type
 };
