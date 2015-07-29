@@ -1,5 +1,4 @@
 #include "Vector.hpp"
-
 namespace Ra { namespace Core
 {
     template<typename Vector_>
@@ -38,6 +37,4 @@ namespace Ra { namespace Core
     {
         return Quaternion(k* q.coeffs());
     }
-
-
 }}

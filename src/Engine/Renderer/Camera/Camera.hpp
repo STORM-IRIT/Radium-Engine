@@ -68,6 +68,7 @@ public:
 
     //
     // Getters and setters for projection matrix parameters.
+    // Will trigger a rebuild of the projection matrix
     //
 
     // Return the Field Of View.
@@ -120,7 +121,7 @@ public:
     // Return the projection matrix.
     inline Core::Matrix4 getProjMatrix() const;
 
-    // Update the projection matrix according.
+    // Update the projection matrix according to the current parameters.
     void updateProjMatrix();
 
 
