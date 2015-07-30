@@ -12,7 +12,7 @@ namespace Ra { namespace Engine {
 
 class Texture;
 
-class FBO
+class RA_API FBO
 {
 public:
     enum Components

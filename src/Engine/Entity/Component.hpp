@@ -16,7 +16,7 @@ namespace Ra { namespace Engine {
  * It is also linked to some other components in an entity.
  * Each component share a transform through their entity.
  */
-class Component
+class RA_API Component
 {
 public:
     /// CONSTRUCTOR

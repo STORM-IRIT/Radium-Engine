@@ -1,7 +1,6 @@
 #include <MainApplication/Viewer/CameraInterface.hpp>
 
-#include <cmath>
-
+#include <Core/Math/Math.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 
 namespace Ra
@@ -12,9 +11,9 @@ Gui::CameraInterface::CameraInterface(uint width, uint height)
 {
     m_camera.reset(new Engine::Camera(Scalar(height), Scalar(width)));
 
-    setCameraFovInDegrees(60.0f);
-    setCameraZNear(0.1f);
-    setCameraZFar(1000000.0f);
+    setCameraFovInDegrees(60.0);
+    setCameraZNear(0.1);
+    setCameraZFar(1000.0);
 }
 
 Gui::CameraInterface::~CameraInterface()
@@ -48,7 +47,7 @@ void Gui::CameraInterface::setCameraFov(double fov)
 
 void Gui::CameraInterface::setCameraFovInDegrees(double fov)
 {
-    m_camera->setFOV(fov * M_PI / 180.0);
+    m_camera->setFOV(fov * Core::Math::toRad);
 }
 
 void Gui::CameraInterface::setCameraZNear(double zNear)

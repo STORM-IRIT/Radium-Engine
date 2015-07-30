@@ -14,7 +14,7 @@ namespace Ra { namespace Engine { class FancyMeshComponent;} }
 
 namespace Ra { namespace Engine {
 
-class FancyMeshSystem : public System
+class RA_API FancyMeshSystem : public System
 {
 public:
 	FancyMeshSystem(RadiumEngine* engine);

@@ -14,7 +14,7 @@
 
 namespace Ra { namespace Engine {
 
-class DrawableManager
+class RA_API DrawableManager
 {
 public:
     DrawableManager();

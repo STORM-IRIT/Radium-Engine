@@ -14,7 +14,7 @@ namespace Ra { namespace Engine { class Texture; } }
 
 namespace Ra { namespace Engine {
 
-class ShaderObject
+class RA_API ShaderObject
 {
 public:
 	ShaderObject();

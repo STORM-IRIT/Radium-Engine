@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_DUALQUATERNION_HPP
 #define RADIUMENGINE_DUALQUATERNION_HPP
 
+#include <Core/CoreMacros.hpp>
 #include <Core/Math/Vector.hpp>
 
 namespace Ra { namespace Core
@@ -10,7 +11,7 @@ namespace Ra { namespace Core
     /// such as e*e = 0 ; and using quaternions as the non-dual and dual part.
     /// Unit dual quaternions can represent any rigid transformation
     /// (rotation + translation).
-    class DualQuaternion
+    class RA_API DualQuaternion
     {
 
     public:

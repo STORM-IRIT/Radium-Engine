@@ -1,5 +1,6 @@
 #include <Core/Mesh/MeshUtils.hpp>
 
+#include <Core/Math/Math.hpp>
 #include <Core/String/StringUtils.hpp>
 
 namespace Ra { namespace Core
@@ -155,7 +156,7 @@ namespace Ra { namespace Core
             {
                 for (int j = 0; j < 2 ; ++j)
                 {
-                    const Scalar theta = (Scalar(i) + (j*0.5f)) * Scalar(M_PI) * 2.f / 5.f;
+                    const Scalar theta = (Scalar(i) + (j*0.5f)) * Math::PiMul2 / 5.f;
 
                     const Scalar x = 2.f * sq5_5 * std::cos(theta);
                     const Scalar y = 2.f * sq5_5 * std::sin(theta);

@@ -17,7 +17,7 @@ namespace Ra { namespace Engine { class Entity; } }
 
 namespace Ra { namespace Engine {
 
-class System
+class RA_API System
 {
 public:
     System(RadiumEngine* engine);

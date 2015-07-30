@@ -13,7 +13,7 @@ namespace Ra { namespace Engine { class Material; } }
 namespace Ra {
 namespace Engine {
 
-struct FancyMeshData
+struct RA_API FancyMeshData
 {
 	Core::TriangleMesh mesh;
 	Core::Vector3Array tangents;
@@ -21,7 +21,7 @@ struct FancyMeshData
 	Core::Vector3Array texcoords;
 };
 
-struct FancyComponentData
+struct RA_API FancyComponentData
 {
     RA_CORE_ALIGNED_NEW
 	Core::Matrix4 transform;

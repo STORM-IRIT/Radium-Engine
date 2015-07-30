@@ -279,4 +279,13 @@ MACRO_END
 
 #define eigen_assert(XXX) CORE_ASSERT(XXX, "Eigen Assert");
 
+// ----------------------------------------------------------------------------
+// Allow shared libraries linking
+// ----------------------------------------------------------------------------
+#ifdef OS_WINDOWS
+#    define RA_API __declspec(dllexport)
+#else
+#    define RA_API 
+#endif
+
 #endif // RADIUMENGINE_CORE_HPP 

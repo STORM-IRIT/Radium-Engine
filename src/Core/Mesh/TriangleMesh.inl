@@ -18,9 +18,9 @@ namespace Ra { namespace Core {
         m_triangles.insert(m_triangles.end(), other.m_triangles.cbegin(), other.m_triangles.cend());
 
         // Offset the vertex indices in the faces
-		for (std::size_t t = trianglesBefore; t < m_triangles.size(); ++t)
+		for (uint t = trianglesBefore; t < m_triangles.size(); ++t)
 		{
-			for (std::size_t i = 0; i < 3; ++i)
+			for (uint i = 0; i < 3; ++i)
 			{
                 m_triangles[t][i] += verticesBefore;
             }

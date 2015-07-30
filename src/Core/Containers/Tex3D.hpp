@@ -10,7 +10,7 @@ namespace Ra { namespace Core
     /// bounding box. It evaluates the function at a given point in space
     /// wrt the stored values tri-linear interpolation.
     template<typename T>
-    class Tex3D : public Grid<T, 3>
+    class RA_API Tex3D : public Grid<T, 3>
     {
     public:
         RA_CORE_ALIGNED_NEW

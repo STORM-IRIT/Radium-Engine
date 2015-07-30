@@ -6,6 +6,8 @@
 #include <QMouseEvent>
 #include <QPainter>
 
+#include <Core/String/StringUtils.hpp>
+
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Renderer/Renderer.hpp>

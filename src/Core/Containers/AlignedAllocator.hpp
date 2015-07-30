@@ -19,7 +19,7 @@ namespace Ra { namespace Core
     * <http://blogs.msdn.com/b/vcblog/archive/2008/08/28/the-mallocator.aspx>
     */
     template <typename T, std::size_t Alignment>
-    class AlignedAllocator
+    class RA_API AlignedAllocator
     {
     public:
 

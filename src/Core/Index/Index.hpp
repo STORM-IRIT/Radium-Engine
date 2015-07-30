@@ -7,7 +7,7 @@
 namespace Ra { namespace Core
 {
 
-class Index {
+class RA_API Index {
 public:
     /// CONSTRUCTOR
     Index( const int i = s_invalid );

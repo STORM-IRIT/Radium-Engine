@@ -76,6 +76,7 @@ file(GLOB_RECURSE engine_tese_glsl ../Shaders/*.tese.glsl)
 file(GLOB_RECURSE engine_comp_glsl ../Shaders/*.comp.glsl)
 								  
 set(engine_libs
+	radiumCore
     ${GLEW_LIBRARIES}
     ${Assimp_LIBRARIES}
     ${FREEIMAGE_LIBRARY}

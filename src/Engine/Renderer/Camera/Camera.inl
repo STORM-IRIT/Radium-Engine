@@ -31,7 +31,7 @@ inline void Camera::setDirection( const Core::Vector3& direction ) {
     if ( getDirection().cross(direction).squaredNorm() ==  0.f
          && getDirection().dot(direction) < 0.f)
     {
-        T.rotate(Core::AngleAxis(Scalar(M_PI_2), getUpVector()));
+        T.rotate(Core::AngleAxis(Core::Math::PiDiv2, getUpVector()));
     }
     else
     {

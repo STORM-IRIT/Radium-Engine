@@ -15,7 +15,7 @@ namespace Ra { namespace Engine { class Component; } }
 
 namespace Ra { namespace Engine {
 
-class Entity : public Core::IndexedObject
+class RA_API Entity : public Core::IndexedObject
 {
 public:
     RA_CORE_ALIGNED_NEW

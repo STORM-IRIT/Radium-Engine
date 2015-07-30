@@ -1,15 +1,16 @@
 #include <MainApplication/Viewer/TrackballCamera.hpp>
 
-#include <cmath>
 #include <iostream>
 #include <QMessageBox>
 
+#include <Core/Math/Math.hpp>
 #include <Core/Event/MouseEvent.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 
 namespace Ra
 {
+using Core::Math::Pi;
 
 Gui::TrackballCamera::TrackballCamera(uint width, uint height)
     : CameraInterface(width, height)
@@ -178,7 +179,6 @@ void Gui::TrackballCamera::handleCameraRotate(Scalar dx, Scalar dy)
 {
     Scalar x = dx * m_cameraSensitivity * m_quickCameraModifier;
     Scalar y = -dy * m_cameraSensitivity * m_quickCameraModifier;
-    constexpr Scalar Pi(M_PI);
 
     Scalar phi = m_phi + x; // Keep phi between -pi and pi
     Scalar theta = std::min(std::max(m_theta + y, Scalar(0.0)), Pi);

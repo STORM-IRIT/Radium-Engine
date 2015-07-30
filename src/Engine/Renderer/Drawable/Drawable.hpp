@@ -15,7 +15,7 @@ namespace Ra { namespace Engine { class Component;     } }
 
 namespace Ra { namespace Engine {
 
-class Drawable : public Core::IndexedObject
+class RA_API Drawable : public Core::IndexedObject
 {
 public:
     // FIXME(Charly): Set component in the constructor ?

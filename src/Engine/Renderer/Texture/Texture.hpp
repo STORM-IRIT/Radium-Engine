@@ -9,7 +9,7 @@
 
 namespace Ra { namespace Engine {
 
-class Texture
+class RA_API Texture
 {
 public:
     enum TextureType

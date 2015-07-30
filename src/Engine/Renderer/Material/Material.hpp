@@ -12,7 +12,7 @@ namespace Ra { namespace Engine { class ShaderProgram; } }
 
 namespace Ra { namespace Engine {
 
-class Material
+class RA_API Material
 {
 public:
     enum MaterialType

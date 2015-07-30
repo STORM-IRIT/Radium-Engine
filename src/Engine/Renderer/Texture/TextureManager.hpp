@@ -10,7 +10,7 @@ namespace Ra { namespace Engine { class Texture; } }
 
 namespace Ra { namespace Engine {
 
-class TextureManager : public Core::Singleton<TextureManager>
+class RA_API TextureManager : public Core::Singleton<TextureManager>
 {
 private:
     friend class Core::Singleton<TextureManager>;

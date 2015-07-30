@@ -1,13 +1,14 @@
 #ifndef RADIUMENGINE_SPOTLIGHT_HPP
 #define RADIUMENGINE_SPOTLIGHT_HPP
 
+#include <Core/Math/Math.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
 namespace Ra { namespace Engine { class ShaderProgram; } }
 
 namespace Ra { namespace Engine {
 
-class SpotLight : public Light
+class RA_API SpotLight : public Light
 {
 public:
     struct Attenuation
@@ -20,6 +21,7 @@ public:
     };
 
 public:
+	RA_CORE_ALIGNED_NEW
     SpotLight();
     virtual ~SpotLight();
 

@@ -17,7 +17,7 @@ namespace Ra { namespace Engine { class Mesh;          } }
 // FIXME(Charly): Do we really want this to be in Engine namespace ? 
 namespace Ra { namespace Engine {
 
-class FancyMeshDrawable : public Drawable
+class RA_API FancyMeshDrawable : public Drawable
 {
 public:
     FancyMeshDrawable(const std::string& name);

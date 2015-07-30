@@ -4,6 +4,7 @@
 #include <vector>
 #include <array>
 
+#include <Core/CoreMacros.hpp>
 #include <Core/Mesh/MeshTypes.hpp>
 
 namespace Ra { namespace Core
@@ -11,7 +12,7 @@ namespace Ra { namespace Core
     struct TriangleMesh;
 
     /// A structure representing a Half edge (i.e. directed edge) of a mesh.
-    struct HalfEdge
+    struct RA_API HalfEdge
     {
         HalfEdgeIdx m_prev; // Previous half edge along the face.
         HalfEdgeIdx m_pair; // Oppositely oriented half-edge
@@ -30,29 +31,29 @@ namespace Ra { namespace Core
     {
     public:
         /// Build the half edge data from a mesh.
-        inline explicit HalfEdgeData(const TriangleMesh& mesh);
+        inline explicit RA_API HalfEdgeData(const TriangleMesh& mesh);
 
         /// Completely rebuilds the data from the given mesh.
-        inline void update(const TriangleMesh& mesh);
+        inline RA_API void update(const TriangleMesh& mesh);
 
         /// Erases all data.
-        inline void clear();
+        inline RA_API void clear();
 
         // Accessors to underlying data.
-        inline const HalfEdge& operator[](HalfEdgeIdx i) const;
+        inline RA_API const HalfEdge& operator[](HalfEdgeIdx i) const;
 
         /// Returns the half edges starting from given vertex.
-        inline const std::vector<HalfEdgeIdx>& getVertexHalfEdges(VertexIdx i) const;
+        inline RA_API const std::vector<HalfEdgeIdx>& getVertexHalfEdges(VertexIdx i) const;
 
         /// Returns one of the half edges around given triangle.
-        inline HalfEdgeIdx getFirstTriangleHalfEdge(TriangleIdx t) const;
+        inline RA_API HalfEdgeIdx getFirstTriangleHalfEdge(TriangleIdx t) const;
 
         /// Checks the structure is internally consistent (in debug mode).
-        void checkConsistency() const;
+        void RA_API checkConsistency() const;
 
     private:
         // Internal building function called by update and the constructor.
-        void build(const TriangleMesh& mesh);
+        void RA_API build(const TriangleMesh& mesh);
 
     private:
         /// Container holding the half edges.
@@ -66,16 +67,16 @@ namespace Ra { namespace Core
     namespace AdjacencyQueries
     {
         /// Gets the faces which contain a given vertex.
-        void getVertexFaces(const TriangleMesh& mesh, const HalfEdgeData& heData,
+        RA_API void getVertexFaces(const TriangleMesh& mesh, const HalfEdgeData& heData,
                       VertexIdx vertex, std::vector<TriangleIdx>& facesOut);
 
         /// Gets the faces adjacent to a given triangle, in order. Note that
         /// the face indices may be invalid (if the triangle is on the border)
-        void getAdjacentFaces(const TriangleMesh& mesh, const HalfEdgeData& heData,
+        RA_API void getAdjacentFaces(const TriangleMesh& mesh, const HalfEdgeData& heData,
                       TriangleIdx triangle, std::array<TriangleIdx,3> &adjOut);
 
         /// Gets the neighbors of a vertex, unordered.
-        void getVertexNeighbors(const TriangleMesh& mesh, const HalfEdgeData& heData,
+        RA_API void getVertexNeighbors(const TriangleMesh& mesh, const HalfEdgeData& heData,
                                 VertexIdx vertex, std::vector<VertexIdx>& neighborsOut);
 
         /// Gets the neighbors of a vertex in clockwise order.
@@ -88,7 +89,7 @@ namespace Ra { namespace Core
         /// except the first and last.
         /// * If there are multiple missing links, this function will assert. Consider using
         /// getVertexNeighbors instead.
-        void getVertexFirstRing(const TriangleMesh& mesh, const HalfEdgeData& heData,
+        RA_API void getVertexFirstRing(const TriangleMesh& mesh, const HalfEdgeData& heData,
                                 VertexIdx vertex, std::vector<VertexIdx>& ringOut);
     }
 }}

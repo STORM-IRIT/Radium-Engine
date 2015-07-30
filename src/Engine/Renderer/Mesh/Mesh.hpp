@@ -20,7 +20,7 @@ namespace Ra { namespace Engine {
 //                for the plugin developper (or we can just provide shaders
 //                for this kind of renderings ...)
 
-class Mesh
+class RA_API Mesh
 {
 private:
     typedef Core::VectorArray<Core::Vector3> Vector3Array;

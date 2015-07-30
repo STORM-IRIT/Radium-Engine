@@ -11,10 +11,10 @@ namespace Ra { namespace Engine {
 
 struct ShaderType
 {
-	std::string getShaderTypeString(uint type);
+	RA_API std::string getShaderTypeString(uint type);
 };
 
-class ShaderConfiguration
+class RA_API ShaderConfiguration
 {
 public:
 	enum ShaderType

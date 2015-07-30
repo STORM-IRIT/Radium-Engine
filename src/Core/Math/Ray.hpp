@@ -1,13 +1,14 @@
 #ifndef RADIUMENGINE_RAY_HPP
 #define RADIUMENGINE_RAY_HPP
 
+#include <Core/CoreMacros.hpp>
 #include <Core/Math/Vector.hpp>
 
 namespace Ra { namespace Core
 {
     /// A structure representing a ray in space with an origin and a direction.
     // TODO : use Eigen parametrized line ?
-    struct Ray
+    struct RA_API Ray
     {
     public:
         RA_CORE_ALIGNED_NEW

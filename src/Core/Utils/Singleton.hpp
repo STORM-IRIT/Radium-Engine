@@ -8,7 +8,7 @@ namespace Ra { namespace Core
 {
 
     template<typename T>
-    class Singleton
+    class RA_API Singleton
     {
     public:
         template<typename... Args>

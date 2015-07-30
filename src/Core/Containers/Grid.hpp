@@ -2,6 +2,7 @@
 #define RADIUMENGINE_GRID_HPP
 
 #include <Eigen/Core>
+
 #include <Core/CoreMacros.hpp>
 
 namespace Ra { namespace Core
@@ -13,7 +14,7 @@ namespace Ra { namespace Core
     /// Elements are accessible with a D-dimensional Vector, or linearly with
     /// iterators, thanks to the std-like interface provided.
     template <typename T, uint D>
-    class Grid
+    class RA_API Grid
     {
 
     public:

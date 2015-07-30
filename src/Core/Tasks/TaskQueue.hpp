@@ -14,7 +14,7 @@ namespace Ra { namespace Core { class Task; } }
 namespace Ra { namespace Core 
 {
 
-    class TaskQueue
+    class RA_API TaskQueue
     {
     public:
         typedef uint TaskId;

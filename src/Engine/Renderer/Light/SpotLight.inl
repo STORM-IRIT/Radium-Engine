@@ -1,4 +1,4 @@
-#include "SpotLight.hpp"
+#include <Engine/Renderer/Light/SpotLight.hpp>
 
 namespace Ra
 {
@@ -35,12 +35,12 @@ inline void Engine::SpotLight::setOuterAngleInRadians(Scalar angle)
 
 inline void Engine::SpotLight::setInnerAngleInDegrees(Scalar angle)
 {
-    m_innerAngle = angle * Scalar(M_PI) / 180.0f;
+    m_innerAngle = Core::Math::toRadians(angle);
 }
 
 inline void Engine::SpotLight::setOuterAngleInDegrees(Scalar angle)
 {
-    m_outerAngle = angle * Scalar(M_PI) / 180.0f;
+	m_outerAngle = Core::Math::toRadians(angle);
 }
 
 inline Scalar Engine::SpotLight::getInnerAngle() const

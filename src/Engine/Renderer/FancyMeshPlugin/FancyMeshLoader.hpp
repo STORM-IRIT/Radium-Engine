@@ -13,7 +13,7 @@ namespace Ra { namespace Engine {
 
 namespace FancyMeshLoader
 {
-DataVector loadFile(const std::string& name);
+RA_API DataVector loadFile(const std::string& name);
 
 } // namespace FancyMeshLoader;
 

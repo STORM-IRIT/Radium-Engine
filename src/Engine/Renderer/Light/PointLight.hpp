@@ -7,7 +7,7 @@ namespace Ra { namespace Engine { class ShaderProgram; } }
 
 namespace Ra { namespace Engine {
 
-class PointLight : public Light
+class RA_API PointLight : public Light
 {
 public:
     struct Attenuation

@@ -1,11 +1,16 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 
-#include <cmath>
 #include <iostream>
 
-namespace Ra {
-namespace Engine {
+#include <Core/Math/Math.hpp>
 
+namespace Ra {
+
+using Core::Math::Pi;
+using Core::Math::PiDiv2;
+using Core::Math::PiDiv4;
+
+namespace Engine {
 
 /// -------------------- ///
 /// CONSTRUCTOR
@@ -13,7 +18,7 @@ namespace Engine {
 Camera::Camera(Scalar height, Scalar width)
     : m_frame     ( Core::Transform::Identity() )
     , m_projMatrix( Core::Matrix4::Identity()   )
-    , m_fov       ( Scalar(M_PI / 4.0f )        )
+    , m_fov       ( PiDiv4                      )
     , m_zNear     ( Scalar(0.1f)                )
     , m_zFar      ( Scalar(1000.0f)             )
     , m_zoomFactor( Scalar(1.0f)                )
@@ -75,7 +80,7 @@ void Camera::updateProjMatrix() {
 
         case ProjType::PERSPECTIVE: {
             // Compute projection matrix as describe in the doc of gluPerspective()
-            const Scalar f     = std::tan( ( Scalar(M_PI) * 0.5f ) - ( m_fov * m_zoomFactor * 0.5f ) );
+            const Scalar f     = std::tan( ( PiDiv2 ) - ( m_fov * m_zoomFactor * Scalar(0.5) ) );
             const Scalar ratio = m_width / m_height;
             const Scalar diff  = m_zNear - m_zFar;
 
@@ -84,8 +89,8 @@ void Camera::updateProjMatrix() {
             m_projMatrix.coeffRef( 0, 0 ) = f / ratio;
             m_projMatrix.coeffRef( 1, 1 ) = f;
             m_projMatrix.coeffRef( 2, 2 ) = ( m_zFar + m_zNear ) / diff;
-            m_projMatrix.coeffRef( 2, 3 ) = ( 2.0f * m_zFar * m_zNear ) / diff;
-            m_projMatrix.coeffRef( 3, 2 ) = -1.0f;
+            m_projMatrix.coeffRef( 2, 3 ) = ( Scalar(2.0) * m_zFar * m_zNear ) / diff;
+            m_projMatrix.coeffRef( 3, 2 ) = Scalar(-1.0);
 
         } break;
 

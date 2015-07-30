@@ -9,7 +9,7 @@ namespace Ra { namespace Engine { class Material; } }
 // FIXME(Charly): Do we really want this to be in Engine namespace ? 
 namespace Ra { namespace Engine {
 
-class FancyMeshComponent : public Component
+class RA_API FancyMeshComponent : public Component
 {
 public:
     FancyMeshComponent(const std::string& name);

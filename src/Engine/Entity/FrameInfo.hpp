@@ -3,7 +3,7 @@
 namespace Ra { namespace Engine
 {
     /// Structure passed to each system before they fill the task queue.
-    struct FrameInfo
+    struct RA_API FrameInfo
     {
         /// Time elapsed since the last frame in seconds.
         Scalar m_dt;

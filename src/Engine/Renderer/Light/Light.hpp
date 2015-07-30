@@ -7,7 +7,7 @@ namespace Ra { namespace Engine { class ShaderProgram; } }
 
 namespace Ra { namespace Engine {
 
-class Light
+class RA_API Light
 {
 public:
     enum LightType

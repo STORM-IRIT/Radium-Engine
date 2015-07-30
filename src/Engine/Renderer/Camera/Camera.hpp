@@ -4,12 +4,13 @@
 #include <mutex>
 #include <thread>
 
+#include <Core/Math/Math.hpp>
 #include <Core/Math/Vector.hpp>
 
 namespace Ra { namespace Engine {
 
 // The class Camera defines a camera in 3D space with
-class Camera
+class RA_API Camera
 {
 public:
     // Define if the projection type.

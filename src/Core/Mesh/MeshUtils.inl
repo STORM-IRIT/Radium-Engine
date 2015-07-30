@@ -50,11 +50,11 @@ namespace Ra { namespace Core
             TriangleMesh result;
             for (uint u = 0; u < slices; ++u)
             {
-                const Scalar theta = Scalar(2 * u) * Scalar(M_PI) / Scalar(slices);
+                const Scalar theta = Scalar(2 * u) * Pi / Scalar(slices);
                 for (uint v = 1; v < stacks; ++v)
                 {
                     // Regular vertices on the sphere.
-                    const Scalar phi = Scalar(v) * Scalar(M_PI) / Scalar(stacks);
+                    const Scalar phi = Scalar(v) * Pi / Scalar(stacks);
                     result.m_vertices.push_back(Vector3(
                             radius * std::cos(theta) * std::sin(phi),
                             radius * std::sin(theta) * std::sin(phi),

@@ -6,7 +6,7 @@
 namespace Ra { namespace Core
 {
 
-class IndexedObject {
+class RA_API IndexedObject {
 public:
     /// CONSTRUCTOR
     explicit IndexedObject( const Index& idx = Index::INVALID_IDX() ) { this->idx = idx; }

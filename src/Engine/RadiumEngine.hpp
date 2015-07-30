@@ -24,7 +24,7 @@ namespace Ra { namespace Engine { class Renderer;           } }
 
 namespace Ra { namespace Engine {
 
-class RadiumEngine
+class RA_API RadiumEngine
 {
 public:
     RadiumEngine();

@@ -7,7 +7,7 @@ namespace Ra { namespace Engine { class ShaderProgram; } }
 
 namespace Ra { namespace Engine {
 
-class DirectionalLight : public Light
+class RA_API DirectionalLight : public Light
 {
 public:
     RA_CORE_ALIGNED_NEW

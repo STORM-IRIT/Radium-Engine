@@ -15,7 +15,7 @@ namespace Ra { namespace Engine { class Engine; } }
 
 namespace Ra { namespace Engine {
 
-class ShaderProgramManager : public Core::Singleton<ShaderProgramManager>
+class RA_API ShaderProgramManager : public Core::Singleton<ShaderProgramManager>
 {
     friend class Core::Singleton<ShaderProgramManager>;
 

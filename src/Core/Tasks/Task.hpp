@@ -8,10 +8,10 @@
 namespace Ra { namespace Core 
 {
     /// Base class for Task params structs.
-    struct TaskParams {};
+    struct RA_API TaskParams {};
 
     /// A class representing a basic task.
-    class Task
+    class RA_API Task
     {
     public:
         Task() {}
@@ -20,7 +20,7 @@ namespace Ra { namespace Core
         virtual void process() = 0;
     };
 
-    struct DummyTaskParams : public TaskParams
+    struct RA_API DummyTaskParams : public TaskParams
     {
         Scalar m_param;
     };
@@ -28,9 +28,9 @@ namespace Ra { namespace Core
     class DummyTask : public Task
     {
     public:
-        virtual void init(const TaskParams* params) override;
+        virtual RA_API void init(const TaskParams* params) override;
 
-        virtual void process() override;
+        virtual RA_API void process() override;
 
         Scalar m_data;
 
