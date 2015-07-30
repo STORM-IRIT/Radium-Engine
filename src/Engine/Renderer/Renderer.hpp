@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <array>
+#include <mutex>
 #include <memory>
 #include <QTime>
 #include <Core/Math/Vector.hpp>
@@ -24,13 +25,25 @@ namespace Ra { namespace Engine {
 
 struct RenderData
 {
-    Scalar dt;
     Core::Matrix4 viewMatrix;
     Core::Matrix4 projMatrix;
+    Scalar dt;
 };
 
 class Renderer
 {
+public:
+    enum TexturesFBO
+    {
+        TEXTURE_DEPTH = 0,
+        TEXTURE_AMBIENT,
+        TEXTURE_POSITION,
+        TEXTURE_NORMAL,
+        TEXTURE_PICKING,
+        TEXTURE_COLOR,
+        TEXTURE_COUNT
+    };
+
 public:
 	/// CONSTRUCTOR 
     Renderer(uint width, uint height);
@@ -41,6 +54,10 @@ public:
     virtual void initialize();
 
     void setEngine(RadiumEngine* engine) { m_engine = engine; }
+
+    // Lock the renderer (for MT access)
+    void lockRendering()   { m_renderMutex.lock();}
+    void unlockRendering() { m_renderMutex.unlock();}
 
     /**
      * @brief Tell the renderer it needs to render.
@@ -89,14 +106,6 @@ public:
     //                its own viewport, without hiding the final texture.)
     virtual void debugTexture(uint texIdx);
 
-    /**
-     * @brief Take a screenshot of the current renderer state
-     * This method does not have to be overrided, but does nothing by default.
-     * @param filename The file to save the screenshot to
-     * @return True if the screenshot has been saved successfully, false otherwise.
-     */
-    // FIXME(Charly): Let Qt handle this ? Does nothing for now anyways
-    virtual bool takeScreenshot(const std::string& filename) { return false; }
 
     // FIXME(Charly): Not sure the lights should be handled by the renderer.
     //                How to do this ?
@@ -159,7 +168,6 @@ protected:
     // FIXME(Charly): Should we change "displayedTexture" to "debuggedTexture" ?
     //                It would make more sense if we are able to show the
     //                debugged texture in its own viewport.
-
     /**
      * @brief The texture that will be displayed on screen. If no call to
      * @see debugTexture has been done, this is just a pointer to
@@ -225,6 +233,8 @@ private:
 
     Scalar m_totalTime;
     QTime m_time;
+
+    std::mutex m_renderMutex;
 };
 
 } // namespace Engine

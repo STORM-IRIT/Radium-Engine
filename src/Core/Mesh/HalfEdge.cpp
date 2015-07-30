@@ -193,7 +193,6 @@ namespace Ra { namespace Core
         }
     }
 
-
     void AdjacencyQueries::getAdjacentFaces(const TriangleMesh& mesh, const HalfEdgeData& heData, TriangleIdx triangle, std::array<TriangleIdx,3>& adjOut)
     {
         HalfEdgeIdx currentHe =  heData.getFirstTriangleHalfEdge(triangle);
@@ -204,6 +203,5 @@ namespace Ra { namespace Core
             currentHe = heData[currentHe].m_next;
         }
     }
-
 
 }}

@@ -2,14 +2,11 @@
 
 #include <iostream>
 
-
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Shader/ShaderProgram.hpp>
-#include <Engine/Renderer/Drawable/Drawable.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -127,6 +124,8 @@ void Engine::Renderer::initBuffers()
 
 void Engine::Renderer::render(const RenderData& data)
 {
+    std::lock_guard<std::mutex> renderLock(m_renderMutex);
+
     std::vector<std::shared_ptr<Drawable>> drawables;
     if (m_engine != nullptr)
     {
@@ -135,7 +134,6 @@ void Engine::Renderer::render(const RenderData& data)
 
     saveExternalFBOInternal();
     m_totalTime = m_time.elapsed()/1000.f;
-//    m_totalTime += 1.0 / 60.0;
 
     updateDrawablesInternal(data, drawables);
     renderInternal(data, drawables);

@@ -65,19 +65,24 @@ namespace Ra
         m_mainWindow.reset(new Gui::MainWindow);
         m_mainWindow->show();
 
+        // Allow all events to be processed (thus the viewer should have
+        // initialized the OpenGL context..)
+        processEvents();
+
+        m_viewer = m_mainWindow->getViewer();
+        CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized");
+        CORE_ASSERT( m_viewer->context()->isValid(), "OpenGL was not initialized" );
+
         // Create engine
         m_engine.reset(new Engine::RadiumEngine);
         m_engine->initialize();
-
         m_engine->setupScene();
 
-        // Create task queue
-        m_taskQueue.reset(new Core::TaskQueue(std::thread::hardware_concurrency() - 1));
+        // Pass the engine to the renderer to complete the initialization process.
+        m_viewer->initRenderer(m_engine.get());
 
-        // Wait for callback from  gui to  start the engine.
-        // Maybe we should do it directly (i.e. grab the viewer from the main window).
-        CORE_ASSERT(m_viewer != nullptr, "GUI or OpenGL was not initialized");
-        m_viewer->setRadiumEngine(m_engine.get());
+        // Create task queue with N-1 threads (we keep one for rendering).
+        m_taskQueue.reset(new Core::TaskQueue(std::thread::hardware_concurrency() - 1));
 
 		createConnections();
 
@@ -86,13 +91,11 @@ namespace Ra
         m_frameTime = QTime::currentTime();
 
         connect(m_frameTimer, SIGNAL(timeout()), this, SLOT(radiumFrame()));
-        m_frameTimer->start(1000.0 / 60.0);
+        m_frameTimer->start(1000 / 60);
     }
 
 	void MainApplication::createConnections()
 	{
-		connect(this, SIGNAL(sceneChanged(const Core::Aabb&)), 
-				m_viewer, SLOT(sceneChanged(const Core::Aabb&)));
 	}
 
     void MainApplication::loadFile(QString path)
@@ -128,8 +131,9 @@ namespace Ra
 
         long elapsed = m_frameTime.msecsTo(currentTime);
         m_frameTime = currentTime;
+        const Scalar dt = Scalar(elapsed)/ 1000.f;
 
-        emit preFrame();
+        m_viewer->startRendering(dt);
 
         // Gather user input and dispatch it.
         auto keyEvents = m_mainWindow->getKeyEvents();
@@ -137,7 +141,7 @@ namespace Ra
 
         m_mainWindow->flushEvents();
 
-        m_engine->getTasks(m_taskQueue.get(), Scalar(elapsed) / 1000.f);
+        m_engine->getTasks(m_taskQueue.get(), dt);
 
         // Run one frame of tasks
         m_taskQueue->processTaskQueue();
@@ -145,10 +149,10 @@ namespace Ra
         m_taskQueue->flushTaskQueue();
 
 
-        // Draw call.
+        // Block until frame is fully rendered.
+        m_viewer->waitForRendering();
         m_viewer->update();
 
-        emit postFrame();
     }
 
     MainApplication::~MainApplication()
