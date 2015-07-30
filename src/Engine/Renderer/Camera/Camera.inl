@@ -25,7 +25,18 @@ inline Core::Vector3 Camera::getDirection() const {
 
 inline void Camera::setDirection( const Core::Vector3& direction ) {
     Core::Transform T = Core::Transform::Identity();
-    T.rotate(Core::Quaternion::FromTwoVectors(getDirection().normalized(), direction.normalized()));
+
+    // Special case if two directions are exactly opposites we constrain.
+    // to rotate around the up vector.
+    if ( getDirection().cross(direction).squaredNorm() ==  0.f
+         && getDirection().dot(direction) < 0.f)
+    {
+        T.rotate(Core::AngleAxis(Scalar(M_PI_2), getUpVector()));
+    }
+    else
+    {
+        T.rotate(Core::Quaternion::FromTwoVectors(getDirection(), direction));
+    }
     applyTransform(T);
 }
 
@@ -35,7 +46,7 @@ inline Core::Vector3 Camera::getUpVector() const {
 
 inline void Camera::setUpVector( const Core::Vector3& upVector ) {
     Core::Transform T = Core::Transform::Identity();
-    T.rotate(Core::Quaternion::FromTwoVectors(getUpVector(), upVector.normalized()));
+    T.rotate(Core::Quaternion::FromTwoVectors(getUpVector(), upVector));
     applyTransform(T);
 }
 
