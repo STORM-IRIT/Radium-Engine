@@ -7,8 +7,6 @@
 #endif
 
 #include <memory>
-#include <thread>
-#include <mutex>
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
@@ -17,11 +15,16 @@
 #include <Core/Math/Vector.hpp>
 #include <Engine/RadiumEngine.hpp>
 
+// Uncomment this to deactivate multi-threaded rendering.
+// In that case the call to startRendering() is synchronous
+// and waitForRendering() does nothing.
+// #define FORCE_RENDERING_ON_MAIN_THREAD
+
+// Forward declarations
 namespace Ra { namespace Core   { struct KeyEvent;       } }
 namespace Ra { namespace Core   { struct MouseEvent;     } }
 namespace Ra { namespace Engine { class RadiumEngine;    } }
 namespace Ra { namespace Engine { class Renderer;        } }
-
 namespace Ra { namespace Gui    { class CameraInterface; } }
 
 namespace Ra { namespace Gui {
@@ -35,10 +38,11 @@ namespace Ra { namespace Gui {
 /// Its acts as a bridge between the interface, the engine and the renderer
 /// Among its responsibilities are :
 /// * Owning the renderer and camera, and managing their lifetime.
-/// * setting up the renderer and camera by keeping it informed of interfaces changes (e.g. resize).
+/// * setting up the renderer and camera by keeping it informed of interfaces changes
+//  (e.g. resize).
 /// * catching user interaction (mouse clicks) at the lowest level and forward it to
 /// the camera and the rest of the application
-/// * Expose the asychronous rendering interface
+/// * Expose the asynchronous rendering interface
 class Viewer : public QOpenGLWidget, protected QOpenGLFunctions
 {
     Q_OBJECT
@@ -84,9 +88,8 @@ private slots:
 
 private:
     /// QOpenGlWidget primitives
-    // Initiaize openGL. Called on by the first "show" call to the main window.
+    // Initialize openGL. Called on by the first "show" call to the main window.
     virtual void initializeGL() override;
-
 
     // Resize the view port and the camera. Called by the resize event.
     virtual void resizeGL(int width, int height) override;
@@ -107,7 +110,7 @@ private:
     /// Owning pointer to the renderer.
     std::unique_ptr<Engine::Renderer> m_renderer;
 
-    /// Owning pointer to the cameraa
+    /// Owning pointer to the camera
     std::unique_ptr<CameraInterface> m_camera;
 
     /// Keeps the state on which we should interpret user input.

@@ -4,27 +4,13 @@
 
 #include <QTimer>
 #include <QMouseEvent>
-#include <QKeyEvent>
 #include <QPainter>
 
-#include <Core/Event/KeyEvent.hpp>
-#include <Core/Event/MouseEvent.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
-#include <Core/String/StringUtils.hpp>
-
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Component.hpp>
-#include <Engine/Entity/EntityManager.hpp>
-#include <Engine/Entity/Entity.hpp>
-#include <Engine/Renderer/Shader/ShaderProgram.hpp>
-#include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
-#include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Renderer.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <MainApplication/Viewer/TrackballCamera.hpp>
 
+#include <MainApplication/Viewer/TrackballCamera.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
 
 /// Helper functions
@@ -44,6 +30,8 @@ public:
     RenderThread(Ra::Gui::Viewer* viewer, Ra::Engine::Renderer* renderer)
     : QThread(viewer), m_viewer(viewer), m_renderer(renderer), isInit(false)
     {
+        CORE_ASSERT(m_renderer != nullptr && m_viewer != nullptr,
+        "Uninitialized renderer");
     }
 
     virtual ~RenderThread() {}
@@ -107,8 +95,10 @@ Gui::Viewer::Viewer(QWidget* parent)
 
 Gui::Viewer::~Viewer()
 {
+#if !defined(FORCE_RENDERING_ON_MAIN_THREAD)
     CORE_ASSERT(m_renderThread->isFinished(), "Render thread is still running");
     delete m_renderThread;
+#endif
 }
 
 void Gui::Viewer::initializeGL()
@@ -139,11 +129,17 @@ void Gui::Viewer::initializeGL()
 
 #endif
 
+#if defined(FORCE_RENDERING_ON_MAIN_THREAD)
+    std::cerr<<"Rendering on main thread"<<std::endl;
+#else
+    std::cerr<<"Rendering on dedicated thread"<<std::endl;
+#endif
     m_renderer.reset(new Engine::Renderer(width(), height()));
     m_renderer->initialize();
 
+#if !defined (FORCE_RENDERING_ON_MAIN_THREAD)
     m_renderThread = new RenderThread(this, m_renderer.get());
-
+#endif
 }
 
 void Gui::Viewer::initRenderer(Engine::RadiumEngine* engine)
@@ -261,6 +257,14 @@ void Gui::Viewer::reloadShaders()
 
 void Gui::Viewer::startRendering( const Scalar dt )
 {
+#if defined(FORCE_RENDERING_ON_MAIN_THREAD)
+    makeCurrent();
+    Engine::RenderData data;
+    data.projMatrix = m_camera->getProjMatrix();
+    data.viewMatrix = m_camera->getViewMatrix();
+    data.dt = dt;
+    m_renderer->render(data);
+#else
     CORE_ASSERT(m_renderThread != nullptr,
                 "Render thread is not initialized (should have been done in initGL)");
 
@@ -276,15 +280,18 @@ void Gui::Viewer::startRendering( const Scalar dt )
 
     // Launch the thread, calling the run() method.
     m_renderThread->start();
+#endif
 }
 
 void Gui::Viewer::waitForRendering()
 {
+#if !defined(FORCE_RENDERING_ON_MAIN_THREAD)
     // Join with render thread.
     m_renderThread->wait();
     CORE_ASSERT( context()->thread() == QThread::currentThread(),
                  "Context has not been properly given back to main thread.");
     makeCurrent();
+#endif
 }
 
 } // namespace Ra
