@@ -1,5 +1,5 @@
 /*  ========================================================================= *
- *                                 core.h                                     *
+ *                              CoreMacros.hpp                                *
  *             core helper functions and macros for C and C++                 *
  *                          Valentin Roussellet                               *
  *  ========================================================================= */
@@ -8,8 +8,6 @@
 // similarly on all platforms. They may be generally useful or helping to
 // abstract compiler / architecture / platform specificities to write portable
 // code when possible.
-
-// TODO : clang stuff is missing.
 
 // A good reference : http://sourceforge.net/p/predef/
 
@@ -138,14 +136,14 @@
 // ALIGN_OF : returns the alignment of a variable or field
 // ALIGNED : declare an aligned variable
 
-// Branch prediction hints (GCC only)
+// Branch prediction hints (GCC & Clang only)
 // UNLIKELY tells the compiler to expect the condition to be false
 // LIKELY tells the compiler to expect the condition to be true
 
 // Inlining commands
 // ALWAYS_INLINE is the strongest. On GCC it will actually inline even
 // when building without optimization (which is a bad idea most of the time).
-// FORCE_INLINE is stronger than just "inline" where supported.
+// STRONG_INLINE is stronger than just "inline" where supported.
 // NO_INLINE tells the compiler to never inline the function.
 
 // DEPRECATED will issue a warning when using a variable or function.
