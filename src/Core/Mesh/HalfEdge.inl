@@ -1,3 +1,5 @@
+#include "HalfEdge.hpp"
+
 namespace Ra { namespace Core
 {
     inline HalfEdgeData::HalfEdgeData(const TriangleMesh& mesh)
@@ -36,4 +38,5 @@ namespace Ra { namespace Core
         m_vertexToHalfEdge.clear();
         m_triangleToHalfEdge.clear();
     }
+
 }}

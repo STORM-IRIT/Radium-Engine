@@ -32,35 +32,39 @@ namespace Ra { namespace Core
         for (HalfEdgeIdx i = 0; i < m_halfEdgeList.size(); ++i)
         {
             const HalfEdge& he = m_halfEdgeList[i];
+
+            // Check that each half edge has an opposite half.
+            CORE_ASSERT( he.m_pair != InvalidIdx, "Half edge has no pair." );
             const HalfEdge& pair = m_halfEdgeList[he.m_pair];
-            const HalfEdge& prev = m_halfEdgeList[he.m_prev];
-            const HalfEdge& next = m_halfEdgeList[he.m_next];
+            CORE_ASSERT ( pair.m_pair == i, "Edge pair is inconsistent" );
+
             // Check that the outer half-edges are not in any link.
             if (he.m_leftTriIdx == InvalidIdx)
             {
-                CORE_ASSERT ( prev.m_next == InvalidIdx, "Boundary edge should be isolated" );
-                CORE_ASSERT ( next.m_prev == InvalidIdx, "Boundary edge should be isolated" );
+                CORE_ASSERT ( he.m_next == InvalidIdx, "Boundary half edge should be isolated" );
+                CORE_ASSERT ( he.m_prev == InvalidIdx, "Boundary half edge should be isolated" );
                 CORE_ASSERT ( pair.m_leftTriIdx != InvalidIdx, "Isolated edge ");
             }
             else
             {
                 // Check that half-edge belonging to a face are in a good linked list.
+                const HalfEdge& prev = m_halfEdgeList[he.m_prev];
+                const HalfEdge& next = m_halfEdgeList[he.m_next];
 
                 CORE_ASSERT ( prev.m_next == i, "Edge chain is broken" );
                 CORE_ASSERT ( next.m_prev == i, "Edge chain is broken" );
                 CORE_ASSERT ( next.m_leftTriIdx == he.m_leftTriIdx, "Inconsistent face index" );
             }
-            CORE_ASSERT ( pair.m_pair== i, "Edge pair is inconsistent");
         }
         // Check vertex to half edge mapping.
         for (VertexIdx v = 0; v < m_vertexToHalfEdge.size(); ++v)
         {
-            CORE_ASSERT(! m_vertexToHalfEdge[v].empty(), "Isolated vertex");
+            CORE_ASSERT( !m_vertexToHalfEdge[v].empty(), "Isolated vertex" );
             for (auto idx : m_vertexToHalfEdge[v])
             {
                 const HalfEdge& he = m_halfEdgeList[idx];
                 const HalfEdge& pair = m_halfEdgeList[he.m_pair];
-                CORE_ASSERT(pair.m_endVertexIdx == v, "Inconsistent vertex index");
+                CORE_ASSERT( pair.m_endVertexIdx == v, "Inconsistent vertex index" );
             }
         }
 
@@ -72,11 +76,11 @@ namespace Ra { namespace Core
             const HalfEdge& next = m_halfEdgeList[he.m_next];
             const HalfEdge& nextNext = m_halfEdgeList[next.m_next];
 
-            CORE_ASSERT(he.m_leftTriIdx 		== t, "Inconsistent triangle index");
-            CORE_ASSERT(next.m_leftTriIdx 		== t, "Inconsistent triangle index");
-            CORE_ASSERT(nextNext.m_leftTriIdx 	== t, "Inconsistent triangle index");
+            CORE_ASSERT( he.m_leftTriIdx 		== t, "Inconsistent triangle index" );
+            CORE_ASSERT( next.m_leftTriIdx 		== t, "Inconsistent triangle index" );
+            CORE_ASSERT( nextNext.m_leftTriIdx 	== t, "Inconsistent triangle index" );
 
-            CORE_ASSERT(nextNext.m_next == heIdx, "We didn't end back where we started");
+            CORE_ASSERT( nextNext.m_next == heIdx, "We didn't end back where we started" );
         }
 #endif
     }
@@ -119,7 +123,6 @@ namespace Ra { namespace Core
                     he1.m_next = InvalidIdx;
                     he2.m_prev = InvalidIdx;
                     he2.m_next = InvalidIdx;
-
 
                     he1.m_endVertexIdx = vEnd;
                     he2.m_endVertexIdx = vStart;
@@ -173,6 +176,7 @@ namespace Ra { namespace Core
                 m_halfEdgeList[triangleHalfEdges[i]].m_next = triangleHalfEdges[(i + 1) % 3];
             }
         }
+        checkConsistency();
     }
 
     void AdjacencyQueries::getVertexFaces(const TriangleMesh& mesh, const HalfEdgeData& heData, VertexIdx vertex, std::vector<TriangleIdx>& facesOut)
@@ -204,4 +208,63 @@ namespace Ra { namespace Core
         }
     }
 
+    // This function is a good example on how to process the neighbors of a vertex
+    // in order. We could have an iterator-like interface(TODO).
+    void AdjacencyQueries::getVertexFirstRing(const TriangleMesh& mesh,
+                                              const HalfEdgeData& heData,
+                                              VertexIdx vertex,
+                                              std::vector<VertexIdx>& ringOut)
+    {
+        CORE_ASSERT( vertex < mesh.m_vertices.size(), "Invalid vertex index");
+        CORE_ASSERT( heData.getVertexHalfEdges(vertex).size() > 0, "Vertex has no neighbors");
+
+        // If we are on a border of the mesh, we must start from one of the border edges.
+        // since we walk counter clockwise, the edge we must start from is the one whose
+        // pair edge has no face. If no such edge exist, then we are not on the border
+        // so any edge will do.
+        // TODO : we could guarantee that the first half edge is always the good one to
+        // start with in build(), which would optimizes this function.
+        HalfEdgeIdx starterEdge = heData.getVertexHalfEdges(vertex)[0];
+        for ( auto heIdx : heData.getVertexHalfEdges(vertex))
+        {
+            const HalfEdge& opposite = heData[heData[heIdx].m_pair];
+            if (opposite.m_leftTriIdx == InvalidIdx)
+            {
+                starterEdge = heIdx;
+                break;
+            }
+        }
+
+        CORE_ASSERT(heData[starterEdge].m_leftTriIdx != InvalidIdx, "Starter edge does not belong to a face");
+
+        const VertexIdx startVertex = heData[starterEdge].m_endVertexIdx;
+        VertexIdx currentVertex = startVertex;
+        HalfEdgeIdx currentEdgeIdx = heData[starterEdge].m_next;
+
+        do
+        {
+            // Add current vertex to ring.
+            ringOut.push_back(currentVertex);
+
+            // Advance on the ring.
+            currentVertex = heData[currentEdgeIdx].m_endVertexIdx;
+
+            // To get the next edge along the ring, we must look at the next
+            // half edge from current (which should point to the center vertex,
+            // take its pair half edge so we end up on the next triangle,
+            // and take the next half edge to advance.
+            const HalfEdge& next = heData[heData[currentEdgeIdx].m_next];
+            const HalfEdge& flip = heData[next.m_pair];
+            currentEdgeIdx = flip.m_next;
+
+            // Some debug checks.
+            CORE_ASSERT( next.m_endVertexIdx == vertex, " Inconsistent half edge data");
+            CORE_ASSERT( flip.m_endVertexIdx == currentVertex, " Inconsistent half edge data");
+
+        } while ( currentVertex != startVertex && currentEdgeIdx!= InvalidIdx);
+
+        // Now we check that we have all the neighbors.
+        CORE_ASSERT( ringOut.size() == heData.getVertexHalfEdges(vertex).size(),
+        " Missing some neighbors (the first ring might be broken in more than one place)");
+    }
 }}

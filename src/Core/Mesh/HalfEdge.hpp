@@ -69,18 +69,27 @@ namespace Ra { namespace Core
         void getVertexFaces(const TriangleMesh& mesh, const HalfEdgeData& heData,
                       VertexIdx vertex, std::vector<TriangleIdx>& facesOut);
 
-        /// Gets the neighbours of a vertex, unordered.
-        void getVertexNeighbors(const TriangleMesh& mesh, const HalfEdgeData& heData,
-                      VertexIdx vertex, std::vector<VertexIdx>& neighborsOut);
-
-        /// Gets the neighbours of a vertex in order.(TODO)
-        void getVertexFirstRing(const TriangleMesh& mesh, const HalfEdgeData& heData,
-                                VertexIdx vertex, std::vector<VertexIdx>& ringOut);
-
         /// Gets the faces adjacent to a given triangle, in order. Note that
         /// the face indices may be invalid (if the triangle is on the border)
         void getAdjacentFaces(const TriangleMesh& mesh, const HalfEdgeData& heData,
                       TriangleIdx triangle, std::array<TriangleIdx,3> &adjOut);
+
+        /// Gets the neighbors of a vertex, unordered.
+        void getVertexNeighbors(const TriangleMesh& mesh, const HalfEdgeData& heData,
+                                VertexIdx vertex, std::vector<VertexIdx>& neighborsOut);
+
+        /// Gets the neighbors of a vertex in clockwise order.
+        /// * If the vertex has a regular neighborhood (i.e. it doesn't sit on the border
+        /// of a mesh), then ringOut forms an actual ring and each vertex in it is adjacent to the
+        /// previous and next in the array, including the first and last.
+        /// * If the vertex is located on the edge but all neighbours still form a connected
+        /// graph (i.e. there's only one "missing link" in the ring) then ringOut will be in
+        /// the correct order, each vertex adjacent to the previous and next in the array,
+        /// except the first and last.
+        /// * If there are multiple missing links, this function will assert. Consider using
+        /// getVertexNeighbors instead.
+        void getVertexFirstRing(const TriangleMesh& mesh, const HalfEdgeData& heData,
+                                VertexIdx vertex, std::vector<VertexIdx>& ringOut);
     }
 }}
 
