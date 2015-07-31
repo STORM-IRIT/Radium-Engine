@@ -35,12 +35,12 @@ inline void Engine::SpotLight::setOuterAngleInRadians(Scalar angle)
 
 inline void Engine::SpotLight::setInnerAngleInDegrees(Scalar angle)
 {
-    m_innerAngle = Core::Math::toRadians(angle);
+    m_innerAngle = angle * Core::Math::toRad;
 }
 
 inline void Engine::SpotLight::setOuterAngleInDegrees(Scalar angle)
 {
-	m_outerAngle = Core::Math::toRadians(angle);
+	m_outerAngle = angle * Core::Math::toRad;
 }
 
 inline Scalar Engine::SpotLight::getInnerAngle() const
