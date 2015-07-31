@@ -5,7 +5,7 @@
 #include <array>
 #include <mutex>
 #include <memory>
-#include <QTime>
+#include <chrono>
 #include <Core/Math/Vector.hpp>
 
 namespace Ra { namespace Core   { struct MouseEvent;          } }
@@ -54,6 +54,8 @@ public:
     virtual void initialize();
 
     void setEngine(RadiumEngine* engine) { m_engine = engine; }
+
+    long getLastRenderTime() const { return m_renderTime; }
 
     // Lock the renderer (for MT access)
     void lockRendering()   { m_renderMutex.lock();}
@@ -231,8 +233,7 @@ private:
     std::array<std::unique_ptr<Texture>, RENDERPASS_TEXTURE_COUNT> m_renderpassTextures;
     std::array<std::unique_ptr<Texture>, OITPASS_TEXTURE_COUNT> m_oitTextures;
 
-    Scalar m_totalTime;
-    QTime m_time;
+    long m_renderTime;
 
     std::mutex m_renderMutex;
 };

@@ -23,6 +23,7 @@ namespace Ra
         , m_taskQueue(nullptr)
         , m_viewer(nullptr)
         , m_frameTimer(new QTimer(this))
+        , m_frameCounter(0)
     {
         // Boilerplate print.
 
@@ -88,7 +89,7 @@ namespace Ra
 
         emit starting();
 
-        m_frameTime = QTime::currentTime();
+        m_lastFrameStart = Core::Timer::Clock::now();
 
         connect(m_frameTimer, SIGNAL(timeout()), this, SLOT(radiumFrame()));
         m_frameTimer->start(1000 / 60);
@@ -127,11 +128,10 @@ namespace Ra
 
     void MainApplication::radiumFrame()
     {
-        QTime currentTime = QTime::currentTime();
-
-        long elapsed = m_frameTime.msecsTo(currentTime);
-        m_frameTime = currentTime;
-        const Scalar dt = Scalar(elapsed)/ 1000.f;
+        Core::Timer::TimePoint frameStart = Core::Timer::Clock::now();
+        const long frameCycleTime = Core::Timer::getIntervalMicro( m_lastFrameStart, frameStart);
+        const Scalar dt = Core::Timer::getIntervalSeconds( m_lastFrameStart, frameStart);
+        m_lastFrameStart = frameStart;
 
         m_viewer->startRendering(dt);
 
@@ -141,18 +141,30 @@ namespace Ra
 
         m_mainWindow->flushEvents();
 
+        Core::Timer::TimePoint tasksStart = Core::Timer::Clock::now();
+
         m_engine->getTasks(m_taskQueue.get(), dt);
 
         // Run one frame of tasks
         m_taskQueue->processTaskQueue();
-        
         m_taskQueue->flushTaskQueue();
 
+        Core::Timer::TimePoint tasksEnd = Core::Timer::Clock::now();
+
+        long tasksTime = Core::Timer::getIntervalMicro( tasksStart, tasksEnd );
 
         // Block until frame is fully rendered.
         m_viewer->waitForRendering();
         m_viewer->update();
 
+        // Frame end.
+        Core::Timer::TimePoint frameEnd = Core::Timer::Clock::now();
+        long frameTime = Core::Timer::getIntervalMicro(frameStart, frameEnd);
+        Scalar fps =1.f / Core::Timer::getIntervalSeconds(frameStart, frameEnd);
+        long renderTime = m_viewer->getRenderer()->getLastRenderTime();
+        std::cout<<"F"<<m_frameCounter<<" "<<frameCycleTime<<" ("<<1.f/dt<<"fps) "
+                <<frameTime<<" ("<<fps<<"fps) "<<renderTime<<" "<<tasksTime<<std::endl;
+        ++m_frameCounter;
     }
 
     MainApplication::~MainApplication()

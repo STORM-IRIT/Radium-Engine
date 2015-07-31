@@ -1,7 +1,8 @@
+#include <chrono>
 #include <memory>
 #include <QApplication>
-#include <QTime>
 
+#include <Core/Time/Timer.hpp>
 #include <MainApplication/Viewer/Viewer.hpp>
 
 class QTimer;
@@ -69,8 +70,9 @@ namespace Ra
         QTimer* m_frameTimer;
 
         /// Time since the last frame start.
-        QTime m_frameTime;
+        Core::Timer::TimePoint m_lastFrameStart;
 
+        int m_frameCounter;
     };
 
 }

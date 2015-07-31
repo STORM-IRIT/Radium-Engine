@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include <Core/Time/Timer.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
@@ -46,8 +47,8 @@ Engine::Renderer::Renderer(uint width, uint height)
     , m_quadMesh(nullptr)
     , m_fbo(nullptr)
     , m_postprocessFbo(nullptr)
+    , m_renderTime(0)
 {
-    m_time.start();
 }
 
 Engine::Renderer::~Renderer()
@@ -82,8 +83,6 @@ void Engine::Renderer::initialize()
     m_quadMesh.reset(new Mesh("quad"));
     m_quadMesh->loadGeometry(mesh);
     m_quadMesh->updateGL();
-
-    m_totalTime = 0.0;
 }
 
 void Engine::Renderer::initShaders()
@@ -126,6 +125,8 @@ void Engine::Renderer::render(const RenderData& data)
 {
     std::lock_guard<std::mutex> renderLock(m_renderMutex);
 
+    Core::Timer::TimePoint start = Core::Timer::Clock::now();
+
     std::vector<std::shared_ptr<Drawable>> drawables;
     if (m_engine != nullptr)
     {
@@ -133,13 +134,15 @@ void Engine::Renderer::render(const RenderData& data)
     }
 
     saveExternalFBOInternal();
-    m_totalTime = m_time.elapsed()/1000.f;
 
     updateDrawablesInternal(data, drawables);
     renderInternal(data, drawables);
     postProcessInternal(data, drawables);
 
     drawScreenInternal();
+    // Render time should be in miliseconds.
+    Core::Timer::TimePoint end = Core::Timer::Clock::now();
+    m_renderTime = Core::Timer::getIntervalMicro(start,end);
 }
 
 void Engine::Renderer::saveExternalFBOInternal()
@@ -383,7 +386,6 @@ void Engine::Renderer::drawScreenInternal()
     m_drawScreenShader->setUniform("oitAccum", m_oitTextures[OITPASS_TEXTURE_ACCUM].get(), 8);
     m_drawScreenShader->setUniform("oitRevealage", m_oitTextures[OITPASS_TEXTURE_REVEALAGE].get(), 9);
 
-    m_drawScreenShader->setUniform("totalTime", m_totalTime);
     m_quadMesh->draw();
 
 	GL_ASSERT(glDepthFunc(GL_LESS));

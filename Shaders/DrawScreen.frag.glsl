@@ -18,8 +18,6 @@ uniform int isDepthTexture;
 uniform float zNear;
 uniform float zFar;
 
-uniform float totalTime;
-
 void main()
 {
     vec4 value = vec4(texture(screenTexture, varTexcoord));

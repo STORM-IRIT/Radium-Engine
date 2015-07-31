@@ -40,7 +40,7 @@ inline void Engine::SpotLight::setInnerAngleInDegrees(Scalar angle)
 
 inline void Engine::SpotLight::setOuterAngleInDegrees(Scalar angle)
 {
-	m_outerAngle = angle * Core::Math::toRad;
+    m_outerAngle = Core::Math::toRad * angle;
 }
 
 inline Scalar Engine::SpotLight::getInnerAngle() const
