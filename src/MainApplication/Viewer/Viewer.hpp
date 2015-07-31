@@ -68,6 +68,10 @@ public:
     /// Access to camera interface.
     CameraInterface* getCamera() { return m_camera.get(); }
 
+    /// Read-only access to renderer
+    const Engine::Renderer* getRenderer() { return m_renderer.get(); }
+
+
     /// Start asynchronous rendering in a separate thread.
     void startRendering(const Scalar dt);
 
