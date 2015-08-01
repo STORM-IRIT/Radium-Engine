@@ -7,6 +7,7 @@
 #include <memory>
 #include <chrono>
 #include <Core/Math/Vector.hpp>
+#include <Core/Time/Timer.hpp>
 
 namespace Ra { namespace Core   { struct MouseEvent;          } }
 namespace Ra { namespace Core   { struct KeyEvent;            } }
@@ -44,6 +45,16 @@ public:
         TEXTURE_COUNT
     };
 
+    struct TimerData
+    {
+        Core::Timer::TimePoint renderStart;
+        Core::Timer::TimePoint updateEnd;
+        Core::Timer::TimePoint mainRenderEnd;
+        Core::Timer::TimePoint postProcessEnd;
+        Core::Timer::TimePoint renderEnd;
+    };
+
+
 public:
 	/// CONSTRUCTOR 
     Renderer(uint width, uint height);
@@ -55,7 +66,7 @@ public:
 
     void setEngine(RadiumEngine* engine) { m_engine = engine; }
 
-    long getLastRenderTime() const { return m_renderTime; }
+    const TimerData& getTimerData() const { return m_timerData; }
 
     // Lock the renderer (for MT access)
     void lockRendering()   { m_renderMutex.lock();}
@@ -233,7 +244,7 @@ private:
     std::array<std::unique_ptr<Texture>, RENDERPASS_TEXTURE_COUNT> m_renderpassTextures;
     std::array<std::unique_ptr<Texture>, OITPASS_TEXTURE_COUNT> m_oitTextures;
 
-    long m_renderTime;
+    TimerData m_timerData;
 
     std::mutex m_renderMutex;
 };

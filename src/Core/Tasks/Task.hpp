@@ -4,6 +4,7 @@
 #include <Core/CoreMacros.hpp>
 
 #include <mutex>
+#include <string>
 
 namespace Ra { namespace Core 
 {
@@ -16,6 +17,7 @@ namespace Ra { namespace Core
     public:
         Task() {}
         virtual ~Task() {}
+        virtual std::string getName() const;
         virtual void init(const TaskParams* params) = 0;
         virtual void process() = 0;
     };
@@ -28,6 +30,8 @@ namespace Ra { namespace Core
     class DummyTask : public Task
     {
     public:
+        virtual RA_API std::string getName() const override;
+
         virtual RA_API void init(const TaskParams* params) override;
 
         virtual RA_API void process() override;
@@ -38,4 +42,4 @@ namespace Ra { namespace Core
     };
 }}
 
-#endif //RADIUMENGINE_TASK_HPP_ 
+#endif //RADIUMENGINE_TASK_HPP_

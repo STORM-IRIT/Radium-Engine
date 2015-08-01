@@ -19,8 +19,12 @@ namespace Ra {
             m_tasks.emplace_back(std::unique_ptr<Task>(task));
             m_dependencies.push_back(std::vector<TaskId>());
             m_remainingDependencies.push_back(0);
+            TimerData tdata; tdata.taskName = task->getName();
+            m_timerData.push_back(tdata);
+
             CORE_ASSERT(m_tasks.size() == m_dependencies.size(), "Inconsistent task list");
             CORE_ASSERT(m_tasks.size() == m_remainingDependencies.size(), "Inconsistent task list");
+            CORE_ASSERT(m_tasks.size() == m_timerData.size(), "Inconsistent task list");
             return TaskId(m_tasks.size() - 1);
         }
 
@@ -68,19 +72,27 @@ namespace Ra {
             }
         }
 
+        const std::vector<TaskQueue::TimerData>& TaskQueue::getTimerData()
+        {
+            return m_timerData;
+        }
+
         void TaskQueue::flushTaskQueue()
         {
             CORE_ASSERT(m_processingTasks == 0, "You have tasks still in process");
             CORE_ASSERT(m_taskQueue.empty(), " You have unprocessed tasks ");
             m_tasks.clear();
             m_dependencies.clear();
+            m_timerData.clear();
             m_remainingDependencies.clear();
         }
 
         void TaskQueue::runTask(TaskQueue::TaskId task)
         {
             // Run task
+            m_timerData[task].start = Timer::Clock::now();
             m_tasks[task]->process();
+            m_timerData[task].end = Timer::Clock::now();
 
             // Critical section : mark task as finished and en-queue dependencies.
             m_taskQueueMutex.lock();

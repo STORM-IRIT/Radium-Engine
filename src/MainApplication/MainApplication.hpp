@@ -1,8 +1,10 @@
 #include <chrono>
 #include <memory>
+#include <vector>
 #include <QApplication>
 
 #include <Core/Time/Timer.hpp>
+#include <MainApplication/TimerData/FrameTimerData.hpp>
 #include <MainApplication/Viewer/Viewer.hpp>
 
 class QTimer;
@@ -73,9 +75,7 @@ namespace Ra
         Core::Timer::TimePoint m_lastFrameStart;
 
         int m_frameCounter;
-		long m_frameTimeSum;
-		long m_renderTimeSum;
-		long m_taskTimeSum;
+        std::vector<FrameTimerData> m_timerData;
     };
 
 }

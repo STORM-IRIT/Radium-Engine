@@ -9,6 +9,8 @@
 #include <thread>
 #include <mutex>
 
+#include <Core/Time/Timer.hpp>
+
 namespace Ra { namespace Core { class Task; } }
 
 namespace Ra { namespace Core 
@@ -19,6 +21,15 @@ namespace Ra { namespace Core
     public:
         typedef uint TaskId;
         enum { InvalidTaskId = TaskId(-1) };
+
+        /// Record of a task's start and end time.
+        struct TimerData
+        {
+            Timer::TimePoint start;
+            Timer::TimePoint end;
+            std::string taskName;
+        };
+
     public:
         // Constructor and destructor.
         TaskQueue(int numThreads);
@@ -42,6 +53,8 @@ namespace Ra { namespace Core
         /// Executes the task queue. Blocks until all tasks in queue and dependencies are finished.
         void processTaskQueue();
 
+        const std::vector<TimerData>& getTimerData();
+
         /// Erases all tasks. Will assert if tasks are unprocessed.
         void flushTaskQueue();
 
@@ -56,17 +69,20 @@ namespace Ra { namespace Core
         std::vector< std::unique_ptr<Task> > m_tasks;
         /// For each task, stores which tasks depend on it.
         std::vector< std::vector <TaskId> > m_dependencies;
+        /// Stores the timings of each frame after execution.
+        std::vector<TimerData> m_timerData;
 
         // mutex protected variables.
 
-        /// Global mutex over thread-sensitive variables.
-        std::mutex m_taskQueueMutex;
         /// Number of tasks each task is waiting on.
         std::vector<uint> m_remainingDependencies;
         /// Queue holding the pending tasks.
         std::deque<TaskId> m_taskQueue;
         /// Number of tasks currently being processed.
         uint m_processingTasks;
+
+        /// Global mutex over thread-sensitive variables.
+        std::mutex m_taskQueueMutex;
 
     };
 

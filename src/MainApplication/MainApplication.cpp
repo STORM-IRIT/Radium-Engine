@@ -14,6 +14,11 @@
 #include <Engine/Renderer/Renderer.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
 
+
+// Const parameters : TODO : make config / command line options
+const uint FPS_MAX = 60;
+const uint TIMER_AVERAGE = 100;
+
 namespace Ra
 {
     MainApplication::MainApplication(int argc, char** argv)
@@ -24,9 +29,6 @@ namespace Ra
         , m_viewer(nullptr)
         , m_frameTimer(new QTimer(this))
         , m_frameCounter(0)
-		, m_frameTimeSum(0)
-		, m_renderTimeSum(0)
-		, m_taskTimeSum(0)
     {
         // Boilerplate print.
 
@@ -52,7 +54,7 @@ namespace Ra
 #endif
 
         // Handle command line arguments.
-        // TODO ( e.g fps limit)
+        // TODO ( e.g fps limit ) / Keep or not timer data .
 
         // Create default format for Qt.
         QSurfaceFormat format;
@@ -95,7 +97,7 @@ namespace Ra
         m_lastFrameStart = Core::Timer::Clock::now();
 
         connect(m_frameTimer, SIGNAL(timeout()), this, SLOT(radiumFrame()));
-        m_frameTimer->start(1000 / 60);
+        m_frameTimer->start(1000 / FPS_MAX);
     }
 
 	void MainApplication::createConnections()
@@ -131,61 +133,61 @@ namespace Ra
 
     void MainApplication::radiumFrame()
     {
-        Core::Timer::TimePoint frameStart = Core::Timer::Clock::now();
-        const long frameCycleTime = Core::Timer::getIntervalMicro( m_lastFrameStart, frameStart);
-        const Scalar dt = Core::Timer::getIntervalSeconds( m_lastFrameStart, frameStart);
-        m_lastFrameStart = frameStart;
+        FrameTimerData timerData;
+        timerData.frameStart = Core::Timer::Clock::now();
 
+        // ----------
+        // 0. Compute time since last frame.
+        const Scalar dt = Core::Timer::getIntervalSeconds( m_lastFrameStart, timerData.frameStart);
+        m_lastFrameStart = timerData.frameStart;
+
+        // ----------
+        // 1. Kickoff rendering
         m_viewer->startRendering(dt);
 
-        // Gather user input and dispatch it.
+        // ----------
+        // 2. Gather user input and dispatch it.
         auto keyEvents = m_mainWindow->getKeyEvents();
         auto mouseEvents = m_mainWindow->getMouseEvents();
-
         m_mainWindow->flushEvents();
 
-        Core::Timer::TimePoint tasksStart = Core::Timer::Clock::now();
+        timerData.tasksStart = Core::Timer::Clock::now();
 
+        // ----------
+        // 3. Run the engine task queue.
         m_engine->getTasks(m_taskQueue.get(), dt);
 
         // Run one frame of tasks
         m_taskQueue->processTaskQueue();
+        timerData.taskData = m_taskQueue->getTimerData();
         m_taskQueue->flushTaskQueue();
 
-        Core::Timer::TimePoint tasksEnd = Core::Timer::Clock::now();
+        timerData.tasksEnd = Core::Timer::Clock::now();
 
-        m_taskTimeSum += Core::Timer::getIntervalMicro( tasksStart, tasksEnd );
-
-        // Block until frame is fully rendered.
+        // ----------
+        // 4. Wait until frame is fully rendered and display.
         m_viewer->waitForRendering();
         m_viewer->update();
 
-        // Frame end.
-        Core::Timer::TimePoint frameEnd = Core::Timer::Clock::now();
+        timerData.renderData = m_viewer->getRenderer()->getTimerData();
 
-        m_frameTimeSum += Core::Timer::getIntervalMicro(frameStart, frameEnd);
-        m_renderTimeSum += m_viewer->getRenderer()->getLastRenderTime();
-		
-		// Display timers every 60 frames
-		if (++m_frameCounter % 100 == 0)
-		{
-			Scalar avgFrameTime = (Scalar)m_frameTimeSum / Scalar(100000.0);
-			Scalar avgRenderTime = (Scalar)m_renderTimeSum / Scalar(100000.0);
-			Scalar avgTaskTime = (Scalar)m_frameTimeSum / Scalar(100000.0);
+        // ----------
+        // 5. Frame end.
+        timerData.frameEnd = Core::Timer::Clock::now();
+        timerData.numFrame = m_frameCounter;
+        m_timerData.push_back(timerData);
+        ++m_frameCounter;
 
-			Scalar frameFps = Scalar(1000.0) / avgFrameTime;
-			Scalar renderFps = Scalar(1000.0) / avgRenderTime;
-
-			m_frameTimeSum = 0;
-			m_renderTimeSum = 0;
-			m_taskTimeSum = 0;
-
-			fprintf(stderr, "Frames %i to %i : %2.2fms (%2.1f fps) frame time average\n"
-					"\t%2.2fms (%2.1f fps) render time average, %2.2fms task time average.\n",
-					m_frameCounter - 100, m_frameCounter - 1, avgFrameTime, frameFps, avgRenderTime, renderFps, avgTaskTime);
-
-		}
-
+        // Dump timer data if requested.
+        if (TIMER_AVERAGE == 1)
+        {
+            FrameTimerData::printTimerData(timerData);
+        }
+        else if (TIMER_AVERAGE > 1 && m_frameCounter % TIMER_AVERAGE == 0)
+        {
+            FrameTimerData::printAverageTimerData(m_timerData);
+            m_timerData.clear();
+        }
     }
 
     MainApplication::~MainApplication()

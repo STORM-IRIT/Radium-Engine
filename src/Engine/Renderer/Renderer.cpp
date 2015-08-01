@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-#include <Core/Time/Timer.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
@@ -47,7 +46,6 @@ Engine::Renderer::Renderer(uint width, uint height)
     , m_quadMesh(nullptr)
     , m_fbo(nullptr)
     , m_postprocessFbo(nullptr)
-    , m_renderTime(0)
 {
 }
 
@@ -125,24 +123,28 @@ void Engine::Renderer::render(const RenderData& data)
 {
     std::lock_guard<std::mutex> renderLock(m_renderMutex);
 
-    Core::Timer::TimePoint start = Core::Timer::Clock::now();
+    m_timerData.renderStart = Core::Timer::Clock::now();
 
+    // 0. Gather drawables.
     std::vector<std::shared_ptr<Drawable>> drawables;
-    if (m_engine != nullptr)
-    {
-        drawables = m_engine->getDrawableManager()->getDrawables();
-    }
 
+    CORE_ASSERT(m_engine != nullptr, "no engine in renderer");
+    drawables = m_engine->getDrawableManager()->getDrawables();
     saveExternalFBOInternal();
-
     updateDrawablesInternal(data, drawables);
-    renderInternal(data, drawables);
-    postProcessInternal(data, drawables);
+    m_timerData.updateEnd = Core::Timer::Clock::now();
 
+    // 1. Do the rendering.
+    renderInternal(data, drawables);
+    m_timerData.mainRenderEnd = Core::Timer::Clock::now();
+
+    // 2. Post processing
+    postProcessInternal(data, drawables);
+    m_timerData.postProcessEnd = Core::Timer::Clock::now();
+
+    //3. write image to framebuffer.
     drawScreenInternal();
-    // Render time should be in miliseconds.
-    Core::Timer::TimePoint end = Core::Timer::Clock::now();
-    m_renderTime = Core::Timer::getIntervalMicro(start,end);
+    m_timerData.renderEnd = Core::Timer::Clock::now();
 }
 
 void Engine::Renderer::saveExternalFBOInternal()

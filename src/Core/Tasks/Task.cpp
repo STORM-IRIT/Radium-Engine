@@ -5,6 +5,9 @@
 namespace Ra {
     namespace Core {
         std::mutex DummyTask::s_ioMutex;
+
+        std::string DummyTask::getName() const { return std::string("Dummy"); }
+
         void DummyTask::init(const TaskParams * params)
         {
             m_data = static_cast<const DummyTaskParams*>(params)->m_param;
