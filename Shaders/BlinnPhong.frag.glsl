@@ -167,14 +167,14 @@ vec3 blinnPhongSpot()
     float radialAttenuation = pow(clamp((cosRealAngle - cosSpotOuter) /
                                         (1.0 - cosSpotOuter), 0.0, 1.0), 1.6);
 
-    color = blinnPhongInternal(-dir, getNormal());
+    color = blinnPhongInternal(dir, getNormal());
     return color * attenuation * radialAttenuation;
 }
 
 vec3 blinnPhongPoint()
 {
     vec3 dir = vPosition - light.point.position;
-    vec3 color = blinnPhongInternal(normalize(dir), getNormal());
+    vec3 color = blinnPhongInternal(normalize(-dir), getNormal());
 
     float d = length(dir);
     float attenuation = light.point.attenuation.constant +

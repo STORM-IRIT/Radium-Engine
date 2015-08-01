@@ -49,11 +49,11 @@ void main()
     float a = getAlpha();
     float z = vDepth;
     
-    if (a == 0)
-    {
-        discard;
-    }
-   
+    //if (a == 0)
+    //{
+    //discard;
+     //}
+    
     float w = pow(a + 0.01f, 4.0f) +
                    max(0.01f, min(3000.0f, 0.3f / (0.00001f + pow(abs(z) / 200.0f, 4.0f))));
     

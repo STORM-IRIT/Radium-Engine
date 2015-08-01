@@ -45,7 +45,7 @@ void main()
     
     oitRevealageValue.rgb = vec3(oitRevealageValue.r);
 
-    value = renderpassValue;
+//    value = colorValue;
 
     fragColor = value;
 }

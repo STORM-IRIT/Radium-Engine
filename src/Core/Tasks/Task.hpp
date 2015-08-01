@@ -17,7 +17,7 @@ namespace Ra { namespace Core
     public:
         Task() {}
         virtual ~Task() {}
-        virtual std::string getName() const;
+        virtual std::string getName() const = 0;
         virtual void init(const TaskParams* params) = 0;
         virtual void process() = 0;
     };

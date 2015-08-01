@@ -127,6 +127,9 @@ public:
     void reloadShaders();
     int checkPicking(Scalar x, Scalar y) const;
 
+    // FIXME(Charly): Maybe there is a better way to handle lights ?
+    virtual void handleFileLoading(const std::string& filename);
+
 protected:
 
     /**

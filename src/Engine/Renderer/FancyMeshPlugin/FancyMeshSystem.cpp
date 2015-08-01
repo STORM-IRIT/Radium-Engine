@@ -46,7 +46,7 @@ void Engine::FancyMeshSystem::handleFileLoading(const std::string& filename)
                 static_cast<FancyMeshComponent*>(addComponentToEntity(e));
 
         component->handleMeshLoading(data);
-	}
+    }
 }
 
 Engine::Component* Engine::FancyMeshSystem::addComponentToEntity( Engine::Entity* entity )

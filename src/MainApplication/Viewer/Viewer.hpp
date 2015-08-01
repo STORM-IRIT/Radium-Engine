@@ -18,7 +18,7 @@
 // Uncomment this to deactivate multi-threaded rendering.
 // In that case the call to startRendering() is synchronous
 // and waitForRendering() does nothing.
-// #define FORCE_RENDERING_ON_MAIN_THREAD
+#define FORCE_RENDERING_ON_MAIN_THREAD
 
 // Forward declarations
 namespace Ra { namespace Core   { struct KeyEvent;       } }
@@ -77,6 +77,8 @@ public:
 
     /// Blocks until rendering is finished.
     void waitForRendering();
+
+    void handleFileLoading(const std::string& file);
 
 public slots:
     /// Tell the renderer to reload all shaders.

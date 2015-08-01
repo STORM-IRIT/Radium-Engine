@@ -2,6 +2,10 @@
 
 #include <iostream>
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
@@ -10,8 +14,11 @@
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/OpenGL/FBO.hpp>
+#include <Engine/Renderer/Texture/Texture.hpp>
+#include <Engine/Renderer/Light/DirLight.hpp>
+#include <Engine/Renderer/Light/PointLight.hpp>
+#include <Engine/Renderer/Light/SpotLight.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
 
@@ -95,7 +102,7 @@ void Engine::Renderer::initShaders()
 void Engine::Renderer::initBuffers()
 {
     m_fbo.reset(new FBO(FBO::Components(FBO::COLOR | FBO::DEPTH), m_width, m_height));
-    m_oitFbo.reset(new FBO(FBO::Components(FBO::COLOR), m_width, m_height));
+    m_oitFbo.reset(new FBO(FBO::Components(FBO::COLOR | FBO::DEPTH), m_width, m_height));
     m_postprocessFbo.reset(new FBO(FBO::Components(FBO::COLOR), m_width, m_height));
 
     // Render pass
@@ -193,7 +200,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
 
     GL_ASSERT(glDrawBuffers(6, buffers));
 
-    const Core::Color clearColor(0.75, 0.75, 0.75, 1.0);
+    const Core::Color clearColor(0.1, 0.1, 0.1, 1.0);
     const Core::Color clearZeros(0.0, 0.0, 0.0, 0.0);
     const Core::Color clearOnes(1.0, 1.0, 1.0, 1.0);
     const Scalar clearDepth = 1.0;
@@ -273,6 +280,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearZeros.data())); // Clear
     GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearOnes.data()));  // Clear
 
+    GL_ASSERT(glDepthFunc(GL_LESS))
     GL_ASSERT(glEnable(GL_BLEND));
     GL_ASSERT(glBlendEquation(GL_FUNC_ADD));
     GL_ASSERT(glBlendFunci(0, GL_ONE, GL_ONE));
@@ -496,6 +504,7 @@ void Engine::Renderer::resize(uint w, uint h)
 
     m_oitFbo->bind();
     m_oitFbo->setSize(w, h);
+    m_oitFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH].get());
     m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_oitTextures[OITPASS_TEXTURE_ACCUM].get());
     m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT1, m_oitTextures[OITPASS_TEXTURE_REVEALAGE].get());
     m_fbo->check();
@@ -549,6 +558,138 @@ int Engine::Renderer::checkPicking(Scalar x, Scalar y) const
     return id;
 
 //    int index = d->idx.getValue();
+}
+
+void Engine::Renderer::handleFileLoading(const std::string &filename)
+{
+    Assimp::Importer importer;
+    const aiScene* scene = importer.ReadFile(filename,
+                                             aiProcess_Triangulate |
+                                             aiProcess_JoinIdenticalVertices |
+                                             aiProcess_GenSmoothNormals |
+                                             aiProcess_SortByPType |
+                                             aiProcess_FixInfacingNormals |
+                                             aiProcess_CalcTangentSpace |
+                                             aiProcess_GenUVCoords);
+
+    if (!scene)
+    {
+        return;
+    }
+
+    if (!scene->HasLights())
+    {
+        return;
+    }
+
+    // Load lights
+    for (uint lightId = 0; lightId < scene->mNumLights; ++lightId)
+    {
+        aiLight* ailight = scene->mLights[lightId];
+
+        aiString name = ailight->mName;
+        aiNode* node = scene->mRootNode->FindNode(name);
+
+        Core::Matrix4 transform(Core::Matrix4::Identity());
+
+        if (node != nullptr)
+        {
+            Core::Matrix4 t0;
+            Core::Matrix4 t1;
+
+            for (uint i = 0; i < 4; ++i)
+            {
+                for (uint j = 0; j < 4; ++j)
+                {
+                    t0(i, j) = scene->mRootNode->mTransformation[i][j];
+                    t1(i, j) = node->mTransformation[i][j];
+                }
+            }
+            transform = t0 * t1;
+        }
+
+        Core::Color color(ailight->mColorDiffuse.r,
+                          ailight->mColorDiffuse.g,
+                          ailight->mColorDiffuse.b, 1.0);
+
+        switch (ailight->mType)
+        {
+            case aiLightSource_DIRECTIONAL:
+            {
+                Core::Vector4 dir(ailight->mDirection[0],
+                        ailight->mDirection[1],
+                        ailight->mDirection[2], 0.0);
+                dir = transform.transpose().inverse() * dir;
+
+                Core::Vector3 finalDir(dir.x(), dir.y(), dir.z());
+                finalDir = -finalDir;
+
+                DirectionalLight* light = new DirectionalLight;
+                light->setColor(color);
+                light->setDirection(finalDir);
+
+                addLight(light);
+
+            } break;
+
+            case aiLightSource_POINT:
+            {
+                Core::Vector4 pos(ailight->mPosition[0],
+                        ailight->mPosition[1],
+                        ailight->mPosition[2], 1.0);
+                pos = transform * pos;
+                pos /= pos.w();
+
+                PointLight* light = new PointLight;
+                light->setColor(color);
+                light->setPosition(Core::Vector3(pos.x(), pos.y(), pos.z()));
+                light->setAttenuation(ailight->mAttenuationConstant,
+                                      ailight->mAttenuationLinear,
+                                      ailight->mAttenuationQuadratic);
+
+                addLight(light);
+
+            } break;
+
+            case aiLightSource_SPOT:
+            {
+                Core::Vector4 pos(ailight->mPosition[0],
+                        ailight->mPosition[1],
+                        ailight->mPosition[2], 1.0);
+                pos = transform * pos;
+                pos /= pos.w();
+
+                Core::Vector4 dir(ailight->mDirection[0],
+                        ailight->mDirection[1],
+                        ailight->mDirection[2], 0.0);
+                dir = transform.transpose().inverse() * dir;
+
+                Core::Vector3 finalDir(dir.x(), dir.y(), dir.z());
+                finalDir = -finalDir;
+
+                SpotLight* light = new SpotLight;
+                light->setColor(color);
+                light->setPosition(Core::Vector3(pos.x(), pos.y(), pos.z()));
+                light->setDirection(finalDir);
+
+                light->setAttenuation(ailight->mAttenuationConstant,
+                                      ailight->mAttenuationLinear,
+                                      ailight->mAttenuationQuadratic);
+
+                light->setInnerAngleInRadians(ailight->mAngleInnerCone);
+                light->setOuterAngleInRadians(ailight->mAngleOuterCone);
+
+                addLight(light);
+
+            } break;
+
+            case aiLightSource_UNDEFINED:
+            default:
+            {
+                fprintf(stderr, "Light %s has undefined type.\n", name.C_Str());
+            } break;
+        }
+    }
 }
 
 } // namespace Ra

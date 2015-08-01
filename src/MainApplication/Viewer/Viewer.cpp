@@ -88,10 +88,12 @@ Gui::Viewer::Viewer(QWidget* parent)
     m_camera.reset(new Gui::TrackballCamera(width(), height()));
 
     /// Intercept events to properly lock the renderer when it is compositing.
+#if !defined(FORCE_RENDERING_ON_MAIN_THREAD)
     connect(this, &QOpenGLWidget::aboutToCompose, this, &Viewer::onAboutToCompose);
     connect(this, &QOpenGLWidget::frameSwapped,   this, &Viewer::onFrameSwapped);
     connect(this, &QOpenGLWidget::aboutToResize,  this, &Viewer::onAboutToResize);
     connect(this, &QOpenGLWidget::resized,        this, &Viewer::onResized);
+#endif
 
 }
 
@@ -149,13 +151,12 @@ void Gui::Viewer::initRenderer(Engine::RadiumEngine* engine)
     m_renderer->setEngine(engine);
 }
 
-
 void Gui::Viewer::onAboutToCompose()
 {
     // This slot function is called from the main thread as part of the event loop
     // when the GUI is about to update. We have to wait for the rendering to finish.
     m_renderer->lockRendering();
-};
+}
 
 void Gui::Viewer::onFrameSwapped()
 {
@@ -293,6 +294,11 @@ void Gui::Viewer::waitForRendering()
                  "Context has not been properly given back to main thread.");
     makeCurrent();
 #endif
+}
+
+void Gui::Viewer::handleFileLoading(const std::string &file)
+{
+    m_renderer->handleFileLoading(file);
 }
 
 } // namespace Ra

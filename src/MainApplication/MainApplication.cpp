@@ -108,6 +108,7 @@ namespace Ra
     {
         std::string pathStr = path.toLocal8Bit().data();
         bool res = m_engine->loadFile(pathStr);
+        m_viewer->handleFileLoading(pathStr);
 
 		if (res)
 		{
