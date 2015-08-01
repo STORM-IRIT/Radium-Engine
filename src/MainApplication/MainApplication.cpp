@@ -24,6 +24,9 @@ namespace Ra
         , m_viewer(nullptr)
         , m_frameTimer(new QTimer(this))
         , m_frameCounter(0)
+		, m_frameTimeSum(0)
+		, m_renderTimeSum(0)
+		, m_taskTimeSum(0)
     {
         // Boilerplate print.
 
@@ -151,7 +154,7 @@ namespace Ra
 
         Core::Timer::TimePoint tasksEnd = Core::Timer::Clock::now();
 
-        long tasksTime = Core::Timer::getIntervalMicro( tasksStart, tasksEnd );
+        m_taskTimeSum += Core::Timer::getIntervalMicro( tasksStart, tasksEnd );
 
         // Block until frame is fully rendered.
         m_viewer->waitForRendering();
@@ -159,12 +162,30 @@ namespace Ra
 
         // Frame end.
         Core::Timer::TimePoint frameEnd = Core::Timer::Clock::now();
-        long frameTime = Core::Timer::getIntervalMicro(frameStart, frameEnd);
-        Scalar fps =1.f / Core::Timer::getIntervalSeconds(frameStart, frameEnd);
-        long renderTime = m_viewer->getRenderer()->getLastRenderTime();
-        std::cout<<"F"<<m_frameCounter<<" "<<frameCycleTime<<" ("<<1.f/dt<<"fps) "
-                <<frameTime<<" ("<<fps<<"fps) "<<renderTime<<" "<<tasksTime<<std::endl;
-        ++m_frameCounter;
+
+        m_frameTimeSum += Core::Timer::getIntervalMicro(frameStart, frameEnd);
+        m_renderTimeSum += m_viewer->getRenderer()->getLastRenderTime();
+		
+		// Display timers every 60 frames
+		if (++m_frameCounter % 100 == 0)
+		{
+			Scalar avgFrameTime = (Scalar)m_frameTimeSum / Scalar(100000.0);
+			Scalar avgRenderTime = (Scalar)m_renderTimeSum / Scalar(100000.0);
+			Scalar avgTaskTime = (Scalar)m_frameTimeSum / Scalar(100000.0);
+
+			Scalar frameFps = Scalar(1000.0) / avgFrameTime;
+			Scalar renderFps = Scalar(1000.0) / avgRenderTime;
+
+			m_frameTimeSum = 0;
+			m_renderTimeSum = 0;
+			m_taskTimeSum = 0;
+
+			fprintf(stderr, "Frames %i to %i : %2.2fms (%2.1f fps) frame time average\n"
+					"\t%2.2fms (%2.1f fps) render time average, %2.2fms task time average.\n",
+					m_frameCounter - 100, m_frameCounter - 1, avgFrameTime, frameFps, avgRenderTime, renderFps, avgTaskTime);
+
+		}
+
     }
 
     MainApplication::~MainApplication()

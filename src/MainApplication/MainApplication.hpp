@@ -73,6 +73,9 @@ namespace Ra
         Core::Timer::TimePoint m_lastFrameStart;
 
         int m_frameCounter;
+		long m_frameTimeSum;
+		long m_renderTimeSum;
+		long m_taskTimeSum;
     };
 
 }
