@@ -18,26 +18,25 @@ namespace Ra { namespace Engine
  * @class GlBuffer_obj
  * @brief Wrapper class for OpenGL buffer objects.
  * @tparam T : the type of the buffer object (float, int, Vec3, float2 etc.)
+ * @param type : GL_ARRAY_BUFFER, GL_ELEMENT_ARRAY_BUFFER,
+ * GL_PIXEL_PACK_BUFFER, GL_PIXEL_UNPACK_BUFFER
  *
  * TODO : templatize the GL type. Check if it works with non-contigous data
 */
-template<typename T>
+template<typename T, GLenum GL_BUFFER_TYPE = GL_ARRAY_BUFFER>
 class GlBufferObject
 {
 public:
 
-    /// OpenGL context has to be created before this constructor is called,
-    /// hence the "explicit"
-    /// @param type : GL_ARRAY_BUFFER, GL_ELEMENT_ARRAY_BUFFER,
-    /// GL_PIXEL_PACK_BUFFER, GL_PIXEL_UNPACK_BUFFER
-    explicit inline GlBufferObject(GLenum type);
+    /// Creates an empty VBO
+    inline GlBufferObject();
 
     /// @param mode  GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY,
     /// GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY,
     /// GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, or GL_DYNAMIC_COPY
-    inline GlBufferObject(uint numElements, GLenum type, GLenum drawMode = GL_STREAM_DRAW);
+    inline GlBufferObject(uint numElements, GLenum drawMode = GL_STREAM_DRAW);
 
-    inline GlBufferObject(const GlBufferObject<T>& buffer);
+    inline GlBufferObject(const GlBufferObject<T, GL_BUFFER_TYPE>& buffer);
 
     inline ~GlBufferObject();
 
@@ -95,9 +94,9 @@ private:
     // =========================================================================
 
     /// @return the current binding (check same target type as this buffer)
-    GLint getCurrentBinding() {
+    static GLint getCurrentBinding() {
         GLint id;
-        GL_ASSERT( glGetIntegerv(m_typeBinding, &id) );
+        GL_ASSERT( glGetIntegerv(bufferTypeToBinding(GL_BUFFER_TYPE), &id) );
         return id;
     }
 
@@ -120,16 +119,6 @@ private:
 
     GLuint m_bufferGlId;  ///< OpenGl id of the buffer object
     int    m_numElements; ///< number of elements in the buffer
-
-    /// buffer type: GL_ARRAY_BUFFER (usually for vertex attribs such as
-    /// position, normals etc.); GL_ELEMENT_ARRAY_BUFFER (usually describe
-    /// faces). GL_PIXEL_UNPACK_BUFFER and GL_PIXEL_PACK_BUFFER for pixel
-    /// buffer objects (PBO) etc.
-    GLenum m_targetType;
-
-    /// The binding type according to type: e.g
-    /// if _type == GL_ARRAY_BUFFER -> _type_binding == GL_ARRAY_BUFFER_BINDING
-    GLenum m_typeBinding;
 
     /// Latest draw mode used when initializing the buffer
     /// (GL_STREAM_DRAW, GL_STATIC_DRAW etc.)
