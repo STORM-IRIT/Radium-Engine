@@ -20,7 +20,7 @@ $ git submodule update
 ## Compile-time configuration
 This is the list of options that can be configured when compiling. By default all these options are turned off
 but you can enable them by uncommenting the corresponding `#define` or add it to the definitions when running cmake. 
-* `CORE_USE_DOUBLE` (in `CoreMacros.cpp`): Switch the default floating point type to `double` instead of `float`.
+* `CORE_USE_DOUBLE` (in `CoreMacros.hpp`): Switch the default floating point type to `double` instead of `float`.
 * `FORCE_RENDERING_ON_MAIN_THREAD` (in `Viewer.cpp`) : disables asynchronous rendering.
 
 ## Building on Linux
