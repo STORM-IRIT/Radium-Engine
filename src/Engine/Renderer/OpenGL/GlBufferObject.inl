@@ -1,10 +1,9 @@
 #include "GlBufferObject.hpp"
-
 namespace Ra { namespace Engine
 {
 
-template<class T>
-GlBufferObject<T>::GlBufferObject(GLenum type)
+template<typename T>
+inline GlBufferObject<T>::GlBufferObject(GLenum type)
     : m_numElements(0)
     , m_targetType(type)
     , m_typeBinding( bufferTypeToBinding(type) )
@@ -14,8 +13,8 @@ GlBufferObject<T>::GlBufferObject(GLenum type)
     GL_ASSERT( glGenBuffers(1, &m_bufferGlId));
 }
 
-template<class T>
-GlBufferObject<T>::GlBufferObject(const GlBufferObject<T>& buffer)
+template<typename T>
+inline GlBufferObject<T>::GlBufferObject(const GlBufferObject<T>& buffer)
     : m_numElements( buffer.m_numElements )
     , m_targetType( buffer.m_targetType )
     , m_typeBinding( buffer.m_typeBinding )
@@ -35,12 +34,12 @@ GlBufferObject<T>::GlBufferObject(const GlBufferObject<T>& buffer)
     GL_ASSERT( glCopyBufferSubData(/*buffer.m_targetType*/GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, sizeof(T) * m_numElements) );
 }
 
-template<class T>
-GlBufferObject<T>::GlBufferObject(int nb_elt, int type, GLenum draw_mode)
-    : m_numElements(nb_elt)
+template<typename T>
+inline GlBufferObject<T>::GlBufferObject(uint numElements, GLenum type, GLenum drawMode)
+    : m_numElements(numElements)
     , m_targetType(type)
-    , m_typeBinding( buffer_type_to_binding(type) )
-    , m_drawMode( draw_mode )
+    , m_typeBinding( bufferTypeToBinding(type) )
+    , m_drawMode( drawMode )
 {
     CORE_ASSERT(glGetString(GL_VERSION)!= 0, "GL context unavailable");
 
@@ -50,8 +49,8 @@ GlBufferObject<T>::GlBufferObject(int nb_elt, int type, GLenum draw_mode)
     GL_ASSERT( glBindBuffer(m_targetType, 0) );
 }
 
-template<class T>
-GlBufferObject<T>::~GlBufferObject()
+template<typename T>
+inline GlBufferObject<T>::~GlBufferObject()
 {
     if( getId() == getCurrentBinding() )
     {
@@ -60,20 +59,20 @@ GlBufferObject<T>::~GlBufferObject()
     GL_ASSERT( glDeleteBuffers(1, &m_bufferGlId) );
 }
 
-template<class T>
-void GlBufferObject<T>::bind() const
+template<typename T>
+inline void GlBufferObject<T>::bind() const
 {
     GL_ASSERT( glBindBuffer(m_targetType, m_bufferGlId) );
 }
 
-template<class T>
-void GlBufferObject<T>::unbind() const
+template<typename T>
+inline void GlBufferObject<T>::unbind() const
 {
     GL_ASSERT( glBindBuffer(m_targetType, 0) );
 }
 
-template<class T>
-void GlBufferObject<T>::set_data(uint numElements,
+template<typename T>
+inline void GlBufferObject<T>::setData(uint numElements,
                                const T* data,
                                GLenum drawMode)
 {
@@ -84,14 +83,14 @@ void GlBufferObject<T>::set_data(uint numElements,
     unbind();
 }
 
-template<class T>
-void GlBufferObject<T>::setData(const std::vector<T>& data, GLenum drawMode)
+template<typename T>
+inline void GlBufferObject<T>::setData(const std::vector<T>& data, GLenum drawMode)
 {
     setData(data.size(), &data.front(), drawMode);
 }
 
-template<class T>
-void GlBufferObject<T>::getData(uint numElements
+template<typename T>
+inline void GlBufferObject<T>::getData(uint numElements,
                                 T* data, uint offset) const
 {
     bind();
@@ -99,18 +98,17 @@ void GlBufferObject<T>::getData(uint numElements
     unbind();
 }
 
-template<class T>
-T* GlBufferObject<T>::mapTo(GLenum accessMode) const
+template<typename T>
+inline T* GlBufferObject<T>::map(GLenum accessMode) const
 {
     bind();
     CORE_ASSERT(m_numElements > 0, "No data to map");
-    T* data = (T*)glMapBuffer(m_targetType, accessMode);
-    GL_CHECK_ERRORS();
+    GL_ASSERT(T* data = (T*)glMapBuffer(m_targetType, accessMode));
     return data;
 }
 
-template<class T>
-bool GlBufferObject<T>::unmap() const
+template<typename T>
+inline bool GlBufferObject<T>::unmap() const
 {
     bind();
     GL_ASSERT(bool state = glUnmapBuffer(m_targetType) ? true : false);

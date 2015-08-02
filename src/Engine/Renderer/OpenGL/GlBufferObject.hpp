@@ -5,6 +5,7 @@
 
 #include <cassert>
 #include <vector>
+
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
 
@@ -17,31 +18,34 @@ namespace Ra { namespace Engine
  * @class GlBuffer_obj
  * @brief Wrapper class for OpenGL buffer objects.
  * @tparam T : the type of the buffer object (float, int, Vec3, float2 etc.)
+ *
+ * TODO : templatize the GL type. Check if it works with non-contigous data
 */
-template<class T>
-class GlBufferObject {
+template<typename T>
+class GlBufferObject
+{
 public:
 
     /// OpenGL context has to be created before this constructor is called,
     /// hence the "explicit"
     /// @param type : GL_ARRAY_BUFFER, GL_ELEMENT_ARRAY_BUFFER,
     /// GL_PIXEL_PACK_BUFFER, GL_PIXEL_UNPACK_BUFFER
-    explicit GlBufferObject(GLenum type);
+    explicit inline GlBufferObject(GLenum type);
 
     /// @param mode  GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY,
     /// GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY,
     /// GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, or GL_DYNAMIC_COPY
-    explicit GlBufferObject(uint numElements, GLenum type, GLenum drawMode = GL_STREAM_DRAW);
+    inline GlBufferObject(uint numElements, GLenum type, GLenum drawMode = GL_STREAM_DRAW);
 
-    GlBufferObject(const GlBufferObject<T>& buffer);
+    inline GlBufferObject(const GlBufferObject<T>& buffer);
 
-    ~GlBufferObject();
+    inline ~GlBufferObject();
 
     /// Bind the buffer object
-    void bind() const;
+    inline void bind() const;
 
     /// Unbind the buffer object
-    void unbind() const;
+    inline void unbind() const;
 
 
     /// Allocate and upload data of the buffer object
@@ -51,7 +55,7 @@ public:
     /// @param mode : GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY,
     /// GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY,
     /// GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, or GL_DYNAMIC_COPY
-    void setData( uint numElements,
+    inline void setData( uint numElements,
                   const T* data = 0,
                   GLenum drawMode = GL_STREAM_DRAW);
 
@@ -60,7 +64,7 @@ public:
     /// @param mode : GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY,
     /// GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY,
     /// GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, or GL_DYNAMIC_COPY
-    void setData(const std::vector<T>& data, GLenum drawMode = GL_STREAM_DRAW);
+    inline void setData(const std::vector<T>& data, GLenum drawMode = GL_STREAM_DRAW);
 
     /// Download data from the buffer object
     void getData( uint numElements,
@@ -91,22 +95,22 @@ private:
     // =========================================================================
 
     /// @return the current binding (check same target type as this buffer)
-    GLuint getCurrentBinding() {
-        GLuint id;
+    GLint getCurrentBinding() {
+        GLint id;
         GL_ASSERT( glGetIntegerv(m_typeBinding, &id) );
         return id;
     }
 
     /// Maps buffer type and binding enums.
-    static inline GLenum bufferTypeToBinding(GLenum buff_type)
+    static inline GLenum bufferTypeToBinding(GLenum buffType)
     {
-        switch (buff_type)
+        switch (buffType)
         {
         case GL_ARRAY_BUFFER:         return GL_ARRAY_BUFFER_BINDING;         break;
         case GL_ELEMENT_ARRAY_BUFFER: return GL_ELEMENT_ARRAY_BUFFER_BINDING; break;
         case GL_PIXEL_PACK_BUFFER:    return GL_PIXEL_PACK_BUFFER_BINDING;    break;
         case GL_PIXEL_UNPACK_BUFFER:  return GL_PIXEL_UNPACK_BUFFER_BINDING;  break;
-        default: CORE_ASSERT(false, "unknown buffer type"); return -1; break;
+        default: CORE_ASSERT(false, "Unknown buffer type"); return -1; break;
         }
     }
 
@@ -135,6 +139,6 @@ private:
 
 }}
 
-#include <Engine/Renderer/OpenGL/GlBufferObject.hpp>
+#include <Engine/Renderer/OpenGL/GlBufferObject.inl>
 
 #endif //RADIUMENGINE_GL_BUFFER_OBJECT_HPP_
