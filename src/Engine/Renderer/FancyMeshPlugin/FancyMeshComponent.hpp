@@ -17,13 +17,13 @@ public:
 
 	virtual void initialize() override;
 
-    void addMeshDrawable(const Core::TriangleMesh& mesh, const std::string& name);
-    void addMeshDrawable(const Core::TriangleMesh& mesh, const std::string& name, Material* material);
+    void addMeshRenderObject(const Core::TriangleMesh& mesh, const std::string& name);
+    void addMeshRenderObject(const Core::TriangleMesh& mesh, const std::string& name, Material* material);
 
     void handleMeshLoading(const FancyComponentData& data);
 
 private:
-	Core::Index m_drawable;
+	Core::Index m_renderObject;
 };
 
 } // namespace Engine

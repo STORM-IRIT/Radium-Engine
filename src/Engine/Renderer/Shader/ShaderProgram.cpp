@@ -78,7 +78,7 @@ bool Engine::ShaderObject::loadAndCompile(uint type,
 
 bool Engine::ShaderObject::reloadAndCompile(const std::set<std::string>& properties)
 {
-	std::cerr << "Reloading shader " << m_filename << std::endl;
+    LOG(INFO) << "Reloading shader " << m_filename;
 	return loadAndCompile(m_type, m_filename, properties);
 }
 
@@ -277,7 +277,7 @@ void Engine::ShaderProgram::loadCompShader(const std::string &name,
 
 void Engine::ShaderProgram::load(const Engine::ShaderConfiguration& shaderConfig)
 {
-	std::cerr << "Loading shader " << shaderConfig.getName() << std::hex << " <type = " << shaderConfig.getType() << ">\n";
+    LOG(INFO) << "Loading shader " << shaderConfig.getName() << " <type = " << std::hex << shaderConfig.getType() << std::dec << ">";
 	m_configuration = shaderConfig;
 
 	auto name = shaderConfig.getFullName();

@@ -7,7 +7,7 @@
 
 namespace Ra { namespace Engine { class System;          } }
 namespace Ra { namespace Engine { class Entity;          } }
-namespace Ra { namespace Engine { class DrawableManager; } }
+namespace Ra { namespace Engine { class RenderObjectManager; } }
 
 namespace Ra { namespace Engine {
 
@@ -39,7 +39,7 @@ public:
      */
     virtual void setEntity(const Entity* entity);
 	
-	virtual void setDrawableManager(DrawableManager* drawableMananger);
+    virtual void setRenderObjectManager(RenderObjectManager* renderObjectManager);
 
     virtual const Entity* getEntity() const;
 
@@ -52,7 +52,7 @@ protected:
 
     const Entity* m_entity;
 
-	DrawableManager* m_drawableManager;
+    RenderObjectManager* m_renderObjectManager;
 
     bool m_isSelected;
 };

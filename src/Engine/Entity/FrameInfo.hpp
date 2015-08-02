@@ -1,5 +1,8 @@
-#ifndef RADIUMENGINE_FRAME_INFO_HPP_
-#define RADIUMENGINE_FRAME_INFO_HPP_
+#ifndef RADIUMENGINE_FRAME_INFO_HPP
+#define RADIUMENGINE_FRAME_INFO_HPP
+
+#include <Core/CoreMacros.hpp>
+
 namespace Ra { namespace Engine
 {
     /// Structure passed to each system before they fill the task queue.
@@ -8,7 +11,7 @@ namespace Ra { namespace Engine
         /// Time elapsed since the last frame in seconds.
         Scalar m_dt;
 
-        // Other stuf (e.g. which systems are present, etc).
+        // Other stuff (e.g. which systems are present, etc).
     };
 }}
 #endif // RADIUMENGINE_FRAME_INFO_HPP_

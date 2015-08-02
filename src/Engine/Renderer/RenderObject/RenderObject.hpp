@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_DRAWABLE_HPP
-#define RADIUMENGINE_DRAWABLE_HPP
+#ifndef RADIUMENGINE_RENDEROBJECT_HPP
+#define RADIUMENGINE_RENDEROBJECT_HPP
 
 #include <string>
 #include <mutex>
@@ -15,12 +15,12 @@ namespace Ra { namespace Engine { class Component;     } }
 
 namespace Ra { namespace Engine {
 
-class RA_API Drawable : public Core::IndexedObject
+class RA_API RenderObject : public Core::IndexedObject
 {
 public:
     // FIXME(Charly): Set component in the constructor ?
-	explicit Drawable(const std::string& name);
-    virtual ~Drawable();
+    explicit RenderObject(const std::string& name);
+    virtual ~RenderObject();
 
     virtual void setComponent(Component* component) final;
 
@@ -35,7 +35,7 @@ public:
                       const Core::Matrix4& proj,
                       Light* light) = 0;
 
-	virtual Drawable* clone() final;
+    virtual RenderObject* clone() final;
 
     virtual void setVisible(bool visible) final;
     virtual bool isVisible() const final;
@@ -47,18 +47,18 @@ public:
     virtual Material* getMaterial() const;
 
 	/**
-	 * @brief Get the bounding box of the drawable. 
-	 * How the bbox is computed only depends on the reimplentation of the drawable.
+     * @brief Get the bounding box of the render object.
+     * How the bbox is computed only depends on the reimplentation of the render object.
 	 * Hence, it is all the developer's responsibility to have it updated properly.
 	 *
-	 * @return The drawable bbox
+     * @return The render object bbox
 	 */
 	inline const Core::Aabb& getBoundingBox() const;
 	Core::Aabb getBoundingBoxInWorld() const;
 
 protected:
 	virtual void updateGLInternal() = 0;
-	virtual Drawable* cloneInternal() = 0;
+    virtual RenderObject* cloneInternal() = 0;
 
 protected:
     std::string m_name;
@@ -79,6 +79,6 @@ protected:
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Renderer/Drawable/Drawable.inl>
+#include <Engine/Renderer/RenderObject/RenderObject.inl>
 
-#endif // RADIUMENGINE_DRAWABLE_HPP
+#endif // RADIUMENGINE_RENDEROBJECT_HPP

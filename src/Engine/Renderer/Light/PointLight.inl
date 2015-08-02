@@ -1,3 +1,5 @@
+#include <Engine/Renderer/Light/PointLight.hpp>
+
 namespace Ra
 {
 

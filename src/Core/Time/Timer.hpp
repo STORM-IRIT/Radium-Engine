@@ -20,7 +20,7 @@ namespace Timer
 
     inline Scalar getIntervalSeconds( const TimePoint& start, const TimePoint& end)
     {
-        return (std::chrono::duration_cast<std::chrono::duration<Scalar, std::chrono::seconds::period> >(end-start)).count();
+        return (std::chrono::duration_cast<std::chrono::duration<Scalar, std::chrono::seconds::period>>(end-start)).count();
     }
     
 

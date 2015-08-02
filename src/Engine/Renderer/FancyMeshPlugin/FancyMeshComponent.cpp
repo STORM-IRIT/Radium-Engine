@@ -1,8 +1,8 @@
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshComponent.hpp>
 
 #include <Core/String/StringUtils.hpp>
-#include <Engine/Renderer/Drawable/DrawableManager.hpp>
-#include <Engine/Renderer/FancyMeshPlugin/FancyMeshDrawable.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/FancyMeshPlugin/FancyMeshRenderObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 
@@ -16,46 +16,46 @@ Engine::FancyMeshComponent::FancyMeshComponent(const std::string& name)
 
 Engine::FancyMeshComponent::~FancyMeshComponent()
 {
-	// TODO(Charly): Should we ask the drawable manager to delete our drawable ?
-	m_drawableManager->removeDrawable(m_drawable);
+    // TODO(Charly): Should we ask the RO manager to delete our render object ?
+    m_renderObjectManager->removeRenderObject(m_renderObject);
 }
 
 void Engine::FancyMeshComponent::initialize()
 {
 }
 
-void Engine::FancyMeshComponent::addMeshDrawable( const Core::TriangleMesh& mesh, const std::string& name )
+void Engine::FancyMeshComponent::addMeshRenderObject( const Core::TriangleMesh& mesh, const std::string& name )
 {
-	FancyMeshDrawable* drawable = new FancyMeshDrawable(name);
-	drawable->setComponent(this);
-	drawable->setVisible(true);
+    FancyMeshRenderObject* renderObject = new FancyMeshRenderObject(name);
+    renderObject->setComponent(this);
+    renderObject->setVisible(true);
 
     Mesh* displayMesh = new Mesh(name);
     displayMesh->loadGeometry(mesh);
-    drawable->addMesh(displayMesh);
-    drawable->setMaterial(new Material("Default"));
-    m_drawable = m_drawableManager->addDrawable(drawable);
+    renderObject->addMesh(displayMesh);
+    renderObject->setMaterial(new Material("Default"));
+    m_renderObject = m_renderObjectManager->addRenderObject(renderObject);
 }
 
-void Engine::FancyMeshComponent::addMeshDrawable( const Core::TriangleMesh& mesh, const std::string& name, Material* material )
+void Engine::FancyMeshComponent::addMeshRenderObject( const Core::TriangleMesh& mesh, const std::string& name, Material* material )
 {
-    FancyMeshDrawable* drawable = new FancyMeshDrawable(name);
-    drawable->setComponent(this);
-    drawable->setVisible(true);
-    drawable->setMaterial(material);
+    FancyMeshRenderObject* renderObject = new FancyMeshRenderObject(name);
+    renderObject->setComponent(this);
+    renderObject->setVisible(true);
+    renderObject->setMaterial(material);
 
     Mesh* displayMesh = new Mesh(name);
     displayMesh->loadGeometry(mesh);
-    drawable->addMesh(displayMesh);
-    m_drawable = m_drawableManager->addDrawable(drawable);
+    renderObject->addMesh(displayMesh);
+    m_renderObject = m_renderObjectManager->addRenderObject(renderObject);
 }
 
 
 void Engine::FancyMeshComponent::handleMeshLoading(const FancyComponentData& data)
 {
-	FancyMeshDrawable* drawable = new FancyMeshDrawable(data.name);
-	drawable->setComponent(this);
-	drawable->setVisible(true);
+    FancyMeshRenderObject* renderObject = new FancyMeshRenderObject(data.name);
+    renderObject->setComponent(this);
+    renderObject->setVisible(true);
 
 	for (uint i = 0; i < data.meshes.size(); ++i)
 	{
@@ -68,12 +68,12 @@ void Engine::FancyMeshComponent::handleMeshLoading(const FancyComponentData& dat
 		Mesh* mesh = new Mesh(meshName);
 		mesh->loadGeometry(meshData.mesh, meshData.tangents, 
 						   meshData.bitangents, meshData.texcoords);
-		drawable->addMesh(mesh);
+        renderObject->addMesh(mesh);
 	}
 
-	drawable->setMaterial(data.material);
+    renderObject->setMaterial(data.material);
 
-	m_drawable = m_drawableManager->addDrawable(drawable);
+    m_renderObject = m_renderObjectManager->addRenderObject(renderObject);
 }
 
 }

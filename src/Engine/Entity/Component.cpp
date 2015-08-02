@@ -2,7 +2,7 @@
 
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Entity/System.hpp>
-#include <Engine/Renderer/Drawable/DrawableManager.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
 namespace Ra
 {

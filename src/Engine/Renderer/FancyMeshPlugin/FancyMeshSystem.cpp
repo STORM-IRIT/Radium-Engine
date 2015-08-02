@@ -27,12 +27,7 @@ void Engine::FancyMeshSystem::initialize()
 
 void Engine::FancyMeshSystem::handleFileLoading(const std::string& filename)
 {
-	// TODO
-	printf("FancyMeshSystem::Loading file %s\n", filename.c_str());
-
 	DataVector componentsData = FancyMeshLoader::loadFile(filename);
-
-    printf("Found %zu components to create\n", componentsData.size());
 
 	for (uint i = 0; i < componentsData.size(); ++i)
 	{
@@ -57,7 +52,7 @@ Engine::Component* Engine::FancyMeshSystem::addComponentToEntity( Engine::Entity
     FancyMeshComponent* component = new FancyMeshComponent(componentName);
 
     component->setEntity(entity);
-    component->setDrawableManager(m_engine->getDrawableManager());
+    component->setRenderObjectManager(m_engine->getRenderObjectManager());
 
     entity->addComponent(component);
     this->addComponent(component);
@@ -79,7 +74,7 @@ void Engine::FancyMeshSystem::generateTasks(Core::TaskQueue * taskQueue, const E
 Engine::FancyMeshComponent * Engine::FancyMeshSystem::addDisplayMeshToEntity(Engine::Entity * entity, const Core::TriangleMesh & mesh)
 {
     FancyMeshComponent* comp = static_cast<FancyMeshComponent*> (addComponentToEntity(entity));
-    comp->addMeshDrawable(mesh, "Mesh Drawable");
+    comp->addMeshRenderObject(mesh, "Mesh RenderObject");
     return comp;
 }
 
@@ -88,7 +83,7 @@ Engine::FancyMeshComponent* Engine::FancyMeshSystem::addDisplayMeshToEntity(Engi
                                                                             Engine::Material *material)
 {
     FancyMeshComponent* comp = static_cast<FancyMeshComponent*>(addComponentToEntity(entity));
-    comp->addMeshDrawable(mesh, "Mesh Drawable", material);
+    comp->addMeshRenderObject(mesh, "Mesh RenderObject", material);
     return comp;
 }
 

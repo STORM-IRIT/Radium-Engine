@@ -9,7 +9,7 @@
 
 #include <Core/CoreMacros.hpp>
 
-#include <Engine/Renderer/Drawable/DrawableManager.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Entity/EntityManager.hpp>
 
 namespace Ra { namespace Core   { class TaskQueue;          } }
@@ -47,8 +47,8 @@ public:
     bool handleKeyEvent(const Core::KeyEvent& event);
 
 	/// Manager getters
-	DrawableManager*  getDrawableManager()  const;
-	EntityManager*    getEntityManager()    const;
+    RenderObjectManager*  getRenderObjectManager()  const;
+    EntityManager*        getEntityManager()        const;
 
 private:
     void run();
@@ -60,8 +60,8 @@ private:
 
     std::map<std::string, std::shared_ptr<System>> m_systems;
 	
-	std::unique_ptr<DrawableManager>  m_drawableManager;
-    std::unique_ptr<EntityManager>    m_entityManager;
+    std::unique_ptr<RenderObjectManager> m_renderObjectManager;
+    std::unique_ptr<EntityManager>       m_entityManager;
 
     // FIXME(Charly): Pointer to the renderer needed ?
     Renderer* m_renderer;

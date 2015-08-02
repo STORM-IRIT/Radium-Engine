@@ -21,9 +21,9 @@ Engine::Entity::~Entity()
 void Engine::Entity::addComponent(Engine::Component* component)
 {
     std::string name = component->getName();
-    char err[100];
-    snprintf(err, 100, "Component \"%s\" has already been added to the entity.", name.c_str());
-    CORE_ASSERT(m_components.find(name) == m_components.end(), err);
+    std::string err;
+    Core::StringUtils::stringPrintf(err, "Component \"%s\" has already been added to the entity.", name.c_str());
+    CORE_ASSERT(m_components.find(name) == m_components.end(), err.c_str());
 
     m_components.insert(ComponentByName(name, component));
 

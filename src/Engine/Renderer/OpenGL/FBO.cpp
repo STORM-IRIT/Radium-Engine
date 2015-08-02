@@ -2,6 +2,7 @@
 
 #include <cstdio>
 
+#include <Core/String/StringUtils.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra
@@ -152,14 +153,13 @@ void Engine::FBO::check() const
             } break;
             default:
             {
-                char buff[100];
-                snprintf(buff, 100, "Unknown %08x", fboStatus);
-                err = buff;
+                Core::StringUtils::stringPrintf(err, "Unknown %08x", fboStatus);
             }
         }
 
-        fprintf(stderr, "FBO Error : %s\n", err.c_str());
+        LOG(ERROR) << "FBO Error : " << err;
     }
+
     assert(fboStatus == GL_FRAMEBUFFER_COMPLETE && "Something went wrong with the Framebuffer.\n");
 }
 

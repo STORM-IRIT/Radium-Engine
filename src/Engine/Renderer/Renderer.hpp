@@ -12,7 +12,7 @@
 namespace Ra { namespace Core   { struct MouseEvent;          } }
 namespace Ra { namespace Core   { struct KeyEvent;            } }
 namespace Ra { namespace Engine { class Camera;               } }
-namespace Ra { namespace Engine { class Drawable;             } }
+namespace Ra { namespace Engine { class RenderObject;             } }
 namespace Ra { namespace Engine { class FBO;                  } }
 namespace Ra { namespace Engine { class Light;                } }
 namespace Ra { namespace Engine { class Mesh;                 } }
@@ -76,7 +76,7 @@ public:
      * @brief Tell the renderer it needs to render.
      * This method does the following steps :
      * <ol>
-     *   <li>call @see updateDrawablesInternal method</li>
+     *   <li>call @see updateRenderObjectsInternal method</li>
      *   <li>call @see renderInternal method</li>
      *   <li>call @see postProcessInternal method</li>
      *   <li>render the final texture in the right framebuffer*</li>
@@ -133,15 +133,15 @@ public:
 protected:
 
     /**
-     * @brief Update OpenGL stuff for the drawables that require it.
+     * @brief Update OpenGL stuff for the render objects that require it.
      * This cannot be done by the systems since they have no access to an
      * OpenGL context.
      *
      * @param renderData The basic data needed for the rendering :
      * Time elapsed since last frame, camera view matrix, camera projection matrix.
      */
-    virtual void updateDrawablesInternal(const RenderData& renderData,
-                                         const std::vector<std::shared_ptr<Drawable>>& drawables);
+    virtual void updateRenderObjectsInternal(const RenderData& renderData,
+                                             const std::vector<std::shared_ptr<RenderObject>>& renderObjects);
     /**
      * @brief All the scene rendering magics basically happens here.
      *
@@ -149,7 +149,7 @@ protected:
      * Time elapsed since last frame, camera view matrix, camera projection matrix.
      */
     virtual void renderInternal(const RenderData& renderData,
-                                const std::vector<std::shared_ptr<Drawable>>& drawables);
+                                const std::vector<std::shared_ptr<RenderObject>>& renderObjects);
 
     /**
      * @brief Do all post processing stuff. If you override this method,
@@ -160,7 +160,7 @@ protected:
      * Time elapsed since last frame, camera view matrix, camera projection matrix.
      */
     virtual void postProcessInternal(const RenderData& renderData,
-                                     const std::vector<std::shared_ptr<Drawable>>& drawables);
+                                     const std::vector<std::shared_ptr<RenderObject>>& renderObjects);
 
 private:
     void saveExternalFBOInternal();
@@ -171,7 +171,7 @@ private:
 
 protected:
     /**
-     * @brief Pointer to the engine, used to retrieve drawables.
+     * @brief Pointer to the engine, used to retrieve renderObjects.
      */
     RadiumEngine* m_engine;
 

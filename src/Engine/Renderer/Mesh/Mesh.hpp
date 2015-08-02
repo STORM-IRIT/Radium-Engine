@@ -7,7 +7,7 @@
 #include <Core/Math/Vector.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
-#include <Engine/Renderer/Drawable/Drawable.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 namespace Ra { namespace Engine {
 

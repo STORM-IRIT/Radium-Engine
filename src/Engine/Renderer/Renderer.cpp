@@ -6,6 +6,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include <Core/Log/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
@@ -132,21 +133,21 @@ void Engine::Renderer::render(const RenderData& data)
 
     m_timerData.renderStart = Core::Timer::Clock::now();
 
-    // 0. Gather drawables.
-    std::vector<std::shared_ptr<Drawable>> drawables;
+    // 0. Gather render objects.
+    std::vector<std::shared_ptr<RenderObject>> renderObjects;
 
     CORE_ASSERT(m_engine != nullptr, "no engine in renderer");
-    drawables = m_engine->getDrawableManager()->getDrawables();
+    renderObjects = m_engine->getRenderObjectManager()->getRenderObjects();
     saveExternalFBOInternal();
-    updateDrawablesInternal(data, drawables);
+    updateRenderObjectsInternal(data, renderObjects);
     m_timerData.updateEnd = Core::Timer::Clock::now();
 
     // 1. Do the rendering.
-    renderInternal(data, drawables);
+    renderInternal(data, renderObjects);
     m_timerData.mainRenderEnd = Core::Timer::Clock::now();
 
     // 2. Post processing
-    postProcessInternal(data, drawables);
+    postProcessInternal(data, renderObjects);
     m_timerData.postProcessEnd = Core::Timer::Clock::now();
 
     //3. write image to framebuffer.
@@ -159,28 +160,28 @@ void Engine::Renderer::saveExternalFBOInternal()
     GL_ASSERT(glGetIntegerv(GL_FRAMEBUFFER_BINDING, &m_qtPlz));
 }
 
-void Engine::Renderer::updateDrawablesInternal(const RenderData &renderData,
-                                               const std::vector<std::shared_ptr<Drawable> > &drawables)
+void Engine::Renderer::updateRenderObjectsInternal(const RenderData &renderData,
+                                               const std::vector<std::shared_ptr<RenderObject> > &renderObjects)
 {
     CORE_UNUSED(renderData);
 
-    for (auto& d : drawables)
+    for (auto& ro : renderObjects)
     {
-        d->updateGL();
+        ro->updateGL();
     }
 }
 
 void Engine::Renderer::renderInternal(const RenderData& renderData,
-                                      const std::vector<std::shared_ptr<Drawable>>& drawables)
+                                      const std::vector<std::shared_ptr<RenderObject>>& renderObjects)
 {
-    uint size = drawables.size();
+    uint size = renderObjects.size();
     std::vector<uint> opaque; opaque.reserve(size);
     std::vector<uint> transparent; transparent.reserve(size);
 
     // Get translucent objects
     for (uint i = 0; i < size; ++i)
     {
-        Material::MaterialType type = drawables[i]->getMaterial()->getMaterialType();
+        Material::MaterialType type = renderObjects[i]->getMaterial()->getMaterialType();
         if (type == Material::MAT_TRANSPARENT)
         {
             transparent.push_back(i);
@@ -229,15 +230,15 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
 
     for (uint i = 0; i < numOpaque; ++i)
     {
-        auto d = drawables[opaque[i]];
+        auto ro = renderObjects[opaque[i]];
         // Object ID
-        int index = d->idx.getValue();
+        int index = ro->idx.getValue();
         Scalar r = Scalar((index & 0x000000FF) >> 0) / 255.0;
         Scalar g = Scalar((index & 0x0000FF00) >> 8) / 255.0;
         Scalar b = Scalar((index & 0x00FF0000) >> 16) / 255.0;
 
         m_depthAmbientShader->setUniform("objectId", Core::Vector3(r, g, b));
-        d->draw(view, proj, m_depthAmbientShader);
+        ro->draw(view, proj, m_depthAmbientShader);
     }
 
     // Light pass
@@ -255,7 +256,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
         {
             for (uint i = 0; i < numOpaque; ++i)
             {
-                drawables[opaque[i]]->draw(view, proj, l);
+                renderObjects[opaque[i]]->draw(view, proj, l);
             }
         }
     }
@@ -266,7 +267,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
 
         for (uint i = 0; i < numOpaque; ++i)
         {
-            drawables[opaque[i]]->draw(view, proj, &l);
+            renderObjects[opaque[i]]->draw(view, proj, &l);
         }
     }
 
@@ -292,7 +293,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
 
     for (uint i = 0; i < numTransparent; ++i)
     {
-        drawables[transparent[i]]->draw(view, proj, m_oiTransparencyShader);
+        renderObjects[transparent[i]]->draw(view, proj, m_oiTransparencyShader);
     }
 
     GL_ASSERT(glDisable(GL_BLEND));
@@ -329,10 +330,10 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
 }
 
 void Engine::Renderer::postProcessInternal(const RenderData &renderData,
-                                           const std::vector<std::shared_ptr<Drawable>>& drawables)
+                                           const std::vector<std::shared_ptr<RenderObject>>& renderObjects)
 {
     CORE_UNUSED(renderData);
-    CORE_UNUSED(drawables);
+    CORE_UNUSED(renderObjects);
 
     // This pass does nothing by default
 
@@ -686,7 +687,7 @@ void Engine::Renderer::handleFileLoading(const std::string &filename)
             case aiLightSource_UNDEFINED:
             default:
             {
-                fprintf(stderr, "Light %s has undefined type.\n", name.C_Str());
+                LOG(ERROR) << "Light " << name.C_Str() << " has undefined type.";
             } break;
         }
     }

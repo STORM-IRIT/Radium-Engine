@@ -1,4 +1,4 @@
-#include <Engine/Renderer/Drawable/Drawable.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
@@ -7,7 +7,7 @@
 namespace Ra
 {
 
-Engine::Drawable::Drawable(const std::string& name)
+Engine::RenderObject::RenderObject(const std::string& name)
 	: IndexedObject()
 	, m_name(name)
 	, m_material(nullptr)
@@ -16,25 +16,25 @@ Engine::Drawable::Drawable(const std::string& name)
 {
 }
 
-Engine::Drawable::~Drawable()
+Engine::RenderObject::~RenderObject()
 {
 }
 
-void Engine::Drawable::updateGL()
+void Engine::RenderObject::updateGL()
 {
 	// Do not update while we are cloning
 	std::lock_guard<std::mutex> lock(m_updateMutex);
 	updateGLInternal();
 }
 
-Engine::Drawable* Engine::Drawable::clone()
+Engine::RenderObject* Engine::RenderObject::clone()
 {
 	// Do not clone while we are updating GL internals
 	std::lock_guard<std::mutex> lock(m_updateMutex);
 	return cloneInternal();
 }
 
-Core::Aabb Engine::Drawable::getBoundingBoxInWorld() const
+Core::Aabb Engine::RenderObject::getBoundingBoxInWorld() const
 {
 	Core::Vector3 minBox = m_boundingBox.min();
 	Core::Vector3 maxBox = m_boundingBox.max();

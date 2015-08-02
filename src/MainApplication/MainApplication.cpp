@@ -5,6 +5,7 @@
 #include <iostream>
 #include <QTimer>
 
+#include <Core/Log/Log.hpp>
 #include <Core/String/StringUtils.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Core/Math/Vector.hpp>
@@ -29,29 +30,33 @@ namespace Ra
         , m_viewer(nullptr)
         , m_frameTimer(new QTimer(this))
         , m_frameCounter(0)
+        , m_timerData(TIMER_AVERAGE)
     {
         // Boilerplate print.
 
-        std::cerr << "*** Radium Engine Main App  ***" << std::endl;
+        LOG(INFO) << "*** Radium Engine Main App  ***";
+        std::stringstream config;
 #if defined (CORE_DEBUG)
-        std::cerr << "(Debug Build) -- ";
+        config << "(Debug Build) -- ";
 #else
-        std::cerr<<"(Release Build) -- ";
+        config << "(Release Build) -- ";
 #endif
 
 #if defined (ARCH_X86)
-        std::cerr<<" 32 bits x86";
+        config <<" 32 bits x86";
 #elif defined (ARCH_X64)
-        std::cerr << " 64 bits x64";
+        config << " 64 bits x64";
 #endif
-        std::cerr << std::endl;
+        LOG(INFO) << config.str();
 
-        std::cerr << "Floating point format : ";
+        config.str(std::string());
+        config << "Floating point format : ";
 #if defined(CORE_USE_DOUBLE)
-        std::cerr<<"double precision"<<std::endl;
+        config << "double precision" << std::endl;
 #else
-        std::cerr << "single precision" << std::endl;
+        config << "single precision" << std::endl;
 #endif
+        LOG(INFO) << config.str();
 
         // Handle command line arguments.
         // TODO ( e.g fps limit ) / Keep or not timer data .
@@ -112,14 +117,14 @@ namespace Ra
 
 		if (res)
 		{
-			auto drawables = m_engine->getDrawableManager()->getDrawables();
+            auto renderObjects = m_engine->getRenderObjectManager()->getRenderObjects();
 
 			Core::Aabb sceneBBox;
 			sceneBBox.setEmpty();
 
-			for (const auto& drawable : drawables)
+            for (const auto& ro : renderObjects)
 			{
-				sceneBBox.extend(drawable->getBoundingBoxInWorld());
+                sceneBBox.extend(ro->getBoundingBoxInWorld());
 			}
 
 			emit(sceneChanged(sceneBBox));
@@ -129,7 +134,7 @@ namespace Ra
     void MainApplication::viewerReady(Gui::Viewer* viewer)
     {
         m_viewer = viewer;
-        CORE_ASSERT( m_viewer->parent()->parent() == m_mainWindow.get(), "Viewer is not setup");
+        CORE_ASSERT(m_viewer->parent()->parent() == m_mainWindow.get(), "Viewer is not setup");
     }
 
     void MainApplication::radiumFrame()
@@ -176,24 +181,25 @@ namespace Ra
         // 5. Frame end.
         timerData.frameEnd = Core::Timer::Clock::now();
         timerData.numFrame = m_frameCounter;
-        m_timerData.push_back(timerData);
+        m_timerData.addFrame(timerData);
         ++m_frameCounter;
 
         // Dump timer data if requested.
-        if (TIMER_AVERAGE == 1)
-        {
-            FrameTimerData::printTimerData(timerData);
-        }
-        else if (TIMER_AVERAGE > 1 && m_frameCounter % TIMER_AVERAGE == 0)
-        {
-            FrameTimerData::printAverageTimerData(m_timerData);
-            m_timerData.clear();
-        }
+        LOG_EVERY_N(TIMER_AVERAGE, INFO) << m_timerData;
+//        if (TIMER_AVERAGE == 1)
+//        {
+//            FrameTimerData::printTimerData(timerData);
+//        }
+//        else if (TIMER_AVERAGE > 1 && m_frameCounter % TIMER_AVERAGE == 0)
+//        {
+//            FrameTimerData::printAverageTimerData(m_timerData);
+//            m_timerData.clear();
+//        }
     }
 
     MainApplication::~MainApplication()
     {
-        fprintf(stderr, "About to quit... Cleaning RadiumEngine memory.\n");
+        LOG(INFO) << "About to quit... Cleaning RadiumEngine memory";
         emit stopping();
         m_engine->cleanup();
     }

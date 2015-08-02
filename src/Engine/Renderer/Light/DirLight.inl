@@ -1,3 +1,5 @@
+#include <Engine/Renderer/Light/DirLight.hpp>
+
 namespace Ra
 {
 

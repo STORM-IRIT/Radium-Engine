@@ -1,3 +1,5 @@
+#include <Engine/Renderer/Material/Material.hpp>
+
 namespace Ra
 {
 

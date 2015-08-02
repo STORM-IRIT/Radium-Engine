@@ -105,34 +105,34 @@
              </size>
             </property>
             <property name="currentIndex">
-             <number>2</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="tab">
              <attribute name="title">
-              <string>Drawables</string>
+              <string>Render objects</string>
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_5">
               <item>
-               <widget class="QListView" name="m_drawablesListView"/>
+               <widget class="QListView" name="m_renderObjectsListView"/>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
-                 <widget class="QPushButton" name="m_refreshDrawableButton">
+                 <widget class="QPushButton" name="m_refreshRenderObjectButton">
                   <property name="text">
                    <string>Refresh</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="m_toggleDrawableButton">
+                 <widget class="QPushButton" name="m_toggleRenderObjectButton">
                   <property name="text">
                    <string>Toggle</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="m_removeDrawableButton">
+                 <widget class="QPushButton" name="m_removeRenderObjectButton">
                   <property name="text">
                    <string>Remove</string>
                   </property>

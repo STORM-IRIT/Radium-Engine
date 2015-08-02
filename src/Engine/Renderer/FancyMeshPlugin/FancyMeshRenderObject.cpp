@@ -1,15 +1,16 @@
-#include <Engine/Renderer/FancyMeshPlugin/FancyMeshDrawable.hpp>
+#include <Engine/Renderer/FancyMeshPlugin/FancyMeshRenderObject.hpp>
 
 #include <cstdio>
 #include <iostream>
 
 #include <Core/CoreMacros.hpp>
+#include <Core/Log/Log.hpp>
 #include <Core/Math/Vector.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
-#include <Engine/Renderer/Drawable/Drawable.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/Shader/ShaderProgram.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -17,12 +18,12 @@
 namespace Ra
 {
 
-Engine::FancyMeshDrawable::FancyMeshDrawable(const std::string& name)
-    : Engine::Drawable(name)
+Engine::FancyMeshRenderObject::FancyMeshRenderObject(const std::string& name)
+    : Engine::RenderObject(name)
 {
 }
 
-Engine::FancyMeshDrawable::~FancyMeshDrawable()
+Engine::FancyMeshRenderObject::~FancyMeshRenderObject()
 {
     for (auto& mesh : m_meshes)
     {
@@ -34,7 +35,7 @@ Engine::FancyMeshDrawable::~FancyMeshDrawable()
     m_meshes.clear();
 }
 
-void Engine::FancyMeshDrawable::draw(const Core::Matrix4& viewMatrix,
+void Engine::FancyMeshRenderObject::draw(const Core::Matrix4& viewMatrix,
                                      const Core::Matrix4& projMatrix,
                                      ShaderProgram *shader)
 {
@@ -54,7 +55,7 @@ void Engine::FancyMeshDrawable::draw(const Core::Matrix4& viewMatrix,
     }
 }
 
-void Engine::FancyMeshDrawable::draw(const Core::Matrix4& viewMatrix,
+void Engine::FancyMeshRenderObject::draw(const Core::Matrix4& viewMatrix,
                                      const Core::Matrix4& projMatrix,
                                      Light* light)
 {
@@ -92,13 +93,13 @@ void Engine::FancyMeshDrawable::draw(const Core::Matrix4& viewMatrix,
     }
 }
 
-void Engine::FancyMeshDrawable::addMesh(Mesh* mesh)
+void Engine::FancyMeshRenderObject::addMesh(Mesh* mesh)
 {
     std::string name = mesh->getName();
 
     if (m_meshes.find(name) != m_meshes.end())
     {
-        fprintf(stderr, "Warning, mesh %s has already been added.\n", name.c_str());
+        LOG(DEBUG) << "Warning, mesh " << name << " has already been added.";
         return;
     }
 
@@ -107,28 +108,27 @@ void Engine::FancyMeshDrawable::addMesh(Mesh* mesh)
 	recomputeBbox();
 }
 
-void Engine::FancyMeshDrawable::removeMesh(const std::string& name)
+void Engine::FancyMeshRenderObject::removeMesh(const std::string& name)
 {
     auto mesh = m_meshes.find(name);
     if (mesh == m_meshes.end())
     {
-        fprintf(stderr, "Warning, mesh %s does not exist.\n", name.c_str());
+        LOG(DEBUG) << "Warning, " << name << " does not exist.";
         return;
     }
 
-    CORE_ASSERT(mesh->second.unique(), "Non-unique mesh about to be removed.");
     mesh->second.reset();
     m_meshes.erase(mesh);
 
 	recomputeBbox();
 }
 
-void Engine::FancyMeshDrawable::removeMesh(Engine::Mesh* mesh)
+void Engine::FancyMeshRenderObject::removeMesh(Engine::Mesh* mesh)
 {
     removeMesh(mesh->getName());
 }
 
-Engine::Mesh* Engine::FancyMeshDrawable::getMesh(const std::string &name) const
+Engine::Mesh* Engine::FancyMeshRenderObject::getMesh(const std::string &name) const
 {
     auto mesh = m_meshes.find(name);
     Engine::Mesh* ret = nullptr;
@@ -141,7 +141,7 @@ Engine::Mesh* Engine::FancyMeshDrawable::getMesh(const std::string &name) const
     return ret;
 }
 
-void Engine::FancyMeshDrawable::updateGLInternal()
+void Engine::FancyMeshRenderObject::updateGLInternal()
 {
     CORE_ASSERT(m_material, "No material");
 	m_material->updateGL();
@@ -153,10 +153,10 @@ void Engine::FancyMeshDrawable::updateGLInternal()
 	m_isDirty = false;
 }
 
-Engine::Drawable* Engine::FancyMeshDrawable::cloneInternal()
+Engine::RenderObject* Engine::FancyMeshRenderObject::cloneInternal()
 {
 	// FIXME(Charly): Did I forget to clone something ?
-	FancyMeshDrawable* drawable = new FancyMeshDrawable(m_name);
+    FancyMeshRenderObject* renderObject = new FancyMeshRenderObject(m_name);
 
 	for (const auto& it : m_meshes)
 	{
@@ -167,19 +167,19 @@ Engine::Drawable* Engine::FancyMeshDrawable::cloneInternal()
 							  oldMesh->getBitangents(),
 							  oldMesh->getTexcoords());
 
-		drawable->addMesh(newMesh);
+        renderObject->addMesh(newMesh);
 	}
 
 	// FancyMesh materials do not require particular attention,
 	// just share the pointer.
-	drawable->setMaterial(m_material);
-	drawable->setVisible(m_visible);
-	drawable->setComponent(m_component);
+    renderObject->setMaterial(m_material);
+    renderObject->setVisible(m_visible);
+    renderObject->setComponent(m_component);
 
-	return drawable;
+    return renderObject;
 }
 
-void Engine::FancyMeshDrawable::recomputeBbox()
+void Engine::FancyMeshRenderObject::recomputeBbox()
 {
 	m_boundingBox.setEmpty();
 
@@ -189,7 +189,7 @@ void Engine::FancyMeshDrawable::recomputeBbox()
 	}
 }
 
-//void Engine::FancyMeshDrawable::setSelected(bool selected)
+//void Engine::FancyMeshRenderObject::setSelected(bool selected)
 //{
 //    m_isSelected = selected;
 

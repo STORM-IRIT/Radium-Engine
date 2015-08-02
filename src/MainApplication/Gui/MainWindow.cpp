@@ -5,7 +5,7 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 
-
+#include <Core/Log/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <MainApplication/Gui/EntityTreeModel.hpp>
@@ -74,12 +74,12 @@ void Gui::MainWindow::createConnections()
 
 void Gui::MainWindow::activated(QModelIndex index)
 {
-    fprintf(stderr, "Activated item %d %d\n", index.row(), index.column());
+    LOG(DEBUG) << "Activated item " << index.row() << " " << index.column();
 }
 
 void Gui::MainWindow::clicked(QModelIndex index)
 {
-    fprintf(stderr, "Clicked item %d %d\n", index.row(), index.column());
+    LOG(DEBUG) << "Clicked item " << index.row() << " " << index.column();
 }
 
 void Gui::MainWindow::entitiesUpdated()

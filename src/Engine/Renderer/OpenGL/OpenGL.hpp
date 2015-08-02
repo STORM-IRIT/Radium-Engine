@@ -14,7 +14,7 @@
 #include <GL/glu.h>
 #include <GL/glext.h>
 
-#include <cstdio>
+#include <Core/Log/Log.hpp>
 
 namespace Ra { namespace Engine {
 
@@ -25,11 +25,13 @@ namespace Ra { namespace Engine {
         if (err != GL_NO_ERROR) { \
             const GLubyte* errBuf = gluErrorString(err); \
             if (errBuf == nullptr) \
-                fprintf(stderr, "OpenGL error (%s:%d, %s) : ERROR_UNKNOWN_BY_GLU (0x%04x)\n", \
-						__FILE__, __LINE__, __STRING(x), err); \
+                LOG(ERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
+                           << ", " << __STRING(x) << ") : ERROR_UNKNOWN_BY_GLU (" \
+                           << err << " : 0x" << std::hex << err << std::dec << ")."; \
 			else \
-                fprintf(stderr, "OpenGL error (%s:%d, %s) : %s (0x%04x)\n", \
-						__FILE__, __LINE__, __STRING(x), errBuf, err); \
+                LOG(ERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
+                           << ", " << __STRING(x) << ") : " << errBuf << "(" \
+                           << err << " : 0x" << std::hex << err << std::dec << ")."; \
 		} \
     }
 
@@ -37,8 +39,9 @@ namespace Ra { namespace Engine {
     {\
         GLuint err = glGetError(); \
         if (err != GL_NO_ERROR) { \
-            fprintf(stderr, "OpenGL error (%s:%d, glCheckError()) : %s (0x%04x).\n",\
-                    __FILE__, __LINE__, gluErrorString(err), err);\
+            LOG(ERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
+                       << ", glCheckError()) : " << gluErrorString(err) << "(" \
+                       << err << " : 0x" << std::hex << err << std::dec << ")."; \
 	    } \
     }
 

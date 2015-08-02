@@ -4,6 +4,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include <Core/Log/Log.hpp>
 #include <Core/Math/Vector.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
@@ -17,10 +18,6 @@
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/SpotLight.hpp>
 #include <Engine/Renderer/Light/PointLight.hpp>
-
-// FIXME(Charly): Many stuff to fix here to have the compatibility with the new
-//                Drawables architecture.
-// FIXME(Charly): Shouldn't MeshLoader move into the FancyMeshPlugin ?
 
 namespace Ra
 {
@@ -55,8 +52,6 @@ void loadDefaultMaterial(Engine::FancyComponentData& data);
 
 DataVector Engine::FancyMeshLoader::loadFile(const std::string & name)
 {
-    fprintf(stderr, "Loading file \"%s\"...\n", name.c_str());
-
 	dataVector.clear();
 
     Assimp::Importer importer;
@@ -70,20 +65,18 @@ DataVector Engine::FancyMeshLoader::loadFile(const std::string & name)
                                              aiProcess_GenUVCoords);
     if (!scene)
     {
-        fprintf(stderr, "Error while loading file \"%s\" :\n\t%s.\n",
-                 name.c_str(), importer.GetErrorString());
+        LOG(ERROR) << "Error while loading file \"" << name << "\" : " << importer.GetErrorString() << ".";
         return dataVector;
     }
 
-    fprintf(stderr, "About to load file %s :\n", name.c_str());
-    fprintf(stderr, "\tFound %d meshes and %d materials\n", scene->mNumMeshes, scene->mNumMaterials);
+    LOG(DEBUG) << "About to load file " << name;
+    LOG(DEBUG) << "Found " << scene->mNumMeshes << " meshes and " << scene->mNumMaterials << " materials.";
 
     filepath = Core::StringUtils::getDirName(name);
-    fprintf(stderr, "Path : %s\n", filepath.c_str());
 
     runThroughNodes(scene->mRootNode, scene, Core::Matrix4::Identity());
 
-    fprintf(stderr, "Loaded successfully. Vector size : %zu\n", dataVector.size());
+    LOG(DEBUG) << "File " << name << " loaded successfully (" << dataVector.size() << " items to load).";
 
 	return dataVector;
 }

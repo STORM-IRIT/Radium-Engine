@@ -6,6 +6,7 @@
 #include <cstdio>
 #include <iostream>
 
+#include <Core/Log/Log.hpp>
 #include <Core/String/StringUtils.hpp>
 #include <Core/Event/EventEnums.hpp>
 #include <Core/Event/KeyEvent.hpp>
@@ -14,7 +15,6 @@
 #include <Engine/Entity/System.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Renderer/Mesh/MeshLoader.hpp>
 
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshSystem.hpp>
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshComponent.hpp>
@@ -28,6 +28,7 @@ namespace Ra
 Engine::RadiumEngine::RadiumEngine()
     : m_quit(false)
 {
+    LOG(INFO) << "Engine starting...";
 }
 
 Engine::RadiumEngine::~RadiumEngine()
@@ -36,7 +37,7 @@ Engine::RadiumEngine::~RadiumEngine()
 
 void Engine::RadiumEngine::initialize()
 {
-	m_drawableManager.reset(new DrawableManager);
+    m_renderObjectManager.reset(new RenderObjectManager);
 	m_entityManager.reset(new EntityManager);
 
     // FIXME(Charly): FancyMeshSystem should not be initialized here.
@@ -126,7 +127,7 @@ void Engine::RadiumEngine::cleanup()
     }
 
 	m_entityManager.reset();
-    m_drawableManager.reset();
+    m_renderObjectManager.reset();
 }
 
 void Engine::RadiumEngine::getTasks(Core::TaskQueue* taskQueue,  Scalar dt)
@@ -188,9 +189,9 @@ bool Engine::RadiumEngine::handleMouseEvent(const Core::MouseEvent &event)
     return false;
 }
 
-Engine::DrawableManager* Engine::RadiumEngine::getDrawableManager() const
+Engine::RenderObjectManager* Engine::RadiumEngine::getRenderObjectManager() const
 {
-	return m_drawableManager.get(); 
+    return m_renderObjectManager.get();
 }
 
 Engine::EntityManager* Engine::RadiumEngine::getEntityManager() const

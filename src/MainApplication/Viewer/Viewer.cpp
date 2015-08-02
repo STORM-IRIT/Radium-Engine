@@ -7,6 +7,7 @@
 #include <QPainter>
 
 #include <Core/String/StringUtils.hpp>
+#include <Core/Log/Log.hpp>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Entity/Component.hpp>
@@ -109,11 +110,11 @@ void Gui::Viewer::initializeGL()
 {
     initializeOpenGLFunctions();
 
-    std::cerr<<"***Radium Engine Viewer***"<<std::endl;
-    std::cerr<<"Renderer : " << glGetString(GL_RENDERER)<<std::endl;
-    std::cerr<<"Vendor   : " << glGetString(GL_VENDOR)<<std::endl;
-    std::cerr<<"OpenGL   : " << glGetString(GL_VERSION)<<std::endl;
-    std::cerr<<"GLSL     : " << glGetString(GL_SHADING_LANGUAGE_VERSION)<<std::endl;
+    LOG(INFO) << "***Radium Engine Viewer***";
+    LOG(INFO) <<"Renderer : " << glGetString(GL_RENDERER);
+    LOG(INFO) <<"Vendor   : " << glGetString(GL_VENDOR);
+    LOG(INFO) <<"OpenGL   : " << glGetString(GL_VERSION);
+    LOG(INFO) <<"GLSL     : " << glGetString(GL_SHADING_LANGUAGE_VERSION);
 
 #if defined (OS_WINDOWS)
     glewExperimental = GL_TRUE;
@@ -127,16 +128,16 @@ void Gui::Viewer::initializeGL()
     }
     else
     {
-        std::cout << "GLEW     : " << glewGetString(GLEW_VERSION) << std::endl;
+        LOG(INFO) << "GLEW     : " << glewGetString(GLEW_VERSION);
         GL_CHECK_ERROR;
     }
 
 #endif
 
 #if defined(FORCE_RENDERING_ON_MAIN_THREAD)
-    std::cerr<<"Rendering on main thread"<<std::endl;
+    LOG(DEBUG) << "Rendering on main thread";
 #else
-    std::cerr<<"Rendering on dedicated thread"<<std::endl;
+    LOG(DEBUG) << "Rendering on dedicated thread";
 #endif
     m_renderer.reset(new Engine::Renderer(width(), height()));
     m_renderer->initialize();
@@ -210,7 +211,7 @@ void Gui::Viewer::mousePressEvent(QMouseEvent* event)
             m_renderer->lockRendering();
             makeCurrent();
             int clicked = m_renderer->checkPicking(event->x(), height() - event->y());
-            fprintf(stderr, "Clicked object %d\n", clicked);
+            LOG(DEBUG) << "Clicked object " << clicked;
             doneCurrent();
             m_renderer->unlockRendering();
         } break;

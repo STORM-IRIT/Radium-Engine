@@ -1,3 +1,5 @@
+#include <Engine/Entity/Component.hpp>
+
 namespace Ra
 {
 
@@ -11,9 +13,9 @@ inline const Engine::Entity* Engine::Component::getEntity() const
     return m_entity;
 }
 
-inline void Engine::Component::setDrawableManager(DrawableManager* manager)
+inline void Engine::Component::setRenderObjectManager(RenderObjectManager* manager)
 {
-    m_drawableManager = manager;
+    m_renderObjectManager = manager;
 }
 
 inline void Engine::Component::setSelected(bool selected)

@@ -1,5 +1,5 @@
-#ifndef FANCYMESHPLUGIN_FANCYMESHDRAWABLE_HPP
-#define FANCYMESHPLUGIN_FANCYMESHDRAWABLE_HPP
+#ifndef FANCYMESHPLUGIN_FANCYMESHRENDEROBJECT_HPP
+#define FANCYMESHPLUGIN_FANCYMESHRENDEROBJECT_HPP
 
 #include <map>
 #include <vector>
@@ -7,7 +7,7 @@
 #include <memory>
 
 #include <Core/Math/Vector.hpp>
-#include <Engine/Renderer/Drawable/Drawable.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 namespace Ra { namespace Engine { class ShaderProgram; } }
 namespace Ra { namespace Engine { class Material;      } }
@@ -17,11 +17,11 @@ namespace Ra { namespace Engine { class Mesh;          } }
 // FIXME(Charly): Do we really want this to be in Engine namespace ? 
 namespace Ra { namespace Engine {
 
-class RA_API FancyMeshDrawable : public Drawable
+class RA_API FancyMeshRenderObject : public RenderObject
 {
 public:
-    FancyMeshDrawable(const std::string& name);
-    virtual ~FancyMeshDrawable();
+    FancyMeshRenderObject(const std::string& name);
+    virtual ~FancyMeshRenderObject();
 
     virtual void draw(const Core::Matrix4& viewMatrix,
                       const Core::Matrix4& projMatrix,
@@ -31,41 +31,16 @@ public:
                       const Core::Matrix4& projMatrix,
                       Light* light) override;
 
-    /**
-     * @brief Attach a drawable to a DrawableComponent.
-     * The DrawableComponent takes drawable ownership.
-     * @param drawable The drawable to attach.
-     */
     void addMesh(Mesh* mesh);
-
-    /**
-     * @brief Remove a drawable.
-     * This method also deletes the drawable since DrawableComponent
-     * has drawables responsibility.
-     * @param name Drawable to remove.
-     */
-    void removeMesh(Mesh* drawable);
-
-    /**
-     * @brief Remove a drawable given its name.
-     * This method also deletes the drawable since DrawableComponent
-     * has drawables responsibility.
-     * @param name Name of the drawable to remove.
-     */
+    void removeMesh(Mesh* mesh);
     void removeMesh(const std::string& name);
-
-    /**
-     * @brief Get a drawable given its name.
-     * @param name Name of the drawable to retrieve.
-     * @return The corresponding drawable if found in the map, nullptr otherwise.
-     */
     Mesh* getMesh(const std::string& name) const;
 
 //    virtual void setSelected(bool selected);
 
 protected:
 	virtual void updateGLInternal() override;
-	virtual Drawable* cloneInternal() override;
+    virtual RenderObject* cloneInternal() override;
 
 private:
 	void recomputeBbox();
@@ -78,4 +53,4 @@ private:
 } // namespace Engine
 } // namespace Ra
 
-#endif // RADIUMENGINE_DRAWABLECOMPONENT_HPP
+#endif // RADIUMENGINE_RENDEROBJECTCOMPONENT_HPP
