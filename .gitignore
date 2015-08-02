@@ -53,6 +53,7 @@
 *.png
 *.gif
 *.tif
+!RadiumIcon.png
 
 # Compressed asset files
 *.zip

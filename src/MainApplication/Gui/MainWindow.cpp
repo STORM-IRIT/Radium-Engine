@@ -19,6 +19,9 @@ Gui::MainWindow::MainWindow(QWidget* parent)
 {
     setupUi(this);
 
+    setWindowIcon(QPixmap("../Assets/Images/RadiumIcon.png"));
+    setWindowTitle(QString("Radium Engine"));
+
     QStringList headers;
     headers << tr("Entities -> Components");
     m_entityTreeModel = new EntityTreeModel(headers);
