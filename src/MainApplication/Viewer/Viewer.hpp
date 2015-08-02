@@ -12,7 +12,7 @@
 #include <QOpenGLFunctions>
 #include <QThread>
 
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/RadiumEngine.hpp>
 
 // Uncomment this to deactivate multi-threaded rendering.

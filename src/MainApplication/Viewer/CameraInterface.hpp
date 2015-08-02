@@ -8,7 +8,7 @@
 #include <QMouseEvent>
 
 #include <Core/CoreMacros.hpp>
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 
 namespace Ra { namespace Core   { struct MouseEvent; } }
 namespace Ra { namespace Core   { struct KeyEvent; } }

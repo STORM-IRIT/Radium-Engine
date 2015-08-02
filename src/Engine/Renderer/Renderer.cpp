@@ -8,6 +8,7 @@
 
 #include <Core/Log/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
 #include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
@@ -20,6 +21,7 @@
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/PointLight.hpp>
 #include <Engine/Renderer/Light/SpotLight.hpp>
+#include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
 
@@ -227,19 +229,22 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     GL_ASSERT(glDrawBuffers(4, buffers)); // Draw ambient, position, normal, picking
 
     m_depthAmbientShader->bind();
+    RenderQueue queue;
+    CORE_ERROR("Render queue has to be implemented.");
+    queue.render(m_depthAmbientShader);
 
-    for (uint i = 0; i < numOpaque; ++i)
-    {
-        auto ro = renderObjects[opaque[i]];
-        // Object ID
-        int index = ro->idx.getValue();
-        Scalar r = Scalar((index & 0x000000FF) >> 0) / 255.0;
-        Scalar g = Scalar((index & 0x0000FF00) >> 8) / 255.0;
-        Scalar b = Scalar((index & 0x00FF0000) >> 16) / 255.0;
+//    for (uint i = 0; i < numOpaque; ++i)
+//    {
+//        auto ro = renderObjects[opaque[i]];
+//        // Object ID
+//        int index = ro->idx.getValue();
+//        Scalar r = Scalar((index & 0x000000FF) >> 0) / 255.0;
+//        Scalar g = Scalar((index & 0x0000FF00) >> 8) / 255.0;
+//        Scalar b = Scalar((index & 0x00FF0000) >> 16) / 255.0;
 
-        m_depthAmbientShader->setUniform("objectId", Core::Vector3(r, g, b));
-        ro->draw(view, proj, m_depthAmbientShader);
-    }
+//        m_depthAmbientShader->setUniform("objectId", Core::Vector3(r, g, b));
+//        ro->draw(view, proj, m_depthAmbientShader);
+//    }
 
     // Light pass
     GL_ASSERT(glDepthFunc(GL_LEQUAL));
@@ -250,14 +255,14 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
 
     GL_ASSERT(glDrawBuffers(1, buffers + 4)); // Draw color texture
 
+    CORE_ERROR("Render queue has to be implemented.");
     if (m_lights.size() > 0)
     {
         for (const auto& l : m_lights)
         {
-            for (uint i = 0; i < numOpaque; ++i)
-            {
-                renderObjects[opaque[i]]->draw(view, proj, l);
-            }
+            // TODO(Charly): Light render params
+            RenderParameters params;
+            queue.render(params);
         }
     }
     else
@@ -265,10 +270,9 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
         DirectionalLight l;
         l.setDirection(Core::Vector3(0.3f, 1, 0));
 
-        for (uint i = 0; i < numOpaque; ++i)
-        {
-            renderObjects[opaque[i]]->draw(view, proj, &l);
-        }
+        // TODO(Charly): Light render params
+        RenderParameters params;
+        queue.render(params);
     }
 
     m_fbo->unbind();
@@ -291,10 +295,9 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     // FIXME(Charly): weight parameter tweakability ?
     m_oiTransparencyShader->setUniform("depthScale", Scalar(0.5));
 
-    for (uint i = 0; i < numTransparent; ++i)
-    {
-        renderObjects[transparent[i]]->draw(view, proj, m_oiTransparencyShader);
-    }
+    CORE_ERROR("Transparent render queue.");
+    RenderQueue transparentQueue;
+    transparentQueue.render(m_oiTransparencyShader);
 
     GL_ASSERT(glDisable(GL_BLEND));
 
@@ -310,7 +313,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     m_renderpassCompositingShader->setUniform("ambient", m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT].get(), 0);
     m_renderpassCompositingShader->setUniform("color", m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED].get(), 1);
     m_renderpassCompositingShader->setUniform("renderpass", 0);
-    m_quadMesh->draw();
+    m_quadMesh->render();
 
     GL_ASSERT(glEnable(GL_BLEND));
     GL_ASSERT(glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA));
@@ -318,7 +321,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     m_renderpassCompositingShader->setUniform("oitSumColor", m_oitTextures[OITPASS_TEXTURE_ACCUM].get(), 2);
     m_renderpassCompositingShader->setUniform("oitSumWeight", m_oitTextures[OITPASS_TEXTURE_REVEALAGE].get(), 3);
     m_renderpassCompositingShader->setUniform("renderpass", 1);
-    m_quadMesh->draw();
+    m_quadMesh->render();
 
     GL_ASSERT(glDepthFunc(GL_LESS));
 
@@ -354,7 +357,7 @@ void Engine::Renderer::postProcessInternal(const RenderData &renderData,
     m_postprocessShader->bind();
     m_postprocessShader->setUniform("renderpassColor", m_renderpassTexture.get(), 0);
 
-    m_quadMesh->draw();
+    m_quadMesh->render();
 
     GL_ASSERT(glDepthFunc(GL_LESS));
 
@@ -397,7 +400,7 @@ void Engine::Renderer::drawScreenInternal()
     m_drawScreenShader->setUniform("oitAccum", m_oitTextures[OITPASS_TEXTURE_ACCUM].get(), 8);
     m_drawScreenShader->setUniform("oitRevealage", m_oitTextures[OITPASS_TEXTURE_REVEALAGE].get(), 9);
 
-    m_quadMesh->draw();
+    m_quadMesh->render();
 
 	GL_ASSERT(glDepthFunc(GL_LESS));
 }

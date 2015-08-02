@@ -6,7 +6,7 @@
 #include <mutex>
 #include <memory>
 #include <chrono>
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Time/Timer.hpp>
 
 namespace Ra { namespace Core   { struct MouseEvent;          } }

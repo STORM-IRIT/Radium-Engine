@@ -8,7 +8,7 @@
 #include <Core/Log/Log.hpp>
 #include <Core/String/StringUtils.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -114,21 +114,6 @@ namespace Ra
         std::string pathStr = path.toLocal8Bit().data();
         bool res = m_engine->loadFile(pathStr);
         m_viewer->handleFileLoading(pathStr);
-
-		if (res)
-		{
-            auto renderObjects = m_engine->getRenderObjectManager()->getRenderObjects();
-
-			Core::Aabb sceneBBox;
-			sceneBBox.setEmpty();
-
-            for (const auto& ro : renderObjects)
-			{
-                sceneBBox.extend(ro->getBoundingBoxInWorld());
-			}
-
-			emit(sceneChanged(sceneBBox));
-		}
     }
 
     void MainApplication::viewerReady(Gui::Viewer* viewer)

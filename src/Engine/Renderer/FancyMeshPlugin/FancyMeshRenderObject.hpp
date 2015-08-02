@@ -1,12 +1,13 @@
 #ifndef FANCYMESHPLUGIN_FANCYMESHRENDEROBJECT_HPP
 #define FANCYMESHPLUGIN_FANCYMESHRENDEROBJECT_HPP
 
+#if 0
 #include <map>
 #include <vector>
 #include <string>
 #include <memory>
 
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 namespace Ra { namespace Engine { class ShaderProgram; } }
@@ -53,4 +54,5 @@ private:
 } // namespace Engine
 } // namespace Ra
 
+#endif
 #endif // RADIUMENGINE_RENDEROBJECTCOMPONENT_HPP

@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_LIGHT_HPP
 #define RADIUMENGINE_LIGHT_HPP
 
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 
 namespace Ra { namespace Engine { class ShaderProgram; } }
 

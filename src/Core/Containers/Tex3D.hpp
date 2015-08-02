@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_TEX3D_HPP
 #define RADIUMENGINE_TEX3D_HPP
 
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/Grid.hpp>
 
 namespace Ra { namespace Core

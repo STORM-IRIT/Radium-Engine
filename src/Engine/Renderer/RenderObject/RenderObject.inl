@@ -3,6 +3,16 @@
 namespace Ra
 {
 
+inline void Engine::RenderObject::setRenderObjectType(uint type)
+{
+    m_type = type;
+}
+
+inline uint Engine::RenderObject::getRenderObjectType() const
+{
+    return m_type;
+}
+
 inline const std::string& Engine::RenderObject::getName() const
 {
 	return m_name;
@@ -10,13 +20,11 @@ inline const std::string& Engine::RenderObject::getName() const
 
 inline void Engine::RenderObject::setVisible(bool visible)
 {
-    std::lock_guard<std::mutex> lock(m_visibleMutex);
     m_visible = visible;
 }
 
 inline bool Engine::RenderObject::isVisible() const
 {
-    std::lock_guard<std::mutex> lock(m_visibleMutex);
     return m_visible;
 }
 
@@ -30,24 +38,34 @@ inline void Engine::RenderObject::setComponent(Component* component)
     m_component = component;
 }
 
+inline void Engine::RenderObject::setShader(ShaderProgram *shader)
+{
+    m_shader = shader;
+}
+
+inline Engine::ShaderProgram* Engine::RenderObject::getShader() const
+{
+    return m_shader;
+}
+
 inline void Engine::RenderObject::setMaterial(Material* material)
 {
-	m_material = std::shared_ptr<Material>(material); 
+    m_material = material;
 }
 
 inline Engine::Material* Engine::RenderObject::getMaterial() const
 {
-    return m_material.get();
+    return m_material;
 }
 
-inline void Engine::RenderObject::setMaterial(std::shared_ptr<Material> material)
+inline void Engine::RenderObject::setMesh(Mesh* mesh)
 {
-	m_material = material;
+    m_mesh = mesh;
 }
 
-inline const Core::Aabb& Engine::RenderObject::getBoundingBox() const
+inline Engine::Mesh* Engine::RenderObject::getMesh() const
 {
-	return m_boundingBox;
+    return m_mesh;
 }
 
 } // namespace Ra

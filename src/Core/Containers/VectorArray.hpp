@@ -2,7 +2,7 @@
 #define RADIUMENGINE_VECTORARRAY_HPP
 
 #include <vector>
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/AlignedAllocator.hpp>
 
 namespace Ra { namespace Core

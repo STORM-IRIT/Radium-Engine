@@ -2,7 +2,7 @@
 #define RADIUMENGINE_COMPONENT_HPP
 
 #include <Core/CoreMacros.hpp>
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Index/IndexedObject.hpp>
 
 namespace Ra { namespace Engine { class System;          } }

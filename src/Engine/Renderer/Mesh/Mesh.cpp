@@ -34,7 +34,7 @@ Engine::Mesh::~Mesh()
     GL_ASSERT(glDeleteVertexArrays(1, &m_vao));
 }
 
-void Engine::Mesh::draw()
+void Engine::Mesh::render()
 {
     if (!m_initialized)
     {
@@ -42,8 +42,8 @@ void Engine::Mesh::draw()
     }
 
     GL_ASSERT(glBindVertexArray(m_vao));
-    GL_ASSERT(glDrawElements(GL_TRIANGLES_ADJACENCY, 6 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
-//    GL_ASSERT(glDrawElements(GL_TRIANGLES, 3 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
+//    GL_ASSERT(glDrawElements(GL_TRIANGLES_ADJACENCY, 6 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
+    GL_ASSERT(glDrawElements(GL_TRIANGLES, 3 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
 }
 
 void Engine::Mesh::loadGeometry(const Core::TriangleMesh &data,
@@ -62,7 +62,7 @@ void Engine::Mesh::loadGeometry(const Core::TriangleMesh &data,
     m_bitangents = bitangents;
     m_texcoords = texcoords;
 
-	computeAdjacency();
+//	computeAdjacency();
 }
 
 void Engine::Mesh::computeAdjacency()
@@ -215,14 +215,12 @@ void Engine::Mesh::updateGL()
 
     // Indices
     GL_ASSERT(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
-    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-                           m_adjacentTriangles.size() * sizeof(uint),
-                           m_adjacentTriangles.data(), GL_STATIC_DRAW));
-    /*
+//    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+//                           m_adjacentTriangles.size() * sizeof(uint),
+//                           m_adjacentTriangles.data(), GL_STATIC_DRAW));
     GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER,
                            m_data.m_triangles.size() * sizeof(Core::Triangle),
                            m_data.m_triangles.data(), GL_STATIC_DRAW));
-                           */
 
     GL_ASSERT(glBindVertexArray(0));
 

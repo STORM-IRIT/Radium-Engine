@@ -6,74 +6,73 @@
 #include <memory>
 
 #include <Core/Index/IndexedObject.hpp>
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 
 namespace Ra { namespace Engine { class Light;         } }
 namespace Ra { namespace Engine { class ShaderProgram; } }
 namespace Ra { namespace Engine { class Component;     } }
+namespace Ra { namespace Engine { class Mesh;          } }
+namespace Ra { namespace Engine { class RenderQueue;   } }
 
 namespace Ra { namespace Engine {
 
+// FIXME(Charly): Does this need a bit of cleanup ?
 class RA_API RenderObject : public Core::IndexedObject
 {
 public:
+    enum RenderObjectType
+    {
+        OPAQUE = 0,
+        TRANSPARENT = 1,
+        DEBUG = 2
+    };
+
+public:
     // FIXME(Charly): Set component in the constructor ?
     explicit RenderObject(const std::string& name);
-    virtual ~RenderObject();
+    ~RenderObject();
 
-    virtual void setComponent(Component* component) final;
+    void setRenderObjectType(uint type);
+    uint getRenderObjectType() const;
 
-	virtual const std::string& getName() const final;
+    void setComponent(Component* component);
 
-    virtual void updateGL() final;
+    const std::string& getName() const;
 
-    virtual void draw(const Core::Matrix4& view,
-                      const Core::Matrix4& proj,
-                      ShaderProgram* shader) = 0;
-    virtual void draw(const Core::Matrix4& view,
-                      const Core::Matrix4& proj,
-                      Light* light) = 0;
+    void updateGL();
+    void feedRenderQueue(RenderQueue* queue);
 
-    virtual RenderObject* clone() final;
+    RenderObject* clone();
 
-    virtual void setVisible(bool visible) final;
-    virtual bool isVisible() const final;
+    void setVisible(bool visible);
+    bool isVisible() const;
 
-    virtual bool isDirty() const final;
+    bool isDirty() const;
 
-	virtual void setMaterial(Material* material);
-	virtual void setMaterial(std::shared_ptr<Material> material);
-    virtual Material* getMaterial() const;
+    void setShader(ShaderProgram* shader);
+    ShaderProgram* getShader() const;
 
-	/**
-     * @brief Get the bounding box of the render object.
-     * How the bbox is computed only depends on the reimplentation of the render object.
-	 * Hence, it is all the developer's responsibility to have it updated properly.
-	 *
-     * @return The render object bbox
-	 */
-	inline const Core::Aabb& getBoundingBox() const;
-	Core::Aabb getBoundingBoxInWorld() const;
+    void setMaterial(Material* material);
+    Material* getMaterial() const;
 
-protected:
-	virtual void updateGLInternal() = 0;
-    virtual RenderObject* cloneInternal() = 0;
+    void setMesh(Mesh* mesh);
+    Mesh* getMesh() const;
 
-protected:
+private:
     std::string m_name;
+    uint m_type;
+
     Component* m_component;
 
-	mutable std::mutex m_updateMutex;
-
     bool m_visible;
-    mutable std::mutex m_visibleMutex;
-
-    std::shared_ptr<Material> m_material;
-
     bool m_isDirty;
 
-	Core::Aabb m_boundingBox;
+    ShaderProgram* m_shader;
+    Material* m_material;
+    Mesh* m_mesh;
+
+    mutable std::mutex m_updateMutex;
 };
 
 } // namespace Engine

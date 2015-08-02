@@ -5,6 +5,7 @@
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshRenderObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
 
 namespace Ra
 {
@@ -24,36 +25,44 @@ void Engine::FancyMeshComponent::initialize()
 {
 }
 
-void Engine::FancyMeshComponent::addMeshRenderObject( const Core::TriangleMesh& mesh, const std::string& name )
+void Engine::FancyMeshComponent::addMeshRenderObject(const Core::TriangleMesh& mesh, const std::string& name)
 {
-    FancyMeshRenderObject* renderObject = new FancyMeshRenderObject(name);
+    /*
+    RenderObject* renderObject = new RenderObject(name);
     renderObject->setComponent(this);
     renderObject->setVisible(true);
 
     Mesh* displayMesh = new Mesh(name);
     displayMesh->loadGeometry(mesh);
-    renderObject->addMesh(displayMesh);
+    renderObject->setMesh(displayMesh);
     renderObject->setMaterial(new Material("Default"));
+    renderObject->setShader(ShaderProgramManager::getInstancePtr()->getDefaultShaderProgram());
     m_renderObject = m_renderObjectManager->addRenderObject(renderObject);
+    */
 }
 
-void Engine::FancyMeshComponent::addMeshRenderObject( const Core::TriangleMesh& mesh, const std::string& name, Material* material )
+void Engine::FancyMeshComponent::addMeshRenderObject(const Core::TriangleMesh& mesh, const std::string& name, Material* material)
 {
-    FancyMeshRenderObject* renderObject = new FancyMeshRenderObject(name);
+    /*
+    RenderObject* renderObject = new RenderObject(name);
     renderObject->setComponent(this);
     renderObject->setVisible(true);
+
     renderObject->setMaterial(material);
+    renderObject->setShader(ShaderProgramManager::getInstancePtr()->getDefaultShaderProgram());
 
     Mesh* displayMesh = new Mesh(name);
     displayMesh->loadGeometry(mesh);
-    renderObject->addMesh(displayMesh);
+    renderObject->setMesh(  displayMesh);
     m_renderObject = m_renderObjectManager->addRenderObject(renderObject);
+    */
 }
 
 
 void Engine::FancyMeshComponent::handleMeshLoading(const FancyComponentData& data)
 {
-    FancyMeshRenderObject* renderObject = new FancyMeshRenderObject(data.name);
+    /*
+    RenderObject* renderObject = new RenderObject(data.name);
     renderObject->setComponent(this);
     renderObject->setVisible(true);
 
@@ -74,6 +83,7 @@ void Engine::FancyMeshComponent::handleMeshLoading(const FancyComponentData& dat
     renderObject->setMaterial(data.material);
 
     m_renderObject = m_renderObjectManager->addRenderObject(renderObject);
+    */
 }
 
 }

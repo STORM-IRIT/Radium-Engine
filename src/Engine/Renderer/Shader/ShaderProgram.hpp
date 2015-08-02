@@ -6,7 +6,7 @@
 #include <array>
 
 #include <Core/CoreMacros.hpp>
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 
 #include <Engine/Renderer/Shader/ShaderConfiguration.hpp>
 

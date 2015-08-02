@@ -124,7 +124,7 @@ namespace Ra { namespace Core
 
 }} // end namespace Ra::Core
 
-#include <Core/Math/Vector.inl>
+#include <Core/Math/LinearAlgebra.inl>
 
 #endif// RADIUMENGINE_VECTOR_HPP
 

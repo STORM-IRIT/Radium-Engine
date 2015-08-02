@@ -82,7 +82,7 @@ bool Engine::ShaderObject::reloadAndCompile(const std::set<std::string>& propert
 	return loadAndCompile(m_type, m_filename, properties);
 }
 
-unsigned int Engine::ShaderObject::getId() const
+uint Engine::ShaderObject::getId() const
 {
 	return m_id;
 }
@@ -194,6 +194,11 @@ Engine::ShaderProgram::~ShaderProgram()
 		}
 		glDeleteProgram(m_shaderId);
 	}
+}
+
+uint Engine::ShaderProgram::getId() const
+{
+    return m_shaderId;
 }
 
 bool Engine::ShaderProgram::isOk() const

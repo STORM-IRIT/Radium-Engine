@@ -1,3 +1,4 @@
+#if 0
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshRenderObject.hpp>
 
 #include <cstdio>
@@ -5,7 +6,7 @@
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Log/Log.hpp>
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
@@ -51,7 +52,7 @@ void Engine::FancyMeshRenderObject::draw(const Core::Matrix4& viewMatrix,
 
     for (const auto& mesh : m_meshes)
     {
-        mesh.second->draw();
+        mesh.second->render();
     }
 }
 
@@ -89,7 +90,7 @@ void Engine::FancyMeshRenderObject::draw(const Core::Matrix4& viewMatrix,
 
     for (const auto& mesh : m_meshes)
     {
-        mesh.second->draw();
+        mesh.second->render();
     }
 }
 
@@ -204,3 +205,4 @@ void Engine::FancyMeshRenderObject::recomputeBbox()
 //}
 
 } // namespace Ra
+#endif

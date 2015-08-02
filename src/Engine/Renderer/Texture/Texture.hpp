@@ -4,7 +4,7 @@
 #include <string>
 
 #include <Core/CoreMacros.hpp>
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
 namespace Ra { namespace Engine {

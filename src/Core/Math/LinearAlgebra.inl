@@ -1,4 +1,5 @@
-#include "Vector.hpp"
+#include <Core/Math/LinearAlgebra.hpp>
+
 namespace Ra { namespace Core
 {
     template<typename Vector_>

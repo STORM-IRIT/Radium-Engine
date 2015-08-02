@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/Shader/ShaderConfiguration.hpp>
 
 namespace Ra { namespace Engine { class Texture; } }

@@ -4,7 +4,7 @@
 #include <vector>
 
 #include <Core/CoreMacros.hpp>
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -44,7 +44,7 @@ public:
     void setDirty() { m_isDirty = true; }
     void updateGL();
 
-    void draw();
+    void render();
 
 private:
     Mesh(const Mesh&) = delete;

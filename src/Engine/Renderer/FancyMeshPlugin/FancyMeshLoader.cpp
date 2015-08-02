@@ -5,7 +5,7 @@
 #include <assimp/postprocess.h>
 
 #include <Core/Log/Log.hpp>
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Core/String/StringUtils.hpp>

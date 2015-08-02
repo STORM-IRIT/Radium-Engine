@@ -5,7 +5,7 @@
 #include <thread>
 
 #include <Core/Math/Math.hpp>
-#include <Core/Math/Vector.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 
 namespace Ra { namespace Engine {
 

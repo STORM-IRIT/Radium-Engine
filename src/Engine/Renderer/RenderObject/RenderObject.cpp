@@ -3,6 +3,9 @@
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/Shader/ShaderProgram.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
 
 namespace Ra
 {
@@ -10,9 +13,11 @@ namespace Ra
 Engine::RenderObject::RenderObject(const std::string& name)
 	: IndexedObject()
 	, m_name(name)
-	, m_material(nullptr)
+    , m_type(OPAQUE)
+    , m_shader(nullptr)
+    , m_material(nullptr)
+    , m_mesh(nullptr)
 	, m_isDirty(true)
-	, m_boundingBox()
 {
 }
 
@@ -24,32 +29,49 @@ void Engine::RenderObject::updateGL()
 {
 	// Do not update while we are cloning
 	std::lock_guard<std::mutex> lock(m_updateMutex);
-	updateGLInternal();
+
+    if (m_material)
+    {
+        m_material->updateGL();
+    }
+
+    if (m_mesh)
+    {
+        m_mesh->updateGL();
+    }
+
+    m_isDirty = false;
+}
+
+void Engine::RenderObject::feedRenderQueue(RenderQueue* queue)
+{
+
 }
 
 Engine::RenderObject* Engine::RenderObject::clone()
 {
 	// Do not clone while we are updating GL internals
 	std::lock_guard<std::mutex> lock(m_updateMutex);
-	return cloneInternal();
-}
 
-Core::Aabb Engine::RenderObject::getBoundingBoxInWorld() const
-{
-	Core::Vector3 minBox = m_boundingBox.min();
-	Core::Vector3 maxBox = m_boundingBox.max();
-	Core::Vector4 newMin(minBox.x(), minBox.y(), minBox.z(), 1.0);
-	Core::Vector4 newMax(maxBox.x(), maxBox.y(), maxBox.z(), 1.0);
+    RenderObject* newRO = new RenderObject(m_name);
 
-	Core::Matrix4 T = m_component->getEntity()->getTransformAsMatrix();
-	newMin = T * newMin; newMin /= newMin.w();
-	newMax = T * newMax; newMax /= newMax.w();
+    newRO->setRenderObjectType(m_type);
+    newRO->setShader(m_shader);
+    newRO->setMaterial(m_material);
+    newRO->setVisible(m_visible);
+    newRO->setComponent(m_component);
 
-	minBox = Core::Vector3(newMin.x(), newMin.y(), newMin.z());
-	maxBox = Core::Vector3(newMax.x(), newMax.y(), newMax.z());
-	Core::Aabb ret(minBox, maxBox);
+    if (m_mesh)
+    {
+        Mesh* newMesh = new Mesh(m_mesh->getName());
+        newMesh->loadGeometry(m_mesh->getMeshData(),
+                              m_mesh->getTangents(),
+                              m_mesh->getBitangents(),
+                              m_mesh->getTexcoords());
+        newRO->setMesh(newMesh);
+    }
 
-	return ret;
+    return newRO;
 }
 
 }
