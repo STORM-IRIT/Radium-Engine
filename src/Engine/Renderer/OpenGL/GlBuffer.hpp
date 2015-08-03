@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_GL_BUFFER_OBJECT_HPP_
-#define RADIUMENGINE_GL_BUFFER_OBJECT_HPP_
+#ifndef RADIUMENGINE_GL_BUFFER_HPP_
+#define RADIUMENGINE_GL_BUFFER_HPP_
 
 #include <Core/CoreMacros.hpp>
 
@@ -15,30 +15,30 @@ namespace Ra { namespace Engine
 // TODO : unbind and bind should be handle by the user and the buffer should check when bind()   asserting with get_current_binding()
 
 /**
- * @class GlBuffer_obj
+ * @class GlBuffer
  * @brief Wrapper class for OpenGL buffer objects.
  * @tparam T : the type of the buffer object (float, int, Vec3, float2 etc.)
  * @param type : GL_ARRAY_BUFFER, GL_ELEMENT_ARRAY_BUFFER,
  * GL_PIXEL_PACK_BUFFER, GL_PIXEL_UNPACK_BUFFER
  *
- * TODO : templatize the GL type. Check if it works with non-contigous data
+ * TODO : Check if it works with non-contigous data
 */
 template<typename T, GLenum GL_BUFFER_TYPE = GL_ARRAY_BUFFER>
-class GlBufferObject
+class GlBuffer
 {
 public:
 
     /// Creates an empty VBO
-    inline GlBufferObject();
+    inline GlBuffer();
 
     /// @param mode  GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY,
     /// GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY,
     /// GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, or GL_DYNAMIC_COPY
-    inline GlBufferObject(uint numElements, GLenum drawMode = GL_STREAM_DRAW);
+    inline GlBuffer(uint numElements, GLenum drawMode = GL_STREAM_DRAW);
 
-    inline GlBufferObject(const GlBufferObject<T, GL_BUFFER_TYPE>& buffer);
+    inline GlBuffer(const GlBuffer<T, GL_BUFFER_TYPE>& buffer);
 
-    inline ~GlBufferObject();
+    inline ~GlBuffer();
 
     /// Bind the buffer object
     inline void bind() const;
@@ -128,6 +128,6 @@ private:
 
 }}
 
-#include <Engine/Renderer/OpenGL/GlBufferObject.inl>
+#include <Engine/Renderer/OpenGL/GlBuffer.inl>
 
 #endif //RADIUMENGINE_GL_BUFFER_OBJECT_HPP_

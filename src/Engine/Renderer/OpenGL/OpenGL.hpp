@@ -16,7 +16,7 @@
 
 #include <Core/Log/Log.hpp>
 
-namespace Ra { namespace Engine {
+/// This file provide convenience macros for OpenGL.
 
 #ifdef _DEBUG
 #define GL_ASSERT(x) \
@@ -35,6 +35,7 @@ namespace Ra { namespace Engine {
 		} \
     }
 
+/// This macro will query the last openGL error.
 #define GL_CHECK_ERROR \
     {\
         GLuint err = glGetError(); \
@@ -45,6 +46,7 @@ namespace Ra { namespace Engine {
 	    } \
     }
 
+/// Ignore the previous openGL errors.
 #define glFlushError() glGetError()
 
 #else
@@ -52,8 +54,5 @@ namespace Ra { namespace Engine {
 #define GL_CHECK_ERROR {}
 #define glFlushError() 
 #endif
-
-} // namespace Engine
-} // namespace Ra
 
 #endif // RADIUMENGINE_OPENGL_HPP

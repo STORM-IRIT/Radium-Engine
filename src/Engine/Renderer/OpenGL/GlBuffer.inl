@@ -1,9 +1,9 @@
-#include "GlBufferObject.hpp"
+#include "GlBuffer.hpp"
 namespace Ra { namespace Engine
 {
 
 template<typename T, GLenum GL_BUFFER_TYPE>
-inline GlBufferObject<T, GL_BUFFER_TYPE>::GlBufferObject()
+inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer()
     : m_numElements(0)
     , m_drawMode( GL_STREAM_DRAW )
 {
@@ -12,7 +12,7 @@ inline GlBufferObject<T, GL_BUFFER_TYPE>::GlBufferObject()
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
-inline GlBufferObject<T, GL_BUFFER_TYPE>::GlBufferObject(const GlBufferObject<T,GL_BUFFER_TYPE>& buffer)
+inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer(const GlBuffer<T,GL_BUFFER_TYPE>& buffer)
     : m_numElements( buffer.m_numElements )
     , m_drawMode( buffer.m_drawMode )
 {
@@ -31,7 +31,7 @@ inline GlBufferObject<T, GL_BUFFER_TYPE>::GlBufferObject(const GlBufferObject<T,
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
-inline GlBufferObject<T, GL_BUFFER_TYPE>::GlBufferObject(uint numElements, GLenum drawMode)
+inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer(uint numElements, GLenum drawMode)
     : m_numElements(numElements)
     , m_drawMode( drawMode )
 {
@@ -44,7 +44,7 @@ inline GlBufferObject<T, GL_BUFFER_TYPE>::GlBufferObject(uint numElements, GLenu
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
-inline GlBufferObject<T, GL_BUFFER_TYPE>::~GlBufferObject()
+inline GlBuffer<T, GL_BUFFER_TYPE>::~GlBuffer()
 {
     if( getId() == getCurrentBinding() )
     {
@@ -54,19 +54,19 @@ inline GlBufferObject<T, GL_BUFFER_TYPE>::~GlBufferObject()
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
-inline void GlBufferObject<T, GL_BUFFER_TYPE>::bind() const
+inline void GlBuffer<T, GL_BUFFER_TYPE>::bind() const
 {
     GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, m_bufferGlId) );
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
-inline void GlBufferObject<T, GL_BUFFER_TYPE>::unbind() const
+inline void GlBuffer<T, GL_BUFFER_TYPE>::unbind() const
 {
     GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, 0) );
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
-inline void GlBufferObject<T, GL_BUFFER_TYPE>::setData(uint numElements,
+inline void GlBuffer<T, GL_BUFFER_TYPE>::setData(uint numElements,
                                const T* data,
                                GLenum drawMode)
 {
@@ -78,13 +78,13 @@ inline void GlBufferObject<T, GL_BUFFER_TYPE>::setData(uint numElements,
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
-inline void GlBufferObject<T, GL_BUFFER_TYPE>::setData(const std::vector<T>& data, GLenum drawMode)
+inline void GlBuffer<T, GL_BUFFER_TYPE>::setData(const std::vector<T>& data, GLenum drawMode)
 {
     setData(data.size(), &data.front(), drawMode);
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
-inline void GlBufferObject<T, GL_BUFFER_TYPE>::getData(uint numElements,
+inline void GlBuffer<T, GL_BUFFER_TYPE>::getData(uint numElements,
                                 T* data, uint offset) const
 {
     bind();
@@ -93,7 +93,7 @@ inline void GlBufferObject<T, GL_BUFFER_TYPE>::getData(uint numElements,
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
-inline T* GlBufferObject<T, GL_BUFFER_TYPE>::map(GLenum accessMode) const
+inline T* GlBuffer<T, GL_BUFFER_TYPE>::map(GLenum accessMode) const
 {
     bind();
     CORE_ASSERT(m_numElements > 0, "No data to map");
@@ -102,7 +102,7 @@ inline T* GlBufferObject<T, GL_BUFFER_TYPE>::map(GLenum accessMode) const
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
-inline bool GlBufferObject<T, GL_BUFFER_TYPE>::unmap() const
+inline bool GlBuffer<T, GL_BUFFER_TYPE>::unmap() const
 {
     bind();
     GL_ASSERT(bool state = glUnmapBuffer(GL_BUFFER_TYPE) ? true : false);
