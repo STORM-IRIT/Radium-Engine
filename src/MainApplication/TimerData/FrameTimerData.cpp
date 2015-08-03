@@ -3,6 +3,7 @@
 namespace Ra
 {
 
+#if 0
 LoggableFrameTimerData::LoggableFrameTimerData(uint average)
     : m_average(average)
 {
@@ -107,5 +108,6 @@ void LoggableFrameTimerData::printAverageTimerData(el::base::type::ostream_t& os
     os.copyfmt(save);
 
 }
+#endif
 
 }

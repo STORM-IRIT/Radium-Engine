@@ -8,7 +8,7 @@
 #include <vector>
 
 #include <Core/CoreMacros.hpp>
-
+#include <Core/Log/Log.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Entity/EntityManager.hpp>
 

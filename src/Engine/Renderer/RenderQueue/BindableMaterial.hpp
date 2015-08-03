@@ -7,7 +7,7 @@ namespace Ra { namespace Engine { class Material; } }
 
 namespace Ra { namespace Engine {
 
-class BindableMaterial : public Bindable
+class RA_API BindableMaterial : public Bindable
 {
 public:
     explicit BindableMaterial(Material* material);

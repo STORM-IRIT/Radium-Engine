@@ -2,10 +2,10 @@
 #define RADIUMENGINE_INDEX_HPP
 
 #include <limits>
+
 #include <Core/CoreMacros.hpp>
 
-namespace Ra { namespace Core
-{
+namespace Ra { namespace Core {
 
 class RA_API Index {
 public:

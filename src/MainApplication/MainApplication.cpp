@@ -30,11 +30,11 @@ namespace Ra
         , m_viewer(nullptr)
         , m_frameTimer(new QTimer(this))
         , m_frameCounter(0)
-        , m_timerData(TIMER_AVERAGE)
+        //, m_timerData(TIMER_AVERAGE)
     {
         // Boilerplate print.
 
-        LOG(INFO) << "*** Radium Engine Main App  ***";
+        LOG(logINFO) << "*** Radium Engine Main App  ***";
         std::stringstream config;
 #if defined (CORE_DEBUG)
         config << "(Debug Build) -- ";
@@ -47,7 +47,7 @@ namespace Ra
 #elif defined (ARCH_X64)
         config << " 64 bits x64";
 #endif
-        LOG(INFO) << config.str();
+        LOG(logINFO) << config.str();
 
         config.str(std::string());
         config << "Floating point format : ";
@@ -56,7 +56,7 @@ namespace Ra
 #else
         config << "single precision" << std::endl;
 #endif
-        LOG(INFO) << config.str();
+        LOG(logINFO) << config.str();
 
         // Handle command line arguments.
         // TODO ( e.g fps limit ) / Keep or not timer data .
@@ -166,11 +166,11 @@ namespace Ra
         // 5. Frame end.
         timerData.frameEnd = Core::Timer::Clock::now();
         timerData.numFrame = m_frameCounter;
-        m_timerData.addFrame(timerData);
+        //m_timerData.addFrame(timerData);
         ++m_frameCounter;
 
         // Dump timer data if requested.
-        LOG_EVERY_N(TIMER_AVERAGE, INFO) << m_timerData;
+        //LOG_EVERY_N(TIMER_AVERAGE, INFO) << m_timerData;
 //        if (TIMER_AVERAGE == 1)
 //        {
 //            FrameTimerData::printTimerData(timerData);
@@ -184,7 +184,7 @@ namespace Ra
 
     MainApplication::~MainApplication()
     {
-        LOG(INFO) << "About to quit... Cleaning RadiumEngine memory";
+        LOG(logINFO) << "About to quit... Cleaning RadiumEngine memory";
         emit stopping();
         m_engine->cleanup();
     }

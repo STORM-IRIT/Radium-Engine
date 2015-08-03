@@ -75,7 +75,7 @@ namespace Ra
         Core::Timer::TimePoint m_lastFrameStart;
 
         int m_frameCounter;
-        LoggableFrameTimerData m_timerData;
+//        LoggableFrameTimerData m_timerData;
     };
 
 }

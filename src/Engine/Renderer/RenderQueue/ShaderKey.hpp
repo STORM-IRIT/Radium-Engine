@@ -1,14 +1,14 @@
 #ifndef RADIUMENGINE_BINDABLESHADERPROGRAM_HPP
 #define RADIUMENGINE_BINDABLESHADERPROGRAM_HPP
 
-#include <Engine/Renderer/RenderQueue/Bindable.hpp>
+#include <Core/CoreMacros.hpp>
 
 namespace Ra { namespace Engine { class ShaderProgram;    } }
 namespace Ra { namespace Engine { class RenderParameters; } }
 
 namespace Ra { namespace Engine {
 
-class ShaderKey
+class RA_API ShaderKey
 {
 public:
     explicit ShaderKey(ShaderProgram* shader);

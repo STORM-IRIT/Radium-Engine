@@ -69,8 +69,8 @@ void Engine::Texture::setBPP(int bpp)
 
         default:
         {
-            LOG(ERROR) << "Problem with texture color mode (0x" << std::hex << bpp << std::dec << ")"
-                       << "- (Texture " << m_name << ").\n";
+            LOG(logERROR) << "Problem with texture color mode (0x" << std::hex << bpp << std::dec << ")"
+                          << "- (Texture " << m_name << ").\n";
             m_bytesPerPixel = 0;
         }
     }

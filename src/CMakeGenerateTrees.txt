@@ -13,6 +13,9 @@ source_group("Core\\Event" FILES ${Core_Event_SUB})
 file(GLOB Core_Index_SUB Core/Index/*)
 source_group("Core\\Index" FILES ${Core_Index_SUB})
 
+file(GLOB Core_Log_SUB Core/Log/*)
+source_group("Core\\Log" FILES ${Core_Log_SUB})
+
 file(GLOB Core_Math_SUB Core/Math/*)
 source_group("Core\\Math" FILES ${Core_Math_SUB})
 
@@ -24,6 +27,9 @@ source_group("Core\\String" FILES ${Core_String_SUB})
 
 file(GLOB Core_Tasks_SUB Core/Tasks/*)
 source_group("Core\\Tasks" FILES ${Core_Tasks_SUB})
+
+file(GLOB Core_Time_SUB Core/Time/*)
+source_group("Core\\Time" FILES ${Core_Time_SUB})
 
 file(GLOB Core_Utils_SUB Core/Utils/*)
 source_group("Core\\Utils" FILES ${Core_Utils_SUB})
@@ -40,9 +46,6 @@ source_group("Engine\\Renderer" FILES ${Engine_Renderer_SUB})
 file(GLOB Engine_Renderer_Camera_SUB Engine/Renderer/Camera/*)
 source_group("Engine\\Renderer\\Camera" FILES ${Engine_Renderer_Camera_SUB})
 
-file(GLOB Engine_Renderer_Drawable_SUB Engine/Renderer/Drawable/*)
-source_group("Engine\\Renderer\\Drawable" FILES ${Engine_Renderer_Drawable_SUB})
-
 file(GLOB Engine_Renderer_FancyMeshPlugin_SUB Engine/Renderer/FancyMeshPlugin/*)
 source_group("Engine\\Renderer\\FancyMeshPlugin" FILES ${Engine_Renderer_FancyMeshPlugin_SUB})
 
@@ -57,6 +60,12 @@ source_group("Engine\\Renderer\\Mesh" FILES ${Engine_Renderer_Mesh_SUB})
 
 file(GLOB Engine_Renderer_OpenGL_SUB Engine/Renderer/OpenGL/*)
 source_group("Engine\\Renderer\\OpenGL" FILES ${Engine_Renderer_OpenGL_SUB})
+
+file(GLOB Engine_Renderer_RenderObject_SUB Engine/Renderer/RenderObject/*)
+source_group("Engine\\Renderer\\RenderObject" FILES ${Engine_Renderer_RenderObject_SUB})
+
+file(GLOB Engine_Renderer_RenderQueue_SUB Engine/Renderer/RenderQueue/*)
+source_group("Engine\\Renderer\\RenderQueue" FILES ${Engine_Renderer_RenderQueue_SUB})
 
 file(GLOB Engine_Renderer_Shader_SUB Engine/Renderer/Shader/*)
 source_group("Engine\\Renderer\\Shader" FILES ${Engine_Renderer_Shader_SUB})

@@ -28,7 +28,7 @@ namespace Ra
 Engine::RadiumEngine::RadiumEngine()
     : m_quit(false)
 {
-    LOG(INFO) << "Engine starting...";
+//    LOG(INFO) << "Engine starting...";
 }
 
 Engine::RadiumEngine::~RadiumEngine()

@@ -6,8 +6,11 @@
 #include <mutex>
 #include <memory>
 #include <chrono>
+
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Time/Timer.hpp>
+
+#include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
 
 namespace Ra { namespace Core   { struct MouseEvent;          } }
 namespace Ra { namespace Core   { struct KeyEvent;            } }
@@ -49,6 +52,7 @@ public:
     {
         Core::Timer::TimePoint renderStart;
         Core::Timer::TimePoint updateEnd;
+		Core::Timer::TimePoint feedRenderQueuesEnd;
         Core::Timer::TimePoint mainRenderEnd;
         Core::Timer::TimePoint postProcessEnd;
         Core::Timer::TimePoint renderEnd;
@@ -142,14 +146,17 @@ protected:
      */
     virtual void updateRenderObjectsInternal(const RenderData& renderData,
                                              const std::vector<std::shared_ptr<RenderObject>>& renderObjects);
+
+	virtual void feedRenderQueuesInternal(const RenderData& renderData,
+										  const std::vector<std::shared_ptr<RenderObject>>& renderObjects);
+
     /**
      * @brief All the scene rendering magics basically happens here.
      *
      * @param renderData The basic data needed for the rendering :
      * Time elapsed since last frame, camera view matrix, camera projection matrix.
      */
-    virtual void renderInternal(const RenderData& renderData,
-                                const std::vector<std::shared_ptr<RenderObject>>& renderObjects);
+    virtual void renderInternal(const RenderData& renderData);
 
     /**
      * @brief Do all post processing stuff. If you override this method,
@@ -159,8 +166,7 @@ protected:
      * @param renderData The basic data needed for the rendering :
      * Time elapsed since last frame, camera view matrix, camera projection matrix.
      */
-    virtual void postProcessInternal(const RenderData& renderData,
-                                     const std::vector<std::shared_ptr<RenderObject>>& renderObjects);
+    virtual void postProcessInternal(const RenderData& renderData);
 
 private:
     void saveExternalFBOInternal();
@@ -209,6 +215,10 @@ protected:
     bool     m_displayedIsDepth;
 
     std::vector<Light*> m_lights;
+
+	RenderQueue m_opaqueRenderQueue;
+	RenderQueue m_transparentRenderQueue;
+	RenderQueue m_debugRenderQueue;
 
 private:
     enum RenderPassTextures

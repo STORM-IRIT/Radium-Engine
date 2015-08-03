@@ -110,11 +110,11 @@ void Gui::Viewer::initializeGL()
 {
     initializeOpenGLFunctions();
 
-    LOG(INFO) << "***Radium Engine Viewer***";
-    LOG(INFO) <<"Renderer : " << glGetString(GL_RENDERER);
-    LOG(INFO) <<"Vendor   : " << glGetString(GL_VENDOR);
-    LOG(INFO) <<"OpenGL   : " << glGetString(GL_VERSION);
-    LOG(INFO) <<"GLSL     : " << glGetString(GL_SHADING_LANGUAGE_VERSION);
+//    LOG(INFO) << "***Radium Engine Viewer***";
+//    LOG(INFO) <<"Renderer : " << glGetString(GL_RENDERER);
+//    LOG(INFO) <<"Vendor   : " << glGetString(GL_VENDOR);
+//    LOG(INFO) <<"OpenGL   : " << glGetString(GL_VERSION);
+//    LOG(INFO) <<"GLSL     : " << glGetString(GL_SHADING_LANGUAGE_VERSION);
 
 #if defined (OS_WINDOWS)
     glewExperimental = GL_TRUE;
@@ -128,16 +128,16 @@ void Gui::Viewer::initializeGL()
     }
     else
     {
-        LOG(INFO) << "GLEW     : " << glewGetString(GLEW_VERSION);
+        LOG(logINFO) << "GLEW     : " << glewGetString(GLEW_VERSION);
         GL_CHECK_ERROR;
     }
 
 #endif
 
 #if defined(FORCE_RENDERING_ON_MAIN_THREAD)
-    LOG(DEBUG) << "Rendering on main thread";
+    LOG(logDEBUG) << "Rendering on main thread";
 #else
-    LOG(DEBUG) << "Rendering on dedicated thread";
+    LOG(logDEBUG) << "Rendering on dedicated thread";
 #endif
     m_renderer.reset(new Engine::Renderer(width(), height()));
     m_renderer->initialize();
@@ -211,7 +211,7 @@ void Gui::Viewer::mousePressEvent(QMouseEvent* event)
             m_renderer->lockRendering();
             makeCurrent();
             int clicked = m_renderer->checkPicking(event->x(), height() - event->y());
-            LOG(DEBUG) << "Clicked object " << clicked;
+            LOG(logDEBUG) << "Clicked object " << clicked;
             doneCurrent();
             m_renderer->unlockRendering();
         } break;

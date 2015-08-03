@@ -25,14 +25,15 @@ struct FrameTimerData
     std::vector<Core::TaskQueue::TimerData> taskData;
 };
 
-class LoggableFrameTimerData : public el::Loggable
+#if 0
+class LoggableFrameTimerData
 {
 public:
     LoggableFrameTimerData(uint average);
     virtual ~LoggableFrameTimerData() {}
     void addFrame(const FrameTimerData& data);
 
-    virtual void log(el::base::type::ostream_t& os) const override;
+    //void log(el::base::type::ostream_t& os) const override;
 
 private:
     // Print timings relative to the beginning of the frame.
@@ -43,6 +44,7 @@ private:
     mutable std::vector<FrameTimerData> m_frames;
     uint m_average;
 };
+#endif
 
 }
 

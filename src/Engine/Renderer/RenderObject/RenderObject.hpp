@@ -5,6 +5,7 @@
 #include <mutex>
 #include <memory>
 
+#include <Core/CoreMacros.hpp>
 #include <Core/Index/IndexedObject.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
@@ -23,9 +24,9 @@ class RA_API RenderObject : public Core::IndexedObject
 public:
     enum RenderObjectType
     {
-        OPAQUE = 0,
-        TRANSPARENT = 1,
-        DEBUG = 2
+        RO_OPAQUE = 0,
+        RO_TRANSPARENT = 1,
+        RO_DEBUG = 2
     };
 
 public:
@@ -41,7 +42,9 @@ public:
     const std::string& getName() const;
 
     void updateGL();
-    void feedRenderQueue(RenderQueue* queue);
+	void feedRenderQueue(RenderQueue& queue,
+						 const Core::Matrix4& view,
+						 const Core::Matrix4& proj);
 
     RenderObject* clone();
 

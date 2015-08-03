@@ -1,10 +1,11 @@
 #ifndef RADIUMENGINE_SYSTEM_HPP
 #define RADIUMENGINE_SYSTEM_HPP
 
+#include <Core/CoreMacros.hpp>
+
 #include <map>
 #include <memory>
 
-#include <Core/CoreMacros.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>

@@ -65,6 +65,17 @@
     #error unsupported OS
 #endif
 
+#ifdef OS_WINDOWS
+#pragma warning(disable: 4251) // stl dllexports 
+#pragma warning(disable: 4267)
+#pragma warning(disable: 4838)
+#pragma warning(disable: 4244)
+#pragma warning(disable: 4996) // sprintf unsafe
+#pragma warning(disable: 4577) // noexcept used with no exception handling mode
+#define NOMINMAX
+#include <windows.h>
+#endif
+
 
 // Todo : endianness, pointer sixe
 

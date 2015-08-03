@@ -6,7 +6,7 @@
 
 namespace Ra { namespace Engine {
 
-class BindableTransform : public Bindable
+class RA_API BindableTransform : public Bindable
 {
 public:
     BindableTransform(const Core::Matrix4& model,

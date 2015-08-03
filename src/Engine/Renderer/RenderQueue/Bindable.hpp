@@ -1,15 +1,17 @@
 #ifndef RADIUMENGINE_BINDABLE_HPP
 #define RADIUMENGINE_BINDABLE_HPP
 
+#include <Core/CoreMacros.hpp>
+
 namespace Ra { namespace Engine { class ShaderProgram; } }
 
 namespace Ra { namespace Engine {
 
-class Bindable
+class RA_API Bindable
 {
 public:
-    Bindable() = default;
-    virtual ~Bindable() = default;
+	Bindable() {}
+	virtual ~Bindable() {}
 
     virtual void bind(ShaderProgram* shader) const = 0;
 };

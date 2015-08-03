@@ -65,18 +65,18 @@ DataVector Engine::FancyMeshLoader::loadFile(const std::string & name)
                                              aiProcess_GenUVCoords);
     if (!scene)
     {
-        LOG(ERROR) << "Error while loading file \"" << name << "\" : " << importer.GetErrorString() << ".";
+//        LOG(ERROR) << "Error while loading file \"" << name << "\" : " << importer.GetErrorString() << ".";
         return dataVector;
     }
 
-    LOG(DEBUG) << "About to load file " << name;
-    LOG(DEBUG) << "Found " << scene->mNumMeshes << " meshes and " << scene->mNumMaterials << " materials.";
+//    LOG(DEBUG) << "About to load file " << name;
+//    LOG(DEBUG) << "Found " << scene->mNumMeshes << " meshes and " << scene->mNumMaterials << " materials.";
 
     filepath = Core::StringUtils::getDirName(name);
 
     runThroughNodes(scene->mRootNode, scene, Core::Matrix4::Identity());
 
-    LOG(DEBUG) << "File " << name << " loaded successfully (" << dataVector.size() << " items to load).";
+    //LOG(DEBUG) << "File " << name << " loaded successfully (" << dataVector.size() << " items to load).";
 
 	return dataVector;
 }

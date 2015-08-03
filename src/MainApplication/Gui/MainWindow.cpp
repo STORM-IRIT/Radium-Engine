@@ -77,12 +77,12 @@ void Gui::MainWindow::createConnections()
 
 void Gui::MainWindow::activated(QModelIndex index)
 {
-    LOG(DEBUG) << "Activated item " << index.row() << " " << index.column();
+    LOG(logDEBUG) << "Activated item " << index.row() << " " << index.column();
 }
 
 void Gui::MainWindow::clicked(QModelIndex index)
 {
-    LOG(DEBUG) << "Clicked item " << index.row() << " " << index.column();
+    LOG(logDEBUG) << "Clicked item " << index.row() << " " << index.column();
 }
 
 void Gui::MainWindow::entitiesUpdated()

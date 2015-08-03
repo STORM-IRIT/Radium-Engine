@@ -1,94 +1,95 @@
 #include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
 
-namespace Ra
-{
+namespace Ra {
+namespace Engine {
 
 template <typename Key, typename Child>
-inline Engine::RenderableMap<Key, Child>::RenderableMap()
-    : std::map<Key, Child>()
-{
-}
-
-template <typename Key, typename Child>
-inline Engine::RenderableMap<Key, Child>::~RenderableMap()
+inline RenderableMap<Key, Child>::RenderableMap()
+	: std::map<Key, Child>()
 {
 }
 
 template <typename Key, typename Child>
-inline void Engine::RenderableMap<Key, Child>::render(ShaderProgram* shader) const
-{
-    for (auto& it : *this)
-    {
-        it.first.bind(shader);
-        it.second.render(shader);
-    }
-}
-
-inline Engine::MeshVector::MeshVector()
-    : std::vector<Mesh*>()
+inline RenderableMap<Key, Child>::~RenderableMap()
 {
 }
 
-inline Engine::MeshVector::~MeshVector()
+template <typename Key, typename Child>
+inline void RenderableMap<Key, Child>::render(ShaderProgram* shader) const
+{
+	for (auto& it : *this)
+	{
+		it.first.bind(shader);
+		it.second.render(shader);
+	}
+}
+
+inline MeshVector::MeshVector()
+	: std::vector<Mesh*>()
 {
 }
 
-inline void Engine::MeshVector::render(ShaderProgram *shader) const
-{
-    CORE_UNUSED(shader);
-    for (auto& it : *this)
-    {
-        it->render();
-    }
-}
-
-inline Engine::RenderQueue::RenderQueue()
-    : std::map<ShaderKey, MaterialRenderQueue>()
+inline MeshVector::~MeshVector()
 {
 }
 
-inline Engine::RenderQueue::~RenderQueue()
+inline void MeshVector::render(ShaderProgram *shader) const
+{
+	CORE_UNUSED(shader);
+	for (auto& it : *this)
+	{
+		it->render();
+	}
+}
+
+inline RenderQueue::RenderQueue()
+	: std::map<ShaderKey, MaterialRenderQueue>()
 {
 }
 
-inline void Engine::RenderQueue::render() const
+inline RenderQueue::~RenderQueue()
 {
-    for (auto& it : *this)
-    {
-        it.first.bind();
-        it.second.render(it.first.getShader());
-    }
 }
 
-inline void Engine::RenderQueue::render(const Engine::RenderParameters& params) const
+inline void RenderQueue::render() const
 {
-    for (auto& it : *this)
-    {
-        it.first.bind(params);
-        it.second.render(it.first.getShader());
-    }
+	for (auto& it : *this)
+	{
+		it.first.bind();
+		it.second.render(it.first.getShader());
+	}
 }
 
-inline void Engine::RenderQueue::render(Engine::ShaderProgram* shader) const
+inline void RenderQueue::render(const RenderParameters& params) const
 {
-    ShaderKey key(shader);
-    key.bind();
-
-    for (auto& it : *this)
-    {
-        it.second.render(key.getShader());
-    }
+	for (auto& it : *this)
+	{
+		it.first.bind(params);
+		it.second.render(it.first.getShader());
+	}
 }
 
-inline void Engine::RenderQueue::render(Engine::ShaderProgram* shader, const RenderParameters& params) const
+inline void RenderQueue::render(ShaderProgram* shader) const
 {
-    ShaderKey key(shader);
-    key.bind(params);
+	ShaderKey key(shader);
+	key.bind();
 
-    for (auto& it : *this)
-    {
-        it.second.render(key.getShader());
-    }
+	for (auto& it : *this)
+	{
+		it.second.render(key.getShader());
+	}
 }
 
+inline void RenderQueue::render(ShaderProgram* shader, const RenderParameters& params) const
+{
+	ShaderKey key(shader);
+	key.bind(params);
+
+	for (auto& it : *this)
+	{
+		it.second.render(key.getShader());
+	}
+}
+
+} // namespace Engine
 } // namespace Ra

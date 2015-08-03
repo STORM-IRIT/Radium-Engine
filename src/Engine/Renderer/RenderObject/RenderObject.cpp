@@ -43,9 +43,13 @@ void Engine::RenderObject::updateGL()
     m_isDirty = false;
 }
 
-void Engine::RenderObject::feedRenderQueue(RenderQueue* queue)
+void Engine::RenderObject::feedRenderQueue(RenderQueue& queue, const Core::Matrix4& view, const Core::Matrix4& proj)
 {
+	ShaderKey shader(m_shader);
+	BindableMaterial material(m_material);
+	BindableTransform transform(m_component->getEntity()->getTransformAsMatrix(), view, proj);
 
+	queue[shader][material][transform].push_back(m_mesh);
 }
 
 Engine::RenderObject* Engine::RenderObject::clone()

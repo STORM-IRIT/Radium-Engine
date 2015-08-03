@@ -144,12 +144,16 @@ void Engine::Renderer::render(const RenderData& data)
     updateRenderObjectsInternal(data, renderObjects);
     m_timerData.updateEnd = Core::Timer::Clock::now();
 
+	// 2. Feed render queues
+	feedRenderQueuesInternal(data, renderObjects);
+	m_timerData.feedRenderQueuesEnd = Core::Timer::Clock::now();
+
     // 1. Do the rendering.
-    renderInternal(data, renderObjects);
+    renderInternal(data);
     m_timerData.mainRenderEnd = Core::Timer::Clock::now();
 
     // 2. Post processing
-    postProcessInternal(data, renderObjects);
+    postProcessInternal(data);
     m_timerData.postProcessEnd = Core::Timer::Clock::now();
 
     //3. write image to framebuffer.
@@ -163,7 +167,7 @@ void Engine::Renderer::saveExternalFBOInternal()
 }
 
 void Engine::Renderer::updateRenderObjectsInternal(const RenderData &renderData,
-                                               const std::vector<std::shared_ptr<RenderObject> > &renderObjects)
+												   const std::vector<std::shared_ptr<RenderObject>> &renderObjects)
 {
     CORE_UNUSED(renderData);
 
@@ -173,29 +177,37 @@ void Engine::Renderer::updateRenderObjectsInternal(const RenderData &renderData,
     }
 }
 
-void Engine::Renderer::renderInternal(const RenderData& renderData,
-                                      const std::vector<std::shared_ptr<RenderObject>>& renderObjects)
+void Engine::Renderer::feedRenderQueuesInternal(const RenderData& renderData,
+												const std::vector<std::shared_ptr<RenderObject>>& renderObjects)
 {
-    uint size = renderObjects.size();
-    std::vector<uint> opaque; opaque.reserve(size);
-    std::vector<uint> transparent; transparent.reserve(size);
+	m_opaqueRenderQueue.clear();
+	m_transparentRenderQueue.clear();
+	m_debugRenderQueue.clear();
 
-    // Get translucent objects
-    for (uint i = 0; i < size; ++i)
-    {
-        Material::MaterialType type = renderObjects[i]->getMaterial()->getMaterialType();
-        if (type == Material::MAT_TRANSPARENT)
-        {
-            transparent.push_back(i);
-        }
-        else
-        {
-            opaque.push_back(i);
-        }
-    }
-    uint numOpaque = opaque.size();
-    uint numTransparent = transparent.size();
+	for (const auto& ro : renderObjects)
+	{
+		switch (ro->getRenderObjectType())
+		{
+			case RenderObject::RO_OPAQUE:
+			{
+				ro->feedRenderQueue(m_opaqueRenderQueue, renderData.viewMatrix, renderData.projMatrix);
+			} break;
 
+			case RenderObject::RO_TRANSPARENT:
+			{
+				ro->feedRenderQueue(m_transparentRenderQueue, renderData.viewMatrix, renderData.projMatrix);
+			} break;
+
+			case RenderObject::RO_DEBUG:
+			{
+				ro->feedRenderQueue(m_debugRenderQueue, renderData.viewMatrix, renderData.projMatrix);
+			} break;
+		}
+	}
+}
+
+void Engine::Renderer::renderInternal(const RenderData& renderData)
+{
     m_fbo->useAsTarget();
 
     GL_ASSERT(glDepthMask(GL_TRUE));
@@ -206,7 +218,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     const Core::Color clearColor(0.1, 0.1, 0.1, 1.0);
     const Core::Color clearZeros(0.0, 0.0, 0.0, 0.0);
     const Core::Color clearOnes(1.0, 1.0, 1.0, 1.0);
-    const Scalar clearDepth = 1.0;
+    const Scalar clearDepth(1.0);
 
     GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearColor.data())); // Clear ambient
     GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearZeros.data()));  // Clear position
@@ -215,9 +227,6 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     GL_ASSERT(glClearBufferfv(GL_COLOR, 4, clearZeros.data()));  // Clear color
     GL_ASSERT(glClearBufferfv(GL_COLOR, 5, clearZeros.data()));  // Clear renderpass
     GL_ASSERT(glClearBufferfv(GL_DEPTH, 0, &clearDepth));       // Clear depth
-
-    Core::Matrix4 view = renderData.viewMatrix;
-    Core::Matrix4 proj = renderData.projMatrix;
 
     // Z + Ambient Prepass
     GL_ASSERT(glEnable(GL_DEPTH_TEST));
@@ -229,10 +238,9 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     GL_ASSERT(glDrawBuffers(4, buffers)); // Draw ambient, position, normal, picking
 
     m_depthAmbientShader->bind();
-    RenderQueue queue;
-    CORE_ERROR("Render queue has to be implemented.");
-    queue.render(m_depthAmbientShader);
+	m_opaqueRenderQueue.render(m_depthAmbientShader);
 
+	// FIXME(Charly): Find a smart way to perform picking
 //    for (uint i = 0; i < numOpaque; ++i)
 //    {
 //        auto ro = renderObjects[opaque[i]];
@@ -262,7 +270,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
         {
             // TODO(Charly): Light render params
             RenderParameters params;
-            queue.render(params);
+            m_opaqueRenderQueue.render(params);
         }
     }
     else
@@ -272,7 +280,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
 
         // TODO(Charly): Light render params
         RenderParameters params;
-        queue.render(params);
+        m_opaqueRenderQueue.render(params);
     }
 
     m_fbo->unbind();
@@ -296,8 +304,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     m_oiTransparencyShader->setUniform("depthScale", Scalar(0.5));
 
     CORE_ERROR("Transparent render queue.");
-    RenderQueue transparentQueue;
-    transparentQueue.render(m_oiTransparencyShader);
+    m_transparentRenderQueue.render(m_oiTransparencyShader);
 
     GL_ASSERT(glDisable(GL_BLEND));
 
@@ -332,11 +339,9 @@ void Engine::Renderer::renderInternal(const RenderData& renderData,
     m_fbo->unbind();
 }
 
-void Engine::Renderer::postProcessInternal(const RenderData &renderData,
-                                           const std::vector<std::shared_ptr<RenderObject>>& renderObjects)
+void Engine::Renderer::postProcessInternal(const RenderData &renderData)
 {
     CORE_UNUSED(renderData);
-    CORE_UNUSED(renderObjects);
 
     // This pass does nothing by default
 
@@ -690,7 +695,7 @@ void Engine::Renderer::handleFileLoading(const std::string &filename)
             case aiLightSource_UNDEFINED:
             default:
             {
-                LOG(ERROR) << "Light " << name.C_Str() << " has undefined type.";
+//                LOG(ERROR) << "Light " << name.C_Str() << " has undefined type.";
             } break;
         }
     }

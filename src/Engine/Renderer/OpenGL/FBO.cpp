@@ -157,7 +157,7 @@ void Engine::FBO::check() const
             }
         }
 
-        LOG(ERROR) << "FBO Error : " << err;
+        LOG(logERROR) << "FBO Error : " << err;
     }
 
     assert(fboStatus == GL_FRAMEBUFFER_COMPLETE && "Something went wrong with the Framebuffer.\n");

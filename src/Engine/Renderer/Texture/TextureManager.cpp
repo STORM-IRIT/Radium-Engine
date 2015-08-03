@@ -43,7 +43,7 @@ Engine::Texture* Engine::TextureManager::addTexture(const std::string& filename)
     {
         // Still unknown
         std::string error = "Cannot determine " + filename + " image format.";
-        LOG(ERROR) << error;
+        LOG(logERROR) << error;
         CORE_ASSERT(0, error.c_str());
 
         return nullptr;
@@ -59,7 +59,7 @@ Engine::Texture* Engine::TextureManager::addTexture(const std::string& filename)
 
     if (nullptr == dib)
     {
-        LOG(ERROR) << error;
+        LOG(logERROR) << error;
         return nullptr;
     }
 
@@ -73,10 +73,14 @@ Engine::Texture* Engine::TextureManager::addTexture(const std::string& filename)
     int h = FreeImage_GetHeight(dib);
 
     // FIXME(Charly): Use VLOG instead of the check
-    LOG_IF(m_verbose, INFO) << "Image stats (" << filename << ") :\n"
-                            << "\tBPP    : 0x" << std::hex << bpp << std::dec << std::endl
-                            << "\tFormat : 0x" << std::hex << format << std::dec << std::endl
-                            << "\tSize   : " << w << ", " << h;
+	if (m_verbose)
+	{
+		LOG(logINFO) << "Image stats (" << filename << ") :\n"
+			         << "\tBPP    : 0x" << std::hex << bpp << std::dec << std::endl
+			         << "\tFormat : 0x" << std::hex << format << std::dec << std::endl
+			         << "\tSize   : " << w << ", " << h;
+	}
+    
 
     CORE_ASSERT(data, "Data is null");
 
