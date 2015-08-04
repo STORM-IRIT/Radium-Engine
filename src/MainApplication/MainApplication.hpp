@@ -28,12 +28,6 @@ namespace Ra
         /// Fired when the engine has just started, before the frame timer is set.
         void starting();
 
-        /// Fired at the start of a frame.
-        void preFrame();
-
-        /// Fired at the end of a frame.
-        void postFrame();
-
         /// Fired when the engine is about to stop.
         void stopping();
 
@@ -46,10 +40,6 @@ namespace Ra
         void radiumFrame();
 
         void loadFile(QString path);
-
-
-        /// Callback slot for the viewer.
-        void viewerReady( Gui::Viewer* viewer );
 
 	private:
 		/// Create signal / slots connections

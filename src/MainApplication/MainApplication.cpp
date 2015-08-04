@@ -2,19 +2,18 @@
 
 #include <Core/CoreMacros.hpp>
 
-#include <iostream>
 #include <QTimer>
 
 #include <Core/Log/Log.hpp>
 #include <Core/String/StringUtils.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
-#include <Core/Math/Vector.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
 
+INITIALIZE_EASYLOGGINGPP
 
 // Const parameters : TODO : make config / command line options
 const uint FPS_MAX = 60;
@@ -32,6 +31,22 @@ namespace Ra
         , m_frameCounter(0)
         , m_timerData(TIMER_AVERAGE)
     {
+
+        // Setup logging facility
+        el::Configurations defaultConf;
+        defaultConf.setToDefault();
+        // Values are always std::string
+        defaultConf.set(el::Level::Info,
+                    el::ConfigurationType::Format,
+                    "%datetime{%y-%M-%d %H:%m:%s} [%level] %msg");
+
+        defaultConf.set(el::Level::Debug,
+                    el::ConfigurationType::Format,
+                    "%datetime{%y-%M-%d %H:%m:%s} [%level] %func :\n\t%msg");
+
+        // default logger uses default configurations
+        el::Loggers::reconfigureLogger("default", defaultConf);
+
         // Boilerplate print.
 
         LOG(INFO) << "*** Radium Engine Main App  ***";
@@ -57,6 +72,7 @@ namespace Ra
         config << "single precision" << std::endl;
 #endif
         LOG(INFO) << config.str();
+        LOG(INFO) << "(Log using default file)";
 
         // Handle command line arguments.
         // TODO ( e.g fps limit ) / Keep or not timer data .
@@ -129,12 +145,6 @@ namespace Ra
 
 			emit(sceneChanged(sceneBBox));
 		}
-    }
-
-    void MainApplication::viewerReady(Gui::Viewer* viewer)
-    {
-        m_viewer = viewer;
-        CORE_ASSERT(m_viewer->parent()->parent() == m_mainWindow.get(), "Viewer is not setup");
     }
 
     void MainApplication::radiumFrame()
