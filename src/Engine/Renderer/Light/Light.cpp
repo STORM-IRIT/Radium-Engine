@@ -1,6 +1,6 @@
 #include <Engine/Renderer/Light/Light.hpp>
 
-#include <Engine/Renderer/Shader/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
 namespace Ra
 {
@@ -16,10 +16,10 @@ Engine::Light::~Light()
 {
 }
 
-void Engine::Light::bind(ShaderProgram* shader)
+void Engine::Light::getRenderParameters(RenderParameters& params)
 {
-    shader->setUniform("light.color", m_color);
-    shader->setUniform("light.type", m_type);
+	params.addParameter("light.color", m_color);
+    params.addParameter("light.type", m_type);
 }
 
 }

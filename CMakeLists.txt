@@ -16,14 +16,14 @@ endif(UNIX)
 # /GL : enable link time optimization
 # /Zi  : generate debug info
 if (MSVC)
-  #remove exceptions from default args
-  add_definitions(-D_HAS_EXCEPTIONS=0)
-  string (REGEX REPLACE "/EHsc *" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-  string (REGEX REPLACE "/GR" ""     CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    #remove exceptions from default args
+    add_definitions(-D_HAS_EXCEPTIONS=0)
+    string (REGEX REPLACE "/EHsc *" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    string (REGEX REPLACE "/GR" ""     CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
-	set(CMAKE_CXX_FLAGS	               "/Wall /arch:SSE2 /arch:AVX2 /GR- /EHs-c- ${CMAKE_CXX_FLAGS}")
-	set(CMAKE_CXX_FLAGS_DEBUG		   "/D_DEBUG /DCORE_DEBUG /DOSG_NOTIFY_LEVEL=DEBUG /Od /Zi ${CMAKE_CXX_FLAGS_DEBUG}")
-	set(CMAKE_CXX_FLAGS_RELEASE		   "/DNDEBUG /Ox /fp:fast /GL")
+	set(CMAKE_CXX_FLAGS	               "/arch:AVX2 /GR- /EHs-c- /MP ${CMAKE_CXX_FLAGS}")
+	set(CMAKE_CXX_FLAGS_DEBUG		   "/D_DEBUG /DCORE_DEBUG /DOSG_NOTIFY_LEVEL=DEBUG /Od /Zi ${CMAKE_CXX_FLAGS_DEBUG} /MDd")
+	set(CMAKE_CXX_FLAGS_RELEASE		   "/DNDEBUG /Ox /fp:fast /GL /MT")
 	set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi ${CMAKE_CXX_FLAGS_RELEASE}")
 endif(MSVC)
 
@@ -46,40 +46,36 @@ if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug)
 endif()
 
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin-debug)
-    set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_SOURCE_DIR}/bin-debug)
-    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib-debug)
-    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib-debug)
-    set(LIB_INSTALL_DIR                ${CMAKE_SOURCE_DIR}/lib-debug)
-else()
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
-    set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_SOURCE_DIR}/bin)
-    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
-    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
-    set(LIB_INSTALL_DIR                ${CMAKE_SOURCE_DIR}/lib)
-endif()
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+set(LIB_INSTALL_DIR                ${CMAKE_SOURCE_DIR}/lib)
 
 # Win32 stuff
 if (MSVC OR MSVC_IDE)
   # Use November CTP 2013 (constexpr and other non implemented stuff in the 2013 version)
-  if (MSVC_VERSION LESS 1800)
-    message(FATAL_ERROR
-            "This project requires C++11 stuff provided only with "
-            "Microsoft Visual C++ Compiler Nov 2013 CTP (v120_CTP_Nov2013).")
-  endif(MSVC_VERSION LESS 1800)
+    if (MSVC_VERSION LESS 1800)
+        message(FATAL_ERROR
+                "This project requires C++11 stuff provided only with "
+                "Microsoft Visual C++ Compiler Nov 2013 CTP (v120_CTP_Nov2013).")
+    endif(MSVC_VERSION LESS 1800)
 
-  if (MSVC_VERSION EQUAL 1800)
-    #set(CMAKE_GENERATOR_TOOLSET "CTP_Nov2013" CACHE STRING "Platform Toolset" FORCE)
-  endif (MSVC_VERSION EQUAL 1800)
+    if (MSVC_VERSION EQUAL 1800)
+        #set(CMAKE_GENERATOR_TOOLSET "CTP_Nov2013" CACHE STRING "Platform Toolset" FORCE)
+    endif (MSVC_VERSION EQUAL 1800)
 
-# Copy libs / targets in the correct directories
-  foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
-    string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG)
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin)
-    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/lib)
-    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/lib)
-  endforeach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
+    # Copy libs / targets in the correct directories
+    if ("${CMAKE_GENERATOR}" STREQUAL "NMake Makefiles")
+        set(PDB_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+    else()
+        foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
+            string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG)
+            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin)
+            set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/lib)
+            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/lib)
+        endforeach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
+    endif()
 endif(MSVC OR MSVC_IDE)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
@@ -93,6 +89,3 @@ set(EIGEN_INC ${EXTERNAL_DIR}/Eigen)
 
 add_subdirectory(3rdPartyLibraries)
 add_subdirectory(src)
-
-
-

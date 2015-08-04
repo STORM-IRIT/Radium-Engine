@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_BINDABLEMATERIAL_HPP
 #define RADIUMEGNINE_BINDABLEMATERIAL_HPP
 
-#include <Engine/Renderer/RenderQueue/Bindable.hpp>
+#include <Engine/Renderer/Bindable/Bindable.hpp>
 
 namespace Ra { namespace Engine { class Material; } }
 

@@ -1,7 +1,7 @@
-#include <Engine/Renderer/RenderQueue/BindableMaterial.hpp>
+#include <Engine/Renderer/Bindable/BindableMaterial.hpp>
 
-#include <Engine/Renderer/Material/Material.hpp>
-#include <Engine/Renderer/Shader/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/Material.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra

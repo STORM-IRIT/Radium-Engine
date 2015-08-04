@@ -1,8 +1,8 @@
 #include <Engine/Renderer/RenderQueue/ShaderKey.hpp>
 
 #include <Core/CoreMacros.hpp>
-#include <Engine/Renderer/Shader/ShaderProgram.hpp>
-#include <Engine/Renderer/RenderQueue/RenderParameters.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
 namespace Ra
 {

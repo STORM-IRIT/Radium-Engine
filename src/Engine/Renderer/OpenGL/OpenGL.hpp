@@ -12,7 +12,7 @@
 #define GL_GLEXT_PROTOTYPES 1
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <GL/glext.h>
+#include <Engine/Renderer/OpenGL/glext.h>
 
 namespace Ra { namespace Engine {
 
@@ -49,7 +49,7 @@ namespace Ra { namespace Engine {
 #else
 #define GL_ASSERT(x) x
 #define GL_CHECK_ERROR {}
-#define glFlushError() 
+#define glFlushError()
 #endif
 
 } // namespace Engine

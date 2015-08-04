@@ -5,11 +5,12 @@
 #include <vector>
 
 #include <Core/CoreMacros.hpp>
-#include <Engine/Renderer/Shader/ShaderProgram.hpp>
-#include <Engine/Renderer/RenderQueue/RenderParameters.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 #include <Engine/Renderer/RenderQueue/ShaderKey.hpp>
-#include <Engine/Renderer/RenderQueue/BindableMaterial.hpp>
-#include <Engine/Renderer/RenderQueue/BindableTransform.hpp>
+#include <Engine/Renderer/Bindable/BindableMaterial.hpp>
+#include <Engine/Renderer/Bindable/BindableTransform.hpp>
+#include <Engine/Renderer/Bindable/BindableMesh.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
 
@@ -25,16 +26,16 @@ public:
     inline void RA_API render(ShaderProgram* shader) const;
 };
 
-class MeshVector : public std::vector<Mesh*>
+class BindableMeshVector : public std::vector<BindableMesh>
 {
 public:
-    inline RA_API MeshVector();
-    inline virtual RA_API ~MeshVector();
+    inline RA_API BindableMeshVector();
+    inline virtual RA_API ~BindableMeshVector();
 
     inline void RA_API render(ShaderProgram* shader) const;
 };
 
-typedef RenderableMap<BindableTransform, MeshVector> TransformRenderQueue;
+typedef RenderableMap<BindableTransform, BindableMeshVector> TransformRenderQueue;
 typedef RenderableMap<BindableMaterial, TransformRenderQueue> MaterialRenderQueue;
 
 class RenderQueue : public std::map<ShaderKey, MaterialRenderQueue>

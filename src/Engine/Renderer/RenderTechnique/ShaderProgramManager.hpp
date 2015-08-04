@@ -5,13 +5,12 @@
 #include <map>
 
 #include <Core/Utils/Singleton.hpp>
-#include <Engine/Renderer/Shader/ShaderConfiguration.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
 // TODO (Charly) :  Since ShaderProgramManager has the responsability for the shaders,
 //                  use shared_ptrs here
 
 namespace Ra { namespace Engine { class ShaderProgram; } }
-namespace Ra { namespace Engine { class Engine; } }
 
 namespace Ra { namespace Engine {
 
@@ -52,9 +51,9 @@ private:
 
 	std::map<ShaderConfiguration, ShaderProgram*> m_shaderPrograms;
 	std::map<ShaderConfiguration, ShaderProgramStatus> m_shaderProgramStatus;
-	
+
 	ShaderProgram* m_defaultShaderProgram;
-	
+
 	int m_defaultShaderId;
 };
 

@@ -8,7 +8,7 @@ namespace Ra { namespace Core { struct TriangleMesh; } }
 
 namespace Ra { namespace Engine { class RadiumEngine;      } }
 namespace Ra { namespace Engine { class Entity;            } }
-namespace Ra { namespace Engine { class Material;          } }
+namespace Ra { namespace Engine { class RenderTechnique;   } }
 namespace Ra { namespace Engine { class Component;         } }
 namespace Ra { namespace Engine { class FancyMeshComponent;} }
 
@@ -28,10 +28,10 @@ public:
     virtual void generateTasks(Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo) override;
 
     // Specialized factory methods for this systems.
-    FancyMeshComponent* addDisplayMeshToEntity(Engine::Entity* entity, const Core::TriangleMesh& mesh);
-    FancyMeshComponent* addDisplayMeshToEntity(Engine::Entity* entity,
+    FancyMeshComponent* addDisplayMeshToEntity(Entity* entity, const Core::TriangleMesh& mesh);
+    FancyMeshComponent* addDisplayMeshToEntity(Entity* entity,
                                                const Core::TriangleMesh& mesh,
-                                               Engine::Material* material);
+                                               RenderTechnique* technique);
 
 private:
 };

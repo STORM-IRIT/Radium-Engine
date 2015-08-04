@@ -7,7 +7,8 @@
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshLoadingData.hpp>
 
 namespace Ra {
-    typedef std::vector<Engine::FancyComponentData, Core::AlignedAllocator<Engine::FancyComponentData, 16> >DataVector;
+    typedef std::vector<Engine::FancyComponentData,
+        Core::AlignedAllocator<Engine::FancyComponentData, 16>> DataVector;
 }
 namespace Ra { namespace Engine {
 

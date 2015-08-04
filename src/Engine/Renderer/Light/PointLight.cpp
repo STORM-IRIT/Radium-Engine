@@ -1,6 +1,6 @@
 #include <Engine/Renderer/Light/PointLight.hpp>
 
-#include <Engine/Renderer/Shader/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
 namespace Ra
 {
@@ -16,14 +16,14 @@ Engine::PointLight::~PointLight()
 {
 }
 
-void Engine::PointLight::bind(ShaderProgram* shader)
+void Engine::PointLight::getRenderParameters(RenderParameters& params)
 {
-    Light::bind(shader);
+	Light::getRenderParameters(params);
 
-    shader->setUniform("light.point.position", m_position);
-    shader->setUniform("light.point.attenuation.constant", m_attenuation.constant);
-    shader->setUniform("light.point.attenuation.linear", m_attenuation.linear);
-    shader->setUniform("light.point.attenuation.quadratic", m_attenuation.quadratic);
+    params.addParameter("light.point.position", m_position);
+	params.addParameter("light.point.attenuation.constant", m_attenuation.constant);
+	params.addParameter("light.point.attenuation.linear", m_attenuation.linear);
+	params.addParameter("light.point.attenuation.quadratic", m_attenuation.quadratic);
 }
 
 }

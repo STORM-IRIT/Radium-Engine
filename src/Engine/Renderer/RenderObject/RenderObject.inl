@@ -38,24 +38,15 @@ inline void Engine::RenderObject::setComponent(Component* component)
     m_component = component;
 }
 
-inline void Engine::RenderObject::setShader(ShaderProgram *shader)
+inline void Engine::RenderObject::setRenderTechnique(RenderTechnique *technique)
 {
-    m_shader = shader;
+    CORE_ASSERT(technique, "Passing a nullptr as render technique");
+    m_renderTechnique = technique;
 }
 
-inline Engine::ShaderProgram* Engine::RenderObject::getShader() const
+inline Engine::RenderTechnique* Engine::RenderObject::getRenderTechnique() const
 {
-    return m_shader;
-}
-
-inline void Engine::RenderObject::setMaterial(Material* material)
-{
-    m_material = material;
-}
-
-inline Engine::Material* Engine::RenderObject::getMaterial() const
-{
-    return m_material;
+    return m_renderTechnique;
 }
 
 inline void Engine::RenderObject::setMesh(Mesh* mesh)

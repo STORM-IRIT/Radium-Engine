@@ -11,9 +11,10 @@
 #include <Core/String/StringUtils.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Renderer/Material/Material.hpp>
-#include <Engine/Renderer/Shader/ShaderProgram.hpp>
-#include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
+#include <Engine/Renderer/RenderTechnique/Material.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/SpotLight.hpp>
@@ -25,10 +26,6 @@ namespace Ra
 namespace
 {
 const Engine::ShaderConfiguration defaultShaderConf("BlinnPhong", "../Shaders");
-const Engine::ShaderConfiguration contourShaderConf("BlinnPhongContour", "../Shaders",
-                                                    Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM);
-const Engine::ShaderConfiguration wireframeShaderConf("BlinnPhongWireframe", "../Shaders",
-                                                      Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM);
 
 std::string filepath;
 static DataVector dataVector;
@@ -46,8 +43,8 @@ void runThroughNodes(const aiNode* node, const aiScene* scene,
 
 void loadMesh(const aiMesh* mesh, Engine::FancyMeshData& data);
 
-void loadMaterial(const aiMaterial* mat, Engine::FancyComponentData& data);
-void loadDefaultMaterial(Engine::FancyComponentData& data);
+void loadRenderTechnique(const aiMaterial* mat, Engine::FancyComponentData& data);
+void loadDefaultRenderTechnique(Engine::FancyComponentData& data);
 }
 
 DataVector Engine::FancyMeshLoader::loadFile(const std::string & name)
@@ -104,11 +101,11 @@ void runThroughNodes(const aiNode* node, const aiScene* scene,
 		if (scene->HasMaterials())
 		{
 			aiMaterial* material = scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex];
-			loadMaterial(material, data);
+			loadRenderTechnique(material, data);
 		}
 		else
 		{
-			loadDefaultMaterial(data);
+			loadDefaultRenderTechnique(data);
 		}
 
 		for (uint i = 0; i < node->mNumMeshes; ++i)
@@ -148,7 +145,7 @@ void loadMesh(const aiMesh* mesh, Engine::FancyMeshData& data)
 			bitangents.push_back(assimpToCore(mesh->mBitangents[i]));
 		}
 
-		// FIXME(Charly): What do texture coords indices mean ? 
+		// FIXME(Charly): What do texture coords indices mean ?
 		if (mesh->HasTextureCoords(0))
 		{
 			texcoords.push_back(assimpToCore(mesh->mTextureCoords[0][i]));
@@ -169,12 +166,12 @@ void loadMesh(const aiMesh* mesh, Engine::FancyMeshData& data)
 	data.texcoords = texcoords;
 }
 
-void loadMaterial(const aiMaterial* mat, Engine::FancyComponentData& data)
+void loadRenderTechnique(const aiMaterial* mat, Engine::FancyComponentData& data)
 {
 	std::string materialName = data.name.append("_Material");
 	if (mat == nullptr)
 	{
-		loadDefaultMaterial(data);
+		loadDefaultRenderTechnique(data);
 		return;
 	}
 
@@ -182,19 +179,16 @@ void loadMaterial(const aiMaterial* mat, Engine::FancyComponentData& data)
 	// TODO(Charly): Handle transparency
 	Engine::Material* material = new Engine::Material(materialName);
 
-	material->setDefaultShaderProgram(defaultShaderConf);
-	material->setContourShaderProgram(contourShaderConf);
-	material->setWireframeShaderProgram(wireframeShaderConf);
-
 	aiColor4D color;
 	if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_DIFFUSE, color))
 	{
         Core::Color c = assimpToCore(color);
         material->setKd(c);
-        if (c.w() < 1.0)
-        {
-            material->setMaterialType(Engine::Material::MAT_TRANSPARENT);
-        }
+        // FIXME(Charly): Should materials still have a type ?
+        // if (c.w() < 1.0)
+        // {
+        //     material->setMaterialType(Engine::Material::MAT_TRANSPARENT);
+        // }
 	}
 	else
 	{
@@ -245,22 +239,27 @@ void loadMaterial(const aiMaterial* mat, Engine::FancyComponentData& data)
     if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_OPACITY, 0), name))
     {
         material->addTexture(Engine::Material::TEX_ALPHA, filepath + "/" + std::string(name.C_Str()));
-        material->setMaterialType(Engine::Material::MAT_TRANSPARENT);
+        // material->setMaterialType(Engine::Material::MAT_TRANSPARENT);
     }
 
-	data.material = material;
+    Engine::RenderTechnique* renderTechnique = new Engine::RenderTechnique;
+    renderTechnique->shaderConfig = defaultShaderConf;
+    renderTechnique->material = material;
+
+	data.renderTechnique = renderTechnique;
 }
 
-void loadDefaultMaterial(Engine::FancyComponentData& data)
+void loadDefaultRenderTechnique(Engine::FancyComponentData& data)
 {
 	std::string materialName = data.name.append("_Material");
 
     Engine::Material* material = new Engine::Material(materialName);
-    material->setDefaultShaderProgram(defaultShaderConf);
-    material->setContourShaderProgram(contourShaderConf);
-    material->setWireframeShaderProgram(wireframeShaderConf);
-    
-	data.material = material;
+
+    Engine::RenderTechnique* renderTechnique = new Engine::RenderTechnique;
+    renderTechnique->shaderConfig = defaultShaderConf;
+    renderTechnique->material = material;
+
+	data.renderTechnique = renderTechnique;
 }
 
 void assimpToCore(const aiVector3D& inVector, Core::Vector3& outVector)

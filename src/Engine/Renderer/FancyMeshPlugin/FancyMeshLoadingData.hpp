@@ -8,7 +8,7 @@
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 
-namespace Ra { namespace Engine { class Material; } }
+namespace Ra { namespace Engine { class RenderTechnique; } }
 
 namespace Ra {
 namespace Engine {
@@ -28,10 +28,10 @@ struct RA_API FancyComponentData
 	std::vector<FancyMeshData> meshes;
 
 	std::string name;
-	Material* material;
+	RenderTechnique* renderTechnique;
 };
 
 } // namespace Engine
-} // namespace Ra 
+} // namespace Ra
 
 #endif // FANCYMESHPLUGIN_FANCYMESHLOADINGDATA_HPP

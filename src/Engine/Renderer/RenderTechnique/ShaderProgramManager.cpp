@@ -1,9 +1,9 @@
-#include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
 #include <cstdio>
 
-#include <Engine/Renderer/Shader/ShaderConfiguration.hpp>
-#include <Engine/Renderer/Shader/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 #include <Core/String/StringUtils.hpp>
 

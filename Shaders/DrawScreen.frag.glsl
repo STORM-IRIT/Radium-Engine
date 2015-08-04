@@ -29,7 +29,7 @@ void main()
     vec4 colorValue         = vec4(texture(color        , varTexcoord));
     vec4 pickingValue       = vec4(texture(picking      , varTexcoord));
     vec4 renderpassValue    = vec4(texture(renderpass   , varTexcoord));
-    
+
     vec4 oitAccumValue      = vec4(texture(oitAccum     , varTexcoord));
     vec4 oitRevealageValue  = vec4(texture(oitRevealage , varTexcoord));
 
@@ -42,11 +42,10 @@ void main()
 
 //    positionValue = positionValue.xyz != vec3(0) ? positionValue / 2 + 0.5 : vec4(0);
     normalValue = normalValue.xyz != vec3(0) ? normalValue / 2 + 0.5 : vec4(0);
-    
+
     oitRevealageValue.rgb = vec3(oitRevealageValue.r);
 
-//    value = colorValue;
+    value = ambientValue;
 
     fragColor = value;
 }
-

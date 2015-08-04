@@ -22,10 +22,11 @@ public:
 
 public:
 	RA_CORE_ALIGNED_NEW
+
     SpotLight();
     virtual ~SpotLight();
 
-    virtual void bind(ShaderProgram* shader);
+	virtual void getRenderParameters(RenderParameters& params);
 
     inline void setPosition(const Core::Vector3& position);
     inline const Core::Vector3& getPosition() const;

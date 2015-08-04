@@ -8,13 +8,13 @@
 #include <Core/CoreMacros.hpp>
 #include <Core/Index/IndexedObject.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/RenderTechnique/Material.hpp>
 
-namespace Ra { namespace Engine { class Light;         } }
-namespace Ra { namespace Engine { class ShaderProgram; } }
-namespace Ra { namespace Engine { class Component;     } }
-namespace Ra { namespace Engine { class Mesh;          } }
-namespace Ra { namespace Engine { class RenderQueue;   } }
+namespace Ra { namespace Engine { class Light;           } }
+namespace Ra { namespace Engine { class RenderTechnique; } }
+namespace Ra { namespace Engine { class Component;       } }
+namespace Ra { namespace Engine { class Mesh;            } }
+namespace Ra { namespace Engine { class RenderQueue;     } }
 
 namespace Ra { namespace Engine {
 
@@ -53,11 +53,8 @@ public:
 
     bool isDirty() const;
 
-    void setShader(ShaderProgram* shader);
-    ShaderProgram* getShader() const;
-
-    void setMaterial(Material* material);
-    Material* getMaterial() const;
+    void setRenderTechnique(RenderTechnique* technique);
+    RenderTechnique* getRenderTechnique() const;
 
     void setMesh(Mesh* mesh);
     Mesh* getMesh() const;
@@ -71,8 +68,7 @@ private:
     bool m_visible;
     bool m_isDirty;
 
-    ShaderProgram* m_shader;
-    Material* m_material;
+    RenderTechnique* m_renderTechnique;
     Mesh* m_mesh;
 
     mutable std::mutex m_updateMutex;

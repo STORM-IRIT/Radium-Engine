@@ -25,7 +25,7 @@ public:
     PointLight();
     virtual ~PointLight();
 
-    virtual void bind(ShaderProgram* shader);
+	virtual void getRenderParameters(RenderParameters& params) override;
 
     inline void setPosition(const Core::Vector3& pos);
     inline const Core::Vector3& getPosition() const;

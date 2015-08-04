@@ -3,7 +3,8 @@
 
 #include <Core/Math/LinearAlgebra.hpp>
 
-namespace Ra { namespace Engine { class ShaderProgram; } }
+namespace Ra { namespace Engine { class ShaderProgram;    } }
+namespace Ra { namespace Engine { class RenderParameters; } }
 
 namespace Ra { namespace Engine {
 
@@ -19,6 +20,7 @@ public:
 
 public:
     RA_CORE_ALIGNED_NEW
+
     Light(const LightType& type);
     virtual ~Light();
 
@@ -27,7 +29,7 @@ public:
 
     inline const LightType& getType() const;
 
-    virtual void bind(ShaderProgram* shader);
+    virtual void getRenderParameters(RenderParameters& params);
 
 private:
     // FIXME(Charly): Add color intensity

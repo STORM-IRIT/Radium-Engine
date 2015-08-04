@@ -8,6 +8,7 @@
 #include <Engine/Entity/FrameInfo.hpp>
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshComponent.hpp>
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshLoader.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
 namespace Ra
 {
@@ -62,7 +63,7 @@ Engine::Component* Engine::FancyMeshSystem::addComponentToEntity( Engine::Entity
     return component;
 }
 
-void Engine::FancyMeshSystem::generateTasks(Core::TaskQueue * taskQueue, const Engine::FrameInfo & frameInfo)
+void Engine::FancyMeshSystem::generateTasks(Core::TaskQueue * taskQueue, const FrameInfo & frameInfo)
 {
     // Do nothing, as this system only displays meshes.
     Core::DummyTask* task = new Core::DummyTask;
@@ -71,19 +72,19 @@ void Engine::FancyMeshSystem::generateTasks(Core::TaskQueue * taskQueue, const E
     taskQueue->queueTask(taskQueue->registerTask(task));
 }
 
-Engine::FancyMeshComponent * Engine::FancyMeshSystem::addDisplayMeshToEntity(Engine::Entity * entity, const Core::TriangleMesh & mesh)
+Engine::FancyMeshComponent * Engine::FancyMeshSystem::addDisplayMeshToEntity(Entity * entity, const Core::TriangleMesh & mesh)
 {
-    FancyMeshComponent* comp = static_cast<FancyMeshComponent*> (addComponentToEntity(entity));
+    FancyMeshComponent* comp = static_cast<FancyMeshComponent*>(addComponentToEntity(entity));
     comp->addMeshRenderObject(mesh, "Mesh RenderObject");
     return comp;
 }
 
-Engine::FancyMeshComponent* Engine::FancyMeshSystem::addDisplayMeshToEntity(Engine::Entity *entity,
+Engine::FancyMeshComponent* Engine::FancyMeshSystem::addDisplayMeshToEntity(Entity *entity,
                                                                             const Core::TriangleMesh &mesh,
-                                                                            Engine::Material *material)
+                                                                            RenderTechnique* technique)
 {
     FancyMeshComponent* comp = static_cast<FancyMeshComponent*>(addComponentToEntity(entity));
-    comp->addMeshRenderObject(mesh, "Mesh RenderObject", material);
+    comp->addMeshRenderObject(mesh, "Mesh RenderObject", technique);
     return comp;
 }
 

@@ -22,11 +22,11 @@ endif(WIN32)
 message("FreeImage : ${FREEIMAGE_LIBRARY}")
 
 include_directories(
- .
- ${EIGEN_INC}
- ${Assimp_INCLUDE_DIR}
- ${FREEIMAGE_INCLUDE_DIR}
- ${GLEW_INCLUDE_DIR}
+ 	.
+ 	${EIGEN_INC}
+ 	${Assimp_INCLUDE_DIR}
+ 	${FREEIMAGE_INCLUDE_DIR}
+ 	${GLEW_INCLUDE_DIR}
 )
 
 # Build Core
@@ -39,26 +39,28 @@ file(GLOB_RECURSE core_inlines Core/*.inl)
 set(core_libs ${OPENGL_LIBRARIES})
 
 add_library(
- ${core_target} SHARED
- ${core_sources}
- ${core_headers}
- ${core_inlines}
+ 	${core_target} SHARED
+ 	${core_sources}
+ 	${core_headers}
+ 	${core_inlines}
 )
 
 SET_TARGET_PROPERTIES(
- ${core_target}
- PROPERTIES
- VERSION ${library_version}
+ 	${core_target}
+	PROPERTIES
+	COMPILE_PDB_NAME ${core_target}
+	COMPILE_PDB_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+ 	VERSION ${library_version}
 )
 
 target_link_libraries(
- ${core_target}
- ${core_libs}
+ 	${core_target}
+ 	${core_libs}
 )
 
 INSTALL(
- TARGETS ${core_target}
- DESTINATION ${LIB_INSTALL_DIR}
+ 	TARGETS ${core_target}
+ 	DESTINATION ${LIB_INSTALL_DIR}
 )
 
 # Build Engine
@@ -74,7 +76,7 @@ file(GLOB_RECURSE engine_geom_glsl ../Shaders/*.geom.glsl)
 file(GLOB_RECURSE engine_tesc_glsl ../Shaders/*.tesc.glsl)
 file(GLOB_RECURSE engine_tese_glsl ../Shaders/*.tese.glsl)
 file(GLOB_RECURSE engine_comp_glsl ../Shaders/*.comp.glsl)
-								  
+
 set(engine_libs
 	radiumCore
     ${GLEW_LIBRARIES}
@@ -84,33 +86,35 @@ set(engine_libs
     ${OPENGL_LIBRARIES})
 
 add_library(
- ${engine_target} SHARED
- ${engine_sources}
- ${engine_headers}
- ${engine_inlines}
+ 	${engine_target} SHARED
+ 	${engine_sources}
+ 	${engine_headers}
+ 	${engine_inlines}
 
- ${engine_vert_glsl} 
- ${engine_frag_glsl}
- ${engine_geom_glsl}
- ${engine_tesc_glsl}
- ${engine_tese_glsl}
- ${engine_comp_glsl}
+ 	${engine_vert_glsl}
+ 	${engine_frag_glsl}
+ 	${engine_geom_glsl}
+ 	${engine_tesc_glsl}
+ 	${engine_tese_glsl}
+ 	${engine_comp_glsl}
 )
 
 SET_TARGET_PROPERTIES(
- ${engine_target}
- PROPERTIES
- VERSION ${library_version}
+ 	${engine_target}
+	PROPERTIES
+	COMPILE_PDB_NAME ${engine_target}
+	COMPILE_PDB_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+ 	VERSION ${library_version}
 )
 
 target_link_libraries(
- ${engine_target}
- ${engine_libs}
+ 	${engine_target}
+ 	${engine_libs}
 )
 
 INSTALL(
- TARGETS ${engine_target}
- DESTINATION ${LIB_INSTALL_DIR}
+ 	TARGETS ${engine_target}
+ 	DESTINATION ${LIB_INSTALL_DIR}
 )
 
 # Build MainApplication
@@ -136,24 +140,24 @@ add_definitions(${Qt5Widgets_DEFINITIONS})
 add_definitions(${Qt5OpenGL_DEFINITIONS})
 
 include_directories(
- .
- ${CMAKE_CURRENT_BINARY_DIR} # Moc
- ${EIGEN_INC}
+ 	.
+ 	${CMAKE_CURRENT_BINARY_DIR} # Moc
+ 	${EIGEN_INC}
 )
 
 add_executable(
- ${app_target}
- ${app_sources}
- ${app_headers}
- ${app_inlines}
- ${app_uis_moc}
+ 	${app_target}
+ 	${app_sources}
+ 	${app_headers}
+ 	${app_inlines}
+ 	${app_uis_moc}
 )
 
 target_link_libraries(
- ${app_target}
- ${app_libs}
+ 	${app_target}
+ 	${app_libs}
 )
 
 if (WIN32)
- include(CMakeGenerateTrees.txt)
+ 	include(CMakeGenerateTrees.txt)
 endif(WIN32)

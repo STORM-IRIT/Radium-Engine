@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_BINDABLETRANSFORM_HPP
 #define RADIUMENGINE_BINDABLETRANSFORM_HPP
 
-#include <Engine/Renderer/RenderQueue/Bindable.hpp>
+#include <Engine/Renderer/Bindable/Bindable.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
 namespace Ra { namespace Engine {

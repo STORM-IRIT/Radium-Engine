@@ -11,10 +11,11 @@ class RA_API DirectionalLight : public Light
 {
 public:
     RA_CORE_ALIGNED_NEW
+
     DirectionalLight();
     virtual ~DirectionalLight();
 
-    virtual void bind(ShaderProgram* shader);
+	virtual void getRenderParameters(RenderParameters& params);
 
     inline void setDirection(const Core::Vector3& pos);
     inline const Core::Vector3& getDirection() const;

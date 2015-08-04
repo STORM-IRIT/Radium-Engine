@@ -9,10 +9,10 @@
 #include <Core/Log/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
-#include <Engine/Renderer/Shader/ShaderProgramManager.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/Renderer/Shader/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -22,8 +22,6 @@
 #include <Engine/Renderer/Light/PointLight.hpp>
 #include <Engine/Renderer/Light/SpotLight.hpp>
 #include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
-#include <Core/Event/KeyEvent.hpp>
-#include <Core/Event/MouseEvent.hpp>
 
 namespace Ra
 {
@@ -240,20 +238,6 @@ void Engine::Renderer::renderInternal(const RenderData& renderData)
     m_depthAmbientShader->bind();
 	m_opaqueRenderQueue.render(m_depthAmbientShader);
 
-	// FIXME(Charly): Find a smart way to perform picking
-//    for (uint i = 0; i < numOpaque; ++i)
-//    {
-//        auto ro = renderObjects[opaque[i]];
-//        // Object ID
-//        int index = ro->idx.getValue();
-//        Scalar r = Scalar((index & 0x000000FF) >> 0) / 255.0;
-//        Scalar g = Scalar((index & 0x0000FF00) >> 8) / 255.0;
-//        Scalar b = Scalar((index & 0x00FF0000) >> 16) / 255.0;
-
-//        m_depthAmbientShader->setUniform("objectId", Core::Vector3(r, g, b));
-//        ro->draw(view, proj, m_depthAmbientShader);
-//    }
-
     // Light pass
     GL_ASSERT(glDepthFunc(GL_LEQUAL));
     GL_ASSERT(glDepthMask(GL_FALSE));
@@ -263,13 +247,13 @@ void Engine::Renderer::renderInternal(const RenderData& renderData)
 
     GL_ASSERT(glDrawBuffers(1, buffers + 4)); // Draw color texture
 
-    CORE_ERROR("Render queue has to be implemented.");
     if (m_lights.size() > 0)
     {
         for (const auto& l : m_lights)
         {
             // TODO(Charly): Light render params
             RenderParameters params;
+			l->getRenderParameters(params);
             m_opaqueRenderQueue.render(params);
         }
     }
@@ -280,6 +264,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData)
 
         // TODO(Charly): Light render params
         RenderParameters params;
+		l.getRenderParameters(params);
         m_opaqueRenderQueue.render(params);
     }
 
@@ -300,11 +285,8 @@ void Engine::Renderer::renderInternal(const RenderData& renderData)
     GL_ASSERT(glBlendFunci(1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA));
 
     m_oiTransparencyShader->bind();
-    // FIXME(Charly): weight parameter tweakability ?
-    m_oiTransparencyShader->setUniform("depthScale", Scalar(0.5));
 
-    CORE_ERROR("Transparent render queue.");
-    m_transparentRenderQueue.render(m_oiTransparencyShader);
+	m_transparentRenderQueue.render(m_oiTransparencyShader);
 
     GL_ASSERT(glDisable(GL_BLEND));
 
@@ -358,7 +340,7 @@ void Engine::Renderer::postProcessInternal(const RenderData &renderData)
     GL_ASSERT(glDrawBuffers(1, buffers));
 
     GL_ASSERT(glDepthFunc(GL_ALWAYS));
-	
+
     m_postprocessShader->bind();
     m_postprocessShader->setUniform("renderpassColor", m_renderpassTexture.get(), 0);
 

@@ -1,4 +1,4 @@
-#include <Engine/Renderer/Shader/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 #include <algorithm>
 #include <iostream>
@@ -20,7 +20,7 @@
 namespace Ra
 {
 
-namespace 
+namespace
 {
 	// From OpenGL Shading Language 3rd Edition, p215-216
 	std::string getShaderInfoLog(GLuint shader)

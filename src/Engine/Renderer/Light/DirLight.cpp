@@ -1,6 +1,6 @@
 #include <Engine/Renderer/Light/DirLight.hpp>
 
-#include <Engine/Renderer/Shader/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
 namespace Ra
 {
@@ -15,11 +15,11 @@ Engine::DirectionalLight::~DirectionalLight()
 {
 }
 
-void Engine::DirectionalLight::bind(ShaderProgram* shader)
+void Engine::DirectionalLight::getRenderParameters(RenderParameters& params)
 {
-    Light::bind(shader);
+    Light::getRenderParameters(params);
 
-    shader->setUniform("light.directional.direction", m_direction);
+    params.addParameter("light.directional.direction", m_direction);
 }
 
 }

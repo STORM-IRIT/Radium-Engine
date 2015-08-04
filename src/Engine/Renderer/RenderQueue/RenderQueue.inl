@@ -24,21 +24,21 @@ inline void RenderableMap<Key, Child>::render(ShaderProgram* shader) const
 	}
 }
 
-inline MeshVector::MeshVector()
-	: std::vector<Mesh*>()
+inline BindableMeshVector::BindableMeshVector()
+	: std::vector<BindableMesh>()
 {
 }
 
-inline MeshVector::~MeshVector()
+inline BindableMeshVector::~BindableMeshVector()
 {
 }
 
-inline void MeshVector::render(ShaderProgram *shader) const
+inline void BindableMeshVector::render(ShaderProgram *shader) const
 {
-	CORE_UNUSED(shader);
 	for (auto& it : *this)
 	{
-		it->render();
+		it.bind(shader);
+		it.render();
 	}
 }
 

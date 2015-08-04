@@ -1,6 +1,6 @@
-#include <Engine/Renderer/RenderQueue/BindableTransform.hpp>
+#include <Engine/Renderer/Bindable/BindableTransform.hpp>
 
-#include <Engine/Renderer/Shader/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 namespace Ra
 {
 

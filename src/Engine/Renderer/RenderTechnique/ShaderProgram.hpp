@@ -8,7 +8,7 @@
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
-#include <Engine/Renderer/Shader/ShaderConfiguration.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
 namespace Ra { namespace Engine { class Texture; } }
 

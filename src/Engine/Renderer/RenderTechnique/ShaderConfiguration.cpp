@@ -1,4 +1,4 @@
-#include <Engine/Renderer/Shader/ShaderConfiguration.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
 #include <sstream>
 
