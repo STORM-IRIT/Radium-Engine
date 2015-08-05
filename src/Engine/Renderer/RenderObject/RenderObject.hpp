@@ -65,11 +65,11 @@ private:
 
     Component* m_component;
 
-    bool m_visible;
-    bool m_isDirty;
-
     RenderTechnique* m_renderTechnique;
     Mesh* m_mesh;
+
+    bool m_visible;
+    bool m_isDirty;
 
     mutable std::mutex m_updateMutex;
 };
