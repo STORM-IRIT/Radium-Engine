@@ -34,7 +34,9 @@ public:
     /// @param mode  GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY,
     /// GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY,
     /// GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, or GL_DYNAMIC_COPY
-    inline GlBuffer(uint numElements, GLenum drawMode = GL_STREAM_DRAW);
+    inline GlBuffer(uint numElements, const T* data = nullptr, GLenum drawMode = GL_STREAM_DRAW);
+
+    inline GlBuffer(const std::vector<T>& data, GLenum drawMode = GL_STREAM_DRAW);
 
     inline GlBuffer(const GlBuffer<T, GL_BUFFER_TYPE>& buffer);
 
@@ -55,7 +57,7 @@ public:
     /// GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY,
     /// GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, or GL_DYNAMIC_COPY
     inline void setData( uint numElements,
-                  const T* data = 0,
+                  const T* data = nullptr,
                   GLenum drawMode = GL_STREAM_DRAW);
 
     /// Allocate and upload data of the buffer object
@@ -118,7 +120,7 @@ private:
     // =========================================================================
 
     GLuint m_bufferGlId;  ///< OpenGl id of the buffer object
-    int    m_numElements; ///< number of elements in the buffer
+    uint    m_numElements; ///< number of elements in the buffer
 
     /// Latest draw mode used when initializing the buffer
     /// (GL_STREAM_DRAW, GL_STATIC_DRAW etc.)

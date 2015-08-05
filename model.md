@@ -11,7 +11,13 @@
  * `Main Application` has the Qt-based GUI and the program entry point.
 * `shaders` contains the OpenGL Shaders used by the renderer.
 * `3rdPartyLibs` contains any library dependency. CMake will automatically
-look in this folder to find the libraries.
+look in this folder to find the libraries if they are not installed on your system.
+
+## Core Libs
+`Core` contains most of the basic code on which the rest of the software is built.
+* `CoreMacros.hpp` has definitions of basic types, build configuration and useful macros.
+since it can redefine some constants it is preferable to include it first.
+* `Math` is our math library, which is a wrapper around Eigen.
 
 ## Engine Object Model
 
@@ -35,8 +41,7 @@ For example, an Entity may have a Physics Component (which represent its collisi
 and the engine's corresponding Physics System will update its position according to the physics
 engine's result.
 
-Each System has an `update(float dt)` method which should update each Component's data accordingly
-(ideally each in its own thread).
+At each frame, each System is given the opportunity to add Tasks to a task queue. Tasks can at
 
 ### Drawables and the renderer
 

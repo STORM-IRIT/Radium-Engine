@@ -11,12 +11,10 @@
 
 namespace Ra {
 
-/// This structs holds all timings for one frame of the engine.
-// FIXME(Charly): Make this loggable ?
+/// This struct holds all timings for one frame of the engine.
 struct FrameTimerData
 {
     int numFrame;
-    int timerAverage;
     Core::Timer::TimePoint frameStart;
     Core::Timer::TimePoint tasksStart;
     Core::Timer::TimePoint tasksEnd;

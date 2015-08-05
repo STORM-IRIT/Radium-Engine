@@ -31,7 +31,7 @@ inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer(const GlBuffer<T,GL_BUFFER_TYPE>& b
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
-inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer(uint numElements, GLenum drawMode)
+inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer(uint numElements, const T* data, GLenum drawMode)
     : m_numElements(numElements)
     , m_drawMode( drawMode )
 {
@@ -39,7 +39,20 @@ inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer(uint numElements, GLenum drawMode)
 
     GL_ASSERT( glGenBuffers(1, &m_bufferGlId) );
     GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, m_bufferGlId) );
-    GL_ASSERT( glBufferData(GL_BUFFER_TYPE, m_numElements* sizeof(T), 0, m_drawMode) );
+    GL_ASSERT( glBufferData(GL_BUFFER_TYPE, m_numElements* sizeof(T), data, m_drawMode) );
+    GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, 0) );
+}
+
+template<typename T, GLenum GL_BUFFER_TYPE>
+inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer( const std::vector<T>& data, GLenum drawMode )
+    : m_numElements(data.size())
+    , m_drawMode( drawMode )
+{
+    CORE_ASSERT(glGetString(GL_VERSION)!= 0, "GL context unavailable");
+
+    GL_ASSERT( glGenBuffers(1, &m_bufferGlId) );
+    GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, m_bufferGlId) );
+    GL_ASSERT( glBufferData(GL_BUFFER_TYPE, m_numElements* sizeof(T), data.data(), m_drawMode) );
     GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, 0) );
 }
 
@@ -105,7 +118,7 @@ template<typename T, GLenum GL_BUFFER_TYPE>
 inline bool GlBuffer<T, GL_BUFFER_TYPE>::unmap() const
 {
     bind();
-    GL_ASSERT(bool state = glUnmapBuffer(GL_BUFFER_TYPE) ? true : false);
+    GL_ASSERT(bool state = 0 != glUnmapBuffer(GL_BUFFER_TYPE));
     return state;
 }
 

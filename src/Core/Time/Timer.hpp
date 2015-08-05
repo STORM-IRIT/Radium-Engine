@@ -22,8 +22,6 @@ namespace Timer
     {
         return (std::chrono::duration_cast<std::chrono::duration<Scalar, std::chrono::seconds::period>>(end-start)).count();
     }
-    
-
 }
 
 }}
