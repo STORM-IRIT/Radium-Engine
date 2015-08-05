@@ -102,7 +102,6 @@ void Engine::RadiumEngine::setupScene()
 
     Core::Transform transform;
 
-	/*
     Entity* ent0 = m_entityManager->getOrCreateEntity("box0");
     static_cast<FancyMeshSystem*>(m_systems["FancyMeshSystem"].get())
         ->addDisplayMeshToEntity(ent0, Core::MeshUtils::makeBox(), r0);
@@ -150,7 +149,6 @@ void Engine::RadiumEngine::setupScene()
     transform.setIdentity();
     transform.translation() = Core::Vector3(0, -5, 0);
     ent5->setTransform(transform);
-	*/
 
 //    Entity* plane3Entity = m_entityManager->getOrCreateEntity("Plane3");
 //    static_cast<FancyMeshSystem*>(m_systems["FancyMeshSystem"].get())

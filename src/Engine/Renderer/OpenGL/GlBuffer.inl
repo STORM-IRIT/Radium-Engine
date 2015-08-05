@@ -6,9 +6,8 @@ template<typename T, GLenum GL_BUFFER_TYPE>
 inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer()
     : m_numElements(0)
     , m_drawMode( GL_STREAM_DRAW )
+    , m_bufferGlId(0)
 {
-    CORE_ASSERT(glGetString(GL_VERSION)!= 0, "GL context unavailable");
-    GL_ASSERT( glGenBuffers(1, &m_bufferGlId));
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
@@ -39,7 +38,8 @@ inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer(uint numElements, const T* data, GL
 
     GL_ASSERT( glGenBuffers(1, &m_bufferGlId) );
     GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, m_bufferGlId) );
-    GL_ASSERT( glBufferData(GL_BUFFER_TYPE, m_numElements* sizeof(T), data, m_drawMode) );
+    GL_ASSERT( glBufferData(GL_BUFFER_TYPE, m_numElements * sizeof(T),
+                            data, m_drawMode) );
     //GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, 0) );
 }
 
@@ -52,7 +52,8 @@ inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer( const std::vector<T>& data, GLenum
 
     GL_ASSERT( glGenBuffers(1, &m_bufferGlId) );
     GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, m_bufferGlId) );
-    GL_ASSERT( glBufferData(GL_BUFFER_TYPE, m_numElements* sizeof(T), data.data(), m_drawMode) );
+    GL_ASSERT( glBufferData(GL_BUFFER_TYPE, data.size() * sizeof(T),
+                            data.data(), m_drawMode) );
     //GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, 0) );
 }
 
@@ -67,8 +68,16 @@ inline GlBuffer<T, GL_BUFFER_TYPE>::~GlBuffer()
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
+inline void GlBuffer<T, GL_BUFFER_TYPE>::initBuffer()
+{
+    CORE_ASSERT(m_bufferGlId == 0, "Buffer already initialized");
+    GL_ASSERT( glGenBuffers(1, &m_bufferGlId) );
+}
+
+template<typename T, GLenum GL_BUFFER_TYPE>
 inline void GlBuffer<T, GL_BUFFER_TYPE>::bind() const
 {
+    CORE_ASSERT(m_bufferGlId != 0, "Buffer not initialized");
     GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, m_bufferGlId) );
 }
 

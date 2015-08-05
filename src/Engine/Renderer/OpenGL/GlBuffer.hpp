@@ -42,6 +42,7 @@ public:
 
     inline ~GlBuffer();
 
+    inline void initBuffer();
     /// Bind the buffer object
     inline void bind() const;
 

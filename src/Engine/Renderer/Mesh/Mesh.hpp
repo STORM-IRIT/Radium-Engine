@@ -64,14 +64,16 @@ private:
     std::string m_name;
     bool m_isDirty;
 
+    uint m_vao;
+    GLenum m_renderMode;
+
 	std::map<DataType, Vector3Array> m_data;
-	std::map<DataType, GlBuffer<Core::Vector3>> m_vbos;
+//    std::map<DataType, GlBuffer<Core::Vector3, GL_ARRAY_BUFFER>> m_vbos;
+    std::map<DataType, uint> m_vbos;
 	
 	std::vector<uint> m_indices;
-	GlBuffer<uint> m_ibo;
-
-    uint m_vao;
-	GLenum m_renderMode;
+//    GlBuffer<uint, GL_ELEMENT_ARRAY_BUFFER> m_ibo;
+    uint m_ibo;
 };
 
 } // namespace Engine

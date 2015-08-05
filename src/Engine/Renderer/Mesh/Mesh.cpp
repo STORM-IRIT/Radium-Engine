@@ -14,6 +14,7 @@ Engine::Mesh::Mesh(const std::string& name)
     , m_isDirty(false) 
     , m_vao(0)
 	, m_renderMode(GL_TRIANGLES)
+    , m_ibo(0)
 {
 }
 
@@ -34,7 +35,7 @@ void Engine::Mesh::render()
 		// Not initialized yet
         return;
     }
-
+    // FIXME(Charly): This seems to crash on windows
     GL_ASSERT(glBindVertexArray(m_vao));
 //    GL_ASSERT(glDrawElements(GL_TRIANGLES_ADJACENCY, 6 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
     GL_ASSERT(glDrawElements(m_renderMode, m_indices.size(), GL_UNSIGNED_INT, (void*)0));
@@ -135,25 +136,59 @@ void Engine::Mesh::updateGL()
     // Bind it
     GL_ASSERT(glBindVertexArray(m_vao));
 
+#if 0 // Just wanna be sure problem is within glbuffers
+    // FIXME(Charly): This seems to crash on windows
 	for (const auto& it : m_data)
 	{
 		// This vbo has not been created yet
 		if (m_vbos.find(it.first) == m_vbos.end()) 
 		{
-			GlBuffer<Core::Vector3> vbo;
-			vbo.setData(it.second, GL_STATIC_DRAW);
+            m_vbos[it.first] = GlBuffer<Core::Vector3>(it.second, GL_STATIC_DRAW);
 			GL_ASSERT(glVertexAttribPointer(it.first, size, type, normalized,
 					  sizeof(Core::Vector3), ptr));
 			GL_ASSERT(glEnableVertexAttribArray(it.first));
-
-			m_vbos.insert(std::pair<DataType, GlBuffer<Core::Vector3>>(it.first, vbo));
 		}
 	}
 
     // Indices has not been initialized yet
-	m_ibo.bind();
-	m_ibo.setData(m_indices);
+    if (m_ibo.getId() == 0)
+    {
+        m_ibo.initBuffer();
+        m_ibo.bind();
+        m_ibo.setData(m_indices, GL_STATIC_DRAW);
+    }
+#else
+    for (const auto& it : m_data)
+    {
+        // This vbo has not been created yet
+        if (m_vbos.find(it.first) == m_vbos.end())
+        {
+            uint vbo;
+            glGenBuffers(1, &vbo);
 
+            glBindBuffer(GL_ARRAY_BUFFER, vbo);
+            glBufferData(GL_ARRAY_BUFFER,
+                         it.second.size() * sizeof(Core::Vector3),
+                         it.second.data(), GL_STATIC_DRAW);
+
+            GL_ASSERT(glVertexAttribPointer(it.first, size, type, normalized,
+                                            sizeof(Core::Vector3), ptr));
+            GL_ASSERT(glEnableVertexAttribArray(it.first));
+
+            m_vbos[it.first] = vbo;
+        }
+    }
+
+    // Indices has not been initialized yet
+    if (m_ibo == 0)
+    {
+        glGenBuffers(1, &m_ibo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+                     m_indices.size() * sizeof(uint),
+                     m_indices.data(), GL_STATIC_DRAW);
+    }
+#endif
     GL_ASSERT(glBindVertexArray(0));
 
     GL_CHECK_ERROR;
