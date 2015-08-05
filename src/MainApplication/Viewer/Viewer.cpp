@@ -110,11 +110,11 @@ void Gui::Viewer::initializeGL()
 {
     initializeOpenGLFunctions();
 
-//    LOG(INFO) << "***Radium Engine Viewer***";
-//    LOG(INFO) <<"Renderer : " << glGetString(GL_RENDERER);
-//    LOG(INFO) <<"Vendor   : " << glGetString(GL_VENDOR);
-//    LOG(INFO) <<"OpenGL   : " << glGetString(GL_VERSION);
-//    LOG(INFO) <<"GLSL     : " << glGetString(GL_SHADING_LANGUAGE_VERSION);
+    LOG(logINFO) << "***Radium Engine Viewer***";
+    LOG(logINFO) <<"Renderer : " << glGetString(GL_RENDERER);
+    LOG(logINFO) <<"Vendor   : " << glGetString(GL_VENDOR);
+    LOG(logINFO) <<"OpenGL   : " << glGetString(GL_VERSION);
+    LOG(logINFO) <<"GLSL     : " << glGetString(GL_SHADING_LANGUAGE_VERSION);
 
 #if defined (OS_WINDOWS)
     glewExperimental = GL_TRUE;
@@ -129,7 +129,7 @@ void Gui::Viewer::initializeGL()
     else
     {
         LOG(logINFO) << "GLEW     : " << glewGetString(GLEW_VERSION);
-        GL_CHECK_ERROR;
+        glFlushError();
     }
 
 #endif

@@ -11,6 +11,7 @@ namespace Ra { namespace Engine {
 class RA_API BindableMesh : public Bindable
 {
 public:
+    RA_CORE_ALIGNED_NEW
     explicit BindableMesh(Mesh* mesh, uint id);
     virtual ~BindableMesh();
 

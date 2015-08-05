@@ -9,6 +9,7 @@ namespace Ra { namespace Engine {
 class RA_API BindableTransform : public Bindable
 {
 public:
+    RA_CORE_ALIGNED_NEW
     BindableTransform(const Core::Matrix4& model,
                       const Core::Matrix4& view,
                       const Core::Matrix4& proj);

@@ -5,6 +5,7 @@
 #include <vector>
 
 #include <Core/CoreMacros.hpp>
+#include <Core/Containers/AlignedAllocator.hpp>
 
 #include <Engine/Renderer/RenderQueue/ShaderKey.hpp>
 #include <Engine/Renderer/Bindable/BindableMaterial.hpp>
@@ -18,16 +19,16 @@ namespace Ra { namespace Engine { class RenderParameters; }}
 namespace Ra { namespace Engine {
 
 template <typename Key, typename Child>
-class RenderableMap : public std::map<Key, Child>
+class RenderableMap : public std::map<Key, Child, std::less<Key>, Core::AlignedAllocator< std::pair<const Key, Child>, 16 > >
 {
 public:
-    inline RA_API RenderableMap();
+    using std::map<Key, Child, std::less<Key>, Core::AlignedAllocator< std::pair<const Key, Child>, 16 > >::map;
     inline virtual RA_API ~RenderableMap();
 
     inline void RA_API render(ShaderProgram* shader) const;
 };
 
-class BindableMeshVector : public std::vector<BindableMesh>
+class BindableMeshVector : public std::vector < BindableMesh, Core::AlignedAllocator< BindableMesh, 16 > >
 {
 public:
     inline RA_API BindableMeshVector();

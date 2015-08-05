@@ -4,12 +4,6 @@ namespace Ra {
 namespace Engine {
 
 template <typename Key, typename Child>
-inline RenderableMap<Key, Child>::RenderableMap()
-	: std::map<Key, Child>()
-{
-}
-
-template <typename Key, typename Child>
 inline RenderableMap<Key, Child>::~RenderableMap()
 {
 }
@@ -25,7 +19,7 @@ inline void RenderableMap<Key, Child>::render(ShaderProgram* shader) const
 }
 
 inline BindableMeshVector::BindableMeshVector()
-	: std::vector<BindableMesh>()
+	: std::vector<BindableMesh, Core::AlignedAllocator< BindableMesh, 16>>()
 {
 }
 

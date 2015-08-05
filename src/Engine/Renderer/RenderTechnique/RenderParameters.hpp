@@ -5,6 +5,7 @@
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Containers/AlignedAllocator.hpp>
 
 namespace Ra { namespace Engine { class Texture;       } }
 namespace Ra { namespace Engine { class ShaderProgram; } }
@@ -49,7 +50,7 @@ private:
     };
 
     template <typename T>
-    class UniformBindableVector : public std::vector<T>
+    class UniformBindableVector : public std::vector<T, Core::AlignedAllocator<T,16> >
     {
     public:
         void bind(ShaderProgram* shader) const;
