@@ -64,30 +64,28 @@ Engine::Renderer::~Renderer()
 
 void Engine::Renderer::initialize()
 {
-    std::string shaderPath("../Shaders");
-    std::string defaultShader("Default");
+	std::string shaderPath("../Shaders");
+	std::string defaultShader("Default");
 
-    m_shaderManager = ShaderProgramManager::createInstance(shaderPath, defaultShader);
-    m_textureManager = TextureManager::createInstance();
+	m_shaderManager = ShaderProgramManager::createInstance(shaderPath, defaultShader);
+	m_textureManager = TextureManager::createInstance();
 
-    initShaders();
-    initBuffers();
+	initShaders();
+	initBuffers();
 
-    Core::TriangleMesh mesh;
-    mesh.m_vertices.push_back({ Scalar(-1), Scalar(-1), Scalar(0) });
-    mesh.m_vertices.push_back({ Scalar(-1), Scalar( 1), Scalar(0) });
-    mesh.m_vertices.push_back({ Scalar( 1), Scalar( 1), Scalar(0) });
-    mesh.m_vertices.push_back({ Scalar( 1), Scalar(-1), Scalar(0) });
-    mesh.m_normals.push_back ({ Scalar( 0), Scalar( 0), Scalar(0) });
-    mesh.m_normals.push_back ({ Scalar( 0), Scalar( 0), Scalar(0) });
-    mesh.m_normals.push_back ({ Scalar( 0), Scalar( 0), Scalar(0) });
-    mesh.m_normals.push_back ({ Scalar( 0), Scalar( 0), Scalar(0) });
+	Core::Vector3Array mesh;
+	mesh.push_back({ Scalar(-1), Scalar(-1), Scalar(0) });
+	mesh.push_back({ Scalar(-1), Scalar(1), Scalar(0) });
+	mesh.push_back({ Scalar(1), Scalar(1), Scalar(0) });
+	mesh.push_back({ Scalar(1), Scalar(-1), Scalar(0) });
 
-    mesh.m_triangles.push_back({ Core::TriangleIdx(0), Core::TriangleIdx(2), Core::TriangleIdx(1) });
-    mesh.m_triangles.push_back({ Core::TriangleIdx(0), Core::TriangleIdx(3), Core::TriangleIdx(2) });
+	std::vector<uint> indices({
+		0, 1, 2,
+		0, 3, 2
+	});
 
     m_quadMesh.reset(new Mesh("quad"));
-    m_quadMesh->loadGeometry(mesh);
+    m_quadMesh->loadGeometry(mesh, indices);
     m_quadMesh->updateGL();
 }
 

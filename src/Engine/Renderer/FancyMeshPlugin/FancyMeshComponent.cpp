@@ -28,19 +28,11 @@ void Engine::FancyMeshComponent::initialize()
 
 void Engine::FancyMeshComponent::addMeshRenderObject(const Core::TriangleMesh& mesh, const std::string& name)
 {
-    RenderObject* renderObject = new RenderObject(name);
-    renderObject->setComponent(this);
-    renderObject->setVisible(true);
+	RenderTechnique* technique = new RenderTechnique;
+	technique->material = new Material("Default");
+	technique->shaderConfig = ShaderConfiguration("Default", "../Shaders");
 
-    Mesh* displayMesh = new Mesh(name);
-    displayMesh->loadGeometry(mesh);
-    renderObject->setMesh(displayMesh);
-
-    RenderTechnique* technique = new RenderTechnique;
-    technique->material = new Material("Default");
-    technique->shaderConfig = ShaderConfiguration("Default", "../Shaders");
-    renderObject->setRenderTechnique(technique);
-    m_renderObject = m_renderObjectManager->addRenderObject(renderObject);
+	addMeshRenderObject(mesh, name, technique);
 }
 
 void Engine::FancyMeshComponent::addMeshRenderObject(const Core::TriangleMesh& mesh, const std::string& name, RenderTechnique* technique)
@@ -51,8 +43,19 @@ void Engine::FancyMeshComponent::addMeshRenderObject(const Core::TriangleMesh& m
 
     renderObject->setRenderTechnique(technique);
 
-    Mesh* displayMesh = new Mesh(name);
-    displayMesh->loadGeometry(mesh);
+	Mesh* displayMesh = new Mesh(name);
+	std::vector<uint> indices;
+	indices.reserve(mesh.m_triangles.size() * 3);
+	for (const auto& i : mesh.m_triangles)
+	{
+		indices.push_back(i.x());
+		indices.push_back(i.y());
+		indices.push_back(i.z());
+	}
+
+	displayMesh->loadGeometry(mesh.m_vertices, indices);
+	displayMesh->addData(Mesh::VERTEX_NORMAL, mesh.m_normals);
+
     renderObject->setMesh(displayMesh);
     m_renderObject = m_renderObjectManager->addRenderObject(renderObject);
 }
@@ -60,6 +63,9 @@ void Engine::FancyMeshComponent::addMeshRenderObject(const Core::TriangleMesh& m
 
 void Engine::FancyMeshComponent::handleMeshLoading(const FancyComponentData& data)
 {
+	CORE_ASSERT(data.meshes.size() == 1, "One mesh per component / object.");
+	// FIXME(Charly): Change data meshes array to just one mesh
+
     RenderObject* renderObject = new RenderObject(data.name);
     renderObject->setComponent(this);
     renderObject->setVisible(true);
@@ -73,8 +79,14 @@ void Engine::FancyMeshComponent::handleMeshLoading(const FancyComponentData& dat
 		std::string meshName = ss.str();
 
 		Mesh* mesh = new Mesh(meshName);
-		mesh->loadGeometry(meshData.mesh, meshData.tangents,
-						   meshData.bitangents, meshData.texcoords);
+
+		mesh->loadGeometry(meshData.positions, meshData.indices);
+		
+		mesh->addData(Mesh::VERTEX_NORMAL, meshData.normals);
+		mesh->addData(Mesh::VERTEX_TANGENT, meshData.tangents);
+		mesh->addData(Mesh::VERTEX_BITANGENT, meshData.bitangents);
+		mesh->addData(Mesh::VERTEX_TEXCOORD, meshData.texcoords);
+
         renderObject->setMesh(mesh);
 	}
 
@@ -82,6 +94,5 @@ void Engine::FancyMeshComponent::handleMeshLoading(const FancyComponentData& dat
 
     m_renderObject = m_renderObjectManager->addRenderObject(renderObject);
 }
-
 
 }

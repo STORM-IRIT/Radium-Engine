@@ -7,64 +7,57 @@
 namespace Ra
 {
 
+// Dirty is initializes as false so that we do not create the vao while 
+// we have no data to send to the gpu.
 Engine::Mesh::Mesh(const std::string& name)
     : m_name(name)
-    , m_initialized(false)
-    , m_isDirty(true)
+    , m_isDirty(false) 
     , m_vao(0)
-    , m_vbo(0)
-    , m_nbo(0)
-    , m_tbo(0)
-    , m_bbo(0)
-    , m_cbo(0)
-    , m_ibo(0)
+	, m_renderMode(GL_TRIANGLES)
 {
 }
 
 Engine::Mesh::~Mesh()
 {
-    GL_ASSERT(glDeleteBuffers(1, &m_ibo));
-
-    GL_ASSERT(glDeleteBuffers(1, &m_cbo));
-    GL_ASSERT(glDeleteBuffers(1, &m_bbo));
-    GL_ASSERT(glDeleteBuffers(1, &m_tbo));
-    GL_ASSERT(glDeleteBuffers(1, &m_nbo));
-    GL_ASSERT(glDeleteBuffers(1, &m_vbo));
-
     GL_ASSERT(glDeleteVertexArrays(1, &m_vao));
+}
+
+void Engine::Mesh::setRenderMode(const GLenum& mode)
+{
+	m_renderMode = mode;
 }
 
 void Engine::Mesh::render()
 {
-    if (!m_initialized)
-    {
+    if (m_vao == 0)
+	{
+		// Not initialized yet
         return;
     }
 
     GL_ASSERT(glBindVertexArray(m_vao));
 //    GL_ASSERT(glDrawElements(GL_TRIANGLES_ADJACENCY, 6 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
-    GL_ASSERT(glDrawElements(GL_TRIANGLES, 3 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
+    GL_ASSERT(glDrawElements(m_renderMode, m_indices.size(), GL_UNSIGNED_INT, (void*)0));
 }
 
-void Engine::Mesh::loadGeometry(const Core::TriangleMesh &data,
-                                const Vector3Array& tangents,
-                                const Vector3Array& bitangents,
-                                const Vector3Array& texcoords,
-                                bool recomputeNormals)
+void Engine::Mesh::loadGeometry(const Vector3Array& positions,
+								const std::vector<uint>& indices)
 {
-    m_data = data;
-//    if (m_data.m_normals.size() == 0 || recomputeNormals)
-    {
-        computeNormals();
-    }
+    m_data[VERTEX_POSITION] = positions;
+	m_indices = indices;
 
-    m_tangents = tangents;
-    m_bitangents = bitangents;
-    m_texcoords = texcoords;
-
-//	computeAdjacency();
+	m_isDirty = true;
 }
 
+void Engine::Mesh::addData(const DataType& type, const Vector3Array& data)
+{
+	m_data[type] = data;
+
+	m_isDirty = true;
+}
+
+// TODO(Charly): Move this somewhere else
+/*
 void Engine::Mesh::computeAdjacency()
 {
 	Core::HalfEdgeData heData(m_data);
@@ -102,6 +95,7 @@ void Engine::Mesh::computeAdjacency()
 		m_adjacentTriangles.push_back(a2);
 	}
 }
+*/
 
 void Engine::Mesh::updateGL()
 {
@@ -110,129 +104,60 @@ void Engine::Mesh::updateGL()
         return;
     }
 
+	if (m_data.find(VERTEX_POSITION) == m_data.end())
+	{
+		LOG(logWARNING) << "No data to upload in updateGL()";
+		return;
+	}
+
+	if (m_data[VERTEX_POSITION].empty() || m_indices.empty())
+	{
+		LOG(logWARNING) << "Either vertices or indices are empty arrays.";
+		return;
+	}
+
     if (m_vao == 0)
     {
         // Create VAO if it does not exist
         GL_ASSERT(glGenVertexArrays(1, &m_vao));
     }
 
+	// Common values for GL data functions.
+#if defined CORE_USE_DOUBLE
+	GLenum type = GL_DOUBLE;
+#else
+	GLenum type = GL_FLOAT;
+#endif
+	GLboolean normalized = GL_FALSE;
+	GLuint size = 3;
+	GLvoid* ptr = nullptr;
+
     // Bind it
     GL_ASSERT(glBindVertexArray(m_vao));
 
-    if (!m_initialized)
-    {
-        // Generate buffer objects if they do not exist
-        GL_ASSERT(glGenBuffers(1, &m_vbo));
-        GL_ASSERT(glGenBuffers(1, &m_nbo));
-        GL_ASSERT(glGenBuffers(1, &m_tbo));
-        GL_ASSERT(glGenBuffers(1, &m_bbo));
-        GL_ASSERT(glGenBuffers(1, &m_cbo));
-        GL_ASSERT(glGenBuffers(1, &m_ibo));
-    }
+	for (const auto& it : m_data)
+	{
+		// This vbo has not been created yet
+		if (m_vbos.find(it.first) == m_vbos.end()) 
+		{
+			GlBuffer<Core::Vector3> vbo;
+			vbo.setData(it.second, GL_STATIC_DRAW);
+			GL_ASSERT(glVertexAttribPointer(it.first, size, type, normalized,
+					  sizeof(Core::Vector3), ptr));
+			GL_ASSERT(glEnableVertexAttribArray(it.first));
 
-    // Common values for GL data functions.
-#if defined CORE_USE_DOUBLE
-    GLenum type = GL_DOUBLE;
-#else
-    GLenum type = GL_FLOAT;
-#endif
-    GLboolean normalized = GL_FALSE;
-    GLuint index = 0;
-    GLuint size = 3;
-    GLvoid* ptr = nullptr;
+			m_vbos.insert(std::pair<DataType, GlBuffer<Core::Vector3>>(it.first, vbo));
+		}
+	}
 
-    // Position
-    GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
-    GL_ASSERT(glBufferData(GL_ARRAY_BUFFER,
-                           m_data.m_vertices.size() * sizeof(Core::Vector3),
-                           m_data.m_vertices.data(), GL_STATIC_DRAW));
-
-    GL_ASSERT(glVertexAttribPointer(index, size, type, normalized,
-                                    sizeof(Core::Vector3), ptr));
-    GL_ASSERT(glEnableVertexAttribArray(index));
-
-    // Normal
-    CORE_ASSERT(m_data.m_normals.size() == m_data.m_vertices.size(),
-                " Normal data is missing or incomplete.");
-
-    ++index;
-    GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_nbo));
-    GL_ASSERT(glBufferData(GL_ARRAY_BUFFER,
-                           m_data.m_normals.size() * sizeof(Core::Vector3),
-                           m_data.m_normals.data(), GL_STATIC_DRAW));
-
-    GL_ASSERT(glVertexAttribPointer(index, size, type, normalized,
-                                    sizeof(Core::Vector3), ptr));
-    GL_ASSERT(glEnableVertexAttribArray(index));
-
-    if (m_tangents.size() != 0)
-    {
-        CORE_ASSERT(m_tangents.size() == m_data.m_vertices.size(),
-                    "Tangent data is incomplete.");
-
-        ++index;
-        GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_tbo));
-        GL_ASSERT(glBufferData(GL_ARRAY_BUFFER,
-                               m_tangents.size() * sizeof(Core::Vector3),
-                               m_tangents.data(), GL_STATIC_DRAW));
-
-        GL_ASSERT(glVertexAttribPointer(index, size, type, normalized,
-                                        sizeof(Core::Vector3), ptr));
-        GL_ASSERT(glEnableVertexAttribArray(index));
-    }
-
-    if (m_bitangents.size() != 0)
-    {
-        CORE_ASSERT(m_bitangents.size() == m_data.m_vertices.size(),
-                    "Bitangent data is incomplete.");
-
-        ++index;
-        GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_bbo));
-        GL_ASSERT(glBufferData(GL_ARRAY_BUFFER,
-                               m_bitangents.size() * sizeof(Core::Vector3),
-                               m_bitangents.data(), GL_STATIC_DRAW));
-
-        GL_ASSERT(glVertexAttribPointer(index, size, type, normalized,
-                                        sizeof(Core::Vector3), ptr));
-        GL_ASSERT(glEnableVertexAttribArray(index));
-    }
-
-    if (m_texcoords.size() != 0)
-    {
-        CORE_ASSERT(m_texcoords.size() == m_data.m_vertices.size(),
-                    "Texcoords data is incomplete");
-
-        ++index;
-        GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, m_cbo));
-        GL_ASSERT(glBufferData(GL_ARRAY_BUFFER,
-                               m_texcoords.size() * sizeof(Core::Vector3),
-                               m_texcoords.data(), GL_STATIC_DRAW));
-
-        GL_ASSERT(glVertexAttribPointer(index, size, type, normalized,
-                                        sizeof(Core::Vector3), ptr));
-        GL_ASSERT(glEnableVertexAttribArray(index));
-    }
-
-    // Indices
-    GL_ASSERT(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
-//    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-//                           m_adjacentTriangles.size() * sizeof(uint),
-//                           m_adjacentTriangles.data(), GL_STATIC_DRAW));
-    GL_ASSERT(glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-                           m_data.m_triangles.size() * sizeof(Core::Triangle),
-                           m_data.m_triangles.data(), GL_STATIC_DRAW));
+    // Indices has not been initialized yet
+	m_ibo.bind();
+	m_ibo.setData(m_indices);
 
     GL_ASSERT(glBindVertexArray(0));
 
     GL_CHECK_ERROR;
-
-    m_initialized = true;
     m_isDirty = false;
-}
-
-void Engine::Mesh::computeNormals()
-{
-    Core::MeshUtils::getAutoNormals(m_data, m_data.m_normals);
 }
 
 } // namespace Ra

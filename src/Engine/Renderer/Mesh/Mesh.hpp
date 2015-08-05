@@ -2,12 +2,14 @@
 #define RADIUMENGINE_MESH_HPP
 
 #include <vector>
+#include <map>
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/OpenGL/GLBuffer.hpp>
 
 namespace Ra { namespace Engine {
 
@@ -22,6 +24,16 @@ namespace Ra { namespace Engine {
 
 class RA_API Mesh
 {
+public:
+	enum DataType
+	{
+		VERTEX_POSITION = 0,
+		VERTEX_NORMAL,
+		VERTEX_TANGENT,
+		VERTEX_BITANGENT,
+		VERTEX_TEXCOORD
+	};
+
 private:
     typedef Core::VectorArray<Core::Vector3> Vector3Array;
 public:
@@ -30,16 +42,14 @@ public:
 
     const std::string& getName() const { return m_name; }
 
-    void loadGeometry(const Core::TriangleMesh &data,
-                      const Vector3Array& tangents = Vector3Array(),
-                      const Vector3Array& bitangents = Vector3Array(),
-                      const Vector3Array& texcoords = Vector3Array(),
-                      bool computeNormals = false);
+	/// GL_POINTS, GL_LINES, GL_TRIANGLES, GL_TRIANGLE_ADJACENCY, etc...
+	void setRenderMode(const GLenum& mode);
 
-    const Core::TriangleMesh& getMeshData() const { return m_data; }
-	const Vector3Array& getTangents() const { return m_tangents; }
-	const Vector3Array& getBitangents() const { return m_bitangents; }
-	const Vector3Array& getTexcoords() const { return m_texcoords; }
+	void loadGeometry(const Vector3Array& positions, const std::vector<uint>& indices);
+	void addData(const DataType& type, const Vector3Array& position);
+
+	const Vector3Array& getData(const DataType& type) const { return m_data.find(type)->second; }
+	const std::vector<uint>& getIndices() const { return m_indices; }
 
     void setDirty() { m_isDirty = true; }
     void updateGL();
@@ -49,28 +59,19 @@ public:
 private:
     Mesh(const Mesh&) = delete;
     void operator=(const Mesh&) = delete;
-    void computeNormals();
-    void computeAdjacency();
 
 private:
     std::string m_name;
-    bool m_initialized;
     bool m_isDirty;
 
-    Core::TriangleMesh m_data;
-    Vector3Array m_texcoords;
-    Vector3Array m_tangents;
-    Vector3Array m_bitangents;
-    std::vector<uint> m_adjacentTriangles;
+	std::map<DataType, Vector3Array> m_data;
+	std::map<DataType, GlBuffer<Core::Vector3>> m_vbos;
+	
+	std::vector<uint> m_indices;
+	GlBuffer<uint> m_ibo;
 
     uint m_vao;
-    uint m_vbo;
-    uint m_nbo;
-    uint m_tbo;
-    uint m_bbo;
-    uint m_cbo;
-
-    uint m_ibo;
+	GLenum m_renderMode;
 };
 
 } // namespace Engine

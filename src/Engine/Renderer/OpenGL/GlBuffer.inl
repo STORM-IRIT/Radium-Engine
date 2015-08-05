@@ -40,7 +40,7 @@ inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer(uint numElements, const T* data, GL
     GL_ASSERT( glGenBuffers(1, &m_bufferGlId) );
     GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, m_bufferGlId) );
     GL_ASSERT( glBufferData(GL_BUFFER_TYPE, m_numElements* sizeof(T), data, m_drawMode) );
-    GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, 0) );
+    //GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, 0) );
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
@@ -53,16 +53,16 @@ inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer( const std::vector<T>& data, GLenum
     GL_ASSERT( glGenBuffers(1, &m_bufferGlId) );
     GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, m_bufferGlId) );
     GL_ASSERT( glBufferData(GL_BUFFER_TYPE, m_numElements* sizeof(T), data.data(), m_drawMode) );
-    GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, 0) );
+    //GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, 0) );
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
 inline GlBuffer<T, GL_BUFFER_TYPE>::~GlBuffer()
 {
-    if( getId() == getCurrentBinding() )
+    /*if( getId() == getCurrentBinding() )
     {
         unbind();
-    }
+    }*/
     GL_ASSERT( glDeleteBuffers(1, &m_bufferGlId) );
 }
 
@@ -75,7 +75,7 @@ inline void GlBuffer<T, GL_BUFFER_TYPE>::bind() const
 template<typename T, GLenum GL_BUFFER_TYPE>
 inline void GlBuffer<T, GL_BUFFER_TYPE>::unbind() const
 {
-    GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, 0) );
+    //GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, 0) );
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
@@ -87,7 +87,7 @@ inline void GlBuffer<T, GL_BUFFER_TYPE>::setData(uint numElements,
     m_numElements = numElements;
     m_drawMode = drawMode;
     GL_ASSERT( glBufferData(GL_BUFFER_TYPE, m_numElements * sizeof(T), (GLvoid*)data, m_drawMode) );
-    unbind();
+    //unbind();
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
@@ -102,7 +102,7 @@ inline void GlBuffer<T, GL_BUFFER_TYPE>::getData(uint numElements,
 {
     bind();
     GL_ASSERT( glGetBufferSubData(GL_BUFFER_TYPE, offset, numElements* sizeof(T), (GLvoid*)data) );
-    unbind();
+    //unbind();
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>

@@ -129,15 +129,17 @@ void runThroughNodes(const aiNode* node, const aiScene* scene,
 
 void loadMesh(const aiMesh* mesh, Engine::FancyMeshData& data)
 {
-	Core::TriangleMesh meshData;
+	Core::Vector3Array positions;
+	Core::Vector3Array normals;
 	Core::Vector3Array tangents;
 	Core::Vector3Array bitangents;
 	Core::Vector3Array texcoords;
+	std::vector<uint>  indices;
 
 	for (uint i = 0; i < mesh->mNumVertices; ++i)
 	{
-		meshData.m_vertices.push_back(assimpToCore(mesh->mVertices[i]));
-		meshData.m_normals.push_back(assimpToCore(mesh->mNormals[i]));
+		positions.push_back(assimpToCore(mesh->mVertices[i]));
+		positions.push_back(assimpToCore(mesh->mNormals[i]));
 
 		if (mesh->HasTangentsAndBitangents())
 		{
@@ -156,14 +158,17 @@ void loadMesh(const aiMesh* mesh, Engine::FancyMeshData& data)
 	{
 		aiFace f = mesh->mFaces[i];
 
-		meshData.m_triangles.push_back(
-			Core::Triangle(f.mIndices[0], f.mIndices[1], f.mIndices[2]));
+		indices.push_back(f.mIndices[0]);
+		indices.push_back(f.mIndices[1]);
+		indices.push_back(f.mIndices[2]);
 	}
 
-	data.mesh = meshData;
+	data.positions = positions;
+	data.normals = normals;
 	data.tangents = tangents;
 	data.bitangents = bitangents;
 	data.texcoords = texcoords;
+	data.indices = indices;
 }
 
 void loadRenderTechnique(const aiMaterial* mat, Engine::FancyComponentData& data)

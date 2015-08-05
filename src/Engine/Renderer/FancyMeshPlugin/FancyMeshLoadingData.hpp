@@ -15,10 +15,13 @@ namespace Engine {
 
 struct RA_API FancyMeshData
 {
-	Core::TriangleMesh mesh;
+	Core::Vector3Array positions;
+	Core::Vector3Array normals;
 	Core::Vector3Array tangents;
 	Core::Vector3Array bitangents;
 	Core::Vector3Array texcoords;
+
+	std::vector<uint>  indices;
 };
 
 struct RA_API FancyComponentData
