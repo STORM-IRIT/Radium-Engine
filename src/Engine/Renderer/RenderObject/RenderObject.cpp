@@ -14,7 +14,7 @@ namespace Ra
 Engine::RenderObject::RenderObject(const std::string& name)
 	: IndexedObject()
 	, m_name(name)
-    , m_type(OPAQUE)
+    , m_type(RO_OPAQUE)
     , m_renderTechnique(nullptr)
     , m_mesh(nullptr)
 	, m_isDirty(true)

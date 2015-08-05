@@ -8,7 +8,7 @@
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 
-namespace Ra { namespace Engine { class RenderTechnique; } }
+namespace Ra { namespace Engine { struct RenderTechnique; } }
 
 namespace Ra {
 namespace Engine {

@@ -8,7 +8,7 @@ namespace Ra { namespace Core { struct TriangleMesh; } }
 
 namespace Ra { namespace Engine { class RadiumEngine;      } }
 namespace Ra { namespace Engine { class Entity;            } }
-namespace Ra { namespace Engine { class RenderTechnique;   } }
+namespace Ra { namespace Engine { struct RenderTechnique;  } }
 namespace Ra { namespace Engine { class Component;         } }
 namespace Ra { namespace Engine { class FancyMeshComponent;} }
 

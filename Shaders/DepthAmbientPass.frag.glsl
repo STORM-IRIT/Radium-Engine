@@ -25,7 +25,7 @@ struct Material
 };
 
 uniform Material material;
-uniform vec3 objectId;
+uniform vec4 objectId;
 
 in vec3 vPosition;
 in vec3 vTexcoord;
@@ -85,5 +85,7 @@ void main()
     fragAmbient = vec4(getKd().xyz * 0.1, 1);
     fragPosition = vec4(vPosition, 1.0);
     fragNormal = vec4(getNormal(), 1.0);
-    fragPicking = vec4(objectId, 1.0);
+    fragPicking = vec4(objectId.xyz, 1.0);
+
+    fragPosition = vec4(0, 1, 1, 1);
 }

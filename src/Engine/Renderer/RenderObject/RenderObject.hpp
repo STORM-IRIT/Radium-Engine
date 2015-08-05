@@ -10,11 +10,11 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 
-namespace Ra { namespace Engine { class Light;           } }
-namespace Ra { namespace Engine { class RenderTechnique; } }
-namespace Ra { namespace Engine { class Component;       } }
-namespace Ra { namespace Engine { class Mesh;            } }
-namespace Ra { namespace Engine { class RenderQueue;     } }
+namespace Ra { namespace Engine { class Light;            } }
+namespace Ra { namespace Engine { struct RenderTechnique; } }
+namespace Ra { namespace Engine { class Component;        } }
+namespace Ra { namespace Engine { class Mesh;             } }
+namespace Ra { namespace Engine { class RenderQueue;      } }
 
 namespace Ra { namespace Engine {
 

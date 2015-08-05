@@ -5,10 +5,18 @@ layout (location = 3) in vec3 inBitangent;
 layout (location = 4) in vec3 inTexcoord;
 // TODO(Charly): Add other inputs
 
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 proj;
-uniform mat4 mvp;
+struct Transform
+{
+    mat4 model;
+    mat4 view;
+    mat4 proj;
+    mat4 mvp;
+    mat4 modelView;
+    mat4 worldNormal;
+    mat4 viewNormal;
+};
+
+uniform Transform transform;
 
 out vec3 vPosition;
 out vec3 vNormal;
@@ -17,16 +25,13 @@ out vec3 vEye;
 
 void main()
 {
-    gl_Position = mvp * vec4(inPosition, 1.0);
+    gl_Position = transform.mvp * vec4(inPosition, 1.0);
 
-    mat4 modelView = view * model;
-    mat4 normalMat = transpose(inverse(modelView));
-
-    vec4 pos = model * vec4(inPosition, 1.0);
+    vec4 pos = transform.model * vec4(inPosition, 1.0);
     pos /= pos.w;
-    vec4 normal = model * vec4(inNormal, 0.0);
+    vec4 normal = transform.worldNormal * vec4(inNormal, 0.0);
 
-    vec3 eye = -view[3].xyz * mat3(view);
+    vec3 eye = -transform.view[3].xyz * mat3(transform.view);
 
     vPosition = vec3(pos);
     vNormal   = vec3(normal);

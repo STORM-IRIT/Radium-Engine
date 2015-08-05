@@ -4,7 +4,7 @@
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshLoadingData.hpp>
 
-namespace Ra { namespace Engine { class RenderTechnique; } }
+namespace Ra { namespace Engine { struct RenderTechnique; } }
 
 // FIXME(Charly): Do we really want this to be in Engine namespace ?
 namespace Ra { namespace Engine {

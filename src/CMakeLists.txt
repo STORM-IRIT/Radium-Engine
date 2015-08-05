@@ -48,8 +48,6 @@ add_library(
 SET_TARGET_PROPERTIES(
  	${core_target}
 	PROPERTIES
-	COMPILE_PDB_NAME ${core_target}
-	COMPILE_PDB_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
  	VERSION ${library_version}
 )
 
@@ -102,8 +100,6 @@ add_library(
 SET_TARGET_PROPERTIES(
  	${engine_target}
 	PROPERTIES
-	COMPILE_PDB_NAME ${engine_target}
-	COMPILE_PDB_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
  	VERSION ${library_version}
 )
 
