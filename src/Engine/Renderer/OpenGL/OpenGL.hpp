@@ -14,7 +14,7 @@
 #include <GL/glu.h>
 #include <Engine/Renderer/OpenGL/glext.h>
 
-namespace Ra { namespace Engine {
+/// This file provide convenience macros for OpenGL.
 
 // FIXME(Charly): Fix logging
 #ifdef _DEBUG
@@ -34,6 +34,7 @@ namespace Ra { namespace Engine {
 		} \
     }
 
+/// This macro will query the last openGL error.
 #define GL_CHECK_ERROR \
     {\
         GLuint err = glGetError(); \
@@ -44,6 +45,7 @@ namespace Ra { namespace Engine {
 	    } \
     }
 
+/// Ignore the previous openGL errors.
 #define glFlushError() glGetError()
 
 #else
@@ -51,8 +53,5 @@ namespace Ra { namespace Engine {
 #define GL_CHECK_ERROR {}
 #define glFlushError()
 #endif
-
-} // namespace Engine
-} // namespace Ra
 
 #endif // RADIUMENGINE_OPENGL_HPP

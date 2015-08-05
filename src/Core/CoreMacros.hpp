@@ -84,10 +84,15 @@
 // ----------------------------------------------------------------------------
 
 // This will cause assert to be disabled except if DEBUG is defined
-#if defined (DEBUG) || defined(_DEBUG) || defined (CORE_DEGUG)
+// Make sure all "debug" macros are defined
+#if defined (DEBUG) || defined(_DEBUG) || defined (CORE_DEBUG)
     #undef CORE_DEBUG
     #define CORE_DEBUG
     #undef NDEBUG
+    #undef _DEBUG
+    #define _DEBUG
+    #undef DEBUG
+    #define DEBUG
     #define ON_DEBUG(CODE) CODE
 #else
     #undef CORE_DEBUG

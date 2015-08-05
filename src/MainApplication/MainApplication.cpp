@@ -2,7 +2,6 @@
 
 #include <Core/CoreMacros.hpp>
 
-#include <iostream>
 #include <QTimer>
 
 #include <Core/Log/Log.hpp>
@@ -14,7 +13,6 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
-
 
 // Const parameters : TODO : make config / command line options
 const uint FPS_MAX = 60;
@@ -56,7 +54,9 @@ namespace Ra
 #else
         config << "single precision" << std::endl;
 #endif
+
         LOG(logINFO) << config.str();
+        LOG(logINFO) << "(Log using default file)";
 
         // Handle command line arguments.
         // TODO ( e.g fps limit ) / Keep or not timer data .
@@ -114,12 +114,6 @@ namespace Ra
         std::string pathStr = path.toLocal8Bit().data();
         bool res = m_engine->loadFile(pathStr);
         m_viewer->handleFileLoading(pathStr);
-    }
-
-    void MainApplication::viewerReady(Gui::Viewer* viewer)
-    {
-        m_viewer = viewer;
-        CORE_ASSERT(m_viewer->parent()->parent() == m_mainWindow.get(), "Viewer is not setup");
     }
 
     void MainApplication::radiumFrame()
