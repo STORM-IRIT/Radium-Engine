@@ -1,9 +1,7 @@
 #include <MainApplication/Gui/MainWindow.hpp>
 
-#include <QApplication>
 #include <QFileDialog>
 #include <QMouseEvent>
-#include <QKeyEvent>
 
 #include <Core/Log/Log.hpp>
 #include <Engine/RadiumEngine.hpp>

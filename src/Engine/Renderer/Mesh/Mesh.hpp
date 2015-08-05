@@ -9,7 +9,7 @@
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/OpenGL/GLBuffer.hpp>
+#include <Engine/Renderer/OpenGL/GlBuffer.hpp>
 
 namespace Ra { namespace Engine {
 

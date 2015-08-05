@@ -8,20 +8,20 @@
 
 #include <Core/Log/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <Engine/Renderer/OpenGL/FBO.hpp>
 #include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-#include <Engine/Renderer/Texture/TextureManager.hpp>
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/OpenGL/FBO.hpp>
-#include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/PointLight.hpp>
 #include <Engine/Renderer/Light/SpotLight.hpp>
-#include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/Texture/TextureManager.hpp>
+#include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra
 {

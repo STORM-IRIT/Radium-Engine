@@ -5,14 +5,15 @@
 #include <vector>
 
 #include <Core/CoreMacros.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
+
 #include <Engine/Renderer/RenderQueue/ShaderKey.hpp>
 #include <Engine/Renderer/Bindable/BindableMaterial.hpp>
 #include <Engine/Renderer/Bindable/BindableTransform.hpp>
 #include <Engine/Renderer/Bindable/BindableMesh.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
 
+
+namespace Ra { namespace Engine { class ShaderProgram; }}
+namespace Ra { namespace Engine { class RenderParameters; }}
 
 namespace Ra { namespace Engine {
 
