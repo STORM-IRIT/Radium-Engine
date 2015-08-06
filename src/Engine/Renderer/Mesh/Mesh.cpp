@@ -14,9 +14,8 @@ Engine::Mesh::Mesh(const std::string& name)
     , m_isDirty(false) 
     , m_vao(0)
     , m_renderMode(GL_TRIANGLES)
-    , m_ibo(0)
+    , m_ibo()
 {
-    m_vbos.fill(0);
 }
 
 Engine::Mesh::~Mesh()
@@ -134,59 +133,24 @@ void Engine::Mesh::updateGL()
     GLvoid* ptr = nullptr;
 
 
-#if 0 // Just wanna be sure problem is within glbuffers
-    // FIXME(Charly): This seems to crash on windows
-    for (const auto& it : m_data)
-    {
-        // This vbo has not been created yet
-        if (m_vbos.find(it.first) == m_vbos.end()) 
-        {
-            m_vbos[it.first] = GlBuffer<Core::Vector3>(it.second, GL_STATIC_DRAW);
-            GL_ASSERT(glVertexAttribPointer(it.first, size, type, normalized,
-                      sizeof(Core::Vector3), ptr));
-            GL_ASSERT(glEnableVertexAttribArray(it.first));
-        }
-    }
-
-    // Indices has not been initialized yet
-    if (m_ibo.getId() == 0)
-    {
-        m_ibo.initBuffer();
-        m_ibo.bind();
-        m_ibo.setData(m_indices, GL_STATIC_DRAW);
-    }
-#else
     for (uint i = 0; i < m_data.size(); ++i)
     {
         // This vbo has not been created yet
-        if (m_vbos[i] == 0 && m_data[i].size() > 0)
+        if (m_vbos[i].size() == 0 && m_data[i].size() > 0)
         {
-            uint vbo;
-            glGenBuffers(1, &vbo);
-
-            glBindBuffer(GL_ARRAY_BUFFER, vbo);
-            glBufferData(GL_ARRAY_BUFFER,
-                         m_data[i].size() * sizeof(Core::Vector3),
-                         m_data[i].data(), GL_STATIC_DRAW);
-
+            m_vbos[i].setData(m_data[i], GL_STATIC_DRAW);
             GL_ASSERT(glVertexAttribPointer(i, size, type, normalized,
-                                            sizeof(Core::Vector3), ptr));
-            GL_ASSERT(glEnableVertexAttribArray(i));
+                sizeof(Core::Vector3), ptr));
 
-            m_vbos[i] = vbo;
+            GL_ASSERT(glEnableVertexAttribArray(i));
         }
     }
 
     // Indices has not been initialized yet
-    if (m_ibo == 0)
+    if (m_ibo.size() ==0 )
     {
-        glGenBuffers(1, &m_ibo);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-                     m_indices.size() * sizeof(uint),
-                     m_indices.data(), GL_STATIC_DRAW);
+        m_ibo.setData(m_indices);
     }
-#endif
     GL_ASSERT(glBindVertexArray(0));
 
     GL_CHECK_ERROR;

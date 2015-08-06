@@ -16,6 +16,7 @@
 
 /// This file provide convenience macros for OpenGL.
 
+
 /// Checks that an openGLContext is available (mostly for debug checks and asserts).
 inline bool checkOpenGLContext() { return glGetString(GL_VERSION) != 0; }
 
@@ -34,6 +35,7 @@ inline bool checkOpenGLContext() { return glGetString(GL_VERSION) != 0; }
                 LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
                               << ", " << __STRING(x) << ") : " << errBuf << "(" \
                               << err << " : 0x" << std::hex << err << std::dec << ")."; \
+            BREAKPOINT(0);\
         } \
     }
 
@@ -45,6 +47,7 @@ inline bool checkOpenGLContext() { return glGetString(GL_VERSION) != 0; }
             LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
                           << ", glCheckError()) : " << gluErrorString(err) << "(" \
                           << err << " : 0x" << std::hex << err << std::dec << ")."; \
+            BREAKPOINT(0);\
         } \
     }
 

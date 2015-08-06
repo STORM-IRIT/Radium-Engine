@@ -64,25 +64,25 @@ Engine::Renderer::~Renderer()
 
 void Engine::Renderer::initialize()
 {
-	std::string shaderPath("../Shaders");
-	std::string defaultShader("Default");
+    std::string shaderPath("../Shaders");
+    std::string defaultShader("Default");
 
-	m_shaderManager = ShaderProgramManager::createInstance(shaderPath, defaultShader);
-	m_textureManager = TextureManager::createInstance();
+    m_shaderManager = ShaderProgramManager::createInstance(shaderPath, defaultShader);
+    m_textureManager = TextureManager::createInstance();
 
-	initShaders();
-	initBuffers();
+    initShaders();
+    initBuffers();
 
-	Core::Vector3Array mesh;
-	mesh.push_back({ Scalar(-1), Scalar(-1), Scalar(0) });
-	mesh.push_back({ Scalar(-1), Scalar(1), Scalar(0) });
-	mesh.push_back({ Scalar(1), Scalar(1), Scalar(0) });
-	mesh.push_back({ Scalar(1), Scalar(-1), Scalar(0) });
+    Core::Vector3Array mesh;
+    mesh.push_back({ Scalar(-1), Scalar(-1), Scalar(0) });
+    mesh.push_back({ Scalar(-1), Scalar(1), Scalar(0) });
+    mesh.push_back({ Scalar(1), Scalar(1), Scalar(0) });
+    mesh.push_back({ Scalar(1), Scalar(-1), Scalar(0) });
 
-	std::vector<uint> indices({
-		0, 1, 2,
-		0, 3, 2
-	});
+    std::vector<uint> indices({
+        0, 1, 2,
+        0, 3, 2
+    });
 
     m_quadMesh.reset(new Mesh("quad"));
     m_quadMesh->loadGeometry(mesh, indices);
@@ -140,9 +140,9 @@ void Engine::Renderer::render(const RenderData& data)
     updateRenderObjectsInternal(data, renderObjects);
     m_timerData.updateEnd = Core::Timer::Clock::now();
 
-	// 2. Feed render queues
-	feedRenderQueuesInternal(data, renderObjects);
-	m_timerData.feedRenderQueuesEnd = Core::Timer::Clock::now();
+    // 2. Feed render queues
+    feedRenderQueuesInternal(data, renderObjects);
+    m_timerData.feedRenderQueuesEnd = Core::Timer::Clock::now();
 
     // 1. Do the rendering.
     renderInternal(data);
@@ -163,7 +163,7 @@ void Engine::Renderer::saveExternalFBOInternal()
 }
 
 void Engine::Renderer::updateRenderObjectsInternal(const RenderData &renderData,
-												   const std::vector<std::shared_ptr<RenderObject>> &renderObjects)
+                                                   const std::vector<std::shared_ptr<RenderObject>> &renderObjects)
 {
     CORE_UNUSED(renderData);
 
@@ -174,32 +174,32 @@ void Engine::Renderer::updateRenderObjectsInternal(const RenderData &renderData,
 }
 
 void Engine::Renderer::feedRenderQueuesInternal(const RenderData& renderData,
-												const std::vector<std::shared_ptr<RenderObject>>& renderObjects)
+                                                const std::vector<std::shared_ptr<RenderObject>>& renderObjects)
 {
-	m_opaqueRenderQueue.clear();
-	m_transparentRenderQueue.clear();
-	m_debugRenderQueue.clear();
+    m_opaqueRenderQueue.clear();
+    m_transparentRenderQueue.clear();
+    m_debugRenderQueue.clear();
 
-	for (const auto& ro : renderObjects)
-	{
-		switch (ro->getRenderObjectType())
-		{
-			case RenderObject::RO_OPAQUE:
-			{
-				ro->feedRenderQueue(m_opaqueRenderQueue, renderData.viewMatrix, renderData.projMatrix);
-			} break;
+    for (const auto& ro : renderObjects)
+    {
+        switch (ro->getRenderObjectType())
+        {
+            case RenderObject::RO_OPAQUE:
+            {
+                ro->feedRenderQueue(m_opaqueRenderQueue, renderData.viewMatrix, renderData.projMatrix);
+            } break;
 
-			case RenderObject::RO_TRANSPARENT:
-			{
-				ro->feedRenderQueue(m_transparentRenderQueue, renderData.viewMatrix, renderData.projMatrix);
-			} break;
+            case RenderObject::RO_TRANSPARENT:
+            {
+                ro->feedRenderQueue(m_transparentRenderQueue, renderData.viewMatrix, renderData.projMatrix);
+            } break;
 
-			case RenderObject::RO_DEBUG:
-			{
-				ro->feedRenderQueue(m_debugRenderQueue, renderData.viewMatrix, renderData.projMatrix);
-			} break;
-		}
-	}
+            case RenderObject::RO_DEBUG:
+            {
+                ro->feedRenderQueue(m_debugRenderQueue, renderData.viewMatrix, renderData.projMatrix);
+            } break;
+        }
+    }
 }
 
 void Engine::Renderer::renderInternal(const RenderData& renderData)
@@ -234,7 +234,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData)
     GL_ASSERT(glDrawBuffers(4, buffers)); // Draw ambient, position, normal, picking
 
     m_depthAmbientShader->bind();
-	m_opaqueRenderQueue.render(m_depthAmbientShader);
+    m_opaqueRenderQueue.render(m_depthAmbientShader);
 
     // Light pass
     GL_ASSERT(glDepthFunc(GL_LEQUAL));
@@ -251,7 +251,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData)
         {
             // TODO(Charly): Light render params
             RenderParameters params;
-			l->getRenderParameters(params);
+            l->getRenderParameters(params);
             m_opaqueRenderQueue.render(params);
         }
     }
@@ -262,7 +262,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData)
 
         // TODO(Charly): Light render params
         RenderParameters params;
-		l.getRenderParameters(params);
+        l.getRenderParameters(params);
         m_opaqueRenderQueue.render(params);
     }
 
@@ -284,7 +284,7 @@ void Engine::Renderer::renderInternal(const RenderData& renderData)
 
     m_oiTransparencyShader->bind();
 
-	m_transparentRenderQueue.render(m_oiTransparencyShader);
+    m_transparentRenderQueue.render(m_oiTransparencyShader);
 
     GL_ASSERT(glDisable(GL_BLEND));
 
@@ -387,7 +387,7 @@ void Engine::Renderer::drawScreenInternal()
 
     m_quadMesh->render();
 
-	GL_ASSERT(glDepthFunc(GL_LESS));
+    GL_ASSERT(glDepthFunc(GL_LESS));
 }
 
 void Engine::Renderer::resize(uint w, uint h)

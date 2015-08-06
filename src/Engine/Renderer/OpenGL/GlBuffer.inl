@@ -5,9 +5,10 @@ namespace Ra { namespace Engine
 template<typename T, GLenum GL_BUFFER_TYPE>
 inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer()
     : m_numElements(0)
-    , m_drawMode( GL_STREAM_DRAW )
     , m_bufferGlId(0)
 {
+    CORE_ASSERT( checkOpenGLContext(), "GL context unavailable");
+    GL_ASSERT(glGenBuffers(1, &m_bufferGlId));
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
@@ -94,7 +95,7 @@ inline void GlBuffer<T, GL_BUFFER_TYPE>::setData(uint numElements,
 template<typename T, GLenum GL_BUFFER_TYPE>
 inline void GlBuffer<T, GL_BUFFER_TYPE>::setData(const std::vector<T>& data, GLenum drawMode)
 {
-    setData(data.size(), &data.front(), drawMode);
+    setData(data.size(), data.data(), drawMode);
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
