@@ -9,46 +9,57 @@
 
 #include <Engine/Plugins/PluginInterface.hpp>
 
-namespace Ra {
-namespace Engine {
-namespace Plugin {
+namespace Ra
+{
+    namespace Engine
+    {
+        namespace Plugin
+        {
 
-/// TYPEDEF
-typedef std::shared_ptr< PluginInterface > PluginPointer;
-typedef std::vector< PluginPointer > PluginVector;
+            /// TYPEDEF
+            typedef std::shared_ptr<PluginInterface> PluginPointer;
+            typedef std::vector<PluginPointer> PluginVector;
 
-class PluginManager : public QObject {
-    /// MACRO
-    Q_OBJECT
-public:
-    /// ENUM
-    enum class PluginType {
-        STATIC,
-        DYNAMIC
-    };
+            class PluginManager : public QObject
+            {
+                /// MACRO
+                Q_OBJECT
+            public:
+                /// ENUM
+                enum class PluginType
+                {
+                    STATIC,
+                    DYNAMIC
+                };
 
-    /// CONSTRUCTOR
-    PluginManager( const std::string& dynamic_plugin_path, QObject* parent = nullptr ) : QObject( parent ) { }
+                /// CONSTRUCTOR
+                PluginManager ( const std::string& dynamic_plugin_path, QObject* parent = nullptr ) : QObject ( parent ) { }
 
-    /// DESTRUCTOR
-    ~PluginManager() { }
+                /// DESTRUCTOR
+                ~PluginManager() { }
 
-    /// PLUGIN
-    void loadPlugins( const std::string& path );
-    void loadStaticPlugins();
-    void loadDynamicPlugins( const std::string& path );
+                /// PLUGIN
+                void loadPlugins ( const std::string& path );
+                void loadStaticPlugins();
+                void loadDynamicPlugins ( const std::string& path );
 
-    inline PluginVector getStaticPlugins()  const { return m_staticPlugin;  }
-    inline PluginVector getDynamicPlugins() const { return m_dynamicPlugin; }
+                inline PluginVector getStaticPlugins()  const
+                {
+                    return m_staticPlugin;
+                }
+                inline PluginVector getDynamicPlugins() const
+                {
+                    return m_dynamicPlugin;
+                }
 
-protected:
-    /// VARIABLE
-    PluginVector m_staticPlugin;
-    PluginVector m_dynamicPlugin;
-};
+            protected:
+                /// VARIABLE
+                PluginVector m_staticPlugin;
+                PluginVector m_dynamicPlugin;
+            };
 
-} // namespace Plugin
-} // namespace Engine
+        } // namespace Plugin
+    } // namespace Engine
 } // namespace Ra
 
 

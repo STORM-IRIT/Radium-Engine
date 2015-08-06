@@ -4,22 +4,31 @@
 #include <Core/CoreMacros.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
-namespace Ra { namespace Engine { class ShaderProgram; }}
-namespace Ra { namespace Engine { class Material;      }}
-
-namespace Ra { namespace Engine {
-
-// NOTE(Charly): Would it be interesting to provide more stuff here ?
-struct RenderTechnique
+namespace Ra
 {
-    ShaderConfiguration shaderConfig;
-    ShaderProgram* shader = nullptr;
-    Material* material = nullptr;
+    namespace Engine
+    {
+        class ShaderProgram;
+        class Material;
+    }
+}
 
-    RA_API void updateGL();
-};
+namespace Ra
+{
+    namespace Engine
+    {
 
-} // namespace Engine
+        // NOTE(Charly): Would it be interesting to provide more stuff here ?
+        struct RenderTechnique
+        {
+            ShaderConfiguration shaderConfig;
+            ShaderProgram* shader = nullptr;
+            Material* material = nullptr;
+
+            RA_API void updateGL();
+        };
+
+    } // namespace Engine
 } // namespace Ra
 
 

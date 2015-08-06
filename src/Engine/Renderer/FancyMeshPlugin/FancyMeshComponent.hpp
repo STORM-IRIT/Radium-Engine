@@ -4,29 +4,38 @@
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Renderer/FancyMeshPlugin/FancyMeshLoadingData.hpp>
 
-namespace Ra { namespace Engine { struct RenderTechnique; } }
+namespace Ra
+{
+    namespace Engine
+    {
+        struct RenderTechnique;
+    }
+}
 
 // FIXME(Charly): Do we really want this to be in Engine namespace ?
-namespace Ra { namespace Engine {
-
-class RA_API FancyMeshComponent : public Component
+namespace Ra
 {
-public:
-    FancyMeshComponent(const std::string& name);
-    virtual ~FancyMeshComponent();
+    namespace Engine
+    {
 
-    virtual void initialize() override;
+        class RA_API FancyMeshComponent : public Component
+        {
+        public:
+            FancyMeshComponent ( const std::string& name );
+            virtual ~FancyMeshComponent();
 
-    void addMeshRenderObject(const Core::TriangleMesh& mesh, const std::string& name);
-    void addMeshRenderObject(const Core::TriangleMesh& mesh, const std::string& name, RenderTechnique* technique);
+            virtual void initialize() override;
 
-    void handleMeshLoading(const FancyComponentData& data);
+            void addMeshRenderObject ( const Core::TriangleMesh& mesh, const std::string& name );
+            void addMeshRenderObject ( const Core::TriangleMesh& mesh, const std::string& name, RenderTechnique* technique );
 
-private:
-    Core::Index m_renderObject;
-};
+            void handleMeshLoading ( const FancyComponentData& data );
 
-} // namespace Engine
+        private:
+            Core::Index m_renderObject;
+        };
+
+    } // namespace Engine
 } // namespace Engine
 
 #endif // FANCYMESHPLUGIN_FANCYMESHCOMPONENT_HPP

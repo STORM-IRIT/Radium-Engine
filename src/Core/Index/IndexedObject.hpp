@@ -3,22 +3,32 @@
 
 #include <Core/Index/Index.hpp>
 
-namespace Ra { namespace Core
+namespace Ra
 {
+    namespace Core
+    {
 
-class RA_API IndexedObject {
-public:
-    /// CONSTRUCTOR
-    explicit IndexedObject( const Index& idx = Index::INVALID_IDX() ) { this->idx = idx; }
-    IndexedObject( const IndexedObject& id_obj ) { idx = id_obj.idx; }
+        class RA_API IndexedObject
+        {
+        public:
+            /// CONSTRUCTOR
+            explicit IndexedObject ( const Index& idx = Index::INVALID_IDX() )
+            {
+                this->idx = idx;
+            }
+            IndexedObject ( const IndexedObject& id_obj )
+            {
+                idx = id_obj.idx;
+            }
 
-    /// DESTRUCTOR
-    ~IndexedObject() { }
+            /// DESTRUCTOR
+            ~IndexedObject() { }
 
-    /// VARIABLE
-    Index idx;
-};
+            /// VARIABLE
+            Index idx;
+        };
 
-}} // namespace Ra::Core
+    }
+} // namespace Ra::Core
 
 #endif // RADIUMENGINE_INDEXEDOBJECT_HPP

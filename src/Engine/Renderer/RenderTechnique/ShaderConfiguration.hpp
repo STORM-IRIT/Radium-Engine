@@ -7,61 +7,64 @@
 
 #include <Core/CoreMacros.hpp>
 
-namespace Ra { namespace Engine {
-
-struct ShaderType
+namespace Ra
 {
-	RA_API std::string getShaderTypeString(uint type);
-};
+    namespace Engine
+    {
 
-class RA_API ShaderConfiguration
-{
-public:
-	enum ShaderType
-	{
-        VERT_SHADER = 1<<0,
-        FRAG_SHADER = 1<<1,
-        GEOM_SHADER = 1<<2,
-        TESC_SHADER = 1<<3,
-        TESE_SHADER = 1<<4,
-		COMP_SHADER = 1<<5,
-        TESS_SET = TESC_SHADER | TESE_SHADER, // 0x18
+        struct ShaderType
+        {
+            RA_API std::string getShaderTypeString ( uint type );
+        };
 
-        DEFAULT_SHADER_PROGRAM = VERT_SHADER | FRAG_SHADER, // 0x3
-        DEFAULT_SHADER_PROGRAM_W_GEOM = DEFAULT_SHADER_PROGRAM | GEOM_SHADER, // 0x7
-        COMPLETE_SHADER_PROGRAM = DEFAULT_SHADER_PROGRAM_W_GEOM | TESS_SET // 0x1F
-	};
+        class RA_API ShaderConfiguration
+        {
+        public:
+            enum ShaderType
+            {
+                VERT_SHADER = 1 << 0,
+                FRAG_SHADER = 1 << 1,
+                GEOM_SHADER = 1 << 2,
+                TESC_SHADER = 1 << 3,
+                TESE_SHADER = 1 << 4,
+                COMP_SHADER = 1 << 5,
+                TESS_SET = TESC_SHADER | TESE_SHADER, // 0x18
 
-public:
-	ShaderConfiguration() = default;
-	explicit ShaderConfiguration(const std::string& name,
-								 const std::string& path,
-								 const ShaderType& type = DEFAULT_SHADER_PROGRAM);
+                DEFAULT_SHADER_PROGRAM = VERT_SHADER | FRAG_SHADER, // 0x3
+                DEFAULT_SHADER_PROGRAM_W_GEOM = DEFAULT_SHADER_PROGRAM | GEOM_SHADER, // 0x7
+                COMPLETE_SHADER_PROGRAM = DEFAULT_SHADER_PROGRAM_W_GEOM | TESS_SET // 0x1F
+            };
 
-	void addProperty(const std::string& prop);
-	void addProperties(const std::list<std::string>& props);
-	void removeProperty(const std::string& prop);
+        public:
+            ShaderConfiguration() = default;
+            explicit ShaderConfiguration ( const std::string& name,
+                                           const std::string& path,
+                                           const ShaderType& type = DEFAULT_SHADER_PROGRAM );
 
-	bool operator<(const ShaderConfiguration& other) const;
+            void addProperty ( const std::string& prop );
+            void addProperties ( const std::list<std::string>& props );
+            void removeProperty ( const std::string& prop );
 
-	void setName(const std::string& name);
-	void setPath(const std::string& path);
-	void setType(const ShaderType&  type);
+            bool operator< ( const ShaderConfiguration& other ) const;
 
-	std::string getName() const;
-	std::string getPath() const;
-	std::string getFullName() const;
-	ShaderType getType() const;
-	std::set<std::string> getProperties() const;
+            void setName ( const std::string& name );
+            void setPath ( const std::string& path );
+            void setType ( const ShaderType&  type );
 
-private:
-	std::string m_name;
-	std::string m_shaderPath;
-	ShaderType m_type;
-	std::set<std::string> m_properties;
-};
+            std::string getName() const;
+            std::string getPath() const;
+            std::string getFullName() const;
+            ShaderType getType() const;
+            std::set<std::string> getProperties() const;
 
-} // namespace Engine
+        private:
+            std::string m_name;
+            std::string m_shaderPath;
+            ShaderType m_type;
+            std::set<std::string> m_properties;
+        };
+
+    } // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_SHADERCONFIGURATION_HPP

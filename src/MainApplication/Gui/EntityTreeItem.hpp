@@ -45,53 +45,65 @@
 #include <QList>
 #include <QVector>
 
-namespace Ra { namespace Engine { class Entity; } }
-namespace Ra { namespace Engine { class Component; } }
-
-namespace Ra { namespace Gui {
-
-class EntityTreeItem
+namespace Ra
 {
-public:
-    struct ItemData
+    namespace Engine
     {
-        ItemData() : data(), entity(nullptr), component(nullptr)
-          , isEntityNode(false), isComponentNode(false) {}
+        class Entity;
+        class Component;
+    }
+}
 
-        QVariant data;
-        Engine::Entity* entity;
-        Engine::Component* component;
+namespace Ra
+{
+    namespace Gui
+    {
 
-        bool isEntityNode;
-        bool isComponentNode;
-    };
+        class EntityTreeItem
+        {
+        public:
+            struct ItemData
+            {
+                ItemData() : data(), entity ( nullptr ), component ( nullptr )
+                    , isEntityNode ( false ), isComponentNode ( false ) {}
 
-public:
-    explicit EntityTreeItem(const QVector<ItemData>& data, EntityTreeItem* parent = nullptr);
-    ~EntityTreeItem();
+                QVariant data;
+                Engine::Entity* entity;
+                Engine::Component* component;
 
-    inline void appendChild(EntityTreeItem* child) { m_childItems.append(child); }
+                bool isEntityNode;
+                bool isComponentNode;
+            };
 
-    EntityTreeItem* getChild(int row);
-    uint getChildCount() const;
-    uint getColumnCount() const;
-    ItemData getData(int column) const;
-    EntityTreeItem* getParentItem();
-    uint getRow() const;
+        public:
+            explicit EntityTreeItem ( const QVector<ItemData>& data, EntityTreeItem* parent = nullptr );
+            ~EntityTreeItem();
 
-    bool insertChildren(uint position, uint count, uint columns);
-    bool insertColumns(uint position, uint columns);
-    bool removeChildren(uint position, uint count);
-    bool removeColumns(uint position, uint columns);
-    bool setData(uint column, const ItemData& value);
+            inline void appendChild ( EntityTreeItem* child )
+            {
+                m_childItems.append ( child );
+            }
 
-private:
-    QList<EntityTreeItem*> m_childItems;
-    QVector<ItemData> m_itemData;
-    EntityTreeItem* m_parentItem;
-};
+            EntityTreeItem* getChild ( int row );
+            uint getChildCount() const;
+            uint getColumnCount() const;
+            ItemData getData ( int column ) const;
+            EntityTreeItem* getParentItem();
+            uint getRow() const;
 
-} // namespace Gui
+            bool insertChildren ( uint position, uint count, uint columns );
+            bool insertColumns ( uint position, uint columns );
+            bool removeChildren ( uint position, uint count );
+            bool removeColumns ( uint position, uint columns );
+            bool setData ( uint column, const ItemData& value );
+
+        private:
+            QList<EntityTreeItem*> m_childItems;
+            QVector<ItemData> m_itemData;
+            EntityTreeItem* m_parentItem;
+        };
+
+    } // namespace Gui
 } // namespace Ra
 
 #endif // RADIUMENGINE_ENTITYTREEITEM_HPP

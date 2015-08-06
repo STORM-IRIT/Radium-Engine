@@ -9,39 +9,40 @@
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 
-namespace Ra {
-
-/// This struct holds all timings for one frame of the engine.
-struct FrameTimerData
+namespace Ra
 {
-    int numFrame;
-    Core::Timer::TimePoint frameStart;
-    Core::Timer::TimePoint tasksStart;
-    Core::Timer::TimePoint tasksEnd;
-    Core::Timer::TimePoint frameEnd;
-    Engine::Renderer::TimerData renderData;
-    std::vector<Core::TaskQueue::TimerData> taskData;
-};
+
+    /// This struct holds all timings for one frame of the engine.
+    struct FrameTimerData
+    {
+        int numFrame;
+        Core::Timer::TimePoint frameStart;
+        Core::Timer::TimePoint tasksStart;
+        Core::Timer::TimePoint tasksEnd;
+        Core::Timer::TimePoint frameEnd;
+        Engine::Renderer::TimerData renderData;
+        std::vector<Core::TaskQueue::TimerData> taskData;
+    };
 
 #if 0
-class LoggableFrameTimerData
-{
-public:
-    LoggableFrameTimerData(uint average);
-    virtual ~LoggableFrameTimerData() {}
-    void addFrame(const FrameTimerData& data);
+    class LoggableFrameTimerData
+    {
+    public:
+        LoggableFrameTimerData ( uint average );
+        virtual ~LoggableFrameTimerData() {}
+        void addFrame ( const FrameTimerData& data );
 
-    //void log(el::base::type::ostream_t& os) const override;
+        //void log(el::base::type::ostream_t& os) const override;
 
-private:
-    // Print timings relative to the beginning of the frame.
-    void printTimerData(el::base::type::ostream_t& os) const;
-    void printAverageTimerData(el::base::type::ostream_t& os) const;
+    private:
+        // Print timings relative to the beginning of the frame.
+        void printTimerData ( el::base::type::ostream_t& os ) const;
+        void printAverageTimerData ( el::base::type::ostream_t& os ) const;
 
-private:
-    mutable std::vector<FrameTimerData> m_frames;
-    uint m_average;
-};
+    private:
+        mutable std::vector<FrameTimerData> m_frames;
+        uint m_average;
+    };
 #endif
 
 }

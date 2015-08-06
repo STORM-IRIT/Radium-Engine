@@ -6,58 +6,70 @@
 #include <Core/CoreMacros.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
-namespace Ra { namespace Engine { class Texture; } }
-
-namespace Ra { namespace Engine {
-
-class Texture;
-
-class RA_API FBO
+namespace Ra
 {
-public:
-    enum Components
+    namespace Engine
     {
-        COLOR = 1 << 0,
-        DEPTH = 1 << 1,
-        STENCIL = 1 << 2,
-        ALL_COMPONENTS = COLOR | DEPTH | STENCIL
-    };
+        class Texture;
+    }
+}
 
-    FBO(Components components, uint width, uint height);
-    ~FBO();
+namespace Ra
+{
+    namespace Engine
+    {
 
-    void bind();
+        class Texture;
 
-    // Binds and sets viewport
-    void useAsTarget();
-    void useAsTarget(uint width, uint height);
-    void unbind(bool complete = false);
+        class RA_API FBO
+        {
+        public:
+            enum Components
+            {
+                COLOR = 1 << 0,
+                DEPTH = 1 << 1,
+                STENCIL = 1 << 2,
+                ALL_COMPONENTS = COLOR | DEPTH | STENCIL
+            };
 
-    void attachTexture(uint attachment, Texture* texture, uint level = 0);
-    void detachTexture(uint attachment);
+            FBO ( Components components, uint width, uint height );
+            ~FBO();
 
-    void check() const;
+            void bind();
 
-    void setSize(uint width, uint height);
-    void clear(Components components);
+            // Binds and sets viewport
+            void useAsTarget();
+            void useAsTarget ( uint width, uint height );
+            void unbind ( bool complete = false );
 
-    uint getID() const { return m_fboID; }
+            void attachTexture ( uint attachment, Texture* texture, uint level = 0 );
+            void detachTexture ( uint attachment );
 
-private:
-    FBO(const FBO&) = delete;
-    void operator=(const FBO&) = delete;
+            void check() const;
 
-private:
-    uint m_fboID;
-    Components m_components;
-    uint m_width, m_height;
+            void setSize ( uint width, uint height );
+            void clear ( Components components );
 
-    std::map<uint, Texture*> m_textures;
+            uint getID() const
+            {
+                return m_fboID;
+            }
 
-    bool m_isBound;
-};
+        private:
+            FBO ( const FBO& ) = delete;
+            void operator= ( const FBO& ) = delete;
 
-} // namespace Engine
+        private:
+            uint m_fboID;
+            Components m_components;
+            uint m_width, m_height;
+
+            std::map<uint, Texture*> m_textures;
+
+            bool m_isBound;
+        };
+
+    } // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_FBO_HPP

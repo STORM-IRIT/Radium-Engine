@@ -3,42 +3,50 @@
 
 #include <Core/Math/LinearAlgebra.hpp>
 
-namespace Ra { namespace Engine { class ShaderProgram;    } }
-namespace Ra { namespace Engine { class RenderParameters; } }
-
-namespace Ra { namespace Engine {
-
-class RA_API Light
+namespace Ra
 {
-public:
-    enum LightType
+    namespace Engine
     {
-        DIRECTIONAL,
-        POINT,
-        SPOT
-    };
+        class RenderParameters;
+    }
+}
 
-public:
-    RA_CORE_ALIGNED_NEW
+namespace Ra
+{
+    namespace Engine
+    {
 
-    Light(const LightType& type);
-    virtual ~Light();
+        class RA_API Light
+        {
+        public:
+            enum LightType
+            {
+                DIRECTIONAL,
+                POINT,
+                SPOT
+            };
 
-    inline const Core::Color& getColor() const;
-    inline void setColor(const Core::Color& color);
+        public:
+            RA_CORE_ALIGNED_NEW
 
-    inline const LightType& getType() const;
+            Light ( const LightType& type );
+            virtual ~Light();
 
-    virtual void getRenderParameters(RenderParameters& params);
+            inline const Core::Color& getColor() const;
+            inline void setColor ( const Core::Color& color );
 
-private:
-    // FIXME(Charly): Add color intensity
-    Core::Color m_color;
+            inline const LightType& getType() const;
 
-    LightType m_type;
-};
+            virtual void getRenderParameters ( RenderParameters& params );
 
-} // namespace Engine
+        private:
+            // FIXME(Charly): Add color intensity
+            Core::Color m_color;
+
+            LightType m_type;
+        };
+
+    } // namespace Engine
 } // namespace Ra
 
 #include <Engine/Renderer/Light/Light.inl>

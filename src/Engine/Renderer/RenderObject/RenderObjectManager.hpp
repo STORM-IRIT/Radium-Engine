@@ -12,30 +12,33 @@
 #include <Core/CoreMacros.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
-namespace Ra { namespace Engine {
-
-class RA_API RenderObjectManager
+namespace Ra
 {
-public:
-    RenderObjectManager();
-    ~RenderObjectManager();
+    namespace Engine
+    {
 
-    Core::Index addRenderObject(RenderObject* renderObject);
-    void removeRenderObject(const Core::Index& index);
-    std::vector<std::shared_ptr<RenderObject>> getRenderObjects() const;
+        class RA_API RenderObjectManager
+        {
+        public:
+            RenderObjectManager();
+            ~RenderObjectManager();
 
-    std::shared_ptr<RenderObject> update(uint index);
-    std::shared_ptr<RenderObject> update(const Core::Index& index);
-    void doneUpdating(uint index);
+            Core::Index addRenderObject ( RenderObject* renderObject );
+            void removeRenderObject ( const Core::Index& index );
+            std::vector<std::shared_ptr<RenderObject>> getRenderObjects() const;
 
-private:
-    Core::IndexMap<std::shared_ptr<RenderObject>> m_renderObjects;
-    std::map<Core::Index, std::shared_ptr<RenderObject>> m_doubleBuffer;
+            std::shared_ptr<RenderObject> update ( uint index );
+            std::shared_ptr<RenderObject> update ( const Core::Index& index );
+            void doneUpdating ( uint index );
 
-    mutable std::mutex m_doubleBufferMutex;
-};
+        private:
+            Core::IndexMap<std::shared_ptr<RenderObject>> m_renderObjects;
+            std::map<Core::Index, std::shared_ptr<RenderObject>> m_doubleBuffer;
 
-} // namespace Engine
+            mutable std::mutex m_doubleBufferMutex;
+        };
+
+    } // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_RENDEROBJECTMANAGER_HPP

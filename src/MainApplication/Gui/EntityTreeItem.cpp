@@ -47,132 +47,132 @@
 namespace Ra
 {
 
-Gui::EntityTreeItem::EntityTreeItem(const QVector<ItemData> &data, EntityTreeItem *parent)
-    : m_parentItem(parent)
-{
-    m_itemData = data;
-}
-
-Gui::EntityTreeItem::~EntityTreeItem()
-{
-    qDeleteAll(m_childItems);
-}
-
-Gui::EntityTreeItem* Gui::EntityTreeItem::getChild(int row)
-{
-    return m_childItems.value(row);
-}
-
-uint Gui::EntityTreeItem::getChildCount() const
-{
-    return m_childItems.count();
-}
-
-uint Gui::EntityTreeItem::getColumnCount() const
-{
-    return m_itemData.count();
-}
-
-Gui::EntityTreeItem::ItemData Gui::EntityTreeItem::getData(int column) const
-{
-    return m_itemData.value(column);
-}
-
-Gui::EntityTreeItem* Gui::EntityTreeItem::getParentItem()
-{
-    return m_parentItem;
-}
-
-uint Gui::EntityTreeItem::getRow() const
-{
-    if (m_parentItem)
+    Gui::EntityTreeItem::EntityTreeItem ( const QVector<ItemData>& data, EntityTreeItem* parent )
+        : m_parentItem ( parent )
     {
-        return m_parentItem->m_childItems.indexOf(const_cast<EntityTreeItem*>(this));
-    }
-    return 0;
-}
-
-bool Gui::EntityTreeItem::insertChildren(uint position, uint count, uint columns)
-{
-    if (position > m_childItems.size())
-    {
-        return false;
+        m_itemData = data;
     }
 
-    for (uint row = 0; row < count; ++row)
+    Gui::EntityTreeItem::~EntityTreeItem()
     {
-        QVector<ItemData> data(columns);
-        EntityTreeItem* item = new EntityTreeItem(data, this);
-        m_childItems.insert(position, item);
+        qDeleteAll ( m_childItems );
     }
 
-    return true;
-}
-
-bool Gui::EntityTreeItem::insertColumns(uint position, uint columns)
-{
-    if (position > m_itemData.size())
+    Gui::EntityTreeItem* Gui::EntityTreeItem::getChild ( int row )
     {
-        return false;
+        return m_childItems.value ( row );
     }
 
-    for (uint column = 0; column < columns; ++column)
+    uint Gui::EntityTreeItem::getChildCount() const
     {
-        m_itemData.insert(position, ItemData());
+        return m_childItems.count();
     }
 
-    for (EntityTreeItem* child : m_childItems)
+    uint Gui::EntityTreeItem::getColumnCount() const
     {
-        child->insertColumns(position, columns);
+        return m_itemData.count();
     }
 
-    return true;
-}
-
-bool Gui::EntityTreeItem::removeChildren(uint position, uint count)
-{
-    if (position + count > m_childItems.size())
+    Gui::EntityTreeItem::ItemData Gui::EntityTreeItem::getData ( int column ) const
     {
-        return false;
+        return m_itemData.value ( column );
     }
 
-    for (uint row = 0; row < count; ++row)
+    Gui::EntityTreeItem* Gui::EntityTreeItem::getParentItem()
     {
-        delete m_childItems.takeAt(position);
+        return m_parentItem;
     }
 
-    return true;
-}
-
-bool Gui::EntityTreeItem::removeColumns(uint position, uint columns)
-{
-    if (position + columns > m_itemData.size())
+    uint Gui::EntityTreeItem::getRow() const
     {
-        return false;
+        if ( m_parentItem )
+        {
+            return m_parentItem->m_childItems.indexOf ( const_cast<EntityTreeItem*> ( this ) );
+        }
+        return 0;
     }
 
-    for (uint column = 0; column < columns; ++column)
+    bool Gui::EntityTreeItem::insertChildren ( uint position, uint count, uint columns )
     {
-        m_itemData.remove(position);
+        if ( position > m_childItems.size() )
+        {
+            return false;
+        }
+
+        for ( uint row = 0; row < count; ++row )
+        {
+            QVector<ItemData> data ( columns );
+            EntityTreeItem* item = new EntityTreeItem ( data, this );
+            m_childItems.insert ( position, item );
+        }
+
+        return true;
     }
 
-    foreach (EntityTreeItem* child, m_childItems)
+    bool Gui::EntityTreeItem::insertColumns ( uint position, uint columns )
     {
-        child->removeColumns(position, columns);
+        if ( position > m_itemData.size() )
+        {
+            return false;
+        }
+
+        for ( uint column = 0; column < columns; ++column )
+        {
+            m_itemData.insert ( position, ItemData() );
+        }
+
+        for ( EntityTreeItem* child : m_childItems )
+        {
+            child->insertColumns ( position, columns );
+        }
+
+        return true;
     }
 
-    return true;
-}
-
-bool Gui::EntityTreeItem::setData(uint column, const ItemData &value)
-{
-    if (column >= m_itemData.size())
+    bool Gui::EntityTreeItem::removeChildren ( uint position, uint count )
     {
-        return false;
+        if ( position + count > m_childItems.size() )
+        {
+            return false;
+        }
+
+        for ( uint row = 0; row < count; ++row )
+        {
+            delete m_childItems.takeAt ( position );
+        }
+
+        return true;
     }
 
-    m_itemData[column] = value;
-    return true;
-}
+    bool Gui::EntityTreeItem::removeColumns ( uint position, uint columns )
+    {
+        if ( position + columns > m_itemData.size() )
+        {
+            return false;
+        }
+
+        for ( uint column = 0; column < columns; ++column )
+        {
+            m_itemData.remove ( position );
+        }
+
+        foreach ( EntityTreeItem * child, m_childItems )
+        {
+            child->removeColumns ( position, columns );
+        }
+
+        return true;
+    }
+
+    bool Gui::EntityTreeItem::setData ( uint column, const ItemData& value )
+    {
+        if ( column >= m_itemData.size() )
+        {
+            return false;
+        }
+
+        m_itemData[column] = value;
+        return true;
+    }
 
 } // namespace Ra

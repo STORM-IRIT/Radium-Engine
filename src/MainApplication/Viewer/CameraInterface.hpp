@@ -10,72 +10,88 @@
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
-namespace Ra { namespace Core   { struct MouseEvent; } }
-namespace Ra { namespace Core   { struct KeyEvent; } }
-namespace Ra { namespace Engine { class  Camera; } }
-
-namespace Ra { namespace Gui {
-
-class CameraInterface : public QObject
+namespace Ra
 {
-    Q_OBJECT
+    namespace Core
+    {
+        struct MouseEvent;
+        struct KeyEvent;
+    }
+}
 
-public:
-    // FIXME(Charly): width / height ?
-    CameraInterface(uint width, uint height);
-    virtual ~CameraInterface();
+namespace Ra
+{
+    namespace Engine
+    {
+        class  Camera;
+    }
+}
 
-    void resizeViewport(uint width, uint height);
+namespace Ra
+{
+    namespace Gui
+    {
 
-    Core::Matrix4 getProjMatrix() const;
-    Core::Matrix4 getViewMatrix() const;
+        class CameraInterface : public QObject
+        {
+            Q_OBJECT
 
-    /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleMousePressEvent(QMouseEvent* event) = 0;
-    /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleMouseReleaseEvent(QMouseEvent* event) = 0;
-    /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleMouseMoveEvent(QMouseEvent* event) = 0;
+        public:
+            // FIXME(Charly): width / height ?
+            CameraInterface ( uint width, uint height );
+            virtual ~CameraInterface();
 
-    /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleKeyPressEvent(QKeyEvent* event) = 0;
-    /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleKeyReleaseEvent(QKeyEvent* event) = 0;
+            void resizeViewport ( uint width, uint height );
 
-public slots:
-    void setCameraSensitivity(double sensitivity);
+            Core::Matrix4 getProjMatrix() const;
+            Core::Matrix4 getViewMatrix() const;
 
-    void setCameraFov(double fov);
-    void setCameraFovInDegrees(double fov);
-    void setCameraZNear(double zNear);
-    void setCameraZFar(double zFar);
+            /// @return true if the event has been taken into account, false otherwise
+            virtual bool handleMousePressEvent ( QMouseEvent* event ) = 0;
+            /// @return true if the event has been taken into account, false otherwise
+            virtual bool handleMouseReleaseEvent ( QMouseEvent* event ) = 0;
+            /// @return true if the event has been taken into account, false otherwise
+            virtual bool handleMouseMoveEvent ( QMouseEvent* event ) = 0;
 
-    void mapCameraBehaviourToAabb(const Core::Aabb& aabb);
-    void unmapCameraBehaviourToAabb();
+            /// @return true if the event has been taken into account, false otherwise
+            virtual bool handleKeyPressEvent ( QKeyEvent* event ) = 0;
+            /// @return true if the event has been taken into account, false otherwise
+            virtual bool handleKeyReleaseEvent ( QKeyEvent* event ) = 0;
 
-    virtual void moveCameraToFitAabb(const Core::Aabb& aabb);
+        public slots:
+            void setCameraSensitivity ( double sensitivity );
 
-    virtual void setCameraPosition(const Core::Vector3& position) = 0;
-    virtual void setCameraTarget(const Core::Vector3& target) = 0;
+            void setCameraFov ( double fov );
+            void setCameraFovInDegrees ( double fov );
+            void setCameraZNear ( double zNear );
+            void setCameraZFar ( double zFar );
 
-    virtual void resetCamera() = 0;
+            void mapCameraBehaviourToAabb ( const Core::Aabb& aabb );
+            void unmapCameraBehaviourToAabb();
 
-signals:
-    void cameraPositionChanged(const Core::Vector3&);
-    void cameraTargetChanged(const Core::Vector3&);
+            virtual void moveCameraToFitAabb ( const Core::Aabb& aabb );
 
-protected:
-    Core::Aabb m_targetedAabb;
+            virtual void setCameraPosition ( const Core::Vector3& position ) = 0;
+            virtual void setCameraTarget ( const Core::Vector3& target ) = 0;
 
-    Scalar m_targetedAabbVolume;
-    Scalar m_cameraSensitivity;
+            virtual void resetCamera() = 0;
 
-    mutable std::unique_ptr<Engine::Camera> m_camera;
-    mutable bool m_projIsDirty;
-    bool m_mapCameraBahaviourToAabb;
-};
+        signals:
+            void cameraPositionChanged ( const Core::Vector3& );
+            void cameraTargetChanged ( const Core::Vector3& );
 
-} // namespace Ra
+        protected:
+            Core::Aabb m_targetedAabb;
+
+            Scalar m_targetedAabbVolume;
+            Scalar m_cameraSensitivity;
+
+            mutable std::unique_ptr<Engine::Camera> m_camera;
+            mutable bool m_projIsDirty;
+            bool m_mapCameraBahaviourToAabb;
+        };
+
+    } // namespace Ra
 } // namespace Engine
 
 #endif // RADIUMENGINE_CAMERAINTERFACE_HPP

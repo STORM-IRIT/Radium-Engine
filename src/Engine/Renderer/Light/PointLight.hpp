@@ -3,44 +3,45 @@
 
 #include <Engine/Renderer/Light/Light.hpp>
 
-namespace Ra { namespace Engine { class ShaderProgram; } }
-
-namespace Ra { namespace Engine {
-
-class RA_API PointLight : public Light
+namespace Ra
 {
-public:
-    struct Attenuation
+    namespace Engine
     {
-        Scalar constant;
-        Scalar linear;
-        Scalar quadratic;
 
-        Attenuation() : constant(1.0), linear(), quadratic() {}
-    };
+        class RA_API PointLight : public Light
+        {
+        public:
+            struct Attenuation
+            {
+                Scalar constant;
+                Scalar linear;
+                Scalar quadratic;
 
-public:
-    RA_CORE_ALIGNED_NEW
+                Attenuation() : constant ( 1.0 ), linear(), quadratic() {}
+            };
 
-    PointLight();
-    virtual ~PointLight();
+        public:
+            RA_CORE_ALIGNED_NEW
 
-    virtual void getRenderParameters(RenderParameters& params) override;
+            PointLight();
+            virtual ~PointLight();
 
-    inline void setPosition(const Core::Vector3& pos);
-    inline const Core::Vector3& getPosition() const;
+            virtual void getRenderParameters ( RenderParameters& params ) override;
 
-    inline void setAttenuation(const Attenuation& attenuation);
-    inline void setAttenuation(Scalar constant, Scalar linear, Scalar quadratic);
-    inline const Attenuation& getAttenuation() const;
+            inline void setPosition ( const Core::Vector3& pos );
+            inline const Core::Vector3& getPosition() const;
 
-private:
-    Core::Vector3 m_position;
+            inline void setAttenuation ( const Attenuation& attenuation );
+            inline void setAttenuation ( Scalar constant, Scalar linear, Scalar quadratic );
+            inline const Attenuation& getAttenuation() const;
 
-    Attenuation m_attenuation;
-};
+        private:
+            Core::Vector3 m_position;
 
-} // namespace Engine
+            Attenuation m_attenuation;
+        };
+
+    } // namespace Engine
 } // namespace Ra
 
 #include <Engine/Renderer/Light/PointLight.inl>

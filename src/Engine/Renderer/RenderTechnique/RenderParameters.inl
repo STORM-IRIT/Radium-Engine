@@ -1,27 +1,30 @@
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
-namespace Ra { namespace Engine {
-
-template <typename T>
-inline void RenderParameters::UniformBindableVector<T>::bind(ShaderProgram* shader) const
+namespace Ra
 {
-    for (auto& value : *this)
+    namespace Engine
     {
-        value.bind(shader);
-    }
-}
 
-template <typename T>
-inline void RenderParameters::TParameter<T>::bind(ShaderProgram* shader) const
-{
-    shader->setUniform(m_name, m_value);
-}
+        template <typename T>
+        inline void RenderParameters::UniformBindableVector<T>::bind ( ShaderProgram* shader ) const
+        {
+            for ( auto& value : *this )
+            {
+                value.bind ( shader );
+            }
+        }
 
-inline void RenderParameters::TextureParameter::bind(ShaderProgram* shader) const
-{
-    shader->setUniform(m_name, m_texture, m_texUnit);
-}
+        template <typename T>
+        inline void RenderParameters::TParameter<T>::bind ( ShaderProgram* shader ) const
+        {
+            shader->setUniform ( m_name, m_value );
+        }
 
-} // namespace Engine
+        inline void RenderParameters::TextureParameter::bind ( ShaderProgram* shader ) const
+        {
+            shader->setUniform ( m_name, m_texture, m_texUnit );
+        }
+
+    } // namespace Engine
 } // namespace Ra

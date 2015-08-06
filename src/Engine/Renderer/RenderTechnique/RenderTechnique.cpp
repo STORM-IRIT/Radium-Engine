@@ -4,19 +4,20 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 
-namespace Ra {
-
-void Engine::RenderTechnique::updateGL()
+namespace Ra
 {
-    if (nullptr == shader)
-    {
-        shader = ShaderProgramManager::getInstancePtr()->getShaderProgram(shaderConfig);
-    }
 
-    if (material)
+    void Engine::RenderTechnique::updateGL()
     {
-        material->updateGL();
+        if ( nullptr == shader )
+        {
+            shader = ShaderProgramManager::getInstancePtr()->getShaderProgram ( shaderConfig );
+        }
+
+        if ( material )
+        {
+            material->updateGL();
+        }
     }
-}
 
 } // namespace Ra

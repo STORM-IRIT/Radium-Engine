@@ -3,20 +3,29 @@
 
 #include <Core/CoreMacros.hpp>
 
-namespace Ra { namespace Engine { class ShaderProgram; } }
-
-namespace Ra { namespace Engine {
-
-class RA_API Bindable
+namespace Ra
 {
-public:
-	Bindable() {}
-	virtual ~Bindable() {}
-
-    virtual void bind(ShaderProgram* shader) const = 0;
-};
-
+    namespace Engine
+    {
+        class ShaderProgram;
+    }
 }
+
+namespace Ra
+{
+    namespace Engine
+    {
+
+        class RA_API Bindable
+        {
+        public:
+            Bindable() {}
+            virtual ~Bindable() {}
+
+            virtual void bind ( ShaderProgram* shader ) const = 0;
+        };
+
+    }
 }
 
 #endif // RADIUMENGINE_BINDABLE_HPP

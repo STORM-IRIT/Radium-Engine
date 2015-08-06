@@ -6,33 +6,42 @@
 
 #include <Core/Utils/Singleton.hpp>
 
-namespace Ra { namespace Engine { class Texture; } }
-
-namespace Ra { namespace Engine {
-
-class RA_API TextureManager : public Core::Singleton<TextureManager>
+namespace Ra
 {
-private:
-    friend class Core::Singleton<TextureManager>;
-    typedef std::pair<std::string, Texture*> TexturePair;
+    namespace Engine
+    {
+        class Texture;
+    }
+}
 
-public:
-    Texture* addTexture(const std::string& filename);
-    Texture* getOrLoadTexture(const std::string& filename);
+namespace Ra
+{
+    namespace Engine
+    {
 
-    void deleteTexture(const std::string& filename);
-    void deleteTexture(Texture* texture);
+        class RA_API TextureManager : public Core::Singleton<TextureManager>
+        {
+        private:
+            friend class Core::Singleton<TextureManager>;
+            typedef std::pair<std::string, Texture*> TexturePair;
 
-private:
-    TextureManager();
-    ~TextureManager();
+        public:
+            Texture* addTexture ( const std::string& filename );
+            Texture* getOrLoadTexture ( const std::string& filename );
 
-private:
-    std::map<std::string, Texture*> m_textures;
-    bool m_verbose;
-};
+            void deleteTexture ( const std::string& filename );
+            void deleteTexture ( Texture* texture );
 
-} // namespace Engine
+        private:
+            TextureManager();
+            ~TextureManager();
+
+        private:
+            std::map<std::string, Texture*> m_textures;
+            bool m_verbose;
+        };
+
+    } // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_TEXTUREMANAGER_HPP

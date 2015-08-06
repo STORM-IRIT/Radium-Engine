@@ -47,55 +47,72 @@
 #include <QList>
 #include <QVariant>
 
-namespace Ra { namespace Engine { class Entity; } }
-namespace Ra { namespace Gui { class EntityTreeItem; } }
-
-namespace Ra { namespace Gui {
-
-class EntityTreeModel : public QAbstractItemModel
+namespace Ra
 {
-    Q_OBJECT
+    namespace Engine
+    {
+        class Entity;
+    }
+}
 
-public:
-    explicit EntityTreeModel(const QStringList& headers,
-                             QObject* parent = nullptr);
-    ~EntityTreeModel();
+namespace Ra
+{
+    namespace Gui
+    {
+        class EntityTreeItem;
+    }
+}
 
-    QVariant data(const QModelIndex& index, int role) const override;
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+namespace Ra
+{
+    namespace Gui
+    {
 
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
-    QModelIndex parent(const QModelIndex &child) const override;
+        class EntityTreeModel : public QAbstractItemModel
+        {
+            Q_OBJECT
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+        public:
+            explicit EntityTreeModel ( const QStringList& headers,
+                                       QObject* parent = nullptr );
+            ~EntityTreeModel();
 
-    Qt::ItemFlags flags(const QModelIndex &index) const override;
-    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
-    bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::EditRole) override;
+            QVariant data ( const QModelIndex& index, int role ) const override;
+            QVariant headerData ( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const override;
 
-    bool insertColumns(int column, int count, const QModelIndex &parent = QModelIndex()) override;
-    bool removeColumns(int position, int columns, const QModelIndex& parent = QModelIndex()) override;
-    bool insertRows(int position, int rows, const QModelIndex& parent = QModelIndex()) override;
-    bool removeRows(int position, int rows, const QModelIndex& parent = QModelIndex()) override;
+            QModelIndex index ( int row, int column, const QModelIndex& parent = QModelIndex() ) const override;
+            QModelIndex parent ( const QModelIndex& child ) const override;
 
-public slots:
-    void entitiesUpdated(const std::vector<Engine::Entity*>& entities);
-    void handleRename(const QModelIndex& topLeft, const QModelIndex& bottomRight, const QVector<int>&);
-    void handleSelect(const QModelIndex& index);
+            int rowCount ( const QModelIndex& parent = QModelIndex() ) const override;
+            int columnCount ( const QModelIndex& parent = QModelIndex() ) const override;
 
-protected:
+            Qt::ItemFlags flags ( const QModelIndex& index ) const override;
+            bool setData ( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole ) override;
+            bool setHeaderData ( int section, Qt::Orientation orientation, const QVariant& value,
+                                 int role = Qt::EditRole ) override;
 
-private:
-    EntityTreeItem* getItem(const QModelIndex& index) const;
+            bool insertColumns ( int column, int count, const QModelIndex& parent = QModelIndex() ) override;
+            bool removeColumns ( int position, int columns, const QModelIndex& parent = QModelIndex() ) override;
+            bool insertRows ( int position, int rows, const QModelIndex& parent = QModelIndex() ) override;
+            bool removeRows ( int position, int rows, const QModelIndex& parent = QModelIndex() ) override;
 
-    void insertComponents(Engine::Entity* entity, EntityTreeItem* parent);
+        public slots:
+            void entitiesUpdated ( const std::vector<Engine::Entity*>& entities );
+            void handleRename ( const QModelIndex& topLeft, const QModelIndex& bottomRight, const QVector<int>& );
+            void handleSelect ( const QModelIndex& index );
 
-private:
-    EntityTreeItem* m_rootItem;
-};
+        protected:
 
-} // namespace Gui
+        private:
+            EntityTreeItem* getItem ( const QModelIndex& index ) const;
+
+            void insertComponents ( Engine::Entity* entity, EntityTreeItem* parent );
+
+        private:
+            EntityTreeItem* m_rootItem;
+        };
+
+    } // namespace Gui
 } // namespace Ra
 
 #endif // RADIUMENGINE_ENTITYTREEMODEL_HPP

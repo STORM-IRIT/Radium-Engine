@@ -4,28 +4,31 @@
 #include <Core/CoreMacros.hpp>
 #include <Core/Event/EventEnums.hpp>
 
-namespace Ra { namespace Core
+namespace Ra
 {
+    namespace Core
+    {
 
-struct MouseEvent
-{
-    /// MouseEventType: Press, Release, Move, Wheel
-    int event;
-    /// MouseButton : Left button, Right button, Middle button
-    int button;
+        struct MouseEvent
+        {
+            /// MouseEventType: Press, Release, Move, Wheel
+            int event;
+            /// MouseButton : Left button, Right button, Middle button
+            int button;
 
-    /// Modifier has been used ? Ctrl, Alt, Shift
-    int modifier;
+            /// Modifier has been used ? Ctrl, Alt, Shift
+            int modifier;
 
-    /// X mouse position in [width, height] when the event occured.
-    int absoluteXPosition;
-    /// Y mouse position in [width, height] when the event occured.
-    int absoluteYPosition;
+            /// X mouse position in [width, height] when the event occured.
+            int absoluteXPosition;
+            /// Y mouse position in [width, height] when the event occured.
+            int absoluteYPosition;
 
-    /// Wheel delta. Is only set for WheelEvent, undefined otherwise.
-    int wheelDelta;
-};
+            /// Wheel delta. Is only set for WheelEvent, undefined otherwise.
+            int wheelDelta;
+        };
 
-}}
+    }
+}
 
 #endif // RADIUMENGINE_MOUSEEVENT_HPP

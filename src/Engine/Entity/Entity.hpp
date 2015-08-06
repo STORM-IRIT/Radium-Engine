@@ -11,48 +11,57 @@
 #include <Core/Index/Index.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
-namespace Ra { namespace Engine { class Component; } }
-
-namespace Ra { namespace Engine {
-
-class RA_API Entity : public Core::IndexedObject
+namespace Ra
 {
-public:
-    RA_CORE_ALIGNED_NEW
-    explicit Entity(const std::string& name = "");
-    ~Entity();
+    namespace Engine
+    {
+        class Component;
+    }
+}
 
-    inline const std::string& getName() const;
-    inline void rename(const std::string& name);
+namespace Ra
+{
+    namespace Engine
+    {
 
-    inline void setTransform(const Core::Transform& transform);
-    inline void setTransform(const Core::Matrix4& transform);
-    Core::Transform getTransform() const;
-    Core::Matrix4 getTransformAsMatrix() const;
+        class RA_API Entity : public Core::IndexedObject
+        {
+        public:
+            RA_CORE_ALIGNED_NEW
+            explicit Entity ( const std::string& name = "" );
+            ~Entity();
 
-    void setSelected(bool selected);
+            inline const std::string& getName() const;
+            inline void rename ( const std::string& name );
 
-    void addComponent(Component* component);
+            inline void setTransform ( const Core::Transform& transform );
+            inline void setTransform ( const Core::Matrix4& transform );
+            Core::Transform getTransform() const;
+            Core::Matrix4 getTransformAsMatrix() const;
 
-    void removeComponent(const std::string& name);
-    void removeComponent(Component* component);
+            void setSelected ( bool selected );
 
-    Component* getComponent(const std::string& name);
-    std::vector<Component*> getComponents() const;
+            void addComponent ( Component* component );
 
-private:
-    Core::Transform m_transform;
+            void removeComponent ( const std::string& name );
+            void removeComponent ( Component* component );
 
-    std::string m_name;
+            Component* getComponent ( const std::string& name );
+            std::vector<Component*> getComponents() const;
 
-    typedef std::pair<std::string, Engine::Component*> ComponentByName;
-    std::map<std::string, Engine::Component*> m_components;
+        private:
+            Core::Transform m_transform;
 
-    mutable std::mutex m_mutex;
-    bool m_isSelected;
-};
+            std::string m_name;
 
-} // namespace Engine
+            typedef std::pair<std::string, Engine::Component*> ComponentByName;
+            std::map<std::string, Engine::Component*> m_components;
+
+            mutable std::mutex m_mutex;
+            bool m_isSelected;
+        };
+
+    } // namespace Engine
 } // namespace Ra
 
 #include <Engine/Entity/Entity.inl>

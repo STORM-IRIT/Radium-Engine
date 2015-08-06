@@ -7,14 +7,14 @@
 namespace Ra
 {
 
-Engine::Component::Component(const std::string& name )
-    : m_name(name)
-{
-}
+    Engine::Component::Component ( const std::string& name )
+        : m_name ( name )
+    {
+    }
 
-Engine::Component::~Component()
-{
-}
+    Engine::Component::~Component()
+    {
+    }
 
 
 } // namespace Ra

@@ -3,28 +3,29 @@
 
 #include <Engine/Renderer/Light/Light.hpp>
 
-namespace Ra { namespace Engine { class ShaderProgram; } }
-
-namespace Ra { namespace Engine {
-
-class RA_API DirectionalLight : public Light
+namespace Ra
 {
-public:
-    RA_CORE_ALIGNED_NEW
+    namespace Engine
+    {
 
-    DirectionalLight();
-    virtual ~DirectionalLight();
+        class RA_API DirectionalLight : public Light
+        {
+        public:
+            RA_CORE_ALIGNED_NEW
 
-    virtual void getRenderParameters(RenderParameters& params);
+            DirectionalLight();
+            virtual ~DirectionalLight();
 
-    inline void setDirection(const Core::Vector3& pos);
-    inline const Core::Vector3& getDirection() const;
+            virtual void getRenderParameters ( RenderParameters& params );
 
-private:
-    Core::Vector3 m_direction;
-};
+            inline void setDirection ( const Core::Vector3& pos );
+            inline const Core::Vector3& getDirection() const;
 
-} // namespace Engine
+        private:
+            Core::Vector3 m_direction;
+        };
+
+    } // namespace Engine
 } // namespace Ra
 
 #include <Engine/Renderer/Light/DirLight.inl>

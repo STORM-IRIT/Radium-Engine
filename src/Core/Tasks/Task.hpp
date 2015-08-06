@@ -6,40 +6,43 @@
 #include <mutex>
 #include <string>
 
-namespace Ra { namespace Core 
+namespace Ra
 {
-    /// Base class for Task params structs.
-    struct RA_API TaskParams {};
-
-    /// A class representing a basic task.
-    class RA_API Task
+    namespace Core
     {
-    public:
-        Task() {}
-        virtual ~Task() {}
-        virtual std::string getName() const = 0;
-        virtual void init(const TaskParams* params) = 0;
-        virtual void process() = 0;
-    };
+        /// Base class for Task params structs.
+        struct RA_API TaskParams {};
 
-    struct RA_API DummyTaskParams : public TaskParams
-    {
-        Scalar m_param;
-    };
+        /// A class representing a basic task.
+        class RA_API Task
+        {
+        public:
+            Task() {}
+            virtual ~Task() {}
+            virtual std::string getName() const = 0;
+            virtual void init ( const TaskParams* params ) = 0;
+            virtual void process() = 0;
+        };
 
-    class DummyTask : public Task
-    {
-    public:
-        virtual RA_API std::string getName() const override;
+        struct RA_API DummyTaskParams : public TaskParams
+        {
+            Scalar m_param;
+        };
 
-        virtual RA_API void init(const TaskParams* params) override;
+        class DummyTask : public Task
+        {
+        public:
+            virtual RA_API std::string getName() const override;
 
-        virtual RA_API void process() override;
+            virtual RA_API void init ( const TaskParams* params ) override;
 
-        Scalar m_data;
+            virtual RA_API void process() override;
 
-        static std::mutex s_ioMutex;
-    };
-}}
+            Scalar m_data;
+
+            static std::mutex s_ioMutex;
+        };
+    }
+}
 
 #endif //RADIUMENGINE_TASK_HPP_

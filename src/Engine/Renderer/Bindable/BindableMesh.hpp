@@ -4,29 +4,38 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/Bindable/Bindable.hpp>
 
-namespace Ra { namespace Engine { class Mesh; }}
-
-namespace Ra { namespace Engine {
-
-class RA_API BindableMesh : public Bindable
+namespace Ra
 {
-public:
-    RA_CORE_ALIGNED_NEW
-    explicit BindableMesh(Mesh* mesh, uint id);
-    virtual ~BindableMesh();
+    namespace Engine
+    {
+        class Mesh;
+    }
+}
 
-    virtual void bind(ShaderProgram* shader) const override;
-    void render() const;
+namespace Ra
+{
+    namespace Engine
+    {
 
-    bool operator<(const BindableMesh& other) const;
+        class RA_API BindableMesh : public Bindable
+        {
+        public:
+            RA_CORE_ALIGNED_NEW
+            explicit BindableMesh ( Mesh* mesh, uint id );
+            virtual ~BindableMesh();
 
-private:
-    Mesh* m_mesh;
-    uint m_id;
-    Core::Color m_idAsColor;
-};
+            virtual void bind ( ShaderProgram* shader ) const override;
+            void render() const;
 
-} // namespace Engine
+            bool operator< ( const BindableMesh& other ) const;
+
+        private:
+            Mesh* m_mesh;
+            uint m_id;
+            Core::Color m_idAsColor;
+        };
+
+    } // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_BINDABLEMESH_HPP

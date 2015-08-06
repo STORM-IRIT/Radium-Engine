@@ -3,15 +3,18 @@
 
 #include <Core/CoreMacros.hpp>
 
-namespace Ra { namespace Engine
+namespace Ra
 {
-    /// Structure passed to each system before they fill the task queue.
-    struct RA_API FrameInfo
+    namespace Engine
     {
-        /// Time elapsed since the last frame in seconds.
-        Scalar m_dt;
+        /// Structure passed to each system before they fill the task queue.
+        struct RA_API FrameInfo
+        {
+            /// Time elapsed since the last frame in seconds.
+            Scalar m_dt;
 
-        // Other stuff (e.g. which systems are present, etc).
-    };
-}}
+            // Other stuff (e.g. which systems are present, etc).
+        };
+    }
+}
 #endif // RADIUMENGINE_FRAME_INFO_HPP_

@@ -4,59 +4,60 @@
 #include <Core/Math/Math.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
-namespace Ra { namespace Engine { class ShaderProgram; } }
-
-namespace Ra { namespace Engine {
-
-class RA_API SpotLight : public Light
+namespace Ra
 {
-public:
-    struct Attenuation
+    namespace Engine
     {
-        Scalar constant;
-        Scalar linear;
-        Scalar quadratic;
 
-        Attenuation() : constant(1.0), linear(), quadratic() {}
-    };
+        class RA_API SpotLight : public Light
+        {
+        public:
+            struct Attenuation
+            {
+                Scalar constant;
+                Scalar linear;
+                Scalar quadratic;
 
-public:
-    RA_CORE_ALIGNED_NEW
+                Attenuation() : constant ( 1.0 ), linear(), quadratic() {}
+            };
 
-    SpotLight();
-    virtual ~SpotLight();
+        public:
+            RA_CORE_ALIGNED_NEW
 
-    virtual void getRenderParameters(RenderParameters& params);
+            SpotLight();
+            virtual ~SpotLight();
 
-    inline void setPosition(const Core::Vector3& position);
-    inline const Core::Vector3& getPosition() const;
+            virtual void getRenderParameters ( RenderParameters& params );
 
-    inline void setDirection(const Core::Vector3& direction);
-    inline const Core::Vector3& getDirection() const;
+            inline void setPosition ( const Core::Vector3& position );
+            inline const Core::Vector3& getPosition() const;
 
-    inline void setInnerAngleInRadians(Scalar angle);
-    inline void setOuterAngleInRadians(Scalar angle);
-    inline void setInnerAngleInDegrees(Scalar angle);
-    inline void setOuterAngleInDegrees(Scalar angle);
+            inline void setDirection ( const Core::Vector3& direction );
+            inline const Core::Vector3& getDirection() const;
 
-    inline Scalar getInnerAngle() const;
-    inline Scalar getOuterAngle() const;
+            inline void setInnerAngleInRadians ( Scalar angle );
+            inline void setOuterAngleInRadians ( Scalar angle );
+            inline void setInnerAngleInDegrees ( Scalar angle );
+            inline void setOuterAngleInDegrees ( Scalar angle );
 
-    inline void setAttenuation(const Attenuation& attenuation);
-    inline void setAttenuation(Scalar constant, Scalar linear, Scalar quadratic);
-    inline const Attenuation& getAttenuation() const;
+            inline Scalar getInnerAngle() const;
+            inline Scalar getOuterAngle() const;
 
-private:
-    Core::Vector3 m_position;
-    Core::Vector3 m_direction;
+            inline void setAttenuation ( const Attenuation& attenuation );
+            inline void setAttenuation ( Scalar constant, Scalar linear, Scalar quadratic );
+            inline const Attenuation& getAttenuation() const;
 
-    Scalar m_innerAngle;
-    Scalar m_outerAngle;
+        private:
+            Core::Vector3 m_position;
+            Core::Vector3 m_direction;
 
-    Attenuation m_attenuation;
-};
+            Scalar m_innerAngle;
+            Scalar m_outerAngle;
 
-} // namespace Engine
+            Attenuation m_attenuation;
+        };
+
+    } // namespace Engine
 } // namespace Ra
 
 #include <Engine/Renderer/Light/SpotLight.inl>

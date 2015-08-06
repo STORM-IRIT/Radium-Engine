@@ -4,34 +4,37 @@
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
-namespace Ra { namespace Core
+namespace Ra
 {
-    /// A structure representing a ray in space with an origin and a direction.
-    // TODO : use Eigen parametrized line ?
-    struct RA_API Ray
+    namespace Core
     {
-    public:
-        RA_CORE_ALIGNED_NEW
-
-        /// Default constructor initializes the position and direction to zero.
-        Ray() : m_origin(Vector3::Zero()), m_direction(Vector3::Zero()) { }
-
-        /// Construct a ray with given position and direction.
-        Ray(const Vector3& origin, const Vector3& direction) : m_origin(origin), m_direction(direction) { }
-
-        /// Retunrs the position at linear coordinate t on the ray.
-        inline Vector3 at(Scalar t) const
+        /// A structure representing a ray in space with an origin and a direction.
+        // TODO : use Eigen parametrized line ?
+        struct RA_API Ray
         {
-            return m_origin + (t * m_direction);
-        }
+        public:
+            RA_CORE_ALIGNED_NEW
 
-    public:
-        /// Starting point of the ray
-        Vector3 m_origin;
-        /// Direction of the ray (not necessarily normalized).
-        Vector3 m_direction;
-    };
+            /// Default constructor initializes the position and direction to zero.
+            Ray() : m_origin ( Vector3::Zero() ), m_direction ( Vector3::Zero() ) { }
 
-}}
+            /// Construct a ray with given position and direction.
+            Ray ( const Vector3& origin, const Vector3& direction ) : m_origin ( origin ), m_direction ( direction ) { }
+
+            /// Retunrs the position at linear coordinate t on the ray.
+            inline Vector3 at ( Scalar t ) const
+            {
+                return m_origin + ( t * m_direction );
+            }
+
+        public:
+            /// Starting point of the ray
+            Vector3 m_origin;
+            /// Direction of the ray (not necessarily normalized).
+            Vector3 m_direction;
+        };
+
+    }
+}
 
 #endif //RADIUMENGINE_RAY_HPP

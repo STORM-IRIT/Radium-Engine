@@ -4,33 +4,36 @@
 #include <Engine/Renderer/Bindable/Bindable.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
-namespace Ra { namespace Engine {
-
-class RA_API BindableTransform : public Bindable
+namespace Ra
 {
-public:
-    RA_CORE_ALIGNED_NEW
-    BindableTransform(const Core::Matrix4& model,
-                      const Core::Matrix4& view,
-                      const Core::Matrix4& proj);
+    namespace Engine
+    {
 
-    ~BindableTransform();
+        class RA_API BindableTransform : public Bindable
+        {
+        public:
+            RA_CORE_ALIGNED_NEW
+            BindableTransform ( const Core::Matrix4& model,
+                                const Core::Matrix4& view,
+                                const Core::Matrix4& proj );
 
-    virtual void bind(ShaderProgram *shader) const override;
+            ~BindableTransform();
 
-    bool operator<(const BindableTransform& other) const;
+            virtual void bind ( ShaderProgram* shader ) const override;
 
-private:
-    Core::Matrix4 m_model;
-    Core::Matrix4 m_view;
-    Core::Matrix4 m_proj;
-    Core::Matrix4 m_mvp;
-    Core::Matrix4 m_modelView;
-    Core::Matrix4 m_worldNormal;
-    Core::Matrix4 m_viewNormal;
-};
+            bool operator< ( const BindableTransform& other ) const;
 
-} // namespace Engine
+        private:
+            Core::Matrix4 m_model;
+            Core::Matrix4 m_view;
+            Core::Matrix4 m_proj;
+            Core::Matrix4 m_mvp;
+            Core::Matrix4 m_modelView;
+            Core::Matrix4 m_worldNormal;
+            Core::Matrix4 m_viewNormal;
+        };
+
+    } // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_BINDABLETRANSFORM_HPP

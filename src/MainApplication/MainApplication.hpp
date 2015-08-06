@@ -8,10 +8,30 @@
 #include <MainApplication/Viewer/Viewer.hpp>
 
 class QTimer;
-namespace Ra { namespace Core{ class TaskQueue;}}
-namespace Ra { namespace Engine { class RadiumEngine;}}
-namespace Ra { namespace Gui { class Viewer;}}
-namespace Ra { namespace Gui { class MainWindow;}}
+namespace Ra
+{
+    namespace Core
+    {
+        class TaskQueue;
+    }
+}
+
+namespace Ra
+{
+    namespace Engine
+    {
+        class RadiumEngine;
+    }
+}
+
+namespace Ra
+{
+    namespace Gui
+    {
+        class Viewer;
+        class MainWindow;
+    }
+}
 
 namespace Ra
 {
@@ -21,7 +41,7 @@ namespace Ra
         Q_OBJECT
 
     public:
-        MainApplication(int argc, char** argv);
+        MainApplication ( int argc, char** argv );
         ~MainApplication();
 
     signals:
@@ -32,14 +52,14 @@ namespace Ra
         void stopping();
 
         /// Fired when the scene has changed.
-        void sceneChanged(const Core::Aabb&);
+        void sceneChanged ( const Core::Aabb& );
 
 
     public slots:
         /// Advance the engine for one frame. Called by an internal timer.
         void radiumFrame();
 
-        void loadFile(QString path);
+        void loadFile ( QString path );
 
     private:
         /// Create signal / slots connections
@@ -65,7 +85,7 @@ namespace Ra
         Core::Timer::TimePoint m_lastFrameStart;
 
         int m_frameCounter;
-//        LoggableFrameTimerData m_timerData;
+        //        LoggableFrameTimerData m_timerData;
     };
 
 }

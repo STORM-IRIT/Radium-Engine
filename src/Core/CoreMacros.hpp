@@ -21,13 +21,13 @@
 // Compiler identification
 // ----------------------------------------------------------------------------
 #if defined(__clang__)
-    #define COMPILER_CLANG
+#define COMPILER_CLANG
 #elif defined(__GNUC__)
-    #define COMPILER_GCC
+#define COMPILER_GCC
 #elif defined (_MSC_VER)
-    #define COMPILER_MSVC
+#define COMPILER_MSVC
 #else
-    #error unsupported compiler
+#error unsupported compiler
 #endif
 
 // ----------------------------------------------------------------------------
@@ -35,34 +35,34 @@
 // ----------------------------------------------------------------------------
 
 #if defined(_WIN32) || defined(_WIN64)
-    #define OS_WINDOWS
-    #if defined(_M_X64)
-        #define ARCH_X64
-    #elif defined(_M_IX86)
-        #define ARCH_X86
-    #else
-        #error unsupported arch
-    #endif
-#elif defined(__APPLE__) || defined(__MACH__)
-    #define OS_MACOS
-    #if defined(__i386__)
-        #define ARCH_X86
-    #elif defined(__x86_64__) || defined (__x86_64)
-        #define ARCH_X64
-    #else
-        #error unsupported arch
-    #endif
-#elif defined(__linux__) || defined (__CYGWIN__)
-    #define OS_LINUX
-    #if defined(__i386__)
-        #define ARCH_X86
-    #elif defined(__x86_64__) || defined (__x86_64)
-        #define ARCH_X64
-    #else
-        #error unsupported arch
-    #endif
+#define OS_WINDOWS
+#if defined(_M_X64)
+#define ARCH_X64
+#elif defined(_M_IX86)
+#define ARCH_X86
 #else
-    #error unsupported OS
+#error unsupported arch
+#endif
+#elif defined(__APPLE__) || defined(__MACH__)
+#define OS_MACOS
+#if defined(__i386__)
+#define ARCH_X86
+#elif defined(__x86_64__) || defined (__x86_64)
+#define ARCH_X64
+#else
+#error unsupported arch
+#endif
+#elif defined(__linux__) || defined (__CYGWIN__)
+#define OS_LINUX
+#if defined(__i386__)
+#define ARCH_X86
+#elif defined(__x86_64__) || defined (__x86_64)
+#define ARCH_X64
+#else
+#error unsupported arch
+#endif
+#else
+#error unsupported OS
 #endif
 
 #ifdef OS_WINDOWS
@@ -86,20 +86,20 @@
 // This will cause assert to be disabled except if DEBUG is defined
 // Make sure all "debug" macros are defined
 #if defined (DEBUG) || defined(_DEBUG) || defined (CORE_DEBUG)
-    #undef CORE_DEBUG
-    #define CORE_DEBUG
-    #undef NDEBUG
-    #undef _DEBUG
-    #define _DEBUG
-    #undef DEBUG
-    #define DEBUG
-    #define ON_DEBUG(CODE) CODE
+#undef CORE_DEBUG
+#define CORE_DEBUG
+#undef NDEBUG
+#undef _DEBUG
+#define _DEBUG
+#undef DEBUG
+#define DEBUG
+#define ON_DEBUG(CODE) CODE
 #else
-    #undef CORE_DEBUG
-    #if !defined (NDEBUG)
-        #define NDEBUG
-    #endif
-    #define ON_DEBUG(CODE) /* Nothing */
+#undef CORE_DEBUG
+#if !defined (NDEBUG)
+#define NDEBUG
+#endif
+#define ON_DEBUG(CODE) /* Nothing */
 #endif
 
 // ----------------------------------------------------------------------------
@@ -114,11 +114,11 @@
 // in a debugger such as gdb.
 // In release we use the if(1) else;  which compilers can optimize better
 #ifdef CORE_DEBUG
-    #define MACRO_START do {
-    #define MACRO_END   } while (0)
+#define MACRO_START do {
+#define MACRO_END   } while (0)
 #else
-    #define MACRO_START if(1) {
-    #define MACRO_END   } else
+#define MACRO_START if(1) {
+#define MACRO_END   } else
 #endif
 
 // Token concatenation
@@ -138,11 +138,11 @@
 // This macro will trigger a breakpoint where it is placed. With MSVC a dialog
 // will ask you if you want to launch the debugger.
 #if defined (COMPILER_GCC) || defined (COMPILER_CLANG)
-    #define BREAKPOINT(ARG) asm volatile ("int $3")
+#define BREAKPOINT(ARG) asm volatile ("int $3")
 #elif defined (COMPILER_MSVC)
-    #define BREAKPOINT(ARG) __debugbreak()
+#define BREAKPOINT(ARG) __debugbreak()
 #else
-    #error unsupported platform
+#error unsupported platform
 #endif
 
 // Platform-independent macros
@@ -167,35 +167,35 @@
 
 #if defined (COMPILER_MSVC)
 
-    #define ALIGN_OF(X) __alignof(X)
-    #define ALIGNED(DECL,ALIGN) __declspec(align(ALIGN)) DECL
+#define ALIGN_OF(X) __alignof(X)
+#define ALIGNED(DECL,ALIGN) __declspec(align(ALIGN)) DECL
 
-    // Unfortunately visual studio does not have a branch prediction primitive.
-    #define UNLIKELY(IFEXPR) IFEXPR
-    #define LIKELY(IFEXPR)   IFEXPR
+// Unfortunately visual studio does not have a branch prediction primitive.
+#define UNLIKELY(IFEXPR) IFEXPR
+#define LIKELY(IFEXPR)   IFEXPR
 
-    #define ALWAYS_INLINE __forceinline
-    #define STRONG_INLINE __forceinline
-    #define NO_INLINE     __declspec(noinline)
+#define ALWAYS_INLINE __forceinline
+#define STRONG_INLINE __forceinline
+#define NO_INLINE     __declspec(noinline)
 
-    #define DEPRECATED __declspec(deprecated)
+#define DEPRECATED __declspec(deprecated)
 
 #elif defined(COMPILER_GCC) || defined (COMPILER_CLANG)
 
-    #define ALIGN_OF(X) __alignof__(X)
-    #define ALIGNED(DECL,ALIGN) DECL __attribute__((aligned(ALIGN)))
+#define ALIGN_OF(X) __alignof__(X)
+#define ALIGNED(DECL,ALIGN) DECL __attribute__((aligned(ALIGN)))
 
-    #define UNLIKELY(IFEXPR) __builtin_expect(bool(IFEXPR),0)
-    #define LIKELY(IFEXPR)   __builtin_expect(bool(IFEXPR),1)
+#define UNLIKELY(IFEXPR) __builtin_expect(bool(IFEXPR),0)
+#define LIKELY(IFEXPR)   __builtin_expect(bool(IFEXPR),1)
 
-    #define ALWAYS_INLINE  __attribute((always_inline))
-    #define STRONG_INLINE  inline
-    #define NO_INLINE     __attribute__((noinline))
+#define ALWAYS_INLINE  __attribute((always_inline))
+#define STRONG_INLINE  inline
+#define NO_INLINE     __attribute__((noinline))
 
-    #define DEPRECATED __attribute__((deprecated))
+#define DEPRECATED __attribute__((deprecated))
 
 #else
-    #error unsupported platform
+#error unsupported platform
 #endif
 
 
@@ -225,9 +225,9 @@ typedef double Scalar;
 namespace compile_time_utils
 {
     template<bool b> struct error;
-    template<> struct error<true>{};
+    template<> struct error<true> {};
 
-    template< int x > struct size;
+    template<int x> struct size;
 }
 // This macro will output a compiler error if the argument evaluates to false
 // at compile time.
@@ -246,37 +246,37 @@ namespace compile_time_utils
 // and always prints a useful message.
 // CORE_WARN_IF has the same effect but it will only print a message.
 #ifdef CORE_DEBUG
-    #define CORE_ASSERT( EXP, DESC )                   \
+#define CORE_ASSERT( EXP, DESC )                   \
     MACRO_START                                        \
     if (UNLIKELY(!(EXP))) {                            \
         fprintf(stderr,                                \
-        "%s:%i: Assertion `%s` failed : %s\n",         \
-        __FILE__,__LINE__, #EXP, DESC);                \
+                "%s:%i: Assertion `%s` failed : %s\n",         \
+                __FILE__,__LINE__, #EXP, DESC);                \
         BREAKPOINT(0);                                 \
     } else {}                                          \
     MACRO_END
 
-    #define CORE_WARN_IF( EXP, DESC )                  \
+#define CORE_WARN_IF( EXP, DESC )                  \
     MACRO_START                                        \
     if (UNLIKELY((EXP))) {                             \
         fprintf(stderr,                                \
-        "%s:%i: WARNING `%s` : %s\n",                  \
-        __FILE__,__LINE__, #EXP, DESC);                \
+                "%s:%i: WARNING `%s` : %s\n",                  \
+                __FILE__,__LINE__, #EXP, DESC);                \
     } else{}                                           \
     MACRO_END
 #else
-    #define CORE_ASSERT( EXP, DESC ) CORE_UNUSED(EXP)
-    #define CORE_WARN_IF( EXP, DESC ) CORE_UNUSED(EXP)
+#define CORE_ASSERT( EXP, DESC ) CORE_UNUSED(EXP)
+#define CORE_WARN_IF( EXP, DESC ) CORE_UNUSED(EXP)
 #endif
 
 // Print an error and break, even in release.
 #define CORE_ERROR( DESC )              \
-MACRO_START                             \
+    MACRO_START                             \
     fprintf(stderr,                     \
-    "%s:%i: ERROR : %s\n",              \
-    __FILE__,__LINE__, DESC);           \
+            "%s:%i: ERROR : %s\n",              \
+            __FILE__,__LINE__, DESC);           \
     BREAKPOINT(0);                      \
-MACRO_END
+    MACRO_END
 
 
 
@@ -290,7 +290,7 @@ MACRO_END
 
 #if defined(COMPILER_GCC)
 // Triggered by the typedef in static assert.
-    #pragma GCC diagnostic ignored "-Wunused-local-typedefs"
+#pragma GCC diagnostic ignored "-Wunused-local-typedefs"
 #endif
 
 #define eigen_assert(XXX) CORE_ASSERT(XXX, "Eigen Assert");
@@ -301,7 +301,7 @@ MACRO_END
 #ifdef OS_WINDOWS
 #    define RA_API __declspec(dllexport)
 #else
-#    define RA_API 
+#    define RA_API
 #endif
 
 #endif // RADIUMENGINE_CORE_HPP 

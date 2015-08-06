@@ -6,34 +6,38 @@
 
 #include <Engine/Plugins/Interface.hpp>
 
-namespace Ra {
-namespace Engine {
-namespace Plugin {
+namespace Ra
+{
+    namespace Engine
+    {
+        namespace Plugin
+        {
 
-class PluginInterface : public QObject, public Interface {
+            class PluginInterface : public QObject, public Interface
+            {
 
-    /// MACRO
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID INTERFACE_IID )
-    Q_INTERFACES( Interface )
+                /// MACRO
+                Q_OBJECT
+                Q_PLUGIN_METADATA ( IID INTERFACE_IID )
+                Q_INTERFACES ( Interface )
 
-public:
-    /// CONSTRUCTOR
-    PluginInterface( QObject* parent = nullptr ) : QObject( parent ), Interface() { }
+            public:
+                /// CONSTRUCTOR
+                PluginInterface ( QObject* parent = nullptr ) : QObject ( parent ), Interface() { }
 
-    /// DESTRUCTOR
-    virtual ~PluginInterface() { }
+                /// DESTRUCTOR
+                virtual ~PluginInterface() { }
 
-    /// INTERFACE
-    virtual std::string getName() const = 0;
+                /// INTERFACE
+                virtual std::string getName() const = 0;
 
-public slots:
-    virtual void run() = 0;
+            public slots:
+                virtual void run() = 0;
 
-};
+            };
 
-} // namespace Plugin
-} // namespace Engine
+        } // namespace Plugin
+    } // namespace Engine
 } // namespace Ra
 
 

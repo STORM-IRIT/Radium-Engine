@@ -4,36 +4,39 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/Grid.hpp>
 
-namespace Ra { namespace Core
+namespace Ra
 {
-    /// This class stores a discretized 3D function defined inside a 3D
-    /// bounding box. It evaluates the function at a given point in space
-    /// wrt the stored values tri-linear interpolation.
-    template<typename T>
-    class RA_API Tex3D : public Grid<T, 3>
+    namespace Core
     {
-    public:
-        RA_CORE_ALIGNED_NEW
+        /// This class stores a discretized 3D function defined inside a 3D
+        /// bounding box. It evaluates the function at a given point in space
+        /// wrt the stored values tri-linear interpolation.
+        template<typename T>
+        class RA_API Tex3D : public Grid<T, 3>
+        {
+        public:
+            RA_CORE_ALIGNED_NEW
 
-        /// Construct a Tex3D with the given resolution in the box given by two points.
-        Tex3D( const Vector3i& resolution, const Vector3& start, const Vector3& end );
+            /// Construct a Tex3D with the given resolution in the box given by two points.
+            Tex3D ( const Vector3i& resolution, const Vector3& start, const Vector3& end );
 
-        /// Construct a Tex3D with the give resulution in the given AABB.
-        Tex3D( const Vector3i& resolution, const Aabb& aabb);
+            /// Construct a Tex3D with the give resulution in the given AABB.
+            Tex3D ( const Vector3i& resolution, const Aabb& aabb );
 
-        inline const Aabb& getAabb() const;
+            inline const Aabb& getAabb() const;
 
-        /// Tri-linear interpolation of the grid values at position v.
-        T fetch(const Vector3& v) const;
+            /// Tri-linear interpolation of the grid values at position v.
+            T fetch ( const Vector3& v ) const;
 
-    private:
-        /// The bounding box of the portion of space represented.
-        Aabb m_aabb;
-        /// The size of a discrete cell
-        /// i.e. componentwise division of the aabb extents by the spatial resolution.
-        Vector3 m_cellSize;
-    };
+        private:
+            /// The bounding box of the portion of space represented.
+            Aabb m_aabb;
+            /// The size of a discrete cell
+            /// i.e. componentwise division of the aabb extents by the spatial resolution.
+            Vector3 m_cellSize;
+        };
 
-}}
+    }
+}
 #include <Core/Containers/Tex3D.inl>
 #endif //RADIUMENGINE_TEX3D_HPP

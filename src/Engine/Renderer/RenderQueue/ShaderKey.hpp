@@ -3,29 +3,41 @@
 
 #include <Core/CoreMacros.hpp>
 
-namespace Ra { namespace Engine { class ShaderProgram;    } }
-namespace Ra { namespace Engine { class RenderParameters; } }
-
-namespace Ra { namespace Engine {
-
-class RA_API ShaderKey
+namespace Ra
 {
-public:
-    explicit ShaderKey(ShaderProgram* shader);
-    virtual ~ShaderKey();
+    namespace Engine
+    {
+        class ShaderProgram;
+        class RenderParameters;
+    }
+}
 
-    virtual void bind() const;
-    void bind(const RenderParameters& params) const;
+namespace Ra
+{
+    namespace Engine
+    {
 
-    ShaderProgram* getShader() const { return m_shader; }
+        class RA_API ShaderKey
+        {
+        public:
+            explicit ShaderKey ( ShaderProgram* shader );
+            virtual ~ShaderKey();
 
-    bool operator<(const ShaderKey& other) const;
+            virtual void bind() const;
+            void bind ( const RenderParameters& params ) const;
 
-private:
-    ShaderProgram* m_shader;
-};
+            ShaderProgram* getShader() const
+            {
+                return m_shader;
+            }
 
-} // namespace Engine
+            bool operator< ( const ShaderKey& other ) const;
+
+        private:
+            ShaderProgram* m_shader;
+        };
+
+    } // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_BINDABLESHADERPROGRAM_HPP

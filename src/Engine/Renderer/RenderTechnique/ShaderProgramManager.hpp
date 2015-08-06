@@ -10,54 +10,63 @@
 // TODO (Charly) :  Since ShaderProgramManager has the responsability for the shaders,
 //                  use shared_ptrs here
 
-namespace Ra { namespace Engine { class ShaderProgram; } }
-
-namespace Ra { namespace Engine {
-
-class RA_API ShaderProgramManager : public Core::Singleton<ShaderProgramManager>
+namespace Ra
 {
-    friend class Core::Singleton<ShaderProgramManager>;
+    namespace Engine
+    {
+        class ShaderProgram;
+    }
+}
 
-	enum class ShaderProgramStatus
-	{
-		NOT_COMPILED = 0,
-		COMPILED = 1
-	};
+namespace Ra
+{
+    namespace Engine
+    {
 
-public:
-	int getShaderId(const std::string& shader) const;
+        class RA_API ShaderProgramManager : public Core::Singleton<ShaderProgramManager>
+        {
+            friend class Core::Singleton<ShaderProgramManager>;
 
-	ShaderProgram* addShaderProgram(const std::string& name);
-	ShaderProgram* addShaderProgram(const ShaderConfiguration& config);
+            enum class ShaderProgramStatus
+            {
+                NOT_COMPILED = 0,
+                COMPILED = 1
+            };
 
-	ShaderProgram* getShaderProgram(const ShaderConfiguration& config);
+        public:
+            int getShaderId ( const std::string& shader ) const;
 
-	ShaderProgram* getDefaultShaderProgram() const;
+            ShaderProgram* addShaderProgram ( const std::string& name );
+            ShaderProgram* addShaderProgram ( const ShaderConfiguration& config );
 
-	void reloadAllShaderPrograms();
-	void reloadNotCompiledShaderPrograms();
+            ShaderProgram* getShaderProgram ( const ShaderConfiguration& config );
 
-private:
-	ShaderProgramManager(const std::string& shaderPath,
-						 const std::string& defaultShaderProgram);
-	~ShaderProgramManager();
+            ShaderProgram* getDefaultShaderProgram() const;
 
-	void insertShader(const ShaderConfiguration& config, ShaderProgram* shader, const ShaderProgramStatus& status);
-	ShaderConfiguration getDefaultShaderConfiguration(const std::string& shaderName);
-	std::string getFullShaderName(const std::string& shaderName);
+            void reloadAllShaderPrograms();
+            void reloadNotCompiledShaderPrograms();
 
-private:
-	std::string m_shaderPath;
+        private:
+            ShaderProgramManager ( const std::string& shaderPath,
+                                   const std::string& defaultShaderProgram );
+            ~ShaderProgramManager();
 
-	std::map<ShaderConfiguration, ShaderProgram*> m_shaderPrograms;
-	std::map<ShaderConfiguration, ShaderProgramStatus> m_shaderProgramStatus;
+            void insertShader ( const ShaderConfiguration& config, ShaderProgram* shader, const ShaderProgramStatus& status );
+            ShaderConfiguration getDefaultShaderConfiguration ( const std::string& shaderName );
+            std::string getFullShaderName ( const std::string& shaderName );
 
-	ShaderProgram* m_defaultShaderProgram;
+        private:
+            std::string m_shaderPath;
 
-	int m_defaultShaderId;
-};
+            std::map<ShaderConfiguration, ShaderProgram*> m_shaderPrograms;
+            std::map<ShaderConfiguration, ShaderProgramStatus> m_shaderProgramStatus;
 
-} // namespace Engine
+            ShaderProgram* m_defaultShaderProgram;
+
+            int m_defaultShaderId;
+        };
+
+    } // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_SHADERMANAGER_HPP
