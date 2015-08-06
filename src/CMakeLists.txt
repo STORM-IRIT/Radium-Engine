@@ -113,6 +113,8 @@ INSTALL(
  	DESTINATION ${LIB_INSTALL_DIR}
 )
 
+add_subdirectory(Plugins)
+
 # Build MainApplication
 set(app_target radium)
 

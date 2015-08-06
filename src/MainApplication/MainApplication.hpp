@@ -65,6 +65,10 @@ namespace Ra
         /// Create signal / slots connections
         void createConnections();
 
+        /// Temporary methods ?
+        void registerSystems();
+        void setupScene();
+
     private:
         /// Application main window and GUI root class.
         std::unique_ptr<Gui::MainWindow> m_mainWindow;

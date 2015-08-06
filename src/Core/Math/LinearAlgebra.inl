@@ -9,7 +9,7 @@ namespace Ra
         {
             typedef typename Vector_::Scalar Scalar_;
             Vector_ result ( v );
-            result.unaryExpr ( std::function<Scalar_ ( Scalar_ )> ( static_cast<Scalar_ ( & ) ( Scalar_ )> ( std::floor ) ) );
+            result.unaryExpr ( std::function<Scalar_ ( Scalar_ ) > ( static_cast<Scalar_ ( & ) ( Scalar_ ) > ( std::floor ) ) );
             return result;
         }
 
@@ -18,7 +18,7 @@ namespace Ra
         {
             typedef typename Vector_::Scalar Scalar_;
             Vector_ result ( v );
-            result.unaryExpr ( std::function<Scalar_ ( Scalar_ )> ( static_cast<Scalar_ ( & ) ( Scalar_ )> ( std::ceil ) ) );
+            result.unaryExpr ( std::function<Scalar_ ( Scalar_ ) > ( static_cast<Scalar_ ( & ) ( Scalar_ ) > ( std::ceil ) ) );
             return result;
         }
 

@@ -55,6 +55,8 @@ namespace Ra
                 return m_renderer;
             }
 
+            void registerSystem ( const std::string& name,
+                                  System* system );
             System* getSystem ( const std::string& system ) const;
 
             bool loadFile ( const std::string& file );

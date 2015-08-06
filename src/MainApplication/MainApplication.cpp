@@ -12,6 +12,11 @@
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/RenderTechnique/Material.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
+#include <Engine/Entity/Entity.hpp>
+#include <Engine/Renderer/FancyMeshPlugin/FancyMeshSystem.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
 
 // Const parameters : TODO : make config / command line options
@@ -87,7 +92,8 @@ namespace Ra
         // Create engine
         m_engine.reset ( new Engine::RadiumEngine );
         m_engine->initialize();
-        m_engine->setupScene();
+        registerSystems();
+        setupScene();
 
         // Pass the engine to the renderer to complete the initialization process.
         m_viewer->initRenderer ( m_engine.get() );
@@ -107,6 +113,112 @@ namespace Ra
 
     void MainApplication::createConnections()
     {
+    }
+
+    void MainApplication::registerSystems()
+    {
+        Engine::FancyMeshSystem* system = new Engine::FancyMeshSystem ( m_engine.get() );
+        m_engine->registerSystem ( "FancyMeshSystem", system );
+    }
+
+    void MainApplication::setupScene()
+    {
+        Engine::ShaderConfiguration shader ( "BlinnPhong", "../Shaders" );
+
+        Engine::Material* m0 = new Engine::Material ( "m0" );
+        m0->setKd ( Core::Color ( 1.0, 0.0, 0.0, 1.0 ) );
+        m0->setKs ( Core::Color ( 0.0, 0.0, 0.0, 1.0 ) );
+        m0->setMaterialType ( Engine::Material::MaterialType::MAT_TRANSPARENT );
+        Engine::RenderTechnique* r0 = new Engine::RenderTechnique;
+        r0->shaderConfig = shader;
+        r0->material = m0;
+        Engine::Material* m1 = new Engine::Material ( "m1" );
+
+        m1->setKd ( Core::Color ( 0.0, 1.0, 0.0, 0.5 ) );
+        m1->setKs ( Core::Color ( 0.0, 0.0, 0.0, 1.0 ) );
+        m1->setMaterialType ( Engine::Material::MaterialType::MAT_TRANSPARENT );
+        Engine::RenderTechnique* r1 = new Engine::RenderTechnique;
+        r1->shaderConfig = shader;
+        r1->material = m1;
+
+        Engine::Material* m2 = new Engine::Material ( "m2" );
+        m2->setKd ( Core::Color ( 0.0, 0.0, 1.0, 0.5 ) );
+        m2->setKs ( Core::Color ( 0.0, 0.0, 0.0, 1.0 ) );
+        m2->setMaterialType ( Engine::Material::MaterialType::MAT_TRANSPARENT );
+        Engine::RenderTechnique* r2 = new Engine::RenderTechnique;
+        r2->shaderConfig = shader;
+        r2->material = m2;
+
+        Engine::Material* m3 = new Engine::Material ( "m3" );
+        m3->setKd ( Core::Color ( 1.0, 0.0, 1.0, 0.5 ) );
+        m3->setKs ( Core::Color ( 0.0, 0.0, 0.0, 1.0 ) );
+        m3->setMaterialType ( Engine::Material::MaterialType::MAT_TRANSPARENT );
+        Engine::RenderTechnique* r3 = new Engine::RenderTechnique;
+        r3->shaderConfig = shader;
+        r3->material = m3;
+
+        Engine::Material* m4 = new Engine::Material ( "m4" );
+        m4->setKd ( Core::Color ( 1.0, 1.0, 0.0, 0.5 ) );
+        m4->setKs ( Core::Color ( 0.0, 0.0, 0.0, 1.0 ) );
+        m4->setMaterialType ( Engine::Material::MaterialType::MAT_TRANSPARENT );
+        Engine::RenderTechnique* r4 = new Engine::RenderTechnique;
+        r4->shaderConfig = shader;
+        r4->material = m4;
+
+        Engine::Material* m5 = new Engine::Material ( "m5" );
+        m5->setKd ( Core::Color ( 0.0, 1.0, 1.0, 0.5 ) );
+        m5->setKs ( Core::Color ( 0.0, 0.0, 0.0, 1.0 ) );
+        m5->setMaterialType ( Engine::Material::MaterialType::MAT_TRANSPARENT );
+        Engine::RenderTechnique* r5 = new Engine::RenderTechnique;
+        r5->shaderConfig = shader;
+        r5->material = m5;
+
+        Core::Transform transform;
+        Engine::FancyMeshSystem* system = static_cast<Engine::FancyMeshSystem*> (
+                                              m_engine->getSystem ( "FancyMeshSystem" ) );
+        Engine::EntityManager* manager = m_engine->getEntityManager();
+
+        Engine::Entity* ent0 = manager->getOrCreateEntity ( "box0" );
+        system->addDisplayMeshToEntity ( ent0, Core::MeshUtils::makeBox(), r0 );
+
+        transform.setIdentity();
+        transform.translation() = Core::Vector3 ( 2, 0, -3 );
+        ent0->setTransform ( transform );
+
+        Engine::Entity* ent1 = manager->getOrCreateEntity ( "box1" );
+        system->addDisplayMeshToEntity ( ent1, Core::MeshUtils::makeBox(), r1 );
+
+        transform.setIdentity();
+        transform.translation() = Core::Vector3 ( 0, 0, -3 );
+        ent1->setTransform ( transform );
+
+        Engine::Entity* ent2 = manager->getOrCreateEntity ( "box2" );
+        system->addDisplayMeshToEntity ( ent2, Core::MeshUtils::makeBox(), r2 );
+
+        transform.setIdentity();
+        transform.translation() = Core::Vector3 ( -2, 0, -3 );
+        ent2->setTransform ( transform );
+
+        Engine::Entity* ent3 = manager->getOrCreateEntity ( "box3" );
+        system->addDisplayMeshToEntity ( ent3, Core::MeshUtils::makeBox(), r3 );
+
+        transform.setIdentity();
+        transform.translation() = Core::Vector3 ( 2, 0, -5 );
+        ent3->setTransform ( transform );
+
+        Engine::Entity* ent4 = manager->getOrCreateEntity ( "box4" );
+        system->addDisplayMeshToEntity ( ent4, Core::MeshUtils::makeBox(), r4 );
+
+        transform.setIdentity();
+        transform.translation() = Core::Vector3 ( 0, 0, -5 );
+        ent4->setTransform ( transform );
+
+        Engine::Entity* ent5 = manager->getOrCreateEntity ( "box5" );
+        system->addDisplayMeshToEntity ( ent5, Core::MeshUtils::makeBox(), r5 );
+
+        transform.setIdentity();
+        transform.translation() = Core::Vector3 ( -2, 0, -5 );
+        ent5->setTransform ( transform );
     }
 
     void MainApplication::loadFile ( QString path )
