@@ -40,11 +40,11 @@ public:
 //    virtual void setSelected(bool selected);
 
 protected:
-	virtual void updateGLInternal() override;
+    virtual void updateGLInternal() override;
     virtual RenderObject* cloneInternal() override;
 
 private:
-	void recomputeBbox();
+    void recomputeBbox();
 
 private:
     typedef std::pair<std::string, std::shared_ptr<Mesh>> MeshByName;

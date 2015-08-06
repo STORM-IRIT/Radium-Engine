@@ -74,11 +74,11 @@ public:
      */
     virtual bool handleMouseEvent(const Core::MouseEvent& event) { return false; }
 
-	/**
-	 * @brief Handle a file loading event. Does nothing by default.
-	 * @param file The file to load
-	 */
-	virtual void handleFileLoading(const std::string& filename) { }
+    /**
+     * @brief Handle a file loading event. Does nothing by default.
+     * @param file The file to load
+     */
+    virtual void handleFileLoading(const std::string& filename) { }
 
     /**
      * @brief Handle all the logic behind a component creation.
@@ -88,7 +88,7 @@ public:
     virtual Component* addComponentToEntity( Engine::Entity* entity ) = 0;
 
 protected:
-	RadiumEngine* m_engine;
+    RadiumEngine* m_engine;
 
     std::map<std::string, std::shared_ptr<Component>> m_components;
 };

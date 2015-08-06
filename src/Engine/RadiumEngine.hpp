@@ -46,7 +46,7 @@ public:
     bool handleMouseEvent(const Core::MouseEvent& event);
     bool handleKeyEvent(const Core::KeyEvent& event);
 
-	/// Manager getters
+    /// Manager getters
     RenderObjectManager*  getRenderObjectManager()  const;
     EntityManager*        getEntityManager()        const;
 
@@ -59,7 +59,7 @@ private:
     mutable std::mutex m_managersMutex;
 
     std::map<std::string, std::shared_ptr<System>> m_systems;
-	
+
     std::unique_ptr<RenderObjectManager> m_renderObjectManager;
     std::unique_ptr<EntityManager>       m_entityManager;
 

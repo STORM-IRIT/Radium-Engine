@@ -18,7 +18,7 @@ Engine::Light::~Light()
 
 void Engine::Light::getRenderParameters(RenderParameters& params)
 {
-	params.addParameter("light.color", m_color);
+    params.addParameter("light.color", m_color);
     params.addParameter("light.type", m_type);
 }
 

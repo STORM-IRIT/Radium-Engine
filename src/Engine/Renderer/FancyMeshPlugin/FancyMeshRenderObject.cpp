@@ -106,7 +106,7 @@ void Engine::FancyMeshRenderObject::addMesh(Mesh* mesh)
 
     m_meshes.insert(MeshByName(name, std::shared_ptr<Mesh>(mesh)));
 
-	recomputeBbox();
+    recomputeBbox();
 }
 
 void Engine::FancyMeshRenderObject::removeMesh(const std::string& name)
@@ -121,7 +121,7 @@ void Engine::FancyMeshRenderObject::removeMesh(const std::string& name)
     mesh->second.reset();
     m_meshes.erase(mesh);
 
-	recomputeBbox();
+    recomputeBbox();
 }
 
 void Engine::FancyMeshRenderObject::removeMesh(Engine::Mesh* mesh)
@@ -145,34 +145,34 @@ Engine::Mesh* Engine::FancyMeshRenderObject::getMesh(const std::string &name) co
 void Engine::FancyMeshRenderObject::updateGLInternal()
 {
     CORE_ASSERT(m_material, "No material");
-	m_material->updateGL();
-	for (auto& mesh : m_meshes)
-	{
+    m_material->updateGL();
+    for (auto& mesh : m_meshes)
+    {
         mesh.second->updateGL();
-	}
+    }
 
-	m_isDirty = false;
+    m_isDirty = false;
 }
 
 Engine::RenderObject* Engine::FancyMeshRenderObject::cloneInternal()
 {
-	// FIXME(Charly): Did I forget to clone something ?
+    // FIXME(Charly): Did I forget to clone something ?
     FancyMeshRenderObject* renderObject = new FancyMeshRenderObject(m_name);
 
-	for (const auto& it : m_meshes)
-	{
-		Mesh* oldMesh = getMesh(it.first);
-		Mesh* newMesh = new Mesh(oldMesh->getName());
-		newMesh->loadGeometry(oldMesh->getMeshData(),
-							  oldMesh->getTangents(),
-							  oldMesh->getBitangents(),
-							  oldMesh->getTexcoords());
+    for (const auto& it : m_meshes)
+    {
+        Mesh* oldMesh = getMesh(it.first);
+        Mesh* newMesh = new Mesh(oldMesh->getName());
+        newMesh->loadGeometry(oldMesh->getMeshData(),
+                              oldMesh->getTangents(),
+                              oldMesh->getBitangents(),
+                              oldMesh->getTexcoords());
 
         renderObject->addMesh(newMesh);
-	}
+    }
 
-	// FancyMesh materials do not require particular attention,
-	// just share the pointer.
+    // FancyMesh materials do not require particular attention,
+    // just share the pointer.
     renderObject->setMaterial(m_material);
     renderObject->setVisible(m_visible);
     renderObject->setComponent(m_component);
@@ -182,12 +182,12 @@ Engine::RenderObject* Engine::FancyMeshRenderObject::cloneInternal()
 
 void Engine::FancyMeshRenderObject::recomputeBbox()
 {
-	m_boundingBox.setEmpty();
+    m_boundingBox.setEmpty();
 
-	for (const auto& mesh : m_meshes)
-	{
-		m_boundingBox.extend(Core::MeshUtils::getAabb(mesh.second->getMeshData()));
-	}
+    for (const auto& mesh : m_meshes)
+    {
+        m_boundingBox.extend(Core::MeshUtils::getAabb(mesh.second->getMeshData()));
+    }
 }
 
 //void Engine::FancyMeshRenderObject::setSelected(bool selected)

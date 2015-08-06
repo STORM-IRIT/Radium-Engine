@@ -14,7 +14,7 @@ namespace Ra
 {
 
 Engine::FancyMeshSystem::FancyMeshSystem(RadiumEngine* engine)
-	: System(engine)
+    : System(engine)
 {
 }
 
@@ -28,13 +28,13 @@ void Engine::FancyMeshSystem::initialize()
 
 void Engine::FancyMeshSystem::handleFileLoading(const std::string& filename)
 {
-	DataVector componentsData = FancyMeshLoader::loadFile(filename);
+    DataVector componentsData = FancyMeshLoader::loadFile(filename);
 
-	for (uint i = 0; i < componentsData.size(); ++i)
-	{
-		FancyComponentData data = componentsData[i];
+    for (uint i = 0; i < componentsData.size(); ++i)
+    {
+        FancyComponentData data = componentsData[i];
 
-		// Retrieve entity if exist, create it otherwise
+        // Retrieve entity if exist, create it otherwise
         Engine::Entity* e = m_engine->getEntityManager()->getOrCreateEntity(data.name);
         e->setTransform(data.transform);
 

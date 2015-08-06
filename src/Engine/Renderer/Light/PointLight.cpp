@@ -18,12 +18,12 @@ Engine::PointLight::~PointLight()
 
 void Engine::PointLight::getRenderParameters(RenderParameters& params)
 {
-	Light::getRenderParameters(params);
+    Light::getRenderParameters(params);
 
     params.addParameter("light.point.position", m_position);
-	params.addParameter("light.point.attenuation.constant", m_attenuation.constant);
-	params.addParameter("light.point.attenuation.linear", m_attenuation.linear);
-	params.addParameter("light.point.attenuation.quadratic", m_attenuation.quadratic);
+    params.addParameter("light.point.attenuation.constant", m_attenuation.constant);
+    params.addParameter("light.point.attenuation.linear", m_attenuation.linear);
+    params.addParameter("light.point.attenuation.quadratic", m_attenuation.quadratic);
 }
 
 }

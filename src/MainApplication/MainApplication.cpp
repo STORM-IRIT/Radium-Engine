@@ -95,7 +95,7 @@ namespace Ra
         // Create task queue with N-1 threads (we keep one for rendering).
         m_taskQueue.reset(new Core::TaskQueue(std::thread::hardware_concurrency() - 1));
 
-		createConnections();
+        createConnections();
 
         emit starting();
 
@@ -105,9 +105,9 @@ namespace Ra
         m_frameTimer->start(1000 / FPS_MAX);
     }
 
-	void MainApplication::createConnections()
-	{
-	}
+    void MainApplication::createConnections()
+    {
+    }
 
     void MainApplication::loadFile(QString path)
     {

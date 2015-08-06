@@ -42,11 +42,11 @@ Engine::RadiumEngine::~RadiumEngine()
 void Engine::RadiumEngine::initialize()
 {
     m_renderObjectManager.reset(new RenderObjectManager);
-	m_entityManager.reset(new EntityManager);
+    m_entityManager.reset(new EntityManager);
 
     // FIXME(Charly): FancyMeshSystem should not be initialized here.
-	FancyMeshSystem* system = new FancyMeshSystem(this);
-	m_systems["FancyMeshSystem"] = std::shared_ptr<FancyMeshSystem>(system);
+    FancyMeshSystem* system = new FancyMeshSystem(this);
+    m_systems["FancyMeshSystem"] = std::shared_ptr<FancyMeshSystem>(system);
 }
 
 void Engine::RadiumEngine::setupScene()
@@ -175,7 +175,7 @@ void Engine::RadiumEngine::cleanup()
         system.second.reset();
     }
 
-	m_entityManager.reset();
+    m_entityManager.reset();
     m_renderObjectManager.reset();
 }
 
@@ -204,10 +204,10 @@ Engine::System* Engine::RadiumEngine::getSystem(const std::string& system) const
 
 bool Engine::RadiumEngine::loadFile(const std::string& file)
 {
-	for (auto& system : m_systems)
-	{
-		system.second->handleFileLoading(file);
-	}
+    for (auto& system : m_systems)
+    {
+        system.second->handleFileLoading(file);
+    }
 
     return true;
 }
@@ -245,7 +245,7 @@ Engine::RenderObjectManager* Engine::RadiumEngine::getRenderObjectManager() cons
 
 Engine::EntityManager* Engine::RadiumEngine::getEntityManager() const
 {
-	return m_entityManager.get();
+    return m_entityManager.get();
 }
 
 } // namespace RadiumEngine

@@ -22,7 +22,6 @@ public:
 
     Core::Index addRenderObject(RenderObject* renderObject);
     void removeRenderObject(const Core::Index& index);
-	
     std::vector<std::shared_ptr<RenderObject>> getRenderObjects() const;
 
     std::shared_ptr<RenderObject> update(uint index);

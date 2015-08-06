@@ -9,7 +9,7 @@ namespace Modifier
 {
     enum Modifier
     {
-		RA_EMPTY     = 0x1,
+        RA_EMPTY     = 0x1,
         RA_CTRL_KEY  = 0x2,
         RA_SHIFT_KEY = 0x4,
         RA_ALT_KEY   = 0x8

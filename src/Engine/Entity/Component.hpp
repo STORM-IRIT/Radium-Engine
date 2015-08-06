@@ -27,18 +27,18 @@ public:
     /// DESTRUCTOR
     virtual ~Component();
 
-	/**
-	* @brief Pure virtual method to be overrided by any component.
-	* When this method is called you are guaranteed to know your system and your entity
-	*/
-	virtual void initialize() = 0;
+    /**
+    * @brief Pure virtual method to be overrided by any component.
+    * When this method is called you are guaranteed to know your system and your entity
+    */
+    virtual void initialize() = 0;
     /**
      * @brief Set entity the component is part of.
      * This method is called by the entity.
      * @param entity The entity the component is part of.
      */
     virtual void setEntity(const Entity* entity);
-	
+
     virtual void setRenderObjectManager(RenderObjectManager* renderObjectManager);
 
     virtual const Entity* getEntity() const;

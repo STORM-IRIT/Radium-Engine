@@ -38,10 +38,10 @@ namespace Ra { namespace Core
 
     };
 
-	// Convenience typedefs
-	typedef VectorArray<Vector2> Vector2Array;
-	typedef VectorArray<Vector3> Vector3Array;
-	typedef VectorArray<Vector4> Vector4Array;
+    // Convenience typedefs
+    typedef VectorArray<Vector2> Vector2Array;
+    typedef VectorArray<Vector3> Vector3Array;
+    typedef VectorArray<Vector4> Vector4Array;
 
     // Notes :
     // Using a map for eigen integration was recommended by [1].

@@ -24,10 +24,10 @@ namespace Ra { namespace Core
         /// Appends another mesh to this one.
         inline RA_API void append( const TriangleMesh& other );
 
-		VectorArray<Vector3>  m_vertices;
-		VectorArray<Vector3>  m_normals;
-		VectorArray<Vector3>  m_tangents;
-		VectorArray<Triangle> m_triangles;
+        VectorArray<Vector3>  m_vertices;
+        VectorArray<Vector3>  m_normals;
+        VectorArray<Vector3>  m_tangents;
+        VectorArray<Triangle> m_triangles;
     };
 }}
 

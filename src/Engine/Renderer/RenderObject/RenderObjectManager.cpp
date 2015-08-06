@@ -16,8 +16,8 @@ Engine::RenderObjectManager::~RenderObjectManager()
 
 Core::Index Engine::RenderObjectManager::addRenderObject(RenderObject* renderObject)
 {
-	// Avoid data race in the std::maps
-	std::lock_guard<std::mutex> lock(m_doubleBufferMutex);
+    // Avoid data race in the std::maps
+    std::lock_guard<std::mutex> lock(m_doubleBufferMutex);
 
     std::shared_ptr<RenderObject> newRenderObject(renderObject);
     Core::Index idx = m_renderObjects.insert(newRenderObject);
@@ -29,7 +29,7 @@ Core::Index Engine::RenderObjectManager::addRenderObject(RenderObject* renderObj
 
 void Engine::RenderObjectManager::removeRenderObject(const Core::Index & index)
 {
-	std::lock_guard<std::mutex> lock(m_doubleBufferMutex);
+    std::lock_guard<std::mutex> lock(m_doubleBufferMutex);
 
     // FIXME(Charly): Should we check if the render object is in the double buffer map ?
     std::shared_ptr<RenderObject> renderObject = m_renderObjects.at(index);
@@ -46,18 +46,18 @@ std::vector<std::shared_ptr<Engine::RenderObject>> Engine::RenderObjectManager::
     std::vector<std::shared_ptr<RenderObject>> renderObjects;
 
     for (uint i = 0; i < m_renderObjects.size(); ++i)
-	{
+    {
         renderObjects.push_back(m_renderObjects.at(i));
-	}
+    }
 
     return renderObjects;
 }
 
 std::shared_ptr<Engine::RenderObject> Engine::RenderObjectManager::update(uint index)
 {
-	Core::Index idx(index);
+    Core::Index idx(index);
 
-	return update(idx);
+    return update(idx);
 }
 
 std::shared_ptr<Engine::RenderObject> Engine::RenderObjectManager::update(const Core::Index& index)

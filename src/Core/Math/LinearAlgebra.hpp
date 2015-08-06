@@ -37,7 +37,7 @@ namespace Ra { namespace Core
     typedef Eigen::AlignedVector3<double> Vector3d;
 #endif
 
-	typedef Eigen::Matrix<Scalar, 2, 1> Vector2; 
+    typedef Eigen::Matrix<Scalar, 2, 1> Vector2;
     typedef Eigen::Vector2f             Vector2f;
     typedef Eigen::Vector2d             Vector2d;
 
@@ -50,8 +50,8 @@ namespace Ra { namespace Core
     //
 
     typedef Eigen::Matrix<Scalar, 4, 4> Matrix4;
-	typedef Eigen::Matrix<Scalar, 3, 3> Matrix3;
-	typedef Eigen::Matrix<Scalar, 2, 2> Matrix2;
+    typedef Eigen::Matrix<Scalar, 3, 3> Matrix3;
+    typedef Eigen::Matrix<Scalar, 2, 2> Matrix2;
 
     typedef Eigen::Matrix4f Matrix4f;
     typedef Eigen::Matrix3f Matrix3f;
@@ -89,7 +89,7 @@ namespace Ra { namespace Core
 
     //
     // Misc types
-	//
+    //
     typedef Vector4 Color;
 
     //

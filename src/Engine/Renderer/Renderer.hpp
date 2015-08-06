@@ -52,7 +52,7 @@ public:
     {
         Core::Timer::TimePoint renderStart;
         Core::Timer::TimePoint updateEnd;
-		Core::Timer::TimePoint feedRenderQueuesEnd;
+        Core::Timer::TimePoint feedRenderQueuesEnd;
         Core::Timer::TimePoint mainRenderEnd;
         Core::Timer::TimePoint postProcessEnd;
         Core::Timer::TimePoint renderEnd;
@@ -60,10 +60,10 @@ public:
 
 
 public:
-	/// CONSTRUCTOR 
+    /// CONSTRUCTOR
     Renderer(uint width, uint height);
 
-	/// DESCTRUCTOR
+    /// DESCTRUCTOR
     virtual ~Renderer();
 
     virtual void initialize();
@@ -147,8 +147,8 @@ protected:
     virtual void updateRenderObjectsInternal(const RenderData& renderData,
                                              const std::vector<std::shared_ptr<RenderObject>>& renderObjects);
 
-	virtual void feedRenderQueuesInternal(const RenderData& renderData,
-										  const std::vector<std::shared_ptr<RenderObject>>& renderObjects);
+    virtual void feedRenderQueuesInternal(const RenderData& renderData,
+                                          const std::vector<std::shared_ptr<RenderObject>>& renderObjects);
 
     /**
      * @brief All the scene rendering magics basically happens here.
@@ -184,7 +184,7 @@ protected:
     uint m_width;
     uint m_height;
 
-	ShaderProgramManager* m_shaderManager;
+    ShaderProgramManager* m_shaderManager;
     TextureManager* m_textureManager;
 
     // FIXME(Charly): Should we change "displayedTexture" to "debuggedTexture" ?
@@ -216,9 +216,9 @@ protected:
 
     std::vector<Light*> m_lights;
 
-	RenderQueue m_opaqueRenderQueue;
-	RenderQueue m_transparentRenderQueue;
-	RenderQueue m_debugRenderQueue;
+    RenderQueue m_opaqueRenderQueue;
+    RenderQueue m_transparentRenderQueue;
+    RenderQueue m_debugRenderQueue;
 
 private:
     enum RenderPassTextures

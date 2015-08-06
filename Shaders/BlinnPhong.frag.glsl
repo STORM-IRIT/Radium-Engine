@@ -98,12 +98,12 @@ vec3 getKs()
 
 float getNs()
 {
-	if (material.tex.hasNs == 1)
-	{
-		return texture(material.tex.ns, vTexcoord.xy).r;
-	}
+    if (material.tex.hasNs == 1)
+    {
+        return texture(material.tex.ns, vTexcoord.xy).r;
+    }
 
-	return material.ns;
+    return material.ns;
 }
 
 vec3 getNormal()
@@ -216,15 +216,15 @@ void main()
         } break;
     }
 
-	if (material.tex.hasAlpha == 1)
-	{
-		float alpha = texture(material.tex.alpha, vTexcoord.xy).r; 
-		if (alpha < 0.1)
-		{
-			discard;
-		}
-		//color = vec3(1, 1, 0);
-	}
+    if (material.tex.hasAlpha == 1)
+    {
+        float alpha = texture(material.tex.alpha, vTexcoord.xy).r;
+        if (alpha < 0.1)
+        {
+            discard;
+        }
+        //color = vec3(1, 1, 0);
+    }
 
     fragColor = vec4(color, 1.0);
 }

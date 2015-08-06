@@ -72,14 +72,14 @@ vec3 getNormal()
 
 void main()
 {
-	if (material.tex.hasAlpha == 1)
-	{
-		float alpha = texture(material.tex.alpha, vTexcoord.xy).r;
-		if (alpha < 0.1)
-		{
-			discard;
-		}
-	}
+    if (material.tex.hasAlpha == 1)
+    {
+        float alpha = texture(material.tex.alpha, vTexcoord.xy).r;
+        if (alpha < 0.1)
+        {
+            discard;
+        }
+    }
 
     // FIXME(Charly): Ambient color "power" ?
     fragAmbient = vec4(getKd().xyz * 0.1, 1);

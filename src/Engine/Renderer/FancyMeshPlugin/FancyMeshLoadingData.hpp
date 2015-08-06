@@ -15,23 +15,23 @@ namespace Engine {
 
 struct RA_API FancyMeshData
 {
-	Core::Vector3Array positions;
-	Core::Vector3Array normals;
-	Core::Vector3Array tangents;
-	Core::Vector3Array bitangents;
-	Core::Vector3Array texcoords;
+    Core::Vector3Array positions;
+    Core::Vector3Array normals;
+    Core::Vector3Array tangents;
+    Core::Vector3Array bitangents;
+    Core::Vector3Array texcoords;
 
-	std::vector<uint>  indices;
+    std::vector<uint>  indices;
 };
 
 struct RA_API FancyComponentData
 {
     RA_CORE_ALIGNED_NEW
-	Core::Matrix4 transform;
-	std::vector<FancyMeshData> meshes;
+    Core::Matrix4 transform;
+    std::vector<FancyMeshData> meshes;
 
-	std::string name;
-	RenderTechnique* renderTechnique;
+    std::string name;
+    RenderTechnique* renderTechnique;
 };
 
 } // namespace Engine

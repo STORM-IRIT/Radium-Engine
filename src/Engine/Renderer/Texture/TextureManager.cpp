@@ -73,13 +73,13 @@ Engine::Texture* Engine::TextureManager::addTexture(const std::string& filename)
     int h = FreeImage_GetHeight(dib);
 
     // FIXME(Charly): Use VLOG instead of the check
-	if (m_verbose)
-	{
-		LOG(logINFO) << "Image stats (" << filename << ") :\n"
-			         << "\tBPP    : 0x" << std::hex << bpp << std::dec << std::endl
-			         << "\tFormat : 0x" << std::hex << format << std::dec << std::endl
-			         << "\tSize   : " << w << ", " << h;
-	}
+    if (m_verbose)
+    {
+        LOG(logINFO) << "Image stats (" << filename << ") :\n"
+                     << "\tBPP    : 0x" << std::hex << bpp << std::dec << std::endl
+                     << "\tFormat : 0x" << std::hex << format << std::dec << std::endl
+                     << "\tSize   : " << w << ", " << h;
+    }
     
 
     CORE_ASSERT(data, "Data is null");

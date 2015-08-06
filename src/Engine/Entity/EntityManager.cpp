@@ -18,7 +18,7 @@ Engine::EntityManager::~EntityManager()
         ent.reset();
     }
 
-	m_entitiesName.clear();
+    m_entitiesName.clear();
     m_entities.clear();
 }
 
@@ -41,8 +41,8 @@ Engine::Entity* Engine::EntityManager::createEntity()
     Core::StringUtils::stringPrintf(name, "Entity_%u", ent->idx.getValue());
     ent->rename(name);
 
-	m_entitiesName.insert(std::pair<std::string, Core::Index>(
-		ent->getName(), ent->idx));
+    m_entitiesName.insert(std::pair<std::string, Core::Index>(
+        ent->getName(), ent->idx));
 
     return ent.get();
 }
@@ -63,13 +63,13 @@ void Engine::EntityManager::removeEntity(Core::Index idx)
                 "Trying to remove an entity that has not been added to the manager.");
 
     auto ent = m_entities[idx];
-	std::string name = ent->getName();
+    std::string name = ent->getName();
 
     CORE_ASSERT(ent.unique(), "Non-unique entity about to be removed.");
 
     ent.reset();
     m_entities.remove(idx);
-	m_entitiesName.erase(name);
+    m_entitiesName.erase(name);
 }
 
 void Engine::EntityManager::removeEntity(Engine::Entity* entity)

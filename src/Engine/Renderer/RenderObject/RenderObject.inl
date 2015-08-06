@@ -15,7 +15,7 @@ inline uint Engine::RenderObject::getRenderObjectType() const
 
 inline const std::string& Engine::RenderObject::getName() const
 {
-	return m_name;
+    return m_name;
 }
 
 inline void Engine::RenderObject::setVisible(bool visible)

@@ -16,11 +16,11 @@ namespace Ra { namespace Engine {
 class RA_API EntityManager
 {
 public:
-	/// CONSTRUCTOR
-	EntityManager();
+    /// CONSTRUCTOR
+    EntityManager();
 
-	/// DESTRUCTOR
-	virtual ~EntityManager();
+    /// DESTRUCTOR
+    virtual ~EntityManager();
 
     /**
      * @brief Get or create (if does not exist) an entity given its name
@@ -31,18 +31,18 @@ public:
 
     /**
      * @brief Create an entity (kind of a factory).
-	 * A generic name (Entity_idx) is given to the entity.
+     * A generic name (Entity_idx) is given to the entity.
      * Manager has the pointer ownership.
      * @return The created entity.
      */
     Entity* createEntity();
 
-	/**
-	 * @brief Check wether an entity with a given name exists or not.
-	 * @param name The name of the entity to find
-	 * @return true if the entity exists, false otherwise
-	 */
-	bool entityExists(const std::string& name) const;
+    /**
+     * @brief Check wether an entity with a given name exists or not.
+     * @param name The name of the entity to find
+     * @return true if the entity exists, false otherwise
+     */
+    bool entityExists(const std::string& name) const;
 
     /**
      * @brief Remove an entity given its index. Also deletes the pointer.
@@ -89,7 +89,7 @@ private:
 
 private:
     Core::IndexMap<std::shared_ptr<Entity>> m_entities;
-	std::map<std::string, Core::Index> m_entitiesName;
+    std::map<std::string, Core::Index> m_entitiesName;
 };
 
 } // namespace Engine

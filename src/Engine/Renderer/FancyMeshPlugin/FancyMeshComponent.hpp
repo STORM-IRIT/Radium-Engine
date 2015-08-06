@@ -13,9 +13,9 @@ class RA_API FancyMeshComponent : public Component
 {
 public:
     FancyMeshComponent(const std::string& name);
-	virtual ~FancyMeshComponent();
+    virtual ~FancyMeshComponent();
 
-	virtual void initialize() override;
+    virtual void initialize() override;
 
     void addMeshRenderObject(const Core::TriangleMesh& mesh, const std::string& name);
     void addMeshRenderObject(const Core::TriangleMesh& mesh, const std::string& name, RenderTechnique* technique);
@@ -23,7 +23,7 @@ public:
     void handleMeshLoading(const FancyComponentData& data);
 
 private:
-	Core::Index m_renderObject;
+    Core::Index m_renderObject;
 };
 
 } // namespace Engine

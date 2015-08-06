@@ -17,11 +17,11 @@ namespace Ra { namespace Engine {
 class RA_API FancyMeshSystem : public System
 {
 public:
-	FancyMeshSystem(RadiumEngine* engine);
-	virtual ~FancyMeshSystem();
+    FancyMeshSystem(RadiumEngine* engine);
+    virtual ~FancyMeshSystem();
 
-	virtual void initialize() override;
-	virtual void handleFileLoading(const std::string& filename) override;
+    virtual void initialize() override;
+    virtual void handleFileLoading(const std::string& filename) override;
 
     virtual Component* addComponentToEntity( Engine::Entity* entity ) override;
 

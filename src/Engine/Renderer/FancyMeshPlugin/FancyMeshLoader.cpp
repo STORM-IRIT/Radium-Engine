@@ -49,7 +49,7 @@ void loadDefaultRenderTechnique(Engine::FancyComponentData& data);
 
 DataVector Engine::FancyMeshLoader::loadFile(const std::string & name)
 {
-	dataVector.clear();
+    dataVector.clear();
 
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(name,
@@ -75,7 +75,7 @@ DataVector Engine::FancyMeshLoader::loadFile(const std::string & name)
 
     //LOG(DEBUG) << "File " << name << " loaded successfully (" << dataVector.size() << " items to load).";
 
-	return dataVector;
+    return dataVector;
 }
 
 namespace
@@ -93,100 +93,100 @@ void runThroughNodes(const aiNode* node, const aiScene* scene,
 
     if (node->mNumMeshes > 0)
     {
-		Engine::FancyComponentData data;
-		data.transform = matrix;
-		data.name = node->mName.C_Str();
+        Engine::FancyComponentData data;
+        data.transform = matrix;
+        data.name = node->mName.C_Str();
 
-		// Consider only the first material for a given component
-		if (scene->HasMaterials())
-		{
-			aiMaterial* material = scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex];
-			loadRenderTechnique(material, data);
-		}
-		else
-		{
-			loadDefaultRenderTechnique(data);
-		}
+        // Consider only the first material for a given component
+        if (scene->HasMaterials())
+        {
+            aiMaterial* material = scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex];
+            loadRenderTechnique(material, data);
+        }
+        else
+        {
+            loadDefaultRenderTechnique(data);
+        }
 
-		for (uint i = 0; i < node->mNumMeshes; ++i)
-		{
-			Engine::FancyMeshData meshData;
+        for (uint i = 0; i < node->mNumMeshes; ++i)
+        {
+            Engine::FancyMeshData meshData;
 
-			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			loadMesh(mesh, meshData);
+            aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+            loadMesh(mesh, meshData);
 
-			data.meshes.push_back(meshData);
-		}
+            data.meshes.push_back(meshData);
+        }
 
-		dataVector.push_back(data);
-	}
+        dataVector.push_back(data);
+    }
 
-	for (uint i = 0; i < node->mNumChildren; ++i)
-	{
-		runThroughNodes(node->mChildren[i], scene, matrix);
-	}
+    for (uint i = 0; i < node->mNumChildren; ++i)
+    {
+        runThroughNodes(node->mChildren[i], scene, matrix);
+    }
 }
 
 void loadMesh(const aiMesh* mesh, Engine::FancyMeshData& data)
 {
-	Core::Vector3Array positions;
-	Core::Vector3Array normals;
-	Core::Vector3Array tangents;
-	Core::Vector3Array bitangents;
-	Core::Vector3Array texcoords;
-	std::vector<uint>  indices;
+    Core::Vector3Array positions;
+    Core::Vector3Array normals;
+    Core::Vector3Array tangents;
+    Core::Vector3Array bitangents;
+    Core::Vector3Array texcoords;
+    std::vector<uint>  indices;
 
-	for (uint i = 0; i < mesh->mNumVertices; ++i)
-	{
-		positions.push_back(assimpToCore(mesh->mVertices[i]));
-		positions.push_back(assimpToCore(mesh->mNormals[i]));
+    for (uint i = 0; i < mesh->mNumVertices; ++i)
+    {
+        positions.push_back(assimpToCore(mesh->mVertices[i]));
+        positions.push_back(assimpToCore(mesh->mNormals[i]));
 
-		if (mesh->HasTangentsAndBitangents())
-		{
-			tangents.push_back(assimpToCore(mesh->mTangents[i]));
-			bitangents.push_back(assimpToCore(mesh->mBitangents[i]));
-		}
+        if (mesh->HasTangentsAndBitangents())
+        {
+            tangents.push_back(assimpToCore(mesh->mTangents[i]));
+            bitangents.push_back(assimpToCore(mesh->mBitangents[i]));
+        }
 
-		// FIXME(Charly): What do texture coords indices mean ?
-		if (mesh->HasTextureCoords(0))
-		{
-			texcoords.push_back(assimpToCore(mesh->mTextureCoords[0][i]));
-		}
-	}
+        // FIXME(Charly): What do texture coords indices mean ?
+        if (mesh->HasTextureCoords(0))
+        {
+            texcoords.push_back(assimpToCore(mesh->mTextureCoords[0][i]));
+        }
+    }
 
-	for (uint i = 0; i < mesh->mNumFaces; ++i)
-	{
-		aiFace f = mesh->mFaces[i];
+    for (uint i = 0; i < mesh->mNumFaces; ++i)
+    {
+        aiFace f = mesh->mFaces[i];
 
-		indices.push_back(f.mIndices[0]);
-		indices.push_back(f.mIndices[1]);
-		indices.push_back(f.mIndices[2]);
-	}
+        indices.push_back(f.mIndices[0]);
+        indices.push_back(f.mIndices[1]);
+        indices.push_back(f.mIndices[2]);
+    }
 
-	data.positions = positions;
-	data.normals = normals;
-	data.tangents = tangents;
-	data.bitangents = bitangents;
-	data.texcoords = texcoords;
-	data.indices = indices;
+    data.positions = positions;
+    data.normals = normals;
+    data.tangents = tangents;
+    data.bitangents = bitangents;
+    data.texcoords = texcoords;
+    data.indices = indices;
 }
 
 void loadRenderTechnique(const aiMaterial* mat, Engine::FancyComponentData& data)
 {
-	std::string materialName = data.name.append("_Material");
-	if (mat == nullptr)
-	{
-		loadDefaultRenderTechnique(data);
-		return;
-	}
+    std::string materialName = data.name.append("_Material");
+    if (mat == nullptr)
+    {
+        loadDefaultRenderTechnique(data);
+        return;
+    }
 
-	// TODO(Charly): Handle different shader programs
-	// TODO(Charly): Handle transparency
-	Engine::Material* material = new Engine::Material(materialName);
+    // TODO(Charly): Handle different shader programs
+    // TODO(Charly): Handle transparency
+    Engine::Material* material = new Engine::Material(materialName);
 
-	aiColor4D color;
-	if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_DIFFUSE, color))
-	{
+    aiColor4D color;
+    if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_DIFFUSE, color))
+    {
         Core::Color c = assimpToCore(color);
         material->setKd(c);
         // FIXME(Charly): Should materials still have a type ?
@@ -194,31 +194,31 @@ void loadRenderTechnique(const aiMaterial* mat, Engine::FancyComponentData& data
         // {
         //     material->setMaterialType(Engine::Material::MAT_TRANSPARENT);
         // }
-	}
-	else
-	{
-		material->setKd(Core::Color(0, 0, 0, 1));
-	}
+    }
+    else
+    {
+        material->setKd(Core::Color(0, 0, 0, 1));
+    }
 
-	if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_SPECULAR, color))
-	{
-		material->setKs(assimpToCore(color));
-	}
-	else
-	{
-		material->setKs(Core::Color(0, 0, 0, 1));
-	}
+    if (AI_SUCCESS == mat->Get(AI_MATKEY_COLOR_SPECULAR, color))
+    {
+        material->setKs(assimpToCore(color));
+    }
+    else
+    {
+        material->setKs(Core::Color(0, 0, 0, 1));
+    }
 
-	Scalar shininess;
-	if (AI_SUCCESS == mat->Get(AI_MATKEY_SHININESS, shininess))
-	{
-		material->setNs(shininess);
-	}
-	else
-	{
-		material->setKs(Core::Color(0, 0, 0, 1));
-		material->setNs(1.0);
-	}
+    Scalar shininess;
+    if (AI_SUCCESS == mat->Get(AI_MATKEY_SHININESS, shininess))
+    {
+        material->setNs(shininess);
+    }
+    else
+    {
+        material->setKs(Core::Color(0, 0, 0, 1));
+        material->setNs(1.0);
+    }
 
     aiString name;
     if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_DIFFUSE, 0), name))
@@ -236,10 +236,10 @@ void loadRenderTechnique(const aiMaterial* mat, Engine::FancyComponentData& data
         material->addTexture(Engine::Material::TEX_NORMAL, filepath + "/" + std::string(name.C_Str()));
     }
 
-	if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_SHININESS, 0), name))
-	{
-		material->addTexture(Engine::Material::TEX_SHININESS, filepath + "/" + std::string(name.C_Str()));
-	}
+    if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_SHININESS, 0), name))
+    {
+        material->addTexture(Engine::Material::TEX_SHININESS, filepath + "/" + std::string(name.C_Str()));
+    }
 
     if (AI_SUCCESS == mat->Get(AI_MATKEY_TEXTURE(aiTextureType_OPACITY, 0), name))
     {
@@ -251,12 +251,12 @@ void loadRenderTechnique(const aiMaterial* mat, Engine::FancyComponentData& data
     renderTechnique->shaderConfig = defaultShaderConf;
     renderTechnique->material = material;
 
-	data.renderTechnique = renderTechnique;
+    data.renderTechnique = renderTechnique;
 }
 
 void loadDefaultRenderTechnique(Engine::FancyComponentData& data)
 {
-	std::string materialName = data.name.append("_Material");
+    std::string materialName = data.name.append("_Material");
 
     Engine::Material* material = new Engine::Material(materialName);
 
@@ -264,7 +264,7 @@ void loadDefaultRenderTechnique(Engine::FancyComponentData& data)
     renderTechnique->shaderConfig = defaultShaderConf;
     renderTechnique->material = material;
 
-	data.renderTechnique = renderTechnique;
+    data.renderTechnique = renderTechnique;
 }
 
 void assimpToCore(const aiVector3D& inVector, Core::Vector3& outVector)
