@@ -126,16 +126,21 @@ namespace Ra
         // 0. Compute time since last frame.
         const Scalar dt = Core::Timer::getIntervalSeconds ( m_lastFrameStart, timerData.frameStart );
         m_lastFrameStart = timerData.frameStart;
-
+    
+        
         // ----------
-        // 1. Kickoff rendering
-        m_viewer->startRendering ( dt );
-
-        // ----------
-        // 2. Gather user input and dispatch it.
+        // 1. Gather user input and dispatch it.
         auto keyEvents = m_mainWindow->getKeyEvents();
         auto mouseEvents = m_mainWindow->getMouseEvents();
         m_mainWindow->flushEvents();
+        
+        // TODO : send picking queries to renderer.
+        
+        // ----------
+        // 2. Kickoff rendering
+        m_viewer->startRendering ( dt );
+
+  
 
         timerData.tasksStart = Core::Timer::Clock::now();
 
@@ -154,6 +159,8 @@ namespace Ra
         // 4. Wait until frame is fully rendered and display.
         m_viewer->waitForRendering();
         m_viewer->update();
+
+        // TODO : get result of picking queries.
 
         timerData.renderData = m_viewer->getRenderer()->getTimerData();
 
