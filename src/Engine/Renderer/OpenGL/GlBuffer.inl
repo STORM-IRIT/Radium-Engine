@@ -15,7 +15,7 @@ inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer(const GlBuffer<T,GL_BUFFER_TYPE>& b
     : m_numElements( buffer.m_numElements )
     , m_drawMode( buffer.m_drawMode )
 {
-    CORE_ASSERT(glGetString(GL_VERSION)!= 0, "GL context unavailable");
+    CORE_ASSERT( checkOpenGLContext(), "GL context unavailable");
 
     // create vbo_destination to hold part of vbo_src data
     GL_ASSERT( glGenBuffers(1, &m_bufferGlId) );
@@ -34,7 +34,7 @@ inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer(uint numElements, const T* data, GL
     : m_numElements(numElements)
     , m_drawMode( drawMode )
 {
-    CORE_ASSERT(glGetString(GL_VERSION)!= 0, "GL context unavailable");
+    CORE_ASSERT( checkOpenGLContext(), "GL context unavailable");
 
     GL_ASSERT( glGenBuffers(1, &m_bufferGlId) );
     GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, m_bufferGlId) );
@@ -48,13 +48,12 @@ inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer( const std::vector<T>& data, GLenum
     : m_numElements(data.size())
     , m_drawMode( drawMode )
 {
-    CORE_ASSERT(glGetString(GL_VERSION)!= 0, "GL context unavailable");
+    CORE_ASSERT( checkOpenGLContext(), "GL context unavailable");
 
     GL_ASSERT( glGenBuffers(1, &m_bufferGlId) );
     GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, m_bufferGlId) );
     GL_ASSERT( glBufferData(GL_BUFFER_TYPE, data.size() * sizeof(T),
                             data.data(), m_drawMode) );
-    //GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, 0) );
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
@@ -68,13 +67,6 @@ inline GlBuffer<T, GL_BUFFER_TYPE>::~GlBuffer()
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>
-inline void GlBuffer<T, GL_BUFFER_TYPE>::initBuffer()
-{
-    CORE_ASSERT(m_bufferGlId == 0, "Buffer already initialized");
-    GL_ASSERT( glGenBuffers(1, &m_bufferGlId) );
-}
-
-template<typename T, GLenum GL_BUFFER_TYPE>
 inline void GlBuffer<T, GL_BUFFER_TYPE>::bind() const
 {
     CORE_ASSERT(m_bufferGlId != 0, "Buffer not initialized");
@@ -84,7 +76,7 @@ inline void GlBuffer<T, GL_BUFFER_TYPE>::bind() const
 template<typename T, GLenum GL_BUFFER_TYPE>
 inline void GlBuffer<T, GL_BUFFER_TYPE>::unbind() const
 {
-    //GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, 0) );
+    GL_ASSERT( glBindBuffer(GL_BUFFER_TYPE, 0) );
 }
 
 template<typename T, GLenum GL_BUFFER_TYPE>

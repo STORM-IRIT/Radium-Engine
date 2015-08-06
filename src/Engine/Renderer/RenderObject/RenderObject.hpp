@@ -42,9 +42,9 @@ public:
     const std::string& getName() const;
 
     void updateGL();
-	void feedRenderQueue(RenderQueue& queue,
-						 const Core::Matrix4& view,
-						 const Core::Matrix4& proj);
+    void feedRenderQueue(RenderQueue& queue,
+                         const Core::Matrix4& view,
+                         const Core::Matrix4& proj);
 
     RenderObject* clone();
 

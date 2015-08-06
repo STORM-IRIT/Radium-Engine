@@ -2,6 +2,7 @@
 #define RADIUMENGINE_MESH_HPP
 
 #include <vector>
+#include <array>
 #include <map>
 
 #include <Core/CoreMacros.hpp>
@@ -25,14 +26,16 @@ namespace Ra { namespace Engine {
 class RA_API Mesh
 {
 public:
-	enum DataType
-	{
-		VERTEX_POSITION = 0,
-		VERTEX_NORMAL,
-		VERTEX_TANGENT,
-		VERTEX_BITANGENT,
-		VERTEX_TEXCOORD
-	};
+    enum DataType
+    {
+        VERTEX_POSITION = 0,
+        VERTEX_NORMAL,
+        VERTEX_TANGENT,
+        VERTEX_BITANGENT,
+        VERTEX_TEXCOORD,
+
+        MAX_DATATYPES
+    };
 
 private:
     typedef Core::VectorArray<Core::Vector3> Vector3Array;
@@ -42,14 +45,14 @@ public:
 
     const std::string& getName() const { return m_name; }
 
-	/// GL_POINTS, GL_LINES, GL_TRIANGLES, GL_TRIANGLE_ADJACENCY, etc...
-	void setRenderMode(const GLenum& mode);
+    /// GL_POINTS, GL_LINES, GL_TRIANGLES, GL_TRIANGLE_ADJACENCY, etc...
+    void setRenderMode(const GLenum& mode);
 
-	void loadGeometry(const Vector3Array& positions, const std::vector<uint>& indices);
-	void addData(const DataType& type, const Vector3Array& position);
+    void loadGeometry(const Vector3Array& positions, const std::vector<uint>& indices);
+    void addData(const DataType& type, const Vector3Array& position);
 
-	const Vector3Array& getData(const DataType& type) const { return m_data.find(type)->second; }
-	const std::vector<uint>& getIndices() const { return m_indices; }
+    const Vector3Array& getData(const DataType& type) const { return m_data[type]; }
+    const std::vector<uint>& getIndices() const { return m_indices; }
 
     void setDirty() { m_isDirty = true; }
     void updateGL();
@@ -67,11 +70,11 @@ private:
     uint m_vao;
     GLenum m_renderMode;
 
-	std::map<DataType, Vector3Array> m_data;
+    std::array<Vector3Array, MAX_DATATYPES> m_data;
 //    std::map<DataType, GlBuffer<Core::Vector3, GL_ARRAY_BUFFER>> m_vbos;
-    std::map<DataType, uint> m_vbos;
-	
-	std::vector<uint> m_indices;
+    std::array<uint,MAX_DATATYPES> m_vbos;
+    
+    std::vector<uint> m_indices;
 //    GlBuffer<uint, GL_ELEMENT_ARRAY_BUFFER> m_ibo;
     uint m_ibo;
 };

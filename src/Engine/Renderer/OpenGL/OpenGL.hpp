@@ -16,6 +16,9 @@
 
 /// This file provide convenience macros for OpenGL.
 
+/// Checks that an openGLContext is available (mostly for debug checks and asserts).
+inline bool checkOpenGLContext() { return glGetString(GL_VERSION) != 0; }
+
 // FIXME(Charly): Fix logging
 #ifdef _DEBUG
 #define GL_ASSERT(x) \
@@ -27,11 +30,11 @@
                 LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
                               << ", " << __STRING(x) << ") : ERROR_UNKNOWN_BY_GLU (" \
                               << err << " : 0x" << std::hex << err << std::dec << ")."; \
-			else \
+            else \
                 LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
                               << ", " << __STRING(x) << ") : " << errBuf << "(" \
                               << err << " : 0x" << std::hex << err << std::dec << ")."; \
-		} \
+        } \
     }
 
 /// This macro will query the last openGL error.
@@ -42,7 +45,7 @@
             LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
                           << ", glCheckError()) : " << gluErrorString(err) << "(" \
                           << err << " : 0x" << std::hex << err << std::dec << ")."; \
-	    } \
+        } \
     }
 
 /// Ignore the previous openGL errors.
