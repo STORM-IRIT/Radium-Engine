@@ -26,7 +26,6 @@ namespace Ra { namespace Core
 
         VectorArray<Vector3>  m_vertices;
         VectorArray<Vector3>  m_normals;
-        VectorArray<Vector3>  m_tangents;
         VectorArray<Triangle> m_triangles;
     };
 }}

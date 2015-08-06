@@ -71,8 +71,6 @@ private:
     GLenum m_renderMode;
 
     std::array<Vector3Array, MAX_DATATYPES> m_data;
-//    std::map<DataType, GlBuffer<Core::Vector3, GL_ARRAY_BUFFER>> m_vbos;
-    //std::array<uint,MAX_DATATYPES> m_vbos;
     std::array<GlBuffer<Core::Vector3>,MAX_DATATYPES> m_vbos;
     
     std::vector<uint> m_indices;

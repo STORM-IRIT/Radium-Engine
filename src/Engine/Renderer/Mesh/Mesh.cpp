@@ -35,7 +35,6 @@ void Engine::Mesh::render()
         // Not initialized yet
         return;
     }
-    // FIXME(Charly): This seems to crash on windows
     GL_ASSERT(glBindVertexArray(m_vao));
 
 
