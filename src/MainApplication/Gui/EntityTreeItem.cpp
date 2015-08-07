@@ -156,7 +156,7 @@ namespace Ra
             m_itemData.remove ( position );
         }
 
-        foreach ( EntityTreeItem * child, m_childItems )
+        foreach ( EntityTreeItem* child, m_childItems )
         {
             child->removeColumns ( position, columns );
         }

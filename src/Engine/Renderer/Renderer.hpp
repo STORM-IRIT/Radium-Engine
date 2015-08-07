@@ -62,7 +62,6 @@ namespace Ra
                 TEXTURE_AMBIENT,
                 TEXTURE_POSITION,
                 TEXTURE_NORMAL,
-                TEXTURE_PICKING,
                 TEXTURE_COLOR,
                 TEXTURE_COUNT
             };
@@ -168,6 +167,12 @@ namespace Ra
             // FIXME(Charly): Maybe there is a better way to handle lights ?
             virtual void handleFileLoading ( const std::string& filename );
 
+            void requestPicking ( Scalar x, Scalar y );
+            std::vector<int> getPickingResults() const
+            {
+                return m_pickingResults;
+            }
+
         protected:
 
             /**
@@ -209,6 +214,8 @@ namespace Ra
             void initShaders();
             void initBuffers();
 
+            void doPicking();
+
         protected:
             /**
              * @brief Pointer to the engine, used to retrieve renderObjects.
@@ -246,7 +253,7 @@ namespace Ra
              * @brief Tell the DrawScreen shader if a depth map is beeing debugged.
              * If true, some depth linearization will be done for better vizualisation.
              */
-            bool     m_displayedIsDepth;
+            bool m_displayedIsDepth;
 
             std::vector<Light*> m_lights;
 
@@ -261,7 +268,6 @@ namespace Ra
                 RENDERPASS_TEXTURE_AMBIENT,
                 RENDERPASS_TEXTURE_POSITION,
                 RENDERPASS_TEXTURE_NORMAL,
-                RENDERPASS_TEXTURE_PICKING,
                 RENDERPASS_TEXTURE_LIGHTED,
                 RENDERPASS_TEXTURE_COUNT
             };
@@ -294,6 +300,14 @@ namespace Ra
             TimerData m_timerData;
 
             std::mutex m_renderMutex;
+
+            // PICKING STUFF
+            std::unique_ptr<FBO>        m_pickingFbo;
+            std::unique_ptr<Texture>    m_pickingTexture;
+            ShaderProgram*              m_pickingShader;
+
+            std::vector<Core::Vector2>  m_pickingQueries;
+            std::vector<int>            m_pickingResults;
         };
 
     } // namespace Engine

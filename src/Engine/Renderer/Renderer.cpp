@@ -112,13 +112,15 @@ namespace Ra
             m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT]    .reset ( new Texture ( "Ambient", GL_TEXTURE_2D ) );
             m_renderpassTextures[RENDERPASS_TEXTURE_POSITION]   .reset ( new Texture ( "Position", GL_TEXTURE_2D ) );
             m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL]     .reset ( new Texture ( "Normal", GL_TEXTURE_2D ) );
-            m_renderpassTextures[RENDERPASS_TEXTURE_PICKING]    .reset ( new Texture ( "Picking", GL_TEXTURE_2D ) );
             m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED]    .reset ( new Texture ( "Color", GL_TEXTURE_2D ) );
             m_renderpassTexture                                 .reset ( new Texture ( "RenderPass", GL_TEXTURE_2D ) );
 
             // OIT pass
             m_oitTextures[OITPASS_TEXTURE_ACCUM]                .reset ( new Texture ( "OITAccum", GL_TEXTURE_2D ) );
             m_oitTextures[OITPASS_TEXTURE_REVEALAGE]            .reset ( new Texture ( "OITPRevealage", GL_TEXTURE_2D ) );
+
+            // Picking
+            m_pickingTexture                                    .reset ( new Texture ( "Picking", GL_TEXTURE_2D ) );
 
             // Post process pass
             m_finalTexture                                      .reset ( new Texture ( "Final", GL_TEXTURE_2D ) );
@@ -208,8 +210,34 @@ namespace Ra
             }
         }
 
+        void Renderer::doPicking()
+        {
+            m_pickingFbo->bind();
+
+            GL_ASSERT ( glDepthMask  ( GL_TRUE ) );
+            GL_ASSERT ( glColorMask  ( 1, 1, 1, 1 ) );
+            GL_ASSERT ( glDrawBuffers ( 1, buffers ) );
+            GL_ASSERT ( glClearColor ( 1.0, 1.0, 1.0, 1.0 ) );
+            GL_ASSERT ( glClear      ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ) );
+
+            m_pickingShader->bind();
+
+            m_opaqueRenderQueue.render ( m_pickingShader );
+            m_transparentRenderQueue.render ( m_pickingShader );
+            // FIXME(Charly): Do we want to pick debug objects ?
+            //m_debugRenderQueue.render( m_pickingShader );
+
+            m_pickingQueries.clear();
+            m_pickingFbo->unbind();
+        }
+
         void Renderer::renderInternal ( const RenderData& renderData )
         {
+            if ( !m_pickingQueries.empty() )
+            {
+                doPicking();
+            }
+
             m_fbo->useAsTarget();
 
             GL_ASSERT ( glDepthMask ( GL_TRUE ) );
@@ -219,23 +247,23 @@ namespace Ra
 
             const Core::Color clearColor ( 0.6, 0.6, 0.6, 1.0 );
             const Core::Color clearZeros ( 0.0, 0.0, 0.0, 0.0 );
-            const Core::Color clearOnes ( 1.0, 1.0, 1.0, 1.0 );
+            const Core::Color clearOnes  ( 1.0, 1.0, 1.0, 1.0 );
             const Scalar clearDepth ( 1.0 );
 
             GL_ASSERT ( glClearBufferfv ( GL_COLOR, 0, clearColor.data() ) ); // Clear ambient
             GL_ASSERT ( glClearBufferfv ( GL_COLOR, 1, clearZeros.data() ) ); // Clear position
             GL_ASSERT ( glClearBufferfv ( GL_COLOR, 2, clearZeros.data() ) ); // Clear normal
-            GL_ASSERT ( glClearBufferfv ( GL_COLOR, 3, clearOnes.data() ) ); // Clear picking
+            GL_ASSERT ( glClearBufferfv ( GL_COLOR, 3, clearOnes.data()  ) ); // Clear picking
             GL_ASSERT ( glClearBufferfv ( GL_COLOR, 4, clearZeros.data() ) ); // Clear color
             GL_ASSERT ( glClearBufferfv ( GL_COLOR, 5, clearZeros.data() ) ); // Clear renderpass
             GL_ASSERT ( glClearBufferfv ( GL_DEPTH, 0, &clearDepth ) ); // Clear depth
 
             // Z + Ambient Prepass
-            GL_ASSERT ( glEnable ( GL_DEPTH_TEST ) );
+            GL_ASSERT ( glEnable    ( GL_DEPTH_TEST ) );
             GL_ASSERT ( glDepthFunc ( GL_LESS ) );
             GL_ASSERT ( glDepthMask ( GL_TRUE ) );
 
-            GL_ASSERT ( glDisable ( GL_BLEND ) );
+            GL_ASSERT ( glDisable   ( GL_BLEND ) );
 
             GL_ASSERT ( glDrawBuffers ( 4, buffers ) ); // Draw ambient, position, normal, picking
 
@@ -263,7 +291,7 @@ namespace Ra
                     l->getRenderParameters ( params );
                     m_opaqueRenderQueue.render ( params );
 #ifdef NO_TRANSPARENCY
-                    m_transparentRenderQueue.render( params );
+                    m_transparentRenderQueue.render ( params );
 #endif
                 }
             }
@@ -277,7 +305,7 @@ namespace Ra
                 l.getRenderParameters ( params );
                 m_opaqueRenderQueue.render ( params );
 #ifdef NO_TRANSPARENCY
-                    m_transparentRenderQueue.render( params );
+                m_transparentRenderQueue.render ( params );
 #endif
             }
 

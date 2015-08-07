@@ -28,7 +28,7 @@ namespace Ra
         , m_viewer ( nullptr )
         , m_frameTimer ( new QTimer ( this ) )
         , m_frameCounter ( 0 )
-        //, m_timerData(TIMER_AVERAGE)
+          //, m_timerData(TIMER_AVERAGE)
     {
         // Boilerplate print.
 
@@ -126,21 +126,21 @@ namespace Ra
         // 0. Compute time since last frame.
         const Scalar dt = Core::Timer::getIntervalSeconds ( m_lastFrameStart, timerData.frameStart );
         m_lastFrameStart = timerData.frameStart;
-    
-        
+
+
         // ----------
         // 1. Gather user input and dispatch it.
         auto keyEvents = m_mainWindow->getKeyEvents();
         auto mouseEvents = m_mainWindow->getMouseEvents();
         m_mainWindow->flushEvents();
-        
+
         // TODO : send picking queries to renderer.
-        
+
         // ----------
         // 2. Kickoff rendering
         m_viewer->startRendering ( dt );
 
-  
+
 
         timerData.tasksStart = Core::Timer::Clock::now();
 
