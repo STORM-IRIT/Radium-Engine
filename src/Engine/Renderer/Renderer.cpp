@@ -241,6 +241,9 @@ namespace Ra
 
             m_depthAmbientShader->bind();
             m_opaqueRenderQueue.render ( m_depthAmbientShader );
+#ifdef NO_TRANSPARENCY
+            m_transparentRenderQueue.render ( m_depthAmbientShader );
+#endif
 
             // Light pass
             GL_ASSERT ( glDepthFunc ( GL_LEQUAL ) );
@@ -259,6 +262,9 @@ namespace Ra
                     RenderParameters params;
                     l->getRenderParameters ( params );
                     m_opaqueRenderQueue.render ( params );
+#ifdef NO_TRANSPARENCY
+                    m_transparentRenderQueue.render( params );
+#endif
                 }
             }
             else
@@ -270,9 +276,13 @@ namespace Ra
                 RenderParameters params;
                 l.getRenderParameters ( params );
                 m_opaqueRenderQueue.render ( params );
+#ifdef NO_TRANSPARENCY
+                    m_transparentRenderQueue.render( params );
+#endif
             }
 
             m_fbo->unbind();
+#ifndef NO_TRANSPARENCY
 
             m_oitFbo->useAsTarget();
 
@@ -295,6 +305,7 @@ namespace Ra
             GL_ASSERT ( glDisable ( GL_BLEND ) );
 
             m_oitFbo->unbind();
+#endif
 
             // Draw renderpass texture
             m_fbo->bind();
@@ -308,6 +319,7 @@ namespace Ra
             m_renderpassCompositingShader->setUniform ( "renderpass", 0 );
             m_quadMesh->render();
 
+#ifndef NO_TRANSPARENCY
             GL_ASSERT ( glEnable ( GL_BLEND ) );
             GL_ASSERT ( glBlendFunc ( GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA ) );
 
@@ -315,6 +327,7 @@ namespace Ra
             m_renderpassCompositingShader->setUniform ( "oitSumWeight", m_oitTextures[OITPASS_TEXTURE_REVEALAGE].get(), 3 );
             m_renderpassCompositingShader->setUniform ( "renderpass", 1 );
             m_quadMesh->render();
+#endif
 
             GL_ASSERT ( glDepthFunc ( GL_LESS ) );
 
