@@ -20,8 +20,6 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/FancyMeshPlugin/FancyMeshSystem.hpp>
-#include <Engine/Renderer/FancyMeshPlugin/FancyMeshComponent.hpp>
 
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Core/Mesh/MeshUtils.hpp>

@@ -16,7 +16,7 @@
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Renderer/FancyMeshPlugin/FancyMeshSystem.hpp>
+#include <Plugins/FancyMeshPlugin/FancyMeshSystem.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
 
 // Const parameters : TODO : make config / command line options

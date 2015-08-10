@@ -115,11 +115,13 @@ INSTALL(
 
 add_subdirectory(Plugins)
 
+get_directory_property(plugins DIRECTORY "Plugins" DEFINITION SUBDIRS)
+
 # Build MainApplication
 set(app_target radium)
 
 set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})
-set(app_libs radiumEngine radiumCore ${Qt5_LIBRARIES} ${OPENGL_LIBRARIES})
+set(app_libs radiumEngine radiumCore ${plugins} ${Qt5_LIBRARIES} ${OPENGL_LIBRARIES})
 
 file(GLOB_RECURSE app_sources MainApplication/*.cpp)
 file(GLOB_RECURSE app_headers MainApplication/*.h MainApplication/*.hpp)
