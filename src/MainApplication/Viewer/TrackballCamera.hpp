@@ -13,32 +13,32 @@ namespace Ra
             Q_OBJECT
 
         public:
-            TrackballCamera ( uint width, uint height );
+            TrackballCamera( uint width, uint height );
             virtual ~TrackballCamera();
 
             /// @return true if the event has been taken into account, false otherwise
-            virtual bool handleMousePressEvent ( QMouseEvent* event ) override;
+            virtual bool handleMousePressEvent( QMouseEvent* event ) override;
             /// @return true if the event has been taken into account, false otherwise
-            virtual bool handleMouseReleaseEvent ( QMouseEvent* event ) override;
+            virtual bool handleMouseReleaseEvent( QMouseEvent* event ) override;
             /// @return true if the event has been taken into account, false otherwise
-            virtual bool handleMouseMoveEvent ( QMouseEvent* event ) override;
+            virtual bool handleMouseMoveEvent( QMouseEvent* event ) override;
 
             /// @return true if the event has been taken into account, false otherwise
-            virtual bool handleKeyPressEvent ( QKeyEvent* event ) override;
+            virtual bool handleKeyPressEvent( QKeyEvent* event ) override;
             /// @return true if the event has been taken into account, false otherwise
-            virtual bool handleKeyReleaseEvent ( QKeyEvent* event ) override;
+            virtual bool handleKeyReleaseEvent( QKeyEvent* event ) override;
 
         public slots:
-            virtual void setCameraPosition ( const Core::Vector3& position ) override;
-            virtual void setCameraTarget ( const Core::Vector3& target ) override;
-            virtual void moveCameraToFitAabb ( const Core::Aabb& aabb ) override;
+            virtual void setCameraPosition( const Core::Vector3& position ) override;
+            virtual void setCameraTarget( const Core::Vector3& target ) override;
+            virtual void moveCameraToFitAabb( const Core::Aabb& aabb ) override;
 
             virtual void resetCamera() override;
 
         private:
-            void handleCameraRotate ( Scalar dx, Scalar dy );
-            void handleCameraPan ( Scalar dx, Scalar dy );
-            void handleCameraZoom ( Scalar dx, Scalar dy );
+            void handleCameraRotate( Scalar dx, Scalar dy );
+            void handleCameraPan( Scalar dx, Scalar dy );
+            void handleCameraZoom( Scalar dx, Scalar dy );
 
             void updatePhiTheta();
 

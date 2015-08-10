@@ -28,7 +28,7 @@ namespace Ra
         {
         public:
             typedef uint TaskId;
-            enum { InvalidTaskId = TaskId ( -1 ) };
+            enum { InvalidTaskId = TaskId( -1 ) };
 
             /// Record of a task's start and end time.
             struct TimerData
@@ -40,7 +40,7 @@ namespace Ra
 
         public:
             // Constructor and destructor.
-            TaskQueue ( int numThreads );
+            TaskQueue( int numThreads );
             ~TaskQueue();
 
             // Note : functions are not thread safe and should only be called from the main thread.
@@ -48,15 +48,15 @@ namespace Ra
             /// Registers a task to be executed.
             /// Task must have been created with new and be initialized with its parameter.
             /// The task queue assumes ownership of the task.
-            TaskId registerTask ( Task* task );
+            TaskId registerTask( Task* task );
 
             /// Add dependency between two tasks. A task will be executed only when all
             /// its dependencies are satisfied.
-            void addDependency ( TaskId predecessor, TaskId successor );
+            void addDependency( TaskId predecessor, TaskId successor );
 
             /// Puts the task on the queue to be executed. A task can only be queued if it has
             /// no dependencies.
-            void queueTask ( TaskId task );
+            void queueTask( TaskId task );
 
             /// Executes the task queue. Blocks until all tasks in queue and dependencies are finished.
             void processTaskQueue();
@@ -68,7 +68,7 @@ namespace Ra
 
         private:
             /// Function called by a new thread given a new task.
-            void runTask ( TaskId task );
+            void runTask( TaskId task );
 
         private:
             /// Maximum number of concurently running tasks.

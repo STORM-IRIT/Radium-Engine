@@ -14,22 +14,22 @@ namespace Ra
         {
         public:
             template<typename... Args>
-            static T* createInstance ( const Args& ... args )
+            static T* createInstance( const Args& ... args )
             {
-                CORE_ASSERT ( nullptr == s_instance, "Singleton has already been created" );
-                s_instance = new T ( args... );
+                CORE_ASSERT( nullptr == s_instance, "Singleton has already been created" );
+                s_instance = new T( args... );
                 return s_instance;
             }
 
             static T* getInstancePtr()
             {
-                CORE_ASSERT ( s_instance, "Singleton is uninitialized." );
+                CORE_ASSERT( s_instance, "Singleton is uninitialized." );
                 return s_instance;
             }
 
             static T& getInstanceRef()
             {
-                CORE_ASSERT ( s_instance, "Singleton is uninitialized." );
+                CORE_ASSERT( s_instance, "Singleton is uninitialized." );
                 return *s_instance;
             }
 
@@ -48,7 +48,7 @@ namespace Ra
             ~Singleton() { }
 
         private:
-            Singleton ( const Singleton<T>& ) = delete;
+            Singleton( const Singleton<T>& ) = delete;
 
             void operator= ( const Singleton<T>& ) = delete;
 

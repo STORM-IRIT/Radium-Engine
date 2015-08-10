@@ -33,7 +33,7 @@ namespace Ra
         , m_viewer ( nullptr )
         , m_frameTimer ( new QTimer ( this ) )
         , m_frameCounter ( 0 )
-        //, m_timerData(TIMER_AVERAGE)
+          //, m_timerData(TIMER_AVERAGE)
     {
         // Boilerplate print.
 
@@ -132,11 +132,11 @@ namespace Ra
         Engine::RenderTechnique* r0 = new Engine::RenderTechnique;
         r0->shaderConfig = shader;
         r0->material = m0;
-        Engine::Material* m1 = new Engine::Material ( "m1" );
 
-        m1->setKd ( Core::Color ( 0.0, 1.0, 0.0, 0.5 ) );
+        Engine::Material* m1 = new Engine::Material ( "m1" );
+        m1->setKd ( Core::Color ( 0.0, 1.0, 0.0, 1.0 ) );
         m1->setKs ( Core::Color ( 0.0, 0.0, 0.0, 1.0 ) );
-        m1->setMaterialType ( Engine::Material::MaterialType::MAT_TRANSPARENT );
+        //m1->setMaterialType ( Engine::Material::MaterialType::MAT_TRANSPARENT );
         Engine::RenderTechnique* r1 = new Engine::RenderTechnique;
         r1->shaderConfig = shader;
         r1->material = m1;
@@ -236,24 +236,30 @@ namespace Ra
 
         // ----------
         // 0. Compute time since last frame.
-        const Scalar dt = Core::Timer::getIntervalSeconds ( m_lastFrameStart, timerData.frameStart );
+        const Scalar dt = Core::Timer::getIntervalSeconds( m_lastFrameStart, timerData.frameStart );
         m_lastFrameStart = timerData.frameStart;
 
-        // ----------
-        // 1. Kickoff rendering
-        m_viewer->startRendering ( dt );
 
         // ----------
-        // 2. Gather user input and dispatch it.
+        // 1. Gather user input and dispatch it.
         auto keyEvents = m_mainWindow->getKeyEvents();
         auto mouseEvents = m_mainWindow->getMouseEvents();
         m_mainWindow->flushEvents();
+
+        // TODO : send picking queries to renderer.
+        // NOTE(Charly): For now this is done in the viewer, this might need to move here.
+
+        // ----------
+        // 2. Kickoff rendering
+        m_viewer->startRendering( dt );
+
+
 
         timerData.tasksStart = Core::Timer::Clock::now();
 
         // ----------
         // 3. Run the engine task queue.
-        m_engine->getTasks ( m_taskQueue.get(), dt );
+        m_engine->getTasks( m_taskQueue.get(), dt );
 
         // Run one frame of tasks
         m_taskQueue->processTaskQueue();
@@ -266,6 +272,18 @@ namespace Ra
         // 4. Wait until frame is fully rendered and display.
         m_viewer->waitForRendering();
         m_viewer->update();
+
+        auto pickingResults = m_viewer->getRenderer()->getPickingResults();
+        if ( pickingResults.size() > 0 )
+        {
+            LOG( logINFO ) << "There has been " << pickingResults.size() << " picking requests this frame";
+            LOG( logINFO ) << "Picking results : ";
+            for ( const auto& res : pickingResults )
+            {
+                LOG( logINFO ) << "Object " << res << " touched.";
+            }
+        }
+        // TODO : get result of picking queries.
 
         timerData.renderData = m_viewer->getRenderer()->getTimerData();
 
@@ -289,11 +307,11 @@ namespace Ra
         //        }
     }
 
+
     MainApplication::~MainApplication()
     {
         LOG ( logINFO ) << "About to quit... Cleaning RadiumEngine memory";
         emit stopping();
         m_engine->cleanup();
     }
-
 }

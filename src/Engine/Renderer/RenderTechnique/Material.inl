@@ -10,28 +10,28 @@ namespace Ra
             return m_name;
         }
 
-        inline void Material::setKd ( const Core::Color& kd )
+        inline void Material::setKd( const Core::Color& kd )
         {
             m_kd = kd;
         }
 
-        inline void Material::setKs ( const Core::Color& ks )
+        inline void Material::setKs( const Core::Color& ks )
         {
             m_ks = ks;
         }
 
-        inline void Material::setNs ( Scalar ns )
+        inline void Material::setNs( Scalar ns )
         {
             m_ns = ns;
         }
 
-        inline void Material::addTexture ( const TextureType& type, Texture* texture )
+        inline void Material::addTexture( const TextureType& type, Texture* texture )
         {
             // FIXME(Charly): Check if already present ?
             m_textures[type] = texture;
         }
 
-        inline void Material::addTexture ( const TextureType& type, const std::string& texture )
+        inline void Material::addTexture( const TextureType& type, const std::string& texture )
         {
             m_pendingTextures[type] = texture;
             m_isDirty = true;
@@ -52,11 +52,11 @@ namespace Ra
             return m_ns;
         }
 
-        inline Texture* Material::getTexture ( const TextureType& type ) const
+        inline Texture* Material::getTexture( const TextureType& type ) const
         {
             Texture* tex = nullptr;
 
-            auto it = m_textures.find ( type );
+            auto it = m_textures.find( type );
             if ( it != m_textures.end() )
             {
                 tex = it->second;
@@ -65,7 +65,7 @@ namespace Ra
             return tex;
         }
 
-        inline void Material::setMaterialType ( const MaterialType& type )
+        inline void Material::setMaterialType( const MaterialType& type )
         {
             m_type = type;
         }

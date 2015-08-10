@@ -32,13 +32,13 @@ namespace Ra
             RA_CORE_ALIGNED_NEW
 
             // Construct a grid of a given size and fill it with the given value.
-            Grid ( const IdxVector& size = IdxVector::Zero(), const T& val = T() );
+            Grid( const IdxVector& size = IdxVector::Zero(), const T& val = T() );
             // Construct a grid of a given size with values in ()-major format
-            Grid ( const IdxVector& size, const T* values );
+            Grid( const IdxVector& size, const T* values );
 
             // Copy constructor and assignment operator.
-            Grid ( const Grid<T, D>& other ) = default;
-            Grid& operator= (  const Grid<T, D>& other ) = default;
+            Grid( const Grid<T, D>& other ) = default;
+            Grid& operator= ( const Grid<T, D>& other ) = default;
 
             /// Returns the number of elements stored.
             inline uint size() const;
@@ -50,11 +50,11 @@ namespace Ra
             inline void clear();
 
             /// Retunrs the D-dimensional index vector corresponding to the given iterator.
-            inline IdxVector getIdxVector ( const ConstIterator& it ) const;
+            inline IdxVector getIdxVector( const ConstIterator& it ) const;
 
             ///  Access an element with a D-dimensionnal index.
-            inline const T& at ( const IdxVector& idx ) const;
-            inline T& at ( const IdxVector& idx );
+            inline const T& at( const IdxVector& idx ) const;
+            inline T& at( const IdxVector& idx );
 
             /// Read only access to the underlying data.
             inline const T* data() const;

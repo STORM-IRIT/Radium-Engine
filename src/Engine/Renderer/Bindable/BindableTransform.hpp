@@ -13,13 +13,13 @@ namespace Ra
         {
         public:
             RA_CORE_ALIGNED_NEW
-            BindableTransform ( const Core::Matrix4& model,
-                                const Core::Matrix4& view,
-                                const Core::Matrix4& proj );
+            BindableTransform( const Core::Matrix4& model,
+                               const Core::Matrix4& view,
+                               const Core::Matrix4& proj );
 
             ~BindableTransform();
 
-            virtual void bind ( ShaderProgram* shader ) const override;
+            virtual void bind( ShaderProgram* shader ) const override;
 
             bool operator< ( const BindableTransform& other ) const;
 

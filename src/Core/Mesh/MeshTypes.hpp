@@ -17,7 +17,7 @@ namespace Ra
         typedef uint VertexIdx;
         typedef uint HalfEdgeIdx;
 
-        enum { InvalidIdx = uint ( -1 ) };
+        enum { InvalidIdx = uint( -1 ) };
     }
 }
 

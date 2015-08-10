@@ -40,32 +40,32 @@ namespace Ra
 
         public:
             // FIXME(Charly): Set component in the constructor ?
-            explicit RenderObject ( const std::string& name );
+            explicit RenderObject( const std::string& name );
             ~RenderObject();
 
-            void setRenderObjectType ( const RenderObjectType& type );
+            void setRenderObjectType( const RenderObjectType& type );
             const RenderObjectType& getRenderObjectType() const;
 
-            void setComponent ( Component* component );
+            void setComponent( Component* component );
 
             const std::string& getName() const;
 
             void updateGL();
-            void feedRenderQueue ( RenderQueue& queue,
-                                   const Core::Matrix4& view,
-                                   const Core::Matrix4& proj );
+            void feedRenderQueue( RenderQueue& queue,
+                                  const Core::Matrix4& view,
+                                  const Core::Matrix4& proj );
 
             RenderObject* clone();
 
-            void setVisible ( bool visible );
+            void setVisible( bool visible );
             bool isVisible() const;
 
             bool isDirty() const;
 
-            void setRenderTechnique ( RenderTechnique* technique );
+            void setRenderTechnique( RenderTechnique* technique );
             RenderTechnique* getRenderTechnique() const;
 
-            void setMesh ( Mesh* mesh );
+            void setMesh( Mesh* mesh );
             Mesh* getMesh() const;
 
         private:

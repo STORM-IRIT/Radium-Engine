@@ -64,8 +64,8 @@ namespace Ra
         public:
             struct ItemData
             {
-                ItemData() : data(), entity ( nullptr ), component ( nullptr )
-                    , isEntityNode ( false ), isComponentNode ( false ) {}
+                ItemData() : data(), entity( nullptr ), component( nullptr )
+                    , isEntityNode( false ), isComponentNode( false ) {}
 
                 QVariant data;
                 Engine::Entity* entity;
@@ -76,26 +76,26 @@ namespace Ra
             };
 
         public:
-            explicit EntityTreeItem ( const QVector<ItemData>& data, EntityTreeItem* parent = nullptr );
+            explicit EntityTreeItem( const QVector<ItemData>& data, EntityTreeItem* parent = nullptr );
             ~EntityTreeItem();
 
-            inline void appendChild ( EntityTreeItem* child )
+            inline void appendChild( EntityTreeItem* child )
             {
-                m_childItems.append ( child );
+                m_childItems.append( child );
             }
 
-            EntityTreeItem* getChild ( int row );
+            EntityTreeItem* getChild( int row );
             uint getChildCount() const;
             uint getColumnCount() const;
-            ItemData getData ( int column ) const;
+            ItemData getData( int column ) const;
             EntityTreeItem* getParentItem();
             uint getRow() const;
 
-            bool insertChildren ( uint position, uint count, uint columns );
-            bool insertColumns ( uint position, uint columns );
-            bool removeChildren ( uint position, uint count );
-            bool removeColumns ( uint position, uint columns );
-            bool setData ( uint column, const ItemData& value );
+            bool insertChildren( uint position, uint count, uint columns );
+            bool insertColumns( uint position, uint columns );
+            bool removeChildren( uint position, uint count );
+            bool removeColumns( uint position, uint columns );
+            bool setData( uint column, const ItemData& value );
 
         private:
             QList<EntityTreeItem*> m_childItems;

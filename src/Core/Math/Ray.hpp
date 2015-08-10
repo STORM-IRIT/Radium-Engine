@@ -16,13 +16,13 @@ namespace Ra
             RA_CORE_ALIGNED_NEW
 
             /// Default constructor initializes the position and direction to zero.
-            Ray() : m_origin ( Vector3::Zero() ), m_direction ( Vector3::Zero() ) { }
+            Ray() : m_origin( Vector3::Zero() ), m_direction( Vector3::Zero() ) { }
 
             /// Construct a ray with given position and direction.
-            Ray ( const Vector3& origin, const Vector3& direction ) : m_origin ( origin ), m_direction ( direction ) { }
+            Ray( const Vector3& origin, const Vector3& direction ) : m_origin( origin ), m_direction( direction ) { }
 
             /// Retunrs the position at linear coordinate t on the ray.
-            inline Vector3 at ( Scalar t ) const
+            inline Vector3 at( Scalar t ) const
             {
                 return m_origin + ( t * m_direction );
             }

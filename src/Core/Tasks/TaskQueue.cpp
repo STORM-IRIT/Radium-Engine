@@ -6,8 +6,8 @@ namespace Ra
     namespace Core
     {
 
-        TaskQueue::TaskQueue ( int numThreads )
-            : m_numThreads ( numThreads ), m_processingTasks ( 0 )
+        TaskQueue::TaskQueue( int numThreads )
+            : m_numThreads( numThreads ), m_processingTasks( 0 )
         {}
 
         TaskQueue::~TaskQueue()
@@ -15,37 +15,37 @@ namespace Ra
             flushTaskQueue();
         }
 
-        TaskQueue::TaskId TaskQueue::registerTask ( Task* task )
+        TaskQueue::TaskId TaskQueue::registerTask( Task* task )
         {
-            m_tasks.emplace_back ( std::unique_ptr<Task> ( task ) );
-            m_dependencies.push_back ( std::vector<TaskId>() );
-            m_remainingDependencies.push_back ( 0 );
+            m_tasks.emplace_back( std::unique_ptr<Task> ( task ) );
+            m_dependencies.push_back( std::vector<TaskId>() );
+            m_remainingDependencies.push_back( 0 );
             TimerData tdata;
             tdata.taskName = task->getName();
-            m_timerData.push_back ( tdata );
+            m_timerData.push_back( tdata );
 
-            CORE_ASSERT ( m_tasks.size() == m_dependencies.size(), "Inconsistent task list" );
-            CORE_ASSERT ( m_tasks.size() == m_remainingDependencies.size(), "Inconsistent task list" );
-            CORE_ASSERT ( m_tasks.size() == m_timerData.size(), "Inconsistent task list" );
-            return TaskId ( m_tasks.size() - 1 );
+            CORE_ASSERT( m_tasks.size() == m_dependencies.size(), "Inconsistent task list" );
+            CORE_ASSERT( m_tasks.size() == m_remainingDependencies.size(), "Inconsistent task list" );
+            CORE_ASSERT( m_tasks.size() == m_timerData.size(), "Inconsistent task list" );
+            return TaskId( m_tasks.size() - 1 );
         }
 
-        void TaskQueue::addDependency ( TaskQueue::TaskId predecessor, TaskQueue::TaskId successor )
+        void TaskQueue::addDependency( TaskQueue::TaskId predecessor, TaskQueue::TaskId successor )
         {
-            CORE_ASSERT ( ( predecessor != InvalidTaskId ) && ( predecessor < m_tasks.size() ), "Invalid predecessor task" );
-            CORE_ASSERT ( ( successor != InvalidTaskId ) && ( successor < m_tasks.size() ), "Invalid successor task" );
-            CORE_ASSERT ( predecessor != successor, "Cannot add self-dependency" );
+            CORE_ASSERT( ( predecessor != InvalidTaskId ) && ( predecessor < m_tasks.size() ), "Invalid predecessor task" );
+            CORE_ASSERT( ( successor != InvalidTaskId ) && ( successor < m_tasks.size() ), "Invalid successor task" );
+            CORE_ASSERT( predecessor != successor, "Cannot add self-dependency" );
 
             // Todo : check for cycles.
 
-            m_dependencies[predecessor].push_back ( successor );
+            m_dependencies[predecessor].push_back( successor );
             ++m_remainingDependencies[successor];
         }
 
-        void TaskQueue::queueTask ( TaskQueue::TaskId task )
+        void TaskQueue::queueTask( TaskQueue::TaskId task )
         {
-            CORE_ASSERT ( m_remainingDependencies[task] == 0, " Task has unsatisfied dependencies" );
-            m_taskQueue.push_front ( task );
+            CORE_ASSERT( m_remainingDependencies[task] == 0, " Task has unsatisfied dependencies" );
+            m_taskQueue.push_front( task );
         }
 
         void TaskQueue::processTaskQueue()
@@ -60,8 +60,8 @@ namespace Ra
                     TaskId task = m_taskQueue.back();
                     m_taskQueue.pop_back();
                     ++m_processingTasks;
-                    CORE_ASSERT ( task != InvalidTaskId && task < m_tasks.size(), "Invalid task" );
-                    std::thread thread ( &TaskQueue::runTask, this, task );
+                    CORE_ASSERT( task != InvalidTaskId && task < m_tasks.size(), "Invalid task" );
+                    std::thread thread( &TaskQueue::runTask, this, task );
                     thread.detach();
                 }
                 else if ( m_taskQueue.empty() && m_processingTasks == 0 )
@@ -81,15 +81,15 @@ namespace Ra
 
         void TaskQueue::flushTaskQueue()
         {
-            CORE_ASSERT ( m_processingTasks == 0, "You have tasks still in process" );
-            CORE_ASSERT ( m_taskQueue.empty(), " You have unprocessed tasks " );
+            CORE_ASSERT( m_processingTasks == 0, "You have tasks still in process" );
+            CORE_ASSERT( m_taskQueue.empty(), " You have unprocessed tasks " );
             m_tasks.clear();
             m_dependencies.clear();
             m_timerData.clear();
             m_remainingDependencies.clear();
         }
 
-        void TaskQueue::runTask ( TaskQueue::TaskId task )
+        void TaskQueue::runTask( TaskQueue::TaskId task )
         {
             // Run task
             m_timerData[task].start = Timer::Clock::now();
@@ -102,11 +102,11 @@ namespace Ra
             for ( auto t : m_dependencies[task] )
             {
                 uint& nDepends = m_remainingDependencies[t];
-                CORE_ASSERT ( nDepends > 0, "Inconsistency in dependencies" );
+                CORE_ASSERT( nDepends > 0, "Inconsistency in dependencies" );
                 --nDepends;
                 if ( nDepends == 0 )
                 {
-                    queueTask ( t );
+                    queueTask( t );
                 }
             }
             m_taskQueueMutex.unlock();

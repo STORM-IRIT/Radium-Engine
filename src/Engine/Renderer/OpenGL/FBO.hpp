@@ -32,23 +32,23 @@ namespace Ra
                 ALL_COMPONENTS = COLOR | DEPTH | STENCIL
             };
 
-            FBO ( Components components, uint width, uint height );
+            FBO( Components components, uint width, uint height );
             ~FBO();
 
             void bind();
 
             // Binds and sets viewport
             void useAsTarget();
-            void useAsTarget ( uint width, uint height );
-            void unbind ( bool complete = false );
+            void useAsTarget( uint width, uint height );
+            void unbind( bool complete = false );
 
-            void attachTexture ( uint attachment, Texture* texture, uint level = 0 );
-            void detachTexture ( uint attachment );
+            void attachTexture( uint attachment, Texture* texture, uint level = 0 );
+            void detachTexture( uint attachment );
 
             void check() const;
 
-            void setSize ( uint width, uint height );
-            void clear ( Components components );
+            void setSize( uint width, uint height );
+            void clear( Components components );
 
             uint getID() const
             {
@@ -56,7 +56,7 @@ namespace Ra
             }
 
         private:
-            FBO ( const FBO& ) = delete;
+            FBO( const FBO& ) = delete;
             void operator= ( const FBO& ) = delete;
 
         private:

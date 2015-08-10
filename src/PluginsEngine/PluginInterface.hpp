@@ -18,12 +18,12 @@ namespace Ra
 
                 /// MACRO
                 Q_OBJECT
-                Q_PLUGIN_METADATA ( IID INTERFACE_IID )
-                Q_INTERFACES ( Interface )
+                Q_PLUGIN_METADATA( IID INTERFACE_IID )
+                Q_INTERFACES( Interface )
 
             public:
                 /// CONSTRUCTOR
-                PluginInterface ( QObject* parent = nullptr ) : QObject ( parent ), Interface() { }
+                PluginInterface( QObject* parent = nullptr ) : QObject( parent ), Interface() { }
 
                 /// DESTRUCTOR
                 virtual ~PluginInterface() { }

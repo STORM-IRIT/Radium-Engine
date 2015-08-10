@@ -25,7 +25,7 @@ namespace Ra
                 };
 
                 /// CONSTRUCTOR
-                Interface() : m_status ( StatusType::IDLE ) { }
+                Interface() : m_status( StatusType::IDLE ) { }
 
                 /// DESTRUCTOR
                 virtual ~Interface() { }
@@ -42,7 +42,7 @@ namespace Ra
 
             protected:
                 /// STATUS
-                inline void setStatus ( const StatusType type )
+                inline void setStatus( const StatusType type )
                 {
                     m_status = type;
                 }
@@ -58,6 +58,6 @@ namespace Ra
 } // namespace Ra
 
 #define INTERFACE_IID "Radium.Engine.Plugins.Interface"
-Q_DECLARE_INTERFACE ( Ra::Engine::Plugin::Interface, INTERFACE_IID )
+Q_DECLARE_INTERFACE( Ra::Engine::Plugin::Interface, INTERFACE_IID )
 
 #endif // RADIUMENGINE_INTERFACE_HPP

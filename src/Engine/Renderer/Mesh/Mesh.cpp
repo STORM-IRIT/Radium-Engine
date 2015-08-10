@@ -1,4 +1,3 @@
-
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
 #include <Core/Mesh/MeshUtils.hpp>

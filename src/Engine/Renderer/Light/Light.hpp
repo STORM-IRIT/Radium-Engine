@@ -29,15 +29,15 @@ namespace Ra
         public:
             RA_CORE_ALIGNED_NEW
 
-            Light ( const LightType& type );
+            Light( const LightType& type );
             virtual ~Light();
 
             inline const Core::Color& getColor() const;
-            inline void setColor ( const Core::Color& color );
+            inline void setColor( const Core::Color& color );
 
             inline const LightType& getType() const;
 
-            virtual void getRenderParameters ( RenderParameters& params );
+            virtual void getRenderParameters( RenderParameters& params );
 
         private:
             // FIXME(Charly): Add color intensity

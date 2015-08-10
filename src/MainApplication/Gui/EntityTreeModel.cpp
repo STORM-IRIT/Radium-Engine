@@ -49,18 +49,18 @@ namespace Ra
 {
 
     // FIXME(Charly): Remove data from constructor
-    Gui::EntityTreeModel::EntityTreeModel ( const QStringList& headers, QObject* parent )
-        : QAbstractItemModel ( parent )
+    Gui::EntityTreeModel::EntityTreeModel( const QStringList& headers, QObject* parent )
+        : QAbstractItemModel( parent )
     {
         QVector<EntityTreeItem::ItemData> rootData;
         foreach ( QString header, headers )
         {
             EntityTreeItem::ItemData data;
-            data.data = QVariant ( header );
+            data.data = QVariant( header );
             rootData << data;
         }
 
-        m_rootItem = new EntityTreeItem ( rootData );
+        m_rootItem = new EntityTreeItem( rootData );
     }
 
     Gui::EntityTreeModel::~EntityTreeModel()
@@ -68,12 +68,12 @@ namespace Ra
         delete m_rootItem;
     }
 
-    int Gui::EntityTreeModel::columnCount ( const QModelIndex& parent ) const
+    int Gui::EntityTreeModel::columnCount( const QModelIndex& parent ) const
     {
         return m_rootItem->getColumnCount();
     }
 
-    QVariant Gui::EntityTreeModel::data ( const QModelIndex& index, int role ) const
+    QVariant Gui::EntityTreeModel::data( const QModelIndex& index, int role ) const
     {
         if ( !index.isValid() )
         {
@@ -85,26 +85,26 @@ namespace Ra
             return QVariant();
         }
 
-        EntityTreeItem* item = getItem ( index );
+        EntityTreeItem* item = getItem( index );
 
-        return item->getData ( index.column() ).data;
+        return item->getData( index.column() ).data;
     }
 
-    Qt::ItemFlags Gui::EntityTreeModel::flags ( const QModelIndex& index ) const
+    Qt::ItemFlags Gui::EntityTreeModel::flags( const QModelIndex& index ) const
     {
         if ( !index.isValid() )
         {
             return 0;
         }
 
-        return Qt::ItemIsEditable | QAbstractItemModel::flags ( index );
+        return Qt::ItemIsEditable | QAbstractItemModel::flags( index );
     }
 
-    Gui::EntityTreeItem* Gui::EntityTreeModel::getItem ( const QModelIndex& index ) const
+    Gui::EntityTreeItem* Gui::EntityTreeModel::getItem( const QModelIndex& index ) const
     {
         if ( index.isValid() )
         {
-            EntityTreeItem* item = static_cast<EntityTreeItem*> ( index.internalPointer() );
+            EntityTreeItem* item = static_cast<EntityTreeItem*>( index.internalPointer() );
             if ( item )
             {
                 return item;
@@ -114,29 +114,29 @@ namespace Ra
         return m_rootItem;
     }
 
-    QVariant Gui::EntityTreeModel::headerData ( int section, Qt::Orientation orientation, int role ) const
+    QVariant Gui::EntityTreeModel::headerData( int section, Qt::Orientation orientation, int role ) const
     {
         if ( orientation == Qt::Horizontal && role == Qt::DisplayRole )
         {
-            return m_rootItem->getData ( section ).data;
+            return m_rootItem->getData( section ).data;
         }
 
         return QVariant();
     }
 
-    QModelIndex Gui::EntityTreeModel::index ( int row, int column, const QModelIndex& parent ) const
+    QModelIndex Gui::EntityTreeModel::index( int row, int column, const QModelIndex& parent ) const
     {
         if ( parent.isValid() && parent.column() != 0 )
         {
             return QModelIndex();
         }
 
-        EntityTreeItem* parentItem = getItem ( parent );
+        EntityTreeItem* parentItem = getItem( parent );
 
-        EntityTreeItem* childItem = parentItem->getChild ( row );
+        EntityTreeItem* childItem = parentItem->getChild( row );
         if ( childItem )
         {
-            return createIndex ( row, column, childItem );
+            return createIndex( row, column, childItem );
         }
         else
         {
@@ -144,37 +144,37 @@ namespace Ra
         }
     }
 
-    bool Gui::EntityTreeModel::insertColumns ( int position, int columns, const QModelIndex& parent )
+    bool Gui::EntityTreeModel::insertColumns( int position, int columns, const QModelIndex& parent )
     {
         bool success;
 
-        beginInsertColumns ( parent, position, position + columns - 1 );
-        success = m_rootItem->insertColumns ( position, columns );
+        beginInsertColumns( parent, position, position + columns - 1 );
+        success = m_rootItem->insertColumns( position, columns );
         endInsertColumns();
 
         return success;
     }
 
-    bool Gui::EntityTreeModel::insertRows ( int position, int rows, const QModelIndex& parent )
+    bool Gui::EntityTreeModel::insertRows( int position, int rows, const QModelIndex& parent )
     {
-        EntityTreeItem* parentItem = getItem ( parent );
+        EntityTreeItem* parentItem = getItem( parent );
         bool success;
 
-        beginInsertRows ( parent, position, position + rows - 1 );
-        success = parentItem->insertChildren ( position, rows, m_rootItem->getColumnCount() );
+        beginInsertRows( parent, position, position + rows - 1 );
+        success = parentItem->insertChildren( position, rows, m_rootItem->getColumnCount() );
         endInsertRows();
 
         return success;
     }
 
-    QModelIndex Gui::EntityTreeModel::parent ( const QModelIndex& child ) const
+    QModelIndex Gui::EntityTreeModel::parent( const QModelIndex& child ) const
     {
         if ( !child.isValid() )
         {
             return QModelIndex();
         }
 
-        EntityTreeItem* childItem = getItem ( child );
+        EntityTreeItem* childItem = getItem( child );
         EntityTreeItem* parentItem = childItem->getParentItem();
 
         if ( parentItem == m_rootItem )
@@ -182,64 +182,64 @@ namespace Ra
             return QModelIndex();
         }
 
-        return createIndex ( parentItem->getChildCount(), 0, parentItem );
+        return createIndex( parentItem->getChildCount(), 0, parentItem );
     }
 
-    bool Gui::EntityTreeModel::removeColumns ( int position, int columns, const QModelIndex& parent )
+    bool Gui::EntityTreeModel::removeColumns( int position, int columns, const QModelIndex& parent )
     {
         bool success;
 
-        beginRemoveColumns ( parent, position, position + columns - 1 );
-        success = m_rootItem->removeColumns ( position, columns );
+        beginRemoveColumns( parent, position, position + columns - 1 );
+        success = m_rootItem->removeColumns( position, columns );
         endRemoveColumns();
 
         if ( m_rootItem->getColumnCount() == 0 )
         {
-            removeRows ( 0, rowCount() );
+            removeRows( 0, rowCount() );
         }
 
         return success;
     }
 
-    bool Gui::EntityTreeModel::removeRows ( int position, int rows, const QModelIndex& parent )
+    bool Gui::EntityTreeModel::removeRows( int position, int rows, const QModelIndex& parent )
     {
-        EntityTreeItem* parentItem = getItem ( parent );
+        EntityTreeItem* parentItem = getItem( parent );
         bool success = true;
 
-        beginRemoveRows ( parent, position, position + rows - 1 );
-        success = parentItem->removeChildren ( position, rows );
+        beginRemoveRows( parent, position, position + rows - 1 );
+        success = parentItem->removeChildren( position, rows );
         endRemoveRows();
 
         return success;
     }
 
-    int Gui::EntityTreeModel::rowCount ( const QModelIndex& parent ) const
+    int Gui::EntityTreeModel::rowCount( const QModelIndex& parent ) const
     {
-        EntityTreeItem* parentItem = getItem ( parent );
+        EntityTreeItem* parentItem = getItem( parent );
         return parentItem->getChildCount();
     }
 
-    bool Gui::EntityTreeModel::setData ( const QModelIndex& index, const QVariant& value, int role )
+    bool Gui::EntityTreeModel::setData( const QModelIndex& index, const QVariant& value, int role )
     {
         if ( role != Qt::EditRole )
         {
             return false;
         }
 
-        EntityTreeItem* item = getItem ( index );
-        EntityTreeItem::ItemData data = item->getData ( index.column() );
+        EntityTreeItem* item = getItem( index );
+        EntityTreeItem::ItemData data = item->getData( index.column() );
         data.data = value;
-        bool result = item->setData ( index.column(), data );
+        bool result = item->setData( index.column(), data );
 
         if ( result )
         {
-            emit dataChanged ( index, index );
+            emit dataChanged( index, index );
         }
 
         return result;
     }
 
-    bool Gui::EntityTreeModel::setHeaderData ( int section, Qt::Orientation orientation, const QVariant& value, int role )
+    bool Gui::EntityTreeModel::setHeaderData( int section, Qt::Orientation orientation, const QVariant& value, int role )
     {
         if ( role != Qt::EditRole || orientation != Qt::Horizontal )
         {
@@ -248,36 +248,36 @@ namespace Ra
 
         EntityTreeItem::ItemData data;
         data.data = value;
-        bool result = m_rootItem->setData ( section, data );
+        bool result = m_rootItem->setData( section, data );
 
         if ( result )
         {
-            emit headerDataChanged ( orientation, section, section );
+            emit headerDataChanged( orientation, section, section );
         }
 
         return result;
     }
 
-    void Gui::EntityTreeModel::entitiesUpdated ( const std::vector<Engine::Entity*>& entities )
+    void Gui::EntityTreeModel::entitiesUpdated( const std::vector<Engine::Entity*>& entities )
     {
         for ( const auto& ent : entities )
         {
             uint row = rowCount();
-            insertRows ( row, 1 );
-            EntityTreeItem* item = getItem ( index ( row, 0 ) );
+            insertRows( row, 1 );
+            EntityTreeItem* item = getItem( index( row, 0 ) );
 
             EntityTreeItem::ItemData data;
-            data.data = QString::fromStdString ( ent->getName() );
+            data.data = QString::fromStdString( ent->getName() );
             data.entity = ent;
             data.isEntityNode = true;
 
-            item->setData ( 0, data );
+            item->setData( 0, data );
 
-            insertComponents ( ent, item );
+            insertComponents( ent, item );
         }
     }
 
-    void Gui::EntityTreeModel::insertComponents ( Engine::Entity* entity, EntityTreeItem* parent )
+    void Gui::EntityTreeModel::insertComponents( Engine::Entity* entity, EntityTreeItem* parent )
     {
         std::vector<Engine::Component*> components = entity->getComponents();
 
@@ -288,29 +288,29 @@ namespace Ra
 
             QVector<EntityTreeItem::ItemData> vec;
             EntityTreeItem::ItemData data;
-            data.data = QString::fromStdString ( name );
+            data.data = QString::fromStdString( name );
             data.component = comp;
             data.isComponentNode = true;
 
             vec << data;
 
-            item = new EntityTreeItem ( vec, parent );
-            parent->appendChild ( item );
+            item = new EntityTreeItem( vec, parent );
+            parent->appendChild( item );
         }
     }
 
-    void Gui::EntityTreeModel::handleRename ( const QModelIndex& topLeft,
-                                              const QModelIndex& bottomRight,
-                                              const QVector<int>& )
+    void Gui::EntityTreeModel::handleRename( const QModelIndex& topLeft,
+                                             const QModelIndex& bottomRight,
+                                             const QVector<int>& )
     {
-        EntityTreeItem* item = getItem ( topLeft );
-        EntityTreeItem::ItemData data = item->getData ( 0 );
+        EntityTreeItem* item = getItem( topLeft );
+        EntityTreeItem::ItemData data = item->getData( 0 );
 
         if ( data.isEntityNode )
         {
             if ( data.entity )
             {
-                data.entity->rename ( data.data.toString().toStdString() );
+                data.entity->rename( data.data.toString().toStdString() );
             }
         }
 
@@ -326,21 +326,21 @@ namespace Ra
         QModelIndex lastSelected;
     }
 
-    void Gui::EntityTreeModel::handleSelect ( const QModelIndex& index )
+    void Gui::EntityTreeModel::handleSelect( const QModelIndex& index )
     {
         EntityTreeItem::ItemData data;
 
         if ( !firstTimeSelection )
         {
-            data = getItem ( lastSelected )->getData ( 0 );
+            data = getItem( lastSelected )->getData( 0 );
             if ( data.isEntityNode )
             {
-                data.entity->setSelected ( false );
+                data.entity->setSelected( false );
             }
 
             if ( data.isComponentNode )
             {
-                data.component->setSelected ( false );
+                data.component->setSelected( false );
             }
         }
         else
@@ -348,15 +348,15 @@ namespace Ra
             firstTimeSelection = false;
         }
 
-        data = getItem ( index )->getData ( 0 );
+        data = getItem( index )->getData( 0 );
         if ( data.isEntityNode )
         {
-            data.entity->setSelected ( true );
+            data.entity->setSelected( true );
         }
 
         if ( data.isComponentNode )
         {
-            data.component->setSelected ( true );
+            data.component->setSelected( true );
         }
 
         lastSelected = index;

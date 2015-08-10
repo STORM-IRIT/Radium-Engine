@@ -8,11 +8,11 @@ namespace Ra
         IndexMap<T>::IndexMap()
         {
             m_data.clear();
-            m_free.push_back ( Index ( 0 ) );
+            m_free.push_back( Index( 0 ) );
         }
 
         template <typename T>
-        IndexMap<T>::IndexMap ( const IndexMap& id_map )
+        IndexMap<T>::IndexMap( const IndexMap& id_map )
         {
             m_data = id_map.m_data;
             m_free = id_map.m_free;
@@ -20,90 +20,90 @@ namespace Ra
 
         /// INSERT
         template <typename T>
-        inline Index IndexMap<T>::insert ( const T& obj )
+        inline Index IndexMap<T>::insert( const T& obj )
         {
             Index idx;
-            if ( remove_free_index ( idx ) )
+            if ( remove_free_index( idx ) )
             {
-                IndexMapEntry imp ( idx, obj );
-                typename std::deque<IndexMapEntry>::iterator it = std::lower_bound ( m_data.begin(), m_data.end(), imp );
-                m_data.insert ( it, imp );
+                IndexMapEntry imp( idx, obj );
+                typename std::deque<IndexMapEntry>::iterator it = std::lower_bound( m_data.begin(), m_data.end(), imp );
+                m_data.insert( it, imp );
             }
             return idx;
         }
 
         template <typename T>
-        inline bool IndexMap<T>::insert ( const T& obj, Index& idx )
+        inline bool IndexMap<T>::insert( const T& obj, Index& idx )
         {
-            if ( !remove_free_index ( idx ) )
+            if ( !remove_free_index( idx ) )
             {
                 return false;
             }
-            IndexMapEntry imp ( idx, obj );
-            typename std::deque<IndexMapEntry>::iterator it = std::lower_bound ( m_data.begin(), m_data.end(), imp );
-            m_data.insert ( it, imp );
+            IndexMapEntry imp( idx, obj );
+            typename std::deque<IndexMapEntry>::iterator it = std::lower_bound( m_data.begin(), m_data.end(), imp );
+            m_data.insert( it, imp );
             return true;
         }
 
         /// REMOVE
         template <typename T>
-        inline bool IndexMap<T>::remove ( const Index& idx )
+        inline bool IndexMap<T>::remove( const Index& idx )
         {
             if ( m_data.empty() )
             {
                 return false;
             }
-            IndexMapEntry imp ( idx );
-            typename std::deque<IndexMapEntry>::iterator data_it = std::find ( m_data.begin(), m_data.end(), imp );
+            IndexMapEntry imp( idx );
+            typename std::deque<IndexMapEntry>::iterator data_it = std::find( m_data.begin(), m_data.end(), imp );
             if ( data_it == m_data.end() )
             {
                 return false;
             }
-            m_data.erase ( data_it );
-            insert_free_index ( idx );
+            m_data.erase( data_it );
+            insert_free_index( idx );
             return true;
         }
 
         template <typename T>
-        inline bool IndexMap<T>::remove ( const int i )
+        inline bool IndexMap<T>::remove( const int i )
         {
             if ( ( i < 0 ) || ( i >= m_data.size() ) || m_data.empty() )
             {
                 return false;
             }
-            IndexMapEntry imp ( m_data[i].idx );
-            typename std::deque<IndexMapEntry>::iterator data_it = std::find ( m_data.begin(), m_data.end(), imp );
-            insert_free_index ( m_data[i].idx );
-            m_data.erase ( data_it );
+            IndexMapEntry imp( m_data[i].idx );
+            typename std::deque<IndexMapEntry>::iterator data_it = std::find( m_data.begin(), m_data.end(), imp );
+            insert_free_index( m_data[i].idx );
+            m_data.erase( data_it );
             return true;
         }
 
         /// ACCESS
         template <typename T>
-        inline T IndexMap<T>::at ( const Index& idx ) const
+        inline T IndexMap<T>::at( const Index& idx ) const
         {
-            IndexMapEntry imp ( idx );
-            typename std::deque<IndexMapEntry>::const_iterator it = std::find ( m_data.begin(), m_data.end(), imp );
-            assert ( it != m_data.end() );
+            IndexMapEntry imp( idx );
+            typename std::deque<IndexMapEntry>::const_iterator it = std::find( m_data.begin(), m_data.end(), imp );
+            assert( it != m_data.end() );
             return it->m_obj;
         }
 
         template <typename T>
-        inline T IndexMap<T>::at ( const int i ) const
+        inline T IndexMap<T>::at( const int i ) const
         {
-            assert ( ( i >= 0 ) || ( uint ( i ) < m_data.size() ) || m_data.empty() );
-            return m_data.at ( i ).m_obj;
+            assert( ( i >= 0 ) || ( uint( i ) < m_data.size() ) || m_data.empty() );
+            return m_data.at( i ).m_obj;
         }
 
         template <typename T>
-        inline bool IndexMap<T>::at ( const Index& idx, T& obj ) const
+        inline bool IndexMap<T>::at( const Index& idx, T& obj ) const
         {
             if ( m_data.empty() )
             {
                 return false;
             }
-            IndexMapEntry imp ( idx );
-            typename std::deque<IndexMapEntry>::const_iterator it = std::find ( m_data.begin(), m_data.end(), imp );
+            IndexMapEntry imp( idx );
+            typename std::deque<IndexMapEntry>::const_iterator it = std::find( m_data.begin(), m_data.end(), imp );
             if ( it == m_data.end() )
             {
                 return false;
@@ -113,41 +113,41 @@ namespace Ra
         }
 
         template <typename T>
-        inline bool IndexMap<T>::at ( const int i, T& obj ) const
+        inline bool IndexMap<T>::at( const int i, T& obj ) const
         {
             if ( ( i < 0 ) || ( i >= m_data.size() ) || m_data.empty() )
             {
                 return false;
             }
-            obj = m_data.at ( i ).m_obj;
+            obj = m_data.at( i ).m_obj;
             return true;
         }
 
         template <typename T>
-        inline T& IndexMap<T>::access ( const Index& idx )
+        inline T& IndexMap<T>::access( const Index& idx )
         {
-            IndexMapEntry imp ( idx );
-            typename std::deque<IndexMapEntry>::iterator it = std::find ( m_data.begin(), m_data.end(), imp );
-            assert ( it != m_data.end() );
+            IndexMapEntry imp( idx );
+            typename std::deque<IndexMapEntry>::iterator it = std::find( m_data.begin(), m_data.end(), imp );
+            assert( it != m_data.end() );
             return it->m_obj;
         }
 
         template <typename T>
-        inline T& IndexMap<T>::access ( const int i )
+        inline T& IndexMap<T>::access( const int i )
         {
-            assert ( ( i >= 0 ) || ( uint ( i ) < m_data.size() ) || m_data.empty() );
+            assert( ( i >= 0 ) || ( uint( i ) < m_data.size() ) || m_data.empty() );
             return m_data[i].m_obj;
         }
 
         template <typename T>
-        inline bool IndexMap<T>::access ( const Index& idx, T& obj )
+        inline bool IndexMap<T>::access( const Index& idx, T& obj )
         {
             if ( m_data.empty() )
             {
                 return false;
             }
-            IndexMapEntry imp ( idx );
-            typename std::deque<IndexMapEntry>::iterator it = std::find ( m_data.begin(), m_data.end(), imp );
+            IndexMapEntry imp( idx );
+            typename std::deque<IndexMapEntry>::iterator it = std::find( m_data.begin(), m_data.end(), imp );
             if ( it == m_data.end() )
             {
                 return false;
@@ -157,7 +157,7 @@ namespace Ra
         }
 
         template <typename T>
-        inline bool IndexMap<T>::access ( const int i, T& obj )
+        inline bool IndexMap<T>::access( const int i, T& obj )
         {
             if ( ( i < 0 ) || ( i >= m_data.size() ) || m_data.empty() )
             {
@@ -179,7 +179,7 @@ namespace Ra
         {
             m_data.clear();
             m_free.clear();
-            m_free.push_back ( Index ( 0 ) );
+            m_free.push_back( Index( 0 ) );
         }
 
         /// QUERY
@@ -196,10 +196,10 @@ namespace Ra
         }
 
         template <typename T>
-        inline bool IndexMap<T>::contain ( const Index& idx ) const
+        inline bool IndexMap<T>::contain( const Index& idx ) const
         {
-            IndexMapEntry imp ( idx );
-            typename std::deque<IndexMapEntry>::const_iterator it = std::find ( m_data.begin(), m_data.end(), imp );
+            IndexMapEntry imp( idx );
+            typename std::deque<IndexMapEntry>::const_iterator it = std::find( m_data.begin(), m_data.end(), imp );
             if ( it == m_data.end() )
             {
                 return false;
@@ -208,7 +208,7 @@ namespace Ra
         }
 
         template <typename T>
-        inline Index IndexMap<T>::index ( const int i ) const
+        inline Index IndexMap<T>::index( const int i ) const
         {
             if ( ( i < 0 ) || ( i >= m_data.size() ) || m_data.empty() )
             {
@@ -219,47 +219,47 @@ namespace Ra
 
         /// OPERATOR
         template <typename T>
-        inline T& IndexMap<T>::operator[] ( const Index& idx )
+        inline T& IndexMap<T>::operator[]( const Index& idx )
         {
-            return access ( idx );
+            return access( idx );
         }
 
         template <typename T>
-        inline T& IndexMap<T>::operator[] ( const int i )
+        inline T& IndexMap<T>::operator[]( const int i )
         {
-            return access ( i );
+            return access( i );
         }
 
         template <typename T>
         inline Index& IndexMap<T>::operator<< ( const T& obj )
         {
-            return insert ( obj );
+            return insert( obj );
         }
 
         template <typename T>
         inline IndexMap<T>& IndexMap<T>::operator>> ( const Index& idx )
         {
-            remove ( idx );
+            remove( idx );
             return *this;
         }
 
         /// INSERT
         template <typename T>
-        inline void IndexMap<T>::insert_free_index ( const Index& idx )
+        inline void IndexMap<T>::insert_free_index( const Index& idx )
         {
-            std::deque<Index>::iterator free_it = std::lower_bound ( m_free.begin(), m_free.end(), idx );
-            m_free.insert ( free_it, idx );
+            std::deque<Index>::iterator free_it = std::lower_bound( m_free.begin(), m_free.end(), idx );
+            m_free.insert( free_it, idx );
 
             if ( m_data.empty() )
             {
                 m_free.clear();
-                m_free.push_back ( Index ( 0 ) );
+                m_free.push_back( Index( 0 ) );
             }
         }
 
         /// REMOVE
         template <typename T>
-        inline bool IndexMap<T>::remove_free_index ( Index& idx )
+        inline bool IndexMap<T>::remove_free_index( Index& idx )
         {
             if ( m_free.empty() )
             {
@@ -273,9 +273,9 @@ namespace Ra
                 Index next = idx + 1;
                 if ( next.isValid() )
                 {
-                    if ( uint ( next.getValue() ) > m_data.size() )
+                    if ( uint( next.getValue() ) > m_data.size() )
                     {
-                        m_free.push_back ( next );
+                        m_free.push_back( next );
                     }
                 }
             }

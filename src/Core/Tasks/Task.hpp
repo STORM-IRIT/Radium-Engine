@@ -20,7 +20,7 @@ namespace Ra
             Task() {}
             virtual ~Task() {}
             virtual std::string getName() const = 0;
-            virtual void init ( const TaskParams* params ) = 0;
+            virtual void init( const TaskParams* params ) = 0;
             virtual void process() = 0;
         };
 
@@ -34,7 +34,7 @@ namespace Ra
         public:
             virtual RA_API std::string getName() const override;
 
-            virtual RA_API void init ( const TaskParams* params ) override;
+            virtual RA_API void init( const TaskParams* params ) override;
 
             virtual RA_API void process() override;
 

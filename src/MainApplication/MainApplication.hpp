@@ -91,5 +91,4 @@ namespace Ra
         int m_frameCounter;
         //        LoggableFrameTimerData m_timerData;
     };
-
 }

@@ -10,7 +10,7 @@ namespace Ra
             return m_frame;
         }
 
-        inline void Camera::setFrame ( const Core::Transform& frame )
+        inline void Camera::setFrame( const Core::Transform& frame )
         {
             m_frame = frame;
         }
@@ -20,7 +20,7 @@ namespace Ra
             return ( m_frame.translation() );
         }
 
-        inline void Camera::setPosition ( const Core::Vector3& position )
+        inline void Camera::setPosition( const Core::Vector3& position )
         {
             m_frame.translation() = position;
         }
@@ -30,22 +30,22 @@ namespace Ra
             return ( -m_frame.affine().block<3, 1> ( 0, 2 ) );
         }
 
-        inline void Camera::setDirection ( const Core::Vector3& direction )
+        inline void Camera::setDirection( const Core::Vector3& direction )
         {
             Core::Transform T = Core::Transform::Identity();
 
             // Special case if two directions are exactly opposites we constrain.
             // to rotate around the up vector.
-            if ( getDirection().cross ( direction ).squaredNorm() ==  0.f
-                 && getDirection().dot ( direction ) < 0.f )
+            if ( getDirection().cross( direction ).squaredNorm() ==  0.f
+                 && getDirection().dot( direction ) < 0.f )
             {
-                T.rotate ( Core::AngleAxis ( Core::Math::PiDiv2, getUpVector() ) );
+                T.rotate( Core::AngleAxis( Core::Math::PiDiv2, getUpVector() ) );
             }
             else
             {
-                T.rotate ( Core::Quaternion::FromTwoVectors ( getDirection(), direction ) );
+                T.rotate( Core::Quaternion::FromTwoVectors( getDirection(), direction ) );
             }
-            applyTransform ( T );
+            applyTransform( T );
         }
 
         inline Core::Vector3 Camera::getUpVector() const
@@ -53,11 +53,11 @@ namespace Ra
             return ( m_frame.affine().block<3, 1> ( 0, 1 ) );
         }
 
-        inline void Camera::setUpVector ( const Core::Vector3& upVector )
+        inline void Camera::setUpVector( const Core::Vector3& upVector )
         {
             Core::Transform T = Core::Transform::Identity();
-            T.rotate ( Core::Quaternion::FromTwoVectors ( getUpVector(), upVector ) );
-            applyTransform ( T );
+            T.rotate( Core::Quaternion::FromTwoVectors( getUpVector(), upVector ) );
+            applyTransform( T );
         }
 
         inline Core::Vector3 Camera::getRightVector() const
@@ -70,7 +70,7 @@ namespace Ra
             return m_fov;
         }
 
-        inline void Camera::setFOV ( const Scalar fov )
+        inline void Camera::setFOV( const Scalar fov )
         {
             m_fov = fov;
             updateProjMatrix();
@@ -81,7 +81,7 @@ namespace Ra
             return m_zNear;
         }
 
-        inline void Camera::setZNear ( const Scalar zNear )
+        inline void Camera::setZNear( const Scalar zNear )
         {
             m_zNear = zNear;
             updateProjMatrix();
@@ -92,7 +92,7 @@ namespace Ra
             return m_zFar;
         }
 
-        inline void Camera::setZFar ( const Scalar zFar )
+        inline void Camera::setZFar( const Scalar zFar )
         {
             m_zFar = zFar;
             updateProjMatrix();
@@ -103,7 +103,7 @@ namespace Ra
             return m_zoomFactor;
         }
 
-        inline void Camera::setZoomFactor ( const Scalar& zoomFactor )
+        inline void Camera::setZoomFactor( const Scalar& zoomFactor )
         {
             m_zoomFactor = zoomFactor;
             updateProjMatrix();
@@ -119,7 +119,7 @@ namespace Ra
             return m_height;
         }
 
-        inline void Camera::resize ( Scalar width, Scalar height )
+        inline void Camera::resize( Scalar width, Scalar height )
         {
             m_width = width;
             m_height = height;
@@ -131,7 +131,7 @@ namespace Ra
             return m_projType;
         }
 
-        inline void Camera::setProjType ( const ProjType& projectionType )
+        inline void Camera::setProjType( const ProjType& projectionType )
         {
             m_projType = projectionType;
         }

@@ -10,13 +10,13 @@ namespace Ra
     namespace Engine
     {
 
-        Material::Material ( const std::string& name )
-            : m_kd ( 1.0, 1.0, 1.0, 1.0 )
-            , m_ks ( 1.0, 1.0, 1.0, 1.0 )
-            , m_ns ( 1.0 )
-            , m_name ( name )
-            , m_isDirty ( true )
-            , m_type ( MaterialType::MAT_OPAQUE )
+        Material::Material( const std::string& name )
+            : m_kd( 1.0, 1.0, 1.0, 1.0 )
+            , m_ks( 1.0, 1.0, 1.0, 1.0 )
+            , m_ns( 1.0 )
+            , m_name( name )
+            , m_isDirty( true )
+            , m_type( MaterialType::MAT_OPAQUE )
         {
         }
 
@@ -36,7 +36,7 @@ namespace Ra
             TextureManager& texManager = TextureManager::getInstanceRef();
             for ( const auto& tex : m_pendingTextures )
             {
-                addTexture ( tex.first, texManager.getOrLoadTexture ( tex.second ) );
+                addTexture( tex.first, texManager.getOrLoadTexture( tex.second ) );
             }
 
             m_pendingTextures.clear();
