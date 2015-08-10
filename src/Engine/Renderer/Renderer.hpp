@@ -176,6 +176,11 @@ namespace Ra
                 return m_pickingResults;
             }
 
+            inline std::vector<Core::Vector2> getPickingQueries() const
+            {
+                return m_lastFramePickingQueries;
+            }
+
         protected:
 
             /**
@@ -310,6 +315,7 @@ namespace Ra
             ShaderProgram*              m_pickingShader;
 
             std::vector<Core::Vector2>  m_pickingQueries;
+            std::vector<Core::Vector2>  m_lastFramePickingQueries;
             std::vector<int>            m_pickingResults;
         };
 

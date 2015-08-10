@@ -50,7 +50,7 @@ void main()
 	    pickingValue.rgb *= 20;
     }
 
-    value = pickingValue;
+    //value = pickingValue;
 
     fragColor = value;
 }

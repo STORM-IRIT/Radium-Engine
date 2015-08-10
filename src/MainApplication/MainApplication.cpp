@@ -276,11 +276,16 @@ namespace Ra
         auto pickingResults = m_viewer->getRenderer()->getPickingResults();
         if ( pickingResults.size() > 0 )
         {
+            auto pickingQueries = m_viewer->getRenderer()->getPickingQueries();
+
             LOG( logINFO ) << "There has been " << pickingResults.size() << " picking requests this frame";
             LOG( logINFO ) << "Picking results : ";
-            for ( const auto& res : pickingResults )
+            
+            for (uint i = 0; i < pickingResults.size(); ++i)
             {
-                LOG( logINFO ) << "Object " << res << " touched.";
+                auto res = pickingResults[i];
+                auto query = pickingQueries[i];
+                LOG( logINFO ) << "Query #" << i << " : (" << query.x() << " " << query.y() << ") - Object " << res << " touched.";
             }
         }
         // TODO : get result of picking queries.

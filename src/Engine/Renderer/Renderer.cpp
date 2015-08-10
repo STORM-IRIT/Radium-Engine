@@ -252,6 +252,7 @@ namespace Ra
                 m_pickingResults.push_back( id );
             }
 
+            m_lastFramePickingQueries = m_pickingQueries;
             m_pickingQueries.clear();
             m_pickingFbo->unbind();
         }
@@ -581,6 +582,7 @@ namespace Ra
 
             m_pickingFbo->bind();
             m_pickingFbo->setSize( w, h );
+            m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT , m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH].get() );
             m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get() );
             m_pickingFbo->check();
             m_pickingFbo->unbind( true );
