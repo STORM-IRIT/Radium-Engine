@@ -36,11 +36,11 @@ namespace Ra
             /// @param mode  GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY,
             /// GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY,
             /// GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, or GL_DYNAMIC_COPY
-            inline GlBuffer ( uint numElements, const T* data = nullptr, GLenum drawMode = GL_STREAM_DRAW );
+            inline GlBuffer( uint numElements, const T* data = nullptr, GLenum drawMode = GL_STREAM_DRAW );
 
-            inline GlBuffer ( const std::vector<T>& data, GLenum drawMode = GL_STREAM_DRAW );
+            inline GlBuffer( const std::vector<T>& data, GLenum drawMode = GL_STREAM_DRAW );
 
-            inline GlBuffer ( const GlBuffer<T, GL_BUFFER_TYPE>& buffer );
+            inline GlBuffer( const GlBuffer<T, GL_BUFFER_TYPE>& buffer );
 
             inline ~GlBuffer();
 
@@ -58,26 +58,26 @@ namespace Ra
             /// @param mode : GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY,
             /// GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY,
             /// GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, or GL_DYNAMIC_COPY
-            inline void setData ( uint numElements,
-                                  const T* data = nullptr,
-                                  GLenum drawMode = GL_STREAM_DRAW );
+            inline void setData( uint numElements,
+                                 const T* data = nullptr,
+                                 GLenum drawMode = GL_STREAM_DRAW );
 
             /// Allocate and upload data of the buffer object
             /// @param data : vector of datas
             /// @param mode : GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY,
             /// GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY,
             /// GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, or GL_DYNAMIC_COPY
-            inline void setData ( const std::vector<T>& data, GLenum drawMode = GL_STREAM_DRAW );
+            inline void setData( const std::vector<T>& data, GLenum drawMode = GL_STREAM_DRAW );
 
             /// Download data from the buffer object
-            void getData ( uint numElements,
-                           T* data, uint offset = 0 ) const;
+            void getData( uint numElements,
+                          T* data, uint offset = 0 ) const;
 
 
             /// Map the buffer object to some pointer on host memory
             /// @param access_mode can be : GL_READ_ONLY, GL_WRITE_ONLY or GL_READ_WRITE.
             /// @return the pointer in host memory mapping to the VBO
-            inline T* map ( GLenum access_mode ) const;
+            inline T* map( GLenum access_mode ) const;
 
             /// Unmap the buffer object
             inline bool unmap() const;
@@ -107,12 +107,12 @@ namespace Ra
             static GLint getCurrentBinding()
             {
                 GLint id;
-                GL_ASSERT ( glGetIntegerv ( bufferTypeToBinding ( GL_BUFFER_TYPE ), &id ) );
+                GL_ASSERT( glGetIntegerv( bufferTypeToBinding( GL_BUFFER_TYPE ), &id ) );
                 return id;
             }
 
             /// Maps buffer type and binding enums.
-            static inline GLenum bufferTypeToBinding ( GLenum buffType )
+            static inline GLenum bufferTypeToBinding( GLenum buffType )
             {
                 switch ( buffType )
                 {
@@ -129,7 +129,7 @@ namespace Ra
                         return GL_PIXEL_UNPACK_BUFFER_BINDING;
                         break;
                     default:
-                        CORE_ASSERT ( false, "Unknown buffer type" );
+                        CORE_ASSERT( false, "Unknown buffer type" );
                         return -1;
                         break;
                 }

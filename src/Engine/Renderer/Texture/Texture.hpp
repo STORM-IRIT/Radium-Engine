@@ -39,7 +39,7 @@ namespace Ra
              * @todo Add anonym textures ?
              * @todo Redundancy between target and type ?
              */
-            explicit Texture ( std::string name, uint target, TextureType type = TEXTURE_2D, uint zoffset = 0 );
+            explicit Texture( std::string name, uint target, TextureType type = TEXTURE_2D, uint zoffset = 0 );
 
             /**
              * Texture desctructor. Both internal data and OpenGL stuff are deleted.
@@ -73,7 +73,7 @@ namespace Ra
              * @param data Data contained in the texture. Can be nullptr. <br/>
              * If \b data is not null, the texture will take the ownership of it.
              */
-            void initGL ( uint internalFormat, uint width, uint format, uint type, void* data );
+            void initGL( uint internalFormat, uint width, uint format, uint type, void* data );
 
             /**
              * @brief Init the texture 2D from OpenGL point of view.
@@ -104,7 +104,7 @@ namespace Ra
              * @param data Data contained in the texture. Can be nullptr. <br/>
              * If \b data is not null, the texture will take the ownership of it.
              */
-            void initGL ( uint internalFormat, uint width, uint height, uint format, uint type, void* data );
+            void initGL( uint internalFormat, uint width, uint height, uint format, uint type, void* data );
 
             /**
              * @brief Init the texture 3D from OpenGL point of view.
@@ -137,7 +137,7 @@ namespace Ra
              * @param data Data contained in the texture. Can be nullptr. <br/>
              * If \b data is not null, the texture will take the ownership of it.
              */
-            void initGL ( uint internalFormat, uint width, uint height, uint depth, uint format, uint type, void* data );
+            void initGL( uint internalFormat, uint width, uint height, uint depth, uint format, uint type, void* data );
 
             /**
              * @brief Init the textures needed for the cubemap from OpenGL point of view.
@@ -168,7 +168,7 @@ namespace Ra
              * @param data Data contained in the texture. Can be nullptr. <br/>
              * If \b data is not null, the texture will take the ownership of it.
              */
-            void initCubeGL ( uint internalFormat, uint width, uint height, uint format, uint type, void** data );
+            void initCubeGL( uint internalFormat, uint width, uint height, uint format, uint type, void** data );
 
             /**
              * @brief Generate mipmaps for the texture
@@ -178,7 +178,7 @@ namespace Ra
              *
              * @param magFilter The magnifying function used by OpenGL. Must be GL_NEAREST or GL_LINEAR.
              */
-            void genMipmap ( uint minFilter, uint magFilter );
+            void genMipmap( uint minFilter, uint magFilter );
 
             /**
              * @brief Set filter used for textures
@@ -188,7 +188,7 @@ namespace Ra
              *
              * @param magFilter The magnifying function used by OpenGL. Must be GL_NEAREST or GL_LINEAR.
              */
-            void setFilter ( uint minFilter, uint magFilter );
+            void setFilter( uint minFilter, uint magFilter );
 
             /**
              * @brief Set clamp method for 1D textures.
@@ -196,7 +196,7 @@ namespace Ra
              * @param warpS Clamp parameter for the s texture coordinate.
              * Must be GL_REPEAT, GL_CLAMP_TO_EDGE or GL_MIRRORED_REPEAT.
              */
-            void setClamp ( uint warpS );
+            void setClamp( uint warpS );
 
             /**
              * @brief Set clamp method for both 2D and cube textures.
@@ -207,7 +207,7 @@ namespace Ra
              * @param warpT Clamp parameter for the t texture coordinate.
              * Must be GL_REPEAT, GL_CLAMP_TO_EDGE or GL_MIRRORED_REPEAT.
              */
-            void setClamp ( uint warpS, uint warpT );
+            void setClamp( uint warpS, uint warpT );
 
             /**
              * @brief Set clamp method for 3D textures.
@@ -221,13 +221,13 @@ namespace Ra
              * @param warpR Clamp parameter for the r texture coordinate.
              * Must be GL_REPEAT, GL_CLAMP_TO_EDGE or GL_MIRRORED_REPEAT.
              */
-            void setClamp ( uint warpS, uint warpT, uint warpR );
+            void setClamp( uint warpS, uint warpT, uint warpR );
 
             /**
              * @brief Bind the texture to enable its use in a shader
              * @param unit Index of the texture to be bound.
              */
-            void bind ( int unit );
+            void bind( int unit );
 
             /**
              * @brief Clear OpenGL internal data.
@@ -261,13 +261,13 @@ namespace Ra
              */
             uint getZOffset() const;
 
-            Core::Color getTexel ( uint u, uint v );
+            Core::Color getTexel( uint u, uint v );
 
         private:
-            Texture ( const Texture& ) = delete;
+            Texture( const Texture& ) = delete;
             void operator= ( const Texture& ) = delete;
 
-            void setBPP ( int bpp );
+            void setBPP( int bpp );
 
         private:
             uint m_textureId;

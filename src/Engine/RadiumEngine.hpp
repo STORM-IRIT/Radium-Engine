@@ -47,7 +47,7 @@ namespace Ra
             void setupScene();
             void cleanup();
 
-            void getTasks ( Core::TaskQueue* taskQueue, Scalar dt );
+            void getTasks( Core::TaskQueue* taskQueue, Scalar dt );
 
             // FIXME(Charly): Should the engine know the renderer ?
             Renderer* getRenderer() const
@@ -55,12 +55,12 @@ namespace Ra
                 return m_renderer;
             }
 
-            System* getSystem ( const std::string& system ) const;
+            System* getSystem( const std::string& system ) const;
 
-            bool loadFile ( const std::string& file );
+            bool loadFile( const std::string& file );
 
-            bool handleMouseEvent ( const Core::MouseEvent& event );
-            bool handleKeyEvent ( const Core::KeyEvent& event );
+            bool handleMouseEvent( const Core::MouseEvent& event );
+            bool handleKeyEvent( const Core::KeyEvent& event );
 
             /// Manager getters
             RenderObjectManager*  getRenderObjectManager()  const;

@@ -43,7 +43,7 @@ namespace Ra
         private:
             typedef Core::VectorArray<Core::Vector3> Vector3Array;
         public:
-            Mesh ( const std::string& name );
+            Mesh( const std::string& name );
             ~Mesh();
 
             const std::string& getName() const
@@ -52,12 +52,12 @@ namespace Ra
             }
 
             /// GL_POINTS, GL_LINES, GL_TRIANGLES, GL_TRIANGLE_ADJACENCY, etc...
-            void setRenderMode ( const GLenum& mode );
+            void setRenderMode( const GLenum& mode );
 
-            void loadGeometry ( const Vector3Array& positions, const std::vector<uint>& indices );
-            void addData ( const DataType& type, const Vector3Array& position );
+            void loadGeometry( const Vector3Array& positions, const std::vector<uint>& indices );
+            void addData( const DataType& type, const Vector3Array& position );
 
-            const Vector3Array& getData ( const DataType& type ) const
+            const Vector3Array& getData( const DataType& type ) const
             {
                 return m_data[type];
             }
@@ -75,7 +75,7 @@ namespace Ra
             void render();
 
         private:
-            Mesh ( const Mesh& ) = delete;
+            Mesh( const Mesh& ) = delete;
             void operator= ( const Mesh& ) = delete;
 
         private:

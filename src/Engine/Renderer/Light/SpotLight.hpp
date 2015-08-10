@@ -18,7 +18,7 @@ namespace Ra
                 Scalar linear;
                 Scalar quadratic;
 
-                Attenuation() : constant ( 1.0 ), linear(), quadratic() {}
+                Attenuation() : constant( 1.0 ), linear(), quadratic() {}
             };
 
         public:
@@ -27,24 +27,24 @@ namespace Ra
             SpotLight();
             virtual ~SpotLight();
 
-            virtual void getRenderParameters ( RenderParameters& params );
+            virtual void getRenderParameters( RenderParameters& params );
 
-            inline void setPosition ( const Core::Vector3& position );
+            inline void setPosition( const Core::Vector3& position );
             inline const Core::Vector3& getPosition() const;
 
-            inline void setDirection ( const Core::Vector3& direction );
+            inline void setDirection( const Core::Vector3& direction );
             inline const Core::Vector3& getDirection() const;
 
-            inline void setInnerAngleInRadians ( Scalar angle );
-            inline void setOuterAngleInRadians ( Scalar angle );
-            inline void setInnerAngleInDegrees ( Scalar angle );
-            inline void setOuterAngleInDegrees ( Scalar angle );
+            inline void setInnerAngleInRadians( Scalar angle );
+            inline void setOuterAngleInRadians( Scalar angle );
+            inline void setInnerAngleInDegrees( Scalar angle );
+            inline void setOuterAngleInDegrees( Scalar angle );
 
             inline Scalar getInnerAngle() const;
             inline Scalar getOuterAngle() const;
 
-            inline void setAttenuation ( const Attenuation& attenuation );
-            inline void setAttenuation ( Scalar constant, Scalar linear, Scalar quadratic );
+            inline void setAttenuation( const Attenuation& attenuation );
+            inline void setAttenuation( Scalar constant, Scalar linear, Scalar quadratic );
             inline const Attenuation& getAttenuation() const;
 
         private:

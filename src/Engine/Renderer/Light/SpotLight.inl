@@ -3,7 +3,7 @@
 namespace Ra
 {
 
-    inline void Engine::SpotLight::setPosition ( const Core::Vector3& position )
+    inline void Engine::SpotLight::setPosition( const Core::Vector3& position )
     {
         m_position = position;
     }
@@ -13,7 +13,7 @@ namespace Ra
         return m_position;
     }
 
-    inline void Engine::SpotLight::setDirection ( const Core::Vector3& direction )
+    inline void Engine::SpotLight::setDirection( const Core::Vector3& direction )
     {
         m_direction = direction.normalized();
     }
@@ -23,22 +23,22 @@ namespace Ra
         return m_direction;
     }
 
-    inline void Engine::SpotLight::setInnerAngleInRadians ( Scalar angle )
+    inline void Engine::SpotLight::setInnerAngleInRadians( Scalar angle )
     {
         m_innerAngle = angle;
     }
 
-    inline void Engine::SpotLight::setOuterAngleInRadians ( Scalar angle )
+    inline void Engine::SpotLight::setOuterAngleInRadians( Scalar angle )
     {
         m_outerAngle = angle;
     }
 
-    inline void Engine::SpotLight::setInnerAngleInDegrees ( Scalar angle )
+    inline void Engine::SpotLight::setInnerAngleInDegrees( Scalar angle )
     {
         m_innerAngle = angle * Core::Math::toRad;
     }
 
-    inline void Engine::SpotLight::setOuterAngleInDegrees ( Scalar angle )
+    inline void Engine::SpotLight::setOuterAngleInDegrees( Scalar angle )
     {
         m_outerAngle = Core::Math::toRad * angle;
     }
@@ -53,12 +53,12 @@ namespace Ra
         return m_outerAngle;
     }
 
-    inline void Engine::SpotLight::setAttenuation ( const Attenuation& attenuation )
+    inline void Engine::SpotLight::setAttenuation( const Attenuation& attenuation )
     {
         m_attenuation = attenuation;
     }
 
-    inline void Engine::SpotLight::setAttenuation ( Scalar c, Scalar l, Scalar q )
+    inline void Engine::SpotLight::setAttenuation( Scalar c, Scalar l, Scalar q )
     {
         m_attenuation.constant = c;
         m_attenuation.linear = l;

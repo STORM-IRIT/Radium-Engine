@@ -6,8 +6,8 @@ namespace Ra
 {
 
     Engine::PointLight::PointLight()
-        : Light ( Light::POINT )
-        , m_position ( 0, 0, 0 )
+        : Light( Light::POINT )
+        , m_position( 0, 0, 0 )
         , m_attenuation()
     {
     }
@@ -16,14 +16,14 @@ namespace Ra
     {
     }
 
-    void Engine::PointLight::getRenderParameters ( RenderParameters& params )
+    void Engine::PointLight::getRenderParameters( RenderParameters& params )
     {
-        Light::getRenderParameters ( params );
+        Light::getRenderParameters( params );
 
-        params.addParameter ( "light.point.position", m_position );
-        params.addParameter ( "light.point.attenuation.constant", m_attenuation.constant );
-        params.addParameter ( "light.point.attenuation.linear", m_attenuation.linear );
-        params.addParameter ( "light.point.attenuation.quadratic", m_attenuation.quadratic );
+        params.addParameter( "light.point.position", m_position );
+        params.addParameter( "light.point.attenuation.constant", m_attenuation.constant );
+        params.addParameter( "light.point.attenuation.linear", m_attenuation.linear );
+        params.addParameter( "light.point.attenuation.quadratic", m_attenuation.quadratic );
     }
 
 }

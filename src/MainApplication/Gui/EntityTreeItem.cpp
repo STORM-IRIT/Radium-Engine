@@ -47,20 +47,20 @@
 namespace Ra
 {
 
-    Gui::EntityTreeItem::EntityTreeItem ( const QVector<ItemData>& data, EntityTreeItem* parent )
-        : m_parentItem ( parent )
+    Gui::EntityTreeItem::EntityTreeItem( const QVector<ItemData>& data, EntityTreeItem* parent )
+        : m_parentItem( parent )
     {
         m_itemData = data;
     }
 
     Gui::EntityTreeItem::~EntityTreeItem()
     {
-        qDeleteAll ( m_childItems );
+        qDeleteAll( m_childItems );
     }
 
-    Gui::EntityTreeItem* Gui::EntityTreeItem::getChild ( int row )
+    Gui::EntityTreeItem* Gui::EntityTreeItem::getChild( int row )
     {
-        return m_childItems.value ( row );
+        return m_childItems.value( row );
     }
 
     uint Gui::EntityTreeItem::getChildCount() const
@@ -73,9 +73,9 @@ namespace Ra
         return m_itemData.count();
     }
 
-    Gui::EntityTreeItem::ItemData Gui::EntityTreeItem::getData ( int column ) const
+    Gui::EntityTreeItem::ItemData Gui::EntityTreeItem::getData( int column ) const
     {
-        return m_itemData.value ( column );
+        return m_itemData.value( column );
     }
 
     Gui::EntityTreeItem* Gui::EntityTreeItem::getParentItem()
@@ -87,12 +87,12 @@ namespace Ra
     {
         if ( m_parentItem )
         {
-            return m_parentItem->m_childItems.indexOf ( const_cast<EntityTreeItem*> ( this ) );
+            return m_parentItem->m_childItems.indexOf( const_cast<EntityTreeItem*>( this ) );
         }
         return 0;
     }
 
-    bool Gui::EntityTreeItem::insertChildren ( uint position, uint count, uint columns )
+    bool Gui::EntityTreeItem::insertChildren( uint position, uint count, uint columns )
     {
         if ( position > m_childItems.size() )
         {
@@ -101,15 +101,15 @@ namespace Ra
 
         for ( uint row = 0; row < count; ++row )
         {
-            QVector<ItemData> data ( columns );
-            EntityTreeItem* item = new EntityTreeItem ( data, this );
-            m_childItems.insert ( position, item );
+            QVector<ItemData> data( columns );
+            EntityTreeItem* item = new EntityTreeItem( data, this );
+            m_childItems.insert( position, item );
         }
 
         return true;
     }
 
-    bool Gui::EntityTreeItem::insertColumns ( uint position, uint columns )
+    bool Gui::EntityTreeItem::insertColumns( uint position, uint columns )
     {
         if ( position > m_itemData.size() )
         {
@@ -118,18 +118,18 @@ namespace Ra
 
         for ( uint column = 0; column < columns; ++column )
         {
-            m_itemData.insert ( position, ItemData() );
+            m_itemData.insert( position, ItemData() );
         }
 
         for ( EntityTreeItem* child : m_childItems )
         {
-            child->insertColumns ( position, columns );
+            child->insertColumns( position, columns );
         }
 
         return true;
     }
 
-    bool Gui::EntityTreeItem::removeChildren ( uint position, uint count )
+    bool Gui::EntityTreeItem::removeChildren( uint position, uint count )
     {
         if ( position + count > m_childItems.size() )
         {
@@ -138,13 +138,13 @@ namespace Ra
 
         for ( uint row = 0; row < count; ++row )
         {
-            delete m_childItems.takeAt ( position );
+            delete m_childItems.takeAt( position );
         }
 
         return true;
     }
 
-    bool Gui::EntityTreeItem::removeColumns ( uint position, uint columns )
+    bool Gui::EntityTreeItem::removeColumns( uint position, uint columns )
     {
         if ( position + columns > m_itemData.size() )
         {
@@ -153,18 +153,18 @@ namespace Ra
 
         for ( uint column = 0; column < columns; ++column )
         {
-            m_itemData.remove ( position );
+            m_itemData.remove( position );
         }
 
         foreach ( EntityTreeItem* child, m_childItems )
         {
-            child->removeColumns ( position, columns );
+            child->removeColumns( position, columns );
         }
 
         return true;
     }
 
-    bool Gui::EntityTreeItem::setData ( uint column, const ItemData& value )
+    bool Gui::EntityTreeItem::setData( uint column, const ItemData& value )
     {
         if ( column >= m_itemData.size() )
         {

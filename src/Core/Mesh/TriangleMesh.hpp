@@ -17,14 +17,14 @@ namespace Ra
             /// Create an empty mesh.
             TriangleMesh() {}
             /// Copy constructor and assignment operator
-            TriangleMesh ( const TriangleMesh& ) = default;
+            TriangleMesh( const TriangleMesh& ) = default;
             TriangleMesh& operator= ( const TriangleMesh& ) = default;
 
             /// Erases all data, making the mesh empty.
             inline RA_API void clear();
 
             /// Appends another mesh to this one.
-            inline RA_API void append ( const TriangleMesh& other );
+            inline RA_API void append( const TriangleMesh& other );
 
             VectorArray<Vector3>  m_vertices;
             VectorArray<Vector3>  m_normals;

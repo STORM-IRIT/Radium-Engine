@@ -14,14 +14,14 @@ namespace Ra
         {
         public:
             /// CONSTRUCTOR
-            Index ( const int i = s_invalid );
-            Index ( const Index& i );
+            Index( const int i = s_invalid );
+            Index( const Index& i );
 
             /// DESTRUCTOR
             ~Index() { }
 
             /// COPY
-            inline void copy ( const Index& id );
+            inline void copy( const Index& id );
 
             /// VALID
             inline bool isValid() const;
@@ -31,16 +31,16 @@ namespace Ra
             inline void setInvalid();
             static Index INVALID_IDX()
             {
-                return Index ( s_invalid );
+                return Index( s_invalid );
             }
             static Index MAX_IDX()
             {
-                return Index ( s_maxIdx );
+                return Index( s_maxIdx );
             }
 
             /// INDEX
             inline int  getValue() const;
-            inline void setValue ( const int i );
+            inline void setValue( const int i );
 
             /// OPERATOR
             inline Index& operator= ( const Index& id );
@@ -56,13 +56,13 @@ namespace Ra
                 {
                     return INVALID_IDX();
                 }
-                return Index ( id0.m_idx + id1.m_idx );
+                return Index( id0.m_idx + id1.m_idx );
             }
             friend inline Index operator+ ( const Index& id,  const int    off )
             {
                 int i;
                 i = ( ( i = id.m_idx + off ) < 0 ) ? s_invalid : i;
-                return Index ( i );
+                return Index( i );
             }
             friend inline Index operator- ( const Index& id0, const Index& id1 )
             {
@@ -70,13 +70,13 @@ namespace Ra
                 {
                     return INVALID_IDX();
                 }
-                return Index ( id0.m_idx - id1.m_idx );
+                return Index( id0.m_idx - id1.m_idx );
             }
             friend inline Index operator- ( const Index& id,  const int    off )
             {
                 int i;
                 i = ( ( i = id.m_idx - off ) < 0 ) ? s_invalid : i;
-                return Index ( i );
+                return Index( i );
             }
             friend inline bool  operator== ( const Index& id0, const Index& id1 )
             {
@@ -118,27 +118,27 @@ namespace Ra
                 }
                 return ( id0.m_idx >= id1.m_idx );
             }
-            friend inline bool  operator== ( const Index& id,  const int    i   )
+            friend inline bool  operator== ( const Index& id,  const int    i )
             {
                 return ( id.m_idx == i );
             }
-            friend inline bool  operator!= ( const Index& id,  const int    i   )
+            friend inline bool  operator!= ( const Index& id,  const int    i )
             {
                 return ( id.m_idx != i );
             }
-            friend inline bool  operator< ( const Index& id,  const int    i   )
+            friend inline bool  operator< ( const Index& id,  const int    i )
             {
                 return ( id.m_idx <  i );
             }
-            friend inline bool  operator<= ( const Index& id,  const int    i   )
+            friend inline bool  operator<= ( const Index& id,  const int    i )
             {
                 return ( id.m_idx <= i );
             }
-            friend inline bool  operator> ( const Index& id,  const int    i   )
+            friend inline bool  operator> ( const Index& id,  const int    i )
             {
                 return ( id.m_idx >  i );
             }
-            friend inline bool  operator>= ( const Index& id,  const int    i   )
+            friend inline bool  operator>= ( const Index& id,  const int    i )
             {
                 return ( id.m_idx >= i );
             }

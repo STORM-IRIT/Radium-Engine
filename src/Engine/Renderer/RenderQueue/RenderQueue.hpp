@@ -35,7 +35,7 @@ namespace Ra
             using std::map<Key, Child, std::less<Key>, Core::AlignedAllocator<std::pair<const Key, Child>, 16>>::map;
             inline virtual RA_API ~RenderableMap();
 
-            inline void RA_API render ( ShaderProgram* shader ) const;
+            inline void RA_API render( ShaderProgram* shader ) const;
         };
 
         class BindableMeshVector : public std::vector <BindableMesh, Core::AlignedAllocator<BindableMesh, 16>>
@@ -44,7 +44,7 @@ namespace Ra
             inline RA_API BindableMeshVector();
             inline virtual RA_API ~BindableMeshVector();
 
-            inline void RA_API render ( ShaderProgram* shader ) const;
+            inline void RA_API render( ShaderProgram* shader ) const;
         };
 
         typedef RenderableMap<BindableTransform, BindableMeshVector> TransformRenderQueue;
@@ -57,9 +57,9 @@ namespace Ra
             inline virtual RA_API ~RenderQueue();
 
             inline RA_API void render() const;
-            inline RA_API void render ( const RenderParameters& params ) const;
-            inline RA_API void render ( ShaderProgram* shader ) const;
-            inline RA_API void render ( ShaderProgram* shader, const RenderParameters& params ) const;
+            inline RA_API void render( const RenderParameters& params ) const;
+            inline RA_API void render( ShaderProgram* shader ) const;
+            inline RA_API void render( ShaderProgram* shader, const RenderParameters& params ) const;
         };
 
     } // namespace Engine

@@ -18,15 +18,15 @@ namespace Ra
             RA_CORE_ALIGNED_NEW
 
             /// Construct a Tex3D with the given resolution in the box given by two points.
-            Tex3D ( const Vector3i& resolution, const Vector3& start, const Vector3& end );
+            Tex3D( const Vector3i& resolution, const Vector3& start, const Vector3& end );
 
             /// Construct a Tex3D with the give resulution in the given AABB.
-            Tex3D ( const Vector3i& resolution, const Aabb& aabb );
+            Tex3D( const Vector3i& resolution, const Aabb& aabb );
 
             inline const Aabb& getAabb() const;
 
             /// Tri-linear interpolation of the grid values at position v.
-            T fetch ( const Vector3& v ) const;
+            T fetch( const Vector3& v ) const;
 
         private:
             /// The bounding box of the portion of space represented.

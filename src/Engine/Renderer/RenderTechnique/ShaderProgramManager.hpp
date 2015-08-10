@@ -34,12 +34,12 @@ namespace Ra
             };
 
         public:
-            int getShaderId ( const std::string& shader ) const;
+            int getShaderId( const std::string& shader ) const;
 
-            ShaderProgram* addShaderProgram ( const std::string& name );
-            ShaderProgram* addShaderProgram ( const ShaderConfiguration& config );
+            ShaderProgram* addShaderProgram( const std::string& name );
+            ShaderProgram* addShaderProgram( const ShaderConfiguration& config );
 
-            ShaderProgram* getShaderProgram ( const ShaderConfiguration& config );
+            ShaderProgram* getShaderProgram( const ShaderConfiguration& config );
 
             ShaderProgram* getDefaultShaderProgram() const;
 
@@ -47,13 +47,13 @@ namespace Ra
             void reloadNotCompiledShaderPrograms();
 
         private:
-            ShaderProgramManager ( const std::string& shaderPath,
-                                   const std::string& defaultShaderProgram );
+            ShaderProgramManager( const std::string& shaderPath,
+                                  const std::string& defaultShaderProgram );
             ~ShaderProgramManager();
 
-            void insertShader ( const ShaderConfiguration& config, ShaderProgram* shader, const ShaderProgramStatus& status );
-            ShaderConfiguration getDefaultShaderConfiguration ( const std::string& shaderName );
-            std::string getFullShaderName ( const std::string& shaderName );
+            void insertShader( const ShaderConfiguration& config, ShaderProgram* shader, const ShaderProgramStatus& status );
+            ShaderConfiguration getDefaultShaderConfiguration( const std::string& shaderName );
+            std::string getFullShaderName( const std::string& shaderName );
 
         private:
             std::string m_shaderPath;

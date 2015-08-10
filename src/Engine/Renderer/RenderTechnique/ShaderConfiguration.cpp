@@ -7,31 +7,31 @@
 namespace Ra
 {
 
-    Engine::ShaderConfiguration::ShaderConfiguration ( const std::string& name,
-                                                       const std::string& path,
-                                                       const ShaderType& type )
-        : m_name ( name )
-        , m_shaderPath ( path )
-        , m_type ( type )
+    Engine::ShaderConfiguration::ShaderConfiguration( const std::string& name,
+                                                      const std::string& path,
+                                                      const ShaderType& type )
+        : m_name( name )
+        , m_shaderPath( path )
+        , m_type( type )
     {
     }
 
-    void Engine::ShaderConfiguration::addProperty ( const std::string& prop )
+    void Engine::ShaderConfiguration::addProperty( const std::string& prop )
     {
-        m_properties.insert ( prop );
+        m_properties.insert( prop );
     }
 
-    void Engine::ShaderConfiguration::addProperties ( const std::list<std::string>& props )
+    void Engine::ShaderConfiguration::addProperties( const std::list<std::string>& props )
     {
         for ( const auto& prop : props )
         {
-            m_properties.insert ( prop );
+            m_properties.insert( prop );
         }
     }
 
-    void Engine::ShaderConfiguration::removeProperty ( const std::string& prop )
+    void Engine::ShaderConfiguration::removeProperty( const std::string& prop )
     {
-        m_properties.erase ( prop );
+        m_properties.erase( prop );
     }
 
     bool Engine::ShaderConfiguration::operator< ( const Engine::ShaderConfiguration& o ) const
@@ -76,17 +76,17 @@ namespace Ra
         return res;
     }
 
-    void Engine::ShaderConfiguration::setName ( const std::string& name )
+    void Engine::ShaderConfiguration::setName( const std::string& name )
     {
         m_name = name;
     }
 
-    void Engine::ShaderConfiguration::setPath ( const std::string& path )
+    void Engine::ShaderConfiguration::setPath( const std::string& path )
     {
         m_shaderPath = path;
     }
 
-    void Engine::ShaderConfiguration::setType ( const Engine::ShaderConfiguration::ShaderType& type )
+    void Engine::ShaderConfiguration::setType( const Engine::ShaderConfiguration::ShaderType& type )
     {
         m_type = type;
     }
@@ -119,7 +119,7 @@ namespace Ra
     }
 
 
-    std::string Engine::ShaderType::getShaderTypeString ( unsigned int type )
+    std::string Engine::ShaderType::getShaderTypeString( unsigned int type )
     {
         std::stringstream ss;
         switch ( type )

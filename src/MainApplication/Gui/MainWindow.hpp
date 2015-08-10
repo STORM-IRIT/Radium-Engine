@@ -34,7 +34,7 @@ namespace Ra
             Q_OBJECT
 
         public:
-            explicit MainWindow ( QWidget* parent = nullptr );
+            explicit MainWindow( QWidget* parent = nullptr );
             virtual ~MainWindow();
 
             void createConnections();
@@ -47,42 +47,42 @@ namespace Ra
 
         private slots:
             void loadFile();
-            void clicked ( QModelIndex index );
-            void activated ( QModelIndex index );
+            void clicked( QModelIndex index );
+            void activated( QModelIndex index );
 
             void setCameraPosition();
             void setCameraTarget();
 
         public slots:
             void entitiesUpdated();
-            void cameraPositionChanged ( const Core::Vector3& p );
-            void cameraTargetChanged ( const Core::Vector3& p );
+            void cameraPositionChanged( const Core::Vector3& p );
+            void cameraTargetChanged( const Core::Vector3& p );
 
         signals:
-            void fileLoading ( const QString path );
-            void entitiesUpdated ( const std::vector<Engine::Entity*>& );
+            void fileLoading( const QString path );
+            void entitiesUpdated( const std::vector<Engine::Entity*>& );
 
         signals:
-            void setCameraPosition ( const Core::Vector3& );
-            void setCameraTarget ( const Core::Vector3& );
+            void setCameraPosition( const Core::Vector3& );
+            void setCameraTarget( const Core::Vector3& );
 
         private:
             // Basic I/O management
             // Intercept key events from Qt
 
-            virtual void keyPressEvent ( QKeyEvent* event ) override;
-            virtual void keyReleaseEvent ( QKeyEvent* event ) override;
+            virtual void keyPressEvent( QKeyEvent* event ) override;
+            virtual void keyReleaseEvent( QKeyEvent* event ) override;
         public:
             // Accept viewer mouse events.
-            inline void viewerMousePressEvent ( QMouseEvent* event );
-            inline void viewerMouseReleaseEvent ( QMouseEvent* event );
-            inline void viewerMouseMoveEvent ( QMouseEvent* event );
-            inline void viewerWheelEvent ( QWheelEvent* event );
+            inline void viewerMousePressEvent( QMouseEvent* event );
+            inline void viewerMouseReleaseEvent( QMouseEvent* event );
+            inline void viewerMouseMoveEvent( QMouseEvent* event );
+            inline void viewerWheelEvent( QWheelEvent* event );
 
         private:
-            static Core::MouseEvent mouseEventQtToRadium ( const QMouseEvent* qtEvent );
-            static Core::MouseEvent wheelEventQtToRadium ( const QWheelEvent* qtEvent );
-            static Core::KeyEvent   keyEventQtToRadium  ( const QKeyEvent* qtEvent );
+            static Core::MouseEvent mouseEventQtToRadium( const QMouseEvent* qtEvent );
+            static Core::MouseEvent wheelEventQtToRadium( const QWheelEvent* qtEvent );
+            static Core::KeyEvent   keyEventQtToRadium( const QKeyEvent* qtEvent );
 
             // Output gui management
             void updateEntitiesTree();

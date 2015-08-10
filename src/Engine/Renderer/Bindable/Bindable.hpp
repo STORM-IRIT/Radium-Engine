@@ -22,7 +22,7 @@ namespace Ra
             Bindable() {}
             virtual ~Bindable() {}
 
-            virtual void bind ( ShaderProgram* shader ) const = 0;
+            virtual void bind( ShaderProgram* shader ) const = 0;
         };
 
     }

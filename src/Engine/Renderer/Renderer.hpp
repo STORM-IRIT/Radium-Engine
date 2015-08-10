@@ -79,14 +79,14 @@ namespace Ra
 
         public:
             /// CONSTRUCTOR
-            Renderer ( uint width, uint height );
+            Renderer( uint width, uint height );
 
             /// DESCTRUCTOR
             virtual ~Renderer();
 
             virtual void initialize();
 
-            void setEngine ( RadiumEngine* engine )
+            void setEngine( RadiumEngine* engine )
             {
                 m_engine = engine;
             }
@@ -126,7 +126,7 @@ namespace Ra
              * framebuffer, and restores it before drawing the last final texture.
              * If no framebuffer was bound, it draws into GL_BACK.
              */
-            void render ( const RenderData& renderData );
+            void render( const RenderData& renderData );
 
             /**
              * @brief Resize the viewport and all the screen textures, fbos.
@@ -137,7 +137,7 @@ namespace Ra
              * @param width The new viewport width
              * @param height The new viewport height
              */
-            virtual void resize ( uint width, uint height );
+            virtual void resize( uint width, uint height );
 
             /**
              * @brief Change the texture that is displayed on screen.
@@ -151,24 +151,27 @@ namespace Ra
             //                the current "fullscreen" debug mode, and some kind of
             //                "windowed" mode (that would show the debugged texture in
             //                its own viewport, without hiding the final texture.)
-            virtual void debugTexture ( uint texIdx );
+            virtual void debugTexture( uint texIdx );
 
 
             // FIXME(Charly): Not sure the lights should be handled by the renderer.
             //                How to do this ?
-            void addLight ( Light* light )
+            void addLight( Light* light )
             {
-                m_lights.push_back ( light );
+                m_lights.push_back( light );
             }
 
             void reloadShaders();
-            int checkPicking ( Scalar x, Scalar y ) const;
 
             // FIXME(Charly): Maybe there is a better way to handle lights ?
-            virtual void handleFileLoading ( const std::string& filename );
+            virtual void handleFileLoading( const std::string& filename );
 
-            void requestPicking ( Scalar x, Scalar y );
-            std::vector<int> getPickingResults() const
+            void addPickingRequest( Scalar x, Scalar y )
+            {
+                m_pickingQueries.push_back( Core::Vector2( x, y ) );
+            }
+
+            inline std::vector<int> getPickingResults() const
             {
                 return m_pickingResults;
             }
@@ -183,11 +186,11 @@ namespace Ra
              * @param renderData The basic data needed for the rendering :
              * Time elapsed since last frame, camera view matrix, camera projection matrix.
              */
-            virtual void updateRenderObjectsInternal ( const RenderData& renderData,
-                                                       const std::vector<RenderObjectPtr>& renderObjects );
+            virtual void updateRenderObjectsInternal( const RenderData& renderData,
+                                                      const std::vector<RenderObjectPtr>& renderObjects );
 
-            virtual void feedRenderQueuesInternal ( const RenderData& renderData,
-                                                    const std::vector<RenderObjectPtr>& renderObjects );
+            virtual void feedRenderQueuesInternal( const RenderData& renderData,
+                                                   const std::vector<RenderObjectPtr>& renderObjects );
 
             /**
              * @brief All the scene rendering magics basically happens here.
@@ -195,7 +198,7 @@ namespace Ra
              * @param renderData The basic data needed for the rendering :
              * Time elapsed since last frame, camera view matrix, camera projection matrix.
              */
-            virtual void renderInternal ( const RenderData& renderData );
+            virtual void renderInternal( const RenderData& renderData );
 
             /**
              * @brief Do all post processing stuff. If you override this method,
@@ -205,7 +208,7 @@ namespace Ra
              * @param renderData The basic data needed for the rendering :
              * Time elapsed since last frame, camera view matrix, camera projection matrix.
              */
-            virtual void postProcessInternal ( const RenderData& renderData );
+            virtual void postProcessInternal( const RenderData& renderData );
 
         private:
             void saveExternalFBOInternal();

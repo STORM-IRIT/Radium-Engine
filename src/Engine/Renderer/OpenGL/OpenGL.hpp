@@ -20,7 +20,7 @@
 /// Checks that an openGLContext is available (mostly for debug checks and asserts).
 inline bool checkOpenGLContext()
 {
-    return glGetString ( GL_VERSION ) != 0;
+    return glGetString( GL_VERSION ) != 0;
 }
 
 // FIXME(Charly): Fix logging

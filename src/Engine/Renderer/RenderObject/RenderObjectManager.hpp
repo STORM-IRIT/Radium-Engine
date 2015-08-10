@@ -23,13 +23,13 @@ namespace Ra
             RenderObjectManager();
             ~RenderObjectManager();
 
-            Core::Index addRenderObject ( RenderObject* renderObject );
-            void removeRenderObject ( const Core::Index& index );
+            Core::Index addRenderObject( RenderObject* renderObject );
+            void removeRenderObject( const Core::Index& index );
             std::vector<std::shared_ptr<RenderObject>> getRenderObjects() const;
 
-            std::shared_ptr<RenderObject> update ( uint index );
-            std::shared_ptr<RenderObject> update ( const Core::Index& index );
-            void doneUpdating ( uint index );
+            std::shared_ptr<RenderObject> update( uint index );
+            std::shared_ptr<RenderObject> update( const Core::Index& index );
+            void doneUpdating( uint index );
 
         private:
             Core::IndexMap<std::shared_ptr<RenderObject>> m_renderObjects;

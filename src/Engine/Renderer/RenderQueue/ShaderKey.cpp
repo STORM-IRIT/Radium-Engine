@@ -7,10 +7,10 @@
 namespace Ra
 {
 
-    Engine::ShaderKey::ShaderKey ( ShaderProgram* shader )
-        : m_shader ( shader )
+    Engine::ShaderKey::ShaderKey( ShaderProgram* shader )
+        : m_shader( shader )
     {
-        CORE_ASSERT ( shader, "Null shader passed to bindable shader." );
+        CORE_ASSERT( shader, "Null shader passed to bindable shader." );
     }
 
     Engine::ShaderKey::~ShaderKey()
@@ -22,10 +22,10 @@ namespace Ra
         m_shader->bind();
     }
 
-    void Engine::ShaderKey::bind ( const RenderParameters& params ) const
+    void Engine::ShaderKey::bind( const RenderParameters& params ) const
     {
         m_shader->bind();
-        params.bind ( m_shader );
+        params.bind( m_shader );
     }
 
     bool Engine::ShaderKey::operator< ( const ShaderKey& other ) const

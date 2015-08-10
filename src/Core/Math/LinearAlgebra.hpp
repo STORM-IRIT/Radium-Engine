@@ -101,15 +101,15 @@ namespace Ra
         {
             /// Component-wise floor() function on a floating-point vector.
             template<typename Vector>
-            inline RA_API Vector floor ( const Vector& v );
+            inline RA_API Vector floor( const Vector& v );
 
             /// Component-wise floor() function on a floating-point vector.
             template<typename Vector>
-            inline RA_API Vector ceil ( const Vector& v );
+            inline RA_API Vector ceil( const Vector& v );
 
             /// Component-wise clamp() function on a floating-point vector.
             template<typename Vector>
-            inline RA_API Vector clamp ( const Vector& v, const Vector& min, const Vector& max );
+            inline RA_API Vector clamp( const Vector& v, const Vector& min, const Vector& max );
         }
 
         //

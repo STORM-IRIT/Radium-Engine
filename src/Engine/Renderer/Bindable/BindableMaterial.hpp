@@ -19,10 +19,10 @@ namespace Ra
         class RA_API BindableMaterial : public Bindable
         {
         public:
-            explicit BindableMaterial ( Material* material );
+            explicit BindableMaterial( Material* material );
             virtual ~BindableMaterial();
 
-            virtual void bind ( ShaderProgram* shader ) const override;
+            virtual void bind( ShaderProgram* shader ) const override;
 
             bool operator< ( const BindableMaterial& other ) const;
 

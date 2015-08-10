@@ -42,26 +42,26 @@ namespace Ra
         public:
             RA_CORE_ALIGNED_NEW
 
-            explicit Material ( const std::string& name );
+            explicit Material( const std::string& name );
             ~Material();
 
             void updateGL();
 
             inline const std::string& getName() const;
 
-            inline void setKd ( const Core::Color& kd );
-            inline void setKs ( const Core::Color& ks );
-            inline void setNs ( Scalar ns );
+            inline void setKd( const Core::Color& kd );
+            inline void setKs( const Core::Color& ks );
+            inline void setNs( Scalar ns );
 
             inline const Core::Color& getKd() const;
             inline const Core::Color& getKs() const;
             inline Scalar getNs() const;
 
-            inline void addTexture ( const TextureType& type, Texture* texture );
-            inline void addTexture ( const TextureType& type, const std::string& texture );
-            inline Texture* getTexture ( const TextureType& type ) const;
+            inline void addTexture( const TextureType& type, Texture* texture );
+            inline void addTexture( const TextureType& type, const std::string& texture );
+            inline Texture* getTexture( const TextureType& type ) const;
 
-            inline void setMaterialType ( const MaterialType& type );
+            inline void setMaterialType( const MaterialType& type );
             inline const MaterialType& getMaterialType() const;
 
         private:

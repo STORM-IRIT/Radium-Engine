@@ -29,13 +29,13 @@ namespace Ra
             /// Returns the array as an Eigen Matrix Map
             MatrixMap getMap()
             {
-                return MatrixMap ( this->data()->data(), V::RowsAtCompileTime, this->size() );
+                return MatrixMap( this->data()->data(), V::RowsAtCompileTime, this->size() );
             }
 
             /// Returns the array as an Eigen Matrix Map (const version)
             ConstMatrixMap getMap() const
             {
-                return ConstMatrixMap ( this->data()->data(), V::RowsAtCompileTime, this->size() );
+                return ConstMatrixMap( this->data()->data(), V::RowsAtCompileTime, this->size() );
             }
 
         };

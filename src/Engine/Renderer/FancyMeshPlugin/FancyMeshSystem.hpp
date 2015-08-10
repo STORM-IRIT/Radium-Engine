@@ -32,21 +32,21 @@ namespace Ra
         class RA_API FancyMeshSystem : public System
         {
         public:
-            FancyMeshSystem ( RadiumEngine* engine );
+            FancyMeshSystem( RadiumEngine* engine );
             virtual ~FancyMeshSystem();
 
             virtual void initialize() override;
-            virtual void handleFileLoading ( const std::string& filename ) override;
+            virtual void handleFileLoading( const std::string& filename ) override;
 
-            virtual Component* addComponentToEntity ( Engine::Entity* entity ) override;
+            virtual Component* addComponentToEntity( Engine::Entity* entity ) override;
 
-            virtual void generateTasks ( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
+            virtual void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
 
             // Specialized factory methods for this systems.
-            FancyMeshComponent* addDisplayMeshToEntity ( Entity* entity, const Core::TriangleMesh& mesh );
-            FancyMeshComponent* addDisplayMeshToEntity ( Entity* entity,
-                                                         const Core::TriangleMesh& mesh,
-                                                         RenderTechnique* technique );
+            FancyMeshComponent* addDisplayMeshToEntity( Entity* entity, const Core::TriangleMesh& mesh );
+            FancyMeshComponent* addDisplayMeshToEntity( Entity* entity,
+                                                        const Core::TriangleMesh& mesh,
+                                                        RenderTechnique* technique );
         };
 
     } // namespace Engine

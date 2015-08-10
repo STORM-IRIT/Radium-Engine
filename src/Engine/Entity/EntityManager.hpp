@@ -36,7 +36,7 @@ namespace Ra
              * @param name The name of the entity to ger or create
              * @return The entity.
              */
-            Entity* getOrCreateEntity ( const std::string& name );
+            Entity* getOrCreateEntity( const std::string& name );
 
             /**
              * @brief Create an entity (kind of a factory).
@@ -51,26 +51,26 @@ namespace Ra
              * @param name The name of the entity to find
              * @return true if the entity exists, false otherwise
              */
-            bool entityExists ( const std::string& name ) const;
+            bool entityExists( const std::string& name ) const;
 
             /**
              * @brief Remove an entity given its index. Also deletes the pointer.
              * @param idx Index if the entity to remove.
              */
-            void removeEntity ( Core::Index idx );
+            void removeEntity( Core::Index idx );
 
             /**
              * @brief Remove a given entity. Also deletes the pointer.
              * @param entity The entity to remove.
              */
-            void removeEntity ( Entity* entity );
+            void removeEntity( Entity* entity );
 
             /**
              * @brief Get an entity given its index.
              * @param idx Index of the component to retrieve.
              * @return The entity if found in the map, nullptr otherwise.
              */
-            Entity* getEntity ( Core::Index idx ) const;
+            Entity* getEntity( Core::Index idx ) const;
 
             /**
              * @brief Get all entities from the manager.
@@ -87,14 +87,14 @@ namespace Ra
              * @param name Name of the entity to create
              * @return The created entity
              */
-            Entity* createEntity ( const std::string& name );
+            Entity* createEntity( const std::string& name );
 
             /**
              * @brief Get an entity given its name.
              * @param name Name of the entity to retrieve.
              * @return The entity if found in the map, nullptr otherwise.
              */
-            Entity* getEntity ( const std::string& name ) const;
+            Entity* getEntity( const std::string& name ) const;
 
         private:
             Core::IndexMap<std::shared_ptr<Entity>> m_entities;

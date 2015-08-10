@@ -6,8 +6,8 @@ namespace Ra
 {
 
     Engine::DirectionalLight::DirectionalLight()
-        : Light ( Light::DIRECTIONAL )
-        , m_direction ( 0, -1, 0 )
+        : Light( Light::DIRECTIONAL )
+        , m_direction( 0, -1, 0 )
     {
     }
 
@@ -15,11 +15,11 @@ namespace Ra
     {
     }
 
-    void Engine::DirectionalLight::getRenderParameters ( RenderParameters& params )
+    void Engine::DirectionalLight::getRenderParameters( RenderParameters& params )
     {
-        Light::getRenderParameters ( params );
+        Light::getRenderParameters( params );
 
-        params.addParameter ( "light.directional.direction", m_direction );
+        params.addParameter( "light.directional.direction", m_direction );
     }
 
 }

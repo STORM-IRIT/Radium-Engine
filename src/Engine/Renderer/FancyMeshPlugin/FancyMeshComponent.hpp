@@ -21,15 +21,15 @@ namespace Ra
         class RA_API FancyMeshComponent : public Component
         {
         public:
-            FancyMeshComponent ( const std::string& name );
+            FancyMeshComponent( const std::string& name );
             virtual ~FancyMeshComponent();
 
             virtual void initialize() override;
 
-            void addMeshRenderObject ( const Core::TriangleMesh& mesh, const std::string& name );
-            void addMeshRenderObject ( const Core::TriangleMesh& mesh, const std::string& name, RenderTechnique* technique );
+            void addMeshRenderObject( const Core::TriangleMesh& mesh, const std::string& name );
+            void addMeshRenderObject( const Core::TriangleMesh& mesh, const std::string& name, RenderTechnique* technique );
 
-            void handleMeshLoading ( const FancyComponentData& data );
+            void handleMeshLoading( const FancyComponentData& data );
 
         private:
             Core::Index m_renderObject;

@@ -3,7 +3,7 @@
 namespace Ra
 {
 
-    inline void Engine::PointLight::setPosition ( const Core::Vector3& pos )
+    inline void Engine::PointLight::setPosition( const Core::Vector3& pos )
     {
         m_position = pos;
     }
@@ -13,12 +13,12 @@ namespace Ra
         return m_position;
     }
 
-    inline void Engine::PointLight::setAttenuation ( const PointLight::Attenuation& att )
+    inline void Engine::PointLight::setAttenuation( const PointLight::Attenuation& att )
     {
         m_attenuation = att;
     }
 
-    inline void Engine::PointLight::setAttenuation ( Scalar c, Scalar l, Scalar q )
+    inline void Engine::PointLight::setAttenuation( Scalar c, Scalar l, Scalar q )
     {
         m_attenuation.constant = c;
         m_attenuation.linear = l;

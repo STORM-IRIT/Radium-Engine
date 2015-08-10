@@ -18,15 +18,15 @@ class Log
 public:
     Log();
     virtual ~Log();
-    std::ostringstream& Get ( TLogLevel level = logINFO );
+    std::ostringstream& Get( TLogLevel level = logINFO );
 public:
     static TLogLevel& ReportingLevel();
-    static std::string ToString ( TLogLevel level );
-    static TLogLevel FromString ( const std::string& level );
+    static std::string ToString( TLogLevel level );
+    static TLogLevel FromString( const std::string& level );
 protected:
     std::ostringstream os;
 private:
-    Log ( const Log& );
+    Log( const Log& );
     Log& operator = ( const Log& );
 };
 
@@ -36,11 +36,11 @@ Log<T>::Log()
 }
 
 template <typename T>
-std::ostringstream& Log<T>::Get ( TLogLevel level )
+std::ostringstream& Log<T>::Get( TLogLevel level )
 {
     os << "- " << NowTime();
-    os << " " << ToString ( level ) << ": ";
-    os << std::string ( level > logDEBUG ? level - logDEBUG : 0, '\t' );
+    os << " " << ToString( level ) << ": ";
+    os << std::string( level > logDEBUG ? level - logDEBUG : 0, '\t' );
     return os;
 }
 
@@ -48,7 +48,7 @@ template <typename T>
 Log<T>::~Log()
 {
     os << std::endl;
-    T::Output ( os.str() );
+    T::Output( os.str() );
 }
 
 template <typename T>
@@ -59,14 +59,14 @@ TLogLevel& Log<T>::ReportingLevel()
 }
 
 template <typename T>
-std::string Log<T>::ToString ( TLogLevel level )
+std::string Log<T>::ToString( TLogLevel level )
 {
     static const char* const buffer[] = { "ERROR", "WARNING", "INFO", "DEBUG", "DEBUG1", "DEBUG2", "DEBUG3", "DEBUG4" };
     return buffer[level];
 }
 
 template <typename T>
-TLogLevel Log<T>::FromString ( const std::string& level )
+TLogLevel Log<T>::FromString( const std::string& level )
 {
     if ( level == "DEBUG4" )
     {
@@ -100,7 +100,7 @@ TLogLevel Log<T>::FromString ( const std::string& level )
     {
         return logERROR;
     }
-    Log<T>().Get ( logWARNING ) << "Unknown logging level '" << level << "'. Using INFO level as default.";
+    Log<T>().Get( logWARNING ) << "Unknown logging level '" << level << "'. Using INFO level as default.";
     return logINFO;
 }
 
@@ -108,7 +108,7 @@ class RA_API Output2FILE
 {
 public:
     static FILE*& Stream();
-    static void Output ( const std::string& msg );
+    static void Output( const std::string& msg );
 };
 
 inline FILE*& Output2FILE::Stream()
@@ -117,15 +117,15 @@ inline FILE*& Output2FILE::Stream()
     return pStream;
 }
 
-inline void Output2FILE::Output ( const std::string& msg )
+inline void Output2FILE::Output( const std::string& msg )
 {
     FILE* pStream = Stream();
     if ( !pStream )
     {
         return;
     }
-    fprintf ( pStream, "%s", msg.c_str() );
-    fflush ( pStream );
+    fprintf( pStream, "%s", msg.c_str() );
+    fflush( pStream );
 }
 
 class RA_API FILELog : public Log<Output2FILE> {};
@@ -149,15 +149,15 @@ inline std::string NowTime()
 {
     const int MAX_LEN = 200;
     char buffer[MAX_LEN];
-    if ( GetTimeFormatA ( LOCALE_USER_DEFAULT, 0, 0,
-                          "HH':'mm':'ss", buffer, MAX_LEN ) == 0 )
+    if ( GetTimeFormatA( LOCALE_USER_DEFAULT, 0, 0,
+                         "HH':'mm':'ss", buffer, MAX_LEN ) == 0 )
     {
         return "Error in NowTime()";
     }
 
     char result[100] = { 0 };
     static DWORD first = GetTickCount();
-    std::sprintf ( result, "%s.%03ld", buffer, ( long ) ( GetTickCount() - first ) % 1000 );
+    std::sprintf( result, "%s.%03ld", buffer, ( long )( GetTickCount() - first ) % 1000 );
     return result;
 }
 
@@ -168,10 +168,10 @@ inline std::string NowTime()
 inline std::string NowTime()
 {
     char buffer[50];
-    std::time_t t = std::time ( nullptr );
-    std::strftime ( buffer, 50, "%X", std::localtime ( &t ) );
+    std::time_t t = std::time( nullptr );
+    std::strftime( buffer, 50, "%X", std::localtime( &t ) );
     std::string result;
-    Ra::Core::StringUtils::stringPrintf ( result, "%s", buffer );
+    Ra::Core::StringUtils::stringPrintf( result, "%s", buffer );
     return result;
 }
 

@@ -10,10 +10,10 @@ namespace Ra
         namespace Plugin
         {
 
-            void PluginManager::loadPlugins ( const std::string& path )
+            void PluginManager::loadPlugins( const std::string& path )
             {
                 loadStaticPlugins();
-                loadDynamicPlugins ( path );
+                loadDynamicPlugins( path );
             }
 
             void PluginManager::loadStaticPlugins()
@@ -24,7 +24,7 @@ namespace Ra
                     PluginPointer plugin = qobject_cast<PluginPointer> ( object );
                     if ( plugin != nullptr )
                     {
-                        m_staticPlugin.push_back ( plugin );
+                        m_staticPlugin.push_back( plugin );
                     }
                     else
                     {
@@ -33,20 +33,20 @@ namespace Ra
                 }
             }
 
-            void PluginManager::loadDynamicPlugins ( const std::string& path )
+            void PluginManager::loadDynamicPlugins( const std::string& path )
             {
-                QDir pluginsDir ( QString ( path ) );
+                QDir pluginsDir( QString( path ) );
                 QObjectList list;
 
-                foreach ( QString fileName, pluginsDir.entryList ( QDir::Files ) )
+                foreach ( QString fileName, pluginsDir.entryList( QDir::Files ) )
                 {
-                    QPluginLoader loader ( pluginsDir.absoluteFilePath ( fileName ) );
+                    QPluginLoader loader( pluginsDir.absoluteFilePath( fileName ) );
                     QObject* object = loader.instance();
                     if ( !object )
                     {
                         continue;
                     }
-                    list.append ( plugin );
+                    list.append( plugin );
                 }
 
                 for ( auto object : list )
@@ -54,7 +54,7 @@ namespace Ra
                     PluginPointer plugin = qobject_cast<PluginPointer> ( object );
                     if ( plugin != nullptr )
                     {
-                        m_dynamicPlugin.push_back ( plugin );
+                        m_dynamicPlugin.push_back( plugin );
                     }
                     else
                     {

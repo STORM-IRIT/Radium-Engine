@@ -10,12 +10,12 @@ namespace Ra
 
         std::string DummyTask::getName() const
         {
-            return std::string ( "Dummy" );
+            return std::string( "Dummy" );
         }
 
-        void DummyTask::init ( const TaskParams* params )
+        void DummyTask::init( const TaskParams* params )
         {
-            m_data = static_cast<const DummyTaskParams*> ( params )->m_param;
+            m_data = static_cast<const DummyTaskParams*>( params )->m_param;
         }
 
         void DummyTask::process()

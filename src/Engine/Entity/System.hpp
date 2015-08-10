@@ -37,7 +37,7 @@ namespace Ra
         class RA_API System
         {
         public:
-            System ( RadiumEngine* engine );
+            System( RadiumEngine* engine );
             virtual ~System();
 
             /**
@@ -53,7 +53,7 @@ namespace Ra
              *
              * @param dt Time elapsed since last call.
              */
-            virtual void generateTasks ( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) = 0;
+            virtual void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) = 0;
 
             /**
              * @brief Add a component to the system.
@@ -61,27 +61,27 @@ namespace Ra
              * @param component The component to be added to the system
              * @param id The component id
              */
-            void addComponent ( Component* component );
+            void addComponent( Component* component );
 
             /**
              * @brief Remove a component from the system given its index.
              *
              * @param id The id of the component to remove
              */
-            void removeComponent ( const std::string& name );
+            void removeComponent( const std::string& name );
 
             /**
               * @brief Remove a component from the system.
               * @param component The component to remove
               */
-            void removeComponent ( Component* component );
+            void removeComponent( Component* component );
 
             /**
              * @brief Handle a keyboard event.
              * @param event The keyboard event to handle
              * @return true if the event has been handled, false otherwise.
              */
-            virtual bool handleKeyEvent ( const Core::KeyEvent& event )
+            virtual bool handleKeyEvent( const Core::KeyEvent& event )
             {
                 return false;
             }
@@ -91,7 +91,7 @@ namespace Ra
              * @param event The mouse event to handle
              * @return true if the event has been handled, false otherwise.
              */
-            virtual bool handleMouseEvent ( const Core::MouseEvent& event )
+            virtual bool handleMouseEvent( const Core::MouseEvent& event )
             {
                 return false;
             }
@@ -100,14 +100,14 @@ namespace Ra
              * @brief Handle a file loading event. Does nothing by default.
              * @param file The file to load
              */
-            virtual void handleFileLoading ( const std::string& filename ) { }
+            virtual void handleFileLoading( const std::string& filename ) { }
 
             /**
              * @brief Handle all the logic behind a component creation.
              * @param name Name of the entity the component should belong to.
              * @return The created component.
              */
-            virtual Component* addComponentToEntity ( Engine::Entity* entity ) = 0;
+            virtual Component* addComponentToEntity( Engine::Entity* entity ) = 0;
 
         protected:
             RadiumEngine* m_engine;

@@ -5,7 +5,7 @@ namespace Ra
     namespace Engine
     {
 
-        inline void RenderObject::setRenderObjectType ( const RenderObjectType& type )
+        inline void RenderObject::setRenderObjectType( const RenderObjectType& type )
         {
             m_type = type;
         }
@@ -20,7 +20,7 @@ namespace Ra
             return m_name;
         }
 
-        inline void RenderObject::setVisible ( bool visible )
+        inline void RenderObject::setVisible( bool visible )
         {
             m_visible = visible;
         }
@@ -35,14 +35,14 @@ namespace Ra
             return m_isDirty;
         }
 
-        inline void RenderObject::setComponent ( Component* component )
+        inline void RenderObject::setComponent( Component* component )
         {
             m_component = component;
         }
 
-        inline void RenderObject::setRenderTechnique ( RenderTechnique* technique )
+        inline void RenderObject::setRenderTechnique( RenderTechnique* technique )
         {
-            CORE_ASSERT ( technique, "Passing a nullptr as render technique" );
+            CORE_ASSERT( technique, "Passing a nullptr as render technique" );
             m_renderTechnique = technique;
         }
 
@@ -51,7 +51,7 @@ namespace Ra
             return m_renderTechnique;
         }
 
-        inline void RenderObject::setMesh ( Mesh* mesh )
+        inline void RenderObject::setMesh( Mesh* mesh )
         {
             m_mesh = mesh;
         }

@@ -3,7 +3,7 @@
 namespace Ra
 {
 
-    inline void Engine::DirectionalLight::setDirection ( const Core::Vector3& dir )
+    inline void Engine::DirectionalLight::setDirection( const Core::Vector3& dir )
     {
         m_direction = dir.normalized();
     }
