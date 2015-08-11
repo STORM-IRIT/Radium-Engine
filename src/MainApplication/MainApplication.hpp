@@ -54,12 +54,16 @@ namespace Ra
         /// Fired when the scene has changed.
         void sceneChanged( const Core::Aabb& );
 
+        void updateFrameStats( const std::vector<FrameTimerData>& );
+
 
     public slots:
         /// Advance the engine for one frame. Called by an internal timer.
         void radiumFrame();
 
         void loadFile( QString path );
+
+        void framesCountForStatsChanged( int count );
 
     private:
         /// Create signal / slots connections
@@ -89,6 +93,7 @@ namespace Ra
         Core::Timer::TimePoint m_lastFrameStart;
 
         int m_frameCounter;
-        //        LoggableFrameTimerData m_timerData;
+        int m_frameCountBeforeUpdate;
+        std::vector<FrameTimerData> m_timerData;
     };
 }

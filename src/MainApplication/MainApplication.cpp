@@ -23,7 +23,6 @@
 
 // Const parameters : TODO : make config / command line options
 const uint FPS_MAX = 60;
-const uint TIMER_AVERAGE = 100;
 
 namespace Ra
 {
@@ -108,13 +107,12 @@ namespace Ra
         emit starting();
 
         m_lastFrameStart = Core::Timer::Clock::now();
-
-        connect( m_frameTimer, SIGNAL( timeout() ), this, SLOT( radiumFrame() ) );
         m_frameTimer->start( 1000 / FPS_MAX );
     }
 
     void MainApplication::createConnections()
     {
+        connect( m_frameTimer, SIGNAL( timeout() ), this, SLOT( radiumFrame() ) );
     }
 
     void MainApplication::registerSystems()
@@ -122,8 +120,10 @@ namespace Ra
         FancyMeshPlugin::FancyMeshSystem* fmSystem = new FancyMeshPlugin::FancyMeshSystem( m_engine.get() );
         m_engine->registerSystem( "FancyMeshSystem", fmSystem );
 
+#if ENABLE_PHYSICS
         RigidBodyPlugin::RigidBodySystem* rbSystem = new RigidBodyPlugin::RigidBodySystem( m_engine.get() );
         m_engine->registerSystem( "RigidBodySystem", rbSystem );
+#endif
     }
 
     void MainApplication::setupScene()
@@ -181,14 +181,11 @@ namespace Ra
         Core::Transform transform;
         FancyMeshPlugin::FancyMeshSystem* fmSystem = static_cast<FancyMeshPlugin::FancyMeshSystem*>(
                                                          m_engine->getSystem( "FancyMeshSystem" ) );
-        RigidBodyPlugin::RigidBodySystem* rbSystem = static_cast<RigidBodyPlugin::RigidBodySystem*>(
-                                                         m_engine->getSystem( "RigidBodySystem" ) );
 
         Engine::EntityManager* manager = m_engine->getEntityManager();
 
         Engine::Entity* ent0 = manager->getOrCreateEntity( "box0" );
         fmSystem->addFancyMeshToEntity( ent0, Core::MeshUtils::makeBox(), r0 );
-        rbSystem->addRigidBodyToEntity( ent0, 1.0 );
 
         transform.setIdentity();
         transform.translation() = Core::Vector3( 2, 0, -3 );
@@ -196,7 +193,6 @@ namespace Ra
 
         Engine::Entity* ent1 = manager->getOrCreateEntity( "box1" );
         fmSystem->addFancyMeshToEntity( ent1, Core::MeshUtils::makeBox(), r1 );
-        rbSystem->addRigidBodyToEntity( ent1, 1.0 );
 
         transform.setIdentity();
         transform.translation() = Core::Vector3( 0, 0, -3 );
@@ -204,7 +200,6 @@ namespace Ra
 
         Engine::Entity* ent2 = manager->getOrCreateEntity( "box2" );
         fmSystem->addFancyMeshToEntity( ent2, Core::MeshUtils::makeBox(), r2 );
-        rbSystem->addRigidBodyToEntity( ent2, 1.0 );
 
         transform.setIdentity();
         transform.translation() = Core::Vector3( -2, 0, -3 );
@@ -212,7 +207,6 @@ namespace Ra
 
         Engine::Entity* ent3 = manager->getOrCreateEntity( "box3" );
         fmSystem->addFancyMeshToEntity( ent3, Core::MeshUtils::makeBox(), r3 );
-        rbSystem->addRigidBodyToEntity( ent3, 1.0 );
 
         transform.setIdentity();
         transform.translation() = Core::Vector3( 2, 0, -5 );
@@ -220,7 +214,6 @@ namespace Ra
 
         Engine::Entity* ent4 = manager->getOrCreateEntity( "box4" );
         fmSystem->addFancyMeshToEntity( ent4, Core::MeshUtils::makeBox(), r4 );
-        rbSystem->addRigidBodyToEntity( ent4, 1.0 );
 
         transform.setIdentity();
         transform.translation() = Core::Vector3( 0, 0, -5 );
@@ -228,11 +221,22 @@ namespace Ra
 
         Engine::Entity* ent5 = manager->getOrCreateEntity( "box5" );
         fmSystem->addFancyMeshToEntity( ent5, Core::MeshUtils::makeBox(), r5 );
-        rbSystem->addRigidBodyToEntity( ent5, 1.0 );
 
         transform.setIdentity();
         transform.translation() = Core::Vector3( -2, 0, -5 );
         ent5->setTransform( transform );
+
+#if ENABLE_PHYSICS
+        RigidBodyPlugin::RigidBodySystem* rbSystem = static_cast<RigidBodyPlugin::RigidBodySystem*>(
+                                                         m_engine->getSystem( "RigidBodySystem" ) );
+
+        rbSystem->addRigidBodyToEntity( ent0, 1.0 );
+        rbSystem->addRigidBodyToEntity( ent1, 1.0 );
+        rbSystem->addRigidBodyToEntity( ent2, 1.0 );
+        rbSystem->addRigidBodyToEntity( ent3, 1.0 );
+        rbSystem->addRigidBodyToEntity( ent4, 1.0 );
+        rbSystem->addRigidBodyToEntity( ent5, 1.0 );
+#endif
     }
 
     void MainApplication::loadFile( QString path )
@@ -241,6 +245,11 @@ namespace Ra
         bool res = m_engine->loadFile( pathStr );
         CORE_UNUSED( res );
         m_viewer->handleFileLoading( pathStr );
+    }
+
+    void MainApplication::framesCountForStatsChanged( int count )
+    {
+        m_frameCountBeforeUpdate = count;
     }
 
     void MainApplication::radiumFrame()
@@ -310,20 +319,15 @@ namespace Ra
         // 5. Frame end.
         timerData.frameEnd = Core::Timer::Clock::now();
         timerData.numFrame = m_frameCounter;
-        //m_timerData.addFrame(timerData);
+
+        m_timerData.push_back(timerData);
         ++m_frameCounter;
 
-        // Dump timer data if requested.
-        //LOG_EVERY_N(TIMER_AVERAGE, INFO) << m_timerData;
-        //        if (TIMER_AVERAGE == 1)
-        //        {
-        //            FrameTimerData::printTimerData(timerData);
-        //        }
-        //        else if (TIMER_AVERAGE > 1 && m_frameCounter % TIMER_AVERAGE == 0)
-        //        {
-        //            FrameTimerData::printAverageTimerData(m_timerData);
-        //            m_timerData.clear();
-        //        }
+        if ( m_frameCounter % m_frameCountBeforeUpdate == 0 )
+        {
+            emit( updateFrameStats( m_timerData ) );
+            m_timerData.clear();
+        }
     }
 
 

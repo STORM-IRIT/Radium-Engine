@@ -6,6 +6,7 @@
 #include <Core/Log/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
+#include <MainApplication/MainApplication.hpp>
 #include <MainApplication/Gui/EntityTreeModel.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
 
@@ -27,6 +28,8 @@ namespace Ra
 
         createConnections();
 
+        static_cast<MainApplication*>( qApp )->framesCountForStatsChanged(
+                    m_avgFramesCount->value() );
         m_viewer->getCamera()->resetCamera();
     }
 
@@ -72,6 +75,11 @@ namespace Ra
 
         connect( m_cameraSensitivity, SIGNAL( valueChanged( double ) ),
                  m_viewer->getCamera(), SLOT( setCameraSensitivity( double ) ) );
+
+        connect( m_avgFramesCount, SIGNAL( valueChanged(int) ),
+                 static_cast<MainApplication*>( qApp ), SLOT( framesCountForStatsChanged( int ) ) );
+        connect( static_cast<MainApplication*>( qApp ), SIGNAL( updateFrameStats( const std::vector<FrameTimerData>& ) ),
+                 this, SLOT( updateFramestats( const std::vector<FrameTimerData>& ) ) );
     }
 
     void Gui::MainWindow::activated( QModelIndex index )
@@ -126,6 +134,45 @@ namespace Ra
         {
             emit fileLoading( path );
         }
+    }
+
+    void Gui::MainWindow::updateFramestats( const std::vector<FrameTimerData>& stats )
+    {
+        QString framesA2B = QString("Frames #%1 to #%2 stats :")
+                .arg( stats.front().numFrame ).arg( stats.back().numFrame );
+        m_frameA2BLabel->setText(framesA2B);
+
+        long sumRender = 0;
+        long sumTasks = 0;
+        long sumFrame = 0;
+        long sumInterFrame = 0;
+
+        for ( uint i = 0; i < stats.size(); ++i )
+        {
+            sumRender += Core::Timer::getIntervalMicro(
+                        stats[i].renderData.renderStart, stats[i].renderData.renderEnd );
+            sumTasks  += Core::Timer::getIntervalMicro(
+                        stats[i].tasksStart, stats[i].tasksEnd );
+            sumFrame  += Core::Timer::getIntervalMicro(
+                        stats[i].frameStart, stats[i].frameEnd );
+
+            if ( i > 0 )
+            {
+                sumInterFrame += Core::Timer::getIntervalMicro(
+                            stats[i - 1].frameStart, stats[i].frameEnd );
+            }
+        }
+
+        const uint N = stats.size();
+        const Scalar T(N * 1000000.0);
+
+        m_renderTime->setValue( sumRender / N );
+        m_renderUpdates->setValue( T / Scalar( sumRender ) );
+        m_tasksTime->setValue( sumTasks / N );
+        m_tasksUpdates->setValue( T / Scalar( sumTasks ) );
+        m_frameTime->setValue( sumFrame / N );
+        m_frameUpdates->setValue( T / Scalar( sumFrame ) );
+        m_avgFramerate->setValue( ( N - 1 ) * Scalar( 1000000.0 / sumInterFrame ) );
     }
 
     void Gui::MainWindow::keyPressEvent( QKeyEvent* event )
