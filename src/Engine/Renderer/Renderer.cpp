@@ -134,16 +134,18 @@ namespace Ra
 
         void Renderer::render( const RenderData& data )
         {
+            CORE_ASSERT( m_engine != nullptr, "no engine in renderer" );
+
             std::lock_guard<std::mutex> renderLock( m_renderMutex );
 
             m_timerData.renderStart = Core::Timer::Clock::now();
 
-            // 0. Gather render objects.
-            std::vector<RenderObjectPtr> renderObjects;
-
-            CORE_ASSERT( m_engine != nullptr, "no engine in renderer" );
-            renderObjects = m_engine->getRenderObjectManager()->getRenderObjects();
+            // 0. Save eventual already bound FBO (e.g. QtOpenGLWidget)
             saveExternalFBOInternal();
+
+            // 1. Gather render objects and update them
+            std::vector<RenderObjectPtr> renderObjects;
+            renderObjects = m_engine->getRenderObjectManager()->getRenderObjects();
             updateRenderObjectsInternal( data, renderObjects );
             m_timerData.updateEnd = Core::Timer::Clock::now();
 
@@ -151,15 +153,22 @@ namespace Ra
             feedRenderQueuesInternal( data, renderObjects );
             m_timerData.feedRenderQueuesEnd = Core::Timer::Clock::now();
 
-            // 1. Do the rendering.
+            // 3. Do picking if needed
+            m_pickingResults.clear();
+            if ( !m_pickingQueries.empty() )
+            {
+                doPicking();
+            }
+
+            // 4. Do the rendering.
             renderInternal( data );
             m_timerData.mainRenderEnd = Core::Timer::Clock::now();
 
-            // 2. Post processing
+            // 5. Post processing
             postProcessInternal( data );
             m_timerData.postProcessEnd = Core::Timer::Clock::now();
 
-            //3. write image to framebuffer.
+            // 6. write image to framebuffer.
             drawScreenInternal();
             m_timerData.renderEnd = Core::Timer::Clock::now();
         }
@@ -208,6 +217,12 @@ namespace Ra
                         ro->feedRenderQueue( m_debugRenderQueue, renderData.viewMatrix, renderData.projMatrix );
                     }
                     break;
+
+                    case RenderObject::RenderObjectType::RO_UI:
+                    {
+                        ro->feedRenderQueue( m_uiRenderQueue, renderData.viewMatrix, renderData.projMatrix );
+                    }
+                    break;
                 }
             }
         }
@@ -232,8 +247,11 @@ namespace Ra
 
             m_opaqueRenderQueue.render( m_pickingShader );
             m_transparentRenderQueue.render( m_pickingShader );
-            // FIXME(Charly): Do we want to pick debug objects ?
-            //m_debugRenderQueue.render( m_pickingShader );
+
+            // Always draw ui stuff
+            GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
+            m_uiRenderQueue.render( m_pickingShader );
+            GL_ASSERT( glDepthFunc( GL_LESS ) );
 
             GL_ASSERT( glReadBuffer( GL_COLOR_ATTACHMENT0 ) );
 
@@ -259,12 +277,6 @@ namespace Ra
 
         void Renderer::renderInternal( const RenderData& renderData )
         {
-            m_pickingResults.clear();
-            if ( !m_pickingQueries.empty() )
-            {
-                doPicking();
-            }
-
             m_fbo->useAsTarget();
 
             GL_ASSERT( glDepthMask( GL_TRUE ) );
@@ -327,7 +339,6 @@ namespace Ra
                 DirectionalLight l;
                 l.setDirection( Core::Vector3( 0.3f, 1, 0 ) );
 
-                // TODO(Charly): Light render params
                 RenderParameters params;
                 l.getRenderParameters( params );
                 m_opaqueRenderQueue.render( params );
@@ -336,16 +347,27 @@ namespace Ra
 #endif
             }
 
-            m_fbo->unbind();
-#ifndef NO_TRANSPARENCY
+            // Draw debug stuff, do not overwrite depth map but do depth testing
+            GL_ASSERT( glDisable( GL_BLEND ) );
+            GL_ASSERT( glDepthMask( GL_FALSE ) );
+            GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
+            GL_ASSERT( glDepthFunc( GL_LESS ) );
+            m_debugRenderQueue.render();
 
+            // Draw UI stuff, always drawn on top of everything else
+            GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
+            m_uiRenderQueue.render();
+
+            m_fbo->unbind();
+
+#ifndef NO_TRANSPARENCY
             m_oitFbo->useAsTarget();
 
             GL_ASSERT( glDrawBuffers( 2, buffers ) );
 
             // RT0 stores a sum, RT1 stores a product.
-            GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearZeros.data() ) );   // Clear
-            GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearOnes.data() ) );   // Clear
+            GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearZeros.data() ) );
+            GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearOnes.data() ) );
 
             GL_ASSERT( glDepthFunc( GL_LESS ) )
             GL_ASSERT( glEnable( GL_BLEND ) );

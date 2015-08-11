@@ -77,11 +77,17 @@ for each light do
 done
 ```
 
-#### 3. Ordered independent transparency pass
+#### 3. Debug and UI render objects
+Those objects are drawn with their own shader, and without lighting.
+They do not write in the depth map but they have different depth testing behaviour :
+  * func is LESS for debug objects (drawn only if visibles)
+  * func is ALWAYS for UI objects (drawn in front of everything else)
+
+#### 4. Ordered independent transparency pass
 This pass basically implements the first pass of NVidia paper on Weighted blended order independent transparency
 (see http://jcgt.org/published/0002/02/09/)
 
-#### 4. Compositing for the whole *render pass*
+#### 5. Compositing for the whole *render pass*
 Two draw calls are done for this pass, 
   * the first one composes ambient and lighted textures
   * the second one blends (1-alpha, alpha) the last render result with the transparency textures

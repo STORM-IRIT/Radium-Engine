@@ -183,21 +183,8 @@ namespace Ra
 
         protected:
 
-            /**
-             * @brief Update OpenGL stuff for the render objects that require it.
-             * This cannot be done by the systems since they have no access to an
-             * OpenGL context.
-             *
-             * @param renderData The basic data needed for the rendering :
-             * Time elapsed since last frame, camera view matrix, camera projection matrix.
-             */
-            virtual void updateRenderObjectsInternal( const RenderData& renderData,
-                                                      const std::vector<RenderObjectPtr>& renderObjects );
-
-            virtual void feedRenderQueuesInternal( const RenderData& renderData,
-                                                   const std::vector<RenderObjectPtr>& renderObjects );
-
-            /**
+           // 4.
+           /**
              * @brief All the scene rendering magics basically happens here.
              *
              * @param renderData The basic data needed for the rendering :
@@ -205,6 +192,7 @@ namespace Ra
              */
             virtual void renderInternal( const RenderData& renderData );
 
+            // 5.
             /**
              * @brief Do all post processing stuff. If you override this method,
              * be careful to fill @see m_finalTexture since it is the texture that
@@ -216,13 +204,27 @@ namespace Ra
             virtual void postProcessInternal( const RenderData& renderData );
 
         private:
+
+            // 0.
             void saveExternalFBOInternal();
+
+            // 1.
+            virtual void updateRenderObjectsInternal( const RenderData& renderData,
+                                                      const std::vector<RenderObjectPtr>& renderObjects );
+
+            // 2.
+            virtual void feedRenderQueuesInternal( const RenderData& renderData,
+                                                   const std::vector<RenderObjectPtr>& renderObjects );
+
+            // 3.
+            void doPicking();
+
+            // 6.
             void drawScreenInternal();
 
             void initShaders();
             void initBuffers();
 
-            void doPicking();
 
         protected:
             /**
@@ -268,6 +270,7 @@ namespace Ra
             RenderQueue m_opaqueRenderQueue;
             RenderQueue m_transparentRenderQueue;
             RenderQueue m_debugRenderQueue;
+            RenderQueue m_uiRenderQueue;
 
         private:
             enum RenderPassTextures

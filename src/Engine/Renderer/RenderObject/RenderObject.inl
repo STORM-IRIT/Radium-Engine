@@ -4,7 +4,6 @@ namespace Ra
 {
     namespace Engine
     {
-
         inline void RenderObject::setRenderObjectType( const RenderObjectType& type )
         {
             m_type = type;
@@ -61,5 +60,24 @@ namespace Ra
             return m_mesh;
         }
 
+        inline void RenderObject::setLocalTransform( const Core::Transform& transform )
+        {
+            m_localTransform = transform;
+        }
+
+        inline void RenderObject::setLocalTransform( const Core::Matrix4& transform )
+        {
+            m_localTransform = Core::Transform( transform );
+        }
+
+        inline const Core::Transform& RenderObject::getLocalTransform() const
+        {
+            return m_localTransform;
+        }
+
+        inline const Core::Matrix4& RenderObject::getLocalTransformAsMatrix() const
+        {
+            return m_localTransform.matrix();
+        }
     }
 } // namespace Ra

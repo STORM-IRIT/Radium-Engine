@@ -35,7 +35,8 @@ namespace Ra
             {
                 RO_OPAQUE,
                 RO_TRANSPARENT,
-                RO_DEBUG
+                RO_DEBUG,
+                RO_UI
             };
 
         public:
@@ -68,6 +69,11 @@ namespace Ra
             void setMesh( Mesh* mesh );
             Mesh* getMesh() const;
 
+            void setLocalTransform( const Core::Transform& transform );
+            void setLocalTransform( const Core::Matrix4& transform );
+            const Core::Transform& getLocalTransform() const;
+            const Core::Matrix4& getLocalTransformAsMatrix() const;
+
         private:
             std::string m_name;
             RenderObjectType m_type;
@@ -76,6 +82,8 @@ namespace Ra
 
             RenderTechnique* m_renderTechnique;
             Mesh* m_mesh;
+
+            Core::Transform m_localTransform;
 
             bool m_visible;
             bool m_isDirty;
