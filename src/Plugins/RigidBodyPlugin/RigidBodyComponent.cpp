@@ -48,6 +48,7 @@ namespace RigidBodyPlugin
     void RigidBodyComponent::setKinematic()
     {
         m_invMass = Scalar( 0.0 );
+        m_isKinematic = true;
     }
 
     bool RigidBodyComponent::isKinematic() const
