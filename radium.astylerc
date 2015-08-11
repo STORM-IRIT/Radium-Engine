@@ -17,6 +17,7 @@
 --pad-oper     # '(a+b)*(c/d)' becomes '(a + b) * (c / d)'
 --pad-header   # 'if(myCond)' becomes 'if (myCond)' (if, while, for...)
 --pad-paren-in # 'if (isFoo((a+2)))' becomes if ( isFoo( ( a+2 ) ) )
+--unpad-paren
 
 # *, & and ^ are attached to the type (e.g char* str)
 --align-pointer=type

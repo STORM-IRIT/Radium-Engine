@@ -6,6 +6,8 @@
 
 #include <qdebug.h>
 
+#include <MainApplication/TimerData/FrameTimerData.hpp>
+
 namespace Ra
 {
     namespace Engine
@@ -57,10 +59,13 @@ namespace Ra
             void entitiesUpdated();
             void cameraPositionChanged( const Core::Vector3& p );
             void cameraTargetChanged( const Core::Vector3& p );
+            void updateFramestats( const std::vector<FrameTimerData>& stats );
 
         signals:
             void fileLoading( const QString path );
             void entitiesUpdated( const std::vector<Engine::Entity*>& );
+            void framescountForStatsChanged( int count );
+
 
         signals:
             void setCameraPosition( const Core::Vector3& );

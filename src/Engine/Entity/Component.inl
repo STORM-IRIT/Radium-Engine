@@ -3,12 +3,12 @@
 namespace Ra
 {
 
-    inline void Engine::Component::setEntity( const Engine::Entity* entity )
+    inline void Engine::Component::setEntity( Engine::Entity* entity )
     {
         m_entity = entity;
     }
 
-    inline const Engine::Entity* Engine::Component::getEntity() const
+    inline Engine::Entity* Engine::Component::getEntity() const
     {
         return m_entity;
     }

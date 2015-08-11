@@ -10,84 +10,86 @@
 #include <Plugins/FancyMeshPlugin/FancyMeshLoader.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
-namespace Ra
+namespace FancyMeshPlugin
 {
 
-    Engine::FancyMeshSystem::FancyMeshSystem ( RadiumEngine* engine )
-        : System ( engine )
+    FancyMeshSystem::FancyMeshSystem( Ra::Engine::RadiumEngine* engine )
+        : Ra::Engine::System( engine )
     {
     }
 
-    Engine::FancyMeshSystem::~FancyMeshSystem()
+    FancyMeshSystem::~FancyMeshSystem()
     {
     }
 
-    void Engine::FancyMeshSystem::initialize()
+    void FancyMeshSystem::initialize()
     {
     }
 
-    void Engine::FancyMeshSystem::handleFileLoading ( const std::string& filename )
+    void FancyMeshSystem::handleFileLoading( const std::string& filename )
     {
-        DataVector componentsData = FancyMeshLoader::loadFile ( filename );
+        DataVector componentsData = FancyMeshLoader::loadFile( filename );
 
         for ( uint i = 0; i < componentsData.size(); ++i )
         {
             FancyComponentData data = componentsData[i];
 
             // Retrieve entity if exist, create it otherwise
-            Engine::Entity* e = m_engine->getEntityManager()->getOrCreateEntity ( data.name );
-            e->setTransform ( data.transform );
+            Ra::Engine::Entity* e = m_engine->getEntityManager()->getOrCreateEntity( data.name );
+            e->setTransform( data.transform );
 
             FancyMeshComponent* component =
-                static_cast<FancyMeshComponent*> ( addComponentToEntity ( e ) );
+                static_cast<FancyMeshComponent*>( addComponentToEntity( e ) );
 
-            component->handleMeshLoading ( data );
+            component->handleMeshLoading( data );
         }
     }
 
-    Engine::Component* Engine::FancyMeshSystem::addComponentToEntity ( Engine::Entity* entity )
+    Ra::Engine::Component* FancyMeshSystem::addComponentToEntity( Ra::Engine::Entity* entity )
     {
         uint componentId = entity->getComponents().size();
 
-        std::string componentName = "FancyMeshComponent_" + entity->getName() + std::to_string ( componentId++ );
-        FancyMeshComponent* component = new FancyMeshComponent ( componentName );
+        std::string componentName = "FancyMeshComponent_" + entity->getName() + std::to_string( componentId++ );
+        FancyMeshComponent* component = new FancyMeshComponent( componentName );
 
-        component->setEntity ( entity );
-        component->setRenderObjectManager ( m_engine->getRenderObjectManager() );
+        component->setEntity( entity );
+        component->setRenderObjectManager( m_engine->getRenderObjectManager() );
 
-        entity->addComponent ( component );
-        this->addComponent ( component );
+        entity->addComponent( component );
+        this->addComponent( component );
 
         component->initialize();
 
         return component;
     }
 
-    void Engine::FancyMeshSystem::generateTasks ( Core::TaskQueue* taskQueue, const FrameInfo& frameInfo )
+    void FancyMeshSystem::generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo )
     {
         // Do nothing, as this system only displays meshes.
-        Core::DummyTask* task = new Core::DummyTask;
-        Core::DummyTaskParams p;
+#if 0
+        Ra::Core::DummyTask* task = new Ra::Core::DummyTask;
+        Ra::Core::DummyTaskParams p;
         p.m_param = frameInfo.m_dt;
-        task->init ( &p );
-        taskQueue->queueTask ( taskQueue->registerTask ( task ) );
+        task->init( &p );
+        taskQueue->queueTask( taskQueue->registerTask( task ) );
+#endif
     }
 
-    Engine::FancyMeshComponent* Engine::FancyMeshSystem::addDisplayMeshToEntity ( Entity* entity,
-                                                                                  const Core::TriangleMesh& mesh )
+    FancyMeshComponent* FancyMeshSystem::addFancyMeshToEntity( Ra::Engine::Entity* entity,
+                                                               const Ra::Core::TriangleMesh& mesh )
     {
-        FancyMeshComponent* comp = static_cast<FancyMeshComponent*> ( addComponentToEntity ( entity ) );
-        comp->addMeshRenderObject ( mesh, "Mesh RenderObject" );
+        FancyMeshComponent* comp = static_cast<FancyMeshComponent*>( addComponentToEntity( entity ) );
+        comp->addMeshRenderObject( mesh, "Mesh RenderObject" );
         return comp;
     }
 
-    Engine::FancyMeshComponent* Engine::FancyMeshSystem::addDisplayMeshToEntity ( Entity* entity,
-                                                                                  const Core::TriangleMesh& mesh,
-                                                                                  RenderTechnique* technique )
+    FancyMeshComponent* FancyMeshSystem::addFancyMeshToEntity( Ra::Engine::Entity* entity,
+                                                               const Ra::Core::TriangleMesh& mesh,
+                                                               Ra::Engine::RenderTechnique* technique )
     {
-        FancyMeshComponent* comp = static_cast<FancyMeshComponent*> ( addComponentToEntity ( entity ) );
-        comp->addMeshRenderObject ( mesh, "Mesh RenderObject", technique );
+        FancyMeshComponent* comp = static_cast<FancyMeshComponent*>( addComponentToEntity( entity ) );
+        comp->addMeshRenderObject( mesh, "Mesh RenderObject", technique );
         return comp;
     }
 
-}
+} // namespace FancyMeshPlugin

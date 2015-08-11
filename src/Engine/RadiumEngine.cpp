@@ -30,7 +30,7 @@ namespace Ra
     {
 
         RadiumEngine::RadiumEngine()
-            : m_quit ( false )
+            : m_quit( false )
         {
             //    LOG(INFO) << "Engine starting...";
         }
@@ -41,8 +41,8 @@ namespace Ra
 
         void RadiumEngine::initialize()
         {
-            m_renderObjectManager.reset ( new RenderObjectManager );
-            m_entityManager.reset ( new EntityManager );
+            m_renderObjectManager.reset( new RenderObjectManager );
+            m_entityManager.reset( new EntityManager );
         }
 
         void RadiumEngine::cleanup()
@@ -56,28 +56,28 @@ namespace Ra
             m_renderObjectManager.reset();
         }
 
-        void RadiumEngine::getTasks ( Core::TaskQueue* taskQueue,  Scalar dt )
+        void RadiumEngine::getTasks( Core::TaskQueue* taskQueue,  Scalar dt )
         {
             FrameInfo frameInfo;
             frameInfo.m_dt = dt;
             for ( auto& syst : m_systems )
             {
-                syst.second->generateTasks ( taskQueue, frameInfo );
+                syst.second->generateTasks( taskQueue, frameInfo );
             }
         }
 
-        void RadiumEngine::registerSystem ( const std::string& name, System* system )
+        void RadiumEngine::registerSystem( const std::string& name, System* system )
         {
-            CORE_ASSERT ( m_systems.find ( name ) == m_systems.end(),
-                          "Same system added multiple times." );
+            CORE_ASSERT( m_systems.find( name ) == m_systems.end(),
+                         "Same system added multiple times." );
 
             m_systems[name] = std::shared_ptr<System> ( system );
         }
 
-        System* RadiumEngine::getSystem ( const std::string& system ) const
+        System* RadiumEngine::getSystem( const std::string& system ) const
         {
             System* sys = nullptr;
-            auto it = m_systems.find ( system );
+            auto it = m_systems.find( system );
 
             if ( it != m_systems.end() )
             {
@@ -87,21 +87,21 @@ namespace Ra
             return sys;
         }
 
-        bool RadiumEngine::loadFile ( const std::string& file )
+        bool RadiumEngine::loadFile( const std::string& file )
         {
             for ( auto& system : m_systems )
             {
-                system.second->handleFileLoading ( file );
+                system.second->handleFileLoading( file );
             }
 
             return true;
         }
 
-        bool RadiumEngine::handleKeyEvent ( const Core::KeyEvent& event )
+        bool RadiumEngine::handleKeyEvent( const Core::KeyEvent& event )
         {
             for ( const auto& system : m_systems )
             {
-                if ( system.second->handleKeyEvent ( event ) )
+                if ( system.second->handleKeyEvent( event ) )
                 {
                     return true;
                 }
@@ -110,11 +110,11 @@ namespace Ra
             return false;
         }
 
-        bool RadiumEngine::handleMouseEvent ( const Core::MouseEvent& event )
+        bool RadiumEngine::handleMouseEvent( const Core::MouseEvent& event )
         {
             for ( const auto& system : m_systems )
             {
-                if ( system.second->handleMouseEvent ( event ) )
+                if ( system.second->handleMouseEvent( event ) )
                 {
                     return true;
                 }

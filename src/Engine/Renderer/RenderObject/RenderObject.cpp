@@ -48,7 +48,7 @@ namespace Ra
         ShaderKey shader( m_renderTechnique->shader );
         BindableMaterial material( m_renderTechnique->material );
         BindableTransform transform( m_component->getEntity()->getTransformAsMatrix(), view, proj );
-        BindableMesh mesh( m_mesh, idx.getValue() );
+        BindableMesh mesh( m_mesh, m_component->getEntity()->idx.getValue() );
 
         queue[shader][material][transform].push_back( mesh );
     }

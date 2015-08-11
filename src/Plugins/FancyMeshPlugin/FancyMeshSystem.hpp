@@ -20,36 +20,36 @@ namespace Ra
         class Entity;
         struct RenderTechnique;
         class Component;
-        class FancyMeshComponent;
     }
 }
 
-namespace Ra
+namespace FancyMeshPlugin
 {
-    namespace Engine
+    class FancyMeshComponent;
+}
+
+namespace FancyMeshPlugin
+{
+    class RA_API FancyMeshSystem : public Ra::Engine::System
     {
+    public:
+        FancyMeshSystem( Ra::Engine::RadiumEngine* engine );
+        virtual ~FancyMeshSystem();
 
-        class RA_API FancyMeshSystem : public System
-        {
-        public:
-            FancyMeshSystem ( RadiumEngine* engine );
-            virtual ~FancyMeshSystem();
+        virtual void initialize() override;
+        virtual void handleFileLoading( const std::string& filename ) override;
 
-            virtual void initialize() override;
-            virtual void handleFileLoading ( const std::string& filename ) override;
+        virtual Ra::Engine::Component* addComponentToEntity( Ra::Engine::Entity* entity ) override;
 
-            virtual Component* addComponentToEntity ( Engine::Entity* entity ) override;
+        virtual void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;
 
-            virtual void generateTasks ( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
+        // Specialized factory methods for this systems.
+        FancyMeshComponent* addFancyMeshToEntity( Ra::Engine::Entity* entity, const Ra::Core::TriangleMesh& mesh );
+        FancyMeshComponent* addFancyMeshToEntity( Ra::Engine::Entity* entity,
+                                                  const Ra::Core::TriangleMesh& mesh,
+                                                  Ra::Engine::RenderTechnique* technique );
+    };
 
-            // Specialized factory methods for this systems.
-            FancyMeshComponent* addDisplayMeshToEntity ( Entity* entity, const Core::TriangleMesh& mesh );
-            FancyMeshComponent* addDisplayMeshToEntity ( Entity* entity,
-                                                         const Core::TriangleMesh& mesh,
-                                                         RenderTechnique* technique );
-        };
-
-    } // namespace Engine
-} // namespace Ra
+} // namespace FancyMeshPlugin
 
 #endif // FANCYMESHPLUGIN_FANCYMESHSYSTEM_HPP

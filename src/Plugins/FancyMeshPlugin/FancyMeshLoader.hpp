@@ -6,24 +6,18 @@
 
 #include <Plugins/FancyMeshPlugin/FancyMeshLoadingData.hpp>
 
-namespace Ra
-{
-    typedef std::vector<Engine::FancyComponentData,
-            Core::AlignedAllocator<Engine::FancyComponentData, 16>> DataVector;
-}
+typedef std::vector<FancyMeshPlugin::FancyComponentData,
+        Ra::Core::AlignedAllocator<FancyMeshPlugin::FancyComponentData, 16>> DataVector;
 
-namespace Ra
+namespace FancyMeshPlugin
 {
-    namespace Engine
+
+    namespace FancyMeshLoader
     {
+        RA_API DataVector loadFile( const std::string& name );
 
-        namespace FancyMeshLoader
-        {
-            RA_API DataVector loadFile( const std::string& name );
+    } // namespace FancyMeshLoader;
 
-        } // namespace FancyMeshLoader;
-
-    } // namespace Engine
-} // namespace Ra
+} // namespace FancyMeshPlugin
 
 #endif // FANCYMESHPLUGIN_FANCYMESHLOADER_HPP

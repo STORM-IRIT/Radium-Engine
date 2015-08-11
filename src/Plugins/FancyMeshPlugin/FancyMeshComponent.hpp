@@ -12,30 +12,27 @@ namespace Ra
     }
 }
 
-// FIXME(Charly): Do we really want this to be in Engine namespace ?
-namespace Ra
+namespace FancyMeshPlugin
 {
-    namespace Engine
+
+    class RA_API FancyMeshComponent : public Ra::Engine::Component
     {
+    public:
+        FancyMeshComponent( const std::string& name );
+        virtual ~FancyMeshComponent();
 
-        class RA_API FancyMeshComponent : public Component
-        {
-        public:
-            FancyMeshComponent ( const std::string& name );
-            virtual ~FancyMeshComponent();
+        virtual void initialize() override;
 
-            virtual void initialize() override;
+        void addMeshRenderObject( const Ra::Core::TriangleMesh& mesh, const std::string& name );
+        void addMeshRenderObject( const Ra::Core::TriangleMesh& mesh, const std::string& name,
+                                  Ra::Engine::RenderTechnique* technique );
 
-            void addMeshRenderObject ( const Core::TriangleMesh& mesh, const std::string& name );
-            void addMeshRenderObject ( const Core::TriangleMesh& mesh, const std::string& name, RenderTechnique* technique );
+        void handleMeshLoading( const FancyComponentData& data );
 
-            void handleMeshLoading ( const FancyComponentData& data );
+    private:
+        Ra::Core::Index m_renderObject;
+    };
 
-        private:
-            Core::Index m_renderObject;
-        };
-
-    } // namespace Engine
-} // namespace Engine
+} // namespace FancyMeshPlugin
 
 #endif // FANCYMESHPLUGIN_FANCYMESHCOMPONENT_HPP
