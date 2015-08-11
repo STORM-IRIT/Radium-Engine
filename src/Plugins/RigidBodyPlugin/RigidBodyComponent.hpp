@@ -15,14 +15,19 @@ namespace RigidBodyPlugin
         virtual void initialize() override;
 
         void setMass( Scalar mass );
+        Scalar getMass() const;
         void setKinematic();
 
         void addForce( const Ra::Core::Vector3& force );
-        void integrate( Scalar dt );;
+        void integrate( Scalar dt );
+
+        bool isKinematic() const;
 
     private:
         Scalar m_mass;
         Scalar m_invMass;
+
+        bool m_isKinematic;
         // TODO(Charly): Add inertia, etc
 
         Ra::Core::Vector3 m_totalForces;

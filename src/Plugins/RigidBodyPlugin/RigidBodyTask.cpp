@@ -36,8 +36,11 @@ namespace RigidBodyPlugin
         for ( auto& rb : m_rigidBodies )
         {
             // Do integration
-            rb->addForce( GRAVITY );
-            rb->integrate( m_dt );
+            if ( !rb->isKinematic() )
+            {
+                rb->addForce( GRAVITY * rb->getMass() );
+                rb->integrate( m_dt );
+            }
         }
     }
 

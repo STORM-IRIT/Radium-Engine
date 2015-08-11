@@ -12,6 +12,7 @@ namespace RigidBodyPlugin
         : Ra::Engine::Component( name )
         , m_mass( std::numeric_limits<Scalar>::infinity() )
         , m_invMass( 0.0 )
+        , m_isKinematic( true )
         , m_totalForces( 0.0, 0.0, 0.0 )
         , m_linearPosition( 0.0, 0.0, 0.0 )
         , m_linearVelocity( 0.0, 0.0, 0.0 )
@@ -32,11 +33,26 @@ namespace RigidBodyPlugin
     {
         m_mass = mass;
         m_invMass = Scalar( 1.0 / mass );
+
+        if ( m_invMass != 0.0 )
+        {
+            m_isKinematic = false;
+        }
+    }
+
+    Scalar RigidBodyComponent::getMass() const
+    {
+        return m_mass;
     }
 
     void RigidBodyComponent::setKinematic()
     {
         m_invMass = Scalar( 0.0 );
+    }
+
+    bool RigidBodyComponent::isKinematic() const
+    {
+        return m_isKinematic;
     }
 
     void RigidBodyComponent::addForce( const Ra::Core::Vector3& force )
@@ -49,7 +65,8 @@ namespace RigidBodyPlugin
         Ra::Core::Transform trans = m_entity->getTransform();
         m_linearPosition = trans.translation();
 
-        m_linearVelocity += m_totalForces * dt;
+        Ra::Core::Vector3 accel = m_totalForces * m_invMass;
+        m_linearVelocity += accel * dt;
         m_linearPosition += m_linearVelocity * dt;
 
         if ( 0 )
