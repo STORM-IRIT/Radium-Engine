@@ -16,8 +16,10 @@
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Plugins/FancyMeshPlugin/FancyMeshSystem.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
+
+#include <Plugins/FancyMeshPlugin/FancyMeshSystem.hpp>
+#include <Plugins/RigidBodyPlugin/RigidBodySystem.hpp>
 
 // Const parameters : TODO : make config / command line options
 const uint FPS_MAX = 60;
@@ -25,19 +27,19 @@ const uint TIMER_AVERAGE = 100;
 
 namespace Ra
 {
-    MainApplication::MainApplication ( int argc, char** argv )
-        : QApplication ( argc, argv )
-        , m_mainWindow ( nullptr )
-        , m_engine ( nullptr )
-        , m_taskQueue ( nullptr )
-        , m_viewer ( nullptr )
-        , m_frameTimer ( new QTimer ( this ) )
-        , m_frameCounter ( 0 )
+    MainApplication::MainApplication( int argc, char** argv )
+        : QApplication( argc, argv )
+        , m_mainWindow( nullptr )
+        , m_engine( nullptr )
+        , m_taskQueue( nullptr )
+        , m_viewer( nullptr )
+        , m_frameTimer( new QTimer( this ) )
+        , m_frameCounter( 0 )
           //, m_timerData(TIMER_AVERAGE)
     {
         // Boilerplate print.
 
-        LOG ( logINFO ) << "*** Radium Engine Main App  ***";
+        LOG( logINFO ) << "*** Radium Engine Main App  ***";
         std::stringstream config;
 #if defined (CORE_DEBUG)
         config << "(Debug Build) -- ";
@@ -50,9 +52,9 @@ namespace Ra
 #elif defined (ARCH_X64)
         config << " 64 bits x64";
 #endif
-        LOG ( logINFO ) << config.str();
+        LOG( logINFO ) << config.str();
 
-        config.str ( std::string() );
+        config.str( std::string() );
         config << "Floating point format : ";
 #if defined(CORE_USE_DOUBLE)
         config << "double precision" << std::endl;
@@ -60,25 +62,25 @@ namespace Ra
         config << "single precision" << std::endl;
 #endif
 
-        LOG ( logINFO ) << config.str();
-        LOG ( logINFO ) << "(Log using default file)";
+        LOG( logINFO ) << config.str();
+        LOG( logINFO ) << "(Log using default file)";
 
         // Handle command line arguments.
         // TODO ( e.g fps limit ) / Keep or not timer data .
 
         // Create default format for Qt.
         QSurfaceFormat format;
-        format.setVersion ( 4, 4 );
-        format.setProfile ( QSurfaceFormat::CoreProfile );
-        format.setSamples ( 0 );
-        format.setDepthBufferSize ( 24 );
-        format.setStencilBufferSize ( 8 );
-        format.setSamples ( 16 );
-        format.setSwapBehavior ( QSurfaceFormat::DoubleBuffer );
-        QSurfaceFormat::setDefaultFormat ( format );
+        format.setVersion( 4, 4 );
+        format.setProfile( QSurfaceFormat::CoreProfile );
+        format.setSamples( 0 );
+        format.setDepthBufferSize( 24 );
+        format.setStencilBufferSize( 8 );
+        format.setSamples( 16 );
+        format.setSwapBehavior( QSurfaceFormat::DoubleBuffer );
+        QSurfaceFormat::setDefaultFormat( format );
 
         // Create main window.
-        m_mainWindow.reset ( new Gui::MainWindow );
+        m_mainWindow.reset( new Gui::MainWindow );
         m_mainWindow->show();
 
         // Allow all events to be processed (thus the viewer should have
@@ -86,20 +88,20 @@ namespace Ra
         processEvents();
 
         m_viewer = m_mainWindow->getViewer();
-        CORE_ASSERT ( m_viewer != nullptr, "GUI was not initialized" );
-        CORE_ASSERT ( m_viewer->context()->isValid(), "OpenGL was not initialized" );
+        CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
+        CORE_ASSERT( m_viewer->context()->isValid(), "OpenGL was not initialized" );
 
         // Create engine
-        m_engine.reset ( new Engine::RadiumEngine );
+        m_engine.reset( new Engine::RadiumEngine );
         m_engine->initialize();
         registerSystems();
         setupScene();
 
         // Pass the engine to the renderer to complete the initialization process.
-        m_viewer->initRenderer ( m_engine.get() );
+        m_viewer->initRenderer( m_engine.get() );
 
         // Create task queue with N-1 threads (we keep one for rendering).
-        m_taskQueue.reset ( new Core::TaskQueue ( std::thread::hardware_concurrency() - 1 ) );
+        m_taskQueue.reset( new Core::TaskQueue( std::thread::hardware_concurrency() - 1 ) );
 
         createConnections();
 
@@ -107,8 +109,8 @@ namespace Ra
 
         m_lastFrameStart = Core::Timer::Clock::now();
 
-        connect ( m_frameTimer, SIGNAL ( timeout() ), this, SLOT ( radiumFrame() ) );
-        m_frameTimer->start ( 1000 / FPS_MAX );
+        connect( m_frameTimer, SIGNAL( timeout() ), this, SLOT( radiumFrame() ) );
+        m_frameTimer->start( 1000 / FPS_MAX );
     }
 
     void MainApplication::createConnections()
@@ -117,116 +119,128 @@ namespace Ra
 
     void MainApplication::registerSystems()
     {
-        Engine::FancyMeshSystem* system = new Engine::FancyMeshSystem ( m_engine.get() );
-        m_engine->registerSystem ( "FancyMeshSystem", system );
+        FancyMeshPlugin::FancyMeshSystem* fmSystem = new FancyMeshPlugin::FancyMeshSystem( m_engine.get() );
+        m_engine->registerSystem( "FancyMeshSystem", fmSystem );
+
+        RigidBodyPlugin::RigidBodySystem* rbSystem = new RigidBodyPlugin::RigidBodySystem( m_engine.get() );
+        m_engine->registerSystem( "RigidBodySystem", rbSystem );
     }
 
     void MainApplication::setupScene()
     {
-        Engine::ShaderConfiguration shader ( "BlinnPhong", "../Shaders" );
+        Engine::ShaderConfiguration shader( "BlinnPhong", "../Shaders" );
 
-        Engine::Material* m0 = new Engine::Material ( "m0" );
-        m0->setKd ( Core::Color ( 1.0, 0.0, 0.0, 1.0 ) );
-        m0->setKs ( Core::Color ( 0.0, 0.0, 0.0, 1.0 ) );
-        m0->setMaterialType ( Engine::Material::MaterialType::MAT_TRANSPARENT );
+        Engine::Material* m0 = new Engine::Material( "m0" );
+        m0->setKd( Core::Color( 1.0, 0.0, 0.0, 1.0 ) );
+        m0->setKs( Core::Color( 0.0, 0.0, 0.0, 1.0 ) );
+        m0->setMaterialType( Engine::Material::MaterialType::MAT_TRANSPARENT );
         Engine::RenderTechnique* r0 = new Engine::RenderTechnique;
         r0->shaderConfig = shader;
         r0->material = m0;
 
-        Engine::Material* m1 = new Engine::Material ( "m1" );
-        m1->setKd ( Core::Color ( 0.0, 1.0, 0.0, 1.0 ) );
-        m1->setKs ( Core::Color ( 0.0, 0.0, 0.0, 1.0 ) );
+        Engine::Material* m1 = new Engine::Material( "m1" );
+        m1->setKd( Core::Color( 0.0, 1.0, 0.0, 1.0 ) );
+        m1->setKs( Core::Color( 0.0, 0.0, 0.0, 1.0 ) );
         //m1->setMaterialType ( Engine::Material::MaterialType::MAT_TRANSPARENT );
         Engine::RenderTechnique* r1 = new Engine::RenderTechnique;
         r1->shaderConfig = shader;
         r1->material = m1;
 
-        Engine::Material* m2 = new Engine::Material ( "m2" );
-        m2->setKd ( Core::Color ( 0.0, 0.0, 1.0, 0.5 ) );
-        m2->setKs ( Core::Color ( 0.0, 0.0, 0.0, 1.0 ) );
-        m2->setMaterialType ( Engine::Material::MaterialType::MAT_TRANSPARENT );
+        Engine::Material* m2 = new Engine::Material( "m2" );
+        m2->setKd( Core::Color( 0.0, 0.0, 1.0, 0.5 ) );
+        m2->setKs( Core::Color( 0.0, 0.0, 0.0, 1.0 ) );
+        m2->setMaterialType( Engine::Material::MaterialType::MAT_TRANSPARENT );
         Engine::RenderTechnique* r2 = new Engine::RenderTechnique;
         r2->shaderConfig = shader;
         r2->material = m2;
 
-        Engine::Material* m3 = new Engine::Material ( "m3" );
-        m3->setKd ( Core::Color ( 1.0, 0.0, 1.0, 0.5 ) );
-        m3->setKs ( Core::Color ( 0.0, 0.0, 0.0, 1.0 ) );
-        m3->setMaterialType ( Engine::Material::MaterialType::MAT_TRANSPARENT );
+        Engine::Material* m3 = new Engine::Material( "m3" );
+        m3->setKd( Core::Color( 1.0, 0.0, 1.0, 0.5 ) );
+        m3->setKs( Core::Color( 0.0, 0.0, 0.0, 1.0 ) );
+        m3->setMaterialType( Engine::Material::MaterialType::MAT_TRANSPARENT );
         Engine::RenderTechnique* r3 = new Engine::RenderTechnique;
         r3->shaderConfig = shader;
         r3->material = m3;
 
-        Engine::Material* m4 = new Engine::Material ( "m4" );
-        m4->setKd ( Core::Color ( 1.0, 1.0, 0.0, 0.5 ) );
-        m4->setKs ( Core::Color ( 0.0, 0.0, 0.0, 1.0 ) );
-        m4->setMaterialType ( Engine::Material::MaterialType::MAT_TRANSPARENT );
+        Engine::Material* m4 = new Engine::Material( "m4" );
+        m4->setKd( Core::Color( 1.0, 1.0, 0.0, 0.5 ) );
+        m4->setKs( Core::Color( 0.0, 0.0, 0.0, 1.0 ) );
+        m4->setMaterialType( Engine::Material::MaterialType::MAT_TRANSPARENT );
         Engine::RenderTechnique* r4 = new Engine::RenderTechnique;
         r4->shaderConfig = shader;
         r4->material = m4;
 
-        Engine::Material* m5 = new Engine::Material ( "m5" );
-        m5->setKd ( Core::Color ( 0.0, 1.0, 1.0, 0.5 ) );
-        m5->setKs ( Core::Color ( 0.0, 0.0, 0.0, 1.0 ) );
-        m5->setMaterialType ( Engine::Material::MaterialType::MAT_TRANSPARENT );
+        Engine::Material* m5 = new Engine::Material( "m5" );
+        m5->setKd( Core::Color( 0.0, 1.0, 1.0, 0.5 ) );
+        m5->setKs( Core::Color( 0.0, 0.0, 0.0, 1.0 ) );
+        m5->setMaterialType( Engine::Material::MaterialType::MAT_TRANSPARENT );
         Engine::RenderTechnique* r5 = new Engine::RenderTechnique;
         r5->shaderConfig = shader;
         r5->material = m5;
 
         Core::Transform transform;
-        Engine::FancyMeshSystem* system = static_cast<Engine::FancyMeshSystem*> (
-                                              m_engine->getSystem ( "FancyMeshSystem" ) );
+        FancyMeshPlugin::FancyMeshSystem* fmSystem = static_cast<FancyMeshPlugin::FancyMeshSystem*>(
+                                                         m_engine->getSystem( "FancyMeshSystem" ) );
+        RigidBodyPlugin::RigidBodySystem* rbSystem = static_cast<RigidBodyPlugin::RigidBodySystem*>(
+                                                         m_engine->getSystem( "RigidBodySystem" ) );
+
         Engine::EntityManager* manager = m_engine->getEntityManager();
 
-        Engine::Entity* ent0 = manager->getOrCreateEntity ( "box0" );
-        system->addDisplayMeshToEntity ( ent0, Core::MeshUtils::makeBox(), r0 );
+        Engine::Entity* ent0 = manager->getOrCreateEntity( "box0" );
+        fmSystem->addFancyMeshToEntity( ent0, Core::MeshUtils::makeBox(), r0 );
+        rbSystem->addRigidBodyToEntity( ent0, 1.0 );
 
         transform.setIdentity();
-        transform.translation() = Core::Vector3 ( 2, 0, -3 );
-        ent0->setTransform ( transform );
+        transform.translation() = Core::Vector3( 2, 0, -3 );
+        ent0->setTransform( transform );
 
-        Engine::Entity* ent1 = manager->getOrCreateEntity ( "box1" );
-        system->addDisplayMeshToEntity ( ent1, Core::MeshUtils::makeBox(), r1 );
-
-        transform.setIdentity();
-        transform.translation() = Core::Vector3 ( 0, 0, -3 );
-        ent1->setTransform ( transform );
-
-        Engine::Entity* ent2 = manager->getOrCreateEntity ( "box2" );
-        system->addDisplayMeshToEntity ( ent2, Core::MeshUtils::makeBox(), r2 );
+        Engine::Entity* ent1 = manager->getOrCreateEntity( "box1" );
+        fmSystem->addFancyMeshToEntity( ent1, Core::MeshUtils::makeBox(), r1 );
+        rbSystem->addRigidBodyToEntity( ent1, 1.0 );
 
         transform.setIdentity();
-        transform.translation() = Core::Vector3 ( -2, 0, -3 );
-        ent2->setTransform ( transform );
+        transform.translation() = Core::Vector3( 0, 0, -3 );
+        ent1->setTransform( transform );
 
-        Engine::Entity* ent3 = manager->getOrCreateEntity ( "box3" );
-        system->addDisplayMeshToEntity ( ent3, Core::MeshUtils::makeBox(), r3 );
-
-        transform.setIdentity();
-        transform.translation() = Core::Vector3 ( 2, 0, -5 );
-        ent3->setTransform ( transform );
-
-        Engine::Entity* ent4 = manager->getOrCreateEntity ( "box4" );
-        system->addDisplayMeshToEntity ( ent4, Core::MeshUtils::makeBox(), r4 );
+        Engine::Entity* ent2 = manager->getOrCreateEntity( "box2" );
+        fmSystem->addFancyMeshToEntity( ent2, Core::MeshUtils::makeBox(), r2 );
+        rbSystem->addRigidBodyToEntity( ent2, 1.0 );
 
         transform.setIdentity();
-        transform.translation() = Core::Vector3 ( 0, 0, -5 );
-        ent4->setTransform ( transform );
+        transform.translation() = Core::Vector3( -2, 0, -3 );
+        ent2->setTransform( transform );
 
-        Engine::Entity* ent5 = manager->getOrCreateEntity ( "box5" );
-        system->addDisplayMeshToEntity ( ent5, Core::MeshUtils::makeBox(), r5 );
+        Engine::Entity* ent3 = manager->getOrCreateEntity( "box3" );
+        fmSystem->addFancyMeshToEntity( ent3, Core::MeshUtils::makeBox(), r3 );
+        rbSystem->addRigidBodyToEntity( ent3, 1.0 );
 
         transform.setIdentity();
-        transform.translation() = Core::Vector3 ( -2, 0, -5 );
-        ent5->setTransform ( transform );
+        transform.translation() = Core::Vector3( 2, 0, -5 );
+        ent3->setTransform( transform );
+
+        Engine::Entity* ent4 = manager->getOrCreateEntity( "box4" );
+        fmSystem->addFancyMeshToEntity( ent4, Core::MeshUtils::makeBox(), r4 );
+        rbSystem->addRigidBodyToEntity( ent4, 1.0 );
+
+        transform.setIdentity();
+        transform.translation() = Core::Vector3( 0, 0, -5 );
+        ent4->setTransform( transform );
+
+        Engine::Entity* ent5 = manager->getOrCreateEntity( "box5" );
+        fmSystem->addFancyMeshToEntity( ent5, Core::MeshUtils::makeBox(), r5 );
+        rbSystem->addRigidBodyToEntity( ent5, 1.0 );
+
+        transform.setIdentity();
+        transform.translation() = Core::Vector3( -2, 0, -5 );
+        ent5->setTransform( transform );
     }
 
-    void MainApplication::loadFile ( QString path )
+    void MainApplication::loadFile( QString path )
     {
         std::string pathStr = path.toLocal8Bit().data();
-        bool res = m_engine->loadFile ( pathStr );
-        CORE_UNUSED ( res );
-        m_viewer->handleFileLoading ( pathStr );
+        bool res = m_engine->loadFile( pathStr );
+        CORE_UNUSED( res );
+        m_viewer->handleFileLoading( pathStr );
     }
 
     void MainApplication::radiumFrame()
@@ -280,8 +294,8 @@ namespace Ra
 
             LOG( logINFO ) << "There has been " << pickingResults.size() << " picking requests this frame";
             LOG( logINFO ) << "Picking results : ";
-            
-            for (uint i = 0; i < pickingResults.size(); ++i)
+
+            for ( uint i = 0; i < pickingResults.size(); ++i )
             {
                 auto res = pickingResults[i];
                 auto query = pickingQueries[i];
@@ -315,7 +329,7 @@ namespace Ra
 
     MainApplication::~MainApplication()
     {
-        LOG ( logINFO ) << "About to quit... Cleaning RadiumEngine memory";
+        LOG( logINFO ) << "About to quit... Cleaning RadiumEngine memory";
         emit stopping();
         m_engine->cleanup();
     }
