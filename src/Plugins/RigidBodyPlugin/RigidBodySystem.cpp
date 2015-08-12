@@ -64,7 +64,7 @@ namespace RigidBodyPlugin
         p.dt = frameInfo.m_dt;
 
         task->init( &p );
-        taskQueue->queueTask( taskQueue->registerTask( task ) );
+        taskQueue->registerTask( task );
     }
 
     RigidBodyComponent* RigidBodySystem::addRigidBodyToEntity( Ra::Engine::Entity* entity, Scalar mass )
