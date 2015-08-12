@@ -138,7 +138,7 @@ namespace FancyMeshPlugin
             for ( uint i = 0; i < mesh->mNumVertices; ++i )
             {
                 positions.push_back( assimpToCore( mesh->mVertices[i] ) );
-                positions.push_back( assimpToCore( mesh->mNormals[i] ) );
+                normals.push_back( assimpToCore( mesh->mNormals[i] ) );
 
                 if ( mesh->HasTangentsAndBitangents() )
                 {

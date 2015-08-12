@@ -48,7 +48,7 @@ namespace Ra
         void RenderObject::feedRenderQueue( RenderQueue& queue, const Core::Matrix4& view, const Core::Matrix4& proj )
         {
             // FIXME(Charly): Is this multiplication in the right order ?
-            Core::Transform model = m_localTransform * m_component->getEntity()->getTransform();
+            Core::Transform model = /* m_localTransform * */ m_component->getEntity()->getTransform();
 
             ShaderKey shader( m_renderTechnique->shader );
             BindableMaterial material( m_renderTechnique->material );
