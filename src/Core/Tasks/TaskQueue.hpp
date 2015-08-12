@@ -8,6 +8,7 @@
 #include <deque>
 #include <thread>
 #include <mutex>
+#include <condition_variable>
 
 #include <Core/Time/Timer.hpp>
 
@@ -54,10 +55,6 @@ namespace Ra
             /// its dependencies are satisfied.
             void addDependency( TaskId predecessor, TaskId successor );
 
-            /// Puts the task on the queue to be executed. A task can only be queued if it has
-            /// no dependencies.
-            void queueTask( TaskId task );
-
             /// Executes the task queue. Blocks until all tasks in queue and dependencies are finished.
             void processTaskQueue();
 
@@ -67,12 +64,16 @@ namespace Ra
             void flushTaskQueue();
 
         private:
-            /// Function called by a new thread given a new task.
-            void runTask( TaskId task );
+            /// Function called by a new thread.
+            void runThread(uint id);
+
+            /// Puts the task on the queue to be executed. A task can only be queued if it has
+            /// no dependencies.
+            void queueTask( TaskId task );
 
         private:
-            /// Maximum number of concurently running tasks.
-            const uint m_numThreads;
+            /// Threads working on tasks.
+            std::vector<std::thread> m_workerThreads;
             /// Storage for the tasks (task will be deleted
             std::vector<std::unique_ptr<Task>> m_tasks;
             /// For each task, stores which tasks depend on it.
@@ -88,7 +89,11 @@ namespace Ra
             std::deque<TaskId> m_taskQueue;
             /// Number of tasks currently being processed.
             uint m_processingTasks;
-
+ 
+            /// Flag to signal threads to quit.  
+            bool m_shuttingDown;
+            /// Variable on which threads wait for new tasks.
+            std::condition_variable m_threadNotifier;
             /// Global mutex over thread-sensitive variables.
             std::mutex m_taskQueueMutex;
 
