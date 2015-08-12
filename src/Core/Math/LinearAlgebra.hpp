@@ -88,7 +88,26 @@ namespace Ra
         typedef Eigen::Translation3d         Translationd;
 
         // Todo : storage transform using quaternions ?
+        
+        class Obb : public Aabb
+        {
+        public:
+            Obb() : _tr(Transform::Identity())
+            {
+            
+            }
 
+            Obb(const Aabb& bb, const Transform& tr) : Aabb(bb), _tr(tr)
+            {
+            
+            }
+            
+            Aabb to_bbox() const;
+            void add_point(const Vector3& p);
+            
+            Transform _tr;
+        };
+        
         //
         // Misc types
         //
@@ -103,14 +122,25 @@ namespace Ra
             template<typename Vector>
             inline RA_API Vector floor ( const Vector& v );
 
-            /// Component-wise floor() function on a floating-point vector.
+            /// Component-wise ceil() function on a floating-point vector.
             template<typename Vector>
             inline RA_API Vector ceil ( const Vector& v );
 
             /// Component-wise clamp() function on a floating-point vector.
             template<typename Vector>
             inline RA_API Vector clamp ( const Vector& v, const Vector& min, const Vector& max );
+            
+            /// Component-wise clamp() function on a floating-point vector.
+            template<typename Vector>
+            inline RA_API Vector clamp ( const Vector& v, const Scalar& min, const Scalar& max );
+            
+            /// Vector range check
+            template<typename Vector_>
+            inline bool check_range ( const Vector_& v, const Scalar& min, const Scalar& max );
         }
+        
+        void coordinate_system(const Vector3& fx, Vector3& fy, Vector3& fz);
+        Vector2 interval_squared(const Vector2& i);
 
         //
         // Quaternion functions
@@ -118,6 +148,7 @@ namespace Ra
 
         inline RA_API Quaternion operator+ ( const Quaternion& q1, const Quaternion& q2 );
         inline RA_API Quaternion operator* ( const Scalar& k, const Quaternion& q );
+        
 
         // Use this macro in the public: section of a class
         // when declaring objects containing Vector or Matrices.

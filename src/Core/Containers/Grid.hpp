@@ -5,6 +5,10 @@
 
 #include <Core/CoreMacros.hpp>
 
+
+
+#include <Core/Containers/Grid2_ref.hpp>
+
 namespace Ra
 {
     namespace Core
@@ -55,9 +59,12 @@ namespace Ra
             ///  Access an element with a D-dimensionnal index.
             inline const T& at ( const IdxVector& idx ) const;
             inline T& at ( const IdxVector& idx );
+            inline const T& at ( int idx ) const;
+            inline T& at ( int idx );
 
             /// Read only access to the underlying data.
             inline const T* data() const;
+            inline T* data();
 
             // std::iterators-like interface
             inline Iterator begin();
@@ -75,7 +82,6 @@ namespace Ra
             std::vector<T> m_data;
 
         };
-
     }
 }
 

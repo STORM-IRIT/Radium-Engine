@@ -28,4 +28,6 @@ namespace Ra
     }
 }
 
+#include <Core/Math/Math.inl>
+
 #endif // RADIUMENGINE_MATH_HPP
