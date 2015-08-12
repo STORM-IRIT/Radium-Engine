@@ -3,22 +3,22 @@
 namespace Ra
 {
 
-    inline void Engine::Component::setEntity ( const Engine::Entity* entity )
+    inline void Engine::Component::setEntity( Engine::Entity* entity )
     {
         m_entity = entity;
     }
 
-    inline const Engine::Entity* Engine::Component::getEntity() const
+    inline Engine::Entity* Engine::Component::getEntity() const
     {
         return m_entity;
     }
 
-    inline void Engine::Component::setRenderObjectManager ( RenderObjectManager* manager )
+    inline void Engine::Component::setRenderObjectManager( RenderObjectManager* manager )
     {
         m_renderObjectManager = manager;
     }
 
-    inline void Engine::Component::setSelected ( bool selected )
+    inline void Engine::Component::setSelected( bool selected )
     {
         m_isSelected = selected;
     }

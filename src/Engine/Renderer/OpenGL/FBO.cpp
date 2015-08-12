@@ -8,73 +8,73 @@
 namespace Ra
 {
 
-    Engine::FBO::FBO ( Components components, uint width, uint height )
-        : m_components ( components )
-        , m_width ( width ? width : 1 )
-        , m_height ( height ? height : 1 )
-        , m_isBound ( false )
+    Engine::FBO::FBO( Components components, uint width, uint height )
+        : m_components( components )
+        , m_width( width ? width : 1 )
+        , m_height( height ? height : 1 )
+        , m_isBound( false )
     {
-        GL_ASSERT ( glGenFramebuffers ( 1, &m_fboID ) );
+        GL_ASSERT( glGenFramebuffers( 1, &m_fboID ) );
     }
 
     Engine::FBO::~FBO()
     {
-        GL_ASSERT ( glDeleteFramebuffers ( 1, &m_fboID ) );
+        GL_ASSERT( glDeleteFramebuffers( 1, &m_fboID ) );
         m_textures.clear();
     }
 
     void Engine::FBO::bind()
     {
-        GL_ASSERT ( glBindFramebuffer ( GL_FRAMEBUFFER, m_fboID ) );
+        GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, m_fboID ) );
         m_isBound = true;
     }
 
     void Engine::FBO::useAsTarget()
     {
         bind();
-        GL_ASSERT ( glViewport ( 0, 0, m_width, m_height ) );
+        GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
     }
 
-    void Engine::FBO::useAsTarget ( uint width, uint height )
+    void Engine::FBO::useAsTarget( uint width, uint height )
     {
         bind();
-        GL_ASSERT ( glViewport ( 0, 0, width, height ) );
+        GL_ASSERT( glViewport( 0, 0, width, height ) );
     }
 
-    void Engine::FBO::unbind ( bool complete )
+    void Engine::FBO::unbind( bool complete )
     {
         m_isBound = false;
         if ( complete )
         {
-            GL_ASSERT ( glBindFramebuffer ( GL_FRAMEBUFFER, 0 ) );
+            GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, 0 ) );
         }
     }
 
-    void Engine::FBO::attachTexture ( uint attachment, Engine::Texture* texture, uint level )
+    void Engine::FBO::attachTexture( uint attachment, Engine::Texture* texture, uint level )
     {
-        assert ( m_isBound && "FBO must be bound to attach a texture." );
+        assert( m_isBound && "FBO must be bound to attach a texture." );
 
         switch ( texture->getType() )
         {
             case Engine::Texture::TEXTURE_1D:
             {
-                GL_ASSERT ( glFramebufferTexture1D ( GL_FRAMEBUFFER, attachment, texture->getTarget(),
-                                                     texture->getId(), level ) );
+                GL_ASSERT( glFramebufferTexture1D( GL_FRAMEBUFFER, attachment, texture->getTarget(),
+                                                   texture->getId(), level ) );
             }
             break;
 
             case Engine::Texture::TEXTURE_2D:
             case Engine::Texture::TEXTURE_CUBE:
             {
-                GL_ASSERT ( glFramebufferTexture2D ( GL_FRAMEBUFFER, attachment, texture->getTarget(),
-                                                     texture->getId(), level ) );
+                GL_ASSERT( glFramebufferTexture2D( GL_FRAMEBUFFER, attachment, texture->getTarget(),
+                                                   texture->getId(), level ) );
             }
             break;
 
             case Engine::Texture::TEXTURE_3D:
             {
-                GL_ASSERT ( glFramebufferTexture3D ( GL_FRAMEBUFFER, attachment, texture->getTarget(),
-                                                     texture->getId(), level, texture->getZOffset() ) );
+                GL_ASSERT( glFramebufferTexture3D( GL_FRAMEBUFFER, attachment, texture->getTarget(),
+                                                   texture->getId(), level, texture->getZOffset() ) );
             }
             break;
         }
@@ -82,11 +82,11 @@ namespace Ra
         m_textures[attachment] = texture;
     }
 
-    void Engine::FBO::detachTexture ( uint attachment )
+    void Engine::FBO::detachTexture( uint attachment )
     {
-        assert ( m_isBound && "FBO must be bound to detach a texture." );
-        assert ( m_textures.find ( attachment ) != m_textures.end() &&
-                 "Trying to detach a non attached texture." );
+        assert( m_isBound && "FBO must be bound to detach a texture." );
+        assert( m_textures.find( attachment ) != m_textures.end() &&
+                "Trying to detach a non attached texture." );
 
         Engine::Texture* texture = m_textures[attachment];
 
@@ -94,31 +94,31 @@ namespace Ra
         {
             case Engine::Texture::TEXTURE_1D:
             {
-                GL_ASSERT ( glFramebufferTexture1D ( GL_FRAMEBUFFER, attachment, 0, 0, 0 ) );
+                GL_ASSERT( glFramebufferTexture1D( GL_FRAMEBUFFER, attachment, 0, 0, 0 ) );
             }
             break;
 
             case Engine::Texture::TEXTURE_2D:
             case Engine::Texture::TEXTURE_CUBE:
             {
-                GL_ASSERT ( glFramebufferTexture2D ( GL_FRAMEBUFFER, attachment, 0, 0, 0 ) );
+                GL_ASSERT( glFramebufferTexture2D( GL_FRAMEBUFFER, attachment, 0, 0, 0 ) );
             }
             break;
 
             case Engine::Texture::TEXTURE_3D:
             {
-                GL_ASSERT ( glFramebufferTexture3D ( GL_FRAMEBUFFER, attachment, 0, 0, 0, 0 ) );
+                GL_ASSERT( glFramebufferTexture3D( GL_FRAMEBUFFER, attachment, 0, 0, 0, 0 ) );
             }
             break;
         }
 
-        m_textures.erase ( attachment );
+        m_textures.erase( attachment );
     }
 
     void Engine::FBO::check() const
     {
         // TODO: More verbose check
-        GLenum fboStatus = glCheckFramebufferStatus ( GL_FRAMEBUFFER );
+        GLenum fboStatus = glCheckFramebufferStatus( GL_FRAMEBUFFER );
 
         if ( GL_FRAMEBUFFER_COMPLETE != fboStatus )
         {
@@ -167,27 +167,27 @@ namespace Ra
                 break;
                 default:
                 {
-                    Core::StringUtils::stringPrintf ( err, "Unknown %08x", fboStatus );
+                    Core::StringUtils::stringPrintf( err, "Unknown %08x", fboStatus );
                 }
             }
 
-            LOG ( logERROR ) << "FBO Error : " << err;
+            LOG( logERROR ) << "FBO Error : " << err;
         }
 
-        assert ( fboStatus == GL_FRAMEBUFFER_COMPLETE && "Something went wrong with the Framebuffer.\n" );
+        assert( fboStatus == GL_FRAMEBUFFER_COMPLETE && "Something went wrong with the Framebuffer.\n" );
     }
 
-    void Engine::FBO::setSize ( uint width, uint height )
+    void Engine::FBO::setSize( uint width, uint height )
     {
         m_width = width;
         m_height = height;
     }
 
-    void Engine::FBO::clear ( Components components )
+    void Engine::FBO::clear( Components components )
     {
-        assert ( m_isBound && "FBO must be bound before calling clear()." );
+        assert( m_isBound && "FBO must be bound before calling clear()." );
 
-        Components nc = Components ( m_components & components );
+        Components nc = Components( m_components & components );
 
         GLbitfield mask = 0;
 
@@ -206,7 +206,7 @@ namespace Ra
             mask |= GL_STENCIL_BUFFER_BIT;
         }
 
-        GL_ASSERT ( glClear ( mask ) );
+        GL_ASSERT( glClear( mask ) );
     }
 
 } // namespace Ra

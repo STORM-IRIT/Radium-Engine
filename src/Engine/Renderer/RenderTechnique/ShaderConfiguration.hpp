@@ -14,7 +14,7 @@ namespace Ra
 
         struct ShaderType
         {
-            RA_API std::string getShaderTypeString ( uint type );
+            RA_API std::string getShaderTypeString( uint type );
         };
 
         class RA_API ShaderConfiguration
@@ -37,19 +37,19 @@ namespace Ra
 
         public:
             ShaderConfiguration() = default;
-            explicit ShaderConfiguration ( const std::string& name,
-                                           const std::string& path,
-                                           const ShaderType& type = DEFAULT_SHADER_PROGRAM );
+            explicit ShaderConfiguration( const std::string& name,
+                                          const std::string& path,
+                                          const ShaderType& type = DEFAULT_SHADER_PROGRAM );
 
-            void addProperty ( const std::string& prop );
-            void addProperties ( const std::list<std::string>& props );
-            void removeProperty ( const std::string& prop );
+            void addProperty( const std::string& prop );
+            void addProperties( const std::list<std::string>& props );
+            void removeProperty( const std::string& prop );
 
             bool operator< ( const ShaderConfiguration& other ) const;
 
-            void setName ( const std::string& name );
-            void setPath ( const std::string& path );
-            void setType ( const ShaderType&  type );
+            void setName( const std::string& name );
+            void setPath( const std::string& path );
+            void setType( const ShaderType&  type );
 
             std::string getName() const;
             std::string getPath() const;

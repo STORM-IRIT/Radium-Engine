@@ -81,12 +81,12 @@ namespace Ra
 
         public:
             /// CONSTRUCTOR
-            explicit Viewer ( QWidget* parent = nullptr );
+            explicit Viewer( QWidget* parent = nullptr );
 
             /// DESTRUCTOR
             ~Viewer();
 
-            void initRenderer ( Engine::RadiumEngine* engine );
+            void initRenderer( Engine::RadiumEngine* engine );
 
             /// Access to camera interface.
             CameraInterface* getCamera()
@@ -102,12 +102,12 @@ namespace Ra
 
 
             /// Start asynchronous rendering in a separate thread.
-            void startRendering ( const Scalar dt );
+            void startRendering( const Scalar dt );
 
             /// Blocks until rendering is finished.
             void waitForRendering();
 
-            void handleFileLoading ( const std::string& file );
+            void handleFileLoading( const std::string& file );
 
         public slots:
             /// Tell the renderer to reload all shaders.
@@ -127,19 +127,19 @@ namespace Ra
             virtual void initializeGL() override;
 
             // Resize the view port and the camera. Called by the resize event.
-            virtual void resizeGL ( int width, int height ) override;
+            virtual void resizeGL( int width, int height ) override;
 
             // Paint event is set to a no-op to prevent synchronous rendering.
             // We don't implement paintGL as well.
-            virtual void paintEvent ( QPaintEvent* e ) override {}
+            virtual void paintEvent( QPaintEvent* e ) override {}
 
             /// INTERACTION
             // We intercept the mouse events in this widget to get the coordinates of the mouse
             // in screen space.
-            virtual void mousePressEvent ( QMouseEvent* event ) override;
-            virtual void mouseReleaseEvent ( QMouseEvent* event ) override;
-            virtual void mouseMoveEvent ( QMouseEvent* event ) override;
-            virtual void wheelEvent ( QWheelEvent* event ) override;
+            virtual void mousePressEvent( QMouseEvent* event ) override;
+            virtual void mouseReleaseEvent( QMouseEvent* event ) override;
+            virtual void mouseMoveEvent( QMouseEvent* event ) override;
+            virtual void wheelEvent( QWheelEvent* event ) override;
 
         private:
             /// Owning pointer to the renderer.

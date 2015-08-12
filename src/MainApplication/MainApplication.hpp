@@ -41,7 +41,7 @@ namespace Ra
         Q_OBJECT
 
     public:
-        MainApplication ( int argc, char** argv );
+        MainApplication( int argc, char** argv );
         ~MainApplication();
 
     signals:
@@ -52,18 +52,26 @@ namespace Ra
         void stopping();
 
         /// Fired when the scene has changed.
-        void sceneChanged ( const Core::Aabb& );
+        void sceneChanged( const Core::Aabb& );
+
+        void updateFrameStats( const std::vector<FrameTimerData>& );
 
 
     public slots:
         /// Advance the engine for one frame. Called by an internal timer.
         void radiumFrame();
 
-        void loadFile ( QString path );
+        void loadFile( QString path );
+
+        void framesCountForStatsChanged( int count );
 
     private:
         /// Create signal / slots connections
         void createConnections();
+
+        /// Temporary methods ?
+        void registerSystems();
+        void setupScene();
 
     private:
         /// Application main window and GUI root class.
@@ -85,7 +93,7 @@ namespace Ra
         Core::Timer::TimePoint m_lastFrameStart;
 
         int m_frameCounter;
-        //        LoggableFrameTimerData m_timerData;
+        int m_frameCountBeforeUpdate;
+        std::vector<FrameTimerData> m_timerData;
     };
-
 }

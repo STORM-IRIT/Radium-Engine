@@ -28,10 +28,10 @@ namespace Ra
             RA_CORE_ALIGNED_NEW
 
             // Default constructor with usual default values.
-            Camera ( Scalar height, Scalar width );
+            Camera( Scalar height, Scalar width );
 
             // Copy constructor
-            Camera ( const Camera& cam ) = default;
+            Camera( const Camera& cam ) = default;
 
             /// DESTRUCTOR
             ~Camera();
@@ -44,33 +44,33 @@ namespace Ra
             inline Core::Transform getFrame() const;
 
             // Set the frame of the camera to 'frame'
-            inline void setFrame ( const Core::Transform& frame );
+            inline void setFrame( const Core::Transform& frame );
 
             // Return the position.
             inline Core::Vector3 getPosition() const;
 
             // Set the position of the camera to 'position'.
-            inline void setPosition ( const Core::Vector3& position );
+            inline void setPosition( const Core::Vector3& position );
 
             // Return the direction the camera is looking at.
             inline Core::Vector3 getDirection() const;
 
             // Set the direction of the camera to 'direction'.
             // The other vectors will be rotated accordingly.
-            inline void setDirection ( const Core::Vector3& direction );
+            inline void setDirection( const Core::Vector3& direction );
 
             // Return the up vector.
             inline Core::Vector3 getUpVector() const;
 
             // Set the up vector of the camera to 'upVector'.
             // The other vectors will be rotated accordingly.
-            inline void setUpVector ( const Core::Vector3& upVector );
+            inline void setUpVector( const Core::Vector3& upVector );
 
             inline Core::Vector3 getRightVector() const;
 
 
             // Apply the transformation 'T' to the camera.
-            void applyTransform ( const Core::Transform& T );
+            void applyTransform( const Core::Transform& T );
 
 
             //
@@ -82,38 +82,38 @@ namespace Ra
             inline Scalar getFOV() const;
 
             // Set the Field Of View to 'fov'.
-            inline void setFOV ( const Scalar fov );
+            inline void setFOV( const Scalar fov );
 
             // Return the Z Near plane distance from the camera.
             inline Scalar getZNear() const;
 
             // Set the Z Near plane distance to 'zNear'.
-            inline void setZNear ( const Scalar zNear );
+            inline void setZNear( const Scalar zNear );
 
             // Return the Z Far plane distance from the camera.
             inline Scalar getZFar() const;
 
             // Set the Z Far plane distance to 'zFar'.
-            inline void setZFar ( const Scalar zFar );
+            inline void setZFar( const Scalar zFar );
 
             // Return the zoom factor.
             inline Scalar getZoomFactor() const;
 
             // Set the zoom factor to 'zoomFactor'.
-            inline void setZoomFactor ( const Scalar& zoomFactor );
+            inline void setZoomFactor( const Scalar& zoomFactor );
 
             // Return the projection type.
             inline ProjType getProjType() const;
 
             // Set the projection type to 'projectionType'.
-            inline void setProjType ( const ProjType& projectionType );
+            inline void setProjType( const ProjType& projectionType );
 
             // Return the dimensions of the viewport.
             inline Scalar getWidth() const;
             inline Scalar getHeight() const;
 
             // Change the viewport size.
-            inline void resize ( Scalar width, Scalar height );
+            inline void resize( Scalar width, Scalar height );
 
             /// -------------------- ///
             /// VIEW MATRIX

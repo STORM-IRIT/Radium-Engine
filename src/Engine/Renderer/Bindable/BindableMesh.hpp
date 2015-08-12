@@ -21,10 +21,10 @@ namespace Ra
         {
         public:
             RA_CORE_ALIGNED_NEW
-            explicit BindableMesh ( Mesh* mesh, uint id );
+            explicit BindableMesh( Mesh* mesh, uint id );
             virtual ~BindableMesh();
 
-            virtual void bind ( ShaderProgram* shader ) const override;
+            virtual void bind( ShaderProgram* shader ) const override;
             void render() const;
 
             bool operator< ( const BindableMesh& other ) const;

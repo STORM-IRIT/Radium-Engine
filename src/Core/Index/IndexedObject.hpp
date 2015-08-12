@@ -12,11 +12,11 @@ namespace Ra
         {
         public:
             /// CONSTRUCTOR
-            explicit IndexedObject ( const Index& idx = Index::INVALID_IDX() )
+            explicit IndexedObject( const Index& idx = Index::INVALID_IDX() )
             {
                 this->idx = idx;
             }
-            IndexedObject ( const IndexedObject& id_obj )
+            IndexedObject( const IndexedObject& id_obj )
             {
                 idx = id_obj.idx;
             }

@@ -4,7 +4,7 @@ namespace Ra
     {
 
         /// COPY
-        inline void Index::copy ( const Index& id )
+        inline void Index::copy( const Index& id )
         {
             m_idx = id.m_idx;
         }
@@ -30,7 +30,7 @@ namespace Ra
         {
             return m_idx;
         }
-        inline void Index::setValue ( const int i )
+        inline void Index::setValue( const int i )
         {
             m_idx = ( i < 0 ) ? s_invalid : i;
         }

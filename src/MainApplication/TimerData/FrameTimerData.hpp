@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_FRAME_TIMER_DATA_HPP_
-#define RADIUMENGINE_FRAME_TIMER_DATA_HPP_
+#ifndef RADIUMENGINE_FRAME_TIMER_DATA_HPP
+#define RADIUMENGINE_FRAME_TIMER_DATA_HPP
 
 #include <iostream>
 #include <iomanip>
@@ -28,16 +28,16 @@ namespace Ra
     class LoggableFrameTimerData
     {
     public:
-        LoggableFrameTimerData ( uint average );
+        LoggableFrameTimerData( uint average );
         virtual ~LoggableFrameTimerData() {}
-        void addFrame ( const FrameTimerData& data );
+        void addFrame( const FrameTimerData& data );
 
         //void log(el::base::type::ostream_t& os) const override;
 
     private:
         // Print timings relative to the beginning of the frame.
-        void printTimerData ( el::base::type::ostream_t& os ) const;
-        void printAverageTimerData ( el::base::type::ostream_t& os ) const;
+        void printTimerData( el::base::type::ostream_t& os ) const;
+        void printAverageTimerData( el::base::type::ostream_t& os ) const;
 
     private:
         mutable std::vector<FrameTimerData> m_frames;

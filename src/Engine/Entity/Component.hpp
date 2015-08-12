@@ -29,7 +29,7 @@ namespace Ra
         {
         public:
             /// CONSTRUCTOR
-            Component ( const std::string& name );
+            Component( const std::string& name );
 
             // FIXME (Charly) : Should destructor call something like
             //                  System::removeComponent(this) ?
@@ -46,20 +46,20 @@ namespace Ra
              * This method is called by the entity.
              * @param entity The entity the component is part of.
              */
-            virtual void setEntity ( const Entity* entity );
+            virtual void setEntity( Entity* entity );
 
-            virtual void setRenderObjectManager ( RenderObjectManager* renderObjectManager );
+            virtual void setRenderObjectManager( RenderObjectManager* renderObjectManager );
 
-            virtual const Entity* getEntity() const;
+            virtual Entity* getEntity() const;
 
-            virtual void setSelected ( bool selected );
+            virtual void setSelected( bool selected );
 
             virtual const std::string& getName() const;
 
         protected:
             std::string m_name;
 
-            const Entity* m_entity;
+            Entity* m_entity;
 
             RenderObjectManager* m_renderObjectManager;
 

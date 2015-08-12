@@ -8,7 +8,7 @@ namespace Ra
         return m_color;
     }
 
-    inline void Engine::Light::setColor ( const Core::Color& color )
+    inline void Engine::Light::setColor( const Core::Color& color )
     {
         m_color = color;
     }

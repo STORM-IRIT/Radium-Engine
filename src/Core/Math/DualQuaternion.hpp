@@ -23,19 +23,19 @@ namespace Ra
             DualQuaternion() {}
 
             /// Construct a dual-quaternion from two quaternions.
-            DualQuaternion ( const Quaternion& q0, const Quaternion& qe ) : m_q0 ( q0 ), m_qe ( qe ) { }
+            DualQuaternion( const Quaternion& q0, const Quaternion& qe ) : m_q0( q0 ), m_qe( qe ) { }
 
             /// Default copy constructor and assignment operator.
-            DualQuaternion ( const DualQuaternion& other ) = default;
+            DualQuaternion( const DualQuaternion& other ) = default;
             DualQuaternion& operator= ( const DualQuaternion& ) = default;
 
             /// todo : conversion to/from Transform
 
             /// Getters and setters
             inline const Quaternion& getQ0() const;
-            inline void setQ0 ( const Quaternion& q0 );
+            inline void setQ0( const Quaternion& q0 );
             inline const Quaternion& getQe() const;
-            inline void setQe ( const Quaternion& qe );
+            inline void setQe( const Quaternion& qe );
 
             /// Operators
 

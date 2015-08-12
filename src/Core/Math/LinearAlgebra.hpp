@@ -161,3 +161,4 @@ namespace Ra
 #include <Core/Math/LinearAlgebra.inl>
 
 #endif// RADIUMENGINE_VECTOR_HPP
+

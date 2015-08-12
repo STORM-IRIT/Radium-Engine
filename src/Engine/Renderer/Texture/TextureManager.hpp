@@ -26,11 +26,11 @@ namespace Ra
             typedef std::pair<std::string, Texture*> TexturePair;
 
         public:
-            Texture* addTexture ( const std::string& filename );
-            Texture* getOrLoadTexture ( const std::string& filename );
+            Texture* addTexture( const std::string& filename );
+            Texture* getOrLoadTexture( const std::string& filename );
 
-            void deleteTexture ( const std::string& filename );
-            void deleteTexture ( Texture* texture );
+            void deleteTexture( const std::string& filename );
+            void deleteTexture( Texture* texture );
 
         private:
             TextureManager();

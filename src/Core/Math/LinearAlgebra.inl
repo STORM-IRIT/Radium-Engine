@@ -5,25 +5,25 @@ namespace Ra
     namespace Core
     {
         template<typename Vector_>
-        inline Vector_ Vector::floor ( const Vector_& v )
+        inline Vector_ Vector::floor( const Vector_& v )
         {
             typedef typename Vector_::Scalar Scalar_;
-            Vector_ result ( v );
-            result.unaryExpr ( std::function<Scalar_ ( Scalar_ )> ( static_cast<Scalar_ ( & ) ( Scalar_ )> ( std::floor ) ) );
+            Vector_ result( v );
+            result.unaryExpr( std::function<Scalar_( Scalar_ )> ( static_cast<Scalar_( & )( Scalar_ )> ( std::floor ) ) );
             return result;
         }
 
         template<typename Vector_>
-        inline Vector_ Vector::ceil ( const Vector_& v )
+        inline Vector_ Vector::ceil( const Vector_& v )
         {
             typedef typename Vector_::Scalar Scalar_;
-            Vector_ result ( v );
-            result.unaryExpr ( std::function<Scalar_ ( Scalar_ )> ( static_cast<Scalar_ ( & ) ( Scalar_ )> ( std::ceil ) ) );
+            Vector_ result( v );
+            result.unaryExpr( std::function<Scalar_( Scalar_ )> ( static_cast<Scalar_( & )( Scalar_ )> ( std::ceil ) ) );
             return result;
         }
 
         template<typename Vector_>
-        inline Vector_ Vector::clamp ( const Vector_& v, const Vector_& min, const Vector_& max )
+        inline Vector_ Vector::clamp( const Vector_& v, const Vector_& min, const Vector_& max )
         {
             return v.cwiseMin(max).cwiseMax(min);
         }
@@ -42,12 +42,12 @@ namespace Ra
 
         Quaternion operator+ ( const Quaternion& q1, const Quaternion& q2 )
         {
-            return Quaternion ( q1.coeffs() + q2.coeffs() );
+            return Quaternion( q1.coeffs() + q2.coeffs() );
         }
 
         Quaternion operator* ( const Scalar& k, const Quaternion& q )
         {
-            return Quaternion ( k * q.coeffs() );
+            return Quaternion( k * q.coeffs() );
         }
         
         inline void aabb_add_point(Aabb& aabb, const Vector3& p) // TODO: remove this function and replace it in the IBL

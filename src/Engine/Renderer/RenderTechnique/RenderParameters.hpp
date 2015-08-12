@@ -27,8 +27,8 @@ namespace Ra
             class Parameter
             {
             public:
-                Parameter ( const char* name ) : m_name ( name ) {}
-                virtual void bind ( ShaderProgram* shader ) const = 0;
+                Parameter( const char* name ) : m_name( name ) {}
+                virtual void bind( ShaderProgram* shader ) const = 0;
 
             protected:
                 const char* m_name;
@@ -38,9 +38,9 @@ namespace Ra
             class TParameter : public Parameter
             {
             public:
-                TParameter ( const char* name, const T& value )
-                    : Parameter ( name ), m_value ( value ) {}
-                virtual void bind ( ShaderProgram* shader ) const override;
+                TParameter( const char* name, const T& value )
+                    : Parameter( name ), m_value( value ) {}
+                virtual void bind( ShaderProgram* shader ) const override;
 
             private:
                 T m_value;
@@ -49,9 +49,9 @@ namespace Ra
             class TextureParameter : public Parameter
             {
             public:
-                TextureParameter ( const char* name, Texture* tex, int texUnit )
-                    : Parameter ( name ), m_texture ( tex ), m_texUnit ( texUnit ) {}
-                virtual void bind ( ShaderProgram* shader ) const override;
+                TextureParameter( const char* name, Texture* tex, int texUnit )
+                    : Parameter( name ), m_texture( tex ), m_texUnit( texUnit ) {}
+                virtual void bind( ShaderProgram* shader ) const override;
 
             private:
                 Texture* m_texture;
@@ -62,7 +62,7 @@ namespace Ra
             class UniformBindableVector : public std::vector<T, Core::AlignedAllocator<T, 16>>
             {
             public:
-                void bind ( ShaderProgram* shader ) const;
+                void bind( ShaderProgram* shader ) const;
             };
 
             typedef TParameter<int>    IntParameter;
@@ -78,21 +78,21 @@ namespace Ra
             typedef TParameter<Core::Matrix4> Mat4Parameter;
 
         public:
-            void addParameter ( const char* name, int    value );
-            void addParameter ( const char* name, uint   value );
-            void addParameter ( const char* name, Scalar value );
+            void addParameter( const char* name, int    value );
+            void addParameter( const char* name, uint   value );
+            void addParameter( const char* name, Scalar value );
 
-            void addParameter ( const char* name, const Core::Vector2& value );
-            void addParameter ( const char* name, const Core::Vector3& value );
-            void addParameter ( const char* name, const Core::Vector4& value );
+            void addParameter( const char* name, const Core::Vector2& value );
+            void addParameter( const char* name, const Core::Vector3& value );
+            void addParameter( const char* name, const Core::Vector4& value );
 
-            void addParameter ( const char* name, const Core::Matrix2& value );
-            void addParameter ( const char* name, const Core::Matrix3& value );
-            void addParameter ( const char* name, const Core::Matrix4& value );
+            void addParameter( const char* name, const Core::Matrix2& value );
+            void addParameter( const char* name, const Core::Matrix3& value );
+            void addParameter( const char* name, const Core::Matrix4& value );
 
-            void addParameter ( const char* name, Texture* tex, int texUnit );
+            void addParameter( const char* name, Texture* tex, int texUnit );
 
-            void bind ( ShaderProgram* shader ) const;
+            void bind( ShaderProgram* shader ) const;
 
         private:
             UniformBindableVector<IntParameter>     m_intParamsVector;

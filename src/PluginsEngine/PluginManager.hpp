@@ -33,15 +33,15 @@ namespace Ra
                 };
 
                 /// CONSTRUCTOR
-                PluginManager ( const std::string& dynamic_plugin_path, QObject* parent = nullptr ) : QObject ( parent ) { }
+                PluginManager( const std::string& dynamic_plugin_path, QObject* parent = nullptr ) : QObject( parent ) { }
 
                 /// DESTRUCTOR
                 ~PluginManager() { }
 
                 /// PLUGIN
-                void loadPlugins ( const std::string& path );
+                void loadPlugins( const std::string& path );
                 void loadStaticPlugins();
-                void loadDynamicPlugins ( const std::string& path );
+                void loadDynamicPlugins( const std::string& path );
 
                 inline PluginVector getStaticPlugins()  const
                 {

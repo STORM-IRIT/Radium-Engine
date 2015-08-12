@@ -150,7 +150,7 @@ vec3 blinnPhongInternal(vec3 d, vec3 n)
 
 vec3 blinnPhongSpot()
 {
-    vec3 dir = light.spot.direction;
+    vec3 dir = -light.spot.direction;
     vec3 color;
 
     float d = length(dir);
@@ -161,7 +161,7 @@ vec3 blinnPhongSpot()
 
     vec3 lightToPixel = normalize(vPosition - light.spot.position);
 
-    float cosRealAngle = dot(lightToPixel, -normalize(dir));
+    float cosRealAngle = dot(lightToPixel, normalize(dir));
     float cosSpotOuter = cos(light.spot.innerAngle / 2.0);
 
     float radialAttenuation = pow(clamp((cosRealAngle - cosSpotOuter) /
@@ -174,7 +174,7 @@ vec3 blinnPhongSpot()
 vec3 blinnPhongPoint()
 {
     vec3 dir = vPosition - light.point.position;
-    vec3 color = blinnPhongInternal(normalize(-dir), getNormal());
+    vec3 color = blinnPhongInternal(normalize(dir), getNormal());
 
     float d = length(dir);
     float attenuation = light.point.attenuation.constant +

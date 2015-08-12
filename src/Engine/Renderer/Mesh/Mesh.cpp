@@ -1,4 +1,3 @@
-
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
 #include <Core/Mesh/MeshUtils.hpp>
@@ -10,21 +9,21 @@ namespace Ra
 
     // Dirty is initializes as false so that we do not create the vao while
     // we have no data to send to the gpu.
-    Engine::Mesh::Mesh ( const std::string& name )
-        : m_name ( name )
-        , m_isDirty ( false )
-        , m_vao ( 0 )
-        , m_renderMode ( GL_TRIANGLES )
+    Engine::Mesh::Mesh( const std::string& name )
+        : m_name( name )
+        , m_isDirty( false )
+        , m_vao( 0 )
+        , m_renderMode( GL_TRIANGLES )
         , m_ibo()
     {
     }
 
     Engine::Mesh::~Mesh()
     {
-        GL_ASSERT ( glDeleteVertexArrays ( 1, &m_vao ) );
+        GL_ASSERT( glDeleteVertexArrays( 1, &m_vao ) );
     }
 
-    void Engine::Mesh::setRenderMode ( const GLenum& mode )
+    void Engine::Mesh::setRenderMode( const GLenum& mode )
     {
         m_renderMode = mode;
     }
@@ -37,15 +36,15 @@ namespace Ra
             return;
         }
         // FIXME(Charly): This seems to crash on windows
-        GL_ASSERT ( glBindVertexArray ( m_vao ) );
+        GL_ASSERT( glBindVertexArray( m_vao ) );
 
 
         //    GL_ASSERT(glDrawElements(GL_TRIANGLES_ADJACENCY, 6 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
-        GL_ASSERT ( glDrawElements ( m_renderMode, m_indices.size(), GL_UNSIGNED_INT, ( void* ) 0 ) );
+        GL_ASSERT( glDrawElements( m_renderMode, m_indices.size(), GL_UNSIGNED_INT, ( void* ) 0 ) );
     }
 
-    void Engine::Mesh::loadGeometry ( const Vector3Array& positions,
-                                      const std::vector<uint>& indices )
+    void Engine::Mesh::loadGeometry( const Vector3Array& positions,
+                                     const std::vector<uint>& indices )
     {
         m_data[VERTEX_POSITION] = positions;
         m_indices = indices;
@@ -53,7 +52,7 @@ namespace Ra
         m_isDirty = true;
     }
 
-    void Engine::Mesh::addData ( const DataType& type, const Vector3Array& data )
+    void Engine::Mesh::addData( const DataType& type, const Vector3Array& data )
     {
         m_data[type] = data;
 
@@ -110,18 +109,18 @@ namespace Ra
 
         if ( m_data[VERTEX_POSITION].empty() || m_indices.empty() )
         {
-            LOG ( logWARNING ) << "Either vertices or indices are empty arrays.";
+            LOG( logWARNING ) << "Either vertices or indices are empty arrays.";
             return;
         }
 
         if ( m_vao == 0 )
         {
             // Create VAO if it does not exist
-            GL_ASSERT ( glGenVertexArrays ( 1, &m_vao ) );
+            GL_ASSERT( glGenVertexArrays( 1, &m_vao ) );
         }
 
         // Bind it
-        GL_ASSERT ( glBindVertexArray ( m_vao ) );
+        GL_ASSERT( glBindVertexArray( m_vao ) );
 
         // Common values for GL data functions.
 #if defined CORE_USE_DOUBLE
@@ -139,20 +138,20 @@ namespace Ra
             // This vbo has not been created yet
             if ( m_vbos[i].size() == 0 && m_data[i].size() > 0 )
             {
-                m_vbos[i].setData ( m_data[i], GL_STATIC_DRAW );
-                GL_ASSERT ( glVertexAttribPointer ( i, size, type, normalized,
-                                                    sizeof ( Core::Vector3 ), ptr ) );
+                m_vbos[i].setData( m_data[i], GL_STATIC_DRAW );
+                GL_ASSERT( glVertexAttribPointer( i, size, type, normalized,
+                                                  sizeof( Core::Vector3 ), ptr ) );
 
-                GL_ASSERT ( glEnableVertexAttribArray ( i ) );
+                GL_ASSERT( glEnableVertexAttribArray( i ) );
             }
         }
 
         // Indices has not been initialized yet
         if ( m_ibo.size() == 0 )
         {
-            m_ibo.setData ( m_indices );
+            m_ibo.setData( m_indices );
         }
-        GL_ASSERT ( glBindVertexArray ( 0 ) );
+        GL_ASSERT( glBindVertexArray( 0 ) );
 
         GL_CHECK_ERROR;
         m_isDirty = false;

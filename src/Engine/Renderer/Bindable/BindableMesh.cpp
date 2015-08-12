@@ -6,24 +6,24 @@
 namespace Ra
 {
 
-    Engine::BindableMesh::BindableMesh ( Mesh* mesh, uint id )
-        : m_mesh ( mesh )
-        , m_id ( id )
+    Engine::BindableMesh::BindableMesh( Mesh* mesh, uint id )
+        : m_mesh( mesh )
+        , m_id( id )
     {
-        Scalar r = Scalar ( ( id & 0x000000FF ) >> 0 ) / 255.0;
-        Scalar g = Scalar ( ( id & 0x0000FF00 ) >> 8 ) / 255.0;
-        Scalar b = Scalar ( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
+        Scalar r = Scalar( ( id & 0x000000FF ) >> 0 ) / 255.0;
+        Scalar g = Scalar( ( id & 0x0000FF00 ) >> 8 ) / 255.0;
+        Scalar b = Scalar( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
 
-        m_idAsColor = Core::Vector4 ( r, g, b, 1.0 );
+        m_idAsColor = Core::Vector4( r, g, b, 1.0 );
     }
 
     Engine::BindableMesh::~BindableMesh()
     {
     }
 
-    void Engine::BindableMesh::bind ( ShaderProgram* shader ) const
+    void Engine::BindableMesh::bind( ShaderProgram* shader ) const
     {
-        shader->setUniform ( "objectId", m_idAsColor );
+        shader->setUniform( "objectId", m_idAsColor );
     }
 
     void Engine::BindableMesh::render() const

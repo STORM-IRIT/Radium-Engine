@@ -28,25 +28,25 @@ namespace Ra
         {
         public:
             RA_CORE_ALIGNED_NEW
-            explicit Entity ( const std::string& name = "" );
+            explicit Entity( const std::string& name = "" );
             ~Entity();
 
             inline const std::string& getName() const;
-            inline void rename ( const std::string& name );
+            inline void rename( const std::string& name );
 
-            inline void setTransform ( const Core::Transform& transform );
-            inline void setTransform ( const Core::Matrix4& transform );
+            inline void setTransform( const Core::Transform& transform );
+            inline void setTransform( const Core::Matrix4& transform );
             Core::Transform getTransform() const;
             Core::Matrix4 getTransformAsMatrix() const;
 
-            void setSelected ( bool selected );
+            void setSelected( bool selected );
 
-            void addComponent ( Component* component );
+            void addComponent( Component* component );
 
-            void removeComponent ( const std::string& name );
-            void removeComponent ( Component* component );
+            void removeComponent( const std::string& name );
+            void removeComponent( Component* component );
 
-            Component* getComponent ( const std::string& name );
+            Component* getComponent( const std::string& name );
             std::vector<Component*> getComponents() const;
 
         private:

@@ -17,7 +17,7 @@ namespace Ra
                 Scalar linear;
                 Scalar quadratic;
 
-                Attenuation() : constant ( 1.0 ), linear(), quadratic() {}
+                Attenuation() : constant( 1.0 ), linear(), quadratic() {}
             };
 
         public:
@@ -26,13 +26,13 @@ namespace Ra
             PointLight();
             virtual ~PointLight();
 
-            virtual void getRenderParameters ( RenderParameters& params ) override;
+            virtual void getRenderParameters( RenderParameters& params ) override;
 
-            inline void setPosition ( const Core::Vector3& pos );
+            inline void setPosition( const Core::Vector3& pos );
             inline const Core::Vector3& getPosition() const;
 
-            inline void setAttenuation ( const Attenuation& attenuation );
-            inline void setAttenuation ( Scalar constant, Scalar linear, Scalar quadratic );
+            inline void setAttenuation( const Attenuation& attenuation );
+            inline void setAttenuation( Scalar constant, Scalar linear, Scalar quadratic );
             inline const Attenuation& getAttenuation() const;
 
         private:

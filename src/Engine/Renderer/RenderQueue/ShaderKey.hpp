@@ -20,11 +20,11 @@ namespace Ra
         class RA_API ShaderKey
         {
         public:
-            explicit ShaderKey ( ShaderProgram* shader );
+            explicit ShaderKey( ShaderProgram* shader );
             virtual ~ShaderKey();
 
             virtual void bind() const;
-            void bind ( const RenderParameters& params ) const;
+            void bind( const RenderParameters& params ) const;
 
             ShaderProgram* getShader() const
             {
