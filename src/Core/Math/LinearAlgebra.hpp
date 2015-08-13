@@ -89,23 +89,28 @@ namespace Ra
 
         // Todo : storage transform using quaternions ?
         
-        class Obb : public Aabb
+        /// An oriented bounding box.
+        class Obb
         {
         public:
-            Obb() : _tr(Transform::Identity())
-            {
-            
-            }
+            /// Constructors and destructor.
+            Obb() : m_aabb(),  m_transform(Transform::Identity()) {}
+            Obb(const Aabb& aabb, const Transform& tr) : m_aabb(aabb), m_transform(tr) {}
+            Obb(const Obb& other) = default;
+            Obb& operator=(const Obb& other) = default;
+            ~Obb() {}
 
-            Obb(const Aabb& bb, const Transform& tr) : Aabb(bb), _tr(tr)
-            {
-            
-            }
-            
-            Aabb to_bbox() const;
-            void add_point(const Vector3& p);
-            
-            Transform _tr;
+            /// Return the AABB enclosing this
+            Aabb toAabb() const;
+
+            /// Extends the OBB with an new point.
+            void addPoint(const Vector3& p);
+
+        public:
+            /// The untransformed AABB
+            Aabb m_aabb;
+            /// Orientation of the box.
+            Transform m_transform;
         };
         
         //

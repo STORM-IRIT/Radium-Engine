@@ -14,10 +14,10 @@ RigidBodyComponent::RigidBodyComponent( const std::string& name )
     , m_invMass( 0.0 )
     , m_isKinematic( true )
     , m_totalForces( 0.0, 0.0, 0.0 )
-    , m_linearPosition( 0.0, 0.0, 0.0 )
     , m_linearVelocity( 0.0, 0.0, 0.0 )
-    , m_angularOrientation( 0.0, 0.0, 0.0 )
+    , m_linearPosition( 0.0, 0.0, 0.0 )
     , m_angularVelocity( 0.0, 0.0, 0.0 )
+    , m_angularOrientation( 0.0, 0.0, 0.0 )
 {
 }
 

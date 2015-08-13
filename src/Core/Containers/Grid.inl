@@ -116,19 +116,17 @@ namespace Ra
         }
         
         template<typename T, uint D>
-        inline const T& Grid<T, D>::at ( int idx ) const
+        inline const T& Grid<T, D>::at ( uint idx ) const
         {
-            const uint linIdx = idx;
-            CORE_ASSERT ( linIdx < m_data.size(), "Invalid vector index" );
-            return m_data[linIdx];
+            CORE_ASSERT ( idx < m_data.size(), "Invalid vector index" );
+            return m_data[idx];
         }
 
         template<typename T, uint D>
-        inline T& Grid<T, D>::at ( int idx )
+        inline T& Grid<T, D>::at ( uint idx )
         {
-            const uint linIdx = idx;
-            CORE_ASSERT ( linIdx < m_data.size(), "Invalid vector index" );
-            return m_data[linIdx];
+            CORE_ASSERT ( idx < m_data.size(), "Invalid vector index" );
+            return m_data[idx];
         }
 
         template<typename T, uint D>

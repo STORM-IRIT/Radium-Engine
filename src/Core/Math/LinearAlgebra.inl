@@ -4,6 +4,10 @@ namespace Ra
 {
     namespace Core
     {
+        //
+        // Vector functions.
+        //
+
         template<typename Vector_>
         inline Vector_ Vector::floor( const Vector_& v )
         {
@@ -40,6 +44,10 @@ namespace Ra
             return Vector::clamp(v, min, max) == v;
         }
 
+        //
+        // Quaternion functions.
+        //
+
         Quaternion operator+ ( const Quaternion& q1, const Quaternion& q2 )
         {
             return Quaternion( q1.coeffs() + q2.coeffs() );
@@ -49,20 +57,47 @@ namespace Ra
         {
             return Quaternion( k * q.coeffs() );
         }
+
+        //
+        // Bounding boxes functions.
+        //
+
+        inline Aabb Obb::toAabb() const
+        {
+            Aabb tmp;
+            for(int i = 0; i < 8; ++i)
+            {
+                tmp.extend(m_transform * m_aabb.corner(static_cast<Aabb::CornerType>(i)));
+            }
+            return tmp;
+        }
         
+        inline void Obb::addPoint(const Vector3& p)
+        {
+            // TODO: take the transform into account, but then apply the changes in capsule_implicit.cpp
+            m_aabb.extend(p);
+        }
+
+        // TODO : remove these functions.
         inline void aabb_add_point(Aabb& aabb, const Vector3& p) // TODO: remove this function and replace it in the IBL
         {
             aabb.extend(p);
         }
-        
-        inline Aabb Obb::to_bbox() const 
+
+        inline Vector2 interval_squared(const Vector2& i)
         {
-            Aabb tmp;
-            for(int i = 0; i < 8; ++i)
-                aabb_add_point(tmp, _tr * this->corner(static_cast<Aabb::CornerType>(i)));
-            return tmp;
+            if (i(0) >= 0)
+                return Vector2(i(0) * i(0), i(1) * i(1));
+
+            if (i(1) <= 0)
+                return Vector2(i(1) * i(1), i(0) * i(0));
+
+            if (-i(0) >= i(1))
+                return Vector2(0, i(0) * i(0));
+
+            return Vector2(0, i(0) * i(1));
         }
-        
+
         inline void coordinate_system(const Vector3& origin, const Vector3& fx, Vector3& fy, Vector3& fz)
         {
             //for numerical stability, and seen that z will always be present, take the greatest component between x and y.
@@ -78,25 +113,6 @@ namespace Ra
             }
             fz = fx.cross(fy);
         }
-        
-        inline void Obb::add_point(const Vector3& p)
-        {
-            // TODO: take the transform into account, but then apply the changes in capsule_implicit.cpp
-            extend(p); 
-        }
-        
-        inline Vector2 interval_squared(const Vector2& i)
-        {
-            if (i(0) >= 0)
-                return Vector2(i(0) * i(0), i(1) * i(1));
 
-            if (i(1) <= 0)
-                return Vector2(i(1) * i(1), i(0) * i(0));
-
-            if (-i(0) >= i(1))
-                return Vector2(0, i(0) * i(0));
-
-            return Vector2(0, i(0) * i(1));
-        }
     }
 }

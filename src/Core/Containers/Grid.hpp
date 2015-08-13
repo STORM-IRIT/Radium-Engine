@@ -57,8 +57,10 @@ namespace Ra
             ///  Access an element with a D-dimensionnal index.
             inline const T& at ( const IdxVector& idx ) const;
             inline T& at ( const IdxVector& idx );
-            inline const T& at ( int idx ) const;
-            inline T& at ( int idx );
+
+            /// Access an element with a linear index.
+            inline const T& at ( uint idx ) const;
+            inline T& at ( uint idx );
 
             /// Read only access to the underlying data.
             inline const T* data() const;
