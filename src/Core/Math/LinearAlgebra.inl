@@ -39,7 +39,7 @@ namespace Ra
         }
         
         template<typename Vector_>
-        inline bool Vector::check_range ( const Vector_& v, const Scalar& min, const Scalar& max )
+        inline bool Vector::checkRange ( const Vector_& v, const Scalar& min, const Scalar& max )
         {
             return Vector::clamp(v, min, max) == v;
         }
@@ -84,21 +84,7 @@ namespace Ra
             aabb.extend(p);
         }
 
-        inline Vector2 interval_squared(const Vector2& i)
-        {
-            if (i(0) >= 0)
-                return Vector2(i(0) * i(0), i(1) * i(1));
-
-            if (i(1) <= 0)
-                return Vector2(i(1) * i(1), i(0) * i(0));
-
-            if (-i(0) >= i(1))
-                return Vector2(0, i(0) * i(0));
-
-            return Vector2(0, i(0) * i(1));
-        }
-
-        inline void coordinate_system(const Vector3& origin, const Vector3& fx, Vector3& fy, Vector3& fz)
+        inline void getOrthogonalVectors(const Vector3& fx, Vector3& fy, Vector3& fz)
         {
             //for numerical stability, and seen that z will always be present, take the greatest component between x and y.
             if(fabsf(fx(0)) > fabsf(fx(1)) )

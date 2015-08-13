@@ -141,11 +141,10 @@ namespace Ra
             
             /// Vector range check
             template<typename Vector_>
-            inline bool check_range ( const Vector_& v, const Scalar& min, const Scalar& max );
+            inline bool checkRange ( const Vector_& v, const Scalar& min, const Scalar& max );
         }
         
-        void coordinate_system(const Vector3& fx, Vector3& fy, Vector3& fz);
-        Vector2 interval_squared(const Vector2& i);
+        void getOrthogonalVectors(const Vector3& fx, Vector3& fy, Vector3& fz);
 
         //
         // Quaternion functions
