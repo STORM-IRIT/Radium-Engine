@@ -78,12 +78,6 @@ namespace Ra
             m_aabb.extend(p);
         }
 
-        // TODO : remove these functions.
-        inline void aabb_add_point(Aabb& aabb, const Vector3& p) // TODO: remove this function and replace it in the IBL
-        {
-            aabb.extend(p);
-        }
-
         inline void getOrthogonalVectors(const Vector3& fx, Vector3& fy, Vector3& fz)
         {
             //for numerical stability, and seen that z will always be present, take the greatest component between x and y.
