@@ -267,6 +267,15 @@ namespace Ra
         // 1. Gather user input and dispatch it.
         auto keyEvents = m_mainWindow->getKeyEvents();
         auto mouseEvents = m_mainWindow->getMouseEvents();
+
+        // Get picking results from last frame and forward it to the selection.
+        auto picked = m_viewer->getRenderer()->getPickingResults();
+        for (auto pick : picked)
+        {
+            m_mainWindow->handlePicking(pick);
+        }
+
+
         m_mainWindow->flushEvents();
 
         // TODO : send picking queries to renderer.
@@ -295,23 +304,6 @@ namespace Ra
         // 4. Wait until frame is fully rendered and display.
         m_viewer->waitForRendering();
         m_viewer->update();
-
-        auto pickingResults = m_viewer->getRenderer()->getPickingResults();
-        if ( pickingResults.size() > 0 )
-        {
-            auto pickingQueries = m_viewer->getRenderer()->getPickingQueries();
-
-            LOG( logINFO ) << "There has been " << pickingResults.size() << " picking requests this frame";
-            LOG( logINFO ) << "Picking results : ";
-
-            for ( uint i = 0; i < pickingResults.size(); ++i )
-            {
-                auto res = pickingResults[i];
-                auto query = pickingQueries[i];
-                LOG( logINFO ) << "Query #" << i << " : (" << query.x() << " " << query.y() << ") - Object " << res << " touched.";
-            }
-        }
-        // TODO : get result of picking queries.
 
         timerData.renderData = m_viewer->getRenderer()->getTimerData();
 

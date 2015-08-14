@@ -34,9 +34,9 @@ namespace Ra
             return m_isDirty;
         }
 
-        inline void RenderObject::setComponent( Component* component )
+        inline const Component* RenderObject::getComponent() const
         {
-            m_component = component;
+            return m_component;
         }
 
         inline void RenderObject::setRenderTechnique( RenderTechnique* technique )

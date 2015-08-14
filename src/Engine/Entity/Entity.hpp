@@ -47,7 +47,7 @@ namespace Ra
             void removeComponent( Component* component );
 
             Component* getComponent( const std::string& name );
-            std::vector<Component*> getComponents() const;
+            const std::map<std::string, Engine::Component*>& getComponentsMap() const;
 
         private:
             Core::Transform m_transform;

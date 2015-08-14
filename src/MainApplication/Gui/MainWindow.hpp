@@ -45,6 +45,9 @@ namespace Ra
 
             inline const std::vector<Core::KeyEvent>& getKeyEvents() const;
             inline const std::vector<Core::MouseEvent>& getMouseEvents() const;
+
+            void handlePicking( int drawableIndex );
+
             inline void flushEvents();
 
         private slots:

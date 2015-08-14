@@ -264,7 +264,7 @@ namespace Ra
                 if ( color != Core::Color( 1.0, 1.0, 1.0, 1.0 ) )
                 {
                     color = color * 255;
-                    id = color.x() + color.y() * 256 + color.z() * 256 * 256;
+                    id = int(color.x() + color.y() * 256 + color.z() * 256 * 256);
                 }
 
                 m_pickingResults.push_back( id );

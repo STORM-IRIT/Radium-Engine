@@ -3,9 +3,11 @@
 #include <QFileDialog>
 #include <QMouseEvent>
 
-#include <Core/Log/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Entity/Component.hpp>
+#include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Renderer.hpp>
+
 #include <MainApplication/MainApplication.hpp>
 #include <MainApplication/Gui/EntityTreeModel.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
@@ -82,9 +84,8 @@ namespace Ra
         /// Update entities when the engine starts.
         connect(mainApp, SIGNAL(starting()),  this, SLOT(entitiesUpdated()));
 
-        connect( m_avgFramesCount, SIGNAL( valueChanged(int) ),
-                 static_cast<MainApplication*>( mainApp ), SLOT( framesCountForStatsChanged( int ) ) );
-        connect( static_cast<MainApplication*>( mainApp ), SIGNAL( updateFrameStats( const std::vector<FrameTimerData>& ) ),
+        connect( m_avgFramesCount, SIGNAL( valueChanged(int) ), mainApp , SLOT( framesCountForStatsChanged( int ) ) );
+        connect( mainApp , SIGNAL( updateFrameStats( const std::vector<FrameTimerData>& ) ),
                  this, SLOT( updateFramestats( const std::vector<FrameTimerData>& ) ) );
     }
 
@@ -296,4 +297,31 @@ namespace Ra
         return m_viewer;
     }
 
+    void Gui::MainWindow::handlePicking(int drawableIndex)
+    {
+        if (drawableIndex > 0)
+        {
+            const std::shared_ptr<Engine::RenderObject>& ro =
+                    mainApp->m_engine->getRenderObjectManager()->getRenderObjects()[drawableIndex];
+            Engine::Entity* ent = ro->getComponent()->getEntity();
+
+            int compIdx = -1;
+            int i = 0;
+            for (auto comp : ent->getComponentsMap())
+            {
+                if (comp.second == ro->getComponent())
+                {
+                    CORE_ASSERT(comp.first == ro->getComponent()->getName(), "Inconsistent names");
+                    compIdx = i;
+                    break;
+                }
+                ++i;
+            }
+            CORE_ASSERT(compIdx >= 0, "Component is not in entity");
+            int entIdx = ent->idx;
+            QModelIndex treeIdx = m_entityTreeModel->index(entIdx, compIdx);
+            emit clicked(treeIdx); // TODO : actually select the thing in the model.
+        }
+
+    }
 } // namespace Ra

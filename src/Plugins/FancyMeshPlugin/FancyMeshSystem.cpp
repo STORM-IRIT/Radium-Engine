@@ -47,7 +47,7 @@ namespace FancyMeshPlugin
 
     Ra::Engine::Component* FancyMeshSystem::addComponentToEntity( Ra::Engine::Entity* entity )
     {
-        uint componentId = entity->getComponents().size();
+        uint componentId = entity->getComponentsMap().size();
 
         std::string componentName = "FancyMeshComponent_" + entity->getName() + std::to_string( componentId++ );
         FancyMeshComponent* component = new FancyMeshComponent( componentName );

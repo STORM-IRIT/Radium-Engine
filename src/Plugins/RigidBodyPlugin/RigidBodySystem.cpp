@@ -32,7 +32,7 @@ namespace RigidBodyPlugin
 
     Ra::Engine::Component* RigidBodySystem::addComponentToEntity( Ra::Engine::Entity* entity )
     {
-        uint componentId = entity->getComponents().size();
+        uint componentId = entity->getComponentsMap().size();
 
         std::string componentName = "RigidBodyComponent_" + entity->getName() + std::to_string( componentId++ );
         RigidBodyComponent* comp = new RigidBodyComponent( componentName );

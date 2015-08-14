@@ -37,8 +37,7 @@ namespace FancyMeshPlugin
                                                   const std::string& name,
                                                   Ra::Engine::RenderTechnique* technique )
     {
-        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name );
-        renderObject->setComponent( this );
+        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, this );
         renderObject->setVisible( true );
 
         renderObject->setRenderTechnique( technique );
@@ -71,8 +70,7 @@ namespace FancyMeshPlugin
         CORE_ASSERT( data.meshes.size() == 1, "One mesh per component / object." );
         // FIXME(Charly): Change data meshes array to just one mesh
 
-        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( data.name );
-        renderObject->setComponent( this );
+        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( data.name, this );
         renderObject->setVisible( true );
 
         for ( uint i = 0; i < data.meshes.size(); ++i )

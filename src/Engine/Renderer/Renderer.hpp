@@ -171,12 +171,12 @@ namespace Ra
                 m_pickingQueries.push_back( Core::Vector2( x, y ) );
             }
 
-            inline std::vector<int> getPickingResults() const
+            inline const std::vector<int>& getPickingResults() const
             {
                 return m_pickingResults;
             }
 
-            inline std::vector<Core::Vector2> getPickingQueries() const
+            inline const std::vector<Core::Vector2>& getPickingQueries() const
             {
                 return m_lastFramePickingQueries;
             }

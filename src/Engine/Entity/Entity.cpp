@@ -58,16 +58,9 @@ namespace Ra
         removeComponent( component->getName() );
     }
 
-    std::vector<Engine::Component*> Engine::Entity::getComponents() const
+    const std::map<std::string, Engine::Component*>& Engine::Entity::getComponentsMap() const
     {
-        std::vector<Engine::Component*> components;
-
-        for ( const auto& comp : m_components )
-        {
-            components.push_back( comp.second );
-        }
-
-        return components;
+        return m_components;
     }
 
     void Engine::Entity::setSelected( bool selected )
