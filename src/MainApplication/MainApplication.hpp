@@ -33,6 +33,12 @@ namespace Ra
     }
 }
 
+/// Allow singleton-like access to the main app à la qApp.
+#if defined(mainApp)
+#undef mainApp
+#endif
+#define mainApp (static_cast<Ra::MainApplication*>(qApp))
+
 namespace Ra
 {
     /// This class contains the main application logic. It owns the engine and the GUI.
@@ -73,7 +79,9 @@ namespace Ra
         void registerSystems();
         void setupScene();
 
-    private:
+
+        // Public variables, accessible through the mainApp singleton.
+    public:
         /// Application main window and GUI root class.
         std::unique_ptr<Gui::MainWindow> m_mainWindow;
 
@@ -83,6 +91,7 @@ namespace Ra
         /// Task queue for processing tasks.
         std::unique_ptr<Core::TaskQueue> m_taskQueue;
 
+    private:
         /// Pointer to OpenGL Viewer for render call (belongs to MainWindow).
         Gui::Viewer* m_viewer;
 

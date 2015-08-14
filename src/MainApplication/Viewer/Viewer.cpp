@@ -15,17 +15,12 @@
 
 #include <MainApplication/Viewer/TrackballCamera.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
+#include <MainApplication/MainApplication.hpp>
+
 
 /// Helper functions
 namespace
 {
-    /// Allows us to access the main window
-    Ra::Gui::MainWindow* getMainWin( const QWidget* w )
-    {
-        // Assumption : main window is our grand parent. This is checked in MainApplication
-        return static_cast<Ra::Gui::MainWindow*>( w->parent()->parent() );
-    }
-
     class RenderThread : public QThread, protected QOpenGLFunctions
     {
     public:
@@ -62,7 +57,7 @@ namespace
 
             // Give back viewer context to main thread.
             m_viewer->doneCurrent();
-            m_viewer->context()->moveToThread( qApp->thread() );
+            m_viewer->context()->moveToThread( mainApp->thread() );
         }
 
         /// Keep a local copy of the render data.
@@ -240,7 +235,7 @@ namespace Ra
     void Gui::Viewer::wheelEvent( QWheelEvent* event )
     {
         QOpenGLWidget::wheelEvent( event );
-        getMainWin( this )->viewerWheelEvent( event );
+        mainApp->m_mainWindow->viewerWheelEvent( event );
     }
 
     void Gui::Viewer::reloadShaders()

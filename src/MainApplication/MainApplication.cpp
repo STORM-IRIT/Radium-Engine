@@ -94,7 +94,6 @@ namespace Ra
         m_engine.reset( new Engine::RadiumEngine );
         m_engine->initialize();
         registerSystems();
-        setupScene();
 
         // Pass the engine to the renderer to complete the initialization process.
         m_viewer->initRenderer( m_engine.get() );
@@ -104,6 +103,7 @@ namespace Ra
 
         createConnections();
 
+        setupScene();
         emit starting();
 
         m_lastFrameStart = Core::Timer::Clock::now();

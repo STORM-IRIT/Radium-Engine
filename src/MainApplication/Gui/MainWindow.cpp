@@ -16,6 +16,9 @@ namespace Ra
     Gui::MainWindow::MainWindow( QWidget* parent )
         : QMainWindow( parent )
     {
+        // Note : at this point most of the components (including the Engine) are
+        // not initialized. Listen to the "started" signal.
+
         setupUi( this );
 
         setWindowIcon( QPixmap( "../Assets/Images/RadiumIcon.png" ) );
@@ -28,7 +31,7 @@ namespace Ra
 
         createConnections();
 
-        static_cast<MainApplication*>( qApp )->framesCountForStatsChanged(
+        mainApp->framesCountForStatsChanged(
                     m_avgFramesCount->value() );
         m_viewer->getCamera()->resetCamera();
     }
@@ -43,7 +46,7 @@ namespace Ra
         connect( actionOpenMesh, &QAction::triggered, this, &MainWindow::loadFile );
         connect( actionReload_Shaders, &QAction::triggered, m_viewer, &Gui::Viewer::reloadShaders );
 
-        connect( this, SIGNAL( fileLoading( QString ) ), qApp, SLOT( loadFile( QString ) ) );
+        connect( this, SIGNAL( fileLoading( QString ) ), mainApp, SLOT( loadFile( QString ) ) );
         connect( this, SIGNAL( entitiesUpdated( const std::vector<Engine::Entity*>& ) ),
                  m_entityTreeModel, SLOT( entitiesUpdated( const std::vector<Engine::Entity*>& ) ) );
 
@@ -76,9 +79,12 @@ namespace Ra
         connect( m_cameraSensitivity, SIGNAL( valueChanged( double ) ),
                  m_viewer->getCamera(), SLOT( setCameraSensitivity( double ) ) );
 
+        /// Update entities when the engine starts.
+        connect(mainApp, SIGNAL(starting()),  this, SLOT(entitiesUpdated()));
+
         connect( m_avgFramesCount, SIGNAL( valueChanged(int) ),
-                 static_cast<MainApplication*>( qApp ), SLOT( framesCountForStatsChanged( int ) ) );
-        connect( static_cast<MainApplication*>( qApp ), SIGNAL( updateFrameStats( const std::vector<FrameTimerData>& ) ),
+                 static_cast<MainApplication*>( mainApp ), SLOT( framesCountForStatsChanged( int ) ) );
+        connect( static_cast<MainApplication*>( mainApp ), SIGNAL( updateFrameStats( const std::vector<FrameTimerData>& ) ),
                  this, SLOT( updateFramestats( const std::vector<FrameTimerData>& ) ) );
     }
 
@@ -94,7 +100,7 @@ namespace Ra
 
     void Gui::MainWindow::entitiesUpdated()
     {
-        //emit entitiesUpdated(m_viewer->getEngine()->getEntities());
+        emit entitiesUpdated(mainApp->m_engine->getEntityManager()->getEntities());
     }
 
     void Gui::MainWindow::cameraPositionChanged( const Core::Vector3& p )
