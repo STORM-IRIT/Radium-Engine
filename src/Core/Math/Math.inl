@@ -6,58 +6,64 @@ namespace Ra
     {
         namespace Math
         {
-            inline Scalar toRadians ( Scalar a )
+            inline constexpr Scalar toRadians ( Scalar a )
             {
-                Scalar result = a * Pi / 180.0;
-                return result;
+                return toRad * a;
             }
 
-            inline Scalar toDegrees ( Scalar a )
+            inline constexpr Scalar toDegrees ( Scalar a )
             {
-                Scalar result = a * 180 / Pi;
-                return result;
+                return toDeg *a ;
             }
 
-            template<class T> static inline T ipow(T x, int p)
+            template<typename T> inline T ipow(const T& x, uint exp)
             {
-                assert(p >= 0);
-                if (p == 0) return 1;
-                if (p == 1) return x;
-                return x *  ipow(x, p-1);
-            }
-            
-            template <int n> inline float ipow(float a) 
-            {
-                const float b = ipow<n/2>(a);
-                return (n & 1) ? (a * b * b) : (b * b);
+                if (exp == 0) {return T(1);}
+                if (exp == 1) {return x;}
+                T p = ipow(x,exp/2);
+                if ((exp  % 2) == 0){ return p*p;}
+                else                { return p*p*x;}
             }
 
-            template <> inline float ipow<1>(float a){ return a;   }
-            template <> inline float ipow<0>(float  ){ return 1.f; }
-
-            template <int n> inline int ipow(int a)
+            /// This helper class is needed because C++ doesn't support function template
+            /// partial specialization.
+            namespace
             {
-                const int b = ipow<n/2>(a);
-                return (n & 1) ? (a * b * b) : (b * b);
+                template<typename T, uint N>
+                struct IpowHelper
+                {
+                    static inline constexpr T pow(const T& x)
+                    {
+                        return (N % 2 == 0 ) ? IpowHelper<T,N/2>::pow(x) * IpowHelper<T,N/2>::pow(x)
+                                             : IpowHelper<T,N/2>::pow(x) * IpowHelper<T,N/2>::pow(x) * x;
+                    }
+                };
+
+                template<typename T>
+                struct IpowHelper<T,1> { static inline constexpr T pow(const T& x) {return x;} };
+
+                template<typename T>
+                struct IpowHelper<T,0> { static inline constexpr T pow(const T& x) { return T(1);}};
+
             }
 
-            template <> inline int ipow<1>(int a){ return a; }
-            template <> inline int ipow<0>(int  ){ return 1; }
-            
+            // Nb : T is last for automatic template argument deduction.
+            template <uint N, typename T>
+            inline constexpr T ipow(const T& x)
+            {
+                return IpowHelper<T,N>::pow(x);
+            }
+
             template <typename T>
-            int sign(T val)
+            inline constexpr int sign(const T& val)
             {
                 return (T(0) < val) - (val < T(0));
             }
             
             template <typename T>
-            T clampf(T v, T min, T max)
+            inline constexpr T clamp(T v, T min, T max)
             {
-                if (max < v)
-                    return max;
-                if (min > v)
-                    return min;
-                return v;
+                return std::max(min,std::min(v,max));
             }
         }
     }
