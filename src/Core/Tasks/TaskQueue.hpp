@@ -41,7 +41,7 @@ namespace Ra
 
         public:
             // Constructor and destructor.
-            TaskQueue( int numThreads );
+            TaskQueue( uint numThreads );
             ~TaskQueue();
 
             // Note : functions are not thread safe and should only be called from the main thread.

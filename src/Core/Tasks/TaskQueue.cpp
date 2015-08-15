@@ -6,9 +6,10 @@ namespace Ra
     namespace Core
     {
 
-        TaskQueue::TaskQueue( int numThreads )
+        TaskQueue::TaskQueue( uint numThreads )
             : m_processingTasks( 0 ), m_shuttingDown(false)
         {
+            CORE_ASSERT(numThreads > 0, " You need at least one thread");
             m_workerThreads.reserve(numThreads);
             for  (uint i = 0 ; i < numThreads; ++i)
             {

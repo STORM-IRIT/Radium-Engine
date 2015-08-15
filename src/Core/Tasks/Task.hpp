@@ -17,10 +17,19 @@ namespace Ra
         class RA_API Task
         {
         public:
+            /// Constructor. Most initialization should go to the init() method.
             Task() {}
+
+            /// Destructor
             virtual ~Task() {}
+
+            /// Return the name of the task.
             virtual std::string getName() const = 0;
+
+            /// Initialize the task with according parameters.
             virtual void init( const TaskParams* params ) = 0;
+
+            /// Do the task job. Will be called from the task queue threads.
             virtual void process() = 0;
         };
 
