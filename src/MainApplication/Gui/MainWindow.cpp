@@ -301,8 +301,8 @@ namespace Ra
     {
         if (drawableIndex >= 0)
         {
-            auto  renderObjects = mainApp->m_engine->getRenderObjectManager()->getRenderObjects();
-            const std::shared_ptr<Engine::RenderObject>& ro = renderObjects[drawableIndex];
+            const std::shared_ptr<Engine::RenderObject>& ro =
+                mainApp->m_engine->getRenderObjectManager()->getRenderObject(drawableIndex);
             Engine::Entity* ent = ro->getComponent()->getEntity();
 
             int compIdx = -1;

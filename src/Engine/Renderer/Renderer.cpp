@@ -145,7 +145,7 @@ namespace Ra
 
             // 1. Gather render objects and update them
             std::vector<RenderObjectPtr> renderObjects;
-            renderObjects = m_engine->getRenderObjectManager()->getRenderObjects();
+            m_engine->getRenderObjectManager()->getRenderObjects(renderObjects);
             updateRenderObjectsInternal( data, renderObjects );
             m_timerData.updateEnd = Core::Timer::Clock::now();
 
