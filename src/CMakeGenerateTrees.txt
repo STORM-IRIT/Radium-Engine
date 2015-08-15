@@ -67,14 +67,20 @@ source_group("Engine\\Renderer\\RenderObject" FILES ${Engine_Renderer_RenderObje
 file(GLOB Engine_Renderer_RenderQueue_SUB Engine/Renderer/RenderQueue/*)
 source_group("Engine\\Renderer\\RenderQueue" FILES ${Engine_Renderer_RenderQueue_SUB})
 
-file(GLOB Engine_Renderer_Shader_SUB Engine/Renderer/Shader/*)
-source_group("Engine\\Renderer\\Shader" FILES ${Engine_Renderer_Shader_SUB})
+file(GLOB Engine_Renderer_Shader_SUB Engine/Renderer/RenderTechnique/*)
+source_group("Engine\\Renderer\\RenderTechnique" FILES ${Engine_Renderer_Shader_SUB})
 
 file(GLOB Engine_Renderer_Texture_SUB Engine/Renderer/Texture/*)
 source_group("Engine\\Renderer\\Texture" FILES ${Engine_Renderer_Texture_SUB})
 
+file(GLOB Engine_Renderer_Bindable_SUB Engine/Renderer/Bindable/*)
+source_group("Engine\\Renderer\\Bindable" FILES ${Engine_Renderer_Bindable_SUB})
+
 file(GLOB Engine_Entity_SUB Engine/Entity/*)
 source_group("Engine\\Entity" FILES ${Engine_Entity_SUB})
+
+file(GLOB Engine_Parser_SUB Engine/Parser/*)
+source_group("Engine\\Parser" FILES ${Engine_Parser_SUB})
 
 source_group("Shaders" FILES ${engine_vert_glsl}
 			     ${engine_frag_glsl}
