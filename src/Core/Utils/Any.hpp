@@ -19,7 +19,7 @@ namespace Ra
             inline RA_API const T& as() const;
 
         private:
-            static inline int nextMagicNumer();
+            static inline int nextMagicNumber();
 
             template <typename T>
             static inline int magicNumberFor();
@@ -28,7 +28,7 @@ namespace Ra
             {
                 int magicNumber;
                 
-                inline explicit AnyValueBase(const int magic);
+                inline explicit AnyValueBase(const int magic) : magicNumber(magic) {}
                 inline virtual ~AnyValueBase() {}
             };
 

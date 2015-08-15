@@ -22,7 +22,7 @@ namespace Ra
             return std::static_pointer_cast<const AnyValue<T>>(m_value)->value;
         }
 
-        inline int Any::nextMagicNumer()
+        inline int Any::nextMagicNumber()
         {
             static int magic(0);
             return magic++;
@@ -33,12 +33,6 @@ namespace Ra
         {
             static int result(nextMagicNumber());
             return result;
-        }
-
-        template <typename T>
-        inline Any::AnyValueBase::AnyValueBase(const int magic)
-            : magicNumber(magic)
-        {
         }
 
         template <typename T>
