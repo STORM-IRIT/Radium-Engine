@@ -299,7 +299,7 @@ namespace Ra
 
     void Gui::MainWindow::handlePicking(int drawableIndex)
     {
-        if (drawableIndex > 0)
+        if (drawableIndex >= 0)
         {
             auto  renderObjects = mainApp->m_engine->getRenderObjectManager()->getRenderObjects();
             const std::shared_ptr<Engine::RenderObject>& ro = renderObjects[drawableIndex];
@@ -319,7 +319,9 @@ namespace Ra
             }
             CORE_ASSERT(compIdx >= 0, "Component is not in entity");
             int entIdx = ent->idx;
-            QModelIndex treeIdx = m_entityTreeModel->index(entIdx, compIdx);
+            QModelIndex entityIdx = m_entityTreeModel->index(entIdx, 0);
+            QModelIndex treeIdx = entityIdx.child(compIdx, 0);
+            m_entitiesTreeView->setExpanded(entityIdx,true);
             m_entitiesTreeView->selectionModel()->select(treeIdx, QItemSelectionModel::SelectCurrent);
         }
         else
