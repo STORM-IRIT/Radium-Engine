@@ -94,7 +94,7 @@ namespace Ra
 
     bool Gui::EntityTreeItem::insertChildren( uint position, uint count, uint columns )
     {
-        if ( position > m_childItems.size() )
+        if ( int(position) > m_childItems.size() )
         {
             return false;
         }
@@ -111,7 +111,7 @@ namespace Ra
 
     bool Gui::EntityTreeItem::insertColumns( uint position, uint columns )
     {
-        if ( position > m_itemData.size() )
+        if ( int(position) > m_itemData.size() )
         {
             return false;
         }
@@ -131,7 +131,7 @@ namespace Ra
 
     bool Gui::EntityTreeItem::removeChildren( uint position, uint count )
     {
-        if ( position + count > m_childItems.size() )
+        if ( int(position + count) > m_childItems.size() )
         {
             return false;
         }
@@ -146,7 +146,7 @@ namespace Ra
 
     bool Gui::EntityTreeItem::removeColumns( uint position, uint columns )
     {
-        if ( position + columns > m_itemData.size() )
+        if ( int(position + columns) > m_itemData.size() )
         {
             return false;
         }
@@ -166,7 +166,7 @@ namespace Ra
 
     bool Gui::EntityTreeItem::setData( uint column, const ItemData& value )
     {
-        if ( column >= m_itemData.size() )
+        if ( int(column) >= m_itemData.size() )
         {
             return false;
         }

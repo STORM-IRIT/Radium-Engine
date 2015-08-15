@@ -301,8 +301,8 @@ namespace Ra
     {
         if (drawableIndex > 0)
         {
-            const std::shared_ptr<Engine::RenderObject>& ro =
-                    mainApp->m_engine->getRenderObjectManager()->getRenderObjects()[drawableIndex];
+            auto  renderObjects = mainApp->m_engine->getRenderObjectManager()->getRenderObjects();
+            const std::shared_ptr<Engine::RenderObject>& ro = renderObjects[drawableIndex];
             Engine::Entity* ent = ro->getComponent()->getEntity();
 
             int compIdx = -1;
@@ -320,8 +320,13 @@ namespace Ra
             CORE_ASSERT(compIdx >= 0, "Component is not in entity");
             int entIdx = ent->idx;
             QModelIndex treeIdx = m_entityTreeModel->index(entIdx, compIdx);
-            emit clicked(treeIdx); // TODO : actually select the thing in the model.
+            m_entitiesTreeView->selectionModel()->select(treeIdx, QItemSelectionModel::SelectCurrent);
         }
+        else
+        {
+            m_entitiesTreeView->selectionModel()->clear();
+        }
+
 
     }
 } // namespace Ra
