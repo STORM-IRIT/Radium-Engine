@@ -40,7 +40,7 @@
      <x>0</x>
      <y>0</y>
      <width>1204</width>
-     <height>27</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFILE">
@@ -105,9 +105,9 @@
              </size>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>3</number>
             </property>
-            <widget class="QWidget" name="tab_3">
+            <widget class="QWidget" name="tab_stats">
              <attribute name="title">
               <string>Stats</string>
              </attribute>
@@ -278,7 +278,7 @@
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="tab">
+            <widget class="QWidget" name="tab_drawables">
              <attribute name="title">
               <string>Render objects</string>
              </attribute>
@@ -313,264 +313,13 @@
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="tab_2">
+            <widget class="Ra::Gui::EntityPropertyWidget" name="tab_edition">
              <attribute name="title">
-              <string>Component</string>
+              <string>Edition</string>
              </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout">
-              <item>
-               <widget class="QGroupBox" name="groupBox_2">
-                <property name="title">
-                 <string>Transform</string>
-                </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_3">
-                 <item>
-                  <layout class="QGridLayout" name="gridLayout_4">
-                   <item row="0" column="1">
-                    <widget class="QLabel" name="label_5">
-                     <property name="text">
-                      <string>Orientation</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_4">
-                     <property name="text">
-                      <string>Position</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <layout class="QFormLayout" name="formLayout">
-                     <item row="0" column="0">
-                      <widget class="QLabel" name="label_7">
-                       <property name="text">
-                        <string>X</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="0">
-                      <widget class="QLabel" name="label_8">
-                       <property name="text">
-                        <string>Y</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="0">
-                      <widget class="QLabel" name="label_9">
-                       <property name="text">
-                        <string>Z</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1">
-                      <widget class="QDoubleSpinBox" name="m_entityPosX"/>
-                     </item>
-                     <item row="1" column="1">
-                      <widget class="QDoubleSpinBox" name="m_entityPosY"/>
-                     </item>
-                     <item row="2" column="1">
-                      <widget class="QDoubleSpinBox" name="m_entityPosZ"/>
-                     </item>
-                    </layout>
-                   </item>
-                   <item row="1" column="1">
-                    <layout class="QFormLayout" name="formLayout_2">
-                     <item row="0" column="0">
-                      <widget class="QLabel" name="label_10">
-                       <property name="text">
-                        <string>X</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="0">
-                      <widget class="QLabel" name="label_11">
-                       <property name="text">
-                        <string>Y</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="0">
-                      <widget class="QLabel" name="label_12">
-                       <property name="text">
-                        <string>Z</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1">
-                      <widget class="QDoubleSpinBox" name="m_entityRotX"/>
-                     </item>
-                     <item row="1" column="1">
-                      <widget class="QDoubleSpinBox" name="m_entityRotY"/>
-                     </item>
-                     <item row="2" column="1">
-                      <widget class="QDoubleSpinBox" name="m_entityRotZ"/>
-                     </item>
-                    </layout>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item>
-               <widget class="QGroupBox" name="groupBox">
-                <property name="title">
-                 <string>Material</string>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_6">
-                 <item>
-                  <layout class="QFormLayout" name="formLayout_3">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_16">
-                     <property name="text">
-                      <string>Rendering mode</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QComboBox" name="m_shadersComboBox">
-                     <item>
-                      <property name="text">
-                       <string>Flat color</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Blinn Phong</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Contour</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Wireframe</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QGridLayout" name="gridLayout_3">
-                   <item row="1" column="3">
-                    <widget class="QSpinBox" name="spinBox_3">
-                     <property name="maximum">
-                      <number>255</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="2">
-                    <widget class="QSpinBox" name="spinBox_2">
-                     <property name="maximum">
-                      <number>255</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label">
-                     <property name="text">
-                      <string>Color</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_3">
-                     <property name="text">
-                      <string>Ks</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QLabel" name="label_13">
-                     <property name="text">
-                      <string>Red</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QSpinBox" name="spinBox">
-                     <property name="maximum">
-                      <number>255</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="3">
-                    <widget class="QSpinBox" name="spinBox_6">
-                     <property name="maximum">
-                      <number>255</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="2">
-                    <widget class="QLabel" name="label_14">
-                     <property name="text">
-                      <string>Green</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="3">
-                    <widget class="QLabel" name="label_15">
-                     <property name="text">
-                      <string>Blue</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
-                    <widget class="QSpinBox" name="spinBox_4">
-                     <property name="maximum">
-                      <number>255</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="2">
-                    <widget class="QSpinBox" name="spinBox_5">
-                     <property name="maximum">
-                      <number>255</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_6">
-                     <property name="text">
-                      <string>Kd</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="4">
-                    <widget class="QPushButton" name="m_pickKdButton">
-                     <property name="text">
-                      <string>Pick</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="4">
-                    <widget class="QPushButton" name="m_pickKsButton">
-                     <property name="text">
-                      <string>Pick</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-             </layout>
+             <layout class="QVBoxLayout" name="verticalLayout"/>
             </widget>
-            <widget class="QWidget" name="camera_tab">
+            <widget class="QWidget" name="tab_camera">
              <attribute name="title">
               <string>Camera</string>
              </attribute>
@@ -933,6 +682,12 @@
    <class>Ra::Gui::Viewer</class>
    <extends>QWidget</extends>
    <header>MainApplication/Viewer/Viewer.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Ra::Gui::EntityPropertyWidget</class>
+   <extends>QWidget</extends>
+   <header>MainApplication/Gui/EntityPropertyWidget.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

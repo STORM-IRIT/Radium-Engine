@@ -275,17 +275,11 @@ namespace Ra
             m_mainWindow->handlePicking(pick);
         }
 
-
         m_mainWindow->flushEvents();
-
-        // TODO : send picking queries to renderer.
-        // NOTE(Charly): For now this is done in the viewer, this might need to move here.
 
         // ----------
         // 2. Kickoff rendering
         m_viewer->startRendering( dt );
-
-
 
         timerData.tasksStart = Core::Timer::Clock::now();
 

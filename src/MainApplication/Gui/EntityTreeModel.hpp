@@ -96,15 +96,11 @@ namespace Ra
             bool insertRows( int position, int rows, const QModelIndex& parent = QModelIndex() ) override;
             bool removeRows( int position, int rows, const QModelIndex& parent = QModelIndex() ) override;
 
+            EntityTreeItem* getItem( const QModelIndex& index ) const;
         public slots:
             void entitiesUpdated( const std::vector<Engine::Entity*>& entities );
             void handleRename( const QModelIndex& topLeft, const QModelIndex& bottomRight, const QVector<int>& );
-            void handleSelect( const QModelIndex& index );
 
-        protected:
-
-        private:
-            EntityTreeItem* getItem( const QModelIndex& index ) const;
 
             void insertComponents( Engine::Entity* entity, EntityTreeItem* parent );
 

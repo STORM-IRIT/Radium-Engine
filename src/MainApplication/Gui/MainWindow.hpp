@@ -47,13 +47,10 @@ namespace Ra
             inline const std::vector<Core::MouseEvent>& getMouseEvents() const;
 
             void handlePicking( int drawableIndex );
-
             inline void flushEvents();
 
         private slots:
             void loadFile();
-            void clicked( QModelIndex index );
-            void activated( QModelIndex index );
 
             void setCameraPosition();
             void setCameraTarget();
@@ -63,6 +60,7 @@ namespace Ra
             void cameraPositionChanged( const Core::Vector3& p );
             void cameraTargetChanged( const Core::Vector3& p );
             void updateFramestats( const std::vector<FrameTimerData>& stats );
+            void onSelectionChanged(const QItemSelection& selected, const QItemSelection& deselected);
 
         signals:
             void fileLoading( const QString path );
@@ -91,9 +89,6 @@ namespace Ra
             static Core::MouseEvent mouseEventQtToRadium( const QMouseEvent* qtEvent );
             static Core::MouseEvent wheelEventQtToRadium( const QWheelEvent* qtEvent );
             static Core::KeyEvent   keyEventQtToRadium( const QKeyEvent* qtEvent );
-
-            // Output gui management
-            void updateEntitiesTree();
 
         private:
             // Stores the events received by the UI during last frame.

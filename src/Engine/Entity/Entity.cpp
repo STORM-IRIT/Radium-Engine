@@ -63,14 +63,35 @@ namespace Ra
         return m_components;
     }
 
-    void Engine::Entity::setSelected( bool selected )
+    void Engine::Entity::getProperties(std::vector<EditableProperty>& entityPropsOut) const
     {
-        std::lock_guard<std::mutex> lock( m_mutex );
-        m_isSelected = selected;
+        std::lock_guard<std::mutex> lock(m_transformMutex);
+        entityPropsOut.push_back(EditableProperty::position("Position",m_transform.translation()));
+        entityPropsOut.push_back(EditableProperty::rotation("Rotation",Core::Quaternion(m_transform.rotation())));
+    }
 
-        for ( auto& comp : m_components )
+    void Engine::Entity::setProperty(const EditableProperty& prop)
+    {
+       
+        switch (prop.getType())
         {
-            comp.second->setSelected( selected );
+            case EditableProperty::POSITION:
+            {
+                CORE_ASSERT(prop.getName() == "Position", "Wrong property");
+                std::lock_guard<std::mutex> lock(m_transformMutex);
+                m_transform.translation() = prop.asPosition();
+                break;
+            }
+            case EditableProperty::ROTATION:
+            {
+                CORE_ASSERT(prop.getName() == "Position", "Wrong property");
+                std::lock_guard<std::mutex> lock(m_transformMutex);
+                m_transform.linear() = prop.asRotation().toRotationMatrix();
+                break;
+            }
+            default:
+                CORE_ASSERT(false, "Wrong property");
+
         }
     }
 
