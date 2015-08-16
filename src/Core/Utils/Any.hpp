@@ -18,12 +18,18 @@ namespace Ra
             template <typename T>
             inline RA_API const T& as() const;
 
-        private:
-            static inline int nextMagicNumber();
+            inline RA_API int getType() const
+            {
+                return m_value->magicNumber;
+            }
 
             template <typename T>
-            static inline int magicNumberFor();
+            static inline RA_API int getDeclTypeFor()
+            {
+                return magicNumberFor<T>();
+            }
 
+        private:
             struct AnyValueBase
             {
                 int magicNumber;
@@ -43,6 +49,11 @@ namespace Ra
         private:
             std::shared_ptr<AnyValueBase> m_value;
         };
+
+        RA_API extern int nextMagicNumber();
+
+        template <typename T>
+        inline RA_API int magicNumberFor();
     }
 }
 

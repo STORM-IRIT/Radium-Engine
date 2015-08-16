@@ -141,6 +141,8 @@ namespace Ra
         {
             emit fileLoading( path );
         }
+
+        entitiesUpdated();
     }
 
     void Gui::MainWindow::updateFramestats( const std::vector<FrameTimerData>& stats )

@@ -61,7 +61,7 @@ namespace FancyMeshPlugin
                                                   aiProcess_GenUVCoords );
         if ( !scene )
         {
-            //        LOG(ERROR) << "Error while loading file \"" << name << "\" : " << importer.GetErrorString() << ".";
+            LOG(logERROR) << "Error while loading file \"" << name << "\" : " << importer.GetErrorString() << ".";
             return dataVector;
         }
 
@@ -135,10 +135,13 @@ namespace FancyMeshPlugin
             Ra::Core::Vector3Array texcoords;
             std::vector<uint>  indices;
 
+            Ra::Core::TriangleMesh triangleMesh; // Used to recompute normals
+
             for ( uint i = 0; i < mesh->mNumVertices; ++i )
             {
-                positions.push_back( assimpToCore( mesh->mVertices[i] ) );
-                normals.push_back( assimpToCore( mesh->mNormals[i] ) );
+                //positions.push_back( assimpToCore( mesh->mVertices[i] ) );
+                //normals.push_back( assimpToCore( mesh->mNormals[i] ) );
+                triangleMesh.m_vertices.push_back( assimpToCore( mesh->mVertices[i] ) );
 
                 if ( mesh->HasTangentsAndBitangents() )
                 {
@@ -160,10 +163,15 @@ namespace FancyMeshPlugin
                 indices.push_back( f.mIndices[0] );
                 indices.push_back( f.mIndices[1] );
                 indices.push_back( f.mIndices[2] );
+
+                triangleMesh.m_triangles.push_back( Ra::Core::Triangle(
+                    f.mIndices[0], f.mIndices[1], f.mIndices[2] 
+                ) );
             }
 
-            data.positions = positions;
-            data.normals = normals;
+            Ra::Core::MeshUtils::getAutoNormals(triangleMesh, data.normals);
+
+            data.positions = triangleMesh.m_vertices;
             data.tangents = tangents;
             data.bitangents = bitangents;
             data.texcoords = texcoords;

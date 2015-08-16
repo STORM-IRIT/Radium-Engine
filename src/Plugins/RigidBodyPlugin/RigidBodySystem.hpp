@@ -30,6 +30,9 @@ namespace RigidBodyPlugin
         virtual void initialize() override;
         virtual void handleFileLoading( const std::string& filename ) override;
 
+        virtual void handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder, 
+                                        const std::map<std::string, Ra::Core::Any>& data) override;
+
         virtual Ra::Engine::Component* addComponentToEntity( Ra::Engine::Entity* entity ) override;
 
         virtual void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;

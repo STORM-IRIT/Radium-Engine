@@ -1,4 +1,7 @@
 #include <Core/Utils/Any.hpp>
+#include <Core/Log/Log.hpp>
+
+#include <locale>
 
 namespace Ra
 {
@@ -6,8 +9,8 @@ namespace Ra
     {
         template <typename T>
         inline Any::Any(const T& t)
-            : m_value(new AnyValue<T>(t))
         {
+            m_value = std::shared_ptr<AnyValueBase>(new AnyValue<T>(t));
         }
 
         template <typename T>
@@ -22,14 +25,14 @@ namespace Ra
             return std::static_pointer_cast<const AnyValue<T>>(m_value)->value;
         }
 
-        inline int Any::nextMagicNumber()
+        inline int Ra::Core::nextMagicNumber()
         {
             static int magic(0);
             return magic++;
         }
-
+        
         template <typename T>
-        inline int Any::magicNumberFor()
+        inline int magicNumberFor()
         {
             static int result(nextMagicNumber());
             return result;

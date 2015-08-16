@@ -184,12 +184,12 @@ namespace Ra
 
         Engine::EntityManager* manager = m_engine->getEntityManager();
 
-        Engine::Entity* ent0 = manager->getOrCreateEntity( "box0" );
-        fmSystem->addFancyMeshToEntity( ent0, Core::MeshUtils::makeBox(), r0 );
+        //Engine::Entity* ent0 = manager->getOrCreateEntity( "box0" );
+        //fmSystem->addFancyMeshToEntity( ent0, Core::MeshUtils::makeBox(), r0 );
 
-        transform.setIdentity();
-        transform.translation() = Core::Vector3( 2, 0, -3 );
-        ent0->setTransform( transform );
+        //transform.setIdentity();
+        //transform.translation() = Core::Vector3( 2, 0, -3 );
+        //ent0->setTransform( transform );
 
         Engine::Entity* ent1 = manager->getOrCreateEntity( "box1" );
         fmSystem->addFancyMeshToEntity( ent1, Core::MeshUtils::makeBox(), r1 );
@@ -198,33 +198,33 @@ namespace Ra
         transform.translation() = Core::Vector3( 0, 0, -3 );
         ent1->setTransform( transform );
 
-        Engine::Entity* ent2 = manager->getOrCreateEntity( "box2" );
-        fmSystem->addFancyMeshToEntity( ent2, Core::MeshUtils::makeBox(), r2 );
+        //Engine::Entity* ent2 = manager->getOrCreateEntity( "box2" );
+        //fmSystem->addFancyMeshToEntity( ent2, Core::MeshUtils::makeBox(), r2 );
 
-        transform.setIdentity();
-        transform.translation() = Core::Vector3( -2, 0, -3 );
-        ent2->setTransform( transform );
+        //transform.setIdentity();
+        //transform.translation() = Core::Vector3( -2, 0, -3 );
+        //ent2->setTransform( transform );
 
-        Engine::Entity* ent3 = manager->getOrCreateEntity( "box3" );
-        fmSystem->addFancyMeshToEntity( ent3, Core::MeshUtils::makeBox(), r3 );
+        //Engine::Entity* ent3 = manager->getOrCreateEntity( "box3" );
+        //fmSystem->addFancyMeshToEntity( ent3, Core::MeshUtils::makeBox(), r3 );
 
-        transform.setIdentity();
-        transform.translation() = Core::Vector3( 2, 0, -5 );
-        ent3->setTransform( transform );
+        //transform.setIdentity();
+        //transform.translation() = Core::Vector3( 2, 0, -5 );
+        //ent3->setTransform( transform );
 
-        Engine::Entity* ent4 = manager->getOrCreateEntity( "box4" );
-        fmSystem->addFancyMeshToEntity( ent4, Core::MeshUtils::makeBox(), r4 );
+        //Engine::Entity* ent4 = manager->getOrCreateEntity( "box4" );
+        //fmSystem->addFancyMeshToEntity( ent4, Core::MeshUtils::makeBox(), r4 );
 
-        transform.setIdentity();
-        transform.translation() = Core::Vector3( 0, 0, -5 );
-        ent4->setTransform( transform );
+        //transform.setIdentity();
+        //transform.translation() = Core::Vector3( 0, 0, -5 );
+        //ent4->setTransform( transform );
 
-        Engine::Entity* ent5 = manager->getOrCreateEntity( "box5" );
-        fmSystem->addFancyMeshToEntity( ent5, Core::MeshUtils::makeBox(), r5 );
+        //Engine::Entity* ent5 = manager->getOrCreateEntity( "box5" );
+        //fmSystem->addFancyMeshToEntity( ent5, Core::MeshUtils::makeBox(), r5 );
 
-        transform.setIdentity();
-        transform.translation() = Core::Vector3( -2, 0, -5 );
-        ent5->setTransform( transform );
+        //transform.setIdentity();
+        //transform.translation() = Core::Vector3( -2, 0, -5 );
+        //ent5->setTransform( transform );
 
 #if ENABLE_PHYSICS
         RigidBodyPlugin::RigidBodySystem* rbSystem = static_cast<RigidBodyPlugin::RigidBodySystem*>(

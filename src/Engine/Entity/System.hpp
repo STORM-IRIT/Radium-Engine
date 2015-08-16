@@ -6,6 +6,7 @@
 #include <map>
 #include <memory>
 
+#include <Core/Utils/Any.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
@@ -101,6 +102,9 @@ namespace Ra
              * @param file The file to load
              */
             virtual void handleFileLoading( const std::string& filename ) { }
+
+            virtual void handleDataLoading( Entity* entity, const std::string& rootFolder, 
+                                           const std::map<std::string, Core::Any>& data ) {}
 
             /**
              * @brief Handle all the logic behind a component creation.

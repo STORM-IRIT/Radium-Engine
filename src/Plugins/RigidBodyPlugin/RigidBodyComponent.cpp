@@ -31,8 +31,11 @@ void RigidBodyComponent::initialize()
 
 void RigidBodyComponent::setMass( Scalar mass )
 {
-    m_mass = mass;
-    m_invMass = Scalar( 1.0 / mass );
+    if ( mass != 0.0 )
+    {
+        m_mass = mass;
+        m_invMass = Scalar( 1.0 / mass );
+    }
 
     if ( m_invMass != 0.0 )
     {

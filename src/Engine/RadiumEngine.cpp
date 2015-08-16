@@ -5,6 +5,9 @@
 #include <mutex>
 #include <cstdio>
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <streambuf>
 
 #include <Core/Log/Log.hpp>
 #include <Core/String/StringUtils.hpp>
@@ -15,14 +18,10 @@
 #include <Engine/Entity/System.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
+#include <Engine/Entity/EntityManager.hpp>
 
-#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
-#include <Engine/Renderer/RenderTechnique/Material.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-
-#include <Core/Mesh/TriangleMesh.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
+#include <Engine/Parser/Parser.hpp>
+#include <Engine/Parser/LoadedData.hpp>
 
 namespace Ra
 {
@@ -87,11 +86,48 @@ namespace Ra
             return sys;
         }
 
-        bool RadiumEngine::loadFile( const std::string& file )
+        bool RadiumEngine::loadFile( const std::string& filename )
         {
-            for ( auto& system : m_systems )
+            //for ( auto& system : m_systems )
+            //{
+            //    system.second->handleFileLoading( file );
+            //}
+            
+            // Fill file in a string (http://stackoverflow.com/a/2602060)
+            std::ifstream t(filename);
+            std::string file;
+
+            t.seekg(0, std::ios::end);
+            file.reserve(t.tellg());
+            t.seekg(0, std::ios::beg);
+
+            file.assign( ( std::istreambuf_iterator<char>( t ) ),
+                         ( std::istreambuf_iterator<char>() ) );
+            std::string err;
+
+            std::vector<LoadedEntity> loadedData;
+            Parser::parse(file, loadedData);
+
+            LOG(logDEBUG) << "Found " << loadedData.size() << " entities to load.";
+
+            std::string rootFolder = Core::StringUtils::getDirName( filename );
+
+            for (const auto& entityData : loadedData)
             {
-                system.second->handleFileLoading( file );
+                Entity* entity = m_entityManager->getOrCreateEntity(entityData.name);
+                Core::Transform transform;
+                transform.fromPositionOrientationScale(entityData.position, entityData.orientation, entityData.scale);
+                entity->setTransform(transform);
+
+                for (const auto& systemData : entityData.data)
+                {
+                    auto system = m_systems.find(systemData.system);
+                    
+                    if (system != m_systems.end())
+                    {
+                        system->second->handleDataLoading(entity, rootFolder, systemData.data);
+                    }
+                }
             }
 
             return true;
