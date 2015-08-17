@@ -84,7 +84,7 @@ namespace Ra
             }
             case EditableProperty::ROTATION:
             {
-                CORE_ASSERT(prop.getName() == "Position", "Wrong property");
+                CORE_ASSERT(prop.getName() == "Rotation", "Wrong property");
                 std::lock_guard<std::mutex> lock(m_transformMutex);
                 m_transform.linear() = prop.asRotation().toRotationMatrix();
                 break;

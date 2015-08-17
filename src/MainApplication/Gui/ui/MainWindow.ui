@@ -317,7 +317,6 @@
              <attribute name="title">
               <string>Edition</string>
              </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout"/>
             </widget>
             <widget class="QWidget" name="tab_camera">
              <attribute name="title">

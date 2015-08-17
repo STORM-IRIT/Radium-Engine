@@ -9,25 +9,29 @@ class QLayout;
 namespace Ra {
 namespace Gui {
 
-/// The specialized tab to edit properties.
+/// The specialized tab to edit properties of an object.
 class EntityPropertyWidget : public QWidget
 {
     Q_OBJECT
 public:
     EntityPropertyWidget(QWidget* parent = nullptr);
+    ~EntityPropertyWidget();
 
 public slots:
     /// Update the displays from the current state of the editable properties.
+    /// This should be called at every frame if the watched object has been updated.
     void updateValues();
 
 public:
-    /// Change the object being edited.
+    /// Change the object being edited. To clear the UI (e.g. if no object is selected)
+    /// you can pass nullptr as the editable.
     // TODO : Could this be a slot ?
     void setEditable(Engine::EditableInterface* edit);
 
 private slots:
     // Called internally by the child widgets when their value change.
-    void onValueChanged( uint id, const Core::Vector3& v );
+    void onChangedPosition( uint id, const Core::Vector3& v );
+    void onChangedRotation( uint id, const Core::Quaternion& q );
 
 private:
     /// Object being edited.
