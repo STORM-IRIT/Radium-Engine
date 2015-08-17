@@ -69,3 +69,7 @@ Since Radium requires the C++11 advanced features such as constexpr, we need a r
 * Don't forget to copy the DLLs in the executable folder (use `depends.exe` to figure out which).
 * Set "radium" as your startup project
 * Change the application working directory to `$(ProjectDir)..` (go to the "radium" project properties, *Debugging* menu, *Working Directory*) to get the shaders to load properly.
+
+## Documentation
+For documentation about particular stuff in the engine (how to develop a plugin, how renderer works, how to setup a scene file, ...),
+please refer to the Docs/ folder.

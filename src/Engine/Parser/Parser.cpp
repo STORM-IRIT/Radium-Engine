@@ -61,37 +61,93 @@ namespace Ra
 
             auto entityData = entity->second.object_items();
 
-            auto entityName = entityData.find("name")->second;
+            auto entityNameIt = entityData.find("name");
+            if (entityNameIt == entityData.end())
+            {
+                LOG(logERROR) << "No name provided for a loaded entity, ignored.";
+                return;
+            }
+
+            auto entityName = entityNameIt->second;
             CORE_ASSERT(entityName.is_string(), "Entity name is not a string.");
+            
+            if (!entityName.is_string())
+            {
+                LOG(logERROR) << "Entity name provided is not in the correct type (should be a string), ignored.";
+                return;
+            }
+
             loadedEntity.name = entityName.string_value();
 
-            auto entityPosition = entityData.find("position")->second;
-            CORE_ASSERT(entityPosition.is_array(), "Entity position is not an array.");
-            {
-                Scalar x = entityPosition.array_items()[0].number_value();
-                Scalar y = entityPosition.array_items()[1].number_value();
-                Scalar z = entityPosition.array_items()[2].number_value();
-                loadedEntity.position = Core::Vector3(x, y, z);
-            }
+            auto entityPositionIt = entityData.find("position");
 
-            auto entityOrientation = entityData.find("orientation")->second;
-            CORE_ASSERT(entityOrientation.is_array(), "Entity orientation is not an array.");
+            Core::Vector3 vecPosition(0.0, 0.0, 0.0);
+            if (entityPositionIt != entityData.end())
             {
-                Scalar w = entityOrientation.array_items()[0].number_value();
-                Scalar x = entityOrientation.array_items()[1].number_value();
-                Scalar y = entityOrientation.array_items()[2].number_value();
-                Scalar z = entityOrientation.array_items()[3].number_value();
-                loadedEntity.orientation = Core::Quaternion(w, x, y, z);
+                auto entityPosition = entityPositionIt->second;
+                if (entityPosition.is_array() || entityPosition.array_items.size() < 3 || 
+                    (!entityPosition.array_items()[0].is_number()) ||
+                    (!entityPosition.array_items()[1].is_number()) ||
+                    (!entityPosition.array_items()[2].is_number()))
+                {
+                    Scalar x = entityPosition.array_items()[0].number_value();
+                    Scalar y = entityPosition.array_items()[1].number_value();
+                    Scalar z = entityPosition.array_items()[2].number_value();
+                    vecPosition = Core::Vector3(x, y, z);
+                }
+                else
+                {
+                    LOG(logWARNING) << "Position for entity provided in the wrong format (should be an array of 3 floats).";
+                }
             }
+            loadedEntity.position = vecPosition;
+
+            auto entityOrientationIt = entityData.find("orientation");
+            Core::Quaternion quatOrientation(1.0, 0.0, 0.0, 0.0);
+            if (entityOrientationIt != entityData.end())
+            {
+                auto entityOrientation = entityOrientationIt->second;
+                if (entityOrientation.is_array() || entityOrientation.array_items.size() < 4 ||
+                    (!entityOrientation.array_items()[0].is_number()) ||
+                    (!entityOrientation.array_items()[1].is_number()) ||
+                    (!entityOrientation.array_items()[2].is_number()) ||
+                    (!entityOrientation.array_items()[3].is_number()))
+                {
+                    Scalar w = entityOrientation.array_items()[0].number_value();
+                    Scalar x = entityOrientation.array_items()[1].number_value();
+                    Scalar y = entityOrientation.array_items()[2].number_value();
+                    Scalar z = entityOrientation.array_items()[3].number_value();
+                    quatOrientation = Core::Quaternion(w, x, y, z);
+                }
+                else
+                {
+                    LOG(logWARNING) << "Orientation for entity provided in the wrong format (should be an array of 4 floats).";
+                }
+            }
+            loadedEntity.orientation = quatOrientation;
             
-            auto entityScale = entityData.find("scale")->second;
-            CORE_ASSERT(entityScale.is_array(), "Entity scale is not an array.");
+            auto entityScaleIt = entityData.find("scale");
+            Core::Vector3 vecScale(1.0, 1.0, 1.0);
+            if (entityScaleIt != entityData.end())
             {
-                Scalar x = entityScale.array_items()[0].number_value();
-                Scalar y = entityScale.array_items()[1].number_value();
-                Scalar z = entityScale.array_items()[2].number_value();
-                loadedEntity.scale = Core::Vector3(x, y, z);
+                auto entityScale = entityScaleIt->second;
+                if (entityScale.is_array() || entityScale.array_items.size() < 4 ||
+                    (!entityScale.array_items()[0].is_number()) ||
+                    (!entityScale.array_items()[1].is_number()) ||
+                    (!entityScale.array_items()[2].is_number()) ||
+                    (!entityScale.array_items()[3].is_number()))
+                {
+                    Scalar x = entityScale.array_items()[0].number_value();
+                    Scalar y = entityScale.array_items()[1].number_value();
+                    Scalar z = entityScale.array_items()[2].number_value();
+                    vecScale = Core::Vector3(x, y, z);
+                }
+                else
+                {
+                    LOG(logWARNING) << "Scale for entity provided in the wrong format (should be an array of 3 floats).";
+                }
             }
+            loadedEntity.scale = vecScale;
 
             auto entityComponents = entityData.find("components")->second;
             CORE_ASSERT(entityComponents.is_array(), "Entity components is not an array.");
