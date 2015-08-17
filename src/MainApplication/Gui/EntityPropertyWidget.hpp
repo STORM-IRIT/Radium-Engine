@@ -1,78 +1,47 @@
 #ifndef RADIUMENGINE_ENTITY_PROPERTY_WIDGET_HPP_
 #define RADIUMENGINE_ENTITY_PROPERTY_WIDGET_HPP_
 #include <QWidget>
-#include <QVBoxLayout>
-#include <Engine/Entity/EditableProperty.hpp>
-#include <MainApplication/Gui/VectorEditor.hpp>
-namespace Ra {
 
+#include <Engine/Entity/EditableProperty.hpp>
+
+class QLayout;
+
+namespace Ra {
 namespace Gui {
+
+/// The specialized tab to edit properties.
 class EntityPropertyWidget : public QWidget
 {
     Q_OBJECT
 public:
-    /// The specialized tab to edit properties.
-    EntityPropertyWidget(QWidget* parent = nullptr) : QWidget(parent), layout(new QVBoxLayout(this)), m_currentEdit(nullptr)
-    {
-    
-      
-    }
+    EntityPropertyWidget(QWidget* parent = nullptr);
 
- public slots:
-       void updateValues()
-    {
-        CORE_ASSERT(props.size() == widgets.size(), " ");
-            for (uint p = 0; p < props.size(); ++p)
-            {
-                if (props[p].getType() == Engine::EditableProperty::POSITION)
-                {
-                    CORE_ASSERT(widgets[p], "No widget for property");
-                    static_cast<VectorEditor*>(widgets[p])->setValue(props[p].asPosition());
-                }
-            }
-    }
-
+public slots:
+    /// Update the displays from the current state of the editable properties.
+    void updateValues();
 
 public:
-    void setEditable(const Engine::EditableInterface* edit)
-    {
-        if (m_currentEdit != edit)
-        {
-            m_currentEdit = edit;
+    /// Change the object being edited.
+    // TODO : Could this be a slot ?
+    void setEditable(Engine::EditableInterface* edit);
 
-            for (auto w : widgets)
-            {
-                delete w;
-            }
-            widgets.clear();
-            props.clear();
-            if (m_currentEdit)
-            {
-                m_currentEdit->getProperties(props);
+private slots:
+    // Called internally by the child widgets when their value change.
+    void onValueChanged( uint id, const Core::Vector3& v );
 
-                for (auto p : props)
-                {
-                    if (p.getType() == Engine::EditableProperty::POSITION)
-                    {
-                        widgets.push_back(new VectorEditor(QString::fromStdString(p.getName())));
-                        layout->addWidget(widgets.back());
-                    }
-                    else
-                    {
-                        widgets.push_back(nullptr);
-                    };
-                }
-                updateValues();
-            }
-        }
+private:
+    /// Object being edited.
+    Engine::EditableInterface* m_currentEdit;
 
-    }
+    /// Layout of the widgets
+    QLayout* m_layout;
 
-       const Engine::EditableInterface* m_currentEdit;
-    QVBoxLayout* layout;
+    /// Vector of the properties of the object.
+    std::vector<Engine::EditableProperty> m_props;
 
-    std::vector<Engine::EditableProperty> props;
-    std::vector<QWidget*> widgets;
+    /// Vector of edition widgets, one for each property.
+    /// If the corresponding property cannot be edited, the widget will be nullptr;
+    std::vector<QWidget*> m_widgets;
 };
 }
 }

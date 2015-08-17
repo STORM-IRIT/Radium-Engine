@@ -133,6 +133,7 @@ inline const Core::Vector3& EditableProperty::asScale() const
 inline const Core::Color& EditableProperty::asColor() const
 {
     CORE_ASSERT(m_type == COLOR, "Wrong type");
+    return m_value.color;
 }
 
 

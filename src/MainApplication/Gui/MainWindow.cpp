@@ -335,6 +335,11 @@ namespace Ra
             QModelIndex selIdx= selected.indexes()[0];
                        
             Engine::Entity* entity = m_entityTreeModel->getItem(selIdx)->getData(0).entity;
+            if (entity ==0 )
+            {
+                // FIXME :This is totally ad hoc.
+                entity = m_entityTreeModel->getItem(selIdx.parent())->getData(0).entity;
+            }
             tab_edition->setEditable(entity);
         }
         else
