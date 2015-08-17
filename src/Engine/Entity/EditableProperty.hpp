@@ -77,13 +77,15 @@ private:
     
 };
 
-
+/// Interface for all objects that can be edited through their properties.
 class EditableInterface
 {
 public:
+    /// Get a list of all editable properties.
     virtual void getProperties(std::vector<EditableProperty>& propsOut) const = 0;
-    virtual void setProperty(const EditableProperty& prop) = 0;
 
+    /// Change the value of one property.
+    virtual void setProperty(const EditableProperty& prop) = 0;
 };
 
 }

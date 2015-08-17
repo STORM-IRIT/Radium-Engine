@@ -27,7 +27,7 @@ namespace Ra
          * It is also linked to some other components in an entity.
          * Each component share a transform through their entity.
          */
-        class RA_API Component
+        class RA_API Component : public EditableInterface
         {
         public:
             /// CONSTRUCTOR
@@ -57,14 +57,18 @@ namespace Ra
             virtual const std::string& getName() const;
 
             // 
-            // Properties management.
-            // 
+            // Editable interface.
+            //
+
+            // The base class provides a default implementation with no properties
+            // (but maybe this is not the right thing and we should leave it as pure
+            // virtual ?)
 
             /// Get a list of all editable properties.
-            void getPropertyList(std::vector<EditableProperty>& propsOut) const {};
+            virtual void getProperties(std::vector<EditableProperty>& propsOut) const override {};
             
             /// Tell the component to take the new property value into account.
-            void setProperty(const EditableProperty& newProp) {};
+            virtual void setProperty(const EditableProperty& newProp) override {};
 
         protected:
             std::string m_name;
