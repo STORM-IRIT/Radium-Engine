@@ -2,6 +2,7 @@
 #define RADIUMENGINE_ENTITY_PROPERTY_WIDGET_HPP_
 #include <QWidget>
 
+#include <Core/Containers/AlignedAllocator.hpp>
 #include <Engine/Entity/EditableProperty.hpp>
 
 class QLayout;
@@ -41,7 +42,7 @@ private:
     QLayout* m_layout;
 
     /// Vector of the properties of the object.
-    std::vector<Engine::EditableProperty> m_props;
+    Core::AlignedStdVector<Engine::EditableProperty> m_props;
 
     /// Vector of edition widgets, one for each property.
     /// If the corresponding property cannot be edited, the widget will be nullptr;

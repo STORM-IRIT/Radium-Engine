@@ -7,6 +7,7 @@
 #include <vector>
 
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Containers/AlignedStdVector.hpp>
 
 
 namespace Ra
@@ -82,7 +83,7 @@ class EditableInterface
 {
 public:
     /// Get a list of all editable properties.
-    virtual void getProperties(std::vector<EditableProperty>& propsOut) const = 0;
+    virtual void getProperties(Core::AlignedStdVector<EditableProperty>& propsOut) const = 0;
 
     /// Change the value of one property.
     virtual void setProperty(const EditableProperty& prop) = 0;

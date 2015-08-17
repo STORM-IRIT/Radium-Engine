@@ -63,7 +63,7 @@ namespace Ra
         return m_components;
     }
 
-    void Engine::Entity::getProperties(std::vector<EditableProperty>& entityPropsOut) const
+    void Engine::Entity::getProperties(Core::AlignedStdVector<EditableProperty>& entityPropsOut) const
     {
         std::lock_guard<std::mutex> lock(m_transformMutex);
         entityPropsOut.push_back(EditableProperty::position("Position",m_transform.translation()));
@@ -93,6 +93,7 @@ namespace Ra
                 CORE_ASSERT(false, "Wrong property");
 
         }
+
     }
 
 } // namespace Ra

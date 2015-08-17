@@ -95,7 +95,8 @@ namespace Ra
         }
 
         template<typename T, GLenum GL_BUFFER_TYPE>
-        inline void GlBuffer<T, GL_BUFFER_TYPE>::setData( const std::vector<T>& data, GLenum drawMode )
+        template <typename Alloc>
+        inline void GlBuffer<T, GL_BUFFER_TYPE>::setData( const std::vector<T,Alloc>& data, GLenum drawMode )
         {
             setData( data.size(), data.data(), drawMode );
         }

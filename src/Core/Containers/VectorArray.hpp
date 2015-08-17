@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Containers/AlignedAllocator.hpp>
+#include <Core/Containers/AlignedStdVector.hpp>
 
 namespace Ra
 {
@@ -14,7 +14,7 @@ namespace Ra
         /// which allow to use the stdlib's dynamic array implementation, yet pass it as
         /// a matrix when Eigen needs it with the getMap() method.
         template<typename V>
-        class VectorArray : public std::vector<V>
+        class VectorArray : public AlignedStdVector<V>
         {
         public:
             // Type shortcuts
@@ -24,7 +24,7 @@ namespace Ra
 
         public:
             /// Inheriting constructors from std::vector
-            using std::vector<V>::vector;
+            using AlignedStdVector<V>::AlignedStdVector;
 
             /// Returns the array as an Eigen Matrix Map
             MatrixMap getMap()

@@ -67,7 +67,8 @@ namespace Ra
             /// @param mode : GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY,
             /// GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY,
             /// GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, or GL_DYNAMIC_COPY
-            inline void setData( const std::vector<T>& data, GLenum drawMode = GL_STREAM_DRAW );
+            template <typename Alloc>
+            inline void setData( const std::vector<T, Alloc>& data, GLenum drawMode = GL_STREAM_DRAW );
 
             /// Download data from the buffer object
             void getData( uint numElements,

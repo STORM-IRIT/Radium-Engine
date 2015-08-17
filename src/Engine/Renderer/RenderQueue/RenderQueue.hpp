@@ -5,7 +5,7 @@
 #include <vector>
 
 #include <Core/CoreMacros.hpp>
-#include <Core/Containers/AlignedAllocator.hpp>
+#include <Core/Containers/AlignedStdVector.hpp>
 
 #include <Engine/Renderer/RenderQueue/ShaderKey.hpp>
 #include <Engine/Renderer/Bindable/BindableMaterial.hpp>
@@ -38,7 +38,7 @@ namespace Ra
             inline void RA_API render( ShaderProgram* shader ) const;
         };
 
-        class BindableMeshVector : public std::vector <BindableMesh, Core::AlignedAllocator<BindableMesh, 16>>
+        class BindableMeshVector : public Core::AlignedStdVector <BindableMesh>
         {
         public:
             inline RA_API BindableMeshVector();

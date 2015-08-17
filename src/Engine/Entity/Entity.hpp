@@ -50,7 +50,7 @@ namespace Ra
 
 
             // Editable Interface
-            virtual void getProperties(std::vector<EditableProperty>& entityPropsOut) const override;
+            virtual void getProperties(Core::AlignedStdVector<EditableProperty>& entityPropsOut) const override;
             virtual void setProperty(const EditableProperty& prop) override;
 
         private:

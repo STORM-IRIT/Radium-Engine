@@ -21,7 +21,7 @@ namespace Ra
         }
 
         inline BindableMeshVector::BindableMeshVector()
-            : std::vector<BindableMesh, Core::AlignedAllocator<BindableMesh, 16>>()
+            : Core::AlignedStdVector<BindableMesh>()
         {
         }
 
