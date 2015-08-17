@@ -73,3 +73,10 @@ lib/
 
 # Mercurial stuff (e.g from Eigen)
 .hg*
+
+# Scripts
+*.bat
+*.sh
+
+# Json 
+*.json
