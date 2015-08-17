@@ -12,7 +12,7 @@ namespace Ra
     namespace Engine
     {
         typedef std::map<std::string, json11::Json>::iterator JsonIter;
-        void loadEntity(const JsonIter& entity, std::vector<LoadedEntity>& loadedData);
+        void loadEntity(const json11::Json& entity, std::vector<LoadedEntity>& loadedData);
 
         void Parser::parse(const std::string& file, std::vector<LoadedEntity>& loadedData)
         {
@@ -24,42 +24,68 @@ namespace Ra
             Ra::Core::Any::getDeclTypeFor<double     >();
 
             std::string err;
-            auto data = json11::Json::parse_multi(file, err);
+            auto parsed = json11::Json::parse(file, err);
             if (!err.empty())
             {
                 LOG(logERROR) << "Error occurred during parsing : " << err;
                 return;
             }
 
-            for (const auto& datum : data)
+            auto data = parsed.object_items();
+
+            auto cameraIt = data.find("camera");
+            auto lightsIt = data.find("lights");
+            auto entitiesIt = data.find("entities");
+
+            if (cameraIt != data.end())
             {
-                if (datum.is_object())
+                LOG(logWARNING) << "Camera data found, not implemented yet.";
+            }
+
+            if (lightsIt != data.end())
+            {
+                LOG(logWARNING) << "Light data found, not implemented yet.";
+            }
+
+            if (entitiesIt != data.end())
+            {
+                if (entitiesIt->second.is_array())
                 {
-                    auto items = datum.object_items();
-                    auto entity = items.find("entity");
-                    CORE_ASSERT(items.find("entity") != items.end(), "No entity description found");
+                    auto entities = entitiesIt->second.array_items();
 
-                    if ((items.size() > 1) || (entity == items.end() && !items.empty()))
+                    for (const auto& entity : entities)
                     {
-                        LOG(logWARNING) << "The file provided provides some data that will be ignored.";
+                        loadEntity(entity, loadedData);
                     }
-
-                    if (entity == items.end())
-                    {
-                        LOG(logWARNING) << "The file provided misses some entity descriptions.";
-                        continue;
-                    }
-
-                    loadEntity(items.find("entity"), loadedData);
+                }
+                else
+                {
+                    LOG(logERROR) << "Entities data provided under the wrong descriptor (should be an array of entities).";
                 }
             }
+
+                /*auto items = datum.object_items();
+                auto entities = datum->second.find("entities");
+
+                if ((items.size() > 1) || (entity == items.end() && !items.empty()))
+                {
+                    LOG(logWARNING) << "The file provided provides some data that will be ignored.";
+                }
+
+                if (entity == items.end())
+                {
+                    LOG(logWARNING) << "The file provided misses some entity descriptions.";
+                    continue;
+                }
+
+                loadEntity(items.find("entity"), loadedData);*/
         }
 
-        void loadEntity(const JsonIter& entity, std::vector<LoadedEntity>& loadedData)
+        void loadEntity(const json11::Json& entity, std::vector<LoadedEntity>& loadedData)
         {
             LoadedEntity loadedEntity;
 
-            auto entityData = entity->second.object_items();
+            auto entityData = entity.object_items();
 
             auto entityNameIt = entityData.find("name");
             if (entityNameIt == entityData.end())
@@ -85,7 +111,7 @@ namespace Ra
             if (entityPositionIt != entityData.end())
             {
                 auto entityPosition = entityPositionIt->second;
-                if (entityPosition.is_array() || entityPosition.array_items.size() < 3 || 
+                if (entityPosition.is_array() || entityPosition.array_items().size() < 3 || 
                     (!entityPosition.array_items()[0].is_number()) ||
                     (!entityPosition.array_items()[1].is_number()) ||
                     (!entityPosition.array_items()[2].is_number()))
@@ -107,7 +133,7 @@ namespace Ra
             if (entityOrientationIt != entityData.end())
             {
                 auto entityOrientation = entityOrientationIt->second;
-                if (entityOrientation.is_array() || entityOrientation.array_items.size() < 4 ||
+                if (entityOrientation.is_array() || entityOrientation.array_items().size() < 4 ||
                     (!entityOrientation.array_items()[0].is_number()) ||
                     (!entityOrientation.array_items()[1].is_number()) ||
                     (!entityOrientation.array_items()[2].is_number()) ||
@@ -131,7 +157,7 @@ namespace Ra
             if (entityScaleIt != entityData.end())
             {
                 auto entityScale = entityScaleIt->second;
-                if (entityScale.is_array() || entityScale.array_items.size() < 4 ||
+                if (entityScale.is_array() || entityScale.array_items().size() < 4 ||
                     (!entityScale.array_items()[0].is_number()) ||
                     (!entityScale.array_items()[1].is_number()) ||
                     (!entityScale.array_items()[2].is_number()) ||
