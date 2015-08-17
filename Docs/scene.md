@@ -3,9 +3,12 @@
 Radium-Engine uses JSON files to describe a whole scene (entities and components 
 for each entity that are required to be loaded), camera, lights, etc.
 
-Camera descriptors *not implemeted yet*
+Camera is provided by a JSon object (under the key `"camera"`), it has the following properties :
+
+*not implemeted yet*
 
 Lights are provided by a JSon array (under the key `"lights"`), a light has the following properties :
+
  *not implemented yet*
 
 Entities are provided by a JSon array (under the key `"entities"`), an entity has the following properties :
