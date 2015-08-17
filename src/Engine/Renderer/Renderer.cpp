@@ -369,7 +369,7 @@ namespace Ra
             GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearZeros.data() ) );
             GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearOnes.data() ) );
 
-            GL_ASSERT( glDepthFunc( GL_LESS ) )
+            GL_ASSERT( glDepthFunc( GL_LESS ) );
             GL_ASSERT( glEnable( GL_BLEND ) );
             GL_ASSERT( glBlendEquation( GL_FUNC_ADD ) );
             GL_ASSERT( glBlendFunci( 0, GL_ONE, GL_ONE ) );

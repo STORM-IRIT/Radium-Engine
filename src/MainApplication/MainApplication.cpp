@@ -56,9 +56,9 @@ namespace Ra
         config.str( std::string() );
         config << "Floating point format : ";
 #if defined(CORE_USE_DOUBLE)
-        config << "double precision" << std::endl;
+        config << "double precision";
 #else
-        config << "single precision" << std::endl;
+        config << "single precision" ;
 #endif
 
         LOG( logINFO ) << config.str();
