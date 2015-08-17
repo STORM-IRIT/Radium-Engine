@@ -10,7 +10,9 @@
 
 #include <MainApplication/MainApplication.hpp>
 #include <MainApplication/Gui/EntityTreeModel.hpp>
+#include <MainApplication/Gui/EntityTreeItem.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
+#include <MainApplication/Gui/EntityPropertyWidget.hpp>
 
 namespace Ra
 {
@@ -52,13 +54,15 @@ namespace Ra
         connect( this, SIGNAL( entitiesUpdated( const std::vector<Engine::Entity*>& ) ),
                  m_entityTreeModel, SLOT( entitiesUpdated( const std::vector<Engine::Entity*>& ) ) );
 
-        connect( m_entityTreeModel, SIGNAL( objectNameChanged( QString ) ),
-                 this, SLOT( objectNameChanged( QString ) ) );
+       /* connect( m_entityTreeModel, SIGNAL( objectNameChanged( QString ) ),
+                 this, SLOT( objectNameChanged( QString ) ) );*/
         connect( m_entityTreeModel, SIGNAL( dataChanged( QModelIndex, QModelIndex, QVector<int> ) ),
                  m_entityTreeModel, SLOT( handleRename( QModelIndex, QModelIndex, QVector<int> ) ) );
 
-        connect( m_entitiesTreeView, SIGNAL( clicked( QModelIndex ) ), m_entityTreeModel,
-                 SLOT( handleSelect( QModelIndex ) ) );
+        connect(m_entitiesTreeView->selectionModel(), 
+                SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
+                this, 
+                SLOT(onSelectionChanged(const QItemSelection &, const QItemSelection &)));
 
         connect( m_cameraResetButton, SIGNAL( released() ),
                  m_viewer->getCamera(), SLOT( resetCamera() ) );
@@ -89,16 +93,6 @@ namespace Ra
                  this, SLOT( updateFramestats( const std::vector<FrameTimerData>& ) ) );
     }
 
-    void Gui::MainWindow::activated( QModelIndex index )
-    {
-        LOG( logDEBUG ) << "Activated item " << index.row() << " " << index.column();
-    }
-
-    void Gui::MainWindow::clicked( QModelIndex index )
-    {
-        LOG( logDEBUG ) << "Clicked item " << index.row() << " " << index.column();
-    }
-
     void Gui::MainWindow::entitiesUpdated()
     {
         emit entitiesUpdated(mainApp->m_engine->getEntityManager()->getEntities());
@@ -106,6 +100,7 @@ namespace Ra
 
     void Gui::MainWindow::cameraPositionChanged( const Core::Vector3& p )
     {
+        // TODO : use a vectorEditor.
         m_cameraPositionX->setValue( p.x() );
         m_cameraPositionY->setValue( p.y() );
         m_cameraPositionZ->setValue( p.z() );
@@ -303,8 +298,8 @@ namespace Ra
     {
         if (drawableIndex >= 0)
         {
-            auto  renderObjects = mainApp->m_engine->getRenderObjectManager()->getRenderObjects();
-            const std::shared_ptr<Engine::RenderObject>& ro = renderObjects[drawableIndex];
+            const std::shared_ptr<Engine::RenderObject>& ro =
+                mainApp->m_engine->getRenderObjectManager()->getRenderObject(drawableIndex);
             Engine::Entity* ent = ro->getComponent()->getEntity();
 
             int compIdx = -1;
@@ -325,6 +320,7 @@ namespace Ra
             QModelIndex treeIdx = entityIdx.child(compIdx, 0);
             m_entitiesTreeView->setExpanded(entityIdx,true);
             m_entitiesTreeView->selectionModel()->select(treeIdx, QItemSelectionModel::SelectCurrent);
+
         }
         else
         {
@@ -333,4 +329,27 @@ namespace Ra
 
 
     }
+    
+    void Gui::MainWindow::onSelectionChanged(const QItemSelection& selected, const QItemSelection& deselected)
+    {
+        if (selected.size() > 0)
+        {
+            QModelIndex selIdx= selected.indexes()[0];
+                       
+            Engine::Entity* entity = m_entityTreeModel->getItem(selIdx)->getData(0).entity;
+            if (entity ==0 )
+            {
+                // FIXME :This is totally ad hoc.
+                entity = m_entityTreeModel->getItem(selIdx.parent())->getData(0).entity;
+            }
+            tab_edition->setEditable(entity);
+        }
+        else
+        {
+            tab_edition->setEditable(nullptr);
+        }
+    }
+
+
+
 } // namespace Ra

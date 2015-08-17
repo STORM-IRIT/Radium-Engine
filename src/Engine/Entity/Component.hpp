@@ -5,6 +5,8 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Index/IndexedObject.hpp>
 
+#include <Engine/Entity/EditableProperty.hpp>
+
 namespace Ra
 {
     namespace Engine
@@ -25,7 +27,7 @@ namespace Ra
          * It is also linked to some other components in an entity.
          * Each component share a transform through their entity.
          */
-        class RA_API Component
+        class RA_API Component : public EditableInterface
         {
         public:
             /// CONSTRUCTOR
@@ -37,7 +39,7 @@ namespace Ra
             virtual ~Component();
 
             /**
-            * @brief Pure virtual method to be overrided by any component.
+            * @brief Pure virtual method to be overridden by any component.
             * When this method is called you are guaranteed to know your system and your entity
             */
             virtual void initialize() = 0;
@@ -52,9 +54,21 @@ namespace Ra
 
             virtual Entity* getEntity() const;
 
-            virtual void setSelected( bool selected );
-
             virtual const std::string& getName() const;
+
+            // 
+            // Editable interface.
+            //
+
+            // The base class provides a default implementation with no properties
+            // (but maybe this is not the right thing and we should leave it as pure
+            // virtual ?)
+
+            /// Get a list of all editable properties.
+            virtual void getProperties(std::vector<EditableProperty>& propsOut) const override {};
+            
+            /// Tell the component to take the new property value into account.
+            virtual void setProperty(const EditableProperty& newProp) override {};
 
         protected:
             std::string m_name;
@@ -63,7 +77,6 @@ namespace Ra
 
             RenderObjectManager* m_renderObjectManager;
 
-            bool m_isSelected;
         };
 
     } // namespace Engine

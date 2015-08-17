@@ -25,7 +25,9 @@ namespace Ra
 
             Core::Index addRenderObject( RenderObject* renderObject );
             void removeRenderObject( const Core::Index& index );
-            std::vector<std::shared_ptr<RenderObject>> getRenderObjects() const;
+            std::shared_ptr<RenderObject> getRenderObject(const Core::Index& index);
+
+            void getRenderObjects(std::vector <std::shared_ptr<RenderObject>>& objectsOut) const;
 
             std::shared_ptr<RenderObject> update( uint index );
             std::shared_ptr<RenderObject> update( const Core::Index& index );

@@ -38,20 +38,23 @@ namespace Ra
             renderObject.reset();
         }
 
-        std::vector<std::shared_ptr<RenderObject>> RenderObjectManager::getRenderObjects() const
+        std::shared_ptr<RenderObject> RenderObjectManager::getRenderObject(const Core::Index& index)
+        {
+            return m_renderObjects.at(index);
+        }
+
+        void RenderObjectManager::getRenderObjects(std::vector<std::shared_ptr<RenderObject>>& renderObjectsOut ) const
         {
             // Take the mutex
             std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
             // Copy each element in m_renderObjects
-            std::vector<std::shared_ptr<RenderObject>> renderObjects;
 
             for ( uint i = 0; i < m_renderObjects.size(); ++i )
             {
-                renderObjects.push_back( m_renderObjects.at( i ) );
+                renderObjectsOut.push_back( m_renderObjects.at( i ) );
             }
 
-            return renderObjects;
         }
 
         std::shared_ptr<RenderObject> RenderObjectManager::update( uint index )

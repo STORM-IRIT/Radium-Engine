@@ -18,11 +18,6 @@ namespace Ra
         m_renderObjectManager = manager;
     }
 
-    inline void Engine::Component::setSelected( bool selected )
-    {
-        m_isSelected = selected;
-    }
-
     inline const std::string& Engine::Component::getName() const
     {
         return m_name;

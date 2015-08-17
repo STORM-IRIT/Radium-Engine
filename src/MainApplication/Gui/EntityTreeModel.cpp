@@ -318,46 +318,5 @@ namespace Ra
         }
     }
 
-    namespace
-    {
-        bool firstTimeSelection = true;
-        QModelIndex lastSelected;
-    }
-
-    void Gui::EntityTreeModel::handleSelect( const QModelIndex& index )
-    {
-        EntityTreeItem::ItemData data;
-
-        if ( !firstTimeSelection )
-        {
-            data = getItem( lastSelected )->getData( 0 );
-            if ( data.isEntityNode )
-            {
-                data.entity->setSelected( false );
-            }
-
-            if ( data.isComponentNode )
-            {
-                data.component->setSelected( false );
-            }
-        }
-        else
-        {
-            firstTimeSelection = false;
-        }
-
-        data = getItem( index )->getData( 0 );
-        if ( data.isEntityNode )
-        {
-            data.entity->setSelected( true );
-        }
-
-        if ( data.isComponentNode )
-        {
-            data.component->setSelected( true );
-        }
-
-        lastSelected = index;
-    }
 
 } // namespace Ra
