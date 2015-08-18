@@ -105,6 +105,9 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="keyboardTracking">
+           <bool>false</bool>
+          </property>
           <property name="suffix">
            <string>°</string>
           </property>
@@ -134,6 +137,9 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="keyboardTracking">
+           <bool>false</bool>
+          </property>
           <property name="suffix">
            <string>°</string>
           </property>
@@ -155,6 +161,9 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="keyboardTracking">
+           <bool>false</bool>
           </property>
           <property name="suffix">
            <string>°</string>
@@ -203,6 +212,9 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="keyboardTracking">
+           <bool>false</bool>
+          </property>
           <property name="suffix">
            <string>°</string>
           </property>
@@ -225,6 +237,9 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="keyboardTracking">
+           <bool>false</bool>
+          </property>
           <property name="suffix">
            <string>°</string>
           </property>
@@ -232,10 +247,10 @@
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-90.000000000000000</double>
+           <double>-180.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>90.000000000000000</double>
+           <double>180.000000000000000</double>
           </property>
          </widget>
         </item>
@@ -255,10 +270,10 @@
         <item row="3" column="2">
          <widget class="QSlider" name="m_slider_z_rel">
           <property name="minimum">
-           <number>-90</number>
+           <number>-180</number>
           </property>
           <property name="maximum">
-           <number>90</number>
+           <number>180</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -292,6 +307,9 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="keyboardTracking">
+           <bool>false</bool>
           </property>
           <property name="suffix">
            <string>°</string>
