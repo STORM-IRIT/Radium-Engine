@@ -31,6 +31,7 @@ namespace FancyMeshPlugin
     {
     }
 
+#if 0
     void FancyMeshSystem::handleFileLoading( const std::string& filename )
     {
         DataVector componentsData = FancyMeshLoader::loadFile( filename );
@@ -49,6 +50,7 @@ namespace FancyMeshPlugin
             component->handleMeshLoading( data );
         }
     }
+#endif
 
     void FancyMeshSystem::handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder, 
                                              const std::map<std::string, Ra::Core::Any>& data )

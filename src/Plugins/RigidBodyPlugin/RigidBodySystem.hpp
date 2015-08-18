@@ -28,7 +28,6 @@ namespace RigidBodyPlugin
         virtual ~RigidBodySystem();
 
         virtual void initialize() override;
-        virtual void handleFileLoading( const std::string& filename ) override;
 
         virtual void handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder, 
                                         const std::map<std::string, Ra::Core::Any>& data) override;

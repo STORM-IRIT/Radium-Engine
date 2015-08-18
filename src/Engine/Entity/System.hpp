@@ -97,12 +97,6 @@ namespace Ra
                 return false;
             }
 
-            /**
-             * @brief Handle a file loading event. Does nothing by default.
-             * @param file The file to load
-             */
-            virtual void handleFileLoading( const std::string& filename ) { }
-
             virtual void handleDataLoading( Entity* entity, const std::string& rootFolder, 
                                            const std::map<std::string, Core::Any>& data ) {}
 

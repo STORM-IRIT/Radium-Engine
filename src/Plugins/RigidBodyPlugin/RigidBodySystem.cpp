@@ -31,10 +31,6 @@ namespace RigidBodyPlugin
     {
     }
 
-    void RigidBodySystem::handleFileLoading( const std::string& filename )
-    {
-    }
-
     void RigidBodySystem::handleDataLoading(Ra::Engine::Entity* entity, const std::string& rootFolder, 
                                             const std::map<std::string, Ra::Core::Any>& data)
     {
