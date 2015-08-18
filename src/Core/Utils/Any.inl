@@ -25,7 +25,7 @@ namespace Ra
             return std::static_pointer_cast<const AnyValue<T>>(m_value)->value;
         }
 
-        inline int Ra::Core::nextMagicNumber()
+        inline int nextMagicNumber()
         {
             static int magic(0);
             return magic++;

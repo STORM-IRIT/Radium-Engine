@@ -9,6 +9,10 @@ namespace Ra
 {
     namespace Core
     {
+        template <typename T>
+        inline RA_API int magicNumberFor();
+        RA_API extern int nextMagicNumber();
+
         class Any
         {
         public:
@@ -50,10 +54,7 @@ namespace Ra
             std::shared_ptr<AnyValueBase> m_value;
         };
 
-        RA_API extern int nextMagicNumber();
 
-        template <typename T>
-        inline RA_API int magicNumberFor();
     }
 }
 
