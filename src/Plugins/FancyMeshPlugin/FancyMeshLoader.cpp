@@ -128,11 +128,11 @@ namespace FancyMeshPlugin
 
         void loadMesh( const aiMesh* mesh, FancyMeshData& data )
         {
-            Ra::Core::Vector3Array positions;
-            Ra::Core::Vector3Array normals;
-            Ra::Core::Vector3Array tangents;
-            Ra::Core::Vector3Array bitangents;
-            Ra::Core::Vector3Array texcoords;
+            Ra::Core::Vector4Array tangents;
+            Ra::Core::Vector4Array bitangents;
+            Ra::Core::Vector4Array texcoords;
+            Ra::Core::Vector4Array colors;
+            Ra::Core::Vector4Array weights;
             std::vector<uint>  indices;
 
             Ra::Core::TriangleMesh triangleMesh; // Used to recompute normals
@@ -145,14 +145,27 @@ namespace FancyMeshPlugin
 
                 if ( mesh->HasTangentsAndBitangents() )
                 {
-                    tangents.push_back( assimpToCore( mesh->mTangents[i] ) );
-                    bitangents.push_back( assimpToCore( mesh->mBitangents[i] ) );
+                    Ra::Core::Vector4 tangent(0, 0, 0, 0);
+                    Ra::Core::Vector4 bitangent(0, 0, 0, 0);
+
+                    tangent.head<3>() = assimpToCore( mesh->mTangents[i] );
+                    bitangent.head<3>() = assimpToCore( mesh->mBitangents[i] );
+
+                    tangents.push_back( tangent );
+                    bitangents.push_back( bitangent );
                 }
 
                 // FIXME(Charly): What do texture coords indices mean ?
                 if ( mesh->HasTextureCoords( 0 ) )
                 {
-                    texcoords.push_back( assimpToCore( mesh->mTextureCoords[0][i] ) );
+                    Ra::Core::Vector4 texcoord(0, 0, 0, 0);
+                    texcoord.head<3>() = assimpToCore( mesh->mTextureCoords[0][i] );
+                    texcoords.push_back( texcoord );
+                }
+
+                if ( mesh->HasVertexColors( 0 ) )
+                {
+                    colors.push_back( assimpToCore( mesh->mColors[0][i] ) );
                 }
             }
 
@@ -169,9 +182,29 @@ namespace FancyMeshPlugin
                 ) );
             }
 
-            Ra::Core::MeshUtils::getAutoNormals(triangleMesh, data.normals);
+            Ra::Core::Vector3Array vec3Normals;
 
-            data.positions = triangleMesh.m_vertices;
+            Ra::Core::MeshUtils::getAutoNormals(triangleMesh, vec3Normals);
+
+            Ra::Core::Vector4Array vertices;
+            Ra::Core::Vector4Array normals;
+            const uint vertCount = triangleMesh.m_vertices.size();
+            vertices.reserve( vertCount );
+            normals.reserve( vertCount );
+
+            for ( uint i = 0; i < vertCount; ++i )
+            {
+                Ra::Core::Vector4 vertex(0, 0, 0, 1);
+                vertex.head<3>() = triangleMesh.m_vertices[i];
+                Ra::Core::Vector4 normal(0, 0, 0, 0);
+                normal.head<3>() = vec3Normals[i];
+
+                vertices.push_back( vertex );
+                normals.push_back( normal );
+            }
+
+            data.positions = vertices;
+            data.normals = normals;
             data.tangents = tangents;
             data.bitangents = bitangents;
             data.texcoords = texcoords;

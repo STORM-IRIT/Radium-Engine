@@ -20,13 +20,15 @@ namespace FancyMeshPlugin
 {
     struct RA_API FancyMeshData
     {
-        Ra::Core::Vector3Array positions;
-        Ra::Core::Vector3Array normals;
-        Ra::Core::Vector3Array tangents;
-        Ra::Core::Vector3Array bitangents;
-        Ra::Core::Vector3Array texcoords;
+        Ra::Core::Vector4Array positions;
+        Ra::Core::Vector4Array normals;
+        Ra::Core::Vector4Array tangents;
+        Ra::Core::Vector4Array bitangents;
+        Ra::Core::Vector4Array texcoords;
+        Ra::Core::Vector4Array colors;
+        Ra::Core::Vector4Array weights;
 
-        std::vector<uint>  indices;
+        std::vector<uint>      indices;
     };
 
     struct RA_API FancyComponentData

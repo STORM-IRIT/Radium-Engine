@@ -56,6 +56,7 @@ namespace Ra
             , m_quadMesh( nullptr )
             , m_fbo( nullptr )
             , m_postprocessFbo( nullptr )
+            , m_drawDebug( true )
         {
         }
 
@@ -75,11 +76,11 @@ namespace Ra
             initShaders();
             initBuffers();
 
-            Core::Vector3Array mesh;
-            mesh.push_back( { Scalar( -1 ), Scalar( -1 ), Scalar( 0 ) } );
-            mesh.push_back( { Scalar( -1 ), Scalar( 1 ), Scalar( 0 ) } );
-            mesh.push_back( { Scalar( 1 ), Scalar( 1 ), Scalar( 0 ) } );
-            mesh.push_back( { Scalar( 1 ), Scalar( -1 ), Scalar( 0 ) } );
+            Core::Vector4Array mesh;
+            mesh.push_back( { Scalar( -1 ), Scalar( -1 ), Scalar( 0 ), Scalar( 0 ) } );
+            mesh.push_back( { Scalar( -1 ), Scalar( 1 ), Scalar( 0 ), Scalar( 0 ) } );
+            mesh.push_back( { Scalar( 1 ), Scalar( 1 ), Scalar( 0 ), Scalar( 0 ) } );
+            mesh.push_back( { Scalar( 1 ), Scalar( -1 ), Scalar( 0 ), Scalar( 0 ) } );
 
             std::vector<uint> indices(
             {
@@ -195,6 +196,7 @@ namespace Ra
             m_opaqueRenderQueue.clear();
             m_transparentRenderQueue.clear();
             m_debugRenderQueue.clear();
+            m_uiRenderQueue.clear();
 
             for ( const auto& ro : renderObjects )
             {
@@ -214,7 +216,10 @@ namespace Ra
 
                     case RenderObject::RenderObjectType::RO_DEBUG:
                     {
-                        ro->feedRenderQueue( m_debugRenderQueue, renderData.viewMatrix, renderData.projMatrix );
+                        if ( m_drawDebug )
+                        {
+                            ro->feedRenderQueue( m_debugRenderQueue, renderData.viewMatrix, renderData.projMatrix );
+                        }
                     }
                     break;
 

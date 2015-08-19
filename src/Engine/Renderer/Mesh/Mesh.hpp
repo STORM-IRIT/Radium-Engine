@@ -36,12 +36,14 @@ namespace Ra
                 VERTEX_TANGENT,
                 VERTEX_BITANGENT,
                 VERTEX_TEXCOORD,
+                VERTEX_COLOR,
+                VERTEX_WEIGHTS,
 
                 MAX_DATATYPES
             };
 
         private:
-            typedef Core::VectorArray<Core::Vector3> Vector3Array;
+            typedef Core::VectorArray<Core::Vector4> Vector4Array;
         public:
             Mesh( const std::string& name );
             ~Mesh();
@@ -54,10 +56,10 @@ namespace Ra
             /// GL_POINTS, GL_LINES, GL_TRIANGLES, GL_TRIANGLE_ADJACENCY, etc...
             void setRenderMode( const GLenum& mode );
 
-            void loadGeometry( const Vector3Array& positions, const std::vector<uint>& indices );
-            void addData( const DataType& type, const Vector3Array& position );
+            void loadGeometry( const Vector4Array& positions, const std::vector<uint>& indices );
+            void addData( const DataType& type, const Vector4Array& position );
 
-            const Vector3Array& getData( const DataType& type ) const
+            const Vector4Array& getData( const DataType& type ) const
             {
                 return m_data[type];
             }
@@ -85,8 +87,8 @@ namespace Ra
             uint m_vao;
             GLenum m_renderMode;
 
-            std::array<Vector3Array, MAX_DATATYPES> m_data;
-            std::array<GlBuffer<Core::Vector3>, MAX_DATATYPES> m_vbos;
+            std::array<Vector4Array, MAX_DATATYPES> m_data;
+            std::array<GlBuffer<Core::Vector4>, MAX_DATATYPES> m_vbos;
 
             std::vector<uint> m_indices;
             GlBuffer<uint, GL_ELEMENT_ARRAY_BUFFER> m_ibo;

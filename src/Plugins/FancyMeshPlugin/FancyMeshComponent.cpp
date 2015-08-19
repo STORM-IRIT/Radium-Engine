@@ -57,8 +57,25 @@ namespace FancyMeshPlugin
             indices.push_back( i.z() );
         }
 
-        displayMesh->loadGeometry( mesh.m_vertices, indices );
-        displayMesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, mesh.m_normals );
+        Ra::Core::Vector4Array vertices;
+        Ra::Core::Vector4Array normals;
+        const uint vertCount = mesh.m_vertices.size();
+        vertices.reserve( vertCount );
+        normals.reserve( vertCount );
+
+        for ( uint i = 0; i < vertCount; ++i )
+        {
+            Ra::Core::Vector4 vertex(0, 0, 0, 1);
+            vertex.head<3>() = mesh.m_vertices[i];
+            Ra::Core::Vector4 normal(0, 0, 0, 0);
+            normal.head<3>() = mesh.m_normals[i];
+
+            vertices.push_back( vertex );
+            normals.push_back( normal );
+        }
+
+        displayMesh->loadGeometry( vertices, indices );
+        displayMesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, normals );
 
         renderObject->setMesh( displayMesh );
         m_renderObject = m_renderObjectManager->addRenderObject( renderObject );

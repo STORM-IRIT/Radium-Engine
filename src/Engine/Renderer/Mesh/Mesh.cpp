@@ -43,7 +43,7 @@ namespace Ra
         GL_ASSERT( glDrawElements( m_renderMode, m_indices.size(), GL_UNSIGNED_INT, ( void* ) 0 ) );
     }
 
-    void Engine::Mesh::loadGeometry( const Vector3Array& positions,
+    void Engine::Mesh::loadGeometry( const Vector4Array& positions,
                                      const std::vector<uint>& indices )
     {
         m_data[VERTEX_POSITION] = positions;
@@ -52,7 +52,7 @@ namespace Ra
         m_isDirty = true;
     }
 
-    void Engine::Mesh::addData( const DataType& type, const Vector3Array& data )
+    void Engine::Mesh::addData( const DataType& type, const Vector4Array& data )
     {
         m_data[type] = data;
 
@@ -129,7 +129,7 @@ namespace Ra
         GLenum type = GL_FLOAT;
 #endif
         GLboolean normalized = GL_FALSE;
-        GLuint size = 3;
+        GLuint size = 4;
         GLvoid* ptr = nullptr;
 
 
@@ -140,7 +140,7 @@ namespace Ra
             {
                 m_vbos[i].setData( m_data[i], GL_STATIC_DRAW );
                 GL_ASSERT( glVertexAttribPointer( i, size, type, normalized,
-                                                  sizeof( Core::Vector3 ), ptr ) );
+                                                  sizeof( Core::Vector4 ), ptr ) );
 
                 GL_ASSERT( glEnableVertexAttribArray( i ) );
             }

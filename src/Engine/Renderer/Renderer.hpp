@@ -181,6 +181,11 @@ namespace Ra
                 return m_lastFramePickingQueries;
             }
 
+            inline void toggleDrawDebug()
+            {
+                m_drawDebug = !m_drawDebug;
+            }
+
         protected:
 
            // 4.
@@ -320,6 +325,8 @@ namespace Ra
             std::vector<Core::Vector2>  m_pickingQueries;
             std::vector<Core::Vector2>  m_lastFramePickingQueries;
             std::vector<int>            m_pickingResults;
+
+            bool m_drawDebug;
         };
 
     } // namespace Engine
