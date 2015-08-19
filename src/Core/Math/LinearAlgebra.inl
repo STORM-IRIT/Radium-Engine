@@ -29,19 +29,19 @@ namespace Ra
         template<typename Vector_>
         inline Vector_ Vector::clamp( const Vector_& v, const Vector_& min, const Vector_& max )
         {
-            return v.cwiseMin(max).cwiseMax(min);
+            return v.cwiseMin( max ).cwiseMax( min );
         }
-        
+
         template<typename Vector_>
-        inline Vector_ Vector::clamp ( const Vector_& v, const Scalar& min, const Scalar& max )
+        inline Vector_ Vector::clamp( const Vector_& v, const Scalar& min, const Scalar& max )
         {
-            return v.cwiseMin(max).cwiseMax(min);
+            return v.cwiseMin( max ).cwiseMax( min );
         }
-        
+
         template<typename Vector_>
-        inline bool Vector::checkRange ( const Vector_& v, const Scalar& min, const Scalar& max )
+        inline bool Vector::checkRange( const Vector_& v, const Scalar& min, const Scalar& max )
         {
-            return Vector::clamp(v, min, max) == v;
+            return Vector::clamp( v, min, max ) == v;
         }
 
         //
@@ -65,33 +65,35 @@ namespace Ra
         inline Aabb Obb::toAabb() const
         {
             Aabb tmp;
-            for(int i = 0; i < 8; ++i)
+            for ( int i = 0; i < 8; ++i )
             {
-                tmp.extend(m_transform * m_aabb.corner(static_cast<Aabb::CornerType>(i)));
+                tmp.extend( m_transform * m_aabb.corner( static_cast<Aabb::CornerType>( i ) ) );
             }
             return tmp;
         }
-        
-        inline void Obb::addPoint(const Vector3& p)
+
+        inline void Obb::addPoint( const Vector3& p )
         {
             // TODO: take the transform into account, but then apply the changes in capsule_implicit.cpp
-            m_aabb.extend(p);
+            m_aabb.extend( p );
         }
 
-        inline void getOrthogonalVectors(const Vector3& fx, Vector3& fy, Vector3& fz)
+        inline void getOrthogonalVectors( const Vector3& fx, Vector3& fy, Vector3& fz )
         {
             //for numerical stability, and seen that z will always be present, take the greatest component between x and y.
-            if(fabsf(fx(0)) > fabsf(fx(1)) )
+            if ( fabsf( fx( 0 ) ) > fabsf( fx( 1 ) ) )
             {
-                float inv_len = 1.f / sqrtf(fx(0) * fx(0) + fx(2) * fx(2));
-                Vector3 tmp(-fx(2) * inv_len, 0.f, fx(0) * inv_len);
-                fy = tmp;
-            } else {
-                float inv_len = 1.f / sqrtf(fx(1) * fx(1) + fx(2) * fx(2));
-                Vector3 tmp(0.f, fx(2) * inv_len, -fx(1) * inv_len);
+                float inv_len = 1.f / sqrtf( fx( 0 ) * fx( 0 ) + fx( 2 ) * fx( 2 ) );
+                Vector3 tmp( -fx( 2 ) * inv_len, 0.f, fx( 0 ) * inv_len );
                 fy = tmp;
             }
-            fz = fx.cross(fy);
+            else
+            {
+                float inv_len = 1.f / sqrtf( fx( 1 ) * fx( 1 ) + fx( 2 ) * fx( 2 ) );
+                Vector3 tmp( 0.f, fx( 2 ) * inv_len, -fx( 1 ) * inv_len );
+                fy = tmp;
+            }
+            fz = fx.cross( fy );
         }
 
     }

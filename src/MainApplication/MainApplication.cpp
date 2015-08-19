@@ -34,7 +34,7 @@ namespace Ra
         , m_viewer( nullptr )
         , m_frameTimer( new QTimer( this ) )
         , m_frameCounter( 0 )
-          //, m_timerData(TIMER_AVERAGE)
+        //, m_timerData(TIMER_AVERAGE)
     {
         // Boilerplate print.
 
@@ -270,9 +270,9 @@ namespace Ra
 
         // Get picking results from last frame and forward it to the selection.
         auto picked = m_viewer->getRenderer()->getPickingResults();
-        for (auto pick : picked)
+        for ( auto pick : picked )
         {
-            m_mainWindow->handlePicking(pick);
+            m_mainWindow->handlePicking( pick );
         }
 
         m_mainWindow->flushEvents();
@@ -306,7 +306,7 @@ namespace Ra
         timerData.frameEnd = Core::Timer::Clock::now();
         timerData.numFrame = m_frameCounter;
 
-        m_timerData.push_back(timerData);
+        m_timerData.push_back( timerData );
         ++m_frameCounter;
 
         if ( m_frameCounter % m_frameCountBeforeUpdate == 0 )

@@ -92,40 +92,40 @@ namespace Ra
             //{
             //    system.second->handleFileLoading( file );
             //}
-            
+
             // Fill file in a string (http://stackoverflow.com/a/2602060)
-            std::ifstream t(filename);
+            std::ifstream t( filename );
             std::string file;
 
-            t.seekg(0, std::ios::end);
-            file.reserve(t.tellg());
-            t.seekg(0, std::ios::beg);
+            t.seekg( 0, std::ios::end );
+            file.reserve( t.tellg() );
+            t.seekg( 0, std::ios::beg );
 
             file.assign( ( std::istreambuf_iterator<char>( t ) ),
                          ( std::istreambuf_iterator<char>() ) );
             std::string err;
 
             std::vector<LoadedEntity> loadedData;
-            Parser::parse(file, loadedData);
+            Parser::parse( file, loadedData );
 
-            LOG(logDEBUG) << "Found " << loadedData.size() << " entities to load.";
+            LOG( logDEBUG ) << "Found " << loadedData.size() << " entities to load.";
 
             std::string rootFolder = Core::StringUtils::getDirName( filename );
 
-            for (const auto& entityData : loadedData)
+            for ( const auto& entityData : loadedData )
             {
-                Entity* entity = m_entityManager->getOrCreateEntity(entityData.name);
+                Entity* entity = m_entityManager->getOrCreateEntity( entityData.name );
                 Core::Transform transform;
-                transform.fromPositionOrientationScale(entityData.position, entityData.orientation, entityData.scale);
-                entity->setTransform(transform);
+                transform.fromPositionOrientationScale( entityData.position, entityData.orientation, entityData.scale );
+                entity->setTransform( transform );
 
-                for (const auto& systemData : entityData.data)
+                for ( const auto& systemData : entityData.data )
                 {
-                    auto system = m_systems.find(systemData.system);
-                    
-                    if (system != m_systems.end())
+                    auto system = m_systems.find( systemData.system );
+
+                    if ( system != m_systems.end() )
                     {
-                        system->second->handleDataLoading(entity, rootFolder, systemData.data);
+                        system->second->handleDataLoading( entity, rootFolder, systemData.data );
                     }
                 }
             }

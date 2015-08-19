@@ -7,13 +7,13 @@ namespace Ra
     {
 
         TaskQueue::TaskQueue( uint numThreads )
-            : m_processingTasks( 0 ), m_shuttingDown(false)
+            : m_processingTasks( 0 ), m_shuttingDown( false )
         {
-            CORE_ASSERT(numThreads > 0, " You need at least one thread");
-            m_workerThreads.reserve(numThreads);
-            for  (uint i = 0 ; i < numThreads; ++i)
+            CORE_ASSERT( numThreads > 0, " You need at least one thread" );
+            m_workerThreads.reserve( numThreads );
+            for ( uint i = 0 ; i < numThreads; ++i )
             {
-                m_workerThreads.emplace_back(std::thread( &TaskQueue::runThread, this, i ));
+                m_workerThreads.emplace_back( std::thread( &TaskQueue::runThread, this, i ) );
             }
         }
 
@@ -22,7 +22,7 @@ namespace Ra
             flushTaskQueue();
             m_shuttingDown = true;
             m_threadNotifier.notify_all();
-            for (auto& t :  m_workerThreads)
+            for ( auto& t :  m_workerThreads )
             {
                 t.join();
             }
@@ -64,11 +64,11 @@ namespace Ra
         void TaskQueue::processTaskQueue()
         {
             // Enqueue all tasks with no dependencies.
-            for (uint t = 0; t < m_tasks.size(); ++t)
+            for ( uint t = 0; t < m_tasks.size(); ++t )
             {
-                if (m_remainingDependencies[t] == 0)
+                if ( m_remainingDependencies[t] == 0 )
                 {
-                    queueTask(t);
+                    queueTask( t );
                 }
             }
 
@@ -79,9 +79,9 @@ namespace Ra
             {
                 // TODO : use a notifier for task queue empty.
                 m_taskQueueMutex.lock();
-                isFinished = (m_taskQueue.empty() && m_processingTasks == 0 );
+                isFinished = ( m_taskQueue.empty() && m_processingTasks == 0 );
                 m_taskQueueMutex.unlock();
-                if (!isFinished)
+                if ( !isFinished )
                 {
                     std::this_thread::yield();
                 }
@@ -103,25 +103,28 @@ namespace Ra
             m_remainingDependencies.clear();
         }
 
-        void TaskQueue::runThread(uint id)
+        void TaskQueue::runThread( uint id )
         {
-            while (true)
+            while ( true )
             {
                 TaskId task = InvalidTaskId;
 
                 // Acquire mutex.
                 {
-                    std::unique_lock<std::mutex> lock(m_taskQueueMutex);
+                    std::unique_lock<std::mutex> lock( m_taskQueueMutex );
 
                     // Wait for a new task
                     // TODO : use the second form of wait()
                     while ( !m_shuttingDown && m_taskQueue.empty() )
                     {
-                        m_threadNotifier.wait(lock);
+                        m_threadNotifier.wait( lock );
                     }
                     // If the task queue is shutting down we quit, releasing
                     // the lock.
-                    if (m_shuttingDown) { return; }
+                    if ( m_shuttingDown )
+                    {
+                        return;
+                    }
 
                     // If we are here it means we got a task
                     task = m_taskQueue.back();
@@ -139,7 +142,7 @@ namespace Ra
                 // Critical section : mark task as finished and en-queue dependencies.
                 uint newTasks = 0;
                 {
-                    std::unique_lock<std::mutex> lock(m_taskQueueMutex);
+                    std::unique_lock<std::mutex> lock( m_taskQueueMutex );
                     for ( auto t : m_dependencies[task] )
                     {
                         uint& nDepends = m_remainingDependencies[t];
@@ -155,7 +158,7 @@ namespace Ra
                     --m_processingTasks;
                 }
                 // If we added new tasks, we wake up one thread to execute it.
-                if (newTasks > 0)
+                if ( newTasks > 0 )
                 {
                     m_threadNotifier.notify_one();
                 }

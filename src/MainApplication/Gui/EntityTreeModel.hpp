@@ -42,6 +42,7 @@
 #define RADIUMENGINE_ENTITYTREEMODEL_HPP
 
 #include <vector>
+#include <set>
 
 #include <QAbstractItemModel>
 #include <QList>
@@ -97,6 +98,7 @@ namespace Ra
             bool removeRows( int position, int rows, const QModelIndex& parent = QModelIndex() ) override;
 
             EntityTreeItem* getItem( const QModelIndex& index ) const;
+
         public slots:
             void entitiesUpdated( const std::vector<Engine::Entity*>& entities );
             void handleRename( const QModelIndex& topLeft, const QModelIndex& bottomRight, const QVector<int>& );
@@ -106,6 +108,8 @@ namespace Ra
 
         private:
             EntityTreeItem* m_rootItem;
+
+            std::set<std::string> m_entityNames;
         };
 
     } // namespace Gui

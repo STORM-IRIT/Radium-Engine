@@ -61,7 +61,7 @@ namespace FancyMeshPlugin
                                                   aiProcess_GenUVCoords );
         if ( !scene )
         {
-            LOG(logERROR) << "Error while loading file \"" << name << "\" : " << importer.GetErrorString() << ".";
+            LOG( logERROR ) << "Error while loading file \"" << name << "\" : " << importer.GetErrorString() << ".";
             return dataVector;
         }
 
@@ -145,8 +145,8 @@ namespace FancyMeshPlugin
 
                 if ( mesh->HasTangentsAndBitangents() )
                 {
-                    Ra::Core::Vector4 tangent(0, 0, 0, 0);
-                    Ra::Core::Vector4 bitangent(0, 0, 0, 0);
+                    Ra::Core::Vector4 tangent( 0, 0, 0, 0 );
+                    Ra::Core::Vector4 bitangent( 0, 0, 0, 0 );
 
                     tangent.head<3>() = assimpToCore( mesh->mTangents[i] );
                     bitangent.head<3>() = assimpToCore( mesh->mBitangents[i] );
@@ -158,7 +158,7 @@ namespace FancyMeshPlugin
                 // FIXME(Charly): What do texture coords indices mean ?
                 if ( mesh->HasTextureCoords( 0 ) )
                 {
-                    Ra::Core::Vector4 texcoord(0, 0, 0, 0);
+                    Ra::Core::Vector4 texcoord( 0, 0, 0, 0 );
                     texcoord.head<3>() = assimpToCore( mesh->mTextureCoords[0][i] );
                     texcoords.push_back( texcoord );
                 }
@@ -178,13 +178,13 @@ namespace FancyMeshPlugin
                 indices.push_back( f.mIndices[2] );
 
                 triangleMesh.m_triangles.push_back( Ra::Core::Triangle(
-                    f.mIndices[0], f.mIndices[1], f.mIndices[2] 
-                ) );
+                                                        f.mIndices[0], f.mIndices[1], f.mIndices[2]
+                                                    ) );
             }
 
             Ra::Core::Vector3Array vec3Normals;
 
-            Ra::Core::MeshUtils::getAutoNormals(triangleMesh, vec3Normals);
+            Ra::Core::MeshUtils::getAutoNormals( triangleMesh, vec3Normals );
 
             Ra::Core::Vector4Array vertices;
             Ra::Core::Vector4Array normals;
@@ -194,9 +194,9 @@ namespace FancyMeshPlugin
 
             for ( uint i = 0; i < vertCount; ++i )
             {
-                Ra::Core::Vector4 vertex(0, 0, 0, 1);
+                Ra::Core::Vector4 vertex( 0, 0, 0, 1 );
                 vertex.head<3>() = triangleMesh.m_vertices[i];
-                Ra::Core::Vector4 normal(0, 0, 0, 0);
+                Ra::Core::Vector4 normal( 0, 0, 0, 0 );
                 normal.head<3>() = vec3Normals[i];
 
                 vertices.push_back( vertex );

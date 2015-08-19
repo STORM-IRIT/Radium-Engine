@@ -65,9 +65,9 @@ namespace FancyMeshPlugin
 
         for ( uint i = 0; i < vertCount; ++i )
         {
-            Ra::Core::Vector4 vertex(0, 0, 0, 1);
+            Ra::Core::Vector4 vertex( 0, 0, 0, 1 );
             vertex.head<3>() = mesh.m_vertices[i];
-            Ra::Core::Vector4 normal(0, 0, 0, 0);
+            Ra::Core::Vector4 normal( 0, 0, 0, 0 );
             normal.head<3>() = mesh.m_normals[i];
 
             vertices.push_back( vertex );

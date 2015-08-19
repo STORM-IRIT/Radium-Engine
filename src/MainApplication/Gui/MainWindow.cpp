@@ -36,7 +36,7 @@ namespace Ra
         createConnections();
 
         mainApp->framesCountForStatsChanged(
-                    m_avgFramesCount->value() );
+            m_avgFramesCount->value() );
         m_viewer->getCamera()->resetCamera();
     }
 
@@ -54,15 +54,15 @@ namespace Ra
         connect( this, SIGNAL( entitiesUpdated( const std::vector<Engine::Entity*>& ) ),
                  m_entityTreeModel, SLOT( entitiesUpdated( const std::vector<Engine::Entity*>& ) ) );
 
-       /* connect( m_entityTreeModel, SIGNAL( objectNameChanged( QString ) ),
-                 this, SLOT( objectNameChanged( QString ) ) );*/
+        /* connect( m_entityTreeModel, SIGNAL( objectNameChanged( QString ) ),
+                  this, SLOT( objectNameChanged( QString ) ) );*/
         connect( m_entityTreeModel, SIGNAL( dataChanged( QModelIndex, QModelIndex, QVector<int> ) ),
                  m_entityTreeModel, SLOT( handleRename( QModelIndex, QModelIndex, QVector<int> ) ) );
 
-        connect(m_entitiesTreeView->selectionModel(), 
-                SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
-                this, 
-                SLOT(onSelectionChanged(const QItemSelection &, const QItemSelection &)));
+        connect( m_entitiesTreeView->selectionModel(),
+                 SIGNAL( selectionChanged( const QItemSelection&, const QItemSelection& ) ),
+                 this,
+                 SLOT( onSelectionChanged( const QItemSelection&, const QItemSelection& ) ) );
 
         connect( m_cameraResetButton, SIGNAL( released() ),
                  m_viewer->getCamera(), SLOT( resetCamera() ) );
@@ -86,16 +86,16 @@ namespace Ra
                  m_viewer->getCamera(), SLOT( setCameraSensitivity( double ) ) );
 
         /// Update entities when the engine starts.
-        connect(mainApp, SIGNAL(starting()),  this, SLOT(entitiesUpdated()));
+        connect( mainApp, SIGNAL( starting() ),  this, SLOT( entitiesUpdated() ) );
 
-        connect( m_avgFramesCount, SIGNAL( valueChanged(int) ), mainApp , SLOT( framesCountForStatsChanged( int ) ) );
+        connect( m_avgFramesCount, SIGNAL( valueChanged( int ) ), mainApp , SLOT( framesCountForStatsChanged( int ) ) );
         connect( mainApp , SIGNAL( updateFrameStats( const std::vector<FrameTimerData>& ) ),
                  this, SLOT( updateFramestats( const std::vector<FrameTimerData>& ) ) );
     }
 
     void Gui::MainWindow::entitiesUpdated()
     {
-        emit entitiesUpdated(mainApp->m_engine->getEntityManager()->getEntities());
+        emit entitiesUpdated( mainApp->m_engine->getEntityManager()->getEntities() );
     }
 
     void Gui::MainWindow::cameraPositionChanged( const Core::Vector3& p )
@@ -142,9 +142,9 @@ namespace Ra
 
     void Gui::MainWindow::updateFramestats( const std::vector<FrameTimerData>& stats )
     {
-        QString framesA2B = QString("Frames #%1 to #%2 stats :")
-                .arg( stats.front().numFrame ).arg( stats.back().numFrame );
-        m_frameA2BLabel->setText(framesA2B);
+        QString framesA2B = QString( "Frames #%1 to #%2 stats :" )
+                            .arg( stats.front().numFrame ).arg( stats.back().numFrame );
+        m_frameA2BLabel->setText( framesA2B );
 
         long sumRender = 0;
         long sumTasks = 0;
@@ -154,21 +154,21 @@ namespace Ra
         for ( uint i = 0; i < stats.size(); ++i )
         {
             sumRender += Core::Timer::getIntervalMicro(
-                        stats[i].renderData.renderStart, stats[i].renderData.renderEnd );
+                             stats[i].renderData.renderStart, stats[i].renderData.renderEnd );
             sumTasks  += Core::Timer::getIntervalMicro(
-                        stats[i].tasksStart, stats[i].tasksEnd );
+                             stats[i].tasksStart, stats[i].tasksEnd );
             sumFrame  += Core::Timer::getIntervalMicro(
-                        stats[i].frameStart, stats[i].frameEnd );
+                             stats[i].frameStart, stats[i].frameEnd );
 
             if ( i > 0 )
             {
                 sumInterFrame += Core::Timer::getIntervalMicro(
-                            stats[i - 1].frameStart, stats[i].frameEnd );
+                                     stats[i - 1].frameStart, stats[i].frameEnd );
             }
         }
 
         const uint N = stats.size();
-        const Scalar T(N * 1000000.0);
+        const Scalar T( N * 1000000.0 );
 
         m_renderTime->setValue( sumRender / N );
         m_renderUpdates->setValue( T / Scalar( sumRender ) );
@@ -294,32 +294,32 @@ namespace Ra
         return m_viewer;
     }
 
-    void Gui::MainWindow::handlePicking(int drawableIndex)
+    void Gui::MainWindow::handlePicking( int drawableIndex )
     {
-        if (drawableIndex >= 0)
+        if ( drawableIndex >= 0 )
         {
             const std::shared_ptr<Engine::RenderObject>& ro =
-                mainApp->m_engine->getRenderObjectManager()->getRenderObject(drawableIndex);
+                mainApp->m_engine->getRenderObjectManager()->getRenderObject( drawableIndex );
             Engine::Entity* ent = ro->getComponent()->getEntity();
 
             int compIdx = -1;
             int i = 0;
-            for (auto comp : ent->getComponentsMap())
+            for ( auto comp : ent->getComponentsMap() )
             {
-                if (comp.second == ro->getComponent())
+                if ( comp.second == ro->getComponent() )
                 {
-                    CORE_ASSERT(comp.first == ro->getComponent()->getName(), "Inconsistent names");
+                    CORE_ASSERT( comp.first == ro->getComponent()->getName(), "Inconsistent names" );
                     compIdx = i;
                     break;
                 }
                 ++i;
             }
-            CORE_ASSERT(compIdx >= 0, "Component is not in entity");
+            CORE_ASSERT( compIdx >= 0, "Component is not in entity" );
             int entIdx = ent->idx;
-            QModelIndex entityIdx = m_entityTreeModel->index(entIdx, 0);
-            QModelIndex treeIdx = entityIdx.child(compIdx, 0);
-            m_entitiesTreeView->setExpanded(entityIdx,true);
-            m_entitiesTreeView->selectionModel()->select(treeIdx, QItemSelectionModel::SelectCurrent);
+            QModelIndex entityIdx = m_entityTreeModel->index( entIdx, 0 );
+            QModelIndex treeIdx = entityIdx.child( compIdx, 0 );
+            m_entitiesTreeView->setExpanded( entityIdx, true );
+            m_entitiesTreeView->selectionModel()->select( treeIdx, QItemSelectionModel::SelectCurrent );
 
         }
         else
@@ -329,24 +329,24 @@ namespace Ra
 
 
     }
-    
-    void Gui::MainWindow::onSelectionChanged(const QItemSelection& selected, const QItemSelection& deselected)
+
+    void Gui::MainWindow::onSelectionChanged( const QItemSelection& selected, const QItemSelection& deselected )
     {
-        if (selected.size() > 0)
+        if ( selected.size() > 0 )
         {
-            QModelIndex selIdx= selected.indexes()[0];
-                       
-            Engine::Entity* entity = m_entityTreeModel->getItem(selIdx)->getData(0).entity;
-            if (entity ==0 )
+            QModelIndex selIdx = selected.indexes()[0];
+
+            Engine::Entity* entity = m_entityTreeModel->getItem( selIdx )->getData( 0 ).entity;
+            if ( entity == 0 )
             {
                 // FIXME :This is totally ad hoc.
-                entity = m_entityTreeModel->getItem(selIdx.parent())->getData(0).entity;
+                entity = m_entityTreeModel->getItem( selIdx.parent() )->getData( 0 ).entity;
             }
-            tab_edition->setEditable(entity);
+            tab_edition->setEditable( entity );
         }
         else
         {
-            tab_edition->setEditable(nullptr);
+            tab_edition->setEditable( nullptr );
         }
     }
 

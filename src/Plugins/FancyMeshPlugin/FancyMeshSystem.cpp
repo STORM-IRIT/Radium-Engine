@@ -16,11 +16,11 @@ namespace FancyMeshPlugin
     FancyMeshSystem::FancyMeshSystem( Ra::Engine::RadiumEngine* engine )
         : Ra::Engine::System( engine )
     {
-        Ra::Core::Any::getDeclTypeFor<int        >();
-        Ra::Core::Any::getDeclTypeFor<Scalar     >();
-        Ra::Core::Any::getDeclTypeFor<bool       >();
+        Ra::Core::Any::getDeclTypeFor<int>();
+        Ra::Core::Any::getDeclTypeFor<Scalar>();
+        Ra::Core::Any::getDeclTypeFor<bool>();
         Ra::Core::Any::getDeclTypeFor<std::string>();
-        Ra::Core::Any::getDeclTypeFor<double     >();
+        Ra::Core::Any::getDeclTypeFor<double>();
     }
 
     FancyMeshSystem::~FancyMeshSystem()
@@ -52,14 +52,14 @@ namespace FancyMeshPlugin
     }
 #endif
 
-    void FancyMeshSystem::handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder, 
+    void FancyMeshSystem::handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder,
                                              const std::map<std::string, Ra::Core::Any>& data )
     {
-        LOG(logDEBUG) << "FancyMeshSystem : loading " << data.size() << " data items...";
+        LOG( logDEBUG ) << "FancyMeshSystem : loading " << data.size() << " data items...";
 
         // Find mesh
         std::string filename;
-        auto meshData = data.find("mesh");
+        auto meshData = data.find( "mesh" );
         if ( meshData != data.end() )
         {
             filename = rootFolder + "/" + meshData->second.as<std::string>();
@@ -67,21 +67,21 @@ namespace FancyMeshPlugin
 
         DataVector componentsData = FancyMeshLoader::loadFile( filename );
 
-        if (componentsData.empty())
+        if ( componentsData.empty() )
         {
             // Something wrong happened while trying to load the file
             return;
         }
 
-        if (componentsData.size() > 1)
+        if ( componentsData.size() > 1 )
         {
-            LOG(logWARNING) << "Too much objects have been loaded, some data will be ignored.";
+            LOG( logWARNING ) << "Too much objects have been loaded, some data will be ignored.";
         }
 
         FancyComponentData componentData = componentsData[0];
 
-        FancyMeshComponent* component = static_cast<FancyMeshComponent*>(addComponentToEntity(entity));
-        component->handleMeshLoading(componentData);
+        FancyMeshComponent* component = static_cast<FancyMeshComponent*>( addComponentToEntity( entity ) );
+        component->handleMeshLoading( componentData );
     }
 
     Ra::Engine::Component* FancyMeshSystem::addComponentToEntity( Ra::Engine::Entity* entity )
@@ -90,7 +90,7 @@ namespace FancyMeshPlugin
 
         std::string componentName = "FancyMeshComponent_" + entity->getName() + std::to_string( componentId++ );
         FancyMeshComponent* component = new FancyMeshComponent( componentName );
-         
+
         component->setEntity( entity );
         component->setRenderObjectManager( m_engine->getRenderObjectManager() );
 

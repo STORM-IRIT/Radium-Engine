@@ -63,34 +63,34 @@ namespace Ra
         return m_components;
     }
 
-    void Engine::Entity::getProperties(Core::AlignedStdVector<EditableProperty>& entityPropsOut) const
+    void Engine::Entity::getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const
     {
-        std::lock_guard<std::mutex> lock(m_transformMutex);
-        entityPropsOut.push_back(EditableProperty::position("Position",m_transform.translation()));
-        entityPropsOut.push_back(EditableProperty::rotation("Rotation",Core::Quaternion(m_transform.rotation())));
+        std::lock_guard<std::mutex> lock( m_transformMutex );
+        entityPropsOut.push_back( EditableProperty::position( "Position", m_transform.translation() ) );
+        entityPropsOut.push_back( EditableProperty::rotation( "Rotation", Core::Quaternion( m_transform.rotation() ) ) );
     }
 
-    void Engine::Entity::setProperty(const EditableProperty& prop)
+    void Engine::Entity::setProperty( const EditableProperty& prop )
     {
-       
-        switch (prop.getType())
+
+        switch ( prop.getType() )
         {
             case EditableProperty::POSITION:
             {
-                CORE_ASSERT(prop.getName() == "Position", "Wrong property");
-                std::lock_guard<std::mutex> lock(m_transformMutex);
+                CORE_ASSERT( prop.getName() == "Position", "Wrong property" );
+                std::lock_guard<std::mutex> lock( m_transformMutex );
                 m_transform.translation() = prop.asPosition();
                 break;
             }
             case EditableProperty::ROTATION:
             {
-                CORE_ASSERT(prop.getName() == "Rotation", "Wrong property");
-                std::lock_guard<std::mutex> lock(m_transformMutex);
+                CORE_ASSERT( prop.getName() == "Rotation", "Wrong property" );
+                std::lock_guard<std::mutex> lock( m_transformMutex );
                 m_transform.linear() = prop.asRotation().toRotationMatrix();
                 break;
             }
             default:
-                CORE_ASSERT(false, "Wrong property");
+                CORE_ASSERT( false, "Wrong property" );
 
         }
 

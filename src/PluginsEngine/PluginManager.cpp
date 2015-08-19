@@ -38,7 +38,7 @@ namespace Ra
                 QDir pluginsDir( QString( path ) );
                 QObjectList list;
 
-                foreach ( QString fileName, pluginsDir.entryList( QDir::Files ) )
+                foreach( QString fileName, pluginsDir.entryList( QDir::Files ) )
                 {
                     QPluginLoader loader( pluginsDir.absoluteFilePath( fileName ) );
                     QObject* object = loader.instance();

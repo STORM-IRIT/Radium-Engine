@@ -53,7 +53,7 @@ namespace Ra
         : QAbstractItemModel( parent )
     {
         QVector<EntityTreeItem::ItemData> rootData;
-        foreach ( QString header, headers )
+        foreach( QString header, headers )
         {
             EntityTreeItem::ItemData data;
             data.data = QVariant( header );
@@ -262,6 +262,15 @@ namespace Ra
     {
         for ( const auto& ent : entities )
         {
+            // NOTE(Charly): Dunno if it's a hack or not ...
+            if ( m_entityNames.find( ent->getName() ) != m_entityNames.end() )
+            {
+                // Do not add an already added entity
+                continue;
+            }
+
+            m_entityNames.insert( ent->getName() );
+
             uint row = rowCount();
             insertRows( row, 1 );
             EntityTreeItem* item = getItem( index( row, 0 ) );
@@ -279,7 +288,7 @@ namespace Ra
 
     void Gui::EntityTreeModel::insertComponents( Engine::Entity* entity, EntityTreeItem* parent )
     {
-        for ( const auto comp :entity->getComponentsMap())
+        for ( const auto comp : entity->getComponentsMap() )
         {
             std::string name = comp.first;
             EntityTreeItem* item;
@@ -308,7 +317,12 @@ namespace Ra
         {
             if ( data.entity )
             {
+                std::string oldName = data.entity->getName();
+
                 data.entity->rename( data.data.toString().toStdString() );
+
+                m_entityNames.erase( oldName );
+                m_entityNames.insert( data.data.toString().toStdString() );
             }
         }
 

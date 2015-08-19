@@ -99,13 +99,13 @@ namespace Ra
 
         os << std::setprecision( 2 ) << std::fixed;
         os << "Average timer data : frames " << m_frames.front().numFrame << " to " << m_frames.back().numFrame << std::endl;
-        os << "\tAverage render time : " << sumRender / N << " µs (" << N * 1000000.f / float (
+        os << "\tAverage render time : " << sumRender / N << " µs (" << N * 1000000.f / float(
                sumRender ) << " updates per second)" << std::endl;
-        os << "\tAverage tasks time  : " << sumTasks / N << " µs (" << N * 1000000.f / float (
+        os << "\tAverage tasks time  : " << sumTasks / N << " µs (" << N * 1000000.f / float(
                sumTasks ) << " updates per second)" << std::endl;
-        os << "\tAverage frame time  : " << sumFrame / N << " µs (" << N * 1000000.f / float (
+        os << "\tAverage frame time  : " << sumFrame / N << " µs (" << N * 1000000.f / float(
                sumFrame ) << " max fps)" << std::endl;
-        os << "\tAverage framerate   : " << ( N - 1 ) * 1000000.f / float ( sumInterFrame ) << " fps";
+        os << "\tAverage framerate   : " << ( N - 1 ) * 1000000.f / float( sumInterFrame ) << " fps";
 
         // Restore stream state
         os.copyfmt( save );

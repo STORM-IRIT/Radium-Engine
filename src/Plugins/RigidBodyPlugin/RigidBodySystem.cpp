@@ -16,11 +16,11 @@ namespace RigidBodyPlugin
     RigidBodySystem::RigidBodySystem( Ra::Engine::RadiumEngine* engine )
         : Ra::Engine::System( engine )
     {
-        Ra::Core::Any::getDeclTypeFor<int        >();
-        Ra::Core::Any::getDeclTypeFor<Scalar     >();
-        Ra::Core::Any::getDeclTypeFor<bool       >();
+        Ra::Core::Any::getDeclTypeFor<int>();
+        Ra::Core::Any::getDeclTypeFor<Scalar>();
+        Ra::Core::Any::getDeclTypeFor<bool>();
         Ra::Core::Any::getDeclTypeFor<std::string>();
-        Ra::Core::Any::getDeclTypeFor<double     >();
+        Ra::Core::Any::getDeclTypeFor<double>();
     }
 
     RigidBodySystem::~RigidBodySystem()
@@ -31,42 +31,42 @@ namespace RigidBodyPlugin
     {
     }
 
-    void RigidBodySystem::handleDataLoading(Ra::Engine::Entity* entity, const std::string& rootFolder, 
-                                            const std::map<std::string, Ra::Core::Any>& data)
+    void RigidBodySystem::handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder,
+                                             const std::map<std::string, Ra::Core::Any>& data )
     {
-        LOG(logDEBUG) << "RigidBodySystem : loading " << data.size() << " data items...";
-        
+        LOG( logDEBUG ) << "RigidBodySystem : loading " << data.size() << " data items...";
+
         // Find density
-        auto densityData = data.find("density");
-        if (densityData != data.end())
+        auto densityData = data.find( "density" );
+        if ( densityData != data.end() )
         {
             Scalar density = densityData->second.as<Scalar>();
-            LOG(logINFO) << "Density type : " << densityData->second.getType();
-            LOG(logINFO) << "Density : " << densityData->second.as<Scalar>();
+            LOG( logINFO ) << "Density type : " << densityData->second.getType();
+            LOG( logINFO ) << "Density : " << densityData->second.as<Scalar>();
         }
 
         // Find static friction
-        auto staticFrictionData = data.find("static_friction");
-        if (staticFrictionData != data.end())
+        auto staticFrictionData = data.find( "static_friction" );
+        if ( staticFrictionData != data.end() )
         {
-            LOG(logINFO) << "SFriction type : " << densityData->second.getType();
-            LOG(logINFO) << "Static friction : " << staticFrictionData->second.as<Scalar>();
+            LOG( logINFO ) << "SFriction type : " << densityData->second.getType();
+            LOG( logINFO ) << "Static friction : " << staticFrictionData->second.as<Scalar>();
         }
 
         // Find dynamic friction
-        auto dynamicFrictionData = data.find("dynamic_friction");
-        if (dynamicFrictionData != data.end())
+        auto dynamicFrictionData = data.find( "dynamic_friction" );
+        if ( dynamicFrictionData != data.end() )
         {
-            LOG(logINFO) << "DFriction type : " << densityData->second.getType();
-            LOG(logINFO) << "Dynamic friction : " << dynamicFrictionData->second.as<Scalar>();
+            LOG( logINFO ) << "DFriction type : " << densityData->second.getType();
+            LOG( logINFO ) << "Dynamic friction : " << dynamicFrictionData->second.as<Scalar>();
         }
 
         // Find object type
-        auto objectTypeData = data.find("object");
-        if (objectTypeData != data.end())
+        auto objectTypeData = data.find( "object" );
+        if ( objectTypeData != data.end() )
         {
-            LOG(logINFO) << "Object type : " << densityData->second.getType();
-            LOG(logINFO) << "Object type : " << objectTypeData->second.as<std::string>();
+            LOG( logINFO ) << "Object type : " << densityData->second.getType();
+            LOG( logINFO ) << "Object type : " << objectTypeData->second.as<std::string>();
         }
     }
 

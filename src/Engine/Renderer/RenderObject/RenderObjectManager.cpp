@@ -38,12 +38,12 @@ namespace Ra
             renderObject.reset();
         }
 
-        std::shared_ptr<RenderObject> RenderObjectManager::getRenderObject(const Core::Index& index)
+        std::shared_ptr<RenderObject> RenderObjectManager::getRenderObject( const Core::Index& index )
         {
-            return m_renderObjects.at(index);
+            return m_renderObjects.at( index );
         }
 
-        void RenderObjectManager::getRenderObjects(std::vector<std::shared_ptr<RenderObject>>& renderObjectsOut ) const
+        void RenderObjectManager::getRenderObjects( std::vector<std::shared_ptr<RenderObject>>& renderObjectsOut ) const
         {
             // Take the mutex
             std::lock_guard<std::mutex> lock( m_doubleBufferMutex );

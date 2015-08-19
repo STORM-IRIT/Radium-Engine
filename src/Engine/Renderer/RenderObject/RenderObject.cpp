@@ -12,7 +12,7 @@ namespace Ra
 {
     namespace Engine
     {
-        RenderObject::RenderObject(const std::string& name, const Component* comp)
+        RenderObject::RenderObject( const std::string& name, const Component* comp )
             : IndexedObject()
             , m_localTransform( Core::Transform::Identity() )
             , m_component( comp )
@@ -54,7 +54,7 @@ namespace Ra
             ShaderKey shader( m_renderTechnique->shader );
             BindableMaterial material( m_renderTechnique->material );
             BindableTransform transform( model.matrix(), view, proj );
-            BindableMesh mesh( m_mesh, idx);
+            BindableMesh mesh( m_mesh, idx );
 
             queue[shader][material][transform].push_back( mesh );
         }
