@@ -24,10 +24,16 @@ namespace Ra
 {
     namespace Core
     {
-
+        /// This class allows tasks to be registered and then executed in parallel on separate threads.
+        /// it maintains an internal pool of threads. When instructed, it dispatches the tasks to the
+        /// pooled threads.
+        /// Task are allowed to have dependencies. A task will be executed only when all its dependencies
+        /// are satisfied, i.e. all dependant tasks are finished.
+        /// Note that most functions are not thread safe and must not be called when the task queue is running.
         class RA_API TaskQueue
         {
         public:
+            /// Identifier for a task in the task queue.
             typedef uint TaskId;
             enum { InvalidTaskId = TaskId( -1 ) };
 
@@ -40,24 +46,26 @@ namespace Ra
             };
 
         public:
-            // Constructor and destructor.
+            // Constructor. Initializes the thread pools with numThreads threads.
             TaskQueue( uint numThreads );
+
+            /// Destructor. Waits for all the threads and saefly deletes them.
             ~TaskQueue();
 
-            // Note : functions are not thread safe and should only be called from the main thread.
 
             /// Registers a task to be executed.
             /// Task must have been created with new and be initialized with its parameter.
             /// The task queue assumes ownership of the task.
             TaskId registerTask( Task* task );
 
-            /// Add dependency between two tasks. A task will be executed only when all
-            /// its dependencies are satisfied.
+            /// Add dependency between two tasks. The successor task will be executed only when all
+            /// its predecessor completed.
             void addDependency( TaskId predecessor, TaskId successor );
 
-            /// Executes the task queue. Blocks until all tasks in queue and dependencies are finished.
+            /// Executes the task queue. Blocks until all tasks and dependencies are finished.
             void processTaskQueue();
 
+            /// Access the data from the last frame execution after processTaskQueue();
             const std::vector<TimerData>& getTimerData();
 
             /// Erases all tasks. Will assert if tasks are unprocessed.

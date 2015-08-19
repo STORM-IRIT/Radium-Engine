@@ -1,131 +1,133 @@
-#include "Core/Math/Spline.hpp"
-
-#include <cassert>
-#include <algorithm>
+#include "Spline.hpp"
 
 namespace Ra
 {
     namespace Core
     {
-        template<typename Point_t, typename Real_t>
-        Spline<Point_t, Real_t>::Spline(
-                int k,
-                ESpline::Node_t node_type)
-            :
-              _node_type(node_type),
-              _k(k),
-              _point( _k ),
-              _vec( _k-1 ),
-              _node( _k + _point.size() )
+        template <uint D, uint K>
+        inline Spline<D,K>::Spline( Spline<D,K>::Type type )
+            : m_type(type)
         {
-            assert_splines();
+            static_assert( K >= 2, "Order must be at least two");
+            m_points.resize(K, Vector::Zero());
+            m_vecs.resize(K - 1, Vector::Zero());
+            m_node.resize( K + K, 0.f);
+            assertSplines();
         }
 
         // -----------------------------------------------------------------------------
 
-        template<typename Point_t, typename Real_t>
-        void Spline<Point_t, Real_t>::set_ctrl_points(const std::vector<Point_t>& point)
+        template <uint D, uint K>
+        inline void Spline<D,K>::setCtrlPoints(const Core::VectorArray<Spline<D,K>::Vector>& points)
         {
-            _point = point;
-            _vec.resize(_point.size() - 1);
-            for(int i = 0; i < (int)_vec.size(); ++i)
-                _vec[i] = _point[i + 1] - _point[i];
-            set_nodal_vector();
-            assert_splines();
+            m_points = points;
+            m_vecs.resize(points.size() - 1, Vector::Zero());
+            for(uint i = 0; i < m_vecs.size(); ++i)
+            {
+                m_vecs[i] = m_points[i + 1] - m_points[i];
+            }
+            setNodalVector();
+            assertSplines();
 
-            for(int i = 0; i < (int)_vec.size(); ++i)
-                _vec[i] /= _node[_k+i] - _node[i+1];
-        }
-
-        // -----------------------------------------------------------------------------
-
-        template<typename Point_t, typename Real_t>
-        void Spline<Point_t, Real_t>::get_ctrl_points(std::vector<Point_t>& points) const
-        {
-            points = _point;
-        }
-
-        // -----------------------------------------------------------------------------
-
-        /// The the nodal vector type
-        template<typename Point_t, typename Real_t>
-        void Spline<Point_t, Real_t>::set_node_type( ESpline::Node_t type)
-        {
-            _node_type = type;
-            set_nodal_vector();
-            assert_splines();
-        }
-
-        // -----------------------------------------------------------------------------
-
-        template<typename Point_t, typename Real_t>
-        Point_t Spline<Point_t, Real_t>::eval_f(Real_t u) const
-        {
-            u = std::max(std::min(u, (Real_t)1), (Real_t)0); // clamp between [0 1]
-            return eval(u, _point, _k, _node);
-        }
-
-        // -----------------------------------------------------------------------------
-
-        template<typename Point_t, typename Real_t>
-        Point_t Spline<Point_t, Real_t>::eval_df(Real_t u) const
-        {
-            u = std::max(std::min(u, (Real_t)1), (Real_t)0); // clamp between [0 1]
-            return eval(u, _vec, (_k-1), _node, 1) * (Real_t)(_k-1);
-        }
-
-        // -----------------------------------------------------------------------------
-
-        template<typename Point_t, typename Real_t>
-        void Spline<Point_t, Real_t>::assert_splines() const
-        {
-            assert( _k > 1);
-            assert((int)_point.size() >= _k );
-            assert(_node. size() == (_k + _point.size()) );
-            assert(_point.size() == (_vec.size()    + 1) );
-        }
-
-        // -----------------------------------------------------------------------------
-
-        template<typename Point_t, typename Real_t>
-        void Spline<Point_t, Real_t>::set_nodal_vector()
-        {
-            if( _node_type == ESpline::OPEN_UNIFORM)
-                set_node_to_open_uniform();
-            else if( _node_type == ESpline::UNIFORM )
-                set_node_to_uniform();
-        }
-
-        // -----------------------------------------------------------------------------
-
-        template<typename Point_t, typename Real_t>
-        void Spline<Point_t, Real_t>::set_node_to_uniform()
-        {
-            const int n = _point.size() - 1;
-            _node.resize( _k + n + 1 );
-
-            Real_t step = (Real_t)1 / (Real_t)(n-_k+2);
-            for (int i = 0; i < (int)_node.size(); ++i){
-                _node[i] = ((Real_t)i) * step  - step * (Real_t)(_k-1);
+            for(uint i = 0; i < m_vecs.size(); ++i)
+            {
+                m_vecs[i] /= m_node[K + i] - m_node[i + 1];
             }
         }
 
         // -----------------------------------------------------------------------------
 
-        template<typename Point_t, typename Real_t>
-        void Spline<Point_t, Real_t>::set_node_to_open_uniform()
+        template <uint D, uint K>
+        inline const Core::VectorArray<typename Spline<D,K>::Vector>& Spline<D,K>::getCtrlPoints() const
         {
-            _node.resize( _k + _point.size() );
+            return m_points;
+        }
 
-            int acc = 1;
-            for (int i = 0; i < (int)_node.size(); ++i)
+        // -----------------------------------------------------------------------------
+
+        /// The the nodal vector type
+        template <uint D, uint K>
+        inline void Spline<D,K>::setType( Type type)
+        {
+            m_type = type;
+            setNodalVector();
+            assertSplines();
+        }
+
+        // -----------------------------------------------------------------------------
+
+        template <uint D, uint K>
+        inline typename Spline<D,K>::Vector Spline<D,K>::f(Scalar u) const
+        {
+            u = Core::Math::clamp(u, 0.f, 1.f);
+            return eval(u, m_points, m_node, K);
+        }
+
+        // -----------------------------------------------------------------------------
+
+        template <uint D, uint K>
+        inline typename Spline<D,K>::Vector Spline<D,K>::df(Scalar u) const
+        {
+            u = Core::Math::clamp(u, 0.f, 1.f);
+            return eval(u, m_vecs, m_node, K-1, 1) * Scalar(K-1);
+        }
+
+        // -----------------------------------------------------------------------------
+
+        template <uint D, uint K>
+        inline void Spline<D,K>::assertSplines() const
+        {
+            CORE_ASSERT(m_points.size() >= K , "Not enough points");
+            CORE_ASSERT(m_node.size() == (K + m_points.size()), "Wrong nodal vector size");
+            CORE_ASSERT(m_points.size() == (m_vecs.size()+ 1), "Wrong point / diffs size");
+        }
+
+        // -----------------------------------------------------------------------------
+
+        template <uint D, uint K>
+        inline void Spline<D,K>::setNodalVector()
+        {
+            switch (m_type)
             {
-                if(i < _k)
-                    _node[i] = 0.;
-                else if( i >= ((int)_point.size() + 1) )
-                    _node[i] = 1.;
-                else{
-                    _node[i] = (Real_t)acc / (Real_t)(_point.size() + 1 - _k);
+                case OPEN_UNIFORM:
+                    setNodeToOpenUniform();
+                    break;
+                case UNIFORM:
+                    setNodeToUniform();
+                    break;
+            }
+        }
+
+        // -----------------------------------------------------------------------------
+
+        template <uint D, uint K>
+        inline void Spline<D,K>::setNodeToUniform()
+        {
+            const uint n = m_points.size() - 1;
+            m_node.resize( K + n + 1 );
+
+            Scalar step = 1.f / Scalar(n - K + 2);
+            for (uint i = 0; i < m_node.size(); ++i)
+            {
+                m_node[i] = Scalar(i) * step  - step * (Scalar)(K - 1);
+            }
+        }
+
+        // -----------------------------------------------------------------------------
+
+        template <uint D, uint K>
+        inline void Spline<D,K>::setNodeToOpenUniform()
+        {
+            m_node.resize( K + m_points.size() );
+
+            uint acc = 1;
+            for (uint i = 0; i < m_node.size(); ++i)
+            {
+                if(i < K) { m_node[i] = 0.f;}
+                else if( i >= (m_points.size() + 1) ){ m_node[i] = 1.f;}
+                else
+                {
+                    m_node[i] = Scalar(acc) / Scalar(m_points.size() + 1 - K);
                     acc++;
                 }
             }
@@ -133,66 +135,67 @@ namespace Ra
 
         // -----------------------------------------------------------------------------
 
-        template<typename Point_t, typename Real_t>
-        Point_t  Spline<Point_t, Real_t>::
 
-        eval(Real_t u,
-             const std::vector<Point_t>& point,
-             int k,
-             const std::vector<Real_t>& node,
-             int off) const
+        template <uint D, uint K>
+        inline typename Spline<D,K>::Vector Spline<D,K>::eval(
+            Scalar u,
+            const Core::VectorArray<Vector>& points,
+            const std::vector<Scalar>& node,
+            uint k, int off )
         {
-            assert( k > 1);
-            assert((int)point.size() >= k );
-            assert_splines();
-            int dec = 0;
-            // TODO: better search with dychotomi ?
+            CORE_ASSERT(k >=2, "K must be at least 2");
+            CORE_ASSERT(points.size() >= k, "Not enough points");
+            uint dec = 0;
+            // TODO: better search with dichotomy ?
             // TODO: check for overflow
-            while( u > node[dec + k + off] )
-                dec++;
+            while( u > node[dec + k + off] ){ dec++;}
 
             // TODO: use buffers in attributes for better performances ?
-            std::vector<Point_t> p_rec(k, Point_t());
-            for(int i = dec, j = 0; i < (dec + k); ++i, ++j)
-                p_rec[j] = point[i];
+            Core::VectorArray<Vector> pOut(k, Vector::Zero());
+            for(uint i = dec, j = 0; i < (dec + k); ++i, ++j)
+            {
+                pOut[j] = points[i];
+            }
 
-            std::vector<Real_t> node_rec(k + k - 2, (Real_t)0);
-            for(int i = (dec + 1), j = 0; i < (dec + k + k - 1); ++i, ++j)
-                node_rec[j] = node[i + off];
-
-            return eval_rec(u, p_rec, k, node_rec);
+            std::vector<Scalar> nodeOut(k + k - 2, Scalar(0));
+            for(uint i = (dec + 1), j = 0; i < (dec + k + k - 1); ++i, ++j)
+            {
+                nodeOut[j] = node[i + off];
+            }
+            return evalRec(u, pOut, nodeOut, k );
         }
 
         // -----------------------------------------------------------------------------
 
-        template<typename Point_t, typename Real_t>
-        Point_t Spline<Point_t, Real_t>::
-
-        eval_rec(Real_t u,
-                 std::vector<Point_t> p_in,
-                 int k,
-                 std::vector<Real_t> node_in) const
+        template <uint D, uint K>
+        inline typename Spline<D,K>::Vector Spline<D,K>::evalRec(
+            Scalar u,
+            const Core::VectorArray<Vector>& points,
+            const std::vector<Scalar>& node,
+            uint k )
         {
-            if(p_in.size() == 1)
-                return p_in[0];
+            if(points.size() == 1){ return points[0]; }
 
             // TODO: use buffers in attributes for better performances ?
-            std::vector<Point_t> p_out(k - 1,  Point_t());
-            for(int i = 0; i < (k - 1); ++i)
-            {
-                const Real_t n0 = node_in[i + k - 1];
-                const Real_t n1 = node_in[i];
-                const Real_t f0 = (n0 - u) / (n0 - n1);
-                const Real_t f1 = (u - n1) / (n0 - n1);
+            Core::VectorArray<Vector> pOut(k - 1, Vector::Zero());
 
-                p_out[i] = p_in[i] *  f0 + p_in[i + 1] * f1;
+            for(uint i = 0; i < (k - 1); ++i)
+            {
+                const Scalar n0 = node[i + k - 1];
+                const Scalar n1 = node[i];
+                const Scalar f0 = (n0 - u) / (n0 - n1);
+                const Scalar f1 = (u - n1) / (n0 - n1);
+
+                pOut[i] = points[i] *  f0 + points[i + 1] * f1;
             }
 
-            std::vector<Real_t> node_out(node_in.size() - 2);
-            for(int i = 1, j = 0; i < ((int)node_in.size()-1); ++i, ++j)
-                node_out[j] = node_in[i];
+            std::vector<Scalar> nodeOut(node.size() - 2);
 
-            return eval_rec(u, p_out, (k - 1), node_out);
+            for(uint i = 1;  i < node.size()-1; ++i)
+            {
+                nodeOut[i-1] = node[i];
+            }
+            return evalRec(u, pOut, nodeOut, k-1);
         }
     }
 }

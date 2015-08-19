@@ -2,78 +2,72 @@
 #define RADIUMENGINE_SPLINE_HPP__
 
 #include <vector>
+#include <Core/Containers/VectorArray.hpp>
 
 namespace Ra
 {
     namespace Core
     {
-        namespace ESpline
-        {
-            enum Node_t 
-            {
-                UNIFORM,
-                OPEN_UNIFORM ///< Connected to the first and last control points
-            };
-        }
-
         /**
          * @class Spline
          *
          * @brief Handling spline curves of arbitrary dimensions
          * @note This class use the efficient blossom algorithm to compute a position on
          * the curve.
-         *
-         * @tparam Point_t : type of a point operators such as '+' '*' must be correctly
-         * overloaded. The default constructor must be defined to return the
-         * null vector (0, 0, 0 ...)
-         * @tparam Real_t ; floating point reprensentation of the points
-         * (float, double etc.)
+         * @tparam D : dimension of the curve.
+         * @tparam K  :order of the curve (min 2)
          */
-        template<typename Point_t, typename Real_t>
+        template <uint D, uint K = 2>
         class Spline
         {
+        public:
+            enum Type
+            {
+                UNIFORM,
+                OPEN_UNIFORM ///< Connected to the first and last control points
+            };
+
+            typedef typename Eigen::Matrix<Scalar, D, 1 > Vector;
         public:
             /// Type of the nodal vector
             /// @param k : order of the spline (minimum is two)
             /// @param node_type : nodal vector type (uniform, open_uniform)
             /// This will define the behavior of the spline with its control points
             /// as well as its speed according to its parameter.
-            Spline(int k = 2, ESpline::Node_t node_type = ESpline::OPEN_UNIFORM);
+            inline Spline(Type type = OPEN_UNIFORM);
 
             /// Set the position of the spline control points.
-            void set_ctrl_points(const std::vector<Point_t>& point);
+            inline void setCtrlPoints(const Core::VectorArray<Vector>& points);
 
             /// Get the control points of the spline
-            void get_ctrl_points(std::vector<Point_t>& points) const;
+            inline const Core::VectorArray<Vector>& getCtrlPoints() const;
 
             /// The the nodal vector type
-            void set_node_type( ESpline::Node_t type);
+            inline void setType( Type type);
 
             /// Evaluate position of the spline
             /// @param u : curve parameter ranging from [0; 1]
-            Point_t eval_f(Real_t u) const;
+            inline Vector f(Scalar u ) const;
 
             /// Evaluate speed of the spline
-            Point_t eval_df(Real_t u) const;
-
-            int get_order() const { return _k; }
+            inline Vector df(Scalar u ) const;
 
         private:
             // -------------------------------------------------------------------------
             /// @name Class tools
             // -------------------------------------------------------------------------
 
-            void assert_splines() const;
+            inline void assertSplines() const;
 
             /// set value and size of the nodal vector depending on the current number
             /// of control points
-            void set_nodal_vector();
+            inline void setNodalVector();
 
             /// Set values of the nodal vector to be uniform
-            void set_node_to_uniform();
+            inline void setNodeToUniform();
 
             /// Set values of the nodal vector to be open uniform
-            void set_node_to_open_uniform();
+            inline void setNodeToOpenUniform();
 
             /// Evaluate the equation of a splines using the blossom algorithm
             /// @param u : the curve parameter which range from the values
@@ -85,30 +79,30 @@ namespace Ra
             /// parameter u. The nodal vector size must be equal to (k + point.size())
             /// @param off : offset to apply to the nodal vector 'node' before reading
             /// from it. this is useful to compute derivatives.
-            Point_t eval(Real_t u,
-                         const std::vector<Point_t>& point,
-                         int k,
-                         const std::vector<Real_t>& node,
-                         int off = 0) const;
+            static inline Vector eval(Scalar u,
+                         const Core::VectorArray<Vector>& points,
+                         const std::vector<Scalar>& node,
+                         uint k,
+                         int off = 0);
 
-            Point_t eval_rec(Real_t u,
-                             std::vector<Point_t> p_in,
-                             int k,
-                             std::vector<Real_t> node_in) const;
+            static inline Vector evalRec(Scalar u,
+                             const Core::VectorArray<Vector>& points,
+                             const std::vector<Scalar>& node,
+                             uint k
+                             );
 
             // -------------------------------------------------------------------------
             /// @name attributes
             // -------------------------------------------------------------------------
 
-            ESpline::Node_t _node_type;    ///< Nodal vector type
-            int _k;                        ///< spline order
-            std::vector<Point_t> _point;   ///< Control points
-            std::vector<Point_t> _vec;     ///< Control points differences
-            std::vector<Real_t>  _node;    ///< Nodal vector
+            Core::VectorArray<Vector> m_points;   ///< Control points
+            Core::VectorArray<Vector> m_vecs;    ///< Control points differences
+            std::vector<Scalar>  m_node;                 ///< Nodal vector
+            Type m_type;                                 ///< Nodal vector type
         };
     }
 }
 
-#include "Spline.inl"
+#include <Core/Math/Spline.inl>
 
 #endif
