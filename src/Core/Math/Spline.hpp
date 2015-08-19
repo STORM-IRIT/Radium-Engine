@@ -27,30 +27,30 @@ namespace Ra
                 OPEN_UNIFORM ///< Connected to the first and last control points
             };
 
-            typedef typename Eigen::Matrix<Scalar, D, 1 > Vector;
+            typedef typename Eigen::Matrix<Scalar, D, 1> Vector;
         public:
             /// Type of the nodal vector
             /// @param k : order of the spline (minimum is two)
             /// @param node_type : nodal vector type (uniform, open_uniform)
             /// This will define the behavior of the spline with its control points
             /// as well as its speed according to its parameter.
-            inline Spline(Type type = OPEN_UNIFORM);
+            inline Spline( Type type = OPEN_UNIFORM );
 
             /// Set the position of the spline control points.
-            inline void setCtrlPoints(const Core::VectorArray<Vector>& points);
+            inline void setCtrlPoints( const Core::VectorArray<Vector>& points );
 
             /// Get the control points of the spline
             inline const Core::VectorArray<Vector>& getCtrlPoints() const;
 
             /// The the nodal vector type
-            inline void setType( Type type);
+            inline void setType( Type type );
 
             /// Evaluate position of the spline
             /// @param u : curve parameter ranging from [0; 1]
-            inline Vector f(Scalar u ) const;
+            inline Vector f( Scalar u ) const;
 
             /// Evaluate speed of the spline
-            inline Vector df(Scalar u ) const;
+            inline Vector df( Scalar u ) const;
 
         private:
             // -------------------------------------------------------------------------
@@ -79,17 +79,17 @@ namespace Ra
             /// parameter u. The nodal vector size must be equal to (k + point.size())
             /// @param off : offset to apply to the nodal vector 'node' before reading
             /// from it. this is useful to compute derivatives.
-            static inline Vector eval(Scalar u,
-                         const Core::VectorArray<Vector>& points,
-                         const std::vector<Scalar>& node,
-                         uint k,
-                         int off = 0);
+            static inline Vector eval( Scalar u,
+                                       const Core::VectorArray<Vector>& points,
+                                       const std::vector<Scalar>& node,
+                                       uint k,
+                                       int off = 0 );
 
-            static inline Vector evalRec(Scalar u,
-                             const Core::VectorArray<Vector>& points,
-                             const std::vector<Scalar>& node,
-                             uint k
-                             );
+            static inline Vector evalRec( Scalar u,
+                                          const Core::VectorArray<Vector>& points,
+                                          const std::vector<Scalar>& node,
+                                          uint k
+                                        );
 
             // -------------------------------------------------------------------------
             /// @name attributes

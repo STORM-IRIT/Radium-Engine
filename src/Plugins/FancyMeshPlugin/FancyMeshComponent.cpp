@@ -106,6 +106,8 @@ namespace FancyMeshPlugin
             mesh->addData( Ra::Engine::Mesh::VERTEX_TANGENT, meshData.tangents );
             mesh->addData( Ra::Engine::Mesh::VERTEX_BITANGENT, meshData.bitangents );
             mesh->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, meshData.texcoords );
+            mesh->addData( Ra::Engine::Mesh::VERTEX_COLOR, meshData.colors );
+            mesh->addData( Ra::Engine::Mesh::VERTEX_WEIGHTS, meshData.weights );
 
             renderObject->setMesh( mesh );
         }

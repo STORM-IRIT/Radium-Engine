@@ -10,7 +10,7 @@ namespace Ra
     {
         template <typename T, uint D>
         class Grid;
-        
+
         /**
          * @name Grid2_ref
          * @brief Class encapsulating a pointer of a Grid2 (like a smart pointer)
@@ -80,23 +80,24 @@ namespace Ra
          *
          */
         template<typename T>
-        struct Grid2_ref : public Grid2_const_ref<T> {
+        struct Grid2_ref : public Grid2_const_ref<T>
+        {
 
-            Grid2_ref( Grid<T, 2>& g);
+            Grid2_ref( Grid<T, 2>& g );
 
-            static Grid2_ref<T> make_xy(Grid<T, 3>& g, Range x, Range y, int   z);
-            static Grid2_ref<T> make_xz(Grid<T, 3>& g, Range x, int   y, Range z);
-            static Grid2_ref<T> make_yz(Grid<T, 3>& g, int   x, Range y, Range z);
+            static Grid2_ref<T> make_xy( Grid<T, 3>& g, Range x, Range y, int   z );
+            static Grid2_ref<T> make_xz( Grid<T, 3>& g, Range x, int   y, Range z );
+            static Grid2_ref<T> make_yz( Grid<T, 3>& g, int   x, Range y, Range z );
 
             Grid2_ref( const Grid2_ref<T>& cp );
 
             /// Only destroy if never referenced in another shallow copy of Grid2_ref
-            virtual ~Grid2_ref( ){ }
+            virtual ~Grid2_ref( ) { }
 
             /// Assignement is an hard copy (copy every values of the grid as we would
             /// expect from a Grid2& reference)
-            Grid<T, 2>& operator= (Grid2_const_ref<T> cp);
-            Grid<T, 2>& operator= (Grid2_ref<T>       cp);
+            Grid<T, 2>& operator= ( Grid2_const_ref<T> cp );
+            Grid<T, 2>& operator= ( Grid2_ref<T>       cp );
 
             // -------------------------------------------------------------------------
             // Access referenced data:
@@ -104,9 +105,9 @@ namespace Ra
 
             /// @defgroup Non const accessors
             /// @{
-            T& operator() (int x, int y);
-            T& operator() (const Idx2& idx);
-            T& operator() (const Vector2i& pos);
+            T& operator()( int x, int y );
+            T& operator()( const Idx2& idx );
+            T& operator()( const Vector2i& pos );
             /// @}
 
             /// @defgroup Const accessors
@@ -114,9 +115,9 @@ namespace Ra
             // re-define them as they get hidden by the non-const versions. Yes its
             // another C++ pitfall...
             /// @{
-            const T& operator() (int x, int y)        const;
-            const T& operator() (const Idx2& idx)  const;
-            const T& operator() (const Vector2i& pos) const;
+            const T& operator()( int x, int y )        const;
+            const T& operator()( const Idx2& idx )  const;
+            const T& operator()( const Vector2i& pos ) const;
             /// @}
 
         private:

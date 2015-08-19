@@ -97,8 +97,8 @@ namespace Ra
                 return false;
             }
 
-            virtual void handleDataLoading( Entity* entity, const std::string& rootFolder, 
-                                           const std::map<std::string, Core::Any>& data ) {}
+            virtual void handleDataLoading( Entity* entity, const std::string& rootFolder,
+                                            const std::map<std::string, Core::Any>& data ) {}
 
             /**
              * @brief Handle all the logic behind a component creation.

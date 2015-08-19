@@ -73,7 +73,7 @@ namespace Ra
 
         private:
             /// Function called by a new thread.
-            void runThread(uint id);
+            void runThread( uint id );
 
             /// Puts the task on the queue to be executed. A task can only be queued if it has
             /// no dependencies.
@@ -97,8 +97,8 @@ namespace Ra
             std::deque<TaskId> m_taskQueue;
             /// Number of tasks currently being processed.
             uint m_processingTasks;
- 
-            /// Flag to signal threads to quit.  
+
+            /// Flag to signal threads to quit.
             bool m_shuttingDown;
             /// Variable on which threads wait for new tasks.
             std::condition_variable m_threadNotifier;

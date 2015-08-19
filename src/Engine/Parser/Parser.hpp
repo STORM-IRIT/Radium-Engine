@@ -10,7 +10,7 @@ namespace Ra
     {
         namespace Parser
         {
-            void parse(const std::string& data, std::vector<LoadedEntity>& loadedData);
+            void parse( const std::string& data, std::vector<LoadedEntity>& loadedData );
         }
     }
 }

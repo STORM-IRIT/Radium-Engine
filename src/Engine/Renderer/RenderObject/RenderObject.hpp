@@ -43,7 +43,7 @@ namespace Ra
 
             RA_CORE_ALIGNED_NEW
 
-            RenderObject( const std::string& name, const Component* comp);
+            RenderObject( const std::string& name, const Component* comp );
             ~RenderObject();
 
             //

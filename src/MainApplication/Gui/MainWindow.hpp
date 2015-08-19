@@ -60,7 +60,7 @@ namespace Ra
             void cameraPositionChanged( const Core::Vector3& p );
             void cameraTargetChanged( const Core::Vector3& p );
             void updateFramestats( const std::vector<FrameTimerData>& stats );
-            void onSelectionChanged(const QItemSelection& selected, const QItemSelection& deselected);
+            void onSelectionChanged( const QItemSelection& selected, const QItemSelection& deselected );
 
         signals:
             void fileLoading( const QString path );

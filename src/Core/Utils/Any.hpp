@@ -17,7 +17,7 @@ namespace Ra
         {
         public:
             template <typename T>
-            inline RA_API Any(const T& t);
+            inline RA_API Any( const T& t );
 
             template <typename T>
             inline RA_API const T& as() const;
@@ -37,8 +37,8 @@ namespace Ra
             struct AnyValueBase
             {
                 int magicNumber;
-                
-                inline explicit AnyValueBase(const int magic) : magicNumber(magic) {}
+
+                inline explicit AnyValueBase( const int magic ) : magicNumber( magic ) {}
                 inline virtual ~AnyValueBase() {}
             };
 
@@ -47,7 +47,7 @@ namespace Ra
             {
                 T value;
 
-                inline AnyValue(const T& v);
+                inline AnyValue( const T& v );
             };
 
         private:

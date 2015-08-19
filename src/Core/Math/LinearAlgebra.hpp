@@ -88,23 +88,23 @@ namespace Ra
         typedef Eigen::Translation3d         Translationd;
 
         // Todo : storage transform using quaternions ?
-        
+
         /// An oriented bounding box.
         class Obb
         {
         public:
             /// Constructors and destructor.
-            Obb() : m_aabb(),  m_transform(Transform::Identity()) {}
-            Obb(const Aabb& aabb, const Transform& tr) : m_aabb(aabb), m_transform(tr) {}
-            Obb(const Obb& other) = default;
-            Obb& operator=(const Obb& other) = default;
+            Obb() : m_aabb(),  m_transform( Transform::Identity() ) {}
+            Obb( const Aabb& aabb, const Transform& tr ) : m_aabb( aabb ), m_transform( tr ) {}
+            Obb( const Obb& other ) = default;
+            Obb& operator=( const Obb& other ) = default;
             ~Obb() {}
 
             /// Return the AABB enclosing this
             Aabb toAabb() const;
 
             /// Extends the OBB with an new point.
-            void addPoint(const Vector3& p);
+            void addPoint( const Vector3& p );
 
         public:
             /// The untransformed AABB
@@ -112,7 +112,7 @@ namespace Ra
             /// Orientation of the box.
             Transform m_transform;
         };
-        
+
         //
         // Misc types
         //
@@ -125,26 +125,26 @@ namespace Ra
         {
             /// Component-wise floor() function on a floating-point vector.
             template<typename Vector>
-            inline RA_API Vector floor ( const Vector& v );
+            inline RA_API Vector floor( const Vector& v );
 
             /// Component-wise ceil() function on a floating-point vector.
             template<typename Vector>
-            inline RA_API Vector ceil ( const Vector& v );
+            inline RA_API Vector ceil( const Vector& v );
 
             /// Component-wise clamp() function on a floating-point vector.
             template<typename Vector>
-            inline RA_API Vector clamp ( const Vector& v, const Vector& min, const Vector& max );
-            
+            inline RA_API Vector clamp( const Vector& v, const Vector& min, const Vector& max );
+
             /// Component-wise clamp() function on a floating-point vector.
             template<typename Vector>
-            inline RA_API Vector clamp ( const Vector& v, const Scalar& min, const Scalar& max );
-            
+            inline RA_API Vector clamp( const Vector& v, const Scalar& min, const Scalar& max );
+
             /// Vector range check
             template<typename Vector_>
-            inline bool checkRange ( const Vector_& v, const Scalar& min, const Scalar& max );
+            inline bool checkRange( const Vector_& v, const Scalar& min, const Scalar& max );
         }
-        
-        void getOrthogonalVectors(const Vector3& fx, Vector3& fy, Vector3& fz);
+
+        void getOrthogonalVectors( const Vector3& fx, Vector3& fy, Vector3& fz );
 
         //
         // Quaternion functions
@@ -152,7 +152,7 @@ namespace Ra
 
         inline RA_API Quaternion operator+ ( const Quaternion& q1, const Quaternion& q2 );
         inline RA_API Quaternion operator* ( const Scalar& k, const Quaternion& q );
-        
+
 
         // Use this macro in the public: section of a class
         // when declaring objects containing Vector or Matrices.

@@ -56,7 +56,7 @@ namespace Ra
 
             virtual const std::string& getName() const;
 
-            // 
+            //
             // Editable interface.
             //
 
@@ -65,10 +65,10 @@ namespace Ra
             // virtual ?)
 
             /// Get a list of all editable properties.
-            virtual void getProperties(Core::AlignedStdVector<EditableProperty> & propsOut) const override {};
-            
+            virtual void getProperties( Core::AlignedStdVector<EditableProperty>& propsOut ) const override {};
+
             /// Tell the component to take the new property value into account.
-            virtual void setProperty(const EditableProperty& newProp) override {};
+            virtual void setProperty( const EditableProperty& newProp ) override {};
 
         protected:
             std::string m_name;

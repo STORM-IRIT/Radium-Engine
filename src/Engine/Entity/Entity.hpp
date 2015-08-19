@@ -50,8 +50,8 @@ namespace Ra
 
 
             // Editable Interface
-            virtual void getProperties(Core::AlignedStdVector<EditableProperty>& entityPropsOut) const override;
-            virtual void setProperty(const EditableProperty& prop) override;
+            virtual void getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const override;
+            virtual void setProperty( const EditableProperty& prop ) override;
 
         private:
             Core::Transform m_transform;

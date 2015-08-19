@@ -188,13 +188,13 @@ namespace Ra
 
         protected:
 
-           // 4.
-           /**
-             * @brief All the scene rendering magics basically happens here.
-             *
-             * @param renderData The basic data needed for the rendering :
-             * Time elapsed since last frame, camera view matrix, camera projection matrix.
-             */
+            // 4.
+            /**
+              * @brief All the scene rendering magics basically happens here.
+              *
+              * @param renderData The basic data needed for the rendering :
+              * Time elapsed since last frame, camera view matrix, camera projection matrix.
+              */
             virtual void renderInternal( const RenderData& renderData );
 
             // 5.
