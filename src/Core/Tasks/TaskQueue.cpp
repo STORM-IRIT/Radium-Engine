@@ -68,7 +68,6 @@ namespace Ra
             {
                 if (m_remainingDependencies[t] == 0)
                 {
-                    // TODO : notify in queueTask ?.
                     queueTask(t);
                 }
             }
@@ -115,7 +114,7 @@ namespace Ra
                     std::unique_lock<std::mutex> lock(m_taskQueueMutex);
 
                     // Wait for a new task
-                    // TODO : use the second form
+                    // TODO : use the second form of wait()
                     while ( !m_shuttingDown && m_taskQueue.empty() )
                     {
                         m_threadNotifier.wait(lock);
@@ -151,10 +150,11 @@ namespace Ra
                             queueTask( t );
                             ++newTasks;
                         }
-                        // Easy optimization : grab one of the new task and process it immediately.
+                        // TODO :Easy optimization : grab one of the new task and process it immediately.
                     }
                     --m_processingTasks;
                 }
+                // If we added new tasks, we wake up one thread to execute it.
                 if (newTasks > 0)
                 {
                     m_threadNotifier.notify_one();
