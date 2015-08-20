@@ -2,6 +2,7 @@
 
 Radium Engine © the Radium Contributors :
 
+* Baptiste Angles
 * Maurizio Kovačič
 * Charly Mourglia
 * Valentin Roussellet
