@@ -142,9 +142,10 @@ namespace Ra
             /// Vector range check
             template<typename Vector_>
             inline bool checkRange( const Vector_& v, const Scalar& min, const Scalar& max );
-        }
 
-        void getOrthogonalVectors( const Vector3& fx, Vector3& fy, Vector3& fz );
+            /// Get two vectors orthogonal to a given vector.
+            inline void getOrthogonalVectors( const Vector3& fx, Vector3& fy, Vector3& fz );
+        }
 
         //
         // Quaternion functions

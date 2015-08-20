@@ -97,7 +97,7 @@ namespace Ra
                     const Vector3 n = v.normalized();
                     result.m_normals.push_back( n );
                 }
-
+                getAutoNormals(result,result.m_normals);
                 checkConsistency( result );
                 return result;
             }

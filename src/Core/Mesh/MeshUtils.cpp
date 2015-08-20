@@ -20,7 +20,7 @@ namespace Ra
                 for ( uint t = 0; t < numTriangles; t++ )
                 {
                     const Triangle& tri = mesh.m_triangles[t];
-                    Vector3 n = -getTriangleNormal( mesh, t );
+                    Vector3 n = getTriangleNormal( mesh, t );
 
                     for ( uint i = 0; i < 3; ++i )
                     {
@@ -32,7 +32,7 @@ namespace Ra
             }
 
 
-            bool find_duplicates( const TriangleMesh& mesh, std::vector<VertexIdx>& duplicatesMap )
+            bool findDuplicates( const TriangleMesh& mesh, std::vector<VertexIdx>& duplicatesMap )
             {
                 bool hasDuplicates = false;
                 duplicatesMap.clear();
@@ -232,6 +232,7 @@ namespace Ra
                     const Scalar r = radius / vertex.norm();
                     vertex *= r;
                 }
+                getAutoNormals( result, result.m_normals );
                 checkConsistency( result );
                 return result;
             }
