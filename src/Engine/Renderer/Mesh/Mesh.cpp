@@ -2,18 +2,17 @@
 
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Core/Mesh/HalfEdge.hpp>
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
 namespace Ra
 {
 
     // Dirty is initializes as false so that we do not create the vao while
     // we have no data to send to the gpu.
-    Engine::Mesh::Mesh( const std::string& name )
+    Engine::Mesh::Mesh( const std::string& name, GLenum renderMode )
         : m_name( name )
         , m_isDirty( false )
         , m_vao( 0 )
-        , m_renderMode( GL_TRIANGLES )
+        , m_renderMode(renderMode)
         , m_ibo()
     {
     }
@@ -23,7 +22,7 @@ namespace Ra
         GL_ASSERT( glDeleteVertexArrays( 1, &m_vao ) );
     }
 
-    void Engine::Mesh::setRenderMode( const GLenum& mode )
+    void Engine::Mesh::setRenderMode( GLenum mode )
     {
         m_renderMode = mode;
     }
@@ -43,19 +42,35 @@ namespace Ra
         GL_ASSERT( glDrawElements( m_renderMode, m_indices.size(), GL_UNSIGNED_INT, ( void* ) 0 ) );
     }
 
-    void Engine::Mesh::loadGeometry( const Vector4Array& positions,
+    void Engine::Mesh::loadGeometry( const Core::Vector3Array& positions,
                                      const std::vector<uint>& indices )
     {
-        m_data[VERTEX_POSITION] = positions;
+        addData(VERTEX_POSITION, positions);
         m_indices = indices;
-
+        m_isDirty = true;
+    }
+     void Engine::Mesh::loadGeometry( const Core::Vector4Array& positions,
+                                     const std::vector<uint>& indices )
+    {
+        addData(VERTEX_POSITION, positions);
+        m_indices = indices;
         m_isDirty = true;
     }
 
-    void Engine::Mesh::addData( const DataType& type, const Vector4Array& data )
+    void Engine::Mesh::addData( const DataType& type, const Core::Vector3Array& data )
+    {
+        m_data[type].resize(data.size());
+        for (uint i =0; i < data.size(); ++i)
+        {
+            m_data[type][i].head<3>() = data[i];
+            m_data[type][i].w()       = 0.f;
+        }
+        m_isDirty = true;
+    }
+
+    void Engine::Mesh::addData( const DataType& type, const Core::Vector4Array& data )
     {
         m_data[type] = data;
-
         m_isDirty = true;
     }
 

@@ -26,9 +26,16 @@ namespace Ra
         //                for the plugin developper (or we can just provide shaders
         //                for this kind of renderings ...)
 
+
+        /// A class representing an openGL general mesh to be displayed.
+        /// It stores the vertex attributes, indices, and can be rendered
+        /// with a specific render mode (e.g. GL_TRIANGLES or GL_LINES).
+        /// Internally all data is stored as arrays of Vector4 but convenience
+        /// functions allow to add input data as Vector3.
         class RA_API Mesh
         {
         public:
+            /// List of all possible vertex attributes.
             enum DataType
             {
                 VERTEX_POSITION = 0,
@@ -42,10 +49,8 @@ namespace Ra
                 MAX_DATATYPES
             };
 
-        private:
-            typedef Core::VectorArray<Core::Vector4> Vector4Array;
         public:
-            Mesh( const std::string& name );
+            Mesh( const std::string& name, GLenum renderMode = GL_TRIANGLES );
             ~Mesh();
 
             const std::string& getName() const
@@ -54,15 +59,18 @@ namespace Ra
             }
 
             /// GL_POINTS, GL_LINES, GL_TRIANGLES, GL_TRIANGLE_ADJACENCY, etc...
-            void setRenderMode( const GLenum& mode );
+            void setRenderMode( GLenum mode );
 
-            void loadGeometry( const Vector4Array& positions, const std::vector<uint>& indices );
-            void addData( const DataType& type, const Vector4Array& position );
+            void loadGeometry( const Core::Vector3Array& positions, const std::vector <uint>& indices);
+            void loadGeometry( const Core::Vector4Array& positions, const std::vector<uint>& indices );
+            void addData( const DataType& type, const Core::Vector3Array& data);
+            void addData( const DataType& type, const Core::Vector4Array& data);
 
-            const Vector4Array& getData( const DataType& type ) const
+            const Core::Vector4Array& getData( const DataType& type ) const
             {
                 return m_data[type];
             }
+
             const std::vector<uint>& getIndices() const
             {
                 return m_indices;
@@ -87,7 +95,7 @@ namespace Ra
             uint m_vao;
             GLenum m_renderMode;
 
-            std::array<Vector4Array, MAX_DATATYPES> m_data;
+            std::array<Core::Vector4Array, MAX_DATATYPES> m_data;
             std::array<GlBuffer<Core::Vector4>, MAX_DATATYPES> m_vbos;
 
             std::vector<uint> m_indices;
