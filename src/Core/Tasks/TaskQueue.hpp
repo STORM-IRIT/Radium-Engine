@@ -62,8 +62,12 @@ namespace Ra
             /// its predecessor completed.
             void addDependency( TaskId predecessor, TaskId successor );
 
-            /// Executes the task queue. Blocks until all tasks and dependencies are finished.
-            void processTaskQueue();
+            /// Launches the execution of all the threads in the task queue.
+            /// No more tasks should be added at this point.
+            void startTasks();
+
+            /// Blocks until all tasks and dependencies are finished.
+            void waitForTasks();
 
             /// Access the data from the last frame execution after processTaskQueue();
             const std::vector<TimerData>& getTimerData();

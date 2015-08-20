@@ -21,6 +21,7 @@
 #include <Plugins/FancyMeshPlugin/FancyMeshSystem.hpp>
 #include <Plugins/RigidBodyPlugin/RigidBodySystem.hpp>
 
+
 // Const parameters : TODO : make config / command line options
 const uint FPS_MAX = 60;
 
@@ -288,7 +289,8 @@ namespace Ra
         m_engine->getTasks( m_taskQueue.get(), dt );
 
         // Run one frame of tasks
-        m_taskQueue->processTaskQueue();
+        m_taskQueue->startTasks();
+        m_taskQueue->waitForTasks();
         timerData.taskData = m_taskQueue->getTimerData();
         m_taskQueue->flushTaskQueue();
 

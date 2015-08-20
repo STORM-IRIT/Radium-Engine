@@ -61,7 +61,7 @@ namespace Ra
             m_taskQueue.push_front( task );
         }
 
-        void TaskQueue::processTaskQueue()
+        void TaskQueue::startTasks()
         {
             // Enqueue all tasks with no dependencies.
             for ( uint t = 0; t < m_tasks.size(); ++t )
@@ -74,6 +74,10 @@ namespace Ra
 
             // Wake up all threads.
             m_threadNotifier.notify_all();
+        }
+
+        void TaskQueue::waitForTasks()
+        {
             bool isFinished = false;
             while ( !isFinished )
             {
