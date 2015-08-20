@@ -13,6 +13,7 @@ namespace Ra
 
         /// A set of convenient functions to instantiate simple displays such as points, lines, etc.
         /// note that objects will be drawn in their entity's local frame.
+        /// For "instant" debug drawing, @see DebugDisplay.
         namespace DrawPrimitives
         {
             /// Displays given point shown as the crossing of 3 lines of length 'scale'
