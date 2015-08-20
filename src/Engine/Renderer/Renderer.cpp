@@ -342,7 +342,7 @@ namespace Ra
             else
             {
                 DirectionalLight l;
-                l.setDirection( Core::Vector3( 0.3f, 1, 0 ) );
+                l.setDirection( Core::Vector3( 0.3, -1.0, 0.0 ) );
 
                 RenderParameters params;
                 l.getRenderParameters( params );

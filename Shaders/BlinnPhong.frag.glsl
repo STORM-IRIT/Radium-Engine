@@ -125,6 +125,9 @@ vec3 blinnPhongInternal(vec3 d, vec3 n)
 {
     vec3 direction = normalize(d);
     vec3 normal = normalize(n);
+    
+    //direction = vec3(1, 0, 0);
+    
     float diffFactor = dot(normal, -direction);
 
     vec3 diff = vec3(0);
@@ -134,13 +137,13 @@ vec3 blinnPhongInternal(vec3 d, vec3 n)
     {
         diff = diffFactor * light.color.xyz * getKd();
 
-        vec3 vertToEye = normalize(vEye - vPosition);
+        vec3 vertToEye = normalize(vPosition - vEye);
         vec3 lightReflect = normalize(reflect(-direction, normal));
         float specFactor = dot(vertToEye, lightReflect);
 
         if (specFactor > 0.0)
         {
-            specFactor = pow(specFactor, getNs());
+            specFactor = pow(specFactor, /*getNs()*/10);
             spec = specFactor * light.color.xyz * getKs();
         }
     }
@@ -227,4 +230,5 @@ void main()
     }
 
     fragColor = vec4(color, 1.0);
+    
 }
