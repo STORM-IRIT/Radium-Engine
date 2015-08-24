@@ -48,9 +48,10 @@
  * THE SOFTWARE.
  */
 
-#pragma once
+#ifndef RADIUMENGINE_JSON11_HPP_
+#define RADIUMENGINE_JSON11_HPP_
 
-#include <Core/CoreMacros.hpp>
+#include <Engine/RaEngine.hpp>
 
 #include <string>
 #include <vector>
@@ -63,7 +64,7 @@ namespace json11
 
     class JsonValue;
 
-    class RA_API Json final
+    class RA_ENGINE_API Json final
     {
     public:
         // Types
@@ -217,7 +218,7 @@ namespace json11
     };
 
     // Internal class hierarchy - JsonValue objects are not exposed to users of this API.
-    class RA_API JsonValue
+    class RA_ENGINE_API JsonValue
     {
     protected:
         friend class Json;
@@ -239,3 +240,4 @@ namespace json11
     };
 
 } // namespace json11
+#endif //RADIUMENGINE_JSON11_HPP_

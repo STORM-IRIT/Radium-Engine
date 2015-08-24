@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_TRIANGLEMESH_HPP
 #define RADIUMENGINE_TRIANGLEMESH_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/MeshTypes.hpp>
@@ -15,16 +15,16 @@ namespace Ra
         struct TriangleMesh
         {
             /// Create an empty mesh.
-            TriangleMesh() {}
+            inline TriangleMesh() {}
             /// Copy constructor and assignment operator
             TriangleMesh( const TriangleMesh& ) = default;
             TriangleMesh& operator= ( const TriangleMesh& ) = default;
 
             /// Erases all data, making the mesh empty.
-            inline RA_API void clear();
+            inline void clear();
 
             /// Appends another mesh to this one.
-            inline RA_API void append( const TriangleMesh& other );
+            inline void append( const TriangleMesh& other );
 
             VectorArray<Vector3>  m_vertices;
             VectorArray<Vector3>  m_normals;

@@ -1,15 +1,17 @@
 #ifndef RADIUMENGINE_BINDABLETRANSFORM_HPP
 #define RADIUMENGINE_BINDABLETRANSFORM_HPP
 
-#include <Engine/Renderer/Bindable/Bindable.hpp>
+#include <Engine/RaEngine.hpp>
+
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Engine/Renderer/Bindable/Bindable.hpp>
 
 namespace Ra
 {
     namespace Engine
     {
 
-        class RA_API BindableTransform : public Bindable
+        class RA_ENGINE_API BindableTransform : public Bindable
         {
         public:
             RA_CORE_ALIGNED_NEW

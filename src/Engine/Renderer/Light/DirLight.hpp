@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_DIRLIGHT_HPP
 #define RADIUMENGINE_DIRLIGHT_HPP
 
+#include <Engine/RaEngine.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
 namespace Ra
@@ -8,7 +9,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API DirectionalLight : public Light
+        class RA_ENGINE_API DirectionalLight : public Light
         {
         public:
             RA_CORE_ALIGNED_NEW

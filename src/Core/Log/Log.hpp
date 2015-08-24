@@ -1,11 +1,11 @@
 #ifndef RADIUMENGINE_LOG_HPP
 #define RADIUMENGINE_LOG_HPP
 
+#include <Core/RaCore.hpp>
 #include <sstream>
 #include <string>
 #include <stdio.h>
 
-#include <Core/CoreMacros.hpp>
 #include <Core/String/StringUtils.hpp>
 
 inline std::string NowTime();
@@ -104,7 +104,7 @@ TLogLevel Log<T>::FromString( const std::string& level )
     return logINFO;
 }
 
-class RA_API Output2FILE
+class Output2FILE
 {
 public:
     static FILE*& Stream();
@@ -128,7 +128,7 @@ inline void Output2FILE::Output( const std::string& msg )
     fflush( pStream );
 }
 
-class RA_API FILELog : public Log<Output2FILE> {};
+class FILELog : public Log<Output2FILE> {};
 //typedef Log<Output2FILE> FILELog;
 
 #ifndef FILELOG_MAX_LEVEL

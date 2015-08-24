@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_BINDABLEMATERIAL_HPP
 #define RADIUMENGINE_BINDABLEMATERIAL_HPP
 
+#include <Engine/RaEngine.hpp>
 #include <Engine/Renderer/Bindable/Bindable.hpp>
 
 namespace Ra
@@ -16,7 +17,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API BindableMaterial : public Bindable
+        class RA_ENGINE_API BindableMaterial : public Bindable
         {
         public:
             explicit BindableMaterial( Material* material );

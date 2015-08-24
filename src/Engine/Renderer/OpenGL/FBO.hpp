@@ -1,9 +1,10 @@
 #ifndef RADIUMENGINE_FBO_HPP
 #define RADIUMENGINE_FBO_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <map>
 
-#include <Core/CoreMacros.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
 namespace Ra
@@ -21,7 +22,7 @@ namespace Ra
 
         class Texture;
 
-        class RA_API FBO
+        class RA_ENGINE_API FBO
         {
         public:
             enum Components

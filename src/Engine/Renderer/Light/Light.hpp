@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_LIGHT_HPP
 #define RADIUMENGINE_LIGHT_HPP
 
+#include <Engine/RaEngine.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
 namespace Ra
@@ -16,7 +17,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API Light
+        class RA_ENGINE_API Light
         {
         public:
             enum LightType

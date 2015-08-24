@@ -1,11 +1,12 @@
 #ifndef RADIUMENGINE_RENDEROBJECT_HPP
 #define RADIUMENGINE_RENDEROBJECT_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <string>
 #include <mutex>
 #include <memory>
 
-#include <Core/CoreMacros.hpp>
 #include <Core/Index/IndexedObject.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
@@ -28,7 +29,7 @@ namespace Ra
     {
 
         // FIXME(Charly): Does this need a bit of cleanup ?
-        class RA_API RenderObject : public Core::IndexedObject
+        class RA_ENGINE_API RenderObject : public Core::IndexedObject
         {
         public:
             enum class RenderObjectType

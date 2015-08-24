@@ -16,7 +16,7 @@ namespace Ra
         }
 
         DebugEntity::DebugEntity()
-        : Entity("Debug Display Entity"), Core::Singleton<DebugEntity>()
+        : Entity("Debug Display Entity")
         {
             addComponent(new DebugComponent);
         }
@@ -27,6 +27,6 @@ namespace Ra
             CORE_ASSERT(getTransformAsMatrix() == Core::Matrix4::Identity(), "Transform has been changed !");
             return static_cast<DebugComponent*>(getComponentsMap().begin()->second);
         }
-
+        RA_SINGLETON_IMPLEMENTATION(DebugEntity)
     }
 }

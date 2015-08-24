@@ -3,10 +3,9 @@
 
 /// This file contains typedefs and basic vector classes and functions
 
+#include <Core/RaCore.hpp>
+
 #include <functional>
-
-#include <Core/CoreMacros.hpp>
-
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include <unsupported/Eigen/AlignedVector3>
@@ -125,19 +124,19 @@ namespace Ra
         {
             /// Component-wise floor() function on a floating-point vector.
             template<typename Vector>
-            inline RA_API Vector floor( const Vector& v );
+            inline Vector floor( const Vector& v );
 
             /// Component-wise ceil() function on a floating-point vector.
             template<typename Vector>
-            inline RA_API Vector ceil( const Vector& v );
+            inline Vector ceil( const Vector& v );
 
             /// Component-wise clamp() function on a floating-point vector.
             template<typename Vector>
-            inline RA_API Vector clamp( const Vector& v, const Vector& min, const Vector& max );
+            inline Vector clamp( const Vector& v, const Vector& min, const Vector& max );
 
             /// Component-wise clamp() function on a floating-point vector.
             template<typename Vector>
-            inline RA_API Vector clamp( const Vector& v, const Scalar& min, const Scalar& max );
+            inline Vector clamp( const Vector& v, const Scalar& min, const Scalar& max );
 
             /// Vector range check
             template<typename Vector_>
@@ -151,8 +150,8 @@ namespace Ra
         // Quaternion functions
         //
 
-        inline RA_API Quaternion operator+ ( const Quaternion& q1, const Quaternion& q2 );
-        inline RA_API Quaternion operator* ( const Scalar& k, const Quaternion& q );
+        inline Quaternion operator+ ( const Quaternion& q1, const Quaternion& q2 );
+        inline Quaternion operator* ( const Scalar& k, const Quaternion& q );
 
 
         // Use this macro in the public: section of a class

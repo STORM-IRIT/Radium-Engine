@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_MATERIAL_HPP
 #define RADIUMENGINE_MATERIAL_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <map>
 #include <string>
 
@@ -21,7 +23,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API Material
+        class RA_ENGINE_API Material
         {
         public:
             enum class TextureType

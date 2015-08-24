@@ -1,8 +1,8 @@
 #ifndef RADIUMENGINE_TASK_QUEUE_HPP_
 #define RADIUMENGINE_TASK_QUEUE_HPP_
 
-#include <Core/CoreMacros.hpp>
 
+#include <Core/RaCore.hpp>
 #include <memory>
 #include <vector>
 #include <deque>
@@ -30,7 +30,7 @@ namespace Ra
         /// Task are allowed to have dependencies. A task will be executed only when all its dependencies
         /// are satisfied, i.e. all dependant tasks are finished.
         /// Note that most functions are not thread safe and must not be called when the task queue is running.
-        class RA_API TaskQueue
+        class RA_CORE_API TaskQueue
         {
         public:
             /// Identifier for a task in the task queue.

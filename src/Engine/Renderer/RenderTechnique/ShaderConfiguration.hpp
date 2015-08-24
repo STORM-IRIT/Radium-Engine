@@ -1,11 +1,11 @@
 #ifndef RADIUMENGINE_SHADERCONFIGURATION_HPP
 #define RADIUMENGINE_SHADERCONFIGURATION_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <list>
 #include <string>
 #include <set>
-
-#include <Core/CoreMacros.hpp>
 
 namespace Ra
 {
@@ -14,10 +14,10 @@ namespace Ra
 
         struct ShaderType
         {
-            RA_API std::string getShaderTypeString( uint type );
+            RA_ENGINE_API std::string getShaderTypeString( uint type );
         };
 
-        class RA_API ShaderConfiguration
+        class RA_ENGINE_API ShaderConfiguration
         {
         public:
             enum ShaderType

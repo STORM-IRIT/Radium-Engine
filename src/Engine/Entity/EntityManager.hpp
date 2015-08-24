@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_ENTITYMANAGER_HPP
 #define RADIUMENGINE_ENTITYMANAGER_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <memory>
 #include <vector>
 #include <map>
@@ -22,7 +24,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API EntityManager
+        class RA_ENGINE_API EntityManager
         {
         public:
             /// CONSTRUCTOR

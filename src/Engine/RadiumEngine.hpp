@@ -1,13 +1,14 @@
 #ifndef RADIUMENGINE_ENGINE_HPP
 #define RADIUMENGINE_ENGINE_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <mutex>
 #include <map>
 #include <string>
 #include <memory>
 #include <vector>
 
-#include <Core/CoreMacros.hpp>
 #include <Core/Log/Log.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Entity/EntityManager.hpp>
@@ -36,9 +37,9 @@ namespace Ra
 {
     namespace Engine
     {
-
-        class RA_API RadiumEngine : public Core::Singleton<RadiumEngine>
+        class RA_ENGINE_API RadiumEngine
         {
+            RA_SINGLETON_INTERFACE(RadiumEngine);
         public:
             RadiumEngine();
             ~RadiumEngine();

@@ -1,8 +1,9 @@
 #ifndef RIGIDBODYPLUGIN_RIGIDBODYTASK_HPP
 #define RIGIDBODYPLUGIN_RIGIDBODYTASK_HPP
 
-#include <vector>
+#include <Plugins/RigidBodyPlugin/RigidBodyPlugin.hpp>
 
+#include <vector>
 #include <Core/Tasks/Task.hpp>
 
 namespace RigidBodyPlugin
@@ -13,13 +14,13 @@ namespace RigidBodyPlugin
 namespace RigidBodyPlugin
 {
 
-    struct RA_API RigidBodyTaskParams : public Ra::Core::TaskParams
+    struct RigidBodyTaskParams : public Ra::Core::TaskParams
     {
         Scalar dt;
         std::vector<RigidBodyComponent*> rigidBodies;
     };
 
-    class RA_API RigidBodyTask : public Ra::Core::Task
+    class RigidBodyTask : public Ra::Core::Task
     {
     public:
         RigidBodyTask();

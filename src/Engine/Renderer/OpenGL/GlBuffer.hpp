@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_GL_BUFFER_HPP_
 #define RADIUMENGINE_GL_BUFFER_HPP_
 
-#include <Core/CoreMacros.hpp>
+#include <Engine/RaEngine.hpp>
 
 #include <cassert>
 #include <vector>

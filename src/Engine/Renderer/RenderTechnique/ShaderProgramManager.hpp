@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_SHADERPROGRAMANAGER_HPP
 #define RADIUMENGINE_SHADERPROGRAMANAGER_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <string>
 #include <map>
 
@@ -23,10 +25,10 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API ShaderProgramManager : public Core::Singleton<ShaderProgramManager>
+        class RA_ENGINE_API ShaderProgramManager 
         {
-            friend class Core::Singleton<ShaderProgramManager>;
-
+            RA_SINGLETON_INTERFACE(ShaderProgramManager);
+        public:
             enum class ShaderProgramStatus
             {
                 NOT_COMPILED = 0,

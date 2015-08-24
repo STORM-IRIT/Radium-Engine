@@ -14,7 +14,7 @@ namespace Ra
             #if !defined (RA_DISABLE_DEBUG_DISPLAY)
             std::shared_ptr<Entity> ent( DebugEntity::createInstance() );
             ent->idx = m_entities.insert( ent );
-            CORE_ASSERT( ent.get() == DebugEntity::getInstancePtr(), "Invalid singleton instanciation");
+            CORE_ASSERT( ent.get() == DebugEntity::getInstance(), "Invalid singleton instanciation");
             m_entitiesName.insert( std::pair< std::string, Core::Index> (ent->getName(),ent->idx ));
             #endif
         }

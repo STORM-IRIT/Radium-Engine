@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_RENDEROBJECTMANAGER_HPP
 #define RADIUMENGINE_RENDEROBJECTMANAGER_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <vector>
 #include <map>
 #include <memory>
@@ -9,7 +11,6 @@
 
 #include <Core/Index/Index.hpp>
 #include <Core/Index/IndexMap.hpp>
-#include <Core/CoreMacros.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 namespace Ra
@@ -17,7 +18,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API RenderObjectManager
+        class RA_ENGINE_API RenderObjectManager
         {
         public:
             RenderObjectManager();

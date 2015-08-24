@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_EDITABLE_PROPERTY_HPP_
 #define RADIUMENGINE_EDITABLE_PROPERTY_HPP_
 
-#include <Core/CoreMacros.hpp>
+#include <Engine/RaEngine.hpp>
 
 #include <string>
 #include <vector>

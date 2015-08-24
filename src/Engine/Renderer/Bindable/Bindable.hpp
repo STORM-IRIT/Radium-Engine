@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_BINDABLE_HPP
 #define RADIUMENGINE_BINDABLE_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Engine/RaEngine.hpp>
 
 namespace Ra
 {
@@ -16,7 +16,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API Bindable
+        class RA_ENGINE_API Bindable
         {
         public:
             Bindable() {}

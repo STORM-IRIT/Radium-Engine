@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_SHADERPROGRAM_HPP
 #define RADIUMENGINE_SHADERPROGRAM_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <set>
 #include <string>
 #include <array>
@@ -23,7 +25,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API ShaderObject
+        class RA_ENGINE_API ShaderObject
         {
         public:
             ShaderObject();

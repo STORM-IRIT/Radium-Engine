@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_MOUSEEVENT_HPP
 #define RADIUMENGINE_MOUSEEVENT_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
 #include <Core/Event/EventEnums.hpp>
 
 namespace Ra

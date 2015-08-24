@@ -45,6 +45,8 @@ add_library(
  	${core_inlines}
 )
 
+target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
+
 SET_TARGET_PROPERTIES(
  	${core_target}
 	PROPERTIES
@@ -96,6 +98,9 @@ add_library(
  	${engine_tese_glsl}
  	${engine_comp_glsl}
 )
+
+target_compile_definitions(${engine_target} PRIVATE "-DRA_CORE_IMPORTS")
+target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 
 SET_TARGET_PROPERTIES(
  	${engine_target}
@@ -152,6 +157,9 @@ add_executable(
  	${app_inlines}
  	${app_uis_moc}
 )
+
+target_compile_definitions(${app_target} PRIVATE "-DRA_CORE_IMPORTS")
+target_compile_definitions(${app_target} PRIVATE "-DRA_ENGINE_IMPORTS")
 
 target_link_libraries(
  	${app_target}

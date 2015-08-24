@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_VECTORARRAY_HPP
 #define RADIUMENGINE_VECTORARRAY_HPP
 
+#include <Core/RaCore.hpp>
 #include <vector>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>

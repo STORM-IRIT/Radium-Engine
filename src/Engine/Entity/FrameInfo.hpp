@@ -1,14 +1,14 @@
 #ifndef RADIUMENGINE_FRAME_INFO_HPP
 #define RADIUMENGINE_FRAME_INFO_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Engine/RaEngine.hpp>
 
 namespace Ra
 {
     namespace Engine
     {
         /// Structure passed to each system before they fill the task queue.
-        struct RA_API FrameInfo
+        struct RA_ENGINE_API FrameInfo
         {
             /// Time elapsed since the last frame in seconds.
             Scalar m_dt;

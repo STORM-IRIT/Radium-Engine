@@ -1,8 +1,7 @@
 #ifndef RADIUMENGINE_TASK_HPP_
 #define RADIUMENGINE_TASK_HPP_
 
-#include <Core/CoreMacros.hpp>
-
+#include <Core/RaCore.hpp>
 #include <mutex>
 #include <string>
 
@@ -11,14 +10,14 @@ namespace Ra
     namespace Core
     {
         /// Base class for Task params structs.
-        struct RA_API TaskParams {};
+        struct TaskParams {};
 
         /// A class representing a basic task.
-        class RA_API Task
+        class Task
         {
         public:
             /// Constructor. Most initialization should go to the init() method.
-            Task() {}
+            inline Task() {}
 
             /// Destructor
             virtual ~Task() {}
@@ -33,7 +32,7 @@ namespace Ra
             virtual void process() = 0;
         };
 
-        struct RA_API DummyTaskParams : public TaskParams
+        struct DummyTaskParams : public TaskParams
         {
             Scalar m_param;
         };
@@ -41,11 +40,11 @@ namespace Ra
         class DummyTask : public Task
         {
         public:
-            virtual RA_API std::string getName() const override;
+            virtual RA_CORE_API std::string getName() const override;
 
-            virtual RA_API void init( const TaskParams* params ) override;
+            virtual RA_CORE_API void init( const TaskParams* params ) override;
 
-            virtual RA_API void process() override;
+            virtual RA_CORE_API void process() override;
 
             Scalar m_data;
 

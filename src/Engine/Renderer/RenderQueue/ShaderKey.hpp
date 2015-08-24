@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_BINDABLESHADERPROGRAM_HPP
 #define RADIUMENGINE_BINDABLESHADERPROGRAM_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Engine/RaEngine.hpp>
 
 namespace Ra
 {
@@ -17,7 +17,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API ShaderKey
+        class RA_ENGINE_API ShaderKey
         {
         public:
             explicit ShaderKey( ShaderProgram* shader );

@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_PARSER_HPP
 #define RADIUMENGINE_PARSER_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <string>
 #include <Engine/Parser/LoadedData.hpp>
 

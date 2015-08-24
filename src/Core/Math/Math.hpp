@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_MATH_HPP
 #define RADIUMENGINE_MATH_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
 
 #ifdef OS_WINDOWS
 #define _USE_MATH_DEFINES

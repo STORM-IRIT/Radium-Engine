@@ -2,6 +2,16 @@ namespace Ra
 {
     namespace Core
     {
+        /// CONSTRUCTOR
+        inline Index::Index( const int i )
+        {
+            m_idx = ( i < 0 ) ? s_invalid : i;
+        }
+        
+        inline Index::Index( const Index& i )
+        {
+            m_idx = i.m_idx;
+        }
 
         /// COPY
         inline void Index::copy( const Index& id )

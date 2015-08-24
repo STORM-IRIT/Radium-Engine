@@ -18,6 +18,6 @@ namespace Ra
 
     Engine::RenderObjectManager* Engine::Component::getRoMgr()
     {
-        return RadiumEngine::getInstancePtr()->getRenderObjectManager();
+        return RadiumEngine::getInstance()->getRenderObjectManager();
     }
 } // namespace Ra

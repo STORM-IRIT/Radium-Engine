@@ -1,6 +1,8 @@
 #ifndef FANCYMESHPLUGIN_FANCYMESHLOADER_HPP
 #define FANCYMESHPLUGIN_FANCYMESHLOADER_HPP
 
+#include <Plugins/FancyMeshPlugin/FancyMeshPlugin.hpp>
+
 #include <string>
 #include <vector>
 
@@ -14,7 +16,7 @@ namespace FancyMeshPlugin
 
     namespace FancyMeshLoader
     {
-        RA_API DataVector loadFile( const std::string& name );
+        FM_PLUGIN_API DataVector loadFile( const std::string& name );
 
     } // namespace FancyMeshLoader;
 

@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_GRID2_CONST_REF_HPP__
 #define RADIUMENGINE_GRID2_CONST_REF_HPP__
 
+#include <Core/RaCore.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Index/Idx2.hpp>
 

@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_DEBUG_DISPLAY_HPP_
 #define RADIUMENGINE_DEBUG_DISPLAY_HPP_
 
+#include <Engine/RaEngine.hpp>
+
 /// This file's main purpose is to declare a set of macros to allow drawing
 /// primitives from everywhere in the code, for debug purposes.
 /// These macros can be completely disabled by #defining the following constant :
@@ -20,7 +22,7 @@ namespace Ra
         class RenderObject;
 
         /// Component for debug drawing. @see DebugEntity.
-        class RA_API DebugComponent : public Component
+        class RA_ENGINE_API DebugComponent : public Component
         {
         public:
             DebugComponent();
@@ -32,8 +34,9 @@ namespace Ra
 
         /// This entity allows to add debug drawables from everywhere in the code.
         /// It should have only one component and its transform should not change.
-        class RA_API DebugEntity: public Entity, public Core::Singleton<DebugEntity>
+        class RA_ENGINE_API DebugEntity: public Entity 
         {
+            RA_SINGLETON_INTERFACE(DebugEntity);
         public:
             DebugEntity();
 
@@ -43,7 +46,7 @@ namespace Ra
             /// Shortcut to getInstance->getDebugComponent();
             static inline DebugComponent* dbgCmp ()
             {
-                return getInstanceRef().getDebugComponent();
+                return getInstance()->getDebugComponent();
             }
 
             // Override Editable interface to disable property editing

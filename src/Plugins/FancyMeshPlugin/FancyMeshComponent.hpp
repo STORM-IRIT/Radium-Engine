@@ -1,6 +1,8 @@
 #ifndef FANCYMESHPLUGIN_FANCYMESHCOMPONENT_HPP
 #define FANCYMESHPLUGIN_FANCYMESHCOMPONENT_HPP
 
+#include <Plugins/FancyMeshPlugin/FancyMeshPlugin.hpp>
+
 #include <Engine/Entity/Component.hpp>
 #include <Plugins/FancyMeshPlugin/FancyMeshLoadingData.hpp>
 
@@ -15,7 +17,7 @@ namespace Ra
 namespace FancyMeshPlugin
 {
 
-    class RA_API FancyMeshComponent : public Ra::Engine::Component
+    class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component
     {
     public:
         FancyMeshComponent( const std::string& name );

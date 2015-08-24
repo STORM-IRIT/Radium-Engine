@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_ENTITY_HPP
 #define RADIUMENGINE_ENTITY_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <string>
 #include <vector>
 #include <map>
@@ -25,7 +27,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API Entity : public Core::IndexedObject, public EditableInterface
+        class RA_ENGINE_API Entity : public Core::IndexedObject, public EditableInterface
         {
         public:
             RA_CORE_ALIGNED_NEW

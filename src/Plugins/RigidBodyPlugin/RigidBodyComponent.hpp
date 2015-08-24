@@ -1,12 +1,13 @@
 #ifndef RIGIDBODYPLUGIN_RIGIDBODYCOMPONENT_HPP
 #define RIGIDBODYPLUGIN_RIGIDBODYCOMPONENT_HPP
 
+#include <Plugins/RigidBodyPlugin/RigidBodyPlugin.hpp>
 #include <Engine/Entity/Component.hpp>
 
 namespace RigidBodyPlugin
 {
 
-    class RA_API RigidBodyComponent : public Ra::Engine::Component
+    class RigidBodyComponent : public Ra::Engine::Component
     {
     public:
         RigidBodyComponent( const std::string& name );

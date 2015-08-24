@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_TEXTUREMANAGER_HPP
 #define RADIUMENGINE_TEXTUREMANAGER_HPP
 
+#include <Engine/RaEngine.hpp>
 #include <map>
 #include <string>
 
@@ -19,10 +20,10 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API TextureManager : public Core::Singleton<TextureManager>
+        class RA_ENGINE_API TextureManager 
         {
+            RA_SINGLETON_INTERFACE(TextureManager);
         private:
-            friend class Core::Singleton<TextureManager>;
             typedef std::pair<std::string, Texture*> TexturePair;
 
         public:

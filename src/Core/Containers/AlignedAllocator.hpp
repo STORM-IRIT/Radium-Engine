@@ -1,7 +1,6 @@
 #ifndef RADIUMENGINE_ALIGNED_ALLOCATOR_HPP_
 #define RADIUMENGINE_ALIGNED_ALLOCATOR_HPP_
-
-#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
 
 #ifdef _WIN32
 #include <malloc.h>
@@ -21,7 +20,7 @@ namespace Ra
         * <http://blogs.msdn.com/b/vcblog/archive/2008/08/28/the-mallocator.aspx>
         */
         template <typename T, std::size_t Alignment>
-        class RA_API AlignedAllocator
+        class AlignedAllocator
         {
         public:
 

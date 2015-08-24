@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_POINTLIGHT_HPP
 #define RADIUMENGINE_POINTLIGHT_HPP
 
+#include <Engine/RaEngine.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
 namespace Ra
@@ -8,7 +9,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API PointLight : public Light
+        class RA_ENGINE_API PointLight : public Light
         {
         public:
             struct Attenuation

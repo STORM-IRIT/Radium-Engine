@@ -127,6 +127,7 @@ namespace Ra
         {
             deleteTexture( texture->getName() );
         }
+        RA_SINGLETON_IMPLEMENTATION(TextureManager);
 
     }
 } // namespace Ra

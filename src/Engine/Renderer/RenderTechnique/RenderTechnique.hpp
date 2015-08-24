@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_RENDERTECHNIQUE_HPP
 #define RADIUMENGINE_RENDERTECHNIQUE_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Engine/RaEngine.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
 namespace Ra
@@ -25,7 +25,7 @@ namespace Ra
             ShaderProgram* shader = nullptr;
             Material* material = nullptr;
 
-            RA_API void updateGL();
+            RA_ENGINE_API void updateGL();
         };
 
     } // namespace Engine

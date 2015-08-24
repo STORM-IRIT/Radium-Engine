@@ -1,5 +1,6 @@
 #ifndef RADIUMENGINE_CORE_ALIGNED_STD_VECTOR_HPP_
 #define RADIUMENGINE_CORE_ALIGNED_STD_VECTOR_HPP_
+#include <Core/RaCore.hpp>
 
 #include <vector>
 #include <Core/Containers/AlignedAllocator.hpp>

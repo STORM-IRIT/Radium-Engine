@@ -20,31 +20,35 @@ set(libs
     ${FREEIMAGE_LIBRARY}
     ${Qt5OpenGL_LIBRARIES}
     ${OPENGL_LIBRARIES})
-    
+
 foreach(subdir ${SUBDIRS})
     file(GLOB_RECURSE sources ${subdir}/*.cpp)
     file(GLOB_RECURSE headers ${subdir}/*.h ${subdir}/*.hpp)
     file(GLOB_RECURSE inlines ${subdir}/*.inl)
-    
+
     add_library(
         ${subdir} SHARED
         ${sources}
         ${headers}
         ${inlines})
-    
+
     set_target_properties(
         ${subdir}
         PROPERTIES
         VERSION 0.1.42)
-    
+
+    target_compile_definitions(${subdir} PRIVATE "-DRA_CORE_IMPORTS")
+    target_compile_definitions(${subdir} PRIVATE "-DRA_ENGINE_IMPORTS")
+    target_compile_definitions(${subdir} PRIVATE "-D${subdir}_EXPORTS")
+
     target_link_libraries(
         ${subdir}
         ${libs})
-    
+
     install(
         TARGETS ${subdir}
         DESTINATION ${LIB_INSTALL_DIR})
-    
+
 endforeach()
 
 set(plugins ${SUBDIRS})

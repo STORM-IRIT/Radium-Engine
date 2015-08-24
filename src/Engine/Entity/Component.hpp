@@ -1,7 +1,8 @@
 #ifndef RADIUMENGINE_COMPONENT_HPP
 #define RADIUMENGINE_COMPONENT_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Engine/RaEngine.hpp>
+
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Index/IndexedObject.hpp>
 
@@ -28,7 +29,7 @@ namespace Ra
          * It is also linked to some other components in an entity.
          * Each component share a transform through their entity.
          */
-        class RA_API Component : public EditableInterface
+        class RA_ENGINE_API Component : public EditableInterface
         {
         public:
             /// CONSTRUCTOR

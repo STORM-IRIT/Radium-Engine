@@ -1,64 +1,35 @@
 #ifndef RADIUMENGINE_SINGLETON_HPP
 #define RADIUMENGINE_SINGLETON_HPP
 
-#include <cstdio>
-#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
 
-namespace Ra
-{
-    namespace Core
-    {
+// Singleton utility.
+// I used to be a template like you, then I took a DLL to the knee...
 
-        template<typename T>
-        class RA_API Singleton
-        {
-        public:
-            template<typename... Args>
-            static T* createInstance( const Args& ... args )
-            {
-                CORE_ASSERT( nullptr == s_instance, "Singleton has already been created" );
-                s_instance = new T( args... );
-                return s_instance;
-            }
+/// Add this macro (followed by a semicolon) in your class header.
+#define RA_SINGLETON_INTERFACE(TYPE)                    \
+public:                                                 \
+    static void replaceInstance(TYPE*);                 \
+    template<typename... Args>                          \
+    static TYPE* createInstance(const Args& ... args)   \
+    {                                                   \
+        replaceInstance(new TYPE(args...));             \
+        return getInstance();                           \
+    }                                                   \
+    static TYPE* getInstance();                         \
+    static void destroyInstance();                      \
+protected:                                              \
+    TYPE(const TYPE&) = delete;                         \
+    void operator=(const TYPE&) = delete
 
-            static T* getInstancePtr()
-            {
-                CORE_ASSERT( s_instance, "Singleton is uninitialized." );
-                return s_instance;
-            }
 
-            static T& getInstanceRef()
-            {
-                CORE_ASSERT( s_instance, "Singleton is uninitialized." );
-                return *s_instance;
-            }
 
-            static void destroyInstance()
-            {
-                if ( s_instance )
-                {
-                    delete s_instance;
-                    s_instance = nullptr;
-                }
-            }
+/// Add this macro in the singleton cpp, without a semicolon.
+#define RA_SINGLETON_IMPLEMENTATION(TYPE)               \
+namespace {static TYPE* s_instance = nullptr;}          \
+void TYPE::replaceInstance(TYPE* p) { s_instance = p; } \
+TYPE* TYPE::getInstance() { return s_instance; }        \
+void TYPE::destroyInstance() { delete s_instance; s_instance = nullptr; }
 
-        protected:
-            Singleton() { }
-
-            ~Singleton() { }
-
-        private:
-            Singleton( const Singleton<T>& ) = delete;
-
-            void operator= ( const Singleton<T>& ) = delete;
-
-        private:
-            static T* s_instance;
-        };
-
-        template<typename T> T* Singleton<T>::s_instance = nullptr;
-
-    }
-} // namespace Ra::Core
 
 #endif // RADIUMENGINE_SINGLETON_HPP

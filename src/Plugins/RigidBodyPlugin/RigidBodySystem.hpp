@@ -1,6 +1,8 @@
 #ifndef RIGIDBODYPLUGIN_RIGIDBODYSYSTEM_HPP
 #define RIGIDBODYPLUGIN_RIGIDBODYSYSTEM_HPP
 
+#include <Plugins/RigidBodyPlugin/RigidBodyPlugin.hpp>
+
 #include <Engine/Entity/System.hpp>
 
 namespace Ra
@@ -20,7 +22,7 @@ namespace RigidBodyPlugin
 
 namespace RigidBodyPlugin
 {
-    class RA_API RigidBodySystem : public Ra::Engine::System
+    class RB_PLUGIN_API RigidBodySystem : public Ra::Engine::System
     {
     public:
         RigidBodySystem();

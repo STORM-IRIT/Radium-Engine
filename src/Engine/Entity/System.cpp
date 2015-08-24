@@ -1,7 +1,6 @@
 #include <Engine/Entity/System.hpp>
 
 #include <Core/String/StringUtils.hpp>
-#include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Component.hpp>
 
 namespace Ra

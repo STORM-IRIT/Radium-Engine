@@ -84,14 +84,14 @@ namespace Ra
         {
             IndexMapEntry imp( idx );
             typename std::deque<IndexMapEntry>::const_iterator it = std::find( m_data.begin(), m_data.end(), imp );
-            assert( it != m_data.end() );
+            CORE_ASSERT( it != m_data.end(), "Index not found" );
             return it->m_obj;
         }
 
         template <typename T>
         inline T IndexMap<T>::at( const int i ) const
         {
-            assert( ( i >= 0 ) || ( uint( i ) < m_data.size() ) || m_data.empty() );
+            CORE_ASSERT( ( i >= 0 ) || ( uint( i ) < m_data.size() ) || m_data.empty(), "Invalid Index" );
             return m_data.at( i ).m_obj;
         }
 

@@ -1,11 +1,12 @@
 #ifndef RADIUMENGINE_MESH_HPP
 #define RADIUMENGINE_MESH_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <vector>
 #include <array>
 #include <map>
 
-#include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
@@ -32,7 +33,7 @@ namespace Ra
         /// with a specific render mode (e.g. GL_TRIANGLES or GL_LINES).
         /// Internally all data is stored as arrays of Vector4 but convenience
         /// functions allow to add input data as Vector3.
-        class RA_API Mesh
+        class RA_ENGINE_API Mesh
         {
         public:
             /// List of all possible vertex attributes.

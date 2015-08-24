@@ -34,7 +34,7 @@ namespace Ra
         RadiumEngine::RadiumEngine()
             : m_quit( false )
         {
-            //    LOG(INFO) << "Engine starting...";
+                LOG(logINFO) << "Engine starting...";
         }
 
         RadiumEngine::~RadiumEngine()
@@ -171,5 +171,7 @@ namespace Ra
         {
             return m_entityManager.get();
         }
-    }
-} // namespace RadiumEngine
+
+        RA_SINGLETON_IMPLEMENTATION(RadiumEngine)
+    } // Namespace engine
+} // namespace Ra

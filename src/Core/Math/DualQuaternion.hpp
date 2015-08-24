@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_DUALQUATERNION_HPP
 #define RADIUMENGINE_DUALQUATERNION_HPP
 
+#include <Core/RaCore.hpp>
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
@@ -13,17 +14,17 @@ namespace Ra
         /// such as e*e = 0 ; and using quaternions as the non-dual and dual part.
         /// Unit dual quaternions can represent any rigid transformation
         /// (rotation + translation).
-        class RA_API DualQuaternion
+        class DualQuaternion
         {
 
         public:
             RA_CORE_ALIGNED_NEW
 
             // Construct an uninitialized dual quaternion.
-            DualQuaternion() {}
+            inline DualQuaternion() {}
 
             /// Construct a dual-quaternion from two quaternions.
-            DualQuaternion( const Quaternion& q0, const Quaternion& qe ) : m_q0( q0 ), m_qe( qe ) { }
+            inline DualQuaternion( const Quaternion& q0, const Quaternion& qe ) : m_q0( q0 ), m_qe( qe ) { }
 
             /// Default copy constructor and assignment operator.
             DualQuaternion( const DualQuaternion& other ) = default;

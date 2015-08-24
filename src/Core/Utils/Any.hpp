@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_ANY_HPP
 #define RADIUMENGINE_ANY_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
 
 #include <memory>
 
@@ -10,25 +10,25 @@ namespace Ra
     namespace Core
     {
         template <typename T>
-        inline RA_API int magicNumberFor();
-        RA_API extern int nextMagicNumber();
+        inline int magicNumberFor();
+        DLL_EXPORT extern int nextMagicNumber();
 
         class Any
         {
         public:
             template <typename T>
-            inline RA_API Any( const T& t );
+            inline Any( const T& t );
 
             template <typename T>
-            inline RA_API const T& as() const;
+            inline const T& as() const;
 
-            inline RA_API int getType() const
+            inline int getType() const
             {
                 return m_value->magicNumber;
             }
 
             template <typename T>
-            static inline RA_API int getDeclTypeFor()
+            static inline int getDeclTypeFor()
             {
                 return magicNumberFor<T>();
             }

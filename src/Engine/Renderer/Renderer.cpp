@@ -134,7 +134,7 @@ namespace Ra
 
         void Renderer::render( const RenderData& data )
         {
-            CORE_ASSERT( RadiumEngine::getInstancePtr() != nullptr, "Engine is not initialized." );
+            CORE_ASSERT( RadiumEngine::getInstance() != nullptr, "Engine is not initialized." );
 
             std::lock_guard<std::mutex> renderLock( m_renderMutex );
 
@@ -145,7 +145,7 @@ namespace Ra
 
             // 1. Gather render objects and update them
             std::vector<RenderObjectPtr> renderObjects;
-            RadiumEngine::getInstancePtr()->getRenderObjectManager()->getRenderObjects( renderObjects );
+            RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObjects( renderObjects );
             updateRenderObjectsInternal( data, renderObjects );
             m_timerData.updateEnd = Core::Timer::Clock::now();
 
@@ -638,7 +638,7 @@ namespace Ra
 
         void Renderer::reloadShaders()
         {
-            ShaderProgramManager::getInstancePtr()->reloadAllShaderPrograms();
+            ShaderProgramManager::getInstance()->reloadAllShaderPrograms();
         }
 
         void Renderer::handleFileLoading( const std::string& filename )

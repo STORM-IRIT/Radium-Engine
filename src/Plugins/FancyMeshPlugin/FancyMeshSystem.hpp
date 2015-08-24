@@ -1,6 +1,7 @@
 #ifndef FANCYMESHPLUGIN_FANCYMESHSYSTEM_HPP
 #define FANCYMESHPLUGIN_FANCYMESHSYSTEM_HPP
 
+#include <Plugins/FancyMeshPlugin/FancyMeshPlugin.hpp>
 #include <Engine/Entity/System.hpp>
 
 
@@ -29,7 +30,7 @@ namespace FancyMeshPlugin
 
 namespace FancyMeshPlugin
 {
-    class RA_API FancyMeshSystem : public Ra::Engine::System
+    class FM_PLUGIN_API FancyMeshSystem : public Ra::Engine::System
     {
     public:
         FancyMeshSystem();

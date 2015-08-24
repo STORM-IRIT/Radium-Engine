@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_SPLINE_HPP__
 #define RADIUMENGINE_SPLINE_HPP__
 
+#include <Core/RaCore.hpp>
 #include <vector>
 #include <Core/Containers/VectorArray.hpp>
 

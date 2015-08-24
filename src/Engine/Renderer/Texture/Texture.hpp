@@ -1,9 +1,9 @@
 #ifndef RADIUMENGINE_TEXTURE_HPP
 #define RADIUMENGINE_TEXTURE_HPP
 
+#include <Engine/RaEngine.hpp>
 #include <string>
 
-#include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
@@ -12,7 +12,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API Texture
+        class RA_ENGINE_API Texture
         {
         public:
             enum TextureType

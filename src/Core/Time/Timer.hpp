@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_TIMER_HPP_
 #define RADIUMENGINE_TIMER_HPP_
 
-#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
 #include <chrono>
 
 namespace Ra

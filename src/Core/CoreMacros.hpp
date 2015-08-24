@@ -65,18 +65,6 @@
 #error unsupported OS
 #endif
 
-#ifdef OS_WINDOWS
-#pragma warning(disable: 4251) // stl dllexports 
-#pragma warning(disable: 4267)
-#pragma warning(disable: 4838)
-#pragma warning(disable: 4244)
-#pragma warning(disable: 4996) // sprintf unsafe
-#pragma warning(disable: 4577) // noexcept used with no exception handling mode
-#define NOMINMAX
-#include <windows.h>
-#endif
-
-
 // Todo : endianness, pointer sixe
 
 // ----------------------------------------------------------------------------
@@ -180,6 +168,9 @@
 
 #define DEPRECATED __declspec(deprecated)
 
+#define DLL_EXPORT __declspec(dllexport)
+#define DLL_IMPORT __declspec(dllimport)
+
 #elif defined(COMPILER_GCC) || defined (COMPILER_CLANG)
 
 #define ALIGN_OF(X) __alignof__(X)
@@ -193,6 +184,9 @@
 #define NO_INLINE     __attribute__((noinline))
 
 #define DEPRECATED __attribute__((deprecated))
+
+#define DLL_EXPORT 
+#define DLL_IMPORT 
 
 #else
 #error unsupported platform
@@ -290,18 +284,19 @@ namespace compile_time_utils
 
 #if defined(COMPILER_GCC)
 // Triggered by the typedef in static assert.
-#pragma GCC diagnostic ignored "-Wunused-local-typedefs"
+    #pragma GCC diagnostic ignored "-Wunused-local-typedefs"
+#endif
+#if defined(COMPILER_MSVC)
+    #pragma warning(disable: 4244) // Conversion from double to float loses data.
+    #pragma warning(disable: 4251) // stl dllexports 
+    #pragma warning(disable: 4267) // conversion from size_t to uint
+    #pragma warning(disable: 4577) // noexcept used with no exception handling mode
+    #pragma warning(disable: 4838) // conversion from enum to uint. 
+    #pragma warning(disable: 4996) // sprintf unsafe
+    #define NOMINMAX
+    #include <windows.h>
 #endif
 
 #define eigen_assert(XXX) CORE_ASSERT(XXX, "Eigen Assert");
-
-// ----------------------------------------------------------------------------
-// Allow shared libraries linking
-// ----------------------------------------------------------------------------
-#ifdef OS_WINDOWS
-#    define RA_API __declspec(dllexport)
-#else
-#    define RA_API
-#endif
 
 #endif // RADIUMENGINE_CORE_HPP 

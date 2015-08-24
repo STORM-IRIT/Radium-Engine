@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_CAMERA_HPP
 #define RADIUMENGINE_CAMERA_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <mutex>
 #include <thread>
 
@@ -13,7 +15,7 @@ namespace Ra
     {
 
         // The class Camera defines a camera in 3D space with
-        class RA_API Camera
+        class RA_ENGINE_API Camera
         {
         public:
             // Define if the projection type.

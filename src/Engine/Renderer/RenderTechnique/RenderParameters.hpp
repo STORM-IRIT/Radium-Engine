@@ -1,9 +1,10 @@
 #ifndef RADIUMENGINE_RENDERPARAMETERS_HPP
 #define RADIUMENGINE_RENDERPARAMETERS_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <vector>
 
-#include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
 

@@ -123,7 +123,7 @@ namespace Ra
 
     void MainApplication::setupScene()
     {
-#if 0
+#if 1
         Engine::ShaderConfiguration shader( "BlinnPhong", "../Shaders" );
 
         Engine::Material* m0 = new Engine::Material( "m0" );

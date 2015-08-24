@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_SPOTLIGHT_HPP
 #define RADIUMENGINE_SPOTLIGHT_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <Core/Math/Math.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
@@ -9,7 +11,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API SpotLight : public Light
+        class RA_ENGINE_API SpotLight : public Light
         {
         public:
             struct Attenuation

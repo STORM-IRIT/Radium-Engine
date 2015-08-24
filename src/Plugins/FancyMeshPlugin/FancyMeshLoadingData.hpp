@@ -1,6 +1,8 @@
 #ifndef FANCYMESHPLUGIN_FANCYMESHLOADINGDATA_HPP
 #define FANCYMESHPLUGIN_FANCYMESHLOADINGDATA_HPP
 
+#include <Plugins/FancyMeshPlugin/FancyMeshPlugin.hpp>
+
 #include <string>
 #include <vector>
 
@@ -18,7 +20,7 @@ namespace Ra
 
 namespace FancyMeshPlugin
 {
-    struct RA_API FancyMeshData
+    struct FancyMeshData
     {
         Ra::Core::Vector4Array positions;
         Ra::Core::Vector4Array normals;
@@ -31,7 +33,7 @@ namespace FancyMeshPlugin
         std::vector<uint>      indices;
     };
 
-    struct RA_API FancyComponentData
+    struct FancyComponentData
     {
         RA_CORE_ALIGNED_NEW
         Ra::Core::Matrix4 transform;

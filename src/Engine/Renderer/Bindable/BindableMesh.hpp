@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_BINDABLEMESH_HPP
 #define RADIUMENGINE_BINDABLEMESH_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/Bindable/Bindable.hpp>
 
@@ -17,7 +19,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API BindableMesh : public Bindable
+        class RA_ENGINE_API BindableMesh : public Bindable
         {
         public:
             RA_CORE_ALIGNED_NEW

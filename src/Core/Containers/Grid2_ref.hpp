@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_GRID2_REF_HPP__
 #define RADIUMENGINE_GRID2_REF_HPP__
 
+#include <Core/RaCore.hpp>
 #include <Core/Containers/Grid.hpp>
 #include <Core/Containers/Grid2_const_ref.hpp>
 

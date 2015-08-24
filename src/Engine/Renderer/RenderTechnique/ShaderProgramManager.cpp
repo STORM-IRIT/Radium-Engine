@@ -173,4 +173,5 @@ namespace Ra
         m_shaderProgramStatus.insert( std::pair<ShaderConfiguration, ShaderProgramStatus> ( config, status ) );
     }
 
+    RA_SINGLETON_IMPLEMENTATION(Engine::ShaderProgramManager)
 } // namespace Ra

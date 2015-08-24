@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_LOADEDDATA_HPP
 #define RADIUMENGINE_LOADEDDATA_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Engine/RaEngine.hpp>
 
 #include <string>
 #include <map>

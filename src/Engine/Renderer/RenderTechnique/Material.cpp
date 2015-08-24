@@ -33,10 +33,10 @@ namespace Ra
             }
 
             // Load textures
-            TextureManager& texManager = TextureManager::getInstanceRef();
+            TextureManager* texManager = TextureManager::getInstance();
             for ( const auto& tex : m_pendingTextures )
             {
-                addTexture( tex.first, texManager.getOrLoadTexture( tex.second ) );
+                addTexture( tex.first, texManager->getOrLoadTexture( tex.second ) );
             }
 
             m_pendingTextures.clear();

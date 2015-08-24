@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_SYSTEM_HPP
 #define RADIUMENGINE_SYSTEM_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Engine/RaEngine.hpp>
 
 #include <map>
 #include <memory>
@@ -34,7 +34,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API System
+        class RA_ENGINE_API System
         {
         public:
             System();

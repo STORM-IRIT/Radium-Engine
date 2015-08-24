@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_FORWARDRENDERER_HPP
 #define RADIUMENGINE_FORWARDRENDERER_HPP
 
+#include <Engine/RaEngine.hpp>
+
 #include <vector>
 #include <array>
 #include <mutex>
@@ -42,14 +44,14 @@ namespace Ra
     namespace Engine
     {
 
-        struct RA_API RenderData
+        struct RA_ENGINE_API RenderData
         {
             Core::Matrix4 viewMatrix;
             Core::Matrix4 projMatrix;
             Scalar dt;
         };
 
-        class RA_API Renderer
+        class RA_ENGINE_API Renderer
         {
         protected:
             typedef std::shared_ptr<RenderObject> RenderObjectPtr;

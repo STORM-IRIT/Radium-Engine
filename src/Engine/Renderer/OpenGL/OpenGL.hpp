@@ -1,7 +1,8 @@
 #ifndef RADIUMENGINE_OPENGL_HPP
 #define RADIUMENGINE_OPENGL_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Engine/RaEngine.hpp>
+
 #include <Core/Log/Log.hpp>
 
 #ifdef OS_WINDOWS

@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_EVENTENUMS_HPP
 #define RADIUMENGINE_EVENTENUMS_HPP
 
+#include <Core/RaCore.hpp>
 
 namespace Ra
 {

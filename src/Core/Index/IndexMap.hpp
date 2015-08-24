@@ -1,6 +1,7 @@
 #ifndef INDEXMAP_HPP
 #define INDEXMAP_HPP
 
+#include <Core/RaCore.hpp>
 #include <deque>
 #include <algorithm>
 #include <assert.h>
@@ -17,46 +18,46 @@ namespace Ra
         {
         public:
             /// CONSTRUCTOR
-            inline RA_API IndexMap();
-            inline RA_API IndexMap( const IndexMap& id_map );
+            inline IndexMap();
+            inline IndexMap( const IndexMap& id_map );
 
             /// DESTRUCTOR
-            inline RA_API ~IndexMap() { }
+            inline ~IndexMap() { }
 
             /// INSERT
-            inline RA_API Index insert( const T& obj );
-            inline RA_API bool  insert( const T& obj, Index& idx );
+            inline Index insert( const T& obj );
+            inline bool  insert( const T& obj, Index& idx );
 
             /// REMOVE
-            inline RA_API bool  remove( const Index& idx );
-            inline RA_API bool  remove( const int      i );
+            inline bool  remove( const Index& idx );
+            inline bool  remove( const int      i );
 
             /// ACCESS
-            inline RA_API T     at( const Index& idx ) const;
-            inline RA_API T     at( const int      i ) const;
-            inline RA_API bool  at( const Index& idx, T& obj ) const;
-            inline RA_API bool  at( const int      i, T& obj ) const;
+            inline T     at( const Index& idx ) const;
+            inline T     at( const int      i ) const;
+            inline bool  at( const Index& idx, T& obj ) const;
+            inline bool  at( const int      i, T& obj ) const;
 
-            inline RA_API T&    access( const Index& idx );
-            inline RA_API T&    access( const int      i );
-            inline RA_API bool  access( const Index& idx, T& obj );
-            inline RA_API bool  access( const int      i, T& obj );
+            inline T&    access( const Index& idx );
+            inline T&    access( const int      i );
+            inline bool  access( const Index& idx, T& obj );
+            inline bool  access( const int      i, T& obj );
 
             /// SIZE
-            inline RA_API uint size() const;
-            inline RA_API void clear();
+            inline uint size() const;
+            inline void clear();
 
             /// QUERY
-            inline RA_API bool  empty() const;
-            inline RA_API bool  full()  const;
-            inline RA_API bool  contain( const Index& idx ) const;
-            inline RA_API Index index( const int i ) const;
+            inline bool  empty() const;
+            inline bool  full()  const;
+            inline bool  contain( const Index& idx ) const;
+            inline Index index( const int i ) const;
 
             /// OPERATOR
-            inline RA_API T&         operator[]( const Index& idx );
-            inline RA_API T&         operator[]( const int      i );
-            inline RA_API Index&     operator<< ( const T&     obj );
-            inline RA_API IndexMap&  operator>> ( const Index& idx );
+            inline T&         operator[]( const Index& idx );
+            inline T&         operator[]( const int      i );
+            inline Index&     operator<< ( const T&     obj );
+            inline IndexMap&  operator>> ( const Index& idx );
 
         protected:
             /// MAP ENTRY CLASS

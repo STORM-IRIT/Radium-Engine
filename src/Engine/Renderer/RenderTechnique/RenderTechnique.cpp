@@ -11,7 +11,7 @@ namespace Ra
     {
         if ( nullptr == shader )
         {
-            shader = ShaderProgramManager::getInstancePtr()->getShaderProgram( shaderConfig );
+            shader = ShaderProgramManager::getInstance()->getShaderProgram( shaderConfig );
         }
 
         if ( material )
