@@ -45,13 +45,13 @@ namespace Ra
                 };
                 std::vector<uint> indices = {0, 1, 2, 3, 4, 5};
 
-                RenderObject* ro = new Ra::Engine::RenderObject("Point primitive", comp);
-                Mesh* mesh = new Ra::Engine::Mesh("Debug Point Lines", GL_LINES);
+                RenderObject* ro = new Ra::Engine::RenderObject("Point Primitive", comp);
+                Mesh* mesh = new Ra::Engine::Mesh("Point Primitive", GL_LINES);
                 initRo(ro, mesh, vertices, indices, color);
                 return ro;
             }
 
-            RenderObject* Vector(const Component* comp, const Core::Vector3 start, const Core::Vector3 v,
+            RenderObject* Vector(const Component* comp, const Core::Vector3& start, const Core::Vector3& v,
                                  const Core::Color& color)
             {
                 Core::Vector3 end = start+v;
@@ -68,14 +68,27 @@ namespace Ra
                     start + ((1.f-arrowFract) * v) + ((arrowFract * l) * a),
                     start + ((1.f-arrowFract) * v) - ((arrowFract * l) * a)
                 };
-                std::vector<uint> indices = { 0,1,  1,2,  1,3};
+                std::vector<uint> indices = {0,1,  1,2,  1,3};
 
-                Mesh* mesh = new Ra::Engine::Mesh("Vector primitive", GL_LINES);
-                RenderObject* ro = new Ra::Engine::RenderObject("Triangle Primitive", comp);
+                Mesh* mesh = new Ra::Engine::Mesh("Vector Primitive", GL_LINES);
+                RenderObject* ro = new Ra::Engine::RenderObject("Vector Primitive", comp);
                 initRo(ro, mesh, vertices, indices, color);
                 return ro;
-            };
-            RenderObject* Triangle(const Component* comp, const Core::Vector3 a, const Core::Vector3 b, const Core::Vector3 c,
+            }
+
+            RenderObject* Ray(const Component* comp, const Core::Ray& ray, const Core::Color& color)
+            {
+                Core::Vector3 end = ray.at(FLT_MAX);
+                Core::Vector3Array vertices = { ray.m_origin, end };
+                std::vector<uint> indices = { 0, 1 };
+                Mesh* mesh = new Ra::Engine::Mesh("Ray Primitive", GL_LINES);
+                RenderObject* ro = new Ra::Engine::RenderObject("Ray Primitive", comp);
+                initRo(ro, mesh, vertices, indices, color);
+                return ro;
+            }
+
+
+            RenderObject* Triangle(const Component* comp, const Core::Vector3& a, const Core::Vector3& b, const Core::Vector3& c,
                                    const Core::Color& color, bool fill)
             {
                 Core::Vector3Array vertices = {a,b,c};
@@ -86,8 +99,43 @@ namespace Ra
 
                 GLenum renderType = fill ? GL_TRIANGLES : GL_LINES;
 
-                Mesh* mesh = new Ra::Engine::Mesh("Vector primitive", renderType);
+                Mesh* mesh = new Ra::Engine::Mesh("Triangle Primitive", renderType);
                 RenderObject* ro = new Ra::Engine::RenderObject("Triangle Primitive", comp);
+                initRo(ro, mesh, vertices, indices, color);
+                return ro;
+            }
+
+            RenderObject* Normal(const Component* comp, Core::Vector3& point, const Core::Vector3& normal,
+                const Core::Color& color, Scalar scale)
+            {
+
+                // Display an arrow (just like the Vector() function) plus the normal plane.
+                Core::Vector3 n = scale * normal.normalized();
+
+                Core::Vector3 end = point+n;
+                Core::Vector3 a,b;
+                Core::Vector::getOrthogonalVectors(n,a,b);
+                a.normalize();
+                b.normalize();
+
+                const Scalar arrowFract = 0.1f;
+
+                Core::Vector3Array vertices = {
+                    point,
+                    end,
+                    point + ((1.f-arrowFract) * n) + ((arrowFract * scale) * a),
+                    point + ((1.f-arrowFract) * n) - ((arrowFract * scale) * a),
+
+                    point + (scale * a),
+                    point + (scale * b),
+                    point - (scale * a),
+                    point - (scale * b),
+                };
+                std::vector<uint> indices = {0,1,  1,2,  1,3,
+                                             4,5, 5,6, 6,7, 7,4};
+
+                Mesh* mesh = new Ra::Engine::Mesh("Normal Primitive", GL_LINES);
+                RenderObject* ro = new Ra::Engine::RenderObject("Normal Primitive", comp);
                 initRo(ro, mesh, vertices, indices, color);
                 return ro;
             }
@@ -109,8 +157,8 @@ namespace Ra
                 };
                 std::vector<uint> indices = { 0,1, 2,3, 4,5 };
 
-                Mesh* mesh = new Ra::Engine::Mesh("Vector primitive", GL_LINES);
-                RenderObject* ro = new Ra::Engine::RenderObject("Triangle Primitive", comp);
+                Mesh* mesh = new Ra::Engine::Mesh("Frame Primitive", GL_LINES);
+                RenderObject* ro = new Ra::Engine::RenderObject("Frame Primitive", comp);
                 initRo(ro, mesh, vertices, indices, Core::Color::Ones());
 
                 Core::Vector4Array colors = {
