@@ -134,7 +134,7 @@ namespace Ra
 
         void Renderer::render( const RenderData& data )
         {
-            CORE_ASSERT(RadiumEngine::getInstancePtr() != nullptr, "Engine is not initialized." );
+            CORE_ASSERT( RadiumEngine::getInstancePtr() != nullptr, "Engine is not initialized." );
 
             std::lock_guard<std::mutex> renderLock( m_renderMutex );
 

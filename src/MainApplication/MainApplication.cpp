@@ -16,11 +16,10 @@
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 #include <Engine/Entity/Entity.hpp>
+#include <Engine/DebugDisplay/DebugDisplay.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
 
 #include <Plugins/FancyMeshPlugin/FancyMeshSystem.hpp>
-#include <Plugins/RigidBodyPlugin/RigidBodySystem.hpp>
-
 
 // Const parameters : TODO : make config / command line options
 const uint FPS_MAX = 60;
@@ -87,14 +86,14 @@ namespace Ra
         // initialized the OpenGL context..)
         processEvents();
 
+        // Create engine
+        m_engine.reset(Engine::RadiumEngine::createInstance());
+        m_engine->initialize();
+        registerSystems();
+
         m_viewer = m_mainWindow->getViewer();
         CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
         CORE_ASSERT( m_viewer->context()->isValid(), "OpenGL was not initialized" );
-
-        // Create engine
-        m_engine.reset( Engine::RadiumEngine::createInstance() );
-        m_engine->initialize();
-        registerSystems();
 
         // Pass the engine to the renderer to complete the initialization process.
         m_viewer->initRenderer();
@@ -120,15 +119,11 @@ namespace Ra
     {
         FancyMeshPlugin::FancyMeshSystem* fmSystem = new FancyMeshPlugin::FancyMeshSystem();
         m_engine->registerSystem( "FancyMeshSystem", fmSystem );
-
-#if ENABLE_PHYSICS
-        RigidBodyPlugin::RigidBodySystem* rbSystem = new RigidBodyPlugin::RigidBodySystem();
-        m_engine->registerSystem( "RigidBodySystem", rbSystem );
-#endif
     }
 
     void MainApplication::setupScene()
     {
+#if 0
         Engine::ShaderConfiguration shader( "BlinnPhong", "../Shaders" );
 
         Engine::Material* m0 = new Engine::Material( "m0" );
@@ -226,18 +221,11 @@ namespace Ra
         //transform.setIdentity();
         //transform.translation() = Core::Vector3( -2, 0, -5 );
         //ent5->setTransform( transform );
-
-#if ENABLE_PHYSICS
-        RigidBodyPlugin::RigidBodySystem* rbSystem = static_cast<RigidBodyPlugin::RigidBodySystem*>(
-                                                         m_engine->getSystem( "RigidBodySystem" ) );
-
-        rbSystem->addRigidBodyToEntity( ent0, 1.0 );
-        rbSystem->addRigidBodyToEntity( ent1, 1.0 );
-        rbSystem->addRigidBodyToEntity( ent2, 1.0 );
-        rbSystem->addRigidBodyToEntity( ent3, 1.0 );
-        rbSystem->addRigidBodyToEntity( ent4, 1.0 );
-        rbSystem->addRigidBodyToEntity( ent5, 1.0 );
 #endif
+        Engine::DebugEntity* entity = Engine::DebugEntity::createInstance();
+        Engine::DebugComponent* dbgCpt = Engine::DebugEntity::dbgCmp();
+
+        Engine::DrawPrimitives::Circle( dbgCpt, Core::Vector3( 0, 0, 0 ), 10.0, 4, Core::Color( 1.0, 0.0, 0.0, 1.0 ) );
     }
 
     void MainApplication::loadFile( QString path )

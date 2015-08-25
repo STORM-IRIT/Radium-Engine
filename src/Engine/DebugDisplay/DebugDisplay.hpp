@@ -20,7 +20,7 @@ namespace Ra
         class RenderObject;
 
         /// Component for debug drawing. @see DebugEntity.
-        class DebugComponent : public Component
+        class RA_API DebugComponent : public Component
         {
         public:
             DebugComponent();
@@ -33,7 +33,7 @@ namespace Ra
 
         /// This entity allows to add debug drawables from everywhere in the code.
         /// It should have only one component and its transform should not change.
-        class DebugEntity: public Entity, public Core::Singleton<DebugEntity>
+        class RA_API DebugEntity: public Entity, public Core::Singleton<DebugEntity>
         {
         public:
             DebugEntity();
