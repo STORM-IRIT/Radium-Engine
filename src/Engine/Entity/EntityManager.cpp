@@ -2,6 +2,7 @@
 
 #include <Core/String/StringUtils.hpp>
 #include <Engine/Entity/Entity.hpp>
+#include <Engine/DebugDisplay/DebugDisplay.hpp>
 
 namespace Ra
 {
@@ -10,6 +11,12 @@ namespace Ra
 
         EntityManager::EntityManager()
         {
+            #if !defined (RA_DISABLE_DEBUG_DISPLAY)
+            std::shared_ptr<Entity> ent( DebugEntity::createInstance() );
+            ent->idx = m_entities.insert( ent );
+            CORE_ASSERT( ent.get() == DebugEntity::getInstancePtr(), "Invalid singleton instanciation");
+            m_entitiesName.insert( std::pair< std::string, Core::Index> (ent->getName(),ent->idx ));
+            #endif
         }
 
         EntityManager::~EntityManager()

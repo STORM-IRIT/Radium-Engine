@@ -44,8 +44,7 @@ namespace Ra
         }
 
         Renderer::Renderer( uint width, uint height )
-            : m_engine( nullptr )
-            , m_width( width )
+            : m_width( width )
             , m_height( height )
             , m_shaderManager( nullptr )
             , m_displayedTexture( nullptr )
@@ -135,7 +134,7 @@ namespace Ra
 
         void Renderer::render( const RenderData& data )
         {
-            CORE_ASSERT( m_engine != nullptr, "no engine in renderer" );
+            CORE_ASSERT(RadiumEngine::getInstancePtr() != nullptr, "Engine is not initialized." );
 
             std::lock_guard<std::mutex> renderLock( m_renderMutex );
 
@@ -146,7 +145,7 @@ namespace Ra
 
             // 1. Gather render objects and update them
             std::vector<RenderObjectPtr> renderObjects;
-            m_engine->getRenderObjectManager()->getRenderObjects( renderObjects );
+            RadiumEngine::getInstancePtr()->getRenderObjectManager()->getRenderObjects( renderObjects );
             updateRenderObjectsInternal( data, renderObjects );
             m_timerData.updateEnd = Core::Timer::Clock::now();
 

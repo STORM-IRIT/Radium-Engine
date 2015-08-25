@@ -23,7 +23,6 @@ namespace Ra
 {
     namespace Engine
     {
-        class RadiumEngine;
         struct FrameInfo;
         class Component;
         class Entity;
@@ -38,7 +37,7 @@ namespace Ra
         class RA_API System
         {
         public:
-            System( RadiumEngine* engine );
+            System();
             virtual ~System();
 
             /**
@@ -108,8 +107,6 @@ namespace Ra
             virtual Component* addComponentToEntity( Engine::Entity* entity ) = 0;
 
         protected:
-            RadiumEngine* m_engine;
-
             std::map<std::string, std::shared_ptr<Component>> m_components;
         };
 

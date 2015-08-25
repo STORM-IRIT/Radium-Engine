@@ -17,7 +17,7 @@ namespace FancyMeshPlugin
     FancyMeshComponent::~FancyMeshComponent()
     {
         // TODO(Charly): Should we ask the RO manager to delete our render object ?
-        m_renderObjectManager->removeRenderObject( m_renderObject );
+        getRoMgr()->removeRenderObject( m_renderObject );
     }
 
     void FancyMeshComponent::initialize()
@@ -61,7 +61,7 @@ namespace FancyMeshPlugin
         displayMesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, mesh.m_normals );
 
         renderObject->setMesh( displayMesh );
-        m_renderObject = m_renderObjectManager->addRenderObject( renderObject );
+        m_renderObject = getRoMgr()->addRenderObject( renderObject );
     }
 
 
@@ -97,6 +97,6 @@ namespace FancyMeshPlugin
 
         renderObject->setRenderTechnique( data.renderTechnique );
 
-        m_renderObject = m_renderObjectManager->addRenderObject( renderObject );
+        m_renderObject = getRoMgr()->addRenderObject( renderObject );
     }
 } // namespace FancyMeshPlugin

@@ -13,11 +13,6 @@ namespace Ra
         return m_entity;
     }
 
-    inline void Engine::Component::setRenderObjectManager( RenderObjectManager* manager )
-    {
-        m_renderObjectManager = manager;
-    }
-
     inline const std::string& Engine::Component::getName() const
     {
         return m_name;

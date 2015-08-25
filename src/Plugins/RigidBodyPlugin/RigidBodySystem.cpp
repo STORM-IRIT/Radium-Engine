@@ -13,8 +13,7 @@
 namespace RigidBodyPlugin
 {
 
-    RigidBodySystem::RigidBodySystem( Ra::Engine::RadiumEngine* engine )
-        : Ra::Engine::System( engine )
+    RigidBodySystem::RigidBodySystem()
     {
         Ra::Core::Any::getDeclTypeFor<int>();
         Ra::Core::Any::getDeclTypeFor<Scalar>();
@@ -78,7 +77,6 @@ namespace RigidBodyPlugin
         RigidBodyComponent* comp = new RigidBodyComponent( componentName );
 
         comp->setEntity( entity );
-        comp->setRenderObjectManager( m_engine->getRenderObjectManager() );
 
         entity->addComponent( comp );
         this->addComponent( comp );

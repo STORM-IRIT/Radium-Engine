@@ -16,7 +16,6 @@ namespace Ra
 {
     namespace Engine
     {
-        class RadiumEngine;
         class Entity;
         struct RenderTechnique;
         class Component;
@@ -33,7 +32,7 @@ namespace FancyMeshPlugin
     class RA_API FancyMeshSystem : public Ra::Engine::System
     {
     public:
-        FancyMeshSystem( Ra::Engine::RadiumEngine* engine );
+        FancyMeshSystem();
         virtual ~FancyMeshSystem();
 
         virtual void initialize() override;

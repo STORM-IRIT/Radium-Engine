@@ -13,8 +13,8 @@
 namespace FancyMeshPlugin
 {
 
-    FancyMeshSystem::FancyMeshSystem( Ra::Engine::RadiumEngine* engine )
-        : Ra::Engine::System( engine )
+    FancyMeshSystem::FancyMeshSystem()
+        : Ra::Engine::System()
     {
         Ra::Core::Any::getDeclTypeFor<int>();
         Ra::Core::Any::getDeclTypeFor<Scalar>();
@@ -92,7 +92,6 @@ namespace FancyMeshPlugin
         FancyMeshComponent* component = new FancyMeshComponent( componentName );
 
         component->setEntity( entity );
-        component->setRenderObjectManager( m_engine->getRenderObjectManager() );
 
         entity->addComponent( component );
         this->addComponent( component );

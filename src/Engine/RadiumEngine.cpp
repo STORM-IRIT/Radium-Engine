@@ -23,6 +23,9 @@
 #include <Engine/Parser/Parser.hpp>
 #include <Engine/Parser/LoadedData.hpp>
 
+
+#include <Engine/DebugDisplay/DebugDisplay.hpp>
+
 namespace Ra
 {
     namespace Engine

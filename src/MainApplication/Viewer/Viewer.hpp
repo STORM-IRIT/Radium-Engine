@@ -34,7 +34,6 @@ namespace Ra
 {
     namespace Engine
     {
-        class RadiumEngine;
         class Renderer;
     }
 }
@@ -86,7 +85,7 @@ namespace Ra
             /// DESTRUCTOR
             ~Viewer();
 
-            void initRenderer( Engine::RadiumEngine* engine );
+            void initRenderer();
 
             /// Access to camera interface.
             CameraInterface* getCamera()

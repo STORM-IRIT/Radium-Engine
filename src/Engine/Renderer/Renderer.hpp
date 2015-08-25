@@ -30,7 +30,6 @@ namespace Ra
         class FBO;
         class Light;
         class Mesh;
-        class RadiumEngine;
         class ShaderProgram;
         class ShaderProgramManager;
         class Texture;
@@ -85,11 +84,6 @@ namespace Ra
             virtual ~Renderer();
 
             virtual void initialize();
-
-            void setEngine( RadiumEngine* engine )
-            {
-                m_engine = engine;
-            }
 
             const TimerData& getTimerData() const
             {
@@ -232,11 +226,6 @@ namespace Ra
 
 
         protected:
-            /**
-             * @brief Pointer to the engine, used to retrieve renderObjects.
-             */
-            RadiumEngine* m_engine;
-
             uint m_width;
             uint m_height;
 

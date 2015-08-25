@@ -37,7 +37,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_API RadiumEngine
+        class RA_API RadiumEngine : public Core::Singleton<RadiumEngine>
         {
         public:
             RadiumEngine();

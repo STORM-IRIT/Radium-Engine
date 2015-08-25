@@ -92,12 +92,12 @@ namespace Ra
         CORE_ASSERT( m_viewer->context()->isValid(), "OpenGL was not initialized" );
 
         // Create engine
-        m_engine.reset( new Engine::RadiumEngine );
+        m_engine.reset( Engine::RadiumEngine::createInstance() );
         m_engine->initialize();
         registerSystems();
 
         // Pass the engine to the renderer to complete the initialization process.
-        m_viewer->initRenderer( m_engine.get() );
+        m_viewer->initRenderer();
 
         // Create task queue with N-1 threads (we keep one for rendering).
         m_taskQueue.reset( new Core::TaskQueue( std::thread::hardware_concurrency() - 1 ) );
@@ -118,11 +118,11 @@ namespace Ra
 
     void MainApplication::registerSystems()
     {
-        FancyMeshPlugin::FancyMeshSystem* fmSystem = new FancyMeshPlugin::FancyMeshSystem( m_engine.get() );
+        FancyMeshPlugin::FancyMeshSystem* fmSystem = new FancyMeshPlugin::FancyMeshSystem();
         m_engine->registerSystem( "FancyMeshSystem", fmSystem );
 
 #if ENABLE_PHYSICS
-        RigidBodyPlugin::RigidBodySystem* rbSystem = new RigidBodyPlugin::RigidBodySystem( m_engine.get() );
+        RigidBodyPlugin::RigidBodySystem* rbSystem = new RigidBodyPlugin::RigidBodySystem();
         m_engine->registerSystem( "RigidBodySystem", rbSystem );
 #endif
     }

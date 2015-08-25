@@ -6,6 +6,7 @@
 #include <Core/Index/IndexedObject.hpp>
 
 #include <Engine/Entity/EditableProperty.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
 namespace Ra
 {
@@ -50,8 +51,6 @@ namespace Ra
              */
             virtual void setEntity( Entity* entity );
 
-            virtual void setRenderObjectManager( RenderObjectManager* renderObjectManager );
-
             virtual Entity* getEntity() const;
 
             virtual const std::string& getName() const;
@@ -71,11 +70,13 @@ namespace Ra
             virtual void setProperty( const EditableProperty& newProp ) override {};
 
         protected:
+            /// Shortcut to access the render object manager.
+            static RenderObjectManager* getRoMgr();
+
+        protected:
             std::string m_name;
 
             Entity* m_entity;
-
-            RenderObjectManager* m_renderObjectManager;
 
         };
 

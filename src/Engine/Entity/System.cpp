@@ -7,8 +7,7 @@
 namespace Ra
 {
 
-    Engine::System::System( RadiumEngine* engine )
-        : m_engine( engine )
+    Engine::System::System()
     {
     }
 

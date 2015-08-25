@@ -142,9 +142,8 @@ namespace Ra
 #endif
     }
 
-    void Gui::Viewer::initRenderer( Engine::RadiumEngine* engine )
+    void Gui::Viewer::initRenderer()
     {
-        m_renderer->setEngine( engine );
     }
 
     void Gui::Viewer::onAboutToCompose()

@@ -9,7 +9,6 @@ namespace Ra
     {
         class Component;
         class Entity;
-        class RadiumEngine;
         struct RenderTechnique;
     }
 }
@@ -24,7 +23,7 @@ namespace RigidBodyPlugin
     class RA_API RigidBodySystem : public Ra::Engine::System
     {
     public:
-        RigidBodySystem( Ra::Engine::RadiumEngine* engine );
+        RigidBodySystem();
         virtual ~RigidBodySystem();
 
         virtual void initialize() override;
