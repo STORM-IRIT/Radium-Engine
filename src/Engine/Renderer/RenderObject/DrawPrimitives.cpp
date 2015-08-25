@@ -1,4 +1,6 @@
 #include <Engine/Renderer/RenderObject/DrawPrimitives.hpp>
+
+#include <Core/Math/ColorPresets.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
@@ -162,9 +164,9 @@ namespace Ra
                 initRo(ro, mesh, vertices, indices, Core::Color::Ones());
 
                 Core::Vector4Array colors = {
-                        Core::Color(1,0,0,1), Core::Color(1,0,0,1), // red
-                        Core::Color(0,1,0,1), Core::Color(0,1,0,1), // green
-                        Core::Color(0,0,1,1), Core::Color(0,0,1,1), // blue
+                        Core::Colors::Red(), Core::Colors::Red(),
+                        Core::Colors::Green(), Core::Colors::Green(),
+                        Core::Colors::Blue(), Core::Colors::Blue(),
                 };
                 // Override colors
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
