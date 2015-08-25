@@ -11,7 +11,7 @@
 #include <Core/Utils/Singleton.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Entity/Component.hpp>
-#include <Engine/Renderer/RenderObject/DrawPrimitives.hpp>
+#include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
 namespace Ra
 {
@@ -29,7 +29,6 @@ namespace Ra
         private:
             std::vector<Core::Index> m_debugDrawableIndices;
         };
-
 
         /// This entity allows to add debug drawables from everywhere in the code.
         /// It should have only one component and its transform should not change.

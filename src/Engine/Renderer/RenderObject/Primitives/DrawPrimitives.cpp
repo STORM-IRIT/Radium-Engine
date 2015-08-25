@@ -1,4 +1,4 @@
-#include <Engine/Renderer/RenderObject/DrawPrimitives.hpp>
+#include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
 #include <Core/Math/ColorPresets.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
