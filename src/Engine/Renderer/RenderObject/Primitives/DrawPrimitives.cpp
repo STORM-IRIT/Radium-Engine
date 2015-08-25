@@ -124,7 +124,7 @@ namespace Ra
                 for (uint i = 0; i < segments; ++i)
                 {
                     Scalar x = radius * std::cos( theta ) + x0;
-                    Scalar y = radius * std::cos( theta ) + y0;
+                    Scalar y = radius * std::sin( theta ) + y0;
                     Scalar z = z0;
 
                     vertices[i] = Core::Vector3( x, y, z );
@@ -135,6 +135,7 @@ namespace Ra
                     theta += thetaInc;
                 }
 
+
                 Mesh* mesh = new Ra::Engine::Mesh( "Circle Primitive", GL_LINES );
                 RenderObject* ro = new Ra::Engine::RenderObject( "Circle Primitive", comp );
                 initRo( ro, mesh, vertices, indices, color );
@@ -144,8 +145,39 @@ namespace Ra
             RenderObject* Disk(const Component* comp, const Core::Vector3& center, 
                                Scalar radius, uint segments, const Core::Color& color)
             {
-                CORE_ERROR("Not implemented");
-                return nullptr;
+                CORE_ASSERT( segments > 2, "Cannot draw a circle with less than 3 points" );
+
+                const Scalar x0 = center.x();
+                const Scalar y0 = center.y();
+                const Scalar z0 = center.z();
+
+                uint seg = segments + 1;
+                Core::Vector3Array vertices(seg);
+                std::vector<uint> indices;
+
+                Scalar thetaInc( Core::Math::PiMul2 / Scalar( segments ) );
+                Scalar theta( 0.0 );
+
+                vertices[0] = center;
+                indices.push_back( 0 );
+                for (uint i = 1; i < seg; ++i)
+                {
+                    Scalar x = radius * std::cos( theta ) + x0;
+                    Scalar y = radius * std::sin( theta ) + y0;
+                    Scalar z = z0;
+
+                    vertices[i] = Core::Vector3( x, y, z );
+
+                    indices.push_back( i );
+
+                    theta += thetaInc;
+                }
+                indices.push_back( 1 );
+
+                Mesh* mesh = new Ra::Engine::Mesh( "Circle Primitive", GL_TRIANGLE_FAN );
+                RenderObject* ro = new Ra::Engine::RenderObject( "Circle Primitive", comp );
+                initRo( ro, mesh, vertices, indices, color );
+                return ro;
             }
 
             RenderObject* Normal(const Component* comp, const Core::Vector3& point, const Core::Vector3& normal,
