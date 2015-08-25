@@ -78,7 +78,7 @@ namespace Ra
 
             RenderObject* Ray(const Component* comp, const Core::Ray& ray, const Core::Color& color)
             {
-                Core::Vector3 end = ray.at(FLT_MAX);
+                Core::Vector3 end = ray.at(std::numeric_limits<Scalar>::max());
                 Core::Vector3Array vertices = { ray.m_origin, end };
                 std::vector<uint> indices = { 0, 1 };
                 Mesh* mesh = new Ra::Engine::Mesh("Ray Primitive", GL_LINES);
@@ -105,7 +105,7 @@ namespace Ra
                 return ro;
             }
 
-            RenderObject* Normal(const Component* comp, Core::Vector3& point, const Core::Vector3& normal,
+            RenderObject* Normal(const Component* comp, const Core::Vector3& point, const Core::Vector3& normal,
                 const Core::Color& color, Scalar scale)
             {
 
@@ -132,7 +132,7 @@ namespace Ra
                     point - (scale * b),
                 };
                 std::vector<uint> indices = {0,1,  1,2,  1,3,
-                                             4,5, 5,6, 6,7, 7,4};
+                                             4,5, 5,6, 6,7, 7,4, 4,6,  5,7};
 
                 Mesh* mesh = new Ra::Engine::Mesh("Normal Primitive", GL_LINES);
                 RenderObject* ro = new Ra::Engine::RenderObject("Normal Primitive", comp);
