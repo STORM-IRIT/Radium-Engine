@@ -12,10 +12,10 @@ namespace Ra
         namespace DrawPrimitives
         {
             // Factor common initialization code
-            void initRo(RenderObject* ro, Mesh* mesh,
-                        const Core::Vector3Array& vertices,
-                        const std::vector<uint>& indices,
-                        const Core::Color& color)
+            void initRo( RenderObject* ro, Mesh* mesh,
+                         const Core::Vector3Array& vertices,
+                         const std::vector<uint>& indices,
+                         const Core::Color& color )
             {
                 // Mesh init
                 Core::Vector4Array colors(vertices.size(), color);
@@ -24,10 +24,35 @@ namespace Ra
 
                 // Ro init
                 RenderTechnique* rt = new Ra::Engine::RenderTechnique;
+
                 rt->shaderConfig = Ra::Engine::ShaderConfiguration("Plain", "../Shaders");
                 rt->material = new Ra::Engine::Material("Default material");
                 ro->setRenderTechnique(rt);
                 ro->setMesh(mesh);
+            }
+
+            void initLineRo( RenderObject* ro, Mesh* mesh,
+                             const Core::Vector3Array& vertices,
+                             const std::vector<uint>& indices,
+                             const Core::Color& color, Scalar lineWidth )
+            {
+                Core::Vector4Array colors(vertices.size(), color);
+                mesh->loadGeometry(vertices, indices);
+                mesh->addData(Mesh::VERTEX_COLOR, colors);
+
+                // Ro init
+                RenderTechnique* rt = new Ra::Engine::RenderTechnique;
+
+                rt->shaderConfig = ShaderConfiguration( "Lines", "../Shaders",
+                                                        ShaderConfiguration::DEFAULT_SHADER_PROGRAM );
+                rt->material = new Ra::Engine::Material("Default material");
+                ro->setRenderTechnique(rt);
+                ro->setMesh(mesh);
+
+                RenderParameters params;
+                params.addParameter( "lineWidth", lineWidth );
+
+                ro->addRenderParameters( params );
             }
 
 
@@ -102,7 +127,15 @@ namespace Ra
 
                 Mesh* mesh = new Ra::Engine::Mesh("Triangle Primitive", renderType);
                 RenderObject* ro = new Ra::Engine::RenderObject("Triangle Primitive", comp);
-                initRo(ro, mesh, vertices, indices, color);
+
+                if (fill)
+                {
+                    initRo(ro, mesh, vertices, indices, color);
+                }
+                else
+                {
+                    initLineRo( ro, mesh, vertices, indices, color, 1.0 );
+                }
                 return ro;
             }
 
@@ -129,16 +162,18 @@ namespace Ra
 
                     vertices[i] = Core::Vector3( x, y, z );
 
+                    indices.push_back( (segments - 1 + i) % segments );
                     indices.push_back( i );
                     indices.push_back( ( i + 1 ) % segments );
+                    indices.push_back( ( i + 2 ) % segments );
 
                     theta += thetaInc;
                 }
 
 
-                Mesh* mesh = new Ra::Engine::Mesh( "Circle Primitive", GL_LINES );
+                Mesh* mesh = new Ra::Engine::Mesh( "Circle Primitive", GL_LINES_ADJACENCY );
                 RenderObject* ro = new Ra::Engine::RenderObject( "Circle Primitive", comp );
-                initRo( ro, mesh, vertices, indices, color );
+                initLineRo( ro, mesh, vertices, indices, color, 5.0 );
                 return ro;
             }
 
@@ -230,11 +265,14 @@ namespace Ra
                         pos, pos + scale * y,
                         pos, pos + scale * z
                 };
-                std::vector<uint> indices = { 0,1, 2,3, 4,5 };
+                std::vector<uint> indices = {
+                        0, 0, 1, 1,
+                        2, 2, 3, 3,
+                        4, 4, 5, 5 };
 
-                Mesh* mesh = new Ra::Engine::Mesh("Frame Primitive", GL_LINES);
+                Mesh* mesh = new Ra::Engine::Mesh( "Frame Primitive", GL_LINES_ADJACENCY );
                 RenderObject* ro = new Ra::Engine::RenderObject("Frame Primitive", comp);
-                initRo(ro, mesh, vertices, indices, Core::Color::Ones());
+                initLineRo(ro, mesh, vertices, indices, Core::Color::Ones(), 1.0);
 
                 Core::Vector4Array colors = {
                         Core::Colors::Red(), Core::Colors::Red(),

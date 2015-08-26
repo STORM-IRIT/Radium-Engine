@@ -10,6 +10,7 @@
 #include <Core/Index/IndexedObject.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
 namespace Ra
 {
@@ -83,6 +84,8 @@ namespace Ra
             inline const Core::Transform& getLocalTransform() const;
             inline const Core::Matrix4& getLocalTransformAsMatrix() const;
 
+            inline void addRenderParameters( const RenderParameters& parameters );
+
         private:
             Core::Transform m_localTransform;
 
@@ -93,6 +96,7 @@ namespace Ra
             RenderTechnique* m_renderTechnique;
             Mesh* m_mesh;
 
+            RenderParameters m_renderParameters;
 
             bool m_visible;
             bool m_isDirty;

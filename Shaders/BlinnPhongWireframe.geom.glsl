@@ -1,9 +1,9 @@
 layout (triangles) in;
 layout (triangle_strip, max_vertices = 3) out;
 
-in vec3 varPosition[3];
-in vec3 varNormal[3];
-in vec3 varEye[3];
+in vec3 vPosition[3];
+in vec3 vNormal[3];
+in vec3 vEye[3];
 
 out vec3 gPosition;
 out vec3 gNormal;
@@ -19,9 +19,9 @@ void main()
 
     for (int i = 0; i < 3; ++i)
     {
-        gNormal = varNormal[i];
-        gPosition = varPosition[i];
-        gEye = varEye[i];
+        gNormal = vNormal[i];
+        gPosition = vPosition[i];
+        gEye = vEye[i];
         gTriDistance = triDistances[i];
         gl_Position = gl_in[i].gl_Position; EmitVertex();
     }

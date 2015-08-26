@@ -5,6 +5,7 @@
 
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/Bindable/Bindable.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
 namespace Ra
 {
@@ -31,10 +32,18 @@ namespace Ra
 
             bool operator< ( const BindableMesh& other ) const;
 
+
+            void addRenderParameters( const RenderParameters &parameters )
+            {
+                m_renderParameters.concatParameters( parameters );
+            }
+
         private:
             Mesh* m_mesh;
             uint m_id;
             Core::Color m_idAsColor;
+
+            RenderParameters m_renderParameters;
         };
 
     } // namespace Engine

@@ -1,4 +1,5 @@
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
+#include <Core/Log/Log.hpp>
 
 namespace Ra
 {
@@ -70,6 +71,59 @@ namespace Ra
         void RenderParameters::addParameter( const char* name, Texture* tex, int texUnit )
         {
             m_texParamsVector.push_back( TextureParameter( name, tex, texUnit ) );
+        }
+
+        void RenderParameters::concatParameters( const RenderParameters &params )
+        {
+            for (const auto& param : params.m_intParamsVector)
+            {
+                m_intParamsVector.push_back( param );
+            }
+
+            for (const auto& param : params.m_uintParamsVector)
+            {
+                m_uintParamsVector.push_back( param );
+            }
+
+            for (const auto& param : params.m_scalarParamsVector)
+            {
+                m_scalarParamsVector.push_back( param );
+            }
+
+            for (const auto& param : params.m_vec2ParamsVector)
+            {
+                m_vec2ParamsVector.push_back( param );
+            }
+
+            for (const auto& param : params.m_vec3ParamsVector)
+            {
+                m_vec3ParamsVector.push_back( param );
+            }
+
+            for (const auto& param : params.m_vec4ParamsVector)
+            {
+                m_vec4ParamsVector.push_back( param );
+            }
+
+            for (const auto& param : params.m_mat2ParamsVector)
+            {
+                m_mat2ParamsVector.push_back( param );
+            }
+
+            for (const auto& param : params.m_mat3ParamsVector)
+            {
+                m_mat3ParamsVector.push_back( param );
+            }
+
+            for (const auto& param : params.m_mat4ParamsVector)
+            {
+                m_mat4ParamsVector.push_back( param );
+            }
+
+            for (const auto& param : params.m_texParamsVector)
+            {
+                m_texParamsVector.push_back( param );
+            }
         }
 
     } // namespace Engine

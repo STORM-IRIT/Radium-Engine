@@ -15,9 +15,9 @@ struct Transform
 
 uniform Transform transform;
 
-out vec3 varPosition;
-out vec3 varNormal;
-out vec3 varEye;
+out vec3 vPosition;
+out vec3 vNormal;
+out vec3 vEye;
 
 void main()
 {
@@ -29,7 +29,7 @@ void main()
 
     vec3 eye = -view[3].xyz * mat3(view);
 
-    varPosition = vec3(pos);
-    varNormal   = vec3(normal);
-    varEye = vec3(eye);
+    vPosition = vec3(pos);
+    vNormal   = vec3(normal);
+    vEye = vec3(eye);
 }

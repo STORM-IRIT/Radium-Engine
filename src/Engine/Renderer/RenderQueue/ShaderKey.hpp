@@ -2,6 +2,8 @@
 #define RADIUMENGINE_BINDABLESHADERPROGRAM_HPP
 
 #include <Engine/RaEngine.hpp>
+#include <Core/CoreMacros.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
 namespace Ra
 {

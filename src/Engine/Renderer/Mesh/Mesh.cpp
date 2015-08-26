@@ -34,6 +34,7 @@ namespace Ra
             // Not initialized yet
             return;
         }
+
         // FIXME(Charly): This seems to crash on windows
         GL_ASSERT( glBindVertexArray( m_vao ) );
 
@@ -162,7 +163,6 @@ namespace Ra
         GLboolean normalized = GL_FALSE;
         GLuint size = 4;
         GLvoid* ptr = nullptr;
-
 
         for ( uint i = 0; i < m_data.size(); ++i )
         {

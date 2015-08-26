@@ -7,6 +7,7 @@
 
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
+#include <Core/Log/Log.hpp>
 
 namespace Ra
 {
@@ -42,6 +43,9 @@ namespace Ra
                 TParameter( const char* name, const T& value )
                     : Parameter( name ), m_value( value ) {}
                 virtual void bind( ShaderProgram* shader ) const override;
+
+                std::string getName() const { return m_name; }
+                const T& getValue() const { return m_value; }
 
             private:
                 T m_value;
@@ -93,20 +97,31 @@ namespace Ra
 
             void addParameter( const char* name, Texture* tex, int texUnit );
 
+            void concatParameters( const RenderParameters& params );
+
             void bind( ShaderProgram* shader ) const;
 
+            void print() const
+            {
+                for (const auto& p : m_scalarParamsVector)
+                {
+                    LOG( logDEBUG ) << "  " << p.getName() << " : " << p.getValue();
+                }
+            }
+
         private:
+            // FIXME(Charly): Any way to simplify this a bit ?
             UniformBindableVector<IntParameter>     m_intParamsVector;
-            UniformBindableVector<UIntParameter> m_uintParamsVector;
-            UniformBindableVector<ScalarParameter>       m_scalarParamsVector;
+            UniformBindableVector<UIntParameter>    m_uintParamsVector;
+            UniformBindableVector<ScalarParameter>  m_scalarParamsVector;
 
-            UniformBindableVector<Vec2Parameter> m_vec2ParamsVector;
-            UniformBindableVector<Vec3Parameter> m_vec3ParamsVector;
-            UniformBindableVector<Vec4Parameter> m_vec4ParamsVector;
+            UniformBindableVector<Vec2Parameter>    m_vec2ParamsVector;
+            UniformBindableVector<Vec3Parameter>    m_vec3ParamsVector;
+            UniformBindableVector<Vec4Parameter>    m_vec4ParamsVector;
 
-            UniformBindableVector<Mat2Parameter> m_mat2ParamsVector;
-            UniformBindableVector<Mat3Parameter> m_mat3ParamsVector;
-            UniformBindableVector<Mat4Parameter> m_mat4ParamsVector;
+            UniformBindableVector<Mat2Parameter>    m_mat2ParamsVector;
+            UniformBindableVector<Mat3Parameter>    m_mat3ParamsVector;
+            UniformBindableVector<Mat4Parameter>    m_mat4ParamsVector;
 
             UniformBindableVector<TextureParameter> m_texParamsVector;
         };

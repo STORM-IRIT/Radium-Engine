@@ -55,6 +55,7 @@ namespace Ra
             BindableMaterial material( m_renderTechnique->material );
             BindableTransform transform( model.matrix(), view, proj );
             BindableMesh mesh( m_mesh, idx );
+            mesh.addRenderParameters( m_renderParameters );
 
             queue[shader][material][transform].push_back( mesh );
         }
@@ -69,6 +70,7 @@ namespace Ra
             newRO->setRenderObjectType( m_type );
             newRO->setRenderTechnique( m_renderTechnique );
             newRO->setVisible( m_visible );
+            newRO->addRenderParameters( m_renderParameters );
 
             if ( m_mesh )
             {

@@ -23,6 +23,7 @@ namespace Ra
 
     void Engine::BindableMesh::bind( ShaderProgram* shader ) const
     {
+        m_renderParameters.bind( shader );
         shader->setUniform( "objectId", m_idAsColor );
     }
 
