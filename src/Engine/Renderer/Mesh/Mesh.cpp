@@ -57,6 +57,22 @@ namespace Ra
         m_isDirty = true;
     }
 
+    void Engine::Mesh::loadGeometry(const Core::TriangleMesh& mesh)
+    {
+        std::vector<uint> indices;
+        for (const auto& t : mesh.m_triangles)
+        {
+            indices.push_back(t[0]);
+            indices.push_back(t[1]);
+            indices.push_back(t[2]);
+        }
+        loadGeometry(mesh.m_vertices, indices);
+        if (mesh.m_normals.size() > 0)
+        {
+            addData(VERTEX_NORMAL, mesh.m_normals);
+        }
+    }
+
     void Engine::Mesh::addData( const DataType& type, const Core::Vector3Array& data )
     {
         m_data[type].resize(data.size());
