@@ -58,12 +58,7 @@ namespace Ra
 
         bool EntityManager::entityExists( const std::string& name ) const
         {
-            if ( m_entitiesName.find( name ) != m_entitiesName.end() )
-            {
-                return true;
-            }
-
-            return false;
+            return m_entitiesName.find( name ) != m_entitiesName.end();
         }
 
         void EntityManager::removeEntity( Core::Index idx )
