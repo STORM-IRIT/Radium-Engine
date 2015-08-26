@@ -14,10 +14,6 @@ namespace Ra
     {
     }
 
-    Engine::Entity::~Entity()
-    {
-    }
-
     void Engine::Entity::addComponent( Engine::Component* component )
     {
         std::string name = component->getName();

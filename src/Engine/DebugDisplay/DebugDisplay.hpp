@@ -39,6 +39,7 @@ namespace Ra
             RA_SINGLETON_INTERFACE(DebugEntity);
         public:
             DebugEntity();
+            virtual ~DebugEntity() {};
 
             /// Access to its one component.
             DebugComponent* getDebugComponent()  const;
