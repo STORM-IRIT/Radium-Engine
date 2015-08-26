@@ -140,27 +140,24 @@ namespace Ra
             }
 
 
-            RenderObject* Circle(const Component* comp, const Core::Vector3& center, 
+            RenderObject* Circle(const Component* comp, const Core::Vector3& center, const Core::Vector3& normal,
                                  Scalar radius, uint segments, const Core::Color& color)
             {
                 CORE_ASSERT( segments > 2, "Cannot draw a circle with less than 3 points" );
 
-                const Scalar x0 = center.x();
-                const Scalar y0 = center.y();
-                const Scalar z0 = center.z();
-
                 Core::Vector3Array vertices(segments);
-                std::vector<uint> indices;
+                std::vector<uint> indices(2*segments);
+
+                Core::Vector3 xPlane, yPlane;
+                Core::Vector::getOrthogonalVectors(normal, xPlane, yPlane);
+                xPlane.normalize();
+                yPlane.normalize();
 
                 Scalar thetaInc( Core::Math::PiMul2 / Scalar( segments ) );
                 Scalar theta( 0.0 );
                 for (uint i = 0; i < segments; ++i)
                 {
-                    Scalar x = radius * std::cos( theta ) + x0;
-                    Scalar y = radius * std::sin( theta ) + y0;
-                    Scalar z = z0;
-
-                    vertices[i] = Core::Vector3( x, y, z );
+                    vertices[i] = center + radius* ( std::cos (theta) * xPlane + std::sin (theta) * yPlane );
 
                     indices.push_back( (segments - 1 + i) % segments );
                     indices.push_back( i );
@@ -177,18 +174,19 @@ namespace Ra
                 return ro;
             }
 
-            RenderObject* Disk(const Component* comp, const Core::Vector3& center, 
+            RenderObject* Disk(const Component* comp, const Core::Vector3& center, const Core::Vector3& normal,
                                Scalar radius, uint segments, const Core::Color& color)
             {
                 CORE_ASSERT( segments > 2, "Cannot draw a circle with less than 3 points" );
 
-                const Scalar x0 = center.x();
-                const Scalar y0 = center.y();
-                const Scalar z0 = center.z();
-
                 uint seg = segments + 1;
                 Core::Vector3Array vertices(seg);
                 std::vector<uint> indices;
+
+                Core::Vector3 xPlane, yPlane;
+                Core::Vector::getOrthogonalVectors(normal, xPlane, yPlane);
+                xPlane.normalize();
+                yPlane.normalize();
 
                 Scalar thetaInc( Core::Math::PiMul2 / Scalar( segments ) );
                 Scalar theta( 0.0 );
@@ -197,12 +195,8 @@ namespace Ra
                 indices.push_back( 0 );
                 for (uint i = 1; i < seg; ++i)
                 {
-                    Scalar x = radius * std::cos( theta ) + x0;
-                    Scalar y = radius * std::sin( theta ) + y0;
-                    Scalar z = z0;
 
-                    vertices[i] = Core::Vector3( x, y, z );
-
+                    vertices[i] = center + radius* ( std::cos (theta) * xPlane + std::sin (theta) * yPlane );
                     indices.push_back( i );
 
                     theta += thetaInc;

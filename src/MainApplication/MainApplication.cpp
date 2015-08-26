@@ -222,10 +222,6 @@ namespace Ra
         //transform.translation() = Core::Vector3( -2, 0, -5 );
         //ent5->setTransform( transform );
 #endif
-//        Engine::DebugEntity::getInstanceRef().setTransform( Core::Transform::Identity() );
-//        Engine::DebugComponent* dbgCpt = Engine::DebugEntity::dbgCmp();
-//
-//        dbgCpt->addDebugDrawable( Engine::DrawPrimitives::Frame( dbgCpt, Ra::Core::Transform::Identity(), 1.0 ) );
     }
 
     void MainApplication::loadFile( QString path )

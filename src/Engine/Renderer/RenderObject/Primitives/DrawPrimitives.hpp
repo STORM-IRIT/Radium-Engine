@@ -42,16 +42,18 @@ namespace Ra
                                                   const Core::Color& color,
                                                   bool fill = false);
 
-            /// Displays circle computed with given center and radius in wireframe
+            /// Displays circle computed with given center and radius, in plane normal to given vector in wireframe
             RA_ENGINE_API RenderObject* Circle( const Component* comp,
                                                 const Core::Vector3& center,
+                                                const Core::Vector3& normal,
                                                 Scalar radius,
                                                 uint segments,
                                                 const Core::Color& color);
 
-            /// Displays disk (filled circle) computed with given center and radius in wireframe
+            /// Displays disk (filled circle) computed with given center and radius, in plane normal to given vector  in wireframe
             RA_ENGINE_API RenderObject* Disk( const Component* comp,
                                               const Core::Vector3& center,
+                                              const Core::Vector3& normal,
                                               Scalar radius,
                                               uint segments,
                                               const Core::Color& color);
