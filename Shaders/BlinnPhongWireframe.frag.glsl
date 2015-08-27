@@ -2,11 +2,13 @@ struct Textures
 {
     int hasKd;
     int hasKs;
+    int hasNs;
     int hasNormal;
     int hasAlpha;
 
     sampler2D kd;
     sampler2D ks;
+    sampler2D ns;
     sampler2D normal;
     sampler2D alpha;
 };
@@ -15,6 +17,8 @@ struct Material
 {
     vec4 kd;
     vec4 ks;
+
+    float ns;
 
     Textures tex;
 };
@@ -67,13 +71,66 @@ out vec4 fragColor;
 
 in vec3 gPosition;
 in vec3 gNormal;
+in vec3 gTexcoord;
 in vec3 gEye;
 in vec3 gTriDistance;
+
+
+vec3 getKd()
+{
+    if (material.tex.hasKd == 1)
+    {
+        return vec3(texture(material.tex.kd, gTexcoord.xy));
+    }
+    else
+    {
+        return material.kd.xyz;
+    }
+}
+
+vec3 getKs()
+{
+    if (material.tex.hasKs == 1)
+    {
+        return vec3(texture(material.tex.ks, gTexcoord.xy));
+    }
+    else
+    {
+        return material.ks.xyz;
+    }
+}
+
+float getNs()
+{
+    if (material.tex.hasNs == 1)
+    {
+        return texture(material.tex.ns, gTexcoord.xy).r;
+    }
+
+    return material.ns;
+}
+
+vec3 getNormal()
+{
+    float dir = gl_FrontFacing ? 1.0 : -1.0;
+    if (material.tex.hasNormal == 1)
+    {
+        vec3 n = normalize(vec3(texture(material.tex.normal, gTexcoord.xy)));
+        n = n * 2 - 1;
+        return dir * n;
+    }
+    else
+    {
+        return vec3(dir * normalize(gNormal));
+    }
+}
+
 
 vec3 blinnPhongInternal(vec3 d, vec3 n)
 {
     vec3 direction = normalize(d);
     vec3 normal = normalize(n);
+
     float diffFactor = dot(normal, -direction);
 
     vec3 diff = vec3(0);
@@ -81,16 +138,16 @@ vec3 blinnPhongInternal(vec3 d, vec3 n)
 
     if (diffFactor > 0.0)
     {
-        diff = diffFactor * light.color.xyz * material.kd.xyz;
+        diff = diffFactor * light.color.xyz * getKd();
 
         vec3 vertToEye = normalize(gEye - gPosition);
-        vec3 lightReflect = normalize(reflect(direction, normal));
+        vec3 lightReflect = normalize(reflect(-direction, normal));
         float specFactor = dot(vertToEye, lightReflect);
 
         if (specFactor > 0.0)
         {
-            specFactor = pow(specFactor, 64.0);
-            spec = specFactor * light.color.xyz * material.ks.xyz;
+            specFactor = pow(specFactor, getNs());
+            spec = specFactor * light.color.xyz * getKs();
         }
     }
 
@@ -99,7 +156,7 @@ vec3 blinnPhongInternal(vec3 d, vec3 n)
 
 vec3 blinnPhongSpot()
 {
-    vec3 dir = light.spot.direction;
+    vec3 dir = -light.spot.direction;
     vec3 color;
 
     float d = length(dir);
@@ -110,20 +167,20 @@ vec3 blinnPhongSpot()
 
     vec3 lightToPixel = normalize(gPosition - light.spot.position);
 
-    float cosRealAngle = dot(lightToPixel, -normalize(dir));
+    float cosRealAngle = dot(lightToPixel, normalize(dir));
     float cosSpotOuter = cos(light.spot.innerAngle / 2.0);
 
     float radialAttenuation = pow(clamp((cosRealAngle - cosSpotOuter) /
                                         (1.0 - cosSpotOuter), 0.0, 1.0), 1.6);
 
-    color = blinnPhongInternal(-dir, gNormal);
+    color = blinnPhongInternal(dir, getNormal());
     return color * attenuation * radialAttenuation;
 }
 
 vec3 blinnPhongPoint()
 {
     vec3 dir = gPosition - light.point.position;
-    vec3 color = blinnPhongInternal(normalize(dir), normalize(gNormal));
+    vec3 color = blinnPhongInternal(normalize(dir), getNormal());
 
     float d = length(dir);
     float attenuation = light.point.attenuation.constant +
@@ -135,7 +192,7 @@ vec3 blinnPhongPoint()
 
 vec3 blinnPhongDirectional()
 {
-    return blinnPhongInternal(light.directional.direction, normalize(gNormal));
+    return blinnPhongInternal(light.directional.direction, getNormal());
 }
 
 float amplify(float d, float scale, float offset)
@@ -173,18 +230,10 @@ void main()
     }
 
     float d1 = min(min(gTriDistance.x, gTriDistance.y), gTriDistance.z);
-    float d = amplify(d1, 40, -0.5);
+    // NOTE(Charly): Play with the params
+    float d = amplify(d1, 90, 0.0);
 
-    // FIXME(Charly): Add uniform
-    if (plainRendering == 0)
-    {
-        if (d > 0.7)
-        {
-            discard;
-        }
-    }
-
-    color = amplify(d1, 40, -0.5) * color;
+    color = d * color;
 
     fragColor = vec4(color, 1.0);
 }

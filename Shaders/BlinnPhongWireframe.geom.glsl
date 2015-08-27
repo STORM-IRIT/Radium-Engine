@@ -3,10 +3,12 @@ layout (triangle_strip, max_vertices = 3) out;
 
 in vec3 vPosition[3];
 in vec3 vNormal[3];
+in vec3 vTexcoord[3];
 in vec3 vEye[3];
 
 out vec3 gPosition;
 out vec3 gNormal;
+out vec3 gTexcoord;
 out vec3 gEye;
 out vec3 gTriDistance;
 
@@ -22,6 +24,7 @@ void main()
         gNormal = vNormal[i];
         gPosition = vPosition[i];
         gEye = vEye[i];
+        gTexcoord = vTexcoord[i];
         gTriDistance = triDistances[i];
         gl_Position = gl_in[i].gl_Position; EmitVertex();
     }

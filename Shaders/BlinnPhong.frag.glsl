@@ -143,7 +143,7 @@ vec3 blinnPhongInternal(vec3 d, vec3 n)
 
         if (specFactor > 0.0)
         {
-            specFactor = pow(specFactor, /*getNs()*/10);
+            specFactor = pow(specFactor, getNs());
             spec = specFactor * light.color.xyz * getKs();
         }
     }
