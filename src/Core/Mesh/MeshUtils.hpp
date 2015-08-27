@@ -55,12 +55,20 @@ namespace Ra
             /// Create an axis-aligned cubic mesh
             RA_CORE_API TriangleMesh makeBox( const Aabb& aabb );
 
-            /// Create a parametric spheric mesh of given radius. Template parameters set the resolution.
+            /// Create a parametric spherical mesh of given radius. Template parameters set the resolution.
             template<uint U = 16, uint V = U>
             TriangleMesh makeParametricSphere( Scalar radius = 1.0 );
 
-            /// Create a spheric mesh by subdivision of an icosahedron.
+            /// Create a spherical mesh by subdivision of an icosahedron.
             RA_CORE_API TriangleMesh makeGeodesicSphere( Scalar radius = 1.f, uint numSubdiv = 3 );
+
+            /// Create a cylinder approximation (n-faced prism) with base faces centered on A and B
+            /// with given radius.
+            RA_CORE_API TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, uint nFaces = 32);
+
+            /// Create a cone approximation (n-faced pyramid) with base face centered on base, pointing
+            /// towards tip with given base radius.
+            RA_CORE_API TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, uint nFaces = 32);
 
             //
             // Checks

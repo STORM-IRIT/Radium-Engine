@@ -101,8 +101,6 @@ namespace Ra
                 checkConsistency( result );
                 return result;
             }
-
-
         }
     }
 }
