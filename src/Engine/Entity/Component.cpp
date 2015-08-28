@@ -5,8 +5,6 @@
 #include <Engine/Entity/System.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
-#include <Engine/Renderer/RenderObject/Gizmo/Gizmo.hpp>
-
 namespace Ra
 {
     namespace Engine
