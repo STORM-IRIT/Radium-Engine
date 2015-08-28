@@ -2,53 +2,70 @@
 
 #include <Core/String/StringUtils.hpp>
 #include <Engine/Entity/Component.hpp>
+#include <Engine/Entity/Entity.hpp>
 
 namespace Ra
 {
-
-    Engine::System::System()
+    namespace Engine
     {
-    }
-
-    Engine::System::~System()
-    {
-        for ( auto& component : m_components )
+        System::System()
         {
-            component.second.reset();
         }
 
-        m_components.clear();
+        System::~System()
+        {
+            for ( auto& component : m_components )
+            {
+                component.second.reset();
+            }
+
+            m_components.clear();
+        }
+
+        void System::addComponent( Component* component )
+        {
+            std::shared_ptr<Component> comp( component );
+            std::string name = component->getName();
+
+            std::string err;
+            Core::StringUtils::stringPrintf( err, "The component \"%s\" has already been added to the system.",
+                                             name.c_str());
+            CORE_ASSERT( m_components.find( name ) == m_components.end(), err.c_str());
+
+            m_components[name] = comp;
+
+        }
+
+        void System::removeComponent( const std::string& name )
+        {
+            std::string err;
+            Core::StringUtils::stringPrintf( err, "The component \"%s\" does not exist in the system.",
+                                             name.c_str());
+            CORE_ASSERT( m_components.find( name ) != m_components.end(), err.c_str());
+
+            std::shared_ptr<Component> component = m_components[name];
+            component.reset();
+            m_components.erase( name );
+        }
+
+        void System::removeComponent( Engine::Component* component )
+        {
+            removeComponent( component->getName());
+        }
+
+        Component* System::addComponentToEntity( Entity* entity )
+        {
+            uint id = entity->getComponentsCount();
+            Component* component = addComponentToEntityInternal( entity, id );
+
+            component->setEntity( entity );
+
+            entity->addComponent( component );
+            this->addComponent( component );
+
+            component->initialize();
+
+            return component;
+        }
     }
-
-    void Engine::System::addComponent( Engine::Component* component )
-    {
-        std::shared_ptr<Component> comp( component );
-        std::string name = component->getName();
-
-        std::string err;
-        Core::StringUtils::stringPrintf( err, "The component \"%s\" has already been added to the system.",
-                                         name.c_str() );
-        CORE_ASSERT( m_components.find( name ) == m_components.end(), err.c_str() );
-
-        m_components[name] = comp;
-
-    }
-
-    void Engine::System::removeComponent( const std::string& name )
-    {
-        std::string err;
-        Core::StringUtils::stringPrintf( err, "The component \"%s\" does not exist in the system.",
-                                         name.c_str() );
-        CORE_ASSERT( m_components.find( name ) != m_components.end(), err.c_str() );
-
-        std::shared_ptr<Component> component = m_components[name];
-        component.reset();
-        m_components.erase( name );
-    }
-
-    void Engine::System::removeComponent( Engine::Component* component )
-    {
-        removeComponent( component->getName() );
-    }
-
 } // namespace Ra

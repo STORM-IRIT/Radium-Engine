@@ -40,8 +40,6 @@ namespace FancyMeshPlugin
         virtual void handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder,
                                         const std::map<std::string, Ra::Core::Any>& data ) override;
 
-        virtual Ra::Engine::Component* addComponentToEntity( Ra::Engine::Entity* entity ) override;
-
         virtual void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;
 
         // Specialized factory methods for this systems.
@@ -49,6 +47,10 @@ namespace FancyMeshPlugin
         FancyMeshComponent* addFancyMeshToEntity( Ra::Engine::Entity* entity,
                                                   const Ra::Core::TriangleMesh& mesh,
                                                   Ra::Engine::RenderTechnique* technique );
+
+    protected:
+        virtual Ra::Engine::Component* addComponentToEntityInternal(
+                Ra::Engine::Entity* entity, uint id ) override;
     };
 
 } // namespace FancyMeshPlugin

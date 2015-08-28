@@ -84,19 +84,10 @@ namespace FancyMeshPlugin
         component->handleMeshLoading( componentData );
     }
 
-    Ra::Engine::Component* FancyMeshSystem::addComponentToEntity( Ra::Engine::Entity* entity )
+    Ra::Engine::Component* FancyMeshSystem::addComponentToEntityInternal( Ra::Engine::Entity* entity, uint id )
     {
-        uint componentId = entity->getComponentsMap().size();
-
-        std::string componentName = "FancyMeshComponent_" + entity->getName() + std::to_string( componentId++ );
+        std::string componentName = "FancyMeshComponent_" + entity->getName() + std::to_string( id );
         FancyMeshComponent* component = new FancyMeshComponent( componentName );
-
-        component->setEntity( entity );
-
-        entity->addComponent( component );
-        this->addComponent( component );
-
-        component->initialize();
 
         return component;
     }

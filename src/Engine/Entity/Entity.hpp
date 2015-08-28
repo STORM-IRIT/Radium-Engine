@@ -56,6 +56,8 @@ namespace Ra
 
             void swapTransformBuffers();
 
+            inline uint getComponentsCount() const;
+
         private:
             Core::Transform m_transform;
             Core::Transform m_doubleBufferedTransform;
