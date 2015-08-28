@@ -37,7 +37,7 @@ namespace Ra
                 bool hasDuplicates = false;
                 duplicatesMap.clear();
                 const uint numVerts = mesh.m_vertices.size();
-                duplicatesMap.resize( numVerts, -1 );
+                duplicatesMap.resize( numVerts,VertexIdx(-1) );
 
                 VectorArray<Vector3>::const_iterator vertPos;
                 VectorArray<Vector3>::const_iterator duplicatePos;
@@ -288,6 +288,92 @@ namespace Ra
                 return result;
             }
 
+            TriangleMesh makeTube(const Vector3& a, const Vector3& b, Scalar outerRadius, Scalar innerRadius, uint nFaces)
+            {
+
+                CORE_ASSERT(outerRadius > innerRadius, "Outer radius must be bigger than inner.");
+
+                TriangleMesh result;
+
+                Core::Vector3 ab = b - a;
+
+                //  Create two circles normal centered on A and B and normal to ab;
+                Core::Vector3 xPlane, yPlane;
+                Core::Vector::getOrthogonalVectors(ab, xPlane, yPlane);
+                xPlane.normalize();
+                yPlane.normalize();
+
+                Core::Vector3 c = 0.5 * (a + b);
+
+                const Scalar thetaInc(Core::Math::PiMul2 / Scalar(nFaces));
+                for (uint i = 0; i < nFaces; ++i)
+                {
+                    const Scalar theta = i * thetaInc;
+                    result.m_vertices.push_back(
+                            a + outerRadius * (std::cos(theta) * xPlane + std::sin(theta) * yPlane));
+                    result.m_vertices.push_back(
+                            c + outerRadius * (std::cos(theta) * xPlane + std::sin(theta) * yPlane));
+                    result.m_vertices.push_back(
+                            b + outerRadius * (std::cos(theta) * xPlane + std::sin(theta) * yPlane));
+
+                    result.m_vertices.push_back(
+                            a + innerRadius * (std::cos(theta) * xPlane + std::sin(theta) * yPlane));
+                    result.m_vertices.push_back(
+                            c + innerRadius * (std::cos(theta) * xPlane + std::sin(theta) * yPlane));
+                    result.m_vertices.push_back(
+                            b + innerRadius * (std::cos(theta) * xPlane + std::sin(theta) * yPlane));
+                }
+
+
+                for (uint i = 0; i < nFaces; ++i)
+                {
+                    // Outer face.
+                    uint obl = 6 * i; // bottom left corner of outer face
+                    uint obr = 6 * ((i + 1) % nFaces); // bottom right corner of outer face
+                    uint oml = obl + 1; // mid left
+                    uint omr = obr + 1; // mid right
+                    uint otl = oml + 1; // top left
+                    uint otr = omr + 1; // top right
+
+                    // Inner face
+                    uint ibl = 6 * i + 3; // bottom left corner of inner face
+                    uint ibr = 6 * ((i + 1) % nFaces) + 3; // bottom right corner of inner face
+                    uint iml = ibl + 1; // mid left
+                    uint imr = ibr + 1; // mid right
+                    uint itl = iml + 1; // top left
+                    uint itr = imr + 1; // top right
+
+                    // Outer face triangles, just like a regular cylinder.
+
+                    result.m_triangles.push_back(Triangle(obl, obr, oml));
+                    result.m_triangles.push_back(Triangle(obr, omr, oml));
+
+                    result.m_triangles.push_back(Triangle(oml, omr, otl));
+                    result.m_triangles.push_back(Triangle(omr, otr, otl));
+
+                    // Inner face triangles (note how order is reversed because inner face points inwards).
+
+                    result.m_triangles.push_back(Triangle(ibr, ibl, iml));
+                    result.m_triangles.push_back(Triangle(ibr, iml, imr));
+
+                    result.m_triangles.push_back(Triangle(imr, iml, itl));
+                    result.m_triangles.push_back(Triangle(imr, itl, itr));
+
+                    // Bottom face quad
+                    result.m_triangles.push_back(Triangle(ibr, obr, ibl));
+                    result.m_triangles.push_back(Triangle(obl, ibl, obr));
+
+                    // Top face quad
+                    result.m_triangles.push_back(Triangle(otr, itr, itl));
+                    result.m_triangles.push_back(Triangle(itl, otl, otr));
+
+                }
+                getAutoNormals(result, result.m_normals);
+                checkConsistency(result);
+                return result;
+            }
+
+
             TriangleMesh makeCone(const Vector3& base, const Vector3& tip, Scalar radius, uint nFaces)
             {
                 TriangleMesh result;
@@ -329,10 +415,12 @@ namespace Ra
                 std::vector<bool> visited( mesh.m_vertices.size(), false );
                 for ( uint t = 0 ; t < mesh.m_triangles.size(); ++t )
                 {
+                    std::string errStr;
+                    StringUtils::stringPrintf( errStr, "Triangle %d is degenerate", t);
+                    CORE_ASSERT(getTriangleArea(mesh,t) > 0.f , errStr.c_str());
                     const Triangle& tri = mesh.m_triangles[t];
                     for ( uint i = 0; i < 3; ++i )
                     {
-                        std::string errStr;
                         StringUtils::stringPrintf( errStr, "Vertex %d is in triangle %d (#%d) is out of bounds", tri[i], t, i );
                         CORE_ASSERT( uint( tri[i] ) < mesh.m_vertices.size(), errStr.c_str() );
                         visited[tri[i]] = true;

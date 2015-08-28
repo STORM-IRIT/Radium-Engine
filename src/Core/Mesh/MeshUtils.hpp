@@ -40,6 +40,7 @@ namespace Ra
             //
             // Primitive construction
             //
+
             /// Create a 2D quad mesh given half extents, centered on the origin with x axis as normal
             RA_CORE_API TriangleMesh makeXNormalQuad( const Vector2& halfExts = Vector2( 0.5, 0.5 ) );
 
@@ -65,6 +66,10 @@ namespace Ra
             /// Create a cylinder approximation (n-faced prism) with base faces centered on A and B
             /// with given radius.
             RA_CORE_API TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, uint nFaces = 32);
+
+            /// Create a tube (empty cylinder) delimited by two radii, with bases centered on A and B.
+            /// Outer radius must be larger than inner radius.
+            RA_CORE_API TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar outerRadius, Scalar InnerRadius, uint nFaces = 32);
 
             /// Create a cone approximation (n-faced pyramid) with base face centered on base, pointing
             /// towards tip with given base radius.
