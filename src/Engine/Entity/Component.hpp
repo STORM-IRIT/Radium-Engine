@@ -56,6 +56,8 @@ namespace Ra
 
             virtual const std::string& getName() const;
 
+            void addDrawable(RenderObject* ro) const;
+
             //
             // Editable interface.
             //

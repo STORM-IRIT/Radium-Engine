@@ -20,4 +20,9 @@ namespace Ra
     {
         return RadiumEngine::getInstance()->getRenderObjectManager();
     }
+
+    void Engine::Component::addDrawable(Engine::RenderObject* ro) const
+    {
+        getRoMgr()->addRenderObject(ro);
+    }
 } // namespace Ra

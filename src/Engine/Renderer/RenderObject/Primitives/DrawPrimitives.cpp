@@ -2,8 +2,8 @@
 
 #include <Core/Math/ColorPresets.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
 
 namespace Ra
 {
@@ -23,10 +23,10 @@ namespace Ra
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
                 // Ro init
-                RenderTechnique* rt = new Ra::Engine::RenderTechnique;
+                RenderTechnique* rt = new RenderTechnique;
 
-                rt->shaderConfig = Ra::Engine::ShaderConfiguration("Plain", "../Shaders");
-                rt->material = new Ra::Engine::Material("Default material");
+                rt->shaderConfig = ShaderConfiguration("Plain", "../Shaders");
+                rt->material = new Material("Default material");
                 ro->setRenderTechnique(rt);
                 ro->setMesh(mesh);
             }
