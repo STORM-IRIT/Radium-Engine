@@ -20,6 +20,8 @@
 #include <MainApplication/Gui/MainWindow.hpp>
 
 #include <Plugins/FancyMeshPlugin/FancyMeshSystem.hpp>
+#include <MainApplication/Gui/Gizmo/Gizmo.hpp>
+
 
 // Const parameters : TODO : make config / command line options
 
@@ -195,6 +197,9 @@ namespace Ra
         transform.setIdentity();
         transform.translation() = Core::Vector3( 0, 0, -3 );
         ent1->setTransform( transform );
+
+        Gizmo* gz = new TranslateGizmo(Engine::DebugEntity::dbgCmp(),transform);
+
 
         //Engine::Entity* ent2 = manager->getOrCreateEntity( "box2" );
         //fmSystem->addFancyMeshToEntity( ent2, Core::MeshUtils::makeBox(), r2 );
