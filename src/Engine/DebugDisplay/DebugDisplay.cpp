@@ -9,7 +9,6 @@ namespace Ra
         {
         }
 
-
         void DebugComponent::addDebugDrawable(RenderObject* ro)
         {
             m_debugDrawableIndices.push_back(getRoMgr()->addRenderObject(ro));
@@ -18,7 +17,7 @@ namespace Ra
         DebugEntity::DebugEntity()
         : Entity("Debug Display Entity")
         {
-            addComponent(new DebugComponent);
+            addComponent( new DebugComponent );
         }
 
         DebugComponent* DebugEntity::getDebugComponent() const

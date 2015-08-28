@@ -4,6 +4,8 @@
 #include <Core/String/StringUtils.hpp>
 #include <Engine/Entity/Component.hpp>
 
+#include <Engine/Entity/System.hpp>
+
 namespace Ra
 {
     namespace Engine
@@ -16,6 +18,18 @@ namespace Ra
                 , m_name( name )
                 , m_transformChanged( false )
         {
+        }
+
+        Entity::~Entity()
+        {
+            for ( const auto& component : m_components )
+            {
+                System* system = component.second->getSystem();
+                if ( system != nullptr )
+                {
+                    system->removeComponent( component.first );
+                }
+            }
         }
 
         void Entity::addComponent( Engine::Component* component )
@@ -49,14 +63,30 @@ namespace Ra
             std::string err;
             Core::StringUtils::stringPrintf( err, "The component \"%s\" is not part of the entity \"%s\"",
                                              name.c_str(), m_name.c_str());
-            CORE_ASSERT( m_components.find( name ) != m_components.end(), err.c_str());
 
-            m_components.erase( name );
+            auto it = m_components.find( name );
+
+            CORE_ASSERT( it != m_components.end(), err.c_str());
+
+            if ( it != m_components.end() )
+            {
+                System* system = it->second->getSystem();
+                if ( system != nullptr )
+                {
+                    system->removeComponent( it->first );
+                }
+                m_components.erase( it );
+            }
+            else
+            {
+                LOG( logERROR ) << "Trying to remove component " << name
+                                << " which is not attached to the entity.";
+            }
         }
 
         void Entity::removeComponent( Engine::Component* component )
         {
-            removeComponent( component->getName());
+            removeComponent( component->getName() );
         }
 
         const std::map<std::string, Engine::Component*>& Engine::Entity::getComponentsMap() const

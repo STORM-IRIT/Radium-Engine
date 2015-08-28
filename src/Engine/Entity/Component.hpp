@@ -56,6 +56,11 @@ namespace Ra
 
             virtual const std::string& getName() const;
 
+            virtual void setSystem( System* system );
+            virtual System* getSystem() const;
+
+            virtual void addRenderObjectToComponent( RenderObject* renderObject ) final;
+
             //
             // Editable interface.
             //
@@ -75,9 +80,12 @@ namespace Ra
             static RenderObjectManager* getRoMgr();
 
         protected:
-            std::string m_name;
 
+            std::string m_name;
             Entity* m_entity;
+            System* m_system;
+
+            std::vector<Core::Index> m_renderObjects;
 
         };
 

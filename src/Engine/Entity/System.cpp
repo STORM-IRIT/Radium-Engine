@@ -14,12 +14,11 @@ namespace Ra
 
         System::~System()
         {
+            // Should be already cleared, but just in case ...
             for ( auto& component : m_components )
             {
                 component.second.reset();
             }
-
-            m_components.clear();
         }
 
         void System::addComponent( Component* component )
@@ -34,18 +33,23 @@ namespace Ra
 
             m_components[name] = comp;
 
+            component->setSystem( this );
         }
 
         void System::removeComponent( const std::string& name )
         {
-            std::string err;
-            Core::StringUtils::stringPrintf( err, "The component \"%s\" does not exist in the system.",
-                                             name.c_str());
-            CORE_ASSERT( m_components.find( name ) != m_components.end(), err.c_str());
-
-            std::shared_ptr<Component> component = m_components[name];
-            component.reset();
-            m_components.erase( name );
+            auto it = m_components.find( name );
+            if ( it != m_components.end() )
+            {
+                std::shared_ptr<Component> component = m_components[name];
+                component.reset();
+                m_components.erase( name );
+            }
+            else
+            {
+                LOG( logERROR ) << "Trying to remove component " << name
+                                << " which is not attached to the system.";
+            }
         }
 
         void System::removeComponent( Engine::Component* component )

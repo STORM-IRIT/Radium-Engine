@@ -49,13 +49,13 @@ namespace Ra
 
         void RadiumEngine::cleanup()
         {
+            m_entityManager.reset();
+            m_renderObjectManager.reset();
+
             for ( auto& system : m_systems )
             {
                 system.second.reset();
             }
-
-            m_entityManager.reset();
-            m_renderObjectManager.reset();
         }
 
         void RadiumEngine::synchronizationPoint()
