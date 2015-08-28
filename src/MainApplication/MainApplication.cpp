@@ -22,7 +22,7 @@
 #include <Plugins/FancyMeshPlugin/FancyMeshSystem.hpp>
 
 // Const parameters : TODO : make config / command line options
-const uint FPS_MAX = 60;
+
 
 namespace Ra
 {
@@ -34,6 +34,7 @@ namespace Ra
         , m_viewer( nullptr )
         , m_frameTimer( new QTimer( this ) )
         , m_frameCounter( 0 )
+        , m_isAboutToQuit( false )
         //, m_timerData(TIMER_AVERAGE)
     {
         // Boilerplate print.
@@ -71,11 +72,11 @@ namespace Ra
         QSurfaceFormat format;
         format.setVersion( 4, 4 );
         format.setProfile( QSurfaceFormat::CoreProfile );
-        format.setSamples( 0 );
         format.setDepthBufferSize( 24 );
         format.setStencilBufferSize( 8 );
         format.setSamples( 16 );
         format.setSwapBehavior( QSurfaceFormat::DoubleBuffer );
+        format.setSwapInterval( 0 );
         QSurfaceFormat::setDefaultFormat( format );
 
         // Create main window.
@@ -107,12 +108,13 @@ namespace Ra
         emit starting();
 
         m_lastFrameStart = Core::Timer::Clock::now();
-        m_frameTimer->start( 1000 / FPS_MAX );
     }
 
     void MainApplication::createConnections()
     {
-        connect( m_frameTimer, SIGNAL( timeout() ), this, SLOT( radiumFrame() ) );
+//        connect( m_frameTimer, SIGNAL( timeout() ), this, SLOT( radiumFrame() ) );
+        connect( m_mainWindow.get(), SIGNAL( closed() ),
+                 this, SLOT( appNeedsToQuit() ) );
     }
 
     void MainApplication::registerSystems()
@@ -247,7 +249,6 @@ namespace Ra
         const Scalar dt = Core::Timer::getIntervalSeconds( m_lastFrameStart, timerData.frameStart );
         m_lastFrameStart = timerData.frameStart;
 
-
         // ----------
         // 1. Gather user input and dispatch it.
         auto keyEvents = m_mainWindow->getKeyEvents();
@@ -288,7 +289,11 @@ namespace Ra
         timerData.renderData = m_viewer->getRenderer()->getTimerData();
 
         // ----------
-        // 5. Frame end.
+        // 5. Synchronize whatever needs synchronisation
+        m_engine->synchronizationPoint();
+
+        // ----------
+        // 6. Frame end.
         timerData.frameEnd = Core::Timer::Clock::now();
         timerData.numFrame = m_frameCounter;
 
@@ -302,6 +307,11 @@ namespace Ra
         }
     }
 
+    void MainApplication::appNeedsToQuit()
+    {
+        LOG( logDEBUG ) << "About to quit.";
+        m_isAboutToQuit = true;
+    }
 
     MainApplication::~MainApplication()
     {

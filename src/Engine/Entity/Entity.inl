@@ -1,4 +1,5 @@
 #include <Engine/Entity/Entity.hpp>
+#include <Core/Log/Log.hpp>
 
 namespace Ra
 {
@@ -15,14 +16,18 @@ namespace Ra
 
     inline void Engine::Entity::setTransform( const Core::Transform& transform )
     {
-        std::lock_guard<std::mutex> lock( m_transformMutex );
-        m_transform = transform;
+        if ( m_transformChanged )
+        {
+            LOG( logWARNING ) << "This entity transform has already been set during this frame, ignored.";
+            return;
+        }
+        m_transformChanged = true;
+        m_doubleBufferedTransform = transform;
     }
 
     inline void Engine::Entity::setTransform( const Core::Matrix4& transform )
     {
-        std::lock_guard<std::mutex> lock( m_transformMutex );
-        m_transform = Core::Transform( transform );
+        setTransform( Core::Transform( transform ) );
     }
 
     inline Core::Transform Engine::Entity::getTransform() const

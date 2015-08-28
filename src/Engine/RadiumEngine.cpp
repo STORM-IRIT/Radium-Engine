@@ -58,6 +58,12 @@ namespace Ra
             m_renderObjectManager.reset();
         }
 
+        void RadiumEngine::synchronizationPoint()
+        {
+            m_entityManager->swapBuffers();
+            m_renderObjectManager->swapBuffers();
+        }
+
         void RadiumEngine::getTasks( Core::TaskQueue* taskQueue,  Scalar dt )
         {
             FrameInfo frameInfo;

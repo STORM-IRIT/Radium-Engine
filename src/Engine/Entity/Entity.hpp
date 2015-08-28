@@ -50,13 +50,16 @@ namespace Ra
             Component* getComponent( const std::string& name );
             const std::map<std::string, Engine::Component*>& getComponentsMap() const;
 
-
             // Editable Interface
             virtual void getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const override;
             virtual void setProperty( const EditableProperty& prop ) override;
 
+            void swapTransformBuffers();
+
         private:
             Core::Transform m_transform;
+            Core::Transform m_doubleBufferedTransform;
+            bool m_transformChanged;
 
             std::string m_name;
 
