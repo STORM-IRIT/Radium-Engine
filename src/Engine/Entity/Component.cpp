@@ -4,8 +4,6 @@
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Entity/System.hpp>
 
-#include <Engine/Renderer/RenderObject/Gizmo/Gizmo.hpp>
-
 namespace Ra
 {
 
