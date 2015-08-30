@@ -2,6 +2,7 @@
 #define RADIUMENGINE_GIZMO_HPP_
 
 #include <vector>
+
 #include <Core/Math/LinearAlgebra.hpp>
 
 namespace Ra{ namespace Engine { class Component; }}
@@ -28,7 +29,6 @@ namespace Ra
         public:
             // Draw a frame with : 3 RGB arrows
             TranslateGizmo(Engine::Component* c, const Core::Transform& t);
-
         };
 }
 
