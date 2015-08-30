@@ -5,15 +5,6 @@ namespace Ra
 {
     namespace Engine
     {
-        DebugComponent::DebugComponent() : Component("Debug Display Component")
-        {
-        }
-
-        void DebugComponent::addDebugDrawable(RenderObject* ro)
-        {
-            m_debugDrawableIndices.push_back(getRoMgr()->addRenderObject(ro));
-        }
-
         DebugEntity::DebugEntity()
         : Entity("Debug Display Entity")
         {

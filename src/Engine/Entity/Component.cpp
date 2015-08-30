@@ -29,7 +29,7 @@ namespace Ra
             return RadiumEngine::getInstance()->getRenderObjectManager();
         }
 
-        void Component::addRenderObjectToComponent( RenderObject* renderObject )
+        void Component::addRenderObject( RenderObject* renderObject )
         {
             m_renderObjects.push_back( getRoMgr()->addRenderObject( renderObject ) );
         }

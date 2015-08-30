@@ -23,7 +23,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RenderParameters
+        class RA_ENGINE_API RenderParameters
         {
         private:
             class Parameter

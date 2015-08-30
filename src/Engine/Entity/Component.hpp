@@ -59,7 +59,7 @@ namespace Ra
             virtual void setSystem( System* system );
             virtual System* getSystem() const;
 
-            virtual void addRenderObjectToComponent( RenderObject* renderObject ) final;
+            virtual void addRenderObject( RenderObject* renderObject ) final;
 
             //
             // Editable interface.

@@ -61,7 +61,7 @@ namespace FancyMeshPlugin
 
         renderObject->setMesh( displayMesh );
 
-        addRenderObjectToComponent( renderObject );
+        addRenderObject( renderObject );
     }
 
 
@@ -97,6 +97,6 @@ namespace FancyMeshPlugin
 
         renderObject->setRenderTechnique( data.renderTechnique );
 
-        addRenderObjectToComponent( renderObject );
+        addRenderObject( renderObject );
     }
 } // namespace FancyMeshPlugin
