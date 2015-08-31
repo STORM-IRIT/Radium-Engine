@@ -56,18 +56,18 @@ namespace Ra
 
             void swapTransformBuffers();
 
-            inline uint getComponentsCount() const;
+            inline uint getNumComponents() const;
 
         private:
             Core::Transform m_transform;
             Core::Transform m_doubleBufferedTransform;
-            bool m_transformChanged;
 
             std::string m_name;
 
             typedef std::pair<std::string, Engine::Component*> ComponentByName;
             std::map<std::string, Engine::Component*> m_components;
 
+            bool m_transformChanged;
             mutable std::mutex m_transformMutex;
         };
 

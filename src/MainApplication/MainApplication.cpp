@@ -295,7 +295,7 @@ namespace Ra
 
         // ----------
         // 5. Synchronize whatever needs synchronisation
-        m_engine->synchronizationPoint();
+        m_engine->endFrameSync();
 
         // ----------
         // 6. Frame end.

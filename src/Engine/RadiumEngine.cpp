@@ -58,7 +58,7 @@ namespace Ra
             }
         }
 
-        void RadiumEngine::synchronizationPoint()
+        void RadiumEngine::endFrameSync()
         {
             m_entityManager->swapBuffers();
             m_renderObjectManager->swapBuffers();
@@ -66,8 +66,10 @@ namespace Ra
 
         void RadiumEngine::getTasks( Core::TaskQueue* taskQueue,  Scalar dt )
         {
+            static uint frameCounter = 0;
             FrameInfo frameInfo;
             frameInfo.m_dt = dt;
+            frameInfo.m_numFrame = frameCounter++;
             for ( auto& syst : m_systems )
             {
                 syst.second->generateTasks( taskQueue, frameInfo );

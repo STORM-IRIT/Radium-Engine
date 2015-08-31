@@ -44,7 +44,7 @@ namespace Ra
             return m_transform.matrix();
         }
 
-        inline uint Entity::getComponentsCount() const
+        inline uint Entity::getNumComponents() const
         {
             return m_components.size();
         }
