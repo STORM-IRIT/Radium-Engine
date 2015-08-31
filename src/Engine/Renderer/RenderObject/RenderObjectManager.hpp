@@ -34,9 +34,13 @@ namespace Ra
             std::shared_ptr<RenderObject> update( const Core::Index& index );
             void doneUpdating( uint index );
 
+            void swapBuffers();
+
         private:
             Core::IndexMap<std::shared_ptr<RenderObject>> m_renderObjects;
             std::map<Core::Index, std::shared_ptr<RenderObject>> m_doubleBuffer;
+
+            std::vector<Core::Index> m_doneUpdatingObjects;
 
             mutable std::mutex m_doubleBufferMutex;
         };

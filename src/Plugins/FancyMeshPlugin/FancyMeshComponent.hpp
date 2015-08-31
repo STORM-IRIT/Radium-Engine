@@ -30,9 +30,6 @@ namespace FancyMeshPlugin
                                   Ra::Engine::RenderTechnique* technique );
 
         void handleMeshLoading( const FancyComponentData& data );
-
-    private:
-        Ra::Core::Index m_renderObject;
     };
 
 } // namespace FancyMeshPlugin

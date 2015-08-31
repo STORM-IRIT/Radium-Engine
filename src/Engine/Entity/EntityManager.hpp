@@ -82,6 +82,8 @@ namespace Ra
              */
             std::vector<Entity*> getEntities() const;
 
+            void swapBuffers();
+
         private:
 
             /**

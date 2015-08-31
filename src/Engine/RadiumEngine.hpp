@@ -58,6 +58,8 @@ namespace Ra
             bool handleMouseEvent( const Core::MouseEvent& event );
             bool handleKeyEvent( const Core::KeyEvent& event );
 
+            void synchronizationPoint();
+
             /// Manager getters
             RenderObjectManager*  getRenderObjectManager()  const;
             EntityManager*        getEntityManager()        const;

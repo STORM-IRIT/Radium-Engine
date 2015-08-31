@@ -125,5 +125,13 @@ namespace Ra
         {
             return m_entities.at( m_entitiesName.at( name ) ).get();
         }
+
+        void EntityManager::swapBuffers()
+        {
+            for ( uint i = 0; i < m_entities.size(); ++i )
+            {
+                m_entities.at( i )->swapTransformBuffers();
+            }
+        }
     }
 } // namespace Ra

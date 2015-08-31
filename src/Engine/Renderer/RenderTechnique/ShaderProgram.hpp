@@ -52,7 +52,7 @@ namespace Ra
             std::set<std::string> m_properties;
         };
 
-        class ShaderProgram
+        class RA_ENGINE_API ShaderProgram
         {
             // Todo : remove duplicate flag in ShaderConfig
             enum ShaderType

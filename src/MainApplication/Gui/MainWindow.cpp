@@ -163,7 +163,7 @@ namespace Ra
             if ( i > 0 )
             {
                 sumInterFrame += Core::Timer::getIntervalMicro(
-                                     stats[i - 1].frameStart, stats[i].frameEnd );
+                                     stats[i - 1].frameEnd, stats[i].frameEnd );
             }
         }
 
@@ -350,6 +350,11 @@ namespace Ra
         }
     }
 
+    void Gui::MainWindow::closeEvent( QCloseEvent *event )
+    {
+        emit closed();
+        event->accept();
+    }
 
 
 } // namespace Ra

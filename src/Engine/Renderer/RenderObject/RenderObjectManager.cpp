@@ -94,18 +94,28 @@ namespace Ra
             // Take the mutex
             std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
-            std::shared_ptr<RenderObject> oldRenderObject = m_renderObjects[index];
-            std::shared_ptr<RenderObject> newRenderObject = m_doubleBuffer[index];
+            m_doneUpdatingObjects.push_back( index );
+        }
 
-            // We delete the old render object. If it is still in used by the renderer,
-            // the pointer will still be valid for it.
-            oldRenderObject.reset();
+        void RenderObjectManager::swapBuffers()
+        {
+            for ( const auto& index : m_doneUpdatingObjects )
+            {
+                std::shared_ptr<RenderObject> oldRenderObject = m_renderObjects[index];
+                std::shared_ptr<RenderObject> newRenderObject = m_doubleBuffer[index];
 
-            // Buffer swapping
-            m_renderObjects[index] = newRenderObject;
+                // We delete the old render object. If it is still in used by the renderer,
+                // the pointer will still be valid for it.
+                oldRenderObject.reset();
 
-            // Remove the double buffer entry
-            m_doubleBuffer.erase( index );
+                // Buffer swapping
+                m_renderObjects[index] = newRenderObject;
+
+                // Remove the double buffer entry
+                m_doubleBuffer.erase( index );
+            }
+
+            m_doneUpdatingObjects.clear();
         }
     }
 } // namespace Ra

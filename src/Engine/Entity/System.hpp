@@ -10,6 +10,7 @@
 #include <Core/Index/Index.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
+#include "Component.hpp"
 
 namespace Ra
 {
@@ -104,7 +105,10 @@ namespace Ra
              * @param name Name of the entity the component should belong to.
              * @return The created component.
              */
-            virtual Component* addComponentToEntity( Engine::Entity* entity ) = 0;
+            virtual Component* addComponentToEntity( Entity* entity ) final;
+
+        protected:
+            virtual Component* addComponentToEntityInternal( Entity* entity, uint id ) = 0;
 
         protected:
             std::map<std::string, std::shared_ptr<Component>> m_components;

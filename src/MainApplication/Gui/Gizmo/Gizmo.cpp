@@ -10,7 +10,7 @@
 
 namespace Ra
 {
-            TranslateGizmo::TranslateGizmo(const Engine::Component* c, const Core::Transform& t)
+            TranslateGizmo::TranslateGizmo(Engine::Component* c, const Core::Transform& t)
             : Gizmo(c, t)
             {
 
@@ -51,7 +51,7 @@ namespace Ra
                     arrowDrawable->setRenderTechnique(rt);
                     arrowDrawable->setMesh(mesh);
 
-                    m_comp->addDrawable(arrowDrawable);
+                    m_comp->addRenderObject(arrowDrawable);
 
                 }
 

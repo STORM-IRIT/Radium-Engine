@@ -32,7 +32,7 @@ namespace Ra
         public:
             RA_CORE_ALIGNED_NEW
             explicit Entity( const std::string& name = "" );
-            virtual ~Entity() {}
+            virtual ~Entity();
 
             inline const std::string& getName() const;
             inline void rename( const std::string& name );
@@ -50,13 +50,18 @@ namespace Ra
             Component* getComponent( const std::string& name );
             const std::map<std::string, Engine::Component*>& getComponentsMap() const;
 
-
             // Editable Interface
             virtual void getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const override;
             virtual void setProperty( const EditableProperty& prop ) override;
 
+            void swapTransformBuffers();
+
+            inline uint getComponentsCount() const;
+
         private:
             Core::Transform m_transform;
+            Core::Transform m_doubleBufferedTransform;
+            bool m_transformChanged;
 
             std::string m_name;
 

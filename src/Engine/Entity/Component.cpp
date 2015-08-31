@@ -3,26 +3,35 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Entity/System.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 namespace Ra
 {
-
-    Engine::Component::Component( const std::string& name )
-        : m_name( name ), m_entity(nullptr)
+    namespace Engine
     {
-    }
+        Component::Component( const std::string& name )
+                : m_name( name )
+                , m_entity( nullptr )
+                , m_system( nullptr )
+        {
+        }
 
-    Engine::Component::~Component()
-    {
-    }
+        Component::~Component()
+        {
+            for (const auto& ro : m_renderObjects )
+            {
+                getRoMgr()->removeRenderObject( ro );
+            }
+        }
 
-    Engine::RenderObjectManager* Engine::Component::getRoMgr()
-    {
-        return RadiumEngine::getInstance()->getRenderObjectManager();
-    }
+        RenderObjectManager* Component::getRoMgr()
+        {
+            return RadiumEngine::getInstance()->getRenderObjectManager();
+        }
 
-    void Engine::Component::addDrawable(Engine::RenderObject* ro) const
-    {
-        getRoMgr()->addRenderObject(ro);
+        void Component::addRenderObject( RenderObject* renderObject )
+        {
+            m_renderObjects.push_back( getRoMgr()->addRenderObject( renderObject ) );
+        }
     }
 } // namespace Ra

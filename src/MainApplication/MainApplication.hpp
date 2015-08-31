@@ -50,6 +50,11 @@ namespace Ra
         MainApplication( int argc, char** argv );
         ~MainApplication();
 
+        /// Advance the engine for one frame.
+        void radiumFrame();
+
+        bool isRunning() const { return !m_isAboutToQuit; }
+
     signals:
         /// Fired when the engine has just started, before the frame timer is set.
         void starting();
@@ -62,14 +67,11 @@ namespace Ra
 
         void updateFrameStats( const std::vector<FrameTimerData>& );
 
-
     public slots:
-        /// Advance the engine for one frame. Called by an internal timer.
-        void radiumFrame();
 
         void loadFile( QString path );
-
         void framesCountForStatsChanged( int count );
+        void appNeedsToQuit();
 
     private:
         /// Create signal / slots connections
@@ -104,5 +106,7 @@ namespace Ra
         int m_frameCounter;
         int m_frameCountBeforeUpdate;
         std::vector<FrameTimerData> m_timerData;
+
+        bool m_isAboutToQuit;
     };
 }

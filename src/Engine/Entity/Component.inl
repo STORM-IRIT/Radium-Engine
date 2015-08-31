@@ -2,20 +2,31 @@
 
 namespace Ra
 {
-
-    inline void Engine::Component::setEntity( Engine::Entity* entity )
+    namespace Engine
     {
-        m_entity = entity;
-    }
+        inline void Component::setEntity( Entity* entity )
+        {
+            m_entity = entity;
+        }
 
-    inline Engine::Entity* Engine::Component::getEntity() const
-    {
-        return m_entity;
-    }
+        inline Entity* Component::getEntity() const
+        {
+            return m_entity;
+        }
 
-    inline const std::string& Engine::Component::getName() const
-    {
-        return m_name;
-    }
+        inline const std::string& Component::getName() const
+        {
+            return m_name;
+        }
 
+        inline void Component::setSystem( System* system )
+        {
+            m_system = system;
+        }
+
+        inline System* Component::getSystem() const
+        {
+            return m_system;
+        }
+    }
 } // namespace Ra

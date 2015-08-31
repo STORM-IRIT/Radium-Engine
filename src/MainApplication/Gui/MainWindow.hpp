@@ -7,6 +7,7 @@
 #include <qdebug.h>
 
 #include <MainApplication/TimerData/FrameTimerData.hpp>
+#include <QtGui/qevent.h>
 
 namespace Ra
 {
@@ -63,12 +64,11 @@ namespace Ra
             void onSelectionChanged( const QItemSelection& selected, const QItemSelection& deselected );
 
         signals:
+            void closed();
             void fileLoading( const QString path );
             void entitiesUpdated( const std::vector<Engine::Entity*>& );
             void framescountForStatsChanged( int count );
 
-
-        signals:
             void setCameraPosition( const Core::Vector3& );
             void setCameraTarget( const Core::Vector3& );
 
@@ -78,6 +78,9 @@ namespace Ra
 
             virtual void keyPressEvent( QKeyEvent* event ) override;
             virtual void keyReleaseEvent( QKeyEvent* event ) override;
+
+            virtual void closeEvent( QCloseEvent* event ) override;
+
         public:
             // Accept viewer mouse events.
             inline void viewerMousePressEvent( QMouseEvent* event );

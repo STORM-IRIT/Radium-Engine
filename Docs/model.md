@@ -37,6 +37,16 @@ of them as "game objects", something that represent an object in the scene.
 Entity data include a world space to object space transform and a list of 
 *Components*
 
+_Important note :_ When creating an entity, if you set its transform, *do not forget* to call
+`Entity::swapTransformBuffers`, this might prevent you some headache. Example :
+```
+Ra::Engine::Entity* entity = theEntityManager->getOrCreate( "MyEntity" );
+Ra::Core::Transform transform( Ra::Core::Transform::Identity() );
+transform.translation = Ra::Core::Vector3( 42, 13, 37 );
+entity->setTransform( transform );
+entity->swapTransformBuffers(); 
+```
+
 ### Systems and Components
 
 Each *Component* represent an aspect of an *Entity* to a particular engine subsystem.

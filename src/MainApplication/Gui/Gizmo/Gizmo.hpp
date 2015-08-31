@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_GIZMO_HPP_
 #define RADIUMENGINE_GIZMO_HPP_
 
+#include <vector>
 
 #include <Core/Math/LinearAlgebra.hpp>
 
@@ -12,12 +13,13 @@ namespace Ra
         class Gizmo
         {
         public:
-            Gizmo(const Engine::Component* c, const Core::Transform& t)
+            RA_CORE_ALIGNED_NEW
+            Gizmo(Engine::Component* c, const Core::Transform& t)
                     : m_comp(c), m_transform(t) { }
 
         protected:
-            const Engine::Component* m_comp;
             Core::Transform m_transform;
+            Engine::Component* m_comp;
             std::vector<Engine::RenderObject*> m_renderObjects;
             
         };
@@ -26,8 +28,7 @@ namespace Ra
         {
         public:
             // Draw a frame with : 3 RGB arrows
-            TranslateGizmo(const Engine::Component* c, const Core::Transform& t);
-
+            TranslateGizmo(Engine::Component* c, const Core::Transform& t);
         };
 }
 

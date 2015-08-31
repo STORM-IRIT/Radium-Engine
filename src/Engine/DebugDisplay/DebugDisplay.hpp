@@ -25,11 +25,8 @@ namespace Ra
         class RA_ENGINE_API DebugComponent : public Component
         {
         public:
-            DebugComponent();
+            DebugComponent() : Component("Debug") {}
             void initialize() override {}
-            void addDebugDrawable( RenderObject* ro );
-        private:
-            std::vector<Core::Index> m_debugDrawableIndices;
         };
 
         /// This entity allows to add debug drawables from everywhere in the code.
@@ -59,12 +56,12 @@ namespace Ra
     }
 }
 /// Macros for debug drawing. All coordinates are in world space.
-#define RA_DISPLAY_POINT( p, color, scale )     Ra::Engine::DebugEntity::dbgCmp()->addDebugDrawable( Ra::Engine::DrawPrimitives::Point(Ra::Engine::DebugEntity::dbgCmp(), p, color, scale ))
-#define RA_DISPLAY_VECTOR( p, v, color )        Ra::Engine::DebugEntity::dbgCmp()->addDebugDrawable( Ra::Engine::DrawPrimitives::Vector(Ra::Engine::DebugEntity::dbgCmp(), p, v, color ))
-#define RA_DISPLAY_RAY( r, color )              Ra::Engine::DebugEntity::dbgCmp()->addDebugDrawable( Ra::Engine::DrawPrimitives::Ray(Ra::Engine::DebugEntity::dbgCmp(), r, color ))
-#define RA_DISPLAY_TRIANGLE( a, b, c, color )   Ra::Engine::DebugEntity::dbgCmp()->addDebugDrawable( Ra::Engine::DrawPrimitives::Triangle(Ra::Engine::DebugEntity::dbgCmp(), a, b, c, color ))
-#define RA_DISPLAY_NORMAL( p, n, color, scale ) Ra::Engine::DebugEntity::dbgCmp()->addDebugDrawable( Ra::Engine::DrawPrimitives::Normal(Ra::Engine::DebugEntity::dbgCmp(), p, n, color, scale ))
-#define RA_DISPLAY_FRAME( t, scale )            Ra::Engine::DebugEntity::dbgCmp()->addDebugDrawable( Ra::Engine::DrawPrimitives::Frame(Ra::Engine::DebugEntity::dbgCmp(), t, scale ))
+#define RA_DISPLAY_POINT( p, color, scale )     Ra::Engine::DebugEntity::dbgCmp()->addRenderObjectToComponent( Ra::Engine::DrawPrimitives::Point(Ra::Engine::DebugEntity::dbgCmp(), p, color, scale ))
+#define RA_DISPLAY_VECTOR( p, v, color )        Ra::Engine::DebugEntity::dbgCmp()->addRenderObjectToComponent( Ra::Engine::DrawPrimitives::Vector(Ra::Engine::DebugEntity::dbgCmp(), p, v, color ))
+#define RA_DISPLAY_RAY( r, color )              Ra::Engine::DebugEntity::dbgCmp()->addRenderObjectToComponent( Ra::Engine::DrawPrimitives::Ray(Ra::Engine::DebugEntity::dbgCmp(), r, color ))
+#define RA_DISPLAY_TRIANGLE( a, b, c, color )   Ra::Engine::DebugEntity::dbgCmp()->addRenderObjectToComponent( Ra::Engine::DrawPrimitives::Triangle(Ra::Engine::DebugEntity::dbgCmp(), a, b, c, color ))
+#define RA_DISPLAY_NORMAL( p, n, color, scale ) Ra::Engine::DebugEntity::dbgCmp()->addRenderObjectToComponent( Ra::Engine::DrawPrimitives::Normal(Ra::Engine::DebugEntity::dbgCmp(), p, n, color, scale ))
+#define RA_DISPLAY_FRAME( t, scale )            Ra::Engine::DebugEntity::dbgCmp()->addRenderObjectToComponent( Ra::Engine::DrawPrimitives::Frame(Ra::Engine::DebugEntity::dbgCmp(), t, scale ))
 
 #else // if debug display is disabled
 
