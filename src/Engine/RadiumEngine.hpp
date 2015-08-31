@@ -58,7 +58,9 @@ namespace Ra
             bool handleMouseEvent( const Core::MouseEvent& event );
             bool handleKeyEvent( const Core::KeyEvent& event );
 
-            void synchronizationPoint();
+            /// Is called at the end of the frame to synchronize any data
+            /// that may have been updated during the frame's multithreaded processing.
+            void endFrameSync();
 
             /// Manager getters
             RenderObjectManager*  getRenderObjectManager()  const;

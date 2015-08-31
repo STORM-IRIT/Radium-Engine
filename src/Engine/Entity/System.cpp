@@ -59,7 +59,7 @@ namespace Ra
 
         Component* System::addComponentToEntity( Entity* entity )
         {
-            uint id = entity->getComponentsCount();
+            uint id = entity->getNumComponents();
             Component* component = addComponentToEntityInternal( entity, id );
 
             component->setEntity( entity );
