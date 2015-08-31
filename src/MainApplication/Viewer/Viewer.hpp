@@ -69,15 +69,6 @@ namespace Ra
         {
             Q_OBJECT
 
-        private:
-            /// State representation of the mode in which the UI is to be processed
-            enum InteractionState
-            {
-                NONE,
-                CAMERA,
-                MANIPULATION
-            };
-
         public:
             /// CONSTRUCTOR
             explicit Viewer( QWidget* parent = nullptr );
@@ -146,9 +137,6 @@ namespace Ra
 
             /// Owning pointer to the camera
             std::unique_ptr<CameraInterface> m_camera;
-
-            /// Keeps the state on which we should interpret user input.
-            InteractionState m_interactionState;
 
             /// Thread in which rendering is done.
             QThread* m_renderThread; // We have to use a QThread for MT rendering

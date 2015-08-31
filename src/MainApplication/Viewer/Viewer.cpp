@@ -74,7 +74,6 @@ namespace Ra
 
     Gui::Viewer::Viewer( QWidget* parent )
         : QOpenGLWidget( parent )
-        , m_interactionState( NONE )
         , m_renderThread( nullptr )
     {
         // Allow Viewer to receive events
@@ -185,17 +184,7 @@ namespace Ra
         {
             case Qt::MiddleButton:
             {
-                if ( m_interactionState != NONE )
-                {
-                    // TODO(Charly): Handle interaction mode.
-                    break;
-                }
-
-                if ( m_camera->handleMousePressEvent( event ) )
-                {
-                    m_interactionState = CAMERA;
-                }
-
+                m_camera->handleMousePressEvent(event);
             }
             break;
 
@@ -215,20 +204,12 @@ namespace Ra
 
     void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event )
     {
-        if ( m_interactionState == CAMERA )
-        {
-            m_camera->handleMouseReleaseEvent( event );
-
-            m_interactionState = NONE;
-        }
+        m_camera->handleMouseReleaseEvent( event );
     }
 
     void Gui::Viewer::mouseMoveEvent( QMouseEvent* event )
     {
-        if ( m_interactionState == CAMERA )
-        {
-            m_camera->handleMouseMoveEvent( event );
-        }
+        m_camera->handleMouseMoveEvent( event );
     }
 
     void Gui::Viewer::wheelEvent( QWheelEvent* event )
