@@ -305,24 +305,28 @@ namespace Ra
         {
             const std::shared_ptr<Engine::RenderObject>& ro =
                 mainApp->m_engine->getRenderObjectManager()->getRenderObject( drawableIndex );
-            Engine::Entity* ent = ro->getComponent()->getEntity();
-
+            const Engine::Component* comp = ro->getComponent();
+            const Engine::Entity* ent = comp->getEntity();
             int compIdx = -1;
             int i = 0;
-            for ( auto comp : ent->getComponentsMap() )
+            for ( auto c : ent->getComponentsMap() )
             {
-                if ( comp.second == ro->getComponent() )
+                if ( c.second == comp )
                 {
-                    CORE_ASSERT( comp.first == ro->getComponent()->getName(), "Inconsistent names" );
+                    CORE_ASSERT( c.first == comp->getName(), "Inconsistent names" );
                     compIdx = i;
                     break;
                 }
                 ++i;
             }
             CORE_ASSERT( compIdx >= 0, "Component is not in entity" );
-            int entIdx = ent->idx;
+            Core::Index entIdx = ent->idx;
             QModelIndex entityIdx = m_entityTreeModel->index( entIdx, 0 );
-            QModelIndex treeIdx = entityIdx.child( compIdx, 0 );
+            QModelIndex treeIdx = entityIdx;
+            if (false) // select component.
+            {
+                treeIdx = entityIdx.child(compIdx, 0);
+            }
             m_entitiesTreeView->setExpanded( entityIdx, true );
             m_entitiesTreeView->selectionModel()->select( treeIdx, QItemSelectionModel::SelectCurrent );
 
@@ -342,11 +346,6 @@ namespace Ra
             QModelIndex selIdx = selected.indexes()[0];
 
             Engine::Entity* entity = m_entityTreeModel->getItem( selIdx )->getData( 0 ).entity;
-            if ( entity == 0 )
-            {
-                // FIXME :This is totally ad hoc as we only manage entity transforms.
-                entity = m_entityTreeModel->getItem( selIdx.parent() )->getData( 0 ).entity;
-            }
             emit selectedEntity(entity);
         }
         else

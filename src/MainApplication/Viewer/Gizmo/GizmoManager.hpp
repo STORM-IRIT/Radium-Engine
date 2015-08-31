@@ -34,22 +34,24 @@ namespace Ra
             void setEditable(Engine::EditableInterface* edit)
             {
                 delete m_currentGizmo;
-
-                Core::AlignedStdVector<Engine::EditableProperty> properties;
-                edit->getProperties(properties);
-
-                m_currentEdit = edit;
-                // Translation only.
-                for (const auto& p: properties)
+                if (edit)
                 {
-                    if (p.getType() == Engine::EditableProperty::POSITION)
+                    Core::AlignedStdVector<Engine::EditableProperty> properties;
+                    edit->getProperties(properties);
+
+                    m_currentEdit = edit;
+                    // Translation only.
+                    for (const auto& p : properties)
                     {
-                        m_currentTarget = nullptr;
-                        m_currentTransform = Core::Transform::Identity();
-                        m_currentTransform.translation() = p.asPosition();
-                        m_currentGizmoType = TRANSLATION;
-                        m_currentGizmo = new TranslateGizmo(m_currentTarget, m_currentTransform);
-                        return;
+                        if (p.getType() == Engine::EditableProperty::POSITION)
+                        {
+                            m_currentTarget = nullptr;
+                            m_currentTransform = Core::Transform::Identity();
+                            m_currentTransform.translation() = p.asPosition();
+                            m_currentGizmoType = TRANSLATION;
+                            //                        m_currentGizmo = new TranslateGizmo(m_currentTarget, m_currentTransform);
+                            return;
+                        }
                     }
                 }
                 m_currentGizmoType = NONE;
