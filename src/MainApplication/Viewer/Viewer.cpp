@@ -183,7 +183,7 @@ namespace Ra
     {
         switch ( event->button() )
         {
-            case Qt::LeftButton:
+            case Qt::MiddleButton:
             {
                 if ( m_interactionState != NONE )
                 {

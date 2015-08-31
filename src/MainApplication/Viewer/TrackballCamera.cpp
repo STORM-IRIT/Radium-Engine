@@ -40,8 +40,8 @@ namespace Ra
 
     bool Gui::TrackballCamera::handleMousePressEvent( QMouseEvent* event )
     {
-        // Whole manipulation is done with left button and modifiers
-        if ( event->button() != Qt::LeftButton )
+        // Whole manipulation is done with middle button and modifiers
+        if ( event->button() != Qt::MiddleButton )
         {
             return false;
         }
@@ -56,13 +56,13 @@ namespace Ra
             handled = true;
         }
 
-        if ( event->modifiers().testFlag( Qt::ControlModifier ) )
+        if ( event->modifiers().testFlag( Qt::ShiftModifier ) )
         {
             m_cameraPanMode = true;
             handled = true;
         }
 
-        if ( event->modifiers().testFlag( Qt::ShiftModifier ) )
+        if ( event->modifiers().testFlag( Qt::ControlModifier ) )
         {
             m_cameraZoomMode = true;
             handled = true;
