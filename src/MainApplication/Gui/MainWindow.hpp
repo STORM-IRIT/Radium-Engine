@@ -69,6 +69,9 @@ namespace Ra
             void entitiesUpdated( const std::vector<Engine::Entity*>& );
             void framescountForStatsChanged( int count );
 
+            void selectedEntity( Engine::Entity* selectedEntity );
+            //void selectedComponent( Engine::Component* selectedComponent);
+
             void setCameraPosition( const Core::Vector3& );
             void setCameraTarget( const Core::Vector3& );
 

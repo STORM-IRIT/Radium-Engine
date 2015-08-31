@@ -91,6 +91,11 @@ namespace Ra
         connect( m_avgFramesCount, SIGNAL( valueChanged( int ) ), mainApp , SLOT( framesCountForStatsChanged( int ) ) );
         connect( mainApp , SIGNAL( updateFrameStats( const std::vector<FrameTimerData>& ) ),
                  this, SLOT( updateFramestats( const std::vector<FrameTimerData>& ) ) );
+
+
+        /// Inform property editors of new selections
+        connect(this, &MainWindow::selectedEntity, tab_edition, &EntityPropertyWidget::setEditable);
+        connect(this, &MainWindow::selectedEntity, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
     }
 
     void Gui::MainWindow::entitiesUpdated()
@@ -339,14 +344,14 @@ namespace Ra
             Engine::Entity* entity = m_entityTreeModel->getItem( selIdx )->getData( 0 ).entity;
             if ( entity == 0 )
             {
-                // FIXME :This is totally ad hoc.
+                // FIXME :This is totally ad hoc as we only manage entity transforms.
                 entity = m_entityTreeModel->getItem( selIdx.parent() )->getData( 0 ).entity;
             }
-            tab_edition->setEditable( entity );
+            emit selectedEntity(entity);
         }
         else
         {
-            tab_edition->setEditable( nullptr );
+            emit selectedEntity( nullptr );
         }
     }
 

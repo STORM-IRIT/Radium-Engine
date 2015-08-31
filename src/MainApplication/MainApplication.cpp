@@ -20,7 +20,7 @@
 #include <MainApplication/Gui/MainWindow.hpp>
 
 #include <Plugins/FancyMeshPlugin/FancyMeshSystem.hpp>
-#include <MainApplication/Gui/Gizmo/Gizmo.hpp>
+#include <MainApplication/Viewer/Gizmo/Gizmo.hpp>
 #include <Core/Math/ColorPresets.hpp>
 
 

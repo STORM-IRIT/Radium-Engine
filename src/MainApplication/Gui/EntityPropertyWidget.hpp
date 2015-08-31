@@ -25,10 +25,8 @@ namespace Ra
             /// This should be called at every frame if the watched object has been updated.
             void updateValues();
 
-        public:
             /// Change the object being edited. To clear the UI (e.g. if no object is selected)
             /// you can pass nullptr as the editable.
-            // TODO : Could this be a slot ?
             void setEditable( Engine::EditableInterface* edit );
 
         private slots:

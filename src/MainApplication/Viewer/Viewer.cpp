@@ -14,6 +14,7 @@
 #include <Engine/Renderer/Renderer.hpp>
 
 #include <MainApplication/Viewer/TrackballCamera.hpp>
+#include <MainApplication/Viewer/Gizmo/GizmoManager.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
 #include <MainApplication/MainApplication.hpp>
 
@@ -74,7 +75,8 @@ namespace Ra
 
     Gui::Viewer::Viewer( QWidget* parent )
         : QOpenGLWidget( parent )
-        , m_renderThread( nullptr )
+        , m_renderThread( nullptr)
+        , m_gizmoManager(new GizmoManager(this))
     {
         // Allow Viewer to receive events
         setFocusPolicy( Qt::StrongFocus );

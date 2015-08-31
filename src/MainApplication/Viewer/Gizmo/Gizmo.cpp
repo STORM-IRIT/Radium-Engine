@@ -1,4 +1,4 @@
-#include <MainApplication/Gui/Gizmo/Gizmo.hpp>
+#include <MainApplication/Viewer/Gizmo/Gizmo.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Math/ColorPresets.hpp>

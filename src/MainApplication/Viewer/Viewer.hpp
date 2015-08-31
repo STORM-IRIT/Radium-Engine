@@ -14,6 +14,7 @@
 
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/RadiumEngine.hpp>
+#include <MainApplication/Viewer/Gizmo/GizmoManager.hpp>
 
 // Uncomment this to deactivate multi-threaded rendering.
 // In that case the call to startRendering() is synchronous
@@ -43,6 +44,7 @@ namespace Ra
     namespace Gui
     {
         class CameraInterface;
+        class GizmoManager;
     }
 }
 
@@ -82,6 +84,12 @@ namespace Ra
             CameraInterface* getCamera()
             {
                 return m_camera.get();
+            }
+
+            /// Access to gizmo manager
+            GizmoManager* getGizmoManager()
+            {
+                return m_gizmoManager;
             }
 
             /// Read-only access to renderer
@@ -135,8 +143,11 @@ namespace Ra
             /// Owning pointer to the renderer.
             std::unique_ptr<Engine::Renderer> m_renderer;
 
-            /// Owning pointer to the camera
+            /// Owning pointer to the camera.
             std::unique_ptr<CameraInterface> m_camera;
+
+            /// Owning (Qobject child) pointer to gizmo manager.
+            GizmoManager* m_gizmoManager;
 
             /// Thread in which rendering is done.
             QThread* m_renderThread; // We have to use a QThread for MT rendering
