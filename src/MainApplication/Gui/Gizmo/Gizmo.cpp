@@ -14,7 +14,7 @@ namespace Ra
             : Gizmo(c, t)
             {
 
-                constexpr Scalar axisWidth = 0.02f;
+                constexpr Scalar axisWidth = 0.05f;
                 constexpr Scalar arrowFrac = 0.1f;
 
                 // For x,y,z
@@ -28,7 +28,7 @@ namespace Ra
                     Core::TriangleMesh cylinder = Core::MeshUtils::makeCylinder(
                             Core::Vector3::Zero(), cylinderEnd, axisWidth / 2.f );
 
-                    Core::TriangleMesh cone = Core::MeshUtils::makeCone(cylinderEnd, arrowEnd, arrowFrac/3.f );
+                    Core::TriangleMesh cone = Core::MeshUtils::makeCone(cylinderEnd, arrowEnd, arrowFrac/2.f );
 
                     // Merge the cylinder and the cone to create the arrow shape.
                     cylinder.append(cone);
