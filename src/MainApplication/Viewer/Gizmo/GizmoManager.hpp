@@ -13,6 +13,8 @@ namespace Ra
         {
             Q_OBJECT
         public:
+
+            RA_CORE_ALIGNED_NEW;
             enum GizmoType
             {
                 NONE,
@@ -29,7 +31,7 @@ namespace Ra
             {}
 
             public slots:
-            void setTarget(Engine::EditableInterface* edit)
+            void setEditable(Engine::EditableInterface* edit)
             {
                 delete m_currentGizmo;
 
