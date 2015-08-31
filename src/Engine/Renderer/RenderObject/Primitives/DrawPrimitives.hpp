@@ -72,6 +72,15 @@ namespace Ra
             RA_ENGINE_API RenderObject* Frame( const Component* comp,
                                                const Core::Transform& frameFromEntity,
                                                Scalar scale = 0.1f);
+
+            /// Create a res*res square grid centered on center, in plane normal to normal.
+            RA_ENGINE_API RenderObject* Grid( const Component* comp,
+                                              const Core::Vector3& center,
+                                              const Core::Vector3& x,
+                                              const Core::Vector3& y,
+                                              const Core::Color& color,
+                                              Scalar cellSize = 1.f,
+                                              uint res = 10);
         }
 
     }

@@ -21,6 +21,7 @@
 
 #include <Plugins/FancyMeshPlugin/FancyMeshSystem.hpp>
 #include <MainApplication/Gui/Gizmo/Gizmo.hpp>
+#include <Core/Math/ColorPresets.hpp>
 
 
 // Const parameters : TODO : make config / command line options
@@ -197,6 +198,8 @@ namespace Ra
         transform.setIdentity();
         transform.translation() = Core::Vector3( 0, 0, -3 );
         ent1->setTransform( transform );
+
+        Engine::DebugEntity::dbgCmp()->addRenderObject(Engine::DrawPrimitives::Grid(Engine::DebugEntity::dbgCmp(),Core::Vector3::Zero(), Core::Vector3::UnitX(), Core::Vector3::UnitZ(),Core::Colors::Grey(0.6f)));
 
         Gizmo* gz = new TranslateGizmo(Engine::DebugEntity::dbgCmp(),transform);
 

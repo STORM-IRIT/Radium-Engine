@@ -277,6 +277,40 @@ namespace Ra
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
                 return ro;
             }
+
+            RenderObject* Grid(const Component* comp, const Core::Vector3& center, const Core::Vector3& x,
+                               const Core::Vector3& y, const Core::Color& color, Scalar cellSize, uint res)
+            {
+
+                CORE_ASSERT(res > 1, "Grid has to be at least a 2x2 grid.");
+                Core::Vector3Array vertices;
+                std::vector<uint> indices;
+
+                Scalar halfWidth = (cellSize * res) / 2.f;
+
+                for (uint i = 0 ; i < res+1; ++i)
+                {
+                    Scalar xStep =  Scalar(i) - Scalar(res) * cellSize / 2.f;
+                    vertices.push_back( center - halfWidth * y + xStep * x);
+                    vertices.push_back( center + halfWidth * y + xStep * x);
+                    indices.push_back(vertices.size()-2);
+                    indices.push_back(vertices.size() -1);
+                }
+
+                for (uint i = 0 ; i < res+1; ++i)
+                {
+                    Scalar yStep =  Scalar(i) - Scalar(res) * cellSize / 2.f;
+                    vertices.push_back( center - halfWidth * x + yStep * y);
+                    vertices.push_back( center + halfWidth * x + yStep * y);
+                    indices.push_back(vertices.size()-2);
+                    indices.push_back(vertices.size() -1);
+                }
+
+                Mesh* mesh = new Ra::Engine::Mesh( "Frame Primitive", GL_LINES );
+                RenderObject* ro = new Ra::Engine::RenderObject("Frame Primitive", comp);
+                initLineRo(ro, mesh, vertices, indices, color, 1.0);
+                return ro;
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Ra
         public:
             RA_CORE_ALIGNED_NEW
             Gizmo(Engine::Component* c, const Core::Transform& t)
-                    : m_comp(c), m_transform(t) { }
+                    : m_transform(t), m_comp(c) { }
 
         protected:
             Core::Transform m_transform;

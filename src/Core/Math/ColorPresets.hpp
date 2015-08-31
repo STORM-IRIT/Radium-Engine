@@ -21,6 +21,8 @@ namespace Ra{
 
             inline Color White()   { return Color(1,1,1,1); }
 
+            inline Color Grey( Scalar f = 0.5f) { return Color(f,f,f,1);}
+
             // Convert to/from various int formats
             inline Color FromChars(uchar r, uchar g, uchar b, uchar a = 0xff)
             {
