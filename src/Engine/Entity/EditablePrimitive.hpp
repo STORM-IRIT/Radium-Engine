@@ -76,20 +76,9 @@ namespace Ra
             Variant m_value;
             Type m_type;
             std::string m_name;
-
-
         };
 
-        /// Interface for all objects that can be edited through their properties.
-        class EditableInterface
-        {
-        public:
-            /// Get a list of all editable properties.
-            virtual void getProperties( Core::AlignedStdVector<EditablePrimitive>& propsOut ) const = 0;
 
-            /// Change the value of one property.
-            virtual void setProperty( const EditablePrimitive& prop ) = 0;
-        };
 
     }
 }

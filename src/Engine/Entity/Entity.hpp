@@ -12,7 +12,7 @@
 #include <Core/Index/IndexedObject.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Engine/Entity/EditablePrimitive.hpp>
+#include <Engine/Entity/EditableProperty.hpp>
 
 namespace Ra
 {
@@ -51,8 +51,8 @@ namespace Ra
             const std::map<std::string, Engine::Component*>& getComponentsMap() const;
 
             // Editable Interface
-            virtual void getProperties( Core::AlignedStdVector<EditablePrimitive>& entityPropsOut ) const override;
-            virtual void setProperty( const EditablePrimitive& prop ) override;
+            virtual void getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const override;
+            virtual void setProperty( const EditableProperty& prop ) override;
 
             void swapTransformBuffers();
 

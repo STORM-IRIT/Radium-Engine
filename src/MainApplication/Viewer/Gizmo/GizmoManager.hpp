@@ -8,7 +8,7 @@ namespace Ra
 {
     namespace Gui
     {
-        // Todo : check if we can't refactor with EntityPropertyWidget.
+        // Todo : check if we can't refactor with PropertyEditorWidget.
         class GizmoManager: public QObject
         {
             Q_OBJECT

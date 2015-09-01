@@ -313,7 +313,7 @@
               </item>
              </layout>
             </widget>
-            <widget class="Ra::Gui::EntityPropertyWidget" name="tab_edition">
+            <widget class="Ra::Gui::PropertyEditorWidget" name="tab_edition">
              <attribute name="title">
               <string>Edition</string>
              </attribute>
@@ -684,9 +684,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>Ra::Gui::EntityPropertyWidget</class>
+   <class>Ra::Gui::PropertyEditorWidget</class>
    <extends>QWidget</extends>
-   <header>MainApplication/Gui/EntityPropertyWidget.hpp</header>
+   <header>MainApplication/Gui/PropertyEditorWidget.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

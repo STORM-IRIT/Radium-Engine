@@ -48,8 +48,8 @@ namespace Ra
             }
 
             // Override Editable interface to disable property editing
-            virtual void getProperties( Core::AlignedStdVector<EditablePrimitive>& entityPropsOut ) const override {}
-            virtual void setProperty( const EditablePrimitive& prop ) override {}
+            virtual void getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const override {}
+            virtual void setProperty( const EditableProperty& prop ) override {}
 
         };
 

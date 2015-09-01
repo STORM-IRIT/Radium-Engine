@@ -94,39 +94,46 @@ namespace Ra
             return m_components;
         }
 
-        void Entity::getProperties( Core::AlignedStdVector<EditablePrimitive>& entityPropsOut ) const
+        void Entity::getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const
         {
             std::lock_guard<std::mutex> lock( m_transformMutex );
-            entityPropsOut.push_back( EditablePrimitive::position( "Position", m_transform.translation()));
-            entityPropsOut.push_back(
-                    EditablePrimitive::rotation( "Rotation", Core::Quaternion( m_transform.rotation())));
+            entityPropsOut.push_back(EditableProperty(m_transform, "Entity Transform"));
         }
 
-        void Entity::setProperty( const EditablePrimitive& prop )
+        void Entity::setProperty( const EditableProperty& prop )
         {
+            CORE_ASSERT(prop.type == EditableProperty::TRANSFORM, "Only transforms can be set in entities");
+            CORE_ASSERT(prop.name == "Entity Transform", "This is not an entity transform");
 
-            switch (prop.getType())
+            for(const auto& entry: prop.primitives)
             {
-                case EditablePrimitive::POSITION:
+                const EditablePrimitive& prim = entry.primitive;
+                switch (prim.getType())
                 {
-                    CORE_ASSERT( prop.getName() == "Position", "Wrong property" );
-                    m_doubleBufferedTransform.translation() =
-                            prop.asPosition();
-                    m_transformChanged = true;
-                } break;
+                    case EditablePrimitive::POSITION:
+                    {
+                        CORE_ASSERT(prim.getName() == "Position", "Inconsistent primitive");
+                        m_doubleBufferedTransform.translation() =
+                                prim.asPosition();
+                        m_transformChanged = true;
+                    }
+                        break;
 
-                case EditablePrimitive::ROTATION:
-                {
-                    CORE_ASSERT( prop.getName() == "Rotation", "Wrong property" );
-                    m_doubleBufferedTransform.linear() =
-                            prop.asRotation().toRotationMatrix();
-                    m_transformChanged = true;
-                } break;
+                    case EditablePrimitive::ROTATION:
+                    {
+                        CORE_ASSERT(prim.getName() == "Rotation", "Inconsistent primitive");
+                        m_doubleBufferedTransform.linear() =
+                                prim.asRotation().toRotationMatrix();
+                        m_transformChanged = true;
+                    }
+                        break;
 
-                default:
-                {
-                    CORE_ASSERT( false, "Wrong property" );
-                } break;
+                    default:
+                    {
+                        CORE_ASSERT(false, "Wrong primitive type in property");
+                    }
+                        break;
+                }
             }
         }
 
