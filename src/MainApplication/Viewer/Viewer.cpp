@@ -75,8 +75,8 @@ namespace Ra
 
     Gui::Viewer::Viewer( QWidget* parent )
         : QOpenGLWidget( parent )
-        , m_renderThread( nullptr)
         , m_gizmoManager(new GizmoManager(this))
+        , m_renderThread( nullptr )
     {
         // Allow Viewer to receive events
         setFocusPolicy( Qt::StrongFocus );

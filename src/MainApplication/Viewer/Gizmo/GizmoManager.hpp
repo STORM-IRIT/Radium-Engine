@@ -36,14 +36,14 @@ namespace Ra
                 delete m_currentGizmo;
                 if (edit)
                 {
-                    Core::AlignedStdVector<Engine::EditableProperty> properties;
+                    Core::AlignedStdVector<Engine::EditablePrimitive> properties;
                     edit->getProperties(properties);
 
                     m_currentEdit = edit;
                     // Translation only.
                     for (const auto& p : properties)
                     {
-                        if (p.getType() == Engine::EditableProperty::POSITION)
+                        if (p.getType() == Engine::EditablePrimitive::POSITION)
                         {
                             m_currentTarget = nullptr;
                             m_currentTransform = Core::Transform::Identity();

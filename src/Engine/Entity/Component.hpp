@@ -6,7 +6,7 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Index/IndexedObject.hpp>
 
-#include <Engine/Entity/EditableProperty.hpp>
+#include <Engine/Entity/EditablePrimitive.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
 namespace Ra
@@ -70,10 +70,10 @@ namespace Ra
             // virtual ?)
 
             /// Get a list of all editable properties.
-            virtual void getProperties( Core::AlignedStdVector<EditableProperty>& propsOut ) const override {};
+            virtual void getProperties( Core::AlignedStdVector<EditablePrimitive>& propsOut ) const override {};
 
             /// Tell the component to take the new property value into account.
-            virtual void setProperty( const EditableProperty& newProp ) override {};
+            virtual void setProperty( const EditablePrimitive& newProp ) override {};
 
         protected:
             /// Shortcut to access the render object manager.

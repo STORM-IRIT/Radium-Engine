@@ -94,20 +94,20 @@ namespace Ra
             return m_components;
         }
 
-        void Entity::getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const
+        void Entity::getProperties( Core::AlignedStdVector<EditablePrimitive>& entityPropsOut ) const
         {
             std::lock_guard<std::mutex> lock( m_transformMutex );
-            entityPropsOut.push_back( EditableProperty::position( "Position", m_transform.translation()));
+            entityPropsOut.push_back( EditablePrimitive::position( "Position", m_transform.translation()));
             entityPropsOut.push_back(
-                    EditableProperty::rotation( "Rotation", Core::Quaternion( m_transform.rotation())));
+                    EditablePrimitive::rotation( "Rotation", Core::Quaternion( m_transform.rotation())));
         }
 
-        void Entity::setProperty( const EditableProperty& prop )
+        void Entity::setProperty( const EditablePrimitive& prop )
         {
 
             switch (prop.getType())
             {
-                case EditableProperty::POSITION:
+                case EditablePrimitive::POSITION:
                 {
                     CORE_ASSERT( prop.getName() == "Position", "Wrong property" );
                     m_doubleBufferedTransform.translation() =
@@ -115,7 +115,7 @@ namespace Ra
                     m_transformChanged = true;
                 } break;
 
-                case EditableProperty::ROTATION:
+                case EditablePrimitive::ROTATION:
                 {
                     CORE_ASSERT( prop.getName() == "Rotation", "Wrong property" );
                     m_doubleBufferedTransform.linear() =

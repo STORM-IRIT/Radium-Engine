@@ -3,7 +3,7 @@
 #include <QWidget>
 
 #include <Core/Containers/AlignedAllocator.hpp>
-#include <Engine/Entity/EditableProperty.hpp>
+#include <Engine/Entity/EditablePrimitive.hpp>
 
 class QLayout;
 
@@ -42,7 +42,7 @@ namespace Ra
             QLayout* m_layout;
 
             /// Vector of the properties of the object.
-            Core::AlignedStdVector<Engine::EditableProperty> m_props;
+            Core::AlignedStdVector<Engine::EditablePrimitive> m_props;
 
             /// Vector of edition widgets, one for each property.
             /// If the corresponding property cannot be edited, the widget will be nullptr;

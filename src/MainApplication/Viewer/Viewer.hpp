@@ -112,8 +112,8 @@ namespace Ra
             void reloadShaders();
 
         private slots:
-            // These slots are connected to the base class signals to properly handle
-            // concurrent access to the renderer.
+            /// These slots are connected to the base class signals to properly handle
+            /// concurrent access to the renderer.
             void onAboutToCompose();
             void onAboutToResize();
             void onFrameSwapped();
@@ -121,19 +121,21 @@ namespace Ra
 
         private:
             /// QOpenGlWidget primitives
-            // Initialize openGL. Called on by the first "show" call to the main window.
+
+            /// Initialize openGL. Called on by the first "show" call to the main window.
             virtual void initializeGL() override;
 
-            // Resize the view port and the camera. Called by the resize event.
+            /// Resize the view port and the camera. Called by the resize event.
             virtual void resizeGL( int width, int height ) override;
 
-            // Paint event is set to a no-op to prevent synchronous rendering.
-            // We don't implement paintGL as well.
+            /// Paint event is set to a no-op to prevent synchronous rendering.
+            /// We don't implement paintGL as well.
             virtual void paintEvent( QPaintEvent* e ) override {}
 
             /// INTERACTION
-            // We intercept the mouse events in this widget to get the coordinates of the mouse
-            // in screen space.
+
+            /// We intercept the mouse events in this widget to get the coordinates of the mouse
+            /// in screen space.
             virtual void mousePressEvent( QMouseEvent* event ) override;
             virtual void mouseReleaseEvent( QMouseEvent* event ) override;
             virtual void mouseMoveEvent( QMouseEvent* event ) override;

@@ -19,13 +19,13 @@ namespace Ra
             {
                 switch ( m_props[p].getType() )
                 {
-                    case Engine::EditableProperty::POSITION:
+                    case Engine::EditablePrimitive::POSITION:
                     {
                         CORE_ASSERT( m_widgets[p], "No widget for property" );
                         static_cast<VectorEditor*>( m_widgets[p] )->setValue( m_props[p].asPosition() );
                         break;
                     }
-                    case Engine::EditableProperty::ROTATION:
+                    case Engine::EditablePrimitive::ROTATION:
                     {
                         CORE_ASSERT( m_widgets[p], "No widget for property" );
                         static_cast<RotationEditor*>( m_widgets[p] )->setValue( m_props[p].asRotation() );
@@ -81,7 +81,7 @@ namespace Ra
                     {
                         switch ( p.getType() )
                         {
-                            case Engine::EditableProperty::POSITION:
+                            case Engine::EditablePrimitive::POSITION:
                             {
                                 VectorEditor* widget = new VectorEditor( id, QString::fromStdString( p.getName() ) );
                                 m_layout->addWidget( widget );
@@ -91,7 +91,7 @@ namespace Ra
                                 m_widgets.push_back( widget );
                                 break;
                             }
-                            case Engine::EditableProperty::ROTATION:
+                            case Engine::EditablePrimitive::ROTATION:
                             {
                                 RotationEditor* widget = new RotationEditor( id, QString::fromStdString( p.getName() ) );
                                 m_layout->addWidget( widget );

@@ -1,15 +1,15 @@
-#include "EditableProperty.hpp"
+#include "EditablePrimitive.hpp"
 namespace Ra
 {
     namespace Engine
     {
 
-        inline EditableProperty::EditableProperty( const EditableProperty& other )
+        inline EditablePrimitive::EditablePrimitive( const EditablePrimitive& other )
         {
             *this = other;
         }
 
-        inline EditableProperty& EditableProperty::operator=( const EditableProperty& other )
+        inline EditablePrimitive& EditablePrimitive::operator=( const EditablePrimitive& other )
         {
             m_type = other.m_type;
             // We could copy the union member according to the type but this is way simpler.
@@ -18,92 +18,92 @@ namespace Ra
             return *this;
         }
 
-        inline EditableProperty EditableProperty::color( const std::string& name,
+        inline EditablePrimitive EditablePrimitive::color( const std::string& name,
                                                          const Core::Color& color /* = Core::Color:Ones()*/ )
         {
-            EditableProperty result;
+            EditablePrimitive result;
             result.m_value.color = color;
             result.m_type = COLOR;
             result.m_name = name;
             return result;
         }
 
-        inline EditableProperty EditableProperty::rotation( const std::string& name,
+        inline EditablePrimitive EditablePrimitive::rotation( const std::string& name,
                                                             const Core::Quaternion& quat /*= Core::Quaternion::Identity()*/ )
         {
-            EditableProperty result;
+            EditablePrimitive result;
             result.m_value.rotation = quat;
             result.m_type = ROTATION;
             result.m_name = name;
             return result;
         }
 
-        inline EditableProperty EditableProperty::scalar( const std::string& name, Scalar scalar /*= 0.f*/ )
+        inline EditablePrimitive EditablePrimitive::scalar( const std::string& name, Scalar scalar /*= 0.f*/ )
         {
-            EditableProperty result;
+            EditablePrimitive result;
             result.m_value.scalar = scalar;
             result.m_type = SCALAR;
             result.m_name = name;
             return result;
         }
 
-        inline EditableProperty EditableProperty::scale( const std::string& name,
+        inline EditablePrimitive EditablePrimitive::scale( const std::string& name,
                                                          const Core::Vector3& scale /*= Core::Vector3::Ones()*/ )
         {
-            EditableProperty result;
+            EditablePrimitive result;
             result.m_value.scale = scale;
             result.m_type = SCALE;
             result.m_name = name;
             return result;
         }
 
-        inline EditableProperty EditableProperty::position( const std::string& name,
+        inline EditablePrimitive EditablePrimitive::position( const std::string& name,
                                                             const Core::Vector3& vector /*= Core::Vector3::Zero()*/ )
         {
-            EditableProperty result;
+            EditablePrimitive result;
             result.m_value.position = vector;
             result.m_type = POSITION;
             result.m_name = name;
             return result;
         }
 
-        inline EditableProperty::Type EditableProperty::getType() const
+        inline EditablePrimitive::Type EditablePrimitive::getType() const
         {
             return m_type;
         }
 
-        const std::string& EditableProperty::getName() const
+        const std::string& EditablePrimitive::getName() const
         {
             return m_name;
         }
 
         // non-const versions
 
-        inline Scalar& EditableProperty::asScalar()
+        inline Scalar& EditablePrimitive::asScalar()
         {
             CORE_ASSERT( m_type == SCALAR, "Wrong type" );
             return m_value.scalar;
         }
 
-        inline Core::Vector3& EditableProperty::asPosition()
+        inline Core::Vector3& EditablePrimitive::asPosition()
         {
             CORE_ASSERT( m_type == POSITION, "Wrong type" );
             return m_value.position;
         }
 
-        inline Core::Quaternion& EditableProperty::asRotation()
+        inline Core::Quaternion& EditablePrimitive::asRotation()
         {
             CORE_ASSERT( m_type == ROTATION, "Wrong type" );
             return m_value.rotation;
         }
 
-        inline Core::Vector3& EditableProperty::asScale()
+        inline Core::Vector3& EditablePrimitive::asScale()
         {
             CORE_ASSERT( m_type == SCALE, "Wrong type" );
             return m_value.scale;
         }
 
-        inline Core::Color& EditableProperty::asColor()
+        inline Core::Color& EditablePrimitive::asColor()
         {
             CORE_ASSERT( m_type == COLOR, "Wrong type" );
             return m_value.color;
@@ -111,31 +111,31 @@ namespace Ra
 
         // const versions
 
-        inline const Scalar& EditableProperty::asScalar() const
+        inline const Scalar& EditablePrimitive::asScalar() const
         {
             CORE_ASSERT( m_type == SCALAR, "Wrong type" );
             return m_value.scalar;
         }
 
-        inline const Core::Vector3& EditableProperty::asPosition() const
+        inline const Core::Vector3& EditablePrimitive::asPosition() const
         {
             CORE_ASSERT( m_type == POSITION, "Wrong type" );
             return m_value.position;
         }
 
-        inline const Core::Quaternion& EditableProperty::asRotation() const
+        inline const Core::Quaternion& EditablePrimitive::asRotation() const
         {
             CORE_ASSERT( m_type == ROTATION, "Wrong type" );
             return m_value.rotation;
         }
 
-        inline const Core::Vector3& EditableProperty::asScale() const
+        inline const Core::Vector3& EditablePrimitive::asScale() const
         {
             CORE_ASSERT( m_type == SCALE, "Wrong type" );
             return m_value.scale;
         }
 
-        inline const Core::Color& EditableProperty::asColor() const
+        inline const Core::Color& EditablePrimitive::asColor() const
         {
             CORE_ASSERT( m_type == COLOR, "Wrong type" );
             return m_value.color;
