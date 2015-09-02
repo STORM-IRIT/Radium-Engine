@@ -43,7 +43,7 @@ namespace FancyMeshPlugin
 
         if ( technique->material->getMaterialType() == Ra::Engine::Material::MaterialType::MAT_TRANSPARENT )
         {
-            renderObject->setRenderObjectType( Ra::Engine::RenderObject::RenderObjectType::RO_TRANSPARENT );
+            renderObject->setType( Ra::Engine::RenderObject::Type::RO_TRANSPARENT );
         }
 
         Ra::Engine::Mesh* displayMesh = new Ra::Engine::Mesh( name );

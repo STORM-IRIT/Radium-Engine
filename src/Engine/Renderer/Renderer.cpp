@@ -199,21 +199,21 @@ namespace Ra
 
             for ( const auto& ro : renderObjects )
             {
-                switch ( ro->getRenderObjectType() )
+                switch ( ro->getType() )
                 {
-                    case RenderObject::RenderObjectType::RO_OPAQUE:
+                    case RenderObject::Type::RO_OPAQUE:
                     {
                         ro->feedRenderQueue( m_opaqueRenderQueue, renderData.viewMatrix, renderData.projMatrix );
                     }
                     break;
 
-                    case RenderObject::RenderObjectType::RO_TRANSPARENT:
+                    case RenderObject::Type::RO_TRANSPARENT:
                     {
                         ro->feedRenderQueue( m_transparentRenderQueue, renderData.viewMatrix, renderData.projMatrix );
                     }
                     break;
 
-                    case RenderObject::RenderObjectType::RO_DEBUG:
+                    case RenderObject::Type::RO_DEBUG:
                     {
                         if ( m_drawDebug )
                         {
@@ -222,7 +222,7 @@ namespace Ra
                     }
                     break;
 
-                    case RenderObject::RenderObjectType::RO_UI:
+                    case RenderObject::Type::RO_UI:
                     {
                         ro->feedRenderQueue( m_uiRenderQueue, renderData.viewMatrix, renderData.projMatrix );
                     }

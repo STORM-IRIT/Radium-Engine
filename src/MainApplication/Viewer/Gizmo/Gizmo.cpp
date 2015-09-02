@@ -49,15 +49,11 @@ namespace Ra
                     rt->shaderConfig = Ra::Engine::ShaderConfiguration("Plain", "../Shaders");
                     rt->material = new Ra::Engine::Material("Default material");
                     arrowDrawable->setRenderTechnique(rt);
+                    arrowDrawable->setType(Engine::RenderObject::Type::RO_UI);
                     arrowDrawable->setMesh(mesh);
-
+                    arrowDrawable->setLocalTransform(m_transform);
                     m_comp->addRenderObject(arrowDrawable);
 
                 }
-
-
             }
-
-
-
 }

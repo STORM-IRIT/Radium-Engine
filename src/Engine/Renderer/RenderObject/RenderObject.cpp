@@ -17,7 +17,7 @@ namespace Ra
             , m_localTransform( Core::Transform::Identity() )
             , m_component( comp )
             , m_name( name )
-            , m_type( RenderObjectType::RO_OPAQUE )
+            , m_type( Type::RO_OPAQUE )
             , m_renderTechnique( nullptr )
             , m_mesh( nullptr )
             , m_isDirty( true )
@@ -49,7 +49,7 @@ namespace Ra
         void RenderObject::feedRenderQueue( RenderQueue& queue, const Core::Matrix4& view, const Core::Matrix4& proj )
         {
             // FIXME(Charly): Is this multiplication in the right order ?
-            Core::Transform model = /* m_localTransform * */ m_component->getEntity()->getTransform();
+            Core::Transform model =  m_localTransform * m_component->getEntity()->getTransform();
 
             ShaderKey shader( m_renderTechnique->shader );
             BindableMaterial material( m_renderTechnique->material );
@@ -67,7 +67,7 @@ namespace Ra
 
             RenderObject* newRO = new RenderObject( m_name, m_component );
 
-            newRO->setRenderObjectType( m_type );
+            newRO->setType( m_type );
             newRO->setRenderTechnique( m_renderTechnique );
             newRO->setVisible( m_visible );
             newRO->addRenderParameters( m_renderParameters );

@@ -97,7 +97,7 @@ namespace Ra
         void Entity::getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const
         {
             std::lock_guard<std::mutex> lock( m_transformMutex );
-            entityPropsOut.push_back(EditableProperty(m_transform, "Entity Transform"));
+            entityPropsOut.push_back(EditableProperty(m_transform, "Entity Transform", true, true));
         }
 
         void Entity::setProperty( const EditableProperty& prop )

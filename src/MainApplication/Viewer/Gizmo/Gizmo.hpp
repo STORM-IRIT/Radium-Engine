@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Engine/RadiumEngine.hpp>
 
 namespace Ra{ namespace Engine { class Component; }}
 namespace Ra{ namespace Engine { class RenderObject; }}
@@ -16,6 +17,15 @@ namespace Ra
             RA_CORE_ALIGNED_NEW
             Gizmo(Engine::Component* c, const Core::Transform& t)
                     : m_transform(t), m_comp(c) { }
+
+            virtual ~Gizmo()
+            {
+                for (auto ro : m_renderObjects)
+                {
+                    Engine::RadiumEngine::getInstance()->getRenderObjectManager()->removeRenderObject(ro->idx);
+                }
+
+            }
 
         protected:
             Core::Transform m_transform;

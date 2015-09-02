@@ -46,12 +46,13 @@ namespace Ra
                 connect( m_slider_z_rel, SIGNAL( valueChanged( int ) ), this, SLOT( onValueChangedRelSlideZ() ) );
 
 
-                m_x->setReadOnly(editable);
-                m_y->setReadOnly(editable);
-                m_z->setReadOnly(editable);
-                m_x_rel->setReadOnly(editable);
-                m_y_rel->setReadOnly(editable);
-                m_z_rel->setReadOnly(editable);
+                m_x->setReadOnly(!editable);
+                m_y->setReadOnly(!editable);
+                m_z->setReadOnly(!editable);
+                m_x_rel->setReadOnly(!editable);
+                m_y_rel->setReadOnly(!editable);
+                m_z_rel->setReadOnly(!editable);
+
                 m_slider_x->setEnabled(editable);
                 m_slider_y->setEnabled(editable);
                 m_slider_z->setEnabled(editable);

@@ -201,7 +201,7 @@ namespace Ra
 
         Engine::DebugEntity::dbgCmp()->addRenderObject(Engine::DrawPrimitives::Grid(Engine::DebugEntity::dbgCmp(),Core::Vector3::Zero(), Core::Vector3::UnitX(), Core::Vector3::UnitZ(),Core::Colors::Grey(0.6f)));
 
-        Gizmo* gz = new TranslateGizmo(Engine::DebugEntity::dbgCmp(),transform);
+//        Gizmo* gz = new TranslateGizmo(Engine::DebugEntity::dbgCmp(),transform);
 
 
         //Engine::Entity* ent2 = manager->getOrCreateEntity( "box2" );

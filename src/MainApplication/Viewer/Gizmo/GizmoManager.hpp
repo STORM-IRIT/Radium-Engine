@@ -4,6 +4,8 @@
 #include <QObject>
 #include <Engine/Entity/Component.hpp>
 #include <MainApplication/Viewer/Gizmo/Gizmo.hpp>
+#include <Engine/DebugDisplay/DebugDisplay.hpp>
+
 namespace Ra
 {
     namespace Gui
@@ -25,7 +27,6 @@ namespace Ra
 
             GizmoManager(QObject* parent = nullptr)
                     : QObject(parent)
-                    , m_currentTarget(nullptr)
                     , m_currentGizmoType(NONE)
                     , m_currentGizmo(nullptr)
             {}
@@ -34,35 +35,45 @@ namespace Ra
             void setEditable(Engine::EditableInterface* edit)
             {
                 delete m_currentGizmo;
-                /*if (edit)
+                if (edit)
                 {
-                    Core::AlignedStdVector<Engine::EditablePrimitive> properties;
-                    edit->getProperties(properties);
-
-                    m_currentEdit = edit;
-                    // Translation only.
-                    for (const auto& p : properties)
+                    Core::AlignedStdVector<Engine::EditableProperty> props;
+                    edit->getProperties(props);
+                    int transformFound = -1;
+                    for (uint i = 0; i < props.size(); ++i)
                     {
-                        if (p.getType() == Engine::EditablePrimitive::POSITION)
+                        if (props[i].type == Engine::EditableProperty::TRANSFORM)
                         {
-                            m_currentTarget = nullptr;
-                            m_currentTransform = Core::Transform::Identity();
-                            m_currentTransform.translation() = p.asPosition();
-                            m_currentGizmoType = TRANSLATION;
-                            //                        m_currentGizmo = new TranslateGizmo(m_currentTarget, m_currentTransform);
-                            return;
+                            transformFound = i;
+                            break;
                         }
                     }
-                }*/
+                    if (transformFound >= 0)
+                    {
+                        const Engine::EditableProperty& transformProp = props[transformFound];
+                        m_currentEdit = edit;
+                        // Translation only.
+                        for (const auto& p : transformProp.primitives)
+                        {
+                            if (p.primitive.getType() == Engine::EditablePrimitive::POSITION)
+                            {
+                                m_currentEdit=  edit;
+                                m_transform = Core::Transform::Identity();
+                                m_transform.translation() = p.primitive.asPosition();
+                                m_currentGizmoType = TRANSLATION;
+                                m_currentGizmo = new TranslateGizmo(Engine::DebugEntity::dbgCmp(), m_transform);
+                                return;
+                            }
+                        }
+                    }
+                }
                 m_currentGizmoType = NONE;
-                m_currentTarget = nullptr;
                 m_currentGizmo = nullptr;
 
             };
 
         private:
-            Core::Transform  m_currentTransform;
-            Engine::Component* m_currentTarget;
+            Core::Transform m_transform;
             Engine::EditableInterface* m_currentEdit;
             GizmoType m_currentGizmoType;
             Gizmo* m_currentGizmo;

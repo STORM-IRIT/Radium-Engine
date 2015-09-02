@@ -21,9 +21,9 @@ namespace Ra
                 connect( m_y, SIGNAL( valueChanged( double ) ), this, SLOT( onValueChangedInternal() ) );
                 connect( m_z, SIGNAL( valueChanged( double ) ), this, SLOT( onValueChangedInternal() ) );
 
-                m_x->setReadOnly(editable);
-                m_y->setReadOnly(editable);
-                m_z->setReadOnly(editable);
+                m_x->setReadOnly(!editable);
+                m_y->setReadOnly(!editable);
+                m_z->setReadOnly(!editable);
             }
 
             /// Manually set a new value for the vector.

@@ -4,12 +4,12 @@ namespace Ra
 {
     namespace Engine
     {
-        inline void RenderObject::setRenderObjectType( const RenderObjectType& type )
+        inline void RenderObject::setType( const Type& type )
         {
             m_type = type;
         }
 
-        inline const RenderObject::RenderObjectType& RenderObject::getRenderObjectType() const
+        inline const RenderObject::Type& RenderObject::getType() const
         {
             return m_type;
         }

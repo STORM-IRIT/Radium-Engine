@@ -33,7 +33,7 @@ namespace Ra
         class RA_ENGINE_API RenderObject : public Core::IndexedObject
         {
         public:
-            enum class RenderObjectType
+            enum class Type
             {
                 RO_OPAQUE,
                 RO_TRANSPARENT,
@@ -65,8 +65,8 @@ namespace Ra
             inline const std::string& getName() const;
             inline const Component* getComponent() const;
 
-            inline void setRenderObjectType( const RenderObjectType& type );
-            inline const RenderObjectType& getRenderObjectType() const;
+            inline void setType( const Type& type );
+            inline const Type& getType() const;
 
             inline void setVisible( bool visible );
             inline bool isVisible() const;
@@ -92,7 +92,7 @@ namespace Ra
             const Component* m_component;
             std::string m_name;
 
-            RenderObjectType m_type;
+            Type m_type;
             RenderTechnique* m_renderTechnique;
             Mesh* m_mesh;
 
