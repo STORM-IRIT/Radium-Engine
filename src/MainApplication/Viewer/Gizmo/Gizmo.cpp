@@ -10,6 +10,15 @@
 
 namespace Ra
 {
+            Gizmo::~Gizmo()
+             {
+                for (auto ro : m_renderObjects)
+                {
+                    m_comp->removeRenderObject(ro);
+                }
+
+            }
+
             TranslateGizmo::TranslateGizmo(Engine::Component* c, const Core::Transform& t)
             : Gizmo(c, t)
             {
@@ -43,7 +52,6 @@ namespace Ra
                     mesh->addData(Engine::Mesh::VERTEX_COLOR, colors);
 
                     Engine::RenderObject* arrowDrawable = new Engine::RenderObject("Gizmo Arrow", m_comp);
-                    m_renderObjects.push_back(arrowDrawable);
 
                     Engine::RenderTechnique* rt = new Engine::RenderTechnique;
                     rt->shaderConfig = Ra::Engine::ShaderConfiguration("Plain", "../Shaders");
@@ -52,7 +60,7 @@ namespace Ra
                     arrowDrawable->setType(Engine::RenderObject::Type::RO_UI);
                     arrowDrawable->setMesh(mesh);
                     arrowDrawable->setLocalTransform(m_transform);
-                    m_comp->addRenderObject(arrowDrawable);
+                    m_renderObjects.push_back(m_comp->addRenderObject(arrowDrawable));
 
                 }
             }

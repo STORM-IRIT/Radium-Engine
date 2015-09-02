@@ -59,7 +59,8 @@ namespace Ra
             virtual void setSystem( System* system );
             virtual System* getSystem() const;
 
-            virtual void addRenderObject( RenderObject* renderObject ) final;
+            virtual Core::Index addRenderObject( RenderObject* renderObject ) final;
+            virtual void removeRenderObject( Core::Index roIdx ) final;
 
             //
             // Editable interface.

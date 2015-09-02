@@ -29,9 +29,22 @@ namespace Ra
             return RadiumEngine::getInstance()->getRenderObjectManager();
         }
 
-        void Component::addRenderObject( RenderObject* renderObject )
+        Core::Index Component::addRenderObject( RenderObject* renderObject )
         {
             m_renderObjects.push_back( getRoMgr()->addRenderObject( renderObject ) );
+            return m_renderObjects.back();
         }
+
+        void Component::removeRenderObject( Core::Index roIdx )
+        {
+            auto found = std::find(m_renderObjects.cbegin(), m_renderObjects.cend(),roIdx);
+            CORE_WARN_IF(found == m_renderObjects.cbegin(), " Render object not found in component");
+            if (found != m_renderObjects.cend())
+            {
+                getRoMgr()->removeRenderObject(*found);
+                m_renderObjects.erase(found);
+            }
+        }
+
     }
 } // namespace Ra

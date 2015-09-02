@@ -18,19 +18,12 @@ namespace Ra
             Gizmo(Engine::Component* c, const Core::Transform& t)
                     : m_transform(t), m_comp(c) { }
 
-            virtual ~Gizmo()
-            {
-                for (auto ro : m_renderObjects)
-                {
-                    Engine::RadiumEngine::getInstance()->getRenderObjectManager()->removeRenderObject(ro->idx);
-                }
-
-            }
+            virtual ~Gizmo();
 
         protected:
             Core::Transform m_transform;
             Engine::Component* m_comp;
-            std::vector<Engine::RenderObject*> m_renderObjects;
+            std::vector<Core::Index> m_renderObjects;
             
         };
 
