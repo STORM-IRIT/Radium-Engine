@@ -14,7 +14,7 @@ namespace Ra
         {
             Q_OBJECT
         public:
-            RotationEditor( uint id, QString title, QWidget* parent = nullptr )
+            RotationEditor( uint id, QString title, bool editable, QWidget* parent = nullptr )
                 : QWidget( parent ),
                   m_id( id ),
                   m_relativeAxis( -1 )
@@ -44,6 +44,21 @@ namespace Ra
                 connect( m_slider_x_rel, SIGNAL( valueChanged( int ) ), this, SLOT( onValueChangedRelSlideX() ) );
                 connect( m_slider_y_rel, SIGNAL( valueChanged( int ) ), this, SLOT( onValueChangedRelSlideY() ) );
                 connect( m_slider_z_rel, SIGNAL( valueChanged( int ) ), this, SLOT( onValueChangedRelSlideZ() ) );
+
+
+                m_x->setReadOnly(editable);
+                m_y->setReadOnly(editable);
+                m_z->setReadOnly(editable);
+                m_x_rel->setReadOnly(editable);
+                m_y_rel->setReadOnly(editable);
+                m_z_rel->setReadOnly(editable);
+                m_slider_x->setEnabled(editable);
+                m_slider_y->setEnabled(editable);
+                m_slider_z->setEnabled(editable);
+                m_slider_x_rel->setEnabled(editable);
+                m_slider_y_rel->setEnabled(editable);
+                m_slider_z_rel->setEnabled(editable);
+
             }
 
             /// Manually set a new value for the rotation.

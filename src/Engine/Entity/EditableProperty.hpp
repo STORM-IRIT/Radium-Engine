@@ -26,12 +26,14 @@ namespace Ra
 
             enum Type
             {
+                NONE,    //
                 PRIMITIVE,  // Exactly one primitive.
                 ARRAY,      // An array of primitives of similar type
                 TRANSFORM,  // Special case for transform : a rotation (primitive 0) and a translation (primitive 1).
                 VARIANTS,   // A generic array of different typed properties.
             };
 
+            EditableProperty() : type(NONE){}
             EditableProperty(Type t, const std::string& name) : type(t), name(name) {}
             EditableProperty(const EditableProperty&) = default;
             EditableProperty& operator= (const EditableProperty&) = default;

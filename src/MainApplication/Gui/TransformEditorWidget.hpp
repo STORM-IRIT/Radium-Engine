@@ -12,13 +12,13 @@ namespace Ra
     namespace Gui
     {
 
-        /// The specialized tab to edit properties of an object.
-        class PropertyEditorWidget : public QWidget
+        /// The specialized tab to edit the transform of an object.
+        class TransformEditorWidget : public QWidget
         {
             Q_OBJECT
         public:
-            PropertyEditorWidget( QWidget* parent = nullptr );
-            ~PropertyEditorWidget();
+            TransformEditorWidget( QWidget* parent = nullptr );
+            ~TransformEditorWidget();
 
         public slots:
             /// Update the displays from the current state of the editable properties.
@@ -27,7 +27,7 @@ namespace Ra
 
             /// Change the object being edited. To clear the UI (e.g. if no object is selected)
             /// you can pass nullptr as the editable.
-            void setEditable( Engine::EditableInterface* edit, uint propIdx );
+            void setEditable( Engine::EditableInterface* edit );
 
         private slots:
             // Called internally by the child widgets when their value change.
@@ -39,12 +39,12 @@ namespace Ra
             Engine::EditableInterface* m_currentEdit;
 
             /// Editable property index.
-            uint m_propIdx;
+            Engine::EditableProperty m_transform;
 
             /// Layout of the widgets
             QLayout* m_layout;
 
-            /// Vector of edition widgets, one for each primitive.
+            /// Vector of edition widgets, one for each property.
             /// If the corresponding editing is not supported, the widget will be nullptr;
             std::vector<QWidget*> m_widgets;
         };

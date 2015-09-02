@@ -13,13 +13,17 @@ namespace Ra
         {
             Q_OBJECT
         public:
-            VectorEditor( uint id, QString title, QWidget* parent = nullptr ) : QWidget( parent ), m_id( id )
+            VectorEditor( uint id, QString title, bool editable = true, QWidget* parent = nullptr ) : QWidget( parent ), m_id( id )
             {
                 setupUi( this );
                 m_groupBox->setTitle( title );
                 connect( m_x, SIGNAL( valueChanged( double ) ), this, SLOT( onValueChangedInternal() ) );
                 connect( m_y, SIGNAL( valueChanged( double ) ), this, SLOT( onValueChangedInternal() ) );
                 connect( m_z, SIGNAL( valueChanged( double ) ), this, SLOT( onValueChangedInternal() ) );
+
+                m_x->setReadOnly(editable);
+                m_y->setReadOnly(editable);
+                m_z->setReadOnly(editable);
             }
 
             /// Manually set a new value for the vector.

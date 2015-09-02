@@ -34,7 +34,7 @@ namespace Ra
             void setEditable(Engine::EditableInterface* edit)
             {
                 delete m_currentGizmo;
-                if (edit)
+                /*if (edit)
                 {
                     Core::AlignedStdVector<Engine::EditablePrimitive> properties;
                     edit->getProperties(properties);
@@ -53,7 +53,7 @@ namespace Ra
                             return;
                         }
                     }
-                }
+                }*/
                 m_currentGizmoType = NONE;
                 m_currentTarget = nullptr;
                 m_currentGizmo = nullptr;

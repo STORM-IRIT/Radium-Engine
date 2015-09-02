@@ -12,7 +12,6 @@
 #include <MainApplication/Gui/EntityTreeModel.hpp>
 #include <MainApplication/Gui/EntityTreeItem.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
-#include "PropertyEditorWidget.hpp"
 
 namespace Ra
 {
@@ -94,7 +93,7 @@ namespace Ra
 
 
         /// Inform property editors of new selections
-        connect(this, &MainWindow::selectedEntity, tab_edition, &PropertyEditorWidget::setEditable);
+        connect(this, &MainWindow::selectedEntity, tab_edition, &TransformEditorWidget::setEditable);
         connect(this, &MainWindow::selectedEntity, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
     }
 
