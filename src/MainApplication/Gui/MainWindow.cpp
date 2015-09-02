@@ -344,8 +344,12 @@ namespace Ra
         {
             QModelIndex selIdx = selected.indexes()[0];
 
-            Engine::Entity* entity = m_entityTreeModel->getItem( selIdx )->getData( 0 ).entity;
-            emit selectedEntity(entity);
+            Engine::Entity* entity = m_entityTreeModel->getItem(selIdx)->getData(0).entity;
+            // Debug entity and objects are not selectable
+            if (entity != Engine::DebugEntity::getInstance())
+            {
+                emit selectedEntity(entity);
+            }
         }
         else
         {

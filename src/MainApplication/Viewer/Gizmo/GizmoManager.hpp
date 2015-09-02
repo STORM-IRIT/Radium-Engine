@@ -52,19 +52,23 @@ namespace Ra
                     {
                         const Engine::EditableProperty& transformProp = props[transformFound];
                         m_currentEdit = edit;
-                        // Translation only.
+                        m_transform = Core::Transform::Identity();
+                        m_currentGizmoType = TRANSLATION;
+                        // Grab translation.
                         for (const auto& p : transformProp.primitives)
                         {
                             if (p.primitive.getType() == Engine::EditablePrimitive::POSITION)
                             {
-                                m_currentEdit=  edit;
-                                m_transform = Core::Transform::Identity();
                                 m_transform.translation() = p.primitive.asPosition();
-                                m_currentGizmoType = TRANSLATION;
-                                m_currentGizmo = new TranslateGizmo(Engine::DebugEntity::dbgCmp(), m_transform);
-                                return;
+                            }
+
+                            if (p.primitive.getType() == Engine::EditablePrimitive::ROTATION)
+                            {
+                                m_transform.linear() = p.primitive.asRotation().toRotationMatrix();
                             }
                         }
+                        m_currentGizmo = new TranslateGizmo(Engine::DebugEntity::dbgCmp(), m_transform);
+                        return;
                     }
                 }
                 m_currentGizmoType = NONE;
@@ -77,7 +81,6 @@ namespace Ra
             Engine::EditableInterface* m_currentEdit;
             GizmoType m_currentGizmoType;
             Gizmo* m_currentGizmo;
-
         };
     }
 }

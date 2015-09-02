@@ -22,7 +22,7 @@ namespace Ra
             TranslateGizmo::TranslateGizmo(Engine::Component* c, const Core::Transform& t)
             : Gizmo(c, t)
             {
-
+                constexpr Scalar arrowScale = 0.2f;
                 constexpr Scalar axisWidth = 0.05f;
                 constexpr Scalar arrowFrac = 0.1f;
 
@@ -35,9 +35,9 @@ namespace Ra
                     arrowEnd[i] = 1.f;
 
                     Core::TriangleMesh cylinder = Core::MeshUtils::makeCylinder(
-                            Core::Vector3::Zero(), cylinderEnd, axisWidth / 2.f );
+                            Core::Vector3::Zero(), arrowScale* cylinderEnd, arrowScale *axisWidth / 2.f );
 
-                    Core::TriangleMesh cone = Core::MeshUtils::makeCone(cylinderEnd, arrowEnd, arrowFrac/2.f );
+                    Core::TriangleMesh cone = Core::MeshUtils::makeCone(arrowScale* cylinderEnd, arrowScale * arrowEnd, arrowScale* arrowFrac/2.f );
 
                     // Merge the cylinder and the cone to create the arrow shape.
                     cylinder.append(cone);
@@ -60,6 +60,11 @@ namespace Ra
                     arrowDrawable->setType(Engine::RenderObject::Type::RO_UI);
                     arrowDrawable->setMesh(mesh);
                     arrowDrawable->setLocalTransform(m_transform);
+
+                    Engine::RenderParameters params;
+                    params.addParameter( "drawFixedSize", 1 );
+                    arrowDrawable->addRenderParameters( params );
+
                     m_renderObjects.push_back(m_comp->addRenderObject(arrowDrawable));
 
                 }

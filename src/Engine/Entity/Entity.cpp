@@ -122,7 +122,7 @@ namespace Ra
                     case EditablePrimitive::ROTATION:
                     {
                         CORE_ASSERT(prim.getName() == "Rotation", "Inconsistent primitive");
-                        m_doubleBufferedTransform.linear() =
+                        m_doubleBufferedTransform.linear() = //FIXME : this won't work with scale.
                                 prim.asRotation().toRotationMatrix();
                         m_transformChanged = true;
                     }
