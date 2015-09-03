@@ -8,6 +8,7 @@
 
 #include <Core/Math/Math.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Ray.hpp>
 
 namespace Ra
 {
@@ -133,6 +134,12 @@ namespace Ra
             // Update the projection matrix according to the current parameters.
             void updateProjMatrix();
 
+
+            // Utility functions
+
+            /// Gets a ray emanating from the camera, passing by the point given by
+            /// screen coordinates x and y.
+            Core::Ray getRayFromScreen( uint x, uint y) const;
 
         protected:
             /// -------------------- ///

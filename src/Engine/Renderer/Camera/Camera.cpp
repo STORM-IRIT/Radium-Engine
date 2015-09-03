@@ -107,5 +107,19 @@ namespace Ra
             }
         }
 
+        Core::Ray Camera::getRayFromScreen(uint x, uint y) const
+        {
+            const Core::Vector3& origin = getPosition();
+
+            const Scalar pixSize = m_zNear * std::tan(m_fov/2.f) / m_height;
+
+            const Scalar localX = (Scalar(x) - (m_width / 2.f))*pixSize;
+            const Scalar localY = (Scalar(y) - (m_height/ 2.f))*pixSize;
+
+            const Core::Vector3 localPoint (localX, localY, m_zNear);
+            const Core::Vector3 direction = (m_frame*localPoint  - origin).normalized();
+
+            return Core::Ray (origin, direction);
+        }
     } // End of Engine
 } // End of Ra

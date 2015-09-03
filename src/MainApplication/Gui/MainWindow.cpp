@@ -36,7 +36,7 @@ namespace Ra
 
         mainApp->framesCountForStatsChanged(
             m_avgFramesCount->value() );
-        m_viewer->getCamera()->resetCamera();
+        m_viewer->getCameraInterface()->resetCamera();
     }
 
     Gui::MainWindow::~MainWindow()
@@ -64,7 +64,7 @@ namespace Ra
                  SLOT( onSelectionChanged( const QItemSelection&, const QItemSelection& ) ) );
 
         connect( m_cameraResetButton, SIGNAL( released() ),
-                 m_viewer->getCamera(), SLOT( resetCamera() ) );
+                 m_viewer->getCameraInterface(), SLOT( resetCamera() ) );
 
         connect( m_setCameraPositionButton, SIGNAL( released() ),
                  this, SLOT( setCameraPosition() ) );
@@ -72,17 +72,17 @@ namespace Ra
                  this, SLOT( setCameraTarget() ) );
 
         connect( this, SIGNAL( setCameraPosition( const Core::Vector3& ) ),
-                 m_viewer->getCamera(), SLOT( setCameraPosition( const Core::Vector3& ) ) );
+                 m_viewer->getCameraInterface(), SLOT( setCameraPosition( const Core::Vector3& ) ) );
         connect( this, SIGNAL( setCameraTarget( const Core::Vector3& ) ),
-                 m_viewer->getCamera(), SLOT( setCameraTarget( const Core::Vector3& ) ) );
+                 m_viewer->getCameraInterface(), SLOT( setCameraTarget( const Core::Vector3& ) ) );
 
-        connect( m_viewer->getCamera(), SIGNAL( cameraPositionChanged( const Core::Vector3& ) ),
+        connect(m_viewer->getCameraInterface(), SIGNAL( cameraPositionChanged( const Core::Vector3& ) ),
                  this, SLOT( cameraPositionChanged( const Core::Vector3& ) ) );
-        connect( m_viewer->getCamera(), SIGNAL( cameraTargetChanged( const Core::Vector3& ) ),
+        connect(m_viewer->getCameraInterface(), SIGNAL( cameraTargetChanged( const Core::Vector3& ) ),
                  this, SLOT( cameraTargetChanged( const Core::Vector3& ) ) );
 
         connect( m_cameraSensitivity, SIGNAL( valueChanged( double ) ),
-                 m_viewer->getCamera(), SLOT( setCameraSensitivity( double ) ) );
+                 m_viewer->getCameraInterface(), SLOT( setCameraSensitivity( double ) ) );
 
         /// Update entities when the engine starts.
         connect( mainApp, SIGNAL( starting() ),  this, SLOT( entitiesUpdated() ) );

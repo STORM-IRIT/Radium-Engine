@@ -58,6 +58,8 @@ namespace Ra
             /// @return true if the event has been taken into account, false otherwise
             virtual bool handleKeyReleaseEvent( QKeyEvent* event ) = 0;
 
+            const Engine::Camera* getCamera() const { return m_camera.get();}
+
         public slots:
             void setCameraSensitivity( double sensitivity );
 
@@ -86,8 +88,8 @@ namespace Ra
             Scalar m_targetedAabbVolume;
             Scalar m_cameraSensitivity;
 
-            mutable std::unique_ptr<Engine::Camera> m_camera;
-            mutable bool m_projIsDirty;
+            std::unique_ptr<Engine::Camera> m_camera;
+            //bool m_projIsDirty;
             bool m_mapCameraBahaviourToAabb;
         };
 

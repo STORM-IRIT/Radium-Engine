@@ -81,7 +81,7 @@ namespace Ra
             void initRenderer();
 
             /// Access to camera interface.
-            CameraInterface* getCamera()
+            CameraInterface* getCameraInterface()
             {
                 return m_camera.get();
             }

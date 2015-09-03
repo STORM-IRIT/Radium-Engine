@@ -1,11 +1,12 @@
 #ifndef RADIUMENGINE_GIZMO_HPP_
 #define RADIUMENGINE_GIZMO_HPP_
 
+#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Index/Index.hpp>
 #include <vector>
 
-#include <Core/Math/LinearAlgebra.hpp>
-#include <Engine/RadiumEngine.hpp>
 
+namespace Ra{ namespace Core{ class Ray; }}
 namespace Ra{ namespace Engine { class Component; }}
 namespace Ra{ namespace Engine { class RenderObject; }}
 
@@ -20,7 +21,8 @@ namespace Ra
 
             virtual ~Gizmo();
 
-            virtual void updateTransform( const Core::Transform& t ) =0;
+            virtual void updateTransform( const Core::Transform& t ) = 0;
+            virtual void selectConstraint( const Core::Ray& ray ) = 0;
 
         protected:
             Core::Transform m_transform;
@@ -36,6 +38,7 @@ namespace Ra
             TranslateGizmo(Engine::Component* c, const Core::Transform& t);
 
             void updateTransform(const Core::Transform& t) override;
+            void selectConstraint(const Core::Ray& ray) override;
         };
 }
 

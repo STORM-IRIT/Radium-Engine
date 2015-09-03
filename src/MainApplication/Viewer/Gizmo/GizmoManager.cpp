@@ -1,4 +1,7 @@
 #include <MainApplication/Viewer/Gizmo/GizmoManager.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
+#include <MainApplication/Viewer/Viewer.hpp>
+#include <MainApplication/Viewer/CameraInterface.hpp>
 
 namespace Ra
 {
@@ -96,6 +99,36 @@ namespace Ra
             {
                 m_currentGizmo->updateTransform(m_transform);
             }
+        }
+
+        bool GizmoManager::handleMousePressEvent(QMouseEvent* event)
+        {
+            if( event->button() != Qt::LeftButton || !m_currentEdit || m_currentGizmoType == NONE)
+            {
+                return false;
+            }
+            uint x = uint(event->pos().x());
+            uint y = uint(event->pos().y());
+            Core::Ray r = static_cast<Viewer*>(parent())->getCameraInterface()->getCamera()->getRayFromScreen(x,y);
+
+            CORE_ASSERT(m_currentGizmo, "Gizmo is not there !");
+
+            m_currentGizmo->selectConstraint(r);
+
+            m_lastMouseX = x;
+            m_lastMouseY = y;
+
+            return true;
+        }
+
+        bool GizmoManager::handleMouseReleaseEvent(QMouseEvent* event)
+        {
+            return false;
+        }
+
+        bool GizmoManager::handleMouseMoveEvent(QMouseEvent* event)
+        {
+            return false;
         }
     }
 }

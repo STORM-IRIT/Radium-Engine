@@ -1,8 +1,12 @@
 #include <MainApplication/Viewer/Gizmo/Gizmo.hpp>
 
-#include <Core/Containers/VectorArray.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Ray.hpp>
 #include <Core/Math/ColorPresets.hpp>
+#include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
+
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
@@ -77,6 +81,15 @@ namespace Ra
         for (auto roIdx : m_renderObjects)
         {
             Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(roIdx)->setLocalTransform(m_transform);
+        }
+    }
+
+    void TranslateGizmo::selectConstraint(const Core::Ray& ray)
+    {
+        //raycast against segment + radius.
+        for  (uint i = 0; i < 3 ; ++i)
+        {
+
         }
     }
 }
