@@ -67,6 +67,8 @@ namespace Ra
 
         void updateFrameStats( const std::vector<FrameTimerData>& );
 
+        void endFrame();
+
     public slots:
 
         void loadFile( QString path );

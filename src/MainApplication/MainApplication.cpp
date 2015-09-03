@@ -313,6 +313,7 @@ namespace Ra
             emit( updateFrameStats( m_timerData ) );
             m_timerData.clear();
         }
+        emit endFrame();
     }
 
     void MainApplication::appNeedsToQuit()

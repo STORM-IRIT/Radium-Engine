@@ -13,25 +13,28 @@ namespace Ra
 
         void TransformEditorWidget::updateValues()
         {
-            CORE_ASSERT(m_transform.primitives.size() == m_widgets.size(), "Widget/props inconsistency");
-            for (uint p = 0; p < m_transform.primitives.size(); ++p)
+            if(m_currentEdit)
             {
-                const Engine::EditablePrimitive& prim = m_transform.primitives[p].primitive;
-                switch (prim.getType())
+                CORE_ASSERT(m_transform.primitives.size() == m_widgets.size(), "Widget/props inconsistency");
+                for (uint p = 0; p < m_transform.primitives.size(); ++p)
                 {
-                    case Engine::EditablePrimitive::POSITION:
+                    const Engine::EditablePrimitive& prim = m_transform.primitives[p].primitive;
+                    switch (prim.getType())
                     {
-                        CORE_ASSERT(m_widgets[p], "No widget for property");
-                        static_cast<VectorEditor*>( m_widgets[p] )->setValue(prim.asPosition());
-                        break;
+                        case Engine::EditablePrimitive::POSITION:
+                        {
+                            CORE_ASSERT(m_widgets[p], "No widget for property");
+                            static_cast<VectorEditor*>( m_widgets[p] )->setValue(prim.asPosition());
+                            break;
+                        }
+                        case Engine::EditablePrimitive::ROTATION:
+                        {
+                            CORE_ASSERT(m_widgets[p], "No widget for property");
+                            static_cast<RotationEditor*>( m_widgets[p] )->setValue(prim.asRotation());
+                            break;
+                        }
+                        default:;// do nothing.
                     }
-                    case Engine::EditablePrimitive::ROTATION:
-                    {
-                        CORE_ASSERT(m_widgets[p], "No widget for property");
-                        static_cast<RotationEditor*>( m_widgets[p] )->setValue(prim.asRotation());
-                        break;
-                    }
-                    default:;// do nothing.
                 }
             }
         }

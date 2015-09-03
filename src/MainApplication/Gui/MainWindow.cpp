@@ -91,10 +91,14 @@ namespace Ra
         connect( mainApp , SIGNAL( updateFrameStats( const std::vector<FrameTimerData>& ) ),
                  this, SLOT( updateFramestats( const std::vector<FrameTimerData>& ) ) );
 
-
         /// Inform property editors of new selections
         connect(this, &MainWindow::selectedEntity, tab_edition, &TransformEditorWidget::setEditable);
         connect(this, &MainWindow::selectedEntity, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
+
+        // Editors should be updated after each frame
+        connect(mainApp, &MainApplication::endFrame, tab_edition, &TransformEditorWidget::updateValues);
+        connect(mainApp, &MainApplication::endFrame, m_viewer->getGizmoManager(), &GizmoManager::updateValues);
+
     }
 
     void Gui::MainWindow::entitiesUpdated()

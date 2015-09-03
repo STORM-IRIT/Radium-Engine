@@ -13,38 +13,7 @@ namespace Ra
         void GizmoManager::setEditable(Engine::EditableInterface* edit)
         {
             m_currentEdit = edit;
-            if (edit)
-            {
-                Core::AlignedStdVector<Engine::EditableProperty> props;
-                edit->getProperties(props);
-                int transformFound = -1;
-                for (uint i = 0; i < props.size(); ++i)
-                {
-                    if (props[i].type == Engine::EditableProperty::TRANSFORM)
-                    {
-                        transformFound = i;
-                        break;
-                    }
-                }
-                if (transformFound >= 0)
-                {
-                    const Engine::EditableProperty& transformProp = props[transformFound];
-                    m_transform = Core::Transform::Identity();
-                    // Grab translation.
-                    for (const auto& p : transformProp.primitives)
-                    {
-                        if (p.primitive.getType() == Engine::EditablePrimitive::POSITION)
-                        {
-                            m_transform.translation() = p.primitive.asPosition();
-                        }
-
-                        if (p.primitive.getType() == Engine::EditablePrimitive::ROTATION)
-                        {
-                            m_transform.linear() = p.primitive.asRotation().toRotationMatrix();
-                        }
-                    }
-                }
-            }
+            getTransform();
             spawnGizmo();
         }
 
@@ -81,6 +50,52 @@ namespace Ra
         {
             m_currentGizmoType = type;
             spawnGizmo();
+        }
+
+        void GizmoManager::getTransform()
+        {
+            if (m_currentEdit)
+            {
+                Core::AlignedStdVector<Engine::EditableProperty> props;
+                m_currentEdit->getProperties(props);
+                int transformFound = -1;
+                for (uint i = 0; i < props.size(); ++i)
+                {
+                    if (props[i].type == Engine::EditableProperty::TRANSFORM)
+                    {
+                        transformFound = i;
+                        break;
+                    }
+                }
+                if (transformFound >= 0)
+                {
+                    const Engine::EditableProperty& transformProp = props[transformFound];
+                    Core::Transform transform = Core::Transform::Identity();
+                    // Grab translation.
+                    for (const auto& p : transformProp.primitives)
+                    {
+                        if (p.primitive.getType() == Engine::EditablePrimitive::POSITION)
+                        {
+                            transform.translation() = p.primitive.asPosition();
+                        }
+
+                        if (p.primitive.getType() == Engine::EditablePrimitive::ROTATION)
+                        {
+                            transform.linear() = p.primitive.asRotation().toRotationMatrix();
+                        }
+                    }
+                    m_transform = transform;
+                }
+            }
+        }
+
+        void GizmoManager::updateValues()
+        {
+            getTransform();
+            if(m_currentGizmo)
+            {
+                m_currentGizmo->updateTransform(m_transform);
+            }
         }
     }
 }

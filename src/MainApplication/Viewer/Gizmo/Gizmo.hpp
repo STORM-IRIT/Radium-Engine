@@ -20,6 +20,8 @@ namespace Ra
 
             virtual ~Gizmo();
 
+            virtual void updateTransform( const Core::Transform& t ) =0;
+
         protected:
             Core::Transform m_transform;
             Engine::Component* m_comp;
@@ -32,6 +34,8 @@ namespace Ra
         public:
             // Draw a frame with : 3 RGB arrows
             TranslateGizmo(Engine::Component* c, const Core::Transform& t);
+
+            void updateTransform(const Core::Transform& t) override;
         };
 }
 
