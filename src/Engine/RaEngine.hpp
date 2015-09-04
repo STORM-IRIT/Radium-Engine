@@ -6,7 +6,7 @@
 #if defined   RA_ENGINE_EXPORTS    
     #define RA_ENGINE_API DLL_EXPORT 
 #elif defined RA_ENGINE_IMPORTS
-    #define RA_ENGINE_API DLL_EXPORT 
+    #define RA_ENGINE_API DLL_IMPORT
 #else
     #define RA_ENGINE_API 
 #endif
