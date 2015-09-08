@@ -8,7 +8,7 @@ namespace Ra
     namespace Gui
     {
         GizmoManager::GizmoManager(QObject* parent)
-                : QObject(parent),m_currentGizmo(nullptr), m_currentGizmoType(TRANSLATION), m_mode(LOCAL) { }
+                : QObject(parent),m_currentEdit(nullptr),m_currentGizmo(nullptr), m_currentGizmoType(TRANSLATION), m_mode(LOCAL) { }
 
 
         GizmoManager::~GizmoManager() { }

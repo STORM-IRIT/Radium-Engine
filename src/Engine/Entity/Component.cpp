@@ -26,6 +26,8 @@ namespace Ra
 
         RenderObjectManager* Component::getRoMgr()
         {
+            CORE_ASSERT(RadiumEngine::getInstance()->getRenderObjectManager() != nullptr,
+                        "RO manager is null" );
             return RadiumEngine::getInstance()->getRenderObjectManager();
         }
 
