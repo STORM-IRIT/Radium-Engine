@@ -105,7 +105,8 @@ namespace Ra
 
             RenderObject* Ray(const Component* comp, const Core::Ray& ray, const Core::Color& color)
             {
-                Core::Vector3 end = ray.at(std::numeric_limits<Scalar>::max());
+                //Core::Vector3 end = ray.at(std::numeric_limits<Scalar>::max());
+                Core::Vector3 end = ray.at(1000.f);
                 Core::Vector3Array vertices = { ray.m_origin, end };
                 std::vector<uint> indices = { 0, 1 };
                 Mesh* mesh = new Ra::Engine::Mesh("Ray Primitive", GL_LINES);

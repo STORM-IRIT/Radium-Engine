@@ -10,8 +10,11 @@ namespace Ra
 {
     namespace Core
     {
+        /// Raycast function versus various abstract shapes.
+        /// * If a ray starts inside the shape, the resulting hit will be at the ray's origin (t=0).
         namespace RayCast
         {
+            /// Intersect a ray with an axis-aligned bounding box.
             bool vsAabb( const Ray& r, const Core::Aabb& aabb, std::vector<Scalar>& hitsOut)
             {
                 // Based on optimized Woo version
@@ -36,7 +39,7 @@ namespace Ra
                     return true;
                 }
 
-                /// Precompute the t values for each plane.
+                // Precompute the t values for each plane.
                 Core::Vector3 invDir = r.m_direction.cwiseInverse();
                 Core::Vector3 minOrig = (aabb.min() - r.m_origin).cwiseProduct(invDir);
                 Core::Vector3 maxOrig = (aabb.max() - r.m_origin).cwiseProduct(invDir);
@@ -74,10 +77,12 @@ namespace Ra
                 return false;
             }
 
+            /// Intersects a ray with a sphere.
             bool vsSphere(const Ray& r, const Core::Vector3& center, Scalar radius, std::vector<Scalar>& hitsOut)
             {
 
                 CORE_ASSERT(r.m_direction.squaredNorm() > 0.f, "Invalid Ray");
+                CORE_ASSERT(radius >0.f, "Invalid radius");
 
                 // Solve a 2nd degree eqn. in t
                 // X = ray.origin + t* ray.direction
@@ -117,6 +122,87 @@ namespace Ra
 
                     return (t1Positive || t2Positive);
                 }
+                return false;
+            }
+
+            /// Intersect a ray with an infinite plane.
+            bool vsPlane( const Ray& r, const Core::Vector3 a, const Core::Vector3& normal, std::vector<Scalar>& hitsOut)
+            {
+                CORE_ASSERT(r.m_direction.squaredNorm() > 0.f, "Invalid Ray");
+                CORE_ASSERT(normal.squaredNorm() > 0.f, "Invalid plane normal");
+
+                // Solve for t the first order eqn.
+                // P = O + t. d
+                // AP . n =  0
+                // gives t = (d.n / OA.n)
+
+                const Scalar ddotn = r.m_direction.dot(normal);
+                const Scalar OAdotn = (a - r.m_origin).dot(normal);
+
+                // If d.n is non zero, the line intersects the plane.
+                // we check that the ray intersects for t>=0 by checking that d.n and OA.n have the same sign.
+                if (ddotn != 0 && (ddotn * OAdotn) >=0)
+                {
+                    hitsOut.push_back(OAdotn / ddotn );
+                    return true;
+                }
+                // If d.n is 0 the ray is parallel to the plane, so there is only an intersection
+                // if the ray is completely in the plane (i.e. if OA.n = 0).
+                else if ( ddotn == 0 && OAdotn == 0)
+                {
+                    hitsOut.push_back(0);
+                    return true;
+                }
+
+                return false;
+            }
+
+
+            /// Intersect  a ray with a cylinder with a and b as caps centers and given radius.
+            bool vsCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3& b, Scalar radius,
+            std::vector<Scalar>& hitsOut)
+            {
+                // Ref : Graphics Gem IV
+                const Core::Vector3 cylAxis = b - a;
+                const Core::Vector3 ao = r.m_origin - a;
+
+                // Cylinder axis parallel to ray.
+                auto cross = r.m_direction.cross(cylAxis);
+                if (cross.squaredNorm()  == 0)
+                {
+                    // Project the ray's origin on the cylinder axis.
+                    const Core::Vector3 projPoint  = (ao - (ao.dot(cylAxis) * cylAxis));
+                    const Scalar dist = (projPoint - a).squaredNorm();
+
+                    // Is the ray inside the cylinder ?
+                    if ( dist <= (radius * radius))
+                    {
+                        const Scalar aProj = (projPoint - a).dot(cylAxis);
+                        const Scalar dirAxis = r.m_direction.dot(cylAxis);
+
+                        // Ray origin is behind A and pointing towards the cylinder.
+                        if (aProj < 0 && dirAxis > 0)
+                        {
+                            return vsPlane(r,a,cylAxis,hitsOut);
+                        }
+                        // Ray origin is after B and pointing towards the cylinder.
+                        else if (aProj > 1 && dirAxis < 0)
+                        {
+                            return vsPlane(r,b,cylAxis,hitsOut);
+                        }
+                        else // Origin inside the cylinder
+                        {
+                            hitsOut.push_back(0);
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                else // Ray not parallel to the cylinder.
+                {
+
+                }
+
                 return false;
             }
         }
