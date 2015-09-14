@@ -162,12 +162,16 @@ namespace Ra
 
 
             /// Intersect  a ray with a cylinder with a and b as caps centers and given radius.
+i           /// Rer : Graphics Gem IV. http://www.realtimerendering.com/resources/GraphicsGems//gemsiv/ray_cyl.c
             bool vsCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3& b, Scalar radius,
             std::vector<Scalar>& hitsOut)
             {
                 // Ref : Graphics Gem IV
                 const Core::Vector3 cylAxis = b - a;
                 const Core::Vector3 ao = r.m_origin - a;
+
+                // Compute minmal distance from line to cylnder axis.
+                const Scalar distSquared = oa.cross(cylAxis).squaredNorm() / cylAxis.squaredNorm();
 
 
                 // Intersect the ray against plane A and B.
@@ -184,12 +188,8 @@ namespace Ra
                 auto cross = r.m_direction.cross(cylAxis);
                 if (cross.squaredNorm()  == 0)
                 {
-                    // Project the ray's origin on the cylinder axis.
-                    const Core::Vector3 projPoint  = (ao - (ao.dot(cylAxis) * cylAxis));
-                    const Scalar dist = (projPoint - a).squaredNorm();
-
                     // Is the ray inside the cylinder ?
-                    if (dist <= (radius * radius))
+                    if (distSquared <= (radius * radius))
                     {
                         // In this case we must hit at least one of the planes
                         CORE_ASSERT(vsA || vsB, "Ray must hit at least one of the planes !")
@@ -215,7 +215,20 @@ namespace Ra
                 }
                 else // Ray not parallel to the cylinder. We compute the ray/infinite cylinder intersection
                 {
-                    
+                    bool hitsCyl = (distSquared <= radius*radius)
+                    if (hitsCyl)
+                    {
+                        float cylT = -1.f;
+
+                        // Select the minimal positive t between inf cylinder and the planes.
+                        float minT = std::min(std::min(hitA,hitB), cylT);
+                        
+                        if (minT >= 0) 
+                        {
+                            hitsOut.push_back(minT); 
+                            return true;
+                        }
+                    }
                 }
 
                 return false;
