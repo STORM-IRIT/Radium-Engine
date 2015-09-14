@@ -2,6 +2,9 @@
 #define RADIUMENGINE_RAY_CAST_HPP_
 
 #include <Core/RaCore.hpp>
+
+#include <vector>
+
 #include <Core/Math/Ray.hpp>
 
 // useful : http://www.realtimerendering.com/intersections.html
@@ -11,13 +14,16 @@ namespace Ra
     namespace Core
     {
         /// Raycast function versus various abstract shapes.
+        /// * All functions return true if there was at least a valid (t>=0) hit, false if the ray misses.
         /// * If a ray starts inside the shape, the resulting hit will be at the ray's origin (t=0).
+        /// * Some functions may return several hits.
+
         namespace RayCast
         {
             /// Intersect a ray with an axis-aligned bounding box.
             bool vsAabb( const Ray& r, const Core::Aabb& aabb, std::vector<Scalar>& hitsOut)
             {
-                // Based on optimized Woo version
+                // Based on optimized Woo version (ray vs 3 slabs)
                 // Ref : Graphics Gems p.395
                 // http://www.codercorner.com/RayAABB.cpp
 
@@ -65,12 +71,9 @@ namespace Ra
                 uint maxTIdx;
                 Scalar t = maxT.maxCoeff(&maxTIdx);
 
-                // Early out for negative t (box behind the origin)
-                if (t < 0) { return false; }
-
-                Core::Vector3 point = r.at(t);
-                if (aabb.contains(point))
-                {
+                // Ignore negative t (box behind the origin), and points outside the aabb.
+                if (t >= 0 && aabb.contains(r.at(t)))
+                { 
                     hitsOut.push_back(t);
                     return true;
                 }
@@ -166,7 +169,18 @@ namespace Ra
                 const Core::Vector3 cylAxis = b - a;
                 const Core::Vector3 ao = r.m_origin - a;
 
-                // Cylinder axis parallel to ray.
+
+                // Intersect the ray against plane A and B.
+                std::vector<Scalar> hitsA;
+                const bool vsA = vsPlane(r, a, cylAxis, hitsA);
+                const Scalar hitA = vsA ? hitsA[0] : -1.f;
+
+                std::vector<Scalar> hitsB;
+                const bool vsB = vsPlane(r, b, cylAxis, hitsB);
+                const Scalar hitB = vsB ? hitsB[0] : -1.f;
+
+
+                // Degenerated case : cylinder axis parallel to ray.
                 auto cross = r.m_direction.cross(cylAxis);
                 if (cross.squaredNorm()  == 0)
                 {
@@ -175,32 +189,33 @@ namespace Ra
                     const Scalar dist = (projPoint - a).squaredNorm();
 
                     // Is the ray inside the cylinder ?
-                    if ( dist <= (radius * radius))
+                    if (dist <= (radius * radius))
                     {
-                        const Scalar aProj = (projPoint - a).dot(cylAxis);
-                        const Scalar dirAxis = r.m_direction.dot(cylAxis);
+                        // In this case we must hit at least one of the planes
+                        CORE_ASSERT(vsA || vsB, "Ray must hit at least one of the planes !")
 
-                        // Ray origin is behind A and pointing towards the cylinder.
-                        if (aProj < 0 && dirAxis > 0)
+                        // The most common case is that both plane are hits (i.e. the ray's origin is outside the
+                        // cylinder). In that case we just return the smallest hit.
+                        if (LIKELY(hitsA && hitsB))
                         {
-                            return vsPlane(r,a,cylAxis,hitsOut);
-                        }
-                        // Ray origin is after B and pointing towards the cylinder.
-                        else if (aProj > 1 && dirAxis < 0)
-                        {
-                            return vsPlane(r,b,cylAxis,hitsOut);
-                        }
-                        else // Origin inside the cylinder
-                        {
-                            hitsOut.push_back(0);
+                            CORE_ASSERT(std::min(hitA, hitB) > 0, "Invalid hit result");
+                            hitsOut.push_back(std::min(hitA, hitB));
                             return true;
                         }
+
+                        // If only one plane is hit, then the ray is inside the cylinder, so we return the ray
+                        // origin as the result point.
+
+                        hitsOut.push_back(0);
+                        return true;
+
                     }
+                    // Ray is outside the diameter, so the result is a miss.
                     return false;
                 }
-                else // Ray not parallel to the cylinder.
+                else // Ray not parallel to the cylinder. We compute the ray/infinite cylinder intersection
                 {
-
+                    
                 }
 
                 return false;

@@ -6,7 +6,7 @@
 #include <vector>
 
 
-namespace Ra{ namespace Core{ class Ray; }}
+namespace Ra{ namespace Core { struct Ray; }}
 namespace Ra{ namespace Engine { class Component; }}
 namespace Ra{ namespace Engine { class RenderObject; }}
 
