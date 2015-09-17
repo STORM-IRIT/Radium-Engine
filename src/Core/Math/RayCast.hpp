@@ -227,7 +227,7 @@ namespace Ra
                     {
                         // TODO : this could be optimized with squared norms.
                         auto v1 = cylAxis.cross(ao);
-                        const Scalar t = -v1.dot(n) / ln;
+                        const Scalar t = v1.dot(n) / ln;
                         auto v2 = n.cross(cylAxis).normalized();
                         const Scalar s = std::sqrt(radiusSquared - (dist * dist)) / std::abs(r.m_direction.dot(v2));
 
@@ -252,11 +252,11 @@ namespace Ra
                                 return false;
                             }
                             // Cap the in and out
-                            if (tInPlaneB  > tIn && tInPlaneB > tOut)
+                            if (tInPlaneB  > tIn && tInPlaneB < tOut)
                             {
                                 tIn = tInPlaneB;
                             }
-                            if (tOutPlaneA > tIn && tOutPlaneA > tOut)
+                            if (tOutPlaneA > tIn && tOutPlaneA < tOut)
                             {
                                 tOut = tOutPlaneA;
                             }
@@ -267,18 +267,21 @@ namespace Ra
                         {
                             const Scalar tInPlaneA  = (a - r.m_origin).dot(cylAxis) / ddotAxis;
                             const Scalar tOutPlaneB = (b - r.m_origin).dot(cylAxis) / ddotAxis;
+
+                            RA_DISPLAY_POINT( r.at(tInPlaneA ), Colors::Red(), 0.1f);
+
                             // Early exit condition if the ray misses the capped cylinder
                             if (tInPlaneA > tOut || tOutPlaneB < tIn)
                             {
                                 return false;
                             }
                             // Cap the in and out
-                            if (tInPlaneA  > tIn && tInPlaneA > tOut)
+                            if (tInPlaneA  > tIn && tInPlaneA < tOut)
                             {
                                 tIn = tInPlaneA;
                             }
 
-                            if (tOutPlaneB > tIn && tOutPlaneB > tOut)
+                            if (tOutPlaneB > tIn && tOutPlaneB < tOut)
                             {
                                 tOut = tOutPlaneB;
                             }
