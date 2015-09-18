@@ -184,6 +184,12 @@ namespace Ra
     {
         switch ( event->button() )
         {
+            case Qt::LeftButton:
+            {
+                m_gizmoManager->handleMousePressEvent(event);
+            }
+            break;
+
             case Qt::MiddleButton:
             {
                 m_camera->handleMousePressEvent(event);

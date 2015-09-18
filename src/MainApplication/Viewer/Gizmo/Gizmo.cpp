@@ -1,7 +1,7 @@
 #include <MainApplication/Viewer/Gizmo/Gizmo.hpp>
 
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Math/Ray.hpp>
+#include <Core/Math/RayCast.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
@@ -11,6 +11,8 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+
+#include <Engine/DebugDisplay/DebugDisplay.hpp>
 
 namespace Ra
 {
@@ -87,9 +89,24 @@ namespace Ra
     void TranslateGizmo::selectConstraint(const Core::Ray& ray)
     {
         //raycast against segment + radius.
-        for  (uint i = 0; i < 3 ; ++i)
+        Scalar minT = -1.f;
+        int minIdx =  -1;
+        std::vector<Scalar> hit;
+        for (uint i = 0 ; i < 3; ++i)
         {
+            hit.clear();
+            const Core::Vector3 a = m_transform.translation();
+            const Core::Vector3 b = a + Core::Vector3::Unit(i); // * length;
 
+            RA_DISPLAY_CIRCLE( a, (b-a), 0.05f, Core::Colors::Red());
+
+            if (Core::RayCast::vsCylinder(ray, a,b,0.05f,hit) && hit[0] < minT)
+            {
+                minT = hit[0];
+                minIdx = i;
+            }
         }
+
+        std::cout<<"selected constraint "<<minIdx<<std::endl;
     }
 }

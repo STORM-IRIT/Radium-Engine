@@ -2,6 +2,7 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <MainApplication/Viewer/Viewer.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
+#include <Core/Math/ColorPresets.hpp>
 
 namespace Ra
 {
@@ -103,14 +104,15 @@ namespace Ra
 
         bool GizmoManager::handleMousePressEvent(QMouseEvent* event)
         {
-            if( event->button() != Qt::LeftButton || !m_currentEdit || m_currentGizmoType == NONE)
-            {
-                return false;
-            }
             uint x = uint(event->pos().x());
             uint y = uint(event->pos().y());
             Core::Ray r = static_cast<Viewer*>(parent())->getCameraInterface()->getCamera()->getRayFromScreen(x,y);
 
+            RA_DISPLAY_RAY(r, Core::Colors::Yellow());
+            if( event->button() != Qt::LeftButton || !m_currentEdit || m_currentGizmoType == NONE)
+            {
+                return false;
+            }
             CORE_ASSERT(m_currentGizmo, "Gizmo is not there !");
 
             m_currentGizmo->selectConstraint(r);
