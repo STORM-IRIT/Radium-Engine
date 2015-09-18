@@ -198,7 +198,7 @@ namespace Ra
                         // cylinder). In that case we just return the smallest hit.
                         if (LIKELY(vsA && vsB))
                         {
-                            CORE_ASSERT(std::min(hitA, hitB) > 0, "Invalid hit result");
+                            CORE_ASSERT(std::min(hitA, hitB) >= 0, "Invalid hit result");
                             hitsOut.push_back(std::min(hitA, hitB));
                             return true;
                         }
@@ -289,7 +289,8 @@ namespace Ra
                         else if (UNLIKELY(ddotAxis == 0))
                         {
                             const Scalar h = ao.dot(cylAxis);
-                            if (h < 0 || h*h > cylAxis.squaredNorm() )
+                            const Scalar lAxisSq = cylAxis.squaredNorm();
+                            if (h < 0 || h > lAxisSq )
                             {
                                 return false;
                             }
