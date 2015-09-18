@@ -268,8 +268,6 @@ namespace Ra
                             const Scalar tInPlaneA  = (a - r.m_origin).dot(cylAxis) / ddotAxis;
                             const Scalar tOutPlaneB = (b - r.m_origin).dot(cylAxis) / ddotAxis;
 
-                            RA_DISPLAY_POINT( r.at(tInPlaneA ), Colors::Red(), 0.1f);
-
                             // Early exit condition if the ray misses the capped cylinder
                             if (tInPlaneA > tOut || tOutPlaneB < tIn)
                             {
@@ -299,7 +297,7 @@ namespace Ra
 
                         // At  this point our tIn and tOut are valid within the capped cylinder.
                         // The only thing left is to find whether the ray hits (i.e. tIn is positive).
-                        if (tIn > 0)
+                        if (tIn >= 0)
                         {
                             hitsOut.push_back(tIn);
                             return true;
