@@ -186,6 +186,8 @@ namespace Ra
         {
             case Qt::LeftButton:
             {
+                Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_LEFT_BUTTON };
+                m_renderer->addPickingRequest(query);
                 m_gizmoManager->handleMousePressEvent(event);
             }
             break;
@@ -199,8 +201,8 @@ namespace Ra
             case Qt::RightButton:
             {
                 // Check picking
-                // FIXME(Charly): Do we keep this here ?
-                m_renderer->addPickingRequest( event->x(), height() - event->y() );
+                Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_RIGHT_BUTTON };
+                m_renderer->addPickingRequest(query);
             }
             break;
 
@@ -282,4 +284,25 @@ namespace Ra
         m_renderer->handleFileLoading( file );
     }
 
+    void Gui::Viewer::processPicking()
+    {
+        uint x = m_renderer->getPickingQueries().size();
+        uint y=m_renderer->getPickingResults().size();
+
+        CORE_ASSERT(m_renderer->getPickingQueries().size() == m_renderer->getPickingResults().size(),
+                    "There should be one result per query.");
+
+        for (uint i = 0 ; i < m_renderer->getPickingQueries().size(); ++i)
+        {
+            const Engine::Renderer::PickingQuery& query  = m_renderer->getPickingQueries()[i];
+            if ( query.m_button == Core::MouseButton::RA_MOUSE_LEFT_BUTTON)
+            {
+                emit leftClickPicking(m_renderer->getPickingResults()[i]);
+            }
+            else if (query.m_button == Core::MouseButton::RA_MOUSE_RIGHT_BUTTON)
+            {
+                emit rightClickPicking(m_renderer->getPickingResults()[i]);
+            }
+        }
+    }
 } // namespace Ra

@@ -46,6 +46,7 @@ namespace Ra
         public slots:
 
             void setEditable(Engine::EditableInterface* edit);
+            void handlePickingResult( int drawableId );
             void changeMode( Mode mode );
             void changeGizmoType( GizmoType type );
             void updateValues();

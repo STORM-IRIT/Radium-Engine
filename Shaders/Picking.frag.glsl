@@ -1,7 +1,7 @@
 out vec4 fragId;
 
 uniform vec4 objectId;
-
+uniform int drawFixedSize;
 void main()
 {
     // FIXME(Charly): Do we want to check alpha value of objects to perform picking ? 

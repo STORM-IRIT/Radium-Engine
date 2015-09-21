@@ -106,16 +106,13 @@ namespace Ra
         {
             uint x = uint(event->pos().x());
             uint y = uint(event->pos().y());
-            Core::Ray r = static_cast<Viewer*>(parent())->getCameraInterface()->getCamera()->getRayFromScreen(x,y);
+            //Core::Ray r = static_cast<Viewer*>(parent())->getCameraInterface()->getCamera()->getRayFromScreen(x,y);
 
-            RA_DISPLAY_RAY(r, Core::Colors::Yellow());
             if( event->button() != Qt::LeftButton || !m_currentEdit || m_currentGizmoType == NONE)
             {
                 return false;
             }
             CORE_ASSERT(m_currentGizmo, "Gizmo is not there !");
-
-            m_currentGizmo->selectConstraint(r);
 
             m_lastMouseX = x;
             m_lastMouseY = y;
@@ -131,6 +128,14 @@ namespace Ra
         bool GizmoManager::handleMouseMoveEvent(QMouseEvent* event)
         {
             return false;
+        }
+
+        void GizmoManager::handlePickingResult(int drawableId)
+        {
+            if (m_currentGizmo)
+            {
+                m_currentGizmo->selectConstraint( drawableId );
+            }
         }
     }
 }

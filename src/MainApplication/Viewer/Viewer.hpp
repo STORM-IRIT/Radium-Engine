@@ -105,7 +105,15 @@ namespace Ra
             /// Blocks until rendering is finished.
             void waitForRendering();
 
+            ///
             void handleFileLoading( const std::string& file );
+
+            /// Emits signals corresponding to picking requests.
+            void processPicking();
+
+        signals:
+            void leftClickPicking( int id );
+            void rightClickPicking( int id );
 
         public slots:
             /// Tell the renderer to reload all shaders.
@@ -148,7 +156,7 @@ namespace Ra
             /// Owning pointer to the camera.
             std::unique_ptr<CameraInterface> m_camera;
 
-            /// Owning (Qobject child) pointer to gizmo manager.
+            /// Owning (QObject child) pointer to gizmo manager.
             GizmoManager* m_gizmoManager;
 
             /// Thread in which rendering is done.

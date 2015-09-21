@@ -22,7 +22,7 @@ namespace Ra
             virtual ~Gizmo();
 
             virtual void updateTransform( const Core::Transform& t ) = 0;
-            virtual void selectConstraint( const Core::Ray& ray ) = 0;
+            virtual void selectConstraint( int drawableIndex ) = 0;
 
         protected:
             Core::Transform m_transform;
@@ -38,7 +38,9 @@ namespace Ra
             TranslateGizmo(Engine::Component* c, const Core::Transform& t);
 
             void updateTransform(const Core::Transform& t) override;
-            void selectConstraint(const Core::Ray& ray) override;
+            void selectConstraint( int drawableIndex ) override;
+        private:
+            int m_selectedAxis;
         };
 }
 

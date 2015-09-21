@@ -40,7 +40,7 @@ void main()
     float linearDepth = (2.0 * n) / (f + n - z  * (f - n));
     depthValue = vec4(vec3(linearDepth), 1.0);
 
-//    positionValue = positionValue.xyz != vec3(0) ? positionValue / 2 + 0.5 : vec4(0);
+    // positionValue = positionValue.xyz != vec3(0) ? positionValue / 2 + 0.5 : vec4(0);
     normalValue = normalValue.xyz != vec3(0) ? normalValue / 2 + 0.5 : vec4(0);
 
     oitRevealageValue.rgb = vec3(oitRevealageValue.r);
@@ -50,6 +50,7 @@ void main()
 	    pickingValue.rgb *= 20;
     }
 
+    // Uncomment this to see the picking FBO instead of the normal display.
     //value = pickingValue;
 
     fragColor = value;

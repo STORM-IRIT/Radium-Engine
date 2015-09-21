@@ -12,7 +12,7 @@ namespace Ra
 {
     namespace Engine
     {
-        RenderObject::RenderObject( const std::string& name, const Component* comp )
+        RenderObject::RenderObject( const std::string& name, const Component* comp, bool drawFixedSize )
             : IndexedObject()
             , m_localTransform( Core::Transform::Identity() )
             , m_component( comp )
@@ -22,6 +22,10 @@ namespace Ra
             , m_mesh( nullptr )
             , m_isDirty( true )
         {
+            Engine::RenderParameters params;
+            int fixedSize = drawFixedSize ? 1 : 0;
+            params.addParameter("drawFixedSize", fixedSize);
+            addRenderParameters(params);
         }
 
         RenderObject::~RenderObject()

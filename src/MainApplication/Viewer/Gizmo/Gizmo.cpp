@@ -26,7 +26,7 @@ namespace Ra
     }
 
     TranslateGizmo::TranslateGizmo(Engine::Component* c, const Core::Transform& t)
-            : Gizmo(c, t)
+            : Gizmo(c, t), m_selectedAxis (-1)
     {
         constexpr Scalar arrowScale = 0.2f;
         constexpr Scalar axisWidth = 0.05f;
@@ -58,7 +58,7 @@ namespace Ra
             mesh->loadGeometry(cylinder);
             mesh->addData(Engine::Mesh::VERTEX_COLOR, colors);
 
-            Engine::RenderObject* arrowDrawable = new Engine::RenderObject("Gizmo Arrow", m_comp);
+            Engine::RenderObject* arrowDrawable = new Engine::RenderObject("Gizmo Arrow", m_comp, true);
 
             Engine::RenderTechnique* rt = new Engine::RenderTechnique;
             rt->shaderConfig = Ra::Engine::ShaderConfiguration("Plain", "../Shaders");
@@ -67,10 +67,6 @@ namespace Ra
             arrowDrawable->setType(Engine::RenderObject::Type::RO_UI);
             arrowDrawable->setMesh(mesh);
             arrowDrawable->setLocalTransform(m_transform);
-
-            Engine::RenderParameters params;
-            params.addParameter("drawFixedSize", 1);
-            arrowDrawable->addRenderParameters(params);
 
             m_renderObjects.push_back(m_comp->addRenderObject(arrowDrawable));
 
@@ -86,27 +82,16 @@ namespace Ra
         }
     }
 
-    void TranslateGizmo::selectConstraint(const Core::Ray& ray)
+    void TranslateGizmo::selectConstraint( int drawableIdx )
     {
-        //raycast against segment + radius.
-        Scalar minT = -1.f;
-        int minIdx =  -1;
-        std::vector<Scalar> hit;
-        for (uint i = 0 ; i < 3; ++i)
+        m_selectedAxis = -1;
+        if (drawableIdx >= 0)
         {
-            hit.clear();
-            const Core::Vector3 a = m_transform.translation();
-            const Core::Vector3 b = a + Core::Vector3::Unit(i); // * length;
-
-            RA_DISPLAY_CIRCLE( a, (b-a), 0.05f, Core::Colors::Red());
-
-            if (Core::RayCast::vsCylinder(ray, a,b,0.05f,hit) && hit[0] < minT)
+            auto found = std::find(m_renderObjects.cbegin(), m_renderObjects.cend(), Core::Index(drawableIdx));
+            if (found != m_renderObjects.cend())
             {
-                minT = hit[0];
-                minIdx = i;
+                m_selectedAxis = int(found - m_renderObjects.begin());
             }
         }
-
-        std::cout<<"selected constraint "<<minIdx<<std::endl;
     }
 }

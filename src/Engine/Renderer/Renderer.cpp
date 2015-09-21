@@ -159,6 +159,8 @@ namespace Ra
             {
                 doPicking();
             }
+            m_lastFramePickingQueries = m_pickingQueries;
+            m_pickingQueries.clear();
 
             // 4. Do the rendering.
             renderInternal( data );
@@ -262,7 +264,7 @@ namespace Ra
             for ( const auto& query : m_pickingQueries )
             {
                 Core::Color color;
-                GL_ASSERT( glReadPixels( query.x(), query.y(), 1, 1, GL_RGBA, GL_FLOAT, color.data() ) );
+                GL_ASSERT( glReadPixels( query.m_screenCoords.x(), query.m_screenCoords.y(), 1, 1, GL_RGBA, GL_FLOAT, color.data() ) );
 
                 int id = -1;
                 if ( color != Core::Color( 1.0, 1.0, 1.0, 1.0 ) )
@@ -274,8 +276,6 @@ namespace Ra
                 m_pickingResults.push_back( id );
             }
 
-            m_lastFramePickingQueries = m_pickingQueries;
-            m_pickingQueries.clear();
             m_pickingFbo->unbind();
         }
 

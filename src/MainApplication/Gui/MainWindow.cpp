@@ -81,6 +81,10 @@ namespace Ra
         connect(m_viewer->getCameraInterface(), SIGNAL( cameraTargetChanged( const Core::Vector3& ) ),
                  this, SLOT( cameraTargetChanged( const Core::Vector3& ) ) );
 
+        /// Connect picking results
+        connect(m_viewer, SIGNAL(rightClickPicking(int)), this, SLOT(handlePicking(int)));
+        connect(m_viewer, SIGNAL(leftClickPicking(int)), m_viewer->getGizmoManager(), SLOT( handlePickingResult(int) ));
+
         connect( m_cameraSensitivity, SIGNAL( valueChanged( double ) ),
                  m_viewer->getCameraInterface(), SLOT( setCameraSensitivity( double ) ) );
 
@@ -308,6 +312,13 @@ namespace Ra
         {
             const std::shared_ptr<Engine::RenderObject>& ro =
                 mainApp->m_engine->getRenderObjectManager()->getRenderObject( drawableIndex );
+
+            // Ignore UI render objects.
+            if(ro->getType() == Engine::RenderObject::Type::RO_UI)
+            {
+                return;
+            }
+
             const Engine::Component* comp = ro->getComponent();
             const Engine::Entity* ent = comp->getEntity();
             int compIdx = -1;

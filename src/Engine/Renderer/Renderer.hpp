@@ -11,6 +11,7 @@
 
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Time/Timer.hpp>
+#include <Core/Event/EventEnums.hpp>
 
 #include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
 
@@ -77,6 +78,11 @@ namespace Ra
                 Core::Timer::TimePoint renderEnd;
             };
 
+            struct PickingQuery
+            {
+                Core::Vector2 m_screenCoords;
+                Core::MouseButton::MouseButton m_button;
+            };
 
         public:
             /// CONSTRUCTOR
@@ -162,9 +168,9 @@ namespace Ra
             // FIXME(Charly): Maybe there is a better way to handle lights ?
             virtual void handleFileLoading( const std::string& filename );
 
-            void addPickingRequest( Scalar x, Scalar y )
+            void addPickingRequest(const PickingQuery& query)
             {
-                m_pickingQueries.push_back( Core::Vector2( x, y ) );
+                m_pickingQueries.push_back( query );
             }
 
             inline const std::vector<int>& getPickingResults() const
@@ -172,7 +178,7 @@ namespace Ra
                 return m_pickingResults;
             }
 
-            inline const std::vector<Core::Vector2>& getPickingQueries() const
+            inline const std::vector<PickingQuery>& getPickingQueries() const
             {
                 return m_lastFramePickingQueries;
             }
@@ -313,8 +319,8 @@ namespace Ra
             std::unique_ptr<Texture>    m_pickingTexture;
             ShaderProgram*              m_pickingShader;
 
-            std::vector<Core::Vector2>  m_pickingQueries;
-            std::vector<Core::Vector2>  m_lastFramePickingQueries;
+            std::vector<PickingQuery>   m_pickingQueries;
+            std::vector<PickingQuery>   m_lastFramePickingQueries;
             std::vector<int>            m_pickingResults;
 
             bool m_drawDebug;

@@ -22,6 +22,7 @@
 #include <Plugins/FancyMeshPlugin/FancyMeshSystem.hpp>
 #include <MainApplication/Viewer/Gizmo/Gizmo.hpp>
 #include <Core/Math/ColorPresets.hpp>
+#include <Core/Math/RayCast.hpp>
 
 
 // Const parameters : TODO : make config / command line options
@@ -193,10 +194,18 @@ namespace Ra
         //ent0->setTransform( transform );
 
         Engine::Entity* ent1 = manager->getOrCreateEntity( "box1" );
-        fmSystem->addFancyMeshToEntity( ent1, Core::MeshUtils::makeBox(), r1 );
+        //auto box = Core::MeshUtils::makeBox();
+
+        Core::Vector3 b(0,-0,-0.5);
+        Core::Vector3 a(-0, 0, 0.5);
+
+        Scalar radius = 0.5f;
+
+        auto cyl = Core::MeshUtils::makeCylinder(a,b,radius);
+        fmSystem->addFancyMeshToEntity( ent1, cyl, r1 );
 
         transform.setIdentity();
-        transform.translation() = Core::Vector3( 0, 0, -3 );
+        transform.translation() = Core::Vector3( 0, 0, 0 );
         ent1->setTransform( transform );
 
         Engine::DebugEntity::dbgCmp()->addRenderObject(Engine::DrawPrimitives::Grid(Engine::DebugEntity::dbgCmp(),Core::Vector3::Zero(), Core::Vector3::UnitX(), Core::Vector3::UnitZ(),Core::Colors::Grey(0.6f)));
@@ -263,11 +272,7 @@ namespace Ra
         auto mouseEvents = m_mainWindow->getMouseEvents();
 
         // Get picking results from last frame and forward it to the selection.
-        auto picked = m_viewer->getRenderer()->getPickingResults();
-        for ( auto pick : picked )
-        {
-            m_mainWindow->handlePicking( pick );
-        }
+        m_viewer->processPicking();
 
         m_mainWindow->flushEvents();
 
