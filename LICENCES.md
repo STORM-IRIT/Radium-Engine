@@ -14,9 +14,11 @@ licence terms.
 
 ## Qt
 
+
 Qt is released under the LGPL v3, which makes Radium Engine a "works that
 uses" the library under the LGPL terms.
 
+Qt is not included in this repository as we use the standard open source distribution.
 You can get the Qt source at [https://www.qt.io/download-open-source]
 
 A copy of the LGPL is included in this repository, or can be obtained at
@@ -39,11 +41,17 @@ A copy of the MPL is included in this repository or can be obtained at
 
 ## Assimp
 
-Assimp is released under the BSD 3-clauses licence. 
+Assimp is released under the BSD 3-clauses license. 
 
-The source code can be obtained at [https://github.com/assimp/assimp]
+The source code can be obtained in this repository or at [https://github.com/assimp/assimp]
 
 A copy of the Assimp licence is included in this repository or can
 be obtained at [https://github.com/assimp/assimp/blob/master/LICENSE]
 
+### FreeImage
 
+Freeimage is distributed under the FreeImage Public License.
+
+The source code can be obtained in this repository or at [http://freeimage.sourceforge.net/].
+
+A copy of the FIPL is included in the repository or can be obtained at [http://freeimage.sourceforge.net/license.html]
