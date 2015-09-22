@@ -7,6 +7,7 @@
 #include <Core/Mesh/MeshUtils.hpp>
 
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
@@ -26,7 +27,7 @@ namespace Ra
     }
 
     TranslateGizmo::TranslateGizmo(Engine::Component* c, const Core::Transform& t)
-            : Gizmo(c, t), m_selectedAxis (-1)
+            : Gizmo(c, t), m_initialPix(Core::Vector2::Zero()), m_selectedAxis (-1)
     {
         constexpr Scalar arrowScale = 0.2f;
         constexpr Scalar axisWidth = 0.05f;
@@ -84,6 +85,7 @@ namespace Ra
 
     void TranslateGizmo::selectConstraint( int drawableIdx )
     {
+        int oldAxis  = m_selectedAxis;
         m_selectedAxis = -1;
         if (drawableIdx >= 0)
         {
@@ -93,5 +95,46 @@ namespace Ra
                 m_selectedAxis = int(found - m_renderObjects.begin());
             }
         }
+        if (m_selectedAxis != oldAxis)
+        {
+            m_initialPix = Core::Vector2::Zero();
+        }
+    }
+
+    Core::Transform TranslateGizmo::mouseMove(const Engine::Camera& cam, const Core::Vector2& nextXY)
+    {
+        if (m_selectedAxis >= 0)
+        {
+            // Taken from Rodolphe's View engine gizmos -- see slide_axis().
+
+            const Core::Vector3 origin = m_transform.translation();
+            const Core::Ray ray = cam.getRayFromScreen(nextXY + m_initialPix);
+            const Core::Vector3 translateDir = Core::Vector3::Unit(m_selectedAxis);
+
+            // Find a plane passing through axis_dir and as parrallel as possible to
+            // the camera image plane
+            auto ortho = cam.getDirection().cross(translateDir);
+            const Core::Vector3 normal =  (ortho.squaredNorm() > 0) ?
+                                          translateDir.cross(ortho) :
+                               translateDir.cross(cam.getUpVector());
+
+            std::vector<Scalar> hit;
+            bool hasHit = Core::RayCast::vsPlane(ray, origin, normal, hit);
+
+            if (hasHit)
+            {
+                auto endPoint = origin + (translateDir.dot(ray.at(hit[0]) - origin)) * translateDir;
+                m_transform.translation() = endPoint;
+            }
+
+        }
+        return m_transform;
+    }
+
+    void TranslateGizmo::setInitialState(const Engine::Camera& cam, const Core::Vector2& initialXY)
+    {
+        const Core::Vector3 origin = m_transform.translation();
+        const Core::Vector2 orgScreen = cam.project(origin);
+        m_initialPix = orgScreen - initialXY;
     }
 }

@@ -5,10 +5,13 @@
 
 namespace Ra{
     namespace Core{
+
+        /// Colors are defined as vector4, i.e. 4 floats in RGBA order.
+        /// displayable colors should have all their coordinates between 0 and 1.
         namespace Colors
         {
             // Primary and secondary colors.
-
+            // TODO (Val) : check if we can make these constexpr
             inline Color Black() { return Color(0,0,0,1); }
 
             inline Color Red()   { return Color(1,0,0,1); }

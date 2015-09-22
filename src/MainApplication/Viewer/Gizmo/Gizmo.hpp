@@ -6,9 +6,9 @@
 #include <vector>
 
 
-namespace Ra{ namespace Core { struct Ray; }}
 namespace Ra{ namespace Engine { class Component; }}
 namespace Ra{ namespace Engine { class RenderObject; }}
+namespace Ra{ namespace Engine { class Camera; }}
 
 namespace Ra
 {
@@ -23,6 +23,8 @@ namespace Ra
 
             virtual void updateTransform( const Core::Transform& t ) = 0;
             virtual void selectConstraint( int drawableIndex ) = 0;
+            virtual void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY) = 0;
+            virtual Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY) = 0;
 
         protected:
             Core::Transform m_transform;
@@ -39,7 +41,10 @@ namespace Ra
 
             void updateTransform(const Core::Transform& t) override;
             void selectConstraint( int drawableIndex ) override;
+            void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY);
+            Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY);
         private:
+            Core::Vector2 m_initialPix;
             int m_selectedAxis;
         };
 }

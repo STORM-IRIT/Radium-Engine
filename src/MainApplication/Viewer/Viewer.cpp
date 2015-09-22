@@ -215,11 +215,13 @@ namespace Ra
     void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event )
     {
         m_camera->handleMouseReleaseEvent( event );
+        m_gizmoManager->handleMouseReleaseEvent(event);
     }
 
     void Gui::Viewer::mouseMoveEvent( QMouseEvent* event )
     {
         m_camera->handleMouseMoveEvent( event );
+        m_gizmoManager->handleMouseMoveEvent(event);
     }
 
     void Gui::Viewer::wheelEvent( QWheelEvent* event )
@@ -286,9 +288,6 @@ namespace Ra
 
     void Gui::Viewer::processPicking()
     {
-        uint x = m_renderer->getPickingQueries().size();
-        uint y=m_renderer->getPickingResults().size();
-
         CORE_ASSERT(m_renderer->getPickingQueries().size() == m_renderer->getPickingResults().size(),
                     "There should be one result per query.");
 

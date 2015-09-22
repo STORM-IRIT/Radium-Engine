@@ -38,7 +38,7 @@ namespace Ra
             /// Object being edited.
             Engine::EditableInterface* m_currentEdit;
 
-            /// Editable property index.
+            /// Editable property.
             Engine::EditableProperty m_transform;
 
             /// Layout of the widgets

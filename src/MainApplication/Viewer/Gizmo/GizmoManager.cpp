@@ -9,7 +9,8 @@ namespace Ra
     namespace Gui
     {
         GizmoManager::GizmoManager(QObject* parent)
-                : QObject(parent),m_currentEdit(nullptr),m_currentGizmo(nullptr), m_currentGizmoType(TRANSLATION), m_mode(LOCAL) { }
+                : QObject(parent),m_currentEdit(nullptr),m_currentGizmo(nullptr)
+                , m_currentGizmoType(TRANSLATION), m_mode(LOCAL){ }
 
 
         GizmoManager::~GizmoManager() { }
@@ -73,10 +74,10 @@ namespace Ra
                 }
                 if (transformFound >= 0)
                 {
-                    const Engine::EditableProperty& transformProp = props[transformFound];
+                    m_transformProperty = props[transformFound];
                     Core::Transform transform = Core::Transform::Identity();
                     // Grab translation.
-                    for (const auto& p : transformProp.primitives)
+                    for (const auto& p : m_transformProperty.primitives)
                     {
                         if (p.primitive.getType() == Engine::EditablePrimitive::POSITION)
                         {
@@ -104,9 +105,7 @@ namespace Ra
 
         bool GizmoManager::handleMousePressEvent(QMouseEvent* event)
         {
-            uint x = uint(event->pos().x());
-            uint y = uint(event->pos().y());
-            //Core::Ray r = static_cast<Viewer*>(parent())->getCameraInterface()->getCamera()->getRayFromScreen(x,y);
+            //Core::Ray r = >getRayFromScreen(x,y);
 
             if( event->button() != Qt::LeftButton || !m_currentEdit || m_currentGizmoType == NONE)
             {
@@ -114,20 +113,52 @@ namespace Ra
             }
             CORE_ASSERT(m_currentGizmo, "Gizmo is not there !");
 
-            m_lastMouseX = x;
-            m_lastMouseY = y;
+            const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
+            m_currentGizmo->setInitialState(cam, Core::Vector2(event->x(), event->y()));
+            // Picking query is done in the viewer.
 
             return true;
         }
 
         bool GizmoManager::handleMouseReleaseEvent(QMouseEvent* event)
         {
-            return false;
+            if ( event->button() == Qt::LeftButton && m_currentGizmo)
+            {
+                m_currentGizmo->selectConstraint(-1);
+            }
+            return (m_currentGizmo != nullptr);
         }
 
         bool GizmoManager::handleMouseMoveEvent(QMouseEvent* event)
         {
-            return false;
+            if ( m_currentGizmo )
+            {
+                Core::Vector2 currentXY(event->x(), event->y());
+                const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
+                Core::Transform newTransform = m_currentGizmo->mouseMove(cam, currentXY);
+
+                for (auto& prim : m_transformProperty.primitives)
+                {
+                    switch (prim.primitive.getType())
+                    {
+                        case Engine::EditablePrimitive::POSITION:
+                        {
+                            prim.primitive.asPosition() = newTransform.translation();
+                            break;
+                        }
+                        case Engine::EditablePrimitive::ROTATION:
+                        {
+                            prim.primitive.asRotation() = newTransform.rotation();
+                            break;
+                        }
+                        default:; // do nothing;
+                    }
+                }
+
+                CORE_ASSERT(m_currentEdit, "Nothing to edit ");
+                m_currentEdit->setProperty(m_transformProperty);
+            }
+            return (m_currentGizmo != nullptr);
         }
 
         void GizmoManager::handlePickingResult(int drawableId)

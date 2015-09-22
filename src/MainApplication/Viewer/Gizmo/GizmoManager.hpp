@@ -60,12 +60,11 @@ namespace Ra
             Core::Transform m_transform;
 
             Engine::EditableInterface* m_currentEdit;
+            Engine::EditableProperty m_transformProperty;
+
             std::unique_ptr<Gizmo> m_currentGizmo;
             GizmoType m_currentGizmoType;
             Mode m_mode;
-
-            Scalar m_lastMouseX;
-            Scalar m_lastMouseY;
 
             bool m_dragMode;
         };
