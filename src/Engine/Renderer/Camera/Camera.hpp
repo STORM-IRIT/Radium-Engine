@@ -19,7 +19,7 @@ namespace Ra
         class RA_ENGINE_API Camera
         {
         public:
-            // Define if the projection type.
+            /// Define the projection type.
             enum class ProjType
             {
                 ORTHOGRAPHIC, PERSPECTIVE
@@ -30,121 +30,127 @@ namespace Ra
             ///
             RA_CORE_ALIGNED_NEW
 
-            // Default constructor with usual default values.
+            /// Default constructor with usual default values.
             Camera( Scalar height, Scalar width );
 
-            // Copy constructor
+            /// Copy constructor
             Camera( const Camera& cam ) = default;
 
             /// DESTRUCTOR
             ~Camera();
 
-            ///
-            /// Getters and setters for view matrix parameters.
-            ///
-            // Return the frame of the camera.
-            // Where Y is the up vector and -Z is the direction vector.
+            //
+            // Getters and setters for view matrix parameters.
+            //
+
+            /// Return the frame of the camera.
+            /// Where Y is the up vector and -Z is the direction vector.
             inline Core::Transform getFrame() const;
 
-            // Set the frame of the camera to 'frame'
+            /// Set the frame of the camera to 'frame'
             inline void setFrame( const Core::Transform& frame );
 
-            // Return the position.
+            /// Return the position.
             inline Core::Vector3 getPosition() const;
 
-            // Set the position of the camera to 'position'.
+            /// Set the position of the camera to 'position'.
             inline void setPosition( const Core::Vector3& position );
 
-            // Return the direction the camera is looking at.
+            /// Return the direction the camera is looking at.
             inline Core::Vector3 getDirection() const;
 
-            // Set the direction of the camera to 'direction'.
-            // The other vectors will be rotated accordingly.
+            /// Set the direction of the camera to 'direction'.
+            /// The other vectors will be rotated accordingly.
             inline void setDirection( const Core::Vector3& direction );
 
-            // Return the up vector.
+            /// Return the up vector.
             inline Core::Vector3 getUpVector() const;
 
-            // Set the up vector of the camera to 'upVector'.
-            // The other vectors will be rotated accordingly.
+            /// Set the up vector of the camera to 'upVector'.
+            /// The other vectors will be rotated accordingly.
             inline void setUpVector( const Core::Vector3& upVector );
 
             inline Core::Vector3 getRightVector() const;
 
 
-            // Apply the transformation 'T' to the camera.
+            /// Apply the transformation 'T' to the camera.
             void applyTransform( const Core::Transform& T );
 
 
             //
             // Getters and setters for projection matrix parameters.
-            // Will trigger a rebuild of the projection matrix
             //
 
-            // Return the Field Of View.
+            // Note : any of these functions will trigger a rebuild of the projection matrix
+
+            /// Return the Field Of View.
             inline Scalar getFOV() const;
 
-            // Set the Field Of View to 'fov'.
+            /// Set the Field Of View to 'fov'.
             inline void setFOV( const Scalar fov );
 
-            // Return the Z Near plane distance from the camera.
+            /// Return the Z Near plane distance from the camera.
             inline Scalar getZNear() const;
 
-            // Set the Z Near plane distance to 'zNear'.
+            /// Set the Z Near plane distance to 'zNear'.
             inline void setZNear( const Scalar zNear );
 
-            // Return the Z Far plane distance from the camera.
+            /// Return the Z Far plane distance from the camera.
             inline Scalar getZFar() const;
 
-            // Set the Z Far plane distance to 'zFar'.
+            /// Set the Z Far plane distance to 'zFar'.
             inline void setZFar( const Scalar zFar );
 
-            // Return the zoom factor.
+            /// Return the zoom factor.
             inline Scalar getZoomFactor() const;
 
-            // Set the zoom factor to 'zoomFactor'.
+            /// Set the zoom factor to 'zoomFactor'.
             inline void setZoomFactor( const Scalar& zoomFactor );
 
-            // Return the projection type.
+            /// Return the projection type.
             inline ProjType getProjType() const;
 
-            // Set the projection type to 'projectionType'.
+            /// Set the projection type to 'projectionType'.
             inline void setProjType( const ProjType& projectionType );
 
-            // Return the dimensions of the viewport.
+            /// Return the dimensions of the viewport.
             inline Scalar getWidth() const;
             inline Scalar getHeight() const;
 
-            // Change the viewport size.
+            /// Change the viewport size.
             inline void resize( Scalar width, Scalar height );
 
-            /// -------------------- ///
-            /// VIEW MATRIX
-            /// -------------------- ///
-            // Return the view matrix.
+            //
+            // Access to view and projection matrices.
+            //
+
+            /// Return the view matrix.
             inline Core::Matrix4 getViewMatrix() const;
 
-
-            /// -------------------- ///
-            /// PROJECTION MATRIX
-            /// -------------------- ///
-            // Return the projection matrix.
+            /// Return the projection matrix.
             inline Core::Matrix4 getProjMatrix() const;
 
-            // Update the projection matrix according to the current parameters.
+            /// Update the projection matrix according to the current parameters.
             void updateProjMatrix();
 
-
+            //
             // Utility functions
+            //
 
-            /// Gets a ray emanating from the camera, passing by the point given by
+            // Note : in all screen pixels coordinates function, Y is taken to be in standard UI-libs style
+            // coordinates, i.e. Y=0 is the top line and Y=height is the bottom line.
+
+            /// Return a ray emanating from the camera, passing by the point given by
             /// screen coordinates x and y.
-            Core::Ray getRayFromScreen( uint x, uint y) const;
+            Core::Ray getRayFromScreen( const Core::Vector2& pix ) const;
+
+            /// Return the screen coordinates of the given point p (in world coordinates).
+            inline Core::Vector2 project( const Core::Vector3& p ) const;
+
+            /// Return the point on the screen plane (near plane) represented by screen coordinates pix.
+            inline Core::Vector3 unProject( const Core::Vector2& pix ) const;
 
         protected:
-            /// -------------------- ///
-            /// VARIABLE
-            /// -------------------- ///
             Core::Transform m_frame;      // Camera frame (inverse of the view matrix)
             Core::Matrix4   m_projMatrix; // Projection matrix
 
@@ -154,8 +160,8 @@ namespace Ra
 
             Scalar    m_zoomFactor; // Zoom factor (modifies the field of view)
 
-            Scalar m_width;
-            Scalar m_height;
+            Scalar m_width;         // Viewport width (in pixels)
+            Scalar m_height;        // Viewport height (in pixels)
 
             ProjType  m_projType;   // Projection type
         };

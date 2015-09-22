@@ -146,6 +146,30 @@ namespace Ra
             return m_projMatrix;
         }
 
+        inline Core::Vector2 Camera::project(const Core::Vector3& p) const
+        {
+            Core::Vector4 point = Core::Vector4::Ones();
+            point.head<3>() = p;
+            auto vpPoint = getProjMatrix() * getViewMatrix() * point;
+
+            return Core::Vector2( m_width  * 0.5f * (vpPoint.x() + 1),
+                                  m_height * 0.5f *  (1 - vpPoint.y()));
+
+        }
+
+        inline Core::Vector3 Camera::unProject(const Core::Vector2& pix) const
+        {
+            const Scalar localX = (2.f* pix.x()) / m_width - 1;
+            // Y is "inverted" (goes downwards)
+            const Scalar localY = -(2.f* pix.y()) / m_height + 1;
+
+            // Multiply the point in screen space by the inverted projection matrix
+            // and then by the inverted view matrix ( = m_frame) to get it in world space.
+            // NB : localPoint needs to be a vec4 to be multiplied by the proj matrix.
+            const Core::Vector4 localPoint (localX, localY, -m_zNear, 1.f);
+            auto unproj = getProjMatrix().inverse()*localPoint;
+            return m_frame *unproj.head<3>();
+        }
     } // End of Engine
 } // End of Ra
 

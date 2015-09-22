@@ -107,24 +107,11 @@ namespace Ra
             }
         }
 
-        Core::Ray Camera::getRayFromScreen(uint x, uint y) const
+        Core::Ray Camera::getRayFromScreen(const Core::Vector2& pix) const
         {
             // Ray starts from the camera's current position.
             const Core::Vector3& origin = getPosition();
-
-            // Find the clicked point on the screen to get another point on the ray.
-
-            const Scalar localX = (2.f* x) / m_width - 1;
-            const Scalar localY = -(2.f* y) / m_height+ 1;
-
-            // Multiply the point in screen space by the inverted projection matrix
-            // and then by the inverted view matrix ( = m_frame) to get it in world space.
-            // NB : localPoint needs to be a vec4 to be multiplied by the proj matrix.
-            const Core::Vector4 localPoint (localX, localY, -m_zNear, 1.f);
-            auto unproj = getProjMatrix().inverse()*localPoint;
-            Core::Vector3 worldPoint = m_frame * unproj.head<3>();
-
-            return Core::Ray (origin, worldPoint - origin);
+            return Core::Ray (origin, unProject(pix)- origin);
         }
     } // End of Engine
 } // End of Ra
