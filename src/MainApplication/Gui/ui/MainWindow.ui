@@ -105,7 +105,7 @@
              </size>
             </property>
             <property name="currentIndex">
-             <number>3</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="tab_stats">
              <attribute name="title">
@@ -647,6 +647,21 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="separator"/>
+   <addaction name="actionToggle_Local_Global"/>
+   <addaction name="actionTranslate"/>
+   <addaction name="actionRotate"/>
+  </widget>
   <action name="actionOpenMesh">
    <property name="text">
     <string>Open mesh...</string>
@@ -672,6 +687,48 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionTranslate">
+   <property name="icon">
+    <iconset>
+     <normalon>../Assets/Images/translate.svg</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Translate</string>
+   </property>
+   <property name="toolTip">
+    <string>Selected objects can be translated</string>
+   </property>
+  </action>
+  <action name="actionRotate">
+   <property name="icon">
+    <iconset>
+     <normalon>../Assets/Images/rotate.svg</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Rotate</string>
+   </property>
+   <property name="toolTip">
+    <string>Selected objects can be rotated</string>
+   </property>
+  </action>
+  <action name="actionToggle_Local_Global">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normalon>../Assets/Images/gizmo.svg</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Toggle Local/Global</string>
+   </property>
+   <property name="toolTip">
+    <string>Changes the transform edition mode</string>
    </property>
   </action>
  </widget>

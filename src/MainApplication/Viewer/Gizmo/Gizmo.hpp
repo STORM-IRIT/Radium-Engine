@@ -15,9 +15,16 @@ namespace Ra
         class Gizmo
         {
         public:
+            enum Mode
+            {
+                LOCAL,
+                GLOBAL,
+            };
+
+        public:
             RA_CORE_ALIGNED_NEW
-            Gizmo(Engine::Component* c, const Core::Transform& t)
-                    : m_transform(t), m_comp(c) { }
+            Gizmo(Engine::Component* c, const Core::Transform& t, Mode mode)
+                    : m_transform(t), m_comp(c), m_mode(mode) { }
 
             virtual ~Gizmo();
 
@@ -29,6 +36,7 @@ namespace Ra
         protected:
             Core::Transform m_transform;
             Engine::Component* m_comp;
+            Mode m_mode;
             std::vector<Core::Index> m_renderObjects;
             
         };
@@ -37,7 +45,7 @@ namespace Ra
         {
         public:
             // Draw a frame with : 3 RGB arrows
-            TranslateGizmo(Engine::Component* c, const Core::Transform& t);
+            TranslateGizmo(Engine::Component* c, const Core::Transform& t, Mode mode);
 
             void updateTransform(const Core::Transform& t) override;
             void selectConstraint( int drawableIndex ) override;

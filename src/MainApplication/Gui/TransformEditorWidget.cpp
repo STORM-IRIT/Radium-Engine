@@ -15,22 +15,41 @@ namespace Ra
         {
             if(m_currentEdit)
             {
+                // update transform from editable.
+                Core::AlignedStdVector<Engine::EditableProperty> props;
+                m_currentEdit->getProperties(props);
+                for (uint i = 0; i < props.size(); ++i)
+                {
+                    if (props[i].type == Engine::EditableProperty::TRANSFORM)
+                    {
+                        m_transform = props[i];
+                        break;
+                    }
+                }
+
                 CORE_ASSERT(m_transform.primitives.size() == m_widgets.size(), "Widget/props inconsistency");
                 for (uint p = 0; p < m_transform.primitives.size(); ++p)
                 {
                     const Engine::EditablePrimitive& prim = m_transform.primitives[p].primitive;
                     switch (prim.getType())
                     {
+                        // We set the value of the spinbboxes to the new values but block the
+                        // signals to avoid erasing old values.
+
                         case Engine::EditablePrimitive::POSITION:
                         {
                             CORE_ASSERT(m_widgets[p], "No widget for property");
+                            m_widgets[p]->blockSignals(true);
                             static_cast<VectorEditor*>( m_widgets[p] )->setValue(prim.asPosition());
+                            m_widgets[p]->blockSignals(false);
                             break;
                         }
                         case Engine::EditablePrimitive::ROTATION:
                         {
                             CORE_ASSERT(m_widgets[p], "No widget for property");
+                            m_widgets[p]->blockSignals(true);
                             static_cast<RotationEditor*>( m_widgets[p] )->setValue(prim.asRotation());
+                            m_widgets[p]->blockSignals(false);
                             break;
                         }
                         default:;// do nothing.

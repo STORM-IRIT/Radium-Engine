@@ -27,11 +27,6 @@ namespace Ra
                 SCALE,
             };
 
-            enum Mode
-            {
-                LOCAL,
-                GLOBAL,
-            };
 
             GizmoManager(QObject* parent = nullptr);
             ~GizmoManager();
@@ -47,7 +42,7 @@ namespace Ra
 
             void setEditable(Engine::EditableInterface* edit);
             void handlePickingResult( int drawableId );
-            void changeMode( Mode mode );
+            void setLocal(bool useLocal);
             void changeGizmoType( GizmoType type );
             void updateValues();
 
@@ -64,7 +59,7 @@ namespace Ra
 
             std::unique_ptr<Gizmo> m_currentGizmo;
             GizmoType m_currentGizmoType;
-            Mode m_mode;
+            Gizmo::Mode m_mode;
 
             bool m_dragMode;
         };

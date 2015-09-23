@@ -49,6 +49,8 @@ namespace Ra
         connect( actionOpenMesh, &QAction::triggered, this, &MainWindow::loadFile );
         connect( actionReload_Shaders, &QAction::triggered, m_viewer, &Gui::Viewer::reloadShaders );
 
+        connect( actionToggle_Local_Global, &QAction::toggled, m_viewer->getGizmoManager(), &GizmoManager::setLocal );
+
         connect( this, SIGNAL( fileLoading( QString ) ), mainApp, SLOT( loadFile( QString ) ) );
         connect( this, SIGNAL( entitiesUpdated( const std::vector<Engine::Entity*>& ) ),
                  m_entityTreeModel, SLOT( entitiesUpdated( const std::vector<Engine::Entity*>& ) ) );

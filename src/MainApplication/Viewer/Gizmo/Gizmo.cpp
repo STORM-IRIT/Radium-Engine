@@ -26,8 +26,8 @@ namespace Ra
 
     }
 
-    TranslateGizmo::TranslateGizmo(Engine::Component* c, const Core::Transform& t)
-            : Gizmo(c, t), m_initialPix(Core::Vector2::Zero()), m_selectedAxis (-1)
+    TranslateGizmo::TranslateGizmo(Engine::Component* c, const Core::Transform& t, Mode mode)
+            : Gizmo(c, t, mode ), m_initialPix(Core::Vector2::Zero()), m_selectedAxis (-1)
     {
         constexpr Scalar arrowScale = 0.2f;
         constexpr Scalar axisWidth = 0.05f;
@@ -67,7 +67,8 @@ namespace Ra
             arrowDrawable->setRenderTechnique(rt);
             arrowDrawable->setType(Engine::RenderObject::Type::RO_UI);
             arrowDrawable->setMesh(mesh);
-            arrowDrawable->setLocalTransform(m_transform);
+
+            updateTransform(m_transform);
 
             m_renderObjects.push_back(m_comp->addRenderObject(arrowDrawable));
 
@@ -77,9 +78,19 @@ namespace Ra
     void TranslateGizmo::updateTransform(const Core::Transform& t)
     {
         m_transform = t;
+        Core::Transform displayTransform = Core::Transform::Identity();
+        if (m_mode == LOCAL )
+        {
+            displayTransform = m_transform;
+        }
+        else
+        {
+            displayTransform.translate(m_transform.translation());
+        }
+
         for (auto roIdx : m_renderObjects)
         {
-            Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(roIdx)->setLocalTransform(m_transform);
+            Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(roIdx)->setLocalTransform(displayTransform);
         }
     }
 
@@ -109,7 +120,12 @@ namespace Ra
 
             const Core::Vector3 origin = m_transform.translation();
             const Core::Ray ray = cam.getRayFromScreen(nextXY + m_initialPix);
-            const Core::Vector3 translateDir = Core::Vector3::Unit(m_selectedAxis);
+
+            Core::Vector3 translateDir = Core::Vector3::Unit(m_selectedAxis);
+            if (m_mode == LOCAL)
+            {
+                translateDir = m_transform.rotation() * translateDir;
+            }
 
             // Find a plane passing through axis_dir and as parrallel as possible to
             // the camera image plane

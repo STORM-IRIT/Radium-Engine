@@ -10,7 +10,7 @@ namespace Ra
     {
         GizmoManager::GizmoManager(QObject* parent)
                 : QObject(parent),m_currentEdit(nullptr),m_currentGizmo(nullptr)
-                , m_currentGizmoType(TRANSLATION), m_mode(LOCAL){ }
+                , m_currentGizmoType(TRANSLATION), m_mode(Gizmo::GLOBAL){ }
 
 
         GizmoManager::~GizmoManager() { }
@@ -35,7 +35,7 @@ namespace Ra
                     }
                     case TRANSLATION:
                     {
-                        m_currentGizmo.reset(new TranslateGizmo(Engine::DebugEntity::dbgCmp(), m_transform));
+                        m_currentGizmo.reset(new TranslateGizmo(Engine::DebugEntity::dbgCmp(), m_transform, m_mode));
                         break;
                     }
                     case ROTATION:
@@ -45,9 +45,9 @@ namespace Ra
             }
         }
 
-        void GizmoManager::changeMode(GizmoManager::Mode mode)
+        void GizmoManager::setLocal(bool useLocal)
         {
-            m_mode = mode;
+            m_mode = useLocal ? Gizmo::LOCAL : Gizmo::GLOBAL;
             spawnGizmo();
         }
 
