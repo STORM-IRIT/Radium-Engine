@@ -1,8 +1,12 @@
 #include <MainApplication/Viewer/Gizmo/GizmoManager.hpp>
-#include <Engine/Renderer/Camera/Camera.hpp>
+
+#include <Core/Math/ColorPresets.hpp>
 #include <MainApplication/Viewer/Viewer.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
-#include <Core/Math/ColorPresets.hpp>
+#include <MainApplication/Viewer/Gizmo/TranslateGizmo.hpp>
+#include <MainApplication/Viewer/Gizmo/RotateGizmo.hpp>
+
+#include <Engine/Renderer/Camera/Camera.hpp>
 
 namespace Ra
 {
@@ -35,7 +39,8 @@ namespace Ra
                     }
                     case TRANSLATION:
                     {
-                        m_currentGizmo.reset(new TranslateGizmo(Engine::DebugEntity::dbgCmp(), m_transform, m_mode));
+                        //m_currentGizmo.reset(new TranslateGizmo(Engine::DebugEntity::dbgCmp(), m_transform, m_mode));
+                        m_currentGizmo.reset(new RotateGizmo(Engine::DebugEntity::dbgCmp(), m_transform, m_mode));
                         break;
                     }
                     case ROTATION:
