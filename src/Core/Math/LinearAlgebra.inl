@@ -44,6 +44,12 @@ namespace Ra
             return Vector::clamp( v, min, max ) == v;
         }
 
+        template <typename Vector_>
+        inline Scalar getAngle( const Vector_& v1, const Vector_& v2 )
+        {
+            return std::atan2( v1.cross(v2).norm(), v1.dot(v2));
+        }
+
         //
         // Quaternion functions.
         //

@@ -15,14 +15,14 @@ namespace Ra
     {
         namespace Math
         {
-            /// Mathematical constants casted to Scalar.
-            constexpr Scalar Pi     = Scalar( 3.141592653589793 );
-            constexpr Scalar InvPi  = Scalar( 1.0 / Pi );
-            constexpr Scalar PiDiv2 = Scalar( Pi / 2.0 );
-            constexpr Scalar PiDiv4 = Scalar( Pi / 4.0 );
-            constexpr Scalar PiMul2 = Scalar( Pi * 2.0 );
+            /// Mathematical constants casted to Scalar. Values taken from math.h
+            constexpr Scalar Pi     = Scalar(3.14159265358979323846);   // pi
+            constexpr Scalar InvPi  = Scalar(0.31830988618379067154);   // 1/pi
+            constexpr Scalar PiDiv2 = Scalar(1.57079632679489661923);   // pi/2
+            constexpr Scalar PiDiv4 = Scalar(0.78539816339744830962);   // pi/4
+            constexpr Scalar PiMul2 = Scalar( 2 * Pi );                 // 2*pi
             constexpr Scalar toRad  = Scalar( Pi / 180.0 );
-            constexpr Scalar toDeg  = Scalar( 180 * InvPi );
+            constexpr Scalar toDeg  = Scalar( 180.0 * InvPi );
 
             /// Useful functions
             inline constexpr Scalar toRadians( Scalar a );
@@ -42,6 +42,7 @@ namespace Ra
 
             /// Returns value v clamped between bounds min and max.
             template <typename T> inline constexpr T clamp( T v, T min, T max );
+
 
         } // namespace Math
     }

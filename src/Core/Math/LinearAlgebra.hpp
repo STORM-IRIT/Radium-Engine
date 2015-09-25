@@ -138,12 +138,17 @@ namespace Ra
             template<typename Vector>
             inline Vector clamp( const Vector& v, const Scalar& min, const Scalar& max );
 
-            /// Vector range check
+            /// Vector range check, works for any numeric vector.
             template<typename Vector_>
             inline bool checkRange( const Vector_& v, const Scalar& min, const Scalar& max );
 
             /// Get two vectors orthogonal to a given vector.
             inline void getOrthogonalVectors( const Vector3& fx, Vector3& fy, Vector3& fz );
+
+            /// Get the angle between two vectors. Works for types where the cross product is
+            /// defined (i.e. 2D and 3D vectors).
+            template<typename Vector_>
+            inline Scalar getAngle( const Vector_& v1, const Vector_& v2);
         }
 
         //

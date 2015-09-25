@@ -78,10 +78,23 @@ namespace Ra
                 return IpowHelper<T, N>::pow( x );
             }
 
+            // Signum implementation that works for unsigned types.
+            template <typename T> inline constexpr
+            int signum(T x, std::false_type is_signed)
+            {
+                return T(0) < x;
+            }
+
+            template <typename T> inline constexpr
+            int signum(T x, std::true_type is_signed)
+            {
+                return (T(0) < x) - (x < T(0));
+            }
+
             template <typename T>
             inline constexpr int sign( const T& val )
             {
-                return ( T( 0 ) < val ) - ( val < T( 0 ) );
+                return signum( val, std::is_signed<T>() );
             }
 
             template <typename T>
