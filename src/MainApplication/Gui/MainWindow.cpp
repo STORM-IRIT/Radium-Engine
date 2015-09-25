@@ -1,7 +1,7 @@
 #include <MainApplication/Gui/MainWindow.hpp>
 
 #include <QFileDialog>
-#include <QMouseEvent>
+#include <QToolButton>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Component.hpp>
@@ -49,14 +49,21 @@ namespace Ra
         connect( actionOpenMesh, &QAction::triggered, this, &MainWindow::loadFile );
         connect( actionReload_Shaders, &QAction::triggered, m_viewer, &Gui::Viewer::reloadShaders );
 
+        // Toolbox setup
         connect( actionToggle_Local_Global, &QAction::toggled, m_viewer->getGizmoManager(), &GizmoManager::setLocal );
+        connect( actionGizmoOff,            &QAction::triggered, this, &MainWindow::gizmoShowNone);
+        connect( actionGizmoTranslate,      &QAction::triggered, this, &MainWindow::gizmoShowTranslate);
+        connect( actionGizmoRotate,         &QAction::triggered, this, &MainWindow::gizmoShowRotate);
+        //connect( actionGizmoOff, &QAction::toggled, this, &gizmoShowNone);
 
+        // Loading setup.
         connect( this, SIGNAL( fileLoading( QString ) ), mainApp, SLOT( loadFile( QString ) ) );
         connect( this, SIGNAL( entitiesUpdated( const std::vector<Engine::Entity*>& ) ),
                  m_entityTreeModel, SLOT( entitiesUpdated( const std::vector<Engine::Entity*>& ) ) );
 
         /* connect( m_entityTreeModel, SIGNAL( objectNameChanged( QString ) ),
                   this, SLOT( objectNameChanged( QString ) ) );*/
+        // Side menu setup.
         connect( m_entityTreeModel, SIGNAL( dataChanged( QModelIndex, QModelIndex, QVector<int> ) ),
                  m_entityTreeModel, SLOT( handleRename( QModelIndex, QModelIndex, QVector<int> ) ) );
 
@@ -82,13 +89,12 @@ namespace Ra
                  this, SLOT( cameraPositionChanged( const Core::Vector3& ) ) );
         connect(m_viewer->getCameraInterface(), SIGNAL( cameraTargetChanged( const Core::Vector3& ) ),
                  this, SLOT( cameraTargetChanged( const Core::Vector3& ) ) );
-
-        /// Connect picking results
-        connect(m_viewer, SIGNAL(rightClickPicking(int)), this, SLOT(handlePicking(int)));
-        connect(m_viewer, SIGNAL(leftClickPicking(int)), m_viewer->getGizmoManager(), SLOT( handlePickingResult(int) ));
-
         connect( m_cameraSensitivity, SIGNAL( valueChanged( double ) ),
                  m_viewer->getCameraInterface(), SLOT( setCameraSensitivity( double ) ) );
+
+        /// Connect picking results (TODO Val : use events to dispatch picking directly)
+        connect(m_viewer, SIGNAL(rightClickPicking(int)), this, SLOT(handlePicking(int)));
+        connect(m_viewer, SIGNAL(leftClickPicking(int)), m_viewer->getGizmoManager(), SLOT( handlePickingResult(int) ));
 
         /// Update entities when the engine starts.
         connect( mainApp, SIGNAL( starting() ),  this, SLOT( entitiesUpdated() ) );
@@ -380,5 +386,18 @@ namespace Ra
         event->accept();
     }
 
+    void Gui::MainWindow::gizmoShowNone()
+    {
+        m_viewer->getGizmoManager()->changeGizmoType(GizmoManager::NONE);
+    }
 
+    void Gui::MainWindow::gizmoShowTranslate()
+    {
+        m_viewer->getGizmoManager()->changeGizmoType(GizmoManager::TRANSLATION);
+    }
+
+    void Gui::MainWindow::gizmoShowRotate()
+    {
+        m_viewer->getGizmoManager()->changeGizmoType(GizmoManager::ROTATION);
+    }
 } // namespace Ra

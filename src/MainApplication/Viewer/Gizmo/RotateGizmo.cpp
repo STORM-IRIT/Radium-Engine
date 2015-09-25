@@ -119,7 +119,8 @@ namespace Ra
                     Scalar angle = Core::Math::sign(c.dot(rotationAxis)) * std::atan2(c.norm(),d);
 
                     // Apply rotation.
-                    m_transform.prerotate(Core::AngleAxis(angle, rotationAxis));
+                    auto newRot = Core::AngleAxis(angle, rotationAxis) * m_transform.rotation();
+                    m_transform.fromPositionOrientationScale(origin, newRot, Core::Vector3::Ones());
 
                 }
                 m_initialPix = nextXY;

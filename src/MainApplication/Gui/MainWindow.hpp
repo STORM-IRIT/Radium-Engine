@@ -5,9 +5,9 @@
 #include <ui_MainWindow.h>
 
 #include <qdebug.h>
+#include <QEvent>
 
 #include <MainApplication/TimerData/FrameTimerData.hpp>
-#include <QtGui/qevent.h>
 
 namespace Ra
 {
@@ -58,10 +58,25 @@ namespace Ra
 
         public slots:
             void entitiesUpdated();
+
+            // Camera ui slots
             void cameraPositionChanged( const Core::Vector3& p );
             void cameraTargetChanged( const Core::Vector3& p );
+
+            // Frame timers ui slots
             void updateFramestats( const std::vector<FrameTimerData>& stats );
+
+            // Selection tools
             void onSelectionChanged( const QItemSelection& selected, const QItemSelection& deselected );
+
+            // Gizmo buttons slots
+            void gizmoShowNone();
+            void gizmoShowTranslate();
+            void gizmoShowRotate();
+            //void gizmoShowScale();
+
+
+
 
         signals:
             void closed();

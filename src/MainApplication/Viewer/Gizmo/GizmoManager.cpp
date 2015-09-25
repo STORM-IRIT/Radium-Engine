@@ -14,7 +14,7 @@ namespace Ra
     {
         GizmoManager::GizmoManager(QObject* parent)
                 : QObject(parent),m_currentEdit(nullptr),m_currentGizmo(nullptr)
-                , m_currentGizmoType(TRANSLATION), m_mode(Gizmo::GLOBAL){ }
+                , m_currentGizmoType(NONE), m_mode(Gizmo::GLOBAL){ }
 
 
         GizmoManager::~GizmoManager() { }
@@ -40,11 +40,14 @@ namespace Ra
                     case TRANSLATION:
                     {
                         // FIXME DebugCMP
-                        //m_currentGizmo.reset(new TranslateGizmo(Engine::DebugEntity::dbgCmp(), m_transform, m_mode));
-                        m_currentGizmo.reset(new RotateGizmo(Engine::DebugEntity::dbgCmp(), m_transform, m_mode));
+                        m_currentGizmo.reset(new TranslateGizmo(Engine::DebugEntity::dbgCmp(), m_transform, m_mode));
                         break;
                     }
                     case ROTATION:
+                    {
+                        m_currentGizmo.reset(new RotateGizmo(Engine::DebugEntity::dbgCmp(), m_transform, m_mode));
+                        break;
+                    }
                     case SCALE:
                         break ; // not implemented yet...
                 }

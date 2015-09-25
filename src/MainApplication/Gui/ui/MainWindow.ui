@@ -659,8 +659,10 @@
    </attribute>
    <addaction name="separator"/>
    <addaction name="actionToggle_Local_Global"/>
-   <addaction name="actionTranslate"/>
-   <addaction name="actionRotate"/>
+   <addaction name="actionGizmoOff"/>
+   <addaction name="actionGizmoTranslate"/>
+   <addaction name="actionGizmoRotate"/>
+   <addaction name="separator"/>
   </widget>
   <action name="actionOpenMesh">
    <property name="text">
@@ -689,7 +691,10 @@
     <string>Ctrl+R</string>
    </property>
   </action>
-  <action name="actionTranslate">
+  <action name="actionGizmoTranslate">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset>
      <normalon>../Assets/Images/translate.svg</normalon>
@@ -699,10 +704,13 @@
     <string>Translate</string>
    </property>
    <property name="toolTip">
-    <string>Selected objects can be translated</string>
+    <string>Translate selected object</string>
    </property>
   </action>
-  <action name="actionRotate">
+  <action name="actionGizmoRotate">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset>
      <normalon>../Assets/Images/rotate.svg</normalon>
@@ -712,7 +720,7 @@
     <string>Rotate</string>
    </property>
    <property name="toolTip">
-    <string>Selected objects can be rotated</string>
+    <string>Rotate selected object</string>
    </property>
   </action>
   <action name="actionToggle_Local_Global">
@@ -729,6 +737,25 @@
    </property>
    <property name="toolTip">
     <string>Changes the transform edition mode</string>
+   </property>
+  </action>
+  <action name="actionGizmoOff">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normalon>../Assets/Images/select.svg</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>No Gizmos</string>
+   </property>
+   <property name="toolTip">
+    <string>Disable transform gizmo.</string>
    </property>
   </action>
  </widget>
