@@ -51,7 +51,7 @@ entity->swapTransformBuffers();
 
 Each *Component* represent an aspect of an *Entity* to a particular engine subsystem.
 For example, an animated character may have a skeleton(animation component),
-a high-resolution mesh (display component) and a physics component (a convex shape).
+a high-resolution mesh (display component) and simplified convex shape for collision detection (physics component).
 
 Each Component is related to a *System*. The Engine loads several Systems (statically
 or from a plugin) and they keep the Components of all Entities in the scene updated.
@@ -61,16 +61,32 @@ and the engine's corresponding Physics System will update its position according
 engine's result.
 
 At each frame, each System is given the opportunity to add *Tasks* to a task queue. Tasks are processed in parallel
-during every frame. Task can have dependencies between them (e.g. the physics update can wait for the animation update to complete).
+during every frame. Tasks can have dependencies between them (e.g. the physics update can wait for the animation update to complete).
 
 ### Rendering
 
 Each Component may have some *RenderObjects* (aka Drawables) which are (usually) OpenGL objects. When a Component has 
 changed it needs to tell its drawables to update their internal data (such as OpenGL VBOs).
 
-The Drawables are drawn by the *Renderer* which may live in a separated thread. Each frame it grabs all 
+The Render Objects are drawn by the *Renderer* which may live in a separated thread. Each frame it grabs all 
 the drawables (which should be double-buffered in case we are mid-VBO update) and calls `draw()` on them.
 
 (TODO : a nice class schema).
+
+### Object manipulation through Editables.
+
+Components and Entity implement the `EditableInterface` which allow them to be manipulated through the UI. Editable objects offer a list of *Properties* on demand. Each property must be unique (have a unique name) within the object instance.
+
+A Property itself is a structure packing primitive objects of different types (scalars, vectors, quaternions, etc.) impemented through a variant-like structure (` EditablePrimitive`). Each primitive can be marked as read-only within the property, and any editor should prevent changing this primitive within the property (this can be enforced by your editable but it's not done automatically).
+
+The archetypal example of a property is a Transform, with its primitives being for example a position, rotation and scale. By default, all entities have only one editable property which is their transform, while Components have no editable properties.
+
+### The system Entity and Debug Display.
+
+One Entity is always created when the engine starts, called the System Entity. Implemented as a singleton, this entity acts as a special object that the engine can use internally to display elements not related to any other Entity. The System Entity is fixed to the world and cannot be moved.
+
+In particular it is expected that UI elements (e.g.  Gizmos) should be attached to the UI component. The Debug Component is useful to display debug primitives which can be useful for graphic debugging.
+A series of macros `RA_DISPLAY_...` are defined to conveniently add basic display objects such as points, vectors, lines or 3D frames from anywhere in the code. A compile-time switch (`RA_DISABLE_DEBUG_DISPLAY`) can be activated to disable this feature.
+
 
 ## The plugin system
