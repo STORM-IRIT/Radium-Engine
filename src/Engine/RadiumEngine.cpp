@@ -24,7 +24,7 @@
 #include <Engine/Parser/LoadedData.hpp>
 
 
-#include <Engine/DebugDisplay/DebugDisplay.hpp>
+#include <Engine/SystemDisplay/SystemDisplay.hpp>
 
 namespace Ra
 {

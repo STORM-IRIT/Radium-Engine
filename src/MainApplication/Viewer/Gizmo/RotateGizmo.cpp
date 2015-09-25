@@ -10,8 +10,6 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
-#include <Engine/DebugDisplay/DebugDisplay.hpp>
-
 namespace Ra
 {
     namespace Gui

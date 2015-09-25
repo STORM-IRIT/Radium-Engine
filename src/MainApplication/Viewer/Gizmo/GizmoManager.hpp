@@ -5,7 +5,7 @@
 #include <QMouseEvent>
 #include <Engine/Entity/Component.hpp>
 #include <MainApplication/Viewer/Gizmo/Gizmo.hpp>
-#include <Engine/DebugDisplay/DebugDisplay.hpp>
+#include <Engine/SystemDisplay/SystemDisplay.hpp>
 
 namespace Ra
 {

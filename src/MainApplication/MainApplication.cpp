@@ -16,7 +16,7 @@
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/DebugDisplay/DebugDisplay.hpp>
+#include <Engine/SystemDisplay/SystemDisplay.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
 
 #include <Plugins/FancyMeshPlugin/FancyMeshSystem.hpp>
@@ -208,7 +208,7 @@ namespace Ra
         transform.translation() = Core::Vector3( 0, 0, 0 );
         ent1->setTransform( transform );
 
-        Engine::DebugEntity::dbgCmp()->addRenderObject(Engine::DrawPrimitives::Grid(Engine::DebugEntity::dbgCmp(),Core::Vector3::Zero(), Core::Vector3::UnitX(), Core::Vector3::UnitZ(),Core::Colors::Grey(0.6f)));
+        Engine::SystemEntity::uiCmp()->addRenderObject(Engine::DrawPrimitives::Grid(Engine::SystemEntity::uiCmp(),Core::Vector3::Zero(), Core::Vector3::UnitX(), Core::Vector3::UnitZ(),Core::Colors::Grey(0.6f)));
 
 //        Gizmo* gz = new TranslateGizmo(Engine::DebugEntity::dbgCmp(),transform);
 

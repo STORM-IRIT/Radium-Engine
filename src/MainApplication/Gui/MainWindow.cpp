@@ -369,7 +369,7 @@ namespace Ra
 
             Engine::Entity* entity = m_entityTreeModel->getItem(selIdx)->getData(0).entity;
             // Debug entity and objects are not selectable
-            if (entity != Engine::DebugEntity::getInstance())
+            if (entity != Engine::SystemEntity::getInstance())
             {
                 emit selectedEntity(entity);
             }
