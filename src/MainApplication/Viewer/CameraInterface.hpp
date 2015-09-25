@@ -89,7 +89,6 @@ namespace Ra
             Scalar m_cameraSensitivity;
 
             std::unique_ptr<Engine::Camera> m_camera;
-            //bool m_projIsDirty;
             bool m_mapCameraBahaviourToAabb;
         };
 

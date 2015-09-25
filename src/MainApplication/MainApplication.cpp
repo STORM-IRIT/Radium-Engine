@@ -194,24 +194,13 @@ namespace Ra
         //ent0->setTransform( transform );
 
         Engine::Entity* ent1 = manager->getOrCreateEntity( "box1" );
-        //auto box = Core::MeshUtils::makeBox();
-
-        Core::Vector3 b(0,-0,-0.5);
-        Core::Vector3 a(-0, 0, 0.5);
-
-        Scalar radius = 0.5f;
-
-        auto cyl = Core::MeshUtils::makeCylinder(a,b,radius);
-        fmSystem->addFancyMeshToEntity( ent1, cyl, r1 );
+        fmSystem->addFancyMeshToEntity( ent1, Core::MeshUtils::makeBox(), r1 );
 
         transform.setIdentity();
-        transform.translation() = Core::Vector3( 0, 0, 0 );
+        transform.translation() = Core::Vector3( 0, 0, -3 );
         ent1->setTransform( transform );
 
         Engine::SystemEntity::uiCmp()->addRenderObject(Engine::DrawPrimitives::Grid(Engine::SystemEntity::uiCmp(),Core::Vector3::Zero(), Core::Vector3::UnitX(), Core::Vector3::UnitZ(),Core::Colors::Grey(0.6f)));
-
-//        Gizmo* gz = new TranslateGizmo(Engine::DebugEntity::dbgCmp(),transform);
-
 
         //Engine::Entity* ent2 = manager->getOrCreateEntity( "box2" );
         //fmSystem->addFancyMeshToEntity( ent2, Core::MeshUtils::makeBox(), r2 );

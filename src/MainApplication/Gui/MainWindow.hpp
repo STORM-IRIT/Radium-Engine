@@ -75,9 +75,6 @@ namespace Ra
             void gizmoShowRotate();
             //void gizmoShowScale();
 
-
-
-
         signals:
             void closed();
             void fileLoading( const QString path );
