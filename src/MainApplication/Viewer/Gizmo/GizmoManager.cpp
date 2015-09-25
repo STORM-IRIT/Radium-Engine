@@ -39,6 +39,7 @@ namespace Ra
                     }
                     case TRANSLATION:
                     {
+                        // FIXME DebugCMP
                         //m_currentGizmo.reset(new TranslateGizmo(Engine::DebugEntity::dbgCmp(), m_transform, m_mode));
                         m_currentGizmo.reset(new RotateGizmo(Engine::DebugEntity::dbgCmp(), m_transform, m_mode));
                         break;

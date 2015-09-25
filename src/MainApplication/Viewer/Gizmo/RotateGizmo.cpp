@@ -75,7 +75,6 @@ namespace Ra
 
         void RotateGizmo::selectConstraint(int drawableIdx)
         {
-            int oldAxis = m_selectedAxis;
             m_selectedAxis = -1;
             if (drawableIdx >= 0)
             {
@@ -85,17 +84,12 @@ namespace Ra
                     m_selectedAxis = int(found - m_renderObjects.begin());
                 }
             }
-            if (m_selectedAxis != oldAxis)
-            {
-                m_initialPix = Core::Vector2::Zero();
-            }
         }
 
         Core::Transform RotateGizmo::mouseMove(const Engine::Camera& cam, const Core::Vector2& nextXY)
         {
             if (m_selectedAxis >= 0)
             {
-                // Taken from Rodolphe's View engine gizmos -- see axis_rotation().
 
                 const Core::Vector3 origin = m_transform.translation();
                 Core::Vector3 rotationAxis = Core::Vector3::Unit(m_selectedAxis);
@@ -104,7 +98,7 @@ namespace Ra
                     rotationAxis = m_transform.rotation()*rotationAxis;
                 }
 
-                // Raycast vs cirle plane.
+                // Project the clicked points against the plane defined by the rotation circles.
                 std::vector<Scalar> hits1, hits2;
                 Core::Ray rayToFirstClick  = cam.getRayFromScreen(m_initialPix);
                 Core::Ray rayToCurrentClick = cam.getRayFromScreen(nextXY);
@@ -113,35 +107,28 @@ namespace Ra
 
                 if (hit1 && hit2)
                 {
-                    Core::Vector3 originalHit = rayToFirstClick.at(hits1[0]);
-                    Core::Vector3 currentHit = rayToCurrentClick.at(hits2[0]);
+                    // Do the calculations relative to the circle center.
+                    const Core::Vector3 originalHit = rayToFirstClick.at(hits1[0]) - origin;
+                    const Core::Vector3 currentHit = rayToCurrentClick.at(hits2[0]) - origin;
 
+                    // Get the angle between the two vectors with the correct sign
+                    // (since we already know our current rotation axis).
+                    auto c = originalHit.cross(currentHit);
+                    Scalar d = originalHit.dot(currentHit);
 
-                    Core::Vector2 diff = nextXY - m_initialPix;
-                    Core::Vector3 tangentDir = 3.0f * rotationAxis.cross(originalHit - origin).normalized();
+                    Scalar angle = Core::Math::sign(c.dot(rotationAxis)) * std::atan2(c.norm(),d);
 
-                    Core::Vector3 p0 = currentHit - tangentDir;
-                    Core::Vector3 p1 = currentHit + tangentDir;
-
-                    Core::Vector2 projTangent = cam.project(p1) - cam.project(p0);
-
-                    Scalar dot = projTangent.dot(diff) / 50.f;
-                    Scalar angle = 0.01f* (dot > 0 ? 1.f : -1.f) * std::fmod(std::abs(dot), Core::Math::PiMul2);
-
-                    m_mode == LOCAL ?
-                    m_transform.rotate(Core::AngleAxis(angle, rotationAxis)):
+                    // Apply rotation.
                     m_transform.prerotate(Core::AngleAxis(angle, rotationAxis));
 
-
                 }
+                m_initialPix = nextXY;
             }
             return m_transform;
         }
 
         void RotateGizmo::setInitialState(const Engine::Camera& cam, const Core::Vector2& initialXY)
         {
-            //const Core::Vector3 origin = m_transform.translation();
-            //const Core::Vector2 orgScreen = cam.project(origin);
             m_initialPix =  initialXY;
         }
     }
