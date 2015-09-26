@@ -57,14 +57,14 @@ namespace Ra
             void handlePicking( int drawableIndex );
 
         public slots:
-            void entitiesUpdated();
+            void onEntitiesUpdated();
 
             // Camera ui slots
-            void cameraPositionChanged( const Core::Vector3& p );
-            void cameraTargetChanged( const Core::Vector3& p );
+            void onCameraPositionChanged( const Core::Vector3& p );
+            void onCameraTargetChanged( const Core::Vector3& p );
 
             // Frame timers ui slots
-            void updateFramestats( const std::vector<FrameTimerData>& stats );
+            void onUpdateFramestats( const std::vector<FrameTimerData>& stats );
 
             // Selection tools
             void onSelectionChanged( const QItemSelection& selected, const QItemSelection& deselected );
@@ -84,8 +84,8 @@ namespace Ra
             void selectedEntity( Engine::Entity* selectedEntity );
             //void selectedComponent( Engine::Component* selectedComponent);
 
-            void setCameraPosition( const Core::Vector3& );
-            void setCameraTarget( const Core::Vector3& );
+            void cameraPositionSet( const Core::Vector3& );
+            void cameraTargetSet( const Core::Vector3& );
 
         private:
             // Basic I/O management

@@ -47,63 +47,53 @@ namespace Ra
     void Gui::MainWindow::createConnections()
     {
         connect( actionOpenMesh, &QAction::triggered, this, &MainWindow::loadFile );
-        connect( actionReload_Shaders, &QAction::triggered, m_viewer, &Gui::Viewer::reloadShaders );
+        connect( actionReload_Shaders, &QAction::triggered, m_viewer, &Viewer::reloadShaders );
 
         // Toolbox setup
         connect( actionToggle_Local_Global, &QAction::toggled, m_viewer->getGizmoManager(), &GizmoManager::setLocal );
-        connect( actionGizmoOff,            &QAction::triggered, this, &MainWindow::gizmoShowNone);
-        connect( actionGizmoTranslate,      &QAction::triggered, this, &MainWindow::gizmoShowTranslate);
-        connect( actionGizmoRotate,         &QAction::triggered, this, &MainWindow::gizmoShowRotate);
+        connect( actionGizmoOff,            &QAction::triggered, this, &MainWindow::gizmoShowNone );
+        connect( actionGizmoTranslate,      &QAction::triggered, this, &MainWindow::gizmoShowTranslate );
+        connect( actionGizmoRotate,         &QAction::triggered, this, &MainWindow::gizmoShowRotate );
         //connect( actionGizmoOff, &QAction::toggled, this, &gizmoShowNone);
 
         // Loading setup.
-        connect( this, SIGNAL( fileLoading( QString ) ), mainApp, SLOT( loadFile( QString ) ) );
-        connect( this, SIGNAL( entitiesUpdated( const std::vector<Engine::Entity*>& ) ),
-                 m_entityTreeModel, SLOT( entitiesUpdated( const std::vector<Engine::Entity*>& ) ) );
+        connect( this, &MainWindow::fileLoading, mainApp, &MainApplication::loadFile );
+        connect( this, &MainWindow::entitiesUpdated, m_entityTreeModel, &EntityTreeModel::entitiesUpdated );
 
         /* connect( m_entityTreeModel, SIGNAL( objectNameChanged( QString ) ),
                   this, SLOT( objectNameChanged( QString ) ) );*/
         // Side menu setup.
-        connect( m_entityTreeModel, SIGNAL( dataChanged( QModelIndex, QModelIndex, QVector<int> ) ),
-                 m_entityTreeModel, SLOT( handleRename( QModelIndex, QModelIndex, QVector<int> ) ) );
+        connect( m_entityTreeModel, &EntityTreeModel::dataChanged, m_entityTreeModel, &EntityTreeModel::handleRename );
 
-        connect( m_entitiesTreeView->selectionModel(),
-                 SIGNAL( selectionChanged( const QItemSelection&, const QItemSelection& ) ),
-                 this,
-                 SLOT( onSelectionChanged( const QItemSelection&, const QItemSelection& ) ) );
+        connect( m_entitiesTreeView->selectionModel(), &QItemSelectionModel::selectionChanged,
+            this, &MainWindow::onSelectionChanged );
 
-        connect( m_cameraResetButton, SIGNAL( released() ),
-                 m_viewer->getCameraInterface(), SLOT( resetCamera() ) );
+        // Camera panel setup
+        connect( m_cameraResetButton, &QPushButton::released, m_viewer->getCameraInterface(), &CameraInterface::resetCamera);
+        connect( m_setCameraPositionButton, &QPushButton::released, this, &MainWindow::setCameraPosition);
+        connect( m_setCameraTargetButton, &QPushButton::released, this, &MainWindow::setCameraTarget);
 
-        connect( m_setCameraPositionButton, SIGNAL( released() ),
-                 this, SLOT( setCameraPosition() ) );
-        connect( m_setCameraTargetButton, SIGNAL( released() ),
-                 this, SLOT( setCameraTarget() ) );
+        connect( this, &MainWindow::cameraPositionSet, m_viewer->getCameraInterface(), &CameraInterface::setCameraPosition );
+        connect( this, &MainWindow::cameraTargetSet,   m_viewer->getCameraInterface(), &CameraInterface::setCameraTarget );
 
-        connect( this, SIGNAL( setCameraPosition( const Core::Vector3& ) ),
-                 m_viewer->getCameraInterface(), SLOT( setCameraPosition( const Core::Vector3& ) ) );
-        connect( this, SIGNAL( setCameraTarget( const Core::Vector3& ) ),
-                 m_viewer->getCameraInterface(), SLOT( setCameraTarget( const Core::Vector3& ) ) );
+        connect( m_viewer->getCameraInterface(), &CameraInterface::cameraPositionChanged, this, &MainWindow::onCameraPositionChanged );
+        connect( m_viewer->getCameraInterface(), &CameraInterface::cameraTargetChanged, this, &MainWindow::onCameraTargetChanged );
+                // Oh C++ why are you so mean to me ? 
+        connect( m_cameraSensitivity, static_cast<void (QDoubleSpinBox::*) (double)>(&QDoubleSpinBox::valueChanged), 
+            m_viewer->getCameraInterface(), &CameraInterface::setCameraSensitivity );
 
-        connect(m_viewer->getCameraInterface(), SIGNAL( cameraPositionChanged( const Core::Vector3& ) ),
-                 this, SLOT( cameraPositionChanged( const Core::Vector3& ) ) );
-        connect(m_viewer->getCameraInterface(), SIGNAL( cameraTargetChanged( const Core::Vector3& ) ),
-                 this, SLOT( cameraTargetChanged( const Core::Vector3& ) ) );
-        connect( m_cameraSensitivity, SIGNAL( valueChanged( double ) ),
-                 m_viewer->getCameraInterface(), SLOT( setCameraSensitivity( double ) ) );
+        // Connect picking results (TODO Val : use events to dispatch picking directly)
+        connect( m_viewer, &Viewer::rightClickPicking, this, &MainWindow::handlePicking );
+        connect (m_viewer, &Viewer::leftClickPicking, m_viewer->getGizmoManager(), &GizmoManager::handlePickingResult );
 
-        /// Connect picking results (TODO Val : use events to dispatch picking directly)
-        connect(m_viewer, SIGNAL(rightClickPicking(int)), this, SLOT(handlePicking(int)));
-        connect(m_viewer, SIGNAL(leftClickPicking(int)), m_viewer->getGizmoManager(), SLOT( handlePickingResult(int) ));
+        // Update entities when the engine starts.
+        connect( mainApp, &MainApplication::starting, this, &MainWindow::onEntitiesUpdated );
 
-        /// Update entities when the engine starts.
-        connect( mainApp, SIGNAL( starting() ),  this, SLOT( entitiesUpdated() ) );
+        connect( m_avgFramesCount, static_cast< void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+            mainApp , &MainApplication::framesCountForStatsChanged );
+        connect(mainApp, &MainApplication::updateFrameStats, this, &MainWindow::onUpdateFramestats);
 
-        connect( m_avgFramesCount, SIGNAL( valueChanged( int ) ), mainApp , SLOT( framesCountForStatsChanged( int ) ) );
-        connect( mainApp , SIGNAL( updateFrameStats( const std::vector<FrameTimerData>& ) ),
-                 this, SLOT( updateFramestats( const std::vector<FrameTimerData>& ) ) );
-
-        /// Inform property editors of new selections
+        // Inform property editors of new selections
         connect(this, &MainWindow::selectedEntity, tab_edition, &TransformEditorWidget::setEditable);
         connect(this, &MainWindow::selectedEntity, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
 
@@ -113,12 +103,12 @@ namespace Ra
 
     }
 
-    void Gui::MainWindow::entitiesUpdated()
+    void Gui::MainWindow::onEntitiesUpdated()
     {
         emit entitiesUpdated( mainApp->m_engine->getEntityManager()->getEntities() );
     }
 
-    void Gui::MainWindow::cameraPositionChanged( const Core::Vector3& p )
+    void Gui::MainWindow::onCameraPositionChanged( const Core::Vector3& p )
     {
         // TODO : use a vectorEditor.
         m_cameraPositionX->setValue( p.x() );
@@ -126,7 +116,7 @@ namespace Ra
         m_cameraPositionZ->setValue( p.z() );
     }
 
-    void Gui::MainWindow::cameraTargetChanged( const Core::Vector3& p )
+    void Gui::MainWindow::onCameraTargetChanged( const Core::Vector3& p )
     {
         m_cameraTargetX->setValue( p.x() );
         m_cameraTargetY->setValue( p.y() );
@@ -138,7 +128,7 @@ namespace Ra
         Core::Vector3 P( m_cameraPositionX->value(),
                          m_cameraPositionY->value(),
                          m_cameraPositionZ->value() );
-        emit setCameraPosition( P );
+        emit cameraPositionSet( P );
     }
 
     void Gui::MainWindow::setCameraTarget()
@@ -146,7 +136,7 @@ namespace Ra
         Core::Vector3 T( m_cameraTargetX->value(),
                          m_cameraTargetY->value(),
                          m_cameraTargetZ->value() );
-        emit setCameraTarget( T );
+        emit cameraTargetSet( T );
     }
 
     void Gui::MainWindow::loadFile()
@@ -157,10 +147,10 @@ namespace Ra
             emit fileLoading( path );
         }
 
-        entitiesUpdated();
+        onEntitiesUpdated();
     }
 
-    void Gui::MainWindow::updateFramestats( const std::vector<FrameTimerData>& stats )
+    void Gui::MainWindow::onUpdateFramestats( const std::vector<FrameTimerData>& stats )
     {
         QString framesA2B = QString( "Frames #%1 to #%2 stats :" )
                             .arg( stats.front().numFrame ).arg( stats.back().numFrame );
