@@ -144,7 +144,7 @@ namespace Ra
                     Triangle( 3, 2, 6 ), Triangle( 3, 6, 7 ),   // Back
                     Triangle( 5, 1, 3 ), Triangle( 5, 3, 7 ),   // Right
                     Triangle( 2, 0, 4 ), Triangle( 2, 4, 6 ),   // Left
-                    Triangle( 4, 5, 6 ), Triangle( 6, 5, 7 )   // Top
+                    Triangle( 4, 5, 6 ), Triangle( 6, 5, 7 )    // Top
                 };
 
                 getAutoNormals( result, result.m_normals );

@@ -97,8 +97,40 @@ namespace Ra
                     const Vector3 n = v.normalized();
                     result.m_normals.push_back( n );
                 }
-                getAutoNormals(result,result.m_normals);
                 checkConsistency( result );
+                return result;
+            }
+            
+            
+            template<uint U, uint V>
+            TriangleMesh makeParametricTorus(Scalar majorRadius, Scalar minorRadius)
+            {
+                TriangleMesh result;
+
+                for (uint iu = 0; iu < U; ++iu)
+                {
+                    Scalar u = Scalar(iu) * Core::Math::PiMul2 / Scalar(U);
+                    Core::Vector3 circleCenter(majorRadius * std::cos(u), majorRadius * std::sin(u), 0.f);
+
+                    for (uint iv = 0; iv < V; ++iv)
+                    {
+                        Scalar v = Scalar(iv) * Core::Math::PiMul2 / Scalar(V);
+
+                        Core::Vector3 vertex (
+                                (majorRadius + minorRadius * std::cos(v)) * std::cos(u),
+                                (majorRadius + minorRadius * std::cos(v)) * std::sin(u),
+                                 minorRadius * std::sin(v));
+
+
+                        result.m_vertices.push_back(vertex);
+                        result.m_normals.push_back((vertex - circleCenter).normalized());
+                        RA_DISPLAY_NORMAL(vertex, result.m_normals.back(), Colors::Red(), 0.1f);
+
+                        result.m_triangles.push_back(Triangle(iu*V + iv, ((iu + 1) % U)*V + iv, iu * V + ((iv + 1) % V)));
+                        result.m_triangles.push_back(Triangle(iu * V + iv, iu * V + ((iv + 1) % V), ((iu - 1) % U) * V + ((iv + 1) % V)));
+                    }
+                }
+                checkConsistency(result);
                 return result;
             }
         }
