@@ -124,7 +124,6 @@ namespace Ra
 
                         result.m_vertices.push_back(vertex);
                         result.m_normals.push_back((vertex - circleCenter).normalized());
-                        RA_DISPLAY_NORMAL(vertex, result.m_normals.back(), Colors::Red(), 0.1f);
 
                         result.m_triangles.push_back(Triangle(iu*V + iv, ((iu + 1) % U)*V + iv, iu * V + ((iv + 1) % V)));
                         result.m_triangles.push_back(Triangle(iu * V + iv, iu * V + ((iv + 1) % V), ((iu - 1) % U) * V + ((iv + 1) % V)));
