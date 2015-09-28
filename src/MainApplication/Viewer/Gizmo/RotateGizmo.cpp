@@ -17,22 +17,27 @@ namespace Ra
         RotateGizmo::RotateGizmo(Engine::Component* c, const Core::Transform& t, Mode mode)
                 : Gizmo(c, t, mode), m_initialPix(Core::Vector2::Zero()), m_selectedAxis(-1)
         {
-            constexpr Scalar tubeHeight = 0.001f;
-            constexpr Scalar tubeOutRadius = 0.1f;
-            constexpr Scalar tubeInRadius = 0.9f * tubeOutRadius;
+            constexpr Scalar torusOutRadius = 0.1f;
+            constexpr Scalar torusAspectRatio = 0.1f;
             // For x,y,z
             for (uint i = 0; i < 3; ++i)
             {
-                const Core::Vector3 tubeAxis = Core::Vector3::Unit(i);
+                Core::TriangleMesh torus = Core::MeshUtils::makeParametricTorus<32>(torusOutRadius, torusAspectRatio*torusOutRadius);
+                // Transform the torus from z-axis to axis i.
+                if (i < 2)
+                {
+                    for (auto& v: torus.m_vertices)
+                    {
+                        std::swap( v[2], v[i]);
+                    }
+                }
 
-                Core::TriangleMesh tube = Core::MeshUtils::makeTube(-tubeHeight*tubeAxis, tubeHeight*tubeAxis, tubeOutRadius, tubeInRadius);
-
-                Core::Color tubeColor= Core::Color::Zero();
-                tubeColor[i] = 1.f;
-                Core::Vector4Array colors(tube.m_vertices.size(), tubeColor);
+                Core::Color torusColor= Core::Color::Zero();
+                torusColor[i] = 1.f;
+                Core::Vector4Array colors(torus.m_vertices.size(), torusColor);
 
                 Engine::Mesh* mesh = new Engine::Mesh("Gizmo Arrow");
-                mesh->loadGeometry(tube);
+                mesh->loadGeometry(torus);
                 mesh->addData(Engine::Mesh::VERTEX_COLOR, colors);
 
                 Engine::RenderObject* arrowDrawable = new Engine::RenderObject("Gizmo Arrow", m_comp, true);
