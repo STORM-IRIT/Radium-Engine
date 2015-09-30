@@ -255,9 +255,8 @@ namespace Ra
             m_transparentRenderQueue.render( m_pickingShader );
 
             // Always draw ui stuff
-            GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
+            GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
             m_uiRenderQueue.render( m_pickingShader );
-            GL_ASSERT( glDepthFunc( GL_LESS ) );
 
             GL_ASSERT( glReadBuffer( GL_COLOR_ATTACHMENT0 ) );
 
@@ -351,17 +350,6 @@ namespace Ra
 #endif
             }
 
-            // Draw debug stuff, do not overwrite depth map but do depth testing
-            GL_ASSERT( glDisable( GL_BLEND ) );
-            GL_ASSERT( glDepthMask( GL_FALSE ) );
-            GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
-            GL_ASSERT( glDepthFunc( GL_LESS ) );
-            m_debugRenderQueue.render();
-
-            // Draw UI stuff, always drawn on top of everything else
-            GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
-            m_uiRenderQueue.render();
-
             m_fbo->unbind();
 
 #ifndef NO_TRANSPARENCY
@@ -388,10 +376,28 @@ namespace Ra
             m_oitFbo->unbind();
 #endif
 
+            m_fbo->bind();
+            // Draw debug stuff, do not overwrite depth map but do depth testing
+            GL_ASSERT( glDrawBuffers( 1, buffers + 4 ) );
+            
+            GL_ASSERT( glDisable( GL_BLEND ) );
+            GL_ASSERT( glDepthMask( GL_FALSE ) );
+            GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
+            GL_ASSERT( glDepthFunc( GL_LESS ) );
+            m_debugRenderQueue.render();
+
+            // Draw UI stuff, always drawn on top of everything else
+            GL_ASSERT( glDepthMask( GL_TRUE ) );
+            GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
+            GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) ); 
+            
+            m_uiRenderQueue.render();
+            
             // Draw renderpass texture
             m_fbo->bind();
             GL_ASSERT( glDrawBuffers( 1, buffers + 5 ) );
             GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
+            m_fbo->unbind();
 
             m_renderpassCompositingShader->bind();
 
