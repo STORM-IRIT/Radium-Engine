@@ -1,10 +1,30 @@
 #include <MainApplication/MainApplication.hpp>
 
-const uint FPS_MAX(120);
-const Scalar DELTA_TIME( 1.0 / Scalar( FPS_MAX ) );
+#include <cstdio>
+
+
 
 int main( int argc, char** argv )
 {
+    uint FPS_MAX = 120;
+    
+    if ( argc > 1 )
+    {
+        for ( uint i = 1; i < argc; ++i )
+        {
+            std::string arg( argv[i] );
+            if ( arg == "--fps" )
+            {
+                std::stringstream val( argv[i+1] );
+                val >> FPS_MAX;
+
+                break;
+            }
+        }
+    }
+
+    Scalar DELTA_TIME( FPS_MAX == 0 ? 0.0 : 1.0 / Scalar( FPS_MAX ) );
+    
     Ra::MainApplication app( argc, argv );
 
     Ra::Core::Timer::TimePoint t0, t1;
