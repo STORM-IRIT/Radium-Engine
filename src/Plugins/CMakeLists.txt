@@ -15,8 +15,7 @@ message("The following plugins will be compiled : ${SUBDIRS}")
 # setup to create the Systems.cpp file where all systems are registered.
 set (system_string "#include<MainApplication/MainApplication.hpp>\n\n")
 set (header_string "")
-set (register_string "")
-
+set (register_string "void Ra::MainApplication::registerSystems() {\n")
 
 set(libs
     radiumCore
@@ -55,10 +54,16 @@ foreach(subdir ${SUBDIRS})
         TARGETS ${subdir}
         DESTINATION ${LIB_INSTALL_DIR})
 
-        message( "${subdir}" )
-    set (header_string
+    set( header_string
          "${header_string}#include <Plugins/${subdir}/${subdir}System.hpp>\n")
+
+    set( register_string
+         "${register_string}    RA_REGISTER_SYSTEM_PLUGIN(${subdir})\n" )
+
 endforeach()
+
+set( header_string "${header_string}\n" )
+set( register_string "${register_string}}" )
 
 set( sys_dir ${CMAKE_SOURCE_DIR}/src/MainApplication )
 set( sys_file ${sys_dir}/Systems.cpp )

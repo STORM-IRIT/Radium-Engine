@@ -1,4 +1,4 @@
-#include <Plugins/FancyMeshPlugin/FancyMeshSystem.hpp>
+#include <Plugins/FancyMesh/FancyMeshSystem.hpp>
 
 #include <Core/String/StringUtils.hpp>
 #include <Core/Tasks/Task.hpp>
@@ -6,8 +6,8 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Entity/FrameInfo.hpp>
-#include <Plugins/FancyMeshPlugin/FancyMeshComponent.hpp>
-#include <Plugins/FancyMeshPlugin/FancyMeshLoader.hpp>
+#include <Plugins/FancyMesh/FancyMeshComponent.hpp>
+#include <Plugins/FancyMesh/FancyMeshLoader.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
 namespace FancyMeshPlugin

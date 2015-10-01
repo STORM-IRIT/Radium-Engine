@@ -19,7 +19,7 @@
 #include <Engine/SystemDisplay/SystemDisplay.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
 
-#include <Plugins/FancyMeshPlugin/FancyMeshSystem.hpp>
+#include <Plugins/FancyMesh/FancyMeshSystem.hpp>
 #include <MainApplication/Viewer/Gizmo/Gizmo.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/RayCast.hpp>

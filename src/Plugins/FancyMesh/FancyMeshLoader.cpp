@@ -1,4 +1,4 @@
-#include <Plugins/FancyMeshPlugin/FancyMeshLoader.hpp>
+#include <Plugins/FancyMesh/FancyMeshLoader.hpp>
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>

@@ -119,4 +119,5 @@ namespace Ra
   {\
   NAME##Plugin::NAME##System* syst  = new NAME##Plugin::NAME##System();\
   m_engine->registerSystem(__STRING(NAME##System), syst);\
-  }\
+  }
+  

@@ -1,10 +1,10 @@
 #ifndef FANCYMESHPLUGIN_FANCYMESHCOMPONENT_HPP
 #define FANCYMESHPLUGIN_FANCYMESHCOMPONENT_HPP
 
-#include <Plugins/FancyMeshPlugin/FancyMeshPlugin.hpp>
+#include <Plugins/FancyMesh/FancyMeshPlugin.hpp>
 
 #include <Engine/Entity/Component.hpp>
-#include <Plugins/FancyMeshPlugin/FancyMeshLoadingData.hpp>
+#include <Plugins/FancyMesh/FancyMeshLoadingData.hpp>
 
 namespace Ra
 {
