@@ -121,12 +121,6 @@ namespace Ra
                  this, SLOT( appNeedsToQuit() ) );
     }
 
-    void MainApplication::registerSystems()
-    {
-        FancyMeshPlugin::FancyMeshSystem* fmSystem = new FancyMeshPlugin::FancyMeshSystem();
-        m_engine->registerSystem( "FancyMeshSystem", fmSystem );
-    }
-
     void MainApplication::setupScene()
     {
 #if 1

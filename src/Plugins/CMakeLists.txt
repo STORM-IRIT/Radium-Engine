@@ -12,6 +12,12 @@ endmacro()
 SUBDIRLIST(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
 message("The following plugins will be compiled : ${SUBDIRS}")
 
+# setup to create the Systems.cpp file where all systems are registered.
+set (system_string "#include<MainApplication/MainApplication.hpp>\n\n")
+set (header_string "")
+set (register_string "")
+
+
 set(libs
     radiumCore
     radiumEngine
@@ -49,6 +55,17 @@ foreach(subdir ${SUBDIRS})
         TARGETS ${subdir}
         DESTINATION ${LIB_INSTALL_DIR})
 
+        message( "${subdir}" )
+    set (header_string
+         "${header_string}#include <Plugins/${subdir}/${subdir}System.hpp>\n")
 endforeach()
+
+set( sys_dir ${CMAKE_SOURCE_DIR}/src/MainApplication )
+set( sys_file ${sys_dir}/Systems.cpp )
+file(WRITE ${sys_file} ${system_string})
+file(APPEND ${sys_file} ${header_string})
+file(APPEND ${sys_file} ${register_string})
+
+configure_file( ${sys_file} ${sys_dir} )
 
 set(plugins ${SUBDIRS})

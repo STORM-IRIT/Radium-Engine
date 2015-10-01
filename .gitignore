@@ -80,3 +80,6 @@ lib/
 
 # Json 
 *.json
+
+#Auto-generated plugins registration file
+src/MainApplication/Systems.cpp

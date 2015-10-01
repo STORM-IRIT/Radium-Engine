@@ -112,3 +112,11 @@ namespace Ra
         bool m_isAboutToQuit;
     };
 }
+
+/// Macro used to register a system through the auto-generated "systems.cpp" file
+/// See the cmake
+#define RA_REGISTER_SYSTEM_PLUGIN( NAME ) \
+  {\
+  NAME##Plugin::NAME##System* syst  = new NAME##Plugin::NAME##System();\
+  m_engine->registerSystem(__STRING(NAME##System), syst);\
+  }\
