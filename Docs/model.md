@@ -88,5 +88,25 @@ One Entity is always created when the engine starts, called the System Entity. I
 In particular it is expected that UI elements (e.g.  Gizmos) should be attached to the UI component. The Debug Component is useful to display debug primitives which can be useful for graphic debugging.
 A series of macros `RA_DISPLAY_...` are defined to conveniently add basic display objects such as points, vectors, lines or 3D frames from anywhere in the code. A compile-time switch (`RA_DISABLE_DEBUG_DISPLAY`) can be activated to disable this feature.
 
+## The plugin framework
 
-## The plugin system
+Entities and components have been designed so that the engine is modular in terms of features. It is expected that most interesting works will be done by Systems defined in *Plugins*. Each plugin can define its System (and the corresponding Components). 
+
+We use a compile-time plugins loading mechanism. When running `cmake`, it will list the contents of the  `src/Plugins/` directory and add them to be compiled with the projet, and automatically generate the code to include the plugins Systems in the main application.
+
+### Requirements
+
+For this automated build to work the plugins are required to follow these requirements
+* The plugin code must be in a subfolder of the `src/Plugins/` directory.
+* The folder name is taken to be the _base name_ of the plugin. If the directory name is `BaseName`, then
+ * Plugin code must be in `namespace BaseNamePlugin`
+ * The system defined by the plugin must be named `BaseNamePlugin::BaseNameSystem`
+ * It must be defined in a header located at the top of the plugin subfolder, named `BaseNameSystem.hpp` (its full path should be `src/Plugins/Basename/BasenameSystem.hpp`)
+ * The system must inherit from `Engine::System` and have a default empty constructor.
+
+
+### Tasks and dependencies
+
+### Default plugins
+
+See the structure of the default plugins (e.g. `FancyMesh`) for an example of a working plugin.
