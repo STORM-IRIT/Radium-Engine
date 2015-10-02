@@ -1,7 +1,7 @@
-#include <Core/CoreMacros.hpp>
-#ifndef FANCYMESHPLUGIN_HPP_ 
+#ifndef FANCYMESHPLUGIN_HPP_
 #define FANCYMESHPLUGIN_HPP_ 
 
+#include <Core/CoreMacros.hpp>
 /// Defines the correct macro to export dll symbols.
 #if defined  FancyMeshPlugin_EXPORTS    
     #define FM_PLUGIN_API DLL_EXPORT 
