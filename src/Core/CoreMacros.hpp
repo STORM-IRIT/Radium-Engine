@@ -117,6 +117,13 @@
 #define CONCATENATE2(XX,YY) CONCATENATE3(XX,YY)
 #define CONCATENATE3(XX,YY) XX##YY
 
+// Stringification has a similar problem.
+#ifdef __STRING
+#define STRINGIFY(X) STRING(X)
+#else
+#define STRINGIFY(X) STRINGIFY2(X)
+#define STRINGIFY2(X) #X
+#endif
 
 // ----------------------------------------------------------------------------
 // Platform abstracted macros
@@ -152,6 +159,7 @@
 
 // DEPRECATED will issue a warning when using a variable or function.
 
+// STDCALL, CDECL, FASTCALL : keyword for the corresponding calling convention.
 
 #if defined (COMPILER_MSVC)
 
@@ -171,6 +179,9 @@
 #define DLL_EXPORT __declspec(dllexport)
 #define DLL_IMPORT __declspec(dllimport)
 
+#define STDCALL __stdcall
+#define CDECL __cdecl
+#define FASTCALL __fastcall
 #elif defined(COMPILER_GCC) || defined (COMPILER_CLANG)
 
 #define ALIGN_OF(X) __alignof__(X)
@@ -187,7 +198,9 @@
 
 #define DLL_EXPORT 
 #define DLL_IMPORT 
-
+#define STDCALL  __attribute__((stdcall))
+#define CDECL /* default */
+#define FASTCALL __attribute__((fastcall))
 #else
 #error unsupported platform
 #endif
