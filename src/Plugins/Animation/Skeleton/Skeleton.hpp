@@ -5,6 +5,7 @@
 #include <string>
 
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Containers/AlignedStdVector.hpp>
 
 // Skeletons and poses.
 
@@ -40,12 +41,19 @@
 // Of course a relative pose can be seen both in model space or local space.
 // Utilities are provided in the Pose class to manipulate relative poses.
 
+
 using std::vector;
+
 /// A small structure keeping the informations of the bones.
 struct Bone
 {
     std::string _name;
 };
+
+
+/// A shortcut for an array of transforms which can be interpreted as a pose. @see Pose 
+/// for a more complete data structure to hold a pose.
+typedef Ra::Core::AlignedStdVector<Ra::Core::Transform> RawPose ;
 
 /// A class representing a skeleton (directed acyclic graph of bones).
 /// Each bone has one parent, except the root(s).
@@ -68,7 +76,7 @@ namespace AnimationPlugin
         void addBone(const Bone& bone, int parent_idx);
 
         /// Sets the reference pose in model space.
-        void setRefPose(const std::vector<Ra::Core::Transform>& pose);
+        void setRefPose(const RawPose& pose);
 
         // Accessors.
 
@@ -85,7 +93,7 @@ namespace AnimationPlugin
         const Bone& getBone(int boneIdx) const;
 
         /// Returns the ref pose (in model space).
-        const std::vector<Ra::Core::Transform>& getRefPose() const;
+        const RawPose& getRefPose() const;
 
         /// Returns the children of given bone.
         const std::vector<int>& getChildrenIdx(int boneIdx) const;
@@ -102,7 +110,7 @@ namespace AnimationPlugin
         vector<Bone> m_bones;     /// storage for the bones
         vector<int> m_parents;   /// parent indices of bones.
         vector<vector<int> > m_children;  /// child indices of bones
-        vector<Ra::Core::Transform> m_refPose;  /// reference pose in model space.
+        RawPose m_refPose;  /// reference pose in model space.
         std::string m_name;      /// Name of our rig
 
     };

@@ -2,7 +2,7 @@
 namespace AnimationPlugin
 {
     template<Pose::Mode MODE>
-    inline void Pose::setPose(const std::vector<Ra::Core::Transform>& pose)
+    inline void Pose::setPose(const RawPose& pose)
     {
         m_poses[MODE] = pose;
         switch (MODE)
@@ -20,13 +20,13 @@ namespace AnimationPlugin
     }
 
     template<Pose::Mode MODE>
-    inline const std::vector<Ra::Core::Transform>& Pose::getPose() const
+    inline const Pose::RawPose& Pose::getPose() const
     {
         return m_poses[MODE];
     }
 
     template<Pose::Mode MODE>
-    inline const Ra::Core::Transform& Pose::getPoseBone(int boneIdx) const
+    inline const Ra::Core::Transform& Pose::getBoneTransform(int boneIdx) const
     {
         CORE_ASSERT(boneIdx >= 0 && boneIdx < m_skel->getNumBones(), "Invalid bone index");
         return m_poses[MODE][boneIdx];
@@ -43,13 +43,13 @@ namespace AnimationPlugin
     }
 
     template<Pose::Mode MODE>
-    void Pose::getRelativePose(std::vector<Ra::Core::Transform>& relPoseOut,
+    void Pose::getRelativePose( RawPose& relPoseOut,
                                  const Pose* poseStart,
                                  const Pose* poseEnd)
     {
         CORE_ASSERT(poseStart->m_skel == poseEnd->m_skel, "Pose do not belong to the same skeleton.");
-        const std::vector<Ra::Core::Transform>& start = poseStart->m_poses[MODE];
-        const std::vector<Ra::Core::Transform>& end = poseEnd->m_poses[MODE];
+        const RawPose& start = poseStart->m_poses[MODE];
+        const RawPose& end = poseEnd->m_poses[MODE];
 
         const uint numBones = poseStart->m_skel->getNumBones();
         relPoseOut.clear();
@@ -61,7 +61,7 @@ namespace AnimationPlugin
     }
 
     template<Pose::Mode MODE>
-    void Pose::applyRelativePose(const std::vector<Ra::Core::Transform>& relPose)
+    void Pose::applyRelativePose(const RawPose& relPose)
     {
         // FIXME (Val)!!
         assert(false);
@@ -70,7 +70,7 @@ namespace AnimationPlugin
 
     void Pose::setBoneTransform(int boneIdx, const Ra::Core::Transform& tr)
     {
-        CORE_ASSERT(boneIdx >= 0 && boneIdx < m_skel->getNumBones(), "Invalid bone index.");
+        CORE_ASSERT(boneIdx >= 0 && uint(boneIdx) < m_skel->getNumBones(), "Invalid bone index.");
         m_poses[LOCAL][boneIdx] = tr;
         recomputeModel();
     }

@@ -7,6 +7,7 @@
 #include <assimp/postprocess.h>
 
 #include <Core/Log/Log.hpp>
+#include <Core/Math/ColorPresets.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/OpenGL/FBO.hpp>
@@ -287,7 +288,7 @@ namespace Ra
 
             GL_ASSERT( glDrawBuffers( 6, buffers ) );
 
-            const Core::Color clearColor( 0.6, 0.6, 0.6, 1.0 );
+            const Core::Color clearColor = Core::Colors::FromChars(42, 42, 42, 128);
             const Core::Color clearZeros( 0.0, 0.0, 0.0, 0.0 );
             const Core::Color clearOnes( 1.0, 1.0, 1.0, 1.0 );
             const Scalar clearDepth( 1.0 );

@@ -24,8 +24,8 @@ namespace AnimationPlugin
         return m_bones[boneIdx];
     }
 
-    const std::vector <Ra::Core::Transform>& Skeleton::getRefPose() const
-    {
+    const Ra::Core::AlignedStdVector<Ra::Core::Transform>& Skeleton::getRefPose() const
+{
         return m_refPose;
     }
 
@@ -61,7 +61,7 @@ namespace AnimationPlugin
         check();
     }
 
-    void Skeleton::setRefPose(const std::vector <Ra::Core::Transform>& pose)
+    void Skeleton::setRefPose(const RawPose& pose)
     {
         CORE_ASSERT(pose.size() == unsigned(getNumBones()), "Incompatible pose");
         m_refPose = pose;
@@ -71,9 +71,9 @@ namespace AnimationPlugin
     {
         CORE_ASSERT(m_bones.size() == m_parents.size(), "Bone list and parent list are incompatible.");
         // checks no bone is there before its parent.
-        for (int b = 0; b < getNumBones(); ++b)
+        for (uint b = 0; b < getNumBones(); ++b)
         {
-            CORE_ASSERT(getParentIdx(b) < b, "Parent ordering is wrong.");
+            CORE_ASSERT(getParentIdx(b) < int(b), "Parent ordering is wrong.");
             CORE_ASSERT(getParentIdx(b) >= -1, "Parent index is wrong");
             for (auto c : m_children[b])
             {

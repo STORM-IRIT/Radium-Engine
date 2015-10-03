@@ -2,6 +2,9 @@
 #define POSED_SKELETON_HPP_
 
 #include <Plugins/Animation/AnimationPlugin.hpp>
+
+#include <Core/Containers/AlignedStdVector.hpp>
+
 #include <Plugins/Animation/Skeleton/Skeleton.hpp>
 
 namespace AnimationPlugin
@@ -18,9 +21,10 @@ namespace AnimationPlugin
             MODEL       // Each transform is in the skeleton's model space
         };
 
+
     public:
         /// Constructs a posed skeleton with the given pose.
-        Pose(Mode mode, const Skeleton* skel, const std::vector <Ra::Core::Transform>& pose);
+        Pose(Mode mode, const Skeleton* skel, const RawPose& pose);
 
         Pose(const Pose& pose) = default;
 
@@ -28,7 +32,7 @@ namespace AnimationPlugin
 
         /// Change the whole pose according to the given mode and recompute the other.
         template<Mode MODE>
-        inline void setPose(const std::vector <Ra::Core::Transform>& pose);
+        inline void setPose(const RawPose& pose);
 
         //
         // Accessors.
@@ -36,11 +40,11 @@ namespace AnimationPlugin
 
         /// Const accessors for the whole poses
         template<Mode MODE>
-        inline const std::vector <Ra::Core::Transform>& getPose() const;
+        inline const RawPose& getPose() const;
 
         /// Const accessors for one bone
         template<Mode MODE>
-        inline const Ra::Core::Transform& getPoseBone(int boneIdx) const;
+        inline const Ra::Core::Transform& getBoneTransform(int boneIdx) const;
 
         inline const Skeleton* getSkeleton() const;
 
@@ -52,11 +56,11 @@ namespace AnimationPlugin
         /// Resets the pose to the skeleton's rest pose.
         inline void resetPose();
 
-        /// Direclty sets bone local transform (thus moving all children)
+        /// Directly sets bone local transform (thus moving all children)
         inline void setBoneTransform(int boneIdx, const Ra::Core::Transform& tr);
 
         // These two need to be transformed in "rotate bone".
-        /// Applys the transform to the current transform at the given bone.
+        /// Apply the transform to the current transform at the given bone.
         inline void applyRelativeBoneTransform(int boneIdx, const Ra::Core::Transform& tr);
 
         inline void applyAbsoluteBoneTransform(int boneIdx, const Ra::Core::Transform& tr);
@@ -64,13 +68,13 @@ namespace AnimationPlugin
         /// Returns the relative transforms between pose start and end.
         /// basically for each bone transform T_i, T_i_end = T_i_rel * T_i_start.
         template<Mode MODE>
-        static void getRelativePose(std::vector <Ra::Core::Transform>& relPoseOut,
+        static void getRelativePose(RawPose& relPoseOut,
                                       const Pose* poseStart,
                                       const Pose* poseEnd);
 
         /// Ra::Core::Transformrms the current pose with the given relative pose.
         template<Mode MODE>
-        void applyRelativePose(const std::vector <Ra::Core::Transform>& relPose);
+        void applyRelativePose(const RawPose& relPose);
 
         //
         // Maintaining consistency
@@ -89,7 +93,7 @@ namespace AnimationPlugin
     private:
         /// Pose in local space, relative to parent
         /// Pose in model space
-        std::vector <Ra::Core::Transform> m_poses[2];
+        RawPose m_poses[2];
         const Skeleton* m_skel; /// Skeleton.
     };
 }

@@ -7,7 +7,7 @@
 
 namespace AnimationPlugin
 {
-    class AnimationSystem :  public Ra::Engine::System
+    class ANIM_PLUGIN_API AnimationSystem :  public Ra::Engine::System
     {
     public:
         virtual void generateTasks(Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo);

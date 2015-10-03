@@ -1,7 +1,7 @@
 #include <Plugins/Animation/Pose/Pose.hpp>
 namespace AnimationPlugin
 {
-    Pose::Pose(Pose::Mode mode, const Skeleton* skel, const std::vector<Ra::Core::Transform>& pose) : m_skel(skel)
+    Pose::Pose(Pose::Mode mode, const Skeleton* skel, const RawPose& pose) : m_skel(skel)
     {
         m_poses[LOCAL].resize(m_skel->getNumBones());
         m_poses[MODEL].resize(m_skel->getNumBones());
@@ -21,7 +21,7 @@ namespace AnimationPlugin
     void Pose::recomputeLocal()
     {
         check();
-        for (int b = 0; b < m_skel->getNumBones(); ++b)
+        for (uint b = 0; b < m_skel->getNumBones(); ++b)
         {
             Ra::Core::Transform parentTr = Ra::Core::Transform::Identity();
             int parentIdx = m_skel->getParentIdx(b);
@@ -35,7 +35,7 @@ namespace AnimationPlugin
 
     void Pose::recomputeModel()
     {
-        for (int b = 0; b < m_skel->getNumBones(); ++b)
+        for (uint b = 0; b < m_skel->getNumBones(); ++b)
         {
             // We can assume the parent pose is correct at this stage
             // since parents are always before their child bones.

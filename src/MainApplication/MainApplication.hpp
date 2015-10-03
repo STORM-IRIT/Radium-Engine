@@ -120,7 +120,7 @@ namespace Ra
 /// See the cmake
 #define RA_REGISTER_SYSTEM_PLUGIN( NAME ) \
   {\
-  NAME##Plugin::NAME##System* syst  = new NAME##Plugin::NAME##System();\
-  m_engine->registerSystem(__STRING(NAME##System), syst);\
+  CONCATENATE(NAME,Plugin)::CONCATENATE(NAME,System)* syst  = new CONCATENATE(NAME,Plugin)::CONCATENATE(NAME,System)();\
+  m_engine->registerSystem(STRINGIFY(CONCATENATE(NAME,System)), syst);\
   }
   

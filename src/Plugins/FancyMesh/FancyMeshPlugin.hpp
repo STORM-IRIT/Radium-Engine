@@ -3,9 +3,9 @@
 
 #include <Core/CoreMacros.hpp>
 /// Defines the correct macro to export dll symbols.
-#if defined  FancyMeshPlugin_EXPORTS    
+#if defined  FancyMesh_EXPORTS    
     #define FM_PLUGIN_API DLL_EXPORT 
-#elif defined FancyMeshPlugin_IMPORTS
+#elif defined FancyMesh_IMPORTS
     #define FM_PLUGIN_API DLL_IMPORT 
 #else
     #define FM_PLUGIN_API 

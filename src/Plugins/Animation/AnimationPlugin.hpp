@@ -3,9 +3,9 @@
 
 #include <Core/CoreMacros.hpp>
 /// Defines the correct macro to export dll symbols.
-#if defined  AnimationPlugin_EXPORTS
+#if defined  Animation_EXPORTS
     #define ANIM_PLUGIN_API DLL_EXPORT
-#elif defined AnimationPlugin_IMPORTS
+#elif defined Animation_IMPORTS
     #define ANIM_PLUGIN_API DLL_IMPORT
 #else
     #define ANIM_PLUGIN_API

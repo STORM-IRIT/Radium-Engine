@@ -1,6 +1,5 @@
 #include <Plugins/Animation/AnimationSystem.hpp>
 
-
 namespace AnimationPlugin
 {
 
