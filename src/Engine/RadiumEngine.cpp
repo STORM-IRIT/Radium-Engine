@@ -34,7 +34,7 @@ namespace Ra
         RadiumEngine::RadiumEngine()
             : m_quit( false )
         {
-                LOG(logINFO) << "Engine starting...";
+                LOG(logINFO) << "*** Radium Engine ***";
         }
 
         RadiumEngine::~RadiumEngine()
@@ -80,8 +80,8 @@ namespace Ra
         {
             CORE_ASSERT( m_systems.find( name ) == m_systems.end(),
                          "Same system added multiple times." );
-
             m_systems[name] = std::shared_ptr<System> ( system );
+            LOG(logINFO) << "Loaded : " << name;
         }
 
         System* RadiumEngine::getSystem( const std::string& system ) const

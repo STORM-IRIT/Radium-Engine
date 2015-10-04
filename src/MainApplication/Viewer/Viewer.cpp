@@ -106,7 +106,7 @@ namespace Ra
     {
         initializeOpenGLFunctions();
 
-        LOG( logINFO ) << "***Radium Engine Viewer***";
+        LOG( logINFO ) << "*** Radium Engine Viewer ***";
         LOG( logINFO ) << "Renderer : " << glGetString( GL_RENDERER );
         LOG( logINFO ) << "Vendor   : " << glGetString( GL_VENDOR );
         LOG( logINFO ) << "OpenGL   : " << glGetString( GL_VERSION );

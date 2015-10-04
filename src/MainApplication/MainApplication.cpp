@@ -67,7 +67,6 @@ namespace Ra
 #endif
 
         LOG( logINFO ) << config.str();
-        LOG( logINFO ) << "(Log using default file)";
 
         // Handle command line arguments.
         // TODO ( e.g fps limit ) / Keep or not timer data .
