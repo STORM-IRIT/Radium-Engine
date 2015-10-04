@@ -146,7 +146,7 @@ namespace Ra
         AnimationPlugin::AnimationComponent* comp = new AnimationPlugin::AnimationComponent("Basic anim component", skel);
 
         m_engine->getEntityManager()->getOrCreateEntity("Test Skeleton")->addComponent(comp);
-
+        comp->initialize();
 
     }
 

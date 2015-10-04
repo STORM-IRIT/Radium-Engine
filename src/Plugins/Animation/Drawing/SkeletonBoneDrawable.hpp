@@ -4,7 +4,10 @@
 #include <Plugins/Animation/AnimationPlugin.hpp>
 
 #include <Core/Mesh/MeshUtils.hpp>
+#include <Engine/Entity/Entity.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Plugins/Animation/Skeleton/Skeleton.hpp>
 #include <Plugins/Animation/AnimationComponent.hpp>
 
@@ -12,10 +15,47 @@ namespace AnimationPlugin
 {
 class SkeletonBoneRenderObject : public Ra::Engine::RenderObject
 {
+public:
     SkeletonBoneRenderObject(const std::string& name, const AnimationComponent* comp, uint boneIdx)
         : RenderObject(name, comp),
         m_skel( comp->getSkeleton()), m_boneIdx(boneIdx)
-    {}
+    {
+
+        // TODO ( Val) common material / shader config...
+        Ra::Engine::ShaderConfiguration shader("BlinnPhong", "../Shaders");
+        
+        m_material.reset(new Ra::Engine::Material("Bone Material"));
+        m_material->setKd(Ra::Core::Color(0.4, 0.4, 0.4, 0.5));
+        m_material->setKs(Ra::Core::Color(0.0, 0.0, 0.0, 1.0));
+        m_material->setMaterialType(Ra::Engine::Material::MaterialType::MAT_TRANSPARENT);
+
+        m_renderParams.reset(new Ra::Engine::RenderTechnique());
+        {
+            m_renderParams->shaderConfig = shader;
+            m_renderParams->material = m_material.get();
+        }
+        setRenderTechnique(m_renderParams.get());
+        setType(Ra::Engine::RenderObject::Type::RO_TRANSPARENT);
+
+        Ra::Engine::Mesh* displayMesh = new Ra::Engine::Mesh( name );
+        std::vector<uint> indices;
+
+        Ra::Core::TriangleMesh mesh = makeBoneShape();
+
+        indices.reserve( mesh.m_triangles.size() * 3 );
+        for ( const auto& i : mesh.m_triangles )
+        {
+            indices.push_back( i.x() );
+            indices.push_back( i.y() );
+            indices.push_back( i.z() );
+        }
+
+        displayMesh->loadGeometry( mesh.m_vertices, indices );
+        displayMesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, mesh.m_normals );
+
+        setMesh( displayMesh );
+
+    }
     
     static Ra::Core::TriangleMesh makeBoneShape()
     {
@@ -23,8 +63,8 @@ class SkeletonBoneRenderObject : public Ra::Engine::RenderObject
 
         Ra::Core::TriangleMesh mesh;
 
-        const Scalar l = 0.2f;
-        const Scalar w = 0.2f;
+        const Scalar l = 0.1f;
+        const Scalar w = 0.1f;
 
         mesh.m_vertices = {
             Ra::Core::Vector3(0,0,0), Ra::Core::Vector3(0,0,1),
@@ -33,10 +73,10 @@ class SkeletonBoneRenderObject : public Ra::Engine::RenderObject
         };
 
         mesh.m_triangles = {
-            Ra::Core::Triangle(0,3,2),Ra::Core::Triangle(0,5,3),
-            Ra::Core::Triangle(0,2,4),Ra::Core::Triangle(0,4,5),
-            Ra::Core::Triangle(1,2,3),Ra::Core::Triangle(1,3,5),
-            Ra::Core::Triangle(1,4,2),Ra::Core::Triangle(1,5,4)
+            Ra::Core::Triangle(0,2,3),Ra::Core::Triangle(0,5,2),
+            Ra::Core::Triangle(0,3,4),Ra::Core::Triangle(0,4,5),
+            Ra::Core::Triangle(1,3,2),Ra::Core::Triangle(1,2,5),
+            Ra::Core::Triangle(1,4,3),Ra::Core::Triangle(1,5,4)
         };
         Ra::Core::MeshUtils::getAutoNormals(mesh, mesh.m_normals);
         return mesh;
@@ -48,6 +88,8 @@ class SkeletonBoneRenderObject : public Ra::Engine::RenderObject
     protected:
         const Skeleton& m_skel;
         uint m_boneIdx;
+        std::unique_ptr<Ra::Engine::RenderTechnique> m_renderParams;
+        std::unique_ptr<Ra::Engine::Material> m_material;
 };
 
 }
