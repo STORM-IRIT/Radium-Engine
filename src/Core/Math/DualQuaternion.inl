@@ -30,7 +30,7 @@ namespace Ra
             return DualQuaternion( getQ0() + other.getQ0(), getQe() + other.getQe() );
         }
 
-        inline DualQuaternion DualQuaternion::operator* ( Ra::Scalar scalar )
+        inline DualQuaternion DualQuaternion::operator* ( Scalar scalar )
         {
             return DualQuaternion( scalar * getQ0(), scalar * getQe() );
         }
@@ -38,11 +38,13 @@ namespace Ra
         inline DualQuaternion& DualQuaternion::operator+= ( const DualQuaternion& other )
         {
             *this = *this + other;
+			return *this;
         }
 
         inline DualQuaternion& DualQuaternion::operator*= ( Scalar scalar )
         {
             *this = *this * scalar;
+			return *this;
         }
 
         inline void DualQuaternion::normalize()
