@@ -24,7 +24,7 @@
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 
-#define NO_TRANSPARENCY
+//#define NO_TRANSPARENCY
 namespace Ra
 {
     namespace Engine
