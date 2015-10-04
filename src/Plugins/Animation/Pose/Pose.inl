@@ -20,7 +20,7 @@ namespace AnimationPlugin
     }
 
     template<Pose::Mode MODE>
-    inline const Pose::RawPose& Pose::getPose() const
+    inline const RawPose& Pose::getPose() const
     {
         return m_poses[MODE];
     }

@@ -119,7 +119,7 @@
 
 // Stringification has a similar problem.
 #ifdef __STRING
-#define STRINGIFY(X) STRING(X)
+#define STRINGIFY(X) __STRING(X)
 #else
 #define STRINGIFY(X) STRINGIFY2(X)
 #define STRINGIFY2(X) #X
