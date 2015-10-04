@@ -1,6 +1,8 @@
 #ifndef ANIMPLUGIN_SKELETON_HPP_
 #define ANIMPLUGIN_SKELETON_HPP_
 
+#include <Plugins/Animation/AnimationPlugin.hpp>
+
 #include <vector>
 #include <string>
 
@@ -44,17 +46,6 @@
 
 using std::vector;
 
-/// A small structure keeping the informations of the bones.
-struct Bone
-{
-    std::string _name;
-};
-
-
-/// A shortcut for an array of transforms which can be interpreted as a pose. @see Pose 
-/// for a more complete data structure to hold a pose.
-typedef Ra::Core::AlignedStdVector<Ra::Core::Transform> RawPose ;
-
 /// A class representing a skeleton (directed acyclic graph of bones).
 /// Each bone has one parent, except the root(s).
 /// Structure is kept with the parents array which maps bone index i to
@@ -63,7 +54,18 @@ typedef Ra::Core::AlignedStdVector<Ra::Core::Transform> RawPose ;
 /// stored before its parent.
 namespace AnimationPlugin
 {
-    class Skeleton
+    /// A shortcut for an array of transforms which can be interpreted as a pose. @see Pose 
+    /// for a more complete data structure to hold a pose.
+    typedef Ra::Core::AlignedStdVector<Ra::Core::Transform> RawPose;
+    
+    /// A small structure keeping the informations of the bones.
+    struct ANIM_PLUGIN_API Bone 
+    {
+        Bone(const std::string& name) : m_name(name) {}
+        std::string m_name;
+    };
+    
+    class ANIM_PLUGIN_API Skeleton 
     {
     public:
         // Skeleton building.

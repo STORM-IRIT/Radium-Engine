@@ -1,5 +1,5 @@
-#ifndef ANIMPLUGIN_ANIMATION_COMPONENT_HPP _
-#define ANIMPLUGIN_ANIMATION_COMPONENT_HPP 
+#ifndef ANIMPLUGIN_ANIMATION_COMPONENT_HPP_
+#define ANIMPLUGIN_ANIMATION_COMPONENT_HPP_
 
 #include <Plugins/Animation/AnimationPlugin.hpp>
 
@@ -11,13 +11,15 @@
 namespace AnimationPlugin
 {
 
-class AnimationComponent : public Ra::Engine::Component 
+class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component 
 {
 public:
-    AnimationComponent(const std::string& name);
-    virtual ~AnimationComponent();
+    AnimationComponent(const std::string& name, Skeleton* skel) : Component(name) { m_skel.reset(skel); }
+    virtual ~AnimationComponent() {}
 
-    virtual void initialize() override;
+    virtual void initialize() override {}
+
+    const Skeleton& getSkeleton() const { return *m_skel; }
 
 protected:
     std::unique_ptr<Pose> m_currentPose;
@@ -29,4 +31,4 @@ protected:
 
 
 
-#endif //ANIMPLUGIN_ANIMATION_COMPONENT_HPP
+#endif //ANIMPLUGIN_ANIMATION_COMPONENT_HPP_

@@ -8,6 +8,7 @@
 #include <Core/String/StringUtils.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/ColorPresets.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -20,9 +21,10 @@
 #include <MainApplication/Gui/MainWindow.hpp>
 
 #include <Plugins/FancyMesh/FancyMeshSystem.hpp>
-#include <MainApplication/Viewer/Gizmo/Gizmo.hpp>
-#include <Core/Math/ColorPresets.hpp>
-#include <Core/Math/RayCast.hpp>
+
+
+#include "Plugins/Animation/Skeleton/Skeleton.hpp"
+#include "Plugins/Animation/AnimationComponent.hpp"
 
 
 // Const parameters : TODO : make config / command line options
@@ -115,7 +117,6 @@ namespace Ra
 
     void MainApplication::createConnections()
     {
-//        connect( m_frameTimer, SIGNAL( timeout() ), this, SLOT( radiumFrame() ) );
         connect( m_mainWindow.get(), SIGNAL( closed() ),
                  this, SLOT( appNeedsToQuit() ) );
     }
@@ -123,6 +124,30 @@ namespace Ra
     void MainApplication::setupScene()
     {
         Engine::SystemEntity::uiCmp()->addRenderObject(Engine::DrawPrimitives::Grid(Engine::SystemEntity::uiCmp(),Core::Vector3::Zero(), Core::Vector3::UnitX(), Core::Vector3::UnitZ(),Core::Colors::Grey(0.6f)));
+
+        AnimationPlugin::Skeleton* skel = new AnimationPlugin::Skeleton("Test Skeleton");
+
+
+
+        skel->addBone(AnimationPlugin::Bone("root bone"), -1);
+        skel->addBone(AnimationPlugin::Bone("first bone"), 0);
+        skel->addBone(AnimationPlugin::Bone("end bone"), 1);
+
+        AnimationPlugin::RawPose pose;
+        Core::Transform t = Core::Transform::Identity();
+        pose.push_back(t);
+        t.translate(Core::Vector3(0, 0, 1));
+        pose.push_back(t);
+        t.translate(Core::Vector3(0, 0, 1));
+        pose.push_back(t);
+        skel->setRefPose(pose);
+        
+
+        AnimationPlugin::AnimationComponent* comp = new AnimationPlugin::AnimationComponent("Basic anim component", skel);
+
+        m_engine->getEntityManager()->getOrCreateEntity("Test Skeleton")->addComponent(comp);
+
+
     }
 
     void MainApplication::loadFile( QString path )

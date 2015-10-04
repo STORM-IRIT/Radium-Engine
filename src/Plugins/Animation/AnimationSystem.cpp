@@ -1,5 +1,8 @@
 #include <Plugins/Animation/AnimationSystem.hpp>
 
+#include <Plugins/Animation/Drawing/SkeletonBoneDrawable.hpp>
+
+
 namespace AnimationPlugin
 {
 
