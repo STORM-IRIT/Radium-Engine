@@ -53,5 +53,23 @@ namespace Ra
             m_q0.normalize();
             m_qe = ( 1.f / norm ) * m_qe;
         }
+		
+		inline Vector3 DualQuaternion::transform(const Vector3& p) const
+	    {
+	        // As the dual quaternions may be the results from a
+	        // linear blending we have to normalize it :
+	        float norm = m_q0.norm();
+	        Quaternion qblend_0 = m_q0 / norm;
+	        Quaternion qblend_e = m_qe / norm;
+	
+	        // Translation from the normalized dual quaternion equals :
+	        // 2.f * qblend_e * conjugate(qblend_0)
+	        Vector3 v0 = qblend_0.vec();
+	        Vector3 ve = qblend_e.vec();
+	        Vector3 trans = (ve*qblend_0.w() - v0*qblend_e.w() + v0.cross(ve)) * 2.f;
+	
+	        // Rotate
+	        return qblend_0 * p + trans;
+	    }
     }
 }

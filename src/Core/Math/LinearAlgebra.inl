@@ -32,11 +32,11 @@ namespace Ra
             return v.cwiseMin( max ).cwiseMax( min );
         }
 
-        template<typename Vector_>
-        inline Vector_ Vector::clamp( const Vector_& v, const Scalar& min, const Scalar& max )
-        {
-            return v.cwiseMin( max ).cwiseMax( min );
-        }
+//        template<typename Vector_>
+//        inline Vector_ Vector::clamp( const Vector_& v, const Scalar& min, const Scalar& max )
+//        {
+//            return v.cwiseMin( max ).cwiseMax( min );
+//        }
 
         template<typename Vector_>
         inline bool Vector::checkRange( const Vector_& v, const Scalar& min, const Scalar& max )
@@ -63,6 +63,12 @@ namespace Ra
         {
             return Quaternion( k * q.coeffs() );
         }
+				
+		Quaternion operator/ ( const Quaternion& q, const Scalar& k)
+        {
+            return Quaternion( q.coeffs() / k );
+        }
+		
 
         //
         // Bounding boxes functions.

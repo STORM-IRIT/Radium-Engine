@@ -134,9 +134,9 @@ namespace Ra
             template<typename Vector>
             inline Vector clamp( const Vector& v, const Vector& min, const Vector& max );
 
-            /// Component-wise clamp() function on a floating-point vector.
-            template<typename Vector>
-            inline Vector clamp( const Vector& v, const Scalar& min, const Scalar& max );
+//            /// Component-wise clamp() function on a floating-point vector.
+//            template<typename Vector>
+//            inline Vector clamp( const Vector& v, const Scalar& min, const Scalar& max );
 
             /// Vector range check, works for any numeric vector.
             template<typename Vector_>
@@ -157,7 +157,7 @@ namespace Ra
 
         inline Quaternion operator+ ( const Quaternion& q1, const Quaternion& q2 );
         inline Quaternion operator* ( const Scalar& k, const Quaternion& q );
-
+		inline Quaternion operator/ ( const Quaternion& q, const Scalar& k);
 
         // Use this macro in the public: section of a class
         // when declaring objects containing Vector or Matrices.
