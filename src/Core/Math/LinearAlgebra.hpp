@@ -149,6 +149,11 @@ namespace Ra
             /// defined (i.e. 2D and 3D vectors).
             template<typename Vector_>
             inline Scalar getAngle( const Vector_& v1, const Vector_& v2);
+
+            /// Get the cotangent of the angle between two vectors. Works vor vector types where
+            /// dot and cross product is defined (2D or 3D vectors).
+            template <typename Vector_>
+            inline Scalar cotan( const Vector_& v1, const Vector_& v2);
         }
 
         //
