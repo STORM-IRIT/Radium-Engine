@@ -134,9 +134,9 @@ namespace Ra
             template<typename Vector>
             inline Vector clamp( const Vector& v, const Vector& min, const Vector& max );
 
-//            /// Component-wise clamp() function on a floating-point vector.
-//            template<typename Vector>
-//            inline Vector clamp( const Vector& v, const Scalar& min, const Scalar& max );
+            /// Component-wise clamp() function on a floating-point vector.
+            template<typename Vector>
+            inline Vector clamp( const Vector& v, const Scalar& min, const Scalar& max );
 
             /// Vector range check, works for any numeric vector.
             template<typename Vector_>
@@ -149,6 +149,11 @@ namespace Ra
             /// defined (i.e. 2D and 3D vectors).
             template<typename Vector_>
             inline Scalar getAngle( const Vector_& v1, const Vector_& v2);
+			
+			/// @return the projection of point on the plane define by planePos and planeNormal
+			inline Vector3 projectOnPlane(const Vector3& planePos, const Vector3 planeNormal, const Vector3& point);
+			
+			inline Scalar cotan(const Vector3& a, const Vector3& b);
         }
 
         //

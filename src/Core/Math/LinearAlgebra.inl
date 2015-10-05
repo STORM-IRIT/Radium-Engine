@@ -32,11 +32,11 @@ namespace Ra
             return v.cwiseMin( max ).cwiseMax( min );
         }
 
-//        template<typename Vector_>
-//        inline Vector_ Vector::clamp( const Vector_& v, const Scalar& min, const Scalar& max )
-//        {
-//            return v.cwiseMin( max ).cwiseMax( min );
-//        }
+        template<typename Vector_>
+        inline Vector_ Vector::clamp( const Vector_& v, const Scalar& min, const Scalar& max )
+        {
+            return v.cwiseMin( max ).cwiseMax( min );
+        }
 
         template<typename Vector_>
         inline bool Vector::checkRange( const Vector_& v, const Scalar& min, const Scalar& max )
@@ -107,6 +107,15 @@ namespace Ra
             }
             fz = fx.cross( fy );
         }
-
+		
+		inline Vector3 Vector::projectOnPlane(const Vector3& planePos, const Vector3 planeNormal, const Vector3& point)
+		{
+		    return point + planeNormal * (planePos - point).dot(planeNormal);
+		}
+		
+		inline Scalar Vector::cotan(const Vector3& a, const Vector3& b)
+		{
+			return a.dot(b) / a.cross(b).norm();
+		}
     }
 }
