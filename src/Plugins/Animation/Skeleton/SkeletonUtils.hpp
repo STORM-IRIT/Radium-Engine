@@ -4,17 +4,17 @@
 #include <Plugins/Animation/Pose/Pose.hpp>
 namespace AnimationPlugin
 {
-    namespace Skeleton_utils
+    namespace SkeletonUtils
     {
         /// Returns the start and end point of a bone in model space.
         inline void getBonePoints(const Pose* pose, int boneIdx,
                                     Ra::Core::Vector3& startOut, Ra::Core::Vector3& endOut)
         {
             // Check bone index is valid
-            CORE_ASSERT(boneIdx >= 0 && boneIdx < pose->get_skeleton()->getNumBones(), "invalid bone index");
+            CORE_ASSERT(boneIdx >= 0 && boneIdx < pose->getSkeleton()->getNumBones(), "invalid bone index");
 
-            startOut = pose->get_pose_bone<Pose::MODEL>(boneIdx).get_translation();
-            auto children = pose->get_skeleton()->getChildrenIdx(boneIdx);
+            startOut = pose->getBoneTransform<Pose::MODEL>(boneIdx).translation();
+            auto children = pose->getSkeleton()->getChildrenIdx(boneIdx);
 
             // A leaf bone has length 0
             if (children.size() == 0)
@@ -24,10 +24,10 @@ namespace AnimationPlugin
             else
             {
                 // End point is the average of chidren start points.
-                endOut = Ra::Core::Vector3::Zeros();
+                endOut = Ra::Core::Vector3::Zero();
                 for (auto child : children)
                 {
-                    endOut += pose->get_pose_bone<Pose::MODEL>(child).get_translation();
+                    endOut += pose->getBoneTransform<Pose::MODEL>(child).translation();
                 }
 
                 endOut *= (1.f / children.size());
@@ -47,7 +47,7 @@ namespace AnimationPlugin
             CORE_ASSERT(length_sq != 0.f, "bone has lenght 0, cannot project.");
 
             // Project on the line segment
-            const float t = Ra::Core::Vector::clamp(op.dot(dir) / length_sq, 0.f, 1.f);
+            const Scalar t = Ra::Core::Math::clamp(op.dot(dir) / length_sq, 0.f, 1.f);
             return start + (t * dir);
         }
     }
