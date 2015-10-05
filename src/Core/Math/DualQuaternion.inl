@@ -53,5 +53,30 @@ namespace Ra
             m_q0.normalize();
             m_qe = ( 1.f / norm ) * m_qe;
         }
+
+        DualQuaternion::DualQuaternion(const Core::Transform& tr)
+        {
+            setFromTransform(tr);
+        }
+
+        Transform DualQuaternion::getTransform() const
+        {
+            // Assume the dual quat is normalized.
+            CORE_ASSERT(std::abs(m_q0.norm() - 1.f) <= std::numeric_limits<Scalar>::epsilon(),
+            "Only a normalized dual quaternion represents a transform.");
+
+            Transform result;
+            result.linear() = m_q0.toRotationMatrix();
+            result.translation() = (2.f * m_q0 * m_qe.conjugate()).vec();
+            return result;
+        }
+
+        void DualQuaternion::setFromTransform(const Transform& t)
+        {
+            m_q0 = t.rotation();
+            Core::Vector4 trans = Core::Vector4::Zero();
+            trans.head<3>() = t.translation();
+            m_qe = 0.5 * (Quaternion(trans)* m_q0);
+        }
     }
 }
