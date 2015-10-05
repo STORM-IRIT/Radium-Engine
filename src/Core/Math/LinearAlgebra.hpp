@@ -149,11 +149,14 @@ namespace Ra
             /// defined (i.e. 2D and 3D vectors).
             template<typename Vector_>
             inline Scalar getAngle( const Vector_& v1, const Vector_& v2);
-			
+
 			/// @return the projection of point on the plane define by planePos and planeNormal
 			inline Vector3 projectOnPlane(const Vector3& planePos, const Vector3 planeNormal, const Vector3& point);
 			
-			inline Scalar cotan(const Vector3& a, const Vector3& b);
+            /// Get the cotangent of the angle between two vectors. Works vor vector types where
+            /// dot and cross product is defined (2D or 3D vectors).
+            template <typename Vector_>
+            inline Scalar cotan( const Vector_& v1, const Vector_& v2);
         }
 
         //

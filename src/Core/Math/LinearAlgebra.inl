@@ -45,9 +45,15 @@ namespace Ra
         }
 
         template <typename Vector_>
-        inline Scalar getAngle( const Vector_& v1, const Vector_& v2 )
+        inline Scalar Vector::getAngle( const Vector_& v1, const Vector_& v2 )
         {
             return std::atan2( v1.cross(v2).norm(), v1.dot(v2));
+        }
+
+        template<typename Vector_>
+        Scalar Vector::cotan(const Vector_& v1, const Vector_& v2)
+        {
+            return  v1.dot(v2) / v1.cross(v2).norm();
         }
 
         //
@@ -111,11 +117,6 @@ namespace Ra
 		inline Vector3 Vector::projectOnPlane(const Vector3& planePos, const Vector3 planeNormal, const Vector3& point)
 		{
 		    return point + planeNormal * (planePos - point).dot(planeNormal);
-		}
-		
-		inline Scalar Vector::cotan(const Vector3& a, const Vector3& b)
-		{
-			return a.dot(b) / a.cross(b).norm();
 		}
     }
 }
