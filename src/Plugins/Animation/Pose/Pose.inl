@@ -37,10 +37,6 @@ namespace AnimationPlugin
         return m_skel;
     }
 
-    void Pose::resetPose()
-    {
-        setPose<MODEL>(m_skel->getRefPose());
-    }
 
     template<Pose::Mode MODE>
     void Pose::getRelativePose( RawPose& relPoseOut,

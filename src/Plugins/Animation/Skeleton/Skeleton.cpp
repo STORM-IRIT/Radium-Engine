@@ -24,11 +24,6 @@ namespace AnimationPlugin
         return m_bones[boneIdx];
     }
 
-    const Ra::Core::AlignedStdVector<Ra::Core::Transform>& Skeleton::getRefPose() const
-{
-        return m_refPose;
-    }
-
     const std::vector<int>& Skeleton::getChildrenIdx(int boneIdx) const
     {
         CORE_ASSERT(boneIdx >= 0 && unsigned(boneIdx) < m_bones.size(), "Invalid bone index.");
@@ -61,11 +56,11 @@ namespace AnimationPlugin
         check();
     }
 
-    void Skeleton::setRefPose(const RawPose& pose)
+    /*void Skeleton::setRefPose(const RawPose& pose)
     {
         CORE_ASSERT(pose.size() == unsigned(getNumBones()), "Incompatible pose");
         m_refPose = pose;
-    }
+    }*/
 
     void Skeleton::check() const
     {

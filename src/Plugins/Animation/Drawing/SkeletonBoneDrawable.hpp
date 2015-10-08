@@ -9,6 +9,7 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Plugins/Animation/Skeleton/Skeleton.hpp>
+#include <Plugins/Animation/Skeleton/SkeletonUtils.hpp>
 #include <Plugins/Animation/AnimationComponent.hpp>
 
 namespace AnimationPlugin
@@ -40,21 +41,24 @@ public:
         Ra::Engine::Mesh* displayMesh = new Ra::Engine::Mesh( name );
         std::vector<uint> indices;
 
-        Ra::Core::TriangleMesh mesh = makeBoneShape();
-
-        indices.reserve( mesh.m_triangles.size() * 3 );
-        for ( const auto& i : mesh.m_triangles )
-        {
-            indices.push_back( i.x() );
-            indices.push_back( i.y() );
-            indices.push_back( i.z() );
-        }
-
-        displayMesh->loadGeometry( mesh.m_vertices, indices );
-        displayMesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, mesh.m_normals );
-
+        displayMesh->loadGeometry( makeBoneShape() );
         setMesh( displayMesh );
 
+        Ra::Core::Vector3 start, end;
+        SkeletonUtils::getBonePoints( comp->getPose(), boneIdx, start, end );
+
+        Ra::Core::Transform scale = Ra::Core::Transform::Identity();
+        scale.scale((end-start).norm());
+
+        Ra::Core::Quaternion rot = Ra::Core::Quaternion::FromTwoVectors(Ra::Core::Vector3::UnitZ(), end-start);
+
+        Ra::Core::Transform boneTransform = comp->getPose()->getBoneTransform<Pose::MODEL>(boneIdx);
+        Ra::Core::Matrix3 rotation = boneTransform.rotation() * rot.toRotationMatrix();
+        Ra::Core::Transform drawTransform;
+        drawTransform.linear() =  rotation;
+        drawTransform.translation() = boneTransform.translation();
+
+        setLocalTransform(drawTransform * scale );
     }
     
     static Ra::Core::TriangleMesh makeBoneShape()

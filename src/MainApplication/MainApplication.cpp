@@ -140,10 +140,8 @@ namespace Ra
         pose.push_back(t);
         t.translate(Core::Vector3(0, 0, 1));
         pose.push_back(t);
-        skel->setRefPose(pose);
-        
 
-        AnimationPlugin::AnimationComponent* comp = new AnimationPlugin::AnimationComponent("Basic anim component", skel);
+        AnimationPlugin::AnimationComponent* comp = new AnimationPlugin::AnimationComponent("Basic anim component", skel, pose);
 
         m_engine->getEntityManager()->getOrCreateEntity("Test Skeleton")->addComponent(comp);
         comp->initialize();

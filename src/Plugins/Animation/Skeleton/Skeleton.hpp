@@ -11,7 +11,7 @@
 
 // Skeletons and poses.
 
-// A skeleton is a tree where node are joints.
+// A skeleton is a tree where nodes are joints.
 
 // A bone really is a link in space between joints. But by abuse of language
 // a bone is usually identified with the joint linking it to its parent (called
@@ -25,7 +25,7 @@
 // Bones are indexed from 0 to num_bones.
 // Bones have one parent and 0 to several children. Arrays store the parent
 // and child relationships.
-// A bone may have no parent, in this case its parent index is-1. Usually there
+// A bone may have no parent, in this case its parent index is -1. Usually there
 // is only one bone (the "root") which has no parent, but this skeleton class
 // does not enforce it.
 // "Leaf" bones represent the terminal points of the skeleton and have length 0
@@ -39,7 +39,7 @@
 // each transform is relative to its parent bone's transform. The Pose class
 // keeps a version of the pose in both spaces.
 
-// Finaly, a relative pose is a pose defined relatively to a reference pose.
+// Finally, a relative pose is a pose defined relatively to a reference pose.
 // Of course a relative pose can be seen both in model space or local space.
 // Utilities are provided in the Pose class to manipulate relative poses.
 
@@ -77,9 +77,6 @@ namespace AnimationPlugin
         /// already exist in the skeleton.
         void addBone(const Bone& bone, int parent_idx);
 
-        /// Sets the reference pose in model space.
-        void setRefPose(const RawPose& pose);
-
         // Accessors.
 
         /// Returns the skeleton's name.
@@ -94,8 +91,6 @@ namespace AnimationPlugin
         /// Access the bone at given index.
         const Bone& getBone(int boneIdx) const;
 
-        /// Returns the ref pose (in model space).
-        const RawPose& getRefPose() const;
 
         /// Returns the children of given bone.
         const std::vector<int>& getChildrenIdx(int boneIdx) const;
@@ -112,7 +107,6 @@ namespace AnimationPlugin
         vector<Bone> m_bones;     /// storage for the bones
         vector<int> m_parents;   /// parent indices of bones.
         vector<vector<int> > m_children;  /// child indices of bones
-        RawPose m_refPose;  /// reference pose in model space.
         std::string m_name;      /// Name of our rig
 
     };

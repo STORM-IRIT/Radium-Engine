@@ -14,5 +14,10 @@ void AnimationComponent::initialize()
         }
     }
 }
+
+    const Pose* AnimationComponent::getPose() const
+    {
+        return m_currentPose.get();
+    }
 }
 
