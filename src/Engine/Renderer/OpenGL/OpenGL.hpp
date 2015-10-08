@@ -7,7 +7,6 @@
 
 #ifdef OS_WINDOWS
 #include <GL/glew.h>
-# define __STRING(x) #x
 #endif // OS_WINDOWS
 
 #define GL_GLEXT_PROTOTYPES 1
@@ -33,11 +32,11 @@ inline bool checkOpenGLContext()
             const GLubyte* errBuf = gluErrorString(err); \
             if (errBuf == nullptr) \
                 LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
-                              << ", " << __STRING(x) << ") : ERROR_UNKNOWN_BY_GLU (" \
+                              << ", " << STRINGIFY(x) << ") : ERROR_UNKNOWN_BY_GLU (" \
                               << err << " : 0x" << std::hex << err << std::dec << ")."; \
             else \
                 LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
-                              << ", " << __STRING(x) << ") : " << errBuf << "(" \
+                              << ", " << STRINGIFY(x) << ") : " << errBuf << "(" \
                               << err << " : 0x" << std::hex << err << std::dec << ")."; \
             BREAKPOINT(0);\
         } \
