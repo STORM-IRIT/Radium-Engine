@@ -89,6 +89,11 @@ namespace Ra
             }
             return tmp;
         }
+		
+		inline Vector3 Obb::corner(int i) const
+		{
+			return m_aabb.corner(static_cast<Aabb::CornerType>(i));
+		}
 
         inline void Obb::addPoint( const Vector3& p )
         {

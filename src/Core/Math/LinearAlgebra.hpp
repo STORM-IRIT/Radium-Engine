@@ -104,6 +104,8 @@ namespace Ra
 
             /// Extends the OBB with an new point.
             void addPoint( const Vector3& p );
+			/// Returns the position of the i^th corner of AABB (model space)
+			Vector3 corner(int i) const;
 
         public:
             /// The untransformed AABB
