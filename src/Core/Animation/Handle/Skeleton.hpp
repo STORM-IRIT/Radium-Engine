@@ -25,6 +25,8 @@ public:
     ~Skeleton();
 
     /// SIZE
+	inline uint size() const override {return m_hier.size();}
+	
     virtual void clear() override;  // Empty the data of the skeleton
 
     /// SPACE INTERFACE
@@ -46,6 +48,8 @@ protected:
 } // namespace Animation
 } // Namespace Core
 } // Namespace Ra
+
+//#include <Core/Animation/Handle/Skeleton.inl>
 
 #endif // SKELETON_HANDLE_H
 

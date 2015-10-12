@@ -24,13 +24,14 @@ public:
     /// CONSTRUCTOR
     Handle();                       // Default constructor
     Handle( const uint n );         // Reserve the memory for n transforms
-    Handle( const Handle& handle ); // Copy constructor
+    Handle( const Handle& handle ) = default; // Copy constructor
+    Handle& operator=( const Handle& handle ) = default; //Assignment operator
 
     /// DESTRUCTOR
     ~Handle();
 
     /// SIZE
-    inline uint size() const;   // Return the number of transforms
+    inline virtual uint size() const;   // Return the number of transforms
     virtual void clear();       // Empty the pose
 
     /// SPACE INTERFACE
