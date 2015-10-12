@@ -64,7 +64,7 @@ namespace AnimationPlugin
 			if (isBoneNode)
 			{
 				// store the bone in the hierarchy
-				currentIndex = hierarchy.add(parent);
+				currentIndex = hierarchy.addNode(parent);
 			
 				// store the transform for the bone
 				Ra::Core::Transform tr;
