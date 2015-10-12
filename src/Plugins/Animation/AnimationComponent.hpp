@@ -6,6 +6,7 @@
 #include <Engine/Entity/Component.hpp>
 
 #include <Plugins/Animation/Pose/Pose.hpp>
+#include <Plugins/Animation/AnimationLoader.hpp>
 
 namespace AnimationPlugin
 {
@@ -15,17 +16,16 @@ class SkeletonBoneRenderObject;
 class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component 
 {
 public:
-    AnimationComponent(const std::string& name, Skeleton* skel, const RawPose& refPose )
-            : Component(name),m_refPose(refPose)
+    AnimationComponent(const std::string& name) : Component(name)
     {
-        m_skel.reset(skel);
-        m_currentPose.reset( new Pose(Pose::MODEL,m_skel.get(),refPose));
-
     }
+	
     virtual ~AnimationComponent() {}
 
     virtual void initialize() override;
-
+	void set(Skeleton* skel, const RawPose& refPose);
+	void handleLoading(const AnimationLoader::AnimationData& data);
+	
     const Skeleton& getSkeleton() const { return *m_skel; }
 
     const Pose* getPose() const;

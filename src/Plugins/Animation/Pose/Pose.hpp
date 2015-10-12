@@ -72,7 +72,7 @@ namespace AnimationPlugin
                                       const Pose* poseStart,
                                       const Pose* poseEnd);
 
-        /// Ra::Core::Transformrms the current pose with the given relative pose.
+        /// Ra::Core::Transforms the current pose with the given relative pose.
         template<Mode MODE>
         void applyRelativePose(const RawPose& relPose);
 

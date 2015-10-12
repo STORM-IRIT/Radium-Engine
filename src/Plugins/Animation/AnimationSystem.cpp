@@ -1,7 +1,8 @@
 #include <Plugins/Animation/AnimationSystem.hpp>
-
 #include <Plugins/Animation/Drawing/SkeletonBoneDrawable.hpp>
-
+#include <Plugins/Animation/AnimationLoader.hpp>
+#include <Plugins/Animation/AnimationComponent.hpp>
+#include <string>
 
 namespace AnimationPlugin
 {
@@ -11,9 +12,21 @@ namespace AnimationPlugin
 
     }
 
-    Ra::Engine::Component* AnimationSystem::addComponentToEntityInternal(
-            Ra::Engine::Entity* entity, uint id)
+    Ra::Engine::Component* AnimationSystem::addComponentToEntityInternal(Ra::Engine::Entity* entity, uint id)
     {
-        return nullptr;
+		std::string componentName = "AnimationComponent_" + entity->getName() + std::to_string(id);
+        AnimationComponent* component = new AnimationComponent(componentName);
+
+        return component;
     }
+	
+	void AnimationSystem::handleFileLoading(Ra::Engine::Entity *entity, const std::string &filename)
+	{
+		LOG( logDEBUG ) << "AnimationSystem : loading the file " << filename << "...";
+		
+		AnimationLoader::AnimationData componentData = AnimationLoader::loadFile(filename);
+
+        AnimationComponent* component = static_cast<AnimationComponent*>(addComponentToEntity(entity));
+        component->handleLoading(componentData);
+	}
 }
