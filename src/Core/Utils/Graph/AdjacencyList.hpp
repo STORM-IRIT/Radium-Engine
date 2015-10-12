@@ -34,6 +34,8 @@ public:
     inline bool isRoot( const uint i ) const;   // Return true if a node is a root node.
     inline bool isLeaf( const uint i ) const;   // Return true if the node is a leaf node.
 
+	int add(int parent); // Return the index of the added leaf. Use -1 to create the root node.
+	
     /// VARIABLE
     Adjacency  m_child;  // Adjacency matrix
     ParentList m_parent; // Parents ids vector

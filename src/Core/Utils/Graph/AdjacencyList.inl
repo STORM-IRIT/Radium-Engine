@@ -28,6 +28,15 @@ namespace Graph {
         CORE_ASSERT( i < size(), " Index i out of bounds " );
         return ( m_child.at( i ).size() == 0 );
     }
+	
+	inline int AdjacencyList::add(int parent)
+	{
+		CORE_ASSERT( parent < size(), " Index parent out of bounds");
+		int idx = size();
+		m_child[parent].push_back(idx);
+		m_parent.push_back(parent);
+		return idx;
+	}
 
 } // namespace GraphicsEntity
 } // namespace Core
