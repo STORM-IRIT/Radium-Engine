@@ -4,12 +4,25 @@ namespace Ra {
 namespace Core {
 namespace Graph {
 
+    /// NODE
+    inline uint AdjacencyList::addNode( const int parent ) {
+        CORE_ASSERT( ( parent < size() ), "Index parent out of bounds" );
+        uint idx = size();
+        m_child.push_back( ChildrenList() ); // New node has no children
+        // If is not a root node
+        if( parent >= 0 ) {
+            m_child[parent].push_back( idx );
+        }
+        m_parent.push_back( parent ); // Set new node parent
+        return idx;
+    }
+
     /// SIZE
-    uint AdjacencyList::size() const {
+    inline uint AdjacencyList::size() const {
         return m_parent.size();
     }
 
-    void AdjacencyList::clear() {
+    inline void AdjacencyList::clear() {
         m_child.clear();
         m_parent.clear();
     }
@@ -28,16 +41,17 @@ namespace Graph {
         CORE_ASSERT( i < size(), " Index i out of bounds " );
         return ( m_child.at( i ).size() == 0 );
     }
-	
-	inline int AdjacencyList::add(int parent)
-	{
-		CORE_ASSERT( parent < size(), " Index parent out of bounds");
-		int idx = size();
-		if (parent >= 0)
-			m_child[parent].push_back(idx);
-		m_parent.push_back(parent);
-		return idx;
-	}
+
+
+
+    inline bool AdjacencyList::isEdge( const uint i, const uint j ) const {
+        CORE_ASSERT( i < size(), " Index i out of bounds " );
+        CORE_ASSERT( j < size(), " Index j out of bounds " );
+        for( auto item : m_child[i] ) {
+            if( item == j ) return true;
+        }
+        return false;
+    }
 
 } // namespace GraphicsEntity
 } // namespace Core

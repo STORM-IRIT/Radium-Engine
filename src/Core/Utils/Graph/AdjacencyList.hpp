@@ -25,17 +25,20 @@ public:
     /// DESTRUCTOR
     ~AdjacencyList();
 
+    /// NODE
+    inline uint addNode( const int parent); // Return the index of the added leaf. Use -1 to create the root node.
+
     /// SIZE
     inline uint size() const; // Return the number of nodes in the graph
     inline void clear();      // Clear the vectors
 
     /// QUERY
-    inline bool isEmpty() const;                // Return true if the graph is empty.
-    inline bool isRoot( const uint i ) const;   // Return true if a node is a root node.
-    inline bool isLeaf( const uint i ) const;   // Return true if the node is a leaf node.
+    inline bool isEmpty() const;                            // Return true if the graph is empty.
+    inline bool isRoot( const uint i ) const;               // Return true if a node is a root node.
+    inline bool isLeaf( const uint i ) const;               // Return true if the node is a leaf node.
+    inline bool isEdge( const uint i, const uint j ) const; // Return true if the edge { i, j } exists.
 
-	int add(int parent); // Return the index of the added leaf. Use -1 to create the root node.
-	
+
     /// VARIABLE
     Adjacency  m_child;  // Adjacency matrix
     ParentList m_parent; // Parents ids vector
