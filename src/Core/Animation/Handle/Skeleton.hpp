@@ -28,8 +28,8 @@ public:
     virtual void clear() override;  // Empty the data of the skeleton
 
     /// SPACE INTERFACE
-    virtual Pose getPose( const SpaceType MODE ) const override;                                  // Return the pose in MODE space
-    virtual void       setPose( const Pose& pose, const SpaceType MODE ) override;                // Set the MODE space pose
+    virtual Pose       getPose( const SpaceType MODE ) const override;                                  // Return the pose in MODE space
+    virtual void       setPose( const Pose& pose, const SpaceType MODE ) override;                      // Set the MODE space pose
     virtual Transform  getTransform( const uint i, const SpaceType MODE ) const override;               // Return the i-th transform matrix of the pose in MODE space
     virtual void       setTransform( const uint i, const Transform& T, const SpaceType MODE ) override; // Set the i-th transform of the MODE space pose
 

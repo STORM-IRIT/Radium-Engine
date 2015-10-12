@@ -46,23 +46,23 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
     switch( MODE ) {
     case SpaceType::LOCAL: {
         m_pose = pose;
-        for( auto parent : m_hier.m_parent ) {
-            if( m_hier.isRoot( parent ) ) {
-                m_modelSpace[parent] = m_pose[parent];
+        for( uint i = 0; i < m_hier.size(); ++i ) {
+            if( m_hier.isRoot( i ) ) {
+                m_modelSpace[i] = m_pose[i];
             }
-            for( auto child : m_hier.m_child[parent] ) {
-                m_modelSpace[child] = m_modelSpace[parent] * m_pose[child];
+            for( auto child : m_hier.m_child[i] ) {
+                m_modelSpace[child] = m_modelSpace[i] * m_pose[child];
             }
         }
     } break;
     case SpaceType::MODEL: {
         m_modelSpace = pose;
-        for( auto parent : m_hier.m_parent ) {
-            if( m_hier.isRoot( parent ) ) {
-                m_modelSpace[parent] = m_pose[parent];
+        for( uint i = 0; i < m_hier.size(); ++i ) {
+            if( m_hier.isRoot( i ) ) {
+                m_modelSpace[i] = m_pose[i];
             }
-            for( auto child : m_hier.m_child[parent] ) {
-                m_pose[child] = m_modelSpace[parent].inverse() * m_modelSpace[child];
+            for( auto child : m_hier.m_child[i] ) {
+                m_pose[child] = m_modelSpace[i].inverse() * m_modelSpace[child];
             }
         }
     } break;
