@@ -33,7 +33,8 @@ namespace Graph {
 	{
 		CORE_ASSERT( parent < size(), " Index parent out of bounds");
 		int idx = size();
-		m_child[parent].push_back(idx);
+		if (parent >= 0)
+			m_child[parent].push_back(idx);
 		m_parent.push_back(parent);
 		return idx;
 	}
