@@ -13,10 +13,6 @@ Handle::Handle( const uint n ) : m_pose( n, Transform::Identity() ),
                                  m_name(""),
                                  m_label( n, "" ) { }
 
-Handle::Handle( const Handle& handle ) : m_pose( handle.m_pose ),
-                                         m_name( handle.m_name ),
-                                         m_label( handle.m_label ) { }
-
 /// DESTRUCTOR
 Handle::~Handle() { }
 

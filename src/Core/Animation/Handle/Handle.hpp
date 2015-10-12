@@ -24,7 +24,8 @@ public:
     /// CONSTRUCTOR
     Handle();                       // Default constructor
     Handle( const uint n );         // Reserve the memory for n transforms
-    Handle( const Handle& handle ); // Copy constructor
+    Handle( const Handle& handle ) = default; // Copy constructor
+    Handle& operator=( const Handle& handle ) = default; //Assignment operator
 
     /// DESTRUCTOR
     ~Handle();

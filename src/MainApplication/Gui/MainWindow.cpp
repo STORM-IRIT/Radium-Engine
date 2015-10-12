@@ -335,7 +335,7 @@ namespace Ra
             Core::Index entIdx = ent->idx;
             QModelIndex entityIdx = m_entityTreeModel->index( entIdx, 0 );
             QModelIndex treeIdx = entityIdx;
-            if (false) // select component.
+            if (true) // select component.
             {
                 treeIdx = entityIdx.child(compIdx, 0);
             }
@@ -358,15 +358,24 @@ namespace Ra
             QModelIndex selIdx = selected.indexes()[0];
 
             Engine::Entity* entity = m_entityTreeModel->getItem(selIdx)->getData(0).entity;
-            // Debug entity and objects are not selectable
-            if (entity != Engine::SystemEntity::getInstance())
+            if (entity)
             {
-                emit selectedEntity(entity);
+                // Debug entity and objects are not selectable
+                if (entity != Engine::SystemEntity::getInstance())
+                {
+                    emit selectedEntity(entity);
+                }
+            }
+            else
+            {
+                Engine::Component* comp = m_entityTreeModel->getItem(selIdx)->getData(0).component;
+                emit selectedComponent(comp);
             }
         }
         else
         {
             emit selectedEntity( nullptr );
+            emit selectedComponent( nullptr );
         }
     }
 

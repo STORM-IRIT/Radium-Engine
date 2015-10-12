@@ -8,9 +8,9 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Plugins/Animation/Skeleton/Skeleton.hpp>
-#include <Plugins/Animation/Skeleton/SkeletonUtils.hpp>
 #include <Plugins/Animation/AnimationComponent.hpp>
+
+#include <Core/Animation/Handle/Skeleton.hpp>
 
 namespace AnimationPlugin
 {
@@ -45,14 +45,14 @@ public:
         setMesh( displayMesh );
 
         Ra::Core::Vector3 start, end;
-        SkeletonUtils::getBonePoints( comp->getPose(), boneIdx, start, end );
+        comp->getSkeleton().getBonePoints( boneIdx, start, end );
 
         Ra::Core::Transform scale = Ra::Core::Transform::Identity();
         scale.scale((end-start).norm());
 
         Ra::Core::Quaternion rot = Ra::Core::Quaternion::FromTwoVectors(Ra::Core::Vector3::UnitZ(), end-start);
 
-        Ra::Core::Transform boneTransform = comp->getPose()->getBoneTransform<Pose::MODEL>(boneIdx);
+        Ra::Core::Transform boneTransform = comp->getSkeleton().getPose(Ra::Core::Animation::Handle::SpaceType::MODEL)[boneIdx];
         Ra::Core::Matrix3 rotation = boneTransform.rotation() * rot.toRotationMatrix();
         Ra::Core::Transform drawTransform;
         drawTransform.linear() =  rotation;
@@ -90,7 +90,7 @@ public:
 
 
     protected:
-        const Skeleton& m_skel;
+        const Ra::Core::Animation::Skeleton& m_skel;
         uint m_boneIdx;
         std::unique_ptr<Ra::Engine::RenderTechnique> m_renderParams;
         std::unique_ptr<Ra::Engine::Material> m_material;

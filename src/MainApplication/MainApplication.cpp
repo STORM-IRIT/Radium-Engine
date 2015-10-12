@@ -124,7 +124,7 @@ namespace Ra
     void MainApplication::setupScene()
     {
         Engine::SystemEntity::uiCmp()->addRenderObject(Engine::DrawPrimitives::Grid(Engine::SystemEntity::uiCmp(),Core::Vector3::Zero(), Core::Vector3::UnitX(), Core::Vector3::UnitZ(),Core::Colors::Grey(0.6f)));
-
+/*
         AnimationPlugin::Skeleton* skel = new AnimationPlugin::Skeleton("Test Skeleton");
 
 
@@ -136,7 +136,7 @@ namespace Ra
         AnimationPlugin::RawPose pose;
         Core::Transform t = Core::Transform::Identity();
         pose.push_back(t);
-        t.translate(Core::Vector3(0, 0, 1));
+        t.translate(Core::Vector3(-1, 0, 1));
         pose.push_back(t);
         t.translate(Core::Vector3(0, 0, 1));
         pose.push_back(t);
@@ -145,7 +145,7 @@ namespace Ra
 
         m_engine->getEntityManager()->getOrCreateEntity("Test Skeleton")->addComponent(comp);
         comp->initialize();
-
+*/
     }
 
     void MainApplication::loadFile( QString path )
