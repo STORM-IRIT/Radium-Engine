@@ -97,6 +97,8 @@ namespace Ra
                 return false;
             }
 
+			virtual void handleFileLoading(Entity* entity, const std::string& filename) {}
+			
             virtual void handleDataLoading( Entity* entity, const std::string& rootFolder,
                                             const std::map<std::string, Core::Any>& data ) {}
 

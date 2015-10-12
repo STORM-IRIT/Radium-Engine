@@ -31,26 +31,27 @@ namespace FancyMeshPlugin
     {
     }
 
-#if 0
-    void FancyMeshSystem::handleFileLoading( const std::string& filename )
+    void FancyMeshSystem::handleFileLoading(Ra::Engine::Entity* entity, const std::string& filename)
     {
+		LOG( logDEBUG ) << "FancyMeshSystem : loading the file " << filename << "...";
+		
         DataVector componentsData = FancyMeshLoader::loadFile( filename );
 
-        for ( uint i = 0; i < componentsData.size(); ++i )
+		if ( componentsData.empty() )
         {
-            FancyComponentData data = componentsData[i];
-
-            // Retrieve entity if exist, create it otherwise
-            Ra::Engine::Entity* e = m_engine->getEntityManager()->getOrCreateEntity( data.name );
-            e->setTransform( data.transform );
-
-            FancyMeshComponent* component =
-                static_cast<FancyMeshComponent*>( addComponentToEntity( e ) );
-
-            component->handleMeshLoading( data );
+            // Something wrong happened while trying to load the file
+            return;
         }
+
+        if ( componentsData.size() > 1 )
+        {
+            LOG( logWARNING ) << "Too many objects have been loaded, some data will be ignored.";
+        }
+
+        FancyComponentData componentData = componentsData[0];
+        FancyMeshComponent* component = static_cast<FancyMeshComponent*>(addComponentToEntity(entity));
+        component->handleMeshLoading(componentData);
     }
-#endif
 
     void FancyMeshSystem::handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder,
                                              const std::map<std::string, Ra::Core::Any>& data )

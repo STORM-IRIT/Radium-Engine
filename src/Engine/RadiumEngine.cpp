@@ -98,11 +98,17 @@ namespace Ra
         }
 
         bool RadiumEngine::loadFile( const std::string& filename )
-        {
-            //for ( auto& system : m_systems )
-            //{
-            //    system.second->handleFileLoading( file );
-            //}
+        {			
+			if (Ra::Core::StringUtils::getFileExt(filename) != "json")
+			{
+				Entity* entity = m_entityManager->createEntity();
+				
+				for ( auto& system : m_systems )
+	            {
+					system.second->handleFileLoading(entity, filename);
+	            }
+				return true;
+			}
 
             // Fill file in a string (http://stackoverflow.com/a/2602060)
             std::ifstream t( filename );

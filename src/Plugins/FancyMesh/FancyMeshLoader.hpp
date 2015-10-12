@@ -13,7 +13,6 @@ typedef std::vector<FancyMeshPlugin::FancyComponentData,
 
 namespace FancyMeshPlugin
 {
-
     namespace FancyMeshLoader
     {
         FM_PLUGIN_API DataVector loadFile( const std::string& name );
