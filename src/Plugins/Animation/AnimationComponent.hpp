@@ -2,11 +2,12 @@
 #define ANIMPLUGIN_ANIMATION_COMPONENT_HPP_
 
 #include <Plugins/Animation/AnimationPlugin.hpp>
-
 #include <Engine/Entity/Component.hpp>
 
-#include <Plugins/Animation/Pose/Pose.hpp>
+//#include <Plugins/Animation/Pose/Pose.hpp>
 #include <Plugins/Animation/AnimationLoader.hpp>
+#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Animation/Handle/Skeleton.hpp>
 
 namespace AnimationPlugin
 {
@@ -23,18 +24,20 @@ public:
     virtual ~AnimationComponent() {}
 
     virtual void initialize() override;
-	void set(Skeleton* skel, const RawPose& refPose);
+	void set(Ra::Core::Animation::Skeleton* skel, const Ra::Core::Animation::RefPose& refPose);
 	void handleLoading(const AnimationLoader::AnimationData& data);
 	
-    const Skeleton& getSkeleton() const { return *m_skel; }
+    const Ra::Core::Animation::Skeleton& getSkeleton() const
+	{
+		return *m_skel;
+	}
 
-    const Pose* getPose() const;
+    const Ra::Core::Animation::Pose* getPose() const;
 
 protected:
-    std::unique_ptr<Pose> m_currentPose;
-    std::shared_ptr<Skeleton> m_skel;
-    RawPose m_refPose; // Ref pose in model space.
-
+    std::unique_ptr<Ra::Core::Animation::Pose> m_currentPose;
+    std::shared_ptr<Ra::Core::Animation::Skeleton> m_skel;
+    Ra::Core::Animation::RefPose m_refPose; // Ref pose in model space.
     std::vector<SkeletonBoneRenderObject*> m_boneDrawables;
 
 };

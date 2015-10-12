@@ -8,9 +8,10 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Plugins/Animation/Skeleton/Skeleton.hpp>
+//#include <Plugins/Animation/Skeleton/Skeleton.hpp>
 #include <Plugins/Animation/Skeleton/SkeletonUtils.hpp>
 #include <Plugins/Animation/AnimationComponent.hpp>
+#include <Core/Animation/Handle/Skeleton.hpp>
 
 namespace AnimationPlugin
 {
@@ -18,10 +19,8 @@ class SkeletonBoneRenderObject : public Ra::Engine::RenderObject
 {
 public:
     SkeletonBoneRenderObject(const std::string& name, const AnimationComponent* comp, uint boneIdx)
-        : RenderObject(name, comp),
-        m_skel( comp->getSkeleton()), m_boneIdx(boneIdx)
+        : RenderObject(name, comp), m_skel( comp->getSkeleton()), m_boneIdx(boneIdx)
     {
-
         // TODO ( Val) common material / shader config...
         Ra::Engine::ShaderConfiguration shader("BlinnPhong", "../Shaders");
         
@@ -45,14 +44,14 @@ public:
         setMesh( displayMesh );
 
         Ra::Core::Vector3 start, end;
-        SkeletonUtils::getBonePoints( comp->getPose(), boneIdx, start, end );
+        SkeletonUtils::getBonePoints( comp->getSkeleton(), comp->getPose(), boneIdx, start, end );
 
         Ra::Core::Transform scale = Ra::Core::Transform::Identity();
         scale.scale((end-start).norm());
 
         Ra::Core::Quaternion rot = Ra::Core::Quaternion::FromTwoVectors(Ra::Core::Vector3::UnitZ(), end-start);
 
-        Ra::Core::Transform boneTransform = comp->getPose()->getBoneTransform<Pose::MODEL>(boneIdx);
+        Ra::Core::Transform boneTransform = comp->getSkeleton().getTransform(boneIdx, Ra::Core::Animation::Handle::SpaceType::MODEL);
         Ra::Core::Matrix3 rotation = boneTransform.rotation() * rot.toRotationMatrix();
         Ra::Core::Transform drawTransform;
         drawTransform.linear() =  rotation;
@@ -86,11 +85,8 @@ public:
         return mesh;
     }
 
-
-
-
     protected:
-        const Skeleton& m_skel;
+        const Ra::Core::Animation::Skeleton& m_skel;
         uint m_boneIdx;
         std::unique_ptr<Ra::Engine::RenderTechnique> m_renderParams;
         std::unique_ptr<Ra::Engine::Material> m_material;

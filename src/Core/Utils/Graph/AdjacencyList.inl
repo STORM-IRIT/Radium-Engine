@@ -1,5 +1,5 @@
 #include <Core/Utils/Graph/AdjacencyList.hpp>
-
+#include <iostream>
 namespace Ra {
 namespace Core {
 namespace Graph {
@@ -31,11 +31,12 @@ namespace Graph {
 	
 	inline int AdjacencyList::add(int parent)
 	{
-		CORE_ASSERT( parent < size(), " Index parent out of bounds");
-		int idx = size();
+		CORE_ASSERT( parent < (int) size(), " Index parent out of bounds");
+		int idx = (int) size();
 		if (parent >= 0)
 			m_child[parent].push_back(idx);
 		m_parent.push_back(parent);
+		m_child.push_back(ChildrenList());
 		return idx;
 	}
 

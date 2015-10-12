@@ -23,8 +23,9 @@
 #include <Plugins/FancyMesh/FancyMeshSystem.hpp>
 
 
-#include "Plugins/Animation/Skeleton/Skeleton.hpp"
+//#include "Plugins/Animation/Skeleton/Skeleton.hpp"
 #include "Plugins/Animation/AnimationComponent.hpp"
+#include <Core/Animation/Handle/Skeleton.hpp>
 
 
 // Const parameters : TODO : make config / command line options
@@ -125,15 +126,14 @@ namespace Ra
     {
         Engine::SystemEntity::uiCmp()->addRenderObject(Engine::DrawPrimitives::Grid(Engine::SystemEntity::uiCmp(),Core::Vector3::Zero(), Core::Vector3::UnitX(), Core::Vector3::UnitZ(),Core::Colors::Grey(0.6f)));
 
-        AnimationPlugin::Skeleton* skel = new AnimationPlugin::Skeleton("Test Skeleton");
+        Ra::Core::Animation::Skeleton* skel = new Ra::Core::Animation::Skeleton();
+		skel->setName("Test Skeleton");
 
+        skel->m_hier.add(-1);
+		skel->m_hier.add(0);
+		skel->m_hier.add(1);
 
-
-        skel->addBone(AnimationPlugin::Bone("root bone"), -1);
-        skel->addBone(AnimationPlugin::Bone("first bone"), 0);
-        skel->addBone(AnimationPlugin::Bone("end bone"), 1);
-
-        AnimationPlugin::RawPose pose;
+        Ra::Core::Animation::Pose pose;
         Core::Transform t = Core::Transform::Identity();
         pose.push_back(t);
         t.translate(Core::Vector3(0, 0, 1));
@@ -141,7 +141,8 @@ namespace Ra
         t.translate(Core::Vector3(0, 0, 1));
         pose.push_back(t);
 
-        AnimationPlugin::AnimationComponent* comp = new AnimationPlugin::AnimationComponent("Basic anim component", skel, pose);
+        AnimationPlugin::AnimationComponent* comp = new AnimationPlugin::AnimationComponent("Basic anim component");
+		comp->set(skel, pose);
 
         m_engine->getEntityManager()->getOrCreateEntity("Test Skeleton")->addComponent(comp);
         comp->initialize();

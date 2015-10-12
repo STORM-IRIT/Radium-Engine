@@ -1,20 +1,23 @@
 #ifndef ANIMPLUGIN_SKELETON_UTILS_HPP_
 #define ANIMPLUGIN_SKELETON_UTILS_HPP_
 
-#include <Plugins/Animation/Pose/Pose.hpp>
+//#include <Plugins/Animation/Pose/Pose.hpp>
+#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Animation/Handle/Skeleton.hpp>
+
 namespace AnimationPlugin
 {
     namespace SkeletonUtils
     {
         /// Returns the start and end point of a bone in model space.
-        inline void getBonePoints(const Pose* pose, int boneIdx,
+        inline void getBonePoints(const Ra::Core::Animation::Skeleton& skeleton, const Ra::Core::Animation::Pose* pose, int boneIdx,
                                     Ra::Core::Vector3& startOut, Ra::Core::Vector3& endOut)
         {
             // Check bone index is valid
-            CORE_ASSERT(boneIdx >= 0 && boneIdx < pose->getSkeleton()->getNumBones(), "invalid bone index");
+            CORE_ASSERT(boneIdx >= 0 && boneIdx < skeleton.m_hier.size(), "invalid bone index");
 
-            startOut = pose->getBoneTransform<Pose::MODEL>(boneIdx).translation();
-            auto children = pose->getSkeleton()->getChildrenIdx(boneIdx);
+            startOut = skeleton.getTransform(boneIdx, Ra::Core::Animation::Handle::SpaceType::MODEL).translation();
+            auto children = skeleton.m_hier.m_child.at(boneIdx);
 
             // A leaf bone has length 0
             if (children.size() == 0)
@@ -27,7 +30,7 @@ namespace AnimationPlugin
                 endOut = Ra::Core::Vector3::Zero();
                 for (auto child : children)
                 {
-                    endOut += pose->getBoneTransform<Pose::MODEL>(child).translation();
+                    endOut += skeleton.getTransform(child, Ra::Core::Animation::Handle::SpaceType::MODEL).translation();
                 }
 
                 endOut *= (1.f / children.size());
@@ -35,10 +38,10 @@ namespace AnimationPlugin
         }
 
         /// Gives out the nearest point on a given bone.
-        inline Ra::Core::Vector3 projectOnBone(const Pose* pose, int boneIdx, const Ra::Core::Vector3& pos)
+        inline Ra::Core::Vector3 projectOnBone(const Ra::Core::Animation::Skeleton& skeleton, const Ra::Core::Animation::Pose* pose, int boneIdx, const Ra::Core::Vector3& pos)
         {
             Ra::Core::Vector3 start, end;
-            getBonePoints(pose, boneIdx, start, end);
+            getBonePoints(skeleton, pose, boneIdx, start, end);
 
             auto op = pos - start;
             auto dir = (end - start);
