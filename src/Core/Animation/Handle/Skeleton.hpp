@@ -33,6 +33,8 @@ public:
     virtual Transform  getTransform( const uint i, const SpaceType MODE ) const override;               // Return the i-th transform matrix of the pose in MODE space
     virtual void       setTransform( const uint i, const Transform& T, const SpaceType MODE ) override; // Set the i-th transform of the MODE space pose
 
+    void getBonePoints( uint i, Vector3& startOut, Vector3& endOut ) const;
+
     /// VARIABLE
     Graph::AdjacencyList m_hier; // The adjacency list.
 

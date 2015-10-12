@@ -33,7 +33,8 @@ Pose Skeleton::getPose( const SpaceType MODE ) const {
         return m_modelSpace;
     } break;
     default: {
-        CORE_ASSERT( false, "WHAT THE HELL JUST HAPPENED????");
+        CORE_ASSERT( false, "Should not ");
+        return Pose();
     }
     }
 }
@@ -70,25 +71,22 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
     }
     }
 }
-
-
-
 Transform Skeleton::getTransform( const uint i, const SpaceType MODE ) const {
     CORE_ASSERT( ( i < size() ), "Index i out of bounds");
     switch( MODE ) {
-    case SpaceType::LOCAL: {
-        return m_pose.at( i );
-    } break;
-    case SpaceType::MODEL: {
-        return m_modelSpace.at( i );
-    } break;
-    default: {
-        CORE_ASSERT( false, "WHAT THE HELL JUST HAPPENED????");
-    }
+        case SpaceType::LOCAL:
+        {
+            return m_pose.at( i );
+        } break;
+        case SpaceType::MODEL: {
+            return m_modelSpace.at( i );
+        } break;
+        default: {
+            CORE_ASSERT(false, "Should not get here");
+            return Transform::Identity();
+        }
     }
 }
-
-
 
 void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType MODE ) {
     CORE_ASSERT( ( i < size() ), "Index i out of bounds");
@@ -142,6 +140,31 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
     }
 }
 
+
+void Skeleton::getBonePoints( const uint i, Vector3& startOut, Vector3& endOut) const
+{
+    // Check bone index is valid
+    CORE_ASSERT( i < m_modelSpace.size(), "invalid bone index");
+
+    startOut = m_modelSpace[i].translation();
+    // A leaf bone has length 0
+    if (m_hier.isLeaf(i))
+    {
+        endOut = startOut;
+    }
+    else
+    {
+        const auto& children = m_hier.m_child[i];
+        CORE_ASSERT( children.size() > 0, "non-leaf bone has no children.");
+        // End point is the average of chidren start points.
+        endOut = Vector3::Zero();
+        for (auto child : children)
+        {
+            endOut += m_modelSpace[child].translation();
+        }
+        endOut *= (1.f / children.size());
+    }
+}
 
 } // namespace Animation
 } // Namespace Core

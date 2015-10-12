@@ -3,8 +3,6 @@
 
 #include <Plugins/Animation/AnimationPlugin.hpp>
 #include <Engine/Entity/Component.hpp>
-
-//#include <Plugins/Animation/Pose/Pose.hpp>
 #include <Plugins/Animation/AnimationLoader.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
@@ -17,27 +15,30 @@ class SkeletonBoneRenderObject;
 class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component 
 {
 public:
-    AnimationComponent(const std::string& name) : Component(name)
+    AnimationComponent(const std::string& name) : Component(name) {}
+    AnimationComponent(const std::string& name, Ra::Core::Animation::Skeleton& skel, const Ra::Core::Animation::RefPose& refPose )
+            : Component(name),m_skel(skel), m_refPose(refPose)
     {
     }
-	
     virtual ~AnimationComponent() {}
 
     virtual void initialize() override;
-	void set(Ra::Core::Animation::Skeleton* skel, const Ra::Core::Animation::RefPose& refPose);
+    void set(const Ra::Core::Animation::Skeleton& skel);
 	void handleLoading(const AnimationLoader::AnimationData& data);
 	
-    const Ra::Core::Animation::Skeleton& getSkeleton() const
-	{
-		return *m_skel;
-	}
+    const Ra::Core::Animation::Skeleton& getSkeleton() const { return m_skel; }
 
-    const Ra::Core::Animation::Pose* getPose() const;
+    //
+    // Editable interface
+    //
+
+    void getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const override;
+
 
 protected:
-    std::unique_ptr<Ra::Core::Animation::Pose> m_currentPose;
-    std::shared_ptr<Ra::Core::Animation::Skeleton> m_skel;
+    Ra::Core::Animation::Skeleton m_skel;
     Ra::Core::Animation::RefPose m_refPose; // Ref pose in model space.
+
     std::vector<SkeletonBoneRenderObject*> m_boneDrawables;
 
 };

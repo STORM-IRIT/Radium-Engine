@@ -126,27 +126,27 @@ namespace Ra
     {
         Engine::SystemEntity::uiCmp()->addRenderObject(Engine::DrawPrimitives::Grid(Engine::SystemEntity::uiCmp(),Core::Vector3::Zero(), Core::Vector3::UnitX(), Core::Vector3::UnitZ(),Core::Colors::Grey(0.6f)));
 
-        Ra::Core::Animation::Skeleton* skel = new Ra::Core::Animation::Skeleton();
-		skel->setName("Test Skeleton");
+//		Ra::Core::Animation::Skeleton* skel = new Ra::Core::Animation::Skeleton();
+//		skel->setName("Test Skeleton");
 
-        skel->m_hier.add(-1);
-		skel->m_hier.add(0);
-		skel->m_hier.add(1);
+//        skel->m_hier.add(-1);
+//		skel->m_hier.add(0);
+//		skel->m_hier.add(1);
 
-        Ra::Core::Animation::Pose pose;
-        Core::Transform t = Core::Transform::Identity();
-        pose.push_back(t);
-        t.translate(Core::Vector3(0, 0, 1));
-        pose.push_back(t);
-        t.translate(Core::Vector3(0, 0, 1));
-        pose.push_back(t);
+//        Ra::Core::Animation::Pose pose;
+//        Core::Transform t = Core::Transform::Identity();
+//        pose.push_back(t);
+//        t.translate(Core::Vector3(-1, 0, 1));
+//        pose.push_back(t);
+//        t.translate(Core::Vector3(0, 0, 1));
+//        pose.push_back(t);
+//		skel->setPose(pose, Ra::Core::Animation::Handle::SpaceType::MODEL);
 
-        AnimationPlugin::AnimationComponent* comp = new AnimationPlugin::AnimationComponent("Basic anim component");
-		comp->set(skel, pose);
+//        AnimationPlugin::AnimationComponent* comp = new AnimationPlugin::AnimationComponent("Basic anim component");
+//		comp->set(*skel);
 
-        m_engine->getEntityManager()->getOrCreateEntity("Test Skeleton")->addComponent(comp);
-        comp->initialize();
-
+//        m_engine->getEntityManager()->getOrCreateEntity("Test Skeleton")->addComponent(comp);
+//        comp->initialize();
     }
 
     void MainApplication::loadFile( QString path )
