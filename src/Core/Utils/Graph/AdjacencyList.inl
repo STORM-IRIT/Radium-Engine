@@ -1,5 +1,5 @@
 #include <Core/Utils/Graph/AdjacencyList.hpp>
-#include <iostream>
+
 namespace Ra {
 namespace Core {
 namespace Graph {
@@ -19,6 +19,7 @@ namespace Graph {
 
     /// SIZE
     inline uint AdjacencyList::size() const {
+        CORE_ASSERT(m_parent.size() == m_child.size(), "List size inconsistency");    
         return m_parent.size();
     }
 

@@ -9,8 +9,6 @@ Skeleton::Skeleton() : PointCloud(), m_hier(), m_modelSpace() { }
 
 Skeleton::Skeleton( const uint n ) : PointCloud( n ), m_hier( n ), m_modelSpace( n ) { }
 
-Skeleton::Skeleton( const Skeleton& skeleton ) : PointCloud( skeleton ), m_hier( skeleton.m_hier ), m_modelSpace( skeleton.m_modelSpace ) { }
-
 /// DESTRUCTOR
 Skeleton::~Skeleton() { }
 
@@ -69,7 +67,7 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
         }
     } break;
     default: {
-        CORE_ASSERT( false, "WHAT THE HELL JUST HAPPENED????");
+        CORE_ASSERT( false, "Should not get here");
     }
     }
 }
