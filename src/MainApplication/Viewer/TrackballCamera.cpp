@@ -16,10 +16,11 @@ namespace Ra
         : CameraInterface( width, height )
         , m_trackballCenter( 0, 0, 0 )
         , m_quickCameraModifier( 1.0 )
+		, m_wheelSpeedModifier(0.01)
         , m_cameraRotateMode( false )
         , m_cameraPanMode( false )
         , m_cameraZoomMode( false )
-		, m_wheelSpeedModifier(0.01)
+		
     {
         resetCamera();
     }
