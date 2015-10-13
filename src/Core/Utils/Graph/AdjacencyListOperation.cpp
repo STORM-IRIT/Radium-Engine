@@ -40,14 +40,21 @@ AdjacencyList extractAdjacencyList( const VectorArray< Edge >& edgeList ) {
 
 
 
-VectorArray< Edge > extractEdgeList( const AdjacencyList& adj ) {
+VectorArray< Edge > extractEdgeList( const AdjacencyList& adj, const bool include_leaf ) {
     VectorArray< Edge > edgeList;
     for( uint i = 0; i < adj.m_child.size(); ++i ) {
-        for( auto edge : adj.m_child[i] ) {
+        if( include_leaf && adj.isLeaf( i ) ) {
             Edge e;
             e( 0 ) = i;
-            e( 1 ) = edge;
+            e( 1 ) = i;
             edgeList.push_back( e );
+        } else {
+            for( auto edge : adj.m_child[i] ) {
+                Edge e;
+                e( 0 ) = i;
+                e( 1 ) = edge;
+                edgeList.push_back( e );
+            }
         }
     }
     return edgeList;

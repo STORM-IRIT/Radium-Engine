@@ -16,10 +16,11 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component
 {
 public:
     AnimationComponent(const std::string& name) : Component(name) {}
-    AnimationComponent(const std::string& name, Ra::Core::Animation::Skeleton& skel, const Ra::Core::Animation::RefPose& refPose )
-            : Component(name),m_skel(skel), m_refPose(refPose)
+    AnimationComponent(const std::string& name, Ra::Core::Animation::Skeleton& skel)
+            : Component(name),m_skel(skel), m_refPose(skel.getPose(Ra::Core::Animation::Handle::SpaceType::MODEL))
     {
     }
+
     virtual ~AnimationComponent() {}
 
     virtual void initialize() override;

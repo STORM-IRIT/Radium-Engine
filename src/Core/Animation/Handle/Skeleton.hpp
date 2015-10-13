@@ -19,7 +19,7 @@ public:
     /// CONSTRUCTOR
     Skeleton();                             // Default constructor
     Skeleton( const uint n );               // Reserve the memory for n transforms
-    Skeleton( const Skeleton& skeleton );   // Copy constructor
+    Skeleton( const Skeleton& skeleton ) = default;// Copy constructor
 
     /// DESTRUCTOR
     ~Skeleton();

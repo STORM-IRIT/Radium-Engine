@@ -27,8 +27,13 @@ AdjacencyList extractAdjacencyList( const VectorArray< Edge >& edgeList );
 
 /*
 * Return the edge list built from the given adjacency list.
+* If include_leaf is true, the list will contain the pairs:
+*       ...
+*       { i, i }
+*       ...
+* where i is the index of a leaf node.
 */
-VectorArray< Edge > extractEdgeList( const AdjacencyList& adj );
+VectorArray< Edge > extractEdgeList( const AdjacencyList& adj, const bool include_leaf = false );
 
 
 

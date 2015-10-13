@@ -22,10 +22,8 @@
 
 #include <Plugins/FancyMesh/FancyMeshSystem.hpp>
 
-
-//#include "Plugins/Animation/Skeleton/Skeleton.hpp"
-#include "Plugins/Animation/AnimationComponent.hpp"
 #include <Core/Animation/Handle/Skeleton.hpp>
+#include "Plugins/Animation/AnimationComponent.hpp"
 
 
 // Const parameters : TODO : make config / command line options
@@ -126,27 +124,28 @@ namespace Ra
     {
         Engine::SystemEntity::uiCmp()->addRenderObject(Engine::DrawPrimitives::Grid(Engine::SystemEntity::uiCmp(),Core::Vector3::Zero(), Core::Vector3::UnitX(), Core::Vector3::UnitZ(),Core::Colors::Grey(0.6f)));
 
-//		Ra::Core::Animation::Skeleton* skel = new Ra::Core::Animation::Skeleton();
-//		skel->setName("Test Skeleton");
+        Core::Animation::Skeleton skel(3);
+        Core::Graph::AdjacencyList  skelGraph;
 
-//        skel->m_hier.add(-1);
-//		skel->m_hier.add(0);
-//		skel->m_hier.add(1);
+        skelGraph.addNode(-1);
+        skelGraph.addNode(0);
+        skelGraph.addNodeq(1);
 
-//        Ra::Core::Animation::Pose pose;
-//        Core::Transform t = Core::Transform::Identity();
-//        pose.push_back(t);
-//        t.translate(Core::Vector3(-1, 0, 1));
-//        pose.push_back(t);
-//        t.translate(Core::Vector3(0, 0, 1));
-//        pose.push_back(t);
-//		skel->setPose(pose, Ra::Core::Animation::Handle::SpaceType::MODEL);
+        skel.m_hier  = skelGraph; // TODO : autoresize pose ?
 
-//        AnimationPlugin::AnimationComponent* comp = new AnimationPlugin::AnimationComponent("Basic anim component");
-//		comp->set(*skel);
+        Core::Animation::Pose pose;
+        Core::Transform t = Core::Transform::Identity();
+        pose.push_back(t);
+        t.translate(Core::Vector3(-1, 0, 1));
+        pose.push_back(t);
+        t.translate(Core::Vector3(0, 0, 1));
+        pose.push_back(t);
 
-//        m_engine->getEntityManager()->getOrCreateEntity("Test Skeleton")->addComponent(comp);
-//        comp->initialize();
+        skel.setPose(pose, Ra::Core::Animation::Handle::SpaceType::MODEL);
+
+        AnimationPlugin::AnimationComponent* comp = new AnimationPlugin::AnimationComponent("Basic anim component", skel);
+        m_engine->getEntityManager()->getOrCreateEntity("Test Skeleton")->addComponent(comp);
+        comp->initialize();
     }
 
     void MainApplication::loadFile( QString path )
