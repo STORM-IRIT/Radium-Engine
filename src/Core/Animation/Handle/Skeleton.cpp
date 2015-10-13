@@ -21,8 +21,6 @@ void Skeleton::clear() {
     m_modelSpace.clear();
 }
 
-
-
 /// SPACE INTERFACE
 Pose Skeleton::getPose( const SpaceType MODE ) const {
     switch( MODE ) {
@@ -38,8 +36,6 @@ Pose Skeleton::getPose( const SpaceType MODE ) const {
     }
     }
 }
-
-
 
 void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
     CORE_ASSERT( ( size() == pose.size() ), "Size mismatching" );
