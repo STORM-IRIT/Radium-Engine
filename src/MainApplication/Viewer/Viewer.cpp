@@ -226,6 +226,7 @@ namespace Ra
 
     void Gui::Viewer::wheelEvent( QWheelEvent* event )
     {
+		m_camera->handleWheelEvent(event);
         QOpenGLWidget::wheelEvent( event );
         mainApp->m_mainWindow->viewerWheelEvent( event );
     }

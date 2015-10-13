@@ -19,6 +19,7 @@ namespace Ra
         , m_cameraRotateMode( false )
         , m_cameraPanMode( false )
         , m_cameraZoomMode( false )
+		, m_wheelSpeedModifier(0.01)
     {
         resetCamera();
     }
@@ -118,6 +119,14 @@ namespace Ra
 
         return true;
     }
+	
+	bool Gui::TrackballCamera::handleWheelEvent(QWheelEvent* event)
+	{
+		handleCameraZoom((event->angleDelta().y() + event->angleDelta().x() * 0.1) * m_wheelSpeedModifier);
+		emit cameraPositionChanged( m_camera->getPosition() );
+		
+		return true;
+	}
 
     bool Gui::TrackballCamera::handleKeyPressEvent( QKeyEvent* )
     {
@@ -236,7 +245,12 @@ namespace Ra
 
     void Gui::TrackballCamera::handleCameraZoom( Scalar dx, Scalar dy )
     {
-        Scalar y = dy * m_cameraSensitivity * m_quickCameraModifier;
+        handleCameraZoom(dy);
+    }
+	
+	void Gui::TrackballCamera::handleCameraZoom( Scalar z )
+    {
+        Scalar y = z * m_cameraSensitivity * m_quickCameraModifier;
         Core::Vector3 F = m_camera->getDirection();
 
         Core::Transform T( Core::Transform::Identity() );
