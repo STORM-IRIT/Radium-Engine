@@ -129,7 +129,7 @@ namespace Ra
 
         skelGraph.addNode(-1);
         skelGraph.addNode(0);
-        skelGraph.addNodeq(1);
+        skelGraph.addNode(1);
 
         skel.m_hier  = skelGraph; // TODO : autoresize pose ?
 

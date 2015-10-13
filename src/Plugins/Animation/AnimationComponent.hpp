@@ -33,7 +33,8 @@ public:
     // Editable interface
     //
 
-    void getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const override;
+    virtual void getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const override;
+    virtual void setProperty( const Ra::Engine::EditableProperty& prop) override;
 
 
 protected:
