@@ -5,17 +5,34 @@ namespace Core {
 namespace Animation {
 
 /// CONSTRUCTOR
-Skeleton::Skeleton() : PointCloud(), m_hier(), m_modelSpace() { }
+Skeleton::Skeleton() : PointCloud(), m_graph(), m_modelSpace() { }
 
-Skeleton::Skeleton( const uint n ) : PointCloud( n ), m_hier( n ), m_modelSpace( n ) { }
+Skeleton::Skeleton( const uint n ) : PointCloud( n ), m_graph( n ), m_modelSpace( n ) { }
 
 /// DESTRUCTOR
 Skeleton::~Skeleton() { }
 
+/// BONE NODE
+int Skeleton::addBone( const int parent, const Transform& T, const SpaceType MODE, const Label label ) {
+    switch ( MODE ) {
+    case SpaceType::LOCAL: {
+        m_pose.push_back( T );
+    } break;
+    case SpaceType::MODEL: {
+        m_modelSpace.push_back( T );
+    } break;
+    default:
+        return -1;
+    }
+    m_label.push_back( label );
+    m_graph.addNode( parent );
+    return size();
+}
+
 /// SIZE
 void Skeleton::clear() {
     m_pose.clear();
-    m_hier.clear();
+    m_graph.clear();
     m_modelSpace.clear();
 }
 
@@ -41,11 +58,11 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
     case SpaceType::LOCAL: {
         m_pose = pose;
         m_modelSpace.resize( m_pose.size() );
-        for( uint i = 0; i < m_hier.size(); ++i ) {
-            if( m_hier.isRoot( i ) ) {
+        for( uint i = 0; i < m_graph.size(); ++i ) {
+            if( m_graph.isRoot( i ) ) {
                 m_modelSpace[i] = m_pose[i];
             }
-            for( auto child : m_hier.m_child[i] ) {
+            for( auto child : m_graph.m_child[i] ) {
                 m_modelSpace[child] = m_modelSpace[i] * m_pose[child];
             }
         }
@@ -53,11 +70,11 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
     case SpaceType::MODEL: {
         m_modelSpace = pose;
         m_pose.resize( m_modelSpace.size() );
-        for( uint i = 0; i < m_hier.size(); ++i ) {
-            if( m_hier.isRoot( i ) ) {
+        for( uint i = 0; i < m_graph.size(); ++i ) {
+            if( m_graph.isRoot( i ) ) {
                 m_pose[i] = m_modelSpace[i];
             }
-            for( auto child : m_hier.m_child[i] ) {
+            for( auto child : m_graph.m_child[i] ) {
                 m_pose[child] = m_modelSpace[i].inverse() * m_modelSpace[child];
             }
         }
@@ -90,18 +107,18 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
     case SpaceType::LOCAL: {
         m_pose[i] = T;
         // Compute the model space pose
-        if( m_hier.isRoot( i ) ) {
+        if( m_graph.isRoot( i ) ) {
             m_modelSpace[i] = m_pose[i];
         } else {
-            m_modelSpace[i] = m_modelSpace[m_hier.m_parent[i]] * T;
+            m_modelSpace[i] = m_modelSpace[m_graph.m_parent[i]] * T;
         }
-        if( !m_hier.isLeaf( i ) ) {
+        if( !m_graph.isLeaf( i ) ) {
             Graph::ParentList stack;
             stack.push_back( i );
             for( auto parent : stack ) {
-                for( auto child : m_hier.m_child[parent] ) {
+                for( auto child : m_graph.m_child[parent] ) {
                     m_modelSpace[child] = m_modelSpace[parent] * m_pose[child];
-                    if( !m_hier.isLeaf( child ) ) {
+                    if( !m_graph.isLeaf( child ) ) {
                         stack.push_back( child );
                     }
                 }
@@ -111,18 +128,18 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
     case SpaceType::MODEL: {
         m_modelSpace[i] = T;
         // Compute the local space pose
-        if( m_hier.isRoot( i ) ) {
+        if( m_graph.isRoot( i ) ) {
             m_pose[i] = m_modelSpace[i];
         } else {
-            m_pose[i] = m_modelSpace[m_hier.m_parent[i]].inverse() * T;
+            m_pose[i] = m_modelSpace[m_graph.m_parent[i]].inverse() * T;
         }
-        if( !m_hier.isLeaf( i ) ) {
+        if( !m_graph.isLeaf( i ) ) {
             Graph::ParentList stack;
             stack.push_back( i );
             for( auto parent : stack ) {
-                for( auto child : m_hier.m_child[parent] ) {
+                for( auto child : m_graph.m_child[parent] ) {
                     m_pose[child] = m_modelSpace[parent].inverse() * m_modelSpace[child];
-                    if( !m_hier.isLeaf( child ) ) {
+                    if( !m_graph.isLeaf( child ) ) {
                         stack.push_back( child );
                     }
                 }
@@ -144,13 +161,13 @@ void Skeleton::getBonePoints( const uint i, Vector3& startOut, Vector3& endOut) 
 
     startOut = m_modelSpace[i].translation();
     // A leaf bone has length 0
-    if (m_hier.isLeaf(i))
+    if (m_graph.isLeaf(i))
     {
         endOut = startOut;
     }
     else
     {
-        const auto& children = m_hier.m_child[i];
+        const auto& children = m_graph.m_child[i];
         CORE_ASSERT( children.size() > 0, "non-leaf bone has no children.");
         // End point is the average of chidren start points.
         endOut = Vector3::Zero();

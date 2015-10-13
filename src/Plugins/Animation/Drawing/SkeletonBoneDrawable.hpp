@@ -1,5 +1,5 @@
-#ifndef ANIMPLUGIN_SKELETON_BONE_DRAWABLE_HPP_ 
-#define ANIMPLUGIN_SKELETON_BONE_DRAWABLE_HPP_  
+#ifndef ANIMPLUGIN_SKELETON_BONE_DRAWABLE_HPP_
+#define ANIMPLUGIN_SKELETON_BONE_DRAWABLE_HPP_
 
 #include <Plugins/Animation/AnimationPlugin.hpp>
 
@@ -17,12 +17,11 @@ namespace AnimationPlugin
 class SkeletonBoneRenderObject : public Ra::Engine::RenderObject
 {
 public:
-    SkeletonBoneRenderObject(const std::string& name, const AnimationComponent* comp, uint boneIdx)
-        : RenderObject(name, comp), m_skel( comp->getSkeleton()), m_boneIdx(boneIdx)
-    {
+    SkeletonBoneRenderObject(const std::string& name, const AnimationComponent* comp, Ra::Core::Edge edge )
+        : RenderObject(name, comp), m_skel( comp->getSkeleton()), m_edge( edge ) {
         // TODO ( Val) common material / shader config...
         Ra::Engine::ShaderConfiguration shader("BlinnPhong", "../Shaders");
-        
+
         m_material.reset(new Ra::Engine::Material("Bone Material"));
         m_material->setKd(Ra::Core::Color(0.4, 0.4, 0.4, 0.5));
         m_material->setKs(Ra::Core::Color(0.0, 0.0, 0.0, 1.0));
@@ -42,15 +41,16 @@ public:
         displayMesh->loadGeometry( makeBoneShape() );
         setMesh( displayMesh );
 
-        Ra::Core::Vector3 start, end;
-        comp->getSkeleton().getBonePoints( boneIdx, start, end );
+        Ra::Core::Vector3 start = comp->getSkeleton().getTransform( m_edge( 0 ), Ra::Core::Animation::Handle::SpaceType::MODEL ).translation();
+        Ra::Core::Vector3 end = comp->getSkeleton().getTransform( m_edge( 1 ), Ra::Core::Animation::Handle::SpaceType::MODEL ).translation();;
+
 
         Ra::Core::Transform scale = Ra::Core::Transform::Identity();
         scale.scale((end-start).norm());
 
         Ra::Core::Quaternion rot = Ra::Core::Quaternion::FromTwoVectors(Ra::Core::Vector3::UnitZ(), end-start);
 
-        Ra::Core::Transform boneTransform = comp->getSkeleton().getPose(Ra::Core::Animation::Handle::SpaceType::MODEL)[boneIdx];
+        Ra::Core::Transform boneTransform = comp->getSkeleton().getTransform( m_edge( 0 ), Ra::Core::Animation::Handle::SpaceType::MODEL );
         Ra::Core::Matrix3 rotation = boneTransform.rotation() * rot.toRotationMatrix();
         Ra::Core::Transform drawTransform;
         drawTransform.linear() =  rotation;
@@ -58,7 +58,7 @@ public:
 
         setLocalTransform(drawTransform * scale );
     }
-    
+
     static Ra::Core::TriangleMesh makeBoneShape()
     {
         // Bone along Z axis.
@@ -84,13 +84,21 @@ public:
         return mesh;
     }
 
+    inline uint getParent() const {
+        return m_edge( 0 );
+    }
+
+    inline uint getChild() const {
+        return m_edge( 1 );
+    }
+
     protected:
         const Ra::Core::Animation::Skeleton& m_skel;
-        uint m_boneIdx;
+        Ra::Core::Edge m_edge;
         std::unique_ptr<Ra::Engine::RenderTechnique> m_renderParams;
         std::unique_ptr<Ra::Engine::Material> m_material;
 };
 
 }
 
-#endif //ANIMPLUGIN_SKELETON_BONE_DRAWABLE_HPP_ 
+#endif //ANIMPLUGIN_SKELETON_BONE_DRAWABLE_HPP_

@@ -24,9 +24,11 @@ public:
     /// DESTRUCTOR
     ~Skeleton();
 
+    /// BONE NODE
+    int addBone( const int parent = -1, const Transform& T = Transform::Identity(), const SpaceType MODE = SpaceType::LOCAL, const Label label = "" );
+
     /// SIZE
-	inline uint size() const override {return m_hier.size();}
-	
+    inline uint size() const override { return m_graph.size(); }
     virtual void clear() override;  // Empty the data of the skeleton
 
     /// SPACE INTERFACE
@@ -38,7 +40,7 @@ public:
     void getBonePoints( uint i, Vector3& startOut, Vector3& endOut ) const;
 
     /// VARIABLE
-    Graph::AdjacencyList m_hier; // The adjacency list.
+    Graph::AdjacencyList m_graph; // The adjacency list.
 
 protected:
     /// VARIABLE

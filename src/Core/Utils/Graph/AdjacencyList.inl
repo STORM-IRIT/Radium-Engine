@@ -6,7 +6,7 @@ namespace Graph {
 
     /// NODE
     inline uint AdjacencyList::addNode( const int parent ) {
-        CORE_ASSERT( ( parent < (int) size() ), "Index parent out of bounds" );
+        CORE_ASSERT( ( parent < int( size() ) ), "Index parent out of bounds" );
         uint idx = size();
         m_child.push_back( ChildrenList() ); // New node has no children
         // If is not a root node

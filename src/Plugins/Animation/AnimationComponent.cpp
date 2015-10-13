@@ -4,20 +4,20 @@
 #include <iostream>
 
 #include <Plugins/Animation/Drawing/SkeletonBoneDrawable.hpp>
-namespace AnimationPlugin 
+
+#include <Core/Utils/Graph/AdjacencyListOperation.hpp>
+
+namespace AnimationPlugin
 {
-	void recursiveSkeletonRead(const aiNode* node, const aiScene* scene);
-	
+    void recursiveSkeletonRead(const aiNode* node, const aiScene* scene);
+
     void AnimationComponent::initialize()
     {
-        for (uint i = 0; i < m_skel.size(); ++i)
-        {
-            if (!m_skel.m_hier.isLeaf(i))
-            {
-                m_boneDrawables.push_back(new SkeletonBoneRenderObject(
-                m_skel.getName() + " bone " + std::to_string(i), this, i));
-                getRoMgr()->addRenderObject(m_boneDrawables.back());
-            }
+        auto edgeList = Ra::Core::Graph::extractEdgeList( m_skel.m_graph );
+        for( auto edge : edgeList ) {
+            m_boneDrawables.push_back(new SkeletonBoneRenderObject(
+            m_skel.getName() + " bone " + std::to_string(edge( 0 ) ), this, edge));
+            getRoMgr()->addRenderObject(m_boneDrawables.back());
         }
     }
 
@@ -46,18 +46,18 @@ namespace AnimationPlugin
     }
 
     void AnimationComponent::set(const Ra::Core::Animation::Skeleton& skel)
-	{
+    {
         m_skel = skel;
         m_refPose = skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL);
-	}
-	
-	void AnimationComponent::handleLoading(const AnimationLoader::AnimationData& data)
-	{
-		LOG( logDEBUG ) << "Animation component: loading a skeleton";
-	}
-	
-	void recursiveSkeletonRead(const aiNode* node, const aiScene* scene)
-	{
+    }
+
+    void AnimationComponent::handleLoading(const AnimationLoader::AnimationData& data)
+    {
+        LOG( logDEBUG ) << "Animation component: loading a skeleton";
+    }
+
+    void recursiveSkeletonRead(const aiNode* node, const aiScene* scene)
+    {
     // FIXME	std::cout << aiNode->mNumMeshes << std::endl;
-	}
+    }
 }

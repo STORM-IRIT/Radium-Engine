@@ -12,7 +12,7 @@ namespace AnimationPlugin
 
 class SkeletonBoneRenderObject;
 
-class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component 
+class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component
 {
 public:
     AnimationComponent(const std::string& name) : Component(name) {}
@@ -25,8 +25,8 @@ public:
 
     virtual void initialize() override;
     void set(const Ra::Core::Animation::Skeleton& skel);
-	void handleLoading(const AnimationLoader::AnimationData& data);
-	
+    void handleLoading(const AnimationLoader::AnimationData& data);
+
     const Ra::Core::Animation::Skeleton& getSkeleton() const { return m_skel; }
 
     //
