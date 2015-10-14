@@ -20,7 +20,6 @@ namespace Ra
         , m_cameraRotateMode( false )
         , m_cameraPanMode( false )
         , m_cameraZoomMode( false )
-		
     {
         resetCamera();
     }

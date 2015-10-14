@@ -42,8 +42,7 @@ public:
         setMesh( displayMesh );
 
         Ra::Core::Vector3 start = comp->getSkeleton().getTransform( m_edge( 0 ), Ra::Core::Animation::Handle::SpaceType::MODEL ).translation();
-        Ra::Core::Vector3 end = comp->getSkeleton().getTransform( m_edge( 1 ), Ra::Core::Animation::Handle::SpaceType::MODEL ).translation();;
-
+        Ra::Core::Vector3 end = comp->getSkeleton().getTransform( m_edge( 1 ), Ra::Core::Animation::Handle::SpaceType::MODEL ).translation();
 
         Ra::Core::Transform scale = Ra::Core::Transform::Identity();
         scale.scale((end-start).norm());
@@ -51,7 +50,7 @@ public:
         Ra::Core::Quaternion rot = Ra::Core::Quaternion::FromTwoVectors(Ra::Core::Vector3::UnitZ(), end-start);
 
         Ra::Core::Transform boneTransform = comp->getSkeleton().getTransform( m_edge( 0 ), Ra::Core::Animation::Handle::SpaceType::MODEL );
-        Ra::Core::Matrix3 rotation = boneTransform.rotation() * rot.toRotationMatrix();
+        Ra::Core::Matrix3 rotation = rot.toRotationMatrix();
         Ra::Core::Transform drawTransform;
         drawTransform.linear() =  rotation;
         drawTransform.translation() = boneTransform.translation();

@@ -6,7 +6,6 @@
 #include <vector>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Utils/Graph/AdjacencyList.hpp>
-#include <iostream>
 
 namespace AnimationPlugin
 {
@@ -29,8 +28,8 @@ namespace AnimationPlugin
 				LOG( logERROR ) << "Error while loading file \"" << name << "\" : " << importer.GetErrorString() << ".";
 				return animData;
 			}
-			
-			if (scene->mNumMeshes == 1) // only handle 1 mesh per file for now
+            
+			if (scene->mNumMeshes > 0) // only handle 1 mesh per file for now
 			{
 				aiMesh* mesh = scene->mMeshes[0];
 				std::vector<aiBone*> bones;
@@ -44,19 +43,31 @@ namespace AnimationPlugin
 			{
 				LOG(logDEBUG) << "Invalid mesh count found: " << scene->mNumMeshes;
 			}
-			//recursiveSkeletonRead(scene->mRootNode, scene);
 				
 			return animData;
 		}
 		
-		void recursiveSkeletonRead(const aiNode* node, aiMatrix4x4 currentTransform, const std::vector<aiBone*>& bones, 
+		void recursiveSkeletonRead(const aiNode* node, aiMatrix4x4 accTransform, const std::vector<aiBone*>& bones, 
 								   Ra::Core::Graph::AdjacencyList& hierarchy, Ra::Core::Animation::Pose& pose, int parent)
 		{
-			currentTransform *= node->mTransformation;
+			aiMatrix4x4 currentTransform  = accTransform * node->mTransformation;
 			bool isBoneNode = false;
 			for (aiBone* bone : bones)
 			{
 				if (bone->mName == node->mName)
+					isBoneNode = true;
+			}
+			
+			if (!isBoneNode)
+			{
+				bool isParentBoneNode = false;
+				for (aiBone* bone : bones)
+				{
+					if (node->mParent != NULL && bone->mName == node->mParent->mName)
+						isParentBoneNode = true;
+				}
+				
+				if (isParentBoneNode) // catch the bone ends
 					isBoneNode = true;
 			}
 			

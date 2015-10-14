@@ -2,15 +2,11 @@
 
 #include <assimp/scene.h>
 #include <iostream>
-
 #include <Plugins/Animation/Drawing/SkeletonBoneDrawable.hpp>
-
 #include <Core/Utils/Graph/AdjacencyListOperation.hpp>
 
 namespace AnimationPlugin
 {
-    void recursiveSkeletonRead(const aiNode* node, const aiScene* scene);
-
     void AnimationComponent::initialize()
     {
         auto edgeList = Ra::Core::Graph::extractEdgeList( m_skel.m_graph );
@@ -54,10 +50,10 @@ namespace AnimationPlugin
     void AnimationComponent::handleLoading(const AnimationLoader::AnimationData& data)
     {
         LOG( logDEBUG ) << "Animation component: loading a skeleton";
-    }
-
-    void recursiveSkeletonRead(const aiNode* node, const aiScene* scene)
-    {
-    // FIXME	std::cout << aiNode->mNumMeshes << std::endl;
+        Ra::Core::Animation::Skeleton skeleton = Ra::Core::Animation::Skeleton();
+        skeleton.m_graph = data.hierarchy;
+        skeleton.setPose(data.pose, Ra::Core::Animation::Handle::SpaceType::LOCAL); // specify the space type in the AnimationData
+        set(skeleton);
+        initialize();
     }
 }

@@ -3,6 +3,7 @@
 #include <Plugins/Animation/AnimationLoader.hpp>
 #include <Plugins/Animation/AnimationComponent.hpp>
 #include <string>
+#include <iostream>
 
 namespace AnimationPlugin
 {
