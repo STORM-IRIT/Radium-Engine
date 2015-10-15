@@ -26,7 +26,7 @@ public:
 
     virtual void initialize() override;
     void set(const Ra::Core::Animation::Skeleton& skel);
-    void update();
+    void update(Scalar dt);
     void handleLoading(const AnimationLoader::AnimationData& data);
 
     const Ra::Core::Animation::Skeleton& getSkeleton() const { return m_skel; }
@@ -43,9 +43,8 @@ protected:
     Ra::Core::Animation::Skeleton m_skel;
     Ra::Core::Animation::RefPose m_refPose; // Ref pose in model space.
     Ra::Core::Animation::Animation m_animation;
-
     std::vector<SkeletonBoneRenderObject*> m_boneDrawables;
-    std::vector<Ra::Core::Index> m_renderObjectIndices;
+	Scalar m_animationTime;
 };
 
 }

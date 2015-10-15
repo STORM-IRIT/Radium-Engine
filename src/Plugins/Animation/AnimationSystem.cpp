@@ -2,6 +2,9 @@
 #include <Plugins/Animation/Drawing/SkeletonBoneDrawable.hpp>
 #include <Plugins/Animation/AnimationLoader.hpp>
 #include <Plugins/Animation/AnimationComponent.hpp>
+#include <Plugins/Animation/AnimatorTask.hpp>
+#include <Core/Tasks/TaskQueue.hpp>
+#include <Engine/Entity/FrameInfo.hpp>
 #include <string>
 #include <iostream>
 
@@ -10,7 +13,13 @@ namespace AnimationPlugin
 
     void AnimationSystem::generateTasks(Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo)
     {
-
+		return;
+		for (auto compEntry : this->m_components)
+		{
+			AnimationComponent* component = std::static_pointer_cast<AnimationComponent>(compEntry.second).get();
+			AnimatorTask* task = new AnimatorTask(component, frameInfo.m_dt);
+			taskQueue->registerTask( task );
+		}
     }
 
     Ra::Engine::Component* AnimationSystem::addComponentToEntityInternal(Ra::Engine::Entity* entity, uint id)
