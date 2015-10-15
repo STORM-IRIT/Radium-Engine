@@ -13,7 +13,6 @@ namespace AnimationPlugin
 
     void AnimationSystem::generateTasks(Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo)
     {
-		return;
 		for (auto compEntry : this->m_components)
 		{
 			AnimationComponent* component = std::static_pointer_cast<AnimationComponent>(compEntry.second).get();

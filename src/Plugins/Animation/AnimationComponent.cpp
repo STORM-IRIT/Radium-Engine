@@ -50,6 +50,9 @@ namespace AnimationPlugin
     
     void AnimationComponent::update(Scalar dt)
     {
+        if (dt > 0.5) // Ignore large dt that appear when the engine is paused (while loading a file for instance)
+            dt = 0;
+        
 		// Compute the elapsed time
 		m_animationTime += dt;
 		
@@ -64,6 +67,8 @@ namespace AnimationPlugin
         {
 			bone->update();
         }
+        
+        //std::cout << "AnimationComponent::update " << m_animationTime << std::endl;
     }
 
     void AnimationComponent::handleLoading(const AnimationLoader::AnimationData& data)

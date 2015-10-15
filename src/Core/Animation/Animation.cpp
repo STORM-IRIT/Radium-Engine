@@ -1,5 +1,8 @@
 #include <Core/Animation/Animation.hpp>
 #include <algorithm>
+#include <Core/Animation/Pose/PoseOperation.hpp>
+#include <iostream>
+#include <cmath>
 
 namespace Ra {
 namespace Core {
@@ -39,10 +42,23 @@ void Animation::normalize()
 
 Pose Animation::getPose(Scalar timestamp) const
 {
-    for (KeyPose keyPose : m_keys)
+    Scalar duration = m_keys.back().first;
+    
+    // ping pong: d - abs(mod(x, 2 * d) - d)
+    Scalar modifiedTime = duration - std::abs(fmod(timestamp, 2 * duration) - duration);
+    
+    if (modifiedTime < m_keys.front().first)
+        return m_keys.front().second;
+    
+    for (int i = 0; i < m_keys.size() - 1; i++)
     {
-        if (keyPose.first > timestamp)
-            return keyPose.second;
+        if (modifiedTime > m_keys[i].first && modifiedTime < m_keys[i + 1].first)
+        {
+            const KeyPose& prev = m_keys[i];
+            const KeyPose& next = m_keys[i + 1];
+            Scalar t = (modifiedTime - prev.first) / (next.first - prev.first);
+            return Ra::Core::Animation::interpolatePoses(m_keys[i].second, m_keys[i + 1].second, t);
+        }
     }
     
     return m_keys.back().second;

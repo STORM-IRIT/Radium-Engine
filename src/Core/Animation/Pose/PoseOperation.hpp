@@ -44,7 +44,7 @@ Pose applyTransformation( const Pose& pose, const std::vector< Transform >& tran
 */
 Pose applyTransformation( const Pose& pose, const Transform& transform );
 
-
+Pose interpolatePoses(const Pose& a, const Pose& b, Scalar t);
 
 } // namespace Animation
 } // namespace Core

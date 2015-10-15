@@ -59,17 +59,19 @@ namespace AnimationPlugin
                 
                 // animation loading
                 LOG(logDEBUG) << "Found " << scene->mNumAnimations << " animations ";
+                
                 if (scene->mNumAnimations > 0)
                 {
                     aiAnimation* animation = scene->mAnimations[0];
                     int keyCount = animation->mChannels[0]->mNumRotationKeys; // There SHOULD be 1 key for every bone at each key pose
                     int boneCount = animation->mNumChannels; // This SHOULD be equal to boneMap.size()
                     Scalar animationRate = animation->mTicksPerSecond > 0 ? animation->mTicksPerSecond : 50;
-                    //std::cout << "BoneMap.size() " << boneMap.size() << " boneCount " << boneCount << std::endl;
+
                     for (int i = 0; i < keyCount; i++)
                     {
                         Ra::Core::Animation::Pose currentPose = Ra::Core::Animation::Pose(boneCount);
                         Scalar keyTime = animation->mChannels[0]->mRotationKeys[i].mTime / animationRate;
+                        
                         for (int j = 0; j < boneCount; j++)
                         {
                             // retrieve the ith key of the jth joint
@@ -86,12 +88,6 @@ namespace AnimationPlugin
                             currentPose[boneIndex] = keyTransform;
                         }
                         
-//                        std::cout << "Pose #" << i << std::endl;
-//                        for (int j = 0; j < boneCount; j++)
-//                        {
-//                            std::cout << "PoseBone: " << std::endl << currentPose[j].matrix() << std::endl;
-//                        }
-//                        std::cout << std::endl;
                         // store the pose in the animation
                         animData.animation.addKeyPose(currentPose, keyTime);
                     }
@@ -178,9 +174,6 @@ namespace AnimationPlugin
             assimpToCore(inTranslation, translation);
             assimpToCore(inScaling, scaling);
             assimpToCore(inRotation, rotation);
-//            outTransform.linear() = rotation.toRotationMatrix();
-//            outTransform.translation() = translation;
-//            outTransform.scale() = scaling;
             outTransform.fromPositionOrientationScale(translation, rotation, scaling);
         }
 	}

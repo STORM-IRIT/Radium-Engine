@@ -41,6 +41,34 @@ Pose applyTransformation( const Pose& pose, const Transform& transform ) {
     return T;
 }
 
+Pose interpolatePoses(const Pose& a, const Pose& b, Scalar t)
+{
+    assert(a.size() == b.size());
+    
+    int size = a.size();
+    Pose interpolatedPose;
+    
+    for (int i = 0; i < size; i++)
+    {
+        // interpolate between the transforms
+        Ra::Core::Transform aTransform = a[i];
+        Ra::Core::Transform bTransform = b[i];
+        
+        Ra::Core::Quaternion aRot = Ra::Core::Quaternion(aTransform.rotation());
+        Ra::Core::Quaternion bRot = Ra::Core::Quaternion(bTransform.rotation());
+        Ra::Core::Quaternion interpRotation = aRot.slerp(t, bRot);
+        
+        Ra::Core::Vector3 interpTranslation = (1 - t) * aTransform.translation() + t * bTransform.translation();
+        
+        Ra::Core::Transform interpolatedTransform;
+        interpolatedTransform.linear() = interpRotation.toRotationMatrix();
+        interpolatedTransform.translation() = interpTranslation;
+        
+        interpolatedPose.push_back(interpolatedTransform);
+    }
+    
+    return interpolatedPose;
+}
 
 } // namespace Animation
 } // namespace Core

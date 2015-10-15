@@ -58,6 +58,8 @@ void SkeletonBoneRenderObject::updateLocalTransform(Ra::Engine::RenderObject* ro
     drawTransform.translation() = boneTransform.translation();
 
     ro->setLocalTransform(drawTransform * scale);
+    
+    //std::cout << "update : " << m_edge << std::endl << (drawTransform * scale).matrix() << std::endl;
 }
 
 Ra::Core::TriangleMesh SkeletonBoneRenderObject::makeBoneShape()
