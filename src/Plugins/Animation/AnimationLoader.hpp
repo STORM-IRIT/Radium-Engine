@@ -6,6 +6,7 @@
 #include <string>
 #include <Core/Utils/Graph/AdjacencyList.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Animation/Animation.hpp>
 
 namespace AnimationPlugin
 {
@@ -15,6 +16,7 @@ namespace AnimationPlugin
 		{
 			Ra::Core::Graph::AdjacencyList hierarchy;
 			Ra::Core::Animation::Pose pose;
+            Ra::Core::Animation::Animation animation;
 		};
 	
 		ANIM_PLUGIN_API AnimationData loadFile( const std::string& name );

@@ -11,6 +11,7 @@
 
 #include <Plugins/Animation/AnimationComponent.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
+#include <iostream>
 
 namespace AnimationPlugin
 {
@@ -18,7 +19,8 @@ class SkeletonBoneRenderObject : public Ra::Engine::RenderObject
 {
 public:
     SkeletonBoneRenderObject(const std::string& name, const AnimationComponent* comp, Ra::Core::Edge edge )
-        : RenderObject(name, comp), m_skel( comp->getSkeleton()), m_edge( edge ) {
+        : RenderObject(name, comp), m_skel( comp->getSkeleton()), m_edge( edge )
+    {
         // TODO ( Val) common material / shader config...
         Ra::Engine::ShaderConfiguration shader("BlinnPhong", "../Shaders");
 
@@ -36,20 +38,24 @@ public:
         setType(Ra::Engine::RenderObject::Type::RO_TRANSPARENT);
 
         Ra::Engine::Mesh* displayMesh = new Ra::Engine::Mesh( name );
-        std::vector<uint> indices;
 
         displayMesh->loadGeometry( makeBoneShape() );
         setMesh( displayMesh );
+        
+        updateLocalTransform();
+    }
 
-        Ra::Core::Vector3 start = comp->getSkeleton().getTransform( m_edge( 0 ), Ra::Core::Animation::Handle::SpaceType::MODEL ).translation();
-        Ra::Core::Vector3 end = comp->getSkeleton().getTransform( m_edge( 1 ), Ra::Core::Animation::Handle::SpaceType::MODEL ).translation();
+    void updateLocalTransform()
+    {
+        Ra::Core::Vector3 start = m_skel.getTransform( m_edge( 0 ), Ra::Core::Animation::Handle::SpaceType::MODEL ).translation();
+        Ra::Core::Vector3 end = m_skel.getTransform( m_edge( 1 ), Ra::Core::Animation::Handle::SpaceType::MODEL ).translation();
 
         Ra::Core::Transform scale = Ra::Core::Transform::Identity();
-        scale.scale((end-start).norm());
+        scale.scale((end - start).norm());
 
-        Ra::Core::Quaternion rot = Ra::Core::Quaternion::FromTwoVectors(Ra::Core::Vector3::UnitZ(), end-start);
+        Ra::Core::Quaternion rot = Ra::Core::Quaternion::FromTwoVectors(Ra::Core::Vector3::UnitZ(), end - start);
 
-        Ra::Core::Transform boneTransform = comp->getSkeleton().getTransform( m_edge( 0 ), Ra::Core::Animation::Handle::SpaceType::MODEL );
+        Ra::Core::Transform boneTransform = m_skel.getTransform( m_edge( 0 ), Ra::Core::Animation::Handle::SpaceType::MODEL );
         Ra::Core::Matrix3 rotation = rot.toRotationMatrix();
         Ra::Core::Transform drawTransform;
         drawTransform.linear() =  rotation;
@@ -57,7 +63,7 @@ public:
 
         setLocalTransform(drawTransform * scale );
     }
-
+    
     static Ra::Core::TriangleMesh makeBoneShape()
     {
         // Bone along Z axis.

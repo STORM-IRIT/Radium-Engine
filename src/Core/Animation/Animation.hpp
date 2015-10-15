@@ -1,0 +1,41 @@
+#ifndef ANIMATION_HPP
+#define ANIMATION_HPP
+
+#include <vector>
+#include <utility>
+#include <Core/Animation/Pose/Pose.hpp>
+
+namespace Ra {
+namespace Core {
+namespace Animation {
+
+typedef std::pair<Scalar, Pose> KeyPose;
+
+class Animation 
+{
+public:
+    // Add the key pose after the previous ones.
+    // Call normalize after all the key poses have been added.
+    // timestamp must be given in seconds.
+    void addKeyPose(const Pose& pose, Scalar timestamp);
+    void addKeyPose(const KeyPose& keyPose);
+    
+    // Remove all the key poses.
+    void clear();
+    
+    // Re-order the poses by chronological order.
+    void normalize();
+    
+    // Get the pose corresponding to the given timestamp.
+    // timestamp must be given in seconds.
+    Pose getPose(Scalar timestamp) const;
+    
+private:
+    std::vector<KeyPose> m_keys;
+};
+
+}
+}
+}
+
+#endif // ANIMATION_HPP

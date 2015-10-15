@@ -6,6 +6,7 @@
 #include <Plugins/Animation/AnimationLoader.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
+#include <Core/Animation/Animation.hpp>
 
 namespace AnimationPlugin
 {
@@ -25,6 +26,7 @@ public:
 
     virtual void initialize() override;
     void set(const Ra::Core::Animation::Skeleton& skel);
+    void update();
     void handleLoading(const AnimationLoader::AnimationData& data);
 
     const Ra::Core::Animation::Skeleton& getSkeleton() const { return m_skel; }
@@ -40,9 +42,10 @@ public:
 protected:
     Ra::Core::Animation::Skeleton m_skel;
     Ra::Core::Animation::RefPose m_refPose; // Ref pose in model space.
+    Ra::Core::Animation::Animation m_animation;
 
     std::vector<SkeletonBoneRenderObject*> m_boneDrawables;
-
+    std::vector<Ra::Core::Index> m_renderObjectIndices;
 };
 
 }
