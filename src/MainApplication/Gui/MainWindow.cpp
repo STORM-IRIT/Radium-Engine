@@ -13,6 +13,7 @@
 #include <MainApplication/Gui/EntityTreeItem.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
 #include <Plugins/Animation/AnimationSystem.hpp>
+#include <assimp/Importer.hpp>
 
 namespace Ra
 {
@@ -156,7 +157,15 @@ namespace Ra
 
     void Gui::MainWindow::loadFile()
     {
-        QString path = QFileDialog::getOpenFileName( this, QString(), ".." );
+		// Filter the files
+		aiString extList;
+		Assimp::Importer importer;
+		importer.GetExtensionList(extList);
+		std::string extListStd(extList.C_Str());
+		std::replace(extListStd.begin(), extListStd.end(), ';', ' ');
+		QString filter = QString::fromStdString(extListStd);
+		
+        QString path = QFileDialog::getOpenFileName( this, "Open File", "..", filter);
         if ( path.size() > 0 )
         {
             emit fileLoading( path );
