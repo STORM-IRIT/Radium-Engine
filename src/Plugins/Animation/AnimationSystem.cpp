@@ -10,13 +10,14 @@
 
 namespace AnimationPlugin
 {
-
     void AnimationSystem::generateTasks(Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo)
     {
+		Scalar currentDelta = m_isPlaying ? frameInfo.m_dt : 0;
+		
 		for (auto compEntry : this->m_components)
 		{
 			AnimationComponent* component = std::static_pointer_cast<AnimationComponent>(compEntry.second).get();
-			AnimatorTask* task = new AnimatorTask(component, frameInfo.m_dt);
+			AnimatorTask* task = new AnimatorTask(component, currentDelta);
 			taskQueue->registerTask( task );
 		}
     }
@@ -37,5 +38,10 @@ namespace AnimationPlugin
 
         AnimationComponent* component = static_cast<AnimationComponent*>(addComponentToEntity(entity));
         component->handleLoading(componentData);
+	}
+	
+	void AnimationSystem::setPlaying(bool isPlaying)
+	{
+		m_isPlaying = isPlaying;
 	}
 }

@@ -55,6 +55,8 @@ namespace Ra
             void setCameraPosition();
             void setCameraTarget();
             void handlePicking( int drawableIndex );
+			void playAnimation();
+			void pauseAnimation();
 
         public slots:
             void onEntitiesUpdated();

@@ -12,6 +12,7 @@
 #include <MainApplication/Gui/EntityTreeModel.hpp>
 #include <MainApplication/Gui/EntityTreeItem.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
+#include <Plugins/Animation/AnimationSystem.hpp>
 
 namespace Ra
 {
@@ -100,8 +101,22 @@ namespace Ra
         // Editors should be updated after each frame
         connect(mainApp, &MainApplication::endFrame, tab_edition, &TransformEditorWidget::updateValues);
         connect(mainApp, &MainApplication::endFrame, m_viewer->getGizmoManager(), &GizmoManager::updateValues);
-
+		
+		connect(playButton, SIGNAL(clicked(bool)), this, SLOT(playAnimation()));
+		connect(pauseButton, SIGNAL(clicked(bool)), this, SLOT(pauseAnimation()));
     }
+	
+	void Gui::MainWindow::playAnimation()
+	{
+		AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
+		animSys->setPlaying(true);
+	}
+	
+	void Gui::MainWindow::pauseAnimation()
+	{
+		AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
+		animSys->setPlaying(false);
+	}
 
     void Gui::MainWindow::onEntitiesUpdated()
     {
