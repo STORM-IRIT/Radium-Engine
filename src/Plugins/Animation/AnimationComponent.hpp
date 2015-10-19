@@ -7,6 +7,7 @@
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
 #include <Core/Animation/Animation.hpp>
+#include <Plugins/FancyMesh/FancyMeshComponent.hpp>
 
 namespace AnimationPlugin
 {
@@ -37,6 +38,10 @@ public:
 
     virtual void getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const override;
     virtual void setProperty( const Ra::Engine::EditableProperty& prop) override;
+    
+    void setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component);
+    FancyMeshPlugin::FancyMeshComponent* getMeshComponent() const;
+    Ra::Core::Animation::Animation getAnimation() const;
 
 
 protected:
@@ -45,6 +50,7 @@ protected:
     Ra::Core::Animation::Animation m_animation;
     std::vector<SkeletonBoneRenderObject*> m_boneDrawables;
 	Scalar m_animationTime;
+    FancyMeshPlugin::FancyMeshComponent* m_meshComponent;
 };
 
 }

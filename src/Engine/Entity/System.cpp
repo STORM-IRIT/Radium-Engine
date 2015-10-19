@@ -71,5 +71,16 @@ namespace Ra
 
             return component;
         }
+
+        void System::registerOnComponentCreation(Ra::Engine::System* system)
+        {
+            m_dependentSystems.push_back(system);
+        }
+
+        void System::callOnComponentCreationDependencies(const Ra::Engine::Component* component)
+        {
+            for (System* dependency : m_dependentSystems)
+                dependency->callbackOnComponentCreation(component);
+        }
     }
 } // namespace Ra

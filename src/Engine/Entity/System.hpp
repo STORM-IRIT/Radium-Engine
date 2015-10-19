@@ -108,12 +108,21 @@ namespace Ra
              * @return The created component.
              */
             virtual Component* addComponentToEntity( Entity* entity ) final;
+            
+            // Register the system so that its callbackOnComponentCreation function will be called upon creation of a component
+            void registerOnComponentCreation(Ra::Engine::System* system);
 
         protected:
             virtual Component* addComponentToEntityInternal( Entity* entity, uint id ) = 0;
 
+            // This function must be called after a component has be fully created.
+            void callOnComponentCreationDependencies(const Ra::Engine::Component* component);
+
+            virtual void callbackOnComponentCreation(const Ra::Engine::Component* component) {}
+
         protected:
             std::map<std::string, std::shared_ptr<Component>> m_components;
+            std::vector<System*> m_dependentSystems;
         };
 
     } // namespace Engine

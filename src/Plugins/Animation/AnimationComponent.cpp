@@ -82,4 +82,19 @@ namespace AnimationPlugin
         m_animationTime = 0;
         initialize();
     }
+    
+    void AnimationComponent::setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component)
+    {
+        m_meshComponent = component;
+    }
+    
+    FancyMeshPlugin::FancyMeshComponent* AnimationComponent::getMeshComponent() const
+    {
+        return m_meshComponent;
+    }
+    
+    Ra::Core::Animation::Animation AnimationComponent::getAnimation() const
+    {
+        return m_animation;
+    }
 }

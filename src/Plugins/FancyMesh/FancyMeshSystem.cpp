@@ -51,6 +51,13 @@ namespace FancyMeshPlugin
         FancyComponentData componentData = componentsData[0];
         FancyMeshComponent* component = static_cast<FancyMeshComponent*>(addComponentToEntity(entity));
         component->handleMeshLoading(componentData);
+        
+        MeshLoadingInfo loadingInfo;
+        loadingInfo.filename = filename;
+        loadingInfo.index = 0;
+        component->setLoadingInfo(loadingInfo);
+        
+        callOnComponentCreationDependencies(component);
     }
 
     void FancyMeshSystem::handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder,
@@ -83,6 +90,8 @@ namespace FancyMeshPlugin
 
         FancyMeshComponent* component = static_cast<FancyMeshComponent*>( addComponentToEntity( entity ) );
         component->handleMeshLoading( componentData );
+        
+        callOnComponentCreationDependencies(component);
     }
 
     Ra::Engine::Component* FancyMeshSystem::addComponentToEntityInternal( Ra::Engine::Entity* entity, uint id )

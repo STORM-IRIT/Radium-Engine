@@ -2,7 +2,6 @@
 #define ANIMPLUGIN_ANIMATION_SYSTEM_HPP_
 
 #include <Plugins/Animation/AnimationPlugin.hpp>
-
 #include <Engine/Entity/System.hpp>
 
 namespace AnimationPlugin
@@ -11,11 +10,12 @@ namespace AnimationPlugin
     {
     public:
         virtual void generateTasks(Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo);
-        void initialize( ) override { m_isPlaying = true; }
+        void initialize( ) override;
 		void handleFileLoading(Ra::Engine::Entity* entity, const std::string &filename) override;
-		void setPlaying(bool isPlaying);
+        void setPlaying(bool isPlaying);
     protected:
         virtual Ra::Engine::Component* addComponentToEntityInternal(Ra::Engine::Entity* entity, uint id);
+        virtual void callbackOnComponentCreation(const Ra::Engine::Component *component) override;
 	private:
 		bool m_isPlaying;
 

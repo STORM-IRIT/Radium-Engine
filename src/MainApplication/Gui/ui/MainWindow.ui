@@ -40,7 +40,7 @@
      <x>0</x>
      <y>0</y>
      <width>1204</width>
-     <height>19</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFILE">
@@ -694,10 +694,10 @@
   </widget>
   <action name="actionOpenMesh">
    <property name="text">
-    <string>Open mesh...</string>
+    <string>Open...</string>
    </property>
    <property name="toolTip">
-    <string>Open a mesh</string>
+    <string>Open...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>

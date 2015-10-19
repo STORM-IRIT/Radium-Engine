@@ -16,6 +16,11 @@ namespace Ra
 
 namespace FancyMeshPlugin
 {
+    struct MeshLoadingInfo
+    {
+        std::string filename;
+        int index;
+    };
 
     class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component
     {
@@ -30,6 +35,15 @@ namespace FancyMeshPlugin
                                   Ra::Engine::RenderTechnique* technique );
 
         void handleMeshLoading( const FancyComponentData& data );
+        
+        void setLoadingInfo(MeshLoadingInfo info);
+        MeshLoadingInfo getLoadingInfo() const;
+        
+        Ra::Core::Index getMeshIndex() const;
+        
+    private:
+        MeshLoadingInfo m_loadingInfo;
+        Ra::Core::Index m_meshIndex;
     };
 
 } // namespace FancyMeshPlugin

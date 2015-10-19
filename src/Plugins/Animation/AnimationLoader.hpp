@@ -19,7 +19,7 @@ namespace AnimationPlugin
             Ra::Core::Animation::Animation animation;
 		};
 	
-		ANIM_PLUGIN_API AnimationData loadFile( const std::string& name );
+		ANIM_PLUGIN_API AnimationData loadFile(const std::string& name , int index);
 	}
 }
 

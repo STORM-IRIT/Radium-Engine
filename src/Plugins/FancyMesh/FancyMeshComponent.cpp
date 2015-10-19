@@ -29,7 +29,7 @@ namespace FancyMeshPlugin
         technique->material = new Ra::Engine::Material( "Default" );
         technique->shaderConfig = Ra::Engine::ShaderConfiguration( "Default", "../Shaders" );
 
-        addMeshRenderObject( mesh, name, technique );
+        addMeshRenderObject(mesh, name, technique);
     }
 
     void FancyMeshComponent::addMeshRenderObject( const Ra::Core::TriangleMesh& mesh,
@@ -97,6 +97,22 @@ namespace FancyMeshPlugin
 
         renderObject->setRenderTechnique( data.renderTechnique );
 
-        addRenderObject( renderObject );
+        m_meshIndex = addRenderObject(renderObject);
     }
+    
+    void FancyMeshComponent::setLoadingInfo(MeshLoadingInfo info)
+    {
+        m_loadingInfo = info;
+    }
+    
+    MeshLoadingInfo FancyMeshComponent::getLoadingInfo() const
+    {
+        return m_loadingInfo;
+    }
+    
+    Ra::Core::Index FancyMeshComponent::getMeshIndex() const
+    {
+        return m_meshIndex;
+    }
+    
 } // namespace FancyMeshPlugin

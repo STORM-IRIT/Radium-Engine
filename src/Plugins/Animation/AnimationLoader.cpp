@@ -29,7 +29,7 @@ namespace AnimationPlugin
         void assimpToCore(const aiQuaternion& inQuat, Ra::Core::Quaternion& outQuat);
         void assimpToCore(const aiVector3D& inVec, Ra::Core::Vector3& outVec);        
 	
-		AnimationData loadFile( const std::string& name )
+		AnimationData loadFile( const std::string& name, int index)
 		{
 			Assimp::Importer importer;
 	        const aiScene* scene = importer.ReadFile(name, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_GenSmoothNormals |
