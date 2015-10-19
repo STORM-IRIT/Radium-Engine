@@ -23,6 +23,11 @@ set (register_string "void Ra::MainApplication::registerSystems() {\n")
 #set(IBL_LIBRARY ${IBL_DIR}/libibl.a)
 #include_directories(${IBL_INCLUDE_DIR})
 
+#set(ISL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../Radium-Engine-Plugins/isl)
+#set(ISL_INCLUDE_DIR ${IBL_DIR}/include)
+#set(ISL_LIBRARY ${ISL_DIR}/libisl.a)
+#include_directories(${ISL_INCLUDE_DIR})
+
 set(libs
     radiumCore
     radiumEngine
@@ -32,6 +37,7 @@ set(libs
     ${Qt5OpenGL_LIBRARIES}
     ${OPENGL_LIBRARIES}
 #    ${IBL_LIBRARY}
+#    ${ISL_LIBRARY}
 )
 
 foreach(subdir ${SUBDIRS})
