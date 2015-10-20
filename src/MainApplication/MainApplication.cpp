@@ -95,8 +95,8 @@ namespace Ra
 
         // Create engine
         m_engine.reset(Engine::RadiumEngine::createInstance());
-        m_engine->initialize();
         registerSystems();
+        m_engine->initialize();
 
         m_viewer = m_mainWindow->getViewer();
         CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
@@ -118,8 +118,7 @@ namespace Ra
 
     void MainApplication::createConnections()
     {
-        connect( m_mainWindow.get(), SIGNAL( closed() ),
-                 this, SLOT( appNeedsToQuit() ) );
+        connect( m_mainWindow.get(), SIGNAL( closed() ), this, SLOT( appNeedsToQuit() ) );
     }
 
     void MainApplication::setupScene()

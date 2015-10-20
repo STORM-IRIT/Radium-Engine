@@ -62,7 +62,7 @@ namespace AnimationPlugin
     
     void AnimationSystem::callbackOnComponentCreation(const Ra::Engine::Component *component)
     {
-        std::cout << "Mesh component received by the Animation system" << std::endl;
+        //std::cout << "Mesh component received by the Animation system" << std::endl;
         FancyMeshPlugin::FancyMeshComponent* meshComponent = (FancyMeshPlugin::FancyMeshComponent*) component;
         
         AnimationLoader::AnimationData componentData = AnimationLoader::loadFile(meshComponent->getLoadingInfo().filename, meshComponent->getLoadingInfo().index);
