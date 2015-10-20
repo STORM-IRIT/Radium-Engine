@@ -15,7 +15,6 @@ namespace Geometry {
 
 AdjacencyMatrix uniformAdjacency( const uint point_size, const VectorArray< Triangle >& T ) {
     AdjacencyMatrix A( point_size, point_size );
-    A.setZero();
     for( auto t : T ) {
         uint i = t( 0 );
         uint j = t( 1 );
@@ -31,7 +30,6 @@ AdjacencyMatrix uniformAdjacency( const uint point_size, const VectorArray< Tria
 
 AdjacencyMatrix uniformAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     AdjacencyMatrix A( p.size(), p.size() );
-    A.setZero();
     for( auto t : T ) {
         uint i = t( 0 );
         uint j = t( 1 );
@@ -47,7 +45,6 @@ AdjacencyMatrix uniformAdjacency( const VectorArray< Vector3 >& p, const VectorA
 
 AdjacencyMatrix cotangentWeightAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     AdjacencyMatrix A( p.size(), p.size() );
-    A.setZero();
     for( auto t : T ) {
         uint i = t( 0 );
         uint j = t( 1 );
@@ -76,7 +73,7 @@ AdjacencyMatrix cotangentWeightAdjacency( const VectorArray< Vector3 >& p, const
 
 DegreeMatrix adjacencyDegree( const AdjacencyMatrix& A ) {
     DegreeMatrix D( A.rows(), A.cols() );
-    D.setZero();
+    D.reserve( A.rows() );
     for( uint i = 0; i < D.diagonal().size(); ++i ) {
         D.coeffRef( i, i ) = A.row( i ).sum();
     }

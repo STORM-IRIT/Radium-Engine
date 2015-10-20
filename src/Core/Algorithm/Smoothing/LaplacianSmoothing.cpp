@@ -10,10 +10,10 @@ namespace Algorithm {
 
 ScalarValue smartClamp( const BitSet& bit, const ScalarValue& value, const bool flag ) {
     ScalarValue s( value );
-    s.prune( 0.0 );
+    Scalar zero = 0.0;
+    s.prune( zero );
     for( ScalarValue::InnerIterator it( s, 0 ); it; ++it ) {
         uint   i = it.row();
-        Scalar v = it.value();
         if( !( bit[i] || flag ) ) {
             s.coeffRef( i, 0 ) = 0.0;
         }
@@ -25,10 +25,10 @@ ScalarValue smartClamp( const BitSet& bit, const ScalarValue& value, const bool 
 
 void smartClamp( const BitSet& bit, const ScalarValue& value, ScalarValue& clamped, const bool flag ) {
     ScalarValue s( value );
-    s.prune( 0.0 );
+    Scalar zero = 0.0;
+    s.prune( zero );
     for( ScalarValue::InnerIterator it( s, 0 ); it; ++it ) {
         uint   i = it.row();
-        Scalar v = it.value();
         if( !( bit[i] || flag ) ) {
             s.coeffRef( i, 0 ) = 0.0;
         }
