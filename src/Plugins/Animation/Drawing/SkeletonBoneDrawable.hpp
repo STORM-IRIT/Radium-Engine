@@ -18,7 +18,7 @@ namespace AnimationPlugin
 class SkeletonBoneRenderObject
 {
 public:
-    SkeletonBoneRenderObject(const std::string& name, const AnimationComponent* comp, Ra::Core::Edge edge, Ra::Engine::RenderObjectManager* roMgr);
+    SkeletonBoneRenderObject(const std::string& name, AnimationComponent* comp, Ra::Core::Edge edge, Ra::Engine::RenderObjectManager* roMgr);
 	void update(); // Update local transform of the associated render object
     
 	static Ra::Core::TriangleMesh makeBoneShape();

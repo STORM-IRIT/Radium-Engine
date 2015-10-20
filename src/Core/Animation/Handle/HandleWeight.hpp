@@ -10,6 +10,10 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
+// Taken from the ISL. TODO: Keep only one version
+typedef std::map<int, float> SkinningWeights;
+typedef std::vector<SkinningWeights> Weights;
+
 // Defining the pair handle/weight for a vertex
 typedef std::pair< uint, Scalar > SingleWeight;
 

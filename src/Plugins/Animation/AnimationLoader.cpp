@@ -6,6 +6,7 @@
 #include <vector>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Utils/Graph/AdjacencyList.hpp>
+#include <Core/Animation/Handle/HandleWeight.hpp>
 #include <iostream>
 #include <map>
 #include <string.h>
@@ -48,10 +49,16 @@ namespace AnimationPlugin
                 // skeleton loading
 				aiMesh* mesh = scene->mMeshes[0];
                 BoneMap boneMap; // first: name of the boneNode, second: index of the bone in the hierarchy / pose
-                
+				animData.weights = Ra::Core::Animation::WeightMatrix(mesh->mNumVertices, mesh->mNumBones);
+				
 				for (int i = 0; i < mesh->mNumBones; i++)
                 {
 					boneMap[mesh->mBones[i]->mName] = -1; // the true index will get written during the recursive read of the scene
+					for (int j = 0; j < mesh->mBones[i]->mNumWeights; j++)
+					{
+						aiVertexWeight vertexWeight = mesh->mBones[i]->mWeights[j];
+						animData.weights.insert(vertexWeight.mVertexId, i) = vertexWeight.mWeight;
+					}
                 }
                 
 				// find the bone nodes and create the corresponding skeleton

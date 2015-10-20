@@ -40,10 +40,12 @@ namespace FancyMeshPlugin
         MeshLoadingInfo getLoadingInfo() const;
         
         Ra::Core::Index getMeshIndex() const;
+        Ra::Core::TriangleMesh getMesh() const;
         
     private:
         MeshLoadingInfo m_loadingInfo;
         Ra::Core::Index m_meshIndex;
+        Ra::Core::TriangleMesh m_mesh;
     };
 
 } // namespace FancyMeshPlugin

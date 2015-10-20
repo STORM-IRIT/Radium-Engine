@@ -80,6 +80,7 @@ namespace AnimationPlugin
         set(skeleton);
         m_animation = data.animation;
         m_animationTime = 0;
+        m_weights = data.weights;
         initialize();
     }
     
@@ -96,5 +97,10 @@ namespace AnimationPlugin
     Ra::Core::Animation::Animation AnimationComponent::getAnimation() const
     {
         return m_animation;
+    }
+    
+    Ra::Core::Animation::WeightMatrix AnimationComponent::getWeights() const
+    {
+        return m_weights;
     }
 }

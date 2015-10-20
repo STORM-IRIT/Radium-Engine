@@ -42,15 +42,6 @@ namespace Ra
         //    GL_ASSERT(glDrawElements(GL_TRIANGLES_ADJACENCY, 6 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
         GL_ASSERT( glDrawElements( m_renderMode, m_indices.size(), GL_UNSIGNED_INT, ( void* ) 0 ) );
     }
-
-    void Engine::Mesh::update(const Core::TriangleMesh& mesh)
-    {
-        addData(VERTEX_POSITION, mesh.m_vertices);
-        if (mesh.m_normals.size() > 0)
-            addData(VERTEX_NORMAL, mesh.m_normals);
-        
-        m_isDirty = true;
-    }
     
     void Engine::Mesh::loadGeometry( const Core::Vector3Array& positions,
                                      const std::vector<uint>& indices )

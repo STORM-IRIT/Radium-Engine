@@ -30,7 +30,7 @@ public:
     void update(Scalar dt);
     void handleLoading(const AnimationLoader::AnimationData& data);
 
-    const Ra::Core::Animation::Skeleton& getSkeleton() const { return m_skel; }
+    Ra::Core::Animation::Skeleton& getSkeleton() { return m_skel; }
 
     //
     // Editable interface
@@ -42,12 +42,14 @@ public:
     void setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component);
     FancyMeshPlugin::FancyMeshComponent* getMeshComponent() const;
     Ra::Core::Animation::Animation getAnimation() const;
-
+    Ra::Core::Animation::WeightMatrix getWeights() const;
 
 protected:
     Ra::Core::Animation::Skeleton m_skel;
     Ra::Core::Animation::RefPose m_refPose; // Ref pose in model space.
     Ra::Core::Animation::Animation m_animation;
+    Ra::Core::Animation::WeightMatrix m_weights;
+    
     std::vector<SkeletonBoneRenderObject*> m_boneDrawables;
 	Scalar m_animationTime;
     FancyMeshPlugin::FancyMeshComponent* m_meshComponent;

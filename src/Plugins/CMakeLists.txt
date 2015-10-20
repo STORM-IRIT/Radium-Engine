@@ -24,7 +24,7 @@ set (register_string "void Ra::MainApplication::registerSystems() {\n")
 #include_directories(${IBL_INCLUDE_DIR})
 
 #set(ISL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../Radium-Engine-Plugins/isl)
-#set(ISL_INCLUDE_DIR ${IBL_DIR}/include)
+#set(ISL_INCLUDE_DIR ${ISL_DIR}/include)
 #set(ISL_LIBRARY ${ISL_DIR}/libisl.a)
 #include_directories(${ISL_INCLUDE_DIR})
 

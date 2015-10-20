@@ -3,7 +3,7 @@
 namespace AnimationPlugin
 {
 
-SkeletonBoneRenderObject::SkeletonBoneRenderObject(const std::string& name, const AnimationComponent* comp, Ra::Core::Edge edge, Ra::Engine::RenderObjectManager* roMgr)
+SkeletonBoneRenderObject::SkeletonBoneRenderObject(const std::string& name, AnimationComponent* comp, Ra::Core::Edge edge, Ra::Engine::RenderObjectManager* roMgr)
     : m_skel(comp->getSkeleton()), m_edge(edge), m_roMgr(roMgr)
 {
     // TODO ( Val) common material / shader config...
