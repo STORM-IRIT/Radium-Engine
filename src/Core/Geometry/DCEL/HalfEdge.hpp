@@ -1,7 +1,7 @@
 #ifndef DCEL_HALFEDGE_H
 #define DCEL_HALFEDGE_H
 
-#include "Definition.hpp"
+#include <Core/Geometry/DCEL/Definition.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Index/IndexedObject.hpp>
 

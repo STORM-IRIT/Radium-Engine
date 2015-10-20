@@ -1,8 +1,4 @@
-#include "Dcel.hpp"
-
-//#include "Vertex.hpp"
-//#include "HalfEdge.hpp"
-//#include "Face.hpp"
+#include <Core/Geometry/DCEL/Dcel.hpp>
 
 namespace Ra {
 namespace Core {

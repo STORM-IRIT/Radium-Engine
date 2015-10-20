@@ -1,4 +1,4 @@
-#include "Curvature.hpp"
+#include <Core/Geometry/Curvature/Curvature.hpp>
 
 #include <Core/Index/CircularIndex.hpp>
 

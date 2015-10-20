@@ -1,4 +1,4 @@
-#include "Normal.hpp"
+#include <Core/Geometry/Normal/Normal.hpp>
 
 #include <Core/Index/CircularIndex.hpp>
 #include <Core/Geometry/Triangle/TriangleOperation.hpp>

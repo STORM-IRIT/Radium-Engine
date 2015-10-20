@@ -1,6 +1,6 @@
-#include "Vertex.hpp"
+#include <Core/Geometry/DCEL/Vertex.hpp>
 
-#include "HalfEdge.hpp"
+#include <Core/Geometry/DCEL/HalfEdge.hpp>
 
 namespace Ra {
 namespace Core {
