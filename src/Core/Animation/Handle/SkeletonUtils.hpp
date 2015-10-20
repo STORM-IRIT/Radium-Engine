@@ -1,7 +1,6 @@
 #ifndef ANIMPLUGIN_SKELETON_UTILS_HPP_
 #define ANIMPLUGIN_SKELETON_UTILS_HPP_
 
-//#include <Plugins/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
 
