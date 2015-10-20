@@ -1,4 +1,4 @@
-#include "PartitionOperation.hpp"
+#include <Core/Geometry/Partition/PartitionOperation.hpp>
 
 #include <algorithm>
 #include <limits>
@@ -10,7 +10,7 @@ namespace Geometry {
 
 
 
-VertexSegment extractVertexSegment( const Animation::MeshWeight& weights, const Index&    id,   const bool is_max ) {
+VertexSegment extractVertexSegment( const Animation::MeshWeight& weights, const Index& id, const bool is_max ) {
     VertexSegment v;
     for( uint i = 0; i < weights.size(); ++i ) {
         Scalar max = std::numeric_limits< Scalar >::min();
@@ -43,7 +43,7 @@ VertexSegment extractVertexSegment( const Animation::MeshWeight& weights, const 
 
 
 
-VertexSegment extractVertexSegment( const Animation::MeshWeight& weights, const Edge&     edge, const bool is_max ) {
+VertexSegment extractVertexSegment( const Animation::MeshWeight& weights, const Edge& edge, const bool is_max ) {
     VertexSegment v;
     auto set = extractVertexSegment( weights, edge( 0 ), is_max );
     v.insert( set.begin(), set.end() );
@@ -54,7 +54,7 @@ VertexSegment extractVertexSegment( const Animation::MeshWeight& weights, const 
 
 
 
-VertexSegment extractVertexSegment( const Animation::MeshWeight& weights, const EdgeSet&  edge, const bool is_max ) {
+VertexSegment extractVertexSegment( const Animation::MeshWeight& weights, const EdgeSet& edge, const bool is_max ) {
     VertexSegment v;
     for( auto e : edge ) {
         auto set = extractVertexSegment( weights, e, is_max );

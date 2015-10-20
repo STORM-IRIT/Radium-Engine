@@ -1,4 +1,4 @@
-#include "Area.hpp"
+#include <Core/Geometry/Area/Area.hpp>
 
 #include <Core/Index/CircularIndex.hpp>
 
@@ -16,7 +16,6 @@ namespace Geometry {
 
 AreaMatrix oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     AreaMatrix A( p.size(), p.size() );
-    A.setZero();
     for( auto t : T ) {
         uint i = t( 0 );
         uint j = t( 1 );
@@ -39,7 +38,6 @@ AreaMatrix barycentricArea( const VectorArray< Vector3 >& p, const VectorArray< 
 
 AreaMatrix voronoiArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     AreaMatrix A( p.size(), p.size() );
-    A.setZero();
     for( auto t : T ) {
         uint i = t( 0 );
         uint j = t( 1 );
@@ -55,7 +53,6 @@ AreaMatrix voronoiArea( const VectorArray< Vector3 >& p, const VectorArray< Tria
 
 AreaMatrix mixedArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     AreaMatrix A( p.size(), p.size() );
-    A.setZero();
     for( auto t : T ) {
         uint i = t( 0 );
         uint j = t( 1 );

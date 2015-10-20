@@ -19,7 +19,7 @@ namespace Graph {
 
     /// SIZE
     inline uint AdjacencyList::size() const {
-        CORE_ASSERT(m_parent.size() == m_child.size(), "List size inconsistency");    
+        CORE_ASSERT(m_parent.size() == m_child.size(), "List size inconsistency");
         return m_parent.size();
     }
 
@@ -41,6 +41,16 @@ namespace Graph {
     inline bool AdjacencyList::isLeaf( const uint i ) const {
         CORE_ASSERT( i < size(), " Index i out of bounds " );
         return ( m_child.at( i ).size() == 0 );
+    }
+
+    inline bool AdjacencyList::isBranch( const uint i ) const {
+        CORE_ASSERT( i < size(), " Index i out of bounds " );
+        return ( m_child.at( i ).size() > 1 );
+    }
+
+    inline bool AdjacencyList::isJoint( const uint i ) const {
+        CORE_ASSERT( i < size(), " Index i out of bounds " );
+        return ( m_child.at( i ).size() == 1 );
     }
 
     inline bool AdjacencyList::isEdge( const uint i, const uint j ) const {

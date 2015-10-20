@@ -1,6 +1,6 @@
-#include "Face.hpp"
+#include <Core/Geometry/DCEL/Face.hpp>
 
-#include "HalfEdge.hpp"
+#include <Core/Geometry/DCEL/HalfEdge.hpp>
 
 namespace Ra {
 namespace Core {

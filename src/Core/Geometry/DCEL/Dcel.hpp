@@ -2,7 +2,7 @@
 #define DCEL_H
 
 #include <vector>
-#include "Definition.hpp"
+#include <Core/Geometry/DCEL/Definition.hpp>
 #include <Core/Index/IndexedObject.hpp>
 #include <Core/Index/IndexMap.hpp>
 

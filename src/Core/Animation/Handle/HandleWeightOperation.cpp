@@ -1,4 +1,4 @@
-#include "HandleWeightOperation.hpp"
+#include <Core/Animation/Handle/HandleWeightOperation.hpp>
 
 #include <utility>
 

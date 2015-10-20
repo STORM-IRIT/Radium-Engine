@@ -1,7 +1,7 @@
 #ifndef HANDLE_WEIGHT_OPERATION
 #define HANDLE_WEIGHT_OPERATION
 
-#include "HandleWeight.hpp"
+#include <Core/Animation/Handle/HandleWeight.hpp>
 
 namespace Ra {
 namespace Core {

@@ -23,7 +23,7 @@ typedef AlignedStdVector< VertexWeight > MeshWeight;
 // It is like an adjacency matrix between vertices and handle transforms.
 // If w is a generic weight ( a.k.a. a scalar value ), then the WeightMatrix M is defined as:
 //      M( i, j ) = w   , if vertex i is influenced by transform j
-//      M( i, j ) = 0.0 , otherwise
+//      M( i, j ) = 0   , otherwise
 typedef Sparse WeightMatrix;
 
 

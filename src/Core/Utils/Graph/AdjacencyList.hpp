@@ -36,6 +36,8 @@ public:
     inline bool isEmpty() const;                            // Return true if the graph is empty.
     inline bool isRoot( const uint i ) const;               // Return true if a node is a root node.
     inline bool isLeaf( const uint i ) const;               // Return true if the node is a leaf node.
+    inline bool isBranch( const uint i ) const;             // Return true if the node is a branch node. ( |child| > 1 )
+    inline bool isJoint( const uint i ) const;              // Return true if the node is a joint node. ( |child| == 1 )
     inline bool isEdge( const uint i, const uint j ) const; // Return true if the edge { i, j } exists.
 
 

@@ -1,4 +1,4 @@
-#include "TriangleOperation.hpp"
+#include <Core/Geometry/Triangle/TriangleOperation.hpp>
 
 namespace Ra {
 namespace Core {
