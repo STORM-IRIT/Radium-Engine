@@ -38,6 +38,7 @@ void Animation::normalize()
     
     // sort the keys according to their timestamp
     sort(m_keys.begin(), m_keys.end(), KeyPoseComparator());
+    
 }
 
 Pose Animation::getPose(Scalar timestamp) const
@@ -46,13 +47,13 @@ Pose Animation::getPose(Scalar timestamp) const
     
     // ping pong: d - abs(mod(x, 2 * d) - d)
     Scalar modifiedTime = duration - std::abs(fmod(timestamp, 2 * duration) - duration);
-    
-    if (modifiedTime < m_keys.front().first)
+ 
+    if (modifiedTime <= m_keys.front().first)
         return m_keys.front().second;
     
     for (int i = 0; i < m_keys.size() - 1; i++)
     {
-        if (modifiedTime > m_keys[i].first && modifiedTime < m_keys[i + 1].first)
+        if (modifiedTime >= m_keys[i].first && modifiedTime <= m_keys[i + 1].first)
         {
             const KeyPose& prev = m_keys[i];
             const KeyPose& next = m_keys[i + 1];

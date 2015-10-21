@@ -49,7 +49,7 @@ namespace AnimationPlugin
                 // skeleton loading
 				aiMesh* mesh = scene->mMeshes[0];
                 BoneMap boneMap; // first: name of the boneNode, second: index of the bone in the hierarchy / pose
-				animData.weights = Ra::Core::Animation::WeightMatrix(mesh->mNumVertices, mesh->mNumBones);
+				animData.weights.resize(mesh->mNumVertices, mesh->mNumBones);// = Ra::Core::Animation::WeightMatrix(mesh->mNumVertices, mesh->mNumBones);
 				
 				for (int i = 0; i < mesh->mNumBones; i++)
                 {

@@ -1,4 +1,6 @@
 #include <Core/Animation/Pose/PoseOperation.hpp>
+#include <iostream>
+#include <Eigen/Geometry>
 
 namespace Ra {
 namespace Core {
@@ -43,7 +45,8 @@ Pose applyTransformation( const Pose& pose, const Transform& transform ) {
 
 Pose interpolatePoses(const Pose& a, const Pose& b, Scalar t)
 {
-    assert(a.size() == b.size());
+    CORE_ASSERT( (a.size() == b.size()), "Poses are wrong");
+    CORE_ASSERT( ( ( t >= 0.0 ) && ( t <= 1.0 ) ), "T is wrong");
     
     int size = a.size();
     Pose interpolatedPose;
@@ -56,12 +59,12 @@ Pose interpolatePoses(const Pose& a, const Pose& b, Scalar t)
         
         Ra::Core::Quaternion aRot = Ra::Core::Quaternion(aTransform.rotation());
         Ra::Core::Quaternion bRot = Ra::Core::Quaternion(bTransform.rotation());
-        Ra::Core::Quaternion interpRotation = aRot.slerp(t, bRot);
+        Ra::Core::Quaternion interpRot = aRot.slerp(t, bRot);
         
         Ra::Core::Vector3 interpTranslation = (1 - t) * aTransform.translation() + t * bTransform.translation();
         
         Ra::Core::Transform interpolatedTransform;
-        interpolatedTransform.linear() = interpRotation.toRotationMatrix();
+        interpolatedTransform.linear() = interpRot.toRotationMatrix();
         interpolatedTransform.translation() = interpTranslation;
         
         interpolatedPose.push_back(interpolatedTransform);
