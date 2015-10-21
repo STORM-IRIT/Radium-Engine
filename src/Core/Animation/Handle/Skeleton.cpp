@@ -37,7 +37,7 @@ void Skeleton::clear() {
 }
 
 /// SPACE INTERFACE
-Pose Skeleton::getPose( const SpaceType MODE ) const {
+const Pose& Skeleton::getPose( const SpaceType MODE ) const {
     switch( MODE ) {
     case SpaceType::LOCAL: {
         return m_pose;
@@ -46,8 +46,8 @@ Pose Skeleton::getPose( const SpaceType MODE ) const {
         return m_modelSpace;
     } break;
     default: {
-        CORE_ASSERT( false, "Should not ");
-        return Pose();
+        CORE_ASSERT( false, "Should not get here.");
+        return m_pose;
     }
     }
 }
@@ -84,19 +84,19 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
     }
     }
 }
-Transform Skeleton::getTransform( const uint i, const SpaceType MODE ) const {
+const Transform& Skeleton::getTransform( const uint i, const SpaceType MODE ) const {
     CORE_ASSERT( ( i < size() ), "Index i out of bounds");
     switch( MODE ) {
         case SpaceType::LOCAL:
         {
-            return m_pose.at( i );
+            return m_pose[i];
         } break;
         case SpaceType::MODEL: {
-            return m_modelSpace.at( i );
+            return m_modelSpace[i];
         } break;
         default: {
             CORE_ASSERT(false, "Should not get here");
-            return Transform::Identity();
+            return m_pose[i];
         }
     }
 }

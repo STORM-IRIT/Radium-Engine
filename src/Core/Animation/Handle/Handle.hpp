@@ -35,10 +35,10 @@ public:
     virtual void clear();             // Empty the pose
 
     /// SPACE INTERFACE
-    virtual Pose       getPose( const SpaceType MODE ) const;                                  // Return the pose in MODE space
-    virtual void       setPose( const Pose& pose, const SpaceType MODE );                      // Set the MODE space pose
-    virtual Transform  getTransform( const uint i, const SpaceType MODE ) const;               // Return the i-th transform matrix of the pose in MODE space
-    virtual void       setTransform( const uint i, const Transform& T, const SpaceType MODE ); // Set the i-th transform of the MODE space pose
+    virtual const Pose& getPose( const SpaceType MODE ) const;                                  // Return the pose in MODE space
+    virtual void       setPose( const Pose& pose, const SpaceType MODE );                       // Set the MODE space pose
+    virtual const Transform&  getTransform( const uint i, const SpaceType MODE ) const;         // Return the i-th transform matrix of the pose in MODE space
+    virtual void       setTransform( const uint i, const Transform& T, const SpaceType MODE );  // Set the i-th transform of the MODE space pose
 
     /// NAME
     inline Label getName() const;                             // Return the label of the handle
