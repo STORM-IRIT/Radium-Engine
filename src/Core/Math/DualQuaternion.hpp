@@ -32,7 +32,7 @@ namespace Ra
 
             /// Construct a dual-quaternion from a rigid transform 
             /// Any non-rigid component (e.g. scale and shear) will be ignored.
-            DualQuaternion( const Core::Transform& tr );
+            inline DualQuaternion( const Core::Transform& tr );
 
             /// Default copy constructor and assignment operator.
             DualQuaternion( const DualQuaternion& other ) = default;
@@ -57,10 +57,10 @@ namespace Ra
 
             /// Set the dual-quaternion from a rigid transform.
             /// Any non-rigid component (e.g. scale and shear) will be ignored.
-            void setFromTransform( const Transform& t );
+            inline void setFromTransform( const Transform& t );
 
             /// Return the corresponding rigid transform. Assume a unit dual quaternion.
-            Transform getTransform() const;
+            inline Transform getTransform() const;
 
             /// Normalize the quaternion with the dual-number norm (divides q0 and qe
             /// by q0's norm).

@@ -170,7 +170,7 @@ namespace Ra
             // This vbo has not been created yet
             if ( m_vbos[i].size() == 0 && m_data[i].size() > 0 )
             {
-                m_vbos[i].setData( m_data[i], GL_STATIC_DRAW );
+                m_vbos[i].setData( m_data[i], GL_DYNAMIC_DRAW );
                 GL_ASSERT( glVertexAttribPointer( i, size, type, normalized,
                                                   sizeof( Core::Vector4 ), ptr ) );
 

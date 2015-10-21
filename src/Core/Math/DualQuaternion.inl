@@ -50,8 +50,8 @@ namespace Ra
         inline void DualQuaternion::normalize()
         {
             const float norm = m_q0.norm();
-            m_q0.normalize();
-            m_qe = ( 1.f / norm ) * m_qe;
+            m_q0 = m_q0 / norm;
+            m_qe = m_qe / norm;
         }
 		
 		inline Vector3 DualQuaternion::transform(const Vector3& p) const
@@ -69,15 +69,16 @@ namespace Ra
 	        Vector3 trans = (ve*qblend_0.w() - v0*qblend_e.w() + v0.cross(ve)) * 2.f;
 	
 	        // Rotate
-	        return qblend_0 * p + trans;
+	        //return qblend_0 * p + trans;
+            return qblend_0.toRotationMatrix() * p + trans;
 	    }
 
-        DualQuaternion::DualQuaternion(const Core::Transform& tr)
+        inline DualQuaternion::DualQuaternion(const Core::Transform& tr)
         {
             setFromTransform(tr);
         }
 
-        Transform DualQuaternion::getTransform() const
+        inline Transform DualQuaternion::getTransform() const
         {
             // Assume the dual quat is normalized.
             CORE_ASSERT(std::abs(m_q0.norm() - 1.f) <= std::numeric_limits<Scalar>::epsilon(),
@@ -89,12 +90,12 @@ namespace Ra
             return result;
         }
 
-        void DualQuaternion::setFromTransform(const Transform& t)
+        inline void DualQuaternion::setFromTransform(const Transform& t)
         {
             m_q0 = t.rotation();
             Core::Vector4 trans = Core::Vector4::Zero();
             trans.head<3>() = t.translation();
-            m_qe = 0.5 * (Quaternion(trans)* m_q0);
+            m_qe = 0.5 * (Quaternion(trans) * m_q0);
         }
     }
 }

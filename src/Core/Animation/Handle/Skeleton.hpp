@@ -29,8 +29,8 @@ public:
 
     /// SIZE
     inline uint size() const override {
-        CORE_ASSERT(m_graph.size()== m_pose.size(), "Inconsistent size");
-        CORE_ASSERT(m_graph.size()== m_modelSpace.size(), "Inconsistent size");
+//        CORE_ASSERT(m_graph.size()== m_pose.size(), "Inconsistent size");
+//        CORE_ASSERT(m_graph.size()== m_modelSpace.size(), "Inconsistent size");
         return m_graph.size();
     }
     virtual void clear() override;  // Empty the data of the skeleton
