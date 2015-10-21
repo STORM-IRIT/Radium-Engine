@@ -28,14 +28,18 @@ public:
     int addBone( const int parent = -1, const Transform& T = Transform::Identity(), const SpaceType MODE = SpaceType::LOCAL, const Label label = "" );
 
     /// SIZE
-    inline uint size() const override { return m_graph.size(); }
+    inline uint size() const override {
+        CORE_ASSERT(m_graph.size()== m_pose.size(), "Inconsistent size");
+        CORE_ASSERT(m_graph.size()== m_modelSpace.size(), "Inconsistent size");
+        return m_graph.size();
+    }
     virtual void clear() override;  // Empty the data of the skeleton
 
     /// SPACE INTERFACE
-    virtual Pose       getPose( const SpaceType MODE ) const override;                                  // Return the pose in MODE space
-    virtual void       setPose( const Pose& pose, const SpaceType MODE ) override;                      // Set the MODE space pose
-    virtual Transform  getTransform( const uint i, const SpaceType MODE ) const override;               // Return the i-th transform matrix of the pose in MODE space
-    virtual void       setTransform( const uint i, const Transform& T, const SpaceType MODE ) override; // Set the i-th transform of the MODE space pose
+    virtual const Pose&		getPose( const SpaceType MODE ) const override;                                  // Return the pose in MODE space
+    virtual void       		setPose( const Pose& pose, const SpaceType MODE ) override;                      // Set the MODE space pose
+    virtual const Transform& getTransform( const uint i, const SpaceType MODE ) const override;               // Return the i-th transform matrix of the pose in MODE space
+    virtual void       		setTransform( const uint i, const Transform& T, const SpaceType MODE ) override; // Set the i-th transform of the MODE space pose
 
     void getBonePoints( uint i, Vector3& startOut, Vector3& endOut ) const;
 

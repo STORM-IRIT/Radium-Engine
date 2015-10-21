@@ -22,7 +22,7 @@ void Handle::clear() {
 }
 
 /// SPACE INTERFACE
-Pose Handle::getPose( const SpaceType MODE ) const {
+const Pose& Handle::getPose( const SpaceType MODE ) const {
     return m_pose;
 }
 
@@ -34,7 +34,7 @@ void Handle::setPose( const Pose& pose, const SpaceType MODE ) {
 
 
 
-Transform Handle::getTransform( const uint i, const SpaceType MODE ) const {
+const Transform& Handle::getTransform( const uint i, const SpaceType MODE ) const {
     CORE_ASSERT( ( i < size() ), "Index i out of bound" );
     return m_pose.at( i );
 }
