@@ -11,7 +11,7 @@ namespace Animation
     namespace SkeletonUtils
     {
         /// Returns the start and end point of a bone in model space.
-        inline void getBonePoints(const Ra::Core::Animation::Skeleton& skeleton, const Ra::Core::Animation::Pose* pose, int boneIdx,
+        inline void getBonePoints(const Ra::Core::Animation::Skeleton& skeleton, int boneIdx,
                                     Ra::Core::Vector3& startOut, Ra::Core::Vector3& endOut)
         {
             // Check bone index is valid
@@ -39,10 +39,10 @@ namespace Animation
         }
 
         /// Gives out the nearest point on a given bone.
-        inline Ra::Core::Vector3 projectOnBone(const Ra::Core::Animation::Skeleton& skeleton, const Ra::Core::Animation::Pose* pose, int boneIdx, const Ra::Core::Vector3& pos)
+        inline Ra::Core::Vector3 projectOnBone(const Ra::Core::Animation::Skeleton& skeleton, int boneIdx, const Ra::Core::Vector3& pos)
         {
             Ra::Core::Vector3 start, end;
-            getBonePoints(skeleton, pose, boneIdx, start, end);
+            getBonePoints(skeleton, boneIdx, start, end);
 
             auto op = pos - start;
             auto dir = (end - start);

@@ -19,7 +19,7 @@ WeightMatrix extractWeightMatrix( const MeshWeight& weight, const uint handle_si
 */
 MeshWeight extractMeshWeight( const WeightMatrix& matrix );
 
-int getMaxWeightIndex(int vertexId);
+int getMaxWeightIndex(const WeightMatrix& weights, int vertexId);
 
 void getMaxWeightIndex(const WeightMatrix& weights, std::vector<uint>& boneIds);
 
