@@ -11,7 +11,7 @@ namespace Ra
         {
             for ( auto& value : *this )
             {
-                value.bind( shader );
+                value.second.bind( shader );
             }
         }
 
