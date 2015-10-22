@@ -18,11 +18,6 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component
 {
 public:
     AnimationComponent(const std::string& name) : Component(name) {}
-    AnimationComponent(const std::string& name, Ra::Core::Animation::Skeleton& skel)
-            : Component(name),m_skel(skel), m_refPose(skel.getPose(Ra::Core::Animation::Handle::SpaceType::MODEL))
-    {
-    }
-
     virtual ~AnimationComponent() {}
 
     virtual void initialize() override;
@@ -43,6 +38,7 @@ public:
     FancyMeshPlugin::FancyMeshComponent* getMeshComponent() const;
     Ra::Core::Animation::Animation getAnimation() const;
     Ra::Core::Animation::WeightMatrix getWeights() const;
+    Ra::Core::Animation::Pose getRefPose() const;
 
 protected:
     Ra::Core::Animation::Skeleton m_skel;

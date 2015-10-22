@@ -118,19 +118,6 @@ namespace AnimationPlugin
 			BoneMap::const_iterator boneIt = boneMap.find(node->mName);
             bool isBoneNode = boneIt != boneMap.end();
 			
-//			if (!isBoneNode)
-//			{
-//				bool isParentBoneNode = false;
-//				for (aiBone* bone : bones)
-//				{
-//					if (node->mParent != NULL && bone->mName == node->mParent->mName)
-//						isParentBoneNode = true;
-//				}
-				
-//				if (isParentBoneNode) // catch the bone ends
-//					isBoneNode = true;
-//			}
-			
 			int currentIndex = parent;
 			if (isBoneNode)
 			{

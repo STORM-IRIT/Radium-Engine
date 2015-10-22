@@ -67,26 +67,32 @@ namespace AnimationPlugin
         {
 			bone->update();
         }
-        
-        //std::cout << "AnimationComponent::update " << m_animationTime << std::endl;
     }
 
     void AnimationComponent::handleLoading(const AnimationLoader::AnimationData& data)
     {
         LOG( logDEBUG ) << "Animation component: loading a skeleton";
+        
         Ra::Core::Animation::Skeleton skeleton = Ra::Core::Animation::Skeleton();
         skeleton.m_graph = data.hierarchy;
-        skeleton.setPose(data.pose, Ra::Core::Animation::Handle::SpaceType::LOCAL); // specify the space type in the AnimationData
+        skeleton.setPose(data.animation.getPose(0.0), Ra::Core::Animation::Handle::SpaceType::LOCAL);
         set(skeleton);
+        
         m_animation = data.animation;
         m_animationTime = 0;
         m_weights = data.weights;
+        
         initialize();
     }
     
     void AnimationComponent::setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component)
     {
         m_meshComponent = component;
+    }
+    
+    Ra::Core::Animation::Pose AnimationComponent::getRefPose() const
+    {
+        return m_refPose;
     }
     
     FancyMeshPlugin::FancyMeshComponent* AnimationComponent::getMeshComponent() const
