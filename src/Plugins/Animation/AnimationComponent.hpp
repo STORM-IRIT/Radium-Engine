@@ -36,7 +36,7 @@ public:
     
     void setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component);
     FancyMeshPlugin::FancyMeshComponent* getMeshComponent() const;
-    Ra::Core::Animation::Animation getAnimation() const;
+    const Ra::Core::Animation::Animation& getAnimation() const;
     Ra::Core::Animation::WeightMatrix getWeights() const;
     Ra::Core::Animation::Pose getRefPose() const;
 

@@ -42,22 +42,20 @@ namespace FancyMeshPlugin
             // Something wrong happened while trying to load the file
             return;
         }
-
-        if ( componentsData.size() > 1 )
+        
+        for (int i = 0; i < componentsData.size(); i++)
         {
-            LOG( logWARNING ) << "Too many objects have been loaded, some data will be ignored.";
+            FancyComponentData componentData = componentsData[i];
+            FancyMeshComponent* component = static_cast<FancyMeshComponent*>(addComponentToEntity(entity));
+            component->handleMeshLoading(componentData);
+            
+            MeshLoadingInfo loadingInfo;
+            loadingInfo.filename = filename;
+            loadingInfo.index = i;
+            component->setLoadingInfo(loadingInfo);
+            
+            callOnComponentCreationDependencies(component);   
         }
-
-        FancyComponentData componentData = componentsData[0];
-        FancyMeshComponent* component = static_cast<FancyMeshComponent*>(addComponentToEntity(entity));
-        component->handleMeshLoading(componentData);
-        
-        MeshLoadingInfo loadingInfo;
-        loadingInfo.filename = filename;
-        loadingInfo.index = 0;
-        component->setLoadingInfo(loadingInfo);
-        
-        callOnComponentCreationDependencies(component);
     }
 
     void FancyMeshSystem::handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder,

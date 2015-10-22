@@ -37,78 +37,82 @@ namespace AnimationPlugin
 	                                                  aiProcess_SortByPType | aiProcess_FixInfacingNormals | aiProcess_CalcTangentSpace | aiProcess_GenUVCoords);
 			
 			AnimationData animData;
+            animData.hasLoaded = false;
 			
 			if (scene == NULL)
 			{
 				LOG( logERROR ) << "Error while loading file \"" << name << "\" : " << importer.GetErrorString() << ".";
 				return animData;
 			}
-            
-			if (scene->mNumMeshes == 1) // only handle 1 mesh per file for now
-			{
-                // skeleton loading
-				aiMesh* mesh = scene->mMeshes[0];
-                BoneMap boneMap; // first: name of the boneNode, second: index of the bone in the hierarchy / pose
-				animData.weights.resize(mesh->mNumVertices, mesh->mNumBones);// = Ra::Core::Animation::WeightMatrix(mesh->mNumVertices, mesh->mNumBones);
-				
-				for (int i = 0; i < mesh->mNumBones; i++)
-                {
-					boneMap[mesh->mBones[i]->mName] = -1; // the true index will get written during the recursive read of the scene
-					for (int j = 0; j < mesh->mBones[i]->mNumWeights; j++)
-					{
-						aiVertexWeight vertexWeight = mesh->mBones[i]->mWeights[j];
-						animData.weights.insert(vertexWeight.mVertexId, i) = vertexWeight.mWeight;
-					}
-                }
-                
-				// find the bone nodes and create the corresponding skeleton
-				recursiveSkeletonRead(scene->mRootNode, scene->mRootNode->mTransformation, boneMap, animData, -1);
-                
-                // animation loading
-                LOG(logDEBUG) << "Found " << scene->mNumAnimations << " animations ";
-                
-                if (scene->mNumAnimations > 0)
-                {
-                    aiAnimation* animation = scene->mAnimations[0];
-                    int keyCount = animation->mChannels[0]->mNumRotationKeys; // There SHOULD be 1 key for every bone at each key pose
-                    int boneCount = animation->mNumChannels; // This SHOULD be equal to boneMap.size()
-                    Scalar animationRate = animation->mTicksPerSecond > 0 ? animation->mTicksPerSecond : 50;
+            if (index < 0 || index >= scene->mNumMeshes)
+            {
+                LOG(logDEBUG) << "Invalid mesh index: " << index << " requested, but " << scene->mNumMeshes << " meshes have been found";
+                return animData;
+            }
 
-                    for (int i = 0; i < keyCount; i++)
+            // skeleton loading
+            aiMesh* mesh = scene->mMeshes[index];
+            if (mesh->mNumBones == 0)
+            {
+                LOG(logDEBUG) << "Mesh #" << index << ": no skeleton found.";
+                return animData;
+            }
+            
+            BoneMap boneMap; // first: name of the boneNode, second: index of the bone in the hierarchy / pose
+            animData.weights.resize(mesh->mNumVertices, mesh->mNumBones);// = Ra::Core::Animation::WeightMatrix(mesh->mNumVertices, mesh->mNumBones);
+            
+            for (int i = 0; i < mesh->mNumBones; i++)
+            {
+                boneMap[mesh->mBones[i]->mName] = -1; // the true index will get written during the recursive read of the scene
+                for (int j = 0; j < mesh->mBones[i]->mNumWeights; j++)
+                {
+                    aiVertexWeight vertexWeight = mesh->mBones[i]->mWeights[j];
+                    animData.weights.insert(vertexWeight.mVertexId, i) = vertexWeight.mWeight;
+                }
+            }
+            
+            // find the bone nodes and create the corresponding skeleton
+            recursiveSkeletonRead(scene->mRootNode, scene->mRootNode->mTransformation, boneMap, animData, -1);
+            
+            // animation loading
+            LOG(logDEBUG) << "Found " << scene->mNumAnimations << " animations ";
+            
+            if (scene->mNumAnimations > 0)
+            {
+                aiAnimation* animation = scene->mAnimations[0];
+                int keyCount = animation->mChannels[0]->mNumRotationKeys; // There SHOULD be 1 key for every bone at each key pose
+                int boneCount = animation->mNumChannels; // This SHOULD be equal to boneMap.size()
+                Scalar animationRate = animation->mTicksPerSecond > 0 ? animation->mTicksPerSecond : 50;
+
+                for (int i = 0; i < keyCount; i++)
+                {
+                    Ra::Core::Animation::Pose currentPose = Ra::Core::Animation::Pose(boneCount);
+                    Scalar keyTime = animation->mChannels[0]->mRotationKeys[i].mTime / animationRate;
+                    
+                    for (int j = 0; j < boneCount; j++)
                     {
-                        Ra::Core::Animation::Pose currentPose = Ra::Core::Animation::Pose(boneCount);
-                        Scalar keyTime = animation->mChannels[0]->mRotationKeys[i].mTime / animationRate;
+                        // retrieve the ith key of the jth joint
+                        aiVector3D keyPosition = animation->mChannels[j]->mPositionKeys[i].mValue;
+                        aiQuaternion keyRotation = animation->mChannels[j]->mRotationKeys[i].mValue;
+                        aiVector3D keyScaling = animation->mChannels[j]->mScalingKeys[i].mValue;
                         
-                        for (int j = 0; j < boneCount; j++)
-                        {
-                            // retrieve the ith key of the jth joint
-                            aiVector3D keyPosition = animation->mChannels[j]->mPositionKeys[i].mValue;
-                            aiQuaternion keyRotation = animation->mChannels[j]->mRotationKeys[i].mValue;
-                            aiVector3D keyScaling = animation->mChannels[j]->mScalingKeys[i].mValue;
-                            
-                            // convert the key to a transform matrix
-                            Ra::Core::Transform keyTransform;
-                            assimpToCore(keyPosition, keyRotation, keyScaling, keyTransform);
-                            
-                            // insert the key in the ith pose
-                            int boneIndex = boneMap[animation->mChannels[j]->mNodeName];
-                            currentPose[boneIndex] = keyTransform;
-                        }
+                        // convert the key to a transform matrix
+                        Ra::Core::Transform keyTransform;
+                        assimpToCore(keyPosition, keyRotation, keyScaling, keyTransform);
                         
-                        // store the pose in the animation
-                        animData.animation.addKeyPose(currentPose, keyTime);
+                        // insert the key in the ith pose
+                        int boneIndex = boneMap[animation->mChannels[j]->mNodeName];
+                        currentPose[boneIndex] = keyTransform;
                     }
                     
-                    animData.animation.normalize();
+                    // store the pose in the animation
+                    animData.animation.addKeyPose(currentPose, keyTime);
                 }
-                else
-                    LOG(logDEBUG) << "No animation was found";
-			}
-			else
-			{
-				LOG(logDEBUG) << "Invalid mesh count found: " << scene->mNumMeshes;
-			}
-				
+                
+                animData.animation.normalize();
+            }
+			
+            animData.hasLoaded = true;
 			return animData;
 		}
 		

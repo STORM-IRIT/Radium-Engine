@@ -30,8 +30,11 @@ namespace AnimationPlugin
 		for (auto compEntry : this->m_components)
 		{
 			AnimationComponent* component = std::static_pointer_cast<AnimationComponent>(compEntry.second).get();
-			AnimatorTask* task = new AnimatorTask(component, currentDelta);
-			taskQueue->registerTask( task );
+            if (!component->getAnimation().isEmpty())
+            {
+                AnimatorTask* task = new AnimatorTask(component, currentDelta);
+                taskQueue->registerTask( task );
+            }
 		}
     }
 
@@ -66,10 +69,13 @@ namespace AnimationPlugin
         FancyMeshPlugin::FancyMeshComponent* meshComponent = (FancyMeshPlugin::FancyMeshComponent*) component;
         
         AnimationLoader::AnimationData componentData = AnimationLoader::loadFile(meshComponent->getLoadingInfo().filename, meshComponent->getLoadingInfo().index);
-        AnimationComponent* animationComponent = static_cast<AnimationComponent*>(addComponentToEntity(meshComponent->getEntity()));
-        animationComponent->setMeshComponent(meshComponent);
-        animationComponent ->handleLoading(componentData);
-        
-        callOnComponentCreationDependencies(animationComponent);
+        if (componentData.hasLoaded)
+        {
+            AnimationComponent* animationComponent = static_cast<AnimationComponent*>(addComponentToEntity(meshComponent->getEntity()));
+            animationComponent->setMeshComponent(meshComponent);
+            animationComponent ->handleLoading(componentData);
+            
+            callOnComponentCreationDependencies(animationComponent);
+        }
     }
 }

@@ -75,7 +75,12 @@ namespace AnimationPlugin
         
         Ra::Core::Animation::Skeleton skeleton = Ra::Core::Animation::Skeleton();
         skeleton.m_graph = data.hierarchy;
-        skeleton.setPose(data.animation.getPose(0.0), Ra::Core::Animation::Handle::SpaceType::LOCAL);
+        
+        if (data.animation.isEmpty())
+            skeleton.setPose(data.pose, Ra::Core::Animation::Handle::SpaceType::LOCAL);
+        else
+            skeleton.setPose(data.animation.getPose(0.0), Ra::Core::Animation::Handle::SpaceType::LOCAL);
+
         set(skeleton);
         
         m_animation = data.animation;
@@ -100,7 +105,7 @@ namespace AnimationPlugin
         return m_meshComponent;
     }
     
-    Ra::Core::Animation::Animation AnimationComponent::getAnimation() const
+    const Ra::Core::Animation::Animation& AnimationComponent::getAnimation() const
     {
         return m_animation;
     }

@@ -31,6 +31,11 @@ void Animation::clear()
     m_keys.clear();
 }
 
+bool Animation::isEmpty() const
+{
+    return m_keys.size() == 0;
+}
+
 void Animation::normalize()
 {
     if (m_keys.size() == 0)

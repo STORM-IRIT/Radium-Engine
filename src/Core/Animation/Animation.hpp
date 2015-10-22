@@ -23,6 +23,8 @@ public:
     // Remove all the key poses.
     void clear();
     
+    bool isEmpty() const;
+    
     // Re-order the poses by chronological order.
     void normalize();
     

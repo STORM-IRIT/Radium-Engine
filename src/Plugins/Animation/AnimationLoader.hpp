@@ -15,6 +15,7 @@ namespace AnimationPlugin
 	{	
 		struct AnimationData
 		{
+            bool hasLoaded;
 			Ra::Core::Graph::AdjacencyList hierarchy;
 			Ra::Core::Animation::Pose pose;
             Ra::Core::Animation::Animation animation;
