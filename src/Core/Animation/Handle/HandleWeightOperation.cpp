@@ -32,7 +32,20 @@ MeshWeight extractMeshWeight( const WeightMatrix& matrix ) {
     return W;
 }
 
+int getMaxWeightIndex(const WeightMatrix& weights, int vertexId)
+{
+    int maxId = -1;
+    Eigen::Matrix< Scalar, 1, Eigen::Dynamic > vec = weights.row(vertexId);
+    vec.maxCoeff(&maxId);
+    return maxId;
+}
 
+void getMaxWeightIndex(const WeightMatrix& weights, std::vector<uint>& boneIds)
+{
+    boneIds.resize(weights.rows());
+    for (int i = 0; i < weights.rows(); i++)
+        boneIds[i] = getMaxWeightIndex(weights, i);
+}
 
 } // namespace Animation
 } // Namespace Core

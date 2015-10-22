@@ -7,8 +7,6 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-
-
 /*
 * Return the WeightMatrix extracted from the MeshWeight vector, for a handle with handle_size transforms
 */
@@ -21,7 +19,9 @@ WeightMatrix extractWeightMatrix( const MeshWeight& weight, const uint handle_si
 */
 MeshWeight extractMeshWeight( const WeightMatrix& matrix );
 
+int getMaxWeightIndex(int vertexId);
 
+void getMaxWeightIndex(const WeightMatrix& weights, std::vector<uint>& boneIds);
 
 } // namespace Animation
 } // Namespace Core
