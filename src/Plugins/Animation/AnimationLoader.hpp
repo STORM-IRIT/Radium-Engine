@@ -20,6 +20,7 @@ namespace AnimationPlugin
 			Ra::Core::Animation::Pose pose;
             Ra::Core::Animation::Animation animation;
             Ra::Core::Animation::WeightMatrix weights;
+            Ra::Core::Transform baseTransform;
 		};
 	
 		ANIM_PLUGIN_API AnimationData loadFile(const std::string& name , int index);

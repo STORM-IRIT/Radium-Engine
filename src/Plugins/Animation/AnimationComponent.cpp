@@ -75,11 +75,7 @@ namespace AnimationPlugin
         
         Ra::Core::Animation::Skeleton skeleton = Ra::Core::Animation::Skeleton();
         skeleton.m_graph = data.hierarchy;
-        
-        if (data.animation.isEmpty())
-            skeleton.setPose(data.pose, Ra::Core::Animation::Handle::SpaceType::LOCAL);
-        else
-            skeleton.setPose(data.animation.getPose(0.0), Ra::Core::Animation::Handle::SpaceType::LOCAL);
+        skeleton.setPose(data.pose, Ra::Core::Animation::Handle::SpaceType::LOCAL);
 
         set(skeleton);
         

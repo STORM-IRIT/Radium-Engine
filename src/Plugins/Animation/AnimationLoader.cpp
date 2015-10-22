@@ -59,7 +59,7 @@ namespace AnimationPlugin
             }
             
             BoneMap boneMap; // first: name of the boneNode, second: index of the bone in the hierarchy / pose
-            animData.weights.resize(mesh->mNumVertices, mesh->mNumBones);// = Ra::Core::Animation::WeightMatrix(mesh->mNumVertices, mesh->mNumBones);
+            animData.weights.resize(mesh->mNumVertices, mesh->mNumBones);
             
             for (int i = 0; i < mesh->mNumBones; i++)
             {
@@ -72,7 +72,7 @@ namespace AnimationPlugin
             }
             
             // find the bone nodes and create the corresponding skeleton
-            recursiveSkeletonRead(scene->mRootNode, scene->mRootNode->mTransformation, boneMap, animData, -1);
+            recursiveSkeletonRead(scene->mRootNode, aiMatrix4x4(), boneMap, animData, -1);
             
             // animation loading
             LOG(logDEBUG) << "Found " << scene->mNumAnimations << " animations ";
@@ -82,7 +82,7 @@ namespace AnimationPlugin
                 aiAnimation* animation = scene->mAnimations[0];
                 int keyCount = animation->mChannels[0]->mNumRotationKeys; // There SHOULD be 1 key for every bone at each key pose
                 int boneCount = animation->mNumChannels; // This SHOULD be equal to boneMap.size()
-                Scalar animationRate = animation->mTicksPerSecond > 0 ? animation->mTicksPerSecond : 50;
+                Scalar animationRate = animation->mTicksPerSecond > 0.0 ? animation->mTicksPerSecond : 50.0;
 
                 for (int i = 0; i < keyCount; i++)
                 {
@@ -102,7 +102,11 @@ namespace AnimationPlugin
                         
                         // insert the key in the ith pose
                         int boneIndex = boneMap[animation->mChannels[j]->mNodeName];
-                        currentPose[boneIndex] = keyTransform;
+                        
+                        if (animData.hierarchy.isRoot(j))
+                            currentPose[boneIndex] = animData.baseTransform * keyTransform;
+                        else
+                            currentPose[boneIndex] = keyTransform;
                     }
                     
                     // store the pose in the animation
@@ -117,7 +121,7 @@ namespace AnimationPlugin
 		}
 		
 		void recursiveSkeletonRead(const aiNode* node, aiMatrix4x4 accTransform, BoneMap &boneMap, AnimationData& data, int parent)
-		{
+		{           
 			aiMatrix4x4 currentTransform  = accTransform * node->mTransformation;
 			BoneMap::const_iterator boneIt = boneMap.find(node->mName);
             bool isBoneNode = boneIt != boneMap.end();
@@ -125,6 +129,11 @@ namespace AnimationPlugin
 			int currentIndex = parent;
 			if (isBoneNode)
 			{
+                if (parent == -1)
+                {
+                    assimpToCore(accTransform, data.baseTransform);
+                }
+                
 				// store the bone in the hierarchy
 				currentIndex = data.hierarchy.addNode(parent);
                 // store the index in the BoneMap
@@ -149,7 +158,7 @@ namespace AnimationPlugin
             {
                 for ( uint j = 0; j < 4; ++j )
                 {
-                    outMatrix( i, j ) = inMatrix[i][j];
+                    outMatrix(i, j) = inMatrix[i][j];
                 }
             }
         }
