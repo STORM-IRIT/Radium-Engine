@@ -1,4 +1,5 @@
 #include <Core/Animation/Handle/Skeleton.hpp>
+#include <stack>
 
 namespace Ra {
 namespace Core {
@@ -113,14 +114,14 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
             m_modelSpace[i] = m_modelSpace[m_graph.m_parent[i]] * T;
         }
         if( !m_graph.isLeaf( i ) ) {
-            Graph::ParentList stack;
-            stack.push_back( i );
-            for( auto parent : stack ) {
+            std::stack<uint> stack;
+            stack.push( i );
+            while( !stack.empty()) {
+                uint parent = stack.top();
+                stack.pop();
                 for( auto child : m_graph.m_child[parent] ) {
                     m_modelSpace[child] = m_modelSpace[parent] * m_pose[child];
-                    if( !m_graph.isLeaf( child ) ) {
-                        stack.push_back( child );
-                    }
+                    stack.push( child );
                 }
             }
         }
@@ -134,21 +135,21 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
             m_pose[i] = m_modelSpace[m_graph.m_parent[i]].inverse() * T;
         }
         if( !m_graph.isLeaf( i ) ) {
-            Graph::ParentList stack;
-            stack.push_back( i );
-            for( auto parent : stack ) {
+            std::stack<uint> stack;
+            stack.push( i );
+            while( !stack.empty()) {
+                uint parent = stack.top();
+                stack.pop();
                 for( auto child : m_graph.m_child[parent] ) {
                     m_pose[child] = m_modelSpace[parent].inverse() * m_modelSpace[child];
-                    if( !m_graph.isLeaf( child ) ) {
-                        stack.push_back( child );
-                    }
+                    stack.push( child );
                 }
             }
         }
 
     } break;
     default: {
-        CORE_ASSERT( false, "WHAT THE HELL JUST HAPPENED????");
+        CORE_ASSERT( false, "Should not get there");
     }
     }
 }
