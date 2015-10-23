@@ -40,7 +40,7 @@ namespace FancyMeshPlugin
         void runThroughNodes( const aiNode* node, const aiScene* scene,
                               const Ra::Core::Matrix4& transform );
 
-        void loadMesh( const aiMesh* mesh, FancyMeshData& data );
+        void loadMesh(const aiMesh* mesh, FancyMeshData& data , const Ra::Core::Transform &tranform);
 
         void loadRenderTechnique( const aiMaterial* mat, FancyComponentData& data );
         void loadDefaultRenderTechnique( FancyComponentData& data );
@@ -112,7 +112,8 @@ namespace FancyMeshPlugin
                     FancyMeshData meshData;
 
                     aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-                    loadMesh( mesh, meshData );
+                    Ra::Core::Transform transform(data.transform);
+                    loadMesh( mesh, meshData, transform);
 
                     data.mesh = meshData;
                 }
@@ -126,7 +127,7 @@ namespace FancyMeshPlugin
             }
         }
 
-        void loadMesh( const aiMesh* mesh, FancyMeshData& data )
+        void loadMesh( const aiMesh* mesh, FancyMeshData& data, const Ra::Core::Transform& transform )
         {
             Ra::Core::Vector4Array tangents;
             Ra::Core::Vector4Array bitangents;
@@ -141,7 +142,7 @@ namespace FancyMeshPlugin
             {
                 //positions.push_back( assimpToCore( mesh->mVertices[i] ) );
                 //normals.push_back( assimpToCore( mesh->mNormals[i] ) );
-                triangleMesh.m_vertices.push_back( assimpToCore( mesh->mVertices[i] ) );
+                triangleMesh.m_vertices.push_back( transform * assimpToCore( mesh->mVertices[i] ) );
 
                 if ( mesh->HasTangentsAndBitangents() )
                 {

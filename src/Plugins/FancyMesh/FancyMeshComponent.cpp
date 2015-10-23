@@ -88,7 +88,7 @@ namespace FancyMeshPlugin
         mesh->addData( Ra::Engine::Mesh::VERTEX_WEIGHTS, meshData.weights );
 
         renderObject->setMesh( mesh );
-        renderObject->setLocalTransform(data.transform);
+        //renderObject->setLocalTransform(data.transform);
         
         m_meshIndex = addRenderObject(renderObject);
         
