@@ -51,7 +51,7 @@ void main()
     }
 
     // Uncomment this to see the picking FBO instead of the normal display.
-    value = pickingValue;
+    //value = pickingValue;
 
     fragColor = value;
 }
