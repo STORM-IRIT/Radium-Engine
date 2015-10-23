@@ -12,7 +12,7 @@ WeightMatrix extractWeightMatrix( const MeshWeight& weight, const uint weight_si
     WeightMatrix W( weight.size(), weight_size );
     W.setZero();
     for( uint i = 0; i < weight.size(); ++i ) {
-        for( auto w : weight[i] ) {
+        for( const auto& w: weight[i] ) {
             W.coeffRef( i, w.first ) = w.second;
         }
     }

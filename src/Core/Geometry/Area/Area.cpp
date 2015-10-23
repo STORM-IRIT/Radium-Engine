@@ -17,7 +17,7 @@ namespace Geometry {
 AreaMatrix oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     AreaMatrix A( p.size(), p.size() );
     A.reserve( p.size() );
-    for( auto t : T ) {
+    for( const auto& t : T ) {
         uint i = t( 0 );
         uint j = t( 1 );
         uint k = t( 2 );
@@ -40,7 +40,7 @@ AreaMatrix barycentricArea( const VectorArray< Vector3 >& p, const VectorArray< 
 AreaMatrix voronoiArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     AreaMatrix A( p.size(), p.size() );
     A.reserve( p.size() );
-    for( auto t : T ) {
+    for( const auto& t : T ) {
         uint i = t( 0 );
         uint j = t( 1 );
         uint k = t( 2 );
@@ -56,7 +56,7 @@ AreaMatrix voronoiArea( const VectorArray< Vector3 >& p, const VectorArray< Tria
 AreaMatrix mixedArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     AreaMatrix A( p.size(), p.size() );
     A.reserve( p.size() );
-    for( auto t : T ) {
+    for( const auto& t : T ) {
         uint i = t( 0 );
         uint j = t( 1 );
         uint k = t( 2 );

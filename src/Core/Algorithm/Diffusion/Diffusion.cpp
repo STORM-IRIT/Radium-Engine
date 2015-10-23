@@ -22,7 +22,7 @@ ScalarValue diffuseDelta( const Geometry::AdjacencyMatrix& A, const Delta& delta
             oneRingMeanValue /= ( Scalar )A.col( u_it.row() ).nonZeros();
             tmp.coeffRef( u_it.row(), 0 ) = ( lambda * oneRingMeanValue ) + ( delta.coeff( u_it.row(), 0 ) * ( 1.0 - lambda ) );
         }
-        std::swap( u, tmp );
+        u.swap( tmp );
     }
     return u;
 }
@@ -43,9 +43,9 @@ void diffuseDelta( const Geometry::AdjacencyMatrix& A, const Delta& delta, const
             oneRingMeanValue /= ( Scalar )A.col( u_it.row() ).nonZeros();
             tmp.coeffRef( u_it.row(), 0 ) = ( lambda * oneRingMeanValue ) + ( delta.coeff( u_it.row(), 0 ) * ( 1.0 - lambda ) );
         }
-        std::swap( u, tmp );
+        u.swap( tmp );
     }
-    std::swap( u, value );
+    u.swap( value );
 }
 
 

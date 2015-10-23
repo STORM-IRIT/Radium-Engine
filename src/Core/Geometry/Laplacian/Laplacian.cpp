@@ -51,7 +51,7 @@ LaplacianMatrix powerLaplacian( const LaplacianMatrix& L, const uint k ) {
 
 LaplacianMatrix cotangentWeightLaplacian( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     LaplacianMatrix L( p.size(), p.size() );
-    for( auto t : T ) {
+    for( const auto& t : T ) {
         uint i = t( 0 );
         uint j = t( 1 );
         uint k = t( 2 );
@@ -83,7 +83,7 @@ LaplacianMatrix cotangentWeightLaplacian( const VectorArray< Vector3 >& p, const
 Vector3 uniformLaplacian( const Vector3& v, const VectorArray< Vector3 >& p ) {
     Vector3 L;
     L.setZero();
-    for( auto pi : p ) {
+    for( const auto& pi : p ) {
         L += ( v - pi );
     }
     return L;

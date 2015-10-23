@@ -10,7 +10,7 @@ namespace Algorithm {
 
 Gradient gradientOfFieldS( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, const ScalarField& S ) {
     Gradient g;
-    for( auto t : T ) {
+    for( const auto& t : T ) {
         uint v0 = t( 0 );
         uint v1 = t( 1 );
         uint v2 = t( 2 );

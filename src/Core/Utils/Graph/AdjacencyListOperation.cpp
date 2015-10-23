@@ -14,7 +14,7 @@ void check( const AdjacencyList& adj ) {
     for( uint node = 0; node < adj.size(); ++node ) {
         CORE_ASSERT( ( adj.m_parent.at( node ) < int( node ) ), "Parent ordering is wrong.");
         CORE_ASSERT( ( adj.m_parent.at( node ) >= -1 ), "Parent index is wrong");
-        for( auto child : adj.m_child.at( node ) ) {
+        for( const auto& child : adj.m_child.at( node ) ) {
             CORE_ASSERT( ( adj.m_parent.at( child ) == node ), " Inconsistent parent indexes");
         }
         CORE_ASSERT( adj.isLeaf( node ) == ( adj.m_child.at( node ).size() == 0 ), " Only leaves should have no children.");
@@ -25,7 +25,7 @@ void check( const AdjacencyList& adj ) {
 
 AdjacencyList extractAdjacencyList( const VectorArray< Edge >& edgeList ) {
     AdjacencyList adj;
-    for( auto edge : edgeList ) {
+    for( const auto& edge : edgeList ) {
         uint size =  std::max( int( adj.m_child.size() - 1 ), std::max( edge( 0 ), edge( 1 ) ) );
         adj.m_child.resize( size + 1 );
         adj.m_child[ edge( 0 ) ].push_back( edge( 1 ) );
@@ -49,7 +49,7 @@ VectorArray< Edge > extractEdgeList( const AdjacencyList& adj, const bool includ
             e( 1 ) = i;
             edgeList.push_back( e );
         } else {
-            for( auto edge : adj.m_child[i] ) {
+            for( const auto& edge : adj.m_child[i] ) {
                 Edge e;
                 e( 0 ) = i;
                 e( 1 ) = edge;

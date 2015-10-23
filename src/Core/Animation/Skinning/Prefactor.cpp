@@ -26,7 +26,7 @@ PrefactorMatrix computeMatrixX( const VectorArray< Vector3 >& v, const MeshWeigh
     const uint blockClm = 12;
     PrefactorMatrix X( ( blockRow * v.size() ), ( blockClm * handle_size ) );
     for( uint i = 0; i < v.size(); ++i ) {
-        for( auto w : weight[i] ) {
+        for( const auto& w : weight[i] ) {
             WeightBlock Xij = computeBlockXij( v[i], w.second );
             for( uint k = 0; k < ( blockClm / blockRow ); ++k ) {
                 for( uint j = 0; j < blockRow; ++j ) {

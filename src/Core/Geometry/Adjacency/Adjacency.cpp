@@ -15,7 +15,7 @@ namespace Geometry {
 
 AdjacencyMatrix uniformAdjacency( const uint point_size, const VectorArray< Triangle >& T ) {
     AdjacencyMatrix A( point_size, point_size );
-    for( auto t : T ) {
+    for( const auto& t : T ) {
         uint i = t( 0 );
         uint j = t( 1 );
         uint k = t( 2 );
@@ -30,7 +30,7 @@ AdjacencyMatrix uniformAdjacency( const uint point_size, const VectorArray< Tria
 
 AdjacencyMatrix uniformAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     AdjacencyMatrix A( p.size(), p.size() );
-    for( auto t : T ) {
+    for( const auto& t : T ) {
         uint i = t( 0 );
         uint j = t( 1 );
         uint k = t( 2 );
@@ -45,7 +45,7 @@ AdjacencyMatrix uniformAdjacency( const VectorArray< Vector3 >& p, const VectorA
 
 AdjacencyMatrix cotangentWeightAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     AdjacencyMatrix A( p.size(), p.size() );
-    for( auto t : T ) {
+    for( const auto& t : T ) {
         uint i = t( 0 );
         uint j = t( 1 );
         uint k = t( 2 );

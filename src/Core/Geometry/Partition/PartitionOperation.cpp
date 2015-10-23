@@ -15,7 +15,7 @@ VertexSegment extractVertexSegment( const Animation::MeshWeight& weights, const 
     for( uint i = 0; i < weights.size(); ++i ) {
         Scalar max = std::numeric_limits< Scalar >::min();
         uint j( -1 );
-        for( auto w : weights[i] ) {
+        for( const auto& w : weights[i] ) {
             if( max < w.second ) {
                 max = w.second;
             }
@@ -34,7 +34,7 @@ VertexSegment extractVertexSegment( const Animation::MeshWeight& weights, const 
 
 VertexSegment extractVertexSegment( const Animation::MeshWeight& weights, const IndexSet& index, const bool is_max ) {
     VertexSegment v;
-    for( auto id : index ) {
+    for( const auto& id : index ) {
         auto set = extractVertexSegment( weights, id, is_max );
         v.insert( set.begin(), set.end() );
     }
@@ -56,7 +56,7 @@ VertexSegment extractVertexSegment( const Animation::MeshWeight& weights, const 
 
 VertexSegment extractVertexSegment( const Animation::MeshWeight& weights, const EdgeSet& edge, const bool is_max ) {
     VertexSegment v;
-    for( auto e : edge ) {
+    for( const auto& e : edge ) {
         auto set = extractVertexSegment( weights, e, is_max );
         v.insert( set.begin(), set.end() );
     }
@@ -82,7 +82,7 @@ VertexSegment extractVertexSegment( const Animation::WeightMatrix& weights, cons
 
 VertexSegment extractVertexSegment( const Animation::WeightMatrix& weights, const IndexSet& index, const bool is_max ) {
     VertexSegment v;
-    for( auto id : index ) {
+    for( const auto& id : index ) {
         auto set = extractVertexSegment( weights, id, is_max );
         v.insert( set.begin(), set.end() );
     }
@@ -104,7 +104,7 @@ VertexSegment extractVertexSegment( const Animation::WeightMatrix& weights, cons
 
 VertexSegment extractVertexSegment( const Animation::WeightMatrix& weights, const EdgeSet& edge, const bool is_max ) {
     VertexSegment v;
-    for( auto e : edge ) {
+    for( const auto& e : edge ) {
         auto set = extractVertexSegment( weights, e, is_max );
         v.insert( set.begin(), set.end() );
     }
@@ -115,7 +115,7 @@ VertexSegment extractVertexSegment( const Animation::WeightMatrix& weights, cons
 
 BitSet extractBitSet( const VertexSegment& v, const uint vertex_size ) {
     BitSet bit( vertex_size, false );
-    for( auto id : v ) {
+    for( const auto& id : v ) {
         bit[id] = true;
     }
     return bit;

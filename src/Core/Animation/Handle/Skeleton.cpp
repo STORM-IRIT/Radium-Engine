@@ -63,7 +63,7 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
             if( m_graph.isRoot( i ) ) {
                 m_modelSpace[i] = m_pose[i];
             }
-            for( auto child : m_graph.m_child[i] ) {
+            for( const auto& child : m_graph.m_child[i] ) {
                 m_modelSpace[child] = m_modelSpace[i] * m_pose[child];
             }
         }
@@ -75,7 +75,7 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
             if( m_graph.isRoot( i ) ) {
                 m_pose[i] = m_modelSpace[i];
             }
-            for( auto child : m_graph.m_child[i] ) {
+            for( const auto& child : m_graph.m_child[i] ) {
                 m_pose[child] = m_modelSpace[i].inverse() * m_modelSpace[child];
             }
         }
@@ -88,8 +88,7 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
 const Transform& Skeleton::getTransform( const uint i, const SpaceType MODE ) const {
     CORE_ASSERT( ( i < size() ), "Index i out of bounds");
     switch( MODE ) {
-        case SpaceType::LOCAL:
-        {
+        case SpaceType::LOCAL: {
             return m_pose[i];
         } break;
         case SpaceType::MODEL: {
@@ -119,7 +118,7 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
             while( !stack.empty()) {
                 uint parent = stack.top();
                 stack.pop();
-                for( auto child : m_graph.m_child[parent] ) {
+                for( const auto& child : m_graph.m_child[parent] ) {
                     m_modelSpace[child] = m_modelSpace[parent] * m_pose[child];
                     stack.push( child );
                 }
@@ -140,13 +139,12 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
             while( !stack.empty()) {
                 uint parent = stack.top();
                 stack.pop();
-                for( auto child : m_graph.m_child[parent] ) {
+                for( const auto& child : m_graph.m_child[parent] ) {
                     m_pose[child] = m_modelSpace[parent].inverse() * m_modelSpace[child];
                     stack.push( child );
                 }
             }
         }
-
     } break;
     default: {
         CORE_ASSERT( false, "Should not get there");

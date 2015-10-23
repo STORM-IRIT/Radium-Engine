@@ -37,7 +37,7 @@ Delta delta( const Source& source,
              const uint    size,
              const Scalar& default_value ) {
     Delta d( size, 1 );
-    for( auto s : source ) {
+    for( const auto& s: source ) {
         d.insert( s, 0 )  = default_value;
     }
     return d;
@@ -52,7 +52,7 @@ void delta( const Source& source,
     u.resize( size, 1 );
     u.setZero();
     u.reserve( source.size() );
-    for( auto s : source ) {
+    for( const auto& s: source ) {
         u.insert( s, 0 )  = default_value;
     }
 }
