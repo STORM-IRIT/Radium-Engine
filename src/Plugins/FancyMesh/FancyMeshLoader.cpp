@@ -114,7 +114,7 @@ namespace FancyMeshPlugin
                     aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
                     loadMesh( mesh, meshData );
 
-                    data.meshes.push_back( meshData );
+                    data.mesh = meshData;
                 }
 
                 dataVector.push_back( data );

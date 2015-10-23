@@ -37,7 +37,7 @@ namespace FancyMeshPlugin
     {
         RA_CORE_ALIGNED_NEW
         Ra::Core::Matrix4 transform;
-        std::vector<FancyMeshData> meshes;
+        FancyMeshData mesh;
 
         std::string name;
         Ra::Engine::RenderTechnique* renderTechnique;
