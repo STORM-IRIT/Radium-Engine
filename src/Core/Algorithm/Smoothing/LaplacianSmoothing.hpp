@@ -35,9 +35,17 @@ void smartClamp( const BitSet& bit, const ScalarValue& value, ScalarValue& clamp
 
 /*
 * Return the new position of the vertices v_i given the LaplacianMatrix and a set of weight, after a user-defined number of iterations.
-*
+* Within each iteration, the new position is evaluated as the weighted sum of the iteration i and iteration i-1.
 */
 VectorArray< Vector3 > laplacianSmoothing( const VectorArray< Vector3 >& v, const Geometry::LaplacianMatrix& L, const ScalarValue& weight, const uint iteration );
+
+
+
+/*
+* Return the new position of the vertices v_i given the LaplacianMatrix and a set of weight, after a user-defined number of iterations.
+* Within each iteration, the new position is evaluated as the weighted sum of the iteration i and iteration i-1.
+*/
+void laplacianSmoothing( const VectorArray< Vector3 >& v, const Geometry::LaplacianMatrix& L, const ScalarValue& weight, const uint iteration, VectorArray< Vector3 >& p );
 
 
 
