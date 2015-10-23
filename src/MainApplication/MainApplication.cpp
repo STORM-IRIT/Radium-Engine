@@ -124,6 +124,30 @@ namespace Ra
     void MainApplication::setupScene()
     {
         Engine::SystemEntity::uiCmp()->addRenderObject(Engine::DrawPrimitives::Grid(Engine::SystemEntity::uiCmp(),Core::Vector3::Zero(), Core::Vector3::UnitX(), Core::Vector3::UnitZ(),Core::Colors::Grey(0.6f)));
+
+        Core::Animation::Skeleton skel(3);
+        Core::Graph::AdjacencyList  skelGraph;
+
+        skelGraph.addNode(-1);
+        skelGraph.addNode(0);
+        skelGraph.addNode(1);
+
+        skel.m_graph  = skelGraph; // TODO : autoresize pose ?
+
+        Core::Animation::Pose pose;
+        Core::Transform t = Core::Transform::Identity();
+        pose.push_back(t);
+        t.translate(Core::Vector3(0, 0, 1));
+        pose.push_back(t);
+        t.translate(Core::Vector3(0, 0, 1));
+        pose.push_back(t);
+
+        skel.setPose(pose, Ra::Core::Animation::Handle::SpaceType::MODEL);
+
+        AnimationPlugin::AnimationComponent* comp = new AnimationPlugin::AnimationComponent("Basic anim component", skel);
+        m_engine->getEntityManager()->getOrCreateEntity("Test Skeleton")->addComponent(comp);
+        m_engine->getSystem("AnimationSystem")->addComponent(comp);
+        comp->initialize();
     }
 
     void MainApplication::loadFile( QString path )

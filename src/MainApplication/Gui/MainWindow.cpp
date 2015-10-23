@@ -98,6 +98,7 @@ namespace Ra
         // Inform property editors of new selections
         connect(this, &MainWindow::selectedEntity, tab_edition, &TransformEditorWidget::setEditable);
         connect(this, &MainWindow::selectedEntity, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
+        connect(this, &MainWindow::selectedComponent, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
 
         // Editors should be updated after each frame
         connect(mainApp, &MainApplication::endFrame, tab_edition, &TransformEditorWidget::updateValues);

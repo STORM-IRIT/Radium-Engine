@@ -17,7 +17,7 @@ namespace AnimationPlugin
 {
     void AnimationSystem::initialize()
     {
-        m_isPlaying = true;
+        m_isPlaying = false;
         
         FancyMeshPlugin::FancyMeshSystem* meshSystem = (FancyMeshPlugin::FancyMeshSystem*) Ra::Engine::RadiumEngine::getInstance()->getSystem("FancyMeshSystem");
         meshSystem->registerOnComponentCreation(this);

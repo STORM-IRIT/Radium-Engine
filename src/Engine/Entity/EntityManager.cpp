@@ -130,7 +130,7 @@ namespace Ra
         {
             for ( uint i = 0; i < m_entities.size(); ++i )
             {
-                m_entities.at( i )->swapTransformBuffers();
+                m_entities[i]->swapTransformBuffers();
             }
         }
     }

@@ -11,11 +11,10 @@
 
 #include <Plugins/Animation/AnimationComponent.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
-#include <iostream>
 
 namespace AnimationPlugin
 {
-class SkeletonBoneRenderObject
+class SkeletonBoneRenderObject : public Ra::Engine::RenderObject
 {
 public:
     SkeletonBoneRenderObject(const std::string& name, AnimationComponent* comp, Ra::Core::Edge edge, Ra::Engine::RenderObjectManager* roMgr);
@@ -23,15 +22,15 @@ public:
     
 	static Ra::Core::TriangleMesh makeBoneShape();
 
-    private:
-		void updateLocalTransform(Ra::Engine::RenderObject *ro);
+    void updateLocalTransform(Ra::Engine::RenderObject *ro);
 	
-        const Ra::Core::Animation::Skeleton& m_skel;
-        Ra::Core::Edge m_edge;
-        std::unique_ptr<Ra::Engine::RenderTechnique> m_renderParams;
-        std::unique_ptr<Ra::Engine::Material> m_material;
-		Ra::Core::Index m_index;
-		Ra::Engine::RenderObjectManager* m_roMgr;
+private:
+    const Ra::Core::Animation::Skeleton& m_skel;
+    Ra::Core::Edge m_edge;
+    std::unique_ptr<Ra::Engine::RenderTechnique> m_renderParams;
+    std::unique_ptr<Ra::Engine::Material> m_material;
+    Ra::Core::Index m_index;
+    Ra::Engine::RenderObjectManager* m_roMgr;
 };
 
 }

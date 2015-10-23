@@ -40,6 +40,44 @@ namespace AnimationPlugin
             }
         }
         CORE_ASSERT(boneIdx >=0 , "Property not found in skeleton");
+
+        Ra::Core::Transform tr = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL)[boneIdx];
+        // TODO (val) this code is copied from entity.cpp and could be factored.
+        for(const auto& entry: prop.primitives)
+        {
+            const Ra::Engine::EditablePrimitive& prim = entry.primitive;
+            switch (prim.getType())
+            {
+                case Ra::Engine::EditablePrimitive::POSITION:
+                {
+                    CORE_ASSERT(prim.getName() == "Position", "Inconsistent primitive");
+
+                    // Val : ignore translation for now  (todo : use the flags in primitive).
+                    // tr.translation() = prim.asPosition();
+                }
+                break;
+
+                case Ra::Engine::EditablePrimitive::ROTATION:
+                {
+                    CORE_ASSERT(prim.getName() == "Rotation", "Inconsistent primitive");
+                    tr.linear() = prim.asRotation().toRotationMatrix();
+                }
+                break;
+
+                default:
+                {
+                    CORE_ASSERT(false, "Wrong primitive type in property");
+                }
+                break;
+            }
+        }
+
+        // Transforms are edited in model space but applied to local space.
+        const Ra::Core::Transform& TBoneModel = m_skel.getTransform(boneIdx, Ra::Core::Animation::Handle::SpaceType::MODEL);
+        const Ra::Core::Transform& TBoneLocal= m_skel.getTransform(boneIdx, Ra::Core::Animation::Handle::SpaceType::LOCAL);
+        auto diff = TBoneModel.inverse() *  tr;
+
+        m_skel.setTransform(boneIdx,TBoneLocal * diff,  Ra::Core::Animation::Handle::SpaceType::LOCAL);
     }
 
     void AnimationComponent::set(const Ra::Core::Animation::Skeleton& skel)
@@ -57,10 +95,14 @@ namespace AnimationPlugin
 		m_animationTime += dt;
 		
         // get the current pose from the animation
-        Ra::Core::Animation::Pose currentPose = m_animation.getPose(m_animationTime);
+        // FIXME (val)  This will fail if the animation is empty, we should work around it.
+        if (dt > 0)
+        {
+            Ra::Core::Animation::Pose currentPose = m_animation.getPose(m_animationTime);
         
-        // update the pose of the skeleton
-        m_skel.setPose(currentPose, Ra::Core::Animation::Handle::SpaceType::LOCAL);
+            // update the pose of the skeleton
+            m_skel.setPose(currentPose, Ra::Core::Animation::Handle::SpaceType::LOCAL);
+        }
         
         // update the render objects
         for (SkeletonBoneRenderObject* bone : m_boneDrawables)
@@ -90,7 +132,7 @@ namespace AnimationPlugin
     {
         m_meshComponent = component;
     }
-    
+
     Ra::Core::Animation::Pose AnimationComponent::getRefPose() const
     {
         return m_refPose;
