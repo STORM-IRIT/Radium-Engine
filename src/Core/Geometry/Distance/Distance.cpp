@@ -44,6 +44,21 @@ void vertexDistance(const VectorArray< Vector3 >& v0,
 
 
 
+Scalar vertexDistance( const VectorArray< Vector3 >& v0,
+                       const VectorArray< Vector3 >& v1 ) {
+    const uint n = v0.size();
+    Scalar sqrMax = 0.0;
+    Scalar sqrMin = std::numeric_limits< Scalar >::max();
+    for( uint i = 0; i < n; ++i ) {
+        Scalar sqrDist = ( v0[i] - v1[i] ).squaredNorm();
+        sqrMax = ( sqrDist > sqrMax ) ? sqrDist : sqrMax;
+        sqrMin = ( sqrDist < sqrMin ) ? sqrDist : sqrMin;
+    }
+    return ( ( sqrMax + sqrMin ) * 0.5 );
+}
+
+
+
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra

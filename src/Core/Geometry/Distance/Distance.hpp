@@ -19,13 +19,16 @@ void vertexDistance( const VectorArray< Vector3 >& v0,
 
 
 
-void vertexDistance(const VectorArray< Vector3 >& v0,
-                    const VectorArray< Vector3 >& v1,
-                    Scalar&                       sqrMin,
-                    Scalar&                       sqrMax,
-                    Scalar&                       sqrAvg );
+void vertexDistance( const VectorArray< Vector3 >& v0,
+                     const VectorArray< Vector3 >& v1,
+                     Scalar&                       sqrMin,
+                     Scalar&                       sqrMax,
+                     Scalar&                       sqrAvg );
 
 
+
+Scalar vertexDistance( const VectorArray< Vector3 >& v0,
+                       const VectorArray< Vector3 >& v1 );
 
 } // namespace Geometry
 } // namespace Core

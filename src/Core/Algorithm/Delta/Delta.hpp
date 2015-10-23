@@ -79,7 +79,13 @@ void delta( const Source& source, const uint size, Delta& u, const Scalar& defau
 
 
 
-
+/*
+* Return a BitSet from a given Delta.
+* The BitSet is defined as:
+*       bit_i = false   , if delta( i )  = 0
+*       bit_i = true    , if delta( i ) != 0
+*/
+void bitset( const Delta& u, BitSet& bit );
 
 }
 }

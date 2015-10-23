@@ -59,6 +59,17 @@ void delta( const Source& source,
 
 
 
+void bitset( const Delta& u, BitSet& bit ) {
+    const uint n = u.rows();
+    bit.resize( n, false );
+    for( Delta::InnerIterator it( u, 0 ); it; ++it ) {
+        uint i = it.row();
+        bit[i] = true;
+    }
+}
+
+
+
 }
 }
 }
