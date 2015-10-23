@@ -24,6 +24,8 @@ typedef RestPose RefPose;
 typedef Pose LocalPose;
 typedef Pose ModelPose;
 
+typedef Pose RelativePose;
+
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
