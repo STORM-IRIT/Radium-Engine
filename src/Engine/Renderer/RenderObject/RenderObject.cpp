@@ -75,6 +75,8 @@ namespace Ra
             newRO->setVisible( m_visible );
             newRO->addRenderParameters( m_renderParameters );
 
+            newRO->idx = idx;
+
             if ( m_mesh )
             {
                 Mesh* newMesh = new Mesh( m_mesh->getName() );
@@ -90,3 +92,4 @@ namespace Ra
         }
     } // namespace Engine
 } // namespace Ra
+
