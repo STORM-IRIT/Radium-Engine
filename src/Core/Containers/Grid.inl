@@ -177,43 +177,5 @@ namespace Ra
         {
             return m_data.cend();
         }
-
-        namespace GridUtils
-        {
-            /// Compute 2d gradients with central finite difference.
-            /// Borders of the grid are untouched.
-            /// @param scale : if 'vals' represent a 2D function what is the range of (x, y)
-            /// variables? Scale defines that x ranges to [0; scale.x] and y ranges to
-            /// [0; scale.y].
-            /// @tparam Real  : a real number type
-            /// @tparam Grad2 : gradient must define '.x' and '.y' attributes
-            template<typename Real, typename Grad2>
-            void grad_2d( Grid2_ref<Real> vals,
-                          Grid2_ref<Grad2> grads,
-                          const Vector2 scale = Vector2( 1., 1. ) )
-            {
-                assert( vals.size() == grads.size() );
-
-                Real step_x = scale( 0 ) / ( vals.size()( 0 ) - 1 );
-                Real step_y = scale( 1 ) / ( vals.size()( 1 ) - 1 );
-
-                Idx2 off( vals.size(), 1, 1 );
-                for ( Idx2 sub_idx( vals.size() - Vector2i( 2, 2 ), 0 ); sub_idx.is_in(); ++sub_idx )
-                {
-                    Idx2 idx = off + sub_idx.to_2d();
-
-                    Real x_plus_h  = vals( idx + Vector2i( 1, 0 ) );
-                    Real x_minus_h = vals( idx + Vector2i( -1, 0 ) );
-                    Real grad_x = ( x_plus_h - x_minus_h ) / ( ( Real )2 * step_x );
-
-                    Real y_plus_h  = vals( idx + Vector2i( 0,  1 ) );
-                    Real y_minus_h = vals( idx + Vector2i( 0, -1 ) );
-                    Real grad_y = ( y_plus_h - y_minus_h ) / ( ( Real )2 * step_y );
-
-                    grads( idx )( 0 ) = grad_x;
-                    grads( idx )( 1 ) = grad_y;
-                }
-            }
-        }
     }
 }

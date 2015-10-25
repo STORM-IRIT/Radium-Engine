@@ -1,9 +1,9 @@
-#ifndef RADIUMENGINE_TEX3D_HPP
-#define RADIUMENGINE_TEX3D_HPP
+#ifndef TEX3D_HPP
+#define TEX3D_HPP
 
 #include <Core/RaCore.hpp>
+#include <Core/Containers/Grid3.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Containers/Grid.hpp>
 
 namespace Ra
 {
@@ -13,7 +13,7 @@ namespace Ra
         /// bounding box. It evaluates the function at a given point in space
         /// wrt the stored values tri-linear interpolation.
         template<typename T>
-        class Tex3D : public Grid<T, 3>
+        class Tex3D : public Grid3<T>
         {
         public:
             RA_CORE_ALIGNED_NEW
