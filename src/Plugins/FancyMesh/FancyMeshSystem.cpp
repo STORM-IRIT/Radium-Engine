@@ -103,11 +103,6 @@ namespace FancyMeshPlugin
     void FancyMeshSystem::generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo )
     {
         // Do nothing, as this system only displays meshes.
-        Ra::Core::DummyTask* task = new Ra::Core::DummyTask;
-        Ra::Core::DummyTaskParams p;
-        p.m_param = frameInfo.m_dt;
-        task->init( &p );
-        taskQueue->registerTask( task );
     }
 
     FancyMeshComponent* FancyMeshSystem::addFancyMeshToEntity( Ra::Engine::Entity* entity,
