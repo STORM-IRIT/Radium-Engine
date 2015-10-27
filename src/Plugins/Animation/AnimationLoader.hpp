@@ -21,6 +21,7 @@ namespace AnimationPlugin
             Ra::Core::Animation::Animation animation;
             Ra::Core::Animation::WeightMatrix weights;
             Ra::Core::Transform baseTransform;
+            std::vector<std::string> boneNames;
 		};
 	
 		ANIM_PLUGIN_API AnimationData loadFile(const std::string& name , int index);

@@ -132,9 +132,23 @@ namespace AnimationPlugin
     {
         LOG( logDEBUG ) << "Animation component: loading a skeleton";
         
-        Ra::Core::Animation::Skeleton skeleton = Ra::Core::Animation::Skeleton();
+        Ra::Core::Animation::Skeleton skeleton = Ra::Core::Animation::Skeleton(data.hierarchy.size());
         skeleton.m_graph = data.hierarchy;
         skeleton.setPose(data.pose, Ra::Core::Animation::Handle::SpaceType::LOCAL);
+        
+        if (data.boneNames.size() == data.hierarchy.size())
+        {
+            for (int i = 0; i < skeleton.m_graph.size(); i++)
+                skeleton.setLabel(i, data.boneNames[i]);
+        }
+        else  // Auto-naming
+        {
+            for (int i = 0; i < skeleton.m_graph.size(); i++)
+                skeleton.setLabel(i, "Bone_" + i);
+        }
+        
+        for (std::string s : data.boneNames)
+            std::cout << s << std::endl;
 
         set(skeleton);
         

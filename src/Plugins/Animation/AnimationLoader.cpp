@@ -78,6 +78,14 @@ namespace AnimationPlugin
             // find the bone nodes and create the corresponding skeleton
             recursiveSkeletonRead(scene->mRootNode, aiMatrix4x4(), boneMap, animData, -1);
             
+            // Store the names of each bone
+            animData.boneNames.resize(boneMap.size());
+            for (std::pair<aiString, int> p : boneMap)
+            {
+                CORE_ASSERT(p.second < boneMap.size(), "Invalid bone index");
+                animData.boneNames[p.second] = std::string(p.first.C_Str());
+            }
+            
             // animation loading
             LOG(logDEBUG) << "Found " << scene->mNumAnimations << " animations ";
             
@@ -87,18 +95,22 @@ namespace AnimationPlugin
                 int channelCount = animation->mNumChannels;
                 int boneCount = boneMap.size();
 
+                // Get the sorted set of key pose timestamps
                 std::vector<double> timeSet;
                 getUniqueKeyTimes(animation, timeSet);
                 int keyCount = timeSet.size();
                 
+                // Allocate the poses
                 std::vector<Ra::Core::Animation::Pose> poses;
                 for (int i = 0; i < keyCount; i++)
                     poses.push_back(Ra::Core::Animation::Pose(boneCount));
                 
+                // Track which bones have an animation
                 bool animatedBones[boneCount];
                 for (int i = 0; i < boneCount; i++)
                     animatedBones[i] = false;
                 
+                // Add the animated bone transforms to the poses + interpolate when necessary
                 for (int i = 0; i < channelCount; i++)
                 {
                     aiNodeAnim* currentNodeAnim = animation->mChannels[i];
@@ -153,6 +165,7 @@ namespace AnimationPlugin
                     }
                 }
                 
+                // add the non animated bone transforms to the poses
                 for (int i = 0; i < boneCount; i++)
                 {
                     if (!animatedBones[i])
@@ -164,6 +177,7 @@ namespace AnimationPlugin
                     }
                 }
                 
+                // finally create the animation object
                 Scalar animationRate = animation->mTicksPerSecond > 0.0 ? animation->mTicksPerSecond : 50.0;
                 for (int i = 0; i < keyCount; i++)
                 {
