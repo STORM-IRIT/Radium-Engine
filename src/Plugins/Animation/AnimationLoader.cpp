@@ -87,11 +87,12 @@ namespace AnimationPlugin
             }
             
             // animation loading
-            LOG(logDEBUG) << "Found " << scene->mNumAnimations << " animations ";
+            LOG(logDEBUG) << "Found " << scene->mNumAnimations << " animations";
             
-            if (scene->mNumAnimations > 0)
+            animData.animations.resize(scene->mNumAnimations);
+            for (int k = 0; k < scene->mNumAnimations; k++)
             {
-                aiAnimation* animation = scene->mAnimations[0];
+                aiAnimation* animation = scene->mAnimations[k];
                 int channelCount = animation->mNumChannels;
                 int boneCount = boneMap.size();
 
@@ -182,9 +183,9 @@ namespace AnimationPlugin
                 for (int i = 0; i < keyCount; i++)
                 {
                     Scalar keyTime = timeSet[i] / animationRate;
-                    animData.animation.addKeyPose(poses[i], keyTime);
+                    animData.animations[k].addKeyPose(poses[i], keyTime);
                 }
-                animData.animation.normalize();
+                animData.animations[k].normalize();
             }
 			
             animData.hasLoaded = true;

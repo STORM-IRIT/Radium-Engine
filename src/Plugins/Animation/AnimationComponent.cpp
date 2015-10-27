@@ -112,10 +112,9 @@ namespace AnimationPlugin
         m_animationTime += dt;
 		
         // get the current pose from the animation
-        // FIXME (val)  This will fail if the animation is empty, we should work around it.
-        if (dt > 0)
+        if (dt > 0 && m_animations.size() > 0)
         {
-            Ra::Core::Animation::Pose currentPose = m_animation.getPose(m_animationTime);
+            Ra::Core::Animation::Pose currentPose = m_animations[0].getPose(m_animationTime);
         
             // update the pose of the skeleton
             m_skel.setPose(currentPose, Ra::Core::Animation::Handle::SpaceType::LOCAL);
@@ -149,7 +148,7 @@ namespace AnimationPlugin
 
         set(skeleton);
         
-        m_animation = data.animation;
+        m_animations = data.animations;
         m_animationTime = 0;
         m_weights = data.weights;
         
@@ -169,11 +168,6 @@ namespace AnimationPlugin
     FancyMeshPlugin::FancyMeshComponent* AnimationComponent::getMeshComponent() const
     {
         return m_meshComponent;
-    }
-    
-    const Ra::Core::Animation::Animation& AnimationComponent::getAnimation() const
-    {
-        return m_animation;
     }
     
     Ra::Core::Animation::WeightMatrix AnimationComponent::getWeights() const
