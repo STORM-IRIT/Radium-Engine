@@ -30,7 +30,7 @@ namespace AnimationPlugin
 		for (auto compEntry : this->m_components)
 		{
 			AnimationComponent* component = std::static_pointer_cast<AnimationComponent>(compEntry.second).get();
-            if (!component->getAnimation().isEmpty())
+            //if (!component->getAnimation().isEmpty()) OR we are in manual mode
             {
                 AnimatorTask* task = new AnimatorTask(component, currentDelta);
                 taskQueue->registerTask( task );

@@ -60,6 +60,9 @@ namespace Ra
 
             /// Change the value of one property.
             virtual void setProperty( const EditableProperty& prop ) = 0;
+
+            /// Notify the editable which drawable has been picked.
+            virtual bool picked( uint drawableIdx ) const { return false ;}
         };
 
     }

@@ -13,14 +13,31 @@ namespace AnimationPlugin
         auto edgeList = Ra::Core::Graph::extractEdgeList( m_skel.m_graph );
         for( auto edge : edgeList )
         {
-			SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject(m_skel.getName() + " bone " + std::to_string(edge(0)), this, edge, getRoMgr());
+            SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject(m_skel.getName() + " bone " + std::to_string(edge(0)), this, edge, getRoMgr());
             m_boneDrawables.push_back(boneRenderObject);
         }
     }
 
+    bool AnimationComponent::picked(uint drawableIdx) const
+    {
+        uint i = 0;
+        for (auto dr: m_boneDrawables)
+        {
+            if (dr->getIndex() == int(drawableIdx))
+            {
+                m_selectedBone = i;
+                return true;
+            }
+            ++i;
+        }
+        return false;
+    }
+
     void AnimationComponent::getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const
     {
-        for (uint i = 0; i < m_skel.size(); ++i)
+        CORE_ASSERT(m_selectedBone >= 0 && m_selectedBone < m_skel.size(), "Oops");
+        //for (uint i = 0; i < m_skel.size(); ++i)
+        uint i = m_selectedBone;
         {
              const Ra::Core::Transform& tr = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL)[i];
              propsOut.push_back(Ra::Engine::EditableProperty(tr, std::string("Transform ") + std::to_string(i) + "-" + m_skel.getLabel(i)));
@@ -91,8 +108,8 @@ namespace AnimationPlugin
         if (dt > 0.5) // Ignore large dt that appear when the engine is paused (while loading a file for instance)
             dt = 0;
         
-		// Compute the elapsed time
-		m_animationTime += dt;
+        // Compute the elapsed time
+        m_animationTime += dt;
 		
         // get the current pose from the animation
         // FIXME (val)  This will fail if the animation is empty, we should work around it.
