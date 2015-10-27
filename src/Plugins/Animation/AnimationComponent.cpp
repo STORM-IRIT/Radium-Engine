@@ -146,9 +146,6 @@ namespace AnimationPlugin
             for (int i = 0; i < skeleton.m_graph.size(); i++)
                 skeleton.setLabel(i, "Bone_" + i);
         }
-        
-        for (std::string s : data.boneNames)
-            std::cout << s << std::endl;
 
         set(skeleton);
         
