@@ -20,6 +20,7 @@ namespace Ra
     Engine::Mesh::~Mesh()
     {
         GL_ASSERT( glDeleteVertexArrays( 1, &m_vao ) );
+        LOG( logINFO ) << "Boo";
     }
 
     void Engine::Mesh::setRenderMode( GLenum mode )

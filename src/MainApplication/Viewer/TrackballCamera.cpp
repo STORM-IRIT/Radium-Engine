@@ -3,10 +3,12 @@
 #include <iostream>
 #include <QMessageBox>
 
+#include <Core/Log/Log.hpp>
 #include <Core/Math/Math.hpp>
 #include <Core/Event/MouseEvent.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
+#include <Engine/Renderer/Light/Light.hpp>
 
 namespace Ra
 {
@@ -104,6 +106,12 @@ namespace Ra
         m_lastMouseX = event->pos().x();
         m_lastMouseY = event->pos().y();
 
+        if ( m_hasLightAttached )
+        {
+            m_light->setPosition( m_camera->getPosition() );
+            m_light->setDirection( m_camera->getDirection() );
+        }
+
         emit cameraPositionChanged( m_camera->getPosition() );
         emit cameraTargetChanged( m_trackballCenter );
 
@@ -123,6 +131,13 @@ namespace Ra
 	bool Gui::TrackballCamera::handleWheelEvent(QWheelEvent* event)
 	{
 		handleCameraZoom((event->angleDelta().y() + event->angleDelta().x() * 0.1) * m_wheelSpeedModifier);
+
+        if ( m_hasLightAttached )
+        {
+            m_light->setPosition( m_camera->getPosition() );
+            m_light->setDirection( m_camera->getDirection() );
+        }
+
 		emit cameraPositionChanged( m_camera->getPosition() );
 		
 		return true;
@@ -262,15 +277,14 @@ namespace Ra
 
     void Gui::TrackballCamera::updatePhiTheta()
     {
-        const Core::Vector3 P = m_camera->getPosition();
-        const Core::Vector3 C = m_trackballCenter;
-        const Core::Vector3 R = P - C;
+        const Core::Vector3& P = m_camera->getPosition();
+        const Core::Vector3& C = m_trackballCenter;
+        const Core::Vector3& R = P - C;
         const Scalar r = R.norm();
-
 
         m_theta = std::acos( R.y() / r );
         m_phi   = ( R.z() == 0.f && R.x() == 0.f ) ? 0.f : std::atan2( R.z() , R.x() );
         CORE_ASSERT( std::isfinite( m_theta ) && std::isfinite( m_phi ), "Error in trackball camera" );
     }
-
 } // namespace Ra
+

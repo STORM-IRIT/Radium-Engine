@@ -24,7 +24,9 @@ namespace FancyMeshPlugin
 {
     namespace
     {
-        const Ra::Engine::ShaderConfiguration defaultShaderConf( "BlinnPhong", "../Shaders" );
+        const Ra::Engine::ShaderConfiguration defaultShaderConf(
+            "BlinnPhongWireframe", "../Shaders",
+            Ra::Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM );
 
         std::string filepath;
         static DataVector dataVector;

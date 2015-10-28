@@ -341,6 +341,7 @@ namespace Ra
             }
             else
             {
+                LOG( logINFO ) << "No light, ahah";
                 DirectionalLight l;
                 l.setDirection( Core::Vector3( 0.3, -1.0, 0.0 ) );
 
@@ -651,6 +652,7 @@ namespace Ra
 
         void Renderer::handleFileLoading( const std::string& filename )
         {
+            return;
             Assimp::Importer importer;
             const aiScene* scene = importer.ReadFile( filename,
                                                       aiProcess_Triangulate |
@@ -713,7 +715,7 @@ namespace Ra
                         Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
                         finalDir = -finalDir;
 
-                        DirectionalLight* light = new DirectionalLight;
+                        auto light = std::make_shared<DirectionalLight>();
                         light->setColor( color );
                         light->setDirection( finalDir );
 
@@ -730,7 +732,7 @@ namespace Ra
                         pos = transform * pos;
                         pos /= pos.w();
 
-                        PointLight* light = new PointLight;
+                        auto light = std::make_shared<PointLight>();
                         light->setColor( color );
                         light->setPosition( Core::Vector3( pos.x(), pos.y(), pos.z() ) );
                         light->setAttenuation( ailight->mAttenuationConstant,
@@ -758,7 +760,7 @@ namespace Ra
                         Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
                         finalDir = -finalDir;
 
-                        SpotLight* light = new SpotLight;
+                        auto light = std::make_shared<SpotLight>();
                         light->setColor( color );
                         light->setPosition( Core::Vector3( pos.x(), pos.y(), pos.z() ) );
                         light->setDirection( finalDir );

@@ -9,6 +9,7 @@
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Log/Log.hpp>
 
 namespace Ra
 {
@@ -24,6 +25,7 @@ namespace Ra
     namespace Engine
     {
         class  Camera;
+        class  Light;
     }
 }
 
@@ -62,6 +64,13 @@ namespace Ra
 
             const Engine::Camera* getCamera() const { return m_camera.get();}
 
+            void attachLight( const std::shared_ptr<Engine::Light>& light )
+            {
+                m_light = light;
+                m_hasLightAttached = true;
+                LOG( logINFO ) << "Hello ?";
+            }                             
+
         public slots:
             void setCameraSensitivity( double sensitivity );
 
@@ -92,6 +101,9 @@ namespace Ra
 
             std::unique_ptr<Engine::Camera> m_camera;
             bool m_mapCameraBahaviourToAabb;
+
+            std::shared_ptr<Engine::Light> m_light;
+            bool m_hasLightAttached;
         };
 
     } // namespace Ra
