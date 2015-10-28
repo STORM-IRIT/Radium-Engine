@@ -17,7 +17,7 @@ class SkeletonBoneRenderObject;
 class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component
 {
 public:
-    AnimationComponent(const std::string& name) : Component(name) {}
+    AnimationComponent(const std::string& name) : Component(name), m_selectedBone(-1) {}
     virtual ~AnimationComponent() {}
 
     virtual void initialize() override;
@@ -33,22 +33,23 @@ public:
 
     virtual void getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const override;
     virtual void setProperty( const Ra::Engine::EditableProperty& prop) override;
-    
+    virtual bool picked (uint drawableIdex) const override;
+
     void setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component);
     FancyMeshPlugin::FancyMeshComponent* getMeshComponent() const;
-    const Ra::Core::Animation::Animation& getAnimation() const;
     Ra::Core::Animation::WeightMatrix getWeights() const;
     Ra::Core::Animation::Pose getRefPose() const;
 
 protected:
     Ra::Core::Animation::Skeleton m_skel;
     Ra::Core::Animation::RefPose m_refPose; // Ref pose in model space.
-    Ra::Core::Animation::Animation m_animation;
+    std::vector<Ra::Core::Animation::Animation> m_animations;
     Ra::Core::Animation::WeightMatrix m_weights;
     
     std::vector<SkeletonBoneRenderObject*> m_boneDrawables;
-	Scalar m_animationTime;
+    Scalar m_animationTime;
     FancyMeshPlugin::FancyMeshComponent* m_meshComponent;
+    mutable int m_selectedBone; //this is an ugly hack ! (Val)
 };
 
 }

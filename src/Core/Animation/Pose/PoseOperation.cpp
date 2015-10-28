@@ -73,6 +73,18 @@ Pose interpolatePoses(const Pose& a, const Pose& b, Scalar t)
     return interpolatedPose;
 }
 
+void interpolateTransforms(const Ra::Core::Transform& a, const Ra::Core::Transform& b, Scalar t, Ra::Core::Transform& interpolated)
+{
+    Ra::Core::Quaternion aRot = Ra::Core::Quaternion(a.rotation());
+    Ra::Core::Quaternion bRot = Ra::Core::Quaternion(b.rotation());
+    Ra::Core::Quaternion interpRot = aRot.slerp(t, bRot);
+    
+    Ra::Core::Vector3 interpTranslation = (1 - t) * a.translation() + t * b.translation();
+    
+    interpolated.linear() = interpRot.toRotationMatrix();
+    interpolated.translation() = interpTranslation;
+}
+
 } // namespace Animation
 } // namespace Core
 } // namespace Ra

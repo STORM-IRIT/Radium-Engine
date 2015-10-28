@@ -24,6 +24,8 @@ public:
 
     void updateLocalTransform(Ra::Engine::RenderObject *ro);
 	
+    Ra::Core::Index getIndex() const { return m_index;}
+
 private:
     const Ra::Core::Animation::Skeleton& m_skel;
     Ra::Core::Edge m_edge;

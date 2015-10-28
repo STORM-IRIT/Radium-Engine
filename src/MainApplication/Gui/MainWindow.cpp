@@ -360,7 +360,7 @@ namespace Ra
             Core::Index entIdx = ent->idx;
             QModelIndex entityIdx = m_entityTreeModel->index( entIdx, 0 );
             QModelIndex treeIdx = entityIdx;
-            if (true) // select component.
+            if ( comp->picked(drawableIndex)) // select component.
             {
                 treeIdx = entityIdx.child(compIdx, 0);
             }

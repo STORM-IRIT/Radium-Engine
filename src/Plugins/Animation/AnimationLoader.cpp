@@ -10,6 +10,8 @@
 #include <iostream>
 #include <map>
 #include <string.h>
+#include <set>
+#include <Core/Animation/Pose/PoseOperation.hpp>
 
 namespace AnimationPlugin
 {
@@ -28,7 +30,9 @@ namespace AnimationPlugin
         void assimpToCore(const aiMatrix4x4& inMatrix, Ra::Core::Transform &outMatrix);
         void assimpToCore(const aiVector3D& inTranslation, const aiQuaternion& inRotation, const aiVector3D& inScaling, Ra::Core::Transform& outTransform);
         void assimpToCore(const aiQuaternion& inQuat, Ra::Core::Quaternion& outQuat);
-        void assimpToCore(const aiVector3D& inVec, Ra::Core::Vector3& outVec);        
+        void assimpToCore(const aiVector3D& inVec, Ra::Core::Vector3& outVec);
+        void getUniqueKeyTimes(aiAnimation* animation, std::vector<double> &times);
+        void getTransformFromKey(const aiNodeAnim* key, int i, Ra::Core::Transform& keyTransform);
 	
 		AnimationData loadFile( const std::string& name, int index)
 		{
@@ -74,46 +78,114 @@ namespace AnimationPlugin
             // find the bone nodes and create the corresponding skeleton
             recursiveSkeletonRead(scene->mRootNode, aiMatrix4x4(), boneMap, animData, -1);
             
-            // animation loading
-            LOG(logDEBUG) << "Found " << scene->mNumAnimations << " animations ";
-            
-            if (scene->mNumAnimations > 0)
+            // Store the names of each bone
+            animData.boneNames.resize(boneMap.size());
+            for (std::pair<aiString, int> p : boneMap)
             {
-                aiAnimation* animation = scene->mAnimations[0];
-                int keyCount = animation->mChannels[0]->mNumRotationKeys; // There SHOULD be 1 key for every bone at each key pose
-                int boneCount = animation->mNumChannels; // This SHOULD be equal to boneMap.size()
-                Scalar animationRate = animation->mTicksPerSecond > 0.0 ? animation->mTicksPerSecond : 50.0;
+                CORE_ASSERT(p.second < boneMap.size(), "Invalid bone index");
+                animData.boneNames[p.second] = std::string(p.first.C_Str());
+            }
+            
+            // animation loading
+            LOG(logDEBUG) << "Found " << scene->mNumAnimations << " animations";
+            
+            animData.animations.resize(scene->mNumAnimations);
+            for (int k = 0; k < scene->mNumAnimations; k++)
+            {
+                aiAnimation* animation = scene->mAnimations[k];
+                int channelCount = animation->mNumChannels;
+                int boneCount = boneMap.size();
 
+                // Get the sorted set of key pose timestamps
+                std::vector<double> timeSet;
+                getUniqueKeyTimes(animation, timeSet);
+                int keyCount = timeSet.size();
+                
+                // Allocate the poses
+                std::vector<Ra::Core::Animation::Pose> poses;
                 for (int i = 0; i < keyCount; i++)
+                    poses.push_back(Ra::Core::Animation::Pose(boneCount));
+                
+                // Track which bones have an animation
+                bool animatedBones[boneCount];
+                for (int i = 0; i < boneCount; i++)
+                    animatedBones[i] = false;
+                
+                // Add the animated bone transforms to the poses + interpolate when necessary
+                for (int i = 0; i < channelCount; i++)
                 {
-                    Ra::Core::Animation::Pose currentPose = Ra::Core::Animation::Pose(boneCount);
-                    Scalar keyTime = animation->mChannels[0]->mRotationKeys[i].mTime / animationRate;
+                    aiNodeAnim* currentNodeAnim = animation->mChannels[i];
+                    if (boneMap.find(currentNodeAnim->mNodeName) == boneMap.end()) // We should be able to ignore bones that do not affect the mesh
+                        continue;
+                    //CORE_ASSERT(boneMap.find(currentNodeAnim->mNodeName) != boneMap.end(), "Unknown bone channel");
                     
-                    for (int j = 0; j < boneCount; j++)
+                    int channelKeyCount = currentNodeAnim->mNumPositionKeys;
+                    int boneIndex = boneMap[currentNodeAnim->mNodeName];
+                    animatedBones[boneIndex] = true;
+                    
+                    int channelKeyIndex = 0;
+                    for (int j = 0; j < keyCount; j++)
                     {
-                        // retrieve the ith key of the jth joint
-                        aiVector3D keyPosition = animation->mChannels[j]->mPositionKeys[i].mValue;
-                        aiQuaternion keyRotation = animation->mChannels[j]->mRotationKeys[i].mValue;
-                        aiVector3D keyScaling = animation->mChannels[j]->mScalingKeys[i].mValue;
-                        
-                        // convert the key to a transform matrix
-                        Ra::Core::Transform keyTransform;
-                        assimpToCore(keyPosition, keyRotation, keyScaling, keyTransform);
-                        
-                        // insert the key in the ith pose
-                        int boneIndex = boneMap[animation->mChannels[j]->mNodeName];
-                        
-                        if (animData.hierarchy.isRoot(j))
-                            currentPose[boneIndex] = animData.baseTransform * keyTransform;
+                        double channelKeyTime = currentNodeAnim->mPositionKeys[channelKeyIndex].mTime;
+                        if (channelKeyTime == timeSet[j])
+                        {
+                            Ra::Core::Transform keyTransform;
+                            getTransformFromKey(currentNodeAnim, channelKeyIndex, keyTransform);
+                            poses[j][boneIndex] = keyTransform;
+                            if (channelKeyIndex < channelKeyCount - 1)
+                                channelKeyIndex++;
+                        }
+                        else if (channelKeyIndex == 0 || channelKeyIndex == channelKeyCount - 1) // the first channel key is after the current key
+                        {
+                            Ra::Core::Transform keyTransform;
+                            getTransformFromKey(currentNodeAnim, channelKeyIndex, keyTransform);
+                            poses[j][boneIndex] = keyTransform;
+                        }
+                        else if (channelKeyTime > timeSet[j]) // the current key is between two channel keys
+                        {
+                            // interpolate between the previous and current channel key
+                            Ra::Core::Transform previousKeyTransform;
+                            Ra::Core::Transform nextKeyTransform;
+                            Ra::Core::Transform keyTransform;
+                            getTransformFromKey(currentNodeAnim, channelKeyIndex - 1, previousKeyTransform);
+                            getTransformFromKey(currentNodeAnim, channelKeyIndex, nextKeyTransform);
+                            
+                            double prevChannelKeyTime = currentNodeAnim->mPositionKeys[channelKeyIndex - 1].mTime;
+                            Scalar t = (timeSet[j] - prevChannelKeyTime) / (channelKeyTime - prevChannelKeyTime);
+                            Ra::Core::Animation::interpolateTransforms(previousKeyTransform, nextKeyTransform, t, keyTransform);
+                            
+                            poses[j][boneIndex] = keyTransform;
+                        }
                         else
-                            currentPose[boneIndex] = keyTransform;
+                        {
+                            CORE_ASSERT(false, "AnimationLoader.cpp: should not be there");
+                        }
+                        
+                        if (animData.hierarchy.isRoot(boneIndex))
+                            poses[j][boneIndex] = animData.baseTransform * poses[j][boneIndex];
                     }
-                    
-                    // store the pose in the animation
-                    animData.animation.addKeyPose(currentPose, keyTime);
                 }
                 
-                animData.animation.normalize();
+                // add the non animated bone transforms to the poses
+                for (int i = 0; i < boneCount; i++)
+                {
+                    if (!animatedBones[i])
+                    {
+                        for (int j = 0; j < keyCount; j++)
+                        {
+                            poses[j][i] = animData.pose[i];
+                        }
+                    }
+                }
+                
+                // finally create the animation object
+                Scalar animationRate = animation->mTicksPerSecond > 0.0 ? animation->mTicksPerSecond : 50.0;
+                for (int i = 0; i < keyCount; i++)
+                {
+                    Scalar keyTime = timeSet[i] / animationRate;
+                    animData.animations[k].addKeyPose(poses[i], keyTime);
+                }
+                animData.animations[k].normalize();
             }
 			
             animData.hasLoaded = true;
@@ -151,7 +223,40 @@ namespace AnimationPlugin
 			for (int i = 0; i < node->mNumChildren; i++)
 				recursiveSkeletonRead(node->mChildren[i], currentTransform, boneMap, data, currentIndex);
 		}
+        
+        void getTransformFromKey(const aiNodeAnim* key, int i, Ra::Core::Transform& keyTransform)
+        {
+            aiVector3D keyPosition = key->mPositionKeys[i].mValue;
+            aiQuaternion keyRotation = key->mRotationKeys[i].mValue;
+            aiVector3D keyScaling = key->mScalingKeys[i].mValue;
+
+            // convert the key to a transform matrix
+            assimpToCore(keyPosition, keyRotation, keyScaling, keyTransform);
+        }
 		
+        void getUniqueKeyTimes(aiAnimation* animation, std::vector<double>& times)
+        {
+            int channelCount = animation->mNumChannels;
+            std::set<double> timeSet;
+            for (int i = 0; i < channelCount; i++)
+            {
+                aiNodeAnim* currentNodeAnim = animation->mChannels[i];
+                
+                int channelKeyCount = currentNodeAnim->mNumRotationKeys;
+                for (int j = 0; j < channelKeyCount; j++)
+                {
+                    const aiVectorKey& positionKey = currentNodeAnim->mPositionKeys[j];
+                    const aiQuatKey& rotationKey = currentNodeAnim->mRotationKeys[j];
+                    const aiVectorKey& scalingKey = currentNodeAnim->mScalingKeys[j];
+                    
+                    CORE_ASSERT(positionKey.mTime == rotationKey.mTime && positionKey.mTime == scalingKey.mTime, "Invalid key times");
+                    
+                    timeSet.insert(positionKey.mTime);
+                }
+            }
+            std::copy(timeSet.begin(), timeSet.end(), std::back_inserter(times));
+        }
+        
 		void assimpToCore( const aiMatrix4x4& inMatrix, Ra::Core::Transform& outMatrix )
         {
             for ( uint i = 0; i < 4; ++i )

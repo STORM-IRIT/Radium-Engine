@@ -46,6 +46,8 @@ Pose applyTransformation( const Pose& pose, const Transform& transform );
 
 Pose interpolatePoses(const Pose& a, const Pose& b, Scalar t);
 
+void interpolateTransforms(const Ra::Core::Transform& a, const Ra::Core::Transform& b, Scalar t, Ra::Core::Transform& interpolated);
+
 } // namespace Animation
 } // namespace Core
 } // namespace Ra

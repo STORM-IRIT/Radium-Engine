@@ -18,9 +18,10 @@ namespace AnimationPlugin
             bool hasLoaded;
 			Ra::Core::Graph::AdjacencyList hierarchy;
 			Ra::Core::Animation::Pose pose;
-            Ra::Core::Animation::Animation animation;
+            std::vector<Ra::Core::Animation::Animation> animations;
             Ra::Core::Animation::WeightMatrix weights;
             Ra::Core::Transform baseTransform;
+            std::vector<std::string> boneNames;
 		};
 	
 		ANIM_PLUGIN_API AnimationData loadFile(const std::string& name , int index);
