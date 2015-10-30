@@ -79,13 +79,7 @@ namespace Ra
 
             if ( m_mesh )
             {
-                Mesh* newMesh = new Mesh( m_mesh->getName() );
-                newMesh->loadGeometry( m_mesh->getData( Mesh::VERTEX_POSITION ), m_mesh->getIndices() );
-                newMesh->addData( Mesh::VERTEX_NORMAL, m_mesh->getData( Mesh::VERTEX_NORMAL ) );
-                newMesh->addData( Mesh::VERTEX_TANGENT, m_mesh->getData( Mesh::VERTEX_TANGENT ) );
-                newMesh->addData( Mesh::VERTEX_BITANGENT, m_mesh->getData( Mesh::VERTEX_BITANGENT ) );
-                newMesh->addData( Mesh::VERTEX_TEXCOORD, m_mesh->getData( Mesh::VERTEX_TEXCOORD ) );
-                newRO->setMesh( newMesh );
+                newRO->setMesh( m_mesh->clone() );
             }
 
             return newRO;
