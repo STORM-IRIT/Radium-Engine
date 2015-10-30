@@ -22,13 +22,18 @@ Delta delta( const BitSet& bit,
 void delta( const BitSet& bit,
             Delta&        u,
             const Scalar& default_value ) {
-    u.resize( bit.size(), 1 );
-    u.setZero();
+    Delta d( bit.size(), 1 );
+#pragma omp parallel for
     for( uint i = 0; i < bit.size(); ++i ) {
         if( bit[i]) {
-            u.insert( i, 0 ) = default_value;
+#pragma omp critical
+{
+            d.insert( i, 0 ) = default_value;
+}
         }
     }
+#pragma omp barrier
+    std::swap( u, d );
 }
 
 

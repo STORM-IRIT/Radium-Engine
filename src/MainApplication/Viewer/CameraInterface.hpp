@@ -68,7 +68,6 @@ namespace Ra
             {
                 m_light = light;
                 m_hasLightAttached = true;
-                LOG( logINFO ) << "Hello ?";
             }                             
 
         public slots:
