@@ -232,7 +232,6 @@ namespace Ra
             void initShaders();
             void initBuffers();
 
-
         protected:
             uint m_width;
             uint m_height;
