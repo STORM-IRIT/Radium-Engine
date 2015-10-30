@@ -44,7 +44,12 @@ Pose applyTransformation( const Pose& pose, const std::vector< Transform >& tran
 */
 Pose applyTransformation( const Pose& pose, const Transform& transform );
 
-Pose interpolatePoses(const Pose& a, const Pose& b, Scalar t);
+
+
+bool areEqual( const Pose& p0, const Pose& p1 );
+
+
+Pose interpolatePoses(const Pose& a, const Pose& b, const Scalar t );
 
 void interpolateTransforms(const Ra::Core::Transform& a, const Ra::Core::Transform& b, Scalar t, Ra::Core::Transform& interpolated);
 

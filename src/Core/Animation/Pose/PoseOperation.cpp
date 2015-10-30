@@ -15,7 +15,7 @@ bool compatible( const Pose& p0, const Pose& p1 ) {
 
 
 Pose relativePose( const Pose& modelPose, const RestPose& restPose )  {
-    assert( compatible( modelPose, restPose ) );
+    CORE_ASSERT( compatible( modelPose, restPose ), " Poses with different size " );
     Pose T( restPose.size() );
     for( uint i = 0; i < T.size(); ++i ) {
         T[i] = modelPose[i] * restPose[i].inverse( Eigen::Affine );
@@ -43,44 +43,56 @@ Pose applyTransformation( const Pose& pose, const Transform& transform ) {
     return T;
 }
 
-Pose interpolatePoses(const Pose& a, const Pose& b, Scalar t)
-{
-    CORE_ASSERT( (a.size() == b.size()), "Poses are wrong");
+
+
+bool areEqual( const Pose &p0, const Pose &p1 ) {
+    CORE_ASSERT( compatible( p0, p1 ), " Poses with different size " );
+    const uint n = p0.size();
+    for( uint i = 0; i < n; ++i ) {
+        if( !p0[i].isApprox( p1[i]) ) {
+            return false;
+        }
+    }
+    return true;
+}
+
+Pose interpolatePoses(const Pose& a, const Pose& b, const Scalar t ) {
+    CORE_ASSERT( ( a.size() == b.size() ), "Poses are wrong");
     CORE_ASSERT( ( ( t >= 0.0 ) && ( t <= 1.0 ) ), "T is wrong");
-    
-    int size = a.size();
-    Pose interpolatedPose;
-    
-    for (int i = 0; i < size; i++)
-    {
+
+    const uint size = a.size();
+    Pose interpolatedPose( size );
+
+#pragma omp parallel for
+    for ( uint i = 0; i < size; ++i ) {
         // interpolate between the transforms
         Ra::Core::Transform aTransform = a[i];
         Ra::Core::Transform bTransform = b[i];
-        
-        Ra::Core::Quaternion aRot = Ra::Core::Quaternion(aTransform.rotation());
-        Ra::Core::Quaternion bRot = Ra::Core::Quaternion(bTransform.rotation());
+
+        Ra::Core::Quaternion aRot = Ra::Core::Quaternion( aTransform.rotation() );
+        Ra::Core::Quaternion bRot = Ra::Core::Quaternion( bTransform.rotation() );
         Ra::Core::Quaternion interpRot = aRot.slerp(t, bRot);
-        
-        Ra::Core::Vector3 interpTranslation = (1 - t) * aTransform.translation() + t * bTransform.translation();
-        
+
+        Ra::Core::Vector3 interpTranslation = ( 1.0 - t ) * aTransform.translation() + t * bTransform.translation();
+
         Ra::Core::Transform interpolatedTransform;
         interpolatedTransform.linear() = interpRot.toRotationMatrix();
         interpolatedTransform.translation() = interpTranslation;
-        
-        interpolatedPose.push_back(interpolatedTransform);
+
+        interpolatedPose[i] = interpolatedTransform;
     }
-    
+#pragma omp barrier
+
     return interpolatedPose;
 }
 
-void interpolateTransforms(const Ra::Core::Transform& a, const Ra::Core::Transform& b, Scalar t, Ra::Core::Transform& interpolated)
-{
-    Ra::Core::Quaternion aRot = Ra::Core::Quaternion(a.rotation());
-    Ra::Core::Quaternion bRot = Ra::Core::Quaternion(b.rotation());
-    Ra::Core::Quaternion interpRot = aRot.slerp(t, bRot);
-    
-    Ra::Core::Vector3 interpTranslation = (1 - t) * a.translation() + t * b.translation();
-    
+void interpolateTransforms( const Ra::Core::Transform& a, const Ra::Core::Transform& b, const Scalar t, Ra::Core::Transform& interpolated ) {
+    Ra::Core::Quaternion aRot = Ra::Core::Quaternion( a.rotation() );
+    Ra::Core::Quaternion bRot = Ra::Core::Quaternion( b.rotation() );
+    Ra::Core::Quaternion interpRot = aRot.slerp( t, bRot );
+
+    Ra::Core::Vector3 interpTranslation = ( 1.0 - t) * a.translation() + t * b.translation();
+
     interpolated.linear() = interpRot.toRotationMatrix();
     interpolated.translation() = interpTranslation;
 }
