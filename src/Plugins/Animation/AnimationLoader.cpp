@@ -85,6 +85,7 @@ namespace AnimationPlugin
                 CORE_ASSERT(p.second < boneMap.size(), "Invalid bone index");
                 animData.boneNames[p.second] = std::string(p.first.C_Str());
             }
+            LOG(logDEBUG) << "Found a skeleton of " << boneMap.size() << " bones";
             
             // animation loading
             LOG(logDEBUG) << "Found " << scene->mNumAnimations << " animations";
@@ -195,10 +196,12 @@ namespace AnimationPlugin
 		void recursiveSkeletonRead(const aiNode* node, aiMatrix4x4 accTransform, BoneMap &boneMap, AnimationData& data, int parent)
 		{           
 			aiMatrix4x4 currentTransform  = accTransform * node->mTransformation;
-			BoneMap::const_iterator boneIt = boneMap.find(node->mName);
-            bool isBoneNode = boneIt != boneMap.end();
+            bool isBoneNode = boneMap.find(node->mName) != boneMap.end();
+            int currentIndex = parent;
 			
-			int currentIndex = parent;
+            if (!isBoneNode && node->mNumChildren == 0 && parent != -1) // Catch the end bones
+                isBoneNode = true;
+            
 			if (isBoneNode)
 			{
                 if (parent == -1)
