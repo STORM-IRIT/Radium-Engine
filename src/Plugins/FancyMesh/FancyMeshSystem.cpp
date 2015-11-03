@@ -52,6 +52,7 @@ namespace FancyMeshPlugin
             MeshLoadingInfo loadingInfo;
             loadingInfo.filename = filename;
             loadingInfo.index = i;
+            loadingInfo.vertexMap = componentData.mesh.vertexMap;
             component->setLoadingInfo(loadingInfo);
             
             callOnComponentCreationDependencies(component);   

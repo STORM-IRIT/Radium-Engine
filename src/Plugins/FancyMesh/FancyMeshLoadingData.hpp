@@ -31,6 +31,7 @@ namespace FancyMeshPlugin
         Ra::Core::Vector4Array weights;
 
         std::vector<uint>      indices;
+        std::vector<Ra::Core::VertexIdx> vertexMap;
     };
 
     struct FancyComponentData

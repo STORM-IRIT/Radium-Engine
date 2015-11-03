@@ -1,5 +1,4 @@
 #include <Core/Animation/Pose/PoseOperation.hpp>
-#include <iostream>
 #include <Eigen/Geometry>
 
 namespace Ra {

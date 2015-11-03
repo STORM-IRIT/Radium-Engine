@@ -5,6 +5,7 @@
 
 #include <Engine/Entity/Component.hpp>
 #include <Plugins/FancyMesh/FancyMeshLoadingData.hpp>
+#include <Core/Mesh/MeshTypes.hpp>
 
 namespace Ra
 {
@@ -20,6 +21,7 @@ namespace FancyMeshPlugin
     {
         std::string filename;
         int index;
+        std::vector<Ra::Core::VertexIdx> vertexMap;
     };
 
     class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component
@@ -37,7 +39,7 @@ namespace FancyMeshPlugin
         void handleMeshLoading( const FancyComponentData& data );
         
         void setLoadingInfo(MeshLoadingInfo info);
-        MeshLoadingInfo getLoadingInfo() const;
+        const MeshLoadingInfo &getLoadingInfo() const;
         
         Ra::Core::Index getMeshIndex() const;
         Ra::Core::TriangleMesh getMesh() const;

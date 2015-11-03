@@ -67,6 +67,7 @@ namespace FancyMeshPlugin
 
     void FancyMeshComponent::handleMeshLoading( const FancyComponentData& data )
     {
+        
         Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( data.name, this );
         renderObject->setVisible( true );
 
@@ -77,7 +78,7 @@ namespace FancyMeshPlugin
         std::string meshName = ss.str();
 
         Ra::Engine::Mesh* mesh = new Ra::Engine::Mesh( meshName );
-
+        
         mesh->loadGeometry( meshData.positions, meshData.indices );
 
         mesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, meshData.normals );
@@ -117,7 +118,7 @@ namespace FancyMeshPlugin
         m_loadingInfo = info;
     }
     
-    MeshLoadingInfo FancyMeshComponent::getLoadingInfo() const
+    const MeshLoadingInfo& FancyMeshComponent::getLoadingInfo() const
     {
         return m_loadingInfo;
     }

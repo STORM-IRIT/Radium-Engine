@@ -12,6 +12,7 @@
 #include <string.h>
 #include <set>
 #include <Core/Animation/Pose/PoseOperation.hpp>
+#include <Core/Mesh/MeshTypes.hpp>
 
 namespace AnimationPlugin
 {
@@ -34,7 +35,7 @@ namespace AnimationPlugin
         void getUniqueKeyTimes(aiAnimation* animation, std::vector<double> &times);
         void getTransformFromKey(const aiNodeAnim* key, int i, Ra::Core::Transform& keyTransform);
 	
-		AnimationData loadFile( const std::string& name, int index)
+		AnimationData loadFile( const std::string& name, const FancyMeshPlugin::MeshLoadingInfo& info)
 		{
 			Assimp::Importer importer;
 	        const aiScene* scene = importer.ReadFile(name, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_GenSmoothNormals |
@@ -48,22 +49,29 @@ namespace AnimationPlugin
 				LOG( logERROR ) << "Error while loading file \"" << name << "\" : " << importer.GetErrorString() << ".";
 				return animData;
 			}
-            if (index < 0 || index >= scene->mNumMeshes)
+            if (info.index < 0 || info.index >= scene->mNumMeshes)
             {
-                LOG(logDEBUG) << "Invalid mesh index: " << index << " requested, but " << scene->mNumMeshes << " meshes have been found";
+                LOG(logDEBUG) << "Invalid mesh index: " << info.index << " requested, but " << scene->mNumMeshes << " meshes have been found";
                 return animData;
             }
 
             // skeleton loading
-            aiMesh* mesh = scene->mMeshes[index];
+            aiMesh* mesh = scene->mMeshes[info.index];
             if (mesh->mNumBones == 0)
             {
-                LOG(logDEBUG) << "Mesh #" << index << ": no skeleton found.";
+                LOG(logDEBUG) << "Mesh #" << info.index << ": no skeleton found.";
                 return animData;
             }
             
+            int vertexCount = 0;
+            for (int i = 0; i < info.vertexMap.size(); i++)
+            {
+                if (info.vertexMap[i] >= vertexCount)
+                    vertexCount = info.vertexMap[i] + 1;
+            }
+            
             BoneMap boneMap; // first: name of the boneNode, second: index of the bone in the hierarchy / pose
-            animData.weights.resize(mesh->mNumVertices, mesh->mNumBones);
+            animData.weights.resize(vertexCount, mesh->mNumBones);
             
             for (int i = 0; i < mesh->mNumBones; i++)
             {
@@ -71,7 +79,8 @@ namespace AnimationPlugin
                 for (int j = 0; j < mesh->mBones[i]->mNumWeights; j++)
                 {
                     aiVertexWeight vertexWeight = mesh->mBones[i]->mWeights[j];
-                    animData.weights.insert(vertexWeight.mVertexId, i) = vertexWeight.mWeight;
+                    int id = info.vertexMap[vertexWeight.mVertexId];
+                    animData.weights.insert(id, i) = vertexWeight.mWeight;
                 }
             }
             

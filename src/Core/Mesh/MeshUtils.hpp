@@ -37,6 +37,7 @@ namespace Ra
             /// first occurrence.
             RA_CORE_API bool findDuplicates( const TriangleMesh& mesh, std::vector<VertexIdx>& duplicatesMap );
 
+            RA_CORE_API void removeDuplicates(TriangleMesh& mesh, std::vector<VertexIdx>& vertexMap);
             //
             // Primitive construction
             //

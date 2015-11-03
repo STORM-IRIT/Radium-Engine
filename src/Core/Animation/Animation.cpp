@@ -1,7 +1,6 @@
 #include <Core/Animation/Animation.hpp>
 #include <algorithm>
 #include <Core/Animation/Pose/PoseOperation.hpp>
-#include <iostream>
 #include <cmath>
 
 namespace Ra {
