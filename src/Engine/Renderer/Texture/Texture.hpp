@@ -263,6 +263,12 @@ namespace Ra
 
             Core::Color getTexel( uint u, uint v );
 
+            /**
+             * Update the data contained by the texture
+             * @param newData The new data, must contain the same number of elements than old data, no check will be performed.
+             */
+            void updateData( void* newData );
+
         private:
             Texture( const Texture& ) = delete;
             void operator= ( const Texture& ) = delete;
@@ -278,6 +284,7 @@ namespace Ra
 
             unsigned char* m_pixels;
             uint m_bytesPerPixel;
+            uint m_format;
             uint m_width;
             uint m_height;
             uint m_depth;

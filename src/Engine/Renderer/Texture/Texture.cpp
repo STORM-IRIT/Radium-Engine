@@ -93,6 +93,7 @@ namespace Ra
         GL_ASSERT( glTexParameteri( GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ) );
 
         setBPP( bpp );
+        m_format = format;
 
         m_width = w;
 
@@ -115,6 +116,7 @@ namespace Ra
         GL_ASSERT( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ) );
 
         setBPP( internal );
+        m_format = format;
 
         m_width  = w;
         m_height = h;
@@ -139,6 +141,7 @@ namespace Ra
         GL_ASSERT( glTexParameteri( GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ) );
 
         setBPP( bpp );
+        m_format = format;
 
         m_width  = w;
         m_height = h;
@@ -282,6 +285,42 @@ namespace Ra
         delete[] pixels;
 
         return color;
+    }
+
+    void Engine::Texture::updateData( void* data )
+    {
+        GL_ASSERT( glBindTexture( m_target, m_textureId ) );
+
+        switch ( m_type )
+        {
+            case TEXTURE_1D:
+            case TEXTURE_3D:
+            case TEXTURE_CUBE:
+            {
+                CORE_ASSERT( 0, "Not implemented." );
+            } break;
+
+            case TEXTURE_2D:
+            {
+                GL_ASSERT( glTexImage2D( m_target, 0, m_bytesPerPixel, m_width, m_height, 0, m_format, GL_TEXTURE_2D, data ) );
+            } break;
+
+            default:
+            {
+                CORE_ASSERT( 0, "Dafuck ?" );
+            } break;
+        }
+
+        
+
+        if ( data )
+        {
+            if ( !m_pixels )
+            {
+                m_pixels = new unsigned char[m_width * m_height * m_depth * m_bytesPerPixel];
+            }
+            memcpy( m_pixels, data, m_width * m_height * m_depth * m_bytesPerPixel );
+        }
     }
 
 } // namespace Ra
