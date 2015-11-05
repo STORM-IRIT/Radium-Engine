@@ -8,7 +8,9 @@
 #include <cstdint>
 #include <cstddef>
 #include <cstdlib>
+#ifndef _WIN32
 #include <mm_malloc.h>
+#endif
 
 namespace Ra
 {

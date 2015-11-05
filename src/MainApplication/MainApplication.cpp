@@ -22,10 +22,6 @@
 
 #include <Plugins/FancyMesh/FancyMeshSystem.hpp>
 
-#include <Core/Animation/Handle/Skeleton.hpp>
-#include "Plugins/Animation/AnimationComponent.hpp"
-
-
 // Const parameters : TODO : make config / command line options
 
 

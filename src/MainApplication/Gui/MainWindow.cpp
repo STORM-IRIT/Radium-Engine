@@ -12,7 +12,6 @@
 #include <MainApplication/Gui/EntityTreeModel.hpp>
 #include <MainApplication/Gui/EntityTreeItem.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
-#include <Plugins/Animation/AnimationSystem.hpp>
 #include <assimp/Importer.hpp>
 
 namespace Ra
@@ -110,14 +109,10 @@ namespace Ra
 	
 	void Gui::MainWindow::playAnimation()
 	{
-		AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
-		animSys->setPlaying(true);
 	}
 	
 	void Gui::MainWindow::pauseAnimation()
 	{
-		AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
-		animSys->setPlaying(false);
 	}
 
     void Gui::MainWindow::onEntitiesUpdated()
