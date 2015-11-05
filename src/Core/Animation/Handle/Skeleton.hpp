@@ -14,7 +14,7 @@ namespace Animation {
 *
 * A skeleton handle is a set of transforms with an associated hierarchy, represented by a graph ( adjacency list ).
 */
-class Skeleton : public PointCloud {
+class RA_CORE_API Skeleton : public PointCloud {
 public:
     /// CONSTRUCTOR
     Skeleton();                             // Default constructor

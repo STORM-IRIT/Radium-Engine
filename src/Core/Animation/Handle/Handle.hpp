@@ -1,6 +1,7 @@
-#ifndef HANDLE
-#define HANDLE
+#ifndef RADIUMENGINE_HANDLE_INCLUDE
+#define RADIUMENGINE_HANDLE_INCLUDE
 
+#include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 
@@ -13,7 +14,7 @@ typedef std::string Label;
 /**
 * The Handle class describe the base handle structure used for deformation.
 */
-class Handle {
+class RA_CORE_API Handle {
 public:
     /// ENUM
     enum class SpaceType {
@@ -61,5 +62,5 @@ protected:
 
 #include <Core/Animation/Handle/Handle.inl>
 
-#endif // HANDLE
+#endif // RADIUMENGINE_HANDLE_INCLUDE
 

@@ -1,5 +1,5 @@
-#ifndef SEQUENCE_H
-#define SEQUENCE_H
+#ifndef RADIUMENGINE_SEQUENCE_HPP
+#define RADIUMENGINE_SEQUENCE_HPP
 
 #include <vector>
 #include <Core/CoreMacros.hpp>
@@ -24,8 +24,8 @@ public:
     // Specify if the sequence stores trasformations to be applied or
     // poses to be assigned.
     enum class PoseType {
-        RELATIVE,
-        ABSOLUTE
+        Pose_RELATIVE,
+        Pose_ABSOLUTE
     };
 
     /// CONSTRUCTOR
@@ -101,4 +101,4 @@ private:
 } // namespace Core
 } // namespace Ra
 
-#endif // SEQUENCE_H
+#endif // RADIUMENGINE_SEQUENCE_HPP

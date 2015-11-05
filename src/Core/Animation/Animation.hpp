@@ -11,7 +11,7 @@ namespace Animation {
 
 typedef std::pair<Scalar, Pose> KeyPose;
 
-class Animation 
+class RA_CORE_API Animation 
 {
 public:
     // Add the key pose after the previous ones.

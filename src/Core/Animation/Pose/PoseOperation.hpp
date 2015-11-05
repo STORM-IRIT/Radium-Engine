@@ -15,14 +15,14 @@ namespace Animation {
 * Two poses are compatible if their size is equal and if their transforms
 * are within the constraints of each others.
 */
-bool compatible( const Pose& p0, const Pose& p1 );
+RA_CORE_API bool compatible( const Pose& p0, const Pose& p1 );
 
 
 
 /*
 * Given a model pose and a compatible rest pose, return the relative pose.
 */
-Pose relativePose( const Pose& modelPose, const RestPose& restPose );
+RA_CORE_API Pose relativePose( const Pose& modelPose, const RestPose& restPose );
 
 
 
@@ -32,7 +32,7 @@ Pose relativePose( const Pose& modelPose, const RestPose& restPose );
 * The operation is equal to:
 *           pose[i] = transform[i] * pose[i];
 */
-Pose applyTransformation( const Pose& pose, const std::vector< Transform >& transform );
+RA_CORE_API Pose applyTransformation( const Pose& pose, const std::vector< Transform >& transform );
 
 
 
@@ -42,16 +42,16 @@ Pose applyTransformation( const Pose& pose, const std::vector< Transform >& tran
 * The operation is equal to:
 *           pose[i] = transform * pose[i];
 */
-Pose applyTransformation( const Pose& pose, const Transform& transform );
+RA_CORE_API Pose applyTransformation( const Pose& pose, const Transform& transform );
 
 
 
-bool areEqual( const Pose& p0, const Pose& p1 );
+RA_CORE_API bool areEqual( const Pose& p0, const Pose& p1 );
 
 
-Pose interpolatePoses(const Pose& a, const Pose& b, const Scalar t );
+RA_CORE_API Pose interpolatePoses(const Pose& a, const Pose& b, const Scalar t );
 
-void interpolateTransforms(const Ra::Core::Transform& a, const Ra::Core::Transform& b, Scalar t, Ra::Core::Transform& interpolated);
+RA_CORE_API void interpolateTransforms(const Ra::Core::Transform& a, const Ra::Core::Transform& b, Scalar t, Ra::Core::Transform& interpolated);
 
 } // namespace Animation
 } // namespace Core

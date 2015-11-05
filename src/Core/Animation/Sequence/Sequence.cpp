@@ -5,7 +5,7 @@ namespace Core {
 namespace Animation {
 
 /// CONSTRUCTOR
-Sequence::Sequence() : m_idx(), m_type( PoseType::RELATIVE ) { }
+Sequence::Sequence() : m_idx(), m_type( PoseType::Pose_RELATIVE ) { }
 Sequence::Sequence( const Sequence& sequence ) : m_idx( sequence.m_idx ), m_type( sequence.m_type ) { }
 
 /// DESTRUCTOR

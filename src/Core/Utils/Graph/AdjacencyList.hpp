@@ -15,7 +15,7 @@ typedef AlignedStdVector< ChildrenList > Adjacency;
 * The AdjacencyList contains the adjacency matrix expressed as a vector of indices and
 * a vector containing the index of the parents indices of the i-th node.
 */
-class AdjacencyList {
+class RA_CORE_API AdjacencyList {
 public:
     /// CONSTRUCTOR
     AdjacencyList();

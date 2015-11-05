@@ -14,14 +14,14 @@ namespace Graph {
 /*
 * Check the integrity of the given AdjacencyList.
 */
-void check( const AdjacencyList& adj );
+RA_CORE_API void check( const AdjacencyList& adj );
 
 
 
 /*
 * Return the adjacency list built from the given edge list.
 */
-AdjacencyList extractAdjacencyList( const VectorArray< Edge >& edgeList );
+RA_CORE_API AdjacencyList extractAdjacencyList( const VectorArray< Edge >& edgeList );
 
 
 
@@ -33,7 +33,7 @@ AdjacencyList extractAdjacencyList( const VectorArray< Edge >& edgeList );
 *       ...
 * where i is the index of a leaf node.
 */
-VectorArray< Edge > extractEdgeList( const AdjacencyList& adj, const bool include_leaf = false );
+RA_CORE_API VectorArray< Edge > extractEdgeList( const AdjacencyList& adj, const bool include_leaf = false );
 
 
 

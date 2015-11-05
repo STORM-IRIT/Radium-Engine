@@ -4,11 +4,12 @@
 
 #ifdef _WIN32
 #include <malloc.h>
+#else
+#include <mm_malloc.h>
 #endif
 #include <cstdint>
 #include <cstddef>
 #include <cstdlib>
-#include <mm_malloc.h>
 
 namespace Ra
 {

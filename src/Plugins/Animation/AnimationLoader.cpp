@@ -117,7 +117,7 @@ namespace AnimationPlugin
                     poses.push_back(Ra::Core::Animation::Pose(boneCount));
                 
                 // Track which bones have an animation
-                bool animatedBones[boneCount];
+                std::vector<bool> animatedBones( boneCount );
                 for (int i = 0; i < boneCount; i++)
                     animatedBones[i] = false;
                 

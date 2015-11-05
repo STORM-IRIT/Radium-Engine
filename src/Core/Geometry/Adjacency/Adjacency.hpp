@@ -35,7 +35,7 @@ typedef Sparse AdjacencyMatrix;
 *       f( i, j ) = 1 , if exist the edge from i to j
 *       f( i, j ) = 0 , otherwise
 */
-AdjacencyMatrix uniformAdjacency( const uint point_size, const VectorArray< Triangle >& T );
+RA_CORE_API AdjacencyMatrix uniformAdjacency( const uint point_size, const VectorArray< Triangle >& T );
 
 
 
@@ -45,7 +45,7 @@ AdjacencyMatrix uniformAdjacency( const uint point_size, const VectorArray< Tria
 *       f( i, j ) = 1 , if exist the edge from i to j
 *       f( i, j ) = 0 , otherwise
 */
-AdjacencyMatrix uniformAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
+RA_CORE_API AdjacencyMatrix uniformAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
 
 
 
@@ -56,7 +56,7 @@ AdjacencyMatrix uniformAdjacency( const VectorArray< Vector3 >& p, const VectorA
 *       f( i, j ) = 0                                          , otherwise
 * where alpha_ij and beta_ij are the angles opposite the edge
 */
-AdjacencyMatrix cotangentWeightAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
+RA_CORE_API AdjacencyMatrix cotangentWeightAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
 
 
 
@@ -75,7 +75,7 @@ typedef Diagonal DegreeMatrix;
 /*
 * Return the DegreeMatrix of the given AdjacencyMatrix A.
 */
-DegreeMatrix adjacencyDegree( const AdjacencyMatrix& A ) ;
+RA_CORE_API DegreeMatrix adjacencyDegree( const AdjacencyMatrix& A ) ;
 
 
 
