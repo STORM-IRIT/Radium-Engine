@@ -51,7 +51,7 @@ namespace Animation
             CORE_ASSERT(length_sq != 0.f, "bone has lenght 0, cannot project.");
 
             // Project on the line segment
-            const Scalar t = Math::clamp(op.dot(dir) / length_sq, 0.f, 1.f);
+            const Scalar t = Math::clamp(op.dot(dir) / length_sq, ( Scalar )0.0, ( Scalar )1.0 );
             return start + (t * dir);
         }
     }
