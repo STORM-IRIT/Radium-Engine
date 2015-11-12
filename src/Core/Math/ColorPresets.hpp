@@ -12,6 +12,7 @@ namespace Ra{
         {
             // Primary and secondary colors.
             // TODO (Val) : check if we can make these constexpr
+            inline Color Alpha() { return Color( 0.0, 0.0, 0.0, 0.0 ); }
             inline Color Black() { return Color(0,0,0,1); }
 
             inline Color Red()   { return Color(1,0,0,1); }
