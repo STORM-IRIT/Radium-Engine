@@ -80,7 +80,6 @@ Pose interpolatePoses(const Pose& a, const Pose& b, const Scalar t ) {
 
         interpolatedPose[i] = interpolatedTransform;
     }
-#pragma omp barrier
 
     return interpolatedPose;
 }
