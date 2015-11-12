@@ -56,12 +56,12 @@ namespace Ra
                 }
                 return hasDuplicates;
             }
-            
+
             void removeDuplicates(TriangleMesh& mesh, std::vector<VertexIdx>& vertexMap)
             {
-                std::vector<VertexIdx> duplicatesMap; 
+                std::vector<VertexIdx> duplicatesMap;
                 findDuplicates(mesh, duplicatesMap);
-                
+
                 std::vector<VertexIdx> newIndices(mesh.m_vertices.size(), VertexIdx(-1));
                 Vector3Array uniqueVertices;
                 for (int i = 0; i < mesh.m_vertices.size(); i++)
@@ -70,85 +70,46 @@ namespace Ra
                     {
                         newIndices[i] = uniqueVertices.size();
                         uniqueVertices.push_back(mesh.m_vertices[i]);
-                        
+
                     }
                 }
-                
+
                 for (int i = 0; i < mesh.m_triangles.size(); i++)
                 {
                     for (int j = 0; j < 3; j++)
                     {
                         int oldIdx = mesh.m_triangles[i](j);
                         int newIdx = newIndices[duplicatesMap[oldIdx]];
-                        mesh.m_triangles[i](j) = newIdx;                 
+                        mesh.m_triangles[i](j) = newIdx;
                     }
                 }
-                
+
                 vertexMap.resize(mesh.m_vertices.size());
                 for (int i = 0; i < mesh.m_vertices.size(); i++)
                     vertexMap[i] = newIndices[duplicatesMap[i]];
-                
+
                 mesh.m_vertices = uniqueVertices;
             }
 
             TriangleMesh makeXNormalQuad( const Vector2& halfExts )
             {
-                TriangleMesh result;
-
-                result.m_vertices =
-                {
-                    Vector3( 0.0, halfExts[0], -halfExts[1] ),
-                    Vector3( 0.0, -halfExts[0], -halfExts[1] ),
-                    Vector3( 0.0, -halfExts[0], halfExts[1] ),
-                    Vector3( 0.0, halfExts[0], halfExts[1] )
-                };
-
-                result.m_triangles =
-                {
-                    Triangle( 0, 1, 2 ), Triangle( 0, 2, 3 )
-                };
-
-                return result;
+                Transform T = Transform::Identity();
+                T.linear().col( 0 ).swap( T.linear().col( 1 ) );
+                T.linear().col( 1 ).swap( T.linear().col( 2 ) );
+                return makePlaneGrid< 1, 1 >( halfExts, T );
             }
 
             TriangleMesh makeYNormalQuad( const Vector2& halfExts )
             {
-                TriangleMesh result;
-
-                result.m_vertices =
-                {
-                    Vector3( halfExts[0], 0.0, -halfExts[1] ),
-                    Vector3( -halfExts[0], 0.0, -halfExts[1] ),
-                    Vector3( -halfExts[0], 0.0, halfExts[1] ),
-                    Vector3( halfExts[0], 0.0, halfExts[1] )
-                };
-
-                result.m_triangles =
-                {
-                    Triangle( 0, 1, 2 ), Triangle( 0, 2, 3 )
-                };
-
-                return result;
+                Transform T = Transform::Identity();
+                T.linear().col( 1 ).swap( T.linear().col( 2 ) );
+                T.linear().col( 0 ).swap( T.linear().col( 1 ) );
+                return makePlaneGrid< 1, 1 >( halfExts, T );
             }
 
             TriangleMesh makeZNormalQuad( const Vector2& halfExts )
             {
-                TriangleMesh result;
-
-                result.m_vertices =
-                {
-                    Vector3( halfExts[0], -halfExts[1], 0.0 ),
-                    Vector3( -halfExts[0], -halfExts[1], 0.0 ),
-                    Vector3( -halfExts[0], halfExts[1], 0.0 ),
-                    Vector3( halfExts[0], halfExts[1], 0.0 )
-                };
-
-                result.m_triangles =
-                {
-                    Triangle( 0, 1, 2 ), Triangle( 0, 2, 3 )
-                };
-
-                return result;
+                return makePlaneGrid< 1, 1 >( halfExts );
             }
 
             TriangleMesh makeBox( const Vector3& halfExts )
