@@ -29,7 +29,7 @@ namespace FancyMeshPlugin
         technique->material = new Ra::Engine::Material( "Default" );
         technique->shaderConfig = Ra::Engine::ShaderConfiguration( "Default", "../Shaders" );
 
-        addMeshRenderObject( mesh, name, technique );
+        addMeshRenderObject(mesh, name, technique);
     }
 
     void FancyMeshComponent::addMeshRenderObject( const Ra::Core::TriangleMesh& mesh,
@@ -67,36 +67,70 @@ namespace FancyMeshPlugin
 
     void FancyMeshComponent::handleMeshLoading( const FancyComponentData& data )
     {
-        CORE_ASSERT( data.meshes.size() == 1, "One mesh per component / object." );
-        // FIXME(Charly): Change data meshes array to just one mesh
-
+        
         Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( data.name, this );
         renderObject->setVisible( true );
 
-        for ( uint i = 0; i < data.meshes.size(); ++i )
+        FancyMeshData meshData = data.mesh;
+
+        std::stringstream ss;
+        ss << data.name << "_mesh_";
+        std::string meshName = ss.str();
+
+        Ra::Engine::Mesh* mesh = new Ra::Engine::Mesh( meshName );
+        
+        mesh->loadGeometry( meshData.positions, meshData.indices );
+
+        mesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, meshData.normals );
+        mesh->addData( Ra::Engine::Mesh::VERTEX_TANGENT, meshData.tangents );
+        mesh->addData( Ra::Engine::Mesh::VERTEX_BITANGENT, meshData.bitangents );
+        mesh->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, meshData.texcoords );
+        mesh->addData( Ra::Engine::Mesh::VERTEX_COLOR, meshData.colors );
+        mesh->addData( Ra::Engine::Mesh::VERTEX_WEIGHTS, meshData.weights );
+
+        renderObject->setMesh( mesh );
+        
+        m_meshIndex = addRenderObject(renderObject);
+        
+        // Build m_mesh
+        int triangleCount = meshData.indices.size() / 3;
+        int vertexCount = meshData.positions.size();
+        m_mesh.m_vertices.resize(vertexCount);
+        m_mesh.m_normals.resize(vertexCount);
+        m_mesh.m_triangles.resize(triangleCount);
+        
+        for (int i = 0; i < vertexCount; i++)
         {
-            FancyMeshData meshData = data.meshes[i];
-
-            std::stringstream ss;
-            ss << data.name << "_mesh_" << i;
-            std::string meshName = ss.str();
-
-            Ra::Engine::Mesh* mesh = new Ra::Engine::Mesh( meshName );
-
-            mesh->loadGeometry( meshData.positions, meshData.indices );
-
-            mesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, meshData.normals );
-            mesh->addData( Ra::Engine::Mesh::VERTEX_TANGENT, meshData.tangents );
-            mesh->addData( Ra::Engine::Mesh::VERTEX_BITANGENT, meshData.bitangents );
-            mesh->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, meshData.texcoords );
-            mesh->addData( Ra::Engine::Mesh::VERTEX_COLOR, meshData.colors );
-            mesh->addData( Ra::Engine::Mesh::VERTEX_WEIGHTS, meshData.weights );
-
-            renderObject->setMesh( mesh );
+            Ra::Core::Vector4 pos = meshData.positions[i];
+            Ra::Core::Vector4 normals = meshData.normals[i];
+            m_mesh.m_vertices[i] = Ra::Core::Vector3(pos(0), pos(1), pos(2));
+            m_mesh.m_normals[i] = Ra::Core::Vector3(normals(0), normals(1), normals(2));
         }
+        
+        for (int i = 0; i < triangleCount; i++)
+            m_mesh.m_triangles[i] = Ra::Core::Triangle(meshData.indices[i * 3], meshData.indices[i * 3 + 1], meshData.indices[i * 3 + 2]);
 
         renderObject->setRenderTechnique( data.renderTechnique );
-
-        addRenderObject( renderObject );
     }
+    
+    void FancyMeshComponent::setLoadingInfo(MeshLoadingInfo info)
+    {
+        m_loadingInfo = info;
+    }
+    
+    const MeshLoadingInfo& FancyMeshComponent::getLoadingInfo() const
+    {
+        return m_loadingInfo;
+    }
+    
+    Ra::Core::Index FancyMeshComponent::getMeshIndex() const
+    {
+        return m_meshIndex;
+    }
+    
+    Ra::Core::TriangleMesh FancyMeshComponent::getMesh() const
+    {
+        return m_mesh;
+    }
+    
 } // namespace FancyMeshPlugin

@@ -4,6 +4,7 @@
 #include <Engine/RaEngine.hpp>
 
 #include <vector>
+#include <set>
 
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
@@ -22,17 +23,16 @@ namespace Ra
 {
     namespace Engine
     {
-
         class RA_ENGINE_API RenderParameters
         {
-        private:
+        public:
             class Parameter
             {
             public:
+                Parameter() = default;
                 Parameter( const char* name ) : m_name( name ) {}
                 virtual void bind( ShaderProgram* shader ) const = 0;
-
-            protected:
+                
                 const char* m_name;
             };
 
@@ -40,31 +40,27 @@ namespace Ra
             class TParameter : public Parameter
             {
             public:
+                TParameter() = default;
                 TParameter( const char* name, const T& value )
                     : Parameter( name ), m_value( value ) {}
                 virtual void bind( ShaderProgram* shader ) const override;
 
-                std::string getName() const { return m_name; }
-                const T& getValue() const { return m_value; }
-
-            private:
                 T m_value;
             };
 
             class TextureParameter : public Parameter
             {
             public:
+                TextureParameter() = default;
                 TextureParameter( const char* name, Texture* tex, int texUnit )
                     : Parameter( name ), m_texture( tex ), m_texUnit( texUnit ) {}
                 virtual void bind( ShaderProgram* shader ) const override;
 
-            private:
                 Texture* m_texture;
                 int m_texUnit;
             };
 
-            template <typename T>
-            class UniformBindableVector : public Core::AlignedStdVector<T>
+            template <typename T> class UniformBindableVector : public std::map<std::string, T>
             {
             public:
                 void bind( ShaderProgram* shader ) const;
@@ -105,7 +101,7 @@ namespace Ra
             {
                 for (const auto& p : m_scalarParamsVector)
                 {
-                    LOG( logDEBUG ) << "  " << p.getName() << " : " << p.getValue();
+                    LOG( logDEBUG ) << "  " << p.first << " : " << p.second.m_name;
                 }
             }
 

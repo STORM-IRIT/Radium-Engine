@@ -86,6 +86,8 @@ namespace Ra
 
             void render();
 
+            Mesh* clone();
+
         private:
             Mesh( const Mesh& ) = delete;
             void operator= ( const Mesh& ) = delete;
@@ -98,10 +100,12 @@ namespace Ra
             GLenum m_renderMode;
 
             std::array<Core::Vector4Array, MAX_DATATYPES> m_data;
-            std::array<GlBuffer<Core::Vector4>, MAX_DATATYPES> m_vbos;
+            std::array<uint, MAX_DATATYPES> m_vbos = {{ 0 }};
+            std::array<bool, MAX_DATATYPES> m_dirtyArray = {{ false }};
 
             std::vector<uint> m_indices;
-            GlBuffer<uint, GL_ELEMENT_ARRAY_BUFFER> m_ibo;
+            uint m_ibo;
+//            GlBuffer<uint, GL_ELEMENT_ARRAY_BUFFER> m_ibo;
         };
 
     } // namespace Engine

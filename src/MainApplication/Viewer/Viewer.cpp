@@ -12,6 +12,7 @@
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Renderer/Renderer.hpp>
+#include <Engine/Renderer/Light/DirLight.hpp>
 
 #include <MainApplication/Viewer/TrackballCamera.hpp>
 #include <MainApplication/Viewer/Gizmo/GizmoManager.hpp>
@@ -72,7 +73,6 @@ namespace
 
 namespace Ra
 {
-
     Gui::Viewer::Viewer( QWidget* parent )
         : QOpenGLWidget( parent )
         , m_gizmoManager(new GizmoManager(this))
@@ -106,7 +106,7 @@ namespace Ra
     {
         initializeOpenGLFunctions();
 
-        LOG( logINFO ) << "***Radium Engine Viewer***";
+        LOG( logINFO ) << "*** Radium Engine Viewer ***";
         LOG( logINFO ) << "Renderer : " << glGetString( GL_RENDERER );
         LOG( logINFO ) << "Vendor   : " << glGetString( GL_VENDOR );
         LOG( logINFO ) << "OpenGL   : " << glGetString( GL_VERSION );
@@ -141,6 +141,10 @@ namespace Ra
 #if !defined (FORCE_RENDERING_ON_MAIN_THREAD)
         m_renderThread = new RenderThread( this, m_renderer.get() );
 #endif
+
+        auto light = std::make_shared<Engine::DirectionalLight>();
+        m_renderer->addLight( light );
+        m_camera->attachLight( light );
     }
 
     void Gui::Viewer::initRenderer()
@@ -226,6 +230,7 @@ namespace Ra
 
     void Gui::Viewer::wheelEvent( QWheelEvent* event )
     {
+		m_camera->handleWheelEvent(event);
         QOpenGLWidget::wheelEvent( event );
         mainApp->m_mainWindow->viewerWheelEvent( event );
     }

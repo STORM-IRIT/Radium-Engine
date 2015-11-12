@@ -8,6 +8,7 @@ namespace Ra
 
     Gui::CameraInterface::CameraInterface( uint width, uint height )
         : m_cameraSensitivity( 1.0 )
+        , m_hasLightAttached( false )
     {
         m_camera.reset( new Engine::Camera( Scalar( height ), Scalar( width ) ) );
 
@@ -92,5 +93,5 @@ namespace Ra
 
         // FIXME(Charly): Should we change camera zFar given bbox size ?
     }
-
 }
+

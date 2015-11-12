@@ -31,26 +31,33 @@ namespace FancyMeshPlugin
     {
     }
 
-#if 0
-    void FancyMeshSystem::handleFileLoading( const std::string& filename )
+    void FancyMeshSystem::handleFileLoading(Ra::Engine::Entity* entity, const std::string& filename)
     {
+		LOG( logDEBUG ) << "FancyMeshSystem : loading the file " << filename << "...";
+		
         DataVector componentsData = FancyMeshLoader::loadFile( filename );
 
-        for ( uint i = 0; i < componentsData.size(); ++i )
+		if ( componentsData.empty() )
         {
-            FancyComponentData data = componentsData[i];
-
-            // Retrieve entity if exist, create it otherwise
-            Ra::Engine::Entity* e = m_engine->getEntityManager()->getOrCreateEntity( data.name );
-            e->setTransform( data.transform );
-
-            FancyMeshComponent* component =
-                static_cast<FancyMeshComponent*>( addComponentToEntity( e ) );
-
-            component->handleMeshLoading( data );
+            // Something wrong happened while trying to load the file
+            return;
+        }
+        
+        for (int i = 0; i < componentsData.size(); i++)
+        {
+            FancyComponentData componentData = componentsData[i];
+            FancyMeshComponent* component = static_cast<FancyMeshComponent*>(addComponentToEntity(entity));
+            component->handleMeshLoading(componentData);
+            
+            MeshLoadingInfo loadingInfo;
+            loadingInfo.filename = filename;
+            loadingInfo.index = i;
+            loadingInfo.vertexMap = componentData.mesh.vertexMap;
+            component->setLoadingInfo(loadingInfo);
+            
+            callOnComponentCreationDependencies(component);   
         }
     }
-#endif
 
     void FancyMeshSystem::handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder,
                                              const std::map<std::string, Ra::Core::Any>& data )
@@ -82,6 +89,8 @@ namespace FancyMeshPlugin
 
         FancyMeshComponent* component = static_cast<FancyMeshComponent*>( addComponentToEntity( entity ) );
         component->handleMeshLoading( componentData );
+        
+        callOnComponentCreationDependencies(component);
     }
 
     Ra::Engine::Component* FancyMeshSystem::addComponentToEntityInternal( Ra::Engine::Entity* entity, uint id )
@@ -95,11 +104,6 @@ namespace FancyMeshPlugin
     void FancyMeshSystem::generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo )
     {
         // Do nothing, as this system only displays meshes.
-        Ra::Core::DummyTask* task = new Ra::Core::DummyTask;
-        Ra::Core::DummyTaskParams p;
-        p.m_param = frameInfo.m_dt;
-        task->init( &p );
-        taskQueue->registerTask( task );
     }
 
     FancyMeshComponent* FancyMeshSystem::addFancyMeshToEntity( Ra::Engine::Entity* entity,

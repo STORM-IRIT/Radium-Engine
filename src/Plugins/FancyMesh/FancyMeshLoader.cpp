@@ -19,12 +19,14 @@
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/SpotLight.hpp>
 #include <Engine/Renderer/Light/PointLight.hpp>
-
+#include <iostream>
 namespace FancyMeshPlugin
 {
     namespace
     {
-        const Ra::Engine::ShaderConfiguration defaultShaderConf( "BlinnPhong", "../Shaders" );
+        const Ra::Engine::ShaderConfiguration defaultShaderConf(
+            "BlinnPhongWireframe", "../Shaders",
+            Ra::Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM );
 
         std::string filepath;
         static DataVector dataVector;
@@ -40,7 +42,7 @@ namespace FancyMeshPlugin
         void runThroughNodes( const aiNode* node, const aiScene* scene,
                               const Ra::Core::Matrix4& transform );
 
-        void loadMesh( const aiMesh* mesh, FancyMeshData& data );
+        void loadMesh(const aiMesh* mesh, FancyMeshData& data , const Ra::Core::Transform &tranform);
 
         void loadRenderTechnique( const aiMaterial* mat, FancyComponentData& data );
         void loadDefaultRenderTechnique( FancyComponentData& data );
@@ -51,6 +53,7 @@ namespace FancyMeshPlugin
         dataVector.clear();
 
         Assimp::Importer importer;
+//        const aiScene* scene = importer.ReadFile( name, aiProcess_JoinIdenticalVertices);
         const aiScene* scene = importer.ReadFile( name,
                                                   aiProcess_Triangulate |
                                                   aiProcess_JoinIdenticalVertices |
@@ -64,7 +67,7 @@ namespace FancyMeshPlugin
             LOG( logERROR ) << "Error while loading file \"" << name << "\" : " << importer.GetErrorString() << ".";
             return dataVector;
         }
-
+        
         //    LOG(DEBUG) << "About to load file " << name;
         //    LOG(DEBUG) << "Found " << scene->mNumMeshes << " meshes and " << scene->mNumMaterials << " materials.";
 
@@ -112,9 +115,10 @@ namespace FancyMeshPlugin
                     FancyMeshData meshData;
 
                     aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-                    loadMesh( mesh, meshData );
+                    Ra::Core::Transform transform(data.transform);
+                    loadMesh( mesh, meshData, transform);
 
-                    data.meshes.push_back( meshData );
+                    data.mesh = meshData;
                 }
 
                 dataVector.push_back( data );
@@ -126,7 +130,7 @@ namespace FancyMeshPlugin
             }
         }
 
-        void loadMesh( const aiMesh* mesh, FancyMeshData& data )
+        void loadMesh( const aiMesh* mesh, FancyMeshData& data, const Ra::Core::Transform& transform )
         {
             Ra::Core::Vector4Array tangents;
             Ra::Core::Vector4Array bitangents;
@@ -141,7 +145,7 @@ namespace FancyMeshPlugin
             {
                 //positions.push_back( assimpToCore( mesh->mVertices[i] ) );
                 //normals.push_back( assimpToCore( mesh->mNormals[i] ) );
-                triangleMesh.m_vertices.push_back( assimpToCore( mesh->mVertices[i] ) );
+                triangleMesh.m_vertices.push_back( transform * assimpToCore( mesh->mVertices[i] ) );
 
                 if ( mesh->HasTangentsAndBitangents() )
                 {
@@ -172,16 +176,18 @@ namespace FancyMeshPlugin
             for ( uint i = 0; i < mesh->mNumFaces; ++i )
             {
                 aiFace f = mesh->mFaces[i];
-
-                indices.push_back( f.mIndices[0] );
-                indices.push_back( f.mIndices[1] );
-                indices.push_back( f.mIndices[2] );
-
-                triangleMesh.m_triangles.push_back( Ra::Core::Triangle(
-                                                        f.mIndices[0], f.mIndices[1], f.mIndices[2]
-                                                    ) );
+                triangleMesh.m_triangles.push_back( Ra::Core::Triangle(f.mIndices[0], f.mIndices[1], f.mIndices[2]) );
             }
-
+            
+            Ra::Core::MeshUtils::removeDuplicates(triangleMesh, data.vertexMap);
+            
+            for (int i = 0; i < triangleMesh.m_triangles.size(); i++)
+            {
+                indices.push_back(triangleMesh.m_triangles[i](0));
+                indices.push_back(triangleMesh.m_triangles[i](1));
+                indices.push_back(triangleMesh.m_triangles[i](2));
+            }
+            
             Ra::Core::Vector3Array vec3Normals;
 
             Ra::Core::MeshUtils::getAutoNormals( triangleMesh, vec3Normals );

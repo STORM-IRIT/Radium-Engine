@@ -158,7 +158,7 @@ namespace Ra
 
             // FIXME(Charly): Not sure the lights should be handled by the renderer.
             //                How to do this ?
-            void addLight( Light* light )
+            void addLight( const std::shared_ptr<Light>& light )
             {
                 m_lights.push_back( light );
             }
@@ -232,7 +232,6 @@ namespace Ra
             void initShaders();
             void initBuffers();
 
-
         protected:
             uint m_width;
             uint m_height;
@@ -267,7 +266,7 @@ namespace Ra
              */
             bool m_displayedIsDepth;
 
-            std::vector<Light*> m_lights;
+            std::vector<std::shared_ptr<Light>> m_lights;
 
             RenderQueue m_opaqueRenderQueue;
             RenderQueue m_transparentRenderQueue;

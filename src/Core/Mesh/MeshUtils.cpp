@@ -56,6 +56,40 @@ namespace Ra
                 }
                 return hasDuplicates;
             }
+            
+            void removeDuplicates(TriangleMesh& mesh, std::vector<VertexIdx>& vertexMap)
+            {
+                std::vector<VertexIdx> duplicatesMap; 
+                findDuplicates(mesh, duplicatesMap);
+                
+                std::vector<VertexIdx> newIndices(mesh.m_vertices.size(), VertexIdx(-1));
+                Vector3Array uniqueVertices;
+                for (int i = 0; i < mesh.m_vertices.size(); i++)
+                {
+                    if (duplicatesMap[i] == i)
+                    {
+                        newIndices[i] = uniqueVertices.size();
+                        uniqueVertices.push_back(mesh.m_vertices[i]);
+                        
+                    }
+                }
+                
+                for (int i = 0; i < mesh.m_triangles.size(); i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        int oldIdx = mesh.m_triangles[i](j);
+                        int newIdx = newIndices[duplicatesMap[oldIdx]];
+                        mesh.m_triangles[i](j) = newIdx;                 
+                    }
+                }
+                
+                vertexMap.resize(mesh.m_vertices.size());
+                for (int i = 0; i < mesh.m_vertices.size(); i++)
+                    vertexMap[i] = newIndices[duplicatesMap[i]];
+                
+                mesh.m_vertices = uniqueVertices;
+            }
 
             TriangleMesh makeXNormalQuad( const Vector2& halfExts )
             {

@@ -62,6 +62,7 @@ namespace Ra
             virtual Core::Index addRenderObject( RenderObject* renderObject ) final;
             virtual void removeRenderObject( Core::Index roIdx ) final;
 
+
             //
             // Editable interface.
             //

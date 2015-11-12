@@ -7,6 +7,7 @@
 
 #include <functional>
 #include <Eigen/Core>
+#include <Eigen/Sparse>
 #include <Eigen/Geometry>
 #include <unsupported/Eigen/AlignedVector3>
 
@@ -62,6 +63,10 @@ namespace Ra
         typedef Eigen::Matrix3d Matrix3d;
         typedef Eigen::Matrix2d Matrix2d;
 
+        //typedef Eigen::DiagonalMatrix< Scalar, Eigen::Dynamic > Diagonal;
+        typedef Eigen::SparseMatrix< Scalar > Diagonal; // Not optimized for Diagonal matrices, but the operations between Sparse and Diagonal are not defined
+        typedef Eigen::SparseMatrix< Scalar > Sparse;
+
         //
         // Transforms and rotations
         //
@@ -104,6 +109,8 @@ namespace Ra
 
             /// Extends the OBB with an new point.
             void addPoint( const Vector3& p );
+			/// Returns the position of the i^th corner of AABB (model space)
+			Vector3 corner(int i) const;
 
         public:
             /// The untransformed AABB
@@ -148,7 +155,19 @@ namespace Ra
             /// Get the angle between two vectors. Works for types where the cross product is
             /// defined (i.e. 2D and 3D vectors).
             template<typename Vector_>
-            inline Scalar getAngle( const Vector_& v1, const Vector_& v2);
+            inline Scalar angle( const Vector_& v1, const Vector_& v2);
+
+            /// @return the projection of point on the plane define by planePos and planeNormal
+            inline Vector3 projectOnPlane(const Vector3& planePos, const Vector3 planeNormal, const Vector3& point);
+
+            /// Get the cotangent of the angle between two vectors. Works for vector types where
+            /// dot and cross product is defined (2D or 3D vectors).
+            template <typename Vector_>
+            inline Scalar cotan( const Vector_& v1, const Vector_& v2);
+
+            /// Get the cosine of the angle between two vectors.
+            template <typename Vector_>
+            inline Scalar cos( const Vector_& v1, const Vector_& v2);
         }
 
         //
@@ -157,7 +176,7 @@ namespace Ra
 
         inline Quaternion operator+ ( const Quaternion& q1, const Quaternion& q2 );
         inline Quaternion operator* ( const Scalar& k, const Quaternion& q );
-
+        inline Quaternion operator/ ( const Quaternion& q, const Scalar& k);
 
         // Use this macro in the public: section of a class
         // when declaring objects containing Vector or Matrices.

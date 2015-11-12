@@ -12,6 +12,7 @@
 #include <MainApplication/Gui/EntityTreeModel.hpp>
 #include <MainApplication/Gui/EntityTreeItem.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
+#include <assimp/Importer.hpp>
 
 namespace Ra
 {
@@ -96,12 +97,23 @@ namespace Ra
         // Inform property editors of new selections
         connect(this, &MainWindow::selectedEntity, tab_edition, &TransformEditorWidget::setEditable);
         connect(this, &MainWindow::selectedEntity, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
+        connect(this, &MainWindow::selectedComponent, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
 
         // Editors should be updated after each frame
         connect(mainApp, &MainApplication::endFrame, tab_edition, &TransformEditorWidget::updateValues);
         connect(mainApp, &MainApplication::endFrame, m_viewer->getGizmoManager(), &GizmoManager::updateValues);
-
+		
+		connect(playButton, SIGNAL(clicked(bool)), this, SLOT(playAnimation()));
+		connect(pauseButton, SIGNAL(clicked(bool)), this, SLOT(pauseAnimation()));
     }
+	
+	void Gui::MainWindow::playAnimation()
+	{
+	}
+	
+	void Gui::MainWindow::pauseAnimation()
+	{
+	}
 
     void Gui::MainWindow::onEntitiesUpdated()
     {
@@ -141,7 +153,15 @@ namespace Ra
 
     void Gui::MainWindow::loadFile()
     {
-        QString path = QFileDialog::getOpenFileName( this, QString(), ".." );
+		// Filter the files
+		aiString extList;
+		Assimp::Importer importer;
+		importer.GetExtensionList(extList);
+		std::string extListStd(extList.C_Str());
+		std::replace(extListStd.begin(), extListStd.end(), ';', ' ');
+		QString filter = QString::fromStdString(extListStd);
+		
+        QString path = QFileDialog::getOpenFileName( this, "Open File", "..", filter);
         if ( path.size() > 0 )
         {
             emit fileLoading( path );
@@ -335,7 +355,7 @@ namespace Ra
             Core::Index entIdx = ent->idx;
             QModelIndex entityIdx = m_entityTreeModel->index( entIdx, 0 );
             QModelIndex treeIdx = entityIdx;
-            if (false) // select component.
+            if ( comp->picked(drawableIndex)) // select component.
             {
                 treeIdx = entityIdx.child(compIdx, 0);
             }
@@ -358,15 +378,24 @@ namespace Ra
             QModelIndex selIdx = selected.indexes()[0];
 
             Engine::Entity* entity = m_entityTreeModel->getItem(selIdx)->getData(0).entity;
-            // Debug entity and objects are not selectable
-            if (entity != Engine::SystemEntity::getInstance())
+            if (entity)
             {
-                emit selectedEntity(entity);
+                // Debug entity and objects are not selectable
+                if (entity != Engine::SystemEntity::getInstance())
+                {
+                    emit selectedEntity(entity);
+                }
+            }
+            else
+            {
+                Engine::Component* comp = m_entityTreeModel->getItem(selIdx)->getData(0).component;
+                emit selectedComponent(comp);
             }
         }
         else
         {
             emit selectedEntity( nullptr );
+            emit selectedComponent( nullptr );
         }
     }
 

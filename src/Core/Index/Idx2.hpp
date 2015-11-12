@@ -123,13 +123,6 @@ namespace Ra
             /// @name Other methods
             // -------------------------------------------------------------------------
 
-#ifdef __CUDACC__
-            int3 to_int3() const
-            {
-                return make_int3( _size( 0 ), _size( 0 ), _id );
-            }
-#endif
-
             inline
             int size_linear() const
             {
@@ -232,86 +225,6 @@ namespace Ra
 
             Vector2i _size; ///< 3d size the index is looking up
             int      _id;   ///< Linear index
-
-            // WARNING: these operators should not be used/implemented since:
-            // (they don't really make sense) || (are to ambigus to decypher when used)
-#if 0
-            bool operator<=( const Idx2& ) const
-            {
-                return false;
-            }
-            bool operator>=( const Idx2& ) const
-            {
-                return false;
-            }
-            bool operator< ( const Idx2& ) const
-            {
-                return false;
-            }
-            bool operator> ( const Idx2& ) const
-            {
-                return false;
-            }
-
-            Idx2 operator- ( const Idx2& ) const
-            {
-                return Idx2();
-            }
-            Idx2 operator+ ( const Idx2& ) const
-            {
-                return Idx2();
-            }
-            Idx2 operator+=( const Idx2& )
-            {
-                return Idx2();
-            }
-            Idx2 operator-=( const Idx2& )
-            {
-                return Idx2();
-            }
-
-            bool operator==( int ) const
-            {
-                return false;
-            }
-            bool operator!=( int ) const
-            {
-                return false;
-            }
-            bool operator<=( int ) const
-            {
-                return false;
-            }
-            bool operator>=( int ) const
-            {
-                return false;
-            }
-            bool operator> ( int ) const
-            {
-                return false;
-            }
-            bool operator< ( int ) const
-            {
-                return false;
-            }
-
-            Idx2 operator+ ( int )  const
-            {
-                return Idx2();
-            }
-            Idx2 operator- ( int )  const
-            {
-                return Idx2();
-            }
-            Idx2 operator+=( int )
-            {
-                return Idx2();
-            }
-            Idx2 operator-=( int )
-            {
-                return Idx2();
-            }
-#endif
         };
     }
 }

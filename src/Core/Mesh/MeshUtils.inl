@@ -6,7 +6,7 @@ namespace Ra
     {
         namespace MeshUtils
         {
-            inline float getTriangleArea( const TriangleMesh& mesh, TriangleIdx triIdx )
+            inline Scalar getTriangleArea( const TriangleMesh& mesh, TriangleIdx triIdx )
             {
                 std::array<Vector3, 3> v;
                 getTriangleVertices( mesh, triIdx, v );
@@ -100,8 +100,8 @@ namespace Ra
                 checkConsistency( result );
                 return result;
             }
-            
-            
+
+
             template<uint U, uint V>
             TriangleMesh makeParametricTorus(Scalar majorRadius, Scalar minorRadius)
             {

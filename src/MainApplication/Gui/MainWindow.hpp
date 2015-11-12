@@ -55,6 +55,8 @@ namespace Ra
             void setCameraPosition();
             void setCameraTarget();
             void handlePicking( int drawableIndex );
+			void playAnimation();
+			void pauseAnimation();
 
         public slots:
             void onEntitiesUpdated();
@@ -82,7 +84,7 @@ namespace Ra
             void framescountForStatsChanged( int count );
 
             void selectedEntity( Engine::Entity* selectedEntity );
-            //void selectedComponent( Engine::Component* selectedComponent);
+            void selectedComponent( Engine::Component* selectedComponent);
 
             void cameraPositionSet( const Core::Vector3& );
             void cameraTargetSet( const Core::Vector3& );

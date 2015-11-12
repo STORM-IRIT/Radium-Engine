@@ -1,5 +1,6 @@
 #include <Core/Containers/Grid2_ref.hpp>
-#include <Core/Containers/Grid.hpp>
+#include <Core/Containers/Grid3.hpp>
+#include <Core/Containers/Grid2.hpp>
 
 namespace Ra
 {
@@ -15,7 +16,7 @@ namespace Ra
         // -----------------------------------------------------------------------------
 
         template<typename T>
-        Grid2_ref<T>::Grid2_ref( Grid<T, 2>& g ) :
+        Grid2_ref<T>::Grid2_ref( Grid2<T>& g ) :
             Grid2_const_ref<T>( g ),
             _grid_ref( &g )
         {
@@ -27,7 +28,7 @@ namespace Ra
         template<typename T>
         Grid2_ref<T>
 
-        Grid2_ref<T>::make_xy( Grid<T, 3>& g, Range x, Range y, int z )
+        Grid2_ref<T>::make_xy( Grid3<T>& g, Range x, Range y, int z )
         {
             // TODO: factor code (just pass new Grid2_ref_xy<T>( g, z); as a func parameter)
             Grid2_ref<T> ref;
@@ -45,7 +46,7 @@ namespace Ra
         template<typename T>
         Grid2_ref<T>
 
-        Grid2_ref<T>::make_xz( Grid<T, 3>& g, Range x, int y, Range z )
+        Grid2_ref<T>::make_xz( Grid3<T>& g, Range x, int y, Range z )
         {
             // TODO: factor code (just pass new Grid2_ref_xy<T>( g, z); as a func parameter)
             Grid2_ref<T> ref;
@@ -63,7 +64,7 @@ namespace Ra
         template<typename T>
         Grid2_ref<T>
 
-        Grid2_ref<T>::make_yz( Grid<T, 3>& g, int x, Range y, Range z )
+        Grid2_ref<T>::make_yz( Grid3<T>& g, int x, Range y, Range z )
         {
             // TODO: factor code (just pass new Grid2_ref_xy<T>( g, z); as a func parameter)
             Grid2_ref<T> ref;
@@ -139,7 +140,7 @@ namespace Ra
         // -----------------------------------------------------------------------------
 
         template<typename T>
-        Grid<T, 2>&
+        Grid2<T>&
 
         Grid2_ref<T>::operator= ( Grid2_const_ref<T> cp )
         {
@@ -150,7 +151,7 @@ namespace Ra
         // -----------------------------------------------------------------------------
 
         template<typename T>
-        Grid<T, 2>&
+        Grid2<T>&
 
         Grid2_ref<T>::operator= ( Grid2_ref<T> cp )
         {
@@ -189,7 +190,7 @@ namespace Ra
         template<typename T>
         T& Grid2_ref<T>::operator()( int x, int y )
         {
-            return ( *_grid_ref ).at( Vector2i( x, y ) );
+            return ( *_grid_ref )( Vector2i( x, y ) );
         }
 
         // -----------------------------------------------------------------------------
@@ -198,7 +199,7 @@ namespace Ra
         T& Grid2_ref<T>::operator()( const Idx2& idx )
         {
             Vector2i v = idx.to_2d();
-            return ( *_grid_ref ).at( Vector2i( v( 0 ), v( 1 ) ) );
+            return ( *_grid_ref )( Vector2i( v( 0 ), v( 1 ) ) );
         }
 
         // -----------------------------------------------------------------------------

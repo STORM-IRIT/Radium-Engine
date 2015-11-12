@@ -7,6 +7,7 @@
 #include <assimp/postprocess.h>
 
 #include <Core/Log/Log.hpp>
+#include <Core/Math/ColorPresets.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/OpenGL/FBO.hpp>
@@ -23,6 +24,7 @@
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 
+#define NO_TRANSPARENCY
 namespace Ra
 {
     namespace Engine
@@ -287,7 +289,7 @@ namespace Ra
 
             GL_ASSERT( glDrawBuffers( 6, buffers ) );
 
-            const Core::Color clearColor( 0.6, 0.6, 0.6, 1.0 );
+            const Core::Color clearColor = Core::Colors::FromChars(42, 42, 42, 128);
             const Core::Color clearZeros( 0.0, 0.0, 0.0, 0.0 );
             const Core::Color clearOnes( 1.0, 1.0, 1.0, 1.0 );
             const Scalar clearDepth( 1.0 );
@@ -339,6 +341,7 @@ namespace Ra
             }
             else
             {
+                LOG( logINFO ) << "No light, ahah";
                 DirectionalLight l;
                 l.setDirection( Core::Vector3( 0.3, -1.0, 0.0 ) );
 
@@ -649,6 +652,7 @@ namespace Ra
 
         void Renderer::handleFileLoading( const std::string& filename )
         {
+            return;
             Assimp::Importer importer;
             const aiScene* scene = importer.ReadFile( filename,
                                                       aiProcess_Triangulate |
@@ -711,7 +715,7 @@ namespace Ra
                         Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
                         finalDir = -finalDir;
 
-                        DirectionalLight* light = new DirectionalLight;
+                        auto light = std::make_shared<DirectionalLight>();
                         light->setColor( color );
                         light->setDirection( finalDir );
 
@@ -728,7 +732,7 @@ namespace Ra
                         pos = transform * pos;
                         pos /= pos.w();
 
-                        PointLight* light = new PointLight;
+                        auto light = std::make_shared<PointLight>();
                         light->setColor( color );
                         light->setPosition( Core::Vector3( pos.x(), pos.y(), pos.z() ) );
                         light->setAttenuation( ailight->mAttenuationConstant,
@@ -756,7 +760,7 @@ namespace Ra
                         Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
                         finalDir = -finalDir;
 
-                        SpotLight* light = new SpotLight;
+                        auto light = std::make_shared<SpotLight>();
                         light->setColor( color );
                         light->setPosition( Core::Vector3( pos.x(), pos.y(), pos.z() ) );
                         light->setDirection( finalDir );

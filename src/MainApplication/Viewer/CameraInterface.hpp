@@ -9,6 +9,7 @@
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Log/Log.hpp>
 
 namespace Ra
 {
@@ -24,6 +25,7 @@ namespace Ra
     namespace Engine
     {
         class  Camera;
+        class  Light;
     }
 }
 
@@ -52,6 +54,8 @@ namespace Ra
             virtual bool handleMouseReleaseEvent( QMouseEvent* event ) = 0;
             /// @return true if the event has been taken into account, false otherwise
             virtual bool handleMouseMoveEvent( QMouseEvent* event ) = 0;
+			/// @return true if the event has been taken into account, false otherwise
+			virtual bool handleWheelEvent(QWheelEvent* event) = 0;
 
             /// @return true if the event has been taken into account, false otherwise
             virtual bool handleKeyPressEvent( QKeyEvent* event ) = 0;
@@ -59,6 +63,12 @@ namespace Ra
             virtual bool handleKeyReleaseEvent( QKeyEvent* event ) = 0;
 
             const Engine::Camera* getCamera() const { return m_camera.get();}
+
+            void attachLight( const std::shared_ptr<Engine::Light>& light )
+            {
+                m_light = light;
+                m_hasLightAttached = true;
+            }                             
 
         public slots:
             void setCameraSensitivity( double sensitivity );
@@ -90,6 +100,9 @@ namespace Ra
 
             std::unique_ptr<Engine::Camera> m_camera;
             bool m_mapCameraBahaviourToAabb;
+
+            std::shared_ptr<Engine::Light> m_light;
+            bool m_hasLightAttached;
         };
 
     } // namespace Ra

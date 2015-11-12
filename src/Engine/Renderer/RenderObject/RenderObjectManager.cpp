@@ -104,7 +104,7 @@ namespace Ra
                 std::shared_ptr<RenderObject> oldRenderObject = m_renderObjects[index];
                 std::shared_ptr<RenderObject> newRenderObject = m_doubleBuffer[index];
 
-                // We delete the old render object. If it is still in used by the renderer,
+                // We delete the old render object. If it is still used by the renderer,
                 // the pointer will still be valid for it.
                 oldRenderObject.reset();
 

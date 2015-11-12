@@ -1,16 +1,15 @@
-#ifndef RADIUMENGINE_GRID2_REF_HPP__
-#define RADIUMENGINE_GRID2_REF_HPP__
+#ifndef GRID2_REF_HPP
+#define GRID2_REF_HPP
 
-#include <Core/RaCore.hpp>
-#include <Core/Containers/Grid.hpp>
+//#include <Core/RaCore.hpp>
 #include <Core/Containers/Grid2_const_ref.hpp>
 
 namespace Ra
 {
     namespace Core
     {
-        template <typename T, uint D>
-        class Grid;
+//        template <typename T>
+//        class Grid2;
 
         /**
          * @name Grid2_ref
@@ -42,7 +41,7 @@ namespace Ra
          * @code
          * // Example of a standard way to handle class polymorphism
          * template<typename T>
-         * void foobar( Grid<T, 2>& g ){ g(x,y) = value; }
+         * void foobar( Grid2<T>& g ){ g(x,y) = value; }
          *
          * {
          *    Grid2_ref_xy<T>* g_ptr = new Grid2_ref_xy<T>( ... );
@@ -83,12 +82,11 @@ namespace Ra
         template<typename T>
         struct Grid2_ref : public Grid2_const_ref<T>
         {
+            Grid2_ref( Grid2<T>& g );
 
-            Grid2_ref( Grid<T, 2>& g );
-
-            static Grid2_ref<T> make_xy( Grid<T, 3>& g, Range x, Range y, int   z );
-            static Grid2_ref<T> make_xz( Grid<T, 3>& g, Range x, int   y, Range z );
-            static Grid2_ref<T> make_yz( Grid<T, 3>& g, int   x, Range y, Range z );
+            static Grid2_ref<T> make_xy( Grid3<T>& g, Range x, Range y, int   z );
+            static Grid2_ref<T> make_xz( Grid3<T>& g, Range x, int   y, Range z );
+            static Grid2_ref<T> make_yz( Grid3<T>& g, int   x, Range y, Range z );
 
             Grid2_ref( const Grid2_ref<T>& cp );
 
@@ -97,8 +95,8 @@ namespace Ra
 
             /// Assignement is an hard copy (copy every values of the grid as we would
             /// expect from a Grid2& reference)
-            Grid<T, 2>& operator= ( Grid2_const_ref<T> cp );
-            Grid<T, 2>& operator= ( Grid2_ref<T>       cp );
+            Grid2<T>& operator= ( Grid2_const_ref<T> cp );
+            Grid2<T>& operator= ( Grid2_ref<T>       cp );
 
             // -------------------------------------------------------------------------
             // Access referenced data:
@@ -130,7 +128,7 @@ namespace Ra
             void copy_from( const Grid2_const_ref<T>& cp );
 
             /// Polymorphic pointer to any 2D grid
-            Grid<T, 2>* _grid_ref;
+            Grid2<T>* _grid_ref;
         };
     }
 }

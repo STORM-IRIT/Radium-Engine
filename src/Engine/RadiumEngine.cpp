@@ -34,7 +34,7 @@ namespace Ra
         RadiumEngine::RadiumEngine()
             : m_quit( false )
         {
-                LOG(logINFO) << "Engine starting...";
+                LOG(logINFO) << "*** Radium Engine ***";
         }
 
         RadiumEngine::~RadiumEngine()
@@ -45,6 +45,9 @@ namespace Ra
         {
             m_renderObjectManager.reset( new RenderObjectManager );
             m_entityManager.reset( new EntityManager );
+
+            for (std::pair<const std::string, std::shared_ptr<Ra::Engine::System>> systemPair : m_systems)
+                systemPair.second->initialize();
         }
 
         void RadiumEngine::cleanup()
@@ -82,6 +85,7 @@ namespace Ra
                          "Same system added multiple times." );
 
             m_systems[name] = std::shared_ptr<System> ( system );
+            LOG(logINFO) << "Loaded : " << name;
         }
 
         System* RadiumEngine::getSystem( const std::string& system ) const
@@ -98,11 +102,20 @@ namespace Ra
         }
 
         bool RadiumEngine::loadFile( const std::string& filename )
-        {
-            //for ( auto& system : m_systems )
-            //{
-            //    system.second->handleFileLoading( file );
-            //}
+        {			
+			if (Ra::Core::StringUtils::getFileExt(filename) != "json")
+			{
+				Entity* entity = m_entityManager->createEntity();
+				
+//				for ( auto& system : m_systems )
+//	            {
+//					system.second->handleFileLoading(entity, filename);
+//	            }
+                
+                getSystem("FancyMeshSystem")->handleFileLoading(entity, filename);
+                
+				return true;
+			}
 
             // Fill file in a string (http://stackoverflow.com/a/2602060)
             std::ifstream t( filename );

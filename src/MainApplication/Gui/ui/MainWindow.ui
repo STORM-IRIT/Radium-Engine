@@ -40,7 +40,7 @@
      <x>0</x>
      <y>0</y>
      <width>1204</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFILE">
@@ -105,7 +105,10 @@
              </size>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>4</number>
+            </property>
+            <property name="movable">
+             <bool>false</bool>
             </property>
             <widget class="QWidget" name="tab_stats">
              <attribute name="title">
@@ -637,6 +640,31 @@
               </item>
              </layout>
             </widget>
+            <widget class="QWidget" name="tab_animation">
+             <attribute name="title">
+              <string>Animation</string>
+             </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout_6">
+              <item>
+               <layout class="QGridLayout" name="gridLayout_3">
+                <item row="0" column="0">
+                 <widget class="QPushButton" name="playButton">
+                  <property name="text">
+                   <string>Play</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QPushButton" name="pauseButton">
+                  <property name="text">
+                   <string>Pause</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
          </layout>
@@ -666,10 +694,10 @@
   </widget>
   <action name="actionOpenMesh">
    <property name="text">
-    <string>Open mesh...</string>
+    <string>Open...</string>
    </property>
    <property name="toolTip">
-    <string>Open a mesh</string>
+    <string>Open...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>

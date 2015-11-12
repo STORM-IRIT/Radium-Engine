@@ -36,6 +36,9 @@ namespace Ra
             inline const Core::Color& getColor() const;
             inline void setColor( const Core::Color& color );
 
+            virtual void setDirection( const Core::Vector3& dir ) {}
+            virtual void setPosition( const Core::Vector3& pos ) {}
+            
             inline const LightType& getType() const;
 
             virtual void getRenderParameters( RenderParameters& params );

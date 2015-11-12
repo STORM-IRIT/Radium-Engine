@@ -6,8 +6,11 @@
 #include <malloc.h>
 #endif
 #include <cstdint>
-#include <vector>
-#include <iostream>
+#include <cstddef>
+#include <cstdlib>
+#ifndef _WIN32
+#include <mm_malloc.h>
+#endif
 
 namespace Ra
 {

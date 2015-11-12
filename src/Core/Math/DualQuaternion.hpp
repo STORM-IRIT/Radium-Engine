@@ -14,6 +14,10 @@ namespace Ra
         /// such as e*e = 0 ; and using quaternions as the non-dual and dual part.
         /// Unit dual quaternions can represent any rigid transformation
         /// (rotation + translation).
+
+        /// A good reference.
+        /// http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/other/dualQuaternion/index.htm
+
         class DualQuaternion
         {
 
@@ -26,11 +30,14 @@ namespace Ra
             /// Construct a dual-quaternion from two quaternions.
             inline DualQuaternion( const Quaternion& q0, const Quaternion& qe ) : m_q0( q0 ), m_qe( qe ) { }
 
+            /// Construct a dual-quaternion from a rigid transform 
+            /// Any non-rigid component (e.g. scale and shear) will be ignored.
+            inline DualQuaternion( const Core::Transform& tr );
+
             /// Default copy constructor and assignment operator.
             DualQuaternion( const DualQuaternion& other ) = default;
             DualQuaternion& operator= ( const DualQuaternion& ) = default;
 
-            /// todo : conversion to/from Transform
 
             /// Getters and setters
             inline const Quaternion& getQ0() const;
@@ -48,14 +55,23 @@ namespace Ra
 
             /// Other methods
 
+            /// Set the dual-quaternion from a rigid transform.
+            /// Any non-rigid component (e.g. scale and shear) will be ignored.
+            inline void setFromTransform( const Transform& t );
+
+            /// Return the corresponding rigid transform. Assume a unit dual quaternion.
+            inline Transform getTransform() const;
+
             /// Normalize the quaternion with the dual-number norm (divides q0 and qe
             /// by q0's norm).
             inline void normalize();
+			
+			inline Vector3 transform(const Vector3& p) const;
 
         private:
-            /// non-dual part
+            /// non-dual part (representing the rotation)
             Quaternion m_q0;
-            /// dual part
+            /// dual part (representing the translation)
             Quaternion m_qe;
         };
     }

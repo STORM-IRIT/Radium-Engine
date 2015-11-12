@@ -45,9 +45,21 @@ namespace Ra
         }
 
         template <typename Vector_>
-        inline Scalar getAngle( const Vector_& v1, const Vector_& v2 )
+        inline Scalar Vector::angle( const Vector_& v1, const Vector_& v2 )
         {
             return std::atan2( v1.cross(v2).norm(), v1.dot(v2));
+        }
+
+        template<typename Vector_>
+        Scalar Vector::cotan(const Vector_& v1, const Vector_& v2)
+        {
+            return  v1.dot(v2) / v1.cross(v2).norm();
+        }
+
+        template<typename Vector_>
+        Scalar Vector::cos(const Vector_& v1, const Vector_& v2)
+        {
+            return  ( v1.normalized() ).dot( v2.normalized() );
         }
 
         //
@@ -64,6 +76,12 @@ namespace Ra
             return Quaternion( k * q.coeffs() );
         }
 
+        Quaternion operator/ ( const Quaternion& q, const Scalar& k)
+        {
+            return Quaternion( q.coeffs() / k );
+        }
+
+
         //
         // Bounding boxes functions.
         //
@@ -77,6 +95,11 @@ namespace Ra
             }
             return tmp;
         }
+		
+		inline Vector3 Obb::corner(int i) const
+		{
+			return m_aabb.corner(static_cast<Aabb::CornerType>(i));
+		}
 
         inline void Obb::addPoint( const Vector3& p )
         {
@@ -102,5 +125,9 @@ namespace Ra
             fz = fx.cross( fy );
         }
 
+        inline Vector3 Vector::projectOnPlane(const Vector3& planePos, const Vector3 planeNormal, const Vector3& point)
+        {
+            return point + planeNormal * (planePos - point).dot(planeNormal);
+        }
     }
 }

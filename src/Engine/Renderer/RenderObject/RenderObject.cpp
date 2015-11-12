@@ -52,8 +52,7 @@ namespace Ra
 
         void RenderObject::feedRenderQueue( RenderQueue& queue, const Core::Matrix4& view, const Core::Matrix4& proj )
         {
-            // FIXME(Charly): Is this multiplication in the right order ?
-            Core::Transform model =  m_localTransform * m_component->getEntity()->getTransform();
+            Core::Transform model =  m_component->getEntity()->getTransform() * m_localTransform;
 
             ShaderKey shader( m_renderTechnique->shader );
             BindableMaterial material( m_renderTechnique->material );
@@ -76,18 +75,15 @@ namespace Ra
             newRO->setVisible( m_visible );
             newRO->addRenderParameters( m_renderParameters );
 
+            newRO->idx = idx;
+
             if ( m_mesh )
             {
-                Mesh* newMesh = new Mesh( m_mesh->getName() );
-                newMesh->loadGeometry( m_mesh->getData( Mesh::VERTEX_POSITION ), m_mesh->getIndices() );
-                newMesh->addData( Mesh::VERTEX_NORMAL, m_mesh->getData( Mesh::VERTEX_NORMAL ) );
-                newMesh->addData( Mesh::VERTEX_TANGENT, m_mesh->getData( Mesh::VERTEX_TANGENT ) );
-                newMesh->addData( Mesh::VERTEX_BITANGENT, m_mesh->getData( Mesh::VERTEX_BITANGENT ) );
-                newMesh->addData( Mesh::VERTEX_TEXCOORD, m_mesh->getData( Mesh::VERTEX_TEXCOORD ) );
-                newRO->setMesh( newMesh );
+                newRO->setMesh( m_mesh->clone() );
             }
 
             return newRO;
         }
     } // namespace Engine
 } // namespace Ra
+

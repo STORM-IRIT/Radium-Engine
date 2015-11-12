@@ -1,48 +1,21 @@
-#ifndef RADIUMENGINE_GRID2_CONST_REF_HPP__
-#define RADIUMENGINE_GRID2_CONST_REF_HPP__
+#ifndef GRID2_CONST_REF_HPP
+#define GRID2_CONST_REF_HPP
 
-#include <Core/RaCore.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+//#include <Core/RaCore.hpp>
+#include <Core/Containers/GridEnums.hpp>
 #include <Core/Index/Idx2.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
+//#include <Core/Containers/Grid3.hpp>
 
 namespace Ra
 {
     namespace Core
     {
-        template <typename T, uint D>
-        class Grid;
+        template <typename T>
+        class Grid2;
 
         template<typename T>
         struct Grid2_ref;
-
-        struct Range
-        {
-            Range() : _dyn_range( true ), _a( 0 ), _b( -1 ) { }
-
-            //Range(const Range& r) : _dyn_range(r._dyn_range), _a(r._a), _b(r._b) { }
-
-            /// @param start, end: staring index and end index (both included)
-            Range( int start, int end ) : _dyn_range( false ), _a( start ), _b( end + 1 ) { }
-
-            int nb_elts() const
-            {
-                return _b - _a;
-            }
-
-            /// If false you should not consider _a and _b but the size of the object
-            bool _dyn_range;
-
-            int _a; ///< starting index (included)
-            int _b; ///< last index (excluded)
-        };
-
-        /// @brief select the whole span of the grid
-        struct All : public Range
-        {
-            All() : Range()
-            {
-            }
-        };
 
         /**
          * @name Grid2_const_ref
@@ -55,12 +28,11 @@ namespace Ra
         template<typename T>
         struct Grid2_const_ref
         {
+            Grid2_const_ref( const Grid2<T>& g );
 
-            Grid2_const_ref( const Grid<T, 2>& g );
-
-            static Grid2_const_ref<T> make_xy( const Grid<T, 3>& g, Range x, Range y, int   z );
-            static Grid2_const_ref<T> make_xz( const Grid<T, 3>& g, Range x, int   y, Range z );
-            static Grid2_const_ref<T> make_yz( const Grid<T, 3>& g, int   x, Range y, Range z );
+            static Grid2_const_ref<T> make_xy( const Grid3<T>& g, Range x, Range y, int   z );
+            static Grid2_const_ref<T> make_xz( const Grid3<T>& g, Range x, int   y, Range z );
+            static Grid2_const_ref<T> make_yz( const Grid3<T>& g, int   x, Range y, Range z );
 
             Grid2_const_ref( const Grid2_const_ref<T>& cp );
             Grid2_const_ref( const Grid2_ref<T>& cp );
@@ -71,13 +43,13 @@ namespace Ra
             /// Logical size of the grid using padding offset
             Vector2i size()            const
             {
-                return _grid_ref_const->sizeVector() /*- _grid_ref_const->get_padd_offset() * 2*/;
+                return _grid_ref_const->size() /*- _grid_ref_const->get_padd_offset() * 2*/;
             }
             Vector2i alloc_size()      const
             {
                 return _grid_ref_const->alloc_size();
             }
-            //Vector2i get_padd_offset() const { return _grid_ref_const->get_padd_offset();                               }
+            Vector2i get_padd_offset() const { return _grid_ref_const->get_padd_offset(); }
 
             // -------------------------------------------------------------------------
             // Access referenced data:
@@ -117,7 +89,7 @@ namespace Ra
 
             /// Polymorphic pointer to any 2D grid. This is const because the class
             /// is supposed to represent a const reference. Do not change it
-            const Grid<T, 2>* _grid_ref_const;
+            const Grid2<T>* _grid_ref_const;
 
             /// Count the number of shallow copy of this ref
             Ref_counter* _counter;

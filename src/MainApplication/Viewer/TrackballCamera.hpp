@@ -22,6 +22,8 @@ namespace Ra
             virtual bool handleMouseReleaseEvent( QMouseEvent* event ) override;
             /// @return true if the event has been taken into account, false otherwise
             virtual bool handleMouseMoveEvent( QMouseEvent* event ) override;
+			/// @return true if the event has been taken into account, false otherwise
+			virtual bool handleWheelEvent(QWheelEvent *event) override;
 
             /// @return true if the event has been taken into account, false otherwise
             virtual bool handleKeyPressEvent( QKeyEvent* event ) override;
@@ -39,6 +41,7 @@ namespace Ra
             void handleCameraRotate( Scalar dx, Scalar dy );
             void handleCameraPan( Scalar dx, Scalar dy );
             void handleCameraZoom( Scalar dx, Scalar dy );
+			void handleCameraZoom( Scalar z );
 
             void updatePhiTheta();
 
@@ -49,6 +52,7 @@ namespace Ra
             Scalar m_lastMouseY;
 
             Scalar m_quickCameraModifier;
+			Scalar m_wheelSpeedModifier;
 
             Scalar m_phi;
             Scalar m_theta;

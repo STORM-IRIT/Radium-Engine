@@ -25,7 +25,7 @@ namespace Ra
             {
                 std::string res;
                 ulong pos = str.find_last_of( '.' );
-                res = pos < str.size() ? str.substr( pos ) : "";
+                res = pos + 1 < str.size()? str.substr( pos + 1 ) : "";
                 return res;
             }
 

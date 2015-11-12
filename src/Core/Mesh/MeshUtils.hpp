@@ -23,7 +23,7 @@ namespace Ra
                                                     std::array<Vector3, 3>& verticesOut );
 
             /// Returns the area of a given triangle.
-            inline float getTriangleArea( const TriangleMesh& mesh, TriangleIdx triIdx );
+            inline Scalar getTriangleArea( const TriangleMesh& mesh, TriangleIdx triIdx );
 
             /// Computes the normal of a given triangle.
             inline Vector3 getTriangleNormal( const TriangleMesh& mesh, TriangleIdx triIdx );
@@ -37,6 +37,7 @@ namespace Ra
             /// first occurrence.
             RA_CORE_API bool findDuplicates( const TriangleMesh& mesh, std::vector<VertexIdx>& duplicatesMap );
 
+            RA_CORE_API void removeDuplicates(TriangleMesh& mesh, std::vector<VertexIdx>& vertexMap);
             //
             // Primitive construction
             //
@@ -60,7 +61,7 @@ namespace Ra
             template<uint U = 16, uint V = U>
             TriangleMesh makeParametricSphere( Scalar radius = 1.0 );
 
-            /// Create a parametric torus mesh. The minor radius is the radius of the inside of the tube and the major 
+            /// Create a parametric torus mesh. The minor radius is the radius of the inside of the tube and the major
             /// radius is the radius of the whole torus. The torus will be centered at the origin and have Z as rotation axis.
             /// Template parameters set the resolution of the mesh.
             template<uint U = 16, uint V = U>

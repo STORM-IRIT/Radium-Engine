@@ -7,9 +7,8 @@ namespace Ra
         template<typename T, GLenum GL_BUFFER_TYPE>
         inline GlBuffer<T, GL_BUFFER_TYPE>::GlBuffer()
             : m_numElements( 0 )
+            , m_bufferGlId( 0 )
         {
-            CORE_ASSERT( checkOpenGLContext(), "GL context unavailable" );
-            GL_ASSERT( glGenBuffers( 1, &m_bufferGlId ) );
         }
 
         template<typename T, GLenum GL_BUFFER_TYPE>
@@ -87,6 +86,11 @@ namespace Ra
                                                           const T* data,
                                                           GLenum drawMode )
         {
+            if ( m_bufferGlId == 0 )
+            {
+                CORE_ASSERT( checkOpenGLContext(), "GL context unavailable" );
+                GL_ASSERT( glGenBuffers( 1, &m_bufferGlId ) );
+            }
             bind();
             m_numElements = numElements;
             m_drawMode = drawMode;

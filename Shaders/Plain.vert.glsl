@@ -1,7 +1,6 @@
 layout (location = 0) in vec3 inPos;
+layout (location = 4) in vec3 inTexcoord;
 layout (location = 5) in vec4 inColor;
-
-out vec4 vColor;
 
 struct Transform
 {
@@ -17,6 +16,9 @@ struct Transform
 uniform Transform transform;
 uniform int drawFixedSize;
 
+out vec3 vTexcoord;
+out vec4 vColor;
+
 void main()
 {
     mat4 mvp = transform.mvp;
@@ -31,4 +33,5 @@ void main()
     }
     gl_Position = mvp * vec4(inPos.xyz, 1.0);
     vColor = inColor;
+	vTexcoord = inTexcoord;
 }

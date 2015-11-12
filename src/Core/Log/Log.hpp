@@ -142,27 +142,6 @@ class FILELog : public Log<Output2FILE> {};
 
 #define LOG(level) FILE_LOG(level)
 
-//#ifdef OS_WINDOWS
-#if 0 // FIXME(Charly): We should be able to remove this
-
-inline std::string NowTime()
-{
-    const int MAX_LEN = 200;
-    char buffer[MAX_LEN];
-    if ( GetTimeFormatA( LOCALE_USER_DEFAULT, 0, 0,
-                         "HH':'mm':'ss", buffer, MAX_LEN ) == 0 )
-    {
-        return "Error in NowTime()";
-    }
-
-    char result[100] = { 0 };
-    static DWORD first = GetTickCount();
-    std::sprintf( result, "%s.%03ld", buffer, ( long )( GetTickCount() - first ) % 1000 );
-    return result;
-}
-
-#else
-
 #include <ctime>
 
 inline std::string NowTime()
@@ -174,7 +153,5 @@ inline std::string NowTime()
     Ra::Core::StringUtils::stringPrintf( result, "%s", buffer );
     return result;
 }
-
-#endif // OS_WINDOWS
 
 #endif // RADIUMENGINE_LOG_HPP

@@ -31,13 +31,14 @@ namespace FancyMeshPlugin
         Ra::Core::Vector4Array weights;
 
         std::vector<uint>      indices;
+        std::vector<Ra::Core::VertexIdx> vertexMap;
     };
 
     struct FancyComponentData
     {
         RA_CORE_ALIGNED_NEW
         Ra::Core::Matrix4 transform;
-        std::vector<FancyMeshData> meshes;
+        FancyMeshData mesh;
 
         std::string name;
         Ra::Engine::RenderTechnique* renderTechnique;
