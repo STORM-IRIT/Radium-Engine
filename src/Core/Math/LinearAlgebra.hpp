@@ -24,6 +24,9 @@ namespace Ra
         //
         // Common vector types
         //
+        typedef Eigen::Matrix< Scalar, Eigen::Dynamic, 1 > VectorN;
+        typedef Eigen::VectorXf                            VectorNf;
+        typedef Eigen::VectorXd                            VectorNd;
 
         typedef Eigen::Matrix<Scalar, 4, 1> Vector4;
         typedef Eigen::Vector4f             Vector4f;
@@ -43,6 +46,7 @@ namespace Ra
         typedef Eigen::Vector2f             Vector2f;
         typedef Eigen::Vector2d             Vector2d;
 
+        typedef Eigen::VectorXi VectorNi;
         typedef Eigen::Vector2i Vector2i;
         typedef Eigen::Vector3i Vector3i;
         typedef Eigen::Vector4i Vector4i;
@@ -51,17 +55,22 @@ namespace Ra
         // Common matrix types
         //
 
+        typedef Eigen::Matrix< Scalar, Eigen::Dynamic, Eigen::Dynamic > MatrixN;
         typedef Eigen::Matrix<Scalar, 4, 4> Matrix4;
         typedef Eigen::Matrix<Scalar, 3, 3> Matrix3;
         typedef Eigen::Matrix<Scalar, 2, 2> Matrix2;
 
+        typedef Eigen::MatrixXf MatrixNf;
         typedef Eigen::Matrix4f Matrix4f;
         typedef Eigen::Matrix3f Matrix3f;
         typedef Eigen::Matrix2f Matrix2f;
 
+        typedef Eigen::MatrixXd MatrixNd;
         typedef Eigen::Matrix4d Matrix4d;
         typedef Eigen::Matrix3d Matrix3d;
         typedef Eigen::Matrix2d Matrix2d;
+
+        typedef Eigen::Matrix< uint32_t, Eigen::Dynamic, Eigen::Dynamic > MatrixNui;
 
         //typedef Eigen::DiagonalMatrix< Scalar, Eigen::Dynamic > Diagonal;
         typedef Eigen::SparseMatrix< Scalar > Diagonal; // Not optimized for Diagonal matrices, but the operations between Sparse and Diagonal are not defined
@@ -109,8 +118,8 @@ namespace Ra
 
             /// Extends the OBB with an new point.
             void addPoint( const Vector3& p );
-			/// Returns the position of the i^th corner of AABB (model space)
-			Vector3 corner(int i) const;
+            /// Returns the position of the i^th corner of AABB (model space)
+            Vector3 corner(int i) const;
 
         public:
             /// The untransformed AABB
