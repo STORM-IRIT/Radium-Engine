@@ -41,21 +41,27 @@ namespace Ra
         //    GL_ASSERT(glDrawElements(GL_TRIANGLES_ADJACENCY, 6 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
         GL_ASSERT( glDrawElements( m_renderMode, m_indices.size(), GL_UNSIGNED_INT, ( void* ) 0 ) );
     }
-    
+
     void Engine::Mesh::loadGeometry( const Core::Vector3Array& positions,
                                      const std::vector<uint>& indices )
     {
         addData(VERTEX_POSITION, positions);
         m_indices = indices;
         m_isDirty = true;
+
+        m_iboDirty = true;
+        m_dirtyArray[VERTEX_POSITION] = true;
     }
-    
+
     void Engine::Mesh::loadGeometry( const Core::Vector4Array& positions,
                                      const std::vector<uint>& indices )
     {
         addData(VERTEX_POSITION, positions);
         m_indices = indices;
         m_isDirty = true;
+
+        m_iboDirty = true;
+        m_dirtyArray[VERTEX_POSITION] = true;
     }
 
     void Engine::Mesh::loadGeometry(const Core::TriangleMesh& mesh)
@@ -134,7 +140,7 @@ namespace Ra
                 GL_ASSERT( glBindBuffer( GL_ARRAY_BUFFER, m_vbos[i] ) );
                 GL_ASSERT( glBufferData( GL_ARRAY_BUFFER, m_data[i].size() * sizeof( Core::Vector4 ),
                                          m_data[i].data(), GL_DYNAMIC_DRAW ) );
-                           
+
                 GL_ASSERT( glVertexAttribPointer( i, size, type, normalized,
                                                   sizeof( Core::Vector4 ), ptr ) );
 
@@ -158,12 +164,15 @@ namespace Ra
         {
             GL_ASSERT( glGenBuffers( 1, &m_ibo ) );
             GL_ASSERT( glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, m_ibo ) );
+        }
 
+        if ( m_iboDirty )
+        {
             GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof( uint ),
                                      m_indices.data(), GL_DYNAMIC_DRAW ) );
-            
+            m_iboDirty = false;
         }
-        
+
         GL_ASSERT( glBindVertexArray( 0 ) );
 
         GL_CHECK_ERROR;

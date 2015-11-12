@@ -105,6 +105,7 @@ namespace Ra
 
             std::vector<uint> m_indices;
             uint m_ibo;
+            bool m_iboDirty = false;
 //            GlBuffer<uint, GL_ELEMENT_ARRAY_BUFFER> m_ibo;
         };
 
