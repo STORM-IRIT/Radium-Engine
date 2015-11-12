@@ -24,6 +24,17 @@ namespace Ra
             m_textures.clear();
         }
 
+        void TextureManager::addTexture( const std::string& name, int width, int height, void* data )
+        {
+            TextureData dat;
+            dat.name = name;
+            dat.width = width;
+            dat.height = height;
+            dat.data = data;
+            
+            m_pendingTextures[name] = dat;
+        }
+
         Texture* TextureManager::addTexture( const std::string& filename )
         {
             Texture* ret = nullptr;
@@ -106,7 +117,19 @@ namespace Ra
             }
             else
             {
-                ret = addTexture( filename );
+                auto pending = m_pendingTextures.find( filename );
+                if ( pending != m_pendingTextures.end() )
+                {
+                    ret = new Texture( filename, GL_TEXTURE_2D );
+                    ret->initGL( GL_RGBA, pending->second.width, pending->second.height,
+                                 GL_RGBA, GL_UNSIGNED_INT, pending->second.data );
+                    m_pendingTextures.erase( filename );
+                    m_textures[filename] = ret;
+                }
+                else
+                {
+                    ret = addTexture( filename );
+                }
             }
 
             return ret;

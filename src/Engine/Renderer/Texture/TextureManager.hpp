@@ -19,6 +19,13 @@ namespace Ra
 {
     namespace Engine
     {
+        struct TextureData
+        {
+            std::string name;
+            int width;
+            int height;
+            void* data;
+        };
 
         class RA_ENGINE_API TextureManager 
         {
@@ -27,6 +34,7 @@ namespace Ra
             typedef std::pair<std::string, Texture*> TexturePair;
 
         public:
+            void addTexture( const std::string& name, int width, int height, void* data );
             Texture* addTexture( const std::string& filename );
             Texture* getOrLoadTexture( const std::string& filename );
 
@@ -39,6 +47,8 @@ namespace Ra
 
         private:
             std::map<std::string, Texture*> m_textures;
+            std::map<std::string, TextureData> m_pendingTextures;
+            
             bool m_verbose;
         };
 
