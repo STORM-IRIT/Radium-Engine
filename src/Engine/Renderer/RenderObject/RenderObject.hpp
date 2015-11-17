@@ -74,7 +74,8 @@ namespace Ra
             inline bool isDirty() const;
 
             inline void setRenderTechnique( RenderTechnique* technique );
-            inline RenderTechnique* getRenderTechnique() const;
+            inline const RenderTechnique* getRenderTechnique() const;
+            inline RenderTechnique* getRenderTechnique();
 
             inline void setMesh( Mesh* mesh );
             inline Mesh* getMesh() const;
