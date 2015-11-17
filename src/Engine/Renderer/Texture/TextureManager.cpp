@@ -26,13 +26,13 @@ namespace Ra
 
         void TextureManager::addTexture( const std::string& name, int width, int height, void* data )
         {
-            TextureData dat;
-            dat.name = name;
-            dat.width = width;
-            dat.height = height;
-            dat.data = data;
-            
-            m_pendingTextures[name] = dat;
+            TextureData texData;
+            texData.name = name;
+            texData.width = width;
+            texData.height = height;
+            texData.data = data;
+
+            m_pendingTextures[name] = texData;
         }
 
         Texture* TextureManager::addTexture( const std::string& filename )
@@ -122,7 +122,7 @@ namespace Ra
                 {
                     ret = new Texture( filename, GL_TEXTURE_2D );
                     ret->initGL( GL_RGBA, pending->second.width, pending->second.height,
-                                 GL_RGBA, GL_UNSIGNED_INT, pending->second.data );
+                                 GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, pending->second.data );
                     m_pendingTextures.erase( filename );
                     m_textures[filename] = ret;
                 }
