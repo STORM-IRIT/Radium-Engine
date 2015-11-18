@@ -2,9 +2,9 @@
 #define RADIUMENGINE_DCEL_HPP
 
 #include <vector>
-#include <Core/Mesh/DCEL/Definition.hpp>
-#include <Core/Index/IndexedObject.hpp>
 #include <Core/Index/IndexMap.hpp>
+#include <Core/Index/IndexedObject.hpp>
+#include <Core/Mesh/DCEL/Definition.hpp>
 
 namespace Ra {
 namespace Core {
@@ -38,6 +38,7 @@ public:
     /// VARIABLE
     IndexMap< Vertex_ptr >   m_vertex;   // Vertices  Data
     IndexMap< HalfEdge_ptr > m_halfedge; // HalfEdges Data
+    IndexMap< FullEdge_ptr > m_fulledge; // FullEdge  Data
     IndexMap< Face_ptr >     m_face;     // Faces     Data
 };
 

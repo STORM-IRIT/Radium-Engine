@@ -3,11 +3,13 @@
 #include <map>
 
 #include <Core/Mesh/TriangleMesh.hpp>
-#include <Core/Mesh/DCEL/Dcel.hpp>
 
 #include <Core/Mesh/DCEL/Vertex.hpp>
 #include <Core/Mesh/DCEL/HalfEdge.hpp>
+#include <Core/Mesh/DCEL/FullEdge.hpp>
 #include <Core/Mesh/DCEL/Face.hpp>
+#include <Core/Mesh/DCEL/Dcel.hpp>
+
 
 namespace Ra {
 namespace Core {
@@ -74,6 +76,9 @@ void convert( const TriangleMesh& mesh, Dcel& dcel ) {
                 // If found, set it and erase it
                 he[i]->setTwin( dcel.m_halfedge[it->second] );
                 dcel.m_halfedge[it->second]->setTwin( he[i] );
+                // Create the fulledge
+                FullEdge_ptr fe = std::make_shared< FullEdge >( he[i] );
+                dcel.m_fulledge.insert( fe, fe->idx );
                 he_table.erase( it );
             }
         }

@@ -1,9 +1,9 @@
 #ifndef RADIUMENGINE_DCEL_FACE_HPP
 #define RADIUMENGINE_DCEL_FACE_HPP
 
-#include <Core/Mesh/DCEL/Definition.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Index/IndexedObject.hpp>
+#include <Core/Mesh/DCEL/Definition.hpp>
 
 namespace Ra {
 namespace Core {

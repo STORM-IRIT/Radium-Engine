@@ -9,6 +9,7 @@ namespace Core {
 inline void Dcel::clear() {
     m_vertex.clear();
     m_halfedge.clear();
+    m_fulledge.clear();
     m_face.clear();
 }
 
@@ -18,6 +19,7 @@ inline void Dcel::clear() {
 inline bool Dcel::empty() const {
     return ( m_vertex.empty()   &&
              m_halfedge.empty() &&
+             m_fulledge.empty() &&
              m_face.empty() );
 }
 
@@ -26,6 +28,7 @@ inline bool Dcel::empty() const {
 inline bool Dcel::compact() const {
     return ( m_vertex.compact()   &&
              m_halfedge.compact() &&
+             m_fulledge.compact() &&
              m_face.compact() );
 }
 

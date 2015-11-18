@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <memory>
-#include <Core/Math/LinearAlgebra.hpp>
 
 namespace Ra {
 namespace Core {
@@ -26,7 +25,7 @@ typedef std::shared_ptr< Dcel >     Dcel_ptr;
 
 typedef std::vector< Vertex_ptr >   VertexList;
 typedef std::vector< HalfEdge_ptr > HalfEdgeList;
-typedef std::vector< FullEdge >     FullEdgeList;
+typedef std::vector< FullEdge_ptr > FullEdgeList;
 typedef std::vector< Face_ptr >     FaceList;
 
 } // namespace Core

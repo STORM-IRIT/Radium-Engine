@@ -95,6 +95,25 @@ inline void HalfEdge::setNeighborHE( const HalfEdge_ptr& next,
 
 
 
+/// FULLEDGE
+inline FullEdge_ptr HalfEdge::FE() const {
+    return m_fe;
+}
+
+
+
+inline FullEdge_ptr& HalfEdge::FE() {
+    return m_fe;
+}
+
+
+
+inline void HalfEdge::setFE( const FullEdge_ptr& fe ) {
+    m_fe = fe;
+}
+
+
+
 /// FACE
 inline Face_ptr HalfEdge::F() const {
     return m_f;

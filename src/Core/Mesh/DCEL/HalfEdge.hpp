@@ -1,9 +1,9 @@
 #ifndef RADIUMENGINE_DCEL_HALFEDGE_HPP
 #define RADIUMENGINE_DCEL_HALFEDGE_HPP
 
-#include <Core/Mesh/DCEL/Definition.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Index/IndexedObject.hpp>
+#include <Core/Mesh/DCEL/Definition.hpp>
 
 namespace Ra {
 namespace Core {
@@ -61,6 +61,11 @@ public:
                                const HalfEdge_ptr& prev,
                                const HalfEdge_ptr& twin ); // Set the neighboring halfedges
 
+    /// FULLEDGE
+    inline FullEdge_ptr  FE() const;                      // Return the reference to the fulledge
+    inline FullEdge_ptr& FE();                            // Return the reference to the fulledge
+    inline void          setFE( const FullEdge_ptr& fe ); // Set the fulledge to fe
+
     /// FACE
     inline Face_ptr  F() const;                 // Return the reference to the face
     inline Face_ptr& F();                       // Return the reference to the face
@@ -72,6 +77,7 @@ protected:
     HalfEdge_ptr m_next; // Next halfedge reference
     HalfEdge_ptr m_prev; // Prev halfedge reference
     HalfEdge_ptr m_twin; // Twin halfedge reference
+    FullEdge_ptr m_fe;   // FullEdge reference
     Face_ptr     m_f;    // Face reference
 };
 

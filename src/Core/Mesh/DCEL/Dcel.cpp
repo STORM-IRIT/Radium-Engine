@@ -4,6 +4,7 @@
 
 #include <Core/Mesh/DCEL/Vertex.hpp>
 #include <Core/Mesh/DCEL/HalfEdge.hpp>
+#include <Core/Mesh/DCEL/FullEdge.hpp>
 #include <Core/Mesh/DCEL/Face.hpp>
 
 namespace Ra {
@@ -16,6 +17,7 @@ Dcel::Dcel( const Index& index ) :
     IndexedObject( index ),
     m_vertex(),
     m_halfedge(),
+    m_fulledge(),
     m_face() { }
 
 
@@ -24,6 +26,7 @@ Dcel::Dcel( const Dcel& dcel ) :
     IndexedObject( dcel.idx ),
     m_vertex(),
     m_halfedge(),
+    m_fulledge(),
     m_face() {
 
     // Mapping between indices of the two DCELs
@@ -46,6 +49,7 @@ Dcel::Dcel( const Dcel& dcel ) :
         m_halfedge.insert( he, he->idx );
         he_table[dcel_he->idx] = he->idx;
     }
+
     // Upload the face data
     for( uint i = 0; i < dcel.m_face.size(); ++i ) {
         Face_ptr dcel_f = dcel.m_face.at( i );
@@ -63,6 +67,14 @@ Dcel::Dcel( const Dcel& dcel ) :
         he->setTwin( m_halfedge[he_table[dcel_he->Twin()->idx]] );
         he->setF( m_face[f_table[dcel_he->F()->idx]] );
         he->V()->setHE( m_halfedge[he_table[dcel_he->V()->HE()->idx]] );
+    }
+
+    // Upload the fulledge data
+    for( uint i = 0; i < dcel.m_fulledge.size(); ++i ) {
+        FullEdge_ptr dcel_fe = dcel.m_fulledge.at( i );
+        FullEdge_ptr fe      = std::make_shared< FullEdge >( m_halfedge[he_table[dcel_fe->HE()->idx]] );
+        m_fulledge.insert( fe, fe->idx );
+        fe->HE()->Twin()->setFE( fe );
     }
 }
 

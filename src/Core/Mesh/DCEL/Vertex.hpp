@@ -1,9 +1,10 @@
 #ifndef RADIUMENGINE_DCEL_VERTEX_HPP
 #define RADIUMENGINE_DCEL_VERTEX_HPP
 
-#include <Core/Mesh/DCEL/Definition.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Index/IndexedObject.hpp>
+#include <Core/Mesh/DCEL/Definition.hpp>
 
 namespace Ra {
 namespace Core {
