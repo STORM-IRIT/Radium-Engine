@@ -21,10 +21,10 @@ WeightMatrix extractWeightMatrix( const MeshWeight& weight, const uint weight_si
 
 MeshWeight extractMeshWeight( const WeightMatrix& matrix ) {
     MeshWeight W( matrix.rows() );
-    for( uint i = 0; i < matrix.rows(); ++i ) {
-        for( uint j = 0; j < matrix.cols(); ++j ) {
+    for( int i = 0; i < matrix.rows(); ++i ) {
+        for( int j = 0; j < matrix.cols(); ++j ) {
             if( matrix.coeff( i, j ) != 0.0 ) {
-                std::pair< uint, Scalar > w( j, matrix.coeff( i, j ) );
+                std::pair< uint, Scalar > w( uint(j), matrix.coeff( i, j ) );
                 W[i].push_back( w );
             }
         }

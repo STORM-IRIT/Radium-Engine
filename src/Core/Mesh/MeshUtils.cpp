@@ -64,7 +64,7 @@ namespace Ra
 
                 std::vector<VertexIdx> newIndices(mesh.m_vertices.size(), VertexIdx(-1));
                 Vector3Array uniqueVertices;
-                for (int i = 0; i < mesh.m_vertices.size(); i++)
+                for (uint i = 0; i < mesh.m_vertices.size(); i++)
                 {
                     if (duplicatesMap[i] == i)
                     {
@@ -74,9 +74,9 @@ namespace Ra
                     }
                 }
 
-                for (int i = 0; i < mesh.m_triangles.size(); i++)
+                for (uint i = 0; i < mesh.m_triangles.size(); i++)
                 {
-                    for (int j = 0; j < 3; j++)
+                    for (uint j = 0; j < 3; j++)
                     {
                         int oldIdx = mesh.m_triangles[i](j);
                         int newIdx = newIndices[duplicatesMap[oldIdx]];
@@ -85,7 +85,7 @@ namespace Ra
                 }
 
                 vertexMap.resize(mesh.m_vertices.size());
-                for (int i = 0; i < mesh.m_vertices.size(); i++)
+                for (uint i = 0; i < mesh.m_vertices.size(); i++)
                     vertexMap[i] = newIndices[duplicatesMap[i]];
 
                 mesh.m_vertices = uniqueVertices;

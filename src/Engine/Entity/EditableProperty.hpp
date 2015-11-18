@@ -52,7 +52,7 @@ namespace Ra
         };
 
         /// Interface for all objects that can be edited through their properties.
-        class EditableInterface
+        class RA_ENGINE_API EditableInterface
         {
         public:
             /// Get a list of all editable properties.

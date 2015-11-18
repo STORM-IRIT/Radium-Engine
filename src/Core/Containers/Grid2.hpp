@@ -21,8 +21,9 @@ namespace Ra
           * all virtual functions are to be overriden properly
           */
         template<typename T>
-        struct Grid2 : public Grid2_ref<T>
+        class Grid2 : public Grid2_ref<T>
         {
+        public:
             // implem notes:
             // Warning: don't forget to call Grid2_ref<T>() if you add a new constructor
             // Warning: never use directly the std::vector to copy between grids always

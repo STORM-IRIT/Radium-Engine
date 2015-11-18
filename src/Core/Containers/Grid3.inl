@@ -199,7 +199,7 @@ namespace Ra
         template <class T>
         const T& Grid3<T>::operator() (int x, int y, int z) const {
             Idx3 idx = Idx3(_size, _pad_off) + Ra::Core::Vector3i(x, y, z);
-            assert( idx.to_linear() < _size.product() );
+            assert( idx.to_linear() < _size.prod() );
             return _vals[idx.to_linear()];
         }
         
@@ -210,7 +210,7 @@ namespace Ra
             // Otherwise it doesn't make sense
             assert( idx.size() == _size );
             Idx3 i = Idx3(_size, _pad_off) + idx.to_3d();
-            assert( i.to_linear() < _size.product() );
+            assert( i.to_linear() < _size.prod() );
             return _vals[i.to_linear()];
         }
         
@@ -226,7 +226,7 @@ namespace Ra
         template <class T>
         T& Grid3<T>::operator() (int x, int y, int z) {
             Idx3 idx = Idx3(_size, _pad_off) + Ra::Core::Vector3i(x, y, z);
-            assert( idx.to_linear() < _size.product() );
+            assert( idx.to_linear() < _size.prod() );
             return _vals[idx.to_linear()];
         }
         
@@ -237,7 +237,7 @@ namespace Ra
             // Otherwise it doesn't make sense
             assert( idx.size() == _size );
             Idx3 i = Idx3(_size, _pad_off) + idx.to_3d();
-            assert( i.to_linear() < _size.product() );
+            assert( i.to_linear() < _size.prod() );
             return _vals[i.to_linear()];
         }    
     }

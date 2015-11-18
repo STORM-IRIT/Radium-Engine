@@ -55,7 +55,7 @@ Pose Animation::getPose(Scalar timestamp) const
     if (modifiedTime <= m_keys.front().first)
         return m_keys.front().second;
     
-    for (int i = 0; i < m_keys.size() - 1; i++)
+    for ( uint i = 0; i < m_keys.size() - 1; i++ )
     {
         if (modifiedTime >= m_keys[i].first && modifiedTime <= m_keys[i + 1].first)
         {
