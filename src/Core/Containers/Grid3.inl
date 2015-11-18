@@ -116,7 +116,7 @@ namespace Ra
         // -----------------------------------------------------------------------------
         
         template <class T>
-        void Grid3<T>::padd(int padding, Pad_t type, T val)
+        void Grid3<T>::padd(int padding, Pad_t type, const T& val)
         {
             Ra::Core::Vector3i s = _size + Ra::Core::Vector3i(padding * 2, padding * 2, padding * 2);
         

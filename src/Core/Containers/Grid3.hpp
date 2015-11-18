@@ -83,7 +83,7 @@ namespace Ra
             /// repeat values by extruding each orinal face etc.)
             /// @param val : padding value when (type == CUSTOM). Otherwise parameter
             /// is ignored
-            void padd(int padding, Pad_t type = COPY, T val = T() );
+            void padd(int padding, Pad_t type = COPY, const T& val = T() );
         
         
             // -------------------------------------------------------------------------
