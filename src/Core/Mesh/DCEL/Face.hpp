@@ -1,13 +1,12 @@
-#ifndef DCEL_FACE_H
-#define DCEL_FACE_H
+#ifndef RADIUMENGINE_DCEL_FACE_HPP
+#define RADIUMENGINE_DCEL_FACE_HPP
 
-#include <Core/Geometry/DCEL/Definition.hpp>
+#include <Core/Mesh/DCEL/Definition.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Index/IndexedObject.hpp>
 
 namespace Ra {
 namespace Core {
-namespace Dcel {
 
 /**
 * Class Face
@@ -24,12 +23,10 @@ namespace Dcel {
 class Face : public IndexedObject  {
 public:
     /// CONSTRUCTOR
-    Face();                           // Default constructor
-    Face( const Index& index );       // Build a Face with the given index
-    Face( const HalfEdge_ptr& he );   // Build a Face with he as its first halfedge
-    Face( const Index&        index,
-          const HalfEdge_ptr& he );   // Build a Face with the given index and having he as its first halfedge
-    Face( const Face& f );            // Copy constructor
+    Face( const Index& index = Index::INVALID_IDX() );       // Build a Face with the given index
+    Face( const HalfEdge_ptr& he,
+          const Index&        index = Index::INVALID_IDX()); // Build a Face with the given index and having he as its first halfedge
+    Face( const Face& f ) = default;                         // Copy constructor
 
     /// DESTRUCTOR
     ~Face();
@@ -44,10 +41,9 @@ protected:
     HalfEdge_ptr m_he; // The halfedge reference
 };
 
-} // namespace DCEL
 } // namespace Core
 } // namespace Ra
 
-#include "Face.inl"
+#include <Core/Mesh/DCEL/Face.inl>
 
-#endif // DCEL_FACE_H
+#endif // RADIUMENGINE_DCEL_FACE_HPP

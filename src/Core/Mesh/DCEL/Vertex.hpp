@@ -1,13 +1,12 @@
-#ifndef DCEL_VERTEX_H
-#define DCEL_VERTEX_H
+#ifndef RADIUMENGINE_DCEL_VERTEX_HPP
+#define RADIUMENGINE_DCEL_VERTEX_HPP
 
-#include <Core/Geometry/DCEL/Definition.hpp>
+#include <Core/Mesh/DCEL/Definition.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Index/IndexedObject.hpp>
 
 namespace Ra {
 namespace Core {
-namespace Dcel {
 
 /**
 * Class Vertex
@@ -23,20 +22,13 @@ namespace Dcel {
 class Vertex : public IndexedObject {
 public:
     /// CONSTRUCTOR
-    Vertex();                           // Default constructor
-    Vertex( const Index& index );       // Build a vertex with a given index
-    Vertex( const Vector3& p );         // Build a vertex with the position p
-    Vertex( const HalfEdge_ptr& he );   // Build a vertex having he as its halfedge
-    Vertex( const Vector3& p,
-            const Vector3& n );         // Build a vertex with the position p and its normal n
-    Vertex( const Index&   index,
-            const Vector3& p,
-            const Vector3& n );         // Build a vertex with the given index, the position p and its normal n
-    Vertex( const Index&        index,
-            const Vector3&      p,
+    Vertex( const Index& index = Index::INVALID_IDX() );        // Build a vertex with a given index
+    Vertex( const HalfEdge_ptr& he );                           // Build a vertex having he as its halfedge
+    Vertex( const Vector3&      p,
             const Vector3&      n,
-            const HalfEdge_ptr& he );   // Build a complete vertex
-    Vertex( const Vertex& v );          // Copy constructor
+            const HalfEdge_ptr& he    = nullptr,
+            const Index&        index = Index::INVALID_IDX() ); // Build a complete vertex
+    Vertex( const Vertex& v ) = default;                        // Copy constructor
 
     /// DESTRUCTOR
     ~Vertex();
@@ -63,10 +55,9 @@ protected:
     HalfEdge_ptr m_he;  // Reference to the halgedge
 };
 
-} // namespace DCEL
 } // namespace Core
 } // namespace Ra
 
-#include "Vertex.inl"
+#include <Core/Mesh/DCEL/Vertex.inl>
 
-#endif // DCEL_VERTEX_H
+#endif // RADIUMENGINE_DCEL_VERTEX_HPP
