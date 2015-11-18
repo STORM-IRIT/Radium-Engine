@@ -31,6 +31,11 @@ void uniformNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle
 *
 * where normal( face_j ) is the normalized normal of face_j belonging to v_i one-ring,
 * and theta_j is the angle at v_i in face_j.
+*
+* The definition was taken from:
+* "Guide to Computational Geometry Processing"
+* [ J. Andreas Baerentzen, Jens Gravesen, Francois Anton, Henrik Aanaes ]
+* Chapter 8
 */
 void angleWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, VectorArray< Vector3 >& normal );
 
@@ -57,7 +62,7 @@ void areaWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Tri
 *
 * where normal( face_i ) is the normalized normal of face_i belonging to v one-ring.
 */
-Vector3 uniformNormal( const Vector3& v, const VectorArray< Vector3 >& p );
+Vector3 uniformNormal( const Vector3& v, const VectorArray< Vector3 >& one_ring );
 
 
 
@@ -67,8 +72,13 @@ Vector3 uniformNormal( const Vector3& v, const VectorArray< Vector3 >& p );
 *
 * where normal( face_i ) is the normalized normal of face_i belonging to v one-ring,
 * and theta_i is the angle at v in face_i.
+*
+* The definition was taken from:
+* "Guide to Computational Geometry Processing"
+* [ J. Andreas Baerentzen, Jens Gravesen, Francois Anton, Henrik Aanaes ]
+* Chapter 8
 */
-Vector3 angleWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& p );
+Vector3 angleWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& one_ring );
 
 
 
@@ -79,7 +89,7 @@ Vector3 angleWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& p )
 * where normal( face_i ) is the normalized normal of face_i belonging to v one-ring,
 * and area_i is the area of face_i.
 */
-Vector3 areaWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& p );
+Vector3 areaWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& one_ring );
 
 
 
