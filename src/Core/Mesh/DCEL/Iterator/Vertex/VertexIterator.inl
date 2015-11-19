@@ -7,10 +7,10 @@ namespace Core {
 
 /// CONSTRUCTOR
 template < typename OBJECT >
-VIterator< OBJECT >::VIterator( const Vertex& v ) :
+VIterator< OBJECT >::VIterator( Vertex_ptr& v ) :
     Iterator< OBJECT >(),
-    m_v( &v ) {
-    m_he = m_v->HE();
+    m_v( v ) {
+    this->m_he = m_v->HE();
 }
 
 
@@ -47,7 +47,7 @@ inline uint VIterator< OBJECT >::size() const {
 /// RESET
 template < typename OBJECT >
 inline void VIterator< OBJECT >::reset() {
-    m_he = m_v->HE();
+    this->m_he = m_v->HE();
 }
 
 
@@ -59,7 +59,7 @@ inline void VIterator< OBJECT >::reset() {
 template < typename OBJECT >
 inline VIterator< OBJECT >& VIterator< OBJECT >::operator=( const VIterator& it ) {
     m_v = it.m_v;
-    m_he = it.m_he;
+    this->m_he = it.m_he;
     return *this;
 }
 
@@ -67,7 +67,7 @@ inline VIterator< OBJECT >& VIterator< OBJECT >::operator=( const VIterator& it 
 
 template < typename OBJECT >
 inline VIterator< OBJECT >& VIterator< OBJECT >::operator++() {
-    m_he = m_he->Prev()->Twin();
+    this->m_he = this->m_he->Prev()->Twin();
     return *this;
 }
 
@@ -75,7 +75,7 @@ inline VIterator< OBJECT >& VIterator< OBJECT >::operator++() {
 
 template < typename OBJECT >
 inline VIterator< OBJECT >& VIterator< OBJECT >::operator--() {
-    m_he = m_he->Twin()->Next();
+    this->m_he = this->m_he->Twin()->Next();
     return *this;
 }
 
@@ -83,7 +83,7 @@ inline VIterator< OBJECT >& VIterator< OBJECT >::operator--() {
 
 template < typename OBJECT >
 inline bool VIterator< OBJECT >::operator==( const VIterator& it ) const {
-    return ( ( m_v == it.m_v ) && ( m_he == it.m_he ) );
+    return ( ( m_v == it.m_v ) && ( this->m_he == it.m_he ) );
 }
 
 

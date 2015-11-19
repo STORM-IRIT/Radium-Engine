@@ -10,7 +10,7 @@ template < typename OBJECT >
 class VIterator : public Iterator< OBJECT > {
 public:
     /// CONSTRUCTOR
-    VIterator( const Vertex& v );
+    VIterator( Vertex_ptr& v );
     VIterator( const VIterator& it ) = default;
 
     /// DESTRUCTOR
@@ -23,10 +23,10 @@ public:
     inline void reset() override;
 
     /// OPERATOR
-    inline VIterator& operator= ( const VIterator& it ) override;
+    inline VIterator& operator= ( const VIterator& it );
     inline VIterator& operator++() override;
     inline VIterator& operator--() override;
-    inline bool       operator==( const VIterator& it ) const override;
+    inline bool       operator==( const VIterator& it ) const;
 
 protected:
     /// VARIABLE

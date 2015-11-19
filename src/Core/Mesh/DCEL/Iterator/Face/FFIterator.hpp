@@ -6,10 +6,10 @@
 namespace Ra {
 namespace Core {
 
-class FFIterator : public FIterator< Face_ptr > {
+class FFIterator : public FIterator< Face > {
 public:
     /// CONSTRUCTOR
-    FFIterator( const Face& f );
+    FFIterator( Face_ptr& f );
     FFIterator( const FFIterator& it ) = default;
 
     /// DESTRUCTOR
@@ -19,7 +19,7 @@ public:
     inline FaceList list() const override;
 
     /// OPERATOR
-    inline Face_ptr operator->() const override;
+    inline Face* operator->() const override;
 };
 
 } // namespace Core

@@ -1,21 +1,38 @@
 #include <Core/Mesh/DCEL/FullEdge.hpp>
 
+#include <Core/Mesh/DCEL/Vertex.hpp>
 #include <Core/Mesh/DCEL/HalfEdge.hpp>
+#include <Core/Mesh/DCEL/Face.hpp>
 
 namespace Ra {
 namespace Core {
 
 
 
-/// HALFEDGE
-inline HalfEdge_ptr FullEdge::HE() const {
-    return m_he;
+/// VERTEX
+inline Vertex_ptr FullEdge::V( const uint i ) const {
+    return HE( i )->V();
 }
 
 
 
-inline HalfEdge_ptr& FullEdge::HE() {
-    return m_he;
+/// HALFEDGE
+inline HalfEdge_ptr FullEdge::HE( const uint i ) const {
+    CORE_ASSERT( ( i < 2 ), "Index i out of bound" );
+    if( i == 0 ) {
+        return m_he;
+    }
+    return m_he->Twin();
+}
+
+
+
+inline HalfEdge_ptr& FullEdge::HE( const uint i ) {
+    CORE_ASSERT( ( i < 2 ), "Index i out of bound" );
+    if( i == 0 ) {
+        return m_he;
+    }
+    return m_he->Twin();
 }
 
 
@@ -26,10 +43,38 @@ inline void FullEdge::setHE( const HalfEdge_ptr& he ) {
 
 
 
+/// FACE
+inline Face_ptr FullEdge::F( const uint i ) const {
+    return HE( i )->F();
+}
+
+
+
+/// FULLEDGE
+inline FullEdge_ptr FullEdge::Head( const uint i ) const {
+    CORE_ASSERT( ( i < 2 ), "Index i out of bound" );
+    if( i == 0 ) {
+        return HE( 0 )->Next()->FE();
+    }
+    return HE( 1 )->Prev()->FE();
+}
+
+
+
+inline FullEdge_ptr FullEdge::Tail( const uint i ) const {
+    CORE_ASSERT( ( i < 2 ), "Index i out of bound" );
+    if( i == 0 ) {
+        return HE( 0 )->Prev()->FE();
+    }
+    return HE( 1 )->Next()->FE();
+}
+
+
+
 /// OPERATOR
 inline bool FullEdge::operator==( const FullEdge& e ) const {
-    CORE_ASSERT( ( m_he->Twin()   != nullptr ), "LHS twin is nullptr" );
-    CORE_ASSERT( ( e.HE()->Twin() != nullptr ), "RHS twin is nullptr" );
+    CORE_ASSERT( ( m_he->Twin()      != nullptr ), "LHS twin is nullptr" );
+    CORE_ASSERT( ( e.HE( 0 )->Twin() != nullptr ), "RHS twin is nullptr" );
 
     // Check if the ids are the same
     return ( ( ( m_he->idx == e.m_he->idx ) && ( m_he->Twin()->idx == e.m_he->Twin()->idx ) ) ||
@@ -39,8 +84,8 @@ inline bool FullEdge::operator==( const FullEdge& e ) const {
 
 
 inline bool FullEdge::operator<( const FullEdge& e ) const {
-    CORE_ASSERT( ( m_he->Twin()   != nullptr ), "LHS twin is nullptr" );
-    CORE_ASSERT( ( e.HE()->Twin() != nullptr ), "RHS twin is nullptr" );
+    CORE_ASSERT( ( m_he->Twin()      != nullptr ), "LHS twin is nullptr" );
+    CORE_ASSERT( ( e.HE( 0 )->Twin() != nullptr ), "RHS twin is nullptr" );
     Index min = std::min( m_he->V()->idx, m_he->Twin()->V()->idx );
     Index max = std::max( m_he->V()->idx, m_he->Twin()->V()->idx );
     Index e_min = std::min( e.m_he->V()->idx, e.m_he->Twin()->V()->idx );

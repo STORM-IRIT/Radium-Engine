@@ -26,10 +26,20 @@ public:
     /// DESTRUCTOR
     ~FullEdge();
 
+    /// VERTEX
+    inline Vertex_ptr V( const uint i ) const; // Return the reference to the vertex
+
     /// HALFEDGE
-    inline HalfEdge_ptr  HE() const;             // Return the reference to the halfedge
-    inline HalfEdge_ptr& HE();                   // Return the reference to the halfedge
-    inline void setHE( const HalfEdge_ptr& he ); // Set the HalfEdge reference to he
+    inline HalfEdge_ptr  HE( const uint i ) const; // Return the reference to the halfedge
+    inline HalfEdge_ptr& HE( const uint i );       // Return the reference to the halfedge
+    inline void setHE( const HalfEdge_ptr& he );   // Set the HalfEdge reference to he
+
+    /// FACE
+    inline Face_ptr F( const uint i ) const;
+
+    /// FULLEDGE
+    inline FullEdge_ptr Head( const uint i ) const;
+    inline FullEdge_ptr Tail( const uint i ) const;
 
     /// OPERATOR
     inline bool operator==( const FullEdge& e ) const; // Return true if the two edges points to the same vertices ( index-wise ). False otherwise

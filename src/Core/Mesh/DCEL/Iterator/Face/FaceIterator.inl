@@ -8,10 +8,10 @@ namespace Core {
 
 /// CONSTRUCTOR
 template < typename OBJECT >
-FIterator< OBJECT >::FIterator( const Face& f ) :
+FIterator< OBJECT >::FIterator( Face_ptr& f ) :
     Iterator< OBJECT >(),
-    m_f( &f ) {
-    m_he = m_f->HE();
+    m_f( f ) {
+    this->m_he = m_f->HE();
 }
 
 
@@ -48,7 +48,7 @@ inline uint FIterator< OBJECT >::size() const {
 /// RESET
 template < typename OBJECT >
 inline void FIterator< OBJECT >::reset() {
-    m_he = m_f->HE();
+    this->m_he = m_f->HE();
 }
 
 
@@ -58,9 +58,9 @@ inline void FIterator< OBJECT >::reset() {
 
 /// OPERATOR
 template < typename OBJECT >
-inline FIterator< OBJECT >& FIterator< OBJECT >::operator=( const VIterator& it ) {
+inline FIterator< OBJECT >& FIterator< OBJECT >::operator=( const FIterator& it ) {
     m_f = it.m_fs;
-    m_he = it.m_he;
+    this->m_he = it.m_he;
     return *this;
 }
 
@@ -68,7 +68,7 @@ inline FIterator< OBJECT >& FIterator< OBJECT >::operator=( const VIterator& it 
 
 template < typename OBJECT >
 inline FIterator< OBJECT >& FIterator< OBJECT >::operator++() {
-    m_he = m_he->Next();
+    this->m_he = this->m_he->Next();
     return *this;
 }
 
@@ -76,7 +76,7 @@ inline FIterator< OBJECT >& FIterator< OBJECT >::operator++() {
 
 template < typename OBJECT >
 inline FIterator< OBJECT >& FIterator< OBJECT >::operator--() {
-    m_he = m_he->Prev();
+    this->m_he = this->m_he->Prev();
     return *this;
 }
 
@@ -84,7 +84,7 @@ inline FIterator< OBJECT >& FIterator< OBJECT >::operator--() {
 
 template < typename OBJECT >
 inline bool FIterator< OBJECT >::operator==( const FIterator& it ) const {
-    return ( ( m_f == it.m_f ) && ( m_he == it.m_he ) );
+    return ( ( m_f == it.m_f ) && ( this->m_he == it.m_he ) );
 }
 
 

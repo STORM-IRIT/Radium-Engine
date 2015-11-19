@@ -6,10 +6,10 @@
 namespace Ra {
 namespace Core {
 
-class VFIterator : public VIterator< Face_ptr > {
+class VFIterator : public VIterator< Face > {
 public:
     /// CONSTRUCTOR
-    VFIterator( const Vertex& v );
+    VFIterator( Vertex_ptr& v );
     VFIterator( const VFIterator& it ) = default;
 
     /// DESTRUCTOR
@@ -19,7 +19,7 @@ public:
     inline FaceList list() const override;
 
     /// OPERATOR
-    inline Face_ptr operator->() const override;
+    inline Face* operator->() const override;
 };
 
 } // namespace Core

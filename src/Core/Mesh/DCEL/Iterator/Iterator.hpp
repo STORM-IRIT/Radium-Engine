@@ -15,27 +15,23 @@ public:
     Iterator( const Iterator& it ) = default;
 
     /// DESTRUCTOR
-    ~Iterator() { }
+    virtual ~Iterator();
 
     /// SIZE
     virtual uint size() const = 0;
 
     /// LIST
-    virtual std::vector< OBJECT > list() const = 0;
+    virtual std::vector< std::shared_ptr< OBJECT > > list() const = 0;
 
     /// RESET
     virtual void reset() = 0;
 
     /// OPERATOR
-    virtual OBJECT    operator->() const = 0;
-    virtual Iterator& operator= ( const Iterator& it ) = 0;
+    virtual OBJECT*   operator->() const = 0;
     virtual Iterator& operator++() = 0;
     virtual Iterator& operator--() = 0;
     inline  Iterator& operator+=( const uint n ) const;
     inline  Iterator& operator-=( const uint n ) const;
-    inline  Iterator  operator+ ( const uint n ) const;
-    inline  Iterator  operator- ( const uint n ) const;
-    virtual bool      operator==( const Iterator& it ) const = 0;
 
 protected:
     /// VARIABLE

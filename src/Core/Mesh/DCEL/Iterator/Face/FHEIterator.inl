@@ -9,7 +9,7 @@ namespace Core {
 
 
 /// CONSTRUCTOR
-FHEIterator::FHEIterator( const Face& f ) : FIterator< HalfEdge_ptr >( f ) { }
+FHEIterator::FHEIterator( Face_ptr& f ) : FIterator< HalfEdge >( f ) { }
 
 
 
@@ -32,8 +32,8 @@ inline HalfEdgeList FHEIterator::list() const {
 
 
 /// OPERATOR
-inline HalfEdge_ptr FHEIterator::operator->() const {
-    return m_he;
+inline HalfEdge* FHEIterator::operator->() const {
+    return m_he.get();
 }
 
 

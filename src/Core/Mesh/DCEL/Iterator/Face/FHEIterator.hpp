@@ -6,10 +6,10 @@
 namespace Ra {
 namespace Core {
 
-class FHEIterator : public FIterator< HalfEdge_ptr > {
+class FHEIterator : public FIterator< HalfEdge > {
 public:
     /// CONSTRUCTOR
-    FHEIterator( const Face& f );
+    FHEIterator( Face_ptr& f );
     FHEIterator( const FHEIterator& it ) = default;
 
     /// DESTRUCTOR
@@ -19,7 +19,7 @@ public:
     inline HalfEdgeList list() const override;
 
     /// OPERATOR
-    inline HalfEdge_ptr operator->() const override;
+    inline HalfEdge* operator->() const override;
 };
 
 } // namespace Core

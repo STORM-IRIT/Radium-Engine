@@ -72,9 +72,9 @@ Dcel::Dcel( const Dcel& dcel ) :
     // Upload the fulledge data
     for( uint i = 0; i < dcel.m_fulledge.size(); ++i ) {
         FullEdge_ptr dcel_fe = dcel.m_fulledge.at( i );
-        FullEdge_ptr fe      = std::make_shared< FullEdge >( m_halfedge[he_table[dcel_fe->HE()->idx]] );
+        FullEdge_ptr fe      = std::make_shared< FullEdge >( m_halfedge[he_table[dcel_fe->HE( 0 )->idx]] );
         m_fulledge.insert( fe, fe->idx );
-        fe->HE()->Twin()->setFE( fe );
+        fe->HE( 0 )->Twin()->setFE( fe );
     }
 }
 

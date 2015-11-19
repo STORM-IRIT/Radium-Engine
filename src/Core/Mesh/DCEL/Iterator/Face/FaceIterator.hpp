@@ -10,7 +10,7 @@ template < typename OBJECT >
 class FIterator : public Iterator< OBJECT > {
 public:
     /// CONSTRUCTOR
-    FIterator( const Face& f );
+    FIterator( Face_ptr& f );
     FIterator( const FIterator& it ) = default;
 
     /// DESTRUCTOR
@@ -24,8 +24,8 @@ public:
 
     /// OPERATOR
     inline FIterator& operator= ( const FIterator& it );
-    inline FIterator& operator++();
-    inline FIterator& operator--();
+    inline FIterator& operator++() override;
+    inline FIterator& operator--() override;
     inline bool       operator==( const FIterator& it ) const;
 
 protected:

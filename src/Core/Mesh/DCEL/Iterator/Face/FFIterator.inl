@@ -9,7 +9,7 @@ namespace Core {
 
 
 /// CONSTRUCTOR
-FFIterator::FFIterator( const Face& f ) : FIterator< Face_ptr >( f ) { }
+FFIterator::FFIterator( Face_ptr& f ) : FIterator< Face >( f ) { }
 
 
 
@@ -19,7 +19,7 @@ FFIterator::~FFIterator() { }
 
 
 /// LIST
-inline FaceList FVIterator::list() const {
+inline FaceList FFIterator::list() const {
     FaceList L;
     HalfEdge_ptr it = m_f->HE();
     do {
@@ -32,8 +32,8 @@ inline FaceList FVIterator::list() const {
 
 
 /// OPERATOR
-inline Face_ptr FFIterator::operator->() const {
-    return m_he->Twin()->F();
+inline Face* FFIterator::operator->() const {
+    return m_he->Twin()->F().get();
 }
 
 

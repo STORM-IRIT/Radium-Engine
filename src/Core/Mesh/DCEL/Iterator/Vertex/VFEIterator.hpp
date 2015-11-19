@@ -6,10 +6,10 @@
 namespace Ra {
 namespace Core {
 
-class VFEIterator : public VIterator< FullEdge_ptr > {
+class VFEIterator : public VIterator< FullEdge > {
 public:
     /// CONSTRUCTOR
-    VFEIterator( const Vertex& v );
+    VFEIterator( Vertex_ptr& v );
     VFEIterator( const VFEIterator& it ) = default;
 
     /// DESTRUCTOR
@@ -19,7 +19,7 @@ public:
     inline FullEdgeList list() const override;
 
     /// OPERATOR
-    inline FullEdge_ptr operator->() const override;
+    inline FullEdge* operator->() const override;
 };
 
 } // namespace Core
