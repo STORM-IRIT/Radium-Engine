@@ -40,22 +40,24 @@ void convert( const TriangleMesh& mesh, Dcel& dcel ) {
     for( unsigned int i = 0; i < mesh.m_vertices.size(); ++i ) {
         Vector3 p = mesh.m_vertices.at( i );
         Vector3 n = mesh.m_normals.at( i );
-        Vertex_ptr v = std::make_shared< Vertex >( p, n );
-        dcel.m_vertex.insert( v, v->idx );
+        Vertex_ptr v = std::shared_ptr< Vertex >( new Vertex( p, n ) );
+        CORE_ASSERT( ( v != nullptr ), "Vertex_ptr == nullptr" );
+        CORE_ASSERT( dcel.m_vertex.insert( v, v->idx ) , "Vertex not inserted" );
     }
     /// TWIN DATA
     std::map< Twin, Index > he_table;
     // Create faces and halfedges
     for( const auto& t : mesh.m_triangles ) {
         // Create the halfedges
-        HalfEdge_ptr he[3];
+        HalfEdgeList he;
         for( uint i = 0; i < 3; ++i ) {
-            he[i] = std::make_shared< HalfEdge >();
-            dcel.m_halfedge.insert( he[i], he[i]->idx );
+            he.push_back( std::shared_ptr< HalfEdge >( new HalfEdge() ) );
+            CORE_ASSERT( ( he[i] != nullptr ), "HalfEdge_ptr == nullptr" );
         }
         // Create the face
         Face_ptr f = std::make_shared< Face >( he[0] );
-        dcel.m_face.insert( f, f->idx );
+        CORE_ASSERT( ( f != nullptr ), "Face_ptr == nullptr" );
+        CORE_ASSERT( dcel.m_face.insert( f, f->idx ), "Face not inserted" );
         // Create the connections
         for( uint i = 0; i < 3; ++i ) {
             Vertex_ptr& v = dcel.m_vertex[ t[i] ];
@@ -64,7 +66,7 @@ void convert( const TriangleMesh& mesh, Dcel& dcel ) {
             he[i]->setNext( he[( i + 1 ) % 3] );
             he[i]->setPrev( he[( i + 2 ) % 3] );
             he[i]->setF( f );
-            dcel.m_halfedge.insert( he[i], he[i]->idx );
+            CORE_ASSERT( dcel.m_halfedge.insert( he[i], he[i]->idx ), "HalfEdge not inserted" );
             /// TWIN SEARCH
             Twin twin( t[i], t[( i + 1 ) % 3]);
             // Search the right twin
@@ -77,8 +79,11 @@ void convert( const TriangleMesh& mesh, Dcel& dcel ) {
                 he[i]->setTwin( dcel.m_halfedge[it->second] );
                 dcel.m_halfedge[it->second]->setTwin( he[i] );
                 // Create the fulledge
-                FullEdge_ptr fe = std::make_shared< FullEdge >( he[i] );
-                dcel.m_fulledge.insert( fe, fe->idx );
+                FullEdge_ptr fe = std::shared_ptr< FullEdge >( new FullEdge( he[i] ) );
+                CORE_ASSERT( ( fe != nullptr ), "FullEdge_ptr == nullptr" );
+                CORE_ASSERT( dcel.m_fulledge.insert( fe, fe->idx ), "FUllEdge not inserted" );
+                he[i]->setFE( fe );
+                he[i]->Twin()->setFE( fe );
                 he_table.erase( it );
             }
         }
