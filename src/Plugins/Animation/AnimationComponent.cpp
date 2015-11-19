@@ -102,39 +102,39 @@ namespace AnimationPlugin
         m_skel = skel;
         m_refPose = skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL);
     }
-    
+
     void AnimationComponent::update(Scalar dt)
     {
         if (dt > 0.5) // Ignore large dt that appear when the engine is paused (while loading a file for instance)
             dt = 0;
-        
+
         // Compute the elapsed time
         m_animationTime += dt;
-		
+
         // get the current pose from the animation
         if (dt > 0 && m_animations.size() > 0)
         {
             Ra::Core::Animation::Pose currentPose = m_animations[0].getPose(m_animationTime);
-        
+
             // update the pose of the skeleton
             m_skel.setPose(currentPose, Ra::Core::Animation::Handle::SpaceType::LOCAL);
         }
-        
+
         // update the render objects
         for (SkeletonBoneRenderObject* bone : m_boneDrawables)
         {
-			bone->update();
+            bone->update();
         }
     }
 
     void AnimationComponent::handleLoading(const AnimationLoader::AnimationData& data)
     {
         LOG( logDEBUG ) << "Animation component: loading a skeleton";
-        
+
         Ra::Core::Animation::Skeleton skeleton = Ra::Core::Animation::Skeleton(data.hierarchy.size());
         skeleton.m_graph = data.hierarchy;
         skeleton.setPose(data.pose, Ra::Core::Animation::Handle::SpaceType::LOCAL);
-        
+
         if (data.boneNames.size() == data.hierarchy.size())
         {
             for (int i = 0; i < skeleton.m_graph.size(); i++)
@@ -143,18 +143,24 @@ namespace AnimationPlugin
         else  // Auto-naming
         {
             for (int i = 0; i < skeleton.m_graph.size(); i++)
-                skeleton.setLabel(i, "Bone_" + i);
+                skeleton.setLabel(i, m_name + std::string("Bone_") + std::to_string(i));
         }
 
         set(skeleton);
-        
+
         m_animations = data.animations;
         m_animationTime = 0;
         m_weights = data.weights;
-        
+
         initialize();
     }
-    
+
+    void AnimationComponent::reset()
+    {
+        m_animationTime= 0;
+        // reset mesh m_meshComponent->
+    }
+
     void AnimationComponent::setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component)
     {
         m_meshComponent = component;
@@ -164,12 +170,12 @@ namespace AnimationPlugin
     {
         return m_refPose;
     }
-    
+
     FancyMeshPlugin::FancyMeshComponent* AnimationComponent::getMeshComponent() const
     {
         return m_meshComponent;
     }
-    
+
     Ra::Core::Animation::WeightMatrix AnimationComponent::getWeights() const
     {
         return m_weights;

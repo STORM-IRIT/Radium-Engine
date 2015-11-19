@@ -67,7 +67,7 @@ namespace FancyMeshPlugin
             LOG( logERROR ) << "Error while loading file \"" << name << "\" : " << importer.GetErrorString() << ".";
             return dataVector;
         }
-        
+
         //    LOG(DEBUG) << "About to load file " << name;
         //    LOG(DEBUG) << "Found " << scene->mNumMeshes << " meshes and " << scene->mNumMaterials << " materials.";
 
@@ -178,16 +178,16 @@ namespace FancyMeshPlugin
                 aiFace f = mesh->mFaces[i];
                 triangleMesh.m_triangles.push_back( Ra::Core::Triangle(f.mIndices[0], f.mIndices[1], f.mIndices[2]) );
             }
-            
+
             Ra::Core::MeshUtils::removeDuplicates(triangleMesh, data.vertexMap);
-            
+
             for (int i = 0; i < triangleMesh.m_triangles.size(); i++)
             {
                 indices.push_back(triangleMesh.m_triangles[i](0));
                 indices.push_back(triangleMesh.m_triangles[i](1));
                 indices.push_back(triangleMesh.m_triangles[i](2));
             }
-            
+
             Ra::Core::Vector3Array vec3Normals;
 
             Ra::Core::MeshUtils::getAutoNormals( triangleMesh, vec3Normals );

@@ -80,8 +80,8 @@ namespace Ra
 
         connect( m_viewer->getCameraInterface(), &CameraInterface::cameraPositionChanged, this, &MainWindow::onCameraPositionChanged );
         connect( m_viewer->getCameraInterface(), &CameraInterface::cameraTargetChanged, this, &MainWindow::onCameraTargetChanged );
-                // Oh C++ why are you so mean to me ? 
-        connect( m_cameraSensitivity, static_cast<void (QDoubleSpinBox::*) (double)>(&QDoubleSpinBox::valueChanged), 
+                // Oh C++ why are you so mean to me ?
+        connect( m_cameraSensitivity, static_cast<void (QDoubleSpinBox::*) (double)>(&QDoubleSpinBox::valueChanged),
             m_viewer->getCameraInterface(), &CameraInterface::setCameraSensitivity );
 
         // Connect picking results (TODO Val : use events to dispatch picking directly)
@@ -103,22 +103,37 @@ namespace Ra
         // Editors should be updated after each frame
         connect(mainApp, &MainApplication::endFrame, tab_edition, &TransformEditorWidget::updateValues);
         connect(mainApp, &MainApplication::endFrame, m_viewer->getGizmoManager(), &GizmoManager::updateValues);
-		
-		connect(playButton, SIGNAL(clicked(bool)), this, SLOT(playAnimation()));
-		connect(pauseButton, SIGNAL(clicked(bool)), this, SLOT(pauseAnimation()));
+
+        connect(playButton,  &QPushButton::clicked, this, &MainWindow::playAnimation );
+        connect(pauseButton, &QPushButton::clicked, this, &MainWindow::pauseAnimation );
+        connect(stepButton,  &QPushButton::clicked, this, &MainWindow::stepAnimation );
+        connect(resetButton, &QPushButton::clicked, this, &MainWindow::resetAnimation );
     }
-	
-	void Gui::MainWindow::playAnimation()
-	{
-		AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
-		animSys->setPlaying(true);
-	}
-	
-	void Gui::MainWindow::pauseAnimation()
-	{
-		AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
-		animSys->setPlaying(false);
-	}
+
+    void Gui::MainWindow::playAnimation()
+    {
+        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
+        animSys->setPlaying(true);
+    }
+
+    void Gui::MainWindow::pauseAnimation()
+    {
+        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
+        animSys->setPlaying(false);
+    }
+
+    void Gui::MainWindow::resetAnimation()
+    {
+        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
+        animSys->reset();
+    }
+
+    void Gui::MainWindow::stepAnimation()
+    {
+        pauseAnimation();
+        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
+        animSys->step();
+    }
 
     void Gui::MainWindow::onEntitiesUpdated()
     {
@@ -158,14 +173,14 @@ namespace Ra
 
     void Gui::MainWindow::loadFile()
     {
-		// Filter the files
-		aiString extList;
-		Assimp::Importer importer;
-		importer.GetExtensionList(extList);
-		std::string extListStd(extList.C_Str());
-		std::replace(extListStd.begin(), extListStd.end(), ';', ' ');
-		QString filter = QString::fromStdString(extListStd);
-		
+        // Filter the files
+        aiString extList;
+        Assimp::Importer importer;
+        importer.GetExtensionList(extList);
+        std::string extListStd(extList.C_Str());
+        std::replace(extListStd.begin(), extListStd.end(), ';', ' ');
+        QString filter = QString::fromStdString(extListStd);
+
         QString path = QFileDialog::getOpenFileName( this, "Open File", "..", filter);
         if ( path.size() > 0 )
         {

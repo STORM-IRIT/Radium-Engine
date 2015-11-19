@@ -16,8 +16,8 @@
 
 namespace AnimationPlugin
 {
-	namespace AnimationLoader
-	{	
+    namespace AnimationLoader
+    {
         struct aiStringComparator
         {
             bool operator()(const aiString& left, const aiString& right)
@@ -26,29 +26,29 @@ namespace AnimationPlugin
             }
         };
         typedef std::map<aiString, int, aiStringComparator> BoneMap;
-    
-		void recursiveSkeletonRead(const aiNode* node, aiMatrix4x4 accTransform, BoneMap& bones, AnimationData& data, int parent);
+
+        void recursiveSkeletonRead(const aiNode* node, aiMatrix4x4 accTransform, BoneMap& bones, AnimationData& data, int parent);
         void assimpToCore(const aiMatrix4x4& inMatrix, Ra::Core::Transform &outMatrix);
         void assimpToCore(const aiVector3D& inTranslation, const aiQuaternion& inRotation, const aiVector3D& inScaling, Ra::Core::Transform& outTransform);
         void assimpToCore(const aiQuaternion& inQuat, Ra::Core::Quaternion& outQuat);
         void assimpToCore(const aiVector3D& inVec, Ra::Core::Vector3& outVec);
         void getUniqueKeyTimes(aiAnimation* animation, std::vector<double> &times);
         void getTransformFromKey(const aiNodeAnim* key, int i, Ra::Core::Transform& keyTransform);
-	
-		AnimationData loadFile( const std::string& name, const FancyMeshPlugin::MeshLoadingInfo& info)
-		{
-			Assimp::Importer importer;
-	        const aiScene* scene = importer.ReadFile(name, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_GenSmoothNormals |
-	                                                  aiProcess_SortByPType | aiProcess_FixInfacingNormals | aiProcess_CalcTangentSpace | aiProcess_GenUVCoords);
-			
-			AnimationData animData;
+
+        AnimationData loadFile( const std::string& name, const FancyMeshPlugin::MeshLoadingInfo& info)
+        {
+            Assimp::Importer importer;
+            const aiScene* scene = importer.ReadFile(name, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_GenSmoothNormals |
+                                                      aiProcess_SortByPType | aiProcess_FixInfacingNormals | aiProcess_CalcTangentSpace | aiProcess_GenUVCoords);
+
+            AnimationData animData;
             animData.hasLoaded = false;
-			
-			if (scene == NULL)
-			{
-				LOG( logERROR ) << "Error while loading file \"" << name << "\" : " << importer.GetErrorString() << ".";
-				return animData;
-			}
+
+            if (scene == NULL)
+            {
+                LOG( logERROR ) << "Error while loading file \"" << name << "\" : " << importer.GetErrorString() << ".";
+                return animData;
+            }
             if (info.index < 0 || info.index >= scene->mNumMeshes)
             {
                 LOG(logDEBUG) << "Invalid mesh index: " << info.index << " requested, but " << scene->mNumMeshes << " meshes have been found";
@@ -62,17 +62,17 @@ namespace AnimationPlugin
                 LOG(logDEBUG) << "Mesh #" << info.index << ": no skeleton found.";
                 return animData;
             }
-            
+
             int vertexCount = 0;
             for (int i = 0; i < info.vertexMap.size(); i++)
             {
                 if (info.vertexMap[i] >= vertexCount)
                     vertexCount = info.vertexMap[i] + 1;
             }
-            
+
             BoneMap boneMap; // first: name of the boneNode, second: index of the bone in the hierarchy / pose
             animData.weights.resize(vertexCount, mesh->mNumBones);
-            
+
             for (int i = 0; i < mesh->mNumBones; i++)
             {
                 boneMap[mesh->mBones[i]->mName] = -1; // the true index will get written during the recursive read of the scene
@@ -80,13 +80,13 @@ namespace AnimationPlugin
                 {
                     aiVertexWeight vertexWeight = mesh->mBones[i]->mWeights[j];
                     int id = info.vertexMap[vertexWeight.mVertexId];
-                    animData.weights.insert(id, i) = vertexWeight.mWeight;
+                    animData.weights.coeffRef(id, i) = vertexWeight.mWeight;
                 }
             }
-            
+
             // find the bone nodes and create the corresponding skeleton
             recursiveSkeletonRead(scene->mRootNode, aiMatrix4x4(), boneMap, animData, -1);
-            
+
             // Store the names of each bone
             animData.boneNames.resize(boneMap.size());
             for (std::pair<aiString, int> p : boneMap)
@@ -95,10 +95,10 @@ namespace AnimationPlugin
                 animData.boneNames[p.second] = std::string(p.first.C_Str());
             }
             LOG(logDEBUG) << "Found a skeleton of " << boneMap.size() << " bones";
-            
+
             // animation loading
             LOG(logDEBUG) << "Found " << scene->mNumAnimations << " animations";
-            
+
             animData.animations.resize(scene->mNumAnimations);
             for (int k = 0; k < scene->mNumAnimations; k++)
             {
@@ -110,17 +110,17 @@ namespace AnimationPlugin
                 std::vector<double> timeSet;
                 getUniqueKeyTimes(animation, timeSet);
                 int keyCount = timeSet.size();
-                
+
                 // Allocate the poses
                 std::vector<Ra::Core::Animation::Pose> poses;
                 for (int i = 0; i < keyCount; i++)
                     poses.push_back(Ra::Core::Animation::Pose(boneCount));
-                
+
                 // Track which bones have an animation
                 std::vector<bool> animatedBones( boneCount );
                 for (int i = 0; i < boneCount; i++)
                     animatedBones[i] = false;
-                
+
                 // Add the animated bone transforms to the poses + interpolate when necessary
                 for (int i = 0; i < channelCount; i++)
                 {
@@ -128,11 +128,11 @@ namespace AnimationPlugin
                     if (boneMap.find(currentNodeAnim->mNodeName) == boneMap.end()) // We should be able to ignore bones that do not affect the mesh
                         continue;
                     //CORE_ASSERT(boneMap.find(currentNodeAnim->mNodeName) != boneMap.end(), "Unknown bone channel");
-                    
+
                     int channelKeyCount = currentNodeAnim->mNumPositionKeys;
                     int boneIndex = boneMap[currentNodeAnim->mNodeName];
                     animatedBones[boneIndex] = true;
-                    
+
                     int channelKeyIndex = 0;
                     for (int j = 0; j < keyCount; j++)
                     {
@@ -159,23 +159,23 @@ namespace AnimationPlugin
                             Ra::Core::Transform keyTransform;
                             getTransformFromKey(currentNodeAnim, channelKeyIndex - 1, previousKeyTransform);
                             getTransformFromKey(currentNodeAnim, channelKeyIndex, nextKeyTransform);
-                            
+
                             double prevChannelKeyTime = currentNodeAnim->mPositionKeys[channelKeyIndex - 1].mTime;
                             Scalar t = (timeSet[j] - prevChannelKeyTime) / (channelKeyTime - prevChannelKeyTime);
                             Ra::Core::Animation::interpolateTransforms(previousKeyTransform, nextKeyTransform, t, keyTransform);
-                            
+
                             poses[j][boneIndex] = keyTransform;
                         }
                         else
                         {
                             CORE_ASSERT(false, "AnimationLoader.cpp: should not be there");
                         }
-                        
+
                         if (animData.hierarchy.isRoot(boneIndex))
                             poses[j][boneIndex] = animData.baseTransform * poses[j][boneIndex];
                     }
                 }
-                
+
                 // add the non animated bone transforms to the poses
                 for (int i = 0; i < boneCount; i++)
                 {
@@ -187,7 +187,7 @@ namespace AnimationPlugin
                         }
                     }
                 }
-                
+
                 // finally create the animation object
                 Scalar animationRate = animation->mTicksPerSecond > 0.0 ? animation->mTicksPerSecond : 50.0;
                 for (int i = 0; i < keyCount; i++)
@@ -197,45 +197,45 @@ namespace AnimationPlugin
                 }
                 animData.animations[k].normalize();
             }
-			
+
             animData.hasLoaded = true;
-			return animData;
-		}
-		
-		void recursiveSkeletonRead(const aiNode* node, aiMatrix4x4 accTransform, BoneMap &boneMap, AnimationData& data, int parent)
-		{           
-			aiMatrix4x4 currentTransform  = accTransform * node->mTransformation;
+            return animData;
+        }
+
+        void recursiveSkeletonRead(const aiNode* node, aiMatrix4x4 accTransform, BoneMap &boneMap, AnimationData& data, int parent)
+        {
+            aiMatrix4x4 currentTransform  = accTransform * node->mTransformation;
             bool isBoneNode = boneMap.find(node->mName) != boneMap.end();
             int currentIndex = parent;
-			
+
             if (!isBoneNode && node->mNumChildren == 0 && parent != -1) // Catch the end bones
                 isBoneNode = true;
-            
-			if (isBoneNode)
-			{
+
+            if (isBoneNode)
+            {
                 if (parent == -1)
                 {
                     assimpToCore(accTransform, data.baseTransform);
                 }
-                
-				// store the bone in the hierarchy
-				currentIndex = data.hierarchy.addNode(parent);
+
+                // store the bone in the hierarchy
+                currentIndex = data.hierarchy.addNode(parent);
                 // store the index in the BoneMap
                 boneMap[node->mName] = currentIndex;
-			
-				// store the transform for the bone
-				Ra::Core::Transform tr;
-				assimpToCore(currentTransform, tr);
-				data.pose.push_back(tr);
-				
-				// initialize the transform for the child bones
-				currentTransform = aiMatrix4x4();
-			}
-			
-			for (int i = 0; i < node->mNumChildren; i++)
-				recursiveSkeletonRead(node->mChildren[i], currentTransform, boneMap, data, currentIndex);
-		}
-        
+
+                // store the transform for the bone
+                Ra::Core::Transform tr;
+                assimpToCore(currentTransform, tr);
+                data.pose.push_back(tr);
+
+                // initialize the transform for the child bones
+                currentTransform = aiMatrix4x4();
+            }
+
+            for (int i = 0; i < node->mNumChildren; i++)
+                recursiveSkeletonRead(node->mChildren[i], currentTransform, boneMap, data, currentIndex);
+        }
+
         void getTransformFromKey(const aiNodeAnim* key, int i, Ra::Core::Transform& keyTransform)
         {
             aiVector3D keyPosition = key->mPositionKeys[i].mValue;
@@ -245,7 +245,7 @@ namespace AnimationPlugin
             // convert the key to a transform matrix
             assimpToCore(keyPosition, keyRotation, keyScaling, keyTransform);
         }
-		
+
         void getUniqueKeyTimes(aiAnimation* animation, std::vector<double>& times)
         {
             int channelCount = animation->mNumChannels;
@@ -253,23 +253,23 @@ namespace AnimationPlugin
             for (int i = 0; i < channelCount; i++)
             {
                 aiNodeAnim* currentNodeAnim = animation->mChannels[i];
-                
+
                 int channelKeyCount = currentNodeAnim->mNumRotationKeys;
                 for (int j = 0; j < channelKeyCount; j++)
                 {
                     const aiVectorKey& positionKey = currentNodeAnim->mPositionKeys[j];
                     const aiQuatKey& rotationKey = currentNodeAnim->mRotationKeys[j];
                     const aiVectorKey& scalingKey = currentNodeAnim->mScalingKeys[j];
-                    
+
                     CORE_ASSERT(positionKey.mTime == rotationKey.mTime && positionKey.mTime == scalingKey.mTime, "Invalid key times");
-                    
+
                     timeSet.insert(positionKey.mTime);
                 }
             }
             std::copy(timeSet.begin(), timeSet.end(), std::back_inserter(times));
         }
-        
-		void assimpToCore( const aiMatrix4x4& inMatrix, Ra::Core::Transform& outMatrix )
+
+        void assimpToCore( const aiMatrix4x4& inMatrix, Ra::Core::Transform& outMatrix )
         {
             for ( uint i = 0; i < 4; ++i )
             {
@@ -279,17 +279,17 @@ namespace AnimationPlugin
                 }
             }
         }
-        
+
         void assimpToCore(const aiQuaternion& inQuat, Ra::Core::Quaternion& outQuat)
         {
             outQuat = Ra::Core::Quaternion(inQuat.w, inQuat.x, inQuat.y, inQuat.z);
         }
-        
+
         void assimpToCore(const aiVector3D& inVec, Ra::Core::Vector3& outVec)
         {
             outVec = Ra::Core::Vector3(inVec.x, inVec.y, inVec.z);
         }
-        
+
         void assimpToCore(const aiVector3D &inTranslation, const aiQuaternion &inRotation, const aiVector3D &inScaling, Ra::Core::Transform& outTransform)
         {
             Ra::Core::Vector3 translation;
@@ -300,5 +300,5 @@ namespace AnimationPlugin
             assimpToCore(inRotation, rotation);
             outTransform.fromPositionOrientationScale(translation, rotation, scaling);
         }
-	}
+    }
 }
