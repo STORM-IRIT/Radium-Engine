@@ -74,7 +74,7 @@ AdjacencyMatrix cotangentWeightAdjacency( const VectorArray< Vector3 >& p, const
 DegreeMatrix adjacencyDegree( const AdjacencyMatrix& A ) {
     DegreeMatrix D( A.rows(), A.cols() );
     D.reserve( A.rows() );
-    for( uint i = 0; i < D.diagonal().size(); ++i ) {
+    for( int i = 0; i < D.diagonal().size(); ++i ) {
         D.coeffRef( i, i ) = A.row( i ).sum();
     }
     return D;

@@ -5,7 +5,7 @@ namespace Ra
     namespace Core
     {
         template <uint D, uint K>
-        inline Spline<D, K>::Spline( Spline<D, K>::Type type )
+        inline Spline<D, K>::Spline( typename Spline<D, K>::Type type )
             : m_type( type )
         {
             static_assert( K >= 2, "Order must be at least two" );
@@ -18,7 +18,7 @@ namespace Ra
         // -----------------------------------------------------------------------------
 
         template <uint D, uint K>
-        inline void Spline<D, K>::setCtrlPoints( const Core::VectorArray<Spline<D, K>::Vector>& points )
+        inline void Spline<D, K>::setCtrlPoints( const Core::VectorArray< typename Spline<D, K>::Vector>& points )
         {
             m_points = points;
             m_vecs.resize( points.size() - 1, Vector::Zero() );

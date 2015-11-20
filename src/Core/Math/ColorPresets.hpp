@@ -45,7 +45,7 @@ namespace Ra{
             inline uint32_t ToRGBA32(const Color& color)
             {
                 Vector4i scaled = (color * 255).cast<int>();
-                return (uint32_t(scaled[0])<<24) | (uint32_t(scaled[1])<<16) |(uint32_t(scaled[2])<<12) |(uint32_t(scaled[3])<<0);
+                return (uint32_t(scaled[0])<<24) | (uint32_t(scaled[1])<<16) |(uint32_t(scaled[2])<<8) |(uint32_t(scaled[3])<<0);
             }
         }
     }

@@ -70,7 +70,7 @@ namespace Ra
         typedef Eigen::Matrix3d Matrix3d;
         typedef Eigen::Matrix2d Matrix2d;
 
-        typedef Eigen::Matrix< uint32_t, Eigen::Dynamic, Eigen::Dynamic > MatrixNui;
+        typedef Eigen::Matrix< uint, Eigen::Dynamic, Eigen::Dynamic > MatrixNui;
 
         //typedef Eigen::DiagonalMatrix< Scalar, Eigen::Dynamic > Diagonal;
         typedef Eigen::SparseMatrix< Scalar > Diagonal; // Not optimized for Diagonal matrices, but the operations between Sparse and Diagonal are not defined

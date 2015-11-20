@@ -62,7 +62,7 @@ Vector3 meanCurvatureNormal( const Vector3& laplacian, const Scalar& area );
 
 /*
 * Return the Mean Curvature value from the given Mean Curvature Normal.
-* The Mean Curvature Normal is defined as:
+* The Mean Curvature is defined as:
 *       H = 1/2 * || Hn ||
 *
 * The definition was taken from:

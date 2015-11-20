@@ -77,47 +77,47 @@ void areaWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Tri
 /// ONE RING ///
 ////////////////
 
-Vector3 uniformNormal( const Vector3& v, const VectorArray< Vector3 >& p ) {
+Vector3 uniformNormal( const Vector3& v, const VectorArray< Vector3 >& one_ring ) {
     Vector3 normal;
     normal.setZero();
-    uint N = p.size();
+    uint N = one_ring.size();
     CircularIndex i;
     i.setSize( N );
     for( uint j = 0; j < N; ++j ) {
         i.setValue( j );
-        normal += triangleNormal( v, p[i], p[i-1] );
+        normal += triangleNormal( v, one_ring[i], one_ring[i-1] );
     }
     return normal.normalized();
 }
 
 
 
-Vector3 angleWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& p ) {
+Vector3 angleWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& one_ring ) {
     Vector3 normal;
     normal.setZero();
-    uint N = p.size();
+    uint N = one_ring.size();
     CircularIndex i;
     i.setSize( N );
     for( uint j = 0; j < N; ++j ) {
         i.setValue( j );
-        Scalar theta = Vector::angle( ( p[i] - v ), ( p[i-1] - v ) );
-        normal += theta * triangleNormal( v, p[i], p[i-1] );
+        Scalar theta = Vector::angle( ( one_ring[i] - v ), ( one_ring[i-1] - v ) );
+        normal += theta * triangleNormal( v, one_ring[i], one_ring[i-1] );
     }
     return normal.normalized();
 }
 
 
 
-Vector3 areaWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& p ) {
+Vector3 areaWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& one_ring ) {
     Vector3 normal;
     normal.setZero();
-    uint N = p.size();
+    uint N = one_ring.size();
     CircularIndex i;
     i.setSize( N );
     for( uint j = 0; j < N; ++j ) {
         i.setValue( j );
-        Scalar area = triangleArea( v, p[i], p[i-1] );
-        normal += area * triangleNormal( v, p[i], p[i-1] );
+        Scalar area = triangleArea( v, one_ring[i], one_ring[i-1] );
+        normal += area * triangleNormal( v, one_ring[i], one_ring[i-1] );
     }
     return normal.normalized();
 }

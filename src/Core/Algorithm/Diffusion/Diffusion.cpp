@@ -53,7 +53,7 @@ void diffuseDelta( const Geometry::AdjacencyMatrix& A, const Delta& delta, const
 //        u.swap( tmp );
 
 #pragma omp parallel for
-        for( uint k = 0; k < A.outerSize(); ++k ) {
+        for( int k = 0; k < A.outerSize(); ++k ) {
             uint nonZero = 0;
             Scalar oneRingMeanValue = 0.0;
             for( Geometry::AdjacencyMatrix::InnerIterator it( A, k ); it; ++it) {

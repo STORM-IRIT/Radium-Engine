@@ -70,7 +70,7 @@ VertexSegment extractVertexSegment( const Animation::WeightMatrix& weights, cons
     VertexSegment v;
     Eigen::VectorXd col = weights.col( id );
     Scalar max = col.maxCoeff();
-    for( uint i = 0; i < col.size(); ++i ) {
+    for( int i = 0; i < col.size(); ++i ) {
         if( ( col.coeff( i ) != 0.0 ) && ( ( col.coeff( i ) == max ) || !is_max ) ) {
             v.insert( i );
         }

@@ -32,7 +32,7 @@ AreaMatrix oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Tria
 
 
 AreaMatrix barycentricArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
-    return ( ( 1.0 / 3.0 ) * oneRingArea( p, T ) );
+    return ( ( 1.0f / 3.0f ) * oneRingArea( p, T ) );
 }
 
 

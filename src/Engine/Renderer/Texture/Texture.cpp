@@ -110,8 +110,8 @@ namespace Ra
         GL_ASSERT( glBindTexture( m_target, m_textureId ) );
         GL_ASSERT( glTexImage2D( m_target, 0, internal, w, h, 0, format, type, data ) );
 
-        GL_ASSERT( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT ) );
-        GL_ASSERT( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT ) );
+        GL_ASSERT( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP ) );
+        GL_ASSERT( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP ) );
         GL_ASSERT( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ) );
         GL_ASSERT( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ) );
 
@@ -124,7 +124,7 @@ namespace Ra
         if ( data && m_bytesPerPixel )
         {
             m_pixels = new unsigned char[m_width * m_height * m_bytesPerPixel];
-            memcpy( m_pixels, data, m_width * m_height * m_bytesPerPixel );
+            CORE_ASSERT( memcpy( m_pixels, data, m_width * m_height * m_bytesPerPixel ), "THIS IS FACT UP" );
         }
     }
 
@@ -311,7 +311,7 @@ namespace Ra
             } break;
         }
 
-        
+
 
         if ( data )
         {

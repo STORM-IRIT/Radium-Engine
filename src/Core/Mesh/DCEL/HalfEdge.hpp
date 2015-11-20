@@ -1,13 +1,12 @@
-#ifndef DCEL_HALFEDGE_H
-#define DCEL_HALFEDGE_H
+#ifndef RADIUMENGINE_DCEL_HALFEDGE_HPP
+#define RADIUMENGINE_DCEL_HALFEDGE_HPP
 
-#include <Core/Geometry/DCEL/Definition.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Index/IndexedObject.hpp>
+#include <Core/Mesh/DCEL/Definition.hpp>
 
 namespace Ra {
 namespace Core {
-namespace Dcel {
 
 /**
 * Class HalfEdge
@@ -25,22 +24,14 @@ namespace Dcel {
 class HalfEdge : public IndexedObject {
 public:
     /// CONSTRUCTOR
-    HalfEdge();                           // Default constructor
-    HalfEdge( const Index& index );       // Build a HalfEdge with the given index
-    HalfEdge( const Vertex_ptr& v );      // Build a HalfEdge outgoing the vertex v
-    HalfEdge( const HalfEdge_ptr& next,
-              const HalfEdge_ptr& prev,
-              const HalfEdge_ptr& twin ); // Build a HalfEdge pointing to next, prev and twin halfedge
-    HalfEdge( const Face_ptr& f );        // Build a HalfEdge pointing to the face f
-    HalfEdge( const Index&      index,
-              const Vertex_ptr& v );      // Build a HalfEdge with the given index, outgoing the vertex v
-    HalfEdge( const Index&        index,
-              const Vertex_ptr&   v,
-              const HalfEdge_ptr& next,
-              const HalfEdge_ptr& prev,
-              const HalfEdge_ptr& twin,
-              const Face_ptr&     f );    // Build a complete Halfedge
-    HalfEdge( const HalfEdge& he );       // Copy constructor
+    HalfEdge( const Index& index = Index::INVALID_IDX() );        // Build a HalfEdge with the given index
+    HalfEdge( const Vertex_ptr&   v,
+              const HalfEdge_ptr& next  = nullptr,
+              const HalfEdge_ptr& prev  = nullptr,
+              const HalfEdge_ptr& twin  = nullptr,
+              const Face_ptr&     f     = nullptr,
+              const Index&        index = Index::INVALID_IDX() ); // Build a complete Halfedge
+    HalfEdge( const HalfEdge& he ) = default;                     // Copy constructor
 
     /// DESTRUCTOR
     ~HalfEdge();
@@ -66,9 +57,14 @@ public:
     inline void          setTwin( const HalfEdge_ptr& twin ); // Set the twin halfedge to twin
 
     /// HALFEDGE
-    inline void setNeighbor( const HalfEdge_ptr& next,
-                             const HalfEdge_ptr& prev,
-                             const HalfEdge_ptr& twin ); // Set the neighboring halfedges
+    inline void setNeighborHE( const HalfEdge_ptr& next,
+                               const HalfEdge_ptr& prev,
+                               const HalfEdge_ptr& twin ); // Set the neighboring halfedges
+
+    /// FULLEDGE
+    inline FullEdge_ptr  FE() const;                      // Return the reference to the fulledge
+    inline FullEdge_ptr& FE();                            // Return the reference to the fulledge
+    inline void          setFE( const FullEdge_ptr& fe ); // Set the fulledge to fe
 
     /// FACE
     inline Face_ptr  F() const;                 // Return the reference to the face
@@ -81,13 +77,13 @@ protected:
     HalfEdge_ptr m_next; // Next halfedge reference
     HalfEdge_ptr m_prev; // Prev halfedge reference
     HalfEdge_ptr m_twin; // Twin halfedge reference
+    FullEdge_ptr m_fe;   // FullEdge reference
     Face_ptr     m_f;    // Face reference
 };
 
-} // namespace DCEL
 } // namespace Core
 } // namespace Ra
 
-#include "HalfEdge.inl"
+#include <Core/Mesh/DCEL/HalfEdge.inl>
 
-#endif // DCEL_HALFEDGE_H
+#endif // RADIUMENGINE_DCEL_HALFEDGE_HPP

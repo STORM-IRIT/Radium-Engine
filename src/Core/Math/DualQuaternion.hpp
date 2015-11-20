@@ -30,7 +30,7 @@ namespace Ra
             /// Construct a dual-quaternion from two quaternions.
             inline DualQuaternion( const Quaternion& q0, const Quaternion& qe ) : m_q0( q0 ), m_qe( qe ) { }
 
-            /// Construct a dual-quaternion from a rigid transform 
+            /// Construct a dual-quaternion from a rigid transform
             /// Any non-rigid component (e.g. scale and shear) will be ignored.
             inline DualQuaternion( const Core::Transform& tr );
 
@@ -65,8 +65,8 @@ namespace Ra
             /// Normalize the quaternion with the dual-number norm (divides q0 and qe
             /// by q0's norm).
             inline void normalize();
-			
-			inline Vector3 transform(const Vector3& p) const;
+
+            inline Vector3 transform(const Vector3& p) const;
 
         private:
             /// non-dual part (representing the rotation)

@@ -67,7 +67,7 @@ inline bool CircularIndex::operator==( const int i ) const {
 }
 
 inline bool CircularIndex::operator< ( const int i ) const {
-    return ( idx < CircularIndex( N, i ) );
+    return ( idx < uint(CircularIndex( N, i )) );
 }
 
 } // namespace Core

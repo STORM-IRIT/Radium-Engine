@@ -45,7 +45,12 @@ namespace Ra
             m_renderTechnique = technique;
         }
 
-        inline RenderTechnique* RenderObject::getRenderTechnique() const
+        inline const RenderTechnique* RenderObject::getRenderTechnique() const
+        {
+            return m_renderTechnique;
+        }
+
+        inline RenderTechnique* RenderObject::getRenderTechnique()
         {
             return m_renderTechnique;
         }

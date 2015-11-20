@@ -13,8 +13,9 @@ FIND_PATH( Assimp_INCLUDE_DIR assimp/mesh.h
 )
 
 FIND_LIBRARY( Assimp_LIBRARY
-  NAMES assimp assimp32.lib assimp.lib
+  NAMES assimp assimp32.lib assimp.lib libassimp.a
   ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Assimp/lib/Release
+  ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Assimp/lib/
   /usr/lib64
   /usr/lib
   /usr/local/lib

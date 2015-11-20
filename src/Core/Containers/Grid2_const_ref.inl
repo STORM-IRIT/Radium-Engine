@@ -67,14 +67,14 @@ namespace Ra
 
             T& get_val( int x, int y )
             {
-                assert( x < Pt::_size.x && y < Pt::_size.y );
+                assert( x < Pt::_size.x() && y < Pt::_size.y() );
                 assert( x >= 0 && y >= 0 );
                 return Pt::_grid_ref( Vector3i( Pt::_r0._a + x, Pt::_r1._a + y, Pt::_slice ) );
             }
 
             const T& get_val( int x, int y ) const
             {
-                assert( x < Pt::_size.x && y < Pt::_size.y );
+                assert( x < Pt::_size.x() && y < Pt::_size.y() );
                 assert( x >= 0 && y >= 0 );
                 return Pt::_grid_ref( Vector3i( Pt::_r0._a + x, Pt::_r1._a + y, Pt::_slice ) );
             }
