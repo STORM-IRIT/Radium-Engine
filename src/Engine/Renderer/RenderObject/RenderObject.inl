@@ -50,14 +50,19 @@ namespace Ra
             return m_renderTechnique;
         }
 
-        inline void RenderObject::setMesh( Mesh* mesh )
+        inline void RenderObject::setMesh( const std::shared_ptr<Mesh>& mesh )
         {
             m_mesh = mesh;
         }
 
-        inline Mesh* RenderObject::getMesh() const
+        inline const Mesh* RenderObject::getMesh() const
         {
-            return m_mesh;
+            return m_mesh.get();
+        }
+
+        inline Mesh* RenderObject::getMesh()
+        {
+            return m_mesh.get();
         }
 
         inline void RenderObject::setLocalTransform( const Core::Transform& transform )

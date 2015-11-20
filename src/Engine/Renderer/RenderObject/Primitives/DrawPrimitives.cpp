@@ -12,7 +12,7 @@ namespace Ra
         namespace DrawPrimitives
         {
             // Factor common initialization code
-            void initRo( RenderObject* ro, Mesh* mesh,
+            void initRo( RenderObject* ro, const std::shared_ptr<Mesh>& mesh,
                          const Core::Vector3Array& vertices,
                          const std::vector<uint>& indices,
                          const Core::Color& color )
@@ -28,10 +28,10 @@ namespace Ra
                 rt->shaderConfig = ShaderConfiguration("Plain", "../Shaders");
                 rt->material = new Material("Default material");
                 ro->setRenderTechnique(rt);
-                ro->setMesh(mesh);
+                ro->setMesh( mesh );
             }
 
-            void initLineRo( RenderObject* ro, Mesh* mesh,
+            void initLineRo( RenderObject* ro, const std::shared_ptr<Mesh>& mesh,
                              const Core::Vector3Array& vertices,
                              const std::vector<uint>& indices,
                              const Core::Color& color, Scalar lineWidth )
@@ -73,7 +73,7 @@ namespace Ra
                 std::vector<uint> indices = {0, 1, 2, 3, 4, 5};
 
                 RenderObject* ro = new Ra::Engine::RenderObject("Point Primitive", comp);
-                Mesh* mesh = new Ra::Engine::Mesh("Point Primitive", GL_LINES);
+                std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh("Point Primitive", GL_LINES) );
                 initRo(ro, mesh, vertices, indices, color);
                 return ro;
             }
@@ -97,7 +97,7 @@ namespace Ra
                 };
                 std::vector<uint> indices = {0,1,  1,2,  1,3};
 
-                Mesh* mesh = new Ra::Engine::Mesh("Vector Primitive", GL_LINES);
+                std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh("Vector Primitive", GL_LINES) );
                 RenderObject* ro = new Ra::Engine::RenderObject("Vector Primitive", comp);
                 initRo(ro, mesh, vertices, indices, color);
                 return ro;
@@ -108,7 +108,7 @@ namespace Ra
                 Core::Vector3 end = ray.at(1000.f);
                 Core::Vector3Array vertices = { ray.m_origin, end };
                 std::vector<uint> indices = { 0, 1 };
-                Mesh* mesh = new Ra::Engine::Mesh("Ray Primitive", GL_LINES);
+                std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh("Ray Primitive", GL_LINES) );
                 RenderObject* ro = new Ra::Engine::RenderObject("Ray Primitive", comp);
                 initRo(ro, mesh, vertices, indices, color);
                 return ro;
@@ -125,7 +125,7 @@ namespace Ra
 
                 GLenum renderType = fill ? GL_TRIANGLES : GL_LINES;
 
-                Mesh* mesh = new Ra::Engine::Mesh("Triangle Primitive", renderType);
+                std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh("Triangle Primitive", renderType ) );
                 RenderObject* ro = new Ra::Engine::RenderObject("Triangle Primitive", comp);
 
                 if (fill)
@@ -168,7 +168,7 @@ namespace Ra
                 }
 
 
-                Mesh* mesh = new Ra::Engine::Mesh( "Circle Primitive", GL_LINES_ADJACENCY );
+                std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh( "Circle Primitive", GL_LINES_ADJACENCY ) );
                 RenderObject* ro = new Ra::Engine::RenderObject( "Circle Primitive", comp );
                 initLineRo( ro, mesh, vertices, indices, color, 5.0 );
                 return ro;
@@ -203,7 +203,7 @@ namespace Ra
                 }
                 indices.push_back( 1 );
 
-                Mesh* mesh = new Ra::Engine::Mesh( "Circle Primitive", GL_TRIANGLE_FAN );
+                std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh( "Circle Primitive", GL_TRIANGLE_FAN ) );
                 RenderObject* ro = new Ra::Engine::RenderObject( "Circle Primitive", comp );
                 initRo( ro, mesh, vertices, indices, color );
                 return ro;
@@ -238,7 +238,7 @@ namespace Ra
                 std::vector<uint> indices = {0,1,  1,2,  1,3,
                                              4,5, 5,6, 6,7, 7,4, 4,6,  5,7};
 
-                Mesh* mesh = new Ra::Engine::Mesh("Normal Primitive", GL_LINES);
+                std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh("Normal Primitive", GL_LINES) );
                 RenderObject* ro = new Ra::Engine::RenderObject("Normal Primitive", comp);
                 initRo(ro, mesh, vertices, indices, color);
                 return ro;
@@ -264,7 +264,7 @@ namespace Ra
                         2, 2, 3, 3,
                         4, 4, 5, 5 };
 
-                Mesh* mesh = new Ra::Engine::Mesh( "Frame Primitive", GL_LINES_ADJACENCY );
+                std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh( "Frame Primitive", GL_LINES_ADJACENCY ) );
                 RenderObject* ro = new Ra::Engine::RenderObject("Frame Primitive", comp);
                 initLineRo(ro, mesh, vertices, indices, Core::Color::Ones(), 1.0);
 
@@ -306,7 +306,7 @@ namespace Ra
                     indices.push_back(vertices.size() -1);
                 }
 
-                Mesh* mesh = new Ra::Engine::Mesh( "Frame Primitive", GL_LINES );
+                std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh( "Frame Primitive", GL_LINES ) );
                 RenderObject* ro = new Ra::Engine::RenderObject("Frame Primitive", comp);
                 initLineRo(ro, mesh, vertices, indices, color, 1.0);
                 return ro;

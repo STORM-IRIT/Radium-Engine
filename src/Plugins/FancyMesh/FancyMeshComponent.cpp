@@ -46,7 +46,7 @@ namespace FancyMeshPlugin
             renderObject->setType( Ra::Engine::RenderObject::Type::RO_TRANSPARENT );
         }
 
-        Ra::Engine::Mesh* displayMesh = new Ra::Engine::Mesh( name );
+        std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( name ) );
         std::vector<uint> indices;
         indices.reserve( mesh.m_triangles.size() * 3 );
         for ( const auto& i : mesh.m_triangles )
@@ -77,7 +77,7 @@ namespace FancyMeshPlugin
         ss << data.name << "_mesh_";
         std::string meshName = ss.str();
 
-        Ra::Engine::Mesh* mesh = new Ra::Engine::Mesh( meshName );
+        std::shared_ptr<Ra::Engine::Mesh> mesh( new Ra::Engine::Mesh( meshName ) );
         
         mesh->loadGeometry( meshData.positions, meshData.indices );
 

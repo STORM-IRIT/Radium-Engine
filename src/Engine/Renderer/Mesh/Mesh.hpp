@@ -86,7 +86,7 @@ namespace Ra
 
             void render();
 
-            Mesh* clone();
+            std::shared_ptr<Mesh> clone();
 
         private:
             Mesh( const Mesh& ) = delete;

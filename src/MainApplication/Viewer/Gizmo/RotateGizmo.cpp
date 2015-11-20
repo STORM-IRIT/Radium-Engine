@@ -36,7 +36,7 @@ namespace Ra
                 torusColor[i] = 1.f;
                 Core::Vector4Array colors(torus.m_vertices.size(), torusColor);
 
-                Engine::Mesh* mesh = new Engine::Mesh("Gizmo Arrow");
+                std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh("Gizmo Arrow") );
                 mesh->loadGeometry(torus);
                 mesh->addData(Engine::Mesh::VERTEX_COLOR, colors);
 
@@ -47,7 +47,7 @@ namespace Ra
                 rt->material = new Ra::Engine::Material("Default material");
                 arrowDrawable->setRenderTechnique(rt);
                 arrowDrawable->setType(Engine::RenderObject::Type::RO_UI);
-                arrowDrawable->setMesh(mesh);
+                arrowDrawable->setMesh( mesh );
 
                 updateTransform(m_transform);
 

@@ -30,6 +30,7 @@ namespace Ra
 
         RenderObject::~RenderObject()
         {
+            
         }
 
         void RenderObject::updateGL()
@@ -57,7 +58,7 @@ namespace Ra
             ShaderKey shader( m_renderTechnique->shader );
             BindableMaterial material( m_renderTechnique->material );
             BindableTransform transform( model.matrix(), view, proj );
-            BindableMesh mesh( m_mesh, idx );
+            BindableMesh mesh( m_mesh.get(), idx );
             mesh.addRenderParameters( m_renderParameters );
 
             queue[shader][material][transform].push_back( mesh );

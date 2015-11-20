@@ -179,9 +179,9 @@ namespace Ra
         m_isDirty = false;
     }
 
-    Engine::Mesh* Engine::Mesh::clone()
+    std::shared_ptr<Engine::Mesh> Engine::Mesh::clone()
     {
-        Mesh* mesh = new Mesh( m_name, m_renderMode );
+        std::shared_ptr<Mesh> mesh( new Mesh( m_name, m_renderMode ) );
 
         mesh->m_vao = m_vao;
         mesh->m_vbos = m_vbos;

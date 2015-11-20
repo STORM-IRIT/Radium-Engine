@@ -24,7 +24,7 @@ SkeletonBoneRenderObject::SkeletonBoneRenderObject(const std::string& name, Anim
     renderObject->setRenderTechnique(m_renderParams.get());
     renderObject->setType(Ra::Engine::RenderObject::Type::RO_TRANSPARENT);
 
-    Ra::Engine::Mesh* displayMesh = new Ra::Engine::Mesh( name );
+    std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( name ) );
 
     displayMesh->loadGeometry( makeBoneShape() );
     renderObject->setMesh( displayMesh );

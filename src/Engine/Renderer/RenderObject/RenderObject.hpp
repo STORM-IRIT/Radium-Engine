@@ -76,8 +76,9 @@ namespace Ra
             inline void setRenderTechnique( RenderTechnique* technique );
             inline RenderTechnique* getRenderTechnique() const;
 
-            inline void setMesh( Mesh* mesh );
-            inline Mesh* getMesh() const;
+            inline void setMesh( const std::shared_ptr<Mesh>& mesh );
+            inline const Mesh* getMesh() const;
+            inline Mesh* getMesh();
 
             inline void setLocalTransform( const Core::Transform& transform );
             inline void setLocalTransform( const Core::Matrix4& transform );
@@ -94,7 +95,7 @@ namespace Ra
 
             Type m_type;
             RenderTechnique* m_renderTechnique;
-            Mesh* m_mesh;
+            std::shared_ptr<Mesh> m_mesh;
 
             RenderParameters m_renderParameters;
 
