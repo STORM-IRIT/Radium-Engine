@@ -64,7 +64,7 @@ namespace Ra
             queue[shader][material][transform].push_back( mesh );
         }
 
-        RenderObject* RenderObject::clone()
+        RenderObject* RenderObject::clone( bool cloneMesh )
         {
             // Do not clone while we are updating GL internals
             std::lock_guard<std::mutex> lock( m_updateMutex );
@@ -80,7 +80,7 @@ namespace Ra
 
             if ( m_mesh )
             {
-                newRO->setMesh( m_mesh->clone() );
+                newRO->setMesh( cloneMesh ? m_mesh->clone() : m_mesh );
             }
 
             return newRO;

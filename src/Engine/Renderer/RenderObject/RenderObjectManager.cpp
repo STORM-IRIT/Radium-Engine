@@ -57,14 +57,14 @@ namespace Ra
 
         }
 
-        std::shared_ptr<RenderObject> RenderObjectManager::update( uint index )
+        std::shared_ptr<RenderObject> RenderObjectManager::update( uint index, bool cloneMesh )
         {
             Core::Index idx( index );
 
-            return update( idx );
+            return update( idx, cloneMesh );
         }
 
-        std::shared_ptr<RenderObject> RenderObjectManager::update( const Core::Index& index )
+        std::shared_ptr<RenderObject> RenderObjectManager::update( const Core::Index& index, bool cloneMesh )
         {
             // A render object should never be updated if it is already in use.
             // It might be :
@@ -82,7 +82,7 @@ namespace Ra
 
             // Clone the render object
             std::shared_ptr<RenderObject> copy = std::shared_ptr<RenderObject> (
-                                                     m_renderObjects[index]->clone() );
+                                                     m_renderObjects[index]->clone( cloneMesh ) );
 
             // Store it in the double buffer map
             m_doubleBuffer[index] = copy;

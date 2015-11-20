@@ -188,6 +188,7 @@ namespace Ra
         mesh->m_ibo = m_ibo;
 
         mesh->m_isDirty = true;
+        mesh->m_iboDirty = false;
         mesh->m_dirtyArray = {{ false }};
 
         mesh->m_data = m_data;

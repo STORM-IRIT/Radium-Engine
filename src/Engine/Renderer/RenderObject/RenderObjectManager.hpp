@@ -30,8 +30,8 @@ namespace Ra
 
             void getRenderObjects( std::vector <std::shared_ptr<RenderObject>>& objectsOut ) const;
 
-            std::shared_ptr<RenderObject> update( uint index );
-            std::shared_ptr<RenderObject> update( const Core::Index& index );
+            std::shared_ptr<RenderObject> update( uint index, bool cloneMesh = true );
+            std::shared_ptr<RenderObject> update( const Core::Index& index, bool cloneMesh = true );
             void doneUpdating( uint index );
 
             void swapBuffers();

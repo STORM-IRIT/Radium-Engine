@@ -57,7 +57,7 @@ namespace Ra
                                   const Core::Matrix4& view,
                                   const Core::Matrix4& proj );
 
-            RenderObject* clone();
+            RenderObject* clone( bool cloneMesh = true );
 
             //
             // Getters and setters.
