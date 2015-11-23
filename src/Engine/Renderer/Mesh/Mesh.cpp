@@ -19,7 +19,7 @@ namespace Ra
 
     Engine::Mesh::~Mesh()
     {
-        GL_ASSERT( glDeleteVertexArrays( 1, &m_vao ) );
+        //GL_ASSERT( glDeleteVertexArrays( 1, &m_vao ) );
     }
 
     void Engine::Mesh::setRenderMode( GLenum mode )
@@ -181,7 +181,8 @@ namespace Ra
 
     std::shared_ptr<Engine::Mesh> Engine::Mesh::clone()
     {
-        std::shared_ptr<Mesh> mesh( new Mesh( m_name, m_renderMode ) );
+        //std::shared_ptr<Mesh> mesh( new Mesh( m_name, m_renderMode ) );
+        Mesh* mesh = new Mesh( m_name, m_renderMode );
 
         mesh->m_vao = m_vao;
         mesh->m_vbos = m_vbos;
@@ -194,7 +195,7 @@ namespace Ra
         mesh->m_data = m_data;
         mesh->m_indices = m_indices;
 
-        return mesh;
+        return std::shared_ptr<Mesh>( mesh );
     }
 
 } // namespace Ra
