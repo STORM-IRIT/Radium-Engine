@@ -150,7 +150,28 @@ namespace Ra
         {
             deleteTexture( texture->getName() );
         }
-        RA_SINGLETON_IMPLEMENTATION(TextureManager);
 
+        void TextureManager::updateTexture( const std::string& texture, void* data )
+        {
+            CORE_ASSERT( m_textures.find( texture ) != m_textures.end(),
+                         "Trying to update non existing texture" );
+            m_pendingData[texture] = data;
+        }
+
+        void TextureManager::updateTextures()
+        {
+            if ( m_pendingData.empty() )
+            {
+                return;
+            }
+            
+            for ( auto& data : m_pendingData )
+            {
+                m_textures[data.first]->updateData( data.second );
+            }
+            m_pendingData.clear();
+        }
+        
+        RA_SINGLETON_IMPLEMENTATION(TextureManager);  
     }
 } // namespace Ra

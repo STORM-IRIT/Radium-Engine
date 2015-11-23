@@ -311,8 +311,6 @@ namespace Ra
             } break;
         }
 
-
-
         if ( data )
         {
             if ( !m_pixels )

@@ -39,6 +39,8 @@ namespace Ra
                 addTexture( tex.first, texManager->getOrLoadTexture( tex.second ) );
             }
 
+            texManager->updateTextures();
+
             m_pendingTextures.clear();
             m_isDirty = false;
         }

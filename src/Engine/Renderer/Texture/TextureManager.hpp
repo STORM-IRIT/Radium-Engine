@@ -41,6 +41,12 @@ namespace Ra
             void deleteTexture( const std::string& filename );
             void deleteTexture( Texture* texture );
 
+            // Call this method to update given texture
+            void updateTexture( const std::string& texture, void* data );
+            
+            // Called by materials
+            void updateTextures();
+
         private:
             TextureManager();
             ~TextureManager();
@@ -48,6 +54,7 @@ namespace Ra
         private:
             std::map<std::string, Texture*> m_textures;
             std::map<std::string, TextureData> m_pendingTextures;
+            std::map<std::string, void*> m_pendingData;
             
             bool m_verbose;
         };
