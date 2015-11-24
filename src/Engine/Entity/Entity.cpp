@@ -2,8 +2,9 @@
 
 #include <Core/CoreMacros.hpp>
 #include <Core/String/StringUtils.hpp>
-#include <Engine/Entity/Component.hpp>
+#include <Core/Math/Ray.hpp>
 
+#include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/System.hpp>
 
 namespace Ra
@@ -145,6 +146,18 @@ namespace Ra
                 m_transformChanged = false;
             }
         }
+
+        void Entity::rayCastQuery(const Core::Ray& r) const
+        {
+            // put ray in local frame.
+            Core::Ray transformedRay = r;
+            transformedRay.transform(m_transform.inverse());
+            for (auto c : m_components)
+            {
+                c.second->rayCastQuery(transformedRay);
+            }
+        }
+
     }
 
 } // namespace Ra

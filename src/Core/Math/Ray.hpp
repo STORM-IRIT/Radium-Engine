@@ -21,12 +21,21 @@ namespace Ra
             /// Construct a ray with given position and direction.
             Ray( const Vector3& origin, const Vector3& direction ) : m_origin( origin ), m_direction( direction ) { }
 
-            /// Retunrs the position at linear coordinate t on the ray.
+            /// Copy constructor and assignment operator
+            Ray(const Ray& other) = default;
+            Ray& operator= (const Ray& other) = default;
+
+            /// Returns the position at linear coordinate t on the ray.
             inline Vector3 at( Scalar t ) const
             {
                 return m_origin + ( t * m_direction );
             }
 
+            inline void transform(const Core::Transform& t)
+            {
+                m_origin = t*m_origin;
+                m_direction = t.linear() * m_direction;
+            }
         public:
             /// Starting point of the ray
             Vector3 m_origin;

@@ -42,7 +42,10 @@ namespace Ra
 
             RA_CORE_API void removeDuplicates(TriangleMesh& mesh, std::vector<VertexIdx>& vertexMap);
 
-            int castRay( const TriangleMesh& mesh, const Ray& ray);
+            struct RayCastResult { int m_hitTriangle; int m_nearestVertex; };
+
+            /// Return the index of the triangle hit by the ray or -1 if there's no hit.
+            RA_CORE_API RayCastResult castRay( const TriangleMesh& mesh, const Ray& ray);
             //
             // Primitive construction
             //

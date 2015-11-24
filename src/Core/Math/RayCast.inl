@@ -304,7 +304,7 @@ namespace Ra
             bool vsTriangle(const Ray &ray, const Vector3 a, const Vector3 &b, const Vector3 &c, std::vector<Scalar> &hitsOut)
             {
                 const Vector3 ab = b-a;
-                const Vector3 ac = b-a;
+                const Vector3 ac = c-a;
                 const Vector3 n = ab.cross(ac);
 
                 Scalar u = 0.0;

@@ -436,10 +436,11 @@ namespace Ra
 #endif
             }
 
-            int castRay(const TriangleMesh &mesh, const Ray &ray)
+            RayCastResult castRay(const TriangleMesh &mesh, const Ray &ray)
             {
+                RayCastResult result;
+                result.m_hitTriangle = -1;
                 Scalar minT = std::numeric_limits<Scalar>::max();
-                int result = -1;
 
                 std::vector<Scalar> tValues;
                 std::array<Vector3,3> v;
@@ -450,9 +451,26 @@ namespace Ra
                     if ( RayCast::vsTriangle(ray, v[0], v[1], v[2], tValues) && tValues[0] < minT )
                     {
                         minT = tValues[0];
-                        result = int(i);
+                        result.m_hitTriangle = int(i);
                     }
                 }
+
+                if (result.m_hitTriangle >= 0)
+                {
+                    Scalar minDist = std::numeric_limits<Scalar>::max();
+                    std::array<Vector3,3> v;
+                    getTriangleVertices(mesh, result.m_hitTriangle, v);
+                    for (uint i = 0; i < 3; ++i)
+                    {
+                        Scalar dSq = (v[i] - ray.at(minT)).squaredNorm();
+                        if (dSq < minDist)
+                        {
+                            result.m_nearestVertex = mesh.m_triangles[result.m_hitTriangle][i];
+                        }
+                    }
+
+                }
+
                 return result;
             }
 

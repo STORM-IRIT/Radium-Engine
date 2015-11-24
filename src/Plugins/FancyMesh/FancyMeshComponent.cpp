@@ -1,6 +1,7 @@
 #include <Plugins/FancyMesh/FancyMeshComponent.hpp>
 
 #include <Core/String/StringUtils.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
@@ -131,6 +132,17 @@ namespace FancyMeshPlugin
     Ra::Core::TriangleMesh FancyMeshComponent::getMesh() const
     {
         return m_mesh;
+    }
+
+    void FancyMeshComponent::rayCastQuery( const Ra::Core::Ray& r) const
+    {
+        auto result  = Ra::Core::MeshUtils::castRay( m_mesh, r );
+        int tidx = result.m_hitTriangle;
+        if (tidx >= 0)
+        {
+            LOG(logINFO) << " Hit triangle " << tidx;
+            LOG(logINFO) << " Nearest vertex " << result.m_nearestVertex;
+        }
     }
 
 } // namespace FancyMeshPlugin

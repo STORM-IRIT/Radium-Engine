@@ -16,6 +16,11 @@
 
 namespace Ra
 {
+    namespace Core
+    {
+        struct Ray;
+    }
+
     namespace Engine
     {
         class Component;
@@ -33,31 +38,37 @@ namespace Ra
             RA_CORE_ALIGNED_NEW
             explicit Entity( const std::string& name = "" );
             virtual ~Entity();
-
+            
+            // Name
             inline const std::string& getName() const;
             inline void rename( const std::string& name );
 
+            // Transform
             inline void setTransform( const Core::Transform& transform );
             inline void setTransform( const Core::Matrix4& transform );
             Core::Transform getTransform() const;
             Core::Matrix4 getTransformAsMatrix() const;
 
-            void addComponent( Component* component );
+            void swapTransformBuffers();
 
+            // Components
+            void addComponent( Component* component );
             void removeComponent( const std::string& name );
             void removeComponent( Component* component );
 
             Component* getComponent( const std::string& name );
             const std::map<std::string, Engine::Component*>& getComponentsMap() const;
+            inline uint getNumComponents() const;
+
+            // Queries
+            void rayCastQuery(const Core::Ray& r) const;
 
             // Editable Interface
             virtual void getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const override;
             virtual void setProperty( const EditableProperty& prop ) override;
             virtual bool picked(uint drawableIndex) const override { return true;} // Entities are always pickable.
 
-            void swapTransformBuffers();
 
-            inline uint getNumComponents() const;
 
         private:
             Core::Transform m_transform;

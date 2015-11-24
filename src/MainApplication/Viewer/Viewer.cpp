@@ -8,6 +8,7 @@
 
 #include <Core/String/StringUtils.hpp>
 #include <Core/Log/Log.hpp>
+#include <Core/Math/ColorPresets.hpp>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Entity/Component.hpp>
@@ -195,11 +196,12 @@ namespace Ra
                 {
                     LOG( logINFO ) << "Raycast query launched";
                     Core::Ray r = m_camera->getCamera()->getRayFromScreen(Core::Vector2(event->x(), event->y()));
+                    RA_DISPLAY_POINT(r.m_origin, Core::Colors::Cyan(), 0.1f);
+                    RA_DISPLAY_RAY(r, Core::Colors::Yellow());
                     auto ents = mainApp->getEngine()->getEntityManager()->getEntities();
                     for (auto e : ents)
                     {
-                        // get fancy mesh
-                        // raycast and print vertex idx
+                        e->rayCastQuery(r);
                     }
                 }
                 else

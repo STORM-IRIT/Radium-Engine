@@ -11,6 +11,8 @@
 
 namespace Ra
 {
+    namespace Core { struct Ray; }
+
     namespace Engine
     {
         class System;
@@ -62,6 +64,7 @@ namespace Ra
             virtual Core::Index addRenderObject( RenderObject* renderObject ) final;
             virtual void removeRenderObject( Core::Index roIdx ) final;
 
+            virtual void rayCastQuery(const Core::Ray& ray) const  {}
 
             //
             // Editable interface.
