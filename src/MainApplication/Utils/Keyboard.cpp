@@ -21,7 +21,114 @@ namespace Ra
 
         bool isKeyPressed( Key key )
         {
+            int vkey = 0;
+            switch (key)
+            {
+                case Key_A:          vkey = 'A';           break;
+                case Key_B:          vkey = 'B';           break;
+                case Key_C:          vkey = 'C';           break;
+                case Key_D:          vkey = 'D';           break;
+                case Key_E:          vkey = 'E';           break;
+                case Key_F:          vkey = 'F';           break;
+                case Key_G:          vkey = 'G';           break;
+                case Key_H:          vkey = 'H';           break;
+                case Key_I:          vkey = 'I';           break;
+                case Key_J:          vkey = 'J';           break;
+                case Key_K:          vkey = 'K';           break;
+                case Key_L:          vkey = 'L';           break;
+                case Key_M:          vkey = 'M';           break;
+                case Key_N:          vkey = 'N';           break;
+                case Key_O:          vkey = 'O';           break;
+                case Key_P:          vkey = 'P';           break;
+                case Key_Q:          vkey = 'Q';           break;
+                case Key_R:          vkey = 'R';           break;
+                case Key_S:          vkey = 'S';           break;
+                case Key_T:          vkey = 'T';           break;
+                case Key_U:          vkey = 'U';           break;
+                case Key_V:          vkey = 'V';           break;
+                case Key_W:          vkey = 'W';           break;
+                case Key_X:          vkey = 'X';           break;
+                case Key_Y:          vkey = 'Y';           break;
+                case Key_Z:          vkey = 'Z';           break;
+                case Key_Num0:       vkey = '0';           break;
+                case Key_Num1:       vkey = '1';           break;
+                case Key_Num2:       vkey = '2';           break;
+                case Key_Num3:       vkey = '3';           break;
+                case Key_Num4:       vkey = '4';           break;
+                case Key_Num5:       vkey = '5';           break;
+                case Key_Num6:       vkey = '6';           break;
+                case Key_Num7:       vkey = '7';           break;
+                case Key_Num8:       vkey = '8';           break;
+                case Key_Num9:       vkey = '9';           break;
+                case Key_Escape:     vkey = VK_ESCAPE;     break;
+                case Key_LControl:   vkey = VK_LCONTROL;   break;
+                case Key_LShift:     vkey = VK_LSHIFT;     break;
+                case Key_LAlt:       vkey = VK_LMENU;      break;
+                case Key_LSystem:    vkey = VK_LWIN;       break;
+                case Key_RControl:   vkey = VK_RCONTROL;   break;
+                case Key_RShift:     vkey = VK_RSHIFT;     break;
+                case Key_RAlt:       vkey = VK_RMENU;      break;
+                case Key_RSystem:    vkey = VK_RWIN;       break;
+                case Key_Menu:       vkey = VK_APPS;       break;
+                case Key_LBracket:   vkey = VK_OEM_4;      break;
+                case Key_RBracket:   vkey = VK_OEM_6;      break;
+                case Key_SemiColon:  vkey = VK_OEM_1;      break;
+                case Key_Comma:      vkey = VK_OEM_COMMA;  break;
+                case Key_Period:     vkey = VK_OEM_PERIOD; break;
+                case Key_Quote:      vkey = VK_OEM_7;      break;
+                case Key_Slash:      vkey = VK_OEM_2;      break;
+                case Key_BackSlash:  vkey = VK_OEM_5;      break;
+                case Key_Tilde:      vkey = VK_OEM_3;      break;
+                case Key_Equal:      vkey = VK_OEM_PLUS;   break;
+                case Key_Dash:       vkey = VK_OEM_MINUS;  break;
+                case Key_Space:      vkey = VK_SPACE;      break;
+                case Key_Return:     vkey = VK_RETURN;     break;
+                case Key_BackSpace:  vkey = VK_BACK;       break;
+                case Key_Tab:        vkey = VK_TAB;        break;
+                case Key_PageUp:     vkey = VK_PRIOR;      break;
+                case Key_PageDown:   vkey = VK_NEXT;       break;
+                case Key_End:        vkey = VK_END;        break;
+                case Key_Home:       vkey = VK_HOME;       break;
+                case Key_Insert:     vkey = VK_INSERT;     break;
+                case Key_Delete:     vkey = VK_DELETE;     break;
+                case Key_Add:        vkey = VK_ADD;        break;
+                case Key_Subtract:   vkey = VK_SUBTRACT;   break;
+                case Key_Multiply:   vkey = VK_MULTIPLY;   break;
+                case Key_Divide:     vkey = VK_DIVIDE;     break;
+                case Key_Left:       vkey = VK_LEFT;       break;
+                case Key_Right:      vkey = VK_RIGHT;      break;
+                case Key_Up:         vkey = VK_UP;         break;
+                case Key_Down:       vkey = VK_DOWN;       break;
+                case Key_Numpad0:    vkey = VK_NUMPAD0;    break;
+                case Key_Numpad1:    vkey = VK_NUMPAD1;    break;
+                case Key_Numpad2:    vkey = VK_NUMPAD2;    break;
+                case Key_Numpad3:    vkey = VK_NUMPAD3;    break;
+                case Key_Numpad4:    vkey = VK_NUMPAD4;    break;
+                case Key_Numpad5:    vkey = VK_NUMPAD5;    break;
+                case Key_Numpad6:    vkey = VK_NUMPAD6;    break;
+                case Key_Numpad7:    vkey = VK_NUMPAD7;    break;
+                case Key_Numpad8:    vkey = VK_NUMPAD8;    break;
+                case Key_Numpad9:    vkey = VK_NUMPAD9;    break;
+                case Key_F1:         vkey = VK_F1;         break;
+                case Key_F2:         vkey = VK_F2;         break;
+                case Key_F3:         vkey = VK_F3;         break;
+                case Key_F4:         vkey = VK_F4;         break;
+                case Key_F5:         vkey = VK_F5;         break;
+                case Key_F6:         vkey = VK_F6;         break;
+                case Key_F7:         vkey = VK_F7;         break;
+                case Key_F8:         vkey = VK_F8;         break;
+                case Key_F9:         vkey = VK_F9;         break;
+                case Key_F10:        vkey = VK_F10;        break;
+                case Key_F11:        vkey = VK_F11;        break;
+                case Key_F12:        vkey = VK_F12;        break;
+                case Key_F13:        vkey = VK_F13;        break;
+                case Key_F14:        vkey = VK_F14;        break;
+                case Key_F15:        vkey = VK_F15;        break;
+                case Key_Pause:      vkey = VK_PAUSE;      break;
+                default:             vkey = 0;             break;
+            }
 
+            return ( GetAsyncKeyState( vkey ) & 0x8000 ) != 0;
         }
 
 #elif defined( OS_LINUX )
@@ -144,7 +251,7 @@ namespace Ra
 
             xcb_query_keymap_reply_t* keymap = xcb_query_keymap_reply(
                 connection, xcb_query_keymap( connection ), &error );
-            
+
             xcb_disconnect( connection );
 
             if ( error )
