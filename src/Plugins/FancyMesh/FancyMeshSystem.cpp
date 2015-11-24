@@ -33,17 +33,17 @@ namespace FancyMeshPlugin
 
     void FancyMeshSystem::handleFileLoading(Ra::Engine::Entity* entity, const std::string& filename)
     {
-		LOG( logDEBUG ) << "FancyMeshSystem : loading the file " << filename << "...";
-		
+        LOG( logDEBUG ) << "FancyMeshSystem : loading the file " << filename << "...";
+
         DataVector componentsData = FancyMeshLoader::loadFile( filename );
 
-		if ( componentsData.empty() )
+        if ( componentsData.empty() )
         {
             // Something wrong happened while trying to load the file
             return;
         }
         
-        for (int i = 0; i < componentsData.size(); i++)
+        for (uint i = 0; i < componentsData.size(); i++)
         {
             FancyComponentData componentData = componentsData[i];
             FancyMeshComponent* component = static_cast<FancyMeshComponent*>(addComponentToEntity(entity));
