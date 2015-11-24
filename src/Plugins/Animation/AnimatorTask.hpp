@@ -8,14 +8,14 @@
 namespace AnimationPlugin
 {
 
-class AnimatorTask : public Ra::Core::Task
+class ANIM_PLUGIN_API AnimatorTask : public Ra::Core::Task
 {
 public:
     AnimatorTask(AnimationComponent* component, Scalar dt);
     
-    virtual RA_CORE_API std::string getName() const override;
-    virtual RA_CORE_API void init( const Ra::Core::TaskParams* params ) override;
-    virtual RA_CORE_API void process() override;
+    virtual std::string getName() const override;
+    virtual void init( const Ra::Core::TaskParams* params ) override;
+    virtual void process() override;
     
 private:
     AnimationComponent* m_component;
