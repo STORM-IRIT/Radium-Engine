@@ -15,7 +15,7 @@ namespace Animation
                                     Vector3& startOut, Vector3& endOut)
         {
             // Check bone index is valid
-            CORE_ASSERT(boneIdx >= 0 && boneIdx < skeleton.m_graph.size(), "invalid bone index");
+            CORE_ASSERT(boneIdx >= 0 && uint(boneIdx) < skeleton.m_graph.size(), "invalid bone index");
 
             startOut = skeleton.getTransform(boneIdx, Handle::SpaceType::MODEL).translation();
             auto children = skeleton.m_graph.m_child.at(boneIdx);

@@ -1,6 +1,7 @@
 #include <Core/Mesh/MeshUtils.hpp>
 
 #include <Core/Math/Math.hpp>
+#include <Core/Math/RayCast.hpp>
 #include <Core/String/StringUtils.hpp>
 
 namespace Ra
@@ -433,6 +434,26 @@ namespace Ra
                 CORE_ASSERT( mesh.m_normals.size() ==  0 || mesh.m_normals.size() == mesh.m_vertices.size(),
                              "Inconsistent number of normals" );
 #endif
+            }
+
+            int castRay(const TriangleMesh &mesh, const Ray &ray)
+            {
+                Scalar minT = std::numeric_limits<Scalar>::max();
+                int result = -1;
+
+                std::vector<Scalar> tValues;
+                std::array<Vector3,3> v;
+                for ( uint i = 0; i < mesh.m_triangles.size(); ++i)
+                {
+                    tValues.clear();
+                    getTriangleVertices(mesh, i, v);
+                    if ( RayCast::vsTriangle(ray, v[0], v[1], v[2], tValues) && tValues[0] < minT )
+                    {
+                        minT = tValues[0];
+                        result = int(i);
+                    }
+                }
+                return result;
             }
 
         }

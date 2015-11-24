@@ -13,24 +13,24 @@ find_package(GLEW 	REQUIRED) #only used on windows builds.
 #set(Assimp_LIBRARIES ${CMAKE_CURRENT_SOURCE_DIR}/../../assimp/build/code/libassimp.so)
 
 if(WIN32)
-	if (CMAKE_SIZEOF_VOID_P EQUAL 4)
-		set(FREEIMAGE_DIR ${EXTERNAL_DIR}/FreeImage/Windows/x32)
-	else()
-		set(FREEIMAGE_DIR ${EXTERNAL_DIR}/FreeImage/Windows/x64)
-	endif()
-	set(FREEIMAGE_INCLUDE_DIR ${FREEIMAGE_DIR})
-	set(FREEIMAGE_LIBRARY ${FREEIMAGE_DIR}/FreeImage.lib)
+    if (CMAKE_SIZEOF_VOID_P EQUAL 4)
+        set(FREEIMAGE_DIR ${EXTERNAL_DIR}/FreeImage/Windows/x32)
+    else()
+        set(FREEIMAGE_DIR ${EXTERNAL_DIR}/FreeImage/Windows/x64)
+    endif()
+    set(FREEIMAGE_INCLUDE_DIR ${FREEIMAGE_DIR})
+    set(FREEIMAGE_LIBRARY ${FREEIMAGE_DIR}/FreeImage.lib)
 else(WIN32)
-	find_package(FreeImage  REQUIRED)
+    find_package(FreeImage  REQUIRED)
 endif(WIN32)
 message("FreeImage : ${FREEIMAGE_LIBRARY}")
 
 include_directories(
- 	.
- 	${EIGEN_INC}
- 	${Assimp_INCLUDE_DIR}
- 	${FREEIMAGE_INCLUDE_DIR}
- 	${GLEW_INCLUDE_DIR}
+    .
+    ${EIGEN_INC}
+    ${Assimp_INCLUDE_DIR}
+    ${FREEIMAGE_INCLUDE_DIR}
+    ${GLEW_INCLUDE_DIR}
 )
 
 # Build Core
@@ -43,28 +43,28 @@ file(GLOB_RECURSE core_inlines Core/*.inl)
 set(core_libs ${OPENGL_LIBRARIES})
 
 add_library(
- 	${core_target} SHARED
- 	${core_sources}
- 	${core_headers}
- 	${core_inlines}
+    ${core_target} SHARED
+    ${core_sources}
+    ${core_headers}
+    ${core_inlines}
 )
 
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
 
 SET_TARGET_PROPERTIES(
- 	${core_target}
-	PROPERTIES
- 	VERSION ${library_version}
+    ${core_target}
+    PROPERTIES
+    VERSION ${library_version}
 )
 
 target_link_libraries(
- 	${core_target}
- 	${core_libs}
+    ${core_target}
+    ${core_libs}
 )
 
 INSTALL(
- 	TARGETS ${core_target}
- 	DESTINATION ${LIB_INSTALL_DIR}
+    TARGETS ${core_target}
+    DESTINATION ${LIB_INSTALL_DIR}
 )
 
 # Build Engine
@@ -82,7 +82,7 @@ file(GLOB_RECURSE engine_tese_glsl ../Shaders/*.tese.glsl)
 file(GLOB_RECURSE engine_comp_glsl ../Shaders/*.comp.glsl)
 
 set(engine_libs
-	radiumCore
+    radiumCore
     ${GLEW_LIBRARIES}
     ${Assimp_LIBRARIES}
     ${FREEIMAGE_LIBRARY}
@@ -90,36 +90,36 @@ set(engine_libs
     ${OPENGL_LIBRARIES})
 
 add_library(
- 	${engine_target} SHARED
- 	${engine_sources}
- 	${engine_headers}
- 	${engine_inlines}
+    ${engine_target} SHARED
+    ${engine_sources}
+    ${engine_headers}
+    ${engine_inlines}
 
- 	${engine_vert_glsl}
- 	${engine_frag_glsl}
- 	${engine_geom_glsl}
- 	${engine_tesc_glsl}
- 	${engine_tese_glsl}
- 	${engine_comp_glsl}
+    ${engine_vert_glsl}
+    ${engine_frag_glsl}
+    ${engine_geom_glsl}
+    ${engine_tesc_glsl}
+    ${engine_tese_glsl}
+    ${engine_comp_glsl}
 )
 
 target_compile_definitions(${engine_target} PRIVATE "-DRA_CORE_IMPORTS")
 target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 
 SET_TARGET_PROPERTIES(
- 	${engine_target}
-	PROPERTIES
- 	VERSION ${library_version}
+    ${engine_target}
+    PROPERTIES
+    VERSION ${library_version}
 )
 
 target_link_libraries(
- 	${engine_target}
- 	${engine_libs}
+    ${engine_target}
+    ${engine_libs}
 )
 
 INSTALL(
- 	TARGETS ${engine_target}
- 	DESTINATION ${LIB_INSTALL_DIR}
+    TARGETS ${engine_target}
+    DESTINATION ${LIB_INSTALL_DIR}
 )
 
 add_subdirectory(Plugins)
@@ -156,27 +156,27 @@ add_definitions(${Qt5Widgets_DEFINITIONS})
 add_definitions(${Qt5OpenGL_DEFINITIONS})
 
 include_directories(
- 	.
- 	${CMAKE_CURRENT_BINARY_DIR} # Moc
- 	${EIGEN_INC}
+    .
+    ${CMAKE_CURRENT_BINARY_DIR} # Moc
+    ${EIGEN_INC}
 )
 
 add_executable(
- 	${app_target}
- 	${app_sources}
- 	${app_headers}
- 	${app_inlines}
- 	${app_uis_moc}
+    ${app_target}
+    ${app_sources}
+    ${app_headers}
+    ${app_inlines}
+    ${app_uis_moc}
 )
 
 target_compile_definitions(${app_target} PRIVATE "-DRA_CORE_IMPORTS")
 target_compile_definitions(${app_target} PRIVATE "-DRA_ENGINE_IMPORTS")
 
 target_link_libraries(
- 	${app_target}
- 	${app_libs}
+    ${app_target}
+    ${app_libs}
 )
 
 if (WIN32)
- 	include(CMakeGenerateTrees.txt)
+    include(CMakeGenerateTrees.txt)
 endif(WIN32)

@@ -67,7 +67,7 @@ namespace FancyMeshPlugin
 
     void FancyMeshComponent::handleMeshLoading( const FancyComponentData& data )
     {
-        
+
         Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( data.name, this );
         renderObject->setVisible( true );
 
@@ -89,16 +89,16 @@ namespace FancyMeshPlugin
         mesh->addData( Ra::Engine::Mesh::VERTEX_WEIGHTS, meshData.weights );
 
         renderObject->setMesh( mesh );
-        
+
         m_meshIndex = addRenderObject(renderObject);
-        
+
         // Build m_mesh
         int triangleCount = meshData.indices.size() / 3;
         int vertexCount = meshData.positions.size();
         m_mesh.m_vertices.resize(vertexCount);
         m_mesh.m_normals.resize(vertexCount);
         m_mesh.m_triangles.resize(triangleCount);
-        
+
         for (int i = 0; i < vertexCount; i++)
         {
             Ra::Core::Vector4 pos = meshData.positions[i];
@@ -106,7 +106,7 @@ namespace FancyMeshPlugin
             m_mesh.m_vertices[i] = Ra::Core::Vector3(pos(0), pos(1), pos(2));
             m_mesh.m_normals[i] = Ra::Core::Vector3(normals(0), normals(1), normals(2));
         }
-        
+
         for (int i = 0; i < triangleCount; i++)
             m_mesh.m_triangles[i] = Ra::Core::Triangle(meshData.indices[i * 3], meshData.indices[i * 3 + 1], meshData.indices[i * 3 + 2]);
 
@@ -132,5 +132,5 @@ namespace FancyMeshPlugin
     {
         return m_mesh;
     }
-    
+
 } // namespace FancyMeshPlugin

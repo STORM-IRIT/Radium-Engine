@@ -26,7 +26,7 @@ public:
     void handleLoading(const AnimationLoader::AnimationData& data);
     void reset();
 
-    Ra::Core::Animation::Skeleton& getSkeleton() { return m_skel; }
+    inline Ra::Core::Animation::Skeleton& getSkeleton() { return m_skel; }
 
     //
     // Editable interface

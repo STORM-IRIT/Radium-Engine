@@ -55,6 +55,8 @@ namespace Ra
 
         bool isRunning() const { return !m_isAboutToQuit; }
 
+        const Engine::RadiumEngine* getEngine () const { return m_engine.get();}
+
     signals:
         /// Fired when the engine has just started, before the frame timer is set.
         void starting();
@@ -123,4 +125,4 @@ namespace Ra
   CONCATENATE(NAME,Plugin)::CONCATENATE(NAME,System)* syst  = new CONCATENATE(NAME,Plugin)::CONCATENATE(NAME,System)();\
   m_engine->registerSystem(STRINGIFY(CONCATENATE(NAME,System)), syst);\
   }
-  
+

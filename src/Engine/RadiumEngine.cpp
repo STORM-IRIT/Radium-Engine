@@ -28,81 +28,81 @@
 
 namespace Ra
 {
-    namespace Engine
-    {
+	namespace Engine
+	{
 
-        RadiumEngine::RadiumEngine()
-            : m_quit( false )
-        {
-                LOG(logINFO) << "*** Radium Engine ***";
-        }
+		RadiumEngine::RadiumEngine()
+			: m_quit( false )
+		{
+				LOG(logINFO) << "*** Radium Engine ***";
+		}
 
-        RadiumEngine::~RadiumEngine()
-        {
-        }
+		RadiumEngine::~RadiumEngine()
+		{
+		}
 
-        void RadiumEngine::initialize()
-        {
-            m_renderObjectManager.reset( new RenderObjectManager );
-            m_entityManager.reset( new EntityManager );
+		void RadiumEngine::initialize()
+		{
+			m_renderObjectManager.reset( new RenderObjectManager );
+			m_entityManager.reset( new EntityManager );
 
-            for (std::pair<const std::string, std::shared_ptr<Ra::Engine::System>> systemPair : m_systems)
-                systemPair.second->initialize();
-        }
+			for (std::pair<const std::string, std::shared_ptr<Ra::Engine::System>> systemPair : m_systems)
+				systemPair.second->initialize();
+		}
 
-        void RadiumEngine::cleanup()
-        {
-            m_entityManager.reset();
-            m_renderObjectManager.reset();
+		void RadiumEngine::cleanup()
+		{
+			m_entityManager.reset();
+			m_renderObjectManager.reset();
 
-            for ( auto& system : m_systems )
-            {
-                system.second.reset();
-            }
-        }
+			for ( auto& system : m_systems )
+			{
+				system.second.reset();
+			}
+		}
 
-        void RadiumEngine::endFrameSync()
-        {
-            m_entityManager->swapBuffers();
-            m_renderObjectManager->swapBuffers();
-        }
+		void RadiumEngine::endFrameSync()
+		{
+			m_entityManager->swapBuffers();
+			m_renderObjectManager->swapBuffers();
+		}
 
-        void RadiumEngine::getTasks( Core::TaskQueue* taskQueue,  Scalar dt )
-        {
-            static uint frameCounter = 0;
-            FrameInfo frameInfo;
-            frameInfo.m_dt = dt;
-            frameInfo.m_numFrame = frameCounter++;
-            for ( auto& syst : m_systems )
-            {
-                syst.second->generateTasks( taskQueue, frameInfo );
-            }
-        }
+		void RadiumEngine::getTasks( Core::TaskQueue* taskQueue,  Scalar dt )
+		{
+			static uint frameCounter = 0;
+			FrameInfo frameInfo;
+			frameInfo.m_dt = dt;
+			frameInfo.m_numFrame = frameCounter++;
+			for ( auto& syst : m_systems )
+			{
+				syst.second->generateTasks( taskQueue, frameInfo );
+			}
+		}
 
-        void RadiumEngine::registerSystem( const std::string& name, System* system )
-        {
-            CORE_ASSERT( m_systems.find( name ) == m_systems.end(),
-                         "Same system added multiple times." );
+		void RadiumEngine::registerSystem( const std::string& name, System* system )
+		{
+			CORE_ASSERT( m_systems.find( name ) == m_systems.end(),
+						 "Same system added multiple times." );
 
-            m_systems[name] = std::shared_ptr<System> ( system );
-            LOG(logINFO) << "Loaded : " << name;
-        }
+			m_systems[name] = std::shared_ptr<System> ( system );
+			LOG(logINFO) << "Loaded : " << name;
+		}
 
-        System* RadiumEngine::getSystem( const std::string& system ) const
-        {
-            System* sys = nullptr;
-            auto it = m_systems.find( system );
+		System* RadiumEngine::getSystem( const std::string& system ) const
+		{
+			System* sys = nullptr;
+			auto it = m_systems.find( system );
 
-            if ( it != m_systems.end() )
-            {
-                sys = it->second.get();
-            }
+			if ( it != m_systems.end() )
+			{
+				sys = it->second.get();
+			}
 
-            return sys;
-        }
+			return sys;
+		}
 
-        bool RadiumEngine::loadFile( const std::string& filename )
-        {			
+		bool RadiumEngine::loadFile( const std::string& filename )
+		{			
 			if (Ra::Core::StringUtils::getFileExt(filename) != "json")
 			{
 				Entity* entity = m_entityManager->createEntity();
@@ -111,88 +111,88 @@ namespace Ra
 //	            {
 //					system.second->handleFileLoading(entity, filename);
 //	            }
-                
-                getSystem("FancyMeshSystem")->handleFileLoading(entity, filename);
-                
+				
+				getSystem("FancyMeshSystem")->handleFileLoading(entity, filename);
+				
 				return true;
 			}
 
-            // Fill file in a string (http://stackoverflow.com/a/2602060)
-            std::ifstream t( filename );
-            std::string file;
+			// Fill file in a string (http://stackoverflow.com/a/2602060)
+			std::ifstream t( filename );
+			std::string file;
 
-            t.seekg( 0, std::ios::end );
-            file.reserve( t.tellg() );
-            t.seekg( 0, std::ios::beg );
+			t.seekg( 0, std::ios::end );
+			file.reserve( t.tellg() );
+			t.seekg( 0, std::ios::beg );
 
-            file.assign( ( std::istreambuf_iterator<char>( t ) ),
-                         ( std::istreambuf_iterator<char>() ) );
-            std::string err;
+			file.assign( ( std::istreambuf_iterator<char>( t ) ),
+						 ( std::istreambuf_iterator<char>() ) );
+			std::string err;
 
-            std::vector<LoadedEntity> loadedData;
-            Parser::parse( file, loadedData );
+			std::vector<LoadedEntity> loadedData;
+			Parser::parse( file, loadedData );
 
-            LOG( logDEBUG ) << "Found " << loadedData.size() << " entities to load.";
+			LOG( logDEBUG ) << "Found " << loadedData.size() << " entities to load.";
 
-            std::string rootFolder = Core::StringUtils::getDirName( filename );
+			std::string rootFolder = Core::StringUtils::getDirName( filename );
 
-            for ( const auto& entityData : loadedData )
-            {
-                Entity* entity = m_entityManager->getOrCreateEntity( entityData.name );
-                Core::Transform transform;
-                transform.fromPositionOrientationScale( entityData.position, entityData.orientation, entityData.scale );
-                entity->setTransform( transform );
+			for ( const auto& entityData : loadedData )
+			{
+				Entity* entity = m_entityManager->getOrCreateEntity( entityData.name );
+				Core::Transform transform;
+				transform.fromPositionOrientationScale( entityData.position, entityData.orientation, entityData.scale );
+				entity->setTransform( transform );
 
-                for ( const auto& systemData : entityData.data )
-                {
-                    auto system = m_systems.find( systemData.system );
+				for ( const auto& systemData : entityData.data )
+				{
+					auto system = m_systems.find( systemData.system );
 
-                    if ( system != m_systems.end() )
-                    {
-                        system->second->handleDataLoading( entity, rootFolder, systemData.data );
-                    }
-                }
-            }
+					if ( system != m_systems.end() )
+					{
+						system->second->handleDataLoading( entity, rootFolder, systemData.data );
+					}
+				}
+			}
 
-            return true;
-        }
+			return true;
+		}
 
-        bool RadiumEngine::handleKeyEvent( const Core::KeyEvent& event )
-        {
-            for ( const auto& system : m_systems )
-            {
-                if ( system.second->handleKeyEvent( event ) )
-                {
-                    return true;
-                }
-            }
+		bool RadiumEngine::handleKeyEvent( const Core::KeyEvent& event )
+		{
+			for ( const auto& system : m_systems )
+			{
+				if ( system.second->handleKeyEvent( event ) )
+				{
+					return true;
+				}
+			}
 
-            return false;
-        }
+			return false;
+		}
 
-        bool RadiumEngine::handleMouseEvent( const Core::MouseEvent& event )
-        {
-            for ( const auto& system : m_systems )
-            {
-                if ( system.second->handleMouseEvent( event ) )
-                {
-                    return true;
-                }
-            }
+		bool RadiumEngine::handleMouseEvent( const Core::MouseEvent& event )
+		{
+			for ( const auto& system : m_systems )
+			{
+				if ( system.second->handleMouseEvent( event ) )
+				{
+					return true;
+				}
+			}
 
-            return false;
-        }
+			return false;
+		}
 
-        RenderObjectManager* RadiumEngine::getRenderObjectManager() const
-        {
-            return m_renderObjectManager.get();
-        }
+		RenderObjectManager* RadiumEngine::getRenderObjectManager() const
+		{
+			return m_renderObjectManager.get();
+		}
 
-        EntityManager* RadiumEngine::getEntityManager() const
-        {
-            return m_entityManager.get();
-        }
+		EntityManager* RadiumEngine::getEntityManager() const
+		{
+			return m_entityManager.get();
+		}
 
-        RA_SINGLETON_IMPLEMENTATION(RadiumEngine)
-    } // Namespace engine
+		RA_SINGLETON_IMPLEMENTATION(RadiumEngine)
+	} // Namespace engine
 } // namespace Ra
