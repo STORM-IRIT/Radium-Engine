@@ -10,18 +10,18 @@ namespace Animation {
 /*
 * Return the WeightMatrix extracted from the MeshWeight vector, for a handle with handle_size transforms
 */
-WeightMatrix extractWeightMatrix( const MeshWeight& weight, const uint handle_size );
+WeightMatrix RA_CORE_API extractWeightMatrix( const MeshWeight& weight, const uint handle_size );
 
 
 
 /*
 * Return the MeshWeight from the given WeightMatrix.
 */
-MeshWeight extractMeshWeight( const WeightMatrix& matrix );
+MeshWeight RA_CORE_API extractMeshWeight( const WeightMatrix& matrix );
 
-int getMaxWeightIndex(const WeightMatrix& weights, int vertexId);
+int RA_CORE_API getMaxWeightIndex(const WeightMatrix& weights, int vertexId);
 
-void getMaxWeightIndex(const WeightMatrix& weights, std::vector<uint>& boneIds);
+void RA_CORE_API getMaxWeightIndex(const WeightMatrix& weights, std::vector<uint>& boneIds);
 
 } // namespace Animation
 } // Namespace Core
