@@ -13,6 +13,7 @@
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
 
 #include <MainApplication/Viewer/TrackballCamera.hpp>
 #include <MainApplication/Viewer/Gizmo/GizmoManager.hpp>
@@ -192,7 +193,14 @@ namespace Ra
             {
                 if ( isKeyPressed( Key_Space ) )
                 {
-                    LOG( logINFO ) << "Mouse click with space pressed.";
+                    LOG( logINFO ) << "Raycast query launched";
+                    Core::Ray r = m_camera->getCamera()->getRayFromScreen(Core::Vector2(event->x(), event->y()));
+                    auto ents = mainApp->getEngine()->getEntityManager()->getEntities();
+                    for (auto e : ents)
+                    {
+                        // get fancy mesh
+                        // raycast and print vertex idx
+                    }
                 }
                 else
                 {
