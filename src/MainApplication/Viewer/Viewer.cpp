@@ -142,7 +142,7 @@ namespace Ra
         m_renderThread = new RenderThread( this, m_renderer.get() );
 #endif
 
-        auto light = std::make_shared<Engine::DirectionalLight>();
+        auto light = std::shared_ptr<Engine::DirectionalLight>(new Engine::DirectionalLight);
         m_renderer->addLight( light );
         m_camera->attachLight( light );
     }
@@ -230,7 +230,7 @@ namespace Ra
 
     void Gui::Viewer::wheelEvent( QWheelEvent* event )
     {
-		m_camera->handleWheelEvent(event);
+        m_camera->handleWheelEvent(event);
         QOpenGLWidget::wheelEvent( event );
         mainApp->m_mainWindow->viewerWheelEvent( event );
     }

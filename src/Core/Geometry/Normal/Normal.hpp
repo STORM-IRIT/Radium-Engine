@@ -21,7 +21,7 @@ namespace Geometry {
 *
 * where normal( face_j ) is the normalized normal of face_j belonging to v_i one-ring.
 */
-void uniformNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, VectorArray< Vector3 >& normal );
+void RA_CORE_API uniformNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, VectorArray< Vector3 >& normal );
 
 
 
@@ -37,7 +37,7 @@ void uniformNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle
 * [ J. Andreas Baerentzen, Jens Gravesen, Francois Anton, Henrik Aanaes ]
 * Chapter 8
 */
-void angleWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, VectorArray< Vector3 >& normal );
+void RA_CORE_API angleWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, VectorArray< Vector3 >& normal );
 
 
 
@@ -48,7 +48,7 @@ void angleWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Tr
 * where normal( face_j ) is the normalized normal of face_j belonging to v_i one-ring,
 * and area_j is the area of face_j.
 */
-void areaWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, VectorArray< Vector3 >& normal );
+void RA_CORE_API areaWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, VectorArray< Vector3 >& normal );
 
 
 
@@ -62,7 +62,7 @@ void areaWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Tri
 *
 * where normal( face_i ) is the normalized normal of face_i belonging to v one-ring.
 */
-Vector3 uniformNormal( const Vector3& v, const VectorArray< Vector3 >& one_ring );
+Vector3 RA_CORE_API uniformNormal( const Vector3& v, const VectorArray< Vector3 >& one_ring );
 
 
 
@@ -78,7 +78,7 @@ Vector3 uniformNormal( const Vector3& v, const VectorArray< Vector3 >& one_ring 
 * [ J. Andreas Baerentzen, Jens Gravesen, Francois Anton, Henrik Aanaes ]
 * Chapter 8
 */
-Vector3 angleWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& one_ring );
+Vector3 RA_CORE_API angleWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& one_ring );
 
 
 
@@ -89,7 +89,7 @@ Vector3 angleWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& one
 * where normal( face_i ) is the normalized normal of face_i belonging to v one-ring,
 * and area_i is the area of face_i.
 */
-Vector3 areaWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& one_ring );
+Vector3 RA_CORE_API areaWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& one_ring );
 
 
 

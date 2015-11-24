@@ -60,7 +60,7 @@ namespace Ra
                 int m_texUnit;
             };
 
-            template <typename T> class UniformBindableVector : public std::map<std::string, T>
+            template <typename T> class UniformBindableVector : public std::map<std::string, T, std::less<std::string>, Core::AlignedAllocator<T,16> >
             {
             public:
                 void bind( ShaderProgram* shader ) const;
