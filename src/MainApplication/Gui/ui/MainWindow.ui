@@ -40,7 +40,7 @@
      <x>0</x>
      <y>0</y>
      <width>1204</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFILE">
@@ -105,7 +105,7 @@
              </size>
             </property>
             <property name="currentIndex">
-             <number>4</number>
+             <number>1</number>
             </property>
             <property name="movable">
              <bool>false</bool>
@@ -287,7 +287,17 @@
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_5">
               <item>
-               <widget class="QListView" name="m_renderObjectsListView"/>
+               <widget class="QLabel" name="m_selectedStuffName">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QListWidget" name="m_renderObjectsListView"/>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -314,12 +324,57 @@
                 </item>
                </layout>
               </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_7">
+                <item>
+                 <widget class="QLabel" name="label">
+                  <property name="text">
+                   <string>Current shader</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="m_currentShaderBox">
+                  <item>
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Plain</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>BlinnPhongWireframe</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>BlinnPhong</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Lines</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
              </layout>
             </widget>
             <widget class="Ra::Gui::TransformEditorWidget" name="tab_edition">
              <attribute name="title">
               <string>Edition</string>
              </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_3"/>
+              </item>
+             </layout>
             </widget>
             <widget class="QWidget" name="tab_camera">
              <attribute name="title">

@@ -23,15 +23,12 @@ public:
 	static Ra::Core::TriangleMesh makeBoneShape();
 
     void updateLocalTransform(Ra::Engine::RenderObject *ro);
-	
-    Ra::Core::Index getIndex() const { return m_index;}
 
 private:
     const Ra::Core::Animation::Skeleton& m_skel;
     Ra::Core::Edge m_edge;
     std::unique_ptr<Ra::Engine::RenderTechnique> m_renderParams;
     std::unique_ptr<Ra::Engine::Material> m_material;
-    Ra::Core::Index m_index;
     Ra::Engine::RenderObjectManager* m_roMgr;
 };
 

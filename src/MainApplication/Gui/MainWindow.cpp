@@ -7,6 +7,8 @@
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Renderer.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 #include <MainApplication/MainApplication.hpp>
 #include <MainApplication/Gui/EntityTreeModel.hpp>
@@ -80,7 +82,7 @@ namespace Ra
 
         connect( m_viewer->getCameraInterface(), &CameraInterface::cameraPositionChanged, this, &MainWindow::onCameraPositionChanged );
         connect( m_viewer->getCameraInterface(), &CameraInterface::cameraTargetChanged, this, &MainWindow::onCameraTargetChanged );
-                // Oh C++ why are you so mean to me ?
+        // Oh C++ why are you so mean to me ?
         connect( m_cameraSensitivity, static_cast<void (QDoubleSpinBox::*) (double)>(&QDoubleSpinBox::valueChanged),
             m_viewer->getCameraInterface(), &CameraInterface::setCameraSensitivity );
 
@@ -91,7 +93,7 @@ namespace Ra
         // Update entities when the engine starts.
         connect( mainApp, &MainApplication::starting, this, &MainWindow::onEntitiesUpdated );
 
-        connect( m_avgFramesCount, static_cast< void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+        connect( m_avgFramesCount, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
             mainApp , &MainApplication::framesCountForStatsChanged );
         connect(mainApp, &MainApplication::updateFrameStats, this, &MainWindow::onUpdateFramestats);
 
@@ -99,6 +101,9 @@ namespace Ra
         connect(this, &MainWindow::selectedEntity, tab_edition, &TransformEditorWidget::setEditable);
         connect(this, &MainWindow::selectedEntity, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
         connect(this, &MainWindow::selectedComponent, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
+
+        connect( this, &MainWindow::selectedEntity, this, &MainWindow::displayEntityRenderObjects );
+        connect( this, &MainWindow::selectedComponent, this, &MainWindow::displayComponentRenderObjects );
 
         // Editors should be updated after each frame
         connect(mainApp, &MainApplication::endFrame, tab_edition, &TransformEditorWidget::updateValues);
@@ -108,6 +113,11 @@ namespace Ra
         connect(pauseButton, &QPushButton::clicked, this, &MainWindow::pauseAnimation );
         connect(stepButton,  &QPushButton::clicked, this, &MainWindow::stepAnimation );
         connect(resetButton, &QPushButton::clicked, this, &MainWindow::resetAnimation );
+
+        // Enable changing shaders
+        connect( m_renderObjectsListView, &QListWidget::currentRowChanged, this, &MainWindow::renderObjectListItemClicked );
+        connect( m_currentShaderBox, static_cast<void (QComboBox::*)(const QString&)>( &QComboBox::currentIndexChanged ),
+                 this, &MainWindow::changeRenderObjectShader );
     }
 
     void Gui::MainWindow::playAnimation()
@@ -381,7 +391,6 @@ namespace Ra
             }
             m_entitiesTreeView->setExpanded( entityIdx, true );
             m_entitiesTreeView->selectionModel()->select( treeIdx, QItemSelectionModel::SelectCurrent );
-
         }
         else
         {
@@ -439,4 +448,129 @@ namespace Ra
     {
         m_viewer->getGizmoManager()->changeGizmoType(GizmoManager::ROTATION);
     }
+
+    void Gui::MainWindow::displayEntityRenderObjects( Engine::Entity* entity )
+    {
+        m_renderObjectsListView->clear();
+        m_currentShaderBox->setCurrentText( "" );
+
+        // NOTE(Charly): When clicking on UI stuff, the returned entity is null
+        if ( nullptr == entity )
+        {
+            m_selectedStuffName->clear();
+            return;
+        }
+
+        m_renderObjectsListView->clear();
+
+        QString text( "Entity : " );
+        text.append( entity->getName().c_str() );
+        m_selectedStuffName->setText( text );
+
+        auto comps = entity->getComponentsMap();
+
+        for ( const auto comp : comps )
+        {
+            displayRenderObjects( comp.second );
+        }
+    }
+
+    void Gui::MainWindow::displayComponentRenderObjects( Engine::Component* component )
+    {
+        // NOTE(Charly): When clicking on UI stuff, or on nothing, the returned component is null
+        m_renderObjectsListView->clear();
+        m_currentShaderBox->setCurrentText( "" );
+
+        if ( nullptr == component )
+        {
+            m_selectedStuffName->clear();
+            return;
+        }
+
+        QString text( "Entity : " );
+        text.append( component->getName().c_str() );
+        m_selectedStuffName->setText( text );
+
+        displayRenderObjects( component );
+    }
+
+    void Gui::MainWindow::displayRenderObjects( Engine::Component* component )
+    {
+        auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+        for ( Core::Index idx : component->renderObjects )
+        {
+            QString name = roMgr->getRenderObject( idx )->getName().c_str();
+
+            QListWidgetItem* item = new QListWidgetItem( name, m_renderObjectsListView );
+            item->setData( 1, QVariant( idx.getValue() ) );
+        }
+    }
+
+    void Gui::MainWindow::renderObjectListItemClicked( int idx )
+    {
+        if ( idx < 0 )
+        {
+            // Got out of scope
+            return;
+        }
+
+        QListWidgetItem* item = m_renderObjectsListView->item( idx );
+        Core::Index itemIdx( item->data( 1 ).toInt() );
+
+        auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+        auto ro = roMgr->getRenderObject( itemIdx );
+
+        auto shaderName = ro->getRenderTechnique()->shader->getBasicConfiguration().getName();
+
+        if ( m_currentShaderBox->findText( shaderName.c_str() ) == -1 )
+        {
+            m_currentShaderBox->setCurrentText( "" );
+        }
+        else
+        {
+            m_currentShaderBox->setCurrentText( shaderName.c_str() );
+        }
+    }
+
+    void Gui::MainWindow::changeRenderObjectShader( const QString& shaderName )
+    {
+        if ( shaderName == "" )
+        {
+            return;
+        }
+
+        QListWidgetItem* item = m_renderObjectsListView->currentItem();
+
+        if ( nullptr == item )
+        {
+            return;
+        }
+
+        Core::Index itemIdx( item->data( 1 ).toInt() );
+
+        auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+        auto ro = roMgr->getRenderObject( itemIdx );
+
+        if ( ro->getRenderTechnique()->shader->getBasicConfiguration().getName() == shaderName.toStdString() )
+        {
+            return;
+        }
+
+        Engine::ShaderConfiguration config;
+
+        config.setName( shaderName.toStdString() );
+        config.setPath( "../Shaders" );
+
+        if ( shaderName == "BlinnPhong" || shaderName == "Plain" )
+        {
+            config.setType( Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM );
+        }
+        if ( shaderName == "BlinnPhongWireframe" || shaderName == "Lines" )
+        {
+            config.setType( Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM );
+        }
+
+        ro->getRenderTechnique()->changeShader( config );
+    }
+
 } // namespace Ra
