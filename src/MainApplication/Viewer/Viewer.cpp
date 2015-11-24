@@ -18,7 +18,7 @@
 #include <MainApplication/Viewer/Gizmo/GizmoManager.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
 #include <MainApplication/MainApplication.hpp>
-
+#include <MainApplication/Utils/Keyboard.hpp>
 
 /// Helper functions
 namespace
@@ -190,9 +190,16 @@ namespace Ra
         {
             case Qt::LeftButton:
             {
-                Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_LEFT_BUTTON };
-                m_renderer->addPickingRequest(query);
-                m_gizmoManager->handleMousePressEvent(event);
+                if ( isKeyPressed( Key_Space ) )
+                {
+                    LOG( logINFO ) << "Mouse click with space pressed.";
+                }
+                else
+                {
+                    Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_LEFT_BUTTON };
+                    m_renderer->addPickingRequest(query);
+                    m_gizmoManager->handleMousePressEvent(event);
+                }
             }
             break;
 
