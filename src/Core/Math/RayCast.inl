@@ -300,6 +300,68 @@ namespace Ra
 
                 return false;
             }
+
+            bool vsTriangle(const Ray &ray, const Vector3 a, const Vector3 &b, const Vector3 &c, std::vector<Scalar> &hitsOut)
+            {
+                const Vector3 ab = b-a;
+                const Vector3 ac = b-a;
+                const Vector3 n = ab.cross(ac);
+
+                Scalar u = 0.0;
+                Scalar v = 0.0;
+
+                CORE_ASSERT( n.squaredNorm() > 0 , "Degenerate triangle");
+
+                // Compute determinant
+                const Vector3 pvec = ray.m_direction.cross(ac);
+                const Scalar det = ab.dot(pvec);
+
+                const Vector3 tvec = ray.m_origin - a;
+                const Scalar inv_det = 1.0 / det;
+
+                const Vector3 qvec = tvec.cross(ab);
+
+                if (det > 0)
+                {
+                   u = tvec.dot(pvec);
+                   if (u < 0 || u > det)
+                   {
+                       return false; // We're out of the slab across ab
+                   }
+
+                   v = ray.m_direction.dot(qvec);
+                   if (v < 0 || u + v > det)
+                   {
+                       return false;
+                   }
+                }
+                else if ( det < 0)
+                {
+                   u = tvec.dot(pvec);
+                   if (u > 0 || u < det)
+                   {
+                       return false;
+                   }
+
+                   v = ray.m_direction.dot(qvec);
+                   if (v > 0 || u + v < det)
+                   {
+                       return false;
+                   }
+                }
+                else // line parallel to plane. Maybe we should intersect with the triangle edges ?
+                {
+                   return false;
+                }
+
+                // If we're here we really intersect the triangle so let's compute T.
+                const Scalar t =  ac.dot(qvec) * inv_det ;
+                if ( t >= 0 )
+                {
+                    hitsOut.push_back(t);
+                }
+                return ( t >= 0 );
+            }
         }
     }
 }

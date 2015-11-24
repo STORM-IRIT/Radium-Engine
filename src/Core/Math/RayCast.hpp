@@ -31,6 +31,13 @@ namespace Ra
             /// Intersect  a ray with a cylinder with a and b as caps centers and given radius.
             inline bool vsCylinder(const Ray& r, const Core::Vector3& a, const Core::Vector3& b, Scalar radius,
                             std::vector<Scalar>& hitsOut);
+
+            inline bool vsTriangle( const Ray& r, const Core::Vector3 a, const Core::Vector3& b, const Core::Vector3& c,
+                            std::vector<Scalar>& hitsOut);
+
+
+
+
         }
     }
 }
