@@ -288,6 +288,8 @@ namespace Ra
             uint m_width;
             uint m_height;
             uint m_depth;
+
+            uint m_dataType;
         };
 
     } // namespace Engine

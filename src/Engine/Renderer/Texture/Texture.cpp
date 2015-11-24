@@ -95,6 +95,8 @@ namespace Ra
         setBPP( bpp );
         m_format = format;
 
+        m_dataType = type;
+
         m_width = w;
 
         if ( data && m_bytesPerPixel )
@@ -117,6 +119,8 @@ namespace Ra
 
         setBPP( internal );
         m_format = format;
+
+        m_dataType = type;
 
         m_width  = w;
         m_height = h;
@@ -142,6 +146,8 @@ namespace Ra
 
         setBPP( bpp );
         m_format = format;
+
+        m_dataType = type;
 
         m_width  = w;
         m_height = h;
@@ -302,7 +308,8 @@ namespace Ra
 
             case TEXTURE_2D:
             {
-                GL_ASSERT( glTexImage2D( m_target, 0, m_bytesPerPixel, m_width, m_height, 0, m_format, GL_TEXTURE_2D, data ) );
+                GL_ASSERT( glTexImage2D( m_target, 0, m_bytesPerPixel, m_width, m_height,
+                                         0, m_format, m_dataType, data ) );
             } break;
 
             default:
