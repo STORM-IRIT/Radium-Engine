@@ -12,21 +12,22 @@
 
 namespace AnimationPlugin
 {
-	namespace AnimationLoader
-	{	
-		struct AnimationData
-		{
+    namespace AnimationLoader
+    {
+        struct AnimationData
+        {
             bool hasLoaded;
-			Ra::Core::Graph::AdjacencyList hierarchy;
-			Ra::Core::Animation::Pose pose;
+            Ra::Core::Graph::AdjacencyList hierarchy;
+            Ra::Core::Animation::Pose pose;
             std::vector<Ra::Core::Animation::Animation> animations;
             Ra::Core::Animation::WeightMatrix weights;
             Ra::Core::Transform baseTransform;
+            std::string name;
             std::vector<std::string> boneNames;
-		};
-	
-		ANIM_PLUGIN_API AnimationData loadFile(const std::string& name , const FancyMeshPlugin::MeshLoadingInfo &info);
-	}
+        };
+
+        ANIM_PLUGIN_API AnimationData loadFile(const std::string& name , const FancyMeshPlugin::MeshLoadingInfo &info);
+    }
 }
 
 #endif // ANIMATIONLOADER_HPP

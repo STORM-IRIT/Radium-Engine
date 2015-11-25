@@ -134,6 +134,7 @@ namespace AnimationPlugin
         Ra::Core::Animation::Skeleton skeleton = Ra::Core::Animation::Skeleton(data.hierarchy.size());
         skeleton.m_graph = data.hierarchy;
         skeleton.setPose(data.pose, Ra::Core::Animation::Handle::SpaceType::LOCAL);
+        skeleton.setName( data.name );
 
         if (data.boneNames.size() == data.hierarchy.size())
         {

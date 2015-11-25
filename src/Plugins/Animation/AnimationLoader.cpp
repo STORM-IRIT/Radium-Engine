@@ -63,6 +63,8 @@ namespace AnimationPlugin
                 return animData;
             }
 
+            std::string skelName = std::string(mesh->mName.C_Str()) + "_skeleton";
+            animData.name = skelName;
             int vertexCount = 0;
             for (int i = 0; i < info.vertexMap.size(); i++)
             {
