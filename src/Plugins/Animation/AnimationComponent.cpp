@@ -15,6 +15,8 @@ namespace AnimationPlugin
         {
             SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject(m_skel.getName() + " bone " + std::to_string(edge(0)), this, edge, getRoMgr());
             m_boneDrawables.push_back(boneRenderObject);
+
+            renderObjects.push_back( boneRenderObject->idx );
         }
     }
 
@@ -23,7 +25,7 @@ namespace AnimationPlugin
         uint i = 0;
         for (auto dr: m_boneDrawables)
         {
-            if (dr->getIndex() == int(drawableIdx))
+            if ( dr->idx == static_cast<int>( drawableIdx ) )
             {
                 m_selectedBone = i;
                 return true;
@@ -35,6 +37,11 @@ namespace AnimationPlugin
 
     void AnimationComponent::getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const
     {
+        if ( m_selectedBone < 0 || m_selectedBone >= m_skel.size() )
+        {
+            m_selectedBone = 0;
+        }
+
         CORE_ASSERT(m_selectedBone >= 0 && m_selectedBone < m_skel.size(), "Oops");
         //for (uint i = 0; i < m_skel.size(); ++i)
         uint i = m_selectedBone;

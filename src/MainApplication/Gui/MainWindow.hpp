@@ -80,6 +80,12 @@ namespace Ra
             void gizmoShowRotate();
             //void gizmoShowScale();
 
+            void displayEntityRenderObjects( Engine::Entity* entity );
+            void displayComponentRenderObjects( Engine::Component* component );
+
+            void renderObjectListItemClicked( int item );
+            void changeRenderObjectShader( const QString& shaderName );
+
         signals:
             void closed();
             void fileLoading( const QString path );
@@ -100,6 +106,8 @@ namespace Ra
             virtual void keyReleaseEvent( QKeyEvent* event ) override;
 
             virtual void closeEvent( QCloseEvent* event ) override;
+
+            void displayRenderObjects( Engine::Component* component );
 
         public:
             // Accept viewer mouse events.

@@ -33,14 +33,14 @@ namespace AnimationPlugin
 
         updateLocalTransform(renderObject);
 
-        m_index = m_roMgr->addRenderObject(renderObject);
+        idx = m_roMgr->addRenderObject(renderObject);
     }
 
     void SkeletonBoneRenderObject::update()
     {
-        std::shared_ptr<Ra::Engine::RenderObject> ro = m_roMgr->update( m_index, false );
+        std::shared_ptr<Ra::Engine::RenderObject> ro = m_roMgr->update( idx, false );
         updateLocalTransform( ro.get() );
-        m_roMgr->doneUpdating( m_index );
+        m_roMgr->doneUpdating( idx );
     }
 
     void SkeletonBoneRenderObject::updateLocalTransform(Ra::Engine::RenderObject* ro)

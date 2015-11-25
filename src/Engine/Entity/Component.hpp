@@ -84,13 +84,14 @@ namespace Ra
             /// Shortcut to access the render object manager.
             static RenderObjectManager* getRoMgr();
 
+        public:
+            std::vector<Core::Index> renderObjects;
+
         protected:
 
             std::string m_name;
             Entity* m_entity;
             System* m_system;
-
-            std::vector<Core::Index> m_renderObjects;
 
         };
 
