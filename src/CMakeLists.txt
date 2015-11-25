@@ -51,12 +51,6 @@ add_library(
 
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
 
-SET_TARGET_PROPERTIES(
-    ${core_target}
-    PROPERTIES
-    VERSION ${library_version}
-)
-
 target_link_libraries(
     ${core_target}
     ${core_libs}
@@ -65,6 +59,7 @@ target_link_libraries(
 INSTALL(
     TARGETS ${core_target}
     DESTINATION ${LIB_INSTALL_DIR}
+    INCLUDES DESTINATION ${INC_INSTALL_DIR}
 )
 
 # Build Engine
@@ -106,12 +101,6 @@ add_library(
 target_compile_definitions(${engine_target} PRIVATE "-DRA_CORE_IMPORTS")
 target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 
-SET_TARGET_PROPERTIES(
-    ${engine_target}
-    PROPERTIES
-    VERSION ${library_version}
-)
-
 target_link_libraries(
     ${engine_target}
     ${engine_libs}
@@ -120,11 +109,10 @@ target_link_libraries(
 INSTALL(
     TARGETS ${engine_target}
     DESTINATION ${LIB_INSTALL_DIR}
+    INCLUDES DESTINATION ${INC_INSTALL_DIR}
 )
 
-add_subdirectory(Plugins)
-
-get_directory_property(plugins DIRECTORY "Plugins" DEFINITION SUBDIRS)
+#get_directory_property(plugins DIRECTORY "Plugins" DEFINITION SUBDIRS)
 
 # Build MainApplication
 set(app_target radium)
@@ -137,7 +125,7 @@ else()
     set( PLATFORM_LIBS "" )
 endif()
 
-set(app_libs radiumEngine radiumCore ${plugins} ${Qt5_LIBRARIES} ${OPENGL_LIBRARIES} ${PLATFORM_LIBS})
+set(app_libs radiumEngine radiumCore ${Qt5_LIBRARIES} ${OPENGL_LIBRARIES} ${PLATFORM_LIBS})
 
 file(GLOB_RECURSE app_sources MainApplication/*.cpp)
 file(GLOB_RECURSE app_headers MainApplication/*.h MainApplication/*.hpp)

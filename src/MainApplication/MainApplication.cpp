@@ -20,12 +20,6 @@
 #include <Engine/SystemDisplay/SystemDisplay.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
 
-#include <Plugins/FancyMesh/FancyMeshSystem.hpp>
-
-#include <Core/Animation/Handle/Skeleton.hpp>
-#include "Plugins/Animation/AnimationComponent.hpp"
-
-
 // Const parameters : TODO : make config / command line options
 
 
@@ -95,7 +89,6 @@ namespace Ra
 
         // Create engine
         m_engine.reset(Engine::RadiumEngine::createInstance());
-        registerSystems();
         m_engine->initialize();
 
         m_viewer = m_mainWindow->getViewer();

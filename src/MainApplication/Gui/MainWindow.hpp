@@ -56,10 +56,10 @@ namespace Ra
             void setCameraTarget();
             void handlePicking( int drawableIndex );
 
-            void playAnimation();
-            void pauseAnimation();
-            void stepAnimation();
-            void resetAnimation();
+//            void playAnimation();
+//            void pauseAnimation();
+//            void stepAnimation();
+//            void resetAnimation();
 
         public slots:
             void onEntitiesUpdated();

@@ -20,11 +20,6 @@ add_library(
     ${headers}
     ${inlines})
 
-set_target_properties(
-    ${subdir}
-    PROPERTIES
-    VERSION 0.1.42)
-
 target_compile_definitions(${subdir} PRIVATE "-DRA_CORE_IMPORTS")
 target_compile_definitions(${subdir} PRIVATE "-DRA_ENGINE_IMPORTS")
 target_compile_definitions(${subdir} PRIVATE "-D${subdir}_EXPORTS")

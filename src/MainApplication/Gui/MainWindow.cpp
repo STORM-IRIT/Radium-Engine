@@ -14,7 +14,6 @@
 #include <MainApplication/Gui/EntityTreeModel.hpp>
 #include <MainApplication/Gui/EntityTreeItem.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
-#include <Plugins/Animation/AnimationSystem.hpp>
 #include <assimp/Importer.hpp>
 
 namespace Ra
@@ -109,10 +108,10 @@ namespace Ra
         connect(mainApp, &MainApplication::endFrame, tab_edition, &TransformEditorWidget::updateValues);
         connect(mainApp, &MainApplication::endFrame, m_viewer->getGizmoManager(), &GizmoManager::updateValues);
 
-        connect(playButton,  &QPushButton::clicked, this, &MainWindow::playAnimation );
-        connect(pauseButton, &QPushButton::clicked, this, &MainWindow::pauseAnimation );
-        connect(stepButton,  &QPushButton::clicked, this, &MainWindow::stepAnimation );
-        connect(resetButton, &QPushButton::clicked, this, &MainWindow::resetAnimation );
+//        connect(playButton,  &QPushButton::clicked, this, &MainWindow::playAnimation );
+//        connect(pauseButton, &QPushButton::clicked, this, &MainWindow::pauseAnimation );
+//        connect(stepButton,  &QPushButton::clicked, this, &MainWindow::stepAnimation );
+//        connect(resetButton, &QPushButton::clicked, this, &MainWindow::resetAnimation );
 
         // Enable changing shaders
         connect( m_renderObjectsListView, &QListWidget::currentRowChanged, this, &MainWindow::renderObjectListItemClicked );
@@ -120,30 +119,30 @@ namespace Ra
                  this, &MainWindow::changeRenderObjectShader );
     }
 
-    void Gui::MainWindow::playAnimation()
-    {
-        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
-        animSys->setPlaying(true);
-    }
+//    void Gui::MainWindow::playAnimation()
+//    {
+//        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
+//        animSys->setPlaying(true);
+//    }
 
-    void Gui::MainWindow::pauseAnimation()
-    {
-        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
-        animSys->setPlaying(false);
-    }
+//    void Gui::MainWindow::pauseAnimation()
+//    {
+//        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
+//        animSys->setPlaying(false);
+//    }
 
-    void Gui::MainWindow::resetAnimation()
-    {
-        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
-        animSys->reset();
-    }
+//    void Gui::MainWindow::resetAnimation()
+//    {
+//        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
+//        animSys->reset();
+//    }
 
-    void Gui::MainWindow::stepAnimation()
-    {
-        pauseAnimation();
-        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
-        animSys->step();
-    }
+//    void Gui::MainWindow::stepAnimation()
+//    {
+//        pauseAnimation();
+//        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
+//        animSys->step();
+//    }
 
     void Gui::MainWindow::onEntitiesUpdated()
     {
