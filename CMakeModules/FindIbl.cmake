@@ -17,6 +17,7 @@ FIND_LIBRARY( IBL_LIBRARY
         NAMES ibl libibl.a ibl.lib
         PATHS
         ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/ibl/Release/ibl
+        ${CMAKE_SOURCE_DIR}/../Radium-Engine-Plugins/ibl/
         ${CMAKE_SOURCE_DIR}/../Radium-Engine-Plugins/ibl/Release/
         ${CMAKE_SOURCE_DIR}/../Radium-Engine-Plugins/ibl/Debug/
         DOC "The Ibl library")
