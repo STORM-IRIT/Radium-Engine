@@ -16,7 +16,7 @@ namespace AnimationPlugin
         m_material.reset(new Ra::Engine::Material("Bone Material"));
         m_material->setKd(Ra::Core::Color(0.4, 0.4, 0.4, 0.5));
         m_material->setKs(Ra::Core::Color(0.0, 0.0, 0.0, 1.0));
-        m_material->setMaterialType(Ra::Engine::Material::MaterialType::MAT_TRANSPARENT);
+        m_material->setMaterialType(Ra::Engine::Material::MaterialType::MAT_OPAQUE);
 
         m_renderParams.reset(new Ra::Engine::RenderTechnique());
         {
@@ -24,7 +24,8 @@ namespace AnimationPlugin
             m_renderParams->material = m_material.get();
         }
         renderObject->setRenderTechnique(m_renderParams.get());
-        renderObject->setType(Ra::Engine::RenderObject::Type::RO_TRANSPARENT);
+        renderObject->setType(Ra::Engine::RenderObject::Type::RO_XRAY);
+
 
         std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( name ) );
 
@@ -71,8 +72,8 @@ namespace AnimationPlugin
         Ra::Core::TriangleMesh mesh;
 
         const Scalar l = 0.1f;
-        const Scalar w = 0.1f;            
-        
+        const Scalar w = 0.1f;
+
         mesh.m_vertices = {
             Ra::Core::Vector3(0,0,0), Ra::Core::Vector3(0,0,1),
             Ra::Core::Vector3(0,w,l), Ra::Core::Vector3(w,0,l),

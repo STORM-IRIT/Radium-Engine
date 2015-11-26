@@ -35,10 +35,11 @@ namespace Ra
         public:
             enum class Type
             {
-                RO_OPAQUE,
-                RO_TRANSPARENT,
-                RO_DEBUG,
-                RO_UI
+                RO_OPAQUE, /// Default normal shaded object
+                RO_TRANSPARENT, /// Drawn on a separate pass
+                RO_XRAY, /// Drawn on top of other objects
+                RO_DEBUG, /// Specific debug objects
+                RO_UI /// UI objects (drawn on top)
             };
 
         public:

@@ -270,6 +270,7 @@ namespace Ra
 
             RenderQueue m_opaqueRenderQueue;
             RenderQueue m_transparentRenderQueue;
+            RenderQueue m_xrayRenderQueue;
             RenderQueue m_debugRenderQueue;
             RenderQueue m_uiRenderQueue;
 

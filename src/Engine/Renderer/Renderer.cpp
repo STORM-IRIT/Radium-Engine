@@ -198,6 +198,7 @@ namespace Ra
         {
             m_opaqueRenderQueue.clear();
             m_transparentRenderQueue.clear();
+            m_xrayRenderQueue.clear();
             m_debugRenderQueue.clear();
             m_uiRenderQueue.clear();
 
@@ -216,6 +217,11 @@ namespace Ra
                         ro->feedRenderQueue( m_transparentRenderQueue, renderData.viewMatrix, renderData.projMatrix );
                     }
                     break;
+
+                    case RenderObject::Type::RO_XRAY:
+                    {
+                        ro->feedRenderQueue( m_xrayRenderQueue, renderData.viewMatrix, renderData.projMatrix );
+                    }
 
                     case RenderObject::Type::RO_DEBUG:
                     {
@@ -256,7 +262,10 @@ namespace Ra
             m_opaqueRenderQueue.render( m_pickingShader );
             m_transparentRenderQueue.render( m_pickingShader );
 
-            // Always draw ui stuff
+            // Draw xrayed objects on top of normal objects
+            GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
+            m_xrayRenderQueue.render( m_pickingShader );
+            // Always draw ui stuff on top of everything
             GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
             m_uiRenderQueue.render( m_pickingShader );
 
@@ -382,20 +391,27 @@ namespace Ra
             m_fbo->bind();
             // Draw debug stuff, do not overwrite depth map but do depth testing
             GL_ASSERT( glDrawBuffers( 1, buffers + 4 ) );
-            
+
             GL_ASSERT( glDisable( GL_BLEND ) );
             GL_ASSERT( glDepthMask( GL_FALSE ) );
             GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
             GL_ASSERT( glDepthFunc( GL_LESS ) );
             m_debugRenderQueue.render();
 
+            // Draw X rayed objects always on top of normal objects
+            GL_ASSERT( glDepthMask( GL_TRUE ) );
+            GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
+            GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+
+            m_xrayRenderQueue.render();
+
             // Draw UI stuff, always drawn on top of everything else
             GL_ASSERT( glDepthMask( GL_TRUE ) );
             GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
-            GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) ); 
-            
+            GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+
             m_uiRenderQueue.render();
-            
+
             // Draw renderpass texture
             m_fbo->bind();
             GL_ASSERT( glDrawBuffers( 1, buffers + 5 ) );
