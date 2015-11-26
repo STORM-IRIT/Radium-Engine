@@ -14,7 +14,7 @@ namespace AnimationPlugin
 
 class SkeletonBoneRenderObject;
 
-class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component
+class AnimationComponent : public Ra::Engine::Component
 {
 public:
     AnimationComponent(const std::string& name) : Component(name), m_selectedBone(-1) {}
@@ -36,10 +36,10 @@ public:
     virtual void setProperty( const Ra::Engine::EditableProperty& prop) override;
     virtual bool picked (uint drawableIdex) const override;
 
-    void setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component);
-    FancyMeshPlugin::FancyMeshComponent* getMeshComponent() const;
-    Ra::Core::Animation::WeightMatrix getWeights() const;
-    Ra::Core::Animation::Pose getRefPose() const;
+    ANIM_PLUGIN_API void setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component);
+    ANIM_PLUGIN_API FancyMeshPlugin::FancyMeshComponent* getMeshComponent() const;
+    ANIM_PLUGIN_API Ra::Core::Animation::WeightMatrix getWeights() const;
+    ANIM_PLUGIN_API Ra::Core::Animation::Pose getRefPose() const;
 
 protected:
     Ra::Core::Animation::Skeleton m_skel;

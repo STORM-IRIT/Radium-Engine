@@ -25,7 +25,7 @@ namespace Ra
             ShaderProgram* shader = nullptr;
             Material* material = nullptr;
 
-            void changeShader( const ShaderConfiguration& newConfig );
+            RA_ENGINE_API void changeShader( const ShaderConfiguration& newConfig );
 
             RA_ENGINE_API void updateGL();
             bool shaderIsDirty;
