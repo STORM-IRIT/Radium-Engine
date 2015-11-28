@@ -40,7 +40,8 @@ namespace FancyMeshPlugin
         virtual bool doAddWidget( QString& name ) override;
         virtual QWidget* getWidget() override;
 
-        virtual bool doAddMenu( QString& name ) override;
+        virtual bool doAddMenu() override;
+        virtual QMenu* getMenu() override;
 
     private:
 

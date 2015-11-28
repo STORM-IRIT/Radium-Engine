@@ -580,10 +580,11 @@ namespace Ra
 
     void Gui::MainWindow::updateUi( Plugins::RadiumPluginInterface *plugin )
     {
-        QString tabName, menuName;
+        QString tabName;
 
-        if ( plugin->doAddMenu( menuName ) )
+        if ( plugin->doAddMenu() )
         {
+            QMainWindow::menuBar()->addMenu( plugin->getMenu() );
             // Add menu
         }
 

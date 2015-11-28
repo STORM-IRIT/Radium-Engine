@@ -141,7 +141,9 @@ namespace Ra
 			{
 				Entity* entity = m_entityManager->getOrCreateEntity( entityData.name );
 				Core::Transform transform;
-				transform.fromPositionOrientationScale( entityData.position, entityData.orientation, entityData.scale );
+                transform.fromPositionOrientationScale( entityData.position,
+                                                        entityData.orientation,
+                                                        entityData.scale );
 				entity->setTransform( transform );
 
 				for ( const auto& systemData : entityData.data )

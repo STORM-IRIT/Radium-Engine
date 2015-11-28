@@ -97,8 +97,8 @@ namespace Ra
                 return false;
             }
 
-			virtual void handleFileLoading(Entity* entity, const std::string& filename) {}
-			
+            virtual void handleFileLoading(Entity* entity, const std::string& filename) {}
+
             virtual void handleDataLoading( Entity* entity, const std::string& rootFolder,
                                             const std::map<std::string, Core::Any>& data ) {}
 
@@ -110,7 +110,7 @@ namespace Ra
             virtual Component* addComponentToEntity( Entity* entity ) final;
             
             // Register the system so that its callbackOnComponentCreation function will be called upon creation of a component
-            void registerOnComponentCreation(Ra::Engine::System* system);
+            void registerOnComponentCreation( Ra::Engine::System* system );
 
         protected:
             virtual Component* addComponentToEntityInternal( Entity* entity, uint id ) = 0;

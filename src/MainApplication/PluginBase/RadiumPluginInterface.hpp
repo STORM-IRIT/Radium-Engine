@@ -2,6 +2,7 @@
 #define RADIUM_RADIUMPLUGININTERFACE_HPP
 
 class QWidget;
+class QMenu;
 
 namespace Ra
 {
@@ -49,11 +50,16 @@ namespace Ra
              * @brief Tells wether the plugin wants to add a menu
              * or not. If it does, it must provide
              * a name for it, and getMenu() will be called.
-             * @param name Name of the menu to be added, if needed.
              * @return True if the plugin wants to add a menu, false otherwise
              */
-            virtual bool doAddMenu( QString& name ) = 0;
-            // virtual QMenu* getMenu() = 0; ?
+            virtual bool doAddMenu() = 0;
+
+            /**
+             * @brief Creates to menu to be added to the ui and then returns it.
+             * @return The created menu
+             * @todo Find a better name ?
+             */
+            virtual QMenu* getMenu() = 0;
         };
     }
 }
