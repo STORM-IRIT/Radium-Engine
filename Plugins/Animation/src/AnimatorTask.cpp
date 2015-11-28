@@ -1,4 +1,4 @@
-#include <Plugins/Animation/AnimatorTask.hpp>
+#include "AnimatorTask.hpp"
 
 namespace AnimationPlugin
 {

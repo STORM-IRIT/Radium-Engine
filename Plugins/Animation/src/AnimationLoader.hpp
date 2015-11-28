@@ -1,14 +1,15 @@
 #ifndef ANIMATIONLOADER_HPP
 #define ANIMATIONLOADER_HPP
 
-#include <Plugins/Animation/AnimationPlugin.hpp>
+#include "AnimationPlugin.hpp"
+
 #include <vector>
 #include <string>
+
 #include <Core/Utils/Graph/AdjacencyList.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Animation.hpp>
 #include <Core/Animation/Handle/HandleWeight.hpp>
-#include <Plugins/FancyMesh/FancyMeshComponent.hpp>
 
 namespace AnimationPlugin
 {
@@ -26,7 +27,7 @@ namespace AnimationPlugin
             std::vector<std::string> boneNames;
         };
 
-        ANIM_PLUGIN_API AnimationData loadFile(const std::string& name , const FancyMeshPlugin::MeshLoadingInfo &info);
+        ANIM_PLUGIN_API AnimationData loadFile(const std::string& name );
     }
 }
 

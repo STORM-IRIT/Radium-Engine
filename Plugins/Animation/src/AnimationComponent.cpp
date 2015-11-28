@@ -1,12 +1,12 @@
-#include <Plugins/Animation/AnimationComponent.hpp>
+#include "AnimationComponent.hpp"
 
 #include <assimp/scene.h>
 #include <iostream>
-#include <Plugins/Animation/Drawing/SkeletonBoneDrawable.hpp>
 #include <Core/Utils/Graph/AdjacencyListOperation.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 
 #include <Core/Animation/Handle/SkeletonUtils.hpp>
+#include "Drawing/SkeletonBoneDrawable.hpp"
 
 namespace AnimationPlugin
 {
@@ -16,8 +16,8 @@ namespace AnimationPlugin
         for( uint i = 0; i < m_skel.size(); ++i ) {
             if( !m_skel.m_graph.isLeaf( i ) ) {
                 SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject( m_skel.getLabel( i ), this, i, getRoMgr());
-                m_boneDrawables.push_back(boneRenderObject);
-                renderObjects.push_back( boneRenderObject->idx );
+            m_boneDrawables.push_back(boneRenderObject);
+            renderObjects.push_back( boneRenderObject->idx );
             } else {
                 LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed.";
             }
@@ -200,19 +200,9 @@ namespace AnimationPlugin
         // reset mesh m_meshComponent->
     }
 
-    void AnimationComponent::setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component)
-    {
-        m_meshComponent = component;
-    }
-
     Ra::Core::Animation::Pose AnimationComponent::getRefPose() const
     {
         return m_refPose;
-    }
-
-    FancyMeshPlugin::FancyMeshComponent* AnimationComponent::getMeshComponent() const
-    {
-        return m_meshComponent;
     }
 
     Ra::Core::Animation::WeightMatrix AnimationComponent::getWeights() const

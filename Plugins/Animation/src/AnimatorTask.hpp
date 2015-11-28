@@ -1,9 +1,10 @@
 #ifndef ANIMATORTASK_H
 #define ANIMATORTASK_H
 
-#include <Plugins/Animation/AnimationPlugin.hpp>
 #include <Core/Tasks/Task.hpp>
-#include <Plugins/Animation/AnimationComponent.hpp>
+
+#include "AnimationPlugin.hpp"
+#include "AnimationComponent.hpp"
 
 namespace AnimationPlugin
 {

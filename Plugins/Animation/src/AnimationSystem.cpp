@@ -1,17 +1,17 @@
-//#include <MainApplication/MainApplication.hpp>
-#include <Plugins/Animation/Drawing/SkeletonBoneDrawable.hpp>
-#include <Engine/RadiumEngine.hpp>
+#include "Drawing/SkeletonBoneDrawable.hpp"
 
-#include <Core/Tasks/TaskQueue.hpp>
-#include <Engine/Entity/FrameInfo.hpp>
 #include <string>
 #include <iostream>
-#include <Plugins/Animation/AnimationSystem.hpp>
-#include <Plugins/Animation/AnimationLoader.hpp>
-#include <Plugins/Animation/AnimationComponent.hpp>
-#include <Plugins/Animation/AnimatorTask.hpp>
-#include <Plugins/FancyMesh/FancyMeshSystem.hpp>
-#include <Plugins/FancyMesh/FancyMeshComponent.hpp>
+
+#include <Core/Tasks/TaskQueue.hpp>
+
+#include <Engine/RadiumEngine.hpp>
+#include <Engine/Entity/FrameInfo.hpp>
+
+#include "AnimationSystem.hpp"
+#include "AnimationLoader.hpp"
+#include "AnimationComponent.hpp"
+#include "AnimatorTask.hpp"
 
 namespace AnimationPlugin
 {
@@ -20,7 +20,8 @@ namespace AnimationPlugin
         m_isPlaying = false;
         m_oneStep = false;
 
-        FancyMeshPlugin::FancyMeshSystem* meshSystem = (FancyMeshPlugin::FancyMeshSystem*) Ra::Engine::RadiumEngine::getInstance()->getSystem("FancyMeshSystem");
+        FancyMeshPlugin::FancyMeshSystem* meshSystem =
+                (FancyMeshPlugin::FancyMeshSystem*) Ra::Engine::RadiumEngine::getInstance()->getSystem("FancyMeshSystem");
         meshSystem->registerOnComponentCreation(this);
     }
 
@@ -53,7 +54,17 @@ namespace AnimationPlugin
 
     void AnimationSystem::handleFileLoading(Ra::Engine::Entity *entity, const std::string &filename)
     {
-//		LOG( logDEBUG ) << "AnimationSystem : loading the file " << filename << "...";
+        LOG( logDEBUG ) << "AnimationSystem : loading the file " << filename << "...";
+
+        AnimationLoader::AnimationData componentData = AnimationLoader::loadFile( filename );
+        if (componentData.hasLoaded)
+        {
+            AnimationComponent* animationComponent = static_cast<AnimationComponent*>(addComponentToEntity(meshComponent->getEntity()));
+            animationComponent->setMeshComponent(meshComponent);
+            animationComponent->handleLoading(componentData);
+
+            callOnComponentCreationDependencies(animationComponent);
+        }
 
 //        AnimationLoader::AnimationData componentData = AnimationLoader::loadFile(filename);
 
@@ -87,17 +98,5 @@ namespace AnimationPlugin
 
     void AnimationSystem::callbackOnComponentCreation(const Ra::Engine::Component *component)
     {
-        //std::cout << "Mesh component received by the Animation system" << std::endl;
-        FancyMeshPlugin::FancyMeshComponent* meshComponent = (FancyMeshPlugin::FancyMeshComponent*) component;
-
-        AnimationLoader::AnimationData componentData = AnimationLoader::loadFile(meshComponent->getLoadingInfo().filename, meshComponent->getLoadingInfo());
-        if (componentData.hasLoaded)
-        {
-            AnimationComponent* animationComponent = static_cast<AnimationComponent*>(addComponentToEntity(meshComponent->getEntity()));
-            animationComponent->setMeshComponent(meshComponent);
-            animationComponent->handleLoading(componentData);
-
-            callOnComponentCreationDependencies(animationComponent);
-        }
     }
 }
