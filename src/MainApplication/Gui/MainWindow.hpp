@@ -2,7 +2,7 @@
 #define RADIUMENGINE_MAINWINDOW_HPP
 
 #include <QMainWindow>
-#include <ui_MainWindow.h>
+#include "ui_MainWindow.h"
 
 #include <qdebug.h>
 #include <QEvent>

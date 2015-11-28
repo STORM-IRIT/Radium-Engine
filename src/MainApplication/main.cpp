@@ -2,12 +2,12 @@
 
 #include <cstdio>
 
-
-
 int main( int argc, char** argv )
 {
     uint FPS_MAX = 120;
     
+    std::string pluginsPath;
+
     if ( argc > 1 )
     {
         for ( int i = 1; i < argc; ++i )
@@ -18,7 +18,14 @@ int main( int argc, char** argv )
                 std::stringstream val( argv[i+1] );
                 val >> FPS_MAX;
 
-                break;
+                continue;
+            }
+
+            if ( arg == "--pluginsPath" )
+            {
+                pluginsPath = std::string( argv[i+1] );
+
+                continue;
             }
         }
     }

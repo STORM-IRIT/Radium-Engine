@@ -1,7 +1,7 @@
 #ifndef FANCYMESHPLUGIN_FANCYMESHLOADINGDATA_HPP
 #define FANCYMESHPLUGIN_FANCYMESHLOADINGDATA_HPP
 
-#include <Plugins/FancyMesh/FancyMeshPlugin.hpp>
+#include "FancyMeshPlugin.hpp"
 
 #include <string>
 #include <vector>

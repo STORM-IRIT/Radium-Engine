@@ -3,6 +3,8 @@
 #include <Core/CoreMacros.hpp>
 
 #include <QTimer>
+#include <QDir>
+#include <QPluginLoader>
 
 #include <Core/Log/Log.hpp>
 #include <Core/String/StringUtils.hpp>
@@ -19,6 +21,8 @@
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/SystemDisplay/SystemDisplay.hpp>
 #include <MainApplication/Gui/MainWindow.hpp>
+
+#include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
 
 // Const parameters : TODO : make config / command line options
 
@@ -37,6 +41,25 @@ namespace Ra
         //, m_timerData(TIMER_AVERAGE)
     {
         // Boilerplate print.
+
+        std::string pluginsPath;
+        if ( argc > 1 )
+        {
+            for ( int i = 1; i < argc; ++i )
+            {
+                std::string arg( argv[i] );
+
+                if ( arg == "--pluginsPath" )
+                {
+                    pluginsPath = std::string( argv[i+1] );
+                    continue;
+                }
+            }
+        }
+        if ( pluginsPath.empty() )
+        {
+            pluginsPath = "../Plugins";
+        }
 
         LOG( logINFO ) << "*** Radium Engine Main App  ***";
         std::stringstream config;
@@ -90,6 +113,12 @@ namespace Ra
         // Create engine
         m_engine.reset(Engine::RadiumEngine::createInstance());
         m_engine->initialize();
+
+        // Load plugins
+        if ( !loadPlugins( pluginsPath ) )
+        {
+            LOG( logERROR ) << "An error occured while trying to load plugins.";
+        }
 
         m_viewer = m_mainWindow->getViewer();
         CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
@@ -208,5 +237,47 @@ namespace Ra
         LOG( logINFO ) << "About to quit... Cleaning RadiumEngine memory";
         emit stopping();
         m_engine->cleanup();
+    }
+
+    bool MainApplication::loadPlugins( const std::string& pluginsPath )
+    {
+        QDir pluginsDir( qApp->applicationDirPath() );
+        pluginsDir.cd( pluginsPath.c_str() );
+
+        bool res = true;
+
+        foreach (QString filename, pluginsDir.entryList( QDir::Files ) )
+        {
+            QPluginLoader pluginLoader( pluginsDir.absoluteFilePath( filename ) );
+            LOG( logINFO ) << "Found plugin " << filename.toStdString();
+
+            QObject* plugin = pluginLoader.instance();
+            Plugins::RadiumPluginInterface* loadedPlugin;
+
+            if ( plugin )
+            {
+                loadedPlugin = qobject_cast<Plugins::RadiumPluginInterface*>( plugin );
+                if ( loadedPlugin )
+                {
+                    loadedPlugin->registerPlugin();
+                    loadedPlugin->setupInterface();
+                }
+                else
+                {
+                    LOG( logERROR ) << "Something went wrong while trying to cast plugin"
+                                    << filename.toStdString();
+                    res = false;
+                }
+            }
+            else
+            {
+                LOG( logERROR ) << "Something went wrong while trying to load plugin "
+                                << filename.toStdString() << " : "
+                                << pluginLoader.errorString().toStdString();
+                res = false;
+            }
+        }
+
+        return res;
     }
 }

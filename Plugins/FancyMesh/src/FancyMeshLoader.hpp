@@ -1,12 +1,12 @@
 #ifndef FANCYMESHPLUGIN_FANCYMESHLOADER_HPP
 #define FANCYMESHPLUGIN_FANCYMESHLOADER_HPP
 
-#include <Plugins/FancyMesh/FancyMeshPlugin.hpp>
+#include "FancyMeshPlugin.hpp"
 
 #include <string>
 #include <vector>
 
-#include <Plugins/FancyMesh/FancyMeshLoadingData.hpp>
+#include "FancyMeshLoadingData.hpp"
 
 typedef std::vector<FancyMeshPlugin::FancyComponentData,
         Ra::Core::AlignedAllocator<FancyMeshPlugin::FancyComponentData, 16>> DataVector;

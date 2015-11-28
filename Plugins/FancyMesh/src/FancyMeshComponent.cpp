@@ -1,4 +1,4 @@
-#include <Plugins/FancyMesh/FancyMeshComponent.hpp>
+#include "FancyMeshComponent.hpp"
 
 #include <Core/String/StringUtils.hpp>
 #include <Core/Mesh/MeshUtils.hpp>

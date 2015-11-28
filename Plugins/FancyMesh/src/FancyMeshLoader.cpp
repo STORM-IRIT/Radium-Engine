@@ -1,4 +1,6 @@
-#include <Plugins/FancyMesh/FancyMeshLoader.hpp>
+#include "FancyMeshLoader.hpp"
+
+#include <iostream>
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -19,7 +21,7 @@
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/SpotLight.hpp>
 #include <Engine/Renderer/Light/PointLight.hpp>
-#include <iostream>
+
 namespace FancyMeshPlugin
 {
     namespace
