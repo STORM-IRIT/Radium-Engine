@@ -16,9 +16,16 @@
 
 #include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
 
+namespace Ra
+{
+    namespace Engine
+    {
+        class RadiumEngine;
+    }
+}
+
 namespace FancyMeshPlugin
 {
-
     class FancyMeshPlugin : public QObject, Ra::Plugins::RadiumPluginInterface
     {
         Q_OBJECT
@@ -28,8 +35,8 @@ namespace FancyMeshPlugin
     public:
         virtual ~FancyMeshPlugin();
 
-        virtual void registerPlugin();
-        virtual void setupInterface();
+        virtual void registerPlugin( Ra::Engine::RadiumEngine* engine ) override;
+        virtual void setupInterface() override;
     };
 
 } // namespace

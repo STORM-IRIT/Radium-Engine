@@ -1,8 +1,15 @@
 #ifndef RADIUM_RADIUMPLUGININTERFACE_HPP
 #define RADIUM_RADIUMPLUGININTERFACE_HPP
 
+class QWidget;
+
 namespace Ra
 {
+    namespace Engine
+    {
+        class RadiumEngine;
+    }
+
     namespace Plugins
     {
         class RadiumPluginInterface
@@ -10,8 +17,8 @@ namespace Ra
         public:
             virtual ~RadiumPluginInterface() {}
 
-            virtual void registerPlugin( /* engine */ ) = 0;
-            virtual void setupInterface( /* widget tab, actions */ ) = 0;
+            virtual void registerPlugin( Engine::RadiumEngine* engine ) = 0;
+            virtual void setupInterface( QWidget*  ) = 0;
         };
     }
 }

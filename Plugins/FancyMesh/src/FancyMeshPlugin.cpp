@@ -1,6 +1,9 @@
 #include "FancyMeshPlugin.hpp"
 
 #include <Core/Log/Log.hpp>
+#include <Engine/RadiumEngine.hpp>
+
+#include "FancyMeshSystem.hpp"
 
 namespace FancyMeshPlugin
 {
@@ -9,8 +12,10 @@ namespace FancyMeshPlugin
     {
     }
 
-    void FancyMeshPlugin::registerPlugin()
+    void FancyMeshPlugin::registerPlugin( Ra::Engine::RadiumEngine* engine )
     {
+        FancyMeshSystem* system = new FancyMeshSystem;
+        engine->registerSystem( "FancyMeshSystem", system );
         LOG( logINFO ) << "Hello from registerPlugin()";
     }
 

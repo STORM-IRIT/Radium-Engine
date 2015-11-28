@@ -112,6 +112,7 @@ namespace Ra
 //					system.second->handleFileLoading(entity, filename);
 //	            }
 				
+                // FIXME(Charly): We do not want this hard coded system name
 				getSystem("FancyMeshSystem")->handleFileLoading(entity, filename);
 				
 				return true;

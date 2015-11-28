@@ -259,7 +259,7 @@ namespace Ra
                 loadedPlugin = qobject_cast<Plugins::RadiumPluginInterface*>( plugin );
                 if ( loadedPlugin )
                 {
-                    loadedPlugin->registerPlugin();
+                    loadedPlugin->registerPlugin( m_engine.get() );
                     loadedPlugin->setupInterface();
                 }
                 else
