@@ -28,6 +28,14 @@ namespace Ra
 
 namespace Ra
 {
+    namespace Plugins
+    {
+        class RadiumPluginInterface;
+    }
+}
+
+namespace Ra
+{
     namespace Gui
     {
 
@@ -48,6 +56,8 @@ namespace Ra
             inline const std::vector<Core::MouseEvent>& getMouseEvents() const;
 
             inline void flushEvents();
+
+            void updateUi( Plugins::RadiumPluginInterface* plugin );
 
         private slots:
             void loadFile();

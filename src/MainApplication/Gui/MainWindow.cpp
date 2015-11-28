@@ -14,6 +14,7 @@
 #include <MainApplication/Gui/EntityTreeModel.hpp>
 #include <MainApplication/Gui/EntityTreeItem.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
+#include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
 #include <assimp/Importer.hpp>
 
 namespace Ra
@@ -575,6 +576,21 @@ namespace Ra
         }
 
         ro->getRenderTechnique()->changeShader( config );
+    }
+
+    void Gui::MainWindow::updateUi( Plugins::RadiumPluginInterface *plugin )
+    {
+        QString tabName, menuName;
+
+        if ( plugin->doAddMenu( menuName ) )
+        {
+            // Add menu
+        }
+
+        if ( plugin->doAddWidget( tabName ) )
+        {
+            tabWidget->addTab( plugin->getWidget(), tabName );
+        }
     }
 
 } // namespace Ra

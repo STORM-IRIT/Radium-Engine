@@ -36,7 +36,14 @@ namespace FancyMeshPlugin
         virtual ~FancyMeshPlugin();
 
         virtual void registerPlugin( Ra::Engine::RadiumEngine* engine ) override;
-        virtual void setupInterface() override;
+
+        virtual bool doAddWidget( QString& name ) override;
+        virtual QWidget* getWidget() override;
+
+        virtual bool doAddMenu( QString& name ) override;
+
+    private:
+
     };
 
 } // namespace

@@ -1,5 +1,7 @@
 #include "FancyMeshPlugin.hpp"
 
+#include <QWidget>
+
 #include <Core/Log/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
 
@@ -16,12 +18,22 @@ namespace FancyMeshPlugin
     {
         FancyMeshSystem* system = new FancyMeshSystem;
         engine->registerSystem( "FancyMeshSystem", system );
-        LOG( logINFO ) << "Hello from registerPlugin()";
     }
 
-    void FancyMeshPlugin::setupInterface()
+    bool FancyMeshPlugin::doAddWidget( QString &name )
     {
-        LOG( logINFO ) << "Hello from setupInterface()";
+        name = "Fancy Mesh";
+        return true;
     }
 
+    QWidget* FancyMeshPlugin::getWidget()
+    {
+        return new QWidget();
+    }
+
+    bool FancyMeshPlugin::doAddMenu( QString &name )
+    {
+        name = "Fancy Mesh";
+        return true;
+    }
 }

@@ -260,7 +260,7 @@ namespace Ra
                 if ( loadedPlugin )
                 {
                     loadedPlugin->registerPlugin( m_engine.get() );
-                    loadedPlugin->setupInterface();
+                    m_mainWindow->updateUi( loadedPlugin );
                 }
                 else
                 {
