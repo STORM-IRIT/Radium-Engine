@@ -7,6 +7,7 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
+#include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
 namespace FancyMeshPlugin
 {
@@ -112,6 +113,16 @@ namespace FancyMeshPlugin
             m_mesh.m_triangles[i] = Ra::Core::Triangle(meshData.indices[i * 3], meshData.indices[i * 3 + 1], meshData.indices[i * 3 + 2]);
 
         renderObject->setRenderTechnique( data.renderTechnique );
+
+        // Create aabb and display it
+        Ra::Core::Vector3 bmin = data.mesh.positions.getMap().rowwise().minCoeff().head<3>();
+        Ra::Core::Vector3 bmax = data.mesh.positions.getMap().rowwise().maxCoeff().head<3>();
+
+        Ra::Core::Aabb aabb( bmin, bmax );
+
+        m_aabbIndex = addRenderObject(
+                    Ra::Engine::DrawPrimitives::AABB(
+                        this, aabb, Ra::Core::Color( 1, 1, 0, 1 ) ) );
     }
     
     void FancyMeshComponent::setLoadingInfo(MeshLoadingInfo info)

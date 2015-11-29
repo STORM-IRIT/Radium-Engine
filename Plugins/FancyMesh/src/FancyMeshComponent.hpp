@@ -50,6 +50,7 @@ namespace FancyMeshPlugin
     private:
         MeshLoadingInfo m_loadingInfo;
         Ra::Core::Index m_meshIndex;
+        Ra::Core::Index m_aabbIndex;
         Ra::Core::TriangleMesh m_mesh;
     };
 
