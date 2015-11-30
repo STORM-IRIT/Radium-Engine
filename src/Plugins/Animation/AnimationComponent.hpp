@@ -42,6 +42,10 @@ public:
     ANIM_PLUGIN_API Ra::Core::Animation::Pose getRefPose() const;
 
 protected:
+    // debug function
+    void printSkeleton(const Ra::Core::Animation::Skeleton& skeleton);
+
+protected:
     Ra::Core::Animation::Skeleton m_skel;
     Ra::Core::Animation::RefPose m_refPose; // Ref pose in model space.
     std::vector<Ra::Core::Animation::Animation> m_animations;

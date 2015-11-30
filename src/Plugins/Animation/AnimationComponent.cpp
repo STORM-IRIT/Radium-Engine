@@ -134,6 +134,33 @@ namespace AnimationPlugin
         }
     }
 
+    void AnimationComponent::printSkeleton(const Ra::Core::Animation::Skeleton& skeleton)
+    {
+        std::deque<int> queue;
+        std::deque<int> levels;
+
+        queue.push_back(0);
+        levels.push_back(0);
+        while (!queue.empty())
+        {
+            int i = queue.front();
+            queue.pop_front();
+            int level = levels.front();
+            levels.pop_front();
+            std::cout<<i<<" "<<skeleton.getLabel(i)<<"\t";
+            for(auto c : skeleton.m_graph.m_child[i] )
+            {
+                queue.push_back(c);
+                levels.push_back(level+1);
+            }
+
+            if( levels.front() != level)
+            {
+                std::cout<<std::endl;
+            }
+        }
+    }
+
     void AnimationComponent::handleLoading(const AnimationLoader::AnimationData& data)
     {
         LOG( logDEBUG ) << "Animation component: loading a skeleton";
@@ -153,6 +180,8 @@ namespace AnimationPlugin
             for (int i = 0; i < skeleton.m_graph.size(); i++)
                 skeleton.setLabel(i, m_name + std::string("Bone_") + std::to_string(i));
         }
+
+        printSkeleton(skeleton);
 
         set(skeleton);
 
