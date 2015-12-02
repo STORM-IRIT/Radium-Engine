@@ -12,21 +12,24 @@
 #include <Plugins/Animation/AnimationComponent.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
 
+//#define K_VERSION
+
 namespace AnimationPlugin
 {
 class SkeletonBoneRenderObject : public Ra::Engine::RenderObject
 {
 public:
-    SkeletonBoneRenderObject(const std::string& name, AnimationComponent* comp, Ra::Core::Edge edge, Ra::Engine::RenderObjectManager* roMgr);
-	void update(); // Update local transform of the associated render object
-    
-	static Ra::Core::TriangleMesh makeBoneShape();
+    SkeletonBoneRenderObject(const std::string& name, AnimationComponent* comp, uint id, Ra::Engine::RenderObjectManager* roMgr);
+
+    void update(); // Update local transform of the associated render object
+
+    static Ra::Core::TriangleMesh makeBoneShape();
 
     void updateLocalTransform(Ra::Engine::RenderObject *ro);
 
 private:
     const Ra::Core::Animation::Skeleton& m_skel;
-    Ra::Core::Edge m_edge;
+    uint m_id;
     std::unique_ptr<Ra::Engine::RenderTechnique> m_renderParams;
     std::unique_ptr<Ra::Engine::Material> m_material;
     Ra::Engine::RenderObjectManager* m_roMgr;

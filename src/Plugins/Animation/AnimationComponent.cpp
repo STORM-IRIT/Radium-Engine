@@ -6,17 +6,21 @@
 #include <Core/Utils/Graph/AdjacencyListOperation.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 
+#include <Core/Animation/Handle/SkeletonUtils.hpp>
+
 namespace AnimationPlugin
 {
     void AnimationComponent::initialize()
     {
-        auto edgeList = Ra::Core::Graph::extractEdgeList( m_skel.m_graph );
-        for( auto edge : edgeList )
-        {
-            SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject(m_skel.getName() + " bone " + std::to_string(edge(0)), this, edge, getRoMgr());
-            m_boneDrawables.push_back(boneRenderObject);
-
-            renderObjects.push_back( boneRenderObject->idx );
+        Ra::Core::Animation::SkeletonUtils::to_string( m_skel );
+        for( uint i = 0; i < m_skel.size(); ++i ) {
+            if( !m_skel.m_graph.isLeaf( i ) ) {
+                SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject( m_skel.getLabel( i ), this, i, getRoMgr());
+                m_boneDrawables.push_back(boneRenderObject);
+                renderObjects.push_back( boneRenderObject->idx );
+            } else {
+                LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed.";
+            }
         }
     }
 

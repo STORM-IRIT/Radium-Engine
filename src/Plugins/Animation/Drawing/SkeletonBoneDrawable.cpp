@@ -2,11 +2,13 @@
 
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
+#include <Core/Animation/Handle/SkeletonUtils.hpp>
+
 namespace AnimationPlugin
 {
 
-    SkeletonBoneRenderObject::SkeletonBoneRenderObject(const std::string& name, AnimationComponent* comp, Ra::Core::Edge edge, Ra::Engine::RenderObjectManager* roMgr)
-            : RenderObject(name, comp), m_skel(comp->getSkeleton()), m_edge(edge), m_roMgr(roMgr)
+    SkeletonBoneRenderObject::SkeletonBoneRenderObject(const std::string& name, AnimationComponent* comp, uint id, Ra::Engine::RenderObjectManager* roMgr)
+            : RenderObject(name, comp), m_skel( comp->getSkeleton() ), m_id( id ), m_roMgr( roMgr )
     {
         // TODO ( Val) common material / shader config...
 
@@ -46,15 +48,16 @@ namespace AnimationPlugin
 
     void SkeletonBoneRenderObject::updateLocalTransform(Ra::Engine::RenderObject* ro)
     {
-        Ra::Core::Vector3 start = m_skel.getTransform( m_edge( 0 ), Ra::Core::Animation::Handle::SpaceType::MODEL ).translation();
-        Ra::Core::Vector3 end = m_skel.getTransform( m_edge( 1 ), Ra::Core::Animation::Handle::SpaceType::MODEL ).translation();
+        Ra::Core::Vector3 start;
+        Ra::Core::Vector3 end;
+        Ra::Core::Animation::SkeletonUtils::getBonePoints( m_skel, m_id, start, end );
 
         Ra::Core::Transform scale = Ra::Core::Transform::Identity();
         scale.scale((end - start).norm());
 
         Ra::Core::Quaternion rot = Ra::Core::Quaternion::FromTwoVectors(Ra::Core::Vector3::UnitZ(), end - start);
 
-        Ra::Core::Transform boneTransform = m_skel.getTransform( m_edge( 0 ), Ra::Core::Animation::Handle::SpaceType::MODEL );
+        Ra::Core::Transform boneTransform = m_skel.getTransform( m_id, Ra::Core::Animation::Handle::SpaceType::MODEL );
         Ra::Core::Matrix3 rotation = rot.toRotationMatrix();
         Ra::Core::Transform drawTransform;
         drawTransform.linear() =  rotation;

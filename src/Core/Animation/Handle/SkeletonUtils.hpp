@@ -4,6 +4,9 @@
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
 
+#include <Core/Log/Log.hpp>
+#include <iostream>
+
 namespace Ra {
 namespace Core {
 namespace Animation
@@ -54,6 +57,38 @@ namespace Animation
             const Scalar t = Math::clamp(op.dot(dir) / length_sq, ( Scalar )0.0, ( Scalar )1.0 );
             return start + (t * dir);
         }
+
+        inline void to_string( const Skeleton& skeleton ) {
+            std::cout << "Printing Skeleton Hierarchy..." << std::endl;
+
+            for( uint i = 0; i < skeleton.size(); ++i ) {
+                const uint        id    = i;
+                const std::string name  = skeleton.getLabel( i );
+                const std::string type  = skeleton.m_graph.isRoot( i )   ? "ROOT"   :
+                                          skeleton.m_graph.isJoint( i )  ? "JOINT"  :
+                                          skeleton.m_graph.isBranch( i ) ? "BRANCH" :
+                                          skeleton.m_graph.isLeaf( i )   ? "LEAF"   : "UNKNOWN";
+                const int         pid   = skeleton.m_graph.m_parent.at( i );
+                const std::string pname = ( pid == -1 ) ? "" : ( "(" + std::to_string( pid ) + ") " + skeleton.getLabel( pid ) );
+
+
+                std::cout << "Bone " << id << "\t: " << name << std::endl;
+                std::cout << "Type\t: " << type << std::endl;
+                std::cout << "Parent\t: " << pname << std::endl;
+                std::cout << "Children#\t: " << skeleton.m_graph.m_child.at( i ).size() << std::endl;
+                std::cout << "Children\t: ";
+                for( uint j = 0; j < skeleton.m_graph.m_child.at( i ).size(); ++j ) {
+                    const uint        cid   = skeleton.m_graph.m_child.at( i ).at( j );
+                    const std::string cname = skeleton.getLabel( cid );
+                    std::cout << "(" << cid << ") " << cname << " | ";
+                }
+                std::cout << " " << std::endl;
+                std::cout << " " << std::endl;
+            }
+
+            std::cout << "End of Skeleton Hierarchy" << std::endl;
+        }
+
     }
 }
 }
