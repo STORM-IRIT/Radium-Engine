@@ -26,15 +26,13 @@ namespace AnimationPlugin
 
     bool AnimationComponent::picked(uint drawableIdx) const
     {
-        uint i = 0;
-        for (auto dr: m_boneDrawables)
+        for (const auto& dr: m_boneDrawables)
         {
-            if ( dr->idx == static_cast<int>( drawableIdx ) )
+            if ( dr->idx == int( drawableIdx ) )
             {
-                m_selectedBone = i;
+                m_selectedBone = dr->getBoneIndex();
                 return true;
             }
-            ++i;
         }
         return false;
     }

@@ -25,6 +25,8 @@ public:
 
     static Ra::Core::TriangleMesh makeBoneShape();
 
+    uint getBoneIndex() const { return m_id;}
+
     void updateLocalTransform(Ra::Engine::RenderObject *ro);
 
 private:
