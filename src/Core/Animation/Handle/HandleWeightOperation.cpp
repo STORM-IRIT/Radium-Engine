@@ -55,18 +55,60 @@ void getMaxWeightIndex( const WeightMatrix& weights, std::vector< uint >& handle
 
 
 
-void checkWeightMatrix( const WeightMatrix& matrix ) {
-    LOG( logDEBUG ) << "Checking the matrix...";
+void checkWeightMatrix( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT ) {
+    if( check_NAN( matrix, FAIL_ON_ASSERT ) ) {
+        LOG( logDEBUG ) << "Matrix is good.";
+    } else {
+        LOG( logDEBUG ) << "Matrix is not good.";
+    }
+
+    if( check_NoWeightVertex( matrix, FAIL_ON_ASSERT ) ) {
+        LOG( logDEBUG ) << "Matrix is good.";
+    } else {
+        LOG( logDEBUG ) << "Matrix is not good.";
+    }
+}
+
+
+
+bool RA_CORE_API check_NAN( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT ) {
+    bool status = true;
+    LOG( logDEBUG ) << "Searching for nans in the matrix...";
     for( uint k = 0; k < matrix.outerSize(); ++k ) {
         for( WeightMatrix::InnerIterator it( matrix, k ); it; ++it ) {
             const uint        i     = it.row();
             const uint        j     = it.col();
             const Scalar      value = it.value();
             const std::string text  = "Element (" + std::to_string( i ) + "," + std::to_string(j) + ") is nan.";
-            CORE_ASSERT( !isnan( value ), text.c_str() );
+            if( FAIL_ON_ASSERT ) {
+                CORE_ASSERT( !isnan( value ), text.c_str() );
+            } else {
+                if( isnan( value ) ) {
+                    LOG( logDEBUG ) << text;
+                    status = false;
+                }
+            }
         }
     }
-    LOG( logDEBUG ) << "Matrix is good.";
+    return status;
+}
+
+bool RA_CORE_API check_NoWeightVertex( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT ) {
+    bool status = true;
+    LOG( logDEBUG ) << "Searching for empty rows in the matrix...";
+    for( uint i = 0; i < matrix.rows(); ++i ) {
+        Sparse row = matrix.row( i );
+        if( row.nonZeros() == 0 ) {
+            const std::string text = "Vertex " + std::to_string( i ) + " has no weights.";
+            if( FAIL_ON_ASSERT ) {
+                CORE_ASSERT( false, text.c_str() );
+            } else {
+                status = false;
+                LOG( logDEBUG ) << text;
+            }
+        }
+    }
+    return status;
 }
 
 

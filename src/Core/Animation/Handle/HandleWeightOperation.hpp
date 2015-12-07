@@ -34,7 +34,13 @@ void RA_CORE_API getMaxWeightIndex( const WeightMatrix& weights, std::vector< ui
 
 
 
-void RA_CORE_API checkWeightMatrix( const WeightMatrix& matrix );
+void RA_CORE_API checkWeightMatrix( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT = false );
+
+bool RA_CORE_API check_NAN( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT = false );
+
+bool RA_CORE_API check_NoWeightVertex( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT = false );
+
+
 
 } // namespace Animation
 } // Namespace Core

@@ -313,7 +313,7 @@ namespace AnimationPlugin
             const uint w_rows = weights.rows();
             const uint w_cols = weights.cols();
 
-            Ra::Core::Animation::checkWeightMatrix( weights );
+            Ra::Core::Animation::checkWeightMatrix( weights, false );
 
             if( g_size > w_cols ) {
                 LOG( logDEBUG ) << "Adding columns to the matrix...";
@@ -328,11 +328,15 @@ namespace AnimationPlugin
                     table[i] = j;
                 }
                 for( const auto& it : table ) {
-                    newWeights.col( it.second ) = weights.col( it.first );
+                    for( Ra::Core::Animation::WeightMatrix::InnerIterator w_it( weights, it.first ); w_it; ++w_it ) {
+                        const uint   i = w_it.row();
+                        const Scalar w = w_it.value();
+                        newWeights.coeffRef( i, it.second ) = w;
+                    }
                 }
-                //weights.swap( newWeights );
-                std::swap( weights, newWeights );
-                Ra::Core::Animation::checkWeightMatrix( weights );
+                weights.swap( newWeights );
+                //std::swap( weights, newWeights );
+                Ra::Core::Animation::checkWeightMatrix( weights, false );
             }
 
 
