@@ -14,6 +14,8 @@
 #include <Core/Animation/Pose/PoseOperation.hpp>
 #include <Core/Mesh/MeshTypes.hpp>
 
+#include <Core/Animation/Handle/HandleWeightOperation.hpp>
+
 namespace AnimationPlugin
 {
     namespace AnimationLoader
@@ -310,7 +312,11 @@ namespace AnimationPlugin
             const uint g_size = graph.size();
             const uint w_rows = weights.rows();
             const uint w_cols = weights.cols();
+
+            Ra::Core::Animation::checkWeightMatrix( weights );
+
             if( g_size > w_cols ) {
+                LOG( logDEBUG ) << "Adding columns to the matrix...";
                 Ra::Core::Animation::WeightMatrix newWeights( w_rows, g_size );
                 newWeights.reserve( weights.size() );
                 std::map< uint, uint > table;
@@ -324,9 +330,12 @@ namespace AnimationPlugin
                 for( const auto& it : table ) {
                     newWeights.col( it.second ) = weights.col( it.first );
                 }
-                weights.swap( newWeights );
+                //weights.swap( newWeights );
+                std::swap( weights, newWeights );
+                Ra::Core::Animation::checkWeightMatrix( weights );
             }
-            return;
+
+
         }
     }
 }
