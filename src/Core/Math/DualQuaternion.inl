@@ -49,7 +49,8 @@ namespace Ra
 
         inline void DualQuaternion::normalize()
         {
-            const float norm = m_q0.norm();
+            const Scalar norm = m_q0.norm();
+            CORE_ASSERT(norm != 0, "Normalizing a null quaternion.");
             m_q0 = m_q0 / norm;
             m_qe = m_qe / norm;
         }
