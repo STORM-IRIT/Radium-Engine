@@ -1,6 +1,7 @@
 #include <Core/Animation/Handle/HandleWeightOperation.hpp>
 
 #include <utility>
+#include <Core/Log/Log.hpp>
 
 namespace Ra {
 namespace Core {
@@ -19,6 +20,8 @@ WeightMatrix extractWeightMatrix( const MeshWeight& weight, const uint weight_si
     return W;
 }
 
+
+
 MeshWeight extractMeshWeight( const WeightMatrix& matrix ) {
     MeshWeight W( matrix.rows() );
     for( int i = 0; i < matrix.rows(); ++i ) {
@@ -32,20 +35,41 @@ MeshWeight extractMeshWeight( const WeightMatrix& matrix ) {
     return W;
 }
 
-int getMaxWeightIndex(const WeightMatrix& weights, int vertexId)
-{
-    int maxId = -1;
-    Eigen::Matrix< Scalar, 1, Eigen::Dynamic > vec = weights.row(vertexId);
-    vec.maxCoeff(&maxId);
+
+
+uint getMaxWeightIndex( const WeightMatrix& weights, const uint vertexID ) {
+    uint maxId = uint( -1 );
+    VectorN row = weights.row( vertexID );
+    row.maxCoeff(&maxId);
     return maxId;
 }
 
-void getMaxWeightIndex(const WeightMatrix& weights, std::vector<uint>& boneIds)
-{
-    boneIds.resize(weights.rows());
-    for (int i = 0; i < weights.rows(); i++)
-        boneIds[i] = getMaxWeightIndex(weights, i);
+
+
+void getMaxWeightIndex( const WeightMatrix& weights, std::vector< uint >& handleID ) {
+    handleID.resize( weights.rows() );
+    for( uint i = 0; i < weights.rows(); ++i ) {
+        handleID[i] = getMaxWeightIndex( weights, i );
+    }
 }
+
+
+
+void checkWeightMatrix( const WeightMatrix& matrix ) {
+    LOG( logDEBUG ) << "Checking the matrix...";
+    for( uint k = 0; k < matrix.outerSize(); ++k ) {
+        for( WeightMatrix::InnerIterator it( matrix, k ); it; ++it ) {
+            const uint        i     = it.row();
+            const uint        j     = it.col();
+            const Scalar      value = it.value();
+            const std::string text  = "Element (" + std::to_string( i ) + "," + std::to_string(j) + ") is nan.";
+            CORE_ASSERT( !isnan( value ), text.c_str() );
+        }
+    }
+    LOG( logDEBUG ) << "Matrix is good.";
+}
+
+
 
 } // namespace Animation
 } // Namespace Core

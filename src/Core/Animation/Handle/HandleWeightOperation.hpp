@@ -19,9 +19,22 @@ WeightMatrix RA_CORE_API extractWeightMatrix( const MeshWeight& weight, const ui
 */
 MeshWeight RA_CORE_API extractMeshWeight( const WeightMatrix& matrix );
 
-int RA_CORE_API getMaxWeightIndex(const WeightMatrix& weights, int vertexId);
 
-void RA_CORE_API getMaxWeightIndex(const WeightMatrix& weights, std::vector<uint>& boneIds);
+/*
+* Return the index of the weight that influence the most the position of vertex at vertexId.
+*/
+uint RA_CORE_API getMaxWeightIndex( const WeightMatrix& weights, const uint vertexID );
+
+
+
+/*
+* Return the vector containing the index of the handle influencing the most a vertex.
+*/
+void RA_CORE_API getMaxWeightIndex( const WeightMatrix& weights, std::vector< uint >& handleID );
+
+
+
+void RA_CORE_API checkWeightMatrix( const WeightMatrix& matrix );
 
 } // namespace Animation
 } // Namespace Core
