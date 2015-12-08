@@ -28,7 +28,7 @@ namespace Ra
 
         setupUi( this );
 
-        setWindowIcon( QPixmap( "../Assets/Images/RadiumIcon.png" ) );
+        setWindowIcon( QPixmap( ":/Assets/Images/RadiumIcon.png" ) );
         setWindowTitle( QString( "Radium Engine" ) );
 
         QStringList headers;

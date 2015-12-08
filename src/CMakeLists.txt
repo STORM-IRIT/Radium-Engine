@@ -146,9 +146,12 @@ file(GLOB_RECURSE app_inlines MainApplication/*.inl)
 file(GLOB_RECURSE app_uis     MainApplication/*.ui)
 qt5_wrap_ui(app_uis_moc ${app_uis})
 
+file(GLOB resources ${CMAKE_SOURCE_DIR}/*.qrc)
+
 # Qt5
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 # Fixme : Really usefull ?
 add_definitions(${Qt5Core_DEFINITIONS})
@@ -167,6 +170,7 @@ add_executable(
     ${app_headers}
     ${app_inlines}
     ${app_uis_moc}
+    ${resources}
 )
 
 target_compile_definitions(${app_target} PRIVATE "-DRA_CORE_IMPORTS")
