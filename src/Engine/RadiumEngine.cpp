@@ -20,9 +20,10 @@
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Entity/EntityManager.hpp>
 
+#include <Engine/Assets/FileData.hpp>
+
 #include <Engine/Parser/Parser.hpp>
 #include <Engine/Parser/LoadedData.hpp>
-
 
 #include <Engine/SystemDisplay/SystemDisplay.hpp>
 
@@ -102,7 +103,16 @@ namespace Ra
 		}
 
 		bool RadiumEngine::loadFile( const std::string& filename )
-		{			
+        {
+            Asset::FileData fileData( filename, true );
+
+            std::string entityName = Core::StringUtils::getBaseName( filename, false );
+
+            Entity* entity = m_entityManager->getOrCreateEntity( entityName );
+            getSystem("FancyMeshSystem")->handleAssetLoading( entity, &fileData );
+
+
+#if 0
 			if (Ra::Core::StringUtils::getFileExt(filename) != "json")
 			{
 				Entity* entity = m_entityManager->createEntity();
@@ -153,6 +163,7 @@ namespace Ra
 					}
 				}
 			}
+#endif
 
 			return true;
 		}

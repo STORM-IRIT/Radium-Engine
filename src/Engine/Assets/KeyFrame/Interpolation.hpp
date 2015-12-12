@@ -1,3 +1,6 @@
+// FIXME(Charly): Needs to be fixed to be compiled
+#if 0
+
 #ifndef RADIUMENGINE_INTERPOLATION_HPP
 #define RADIUMENGINE_INTERPOLATION_HPP
 
@@ -27,3 +30,5 @@ void interpolate( const Core::Transform& T0, const Core::Transform& T1, const Sc
 } // namespace Ra
 
 #endif // RADIUMENGINE_INTERPOLATION_HPP
+
+#endif

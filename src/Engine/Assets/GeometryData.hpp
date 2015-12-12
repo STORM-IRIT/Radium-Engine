@@ -3,9 +3,12 @@
 
 #include <string>
 #include <vector>
+
 #include <Core/Log/Log.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Debug/Loading/AssimpGeometryDataLoader.hpp>
+
+#include <Engine/Assets/AssimpGeometryDataLoader.hpp>
+#include <Engine/Assets/AssetData.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -44,19 +47,19 @@ struct MaterialData {
     }
 
     inline bool hasSpecularTexture() const {
-        return ( m_texDiffuse != "" );
+        return ( m_texSpecular != "" );
     }
 
     inline bool hasShininessTexture() const {
-        return ( m_texDiffuse != "" );
+        return ( m_texShininess != "" );
     }
 
     inline bool hasNormalTexture() const {
-        return ( m_texDiffuse != "" );
+        return ( m_texNormal != "" );
     }
 
     inline bool hasOpacityTexture() const {
-        return ( m_texDiffuse != "" );
+        return ( m_texOpacity != "" );
     }
 
     /// VARIABLE
@@ -73,9 +76,8 @@ struct MaterialData {
     bool        m_hasShininess;
 };
 
-
-
-class GeometryData {
+class GeometryData : public AssetData
+{
 public:
     /// FRIEND
     friend class AssimpGeometryDataLoader;
@@ -94,26 +96,22 @@ public:
 
     /// CONSTRUCTOR
     GeometryData( const std::string&  name = "",
-                  const GeometryType& type = UNKNOWN ) :
-        m_name( name ),
-        m_type( type ),
-        m_frame( Core::Transform::Identity() ),
-        m_vertex(),
-        m_edge(),
-        m_face(),
-        m_polyhedron(),
-        m_normal(),
-        m_tangent(),
-        m_bitangent(),
-        m_texCoord(),
-        m_color(),
-        m_material(),
-        m_hasMaterial( false ) { }
-
-    /// NAME
-    inline std::string getName() const {
-        return m_name;
-    }
+                  const GeometryType& type = UNKNOWN )
+        : AssetData( name )
+        , m_type( type )
+        , m_frame( Core::Transform::Identity() )
+        , m_vertex()
+        , m_edge()
+        , m_faces()
+        , m_polyhedron()
+        , m_normal()
+        , m_tangent()
+        , m_bitangent()
+        , m_texCoord()
+        , m_color()
+        , m_material()
+        , m_hasMaterial( false )
+    { }
 
     /// TYPE
     inline GeometryType getType() const {
@@ -139,7 +137,7 @@ public:
     }
 
     inline std::vector< Core::VectorNi > getFaces() const {
-        return m_face;
+        return m_faces;
     }
 
     inline std::vector< Core::VectorNi > getPolyhedra() const {
@@ -158,7 +156,7 @@ public:
         return m_bitangent;
     }
 
-    inline std::vector< Core::Vector4 > getTextureCoordinates() const {
+    inline std::vector< Core::Vector4 > getTexCoords() const {
         return m_texCoord;
     }
 
@@ -172,31 +170,31 @@ public:
 
     /// QUERY
     inline bool isPointCloud() const {
-        return ( type == POINT_CLOUD );
+        return ( m_type == POINT_CLOUD );
     }
 
     inline bool isLineMesh() const {
-        return ( type == LINE_MESH );
+        return ( m_type == LINE_MESH );
     }
 
     inline bool isTriMesh() const {
-        return ( type == TRI_MESH );
+        return ( m_type == TRI_MESH );
     }
 
     inline bool isQuadMesh() const {
-        return ( type == QUAD_MESH );
+        return ( m_type == QUAD_MESH );
     }
 
     inline bool isPolyMesh() const {
-        return ( type == POLY_MESH );
+        return ( m_type == POLY_MESH );
     }
 
     inline bool isTetraMesh() const {
-        return ( type == TETRA_MESH );
+        return ( m_type == TETRA_MESH );
     }
 
     inline bool isHexMesh() const {
-        return ( type == HEX_MESH );
+        return ( m_type == HEX_MESH );
     }
 
     inline bool hasVertices() const {
@@ -208,7 +206,7 @@ public:
     }
 
     inline bool hasFaces() const {
-        return !m_face.empty();
+        return !m_faces.empty();
     }
 
     inline bool hasPolyhedra() const {
@@ -257,13 +255,51 @@ public:
         LOG( logDEBUG ) << " Type         : " << type;
         LOG( logDEBUG ) << " Vertex #     : " << m_vertex.size();
         LOG( logDEBUG ) << " Edge #       : " << m_edge.size();
-        LOG( logDEBUG ) << " Face #       : " << m_face.size();
-        LOG( logDEBUG ) << " Normal ?     : " << ( m_normal.empty()    ) ? "NO" : "YES";
-        LOG( logDEBUG ) << " Tangent ?    : " << ( m_tangent.empty()   ) ? "NO" : "YES";
-        LOG( logDEBUG ) << " Bitangent ?  : " << ( m_bitangent.empty() ) ? "NO" : "YES";
-        LOG( logDEBUG ) << " Tex.Coord. ? : " << ( m_texCoord.empty()  ) ? "NO" : "YES";
-        LOG( logDEBUG ) << " Color ?      : " << ( m_color.empty()     ) ? "NO" : "YES";
-        LOG( logDEBUG ) << " Material ?   : " << ( !m_hasMaterial      ) ? "NO" : "YES";
+        LOG( logDEBUG ) << " Face #       : " << m_faces.size();
+        LOG( logDEBUG ) << " Normal ?     : " << ( ( m_normal.empty()    ) ? "NO" : "YES" );
+        LOG( logDEBUG ) << " Tangent ?    : " << ( ( m_tangent.empty()   ) ? "NO" : "YES" );
+        LOG( logDEBUG ) << " Bitangent ?  : " << ( ( m_bitangent.empty() ) ? "NO" : "YES" );
+        LOG( logDEBUG ) << " Tex.Coord. ? : " << ( ( m_texCoord.empty()  ) ? "NO" : "YES" );
+        LOG( logDEBUG ) << " Color ?      : " << ( ( m_color.empty()     ) ? "NO" : "YES" );
+        LOG( logDEBUG ) << " Material ?   : " << ( ( !m_hasMaterial      ) ? "NO" : "YES" );
+
+        if ( m_hasMaterial )
+        {
+            std::string kd, ks, ns;
+
+            if ( m_material.hasDiffuse() )
+            {
+                Core::StringUtils::stringPrintf( kd, "%.3f %.3f %.3f %.3f",
+                                                 m_material.m_diffuse.x(),
+                                                 m_material.m_diffuse.y(),
+                                                 m_material.m_diffuse.z(),
+                                                 m_material.m_diffuse.w() );
+            }
+
+            if ( m_material.hasSpecular() )
+            {
+                Core::StringUtils::stringPrintf( ks, "%.3f %.3f %.3f %.3f",
+                                                 m_material.m_specular.x(),
+                                                 m_material.m_specular.y(),
+                                                 m_material.m_specular.z(),
+                                                 m_material.m_specular.w() );
+            }
+
+            if ( m_material.hasShininess() )
+            {
+                Core::StringUtils::stringPrintf( ns, "%.1f", m_material.m_shininess );
+            }
+
+            LOG( logDEBUG ) << "====== MATERIAL INFO ======";
+            LOG( logDEBUG ) << " Kd             : " << ( ( m_material.hasDiffuse() )          ? kd                        : "NO" );
+            LOG( logDEBUG ) << " Ks             : " << ( ( m_material.hasSpecular() )         ? ks                        : "NO" );
+            LOG( logDEBUG ) << " Ns             : " << ( ( m_material.hasShininess() )        ? ns                        : "NO" );
+            LOG( logDEBUG ) << " Kd Texture     : " << ( ( m_material.hasDiffuseTexture() )   ? m_material.m_texDiffuse   : "NO" );
+            LOG( logDEBUG ) << " Ks Texture     : " << ( ( m_material.hasSpecularTexture() )  ? m_material.m_texSpecular  : "NO" );
+            LOG( logDEBUG ) << " Ns Texture     : " << ( ( m_material.hasShininessTexture() ) ? m_material.m_texShininess : "NO" );
+            LOG( logDEBUG ) << " Normal Texture : " << ( ( m_material.hasNormalTexture() )    ? m_material.m_texNormal    : "NO" );
+            LOG( logDEBUG ) << " Alpha Texture  : " << ( ( m_material.hasOpacityTexture() )   ? m_material.m_texOpacity   : "NO" );
+        }
     }
 
 protected:
@@ -305,10 +341,10 @@ protected:
     /// FACE
     inline void setFaces( const std::vector< Core::VectorNi >& faceList ) {
         const uint size = faceList.size();
-        m_face.resize( size );
+        m_faces.resize( size );
 #pragma omp parallel for
         for( uint i = 0; i < size; ++i ) {
-            m_face[i] = faceList[i];
+            m_faces[i] = faceList[i];
         }
     }
 
@@ -375,6 +411,7 @@ protected:
     /// MATERIAL
     inline void setMaterial( const MaterialData& material ) {
         m_material = material;
+        m_hasMaterial = true;
     }
 
 protected:
@@ -385,7 +422,7 @@ protected:
 
     std::vector< Core::Vector3  > m_vertex;
     std::vector< Core::Vector2i > m_edge;
-    std::vector< Core::VectorNi > m_face;
+    std::vector< Core::VectorNi > m_faces;
     std::vector< Core::VectorNi > m_polyhedron;
     std::vector< Core::Vector3  > m_normal;
     std::vector< Core::Vector4  > m_tangent;

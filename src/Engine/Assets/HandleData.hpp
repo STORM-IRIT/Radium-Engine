@@ -6,7 +6,8 @@
 #include <vector>
 #include <Core/Log/Log.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Debug/Loading/AssimpHandleDataLoader.hpp>
+
+#include <Engine/Assets/AssimpHandleDataLoader.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -143,7 +144,7 @@ public:
         LOG( logDEBUG ) << " Element #       : " << m_component.size();
         LOG( logDEBUG ) << " Edge #          : " << m_edge.size();
         LOG( logDEBUG ) << " Face #          : " << m_face.size();
-        LOG( logDEBUG ) << " Need EndNodes ? : " << ( m_endNode ) ? "YES" : "NO";
+        LOG( logDEBUG ) << " Need EndNodes ? : " << ( ( m_endNode ) ? "YES" : "NO" );
     }
 
 protected:

@@ -1,8 +1,11 @@
+// FIXME(Charly): Needs to be fixed to be compiled
+#if 0
+
 #ifndef RADIUMENGINE_KEY_FRAME_HPP
 #define RADIUMENGINE_KEY_FRAME_HPP
 
 #include <map>
-#include <Core/Debug/Loading/KeyFrame/AnimationTime.hpp>
+#include <Engine/Assets/KeyFrame/AnimationTime.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -139,3 +142,5 @@ protected:
 } // namespace Ra
 
 #endif // RADIUMENGINE_KEY_FRAME_HPP
+
+#endif

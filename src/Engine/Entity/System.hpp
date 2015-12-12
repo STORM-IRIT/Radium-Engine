@@ -10,7 +10,8 @@
 #include <Core/Index/Index.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
-#include "Component.hpp"
+
+#include <Engine/Entity/Component.hpp>
 
 namespace Ra
 {
@@ -27,6 +28,11 @@ namespace Ra
         struct FrameInfo;
         class Component;
         class Entity;
+    }
+
+    namespace Asset
+    {
+        class FileData;
     }
 }
 
@@ -101,6 +107,8 @@ namespace Ra
 			
             virtual void handleDataLoading( Entity* entity, const std::string& rootFolder,
                                             const std::map<std::string, Core::Any>& data ) {}
+
+            virtual void handleAssetLoading( Entity* entity, const Asset::FileData* data ) {}
 
             /**
              * @brief Handle all the logic behind a component creation.

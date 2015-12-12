@@ -79,8 +79,34 @@ namespace Ra
             unsigned char* data = FreeImage_GetBits( dib );
 
             int bpp = FreeImage_GetBPP( dib );
-            int format = ( bpp == 24 ? GL_BGR : 0 ); // TODO Handle other formats
-            int internal = ( bpp == 24 ? GL_RGB : 0 ); // TODO Handle other formats
+            int format = 0, internal = 0;
+            switch ( bpp )
+            {
+                case 8:
+                {
+                    // FIXME(Charly): Debug this
+                    format = GL_R;
+                    internal = GL_R;
+                } break;
+
+                case 24:
+                {
+                    format = GL_BGR;
+                    internal = GL_RGB;
+                } break;
+
+                case 32:
+                {
+                    format = GL_BGRA;
+                    internal = GL_RGBA;
+                } break;
+
+                default:
+                {
+                    LOG( logERROR ) << "Unknow bytes per pixel format : " << bpp;
+                }
+            }
+
             int w = FreeImage_GetWidth( dib );
             int h = FreeImage_GetHeight( dib );
 

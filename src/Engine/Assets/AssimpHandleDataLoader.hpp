@@ -1,13 +1,18 @@
+// FIXME(Charly): Needs to be fixed to be compiled
+#if 0
 #ifndef RADIUMENGINE_ASSIMP_HANDLE_DATA_LOADER_HPP
 #define RADIUMENGINE_ASSIMP_HANDLE_DATA_LOADER_HPP
 
 #include <map>
 #include <set>
+
 #include <assimp/mesh.h>
+
 #include <Core/Log/Log.hpp>
-#include <Core/Debug/Loading/AssimpWrapper.hpp>
-#include <Core/Debug/Loading/DataLoader.hpp>
-#include <Core/Debug/Loading/HandleData.hpp>
+
+#include <Engine/Assets/AssimpWrapper.hpp>
+#include <Engine/Assets/DataLoader.hpp>
+#include <Engine/Assets/HandleData.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -217,3 +222,4 @@ protected:
 } // namespace Ra
 
 #endif // RADIUMENGINE_ASSIMP_HANDLE_DATA_LOADER_HPP
+#endif

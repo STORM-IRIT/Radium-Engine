@@ -63,8 +63,9 @@ namespace Ra
             void setRenderMode( GLenum mode );
 
             void loadGeometry( const Core::TriangleMesh& mesh);
-            void loadGeometry( const Core::Vector3Array& positions, const std::vector <uint>& indices);
-            void loadGeometry( const Core::Vector4Array& positions, const std::vector <uint>& indices );
+            void loadGeometry( const Core::Vector3Array& positions, const std::vector<uint>& indices);
+            void loadGeometry( const Core::Vector4Array& positions, const std::vector<uint>& indices );
+
             void addData( const DataType& type, const Core::Vector3Array& data);
             void addData( const DataType& type, const Core::Vector4Array& data);
 

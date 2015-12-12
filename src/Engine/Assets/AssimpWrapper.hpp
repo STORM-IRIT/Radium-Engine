@@ -11,27 +11,29 @@
 namespace Ra {
 namespace Asset {
 
-Core::Vector3 assimpToCore( const aiVector3t< Scalar >& v ) {
-    return Core::Vector3( v.x, v.y, v.y );
+inline Core::Vector3 assimpToCore( const aiVector3t< Scalar >& v ) {
+    return Core::Vector3( v.x, v.y, v.z );
 }
 
-Core::Quaternion assimpToCore( const aiQuaterniont< Scalar >& q ) {
+inline Core::Quaternion assimpToCore( const aiQuaterniont< Scalar >& q ) {
     return Core::Quaternion( q.w, q.x, q.y, q.z );
 }
 
-Core::Transform assimpToCore( const aiMatrix4x4t< Scalar >& M ) {
-    Core::Transform m( Core::Transform::Identity() );
-    for( uint i = 0; i < 4; ++i ) {
-        for( uint j = 0; j < 4; ++j ) {
-            m[i][j] = M[i][j];
+inline Core::Transform assimpToCore( const aiMatrix4x4t< Scalar >& M ) {
+    Core::Matrix4 m( Core::Matrix4::Identity() );
+    for( uint i = 0; i < 4; ++i )
+    {
+        for( uint j = 0; j < 4; ++j )
+        {
+            m( i, j ) = M[i][j];
         }
     }
-    return m;
+    return Core::Transform( m );
 }
 
-Core::Transform assimpToCore( const aiVector3t< Scalar >&    T,
-                              const aiQuaterniont< Scalar >& R,
-                              const aiVector3t< Scalar >&    S ) {
+inline Core::Transform assimpToCore( const aiVector3t< Scalar >&    T,
+                                     const aiQuaterniont< Scalar >& R,
+                                     const aiVector3t< Scalar >&    S ) {
     Core::Vector3    t = assimpToCore( T );
     Core::Quaternion r = assimpToCore( R );
     Core::Vector3    s = assimpToCore( S );
@@ -40,20 +42,23 @@ Core::Transform assimpToCore( const aiVector3t< Scalar >&    T,
     return M;
 }
 
-Core::Color assimpToCore( const aiColor4t< Scalar >& c ) {
+inline Core::Color assimpToCore( const aiColor4t< Scalar >& c ) {
 //Core::Color assimpToCore( const aiColor4D& c ) {
     return Core::Color( c.r, c.g, c.b, c.a );
 }
 
-std::string assimpToCore( const aiString& string ) {
+inline std::string assimpToCore( const aiString& string ) {
     return std::string( string.C_Str() );
 }
 
-Core::VectorNi assimpToCore( uint* index, const uint size ) {
+inline Core::VectorNi assimpToCore( uint* index, const uint size )
+{
     Core::VectorNi v( size );
     for( uint i = 0; i < size; ++i ) {
         v[i] = index[i];
     }
+
+    return v;
 }
 
 } // namespace Asset

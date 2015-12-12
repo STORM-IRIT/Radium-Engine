@@ -6,9 +6,9 @@
 
 #include <assimp/scene.h>
 
-#include <Core/Debug/Loading/GeometryData.hpp>
-#include <Core/Debug/Loading/HandleData.hpp>
-#include <Core/Debug/Loading/AnimationData.hpp>
+#include <Engine/Assets/GeometryData.hpp>
+#include <Engine/Assets/HandleData.hpp>
+#include <Engine/Assets/AnimationData.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -16,13 +16,22 @@ namespace Asset {
 class FileData {
 public:
     /// CONSTRUCTOR
-    FileData( const std::string& filename = "", const bool VERBOSE_MODE = false ) :
-        m_filename( name ),
-        m_geometryData( nullptr ),
-        m_handleData( nullptr ),
-        m_animationData( nullptr ),
-        m_processed( false ),
-        m_verbose( VERBOSE_MODE ) {
+    FileData( const std::string& filename = "",
+              const bool VERBOSE_MODE = false )
+        : m_filename( filename )
+
+        // FIXME(Charly): Needs to be fixed to be compiled
+    #if 0
+        , m_handleData( nullptr )
+    #endif
+
+        // FIXME(Charly): Needs to be fixed to be compiled
+    #if 0
+        , m_animationData( nullptr )
+    #endif
+        , m_processed( false )
+        , m_verbose( VERBOSE_MODE )
+    {
         loadFile();
     }
 
@@ -53,6 +62,8 @@ public:
         return list;
     }
 
+    // FIXME(Charly): Needs to be fixed to be compiled
+#if 0
     inline std::vector< HandleData* > getHandleData() const {
         std::vector< HandleData* > list;
         list.reserve( m_handleData.size() );
@@ -61,7 +72,10 @@ public:
         }
         return list;
     }
+#endif
 
+    // FIXME(Charly): Needs to be fixed to be compiled
+#if 0
     inline std::vector< AnimationData* > getAnimatinData() const {
         std::vector< AnimationData* > list;
         list.reserve( m_animationData.size() );
@@ -70,6 +84,7 @@ public:
         }
         return list;
     }
+#endif
 
     inline void setVerbose( const bool VERBOSE_MODE ) {
         m_verbose = VERBOSE_MODE;
@@ -88,24 +103,41 @@ public:
         return ( !m_geometryData.empty() );
     }
 
+    // FIXME(Charly): Needs to be fixed to be compiled
+#if 0
     inline bool hasHandle() const {
         return ( !m_handleData.empty() );
     }
+#endif
 
+    // FIXME(Charly): Needs to be fixed to be compiled
+#if 0
     inline bool hasAnimation() const {
         return ( !m_animationData.empty() );
     }
+#endif
 
     inline bool isVerbose() const {
         return m_verbose;
     }
 
     /// RESET
-    inline void reset() {
+    inline void reset()
+    {
         m_filename = "";
-        m_geometryData.reset( nullptr );
-        m_handleData.reset( nullptr );
-        m_animationData.reset( nullptr );
+
+        m_geometryData.clear();
+
+        // FIXME(Charly): Needs to be fixed to be compiled
+#if 0
+        m_handleData.clear();
+#endif
+
+        // FIXME(Charly): Needs to be fixed to be compiled
+#if 0
+        m_animationData.clear();
+#endif
+
         m_processed = false;
     }
 
@@ -113,8 +145,16 @@ protected:
     /// VARIABLE
     std::string                                     m_filename;
     std::vector< std::unique_ptr< GeometryData > >  m_geometryData;
+
+    // FIXME(Charly): Needs to be fixed to be compiled
+#if 0
     std::vector< std::unique_ptr< HandleData > >    m_handleData;
+#endif
+
+    // FIXME(Charly): Needs to be fixed to be compiled
+#if 0
     std::vector< std::unique_ptr< AnimationData > > m_animationData;
+#endif
     bool                                            m_processed;
     bool                                            m_verbose;
 };

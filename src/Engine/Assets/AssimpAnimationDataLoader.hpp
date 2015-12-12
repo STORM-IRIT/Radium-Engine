@@ -1,16 +1,22 @@
+// FIXME(Charly): Needs to be fixed to be compiled
+#if 0
+
 #ifndef RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
 #define RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
 
 #include <assimp/mesh.h>
+
 #include <Core/Log/Log.hpp>
-#include <Core/Debug/Loading/AssimpWrapper.hpp>
-#include <Core/Debug/Loading/DataLoader.hpp>
-#include <Core/Debug/Loading/AnimationData.hpp>
+
+#include <Engine/Assets/AssimpWrapper.hpp>
+#include <Engine/Assets/DataLoader.hpp>
+#include <Engine/Assets/AnimationData.hpp>
 
 namespace Ra {
 namespace Asset {
 
-class AssimpAnimationDataLoader : public DataLoader< AnimationData > {
+class AssimpAnimationDataLoader : public DataLoader< AnimationData >
+{
 public:
     /// CONSTRUCTOR
     AssimpAnimationDataLoader( const bool VERBOSE_MODE = false ) : DataLoader< AnimationData >( VERBOSE_MODE ) { }
@@ -175,3 +181,5 @@ protected:
 } // namespace Ra
 
 #endif // RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
+
+#endif

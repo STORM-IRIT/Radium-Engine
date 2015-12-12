@@ -3,15 +3,21 @@
 
 #include <Plugins/FancyMesh/FancyMeshPlugin.hpp>
 
-#include <Engine/Entity/Component.hpp>
-#include <Plugins/FancyMesh/FancyMeshLoadingData.hpp>
 #include <Core/Mesh/MeshTypes.hpp>
+#include <Core/Mesh/TriangleMesh.hpp>
+
+#include <Engine/Entity/Component.hpp>
 
 namespace Ra
 {
     namespace Engine
     {
         struct RenderTechnique;
+    }
+
+    namespace Asset
+    {
+        class GeometryData;
     }
 }
 
@@ -38,7 +44,7 @@ namespace FancyMeshPlugin
         void addMeshRenderObject( const Ra::Core::TriangleMesh& mesh, const std::string& name,
                                   Ra::Engine::RenderTechnique* technique );
 
-        void handleMeshLoading( const FancyComponentData& data );
+        void handleMeshLoading( const Ra::Asset::GeometryData* data );
         
         void setLoadingInfo(MeshLoadingInfo info);
         const MeshLoadingInfo &getLoadingInfo() const;

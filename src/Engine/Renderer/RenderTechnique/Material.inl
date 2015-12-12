@@ -33,8 +33,11 @@ namespace Ra
 
         inline void Material::addTexture( const TextureType& type, const std::string& texture )
         {
-            m_pendingTextures[type] = texture;
-            m_isDirty = true;
+            if ( !texture.empty() )
+            {
+                m_pendingTextures[type] = texture;
+                m_isDirty = true;
+            }
         }
 
         inline const Core::Color& Material::getKd() const

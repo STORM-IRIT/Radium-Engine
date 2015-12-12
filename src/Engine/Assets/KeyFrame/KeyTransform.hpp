@@ -1,8 +1,11 @@
+// FIXME(Charly): Needs to be fixed to be compiled
+#if 0
+
 #ifndef RADIUMENGINE_KEY_TRANSFORM_HPP
 #define RADIUMENGINE_KEY_TRANSFORM_HPP
 
-#include <Core/Debug/Loading/KeyFrame/KeyFrame.hpp>
-#include <Core/Debug/Loading/KeyFrame/Interpolation.hpp>
+#include <Engine/Assets/KeyFrame/KeyFrame.hpp>
+#include <Engine/Assets/KeyFrame/Interpolation.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -39,3 +42,5 @@ protected:
 } // namespace Ra
 
 #endif // RADIUMENGINE_KEY_TRANSFORM_HPP
+
+#endif

@@ -65,7 +65,7 @@ namespace Ra
                 return res;
             }
 
-            std::string getBaseName( const std::string& path )
+            std::string getBaseName( const std::string& path, bool keepExtension )
             {
                 std::string res;
                 // We remove any trailing slashes.
@@ -84,6 +84,15 @@ namespace Ra
                 if ( pos != std::string::npos )
                 {
                     res = res.substr( pos + 1 );
+                }
+
+                if ( !keepExtension )
+                {
+                    pos = res.find_last_of( '.' );
+                    if ( pos != std::string::npos )
+                    {
+                        res = res.substr( 0, pos );
+                    }
                 }
 
                 return res;

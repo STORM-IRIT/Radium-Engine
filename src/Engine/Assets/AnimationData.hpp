@@ -1,12 +1,17 @@
+// FIXME(Charly): Needs to be fixed to be compiled
+#if 0
+
 #ifndef RADIUMENGINE_ANIMATION_DATA_HPP
 #define RADIUMENGINE_ANIMATION_DATA_HPP
 
 #include <string>
 #include <vector>
+
 #include <Core/Log/Log.hpp>
-#include <Core/Debug/Loading/AssimpAnimationDataLoader.hpp>
-#include <Core/Debug/Loading/KeyFrame/AnimationTime.hpp>
-#include <Core/Debug/Loading/KeyFrame/KeyTransform.hpp>
+
+#include <Engine/Assets/AssimpAnimationDataLoader.hpp>
+#include <Engine/Assets/KeyFrame/AnimationTime.hpp>
+#include <Engine/Assets/KeyFrame/KeyTransform.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -107,3 +112,5 @@ protected:
 } // namespace Ra
 
 #endif // RADIUMENGINE_ANIMATION_DATA_HPP
+
+#endif

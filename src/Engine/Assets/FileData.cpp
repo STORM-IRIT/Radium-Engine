@@ -1,4 +1,4 @@
-#include <Core/Debug/Loading/FileData.hpp>
+#include <Engine/Assets/FileData.hpp>
 
 #include <utility>
 #include <set>
@@ -10,11 +10,11 @@
 #include <assimp/scene.h>
 #include <assimp/mesh.h>
 #include <assimp/postprocess.h>
-#include <Core/Debug/Loading/AssimpWrapper.hpp>
 
-#include <Core/Debug/Loading/AssimpGeometryDataLoader.hpp>
-#include <Core/Debug/Loading/AssimpHandleDataLoader.hpp>
-#include <Core/Debug/Loading/AssimpAnimationDataLoader.hpp>
+#include <Engine/Assets/AssimpWrapper.hpp>
+#include <Engine/Assets/AssimpGeometryDataLoader.hpp>
+#include <Engine/Assets/AssimpHandleDataLoader.hpp>
+#include <Engine/Assets/AssimpAnimationDataLoader.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -54,14 +54,15 @@ void FileData::loadFile( const bool FORCE_RELOAD ) {
         LOG( logDEBUG ) << "File Loading begin...";
     }
 
-    AssimpGeometryDataLoader geometryLoader( m_verbose );
+    AssimpGeometryDataLoader geometryLoader( Core::StringUtils::getDirName( getFileName() ), m_verbose );
     geometryLoader.loadData( scene, m_geometryData );
 
-    AssimpHandleDataLoader handleLoader( m_verbose );
-    handleLoader.loadData( scene, m_handleData );
+    // FIXME(Charly): Commented for debug purposes, uncomment it later
+//    AssimpHandleDataLoader handleLoader( m_verbose );
+//    handleLoader.loadData( scene, m_handleData );
 
-    AssimpAnimationDataLoader animationLoader( m_verbose );
-    animationLoader.loadData( scene, m_animationData );
+//    AssimpAnimationDataLoader animationLoader( m_verbose );
+//    animationLoader.loadData( scene, m_animationData );
 
     if( m_verbose ) {
         LOG( logDEBUG ) << "File Loading end.";
