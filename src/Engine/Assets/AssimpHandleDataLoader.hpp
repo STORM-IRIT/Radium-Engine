@@ -48,7 +48,6 @@ public:
 
         if( m_verbose ) {
             LOG( logDEBUG ) << "Handle Loading end.\n";
-            LOG( logDEBUG ) << "Handle loaded: " << data.size();
         }
     }
 

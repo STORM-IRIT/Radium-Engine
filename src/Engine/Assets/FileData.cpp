@@ -3,6 +3,7 @@
 #include <utility>
 #include <set>
 #include <map>
+#include <ctime>
 
 #include <Core/Log/Log.hpp>
 
@@ -54,23 +55,45 @@ void FileData::loadFile( const bool FORCE_RELOAD ) {
         LOG( logDEBUG ) << "File Loading begin...";
     }
 
+    std::clock_t startTime;
+    startTime = std::clock();
+
     AssimpGeometryDataLoader geometryLoader( Core::StringUtils::getDirName( getFileName() ), m_verbose );
     geometryLoader.loadData( scene, m_geometryData );
 
     // FIXME(Charly): Commented for debug purposes, uncomment it later
-//    AssimpHandleDataLoader handleLoader( m_verbose );
-//    handleLoader.loadData( scene, m_handleData );
+#ifdef DEBUG_LOAD_HANDLE
+    AssimpHandleDataLoader handleLoader( m_verbose );
+    handleLoader.loadData( scene, m_handleData );
+#endif
+#ifdef DEBUG_LOAD_ANIMATION
+    AssimpAnimationDataLoader animationLoader( m_verbose );
+    animationLoader.loadData( scene, m_animationData );
+#endif
 
-//    AssimpAnimationDataLoader animationLoader( m_verbose );
-//    animationLoader.loadData( scene, m_animationData );
+    m_loadingTime = std::clock() - startTime;
 
     if( m_verbose ) {
         LOG( logDEBUG ) << "File Loading end.";
+        displayInfo();
     }
 
     m_processed = true;
 }
 
+
+
+void displayInfo() const {
+    LOG( logDEBUG ) << "======== LOADING SUMMARY ========";
+    LOG( logDEBUG ) << "Mesh loaded      : " << m_geometryData.size();
+#ifdef DEBUG_LOAD_HANDLE
+    LOG( logDEBUG ) << "Handle loaded    : " << m_handleData.size();
+#endif
+#ifdef DEBUG_LOAD_ANIMATION
+    LOG( logDEBUG ) << "Animation loaded : " << m_animationData.size();
+#endif
+    LOG( logDEBUG ) << "Loading Time     : " << m_loadingTime;
+}
 
 
 } // namespace Asset

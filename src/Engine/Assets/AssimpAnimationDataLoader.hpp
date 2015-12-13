@@ -47,7 +47,6 @@ public:
 
         if( m_verbose ) {
             LOG( logDEBUG ) << "Animation Loading end.\n";
-            LOG( logDEBUG ) << "Animation loaded: " << data.size();
         }
     }
 

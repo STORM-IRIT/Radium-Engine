@@ -40,7 +40,6 @@ namespace Ra
 
             if( m_verbose ) {
                 LOG( logDEBUG ) << "Geometry Loading end.\n";
-                LOG( logDEBUG ) << "Mesh loaded: " << data.size();
             }
         }
 

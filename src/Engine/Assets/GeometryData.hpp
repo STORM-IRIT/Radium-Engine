@@ -263,34 +263,28 @@ public:
         LOG( logDEBUG ) << " Color ?      : " << ( ( m_color.empty()     ) ? "NO" : "YES" );
         LOG( logDEBUG ) << " Material ?   : " << ( ( !m_hasMaterial      ) ? "NO" : "YES" );
 
-        if ( m_hasMaterial )
-        {
-            std::string kd, ks, ns;
-
-            if ( m_material.hasDiffuse() )
-            {
+        if( m_hasMaterial ) {
+            std::string kd;
+            std::string ks;
+            std::string ns;
+            if( m_material.hasDiffuse() ) {
                 Core::StringUtils::stringPrintf( kd, "%.3f %.3f %.3f %.3f",
                                                  m_material.m_diffuse.x(),
                                                  m_material.m_diffuse.y(),
                                                  m_material.m_diffuse.z(),
                                                  m_material.m_diffuse.w() );
             }
-
-            if ( m_material.hasSpecular() )
-            {
+            if( m_material.hasSpecular() ) {
                 Core::StringUtils::stringPrintf( ks, "%.3f %.3f %.3f %.3f",
                                                  m_material.m_specular.x(),
                                                  m_material.m_specular.y(),
                                                  m_material.m_specular.z(),
                                                  m_material.m_specular.w() );
             }
-
-            if ( m_material.hasShininess() )
-            {
+            if( m_material.hasShininess() ) {
                 Core::StringUtils::stringPrintf( ns, "%.1f", m_material.m_shininess );
             }
-
-            LOG( logDEBUG ) << "====== MATERIAL INFO ======";
+            LOG( logDEBUG ) << "======== MATERIAL INFO ========";
             LOG( logDEBUG ) << " Kd             : " << ( ( m_material.hasDiffuse() )          ? kd                        : "NO" );
             LOG( logDEBUG ) << " Ks             : " << ( ( m_material.hasSpecular() )         ? ks                        : "NO" );
             LOG( logDEBUG ) << " Ns             : " << ( ( m_material.hasShininess() )        ? ns                        : "NO" );
