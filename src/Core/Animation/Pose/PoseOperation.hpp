@@ -32,7 +32,7 @@ RA_CORE_API Pose relativePose( const Pose& modelPose, const RestPose& restPose )
 * The operation is equal to:
 *           pose[i] = transform[i] * pose[i];
 */
-RA_CORE_API Pose applyTransformation( const Pose& pose, const std::vector< Transform >& transform );
+RA_CORE_API Pose applyTransformation( const Pose& pose, const AlignedStdVector< Transform >& transform );
 
 
 
