@@ -9,6 +9,8 @@
 #include <Core/Animation/Animation.hpp>
 #include <Plugins/FancyMesh/FancyMeshComponent.hpp>
 
+#include <Engine/Assets/HandleData.hpp>
+
 namespace AnimationPlugin
 {
 
@@ -28,6 +30,18 @@ public:
 
     inline Ra::Core::Animation::Skeleton& getSkeleton() { return m_skel; }
 
+#define TRY_DEBUG_HANDLES
+#ifdef TRY_DEBUG_HANDLES
+    void handleSkeletonLoading( const Ra::Asset::HandleData* data );
+    void createSkeleton( const Ra::Asset::HandleData* data, std::map< uint, uint >& indexTable );
+    void addBone( const int parent,
+                  const uint dataID,
+                  const std::vector< Ra::Asset::HandleComponentData >& data,
+                  const std::vector< Ra::Core::Vector2i >& edgeList,
+                  std::vector< bool >& processed,
+                  std::map< uint, uint >& indexTable );
+    void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable );
+#endif
     //
     // Editable interface
     //

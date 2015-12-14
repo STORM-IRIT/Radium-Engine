@@ -11,10 +11,13 @@ namespace AnimationPlugin
     public:
         virtual void generateTasks(Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo);
         void initialize( ) override;
-        void handleFileLoading(Ra::Engine::Entity* entity, const std::string &filename) override;
+        //void handleFileLoading(Ra::Engine::Entity* entity, const std::string &filename) override;
         void setPlaying(bool isPlaying);
         void step();
         void reset();
+
+        virtual void handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData );
+
     protected:
         virtual Ra::Engine::Component* addComponentToEntityInternal(Ra::Engine::Entity* entity, uint id);
         virtual void callbackOnComponentCreation(const Ra::Engine::Component *component) override;

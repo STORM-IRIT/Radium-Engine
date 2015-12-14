@@ -3,7 +3,6 @@
 
 #include <assimp/mesh.h>
 
-#include <Core/Log/Log.hpp>
 
 #include <Engine/Assets/AssimpWrapper.hpp>
 #include <Engine/Assets/DataLoader.hpp>

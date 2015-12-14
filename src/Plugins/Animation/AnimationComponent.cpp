@@ -1,5 +1,8 @@
 #include <Plugins/Animation/AnimationComponent.hpp>
 
+#include <queue>
+
+
 #include <assimp/scene.h>
 #include <iostream>
 #include <Plugins/Animation/Drawing/SkeletonBoneDrawable.hpp>
@@ -12,7 +15,6 @@ namespace AnimationPlugin
 {
     void AnimationComponent::initialize()
     {
-        Ra::Core::Animation::SkeletonUtils::to_string( m_skel );
         for( uint i = 0; i < m_skel.size(); ++i ) {
             if( !m_skel.m_graph.isLeaf( i ) ) {
                 SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject( m_skel.getLabel( i ), this, i, getRoMgr());
@@ -219,4 +221,90 @@ namespace AnimationPlugin
     {
         return m_weights;
     }
+
+
+
+    void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* data ) {
+        std::string name( m_name );
+        name.append( "_" + data->getName() );
+
+        std::string skelName = name;
+        skelName.append( "_SKEL" );
+
+        m_skel.setName( name );
+
+
+        std::map< uint, uint > indexTable;
+        createSkeleton( data, indexTable );
+
+        Ra::Core::Animation::SkeletonUtils::to_string( m_skel );
+
+        createWeightMatrix( data, indexTable );
+
+        initialize();
+    }
+
+
+
+    void AnimationComponent::createSkeleton( const Ra::Asset::HandleData* data, std::map< uint, uint >& indexTable ) {
+        const uint size = data->getComponentDataSize();
+        auto component = data->getComponentData();
+
+        std::set< uint > root;
+        for( uint i = 0; i < size; ++i ) {
+            root.insert( i );
+        }
+
+        auto edgeList = data->getEdgeData();
+        for( const auto& edge : edgeList ) {
+            root.erase( edge[1] );
+        }
+
+        std::vector< bool > processed( size, false );
+        for( const auto& r : root ) {
+            addBone( -1, r, component, edgeList, processed, indexTable );
+        }
+        for( uint i = 0; i < m_skel.size(); ++i ) {
+            if( m_skel.m_graph.isRoot( i ) ) {
+                m_skel.setTransform( i, data->getFrame() * m_skel.getTransform( i, Ra::Core::Animation::Handle::SpaceType::MODEL ), Ra::Core::Animation::Handle::SpaceType::LOCAL );
+            }
+        }
+    }
+
+
+    void AnimationComponent::addBone( const int parent,
+                                      const uint dataID,
+                                      const std::vector< Ra::Asset::HandleComponentData >& data,
+                                      const std::vector< Ra::Core::Vector2i >& edgeList,
+                                      std::vector< bool >& processed,
+                                      std::map< uint, uint >& indexTable ) {
+        if( !processed[dataID] ) {
+            processed[dataID] = true;
+            uint index = m_skel.addBone( parent, data.at( dataID ).m_frame, Ra::Core::Animation::Handle::SpaceType::MODEL, data.at( dataID ).m_name );
+            indexTable[dataID] = index;
+            for( const auto& edge : edgeList ) {
+                if( edge[0] == dataID ) {
+                    addBone( index, edge[1], data, edgeList, processed, indexTable );
+                }
+            }
+        }
+    }
+
+    void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable ) {
+        m_weights.resize( data->getVertexSize(), data->getComponentDataSize() );
+        m_weights.setZero();
+        for( const auto& it : indexTable ) {
+            const uint idx = it.first;
+            const uint col = it.second;
+            const uint size = data->getComponent( idx ).m_weight.size();
+            for( uint i = 0; i < size; ++i ) {
+                const uint   row = data->getComponent( idx ).m_weight[i].first;
+                const Scalar w   = data->getComponent( idx ).m_weight[i].second;
+                m_weights.coeffRef( row, col ) = w;
+            }
+        }
+    }
+
+
+
 }

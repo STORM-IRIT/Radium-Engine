@@ -2,15 +2,13 @@
 #define RADIUMENGINE_FILE_DATA_HPP
 
 #define DEBUG_LOAD_GEOMETRY
-//#define DEBUG_LOAD_HANDLE
+#define DEBUG_LOAD_HANDLE
 //#define DEBUG_LOAD_ANIMATION
 
 
 #include <string>
+#include <vector>
 #include <memory>
-
-#include <assimp/scene.h>
-
 #ifdef DEBUG_LOAD_GEOMETRY
 #include <Engine/Assets/GeometryData.hpp>
 #endif
@@ -28,136 +26,62 @@ class FileData {
 public:
     /// CONSTRUCTOR
     FileData( const std::string& filename = "",
-              const bool VERBOSE_MODE = false ) :
-        m_filename( filename ),
-        m_loadingTime( 0.0 ),
-
-        // FIXME(Charly): Needs to be fixed to be compiled
-    #ifdef DEBUG_LOAD_HANDLE
-        m_handleData( nullptr ),
-    #endif
-
-        // FIXME(Charly): Needs to be fixed to be compiled
-    #ifdef DEBUG_LOAD_ANIMATION
-        m_animationData( nullptr ),
-    #endif
-        m_processed( false ),
-        m_verbose( VERBOSE_MODE ) {
-        loadFile();
-    }
+              const bool VERBOSE_MODE = false );
 
     FileData( const FileData& data ) = default;
 
     /// DESTRUCTOR
-    ~FileData() { }
+    ~FileData();
 
     /// LOAD
     void loadFile( const bool FORCE_RELOAD = false );
 
     /// FILENAME
-    inline std::string getFileName() const {
-        return m_filename;
-    }
+    inline std::string getFileName() const;
 
-    inline void setFileName( const std::string& filename ) {
-        m_filename = filename;
-    }
+    inline void setFileName( const std::string& filename );
 
     /// TIMING
-    inline Scalar getLoadingTime() const {
-        return m_loadingTime;
-    }
+    inline Scalar getLoadingTime() const;
 
     /// DATA
-    inline std::vector< GeometryData* > getGeometryData() const {
-        std::vector< GeometryData* > list;
-        list.reserve( m_geometryData.size() );
-        for( const auto& item : m_geometryData ) {
-            list.push_back( item.get() );
-        }
-        return list;
-    }
+    inline std::vector< GeometryData* > getGeometryData() const;
 
     // FIXME(Charly): Needs to be fixed to be compiled
 #ifdef DEBUG_LOAD_HANDLE
-    inline std::vector< HandleData* > getHandleData() const {
-        std::vector< HandleData* > list;
-        list.reserve( m_handleData.size() );
-        for( const auto& item : m_handleData ) {
-            list.push_back( item.get() );
-        }
-        return list;
-    }
+    inline std::vector< HandleData* > getHandleData() const;
 #endif
 
     // FIXME(Charly): Needs to be fixed to be compiled
 #ifdef DEBUG_LOAD_ANIMATION
-    inline std::vector< AnimationData* > getAnimatinData() const {
-        std::vector< AnimationData* > list;
-        list.reserve( m_animationData.size() );
-        for( const auto& item : m_animationData ) {
-            list.push_back( item.get() );
-        }
-        return list;
-    }
+    inline std::vector< AnimationData* > getAnimatinData() const;
 #endif
 
-    inline void setVerbose( const bool VERBOSE_MODE ) {
-        m_verbose = VERBOSE_MODE;
-    }
+    inline void setVerbose( const bool VERBOSE_MODE );
 
     /// QUERY
-    inline bool isInitialized() const {
-        return ( ( m_filename != "" ) && !m_processed );
-    }
+    inline bool isInitialized() const;
 
-    inline bool isProcessed() const {
-        return m_processed;
-    }
+    inline bool isProcessed() const;
 
-    inline bool hasGeometry() const {
-        return ( !m_geometryData.empty() );
-    }
+    inline bool hasGeometry() const;
 
     // FIXME(Charly): Needs to be fixed to be compiled
 #ifdef DEBUG_LOAD_HANDLE
-    inline bool hasHandle() const {
-        return ( !m_handleData.empty() );
-    }
+    inline bool hasHandle() const;
 #endif
 
     // FIXME(Charly): Needs to be fixed to be compiled
 #ifdef DEBUG_LOAD_ANIMATION
-    inline bool hasAnimation() const {
-        return ( !m_animationData.empty() );
-    }
+    inline bool hasAnimation() const;
 #endif
 
-    inline bool isVerbose() const {
-        return m_verbose;
-    }
+    inline bool isVerbose() const;
 
     /// RESET
-    inline void reset()
-    {
-        m_filename = "";
+    inline void reset();
 
-        m_geometryData.clear();
-
-        // FIXME(Charly): Needs to be fixed to be compiled
-#ifdef DEBUG_LOAD_HANDLE
-        m_handleData.clear();
-#endif
-
-        // FIXME(Charly): Needs to be fixed to be compiled
-#ifdef DEBUG_LOAD_ANIMATION
-        m_animationData.clear();
-#endif
-
-        m_processed = false;
-    }
-
-    void displayInfo() const;
+    inline void displayInfo() const;
 
 protected:
     /// VARIABLE
@@ -180,5 +104,7 @@ protected:
 
 } // namespace Asset
 } // namespace Ra
+
+#include <Engine/Assets/FileData.inl>
 
 #endif // RADIUMENGINE_FILE_DATA_HPP

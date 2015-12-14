@@ -218,6 +218,8 @@ namespace AnimationPlugin
 
             if(isBoneNode)
             {
+                LOG( logDEBUG ) << "Skeleton node found.";
+                LOG( logDEBUG ) << "Bone name: " << node->mName.C_Str();
                 if(parent == -1)
                 {
                     assimpToCore(accTransform, data.baseTransform);
@@ -237,6 +239,8 @@ namespace AnimationPlugin
                 currentTransform = aiMatrix4x4();
             }
 
+            for(uint i = 0; i < node->mNumChildren; ++i)
+            LOG( logDEBUG ) << "Child :" << node->mChildren[i]->mName.C_Str();
             for(uint i = 0; i < node->mNumChildren; ++i)
                 recursiveSkeletonRead(node->mChildren[i], currentTransform, boneMap, data, currentIndex);
         }

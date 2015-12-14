@@ -1,4 +1,6 @@
 #include <Engine/Assets/AssimpGeometryDataLoader.hpp>
+
+#include <Core/Log/Log.hpp>
 #include <Engine/Assets/GeometryData.hpp>
 
 namespace Ra
@@ -127,7 +129,7 @@ namespace Ra
                     data[it->second]->setFrame( frame );
                 }
             }
-            
+
             for( uint i = 0; i < child_size; ++i )
             {
                 loadMeshFrame( node->mChildren[i], frame, indexTable, data );

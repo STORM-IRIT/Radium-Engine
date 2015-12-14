@@ -1,24 +1,47 @@
 #include <Engine/Assets/FileData.hpp>
 
-#include <utility>
-#include <set>
-#include <map>
 #include <ctime>
-
 #include <Core/Log/Log.hpp>
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
-#include <assimp/mesh.h>
 #include <assimp/postprocess.h>
 
-#include <Engine/Assets/AssimpWrapper.hpp>
 #include <Engine/Assets/AssimpGeometryDataLoader.hpp>
 #include <Engine/Assets/AssimpHandleDataLoader.hpp>
 #include <Engine/Assets/AssimpAnimationDataLoader.hpp>
 
 namespace Ra {
 namespace Asset {
+
+
+
+/// CONSTRUCTOR
+FileData::FileData( const std::string& filename,
+                    const bool         VERBOSE_MODE ) :
+    m_filename( filename ),
+    m_loadingTime( 0.0 ),
+    m_geometryData(),
+    // FIXME(Charly): Needs to be fixed to be compiled
+#ifdef DEBUG_LOAD_HANDLE
+    m_handleData(),
+#endif
+
+    // FIXME(Charly): Needs to be fixed to be compiled
+#ifdef DEBUG_LOAD_ANIMATION
+    m_animationData(),
+#endif
+    m_processed( false ),
+    m_verbose( VERBOSE_MODE ) {
+    loadFile();
+}
+
+
+
+/// DESTRUCTOR
+FileData::~FileData() { }
+
+
 
 /// LOAD
 void FileData::loadFile( const bool FORCE_RELOAD ) {
@@ -71,7 +94,7 @@ void FileData::loadFile( const bool FORCE_RELOAD ) {
     animationLoader.loadData( scene, m_animationData );
 #endif
 
-    m_loadingTime = std::clock() - startTime;
+    m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );
 
     if( m_verbose ) {
         LOG( logDEBUG ) << "File Loading end.";
@@ -81,19 +104,6 @@ void FileData::loadFile( const bool FORCE_RELOAD ) {
     m_processed = true;
 }
 
-
-
-void displayInfo() const {
-    LOG( logDEBUG ) << "======== LOADING SUMMARY ========";
-    LOG( logDEBUG ) << "Mesh loaded      : " << m_geometryData.size();
-#ifdef DEBUG_LOAD_HANDLE
-    LOG( logDEBUG ) << "Handle loaded    : " << m_handleData.size();
-#endif
-#ifdef DEBUG_LOAD_ANIMATION
-    LOG( logDEBUG ) << "Animation loaded : " << m_animationData.size();
-#endif
-    LOG( logDEBUG ) << "Loading Time     : " << m_loadingTime;
-}
 
 
 } // namespace Asset

@@ -4,26 +4,23 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <Core/Log/Log.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
+#include <Engine/Assets/AssetData.hpp>
 #include <Engine/Assets/AssimpHandleDataLoader.hpp>
 
 namespace Ra {
 namespace Asset {
 
 struct HandleComponentData {
-    HandleComponentData() :
-        m_name( "" ),
-        m_weight(),
-        m_frame( Core::Transform::Identity() ) { }
+    HandleComponentData();
 
     std::string                              m_name;
     std::vector< std::pair< uint, Scalar > > m_weight;
     Core::Transform                          m_frame;
 };
 
-class HandleData {
+class HandleData : public AssetData {
 public:
     /// FRIEND
     friend class AssimpHandleDataLoader;
@@ -38,172 +35,75 @@ public:
 
     /// CONSTRUCTOR
     HandleData( const std::string& name = "",
-                const HandleType&  type = UNKNOWN ) :
-        m_name( name ),
-        m_type( type ),
-        m_frame( Core::Transform::Identity() ),
-        m_endNode( false ),
-        m_nameTable(),
-        m_component(),
-        m_edge(),
-        m_face() { }
+                const HandleType&  type = UNKNOWN );
+
+    HandleData( const HandleData& data ) = default;
+
+    /// DESTRUCTOR
+    ~HandleData();
 
     /// NAME
-    inline std::string getName() const {
-        return m_name;
-    }
+    //inline std::string getName() const;
 
     /// TYPE
-    inline HandleType getType() const {
-        return m_type;
-    }
+    inline HandleType getType() const;
 
     /// FRAME
-    inline Core::Transform getFrame() const {
-        return m_frame;
-    }
+    inline Core::Transform getFrame() const;
+
+    /// VERTEX SIZE
+    inline uint getVertexSize() const;
 
     /// DATA
-    inline uint getComponentDataSize() const {
-        return m_component.size();
-    }
-
-    inline std::vector<HandleComponentData> getComponentData() const {
-        return m_component;
-    }
-
-    inline HandleComponentData getComponent( const uint i ) const {
-        return m_component.at( i );
-    }
-
-    inline std::vector<Core::Vector2i> getEdgeData() const {
-        return m_edge;
-    }
-
-    inline std::vector<Core::VectorNi> getFaceData() const {
-        return m_face;
-    }
-
-    inline void recomputeAllIndices() {
-        m_nameTable.clear();
-        const uint size = getComponentDataSize();
-        for( uint i = 0; i < size; ++i ) {
-            m_nameTable[m_component[i].m_name] = i;
-        }
-    }
+    inline uint getComponentDataSize() const;
+    inline std::vector<HandleComponentData> getComponentData() const;
+    inline HandleComponentData getComponent( const uint i ) const;
+    inline std::vector<Core::Vector2i> getEdgeData() const;
+    inline std::vector<Core::VectorNi> getFaceData() const;
+    inline void recomputeAllIndices();
 
     /// QUERY
-    inline bool isPointCloud() const {
-        return ( m_type == POINT_CLOUD );
-    }
-
-    inline bool isSkeleton() const {
-        return ( m_type == SKELETON );
-    }
-
-    inline bool isCage() const {
-        return ( m_type == CAGE );
-    }
-
-    inline bool hasComponents() const {
-        return !m_component.empty();
-    }
-
-    inline bool hasEdges() const {
-        return !m_edge.empty();
-    }
-
-    inline bool hasFaces() const {
-        return !m_face.empty();
-    }
-
-    inline bool needsEndNodes() const {
-        return m_endNode;
-    }
-
-    inline int getIndexOf( const std::string& name ) const {
-        auto it = m_nameTable.find( name );
-        if( it == m_nameTable.end() ) {
-            return -1;
-        }
-        return it->second;
-    }
+    inline bool isPointCloud() const;
+    inline bool isSkeleton() const;
+    inline bool isCage() const;
+    inline bool hasComponents() const;
+    inline bool hasEdges() const;
+    inline bool hasFaces() const;
+    inline bool needsEndNodes() const;
+    inline int  getIndexOf( const std::string& name ) const;
 
     /// DEBUG
-    inline void displayInfo() const {
-        std::string type;
-        switch( m_type ) {
-            case UNKNOWN     : type = "UNKNOWN";     break;
-            case POINT_CLOUD : type = "POINT CLOUD"; break;
-            case SKELETON    : type = "SKELETON";    break;
-            case CAGE        : type = "CAGE";        break;
-        }
-        LOG( logDEBUG ) << "======== HANDLE INFO ========";
-        LOG( logDEBUG ) << " Name            : " << m_name;
-        LOG( logDEBUG ) << " Type            : " << type;
-        LOG( logDEBUG ) << " Element #       : " << m_component.size();
-        LOG( logDEBUG ) << " Edge #          : " << m_edge.size();
-        LOG( logDEBUG ) << " Face #          : " << m_face.size();
-        LOG( logDEBUG ) << " Need EndNodes ? : " << ( ( m_endNode ) ? "YES" : "NO" );
-    }
+    inline void displayInfo() const;
 
 protected:
     /// NAME
-    inline void setName( const std::string& name ) {
-        m_name = name;
-    }
+    inline void setName( const std::string& name );
 
     /// TYPE
-    inline void setType( const HandleType& type ) {
-        m_type = type;
-    }
+    inline void setType( const HandleType& type );
 
     /// FRAME
-    inline void setFrame( const Core::Transform& frame ) {
-        m_frame = frame;
-    }
+    inline void setFrame( const Core::Transform& frame );
 
     /// TABLE
-    inline void setNameTable( const std::map< std::string, uint >& nameTable ) {
-        m_nameTable = nameTable;
-    }
+    inline void setNameTable( const std::map< std::string, uint >& nameTable );
 
     /// COMPONENT
-    inline void setComponents( const std::vector< HandleComponentData >& components ) {
-        const uint size = components.size();
-        m_component.resize( size );
-#pragma omp parallel for
-        for( uint i = 0; i < size; ++i ) {
-            m_component[i] = components[i];
-        }
-    }
+    inline void setComponents( const std::vector< HandleComponentData >& components );
 
     /// EDGE
-    inline void setEdges( const std::vector< Core::Vector2i >& edgeList ) {
-        const uint size = edgeList.size();
-        m_edge.resize( size );
-#pragma omp parallel for
-        for( uint i = 0; i < size; ++i ) {
-            m_edge[i] = edgeList[i];
-        }
-    }
+    inline void setEdges( const std::vector< Core::Vector2i >& edgeList );
 
     /// FACE
-    inline void setFaces( const std::vector< Core::VectorNi >& faceList ) {
-        const uint size = faceList.size();
-        m_face.resize( size );
-#pragma omp parallel for
-        for( uint i = 0; i < size; ++i ) {
-            m_face[i] = faceList[i];
-        }
-    }
+    inline void setFaces( const std::vector< Core::VectorNi >& faceList );
 
 protected:
     /// VARIABLE
-    std::string                        m_name;
+    //std::string                        m_name;
     HandleType                         m_type;
     Core::Transform                    m_frame;
     bool                               m_endNode;
+    uint                               m_vertexSize;
     std::map< std::string, uint >      m_nameTable;
     std::vector< HandleComponentData > m_component;
     std::vector< Core::Vector2i >      m_edge;
@@ -212,5 +112,7 @@ protected:
 
 } // namespace Asset
 } // namespace Ra
+
+#include <Engine/Assets/HandleData.inl>
 
 #endif // RADIUMENGINE_HANDLE_DATA_HPP
