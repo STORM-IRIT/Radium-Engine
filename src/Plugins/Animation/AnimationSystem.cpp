@@ -104,16 +104,9 @@ namespace AnimationPlugin
         }
     }
 
-
-
-
-
-
-
-
-
-
     void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData ) {
+        // FIXME(Charly): Does not compile
+#if 0
         auto skelData = fileData->getHandleData();
 
         // FIXME(Charly): One component of a given type by entity ?
@@ -123,16 +116,6 @@ namespace AnimationPlugin
             AnimationComponent* component = static_cast<AnimationComponent*>(addComponentToEntity(entity));
             component->handleSkeletonLoading( skel );
         }
+#endif
     }
-
-
-
-
-
-
-
-
-
-
-
 }

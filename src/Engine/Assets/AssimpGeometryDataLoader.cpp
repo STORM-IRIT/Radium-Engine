@@ -138,7 +138,6 @@ namespace Ra
 
         void AssimpGeometryDataLoader::fetchName( const aiMesh& mesh, GeometryData& data ) const
         {
-            LOG( logINFO ) << "Mesh name : " << mesh.mName.C_Str();
             data.setName( assimpToCore( mesh.mName ) );
         }
 

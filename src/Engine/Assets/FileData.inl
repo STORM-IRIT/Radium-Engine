@@ -121,6 +121,14 @@ inline void FileData::reset()
 inline void FileData::displayInfo() const {
     LOG( logDEBUG ) << "======== LOADING SUMMARY ========";
     LOG( logDEBUG ) << "Mesh loaded        : " << m_geometryData.size();
+
+    uint64_t vtxCount = 0;
+    for ( const auto& geom : m_geometryData )
+    {
+        vtxCount += geom->getVerticesSize();
+    }
+    LOG( logDEBUG ) << "Total vertex count : " << vtxCount;
+
 #ifdef DEBUG_LOAD_HANDLE
     LOG( logDEBUG ) << "Handle loaded      : " << m_handleData.size();
 #endif

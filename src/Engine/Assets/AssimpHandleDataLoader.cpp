@@ -10,6 +10,8 @@
 
 namespace Ra {
 namespace Asset {
+// FIXME(Charly): Does not compile
+#if 0
 
 /// CONSTRUCTOR
 AssimpHandleDataLoader::AssimpHandleDataLoader( const bool VERBOSE_MODE ) : DataLoader< HandleData > ( VERBOSE_MODE ) { }
@@ -89,14 +91,13 @@ void AssimpHandleDataLoader::loadHandleData( const aiScene* scene, std::vector< 
     loadHandleFrame( scene->mRootNode, Core::Transform::Identity(), indexTable, data );
 }
 
-
-
 void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, const aiMesh* mesh, HandleData* data ) const {
     const uint size = mesh->mNumBones;
     std::vector< HandleComponentData > component( size, HandleComponentData() );
     std::set< std::string > name;
     std::map< std::string , uint > nameTable;
     // Load the meaningful handles
+
     for( uint i = 0; i < size; ++i ) {
         aiBone* bone = mesh->mBones[i];
         loadHandleComponentData( scene, bone, component[i] );
@@ -126,8 +127,6 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
     data->setNameTable( nameTable );
 }
 
-
-
 void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, const aiBone* bone, HandleComponentData& data ) const {
     data.m_name  = assimpToCore( bone->mName );
     data.m_frame = assimpToCore( bone->mOffsetMatrix );
@@ -143,8 +142,6 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
     }
 }
 
-
-
 void AssimpHandleDataLoader::loadHandleComponentData( const aiNode* node, HandleComponentData& data ) const {
     data.m_name  = assimpToCore( node->mName );
     data.m_frame = assimpToCore( node->mTransformation );
@@ -154,8 +151,6 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiNode* node, Handle
         tmpNode = tmpNode->mParent;
     }
 }
-
-
 
 void AssimpHandleDataLoader::loadHandleTopologyData( const aiScene* scene, HandleData* data ) const {
     const uint size = data->getComponentDataSize();
@@ -181,8 +176,6 @@ void AssimpHandleDataLoader::loadHandleTopologyData( const aiScene* scene, Handl
     }
     data->setEdges( edge );
 }
-
-
 
 void AssimpHandleDataLoader::loadHandleFrame( const aiNode*                                 node,
                                               const Core::Transform&                        parentFrame,
@@ -227,7 +220,7 @@ void AssimpHandleDataLoader::fetchVertexSize( HandleData& data ) const {
         }
     }
 }
-
+#endif
 
 } // namespace Asset
 } // namespace Ra

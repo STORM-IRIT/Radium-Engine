@@ -85,8 +85,8 @@ namespace Ra
                 case 8:
                 {
                     // FIXME(Charly): Debug this
-                    format = GL_R;
-                    internal = GL_R;
+                    format = GL_RED;
+                    internal = GL_RED;
                 } break;
 
                 case 24:

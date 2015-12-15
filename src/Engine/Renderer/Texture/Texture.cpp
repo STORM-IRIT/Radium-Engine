@@ -32,6 +32,7 @@ namespace Ra
             case GL_LUMINANCE:
             // FIXME: Check alpha
             case GL_LUMINANCE_ALPHA:
+            case GL_RED:
             {
                 m_bytesPerPixel = 1;
             }
@@ -110,6 +111,7 @@ namespace Ra
     {
         GL_ASSERT( glGenTextures( 1, &m_textureId ) );
         GL_ASSERT( glBindTexture( m_target, m_textureId ) );
+
         GL_ASSERT( glTexImage2D( m_target, 0, internal, w, h, 0, format, type, data ) );
 
         GL_ASSERT( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP ) );
