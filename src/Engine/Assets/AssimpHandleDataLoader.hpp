@@ -33,7 +33,7 @@ protected:
     /// LOAD
     void loadHandleData( const aiScene* scene, std::vector< std::unique_ptr< HandleData > >& data ) const;
     void loadHandleComponentData( const aiScene* scene, const aiMesh* mesh, HandleData* data ) const;
-    void loadHandleComponentData( const aiBone* bone, HandleComponentData& data ) const;
+    void loadHandleComponentData( const aiScene* scene, const aiBone* bone, HandleComponentData& data ) const;
     void loadHandleComponentData( const aiNode* node, HandleComponentData& data ) const;
     void loadHandleTopologyData( const aiScene* scene, HandleData* data ) const;
     void loadHandleFrame( const aiNode*                                 node,
