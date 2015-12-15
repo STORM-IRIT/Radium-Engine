@@ -99,7 +99,7 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
     // Load the meaningful handles
     for( uint i = 0; i < size; ++i ) {
         aiBone* bone = mesh->mBones[i];
-        loadHandleComponentData( bone, component[i] );
+        loadHandleComponentData( scene, bone, component[i] );
         nameTable[component[i].m_name] = i;
         name.insert( component[i].m_name );
     }
@@ -128,13 +128,18 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
 
 
 
-void AssimpHandleDataLoader::loadHandleComponentData( const aiBone* bone, HandleComponentData& data ) const {
+void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, const aiBone* bone, HandleComponentData& data ) const {
     data.m_name  = assimpToCore( bone->mName );
     data.m_frame = assimpToCore( bone->mOffsetMatrix );
     const uint size = bone->mNumWeights;
     for( uint j = 0; j < size; ++j ) {
         std::pair< uint, Scalar > weight( bone->mWeights[j].mVertexId, bone->mWeights[j].mWeight );
         data.m_weight.push_back( weight );
+    }
+    aiNode* node = scene->mRootNode->FindNode( bone->mName );
+    while( node != nullptr ) {
+        data.m_frame *= assimpToCore( node->mTransformation );
+        node = node->mParent;
     }
 }
 
@@ -143,6 +148,11 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiBone* bone, Handle
 void AssimpHandleDataLoader::loadHandleComponentData( const aiNode* node, HandleComponentData& data ) const {
     data.m_name  = assimpToCore( node->mName );
     data.m_frame = assimpToCore( node->mTransformation );
+    aiNode* tmpNode = node;
+    while( tmpNode != nullptr ) {
+        data.m_frame *= assimpToCore( node->mTransformation );
+        tmpNode = tmpNode->mParent;
+    }
 }
 
 

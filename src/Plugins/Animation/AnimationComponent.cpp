@@ -264,11 +264,6 @@ namespace AnimationPlugin
         for( const auto& r : root ) {
             addBone( -1, r, component, edgeList, processed, indexTable );
         }
-        for( uint i = 0; i < m_skel.size(); ++i ) {
-            if( m_skel.m_graph.isRoot( i ) ) {
-                m_skel.setTransform( i, data->getFrame() * m_skel.getTransform( i, Ra::Core::Animation::Handle::SpaceType::MODEL ), Ra::Core::Animation::Handle::SpaceType::LOCAL );
-            }
-        }
     }
 
 
@@ -280,7 +275,7 @@ namespace AnimationPlugin
                                       std::map< uint, uint >& indexTable ) {
         if( !processed[dataID] ) {
             processed[dataID] = true;
-            uint index = m_skel.addBone( parent, data.at( dataID ).m_frame, Ra::Core::Animation::Handle::SpaceType::MODEL, data.at( dataID ).m_name );
+            uint index = m_skel.addBone( parent, data.at( dataID ).m_frame, Ra::Core::Animation::Handle::SpaceType::LOCAL, data.at( dataID ).m_name );
             indexTable[dataID] = index;
             for( const auto& edge : edgeList ) {
                 if( edge[0] == dataID ) {
