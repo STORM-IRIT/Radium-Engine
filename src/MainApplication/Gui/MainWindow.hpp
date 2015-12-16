@@ -88,6 +88,7 @@ namespace Ra
 
             void toggleRO();
             void removeRO();
+            void editRO();
 
         signals:
             void closed();

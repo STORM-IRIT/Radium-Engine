@@ -119,8 +119,10 @@ namespace Ra
         connect( m_currentShaderBox, static_cast<void (QComboBox::*)(const QString&)>( &QComboBox::currentIndexChanged ),
                  this, &MainWindow::changeRenderObjectShader );
 
+        // RO Stuff
         connect( m_toggleRenderObjectButton, &QPushButton::clicked, this, &MainWindow::toggleRO );
         connect( m_removeRenderObjectButton, &QPushButton::clicked, this, &MainWindow::removeRO );
+        connect( m_editRenderObjectButton, &QPushButton::clicked, this, &MainWindow::editRO );
     }
 
     void Gui::MainWindow::playAnimation()
@@ -587,8 +589,8 @@ namespace Ra
 
     void Gui::MainWindow::toggleRO()
     {
-        LOG( logINFO ) << "Hello";
         auto ro = getSelectedRO();
+
         if ( ro == nullptr )
         {
             return;
@@ -599,7 +601,13 @@ namespace Ra
 
     void Gui::MainWindow::removeRO()
     {
+        LOG( logINFO ) << "Not implemented yet";
+    }
 
+    void Gui::MainWindow::editRO()
+    {
+        QWidget* widget = new QWidget;
+        widget->show();
     }
 
     std::shared_ptr<Engine::RenderObject> Gui::MainWindow::getSelectedRO()
