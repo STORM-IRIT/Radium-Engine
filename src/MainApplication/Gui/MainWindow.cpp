@@ -118,6 +118,9 @@ namespace Ra
         connect( m_renderObjectsListView, &QListWidget::currentRowChanged, this, &MainWindow::renderObjectListItemClicked );
         connect( m_currentShaderBox, static_cast<void (QComboBox::*)(const QString&)>( &QComboBox::currentIndexChanged ),
                  this, &MainWindow::changeRenderObjectShader );
+
+        connect( m_toggleRenderObjectButton, &QPushButton::clicked, this, &MainWindow::toggleRO );
+        connect( m_removeRenderObjectButton, &QPushButton::clicked, this, &MainWindow::removeRO );
     }
 
     void Gui::MainWindow::playAnimation()
@@ -554,17 +557,11 @@ namespace Ra
             return;
         }
 
-        QListWidgetItem* item = m_renderObjectsListView->currentItem();
-
-        if ( nullptr == item )
+        auto ro = getSelectedRO();
+        if ( ro == nullptr )
         {
             return;
         }
-
-        Core::Index itemIdx( item->data( 1 ).toInt() );
-
-        auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
-        auto ro = roMgr->getRenderObject( itemIdx );
 
         if ( ro->getRenderTechnique()->shader->getBasicConfiguration().getName() == shaderName.toStdString() )
         {
@@ -586,6 +583,40 @@ namespace Ra
         }
 
         ro->getRenderTechnique()->changeShader( config );
+    }
+
+    void Gui::MainWindow::toggleRO()
+    {
+        LOG( logINFO ) << "Hello";
+        auto ro = getSelectedRO();
+        if ( ro == nullptr )
+        {
+            return;
+        }
+
+        ro->setVisible( !ro->isVisible() );
+    }
+
+    void Gui::MainWindow::removeRO()
+    {
+
+    }
+
+    std::shared_ptr<Engine::RenderObject> Gui::MainWindow::getSelectedRO()
+    {
+        QListWidgetItem* item = m_renderObjectsListView->currentItem();
+
+        if ( nullptr == item )
+        {
+            return nullptr;
+        }
+
+        Core::Index itemIdx( item->data( 1 ).toInt() );
+
+        auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+        auto ro = roMgr->getRenderObject( itemIdx );
+
+        return ro;
     }
 
 } // namespace Ra

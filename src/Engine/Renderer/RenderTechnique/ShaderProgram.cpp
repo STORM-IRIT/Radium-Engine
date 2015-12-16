@@ -116,7 +116,7 @@ namespace Ra
     void Engine::ShaderObject::compile( const std::string& shader, const std::set<std::string>& properties )
     {
         const char* data[3];
-        data[0] = "#version 400\n";
+        data[0] = "#version 330\n";
 
         std::stringstream ss;
         for ( auto property : properties )

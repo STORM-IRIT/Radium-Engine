@@ -53,6 +53,11 @@ namespace Ra
 
         void RenderObject::feedRenderQueue( RenderQueue& queue, const Core::Matrix4& view, const Core::Matrix4& proj )
         {
+            if ( !m_visible )
+            {
+                return;
+            }
+
             Core::Transform model =  m_component->getEntity()->getTransform() * m_localTransform;
 
             ShaderKey shader( m_renderTechnique->shader );

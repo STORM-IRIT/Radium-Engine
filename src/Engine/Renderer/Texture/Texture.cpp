@@ -114,11 +114,6 @@ namespace Ra
 
         GL_ASSERT( glTexImage2D( m_target, 0, internal, w, h, 0, format, type, data ) );
 
-        GL_ASSERT( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP ) );
-        GL_ASSERT( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP ) );
-        GL_ASSERT( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ) );
-        GL_ASSERT( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ) );
-
         setBPP( internal );
         m_format = format;
 

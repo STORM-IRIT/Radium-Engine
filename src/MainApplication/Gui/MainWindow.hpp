@@ -86,6 +86,9 @@ namespace Ra
             void renderObjectListItemClicked( int item );
             void changeRenderObjectShader( const QString& shaderName );
 
+            void toggleRO();
+            void removeRO();
+
         signals:
             void closed();
             void fileLoading( const QString path );
@@ -108,6 +111,8 @@ namespace Ra
             virtual void closeEvent( QCloseEvent* event ) override;
 
             void displayRenderObjects( Engine::Component* component );
+
+            std::shared_ptr<Engine::RenderObject> getSelectedRO();
 
         public:
             // Accept viewer mouse events.
