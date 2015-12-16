@@ -7,6 +7,8 @@
 
 #include <ui_MaterialEditor.h>
 
+class QCloseEvent;
+
 namespace Ra
 {
     namespace Gui
@@ -16,10 +18,15 @@ namespace Ra
             Q_OBJECT
 
         public:
-            MaterialEditor( Ra::Core::Index roIdx, QWidget* parent = nullptr );
+            MaterialEditor( QWidget* parent = nullptr );
 
-        public slots:
             void changeRenderObject( Ra::Core::Index roIdx );
+
+        protected:
+            void closeEvent( QCloseEvent* e ) override;
+
+        private slots:
+            void hideEditor();
 
         private:
             Core::Index m_roIdx;

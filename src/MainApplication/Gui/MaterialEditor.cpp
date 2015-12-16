@@ -1,14 +1,15 @@
 #include <MainApplication/Gui/MaterialEditor.hpp>
 
+#include <QCloseEvent>
+
 namespace Ra
 {
     namespace Gui
     {
-        MaterialEditor::MaterialEditor( Core::Index roIdx, QWidget* parent )
+        MaterialEditor::MaterialEditor( QWidget* parent )
             : QWidget( parent )
-            , m_roIdx( roIdx )
+            , m_roIdx( -1 )
         {
-            changeRenderObject( roIdx );
         }
 
         void MaterialEditor::changeRenderObject( Core::Index roIdx )
@@ -16,5 +17,9 @@ namespace Ra
             m_roIdx = roIdx;
         }
 
+        void MaterialEditor::closeEvent( QCloseEvent* e )
+        {
+            hide();
+        }
     }
 }

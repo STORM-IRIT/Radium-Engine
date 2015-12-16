@@ -13,7 +13,9 @@
 #include <MainApplication/MainApplication.hpp>
 #include <MainApplication/Gui/EntityTreeModel.hpp>
 #include <MainApplication/Gui/EntityTreeItem.hpp>
+#include <MainApplication/Gui/MaterialEditor.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
+
 #include <Plugins/Animation/AnimationSystem.hpp>
 #include <assimp/Importer.hpp>
 
@@ -35,6 +37,8 @@ namespace Ra
         headers << tr( "Entities -> Components" );
         m_entityTreeModel = new EntityTreeModel( headers );
         m_entitiesTreeView->setModel( m_entityTreeModel );
+
+        m_materialEditor = new MaterialEditor( this );
 
         createConnections();
 
@@ -606,8 +610,8 @@ namespace Ra
 
     void Gui::MainWindow::editRO()
     {
-        QWidget* widget = new QWidget;
-        widget->show();
+        m_materialEditor->changeRenderObject( getSelectedRO()->idx );
+        m_materialEditor->show();
     }
 
     std::shared_ptr<Engine::RenderObject> Gui::MainWindow::getSelectedRO()

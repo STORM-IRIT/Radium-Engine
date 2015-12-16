@@ -23,6 +23,7 @@ namespace Ra
     {
         class EntityTreeModel;
         class Viewer;
+        class MaterialEditor;
     }
 }
 
@@ -133,6 +134,8 @@ namespace Ra
             std::vector<Core::KeyEvent>   m_keyEvents;
 
             EntityTreeModel* m_entityTreeModel;
+
+            MaterialEditor* m_materialEditor;
         };
 
     } // namespace Gui
