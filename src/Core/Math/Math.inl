@@ -102,6 +102,12 @@ namespace Ra
             {
                 return std::max( min, std::min( v, max ) );
             }
+
+            inline constexpr bool areApproxEqual(Scalar a, Scalar b, Scalar eps)
+            {
+               return std::abs(b-a) < eps;
+            }
+
         }
     }
 }
