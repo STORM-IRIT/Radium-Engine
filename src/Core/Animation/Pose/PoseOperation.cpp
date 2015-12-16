@@ -24,7 +24,7 @@ Pose relativePose( const Pose& modelPose, const RestPose& restPose )  {
 
 
 
-Pose applyTransformation(const Pose& pose, const std::vector<Transform> &transform ) {
+Pose applyTransformation(const Pose& pose, const AlignedStdVector<Transform> &transform ) {
     Pose T( std::min( pose.size(), transform.size() ) );
     for( uint i = 0; i < T.size(); ++i ) {
         T[i] = transform[i] * pose[i];
