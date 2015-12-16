@@ -96,7 +96,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 # Eigen
 set(EIGEN_INC ${EXTERNAL_DIR}/Eigen)
 
-find_package( RadiumEngine  REQUIRED )
+#find_package( RadiumEngine  REQUIRED )
 find_package( OpenGL        REQUIRED )
 find_package( GLEW          REQUIRED )
 find_package( Assimp        REQUIRED )
@@ -118,7 +118,7 @@ add_definitions( ${Qt5OpenGL_DEFINITIONS} )
 
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR} # MOC
-    ${RadiumEngine_INCLUDE_DIR}
+    ${RADIUM_INCLUDE_DIR}
     ${Assimp_INCLUDE_DIR}
     ${EIGEN3_INCLUDE_DIR} )
 

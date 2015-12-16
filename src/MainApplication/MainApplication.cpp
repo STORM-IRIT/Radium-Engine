@@ -13,6 +13,8 @@
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
+#include <Core/String/StringUtils.hpp>
+
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
@@ -58,7 +60,7 @@ namespace Ra
         }
         if ( pluginsPath.empty() )
         {
-            pluginsPath = "../Plugins";
+            pluginsPath = ".";
         }
 
         LOG( logINFO ) << "*** Radium Engine Main App  ***";
@@ -248,33 +250,38 @@ namespace Ra
 
         foreach (QString filename, pluginsDir.entryList( QDir::Files ) )
         {
-            QPluginLoader pluginLoader( pluginsDir.absoluteFilePath( filename ) );
-            LOG( logINFO ) << "Found plugin " << filename.toStdString();
-
-            QObject* plugin = pluginLoader.instance();
-            Plugins::RadiumPluginInterface* loadedPlugin;
-
-            if ( plugin )
+            std::string ext = Core::StringUtils::getFileExt( filename.toStdString() );
+            if (  ext == "so" || ext == "dll" )
             {
-                loadedPlugin = qobject_cast<Plugins::RadiumPluginInterface*>( plugin );
-                if ( loadedPlugin )
+                QPluginLoader pluginLoader( pluginsDir.absoluteFilePath( filename ) );
+
+                LOG( logINFO ) << "Found plugin " << filename.toStdString();
+
+                QObject* plugin = pluginLoader.instance();
+                Plugins::RadiumPluginInterface* loadedPlugin;
+
+                if ( plugin )
                 {
-                    loadedPlugin->registerPlugin( m_engine.get() );
-                    m_mainWindow->updateUi( loadedPlugin );
+                    loadedPlugin = qobject_cast<Plugins::RadiumPluginInterface*>( plugin );
+                    if ( loadedPlugin )
+                    {
+                        loadedPlugin->registerPlugin( m_engine.get() );
+                        m_mainWindow->updateUi( loadedPlugin );
+                    }
+                    else
+                    {
+                        LOG( logERROR ) << "Something went wrong while trying to cast plugin"
+                                        << filename.toStdString();
+                        res = false;
+                    }
                 }
                 else
                 {
-                    LOG( logERROR ) << "Something went wrong while trying to cast plugin"
-                                    << filename.toStdString();
+                    LOG( logERROR ) << "Something went wrong while trying to load plugin "
+                                    << filename.toStdString() << " : "
+                                    << pluginLoader.errorString().toStdString();
                     res = false;
                 }
-            }
-            else
-            {
-                LOG( logERROR ) << "Something went wrong while trying to load plugin "
-                                << filename.toStdString() << " : "
-                                << pluginLoader.errorString().toStdString();
-                res = false;
             }
         }
 
