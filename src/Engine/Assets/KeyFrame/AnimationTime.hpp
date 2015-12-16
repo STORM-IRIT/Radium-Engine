@@ -69,7 +69,8 @@ public:
             return true;
         }
         if( m_start == time.m_start ) {
-            m_end < time.m_end;
+            // bitch please.
+            return m_end < time.m_end;
         }
         return false;
     }

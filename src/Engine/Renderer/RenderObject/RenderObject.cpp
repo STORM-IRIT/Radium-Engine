@@ -20,6 +20,7 @@ namespace Ra
             , m_type( Type::RO_OPAQUE )
             , m_renderTechnique( nullptr )
             , m_mesh( nullptr )
+            , m_visible( true )
             , m_isDirty( true )
         {
             Engine::RenderParameters params;
@@ -30,7 +31,7 @@ namespace Ra
 
         RenderObject::~RenderObject()
         {
-            
+
         }
 
         void RenderObject::updateGL()
