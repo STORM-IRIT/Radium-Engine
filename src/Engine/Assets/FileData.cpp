@@ -22,7 +22,7 @@ FileData::FileData( const std::string& filename,
     m_filename( filename ),
     m_loadingTime( 0.0 ),
     m_geometryData(),
-    // FIXME(Charly): Needs to be fixed to be compiled
+
 #ifdef DEBUG_LOAD_HANDLE
     m_handleData(),
 #endif

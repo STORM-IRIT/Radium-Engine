@@ -1,5 +1,3 @@
-// FIXME(Charly): Needs to be fixed to be compiled
-#if 1
 #ifndef RADIUMENGINE_ASSIMP_HANDLE_DATA_LOADER_HPP
 #define RADIUMENGINE_ASSIMP_HANDLE_DATA_LOADER_HPP
 
@@ -7,7 +5,10 @@
 #include <assimp/mesh.h>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Assets/DataLoader.hpp>
-//#include <Engine/Assets/HandleData.hpp>
+#include <Engine/Assets/FileData.hpp>
+
+// FIXME(Charly): Needs to be fixed to be compiled
+#ifdef DEBUG_LOAD_HANDLE
 
 namespace Ra {
 namespace Asset {

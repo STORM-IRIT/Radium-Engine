@@ -396,6 +396,16 @@ namespace Ra
             }
             m_entitiesTreeView->setExpanded( entityIdx, true );
             m_entitiesTreeView->selectionModel()->select( treeIdx, QItemSelectionModel::SelectCurrent );
+
+            auto foundItems = m_renderObjectsListView->findItems( QString( ro->getName().c_str() ), Qt::MatchExactly );
+            if  ( foundItems.size() > 0 )
+            {
+                m_renderObjectsListView->setCurrentItem( foundItems.at( 0 ) );
+            }
+            else
+            {
+                LOG( logERROR ) << "Not found";
+            }
         }
         else
         {

@@ -1,6 +1,3 @@
-// FIXME(Charly): Needs to be fixed to be compiled
-#if 0
-
 #ifndef RADIUMENGINE_ANIMATION_DATA_HPP
 #define RADIUMENGINE_ANIMATION_DATA_HPP
 
@@ -12,6 +9,11 @@
 #include <Engine/Assets/AssimpAnimationDataLoader.hpp>
 #include <Engine/Assets/KeyFrame/AnimationTime.hpp>
 #include <Engine/Assets/KeyFrame/KeyTransform.hpp>
+
+#include <Engine/Assets/FileData.hpp>
+
+// FIXME(Charly): Needs to be fixed to be compiled
+#ifdef DEBUG_LOAD_ANIMATION
 
 namespace Ra {
 namespace Asset {

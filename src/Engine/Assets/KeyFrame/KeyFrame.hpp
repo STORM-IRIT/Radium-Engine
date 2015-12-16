@@ -1,11 +1,14 @@
-// FIXME(Charly): Needs to be fixed to be compiled
-#if 0
 
 #ifndef RADIUMENGINE_KEY_FRAME_HPP
 #define RADIUMENGINE_KEY_FRAME_HPP
 
 #include <map>
 #include <Engine/Assets/KeyFrame/AnimationTime.hpp>
+
+#include <Engine/Assets/FileData.hpp>
+
+// FIXME(Charly): Needs to be fixed to be compiled
+#if DEBUG_LOAD_ANIMATION
 
 namespace Ra {
 namespace Asset {

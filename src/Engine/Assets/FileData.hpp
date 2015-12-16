@@ -2,25 +2,29 @@
 #define RADIUMENGINE_FILE_DATA_HPP
 
 #define DEBUG_LOAD_GEOMETRY
-//#define DEBUG_LOAD_HANDLE
+#define DEBUG_LOAD_HANDLE
 //#define DEBUG_LOAD_ANIMATION
 
+#include <Core/CoreMacros.hpp>
 
 #include <string>
 #include <vector>
 #include <memory>
-#ifdef DEBUG_LOAD_GEOMETRY
-#include <Engine/Assets/GeometryData.hpp>
-#endif
-#ifdef DEBUG_LOAD_HANDLE
-#include <Engine/Assets/HandleData.hpp>
-#endif
-#ifdef DEBUG_LOAD_ANIMATION
-#include <Engine/Assets/AnimationData.hpp>
-#endif
 
 namespace Ra {
 namespace Asset {
+
+#ifdef DEBUG_LOAD_GEOMETRY
+class GeometryData;
+#endif
+
+#ifdef DEBUG_LOAD_HANDLE
+class HandleData;
+#endif
+
+#ifdef DEBUG_LOAD_ANIMATION
+class AnimationData;
+#endif
 
 class FileData {
 public:
@@ -47,7 +51,6 @@ public:
     /// DATA
     inline std::vector< GeometryData* > getGeometryData() const;
 
-    // FIXME(Charly): Needs to be fixed to be compiled
 #ifdef DEBUG_LOAD_HANDLE
     inline std::vector< HandleData* > getHandleData() const;
 #endif
@@ -89,7 +92,6 @@ protected:
     Scalar                                          m_loadingTime;
     std::vector< std::unique_ptr< GeometryData > >  m_geometryData;
 
-    // FIXME(Charly): Needs to be fixed to be compiled
 #ifdef DEBUG_LOAD_HANDLE
     std::vector< std::unique_ptr< HandleData > >    m_handleData;
 #endif

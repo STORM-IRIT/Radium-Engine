@@ -110,7 +110,6 @@ namespace Ra
             int w = FreeImage_GetWidth( dib );
             int h = FreeImage_GetHeight( dib );
 
-            // FIXME(Charly): Use VLOG instead of the check
             if ( m_verbose )
             {
                 LOG( logINFO ) << "Image stats (" << filename << ") :\n"

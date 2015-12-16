@@ -93,6 +93,7 @@ namespace AnimationPlugin
         //std::cout << "Mesh component received by the Animation system" << std::endl;
         FancyMeshPlugin::FancyMeshComponent* meshComponent = (FancyMeshPlugin::FancyMeshComponent*) component;
 
+        /*
         AnimationLoader::AnimationData componentData = AnimationLoader::loadFile(meshComponent->getLoadingInfo().filename, meshComponent->getLoadingInfo());
         if (componentData.hasLoaded)
         {
@@ -102,6 +103,7 @@ namespace AnimationPlugin
 
             callOnComponentCreationDependencies(animationComponent);
         }
+        */
     }
 
     void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData ) {

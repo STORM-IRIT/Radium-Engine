@@ -1,6 +1,3 @@
-// FIXME(Charly): Needs to be fixed to be compiled
-#if 0
-
 #ifndef RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
 #define RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
 
@@ -11,6 +8,10 @@
 #include <Engine/Assets/AssimpWrapper.hpp>
 #include <Engine/Assets/DataLoader.hpp>
 #include <Engine/Assets/AnimationData.hpp>
+#include <Engine/Assets/FileData.hpp>
+
+// FIXME(Charly): Needs to be fixed to be compiled
+#ifdef DEBUG_LOAD_ANIMATION
 
 namespace Ra {
 namespace Asset {

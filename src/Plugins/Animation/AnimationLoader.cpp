@@ -38,6 +38,7 @@ namespace AnimationPlugin
         void getTransformFromKey(const aiNodeAnim* key, int i, Ra::Core::Transform& keyTransform);
         void checkWeights( AnimationData& data );
 
+        /*
         AnimationData loadFile( const std::string& name, const FancyMeshPlugin::MeshLoadingInfo& info)
         {
             Assimp::Importer importer;
@@ -206,6 +207,7 @@ namespace AnimationPlugin
             animData.hasLoaded = true;
             return animData;
         }
+        */
 
         void recursiveSkeletonRead(const aiNode* node, aiMatrix4x4 accTransform, BoneMap &boneMap, AnimationData& data, int parent)
         {

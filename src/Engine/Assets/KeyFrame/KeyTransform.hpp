@@ -1,16 +1,16 @@
-// FIXME(Charly): Needs to be fixed to be compiled
-#if 0
-
 #ifndef RADIUMENGINE_KEY_TRANSFORM_HPP
 #define RADIUMENGINE_KEY_TRANSFORM_HPP
 
 #include <Engine/Assets/KeyFrame/KeyFrame.hpp>
 #include <Engine/Assets/KeyFrame/Interpolation.hpp>
 
+#include <Engine/Assets/FileData.hpp>
+
+// FIXME(Charly): Needs to be fixed to be compiled
+#ifdef DEBUG_LOAD_ANIMATION
+
 namespace Ra {
 namespace Asset {
-
-
 
 class KeyTransform : public KeyFrame< Core::Transform > {
 public:
@@ -41,6 +41,6 @@ protected:
 } // namespace Asset
 } // namespace Ra
 
-#endif // RADIUMENGINE_KEY_TRANSFORM_HPP
-
 #endif
+
+#endif // RADIUMENGINE_KEY_TRANSFORM_HPP

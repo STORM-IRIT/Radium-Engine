@@ -1,5 +1,3 @@
-// FIXME(Charly): Needs to be fixed to be compiled
-#if 1
 
 #include <Engine/Assets/AssimpHandleDataLoader.hpp>
 
@@ -8,10 +6,11 @@
 #include <Engine/Assets/AssimpWrapper.hpp>
 #include <Engine/Assets/HandleData.hpp>
 
+// FIXME(Charly): Needs to be fixed to be compiled
+#ifdef DEBUG_LOAD_HANDLE
+
 namespace Ra {
 namespace Asset {
-// FIXME(Charly): Does not compile
-#if 0
 
 /// CONSTRUCTOR
 AssimpHandleDataLoader::AssimpHandleDataLoader( const bool VERBOSE_MODE ) : DataLoader< HandleData > ( VERBOSE_MODE ) { }
@@ -137,7 +136,7 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
     }
     aiNode* node = scene->mRootNode->FindNode( bone->mName );
     while( node != nullptr ) {
-        data.m_frame *= assimpToCore( node->mTransformation );
+        data.m_frame = data.m_frame * assimpToCore( node->mTransformation );
         node = node->mParent;
     }
 }
@@ -145,9 +144,9 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
 void AssimpHandleDataLoader::loadHandleComponentData( const aiNode* node, HandleComponentData& data ) const {
     data.m_name  = assimpToCore( node->mName );
     data.m_frame = assimpToCore( node->mTransformation );
-    aiNode* tmpNode = node;
+    const aiNode* tmpNode = node;
     while( tmpNode != nullptr ) {
-        data.m_frame *= assimpToCore( node->mTransformation );
+        data.m_frame = data.m_frame * assimpToCore( node->mTransformation );
         tmpNode = tmpNode->mParent;
     }
 }
@@ -224,5 +223,3 @@ void AssimpHandleDataLoader::fetchVertexSize( HandleData& data ) const {
 
 } // namespace Asset
 } // namespace Ra
-
-#endif

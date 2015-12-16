@@ -1,11 +1,11 @@
 // FIXME(Charly): Needs to be fixed to be compiled
-#if 0
-
 #ifndef RADIUMENGINE_INTERPOLATION_HPP
 #define RADIUMENGINE_INTERPOLATION_HPP
 
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Engine/Assets/FileData.hpp>
 
+#ifdef DEBUG_LOAD_ANIMATION
 namespace Ra {
 namespace Core {
 
