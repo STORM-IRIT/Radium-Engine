@@ -68,8 +68,8 @@ namespace Ra
 #endif
 
         LOG( logINFO ) << config.str();
-		
-		LOG(logINFO) << "Qt Version: " << qVersion();
+
+        LOG(logINFO) << "Qt Version: " << qVersion();
 
         // Handle command line arguments.
         // TODO ( e.g fps limit ) / Keep or not timer data .
