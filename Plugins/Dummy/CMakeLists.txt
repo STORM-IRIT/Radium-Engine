@@ -1,4 +1,4 @@
-project(RadiumEngine)
+project(DummyPlugin)
 
 cmake_minimum_required(VERSION 2.8.11)
 
@@ -46,21 +46,24 @@ endif()
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules)
 
 # Debug by default !
-if (NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Debug)
+if ( NOT CMAKE_BUILD_TYPE )
+  set( CMAKE_BUILD_TYPE Debug )
 endif()
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
-set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_SOURCE_DIR}/bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+if ( NOT PLUGIN_OUTPUT_PATH )
+  set ( PLUGIN_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib )
+else()
+  message( "Output path : ${PLUGIN_OUTPUT_PATH}" )
+endif()
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PLUGIN_OUTPUT_PATH} )
+set(EXECUTABLE_OUTPUT_PATH         ${PLUGIN_OUTPUT_PATH} )
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PLUGIN_OUTPUT_PATH} )
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PLUGIN_OUTPUT_PATH} )
 
 if ( NOT CMAKE_PREFIX_PATH )
   set( CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR} )
 endif()
-
-#set(LIB_INSTALL_DIR                ${CMAKE_PREFIX_PATH}/lib)
-#set(INC_INSTALL_DIR                ${CMAKE_PREFIX_PATH}/include)
 
 # Win32 stuff
 if (MSVC OR MSVC_IDE)
@@ -90,15 +93,48 @@ endif(MSVC OR MSVC_IDE)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
-# EXTERNALS
-# TODO Move this in another cmake config file
-set(EXTERNAL_DIR ${CMAKE_SOURCE_DIR}/3rdPartyLibraries)
-
 # Eigen
 set(EIGEN_INC ${EXTERNAL_DIR}/Eigen)
 
-add_subdirectory(3rdPartyLibraries)
-add_subdirectory(src)
+#find_package( RadiumEngine  REQUIRED )
+find_package( OpenGL        REQUIRED )
+find_package( GLEW          REQUIRED )
+find_package( Assimp        REQUIRED )
+find_package( Eigen3        REQUIRED )
+find_package( Qt5Core       REQUIRED )
+find_package( Qt5Widgets    REQUIRED )
+find_package( Qt5OpenGL     REQUIRED )
 
-# FIXME(Charly) Not sure this is really the greatest idea ever
-add_subdirectory(Plugins)
+file( GLOB_RECURSE sources src/*.cpp )
+file( GLOB_RECURSE headers src/*.hpp )
+file( GLOB_RECURSE inlines src/*.inl )
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+
+add_definitions( ${Qt5Core_DEFINITIONS} )
+add_definitions( ${Qt5Widges_DEFINITIONS} )
+add_definitions( ${Qt5OpenGL_DEFINITIONS} )
+
+include_directories(
+    ${CMAKE_CURRENT_BINARY_DIR} # MOC
+    ${RADIUM_INCLUDE_DIR}
+    ${Assimp_INCLUDE_DIR}
+    ${EIGEN3_INCLUDE_DIR} )
+
+add_library( Dummy SHARED ${sources} ${headers} ${inlines} )
+
+target_compile_definitions( Dummy PRIVATE "-DRA_CORE_IMPORTS" )
+target_compile_definitions( Dummy PRIVATE "-DRA_ENGINE_IMPORTS" )
+target_compile_definitions( Dummy PRIVATE "-DDummy_EXPORTS" )
+
+set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})
+target_link_libraries( Dummy
+                       ${Qt5_LIBRARIES}
+                       ${RADIUM_LIBRARIES}
+                       ${GLEW_LIBRARIES}
+                       ${Assimp_LIBRARIES}
+                       ${FREEIMAGE_LIBRARIES}
+                       ${OPENGL_LIBRARIES} )
+
+
