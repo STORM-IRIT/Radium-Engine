@@ -4,7 +4,7 @@
 #include <Core/CoreMacros.hpp>
 /// Defines the correct macro to export dll symbols.
 #if defined  Dummy_EXPORTS
-    #define DUMMY_DLL_EXPORT
+    #define DUMMY_PLUGIN_API DLL_EXPORT
 #elif defined Dummy_IMPORTS
     #define DUMMY_PLUGIN_API DLL_IMPORT
 #else

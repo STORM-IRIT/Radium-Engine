@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QMessageBox>
 
 #include <Core/Log/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -35,10 +36,10 @@ namespace DummyPlugin
     {
         QWidget* widget = new QWidget;
 
-        m_label = new QLabel( "I am a dummy label" );
+        m_label = new QLabel( "I am a dummy label", widget );
+        QPushButton* button = new QPushButton( "And I am a dummy button", widget );
 
         QVBoxLayout* layout = new QVBoxLayout( widget );
-        QPushButton* button = new QPushButton( "And I am a dummy button" );
 
         layout->addWidget( m_label );
         layout->addWidget( button );
@@ -55,10 +56,13 @@ namespace DummyPlugin
 
     QMenu* DummyPlugin::getMenu()
     {
-        QMenu* menu = new QMenu( "FancyMesh" );
+        QMenu* menu = new QMenu( "Dummy" );
 
-        menu->addAction( "Hello there" );
-        menu->addAction( "And there" );
+        QAction* a1 = menu->addAction( "Hello there" );
+        QAction* a2 = menu->addAction( "And there" );
+
+        CORE_UNUSED( a1 );
+        CORE_UNUSED( a2 );
 
         return menu;
     }
@@ -66,5 +70,6 @@ namespace DummyPlugin
     void DummyPlugin::sayHello()
     {
         m_label->setText( "I have been clicked at least once !" );
+        QMessageBox::warning( nullptr, "Dummy Plugin", "Hello, Radium World !");
     }
 }

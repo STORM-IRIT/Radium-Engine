@@ -28,6 +28,12 @@ namespace DummyPlugin
     class DummyComponent;
 }
 
+struct DummyData
+{
+    int foo;
+    int bar;
+};
+
 namespace DummyPlugin
 {
     class  DummySystem : public Ra::Engine::System
@@ -37,7 +43,6 @@ namespace DummyPlugin
         virtual ~DummySystem();
 
         virtual void initialize() override;
-		virtual void handleFileLoading(Ra::Engine::Entity* entity, const std::string& filename) override;
         virtual void handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder,
                                         const std::map<std::string, Ra::Core::Any>& data ) override;
 
@@ -46,6 +51,9 @@ namespace DummyPlugin
     protected:
         virtual Ra::Engine::Component* addComponentToEntityInternal(
                 Ra::Engine::Entity* entity, uint id ) override;
+
+    private:
+        DummyData* m_data;
     };
 
 } // namespace DummyPlugin
