@@ -26,16 +26,13 @@ namespace Ra
 namespace DummyPlugin
 {
     class DummyComponent;
-}
 
-struct DummyData
-{
-    int foo;
-    int bar;
-};
+    struct DummyData
+    {
+        int foo;
+        int bar;
+    };
 
-namespace DummyPlugin
-{
     class  DummySystem : public Ra::Engine::System
     {
     public:

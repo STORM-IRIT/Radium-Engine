@@ -9,6 +9,7 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
 #include "DummyComponent.hpp"
+#include "DummyTask.hpp"
 
 namespace DummyPlugin
 {
@@ -45,6 +46,7 @@ namespace DummyPlugin
 
     void DummySystem::generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo )
     {
+
         auto task1Id = taskQueue->registerTask( task1 );
         auto task2Id = taskQueue->registerTask( task2 );
     }
