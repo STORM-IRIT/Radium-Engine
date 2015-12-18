@@ -305,7 +305,7 @@ namespace Ra
             {
                 const Vector3 ab = b-a;
                 const Vector3 ac = c-a;
-                const Vector3 n = ab.cross(ac);
+                ON_DEBUG(const Vector3 n = ab.cross(ac));
 
                 Scalar u = 0.0;
                 Scalar v = 0.0;
