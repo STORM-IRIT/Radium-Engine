@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1204</width>
-    <height>660</height>
+    <height>737</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -40,7 +40,7 @@
      <x>0</x>
      <y>0</y>
      <width>1204</width>
-     <height>20</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFILE">
@@ -106,7 +106,7 @@
              </size>
             </property>
             <property name="currentIndex">
-             <number>2</number>
+             <number>0</number>
             </property>
             <property name="movable">
              <bool>false</bool>
@@ -371,11 +371,6 @@
              <attribute name="title">
               <string>Edition</string>
              </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout">
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_3"/>
-              </item>
-             </layout>
             </widget>
            </widget>
           </item>
