@@ -3,7 +3,9 @@
 
 #include <string>
 #include <vector>
+
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Containers/VectorArray.hpp>
 
 #include <Engine/Assets/AssimpGeometryDataLoader.hpp>
 #include <Engine/Assets/AssetData.hpp>
@@ -40,9 +42,17 @@ struct MaterialData {
 };
 
 class GeometryData : public AssetData {
-public:
+
     /// FRIEND
     friend class AssimpGeometryDataLoader;
+
+    using Vector3Array  = Core::VectorArray<Core::Vector3> ;
+    using Vector2iArray = Core::VectorArray<Core::Vector2i>;
+    using VectorNiArray = Core::VectorArray<Core::VectorNi>;
+    using Vector4Array  = Core::VectorArray<Core::Vector4> ;
+    using ColorArray    = Core::VectorArray<Core::Color>   ;
+
+public:
 
     /// ENUM
     enum GeometryType {
@@ -72,17 +82,17 @@ public:
     inline Core::Transform getFrame() const;
 
     /// DATA
-    inline uint getVerticesSize() const;
-    inline std::vector< Core::Vector3 > getVertices() const;
-    inline std::vector< Core::Vector2i > getEdges() const;
-    inline std::vector< Core::VectorNi > getFaces() const;
-    inline std::vector< Core::VectorNi > getPolyhedra() const;
-    inline std::vector< Core::Vector3 > getNormals() const;
-    inline std::vector< Core::Vector4 > getTangents() const;
-    inline std::vector< Core::Vector4 > getBiTangents() const;
-    inline std::vector< Core::Vector4 > getTexCoords() const;
-    inline std::vector< Core::Color > getColors() const;
-    inline MaterialData getMaterial() const;
+    inline uint getVerticesSize()               const;
+    inline const Vector3Array & getVertices()   const;
+    inline const Vector2iArray& getEdges()      const;
+    inline const VectorNiArray& getFaces()      const;
+    inline const VectorNiArray& getPolyhedra()  const;
+    inline const Vector3Array & getNormals()    const;
+    inline const Core::Vector4& getTangents()   const;
+    inline const Core::Vector4& getBiTangents() const;
+    inline const Core::Vector4& getTexCoords()  const;
+    inline const Core::Color&   getColors()     const;
+    inline const MaterialData&  getMaterial()   const;
 
     /// QUERY
     inline bool isPointCloud() const;
