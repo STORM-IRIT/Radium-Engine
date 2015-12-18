@@ -41,12 +41,12 @@ namespace AnimationPlugin
 
     void AnimationComponent::getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const
     {
-        if ( m_selectedBone < 0 || m_selectedBone >= m_skel.size() )
+        if ( m_selectedBone < 0 || uint(m_selectedBone) >= m_skel.size() )
         {
             m_selectedBone = 0;
         }
 
-        CORE_ASSERT(m_selectedBone >= 0 && m_selectedBone < m_skel.size(), "Oops");
+        CORE_ASSERT(m_selectedBone >= 0 && uint(m_selectedBone) < m_skel.size(), "Oops");
         //for (uint i = 0; i < m_skel.size(); ++i)
         uint i = m_selectedBone;
         {
@@ -176,12 +176,12 @@ namespace AnimationPlugin
 
         if (data.boneNames.size() == data.hierarchy.size())
         {
-            for (int i = 0; i < skeleton.m_graph.size(); i++)
+            for (uint i = 0; i < skeleton.m_graph.size(); i++)
                 skeleton.setLabel(i, data.boneNames[i]);
         }
         else  // Auto-naming
         {
-            for (int i = 0; i < skeleton.m_graph.size(); i++)
+            for (uint i = 0; i < skeleton.m_graph.size(); i++)
                 skeleton.setLabel(i, m_name + std::string("Bone_") + std::to_string(i));
         }
 

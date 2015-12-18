@@ -18,16 +18,26 @@ int Skeleton::addBone( const int parent, const Transform& T, const SpaceType MOD
     switch ( MODE ) {
     case SpaceType::LOCAL: {
         m_pose.push_back( T );
+        if( parent == -1 ) {
+            m_modelSpace.push_back( T );
+        } else {
+            m_modelSpace.push_back( T * m_modelSpace[parent] );
+        }
     } break;
     case SpaceType::MODEL: {
         m_modelSpace.push_back( T );
+        if( parent == -1 ) {
+            m_pose.push_back( T );
+        } else {
+            m_pose.push_back( m_modelSpace[parent].inverse() * T );
+        }
     } break;
     default:
         return -1;
     }
     m_label.push_back( label );
     m_graph.addNode( parent );
-    return size();
+    return ( size() - 1 );
 }
 
 /// SIZE
