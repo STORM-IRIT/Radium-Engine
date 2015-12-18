@@ -16,7 +16,7 @@ namespace DummyPlugin
     {
     public:
         virtual std::string getName() const override;
-        virtual void init( const DummyParams* params ) override;
+        virtual void init( const Ra::Core::TaskParams* params ) override;
         virtual void process() override;
 
     private:
@@ -27,7 +27,7 @@ namespace DummyPlugin
     {
     public:
         virtual std::string getName() const override;
-        virtual void init( const DummyParams* params ) override;
+        virtual void init( const Ra::Core::TaskParams* params ) override;
         virtual void process() override;
 
     private:

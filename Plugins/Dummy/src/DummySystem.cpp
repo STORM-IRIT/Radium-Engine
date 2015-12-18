@@ -46,9 +46,19 @@ namespace DummyPlugin
 
     void DummySystem::generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo )
     {
+        DummyTask* task1 = new DummyTask;
+        DummyOtherTask* task2 = new DummyOtherTask;
 
-        auto task1Id = taskQueue->registerTask( task1 );
+        DummyParams p;
+        p.data = m_data;
+
+        task1->init( &p );
+        task2->init( &p );
+
         auto task2Id = taskQueue->registerTask( task2 );
+        auto task1Id = taskQueue->registerTask( task1 );
+
+        taskQueue->addDependency( task1Id, task2Id );
     }
 
 } // namespace DummyPlugin
