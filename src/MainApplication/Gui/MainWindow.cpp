@@ -38,7 +38,7 @@ namespace Ra
         m_entityTreeModel = new EntityTreeModel( headers );
         m_entitiesTreeView->setModel( m_entityTreeModel );
 
-        m_materialEditor = new MaterialEditor( this );
+        m_materialEditor = new MaterialEditor();
 
         createConnections();
 
