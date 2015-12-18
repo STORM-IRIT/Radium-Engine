@@ -88,11 +88,11 @@ public:
     inline const VectorNiArray& getFaces()      const;
     inline const VectorNiArray& getPolyhedra()  const;
     inline const Vector3Array & getNormals()    const;
-    inline const Core::Vector4& getTangents()   const;
-    inline const Core::Vector4& getBiTangents() const;
-    inline const Core::Vector4& getTexCoords()  const;
-    inline const Core::Color&   getColors()     const;
-    inline const MaterialData&  getMaterial()   const;
+    inline const Vector4Array & getTangents()   const;
+    inline const Vector4Array & getBiTangents() const;
+    inline const Vector4Array & getTexCoords()  const;
+    inline const ColorArray   & getColors()     const;
+    inline const MaterialData & getMaterial()   const;
 
     /// QUERY
     inline bool isPointCloud() const;
@@ -162,15 +162,15 @@ protected:
     GeometryType    m_type;
     Core::Transform m_frame;
 
-    std::vector< Core::Vector3  > m_vertex;
-    std::vector< Core::Vector2i > m_edge;
-    std::vector< Core::VectorNi > m_faces;
-    std::vector< Core::VectorNi > m_polyhedron;
-    std::vector< Core::Vector3  > m_normal;
-    std::vector< Core::Vector4  > m_tangent;
-    std::vector< Core::Vector4  > m_bitangent;
-    std::vector< Core::Vector4  > m_texCoord;
-    std::vector< Core::Color    > m_color;
+    Vector3Array  m_vertex;
+    Vector2iArray m_edge;
+    VectorNiArray m_faces;
+    VectorNiArray m_polyhedron;
+    Vector3Array  m_normal;
+    Vector4Array  m_tangent;
+    Vector4Array  m_bitangent;
+    Vector4Array  m_texCoord;
+    ColorArray    m_color;
 
     MaterialData                  m_material;
     bool                          m_hasMaterial;

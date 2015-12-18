@@ -65,43 +65,53 @@ inline uint GeometryData::getVerticesSize() const {
     return m_vertex.size();
 }
 
-inline std::vector< Core::Vector3 > GeometryData::getVertices() const {
+inline const GeometryData::Vector3Array& GeometryData::getVertices() const
+{
     return m_vertex;
 }
 
-inline std::vector< Core::Vector2i > GeometryData::getEdges() const {
+inline const GeometryData::Vector2iArray& GeometryData::getEdges() const
+{
     return m_edge;
 }
 
-inline std::vector< Core::VectorNi > GeometryData::getFaces() const {
+inline const GeometryData::VectorNiArray& GeometryData::getFaces() const
+{
     return m_faces;
 }
 
-inline std::vector< Core::VectorNi > GeometryData::getPolyhedra() const {
+inline const GeometryData::VectorNiArray& GeometryData::getPolyhedra() const
+{
     return m_polyhedron;
 }
 
-inline std::vector< Core::Vector3 > GeometryData::getNormals() const {
+inline const GeometryData::Vector3Array& GeometryData::getNormals() const
+{
     return m_normal;
 }
 
-inline std::vector< Core::Vector4 > GeometryData::getTangents() const {
+inline const GeometryData::Vector4Array& GeometryData::getTangents() const
+{
     return m_tangent;
 }
 
-inline std::vector< Core::Vector4 > GeometryData::getBiTangents() const {
+inline const GeometryData::Vector4Array& GeometryData::getBiTangents() const
+{
     return m_bitangent;
 }
 
-inline std::vector< Core::Vector4 > GeometryData::getTexCoords() const {
+inline const GeometryData::Vector4Array& GeometryData::getTexCoords() const
+{
     return m_texCoord;
 }
 
-inline std::vector< Core::Color > GeometryData::getColors() const {
+inline const GeometryData::ColorArray& GeometryData::getColors() const
+{
     return m_color;
 }
 
-inline MaterialData GeometryData::getMaterial() const {
+inline const MaterialData& GeometryData::getMaterial() const
+{
     return m_material;
 }
 

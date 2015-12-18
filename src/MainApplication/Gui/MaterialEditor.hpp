@@ -25,9 +25,6 @@ namespace Ra
         protected:
             void closeEvent( QCloseEvent* e ) override;
 
-        private slots:
-            void hideEditor();
-
         private:
             Core::Index m_roIdx;
         };
