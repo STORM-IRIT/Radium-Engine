@@ -1,5 +1,15 @@
 set(library_version "0.1.0")
 
+set( CMAKE_SKIP_BUILD_RPATH FALSE )
+set( CMAKE_BUILD_WITH_INSTALL_RPATH FALSE )
+set( CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib )
+set( CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE )
+
+list( FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSysDir )
+if ( "${isSysDir}" STREQUAL "-1" )
+    set( CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib" )
+endif( "${isSysDir}" STREQUAL "-1" )
+
 # Find packages
 find_package(OpenGL     REQUIRED)
 find_package(Assimp     REQUIRED)
@@ -51,20 +61,9 @@ add_library(
 
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
 
-SET_TARGET_PROPERTIES(
-    ${core_target}
-    PROPERTIES
-    VERSION ${library_version}
-)
-
 target_link_libraries(
     ${core_target}
     ${core_libs}
-)
-
-INSTALL(
-    TARGETS ${core_target}
-    DESTINATION ${LIB_INSTALL_DIR}
 )
 
 # Build Engine
@@ -80,6 +79,8 @@ file(GLOB_RECURSE engine_geom_glsl ../Shaders/*.geom.glsl)
 file(GLOB_RECURSE engine_tesc_glsl ../Shaders/*.tesc.glsl)
 file(GLOB_RECURSE engine_tese_glsl ../Shaders/*.tese.glsl)
 file(GLOB_RECURSE engine_comp_glsl ../Shaders/*.comp.glsl)
+set( engine_shaders ${engine_vert_glsl} ${engine_frag_glsl} ${engine_geom_glsl}
+                    ${engine_tesc_glsl} ${engine_tese_glsl} ${engine_comp_glsl} )
 
 set(engine_libs
     radiumCore
@@ -95,36 +96,18 @@ add_library(
     ${engine_headers}
     ${engine_inlines}
 
-    ${engine_vert_glsl}
-    ${engine_frag_glsl}
-    ${engine_geom_glsl}
-    ${engine_tesc_glsl}
-    ${engine_tese_glsl}
-    ${engine_comp_glsl}
+    ${engine_shaders}
 )
 
 target_compile_definitions(${engine_target} PRIVATE "-DRA_CORE_IMPORTS")
 target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
-
-SET_TARGET_PROPERTIES(
-    ${engine_target}
-    PROPERTIES
-    VERSION ${library_version}
-)
 
 target_link_libraries(
     ${engine_target}
     ${engine_libs}
 )
 
-INSTALL(
-    TARGETS ${engine_target}
-    DESTINATION ${LIB_INSTALL_DIR}
-)
-
-add_subdirectory(Plugins)
-
-get_directory_property(plugins DIRECTORY "Plugins" DEFINITION SUBDIRS)
+#get_directory_property(plugins DIRECTORY "Plugins" DEFINITION SUBDIRS)
 
 # Build MainApplication
 set(app_target radium)
@@ -137,7 +120,7 @@ else()
     set( PLATFORM_LIBS "" )
 endif()
 
-set(app_libs radiumEngine radiumCore ${plugins} ${Qt5_LIBRARIES} ${OPENGL_LIBRARIES} ${PLATFORM_LIBS})
+set(app_libs radiumEngine radiumCore ${Qt5_LIBRARIES} ${OPENGL_LIBRARIES} ${PLATFORM_LIBS})
 
 file(GLOB_RECURSE app_sources MainApplication/*.cpp)
 file(GLOB_RECURSE app_headers MainApplication/*.h MainApplication/*.hpp)
@@ -184,3 +167,12 @@ target_link_libraries(
 if (WIN32)
     include(CMakeGenerateTrees.txt)
 endif(WIN32)
+
+install( DIRECTORY . DESTINATION include FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl" PATTERN "*.h" )
+install( FILES ${engine_shaders} DESTINATION Shaders )
+install( DIRECTORY ${CMAKE_SOURCE_DIR}/Assets/. DESTINATION Assets )
+install( TARGETS ${app_target} ${core_target} ${engine_target}
+         RUNTIME DESTINATION bin
+         LIBRARY DESTINATION lib
+         ARCHIVE DESTINATION lib )
+

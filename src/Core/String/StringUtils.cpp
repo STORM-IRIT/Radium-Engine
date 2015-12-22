@@ -98,16 +98,19 @@ namespace Ra
                 return res;
             }
 
+            // Printf-to-string functions.
 
-            int stringPrintf( std::string& str, const char* fmt, ... )
+            // Each function expecting varargs has a va_list equivalent
+            // which does the actual job (because you can't pas varargs to another
+            // function). See http://c-faq.com/varargs/handoff.html
+
+            int stringvPrintf( std::string& str, const char* fmt, va_list args )
             {
                 // Random guessing value from the size of the format string.
                 size_t size = strlen( fmt ) * 2;
                 int finalSize = 0;
                 str.clear();
-
                 std::unique_ptr<char[]> buffer;
-                va_list args;
 
                 while ( 1 )
                 {
@@ -115,10 +118,10 @@ namespace Ra
                     buffer.reset( new char[size] );
 
                     // Attempt to printf into the buffer
-                    va_start( args, fmt );
-                    finalSize = vsnprintf( &buffer[0], size, fmt, args );
-                    va_end( args );
-
+                    va_list argsCopy;
+                    va_copy(argsCopy,args);
+                    finalSize = vsnprintf( &buffer[0], size, fmt, argsCopy );
+                    va_end(argsCopy);
                     // If our buffer was too small, we know that final_size
                     // gives us the required buffer size.
                     if ( uint( finalSize ) >= size )
@@ -137,14 +140,28 @@ namespace Ra
                 return finalSize;
             }
 
-            int appendPrintf( std::string& str, const char* fmt, ... )
+            int appendvPrintf( std::string& str, const char* fmt, va_list args )
             {
                 std::string toAppend;
-                va_list args;
-                va_start( args, fmt );
-                int result = stringPrintf( toAppend, fmt, args );
+                int result = stringvPrintf( toAppend, fmt, args );
                 str += toAppend;
-                va_end( args );
+                return result;
+            }
+
+            int stringPrintf( std::string& str, const char* fmt, ... )
+            {
+                va_list args;
+                va_start(args,fmt);
+                int result = stringvPrintf(str,fmt,args);
+                va_end(args);
+                return result;
+            }
+            int appendPrintf( std::string& str, const char* fmt, ... )
+            {
+                va_list args;
+                va_start(args, fmt);
+                int result = appendvPrintf(str, fmt, args);
+                va_end(args);
                 return result;
             }
 

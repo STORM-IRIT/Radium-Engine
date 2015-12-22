@@ -121,6 +121,9 @@ namespace Ra
             /// Returns the position of the i^th corner of AABB (model space)
             Vector3 corner(int i) const;
 
+            /// Returns the position of the ith corner of the OBB ( world space )
+            Vector3 worldCorner( int i ) const;
+
         public:
             /// The untransformed AABB
             Aabb m_aabb;

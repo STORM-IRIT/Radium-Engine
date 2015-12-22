@@ -101,6 +101,11 @@ namespace Ra
             return m_aabb.corner(static_cast<Aabb::CornerType>(i));
         }
 
+        inline Vector3 Obb::worldCorner( int i ) const
+        {
+            return m_transform * m_aabb.corner( static_cast<Aabb::CornerType>( i ) );
+        }
+
         inline void Obb::addPoint( const Vector3& p )
         {
             // TODO: take the transform into account, but then apply the changes in capsule_implicit.cpp

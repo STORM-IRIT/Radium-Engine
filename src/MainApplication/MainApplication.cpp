@@ -3,6 +3,8 @@
 #include <Core/CoreMacros.hpp>
 
 #include <QTimer>
+#include <QDir>
+#include <QPluginLoader>
 
 #include <Core/Log/Log.hpp>
 #include <Core/String/StringUtils.hpp>
@@ -11,6 +13,8 @@
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
+#include <Core/String/StringUtils.hpp>
+
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
@@ -18,13 +22,13 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/SystemDisplay/SystemDisplay.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
+
 #include <MainApplication/Gui/MainWindow.hpp>
 
-#include <Plugins/FancyMesh/FancyMeshSystem.hpp>
-
-#include <Core/Animation/Handle/Skeleton.hpp>
-#include "Plugins/Animation/AnimationComponent.hpp"
-
+#include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
 
 // Const parameters : TODO : make config / command line options
 
@@ -43,6 +47,25 @@ namespace Ra
         //, m_timerData(TIMER_AVERAGE)
     {
         // Boilerplate print.
+
+        std::string pluginsPath;
+        if ( argc > 1 )
+        {
+            for ( int i = 1; i < argc; ++i )
+            {
+                std::string arg( argv[i] );
+
+                if ( arg == "--pluginsPath" )
+                {
+                    pluginsPath = std::string( argv[i+1] );
+                    continue;
+                }
+            }
+        }
+        if ( pluginsPath.empty() )
+        {
+            pluginsPath = "../Plugins/bin";
+        }
 
         LOG( logINFO ) << "*** Radium Engine Main App  ***";
         std::stringstream config;
@@ -68,8 +91,8 @@ namespace Ra
 #endif
 
         LOG( logINFO ) << config.str();
-		
-		LOG(logINFO) << "Qt Version: " << qVersion();
+
+        LOG(logINFO) << "Qt Version: " << qVersion();
 
         // Handle command line arguments.
         // TODO ( e.g fps limit ) / Keep or not timer data .
@@ -95,8 +118,13 @@ namespace Ra
 
         // Create engine
         m_engine.reset(Engine::RadiumEngine::createInstance());
-        registerSystems();
         m_engine->initialize();
+
+        // Load plugins
+        if ( !loadPlugins( pluginsPath ) )
+        {
+            LOG( logERROR ) << "An error occured while trying to load plugins.";
+        }
 
         m_viewer = m_mainWindow->getViewer();
         CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
@@ -132,6 +160,33 @@ namespace Ra
         bool res = m_engine->loadFile( pathStr );
         CORE_UNUSED( res );
         m_viewer->handleFileLoading( pathStr );
+
+        // Compute new scene aabb
+        Core::Aabb aabb;
+
+        std::vector<std::shared_ptr<Engine::RenderObject>> ros;
+        m_engine->getRenderObjectManager()->getRenderObjects( ros );
+
+        for ( auto ro : ros )
+        {
+            auto mesh = ro->getMesh();
+            const auto& pos = mesh->getData( Engine::Mesh::VERTEX_POSITION );
+
+            Ra::Core::Vector3 bmin = pos.getMap().rowwise().minCoeff().head<3>();
+            Ra::Core::Vector3 bmax = pos.getMap().rowwise().maxCoeff().head<3>();
+
+            aabb.extend( bmin );
+            aabb.extend( bmax );
+        }
+
+
+        //        Ra::Core::Aabb aabb( bmin, bmax );
+
+        //        m_aabbIndex = addRenderObject(
+        //                    Ra::Engine::DrawPrimitives::AABB(
+        //                        this, aabb, Ra::Core::Color( 1, 1, 0, 1 ) ) );
+
+        m_viewer->fitCameraToScene( aabb );
     }
 
     void MainApplication::framesCountForStatsChanged( int count )
@@ -215,5 +270,52 @@ namespace Ra
         LOG( logINFO ) << "About to quit... Cleaning RadiumEngine memory";
         emit stopping();
         m_engine->cleanup();
+    }
+
+    bool MainApplication::loadPlugins( const std::string& pluginsPath )
+    {
+        QDir pluginsDir( qApp->applicationDirPath() );
+        pluginsDir.cd( pluginsPath.c_str() );
+
+        bool res = true;
+
+        foreach (QString filename, pluginsDir.entryList( QDir::Files ) )
+        {
+            std::string ext = Core::StringUtils::getFileExt( filename.toStdString() );
+            if (  ext == "so" || ext == "dll" )
+            {
+                QPluginLoader pluginLoader( pluginsDir.absoluteFilePath( filename ) );
+
+                LOG( logINFO ) << "Found plugin " << filename.toStdString();
+
+                QObject* plugin = pluginLoader.instance();
+                Plugins::RadiumPluginInterface* loadedPlugin;
+
+                if ( plugin )
+                {
+                    loadedPlugin = qobject_cast<Plugins::RadiumPluginInterface*>( plugin );
+                    if ( loadedPlugin )
+                    {
+                        loadedPlugin->registerPlugin( m_engine.get() );
+                        m_mainWindow->updateUi( loadedPlugin );
+                    }
+                    else
+                    {
+                        LOG( logERROR ) << "Something went wrong while trying to cast plugin"
+                                        << filename.toStdString();
+                        res = false;
+                    }
+                }
+                else
+                {
+                    LOG( logERROR ) << "Something went wrong while trying to load plugin "
+                                    << filename.toStdString() << " : "
+                                    << pluginLoader.errorString().toStdString();
+                    res = false;
+                }
+            }
+        }
+
+        return res;
     }
 }

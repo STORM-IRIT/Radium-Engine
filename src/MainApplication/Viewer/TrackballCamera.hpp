@@ -33,7 +33,7 @@ namespace Ra
         public slots:
             virtual void setCameraPosition( const Core::Vector3& position ) override;
             virtual void setCameraTarget( const Core::Vector3& target ) override;
-            virtual void moveCameraToFitAabb( const Core::Aabb& aabb ) override;
+            virtual void fitScene( const Core::Aabb& aabb ) override;
 
             virtual void resetCamera() override;
 

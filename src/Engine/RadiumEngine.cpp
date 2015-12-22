@@ -109,8 +109,10 @@ namespace Ra
             std::string entityName = Core::StringUtils::getBaseName( filename, false );
 
             Entity* entity = m_entityManager->getOrCreateEntity( entityName );
-            getSystem("FancyMeshSystem")->handleAssetLoading( entity, &fileData );
-
+            for ( sys : m_systems )
+            {
+                sys.second->handleAssetLoading( entity, &fileData );
+            }
 
 #if 0
 			if (Ra::Core::StringUtils::getFileExt(filename) != "json")
@@ -122,6 +124,7 @@ namespace Ra
 //					system.second->handleFileLoading(entity, filename);
 //	            }
 				
+                // FIXME(Charly): We do not want this hard coded system name
 				getSystem("FancyMeshSystem")->handleFileLoading(entity, filename);
 				
 				return true;
@@ -150,7 +153,9 @@ namespace Ra
 			{
 				Entity* entity = m_entityManager->getOrCreateEntity( entityData.name );
 				Core::Transform transform;
-				transform.fromPositionOrientationScale( entityData.position, entityData.orientation, entityData.scale );
+                transform.fromPositionOrientationScale( entityData.position,
+                                                        entityData.orientation,
+                                                        entityData.scale );
 				entity->setTransform( transform );
 
 				for ( const auto& systemData : entityData.data )

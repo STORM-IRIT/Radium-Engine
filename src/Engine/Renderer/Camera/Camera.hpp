@@ -14,24 +14,34 @@ namespace Ra
 {
     namespace Engine
     {
+        class RA_ENGINE_API Frame
+        {
+    public:
+            RA_CORE_ALIGNED_NEW
+                
+                
+                
+
+        };
+
 
         // The class Camera defines a camera in 3D space with
         class RA_ENGINE_API Camera
         {
-        public:
+    public:
             /// Define the projection type.
             enum class ProjType
             {
-                ORTHOGRAPHIC, PERSPECTIVE
-            };
+                ORTHOGRAPHIC, PERSPECTIVE,
+                };
 
             ///
             /// Constructor & Destructor
             ///
             RA_CORE_ALIGNED_NEW
 
-            /// Default constructor with usual default values.
-            Camera( Scalar height, Scalar width );
+                /// Default constructor with usual default values.
+                Camera( Scalar height, Scalar width );
 
             /// Copy constructor
             Camera( const Camera& cam ) = default;
@@ -150,7 +160,7 @@ namespace Ra
             /// Return the point on the screen plane (near plane) represented by screen coordinates pix.
             inline Core::Vector3 unProject( const Core::Vector2& pix ) const;
 
-        protected:
+    protected:
             Core::Transform m_frame;      // Camera frame (inverse of the view matrix)
             Core::Matrix4   m_projMatrix; // Projection matrix
 

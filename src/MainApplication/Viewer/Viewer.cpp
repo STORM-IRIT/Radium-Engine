@@ -15,6 +15,7 @@
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
+#include <Engine/SystemDisplay/SystemDisplay.hpp>
 
 #include <MainApplication/Viewer/TrackballCamera.hpp>
 #include <MainApplication/Viewer/Gizmo/GizmoManager.hpp>
@@ -252,6 +253,16 @@ namespace Ra
         mainApp->m_mainWindow->viewerWheelEvent( event );
     }
 
+    void Gui::Viewer::keyPressEvent( QKeyEvent* event )
+    {
+
+    }
+
+    void Gui::Viewer::keyReleaseEvent( QKeyEvent* event )
+    {
+
+    }
+
     void Gui::Viewer::reloadShaders()
     {
         // FIXME : check thread-saefty of this.
@@ -326,4 +337,13 @@ namespace Ra
             }
         }
     }
+
+    void Gui::Viewer::fitCameraToScene( const Core::Aabb& aabb )
+    {
+        // Compute AABB
+        RA_DISPLAY_AABB( aabb, Ra::Core::Color( 1, 1, 0, 1 ) );
+
+        m_camera->fitScene( aabb );
+    }
+
 } // namespace Ra

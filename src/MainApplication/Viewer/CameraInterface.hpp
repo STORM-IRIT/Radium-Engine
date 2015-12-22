@@ -81,7 +81,7 @@ namespace Ra
             void mapCameraBehaviourToAabb( const Core::Aabb& aabb );
             void unmapCameraBehaviourToAabb();
 
-            virtual void moveCameraToFitAabb( const Core::Aabb& aabb );
+            virtual void fitScene( const Core::Aabb& aabb );
 
             virtual void setCameraPosition( const Core::Vector3& position ) = 0;
             virtual void setCameraTarget( const Core::Vector3& target ) = 0;

@@ -2,7 +2,7 @@
 #define RADIUMENGINE_MAINWINDOW_HPP
 
 #include <QMainWindow>
-#include <ui_MainWindow.h>
+#include "ui_MainWindow.h"
 
 #include <qdebug.h>
 #include <QEvent>
@@ -29,6 +29,14 @@ namespace Ra
 
 namespace Ra
 {
+    namespace Plugins
+    {
+        class RadiumPluginInterface;
+    }
+}
+
+namespace Ra
+{
     namespace Gui
     {
 
@@ -50,6 +58,8 @@ namespace Ra
 
             inline void flushEvents();
 
+            void updateUi( Plugins::RadiumPluginInterface* plugin );
+
         private slots:
             void loadFile();
 
@@ -57,10 +67,10 @@ namespace Ra
             void setCameraTarget();
             void handlePicking( int drawableIndex );
 
-            void playAnimation();
-            void pauseAnimation();
-            void stepAnimation();
-            void resetAnimation();
+//            void playAnimation();
+//            void pauseAnimation();
+//            void stepAnimation();
+//            void resetAnimation();
 
         public slots:
             void onEntitiesUpdated();

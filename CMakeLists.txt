@@ -9,6 +9,8 @@ if (UNIX)
   set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -DOSG_NOTIFY_LEVEL=DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
   set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -O3 -ffast-math -mfpmath=sse")
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 ${CMAKE_CXX_FLAGS_RELEASE}")
+
+  add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
 endif(UNIX)
 
 # Visual studio flags breakdown
@@ -52,7 +54,13 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
-set(LIB_INSTALL_DIR                ${CMAKE_SOURCE_DIR}/lib)
+
+if ( NOT CMAKE_PREFIX_PATH )
+  set( CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR} )
+endif()
+
+#set(LIB_INSTALL_DIR                ${CMAKE_PREFIX_PATH}/lib)
+#set(INC_INSTALL_DIR                ${CMAKE_PREFIX_PATH}/include)
 
 # Win32 stuff
 if (MSVC OR MSVC_IDE)
@@ -91,3 +99,6 @@ set(EIGEN_INC ${EXTERNAL_DIR}/Eigen)
 
 add_subdirectory(3rdPartyLibraries)
 add_subdirectory(src)
+
+# FIXME(Charly) Not sure this is really the greatest idea ever
+add_subdirectory(Plugins)

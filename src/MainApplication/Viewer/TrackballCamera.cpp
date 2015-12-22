@@ -189,9 +189,9 @@ namespace Ra
         emit cameraTargetChanged( m_trackballCenter );
     }
 
-    void Gui::TrackballCamera::moveCameraToFitAabb( const Core::Aabb& aabb )
+    void Gui::TrackballCamera::fitScene( const Core::Aabb& aabb )
     {
-        CameraInterface::moveCameraToFitAabb( aabb );
+        CameraInterface::fitScene( aabb );
         m_trackballCenter = aabb.center();
         updatePhiTheta();
 

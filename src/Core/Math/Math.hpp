@@ -24,25 +24,39 @@ namespace Ra
             constexpr Scalar toRad  = Scalar( Pi / 180.0 );
             constexpr Scalar toDeg  = Scalar( 180.0 * InvPi );
 
+            constexpr Scalar machineEps = std::numeric_limits<Scalar>::epsilon();
+            constexpr Scalar dummyEps = 1e-5;
+
             /// Useful functions
+
+            /// Converts an angle from degrees to radians.
             inline constexpr Scalar toRadians( Scalar a );
+
+            /// Converts an angle from radians to degrees.
             inline constexpr Scalar toDegrees( Scalar a );
+
+            /// Returns true if |a -b| < eps.
+            inline constexpr bool areApproxEqual( Scalar a, Scalar b, Scalar eps = dummyEps );
 
             /// Integer power functions. Work for all numeric types which support
             /// multiplication and for which T(1) is a valid expression.
             /// x^0 always return T(1) and x^1 always return x (even when x is 0).
 
             /// Run-time exponent version.
-            template<typename T> inline T ipow( const T& x, uint exp );
+            template<typename T> inline
+            T ipow( const T& x, uint exp );
+
             /// Compile-time exponent version.
-            template<uint N, typename T> inline constexpr T ipow( const T& x );
+            template<uint N, typename T>
+            inline constexpr T ipow( const T& x );
 
             /// Returns the sign of any numeric type as { -1, 0, 1}
-            template<typename T> inline constexpr int sign( const T& val );
+            template<typename T>
+            inline constexpr int sign( const T& val );
 
             /// Returns value v clamped between bounds min and max.
-            template <typename T> inline constexpr T clamp( T v, T min, T max );
-
+            template <typename T>
+            inline constexpr T clamp( T v, T min, T max );
 
         } // namespace Math
     }

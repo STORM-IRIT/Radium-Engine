@@ -7,11 +7,11 @@
 #include <array>
 #include <map>
 
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/OpenGL/GlBuffer.hpp>
 
 namespace Ra
 {
@@ -107,7 +107,6 @@ namespace Ra
             std::vector<uint> m_indices;
             uint m_ibo;
             bool m_iboDirty = false;
-//            GlBuffer<uint, GL_ELEMENT_ARRAY_BUFFER> m_ibo;
         };
 
     } // namespace Engine

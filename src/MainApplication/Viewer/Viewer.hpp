@@ -98,7 +98,6 @@ namespace Ra
                 return m_renderer.get();
             }
 
-
             /// Start asynchronous rendering in a separate thread.
             void startRendering( const Scalar dt );
 
@@ -110,6 +109,8 @@ namespace Ra
 
             /// Emits signals corresponding to picking requests.
             void processPicking();
+
+            void fitCameraToScene( const Core::Aabb& sceneAabb );
 
         signals:
             void leftClickPicking( int id );
@@ -142,12 +143,16 @@ namespace Ra
 
             /// INTERACTION
 
+            virtual void keyPressEvent( QKeyEvent* event ) override;
+            virtual void keyReleaseEvent( QKeyEvent* event ) override;
+
             /// We intercept the mouse events in this widget to get the coordinates of the mouse
             /// in screen space.
             virtual void mousePressEvent( QMouseEvent* event ) override;
             virtual void mouseReleaseEvent( QMouseEvent* event ) override;
             virtual void mouseMoveEvent( QMouseEvent* event ) override;
             virtual void wheelEvent( QWheelEvent* event ) override;
+
 
         private:
             /// Owning pointer to the renderer.

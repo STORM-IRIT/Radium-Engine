@@ -73,7 +73,7 @@ namespace Ra
         m_mapCameraBahaviourToAabb = false;
     }
 
-    void Gui::CameraInterface::moveCameraToFitAabb( const Core::Aabb& aabb )
+    void Gui::CameraInterface::fitScene( const Core::Aabb& aabb )
     {
         Scalar fov = m_camera->getFOV();
 
@@ -91,7 +91,7 @@ namespace Ra
         m_camera->setPosition( newPos );
         m_camera->setDirection( aabb.center() - newPos );
 
-        // FIXME(Charly): Should we change camera zFar given bbox size ?
+        m_camera->setZFar( ( aabb.max().z() - aabb.min().z() ) * 2.0 );
     }
 }
 

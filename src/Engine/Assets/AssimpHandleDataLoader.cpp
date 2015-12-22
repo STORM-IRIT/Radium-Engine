@@ -219,7 +219,8 @@ void AssimpHandleDataLoader::fetchVertexSize( HandleData& data ) const {
         }
     }
 }
-#endif
 
 } // namespace Asset
 } // namespace Ra
+
+#endif
