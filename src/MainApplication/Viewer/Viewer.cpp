@@ -255,12 +255,12 @@ namespace Ra
 
     void Gui::Viewer::keyPressEvent( QKeyEvent* event )
     {
-
+        m_camera->handleKeyPressEvent( event );
     }
 
     void Gui::Viewer::keyReleaseEvent( QKeyEvent* event )
     {
-
+        m_camera->handleKeyReleaseEvent( event );
     }
 
     void Gui::Viewer::reloadShaders()
@@ -279,10 +279,14 @@ namespace Ra
     {
 #if defined(FORCE_RENDERING_ON_MAIN_THREAD)
         makeCurrent();
+
+        // Move camera if needed
+        m_camera->update( dt );
+
         Engine::RenderData data;
+        data.dt = dt;
         data.projMatrix = m_camera->getProjMatrix();
         data.viewMatrix = m_camera->getViewMatrix();
-        data.dt = dt;
         m_renderer->render( data );
 #else
         CORE_ASSERT( m_renderThread != nullptr,
@@ -343,6 +347,11 @@ namespace Ra
         // Compute AABB
         RA_DISPLAY_AABB( aabb, Ra::Core::Color( 1, 1, 0, 1 ) );
 
+        Scalar radius = ( aabb.max() - aabb.min() ).norm() / 2;
+
+        RA_DISPLAY_SPHERE( aabb.center(), radius, Ra::Core::Color( 1, 0, 1, 1 ) );
+
+        // FIXME(Charly): Does not work, the camera needs to be fixed
         m_camera->fitScene( aabb );
     }
 

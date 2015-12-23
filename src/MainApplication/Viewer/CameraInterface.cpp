@@ -72,26 +72,5 @@ namespace Ra
     {
         m_mapCameraBahaviourToAabb = false;
     }
-
-    void Gui::CameraInterface::fitScene( const Core::Aabb& aabb )
-    {
-        Scalar fov = m_camera->getFOV();
-
-        Scalar halfBoxWidth = ( aabb.max().x() - aabb.min().x() );
-
-        Core::Vector3 boxCenter = aabb.center();
-
-        Scalar distToBox = halfBoxWidth / std::tan( fov );
-        Scalar distToCenter = std::abs( aabb.min().z() - aabb.center().z() );
-
-        Scalar newZ = boxCenter.z() - distToBox - distToCenter;
-        Core::Vector3 newPos = boxCenter;
-        newPos.z() = newZ;
-
-        m_camera->setPosition( newPos );
-        m_camera->setDirection( aabb.center() - newPos );
-
-        m_camera->setZFar( ( aabb.max().z() - aabb.min().z() ) * 2.0 );
-    }
 }
 

@@ -70,6 +70,8 @@ namespace Ra
                 m_hasLightAttached = true;
             }                             
 
+            virtual void update( Scalar dt ) = 0;
+
         public slots:
             void setCameraSensitivity( double sensitivity );
 
@@ -81,7 +83,7 @@ namespace Ra
             void mapCameraBehaviourToAabb( const Core::Aabb& aabb );
             void unmapCameraBehaviourToAabb();
 
-            virtual void fitScene( const Core::Aabb& aabb );
+            virtual void fitScene( const Core::Aabb& aabb ) = 0;
 
             virtual void setCameraPosition( const Core::Vector3& position ) = 0;
             virtual void setCameraTarget( const Core::Vector3& target ) = 0;

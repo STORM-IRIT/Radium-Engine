@@ -12,171 +12,162 @@
 
 namespace Ra
 {
-    namespace Engine
+namespace Engine
+{
+// The class Camera defines a camera in 3D space with
+class RA_ENGINE_API Camera
+{
+public:
+    /// Define the projection type.
+    enum class ProjType
     {
-        class RA_ENGINE_API Frame
-        {
-    public:
-            RA_CORE_ALIGNED_NEW
-                
-                
-                
+        ORTHOGRAPHIC, PERSPECTIVE,
+    };
 
-        };
+    ///
+    /// Constructor & Destructor
+    ///
+    RA_CORE_ALIGNED_NEW
 
+    /// Default constructor with usual default values.
+    Camera( Scalar height, Scalar width );
 
-        // The class Camera defines a camera in 3D space with
-        class RA_ENGINE_API Camera
-        {
-    public:
-            /// Define the projection type.
-            enum class ProjType
-            {
-                ORTHOGRAPHIC, PERSPECTIVE,
-                };
+    /// Copy constructor
+    Camera( const Camera& cam ) = default;
 
-            ///
-            /// Constructor & Destructor
-            ///
-            RA_CORE_ALIGNED_NEW
+    /// DESTRUCTOR
+    ~Camera();
 
-                /// Default constructor with usual default values.
-                Camera( Scalar height, Scalar width );
+    //
+    // Getters and setters for view matrix parameters.
+    //
 
-            /// Copy constructor
-            Camera( const Camera& cam ) = default;
+    /// Return the frame of the camera.
+    /// Where Y is the up vector and -Z is the direction vector.
+    inline Core::Transform getFrame() const;
 
-            /// DESTRUCTOR
-            ~Camera();
+    /// Set the frame of the camera to 'frame'
+    inline void setFrame( const Core::Transform& frame );
 
-            //
-            // Getters and setters for view matrix parameters.
-            //
+    /// Return the position.
+    inline Core::Vector3 getPosition() const;
 
-            /// Return the frame of the camera.
-            /// Where Y is the up vector and -Z is the direction vector.
-            inline Core::Transform getFrame() const;
+    /// Set the position of the camera to 'position'.
+    inline void setPosition( const Core::Vector3& position );
 
-            /// Set the frame of the camera to 'frame'
-            inline void setFrame( const Core::Transform& frame );
+    /// Return the direction the camera is looking at.
+    inline Core::Vector3 getDirection() const;
 
-            /// Return the position.
-            inline Core::Vector3 getPosition() const;
+    /// Set the direction of the camera to 'direction'.
+    /// The other vectors will be rotated accordingly.
+    inline void setDirection( const Core::Vector3& direction );
 
-            /// Set the position of the camera to 'position'.
-            inline void setPosition( const Core::Vector3& position );
+    /// Return the up vector.
+    inline Core::Vector3 getUpVector() const;
 
-            /// Return the direction the camera is looking at.
-            inline Core::Vector3 getDirection() const;
+    /// Set the up vector of the camera to 'upVector'.
+    /// The other vectors will be rotated accordingly.
+    inline void setUpVector( const Core::Vector3& upVector );
 
-            /// Set the direction of the camera to 'direction'.
-            /// The other vectors will be rotated accordingly.
-            inline void setDirection( const Core::Vector3& direction );
-
-            /// Return the up vector.
-            inline Core::Vector3 getUpVector() const;
-
-            /// Set the up vector of the camera to 'upVector'.
-            /// The other vectors will be rotated accordingly.
-            inline void setUpVector( const Core::Vector3& upVector );
-
-            inline Core::Vector3 getRightVector() const;
+    inline Core::Vector3 getRightVector() const;
 
 
-            /// Apply the transformation 'T' to the camera.
-            void applyTransform( const Core::Transform& T );
+    /// Apply the transformation 'T' to the camera.
+    void applyTransform( const Core::Transform& T );
 
 
-            //
-            // Getters and setters for projection matrix parameters.
-            //
+    //
+    // Getters and setters for projection matrix parameters.
+    //
 
-            // Note : any of these functions will trigger a rebuild of the projection matrix
+    // Note : any of these functions will trigger a rebuild of the projection matrix
 
-            /// Return the Field Of View.
-            inline Scalar getFOV() const;
+    /// Return the Field Of View.
+    inline Scalar getFOV() const;
 
-            /// Set the Field Of View to 'fov'.
-            inline void setFOV( const Scalar fov );
+    /// Set the Field Of View to 'fov'.
+    inline void setFOV( const Scalar fov );
 
-            /// Return the Z Near plane distance from the camera.
-            inline Scalar getZNear() const;
+    /// Return the Z Near plane distance from the camera.
+    inline Scalar getZNear() const;
 
-            /// Set the Z Near plane distance to 'zNear'.
-            inline void setZNear( const Scalar zNear );
+    /// Set the Z Near plane distance to 'zNear'.
+    inline void setZNear( const Scalar zNear );
 
-            /// Return the Z Far plane distance from the camera.
-            inline Scalar getZFar() const;
+    /// Return the Z Far plane distance from the camera.
+    inline Scalar getZFar() const;
 
-            /// Set the Z Far plane distance to 'zFar'.
-            inline void setZFar( const Scalar zFar );
+    /// Set the Z Far plane distance to 'zFar'.
+    inline void setZFar( const Scalar zFar );
 
-            /// Return the zoom factor.
-            inline Scalar getZoomFactor() const;
+    /// Return the zoom factor.
+    inline Scalar getZoomFactor() const;
 
-            /// Set the zoom factor to 'zoomFactor'.
-            inline void setZoomFactor( const Scalar& zoomFactor );
+    /// Set the zoom factor to 'zoomFactor'.
+    inline void setZoomFactor( const Scalar& zoomFactor );
 
-            /// Return the projection type.
-            inline ProjType getProjType() const;
+    /// Return the projection type.
+    inline ProjType getProjType() const;
 
-            /// Set the projection type to 'projectionType'.
-            inline void setProjType( const ProjType& projectionType );
+    /// Set the projection type to 'projectionType'.
+    inline void setProjType( const ProjType& projectionType );
 
-            /// Return the dimensions of the viewport.
-            inline Scalar getWidth() const;
-            inline Scalar getHeight() const;
+    /// Return the dimensions of the viewport.
+    inline Scalar getWidth() const;
+    inline Scalar getHeight() const;
+    inline Scalar getAspect() const;
 
-            /// Change the viewport size.
-            inline void resize( Scalar width, Scalar height );
+    /// Change the viewport size.
+    inline void resize( Scalar width, Scalar height );
 
-            //
-            // Access to view and projection matrices.
-            //
+    //
+    // Access to view and projection matrices.
+    //
 
-            /// Return the view matrix.
-            inline Core::Matrix4 getViewMatrix() const;
+    /// Return the view matrix.
+    inline Core::Matrix4 getViewMatrix() const;
 
-            /// Return the projection matrix.
-            inline Core::Matrix4 getProjMatrix() const;
+    /// Return the projection matrix.
+    inline Core::Matrix4 getProjMatrix() const;
 
-            /// Update the projection matrix according to the current parameters.
-            void updateProjMatrix();
+    /// Update the projection matrix according to the current parameters.
+    void updateProjMatrix();
 
-            //
-            // Utility functions
-            //
+    //
+    // Utility functions
+    //
 
-            // Note : in all screen pixels coordinates function, Y is taken to be in standard UI-libs style
-            // coordinates, i.e. Y=0 is the top line and Y=height is the bottom line.
+    // Note : in all screen pixels coordinates function, Y is taken to be in standard UI-libs style
+    // coordinates, i.e. Y=0 is the top line and Y=height is the bottom line.
 
-            /// Return a ray emanating from the camera, passing by the point given by
-            /// screen coordinates x and y.
-            Core::Ray getRayFromScreen( const Core::Vector2& pix ) const;
+    /// Return a ray emanating from the camera, passing by the point given by
+    /// screen coordinates x and y.
+    Core::Ray getRayFromScreen( const Core::Vector2& pix ) const;
 
-            /// Return the screen coordinates of the given point p (in world coordinates).
-            inline Core::Vector2 project( const Core::Vector3& p ) const;
+    /// Return the screen coordinates of the given point p (in world coordinates).
+    inline Core::Vector2 project( const Core::Vector3& p ) const;
 
-            /// Return the point on the screen plane (near plane) represented by screen coordinates pix.
-            inline Core::Vector3 unProject( const Core::Vector2& pix ) const;
+    /// Return the point on the screen plane (near plane) represented by screen coordinates pix.
+    inline Core::Vector3 unProject( const Core::Vector2& pix ) const;
 
-    protected:
-            Core::Transform m_frame;      // Camera frame (inverse of the view matrix)
-            Core::Matrix4   m_projMatrix; // Projection matrix
+protected:
+    Core::Transform m_frame;      // Camera frame (inverse of the view matrix)
+    Core::Matrix4   m_projMatrix; // Projection matrix
 
-            Scalar    m_fov;        // Field of view
-            Scalar    m_zNear;      // Z Near plane distance
-            Scalar    m_zFar;       // Z Far plane distance
+    Scalar    m_fov;        // Field of view
+    Scalar    m_zNear;      // Z Near plane distance
+    Scalar    m_zFar;       // Z Far plane distance
 
-            Scalar    m_zoomFactor; // Zoom factor (modifies the field of view)
+    Scalar    m_zoomFactor; // Zoom factor (modifies the field of view)
 
-            Scalar m_width;         // Viewport width (in pixels)
-            Scalar m_height;        // Viewport height (in pixels)
+    Scalar m_width;         // Viewport width (in pixels)
+    Scalar m_height;        // Viewport height (in pixels)
+    Scalar m_aspect;
 
-            ProjType  m_projType;   // Projection type
-        };
+    ProjType  m_projType;   // Projection type
+};
 
-    } // namespace Engine
+} // namespace Engine
 } // namespace Ra
 
 #include <Engine/Renderer/Camera/Camera.inl>

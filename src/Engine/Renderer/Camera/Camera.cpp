@@ -26,6 +26,7 @@ namespace Ra
             , m_zoomFactor( Scalar( 1.0f ) )
             , m_width( width )
             , m_height( height )
+            , m_aspect( width / height )
             , m_projType( ProjType::PERSPECTIVE )
         {
         }

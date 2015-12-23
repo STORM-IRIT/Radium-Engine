@@ -19,9 +19,13 @@ namespace Ra
         , m_trackballCenter( 0, 0, 0 )
         , m_quickCameraModifier( 1.0 )
 		, m_wheelSpeedModifier(0.01)
+        , m_distFromCenter( 1.0 )
         , m_cameraRotateMode( false )
         , m_cameraPanMode( false )
         , m_cameraZoomMode( false )
+        , m_walkingEnabled( false )
+        , m_strafingEnabled( false )
+        , m_climbingEnabled( false )
     {
         resetCamera();
     }
@@ -130,7 +134,7 @@ namespace Ra
 	
 	bool Gui::TrackballCamera::handleWheelEvent(QWheelEvent* event)
 	{
-		handleCameraZoom((event->angleDelta().y() + event->angleDelta().x() * 0.1) * m_wheelSpeedModifier);
+        handleCameraZoom( (event->angleDelta().y() + event->angleDelta().x() * 0.1 ) * m_wheelSpeedModifier );
 
         if ( m_hasLightAttached )
         {
@@ -143,13 +147,36 @@ namespace Ra
 		return true;
 	}
 
-    bool Gui::TrackballCamera::handleKeyPressEvent( QKeyEvent* )
+    bool Gui::TrackballCamera::handleKeyPressEvent( QKeyEvent* e )
     {
-        // No keyboard manipulation
+        switch ( e->key() )
+        {
+            case Qt::Key_A:
+            {
+
+            }
+
+            case Qt::Key_D:
+            {
+
+            }
+
+            case Qt::Key_Q:
+            {
+
+            } break;
+
+            case Qt::Key_E:
+            {
+
+            } break;
+        }
+
+
         return false;
     }
 
-    bool Gui::TrackballCamera::handleKeyReleaseEvent( QKeyEvent* )
+    bool Gui::TrackballCamera::handleKeyReleaseEvent( QKeyEvent* e )
     {
         return false;
     }
@@ -191,9 +218,32 @@ namespace Ra
 
     void Gui::TrackballCamera::fitScene( const Core::Aabb& aabb )
     {
-        CameraInterface::fitScene( aabb );
+        resetCamera();
+
+        Scalar f = m_camera->getFOV();
+        Scalar a = m_camera->getAspect();
+
+        const Scalar r = ( aabb.max() - aabb.min() ).norm() / 2.0;
+        const Scalar x = r / std::sin( f / 2.0 );
+        const Scalar y = r / std::sin( f * a / 2.0 );
+        Scalar d = std::max( std::max( x, y ), Scalar( 0.001 ) );
+
+        m_camera->setPosition( Core::Vector3( aabb.center().x(), aabb.center().y(), d ) );
+        m_camera->setDirection( Core::Vector3( 0, 0, -1 ) );
+
         m_trackballCenter = aabb.center();
         updatePhiTheta();
+
+        m_distFromCenter = d;
+
+        Scalar zfar = std::max( Scalar( d + ( aabb.max().z() - aabb.min().z() ) * 2.0 ), m_camera->getZFar() );
+        m_camera->setZFar( zfar );
+
+        if ( m_hasLightAttached )
+        {
+            m_light->setPosition( m_camera->getPosition() );
+            m_light->setDirection( m_camera->getDirection() );
+        }
 
         emit cameraPositionChanged( m_camera->getPosition() );
         emit cameraTargetChanged( m_trackballCenter );
@@ -244,8 +294,8 @@ namespace Ra
 
     void Gui::TrackballCamera::handleCameraPan( Scalar dx, Scalar dy )
     {
-        Scalar x = dx * m_cameraSensitivity * m_quickCameraModifier;
-        Scalar y = dy * m_cameraSensitivity * m_quickCameraModifier;
+        Scalar x = dx * m_cameraSensitivity * m_quickCameraModifier * m_distFromCenter * 0.1;
+        Scalar y = dy * m_cameraSensitivity * m_quickCameraModifier * m_distFromCenter * 0.1;
         // Move camera and trackball center, keep the distance to the center
         Core::Vector3 R = -m_camera->getRightVector();
         Core::Vector3 U = m_camera->getUpVector();
@@ -260,12 +310,13 @@ namespace Ra
 
     void Gui::TrackballCamera::handleCameraZoom( Scalar dx, Scalar dy )
     {
-        handleCameraZoom(dy);
+        handleCameraZoom( std::sqrt( dx * dx + dy * dy ) );
     }
 	
 	void Gui::TrackballCamera::handleCameraZoom( Scalar z )
     {
-        Scalar y = z * m_cameraSensitivity * m_quickCameraModifier;
+        Scalar r = m_distFromCenter;
+        Scalar y = r * 0.1 * z * m_cameraSensitivity * m_quickCameraModifier;
         Core::Vector3 F = m_camera->getDirection();
 
         Core::Transform T( Core::Transform::Identity() );
@@ -273,6 +324,8 @@ namespace Ra
         T.translate( t );
 
         m_camera->applyTransform( T );
+
+        m_distFromCenter = ( m_trackballCenter - m_camera->getPosition() ).norm();
     }
 
     void Gui::TrackballCamera::updatePhiTheta()

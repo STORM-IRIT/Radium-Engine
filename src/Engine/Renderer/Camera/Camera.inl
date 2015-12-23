@@ -34,16 +34,18 @@ namespace Ra
         {
             Core::Transform T = Core::Transform::Identity();
 
+            auto d = direction.normalized();
+
             // Special case if two directions are exactly opposites we constrain.
             // to rotate around the up vector.
-            if ( getDirection().cross( direction ).squaredNorm() ==  0.f
-                 && getDirection().dot( direction ) < 0.f )
+            if ( getDirection().cross( d ).squaredNorm() ==  0.f
+                 && getDirection().dot( d ) < 0.f )
             {
                 T.rotate( Core::AngleAxis( Core::Math::PiDiv2, getUpVector() ) );
             }
             else
             {
-                T.rotate( Core::Quaternion::FromTwoVectors( getDirection(), direction ) );
+                T.rotate( Core::Quaternion::FromTwoVectors( getDirection(), d ) );
             }
             applyTransform( T );
         }
@@ -123,7 +125,13 @@ namespace Ra
         {
             m_width = width;
             m_height = height;
+            m_aspect = width / height;
             updateProjMatrix();
+        }
+
+        inline Scalar Camera::getAspect() const
+        {
+            return m_aspect;
         }
 
         inline Camera::ProjType Camera::getProjType() const
