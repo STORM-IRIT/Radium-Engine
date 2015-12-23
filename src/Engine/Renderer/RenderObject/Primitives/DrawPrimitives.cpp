@@ -1,6 +1,7 @@
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
 #include <Core/Math/ColorPresets.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -303,6 +304,38 @@ namespace Ra
                 ro->getMesh()->loadGeometry( vertices, indices );
                 ro->getMesh()->addData( Mesh::VERTEX_COLOR, colors );
                 ro->getMesh()->setRenderMode( GL_LINES_ADJACENCY );
+            }
+
+            RenderObject* Sphere( const Component* comp, const Core::Vector3& center,
+                                  Scalar radius, const Core::Color& color )
+            {
+                Core::TriangleMesh sphere = Core::MeshUtils::makeGeodesicSphere( radius, 2 );
+                std::vector<uint> indices;
+                indices.reserve( 3 * sphere.m_triangles.size() );
+
+                for ( const auto& i : sphere.m_triangles )
+                {
+                    indices.push_back( i.x() );
+                    indices.push_back( i.y() );
+                    indices.push_back( i.y() );
+                    indices.push_back( i.z() );
+                }
+
+                std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh( "Sphere Primitive", GL_LINES ) );
+                RenderObject* ro = new Ra::Engine::RenderObject( "Sphere Primitive", comp );
+
+                Core::Transform t;
+                t.setIdentity();
+                t.translate( center );
+                ro->setLocalTransform( t.matrix() );
+
+                initLineRo( ro, mesh, sphere.m_vertices, indices, color, 5.0 );
+                return ro;
+            }
+
+            void Sphere( RenderObject* ro, const Core::Vector3& center,
+                         Scalar radius, const Core::Color& color )
+            {
             }
 
             RenderObject* Disk(const Component* comp, const Core::Vector3& center, const Core::Vector3& normal,

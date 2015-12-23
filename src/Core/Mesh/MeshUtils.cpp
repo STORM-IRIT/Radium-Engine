@@ -197,7 +197,7 @@ namespace Ra
 
                 for ( uint n = 0; n < numSubdiv; ++n )
                 {
-                    VectorArray<Triangle> newTris = result.m_triangles;
+                    VectorArray<Triangle> newTris; //= result.m_triangles;
                     // Now subdivide every face into 4 triangles.
                     for ( uint i = 0 ; i < result.m_triangles.size(); ++i )
                     {

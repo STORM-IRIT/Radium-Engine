@@ -119,23 +119,23 @@ inline void FileData::reset()
 }
 
 inline void FileData::displayInfo() const {
-    LOG( logDEBUG ) << "======== LOADING SUMMARY ========";
-    LOG( logDEBUG ) << "Mesh loaded        : " << m_geometryData.size();
+    LOG( logINFO ) << "======== LOADING SUMMARY ========";
+    LOG( logINFO ) << "Mesh loaded        : " << m_geometryData.size();
 
     uint64_t vtxCount = 0;
     for ( const auto& geom : m_geometryData )
     {
         vtxCount += geom->getVerticesSize();
     }
-    LOG( logDEBUG ) << "Total vertex count : " << vtxCount;
+    LOG( logINFO ) << "Total vertex count : " << vtxCount;
 
 #ifdef DEBUG_LOAD_HANDLE
-    LOG( logDEBUG ) << "Handle loaded      : " << m_handleData.size();
+    LOG( logINFO ) << "Handle loaded      : " << m_handleData.size();
 #endif
 #ifdef DEBUG_LOAD_ANIMATION
-    LOG( logDEBUG ) << "Animation loaded   : " << m_animationData.size();
+    LOG( logINFO ) << "Animation loaded   : " << m_animationData.size();
 #endif
-    LOG( logDEBUG ) << "Loading Time (sec) : " << m_loadingTime;
+    LOG( logINFO ) << "Loading Time (sec) : " << m_loadingTime;
 }
 
 

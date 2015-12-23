@@ -87,6 +87,18 @@ namespace Ra
                                        uint segments,
                                        const Core::Color& color );
 
+            /// Displays sphere computed with given center and radius
+            RA_ENGINE_API RenderObject* Sphere( const Component* comp,
+                                                const Core::Vector3& center,
+                                                Scalar radius,
+                                                const Core::Color& color );
+
+            /// @see Sphere
+            RA_ENGINE_API void Sphere( RenderObject* ro,
+                                       const Core::Vector3& center,
+                                       Scalar radius,
+                                       const Core::Color& color );
+
             /// Displays disk (filled circle) computed with given center and radius, in plane normal to given vector  in wireframe
             RA_ENGINE_API RenderObject* Disk( const Component* comp,
                                               const Core::Vector3& center,

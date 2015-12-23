@@ -126,6 +126,11 @@ namespace Ra
         Ra::Engine::DrawPrimitives::OBB(                                                \
             Ra::Engine::SystemEntity::dbgCmp(), a, color ) )
 
+#define RA_DISPLAY_SPHERE( c, r, color )                                                \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(                                \
+        Ra::Engine::DrawPrimitives::Sphere(                                             \
+            Ra::Engine::SystemEntity::dbgCmp(), c, r, color ) )
+
 /// RO update mechanics
 #define RA_UPDATE_POINT( idx, p, color, scale )                                         \
 {                                                                                       \
