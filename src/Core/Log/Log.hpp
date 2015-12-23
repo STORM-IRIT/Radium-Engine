@@ -132,7 +132,11 @@ class FILELog : public Log<Output2FILE> {};
 //typedef Log<Output2FILE> FILELog;
 
 #ifndef FILELOG_MAX_LEVEL
-#define FILELOG_MAX_LEVEL logDEBUG4
+#ifdef CORE_DEBUG
+    #define FILELOG_MAX_LEVEL logDEBUG4
+#else
+    #define FILELOG_MAX_LEVEL logINFO
+#endif
 #endif
 
 #define FILE_LOG(level) \

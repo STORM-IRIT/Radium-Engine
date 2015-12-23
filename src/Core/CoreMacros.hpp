@@ -76,17 +76,29 @@
 #if defined (DEBUG) || defined(_DEBUG) || defined (CORE_DEBUG)
 #undef CORE_DEBUG
 #define CORE_DEBUG
-#undef NDEBUG
+
 #undef _DEBUG
 #define _DEBUG
+
 #undef DEBUG
 #define DEBUG
+
+#undef NDEBUG
+#undef RELEASE
+
 #define ON_DEBUG(CODE) CODE
-#else
+#else // not in debug
+
+#define RELEASE
+
 #undef CORE_DEBUG
+#undef DEBUG
+#undef _DEBUG
+
 #if !defined (NDEBUG)
 #define NDEBUG
 #endif
+
 #define ON_DEBUG(CODE) /* Nothing */
 #endif
 
@@ -106,7 +118,7 @@
 #define MACRO_END   } while (0)
 #else
 #define MACRO_START if(1) {
-#define MACRO_END   } else
+#define MACRO_END   } else {}
 #endif
 
 // Token concatenation
@@ -196,8 +208,8 @@
 
 #define DEPRECATED __attribute__((deprecated))
 
-#define DLL_EXPORT 
-#define DLL_IMPORT 
+#define DLL_EXPORT
+#define DLL_IMPORT
 #define STDCALL  __attribute__((stdcall))
 #define CDECL /* default */
 #define FASTCALL __attribute__((fastcall))
@@ -253,36 +265,36 @@ namespace compile_time_utils
 // and always prints a useful message.
 // CORE_WARN_IF has the same effect but it will only print a message.
 #ifdef CORE_DEBUG
-#define CORE_ASSERT( EXP, DESC )                   \
+#define CORE_ASSERT( EXP, DESC )                       \
     MACRO_START                                        \
     if (UNLIKELY(!(EXP))) {                            \
         fprintf(stderr,                                \
-                "%s:%i: Assertion `%s` failed : %s\n",         \
-                __FILE__,__LINE__, #EXP, DESC);                \
+                "%s:%i: Assertion `%s` failed : %s\n", \
+                __FILE__,__LINE__, #EXP, DESC);        \
         BREAKPOINT(0);                                 \
     } else {}                                          \
     MACRO_END
 
-#define CORE_WARN_IF( EXP, DESC )                  \
+#define CORE_WARN_IF( EXP, DESC )                      \
     MACRO_START                                        \
     if (UNLIKELY((EXP))) {                             \
         fprintf(stderr,                                \
-                "%s:%i: WARNING `%s` : %s\n",                  \
-                __FILE__,__LINE__, #EXP, DESC);                \
+                "%s:%i: WARNING `%s` : %s\n",          \
+                __FILE__,__LINE__, #EXP, DESC);        \
     } else{}                                           \
     MACRO_END
 #else
-#define CORE_ASSERT( EXP, DESC ) CORE_UNUSED(EXP)
-#define CORE_WARN_IF( EXP, DESC ) CORE_UNUSED(EXP)
+#define CORE_ASSERT( EXP, DESC ) // nothing
+#define CORE_WARN_IF( EXP, DESC ) // nothing
 #endif
 
 // Print an error and break, even in release.
-#define CORE_ERROR( DESC )              \
+#define CORE_ERROR( DESC )                  \
     MACRO_START                             \
-    fprintf(stderr,                     \
-            "%s:%i: ERROR : %s\n",              \
-            __FILE__,__LINE__, DESC);           \
-    BREAKPOINT(0);                      \
+    fprintf(stderr,                         \
+            "%s:%i: ERROR : %s\n",          \
+            __FILE__,__LINE__, DESC);       \
+    BREAKPOINT(0);                          \
     MACRO_END
 
 
@@ -301,10 +313,10 @@ namespace compile_time_utils
 #endif
 #if defined(COMPILER_MSVC)
     #pragma warning(disable: 4244) // Conversion from double to float loses data.
-    #pragma warning(disable: 4251) // stl dllexports 
+    #pragma warning(disable: 4251) // stl dllexports
     #pragma warning(disable: 4267) // conversion from size_t to uint
     #pragma warning(disable: 4577) // noexcept used with no exception handling mode
-    #pragma warning(disable: 4838) // conversion from enum to uint. 
+    #pragma warning(disable: 4838) // conversion from enum to uint.
     #pragma warning(disable: 4996) // sprintf unsafe
     #define NOMINMAX
     #include <windows.h>
@@ -312,4 +324,4 @@ namespace compile_time_utils
 
 #define eigen_assert(XXX) CORE_ASSERT(XXX, "Eigen Assert");
 
-#endif // RADIUMENGINE_CORE_HPP 
+#endif // RADIUMENGINE_CORE_HPP
