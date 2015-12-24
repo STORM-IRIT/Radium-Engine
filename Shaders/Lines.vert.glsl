@@ -6,16 +6,19 @@ out vec3 vPosition;
 
 struct Transform
 {
-    mat4 mvp;
+    mat4 model;
+    mat4 view;
+    mat4 proj;
 };
 
 uniform Transform transform;
 
 void main()
 {
-    gl_Position = transform.mvp * vec4(inPos.xyz, 1.0);
+    mat4 mvp = transform.proj * transform.view * transform.model;
+    gl_Position = mvp * vec4(inPos.xyz, 1.0);
     vColor = inColor;
 
-    vec4 pos = transform.mvp * vec4(inPos.xyz, 1.0);
+    vec4 pos = mvp * vec4(inPos.xyz, 1.0);
     vPosition = pos.xyz / pos.w;
 }

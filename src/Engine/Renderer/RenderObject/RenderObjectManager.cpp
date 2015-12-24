@@ -7,8 +7,8 @@ namespace Ra
     namespace Engine
     {
         RenderObjectManager::RenderObjectManager()
+            : m_isDirty( true )
         {
-
         }
 
         RenderObjectManager::~RenderObjectManager()
@@ -25,6 +25,8 @@ namespace Ra
 
             newRenderObject->idx = idx;
 
+            m_isDirty = true;
+
             return idx;
         }
 
@@ -36,6 +38,8 @@ namespace Ra
             std::shared_ptr<RenderObject> renderObject = m_renderObjects.at( index );
             m_renderObjects.remove( index );
             renderObject.reset();
+
+            m_isDirty = true;
         }
 
         std::shared_ptr<RenderObject> RenderObjectManager::getRenderObject( const Core::Index& index )
@@ -43,7 +47,7 @@ namespace Ra
             return m_renderObjects.at( index );
         }
 
-        void RenderObjectManager::getRenderObjects( std::vector<std::shared_ptr<RenderObject>>& renderObjectsOut ) const
+        void RenderObjectManager::getRenderObjects( std::vector<std::shared_ptr<RenderObject>>& renderObjectsOut, bool undirty ) const
         {
             // Take the mutex
             std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
@@ -55,6 +59,10 @@ namespace Ra
                 renderObjectsOut.push_back( m_renderObjects.at( i ) );
             }
 
+            if ( undirty )
+            {
+                m_isDirty = false;
+            }
         }
 
         std::shared_ptr<RenderObject> RenderObjectManager::update( uint index, bool cloneMesh )
@@ -116,6 +124,12 @@ namespace Ra
             }
 
             m_doneUpdatingObjects.clear();
+        }
+
+        bool RenderObjectManager::isDirty() const
+        {
+            std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
+            return m_isDirty;
         }
     }
 } // namespace Ra

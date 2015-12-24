@@ -8,10 +8,7 @@ struct Transform
     mat4 model;
     mat4 view;
     mat4 proj;
-    mat4 mvp;
-    mat4 modelView;
     mat4 worldNormal;
-    mat4 viewNormal;
 };
 
 uniform Transform transform;
@@ -23,13 +20,14 @@ out vec3 vEye;
 
 void main()
 {
-    gl_Position = transform.mvp * vec4(inPosition, 1.0);
+    mat4 mvp = transform.proj * transform.view * transform.model;
+    gl_Position = mvp * vec4(inPosition, 1.0);
 
     vec4 pos = transform.model * vec4(inPosition, 1.0);
     pos /= pos.w;
     vec4 normal = transform.worldNormal * vec4(inNormal, 0.0);
 
-    vec3 eye = -transform.view[3].xyz * mat3(transform.view);
+    vec3 eye = -transform.view[3].xyz * mat3( transform.view );
 
     vPosition = vec3(pos);
     vNormal   = vec3(normal);

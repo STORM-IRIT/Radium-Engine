@@ -109,7 +109,7 @@ namespace Ra
             std::string entityName = Core::StringUtils::getBaseName( filename, false );
 
             Entity* entity = m_entityManager->getOrCreateEntity( entityName );
-            for ( sys : m_systems )
+            for ( auto& sys : m_systems )
             {
                 sys.second->handleAssetLoading( entity, &fileData );
             }

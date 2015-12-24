@@ -54,9 +54,15 @@ namespace Ra
             //
             void updateGL();
 
-            void feedRenderQueue( RenderQueue& queue,
-                                  const Core::Matrix4& view,
-                                  const Core::Matrix4& proj );
+            void feedRenderQueue( RenderQueue& queue );
+
+            // Rendering stuff
+            void bind() const;
+            void bind( const RenderParameters& params ) const;
+            void bind( ShaderProgram* shader ) const;
+            void bind( ShaderProgram* shader, const RenderParameters& params ) const;
+
+            void render() const;
 
             RenderObject* clone( bool cloneMesh = true );
 

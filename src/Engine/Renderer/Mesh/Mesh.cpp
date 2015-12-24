@@ -108,7 +108,7 @@ namespace Ra
 
         if ( m_data[VERTEX_POSITION].empty() || m_indices.empty() )
         {
-            LOG( logWARNING ) << "Either vertices or indices are empty arrays.";
+//            LOG( logWARNING ) << "Either vertices or indices are empty arrays.";
             return;
         }
 

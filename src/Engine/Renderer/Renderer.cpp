@@ -58,6 +58,7 @@ namespace Ra
             , m_fbo( nullptr )
             , m_postprocessFbo( nullptr )
             , m_drawDebug( true )
+            , m_renderQueuesUpToDate( false )
         {
         }
 
@@ -146,20 +147,29 @@ namespace Ra
             saveExternalFBOInternal();
 
             // 1. Gather render objects and update them
-            std::vector<RenderObjectPtr> renderObjects;
-            RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObjects( renderObjects );
-            updateRenderObjectsInternal( data, renderObjects );
+            auto roMgr = RadiumEngine::getInstance()->getRenderObjectManager();
+
+            if ( roMgr->isDirty() )
+            {
+                roMgr->getRenderObjects( m_renderObjects, true );
+                m_renderQueuesUpToDate = false;
+            }
+
+            updateRenderObjectsInternal( data, m_renderObjects );
             m_timerData.updateEnd = Core::Timer::Clock::now();
 
             // 2. Feed render queues
-            feedRenderQueuesInternal( data, renderObjects );
+            if ( !m_renderQueuesUpToDate )
+            {
+                feedRenderQueuesInternal( data, m_renderObjects );
+            }
             m_timerData.feedRenderQueuesEnd = Core::Timer::Clock::now();
 
             // 3. Do picking if needed
             m_pickingResults.clear();
             if ( !m_pickingQueries.empty() )
             {
-                doPicking();
+                doPicking( data, m_renderObjects );
             }
             m_lastFramePickingQueries = m_pickingQueries;
             m_pickingQueries.clear();
@@ -208,41 +218,46 @@ namespace Ra
                 {
                     case RenderObject::Type::RO_OPAQUE:
                     {
-                        ro->feedRenderQueue( m_opaqueRenderQueue, renderData.viewMatrix, renderData.projMatrix );
+                        ro->feedRenderQueue( m_opaqueRenderQueue );
                     }
                     break;
 
                     case RenderObject::Type::RO_TRANSPARENT:
                     {
-                        ro->feedRenderQueue( m_transparentRenderQueue, renderData.viewMatrix, renderData.projMatrix );
+                        ro->feedRenderQueue( m_transparentRenderQueue );
                     }
                     break;
 
                     case RenderObject::Type::RO_XRAY:
                     {
-                        ro->feedRenderQueue( m_xrayRenderQueue, renderData.viewMatrix, renderData.projMatrix );
+                        ro->feedRenderQueue( m_xrayRenderQueue );
                     }
 
                     case RenderObject::Type::RO_DEBUG:
                     {
                         if ( m_drawDebug )
                         {
-                            ro->feedRenderQueue( m_debugRenderQueue, renderData.viewMatrix, renderData.projMatrix );
+                            ro->feedRenderQueue( m_debugRenderQueue );
                         }
                     }
                     break;
 
                     case RenderObject::Type::RO_UI:
                     {
-                        ro->feedRenderQueue( m_uiRenderQueue, renderData.viewMatrix, renderData.projMatrix );
+                        ro->feedRenderQueue( m_uiRenderQueue );
                     }
                     break;
                 }
             }
+
+            m_renderQueuesUpToDate = true;
         }
 
-        void Renderer::doPicking()
+        void Renderer::doPicking( const RenderData& renderData,
+                                  const std::vector<RenderObjectPtr>& renderObjects )
         {
+            CORE_UNUSED( renderObjects );
+
             m_pickingResults.reserve( m_pickingQueries.size() );
 
             m_pickingFbo->useAsTarget();
@@ -259,8 +274,12 @@ namespace Ra
             GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
             GL_ASSERT( glDepthFunc( GL_LESS ) );
 
-            m_opaqueRenderQueue.render( m_pickingShader );
-            m_transparentRenderQueue.render( m_pickingShader );
+            RenderParameters camParams;
+            camParams.addParameter( "transform.view", renderData.viewMatrix );
+            camParams.addParameter( "transform.proj", renderData.projMatrix );
+
+            m_opaqueRenderQueue.render( m_pickingShader, camParams );
+            m_transparentRenderQueue.render( m_pickingShader, camParams );
 
             // Draw xrayed objects on top of normal objects
             GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
@@ -311,6 +330,10 @@ namespace Ra
             GL_ASSERT( glClearBufferfv( GL_COLOR, 5, clearZeros.data() ) );   // Clear renderpass
             GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );   // Clear depth
 
+            RenderParameters camParams;
+            camParams.addParameter( "transform.view", renderData.viewMatrix );
+            camParams.addParameter( "transform.proj", renderData.projMatrix );
+
             // Z + Ambient Prepass
             GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
             GL_ASSERT( glDepthFunc( GL_LESS ) );
@@ -321,9 +344,9 @@ namespace Ra
             GL_ASSERT( glDrawBuffers( 4, buffers ) );   // Draw ambient, position, normal, picking
 
             m_depthAmbientShader->bind();
-            m_opaqueRenderQueue.render( m_depthAmbientShader );
+            m_opaqueRenderQueue.render( m_depthAmbientShader, camParams );
 #ifdef NO_TRANSPARENCY
-            m_transparentRenderQueue.render( m_depthAmbientShader );
+            m_transparentRenderQueue.render( m_depthAmbientShader, camParams );
 #endif
 
             // Light pass
@@ -342,6 +365,7 @@ namespace Ra
                     // TODO(Charly): Light render params
                     RenderParameters params;
                     l->getRenderParameters( params );
+                    params.concatParameters( camParams );
                     m_opaqueRenderQueue.render( params );
 #ifdef NO_TRANSPARENCY
                     m_transparentRenderQueue.render( params );
@@ -356,6 +380,7 @@ namespace Ra
 
                 RenderParameters params;
                 l.getRenderParameters( params );
+                params.concatParameters( camParams );
                 m_opaqueRenderQueue.render( params );
 #ifdef NO_TRANSPARENCY
                 m_transparentRenderQueue.render( params );
@@ -396,21 +421,21 @@ namespace Ra
             GL_ASSERT( glDepthMask( GL_FALSE ) );
             GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
             GL_ASSERT( glDepthFunc( GL_LESS ) );
-            m_debugRenderQueue.render();
+            m_debugRenderQueue.render( camParams );
 
             // Draw X rayed objects always on top of normal objects
             GL_ASSERT( glDepthMask( GL_TRUE ) );
             GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
             GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
 
-            m_xrayRenderQueue.render();
+            m_xrayRenderQueue.render( camParams );
 
             // Draw UI stuff, always drawn on top of everything else
             GL_ASSERT( glDepthMask( GL_TRUE ) );
             GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
             GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
 
-            m_uiRenderQueue.render();
+            m_uiRenderQueue.render( camParams );
 
             // Draw renderpass texture
             m_fbo->bind();

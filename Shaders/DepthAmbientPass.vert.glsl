@@ -6,8 +6,9 @@ layout (location = 4) in vec3 inTexcoord;
 
 struct Transform
 {
-    mat4 mvp;
     mat4 model;
+    mat4 view;
+    mat4 proj;
     mat4 worldNormal;
 };
 
@@ -19,7 +20,8 @@ out vec3 vTexcoord;
 
 void main()
 {
-    gl_Position = transform.mvp * vec4(inPosition, 1.0);
+    mat4 mvp = transform.proj * transform.view * transform.model;
+    gl_Position = mvp * vec4(inPosition, 1.0);
 
     vec4 pos = transform.model * vec4(inPosition, 1.0);
     vPosition = pos.xyz / pos.w;

@@ -3,6 +3,7 @@
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
+#include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -52,22 +53,136 @@ namespace Ra
             m_isDirty = false;
         }
 
-        void RenderObject::feedRenderQueue( RenderQueue& queue, const Core::Matrix4& view, const Core::Matrix4& proj )
+        void RenderObject::feedRenderQueue( RenderQueue& queue )
+        {
+            ShaderKey shader( m_renderTechnique->shader );
+            BindableMaterial material( m_renderTechnique->material );
+            BindableMesh mesh( this, idx );
+
+//            queue[shader][material].push_back( mesh );
+            queue.push_back( mesh );
+        }
+
+        void RenderObject::bind() const
+        {
+            RenderParameters params;
+            bind( m_renderTechnique->shader, params );
+        }
+
+        void RenderObject::bind( const RenderParameters& params ) const
+        {
+            bind( m_renderTechnique->shader, params );
+        }
+
+        void RenderObject::bind( ShaderProgram* shader ) const
+        {
+            RenderParameters params;
+            bind( shader, params );
+        }
+
+        void RenderObject::bind( ShaderProgram* shader, const RenderParameters& params ) const
         {
             if ( !m_visible )
             {
                 return;
             }
 
-            Core::Transform model =  m_component->getEntity()->getTransform() * m_localTransform;
+            shader->bind();
 
-            ShaderKey shader( m_renderTechnique->shader );
-            BindableMaterial material( m_renderTechnique->material );
-            BindableTransform transform( model.matrix(), view, proj );
-            BindableMesh mesh( m_mesh.get(), idx );
-            mesh.addRenderParameters( m_renderParameters );
+            // TODO(Charly): This is freaking horrible,
+            //               find a better way to bind materials
+            auto material = m_renderTechnique->material;
 
-            queue[shader][material][transform].push_back( mesh );
+            shader->setUniform( "material.kd", material->getKd() );
+            shader->setUniform( "material.ks", material->getKs() );
+            shader->setUniform( "material.ns", material->getNs() );
+
+            Texture* tex = nullptr;
+            uint texUnit = 0;
+
+            tex = material->getTexture( Material::TextureType::TEX_DIFFUSE );
+            if ( tex != nullptr )
+            {
+                tex->bind( texUnit );
+                shader->setUniform( "material.tex.kd", tex, texUnit );
+                shader->setUniform( "material.tex.hasKd", 1 );
+                ++texUnit;
+            }
+            else
+            {
+                shader->setUniform( "material.tex.hasKd", 0 );
+            }
+
+            tex = material->getTexture( Material::TextureType::TEX_SPECULAR );
+            if ( tex != nullptr )
+            {
+                tex->bind( texUnit );
+                shader->setUniform( "material.tex.ks", tex, texUnit );
+                shader->setUniform( "material.tex.hasKs", 1 );
+                ++texUnit;
+            }
+            else
+            {
+                shader->setUniform( "material.tex.hasKs", 0 );
+            }
+
+            tex = material->getTexture( Material::TextureType::TEX_NORMAL );
+            if ( tex != nullptr )
+            {
+                tex->bind( texUnit );
+                shader->setUniform( "material.tex.normal", tex, texUnit );
+                shader->setUniform( "material.tex.hasNormal", 1 );
+                ++texUnit;
+            }
+            else
+            {
+                shader->setUniform( "material.tex.hasNormal", 0 );
+            }
+
+            tex = material->getTexture( Material::TextureType::TEX_SHININESS );
+            if ( tex != nullptr )
+            {
+                tex->bind( texUnit );
+                shader->setUniform( "material.tex.ns", tex, texUnit );
+                shader->setUniform( "material.tex.hasNs", 1 );
+                ++texUnit;
+            }
+            else
+            {
+                shader->setUniform( "material.tex.hasNs", 0 );
+            }
+
+            tex = material->getTexture( Material::TextureType::TEX_ALPHA );
+            if ( tex != nullptr )
+            {
+                tex->bind( texUnit );
+                shader->setUniform( "material.tex.alpha", tex, texUnit );
+                shader->setUniform( "material.tex.hasAlpha", 1 );
+                ++texUnit;
+            }
+            else
+            {
+                shader->setUniform( "material.tex.hasAlpha", 0 );
+            }
+
+            Core::Matrix4 mat = ( m_component->getEntity()->getTransform() * m_localTransform ).matrix();
+            Core::Matrix4 inv = mat.inverse().transpose();
+
+            m_renderParameters.bind( shader );
+            params.bind( shader );
+
+            shader->setUniform( "transform.model", mat );
+            shader->setUniform( "transform.worldNormal", inv );
+        }
+
+        void RenderObject::render() const
+        {
+            if ( !m_visible )
+            {
+                return;
+            }
+
+            m_mesh->render();
         }
 
         RenderObject* RenderObject::clone( bool cloneMesh )

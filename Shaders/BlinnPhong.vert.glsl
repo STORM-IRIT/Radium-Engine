@@ -25,7 +25,8 @@ out vec3 vEye;
 
 void main()
 {
-    gl_Position = transform.mvp * vec4(inPosition, 1.0);
+    mat4 mvp = transform.proj * transform.view * transform.model;
+    gl_Position = mvp * vec4(inPosition, 1.0);
 
     vec4 pos = transform.model * vec4(inPosition, 1.0);
     pos /= pos.w;
@@ -35,7 +36,7 @@ void main()
 
     vPosition = vec3(pos);
     vNormal   = vec3(normal);
-    vEye = vec3(eye);
+    vEye      = vec3(eye);
 
     vTexcoord = inTexcoord;
 }

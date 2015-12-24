@@ -4,32 +4,30 @@ namespace Ra
 {
     namespace Engine
     {
-
-        template <typename Key, typename Child>
-        inline RenderableMap<Key, Child>::~RenderableMap()
-        {
-        }
-
-        template <typename Key, typename Child>
-        inline void RenderableMap<Key, Child>::render( ShaderProgram* shader ) const
-        {
-            for ( auto& it : *this )
-            {
-                it.first.bind( shader );
-                it.second.render( shader );
-            }
-        }
-
-        inline BindableMeshVector::BindableMeshVector()
+        inline RenderQueue::RenderQueue()
             : Core::AlignedStdVector<BindableMesh>()
         {
         }
 
-        inline BindableMeshVector::~BindableMeshVector()
+        inline void RenderQueue::render() const
         {
+            for ( auto& it : *this )
+            {
+                it.bind();
+                it.render();
+            }
         }
 
-        inline void BindableMeshVector::render( ShaderProgram* shader ) const
+        inline void RenderQueue::render( const RenderParameters& params ) const
+        {
+            for ( auto& it : *this )
+            {
+                it.bind( params );
+                it.render();
+            }
+        }
+
+        inline void RenderQueue::render( ShaderProgram* shader ) const
         {
             for ( auto& it : *this )
             {
@@ -38,52 +36,12 @@ namespace Ra
             }
         }
 
-        inline RenderQueue::RenderQueue()
-            : std::map<ShaderKey, MaterialRenderQueue>()
-        {
-        }
-
-        inline RenderQueue::~RenderQueue()
-        {
-        }
-
-        inline void RenderQueue::render() const
-        {
-            for ( auto& it : *this )
-            {
-                it.first.bind();
-                it.second.render( it.first.getShader() );
-            }
-        }
-
-        inline void RenderQueue::render( const RenderParameters& params ) const
-        {
-            for ( auto& it : *this )
-            {
-                it.first.bind( params );
-                it.second.render( it.first.getShader() );
-            }
-        }
-
-        inline void RenderQueue::render( ShaderProgram* shader ) const
-        {
-            ShaderKey key( shader );
-            key.bind();
-
-            for ( auto& it : *this )
-            {
-                it.second.render( key.getShader() );
-            }
-        }
-
         inline void RenderQueue::render( ShaderProgram* shader, const RenderParameters& params ) const
         {
-            ShaderKey key( shader );
-            key.bind( params );
-
             for ( auto& it : *this )
             {
-                it.second.render( key.getShader() );
+                it.bind( shader, params );
+                it.render();
             }
         }
 

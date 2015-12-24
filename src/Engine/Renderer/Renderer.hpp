@@ -224,7 +224,8 @@ namespace Ra
                                                    const std::vector<RenderObjectPtr>& renderObjects );
 
             // 3.
-            void doPicking();
+            void doPicking( const RenderData& renderData,
+                            const std::vector<RenderObjectPtr>& renderObjects );
 
             // 6.
             void drawScreenInternal();
@@ -267,6 +268,9 @@ namespace Ra
             bool m_displayedIsDepth;
 
             std::vector<std::shared_ptr<Light>> m_lights;
+
+            std::vector<RenderObjectPtr> m_renderObjects;
+            bool m_renderQueuesUpToDate;
 
             RenderQueue m_opaqueRenderQueue;
             RenderQueue m_transparentRenderQueue;

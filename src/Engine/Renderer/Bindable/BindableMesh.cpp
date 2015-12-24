@@ -1,12 +1,13 @@
 #include <Engine/Renderer/Bindable/BindableMesh.hpp>
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 namespace Ra
 {
 
-    Engine::BindableMesh::BindableMesh( Mesh* mesh, uint id )
+    Engine::BindableMesh::BindableMesh( RenderObject* mesh, uint id )
         : m_mesh( mesh )
         , m_id( id )
     {
@@ -21,9 +22,25 @@ namespace Ra
     {
     }
 
+    void Engine::BindableMesh::bind() const
+    {
+        m_mesh->bind();
+    }
+
+    void Engine::BindableMesh::bind( const RenderParameters& params ) const
+    {
+        m_mesh->bind( params );
+    }
+
     void Engine::BindableMesh::bind( ShaderProgram* shader ) const
     {
-        m_renderParameters.bind( shader );
+        m_mesh->bind( shader );
+        shader->setUniform( "objectId", m_idAsColor );
+    }
+
+    void Engine::BindableMesh::bind( ShaderProgram* shader, const RenderParameters& params ) const
+    {
+        m_mesh->bind( shader, params );
         shader->setUniform( "objectId", m_idAsColor );
     }
 

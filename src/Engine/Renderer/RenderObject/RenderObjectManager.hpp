@@ -28,13 +28,15 @@ namespace Ra
             void removeRenderObject( const Core::Index& index );
             std::shared_ptr<RenderObject> getRenderObject( const Core::Index& index );
 
-            void getRenderObjects( std::vector <std::shared_ptr<RenderObject>>& objectsOut ) const;
+            void getRenderObjects( std::vector<std::shared_ptr<RenderObject>>& objectsOut, bool undirty = false ) const;
 
             std::shared_ptr<RenderObject> update( uint index, bool cloneMesh = true );
             std::shared_ptr<RenderObject> update( const Core::Index& index, bool cloneMesh = true );
             void doneUpdating( uint index );
 
             void swapBuffers();
+
+            bool isDirty() const;
 
         private:
             Core::IndexMap<std::shared_ptr<RenderObject>> m_renderObjects;
@@ -43,6 +45,7 @@ namespace Ra
             std::vector<Core::Index> m_doneUpdatingObjects;
 
             mutable std::mutex m_doubleBufferMutex;
+            mutable bool m_isDirty;
         };
 
     } // namespace Engine

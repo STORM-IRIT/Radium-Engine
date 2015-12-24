@@ -11,7 +11,7 @@ namespace Ra
 {
     namespace Engine
     {
-        class Mesh;
+        class RenderObject;
     }
 }
 
@@ -20,30 +20,26 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_ENGINE_API BindableMesh : public Bindable
+        class RA_ENGINE_API BindableMesh
         {
         public:
             RA_CORE_ALIGNED_NEW
-            explicit BindableMesh( Mesh* mesh, uint id );
+            explicit BindableMesh( RenderObject* mesh, uint id );
             virtual ~BindableMesh();
 
-            virtual void bind( ShaderProgram* shader ) const override;
+            void bind() const;
+            void bind( const RenderParameters& params ) const;
+            void bind( ShaderProgram* shader ) const;
+            void bind( ShaderProgram* shader, const RenderParameters& params ) const;
+
             void render() const;
 
             bool operator< ( const BindableMesh& other ) const;
 
-
-            void addRenderParameters( const RenderParameters &parameters )
-            {
-                m_renderParameters.concatParameters( parameters );
-            }
-
         private:
-            Mesh* m_mesh;
+            RenderObject* m_mesh;
             uint m_id;
             Core::Color m_idAsColor;
-
-            RenderParameters m_renderParameters;
         };
 
     } // namespace Engine
