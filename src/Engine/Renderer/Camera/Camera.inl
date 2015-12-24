@@ -27,25 +27,28 @@ namespace Ra
 
         inline Core::Vector3 Camera::getDirection() const
         {
-            return ( -m_frame.affine().block<3, 1> ( 0, 2 ) );
+            return ( -m_frame.affine().block<3, 1> ( 0, 2 ) ).normalized();
         }
 
         inline void Camera::setDirection( const Core::Vector3& direction )
         {
             Core::Transform T = Core::Transform::Identity();
 
-            auto d = direction.normalized();
+            auto d0 = getDirection();
+            auto d1 = direction.normalized();
+
+            auto c = d0.cross( d1 );
+            auto d = d0.dot( d1 );
 
             // Special case if two directions are exactly opposites we constrain.
             // to rotate around the up vector.
-            if ( getDirection().cross( d ).squaredNorm() ==  0.f
-                 && getDirection().dot( d ) < 0.f )
+            if ( c.isApprox( Core::Vector3::Zero() ) && d < 0.0 )
             {
-                T.rotate( Core::AngleAxis( Core::Math::PiDiv2, getUpVector() ) );
+                T.rotate( Core::AngleAxis( Core::Math::PiDiv2, Core::Vector3::UnitY() ) );
             }
             else
             {
-                T.rotate( Core::Quaternion::FromTwoVectors( getDirection(), d ) );
+                T.rotate( Core::Quaternion::FromTwoVectors( d0, d1 ) );
             }
             applyTransform( T );
         }

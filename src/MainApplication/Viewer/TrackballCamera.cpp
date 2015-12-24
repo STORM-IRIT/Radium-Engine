@@ -10,6 +10,8 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
+#include <MainApplication/Utils/Keyboard.hpp>
+
 namespace Ra
 {
     using Core::Math::Pi;
@@ -18,14 +20,19 @@ namespace Ra
         : CameraInterface( width, height )
         , m_trackballCenter( 0, 0, 0 )
         , m_quickCameraModifier( 1.0 )
-		, m_wheelSpeedModifier(0.01)
+        , m_wheelSpeedModifier(0.02 )
         , m_distFromCenter( 1.0 )
+        , m_cameraRadius( 1.0 )
+        , m_rotateAround( true )
         , m_cameraRotateMode( false )
         , m_cameraPanMode( false )
         , m_cameraZoomMode( false )
-        , m_walkingEnabled( false )
-        , m_strafingEnabled( false )
-        , m_climbingEnabled( false )
+        , m_walkingOn( false )
+        , m_strafingOn( false )
+        , m_climbingOn( false )
+        , m_walking( 0.0 )
+        , m_strafing( 0.0 )
+        , m_climbing( 0.0 )
     {
         resetCamera();
     }
@@ -38,7 +45,8 @@ namespace Ra
     {
         m_camera->setFrame( Core::Transform::Identity() );
         m_trackballCenter = Core::Vector3::Zero();
-        m_camera->setPosition( Core::Vector3( 0, 0, 1 ) );
+        m_camera->setPosition( Core::Vector3( 0, 0, -1 ) );
+        m_camera->setDirection( Core::Vector3( 0, 0, 1 ));
         updatePhiTheta();
 
         emit cameraPositionChanged( m_camera->getPosition() );
@@ -89,7 +97,7 @@ namespace Ra
         }
         else
         {
-            m_quickCameraModifier = 1.0;
+            m_quickCameraModifier = 2.0;
         }
 
         if ( m_cameraRotateMode )
@@ -149,29 +157,11 @@ namespace Ra
 
     bool Gui::TrackballCamera::handleKeyPressEvent( QKeyEvent* e )
     {
-        switch ( e->key() )
+        if ( e->key() == Qt::Key_F )
         {
-            case Qt::Key_A:
-            {
-
-            }
-
-            case Qt::Key_D:
-            {
-
-            }
-
-            case Qt::Key_Q:
-            {
-
-            } break;
-
-            case Qt::Key_E:
-            {
-
-            } break;
+            m_rotateAround = !m_rotateAround;
+            return true;
         }
-
 
         return false;
     }
@@ -179,6 +169,35 @@ namespace Ra
     bool Gui::TrackballCamera::handleKeyReleaseEvent( QKeyEvent* e )
     {
         return false;
+    }
+
+    void Gui::TrackballCamera::update( Scalar dt )
+    {
+        Core::Transform T( Core::Transform::Identity() );
+        Core::Vector3 t;
+
+        // FIXME(Charly): WASDQE should be handled by a keymap, not hard coded
+        Scalar f = Gui::isKeyPressed( Gui::Key_W ) ? 1.0 : Gui::isKeyPressed( Gui::Key_S ) ? -1.0 : 0.0;
+        Scalar r = Gui::isKeyPressed( Gui::Key_D ) ? 1.0 : Gui::isKeyPressed( Gui::Key_A ) ? -1.0 : 0.0;
+        Scalar u = Gui::isKeyPressed( Gui::Key_Q ) ? 1.0 : Gui::isKeyPressed( Gui::Key_E ) ? -1.0 : 0.0;
+
+        Scalar m = Gui::isKeyPressed( Gui::Key_LAlt ) ? 1.5 : 0.25;
+
+        Core::Vector3 F = m_camera->getDirection() * dt * f * m_cameraRadius * m;
+        Core::Vector3 R = m_camera->getRightVector() * dt * r * m_cameraRadius * m;
+        Core::Vector3 U = m_camera->getUpVector() * dt * u * m_cameraRadius * m;
+
+        t = F + R + U;
+        T.translate( t );
+        m_camera->applyTransform( T );
+
+        if ( f != 0.0 || r != 0.0 || u != 0.0 )
+        {
+            m_trackballCenter = m_camera->getPosition() + m_camera->getDirection().normalized();
+
+            emit cameraPositionChanged( m_camera->getPosition() );
+            emit cameraTargetChanged( m_trackballCenter );
+        }
     }
 
     void Gui::TrackballCamera::setCameraPosition( const Core::Vector3& position )
@@ -228,13 +247,14 @@ namespace Ra
         const Scalar y = r / std::sin( f * a / 2.0 );
         Scalar d = std::max( std::max( x, y ), Scalar( 0.001 ) );
 
-        m_camera->setPosition( Core::Vector3( aabb.center().x(), aabb.center().y(), d ) );
-        m_camera->setDirection( Core::Vector3( 0, 0, -1 ) );
-
+        m_camera->setPosition( Core::Vector3( aabb.center().x(), aabb.center().y(), -d ) );
+        m_camera->setDirection( Core::Vector3( 0, 0, 1 ) );
         m_trackballCenter = aabb.center();
+
         updatePhiTheta();
 
         m_distFromCenter = d;
+        m_cameraRadius = d;
 
         Scalar zfar = std::max( Scalar( d + ( aabb.max().z() - aabb.min().z() ) * 2.0 ), m_camera->getZFar() );
         m_camera->setZFar( zfar );

@@ -344,13 +344,6 @@ namespace Ra
 
     void Gui::Viewer::fitCameraToScene( const Core::Aabb& aabb )
     {
-        // Compute AABB
-        RA_DISPLAY_AABB( aabb, Ra::Core::Color( 1, 1, 0, 1 ) );
-
-        Scalar radius = ( aabb.max() - aabb.min() ).norm() / 2;
-
-        RA_DISPLAY_SPHERE( aabb.center(), radius, Ra::Core::Color( 1, 0, 1, 1 ) );
-
         // FIXME(Charly): Does not work, the camera needs to be fixed
         m_camera->fitScene( aabb );
     }

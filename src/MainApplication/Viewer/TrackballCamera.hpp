@@ -30,7 +30,7 @@ namespace Ra
             /// @return true if the event has been taken into account, false otherwise
             virtual bool handleKeyReleaseEvent( QKeyEvent* event ) override;
 
-            virtual void update( Scalar dt ) override {}
+            virtual void update( Scalar dt ) override;
 
         public slots:
             virtual void setCameraPosition( const Core::Vector3& position ) override;
@@ -60,14 +60,21 @@ namespace Ra
             Scalar m_theta;
 
             Scalar m_distFromCenter;
+            Scalar m_cameraRadius;
 
+            bool m_rotateAround;
             bool m_cameraRotateMode;
             bool m_cameraPanMode;
+            // TODO(Charly): fps mode
             bool m_cameraZoomMode;
 
-            bool m_walkingEnabled;
-            bool m_strafingEnabled;
-            bool m_climbingEnabled;
+            bool m_walkingOn;
+            bool m_strafingOn;
+            bool m_climbingOn;
+
+            Scalar m_walking;
+            Scalar m_strafing;
+            Scalar m_climbing;
         };
 
     } // namespace Engine
