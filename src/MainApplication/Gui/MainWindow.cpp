@@ -56,6 +56,7 @@ namespace Ra
     {
         connect( actionOpenMesh, &QAction::triggered, this, &MainWindow::loadFile );
         connect( actionReload_Shaders, &QAction::triggered, m_viewer, &Viewer::reloadShaders );
+        connect( actionOpen_Material_Editor, &QAction::triggered, this, &MainWindow::openMaterialEditor );
 
         // Toolbox setup
         connect( actionToggle_Local_Global, &QAction::toggled, m_viewer->getGizmoManager(), &GizmoManager::setLocal );
@@ -546,6 +547,8 @@ namespace Ra
 
         auto shaderName = ro->getRenderTechnique()->shader->getBasicConfiguration().getName();
 
+        m_materialEditor->changeRenderObject( ro->idx );
+
         if ( m_currentShaderBox->findText( shaderName.c_str() ) == -1 )
         {
             m_currentShaderBox->setCurrentText( "" );
@@ -610,7 +613,8 @@ namespace Ra
 
     void Gui::MainWindow::editRO()
     {
-        m_materialEditor->changeRenderObject( getSelectedRO()->idx );
+        auto ro = getSelectedRO();
+        m_materialEditor->changeRenderObject( ro ? ro->idx : Core::Index::INVALID_IDX() );
         m_materialEditor->show();
     }
 
@@ -629,6 +633,11 @@ namespace Ra
         auto ro = roMgr->getRenderObject( itemIdx );
 
         return ro;
+    }
+
+    void Gui::MainWindow::openMaterialEditor()
+    {
+        m_materialEditor->show();
     }
 
     void Gui::MainWindow::updateUi( Plugins::RadiumPluginInterface *plugin )

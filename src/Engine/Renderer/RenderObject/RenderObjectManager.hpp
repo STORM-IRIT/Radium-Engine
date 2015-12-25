@@ -11,12 +11,12 @@
 
 #include <Core/Index/Index.hpp>
 #include <Core/Index/IndexMap.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 namespace Ra
 {
     namespace Engine
     {
+        class RenderObject;
 
         class RA_ENGINE_API RenderObjectManager
         {

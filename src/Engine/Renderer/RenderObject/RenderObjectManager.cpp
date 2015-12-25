@@ -2,6 +2,8 @@
 
 #include <Core/CoreMacros.hpp>
 
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+
 namespace Ra
 {
     namespace Engine
@@ -44,7 +46,13 @@ namespace Ra
 
         std::shared_ptr<RenderObject> RenderObjectManager::getRenderObject( const Core::Index& index )
         {
-            return m_renderObjects.at( index );
+            std::shared_ptr<RenderObject> ret = nullptr;
+            if ( index != Core::Index::INVALID_IDX() )
+            {
+                ret = m_renderObjects.at( index );
+            }
+
+            return ret;
         }
 
         void RenderObjectManager::getRenderObjects( std::vector<std::shared_ptr<RenderObject>>& renderObjectsOut, bool undirty ) const

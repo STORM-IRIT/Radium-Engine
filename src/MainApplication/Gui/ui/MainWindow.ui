@@ -40,7 +40,7 @@
      <x>0</x>
      <y>0</y>
      <width>1204</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFILE">
@@ -53,9 +53,10 @@
    </widget>
    <widget class="QMenu" name="menuMisc">
     <property name="title">
-     <string>Misc</string>
+     <string>Materials</string>
     </property>
     <addaction name="actionReload_Shaders"/>
+    <addaction name="actionOpen_Material_Editor"/>
    </widget>
    <addaction name="menuFILE"/>
    <addaction name="menuMisc"/>
@@ -853,6 +854,14 @@
    </property>
    <property name="toolTip">
     <string>Disable transform gizmo.</string>
+   </property>
+  </action>
+  <action name="actionOpen_Material_Editor">
+   <property name="text">
+    <string>Open &amp;Material Editor</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+M</string>
    </property>
   </action>
  </widget>

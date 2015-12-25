@@ -26,7 +26,8 @@ namespace Ra
         {
             Engine::RenderParameters params;
             int fixedSize = drawFixedSize ? 1 : 0;
-            params.addParameter("drawFixedSize", fixedSize);
+            params.addParameter( "drawFixedSize", fixedSize );
+            params.addParameter( "outputValue", 0 );
             addRenderParameters(params);
         }
 

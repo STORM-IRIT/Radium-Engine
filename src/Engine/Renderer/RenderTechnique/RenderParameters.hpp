@@ -93,6 +93,18 @@ namespace Ra
 
             void addParameter( const char* name, Texture* tex, int texUnit );
 
+            void updateParameter( const char* name, int    value );
+            void updateParameter( const char* name, uint   value );
+            void updateParameter( const char* name, Scalar value );
+
+            void updateParameter( const char* name, const Core::Vector2& value );
+            void updateParameter( const char* name, const Core::Vector3& value );
+            void updateParameter( const char* name, const Core::Vector4& value );
+
+            void updateParameter( const char* name, const Core::Matrix2& value );
+            void updateParameter( const char* name, const Core::Matrix3& value );
+            void updateParameter( const char* name, const Core::Matrix4& value );
+
             void concatParameters( const RenderParameters& params );
 
             void bind( ShaderProgram* shader ) const;

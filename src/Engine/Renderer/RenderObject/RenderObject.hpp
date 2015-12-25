@@ -95,6 +95,16 @@ namespace Ra
 
             inline void addRenderParameters( const RenderParameters& parameters );
 
+            inline const RenderParameters& getRenderParameters() const
+            {
+                return m_renderParameters;
+            }
+
+            inline RenderParameters& getRenderParameters()
+            {
+                return m_renderParameters;
+            }
+
         private:
             Core::Transform m_localTransform;
 

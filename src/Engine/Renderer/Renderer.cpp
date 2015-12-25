@@ -57,8 +57,8 @@ namespace Ra
             , m_quadMesh( nullptr )
             , m_fbo( nullptr )
             , m_postprocessFbo( nullptr )
-            , m_drawDebug( true )
             , m_renderQueuesUpToDate( false )
+            , m_drawDebug( true )
         {
         }
 

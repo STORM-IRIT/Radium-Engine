@@ -62,6 +62,7 @@ namespace Ra
 
         private slots:
             void loadFile();
+            void openMaterialEditor();
 
             void setCameraPosition();
             void setCameraTarget();
