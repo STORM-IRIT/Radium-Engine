@@ -64,21 +64,10 @@ namespace Ra
             void loadFile();
             void openMaterialEditor();
 
-            void setCameraPosition();
-            void setCameraTarget();
             void handlePicking( int drawableIndex );
-
-//            void playAnimation();
-//            void pauseAnimation();
-//            void stepAnimation();
-//            void resetAnimation();
 
         public slots:
             void onEntitiesUpdated();
-
-            // Camera ui slots
-            void onCameraPositionChanged( const Core::Vector3& p );
-            void onCameraTargetChanged( const Core::Vector3& p );
 
             // Frame timers ui slots
             void onUpdateFramestats( const std::vector<FrameTimerData>& stats );
@@ -110,9 +99,6 @@ namespace Ra
 
             void selectedEntity( Engine::Entity* selectedEntity );
             void selectedComponent( Engine::Component* selectedComponent);
-
-            void cameraPositionSet( const Core::Vector3& );
-            void cameraTargetSet( const Core::Vector3& );
 
         private:
             // Basic I/O management

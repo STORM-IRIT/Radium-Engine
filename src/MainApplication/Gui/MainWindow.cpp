@@ -42,8 +42,7 @@ namespace Ra
 
         createConnections();
 
-        mainApp->framesCountForStatsChanged(
-            m_avgFramesCount->value() );
+        mainApp->framesCountForStatsChanged( m_avgFramesCount->value() );
         m_viewer->getCameraInterface()->resetCamera();
     }
 
@@ -77,20 +76,6 @@ namespace Ra
         connect( m_entitiesTreeView->selectionModel(), &QItemSelectionModel::selectionChanged,
             this, &MainWindow::onSelectionChanged );
 
-        // Camera panel setup
-        connect( m_cameraResetButton, &QPushButton::released, m_viewer->getCameraInterface(), &CameraInterface::resetCamera);
-        connect( m_setCameraPositionButton, &QPushButton::released, this, &MainWindow::setCameraPosition);
-        connect( m_setCameraTargetButton, &QPushButton::released, this, &MainWindow::setCameraTarget);
-
-        connect( this, &MainWindow::cameraPositionSet, m_viewer->getCameraInterface(), &CameraInterface::setCameraPosition );
-        connect( this, &MainWindow::cameraTargetSet,   m_viewer->getCameraInterface(), &CameraInterface::setCameraTarget );
-
-        connect( m_viewer->getCameraInterface(), &CameraInterface::cameraPositionChanged, this, &MainWindow::onCameraPositionChanged );
-        connect( m_viewer->getCameraInterface(), &CameraInterface::cameraTargetChanged, this, &MainWindow::onCameraTargetChanged );
-        // Oh C++ why are you so mean to me ?
-        connect( m_cameraSensitivity, static_cast<void (QDoubleSpinBox::*) (double)>(&QDoubleSpinBox::valueChanged),
-            m_viewer->getCameraInterface(), &CameraInterface::setCameraSensitivity );
-
         // Connect picking results (TODO Val : use events to dispatch picking directly)
         connect( m_viewer, &Viewer::rightClickPicking, this, &MainWindow::handlePicking );
         connect (m_viewer, &Viewer::leftClickPicking, m_viewer->getGizmoManager(), &GizmoManager::handlePickingResult );
@@ -113,11 +98,6 @@ namespace Ra
         // Editors should be updated after each frame
         connect(mainApp, &MainApplication::endFrame, tab_edition, &TransformEditorWidget::updateValues);
         connect(mainApp, &MainApplication::endFrame, m_viewer->getGizmoManager(), &GizmoManager::updateValues);
-
-//        connect(playButton,  &QPushButton::clicked, this, &MainWindow::playAnimation );
-//        connect(pauseButton, &QPushButton::clicked, this, &MainWindow::pauseAnimation );
-//        connect(stepButton,  &QPushButton::clicked, this, &MainWindow::stepAnimation );
-//        connect(resetButton, &QPushButton::clicked, this, &MainWindow::resetAnimation );
 
         // Enable changing shaders
         connect( m_renderObjectsListView, &QListWidget::currentRowChanged, this, &MainWindow::renderObjectListItemClicked );
@@ -158,37 +138,6 @@ namespace Ra
     void Gui::MainWindow::onEntitiesUpdated()
     {
         emit entitiesUpdated( mainApp->m_engine->getEntityManager()->getEntities() );
-    }
-
-    void Gui::MainWindow::onCameraPositionChanged( const Core::Vector3& p )
-    {
-        // TODO : use a vectorEditor.
-        m_cameraPositionX->setValue( p.x() );
-        m_cameraPositionY->setValue( p.y() );
-        m_cameraPositionZ->setValue( p.z() );
-    }
-
-    void Gui::MainWindow::onCameraTargetChanged( const Core::Vector3& p )
-    {
-        m_cameraTargetX->setValue( p.x() );
-        m_cameraTargetY->setValue( p.y() );
-        m_cameraTargetZ->setValue( p.z() );
-    }
-
-    void Gui::MainWindow::setCameraPosition()
-    {
-        Core::Vector3 P( m_cameraPositionX->value(),
-                         m_cameraPositionY->value(),
-                         m_cameraPositionZ->value() );
-        emit cameraPositionSet( P );
-    }
-
-    void Gui::MainWindow::setCameraTarget()
-    {
-        Core::Vector3 T( m_cameraTargetX->value(),
-                         m_cameraTargetY->value(),
-                         m_cameraTargetZ->value() );
-        emit cameraTargetSet( T );
     }
 
     void Gui::MainWindow::loadFile()
@@ -421,8 +370,6 @@ namespace Ra
         {
             m_entitiesTreeView->selectionModel()->clear();
         }
-
-
     }
 
     void Gui::MainWindow::onSelectionChanged( const QItemSelection& selected, const QItemSelection& deselected )

@@ -420,16 +420,38 @@ namespace Ra
 
         void ForwardRenderer::debugTexture( uint texIdx )
         {
-            if ( texIdx > RENDERPASS_TEXTURE_COUNT )
-            {
-                m_displayedTexture = m_finalTexture.get();
-                m_displayedIsDepth = false;
-            }
-            else
+            if ( texIdx < RENDERPASS_TEXTURE_COUNT )
             {
                 m_displayedTexture = m_renderpassTextures[texIdx].get();
                 m_displayedIsDepth = ( texIdx == 0 );
             }
+            else if ( texIdx < RENDERPASS_TEXTURE_COUNT + OITPASS_TEXTURE_COUNT )
+            {
+                m_displayedTexture = m_oitTextures[texIdx - RENDERPASS_TEXTURE_COUNT].get();
+                m_displayedIsDepth = false;
+            }
+            else
+            {
+                m_displayedTexture = m_finalTexture.get();
+                m_displayedIsDepth = false;
+            }
+        }
+
+        std::vector<std::string> ForwardRenderer::getAvailableTextures() const
+        {
+            return {
+                "Depth Texture",
+                "Ambient Texture",
+                "Position Texture",
+                "Normal Texture",
+                "Lighted Texture",
+#ifndef NO_TRANSPARENCY
+                "OIT Accumlate Texture",
+                "OIT Revealage Texture",
+#endif
+                "RenderPass Texture",
+                "Final Texture"
+            };
         }
     }
 } // namespace Ra

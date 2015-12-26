@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1204</width>
-    <height>737</height>
+    <height>660</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -106,7 +106,7 @@
              </size>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>2</number>
             </property>
             <property name="movable">
              <bool>false</bool>
@@ -377,365 +377,31 @@
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="tab_camera">
-             <attribute name="title">
-              <string>Camera</string>
-             </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout_9">
-              <item>
-               <layout class="QGridLayout" name="gridLayout_5">
-                <item row="0" column="2">
-                 <layout class="QVBoxLayout" name="verticalLayout_7">
-                  <item>
-                   <widget class="QGroupBox" name="groupBox_4">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>100</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="title">
-                     <string>Camera target</string>
-                    </property>
-                    <layout class="QFormLayout" name="formLayout_5">
-                     <item row="0" column="0">
-                      <widget class="QLabel" name="label_19">
-                       <property name="text">
-                        <string>X</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1">
-                      <widget class="QDoubleSpinBox" name="m_cameraTargetX">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="decimals">
-                        <number>6</number>
-                       </property>
-                       <property name="minimum">
-                        <double>-100000.000000000000000</double>
-                       </property>
-                       <property name="maximum">
-                        <double>100000.000000000000000</double>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="0">
-                      <widget class="QLabel" name="label_20">
-                       <property name="text">
-                        <string>Y</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="1">
-                      <widget class="QDoubleSpinBox" name="m_cameraTargetY">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="decimals">
-                        <number>6</number>
-                       </property>
-                       <property name="minimum">
-                        <double>-100000.000000000000000</double>
-                       </property>
-                       <property name="maximum">
-                        <double>100000.000000000000000</double>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="0">
-                      <widget class="QLabel" name="label_21">
-                       <property name="text">
-                        <string>Z</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="1">
-                      <widget class="QDoubleSpinBox" name="m_cameraTargetZ">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="decimals">
-                        <number>6</number>
-                       </property>
-                       <property name="minimum">
-                        <double>-100000.000000000000000</double>
-                       </property>
-                       <property name="maximum">
-                        <double>100000.000000000000000</double>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item row="0" column="0">
-                 <layout class="QVBoxLayout" name="verticalLayout_8">
-                  <item>
-                   <widget class="QGroupBox" name="groupBox_3">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>100</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="title">
-                     <string>Camera position</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                    <layout class="QFormLayout" name="formLayout_4">
-                     <item row="0" column="0">
-                      <widget class="QLabel" name="label_2">
-                       <property name="text">
-                        <string>X</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1">
-                      <widget class="QDoubleSpinBox" name="m_cameraPositionX">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="decimals">
-                        <number>6</number>
-                       </property>
-                       <property name="minimum">
-                        <double>-100000.000000000000000</double>
-                       </property>
-                       <property name="maximum">
-                        <double>100000.000000000000000</double>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="0">
-                      <widget class="QLabel" name="label_17">
-                       <property name="text">
-                        <string>Y</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="1">
-                      <widget class="QDoubleSpinBox" name="m_cameraPositionY">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="decimals">
-                        <number>6</number>
-                       </property>
-                       <property name="minimum">
-                        <double>-100000.000000000000000</double>
-                       </property>
-                       <property name="maximum">
-                        <double>100000.000000000000000</double>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="0">
-                      <widget class="QLabel" name="label_18">
-                       <property name="text">
-                        <string>Z</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="1">
-                      <widget class="QDoubleSpinBox" name="m_cameraPositionZ">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="decimals">
-                        <number>6</number>
-                       </property>
-                       <property name="minimum">
-                        <double>-100000.000000000000000</double>
-                       </property>
-                       <property name="maximum">
-                        <double>100000.000000000000000</double>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_6">
-                <item>
-                 <widget class="QPushButton" name="m_setCameraPositionButton">
-                  <property name="text">
-                   <string>Set position</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="m_setCameraTargetButton">
-                  <property name="text">
-                   <string>Set target</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <spacer name="verticalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_4">
-                <item>
-                 <widget class="QLabel" name="label_22">
-                  <property name="text">
-                   <string>Camera sensitivity</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QDoubleSpinBox" name="m_cameraSensitivity">
-                  <property name="decimals">
-                   <number>1</number>
-                  </property>
-                  <property name="minimum">
-                   <double>0.100000000000000</double>
-                  </property>
-                  <property name="maximum">
-                   <double>10.000000000000000</double>
-                  </property>
-                  <property name="singleStep">
-                   <double>0.100000000000000</double>
-                  </property>
-                  <property name="value">
-                   <double>1.000000000000000</double>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <spacer name="verticalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_5">
-                <item>
-                 <widget class="QPushButton" name="m_fitToObjectButton">
-                  <property name="text">
-                   <string>Fit to object</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="m_fitToSceneButton">
-                  <property name="text">
-                   <string>Fit to scene</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QPushButton" name="m_cameraResetButton">
-                <property name="text">
-                 <string>Reset Camera</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-            <widget class="QWidget" name="tab_animation">
-             <attribute name="title">
-              <string>Animation</string>
-             </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
-              <item>
-               <layout class="QGridLayout" name="gridLayout_3">
-                <item row="0" column="0">
-                 <widget class="QPushButton" name="playButton">
-                  <property name="text">
-                   <string>Play</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QPushButton" name="pauseButton">
-                  <property name="text">
-                   <string>Pause</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QPushButton" name="stepButton">
-                  <property name="text">
-                   <string>Step</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="3">
-                 <widget class="QPushButton" name="resetButton">
-                  <property name="text">
-                   <string>Reset</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-             </layout>
-            </widget>
            </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0" columnstretch="1,2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Current Renderer</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="m_currentRendererCombo"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Displayed Texture</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="m_displayedTextureCombo"/>
           </item>
          </layout>
         </item>

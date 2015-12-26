@@ -166,7 +166,6 @@ namespace Ra
                 m_drawDebug = !m_drawDebug;
             }
 
-            // -=-=-=-=-=-=-=-=- PURE VIRTUAL -=-=-=-=-=-=-=-=- //
             /**
              * @brief Change the texture that is displayed on screen.
              * Set m_displayedIsDepth to true if depth linearization is wanted
@@ -185,6 +184,12 @@ namespace Ra
              * @return A vector of strings, containing the name of the different textures
              */
             virtual std::vector<std::string> getAvailableTextures() const;
+
+            /**
+             * @brief Get the name of the renderer, e.g to be displayed in the UI
+             * @return
+             */
+            virtual std::string getRendererName() const = 0;
 
         protected:
 
@@ -304,7 +309,7 @@ namespace Ra
 
             // TODO(Charly): Check if this leads to some rendering / picking bugs
             // (because different depth textures would be written, and so on)
-            std::unique_ptr<Texture>        m_depthTexture;
+            std::unique_ptr<Texture>    m_depthTexture;
 
             std::vector<PickingQuery>   m_pickingQueries;
             std::vector<PickingQuery>   m_lastFramePickingQueries;
