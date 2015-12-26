@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_FORWARDRENDERER_HPP
-#define RADIUMENGINE_FORWARDRENDERER_HPP
+#ifndef RADIUMENGINE_RENDERER_HPP
+#define RADIUMENGINE_RENDERER_HPP
 
 #include <Engine/RaEngine.hpp>
 
@@ -13,7 +13,6 @@
 #include <Core/Time/Timer.hpp>
 #include <Core/Event/EventEnums.hpp>
 
-#include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
 
 namespace Ra
@@ -45,7 +44,6 @@ namespace Ra
 {
     namespace Engine
     {
-
         struct RA_ENGINE_API RenderData
         {
             Core::Matrix4 viewMatrix;
@@ -59,21 +57,39 @@ namespace Ra
             typedef std::shared_ptr<RenderObject> RenderObjectPtr;
 
         public:
+            struct TimerData
+            {
+                Core::Timer::TimePoint renderStart;
+                Core::Timer::TimePoint updateEnd;
+                Core::Timer::TimePoint feedRenderQueuesEnd;
+                Core::Timer::TimePoint mainRenderEnd;
+                Core::Timer::TimePoint postProcessEnd;
+                Core::Timer::TimePoint renderEnd;
+            };
+
+            struct PickingQuery
+            {
+                Core::Vector2 m_screenCoords;
+                Core::MouseButton::MouseButton m_button;
+            };
+
+        public:
             Renderer( uint width, uint height );
             virtual ~Renderer();
 
-            const TimerData& getTimerData() const
+            // -=-=-=-=-=-=-=-=- FINAL -=-=-=-=-=-=-=-=- //
+            virtual const TimerData& getTimerData() const final
             {
                 return m_timerData;
             }
 
             // Lock the renderer (for MT access)
-            void lockRendering()
+            virtual void lockRendering() final
             {
                 m_renderMutex.lock();
             }
 
-            void unlockRendering()
+            virtual void unlockRendering() final
             {
                 m_renderMutex.unlock();
             }
@@ -100,6 +116,12 @@ namespace Ra
              */
             virtual void render( const RenderData& renderData ) final;
 
+            // -=-=-=-=-=-=-=-=- VIRTUAL -=-=-=-=-=-=-=-=- //
+            /**
+             * @brief Initialize renderer
+             */
+            virtual void initialize() final;
+
             /**
              * @brief Resize the viewport and all the screen textures, fbos.
              * This function must be overrided as soon as some FBO or screensized
@@ -109,22 +131,7 @@ namespace Ra
              * @param width The new viewport width
              * @param height The new viewport height
              */
-            virtual void resize( uint width, uint height ) = 0;
-
-            /**
-             * @brief Change the texture that is displayed on screen.
-             * This must be overrided if you want to properly be able to
-             * see your textures.
-             *
-             * @param texIdx The texture to display.
-             */
-            // FIXME(Charly): For now the drawn texture takes the whole viewport,
-            //                maybe it could be great if we had a way to switch between
-            //                the current "fullscreen" debug mode, and some kind of
-            //                "windowed" mode (that would show the debugged texture in
-            //                its own viewport, without hiding the final texture.)
-            virtual void debugTexture( uint texIdx ) = 0;
-
+            virtual void resize( uint width, uint height );
 
             // FIXME(Charly): Not sure the lights should be handled by the renderer.
             //                How to do this ?
@@ -133,7 +140,7 @@ namespace Ra
                 m_lights.push_back( light );
             }
 
-            virtual void reloadShaders() {}
+            virtual void reloadShaders();
 
             // FIXME(Charly): Maybe there is a better way to handle lights ?
             // FIXME(Charly): Final ?
@@ -159,19 +166,42 @@ namespace Ra
                 m_drawDebug = !m_drawDebug;
             }
 
-        public:
-            // Pure virtual stuff
-            virtual void initialize() = 0;
+            // -=-=-=-=-=-=-=-=- PURE VIRTUAL -=-=-=-=-=-=-=-=- //
+            /**
+             * @brief Change the texture that is displayed on screen.
+             * Set m_displayedIsDepth to true if depth linearization is wanted
+             *
+             * @param texIdx The texture to display.
+             */
+            // FIXME(Charly): For now the drawn texture takes the whole viewport,
+            //                maybe it could be great if we had a way to switch between
+            //                the current "fullscreen" debug mode, and some kind of
+            //                "windowed" mode (that would show the debugged texture in
+            //                its own viewport, without hiding the final texture.)
+            virtual void debugTexture( uint texIdx );
+
+            /**
+             * @brief Return the names of renderer available textures
+             * @return A vector of strings, containing the name of the different textures
+             */
+            virtual std::vector<std::string> getAvailableTextures() const;
 
         protected:
 
+            /**
+             * @brief initializeInternal
+             */
+            virtual void initializeInternal() = 0;
+            virtual void resizeInternal() = 0;
+
             // 4.
             /**
-              * @brief All the scene rendering magics basically happens here.
-              *
-              * @param renderData The basic data needed for the rendering :
-              * Time elapsed since last frame, camera view matrix, camera projection matrix.
-              */
+             * @brief All the scene rendering magics basically happens here.
+             *
+             * @param renderData The basic data needed for the rendering :
+             * Time elapsed since last frame, camera view matrix, camera projection matrix.
+             */
+            // FIXME(Charly): pure virtual ?
             virtual void renderInternal( const RenderData& renderData ) = 0;
 
             // 5.
@@ -183,6 +213,7 @@ namespace Ra
              * @param renderData The basic data needed for the rendering :
              * Time elapsed since last frame, camera view matrix, camera projection matrix.
              */
+            // FIXME(Charly): pure virtual ?
             virtual void postProcessInternal( const RenderData& renderData ) = 0;
 
         private:
@@ -201,9 +232,6 @@ namespace Ra
 
             // 6.
             virtual void drawScreenInternal() final;
-
-            void initShaders();
-            void initBuffers();
 
         protected:
             uint m_width;
@@ -250,42 +278,21 @@ namespace Ra
             RenderQueue m_debugRenderQueue;
             RenderQueue m_uiRenderQueue;
 
+            // Should we render debug stuff ?
+            bool m_drawDebug;
+
         private:
-            enum RenderPassTextures
-            {
-                RENDERPASS_TEXTURE_DEPTH = 0,
-                RENDERPASS_TEXTURE_AMBIENT,
-                RENDERPASS_TEXTURE_POSITION,
-                RENDERPASS_TEXTURE_NORMAL,
-                RENDERPASS_TEXTURE_LIGHTED,
-                RENDERPASS_TEXTURE_COUNT
-            };
-
-            enum OITPassTextures
-            {
-                OITPASS_TEXTURE_ACCUM,
-                OITPASS_TEXTURE_REVEALAGE,
-                OITPASS_TEXTURE_COUNT
-            };
-
-            // Default renderer logic here, no need to be accessed by overriding renderers.
-            ShaderProgram* m_depthAmbientShader;
-            ShaderProgram* m_renderpassCompositingShader;
-            ShaderProgram* m_oiTransparencyShader;
-            ShaderProgram* m_postprocessShader;
+            // Final display shader
             ShaderProgram* m_drawScreenShader;
 
+            // Simple quad mesh, used to render the final image
             std::unique_ptr<Mesh> m_quadMesh;
 
+            // Qt has the nice idea to bind an fbo before giving you the opengl context,
+            // this flag is used to save it (and render the final screen on it)
             int m_qtPlz;
 
-            std::unique_ptr<FBO> m_fbo;
-            std::unique_ptr<FBO> m_oitFbo;
-            std::unique_ptr<FBO> m_postprocessFbo;
-
-            std::array<std::unique_ptr<Texture>, RENDERPASS_TEXTURE_COUNT> m_renderpassTextures;
-            std::array<std::unique_ptr<Texture>, OITPASS_TEXTURE_COUNT> m_oitTextures;
-
+            // Renderer timings data
             TimerData m_timerData;
 
             std::mutex m_renderMutex;
@@ -295,14 +302,17 @@ namespace Ra
             std::unique_ptr<Texture>    m_pickingTexture;
             ShaderProgram*              m_pickingShader;
 
+            // TODO(Charly): Check if this leads to some rendering / picking bugs
+            // (because different depth textures would be written, and so on)
+            std::unique_ptr<Texture>        m_depthTexture;
+
             std::vector<PickingQuery>   m_pickingQueries;
             std::vector<PickingQuery>   m_lastFramePickingQueries;
             std::vector<int>            m_pickingResults;
 
-            bool m_drawDebug;
         };
 
     } // namespace Engine
 } // namespace Ra
 
-#endif // RADIUMENGINE_FORWARDRENDERER_HPP
+#endif // RADIUMENGINE_RENDERER_HPP

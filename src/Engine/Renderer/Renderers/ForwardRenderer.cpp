@@ -47,19 +47,11 @@ namespace Ra
 
         ForwardRenderer::ForwardRenderer( uint width, uint height )
             : Renderer( width, height )
-            , m_width( width )
-            , m_height( height )
-            , m_shaderManager( nullptr )
-            , m_displayedTexture( nullptr )
-            , m_displayedIsDepth( false )
             , m_depthAmbientShader( nullptr )
             , m_postprocessShader( nullptr )
-            , m_drawScreenShader( nullptr )
             , m_quadMesh( nullptr )
             , m_fbo( nullptr )
             , m_postprocessFbo( nullptr )
-            , m_renderQueuesUpToDate( false )
-            , m_drawDebug( true )
         {
         }
 
@@ -68,7 +60,7 @@ namespace Ra
             ShaderProgramManager::destroyInstance();
         }
 
-        void ForwardRenderer::initialize()
+        void ForwardRenderer::initializeInternal()
         {
             std::string shaderPath( "../Shaders" );
             std::string defaultShader( "Default" );
@@ -102,8 +94,6 @@ namespace Ra
             m_renderpassCompositingShader   = m_shaderManager->addShaderProgram( "RenderPassCompose" );
             m_oiTransparencyShader          = m_shaderManager->addShaderProgram( "OITransparency" );
             m_postprocessShader             = m_shaderManager->addShaderProgram( "PostProcess" );
-            m_drawScreenShader              = m_shaderManager->addShaderProgram( "DrawScreen" );
-            m_pickingShader                 = m_shaderManager->addShaderProgram( "Picking" );
         }
 
         void ForwardRenderer::initBuffers()
@@ -111,7 +101,6 @@ namespace Ra
             m_fbo.reset( new FBO( FBO::Components( FBO::COLOR | FBO::DEPTH ), m_width, m_height ) );
             m_oitFbo.reset( new FBO( FBO::Components( FBO::COLOR | FBO::DEPTH ), m_width, m_height ) );
             m_postprocessFbo.reset( new FBO( FBO::Components( FBO::COLOR ), m_width, m_height ) );
-            m_pickingFbo.reset( new FBO( FBO::Components( FBO::COLOR | FBO::DEPTH ), m_width, m_height ) );
 
             // Render pass
             m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]      .reset( new Texture( "Depth", GL_TEXTURE_2D ) );
@@ -126,7 +115,6 @@ namespace Ra
             m_oitTextures[OITPASS_TEXTURE_REVEALAGE]            .reset( new Texture( "OITPRevealage", GL_TEXTURE_2D ) );
 
             // Picking
-            m_pickingTexture                                    .reset( new Texture( "Picking", GL_TEXTURE_2D ) );
 
             // Post process pass
             m_finalTexture                                      .reset( new Texture( "Final", GL_TEXTURE_2D ) );
@@ -134,179 +122,6 @@ namespace Ra
             resize( m_width, m_height );
 
             m_displayedTexture = m_finalTexture.get();
-        }
-
-        void ForwardRenderer::render( const RenderData& data )
-        {
-            CORE_ASSERT( RadiumEngine::getInstance() != nullptr, "Engine is not initialized." );
-
-            std::lock_guard<std::mutex> renderLock( m_renderMutex );
-
-            m_timerData.renderStart = Core::Timer::Clock::now();
-
-            // 0. Save eventual already bound FBO (e.g. QtOpenGLWidget)
-            saveExternalFBOInternal();
-
-            // 1. Gather render objects and update them
-            auto roMgr = RadiumEngine::getInstance()->getRenderObjectManager();
-
-            if ( roMgr->isDirty() )
-            {
-                roMgr->getRenderObjects( m_renderObjects, true );
-                m_renderQueuesUpToDate = false;
-            }
-
-            updateRenderObjectsInternal( data, m_renderObjects );
-            m_timerData.updateEnd = Core::Timer::Clock::now();
-
-            // 2. Feed render queues
-            if ( !m_renderQueuesUpToDate )
-            {
-                feedRenderQueuesInternal( data, m_renderObjects );
-            }
-            m_timerData.feedRenderQueuesEnd = Core::Timer::Clock::now();
-
-            // 3. Do picking if needed
-            m_pickingResults.clear();
-            if ( !m_pickingQueries.empty() )
-            {
-                doPicking( data, m_renderObjects );
-            }
-            m_lastFramePickingQueries = m_pickingQueries;
-            m_pickingQueries.clear();
-
-            // 4. Do the rendering.
-            renderInternal( data );
-            m_timerData.mainRenderEnd = Core::Timer::Clock::now();
-
-            // 5. Post processing
-            postProcessInternal( data );
-            m_timerData.postProcessEnd = Core::Timer::Clock::now();
-
-            // 6. write image to framebuffer.
-            drawScreenInternal();
-            m_timerData.renderEnd = Core::Timer::Clock::now();
-        }
-
-        void ForwardRenderer::saveExternalFBOInternal()
-        {
-            GL_ASSERT( glGetIntegerv( GL_FRAMEBUFFER_BINDING, &m_qtPlz ) );
-        }
-
-        void ForwardRenderer::updateRenderObjectsInternal( const RenderData& renderData,
-                                                    const std::vector<RenderObjectPtr>& renderObjects )
-        {
-            CORE_UNUSED( renderData );
-
-            for ( auto& ro : renderObjects )
-            {
-                ro->updateGL();
-            }
-        }
-
-        void ForwardRenderer::feedRenderQueuesInternal( const RenderData& renderData,
-                                                 const std::vector<RenderObjectPtr>& renderObjects )
-        {
-            m_opaqueRenderQueue.clear();
-            m_transparentRenderQueue.clear();
-            m_xrayRenderQueue.clear();
-            m_debugRenderQueue.clear();
-            m_uiRenderQueue.clear();
-
-            for ( const auto& ro : renderObjects )
-            {
-                switch ( ro->getType() )
-                {
-                    case RenderObject::Type::RO_OPAQUE:
-                    {
-                        ro->feedRenderQueue( m_opaqueRenderQueue );
-                    }
-                    break;
-
-                    case RenderObject::Type::RO_TRANSPARENT:
-                    {
-                        ro->feedRenderQueue( m_transparentRenderQueue );
-                    }
-                    break;
-
-                    case RenderObject::Type::RO_XRAY:
-                    {
-                        ro->feedRenderQueue( m_xrayRenderQueue );
-                    }
-
-                    case RenderObject::Type::RO_DEBUG:
-                    {
-                        if ( m_drawDebug )
-                        {
-                            ro->feedRenderQueue( m_debugRenderQueue );
-                        }
-                    }
-                    break;
-
-                    case RenderObject::Type::RO_UI:
-                    {
-                        ro->feedRenderQueue( m_uiRenderQueue );
-                    }
-                    break;
-                }
-            }
-
-            m_renderQueuesUpToDate = true;
-        }
-
-        void ForwardRenderer::doPicking( const RenderData& renderData,
-                                  const std::vector<RenderObjectPtr>& renderObjects )
-        {
-            CORE_UNUSED( renderObjects );
-
-            m_pickingResults.reserve( m_pickingQueries.size() );
-
-            m_pickingFbo->useAsTarget();
-
-            GL_ASSERT( glDepthMask( GL_TRUE ) );
-            GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
-            GL_ASSERT( glDrawBuffers( 1, buffers ) );
-            GL_ASSERT( glClearColor( 1.0, 1.0, 1.0, 1.0 ) );
-            GL_ASSERT( glClearDepth( 1.0 ) );
-            GL_ASSERT( glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ) );
-
-            m_pickingShader->bind();
-
-            GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
-            GL_ASSERT( glDepthFunc( GL_LESS ) );
-
-            RenderParameters camParams;
-            camParams.addParameter( "transform.view", renderData.viewMatrix );
-            camParams.addParameter( "transform.proj", renderData.projMatrix );
-
-            m_opaqueRenderQueue.render( m_pickingShader, camParams );
-            m_transparentRenderQueue.render( m_pickingShader, camParams );
-
-            // Draw xrayed objects on top of normal objects
-            GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
-            m_xrayRenderQueue.render( m_pickingShader );
-            // Always draw ui stuff on top of everything
-            GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
-            m_uiRenderQueue.render( m_pickingShader );
-
-            GL_ASSERT( glReadBuffer( GL_COLOR_ATTACHMENT0 ) );
-
-            for ( const auto& query : m_pickingQueries )
-            {
-                Core::Color color;
-                GL_ASSERT( glReadPixels( query.m_screenCoords.x(), query.m_screenCoords.y(), 1, 1, GL_RGBA, GL_FLOAT, color.data() ) );
-
-                int id = -1;
-                if ( color != Core::Color( 1.0, 1.0, 1.0, 1.0 ) )
-                {
-                    color = color * 255;
-                    id = int( color.x() + color.y() * 256 + color.z() * 256 * 256 );
-                }
-
-                m_pickingResults.push_back( id );
-            }
-
-            m_pickingFbo->unbind();
         }
 
         void ForwardRenderer::renderInternal( const RenderData& renderData )
@@ -500,53 +315,8 @@ namespace Ra
             m_postprocessFbo->unbind();
         }
 
-        void ForwardRenderer::drawScreenInternal()
+        void ForwardRenderer::resizeInternal()
         {
-            if ( m_qtPlz == 0 )
-            {
-                GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, 0 ) );
-                glDrawBuffer( GL_BACK );
-            }
-            else
-            {
-                GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, m_qtPlz ) );
-                GL_ASSERT( glDrawBuffers( 1, buffers ) );
-            }
-
-            GL_ASSERT( glClearColor( 0.0, 0.0, 0.0, 0.0 ) );
-            // FIXME(Charly): Do we really need to clear the depth buffer ?
-            GL_ASSERT( glClearDepth( 1.0 ) );
-            GL_ASSERT( glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT ) );
-
-            GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
-
-            GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
-
-            m_drawScreenShader->bind();
-            m_drawScreenShader->setUniform( "screenTexture", m_finalTexture.get(), 0 );
-
-            m_drawScreenShader->setUniform( "depth", m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH].get(), 1 );
-            m_drawScreenShader->setUniform( "ambient", m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT].get(), 2 );
-            m_drawScreenShader->setUniform( "position", m_renderpassTextures[RENDERPASS_TEXTURE_POSITION].get(), 3 );
-            m_drawScreenShader->setUniform( "normal", m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL].get(), 4 );
-            m_drawScreenShader->setUniform( "color", m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED].get(), 5 );
-            m_drawScreenShader->setUniform( "renderpass", m_renderpassTexture.get(), 6 );
-            m_drawScreenShader->setUniform( "picking", m_pickingTexture.get(), 7 );
-
-            m_drawScreenShader->setUniform( "oitAccum", m_oitTextures[OITPASS_TEXTURE_ACCUM].get(), 8 );
-            m_drawScreenShader->setUniform( "oitRevealage", m_oitTextures[OITPASS_TEXTURE_REVEALAGE].get(), 9 );
-
-            m_quadMesh->render();
-
-            GL_ASSERT( glDepthFunc( GL_LESS ) );
-        }
-
-        void ForwardRenderer::resize( uint w, uint h )
-        {
-            m_width = w;
-            m_height = h;
-            glViewport( 0, 0, m_width, m_height );
-
             if ( m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]->getId() != 0 )
             {
                 m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]->deleteGL();
@@ -581,59 +351,41 @@ namespace Ra
                 m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->deleteGL();
             }
 
-            if ( m_pickingTexture->getId() != 0 )
-            {
-                m_pickingTexture->deleteGL();
-            }
-
-            if ( m_finalTexture->getId() != 0 )
-            {
-                m_finalTexture->deleteGL();
-            }
-
-            m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]->initGL( GL_DEPTH_COMPONENT24, w, h, GL_DEPTH_COMPONENT,
+            m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]->initGL( GL_DEPTH_COMPONENT24, m_width, m_height, GL_DEPTH_COMPONENT,
                                                                     GL_UNSIGNED_INT, nullptr );
             m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]->setFilter( GL_LINEAR, GL_LINEAR );
             m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
-            m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT]->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );
+            m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT]->initGL( GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr );
             m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT]->setFilter( GL_LINEAR, GL_LINEAR );
             m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT]->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
-            m_renderpassTextures[RENDERPASS_TEXTURE_POSITION]->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );
+            m_renderpassTextures[RENDERPASS_TEXTURE_POSITION]->initGL( GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr );
             m_renderpassTextures[RENDERPASS_TEXTURE_POSITION]->setFilter( GL_LINEAR, GL_LINEAR );
             m_renderpassTextures[RENDERPASS_TEXTURE_POSITION]->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
-            m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL]->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );
+            m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL]->initGL( GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr );
             m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL]->setFilter( GL_LINEAR, GL_LINEAR );
             m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL]->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
-            m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED]->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );
+            m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED]->initGL( GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr );
             m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED]->setFilter( GL_LINEAR, GL_LINEAR );
             m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED]->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
-            m_renderpassTexture->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );
+            m_renderpassTexture->initGL( GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr );
             m_renderpassTexture->setFilter( GL_LINEAR, GL_LINEAR );
             m_renderpassTexture->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
-            m_oitTextures[OITPASS_TEXTURE_ACCUM]->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );
+            m_oitTextures[OITPASS_TEXTURE_ACCUM]->initGL( GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr );
             m_oitTextures[OITPASS_TEXTURE_ACCUM]->setFilter( GL_LINEAR, GL_LINEAR );
             m_oitTextures[OITPASS_TEXTURE_ACCUM]->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
-            m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->initGL( GL_R32F, w, h, GL_RED, GL_FLOAT, nullptr );
+            m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->initGL( GL_R32F, m_width, m_height, GL_RED, GL_FLOAT, nullptr );
             m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->setFilter( GL_LINEAR, GL_LINEAR );
             m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
-            m_pickingTexture->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );
-            m_pickingTexture->setFilter( GL_NEAREST, GL_NEAREST );
-            m_pickingTexture->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
-
-            m_finalTexture->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );
-            m_finalTexture->setFilter( GL_LINEAR, GL_LINEAR );
-            m_finalTexture->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
-
             m_fbo->bind();
-            m_fbo->setSize( w, h );
+            m_fbo->setSize( m_width, m_height );
             m_fbo->attachTexture( GL_DEPTH_ATTACHMENT , m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]   .get() );
             m_fbo->attachTexture( GL_COLOR_ATTACHMENT0, m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT] .get() );
             m_fbo->attachTexture( GL_COLOR_ATTACHMENT1, m_renderpassTextures[RENDERPASS_TEXTURE_POSITION].get() );
@@ -644,7 +396,7 @@ namespace Ra
             m_fbo->unbind( true );
 
             m_oitFbo->bind();
-            m_oitFbo->setSize( w, h );
+            m_oitFbo->setSize( m_width, m_height );
             m_oitFbo->attachTexture( GL_DEPTH_ATTACHMENT , m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH].get() );
             m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_oitTextures[OITPASS_TEXTURE_ACCUM]          .get() );
             m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT1, m_oitTextures[OITPASS_TEXTURE_REVEALAGE]      .get() );
@@ -652,17 +404,10 @@ namespace Ra
             m_fbo->unbind( true );
 
             m_postprocessFbo->bind();
-            m_postprocessFbo->setSize( w, h );
+            m_postprocessFbo->setSize( m_width, m_height );
             m_postprocessFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_finalTexture.get() );
             m_postprocessFbo->check();
             m_postprocessFbo->unbind( true );
-
-            m_pickingFbo->bind();
-            m_pickingFbo->setSize( w, h );
-            m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT , m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH].get() );
-            m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get() );
-            m_pickingFbo->check();
-            m_pickingFbo->unbind( true );
 
             GL_CHECK_ERROR;
 
@@ -686,147 +431,5 @@ namespace Ra
                 m_displayedIsDepth = ( texIdx == 0 );
             }
         }
-
-        void ForwardRenderer::reloadShaders()
-        {
-            ShaderProgramManager::getInstance()->reloadAllShaderPrograms();
-        }
-
-        void ForwardRenderer::handleFileLoading( const std::string& filename )
-        {
-            return;
-            Assimp::Importer importer;
-            const aiScene* scene = importer.ReadFile( filename,
-                                                      aiProcess_Triangulate |
-                                                      aiProcess_JoinIdenticalVertices |
-                                                      aiProcess_GenSmoothNormals |
-                                                      aiProcess_SortByPType |
-                                                      aiProcess_FixInfacingNormals |
-                                                      aiProcess_CalcTangentSpace |
-                                                      aiProcess_GenUVCoords );
-
-            if ( !scene )
-            {
-                return;
-            }
-
-            if ( !scene->HasLights() )
-            {
-                return;
-            }
-
-            // Load lights
-            for ( uint lightId = 0; lightId < scene->mNumLights; ++lightId )
-            {
-                aiLight* ailight = scene->mLights[lightId];
-
-                aiString name = ailight->mName;
-                aiNode* node = scene->mRootNode->FindNode( name );
-
-                Core::Matrix4 transform( Core::Matrix4::Identity() );
-
-                if ( node != nullptr )
-                {
-                    Core::Matrix4 t0;
-                    Core::Matrix4 t1;
-
-                    for ( uint i = 0; i < 4; ++i )
-                    {
-                        for ( uint j = 0; j < 4; ++j )
-                        {
-                            t0( i, j ) = scene->mRootNode->mTransformation[i][j];
-                            t1( i, j ) = node->mTransformation[i][j];
-                        }
-                    }
-                    transform = t0 * t1;
-                }
-
-                Core::Color color( ailight->mColorDiffuse.r,
-                                   ailight->mColorDiffuse.g,
-                                   ailight->mColorDiffuse.b, 1.0 );
-
-                switch ( ailight->mType )
-                {
-                    case aiLightSource_DIRECTIONAL:
-                    {
-                        Core::Vector4 dir( ailight->mDirection[0],
-                                           ailight->mDirection[1],
-                                           ailight->mDirection[2], 0.0 );
-                        dir = transform.transpose().inverse() * dir;
-
-                        Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
-                        finalDir = -finalDir;
-
-                        auto light = std::make_shared<DirectionalLight>();
-                        light->setColor( color );
-                        light->setDirection( finalDir );
-
-                        addLight( light );
-
-                    }
-                    break;
-
-                    case aiLightSource_POINT:
-                    {
-                        Core::Vector4 pos( ailight->mPosition[0],
-                                           ailight->mPosition[1],
-                                           ailight->mPosition[2], 1.0 );
-                        pos = transform * pos;
-                        pos /= pos.w();
-
-                        auto light = std::make_shared<PointLight>();
-                        light->setColor( color );
-                        light->setPosition( Core::Vector3( pos.x(), pos.y(), pos.z() ) );
-                        light->setAttenuation( ailight->mAttenuationConstant,
-                                               ailight->mAttenuationLinear,
-                                               ailight->mAttenuationQuadratic );
-
-                        addLight( light );
-
-                    }
-                    break;
-
-                    case aiLightSource_SPOT:
-                    {
-                        Core::Vector4 pos( ailight->mPosition[0],
-                                           ailight->mPosition[1],
-                                           ailight->mPosition[2], 1.0 );
-                        pos = transform * pos;
-                        pos /= pos.w();
-
-                        Core::Vector4 dir( ailight->mDirection[0],
-                                           ailight->mDirection[1],
-                                           ailight->mDirection[2], 0.0 );
-                        dir = transform.transpose().inverse() * dir;
-
-                        Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
-                        finalDir = -finalDir;
-
-                        auto light = std::make_shared<SpotLight>();
-                        light->setColor( color );
-                        light->setPosition( Core::Vector3( pos.x(), pos.y(), pos.z() ) );
-                        light->setDirection( finalDir );
-
-                        light->setAttenuation( ailight->mAttenuationConstant,
-                                               ailight->mAttenuationLinear,
-                                               ailight->mAttenuationQuadratic );
-
-                        light->setInnerAngleInRadians( ailight->mAngleInnerCone );
-                        light->setOuterAngleInRadians( ailight->mAngleOuterCone );
-
-                        addLight( light );
-
-                    }
-                    break;
-
-                    case aiLightSource_UNDEFINED:
-                    default:
-                    {
-                        //                LOG(ERROR) << "Light " << name.C_Str() << " has undefined type.";
-                    } break;
-                }
-            }
-        }
-
     }
 } // namespace Ra

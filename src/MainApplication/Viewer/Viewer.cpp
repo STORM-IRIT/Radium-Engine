@@ -16,6 +16,7 @@
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/SystemDisplay/SystemDisplay.hpp>
+#include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
 #include <MainApplication/Viewer/TrackballCamera.hpp>
 #include <MainApplication/Viewer/Gizmo/GizmoManager.hpp>
@@ -208,7 +209,7 @@ namespace Ra
                 }
                 else
                 {
-                    Engine::ForwardRenderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_LEFT_BUTTON };
+                    Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_LEFT_BUTTON };
                     m_renderer->addPickingRequest(query);
                     m_gizmoManager->handleMousePressEvent(event);
                 }
@@ -224,7 +225,7 @@ namespace Ra
             case Qt::RightButton:
             {
                 // Check picking
-                Engine::ForwardRenderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_RIGHT_BUTTON };
+                Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_RIGHT_BUTTON };
                 m_renderer->addPickingRequest(query);
             }
             break;
@@ -331,7 +332,7 @@ namespace Ra
 
         for (uint i = 0 ; i < m_renderer->getPickingQueries().size(); ++i)
         {
-            const Engine::ForwardRenderer::PickingQuery& query  = m_renderer->getPickingQueries()[i];
+            const Engine::Renderer::PickingQuery& query  = m_renderer->getPickingQueries()[i];
             if ( query.m_button == Core::MouseButton::RA_MOUSE_LEFT_BUTTON)
             {
                 emit leftClickPicking(m_renderer->getPickingResults()[i]);
