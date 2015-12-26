@@ -140,15 +140,27 @@ namespace Ra
         LOG( logDEBUG ) << "Rendering on dedicated thread";
 #endif
         // FIXME(Charly): Renderer type should be changed here
-        m_renderer.reset( new Engine::ForwardRenderer( width(), height() ) );
-        m_renderer->initialize();
+        m_renderers.resize( 1 );
+        m_renderers[0].reset( new Engine::ForwardRenderer( width(), height() ) );
+
+        for ( auto& renderer : m_renderers )
+        {
+            renderer->initialize();
+        }
+
+        m_currentRenderer = m_renderers[0].get();
 
 #if !defined (FORCE_RENDERING_ON_MAIN_THREAD)
         m_renderThread = new RenderThread( this, m_renderer.get() );
 #endif
 
         auto light = std::shared_ptr<Engine::DirectionalLight>(new Engine::DirectionalLight);
-        m_renderer->addLight( light );
+
+        for ( auto& renderer : m_renderers )
+        {
+            renderer->addLight( light );
+        }
+
         m_camera->attachLight( light );
     }
 
@@ -160,33 +172,34 @@ namespace Ra
     {
         // This slot function is called from the main thread as part of the event loop
         // when the GUI is about to update. We have to wait for the rendering to finish.
-        m_renderer->lockRendering();
+        m_currentRenderer->lockRendering();
     }
 
     void Gui::Viewer::onFrameSwapped()
     {
         // This slot is called from the main thread as part of the event loop when the
         // GUI has finished displaying the rendered image, so we unlock the renderer.
-        m_renderer->unlockRendering();
+        m_currentRenderer->unlockRendering();
     }
 
     void Gui::Viewer::onAboutToResize()
     {
         // Like swap buffers, resizing is a blocking operation and we have to wait for the rendering
         // to finish before resizing.
-        m_renderer->lockRendering();
+        m_currentRenderer->lockRendering();
     }
 
     void Gui::Viewer::onResized()
     {
-        m_renderer->unlockRendering();
+        m_currentRenderer->unlockRendering();
     }
 
     void Gui::Viewer::resizeGL( int width, int height )
     {
         // Renderer should have been locked by previous events.
         m_camera->resizeViewport( width, height );
-        m_renderer->resize( width, height );
+
+        m_currentRenderer->resize( width, height );
     }
 
     void Gui::Viewer::mousePressEvent( QMouseEvent* event )
@@ -210,7 +223,7 @@ namespace Ra
                 else
                 {
                     Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_LEFT_BUTTON };
-                    m_renderer->addPickingRequest(query);
+                    m_currentRenderer->addPickingRequest(query);
                     m_gizmoManager->handleMousePressEvent(event);
                 }
             }
@@ -226,7 +239,7 @@ namespace Ra
             {
                 // Check picking
                 Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_RIGHT_BUTTON };
-                m_renderer->addPickingRequest(query);
+                m_currentRenderer->addPickingRequest(query);
             }
             break;
 
@@ -268,11 +281,11 @@ namespace Ra
     void Gui::Viewer::reloadShaders()
     {
         // FIXME : check thread-saefty of this.
-        m_renderer->lockRendering();
+        m_currentRenderer->lockRendering();
         makeCurrent();
-        m_renderer->reloadShaders();
+        m_currentRenderer->reloadShaders();
         doneCurrent();
-        m_renderer->unlockRendering();
+        m_currentRenderer->unlockRendering();
     }
 
     // Asynchronous rendering implementation
@@ -289,7 +302,7 @@ namespace Ra
         data.dt = dt;
         data.projMatrix = m_camera->getProjMatrix();
         data.viewMatrix = m_camera->getViewMatrix();
-        m_renderer->render( data );
+        m_currentRenderer->render( data );
 #else
         CORE_ASSERT( m_renderThread != nullptr,
                      "Render thread is not initialized (should have been done in initGL)" );
@@ -322,24 +335,27 @@ namespace Ra
 
     void Gui::Viewer::handleFileLoading( const std::string& file )
     {
-        m_renderer->handleFileLoading( file );
+        for ( auto& renderer : m_renderers )
+        {
+            renderer->handleFileLoading( file );
+        }
     }
 
     void Gui::Viewer::processPicking()
     {
-        CORE_ASSERT(m_renderer->getPickingQueries().size() == m_renderer->getPickingResults().size(),
-                    "There should be one result per query.");
+        CORE_ASSERT( m_currentRenderer->getPickingQueries().size() == m_currentRenderer->getPickingResults().size(),
+                    "There should be one result per query." );
 
-        for (uint i = 0 ; i < m_renderer->getPickingQueries().size(); ++i)
+        for (uint i = 0 ; i < m_currentRenderer->getPickingQueries().size(); ++i)
         {
-            const Engine::Renderer::PickingQuery& query  = m_renderer->getPickingQueries()[i];
+            const Engine::Renderer::PickingQuery& query  = m_currentRenderer->getPickingQueries()[i];
             if ( query.m_button == Core::MouseButton::RA_MOUSE_LEFT_BUTTON)
             {
-                emit leftClickPicking(m_renderer->getPickingResults()[i]);
+                emit leftClickPicking(m_currentRenderer->getPickingResults()[i]);
             }
             else if (query.m_button == Core::MouseButton::RA_MOUSE_RIGHT_BUTTON)
             {
-                emit rightClickPicking(m_renderer->getPickingResults()[i]);
+                emit rightClickPicking(m_currentRenderer->getPickingResults()[i]);
             }
         }
     }

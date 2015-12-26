@@ -95,7 +95,7 @@ namespace Ra
             /// Read-only access to renderer
             const Engine::Renderer* getRenderer()
             {
-                return m_renderer.get();
+                return m_currentRenderer;
             }
 
             /// Start asynchronous rendering in a separate thread.
@@ -156,7 +156,8 @@ namespace Ra
 
         private:
             /// Owning pointer to the renderer.
-            std::unique_ptr<Engine::Renderer> m_renderer;
+            std::vector<std::unique_ptr<Engine::Renderer>> m_renderers;
+            Engine::Renderer* m_currentRenderer;
 
             /// Owning pointer to the camera.
             std::unique_ptr<CameraInterface> m_camera;
