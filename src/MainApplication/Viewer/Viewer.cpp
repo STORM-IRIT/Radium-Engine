@@ -138,7 +138,8 @@ namespace Ra
 #else
         LOG( logDEBUG ) << "Rendering on dedicated thread";
 #endif
-        m_renderer.reset( new Engine::Renderer( width(), height() ) );
+        // FIXME(Charly): Renderer type should be changed here
+        m_renderer.reset( new Engine::ForwardRenderer( width(), height() ) );
         m_renderer->initialize();
 
 #if !defined (FORCE_RENDERING_ON_MAIN_THREAD)
@@ -207,7 +208,7 @@ namespace Ra
                 }
                 else
                 {
-                    Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_LEFT_BUTTON };
+                    Engine::ForwardRenderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_LEFT_BUTTON };
                     m_renderer->addPickingRequest(query);
                     m_gizmoManager->handleMousePressEvent(event);
                 }
@@ -223,7 +224,7 @@ namespace Ra
             case Qt::RightButton:
             {
                 // Check picking
-                Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_RIGHT_BUTTON };
+                Engine::ForwardRenderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_RIGHT_BUTTON };
                 m_renderer->addPickingRequest(query);
             }
             break;
@@ -330,7 +331,7 @@ namespace Ra
 
         for (uint i = 0 ; i < m_renderer->getPickingQueries().size(); ++i)
         {
-            const Engine::Renderer::PickingQuery& query  = m_renderer->getPickingQueries()[i];
+            const Engine::ForwardRenderer::PickingQuery& query  = m_renderer->getPickingQueries()[i];
             if ( query.m_button == Core::MouseButton::RA_MOUSE_LEFT_BUTTON)
             {
                 emit leftClickPicking(m_renderer->getPickingResults()[i]);

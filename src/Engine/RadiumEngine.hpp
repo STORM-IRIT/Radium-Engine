@@ -29,7 +29,6 @@ namespace Ra
         class System;
         class Entity;
         class Component;
-        class Renderer; // FIXME(Charly): Should the engine know about the renderer ?
     }
 }
 

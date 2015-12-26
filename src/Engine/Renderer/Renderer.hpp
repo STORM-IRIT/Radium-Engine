@@ -13,6 +13,7 @@
 #include <Core/Time/Timer.hpp>
 #include <Core/Event/EventEnums.hpp>
 
+#include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
 
 namespace Ra
@@ -58,40 +59,8 @@ namespace Ra
             typedef std::shared_ptr<RenderObject> RenderObjectPtr;
 
         public:
-            enum TexturesFBO
-            {
-                TEXTURE_DEPTH = 0,
-                TEXTURE_AMBIENT,
-                TEXTURE_POSITION,
-                TEXTURE_NORMAL,
-                TEXTURE_COLOR,
-                TEXTURE_COUNT
-            };
-
-            struct TimerData
-            {
-                Core::Timer::TimePoint renderStart;
-                Core::Timer::TimePoint updateEnd;
-                Core::Timer::TimePoint feedRenderQueuesEnd;
-                Core::Timer::TimePoint mainRenderEnd;
-                Core::Timer::TimePoint postProcessEnd;
-                Core::Timer::TimePoint renderEnd;
-            };
-
-            struct PickingQuery
-            {
-                Core::Vector2 m_screenCoords;
-                Core::MouseButton::MouseButton m_button;
-            };
-
-        public:
-            /// CONSTRUCTOR
             Renderer( uint width, uint height );
-
-            /// DESCTRUCTOR
             virtual ~Renderer();
-
-            virtual void initialize();
 
             const TimerData& getTimerData() const
             {
@@ -103,6 +72,7 @@ namespace Ra
             {
                 m_renderMutex.lock();
             }
+
             void unlockRendering()
             {
                 m_renderMutex.unlock();
@@ -128,7 +98,7 @@ namespace Ra
              * framebuffer, and restores it before drawing the last final texture.
              * If no framebuffer was bound, it draws into GL_BACK.
              */
-            void render( const RenderData& renderData );
+            virtual void render( const RenderData& renderData ) final;
 
             /**
              * @brief Resize the viewport and all the screen textures, fbos.
@@ -139,7 +109,7 @@ namespace Ra
              * @param width The new viewport width
              * @param height The new viewport height
              */
-            virtual void resize( uint width, uint height );
+            virtual void resize( uint width, uint height ) = 0;
 
             /**
              * @brief Change the texture that is displayed on screen.
@@ -153,40 +123,45 @@ namespace Ra
             //                the current "fullscreen" debug mode, and some kind of
             //                "windowed" mode (that would show the debugged texture in
             //                its own viewport, without hiding the final texture.)
-            virtual void debugTexture( uint texIdx );
+            virtual void debugTexture( uint texIdx ) = 0;
 
 
             // FIXME(Charly): Not sure the lights should be handled by the renderer.
             //                How to do this ?
-            void addLight( const std::shared_ptr<Light>& light )
+            virtual void addLight( const std::shared_ptr<Light>& light )
             {
                 m_lights.push_back( light );
             }
 
-            void reloadShaders();
+            virtual void reloadShaders() {}
 
             // FIXME(Charly): Maybe there is a better way to handle lights ?
-            virtual void handleFileLoading( const std::string& filename );
+            // FIXME(Charly): Final ?
+            virtual void handleFileLoading( const std::string& filename ) final;
 
-            void addPickingRequest(const PickingQuery& query)
+            virtual void addPickingRequest(const PickingQuery& query)
             {
                 m_pickingQueries.push_back( query );
             }
 
-            inline const std::vector<int>& getPickingResults() const
+            inline virtual const std::vector<int>& getPickingResults() const final
             {
                 return m_pickingResults;
             }
 
-            inline const std::vector<PickingQuery>& getPickingQueries() const
+            inline virtual const std::vector<PickingQuery>& getPickingQueries() const final
             {
                 return m_lastFramePickingQueries;
             }
 
-            inline void toggleDrawDebug()
+            inline virtual void toggleDrawDebug()
             {
                 m_drawDebug = !m_drawDebug;
             }
+
+        public:
+            // Pure virtual stuff
+            virtual void initialize() = 0;
 
         protected:
 
@@ -197,7 +172,7 @@ namespace Ra
               * @param renderData The basic data needed for the rendering :
               * Time elapsed since last frame, camera view matrix, camera projection matrix.
               */
-            virtual void renderInternal( const RenderData& renderData );
+            virtual void renderInternal( const RenderData& renderData ) = 0;
 
             // 5.
             /**
@@ -208,27 +183,24 @@ namespace Ra
              * @param renderData The basic data needed for the rendering :
              * Time elapsed since last frame, camera view matrix, camera projection matrix.
              */
-            virtual void postProcessInternal( const RenderData& renderData );
+            virtual void postProcessInternal( const RenderData& renderData ) = 0;
 
         private:
 
             // 0.
-            void saveExternalFBOInternal();
+            virtual void saveExternalFBOInternal() final;
 
             // 1.
-            virtual void updateRenderObjectsInternal( const RenderData& renderData,
-                                                      const std::vector<RenderObjectPtr>& renderObjects );
+            virtual void updateRenderObjectsInternal( const RenderData& renderData, const std::vector<RenderObjectPtr>& renderObjects ) final;
 
             // 2.
-            virtual void feedRenderQueuesInternal( const RenderData& renderData,
-                                                   const std::vector<RenderObjectPtr>& renderObjects );
+            virtual void feedRenderQueuesInternal( const RenderData& renderData, const std::vector<RenderObjectPtr>& renderObjects ) final;
 
             // 3.
-            void doPicking( const RenderData& renderData,
-                            const std::vector<RenderObjectPtr>& renderObjects );
+            virtual void doPicking( const RenderData& renderData, const std::vector<RenderObjectPtr>& renderObjects ) final;
 
             // 6.
-            void drawScreenInternal();
+            virtual void drawScreenInternal() final;
 
             void initShaders();
             void initBuffers();
