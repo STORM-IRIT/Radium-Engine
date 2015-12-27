@@ -101,6 +101,12 @@ namespace Ra
             m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL]     .reset( new Texture( "Normal", GL_TEXTURE_2D ) );
             m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED]    .reset( new Texture( "Color", GL_TEXTURE_2D ) );
             m_renderpassTexture                                 .reset( new Texture( "RenderPass", GL_TEXTURE_2D ) );
+
+            m_secondaryTextures["Depth Texture"]    = m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH].get();
+            m_secondaryTextures["Ambient Texture"]  = m_renderpassTextures[RENDERPASS_TEXTURE_AMBIENT].get();
+            m_secondaryTextures["Position Texture"] = m_renderpassTextures[RENDERPASS_TEXTURE_POSITION].get();
+            m_secondaryTextures["Normal Texture"]   = m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL].get();
+            m_secondaryTextures["Lighted Texture"]  = m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED].get();
         }
 
         void ForwardRenderer::renderInternal( const RenderData& renderData )
@@ -322,35 +328,6 @@ namespace Ra
 
             GL_ASSERT( glDrawBuffer( GL_BACK ) );
             GL_ASSERT( glReadBuffer( GL_BACK ) );
-        }
-
-        void ForwardRenderer::displayTexture( uint texIdx )
-        {
-            if ( texIdx < RENDERPASS_TEXTURE_COUNT )
-            {
-                m_displayedTexture = m_renderpassTextures[texIdx].get();
-            }
-            else
-            {
-                m_displayedTexture = m_fancyTexture.get();
-            }
-        }
-
-        std::vector<std::string> ForwardRenderer::getAvailableTextures() const
-        {
-            return {
-                "Depth Texture",
-                "Ambient Texture",
-                "Position Texture",
-                "Normal Texture",
-                "Lighted Texture",
-#ifndef NO_TRANSPARENCY
-                "OIT Accumlate Texture",
-                "OIT Revealage Texture",
-#endif
-                "RenderPass Texture",
-                "Final Texture"
-            };
         }
     }
 } // namespace Ra

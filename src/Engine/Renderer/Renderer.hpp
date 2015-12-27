@@ -178,13 +178,13 @@ namespace Ra
             //                the current "fullscreen" debug mode, and some kind of
             //                "windowed" mode (that would show the debugged texture in
             //                its own viewport, without hiding the final texture.)
-            virtual void displayTexture( uint texIdx );
+            virtual void displayTexture( const std::string& texName ) final;
 
             /**
              * @brief Return the names of renderer available textures
              * @return A vector of strings, containing the name of the different textures
              */
-            virtual std::vector<std::string> getAvailableTextures() const;
+            virtual std::vector<std::string> getAvailableTextures() const final;
 
             /**
              * @brief Get the name of the renderer, e.g to be displayed in the UI
@@ -259,14 +259,8 @@ namespace Ra
              */
             Texture* m_displayedTexture;
 
-            /**
-             * @brief The texture that must be filled by the @see renderInternal method.
-             *
-             * @brief The texture that must be filled by the @see postProcessInternal
-             * method.
-             */
-            // FIXME(Charly): Comment / texture name
             std::unique_ptr<Texture> m_fancyTexture;
+            std::map<std::string, Texture*> m_secondaryTextures;
 
             // FIXME(Charly): Scene class
             std::vector<std::shared_ptr<Light>> m_lights;

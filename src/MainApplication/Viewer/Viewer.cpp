@@ -139,7 +139,7 @@ namespace Ra
 #else
         LOG( logDEBUG ) << "Rendering on dedicated thread";
 #endif
-        // FIXME(Charly): Renderer type should be changed here
+        // FIXME(Charly): Renderer type should not be changed here
         m_renderers.resize( 1 );
         m_renderers[0].reset( new Engine::ForwardRenderer( width(), height() ) );
 
@@ -162,6 +162,8 @@ namespace Ra
         }
 
         m_camera->attachLight( light );
+
+        emit rendererReady();
     }
 
     void Gui::Viewer::initRenderer()
@@ -288,6 +290,24 @@ namespace Ra
         m_currentRenderer->unlockRendering();
     }
 
+    void Gui::Viewer::displayTexture( const QString &tex )
+    {
+        m_currentRenderer->lockRendering();
+        m_currentRenderer->displayTexture( tex.toStdString() );
+        m_currentRenderer->unlockRendering();
+    }
+
+    void Gui::Viewer::changeRenderer( int index )
+    {
+        // NOTE(Charly): This is probably buggy since it has not been tested.
+        LOG( logWARNING ) << "Changing renderers might be buggy since it has not been tested.";
+        m_currentRenderer->lockRendering();
+        m_currentRenderer = m_renderers[index].get();
+        m_currentRenderer->initialize();
+        m_currentRenderer->resize( width(), height() );
+        m_currentRenderer->unlockRendering();
+    }
+
     // Asynchronous rendering implementation
 
     void Gui::Viewer::startRendering( const Scalar dt )
@@ -364,6 +384,18 @@ namespace Ra
     {
         // FIXME(Charly): Does not work, the camera needs to be fixed
         m_camera->fitScene( aabb );
+    }
+
+    std::vector<std::string> Gui::Viewer::getRenderersName() const
+    {
+        std::vector<std::string> ret;
+
+        for ( const auto& r : m_renderers )
+        {
+            ret.push_back( r->getRendererName() );
+        }
+
+        return ret;
     }
 
 } // namespace Ra

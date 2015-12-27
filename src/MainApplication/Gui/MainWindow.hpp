@@ -66,6 +66,8 @@ namespace Ra
 
             void handlePicking( int drawableIndex );
 
+            void onRendererReady();
+
         public slots:
             void onEntitiesUpdated();
 

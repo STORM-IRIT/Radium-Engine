@@ -43,7 +43,6 @@ namespace Ra
         createConnections();
 
         mainApp->framesCountForStatsChanged( m_avgFramesCount->value() );
-        m_viewer->getCameraInterface()->resetCamera();
     }
 
     Gui::MainWindow::~MainWindow()
@@ -108,32 +107,15 @@ namespace Ra
         connect( m_toggleRenderObjectButton, &QPushButton::clicked, this, &MainWindow::toggleRO );
         connect( m_removeRenderObjectButton, &QPushButton::clicked, this, &MainWindow::removeRO );
         connect( m_editRenderObjectButton, &QPushButton::clicked, this, &MainWindow::editRO );
+
+        // Renderer stuff
+        connect( m_viewer, &Viewer::rendererReady, this, &MainWindow::onRendererReady );
+
+        connect( m_displayedTextureCombo, static_cast<void (QComboBox::*)(const QString&)>( &QComboBox::currentIndexChanged ),
+                 m_viewer, &Viewer::displayTexture );
+        connect( m_currentRendererCombo, static_cast<void (QComboBox::*)( int )>( &QComboBox::currentIndexChanged ),
+                 m_viewer, &Viewer::changeRenderer );
     }
-
-//    void Gui::MainWindow::playAnimation()
-//    {
-//        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
-//        animSys->setPlaying(true);
-//    }
-
-//    void Gui::MainWindow::pauseAnimation()
-//    {
-//        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
-//        animSys->setPlaying(false);
-//    }
-
-//    void Gui::MainWindow::resetAnimation()
-//    {
-//        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
-//        animSys->reset();
-//    }
-
-//    void Gui::MainWindow::stepAnimation()
-//    {
-//        pauseAnimation();
-//        AnimationPlugin::AnimationSystem* animSys = (AnimationPlugin::AnimationSystem*) mainApp->m_engine->getSystem("AnimationSystem");
-//        animSys->step();
-//    }
 
     void Gui::MainWindow::onEntitiesUpdated()
     {
@@ -603,4 +585,22 @@ namespace Ra
         }
     }
 
+    void Gui::MainWindow::onRendererReady()
+    {
+        m_viewer->getCameraInterface()->resetCamera();
+
+        QSignalBlocker blockTextures( m_displayedTextureCombo );
+        QSignalBlocker blockRenderer( m_currentRendererCombo );
+
+        auto texs = m_viewer->getRenderer()->getAvailableTextures();
+        for ( const auto& tex : texs )
+        {
+            m_displayedTextureCombo->addItem( tex.c_str() );
+        }
+
+        for ( const auto& renderer : m_viewer->getRenderersName() )
+        {
+            m_currentRendererCombo->addItem( renderer.c_str() );
+        }
+    }
 } // namespace Ra

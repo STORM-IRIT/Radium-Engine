@@ -14,9 +14,6 @@ namespace Ra
             ForwardRenderer( uint width, uint height );
             virtual ~ForwardRenderer();
 
-            virtual void displayTexture( uint texIdx ) override;
-            virtual std::vector<std::string> getAvailableTextures() const override;
-
             virtual std::string getRendererName() const override { return "Forward Renderer"; }
 
         protected:

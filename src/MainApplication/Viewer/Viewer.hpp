@@ -112,13 +112,18 @@ namespace Ra
 
             void fitCameraToScene( const Core::Aabb& sceneAabb );
 
+            std::vector<std::string> getRenderersName() const;
+
         signals:
+            void rendererReady();
             void leftClickPicking( int id );
             void rightClickPicking( int id );
 
         public slots:
             /// Tell the renderer to reload all shaders.
             void reloadShaders();
+            void displayTexture( const QString& tex );
+            void changeRenderer( int index );
 
         private slots:
             /// These slots are connected to the base class signals to properly handle

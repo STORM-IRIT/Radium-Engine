@@ -281,7 +281,7 @@ namespace Ra
             GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
 
             m_drawScreenShader->bind();
-            m_drawScreenShader->setUniform( "screenTexture", m_fancyTexture.get(), 0 );
+            m_drawScreenShader->setUniform( "screenTexture", m_displayedTexture, 0 );
             m_quadMesh->render();
 
             GL_ASSERT( glDepthFunc( GL_LESS ) );
@@ -338,15 +338,27 @@ namespace Ra
             resizeInternal();
         }
 
-        void Renderer::displayTexture( uint texIdx )
+        void Renderer::displayTexture( const std::string& texName )
         {
-            CORE_UNUSED( texIdx );
-            m_displayedTexture = m_fancyTexture.get();
+            if ( m_secondaryTextures.find( texName) != m_secondaryTextures.end() )
+            {
+                m_displayedTexture = m_secondaryTextures[texName];
+            }
+            else
+            {
+                m_displayedTexture = m_fancyTexture.get();
+            }
         }
 
         std::vector<std::string> Renderer::getAvailableTextures() const
         {
-            return { "Final texture" };
+            std::vector<std::string> ret;
+            ret.push_back( "Fancy Texture" );
+            for ( const auto& tex : m_secondaryTextures )
+            {
+                ret.push_back( tex.first );
+            }
+            return ret;
         }
 
         void Renderer::reloadShaders()
