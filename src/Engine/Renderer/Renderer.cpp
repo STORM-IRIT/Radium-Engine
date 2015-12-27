@@ -48,7 +48,6 @@ namespace Ra
             , m_height( height )
             , m_shaderManager( nullptr )
             , m_displayedTexture( nullptr )
-            , m_displayedIsDepth( false )
             , m_drawScreenShader( nullptr )
             , m_quadMesh( nullptr )
             , m_renderQueuesUpToDate( false )
@@ -69,6 +68,7 @@ namespace Ra
 
             m_shaderManager = ShaderProgramManager::createInstance( shaderPath, defaultShader );
             m_textureManager = TextureManager::createInstance();
+            m_roManager = RadiumEngine::getInstance()->getRenderObjectManager();
 
             m_drawScreenShader = m_shaderManager->addShaderProgram( "DrawScreen" );
             m_pickingShader = m_shaderManager->addShaderProgram( "Picking" );
@@ -80,8 +80,8 @@ namespace Ra
             m_pickingTexture.reset( new Texture( "Picking", GL_TEXTURE_2D ) );
 
             // Final texture
-            m_finalTexture.reset( new Texture( "Final", GL_TEXTURE_2D ) );
-            m_displayedTexture = m_finalTexture.get();
+            m_fancyTexture.reset( new Texture( "Final", GL_TEXTURE_2D ) );
+            m_displayedTexture = m_fancyTexture.get();
 
             // Quad mesh
             Core::Vector4Array mesh;
@@ -117,30 +117,25 @@ namespace Ra
             // 0. Save eventual already bound FBO (e.g. QtOpenGLWidget)
             saveExternalFBOInternal();
 
-            // 1. Gather render objects and update them
-            auto roMgr = RadiumEngine::getInstance()->getRenderObjectManager();
-
-            if ( roMgr->isDirty() )
+            // 1. Gather render objects if needed
+            if ( m_roManager->isDirty() )
             {
-                roMgr->getRenderObjects( m_renderObjects, true );
+                feedRenderQueuesInternal();
                 m_renderQueuesUpToDate = false;
             }
-
-            updateRenderObjectsInternal( data, m_renderObjects );
-            m_timerData.updateEnd = Core::Timer::Clock::now();
-
-            // 2. Feed render queues
-            if ( !m_renderQueuesUpToDate )
-            {
-                feedRenderQueuesInternal( data, m_renderObjects );
-            }
             m_timerData.feedRenderQueuesEnd = Core::Timer::Clock::now();
+
+            // 2. Update them (from an opengl point of view)
+            // FIXME(Charly): Maybe we could just update objects if they need it
+            // before drawing them, that would be cleaner (performance problem ?)
+            updateRenderObjectsInternal();
+            m_timerData.updateEnd = Core::Timer::Clock::now();
 
             // 3. Do picking if needed
             m_pickingResults.clear();
             if ( !m_pickingQueries.empty() )
             {
-                doPicking( data, m_renderObjects );
+                doPicking( data );
             }
             m_lastFramePickingQueries = m_pickingQueries;
             m_pickingQueries.clear();
@@ -163,72 +158,57 @@ namespace Ra
             GL_ASSERT( glGetIntegerv( GL_FRAMEBUFFER_BINDING, &m_qtPlz ) );
         }
 
-        void Renderer::updateRenderObjectsInternal( const RenderData& renderData,
-                                                    const std::vector<RenderObjectPtr>& renderObjects )
+        void Renderer::updateRenderObjectsInternal()
         {
-            CORE_UNUSED( renderData );
-
-            for ( auto& ro : renderObjects )
+            for ( auto& ro : m_renderObjects )
             {
                 ro->updateGL();
             }
         }
 
-        void Renderer::feedRenderQueuesInternal( const RenderData& renderData,
-                                                 const std::vector<RenderObjectPtr>& renderObjects )
+        void Renderer::feedRenderQueuesInternal()
         {
-            m_opaqueRenderQueue.clear();
-            m_transparentRenderQueue.clear();
+            m_renderObjects.clear();
+
+            m_roManager->getRenderObjectsByTypeIfDirty( m_fancyRenderObjects, RenderObjectType::FANCY, true );
+            m_roManager->getRenderObjectsByTypeIfDirty( m_xrayRenderObjects, RenderObjectType::DEBUG_XRAY, true );
+            m_roManager->getRenderObjectsByTypeIfDirty( m_debugRenderObjects, RenderObjectType::DEBUG_OTHER, true );
+            m_roManager->getRenderObjectsByTypeIfDirty( m_uiRenderObjects, RenderObjectType::UI, true );
+
+            m_fancyRenderQueue.clear();
             m_xrayRenderQueue.clear();
             m_debugRenderQueue.clear();
             m_uiRenderQueue.clear();
 
-            for ( const auto& ro : renderObjects )
+            for ( auto& ro : m_fancyRenderObjects )
             {
-                switch ( ro->getType() )
-                {
-                    case RenderObject::Type::RO_OPAQUE:
-                    {
-                        ro->feedRenderQueue( m_opaqueRenderQueue );
-                    }
-                    break;
+                ro->feedRenderQueue( m_fancyRenderQueue );
+                m_renderObjects.push_back( ro );
+            }
 
-                    case RenderObject::Type::RO_TRANSPARENT:
-                    {
-                        ro->feedRenderQueue( m_transparentRenderQueue );
-                    }
-                    break;
+            for ( auto& ro : m_xrayRenderObjects )
+            {
+                ro->feedRenderQueue( m_xrayRenderQueue );
+                m_renderObjects.push_back( ro );
+            }
 
-                    case RenderObject::Type::RO_XRAY:
-                    {
-                        ro->feedRenderQueue( m_xrayRenderQueue );
-                    }
+            for ( auto& ro : m_debugRenderObjects )
+            {
+                ro->feedRenderQueue( m_debugRenderQueue );
+                m_renderObjects.push_back( ro );
+            }
 
-                    case RenderObject::Type::RO_DEBUG:
-                    {
-                        if ( m_drawDebug )
-                        {
-                            ro->feedRenderQueue( m_debugRenderQueue );
-                        }
-                    }
-                    break;
-
-                    case RenderObject::Type::RO_UI:
-                    {
-                        ro->feedRenderQueue( m_uiRenderQueue );
-                    }
-                    break;
-                }
+            for ( auto& ro : m_uiRenderObjects )
+            {
+                ro->feedRenderQueue( m_uiRenderQueue );
+                m_renderObjects.push_back( ro );
             }
 
             m_renderQueuesUpToDate = true;
         }
 
-        void Renderer::doPicking( const RenderData& renderData,
-                                  const std::vector<RenderObjectPtr>& renderObjects )
+        void Renderer::doPicking( const RenderData& renderData )
         {
-            CORE_UNUSED( renderObjects );
-
             m_pickingResults.reserve( m_pickingQueries.size() );
 
             m_pickingFbo->useAsTarget();
@@ -249,8 +229,7 @@ namespace Ra
             camParams.addParameter( "transform.view", renderData.viewMatrix );
             camParams.addParameter( "transform.proj", renderData.projMatrix );
 
-            m_opaqueRenderQueue.render( m_pickingShader, camParams );
-            m_transparentRenderQueue.render( m_pickingShader, camParams );
+            m_fancyRenderQueue.render( m_pickingShader, camParams );
 
             // Draw xrayed objects on top of normal objects
             GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
@@ -302,7 +281,7 @@ namespace Ra
             GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
 
             m_drawScreenShader->bind();
-            m_drawScreenShader->setUniform( "screenTexture", m_finalTexture.get(), 0 );
+            m_drawScreenShader->setUniform( "screenTexture", m_fancyTexture.get(), 0 );
             m_quadMesh->render();
 
             GL_ASSERT( glDepthFunc( GL_LESS ) );
@@ -324,9 +303,9 @@ namespace Ra
                 m_pickingTexture->deleteGL();
             }
 
-            if ( m_finalTexture->getId() != 0 )
+            if ( m_fancyTexture->getId() != 0 )
             {
-                m_finalTexture->deleteGL();
+                m_fancyTexture->deleteGL();
             }
 
             m_depthTexture->initGL( GL_DEPTH_COMPONENT24, m_width, m_height, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr );
@@ -337,9 +316,9 @@ namespace Ra
             m_pickingTexture->setFilter( GL_NEAREST, GL_NEAREST );
             m_pickingTexture->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
-            m_finalTexture->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );
-            m_finalTexture->setFilter( GL_LINEAR, GL_LINEAR );
-            m_finalTexture->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
+            m_fancyTexture->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );
+            m_fancyTexture->setFilter( GL_LINEAR, GL_LINEAR );
+            m_fancyTexture->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
             m_pickingFbo->bind();
             m_pickingFbo->setSize( w, h );
@@ -359,10 +338,10 @@ namespace Ra
             resizeInternal();
         }
 
-        void Renderer::debugTexture( uint texIdx )
+        void Renderer::displayTexture( uint texIdx )
         {
             CORE_UNUSED( texIdx );
-            m_displayedTexture = m_finalTexture.get();
+            m_displayedTexture = m_fancyTexture.get();
         }
 
         std::vector<std::string> Renderer::getAvailableTextures() const

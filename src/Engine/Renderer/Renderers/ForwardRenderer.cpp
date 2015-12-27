@@ -62,12 +62,6 @@ namespace Ra
 
         void ForwardRenderer::initializeInternal()
         {
-            std::string shaderPath( "../Shaders" );
-            std::string defaultShader( "Default" );
-
-            m_shaderManager = ShaderProgramManager::createInstance( shaderPath, defaultShader );
-            m_textureManager = TextureManager::createInstance();
-
             initShaders();
             initBuffers();
 
@@ -92,14 +86,12 @@ namespace Ra
         {
             m_depthAmbientShader            = m_shaderManager->addShaderProgram( "DepthAmbientPass" );
             m_renderpassCompositingShader   = m_shaderManager->addShaderProgram( "RenderPassCompose" );
-            m_oiTransparencyShader          = m_shaderManager->addShaderProgram( "OITransparency" );
             m_postprocessShader             = m_shaderManager->addShaderProgram( "PostProcess" );
         }
 
         void ForwardRenderer::initBuffers()
         {
             m_fbo.reset( new FBO( FBO::Components( FBO::COLOR | FBO::DEPTH ), m_width, m_height ) );
-            m_oitFbo.reset( new FBO( FBO::Components( FBO::COLOR | FBO::DEPTH ), m_width, m_height ) );
             m_postprocessFbo.reset( new FBO( FBO::Components( FBO::COLOR ), m_width, m_height ) );
 
             // Render pass
@@ -109,19 +101,6 @@ namespace Ra
             m_renderpassTextures[RENDERPASS_TEXTURE_NORMAL]     .reset( new Texture( "Normal", GL_TEXTURE_2D ) );
             m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED]    .reset( new Texture( "Color", GL_TEXTURE_2D ) );
             m_renderpassTexture                                 .reset( new Texture( "RenderPass", GL_TEXTURE_2D ) );
-
-            // OIT pass
-            m_oitTextures[OITPASS_TEXTURE_ACCUM]                .reset( new Texture( "OITAccum", GL_TEXTURE_2D ) );
-            m_oitTextures[OITPASS_TEXTURE_REVEALAGE]            .reset( new Texture( "OITPRevealage", GL_TEXTURE_2D ) );
-
-            // Picking
-
-            // Post process pass
-            m_finalTexture                                      .reset( new Texture( "Final", GL_TEXTURE_2D ) );
-
-            resize( m_width, m_height );
-
-            m_displayedTexture = m_finalTexture.get();
         }
 
         void ForwardRenderer::renderInternal( const RenderData& renderData )
@@ -160,10 +139,7 @@ namespace Ra
             GL_ASSERT( glDrawBuffers( 4, buffers ) );   // Draw ambient, position, normal, picking
 
             m_depthAmbientShader->bind();
-            m_opaqueRenderQueue.render( m_depthAmbientShader, camParams );
-#ifdef NO_TRANSPARENCY
-            m_transparentRenderQueue.render( m_depthAmbientShader, camParams );
-#endif
+            m_fancyRenderQueue.render( m_depthAmbientShader, camParams );
 
             // Light pass
             GL_ASSERT( glDepthFunc( GL_LEQUAL ) );
@@ -182,10 +158,7 @@ namespace Ra
                     RenderParameters params;
                     l->getRenderParameters( params );
                     params.concatParameters( camParams );
-                    m_opaqueRenderQueue.render( params );
-#ifdef NO_TRANSPARENCY
-                    m_transparentRenderQueue.render( params );
-#endif
+                    m_fancyRenderQueue.render( params );
                 }
             }
             else
@@ -197,39 +170,9 @@ namespace Ra
                 RenderParameters params;
                 l.getRenderParameters( params );
                 params.concatParameters( camParams );
-                m_opaqueRenderQueue.render( params );
-#ifdef NO_TRANSPARENCY
-                m_transparentRenderQueue.render( params );
-#endif
+                m_fancyRenderQueue.render( params );
             }
 
-            m_fbo->unbind();
-
-#ifndef NO_TRANSPARENCY
-            m_oitFbo->useAsTarget();
-
-            GL_ASSERT( glDrawBuffers( 2, buffers ) );
-
-            // RT0 stores a sum, RT1 stores a product.
-            GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearZeros.data() ) );
-            GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearOnes.data() ) );
-
-            GL_ASSERT( glDepthFunc( GL_LESS ) );
-            GL_ASSERT( glEnable( GL_BLEND ) );
-            GL_ASSERT( glBlendEquation( GL_FUNC_ADD ) );
-            GL_ASSERT( glBlendFunci( 0, GL_ONE, GL_ONE ) );
-            GL_ASSERT( glBlendFunci( 1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA ) );
-
-            m_oiTransparencyShader->bind();
-
-            m_transparentRenderQueue.render( m_oiTransparencyShader );
-
-            GL_ASSERT( glDisable( GL_BLEND ) );
-
-            m_oitFbo->unbind();
-#endif
-
-            m_fbo->bind();
             // Draw debug stuff, do not overwrite depth map but do depth testing
             GL_ASSERT( glDrawBuffers( 1, buffers + 4 ) );
 
@@ -243,14 +186,12 @@ namespace Ra
             GL_ASSERT( glDepthMask( GL_TRUE ) );
             GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
             GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
-
             m_xrayRenderQueue.render( camParams );
 
             // Draw UI stuff, always drawn on top of everything else
             GL_ASSERT( glDepthMask( GL_TRUE ) );
             GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
             GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
-
             m_uiRenderQueue.render( camParams );
 
             // Draw renderpass texture
@@ -265,16 +206,6 @@ namespace Ra
             m_renderpassCompositingShader->setUniform( "color", m_renderpassTextures[RENDERPASS_TEXTURE_LIGHTED].get(), 1 );
             m_renderpassCompositingShader->setUniform( "renderpass", 0 );
             m_quadMesh->render();
-
-#ifndef NO_TRANSPARENCY
-            GL_ASSERT( glEnable( GL_BLEND ) );
-            GL_ASSERT( glBlendFunc( GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA ) );
-
-            m_renderpassCompositingShader->setUniform( "oitSumColor", m_oitTextures[OITPASS_TEXTURE_ACCUM].get(), 2 );
-            m_renderpassCompositingShader->setUniform( "oitSumWeight", m_oitTextures[OITPASS_TEXTURE_REVEALAGE].get(), 3 );
-            m_renderpassCompositingShader->setUniform( "renderpass", 1 );
-            m_quadMesh->render();
-#endif
 
             GL_ASSERT( glDepthFunc( GL_LESS ) );
 
@@ -342,15 +273,6 @@ namespace Ra
                 m_renderpassTexture->deleteGL();
             }
 
-            if ( m_oitTextures[OITPASS_TEXTURE_ACCUM]->getId() != 0 )
-            {
-                m_oitTextures[OITPASS_TEXTURE_ACCUM]->deleteGL();
-            }
-            if ( m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->getId() != 0 )
-            {
-                m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->deleteGL();
-            }
-
             m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]->initGL( GL_DEPTH_COMPONENT24, m_width, m_height, GL_DEPTH_COMPONENT,
                                                                     GL_UNSIGNED_INT, nullptr );
             m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]->setFilter( GL_LINEAR, GL_LINEAR );
@@ -376,14 +298,6 @@ namespace Ra
             m_renderpassTexture->setFilter( GL_LINEAR, GL_LINEAR );
             m_renderpassTexture->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
-            m_oitTextures[OITPASS_TEXTURE_ACCUM]->initGL( GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr );
-            m_oitTextures[OITPASS_TEXTURE_ACCUM]->setFilter( GL_LINEAR, GL_LINEAR );
-            m_oitTextures[OITPASS_TEXTURE_ACCUM]->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
-
-            m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->initGL( GL_R32F, m_width, m_height, GL_RED, GL_FLOAT, nullptr );
-            m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->setFilter( GL_LINEAR, GL_LINEAR );
-            m_oitTextures[OITPASS_TEXTURE_REVEALAGE]->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
-
             m_fbo->bind();
             m_fbo->setSize( m_width, m_height );
             m_fbo->attachTexture( GL_DEPTH_ATTACHMENT , m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH]   .get() );
@@ -395,17 +309,9 @@ namespace Ra
             m_fbo->check();
             m_fbo->unbind( true );
 
-            m_oitFbo->bind();
-            m_oitFbo->setSize( m_width, m_height );
-            m_oitFbo->attachTexture( GL_DEPTH_ATTACHMENT , m_renderpassTextures[RENDERPASS_TEXTURE_DEPTH].get() );
-            m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_oitTextures[OITPASS_TEXTURE_ACCUM]          .get() );
-            m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT1, m_oitTextures[OITPASS_TEXTURE_REVEALAGE]      .get() );
-            m_fbo->check();
-            m_fbo->unbind( true );
-
             m_postprocessFbo->bind();
             m_postprocessFbo->setSize( m_width, m_height );
-            m_postprocessFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_finalTexture.get() );
+            m_postprocessFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture.get() );
             m_postprocessFbo->check();
             m_postprocessFbo->unbind( true );
 
@@ -418,22 +324,15 @@ namespace Ra
             GL_ASSERT( glReadBuffer( GL_BACK ) );
         }
 
-        void ForwardRenderer::debugTexture( uint texIdx )
+        void ForwardRenderer::displayTexture( uint texIdx )
         {
             if ( texIdx < RENDERPASS_TEXTURE_COUNT )
             {
                 m_displayedTexture = m_renderpassTextures[texIdx].get();
-                m_displayedIsDepth = ( texIdx == 0 );
-            }
-            else if ( texIdx < RENDERPASS_TEXTURE_COUNT + OITPASS_TEXTURE_COUNT )
-            {
-                m_displayedTexture = m_oitTextures[texIdx - RENDERPASS_TEXTURE_COUNT].get();
-                m_displayedIsDepth = false;
             }
             else
             {
-                m_displayedTexture = m_finalTexture.get();
-                m_displayedIsDepth = false;
+                m_displayedTexture = m_fancyTexture.get();
             }
         }
 

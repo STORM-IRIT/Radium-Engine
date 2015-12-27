@@ -40,13 +40,13 @@ namespace Ra
                 mesh->loadGeometry(torus);
                 mesh->addData(Engine::Mesh::VERTEX_COLOR, colors);
 
-                Engine::RenderObject* arrowDrawable = new Engine::RenderObject("Gizmo Arrow", m_comp, true);
+                Engine::RenderObject* arrowDrawable = new Engine::RenderObject("Gizmo Arrow", m_comp,
+                                                                               Engine::RenderObjectType::UI);
 
                 Engine::RenderTechnique* rt = new Engine::RenderTechnique;
                 rt->shaderConfig = Ra::Engine::ShaderConfiguration("Plain", "../Shaders");
                 rt->material = new Ra::Engine::Material("Default material");
                 arrowDrawable->setRenderTechnique(rt);
-                arrowDrawable->setType(Engine::RenderObject::Type::RO_UI);
                 arrowDrawable->setMesh( mesh );
 
                 updateTransform(m_transform);

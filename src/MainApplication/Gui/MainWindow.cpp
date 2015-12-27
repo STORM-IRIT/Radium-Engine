@@ -321,7 +321,7 @@ namespace Ra
                 mainApp->m_engine->getRenderObjectManager()->getRenderObject( drawableIndex );
 
             // Ignore UI render objects.
-            if(ro->getType() == Engine::RenderObject::Type::RO_UI)
+            if(ro->getType() == Engine::RenderObjectType::UI)
             {
                 return;
             }

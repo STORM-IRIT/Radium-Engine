@@ -108,6 +108,10 @@ namespace Ra
         format.setSwapInterval( 0 );
         QSurfaceFormat::setDefaultFormat( format );
 
+        // Create engine
+        m_engine.reset(Engine::RadiumEngine::createInstance());
+        m_engine->initialize();
+
         // Create main window.
         m_mainWindow.reset( new Gui::MainWindow );
         m_mainWindow->show();
@@ -115,10 +119,6 @@ namespace Ra
         // Allow all events to be processed (thus the viewer should have
         // initialized the OpenGL context..)
         processEvents();
-
-        // Create engine
-        m_engine.reset(Engine::RadiumEngine::createInstance());
-        m_engine->initialize();
 
         // Load plugins
         if ( !loadPlugins( pluginsPath ) )

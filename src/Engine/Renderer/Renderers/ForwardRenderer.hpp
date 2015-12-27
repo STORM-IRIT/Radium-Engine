@@ -14,7 +14,7 @@ namespace Ra
             ForwardRenderer( uint width, uint height );
             virtual ~ForwardRenderer();
 
-            virtual void debugTexture( uint texIdx ) override;
+            virtual void displayTexture( uint texIdx ) override;
             virtual std::vector<std::string> getAvailableTextures() const override;
 
             virtual std::string getRendererName() const override { return "Forward Renderer"; }
@@ -52,18 +52,16 @@ namespace Ra
             // Default renderer logic here, no need to be accessed by overriding renderers.
             ShaderProgram* m_depthAmbientShader;
             ShaderProgram* m_renderpassCompositingShader;
-            ShaderProgram* m_oiTransparencyShader;
             ShaderProgram* m_postprocessShader;
             ShaderProgram* m_drawScreenShader;
 
             std::unique_ptr<Mesh> m_quadMesh;
 
             std::unique_ptr<FBO> m_fbo;
-            std::unique_ptr<FBO> m_oitFbo;
             std::unique_ptr<FBO> m_postprocessFbo;
 
+            std::unique_ptr<Texture> m_renderpassTexture;
             std::array<std::unique_ptr<Texture>, RENDERPASS_TEXTURE_COUNT> m_renderpassTextures;
-            std::array<std::unique_ptr<Texture>, OITPASS_TEXTURE_COUNT> m_oitTextures;
         };
 
     } // namespace Engine

@@ -9,7 +9,7 @@ namespace Ra
     namespace Engine
     {
         RenderObjectManager::RenderObjectManager()
-            : m_isDirty( true )
+            : m_typeIsDirty{{ true }}
         {
         }
 
@@ -27,7 +27,10 @@ namespace Ra
 
             newRenderObject->idx = idx;
 
-            m_isDirty = true;
+            auto type = renderObject->getType();
+
+            m_renderObjectByType[(int)type].insert( idx );
+            m_typeIsDirty[(int)type] = true;
 
             return idx;
         }
@@ -39,9 +42,13 @@ namespace Ra
             // FIXME(Charly): Should we check if the render object is in the double buffer map ?
             std::shared_ptr<RenderObject> renderObject = m_renderObjects.at( index );
             m_renderObjects.remove( index );
-            renderObject.reset();
 
-            m_isDirty = true;
+            auto type = renderObject->getType();
+
+            m_renderObjectByType[(int)type].erase( index );
+            m_typeIsDirty[(int)type] = true;
+
+            renderObject.reset();
         }
 
         std::shared_ptr<RenderObject> RenderObjectManager::getRenderObject( const Core::Index& index )
@@ -69,7 +76,37 @@ namespace Ra
 
             if ( undirty )
             {
-                m_isDirty = false;
+                for ( auto& b : m_typeIsDirty )
+                {
+                    b = false;
+                }
+            }
+        }
+
+        void RenderObjectManager::getRenderObjectsByTypeIfDirty( std::vector<std::shared_ptr<RenderObject>>& objectsOut,
+                                                                 const RenderObjectType& type, bool undirty ) const
+        {
+            // Take the mutex
+            std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
+
+            // Copy each element in m_renderObjects
+
+            if ( !m_typeIsDirty[(int)type] )
+            {
+                return;
+            }
+
+            // Not dirty, clear the vector
+            objectsOut.clear();
+
+            for ( const auto& idx : m_renderObjectByType[(int)type] )
+            {
+                objectsOut.push_back( m_renderObjects.at( idx ) );
+            }
+
+            if ( undirty )
+            {
+                m_typeIsDirty[(int)type] = false;
             }
         }
 
@@ -137,7 +174,14 @@ namespace Ra
         bool RenderObjectManager::isDirty() const
         {
             std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
-            return m_isDirty;
+
+            bool isDirty = false;
+            for ( const auto& b : m_typeIsDirty )
+            {
+                isDirty |= b;
+            }
+
+            return isDirty;
         }
     }
 } // namespace Ra

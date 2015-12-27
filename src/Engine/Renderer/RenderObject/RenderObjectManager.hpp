@@ -3,7 +3,9 @@
 
 #include <Engine/RaEngine.hpp>
 
+#include <array>
 #include <vector>
+#include <set>
 #include <map>
 #include <memory>
 #include <mutex>
@@ -11,6 +13,7 @@
 
 #include <Core/Index/Index.hpp>
 #include <Core/Index/IndexMap.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 
 namespace Ra
 {
@@ -28,7 +31,23 @@ namespace Ra
             void removeRenderObject( const Core::Index& index );
             std::shared_ptr<RenderObject> getRenderObject( const Core::Index& index );
 
+            /**
+             * @brief Get all render objects, the vector is assumed to be empty
+             * @param Empty vector that will receive render objects
+             * @param undirty True if the manager should be marked as clean after calling the method
+             */
             void getRenderObjects( std::vector<std::shared_ptr<RenderObject>>& objectsOut, bool undirty = false ) const;
+
+            /**
+             * @brief Fill the given vector with renderobjects for a required type.
+             * This will do nothing if the given type is not marked dirty, but this will
+             * clear the vector and fill it if it's dirty.
+             * @param objectsOut Vector of render objects that will be cleared then filled if needed
+             * @param type Required type
+             * @param undirty True if the given type should be marked as clean
+             */
+            void getRenderObjectsByTypeIfDirty( std::vector<std::shared_ptr<RenderObject>>& objectsOut,
+                                                const RenderObjectType& type, bool undirty = false ) const;
 
             std::shared_ptr<RenderObject> update( uint index, bool cloneMesh = true );
             std::shared_ptr<RenderObject> update( const Core::Index& index, bool cloneMesh = true );
@@ -44,8 +63,10 @@ namespace Ra
 
             std::vector<Core::Index> m_doneUpdatingObjects;
 
+            std::array<std::set<Core::Index>, (int)RenderObjectType::COUNT> m_renderObjectByType;
+            mutable std::array<bool, (int)RenderObjectType::COUNT> m_typeIsDirty;
+
             mutable std::mutex m_doubleBufferMutex;
-            mutable bool m_isDirty;
         };
 
     } // namespace Engine

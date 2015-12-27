@@ -37,6 +37,7 @@ namespace Ra
         class ShaderProgramManager;
         class Texture;
         class TextureManager;
+        class RenderObjectManager;
     }
 }
 
@@ -177,7 +178,7 @@ namespace Ra
             //                the current "fullscreen" debug mode, and some kind of
             //                "windowed" mode (that would show the debugged texture in
             //                its own viewport, without hiding the final texture.)
-            virtual void debugTexture( uint texIdx );
+            virtual void displayTexture( uint texIdx );
 
             /**
              * @brief Return the names of renderer available textures
@@ -227,13 +228,13 @@ namespace Ra
             virtual void saveExternalFBOInternal() final;
 
             // 1.
-            virtual void updateRenderObjectsInternal( const RenderData& renderData, const std::vector<RenderObjectPtr>& renderObjects ) final;
+            virtual void feedRenderQueuesInternal() final;
 
             // 2.
-            virtual void feedRenderQueuesInternal( const RenderData& renderData, const std::vector<RenderObjectPtr>& renderObjects ) final;
+            virtual void updateRenderObjectsInternal() final;
 
             // 3.
-            virtual void doPicking( const RenderData& renderData, const std::vector<RenderObjectPtr>& renderObjects ) final;
+            virtual void doPicking( const RenderData& renderData ) final;
 
             // 6.
             virtual void drawScreenInternal() final;
@@ -243,7 +244,10 @@ namespace Ra
             uint m_height;
 
             ShaderProgramManager* m_shaderManager;
+            // FIXME(Charly): Remove this ?
             TextureManager* m_textureManager;
+
+            RenderObjectManager* m_roManager;
 
             // FIXME(Charly): Should we change "displayedTexture" to "debuggedTexture" ?
             //                It would make more sense if we are able to show the
@@ -257,28 +261,26 @@ namespace Ra
 
             /**
              * @brief The texture that must be filled by the @see renderInternal method.
-             */
-            std::unique_ptr<Texture> m_renderpassTexture;
-
-            /**
+             *
              * @brief The texture that must be filled by the @see postProcessInternal
              * method.
              */
-            std::unique_ptr<Texture> m_finalTexture;
+            // FIXME(Charly): Comment / texture name
+            std::unique_ptr<Texture> m_fancyTexture;
 
-            /**
-             * @brief Tell the DrawScreen shader if a depth map is beeing debugged.
-             * If true, some depth linearization will be done for better vizualisation.
-             */
-            bool m_displayedIsDepth;
-
+            // FIXME(Charly): Scene class
             std::vector<std::shared_ptr<Light>> m_lights;
 
             std::vector<RenderObjectPtr> m_renderObjects;
             bool m_renderQueuesUpToDate;
 
-            RenderQueue m_opaqueRenderQueue;
-            RenderQueue m_transparentRenderQueue;
+            // TODO(Charly): Remove the render queues, and only keep render objects
+            std::vector<RenderObjectPtr> m_fancyRenderObjects;
+            std::vector<RenderObjectPtr> m_xrayRenderObjects;
+            std::vector<RenderObjectPtr> m_debugRenderObjects;
+            std::vector<RenderObjectPtr> m_uiRenderObjects;
+
+            RenderQueue m_fancyRenderQueue;
             RenderQueue m_xrayRenderQueue;
             RenderQueue m_debugRenderQueue;
             RenderQueue m_uiRenderQueue;

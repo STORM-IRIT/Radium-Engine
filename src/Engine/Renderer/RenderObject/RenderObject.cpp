@@ -13,27 +13,30 @@ namespace Ra
 {
     namespace Engine
     {
-        RenderObject::RenderObject( const std::string& name, const Component* comp, bool drawFixedSize )
+        RenderObject::RenderObject( const std::string& name, const Component* comp,
+                                    const RenderObjectType& type )
             : IndexedObject()
             , m_localTransform( Core::Transform::Identity() )
             , m_component( comp )
             , m_name( name )
-            , m_type( Type::RO_OPAQUE )
+            , m_type( type )
             , m_renderTechnique( nullptr )
             , m_mesh( nullptr )
             , m_visible( true )
             , m_isDirty( true )
         {
+            // FIXME(Charly): Render parameters should get out of here
+            /*
             Engine::RenderParameters params;
             int fixedSize = drawFixedSize ? 1 : 0;
             params.addParameter( "drawFixedSize", fixedSize );
             params.addParameter( "outputValue", 0 );
             addRenderParameters(params);
+            */
         }
 
         RenderObject::~RenderObject()
         {
-
         }
 
         void RenderObject::updateGL()
@@ -56,8 +59,8 @@ namespace Ra
 
         void RenderObject::feedRenderQueue( RenderQueue& queue )
         {
-            ShaderKey shader( m_renderTechnique->shader );
-            BindableMaterial material( m_renderTechnique->material );
+//            ShaderKey shader( m_renderTechnique->shader );
+//            BindableMaterial material( m_renderTechnique->material );
             BindableMesh mesh( this, idx );
 
 //            queue[shader][material].push_back( mesh );
@@ -191,9 +194,8 @@ namespace Ra
             // Do not clone while we are updating GL internals
             std::lock_guard<std::mutex> lock( m_updateMutex );
 
-            RenderObject* newRO = new RenderObject( m_name, m_component );
+            RenderObject* newRO = new RenderObject( m_name, m_component, m_type );
 
-            newRO->setType( m_type );
             newRO->setRenderTechnique( m_renderTechnique );
             newRO->setVisible( m_visible );
             newRO->addRenderParameters( m_renderParameters );

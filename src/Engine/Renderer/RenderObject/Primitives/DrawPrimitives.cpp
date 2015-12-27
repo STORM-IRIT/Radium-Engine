@@ -3,6 +3,7 @@
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
@@ -63,7 +64,7 @@ namespace Ra
             RenderObject* Point(const Component* comp, const Core::Vector3& point,
                                 const Core::Color& color, Scalar scale)
             {
-                RenderObject* ro = new Ra::Engine::RenderObject("Point Primitive", comp);
+                RenderObject* ro = new Ra::Engine::RenderObject( "Point Primitive", comp, RenderObjectType::DEBUG_OTHER );
 
                 Core::Vector3Array vertices = {
                         (point + (scale * Core::Vector3::UnitX())),
@@ -126,7 +127,7 @@ namespace Ra
                 std::vector<uint> indices = {0,1,  1,2,  1,3};
 
                 std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh("Vector Primitive", GL_LINES) );
-                RenderObject* ro = new Ra::Engine::RenderObject("Vector Primitive", comp);
+                RenderObject* ro = new Ra::Engine::RenderObject("Vector Primitive", comp, RenderObjectType::DEBUG_OTHER );
                 initRo(ro, mesh, vertices, indices, color);
                 return ro;
             }
@@ -165,7 +166,7 @@ namespace Ra
 
                 std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh("Ray Primitive", GL_LINES) );
 
-                RenderObject* ro = new Ra::Engine::RenderObject("Ray Primitive", comp);
+                RenderObject* ro = new Ra::Engine::RenderObject("Ray Primitive", comp, RenderObjectType::DEBUG_OTHER);
 
                 initRo(ro, mesh, vertices, indices, color);
 
@@ -203,7 +204,7 @@ namespace Ra
                 GLenum renderType = fill ? GL_TRIANGLES : GL_LINES;
 
                 std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh("Triangle Primitive", renderType ) );
-                RenderObject* ro = new Ra::Engine::RenderObject("Triangle Primitive", comp);
+                RenderObject* ro = new Ra::Engine::RenderObject("Triangle Primitive", comp, RenderObjectType::DEBUG_OTHER);
 
                 if (fill)
                 {
@@ -267,7 +268,7 @@ namespace Ra
 
 
                 std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh( "Circle Primitive", GL_LINES_ADJACENCY ) );
-                RenderObject* ro = new Ra::Engine::RenderObject( "Circle Primitive", comp );
+                RenderObject* ro = new Ra::Engine::RenderObject( "Circle Primitive", comp, RenderObjectType::DEBUG_OTHER );
                 initLineRo( ro, mesh, vertices, indices, color, 5.0 );
                 return ro;
             }
@@ -322,7 +323,7 @@ namespace Ra
                 }
 
                 std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh( "Sphere Primitive", GL_LINES ) );
-                RenderObject* ro = new Ra::Engine::RenderObject( "Sphere Primitive", comp );
+                RenderObject* ro = new Ra::Engine::RenderObject( "Sphere Primitive", comp, RenderObjectType::DEBUG_OTHER );
 
                 Core::Transform t;
                 t.setIdentity();
@@ -368,7 +369,7 @@ namespace Ra
                 indices.push_back( 1 );
 
                 std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh( "Circle Primitive", GL_TRIANGLE_FAN ) );
-                RenderObject* ro = new Ra::Engine::RenderObject( "Circle Primitive", comp );
+                RenderObject* ro = new Ra::Engine::RenderObject( "Circle Primitive", comp, RenderObjectType::DEBUG_OTHER );
                 initRo( ro, mesh, vertices, indices, color );
                 return ro;
             }
@@ -438,7 +439,7 @@ namespace Ra
                                              4,5, 5,6, 6,7, 7,4, 4,6,  5,7};
 
                 std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh("Normal Primitive", GL_LINES) );
-                RenderObject* ro = new Ra::Engine::RenderObject("Normal Primitive", comp);
+                RenderObject* ro = new Ra::Engine::RenderObject("Normal Primitive", comp, RenderObjectType::DEBUG_OTHER);
                 initRo(ro, mesh, vertices, indices, color);
                 return ro;
             }
@@ -499,7 +500,7 @@ namespace Ra
                         4, 4, 5, 5 };
 
                 std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh( "Frame Primitive", GL_LINES_ADJACENCY ) );
-                RenderObject* ro = new Ra::Engine::RenderObject("Frame Primitive", comp);
+                RenderObject* ro = new Ra::Engine::RenderObject("Frame Primitive", comp, RenderObjectType::DEBUG_OTHER);
                 initLineRo(ro, mesh, vertices, indices, Core::Color::Ones(), 1.0);
 
                 Core::Vector4Array colors = {
@@ -571,7 +572,7 @@ namespace Ra
                 }
 
                 std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh( "Frame Primitive", GL_LINES ) );
-                RenderObject* ro = new Ra::Engine::RenderObject("Frame Primitive", comp);
+                RenderObject* ro = new Ra::Engine::RenderObject("Frame Primitive", comp, RenderObjectType::DEBUG_OTHER);
                 initLineRo(ro, mesh, vertices, indices, color, 1.0);
                 return ro;
             }
@@ -627,7 +628,7 @@ namespace Ra
                 };
 
                 std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh("AABB Primitive", GL_LINES) );
-                RenderObject* ro = new Ra::Engine::RenderObject("AABB Primitive", comp);
+                RenderObject* ro = new Ra::Engine::RenderObject("AABB Primitive", comp, RenderObjectType::DEBUG_OTHER);
                 initRo(ro, mesh, vertices, indices, color);
                 return ro;
             }
@@ -672,7 +673,7 @@ namespace Ra
                 };
 
                 std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh("AABB Primitive", GL_LINES) );
-                RenderObject* ro = new Ra::Engine::RenderObject("AABB Primitive", comp);
+                RenderObject* ro = new Ra::Engine::RenderObject("AABB Primitive", comp, RenderObjectType::DEBUG_OTHER);
                 initRo(ro, mesh, vertices, indices, color);
                 return ro;
             }

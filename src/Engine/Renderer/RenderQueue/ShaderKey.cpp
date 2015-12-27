@@ -12,7 +12,6 @@ namespace Ra
         ShaderKey::ShaderKey( ShaderProgram *shader )
                 : m_shader( shader )
         {
-            CORE_ASSERT( shader, "Null shader passed to bindable shader." );
         }
 
         ShaderKey::~ShaderKey()

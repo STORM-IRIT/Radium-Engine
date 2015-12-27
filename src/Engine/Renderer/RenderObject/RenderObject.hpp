@@ -11,6 +11,7 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 
 namespace Ra
 {
@@ -33,35 +34,28 @@ namespace Ra
         class RA_ENGINE_API RenderObject : public Core::IndexedObject
         {
         public:
-            enum class Type
-            {
-                RO_OPAQUE, /// Default normal shaded object
-                RO_TRANSPARENT, /// Drawn on a separate pass
-                RO_XRAY, /// Drawn on top of other objects
-                RO_DEBUG, /// Specific debug objects
-                RO_UI /// UI objects (drawn on top)
-            };
-
-        public:
 
             RA_CORE_ALIGNED_NEW
 
-            RenderObject( const std::string& name, const Component* comp, bool drawFixedSize = false  );
+            // FIXME(Charly): Remove this "draw fixed size" param
+            RenderObject( const std::string& name, const Component* comp,
+                          const RenderObjectType& type );
             ~RenderObject();
 
-            //
-            // Drawing related functions
-            //
+            // FIXME(Charly): Remove this
             void updateGL();
 
+            // FIXME(Charly): Remove this
             void feedRenderQueue( RenderQueue& queue );
 
+            // FIXME(Charly): Remove this
             // Rendering stuff
             void bind() const;
             void bind( const RenderParameters& params ) const;
             void bind( ShaderProgram* shader ) const;
             void bind( ShaderProgram* shader, const RenderParameters& params ) const;
 
+            // FIXME(Charly): Remove this
             void render() const;
 
             RenderObject* clone( bool cloneMesh = true );
@@ -72,8 +66,7 @@ namespace Ra
             inline const std::string& getName() const;
             inline const Component* getComponent() const;
 
-            inline void setType( const Type& type );
-            inline const Type& getType() const;
+            inline const RenderObjectType& getType() const;
 
             inline void setVisible( bool visible );
             inline bool isVisible() const;
@@ -93,6 +86,7 @@ namespace Ra
             inline const Core::Transform& getLocalTransform() const;
             inline const Core::Matrix4& getLocalTransformAsMatrix() const;
 
+            // FIXME(Charly): Remove this
             inline void addRenderParameters( const RenderParameters& parameters );
 
             inline const RenderParameters& getRenderParameters() const
@@ -111,10 +105,11 @@ namespace Ra
             const Component* m_component;
             std::string m_name;
 
-            Type m_type;
+            RenderObjectType m_type;
             RenderTechnique* m_renderTechnique;
             std::shared_ptr<Mesh> m_mesh;
 
+            // FIXME(Charly): Remove this
             RenderParameters m_renderParameters;
 
             bool m_visible;
