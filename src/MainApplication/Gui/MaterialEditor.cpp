@@ -67,9 +67,9 @@ namespace Ra
 
         void MaterialEditor::newKdColor( const QColor& color )
         {
-            const QSignalBlocker br( ksR );
-            const QSignalBlocker bg( ksG );
-            const QSignalBlocker bb( ksB );
+            const QSignalBlocker br( kdR );
+            const QSignalBlocker bg( kdG );
+            const QSignalBlocker bb( kdB );
 
             kdR->setValue( color.red() );
             kdG->setValue( color.green() );
