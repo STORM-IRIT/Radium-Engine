@@ -5,6 +5,8 @@
 
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
@@ -42,15 +44,10 @@ namespace FancyMeshPlugin
                                                   const std::string& name,
                                                   Ra::Engine::RenderTechnique* technique )
     {
-        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, this );
+        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, this, Ra::Engine::RenderObjectType::FANCY );
         renderObject->setVisible( true );
 
         renderObject->setRenderTechnique( technique );
-
-        if ( technique->material->getMaterialType() == Ra::Engine::Material::MaterialType::MAT_TRANSPARENT )
-        {
-            renderObject->setType( Ra::Engine::RenderObject::Type::RO_TRANSPARENT );
-        }
 
         std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( name ) );
         std::vector<uint> indices;
@@ -87,7 +84,7 @@ namespace FancyMeshPlugin
             std::string matName = name;
             matName.append( "_Mat" );
 
-            Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( roName, this );
+            Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( roName, this, Ra::Engine::RenderObjectType::FANCY );
             renderObject->setVisible( true );
 
             std::shared_ptr<Ra::Engine::Mesh> mesh( new Ra::Engine::Mesh( meshName ) );
