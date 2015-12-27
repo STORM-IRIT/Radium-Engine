@@ -12,7 +12,6 @@ endif( "${isSysDir}" STREQUAL "-1" )
 
 # Find packages
 find_package(OpenGL     REQUIRED)
-find_package(Assimp     REQUIRED)
 find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
@@ -38,7 +37,7 @@ message("FreeImage : ${FREEIMAGE_LIBRARY}")
 include_directories(
     .
     ${EIGEN_INC}
-    ${Assimp_INCLUDE_DIR}
+    ${ASSIMP_INC}
     ${FREEIMAGE_INCLUDE_DIR}
     ${GLEW_INCLUDE_DIR}
 )
@@ -85,7 +84,7 @@ set( engine_shaders ${engine_vert_glsl} ${engine_frag_glsl} ${engine_geom_glsl}
 set(engine_libs
     radiumCore
     ${GLEW_LIBRARIES}
-    ${Assimp_LIBRARIES}
+    ${ASSIMP_LIB}
     ${FREEIMAGE_LIBRARY}
     ${Qt5OpenGL_LIBRARIES}
     ${OPENGL_LIBRARIES})

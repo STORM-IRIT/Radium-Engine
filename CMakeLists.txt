@@ -94,10 +94,29 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 # TODO Move this in another cmake config file
 set(EXTERNAL_DIR ${CMAKE_SOURCE_DIR}/3rdPartyLibraries)
 
-# Eigen
-set(EIGEN_INC ${EXTERNAL_DIR}/Eigen)
-
 add_subdirectory(3rdPartyLibraries)
+
+# Eigen
+set( EIGEN_INC ${EXTERNAL_DIR}/Eigen )
+
+# Assimp
+set( ASSIMP_INC ${EXTERNAL_DIR}/Assimp/include )
+if ( UNIX )
+    if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
+        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimpd.so" )
+    else()
+        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimp.so" )
+    endif()
+elseif( MSVC )
+    if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
+        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/assimpd.lib" )
+    else()
+        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/assimp.lib" )
+    endif()
+endif()
+
+set( CMAKE_DEBUG_POSTFIX "" )
+
 add_subdirectory(src)
 
 # FIXME(Charly) Not sure this is really the greatest idea ever
