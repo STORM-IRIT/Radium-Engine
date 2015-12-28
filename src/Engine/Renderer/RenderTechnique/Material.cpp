@@ -45,5 +45,79 @@ namespace Ra
             m_isDirty = false;
         }
 
+        void Material::bind( const ShaderProgram* shader )
+        {
+            shader->setUniform( "material.kd", getKd() );
+            shader->setUniform( "material.ks", getKs() );
+            shader->setUniform( "material.ns", getNs() );
+
+            Texture* tex = nullptr;
+            uint texUnit = 0;
+
+            tex = getTexture( Material::TextureType::TEX_DIFFUSE );
+            if ( tex != nullptr )
+            {
+                tex->bind( texUnit );
+                shader->setUniform( "material.tex.kd", tex, texUnit );
+                shader->setUniform( "material.tex.hasKd", 1 );
+                ++texUnit;
+            }
+            else
+            {
+                shader->setUniform( "material.tex.hasKd", 0 );
+            }
+
+            tex = getTexture( Material::TextureType::TEX_SPECULAR );
+            if ( tex != nullptr )
+            {
+                tex->bind( texUnit );
+                shader->setUniform( "material.tex.ks", tex, texUnit );
+                shader->setUniform( "material.tex.hasKs", 1 );
+                ++texUnit;
+            }
+            else
+            {
+                shader->setUniform( "material.tex.hasKs", 0 );
+            }
+
+            tex = getTexture( Material::TextureType::TEX_NORMAL );
+            if ( tex != nullptr )
+            {
+                tex->bind( texUnit );
+                shader->setUniform( "material.tex.normal", tex, texUnit );
+                shader->setUniform( "material.tex.hasNormal", 1 );
+                ++texUnit;
+            }
+            else
+            {
+                shader->setUniform( "material.tex.hasNormal", 0 );
+            }
+
+            tex = getTexture( Material::TextureType::TEX_SHININESS );
+            if ( tex != nullptr )
+            {
+                tex->bind( texUnit );
+                shader->setUniform( "material.tex.ns", tex, texUnit );
+                shader->setUniform( "material.tex.hasNs", 1 );
+                ++texUnit;
+            }
+            else
+            {
+                shader->setUniform( "material.tex.hasNs", 0 );
+            }
+
+            tex = getTexture( Material::TextureType::TEX_ALPHA );
+            if ( tex != nullptr )
+            {
+                tex->bind( texUnit );
+                shader->setUniform( "material.tex.alpha", tex, texUnit );
+                shader->setUniform( "material.tex.hasAlpha", 1 );
+                ++texUnit;
+            }
+            else
+            {
+                shader->setUniform( "material.tex.hasAlpha", 0 );
+            }
+        }
     }
 }

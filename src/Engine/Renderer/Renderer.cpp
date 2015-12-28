@@ -15,6 +15,8 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
@@ -82,6 +84,7 @@ namespace Ra
             // Final texture
             m_fancyTexture.reset( new Texture( "Final", GL_TEXTURE_2D ) );
             m_displayedTexture = m_fancyTexture.get();
+            m_secondaryTextures["Picking Texture"] = m_pickingTexture.get();
 
             // Quad mesh
             Core::Vector4Array mesh;
@@ -128,7 +131,7 @@ namespace Ra
             // 2. Update them (from an opengl point of view)
             // FIXME(Charly): Maybe we could just update objects if they need it
             // before drawing them, that would be cleaner (performance problem ?)
-            updateRenderObjectsInternal();
+            updateRenderObjectsInternal( data );
             m_timerData.updateEnd = Core::Timer::Clock::now();
 
             // 3. Do picking if needed
@@ -158,51 +161,22 @@ namespace Ra
             GL_ASSERT( glGetIntegerv( GL_FRAMEBUFFER_BINDING, &m_qtPlz ) );
         }
 
-        void Renderer::updateRenderObjectsInternal()
+        void Renderer::updateRenderObjectsInternal( const RenderData& renderData )
         {
-            for ( auto& ro : m_renderObjects )
-            {
-                ro->updateGL();
-            }
+            for ( auto& ro : m_fancyRenderObjects ) ro->updateGL();
+            for ( auto& ro : m_xrayRenderObjects  ) ro->updateGL();
+            for ( auto& ro : m_debugRenderObjects ) ro->updateGL();
+            for ( auto& ro : m_uiRenderObjects    ) ro->updateGL();
+
+            updateStepInternal( renderData );
         }
 
         void Renderer::feedRenderQueuesInternal()
         {
-            m_renderObjects.clear();
-
             m_roManager->getRenderObjectsByTypeIfDirty( m_fancyRenderObjects, RenderObjectType::FANCY, true );
             m_roManager->getRenderObjectsByTypeIfDirty( m_xrayRenderObjects, RenderObjectType::DEBUG_XRAY, true );
             m_roManager->getRenderObjectsByTypeIfDirty( m_debugRenderObjects, RenderObjectType::DEBUG_OTHER, true );
             m_roManager->getRenderObjectsByTypeIfDirty( m_uiRenderObjects, RenderObjectType::UI, true );
-
-            m_fancyRenderQueue.clear();
-            m_xrayRenderQueue.clear();
-            m_debugRenderQueue.clear();
-            m_uiRenderQueue.clear();
-
-            for ( auto& ro : m_fancyRenderObjects )
-            {
-                ro->feedRenderQueue( m_fancyRenderQueue );
-                m_renderObjects.push_back( ro );
-            }
-
-            for ( auto& ro : m_xrayRenderObjects )
-            {
-                ro->feedRenderQueue( m_xrayRenderQueue );
-                m_renderObjects.push_back( ro );
-            }
-
-            for ( auto& ro : m_debugRenderObjects )
-            {
-                ro->feedRenderQueue( m_debugRenderQueue );
-                m_renderObjects.push_back( ro );
-            }
-
-            for ( auto& ro : m_uiRenderObjects )
-            {
-                ro->feedRenderQueue( m_uiRenderQueue );
-                m_renderObjects.push_back( ro );
-            }
 
             m_renderQueuesUpToDate = true;
         }
@@ -221,22 +195,91 @@ namespace Ra
             GL_ASSERT( glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ) );
 
             m_pickingShader->bind();
+            ShaderProgram* shader = m_pickingShader;
 
             GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
             GL_ASSERT( glDepthFunc( GL_LESS ) );
 
-            RenderParameters camParams;
-            camParams.addParameter( "transform.view", renderData.viewMatrix );
-            camParams.addParameter( "transform.proj", renderData.projMatrix );
+            for ( const auto& ro : m_fancyRenderObjects )
+            {
+                if ( ro->isVisible() )
+                {
+                    auto id = ro->idx.getValue();
+                    Scalar r = Scalar( ( id & 0x000000FF ) >> 0 ) / 255.0;
+                    Scalar g = Scalar( ( id & 0x0000FF00 ) >> 8 ) / 255.0;
+                    Scalar b = Scalar( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
+                    shader->setUniform( "objectId", Core::Color( r, g, b, 1.0 ) );
 
-            m_fancyRenderQueue.render( m_pickingShader, camParams );
+                    Core::Matrix4 M = ro->getTransformAsMatrix();
+                    shader->setUniform( "transform.proj", renderData.projMatrix );
+                    shader->setUniform( "transform.view", renderData.viewMatrix );
+                    shader->setUniform( "transform.model", M );
+
+                    ro->getRenderTechnique()->material->bind( shader );
+
+                    // render
+                    ro->getMesh()->render();
+                }
+            }
 
             // Draw xrayed objects on top of normal objects
             GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
-            m_xrayRenderQueue.render( m_pickingShader );
+            if ( m_drawDebug )
+            {
+                for ( const auto& ro : m_xrayRenderObjects )
+                {
+                    if ( ro->isVisible() )
+                    {
+                        auto id = ro->idx.getValue();
+                        Scalar r = Scalar( ( id & 0x000000FF ) >> 0 ) / 255.0;
+                        Scalar g = Scalar( ( id & 0x0000FF00 ) >> 8 ) / 255.0;
+                        Scalar b = Scalar( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
+                        shader->setUniform( "objectId", Core::Color( r, g, b, 1.0 ) );
+
+                        Core::Matrix4 M = ro->getTransformAsMatrix();
+                        shader->setUniform( "transform.proj", renderData.projMatrix );
+                        shader->setUniform( "transform.view", renderData.viewMatrix );
+                        shader->setUniform( "transform.model", M );
+
+                        ro->getRenderTechnique()->material->bind( shader );
+
+                        // render
+                        ro->getMesh()->render();
+                    }
+                }
+            }
+
             // Always draw ui stuff on top of everything
             GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
-            m_uiRenderQueue.render( m_pickingShader );
+            for ( const auto& ro : m_uiRenderObjects )
+            {
+                if ( ro->isVisible() )
+                {
+                    auto id = ro->idx.getValue();
+                    Scalar r = Scalar( ( id & 0x000000FF ) >> 0 ) / 255.0;
+                    Scalar g = Scalar( ( id & 0x0000FF00 ) >> 8 ) / 255.0;
+                    Scalar b = Scalar( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
+                    shader->setUniform( "objectId", Core::Color( r, g, b, 1.0 ) );
+
+                    Core::Matrix4 M = ro->getTransformAsMatrix();
+                    Core::Matrix4 MV = renderData.viewMatrix * M;
+                    Scalar d = MV.block<3, 1>( 0, 3 ).norm();
+
+                    Core::Matrix4 S = Core::Matrix4::Identity();
+                    S( 0, 0 ) = S( 1, 1 ) = S( 2, 2 ) = d;
+
+                    M = M * S;
+
+                    shader->setUniform( "transform.proj", renderData.projMatrix );
+                    shader->setUniform( "transform.view", renderData.viewMatrix );
+                    shader->setUniform( "transform.model", M );
+
+                    ro->getRenderTechnique()->material->bind( shader );
+
+                    // render
+                    ro->getMesh()->render();
+                }
+            }
 
             GL_ASSERT( glReadBuffer( GL_COLOR_ATTACHMENT0 ) );
 

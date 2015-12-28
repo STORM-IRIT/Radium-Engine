@@ -189,7 +189,7 @@ vec3 blinnPhongPoint()
 
 vec3 blinnPhongDirectional()
 {
-    return blinnPhongInternal(light.directional.direction, getNormal());
+    return blinnPhongInternal(light.directional.direction, getNormal()) + getKd() * 0.1;
 }
 
 void main()

@@ -1,59 +1,23 @@
-layout (location = 0) out vec4 fragAmbient;
-layout (location = 1) out vec4 fragPosition;
-layout (location = 2) out vec4 fragNormal;
-layout (location = 3) out vec4 fragPicking;
+layout (location = 0) out vec4 fragNormal;
 
 struct Textures
 {
-    int hasKd;
-    int hasKs;
     int hasNormal;
     int hasAlpha;
 
-    sampler2D kd;
-    sampler2D ks;
     sampler2D normal;
     sampler2D alpha;
 };
 
 struct Material
 {
-    vec4 kd;
-    vec4 ks;
-
     Textures tex;
 };
 
 uniform Material material;
-uniform vec4 objectId;
 
-in vec3 vPosition;
 in vec3 vTexcoord;
 in vec3 vNormal;
-
-vec4 getKd()
-{
-    if (material.tex.hasKd == 1)
-    {
-        return vec4(texture(material.tex.kd, vTexcoord.xy));
-    }
-    else
-    {
-        return material.kd;
-    }
-}
-
-vec4 getKs()
-{
-    if (material.tex.hasKs == 1)
-    {
-        return vec4(texture(material.tex.ks, vTexcoord.xy));
-    }
-    else
-    {
-        return material.ks;
-    }
-}
 
 vec3 getNormal()
 {
@@ -81,11 +45,5 @@ void main()
         }
     }
 
-    // FIXME(Charly): Ambient color "power" ?
-    fragAmbient = vec4(getKd().xyz * 0.1, 1);
-    fragPosition = vec4(vPosition, 1.0);
-    fragNormal = vec4(getNormal(), 1.0);
-    fragPicking = vec4(objectId.xyz, 1.0);
-
-    fragPosition = vec4(0, 1, 1, 1);
+    fragNormal = vec4(getNormal() * 0.5 + 0.5, 1.0);
 }

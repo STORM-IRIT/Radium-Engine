@@ -1,5 +1,8 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
+#include <Engine/Entity/Entity.hpp>
+#include <Engine/Entity/Component.hpp>
+
 namespace Ra
 {
     namespace Engine
@@ -63,6 +66,16 @@ namespace Ra
         inline Mesh* RenderObject::getMesh()
         {
             return m_mesh.get();
+        }
+
+        inline Core::Transform RenderObject::getTransform() const
+        {
+            return m_component->getEntity()->getTransform() * m_localTransform;
+        }
+
+        inline Core::Matrix4 RenderObject::getTransformAsMatrix() const
+        {
+            return getTransform().matrix();
         }
 
         inline void RenderObject::setLocalTransform( const Core::Transform& transform )

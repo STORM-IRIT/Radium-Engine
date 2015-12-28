@@ -21,6 +21,7 @@ namespace Ra
             virtual void initializeInternal();
             virtual void resizeInternal();
 
+            virtual void updateStepInternal( const RenderData& renderData ) override;
             virtual void renderInternal( const RenderData& renderData ) override;
             virtual void postProcessInternal( const RenderData& renderData ) override;
 
@@ -31,34 +32,22 @@ namespace Ra
         private:
             enum RenderPassTextures
             {
-                RENDERPASS_TEXTURE_DEPTH = 0,
-                RENDERPASS_TEXTURE_AMBIENT,
-                RENDERPASS_TEXTURE_POSITION,
-                RENDERPASS_TEXTURE_NORMAL,
-                RENDERPASS_TEXTURE_LIGHTED,
-                RENDERPASS_TEXTURE_COUNT
-            };
-
-            enum OITPassTextures
-            {
-                OITPASS_TEXTURE_ACCUM,
-                OITPASS_TEXTURE_REVEALAGE,
-                OITPASS_TEXTURE_COUNT
+                TEX_DEPTH = 0,
+                TEX_NORMAL,
+                TEX_LIGHTED,
+                TEX_COUNT
             };
 
             // Default renderer logic here, no need to be accessed by overriding renderers.
             ShaderProgram* m_depthAmbientShader;
-            ShaderProgram* m_renderpassCompositingShader;
             ShaderProgram* m_postprocessShader;
-            ShaderProgram* m_drawScreenShader;
 
             std::unique_ptr<Mesh> m_quadMesh;
 
             std::unique_ptr<FBO> m_fbo;
             std::unique_ptr<FBO> m_postprocessFbo;
 
-            std::unique_ptr<Texture> m_renderpassTexture;
-            std::array<std::unique_ptr<Texture>, RENDERPASS_TEXTURE_COUNT> m_renderpassTextures;
+            std::array<std::unique_ptr<Texture>, TEX_COUNT> m_textures;
         };
 
     } // namespace Engine

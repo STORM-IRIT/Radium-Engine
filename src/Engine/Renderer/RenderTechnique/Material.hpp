@@ -47,7 +47,9 @@ namespace Ra
             explicit Material( const std::string& name );
             ~Material();
 
+            // FIXME(Charly): This should be a "gl material" class work
             void updateGL();
+            void bind( const ShaderProgram* shader );
 
             inline const std::string& getName() const;
 

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <QMessageBox>
+#include <QApplication>
 
 #include <Core/Log/Log.hpp>
 #include <Core/Math/Math.hpp>
@@ -11,6 +12,8 @@
 #include <Engine/Renderer/Light/Light.hpp>
 
 #include <MainApplication/Utils/Keyboard.hpp>
+#include <MainApplication/MainApplication.hpp>
+#include <MainApplication/Gui/MainWindow.hpp>
 
 namespace Ra
 {
@@ -173,6 +176,11 @@ namespace Ra
 
     void Gui::TrackballCamera::update( Scalar dt )
     {
+        if ( !static_cast<MainApplication*>(qApp)->m_mainWindow->isActiveWindow() )
+        {
+            return;
+        }
+
         Core::Transform T( Core::Transform::Identity() );
         Core::Vector3 t;
 

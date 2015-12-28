@@ -200,6 +200,9 @@ namespace Ra
             virtual void initializeInternal() = 0;
             virtual void resizeInternal() = 0;
 
+            // 2.1
+            virtual void updateStepInternal( const RenderData& renderData ) = 0;
+
             // 4.
             /**
              * @brief All the scene rendering magics basically happens here.
@@ -230,8 +233,8 @@ namespace Ra
             // 1.
             virtual void feedRenderQueuesInternal() final;
 
-            // 2.
-            virtual void updateRenderObjectsInternal() final;
+            // 2.0
+            virtual void updateRenderObjectsInternal( const RenderData& renderData) final;
 
             // 3.
             virtual void doPicking( const RenderData& renderData ) final;
@@ -265,19 +268,12 @@ namespace Ra
             // FIXME(Charly): Scene class
             std::vector<std::shared_ptr<Light>> m_lights;
 
-            std::vector<RenderObjectPtr> m_renderObjects;
             bool m_renderQueuesUpToDate;
 
-            // TODO(Charly): Remove the render queues, and only keep render objects
             std::vector<RenderObjectPtr> m_fancyRenderObjects;
             std::vector<RenderObjectPtr> m_xrayRenderObjects;
             std::vector<RenderObjectPtr> m_debugRenderObjects;
             std::vector<RenderObjectPtr> m_uiRenderObjects;
-
-            RenderQueue m_fancyRenderQueue;
-            RenderQueue m_xrayRenderQueue;
-            RenderQueue m_debugRenderQueue;
-            RenderQueue m_uiRenderQueue;
 
             // Should we render debug stuff ?
             bool m_drawDebug;

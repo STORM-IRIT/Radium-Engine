@@ -81,6 +81,9 @@ namespace Ra
             inline const Mesh* getMesh() const;
             inline Mesh* getMesh();
 
+            inline Core::Transform getTransform() const;
+            inline Core::Matrix4 getTransformAsMatrix() const;
+
             inline void setLocalTransform( const Core::Transform& transform );
             inline void setLocalTransform( const Core::Matrix4& transform );
             inline const Core::Transform& getLocalTransform() const;
