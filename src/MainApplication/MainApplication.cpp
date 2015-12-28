@@ -170,7 +170,12 @@ namespace Ra
         for ( auto ro : ros )
         {
             auto mesh = ro->getMesh();
-            const auto& pos = mesh->getData( Engine::Mesh::VERTEX_POSITION );
+            auto pos = mesh->getData( Engine::Mesh::VERTEX_POSITION );
+
+            for ( auto& p : pos )
+            {
+                p = ro->getLocalTransform() * p;
+            }
 
             Ra::Core::Vector3 bmin = pos.getMap().rowwise().minCoeff().head<3>();
             Ra::Core::Vector3 bmax = pos.getMap().rowwise().maxCoeff().head<3>();
@@ -178,13 +183,6 @@ namespace Ra
             aabb.extend( bmin );
             aabb.extend( bmax );
         }
-
-
-        //        Ra::Core::Aabb aabb( bmin, bmax );
-
-        //        m_aabbIndex = addRenderObject(
-        //                    Ra::Engine::DrawPrimitives::AABB(
-        //                        this, aabb, Ra::Core::Color( 1, 1, 0, 1 ) ) );
 
         m_viewer->fitCameraToScene( aabb );
     }

@@ -533,6 +533,7 @@ namespace Ra
         }
 
         ro->setVisible( !ro->isVisible() );
+        LOG( logINFO ) << "RO " << ro->getName() << " is visible : " << ro->isVisible();
     }
 
     void Gui::MainWindow::removeRO()

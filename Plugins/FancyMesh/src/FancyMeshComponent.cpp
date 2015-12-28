@@ -72,20 +72,31 @@ namespace FancyMeshPlugin
         uint roCpt = 0;
         for ( const auto& data : fileData->getGeometryData() )
         {
-            std::string name( m_name );
-            name.append( "_" + data->getName() + std::to_string( roCpt++ ) );
+            std::string name;
+            std::string roName;
+            std::string meshName;
+            std::string matName;
 
-            std::string roName = name;
-            roName.append( "_RO" );
+            if ( data->getName() == "" )
+            {
+                name = m_name;
+                name.append( "_" + std::to_string( roCpt++ ) );
 
-            std::string meshName = name;
-            meshName.append( "_Mesh" );
-
-            std::string matName = name;
-            matName.append( "_Mat" );
+                roName = name + "_RO";
+                meshName = name + "_Mesh";
+                matName = name + "_Mat";
+            }
+            else
+            {
+                name = data->getName();
+                roName = name;
+                meshName = name;
+                matName = name + "_Mat";
+            }
 
             Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( roName, this, Ra::Engine::RenderObjectType::FANCY );
             renderObject->setVisible( true );
+            renderObject->setLocalTransform( data->getFrame() );
 
             std::shared_ptr<Ra::Engine::Mesh> mesh( new Ra::Engine::Mesh( meshName ) );
 
