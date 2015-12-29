@@ -109,9 +109,14 @@ namespace Ra
             std::string entityName = Core::StringUtils::getBaseName( filename, false );
 
             Entity* entity = m_entityManager->getOrCreateEntity( entityName );
+
+            m_systems["FancyMeshSystem"]->handleAssetLoading( entity, &fileData );
             for ( auto& sys : m_systems )
             {
-                sys.second->handleAssetLoading( entity, &fileData );
+                if ( sys.first != "FancyMeshSystem" )
+                {
+                    sys.second->handleAssetLoading( entity, &fileData );
+                }
             }
 
 #if 0

@@ -49,6 +49,9 @@ namespace Ra
             void getRenderObjectsByTypeIfDirty( std::vector<std::shared_ptr<RenderObject>>& objectsOut,
                                                 const RenderObjectType& type, bool undirty = false ) const;
 
+            void getRenderObjectsByType( std::vector<std::shared_ptr<RenderObject>>& objectsOut,
+                                         const RenderObjectType& type, bool undirty = false ) const;
+
             std::shared_ptr<RenderObject> update( uint index, bool cloneMesh = true );
             std::shared_ptr<RenderObject> update( const Core::Index& index, bool cloneMesh = true );
             void doneUpdating( uint index );

@@ -110,6 +110,25 @@ namespace Ra
             }
         }
 
+
+        void RenderObjectManager::getRenderObjectsByType( std::vector<std::shared_ptr<RenderObject>>& objectsOut,
+                                                          const RenderObjectType& type, bool undirty ) const
+        {
+            // Take the mutex
+            std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
+
+            // Copy each element in m_renderObjects
+            for ( const auto& idx : m_renderObjectByType[(int)type] )
+            {
+                objectsOut.push_back( m_renderObjects.at( idx ) );
+            }
+
+            if ( undirty )
+            {
+                m_typeIsDirty[(int)type] = false;
+            }
+        }
+
         std::shared_ptr<RenderObject> RenderObjectManager::update( uint index, bool cloneMesh )
         {
             Core::Index idx( index );
