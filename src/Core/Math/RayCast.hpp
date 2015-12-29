@@ -33,6 +33,7 @@ namespace Ra
             inline bool vsCylinder(const Ray& r, const Core::Vector3& a, const Core::Vector3& b, Scalar radius,
                             std::vector<Scalar>& hitsOut);
 
+            /// Intersect a ray with a triangle abc.
             inline bool vsTriangle( const Ray& r, const Core::Vector3 a, const Core::Vector3& b, const Core::Vector3& c,
                             std::vector<Scalar>& hitsOut);
 

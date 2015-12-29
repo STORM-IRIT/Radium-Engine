@@ -3,6 +3,7 @@
 
 #include <Core/RaCore.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Eigen/Geometry>
 
 namespace Ra
 {
@@ -10,39 +11,11 @@ namespace Ra
     {
         /// A structure representing a ray in space with an origin and a direction.
         // TODO : use Eigen parametrized line ?
-        struct Ray
+        typedef Eigen::ParametrizedLine<Scalar,3> Ray;
+        inline Ray transformRay(const Ray& r, const Core::Transform& t)
         {
-        public:
-            RA_CORE_ALIGNED_NEW
-
-            /// Default constructor initializes the position and direction to zero.
-            Ray() : m_origin( Vector3::Zero() ), m_direction( Vector3::Zero() ) { }
-
-            /// Construct a ray with given position and direction.
-            Ray( const Vector3& origin, const Vector3& direction ) : m_origin( origin ), m_direction( direction ) { }
-
-            /// Copy constructor and assignment operator
-            Ray(const Ray& other) = default;
-            Ray& operator= (const Ray& other) = default;
-
-            /// Returns the position at linear coordinate t on the ray.
-            inline Vector3 at( Scalar t ) const
-            {
-                return m_origin + ( t * m_direction );
-            }
-
-            inline void transform(const Core::Transform& t)
-            {
-                m_origin = t*m_origin;
-                m_direction = t.linear() * m_direction;
-            }
-        public:
-            /// Starting point of the ray
-            Vector3 m_origin;
-            /// Direction of the ray (not necessarily normalized).
-            Vector3 m_direction;
-        };
-
+            return Ray( t * r.origin(), t.linear() * r.direction() );
+        }
     }
 }
 

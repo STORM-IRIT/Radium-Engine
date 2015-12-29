@@ -116,9 +116,9 @@ namespace Ra {
 
             MeshPtr Ray(const Core::Ray& ray, const Core::Color& color)
             {
-                Core::Vector3 end = ray.at(1000.f);
+                Core::Vector3 end = ray.pointAt(1000.f);
 
-                Core::Vector3Array vertices ={ ray.m_origin, end };
+                Core::Vector3Array vertices ={ ray.origin(), end };
                 std::vector<uint> indices ={ 0, 1 };
 
                 Core::Vector4Array colors(vertices.size(), color);

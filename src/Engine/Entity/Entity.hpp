@@ -12,15 +12,12 @@
 #include <Core/Index/IndexedObject.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Ray.hpp>
+
 #include <Engine/Entity/EditableProperty.hpp>
 
 namespace Ra
 {
-    namespace Core
-    {
-        struct Ray;
-    }
-
     namespace Engine
     {
         class Component;

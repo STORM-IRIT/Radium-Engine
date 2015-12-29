@@ -122,7 +122,7 @@ namespace Ra
                     getTriangleVertices(mesh, result.m_hitTriangle, v);
                     for (uint i = 0; i < 3; ++i)
                     {
-                        Scalar dSq = (v[i] - ray.at(minT)).squaredNorm();
+                        Scalar dSq = (v[i] - ray.pointAt(minT)).squaredNorm();
                         if (dSq < minDist)
                         {
                             result.m_nearestVertex = mesh.m_triangles[result.m_hitTriangle][i];

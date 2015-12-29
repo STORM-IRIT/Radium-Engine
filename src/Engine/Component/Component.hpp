@@ -4,6 +4,7 @@
 #include <Engine/RaEngine.hpp>
 
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Ray.hpp>
 #include <Core/Index/IndexedObject.hpp>
 
 #include <Engine/Entity/EditableProperty.hpp>
@@ -11,8 +12,6 @@
 
 namespace Ra
 {
-    namespace Core { struct Ray; }
-
     namespace Engine
     {
         class System;

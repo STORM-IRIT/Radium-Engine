@@ -6,13 +6,12 @@
 #include <array>
 
 #include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Math/Ray.hpp>
 
 namespace Ra
 {
     namespace Core
     {
-
-        struct Ray;
 
         /// Functions to operate on a TriangleMesh
         namespace MeshUtils

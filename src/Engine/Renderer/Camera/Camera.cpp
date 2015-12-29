@@ -111,8 +111,7 @@ namespace Ra
         Core::Ray Camera::getRayFromScreen(const Core::Vector2& pix) const
         {
             // Ray starts from the camera's current position.
-            const Core::Vector3& origin = getPosition();
-            return Core::Ray (origin, unProject(pix)- origin);
+            return Core::Ray::Through(getPosition(), unProject(pix));
         }
     } // End of Engine
 } // End of Ra
