@@ -5,6 +5,7 @@
 
 #include <Core/Index/Index.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Obb.hpp>
 #include <Core/Math/Ray.hpp>
 #include <Core/Math/Spline.hpp>
 

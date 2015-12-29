@@ -96,36 +96,6 @@ namespace Ra
         }
 
 
-        //
-        // Bounding boxes functions.
-        //
-
-        inline Aabb Obb::toAabb() const
-        {
-            Aabb tmp;
-            for ( int i = 0; i < 8; ++i )
-            {
-                tmp.extend( m_transform * m_aabb.corner( static_cast<Aabb::CornerType>( i ) ) );
-            }
-            return tmp;
-        }
-
-        inline Vector3 Obb::corner(int i) const
-        {
-            return m_aabb.corner(static_cast<Aabb::CornerType>(i));
-        }
-
-        inline Vector3 Obb::worldCorner( int i ) const
-        {
-            return m_transform * m_aabb.corner( static_cast<Aabb::CornerType>( i ) );
-        }
-
-        inline void Obb::addPoint( const Vector3& p )
-        {
-            // TODO: take the transform into account, but then apply the changes in capsule_implicit.cpp
-            m_aabb.extend( p );
-        }
-
         inline void Vector::getOrthogonalVectors( const Vector3& fx, Vector3& fy, Vector3& fz )
         {
             //for numerical stability, and seen that z will always be present, take the greatest component between x and y.

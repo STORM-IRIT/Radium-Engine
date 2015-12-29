@@ -118,35 +118,6 @@ namespace Ra
 
         // Todo : storage transform using quaternions ?
 
-        /// An oriented bounding box.
-        class Obb
-        {
-        public:
-            /// Constructors and destructor.
-            Obb() : m_aabb(),  m_transform( Transform::Identity() ) {}
-            Obb( const Aabb& aabb, const Transform& tr ) : m_aabb( aabb ), m_transform( tr ) {}
-            Obb( const Obb& other ) = default;
-            Obb& operator=( const Obb& other ) = default;
-            ~Obb() {}
-
-            /// Return the AABB enclosing this
-            Aabb toAabb() const;
-
-            /// Extends the OBB with an new point.
-            void addPoint( const Vector3& p );
-            /// Returns the position of the i^th corner of AABB (model space)
-            Vector3 corner(int i) const;
-
-            /// Returns the position of the ith corner of the OBB ( world space )
-            Vector3 worldCorner( int i ) const;
-
-        public:
-            /// The untransformed AABB
-            Aabb m_aabb;
-            /// Orientation of the box.
-            Transform m_transform;
-        };
-
         //
         // Misc types
         //
