@@ -37,14 +37,14 @@ add_library(
     ${core_sources}
     ${core_headers}
     ${core_inlines}
-    )
+)
 
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
 
 target_link_libraries(
     ${core_target}
     ${core_libs}
-    )
+)
 
 # Build Engine
 set(engine_target radiumEngine)
@@ -71,7 +71,7 @@ add_library(
     ${engine_inlines}
 
     ${engine_shaders}
-    )
+)
 
 add_dependencies( ${engine_target} ${core_target} assimp )
 
@@ -81,8 +81,12 @@ target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 target_link_libraries(
     ${engine_target}
     ${engine_libs}
-    )
+)
 
+#get_directory_property(plugins DIRECTORY "Plugins" DEFINITION SUBDIRS)
+
+#build tests
+add_subdirectory(Tests)
 
 if ( NOT ${OMIT_MAIN_APP} )
     # Build MainApplication
