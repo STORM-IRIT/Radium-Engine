@@ -22,7 +22,7 @@ namespace AnimationPlugin
     {
         struct aiStringComparator
         {
-            bool operator()(const aiString& left, const aiString& right)
+            bool operator()(const aiString& left, const aiString& right) const
             {
                 return strcmp(left.C_Str(), right.C_Str()) < 0;
             }
