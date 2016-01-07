@@ -54,6 +54,8 @@ class GeometryData : public AssetData {
 
 public:
 
+    RA_CORE_ALIGNED_NEW
+
     /// ENUM
     enum GeometryType {
         UNKNOWN     = 1 << 0,
@@ -159,8 +161,8 @@ protected:
 protected:
     /// VARIABLE
     //std::string     m_name;
-    GeometryType    m_type;
     Core::Transform m_frame;
+    GeometryType    m_type;
 
     Vector3Array  m_vertex;
     Vector2iArray m_edge;

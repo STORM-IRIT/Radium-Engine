@@ -25,7 +25,7 @@ namespace Ra
             constexpr Scalar toDeg  = Scalar( 180.0 * InvPi );
 
             constexpr Scalar machineEps = std::numeric_limits<Scalar>::epsilon();
-            constexpr Scalar dummyEps = 1e-5;
+            constexpr Scalar dummyEps = Scalar(1e-5);
 
             /// Useful functions
 
@@ -36,7 +36,7 @@ namespace Ra
             inline constexpr Scalar toDegrees( Scalar a );
 
             /// Returns true if |a -b| < eps.
-            inline constexpr bool areApproxEqual( Scalar a, Scalar b, Scalar eps = dummyEps );
+            inline bool areApproxEqual( Scalar a, Scalar b, Scalar eps = dummyEps );
 
             /// Integer power functions. Work for all numeric types which support
             /// multiplication and for which T(1) is a valid expression.

@@ -33,6 +33,8 @@ public:
         CAGE        = 1 << 3
     };
 
+    RA_CORE_ALIGNED_NEW
+
     /// CONSTRUCTOR
     HandleData( const std::string& name = "",
                 const HandleType&  type = UNKNOWN );
@@ -100,8 +102,9 @@ protected:
 protected:
     /// VARIABLE
     //std::string                        m_name;
-    HandleType                         m_type;
     Core::Transform                    m_frame;
+    HandleType                         m_type;
+
     bool                               m_endNode;
     uint                               m_vertexSize;
     std::map< std::string, uint >      m_nameTable;

@@ -8,7 +8,7 @@ namespace Core {
 
 // Forward declaration
 class Index;
-class TriangleMesh;
+struct TriangleMesh;
 class Dcel;
 
 struct Twin {

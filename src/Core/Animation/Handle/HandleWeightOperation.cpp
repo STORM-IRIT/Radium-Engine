@@ -48,7 +48,7 @@ uint getMaxWeightIndex( const WeightMatrix& weights, const uint vertexID ) {
 
 void getMaxWeightIndex( const WeightMatrix& weights, std::vector< uint >& handleID ) {
     handleID.resize( weights.rows() );
-    for( uint i = 0; i < weights.rows(); ++i ) {
+    for( int i = 0; i < weights.rows(); ++i ) {
         handleID[i] = getMaxWeightIndex( weights, i );
     }
 }
@@ -74,7 +74,7 @@ void checkWeightMatrix( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT ) 
 bool RA_CORE_API check_NAN( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT ) {
     bool status = true;
     LOG( logDEBUG ) << "Searching for nans in the matrix...";
-    for( uint k = 0; k < matrix.outerSize(); ++k ) {
+    for( int k = 0; k < matrix.outerSize(); ++k ) {
         for( WeightMatrix::InnerIterator it( matrix, k ); it; ++it ) {
             const uint        i     = it.row();
             const uint        j     = it.col();
@@ -96,7 +96,7 @@ bool RA_CORE_API check_NAN( const WeightMatrix& matrix, const bool FAIL_ON_ASSER
 bool RA_CORE_API check_NoWeightVertex( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT ) {
     bool status = true;
     LOG( logDEBUG ) << "Searching for empty rows in the matrix...";
-    for( uint i = 0; i < matrix.rows(); ++i ) {
+    for( int i = 0; i < matrix.rows(); ++i ) {
         Sparse row = matrix.row( i );
         if( row.nonZeros() == 0 ) {
             const std::string text = "Vertex " + std::to_string( i ) + " has no weights.";
