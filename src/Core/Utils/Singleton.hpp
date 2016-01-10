@@ -31,7 +31,7 @@ protected:                                              \
 // RA_SINGLETON_IMPLEMENTATION(A::MySingleton); will *not* work.
 #define RA_SINGLETON_IMPLEMENTATION(TYPE)                        \
 namespace TYPE##NS { TYPE* s_instance = nullptr;}                \
-void TYPE::replaceInstance(TYPE* p) { TYPE##NS::s_instance= p; } \
+void TYPE::replaceInstance(TYPE* p) { delete TYPE##NS::s_instance; TYPE##NS::s_instance= p; } \
 TYPE* TYPE::getInstance() { return TYPE##NS::s_instance; }       \
 void TYPE::destroyInstance() { delete TYPE##NS::s_instance; TYPE##NS::s_instance = nullptr; }\
 class TYPE
