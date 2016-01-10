@@ -37,7 +37,7 @@ namespace RaTests {
             }
         }
 
-        printf("Result : %i / %i tests passed ", m_tests.size() - numFailed, m_tests.size());
+        printf("Result : %i / %i tests passed\n", m_tests.size() - numFailed, m_tests.size());
         return numFailed;
     }
 
