@@ -12,19 +12,18 @@ namespace Ra
 {
     namespace Core
     {
-        /// Raycast function versus various abstract shapes.
-        /// * All functions return true if there was at least a valid (t>=0) hit, false if the ray misses.
-        /// * If a ray starts inside the shape, the resulting hit will be at the ray's origin (t=0).
-        /// * Some functions may return several hits. If the result is true,
-        /// the first hit will always be the first positive hit.
+        /// Low-level intersection functions of line versus various abstract shapes.
+        /// All functions return true if there was a hit, false if not.
+        /// If a ray starts inside the shape, the resulting hit will be at the ray's origin (t=0).
 
-        namespace RayCast
+        namespace RayCastInternal
         {
+
             /// Intersect a ray with an axis-aligned bounding box.
-            inline bool vsAabb(const Ray& r, const Core::Aabb& aabb, std::vector<Scalar>& hitsOut);
+            inline bool RayvsAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector3& normalOut );
 
             /// Intersects a ray with a sphere.
-            inline bool vsSphere(const Ray& r, const Core::Vector3& center, Scalar radius, std::vector<Scalar>& hitsOut);
+            inline bool vsSphere( const Ray& r, const Core::Vector3& center, Scalar radius, std::vector<Scalar>& hitsOut );
 
             /// Intersect a ray with an infinite plane defined by point A and normal.
             inline bool vsPlane(const Ray& r, const Core::Vector3 a, const Core::Vector3& normal, std::vector<Scalar>& hitsOut);

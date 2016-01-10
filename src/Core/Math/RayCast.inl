@@ -5,10 +5,10 @@ namespace Ra
     namespace Core
     {
         // useful : http://www.realtimerendering.com/intersections.html
-        namespace RayCast
+        namespace RayCastInternal
         {
             /// Intersect a ray with an axis-aligned bounding box.
-            bool vsAabb(const Ray& r, const Core::Aabb& aabb, std::vector<Scalar>& hitsOut)
+            inline bool RayvsAabb(const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector3& normalOut)
             {
                 // Based on optimized Woo version (ray vs 3 slabs)
                 // Ref : Graphics Gems p.395
@@ -28,7 +28,8 @@ namespace Ra
                 // Get rid of the case where the origin of the ray is inside the box
                 if (!(infMin.any()) && !(supMax.any()))
                 {
-                    hitsOut.push_back(0);
+                    hitOut = 0;
+                    normalOut = -r.direction();
                     return true;
                 }
 
@@ -49,18 +50,29 @@ namespace Ra
                                         minOrig.array(),
                                         supMax.select(
                                                 maxOrig.array(),
-                                                -1.f
+                                                -std::numeric_limits<Scalar>::max()
                                         )
                                 ),
-                                -1.f
+                                -std::numeric_limits<Scalar>::max()
                         );
 
-                const Scalar t = maxT.maxCoeff();
+                // Find candidate t.
+                uint i;
+                const Scalar t = maxT.maxCoeff(&i);
+
+                // Check if the point is actually in the box's face.
+                const Vector3 p = r.pointAt(t);
+                const Vector3 s = Vector3::Unit(i);
+
+                auto inFace = s.select(0,
+                    (p.array() < aabb.min().array() || p.array() > aabb.max().array()));
+
 
                 // Ignore negative t (box behind the origin), and points outside the aabb.
-                if (t >= 0 && aabb.contains(r.pointAt(t)))
+                if (t >= 0 && !inFace.any() )
                 {
-                    hitsOut.push_back(t);
+                    hitOut = t;
+                    normalOut = -s * Math::sign(r.direction()[i]);
                     return true;
                 }
                 return false;

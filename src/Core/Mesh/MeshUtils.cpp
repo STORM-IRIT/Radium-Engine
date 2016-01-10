@@ -108,7 +108,7 @@ namespace Ra
                 {
                     tValues.clear();
                     getTriangleVertices(mesh, i, v);
-                    if ( RayCast::vsTriangle(ray, v[0], v[1], v[2], tValues) && tValues[0] < minT )
+                    if ( RayCastInternal::vsTriangle(ray, v[0], v[1], v[2], tValues) && tValues[0] < minT )
                     {
                         minT = tValues[0];
                         result.m_hitTriangle = int(i);
