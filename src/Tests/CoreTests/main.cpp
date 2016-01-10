@@ -1,9 +1,10 @@
-#include <iostream>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Tests/CoreTests/Tests.hpp>
+
 int main()
 {
-    Ra::Core::Vector3 a (1,2,3);
-    std::cout<<"Hello tests "<<a.transpose()<<std::endl;
-    return 0;
+    RaTests::Manager::createInstance();
+    RaTests::DummyTestPass p;
+    RaTests::DummyTestFail f;
+    return RaTests::Manager::getInstance()->run();
 }
 
