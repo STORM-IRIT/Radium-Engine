@@ -8,9 +8,10 @@
 # IBL_LIBRARY
 #
 
-FIND_PATH( IBL_INCLUDE_DIR ibl/tools.hpp
+FIND_PATH( IBL_INCLUDE_DIR ibl/base/ImplicitBase.hpp
         ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/ibl
         ${CMAKE_SOURCE_DIR}/../Radium-Engine-Plugins/ibl/include
+        ${CMAKE_SOURCE_DIR}/../Radium-Engine-Plugins/ibl/
         DOC "The ibl include directory")
 
 FIND_LIBRARY( IBL_LIBRARY
