@@ -128,7 +128,8 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
 
 void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, const aiBone* bone, HandleComponentData& data ) const {
     data.m_name  = assimpToCore( bone->mName );
-    data.m_frame = assimpToCore( bone->mOffsetMatrix );
+    //data.m_frame = assimpToCore( bone->mOffsetMatrix );
+    data.m_frame.setIdentity();
     const uint size = bone->mNumWeights;
     for( uint j = 0; j < size; ++j ) {
         std::pair< uint, Scalar > weight( bone->mWeights[j].mVertexId, bone->mWeights[j].mWeight );
@@ -136,17 +137,18 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
     }
     aiNode* node = scene->mRootNode->FindNode( bone->mName );
     while( node != nullptr ) {
-        data.m_frame = data.m_frame * assimpToCore( node->mTransformation );
+        data.m_frame = assimpToCore( node->mTransformation ) * data.m_frame;
         node = node->mParent;
     }
 }
 
 void AssimpHandleDataLoader::loadHandleComponentData( const aiNode* node, HandleComponentData& data ) const {
     data.m_name  = assimpToCore( node->mName );
-    data.m_frame = assimpToCore( node->mTransformation );
+    //data.m_frame = assimpToCore( node->mTransformation );
+    data.m_frame.setIdentity();
     const aiNode* tmpNode = node;
     while( tmpNode != nullptr ) {
-        data.m_frame = data.m_frame * assimpToCore( node->mTransformation );
+        data.m_frame = assimpToCore( tmpNode->mTransformation ) * data.m_frame;
         tmpNode = tmpNode->mParent;
     }
 }

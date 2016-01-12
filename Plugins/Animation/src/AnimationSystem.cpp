@@ -120,7 +120,7 @@ namespace AnimationPlugin
 
     void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData ) {
         // FIXME(Charly): Does not compile
-#if 0
+#if 1
         auto skelData = fileData->getHandleData();
 
         // FIXME(Charly): One component of a given type by entity ?

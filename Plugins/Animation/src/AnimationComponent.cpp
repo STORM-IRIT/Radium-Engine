@@ -265,7 +265,7 @@ namespace AnimationPlugin
                                       std::map< uint, uint >& indexTable ) {
         if( !processed[dataID] ) {
             processed[dataID] = true;
-            uint index = m_skel.addBone( parent, data.at( dataID ).m_frame, Ra::Core::Animation::Handle::SpaceType::LOCAL, data.at( dataID ).m_name );
+            uint index = m_skel.addBone( parent, data.at( dataID ).m_frame, Ra::Core::Animation::Handle::SpaceType::MODEL, data.at( dataID ).m_name );
             indexTable[dataID] = index;
             for( const auto& edge : edgeList ) {
                 if( edge[0] == dataID ) {
