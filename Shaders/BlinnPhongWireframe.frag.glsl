@@ -140,7 +140,7 @@ vec3 blinnPhongInternal(vec3 d, vec3 n)
     {
         diff = diffFactor * light.color.xyz * getKd();
 
-        vec3 vertToEye = normalize(gEye - gPosition);
+        vec3 vertToEye = normalize(gPosition - gEye);
         vec3 lightReflect = normalize(reflect(-direction, normal));
         float specFactor = dot(vertToEye, lightReflect);
 
