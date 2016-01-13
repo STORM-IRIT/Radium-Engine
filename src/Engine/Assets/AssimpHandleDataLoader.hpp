@@ -5,10 +5,6 @@
 #include <assimp/mesh.h>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Assets/DataLoader.hpp>
-#include <Engine/Assets/FileData.hpp>
-
-// FIXME(Charly): Needs to be fixed to be compiled
-#ifdef DEBUG_LOAD_HANDLE
 
 namespace Ra {
 namespace Asset {
@@ -56,4 +52,3 @@ protected:
 } // namespace Ra
 
 #endif // RADIUMENGINE_ASSIMP_HANDLE_DATA_LOADER_HPP
-#endif

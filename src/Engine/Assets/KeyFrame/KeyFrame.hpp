@@ -1,25 +1,18 @@
-
 #ifndef RADIUMENGINE_KEY_FRAME_HPP
 #define RADIUMENGINE_KEY_FRAME_HPP
 
 #include <map>
+#include <set>
 #include <Engine/Assets/KeyFrame/AnimationTime.hpp>
-
-#include <Engine/Assets/FileData.hpp>
-
-// FIXME(Charly): Needs to be fixed to be compiled
-#if DEBUG_LOAD_ANIMATION
 
 namespace Ra {
 namespace Asset {
-
-
 
 template < class FRAME >
 class KeyFrame {
 public:
     /// CONSTRUCTOR
-    KeyFrame( const AnimationTime& time ) : m_time( time ) { }
+    KeyFrame( const AnimationTime& time = AnimationTime() ) : m_time( time ) { }
     KeyFrame( const KeyFrame& keyframe ) = default;
 
     /// DESTRUCTOR
@@ -45,7 +38,7 @@ public:
         return ( m_keyframe.begin() + i )->second;
     }
 
-    inline FRAME getKeyFrame( const Time& t ) const {
+    inline FRAME at( const Time& t ) const {
         if( !m_time.contain( t ) ) {
             return defaultFrame();
         }
@@ -95,6 +88,14 @@ public:
         return m_keyframe.empty();
     }
 
+    inline std::set< Time > timeSchedule() const {
+        std::set< Time > time;
+        for( const auto& it : m_keyframe ) {
+            time.insert( it->first );
+        }
+        return time;
+    }
+
     /// RESET
     inline void reset() {
         m_time.setStart( 0.0 );
@@ -104,9 +105,9 @@ public:
 
     /// OPERATOR
     inline KeyFrame& operator =( const KeyFrame& keyframe ) { m_time = keyframe.m_time; m_keyframe = keyframe.m_keyframe; return *this; }
-    inline KeyFrame  operator[]( const uint i ) const { return getKeyFrame( i ); }
-    inline KeyFrame& operator[]( const uint i ) { return getKeyFrame( i ); }
-    inline KeyFrame  operator[]( const Time& t ) const { return getKeyFrame( t ); }
+//    inline KeyFrame  operator[]( const uint i ) const { return getKeyFrame( i ); }
+//    inline KeyFrame& operator[]( const uint i ) { return getKeyFrame( i ); }
+//    inline KeyFrame  operator[]( const Time& t ) const { return at( t ); }
     inline bool      operator==( const KeyFrame& keyframe ) const { return ( ( m_time == keyframe.m_time ) && ( m_keyframe == keyframe.m_keyframe ) ); }
 
 protected:
@@ -145,5 +146,3 @@ protected:
 } // namespace Ra
 
 #endif // RADIUMENGINE_KEY_FRAME_HPP
-
-#endif

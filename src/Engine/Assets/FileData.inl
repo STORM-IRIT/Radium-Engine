@@ -1,15 +1,9 @@
 #include <Engine/Assets/FileData.hpp>
 
 #include <Core/Log/Log.hpp>
-#ifdef DEBUG_LOAD_GEOMETRY
 #include <Engine/Assets/GeometryData.hpp>
-#endif
-#ifdef DEBUG_LOAD_HANDLE
 #include <Engine/Assets/HandleData.hpp>
-#endif
-#ifdef DEBUG_LOAD_ANIMATION
 #include <Engine/Assets/AnimationData.hpp>
-#endif
 
 namespace Ra {
 namespace Asset {
@@ -39,8 +33,6 @@ inline std::vector< GeometryData* > FileData::getGeometryData() const {
     return list;
 }
 
-// FIXME(Charly): Needs to be fixed to be compiled
-#ifdef DEBUG_LOAD_HANDLE
 inline std::vector< HandleData* > FileData::getHandleData() const {
     std::vector< HandleData* > list;
     list.reserve( m_handleData.size() );
@@ -49,10 +41,7 @@ inline std::vector< HandleData* > FileData::getHandleData() const {
     }
     return list;
 }
-#endif
 
-// FIXME(Charly): Needs to be fixed to be compiled
-#ifdef DEBUG_LOAD_ANIMATION
 inline std::vector< AnimationData* > FileData::getAnimatinData() const {
     std::vector< AnimationData* > list;
     list.reserve( m_animationData.size() );
@@ -61,7 +50,6 @@ inline std::vector< AnimationData* > FileData::getAnimatinData() const {
     }
     return list;
 }
-#endif
 
 inline void FileData::setVerbose( const bool VERBOSE_MODE ) {
     m_verbose = VERBOSE_MODE;
@@ -80,19 +68,13 @@ inline bool FileData::hasGeometry() const {
     return ( !m_geometryData.empty() );
 }
 
-// FIXME(Charly): Needs to be fixed to be compiled
-#ifdef DEBUG_LOAD_HANDLE
 inline bool FileData::hasHandle() const {
     return ( !m_handleData.empty() );
 }
-#endif
 
-// FIXME(Charly): Needs to be fixed to be compiled
-#ifdef DEBUG_LOAD_ANIMATION
 inline bool FileData::hasAnimation() const {
     return ( !m_animationData.empty() );
 }
-#endif
 
 inline bool FileData::isVerbose() const {
     return m_verbose;
@@ -102,40 +84,24 @@ inline bool FileData::isVerbose() const {
 inline void FileData::reset()
 {
     m_filename = "";
-
     m_geometryData.clear();
-
-    // FIXME(Charly): Needs to be fixed to be compiled
-#ifdef DEBUG_LOAD_HANDLE
     m_handleData.clear();
-#endif
-
-    // FIXME(Charly): Needs to be fixed to be compiled
-#ifdef DEBUG_LOAD_ANIMATION
     m_animationData.clear();
-#endif
-
     m_processed = false;
 }
 
 inline void FileData::displayInfo() const {
-    LOG( logINFO ) << "======== LOADING SUMMARY ========";
-    LOG( logINFO ) << "Mesh loaded        : " << m_geometryData.size();
-
     uint64_t vtxCount = 0;
     for ( const auto& geom : m_geometryData )
     {
         vtxCount += geom->getVerticesSize();
     }
-    LOG( logINFO ) << "Total vertex count : " << vtxCount;
-
-#ifdef DEBUG_LOAD_HANDLE
-    LOG( logINFO ) << "Handle loaded      : " << m_handleData.size();
-#endif
-#ifdef DEBUG_LOAD_ANIMATION
-    LOG( logINFO ) << "Animation loaded   : " << m_animationData.size();
-#endif
-    LOG( logINFO ) << "Loading Time (sec) : " << m_loadingTime;
+    LOG( logDEBUG ) << "======== LOADING SUMMARY ========";
+    LOG( logDEBUG ) << "Mesh loaded        : " << m_geometryData.size();
+    LOG( logDEBUG ) << "Total vertex count : " << vtxCount;
+    LOG( logDEBUG ) << "Handle loaded      : " << m_handleData.size();
+    LOG( logDEBUG ) << "Animation loaded   : " << m_animationData.size();
+    LOG( logDEBUG ) << "Loading Time (sec) : " << m_loadingTime;
 }
 
 

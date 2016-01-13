@@ -1,19 +1,17 @@
 #ifndef RADIUMENGINE_KEY_POSE_HPP
 #define RADIUMENGINE_KEY_POSE_HPP
 
-#include <Core/Debug/Loading/KeyFrame/KeyFrame.hpp>
-#include <Core/Debug/Loading/KeyFrame/Interpolation.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
+#include <Engine/Assets/KeyFrame/KeyFrame.hpp>
+#include <Engine/Assets/KeyFrame/Interpolation.hpp>
 
 namespace Ra {
 namespace Asset {
 
-
-
 class KeyPose : public KeyFrame< Core::Animation::Pose > {
 public:
     /// CONSTRUCTOR
-    KeyPose( const Time& time ) : KeyFrame< Core::Animation::Pose >( time ) { }
+    KeyPose( const AnimationTime& time = AnimationTime() ) : KeyFrame< Core::Animation::Pose >( time ) { }
     KeyPose( const KeyPose& keyframe ) = default;
 
     /// DESTRUCTOR
@@ -42,8 +40,6 @@ protected:
         return result;
     }
 };
-
-
 
 } // namespace Asset
 } // namespace Ra

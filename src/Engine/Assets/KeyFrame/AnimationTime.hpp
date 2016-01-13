@@ -64,6 +64,7 @@ public:
 
     /// OPERATOR
     inline bool operator==( const AnimationTime& time ) const { return ( ( m_start == time.m_start ) && ( m_end == time.m_end ) ); }
+    inline bool operator!=( const AnimationTime& time ) const { return !( *this == time ); }
     inline bool operator< ( const AnimationTime& time ) const {
         if( ( m_start < time.m_start ) && ( m_end < time.m_start ) ) {
             return true;

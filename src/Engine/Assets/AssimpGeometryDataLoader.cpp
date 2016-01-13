@@ -2,6 +2,7 @@
 
 #include <Core/Log/Log.hpp>
 #include <Engine/Assets/GeometryData.hpp>
+#include <Engine/Assets/AssimpWrapper.hpp>
 
 namespace Ra
 {

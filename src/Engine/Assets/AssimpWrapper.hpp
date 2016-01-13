@@ -43,7 +43,7 @@ inline Core::Transform assimpToCore( const aiVector3t< Scalar >&    T,
 }
 
 inline Core::Color assimpToCore( const aiColor4t< Scalar >& c ) {
-//Core::Color assimpToCore( const aiColor4D& c ) {
+//inline Core::Color assimpToCore( const aiColor4D& c ) {
     return Core::Color( c.r, c.g, c.b, c.a );
 }
 

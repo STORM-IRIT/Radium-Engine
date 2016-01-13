@@ -3,15 +3,14 @@
 
 #include <assimp/mesh.h>
 
-
-#include <Engine/Assets/AssimpWrapper.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Assets/DataLoader.hpp>
-//#include <Engine/Assets/GeometryData.hpp>
 
 namespace Ra {
 namespace Asset {
 
 class GeometryData;
+
 class AssimpGeometryDataLoader : public DataLoader< GeometryData > {
 public:
     /// CONSTRUCTOR

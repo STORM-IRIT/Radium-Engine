@@ -4,19 +4,14 @@
 #include <Engine/Assets/KeyFrame/KeyFrame.hpp>
 #include <Engine/Assets/KeyFrame/Interpolation.hpp>
 
-#include <Engine/Assets/FileData.hpp>
-
-// FIXME(Charly): Needs to be fixed to be compiled
-#ifdef DEBUG_LOAD_ANIMATION
-
 namespace Ra {
 namespace Asset {
 
 class KeyTransform : public KeyFrame< Core::Transform > {
 public:
     /// CONSTRUCTOR
-    KeyTransform( const Time& time ) : KeyFrame< Core::Transform >( time ) { }
-    KeyTransform( const KeyScaling& keyframe ) = default;
+    KeyTransform( const AnimationTime& time = AnimationTime() ) : KeyFrame< Core::Transform >( time ) { }
+    KeyTransform( const KeyTransform& keyframe ) = default;
 
     /// DESTRUCTOR
     ~KeyTransform() { }
@@ -40,7 +35,5 @@ protected:
 
 } // namespace Asset
 } // namespace Ra
-
-#endif
 
 #endif // RADIUMENGINE_KEY_TRANSFORM_HPP

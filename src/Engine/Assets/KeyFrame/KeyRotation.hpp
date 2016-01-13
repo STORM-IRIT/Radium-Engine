@@ -1,18 +1,16 @@
 #ifndef RADIUMENGINE_KEY_ROTATION_HPP
 #define RADIUMENGINE_KEY_ROTATION_HPP
 
-#include <Core/Debug/Loading/KeyFrame/KeyFrame.hpp>
-#include <Core/Debug/Loading/KeyFrame/Interpolation.hpp>
+#include <Engine/Assets/KeyFrame/KeyFrame.hpp>
+#include <Engine/Assets/KeyFrame/Interpolation.hpp>
 
 namespace Ra {
 namespace Asset {
 
-
-
 class KeyRotation : public KeyFrame< Core::Quaternion > {
 public:
     /// CONSTRUCTOR
-    KeyRotation( const Time& time ) : KeyFrame< Core::Quaternion >( time ) { }
+    KeyRotation( const AnimationTime& time = AnimationTime() ) : KeyFrame< Core::Quaternion >( time ) { }
     KeyRotation( const KeyRotation& keyframe ) = default;
 
     /// DESTRUCTOR
@@ -32,8 +30,6 @@ protected:
         return result;
     }
 };
-
-
 
 } // namespace Asset
 } // namespace Ra

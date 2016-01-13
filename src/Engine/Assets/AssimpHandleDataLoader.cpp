@@ -6,9 +6,6 @@
 #include <Engine/Assets/AssimpWrapper.hpp>
 #include <Engine/Assets/HandleData.hpp>
 
-// FIXME(Charly): Needs to be fixed to be compiled
-#ifdef DEBUG_LOAD_HANDLE
-
 namespace Ra {
 namespace Asset {
 
@@ -224,5 +221,3 @@ void AssimpHandleDataLoader::fetchVertexSize( HandleData& data ) const {
 
 } // namespace Asset
 } // namespace Ra
-
-#endif

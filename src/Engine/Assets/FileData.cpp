@@ -22,15 +22,8 @@ FileData::FileData( const std::string& filename,
     m_filename( filename ),
     m_loadingTime( 0.0 ),
     m_geometryData(),
-
-#ifdef DEBUG_LOAD_HANDLE
     m_handleData(),
-#endif
-
-    // FIXME(Charly): Needs to be fixed to be compiled
-#ifdef DEBUG_LOAD_ANIMATION
     m_animationData(),
-#endif
     m_processed( false ),
     m_verbose( VERBOSE_MODE ) {
     loadFile();
@@ -84,15 +77,11 @@ void FileData::loadFile( const bool FORCE_RELOAD ) {
     AssimpGeometryDataLoader geometryLoader( Core::StringUtils::getDirName( getFileName() ), m_verbose );
     geometryLoader.loadData( scene, m_geometryData );
 
-    // FIXME(Charly): Commented for debug purposes, uncomment it later
-#ifdef DEBUG_LOAD_HANDLE
     AssimpHandleDataLoader handleLoader( m_verbose );
     handleLoader.loadData( scene, m_handleData );
-#endif
-#ifdef DEBUG_LOAD_ANIMATION
+
     AssimpAnimationDataLoader animationLoader( m_verbose );
     animationLoader.loadData( scene, m_animationData );
-#endif
 
     m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );
 
