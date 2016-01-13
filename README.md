@@ -10,9 +10,8 @@ Coolest engine ever made #yolo #swag
 * FreeImage (for texture loading)
 * To build : CMake 2.8.11+
 
-## Getting submodules
+## Getting submodules (for older versions)
 ```
-$ cd 3rdPartyLibraries
 $ git submodule init
 $ git submodule update
 ```
