@@ -280,7 +280,16 @@ namespace Ra
         foreach (QString filename, pluginsDir.entryList( QDir::Files ) )
         {
             std::string ext = Core::StringUtils::getFileExt( filename.toStdString() );
-            if (  ext == "so" || ext == "dll" )
+#if defined( OS_WINDOWS )
+            std::string sysDllExt = "dll";
+#elif defined( OS_LINUX )
+            std::string sysDllExt = "so";
+#elif defined( OS_MACOS )
+            std::string sysDllExt = "dylib";
+#else
+            static_assert( false, "System configuration not handled" );
+#endif
+            if ( ext == sysDllExt )
             {
                 QPluginLoader pluginLoader( pluginsDir.absoluteFilePath( filename ) );
 
