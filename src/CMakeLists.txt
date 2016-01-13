@@ -40,7 +40,7 @@ include_directories(
     ${ASSIMP_INC}
     ${FREEIMAGE_INCLUDE_DIR}
     ${GLEW_INCLUDE_DIR}
-)
+    )
 
 # Build Core
 set(core_target radiumCore)
@@ -56,14 +56,14 @@ add_library(
     ${core_sources}
     ${core_headers}
     ${core_inlines}
-)
+    )
 
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
 
 target_link_libraries(
     ${core_target}
     ${core_libs}
-)
+    )
 
 # Build Engine
 set(engine_target radiumEngine)
@@ -78,8 +78,9 @@ file(GLOB_RECURSE engine_geom_glsl ../Shaders/*.geom.glsl)
 file(GLOB_RECURSE engine_tesc_glsl ../Shaders/*.tesc.glsl)
 file(GLOB_RECURSE engine_tese_glsl ../Shaders/*.tese.glsl)
 file(GLOB_RECURSE engine_comp_glsl ../Shaders/*.comp.glsl)
-set( engine_shaders ${engine_vert_glsl} ${engine_frag_glsl} ${engine_geom_glsl}
-                    ${engine_tesc_glsl} ${engine_tese_glsl} ${engine_comp_glsl} )
+set( engine_shaders 
+    ${engine_vert_glsl} ${engine_frag_glsl} ${engine_geom_glsl}
+    ${engine_tesc_glsl} ${engine_tese_glsl} ${engine_comp_glsl} )
 
 set(engine_libs
     radiumCore
@@ -96,7 +97,9 @@ add_library(
     ${engine_inlines}
 
     ${engine_shaders}
-)
+    )
+
+add_dependencies( ${engine_target} ${core_target} assimp )
 
 target_compile_definitions(${engine_target} PRIVATE "-DRA_CORE_IMPORTS")
 target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
@@ -104,7 +107,7 @@ target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 target_link_libraries(
     ${engine_target}
     ${engine_libs}
-)
+    )
 
 #get_directory_property(plugins DIRECTORY "Plugins" DEFINITION SUBDIRS)
 
@@ -144,7 +147,7 @@ include_directories(
     .
     ${CMAKE_CURRENT_BINARY_DIR} # Moc
     ${EIGEN_INC}
-)
+    )
 
 add_executable(
     ${app_target}
@@ -153,7 +156,9 @@ add_executable(
     ${app_inlines}
     ${app_uis_moc}
     ${resources}
-)
+    )
+
+add_dependencies( radium radiumCore radiumEngine )
 
 target_compile_definitions(${app_target} PRIVATE "-DRA_CORE_IMPORTS")
 target_compile_definitions(${app_target} PRIVATE "-DRA_ENGINE_IMPORTS")
@@ -161,7 +166,7 @@ target_compile_definitions(${app_target} PRIVATE "-DRA_ENGINE_IMPORTS")
 target_link_libraries(
     ${app_target}
     ${app_libs}
-)
+    )
 
 if (WIN32)
     include(CMakeGenerateTrees.txt)
@@ -171,7 +176,7 @@ install( DIRECTORY . DESTINATION include FILES_MATCHING PATTERN "*.hpp" PATTERN 
 install( FILES ${engine_shaders} DESTINATION Shaders )
 install( DIRECTORY ${CMAKE_SOURCE_DIR}/Assets/. DESTINATION Assets )
 install( TARGETS ${app_target} ${core_target} ${engine_target}
-         RUNTIME DESTINATION bin
-         LIBRARY DESTINATION lib
-         ARCHIVE DESTINATION lib )
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib )
 

@@ -46,8 +46,13 @@ endif()
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules)
 
 # Debug by default !
-if (NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Debug)
+if ( NOT CMAKE_BUILD_TYPE )
+  set( CMAKE_BUILD_TYPE Debug )
+endif()
+
+set( VALID_CMAKE_BUILD_TYPES "Debug Release RelWithDebInfo" )
+if ( NOT "${VALID_CMAKE_BUILD_TYPES}" MATCHES ${CMAKE_BUILD_TYPE} )
+    set( CMAKE_BUILD_TYPE Debug )
 endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)

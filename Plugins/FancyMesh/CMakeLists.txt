@@ -90,20 +90,9 @@ if (MSVC OR MSVC_IDE)
         endforeach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     endif()
 endif(MSVC OR MSVC_IDE)
-
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
-
-# Eigen
-set(EIGEN_INC ${EXTERNAL_DIR}/Eigen)
-
-#find_package( RadiumEngine  REQUIRED )
-find_package( OpenGL        REQUIRED )
-find_package( GLEW          REQUIRED )
-find_package( Assimp        REQUIRED )
-find_package( Eigen3        REQUIRED )
-find_package( Qt5Core       REQUIRED )
-find_package( Qt5Widgets    REQUIRED )
-find_package( Qt5OpenGL     REQUIRED )
+    
+find_package( Qt5Core    REQUIRED )
+find_package( Qt5Widgets REQUIRED )
 
 file( GLOB_RECURSE sources src/*.cpp )
 file( GLOB_RECURSE headers src/*.hpp )
@@ -119,10 +108,11 @@ add_definitions( ${Qt5OpenGL_DEFINITIONS} )
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR} # MOC
     ${RADIUM_INCLUDE_DIR}
-    ${Assimp_INCLUDE_DIR}
-    ${EIGEN3_INCLUDE_DIR} )
+    ${EIGEN_INC}
+    )
 
 add_library( FancyMesh SHARED ${sources} ${headers} ${inlines} )
+add_dependencies( FancyMesh radiumCore radiumEngine )
 
 target_compile_definitions( FancyMesh PRIVATE "-DRA_CORE_IMPORTS" )
 target_compile_definitions( FancyMesh PRIVATE "-DRA_ENGINE_IMPORTS" )
@@ -133,8 +123,6 @@ target_link_libraries( FancyMesh
                        ${Qt5_LIBRARIES}
                        ${RADIUM_LIBRARIES}
                        ${GLEW_LIBRARIES}
-                       ${Assimp_LIBRARIES}
-                       ${FREEIMAGE_LIBRARIES}
-                       ${OPENGL_LIBRARIES} )
+                     )
 
 
