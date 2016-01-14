@@ -1,7 +1,9 @@
 execute_process( COMMAND git submodule init
                  COMMAND git submodule update )
 
-if ( UNIX )
+if (("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"))
+    add_definitions( -fexceptions -frtti -Wno-ignored-qualifiers )
+elseif ( UNIX )
     add_definitions( -fexceptions -frtti -Wno-ignored-qualifiers -Wno-unused-but-set-variable )
 endif( UNIX )
 

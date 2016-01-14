@@ -17,7 +17,7 @@ namespace Ra
             DirectionalLight();
             virtual ~DirectionalLight();
 
-            virtual void getRenderParameters( RenderParameters& params );
+            virtual void getRenderParameters( RenderParameters& params ) override;
 
             inline virtual void setDirection( const Core::Vector3& pos ) override;
             inline const Core::Vector3& getDirection() const;

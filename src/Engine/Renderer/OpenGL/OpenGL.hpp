@@ -83,14 +83,23 @@ inline bool checkOpenGLContext()
     x; { \
         GLuint err = glGetError(); \
         if (err != GL_NO_ERROR) { \
-            const char* errBuf = ( (err == GL_INVALID_ENUM) ? " Invalid enum" : \
-                ( (err == GL_INVALID_VALUE) ? " Invalid value" : \
-                ( (err == GL_INVALID_OPERATION) ? " Invalid operation" : nullptr) \
-                ) \
+            const char* errBuf = ( (err == GL_INVALID_ENUM) ? " Invalid enum : An unacceptable value is specified for an enumerated argument. The offending command is ignored and has no other side effect than to set the error flag.\n" : \
+                ( (err == GL_INVALID_VALUE) ? " Invalid value : A numeric argument is out of range. The offending command is ignored and has no other side effect than to set the error flag.\n" : \
+                ( (err == GL_INVALID_OPERATION) ? " Invalid operation : The specified operation is not allowed in the current state. The offending command is ignored and has no other side effect than to set the error flag.\n" : \
+                ( (err == GL_INVALID_FRAMEBUFFER_OPERATION) ? " Invalid framebuffer operation : The framebuffer object is not complete. The offending command is ignored and has no other side effect than to set the error flag.\n" : \
+                ( (err == GL_OUT_OF_MEMORY) ? " Out of memory : There is not enough memory left to execute the command. The state of the GL is undefined, except for the state of the error flags, after this error is recorded.\n" : \
+ /*               ( (err == GL_STACK_UNDERFLOW) ? " Stack underflow : An attempt has been made to perform an operation that would cause an internal stack to underflow.\n" : \
+                ( (err == GL_STACK_OVERFLOW) ? " Stack overflow : An attempt has been made to perform an operation that would cause an internal stack to overflow.\n" : */\
+                nullptr) \
+/*                )\
+                )\
+*/                )\
+                )\
+                )\
                 );\
             if (errBuf == nullptr) \
                 LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
-                              << ", " << STRINGIFY(x) << ") : ERROR_UNKNOWN_BY_GLU (" \
+                              << ", " << STRINGIFY(x) << ") : ERROR_UNKNOWN (" \
                               << err << " : 0x" << std::hex << err << std::dec << ")."; \
             else \
                 LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
@@ -106,12 +115,21 @@ inline bool checkOpenGLContext()
     { \
         GLuint err = glGetError(); \
         if (err != GL_NO_ERROR) { \
-            const char* errBuf = ( (err == GL_INVALID_ENUM) ? " Invalid enum" : \
-                ( (err == GL_INVALID_VALUE) ? " Invalid value" : \
-                ( (err == GL_INVALID_OPERATION) ? " Invalid operation" : nullptr) \
-                ) \
+            const char* errBuf = ( (err == GL_INVALID_ENUM) ? " Invalid enum : An unacceptable value is specified for an enumerated argument. The offending command is ignored and has no other side effect than to set the error flag.\n" : \
+                ( (err == GL_INVALID_VALUE) ? " Invalid value : A numeric argument is out of range. The offending command is ignored and has no other side effect than to set the error flag.\n" : \
+                ( (err == GL_INVALID_OPERATION) ? " Invalid operation : The specified operation is not allowed in the current state. The offending command is ignored and has no other side effect than to set the error flag.\n" : \
+                ( (err == GL_INVALID_FRAMEBUFFER_OPERATION) ? " Invalid framebuffer operation : The framebuffer object is not complete. The offending command is ignored and has no other side effect than to set the error flag.\n" : \
+                ( (err == GL_OUT_OF_MEMORY) ? " Out of memory : There is not enough memory left to execute the command. The state of the GL is undefined, except for the state of the error flags, after this error is recorded.\n" : \
+/*               ( (err == GL_STACK_UNDERFLOW) ? " Stack underflow : An attempt has been made to perform an operation that would cause an internal stack to underflow.\n" : \
+    ( (err == GL_STACK_OVERFLOW) ? " Stack overflow : An attempt has been made to perform an operation that would cause an internal stack to overflow.\n" : */\
+    nullptr)\
+/*                )\
+              )\
+*/                )\
+                )\
+                )\
                 );\
-            if (errBuf == nullptr) \
+                if (errBuf == nullptr) \
                 LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
                               << ", " << STRINGIFY(x) << ") : ERROR_UNKNOWN_BY_GLU (" \
                               << err << " : 0x" << std::hex << err << std::dec << ")."; \

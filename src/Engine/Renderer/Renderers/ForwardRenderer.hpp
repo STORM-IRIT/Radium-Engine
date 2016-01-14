@@ -18,8 +18,8 @@ namespace Ra
 
         protected:
 
-            virtual void initializeInternal();
-            virtual void resizeInternal();
+            virtual void initializeInternal() override;
+            virtual void resizeInternal() override;
 
             virtual void updateStepInternal( const RenderData& renderData ) override;
             virtual void renderInternal( const RenderData& renderData ) override;

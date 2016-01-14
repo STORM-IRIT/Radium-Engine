@@ -29,7 +29,7 @@ namespace Ra
             SpotLight();
             virtual ~SpotLight();
 
-            virtual void getRenderParameters( RenderParameters& params );
+            virtual void getRenderParameters( RenderParameters& params ) override;
 
             inline virtual void setPosition( const Core::Vector3& position ) override;
             inline const Core::Vector3& getPosition() const;
