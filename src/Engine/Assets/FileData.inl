@@ -42,7 +42,7 @@ inline std::vector< HandleData* > FileData::getHandleData() const {
     return list;
 }
 
-inline std::vector< AnimationData* > FileData::getAnimatinData() const {
+inline std::vector< AnimationData* > FileData::getAnimationData() const {
     std::vector< AnimationData* > list;
     list.reserve( m_animationData.size() );
     for( const auto& item : m_animationData ) {

@@ -37,9 +37,9 @@ public:
     inline Scalar getLoadingTime() const;
 
     /// DATA
-    inline std::vector< GeometryData* > getGeometryData() const;
-    inline std::vector< HandleData* > getHandleData() const;
-    inline std::vector< AnimationData* > getAnimatinData() const;
+    inline std::vector<  GeometryData* > getGeometryData() const;
+    inline std::vector<    HandleData* > getHandleData()   const;
+    inline std::vector< AnimationData* > getAnimationData() const;
 
     inline void setVerbose( const bool VERBOSE_MODE );
 
