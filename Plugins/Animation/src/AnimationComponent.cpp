@@ -11,6 +11,11 @@
 #include <Core/Animation/Handle/SkeletonUtils.hpp>
 #include "Drawing/SkeletonBoneDrawable.hpp"
 
+
+
+#include <Engine/Assets/KeyFrame/KeyTransform.hpp>
+#include <Engine/Assets/KeyFrame/KeyPose.hpp>
+
 namespace AnimationPlugin
 {
     void AnimationComponent::initialize()
@@ -232,6 +237,41 @@ namespace AnimationPlugin
         createWeightMatrix( data, indexTable );
 
         initialize();
+    }
+
+
+
+    void AnimationComponent::handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data ) {
+        CORE_ASSERT( ( m_skel.size() != 0 ), "At least a skeleton should be loaded first.");
+        if( data.empty() ) return;
+        std::map< uint, uint > table;
+        std::set< Ra::Asset::Time > keyTime;
+        auto handleAnim = data[0]->getFrames();
+        for( uint i = 0; i < m_skel.size(); ++i ) {
+            for( uint j = 0; j < handleAnim.size(); ++j ) {
+                if( m_skel.getLabel( i ) == handleAnim[j].m_name ) {
+                    table[j] = i;
+                    auto set = handleAnim[j].m_anim.timeSchedule();
+                    keyTime.insert( set.begin(), set.end() );
+                }
+            }
+        }
+
+        Ra::Asset::KeyPose keypose;
+        Ra::Core::Animation::Pose pose = m_skel.m_pose;
+
+        m_animations.clear();
+        m_animations.push_back( Ra::Core::Animation::Animation() );
+        for( const auto& t : keyTime ) {
+            for( const auto& it : table ) {
+                pose[it.second] = ( m_skel.m_graph.isRoot( it.second ) ) ? m_skel.m_pose[it.second] : handleAnim[it.first].m_anim.at( t );
+            }
+            m_animations[0].addKeyPose( pose, t );
+            keypose.insertKeyFrame( t, pose );
+        }
+
+        m_animationTime = 0;
+
     }
 
 

@@ -12,6 +12,7 @@
 #include "AnimationLoader.hpp"
 
 #include <Engine/Assets/HandleData.hpp>
+#include <Engine/Assets/AnimationData.hpp>
 
 namespace AnimationPlugin
 {
@@ -35,6 +36,8 @@ public:
 #define TRY_DEBUG_HANDLES
 #ifdef TRY_DEBUG_HANDLES
     void handleSkeletonLoading( const Ra::Asset::HandleData* data );
+    void handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data );
+
     void createSkeleton( const Ra::Asset::HandleData* data, std::map< uint, uint >& indexTable );
     void addBone( const int parent,
                   const uint dataID,
