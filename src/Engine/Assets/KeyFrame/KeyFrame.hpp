@@ -23,6 +23,7 @@ public:
         return m_time;
     }
 
+    // Is this useful? Can this create problems?
     inline void setAnimationTime( const AnimationTime& time ) {
         m_time = time;
     }
@@ -91,7 +92,7 @@ public:
     inline std::set< Time > timeSchedule() const {
         std::set< Time > time;
         for( const auto& it : m_keyframe ) {
-            time.insert( it->first );
+            time.insert( it.first );
         }
         return time;
     }
@@ -105,10 +106,8 @@ public:
 
     /// OPERATOR
     inline KeyFrame& operator =( const KeyFrame& keyframe ) { m_time = keyframe.m_time; m_keyframe = keyframe.m_keyframe; return *this; }
-//    inline KeyFrame  operator[]( const uint i ) const { return getKeyFrame( i ); }
-//    inline KeyFrame& operator[]( const uint i ) { return getKeyFrame( i ); }
-//    inline KeyFrame  operator[]( const Time& t ) const { return at( t ); }
     inline bool      operator==( const KeyFrame& keyframe ) const { return ( ( m_time == keyframe.m_time ) && ( m_keyframe == keyframe.m_keyframe ) ); }
+    inline bool      operator!=( const KeyFrame& keyframe ) const { return !( *this == keyframe ); }
 
 protected:
     /// TRANSFORMATION
@@ -125,11 +124,17 @@ protected:
             dt = 0.0;
             return;
         }
-        auto lower = m_keyframe.lower_bound( t );
         auto upper = m_keyframe.upper_bound( t );
+        auto lower = upper;
+        --lower;
+
         F0 = lower->second;
         F1 = upper->second;
-        dt = ( t - lower->first ) / ( upper->first - lower->first );
+
+        Time t0 = lower->first;
+        Time t1 = upper->first;
+
+        dt = ( t - t0 ) / ( t1 - t0 );
     }
 
     virtual FRAME interpolate( const FRAME& F0, const FRAME& F1, const Scalar t ) const = 0;
