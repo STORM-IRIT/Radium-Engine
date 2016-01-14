@@ -66,13 +66,10 @@ namespace Ra
             EntityManager*        getEntityManager()        const;
 
         private:
-            bool m_quit;
-
             std::map<std::string, std::shared_ptr<System>> m_systems;
 
             std::unique_ptr<RenderObjectManager> m_renderObjectManager;
             std::unique_ptr<EntityManager>       m_entityManager;
-
         };
 
     } // namespace Engine

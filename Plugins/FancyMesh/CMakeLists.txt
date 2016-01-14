@@ -18,7 +18,7 @@ elseif (UNIX)
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 ${CMAKE_CXX_FLAGS_RELEASE}")
 
   add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
-endif(UNIX)
+endif()
 
 # Visual studio flags breakdown
 # /GR- : no rtti ; /Ehs-c- : no exceptions

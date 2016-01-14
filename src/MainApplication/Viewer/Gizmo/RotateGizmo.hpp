@@ -12,10 +12,10 @@ namespace Ra
             // Draw a frame with : 3 RGB arrows
             RotateGizmo(Engine::Component* c, const Core::Transform& t, Mode mode);
 
-            void updateTransform(const Core::Transform& t) override;
-            void selectConstraint( int drawableIndex ) override;
-            void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY);
-            Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY);
+            virtual void updateTransform(const Core::Transform& t) override;
+            virtual void selectConstraint( int drawableIndex ) override;
+            virtual void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY) override;
+            virtual Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY) override;
         private:
             Core::Vector2 m_initialPix;
             int m_selectedAxis;

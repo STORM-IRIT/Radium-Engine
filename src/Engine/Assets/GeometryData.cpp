@@ -22,8 +22,8 @@ MaterialData::MaterialData() :
 GeometryData::GeometryData( const std::string&  name,
                             const GeometryType& type ) :
     AssetData( name ),
-    m_type( type ),
     m_frame( Core::Transform::Identity() ),
+    m_type( type ),
     m_vertex(),
     m_edge(),
     m_faces(),

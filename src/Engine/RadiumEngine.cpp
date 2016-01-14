@@ -33,7 +33,6 @@ namespace Ra
 	{
 
 		RadiumEngine::RadiumEngine()
-			: m_quit( false )
 		{
 				LOG(logINFO) << "*** Radium Engine ***";
 		}
