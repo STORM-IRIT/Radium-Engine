@@ -82,8 +82,8 @@ void AssimpAnimationDataLoader::fetchTime( const aiAnimation* anim, AnimationDat
         dt = 0.0;
         time.setEnd( duration );
     } else {
-        dt = 1000.0 / tick;
-        time.setEnd( tick * duration );
+        dt = 1.0 / tick;
+        time.setEnd( dt * duration );
     }
     data->setTime( time );
     data->setTimeStep( dt );
@@ -113,7 +113,7 @@ void AssimpAnimationDataLoader::fetchAnimation( const aiAnimation* anim, Animati
     AnimationTime time = data->getTime();
     std::vector< HandleAnimation > keyFrame( size );
     for( uint i = 0; i < size; ++i ) {
-        fetchHandleAnimation( anim->mChannels[i], keyFrame[i] );
+        fetchHandleAnimation( anim->mChannels[i], keyFrame[i], data->getTimeStep() );
         time.merge( keyFrame[i].m_anim.getAnimationTime() );
     }
     data->setFrames( keyFrame );
@@ -124,7 +124,7 @@ void AssimpAnimationDataLoader::fetchAnimation( const aiAnimation* anim, Animati
 
 
 
-void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node, HandleAnimation& data ) const {
+void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node, HandleAnimation& data, const Time dt ) const {
     const uint T_size = node->mNumPositionKeys;
     const uint R_size = node->mNumRotationKeys;
     const uint S_size = node->mNumScalingKeys;
@@ -162,7 +162,7 @@ void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node, HandleAn
     for( const auto& time : keyFrame ) {
         Core::Transform T;
         T.fromPositionOrientationScale( tr.at( time ), rot.at( time ), s.at( time ) );
-        data.m_anim.insertKeyFrame( time, T );
+        data.m_anim.insertKeyFrame( ( ( dt == 0 ) ? time : ( dt * time ) ), T );
     }
 }
 

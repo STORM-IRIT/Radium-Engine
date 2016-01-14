@@ -3,7 +3,7 @@
 
 #include <assimp/mesh.h>
 
-
+#include <Engine/Assets/KeyFrame/AnimationTime.hpp>
 #include <Engine/Assets/DataLoader.hpp>
 
 namespace Ra {
@@ -37,7 +37,7 @@ protected:
     /// KEY FRAME
     void loadAnimationData( const aiScene* scene, std::vector< std::unique_ptr< AnimationData > >& data ) const;
     void fetchAnimation( const aiAnimation* anim, AnimationData* data ) const;
-    void fetchHandleAnimation( aiNodeAnim* node, HandleAnimation& data ) const;
+    void fetchHandleAnimation( aiNodeAnim* node, HandleAnimation& data, const Time dt ) const;
 };
 
 } // namespace Asset
