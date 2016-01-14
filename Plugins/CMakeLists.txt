@@ -1,5 +1,9 @@
 set( RADIUM_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/src" )
-set( RADIUM_LIBRARIES "${CMAKE_SOURCE_DIR}/lib/libradiumCore.so;${CMAKE_SOURCE_DIR}/lib/libradiumEngine.so" )
+if (APPLE)
+    set( RADIUM_LIBRARIES "${CMAKE_SOURCE_DIR}/lib/libradiumCore.dylib;${CMAKE_SOURCE_DIR}/lib/libradiumEngine.dylib" )
+else()
+    set( RADIUM_LIBRARIES "${CMAKE_SOURCE_DIR}/lib/libradiumCore.so;${CMAKE_SOURCE_DIR}/lib/libradiumEngine.so" )
+endif()
 set( PLUGIN_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/Plugins/bin" )
 
 #add_subdirectory( Dummy )

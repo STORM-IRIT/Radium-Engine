@@ -266,7 +266,7 @@ namespace Ra
 #else
         bool isKeyPressed( Key key )
         {
-            LOG( logERROR ) << "isKeyPressed is not implemented for your OS."
+            //LOG( logERROR ) << "isKeyPressed is not implemented for your OS.";
                 return false;
         }
 #endif

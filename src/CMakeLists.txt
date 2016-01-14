@@ -116,7 +116,9 @@ set(app_target radium)
 
 set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})
 
-if( UNIX )
+if( APPLE)
+    set( PLATFORM_LIBS "" )
+elseif( UNIX )
     set( PLATFORM_LIBS X11 xcb )
 else()
     set( PLATFORM_LIBS "" )

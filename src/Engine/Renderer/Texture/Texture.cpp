@@ -29,9 +29,11 @@ namespace Ra
     {
         switch ( bpp )
         {
+#ifndef __APPLE__
             case GL_LUMINANCE:
             // FIXME: Check alpha
             case GL_LUMINANCE_ALPHA:
+#endif
             case GL_RED:
             {
                 m_bytesPerPixel = 1;

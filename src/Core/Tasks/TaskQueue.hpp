@@ -8,6 +8,7 @@
 #include <deque>
 #include <thread>
 #include <mutex>
+#include <string>
 #include <condition_variable>
 
 #include <Core/Time/Timer.hpp>

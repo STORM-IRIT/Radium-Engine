@@ -271,6 +271,7 @@ namespace Ra
                                                 const std::set<std::string>& props,
                                                 const Engine::ShaderConfiguration::ShaderType& type )
     {
+#ifndef __APPLE__
         if ( type & Engine::ShaderConfiguration::COMP_SHADER )
         {
             Engine::ShaderObject* compShader = new Engine::ShaderObject;
@@ -278,6 +279,9 @@ namespace Ra
             m_shaderObjects[COMP_SHADER] = compShader;
             m_shaderStatus[COMP_SHADER] = status;
         }
+#else
+#pragma message("No compute shader on OsX <= El Capitan")
+#endif
     }
 
     void Engine::ShaderProgram::load( const Engine::ShaderConfiguration& shaderConfig )

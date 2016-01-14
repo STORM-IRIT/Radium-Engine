@@ -3,15 +3,22 @@ project(RadiumEngine)
 cmake_minimum_required(VERSION 2.8.11)
 
 #if ("${SSE_VERSION}" STREQUAL "3")
+if (("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"))
+    # No openmp on MacosX Clang (TODO, find better compiler identification)
+    set(CMAKE_CXX_FLAGS                "-Wall -Wextra  -pthread -std=c++11 -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-rtti -fno-exceptions ${CMAKE_CXX_FLAGS}")
+    set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -DOSG_NOTIFY_LEVEL=DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
+    set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -O3 -ffast-math -mfpmath=sse")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 ${CMAKE_CXX_FLAGS_RELEASE}")
 
-if (UNIX)
+    add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
+elseif (UNIX)
   set(CMAKE_CXX_FLAGS                "-Wall -Wextra  -pthread -std=c++11 -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-rtti -fno-exceptions -fopenmp ${CMAKE_CXX_FLAGS}")
   set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -DOSG_NOTIFY_LEVEL=DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
   set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -O3 -ffast-math -mfpmath=sse")
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 ${CMAKE_CXX_FLAGS_RELEASE}")
 
   add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
-endif(UNIX)
+endif()
 
 # Visual studio flags breakdown
 # /GR- : no rtti ; /Ehs-c- : no exceptions
@@ -106,7 +113,13 @@ set( EIGEN_INC ${EXTERNAL_DIR}/Eigen )
 
 # Assimp
 set( ASSIMP_INC ${EXTERNAL_DIR}/Assimp/include )
-if ( UNIX )
+if( APPLE )
+    if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
+        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimpd.dylib" )
+    else()
+        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimp.dylib" )
+    endif()
+elseif ( UNIX )
     if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
         set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimpd.so" )
     else()

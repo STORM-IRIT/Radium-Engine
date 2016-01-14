@@ -15,23 +15,23 @@
 namespace FancyMeshPlugin
 {
 
-    FancyMeshPlugin::~FancyMeshPlugin()
+    FancyMeshPluginC::~FancyMeshPluginC()
     {
     }
 
-    void FancyMeshPlugin::registerPlugin( Ra::Engine::RadiumEngine* engine )
+    void FancyMeshPluginC::registerPlugin( Ra::Engine::RadiumEngine* engine )
     {
         FancyMeshSystem* system = new FancyMeshSystem;
         engine->registerSystem( "FancyMeshSystem", system );
     }
 
-    bool FancyMeshPlugin::doAddWidget( QString &name )
+    bool FancyMeshPluginC::doAddWidget( QString &name )
     {
         name = "Fancy Mesh";
         return true;
     }
 
-    QWidget* FancyMeshPlugin::getWidget()
+    QWidget* FancyMeshPluginC::getWidget()
     {
         QWidget* widget = new QWidget;
 
@@ -45,12 +45,12 @@ namespace FancyMeshPlugin
         return widget;
     }
 
-    bool FancyMeshPlugin::doAddMenu()
+    bool FancyMeshPluginC::doAddMenu()
     {
         return true;
     }
 
-    QMenu* FancyMeshPlugin::getMenu()
+    QMenu* FancyMeshPluginC::getMenu()
     {
         QMenu* menu = new QMenu( "FancyMesh" );
 
