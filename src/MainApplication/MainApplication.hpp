@@ -118,11 +118,4 @@ namespace Ra
     };
 }
 
-/// Macro used to register a system through the auto-generated "systems.cpp" file
-/// See the cmake
-#define RA_REGISTER_SYSTEM_PLUGIN( NAME ) \
-  {\
-  CONCATENATE(NAME,Plugin)::CONCATENATE(NAME,System)* syst  = new CONCATENATE(NAME,Plugin)::CONCATENATE(NAME,System)();\
-  m_engine->registerSystem(STRINGIFY(CONCATENATE(NAME,System)), syst);\
-  }
 
