@@ -19,7 +19,7 @@ public:
     ~DataLoader() { }
 
     /// INTERFACE
-    virtual void loadData( const aiScene* scene, std::vector< std::unique_ptr< DATA > >& data ) const = 0;
+    virtual void loadData( const aiScene* scene, std::vector< std::unique_ptr< DATA > >& data ) = 0;
 
     /// VERBOSE
     inline bool isVerbose() const {

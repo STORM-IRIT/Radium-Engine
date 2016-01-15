@@ -20,7 +20,7 @@ AssimpAnimationDataLoader::AssimpAnimationDataLoader( const bool VERBOSE_MODE ) 
 AssimpAnimationDataLoader::~AssimpAnimationDataLoader() { }
 
 /// LOADING
-void AssimpAnimationDataLoader::loadData( const aiScene* scene, std::vector< std::unique_ptr< AnimationData > >& data ) const {
+void AssimpAnimationDataLoader::loadData( const aiScene* scene, std::vector< std::unique_ptr< AnimationData > >& data ) {
     data.clear();
 
     if( scene == nullptr ) {

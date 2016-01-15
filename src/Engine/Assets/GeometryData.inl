@@ -355,5 +355,6 @@ inline void GeometryData::setMaterial( const MaterialData& material ) {
 }
 
 
+
 } // namespace Asset
 } // namespace Ra

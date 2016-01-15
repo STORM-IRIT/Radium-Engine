@@ -21,7 +21,7 @@ public:
     ~AssimpAnimationDataLoader();
 
     /// LOADING
-    void loadData( const aiScene* scene, std::vector< std::unique_ptr< AnimationData > >& data ) const override;
+    void loadData( const aiScene* scene, std::vector< std::unique_ptr< AnimationData > >& data ) override;
 
 protected:
     /// QUERY

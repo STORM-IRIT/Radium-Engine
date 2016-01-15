@@ -16,7 +16,7 @@ AssimpHandleDataLoader::AssimpHandleDataLoader( const bool VERBOSE_MODE ) : Data
 AssimpHandleDataLoader::~AssimpHandleDataLoader() { }
 
 /// LOAD
-void AssimpHandleDataLoader::loadData( const aiScene* scene, std::vector< std::unique_ptr< HandleData > >& data ) const {
+void AssimpHandleDataLoader::loadData( const aiScene* scene, std::vector< std::unique_ptr< HandleData > >& data ) {
     data.clear();
 
     if( scene == nullptr ) {

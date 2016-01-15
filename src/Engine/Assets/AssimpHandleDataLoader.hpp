@@ -20,7 +20,7 @@ public:
     ~AssimpHandleDataLoader();
 
     /// LOAD
-    void loadData( const aiScene* scene, std::vector< std::unique_ptr< HandleData > >& data ) const override;
+    void loadData( const aiScene* scene, std::vector< std::unique_ptr< HandleData > >& data ) override;
 
 protected:
     /// QUERY

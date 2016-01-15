@@ -11,6 +11,16 @@ namespace Asset {
 
 class GeometryData;
 
+struct Triplet {
+    Triplet( const Core::Vector3& v = Core::Vector3::Zero() );
+
+    Core::Vector3 m_v;
+
+    bool operator==( const Triplet& t ) const;
+
+    bool operator<( const Triplet& t ) const;
+};
+
 class AssimpGeometryDataLoader : public DataLoader< GeometryData > {
 public:
     /// CONSTRUCTOR
@@ -20,7 +30,7 @@ public:
     ~AssimpGeometryDataLoader();
 
     /// LOADING
-    void loadData( const aiScene* scene, std::vector< std::unique_ptr< GeometryData > >& data ) const override;
+    void loadData( const aiScene* scene, std::vector< std::unique_ptr< GeometryData > >& data ) override;
 
 protected:
     /// QUERY
@@ -29,9 +39,9 @@ protected:
     uint sceneGeometrySize( const aiScene* scene ) const;
 
     /// LOADING
-    void loadGeometryData( const aiScene* scene, std::vector< std::unique_ptr< GeometryData > >& data ) const;
+    void loadGeometryData( const aiScene* scene, std::vector< std::unique_ptr< GeometryData > >& data );
 
-    void loadMeshData( const aiMesh& mesh, GeometryData& data ) const;
+    void loadMeshData( const aiMesh& mesh, GeometryData& data );
 
     void loadMeshFrame( const aiNode*                                   node,
                         const Core::Transform&                          parentFrame,
@@ -45,7 +55,7 @@ protected:
     void fetchType( const aiMesh& mesh, GeometryData& data ) const;
 
     /// VERTEX
-    void fetchVertices( const aiMesh& mesh, GeometryData& data ) const;
+    void fetchVertices( const aiMesh& mesh, GeometryData& data );
 
     /// EDGE
     void fetchEdges( const aiMesh& mesh, GeometryData& data ) const;
@@ -76,6 +86,8 @@ protected:
 
 private:
     std::string m_filepath;
+
+    std::map< uint, uint > m_duplicateTable;
 };
 
 } // namespace Asset

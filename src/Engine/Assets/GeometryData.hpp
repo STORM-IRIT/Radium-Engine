@@ -174,8 +174,8 @@ protected:
     Vector4Array  m_texCoord;
     ColorArray    m_color;
 
-    MaterialData                  m_material;
-    bool                          m_hasMaterial;
+    MaterialData m_material;
+    bool         m_hasMaterial;
 };
 
 } // namespace Asset
