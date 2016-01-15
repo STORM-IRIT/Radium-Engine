@@ -3,6 +3,8 @@
 #include <Core/String/StringUtils.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 
+#include <Core/Geometry/Normal/Normal.hpp>
+
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -100,6 +102,15 @@ namespace FancyMeshPlugin
 
             std::shared_ptr<Ra::Engine::Mesh> mesh( new Ra::Engine::Mesh( meshName ) );
 
+
+            m_mesh.clear();
+            for( const auto& v : data->getVertices() ) m_mesh.m_vertices.push_back( data->getFrame() * v );
+            for( const auto& face : data->getFaces() ) {
+                m_mesh.m_triangles.push_back( Ra::Core::Vector3i( face[0], face[1], face[2] ) );
+            }
+            Ra::Core::Geometry::areaWeightedNormal( m_mesh.m_vertices, m_mesh.m_triangles, m_mesh.m_normals );
+
+
             // FIXME(Charly): Find a cleaner way to build geometry
             std::vector<uint> indices;
             for ( const auto& face : data->getFaces() )
@@ -116,14 +127,17 @@ namespace FancyMeshPlugin
             Ra::Core::Vector4Array texcoords;
             Ra::Core::Vector4Array colors;
 
-            for ( const auto& v : data->getVertices() )     positions.push_back( data->getFrame() * v );
-            for ( const auto& v : data->getNormals() )      normals.push_back( data->getFrame().rotation() * v );
+            //for ( const auto& v : data->getVertices() )     positions.push_back( data->getFrame() * v );
+            //for ( const auto& v : data->getNormals() )      normals.push_back( data->getFrame().rotation() * v );
+            positions = m_mesh.m_vertices;
+            normals   = m_mesh.m_normals;
             for ( const auto& v : data->getTangents() )     tangents.push_back( v );
             for ( const auto& v : data->getBiTangents() )   bitangents.push_back( v );
             for ( const auto& v : data->getTexCoords() )    texcoords.push_back( v );
             for ( const auto& v : data->getColors() )       colors.push_back( v );
 
             mesh->loadGeometry( positions, indices );
+
 
             mesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, normals );
             mesh->addData( Ra::Engine::Mesh::VERTEX_TANGENT, tangents );
