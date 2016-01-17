@@ -98,11 +98,11 @@ void ForwardRenderer::initBuffers()
     // Render pass
     m_textures[TEX_DEPTH]  .reset( new Texture( "Depth", GL_TEXTURE_2D ) );
     m_textures[TEX_NORMAL] .reset( new Texture( "Normal", GL_TEXTURE_2D ) );
-    m_textures[TEX_LIGHTED].reset( new Texture( "Color", GL_TEXTURE_2D ) );
+    m_textures[TEX_LIT].reset( new Texture( "Color", GL_TEXTURE_2D ) );
 
     m_secondaryTextures["Depth Texture"]   = m_textures[TEX_DEPTH].get();
     m_secondaryTextures["Normal Texture"]  = m_textures[TEX_NORMAL].get();
-    m_secondaryTextures["Lighted Texture"] = m_textures[TEX_LIGHTED].get();
+    m_secondaryTextures["Lit Texture"] = m_textures[TEX_LIT].get();
 }
 
 void ForwardRenderer::updateStepInternal( const RenderData& renderData )
@@ -354,7 +354,7 @@ void ForwardRenderer::postProcessInternal( const RenderData& renderData )
     GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
 
     m_postprocessShader->bind();
-    m_postprocessShader->setUniform( "renderpassColor", m_textures[TEX_LIGHTED].get(), 0 );
+    m_postprocessShader->setUniform( "renderpassColor", m_textures[TEX_LIT].get(), 0 );
 
     m_quadMesh->render();
 
@@ -373,9 +373,9 @@ void ForwardRenderer::resizeInternal()
     {
         m_textures[TEX_NORMAL]->deleteGL();
     }
-    if ( m_textures[TEX_LIGHTED]->getId() != 0 )
+    if ( m_textures[TEX_LIT]->getId() != 0 )
     {
-        m_textures[TEX_LIGHTED]->deleteGL();
+        m_textures[TEX_LIT]->deleteGL();
     }
 
     m_textures[TEX_DEPTH]->initGL( GL_DEPTH_COMPONENT24, m_width, m_height, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr );
@@ -386,15 +386,15 @@ void ForwardRenderer::resizeInternal()
     m_textures[TEX_NORMAL]->setFilter( GL_LINEAR, GL_LINEAR );
     m_textures[TEX_NORMAL]->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
-    m_textures[TEX_LIGHTED]->initGL( GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr );
-    m_textures[TEX_LIGHTED]->setFilter( GL_LINEAR, GL_LINEAR );
-    m_textures[TEX_LIGHTED]->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
+    m_textures[TEX_LIT]->initGL( GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr );
+    m_textures[TEX_LIT]->setFilter( GL_LINEAR, GL_LINEAR );
+    m_textures[TEX_LIT]->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
     m_fbo->bind();
     m_fbo->setSize( m_width, m_height );
     m_fbo->attachTexture( GL_DEPTH_ATTACHMENT , m_textures[TEX_DEPTH]   .get() );
     m_fbo->attachTexture( GL_COLOR_ATTACHMENT0, m_textures[TEX_NORMAL]  .get() );
-    m_fbo->attachTexture( GL_COLOR_ATTACHMENT1, m_textures[TEX_LIGHTED] .get() );
+    m_fbo->attachTexture( GL_COLOR_ATTACHMENT1, m_textures[TEX_LIT] .get() );
     m_fbo->check();
     m_fbo->unbind( true );
 

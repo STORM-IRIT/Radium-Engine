@@ -34,7 +34,7 @@ namespace Ra
             {
                 TEX_DEPTH = 0,
                 TEX_NORMAL,
-                TEX_LIGHTED,
+                TEX_LIT,
                 TEX_COUNT
             };
 
