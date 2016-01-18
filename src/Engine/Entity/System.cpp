@@ -82,5 +82,12 @@ namespace Ra
             for (System* dependency : m_dependentSystems)
                 dependency->callbackOnComponentCreation(component);
         }
+
+
+        void System::manageDependencyOfComponent() {
+            for( const auto& component : m_components ) {
+                callOnComponentCreationDependencies( component.second.get() );
+            }
+        }
     }
 } // namespace Ra

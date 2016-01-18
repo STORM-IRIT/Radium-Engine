@@ -29,8 +29,8 @@
 
 namespace Ra
 {
-	namespace Engine
-	{
+    namespace Engine
+    {
 
         RadiumEngine::RadiumEngine()
         {
@@ -108,12 +108,10 @@ namespace Ra
             std::string entityName = Core::StringUtils::getBaseName( filename, false );
 
             Entity* entity = m_entityManager->getOrCreateEntity( entityName );
-            
+
             for( auto& system : m_systems ) {
                 system.second->handleAssetLoading( entity, &fileData );
             }
-            //getSystem("FancyMeshSystem")->handleAssetLoading( entity, &fileData );
-
 
 
             return true;
