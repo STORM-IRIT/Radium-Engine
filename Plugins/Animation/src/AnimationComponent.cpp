@@ -16,6 +16,8 @@
 #include <Engine/Assets/KeyFrame/KeyTransform.hpp>
 #include <Engine/Assets/KeyFrame/KeyPose.hpp>
 
+#include <Core/Animation/Handle/HandleWeightOperation.hpp>
+
 namespace AnimationPlugin
 {
     void AnimationComponent::initialize()
@@ -219,7 +221,7 @@ namespace AnimationPlugin
 
 
 
-    void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* data ) {
+    void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable ) {
         std::string name( m_name );
         name.append( "_" + data->getName() );
 
@@ -228,13 +230,13 @@ namespace AnimationPlugin
 
         m_skel.setName( name );
 
-
         std::map< uint, uint > indexTable;
         createSkeleton( data, indexTable );
 
-        Ra::Core::Animation::SkeletonUtils::to_string( m_skel );
+        //Ra::Core::Animation::SkeletonUtils::to_string( m_skel );
 
-        createWeightMatrix( data, indexTable );
+        createWeightMatrix( data, indexTable, duplicateTable );
+        m_refPose = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL);
 
         initialize();
     }
@@ -315,19 +317,32 @@ namespace AnimationPlugin
         }
     }
 
-    void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable ) {
-        m_weights.resize( data->getVertexSize(), data->getComponentDataSize() );
+    void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable ) {
+        // Bad bad bad hack
+        // Fails eventually with a 1 vertex mesh
+        uint vertexSize = 0;
+        for( const auto& item : duplicateTable ) {
+            if( item.second > vertexSize ) {
+                vertexSize = ( item.second > vertexSize ) ? item.second : vertexSize;
+            }
+        }
+        vertexSize++;
+        m_weights.resize( vertexSize, data->getComponentDataSize() );
+
+        //m_weights.resize( data->getVertexSize(), data->getComponentDataSize() );
         m_weights.setZero();
         for( const auto& it : indexTable ) {
             const uint idx = it.first;
             const uint col = it.second;
             const uint size = data->getComponent( idx ).m_weight.size();
             for( uint i = 0; i < size; ++i ) {
-                const uint   row = data->getComponent( idx ).m_weight[i].first;
+                const uint   row = duplicateTable.at( data->getComponent( idx ).m_weight[i].first );
                 const Scalar w   = data->getComponent( idx ).m_weight[i].second;
                 m_weights.coeffRef( row, col ) = w;
             }
         }
+
+        Ra::Core::Animation::checkWeightMatrix( m_weights, false );
     }
 
 

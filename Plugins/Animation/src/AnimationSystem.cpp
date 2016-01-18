@@ -16,6 +16,9 @@
 #include <Engine/Assets/FileData.hpp>
 #include <Engine/Assets/HandleData.hpp>
 
+
+#include <Plugins/Implicit/ImplicitComponent.hpp>
+
 namespace AnimationPlugin
 {
     void AnimationSystem::initialize()
@@ -105,6 +108,13 @@ namespace AnimationPlugin
         //std::cout << "Mesh component received by the Animation system" << std::endl;
         FancyMeshPlugin::FancyMeshComponent* meshComponent = (FancyMeshPlugin::FancyMeshComponent*) component;
 
+        for( auto& comp : m_components ) {
+            AnimationComponent* animationComponent = static_cast<AnimationComponent*>( comp.second.get() );
+            animationComponent->setMeshComponent(meshComponent);
+        }
+
+
+        //animationComponent->setMeshComponent(meshComponent);
         /*
         AnimationLoader::AnimationData componentData = AnimationLoader::loadFile(meshComponent->getLoadingInfo().filename, meshComponent->getLoadingInfo());
         if (componentData.hasLoaded)
@@ -121,16 +131,30 @@ namespace AnimationPlugin
     void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData ) {
         // FIXME(Charly): Does not compile
 #if 1
+        auto geomData = fileData->getGeometryData();
         auto skelData = fileData->getHandleData();
         auto animData = fileData->getAnimationData();
 
         // FIXME(Charly): One component of a given type by entity ?
         for ( const auto& skel : skelData )
         {
+            uint geomID = uint(-1);
+            for( uint i = 0; i < geomData.size(); ++i ) {
+                if( skel->getName() == geomData[i]->getName() ) {
+                    geomID = i;
+                }
+            }
+
+
             // FIXME(Charly): Certainly not the best way to do this
             AnimationComponent* component = static_cast<AnimationComponent*>(addComponentToEntity(entity));
-            component->handleSkeletonLoading( skel );
+            component->handleSkeletonLoading( skel, ( geomID == uint( -1 ) ) ? std::map< uint, uint >() : geomData[geomID]->getDuplicateTable() );
             component->handleAnimationLoading( animData );
+
+            //ImplicitPlugin::ImplicitComponent* implicitComponent = static_cast<ImplicitPlugin::ImplicitComponent*>(addComponentToEntity(entity));
+            //implicitComponent->setAnimationComponent(component);
+
+
         }
 #endif
 =======

@@ -35,7 +35,7 @@ public:
 
 #define TRY_DEBUG_HANDLES
 #ifdef TRY_DEBUG_HANDLES
-    void handleSkeletonLoading( const Ra::Asset::HandleData* data );
+    void handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable );
     void handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data );
 
     void createSkeleton( const Ra::Asset::HandleData* data, std::map< uint, uint >& indexTable );
@@ -45,7 +45,7 @@ public:
                   const std::vector< Ra::Core::Vector2i >& edgeList,
                   std::vector< bool >& processed,
                   std::map< uint, uint >& indexTable );
-    void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable );
+    void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable );
 #endif
     //
     // Editable interface
