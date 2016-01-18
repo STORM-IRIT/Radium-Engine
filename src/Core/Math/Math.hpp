@@ -25,7 +25,7 @@ namespace Ra
             constexpr Scalar toDeg  = Scalar( 180.0 * InvPi );
 
             constexpr Scalar machineEps = std::numeric_limits<Scalar>::epsilon();
-            constexpr Scalar dummyEps = Scalar(1e-5);
+            constexpr Scalar dummyEps   = Scalar(1e-5);
 
             /// Useful functions
 

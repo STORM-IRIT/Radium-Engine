@@ -2,7 +2,6 @@
 #define RADIUMENGINE_GRID_HPP
 #include <Core/RaCore.hpp>
 #include <Eigen/Core>
-#include <Core/Containers/Grid2_ref.hpp>
 
 namespace Ra
 {

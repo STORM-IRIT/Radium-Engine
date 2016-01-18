@@ -120,6 +120,7 @@ namespace Ra
 
                 // Allocators should throw std::bad_alloc in the case of memory allocation failure.
                 CORE_ASSERT( pv != NULL, " Bad alloc" );
+                CORE_ASSERT( (reinterpret_cast<std::size_t>(pv) & (Alignment - 1)) == 0, "Alignment constraint not satisfied" );
 
                 return static_cast<T*>( pv );
             }
@@ -146,7 +147,7 @@ namespace Ra
             // base class assignment operator is inaccessible" within
             // the STL headers, but that warning is useless.
         private:
-            AlignedAllocator& operator= ( const AlignedAllocator& );
+            AlignedAllocator& operator= ( const AlignedAllocator&) = delete;
         };
 
     }
