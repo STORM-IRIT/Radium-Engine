@@ -86,8 +86,6 @@ protected:
 
 private:
     std::string m_filepath;
-
-    std::map< uint, uint > m_duplicateTable;
 };
 
 } // namespace Asset

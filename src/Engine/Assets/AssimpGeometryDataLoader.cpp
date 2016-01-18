@@ -199,6 +199,7 @@ void AssimpGeometryDataLoader::fetchVertices( const aiMesh& mesh, GeometryData& 
 #else
     std::vector< Core::Vector3 > vertex;
     std::map< Triplet, uint > uniqueTable;
+    data.m_duplicateTable.clear();
     for( uint i = 0; i < size; ++i ) {
         const Core::Vector3 v = assimpToCore( mesh.mVertices[i] );
         const Triplet t( v );
@@ -206,9 +207,9 @@ void AssimpGeometryDataLoader::fetchVertices( const aiMesh& mesh, GeometryData& 
         if( it == uniqueTable.end() ) {
             vertex.push_back( v );
             uniqueTable[t]      = vertex.size() - 1;
-            m_duplicateTable[i] = vertex.size() - 1;
+            data.m_duplicateTable[i] = vertex.size() - 1;
         } else {
-            m_duplicateTable[i] = it->second;
+            data.m_duplicateTable[i] = it->second;
         }
     }
 #endif
@@ -222,8 +223,8 @@ void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, GeometryData& dat
 #pragma omp parallel for
     for( uint i = 0; i < size; ++i ) {
         edge[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices );
-        edge[i][0] = m_duplicateTable.at( edge[i][0] );
-        edge[i][1] = m_duplicateTable.at( edge[i][1] );
+        edge[i][0] = data.m_duplicateTable.at( edge[i][0] );
+        edge[i][1] = data.m_duplicateTable.at( edge[i][1] );
     }
     data.setEdges( edge );
 }
@@ -236,7 +237,7 @@ void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, GeometryData& dat
         face[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices );
         const uint face_vertices = mesh.mFaces[i].mNumIndices;
         for( uint j = 0; j < face_vertices; ++j ) {
-            face[i][j] = m_duplicateTable.at( face[i][j] );
+            face[i][j] = data.m_duplicateTable.at( face[i][j] );
         }
     }
     data.setFaces( face );
@@ -251,7 +252,7 @@ void AssimpGeometryDataLoader::fetchNormals( const aiMesh& mesh, GeometryData& d
     std::vector< Core::Vector3 > normal( data.getVerticesSize(), Core::Vector3::Zero() );
 #pragma omp parallel for
     for( uint i = 0; i < size; ++i ) {
-        normal.at( m_duplicateTable.at( i ) ) += assimpToCore( mesh.mNormals[i] );
+        normal.at( data.m_duplicateTable.at( i ) ) += assimpToCore( mesh.mNormals[i] );
     }
 #pragma omp parallel for
     for( uint i = 0; i < normal.size(); ++i ) {

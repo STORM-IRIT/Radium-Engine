@@ -115,6 +115,10 @@ inline const MaterialData& GeometryData::getMaterial() const
     return m_material;
 }
 
+inline const std::map< uint, uint >& GeometryData::getDuplicateTable() const {
+    return m_duplicateTable;
+}
+
 /// QUERY
 inline bool GeometryData::isPointCloud() const {
     return ( m_type == POINT_CLOUD );
@@ -198,17 +202,18 @@ inline void GeometryData::displayInfo() const {
         case HEX_MESH    : type = "HEX MESH";      break;
     }
     LOG( logDEBUG ) << "======== MESH INFO ========";
-    LOG( logDEBUG ) << " Name         : " << m_name;
-    LOG( logDEBUG ) << " Type         : " << type;
-    LOG( logDEBUG ) << " Vertex #     : " << m_vertex.size();
-    LOG( logDEBUG ) << " Edge #       : " << m_edge.size();
-    LOG( logDEBUG ) << " Face #       : " << m_faces.size();
-    LOG( logDEBUG ) << " Normal ?     : " << ( ( m_normal.empty()    ) ? "NO" : "YES" );
-    LOG( logDEBUG ) << " Tangent ?    : " << ( ( m_tangent.empty()   ) ? "NO" : "YES" );
-    LOG( logDEBUG ) << " Bitangent ?  : " << ( ( m_bitangent.empty() ) ? "NO" : "YES" );
-    LOG( logDEBUG ) << " Tex.Coord. ? : " << ( ( m_texCoord.empty()  ) ? "NO" : "YES" );
-    LOG( logDEBUG ) << " Color ?      : " << ( ( m_color.empty()     ) ? "NO" : "YES" );
-    LOG( logDEBUG ) << " Material ?   : " << ( ( !m_hasMaterial      ) ? "NO" : "YES" );
+    LOG( logDEBUG ) << " Name           : " << m_name;
+    LOG( logDEBUG ) << " Type           : " << type;
+    LOG( logDEBUG ) << " Vertex #       : " << m_vertex.size();
+    LOG( logDEBUG ) << " Edge #         : " << m_edge.size();
+    LOG( logDEBUG ) << " Face #         : " << m_faces.size();
+    LOG( logDEBUG ) << " Normal ?       : " << ( ( m_normal.empty()    ) ? "NO" : "YES" );
+    LOG( logDEBUG ) << " Tangent ?      : " << ( ( m_tangent.empty()   ) ? "NO" : "YES" );
+    LOG( logDEBUG ) << " Bitangent ?    : " << ( ( m_bitangent.empty() ) ? "NO" : "YES" );
+    LOG( logDEBUG ) << " Tex.Coord. ?   : " << ( ( m_texCoord.empty()  ) ? "NO" : "YES" );
+    LOG( logDEBUG ) << " Color ?        : " << ( ( m_color.empty()     ) ? "NO" : "YES" );
+    LOG( logDEBUG ) << " Material ?     : " << ( ( !m_hasMaterial      ) ? "NO" : "YES" );
+    LOG( logDEBUG ) << " Has Dup. Vert. : " << ( ( m_duplicateTable.size() == m_vertex.size() ) ? "NO" : "YES" );
 
     if( m_hasMaterial ) {
         std::string kd;
@@ -352,6 +357,11 @@ inline void GeometryData::setColors( const std::vector< Core::Color >& colorList
 inline void GeometryData::setMaterial( const MaterialData& material ) {
     m_material = material;
     m_hasMaterial = true;
+}
+
+/// DUPLICATE
+inline void GeometryData::setDuplicateTable( const std::map< uint, uint >& table ) {
+    m_duplicateTable = table;
 }
 
 

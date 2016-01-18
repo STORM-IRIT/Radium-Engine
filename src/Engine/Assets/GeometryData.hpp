@@ -96,6 +96,8 @@ public:
     inline const ColorArray   & getColors()     const;
     inline const MaterialData & getMaterial()   const;
 
+    inline const std::map< uint, uint >& getDuplicateTable() const;
+
     /// QUERY
     inline bool isPointCloud() const;
     inline bool isLineMesh() const;
@@ -158,6 +160,9 @@ protected:
     /// MATERIAL
     inline void setMaterial( const MaterialData& material );
 
+    /// DUPLICATE
+    inline void setDuplicateTable( const std::map< uint, uint >& table );
+
 protected:
     /// VARIABLE
     //std::string     m_name;
@@ -176,6 +181,8 @@ protected:
 
     MaterialData m_material;
     bool         m_hasMaterial;
+
+    std::map< uint, uint > m_duplicateTable;
 };
 
 } // namespace Asset
