@@ -110,7 +110,7 @@ namespace FancyMeshPlugin
         for( const auto& face : data->getFaces() ) {
             m_mesh.m_triangles.push_back( Ra::Core::Vector3i( face[0], face[1], face[2] ) );
         }
-        Ra::Core::Geometry::areaWeightedNormal( m_mesh.m_vertices, m_mesh.m_triangles, m_mesh.m_normals );
+        Ra::Core::Geometry::uniformNormal( m_mesh.m_vertices, m_mesh.m_triangles, m_mesh.m_normals );
 
 
         // FIXME(Charly): Find a cleaner way to build geometry
@@ -176,11 +176,11 @@ namespace FancyMeshPlugin
         if ( m.hasDiffuse() )   mat->setKd( m.m_diffuse );
         if ( m.hasSpecular() )  mat->setKs( m.m_specular );
         if ( m.hasShininess() ) mat->setNs( m.m_shininess );
-        if ( m.hasDiffuseTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_DIFFUSE, m.m_texDiffuse );
-        if ( m.hasSpecularTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_SPECULAR, m.m_texSpecular );
-        if ( m.hasShininessTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_SHININESS, m.m_texShininess );
-        if ( m.hasOpacityTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_ALPHA, m.m_texOpacity );
-        if ( m.hasNormalTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_NORMAL, m.m_texNormal );
+        //if ( m.hasDiffuseTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_DIFFUSE, m.m_texDiffuse );
+        //if ( m.hasSpecularTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_SPECULAR, m.m_texSpecular );
+        //if ( m.hasShininessTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_SHININESS, m.m_texShininess );
+        //if ( m.hasOpacityTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_ALPHA, m.m_texOpacity );
+        //if ( m.hasNormalTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_NORMAL, m.m_texNormal );
 
         rt->material = mat;
         rt->shaderConfig = Ra::Engine::ShaderConfiguration( "BlinnPhong", "../Shaders" );
