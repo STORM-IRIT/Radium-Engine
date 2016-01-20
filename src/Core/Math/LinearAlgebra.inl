@@ -1,9 +1,23 @@
 #include <Core/Math/LinearAlgebra.hpp>
 
+#include <Eigen/Core>
+#include <iostream>
+
 namespace Ra
 {
     namespace Core
     {
+
+        inline void print( const MatrixN& matrix ) {
+            // Taken straight from :
+            // http://eigen.tuxfamily.org/dox/structEigen_1_1IOFormat.html
+
+            std::cout << "Matrix rows : " << matrix.rows() << std::endl;
+            std::cout << "Matrix cols : " << matrix.cols() << std::endl;
+            Eigen::IOFormat cleanFormat( 4, 0, ", ", "\n", "[", "]" );
+            std::cout << matrix.format( cleanFormat ) << std::endl;
+        }
+
         //
         // Vector functions.
         //
