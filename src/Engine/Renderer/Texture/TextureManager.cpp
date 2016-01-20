@@ -56,8 +56,6 @@ namespace Ra
                 // Still unknown
                 std::string error = "Cannot determine " + filename + " image format.";
                 LOG( logERROR ) << error;
-                CORE_ASSERT( 0, error.c_str() );
-
                 return nullptr;
             }
 
@@ -67,7 +65,6 @@ namespace Ra
             }
 
             std::string error = "Something went wrong while trying to load " + filename + ".";
-            //CORE_ASSERT(dib, error.c_str());
 
             if ( nullptr == dib )
             {
@@ -189,14 +186,14 @@ namespace Ra
             {
                 return;
             }
-            
+
             for ( auto& data : m_pendingData )
             {
                 m_textures[data.first]->updateData( data.second );
             }
             m_pendingData.clear();
         }
-        
-        RA_SINGLETON_IMPLEMENTATION(TextureManager);  
+
+        RA_SINGLETON_IMPLEMENTATION(TextureManager);
     }
 } // namespace Ra

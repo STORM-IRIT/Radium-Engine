@@ -94,8 +94,7 @@ namespace Ra
         {
             if (m_selectedAxis >= 0)
             {
-
-                const Core::Vector3 origin = m_transform.translation();
+                const Core::Vector3 origin =  m_transform.translation();
                 Core::Vector3 rotationAxis = Core::Vector3::Unit(m_selectedAxis);
                 if (m_mode == LOCAL)
                 {
@@ -106,14 +105,14 @@ namespace Ra
                 std::vector<Scalar> hits1, hits2;
                 Core::Ray rayToFirstClick  = cam.getRayFromScreen(m_initialPix);
                 Core::Ray rayToCurrentClick = cam.getRayFromScreen(nextXY);
-                bool hit1 = Core::RayCast::vsPlane(rayToFirstClick, origin, m_worldTo * rotationAxis, hits1);
-                bool hit2 = Core::RayCast::vsPlane(rayToCurrentClick, origin, m_worldTo * rotationAxis, hits2);
+                bool hit1 = Core::RayCast::vsPlane(rayToFirstClick,   m_worldTo * origin, m_worldTo * rotationAxis, hits1);
+                bool hit2 = Core::RayCast::vsPlane(rayToCurrentClick, m_worldTo * origin, m_worldTo * rotationAxis, hits2);
 
                 if (hit1 && hit2)
                 {
                     // Do the calculations relative to the circle center.
-                    const Core::Vector3 originalHit = rayToFirstClick.at(hits1[0]) - origin;
-                    const Core::Vector3 currentHit = rayToCurrentClick.at(hits2[0]) - origin;
+                    const Core::Vector3 originalHit = rayToFirstClick.at(hits1[0]) - m_worldTo * origin;
+                    const Core::Vector3 currentHit = rayToCurrentClick.at(hits2[0]) - m_worldTo * origin;
 
                     // Get the angle between the two vectors with the correct sign
                     // (since we already know our current rotation axis).

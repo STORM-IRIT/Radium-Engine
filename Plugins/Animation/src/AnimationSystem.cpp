@@ -104,14 +104,22 @@ namespace AnimationPlugin
 
     void AnimationSystem::callbackOnComponentCreation(const Ra::Engine::Component *component)
     {
-<<<<<<< HEAD:src/Plugins/Animation/AnimationSystem.cpp
         //std::cout << "Mesh component received by the Animation system" << std::endl;
         FancyMeshPlugin::FancyMeshComponent* meshComponent = (FancyMeshPlugin::FancyMeshComponent*) component;
 
+        std::string fancy_name = meshComponent->getName();
+        fancy_name = fancy_name.substr( ( fancy_name.find("|") + 1 ), std::string::npos );
+
+        AnimationComponent* animationComponent;
         for( auto& comp : m_components ) {
-            AnimationComponent* animationComponent = static_cast<AnimationComponent*>( comp.second.get() );
-            animationComponent->setMeshComponent(meshComponent);
+            std::string anim_name = comp.second.get()->getName();
+            anim_name = anim_name.substr( ( anim_name.find("|") + 1 ), std::string::npos );
+            if( fancy_name == anim_name ) {
+                animationComponent = static_cast<AnimationComponent*>( comp.second.get() );
+                break;
+            }
         }
+        animationComponent->setMeshComponent(meshComponent);
 
 
         //animationComponent->setMeshComponent(meshComponent);
@@ -157,7 +165,5 @@ namespace AnimationPlugin
 
         }
 #endif
-=======
->>>>>>> dummyplugin:Plugins/Animation/src/AnimationSystem.cpp
     }
 }

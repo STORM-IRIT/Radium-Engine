@@ -230,6 +230,8 @@ namespace AnimationPlugin
 
         m_skel.setName( name );
 
+        m_name = m_name + "|" + data->getName();
+
         std::map< uint, uint > indexTable;
         createSkeleton( data, indexTable );
 
@@ -330,7 +332,7 @@ namespace AnimationPlugin
         m_weights.resize( vertexSize, data->getComponentDataSize() );
 
         //m_weights.resize( data->getVertexSize(), data->getComponentDataSize() );
-        m_weights.setZero();
+        //m_weights.setZero();
         for( const auto& it : indexTable ) {
             const uint idx = it.first;
             const uint col = it.second;

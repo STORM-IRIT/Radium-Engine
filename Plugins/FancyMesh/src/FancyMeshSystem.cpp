@@ -31,9 +31,13 @@ namespace FancyMeshPlugin
 
     void FancyMeshSystem::handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData )
     {
-        // FIXME(Charly): One component of a given type by entity ?
-        FancyMeshComponent* component = static_cast<FancyMeshComponent*>(addComponentToEntity(entity));
-        component->handleMeshLoading( fileData );
+        auto geomData = fileData->getGeometryData();
+
+        for( const auto& data : geomData ) {
+            // FIXME(Charly): One component of a given type by entity ?
+            FancyMeshComponent* component = static_cast<FancyMeshComponent*>(addComponentToEntity(entity));
+            component->handleMeshLoading( data );
+        }
     }
 
     Ra::Engine::Component* FancyMeshSystem::addComponentToEntityInternal( Ra::Engine::Entity* entity, uint id )

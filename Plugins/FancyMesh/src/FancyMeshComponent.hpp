@@ -18,7 +18,7 @@ namespace Ra
 
     namespace Asset
     {
-        class FileData;
+        class GeometryData;
     }
 }
 
@@ -38,7 +38,7 @@ namespace FancyMeshPlugin
         void addMeshRenderObject( const Ra::Core::TriangleMesh& mesh, const std::string& name,
                                   Ra::Engine::RenderTechnique* technique );
 
-        void handleMeshLoading( const Ra::Asset::FileData* fileData );
+        void handleMeshLoading( const Ra::Asset::GeometryData* data );
         
         Ra::Core::Index getMeshIndex() const;
         Ra::Core::TriangleMesh getMesh() const;
