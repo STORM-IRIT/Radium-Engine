@@ -10,12 +10,12 @@ namespace Ra
         {
         public:
             // Draw a frame with : 3 RGB arrows
-            TranslateGizmo(Engine::Component* c, const Core::Transform& t, Mode mode);
+            TranslateGizmo(Engine::Component* c, const Core::Transform& worldTo, const Core::Transform& t, Mode mode);
 
-            virtual void updateTransform(const Core::Transform& t) override;
+            virtual void updateTransform(const Core::Transform& worldTo, const Core::Transform& t) override;
             virtual void selectConstraint( int drawableIndex ) override;
-            virtual void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY) override;
-            virtual Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY) override;
+            virtual void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY);
+            virtual Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY);
         private:
             Core::Vector2 m_initialPix;
             int m_selectedAxis;

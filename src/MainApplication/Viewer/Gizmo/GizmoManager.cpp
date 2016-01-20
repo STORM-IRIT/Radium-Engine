@@ -40,12 +40,12 @@ namespace Ra
                     case TRANSLATION:
                     {
                         // FIXME DebugCMP
-                        m_currentGizmo.reset(new TranslateGizmo(Engine::SystemEntity::uiCmp(), m_transform, m_mode));
+                        m_currentGizmo.reset(new TranslateGizmo(Engine::SystemEntity::uiCmp(), m_currentEdit->getWorldTransform(), m_transform, m_mode));
                         break;
                     }
                     case ROTATION:
                     {
-                        m_currentGizmo.reset(new RotateGizmo(Engine::SystemEntity::uiCmp(), m_transform, m_mode));
+                        m_currentGizmo.reset(new RotateGizmo(Engine::SystemEntity::uiCmp(), m_currentEdit->getWorldTransform(), m_transform, m_mode));
                         break;
                     }
                     case SCALE:
@@ -66,6 +66,7 @@ namespace Ra
             spawnGizmo();
         }
 
+        // Todo (val) : this method is common with the transform edit widget and should be factored.
         void GizmoManager::getTransform()
         {
             if (m_currentEdit)
@@ -85,7 +86,7 @@ namespace Ra
                 {
                     m_transformProperty = props[transformFound];
                     Core::Transform transform = Core::Transform::Identity();
-                    // Grab translation.
+                    // Grab translation and rotation..
                     for (const auto& p : m_transformProperty.primitives)
                     {
                         if (p.primitive.getType() == Engine::EditablePrimitive::POSITION)
@@ -108,22 +109,23 @@ namespace Ra
             getTransform();
             if(m_currentGizmo)
             {
-                m_currentGizmo->updateTransform(m_transform);
+                m_currentGizmo->updateTransform(m_currentEdit->getWorldTransform(), m_transform);
             }
         }
 
         bool GizmoManager::handleMousePressEvent(QMouseEvent* event)
         {
-            //Core::Ray r = >getRayFromScreen(x,y);
-
             if( event->button() != Qt::LeftButton || !m_currentEdit || m_currentGizmoType == NONE)
             {
                 return false;
             }
+            // If we are there it means that we should have a valid gizmo.
             CORE_ASSERT(m_currentGizmo, "Gizmo is not there !");
 
+            // Access the camera from the viewer. (TODO : a cleaner way to access the camera).
             const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
             m_currentGizmo->setInitialState(cam, Core::Vector2(event->x(), event->y()));
+
             // Picking query is done in the viewer.
 
             return true;

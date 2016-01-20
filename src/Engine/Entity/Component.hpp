@@ -80,6 +80,9 @@ namespace Ra
             /// Tell the component to take the new property value into account.
             virtual void setProperty( const EditableProperty& newProp ) override {};
 
+            /// Return the parent entity's transform.
+            virtual Core::Transform getWorldTransform() const override;
+
         protected:
             /// Shortcut to access the render object manager.
             static RenderObjectManager* getRoMgr();

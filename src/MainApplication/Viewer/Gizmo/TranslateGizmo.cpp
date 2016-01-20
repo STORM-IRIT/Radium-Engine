@@ -15,8 +15,8 @@ namespace Ra
 {
     namespace Gui
     {
-        TranslateGizmo::TranslateGizmo(Engine::Component* c, const Core::Transform& t, Mode mode)
-                : Gizmo(c, t, mode), m_initialPix(Core::Vector2::Zero()), m_selectedAxis(-1)
+        TranslateGizmo::TranslateGizmo(Engine::Component* c, const Core::Transform &worldTo, const Core::Transform& t, Mode mode)
+                : Gizmo(c, worldTo, t, mode), m_initialPix(Core::Vector2::Zero()), m_selectedAxis(-1)
         {
             constexpr Scalar arrowScale = 0.2f;
             constexpr Scalar axisWidth = 0.05f;
@@ -57,15 +57,16 @@ namespace Ra
                 arrowDrawable->setRenderTechnique(rt);
                 arrowDrawable->setMesh( mesh );
 
-                updateTransform(m_transform);
+                updateTransform(m_worldTo, m_transform);
 
                 m_renderObjects.push_back(m_comp->addRenderObject(arrowDrawable));
 
             }
         }
 
-        void TranslateGizmo::updateTransform(const Core::Transform& t)
+        void TranslateGizmo::updateTransform(const Core::Transform &worldTo, const Core::Transform& t)
         {
+            m_worldTo = worldTo;
             m_transform = t;
             Core::Transform displayTransform = Core::Transform::Identity();
             if (m_mode == LOCAL)
@@ -80,7 +81,7 @@ namespace Ra
             for (auto roIdx : m_renderObjects)
             {
                 Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(
-                        roIdx)->setLocalTransform(displayTransform);
+                        roIdx)->setLocalTransform( m_worldTo * displayTransform);
             }
         }
 

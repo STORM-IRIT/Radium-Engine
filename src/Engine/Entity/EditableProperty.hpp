@@ -61,6 +61,10 @@ namespace Ra
             /// Change the value of one property.
             virtual void setProperty( const EditableProperty& prop ) = 0;
 
+            /// If an Editable offers geometric properties to be edited, they can be in
+            /// local coordinates, so this gives the from global to local.
+            virtual Core::Transform getWorldTransform() const { return Core::Transform::Identity(); }
+
             /// Notify the editable which drawable has been picked.
             virtual bool picked( uint drawableIdx ) const { return false ;}
         };

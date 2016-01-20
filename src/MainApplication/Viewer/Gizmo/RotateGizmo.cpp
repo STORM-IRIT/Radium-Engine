@@ -14,8 +14,8 @@ namespace Ra
 {
     namespace Gui
     {
-        RotateGizmo::RotateGizmo(Engine::Component* c, const Core::Transform& t, Mode mode)
-                : Gizmo(c, t, mode), m_initialPix(Core::Vector2::Zero()), m_selectedAxis(-1)
+        RotateGizmo::RotateGizmo(Engine::Component* c, const Core::Transform &worldTo, const Core::Transform& t, Mode mode)
+                : Gizmo(c, worldTo, t, mode), m_initialPix(Core::Vector2::Zero()), m_selectedAxis(-1)
         {
             constexpr Scalar torusOutRadius = 0.1f;
             constexpr Scalar torusAspectRatio = 0.1f;
@@ -49,15 +49,16 @@ namespace Ra
                 arrowDrawable->setRenderTechnique(rt);
                 arrowDrawable->setMesh( mesh );
 
-                updateTransform(m_transform);
+                updateTransform(m_worldTo, m_transform);
 
                 m_renderObjects.push_back(m_comp->addRenderObject(arrowDrawable));
 
             }
         }
 
-        void RotateGizmo::updateTransform(const Core::Transform& t)
+        void RotateGizmo::updateTransform(const Core::Transform& worldTo, const Core::Transform& t)
         {
+            m_worldTo = worldTo;
             m_transform = t;
             Core::Transform displayTransform = Core::Transform::Identity();
             if (m_mode == LOCAL)
@@ -72,7 +73,7 @@ namespace Ra
             for (auto roIdx : m_renderObjects)
             {
                 Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(
-                        roIdx)->setLocalTransform(displayTransform);
+                        roIdx)->setLocalTransform(m_worldTo * displayTransform);
             }
         }
 
@@ -105,8 +106,8 @@ namespace Ra
                 std::vector<Scalar> hits1, hits2;
                 Core::Ray rayToFirstClick  = cam.getRayFromScreen(m_initialPix);
                 Core::Ray rayToCurrentClick = cam.getRayFromScreen(nextXY);
-                bool hit1 = Core::RayCast::vsPlane(rayToFirstClick, origin, rotationAxis, hits1);
-                bool hit2 = Core::RayCast::vsPlane(rayToCurrentClick, origin, rotationAxis, hits2);
+                bool hit1 = Core::RayCast::vsPlane(rayToFirstClick, origin, m_worldTo * rotationAxis, hits1);
+                bool hit2 = Core::RayCast::vsPlane(rayToCurrentClick, origin, m_worldTo * rotationAxis, hits2);
 
                 if (hit1 && hit2)
                 {
@@ -119,7 +120,7 @@ namespace Ra
                     auto c = originalHit.cross(currentHit);
                     Scalar d = originalHit.dot(currentHit);
 
-                    Scalar angle = Core::Math::sign(c.dot(rotationAxis)) * std::atan2(c.norm(),d);
+                    Scalar angle = Core::Math::sign(c.dot(m_worldTo * rotationAxis)) * std::atan2(c.norm(),d);
 
                     // Apply rotation.
                     auto newRot = Core::AngleAxis(angle, rotationAxis) * m_transform.rotation();

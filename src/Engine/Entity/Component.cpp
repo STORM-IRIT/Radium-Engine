@@ -46,5 +46,10 @@ namespace Ra
             }
         }
 
+        Core::Transform Component::getWorldTransform() const
+        {
+           return getEntity()->getTransform();
+        }
+
     }
 } // namespace Ra
