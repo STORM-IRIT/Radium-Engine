@@ -30,7 +30,7 @@ inline uint HandleData::getComponentDataSize() const {
     return m_component.size();
 }
 
-inline std::vector<HandleComponentData> HandleData::getComponentData() const {
+inline Core::AlignedStdVector<HandleComponentData> HandleData::getComponentData() const {
     return m_component;
 }
 
@@ -38,11 +38,11 @@ inline HandleComponentData HandleData::getComponent( const uint i ) const {
     return m_component.at( i );
 }
 
-inline std::vector<Core::Vector2i> HandleData::getEdgeData() const {
+inline Core::AlignedStdVector<Core::Vector2i> HandleData::getEdgeData() const {
     return m_edge;
 }
 
-inline std::vector<Core::VectorNi> HandleData::getFaceData() const {
+inline Core::AlignedStdVector<Core::VectorNi> HandleData::getFaceData() const {
     return m_face;
 }
 
@@ -130,7 +130,7 @@ inline void HandleData::setNameTable( const std::map< std::string, uint >& nameT
 }
 
 /// COMPONENT
-inline void HandleData::setComponents( const std::vector< HandleComponentData >& components ) {
+inline void HandleData::setComponents( const Core::AlignedStdVector< HandleComponentData >& components ) {
     const uint size = components.size();
     m_component.resize( size );
 #pragma omp parallel for
@@ -140,7 +140,7 @@ inline void HandleData::setComponents( const std::vector< HandleComponentData >&
 }
 
 /// EDGE
-inline void HandleData::setEdges( const std::vector< Core::Vector2i >& edgeList ) {
+inline void HandleData::setEdges( const Core::AlignedStdVector< Core::Vector2i >& edgeList ) {
     const uint size = edgeList.size();
     m_edge.resize( size );
 #pragma omp parallel for
@@ -150,7 +150,7 @@ inline void HandleData::setEdges( const std::vector< Core::Vector2i >& edgeList 
 }
 
 /// FACE
-inline void HandleData::setFaces( const std::vector< Core::VectorNi >& faceList ) {
+inline void HandleData::setFaces( const Core::AlignedStdVector< Core::VectorNi >& faceList ) {
     const uint size = faceList.size();
     m_face.resize( size );
 #pragma omp parallel for

@@ -5,6 +5,7 @@
 #include <map>
 #include <vector>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Containers/AlignedStdVector.hpp>
 
 #include <Engine/Assets/AssetData.hpp>
 #include <Engine/Assets/AssimpHandleDataLoader.hpp>
@@ -15,9 +16,9 @@ namespace Asset {
 struct HandleComponentData {
     HandleComponentData();
 
+    Core::Transform                          m_frame;
     std::string                              m_name;
     std::vector< std::pair< uint, Scalar > > m_weight;
-    Core::Transform                          m_frame;
 };
 
 class HandleData : public AssetData {
@@ -58,10 +59,10 @@ public:
 
     /// DATA
     inline uint getComponentDataSize() const;
-    inline std::vector<HandleComponentData> getComponentData() const;
+    inline Core::AlignedStdVector<HandleComponentData> getComponentData() const;
     inline HandleComponentData getComponent( const uint i ) const;
-    inline std::vector<Core::Vector2i> getEdgeData() const;
-    inline std::vector<Core::VectorNi> getFaceData() const;
+    inline Core::AlignedStdVector<Core::Vector2i> getEdgeData() const;
+    inline Core::AlignedStdVector<Core::VectorNi> getFaceData() const;
     inline void recomputeAllIndices();
 
     /// QUERY
@@ -91,26 +92,27 @@ protected:
     inline void setNameTable( const std::map< std::string, uint >& nameTable );
 
     /// COMPONENT
-    inline void setComponents( const std::vector< HandleComponentData >& components );
+    inline void setComponents( const Core::AlignedStdVector< HandleComponentData >& components );
 
     /// EDGE
-    inline void setEdges( const std::vector< Core::Vector2i >& edgeList );
+    inline void setEdges( const Core::AlignedStdVector< Core::Vector2i >& edgeList );
 
     /// FACE
-    inline void setFaces( const std::vector< Core::VectorNi >& faceList );
+    inline void setFaces( const Core::AlignedStdVector< Core::VectorNi >& faceList );
 
 protected:
     /// VARIABLE
-    //std::string                        m_name;
     Core::Transform                    m_frame;
     HandleType                         m_type;
+    //std::string                        m_name;
 
     bool                               m_endNode;
     uint                               m_vertexSize;
     std::map< std::string, uint >      m_nameTable;
-    std::vector< HandleComponentData > m_component;
-    std::vector< Core::Vector2i >      m_edge;
-    std::vector< Core::VectorNi >      m_face;
+
+    Core::AlignedStdVector< HandleComponentData > m_component;
+    Core::AlignedStdVector< Core::Vector2i >      m_edge;
+    Core::AlignedStdVector< Core::VectorNi >      m_face;
 };
 
 } // namespace Asset

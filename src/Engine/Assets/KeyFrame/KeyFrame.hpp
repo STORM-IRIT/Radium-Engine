@@ -3,6 +3,7 @@
 
 #include <map>
 #include <set>
+#include <Core/Containers/AlignedAllocator.hpp>
 #include <Engine/Assets/KeyFrame/AnimationTime.hpp>
 
 namespace Ra {
@@ -142,7 +143,7 @@ protected:
 protected:
     /// VARIABLE
     AnimationTime           m_time;
-    std::map< Time, FRAME > m_keyframe;
+    std::map < Time, FRAME, std::less<Time>, Ra::Core::AlignedAllocator<std::pair < Time, FRAME >, 16 > > m_keyframe;
 };
 
 

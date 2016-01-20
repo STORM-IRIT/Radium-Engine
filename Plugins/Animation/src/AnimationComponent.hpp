@@ -41,8 +41,8 @@ public:
     void createSkeleton( const Ra::Asset::HandleData* data, std::map< uint, uint >& indexTable );
     void addBone( const int parent,
                   const uint dataID,
-                  const std::vector< Ra::Asset::HandleComponentData >& data,
-                  const std::vector< Ra::Core::Vector2i >& edgeList,
+                  const Ra::Core::AlignedStdVector< Ra::Asset::HandleComponentData >& data,
+                  const Ra::Core::AlignedStdVector< Ra::Core::Vector2i >& edgeList,
                   std::vector< bool >& processed,
                   std::map< uint, uint >& indexTable );
     void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable );

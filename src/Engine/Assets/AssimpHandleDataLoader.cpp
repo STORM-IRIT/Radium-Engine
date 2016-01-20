@@ -3,6 +3,7 @@
 
 #include <set>
 #include <Core/Log/Log.hpp>
+#include <Core/Containers/AlignedStdVector.hpp>
 #include <Engine/Assets/AssimpWrapper.hpp>
 #include <Engine/Assets/HandleData.hpp>
 
@@ -89,7 +90,7 @@ void AssimpHandleDataLoader::loadHandleData( const aiScene* scene, std::vector< 
 
 void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, const aiMesh* mesh, HandleData* data ) const {
     const uint size = mesh->mNumBones;
-    std::vector< HandleComponentData > component( size, HandleComponentData() );
+    Core::AlignedStdVector< HandleComponentData > component( size, HandleComponentData() );
     std::set< std::string > name;
     std::map< std::string , uint > nameTable;
     // Load the meaningful handles
@@ -164,7 +165,7 @@ void AssimpHandleDataLoader::loadHandleTopologyData( const aiScene* scene, Handl
             }
         }
     }
-    std::vector< Core::Vector2i > edge;
+    Core::AlignedStdVector< Core::Vector2i > edge;
     edge.reserve( edgeList.size() );
     for( const auto& it : edgeList ) {
         Core::Vector2i e;

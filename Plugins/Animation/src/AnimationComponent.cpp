@@ -1,22 +1,22 @@
-#include "AnimationComponent.hpp"
+#include <Plugins/Animation/AnimationComponent.hpp>
 
 #include <queue>
-
-
-#include <assimp/scene.h>
 #include <iostream>
-#include <Core/Utils/Graph/AdjacencyListOperation.hpp>
-#include <Core/Animation/Pose/Pose.hpp>
+#include <assimp/scene.h>
+#include <Core/Containers/AlignedStdVector.hpp>
 
+#include <Core/Utils/Graph/AdjacencyListOperation.hpp>
+
+#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Animation/Handle/HandleWeightOperation.hpp>
 #include <Core/Animation/Handle/SkeletonUtils.hpp>
-#include "Drawing/SkeletonBoneDrawable.hpp"
 
 
 
 #include <Engine/Assets/KeyFrame/KeyTransform.hpp>
 #include <Engine/Assets/KeyFrame/KeyPose.hpp>
 
-#include <Core/Animation/Handle/HandleWeightOperation.hpp>
+#include <Plugins/Animation/Drawing/SkeletonBoneDrawable.hpp>
 
 namespace AnimationPlugin
 {
@@ -25,8 +25,8 @@ namespace AnimationPlugin
         for( uint i = 0; i < m_skel.size(); ++i ) {
             if( !m_skel.m_graph.isLeaf( i ) ) {
                 SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject( m_skel.getLabel( i ), this, i, getRoMgr());
-            m_boneDrawables.push_back(boneRenderObject);
-            renderObjects.push_back( boneRenderObject->idx );
+                m_boneDrawables.push_back(boneRenderObject);
+                renderObjects.push_back( boneRenderObject->idx );
             } else {
                 LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed.";
             }
@@ -209,9 +209,19 @@ namespace AnimationPlugin
         // reset mesh m_meshComponent->
     }
 
+    void AnimationComponent::setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component)
+    {
+        m_meshComponent = component;
+    }
+
     Ra::Core::Animation::Pose AnimationComponent::getRefPose() const
     {
         return m_refPose;
+    }
+
+    FancyMeshPlugin::FancyMeshComponent* AnimationComponent::getMeshComponent() const
+    {
+        return m_meshComponent;
     }
 
     Ra::Core::Animation::WeightMatrix AnimationComponent::getWeights() const
@@ -303,8 +313,8 @@ namespace AnimationPlugin
 
     void AnimationComponent::addBone( const int parent,
                                       const uint dataID,
-                                      const std::vector< Ra::Asset::HandleComponentData >& data,
-                                      const std::vector< Ra::Core::Vector2i >& edgeList,
+                                      const Ra::Core::AlignedStdVector< Ra::Asset::HandleComponentData >& data,
+                                      const Ra::Core::AlignedStdVector< Ra::Core::Vector2i >& edgeList,
                                       std::vector< bool >& processed,
                                       std::map< uint, uint >& indexTable ) {
         if( !processed[dataID] ) {

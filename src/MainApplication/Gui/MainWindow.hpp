@@ -93,6 +93,8 @@ namespace Ra
             void removeRO();
             void editRO();
 
+            void cleanup();
+
         signals:
             void closed();
             void fileLoading( const QString path );

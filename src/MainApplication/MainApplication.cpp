@@ -267,6 +267,7 @@ namespace Ra
     {
         LOG( logINFO ) << "About to quit... Cleaning RadiumEngine memory";
         emit stopping();
+        m_mainWindow->cleanup();
         m_engine->cleanup();
     }
 

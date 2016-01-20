@@ -50,6 +50,12 @@ namespace Ra
         // Child QObjects will automatically be deleted
     }
 
+
+    void Gui::MainWindow::cleanup()
+    {
+        gizmoShowNone();
+    }
+
     void Gui::MainWindow::createConnections()
     {
         connect( actionOpenMesh, &QAction::triggered, this, &MainWindow::loadFile );
