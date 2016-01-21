@@ -78,6 +78,16 @@ void AssimpHandleDataLoader::loadHandleData( const aiScene* scene, std::vector< 
             loadHandleComponentData( scene, mesh, handle );
             loadHandleTopologyData( scene, handle );
             fetchVertexSize( *handle );
+
+            for( auto& component : handle->m_component ) {
+                Core::Transform& frame = component.m_frame;
+                Core::Vector3 t = frame.translation();
+                Core::Matrix3 R = frame.rotation();
+                frame.setIdentity();
+                frame.translation() = t;
+                frame.linear() = R;
+            }
+
             data.push_back( std::unique_ptr< HandleData >( handle ) );
             indexTable[n] = data.size() - 1;
             if( m_verbose ) {
