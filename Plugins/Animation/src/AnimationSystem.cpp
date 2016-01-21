@@ -107,15 +107,13 @@ namespace AnimationPlugin
         //std::cout << "Mesh component received by the Animation system" << std::endl;
         FancyMeshPlugin::FancyMeshComponent* meshComponent = (FancyMeshPlugin::FancyMeshComponent*) component;
 
-        std::string fancy_name = meshComponent->getName();
-        fancy_name = fancy_name.substr( ( fancy_name.find("|") + 1 ), std::string::npos );
+        std::string fancy_name = meshComponent->getContentName();
 
         AnimationComponent* animationComponent;
         for( auto& comp : m_components ) {
-            std::string anim_name = comp.second.get()->getName();
-            anim_name = anim_name.substr( ( anim_name.find("|") + 1 ), std::string::npos );
+            animationComponent = static_cast<AnimationComponent*>( comp.second.get() );
+            std::string anim_name = animationComponent->getContentName();
             if( fancy_name == anim_name ) {
-                animationComponent = static_cast<AnimationComponent*>( comp.second.get() );
                 break;
             }
         }

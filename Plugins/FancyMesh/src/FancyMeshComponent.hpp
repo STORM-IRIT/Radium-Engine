@@ -42,11 +42,14 @@ namespace FancyMeshPlugin
         
         Ra::Core::Index getMeshIndex() const;
         Ra::Core::TriangleMesh getMesh() const;
+
+        std::string getContentName() const;
         
     private:
         Ra::Core::Index m_meshIndex;
         Ra::Core::Index m_aabbIndex;
         Ra::Core::TriangleMesh m_mesh;
+        std::string m_contentName;
     };
 
 } // namespace FancyMeshPlugin

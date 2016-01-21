@@ -1,4 +1,4 @@
-#include "FancyMeshComponent.hpp"
+#include <Plugins/FancyMesh/FancyMeshComponent.hpp>
 
 #include <Core/String/StringUtils.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
@@ -72,34 +72,23 @@ namespace FancyMeshPlugin
     void FancyMeshComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
     {
         std::string name( m_name );
-        std::string roName;
-        std::string meshName;
-        std::string matName;
+        name.append( "_" + data->getName() /*+ std::to_string( roCpt++ )*/ );
 
-        if ( data->getName() == "" )
-        {
-            name = m_name;
+        std::string roName = name;
+        roName.append( "_RO" );
            
-            roName = name + "_RO";
-            meshName = name + "_Mesh";
-            matName = name + "_Mat";
-        }
-        else
-        {
-            name = data->getName();
-            roName = name;
-            meshName = name;
-            matName = name + "_Mat";
-            m_name = m_name + "|" + data->getName();
-        }
+        std::string meshName = name;
+        meshName.append( "_Mesh" );
 
-        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( roName, this, Ra::Engine::RenderObjectType::FANCY );
+        std::string matName = name;
+        matName.append( "_Mat" );
+
+        m_contentName = data->getName();
+
+        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( roName, this );
         renderObject->setVisible( true );
-        renderObject->setLocalTransform( data->getFrame() );
 
-            Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( roName, this, Ra::Engine::RenderObjectType::FANCY );
-            renderObject->setVisible( true );
-            renderObject->setLocalTransform( data->getFrame() );
+        std::shared_ptr<Ra::Engine::Mesh> mesh( new Ra::Engine::Mesh( meshName ) );
 
 
         m_mesh.clear();
@@ -186,7 +175,6 @@ namespace FancyMeshPlugin
         rt->shaderConfig = Ra::Engine::ShaderConfiguration( "BlinnPhong", "../Shaders" );
 
         renderObject->setRenderTechnique( rt );
-
     }
 
     Ra::Core::Index FancyMeshComponent::getMeshIndex() const
@@ -208,6 +196,10 @@ namespace FancyMeshPlugin
             LOG(logINFO) << " Hit triangle " << tidx;
             LOG(logINFO) << " Nearest vertex " << result.m_nearestVertex;
         }
+    }
+
+    std::string FancyMeshComponent::getContentName() const {
+        return m_contentName;
     }
 
 } // namespace FancyMeshPlugin

@@ -240,7 +240,7 @@ namespace AnimationPlugin
 
         m_skel.setName( name );
 
-        m_name = m_name + "|" + data->getName();
+        m_contentName = data->getName();
 
         std::map< uint, uint > indexTable;
         createSkeleton( data, indexTable );
@@ -355,6 +355,10 @@ namespace AnimationPlugin
         }
 
         Ra::Core::Animation::checkWeightMatrix( m_weights, false );
+    }
+
+    std::string AnimationComponent::getContentName() const {
+        return m_contentName;
     }
 
 
