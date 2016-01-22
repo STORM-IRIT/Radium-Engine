@@ -12,7 +12,7 @@ namespace Ra
 
         Material::Material( const std::string& name )
             : m_kd( 1.0, 1.0, 1.0, 1.0 )
-            , m_ks( 1.0, 1.0, 1.0, 1.0 )
+            , m_ks( 0.0, 0.0, 0.0, 1.0 )
             , m_ns( 1.0 )
             , m_name( name )
             , m_isDirty( true )

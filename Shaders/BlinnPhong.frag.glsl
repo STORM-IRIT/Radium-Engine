@@ -125,9 +125,9 @@ vec3 blinnPhongInternal(vec3 d, vec3 n)
 {
     vec3 direction = normalize(d);
     vec3 normal = normalize(n);
-    
+
     //direction = vec3(1, 0, 0);
-    
+
     float diffFactor = dot(normal, -direction);
 
     vec3 diff = vec3(0);
@@ -230,5 +230,5 @@ void main()
     }
 
     fragColor = vec4(color, 1.0);
-    
+
 }
