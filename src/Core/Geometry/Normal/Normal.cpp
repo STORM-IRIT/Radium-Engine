@@ -13,6 +13,7 @@ namespace Geometry {
 
 void uniformNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, VectorArray< Vector3 >& normal ) {
     const uint N = p.size();
+    normal.clear();
     normal.resize( N, Vector3::Zero() );
     for( const auto& t : T ) {
         uint i = t( 0 );
@@ -32,6 +33,7 @@ void uniformNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle
 
 void angleWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, VectorArray< Vector3 >& normal ) {
     const uint N = p.size();
+    normal.clear();
     normal.resize( N, Vector3::Zero() );
     for( const auto& t : T ) {
         uint i = t( 0 );
@@ -54,6 +56,7 @@ void angleWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Tr
 
 void areaWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, VectorArray< Vector3 >& normal ) {
     const uint N = p.size();
+    normal.clear();
     normal.resize( N, Vector3::Zero() );
     for( const auto& t : T ) {
         uint i = t( 0 );
