@@ -109,7 +109,7 @@ namespace AnimationPlugin
 
         std::string fancy_name = meshComponent->getContentName();
 
-        AnimationComponent* animationComponent;
+        AnimationComponent* animationComponent = nullptr;
         for( auto& comp : m_components ) {
             animationComponent = static_cast<AnimationComponent*>( comp.second.get() );
             std::string anim_name = animationComponent->getContentName();
@@ -117,7 +117,7 @@ namespace AnimationPlugin
                 break;
             }
         }
-        animationComponent->setMeshComponent(meshComponent);
+        if( animationComponent != nullptr ) animationComponent->setMeshComponent(meshComponent);
 
 
         //animationComponent->setMeshComponent(meshComponent);
