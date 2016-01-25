@@ -12,6 +12,12 @@ namespace Ra
             return m_type;
         }
 
+        void RenderObject::setType(RenderObjectType &t)
+        {
+            // Fixme (val) : this will have no effect now
+            m_type=t;
+        }
+
         inline const std::string& RenderObject::getName() const
         {
             return m_name;

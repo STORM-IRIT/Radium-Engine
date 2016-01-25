@@ -37,7 +37,6 @@ namespace Ra
 
             RA_CORE_ALIGNED_NEW
 
-            // FIXME(Charly): Remove this "draw fixed size" param
             RenderObject( const std::string& name, const Component* comp,
                           const RenderObjectType& type );
             ~RenderObject();
@@ -67,6 +66,7 @@ namespace Ra
             inline const Component* getComponent() const;
 
             inline const RenderObjectType& getType() const;
+            inline void setType( RenderObjectType& t);
 
             inline void setVisible( bool visible );
             inline bool isVisible() const;

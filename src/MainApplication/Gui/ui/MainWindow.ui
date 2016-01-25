@@ -372,30 +372,30 @@
               <string>Edition</string>
              </attribute>
             </widget>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
+                      </widget>
+                     </item>
+                    </layout>
+                  </item>
+                  <item>
          <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0" columnstretch="1,2">
-          <item row="0" column="0">
+                     <item row="0" column="0">
            <widget class="QLabel" name="label_3">
-            <property name="text">
+                       <property name="text">
              <string>Current Renderer</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
            <widget class="QComboBox" name="m_currentRendererCombo"/>
-          </item>
-          <item row="1" column="0">
+                     </item>
+                     <item row="1" column="0">
            <widget class="QLabel" name="label_2">
-            <property name="text">
+                       <property name="text">
              <string>Displayed Texture</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
            <widget class="QComboBox" name="m_displayedTextureCombo"/>
           </item>
          </layout>
@@ -425,7 +425,7 @@
   </widget>
   <action name="actionOpenMesh">
    <property name="text">
-    <string>&amp;Open...</string>
+    <string>Open...</string>
    </property>
    <property name="toolTip">
     <string>Open...</string>
@@ -436,15 +436,15 @@
   </action>
   <action name="actionExit">
    <property name="text">
-    <string>&amp;Exit</string>
+    <string>Exit</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+E</string>
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="actionReload_Shaders">
    <property name="text">
-    <string>&amp;Reload Shaders</string>
+    <string>Reload Shaders</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>

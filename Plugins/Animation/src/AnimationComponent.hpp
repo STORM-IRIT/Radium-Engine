@@ -53,10 +53,12 @@ public:
     virtual void setProperty( const Ra::Engine::EditableProperty& prop) override;
     virtual bool picked (uint drawableIdex) const override;
 
-    ANIM_PLUGIN_API void setMeshComponent(Ra::Engine::Component* component);
-    ANIM_PLUGIN_API Ra::Engine::Component* getMeshComponent() const;
-    ANIM_PLUGIN_API Ra::Core::Animation::WeightMatrix getWeights() const;
-    ANIM_PLUGIN_API Ra::Core::Animation::Pose getRefPose() const;
+   ANIM_PLUGIN_API void toggleXray(bool on) const;
+
+   ANIM_PLUGIN_API void setMeshComponent(Ra::Engine::Component* component);
+   ANIM_PLUGIN_API Ra::Engine::Component* getMeshComponent() const;
+   ANIM_PLUGIN_API Ra::Core::Animation::WeightMatrix getWeights() const;
+   ANIM_PLUGIN_API Ra::Core::Animation::Pose getRefPose() const;
 
     std::string getContentName() const;
 

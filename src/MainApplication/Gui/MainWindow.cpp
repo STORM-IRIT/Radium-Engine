@@ -67,7 +67,6 @@ namespace Ra
         connect( actionGizmoOff,            &QAction::triggered, this, &MainWindow::gizmoShowNone );
         connect( actionGizmoTranslate,      &QAction::triggered, this, &MainWindow::gizmoShowTranslate );
         connect( actionGizmoRotate,         &QAction::triggered, this, &MainWindow::gizmoShowRotate );
-        //connect( actionGizmoOff, &QAction::toggled, this, &gizmoShowNone);
 
         // Loading setup.
         connect( this, &MainWindow::fileLoading, mainApp, &MainApplication::loadFile );

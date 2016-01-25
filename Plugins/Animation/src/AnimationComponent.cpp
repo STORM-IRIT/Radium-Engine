@@ -359,6 +359,11 @@ namespace AnimationPlugin
         return m_contentName;
     }
 
-
-
+    void AnimationComponent::toggleXray(bool on) const
+    {
+        for (const auto& b : m_boneDrawables)
+        {
+            b->toggleXray(on);
+        }
+    }
 }

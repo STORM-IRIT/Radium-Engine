@@ -85,8 +85,7 @@ namespace Ra
         }
 
         void RenderObject::bind( ShaderProgram* shader, const RenderParameters& params ) const
-        {
-        }
+        {}
 
         void RenderObject::render() const
         {
