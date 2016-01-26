@@ -297,6 +297,14 @@ namespace compile_time_utils
     BREAKPOINT(0);                          \
     MACRO_END
 
+// Print an error and break if condition is not met, even in release
+#define CORE_ERROR_IF( EXP, DESC )          \
+    MACRO_START                             \
+    if( UNLIKELY(!(EXP)) ) {                \
+        CORE_ERROR( DESC );                 \
+    }                                       \
+    MACRO_END
+
 
 
 // ----------------------------------------------------------------------------

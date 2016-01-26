@@ -5,7 +5,7 @@
 int main( int argc, char** argv )
 {
     uint FPS_MAX = 120;
-    
+
     std::string pluginsPath;
 
     if ( argc > 1 )
@@ -31,7 +31,7 @@ int main( int argc, char** argv )
     }
 
     Scalar DELTA_TIME( FPS_MAX == 0 ? 0.0 : 1.0 / Scalar( FPS_MAX ) );
-    
+
     Ra::MainApplication app( argc, argv );
 
     Ra::Core::Timer::TimePoint t0, t1;
