@@ -15,11 +15,7 @@ find_package(OpenGL     REQUIRED)
 find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
-find_package(GLEW 	REQUIRED) #only used on windows builds.
-
-# Custom assimp version
-#set(Assimp_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../assimp/include/)
-#set(Assimp_LIBRARIES ${CMAKE_CURRENT_SOURCE_DIR}/../../assimp/build/code/libassimp.so)
+find_package(GLEW 	    REQUIRED) #only used on windows builds.
 
 if(WIN32)
     if (CMAKE_SIZEOF_VOID_P EQUAL 4)
@@ -39,7 +35,6 @@ include_directories(
     ${EIGEN_INC}
     ${ASSIMP_INC}
     ${FREEIMAGE_INCLUDE_DIR}
-    ${GLEW_INCLUDE_DIR}
     )
 
 # Build Core

@@ -19,11 +19,6 @@ namespace FancyMeshPlugin
     FancyMeshSystem::FancyMeshSystem()
         : Ra::Engine::System()
     {
-        Ra::Core::Any::getDeclTypeFor<int>();
-        Ra::Core::Any::getDeclTypeFor<Scalar>();
-        Ra::Core::Any::getDeclTypeFor<bool>();
-        Ra::Core::Any::getDeclTypeFor<std::string>();
-        Ra::Core::Any::getDeclTypeFor<double>();
     }
 
     FancyMeshSystem::~FancyMeshSystem()

@@ -36,6 +36,10 @@
 
 #include <Core/CoreMacros.hpp>
 
+#ifndef OS_WINDOWS
+using std::type_info // Use type_info instead of std::type_info in order to build properly with MSVC
+#endif
+
 namespace Ra {
     namespace Core {
         template<typename...> struct Or;
@@ -191,7 +195,7 @@ namespace Ra {
             union Arg
             {
                 void* m_obj;
-                const std::type_info* m_typeinfo;
+                const type_info* m_typeinfo;
                 Any* m_any;
             };
 

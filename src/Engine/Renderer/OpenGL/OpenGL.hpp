@@ -7,7 +7,7 @@
 
 #ifndef __APPLE__
 #ifdef OS_WINDOWS
-#include <GL/glew.h>
+#include <Engine/Renderer/OpenGL/glew.h>
 #endif // OS_WINDOWS
 
 #define GL_GLEXT_PROTOTYPES 1

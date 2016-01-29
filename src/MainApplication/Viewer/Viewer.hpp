@@ -3,7 +3,7 @@
 
 #include <Core/CoreMacros.hpp>
 #if defined (OS_WINDOWS)
-#include <GL/glew.h>
+#include <Engine/Renderer/OpenGL/glew.h>
 #endif
 
 #include <memory>
