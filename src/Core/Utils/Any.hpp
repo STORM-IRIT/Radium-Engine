@@ -37,7 +37,7 @@
 #include <Core/CoreMacros.hpp>
 
 #ifndef OS_WINDOWS
-using std::type_info // Use type_info instead of std::type_info in order to build properly with MSVC
+using std::type_info; // Use type_info instead of std::type_info in order to build properly with MSVC
 #endif
 
 namespace Ra {
