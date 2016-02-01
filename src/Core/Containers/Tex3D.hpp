@@ -19,10 +19,14 @@ namespace Ra
             RA_CORE_ALIGNED_NEW
 
             /// Construct a Tex3D with the given resolution in the box given by two points.
-            Tex3D( const Vector3i& resolution, const Vector3& start, const Vector3& end );
+            Tex3D( const Vector3ui& resolution, const Vector3& start, const Vector3& end );
 
             /// Construct a Tex3D with the give resulution in the given AABB.
-            Tex3D( const Vector3i& resolution, const Aabb& aabb );
+            Tex3D( const Vector3ui& resolution, const Aabb& aabb );
+
+            /// Copy constructor and assignment operator perform a deep copy.
+            Tex3D( const Tex3D& other) = default;
+            Tex3D& operator=(const Tex3D& other) = default;
 
             inline const Aabb& getAabb() const;
 

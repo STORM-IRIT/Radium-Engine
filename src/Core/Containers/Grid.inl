@@ -137,6 +137,20 @@ namespace Ra
             return linearToIdxVector<T, D> ( diff, sizeVector() );
         }
 
+        template<typename T, uint D>
+        inline typename Grid<T,D>::Iterator
+        Grid<T,D>::getIterator(const Grid::IdxVector &idx)
+        {
+           return this->begin() + idxVectorToLinear<T,D>( idx, m_size );
+        }
+
+        template<typename T, uint D>
+        inline typename Grid<T,D>::ConstIterator
+        Grid<T,D>::getConstIterator(const Grid::IdxVector &idx) const
+        {
+           return this->cbegin() + idxVectorToLinear<T,D>( idx, m_size );
+        }
+
         //
         // Iterators stuff.
         //

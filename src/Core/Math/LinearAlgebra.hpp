@@ -51,6 +51,10 @@ namespace Ra
         typedef Eigen::Vector3i Vector3i;
         typedef Eigen::Vector4i Vector4i;
 
+        typedef Eigen::Matrix<uint, 2, 1> Vector2ui;
+        typedef Eigen::Matrix<uint, 3, 1> Vector3ui;
+        typedef Eigen::Matrix<uint, 4, 1> Vector4ui;
+
         //
         // Common matrix types
         //

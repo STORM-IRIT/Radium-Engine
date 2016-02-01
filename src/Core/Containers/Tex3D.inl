@@ -5,20 +5,20 @@ namespace Ra
     namespace Core
     {
         template<typename T>
-        Tex3D<T>::Tex3D( const Vector3i& resolution,
+        Tex3D<T>::Tex3D( const Vector3ui& resolution,
                          const Vector3& start,
                          const Vector3& end )
             : Grid<T,3> ( resolution ), m_aabb( start, end )
         {
-            const Vector3 quotient = ( resolution - Vector3i::Ones() ).cast<Scalar>();
+            const Vector3 quotient = ( resolution - Vector3ui::Ones() ).cast<Scalar>();
             m_cellSize = m_aabb.sizes().cwiseQuotient( quotient );
         }
 
         template<typename T>
-        Tex3D<T>::Tex3D( const Vector3i& resolution, const Aabb& aabb )
+        Tex3D<T>::Tex3D(const Vector3ui &resolution, const Aabb& aabb )
             : Grid<T,3> ( resolution ), m_aabb( aabb )
         {
-            const Vector3 quotient = ( resolution - Vector3i::Ones() ).cast<Scalar>();
+            const Vector3 quotient = ( resolution - Vector3ui::Ones() ).cast<Scalar>();
             m_cellSize = m_aabb.sizes().cwiseQuotient( quotient );
         }
 
@@ -33,31 +33,30 @@ namespace Ra
         {
             Vector3 scaled_coords( (v -  m_aabb.min() ).cwiseQuotient( m_cellSize ) );
             Vector3 tmp = Vector::floor( scaled_coords );
-            Vector3i nearest = Vector3i( int( tmp[0]), int( tmp[1]), int(tmp[2]));
+            Vector3ui nearest = tmp.cast<uint>();
 
             Vector3 fact = scaled_coords - Vector3( nearest[0], nearest[1], nearest[2] ) ;
 
             // TODO: FIXME: Test if in bounds and clamp or assert or repeat value...
 
-            Vector3i size = this->sizeVector() - Vector3i::Ones(); // TODO check this code on borders of the grid
-            Vector3i clamped_nearest = Ra::Core::Vector::clamp<Vector3i>( nearest, Vector3i::Zero(), size);
+            Vector3ui size = this->sizeVector() - Vector3ui::Ones(); // TODO check this code on borders of the grid
+            Vector3ui clamped_nearest = Ra::Core::Vector::clamp<Vector3ui>( nearest, Vector3ui::Zero(), size);
 
-            const int i0 = clamped_nearest[0];
-            const int j0 = clamped_nearest[1];
-            const int k0 = clamped_nearest[2];
-            const int i1 = i0 < size[0] ? i0 + 1 : i0;
-            const int j1 = j0 < size[1] ? j0 + 1 : j0;
-            const int k1 = k0 < size[2] ? k0 + 1 : k0;
+            const uint i0 = clamped_nearest[0];
+            const uint j0 = clamped_nearest[1];
+            const uint k0 = clamped_nearest[2];
+            const uint i1 = i0 < size[0] ? i0 + 1 : i0;
+            const uint j1 = j0 < size[1] ? j0 + 1 : j0;
+            const uint k1 = k0 < size[2] ? k0 + 1 : k0;
 
-            const T v000 = this->at( Vector3i(i0, j0, k0 ));
-            const T v001 = this->at( Vector3i(i0, j0, k1 ));
-            const T v010 = this->at( Vector3i(i0, j1, k0 ));
-            const T v011 = this->at( Vector3i(i0, j1, k1 ));
-            const T v100 = this->at( Vector3i(i1, j0, k0 ));
-            const T v101 = this->at( Vector3i(i1, j0, k1 ));
-            const T v110 = this->at( Vector3i(i1, j1, k0 ));
-            const T v111 = this->at( Vector3i(i1, j1, k1 ));
-
+            const T v000 = this->at( {i0, j0, k0 } );
+            const T v001 = this->at( {i0, j0, k1 } );
+            const T v010 = this->at( {i0, j1, k0 } );
+            const T v011 = this->at( {i0, j1, k1 } );
+            const T v100 = this->at( {i1, j0, k0 } );
+            const T v101 = this->at( {i1, j0, k1 } );
+            const T v110 = this->at( {i1, j1, k0 } );
+            const T v111 = this->at( {i1, j1, k1 } );
 
             const T c00 = v000 * (1.0 - fact[0]) + v100 * fact[0];
             const T c10 = v010 * (1.0 - fact[0]) + v110 * fact[0];
@@ -68,9 +67,6 @@ namespace Ra
             const T c1 = c01 * ( 1.0 - fact[1] ) + c11 * fact[1];
 
             return c0 * (1.0 - fact[2]) + c1 * fact[2];
-
-
-
         }
     }
 }

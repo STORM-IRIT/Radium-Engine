@@ -20,7 +20,7 @@ namespace Ra
         public:
             // public types and constants.
             static const uint Dimension = D; /// Dimension of our grid
-            typedef Eigen::Matrix<int, D, 1> IdxVector; /// A vector of the size of the grid along each dimension.
+            typedef Eigen::Matrix<uint, D, 1> IdxVector; /// A vector of the size of the grid along each dimension.
 
             // We use vector iterators.
             typedef typename std::vector<T>::iterator Iterator;
@@ -50,7 +50,12 @@ namespace Ra
             /// Retunrs the D-dimensional index vector corresponding to the given iterator.
             inline IdxVector getIdxVector( const ConstIterator& it ) const;
 
-            ///  Access an element with a D-dimensionnal index.
+            inline Iterator getIterator( const IdxVector& idx );
+            inline ConstIterator getConstIterator( const IdxVector& idx) const;
+
+            /// Access an element with a D-dimensionnal index.
+            /// Note that since initializer lists are implicitely convertible to
+            /// Eigen vectors, you can call grid.at({x,y,z})
             inline const T& at( const IdxVector& idx ) const;
             inline T& at( const IdxVector& idx );
 
@@ -65,7 +70,7 @@ namespace Ra
             // std::iterators-like interface
             inline Iterator begin();
             inline ConstIterator begin() const;
-            inline ConstIterator cbegin() const ;
+            inline ConstIterator cbegin() const;
 
             inline Iterator end();
             inline ConstIterator end() const;
