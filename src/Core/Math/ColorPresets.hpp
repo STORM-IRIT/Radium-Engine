@@ -47,6 +47,14 @@ namespace Ra{
                 Vector4i scaled = (color * 255).cast<int>();
                 return (uint32_t(scaled[0])<<24) | (uint32_t(scaled[1])<<16) |(uint32_t(scaled[2])<<8) |(uint32_t(scaled[3])<<0);
             }
+
+            inline uint32_t ToARGB32( const Color& color )
+            {
+                Vector4i scaled = (color * 255).cast<int>();
+                return (uint32_t(scaled[3])<<24) | (uint32_t(scaled[0])<<16) |(uint32_t(scaled[1])<<8) |(uint32_t(scaled[2])<<0);
+
+            }
+
         }
     }
 }
