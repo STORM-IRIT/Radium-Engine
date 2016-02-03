@@ -1,4 +1,4 @@
-#include <Plugins/FancyMesh/FancyMeshComponent.hpp>
+#include "FancyMeshComponent.hpp"
 
 #include <Core/String/StringUtils.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
@@ -85,14 +85,14 @@ namespace FancyMeshPlugin
 
         m_contentName = data->getName();
 
-        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( roName, this );
+        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( roName, this, Ra::Engine::RenderObjectType::FANCY );
         renderObject->setVisible( true );
 
         std::shared_ptr<Ra::Engine::Mesh> mesh( new Ra::Engine::Mesh( meshName ) );
 
 
         m_mesh.clear();
-        for( const auto& v : data->getVertices() ) 
+        for( const auto& v : data->getVertices() )
         {
             m_mesh.m_vertices.push_back( data->getFrame() * v );
         }

@@ -27,6 +27,7 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
 #include <MainApplication/Gui/MainWindow.hpp>
+#include <MainApplication/Version.hpp>
 
 #include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
 
@@ -89,6 +90,12 @@ namespace Ra
 #else
         config << "single precision" ;
 #endif
+
+        LOG( logINFO ) << config.str();
+
+        config.str( std::string() );
+        config<<"build: "<<Version::compiler<<" - "<<Version::compileDate<<" "<<Version::compileTime;
+
 
         LOG( logINFO ) << config.str();
 

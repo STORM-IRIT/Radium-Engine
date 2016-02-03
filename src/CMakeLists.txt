@@ -12,10 +12,11 @@ endif( "${isSysDir}" STREQUAL "-1" )
 
 # Find packages
 find_package(OpenGL     REQUIRED)
+find_package(Assimp     REQUIRED)
 find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
-find_package(GLEW 	    REQUIRED) #only used on windows builds.
+find_package(GLEW       REQUIRED) #only used on windows builds.
 
 if(WIN32)
     if (CMAKE_SIZEOF_VOID_P EQUAL 4)
@@ -35,7 +36,7 @@ include_directories(
     ${EIGEN_INC}
     ${ASSIMP_INC}
     ${FREEIMAGE_INCLUDE_DIR}
-    )
+)
 
 # Build Core
 set(core_target radiumCore)
@@ -104,7 +105,6 @@ target_link_libraries(
     ${engine_libs}
     )
 
-#get_directory_property(plugins DIRECTORY "Plugins" DEFINITION SUBDIRS)
 
 # Build MainApplication
 set(app_target radium)
@@ -168,7 +168,7 @@ target_link_libraries(
 if (WIN32)
     include(CMakeGenerateTrees.txt)
 endif(WIN32)
-
+include(CMakeGenerateVersion.txt)
 install( DIRECTORY . DESTINATION include FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl" PATTERN "*.h" )
 install( FILES ${engine_shaders} DESTINATION Shaders )
 install( DIRECTORY ${CMAKE_SOURCE_DIR}/Assets/. DESTINATION Assets )
