@@ -7,8 +7,11 @@ elseif ( UNIX )
     add_definitions( -fexceptions -frtti -Wno-ignored-qualifiers -Wno-unused-but-set-variable )
 endif()
 
-set( ASSIMP_BUILD_ASSIMP_TOOLS 0 )
-set( ASSIMP_BUILD_TESTS 0 )
-set( ASSIMP_BUILD_SAMPLES 0 )
+set( ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL 
+    "If the supplementary tools for Assimp are built in addition to the library." )
+set( ASSIMP_BUILD_TESTS OFF CACHE BOOL
+    "If the test suite for Assimp is built in addition to the library." )
+set( ASSIMP_BUILD_SAMPLES OFF CACHE BOOL 
+    "If the official samples are built as well (needs Glut)." )
 
 add_subdirectory( Assimp )
