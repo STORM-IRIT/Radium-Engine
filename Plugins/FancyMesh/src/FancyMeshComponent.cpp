@@ -127,8 +127,6 @@ namespace FancyMeshPlugin
             Ra::Core::Vector4Array texcoords;
             Ra::Core::Vector4Array colors;
 
-            //for ( const auto& v : data->getVertices() )     positions.push_back( data->getFrame() * v );
-            //for ( const auto& v : data->getNormals() )      normals.push_back( data->getFrame().rotation() * v );
             positions = m_mesh.m_vertices;
             normals   = m_mesh.m_normals;
             for ( const auto& v : data->getTangents() )     tangents.push_back( v );
