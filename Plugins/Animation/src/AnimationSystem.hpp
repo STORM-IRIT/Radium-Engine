@@ -13,7 +13,7 @@ namespace AnimationPlugin
         virtual void generateTasks( Ra::Core::TaskQueue* taskQueue,
                                     const Ra::Engine::FrameInfo& frameInfo ) override;
         void initialize() override;
-        void handleFileLoading( Ra::Engine::Entity* entity, const std::string &filename ) override;
+        void handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData) override;
         void setPlaying( bool isPlaying );
         void step();
         void reset();

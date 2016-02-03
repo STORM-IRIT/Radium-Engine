@@ -1,22 +1,20 @@
-#include <Plugins/Animation/AnimationComponent.hpp>
+#include <AnimationComponent.hpp>
 
 #include <queue>
 #include <iostream>
+
 #include <assimp/scene.h>
+
 #include <Core/Containers/AlignedStdVector.hpp>
-
 #include <Core/Utils/Graph/AdjacencyListOperation.hpp>
-
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Handle/HandleWeightOperation.hpp>
 #include <Core/Animation/Handle/SkeletonUtils.hpp>
 
-
-
 #include <Engine/Assets/KeyFrame/KeyTransform.hpp>
 #include <Engine/Assets/KeyFrame/KeyPose.hpp>
 
-#include <Plugins/Animation/Drawing/SkeletonBoneDrawable.hpp>
+#include <Drawing/SkeletonBoneDrawable.hpp>
 
 namespace AnimationPlugin
 {
@@ -209,20 +207,20 @@ namespace AnimationPlugin
         // reset mesh m_meshComponent->
     }
 
-    void AnimationComponent::setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component)
+  /*  void AnimationComponent::setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component)
     {
         m_meshComponent = component;
-    }
+    }*/
 
     Ra::Core::Animation::Pose AnimationComponent::getRefPose() const
     {
         return m_refPose;
     }
 
-    FancyMeshPlugin::FancyMeshComponent* AnimationComponent::getMeshComponent() const
+/*    FancyMeshPlugin::FancyMeshComponent* AnimationComponent::getMeshComponent() const
     {
         return m_meshComponent;
-    }
+    }*/
 
     Ra::Core::Animation::WeightMatrix AnimationComponent::getWeights() const
     {

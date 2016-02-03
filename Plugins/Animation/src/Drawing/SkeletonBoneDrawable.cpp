@@ -1,4 +1,4 @@
-#include <Plugins/Animation/Drawing/SkeletonBoneDrawable.hpp>
+#include <Drawing/SkeletonBoneDrawable.hpp>
 
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
@@ -8,11 +8,11 @@ namespace AnimationPlugin
 {
 
     SkeletonBoneRenderObject::SkeletonBoneRenderObject(const std::string& name, AnimationComponent* comp, uint id, Ra::Engine::RenderObjectManager* roMgr)
-            : RenderObject(name, comp), m_skel( comp->getSkeleton() ), m_id( id ), m_roMgr( roMgr )
+            : RenderObject(name, comp, Ra::Engine::RenderObjectType::XRAY), m_skel( comp->getSkeleton() ), m_id( id ), m_roMgr( roMgr )
     {
         // TODO ( Val) common material / shader config...
 
-        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, comp );
+        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, comp, Ra::Engine::RenderObjectType::XRAY );
         Ra::Engine::ShaderConfiguration shader("BlinnPhong", "../Shaders");
 
         m_material.reset(new Ra::Engine::Material("Bone Material"));
@@ -26,7 +26,7 @@ namespace AnimationPlugin
             m_renderParams->material = m_material.get();
         }
         renderObject->setRenderTechnique(m_renderParams.get());
-        renderObject->setType(Ra::Engine::RenderObject::Type::RO_XRAY);
+        //renderObject->setType(Ra::Engine::RenderObject::Type::RO_XRAY);
 
 
         std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( name ) );

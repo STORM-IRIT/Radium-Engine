@@ -1,16 +1,17 @@
 #ifndef ANIMPLUGIN_ANIMATION_COMPONENT_HPP_
 #define ANIMPLUGIN_ANIMATION_COMPONENT_HPP_
 
-#include <Plugins/Animation/AnimationPlugin.hpp>
+#include <AnimationPlugin.hpp>
 #include <Engine/Entity/Component.hpp>
-#include <Plugins/Animation/AnimationLoader.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
 #include <Core/Animation/Animation.hpp>
-#include <Plugins/FancyMesh/FancyMeshComponent.hpp>
 
 #include <Engine/Assets/HandleData.hpp>
 #include <Engine/Assets/AnimationData.hpp>
+
+#include <AnimationLoader.hpp>
+//#include <Plugins/FancyMesh/FancyMeshComponent.hpp>
 
 namespace AnimationPlugin
 {
@@ -53,8 +54,8 @@ public:
     virtual void setProperty( const Ra::Engine::EditableProperty& prop) override;
     virtual bool picked (uint drawableIdex) const override;
 
-    ANIM_PLUGIN_API void setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component);
-    ANIM_PLUGIN_API FancyMeshPlugin::FancyMeshComponent* getMeshComponent() const;
+    //ANIM_PLUGIN_API void setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component);
+    //ANIM_PLUGIN_API FancyMeshPlugin::FancyMeshComponent* getMeshComponent() const;
     ANIM_PLUGIN_API Ra::Core::Animation::WeightMatrix getWeights() const;
     ANIM_PLUGIN_API Ra::Core::Animation::Pose getRefPose() const;
 
@@ -74,7 +75,7 @@ protected:
 
     std::vector<SkeletonBoneRenderObject*> m_boneDrawables;
     Scalar m_animationTime;
-    FancyMeshPlugin::FancyMeshComponent* m_meshComponent;
+    //FancyMeshPlugin::FancyMeshComponent* m_meshComponent;
     mutable int m_selectedBone; //this is an ugly hack ! (Val)
 };
 

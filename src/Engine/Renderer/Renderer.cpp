@@ -174,7 +174,7 @@ namespace Ra
         void Renderer::feedRenderQueuesInternal()
         {
             m_roManager->getRenderObjectsByTypeIfDirty( m_fancyRenderObjects, RenderObjectType::FANCY, true );
-            m_roManager->getRenderObjectsByTypeIfDirty( m_xrayRenderObjects, RenderObjectType::DEBUG_XRAY, true );
+            m_roManager->getRenderObjectsByTypeIfDirty( m_xrayRenderObjects, RenderObjectType::XRAY, true );
             m_roManager->getRenderObjectsByTypeIfDirty( m_debugRenderObjects, RenderObjectType::DEBUG_OTHER, true );
             m_roManager->getRenderObjectsByTypeIfDirty( m_uiRenderObjects, RenderObjectType::UI, true );
 

@@ -17,7 +17,7 @@
 #include <Engine/Assets/HandleData.hpp>
 
 
-#include <Plugins/Implicit/ImplicitComponent.hpp>
+//#include <Plugins/Implicit/ImplicitComponent.hpp>
 
 namespace AnimationPlugin
 {
@@ -26,9 +26,9 @@ namespace AnimationPlugin
         m_isPlaying = false;
         m_oneStep = false;
 
-        FancyMeshPlugin::FancyMeshSystem* meshSystem =
+        /*FancyMeshPlugin::FancyMeshSystem* meshSystem =
                 (FancyMeshPlugin::FancyMeshSystem*) Ra::Engine::RadiumEngine::getInstance()->getSystem("FancyMeshSystem");
-        meshSystem->registerOnComponentCreation(this);
+        meshSystem->registerOnComponentCreation(this);*/
     }
 
     void AnimationSystem::generateTasks(Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo)
@@ -105,19 +105,20 @@ namespace AnimationPlugin
     void AnimationSystem::callbackOnComponentCreation(const Ra::Engine::Component *component)
     {
         //std::cout << "Mesh component received by the Animation system" << std::endl;
-        FancyMeshPlugin::FancyMeshComponent* meshComponent = (FancyMeshPlugin::FancyMeshComponent*) component;
 
-        std::string fancy_name = meshComponent->getContentName();
+        //FancyMeshPlugin::FancyMeshComponent* meshComponent = (FancyMeshPlugin::FancyMeshComponent*) component;
+
+        //std::string fancy_name = meshComponent->getContentName();
 
         AnimationComponent* animationComponent = nullptr;
         for( auto& comp : m_components ) {
             animationComponent = static_cast<AnimationComponent*>( comp.second.get() );
             std::string anim_name = animationComponent->getContentName();
-            if( fancy_name == anim_name ) {
+            //if( fancy_name == anim_name ) {
                 break;
-            }
+            //}
         }
-        if( animationComponent != nullptr ) animationComponent->setMeshComponent(meshComponent);
+        //if( animationComponent != nullptr ) animationComponent->setMeshComponent(meshComponent);
 
 
         //animationComponent->setMeshComponent(meshComponent);
