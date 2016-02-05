@@ -24,7 +24,7 @@ namespace AnimationPlugin
             if( !m_skel.m_graph.isLeaf( i ) ) {
                 SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject( m_skel.getLabel( i ), this, i, getRoMgr());
                 m_boneDrawables.push_back(boneRenderObject);
-                renderObjects.push_back( boneRenderObject->idx );
+                renderObjects.push_back( boneRenderObject->getRenderObjectIndex());
             } else {
                 LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed.";
             }
@@ -35,7 +35,7 @@ namespace AnimationPlugin
     {
         for (const auto& dr: m_boneDrawables)
         {
-            if ( dr->idx == int( drawableIdx ) )
+            if ( dr->getRenderObjectIndex() == int( drawableIdx ) )
             {
                 m_selectedBone = dr->getBoneIndex();
                 return true;
@@ -128,7 +128,7 @@ namespace AnimationPlugin
         m_animationTime += dt;
 
         // get the current pose from the animation
-        if (dt > 0 && m_animations.size() > 0)
+        if ( dt > 0 && m_animations.size() > 0)
         {
             Ra::Core::Animation::Pose currentPose = m_animations[0].getPose(m_animationTime);
 
@@ -207,20 +207,20 @@ namespace AnimationPlugin
         // reset mesh m_meshComponent->
     }
 
-  /*  void AnimationComponent::setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component)
+    void AnimationComponent::setMeshComponent(Ra::Engine::Component* component)
     {
         m_meshComponent = component;
-    }*/
+    }
 
     Ra::Core::Animation::Pose AnimationComponent::getRefPose() const
     {
         return m_refPose;
     }
 
-/*    FancyMeshPlugin::FancyMeshComponent* AnimationComponent::getMeshComponent() const
+    Ra::Engine::Component* AnimationComponent::getMeshComponent() const
     {
         return m_meshComponent;
-    }*/
+    }
 
     Ra::Core::Animation::WeightMatrix AnimationComponent::getWeights() const
     {

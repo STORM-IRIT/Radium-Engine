@@ -8,7 +8,7 @@ namespace AnimationPlugin
 {
 
     SkeletonBoneRenderObject::SkeletonBoneRenderObject(const std::string& name, AnimationComponent* comp, uint id, Ra::Engine::RenderObjectManager* roMgr)
-            : RenderObject(name, comp, Ra::Engine::RenderObjectType::XRAY), m_skel( comp->getSkeleton() ), m_id( id ), m_roMgr( roMgr )
+            : m_roIdx(Ra::Core::Index::INVALID_IDX()) , m_id( id ), m_skel( comp->getSkeleton() ), m_roMgr( roMgr )
     {
         // TODO ( Val) common material / shader config...
 
@@ -34,19 +34,17 @@ namespace AnimationPlugin
         displayMesh->loadGeometry( makeBoneShape() );
         renderObject->setMesh( displayMesh );
 
-        updateLocalTransform(renderObject);
+        m_roIdx  = m_roMgr->addRenderObject(renderObject);
+        updateLocalTransform();
 
-        idx = m_roMgr->addRenderObject(renderObject);
     }
 
     void SkeletonBoneRenderObject::update()
     {
-        std::shared_ptr<Ra::Engine::RenderObject> ro = m_roMgr->update( idx, false );
-        updateLocalTransform( ro.get() );
-        m_roMgr->doneUpdating( idx );
+        updateLocalTransform( );
     }
 
-    void SkeletonBoneRenderObject::updateLocalTransform(Ra::Engine::RenderObject* ro)
+    void SkeletonBoneRenderObject::updateLocalTransform()
     {
         Ra::Core::Vector3 start;
         Ra::Core::Vector3 end;
@@ -63,9 +61,7 @@ namespace AnimationPlugin
         drawTransform.linear() =  rotation;
         drawTransform.translation() = boneTransform.translation();
 
-        ro->setLocalTransform(drawTransform * scale);
-
-        //std::cout << "update : " << m_edge << std::endl << (drawTransform * scale).matrix() << std::endl;
+        m_roMgr->getRenderObject(m_roIdx)->setLocalTransform(drawTransform * scale);
     }
 
     Ra::Core::TriangleMesh SkeletonBoneRenderObject::makeBoneShape()

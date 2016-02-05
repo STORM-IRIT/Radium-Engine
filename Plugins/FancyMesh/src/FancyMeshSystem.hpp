@@ -36,8 +36,6 @@ namespace FancyMeshPlugin
         FancyMeshSystem();
         virtual ~FancyMeshSystem();
 
-        virtual void initialize() override;
-
         virtual void handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData ) override;
 
         virtual void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;

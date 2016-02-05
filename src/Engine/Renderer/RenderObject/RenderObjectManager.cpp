@@ -138,6 +138,9 @@ namespace Ra
 
         std::shared_ptr<RenderObject> RenderObjectManager::update( const Core::Index& index, bool cloneMesh )
         {
+
+            CORE_ASSERT( index.isValid() ,"Invalid index" );
+
             // A render object should never be updated if it is already in use.
             // It might be :
             //     - update called by another component

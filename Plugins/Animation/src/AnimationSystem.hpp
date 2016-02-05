@@ -10,9 +10,9 @@ namespace AnimationPlugin
     class ANIM_PLUGIN_API AnimationSystem :  public Ra::Engine::System
     {
     public:
+        AnimationSystem();
         virtual void generateTasks( Ra::Core::TaskQueue* taskQueue,
                                     const Ra::Engine::FrameInfo& frameInfo ) override;
-        void initialize() override;
         void handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData) override;
         void setPlaying( bool isPlaying );
         void step();

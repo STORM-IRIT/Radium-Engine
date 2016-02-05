@@ -17,7 +17,7 @@
 
 namespace AnimationPlugin
 {
-class SkeletonBoneRenderObject : public Ra::Engine::RenderObject
+class SkeletonBoneRenderObject
 {
 public:
     SkeletonBoneRenderObject(const std::string& name, AnimationComponent* comp, uint id, Ra::Engine::RenderObjectManager* roMgr);
@@ -26,13 +26,18 @@ public:
 
     static Ra::Core::TriangleMesh makeBoneShape();
 
-    uint getBoneIndex() const { return m_id;}
+    uint getBoneIndex() const { return m_id; }
 
-    void updateLocalTransform(Ra::Engine::RenderObject *ro);
+    Ra::Core::Index getRenderObjectIndex() const { return m_roIdx;}
 
 private:
-    const Ra::Core::Animation::Skeleton& m_skel;
-    uint m_id;
+    void updateLocalTransform();
+
+private:
+    Ra::Core::Index m_roIdx; /// Index of the corresponding render object
+    uint m_id;               /// Bone index
+
+    const Ra::Core::Animation::Skeleton& m_skel;    /// Skeleton
     std::unique_ptr<Ra::Engine::RenderTechnique> m_renderParams;
     std::unique_ptr<Ra::Engine::Material> m_material;
     Ra::Engine::RenderObjectManager* m_roMgr;

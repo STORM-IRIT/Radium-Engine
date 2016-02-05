@@ -21,7 +21,7 @@
 
 namespace AnimationPlugin
 {
-    void AnimationSystem::initialize()
+    AnimationSystem::AnimationSystem()
     {
         m_isPlaying = false;
         m_oneStep = false;

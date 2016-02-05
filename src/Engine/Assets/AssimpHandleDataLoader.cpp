@@ -79,6 +79,7 @@ void AssimpHandleDataLoader::loadHandleData( const aiScene* scene, std::vector< 
             loadHandleTopologyData( scene, handle );
             fetchVertexSize( *handle );
 
+            // Remove scale from transform.
             for( auto& component : handle->m_component ) {
                 Core::Transform& frame = component.m_frame;
                 Core::Vector3 t = frame.translation();

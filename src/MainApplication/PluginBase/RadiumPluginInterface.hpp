@@ -64,7 +64,7 @@ namespace Ra
     }
 }
 
-#define RadiumPluginInterface_IID "foo.bar.RadiumEngine.PluginInterface"
+#define RadiumPluginInterface_IID "RadiumEngine.PluginInterface"
 Q_DECLARE_INTERFACE( Ra::Plugins::RadiumPluginInterface, RadiumPluginInterface_IID )
 
 

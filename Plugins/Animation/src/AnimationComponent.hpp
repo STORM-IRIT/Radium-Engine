@@ -11,7 +11,6 @@
 #include <Engine/Assets/AnimationData.hpp>
 
 #include <AnimationLoader.hpp>
-//#include <Plugins/FancyMesh/FancyMeshComponent.hpp>
 
 namespace AnimationPlugin
 {
@@ -54,8 +53,8 @@ public:
     virtual void setProperty( const Ra::Engine::EditableProperty& prop) override;
     virtual bool picked (uint drawableIdex) const override;
 
-    //ANIM_PLUGIN_API void setMeshComponent(FancyMeshPlugin::FancyMeshComponent* component);
-    //ANIM_PLUGIN_API FancyMeshPlugin::FancyMeshComponent* getMeshComponent() const;
+    ANIM_PLUGIN_API void setMeshComponent(Ra::Engine::Component* component);
+    ANIM_PLUGIN_API Ra::Engine::Component* getMeshComponent() const;
     ANIM_PLUGIN_API Ra::Core::Animation::WeightMatrix getWeights() const;
     ANIM_PLUGIN_API Ra::Core::Animation::Pose getRefPose() const;
 
@@ -75,7 +74,7 @@ protected:
 
     std::vector<SkeletonBoneRenderObject*> m_boneDrawables;
     Scalar m_animationTime;
-    //FancyMeshPlugin::FancyMeshComponent* m_meshComponent;
+    Ra::Engine::Component* m_meshComponent;
     mutable int m_selectedBone; //this is an ugly hack ! (Val)
 };
 

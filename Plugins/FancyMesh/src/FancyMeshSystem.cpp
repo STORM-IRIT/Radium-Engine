@@ -25,10 +25,6 @@ namespace FancyMeshPlugin
     {
     }
 
-    void FancyMeshSystem::initialize()
-    {
-    }
-
     void FancyMeshSystem::handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData )
     {
         auto geomData = fileData->getGeometryData();

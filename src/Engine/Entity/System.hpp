@@ -50,7 +50,6 @@ namespace Ra
             /**
              * @brief Initialize system.
              */
-            virtual void initialize() = 0;
 
             /**
              * @brief Pure virtual method to be overrided by any system.

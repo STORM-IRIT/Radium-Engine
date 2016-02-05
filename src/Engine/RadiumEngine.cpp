@@ -42,9 +42,6 @@ namespace Ra
         {
             m_renderObjectManager.reset( new RenderObjectManager );
             m_entityManager.reset( new EntityManager );
-
-            for (std::pair<const std::string, std::shared_ptr<Ra::Engine::System>> systemPair : m_systems)
-                systemPair.second->initialize();
         }
 
         void RadiumEngine::cleanup()
