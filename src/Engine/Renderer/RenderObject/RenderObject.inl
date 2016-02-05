@@ -12,7 +12,7 @@ namespace Ra
             return m_type;
         }
 
-        void RenderObject::setType(RenderObjectType &t)
+        void RenderObject::setType(const RenderObjectType &t)
         {
             // Fixme (val) : this will have no effect now
             m_type=t;

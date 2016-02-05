@@ -66,7 +66,7 @@ namespace Ra
             inline const Component* getComponent() const;
 
             inline const RenderObjectType& getType() const;
-            inline void setType( RenderObjectType& t);
+            inline void setType( const RenderObjectType& t);
 
             inline void setVisible( bool visible );
             inline bool isVisible() const;
