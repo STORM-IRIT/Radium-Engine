@@ -1,11 +1,11 @@
-#include "AnimatorTask.hpp"
+#include <AnimatorTask.hpp>
 
 namespace AnimationPlugin
 {
 
 AnimatorTask::AnimatorTask(AnimationComponent* component, Scalar dt) : m_component(component), m_dt(dt)
 {
-    
+
 }
 
 std::string AnimatorTask::getName() const
@@ -15,7 +15,7 @@ std::string AnimatorTask::getName() const
 
 void AnimatorTask::init( const Ra::Core::TaskParams* params )
 {
-    
+
 }
 
 void AnimatorTask::process()

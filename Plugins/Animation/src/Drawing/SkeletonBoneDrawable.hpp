@@ -1,8 +1,6 @@
 #ifndef ANIMPLUGIN_SKELETON_BONE_DRAWABLE_HPP_
 #define ANIMPLUGIN_SKELETON_BONE_DRAWABLE_HPP_
 
-#include "../AnimationPlugin.hpp"
-
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
 
@@ -11,7 +9,8 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
-#include "../AnimationComponent.hpp"
+#include <AnimationPlugin.hpp>
+#include <AnimationComponent.hpp>
 
 //#define K_VERSION
 

@@ -72,11 +72,11 @@ namespace FancyMeshPlugin
     void FancyMeshComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
     {
         std::string name( m_name );
-        name.append( "_" + data->getName() /*+ std::to_string( roCpt++ )*/ );
+        name.append( "_" + data->getName() );
 
         std::string roName = name;
         roName.append( "_RO" );
-           
+
         std::string meshName = name;
         meshName.append( "_Mesh" );
 

@@ -6,11 +6,10 @@
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
 #include <Core/Animation/Animation.hpp>
+#include <Core/Animation/Handle/HandleWeight.hpp>
 
 #include <Engine/Assets/HandleData.hpp>
 #include <Engine/Assets/AnimationData.hpp>
-
-#include <AnimationLoader.hpp>
 
 namespace AnimationPlugin
 {
@@ -24,59 +23,60 @@ public:
     virtual ~AnimationComponent() {}
 
     virtual void initialize() override;
-    void set(const Ra::Core::Animation::Skeleton& skel);
-    void update(Scalar dt);
-    void handleLoading(const AnimationLoader::AnimationData& data);
-    void reset();
+
+    void setSkeleton(const Ra::Core::Animation::Skeleton& skel);
 
     inline Ra::Core::Animation::Skeleton& getSkeleton() { return m_skel; }
+    ANIM_PLUGIN_API Ra::Core::Animation::WeightMatrix getWeights() const;
+    ANIM_PLUGIN_API Ra::Core::Animation::Pose getRefPose() const;
+    std::string getContentName() const;
 
-#define TRY_DEBUG_HANDLES
-#ifdef TRY_DEBUG_HANDLES
+    void update(Scalar dt);
+    void reset();
+
     void handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable );
     void handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data );
 
-    void createSkeleton( const Ra::Asset::HandleData* data, std::map< uint, uint >& indexTable );
-    void addBone( const int parent,
-                  const uint dataID,
-                  const Ra::Core::AlignedStdVector< Ra::Asset::HandleComponentData >& data,
-                  const Ra::Core::AlignedStdVector< Ra::Core::Vector2i >& edgeList,
-                  std::vector< bool >& processed,
-                  std::map< uint, uint >& indexTable );
-    void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable );
-#endif
     //
     // Editable interface
     //
-
     virtual void getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const override;
     virtual void setProperty( const Ra::Engine::EditableProperty& prop) override;
     virtual bool picked (uint drawableIdex) const override;
 
    ANIM_PLUGIN_API void toggleXray(bool on) const;
 
-   ANIM_PLUGIN_API void setMeshComponent(Ra::Engine::Component* component);
-   ANIM_PLUGIN_API Ra::Engine::Component* getMeshComponent() const;
-   ANIM_PLUGIN_API Ra::Core::Animation::WeightMatrix getWeights() const;
-   ANIM_PLUGIN_API Ra::Core::Animation::Pose getRefPose() const;
-
-    std::string getContentName() const;
 
 protected:
-    // debug function
-    void printSkeleton(const Ra::Core::Animation::Skeleton& skeleton);
+    // debug function to display the hierarchy
+    void printSkeleton(const Ra::Core::Animation::Skeleton& skeleton);private:
+
+    // Create a skeleton from a file data.
+    void createSkeleton( const Ra::Asset::HandleData* data, std::map< uint, uint >& indexTable );
+
+    // Internal recursive method to create bones
+    void addBone( const int parent,
+                  const uint dataID,
+                  const Ra::Core::AlignedStdVector< Ra::Asset::HandleComponentData >& data,
+                  const Ra::Core::AlignedStdVector< Ra::Core::Vector2i >& edgeList,
+                  std::vector< bool >& processed,
+                  std::map< uint, uint >& indexTable );
+
+    // Internal function to create the skinning weights.
+    void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable );
+
 
 protected:
     std::string m_contentName;
 
-    Ra::Core::Animation::Skeleton m_skel;
+    Ra::Core::Animation::Skeleton m_skel; // Skeleton
     Ra::Core::Animation::RefPose m_refPose; // Ref pose in model space.
     std::vector<Ra::Core::Animation::Animation> m_animations;
-    Ra::Core::Animation::WeightMatrix m_weights;
+    Ra::Core::Animation::WeightMatrix m_weights; // Skinning weights ( should go in skinning )
 
-    std::vector<SkeletonBoneRenderObject*> m_boneDrawables;
+    std::vector<SkeletonBoneRenderObject*> m_boneDrawables ; // Vector of bone display objects
     Scalar m_animationTime;
-    Ra::Engine::Component* m_meshComponent;
+
     mutable int m_selectedBone; //this is an ugly hack ! (Val)
 };
 

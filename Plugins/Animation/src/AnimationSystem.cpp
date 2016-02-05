@@ -1,4 +1,4 @@
-#include "Drawing/SkeletonBoneDrawable.hpp"
+#include <AnimationSystem.hpp>
 
 #include <string>
 #include <iostream>
@@ -7,17 +7,14 @@
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/FrameInfo.hpp>
-
-#include "AnimationSystem.hpp"
-#include "AnimationLoader.hpp"
-#include "AnimationComponent.hpp"
-#include "AnimatorTask.hpp"
-
 #include <Engine/Assets/FileData.hpp>
 #include <Engine/Assets/HandleData.hpp>
 
+#include <AnimationComponent.hpp>
+#include <AnimatorTask.hpp>
+#include <Drawing/SkeletonBoneDrawable.hpp>
 
-//#include <Plugins/Implicit/ImplicitComponent.hpp>
+
 
 namespace AnimationPlugin
 {
@@ -25,10 +22,6 @@ namespace AnimationPlugin
     {
         m_isPlaying = false;
         m_oneStep = false;
-
-        /*FancyMeshPlugin::FancyMeshSystem* meshSystem =
-                (FancyMeshPlugin::FancyMeshSystem*) Ra::Engine::RadiumEngine::getInstance()->getSystem("FancyMeshSystem");
-        meshSystem->registerOnComponentCreation(this);*/
     }
 
     void AnimationSystem::generateTasks(Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo)
@@ -40,11 +33,8 @@ namespace AnimationPlugin
         for (auto compEntry : this->m_components)
         {
             AnimationComponent* component = std::static_pointer_cast<AnimationComponent>(compEntry.second).get();
-            //if (!component->getAnimation().isEmpty()) OR we are in manual mode
-            {
-                AnimatorTask* task = new AnimatorTask(component, currentDelta);
-                taskQueue->registerTask( task );
-            }
+            AnimatorTask* task = new AnimatorTask(component, currentDelta);
+            taskQueue->registerTask( task );
         }
 
         m_oneStep = false;
@@ -57,28 +47,6 @@ namespace AnimationPlugin
 
         return component;
     }
-
-/*    void AnimationSystem::handleFileLoading(Ra::Engine::Entity *entity, const std::string &filename)
-    {
-        LOG( logDEBUG ) << "AnimationSystem : loading the file " << filename << "...";
-
-        AnimationLoader::AnimationData componentData = AnimationLoader::loadFile( filename );
-        if (componentData.hasLoaded)
-        {
-            AnimationComponent* animationComponent = static_cast<AnimationComponent*>(addComponentToEntity(meshComponent->getEntity()));
-            animationComponent->setMeshComponent(meshComponent);
-            animationComponent->handleLoading(componentData);
-
-            callOnComponentCreationDependencies(animationComponent);
-        }
-
-//        AnimationLoader::AnimationData componentData = AnimationLoader::loadFile(filename);
-
-//        AnimationComponent* component = static_cast<AnimationComponent*>(addComponentToEntity(entity));
-//        component->handleLoading(componentData);
-
-//        callOnComponentCreationDependencies(component);
-    }*/
 
     void AnimationSystem::reset()
     {
@@ -104,6 +72,9 @@ namespace AnimationPlugin
 
     void AnimationSystem::callbackOnComponentCreation(const Ra::Engine::Component *component)
     {
+
+        // FIXME
+
         //std::cout << "Mesh component received by the Animation system" << std::endl;
 
         //FancyMeshPlugin::FancyMeshComponent* meshComponent = (FancyMeshPlugin::FancyMeshComponent*) component;
@@ -136,8 +107,6 @@ namespace AnimationPlugin
     }
 
     void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData ) {
-        // FIXME(Charly): Does not compile
-#if 1
         auto geomData = fileData->getGeometryData();
         auto skelData = fileData->getHandleData();
         auto animData = fileData->getAnimationData();
@@ -163,6 +132,5 @@ namespace AnimationPlugin
 
 
         }
-#endif
     }
 }

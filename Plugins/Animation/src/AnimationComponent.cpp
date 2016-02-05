@@ -52,7 +52,6 @@ namespace AnimationPlugin
         }
 
         CORE_ASSERT(m_selectedBone >= 0 && uint(m_selectedBone) < m_skel.size(), "Oops");
-        //for (uint i = 0; i < m_skel.size(); ++i)
         uint i = m_selectedBone;
         {
              const Ra::Core::Transform& tr = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL)[i];
@@ -113,7 +112,7 @@ namespace AnimationPlugin
         m_skel.setTransform(boneIdx,TBoneLocal * diff,  Ra::Core::Animation::Handle::SpaceType::LOCAL);
     }
 
-    void AnimationComponent::set(const Ra::Core::Animation::Skeleton& skel)
+    void AnimationComponent::setSkeleton(const Ra::Core::Animation::Skeleton& skel)
     {
         m_skel = skel;
         m_refPose = skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL);
@@ -170,64 +169,19 @@ namespace AnimationPlugin
         }
     }
 
-    void AnimationComponent::handleLoading(const AnimationLoader::AnimationData& data)
-    {
-        LOG( logDEBUG ) << "Animation component: loading a skeleton";
-
-        Ra::Core::Animation::Skeleton skeleton = Ra::Core::Animation::Skeleton(data.hierarchy.size());
-        skeleton.m_graph = data.hierarchy;
-        skeleton.setPose(data.pose, Ra::Core::Animation::Handle::SpaceType::LOCAL);
-        skeleton.setName( data.name );
-
-        if (data.boneNames.size() == data.hierarchy.size())
-        {
-            for (uint i = 0; i < skeleton.m_graph.size(); i++)
-                skeleton.setLabel(i, data.boneNames[i]);
-        }
-        else  // Auto-naming
-        {
-            for (uint i = 0; i < skeleton.m_graph.size(); i++)
-                skeleton.setLabel(i, m_name + std::string("Bone_") + std::to_string(i));
-        }
-
-        printSkeleton(skeleton);
-
-        set(skeleton);
-
-        m_animations = data.animations;
-        m_animationTime = 0;
-        m_weights = data.weights;
-
-        initialize();
-    }
-
     void AnimationComponent::reset()
     {
         m_animationTime= 0;
-        // reset mesh m_meshComponent->
-    }
-
-    void AnimationComponent::setMeshComponent(Ra::Engine::Component* component)
-    {
-        m_meshComponent = component;
     }
 
     Ra::Core::Animation::Pose AnimationComponent::getRefPose() const
     {
         return m_refPose;
     }
-
-    Ra::Engine::Component* AnimationComponent::getMeshComponent() const
-    {
-        return m_meshComponent;
-    }
-
     Ra::Core::Animation::WeightMatrix AnimationComponent::getWeights() const
     {
         return m_weights;
     }
-
-
 
     void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable ) {
         std::string name( m_name );
