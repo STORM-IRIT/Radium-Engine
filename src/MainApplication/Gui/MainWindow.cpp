@@ -322,11 +322,10 @@ namespace Ra
             const Engine::Entity* ent = comp->getEntity();
             int compIdx = -1;
             int i = 0;
-            for ( auto c : ent->getComponentsMap() )
+            for ( const auto& c : ent->getComponents() )
             {
-                if ( c.second == comp )
+                if ( c.get() == comp )
                 {
-                    CORE_ASSERT( c.first == comp->getName(), "Inconsistent names" );
                     compIdx = i;
                     break;
                 }
@@ -426,11 +425,10 @@ namespace Ra
         text.append( entity->getName().c_str() );
         m_selectedStuffName->setText( text );
 
-        auto comps = entity->getComponentsMap();
 
-        for ( const auto comp : comps )
+        for ( const auto& comp : entity->getComponents())
         {
-            displayRenderObjects( comp.second );
+            displayRenderObjects( comp.get() );
         }
     }
 

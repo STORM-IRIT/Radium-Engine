@@ -23,14 +23,7 @@ namespace Ra
 
         Entity::~Entity()
         {
-            for ( const auto& component : m_components )
-            {
-                System* system = component.second->getSystem();
-                if ( system != nullptr )
-                {
-                    system->removeComponent( component.first );
-                }
-            }
+            // Assert if I've been removed from ent mgr ?
         }
 
         void Entity::addComponent( Engine::Component* component )
@@ -39,60 +32,38 @@ namespace Ra
             std::string err;
             Core::StringUtils::stringPrintf( err, "Component \"%s\" has already been added to the entity.",
                                              name.c_str());
-            CORE_ASSERT( m_components.find( name ) == m_components.end(), err.c_str());
+            CORE_ASSERT( getComponent(name) == nullptr, err.c_str());
 
-            m_components.insert( ComponentByName( name, component ));
+            m_components.emplace_back( std::unique_ptr<Component>(component));
 
             component->setEntity( this );
         }
 
         Component* Entity::getComponent( const std::string& name )
         {
-            Component* comp = nullptr;
+            const auto& pos = std::find_if(
+                        m_components.begin(),
+                        m_components.end(),
+                        [ name ] (const auto& c){ return c->getName() == name;} );
 
-            auto it = m_components.find( name );
-            if ( it != m_components.end())
-            {
-                comp = it->second;
-            }
 
-            return comp;
+            return pos != m_components.end()? pos->get() : nullptr;
+        }
+
+        const std::vector<std::unique_ptr<Component> > &Entity::getComponents() const
+        {
+           return m_components;
         }
 
         void Entity::removeComponent( const std::string& name )
         {
-            std::string err;
-            Core::StringUtils::stringPrintf( err, "The component \"%s\" is not part of the entity \"%s\"",
-                                             name.c_str(), m_name.c_str());
+            const auto& pos = std::find_if(
+                        m_components.begin(),
+                        m_components.end(),
+                        [ name ] (const auto& c){ return c->getName() == name;} );
 
-            auto it = m_components.find( name );
-
-            CORE_ASSERT( it != m_components.end(), err.c_str());
-
-            if ( it != m_components.end() )
-            {
-                System* system = it->second->getSystem();
-                if ( system != nullptr )
-                {
-                    system->removeComponent( it->first );
-                }
-                m_components.erase( it );
-            }
-            else
-            {
-                LOG( logERROR ) << "Trying to remove component " << name
-                                << " which is not attached to the entity.";
-            }
-        }
-
-        void Entity::removeComponent( Engine::Component* component )
-        {
-            removeComponent( component->getName() );
-        }
-
-        const std::map<std::string, Engine::Component*>& Engine::Entity::getComponentsMap() const
-        {
-            return m_components;
+            CORE_ASSERT( pos != m_components.end(), "Component not found in entity" );
+            m_components.erase(pos);
         }
 
         void Entity::getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const
@@ -152,9 +123,9 @@ namespace Ra
             // put ray in local frame.
             Core::Ray transformedRay = r;
             transformedRay.transform(m_transform.inverse());
-            for (auto c : m_components)
+            for (const auto& c : m_components)
             {
-                c.second->rayCastQuery(transformedRay);
+                c->rayCastQuery(transformedRay);
             }
         }
 

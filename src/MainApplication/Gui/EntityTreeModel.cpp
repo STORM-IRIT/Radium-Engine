@@ -288,15 +288,15 @@ namespace Ra
 
     void Gui::EntityTreeModel::insertComponents( Engine::Entity* entity, EntityTreeItem* parent )
     {
-        for ( const auto comp : entity->getComponentsMap() )
+        for ( const auto& comp : entity->getComponents() )
         {
-            std::string name = comp.first;
+            std::string name = comp->getName();
             EntityTreeItem* item;
 
             QVector<EntityTreeItem::ItemData> vec;
             EntityTreeItem::ItemData data;
             data.data = QString::fromStdString( name );
-            data.component = comp.second;
+            data.component = comp.get();
             data.isComponentNode = true;
 
             vec << data;
