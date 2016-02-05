@@ -12,7 +12,6 @@ endif( "${isSysDir}" STREQUAL "-1" )
 
 # Find packages
 find_package(OpenGL     REQUIRED)
-find_package(Assimp     REQUIRED)
 find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
@@ -74,7 +73,7 @@ file(GLOB_RECURSE engine_geom_glsl ../Shaders/*.geom.glsl)
 file(GLOB_RECURSE engine_tesc_glsl ../Shaders/*.tesc.glsl)
 file(GLOB_RECURSE engine_tese_glsl ../Shaders/*.tese.glsl)
 file(GLOB_RECURSE engine_comp_glsl ../Shaders/*.comp.glsl)
-set( engine_shaders 
+set( engine_shaders
     ${engine_vert_glsl} ${engine_frag_glsl} ${engine_geom_glsl}
     ${engine_tesc_glsl} ${engine_tese_glsl} ${engine_comp_glsl} )
 
@@ -108,6 +107,8 @@ target_link_libraries(
 
 # Build MainApplication
 set(app_target radium)
+
+include(CMakeGenerateVersion.txt)
 
 set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})
 
@@ -165,10 +166,6 @@ target_link_libraries(
     ${app_libs}
     )
 
-if (WIN32)
-    include(CMakeGenerateTrees.txt)
-endif(WIN32)
-include(CMakeGenerateVersion.txt)
 install( DIRECTORY . DESTINATION include FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl" PATTERN "*.h" )
 install( FILES ${engine_shaders} DESTINATION Shaders )
 install( DIRECTORY ${CMAKE_SOURCE_DIR}/Assets/. DESTINATION Assets )

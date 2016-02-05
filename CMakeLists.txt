@@ -2,8 +2,7 @@ project(RadiumEngine)
 
 cmake_minimum_required(VERSION 2.8.11)
 
-#if ("${SSE_VERSION}" STREQUAL "3")
-if (("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"))
+if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang"))
     # No openmp on MacosX Clang (TODO, find better compiler identification)
     set(CMAKE_CXX_FLAGS                "-Wall -Wextra  -std=c++1y -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-rtti -fno-exceptions ${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -DOSG_NOTIFY_LEVEL=DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
