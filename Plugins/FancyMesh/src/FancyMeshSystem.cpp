@@ -29,19 +29,16 @@ namespace FancyMeshPlugin
     {
         auto geomData = fileData->getGeometryData();
 
-        for( const auto& data : geomData ) {
-            // FIXME(Charly): One component of a given type by entity ?
-            FancyMeshComponent* component = static_cast<FancyMeshComponent*>(addComponentToEntity(entity));
-            component->handleMeshLoading( data );
+        uint id = 0;
+
+        for ( const auto& data : geomData )
+        {
+            std::string componentName = "FMC_" + entity->getName() + std::to_string( id );
+            FancyMeshComponent * comp = new FancyMeshComponent( componentName );
+            comp->handleMeshLoading(data);
+            entity->addComponent( comp );
+            registerComponent( entity, comp );
         }
-    }
-
-    Ra::Engine::Component* FancyMeshSystem::addComponentToEntityInternal( Ra::Engine::Entity* entity, uint id )
-    {
-        std::string componentName = "FMC_" + entity->getName() + std::to_string( id );
-        FancyMeshComponent* component = new FancyMeshComponent( componentName );
-
-        return component;
     }
 
     void FancyMeshSystem::generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo )
@@ -49,20 +46,19 @@ namespace FancyMeshPlugin
         // Do nothing, as this system only displays meshes.
     }
 
-    FancyMeshComponent* FancyMeshSystem::addFancyMeshToEntity( Ra::Engine::Entity* entity,
-                                                               const Ra::Core::TriangleMesh& mesh )
+    FancyMeshComponent* FancyMeshSystem::makeFancyMeshFromGeometry( 
+                    const Ra::Core::TriangleMesh& mesh, const std::string& name,
+                    Ra::Engine::RenderTechnique* technique )
     {
-        FancyMeshComponent* comp = static_cast<FancyMeshComponent*>( addComponentToEntity( entity ) );
-        comp->addMeshRenderObject( mesh, "Mesh RenderObject" );
-        return comp;
-    }
-
-    FancyMeshComponent* FancyMeshSystem::addFancyMeshToEntity( Ra::Engine::Entity* entity,
-                                                               const Ra::Core::TriangleMesh& mesh,
-                                                               Ra::Engine::RenderTechnique* technique )
-    {
-        FancyMeshComponent* comp = static_cast<FancyMeshComponent*>( addComponentToEntity( entity ) );
-        comp->addMeshRenderObject( mesh, "Mesh RenderObject", technique );
+        FancyMeshComponent* comp = new FancyMeshComponent(name);
+        if ( technique )
+        {
+            comp->addMeshRenderObject( mesh, "Mesh RenderObject", technique );
+        }
+        else
+        {
+            comp->addMeshRenderObject( mesh, "Mesh RenderObject" );
+        }
         return comp;
     }
 

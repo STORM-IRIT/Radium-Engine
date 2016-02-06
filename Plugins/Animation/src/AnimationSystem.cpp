@@ -32,7 +32,7 @@ namespace AnimationPlugin
 
         for (auto compEntry : this->m_components)
         {
-            AnimationComponent* component = std::static_pointer_cast<AnimationComponent>(compEntry.second).get();
+            AnimationComponent* component = static_cast<AnimationComponent*>(compEntry.second);
             AnimatorTask* task = new AnimatorTask(component, currentDelta);
             taskQueue->registerTask( task );
         }
@@ -40,19 +40,11 @@ namespace AnimationPlugin
         m_oneStep = false;
     }
 
-    Ra::Engine::Component* AnimationSystem::addComponentToEntityInternal(Ra::Engine::Entity* entity, uint id)
-    {
-        std::string componentName = "AnimationComponent_" + entity->getName() + std::to_string(id);
-        AnimationComponent* component = new AnimationComponent(componentName);
-
-        return component;
-    }
-
     void AnimationSystem::reset()
     {
         for (auto compEntry : this->m_components)
         {
-            AnimationComponent* component = std::static_pointer_cast<AnimationComponent>(compEntry.second).get();
+            AnimationComponent* component = static_cast<AnimationComponent*>(compEntry.second);
             {
                 component->reset();
             }
@@ -70,48 +62,11 @@ namespace AnimationPlugin
         m_isPlaying = isPlaying;
     }
 
-    void AnimationSystem::callbackOnComponentCreation(const Ra::Engine::Component *component)
-    {
-
-        // FIXME
-
-        //std::cout << "Mesh component received by the Animation system" << std::endl;
-
-        //FancyMeshPlugin::FancyMeshComponent* meshComponent = (FancyMeshPlugin::FancyMeshComponent*) component;
-
-        //std::string fancy_name = meshComponent->getContentName();
-
-        AnimationComponent* animationComponent = nullptr;
-        for( auto& comp : m_components ) {
-            animationComponent = static_cast<AnimationComponent*>( comp.second.get() );
-            std::string anim_name = animationComponent->getContentName();
-            //if( fancy_name == anim_name ) {
-                break;
-            //}
-        }
-        //if( animationComponent != nullptr ) animationComponent->setMeshComponent(meshComponent);
-
-
-        //animationComponent->setMeshComponent(meshComponent);
-        /*
-        AnimationLoader::AnimationData componentData = AnimationLoader::loadFile(meshComponent->getLoadingInfo().filename, meshComponent->getLoadingInfo());
-        if (componentData.hasLoaded)
-        {
-            AnimationComponent* animationComponent = static_cast<AnimationComponent*>(addComponentToEntity(meshComponent->getEntity()));
-            animationComponent->setMeshComponent(meshComponent);
-            animationComponent->handleLoading(componentData);
-
-            callOnComponentCreationDependencies(animationComponent);
-        }
-        */
-    }
-
     void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData ) {
         auto geomData = fileData->getGeometryData();
         auto skelData = fileData->getHandleData();
         auto animData = fileData->getAnimationData();
 
-        // FIXME(Charly): One component of a given type by entity ?
         for ( const auto& skel : skelData )
         {
             uint geomID = uint(-1);
@@ -121,16 +76,13 @@ namespace AnimationPlugin
                 }
             }
 
-
             // FIXME(Charly): Certainly not the best way to do this
-            AnimationComponent* component = static_cast<AnimationComponent*>(addComponentToEntity(entity));
+            AnimationComponent* component = new AnimationComponent( "AC_" + skel->getName() );
             component->handleSkeletonLoading( skel, ( geomID == uint( -1 ) ) ? std::map< uint, uint >() : geomData[geomID]->getDuplicateTable() );
             component->handleAnimationLoading( animData );
 
-            //ImplicitPlugin::ImplicitComponent* implicitComponent = static_cast<ImplicitPlugin::ImplicitComponent*>(addComponentToEntity(entity));
-            //implicitComponent->setAnimationComponent(component);
-
-
+            entity->addComponent( component );
+            registerComponent( entity, component );
         }
     }
 }

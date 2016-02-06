@@ -31,7 +31,6 @@ namespace Ra
 
         RadiumEngine::RadiumEngine()
         {
-            LOG(logINFO) << "*** Radium Engine ***";
         }
 
         RadiumEngine::~RadiumEngine()
@@ -40,6 +39,7 @@ namespace Ra
 
         void RadiumEngine::initialize()
         {
+            LOG(logINFO) << "*** Radium Engine ***";
             m_renderObjectManager.reset( new RenderObjectManager );
             m_entityManager.reset( new EntityManager );
         }
@@ -109,32 +109,6 @@ namespace Ra
 
 
             return true;
-        }
-
-        bool RadiumEngine::handleKeyEvent( const Core::KeyEvent& event )
-        {
-            for ( const auto& system : m_systems )
-            {
-                if ( system.second->handleKeyEvent( event ) )
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        bool RadiumEngine::handleMouseEvent( const Core::MouseEvent& event )
-        {
-            for ( const auto& system : m_systems )
-            {
-                if ( system.second->handleMouseEvent( event ) )
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
 
         RenderObjectManager* RadiumEngine::getRenderObjectManager() const

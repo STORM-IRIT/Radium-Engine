@@ -40,15 +40,10 @@ namespace FancyMeshPlugin
 
         virtual void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;
 
-        // Specialized factory methods for this systems.
-        FancyMeshComponent* addFancyMeshToEntity( Ra::Engine::Entity* entity, const Ra::Core::TriangleMesh& mesh );
-        FancyMeshComponent* addFancyMeshToEntity( Ra::Engine::Entity* entity,
-                                                  const Ra::Core::TriangleMesh& mesh,
-                                                  Ra::Engine::RenderTechnique* technique );
+        // Specialized factory method for this systems.
+        static FancyMeshComponent* makeFancyMeshFromGeometry( const Ra::Core::TriangleMesh& mesh, const std::string& name, 
+                                                            Ra::Engine::RenderTechnique* technique = nullptr );
 
-    protected:
-        virtual Ra::Engine::Component* addComponentToEntityInternal(
-                Ra::Engine::Entity* entity, uint id ) override;
     };
 
 } // namespace FancyMeshPlugin

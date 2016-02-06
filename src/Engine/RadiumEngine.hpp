@@ -54,9 +54,6 @@ namespace Ra
 
             bool loadFile( const std::string& file );
 
-            bool handleMouseEvent( const Core::MouseEvent& event );
-            bool handleKeyEvent( const Core::KeyEvent& event );
-
             /// Is called at the end of the frame to synchronize any data
             /// that may have been updated during the frame's multithreaded processing.
             void endFrameSync();

@@ -48,11 +48,7 @@ namespace Ra
             virtual ~System();
 
             /**
-             * @brief Initialize system.
-             */
-
-            /**
-             * @brief Pure virtual method to be overrided by any system.
+             * @brief Pure virtual method to be overridden by any system.
              * A very basic version of this method could be to iterate on components
              * and just call Component::udate() method on them.
              * This update depends on time (e.g. physics system).
@@ -61,79 +57,30 @@ namespace Ra
              */
             virtual void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) = 0;
 
+
+            /// Registers a component belonging to an entity, making it active within the system.
+            void registerComponent( const Entity* entity, Component* component );
+
+
+            /// Unregisters a component. The system will not update it.
+            void unregisterComponent(const Entity* entity, Component* component);
+
+            /// Removes all components belonging to a given entity.
+            void unregisterAllComponents( const Entity* entity );
+
+
+            
             /**
-             * @brief Add a component to the system.
-             *
-             * @param component The component to be added to the system
-             * @param id The component id
+            /* Factory method for component creation from file data. 
+            /* Given a given file and the corresponding entity, the system will create the 
+            /* corresponding components ,add them to the entity.
              */
-            void addComponent( Component* component );
+            virtual void handleAssetLoading( Entity* entity, const Asset::FileData* data) {}
 
-            /**
-             * @brief Remove a component from the system given its index.
-             *
-             * @param id The id of the component to remove
-             */
-            void removeComponent( const std::string& name );
-
-            /**
-              * @brief Remove a component from the system.
-              * @param component The component to remove
-              */
-            void removeComponent( Component* component );
-
-            /**
-             * @brief Handle a keyboard event.
-             * @param event The keyboard event to handle
-             * @return true if the event has been handled, false otherwise.
-             */
-            virtual bool handleKeyEvent( const Core::KeyEvent& event )
-            {
-                return false;
-            }
-
-            /**
-             * @brief Handle a mouse event.
-             * @param event The mouse event to handle
-             * @return true if the event has been handled, false otherwise.
-             */
-            virtual bool handleMouseEvent( const Core::MouseEvent& event )
-            {
-                return false;
-            }
-
-            virtual void handleFileLoading(Entity* entity, const std::string& filename) {}
-
-            virtual void handleDataLoading( Entity* entity, const std::string& rootFolder,
-                                            const std::map<std::string, Core::Any>& data ) {}
-
-            virtual void handleAssetLoading( Entity* entity, const Asset::FileData* data ) {}
-
-            /**
-             * @brief Handle all the logic behind a component creation.
-             * @param name Name of the entity the component should belong to.
-             * @return The created component.
-             */
-            virtual Component* addComponentToEntity( Entity* entity ) final;
-
-            // Register the system so that its callbackOnComponentCreation function will be called upon creation of a component
-            void registerOnComponentCreation( Ra::Engine::System* system );
-
-
-            void manageDependencyOfComponent();
 
 
         protected:
-            virtual Component* addComponentToEntityInternal( Entity* entity, uint id ) = 0;
-
-            // This function must be called after a component has be fully created.
-            void callOnComponentCreationDependencies(const Ra::Engine::Component* component);
-
-            virtual void callbackOnComponentCreation(const Ra::Engine::Component* component) {}
-
-        protected:
-            std::map<std::string, std::shared_ptr<Component>> m_components;
-            std::vector<System*> m_dependentSystems;
+            std::vector<std::pair< const Entity*, Component*> > m_components;
         };
 
     } // namespace Engine
