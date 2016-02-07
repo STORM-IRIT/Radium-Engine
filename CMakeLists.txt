@@ -139,11 +139,8 @@ elseif( MSVC )
     else()
         set(MSVC_PREFIX "vc130")
     endif()
-    if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mtd.lib" )
-    else()
-        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mt.lib" )
-    endif()
+        
+    set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mt.lib" )
 endif()
 
 set( CMAKE_DEBUG_POSTFIX "" )
