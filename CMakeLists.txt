@@ -17,15 +17,13 @@ elseif (UNIX)
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 ${CMAKE_CXX_FLAGS_RELEASE}")
 
   add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
-endif()
-
-# Visual studio flags breakdown
-# /GR- : no rtti ; /Ehs-c- : no exceptions
-# /Od  : disable optimization
-# /Ox :  maximum optimization
-# /GL : enable link time optimization
-# /Zi  : generate debug info
-if (MSVC)
+elseif (MSVC)
+    # Visual studio flags breakdown
+    # /GR- : no rtti ; /Ehs-c- : no exceptions
+    # /Od  : disable optimization
+    # /Ox :  maximum optimization
+    # /GL : enable link time optimization
+    # /Zi  : generate debug info
     #remove exceptions from default args
     add_definitions(-D_HAS_EXCEPTIONS=0)
     string (REGEX REPLACE "/EHsc *" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
@@ -35,7 +33,7 @@ if (MSVC)
     set(CMAKE_CXX_FLAGS_DEBUG		   "/D_DEBUG /DCORE_DEBUG /DOSG_NOTIFY_LEVEL=DEBUG /Od /Zi ${CMAKE_CXX_FLAGS_DEBUG} /MDd")
     set(CMAKE_CXX_FLAGS_RELEASE		   "/DNDEBUG /Ox /fp:fast /GL /MT")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi ${CMAKE_CXX_FLAGS_RELEASE}")
-endif(MSVC)
+endif()
 
 # Problem with Qt linking
 # FIXME(Charly): Not sure if this should be done on Linux
