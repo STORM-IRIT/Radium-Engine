@@ -7,8 +7,10 @@
 #include <vector>
 #include <typeindex>
 #include <functional>
+#include <iostream>
 
 #include <Core/Utils/Singleton.hpp>
+#include <Core/Utils/Any.hpp>
 #include <Engine/Entity/Component.hpp>
 
 
@@ -34,20 +36,20 @@ class RA_ENGINE_API ComponentMessenger
     RA_SINGLETON_INTERFACE( ComponentMessenger );
 
 public:
-
+    typedef std::function< Ra::Core::Any(void) > GetterCallback;
     /// An entry which allows to call the get/set methods on a component.
     struct CallbackEntry
     {
         Component* m_component;
-        void* cb;
+        GetterCallback m_getter;
     };
 
-    /// Key used to identify entries. 
+    /// Key used to identify entries.
     typedef std::pair<std::string, std::type_index> Key;
 
     // Unfortunately there is no standard hash functions for std::pair.
     // so we have to provide one (which justs xors the two hashes)
-    // We could use a proper hash combination function like this one : 
+    // We could use a proper hash combination function like this one :
     // http://www.boost.org/doc/libs/1_46_1/doc/html/hash/reference.html#boost.hash_combine
 
     /// Hash function for our key type
@@ -85,7 +87,9 @@ public:
         const bool found = (callbackEntry != entityList.end());
         if ( found )
         {
-            printf( "gotcha %s\n", callbackEntry->second.m_component->getName().c_str() );
+            std::cout<<"gotcha "<< callbackEntry->second.m_component->getName() <<std::endl;
+            Ra::Core::Any value =  callbackEntry->second.m_getter();
+            output = Ra::Core::anyCast<ReturnType>(value);
         }
 
         return found;
@@ -94,7 +98,7 @@ public:
     /// Register an output parameter, which becomes accessible by get() functions with the
     /// given string as an identifier.
     template <typename ReturnType>
-    void registerOutput(const Entity* entity, Component* comp, const std::string& id, void* cb )
+    void registerOutput(const Entity* entity, Component* comp, const std::string& id, const GetterCallback& cb )
     {
         CORE_ASSERT( entity && comp->getEntity() == entity, "Component not added to entity" );
         // Will insert a new entity entry if it doesn't exist.

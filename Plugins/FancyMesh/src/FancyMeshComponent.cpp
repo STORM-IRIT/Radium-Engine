@@ -1,4 +1,6 @@
-#include "FancyMeshComponent.hpp"
+#include <FancyMeshComponent.hpp>
+
+#include <iostream>
 
 #include <Core/String/StringUtils.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
@@ -6,6 +8,8 @@
 #include <Core/Geometry/Normal/Normal.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Entity/ComponentMessenger.hpp>
+
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
@@ -89,6 +93,10 @@ namespace FancyMeshPlugin
         renderObject->setVisible( true );
 
         std::shared_ptr<Ra::Engine::Mesh> mesh( new Ra::Engine::Mesh( meshName ) );
+
+
+        Ra::Engine::ComponentMessenger::GetterCallback cb = std::bind( &FancyMeshComponent::getMeshOutput, this );
+        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::TriangleMesh>( getEntity(), this, "toto", cb);
 
 
         m_mesh.clear();
@@ -186,6 +194,13 @@ namespace FancyMeshPlugin
     Ra::Core::TriangleMesh FancyMeshComponent::getMesh() const
     {
         return m_mesh;
+    }
+
+    Ra::Core::Any FancyMeshComponent::getMeshOutput() const
+    {
+        std::cout<< "OMG IT WORKS !!!"<<std::endl;
+        Ra::Core::Any result(getMesh());
+        return result;
     }
 
     void FancyMeshComponent::rayCastQuery( const Ra::Core::Ray& r) const

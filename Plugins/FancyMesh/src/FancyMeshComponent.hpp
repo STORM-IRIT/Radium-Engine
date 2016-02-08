@@ -1,9 +1,9 @@
 #ifndef FANCYMESHPLUGIN_FANCYMESHCOMPONENT_HPP
 #define FANCYMESHPLUGIN_FANCYMESHCOMPONENT_HPP
 
-#include "FancyMeshPlugin.hpp"
+#include <FancyMeshPlugin.hpp>
 
-#include <Engine/Entity/Component.hpp>
+#include <Core/Utils/Any.hpp>
 #include <Core/Mesh/MeshTypes.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 
@@ -39,12 +39,13 @@ namespace FancyMeshPlugin
                                   Ra::Engine::RenderTechnique* technique );
 
         void handleMeshLoading( const Ra::Asset::GeometryData* data );
-        
+
         Ra::Core::Index getMeshIndex() const;
         Ra::Core::TriangleMesh getMesh() const;
+        Ra::Core::Any getMeshOutput() const;
 
         std::string getContentName() const;
-        
+
     private:
         Ra::Core::Index m_meshIndex;
         Ra::Core::Index m_aabbIndex;

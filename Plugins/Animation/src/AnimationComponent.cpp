@@ -13,6 +13,7 @@
 
 #include <Engine/Assets/KeyFrame/KeyTransform.hpp>
 #include <Engine/Assets/KeyFrame/KeyPose.hpp>
+#include <Engine/Entity/ComponentMessenger.hpp>
 
 #include <Drawing/SkeletonBoneDrawable.hpp>
 #include "Core/Mesh/TriangleMesh.hpp"
@@ -36,7 +37,11 @@ namespace AnimationPlugin
     bool AnimationComponent::picked(uint drawableIdx) const
     {
         Ra::Core::TriangleMesh tm;
-        Ra::Engine::ComponentMessenger::getInstance()->get<Ra::Core::TriangleMesh>( getEntity(), "toto", tm );
+       bool result =  Ra::Engine::ComponentMessenger::getInstance()->get<Ra::Core::TriangleMesh>( getEntity(), "toto", tm );
+       if (result)
+       {
+           std::cout<< " YEAH "<<tm.m_vertices.size()<<std::endl;
+       }
         for (const auto& dr: m_boneDrawables)
         {
             if ( dr->getRenderObjectIndex() == int( drawableIdx ) )

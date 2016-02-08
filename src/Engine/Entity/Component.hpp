@@ -8,7 +8,6 @@
 
 #include <Engine/Entity/EditableProperty.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/Entity/ComponentMessenger.hpp>
 
 namespace Ra
 {

@@ -33,6 +33,7 @@
 #include <new>
 #include <utility>
 #include <type_traits>
+#include <iostream>
 
 #include <Core/CoreMacros.hpp>
 
@@ -91,7 +92,7 @@ namespace Ra {
                 : m_manager( nullptr ) { }
 
             /// Copy constructor, copies the state of @p other
-            Any( const Any& other ) 
+            Any( const Any& other )
                 : m_manager( other.m_manager )
             {
                 if ( !other.empty() )
@@ -107,7 +108,7 @@ namespace Ra {
              *
              * @post @c other.empty() (not guaranteed for other implementations)
              */
-            Any( Any&& other ) noexcept 
+            Any( Any&& other ) noexcept
                 : m_manager( other.m_manager )
                 , m_storage( other.m_storage )
             {
@@ -183,7 +184,7 @@ namespace Ra {
                 return m_manager == nullptr;
             }
 
-            template<typename T> 
+            template<typename T>
             static constexpr bool isValidCast()
             {
                 return Or<std::is_reference<T>, std::is_copy_constructible<T>>::value;
@@ -204,8 +205,8 @@ namespace Ra {
 
             template<typename T> friend const T* anyCast( const Any* any ) noexcept;
             template<typename T> friend T* anyCast( Any* any ) noexcept;
-            
-            template<typename T> 
+
+            template<typename T>
             static void* anyCaster( const Any* any )
             {
                 if ( any->m_manager != &Manager<std::decay_t<T>>::manager )
@@ -218,12 +219,12 @@ namespace Ra {
             }
 
             // Manage in-place contained object.
-            template<typename T> 
+            template<typename T>
             struct ManagerInternal
             {
                 static void manager( Op which, const Any* anyp, Arg* arg );
 
-                template<typename _Up> 
+                template<typename _Up>
                 static Storage create( _Up&& value )
                 {
                     Storage storage;
@@ -232,7 +233,7 @@ namespace Ra {
                     return storage;
                 }
 
-                template<typename _Alloc, typename _Up> 
+                template<typename _Alloc, typename _Up>
                 static Storage alloc( const _Alloc&, _Up&& value )
                 {
                     return create( std::forward<_Up>( value ) );
@@ -245,7 +246,7 @@ namespace Ra {
             {
                 static void manager( Op which, const Any* anyp, Arg* arg );
 
-                template<typename _Up> 
+                template<typename _Up>
                 static Storage create( _Up&& value )
                 {
                     Storage storage;
@@ -268,7 +269,7 @@ namespace Ra {
          *          any.type() != typeid(remove_reference_t<V>)
          *          </code>
          */
-        template<typename V> 
+        template<typename V>
         inline V anyCast( const Any& any )
         {
             static_assert( Any::isValidCast<V>(),
@@ -312,7 +313,7 @@ namespace Ra {
             return V();
         }
 
-        template<typename V> 
+        template<typename V>
         inline V anyCast( Any&& any )
         {
             static_assert( Any::isValidCast<V>(),
@@ -340,7 +341,7 @@ namespace Ra {
          *
          * @{
          */
-        template<typename V> 
+        template<typename V>
         inline const V* anyCast( const Any* any ) noexcept
         {
             if ( any )
@@ -350,7 +351,7 @@ namespace Ra {
             return nullptr;
         }
 
-        template<typename V> 
+        template<typename V>
         inline V* anyCast( Any* any ) noexcept
         {
             if ( any )
@@ -361,7 +362,7 @@ namespace Ra {
         }
         // @}
 
-        template<typename T> 
+        template<typename T>
         void Any::ManagerInternal<T>::manager( Op which, const Any* any, Arg* arg )
         {
             // The contained object is in m_storage.m_buffer
@@ -382,7 +383,7 @@ namespace Ra {
             }
         }
 
-        template<typename T> 
+        template<typename T>
         void Any::ManagerExternal<T>::manager( Op which, const Any* any, Arg* arg )
         {
             // The contained object is *m_storage.m_ptr
@@ -402,14 +403,14 @@ namespace Ra {
                     break;
             }
         }
-        
-        template<typename T> 
+
+        template<typename T>
         bool isOfType( const Any& any, const T& dummy = T() )
         {
             return anyCast<std::add_const_t<std::remove_reference_t<T>>>( &any );
         }
 
-        template<typename T> 
+        template<typename T>
         bool isOfType( Any& any, const T& dummy = T() )
         {
             return anyCast<std::remove_reference_t<T>>( &any );

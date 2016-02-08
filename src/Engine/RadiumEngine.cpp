@@ -19,6 +19,7 @@
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Entity/EntityManager.hpp>
+#include <Engine/Entity/ComponentMessenger.hpp>
 
 #include <Engine/Assets/FileData.hpp>
 
@@ -42,7 +43,7 @@ namespace Ra
             LOG(logINFO) << "*** Radium Engine ***";
             m_renderObjectManager.reset( new RenderObjectManager );
             m_entityManager.reset( new EntityManager );
-            
+
             ComponentMessenger::createInstance();
         }
 

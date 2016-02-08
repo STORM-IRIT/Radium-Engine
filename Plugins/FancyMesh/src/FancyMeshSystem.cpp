@@ -10,6 +10,7 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Assets/FileData.hpp>
 #include <Engine/Assets/GeometryData.hpp>
+#include <Engine/Entity/ComponentMessenger.hpp>
 
 #include <FancyMeshComponent.hpp>
 
@@ -35,9 +36,8 @@ namespace FancyMeshPlugin
         {
             std::string componentName = "FMC_" + entity->getName() + std::to_string( id );
             FancyMeshComponent * comp = new FancyMeshComponent( componentName );
-            comp->handleMeshLoading(data);
             entity->addComponent( comp );
-            Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::TriangleMesh>( entity, comp, "toto", 0x0 );
+            comp->handleMeshLoading(data);
             registerComponent( entity, comp );
         }
     }
@@ -47,7 +47,7 @@ namespace FancyMeshPlugin
         // Do nothing, as this system only displays meshes.
     }
 
-    FancyMeshComponent* FancyMeshSystem::makeFancyMeshFromGeometry( 
+    FancyMeshComponent* FancyMeshSystem::makeFancyMeshFromGeometry(
                     const Ra::Core::TriangleMesh& mesh, const std::string& name,
                     Ra::Engine::RenderTechnique* technique )
     {
