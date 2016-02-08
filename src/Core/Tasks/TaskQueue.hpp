@@ -63,6 +63,9 @@ namespace Ra
             /// its predecessor completed.
             void addDependency( TaskId predecessor, TaskId successor );
 
+            /// Add dependency between a task and all task with a given name
+            void addDependency( const std::string& predecessors, TaskId successor);
+
             /// Launches the execution of all the threads in the task queue.
             /// No more tasks should be added at this point.
             void startTasks();

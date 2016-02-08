@@ -55,6 +55,17 @@ namespace Ra
             ++m_remainingDependencies[successor];
         }
 
+        void TaskQueue::addDependency(const std::string &predecessors, TaskQueue::TaskId successor)
+        {
+           for (uint i = 0; i < m_tasks.size(); ++i)
+           {
+               if (m_tasks[i]->getName() == predecessors )
+               {
+                   addDependency( i, successor);
+               }
+           }
+        }
+
         void TaskQueue::queueTask( TaskQueue::TaskId task )
         {
             CORE_ASSERT( m_remainingDependencies[task] == 0, " Task has unsatisfied dependencies" );
