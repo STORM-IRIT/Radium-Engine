@@ -121,6 +121,6 @@ namespace Ra
             return m_entityManager.get();
         }
 
-        RA_SINGLETON_IMPLEMENTATION(RadiumEngine)
+        RA_SINGLETON_IMPLEMENTATION( RadiumEngine );
     } // Namespace engine
 } // namespace Ra

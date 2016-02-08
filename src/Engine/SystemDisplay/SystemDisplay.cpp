@@ -39,6 +39,6 @@ namespace Ra
 
 #endif
 
-        RA_SINGLETON_IMPLEMENTATION(SystemEntity)
+        RA_SINGLETON_IMPLEMENTATION( SystemEntity );
     }
 }

@@ -142,9 +142,9 @@ namespace Ra
 
         return true;
     }
-	
-	bool Gui::TrackballCamera::handleWheelEvent(QWheelEvent* event)
-	{
+
+    bool Gui::TrackballCamera::handleWheelEvent(QWheelEvent* event)
+    {
         handleCameraZoom( (event->angleDelta().y() + event->angleDelta().x() * 0.1 ) * m_wheelSpeedModifier );
 
         if ( m_hasLightAttached )
@@ -153,10 +153,10 @@ namespace Ra
             m_light->setDirection( m_camera->getDirection() );
         }
 
-		emit cameraPositionChanged( m_camera->getPosition() );
-		
-		return true;
-	}
+        emit cameraPositionChanged( m_camera->getPosition() );
+
+        return true;
+    }
 
     bool Gui::TrackballCamera::handleKeyPressEvent( QKeyEvent* e )
     {
@@ -340,8 +340,8 @@ namespace Ra
     {
         handleCameraZoom( std::sqrt( dx * dx + dy * dy ) );
     }
-	
-	void Gui::TrackballCamera::handleCameraZoom( Scalar z )
+
+    void Gui::TrackballCamera::handleCameraZoom( Scalar z )
     {
         Scalar r = m_distFromCenter;
         Scalar y = r * 0.1 * z * m_cameraSensitivity * m_quickCameraModifier;

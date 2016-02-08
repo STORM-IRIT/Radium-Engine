@@ -9,28 +9,30 @@
 
 namespace Ra
 {
+namespace Engine 
+{
 
-    Engine::ShaderProgramManager::ShaderProgramManager( const std::string& shaderPath,
-                                                        const std::string& defaultShaderProgram )
+    ShaderProgramManager::ShaderProgramManager( const std::string& shaderPath,
+        const std::string& defaultShaderProgram )
         : m_shaderPath( shaderPath )
     {
         ShaderConfiguration config = getDefaultShaderConfiguration( defaultShaderProgram );
         m_defaultShaderProgram = new ShaderProgram( config );
     }
 
-    Engine::ShaderProgramManager::~ShaderProgramManager()
+    ShaderProgramManager::~ShaderProgramManager()
     {
         m_shaderPrograms.clear();
         m_shaderProgramStatus.clear();
     }
 
-    Engine::ShaderProgram* Engine::ShaderProgramManager::addShaderProgram( const std::string& name )
+    ShaderProgram* ShaderProgramManager::addShaderProgram( const std::string& name )
     {
         ShaderConfiguration config = getDefaultShaderConfiguration( name );
         return addShaderProgram( config );
     }
 
-    Engine::ShaderProgram* Engine::ShaderProgramManager::addShaderProgram( const ShaderConfiguration& config )
+    ShaderProgram* ShaderProgramManager::addShaderProgram( const ShaderConfiguration& config )
     {
         ShaderProgram* ret;
 
@@ -52,8 +54,8 @@ namespace Ra
             {
                 std::string error;
                 Core::StringUtils::stringPrintf( error,
-                                                 "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
-                                                 config.getName().c_str() );
+                    "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
+                    config.getName().c_str() );
                 CORE_WARN_IF( true, error.c_str() );
                 ret = m_defaultShaderProgram;
             }
@@ -62,7 +64,7 @@ namespace Ra
         return ret;
     }
 
-    Engine::ShaderProgram* Engine::ShaderProgramManager::getShaderProgram( const ShaderConfiguration& config )
+    ShaderProgram* ShaderProgramManager::getShaderProgram( const ShaderConfiguration& config )
     {
         ShaderProgram* ret;
 
@@ -79,7 +81,7 @@ namespace Ra
         return ret;
     }
 
-    void Engine::ShaderProgramManager::reloadAllShaderPrograms()
+    void ShaderProgramManager::reloadAllShaderPrograms()
     {
         // For each shader in the map
         for ( auto shader : m_shaderPrograms )
@@ -92,8 +94,8 @@ namespace Ra
                 {
                     std::string error;
                     Core::StringUtils::stringPrintf( error,
-                                                     "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
-                                                     shader.first.getName().c_str() );
+                        "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
+                        shader.first.getName().c_str() );
                     CORE_WARN_IF( true, error.c_str() );
                     m_shaderPrograms.at( shader.first ) = m_defaultShaderProgram;
                     m_shaderProgramStatus.at( shader.first ) = ShaderProgramStatus::NOT_COMPILED;
@@ -112,15 +114,15 @@ namespace Ra
                 {
                     std::string error;
                     Core::StringUtils::stringPrintf( error,
-                                                     "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
-                                                     shader.first.getName().c_str() );
+                        "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
+                        shader.first.getName().c_str() );
                     CORE_WARN_IF( true, error.c_str() );
                 }
             }
         }
     }
 
-    void Engine::ShaderProgramManager::reloadNotCompiledShaderPrograms()
+    void ShaderProgramManager::reloadNotCompiledShaderPrograms()
     {
         for ( auto shader : m_shaderPrograms )
         {
@@ -139,39 +141,40 @@ namespace Ra
                 {
                     std::string error;
                     Core::StringUtils::stringPrintf( error,
-                                                     "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
-                                                     shader.first.getName().c_str() );
+                        "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
+                        shader.first.getName().c_str() );
                     CORE_WARN_IF( true, error.c_str() );
                 }
             }
         }
     }
 
-    Engine::ShaderConfiguration Engine::ShaderProgramManager::getDefaultShaderConfiguration(
+    ShaderConfiguration ShaderProgramManager::getDefaultShaderConfiguration(
         const std::string& shaderName )
     {
         return ShaderConfiguration( shaderName, m_shaderPath );
     }
 
-    Engine::ShaderProgram* Engine::ShaderProgramManager::getDefaultShaderProgram() const
+    ShaderProgram* ShaderProgramManager::getDefaultShaderProgram() const
     {
         return m_defaultShaderProgram;
     }
 
-    std::string Engine::ShaderProgramManager::getFullShaderName( const std::string& shaderName )
+    std::string ShaderProgramManager::getFullShaderName( const std::string& shaderName )
     {
         std::stringstream ss;
         ss << m_shaderPath << '/' << shaderName;
         return ss.str();
     }
 
-    void Engine::ShaderProgramManager::insertShader( const ShaderConfiguration& config,
-                                                     ShaderProgram* shader,
-                                                     const ShaderProgramStatus& status )
+    void ShaderProgramManager::insertShader( const ShaderConfiguration& config,
+        ShaderProgram* shader,
+        const ShaderProgramStatus& status )
     {
-        m_shaderPrograms.insert( std::pair<ShaderConfiguration, ShaderProgram*> ( config, shader ) );
-        m_shaderProgramStatus.insert( std::pair<ShaderConfiguration, ShaderProgramStatus> ( config, status ) );
+        m_shaderPrograms.insert( std::pair<ShaderConfiguration, ShaderProgram*>( config, shader ) );
+        m_shaderProgramStatus.insert( std::pair<ShaderConfiguration, ShaderProgramStatus>( config, status ) );
     }
 
-    RA_SINGLETON_IMPLEMENTATION(Engine::ShaderProgramManager)
+    RA_SINGLETON_IMPLEMENTATION( ShaderProgramManager );
+}// namespace Engine
 } // namespace Ra

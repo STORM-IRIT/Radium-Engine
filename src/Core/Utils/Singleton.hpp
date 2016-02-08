@@ -7,6 +7,8 @@
 // I used to be a template like you, then I took a DLL to the knee...
 
 /// Add this macro (followed by a semicolon) in your class header.
+/// The macro should appear first in the class, before any public: 
+/// specifier.
 #define RA_SINGLETON_INTERFACE(TYPE)                    \
 public:                                                 \
     static void replaceInstance(TYPE*);                 \
@@ -24,12 +26,16 @@ protected:                                              \
 
 
 
-/// Add this macro in the singleton cpp, without a semicolon.
-#define RA_SINGLETON_IMPLEMENTATION(TYPE)               \
-namespace {static TYPE* s_instance = nullptr;}          \
-void TYPE::replaceInstance(TYPE* p) { s_instance = p; } \
-TYPE* TYPE::getInstance() { return s_instance; }        \
-void TYPE::destroyInstance() { delete s_instance; s_instance = nullptr; }
+/// Add this macro in the singleton cpp, followed by a semicolon.
+// Limitations : TYPE cannot be a nested type 
+// RA_SINGLETON_IMPLEMENTATION(A::MySingleton); will *not* work.
+#define RA_SINGLETON_IMPLEMENTATION(TYPE)                        \
+namespace TYPE##NS { TYPE* s_instance = nullptr;}                \
+void TYPE::replaceInstance(TYPE* p) { TYPE##NS::s_instance= p; } \
+TYPE* TYPE::getInstance() { return TYPE##NS::s_instance; }       \
+void TYPE::destroyInstance() { delete TYPE##NS::s_instance; TYPE##NS::s_instance = nullptr; }\
+class TYPE
+// The line above is just there to make the macro end with a ;
 
 
 #endif // RADIUMENGINE_SINGLETON_HPP
