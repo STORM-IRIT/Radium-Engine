@@ -219,11 +219,11 @@ namespace FancyMeshPlugin
             indices.push_back( i.z() );
         }
 
-        const auto& ro =getRoMgr()->update(getMeshIndex());
+        const auto& ro =getRoMgr()->update(getMeshIndex(), false);
 
         //std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( ro->getMesh()->getName() ));
         auto displayMesh = ro->getMesh();
-        displayMesh->loadGeometry( m_mesh.m_vertices, indices );
+        displayMesh->loadGeometry( m_mesh );
         displayMesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, m_mesh.m_normals );
         //ro->setMesh(displayMesh);
         getRoMgr()->doneUpdating(getMeshIndex());

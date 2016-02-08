@@ -141,6 +141,9 @@ namespace Ra
 
             CORE_ASSERT( index.isValid() ,"Invalid index" );
 
+            // FIXME(Charly): Check if double buffering is really usefull
+            return m_renderObjects[index];
+
             // A render object should never be updated if it is already in use.
             // It might be :
             //     - update called by another component
@@ -166,6 +169,8 @@ namespace Ra
 
         void RenderObjectManager::doneUpdating( uint index )
         {
+            // FIXME(Charly): Check if double buffering is really useful
+            return;
             // Take the mutex
             std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
