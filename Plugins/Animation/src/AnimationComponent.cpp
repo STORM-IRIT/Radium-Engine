@@ -200,12 +200,11 @@ namespace AnimationPlugin
         std::map< uint, uint > indexTable;
         createSkeleton( data, indexTable );
 
-        //Ra::Core::Animation::SkeletonUtils::to_string( m_skel );
-
         createWeightMatrix( data, indexTable, duplicateTable );
         m_refPose = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL);
 
         initialize();
+        setupIO(m_contentName);
     }
 
 
@@ -314,14 +313,29 @@ namespace AnimationPlugin
 
     void AnimationComponent::setupIO(const std::string &id)
     {
-        Ra::Engine::ComponentMessenger::GetterCallback cbOut = std::bind( &AnimationComponent::getSkeletonOutput, this );
-        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::Skeleton>( getEntity(), this, id, cbOut);
+        Ra::Engine::ComponentMessenger::GetterCallback skelOut = std::bind( &AnimationComponent::getSkeletonOutput, this );
+        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::Skeleton>( getEntity(), this, id, skelOut);
+        Ra::Engine::ComponentMessenger::GetterCallback refpOut = std::bind( &AnimationComponent::getRefPoseOutput, this );
+        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::Pose>( getEntity(), this, id, refpOut);
+        Ra::Engine::ComponentMessenger::GetterCallback wOut = std::bind( &AnimationComponent::getWeightsOutput, this );
+        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::WeightMatrix>( getEntity(), this, id, wOut);
     }
 
     const void* AnimationComponent::getSkeletonOutput() const
     {
         return &m_skel;
     }
+
+    const void* AnimationComponent::getWeightsOutput() const
+    {
+        return &m_weights;
+    }
+
+    const void* AnimationComponent::getRefPoseOutput() const
+    {
+        return &m_refPose;
+    }
+
 
     void AnimationComponent::toggleXray(bool on) const
     {

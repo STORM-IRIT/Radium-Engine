@@ -66,7 +66,6 @@ namespace Ra
 
     void Engine::Mesh::loadGeometry(const Core::TriangleMesh& mesh)
     {
-        LOG( logINFO ) << "Yo";
         std::vector<uint> indices;
         for (const auto& t : mesh.m_triangles)
         {

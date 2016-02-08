@@ -2,12 +2,12 @@
 #define ANIMPLUGIN_ANIMATION_COMPONENT_HPP_
 
 #include <AnimationPlugin.hpp>
-#include <Engine/Entity/Component.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
 #include <Core/Animation/Animation.hpp>
 #include <Core/Animation/Handle/HandleWeight.hpp>
 
+#include <Engine/Entity/Component.hpp>
 #include <Engine/Assets/HandleData.hpp>
 #include <Engine/Assets/AnimationData.hpp>
 
@@ -71,6 +71,8 @@ namespace AnimationPlugin
         void setupIO( const std::string& id );
 
         const void* getSkeletonOutput() const;
+        const void* getRefPoseOutput() const;
+        const void* getWeightsOutput() const;
 
     private:
         std::string m_contentName;

@@ -77,10 +77,10 @@ namespace AnimationPlugin
 
             // FIXME(Charly): Certainly not the best way to do this
             AnimationComponent* component = new AnimationComponent( "AC_" + skel->getName() );
+            entity->addComponent( component );
             component->handleSkeletonLoading( skel, ( geomID == uint( -1 ) ) ? std::map< uint, uint >() : geomData[geomID]->getDuplicateTable() );
             component->handleAnimationLoading( animData );
 
-            entity->addComponent( component );
             registerComponent( entity, component );
         }
     }
