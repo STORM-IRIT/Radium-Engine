@@ -27,11 +27,11 @@ namespace FancyMeshPlugin
     class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component
     {
     public:
-        FancyMeshComponent( const std::string& name );
+        FancyMeshComponent( const std::string& name, bool deformable = true );
         virtual ~FancyMeshComponent();
 
-        virtual void initialize() override;
 
+        virtual void initialize() override;
         virtual void rayCastQuery(const Ra::Core::Ray& r) const override;
 
         void addMeshRenderObject( const Ra::Core::TriangleMesh& mesh, const std::string& name );
@@ -40,18 +40,27 @@ namespace FancyMeshPlugin
 
         void handleMeshLoading( const Ra::Asset::GeometryData* data );
 
-        Ra::Core::Index getMeshIndex() const;
-        Ra::Core::TriangleMesh getMesh() const;
-        const void *getMeshOutput() const;
-        void setMeshInput( const void* mesh);
+        /// Returns the index of the associated RO (the display mesh)
+        Ra::Core::Index getRenderObjectIndex() const;
 
-        std::string getContentName() const;
+        /// Returns the current display geometry.
+        Ra::Core::TriangleMesh getMesh() const;
+
+
+    private:
+        // Component communication management
+        void setupIO(const std::string& id);
+
+        // Fancy mesh accepts to give its mesh and (if deformable) to update it
+        const void *getMeshOutput() const;
+        void setMeshInput( const void* mesh );
 
     private:
         Ra::Core::Index m_meshIndex;
         Ra::Core::Index m_aabbIndex;
         Ra::Core::TriangleMesh m_mesh;
         std::string m_contentName;
+        bool m_deformable;
     };
 
 } // namespace FancyMeshPlugin

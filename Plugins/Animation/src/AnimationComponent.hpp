@@ -14,71 +14,77 @@
 namespace AnimationPlugin
 {
 
-class SkeletonBoneRenderObject;
+    class SkeletonBoneRenderObject;
 
-class AnimationComponent : public Ra::Engine::Component
-{
-public:
-    AnimationComponent(const std::string& name) : Component(name), m_selectedBone(-1) {}
-    virtual ~AnimationComponent() {}
+    class AnimationComponent : public Ra::Engine::Component
+    {
+    public:
+        AnimationComponent(const std::string& name) : Component(name), m_selectedBone(-1) {}
+        virtual ~AnimationComponent() {}
 
-    virtual void initialize() override;
+        virtual void initialize() override;
 
-    void setSkeleton(const Ra::Core::Animation::Skeleton& skel);
+        void setSkeleton(const Ra::Core::Animation::Skeleton& skel);
 
-    inline Ra::Core::Animation::Skeleton& getSkeleton() { return m_skel; }
-    ANIM_PLUGIN_API Ra::Core::Animation::WeightMatrix getWeights() const;
-    ANIM_PLUGIN_API Ra::Core::Animation::Pose getRefPose() const;
-    std::string getContentName() const;
-
-    void update(Scalar dt);
-    void reset();
-
-    void handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable );
-    void handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data );
-
-    //
-    // Editable interface
-    //
-    virtual void getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const override;
-    virtual void setProperty( const Ra::Engine::EditableProperty& prop) override;
-    virtual bool picked (uint drawableIdex) const override;
-
-   ANIM_PLUGIN_API void toggleXray(bool on) const;
+        inline Ra::Core::Animation::Skeleton& getSkeleton() { return m_skel; }
+        ANIM_PLUGIN_API Ra::Core::Animation::WeightMatrix getWeights() const;
+        ANIM_PLUGIN_API Ra::Core::Animation::Pose getRefPose() const;
 
 
-protected:
-    // debug function to display the hierarchy
-    void printSkeleton(const Ra::Core::Animation::Skeleton& skeleton);private:
+        /// Update the skeleton with an animation.
+        void update(Scalar dt);
+        void reset();
+        ANIM_PLUGIN_API void toggleXray(bool on) const;
 
-    // Create a skeleton from a file data.
-    void createSkeleton( const Ra::Asset::HandleData* data, std::map< uint, uint >& indexTable );
+        void handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable );
+        void handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data );
 
-    // Internal recursive method to create bones
-    void addBone( const int parent,
-                  const uint dataID,
-                  const Ra::Core::AlignedStdVector< Ra::Asset::HandleComponentData >& data,
-                  const Ra::Core::AlignedStdVector< Ra::Core::Vector2i >& edgeList,
-                  std::vector< bool >& processed,
-                  std::map< uint, uint >& indexTable );
+        //
+        // Editable interface
+        //
 
-    // Internal function to create the skinning weights.
-    void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable );
+        virtual void getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const override;
+        virtual void setProperty( const Ra::Engine::EditableProperty& prop) override;
+        virtual bool picked (uint drawableIdex) const override;
 
 
-protected:
-    std::string m_contentName;
 
-    Ra::Core::Animation::Skeleton m_skel; // Skeleton
-    Ra::Core::Animation::RefPose m_refPose; // Ref pose in model space.
-    std::vector<Ra::Core::Animation::Animation> m_animations;
-    Ra::Core::Animation::WeightMatrix m_weights; // Skinning weights ( should go in skinning )
+    private:
+        // debug function to display the hierarchy
+        void printSkeleton(const Ra::Core::Animation::Skeleton& skeleton);private:
 
-    std::vector<SkeletonBoneRenderObject*> m_boneDrawables ; // Vector of bone display objects
-    Scalar m_animationTime;
+        // Create a skeleton from a file data.
+        void createSkeleton( const Ra::Asset::HandleData* data, std::map< uint, uint >& indexTable );
 
-    mutable int m_selectedBone; //this is an ugly hack ! (Val)
-};
+        // Internal recursive method to create bones
+        void addBone( const int parent,
+                      const uint dataID,
+                      const Ra::Core::AlignedStdVector< Ra::Asset::HandleComponentData >& data,
+                      const Ra::Core::AlignedStdVector< Ra::Core::Vector2i >& edgeList,
+                      std::vector< bool >& processed,
+                      std::map< uint, uint >& indexTable );
+
+        // Internal function to create the skinning weights.
+        void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable );
+
+        // Component communication
+        void setupIO( const std::string& id );
+
+        const void* getSkeletonOutput() const;
+
+    private:
+        std::string m_contentName;
+
+        Ra::Core::Animation::Skeleton m_skel; // Skeleton
+        Ra::Core::Animation::RefPose m_refPose; // Ref pose in model space.
+        std::vector<Ra::Core::Animation::Animation> m_animations;
+        Ra::Core::Animation::WeightMatrix m_weights; // Skinning weights ( should go in skinning )
+
+        std::vector<SkeletonBoneRenderObject*> m_boneDrawables ; // Vector of bone display objects
+        Scalar m_animationTime;
+
+        mutable int m_selectedBone; //this is an ugly hack ! (Val)
+    };
 
 }
 

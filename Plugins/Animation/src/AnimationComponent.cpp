@@ -36,17 +36,6 @@ namespace AnimationPlugin
 
     bool AnimationComponent::picked(uint drawableIdx) const
     {
-        Ra::Core::TriangleMesh tm;
-       bool result =  Ra::Engine::ComponentMessenger::getInstance()->get<Ra::Core::TriangleMesh>( getEntity(), "toto", tm );
-       if (result)
-       {
-            std::cout<< " YEAH "<<tm.m_vertices.size()<<std::endl;
-            for (auto& v : tm.m_vertices)
-            {
-                v[0] *= 2.f;
-            }
-            bool result2 =  Ra::Engine::ComponentMessenger::getInstance()->set<Ra::Core::TriangleMesh>( getEntity(), "toto", tm );
-       }
         for (const auto& dr: m_boneDrawables)
         {
             if ( dr->getRenderObjectIndex() == int( drawableIdx ) )
@@ -323,8 +312,15 @@ namespace AnimationPlugin
         Ra::Core::Animation::checkWeightMatrix( m_weights, false );
     }
 
-    std::string AnimationComponent::getContentName() const {
-        return m_contentName;
+    void AnimationComponent::setupIO(const std::string &id)
+    {
+        Ra::Engine::ComponentMessenger::GetterCallback cbOut = std::bind( &AnimationComponent::getSkeletonOutput, this );
+        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::Skeleton>( getEntity(), this, id, cbOut);
+    }
+
+    const void* AnimationComponent::getSkeletonOutput() const
+    {
+        return &m_skel;
     }
 
     void AnimationComponent::toggleXray(bool on) const

@@ -23,8 +23,8 @@
 
 namespace FancyMeshPlugin
 {
-    FancyMeshComponent::FancyMeshComponent( const std::string& name )
-        : Ra::Engine::Component( name )
+    FancyMeshComponent::FancyMeshComponent(const std::string& name , bool deformable)
+        : Ra::Engine::Component( name  ) , m_deformable(deformable)
     {
     }
 
@@ -50,9 +50,11 @@ namespace FancyMeshPlugin
                                                   const std::string& name,
                                                   Ra::Engine::RenderTechnique* technique )
     {
+        m_mesh = mesh;
+        setupIO(name);
+
         Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, this, Ra::Engine::RenderObjectType::FANCY );
         renderObject->setVisible( true );
-
         renderObject->setRenderTechnique( technique );
 
         std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( name ) );
@@ -95,10 +97,6 @@ namespace FancyMeshPlugin
         std::shared_ptr<Ra::Engine::Mesh> mesh( new Ra::Engine::Mesh( meshName ) );
 
 
-        Ra::Engine::ComponentMessenger::GetterCallback cbOut = std::bind( &FancyMeshComponent::getMeshOutput, this );
-        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::TriangleMesh>( getEntity(), this, "toto", cbOut);
-        Ra::Engine::ComponentMessenger::SetterCallback cbIn = std::bind( &FancyMeshComponent::setMeshInput, this, std::placeholders::_1 );
-        Ra::Engine::ComponentMessenger::getInstance()->registerInput<Ra::Core::TriangleMesh>( getEntity(), this, "toto", cbIn);
 
 
         m_mesh.clear();
@@ -110,6 +108,8 @@ namespace FancyMeshPlugin
             m_mesh.m_triangles.push_back( Ra::Core::Vector3i( face[0], face[1], face[2] ) );
         }
         Ra::Core::Geometry::uniformNormal( m_mesh.m_vertices, m_mesh.m_triangles, m_mesh.m_normals );
+
+        setupIO( data->getName());
 
 
         // FIXME(Charly): Find a cleaner way to build geometry
@@ -188,7 +188,7 @@ namespace FancyMeshPlugin
 
     }
 
-    Ra::Core::Index FancyMeshComponent::getMeshIndex() const
+    Ra::Core::Index FancyMeshComponent::getRenderObjectIndex() const
     {
         return m_meshIndex;
     }
@@ -198,15 +198,30 @@ namespace FancyMeshPlugin
         return m_mesh;
     }
 
+    void FancyMeshComponent::setupIO(const std::string& id)
+    {
+        Ra::Engine::ComponentMessenger::GetterCallback cbOut = std::bind( &FancyMeshComponent::getMeshOutput, this );
+        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::TriangleMesh>( getEntity(), this, id, cbOut);
+
+        if( m_deformable)
+        {
+            Ra::Engine::ComponentMessenger::SetterCallback cbIn = std::bind( &FancyMeshComponent::setMeshInput, this, std::placeholders::_1 );
+            Ra::Engine::ComponentMessenger::getInstance()->registerInput<Ra::Core::TriangleMesh>( getEntity(), this, id, cbIn);
+        }
+
+    }
+
     const void* FancyMeshComponent::getMeshOutput() const
     {
-        std::cout<< "OMG IT WORKS !!!"<<std::endl;
-        const void* result = &m_mesh;
-        return result;
+        return &m_mesh;
     }
 
     void FancyMeshComponent::setMeshInput(const void *meshptr)
     {
+
+        CORE_ASSERT( meshptr, " Input is null");
+        CORE_ASSERT( m_deformable, "Mesh is not deformable");
+
         m_mesh = *(static_cast<const Ra::Core::TriangleMesh*>(meshptr));
 
         // TODO : factor with code loading a mesh.
@@ -219,14 +234,11 @@ namespace FancyMeshPlugin
             indices.push_back( i.z() );
         }
 
-        const auto& ro =getRoMgr()->update(getMeshIndex(), false);
-
-        //std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( ro->getMesh()->getName() ));
+        const auto& ro =getRoMgr()->update(getRenderObjectIndex(), false);
         auto displayMesh = ro->getMesh();
         displayMesh->loadGeometry( m_mesh );
         displayMesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, m_mesh.m_normals );
-        //ro->setMesh(displayMesh);
-        getRoMgr()->doneUpdating(getMeshIndex());
+        getRoMgr()->doneUpdating(getRenderObjectIndex());
 
     }
 
@@ -239,10 +251,6 @@ namespace FancyMeshPlugin
             LOG(logINFO) << " Hit triangle " << tidx;
             LOG(logINFO) << " Nearest vertex " << result.m_nearestVertex;
         }
-    }
-
-    std::string FancyMeshComponent::getContentName() const {
-        return m_contentName;
     }
 
 } // namespace FancyMeshPlugin
