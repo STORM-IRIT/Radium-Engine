@@ -95,8 +95,10 @@ namespace FancyMeshPlugin
         std::shared_ptr<Ra::Engine::Mesh> mesh( new Ra::Engine::Mesh( meshName ) );
 
 
-        Ra::Engine::ComponentMessenger::GetterCallback cb = std::bind( &FancyMeshComponent::getMeshOutput, this );
-        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::TriangleMesh>( getEntity(), this, "toto", cb);
+        Ra::Engine::ComponentMessenger::GetterCallback cbOut = std::bind( &FancyMeshComponent::getMeshOutput, this );
+        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::TriangleMesh>( getEntity(), this, "toto", cbOut);
+        Ra::Engine::ComponentMessenger::SetterCallback cbIn = std::bind( &FancyMeshComponent::setMeshInput, this, std::placeholders::_1 );
+        Ra::Engine::ComponentMessenger::getInstance()->registerInput<Ra::Core::TriangleMesh>( getEntity(), this, "toto", cbIn);
 
 
         m_mesh.clear();
@@ -196,11 +198,36 @@ namespace FancyMeshPlugin
         return m_mesh;
     }
 
-    Ra::Core::Any FancyMeshComponent::getMeshOutput() const
+    const void* FancyMeshComponent::getMeshOutput() const
     {
         std::cout<< "OMG IT WORKS !!!"<<std::endl;
-        Ra::Core::Any result(getMesh());
+        const void* result = &m_mesh;
         return result;
+    }
+
+    void FancyMeshComponent::setMeshInput(const void *meshptr)
+    {
+        m_mesh = *(static_cast<const Ra::Core::TriangleMesh*>(meshptr));
+
+        // TODO : factor with code loading a mesh.
+        std::vector<uint> indices;
+        indices.reserve( m_mesh.m_triangles.size() * 3 );
+        for ( const auto& i : m_mesh.m_triangles )
+        {
+            indices.push_back( i.x() );
+            indices.push_back( i.y() );
+            indices.push_back( i.z() );
+        }
+
+        const auto& ro =getRoMgr()->update(getMeshIndex());
+
+        //std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( ro->getMesh()->getName() ));
+        auto displayMesh = ro->getMesh();
+        displayMesh->loadGeometry( m_mesh.m_vertices, indices );
+        displayMesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, m_mesh.m_normals );
+        //ro->setMesh(displayMesh);
+        getRoMgr()->doneUpdating(getMeshIndex());
+
     }
 
     void FancyMeshComponent::rayCastQuery( const Ra::Core::Ray& r) const

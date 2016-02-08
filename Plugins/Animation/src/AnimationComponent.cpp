@@ -40,7 +40,12 @@ namespace AnimationPlugin
        bool result =  Ra::Engine::ComponentMessenger::getInstance()->get<Ra::Core::TriangleMesh>( getEntity(), "toto", tm );
        if (result)
        {
-           std::cout<< " YEAH "<<tm.m_vertices.size()<<std::endl;
+            std::cout<< " YEAH "<<tm.m_vertices.size()<<std::endl;
+            for (auto& v : tm.m_vertices)
+            {
+                v[0] *= 2.f;
+            }
+            bool result2 =  Ra::Engine::ComponentMessenger::getInstance()->set<Ra::Core::TriangleMesh>( getEntity(), "toto", tm );
        }
         for (const auto& dr: m_boneDrawables)
         {

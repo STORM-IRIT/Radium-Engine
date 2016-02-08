@@ -42,7 +42,8 @@ namespace FancyMeshPlugin
 
         Ra::Core::Index getMeshIndex() const;
         Ra::Core::TriangleMesh getMesh() const;
-        Ra::Core::Any getMeshOutput() const;
+        const void *getMeshOutput() const;
+        void setMeshInput( const void* mesh);
 
         std::string getContentName() const;
 

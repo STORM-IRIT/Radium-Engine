@@ -10,7 +10,6 @@
 #include <iostream>
 
 #include <Core/Utils/Singleton.hpp>
-#include <Core/Utils/Any.hpp>
 #include <Engine/Entity/Component.hpp>
 
 
@@ -36,14 +35,10 @@ class RA_ENGINE_API ComponentMessenger
     RA_SINGLETON_INTERFACE( ComponentMessenger );
 
 public:
-    typedef std::function< Ra::Core::Any(void) > GetterCallback;
-    /// An entry which allows to call the get/set methods on a component.
-    struct CallbackEntry
-    {
-        Component* m_component;
-        GetterCallback m_getter;
-    };
+    typedef std::function< const void*(void) > GetterCallback;
+    typedef std::function< void(const void*) > SetterCallback;
 
+    /// An entry which allows to call the get/set methods on a component.
     /// Key used to identify entries.
     typedef std::pair<std::string, std::type_index> Key;
 
@@ -62,7 +57,8 @@ public:
     };
 
     /// A dictionary of callback entries identified with the key.
-    typedef std::unordered_map < Key, CallbackEntry, HashFunc > EntityCallbackList;
+    typedef std::unordered_map < Key, GetterCallback, HashFunc > EntityGetterCallbackList;
+    typedef std::unordered_map < Key, SetterCallback, HashFunc > EntitySetterCallbackList;
 
 public:
     ComponentMessenger() {}
@@ -74,11 +70,11 @@ public:
     bool get( const Entity* entity, const std::string& id, ReturnType& output )
     {
         // Attempt to find the given entity list.
-        const auto& entityListPos = m_entityLists.find( entity );
-        CORE_ASSERT( entityListPos != m_entityLists.end(), " Entity has no registered component" );
+        const auto& entityListPos = m_entityGetLists.find( entity );
+        CORE_ASSERT( entityListPos != m_entityGetLists.end(), " Entity has no registered component" );
 
         Key key ( id,  std::type_index( typeid(ReturnType) ));
-        const EntityCallbackList& entityList = entityListPos->second;
+        const EntityGetterCallbackList& entityList = entityListPos->second;
 
 
         // Check if there are components exporting the given type,
@@ -87,9 +83,34 @@ public:
         const bool found = (callbackEntry != entityList.end());
         if ( found )
         {
-            std::cout<<"gotcha "<< callbackEntry->second.m_component->getName() <<std::endl;
-            Ra::Core::Any value =  callbackEntry->second.m_getter();
-            output = Ra::Core::anyCast<ReturnType>(value);
+            const ReturnType* value = static_cast<const ReturnType*>(callbackEntry->second());
+            output = *value;
+        }
+
+        return found;
+    }
+
+    /// Attempts to set the data identified by the given string. If the data is found,
+    /// the function returns true and the comonent has accepted the input parameter.
+    ///  If not, the function returns false.
+    template < typename ReturnType >
+    bool set( const Entity* entity, const std::string& id, const ReturnType& input )
+    {
+        // Attempt to find the given entity list.
+        const auto& entityListPos = m_entitySetLists.find( entity );
+        CORE_ASSERT( entityListPos != m_entitySetLists.end(), " Entity has no registered component" );
+
+        Key key ( id,  std::type_index( typeid(ReturnType) ));
+        const EntitySetterCallbackList& entityList = entityListPos->second;
+
+
+        // Check if there are components exporting the given type,
+        // so let's try to find if there is one with the requested id.
+        const auto& callbackEntry = entityList.find( key );
+        const bool found = (callbackEntry != entityList.end());
+        if ( found )
+        {
+            callbackEntry->second(&input);
         }
 
         return found;
@@ -102,16 +123,29 @@ public:
     {
         CORE_ASSERT( entity && comp->getEntity() == entity, "Component not added to entity" );
         // Will insert a new entity entry if it doesn't exist.
-        EntityCallbackList& entityList = m_entityLists[entity];
+        EntityGetterCallbackList& entityList = m_entityGetLists[entity];
 
         Key key( id, std::type_index( typeid(ReturnType) ) );
-        CORE_ASSERT( entityList.find(key) == entityList.end(), "exists" );
+        CORE_ASSERT( entityList.find(key) == entityList.end(), "Output function alreadu registered" );
 
-        CallbackEntry entry =  { comp, cb };
-        entityList[key] = entry;
+        entityList[key] = cb;
     }
 
-    std::unordered_map<const Entity*, EntityCallbackList> m_entityLists; /// Per-entity callback list.
+    template <typename ReturnType>
+    void registerInput(const Entity* entity, Component* comp, const std::string& id, const SetterCallback& cb )
+    {
+        CORE_ASSERT( entity && comp->getEntity() == entity, "Component not added to entity" );
+        // Will insert a new entity entry if it doesn't exist.
+        EntitySetterCallbackList& entityList = m_entitySetLists[entity];
+
+        Key key( id, std::type_index( typeid(ReturnType) ) );
+        CORE_ASSERT( entityList.find(key) == entityList.end(), "Input function already registered" );
+
+        entityList[key] = cb;
+    }
+
+    std::unordered_map<const Entity*, EntityGetterCallbackList> m_entityGetLists; /// Per-entity callback list.
+    std::unordered_map<const Entity*, EntitySetterCallbackList> m_entitySetLists; /// Per-entity callback list.
 
 };
 
