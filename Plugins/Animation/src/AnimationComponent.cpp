@@ -15,11 +15,13 @@
 #include <Engine/Assets/KeyFrame/KeyPose.hpp>
 
 #include <Drawing/SkeletonBoneDrawable.hpp>
+#include "Core/Mesh/TriangleMesh.hpp"
 
 namespace AnimationPlugin
 {
     void AnimationComponent::initialize()
     {
+
         for( uint i = 0; i < m_skel.size(); ++i ) {
             if( !m_skel.m_graph.isLeaf( i ) ) {
                 SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject( m_skel.getLabel( i ), this, i, getRoMgr());
@@ -33,6 +35,8 @@ namespace AnimationPlugin
 
     bool AnimationComponent::picked(uint drawableIdx) const
     {
+        Ra::Core::TriangleMesh tm;
+        Ra::Engine::ComponentMessenger::getInstance()->get<Ra::Core::TriangleMesh>( getEntity(), "toto", tm );
         for (const auto& dr: m_boneDrawables)
         {
             if ( dr->getRenderObjectIndex() == int( drawableIdx ) )

@@ -15,7 +15,6 @@
 #include <Drawing/SkeletonBoneDrawable.hpp>
 
 
-
 namespace AnimationPlugin
 {
     AnimationSystem::AnimationSystem()

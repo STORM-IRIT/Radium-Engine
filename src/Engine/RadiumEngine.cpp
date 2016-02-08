@@ -42,6 +42,8 @@ namespace Ra
             LOG(logINFO) << "*** Radium Engine ***";
             m_renderObjectManager.reset( new RenderObjectManager );
             m_entityManager.reset( new EntityManager );
+            
+            ComponentMessenger::createInstance();
         }
 
         void RadiumEngine::cleanup()
@@ -53,6 +55,7 @@ namespace Ra
             {
                 system.second.reset();
             }
+            ComponentMessenger::destroyInstance();
         }
 
         void RadiumEngine::endFrameSync()

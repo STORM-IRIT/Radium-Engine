@@ -9,6 +9,8 @@ namespace AnimationPlugin
 
     AnimationPluginC::~AnimationPluginC()
     {
+        printf( "lolol" );
+        fflush( stdout );
     }
 
     void AnimationPluginC::registerPlugin( Ra::Engine::RadiumEngine* engine )

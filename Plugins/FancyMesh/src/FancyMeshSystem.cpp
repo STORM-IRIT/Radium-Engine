@@ -1,4 +1,4 @@
-#include "FancyMeshSystem.hpp"
+#include <FancyMeshSystem.hpp>
 
 #include <Core/String/StringUtils.hpp>
 #include <Core/Tasks/Task.hpp>
@@ -11,7 +11,7 @@
 #include <Engine/Assets/FileData.hpp>
 #include <Engine/Assets/GeometryData.hpp>
 
-#include "FancyMeshComponent.hpp"
+#include <FancyMeshComponent.hpp>
 
 namespace FancyMeshPlugin
 {
@@ -37,6 +37,7 @@ namespace FancyMeshPlugin
             FancyMeshComponent * comp = new FancyMeshComponent( componentName );
             comp->handleMeshLoading(data);
             entity->addComponent( comp );
+            Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::TriangleMesh>( entity, comp, "toto", 0x0 );
             registerComponent( entity, comp );
         }
     }
