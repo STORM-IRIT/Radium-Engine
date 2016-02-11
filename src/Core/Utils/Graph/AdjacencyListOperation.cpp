@@ -26,7 +26,7 @@ void check( const AdjacencyList& adj ) {
 AdjacencyList extractAdjacencyList( const VectorArray< Edge >& edgeList ) {
     AdjacencyList adj;
     for( const auto& edge : edgeList ) {
-        uint size =  std::max( int( adj.m_child.size() - 1 ), std::max( edge( 0 ), edge( 1 ) ) );
+        uint size =  std::max(  uint(adj.m_child.size() - 1 ), std::max( edge( 0 ), edge( 1 ) ) );
         adj.m_child.resize( size + 1 );
         adj.m_child[ edge( 0 ) ].push_back( edge( 1 ) );
         adj.m_parent.resize( size, -1 );
