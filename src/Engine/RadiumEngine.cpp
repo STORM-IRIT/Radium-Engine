@@ -43,7 +43,6 @@ namespace Ra
             LOG(logINFO) << "*** Radium Engine ***";
             m_renderObjectManager.reset( new RenderObjectManager );
             m_entityManager.reset( new EntityManager );
-
             ComponentMessenger::createInstance();
         }
 
@@ -62,7 +61,6 @@ namespace Ra
         void RadiumEngine::endFrameSync()
         {
             m_entityManager->swapBuffers();
-            m_renderObjectManager->swapBuffers();
         }
 
         void RadiumEngine::getTasks( Core::TaskQueue* taskQueue,  Scalar dt )
@@ -111,6 +109,10 @@ namespace Ra
                 system.second->handleAssetLoading( entity, &fileData );
             }
 
+            for (auto& comp :entity->getComponents())
+            {
+                comp->initialize();
+            }
 
             return true;
         }

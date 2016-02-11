@@ -19,6 +19,7 @@ namespace Ra
         {
         public:
             // Type shortcuts
+            typedef V Vector;
             typedef Eigen::Matrix<Scalar, V::RowsAtCompileTime, Eigen::Dynamic> Matrix;
             typedef Eigen::Map<Matrix> MatrixMap;
             typedef Eigen::Map<const Matrix> ConstMatrixMap;

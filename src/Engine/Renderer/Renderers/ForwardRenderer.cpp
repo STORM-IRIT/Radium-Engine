@@ -8,10 +8,10 @@
 
 #include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
+
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/OpenGL/FBO.hpp>
-#include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
@@ -51,7 +51,6 @@ ForwardRenderer::ForwardRenderer( uint width, uint height )
     : Renderer( width, height )
     , m_depthAmbientShader( nullptr )
     , m_postprocessShader( nullptr )
-    , m_quadMesh( nullptr )
     , m_fbo( nullptr )
     , m_postprocessFbo( nullptr )
 {
@@ -66,22 +65,6 @@ void ForwardRenderer::initializeInternal()
 {
     initShaders();
     initBuffers();
-
-    Core::Vector4Array mesh;
-    mesh.push_back( { Scalar( -1 ), Scalar( -1 ), Scalar( 0 ), Scalar( 0 ) } );
-    mesh.push_back( { Scalar( -1 ), Scalar( 1 ), Scalar( 0 ), Scalar( 0 ) } );
-    mesh.push_back( { Scalar( 1 ), Scalar( 1 ), Scalar( 0 ), Scalar( 0 ) } );
-    mesh.push_back( { Scalar( 1 ), Scalar( -1 ), Scalar( 0 ), Scalar( 0 ) } );
-
-    std::vector<uint> indices(
-    {
-                    0, 1, 2,
-                    0, 3, 2
-                } );
-
-    m_quadMesh.reset( new Mesh( "quad" ) );
-    m_quadMesh->loadGeometry( mesh, indices );
-    m_quadMesh->updateGL();
 }
 
 void ForwardRenderer::initShaders()

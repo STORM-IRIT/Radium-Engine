@@ -42,8 +42,6 @@ namespace Ra
             ShaderProgram* m_depthAmbientShader;
             ShaderProgram* m_postprocessShader;
 
-            std::unique_ptr<Mesh> m_quadMesh;
-
             std::unique_ptr<FBO> m_fbo;
             std::unique_ptr<FBO> m_postprocessFbo;
 

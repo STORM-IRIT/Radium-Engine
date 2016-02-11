@@ -13,7 +13,6 @@
 #include <Core/Time/Timer.hpp>
 #include <Core/Event/EventEnums.hpp>
 
-#include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
 
 namespace Ra
 {
@@ -275,6 +274,9 @@ namespace Ra
             std::vector<RenderObjectPtr> m_debugRenderObjects;
             std::vector<RenderObjectPtr> m_uiRenderObjects;
 
+            // Simple quad mesh, used to render the final image
+            std::unique_ptr<Mesh> m_quadMesh;
+
             // Should we render debug stuff ?
             bool m_drawDebug;
 
@@ -282,8 +284,6 @@ namespace Ra
             // Final display shader
             ShaderProgram* m_drawScreenShader;
 
-            // Simple quad mesh, used to render the final image
-            std::unique_ptr<Mesh> m_quadMesh;
 
             // Qt has the nice idea to bind an fbo before giving you the opengl context,
             // this flag is used to save it (and render the final screen on it)

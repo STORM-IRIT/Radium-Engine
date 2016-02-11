@@ -104,9 +104,5 @@ namespace Ra
             return m_localTransform.matrix();
         }
 
-        inline void RenderObject::addRenderParameters( const RenderParameters &parameters )
-        {
-            m_renderParameters.concatParameters( parameters );
-        }
     }
 } // namespace Ra

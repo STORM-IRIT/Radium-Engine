@@ -8,10 +8,11 @@
 
 #include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
+
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/OpenGL/FBO.hpp>
-#include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
@@ -50,10 +51,10 @@ namespace Ra
             , m_height( height )
             , m_shaderManager( nullptr )
             , m_displayedTexture( nullptr )
+            , m_quadMesh( nullptr )
             , m_renderQueuesUpToDate( false )
             , m_drawDebug( true )
             , m_drawScreenShader( nullptr )
-            , m_quadMesh( nullptr )
         {
         }
 
@@ -87,20 +88,10 @@ namespace Ra
             m_secondaryTextures["Picking Texture"] = m_pickingTexture.get();
 
             // Quad mesh
-            Core::Vector4Array mesh;
-            mesh.push_back( { Scalar( -1 ), Scalar( -1 ), Scalar( 0 ), Scalar( 0 ) } );
-            mesh.push_back( { Scalar( -1 ), Scalar( 1 ), Scalar( 0 ), Scalar( 0 ) } );
-            mesh.push_back( { Scalar( 1 ), Scalar( 1 ), Scalar( 0 ), Scalar( 0 ) } );
-            mesh.push_back( { Scalar( 1 ), Scalar( -1 ), Scalar( 0 ), Scalar( 0 ) } );
-
-            std::vector<uint> indices(
-            {
-                0, 1, 2,
-                0, 3, 2
-            } );
+            Core::TriangleMesh mesh = Core::MeshUtils::makeZNormalQuad(Core::Vector2( -1.f, 1.f));
 
             m_quadMesh.reset( new Mesh( "quad" ) );
-            m_quadMesh->loadGeometry( mesh, indices );
+            m_quadMesh->loadGeometry( mesh );
             m_quadMesh->updateGL();
 
             initializeInternal();

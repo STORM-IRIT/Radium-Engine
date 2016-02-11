@@ -177,7 +177,7 @@ namespace Ra
         for ( auto ro : ros )
         {
             auto mesh = ro->getMesh();
-            auto pos = mesh->getData( Engine::Mesh::VERTEX_POSITION );
+            auto pos = mesh->getGeometry().m_vertices;
 
             for ( auto& p : pos )
             {
@@ -280,6 +280,7 @@ namespace Ra
 
     bool MainApplication::loadPlugins( const std::string& pluginsPath )
     {
+        LOG( logINFO )<<" *** Loading Plugins ***";
         QDir pluginsDir( qApp->applicationDirPath() );
         pluginsDir.cd( pluginsPath.c_str() );
 

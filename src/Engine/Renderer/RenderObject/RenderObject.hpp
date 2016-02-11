@@ -44,20 +44,6 @@ namespace Ra
             // FIXME(Charly): Remove this
             void updateGL();
 
-            // FIXME(Charly): Remove this
-            void feedRenderQueue( RenderQueue& queue );
-
-            // FIXME(Charly): Remove this
-            // Rendering stuff
-            void bind() const;
-            void bind( const RenderParameters& params ) const;
-            void bind( ShaderProgram* shader ) const;
-            void bind( ShaderProgram* shader, const RenderParameters& params ) const;
-
-            // FIXME(Charly): Remove this
-            void render() const;
-
-            RenderObject* clone( bool cloneMesh = true );
 
             //
             // Getters and setters.
@@ -89,18 +75,6 @@ namespace Ra
             inline const Core::Transform& getLocalTransform() const;
             inline const Core::Matrix4& getLocalTransformAsMatrix() const;
 
-            // FIXME(Charly): Remove this
-            inline void addRenderParameters( const RenderParameters& parameters );
-
-            inline const RenderParameters& getRenderParameters() const
-            {
-                return m_renderParameters;
-            }
-
-            inline RenderParameters& getRenderParameters()
-            {
-                return m_renderParameters;
-            }
 
         private:
             Core::Transform m_localTransform;

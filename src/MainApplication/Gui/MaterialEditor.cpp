@@ -19,8 +19,6 @@ namespace Ra
         {
             setupUi( this );
 
-            connect( outputValue, static_cast<void ( QComboBox::* )( int )>( &QComboBox::currentIndexChanged ), this, &MaterialEditor::changeOutputValue );
-
             connect( kdR, static_cast<void ( QSpinBox::* )( int )>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKdColorChanged );
             connect( kdG, static_cast<void ( QSpinBox::* )( int )>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKdColorChanged );
             connect( kdB, static_cast<void ( QSpinBox::* )( int )>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKdColorChanged );
@@ -164,39 +162,6 @@ namespace Ra
             kdColorWidget->colorChanged( kdr, kdg, kdb );
             ksColorWidget->colorChanged( ksr, ksg, ksb );
         }
-
-        void MaterialEditor::changeOutputValue( int index )
-        {
-            if ( !m_visible || !m_renderObject )
-            {
-                return;
-            }
-
-            // TODO: Do this in deferred
-            switch ( index )
-            {
-                case OUTPUT_FINAL:
-                {
-                    m_renderObject->getRenderParameters().updateParameter( "outputValue", 0 );
-                } break;
-
-                case OUTPUT_DIFFUSE:
-                {
-                    m_renderObject->getRenderParameters().updateParameter( "outputValue", 1 );
-                } break;
-
-                case OUTPUT_SPECULAR:
-                {
-                    m_renderObject->getRenderParameters().updateParameter( "outputValue", 2 );
-                } break;
-
-                case OUTPUT_NORMAL:
-                {
-                    m_renderObject->getRenderParameters().updateParameter( "outputValue", 3 );
-                } break;
-            }
-        }
-
 
     }
 }

@@ -20,19 +20,6 @@
 
 namespace AnimationPlugin
 {
-    void AnimationComponent::initialize()
-    {
-
-        for( uint i = 0; i < m_skel.size(); ++i ) {
-            if( !m_skel.m_graph.isLeaf( i ) ) {
-                SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject( m_skel.getLabel( i ), this, i, getRoMgr());
-                m_boneDrawables.push_back(boneRenderObject);
-                renderObjects.push_back( boneRenderObject->getRenderObjectIndex());
-            } else {
-                LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed.";
-            }
-        }
-    }
 
     bool AnimationComponent::picked(uint drawableIdx) const
     {
@@ -145,6 +132,20 @@ namespace AnimationPlugin
         }
     }
 
+    void AnimationComponent::setupSkeletonDisplay()
+    {
+
+        for( uint i = 0; i < m_skel.size(); ++i ) {
+            if( !m_skel.m_graph.isLeaf( i ) ) {
+                SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject( m_skel.getLabel( i ), this, i, getRoMgr());
+                m_boneDrawables.push_back(boneRenderObject);
+                renderObjects.push_back( boneRenderObject->getRenderObjectIndex());
+            } else {
+                LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed.";
+            }
+        }
+    }
+
     void AnimationComponent::printSkeleton(const Ra::Core::Animation::Skeleton& skeleton)
     {
         std::deque<int> queue;
@@ -203,7 +204,7 @@ namespace AnimationPlugin
         createWeightMatrix( data, indexTable, duplicateTable );
         m_refPose = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL);
 
-        initialize();
+        setupSkeletonDisplay();
         setupIO(m_contentName);
     }
 

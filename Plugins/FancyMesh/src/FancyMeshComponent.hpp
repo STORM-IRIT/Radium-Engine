@@ -14,6 +14,7 @@ namespace Ra
     namespace Engine
     {
         struct RenderTechnique;
+        class Mesh;
     }
 
     namespace Asset
@@ -44,12 +45,15 @@ namespace FancyMeshPlugin
         Ra::Core::Index getRenderObjectIndex() const;
 
         /// Returns the current display geometry.
-        Ra::Core::TriangleMesh getMesh() const;
+        const Ra::Core::TriangleMesh& getMesh() const;
 
 
     private:
         // Component communication management
         void setupIO(const std::string& id);
+
+        const Ra::Engine::Mesh& getROMesh() const;
+        Ra::Engine::Mesh& getROMesh();
 
         // Fancy mesh accepts to give its mesh and (if deformable) to update it
         const void *getMeshOutput() const;
@@ -58,7 +62,6 @@ namespace FancyMeshPlugin
     private:
         Ra::Core::Index m_meshIndex;
         Ra::Core::Index m_aabbIndex;
-        Ra::Core::TriangleMesh m_mesh;
         std::string m_contentName;
         bool m_deformable;
     };

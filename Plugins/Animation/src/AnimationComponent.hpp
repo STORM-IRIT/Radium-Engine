@@ -22,7 +22,7 @@ namespace AnimationPlugin
         AnimationComponent(const std::string& name) : Component(name), m_selectedBone(-1) {}
         virtual ~AnimationComponent() {}
 
-        virtual void initialize() override;
+        virtual void initialize() override{}
 
         void setSkeleton(const Ra::Core::Animation::Skeleton& skel);
 
@@ -53,6 +53,10 @@ namespace AnimationPlugin
         // debug function to display the hierarchy
         void printSkeleton(const Ra::Core::Animation::Skeleton& skeleton);private:
 
+        //
+        // Loading data functions
+        //
+
         // Create a skeleton from a file data.
         void createSkeleton( const Ra::Asset::HandleData* data, std::map< uint, uint >& indexTable );
 
@@ -66,6 +70,9 @@ namespace AnimationPlugin
 
         // Internal function to create the skinning weights.
         void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable );
+
+        // Internal function to create the bone display objects.
+        void setupSkeletonDisplay();
 
         // Component communication
         void setupIO( const std::string& id );

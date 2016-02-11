@@ -50,7 +50,6 @@ namespace FancyMeshPlugin
                                                   const std::string& name,
                                                   Ra::Engine::RenderTechnique* technique )
     {
-        m_mesh = mesh;
         setupIO(name);
 
         Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, this, Ra::Engine::RenderObjectType::FANCY );
@@ -58,20 +57,8 @@ namespace FancyMeshPlugin
         renderObject->setRenderTechnique( technique );
 
         std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( name ) );
-        std::vector<uint> indices;
-        indices.reserve( mesh.m_triangles.size() * 3 );
-        for ( const auto& i : mesh.m_triangles )
-        {
-            indices.push_back( i.x() );
-            indices.push_back( i.y() );
-            indices.push_back( i.z() );
-        }
-
-        displayMesh->loadGeometry( mesh.m_vertices, indices );
-        displayMesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, mesh.m_normals );
-
+        displayMesh->loadGeometry( mesh );
         renderObject->setMesh( displayMesh );
-
         addRenderObject( renderObject );
     }
 
@@ -94,80 +81,47 @@ namespace FancyMeshPlugin
         Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( roName, this, Ra::Engine::RenderObjectType::FANCY );
         renderObject->setVisible( true );
 
-        std::shared_ptr<Ra::Engine::Mesh> mesh( new Ra::Engine::Mesh( meshName ) );
+        std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( meshName ) );
 
-
-
-
-        m_mesh.clear();
+        Ra::Core::TriangleMesh mesh;
         for( const auto& v : data->getVertices() )
         {
-            m_mesh.m_vertices.push_back( data->getFrame() * v );
+            mesh.m_vertices.push_back( data->getFrame() * v );
         }
         for( const auto& face : data->getFaces() ) {
-            m_mesh.m_triangles.push_back( Ra::Core::Vector3i( face[0], face[1], face[2] ) );
+            mesh.m_triangles.push_back( {uint(face[0]), uint(face[1]), uint(face[2]) } );
         }
-        Ra::Core::Geometry::uniformNormal( m_mesh.m_vertices, m_mesh.m_triangles, m_mesh.m_normals );
+
+
+        Ra::Core::Geometry::uniformNormal( mesh.m_vertices, mesh.m_triangles, mesh.m_normals );
 
         setupIO( data->getName());
 
+        displayMesh->loadGeometry(mesh);
 
-        // FIXME(Charly): Find a cleaner way to build geometry
-        std::vector<uint> indices;
-        for ( const auto& face : data->getFaces() )
-        {
-            indices.push_back( face[0] );
-            indices.push_back( face[1] );
-            indices.push_back( face[2] );
-        }
+        Ra::Core::Vector3Array tangents;
+        Ra::Core::Vector3Array bitangents;
+        Ra::Core::Vector3Array texcoords;
 
-        Ra::Core::Vector3Array positions;
-        Ra::Core::Vector3Array normals;
-        Ra::Core::Vector4Array tangents;
-        Ra::Core::Vector4Array bitangents;
-        Ra::Core::Vector4Array texcoords;
         Ra::Core::Vector4Array colors;
 
-        positions = m_mesh.m_vertices;
-        normals   = m_mesh.m_normals;
         for ( const auto& v : data->getTangents() )     tangents.push_back( v );
         for ( const auto& v : data->getBiTangents() )   bitangents.push_back( v );
         for ( const auto& v : data->getTexCoords() )    texcoords.push_back( v );
         for ( const auto& v : data->getColors() )       colors.push_back( v );
 
-        mesh->loadGeometry( positions, indices );
 
 
-        mesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, normals );
-        mesh->addData( Ra::Engine::Mesh::VERTEX_TANGENT, tangents );
-        mesh->addData( Ra::Engine::Mesh::VERTEX_BITANGENT, bitangents );
-        mesh->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, texcoords );
-        mesh->addData( Ra::Engine::Mesh::VERTEX_COLOR, colors );
+        displayMesh->addData( Ra::Engine::Mesh::VERTEX_TANGENT, tangents );
+        displayMesh->addData( Ra::Engine::Mesh::VERTEX_BITANGENT, bitangents );
+        displayMesh->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, texcoords );
+        displayMesh->addData( Ra::Engine::Mesh::VERTEX_COLOR, colors );
         // FIXME(Charly): Should not weights be part of the geometry ?
         //        mesh->addData( Ra::Engine::Mesh::VERTEX_WEIGHTS, meshData.weights );
 
-        renderObject->setMesh( mesh );
+        renderObject->setMesh( displayMesh );
 
         m_meshIndex = addRenderObject(renderObject);
-
-        // FIXME(Charly)
-        // Build m_mesh
-        //        int triangleCount = meshData.indices.size() / 3;
-        //        int vertexCount = meshData.positions.size();
-        //        m_mesh.m_vertices.resize(vertexCount);
-        //        m_mesh.m_normals.resize(vertexCount);
-        //        m_mesh.m_triangles.resize(triangleCount);
-
-        //        for (int i = 0; i < vertexCount; i++)
-        //        {
-        //            Ra::Core::Vector4 pos = meshData.positions[i];
-        //            Ra::Core::Vector4 normals = meshData.normals[i];
-        //            m_mesh.m_vertices[i] = Ra::Core::Vector3(pos(0), pos(1), pos(2));
-        //            m_mesh.m_normals[i] = Ra::Core::Vector3(normals(0), normals(1), normals(2));
-        //        }
-
-        //        for (int i = 0; i < triangleCount; i++)
-        //            m_mesh.m_triangles[i] = Ra::Core::Triangle(meshData.indices[i * 3], meshData.indices[i * 3 + 1], meshData.indices[i * 3 + 2]);
 
         Ra::Engine::RenderTechnique* rt = new Ra::Engine::RenderTechnique;
         Ra::Engine::Material* mat = new Ra::Engine::Material( matName );
@@ -193,9 +147,9 @@ namespace FancyMeshPlugin
         return m_meshIndex;
     }
 
-    Ra::Core::TriangleMesh FancyMeshComponent::getMesh() const
+    const Ra::Core::TriangleMesh& FancyMeshComponent::getMesh() const
     {
-        return m_mesh;
+        return getROMesh().getGeometry();
     }
 
     void FancyMeshComponent::setupIO(const std::string& id)
@@ -211,9 +165,19 @@ namespace FancyMeshPlugin
 
     }
 
+    const Ra::Engine::Mesh& FancyMeshComponent::getROMesh() const
+    {
+        return *(getRoMgr()->getRenderObject(getRenderObjectIndex())->getMesh());
+    }
+
+    Ra::Engine::Mesh& FancyMeshComponent::getROMesh()
+    {
+        return *(getRoMgr()->getRenderObject(getRenderObjectIndex())->getMesh());
+    }
+
     const void* FancyMeshComponent::getMeshOutput() const
     {
-        return &m_mesh;
+        return &(getROMesh().getGeometry());
     }
 
     void FancyMeshComponent::setMeshInput(const void *meshptr)
@@ -222,29 +186,16 @@ namespace FancyMeshPlugin
         CORE_ASSERT( meshptr, " Input is null");
         CORE_ASSERT( m_deformable, "Mesh is not deformable");
 
-        m_mesh = *(static_cast<const Ra::Core::TriangleMesh*>(meshptr));
+        Ra::Core::TriangleMesh mesh = *(static_cast<const Ra::Core::TriangleMesh*>(meshptr));
 
-        // TODO : factor with code loading a mesh.
-        std::vector<uint> indices;
-        indices.reserve( m_mesh.m_triangles.size() * 3 );
-        for ( const auto& i : m_mesh.m_triangles )
-        {
-            indices.push_back( i.x() );
-            indices.push_back( i.y() );
-            indices.push_back( i.z() );
-        }
-
-        const auto& ro =getRoMgr()->update(getRenderObjectIndex(), false);
-        auto displayMesh = ro->getMesh();
-        displayMesh->loadGeometry( m_mesh );
-        displayMesh->addData( Ra::Engine::Mesh::VERTEX_NORMAL, m_mesh.m_normals );
-        getRoMgr()->doneUpdating(getRenderObjectIndex());
+        Ra::Engine::Mesh& displayMesh = getROMesh();
+        displayMesh.loadGeometry( mesh );
 
     }
 
     void FancyMeshComponent::rayCastQuery( const Ra::Core::Ray& r) const
     {
-        auto result  = Ra::Core::MeshUtils::castRay( m_mesh, r );
+        auto result  = Ra::Core::MeshUtils::castRay( getMesh(), r );
         int tidx = result.m_hitTriangle;
         if (tidx >= 0)
         {

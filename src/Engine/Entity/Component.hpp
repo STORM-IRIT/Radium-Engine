@@ -44,7 +44,8 @@ namespace Ra
 
             /**
             * @brief Pure virtual method to be overridden by any component.
-            * When this method is called you are guaranteed to know your system and your entity
+            * When this method is called you are guaranteed that all other startup systems
+            * have been loaded.
             */
             virtual void initialize() = 0;
             /**

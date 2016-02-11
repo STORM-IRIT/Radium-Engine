@@ -90,9 +90,9 @@ public:
     inline const VectorNiArray& getFaces()      const;
     inline const VectorNiArray& getPolyhedra()  const;
     inline const Vector3Array & getNormals()    const;
-    inline const Vector4Array & getTangents()   const;
-    inline const Vector4Array & getBiTangents() const;
-    inline const Vector4Array & getTexCoords()  const;
+    inline const Vector3Array & getTangents()   const;
+    inline const Vector3Array & getBiTangents() const;
+    inline const Vector3Array & getTexCoords()  const;
     inline const ColorArray   & getColors()     const;
     inline const MaterialData & getMaterial()   const;
 
@@ -146,13 +146,13 @@ protected:
     inline void setNormals( const std::vector< Core::Vector3 >& normalList );
 
     /// TANGENT
-    inline void setTangents( const std::vector< Core::Vector4 >& tangentList );
+    inline void setTangents( const std::vector< Core::Vector3 >& tangentList );
 
     /// BITANGENT
-    inline void setBitangents( const std::vector< Core::Vector4 >& bitangentList );
+    inline void setBitangents( const std::vector< Core::Vector3 >& bitangentList );
 
     /// TEXTURE COORDINATE
-    inline void setTextureCoordinates( const std::vector< Core::Vector4 >& texCoordList );
+    inline void setTextureCoordinates( const std::vector< Core::Vector3 >& texCoordList );
 
     /// COLOR
     inline void setColors( const std::vector< Core::Color >& colorList );
@@ -174,9 +174,9 @@ protected:
     VectorNiArray m_faces;
     VectorNiArray m_polyhedron;
     Vector3Array  m_normal;
-    Vector4Array  m_tangent;
-    Vector4Array  m_bitangent;
-    Vector4Array  m_texCoord;
+    Vector3Array  m_tangent;
+    Vector3Array  m_bitangent;
+    Vector3Array  m_texCoord;
     ColorArray    m_color;
 
     MaterialData m_material;

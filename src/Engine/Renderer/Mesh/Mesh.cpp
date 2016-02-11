@@ -10,10 +10,9 @@ namespace Ra
     // we have no data to send to the gpu.
     Engine::Mesh::Mesh( const std::string& name, GLenum renderMode )
         : m_name( name )
-        , m_isDirty( false )
         , m_vao( 0 )
         , m_renderMode(renderMode)
-        , m_ibo( 0 )
+        , m_isDirty( false )
     {
     }
 
@@ -39,163 +38,138 @@ namespace Ra
         GL_ASSERT( glBindVertexArray( m_vao ) );
 
         //    GL_ASSERT(glDrawElements(GL_TRIANGLES_ADJACENCY, 6 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
-        GL_ASSERT( glDrawElements( m_renderMode, m_indices.size(), GL_UNSIGNED_INT, ( void* ) 0 ) );
-    }
-
-    void Engine::Mesh::loadGeometry( const Core::Vector3Array& positions,
-                                     const std::vector<uint>& indices )
-    {
-        addData(VERTEX_POSITION, positions);
-        m_indices = indices;
-        m_isDirty = true;
-
-        m_iboDirty = true;
-        m_dirtyArray[VERTEX_POSITION] = true;
-    }
-
-    void Engine::Mesh::loadGeometry( const Core::Vector4Array& positions,
-                                     const std::vector<uint>& indices )
-    {
-        addData(VERTEX_POSITION, positions);
-        m_indices = indices;
-        m_isDirty = true;
-
-        m_iboDirty = true;
-        m_dirtyArray[VERTEX_POSITION] = true;
+        GL_ASSERT( glDrawElements( m_renderMode, m_mesh.m_triangles.size() * 3 , GL_UNSIGNED_INT, ( void* ) 0 ) );
     }
 
     void Engine::Mesh::loadGeometry(const Core::TriangleMesh& mesh)
     {
-        std::vector<uint> indices;
-        for (const auto& t : mesh.m_triangles)
+        m_mesh = mesh;
+        for (uint i = 0; i < MAX_MESH; ++i)
         {
-            indices.push_back(t[0]);
-            indices.push_back(t[1]);
-            indices.push_back(t[2]);
-        }
-        loadGeometry(mesh.m_vertices, indices);
-        if (mesh.m_normals.size() > 0)
-        {
-            addData(VERTEX_NORMAL, mesh.m_normals);
-        }
-    }
-
-    void Engine::Mesh::addData( const DataType& type, const Core::Vector3Array& data )
-    {
-        m_data[type].resize(data.size());
-        for (uint i =0; i < data.size(); ++i)
-        {
-            m_data[type][i].head<3>() = data[i];
-            m_data[type][i].w()       = 0.f;
+            m_dataDirty[i] = true;
         }
         m_isDirty = true;
-        m_dirtyArray[type] = true;
+
     }
 
-    void Engine::Mesh::addData( const DataType& type, const Core::Vector4Array& data )
+    void Engine::Mesh::loadGeometry(const Core::Vector3Array &vertices, const std::vector<uint> &indices)
     {
-        m_data[type] = data;
+        // TODO : remove this function and force everyone to use triangle mesh.
+        Core::TriangleMesh m;
+        m.m_vertices = vertices;
+        for (uint i = 0; i  < indices.size(); i = i + 3)
+        {
+            m.m_triangles.push_back({indices[i], indices[i+1], indices[i+2]});
+        }
+        loadGeometry(m);
+
+    }
+
+    void Engine::Mesh::addData( const Vec3Data& type, const Core::Vector3Array& data )
+    {
+        m_v3Data[static_cast<uint>(type)] = data;
+        m_dataDirty[MAX_MESH + static_cast<uint>(type)] = true;
         m_isDirty = true;
-        m_dirtyArray[type] = true;
     }
 
-    void Engine::Mesh::updateGL()
+    void Engine::Mesh::addData( const Vec4Data& type, const Core::Vector4Array& data )
     {
-        if ( !m_isDirty )
-        {
-            return;
-        }
+        m_v4Data[static_cast<uint>(type)] = data;
+        m_dataDirty[MAX_MESH + MAX_VEC3 + static_cast<uint>(type)] = true;
+        m_isDirty = true;
+    }
 
-        if ( m_data[VERTEX_POSITION].empty() || m_indices.empty() )
-        {
-//            LOG( logWARNING ) << "Either vertices or indices are empty arrays.";
-            return;
-        }
+    template< typename VecArray >
+    void Engine::Mesh::sendGLData( const VecArray& arr, const uint vboIdx )
+    {
 
-        if ( m_vao == 0 )
-        {
-            // Create VAO if it does not exist
-            GL_ASSERT( glGenVertexArrays( 1, &m_vao ) );
-        }
-
-        // Bind it
-        GL_ASSERT( glBindVertexArray( m_vao ) );
-
-        // Common values for GL data functions.
-#if defined CORE_USE_DOUBLE
+#ifdef CORE_USE_DOUBLE
         GLenum type = GL_DOUBLE;
 #else
         GLenum type = GL_FLOAT;
 #endif
-        GLboolean normalized = GL_FALSE;
-        GLuint size = 4;
-        GLvoid* ptr = nullptr;
+        constexpr GLuint size = VecArray::Vector::RowsAtCompileTime;
+        constexpr GLboolean normalized  = GL_FALSE;
+        constexpr GLvoid* ptr = nullptr;
 
-        for ( uint i = 0; i < m_data.size(); ++i )
+        // This vbo has not been created yet
+        if ( m_vbos[vboIdx] == 0 && arr.size() > 0 )
         {
-            // This vbo has not been created yet
-            if ( m_vbos[i] == 0 && m_data[i].size() > 0 )
-            {
-                GL_ASSERT( glGenBuffers( 1, &m_vbos[i] ) );
-                GL_ASSERT( glBindBuffer( GL_ARRAY_BUFFER, m_vbos[i] ) );
-                GL_ASSERT( glBufferData( GL_ARRAY_BUFFER, m_data[i].size() * sizeof( Core::Vector4 ),
-                                         m_data[i].data(), GL_DYNAMIC_DRAW ) );
+            GL_ASSERT( glGenBuffers( 1, &m_vbos[vboIdx] ) );
+            GL_ASSERT( glBindBuffer( GL_ARRAY_BUFFER, m_vbos[vboIdx] ) );
+            GL_ASSERT( glBufferData( GL_ARRAY_BUFFER, arr.size() * sizeof( typename VecArray::Vector ),
+                                     arr.data(), GL_DYNAMIC_DRAW ) );
 
-                GL_ASSERT( glVertexAttribPointer( i, size, type, normalized,
-                                                  sizeof( Core::Vector4 ), ptr ) );
+            // Use vboIdx -1 as attribute index because vbo  0 is actualyl ibo.
+            GL_ASSERT( glVertexAttribPointer( vboIdx -1, size, type, normalized,
+                                              sizeof( typename VecArray::Vector ), ptr ) );
 
-                GL_ASSERT( glEnableVertexAttribArray( i ) );
+            GL_ASSERT( glEnableVertexAttribArray( vboIdx -1 ) );
 
-                m_dirtyArray[i] = false;
-            }
-
-            if ( m_dirtyArray[i] == true && m_vbos[i] != 0 && m_data[i].size() > 0 )
-            {
-                GL_ASSERT( glBindBuffer( GL_ARRAY_BUFFER, m_vbos[i] ) );
-                GL_ASSERT( glBufferData( GL_ARRAY_BUFFER, m_data[i].size() * sizeof( Core::Vector4 ),
-                                         m_data[i].data(), GL_DYNAMIC_DRAW ) );
-
-                m_dirtyArray[i] = false;
-            }
         }
 
-        // Indices has not been initialized yet
-        if ( m_ibo == 0 )
+        if ( m_dataDirty[vboIdx] == true && m_vbos[vboIdx] != 0 && arr.size() > 0 )
         {
-            GL_ASSERT( glGenBuffers( 1, &m_ibo ) );
-            GL_ASSERT( glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, m_ibo ) );
+            GL_ASSERT( glBindBuffer( GL_ARRAY_BUFFER, m_vbos[vboIdx] ) );
+            GL_ASSERT( glBufferData( GL_ARRAY_BUFFER, arr.size() * sizeof( typename VecArray::Vector ),
+                                     arr.data(), GL_DYNAMIC_DRAW ) );
+            m_dataDirty[vboIdx] = false;
         }
-
-        if ( m_iboDirty )
-        {
-            GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof( uint ),
-                                     m_indices.data(), GL_DYNAMIC_DRAW ) );
-            m_iboDirty = false;
-        }
-
-        GL_ASSERT( glBindVertexArray( 0 ) );
-
-        GL_CHECK_ERROR;
-        m_isDirty = false;
     }
 
-    std::shared_ptr<Engine::Mesh> Engine::Mesh::clone()
+
+
+    void Engine::Mesh::updateGL()
     {
-        //std::shared_ptr<Mesh> mesh( new Mesh( m_name, m_renderMode ) );
-        Mesh* mesh = new Mesh( m_name, m_renderMode );
+        if ( m_isDirty )
+        {
+            ON_DEBUG(bool dirtyTest = false; for (const auto& d : m_dataDirty) { dirtyTest = dirtyTest || d;});
+            CORE_ASSERT( dirtyTest == m_isDirty, "Dirty flags inconsistency");
 
-        mesh->m_vao = m_vao;
-        mesh->m_vbos = m_vbos;
-        mesh->m_ibo = m_ibo;
+            CORE_ASSERT( ! ( m_mesh.m_vertices.empty()|| m_mesh.m_triangles.empty() ),
+                    "Either vertices or indices are empty arrays.");
 
-        mesh->m_isDirty = true;
-        mesh->m_iboDirty = false;
-        mesh->m_dirtyArray = {{ false }};
+            if ( m_vao == 0 )
+            {
+                // Create VAO if it does not exist
+                GL_ASSERT( glGenVertexArrays( 1, &m_vao ) );
+            }
 
-        mesh->m_data = m_data;
-        mesh->m_indices = m_indices;
+            // Bind it
+            GL_ASSERT( glBindVertexArray( m_vao ) );
 
-        return std::shared_ptr<Mesh>( mesh );
+            if (m_vbos[INDEX] == 0 )
+            {
+                GL_ASSERT( glGenBuffers( 1, &m_vbos[INDEX]) );
+                GL_ASSERT( glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, m_vbos[INDEX]) );
+            }
+            if (m_dataDirty[INDEX])
+            {
+                GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER, m_mesh.m_triangles.size() * sizeof( Ra::Core::Triangle ),
+                                         m_mesh.m_triangles.data(), GL_DYNAMIC_DRAW ) );
+                m_dataDirty[INDEX] = false;
+
+            }
+
+            // Geometry data
+            sendGLData( m_mesh.m_vertices, VERTEX_POSITION);
+            sendGLData( m_mesh.m_normals,  VERTEX_NORMAL);
+
+            // Vec3 data
+            sendGLData( m_v3Data[VERTEX_TANGENT],   MAX_MESH + VERTEX_TANGENT);
+            sendGLData( m_v3Data[VERTEX_BITANGENT], MAX_MESH + VERTEX_BITANGENT);
+            sendGLData( m_v3Data[VERTEX_TEXCOORD],  MAX_MESH + VERTEX_TEXCOORD);
+
+            // Vec4 data
+            sendGLData( m_v4Data[VERTEX_COLOR],  MAX_MESH + MAX_VEC3 + VERTEX_COLOR );
+            sendGLData( m_v4Data[VERTEX_WEIGHTS], MAX_MESH + MAX_VEC3 + VERTEX_WEIGHTS);
+
+            GL_ASSERT( glBindVertexArray( 0 ) );
+
+            GL_CHECK_ERROR;
+            m_isDirty = false;
+        }
     }
+
 
 } // namespace Ra

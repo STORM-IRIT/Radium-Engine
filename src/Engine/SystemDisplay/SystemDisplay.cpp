@@ -27,16 +27,10 @@ namespace Ra
             return static_cast<DebugComponent*>(getInstance()->getComponent("Debug"));
         }
 
-        RenderObject* DebugComponent::updateRenderObject( Core::Index idx )
+        RenderObject* DebugComponent::getRenderObject( Core::Index idx )
         {
-            return getRoMgr()->update( idx ).get();
+            return getRoMgr()->getRenderObject( idx ).get();
         }
-
-        void DebugComponent::doneUpdatingRenderObject( Core::Index idx )
-        {
-            getRoMgr()->doneUpdating( idx );
-        }
-
 #endif
 
         RA_SINGLETON_IMPLEMENTATION( SystemEntity );

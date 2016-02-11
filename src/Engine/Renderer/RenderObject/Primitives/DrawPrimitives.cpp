@@ -22,7 +22,7 @@ namespace Ra
                 // Mesh init
                 Core::Vector4Array colors(vertices.size(), color);
                 mesh->loadGeometry(vertices, indices);
-                mesh->addData(Mesh::VERTEX_COLOR, colors);
+                mesh->addData(Mesh::Vec4Data::VERTEX_COLOR, colors);
 
                 // Ro init
                 RenderTechnique* rt = new RenderTechnique;
@@ -40,7 +40,7 @@ namespace Ra
             {
                 Core::Vector4Array colors(vertices.size(), color);
                 mesh->loadGeometry(vertices, indices);
-                mesh->addData(Mesh::VERTEX_COLOR, colors);
+                mesh->addData(Mesh::Vec4Data::VERTEX_COLOR, colors);
 
                 // Ro init
                 if ( nullptr == ro->getRenderTechnique() )
@@ -53,11 +53,6 @@ namespace Ra
                     ro->setRenderTechnique(rt);
                 }
                 ro->setMesh(mesh);
-
-                RenderParameters params;
-                params.addParameter( "lineWidth", lineWidth );
-
-                ro->addRenderParameters( params );
             }
 
 

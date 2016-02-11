@@ -7,7 +7,6 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/RenderQueue/RenderQueue.hpp>
 
 namespace Ra
 {
@@ -25,14 +24,6 @@ namespace Ra
             , m_visible( true )
             , m_isDirty( true )
         {
-            // FIXME(Charly): Render parameters should get out of here
-            /*
-            Engine::RenderParameters params;
-            int fixedSize = drawFixedSize ? 1 : 0;
-            params.addParameter( "drawFixedSize", fixedSize );
-            params.addParameter( "outputValue", 0 );
-            addRenderParameters(params);
-            */
         }
 
         RenderObject::~RenderObject()
@@ -55,67 +46,6 @@ namespace Ra
             }
 
             m_isDirty = false;
-        }
-
-        void RenderObject::feedRenderQueue( RenderQueue& queue )
-        {
-//            ShaderKey shader( m_renderTechnique->shader );
-//            BindableMaterial material( m_renderTechnique->material );
-            BindableMesh mesh( this, idx );
-
-//            queue[shader][material].push_back( mesh );
-            queue.push_back( mesh );
-        }
-
-        void RenderObject::bind() const
-        {
-            RenderParameters params;
-            bind( m_renderTechnique->shader, params );
-        }
-
-        void RenderObject::bind( const RenderParameters& params ) const
-        {
-            bind( m_renderTechnique->shader, params );
-        }
-
-        void RenderObject::bind( ShaderProgram* shader ) const
-        {
-            RenderParameters params;
-            bind( shader, params );
-        }
-
-        void RenderObject::bind( ShaderProgram* shader, const RenderParameters& params ) const
-        {}
-
-        void RenderObject::render() const
-        {
-            if ( !m_visible )
-            {
-                return;
-            }
-
-            m_mesh->render();
-        }
-
-        RenderObject* RenderObject::clone( bool cloneMesh )
-        {
-            // Do not clone while we are updating GL internals
-            std::lock_guard<std::mutex> lock( m_updateMutex );
-
-            RenderObject* newRO = new RenderObject( m_name, m_component, m_type );
-
-            newRO->setRenderTechnique( m_renderTechnique );
-            newRO->setVisible( m_visible );
-            newRO->addRenderParameters( m_renderParameters );
-
-            newRO->idx = idx;
-
-            if ( m_mesh )
-            {
-                newRO->setMesh( cloneMesh ? m_mesh->clone() : m_mesh );
-            }
-
-            return newRO;
         }
     } // namespace Engine
 } // namespace Ra

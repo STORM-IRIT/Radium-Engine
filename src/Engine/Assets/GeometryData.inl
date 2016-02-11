@@ -90,17 +90,17 @@ inline const GeometryData::Vector3Array& GeometryData::getNormals() const
     return m_normal;
 }
 
-inline const GeometryData::Vector4Array& GeometryData::getTangents() const
+inline const GeometryData::Vector3Array& GeometryData::getTangents() const
 {
     return m_tangent;
 }
 
-inline const GeometryData::Vector4Array& GeometryData::getBiTangents() const
+inline const GeometryData::Vector3Array& GeometryData::getBiTangents() const
 {
     return m_bitangent;
 }
 
-inline const GeometryData::Vector4Array& GeometryData::getTexCoords() const
+inline const GeometryData::Vector3Array& GeometryData::getTexCoords() const
 {
     return m_texCoord;
 }
@@ -314,7 +314,7 @@ inline void GeometryData::setNormals( const std::vector< Core::Vector3 >& normal
 }
 
 /// TANGENT
-inline void GeometryData::setTangents( const std::vector< Core::Vector4 >& tangentList ) {
+inline void GeometryData::setTangents( const std::vector< Core::Vector3 >& tangentList ) {
     const uint size = tangentList.size();
     m_tangent.resize( size );
 #pragma omp parallel for
@@ -324,7 +324,7 @@ inline void GeometryData::setTangents( const std::vector< Core::Vector4 >& tange
 }
 
 /// BITANGENT
-inline void GeometryData::setBitangents( const std::vector< Core::Vector4 >& bitangentList ) {
+inline void GeometryData::setBitangents( const std::vector< Core::Vector3 >& bitangentList ) {
     const uint size = bitangentList.size();
     m_bitangent.resize( size );
 #pragma omp parallel for
@@ -334,7 +334,7 @@ inline void GeometryData::setBitangents( const std::vector< Core::Vector4 >& bit
 }
 
 /// TEXTURE COORDINATE
-inline void GeometryData::setTextureCoordinates( const std::vector< Core::Vector4 >& texCoordList ) {
+inline void GeometryData::setTextureCoordinates( const std::vector< Core::Vector3 >& texCoordList ) {
     const uint size = texCoordList.size();
     m_texCoord.resize( size );
 #pragma omp parallel for

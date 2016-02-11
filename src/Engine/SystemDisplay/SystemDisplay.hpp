@@ -29,9 +29,7 @@ namespace Ra
             void initialize() override { }
 
             /// Access render object through RO manager
-            RenderObject* updateRenderObject( Core::Index idx );
-            /// Access render object through RO manager
-            void doneUpdatingRenderObject( Core::Index idx );
+            RenderObject* getRenderObject( Core::Index idx );
         };
 
 #endif

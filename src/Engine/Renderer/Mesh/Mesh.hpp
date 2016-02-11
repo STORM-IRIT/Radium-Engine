@@ -37,18 +37,37 @@ namespace Ra
         {
         public:
             /// List of all possible vertex attributes.
-            enum DataType
+
+            /// Information which is in the mesh
+            enum MeshData : uint
             {
-                VERTEX_POSITION = 0,
+                INDEX = 0,
+                VERTEX_POSITION,
                 VERTEX_NORMAL,
-                VERTEX_TANGENT,
+
+                MAX_MESH
+            };
+
+            /// Extra vector 3 data
+            enum Vec3Data : uint
+            {
+                VERTEX_TANGENT = 0,
                 VERTEX_BITANGENT,
                 VERTEX_TEXCOORD,
-                VERTEX_COLOR,
+
+                MAX_VEC3
+            };
+
+            /// Extra vector 4 data
+            enum Vec4Data : uint
+            {
+                VERTEX_COLOR = 0,
                 VERTEX_WEIGHTS,
 
-                MAX_DATATYPES
+                MAX_VEC4
             };
+
+            constexpr static uint MAX_DATA = MAX_MESH + MAX_VEC3 + MAX_VEC4;
 
         public:
             Mesh( const std::string& name, GLenum renderMode = GL_TRIANGLES );
@@ -62,21 +81,23 @@ namespace Ra
             /// GL_POINTS, GL_LINES, GL_TRIANGLES, GL_TRIANGLE_ADJACENCY, etc...
             void setRenderMode( GLenum mode );
 
+            const Core::TriangleMesh& getGeometry() const { return m_mesh;}
+            Core::TriangleMesh* getGeometryPtr()  { return &m_mesh;}
+
             void loadGeometry( const Core::TriangleMesh& mesh);
-            void loadGeometry( const Core::Vector3Array& positions, const std::vector<uint>& indices);
-            void loadGeometry( const Core::Vector4Array& positions, const std::vector<uint>& indices );
+            void loadGeometry( const Core::Vector3Array& vertices, const std::vector<uint>& indices);
 
-            void addData( const DataType& type, const Core::Vector3Array& data);
-            void addData( const DataType& type, const Core::Vector4Array& data);
+            void addData( const Vec3Data& type, const Core::Vector3Array& data);
+            void addData( const Vec4Data& type, const Core::Vector4Array& data);
 
-            const Core::Vector4Array& getData( const DataType& type ) const
+            const Core::Vector3Array& getData( const Vec3Data& type ) const
             {
-                return m_data[type];
+                return m_v3Data[static_cast<uint>(type)];
             }
 
-            const std::vector<uint>& getIndices() const
+            const Core::Vector4Array& getData( const Vec4Data& type ) const
             {
-                return m_indices;
+                return m_v4Data[static_cast<uint>(type)];
             }
 
             void setDirty()
@@ -87,26 +108,29 @@ namespace Ra
 
             void render();
 
-            std::shared_ptr<Mesh> clone();
-
         private:
+            template < typename VecArray >
+            void sendGLData( const VecArray& arr, const uint vboIdx );
+
+
             Mesh( const Mesh& ) = delete;
             void operator= ( const Mesh& ) = delete;
 
         private:
             std::string m_name;
-            bool m_isDirty;
 
             uint m_vao;
             GLenum m_renderMode;
 
-            std::array<Core::Vector4Array, MAX_DATATYPES> m_data;
-            std::array<uint, MAX_DATATYPES> m_vbos = {{ 0 }};
-            std::array<bool, MAX_DATATYPES> m_dirtyArray = {{ false }};
+            Core::TriangleMesh m_mesh;
 
-            std::vector<uint> m_indices;
-            uint m_ibo;
-            bool m_iboDirty = false;
+            std::array<Core::Vector3Array, MAX_VEC3 > m_v3Data;
+            std::array<Core::Vector4Array, MAX_VEC4 > m_v4Data;
+
+            // mesh, then Vec3 then vec 4 datas.
+            std::array<uint, MAX_DATA> m_vbos = {{ 0 }};
+            std::array<bool, MAX_DATA> m_dataDirty = {{ false }};
+            bool m_isDirty;
         };
 
     } // namespace Engine

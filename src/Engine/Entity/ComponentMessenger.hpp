@@ -63,6 +63,19 @@ public:
 public:
     ComponentMessenger() {}
 
+    template <typename ReturnType>
+    GetterCallback getterCallback( const Entity* entity, const std::string id )
+    {
+        return m_entityGetLists[entity][Key(id, std::type_index(typeid(ReturnType)))];
+    }
+
+    template <typename ReturnType>
+    SetterCallback setterCallback( const Entity* entity, const std::string id )
+    {
+        return m_entitySetLists[entity][Key(id, std::type_index(typeid(ReturnType)))];
+    }
+
+
     /// Attempts to get the data identified by the given string. If the data is found,
     /// the function returns true and output is correctly set. If not, the function
     /// returns false.
