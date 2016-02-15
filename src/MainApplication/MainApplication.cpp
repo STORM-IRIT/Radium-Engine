@@ -47,7 +47,6 @@ namespace Ra
         , m_isAboutToQuit( false )
         //, m_timerData(TIMER_AVERAGE)
     {
-        // Boilerplate print.
 
         std::string pluginsPath;
         if ( argc > 1 )
@@ -68,6 +67,7 @@ namespace Ra
             pluginsPath = "../Plugins/bin";
         }
 
+        // Boilerplate print.
         LOG( logINFO ) << "*** Radium Engine Main App  ***";
         std::stringstream config;
 #if defined (CORE_DEBUG)

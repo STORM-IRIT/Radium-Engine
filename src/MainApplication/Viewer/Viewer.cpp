@@ -315,8 +315,8 @@ namespace Ra
 #if defined(FORCE_RENDERING_ON_MAIN_THREAD)
         makeCurrent();
 
-        // Move camera if needed
-        m_camera->update( dt );
+        // Move camera if needed. Disabled for now as it takes too long (see issue #69)
+        //m_camera->update( dt );
 
         Engine::RenderData data;
         data.dt = dt;
