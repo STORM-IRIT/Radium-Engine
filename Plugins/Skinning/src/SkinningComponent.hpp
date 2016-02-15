@@ -35,12 +35,16 @@ namespace SkinningPlugin
             // Skinning data
 
             Ra::Core::TriangleMesh m_referenceMesh;
-            Ra::Core::TriangleMesh m_targetMesh;
             Ra::Core::Animation::Pose m_refPose;
+            Ra::Core::Animation::Pose m_previousPose;
             Ra::Core::Animation::WeightMatrix m_weights;
 
             Ra::Engine::ComponentMessenger::GetterCallback m_skeletonGetter;
-            Ra::Engine::ComponentMessenger::SetterCallback m_meshSetter;
+            Ra::Engine::ComponentMessenger::ReadWriteCallback m_verticesWriter;
+            Ra::Engine::ComponentMessenger::ReadWriteCallback m_normalsWriter;
+
+            Ra::Core::Vector3Array* m_vertices;
+            Ra::Core::Vector3Array* m_normals;
 
             bool m_isReady;
     };

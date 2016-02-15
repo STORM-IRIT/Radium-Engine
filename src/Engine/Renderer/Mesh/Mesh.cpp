@@ -3,12 +3,11 @@
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Core/Mesh/HalfEdge.hpp>
 
-namespace Ra
-{
-
+namespace Ra {
+namespace Engine {
     // Dirty is initializes as false so that we do not create the vao while
     // we have no data to send to the gpu.
-    Engine::Mesh::Mesh( const std::string& name, GLenum renderMode )
+    Mesh::Mesh( const std::string& name, GLenum renderMode )
         : m_name( name )
         , m_vao( 0 )
         , m_renderMode(renderMode)
@@ -16,17 +15,12 @@ namespace Ra
     {
     }
 
-    Engine::Mesh::~Mesh()
+    Mesh::~Mesh()
     {
         //GL_ASSERT( glDeleteVertexArrays( 1, &m_vao ) );
     }
 
-    void Engine::Mesh::setRenderMode( GLenum mode )
-    {
-        m_renderMode = mode;
-    }
-
-    void Engine::Mesh::render()
+    void Mesh::render()
     {
         if ( m_vao == 0 )
         {
@@ -34,14 +28,13 @@ namespace Ra
             return;
         }
 
-        // FIXME(Charly): This seems to crash on windows
         GL_ASSERT( glBindVertexArray( m_vao ) );
 
         //    GL_ASSERT(glDrawElements(GL_TRIANGLES_ADJACENCY, 6 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
         GL_ASSERT( glDrawElements( m_renderMode, m_mesh.m_triangles.size() * 3 , GL_UNSIGNED_INT, ( void* ) 0 ) );
     }
 
-    void Engine::Mesh::loadGeometry(const Core::TriangleMesh& mesh)
+    void Mesh::loadGeometry(const Core::TriangleMesh& mesh)
     {
         m_mesh = mesh;
         for (uint i = 0; i < MAX_MESH; ++i)
@@ -52,7 +45,7 @@ namespace Ra
 
     }
 
-    void Engine::Mesh::loadGeometry(const Core::Vector3Array &vertices, const std::vector<uint> &indices)
+    void Mesh::loadGeometry(const Core::Vector3Array &vertices, const std::vector<uint> &indices)
     {
         // TODO : remove this function and force everyone to use triangle mesh.
         Core::TriangleMesh m;
@@ -65,22 +58,23 @@ namespace Ra
 
     }
 
-    void Engine::Mesh::addData( const Vec3Data& type, const Core::Vector3Array& data )
+    void Mesh::addData( const Vec3Data& type, const Core::Vector3Array& data )
     {
         m_v3Data[static_cast<uint>(type)] = data;
         m_dataDirty[MAX_MESH + static_cast<uint>(type)] = true;
         m_isDirty = true;
     }
 
-    void Engine::Mesh::addData( const Vec4Data& type, const Core::Vector4Array& data )
+    void Mesh::addData( const Vec4Data& type, const Core::Vector4Array& data )
     {
         m_v4Data[static_cast<uint>(type)] = data;
         m_dataDirty[MAX_MESH + MAX_VEC3 + static_cast<uint>(type)] = true;
         m_isDirty = true;
     }
 
+    // Template parameter must be a Core::VectorNArray
     template< typename VecArray >
-    void Engine::Mesh::sendGLData( const VecArray& arr, const uint vboIdx )
+    void Mesh::sendGLData( const VecArray& arr, const uint vboIdx )
     {
 
 #ifdef CORE_USE_DOUBLE
@@ -100,11 +94,11 @@ namespace Ra
             GL_ASSERT( glBufferData( GL_ARRAY_BUFFER, arr.size() * sizeof( typename VecArray::Vector ),
                                      arr.data(), GL_DYNAMIC_DRAW ) );
 
-            // Use vboIdx -1 as attribute index because vbo  0 is actualyl ibo.
-            GL_ASSERT( glVertexAttribPointer( vboIdx -1, size, type, normalized,
+            // Use (vboIdx - 1) as attribute index because vbo 0 is actually ibo.
+            GL_ASSERT( glVertexAttribPointer( vboIdx - 1, size, type, normalized,
                                               sizeof( typename VecArray::Vector ), ptr ) );
 
-            GL_ASSERT( glEnableVertexAttribArray( vboIdx -1 ) );
+            GL_ASSERT( glEnableVertexAttribArray( vboIdx - 1 ) );
 
         }
 
@@ -117,12 +111,11 @@ namespace Ra
         }
     }
 
-
-
-    void Engine::Mesh::updateGL()
+    void Mesh::updateGL()
     {
         if ( m_isDirty )
         {
+            // Check that our dirty bits are consistent.
             ON_DEBUG(bool dirtyTest = false; for (const auto& d : m_dataDirty) { dirtyTest = dirtyTest || d;});
             CORE_ASSERT( dirtyTest == m_isDirty, "Dirty flags inconsistency");
 
@@ -171,5 +164,5 @@ namespace Ra
         }
     }
 
-
+} // namespace Engine
 } // namespace Ra

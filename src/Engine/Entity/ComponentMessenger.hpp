@@ -37,6 +37,7 @@ class RA_ENGINE_API ComponentMessenger
 public:
     typedef std::function< const void*(void) > GetterCallback;
     typedef std::function< void(const void*) > SetterCallback;
+    typedef std::function< void* (void)      > ReadWriteCallback;
 
     /// An entry which allows to call the get/set methods on a component.
     /// Key used to identify entries.
@@ -57,8 +58,9 @@ public:
     };
 
     /// A dictionary of callback entries identified with the key.
-    typedef std::unordered_map < Key, GetterCallback, HashFunc > EntityGetterCallbackList;
-    typedef std::unordered_map < Key, SetterCallback, HashFunc > EntitySetterCallbackList;
+    typedef std::unordered_map < Key, GetterCallback,    HashFunc > EntityGetterCallbackList;
+    typedef std::unordered_map < Key, SetterCallback,    HashFunc > EntitySetterCallbackList;
+    typedef std::unordered_map < Key, ReadWriteCallback, HashFunc > EntityRwCallbackList;
 
 public:
     ComponentMessenger() {}
@@ -70,11 +72,16 @@ public:
     }
 
     template <typename ReturnType>
+    ReadWriteCallback rwCallback( const Entity* entity, const std::string id )
+    {
+        return m_entityRwLists[entity][Key(id, std::type_index(typeid(ReturnType)))];
+    }
+
+    template <typename ReturnType>
     SetterCallback setterCallback( const Entity* entity, const std::string id )
     {
         return m_entitySetLists[entity][Key(id, std::type_index(typeid(ReturnType)))];
     }
-
 
     /// Attempts to get the data identified by the given string. If the data is found,
     /// the function returns true and output is correctly set. If not, the function
@@ -129,7 +136,7 @@ public:
         return found;
     }
 
-    /// Register an output parameter, which becomes accessible by get() functions with the
+    /// Register an output parameter, which becomes accessible by getter callback functions
     /// given string as an identifier.
     template <typename ReturnType>
     void registerOutput(const Entity* entity, Component* comp, const std::string& id, const GetterCallback& cb )
@@ -140,6 +147,19 @@ public:
 
         Key key( id, std::type_index( typeid(ReturnType) ) );
         CORE_ASSERT( entityList.find(key) == entityList.end(), "Output function alreadu registered" );
+
+        entityList[key] = cb;
+    }
+
+    template <typename ReturnType>
+    void registerReadWrite(const Entity* entity, Component* comp, const std::string& id, const ReadWriteCallback& cb )
+    {
+        CORE_ASSERT( entity && comp->getEntity() == entity, "Component not added to entity" );
+        // Will insert a new entity entry if it doesn't exist.
+        EntityRwCallbackList& entityList = m_entityRwLists[entity];
+
+        Key key( id, std::type_index( typeid(ReturnType) ) );
+        CORE_ASSERT( entityList.find(key) == entityList.end(), "Rw function already registered" );
 
         entityList[key] = cb;
     }
@@ -157,8 +177,9 @@ public:
         entityList[key] = cb;
     }
 
-    std::unordered_map<const Entity*, EntityGetterCallbackList> m_entityGetLists; /// Per-entity callback list.
-    std::unordered_map<const Entity*, EntitySetterCallbackList> m_entitySetLists; /// Per-entity callback list.
+    std::unordered_map<const Entity*, EntityGetterCallbackList> m_entityGetLists; /// Per-entity callback get list.
+    std::unordered_map<const Entity*, EntitySetterCallbackList> m_entitySetLists; /// Per-entity callback set list.
+    std::unordered_map<const Entity*, EntityRwCallbackList> m_entityRwLists;  /// Per-entity callback read-write list.
 
 };
 

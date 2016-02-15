@@ -51,8 +51,8 @@ namespace Ra
             , m_height( height )
             , m_shaderManager( nullptr )
             , m_displayedTexture( nullptr )
-            , m_quadMesh( nullptr )
             , m_renderQueuesUpToDate( false )
+            , m_quadMesh( nullptr )
             , m_drawDebug( true )
             , m_drawScreenShader( nullptr )
         {

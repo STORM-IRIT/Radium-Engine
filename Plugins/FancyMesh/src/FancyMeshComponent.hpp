@@ -52,12 +52,15 @@ namespace FancyMeshPlugin
         // Component communication management
         void setupIO(const std::string& id);
 
-        const Ra::Engine::Mesh& getROMesh() const;
-        Ra::Engine::Mesh& getROMesh();
+        const Ra::Engine::Mesh& getDisplayMesh() const;
+        Ra::Engine::Mesh& getDisplayMesh();
 
         // Fancy mesh accepts to give its mesh and (if deformable) to update it
         const void *getMeshOutput() const;
         void setMeshInput( const void* mesh );
+        void * getVerticesRw();
+        void * getNormalsRw();
+        void * getTrianglesRw();
 
     private:
         Ra::Core::Index m_meshIndex;

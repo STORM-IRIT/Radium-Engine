@@ -46,34 +46,38 @@ void SkinningComponent::setupSkinning()
         CORE_ASSERT( mesh.m_vertices.size() == weights.rows(), "Weights are incompatible with Mesh" );
 
         m_referenceMesh = mesh;
-        m_targetMesh = mesh;
         m_refPose = refPose;
+        m_previousPose = refPose;
         m_weights = weights;
 
         m_skeletonGetter = ComponentMessenger::getInstance()->ComponentMessenger::getterCallback<Skeleton>( getEntity(), m_contentsName );
-        m_meshSetter = ComponentMessenger::getInstance()->ComponentMessenger::setterCallback<TriangleMesh>( getEntity(), m_contentsName );
+        m_verticesWriter = ComponentMessenger::getInstance()->ComponentMessenger::rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName+"v" );
+        m_normalsWriter = ComponentMessenger::getInstance()->ComponentMessenger::rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName+"n" );
+
 
         m_isReady = true;
     }
 }
 void SkinningComponent::skin()
 {
-
     CORE_ASSERT( m_isReady, "Skinning is not setup");
 
     const Skeleton* skel = static_cast<const Skeleton*>(m_skeletonGetter());
 
-    CORE_ASSERT( m_targetMesh.m_vertices.size() == m_referenceMesh.m_vertices.size(), "Inconsistent meshes");
 
     const Pose& currentPose = skel->getPose(SpaceType::MODEL);
-    if ( !Ra::Core::Animation::areEqual(currentPose, m_refPose))
+    if ( !Ra::Core::Animation::areEqual(currentPose, m_previousPose))
     {
+        m_vertices = static_cast<Ra::Core::Vector3Array* >(m_verticesWriter());
+        m_normals = static_cast<Ra::Core::Vector3Array* >(m_normalsWriter());
+        CORE_ASSERT( m_vertices->size() == m_referenceMesh.m_vertices.size(), "Inconsistent meshes");
+
         Pose relativePose = Ra::Core::Animation::relativePose(currentPose, m_refPose);
 
         // Do DQS
         Ra::Core::AlignedStdVector< DualQuaternion > DQ
                 ( m_weights.rows(), DualQuaternion( Quaternion( 0.0, 0.0, 0.0, 0.0 ),
-                                                  Quaternion( 0.0 , 0.0, 0.0, 0.0 ) ) );
+                                                    Quaternion( 0.0 ,0.0, 0.0, 0.0 ) ) );
 
         ON_DEBUG( std::vector<Scalar> weightCheck( m_weights.rows(), 0.f));
 #pragma omp parallel for
@@ -104,17 +108,16 @@ void SkinningComponent::skin()
                          "Invalid dual quaternion.");
         }
 
-        const uint nVerts = m_targetMesh.m_vertices.size();
+        const uint nVerts = m_referenceMesh.m_vertices.size();
 #pragma omp parallel for
         for (uint i = 0; i < nVerts; ++i )
         {
-            m_targetMesh.m_vertices[i] = DQ[i].transform(m_referenceMesh.m_vertices[i]);
-            CORE_ASSERT(m_targetMesh.m_vertices[i].allFinite(), "Infinite point in DQS");
+            (*m_vertices)[i] = DQ[i].transform(m_referenceMesh.m_vertices[i]);
+            CORE_ASSERT((*m_vertices)[i].allFinite(), "Infinite point in DQS");
         }
 
-        Ra::Core::Geometry::uniformNormal( m_targetMesh.m_vertices, m_targetMesh.m_triangles, m_targetMesh.m_normals );
-        m_meshSetter(&m_targetMesh);
-
+        Ra::Core::Geometry::uniformNormal( *m_vertices, m_referenceMesh.m_triangles, *m_normals );
+        m_previousPose = currentPose;
     }
 }
 

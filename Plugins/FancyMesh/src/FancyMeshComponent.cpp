@@ -149,7 +149,7 @@ namespace FancyMeshPlugin
 
     const Ra::Core::TriangleMesh& FancyMeshComponent::getMesh() const
     {
-        return getROMesh().getGeometry();
+        return getDisplayMesh().getGeometry();
     }
 
     void FancyMeshComponent::setupIO(const std::string& id)
@@ -161,23 +161,32 @@ namespace FancyMeshPlugin
         {
             Ra::Engine::ComponentMessenger::SetterCallback cbIn = std::bind( &FancyMeshComponent::setMeshInput, this, std::placeholders::_1 );
             Ra::Engine::ComponentMessenger::getInstance()->registerInput<Ra::Core::TriangleMesh>( getEntity(), this, id, cbIn);
+
+            Ra::Engine::ComponentMessenger::ReadWriteCallback vRW = std::bind( &FancyMeshComponent::getVerticesRw, this);
+            Ra::Engine::ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"v", vRW);
+
+            Ra::Engine::ComponentMessenger::ReadWriteCallback nRW = std::bind( &FancyMeshComponent::getNormalsRw, this);
+            Ra::Engine::ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"n", nRW);
+
+            Ra::Engine::ComponentMessenger::ReadWriteCallback tRW = std::bind( &FancyMeshComponent::getTrianglesRw, this);
+            Ra::Engine::ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"t", tRW);
         }
 
     }
 
-    const Ra::Engine::Mesh& FancyMeshComponent::getROMesh() const
+    const Ra::Engine::Mesh& FancyMeshComponent::getDisplayMesh() const
     {
         return *(getRoMgr()->getRenderObject(getRenderObjectIndex())->getMesh());
     }
 
-    Ra::Engine::Mesh& FancyMeshComponent::getROMesh()
+    Ra::Engine::Mesh& FancyMeshComponent::getDisplayMesh()
     {
         return *(getRoMgr()->getRenderObject(getRenderObjectIndex())->getMesh());
     }
 
     const void* FancyMeshComponent::getMeshOutput() const
     {
-        return &(getROMesh().getGeometry());
+        return &(getMesh());
     }
 
     void FancyMeshComponent::setMeshInput(const void *meshptr)
@@ -188,9 +197,26 @@ namespace FancyMeshPlugin
 
         Ra::Core::TriangleMesh mesh = *(static_cast<const Ra::Core::TriangleMesh*>(meshptr));
 
-        Ra::Engine::Mesh& displayMesh = getROMesh();
+        Ra::Engine::Mesh& displayMesh = getDisplayMesh();
         displayMesh.loadGeometry( mesh );
+    }
 
+    void* FancyMeshComponent::getVerticesRw()
+    {
+        getDisplayMesh().setDirty( Ra::Engine::Mesh::VERTEX_POSITION);
+        return &(getDisplayMesh().getGeometry().m_vertices);
+    }
+
+    void* FancyMeshComponent::getNormalsRw()
+    {
+        getDisplayMesh().setDirty( Ra::Engine::Mesh::VERTEX_NORMAL);
+        return &(getDisplayMesh().getGeometry().m_normals);
+    }
+
+    void* FancyMeshComponent::getTrianglesRw()
+    {
+        getDisplayMesh().setDirty( Ra::Engine::Mesh::INDEX);
+        return &(getDisplayMesh().getGeometry().m_triangles);
     }
 
     void FancyMeshComponent::rayCastQuery( const Ra::Core::Ray& r) const
