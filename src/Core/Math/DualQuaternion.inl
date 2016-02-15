@@ -57,21 +57,17 @@ namespace Ra
 
         inline Vector3 DualQuaternion::transform(const Vector3& p) const
         {
-            // As the dual quaternions may be the results from a
-            // linear blending we have to normalize it :
-            float norm = m_q0.norm();
-            Quaternion qblend_0 = getQ0() / norm;
-            Quaternion qblend_e = getQe() / norm;
+            CORE_ASSERT( Ra::Core::Math::areApproxEqual(m_q0.norm(), 1.f), "Dual quaternion not normalized");
 
             // Translation from the normalized dual quaternion equals :
             // 2.f * qblend_e * conjugate(qblend_0)
-            Vector3 v0 = qblend_0.vec();
-            Vector3 ve = qblend_e.vec();
-            Vector3 trans = (ve*qblend_0.w() - v0*qblend_e.w() + v0.cross(ve)) * 2.f;
+            Vector3 v0 = m_q0.vec();
+            Vector3 ve = m_qe.vec();
+            Vector3 trans = (ve * m_q0.w() - v0 * m_qe.w() + v0.cross(ve)) * 2.f;
 
             // Rotate
             //return qblend_0 * p + trans;
-            return qblend_0.toRotationMatrix() * p + trans;
+            return m_q0.toRotationMatrix() * p + trans;
         }
 
         inline DualQuaternion::DualQuaternion(const Core::Transform& tr)
