@@ -270,8 +270,8 @@ namespace Ra
             bool m_renderQueuesUpToDate;
 
             std::vector<RenderObjectPtr> m_fancyRenderObjects;
-            std::vector<RenderObjectPtr> m_xrayRenderObjects;
             std::vector<RenderObjectPtr> m_debugRenderObjects;
+            std::vector<RenderObjectPtr> m_xrayRenderObjects;
             std::vector<RenderObjectPtr> m_uiRenderObjects;
 
             // Simple quad mesh, used to render the final image

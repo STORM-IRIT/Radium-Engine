@@ -48,32 +48,37 @@ namespace Ra
             //
             // Getters and setters.
             //
-            inline const std::string& getName() const;
-            inline const Component* getComponent() const;
+            const std::string& getName() const;
+            const Component* getComponent() const;
 
-            inline const RenderObjectType& getType() const;
-            inline void setType( const RenderObjectType& t);
+            const RenderObjectType& getType() const;
+            void setType( const RenderObjectType& t);
 
-            inline void setVisible( bool visible );
-            inline bool isVisible() const;
+            void setVisible( bool visible );
+            void toggleVisible();
+            bool isVisible() const;
 
-            inline bool isDirty() const;
+            void setXRay( bool xray );
+            void toggleXRay();
+            bool isXRay() const;
 
-            inline void setRenderTechnique( RenderTechnique* technique );
-            inline const RenderTechnique* getRenderTechnique() const;
-            inline RenderTechnique* getRenderTechnique();
+            bool isDirty() const;
 
-            inline void setMesh( const std::shared_ptr<Mesh>& mesh );
-            inline const Mesh* getMesh() const;
-            inline Mesh* getMesh();
+            void setRenderTechnique( RenderTechnique* technique );
+            const RenderTechnique* getRenderTechnique() const;
+            RenderTechnique* getRenderTechnique();
 
-            inline Core::Transform getTransform() const;
-            inline Core::Matrix4 getTransformAsMatrix() const;
+            void setMesh( const std::shared_ptr<Mesh>& mesh );
+            const Mesh* getMesh() const;
+            Mesh* getMesh();
 
-            inline void setLocalTransform( const Core::Transform& transform );
-            inline void setLocalTransform( const Core::Matrix4& transform );
-            inline const Core::Transform& getLocalTransform() const;
-            inline const Core::Matrix4& getLocalTransformAsMatrix() const;
+            Core::Transform getTransform() const;
+            Core::Matrix4 getTransformAsMatrix() const;
+
+            void setLocalTransform( const Core::Transform& transform );
+            void setLocalTransform( const Core::Matrix4& transform );
+            const Core::Transform& getLocalTransform() const;
+            const Core::Matrix4& getLocalTransformAsMatrix() const;
 
 
         private:
@@ -90,14 +95,13 @@ namespace Ra
             RenderParameters m_renderParameters;
 
             bool m_visible;
-            bool m_isDirty;
+            bool m_xray;
+            bool m_dirty;
 
             mutable std::mutex m_updateMutex;
         };
 
     } // namespace Engine
 } // namespace Ra
-
-#include <Engine/Renderer/RenderObject/RenderObject.inl>
 
 #endif // RADIUMENGINE_RENDEROBJECT_HPP

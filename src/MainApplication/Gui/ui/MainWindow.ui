@@ -40,7 +40,7 @@
      <x>0</x>
      <y>0</y>
      <width>1204</width>
-     <height>24</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFILE">
@@ -106,7 +106,7 @@
              </size>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <property name="movable">
              <bool>false</bool>
@@ -312,14 +312,14 @@
                 <item>
                  <widget class="QPushButton" name="m_toggleRenderObjectButton">
                   <property name="text">
-                   <string>Toggle</string>
+                   <string>Toggle Visible</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QPushButton" name="m_removeRenderObjectButton">
                   <property name="text">
-                   <string>Remove</string>
+                   <string>Toggle XRay</string>
                   </property>
                  </widget>
                 </item>
@@ -372,30 +372,30 @@
               <string>Edition</string>
              </attribute>
             </widget>
-                      </widget>
-                     </item>
-                    </layout>
-                  </item>
-                  <item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
          <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0" columnstretch="1,2">
-                     <item row="0" column="0">
+          <item row="0" column="0">
            <widget class="QLabel" name="label_3">
-                       <property name="text">
+            <property name="text">
              <string>Current Renderer</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1">
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
            <widget class="QComboBox" name="m_currentRendererCombo"/>
-                     </item>
-                     <item row="1" column="0">
+          </item>
+          <item row="1" column="0">
            <widget class="QLabel" name="label_2">
-                       <property name="text">
+            <property name="text">
              <string>Displayed Texture</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="1">
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
            <widget class="QComboBox" name="m_displayedTextureCombo"/>
           </item>
          </layout>

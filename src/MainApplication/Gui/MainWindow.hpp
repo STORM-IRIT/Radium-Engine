@@ -89,8 +89,8 @@ namespace Ra
             void renderObjectListItemClicked( int item );
             void changeRenderObjectShader( const QString& shaderName );
 
-            void toggleRO();
-            void removeRO();
+            void toggleVisisbleRO();
+            void toggleXRayRO();
             void editRO();
 
             void cleanup();

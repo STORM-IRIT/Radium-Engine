@@ -112,11 +112,8 @@ namespace Ra
             saveExternalFBOInternal();
 
             // 1. Gather render objects if needed
-            if ( m_roManager->isDirty() )
-            {
-                feedRenderQueuesInternal();
-                m_renderQueuesUpToDate = false;
-            }
+            feedRenderQueuesInternal();
+
             m_timerData.feedRenderQueuesEnd = Core::Timer::Clock::now();
 
             // 2. Update them (from an opengl point of view)
@@ -164,12 +161,53 @@ namespace Ra
 
         void Renderer::feedRenderQueuesInternal()
         {
-            m_roManager->getRenderObjectsByTypeIfDirty( m_fancyRenderObjects, RenderObjectType::FANCY, true );
-            m_roManager->getRenderObjectsByTypeIfDirty( m_xrayRenderObjects, RenderObjectType::XRAY, true );
-            m_roManager->getRenderObjectsByTypeIfDirty( m_debugRenderObjects, RenderObjectType::DEBUG_OTHER, true );
-            m_roManager->getRenderObjectsByTypeIfDirty( m_uiRenderObjects, RenderObjectType::UI, true );
+            m_fancyRenderObjects.clear();
+            m_debugRenderObjects.clear();
+            m_uiRenderObjects.clear();
+            m_xrayRenderObjects.clear();
 
-            m_renderQueuesUpToDate = true;
+            m_roManager->getRenderObjectsByType( m_fancyRenderObjects, RenderObjectType::Fancy, true );
+            m_roManager->getRenderObjectsByType( m_debugRenderObjects, RenderObjectType::Debug, true );
+            m_roManager->getRenderObjectsByType( m_uiRenderObjects, RenderObjectType::UI, true );
+
+            for ( auto it = m_fancyRenderObjects.begin(); it != m_fancyRenderObjects.end(); )
+            {
+                if ( (*it)->isXRay() )
+                {
+                    m_xrayRenderObjects.push_back( *it );
+                    it = m_fancyRenderObjects.erase( it );
+                }
+                else
+                {
+                    ++it;
+                }
+            }
+
+            for ( auto it = m_debugRenderObjects.begin(); it != m_debugRenderObjects.end(); )
+            {
+                if ( (*it)->isXRay() )
+                {
+                    m_xrayRenderObjects.push_back( *it );
+                    it = m_debugRenderObjects.erase( it );
+                }
+                else
+                {
+                    ++it;
+                }
+            }
+
+            for ( auto it = m_uiRenderObjects.begin(); it != m_uiRenderObjects.end(); )
+            {
+                if ( (*it)->isXRay() )
+                {
+                    m_xrayRenderObjects.push_back( *it );
+                    it = m_uiRenderObjects.erase( it );
+                }
+                else
+                {
+                    ++it;
+                }
+            }
         }
 
         void Renderer::doPicking( const RenderData& renderData )

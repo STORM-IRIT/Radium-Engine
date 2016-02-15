@@ -109,8 +109,8 @@ namespace Ra
                  this, &MainWindow::changeRenderObjectShader );
 
         // RO Stuff
-        connect( m_toggleRenderObjectButton, &QPushButton::clicked, this, &MainWindow::toggleRO );
-        connect( m_removeRenderObjectButton, &QPushButton::clicked, this, &MainWindow::removeRO );
+        connect( m_toggleRenderObjectButton, &QPushButton::clicked, this, &MainWindow::toggleVisisbleRO );
+        connect( m_removeRenderObjectButton, &QPushButton::clicked, this, &MainWindow::toggleXRayRO );
         connect( m_editRenderObjectButton, &QPushButton::clicked, this, &MainWindow::editRO );
 
         // Renderer stuff
@@ -526,7 +526,7 @@ namespace Ra
         ro->getRenderTechnique()->changeShader( config );
     }
 
-    void Gui::MainWindow::toggleRO()
+    void Gui::MainWindow::toggleVisisbleRO()
     {
         auto ro = getSelectedRO();
 
@@ -535,13 +535,19 @@ namespace Ra
             return;
         }
 
-        ro->setVisible( !ro->isVisible() );
-        LOG( logINFO ) << "RO " << ro->getName() << " is visible : " << ro->isVisible();
+        ro->toggleVisible();
     }
 
-    void Gui::MainWindow::removeRO()
+    void Gui::MainWindow::toggleXRayRO()
     {
-        LOG( logINFO ) << "Not implemented yet";
+        auto ro = getSelectedRO();
+
+        if ( ro == nullptr )
+        {
+            return;
+        }
+
+        ro->toggleXRay();
     }
 
     void Gui::MainWindow::editRO()

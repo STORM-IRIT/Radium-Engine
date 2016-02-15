@@ -10,15 +10,12 @@ enum class RenderObjectType
 {
     /// "Ui" render objects are drawn on top of everything else and view independant
     UI = 0,
-    /// "xray" render objects with no depth test
-    XRAY,
-    /// "Debug other" render objects are drawn like any other object (not lit though)
-    DEBUG_OTHER,
-
+    /// "Debug" render objects are drawn like any other object (not lit though)
+    Debug,
     /// "Fancy" render objects are the ones that should be lit and so on
-    FANCY,
+    Fancy,
 
-    COUNT
+    Count
 };
 
 }

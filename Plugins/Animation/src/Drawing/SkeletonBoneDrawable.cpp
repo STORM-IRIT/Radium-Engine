@@ -12,7 +12,9 @@ namespace AnimationPlugin
     {
         // TODO ( Val) common material / shader config...
 
-        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, comp, Ra::Engine::RenderObjectType::XRAY );
+        // FIXME(Charly): Debug or fancy ?
+        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, comp, Ra::Engine::RenderObjectType::Debug );
+        renderObject->setXRay( true );
         Ra::Engine::ShaderConfiguration shader("BlinnPhong", "../Shaders");
 
         m_material.reset(new Ra::Engine::Material("Bone Material"));
@@ -26,8 +28,6 @@ namespace AnimationPlugin
             m_renderParams->material = m_material.get();
         }
         renderObject->setRenderTechnique(m_renderParams.get());
-        //renderObject->setType(Ra::Engine::RenderObject::Type::RO_XRAY);
-
 
         std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( name ) );
 
@@ -92,6 +92,6 @@ namespace AnimationPlugin
     void SkeletonBoneRenderObject::toggleXray(bool on)
     {
         std::shared_ptr<Ra::Engine::RenderObject> ro = m_roMgr->getRenderObject( m_roIdx );
-        ro->setType(on ? Ra::Engine::RenderObjectType::XRAY : Ra::Engine::RenderObjectType::FANCY);
+        ro->toggleXRay();
     }
 }

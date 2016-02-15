@@ -52,7 +52,7 @@ namespace FancyMeshPlugin
     {
         setupIO(name);
 
-        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, this, Ra::Engine::RenderObjectType::FANCY );
+        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, this, Ra::Engine::RenderObjectType::Fancy );
         renderObject->setVisible( true );
         renderObject->setRenderTechnique( technique );
 
@@ -78,7 +78,7 @@ namespace FancyMeshPlugin
 
         m_contentName = data->getName();
 
-        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( roName, this, Ra::Engine::RenderObjectType::FANCY );
+        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( roName, this, Ra::Engine::RenderObjectType::Fancy );
         renderObject->setVisible( true );
 
         std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( meshName ) );

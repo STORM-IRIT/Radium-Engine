@@ -60,8 +60,8 @@ namespace Ra
 
             std::vector<Core::Index> m_doneUpdatingObjects;
 
-            std::array<std::set<Core::Index>, (int)RenderObjectType::COUNT> m_renderObjectByType;
-            mutable std::array<bool, (int)RenderObjectType::COUNT> m_typeIsDirty;
+            std::array<std::set<Core::Index>, (int)RenderObjectType::Count> m_renderObjectByType;
+            mutable std::array<bool, (int)RenderObjectType::Count> m_typeIsDirty;
 
             mutable std::mutex m_doubleBufferMutex;
         };
