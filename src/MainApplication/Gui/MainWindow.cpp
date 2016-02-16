@@ -591,7 +591,7 @@ namespace Ra
 
         if ( plugin->doAddWidget( tabName ) )
         {
-            tabWidget->addTab( plugin->getWidget(), tabName );
+            toolBox->addItem( plugin->getWidget(), tabName );
         }
     }
 

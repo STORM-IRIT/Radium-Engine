@@ -98,21 +98,15 @@
            </layout>
           </item>
           <item>
-           <widget class="QTabWidget" name="tabWidget">
+           <widget class="QToolBox" name="toolBox">
             <property name="minimumSize">
              <size>
               <width>250</width>
               <height>0</height>
              </size>
             </property>
-            <property name="currentIndex">
-             <number>1</number>
-            </property>
-            <property name="movable">
-             <bool>false</bool>
-            </property>
-            <widget class="QWidget" name="tab_stats">
-             <attribute name="title">
+            <widget class="QWidget" name="tab_stats" native="true">
+             <attribute name="label">
               <string>Stats</string>
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -282,8 +276,8 @@
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="tab_drawables">
-             <attribute name="title">
+            <widget class="QWidget" name="tab_drawables" native="true">
+             <attribute name="label">
               <string>Render objects</string>
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -367,8 +361,8 @@
               </item>
              </layout>
             </widget>
-            <widget class="Ra::Gui::TransformEditorWidget" name="tab_edition">
-             <attribute name="title">
+            <widget class="Ra::Gui::TransformEditorWidget" name="tab_edition" native = "true">
+             <attribute name="label">
               <string>Edition</string>
              </attribute>
             </widget>
