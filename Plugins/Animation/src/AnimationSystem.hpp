@@ -23,16 +23,22 @@ namespace AnimationPlugin
 
         /// Toggle on/off playing of animations.
         void setPlaying( bool isPlaying );
-        
-        /// Advance the animation next frame, then pauses. 
+
+        /// Advance the animation next frame, then pauses.
         void step();
 
         /// Resets the skeleton to its rest pose.
         void reset();
 
+        /// Set on or off xray bone display.
+        void setXray( bool on );
+
+        bool isXrayOn();
+
     private:
         bool m_isPlaying; /// See if animation is playing or paused
         bool m_oneStep;   /// True if one step has been required to play.
+        bool m_xrayOn;    /// True if we want to show xray-bones
     };
 }
 

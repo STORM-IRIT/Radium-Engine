@@ -33,6 +33,7 @@ namespace AnimationPlugin
         Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
 
     public:
+        AnimationPluginC();
         virtual ~AnimationPluginC();
 
         virtual void registerPlugin( Ra::Engine::RadiumEngine* engine ) override;
@@ -42,6 +43,12 @@ namespace AnimationPlugin
 
         virtual bool doAddMenu() override;
         virtual QMenu* getMenu() override;
+
+    public slots:
+        void toggleXray( bool on );
+
+   private:
+        class AnimationSystem* m_system;
 
     };
 
