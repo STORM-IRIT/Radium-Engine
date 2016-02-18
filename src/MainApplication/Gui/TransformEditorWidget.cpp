@@ -120,10 +120,7 @@ namespace Ra
                                                                             p.isEditable);
                                     m_layout->addWidget(widget);
                                     widget->setValue(p.primitive.asPosition());
-                                    connect(widget, SIGNAL(valueChanged(uint,
-                                                                   const Core::Vector3& )),
-                                            this, SLOT(onChangedPosition(uint,
-                                                               const Core::Vector3& )));
+                                    connect(widget, &VectorEditor::valueChanged, this, &TransformEditorWidget::onChangedPosition);
                                     m_widgets.push_back(widget);
                                     break;
                                 }
@@ -134,10 +131,7 @@ namespace Ra
                                                                                 p.isEditable);
                                     m_layout->addWidget(widget);
                                     widget->setValue(p.primitive.asRotation());
-                                    connect(widget, SIGNAL(valueChanged(uint,
-                                                                   const Core::Quaternion& )),
-                                            this, SLOT(onChangedRotation(uint,
-                                                               const Core::Quaternion& )));
+                                    connect(widget, &RotationEditor::valueChanged, this, &TransformEditorWidget::onChangedRotation);
                                     m_widgets.push_back(widget);
                                     break;
                                 }

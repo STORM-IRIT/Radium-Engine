@@ -153,12 +153,16 @@ namespace Ra
 
     void MainApplication::createConnections()
     {
-        connect( m_mainWindow.get(), SIGNAL( closed() ), this, SLOT( appNeedsToQuit() ) );
+        connect( m_mainWindow.get(), &Gui::MainWindow::closed , this, &MainApplication::appNeedsToQuit );
     }
 
     void MainApplication::setupScene()
     {
-        Engine::SystemEntity::uiCmp()->addRenderObject(Engine::DrawPrimitives::Grid(Engine::SystemEntity::uiCmp(),Core::Vector3::Zero(), Core::Vector3::UnitX(), Core::Vector3::UnitZ(),Core::Colors::Grey(0.6f)));
+        Engine::SystemEntity::uiCmp()->addRenderObject(
+            Engine::DrawPrimitives::Grid(
+                        Engine::SystemEntity::uiCmp(),
+                        Core::Vector3::Zero(), Core::Vector3::UnitX(), Core::Vector3::UnitZ(),
+                        Core::Colors::Grey(0.6f)));
     }
 
     void MainApplication::loadFile( QString path )

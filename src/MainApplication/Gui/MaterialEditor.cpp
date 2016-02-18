@@ -18,14 +18,14 @@ namespace Ra
             , m_roIdx( -1 )
         {
             setupUi( this );
+            typedef void ( QSpinBox::*sigPtr )( int );
+            connect( kdR, static_cast<sigPtr>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKdColorChanged );
+            connect( kdG, static_cast<sigPtr>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKdColorChanged );
+            connect( kdB, static_cast<sigPtr>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKdColorChanged );
 
-            connect( kdR, static_cast<void ( QSpinBox::* )( int )>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKdColorChanged );
-            connect( kdG, static_cast<void ( QSpinBox::* )( int )>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKdColorChanged );
-            connect( kdB, static_cast<void ( QSpinBox::* )( int )>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKdColorChanged );
-
-            connect( ksR, static_cast<void ( QSpinBox::* )( int )>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKsColorChanged );
-            connect( ksG, static_cast<void ( QSpinBox::* )( int )>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKsColorChanged );
-            connect( ksB, static_cast<void ( QSpinBox::* )( int )>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKsColorChanged );
+            connect( ksR, static_cast<sigPtr>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKsColorChanged );
+            connect( ksG, static_cast<sigPtr>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKsColorChanged );
+            connect( ksB, static_cast<sigPtr>( &QSpinBox::valueChanged ), this, &MaterialEditor::onKsColorChanged );
 
             connect( exp, static_cast<void ( QDoubleSpinBox::* )( double )>( &QDoubleSpinBox::valueChanged ), this, &MaterialEditor::onExpChanged );
 

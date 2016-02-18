@@ -17,9 +17,14 @@ namespace Ra
             {
                 setupUi( this );
                 m_groupBox->setTitle( title );
-                connect( m_x, SIGNAL( valueChanged( double ) ), this, SLOT( onValueChangedInternal() ) );
-                connect( m_y, SIGNAL( valueChanged( double ) ), this, SLOT( onValueChangedInternal() ) );
-                connect( m_z, SIGNAL( valueChanged( double ) ), this, SLOT( onValueChangedInternal() ) );
+
+                // A static cast is needed to get the right function pointer.
+                // This typedefs makes the declaration easier to read.
+                typedef void (QDoubleSpinBox::*sigPtr)(double);
+
+                connect( m_x, static_cast<sigPtr>(&QDoubleSpinBox::valueChanged), this, &VectorEditor::onValueChangedInternal);
+                connect( m_y, static_cast<sigPtr>(&QDoubleSpinBox::valueChanged), this, &VectorEditor::onValueChangedInternal);
+                connect( m_z, static_cast<sigPtr>(&QDoubleSpinBox::valueChanged), this, &VectorEditor::onValueChangedInternal);
 
                 m_x->setReadOnly(!editable);
                 m_y->setReadOnly(!editable);

@@ -72,8 +72,6 @@ namespace Ra
         connect( this, &MainWindow::fileLoading, mainApp, &MainApplication::loadFile );
         connect( this, &MainWindow::entitiesUpdated, m_entityTreeModel, &EntityTreeModel::entitiesUpdated );
 
-        /* connect( m_entityTreeModel, SIGNAL( objectNameChanged( QString ) ),
-                  this, SLOT( objectNameChanged( QString ) ) );*/
         // Side menu setup.
         connect( m_entityTreeModel, &EntityTreeModel::dataChanged, m_entityTreeModel, &EntityTreeModel::handleRename );
 

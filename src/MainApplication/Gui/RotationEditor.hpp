@@ -29,21 +29,26 @@ namespace Ra
                 m_relSliders[1] = m_slider_y_rel;
                 m_relSliders[2] = m_slider_z_rel;
 
-                connect( m_x, SIGNAL( valueChanged( double ) ), this, SLOT( onValueChangedAbsSpin() ) );
-                connect( m_y, SIGNAL( valueChanged( double ) ), this, SLOT( onValueChangedAbsSpin() ) );
-                connect( m_z, SIGNAL( valueChanged( double ) ), this, SLOT( onValueChangedAbsSpin() ) );
+                // A static cast is needed to get the right function pointer.
+                // This typedefs makes the declaration easier to read.
+                typedef void (QDoubleSpinBox::*spinPtr)(double);
+                typedef void (QSlider::*slidePtr)(int);
 
-                connect( m_slider_x, SIGNAL( valueChanged( int ) ), this, SLOT( onValueChangedAbsSlide() ) );
-                connect( m_slider_y, SIGNAL( valueChanged( int ) ), this, SLOT( onValueChangedAbsSlide() ) );
-                connect( m_slider_z, SIGNAL( valueChanged( int ) ), this, SLOT( onValueChangedAbsSlide() ) );
+                connect( m_x, static_cast<spinPtr>(&QDoubleSpinBox::valueChanged), this, &RotationEditor::onValueChangedAbsSpin);
+                connect( m_y, static_cast<spinPtr>(&QDoubleSpinBox::valueChanged), this, &RotationEditor::onValueChangedAbsSpin);
+                connect( m_z, static_cast<spinPtr>(&QDoubleSpinBox::valueChanged), this, &RotationEditor::onValueChangedAbsSpin);
 
-                connect( m_x_rel, SIGNAL( valueChanged( double ) ), this, SLOT( onValueChangedRelSpinX() ) );
-                connect( m_y_rel, SIGNAL( valueChanged( double ) ), this, SLOT( onValueChangedRelSpinY() ) );
-                connect( m_z_rel, SIGNAL( valueChanged( double ) ), this, SLOT( onValueChangedRelSpinZ() ) );
+                connect( m_slider_x, static_cast<slidePtr>(&QSlider::valueChanged), this, &RotationEditor::onValueChangedAbsSlide);
+                connect( m_slider_y, static_cast<slidePtr>(&QSlider::valueChanged), this, &RotationEditor::onValueChangedAbsSlide);
+                connect( m_slider_z, static_cast<slidePtr>(&QSlider::valueChanged), this, &RotationEditor::onValueChangedAbsSlide);
 
-                connect( m_slider_x_rel, SIGNAL( valueChanged( int ) ), this, SLOT( onValueChangedRelSlideX() ) );
-                connect( m_slider_y_rel, SIGNAL( valueChanged( int ) ), this, SLOT( onValueChangedRelSlideY() ) );
-                connect( m_slider_z_rel, SIGNAL( valueChanged( int ) ), this, SLOT( onValueChangedRelSlideZ() ) );
+                connect( m_x_rel, static_cast<spinPtr>(&QDoubleSpinBox::valueChanged), this, &RotationEditor::onValueChangedRelSpinX);
+                connect( m_y_rel, static_cast<spinPtr>(&QDoubleSpinBox::valueChanged), this, &RotationEditor::onValueChangedRelSpinY);
+                connect( m_z_rel, static_cast<spinPtr>(&QDoubleSpinBox::valueChanged), this, &RotationEditor::onValueChangedRelSpinZ);
+
+                connect( m_slider_x_rel, static_cast<slidePtr>(&QSlider::valueChanged), this, &RotationEditor::onValueChangedRelSlideX);
+                connect( m_slider_y_rel, static_cast<slidePtr>(&QSlider::valueChanged), this, &RotationEditor::onValueChangedRelSlideY);
+                connect( m_slider_z_rel, static_cast<slidePtr>(&QSlider::valueChanged), this, &RotationEditor::onValueChangedRelSlideZ);
 
                 m_x->setReadOnly(!editable);
                 m_y->setReadOnly(!editable);
