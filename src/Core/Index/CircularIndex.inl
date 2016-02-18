@@ -18,7 +18,8 @@ inline uint CircularIndex::value() const {
 }
 
 inline void CircularIndex::setValue( const int i ) {
-    idx = ( N + ( i % N ) ) % N;
+    const int n = N;
+    idx = ( n + ( i % n ) ) % n;
 }
 
 /// OPERATOR
