@@ -30,7 +30,7 @@ if (MSVC OR MSVC_IDE)
         endforeach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     endif()
 endif(MSVC OR MSVC_IDE)
-    
+
 find_package( Qt5Core    REQUIRED )
 find_package( Qt5Widgets REQUIRED )
 
@@ -43,7 +43,6 @@ set(CMAKE_AUTOMOC ON)
 
 add_definitions( ${Qt5Core_DEFINITIONS} )
 add_definitions( ${Qt5Widges_DEFINITIONS} )
-add_definitions( ${Qt5OpenGL_DEFINITIONS} )
 
 include_directories(
     src/
@@ -64,7 +63,6 @@ set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRA
 target_link_libraries( Animation
                        ${Qt5_LIBRARIES}
                        ${RADIUM_LIBRARIES}
-                       ${GLEW_LIBRARIES}
                      )
 
 
