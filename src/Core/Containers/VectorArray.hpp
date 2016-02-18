@@ -42,7 +42,35 @@ namespace Ra
 
         };
 
+        template<>
+        class VectorArray<Scalar> : public AlignedStdVector<Scalar>
+        {
+        public:
+            // Type shortcuts
+            typedef Eigen::Matrix<Scalar, 1, Eigen::Dynamic> Matrix;
+            typedef Eigen::Map<Matrix> MatrixMap;
+            typedef Eigen::Map<const Matrix> ConstMatrixMap;
+
+        public:
+            /// Inheriting constructors from std::vector
+            using AlignedStdVector<Scalar>::AlignedStdVector;
+
+            /// Returns the array as an Eigen Matrix Map
+            MatrixMap getMap()
+            {
+                return MatrixMap( this->data(), 1, this->size() );
+            }
+
+            /// Returns the array as an Eigen Matrix Map (const version)
+            ConstMatrixMap getMap() const
+            {
+                return ConstMatrixMap( this->data(), 1, this->size() );
+            }
+
+        };
+
         // Convenience typedefs
+        typedef VectorArray<Scalar>  Vector1Array;
         typedef VectorArray<Vector2> Vector2Array;
         typedef VectorArray<Vector3> Vector3Array;
         typedef VectorArray<Vector4> Vector4Array;
