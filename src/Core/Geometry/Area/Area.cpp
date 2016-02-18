@@ -31,8 +31,40 @@ AreaMatrix oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Tria
 
 
 
+void oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, AreaMatrix& A ) {
+    A.resize( p.size(), p.size() );
+    A.reserve( p.size() );
+#pragma omp parallel for
+    for( uint n = 0; n < T.size(); ++n ) {
+        const Triangle& t = T[n];
+        const uint i = t( 0 );
+        const uint j = t( 1 );
+        const uint k = t( 2 );
+        const Scalar area = triangleArea( p[i], p[j], p[k] );
+#pragma omp critical
+        {
+            A.coeffRef( i, i ) += area;
+            A.coeffRef( j, j ) += area;
+            A.coeffRef( k, k ) += area;
+        }
+    }
+}
+
+
+
 AreaMatrix barycentricArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     return ( ( 1.0f / 3.0f ) * oneRingArea( p, T ) );
+}
+
+
+
+void barycentricArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, AreaMatrix& A ) {
+    oneRingArea( p, T, A );
+    const uint size = p.size();
+#pragma omp parallel for
+    for( uint i = 0; i < size; ++i ) {
+        A.coeffRef( i, i ) /= 3.0;
+    }
 }
 
 
@@ -109,8 +141,12 @@ Scalar oneRingArea( const Vector3& v, const VectorArray< Vector3 >& p ) {
     Scalar area = 0.0;
     uint N = p.size();
     CircularIndex i;
+    i.setSize( N );
     for( uint j = 0; j < N; ++j ) {
         i.setValue( j );
+        uint prev = i-1;
+        uint curr = i;
+        uint next = i+1;
         area += triangleArea( v, p[i], p[i-1] );
     }
     return area;

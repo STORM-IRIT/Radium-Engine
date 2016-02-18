@@ -50,6 +50,15 @@ RA_CORE_API AdjacencyMatrix uniformAdjacency( const VectorArray< Vector3 >& p, c
 
 
 /*
+* Return the AdjacencyMatrix Adj for the given set of points and triangles.
+* The function defined over the edges is:
+*       f( i, j ) = 1 , if exist the edge from i to j
+*       f( i, j ) = 0 , otherwise
+*/
+void uniformAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, AdjacencyMatrix& Adj );
+
+
+/*
 * Return the AdjacencyMatrix for the given set of points and triangles.
 * The function defined over the edges is:
 *       f( i, j ) = 0.5 * ( cot( alpha_ij ) + cot( beta_ij ) ) , if exist the edge from i to j

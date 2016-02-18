@@ -15,17 +15,29 @@ void uniformNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle
     const uint N = p.size();
     normal.clear();
     normal.resize( N, Vector3::Zero() );
-    for( const auto& t : T ) {
-        uint i = t( 0 );
-        uint j = t( 1 );
-        uint k = t( 2 );
+#pragma omp parallel for
+    for( uint n = 0; n < T.size(); ++n ) {
+    //for( const auto& t : T ) {
+        const auto& t = T[n];
+        const uint i = t( 0 );
+        const uint j = t( 1 );
+        const uint k = t( 2 );
         const Vector3 triN = triangleNormal( p[i], p[j], p[k] );
+        if( !triN.allFinite() ) {
+            continue;
+        }
+#pragma omp critical
+{
         normal[i] += triN;
         normal[j] += triN;
         normal[k] += triN;
+}
     }
-    for( auto& n : normal ) {
-        n.normalize();
+#pragma omp parallel for
+    for( uint i = 0; i < N; ++i ) {
+        if( !normal[i].isApprox( Vector3::Zero() ) ) {
+            normal[i].normalize();
+        }
     }
 }
 

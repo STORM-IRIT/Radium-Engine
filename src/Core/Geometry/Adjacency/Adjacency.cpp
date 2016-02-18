@@ -43,6 +43,25 @@ AdjacencyMatrix uniformAdjacency( const VectorArray< Vector3 >& p, const VectorA
 
 
 
+void uniformAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, AdjacencyMatrix& Adj ) {
+    Adj.resize( p.size(), p.size() );
+#pragma omp parallel for
+    for( uint n = 0; n < T.size(); ++n ) {
+        const Triangle& t = T[n];
+        const uint i = t( 0 );
+        const uint j = t( 1 );
+        const uint k = t( 2 );
+#pragma omp critical
+        {
+            Adj.coeffRef( i, j ) = 1;
+            Adj.coeffRef( j, k ) = 1;
+            Adj.coeffRef( k, i ) = 1;
+        }
+    }
+}
+
+
+
 AdjacencyMatrix cotangentWeightAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     AdjacencyMatrix A( p.size(), p.size() );
     for( const auto& t : T ) {

@@ -37,6 +37,19 @@ AreaMatrix oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Tria
 
 /*
 * Return the AreaMatrix for the given set of points and triangles.
+* The values correspond to the one-ring area of each point in p.
+*
+* The definition was taken from:
+* "Discrete Differential-Geometry Operators for Triangulated 2-Manifolds"
+* [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
+* Visualization and Mathematics III 2003
+*/
+void oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, AreaMatrix& A );
+
+
+
+/*
+* Return the AreaMatrix for the given set of points and triangles.
 * The values correspond to the barycentric area of each point in p.
 *
 * The definition was taken from:
@@ -45,6 +58,19 @@ AreaMatrix oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Tria
 * Visualization and Mathematics III 2003
 */
 AreaMatrix barycentricArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
+
+
+/*
+* Return the AreaMatrix for the given set of points and triangles.
+* The values correspond to the barycentric area of each point in p.
+*
+* The definition was taken from:
+* "Discrete Differential-Geometry Operators for Triangulated 2-Manifolds"
+* [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
+* Visualization and Mathematics III 2003
+*/
+void barycentricArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, AreaMatrix& A );
+
 
 
 /*
