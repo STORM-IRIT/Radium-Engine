@@ -2,6 +2,10 @@
 #define ANIMATIONPLUGIN_HPP_
 
 #include <Core/CoreMacros.hpp>
+#include <QObject>
+#include <QtPlugin>
+#include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
+
 /// Defines the correct macro to export dll symbols.
 #if defined  Animation_EXPORTS
     #define ANIM_PLUGIN_API DLL_EXPORT
@@ -11,9 +15,6 @@
     #define ANIM_PLUGIN_API
 #endif
 
-#include <QObject>
-#include <QtPlugin>
-#include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
 
 namespace Ra
 {
@@ -25,7 +26,7 @@ namespace Ra
 
 namespace AnimationPlugin
 {
-// Du to an ambigous name while compiling with Clang, must differentiate plugin claas from plugin namespace
+// Du to an ambigous name while compiling with Clang, must differentiate plugin class from plugin namespace
     class AnimationPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
     {
         Q_OBJECT

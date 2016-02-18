@@ -10,7 +10,7 @@
 namespace AnimationPlugin
 {
 
-    AnimationPluginC::AnimationPluginC() {}
+    AnimationPluginC::AnimationPluginC() :m_system(nullptr){}
 
     AnimationPluginC::~AnimationPluginC()
     {
@@ -52,6 +52,7 @@ namespace AnimationPlugin
 
     void AnimationPluginC::toggleXray(bool on)
     {
+        CORE_ASSERT(m_system, "System should be there ");
         m_system->setXray(on);
     }
 }
