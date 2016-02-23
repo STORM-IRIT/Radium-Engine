@@ -3,7 +3,7 @@
 
 #include <SkinningPlugin.hpp>
 
-#include <Engine/Entity/System.hpp>
+#include <Engine/System/System.hpp>
 
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Engine/Assets/FileData.hpp>

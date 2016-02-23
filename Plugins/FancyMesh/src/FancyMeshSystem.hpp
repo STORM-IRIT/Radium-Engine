@@ -3,7 +3,7 @@
 
 #include "FancyMeshPlugin.hpp"
 
-#include <Engine/Entity/System.hpp>
+#include <Engine/System/System.hpp>
 
 namespace Ra
 {
@@ -41,7 +41,7 @@ namespace FancyMeshPlugin
         virtual void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;
 
         // Specialized factory method for this systems.
-        static FancyMeshComponent* makeFancyMeshFromGeometry( const Ra::Core::TriangleMesh& mesh, const std::string& name, 
+        static FancyMeshComponent* makeFancyMeshFromGeometry( const Ra::Core::TriangleMesh& mesh, const std::string& name,
                                                             Ra::Engine::RenderTechnique* technique = nullptr );
 
     };

@@ -15,7 +15,7 @@
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
 #include <Engine/Entity/FrameInfo.hpp>
-#include <Engine/Entity/System.hpp>
+#include <Engine/System/System.hpp>
 #include <Engine/Entity/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Entity/EntityManager.hpp>

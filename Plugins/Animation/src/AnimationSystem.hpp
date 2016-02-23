@@ -1,7 +1,7 @@
 #ifndef ANIMPLUGIN_ANIMATION_SYSTEM_HPP_
 #define ANIMPLUGIN_ANIMATION_SYSTEM_HPP_
 
-#include <Engine/Entity/System.hpp>
+#include <Engine/System/System.hpp>
 
 #include <AnimationPlugin.hpp>
 

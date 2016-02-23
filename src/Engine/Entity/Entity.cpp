@@ -5,7 +5,7 @@
 #include <Core/Math/Ray.hpp>
 
 #include <Engine/Entity/Component.hpp>
-#include <Engine/Entity/System.hpp>
+#include <Engine/System/System.hpp>
 
 namespace Ra
 {

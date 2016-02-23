@@ -2,7 +2,7 @@
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Entity/System.hpp>
+#include <Engine/System/System.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 namespace Ra

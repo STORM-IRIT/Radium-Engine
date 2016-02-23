@@ -1,4 +1,4 @@
-#include <Engine/Entity/System.hpp>
+#include <Engine/System/System.hpp>
 
 #include <Core/String/StringUtils.hpp>
 #include <Engine/Entity/Component.hpp>
@@ -38,7 +38,7 @@ namespace Ra
         void System::unregisterComponent( const Entity* ent, Component* component )
         {
             CORE_ASSERT( component->getEntity() == ent, "Component does not belong to entity" );
-            const auto& pos = 
+            const auto& pos =
                 std::find_if(m_components.begin(), m_components.end(),
                 [component](const auto& pair) { return pair.second == component; });
 
