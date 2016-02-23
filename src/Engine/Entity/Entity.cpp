@@ -4,6 +4,8 @@
 #include <Core/String/StringUtils.hpp>
 #include <Core/Math/Ray.hpp>
 
+#include <Engine/RadiumEngine.hpp>
+#include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/System/System.hpp>
 
@@ -35,8 +37,10 @@ namespace Ra
             CORE_ASSERT( getComponent(name) == nullptr, err.c_str());
 
             m_components.emplace_back( std::unique_ptr<Component>(component));
-
             component->setEntity( this );
+
+            RadiumEngine::getInstance()->getSignalManager()->fireComponentAdded();
+
         }
 
         Component* Entity::getComponent( const std::string& name )
@@ -64,6 +68,7 @@ namespace Ra
 
             CORE_ASSERT( pos != m_components.end(), "Component not found in entity" );
             m_components.erase(pos);
+            RadiumEngine::getInstance()->getSignalManager()->fireComponentRemoved();
         }
 
         void Entity::getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const

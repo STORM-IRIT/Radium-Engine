@@ -98,7 +98,6 @@ namespace Ra
         signals:
             void closed();
             void fileLoading( const QString path );
-            void entitiesUpdated();
             void framescountForStatsChanged( int count );
 
             void selectedEntity( Engine::Entity* selectedEntity );

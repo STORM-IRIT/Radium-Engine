@@ -1,8 +1,10 @@
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 
 #include <Core/String/StringUtils.hpp>
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+#include <Engine/Managers/SignalManager/SignalManager.hpp>
 
 namespace Ra
 {
@@ -16,6 +18,7 @@ namespace Ra
             ent->idx = m_entities.insert( ent );
             CORE_ASSERT( ent.get() == SystemEntity::getInstance(), "Invalid singleton instanciation");
             m_entitiesName.insert( std::pair< std::string, Core::Index> (ent->getName(),ent->idx ));
+            RadiumEngine::getInstance()->getSignalManager()->fireEntityCreated();
             #endif
         }
 
@@ -31,28 +34,23 @@ namespace Ra
             m_entities.clear();
         }
 
-        Entity* EntityManager::getOrCreateEntity( const std::string& name )
+        Entity* EntityManager::createEntity( const std::string& name )
         {
-            if ( entityExists( name ) )
-            {
-                return getEntity( name );
-            }
-
-            return createEntity( name );
-        }
-
-        Entity* EntityManager::createEntity()
-        {
-            std::shared_ptr<Entity> ent( new Entity() );
+            CORE_ASSERT( !entityExists( name ), "Entity already exists" );
+            std::shared_ptr<Entity> ent = std::shared_ptr<Entity> ( new Entity( name ) );
             ent->idx = m_entities.insert( ent );
 
-            std::string name;
-            Core::StringUtils::stringPrintf( name, "Entity_%u", ent->idx.getValue() );
-            ent->rename( name );
+            if (name == "")
+            {
+                std::string name;
+                Core::StringUtils::stringPrintf( name, "Entity_%u", ent->idx.getValue() );
+                ent->rename( name );
+            }
 
             m_entitiesName.insert( std::pair<std::string, Core::Index> (
                                        ent->getName(), ent->idx ) );
 
+            RadiumEngine::getInstance()->getSignalManager()->fireEntityCreated();
             return ent.get();
         }
 
@@ -74,6 +72,7 @@ namespace Ra
             ent.reset();
             m_entities.remove( idx );
             m_entitiesName.erase( name );
+            RadiumEngine::getInstance()->getSignalManager()->fireEntityDestroyed();
         }
 
         void EntityManager::removeEntity( Entity* entity )
@@ -108,17 +107,6 @@ namespace Ra
             }
 
             return entities;
-        }
-
-        Entity* EntityManager::createEntity( const std::string& name )
-        {
-            std::shared_ptr<Entity> ent = std::shared_ptr<Entity> ( new Entity( name ) );
-            ent->idx = m_entities.insert( ent );
-
-            m_entitiesName.insert( std::pair<std::string, Core::Index> (
-                                       ent->getName(), ent->idx ) );
-
-            return ent.get();
         }
 
         Entity* EntityManager::getEntity( const std::string& name ) const

@@ -26,7 +26,6 @@
 
 #include <Engine/Assets/FileData.hpp>
 
-
 namespace Ra
 {
     namespace Engine
@@ -43,9 +42,11 @@ namespace Ra
         void RadiumEngine::initialize()
         {
             LOG(logINFO) << "*** Radium Engine ***";
-            m_renderObjectManager.reset( new RenderObjectManager );
+            m_signalManager.reset( new SignalManager );
             m_entityManager.reset( new EntityManager );
+            m_renderObjectManager.reset( new RenderObjectManager );
             ComponentMessenger::createInstance();
+
         }
 
         void RadiumEngine::cleanup()
@@ -57,6 +58,7 @@ namespace Ra
             {
                 system.second.reset();
             }
+
             ComponentMessenger::destroyInstance();
         }
 
@@ -105,7 +107,7 @@ namespace Ra
 
             std::string entityName = Core::StringUtils::getBaseName( filename, false );
 
-            Entity* entity = m_entityManager->getOrCreateEntity( entityName );
+            Entity* entity = m_entityManager->createEntity( entityName );
 
             for( auto& system : m_systems ) {
                 system.second->handleAssetLoading( entity, &fileData );
@@ -127,6 +129,11 @@ namespace Ra
         EntityManager* RadiumEngine::getEntityManager() const
         {
             return m_entityManager.get();
+        }
+
+        SignalManager *RadiumEngine::getSignalManager() const
+        {
+           return m_signalManager.get();
         }
 
         RA_SINGLETON_IMPLEMENTATION( RadiumEngine );

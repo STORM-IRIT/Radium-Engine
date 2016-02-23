@@ -34,19 +34,13 @@ namespace Ra
             virtual ~EntityManager();
 
             /**
-             * @brief Get or create (if does not exist) an entity given its name
-             * @param name The name of the entity to ger or create
+             * @brief Create (if does not exist) an entity given its name
+             * @param name The name of the entity to ger or create. If
+             * empty, the entity will be created with a generic name "Entity_xx"
              * @return The entity.
              */
-            Entity* getOrCreateEntity( const std::string& name );
+            Entity* createEntity( const std::string& name = "" );
 
-            /**
-             * @brief Create an entity (kind of a factory).
-             * A generic name (Entity_idx) is given to the entity.
-             * Manager has the pointer ownership.
-             * @return The created entity.
-             */
-            Entity* createEntity();
 
             /**
              * @brief Check wether an entity with a given name exists or not.
@@ -83,15 +77,6 @@ namespace Ra
             std::vector<Entity*> getEntities() const;
 
             void swapBuffers();
-
-        private:
-
-            /**
-             * @brief Create an entity given its name
-             * @param name Name of the entity to create
-             * @return The created entity
-             */
-            Entity* createEntity( const std::string& name );
 
             /**
              * @brief Get an entity given its name.

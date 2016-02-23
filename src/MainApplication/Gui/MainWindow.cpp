@@ -70,7 +70,6 @@ namespace Ra
 
         // Loading setup.
         connect( this, &MainWindow::fileLoading, mainApp, &MainApplication::loadFile );
-        connect( this, &MainWindow::entitiesUpdated, m_entityTreeModel, &EntityTreeModel::entitiesUpdated );
 
         // Side menu setup.
         connect( m_entityTreeModel, &EntityTreeModel::dataChanged, m_entityTreeModel, &EntityTreeModel::handleRename );
@@ -118,11 +117,19 @@ namespace Ra
                  m_viewer, &Viewer::displayTexture );
         connect( m_currentRendererCombo, static_cast<void (QComboBox::*)( int )>( &QComboBox::currentIndexChanged ),
                  m_viewer, &Viewer::changeRenderer );
+
+        // Connect engine signals to the appropriate callbacks
+        std::function<void(void)> f =  std::bind(&MainWindow::onEntitiesUpdated, this);
+        mainApp->m_engine->getSignalManager()->m_entityCreatedCallbacks.push_back(f);
+        mainApp->m_engine->getSignalManager()->m_entityDestroyedCallbacks.push_back(f);
+        mainApp->m_engine->getSignalManager()->m_componentAddedCallbacks.push_back(f);
+        mainApp->m_engine->getSignalManager()->m_componentRemovedCallbacks.push_back(f);
+
     }
 
     void Gui::MainWindow::onEntitiesUpdated()
     {
-        emit entitiesUpdated();
+        m_entityTreeModel->entitiesUpdated();
     }
 
     void Gui::MainWindow::loadFile()

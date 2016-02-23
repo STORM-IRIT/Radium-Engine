@@ -12,6 +12,7 @@
 #include <Core/Log/Log.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
+#include <Engine/Managers/SignalManager/SignalManager.hpp>
 
 namespace Ra
 {
@@ -61,12 +62,14 @@ namespace Ra
             /// Manager getters
             RenderObjectManager*  getRenderObjectManager()  const;
             EntityManager*        getEntityManager()        const;
+            SignalManager*        getSignalManager()        const;
 
         private:
             std::map<std::string, std::shared_ptr<System>> m_systems;
 
             std::unique_ptr<RenderObjectManager> m_renderObjectManager;
             std::unique_ptr<EntityManager>       m_entityManager;
+            std::unique_ptr<SignalManager>       m_signalManager;
         };
 
     } // namespace Engine
