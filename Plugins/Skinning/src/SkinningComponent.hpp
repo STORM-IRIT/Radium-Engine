@@ -8,7 +8,7 @@
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Engine/Assets/HandleData.hpp>
 #include <Engine/Component/Component.hpp>
-#include <Engine/Managers/ComponentMessenger.hpp>
+#include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
 
 namespace SkinningPlugin

@@ -14,16 +14,18 @@
 #include <Core/Event/EventEnums.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
-#include <Engine/Entity/FrameInfo.hpp>
+
+#include <Engine/FrameInfo.hpp>
 #include <Engine/System/System.hpp>
-#include <Engine/Component/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Entity/EntityManager.hpp>
-#include <Engine/Managers/ComponentMessenger.hpp>
+#include <Engine/Component/Component.hpp>
+
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
+#include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
 #include <Engine/Assets/FileData.hpp>
 
-#include <Engine/SystemDisplay/SystemDisplay.hpp>
 
 namespace Ra
 {

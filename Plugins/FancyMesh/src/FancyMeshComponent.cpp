@@ -8,7 +8,7 @@
 #include <Core/Geometry/Normal/Normal.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/Managers/ComponentMessenger.hpp>
+#include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -30,7 +30,6 @@ namespace FancyMeshPlugin
 
     FancyMeshComponent::~FancyMeshComponent()
     {
-        // TODO(Charly): Should we ask the RO manager to delete our render object ?
     }
 
     void FancyMeshComponent::initialize()

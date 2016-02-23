@@ -6,7 +6,7 @@
 #include <Core/Tasks/TaskQueue.hpp>
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Entity/FrameInfo.hpp>
+#include <Engine/FrameInfo.hpp>
 #include <Engine/Assets/FileData.hpp>
 #include <Engine/Assets/HandleData.hpp>
 

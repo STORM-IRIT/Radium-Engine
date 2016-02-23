@@ -1,8 +1,8 @@
-#include <Engine/Entity/EntityManager.hpp>
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
 
 #include <Core/String/StringUtils.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/SystemDisplay/SystemDisplay.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
 namespace Ra
 {

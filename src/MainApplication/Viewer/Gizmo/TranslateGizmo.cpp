@@ -9,7 +9,7 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/SystemDisplay/SystemDisplay.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
 namespace Ra
 {

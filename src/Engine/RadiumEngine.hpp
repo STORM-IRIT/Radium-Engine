@@ -11,7 +11,7 @@
 
 #include <Core/Log/Log.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/Entity/EntityManager.hpp>
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
 
 namespace Ra
 {

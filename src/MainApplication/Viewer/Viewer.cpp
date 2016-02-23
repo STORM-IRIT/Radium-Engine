@@ -15,7 +15,7 @@
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
-#include <Engine/SystemDisplay/SystemDisplay.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
 #include <MainApplication/Viewer/TrackballCamera.hpp>

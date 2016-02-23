@@ -16,12 +16,13 @@
 #include <Core/String/StringUtils.hpp>
 
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Entity/Entity.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
-#include <Engine/Entity/Entity.hpp>
-#include <Engine/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>

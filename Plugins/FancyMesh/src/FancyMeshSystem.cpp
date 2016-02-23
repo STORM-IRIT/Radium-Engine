@@ -6,11 +6,11 @@
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Entity/FrameInfo.hpp>
+#include <Engine/FrameInfo.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Assets/FileData.hpp>
 #include <Engine/Assets/GeometryData.hpp>
-#include <Engine/Managers/ComponentMessenger.hpp>
+#include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
 #include <FancyMeshComponent.hpp>
 
