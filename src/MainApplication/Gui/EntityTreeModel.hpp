@@ -100,7 +100,7 @@ namespace Ra
             EntityTreeItem* getItem( const QModelIndex& index ) const;
 
         public slots:
-            void entitiesUpdated( const std::vector<Engine::Entity*>& entities );
+            void entitiesUpdated();
             void handleRename( const QModelIndex& topLeft, const QModelIndex& bottomRight, const QVector<int>& );
 
 

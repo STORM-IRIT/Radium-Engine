@@ -122,7 +122,7 @@ namespace Ra
 
     void Gui::MainWindow::onEntitiesUpdated()
     {
-        emit entitiesUpdated( mainApp->m_engine->getEntityManager()->getEntities() );
+        emit entitiesUpdated();
     }
 
     void Gui::MainWindow::loadFile()

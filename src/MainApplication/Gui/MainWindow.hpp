@@ -98,7 +98,7 @@ namespace Ra
         signals:
             void closed();
             void fileLoading( const QString path );
-            void entitiesUpdated( const std::vector<Engine::Entity*>& );
+            void entitiesUpdated();
             void framescountForStatsChanged( int count );
 
             void selectedEntity( Engine::Entity* selectedEntity );

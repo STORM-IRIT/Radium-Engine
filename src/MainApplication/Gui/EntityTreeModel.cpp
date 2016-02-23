@@ -41,8 +41,11 @@
 #include <MainApplication/Gui/EntityTreeModel.hpp>
 
 #include <Core/String/StringUtils.hpp>
+
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Entity/Component.hpp>
+#include <Engine/RadiumEngine.hpp>
+
 #include <MainApplication/Gui/EntityTreeItem.hpp>
 
 namespace Ra
@@ -258,17 +261,20 @@ namespace Ra
         return result;
     }
 
-    void Gui::EntityTreeModel::entitiesUpdated( const std::vector<Engine::Entity*>& entities )
+    void Gui::EntityTreeModel::entitiesUpdated()
     {
+        if ( rowCount() > 0 )
+        {
+            removeRows( 0, rowCount() );
+        }
+
+        // FIXME(Charly): I guess this could be removed since it was used only to avoid duplicates
+        m_entityNames.clear();
+
+        auto entities = Engine::RadiumEngine::getInstance()->getEntityManager()->getEntities();
+
         for ( const auto& ent : entities )
         {
-            // NOTE(Charly): Dunno if it's a hack or not ...
-            if ( m_entityNames.find( ent->getName() ) != m_entityNames.end() )
-            {
-                // Do not add an already added entity
-                continue;
-            }
-
             m_entityNames.insert( ent->getName() );
 
             uint row = rowCount();
