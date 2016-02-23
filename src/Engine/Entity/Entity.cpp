@@ -4,7 +4,7 @@
 #include <Core/String/StringUtils.hpp>
 #include <Core/Math/Ray.hpp>
 
-#include <Engine/Entity/Component.hpp>
+#include <Engine/Component/Component.hpp>
 #include <Engine/System/System.hpp>
 
 namespace Ra

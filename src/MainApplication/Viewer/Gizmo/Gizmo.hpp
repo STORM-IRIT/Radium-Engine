@@ -5,7 +5,7 @@
 
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Index/Index.hpp>
-#include <Engine/Entity/Component.hpp>
+#include <Engine/Component/Component.hpp>
 
 
 namespace Ra { namespace Engine { class Component; } }

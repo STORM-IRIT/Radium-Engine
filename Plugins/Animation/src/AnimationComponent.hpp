@@ -7,7 +7,7 @@
 #include <Core/Animation/Animation.hpp>
 #include <Core/Animation/Handle/HandleWeight.hpp>
 
-#include <Engine/Entity/Component.hpp>
+#include <Engine/Component/Component.hpp>
 #include <Engine/Assets/HandleData.hpp>
 #include <Engine/Assets/AnimationData.hpp>
 

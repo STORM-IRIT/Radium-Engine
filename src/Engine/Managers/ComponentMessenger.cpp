@@ -1,4 +1,4 @@
-#include <Engine/Entity/ComponentMessenger.hpp>
+#include <Engine/Managers/ComponentMessenger.hpp>
 
 namespace Ra {
 namespace Engine

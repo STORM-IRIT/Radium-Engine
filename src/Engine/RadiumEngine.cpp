@@ -16,10 +16,10 @@
 #include <Core/Event/MouseEvent.hpp>
 #include <Engine/Entity/FrameInfo.hpp>
 #include <Engine/System/System.hpp>
-#include <Engine/Entity/Component.hpp>
+#include <Engine/Component/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Entity/EntityManager.hpp>
-#include <Engine/Entity/ComponentMessenger.hpp>
+#include <Engine/Managers/ComponentMessenger.hpp>
 
 #include <Engine/Assets/FileData.hpp>
 

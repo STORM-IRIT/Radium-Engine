@@ -7,7 +7,7 @@
 #include <Core/Mesh/MeshTypes.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 
-#include <Engine/Entity/Component.hpp>
+#include <Engine/Component/Component.hpp>
 
 namespace Ra
 {

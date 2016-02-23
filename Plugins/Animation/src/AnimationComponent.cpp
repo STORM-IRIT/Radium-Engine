@@ -13,7 +13,7 @@
 
 #include <Engine/Assets/KeyFrame/KeyTransform.hpp>
 #include <Engine/Assets/KeyFrame/KeyPose.hpp>
-#include <Engine/Entity/ComponentMessenger.hpp>
+#include <Engine/Managers/ComponentMessenger.hpp>
 
 #include <Drawing/SkeletonBoneDrawable.hpp>
 #include "Core/Mesh/TriangleMesh.hpp"

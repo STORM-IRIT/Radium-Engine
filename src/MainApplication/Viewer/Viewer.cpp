@@ -11,7 +11,7 @@
 #include <Core/Math/ColorPresets.hpp>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/Entity/Component.hpp>
+#include <Engine/Component/Component.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>

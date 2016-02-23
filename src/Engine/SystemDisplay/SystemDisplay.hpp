@@ -11,7 +11,7 @@
 
 #include <Core/Utils/Singleton.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Entity/Component.hpp>
+#include <Engine/Component/Component.hpp>
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
 namespace Ra

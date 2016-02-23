@@ -10,7 +10,7 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Assets/FileData.hpp>
 #include <Engine/Assets/GeometryData.hpp>
-#include <Engine/Entity/ComponentMessenger.hpp>
+#include <Engine/Managers/ComponentMessenger.hpp>
 
 #include <FancyMeshComponent.hpp>
 

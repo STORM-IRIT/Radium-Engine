@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QMouseEvent>
-#include <Engine/Entity/Component.hpp>
+#include <Engine/Component/Component.hpp>
 #include <MainApplication/Viewer/Gizmo/Gizmo.hpp>
 #include <Engine/SystemDisplay/SystemDisplay.hpp>
 

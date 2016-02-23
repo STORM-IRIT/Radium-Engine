@@ -7,8 +7,8 @@
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Engine/Assets/HandleData.hpp>
-#include <Engine/Entity/Component.hpp>
-#include <Engine/Entity/ComponentMessenger.hpp>
+#include <Engine/Component/Component.hpp>
+#include <Engine/Managers/ComponentMessenger.hpp>
 
 
 namespace SkinningPlugin

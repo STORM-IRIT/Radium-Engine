@@ -102,6 +102,6 @@ namespace Ra
     } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Entity/Component.inl>
+#include <Engine/Component/Component.inl>
 
 #endif // RADIUMENGINE_COMPONENT_HPP

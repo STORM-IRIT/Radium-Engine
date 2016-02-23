@@ -4,7 +4,7 @@
 #include <QToolButton>
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Entity/Component.hpp>
+#include <Engine/Component/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>

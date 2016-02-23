@@ -1,6 +1,6 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
-#include <Engine/Entity/Component.hpp>
+#include <Engine/Component/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>

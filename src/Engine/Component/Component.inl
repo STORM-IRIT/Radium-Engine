@@ -1,4 +1,4 @@
-#include <Engine/Entity/Component.hpp>
+#include <Engine/Component/Component.hpp>
 
 namespace Ra
 {

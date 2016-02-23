@@ -8,7 +8,7 @@
 #include <Core/Geometry/Normal/Normal.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/Entity/ComponentMessenger.hpp>
+#include <Engine/Managers/ComponentMessenger.hpp>
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>

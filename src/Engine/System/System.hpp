@@ -10,7 +10,7 @@
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
 
-#include <Engine/Entity/Component.hpp>
+#include <Engine/Component/Component.hpp>
 
 namespace Ra
 {

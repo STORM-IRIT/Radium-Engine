@@ -42,10 +42,9 @@
 
 #include <Core/String/StringUtils.hpp>
 
-#include <Engine/Entity/Entity.hpp>
-#include <Engine/Entity/Component.hpp>
 #include <Engine/RadiumEngine.hpp>
-
+#include <Engine/Entity/Entity.hpp>
+#include <Engine/Component/Component.hpp>
 #include <MainApplication/Gui/EntityTreeItem.hpp>
 
 namespace Ra
