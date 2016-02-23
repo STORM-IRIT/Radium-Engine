@@ -47,9 +47,8 @@ namespace Ra
     void Gui::TrackballCamera::resetCamera()
     {
         m_camera->setFrame( Core::Transform::Identity() );
+        m_camera->setPosition( Core::Vector3( 0, 0, 1 ) );
         m_trackballCenter = Core::Vector3::Zero();
-        m_camera->setPosition( Core::Vector3( 0, 0, -1 ) );
-        m_camera->setDirection( Core::Vector3( 0, 0, 1 ));
         updatePhiTheta();
 
         emit cameraPositionChanged( m_camera->getPosition() );
