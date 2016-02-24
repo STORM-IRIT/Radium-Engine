@@ -5,38 +5,37 @@
 
 namespace Ra {
 namespace Engine {
+
     // Dirty is initializes as false so that we do not create the vao while
     // we have no data to send to the gpu.
     Mesh::Mesh( const std::string& name, GLenum renderMode )
         : m_name( name )
         , m_vao( 0 )
         , m_renderMode(renderMode)
+        , m_numElements (0)
         , m_isDirty( false )
     {
+        CORE_ASSERT( m_renderMode == GL_LINES || m_renderMode == GL_TRIANGLES, "Unsupported render mode" );
     }
 
     Mesh::~Mesh()
     {
-        //GL_ASSERT( glDeleteVertexArrays( 1, &m_vao ) );
+        GL_ASSERT( glDeleteVertexArrays( 1, &m_vao ) );
     }
 
     void Mesh::render()
     {
-        if ( m_vao == 0 )
+        if ( m_vao != 0 )
         {
-            // Not initialized yet
-            return;
+            GL_ASSERT( glBindVertexArray( m_vao ) );
+            GL_ASSERT( glDrawElements( m_renderMode, m_numElements, GL_UNSIGNED_INT, (void*)0 ) );
         }
-
-        GL_ASSERT( glBindVertexArray( m_vao ) );
-
-        //    GL_ASSERT(glDrawElements(GL_TRIANGLES_ADJACENCY, 6 * m_data.m_triangles.size(), GL_UNSIGNED_INT, (void*)0));
-        GL_ASSERT( glDrawElements( m_renderMode, m_mesh.m_triangles.size() * 3 , GL_UNSIGNED_INT, ( void* ) 0 ) );
     }
 
     void Mesh::loadGeometry(const Core::TriangleMesh& mesh)
     {
         m_mesh = mesh;
+        m_numElements = mesh.m_triangles.size() * 3;
         for (uint i = 0; i < MAX_MESH; ++i)
         {
             m_dataDirty[i] = true;
@@ -48,13 +47,28 @@ namespace Engine {
     void Mesh::loadGeometry(const Core::Vector3Array &vertices, const std::vector<uint> &indices)
     {
         // TODO : remove this function and force everyone to use triangle mesh.
-        Core::TriangleMesh m;
-        m.m_vertices = vertices;
-        for (uint i = 0; i  < indices.size(); i = i + 3)
+        // Or not... because we have some line meshes as well...
+        const uint nIdx = indices.size();
+        m_numElements = nIdx;
+        m_mesh.m_vertices = vertices;
+
+        // Check that when loading a triangle mesh we actually have triangles.
+        CORE_ASSERT( m_renderMode != GL_TRIANGLES || nIdx % 3 == 0, "There should be 3 indices per triangle " );
+        CORE_ASSERT( m_renderMode != GL_LINES     || nIdx % 2 == 0, "There should be 2 indices per lines" );
+
+        for ( uint i = 0; i < indices.size(); i = i + 3 )
         {
-            m.m_triangles.push_back({indices[i], indices[i+1], indices[i+2]});
+            // We store all indices in order. This means that for lines we have 
+            // (L00, L01, L10), (L11, L20, L21) etc. We fill the missing by wrapping around indices.
+            m_mesh.m_triangles.push_back( { indices[i], indices[(i + 1)%nIdx], indices[(i + 2)%nIdx] } );
         }
-        loadGeometry(m);
+
+        // Mark mesh as dirty.
+        for (uint i = 0; i < MAX_MESH; ++i)
+        {
+            m_dataDirty[i] = true;
+        }
+        m_isDirty = true;
 
     }
 

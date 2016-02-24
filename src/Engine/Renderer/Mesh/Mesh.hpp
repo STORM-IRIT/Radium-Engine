@@ -141,6 +141,10 @@ namespace Ra
 
             std::array<uint, MAX_DATA> m_vbos = {{ 0 }}; /// Indices of our openGL VBOs.
             std::array<bool, MAX_DATA> m_dataDirty = {{ false }}; /// Dirty bits of our vertex data.
+
+            uint m_numElements; /// number of elements to draw. For triangles this is 3*numTriangles but not for lines.
+            // (val) : this is a bit hacky.
+
             bool m_isDirty; /// General dirty bit of the mesh.
             // TODO (Val) this flag could just be replaced by an efficient "or" of the other flags.
         };
