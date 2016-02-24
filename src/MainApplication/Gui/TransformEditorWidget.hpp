@@ -31,8 +31,8 @@ namespace Ra
 
         private slots:
             // Called internally by the child widgets when their value change.
-            void onChangedPosition( uint id, const Core::Vector3& v );
-            void onChangedRotation( uint id, const Core::Quaternion& q );
+            void onChangedPosition( const Core::Vector3& v, uint id );
+            void onChangedRotation( const Core::Quaternion& q, uint id );
 
         private:
             /// Object being edited.

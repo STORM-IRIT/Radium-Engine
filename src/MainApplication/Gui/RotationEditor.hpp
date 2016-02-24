@@ -86,7 +86,7 @@ namespace Ra
 
         signals:
             /// Emitted when the value has changed through the UI.
-            void valueChanged( uint id, const Core::Quaternion& newValue );
+            void valueChanged( const Core::Quaternion& newValue, uint id );
 
         private slots:
 
@@ -103,7 +103,7 @@ namespace Ra
                                         * Core::AngleAxis( ypr[1], Core::Vector3::UnitY() )
                                         * Core::AngleAxis( ypr[2], Core::Vector3::UnitX() );
 
-                emit( valueChanged( m_id, quat ) );
+                emit( valueChanged( quat, m_id ) );
 
             };
 
@@ -126,7 +126,7 @@ namespace Ra
                                         * Core::AngleAxis( ypr[1], Core::Vector3::UnitY() )
                                         * Core::AngleAxis( ypr[2], Core::Vector3::UnitX() );
 
-                emit( valueChanged( m_id, quat ) );
+                emit valueChanged( quat, m_id );
             };
 
             void onValueChangedRelSpinX()
@@ -186,7 +186,7 @@ namespace Ra
                 updateAbsSpin( newYpr );
                 updateAbsSlide( newYpr );
 
-                emit valueChanged( m_id, quat );
+                emit valueChanged( quat, m_id );
             }
 
 
@@ -220,7 +220,7 @@ namespace Ra
                 updateAbsSpin( newYpr );
                 updateAbsSlide( newYpr );
 
-                emit valueChanged( m_id, quat );
+                emit valueChanged( quat, m_id );
 
             }
 

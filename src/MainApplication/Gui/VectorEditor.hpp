@@ -41,7 +41,7 @@ namespace Ra
 
         signals:
             /// Emitted when the value changes through the UI.
-            void valueChanged( uint id, const Core::Vector3& newValue );
+            void valueChanged( const Core::Vector3& newValue, uint id );
 
         private slots:
 
@@ -49,7 +49,7 @@ namespace Ra
             void onValueChangedInternal()
             {
                 Core::Vector3 v( m_x->value(), m_y->value(), m_z->value() );
-                emit( valueChanged( m_id, v ) );
+                emit valueChanged( v, m_id );
             };
         private:
             uint m_id;

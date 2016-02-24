@@ -64,7 +64,7 @@ namespace Ra
             setEditable(nullptr);
         }
 
-        void TransformEditorWidget::onChangedPosition(uint id, const Core::Vector3& v)
+        void TransformEditorWidget::onChangedPosition(const Core::Vector3& v, uint id)
         {
             CORE_ASSERT(m_currentEdit, "Nothing to edit");
             CORE_ASSERT(sender() == m_widgets[id], "Sender error");
@@ -72,7 +72,7 @@ namespace Ra
             m_currentEdit->setProperty(m_transform);
         }
 
-        void TransformEditorWidget::onChangedRotation(uint id, const Core::Quaternion& q)
+        void TransformEditorWidget::onChangedRotation(const Core::Quaternion& q, uint id)
         {
             CORE_ASSERT(m_currentEdit, "Nothing to edit");
             CORE_ASSERT(sender() == m_widgets[id], "Sender error");
@@ -131,7 +131,12 @@ namespace Ra
                                                                                 p.isEditable);
                                     m_layout->addWidget(widget);
                                     widget->setValue(p.primitive.asRotation());
+#if !defined(OS_WINDOWS)
                                     connect(widget, &RotationEditor::valueChanged, this, &TransformEditorWidget::onChangedRotation);
+#else 
+                                    // We have to use the old syntax on windows because of alignments parameters...
+                                    connect(widget, SIGNAL(valueChanged), this, SLOT(onChangedRotation));
+#endif
                                     m_widgets.push_back(widget);
                                     break;
                                 }
