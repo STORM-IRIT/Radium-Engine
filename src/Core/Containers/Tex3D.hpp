@@ -1,5 +1,5 @@
-#ifndef TEX3D_HPP
-#define TEX3D_HPP
+#ifndef RADIUMENGINE_TEX3D_HPP_
+#define RADIUMENGINE_TEX3D_HPP_
 
 #include <Core/RaCore.hpp>
 #include <Core/Containers/Grid.hpp>
