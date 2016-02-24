@@ -9,6 +9,7 @@
 #include <Core/Mesh/DCEL/FullEdge.hpp>
 #include <Core/Mesh/DCEL/Face.hpp>
 #include <Core/Mesh/DCEL/Dcel.hpp>
+#include <Core/Containers/MakeShared.hpp>
 
 
 namespace Ra {
@@ -55,7 +56,7 @@ void convert( const TriangleMesh& mesh, Dcel& dcel ) {
             CORE_ASSERT( ( he[i] != nullptr ), "HalfEdge_ptr == nullptr" );
         }
         // Create the face
-        Face_ptr f = std::make_shared< Face >( he[0] );
+        Face_ptr f = Ra::Core::make_shared< Face >( he[0] );
         CORE_ASSERT( ( f != nullptr ), "Face_ptr == nullptr" );
         CORE_ASSERT( dcel.m_face.insert( f, f->idx ), "Face not inserted" );
         // Create the connections

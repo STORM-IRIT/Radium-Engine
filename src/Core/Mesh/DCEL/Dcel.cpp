@@ -6,6 +6,7 @@
 #include <Core/Mesh/DCEL/HalfEdge.hpp>
 #include <Core/Mesh/DCEL/FullEdge.hpp>
 #include <Core/Mesh/DCEL/Face.hpp>
+#include <Core/Containers/MakeShared.hpp>
 
 namespace Ra {
 namespace Core {
@@ -37,7 +38,7 @@ Dcel::Dcel( const Dcel& dcel ) :
     // Upload the vertex data, but the halfedge pointer
     for( uint i = 0; i < dcel.m_vertex.size(); ++i ) {
         Vertex_ptr dcel_v = dcel.m_vertex.at( i );
-        Vertex_ptr v      = std::make_shared< Vertex >( dcel_v->P(), dcel_v->N() );
+        Vertex_ptr v      = Ra::Core::make_shared< Vertex >( dcel_v->P(), dcel_v->N() );
         m_vertex.insert( v, v->idx );
         v_table[dcel_v->idx] = v->idx;
     }
@@ -45,7 +46,7 @@ Dcel::Dcel( const Dcel& dcel ) :
     // Upload the halfedge data, but the halfedge pointers and the face pointer
     for( uint i = 0; i < dcel.m_halfedge.size(); ++i ) {
         HalfEdge_ptr dcel_he = dcel.m_halfedge.at( i );
-        HalfEdge_ptr he      = std::make_shared< HalfEdge >( m_vertex[v_table[dcel_he->V()->idx]] );
+        HalfEdge_ptr he      = Ra::Core::make_shared< HalfEdge >( m_vertex[v_table[dcel_he->V()->idx]] );
         m_halfedge.insert( he, he->idx );
         he_table[dcel_he->idx] = he->idx;
     }
@@ -53,7 +54,7 @@ Dcel::Dcel( const Dcel& dcel ) :
     // Upload the face data
     for( uint i = 0; i < dcel.m_face.size(); ++i ) {
         Face_ptr dcel_f = dcel.m_face.at( i );
-        Face_ptr f      = std::make_shared< Face >( m_halfedge[he_table[dcel_f->HE()->idx]] );
+        Face_ptr f      = Ra::Core::make_shared< Face >( m_halfedge[he_table[dcel_f->HE()->idx]] );
         m_face.insert( f, f->idx );
         f_table[dcel_f->idx] = f->idx;
     }
@@ -72,7 +73,7 @@ Dcel::Dcel( const Dcel& dcel ) :
     // Upload the fulledge data
     for( uint i = 0; i < dcel.m_fulledge.size(); ++i ) {
         FullEdge_ptr dcel_fe = dcel.m_fulledge.at( i );
-        FullEdge_ptr fe      = std::make_shared< FullEdge >( m_halfedge[he_table[dcel_fe->HE( 0 )->idx]] );
+        FullEdge_ptr fe      = Ra::Core::make_shared< FullEdge >( m_halfedge[he_table[dcel_fe->HE( 0 )->idx]] );
         m_fulledge.insert( fe, fe->idx );
         fe->HE( 0 )->Twin()->setFE( fe );
     }
