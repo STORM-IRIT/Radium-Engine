@@ -2,6 +2,9 @@
 #include <Engine/Assets/AssimpHandleDataLoader.hpp>
 
 #include <set>
+#include <assimp/scene.h>
+#include <assimp/mesh.h>
+
 #include <Core/Log/Log.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Engine/Assets/AssimpWrapper.hpp>

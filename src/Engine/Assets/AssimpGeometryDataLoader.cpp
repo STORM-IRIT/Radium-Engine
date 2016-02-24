@@ -1,5 +1,8 @@
 #include <Engine/Assets/AssimpGeometryDataLoader.hpp>
 
+#include <assimp/scene.h>
+#include <assimp/mesh.h>
+
 #include <Core/Log/Log.hpp>
 #include <Engine/Assets/GeometryData.hpp>
 #include <Engine/Assets/AssimpWrapper.hpp>

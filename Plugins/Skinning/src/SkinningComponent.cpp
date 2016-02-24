@@ -35,12 +35,12 @@ void SkinningComponent::setupSkinning()
     TriangleMesh mesh;
     bool hasMesh = ComponentMessenger::getInstance()->get(getEntity(), m_contentsName,mesh);
 
-    // Attempt to write to the mesh
-    ON_DEBUG( bool skinnable = ComponentMessenger::getInstance()->set(getEntity(), m_contentsName, mesh ));
 
     if ( hasSkel && hasWeights && hasMesh && hasRefPose )
     {
 
+        // Attempt to write to the mesh
+        ON_DEBUG( bool skinnable = ComponentMessenger::getInstance()->set(getEntity(), m_contentsName, mesh ));
         CORE_ASSERT( skinnable, "Mesh cannot be skinned. It could be because the mesh is set to nondeformable" );
         CORE_ASSERT( skel.size() == weights.cols(), "Weights are incompatible with bones" );
         CORE_ASSERT( mesh.m_vertices.size() == weights.rows(), "Weights are incompatible with Mesh" );

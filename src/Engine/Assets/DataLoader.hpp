@@ -3,8 +3,8 @@
 
 #include <memory>
 #include <vector>
-#include <assimp/scene.h>
 
+struct aiScene;
 
 namespace Ra {
 namespace Asset {

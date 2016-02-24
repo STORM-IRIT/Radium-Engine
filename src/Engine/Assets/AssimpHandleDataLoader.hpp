@@ -2,9 +2,13 @@
 #define RADIUMENGINE_ASSIMP_HANDLE_DATA_LOADER_HPP
 
 #include <map>
-#include <assimp/mesh.h>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Assets/DataLoader.hpp>
+
+struct aiScene;
+struct aiNode;
+struct aiMesh;
+struct aiBone;
 
 namespace Ra {
 namespace Asset {

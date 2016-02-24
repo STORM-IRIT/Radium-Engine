@@ -1,10 +1,13 @@
 #ifndef RADIUMENGINE_ASSIMP_GEOMETRY_DATA_LOADER_HPP
 #define RADIUMENGINE_ASSIMP_GEOMETRY_DATA_LOADER_HPP
 
-#include <assimp/mesh.h>
-
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Assets/DataLoader.hpp>
+
+struct aiScene;
+struct aiMesh;
+struct aiNode;
+struct aiMaterial;
 
 namespace Ra {
 namespace Asset {

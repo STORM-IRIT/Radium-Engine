@@ -1,10 +1,13 @@
 #ifndef RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
 #define RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
 
-#include <assimp/mesh.h>
-
 #include <Engine/Assets/KeyFrame/AnimationTime.hpp>
 #include <Engine/Assets/DataLoader.hpp>
+
+
+struct aiScene;
+struct aiAnimation;
+struct aiNodeAnim;
 
 namespace Ra {
 namespace Asset {

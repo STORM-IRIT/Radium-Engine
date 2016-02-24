@@ -2,6 +2,7 @@
 #define RADIUMENGINE_ANIMATION_TIME_HPP
 
 #include <cmath>
+#include <limits>
 #include <Core/CoreMacros.hpp>
 
 namespace Ra {

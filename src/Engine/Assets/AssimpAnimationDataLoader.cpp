@@ -1,6 +1,9 @@
 #include <Engine/Assets/AssimpAnimationDataLoader.hpp>
 
 #include <set>
+#include <assimp/scene.h>
+#include <assimp/mesh.h>
+
 #include <Core/Log/Log.hpp>
 #include <Engine/Assets/AssimpWrapper.hpp>
 #include <Engine/Assets/AnimationData.hpp>

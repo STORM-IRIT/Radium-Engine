@@ -38,7 +38,7 @@ namespace Ra
         void Component::removeRenderObject( Core::Index roIdx )
         {
             auto found = std::find(renderObjects.cbegin(), renderObjects.cend(),roIdx);
-            CORE_WARN_IF(found == renderObjects.cbegin(), " Render object not found in component");
+            CORE_WARN_IF(found == renderObjects.cend(), " Render object not found in component");
             if (found != renderObjects.cend() && getRoMgr() )
             {
                 getRoMgr()->removeRenderObject(*found);

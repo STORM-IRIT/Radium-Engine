@@ -32,8 +32,6 @@ namespace SkinningPlugin
 
         }
 
-
-
         void handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData) override
         {
 
