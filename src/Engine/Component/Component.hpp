@@ -63,6 +63,7 @@ namespace Ra
             virtual System* getSystem() const;
 
             virtual Core::Index addRenderObject( RenderObject* renderObject ) final;
+
             virtual void removeRenderObject( Core::Index roIdx ) final;
 
             virtual void rayCastQuery(const Core::Ray& ray) const  {}
@@ -87,6 +88,7 @@ namespace Ra
         protected:
             /// Shortcut to access the render object manager.
             static RenderObjectManager* getRoMgr();
+
 
         public:
             std::vector<Core::Index> m_renderObjects;

@@ -63,8 +63,6 @@ void SkinningComponent::skin()
     CORE_ASSERT( m_isReady, "Skinning is not setup");
 
     const Skeleton* skel = static_cast<const Skeleton*>(m_skeletonGetter());
-
-
     const Pose& currentPose = skel->getPose(SpaceType::MODEL);
     if ( !Ra::Core::Animation::areEqual(currentPose, m_previousPose))
     {
