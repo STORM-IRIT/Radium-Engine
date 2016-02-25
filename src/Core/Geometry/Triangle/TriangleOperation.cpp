@@ -4,37 +4,57 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-/*
-* Return true if the triangle is obtuse.
-*/
 bool isTriangleObtuse( const Vector3& p, const Vector3& q, const Vector3& r ) {
-    Scalar cosP = ( ( q - p ).normalized() ).dot( ( r - p ).normalized() );
-    Scalar cosQ = ( ( p - q ).normalized() ).dot( ( r - q ).normalized() );
-    Scalar cosR = ( ( p - r ).normalized() ).dot( ( q - r ).normalized() );
+    const Scalar cosP = ( ( q - p ).normalized() ).dot( ( r - p ).normalized() );
+    const Scalar cosQ = ( ( p - q ).normalized() ).dot( ( r - q ).normalized() );
+    const Scalar cosR = ( ( p - r ).normalized() ).dot( ( q - r ).normalized() );
     return ( ( cosP * cosQ * cosR ) < 0.0 );
 }
 
-/*
-* Return the area of the triangle PQR
-*
-* The area is computed as:
-*       ||( Q - P ) X ( R - P )|| / 2
-*/
+
+
 Scalar triangleArea( const Vector3& p, const Vector3& q, const Vector3& r ) {
     return ( ( ( q - p ).cross( r - p ) ).norm() * 0.5 );
 }
 
 
-/*
-* Return the normalized normal of the triangle PQR
-*
-* The normal is computed as:
-*       ( Q - P ) X ( R - P ) / ||( Q - P ) X ( R - P )||
-*/
+
 Vector3 triangleNormal( const Vector3& p, const Vector3& q, const Vector3& r ) {
-    return ( ( ( q - p ).cross( r - p ) ).normalized() );
+    const Vector3 n = ( q - p ).cross( r - p );
+    if( n.isApprox( Vector3::Zero() ) ) {
+        return Vector3::Zero();
+    }
+    return ( n.normalized() );
 }
 
+
+
+Scalar triangleMinAngle( const Vector3& p, const Vector3& q, const Vector3& r ) {
+    const Scalar alphaP = Vector::angle< Vector3 >( ( p - q ), ( p - r ) );
+    const Scalar alphaQ = Vector::angle< Vector3 >( ( q - p ), ( q - r ) );
+    const Scalar alphaR = Vector::angle< Vector3 >( ( r - p ), ( r - q ) );
+    return std::min( alphaP, std::min( alphaQ, alphaR ) );
+}
+
+
+
+Scalar triangleMaxAngle( const Vector3& p, const Vector3& q, const Vector3& r ) {
+    const Scalar alphaP = Vector::angle< Vector3 >( ( p - q ), ( p - r ) );
+    const Scalar alphaQ = Vector::angle< Vector3 >( ( q - p ), ( q - r ) );
+    const Scalar alphaR = Vector::angle< Vector3 >( ( r - p ), ( r - q ) );
+    return std::max( alphaP, std::max( alphaQ, alphaR ) );
+}
+
+
+
+Scalar triangleAngleRatio( const Vector3& p, const Vector3& q, const Vector3& r ) {
+    const Scalar alphaP = Vector::angle< Vector3 >( ( p - q ), ( p - r ) );
+    const Scalar alphaQ = Vector::angle< Vector3 >( ( q - p ), ( q - r ) );
+    const Scalar alphaR = Vector::angle< Vector3 >( ( r - p ), ( r - q ) );
+    const Scalar min = std::min( alphaP, std::min( alphaQ, alphaR ) );
+    const Scalar max = std::max( alphaP, std::max( alphaQ, alphaR ) );
+    return ( min / max );
+}
 
 
 }

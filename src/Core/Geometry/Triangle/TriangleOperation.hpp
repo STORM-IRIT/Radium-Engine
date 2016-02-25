@@ -36,6 +36,26 @@ Vector3 triangleNormal( const Vector3& p, const Vector3& q, const Vector3& r );
 
 
 
+/*
+* Return the value of the minimum angle of the triangle PQR
+*/
+Scalar triangleMinAngle( const Vector3& p, const Vector3& q, const Vector3& r );
+
+
+
+/*
+* Return the value of the maximum angle of the triangle PQR
+*/
+Scalar triangleMaxAngle( const Vector3& p, const Vector3& q, const Vector3& r );
+
+
+
+/*
+* Return the ratio between the minimum and the maximum angle of the triangle PQR
+*/
+Scalar triangleAngleRatio( const Vector3& p, const Vector3& q, const Vector3& r );
+
+
 }
 }
 }
