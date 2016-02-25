@@ -145,6 +145,10 @@ namespace Ra
                     ret = new Texture( filename, GL_TEXTURE_2D );
                     ret->initGL( GL_RGBA, pending->second.width, pending->second.height,
                                  GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, pending->second.data );
+
+                    ret->genMipmap( GL_LINEAR, GL_LINEAR );
+                    ret->setClamp( GL_CLAMP, GL_CLAMP );
+
                     m_pendingTextures.erase( filename );
                     m_textures[filename] = ret;
                 }
