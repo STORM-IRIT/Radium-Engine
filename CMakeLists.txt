@@ -5,14 +5,14 @@ cmake_minimum_required(VERSION 2.8.11)
 if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang"))
     # No openmp on MacosX Clang (TODO, find better compiler identification)
     set(CMAKE_CXX_FLAGS                "-Wall -Wextra  -std=c++1y -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions ${CMAKE_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -DOSG_NOTIFY_LEVEL=DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
+    set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
     set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -O3 -ffast-math -mfpmath=sse")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 ${CMAKE_CXX_FLAGS_RELEASE}")
 
     add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
 elseif (UNIX)
   set(CMAKE_CXX_FLAGS                "-Wall -Wextra  -pthread -std=c++1y -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions -fopenmp ${CMAKE_CXX_FLAGS}")
-  set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -DOSG_NOTIFY_LEVEL=DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
+  set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
   set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -O3 -ffast-math -mfpmath=sse")
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 ${CMAKE_CXX_FLAGS_RELEASE}")
 
@@ -30,7 +30,7 @@ elseif (MSVC)
     string (REGEX REPLACE "/GR" ""     CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
     set(CMAKE_CXX_FLAGS	               "/arch:AVX2 /GR- /EHs-c- /MP ${CMAKE_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS_DEBUG		   "/D_DEBUG /DCORE_DEBUG /DOSG_NOTIFY_LEVEL=DEBUG /Od /Zi ${CMAKE_CXX_FLAGS_DEBUG} /MDd")
+    set(CMAKE_CXX_FLAGS_DEBUG		   "/D_DEBUG /DCORE_DEBUG /Od /Zi ${CMAKE_CXX_FLAGS_DEBUG} /MDd")
     set(CMAKE_CXX_FLAGS_RELEASE		   "/DNDEBUG /Ox /fp:fast /GL /MT")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi ${CMAKE_CXX_FLAGS_RELEASE}")
 endif()
@@ -68,8 +68,6 @@ if ( NOT CMAKE_PREFIX_PATH )
   set( CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR} )
 endif()
 
-#set(LIB_INSTALL_DIR                ${CMAKE_PREFIX_PATH}/lib)
-#set(INC_INSTALL_DIR                ${CMAKE_PREFIX_PATH}/include)
 
 # Win32 stuff
 if (MSVC OR MSVC_IDE)
@@ -139,7 +137,7 @@ elseif( MSVC )
     else()
         set(MSVC_PREFIX "vc130")
     endif()
-        
+
     set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mt.lib" )
 endif()
 
