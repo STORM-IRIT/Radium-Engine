@@ -459,7 +459,7 @@ namespace Ra
     void Gui::MainWindow::displayRenderObjects( Engine::Component* component )
     {
         auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
-        for ( Core::Index idx : component->renderObjects )
+        for ( Core::Index idx : component->m_renderObjects )
         {
             QString name = roMgr->getRenderObject( idx )->getName().c_str();
 

@@ -18,7 +18,7 @@ namespace Ra
 
         Component::~Component()
         {
-            for (const auto& ro : renderObjects )
+            for (const auto& ro : m_renderObjects )
             {
                 getRoMgr()->removeRenderObject( ro );
             }
@@ -31,18 +31,18 @@ namespace Ra
 
         Core::Index Component::addRenderObject( RenderObject* renderObject )
         {
-            renderObjects.push_back( getRoMgr()->addRenderObject( renderObject ) );
-            return renderObjects.back();
+            m_renderObjects.push_back( getRoMgr()->addRenderObject( renderObject ) );
+            return m_renderObjects.back();
         }
 
         void Component::removeRenderObject( Core::Index roIdx )
         {
-            auto found = std::find(renderObjects.cbegin(), renderObjects.cend(),roIdx);
-            CORE_WARN_IF(found == renderObjects.cend(), " Render object not found in component");
-            if (found != renderObjects.cend() && getRoMgr() )
+            auto found = std::find(m_renderObjects.cbegin(), m_renderObjects.cend(),roIdx);
+            CORE_WARN_IF(found == m_renderObjects.cend(), " Render object not found in component");
+            if (found != m_renderObjects.cend() && getRoMgr() )
             {
                 getRoMgr()->removeRenderObject(*found);
-                renderObjects.erase(found);
+                m_renderObjects.erase(found);
             }
         }
 

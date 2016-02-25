@@ -89,7 +89,7 @@ namespace Ra
             static RenderObjectManager* getRoMgr();
 
         public:
-            std::vector<Core::Index> renderObjects;
+            std::vector<Core::Index> m_renderObjects;
 
         protected:
 

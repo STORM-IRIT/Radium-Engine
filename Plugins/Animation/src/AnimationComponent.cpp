@@ -139,7 +139,7 @@ namespace AnimationPlugin
             if( !m_skel.m_graph.isLeaf( i ) ) {
                 SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject( m_skel.getLabel( i ), this, i, getRoMgr());
                 m_boneDrawables.push_back(boneRenderObject);
-                renderObjects.push_back( boneRenderObject->getRenderObjectIndex());
+                m_renderObjects.push_back( boneRenderObject->getRenderObjectIndex());
             } else {
                 LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed.";
             }
