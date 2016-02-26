@@ -3,9 +3,12 @@
 
 #include <SkinningPlugin.hpp>
 
+#include <Core/Math/DualQuaternion.hpp>
+#include <Core/Mesh/TriangleMesh.hpp>
 #include <Core/Animation/Handle/HandleWeight.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Animation/Skinning/SkinningData.hpp>
+
 #include <Engine/Assets/HandleData.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
@@ -28,23 +31,27 @@ namespace SkinningPlugin
 
         virtual void getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const override {}
         virtual void setProperty(const Ra::Engine::EditableProperty &newProp) override {}
+
+        const Ra::Core::Skinning::RefData* getRefData() const { return &m_refData;}
+        const Ra::Core::Skinning::FrameData* getFrameData() const { return &m_frameData;}
+        const Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion >* getDQ() const {return &m_DQ;}
+
+    private:
+        void setupIO(const std::string &id);
+
     private:
 
             std::string m_contentsName;
 
             // Skinning data
-
-            Ra::Core::TriangleMesh m_referenceMesh;
-            Ra::Core::Animation::Pose m_refPose;
-            Ra::Core::Animation::Pose m_previousPose;
-            Ra::Core::Animation::WeightMatrix m_weights;
+            Ra::Core::Skinning::RefData m_refData;
+            Ra::Core::Skinning::FrameData m_frameData;
 
             Ra::Engine::ComponentMessenger::GetterCallback m_skeletonGetter;
             Ra::Engine::ComponentMessenger::ReadWriteCallback m_verticesWriter;
             Ra::Engine::ComponentMessenger::ReadWriteCallback m_normalsWriter;
 
-            Ra::Core::Vector3Array* m_vertices;
-            Ra::Core::Vector3Array* m_normals;
+            Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion > m_DQ;
 
             bool m_isReady;
     };

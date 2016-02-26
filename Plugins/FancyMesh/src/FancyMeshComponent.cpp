@@ -21,6 +21,8 @@
 #include <Engine/Assets/FileData.hpp>
 #include <Engine/Assets/GeometryData.hpp>
 
+using Ra::Engine::ComponentMessenger;
+
 namespace FancyMeshPlugin
 {
     FancyMeshComponent::FancyMeshComponent(const std::string& name , bool deformable)
@@ -158,17 +160,17 @@ namespace FancyMeshPlugin
 
         if( m_deformable)
         {
-            Ra::Engine::ComponentMessenger::SetterCallback cbIn = std::bind( &FancyMeshComponent::setMeshInput, this, std::placeholders::_1 );
-            Ra::Engine::ComponentMessenger::getInstance()->registerInput<Ra::Core::TriangleMesh>( getEntity(), this, id, cbIn);
+            ComponentMessenger::SetterCallback cbIn = std::bind( &FancyMeshComponent::setMeshInput, this, std::placeholders::_1 );
+            ComponentMessenger::getInstance()->registerInput<Ra::Core::TriangleMesh>( getEntity(), this, id, cbIn);
 
-            Ra::Engine::ComponentMessenger::ReadWriteCallback vRW = std::bind( &FancyMeshComponent::getVerticesRw, this);
-            Ra::Engine::ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"v", vRW);
+            ComponentMessenger::ReadWriteCallback vRW = std::bind( &FancyMeshComponent::getVerticesRw, this);
+            ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"v", vRW);
 
-            Ra::Engine::ComponentMessenger::ReadWriteCallback nRW = std::bind( &FancyMeshComponent::getNormalsRw, this);
-            Ra::Engine::ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"n", nRW);
+            ComponentMessenger::ReadWriteCallback nRW = std::bind( &FancyMeshComponent::getNormalsRw, this);
+            ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"n", nRW);
 
-            Ra::Engine::ComponentMessenger::ReadWriteCallback tRW = std::bind( &FancyMeshComponent::getTrianglesRw, this);
-            Ra::Engine::ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"t", tRW);
+            ComponentMessenger::ReadWriteCallback tRW = std::bind( &FancyMeshComponent::getTrianglesRw, this);
+            ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"t", tRW);
         }
 
     }
