@@ -488,7 +488,9 @@ namespace Ra
 
         if ( m_currentShaderBox->findText( shaderName.c_str() ) == -1 )
         {
-            m_currentShaderBox->setCurrentText( "" );
+            m_currentShaderBox->addItem( QString( shaderName.c_str() ) );
+            m_currentShaderBox->setCurrentText( shaderName.c_str() );
+            //m_currentShaderBox->setCurrentText( "" );
         }
         else
         {
