@@ -127,7 +127,7 @@ namespace Ra
         if ( data && m_bytesPerPixel )
         {
             m_pixels = new unsigned char[m_width * m_height * m_bytesPerPixel];
-            CORE_ASSERT( memcpy( m_pixels, data, m_width * m_height * m_bytesPerPixel ), "THIS IS FACT UP" );
+            memcpy( m_pixels, data, m_width * m_height * m_bytesPerPixel );
         }
     }
 
