@@ -49,8 +49,7 @@ namespace Ra
             //
             // Primitive construction
             //
-            template< uint ROW = 1, uint CLM = 1>
-            inline TriangleMesh makePlaneGrid( const Vector2& halfExts = Vector2( 0.5, 0.5 ), const Transform& T = Transform::Identity() );
+            TriangleMesh makePlaneGrid( const uint rows = 1, const uint cols = 1, const Vector2& halfExts = Vector2( 0.5, 0.5 ), const Transform& T = Transform::Identity() );
 
             /// Create a 2D quad mesh given half extents, centered on the origin with x axis as normal
             RA_CORE_API TriangleMesh makeXNormalQuad( const Vector2& halfExts = Vector2( 0.5, 0.5 ) );

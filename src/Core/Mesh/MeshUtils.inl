@@ -44,48 +44,6 @@ namespace Ra
                 return Aabb( min, max );
             }
 
-            template< uint ROW, uint CLM >
-            inline TriangleMesh makePlaneGrid( const Vector2& halfExts, const Transform& T ) {
-                TriangleMesh grid;
-                const uint R = ( ROW + 1 );
-                const uint C = ( CLM + 1 );
-                const uint v_size = C * R;
-                const uint t_size = 2 * CLM * ROW;
-
-                grid.m_vertices.resize( v_size );
-                grid.m_normals.resize( v_size );
-                grid.m_triangles.reserve( t_size );
-
-                const Vector3 X = T.linear().col( 0 ).normalized();
-                const Vector3 Y = T.linear().col( 1 ).normalized();
-                const Vector3 Z = T.linear().col( 2 ).normalized();
-
-                const Vector3 x = ( 2.0 * halfExts[0] * X ) / ( Scalar )( CLM );
-                const Vector3 y = ( 2.0 * halfExts[1] * Y ) / ( Scalar )( ROW );
-                const Vector3 o = T.translation() - ( halfExts[0] * X ) - ( halfExts[1] * Y );
-
-                uint v[R][C];
-                for( uint i = 0; i < R; ++i ) {
-                    for( uint j = 0; j < C; ++j ) {
-                        const uint id = ( i * C ) + j;
-                        v[i][j] = id;
-                        grid.m_vertices[id] = o + ( i * y ) + ( j * x );
-                        grid.m_normals[id]  = Z;
-                    }
-                }
-
-                for( uint i = 0; i < ROW; ++i ) {
-                    for( uint j = 0; j < CLM; ++j ) {
-                        //grid.m_triangles.push_back( Triangle( v[i][j],   v[i][j+1],   v[i+1][j] ) );
-                        //grid.m_triangles.push_back( Triangle( v[i][j+1], v[i+1][j+1], v[i+1][j] ) );
-                        grid.m_triangles.push_back( Triangle( v[i][j], v[i][j+1], v[i+1][j+1]  ) );
-                        grid.m_triangles.push_back( Triangle( v[i][j], v[i+1][j+1], v[i+1][j]  ) );
-                    }
-                }
-
-                return grid;
-            }
-
             template<uint U, uint V>
             TriangleMesh makeParametricSphere( Scalar radius )
             {
