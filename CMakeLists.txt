@@ -142,6 +142,7 @@ elseif( MSVC )
 endif()
 
 set( CMAKE_DEBUG_POSTFIX "" )
+set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
 
 add_subdirectory(src)
 
