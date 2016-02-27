@@ -37,13 +37,16 @@ namespace Ra
 
             RA_CORE_ALIGNED_NEW
 
+            /// A -1 (or any other negative value) lifetime is considered infinite,
+            /// 0 is an "invalid value" (would mean the render object has to die immediatly),
+            /// hence it's considered as infinite,
+            /// any other positive value will be taken into account.
             RenderObject( const std::string& name, const Component* comp,
-                          const RenderObjectType& type );
+                          const RenderObjectType& type, int lifetime = -1 );
             ~RenderObject();
 
             // FIXME(Charly): Remove this
             void updateGL();
-
 
             //
             // Getters and setters.
@@ -80,6 +83,11 @@ namespace Ra
             const Core::Transform& getLocalTransform() const;
             const Core::Matrix4& getLocalTransformAsMatrix() const;
 
+            /// Basically just decreases lifetime counter.
+            /// If it goes to zero, then render object notifies the manager that it needs to be deleted.
+            /// Does nothing if lifetime is set to -1
+            void hasBeenRenderedOnce();
+            void hasExpired();
 
         private:
             Core::Transform m_localTransform;
@@ -94,11 +102,14 @@ namespace Ra
             // FIXME(Charly): Remove this
             RenderParameters m_renderParameters;
 
+            mutable std::mutex m_updateMutex;
+
+            int m_lifetime;
+
             bool m_visible;
             bool m_xray;
             bool m_dirty;
-
-            mutable std::mutex m_updateMutex;
+            bool m_hasLifetime;
         };
 
     } // namespace Engine

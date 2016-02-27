@@ -7,13 +7,15 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
 namespace Ra
 {
     namespace Engine
     {
         RenderObject::RenderObject( const std::string& name, const Component* comp,
-                                    const RenderObjectType& type )
+                                    const RenderObjectType& type, int lifetime )
             : IndexedObject()
             , m_localTransform( Core::Transform::Identity() )
             , m_component( comp )
@@ -21,9 +23,11 @@ namespace Ra
             , m_type( type )
             , m_renderTechnique( nullptr )
             , m_mesh( nullptr )
+            , m_lifetime( lifetime )
             , m_visible( true )
             , m_xray( false )
             , m_dirty( true )
+            , m_hasLifetime( lifetime > 0 )
         {
         }
 
@@ -165,6 +169,24 @@ namespace Ra
         {
             return m_localTransform.matrix();
         }
+
+        void RenderObject::hasBeenRenderedOnce()
+        {
+            if ( m_hasLifetime )
+            {
+                if ( --m_lifetime <= 0 )
+                {
+                    RadiumEngine::getInstance()->getRenderObjectManager()->renderObjectExpired( idx );
+                }
+            }
+        }
+
+        void RenderObject::hasExpired()
+        {
+            // HACK(Charly): How do we wanna handle this ?
+            const_cast<Component*>( m_component )->notifyRenderObjectExpired( idx );
+        }
+
     } // namespace Engine
 } // namespace Ra
 

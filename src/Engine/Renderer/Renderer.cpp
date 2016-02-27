@@ -142,6 +142,9 @@ namespace Ra
             // 6. write image to framebuffer.
             drawScreenInternal();
             m_timerData.renderEnd = Core::Timer::Clock::now();
+
+            // 7. Tell renderobjects they have been drawn (to decreaase the counter)
+            notifyRenderObjectsRenderingInternal();
         }
 
         void Renderer::saveExternalFBOInternal()
@@ -357,6 +360,29 @@ namespace Ra
             m_quadMesh->render();
 
             GL_ASSERT( glDepthFunc( GL_LESS ) );
+        }
+
+        void Renderer::notifyRenderObjectsRenderingInternal()
+        {
+            for ( auto& ro : m_fancyRenderObjects )
+            {
+                ro->hasBeenRenderedOnce();
+            }
+
+            for ( auto& ro : m_debugRenderObjects )
+            {
+                ro->hasBeenRenderedOnce();
+            }
+
+            for ( auto& ro : m_xrayRenderObjects )
+            {
+                ro->hasBeenRenderedOnce();
+            }
+
+            for ( auto& ro : m_uiRenderObjects )
+            {
+                ro->hasBeenRenderedOnce();
+            }
         }
 
         void Renderer::resize( uint w, uint h )

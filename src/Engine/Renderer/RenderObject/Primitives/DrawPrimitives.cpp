@@ -153,7 +153,7 @@ namespace Ra
                 ro->getMesh()->setRenderMode( GL_LINES );
             }
 
-            RenderObject* Ray(const Component* comp, const Core::Ray& ray, const Core::Color& color)
+            RenderObject* Ray(const Component* comp, const Core::Ray& ray, const Core::Color& color, int lifetime)
             {
                 Core::Vector3 end = ray.at(1000.f);
                 Core::Vector3Array vertices = { ray.m_origin, end };
@@ -161,7 +161,7 @@ namespace Ra
 
                 std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh("Ray Primitive", GL_LINES) );
 
-                RenderObject* ro = new Ra::Engine::RenderObject("Ray Primitive", comp, RenderObjectType::Debug);
+                RenderObject* ro = new Ra::Engine::RenderObject("Ray Primitive", comp, RenderObjectType::Debug, lifetime);
 
                 initRo(ro, mesh, vertices, indices, color);
 
@@ -567,7 +567,7 @@ namespace Ra
                 }
 
                 std::shared_ptr<Mesh> mesh( new Ra::Engine::Mesh( "Frame Primitive", GL_LINES ) );
-                RenderObject* ro = new Ra::Engine::RenderObject("Frame Primitive", comp, RenderObjectType::Debug);
+                RenderObject* ro = new Ra::Engine::RenderObject("Frame Primitive", comp, RenderObjectType::Debug );
                 initLineRo(ro, mesh, vertices, indices, color, 1.0);
                 return ro;
             }

@@ -142,5 +142,22 @@ namespace Ra
 
             return isDirty;
         }
+
+        void RenderObjectManager::renderObjectExpired( const Core::Index& idx )
+        {
+            std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
+
+            auto ro = m_renderObjects.at( idx );
+            m_renderObjects.remove( idx );
+
+            auto type = ro->getType();
+
+            m_renderObjectByType[(int)type].erase( idx );
+            m_typeIsDirty[(int)type] = true;
+
+            ro->hasExpired();
+
+            ro.reset();
+        }
     }
 } // namespace Ra

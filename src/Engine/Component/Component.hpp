@@ -85,6 +85,8 @@ namespace Ra
             /// Return the parent entity's transform.
             virtual Core::Transform getWorldTransform() const override;
 
+            void notifyRenderObjectExpired( const Core::Index& idx );
+
         protected:
             /// Shortcut to access the render object manager.
             static RenderObjectManager* getRoMgr();

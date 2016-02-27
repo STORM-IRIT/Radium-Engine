@@ -94,6 +94,13 @@ namespace Ra
         Ra::Engine::DrawPrimitives::Ray(                                                \
             Ra::Engine::SystemEntity::dbgCmp(), r, color ))
 
+#define RA_DISPLAY_RAY_LIFETIME( r, color, lifetime )                                   \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(                                \
+        Ra::Engine::DrawPrimitives::Ray(                                                \
+            Ra::Engine::SystemEntity::dbgCmp(), r, color, lifetime ))
+
+
+
 #define RA_DISPLAY_CIRCLE( c, n, r, color )                                             \
     Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(                                \
         Ra::Engine::DrawPrimitives::Circle(                                             \

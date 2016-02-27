@@ -241,6 +241,9 @@ namespace Ra
             // 6.
             virtual void drawScreenInternal() final;
 
+            // 7.
+            virtual void notifyRenderObjectsRenderingInternal() final;
+
         protected:
             uint m_width;
             uint m_height;

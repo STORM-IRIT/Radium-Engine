@@ -51,5 +51,14 @@ namespace Ra
            return getEntity()->getTransform();
         }
 
+        void Component::notifyRenderObjectExpired( const Core::Index& idx )
+        {
+            auto found = std::find( m_renderObjects.cbegin(), m_renderObjects.cend(), idx );
+            CORE_WARN_IF( found == m_renderObjects.cend(), " Render object not found in component" );
+            if ( found != m_renderObjects.cend() )
+            {
+                m_renderObjects.erase( found );
+            }
+        }
     }
 } // namespace Ra

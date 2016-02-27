@@ -54,11 +54,10 @@ namespace Ra
 
             bool isDirty() const;
 
+            void renderObjectExpired( const Ra::Core::Index& idx );
+
         private:
             Core::IndexMap<std::shared_ptr<RenderObject>> m_renderObjects;
-            std::map<Core::Index, std::shared_ptr<RenderObject>> m_doubleBuffer;
-
-            std::vector<Core::Index> m_doneUpdatingObjects;
 
             std::array<std::set<Core::Index>, (int)RenderObjectType::Count> m_renderObjectByType;
             mutable std::array<bool, (int)RenderObjectType::Count> m_typeIsDirty;

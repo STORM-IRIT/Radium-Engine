@@ -1,6 +1,7 @@
 #include <chrono>
 #include <memory>
 #include <vector>
+
 #include <QApplication>
 
 #include <Core/Time/Timer.hpp>

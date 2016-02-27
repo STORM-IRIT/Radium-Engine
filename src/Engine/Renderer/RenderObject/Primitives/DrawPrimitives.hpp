@@ -46,7 +46,8 @@ namespace Ra
             /// Displays given ray as a straight line.
             RA_ENGINE_API RenderObject* Ray( const Component* comp,
                                              const Core::Ray& ray,
-                                             const Core::Color& color );
+                                             const Core::Color& color,
+                                             int lifetime = -1 );
 
             /// @see Ray
             RA_ENGINE_API void Ray( RenderObject* ro,
