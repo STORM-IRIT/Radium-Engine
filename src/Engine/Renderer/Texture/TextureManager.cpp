@@ -155,6 +155,7 @@ namespace Ra
                 else
                 {
                     ret = addTexture( filename );
+                    ret->setClamp( GL_CLAMP, GL_CLAMP );
                 }
             }
 
