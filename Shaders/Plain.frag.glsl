@@ -35,7 +35,7 @@ void main()
 	{
 		vec4 color = texture( material.tex.kd, vTexcoord.xy ).rgba;
 		
-		if ( color.a < 0.1 )
+                if ( color.a < 0.5 )
 		{
 			discard;
 		}
@@ -47,3 +47,4 @@ void main()
 		fragColor = vColor;
 	}
 }
+

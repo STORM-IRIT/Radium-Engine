@@ -5,6 +5,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
+#include <Core/Log/Log.hpp>
 #include <Core/String/StringUtils.hpp>
 
 namespace Ra
@@ -56,7 +57,7 @@ namespace Engine
                 Core::StringUtils::stringPrintf( error,
                     "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
                     config.getName().c_str() );
-                CORE_WARN_IF( true, error.c_str() );
+                LOG( logERROR ) << error;
                 ret = m_defaultShaderProgram;
             }
         }

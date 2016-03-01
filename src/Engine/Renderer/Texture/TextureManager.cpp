@@ -119,7 +119,7 @@ namespace Ra
             CORE_ASSERT( data, "Data is null" );
 
             ret->initGL( internal, w, h, format, GL_UNSIGNED_BYTE, data );
-            ret->genMipmap( GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR );
+            ret->genMipmap( GL_LINEAR, GL_LINEAR );
 
             m_textures.insert( TexturePair( filename, ret ) );
 

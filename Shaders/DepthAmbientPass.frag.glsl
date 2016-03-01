@@ -1,10 +1,12 @@
-layout (location = 0) out vec4 fragNormal;
+out vec4 fragNormal;
 
 struct Textures
 {
+    int hasKd;
     int hasNormal;
     int hasAlpha;
 
+    sampler2D kd;
     sampler2D normal;
     sampler2D alpha;
 };
@@ -34,16 +36,29 @@ vec3 getNormal()
     }
 }
 
-void main()
+float getAlpha()
 {
     if (material.tex.hasAlpha == 1)
     {
-        float alpha = texture(material.tex.alpha, vTexcoord.xy).r;
-        if (alpha < 0.1)
-        {
-            discard;
-        }
+        return texture(material.tex.alpha, vTexcoord.xy).r;
     }
 
-    fragNormal = vec4(getNormal() * 0.5 + 0.5, 1.0);
+    if ( material.tex.hasKd == 1 )
+    {
+        return texture( material.tex.kd, vTexcoord.xy ).a;
+    }
+
+    return 1.0;
+}
+
+void main()
+{
+    float alpha = getAlpha();
+
+    if ( alpha < 0.5 ) discard;
+
+    fragNormal = vec4( getNormal() * 0.5 + 0.5, 1.0 );
+//    fragNormal = vec4( alpha, alpha, alpha, 1.0 );
+
+//    fragNormal = vec4( vTexcoord.xy, 0, 1 );
 }

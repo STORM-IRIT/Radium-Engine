@@ -141,8 +141,10 @@ namespace Ra
         {
             error << m_filename << " not compiled.\n";
             error << getShaderInfoLog( m_id );
-            CORE_WARN_IF( !ok, error.str().c_str() );
             glDeleteShader( m_id );
+
+            // For now, crash when a shader is not compiling
+            CORE_ERROR_IF( ok, error.str().c_str() );
         }
         return !( !ok );
     }
