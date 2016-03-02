@@ -20,8 +20,9 @@ void heat( const Geometry::AreaMatrix&      A,
            const Delta&                     delta ) {
     Eigen::SimplicialLLT< Sparse > llt;
     llt.compute( ( A + ( t * L ) ) );
-    Heat b = delta;
-    u = llt.solve( b );
+    Heat b;
+    b.getMap() = delta;
+    u.getMap() = llt.solve( b.getMap() );
 }
 
 
@@ -33,8 +34,9 @@ Heat heat( const Geometry::AreaMatrix&      A,
     Heat u;
     Eigen::SimplicialLLT< Sparse > llt;
     llt.compute( ( A + ( t * L ) ) );
-    Heat b = delta;
-    u = llt.solve( b );
+    Heat b;
+    b.getMap() = delta;
+    u.getMap() = llt.solve( b.getMap() );
     return u;
 }
 

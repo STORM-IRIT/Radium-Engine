@@ -20,8 +20,8 @@ typedef Source HeatSource;
 typedef Scalar Time;
 
 // Defining the vector containing the heat value of each point of the surface
-//typedef VectorArray< Scalar > Heat;
-typedef Eigen::Matrix< Scalar, Eigen::Dynamic, 1 > Heat;
+typedef VectorArray< Scalar > Heat;
+//typedef Eigen::Matrix< Scalar, Eigen::Dynamic, 1 > Heat;
 
 
 
