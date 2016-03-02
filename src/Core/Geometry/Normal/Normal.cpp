@@ -60,7 +60,9 @@ void angleWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Tr
         normal[k] += theta_k * triN;
     }
     for( auto& n : normal ) {
-        n.normalize();
+        if( !n.isApprox( Vector3::Zero() ) ) {
+            n.normalize();
+        }
     }
 }
 
@@ -81,7 +83,9 @@ void areaWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Tri
         normal[k] += triN;
     }
     for( auto& n : normal ) {
-        n.normalize();
+        if( !n.isApprox( Vector3::Zero() ) ) {
+            n.normalize();
+        }
     }
 }
 
@@ -102,7 +106,10 @@ Vector3 uniformNormal( const Vector3& v, const VectorArray< Vector3 >& one_ring 
         i.setValue( j );
         normal += triangleNormal( v, one_ring[i], one_ring[i-1] );
     }
-    return normal.normalized();
+    if( !normal.isApprox( Vector3::Zero() ) ) {
+        return normal.normalized();
+    }
+    return Vector3::Zero();
 }
 
 
@@ -118,7 +125,10 @@ Vector3 angleWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& one
         Scalar theta = Vector::angle( ( one_ring[i] - v ), ( one_ring[i-1] - v ) );
         normal += theta * triangleNormal( v, one_ring[i], one_ring[i-1] );
     }
-    return normal.normalized();
+    if( !normal.isApprox( Vector3::Zero() ) ) {
+        return normal.normalized();
+    }
+    return Vector3::Zero();
 }
 
 
@@ -134,7 +144,10 @@ Vector3 areaWeightedNormal( const Vector3& v, const VectorArray< Vector3 >& one_
         Scalar area = triangleArea( v, one_ring[i], one_ring[i-1] );
         normal += area * triangleNormal( v, one_ring[i], one_ring[i-1] );
     }
-    return normal.normalized();
+    if( !normal.isApprox( Vector3::Zero() ) ) {
+        return normal.normalized();
+    }
+    return Vector3::Zero();
 }
 
 
