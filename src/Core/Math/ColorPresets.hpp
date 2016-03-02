@@ -42,6 +42,45 @@ namespace Ra{
                 return FromChars(r,g,b,a);
             }
 
+            inline Color fromHSV( const Scalar hue,
+                                  const Scalar saturation = 1.0,
+                                  const Scalar value      = 1.0,
+                                  const Scalar alpha      = 1.0 ) {
+                Color c;
+                if( saturation == 0.0f ) {
+                    c[0] = c[1] = c[2] = value;
+                    c[3] = alpha;
+                    return c;
+                }
+                Scalar h  = ( ( hue == 1.0f ) ? 0.0f : hue ) * 6.0f;
+                int    i  = std::floor( h );
+                Scalar v1 = value * ( 1.0f - saturation );
+                Scalar v2 = value * ( 1.0f - ( saturation * ( h - i ) ) );
+                Scalar v3 = value * ( 1.0f - ( saturation * ( 1.0f - h - i ) ) );
+                switch( i ) {
+                    case 0: {
+                        c[0] = value; c[1] = v3;    c[2] = v1;
+                    } break;
+                    case 1: {
+                        c[0] = v2;    c[1] = value; c[2] = v1;
+                    } break;
+                    case 2: {
+                        c[0] = v1;    c[1] = value; c[2] = v3;
+                    } break;
+                    case 3: {
+                        c[0] = v1;    c[1] = v2;    c[2] = value;
+                    } break;
+                    case 4: {
+                        c[0] = v3;    c[1] = v1;    c[2] = value;
+                    } break;
+                    default: {
+                        c[0] = value; c[1] = v1;    c[2] = v2;
+                    } break;
+                }
+                c[3] = alpha;
+                return c;
+            }
+
             inline uint32_t ToRGBA32(const Color& color)
             {
                 Vector4i scaled = (color * 255).cast<int>();
