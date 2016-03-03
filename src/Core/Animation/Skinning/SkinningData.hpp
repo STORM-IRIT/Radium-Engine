@@ -45,8 +45,6 @@ namespace Skinning
         Ra::Core::Animation::Pose m_refToCurrentRelPose;
     };
 
-
-
 } // Skinning
 } // Core
 } // Ra
