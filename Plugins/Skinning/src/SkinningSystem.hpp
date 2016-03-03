@@ -11,6 +11,9 @@
 #include <Engine/Entity/Entity.hpp>
 #include <SkinningTask.hpp>
 #include <SkinningComponent.hpp>
+
+#include <Display/SkinningDisplayComponent.hpp>
+
 namespace SkinningPlugin
 {
 
@@ -46,6 +49,10 @@ namespace SkinningPlugin
                     entity->addComponent( component );
                     component->handleWeightsLoading(skel);
                     registerComponent(entity, component);
+
+                    SkinningDisplayComponent* display = new SkinningDisplayComponent("SkC_DSP_" + skel->getName(), skel->getName() );
+                    entity->addComponent( display );
+                    //display->display( component->getRefData() );
                 }
             }
         }
