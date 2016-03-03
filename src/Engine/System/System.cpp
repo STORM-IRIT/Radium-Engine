@@ -32,6 +32,7 @@ namespace Ra
             }
 #endif // DEBUG
             m_components.push_back({ ent, component });
+            component->setSystem( this );
 
         }
 
