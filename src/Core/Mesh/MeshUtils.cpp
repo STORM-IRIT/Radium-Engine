@@ -2,6 +2,7 @@
 
 #include <Core/Math/Math.hpp>
 #include <Core/Math/RayCast.hpp>
+#include <Core/Containers/Grid.hpp>
 #include <Core/String/StringUtils.hpp>
 
 namespace Ra
@@ -477,7 +478,8 @@ namespace Ra
 
 
 
-            TriangleMesh makePlaneGrid( const uint rows, const uint cols, const Vector2& halfExts, const Transform& T ) {
+            TriangleMesh makePlaneGrid( const uint rows, const uint cols, const Vector2& halfExts, const Transform& T ) 
+            {
                 TriangleMesh grid;
                 const uint R = ( rows + 1 );
                 const uint C = ( cols + 1 );
@@ -496,29 +498,29 @@ namespace Ra
                 const Vector3 y = ( 2.0 * halfExts[1] * Y ) / ( Scalar )( rows );
                 const Vector3 o = T.translation() - ( halfExts[0] * X ) - ( halfExts[1] * Y );
 
-                uint v[R][C];
-                for( uint i = 0; i < R; ++i ) {
-                    for( uint j = 0; j < C; ++j ) {
+                Grid < uint, 2> v( { R,C } );
+                for( uint i = 0; i < R; ++i ) 
+                {
+                    for( uint j = 0; j < C; ++j ) 
+                    {
                         const uint id = ( i * C ) + j;
-                        v[i][j] = id;
+                        v.at({ i,j }) = id;
                         grid.m_vertices[id] = o + ( i * y ) + ( j * x );
                         grid.m_normals[id]  = Z;
                     }
                 }
 
-                for( uint i = 0; i < rows; ++i ) {
-                    for( uint j = 0; j < cols; ++j ) {
-                        grid.m_triangles.push_back( Triangle( v[i][j], v[i][j+1], v[i+1][j+1]  ) );
-                        grid.m_triangles.push_back( Triangle( v[i][j], v[i+1][j+1], v[i+1][j]  ) );
+                for( uint i = 0; i < rows; ++i ) 
+                {
+                    for( uint j = 0; j < cols; ++j ) 
+                    {
+                        grid.m_triangles.push_back( Triangle( v.at( { i,j } ), v.at( { i,j+1 } ), v.at( { i+1,j+1 } )));
+                        grid.m_triangles.push_back( Triangle( v.at( { i,j } ), v.at( { i+1,j+1 } ), v.at( { i+1,j } )));
                     }
                 }
 
                 return grid;
             }
-
-
-
-
         } // namespace MeshUtils
     } // namespace Core
 } // namespace Ra
