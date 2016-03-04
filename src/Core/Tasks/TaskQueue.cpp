@@ -1,6 +1,8 @@
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Tasks/Task.hpp>
 
+#include <stack>
+
 namespace Ra
 {
     namespace Core
@@ -66,14 +68,64 @@ namespace Ra
            }
         }
 
+        void TaskQueue::addDependency(TaskQueue::TaskId predecessor, const std::string &successors)
+        {
+           for (uint i = 0; i < m_tasks.size(); ++i)
+           {
+               if (m_tasks[i]->getName() == successors )
+               {
+                   addDependency( predecessor, i );
+               }
+           }
+        }
+
         void TaskQueue::queueTask( TaskQueue::TaskId task )
         {
             CORE_ASSERT( m_remainingDependencies[task] == 0, " Task has unsatisfied dependencies" );
             m_taskQueue.push_front( task );
         }
 
+        void TaskQueue::detectCycles()
+        {
+#if defined (CORE_DEBUG)
+            // Do a depth-first search of the nodes.
+            std::vector<bool> visited( m_tasks.size(), false);
+            std::stack<TaskId> pending;
+
+            for (TaskId id = 0; id < m_tasks.size(); ++id)
+            {
+                if ( m_dependencies[id].size() == 0 )
+                {
+                    pending.push(id);
+                }
+            }
+
+            // If you hit this assert, there are tasks in the list but
+            // all tasks have dependencies so no task can start.
+            CORE_ASSERT( m_tasks.empty() || !pending.empty(), "No free tasks.");
+
+            while (! pending.empty())
+            {
+                TaskId id = pending.top();
+                pending.pop();
+
+                // The task has already been visited. It means there is a cycle in the task graph.
+                CORE_ASSERT( !(visited[id]), "Cycle detected in tasks !");
+
+                visited[id] = true;
+                for ( const auto& dep : m_dependencies[id])
+                {
+                    pending.push( dep );
+                }
+            }
+#endif
+        }
+
         void TaskQueue::startTasks()
         {
+            // Do a debug check
+            detectCycles();
+
             // Enqueue all tasks with no dependencies.
             for ( uint t = 0; t < m_tasks.size(); ++t )
             {

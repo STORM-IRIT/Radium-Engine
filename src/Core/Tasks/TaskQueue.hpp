@@ -66,6 +66,8 @@ namespace Ra
             /// Add dependency between a task and all task with a given name
             void addDependency( const std::string& predecessors, TaskId successor);
 
+            void addDependency( TaskId predecessor, const std::string& successors);
+
             /// Launches the execution of all the threads in the task queue.
             /// No more tasks should be added at this point.
             void startTasks();
@@ -86,6 +88,10 @@ namespace Ra
             /// Puts the task on the queue to be executed. A task can only be queued if it has
             /// no dependencies.
             void queueTask( TaskId task );
+
+            /// Detect if there are any cycles in the task graph, and asserts if it is the case.
+            /// (this function is compiled to nothing in release).
+            void detectCycles();
 
         private:
             /// Threads working on tasks.
