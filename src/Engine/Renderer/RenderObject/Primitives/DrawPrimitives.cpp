@@ -193,7 +193,7 @@ namespace Ra
                 }
                 else
                 {
-                    indices = {0, 1, 1, 2, 2, 3};
+                    indices = {0, 1, 1, 2, 2, 0};
                 }
 
                 GLenum renderType = fill ? GL_TRIANGLES : GL_LINES;
@@ -224,7 +224,7 @@ namespace Ra
                 }
                 else
                 {
-                    indices = {0, 1, 1, 2, 2, 3};
+                    indices = {0, 1, 1, 2, 2, 0};
                 }
 
                 Core::Vector4Array colors( vertices.size(), color );
