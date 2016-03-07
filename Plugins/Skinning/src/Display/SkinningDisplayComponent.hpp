@@ -119,6 +119,9 @@ public:
             displayMesh->loadGeometry( mesh );
             displayMesh->addData( Ra::Engine::Mesh::Vec4Data::VERTEX_COLOR, color );
             renderObject->setMesh( displayMesh );
+
+            renderObject->setVisible( false );
+
             addRenderObject( renderObject );
         }
     }
