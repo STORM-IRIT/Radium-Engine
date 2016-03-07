@@ -51,6 +51,8 @@ void SkinningComponent::setupSkinning()
 
         m_frameData.m_previousPose = refPose;
 
+        m_frameData.m_doSkinning = false;
+
         m_skeletonGetter = ComponentMessenger::getInstance()->ComponentMessenger::getterCallback<Skeleton>( getEntity(), m_contentsName );
         m_verticesWriter = ComponentMessenger::getInstance()->ComponentMessenger::rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName+"v" );
         m_normalsWriter = ComponentMessenger::getInstance()->ComponentMessenger::rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName+"n" );
@@ -70,8 +72,8 @@ void SkinningComponent::skin()
     m_frameData.m_currentPose = skel->getPose(SpaceType::MODEL);
     if ( !Ra::Core::Animation::areEqual( m_frameData.m_currentPose, m_frameData.m_previousPose))
     {
+        m_frameData.m_doSkinning = true;
         Ra::Core::Vector3Array* vertices = static_cast<Ra::Core::Vector3Array* >(m_verticesWriter());
-        Ra::Core::Vector3Array* normals = static_cast<Ra::Core::Vector3Array* >(m_normalsWriter());
         CORE_ASSERT( vertices->size() == m_refData.m_referenceMesh.m_vertices.size(), "Inconsistent meshes");
 
         m_frameData.m_refToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_refData.m_refPose);
@@ -117,9 +119,19 @@ void SkinningComponent::skin()
             (*vertices)[i] = m_DQ[i].transform(m_refData.m_referenceMesh.m_vertices[i]);
             CORE_ASSERT((*vertices)[i].allFinite(), "Infinite point in DQS");
         }
+    }
+}
 
+void SkinningComponent::endSkinning()
+{
+    if (m_frameData.m_doSkinning)
+    {
+        const Ra::Core::Vector3Array* vertices = static_cast<Ra::Core::Vector3Array* >(m_verticesWriter());
+        Ra::Core::Vector3Array* normals = static_cast<Ra::Core::Vector3Array* >(m_normalsWriter());
         Ra::Core::Geometry::uniformNormal( *vertices, m_refData.m_referenceMesh.m_triangles, *normals );
-        std::swap( m_frameData.m_currentPose, m_frameData.m_previousPose);
+
+        m_frameData.m_previousPose = m_frameData.m_currentPose;
+        m_frameData.m_doSkinning = false;
     }
 }
 

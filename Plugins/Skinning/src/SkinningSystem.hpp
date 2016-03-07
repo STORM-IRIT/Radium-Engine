@@ -27,10 +27,13 @@ namespace SkinningPlugin
             for (const auto& compEntry : m_components)
             {
                 SkinningComponent* comp = static_cast<SkinningComponent*>(compEntry.second);
-                SkinnerTask* task = new SkinnerTask(comp);
+                SkinnerTask* skinTask = new SkinnerTask(comp);
+                SkinnerEndTask* endTask = new SkinnerEndTask(comp);
 
-                Ra::Core::TaskQueue::TaskId taskId = taskQueue->registerTask(task);
-                taskQueue->addDependency("AnimatorTask", taskId);
+                Ra::Core::TaskQueue::TaskId skinTaskId = taskQueue->registerTask(skinTask);
+                Ra::Core::TaskQueue::TaskId endTaskId = taskQueue->registerTask(endTask);
+                taskQueue->addDependency( "AnimatorTask", skinTaskId );
+                taskQueue->addDependency( skinTaskId, endTaskId);
             }
 
         }

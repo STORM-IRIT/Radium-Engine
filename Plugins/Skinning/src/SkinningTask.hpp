@@ -21,5 +21,19 @@ namespace SkinningPlugin
         SkinningComponent* m_component;
     };
 
+    class SkinnerEndTask : public Ra::Core::Task
+    {
+    public:
+        SkinnerEndTask(SkinningComponent* component) : m_component(component) {}
+
+        virtual std::string getName() const override { return "SkinnerEndTask";}
+        virtual void init( const Ra::Core::TaskParams* params ) override{}
+        virtual void process() override;
+
+    private:
+        SkinningComponent* m_component;
+    };
+
+
 }
 #endif //SKINPLUGIN_SKINNING_TASK_HPP_

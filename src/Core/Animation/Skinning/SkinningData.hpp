@@ -43,6 +43,8 @@ namespace Skinning
 
         /// Relative pose from reference pose to current.
         Ra::Core::Animation::Pose m_refToCurrentRelPose;
+
+        bool m_doSkinning;
     };
 
 } // Skinning

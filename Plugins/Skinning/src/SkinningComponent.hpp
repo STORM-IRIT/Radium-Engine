@@ -25,6 +25,7 @@ namespace SkinningPlugin
         virtual void initialize() override { setupSkinning();}
 
         void skin();
+        void endSkinning();
         void setupSkinning();
 
         virtual void handleWeightsLoading( const Ra::Asset::HandleData* data );
