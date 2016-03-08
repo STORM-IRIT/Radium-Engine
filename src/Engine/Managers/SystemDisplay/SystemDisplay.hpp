@@ -48,7 +48,7 @@ namespace Ra
         /// It should have only one component and its transform should not change.
         class RA_ENGINE_API SystemEntity : public Entity
         {
-        RA_SINGLETON_INTERFACE(SystemEntity);
+            RA_SINGLETON_INTERFACE(SystemEntity);
 
         public:
             SystemEntity();
@@ -77,128 +77,69 @@ namespace Ra
 
 
 #ifndef RA_DISABLE_DEBUG_DISPLAY
-// FIXME(Charly): We should find a better
 /// Macros for debug drawing. All coordinates are in world space.
-#define RA_DISPLAY_POINT( p, color, scale )                                             \
-    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(                                \
-        Ra::Engine::DrawPrimitives::Point(                                              \
-            Ra::Engine::SystemEntity::dbgCmp(), p, color, scale ))
+#define RA_DISPLAY_POINT( p, color, scale )                         \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
+        Ra::Engine::DrawPrimitives::Primitive(                      \
+            Ra::Engine::SystemEntity::dbgCmp(),                     \
+            Ra::Engine::DrawPrimitives::Point(p, color, scale)))
 
-#define RA_DISPLAY_VECTOR( p, v, color )                                                \
-    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(                                \
-        Ra::Engine::DrawPrimitives::Vector(                                             \
-            Ra::Engine::SystemEntity::dbgCmp(), p, v, color ) )
+#define RA_DISPLAY_VECTOR( p, v, color )                            \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
+        Ra::Engine::DrawPrimitives::Primitive(                      \
+            Ra::Engine::SystemEntity::dbgCmp(),                     \
+            Ra::Engine::DrawPrimitives::Vector(p, v, color)))
 
-#define RA_DISPLAY_RAY( r, color )                                                      \
-    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(                                \
-        Ra::Engine::DrawPrimitives::Ray(                                                \
-            Ra::Engine::SystemEntity::dbgCmp(), r, color ))
+#define RA_DISPLAY_RAY( r, color )                                  \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
+        Ra::Engine::DrawPrimitives::Primitive(                      \
+            Ra::Engine::SystemEntity::dbgCmp(),                     \
+            Ra::Engine::DrawPrimitives::Ray(r, color)))
 
-#define RA_DISPLAY_RAY_LIFETIME( r, color, lifetime )                                   \
-    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(                                \
-        Ra::Engine::DrawPrimitives::Ray(                                                \
-            Ra::Engine::SystemEntity::dbgCmp(), r, color, lifetime ))
+#define RA_DISPLAY_CIRCLE( c, n, r, color )                         \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
+        Ra::Engine::DrawPrimitives::Primitive(                      \
+            Ra::Engine::SystemEntity::dbgCmp(),                     \
+            Ra::Engine::DrawPrimitives::Circle(c, n, r, 20, color)))
 
+#define RA_DISPLAY_TRIANGLE( a, b, c, color )                       \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
+        Ra::Engine::DrawPrimitives::Primitive(                      \
+            Ra::Engine::SystemEntity::dbgCmp(),                     \
+            Ra::Engine::DrawPrimitives::Triangle(a, b, c, color)))
 
+#define RA_DISPLAY_NORMAL( p, n, color, scale )                     \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
+        Ra::Engine::DrawPrimitives::Primitive(                      \
+            Ra::Engine::SystemEntity::dbgCmp(),                     \
+            Ra::Engine::DrawPrimitives::Normal(p, n, color, scale)))
 
-#define RA_DISPLAY_CIRCLE( c, n, r, color )                                             \
-    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(                                \
-        Ra::Engine::DrawPrimitives::Circle(                                             \
-            Ra::Engine::SystemEntity::dbgCmp(), c, n, r, 20, color ) )
+#define RA_DISPLAY_FRAME( t, scale )                                \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
+        Ra::Engine::DrawPrimitives::Primitive(                      \
+            Ra::Engine::SystemEntity::dbgCmp(),                     \
+            Ra::Engine::DrawPrimitives::Frame(t, scale)))
 
-#define RA_DISPLAY_TRIANGLE( a, b, c, color )                                           \
-    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(                                \
-        Ra::Engine::DrawPrimitives::Triangle(                                           \
-            Ra::Engine::SystemEntity::dbgCmp(), a, b, c, color ) )
+#define RA_DISPLAY_AABB( a, color )                                 \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
+        Ra::Engine::DrawPrimitives::Primitive(                      \
+            Ra::Engine::SystemEntity::dbgCmp(),                     \
+            Ra::Engine::DrawPrimitives::AABB(a, color)))
 
-#define RA_DISPLAY_NORMAL( p, n, color, scale )                                         \
-    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(                                \
-        Ra::Engine::DrawPrimitives::Normal(                                             \
-            Ra::Engine::SystemEntity::dbgCmp(), p, n, color, scale ) )
+#define RA_DISPLAY_OBB( a, color )                                  \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
+        Ra::Engine::DrawPrimitives::Primitive(                      \
+            Ra::Engine::SystemEntity::dbgCmp(),                     \
+            Ra::Engine::DrawPrimitives::OOB(a, color)))
 
-#define RA_DISPLAY_FRAME( t, scale )                                                    \
-    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(                                \
-        Ra::Engine::DrawPrimitives::Frame(                                              \
-            Ra::Engine::SystemEntity::dbgCmp(), t, scale ) )
+#define RA_DISPLAY_SPHERE( c, r, color )                            \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
+        Ra::Engine::DrawPrimitives::Primitive(                      \
+            Ra::Engine::SystemEntity::dbgCmp(),                     \
+            Ra::Engine::DrawPrimitives::Sphere(c, r, color)))
 
-#define RA_DISPLAY_AABB( a, color )                                                     \
-    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(                                \
-        Ra::Engine::DrawPrimitives::AABB(                                               \
-            Ra::Engine::SystemEntity::dbgCmp(), a, color ) )
-
-#define RA_DISPLAY_OBB( a, color )                                                      \
-    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(                                \
-        Ra::Engine::DrawPrimitives::OBB(                                                \
-            Ra::Engine::SystemEntity::dbgCmp(), a, color ) )
-
-#define RA_DISPLAY_SPHERE( c, r, color )                                                \
-    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(                                \
-        Ra::Engine::DrawPrimitives::Sphere(                                             \
-            Ra::Engine::SystemEntity::dbgCmp(), c, r, color ) )
-
-/// RO update mechanics
-#define RA_UPDATE_POINT( idx, p, color, scale )                                         \
-{                                                                                       \
-    RenderObject* ro = Ra::Engine::SystemEntity::dbgCmp()->updateRenderObject( idx );   \
-    Ra::Engine::DrawPrimitives::Point( ro, p, color, scale );                           \
-    Ra::Engine::SystemEntity::dbgCmp()->doneUpdatingRenderObject( idx );                \
-}
-
-#define RA_UPDATE_VECTOR( idx, p, v, color )                                            \
-{                                                                                       \
-    RenderObject* ro = Ra::Engine::SystemEntity::dbgCmp()->updateRenderObject( idx );   \
-    Ra::Engine::DrawPrimitives::Vector( ro, p, v, color );                              \
-    Ra::Engine::SystemEntity::dbgCmp()->doneUpdatingRenderObject( idx );                \
-}
-
-#define RA_UPDATE_RAY( idx, r, color )                                                  \
-{                                                                                       \
-    RenderObject* ro = Ra::Engine::SystemEntity::dbgCmp()->updateRenderObject( idx );   \
-    Ra::Engine::DrawPrimitives::Ray( ro, r, color );                                    \
-    Ra::Engine::SystemEntity::dbgCmp()->doneUpdatingRenderObject( idx );                \
-}
-
-#define RA_UPDATE_TRIANGLE( idx, a, b, c, color )                                       \
-{                                                                                       \
-    RenderObject* ro = Ra::Engine::SystemEntity::dbgCmp()->updateRenderObject( idx );   \
-    Ra::Engine::DrawPrimitives::Triangle( ro, a, b, c, color );                         \
-    Ra::Engine::SystemEntity::dbgCmp()->doneUpdatingRenderObject( idx );                \
-}
-
-#define RA_UPDATE_CIRCLE( idx, c, n, r, color )                                         \
-{                                                                                       \
-    RenderObject* ro = Ra::Engine::SystemEntity::dbgCmp()->updateRenderObject( idx );   \
-    Ra::Engine::DrawPrimitives::Circle( ro, c, n, r, color );                           \
-    Ra::Engine::SystemEntity::dbgCmp()->doneUpdatingRenderObject( idx );                \
-}
-
-#define RA_UPDATE_NORMAL( idx, p, n, color, scale )                                     \
-{                                                                                       \
-    RenderObject* ro = Ra::Engine::SystemEntity::dbgCmp()->updateRenderObject( idx );   \
-    Ra::Engine::DrawPrimitives::Normal( ro, p, n, color, scale );                       \
-    Ra::Engine::SystemEntity::dbgCmp()->doneUpdatingRenderObject( idx );                \
-}
-
-#define RA_UPDATE_FRAME( idx, t, scale )                                                \
-{                                                                                       \
-    RenderObject* ro = Ra::Engine::SystemEntity::dbgCmp()->updateRenderObject( idx );   \
-    Ra::Engine::DrawPrimitives::Frame( ro, t, scale );                                  \
-    Ra::Engine::SystemEntity::dbgCmp()->doneUpdatingRenderObject( idx );                \
-}
-
-#define RA_UPDATE_AABB( idx, a, color )                                                 \
-{                                                                                       \
-    RenderObject* ro = Ra::Engine::SystemEntity::dbgCmp()->updateRenderObject( idx );   \
-    Ra::Engine::DrawPrimitives::AABB( ro, a, color );                                   \
-    Ra::Engine::SystemEntity::dbgCmp()->doneUpdatingRenderObject( idx );                \
-}
-
-#define RA_UPDATE_OBB( idx, a, color )                                                  \
-{                                                                                       \
-    RenderObject* ro = Ra::Engine::SystemEntity::dbgCmp()->updateRenderObject( idx );   \
-    Ra::Engine::DrawPrimitives::OBB( ro, a, color );                                    \
-    Ra::Engine::SystemEntity::dbgCmp()->doneUpdatingRenderObject( idx );                \
-}
+#define RA_DISPLAY_LINE_ONCE(a, b, color)                           \
+    Ra::Engine::DebugRender::getInstance()->drawLine(a, b, color)
 
 #else // if debug display is disabled
 
@@ -208,6 +149,7 @@ namespace Ra
 #define RA_DISPLAY_TRIANGLE( a, b, c, color )   // ...
 #define RA_DISPLAY_NORMAL( p, n, color, scale ) // ...
 #define RA_DISPLAY_FRAME( t, scale )            // ...
+#define RA_DISPLAY_LINE_ONCE(a, b, color)       // ...
 
 #endif //!defined DISABLED_DEBUG_DISPLAY
 

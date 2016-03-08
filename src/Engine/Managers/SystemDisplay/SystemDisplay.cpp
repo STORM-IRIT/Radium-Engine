@@ -6,7 +6,7 @@ namespace Ra
     {
 
         SystemEntity::SystemEntity()
-        : Entity("System Display Entity")
+            : Entity("System Display Entity")
         {
             addComponent( new UiComponent );
             addComponent( new DebugComponent );
@@ -14,16 +14,20 @@ namespace Ra
 
         UiComponent* SystemEntity::uiCmp()
         {
-            CORE_ASSERT(getInstance()->getNumComponents() == 2,  "This entity should have two components only");
-            CORE_ASSERT(getInstance()->getTransformAsMatrix() == Core::Matrix4::Identity(), "Transform has been changed !");
+            CORE_ASSERT(getInstance()->getNumComponents() == 2,  
+                        "This entity should have two components only");
+            CORE_ASSERT(getInstance()->getTransformAsMatrix() == 
+                        Core::Matrix4::Identity(), "Transform has been changed !");
             return static_cast<UiComponent*>(getInstance()->getComponent("UI"));
         }
 
 #ifndef RA_DISABLE_DEBUG_DISPLAY
         DebugComponent* SystemEntity::dbgCmp()
         {
-            CORE_ASSERT(getInstance()->getNumComponents() == 2,  "This entity should have two components only");
-            CORE_ASSERT(getInstance()->getTransformAsMatrix() == Core::Matrix4::Identity(), "Transform has been changed !");
+            CORE_ASSERT(getInstance()->getNumComponents() == 2,  
+                        "This entity should have two components only");
+            CORE_ASSERT(getInstance()->getTransformAsMatrix() == 
+                        Core::Matrix4::Identity(), "Transform has been changed !");
             return static_cast<DebugComponent*>(getInstance()->getComponent("Debug"));
         }
 
