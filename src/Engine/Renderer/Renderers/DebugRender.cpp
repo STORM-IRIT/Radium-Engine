@@ -49,15 +49,18 @@ namespace Ra
                 indices.push_back(indexI++);
             }
 
-            m_shaderProgram->bind();
-            m_shaderProgram->setUniform("view", viewMatrix);
-            m_shaderProgram->setUniform("proj", projMatrix);
+            if (vertices.size() > 0)
+            {
+                m_shaderProgram->bind();
+                m_shaderProgram->setUniform("view", viewMatrix);
+                m_shaderProgram->setUniform("proj", projMatrix);
 
-            Mesh mesh("temp", GL_LINES);
-            mesh.loadGeometry(vertices, indices);
-            mesh.addData(Mesh::VERTEX_COLOR, colors);
-            mesh.updateGL();
-            mesh.render();
+                Mesh mesh("temp", GL_LINES);
+                mesh.loadGeometry(vertices, indices);
+                mesh.addData(Mesh::VERTEX_COLOR, colors);
+                mesh.updateGL();
+                mesh.render();
+            }
 
             m_lines.clear();
         }
