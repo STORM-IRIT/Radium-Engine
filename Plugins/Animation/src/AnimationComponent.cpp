@@ -110,8 +110,11 @@ namespace AnimationPlugin
 
     void AnimationComponent::update(Scalar dt)
     {
-        if (dt > 0.5) // Ignore large dt that appear when the engine is paused (while loading a file for instance)
+        // Ignore large dt that appear when the engine is paused (while loading a file for instance)
+        if (dt > 0.5)
+        {
             dt = 0;
+        }
 
         // Compute the elapsed time
         m_animationTime += dt;

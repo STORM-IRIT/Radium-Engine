@@ -32,11 +32,19 @@ namespace AnimationPlugin
     {
         QWidget* widget = new QWidget();
         QToolBar* tb = new QToolBar(widget);
-        QAction* toggleXray = new QAction( QIcon(":/Assets/Images/xray.png"), "Toggle Xray", widget );
-        toggleXray->setCheckable(true);
-        toggleXray->setChecked(m_system->isXrayOn());
-        connect( toggleXray, &QAction::toggled, this, &AnimationPluginC::toggleXray);
-        tb->addAction(toggleXray);
+        {
+            QAction* toggleXray = new QAction( QIcon(":/Assets/Images/xray.png"), "Toggle Xray", widget );
+            toggleXray->setCheckable(true);
+            toggleXray->setChecked(m_system->isXrayOn());
+            connect( toggleXray, &QAction::toggled, this, &AnimationPluginC::toggleXray);
+            tb->addAction(toggleXray);
+        }
+        {
+            QAction* step = new QAction( "Step", widget );
+            connect( step , &QAction::triggered, this, &AnimationPluginC::step);
+            tb->addAction(step);
+        }
+
         return widget;
     }
 
@@ -54,5 +62,10 @@ namespace AnimationPlugin
     {
         CORE_ASSERT(m_system, "System should be there ");
         m_system->setXray(on);
+    }
+
+    void AnimationPluginC::step()
+    {
+        m_system->step();
     }
 }

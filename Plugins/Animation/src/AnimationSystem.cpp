@@ -95,6 +95,7 @@ namespace AnimationPlugin
             entity->addComponent( component );
             component->handleSkeletonLoading( skel, ( geomID == uint( -1 ) ) ? std::map< uint, uint >() : geomData[geomID]->getDuplicateTable() );
             component->handleAnimationLoading( animData );
+
             component->toggleXray( m_xrayOn );
             registerComponent( entity, component );
         }
