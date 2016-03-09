@@ -126,8 +126,6 @@ namespace Ra
             const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
             m_currentGizmo->setInitialState(cam, Core::Vector2(event->x(), event->y()));
 
-            // Picking query is done in the viewer.
-
             return true;
         }
 
@@ -142,7 +140,7 @@ namespace Ra
 
         bool GizmoManager::handleMouseMoveEvent(QMouseEvent* event)
         {
-            if ( m_currentGizmo )
+            if ( event->buttons() & Qt::LeftButton && m_currentGizmo )
             {
                 Core::Vector2 currentXY(event->x(), event->y());
                 const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
