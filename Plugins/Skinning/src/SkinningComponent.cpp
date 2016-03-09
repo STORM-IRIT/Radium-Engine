@@ -4,6 +4,7 @@
 #include <Core/Animation/Pose/PoseOperation.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
 
+#include <DualQuaternionSkinning.hpp>
 
 using Ra::Core::Quaternion;
 using Ra::Core::DualQuaternion;
@@ -70,7 +71,6 @@ void SkinningComponent::skin()
 
     const Skeleton* skel = static_cast<const Skeleton*>(m_skeletonGetter());
     m_frameData.m_currentPose = skel->getPose(SpaceType::MODEL);
-
     if ( !Ra::Core::Animation::areEqual( m_frameData.m_currentPose, m_frameData.m_previousPose))
     {
         m_frameData.m_doSkinning = true;
@@ -80,46 +80,8 @@ void SkinningComponent::skin()
         m_frameData.m_refToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_refData.m_refPose);
         m_frameData.m_prevToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_frameData.m_previousPose);
 
-        // Do DQS
-        m_DQ.resize( m_refData.m_weights.rows(), DualQuaternion( Quaternion( 0.0, 0.0, 0.0, 0.0 ),
-                                                                 Quaternion( 0.0 ,0.0, 0.0, 0.0 )) );
-
-        ON_DEBUG( std::vector<Scalar> weightCheck( m_refData.m_weights.rows(), 0.f));
-#pragma omp parallel for
-        for( int k = 0; k < m_refData.m_weights.outerSize(); ++k )
-        {
-            DualQuaternion q(m_frameData.m_refToCurrentRelPose[k]);
-            for( WeightMatrix::InnerIterator it( m_refData.m_weights, k ); it; ++it)
-            {
-                uint   i = it.row();
-                Scalar w = it.value();
-                const DualQuaternion wq = q * w;
-#pragma omp critical
-                {
-                    m_DQ[i] += wq;
-                    ON_DEBUG( weightCheck[i] += w);
-                }
-            }
-        }
-
-        // Normalize all dual quats.
-#pragma omp parallel for
-        for(uint i = 0; i < m_DQ.size() ; ++i)
-        {
-            m_DQ[i].normalize();
-
-            CORE_ASSERT( Ra::Core::Math::areApproxEqual(weightCheck[i],1.f), "Incorrect skinning weights");
-            CORE_ASSERT( m_DQ[i].getQ0().coeffs().allFinite() && m_DQ[i].getQe().coeffs().allFinite(),
-                         "Invalid dual quaternion.");
-        }
-
-        const uint nVerts = m_refData.m_referenceMesh.m_vertices.size();
-#pragma omp parallel for
-        for (uint i = 0; i < nVerts; ++i )
-        {
-            (*vertices)[i] = m_DQ[i].transform(m_refData.m_referenceMesh.m_vertices[i]);
-            CORE_ASSERT((*vertices)[i].allFinite(), "Infinite point in DQS");
-        }
+        computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_DQ );
+        DualQuaternionSkinning( m_refData.m_referenceMesh.m_vertices, m_DQ, (*vertices) );
     }
 }
 
