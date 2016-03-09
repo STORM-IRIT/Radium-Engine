@@ -47,12 +47,16 @@ namespace Ra
             };
 
         public:
-            // Constructor. Initializes the thread pools with numThreads threads.
+
+            /// Constructor. Initializes the thread pools with numThreads threads.
             TaskQueue( uint numThreads );
 
             /// Destructor. Waits for all the threads and saefly deletes them.
             ~TaskQueue();
 
+            //
+            // Task management
+            //
 
             /// Registers a task to be executed.
             /// Task must have been created with new and be initialized with its parameter.
@@ -63,10 +67,19 @@ namespace Ra
             /// its predecessor completed.
             void addDependency( TaskId predecessor, TaskId successor );
 
-            /// Add dependency between a task and all task with a given name
-            void addDependency( const std::string& predecessors, TaskId successor);
+            /// Add dependency between a task and all task with a given name.
+            /// Will return false if no dependency has been added.
+            bool addDependency( const std::string& predecessors, TaskId successor);
+            bool addDependency( TaskId predecessor, const std::string& successors);
 
-            void addDependency( TaskId predecessor, const std::string& successors);
+            /// Add a dependency between a task an all tasks with a given name, even
+            /// if the task is not present yet, the name being resolved when task start.
+            void addPendingDependency( const std::string& predecessors, TaskId successor);
+            void addPendingDependency( TaskId predecessor, const std::string& successors);
+
+            //
+            // Task queue operations
+            //
 
             /// Launches the execution of all the threads in the task queue.
             /// No more tasks should be added at this point.
@@ -82,6 +95,7 @@ namespace Ra
             void flushTaskQueue();
 
         private:
+
             /// Function called by a new thread.
             void runThread( uint id );
 
@@ -93,17 +107,28 @@ namespace Ra
             /// (this function is compiled to nothing in release).
             void detectCycles();
 
+            /// Resolves the pending named dependencies. Will assert if dependencies don't resolve.
+            void resolveDependencies();
+
         private:
+
             /// Threads working on tasks.
             std::vector<std::thread> m_workerThreads;
             /// Storage for the tasks (task will be deleted
             std::vector<std::unique_ptr<Task>> m_tasks;
             /// For each task, stores which tasks depend on it.
             std::vector<std::vector <TaskId>> m_dependencies;
+
+            /// List of pending dependencies
+            std::vector<std::pair<TaskId,std::string>> m_pendingDepsPre;
+            std::vector<std::pair<std::string,TaskId>> m_pendingDepsSucc;
+
             /// Stores the timings of each frame after execution.
             std::vector<TimerData> m_timerData;
 
+            //
             // mutex protected variables.
+            //
 
             /// Number of tasks each task is waiting on.
             std::vector<uint> m_remainingDependencies;

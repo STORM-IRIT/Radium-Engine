@@ -2,6 +2,7 @@
 #include <Core/Tasks/Task.hpp>
 
 #include <stack>
+#include <iostream>
 
 namespace Ra
 {
@@ -51,32 +52,63 @@ namespace Ra
             CORE_ASSERT( ( successor != InvalidTaskId ) && ( successor < m_tasks.size() ), "Invalid successor task" );
             CORE_ASSERT( predecessor != successor, "Cannot add self-dependency" );
 
-            // Todo : check for cycles.
-
             m_dependencies[predecessor].push_back( successor );
             ++m_remainingDependencies[successor];
         }
 
-        void TaskQueue::addDependency(const std::string &predecessors, TaskQueue::TaskId successor)
+        bool TaskQueue::addDependency(const std::string &predecessors, TaskQueue::TaskId successor)
         {
-           for (uint i = 0; i < m_tasks.size(); ++i)
-           {
-               if (m_tasks[i]->getName() == predecessors )
-               {
-                   addDependency( i, successor);
-               }
-           }
+            bool added = false;
+            for (uint i = 0; i < m_tasks.size(); ++i)
+            {
+                if (m_tasks[i]->getName() == predecessors )
+                {
+                    added = true;
+                    addDependency( i, successor);
+                }
+            }
+            return added;
         }
 
-        void TaskQueue::addDependency(TaskQueue::TaskId predecessor, const std::string &successors)
+        bool TaskQueue::addDependency(TaskQueue::TaskId predecessor, const std::string &successors)
         {
-           for (uint i = 0; i < m_tasks.size(); ++i)
+            bool added = false;
+            for (uint i = 0; i < m_tasks.size(); ++i)
+            {
+                if (m_tasks[i]->getName() == successors )
+                {
+                    added = true;
+                    addDependency( predecessor, i );
+                }
+            }
+            return added;
+        }
+
+        void TaskQueue::addPendingDependency(const std::string &predecessors, TaskQueue::TaskId successor)
+        {
+            m_pendingDepsSucc.push_back(std::make_pair(predecessors, successor));
+        }
+
+        void TaskQueue::addPendingDependency( TaskId predecessor, const std::string& successors)
+        {
+            m_pendingDepsPre.push_back(std::make_pair(predecessor, successors));
+        }
+
+        void TaskQueue::resolveDependencies()
+        {
+           for ( const auto& pre : m_pendingDepsPre )
            {
-               if (m_tasks[i]->getName() == successors )
-               {
-                   addDependency( predecessor, i );
-               }
+               bool result = addDependency( pre.first, pre.second );
+               CORE_ASSERT( result, "Pending dependency unresolved");
            }
+           for ( const auto& pre : m_pendingDepsSucc )
+           {
+               bool result = addDependency( pre.first, pre.second );
+               CORE_ASSERT( result, "Pending dependency unresolved");
+           }
+           m_pendingDepsPre.clear();
+           m_pendingDepsSucc.clear();
+
         }
 
         void TaskQueue::queueTask( TaskQueue::TaskId task )
@@ -89,7 +121,7 @@ namespace Ra
         {
 #if defined (CORE_DEBUG)
             // Do a depth-first search of the nodes.
-            std::vector<bool> visited( m_tasks.size(), false);
+            std::vector<bool> visited( m_tasks.size(), false );
             std::stack<TaskId> pending;
 
             for (TaskId id = 0; id < m_tasks.size(); ++id)
@@ -123,6 +155,9 @@ namespace Ra
 
         void TaskQueue::startTasks()
         {
+            // Add pending dependencies.
+            resolveDependencies();
+
             // Do a debug check
             detectCycles();
 
