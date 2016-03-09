@@ -38,8 +38,12 @@ file( GLOB_RECURSE sources src/*.cpp )
 file( GLOB_RECURSE headers src/*.hpp )
 file( GLOB_RECURSE inlines src/*.inl )
 
+file(GLOB_RECURSE app_uis  src/*.ui)
+qt5_wrap_ui(app_uis_moc ${app_uis})
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 add_definitions( ${Qt5Core_DEFINITIONS} )
 add_definitions( ${Qt5Widges_DEFINITIONS} )
@@ -52,7 +56,7 @@ include_directories(
     ${ASSIMP_INC}
     )
 
-add_library( Animation SHARED ${sources} ${headers} ${inlines} )
+add_library( Animation SHARED ${sources} ${headers} ${inlines} ${app_uis})
 add_dependencies( Animation radiumCore radiumEngine )
 
 target_compile_definitions( Animation PRIVATE "-DRA_CORE_IMPORTS" )
