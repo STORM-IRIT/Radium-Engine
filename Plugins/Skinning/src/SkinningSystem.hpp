@@ -32,7 +32,7 @@ namespace SkinningPlugin
 
                 Ra::Core::TaskQueue::TaskId skinTaskId = taskQueue->registerTask(skinTask);
                 Ra::Core::TaskQueue::TaskId endTaskId = taskQueue->registerTask(endTask);
-                taskQueue->addDependency( "AnimatorTask", skinTaskId );
+                taskQueue->addPendingDependency( "AnimatorTask", skinTaskId );
                 taskQueue->addDependency( skinTaskId, endTaskId);
             }
 

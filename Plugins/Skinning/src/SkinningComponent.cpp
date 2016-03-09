@@ -70,6 +70,7 @@ void SkinningComponent::skin()
 
     const Skeleton* skel = static_cast<const Skeleton*>(m_skeletonGetter());
     m_frameData.m_currentPose = skel->getPose(SpaceType::MODEL);
+
     if ( !Ra::Core::Animation::areEqual( m_frameData.m_currentPose, m_frameData.m_previousPose))
     {
         m_frameData.m_doSkinning = true;
@@ -81,7 +82,7 @@ void SkinningComponent::skin()
 
         // Do DQS
         m_DQ.resize( m_refData.m_weights.rows(), DualQuaternion( Quaternion( 0.0, 0.0, 0.0, 0.0 ),
-                                                       Quaternion( 0.0 ,0.0, 0.0, 0.0 ) ) );
+                                                                 Quaternion( 0.0 ,0.0, 0.0, 0.0 )) );
 
         ON_DEBUG( std::vector<Scalar> weightCheck( m_refData.m_weights.rows(), 0.f));
 #pragma omp parallel for

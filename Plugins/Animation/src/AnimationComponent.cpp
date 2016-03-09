@@ -96,7 +96,7 @@ namespace AnimationPlugin
 
         // Transforms are edited in model space but applied to local space.
         const Ra::Core::Transform& TBoneModel = m_skel.getTransform(boneIdx, Ra::Core::Animation::Handle::SpaceType::MODEL);
-        const Ra::Core::Transform& TBoneLocal= m_skel.getTransform(boneIdx, Ra::Core::Animation::Handle::SpaceType::LOCAL);
+        const Ra::Core::Transform& TBoneLocal = m_skel.getTransform(boneIdx, Ra::Core::Animation::Handle::SpaceType::LOCAL);
         auto diff = TBoneModel.inverse() *  tr;
 
         m_skel.setTransform(boneIdx,TBoneLocal * diff,  Ra::Core::Animation::Handle::SpaceType::LOCAL);
