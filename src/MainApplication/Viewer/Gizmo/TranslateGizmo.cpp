@@ -3,7 +3,7 @@
 #include <Core/Math/RayCast.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Mesh/MeshPrimitives.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>

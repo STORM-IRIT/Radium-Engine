@@ -9,6 +9,7 @@
 #include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Mesh/MeshPrimitives.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>

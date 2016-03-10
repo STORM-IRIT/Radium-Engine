@@ -2,6 +2,8 @@
 
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Mesh/MeshPrimitives.hpp>
+
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
@@ -64,13 +66,13 @@ namespace Ra {
             Mesh Line( const Core::Vector3& a, const Core::Vector3& b,
                        const Core::Color& color )
             {
-                Core::Vector3Array vertices = 
+                Core::Vector3Array vertices =
                 {
                     a, b
                 };
 
                 std::vector<uint> indices = { 0, 1 };
-                
+
                 Core::Vector4Array colors(vertices.size(), color);
 
                 Mesh mesh("Line Primitive", GL_LINES);
@@ -169,8 +171,8 @@ namespace Ra {
                 Scalar theta( 0.0 );
                 for ( uint i = 0; i < segments; ++i )
                 {
-                    vertices[i] = center + radius * 
-                        (std::cos(theta) * xPlane + 
+                    vertices[i] = center + radius *
+                        (std::cos(theta) * xPlane +
                          std::sin(theta) * yPlane);
 
                     indices.push_back( ( segments - 1 + i ) % segments );
