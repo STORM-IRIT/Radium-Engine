@@ -15,13 +15,16 @@ namespace Ra {
             , m_numElements (0)
             , m_isDirty( false )
         {
-            CORE_ASSERT( m_renderMode == GL_LINES || m_renderMode == GL_TRIANGLES, 
+            CORE_ASSERT( m_renderMode == GL_LINES || m_renderMode == GL_TRIANGLES,
                          "Unsupported render mode" );
         }
 
         Mesh::~Mesh()
         {
-            GL_ASSERT( glDeleteVertexArrays( 1, &m_vao ) );
+            if (m_vao != 0)
+            {
+                GL_ASSERT( glDeleteVertexArrays( 1, &m_vao ) );
+            }
         }
 
         Mesh::Mesh(const Mesh& rhs)
@@ -31,7 +34,7 @@ namespace Ra {
             , m_isDirty(false)
         {
             loadGeometry(rhs.getGeometry());
-            
+
             addData(VERTEX_TANGENT, rhs.getData(VERTEX_TANGENT));
             addData(VERTEX_BITANGENT, rhs.getData(VERTEX_BITANGENT));
             addData(VERTEX_TEXCOORD, rhs.getData(VERTEX_TEXCOORD));
@@ -47,7 +50,7 @@ namespace Ra {
             m_isDirty = false;
 
             loadGeometry(rhs.getGeometry());
-            
+
             addData(VERTEX_TANGENT, rhs.getData(VERTEX_TANGENT));
             addData(VERTEX_BITANGENT, rhs.getData(VERTEX_BITANGENT));
             addData(VERTEX_TEXCOORD, rhs.getData(VERTEX_TEXCOORD));
@@ -93,7 +96,7 @@ namespace Ra {
 
             for ( uint i = 0; i < indices.size(); i = i + 3 )
             {
-                // We store all indices in order. This means that for lines we have 
+                // We store all indices in order. This means that for lines we have
                 // (L00, L01, L10), (L11, L20, L21) etc. We fill the missing by wrapping around indices.
                 m_mesh.m_triangles.push_back( { indices[i], indices[(i + 1)%nIdx], indices[(i + 2)%nIdx] } );
             }
