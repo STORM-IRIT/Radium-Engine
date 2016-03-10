@@ -75,9 +75,6 @@ namespace Ra
             Mesh( const std::string& name, GLenum renderMode = GL_TRIANGLES );
             ~Mesh();
 
-            Mesh(const Mesh& rhs);
-            Mesh& operator=(const Mesh& rhs);
-
             /// Returns the name of the mesh.
             inline const std::string& getName() const;
 
@@ -116,6 +113,9 @@ namespace Ra
             void render();
 
         private:
+            Mesh(const Mesh& rhs) = delete;
+            void operator=(const Mesh& rhs) = delete;
+
             /// Helper function to send buffer data to openGL.
             template < typename VecArray >
             void sendGLData( const VecArray& arr, const uint vboIdx );

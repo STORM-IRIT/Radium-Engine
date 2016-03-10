@@ -27,40 +27,6 @@ namespace Ra {
             }
         }
 
-        Mesh::Mesh(const Mesh& rhs)
-            : m_name(rhs.m_name)
-            , m_vao(0)
-            , m_renderMode(rhs.m_renderMode)
-            , m_isDirty(false)
-        {
-            loadGeometry(rhs.getGeometry());
-
-            addData(VERTEX_TANGENT, rhs.getData(VERTEX_TANGENT));
-            addData(VERTEX_BITANGENT, rhs.getData(VERTEX_BITANGENT));
-            addData(VERTEX_TEXCOORD, rhs.getData(VERTEX_TEXCOORD));
-
-            addData(VERTEX_COLOR, rhs.getData(VERTEX_COLOR));
-            addData(VERTEX_WEIGHTS, rhs.getData(VERTEX_WEIGHTS));
-        }
-
-        Mesh& Mesh::operator=(const Mesh& rhs)
-        {
-            m_name = rhs.m_name;
-            m_renderMode = rhs.m_renderMode;
-            m_isDirty = false;
-
-            loadGeometry(rhs.getGeometry());
-
-            addData(VERTEX_TANGENT, rhs.getData(VERTEX_TANGENT));
-            addData(VERTEX_BITANGENT, rhs.getData(VERTEX_BITANGENT));
-            addData(VERTEX_TEXCOORD, rhs.getData(VERTEX_TEXCOORD));
-
-            addData(VERTEX_COLOR, rhs.getData(VERTEX_COLOR));
-            addData(VERTEX_WEIGHTS, rhs.getData(VERTEX_WEIGHTS));
-
-            return *this;
-        }
-
         void Mesh::render()
         {
             if ( m_vao != 0 )
