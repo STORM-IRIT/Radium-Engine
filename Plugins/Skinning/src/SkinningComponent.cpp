@@ -51,8 +51,9 @@ void SkinningComponent::setupSkinning()
         m_refData.m_weights = weights;
 
         m_frameData.m_previousPose = refPose;
-
         m_frameData.m_doSkinning = false;
+
+        m_prevFrame = m_refData.m_referenceMesh;
 
         m_skeletonGetter = ComponentMessenger::getInstance()->ComponentMessenger::getterCallback<Skeleton>( getEntity(), m_contentsName );
         m_verticesWriter = ComponentMessenger::getInstance()->ComponentMessenger::rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName+"v" );
@@ -60,7 +61,7 @@ void SkinningComponent::setupSkinning()
 
 
         m_DQ.resize( m_refData.m_weights.rows(), DualQuaternion( Quaternion( 0.0, 0.0, 0.0, 0.0 ),
-                                                       Quaternion( 0.0 ,0.0, 0.0, 0.0 ) ) );
+                                                                 Quaternion( 0.0 ,0.0, 0.0, 0.0 ) ) );
 
         m_isReady = true;
     }
@@ -80,8 +81,10 @@ void SkinningComponent::skin()
         m_frameData.m_refToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_refData.m_refPose);
         m_frameData.m_prevToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_frameData.m_previousPose);
 
+        Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion > DQ;
+        computeDQ( m_frameData.m_prevToCurrentRelPose, m_refData.m_weights, DQ );
+        DualQuaternionSkinning( m_prevFrame.m_vertices, DQ, (*vertices) );
         computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_DQ );
-        DualQuaternionSkinning( m_refData.m_referenceMesh.m_vertices, m_DQ, (*vertices) );
     }
 }
 
@@ -95,6 +98,9 @@ void SkinningComponent::endSkinning()
 
         m_frameData.m_previousPose = m_frameData.m_currentPose;
         m_frameData.m_doSkinning = false;
+
+        m_prevFrame.m_vertices = *vertices;
+        m_prevFrame.m_normals = *normals;
     }
 }
 

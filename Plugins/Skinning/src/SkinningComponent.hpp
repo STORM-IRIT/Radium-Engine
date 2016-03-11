@@ -47,6 +47,7 @@ namespace SkinningPlugin
             // Skinning data
             Ra::Core::Skinning::RefData m_refData;
             Ra::Core::Skinning::FrameData m_frameData;
+            Ra::Core::TriangleMesh m_prevFrame;
 
             Ra::Engine::ComponentMessenger::GetterCallback m_skeletonGetter;
             Ra::Engine::ComponentMessenger::ReadWriteCallback m_verticesWriter;
