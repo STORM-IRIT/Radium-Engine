@@ -135,7 +135,7 @@ namespace Ra
                                     connect(widget, &RotationEditor::valueChanged, this, &TransformEditorWidget::onChangedRotation);
 #else 
                                     // We have to use the old syntax on windows because of alignments parameters...
-                                    connect(widget, SIGNAL(valueChanged), this, SLOT(onChangedRotation));
+                                    connect(widget, SIGNAL(valueChanged()), this, SLOT(onChangedRotation()));
 #endif
                                     m_widgets.push_back(widget);
                                     break;
