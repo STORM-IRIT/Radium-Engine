@@ -238,10 +238,10 @@ namespace Ra
                 if ( ro->isVisible() )
                 {
                     auto id = ro->idx.getValue();
-                    Scalar r = Scalar( ( id & 0x000000FF ) >> 0 ) / 255.0;
-                    Scalar g = Scalar( ( id & 0x0000FF00 ) >> 8 ) / 255.0;
-                    Scalar b = Scalar( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
-                    shader->setUniform( "objectId", Core::Color( r, g, b, 1.0 ) );
+                    float r = float( ( id & 0x000000FF ) >> 0 )  / 255.0;
+                    float g = float( ( id & 0x0000FF00 ) >> 8 )  / 255.0;
+                    float b = float( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
+                    shader->setUniform( "objectId", Core::Colorf( r, g, b, 1.0 ) );
 
                     Core::Matrix4 M = ro->getTransformAsMatrix();
                     shader->setUniform( "transform.proj", renderData.projMatrix );
@@ -264,10 +264,10 @@ namespace Ra
                     if ( ro->isVisible() )
                     {
                         auto id = ro->idx.getValue();
-                        Scalar r = Scalar( ( id & 0x000000FF ) >> 0 ) / 255.0;
-                        Scalar g = Scalar( ( id & 0x0000FF00 ) >> 8 ) / 255.0;
-                        Scalar b = Scalar( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
-                        shader->setUniform( "objectId", Core::Color( r, g, b, 1.0 ) );
+                        float r = float( ( id & 0x000000FF ) >> 0 ) / 255.0;
+                        float g = float( ( id & 0x0000FF00 ) >> 8 ) / 255.0;
+                        float b = float( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
+                        shader->setUniform( "objectId", Core::Colorf( r, g, b, 1.0 ) );
 
                         Core::Matrix4 M = ro->getTransformAsMatrix();
                         shader->setUniform( "transform.proj", renderData.projMatrix );
@@ -289,10 +289,10 @@ namespace Ra
                 if ( ro->isVisible() )
                 {
                     auto id = ro->idx.getValue();
-                    Scalar r = Scalar( ( id & 0x000000FF ) >> 0 ) / 255.0;
-                    Scalar g = Scalar( ( id & 0x0000FF00 ) >> 8 ) / 255.0;
-                    Scalar b = Scalar( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
-                    shader->setUniform( "objectId", Core::Color( r, g, b, 1.0 ) );
+                    float r = float( ( id & 0x000000FF ) >> 0 ) / 255.0;
+                    float g = float( ( id & 0x0000FF00 ) >> 8 ) / 255.0;
+                    float b = float( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
+                    shader->setUniform( "objectId", Core::Colorf( r, g, b, 1.0 ) );
 
                     Core::Matrix4 M = ro->getTransformAsMatrix();
                     Core::Matrix4 MV = renderData.viewMatrix * M;
@@ -318,11 +318,11 @@ namespace Ra
 
             for ( const auto& query : m_pickingQueries )
             {
-                Core::Color color;
+                Core::Colorf color;
                 GL_ASSERT( glReadPixels( query.m_screenCoords.x(), query.m_screenCoords.y(), 1, 1, GL_RGBA, GL_FLOAT, color.data() ) );
 
                 int id = -1;
-                if ( color != Core::Color( 1.0, 1.0, 1.0, 1.0 ) )
+                if ( color != Core::Colorf( 1.0, 1.0, 1.0, 1.0 ) )
                 {
                     color = color * 255;
                     id = int( color.x() + color.y() * 256 + color.z() * 256 * 256 );

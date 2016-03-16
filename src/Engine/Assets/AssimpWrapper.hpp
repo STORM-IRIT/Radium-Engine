@@ -11,15 +11,15 @@
 namespace Ra {
 namespace Asset {
 
-inline Core::Vector3 assimpToCore( const aiVector3t< Scalar >& v ) {
+inline Core::Vector3 assimpToCore( const aiVector3D& v ) {
     return Core::Vector3( v.x, v.y, v.z );
 }
 
-inline Core::Quaternion assimpToCore( const aiQuaterniont< Scalar >& q ) {
+inline Core::Quaternion assimpToCore( const aiQuaternion& q ) {
     return Core::Quaternion( q.w, q.x, q.y, q.z );
 }
 
-inline Core::Transform assimpToCore( const aiMatrix4x4t< Scalar >& M ) {
+inline Core::Transform assimpToCore( const aiMatrix4x4& M ) {
     Core::Matrix4 m( Core::Matrix4::Identity() );
     for( uint i = 0; i < 4; ++i )
     {
@@ -31,9 +31,9 @@ inline Core::Transform assimpToCore( const aiMatrix4x4t< Scalar >& M ) {
     return Core::Transform( m );
 }
 
-inline Core::Transform assimpToCore( const aiVector3t< Scalar >&    T,
-                                     const aiQuaterniont< Scalar >& R,
-                                     const aiVector3t< Scalar >&    S ) {
+inline Core::Transform assimpToCore( const aiVector3D&    T,
+                                     const aiQuaternion& R,
+                                     const aiVector3D&    S ) {
     Core::Vector3    t = assimpToCore( T );
     Core::Quaternion r = assimpToCore( R );
     Core::Vector3    s = assimpToCore( S );
@@ -42,7 +42,7 @@ inline Core::Transform assimpToCore( const aiVector3t< Scalar >&    T,
     return M;
 }
 
-inline Core::Color assimpToCore( const aiColor4t< Scalar >& c ) {
+inline Core::Color assimpToCore( const aiColor4D& c ) {
 //inline Core::Color assimpToCore( const aiColor4D& c ) {
     return Core::Color( c.r, c.g, c.b, c.a );
 }

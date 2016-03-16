@@ -147,9 +147,9 @@ void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node, HandleAn
     }
 
     for( uint i = 0; i < R_size; ++i ) {
-        Scalar                  time  = node->mRotationKeys[i].mTime;
-        aiQuaterniont< Scalar > value = node->mRotationKeys[i].mValue;
-        rot.insertKeyFrame( time, assimpToCore( value ) );
+        Scalar       time  = node->mRotationKeys[i].mTime;
+        aiQuaternion value = node->mRotationKeys[i].mValue;
+        rot.insertKeyFrame(time, assimpToCore( value ));
         keyFrame.insert( time );
     }
 

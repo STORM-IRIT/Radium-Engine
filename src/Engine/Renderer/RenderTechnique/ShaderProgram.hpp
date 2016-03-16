@@ -89,15 +89,22 @@ namespace Ra
             // Uniform setters
             void setUniform( const char* name, int value ) const;
             void setUniform( const char* name, uint value ) const;
-            void setUniform( const char* name, Scalar value ) const;
+            void setUniform( const char* name, float value ) const;
+            void setUniform( const char* name, double value ) const;
 
-            void setUniform( const char* name, const Core::Vector2&  value ) const;
-            void setUniform( const char* name, const Core::Vector3& value ) const;
-            void setUniform( const char* name, const Core::Vector4& value ) const;
+            void setUniform( const char* name, const Core::Vector2f& value ) const;
+            void setUniform( const char* name, const Core::Vector2d& value ) const;
+            void setUniform( const char* name, const Core::Vector3f& value ) const;
+            void setUniform( const char* name, const Core::Vector3d& value ) const;
+            void setUniform( const char* name, const Core::Vector4f& value ) const;
+            void setUniform( const char* name, const Core::Vector4d& value ) const;
 
-            void setUniform( const char* name, const Core::Matrix2& value ) const;
-            void setUniform( const char* name, const Core::Matrix3& value ) const;
-            void setUniform( const char* name, const Core::Matrix4& value ) const;
+            void setUniform( const char* name, const Core::Matrix2f& value ) const;
+            void setUniform( const char* name, const Core::Matrix2d& value ) const;
+            void setUniform( const char* name, const Core::Matrix3f& value ) const;
+            void setUniform( const char* name, const Core::Matrix3d& value ) const;
+            void setUniform( const char* name, const Core::Matrix4f& value ) const;
+            void setUniform( const char* name, const Core::Matrix4d& value ) const;
 
             // TODO (Charly) : Add Texture support
             void setUniform( const char* name, Texture* tex, int texUnit ) const;

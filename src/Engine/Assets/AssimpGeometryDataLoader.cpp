@@ -313,7 +313,7 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material, Geometr
 
     MaterialData mat;
     aiColor4D    color;
-    Scalar       shininess;
+    float        shininess;
     aiString     name;
 
     if( AI_SUCCESS == material.Get( AI_MATKEY_COLOR_DIFFUSE, color ) )
@@ -350,6 +350,12 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material, Geometr
     }
 
     if( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_NORMALS, 0 ), name ) )
+    {
+        mat.m_texNormal = m_filepath + "/" + assimpToCore( name );
+    }
+
+    // Assimp loads objs bump maps as height maps, gj bro
+    if( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_HEIGHT, 0 ), name ) )
     {
         mat.m_texNormal = m_filepath + "/" + assimpToCore( name );
     }

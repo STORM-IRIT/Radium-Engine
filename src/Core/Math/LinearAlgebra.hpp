@@ -148,7 +148,9 @@ namespace Ra
         //
         // Misc types
         //
-        typedef Vector4 Color;
+        typedef Vector4  Color;
+        typedef Vector4f Colorf;
+        typedef Vector4d Colord;
 
         //
         // Vector Functions

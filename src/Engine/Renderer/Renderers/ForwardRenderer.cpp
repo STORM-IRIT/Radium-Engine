@@ -110,9 +110,9 @@ namespace Ra
 
             GL_ASSERT( glDrawBuffers( 2, buffers ) );
 
-            const Core::Color clearColor = Core::Colors::FromChars(42, 42, 42, 0);
-            const Core::Color clearZeros( 0.0, 0.0, 0.0, 0.0 );
-            const Scalar clearDepth( 1.0 );
+            const Core::Colorf clearColor = Core::Colors::FromChars<Core::Colorf>(42, 42, 42, 0);
+            const Core::Colorf clearZeros = Core::Colors::Black<Core::Colorf>();
+            const float clearDepth( 1.0 );
 
             GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearZeros.data() ) );   // Clear normals
             GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearColor.data() ) );   // Clear color

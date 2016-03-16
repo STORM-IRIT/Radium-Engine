@@ -39,7 +39,8 @@ endif()
 # FIXME(Charly): Not sure if this should be done on Linux
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_COMPILING_QSTRING_COMPAT_CPP")
 
-if ("${USE_DOUBLE}" STREQUAL "true")
+set( USE_DOUBLE False CACHE BOOL "Use double precision" )
+if ("${USE_DOUBLE}" STREQUAL "True")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_USE_DOUBLE")
   message("Compile using double precision.")
 else()

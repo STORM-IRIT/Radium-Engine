@@ -12,28 +12,30 @@ namespace Ra{
         {
             // Primary and secondary colors.
             // TODO (Val) : check if we can make these constexpr
-            inline Color Alpha() { return Color( 0.0, 0.0, 0.0, 0.0 ); }
-            inline Color Black() { return Color(0,0,0,1); }
+            template <typename C = Color> inline C Alpha() { return C(0.0, 0.0, 0.0, 0.0); }
+            template <typename C = Color> inline C Black() { return C(0,0,0,1); }
 
-            inline Color Red()   { return Color(1,0,0,1); }
-            inline Color Green() { return Color(0,1,0,1); }
-            inline Color Blue()  { return Color(0,0,1,1); }
+            template <typename C = Color> inline C Red()   { return Color(1,0,0,1); }
+            template <typename C = Color> inline C Green() { return Color(0,1,0,1); }
+            template <typename C = Color> inline C Blue()  { return Color(0,0,1,1); }
 
-            inline Color Yellow()  { return Color(1,1,0,1); }
-            inline Color Magenta() { return Color(1,0,1,1); }
-            inline Color Cyan()    { return Color(0,1,1,1); }
+            template <typename C = Color> inline C Yellow()  { return Color(1,1,0,1); }
+            template <typename C = Color> inline C Magenta() { return Color(1,0,1,1); }
+            template <typename C = Color> inline C Cyan()    { return Color(0,1,1,1); }
 
-            inline Color White()   { return Color(1,1,1,1); }
+            template <typename C = Color> inline C White()   { return Color(1,1,1,1); }
 
-            inline Color Grey( Scalar f = 0.5f) { return Color(f,f,f,1);}
+            template <typename C = Color> inline C Grey( Scalar f = 0.5f) { return Color(f,f,f,1);}
 
             // Convert to/from various int formats
-            inline Color FromChars(uchar r, uchar g, uchar b, uchar a = 0xff)
+            template <typename C = Color>
+            inline C FromChars(uchar r, uchar g, uchar b, uchar a = 0xff)
             {
-                return Color(Scalar(r)/255.0f, Scalar(g)/255.0f, Scalar(b)/255.0f, Scalar(a)/255.0f );
+                return C(Scalar(r)/255.0f, Scalar(g)/255.0f, Scalar(b)/255.0f, Scalar(a)/255.0f );
             }
 
-            inline Color FromRGBA32(uint32_t rgba)
+            template <typename C = Color>
+            inline C FromRGBA32(uint32_t rgba)
             {
                 uchar r = uchar((rgba >> 24) & 0xff);
                 uchar g = uchar((rgba >> 16) & 0xff);
@@ -42,11 +44,12 @@ namespace Ra{
                 return FromChars(r,g,b,a);
             }
 
-            inline Color fromHSV( const Scalar hue,
-                                  const Scalar saturation = 1.0,
-                                  const Scalar value      = 1.0,
-                                  const Scalar alpha      = 1.0 ) {
-                Color c;
+            template <typename C = Color>
+            inline C fromHSV( const Scalar hue,
+                              const Scalar saturation = 1.0,
+                              const Scalar value      = 1.0,
+                              const Scalar alpha      = 1.0 ) {
+                C c;
                 if( saturation == 0.0f ) {
                     c[0] = c[1] = c[2] = value;
                     c[3] = alpha;
@@ -81,17 +84,20 @@ namespace Ra{
                 return c;
             }
 
-            inline uint32_t ToRGBA32(const Color& color)
+            template <typename C = Color>
+            inline uint32_t ToRGBA32(const C& color)
             {
-                Vector4i scaled = (color * 255).cast<int>();
+                C c(color * 255);
+                Vector4i scaled(c.x(), c.y(), c.z(), c.w());
                 return (uint32_t(scaled[0])<<24) | (uint32_t(scaled[1])<<16) |(uint32_t(scaled[2])<<8) |(uint32_t(scaled[3])<<0);
             }
 
-            inline uint32_t ToARGB32( const Color& color )
+            template <typename C = Color>
+            inline uint32_t ToARGB32( const C& color )
             {
-                Vector4i scaled = (color * 255).cast<int>();
+                C c(color * 255);
+                Vector4i scaled(c.x(), c.y(), c.z(), c.w());
                 return (uint32_t(scaled[3])<<24) | (uint32_t(scaled[0])<<16) |(uint32_t(scaled[1])<<8) |(uint32_t(scaled[2])<<0);
-
             }
 
         }

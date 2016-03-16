@@ -365,77 +365,78 @@ namespace Ra
         GL_ASSERT( glUniform1ui( glGetUniformLocation( m_shaderId, name ), value ) );
     }
 
-#ifndef CORE_USE_DOUBLE
-    void Engine::ShaderProgram::setUniform( const char* name, Scalar value ) const
+    void Engine::ShaderProgram::setUniform( const char* name, float value ) const
     {
         GL_ASSERT( glUniform1f( glGetUniformLocation( m_shaderId, name ), value ) );
     }
-#else
-    void Engine::ShaderProgram::setUniform( const char* name, Scalar value ) const
-    {
-        GL_ASSERT( glUniform1f( glGetUniformLocation( m_shaderId, name ), static_cast<float>( value ) ) );
-    }
-#endif
 
-#ifndef CORE_USE_DOUBLE
-    void Engine::ShaderProgram::setUniform( const char* name, const Core::Vector2& value ) const
+    void Engine::ShaderProgram::setUniform( const char* name, double value ) const
+    {
+        float v = static_cast<float>(value);
+        GL_ASSERT( glUniform1f( glGetUniformLocation( m_shaderId, name ), v ) );
+    }
+
+    void Engine::ShaderProgram::setUniform( const char* name, const Core::Vector2f& value ) const
     {
         GL_ASSERT( glUniform2fv( glGetUniformLocation( m_shaderId, name ), 1, value.data() ) );
     }
-#else
-    void Engine::ShaderProgram::setUniform( const char* name, const Core::Vector2& value ) const
+
+    void Engine::ShaderProgram::setUniform( const char* name, const Core::Vector2d& value ) const
     {
         Core::Vector2f v = value.cast<float>();
         GL_ASSERT( glUniform2fv( glGetUniformLocation( m_shaderId, name ), 1, v.data() ) );
     }
-#endif
 
-#ifndef CORE_USE_DOUBLE
-    void Engine::ShaderProgram::setUniform( const char* name, const Core::Vector3& value ) const
+    void Engine::ShaderProgram::setUniform( const char* name, const Core::Vector3f& value ) const
     {
         GL_ASSERT( glUniform3fv( glGetUniformLocation( m_shaderId, name ), 1, value.data() ) );
     }
-#else
-    void Engine::ShaderProgram::setUniform( const char* name, const Core::Vector3& value ) const
+
+    void Engine::ShaderProgram::setUniform( const char* name, const Core::Vector3d& value ) const
     {
         Core::Vector3f v = value.cast<float>();
         GL_ASSERT( glUniform3fv( glGetUniformLocation( m_shaderId, name ), 1, v.data() ) );
     }
-#endif
 
-#ifndef CORE_USE_DOUBLE
-    void Engine::ShaderProgram::setUniform( const char* name, const Core::Vector4& value ) const
+    void Engine::ShaderProgram::setUniform( const char* name, const Core::Vector4f& value ) const
     {
         GL_ASSERT( glUniform4fv( glGetUniformLocation( m_shaderId, name ), 1, value.data() ) );
     }
-#else
-    void Engine::ShaderProgram::setUniform( const char* name, const Core::Vector4& value ) const
+
+    void Engine::ShaderProgram::setUniform( const char* name, const Core::Vector4d& value ) const
     {
         Core::Vector4f v = value.cast<float>();
         GL_ASSERT( glUniform4fv( glGetUniformLocation( m_shaderId, name ), 1, v.data() ) );
     }
-#endif
 
-#ifndef CORE_USE_DOUBLE
-    void Engine::ShaderProgram::setUniform( const char* name, const Core::Matrix2& value ) const
+    void Engine::ShaderProgram::setUniform( const char* name, const Core::Matrix2f& value ) const
     {
         GL_ASSERT( glUniformMatrix2fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, value.data() ) );
     }
-#else
-    void Engine::ShaderProgram::setUniform( const char* name, const Core::Matrix2& value ) const
+
+    void Engine::ShaderProgram::setUniform( const char* name, const Core::Matrix2d& value ) const
     {
         Core::Matrix2f v = value.cast<float>();
         GL_ASSERT( glUniformMatrix2fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, v.data() ) );
     }
-#endif
 
-    void Engine::ShaderProgram::setUniform( const char* name, const Core::Matrix3& value ) const
+    void Engine::ShaderProgram::setUniform( const char* name, const Core::Matrix3f& value ) const
+    {
+        GL_ASSERT( glUniformMatrix3fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, value.data() ) );
+    }
+
+    void Engine::ShaderProgram::setUniform( const char* name, const Core::Matrix3d& value ) const
     {
         Core::Matrix3f v = value.cast<float>();
         GL_ASSERT( glUniformMatrix3fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, v.data() ) );
     }
 
-    void Engine::ShaderProgram::setUniform( const char* name, const Core::Matrix4& value ) const
+    void Engine::ShaderProgram::setUniform( const char* name, const Core::Matrix4f& value ) const
+    {
+        GL_ASSERT( glUniformMatrix4fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, value.data() ) );
+    }
+
+    void Engine::ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) const
     {
         Core::Matrix4f v = value.cast<float>();
         GL_ASSERT( glUniformMatrix4fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, v.data() ) );

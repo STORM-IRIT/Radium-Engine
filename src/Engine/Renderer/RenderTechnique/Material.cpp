@@ -47,9 +47,9 @@ namespace Ra
 
         void Material::bind( const ShaderProgram* shader )
         {
-            shader->setUniform( "material.kd", getKd() );
-            shader->setUniform( "material.ks", getKs() );
-            shader->setUniform( "material.ns", getNs() );
+            shader->setUniform( "material.kd", m_kd );
+            shader->setUniform( "material.ks", m_ks );
+            shader->setUniform( "material.ns", m_ns );
 
             Texture* tex = nullptr;
             uint texUnit = 0;
