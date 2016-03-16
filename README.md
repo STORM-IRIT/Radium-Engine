@@ -48,20 +48,18 @@ $ cmake -DCMAKE_PREFIX_PATH=/opt/Qt/5.x/gcc_64
 
 ### Supported versions of MSVC
 Since Radium requires the C++11 advanced features such as constexpr, we need a recent MSVC
+* *VS 2015 Community* is strongly advised (https://www.visualstudio.com/products/visual-studio-community-vs)
 * *VS 2013* with the november 2013 CTP (corrective patch)[https://www.microsoft.com/en-us/download/confirmation.aspx?id=41151} 
-* *VS 2015 RC* which should work
  
 ### Dependencies
-* Most installations of the Windows SDK forget to include GLEXT.
- * You might need to download `glext.h`from the OpenGL registry and add it in your system GL header folder (to me it was `C:\Program Files (x86)\Windows Kits\8.1\Include\um\gl`).
- * TODO : include it in the source.
 * On windows GLEW is required for all the fancy OpenGL functions such as `glBindBuffers` (sad but true...).
- * Dowload GLEW and create a Glew folder in 3rdPartyLibraries (so that CMake finds it automagically).
+ * Dowload GLEW and create a Glew folder in 3rdPartyLibraries (TODO : so that CMake finds it automagically).
 
 ### Build
 
 * Use cmake-gui and set the `CMAKE_PREFIX_PATH` in the cache (see above) to the Qt base folder.
-* The assimp directories and the GLEW directories should be automatically detected ifthey are in your 3rd party folder. If not, set them manually in the GUI.
+* The assimp directory will be compiled automatically (if you have correctly submodule init / update) 
+* The GLEW directory should be automatically detected if it is in your 3rd party folder. If not, set it manually in the GUI.
 
 ### Run
 
