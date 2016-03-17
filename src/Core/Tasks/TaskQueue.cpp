@@ -3,6 +3,7 @@
 
 #include <stack>
 #include <iostream>
+#include <algorithm>
 
 namespace Ra
 {
@@ -51,7 +52,8 @@ namespace Ra
             CORE_ASSERT( ( predecessor != InvalidTaskId ) && ( predecessor < m_tasks.size() ), "Invalid predecessor task" );
             CORE_ASSERT( ( successor != InvalidTaskId )   && ( successor < m_tasks.size() ), "Invalid successor task" );
             CORE_ASSERT( predecessor != successor, "Cannot add self-dependency" );
-            CORE_ASSERT( m_dependencies[predecessor].find(successor) == m_dependencies[predecessor].end(), "Cannot add a dependency twice" );
+
+            CORE_ASSERT( std::find( m_dependencies[predecessor].begin(), m_dependencies[predecessor].end(), successor ) == m_dependencies[predecessor].end(), "Cannot add a dependency twice" );
 
             m_dependencies[predecessor].push_back( successor );
             ++m_remainingDependencies[successor];
