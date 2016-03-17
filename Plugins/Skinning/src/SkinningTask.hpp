@@ -14,7 +14,6 @@ namespace SkinningPlugin
         SkinnerTask(SkinningComponent* component) : m_component(component) {}
 
         virtual std::string getName() const override { return "SkinnerTask";}
-        virtual void init( const Ra::Core::TaskParams* params ) override{}
         virtual void process() override;
 
     private:
@@ -27,7 +26,6 @@ namespace SkinningPlugin
         SkinnerEndTask(SkinningComponent* component) : m_component(component) {}
 
         virtual std::string getName() const override { return "SkinnerEndTask";}
-        virtual void init( const Ra::Core::TaskParams* params ) override{}
         virtual void process() override;
 
     private:

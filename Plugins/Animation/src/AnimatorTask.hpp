@@ -15,7 +15,6 @@ public:
     AnimatorTask(AnimationComponent* component, Scalar dt);
 
     virtual std::string getName() const override;
-    virtual void init( const Ra::Core::TaskParams* params ) override;
     virtual void process() override;
 
 private:
