@@ -277,18 +277,18 @@ namespace Ra
         loadShader(VERT_SHADER, name, props);
         loadShader(FRAG_SHADER, name, props);
 
-        if (shaderConfig.getType() & ShaderConfiguration::GEOM_SHADER)
+        if (type & ShaderConfiguration::GEOM_SHADER)
         {
             loadShader(GEOM_SHADER, name, props);
         }
 
-        if (shaderConfig.getType() & ShaderConfiguration::TESS_SET)
+        if (type & ShaderConfiguration::TESS_SET)
         {
             loadShader(TESE_SHADER, name, props);
             loadShader(TESC_SHADER, name, props);
         }
 
-        if (shaderConfig.getType() & ShaderConfiguration::COMP_SHADER)
+        if (type & ShaderConfiguration::COMP_SHADER)
         {
             loadShader(COMP_SHADER, name, props);
         }
