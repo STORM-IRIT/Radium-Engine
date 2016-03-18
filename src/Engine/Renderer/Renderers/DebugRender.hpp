@@ -1,9 +1,12 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 #include <Core/Utils/Singleton.hpp>
+#include <Core/Containers/VectorArray.hpp>
 
+#include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 namespace Ra
@@ -21,25 +24,42 @@ namespace Ra
             void initialize();
             void render(const Core::Matrix4& view, const Core::Matrix4& proj);
 
-            virtual void drawLine(const Core::Vector3& from, 
-                                  const Core::Vector3& to, 
-                                  const Core::Color& color);
+            virtual void addLine(const Core::Vector3& from, const Core::Vector3& to, const Core::Color& color);
+            virtual void addPoint(const Core::Vector3& p, const Core::Color& color);
+            virtual void addPoints(const Core::Vector3Array& p, const Core::Color& color);
+            virtual void addPoints(const Core::Vector3Array& p, const Core::Vector4Array& colors);
+            virtual void addMesh(const std::shared_ptr<Mesh>& mesh);
 
         private:
             struct Line
             {
-                Line(const Core::Vector3& la, const Core::Vector3& lb, 
-                     const Core::Color& lcol)
-                    : a(la), b(lb), col(lcol) {}
+                Line(const Core::Vector3& la, const Core::Vector3& lb, const Core::Color& lcol) : a(la), b(lb), col(lcol) {}
 
                 Core::Vector3 a, b;
                 Core::Color col;
             };
 
+            struct Point
+            {
+                Core::Vector3 p;
+                Core::Vector3 c;
+            };
+
+            void renderLines(const Core::Matrix4& view, const Core::Matrix4& proj);
+            void renderPoints(const Core::Matrix4& view, const Core::Matrix4& proj);
+            void renderMeshes(const Core::Matrix4& view, const Core::Matrix4& proj);
+
         private:
-            ShaderProgram* m_shaderProgram;
+            ShaderProgram* m_lineShader;
+            ShaderProgram* m_pointShader;
+            ShaderProgram* m_plainShader;
 
             std::vector<Line> m_lines;
+            std::vector<std::shared_ptr<Mesh>> m_meshes;
+
+            std::vector<Point> m_points;
+            uint m_pointVao = 0;
+            uint m_pointVbo = 0;
         };
     }
 }
