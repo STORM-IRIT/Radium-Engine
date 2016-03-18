@@ -1,5 +1,7 @@
 #include "Spline.hpp"
 
+#include <Core/Math/Math.hpp>
+
 namespace Ra
 {
     namespace Core
@@ -59,7 +61,7 @@ namespace Ra
         template <uint D, uint K>
         inline typename Spline<D, K>::Vector Spline<D, K>::f( Scalar u ) const
         {
-            u = Core::Math::clamp( u, 0.f, 1.f );
+            u = Core::Math::clamp( u, Scalar(0), Scalar(1) );
             return eval( u, m_points, m_node, K );
         }
 
@@ -68,7 +70,7 @@ namespace Ra
         template <uint D, uint K>
         inline typename Spline<D, K>::Vector Spline<D, K>::df( Scalar u ) const
         {
-            u = Core::Math::clamp( u, 0.f, 1.f );
+            u = Core::Math::clamp( u, Scalar(0), Scalar(1) );
             return eval( u, m_vecs, m_node, K - 1, 1 ) * Scalar( K - 1 );
         }
 

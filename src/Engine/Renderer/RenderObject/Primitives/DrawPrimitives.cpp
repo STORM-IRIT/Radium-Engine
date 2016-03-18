@@ -414,6 +414,36 @@ namespace Ra {
 
                 return mesh;
             }
+
+            MeshPtr Spline(const Core::Spline<3, 3>& spline, uint pointCount, const Core::Color& color, Scalar scale)
+            {
+                Core::Vector3Array vertices;
+                vertices.reserve(pointCount);
+
+                std::vector<uint> indices;
+                indices.reserve(pointCount * 2 - 2);
+
+                Scalar dt = 1.0 / Scalar(pointCount - 1);
+                for (uint i = 0; i < pointCount; ++i)
+                {
+                    Scalar t = dt * i;
+                    vertices.push_back(spline.f(t));
+                }
+
+                for (uint i = 0; i < pointCount - 1; ++i)
+                {
+                    indices.push_back(i);
+                    indices.push_back(i+1);
+                }
+
+                Core::Vector4Array colors(vertices.size(), color);
+
+                MeshPtr mesh(new Mesh("Spline Primitive", GL_LINES));
+                mesh->loadGeometry(vertices, indices);
+                mesh->addData(Mesh::VERTEX_COLOR, colors);
+
+                return mesh;
+            }
         }
     }
 }

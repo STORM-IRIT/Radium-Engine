@@ -6,6 +6,7 @@
 #include <Core/Index/Index.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Math/Ray.hpp>
+#include <Core/Math/Spline.hpp>
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
@@ -105,6 +106,8 @@ namespace Ra
             RA_ENGINE_API MeshPtr OOB(const Core::Obb& obb,
                                       const Core::Color& color,
                                       Scalar scale = 0.1f);
+
+            RA_ENGINE_API MeshPtr Spline(const Core::Spline<3, 3>& spline, uint pointCount, const Core::Color& color, Scalar scale = 1.0f);
         }
     }
 }
