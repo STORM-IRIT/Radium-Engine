@@ -54,6 +54,7 @@ namespace Ra
 
         class RA_ENGINE_API ShaderProgram
         {
+        public:
             // Todo : remove duplicate flag in ShaderConfig
             enum ShaderType
             {
@@ -65,6 +66,7 @@ namespace Ra
                 COMP_SHADER,
                 SHADER_TYPE_COUNT
             };
+
         public:
             ShaderProgram();
             explicit ShaderProgram( const ShaderConfiguration& shaderConfig );
@@ -111,19 +113,10 @@ namespace Ra
 
         private:
             //  bool exists(const std::string& filename);
-            void loadVertShader( const std::string& name,
-                                 const std::set<std::string>& props );
-            void loadFragShader( const std::string& name,
-                                 const std::set<std::string>& props );
-            void loadTessShader( const std::string& name,
-                                 const std::set<std::string>& props,
-                                 const ShaderConfiguration::ShaderType& type );
-            void loadGeomShader( const std::string& name,
-                                 const std::set<std::string>& props,
-                                 const ShaderConfiguration::ShaderType& type );
-            void loadCompShader( const std::string& name,
-                                 const std::set<std::string>& props,
-                                 const ShaderConfiguration::ShaderType& type );
+            void loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props);
+            uint getTypeAsGLEnum(ShaderType type) const;
+            std::string getExtensionGivenType(ShaderType type) const;
+
             void link();
 
         private:

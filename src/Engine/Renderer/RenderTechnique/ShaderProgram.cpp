@@ -216,74 +216,51 @@ namespace Ra
         return ok;
     }
 
-    void Engine::ShaderProgram::loadVertShader( const std::string& name,
-                                                const std::set<std::string>& props )
+    void Engine::ShaderProgram::loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props)
     {
-        Engine::ShaderObject* vertShader = new Engine::ShaderObject;
-        bool status = vertShader->loadAndCompile( GL_VERTEX_SHADER, name + ".vert.glsl", props );
-        m_shaderObjects[VERT_SHADER] = vertShader;
-        m_shaderStatus[VERT_SHADER] = status;
-    }
-
-    void Engine::ShaderProgram::loadFragShader( const std::string& name,
-                                                const std::set<std::string>& props )
-    {
-        Engine::ShaderObject* fragShader = new Engine::ShaderObject;
-        bool status = fragShader->loadAndCompile( GL_FRAGMENT_SHADER, name + ".frag.glsl", props );
-        m_shaderObjects[FRAG_SHADER] = fragShader;
-        m_shaderStatus[FRAG_SHADER] = status;
-    }
-
-    void Engine::ShaderProgram::loadTessShader( const std::string& name,
-                                                const std::set<std::string>& props,
-                                                const Engine::ShaderConfiguration::ShaderType& type )
-    {
-        // TODO
-        if ( type & Engine::ShaderConfiguration::TESC_SHADER )
+#ifdef OS_MACOS
+        if (type == COMP_SHADER)
         {
-            Engine::ShaderObject* tessCShader = new Engine::ShaderObject;
-            bool status = tessCShader->loadAndCompile( GL_TESS_CONTROL_SHADER, name + ".tesc.glsl", props );
-            m_shaderObjects[TESC_SHADER] = tessCShader;
-            m_shaderStatus[TESC_SHADER] = status;
+            LOG(logERROR) << "No compute shader on OsX <= El Capitan";
+            return;
         }
-
-        if ( type & Engine::ShaderConfiguration::TESE_SHADER )
-        {
-            Engine::ShaderObject* tessEShader = new Engine::ShaderObject;
-            bool status = tessEShader->loadAndCompile( GL_TESS_EVALUATION_SHADER, name + ".tese.glsl", props );
-            m_shaderObjects[TESE_SHADER] = tessEShader;
-            m_shaderStatus[TESE_SHADER] = status;
-        }
-    }
-
-    void Engine::ShaderProgram::loadGeomShader( const std::string& name,
-                                                const std::set<std::string>& props,
-                                                const Engine::ShaderConfiguration::ShaderType& type )
-    {
-        if ( type & Engine::ShaderConfiguration::GEOM_SHADER )
-        {
-            Engine::ShaderObject* geomShader = new Engine::ShaderObject;
-            bool status = geomShader->loadAndCompile( GL_GEOMETRY_SHADER, name + ".geom.glsl", props );
-            m_shaderObjects[GEOM_SHADER] = geomShader;
-            m_shaderStatus[GEOM_SHADER] = status;
-        }
-    }
-
-    void Engine::ShaderProgram::loadCompShader( const std::string& name,
-                                                const std::set<std::string>& props,
-                                                const Engine::ShaderConfiguration::ShaderType& type )
-    {
-#ifndef __APPLE__
-        if ( type & Engine::ShaderConfiguration::COMP_SHADER )
-        {
-            Engine::ShaderObject* compShader = new Engine::ShaderObject;
-            bool status = compShader->loadAndCompile( GL_COMPUTE_SHADER, name + ".comp.glsl", props );
-            m_shaderObjects[COMP_SHADER] = compShader;
-            m_shaderStatus[COMP_SHADER] = status;
-        }
-#else
-#pragma message("No compute shader on OsX <= El Capitan")
 #endif
+        Engine::ShaderObject* shader = new Engine::ShaderObject;
+        bool status = shader->loadAndCompile(getTypeAsGLEnum(type), name + getExtensionGivenType(type), props);
+        m_shaderObjects[type] = shader;
+        m_shaderStatus[type] = status;
+    }
+
+    uint Engine::ShaderProgram::getTypeAsGLEnum(ShaderType type) const
+    {
+        switch(type)
+        {
+            case VERT_SHADER: return GL_VERTEX_SHADER;
+            case FRAG_SHADER: return GL_FRAGMENT_SHADER;
+            case GEOM_SHADER: return GL_GEOMETRY_SHADER;
+            case TESE_SHADER: return GL_TESS_EVALUATION_SHADER;
+            case TESC_SHADER: return GL_TESS_CONTROL_SHADER;
+            case COMP_SHADER: return GL_COMPUTE_SHADER;
+            default: CORE_ERROR("Wrong ShaderType");
+        }
+        // Should never get there
+        return 0;
+    }
+
+    std::string Engine::ShaderProgram::getExtensionGivenType(ShaderType type) const
+    {
+        switch(type)
+        {
+            case VERT_SHADER: return ".vert.glsl";
+            case FRAG_SHADER: return ".frag.glsl";
+            case GEOM_SHADER: return ".geom.glsl";
+            case TESE_SHADER: return ".tese.glsl";
+            case TESC_SHADER: return ".tesc.glsl";
+            case COMP_SHADER: return ".comp.glsl";
+            default: CORE_ERROR("Wrong ShaderType");
+        }
+        // Should never get there
+        return "";
     }
 
     void Engine::ShaderProgram::load( const Engine::ShaderConfiguration& shaderConfig )
@@ -297,10 +274,24 @@ namespace Ra
 
         GL_ASSERT( m_shaderId = glCreateProgram() );
 
-        loadVertShader( name, props );
-        loadTessShader( name, props, type );
-        loadGeomShader( name, props, type );
-        loadFragShader( name, props );
+        loadShader(VERT_SHADER, name, props);
+        loadShader(FRAG_SHADER, name, props);
+
+        if (shaderConfig.getType() & ShaderConfiguration::GEOM_SHADER)
+        {
+            loadShader(GEOM_SHADER, name, props);
+        }
+
+        if (shaderConfig.getType() & ShaderConfiguration::TESS_SET)
+        {
+            loadShader(TESE_SHADER, name, props);
+            loadShader(TESC_SHADER, name, props);
+        }
+
+        if (shaderConfig.getType() & ShaderConfiguration::COMP_SHADER)
+        {
+            loadShader(COMP_SHADER, name, props);
+        }
 
         link();
     }
