@@ -45,11 +45,22 @@ namespace Ra{
             }
 
             template <typename C = Color>
+            inline C FromARGB32(uint32_t argb)
+            {
+                uchar a = uchar((argb >> 24) & 0xff);
+                uchar r = uchar((argb >> 16) & 0xff);
+                uchar g = uchar((argb >>  8) & 0xff);
+                uchar b = uchar((argb >>  0) & 0xff);
+                return FromChars(r,g,b,a);
+            }
+
+            template <typename C = Color>
             inline C fromHSV( const Scalar hue,
                               const Scalar saturation = 1.0,
                               const Scalar value      = 1.0,
                               const Scalar alpha      = 1.0 ) {
                 C c;
+
                 if( saturation == 0.0f ) {
                     c[0] = c[1] = c[2] = value;
                     c[3] = alpha;
