@@ -25,14 +25,14 @@ namespace Ra
             m_qe = qe;
         }
 
-        inline DualQuaternion DualQuaternion::operator+ ( const DualQuaternion& other )
+        inline DualQuaternion DualQuaternion::operator+ ( const DualQuaternion& other ) const
         {
-            return DualQuaternion( getQ0() + other.getQ0(), getQe() + other.getQe() );
+            return DualQuaternion( m_q0 + other.m_q0, m_qe + other.m_qe );
         }
 
-        inline DualQuaternion DualQuaternion::operator* ( Scalar scalar )
+        inline DualQuaternion DualQuaternion::operator* ( Scalar scalar ) const
         {
-            return DualQuaternion( scalar * getQ0(), scalar * getQe() );
+            return DualQuaternion( scalar * m_q0, scalar * m_qe );
         }
 
         inline DualQuaternion& DualQuaternion::operator+= ( const DualQuaternion& other )
@@ -60,13 +60,12 @@ namespace Ra
             CORE_ASSERT( Ra::Core::Math::areApproxEqual(m_q0.norm(), 1.f), "Dual quaternion not normalized");
 
             // Translation from the normalized dual quaternion equals :
-            // 2.f * qblend_e * conjugate(qblend_0)
+            // 2 * q_e * conjugate(q_0)
             Vector3 v0 = m_q0.vec();
             Vector3 ve = m_qe.vec();
-            Vector3 trans = (ve * m_q0.w() - v0 * m_qe.w() + v0.cross(ve)) * 2.f;
+            auto trans = (ve * m_q0.w() - v0 * m_qe.w() + v0.cross(ve)) * 2.f;
 
-            // Rotate
-            //return qblend_0 * p + trans;
+            // Rotate and return the result.
             return m_q0.toRotationMatrix() * p + trans;
         }
 
@@ -78,25 +77,30 @@ namespace Ra
         inline Transform DualQuaternion::getTransform() const
         {
             // Assume the dual quat is normalized.
-            CORE_ASSERT(std::abs(m_q0.norm() - 1.f) <= std::numeric_limits<Scalar>::epsilon(),
-            "Only a normalized dual quaternion represents a transform.");
+            CORE_ASSERT( Ra::Core::Math::areApproxEqual(m_q0.norm(), 1.f), "Dual quaternion not normalized");
 
             Transform result;
-            result.linear() = getQ0().toRotationMatrix();
-            result.translation() = (2.f * getQ0() * getQe().conjugate()).vec();
+            result.linear() = m_q0.toRotationMatrix();
+            result.translation() = (2.f * m_q0 * m_qe.conjugate()).vec();
             return result;
         }
 
         inline void DualQuaternion::setFromTransform(const Transform& t)
         {
-            setQ0(Quaternion(t.rotation()));
+            m_q0 = Quaternion(t.rotation());
             if (m_q0.w() < 0 )
             {
                 m_q0.coeffs() =  -m_q0.coeffs(); // enforce positive W for linear blending.
             }
             Core::Vector4 trans = Core::Vector4::Zero();
             trans.head<3>() = t.translation();
-            setQe(0.5f * Quaternion(trans) * getQ0());
+            m_qe = 0.5f * Quaternion(trans) * m_q0;
         }
+
+        inline DualQuaternion operator*(Scalar scalar, const DualQuaternion& dq)
+        {
+            return dq * scalar;
+        }
+
     }
 }

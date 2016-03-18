@@ -24,7 +24,7 @@ namespace Ra
         public:
             RA_CORE_ALIGNED_NEW
 
-            // Construct an uninitialized dual quaternion.
+            /// Construct an uninitialized dual quaternion.
             inline DualQuaternion() {}
 
             /// Construct a dual-quaternion from two quaternions.
@@ -40,6 +40,7 @@ namespace Ra
 
 
             /// Getters and setters
+
             inline const Quaternion& getQ0() const;
             inline void setQ0( const Quaternion& q0 );
             inline const Quaternion& getQe() const;
@@ -47,8 +48,8 @@ namespace Ra
 
             /// Operators
 
-            inline DualQuaternion operator+ ( const DualQuaternion& other );
-            inline DualQuaternion operator* ( Scalar scalar );
+            inline DualQuaternion operator+ ( const DualQuaternion& other ) const;
+            inline DualQuaternion operator* ( Scalar scalar ) const;
 
             inline DualQuaternion& operator += ( const DualQuaternion& other );
             inline DualQuaternion& operator *= ( Scalar scalar );
@@ -63,17 +64,21 @@ namespace Ra
             inline Transform getTransform() const;
 
             /// Normalize the quaternion with the dual-number norm (divides q0 and qe
-            /// by q0's norm).
+            /// by q0's norm). Will assert if the norm is zero in debug builds.
             inline void normalize();
 
-            inline Vector3 transform(const Vector3& p) const;
+            /// Apply the transform represented by the dual quaternion to given vector.
+            inline Vector3 transform( const Vector3& p ) const;
 
         private:
-            /// non-dual part (representing the rotation)
+            /// Non-dual part (representing the rotation)
             Quaternion m_q0;
-            /// dual part (representing the translation)
+            /// Dual part (representing the translation)
             Quaternion m_qe;
         };
+
+        /// Pre-multiplication of dual quaternion.
+        inline DualQuaternion operator* ( Scalar scalar, const DualQuaternion& dq );
     }
 } // namespace Ra::Core
 
