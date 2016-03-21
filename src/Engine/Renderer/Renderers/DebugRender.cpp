@@ -104,7 +104,7 @@ namespace Ra
 #ifdef CORE_USE_DOUBLE
             GLenum type = GL_DOUBLE;
 #else
-            GLenum type = GL_FlOAT;
+            GLenum type = GL_FLOAT;
 #endif
             GLvoid* ptr = nullptr;
             glVertexAttribPointer(0, 3, type, GL_FALSE, 6 * sizeof(Scalar), ptr);
