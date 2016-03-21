@@ -291,15 +291,15 @@ void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, GeometryData
 }
 
 void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh, GeometryData& data ) const {
-#ifdef TEXTURE_MAPPING_IS_IMPLEMENTED_CORRECTLY
+#if defined(TEXTURE_MAPPING_IS_IMPLEMENTED_CORRECTLY) or defined(LOAD_TEXTURES)
     const uint size = mesh.mNumVertices;
-    std::vector<Core::Vector4> texcoord( data.getVerticesSize() );
+    std::vector<Core::Vector3> texcoord;
+    texcoord.reserve(data.getVerticesSize());
 #pragma omp parallel for
     for ( uint i = 0; i < size; ++i )
     {
         // FIXME(Charly): Is it safe to only consider texcoords[0] ?
-        Core::Vector3 tmp = assimpToCore( mesh.mTextureCoords[0][i] );
-        texcoord[i] = Core::Vector4( tmp[0], tmp[1], tmp[2], 0.0 );
+        texcoord.push_back(assimpToCore( mesh.mTextureCoords[0][i] ));
     }
     data.setTextureCoordinates( texcoord );
 #endif
@@ -375,6 +375,9 @@ void AssimpGeometryDataLoader::loadGeometryData( const aiScene* scene, std::vect
         aiMesh* mesh = scene->mMeshes[i];
         if( mesh->HasPositions() ) {
             GeometryData* geometry = new GeometryData();
+#ifdef LOAD_TEXTURES
+            geometry->setLoadDuplicates(true);
+#endif
             loadMeshData( *mesh, *geometry );
             if( scene->HasMaterials() ) {
                 const uint matID = mesh->mMaterialIndex;

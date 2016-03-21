@@ -130,7 +130,9 @@ namespace FancyMeshPlugin
         if ( m.hasDiffuse() )   mat->setKd( m.m_diffuse );
         if ( m.hasSpecular() )  mat->setKs( m.m_specular );
         if ( m.hasShininess() ) mat->setNs( m.m_shininess );
-        //if ( m.hasDiffuseTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_DIFFUSE, m.m_texDiffuse );
+#ifdef LOAD_TEXTURES
+        if ( m.hasDiffuseTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_DIFFUSE, m.m_texDiffuse );
+#endif
         //if ( m.hasSpecularTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_SPECULAR, m.m_texSpecular );
         //if ( m.hasShininessTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_SHININESS, m.m_texShininess );
         //if ( m.hasOpacityTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_ALPHA, m.m_texOpacity );
