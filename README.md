@@ -1,6 +1,9 @@
 # Radium-Engine
 Coolest engine ever made #yolo #swag
 
+See [this presentation](https://docs.google.com/presentation/d/12W2KXY7ctJXFIelmgNEn7obiBv_E4bmcMl3mXeJPVgc/edit?usp=sharing)
+for an overview of the project.
+
 ## Dependencies 
 * Eigen 3.2 (in repository)
 * Assimp 3.2 (included as a submodule)
