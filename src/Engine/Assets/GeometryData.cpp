@@ -34,7 +34,8 @@ GeometryData::GeometryData( const std::string&  name,
     m_texCoord(),
     m_color(),
     m_material(),
-    m_hasMaterial( false ) { }
+    m_hasMaterial( false ),
+    m_loadDuplicates( false ) { }
 
 /// DESTRUCTOR
 GeometryData::~GeometryData() { }

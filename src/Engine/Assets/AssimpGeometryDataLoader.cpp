@@ -207,9 +207,9 @@ void AssimpGeometryDataLoader::fetchVertices( const aiMesh& mesh, GeometryData& 
         const Core::Vector3 v = assimpToCore( mesh.mVertices[i] );
         const Triplet t( v );
         auto it = uniqueTable.find( t );
-        if( it == uniqueTable.end() ) {
+        if( ( it == uniqueTable.end() ) || data.isLoadingDuplicates() ) {
             vertex.push_back( v );
-            uniqueTable[t]      = vertex.size() - 1;
+            uniqueTable[t]           = vertex.size() - 1;
             data.m_duplicateTable[i] = vertex.size() - 1;
         } else {
             data.m_duplicateTable[i] = it->second;

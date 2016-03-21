@@ -119,6 +119,11 @@ inline const std::map< uint, uint >& GeometryData::getDuplicateTable() const {
     return m_duplicateTable;
 }
 
+/// DUPLICATES
+inline void GeometryData::setLoadDuplicates( const bool status ) {
+    m_loadDuplicates = status;
+}
+
 /// QUERY
 inline bool GeometryData::isPointCloud() const {
     return ( m_type == POINT_CLOUD );
@@ -186,6 +191,10 @@ inline bool GeometryData::hasColors() const {
 
 inline bool GeometryData::hasMaterial() const {
     return m_hasMaterial;
+}
+
+inline bool GeometryData::isLoadingDuplicates() const {
+    return m_loadDuplicates;
 }
 
 /// DEBUG

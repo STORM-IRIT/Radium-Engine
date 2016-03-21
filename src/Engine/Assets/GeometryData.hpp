@@ -98,6 +98,9 @@ public:
 
     inline const std::map< uint, uint >& getDuplicateTable() const;
 
+    /// DUPLICATES
+    inline void setLoadDuplicates( const bool status );
+
     /// QUERY
     inline bool isPointCloud() const;
     inline bool isLineMesh() const;
@@ -116,6 +119,7 @@ public:
     inline bool hasTextureCoordinates() const;
     inline bool hasColors() const;
     inline bool hasMaterial() const;
+    inline bool isLoadingDuplicates() const;
 
     /// DEBUG
     inline void displayInfo() const;
@@ -183,6 +187,7 @@ protected:
     bool         m_hasMaterial;
 
     std::map< uint, uint > m_duplicateTable;
+    bool                   m_loadDuplicates;
 };
 
 } // namespace Asset
