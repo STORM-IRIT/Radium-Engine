@@ -35,7 +35,7 @@ namespace FancyMeshPlugin
         for ( const auto& data : geomData )
         {
             std::string componentName = "FMC_" + entity->getName() + std::to_string( id++ );
-            FancyMeshComponent * comp = new FancyMeshComponent( componentName );
+            FancyMeshComponent * comp = new FancyMeshComponent( componentName, fileData->hasHandle() );
             entity->addComponent( comp );
             comp->handleMeshLoading(data);
             registerComponent( entity, comp );
