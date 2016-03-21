@@ -43,11 +43,6 @@ float getAlpha()
         return texture(material.tex.alpha, vTexcoord.xy).r;
     }
 
-    if ( material.tex.hasKd == 1 )
-    {
-        return texture( material.tex.kd, vTexcoord.xy ).a;
-    }
-
     return 1.0;
 }
 
@@ -58,7 +53,4 @@ void main()
     if ( alpha < 0.5 ) discard;
 
     fragNormal = vec4( getNormal() * 0.5 + 0.5, 1.0 );
-//    fragNormal = vec4( alpha, alpha, alpha, 1.0 );
-
-//    fragNormal = vec4( vTexcoord.xy, 0, 1 );
 }
