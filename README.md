@@ -2,15 +2,15 @@
 Coolest engine ever made #yolo #swag
 
 ## Dependencies 
-* Eigen 3.2+ (in repository)
-* Assimp (included as a submodule)
-* OpenGL 3+
+* Eigen 3.2 (in repository)
+* Assimp 3.2 (included as a submodule)
+* OpenGL 3+ / GLSL 330
 * Qt Core, Qt Widgets and Qt OpenGL v5.4+ 
 * GLEW (used on Windows only for now)
-* FreeImage (for texture loading)
+* stb_image (in repository)
 * To build : CMake 2.8.11+
 
-## Getting submodules (for older versions)
+## Getting submodules 
 ```
 $ git submodule init
 $ git submodule update
@@ -29,8 +29,8 @@ $ cd build
 $ cmake ..
 $ make
 ```
-The compiled application can be found in `bin` or `bin-debug`, depending on
-how you built your stuff.
+The compiled application can be found in `bin`. Default plugins DLL are compiled in
+`Plugins/bin` by default.
 
 ## Qt cmake errors
 In case you run into an error like
@@ -52,8 +52,9 @@ Since Radium requires the C++11 advanced features such as constexpr, we need a r
 * *VS 2013* with the november 2013 CTP (corrective patch)[https://www.microsoft.com/en-us/download/confirmation.aspx?id=41151} 
  
 ### Dependencies
-* On windows GLEW is required for all the fancy OpenGL functions such as `glBindBuffers` (sad but true...).
- * Dowload GLEW and create a Glew folder in 3rdPartyLibraries (TODO : so that CMake finds it automagically).
+On windows GLEW is required for all the fancy OpenGL functions such as `glBindBuffers` (sad but true...).
+* Dowload GLEW and create a Glew folder in 3rdPartyLibraries.
+* Get the assimp submodule as stated above.
 
 ### Build
 
@@ -63,7 +64,7 @@ Since Radium requires the C++11 advanced features such as constexpr, we need a r
 
 ### Run
 
-* Don't forget to copy the DLLs in the executable folder (use `depends.exe` to figure out which).
+* Don't forget to copy the third party DLLs (e.g. Qt) in the executable folder (use `depends.exe` to figure out which).
 * Set "radium" as your startup project
 * Change the application working directory to `$(ProjectDir)..` (go to the "radium" project properties, *Debugging* menu, *Working Directory*) to get the shaders to load properly.
 
