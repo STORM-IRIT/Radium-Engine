@@ -34,7 +34,7 @@ namespace SkinningPlugin
         virtual void setProperty(const Ra::Engine::EditableProperty &newProp) override {}
 
         const Ra::Core::Skinning::RefData* getRefData() const { return &m_refData;}
-        const Ra::Core::Skinning::FrameData* getFrameData() const { return &m_frameData;}
+        Ra::Core::Skinning::FrameData* getFrameData() { return &m_frameData;}
         const Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion >* getDQ() const {return &m_DQ;}
 
     private:
@@ -47,7 +47,6 @@ namespace SkinningPlugin
             // Skinning data
             Ra::Core::Skinning::RefData m_refData;
             Ra::Core::Skinning::FrameData m_frameData;
-            Ra::Core::TriangleMesh m_prevFrame;
 
             Ra::Engine::ComponentMessenger::GetterCallback m_skeletonGetter;
             Ra::Engine::ComponentMessenger::ReadWriteCallback m_verticesWriter;

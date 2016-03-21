@@ -44,6 +44,15 @@ namespace Skinning
         /// Relative pose from reference pose to current.
         Ra::Core::Animation::Pose m_refToCurrentRelPose;
 
+        /// Previous position of the vertices
+        Ra::Core::Vector3Array m_previousPos;
+
+        /// Current position of the vertices
+        Ra::Core::Vector3Array m_currentPos;
+
+        /// Current vertex normals
+        Ra::Core::Vector3Array m_currentNormal;
+
         /// Indicator whether skinning must be processed.
         /// It is set to true if the current pose is different from previous.
         bool m_doSkinning;

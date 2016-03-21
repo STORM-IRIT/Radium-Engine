@@ -54,11 +54,13 @@ void SkinningComponent::setupSkinning()
         m_frameData.m_doSkinning = false;
         m_frameData.m_doReset = false;
 
-        m_prevFrame = m_refData.m_referenceMesh;
+        m_frameData.m_previousPos   = m_refData.m_referenceMesh.m_vertices;
+        m_frameData.m_currentPos    = m_refData.m_referenceMesh.m_vertices;
+        m_frameData.m_currentNormal = m_refData.m_referenceMesh.m_normals;
 
         m_skeletonGetter = ComponentMessenger::getInstance()->ComponentMessenger::getterCallback<Skeleton>( getEntity(), m_contentsName );
         m_verticesWriter = ComponentMessenger::getInstance()->ComponentMessenger::rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName+"v" );
-        m_normalsWriter = ComponentMessenger::getInstance()->ComponentMessenger::rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName+"n" );
+        m_normalsWriter  = ComponentMessenger::getInstance()->ComponentMessenger::rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName+"n" );
 
 
         m_DQ.resize( m_refData.m_weights.rows(), DualQuaternion( Quaternion( 0.0, 0.0, 0.0, 0.0 ),
@@ -88,15 +90,12 @@ void SkinningComponent::skin()
         if ( !Ra::Core::Animation::areEqual( m_frameData.m_currentPose, m_frameData.m_previousPose))
         {
             m_frameData.m_doSkinning = true;
-            Ra::Core::Vector3Array* vertices = static_cast<Ra::Core::Vector3Array* >(m_verticesWriter());
-            CORE_ASSERT( vertices->size() == m_refData.m_referenceMesh.m_vertices.size(), "Inconsistent meshes");
-
             m_frameData.m_refToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_refData.m_refPose);
             m_frameData.m_prevToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_frameData.m_previousPose);
 
             Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion > DQ;
             computeDQ( m_frameData.m_prevToCurrentRelPose, m_refData.m_weights, DQ );
-            DualQuaternionSkinning( m_prevFrame.m_vertices, DQ, (*vertices) );
+            DualQuaternionSkinning( m_frameData.m_previousPos, DQ, m_frameData.m_currentPos );
             computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_DQ );
         }
     }
@@ -106,17 +105,19 @@ void SkinningComponent::endSkinning()
 {
     if (m_frameData.m_doSkinning)
     {
-        const Ra::Core::Vector3Array* vertices = static_cast<Ra::Core::Vector3Array* >(m_verticesWriter());
-        Ra::Core::Vector3Array* normals = static_cast<Ra::Core::Vector3Array* >(m_normalsWriter());
-        Ra::Core::Geometry::uniformNormal( *vertices, m_refData.m_referenceMesh.m_triangles, *normals );
+        Ra::Core::Vector3Array& vertices = *static_cast<Ra::Core::Vector3Array* >(m_verticesWriter());
+        Ra::Core::Vector3Array& normals = *static_cast<Ra::Core::Vector3Array* >(m_normalsWriter());
 
-        m_frameData.m_previousPose = m_frameData.m_currentPose;
+        vertices = m_frameData.m_currentPos;
+
+        Ra::Core::Geometry::uniformNormal( vertices, m_refData.m_referenceMesh.m_triangles, normals );
+
+        std::swap( m_frameData.m_previousPose, m_frameData.m_currentPose );
+        std::swap( m_frameData.m_previousPos, m_frameData.m_currentPos );
+
         m_frameData.m_doSkinning = false;
 
-        m_prevFrame.m_vertices = *vertices;
-        m_prevFrame.m_normals = *normals;
     }
-
     else if (m_frameData.m_doReset)
     {
         // Reset mesh to its initial state.
@@ -127,9 +128,11 @@ void SkinningComponent::endSkinning()
         *normals = m_refData.m_referenceMesh.m_normals;
 
         m_frameData.m_doReset = false;
-        m_frameData.m_currentPose = m_refData.m_refPose;
-        m_frameData.m_previousPose = m_refData.m_refPose;
-        m_prevFrame = m_refData.m_referenceMesh;
+        m_frameData.m_currentPose   = m_refData.m_refPose;
+        m_frameData.m_previousPose  = m_refData.m_refPose;
+        m_frameData.m_currentPos    = m_refData.m_referenceMesh.m_vertices;
+        m_frameData.m_previousPos   = m_refData.m_referenceMesh.m_vertices;
+        m_frameData.m_currentNormal = m_refData.m_referenceMesh.m_normals;
     }
 }
 
@@ -147,8 +150,8 @@ void SkinningComponent::setupIO( const std::string& id )
     Ra::Engine::ComponentMessenger::GetterCallback refData = std::bind( &SkinningComponent::getRefData, this );
     Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::Skinning::RefData>( getEntity(), this, id, refData);
 
-    Ra::Engine::ComponentMessenger::GetterCallback frameData = std::bind( &SkinningComponent::getFrameData, this );
-    Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::Skinning::FrameData>( getEntity(), this, id, frameData);
+    Ra::Engine::ComponentMessenger::ReadWriteCallback frameData = std::bind( &SkinningComponent::getFrameData, this );
+    Ra::Engine::ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Skinning::FrameData>( getEntity(), this, id, frameData);
 }
 
 
