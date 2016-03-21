@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_IDX3_HPP
 #define RADIUMENGINE_IDX3_HPP
-
+#include <Core/RaCore.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 namespace Ra
 {
     namespace Core
@@ -39,28 +40,29 @@ namespace Ra
         struct Idx3
         {
 
+            constexpr static uint InvalidId = uint(-1);
 
             // -------------------------------------------------------------------------
             /// @name Constructors
             // -------------------------------------------------------------------------
 
             inline
-            Idx3() :  _size( -1, -1, -1 ), _id( -1 ) { }
+            Idx3() :  _size( ), _id( InvalidId ) { }
 
             /// Build index from a linear index
             inline
-            Idx3( const Vector3i& size, int idx ) : _size( size ), _id( idx ) { }
+            Idx3( const Vector3ui& size, uint idx ) : _size( size ), _id( idx ) { }
 
             /// Build index from a 3d index
             inline
-            Idx3( const Vector3i& size, int ix, int iy, int iz ) : _size( size )
+            Idx3( const Vector3ui& size, uint ix, uint iy, uint iz ) : _size( size )
             {
                 _id = to_linear( _size, ix, iy, iz );
             }
 
             /// Build index from a 3d index
             inline
-            Idx3( const Vector3i& size, const Vector3i& pos ) : _size( size )
+            Idx3( const Vector3ui& size, const Vector3ui& pos ) : _size( size )
             {
                 /* Should I authorize invalid indices?
                 assert(pos.x >= 0 && pos.x < size.x);
@@ -75,19 +77,19 @@ namespace Ra
             // -------------------------------------------------------------------------
 
             inline
-            void set_linear( int i )
+            void set_linear( uint i )
             {
                 _id = i;
             }
 
             inline
-            void set_3d( int x, int y, int z )
+            void set_3d( uint x, uint y, uint z )
             {
                 _id = to_linear( _size, x, y, z );
             }
 
             inline
-            void set_3d( const Vector3i& p )
+            void set_3d( const Vector3ui& p )
             {
                 set_3d( p( 0 ), p( 1 ), p( 2 ) );
             }
@@ -103,21 +105,14 @@ namespace Ra
             // -------------------------------------------------------------------------
 
             inline
-            Vector3i to_3d() const
+            Vector3ui to_3d() const
             {
-                Vector3i r;
+                Vector3ui r;
                 to_3d( r( 0 ), r( 1 ), r( 2 ) );
                 return r;
             }
-
             inline
-            Vector3i to_Vector3i() const
-            {
-                return to_3d();
-            }
-
-            inline
-            void to_3d( int& x, int& y, int& z ) const
+            void to_3d( uint& x, uint& y, uint& z ) const
             {
                 x = _id % _size( 0 );
                 z = _id / _size( 0 );
@@ -129,12 +124,6 @@ namespace Ra
             /// @name Other methods
             // -------------------------------------------------------------------------
 
-#ifdef __CUDACC__
-            int4 to_int4() const
-            {
-                return make_int4( _size.x, _size.y, _size.z, _id );
-            }
-#endif
 
             inline
             int size_linear() const
@@ -143,7 +132,7 @@ namespace Ra
             }
 
             inline
-            Vector3i size() const
+            Vector3ui size() const
             {
                 return _size;
             }
@@ -154,7 +143,7 @@ namespace Ra
             inline
             bool is_valid() const
             {
-                return _id >= 0 && size_linear() >= 0;
+                return _id != InvalidId && size_linear() >= 0;
             }
 
             /// Does the index is out of its bounds (defined at construction)
@@ -167,7 +156,7 @@ namespace Ra
             inline
             bool is_in() const
             {
-                return ( _id < size_linear() ) && ( _id >= 0 );
+                return ( _id != InvalidId &&  _id < size_linear() ) ;
             }
 
             // -------------------------------------------------------------------------
@@ -218,14 +207,14 @@ namespace Ra
             }
 
             inline friend
-            Idx3 operator+ ( const Idx3& id, const Vector3i& v )
+            Idx3 operator+ ( const Idx3& id, const Vector3ui& v )
             {
-                Vector3i this_idx = id.to_3d();
+                Vector3ui this_idx = id.to_3d();
                 return Idx3( id._size, this_idx + v );
             }
 
             inline friend
-            Idx3 operator+ ( const Vector3i& v, const Idx3& id )
+            Idx3 operator+ ( const Vector3ui& v, const Idx3& id )
             {
                 return id + v;
             }
@@ -233,93 +222,14 @@ namespace Ra
         private:
 
             static inline
-            int to_linear( const Vector3i& size, int x, int y, int z )
+            uint to_linear( const Vector3ui& size, uint x, uint y, uint z )
             {
                 return x + size( 0 ) * ( y + size( 1 ) * z );
             }
 
-            Vector3i _size; ///< 3d size of the grid the index is looking up
-            int   _id;   ///< Linear index
+            Vector3ui _size; ///< 3d size of the grid the index is looking up
+            uint   _id;   ///< Linear index
 
-            // WARNING: these operators should not be used/implemented since:
-            // (they don't really make sense) || (are to ambigus to decypher when used)
-#if 0
-            bool operator<=( const Idx3& ) const
-            {
-                return false;
-            }
-            bool operator>=( const Idx3& ) const
-            {
-                return false;
-            }
-            bool operator< ( const Idx3& ) const
-            {
-                return false;
-            }
-            bool operator> ( const Idx3& ) const
-            {
-                return false;
-            }
-
-            Idx3 operator- ( const Idx3& ) const
-            {
-                return Idx3();
-            }
-            Idx3 operator+ ( const Idx3& ) const
-            {
-                return Idx3();
-            }
-            Idx3 operator+=( const Idx3& )
-            {
-                return Idx3();
-            }
-            Idx3 operator-=( const Idx3& )
-            {
-                return Idx3();
-            }
-
-            bool operator==( int ) const
-            {
-                return false;
-            }
-            bool operator!=( int ) const
-            {
-                return false;
-            }
-            bool operator<=( int ) const
-            {
-                return false;
-            }
-            bool operator>=( int ) const
-            {
-                return false;
-            }
-            bool operator> ( int ) const
-            {
-                return false;
-            }
-            bool operator< ( int ) const
-            {
-                return false;
-            }
-
-            Idx3 operator+ ( int )  const
-            {
-                return Idx3();
-            }
-            Idx3 operator- ( int )  const
-            {
-                return Idx3();
-            }
-            Idx3 operator+=( int )
-            {
-                return Idx3();
-            }
-            Idx3 operator-=( int )
-            {
-                return Idx3();
-            }
-#endif
         };
     }
 }
