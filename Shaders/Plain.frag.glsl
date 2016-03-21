@@ -31,20 +31,24 @@ out vec4 fragColor;
 
 void main()
 {
-	if ( material.tex.hasKd == 1 )
-	{
-		vec4 color = texture( material.tex.kd, vTexcoord.xy ).rgba;
-		
-                if ( color.a < 0.5 )
-		{
-			discard;
-		}
+    if ( material.tex.hasKd == 1 )
+    {
+        vec4 color = texture( material.tex.kd, vTexcoord.xy ).rgba;
 
-		fragColor = vec4( color.rgb, 1.0 );
-	}
-	else
-	{
-		fragColor = vColor;
-	}
+        if (material.tex.hasAlpha == 1)
+        {
+            float alpha = texture(material.tex.alpha, vTexcoord.xy).r;
+            if (alpha < 0.5)
+            {
+                discard;
+            }
+        }
+
+        fragColor = vec4( color.rgb, 1.0 );
+    }
+    else
+    {
+        fragColor = vColor;
+    }
 }
 
