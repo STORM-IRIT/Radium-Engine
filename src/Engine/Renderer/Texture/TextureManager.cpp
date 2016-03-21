@@ -98,8 +98,8 @@ namespace Ra
                     ret->initGL( GL_RGBA, pending->second.width, pending->second.height,
                                  GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, pending->second.data );
 
-                    ret->genMipmap( GL_LINEAR, GL_LINEAR );
-                    ret->setClamp( GL_CLAMP, GL_CLAMP );
+                    ret->genMipmap(pending->second.minMipmap, pending->second.magMipmap);
+                    ret->setClamp(pending->second.sWrap, pending->second.tWrap);
 
                     m_pendingTextures.erase( filename );
                     m_textures[filename] = ret;
@@ -107,7 +107,7 @@ namespace Ra
                 else
                 {
                     ret = addTexture( filename );
-                    ret->setClamp( GL_CLAMP, GL_CLAMP );
+                    ret->setClamp( GL_REPEAT, GL_REPEAT );
                 }
             }
 

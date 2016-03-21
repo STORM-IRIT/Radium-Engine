@@ -294,12 +294,13 @@ void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh, Geom
 #if defined(TEXTURE_MAPPING_IS_IMPLEMENTED_CORRECTLY) or defined(LOAD_TEXTURES)
     const uint size = mesh.mNumVertices;
     std::vector<Core::Vector3> texcoord;
-    texcoord.reserve(data.getVerticesSize());
+    texcoord.resize(data.getVerticesSize());
 #pragma omp parallel for
     for ( uint i = 0; i < size; ++i )
     {
         // FIXME(Charly): Is it safe to only consider texcoords[0] ?
-        texcoord.push_back(assimpToCore( mesh.mTextureCoords[0][i] ));
+        // FIXME(Charly): This is probably crappy if you do not allow duplicates.
+        texcoord.at(data.m_duplicateTable.at(i)) = assimpToCore( mesh.mTextureCoords[0][i] );
     }
     data.setTextureCoordinates( texcoord );
 #endif

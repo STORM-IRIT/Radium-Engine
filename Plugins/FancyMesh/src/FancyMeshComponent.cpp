@@ -93,8 +93,14 @@ namespace FancyMeshPlugin
             mesh.m_triangles.push_back( {uint(face[0]), uint(face[1]), uint(face[2]) } );
         }
 
-
+#if defined(LOAD_TEXTURES)
+        for (const auto& v : data->getNormals())
+        {
+            mesh.m_normals.push_back(v);
+        }
+#else
         Ra::Core::Geometry::uniformNormal( mesh.m_vertices, mesh.m_triangles, mesh.m_normals );
+#endif
 
         setupIO( data->getName());
 
@@ -110,8 +116,6 @@ namespace FancyMeshPlugin
         for ( const auto& v : data->getBiTangents() )   bitangents.push_back( v );
         for ( const auto& v : data->getTexCoords() )    texcoords.push_back( v );
         for ( const auto& v : data->getColors() )       colors.push_back( v );
-
-
 
         displayMesh->addData( Ra::Engine::Mesh::VERTEX_TANGENT, tangents );
         displayMesh->addData( Ra::Engine::Mesh::VERTEX_BITANGENT, bitangents );
@@ -142,7 +146,6 @@ namespace FancyMeshPlugin
         rt->shaderConfig = Ra::Engine::ShaderConfiguration( "BlinnPhong", "../Shaders" );
 
         renderObject->setRenderTechnique( rt );
-
     }
 
     Ra::Core::Index FancyMeshComponent::getRenderObjectIndex() const

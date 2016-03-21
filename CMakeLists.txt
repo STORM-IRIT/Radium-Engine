@@ -145,6 +145,11 @@ endif()
 set( CMAKE_DEBUG_POSTFIX "" )
 set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
 
+set(LOAD_TEXTURES False CACHE BOOL "Compile Radium enabling texture loading stuff")
+if (${LOAD_TEXTURES})
+    message(STATUS "Textures will be loaded")
+    add_definitions(-DLOAD_TEXTURES)
+endif()
 add_subdirectory(src)
 
 # FIXME(Charly) Not sure this is really the greatest idea ever

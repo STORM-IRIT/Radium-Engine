@@ -7,6 +7,8 @@
 
 #include <Core/Utils/Singleton.hpp>
 
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
+
 namespace Ra
 {
     namespace Engine
@@ -24,6 +26,12 @@ namespace Ra
             std::string name;
             int width;
             int height;
+
+            GLenum sWrap = GL_CLAMP;
+            GLenum tWrap = GL_CLAMP;
+            GLenum minMipmap = GL_LINEAR;
+            GLenum magMipmap = GL_LINEAR;
+
             void* data;
         };
 
