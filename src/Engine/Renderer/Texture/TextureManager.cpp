@@ -67,9 +67,9 @@ namespace Ra
                                << "\tSize   : " << w << ", " << h;
             }
 
-
             CORE_ASSERT( data, "Data is null" );
 
+            ret = new Texture(filename, GL_TEXTURE_2D);
             ret->initGL( format, w, h, format, GL_UNSIGNED_BYTE, data );
             ret->genMipmap( GL_LINEAR, GL_LINEAR );
 
