@@ -102,7 +102,7 @@ namespace Ra {
 #endif
             constexpr GLuint size = VecArray::Vector::RowsAtCompileTime;
             constexpr GLboolean normalized  = GL_FALSE;
-            constexpr GLvoid* ptr = nullptr;
+            constexpr GLuint ptr = 0;
 
             // This vbo has not been created yet
             if ( m_vbos[vboIdx] == 0 && arr.size() > 0 )
@@ -114,7 +114,7 @@ namespace Ra {
 
                 // Use (vboIdx - 1) as attribute index because vbo 0 is actually ibo.
                 GL_ASSERT( glVertexAttribPointer( vboIdx - 1, size, type, normalized,
-                                                  sizeof( typename VecArray::Vector ), ptr ) );
+                                                  sizeof( typename VecArray::Vector ), (GLvoid*)ptr ) );
 
                 GL_ASSERT( glEnableVertexAttribArray( vboIdx - 1 ) );
 
