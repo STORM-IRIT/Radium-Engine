@@ -116,6 +116,8 @@ namespace AnimationPlugin
             dt = 0;
         }
 
+        if (dt != 0.f) { dt =  0.5f; }
+
         // Compute the elapsed time
         m_animationTime += dt;
 
