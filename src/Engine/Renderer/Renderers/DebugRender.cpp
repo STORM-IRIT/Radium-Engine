@@ -106,11 +106,11 @@ namespace Ra
 #else
             GLenum type = GL_FLOAT;
 #endif
-            GLvoid* ptr = nullptr;
-            glVertexAttribPointer(0, 3, type, GL_FALSE, 6 * sizeof(Scalar), ptr);
+            GLint64 ptr = 0;
+            glVertexAttribPointer(0, 3, type, GL_FALSE, 6 * sizeof(Scalar), (GLvoid*)ptr);
             glEnableVertexAttribArray(0);
             ptr += 3 * sizeof(Scalar);
-            glVertexAttribPointer(1, 3, type, GL_FALSE, 6 * sizeof(Scalar), ptr);
+            glVertexAttribPointer(1, 3, type, GL_FALSE, 6 * sizeof(Scalar), (GLvoid*)ptr);
             glEnableVertexAttribArray(1);
 
             glEnable(GL_PROGRAM_POINT_SIZE);
@@ -135,8 +135,8 @@ namespace Ra
 
             // Avoid too much states change
             uint idx = 0;
-            std::sort(m_meshes.begin(), m_meshes.end(), [](const std::shared_ptr<Mesh> a, const std::shared_ptr<Mesh>& b) -> bool { return a->getRenderMode() < b->getRenderMode(); });
-            for (; m_meshes[idx]->getRenderMode() != GL_TRIANGLES; ++idx);
+            std::sort(m_meshes.begin(), m_meshes.end(), [](const std::shared_ptr<Mesh>& a, const std::shared_ptr<Mesh>& b) -> bool { return a->getRenderMode() < b->getRenderMode(); });
+            for (; idx < m_meshes.size() && m_meshes[idx]->getRenderMode() != GL_TRIANGLES; ++idx);
 
             m_lineShader->bind();
             m_lineShader->setUniform("view", view);

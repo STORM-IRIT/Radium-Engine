@@ -102,7 +102,7 @@ namespace Ra {
 #endif
             constexpr GLuint size = VecArray::Vector::RowsAtCompileTime;
             constexpr GLboolean normalized  = GL_FALSE;
-            constexpr GLuint ptr = 0;
+            constexpr GLint64 ptr = 0;
 
             // This vbo has not been created yet
             if ( m_vbos[vboIdx] == 0 && arr.size() > 0 )
