@@ -80,6 +80,12 @@ namespace Ra
             return ret;
         }
 
+        Texture* TextureManager::getOrLoadTexture(const TextureData &data)
+        {
+            m_pendingTextures[data.name] = data;
+            return getOrLoadTexture(data.name);
+        }
+
         Texture* TextureManager::getOrLoadTexture( const std::string& filename )
         {
             Texture* ret = nullptr;
@@ -94,12 +100,20 @@ namespace Ra
                 auto pending = m_pendingTextures.find( filename );
                 if ( pending != m_pendingTextures.end() )
                 {
-                    ret = new Texture( filename, GL_TEXTURE_2D );
-                    ret->initGL( GL_RGBA, pending->second.width, pending->second.height,
-                                 GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, pending->second.data );
+                    auto data = pending->second;
+                    if (data.data != nullptr)
+                    {
+                        ret = new Texture( filename, GL_TEXTURE_2D );
+                        ret->initGL( GL_RGBA, pending->second.width, pending->second.height,
+                                     GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, pending->second.data );
+                    }
+                    else
+                    {
+                        ret = addTexture(data.name);
+                    }
 
-                    ret->genMipmap(pending->second.minMipmap, pending->second.magMipmap);
-                    ret->setClamp(pending->second.sWrap, pending->second.tWrap);
+                    ret->genMipmap(data.minMipmap, data.magMipmap);
+                    ret->setClamp(data.sWrap, data.tWrap);
 
                     m_pendingTextures.erase( filename );
                     m_textures[filename] = ret;

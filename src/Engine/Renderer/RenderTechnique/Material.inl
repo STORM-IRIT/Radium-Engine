@@ -31,13 +31,22 @@ namespace Ra
             m_textures[type] = texture;
         }
 
-        inline void Material::addTexture( const TextureType& type, const std::string& texture )
+        inline TextureData& Material::addTexture( const TextureType& type, const std::string& texture )
         {
-            if ( !texture.empty() )
-            {
-                m_pendingTextures[type] = texture;
-                m_isDirty = true;
-            }
+            CORE_ASSERT(!texture.empty(), "Invalid texture name");
+
+            TextureData data;
+            data.name = texture;
+
+            return addTexture(type, data);
+        }
+
+        inline TextureData& Material::addTexture(const TextureType& type, const TextureData& texture)
+        {
+            m_pendingTextures[type] = texture;
+            m_isDirty = true;
+
+            return m_pendingTextures[type];
         }
 
         inline const Core::Color& Material::getKd() const

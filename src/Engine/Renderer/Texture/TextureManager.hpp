@@ -32,7 +32,7 @@ namespace Ra
             GLenum minMipmap = GL_LINEAR;
             GLenum magMipmap = GL_LINEAR;
 
-            void* data;
+            void* data = nullptr;
         };
 
         class RA_ENGINE_API TextureManager 
@@ -45,6 +45,7 @@ namespace Ra
             void addTexture( const std::string& name, int width, int height, void* data );
             Texture* addTexture( const std::string& filename );
             Texture* getOrLoadTexture( const std::string& filename );
+            Texture* getOrLoadTexture( const TextureData& data );
 
             void deleteTexture( const std::string& filename );
             void deleteTexture( Texture* texture );

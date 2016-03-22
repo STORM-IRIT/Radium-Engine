@@ -8,6 +8,7 @@
 
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
+#include <Engine/Renderer/Texture/TextureManager.hpp>
 
 namespace Ra
 {
@@ -62,7 +63,8 @@ namespace Ra
             inline Scalar getNs() const;
 
             inline void addTexture( const TextureType& type, Texture* texture );
-            inline void addTexture( const TextureType& type, const std::string& texture );
+            inline TextureData& addTexture( const TextureType& type, const std::string& texture );
+            inline TextureData& addTexture( const TextureType& type, const TextureData& texture );
             inline Texture* getTexture( const TextureType& type ) const;
 
             inline void setMaterialType( const MaterialType& type );
@@ -78,7 +80,7 @@ namespace Ra
             bool m_isDirty;
 
             std::map<TextureType, Texture*> m_textures;
-            std::map<TextureType, std::string> m_pendingTextures;
+            std::map<TextureType, TextureData> m_pendingTextures;
 
             MaterialType m_type;
         };
