@@ -249,18 +249,24 @@ namespace Ra
             {
             } break;
         }
+
+        QOpenGLWidget::mousePressEvent(event);
     }
 
     void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event )
     {
         m_camera->handleMouseReleaseEvent( event );
         m_gizmoManager->handleMouseReleaseEvent(event);
+
+        QOpenGLWidget::mouseReleaseEvent(event);
     }
 
     void Gui::Viewer::mouseMoveEvent( QMouseEvent* event )
     {
         m_camera->handleMouseMoveEvent( event );
         m_gizmoManager->handleMouseMoveEvent(event);
+
+        QOpenGLWidget::mouseMoveEvent(event);
     }
 
     void Gui::Viewer::wheelEvent( QWheelEvent* event )
@@ -273,11 +279,15 @@ namespace Ra
     void Gui::Viewer::keyPressEvent( QKeyEvent* event )
     {
         m_camera->handleKeyPressEvent( event );
+
+        QOpenGLWidget::keyPressEvent(event);
     }
 
     void Gui::Viewer::keyReleaseEvent( QKeyEvent* event )
     {
         m_camera->handleKeyReleaseEvent( event );
+
+        QOpenGLWidget::keyReleaseEvent(event);
     }
 
     void Gui::Viewer::reloadShaders()
