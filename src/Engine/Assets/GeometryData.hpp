@@ -46,11 +46,13 @@ class GeometryData : public AssetData {
     /// FRIEND
     friend class AssimpGeometryDataLoader;
 
-    using Vector3Array  = Core::VectorArray<Core::Vector3> ;
-    using Vector2iArray = Core::VectorArray<Core::Vector2i>;
-    using VectorNiArray = Core::VectorArray<Core::VectorNi>;
-    using Vector4Array  = Core::VectorArray<Core::Vector4> ;
-    using ColorArray    = Core::VectorArray<Core::Color>   ;
+    using Vector3Array  = Core::VectorArray<Core::Vector3>  ;
+    using Vector2iArray = Core::VectorArray<Core::Vector2i> ;
+    using Vector2uArray = Core::VectorArray<Core::Vector2ui>;
+    using VectorNiArray = Core::VectorArray<Core::VectorNi> ;
+    using VectorNuArray = Core::VectorArray<Core::VectorNui>;
+    using Vector4Array  = Core::VectorArray<Core::Vector4>  ;
+    using ColorArray    = Core::VectorArray<Core::Color>    ;
 
 public:
 
@@ -86,9 +88,9 @@ public:
     /// DATA
     inline uint getVerticesSize()               const;
     inline const Vector3Array & getVertices()   const;
-    inline const Vector2iArray& getEdges()      const;
-    inline const VectorNiArray& getFaces()      const;
-    inline const VectorNiArray& getPolyhedra()  const;
+    inline const Vector2uArray& getEdges()      const;
+    inline const VectorNuArray& getFaces()      const;
+    inline const VectorNuArray& getPolyhedra()  const;
     inline const Vector3Array & getNormals()    const;
     inline const Vector3Array & getTangents()   const;
     inline const Vector3Array & getBiTangents() const;
@@ -138,13 +140,13 @@ protected:
     inline void setVertices( const std::vector< Core::Vector3 >& vertexList );
 
     /// EDGE
-    inline void setEdges( const std::vector< Core::Vector2i >& edgeList );
+    inline void setEdges( const std::vector< Core::Vector2ui >& edgeList );
 
     /// FACE
-    inline void setFaces( const std::vector< Core::VectorNi >& faceList );
+    inline void setFaces( const std::vector< Core::VectorNui >& faceList );
 
     /// POLYHEDRON
-    inline void setPolyhedron( const std::vector< Core::VectorNi >& polyList );
+    inline void setPolyhedron( const std::vector< Core::VectorNui >& polyList );
 
     /// NORMAL
     inline void setNormals( const std::vector< Core::Vector3 >& normalList );
@@ -174,9 +176,9 @@ protected:
     GeometryType    m_type;
 
     Vector3Array  m_vertex;
-    Vector2iArray m_edge;
-    VectorNiArray m_faces;
-    VectorNiArray m_polyhedron;
+    Vector2uArray m_edge;
+    VectorNuArray m_faces;
+    VectorNuArray m_polyhedron;
     Vector3Array  m_normal;
     Vector3Array  m_tangent;
     Vector3Array  m_bitangent;

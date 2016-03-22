@@ -222,10 +222,10 @@ void AssimpGeometryDataLoader::fetchVertices( const aiMesh& mesh, GeometryData& 
 /// EDGE
 void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, GeometryData& data ) const {
     const uint size = mesh.mNumFaces;
-    std::vector< Core::Vector2i > edge( size );
+    std::vector< Core::Vector2ui > edge( size );
 #pragma omp parallel for
     for( uint i = 0; i < size; ++i ) {
-        edge[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices );
+        edge[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
         edge[i][0] = data.m_duplicateTable.at( edge[i][0] );
         edge[i][1] = data.m_duplicateTable.at( edge[i][1] );
     }
@@ -234,10 +234,10 @@ void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, GeometryData& dat
 
 void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, GeometryData& data ) const {
     const uint size = mesh.mNumFaces;
-    std::vector< Core::VectorNi > face( size );
+    std::vector< Core::VectorNui > face( size );
 #pragma omp parallel for
     for( uint i = 0; i < size; ++i ) {
-        face[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices );
+        face[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
         const uint face_vertices = mesh.mFaces[i].mNumIndices;
         for( uint j = 0; j < face_vertices; ++j ) {
             face[i][j] = data.m_duplicateTable.at( face[i][j] );

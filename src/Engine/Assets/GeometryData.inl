@@ -70,17 +70,17 @@ inline const GeometryData::Vector3Array& GeometryData::getVertices() const
     return m_vertex;
 }
 
-inline const GeometryData::Vector2iArray& GeometryData::getEdges() const
+inline const GeometryData::Vector2uArray& GeometryData::getEdges() const
 {
     return m_edge;
 }
 
-inline const GeometryData::VectorNiArray& GeometryData::getFaces() const
+inline const GeometryData::VectorNuArray& GeometryData::getFaces() const
 {
     return m_faces;
 }
 
-inline const GeometryData::VectorNiArray& GeometryData::getPolyhedra() const
+inline const GeometryData::VectorNuArray& GeometryData::getPolyhedra() const
 {
     return m_polyhedron;
 }
@@ -283,7 +283,7 @@ inline void GeometryData::setVertices( const std::vector< Core::Vector3 >& verte
 }
 
 /// EDGE
-inline void GeometryData::setEdges( const std::vector< Core::Vector2i >& edgeList ) {
+inline void GeometryData::setEdges( const std::vector< Core::Vector2ui >& edgeList ) {
     const uint size = edgeList.size();
     m_edge.resize( size );
 #pragma omp parallel for
@@ -293,7 +293,7 @@ inline void GeometryData::setEdges( const std::vector< Core::Vector2i >& edgeLis
 }
 
 /// FACE
-inline void GeometryData::setFaces( const std::vector< Core::VectorNi >& faceList ) {
+inline void GeometryData::setFaces( const std::vector< Core::VectorNui >& faceList ) {
     const uint size = faceList.size();
     m_faces.resize( size );
 #pragma omp parallel for
@@ -303,7 +303,7 @@ inline void GeometryData::setFaces( const std::vector< Core::VectorNi >& faceLis
 }
 
 /// POLYHEDRON
-inline void GeometryData::setPolyhedron( const std::vector< Core::VectorNi >& polyList ) {
+inline void GeometryData::setPolyhedron( const std::vector< Core::VectorNui >& polyList ) {
     const uint size = polyList.size();
     m_polyhedron.resize( size );
 #pragma omp parallel for
