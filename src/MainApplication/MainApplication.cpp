@@ -216,6 +216,10 @@ namespace Ra
         const Scalar dt = Core::Timer::getIntervalSeconds( m_lastFrameStart, timerData.frameStart );
         m_lastFrameStart = timerData.frameStart;
 
+        timerData.eventsStart = Core::Timer::Clock::now();
+        processEvents();
+        timerData.eventsEnd = Core::Timer::Clock::now();
+
         // ----------
         // 1. Gather user input and dispatch it.
         auto keyEvents = m_mainWindow->getKeyEvents();

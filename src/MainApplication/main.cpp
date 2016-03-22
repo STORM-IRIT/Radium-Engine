@@ -39,14 +39,10 @@ int main( int argc, char** argv )
     while ( app.isRunning() )
     {
         t0 = Ra::Core::Timer::Clock::now();
-        // Get events
-        app.processEvents();
-
         // Main loop
         app.radiumFrame();
 
-        // Wait for vsync
-
+        // Wait for VSync
         Scalar remaining = DELTA_TIME;
         while (remaining > 0.0)
         {

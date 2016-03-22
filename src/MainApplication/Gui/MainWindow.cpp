@@ -157,6 +157,7 @@ namespace Ra
                             .arg( stats.front().numFrame ).arg( stats.back().numFrame );
         m_frameA2BLabel->setText( framesA2B );
 
+        long sumEvents = 0;
         long sumRender = 0;
         long sumTasks = 0;
         long sumFrame = 0;
@@ -164,23 +165,22 @@ namespace Ra
 
         for ( uint i = 0; i < stats.size(); ++i )
         {
-            sumRender += Core::Timer::getIntervalMicro(
-                             stats[i].renderData.renderStart, stats[i].renderData.renderEnd );
-            sumTasks  += Core::Timer::getIntervalMicro(
-                             stats[i].tasksStart, stats[i].tasksEnd );
-            sumFrame  += Core::Timer::getIntervalMicro(
-                             stats[i].frameStart, stats[i].frameEnd );
+            sumEvents += Core::Timer::getIntervalMicro(stats[i].eventsStart, stats[i].eventsEnd);
+            sumRender += Core::Timer::getIntervalMicro(stats[i].renderData.renderStart, stats[i].renderData.renderEnd );
+            sumTasks  += Core::Timer::getIntervalMicro(stats[i].tasksStart, stats[i].tasksEnd );
+            sumFrame  += Core::Timer::getIntervalMicro(stats[i].frameStart, stats[i].frameEnd );
 
             if ( i > 0 )
             {
-                sumInterFrame += Core::Timer::getIntervalMicro(
-                                     stats[i - 1].frameEnd, stats[i].frameEnd );
+                sumInterFrame += Core::Timer::getIntervalMicro(stats[i - 1].frameEnd, stats[i].frameEnd );
             }
         }
 
         const uint N = stats.size();
         const Scalar T( N * 1000000.0 );
 
+        m_eventsTime->setValue(sumEvents / N);
+        m_eventsUpdates->setValue(T / Scalar(sumEvents));
         m_renderTime->setValue( sumRender / N );
         m_renderUpdates->setValue( T / Scalar( sumRender ) );
         m_tasksTime->setValue( sumTasks / N );

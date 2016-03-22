@@ -17,6 +17,8 @@ namespace Ra
     {
         int numFrame;
         Core::Timer::TimePoint frameStart;
+        Core::Timer::TimePoint eventsStart;
+        Core::Timer::TimePoint eventsEnd;
         Core::Timer::TimePoint tasksStart;
         Core::Timer::TimePoint tasksEnd;
         Core::Timer::TimePoint frameEnd;

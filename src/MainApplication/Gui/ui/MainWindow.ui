@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1204</width>
-    <height>737</height>
+    <width>1350</width>
+    <height>763</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -39,13 +39,13 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1204</width>
+     <width>1350</width>
      <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFILE">
     <property name="title">
-     <string>File</string>
+     <string>Fi&amp;le</string>
     </property>
     <addaction name="actionOpenMesh"/>
     <addaction name="separator"/>
@@ -53,7 +53,7 @@
    </widget>
    <widget class="QMenu" name="menuMisc">
     <property name="title">
-     <string>Materials</string>
+     <string>&amp;Materials</string>
     </property>
     <addaction name="actionReload_Shaders"/>
     <addaction name="actionOpen_Material_Editor"/>
@@ -105,7 +105,15 @@
               <height>0</height>
              </size>
             </property>
-            <widget class="QWidget" name="tab_stats" native="true">
+            <widget class="QWidget" name="tab_stats">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>-28</y>
+               <width>294</width>
+               <height>240</height>
+              </rect>
+             </property>
              <attribute name="label">
               <string>Stats</string>
              </attribute>
@@ -146,7 +154,7 @@
               </item>
               <item>
                <layout class="QGridLayout" name="gridLayout_6">
-                <item row="1" column="0">
+                <item row="2" column="0">
                  <widget class="QLabel" name="label_26">
                   <property name="text">
                    <string>Render</string>
@@ -160,7 +168,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0">
+                <item row="3" column="0">
                  <widget class="QLabel" name="label_27">
                   <property name="text">
                    <string>Tasks</string>
@@ -174,7 +182,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0">
+                <item row="4" column="0">
                  <widget class="QLabel" name="label_28">
                   <property name="text">
                    <string>Frame</string>
@@ -188,63 +196,84 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="2">
+                <item row="2" column="2">
                  <widget class="QSpinBox" name="m_renderUpdates">
                   <property name="readOnly">
                    <bool>true</bool>
                   </property>
                   <property name="maximum">
-                   <number>100000</number>
+                   <number>100000000</number>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="2">
+                <item row="3" column="2">
                  <widget class="QSpinBox" name="m_tasksUpdates">
                   <property name="readOnly">
                    <bool>true</bool>
                   </property>
                   <property name="maximum">
-                   <number>100000</number>
+                   <number>100000000</number>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="2">
+                <item row="4" column="2">
                  <widget class="QSpinBox" name="m_frameUpdates">
                   <property name="readOnly">
                    <bool>true</bool>
                   </property>
                   <property name="maximum">
-                   <number>100000</number>
+                   <number>100000000</number>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
+                <item row="2" column="1">
                  <widget class="QSpinBox" name="m_renderTime">
                   <property name="readOnly">
                    <bool>true</bool>
                   </property>
                   <property name="maximum">
-                   <number>100000</number>
+                   <number>100000000</number>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
+                <item row="3" column="1">
                  <widget class="QSpinBox" name="m_tasksTime">
                   <property name="readOnly">
                    <bool>true</bool>
                   </property>
                   <property name="maximum">
-                   <number>100000</number>
+                   <number>100000000</number>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
+                <item row="4" column="1">
                  <widget class="QSpinBox" name="m_frameTime">
                   <property name="readOnly">
                    <bool>true</bool>
                   </property>
                   <property name="maximum">
-                   <number>100000</number>
+                   <number>100000000</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_4">
+                  <property name="text">
+                   <string>Events</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QSpinBox" name="m_eventsTime">
+                  <property name="maximum">
+                   <number>100000000</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QSpinBox" name="m_eventsUpdates">
+                  <property name="maximum">
+                   <number>100000000</number>
                   </property>
                  </widget>
                 </item>
@@ -276,7 +305,15 @@
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="tab_drawables" native="true">
+            <widget class="QWidget" name="tab_drawables">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>288</width>
+               <height>170</height>
+              </rect>
+             </property>
              <attribute name="label">
               <string>Render objects</string>
              </attribute>
@@ -361,7 +398,15 @@
               </item>
              </layout>
             </widget>
-            <widget class="Ra::Gui::TransformEditorWidget" name="tab_edition" native = "true">
+            <widget class="Ra::Gui::TransformEditorWidget" name="tab_edition">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>98</width>
+               <height>28</height>
+              </rect>
+             </property>
              <attribute name="label">
               <string>Edition</string>
              </attribute>
@@ -419,7 +464,7 @@
   </widget>
   <action name="actionOpenMesh">
    <property name="text">
-    <string>Open...</string>
+    <string>&amp;Open...</string>
    </property>
    <property name="toolTip">
     <string>Open...</string>
@@ -430,7 +475,7 @@
   </action>
   <action name="actionExit">
    <property name="text">
-    <string>Exit</string>
+    <string>&amp;Exit</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
@@ -438,7 +483,7 @@
   </action>
   <action name="actionReload_Shaders">
    <property name="text">
-    <string>Reload Shaders</string>
+    <string>&amp;Reload Shaders</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>
