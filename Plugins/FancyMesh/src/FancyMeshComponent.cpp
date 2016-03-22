@@ -85,22 +85,16 @@ namespace FancyMeshPlugin
         std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( meshName ) );
 
         Ra::Core::TriangleMesh mesh;
-        for( const auto& v : data->getVertices() )
+        for (size_t i = 0; i < data->getVerticesSize(); ++i)
         {
-            mesh.m_vertices.push_back( data->getFrame() * v );
-        }
-        for( const auto& face : data->getFaces() ) {
-            mesh.m_triangles.push_back( {uint(face[0]), uint(face[1]), uint(face[2]) } );
+            mesh.m_vertices.push_back(data->getFrame() * data->getVertices()[i]);
+            mesh.m_normals.push_back(data->getNormals()[i]);
         }
 
-#if defined(LOAD_TEXTURES)
-        for (const auto& v : data->getNormals())
+        for (const auto& face : data->getFaces())
         {
-            mesh.m_normals.push_back(v);
+            mesh.m_triangles.push_back(face.head<3>());
         }
-#else
-        Ra::Core::Geometry::uniformNormal( mesh.m_vertices, mesh.m_triangles, mesh.m_normals );
-#endif
 
         setupIO( data->getName());
 
