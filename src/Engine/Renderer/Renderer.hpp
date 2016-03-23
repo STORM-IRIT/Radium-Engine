@@ -94,6 +94,16 @@ namespace Ra
                 m_renderMutex.unlock();
             }
 
+            virtual void toggleWireframe() final
+            {
+                m_wireframe = !m_wireframe;
+            }
+
+            virtual void setWireframe(bool wireframe) final
+            {
+                m_wireframe = wireframe;
+            }
+
             /**
              * @brief Tell the renderer it needs to render.
              * This method does the following steps :
@@ -280,8 +290,8 @@ namespace Ra
             // Simple quad mesh, used to render the final image
             std::unique_ptr<Mesh> m_quadMesh;
 
-            // Should we render debug stuff ?
-            bool m_drawDebug;
+            bool m_drawDebug; // Should we render debug stuff ?
+            bool m_wireframe; // Are we rendering in "real" wireframe mode
 
         private:
             // Final display shader

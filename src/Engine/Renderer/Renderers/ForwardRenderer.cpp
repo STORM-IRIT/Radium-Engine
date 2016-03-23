@@ -127,6 +127,15 @@ namespace Ra
 
             GL_ASSERT( glDrawBuffers( 1, buffers ) );
 
+            if (m_wireframe)
+            {
+                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+                glEnable(GL_LINE_SMOOTH);
+                glLineWidth(1.f);
+                glEnable(GL_POLYGON_OFFSET_LINE);
+                glPolygonOffset(-1.0, -1.1);
+            }
+
             shader = m_depthAmbientShader;
             shader->bind();
             for ( const auto& ro : m_fancyRenderObjects )
@@ -217,6 +226,12 @@ namespace Ra
                     // render
                     ro->getMesh()->render();
                 }
+            }
+
+            if (m_wireframe)
+            {
+                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                glDisable(GL_POLYGON_OFFSET_LINE);
             }
 
             // Draw debug stuff, do not overwrite depth map but do depth testing

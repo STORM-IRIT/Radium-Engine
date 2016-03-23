@@ -287,6 +287,11 @@ namespace Ra
     {
         m_camera->handleKeyReleaseEvent( event );
 
+        if (event->key() == Qt::Key_Z && !event->isAutoRepeat())
+        {
+            m_currentRenderer->toggleWireframe();
+        }
+
         QOpenGLWidget::keyReleaseEvent(event);
     }
 
