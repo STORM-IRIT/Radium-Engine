@@ -106,9 +106,6 @@
 // Preprocessor magic
 // ----------------------------------------------------------------------------
 
-// Macro to avoid the "unused variable" warning with no side-effects.
-#define CORE_UNUSED(X) ((void) sizeof(X))
-
 // Wrapper for multiline macros
 // In debug we use the standard do..while(0) which is 'nice' to read and debug
 // in a debugger such as gdb.
@@ -120,6 +117,12 @@
 #define MACRO_START if(1) {
 #define MACRO_END   } else {}
 #endif
+
+// Macro to avoid the "unused variable" warning with no side-effects.
+#define CORE_UNUSED(X) \
+    MACRO_START        \
+    (void) sizeof((X));\
+    MACRO_END
 
 // Token concatenation
 // Preprocessor concatenation can be tricky if arguments are macros unless

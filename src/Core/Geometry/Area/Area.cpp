@@ -144,9 +144,6 @@ Scalar oneRingArea( const Vector3& v, const VectorArray< Vector3 >& p ) {
     i.setSize( N );
     for( uint j = 0; j < N; ++j ) {
         i.setValue( j );
-        uint prev = i-1;
-        uint curr = i;
-        uint next = i+1;
         area += triangleArea( v, p[i], p[i-1] );
     }
     return area;

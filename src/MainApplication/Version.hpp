@@ -6,11 +6,10 @@
 namespace Ra {
     namespace Version {
 
-        static const char* compileDate = __DATE__;
-        static const char* compileTime = __TIME__;
-
-        extern const char* compileFlags;
         extern const char* compiler;
+        extern const char* compileFlags;
+        extern const char* compileDate;
+        extern const char* compileTime;
 
         // TODO :
 

@@ -25,7 +25,7 @@ namespace Ra
             m_plainShader = ShaderProgramManager::getInstance()->getShaderProgram(ShaderConfiguration("Plain", "../Shaders"));
         }
 
-        void DebugRender::render(const Core::Matrix4& viewMatrix, 
+        void DebugRender::render(const Core::Matrix4& viewMatrix,
                                  const Core::Matrix4& projMatrix)
         {
             renderLines(viewMatrix, projMatrix);

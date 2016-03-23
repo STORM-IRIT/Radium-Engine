@@ -9,6 +9,7 @@ namespace Graph {
 
 
 void check( const AdjacencyList& adj ) {
+#if defined CORE_DEBUG
     CORE_ASSERT( ( adj.m_parent.size() == adj.m_child.size() ), "Children list and parent list are incompatible.");
     // Check no node is there before its parent.
     for( uint node = 0; node < adj.size(); ++node ) {
@@ -19,6 +20,7 @@ void check( const AdjacencyList& adj ) {
         }
         CORE_ASSERT( adj.isLeaf( node ) == ( adj.m_child.at( node ).size() == 0 ), " Only leaves should have no children.");
     }
+#endif
 }
 
 

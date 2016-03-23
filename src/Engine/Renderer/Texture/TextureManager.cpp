@@ -50,7 +50,7 @@ namespace Ra
                 return nullptr;
             }
 
-            GLuint format;
+            GLuint format = 0;
             switch(n)
             {
                 case 1: format = GL_RED;    break;
