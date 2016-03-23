@@ -13,7 +13,7 @@ template < class DATA >
 class DataLoader {
 public:
     /// CONSTRUCTOR
-    DataLoader( const bool VERBOSE_MODE = false ) { }
+    DataLoader( const bool VERBOSE_MODE = false ) : m_verbose(VERBOSE_MODE){ }
 
     /// DESTRUCTOR
     ~DataLoader() { }
