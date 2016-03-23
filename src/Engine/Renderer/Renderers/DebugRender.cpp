@@ -88,17 +88,12 @@ namespace Ra
                 return;
             }
 
-            if (0 == m_pointVao)
-            {
-                glGenVertexArrays(1, &m_pointVao);
-                glBindVertexArray(m_pointVao);
-                glGenBuffers(1, &m_pointVbo);
-                glBindVertexArray(0);
-            }
+            GLuint vao, vbo;
+            glGenVertexArrays(1, &vao);
 
-            glBindVertexArray(m_pointVao);
-
-            glBindBuffer(GL_ARRAY_BUFFER, m_pointVbo);
+            glBindVertexArray(vao);
+            glGenBuffers(1, &vbo);
+            glBindBuffer(GL_ARRAY_BUFFER, vbo);
             glBufferData(GL_ARRAY_BUFFER, size * 2 * sizeof(Core::Vector3), m_points.data(), GL_DYNAMIC_DRAW);
 
 #ifdef CORE_USE_DOUBLE
@@ -122,13 +117,15 @@ namespace Ra
             glDisable(GL_PROGRAM_POINT_SIZE);
 
             glBindVertexArray(0);
+            glDeleteVertexArrays(1, &vao);
+            glDeleteBuffers(1, &vbo);
 
             m_points.clear();
         }
 
         void DebugRender::renderMeshes(const Core::Matrix4 &view, const Core::Matrix4 &proj)
         {
-            if (m_meshes.size() == 0)
+            if (m_meshes.empty())
             {
                 return;
             }
@@ -157,7 +154,6 @@ namespace Ra
                 m_meshes[i]->updateGL();
                 m_meshes[i]->render();
             }
-
 
             m_meshes.clear();
         }
