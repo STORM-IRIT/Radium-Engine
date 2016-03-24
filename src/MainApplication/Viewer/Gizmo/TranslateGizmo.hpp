@@ -17,8 +17,11 @@ namespace Ra
             virtual void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY);
             virtual Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY);
         private:
+            Ra::Core::Vector3 m_startPoint;
+            Ra::Core::Vector3 m_initialTrans;
             Core::Vector2 m_initialPix;
             int m_selectedAxis;
+            bool m_start;
         };
     }
 }

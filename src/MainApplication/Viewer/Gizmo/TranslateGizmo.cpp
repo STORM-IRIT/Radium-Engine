@@ -16,7 +16,7 @@ namespace Ra
     namespace Gui
     {
         TranslateGizmo::TranslateGizmo(Engine::Component* c, const Core::Transform &worldTo, const Core::Transform& t, Mode mode)
-                : Gizmo(c, worldTo, t, mode), m_initialPix(Core::Vector2::Zero()), m_selectedAxis(-1)
+                : Gizmo(c, worldTo, t, mode), m_startPoint(Core::Vector3::Zero()), m_initialPix(Core::Vector2::Zero()), m_selectedAxis(-1)
         {
             constexpr Scalar arrowScale = 0.2f;
             constexpr Scalar axisWidth = 0.05f;
@@ -100,38 +100,60 @@ namespace Ra
             if (m_selectedAxis != oldAxis)
             {
                 m_initialPix = Core::Vector2::Zero();
+                m_start = false;
             }
         }
 
+        bool findPointOnAxis( const Engine::Camera& cam,
+                              const Ra::Core::Vector3& origin,
+                              const Ra::Core::Vector3& axis,
+                              const Ra::Core::Vector2& pix,
+                              Ra::Core::Vector3& pointOut)
+        {
+
+            // Taken from Rodolphe's View engine gizmos -- see slide_axis().
+
+            // Find a plane containing axis and as parallel as possible to
+            // the camera image plane
+            auto ortho = cam.getDirection().cross(axis);
+            const Core::Vector3 normal = (ortho.squaredNorm() > 0) ?
+                                             axis.cross(ortho) :
+                                             axis.cross(cam.getUpVector());
+
+            std::vector<Scalar> hit;
+            const Core::Ray ray = cam.getRayFromScreen( pix );
+            bool hasHit = Core::RayCast::vsPlane(ray, origin, normal, hit);
+            if (hasHit)
+            {
+                pointOut = origin + (axis.dot(ray.at(hit[0]) - origin)) * axis;
+            }
+            return hasHit;
+        }
+
+
         Core::Transform TranslateGizmo::mouseMove(const Engine::Camera& cam, const Core::Vector2& nextXY)
         {
-            if (m_selectedAxis >= 0)
+            if ( m_selectedAxis >= 0)
             {
-                // Taken from Rodolphe's View engine gizmos -- see slide_axis().
 
                 const Core::Vector3 origin = m_transform.translation();
-                const Core::Ray ray = cam.getRayFromScreen(nextXY + m_initialPix);
+                Core::Vector3 translateDir =  m_mode == LOCAL ?
+                            Core::Vector3(m_transform.rotation() * Core::Vector3::Unit(m_selectedAxis)):
+                            Core::Vector3::Unit(m_selectedAxis);
 
-                Core::Vector3 translateDir = Core::Vector3::Unit(m_selectedAxis);
-                if (m_mode == LOCAL)
+                if (!m_start)
                 {
-                    translateDir = m_transform.rotation() * translateDir;
+                    if ( findPointOnAxis( cam, origin, translateDir, m_initialPix+nextXY, m_startPoint) )
+                    {
+                        m_start = true;
+                        m_initialTrans = m_transform.translation();
+                    }
                 }
 
-                // Find a plane passing through axis_dir and as parrallel as possible to
-                // the camera image plane
-                auto ortho = cam.getDirection().cross(translateDir);
-                const Core::Vector3 normal = (ortho.squaredNorm() > 0) ?
-                                             translateDir.cross(ortho) :
-                                             translateDir.cross(cam.getUpVector());
-
-                std::vector<Scalar> hit;
-                bool hasHit = Core::RayCast::vsPlane(ray, origin, normal, hit);
-
-                if (hasHit)
+                Ra::Core::Vector3 endPoint;
+                if (findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, endPoint ))
                 {
-                    auto endPoint = origin + (translateDir.dot(ray.at(hit[0]) - origin)) * translateDir;
-                    m_transform.translation() = endPoint;
+                    m_transform.translation()= m_initialTrans + endPoint - m_startPoint;
                 }
 
             }
