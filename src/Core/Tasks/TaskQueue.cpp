@@ -101,17 +101,16 @@ namespace Ra
         {
            for ( const auto& pre : m_pendingDepsPre )
            {
-               bool result = addDependency( pre.first, pre.second );
+               ON_DEBUG(bool result =) addDependency( pre.first, pre.second );
                CORE_ASSERT( result, "Pending dependency unresolved");
            }
            for ( const auto& pre : m_pendingDepsSucc )
            {
-               bool result = addDependency( pre.first, pre.second );
+               ON_DEBUG(bool result =) addDependency( pre.first, pre.second );
                CORE_ASSERT( result, "Pending dependency unresolved");
            }
            m_pendingDepsPre.clear();
            m_pendingDepsSucc.clear();
-
         }
 
         void TaskQueue::queueTask( TaskQueue::TaskId task )
