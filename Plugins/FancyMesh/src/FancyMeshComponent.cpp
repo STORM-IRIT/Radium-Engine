@@ -88,13 +88,14 @@ namespace FancyMeshPlugin
         for (size_t i = 0; i < data->getVerticesSize(); ++i)
         {
             mesh.m_vertices.push_back(data->getFrame() * data->getVertices()[i]);
-            mesh.m_normals.push_back(data->getNormals()[i]);
+//            mesh.m_normals.push_back(data->getNormals()[i]);
         }
 
         for (const auto& face : data->getFaces())
         {
             mesh.m_triangles.push_back(face.head<3>());
         }
+        Ra::Core::Geometry::uniformNormal(mesh.m_vertices, mesh.m_triangles, mesh.m_normals);
 
         setupIO( data->getName());
 
