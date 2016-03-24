@@ -200,7 +200,6 @@ namespace Ra
     {
         // Renderer should have been locked by previous events.
         m_camera->resizeViewport( width, height );
-
         m_currentRenderer->resize( width, height );
     }
 
@@ -249,24 +248,18 @@ namespace Ra
             {
             } break;
         }
-
-        QOpenGLWidget::mousePressEvent(event);
     }
 
     void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event )
     {
         m_camera->handleMouseReleaseEvent( event );
         m_gizmoManager->handleMouseReleaseEvent(event);
-
-        QOpenGLWidget::mouseReleaseEvent(event);
     }
 
     void Gui::Viewer::mouseMoveEvent( QMouseEvent* event )
     {
         m_camera->handleMouseMoveEvent( event );
         m_gizmoManager->handleMouseMoveEvent(event);
-
-        QOpenGLWidget::mouseMoveEvent(event);
     }
 
     void Gui::Viewer::wheelEvent( QWheelEvent* event )
