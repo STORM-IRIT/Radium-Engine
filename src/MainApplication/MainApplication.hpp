@@ -101,6 +101,8 @@ namespace Ra
         /// Task queue for processing tasks.
         std::unique_ptr<Core::TaskQueue> m_taskQueue;
 
+        uint m_targetFPS;
+
     private:
         /// Pointer to OpenGL Viewer for render call (belongs to MainWindow).
         Gui::Viewer* m_viewer;

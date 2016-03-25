@@ -5,6 +5,7 @@
 #include <QTimer>
 #include <QDir>
 #include <QPluginLoader>
+#include <QCommandLineParser>
 
 #include <Core/Log/Log.hpp>
 #include <Core/String/StringUtils.hpp>
@@ -49,25 +50,23 @@ namespace Ra
         , m_isAboutToQuit( false )
         //, m_timerData(TIMER_AVERAGE)
     {
+        m_targetFPS = 60; // Default
+        std::string pluginsPath = "../Plugins/bin";
 
-        std::string pluginsPath;
-        if ( argc > 1 )
-        {
-            for ( int i = 1; i < argc; ++i )
-            {
-                std::string arg( argv[i] );
+        QCommandLineParser parser;
+        parser.setApplicationDescription("Radium Engine RPZ, TMTC");
+        parser.addHelpOption();
+        parser.addVersionOption();
 
-                if ( arg == "--pluginsPath" )
-                {
-                    pluginsPath = std::string( argv[i+1] );
-                    continue;
-                }
-            }
-        }
-        if ( pluginsPath.empty() )
-        {
-            pluginsPath = "../Plugins/bin";
-        }
+        QCommandLineOption fpsOpt(QStringList{"r", "framerate", "fps"}, "Control the application framerate, 0 to disable it (and run as fast as possible)", "60");
+        QCommandLineOption pluginOpt(QStringList{"p", "plugins", "pluginsPath"}, "Set the path to the plugin dlls", "../Plugins/bin");
+        // NOTE(Charly): Add other options here
+
+        parser.addOptions({fpsOpt, pluginOpt});
+        parser.process(*this);
+
+        if (parser.isSet(fpsOpt))      m_targetFPS = parser.value(fpsOpt).toUInt();
+        if (parser.isSet(pluginOpt))   pluginsPath = parser.value(pluginOpt).toStdString();
 
         // Boilerplate print.
         LOG( logINFO ) << "*** Radium Engine Main App  ***";
@@ -328,8 +327,10 @@ namespace Ra
         pluginsDir.cd( pluginsPath.c_str() );
 
         bool res = true;
+        uint pluginCpt = 0;
 
-        foreach (QString filename, pluginsDir.entryList( QDir::Files ) )
+        for (const auto& filename : pluginsDir.entryList(QDir::Files))
+//        foreach (QString filename, pluginsDir.entryList( QDir::Files ) )
         {
             std::string ext = Core::StringUtils::getFileExt( filename.toStdString() );
 #if defined( OS_WINDOWS )
@@ -357,6 +358,7 @@ namespace Ra
                     loadedPlugin = qobject_cast<Plugins::RadiumPluginInterface*>( plugin );
                     if ( loadedPlugin )
                     {
+                        ++pluginCpt;
                         loadedPlugin->registerPlugin( m_engine.get() );
                         m_mainWindow->updateUi( loadedPlugin );
                     }
@@ -375,6 +377,15 @@ namespace Ra
                     res = false;
                 }
             }
+        }
+
+        if (pluginCpt == 0)
+        {
+            LOG(logINFO) << "No plugin found or loaded.";
+        }
+        else
+        {
+            LOG(logINFO) << "Loaded " << pluginCpt << " plugins.";
         }
 
         return res;
