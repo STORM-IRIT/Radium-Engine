@@ -21,7 +21,7 @@
 namespace AnimationPlugin
 {
 
-    bool AnimationComponent::picked(uint drawableIdx) const
+    bool AnimationComponent::picked(uint drawableIdx)
     {
         for (const auto& dr: m_boneDrawables)
         {
@@ -38,7 +38,7 @@ namespace AnimationPlugin
     {
         if ( m_selectedBone < 0 || uint(m_selectedBone) >= m_skel.size() )
         {
-            m_selectedBone = 0;
+            return;
         }
 
         CORE_ASSERT(m_selectedBone >= 0 && uint(m_selectedBone) < m_skel.size(), "Oops");

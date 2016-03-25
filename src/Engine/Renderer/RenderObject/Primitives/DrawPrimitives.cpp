@@ -12,7 +12,7 @@
 namespace Ra {
     namespace Engine {
         namespace DrawPrimitives {
-            RenderObject* Primitive(const Component* component, const MeshPtr& mesh)
+            RenderObject* Primitive(Component* component, const MeshPtr& mesh)
             {
                 std::string shader(mesh->getRenderMode() == GL_LINES ?
                                    "Lines" : "Plain");

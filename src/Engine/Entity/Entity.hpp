@@ -77,7 +77,7 @@ namespace Ra
             // Editable Interface
             virtual void getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const override;
             virtual void setProperty( const EditableProperty& prop ) override;
-            virtual bool picked(uint drawableIndex) const override { return true;} // Entities are always pickable.
+            virtual bool picked(uint drawableIndex) override { return true;} // Entities are always pickable.
 
         private:
             Core::Transform m_transform;

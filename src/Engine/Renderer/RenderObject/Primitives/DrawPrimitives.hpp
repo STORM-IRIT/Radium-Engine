@@ -23,7 +23,7 @@ namespace Ra
         namespace DrawPrimitives
         {
             using MeshPtr = std::shared_ptr<Mesh>;
-            RA_ENGINE_API RenderObject* Primitive(const Component* comp,
+            RA_ENGINE_API RenderObject* Primitive(Component* comp,
                                                   const MeshPtr& mesh);
 
             /// Displays given point shown as the crossing of 3 lines of length 'scale'
@@ -31,7 +31,7 @@ namespace Ra
                                         const Core::Color& color,
                                         Scalar scale = 0.1f);
 
-            /// Displays given line 
+            /// Displays given line
             RA_ENGINE_API MeshPtr Line(const Core::Vector3& a, const Core::Vector3& b,
                                        const Core::Color& color);
 
@@ -52,7 +52,7 @@ namespace Ra
                                            const Core::Color& color,
                                            bool fill = false);
 
-            /// Displays circle computed with given center and radius, 
+            /// Displays circle computed with given center and radius,
             /// in plane normal to given vector in wireframe
             RA_ENGINE_API MeshPtr Circle(const Core::Vector3& center,
                                          const Core::Vector3& normal,
@@ -65,7 +65,7 @@ namespace Ra
                                          Scalar radius,
                                          const Core::Color& color);
 
-            /// Displays disk (filled circle) computed with given center and radius, 
+            /// Displays disk (filled circle) computed with given center and radius,
             /// in plane normal to given vector in wireframe
             RA_ENGINE_API MeshPtr Disk(const Core::Vector3& center,
                                        const Core::Vector3& normal,
@@ -81,14 +81,14 @@ namespace Ra
                                          Scalar scale = 0.1f);
 
             /// Displays a 3D frame representing the given transform.
-            /// Each axis has length 'scale' and are in usual colors 
+            /// Each axis has length 'scale' and are in usual colors
             /// (X,Y,Z = red, green blue)
-            /// Remainder : the transform will be drawn relative 
+            /// Remainder : the transform will be drawn relative
             /// to the component's entity transform.
             RA_ENGINE_API MeshPtr Frame(const Core::Transform& frameFromEntity,
                                         Scalar scale = 0.1f);
 
-            /// Create a res*res square grid centered on center, 
+            /// Create a res*res square grid centered on center,
             /// in plane normal to normal.
             RA_ENGINE_API MeshPtr Grid(const Core::Vector3& center,
                                        const Core::Vector3& x,

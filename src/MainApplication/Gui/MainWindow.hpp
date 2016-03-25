@@ -136,6 +136,8 @@ namespace Ra
             EntityTreeModel* m_entityTreeModel;
 
             MaterialEditor* m_materialEditor;
+
+            int m_lastSelectedRO;
         };
 
     } // namespace Gui

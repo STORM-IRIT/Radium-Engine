@@ -17,6 +17,12 @@ namespace Ra
         {
         }
 
+        bool RenderObjectManager::exists( const Core::Index& index ) const
+        {
+            return (index != Core::Index::INVALID_IDX()) &&
+                    m_renderObjects.contain( index );
+        }
+
         Core::Index RenderObjectManager::addRenderObject( RenderObject* renderObject )
         {
             // Avoid data race in the std::maps
@@ -37,6 +43,7 @@ namespace Ra
 
         void RenderObjectManager::removeRenderObject( const Core::Index& index )
         {
+            CORE_ASSERT( exists (index), "Trying to access a render object which doesn't exist");
             std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
             // FIXME(Charly): Should we check if the render object is in the double buffer map ?
@@ -53,13 +60,8 @@ namespace Ra
 
         std::shared_ptr<RenderObject> RenderObjectManager::getRenderObject( const Core::Index& index )
         {
-            std::shared_ptr<RenderObject> ret = nullptr;
-            if ( index != Core::Index::INVALID_IDX() )
-            {
-                ret = m_renderObjects.at( index );
-            }
-
-            return ret;
+            CORE_ASSERT( exists (index), "Trying to access a render object which doesn't exist");
+            return m_renderObjects.at( index );
         }
 
         void RenderObjectManager::getRenderObjects( std::vector<std::shared_ptr<RenderObject>>& renderObjectsOut, bool undirty ) const

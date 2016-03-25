@@ -29,6 +29,9 @@ namespace Ra
 
             Core::Index addRenderObject( RenderObject* renderObject );
             void removeRenderObject( const Core::Index& index );
+
+            /// Returns the render object corresponding to the given index. Will assert
+            /// if the index does not match to an existing render object. See exists()
             std::shared_ptr<RenderObject> getRenderObject( const Core::Index& index );
 
             /**
@@ -51,6 +54,9 @@ namespace Ra
 
             void getRenderObjectsByType( std::vector<std::shared_ptr<RenderObject>>& objectsOut,
                                          const RenderObjectType& type, bool undirty = false ) const;
+
+            /// Returns true if the index points to a valid render object.
+            bool exists( const Core::Index& index) const;
 
             bool isDirty() const;
 

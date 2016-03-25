@@ -45,7 +45,7 @@ namespace AnimationPlugin
 
         virtual void getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const override;
         virtual void setProperty( const Ra::Engine::EditableProperty& prop) override;
-        virtual bool picked (uint drawableIdex) const override;
+        virtual bool picked (uint drawableIdex) override;
 
 
 
@@ -92,7 +92,7 @@ namespace AnimationPlugin
         std::vector<SkeletonBoneRenderObject*> m_boneDrawables ; // Vector of bone display objects
         Scalar m_animationTime;
 
-        mutable int m_selectedBone; //this is an ugly hack ! (Val)
+        int m_selectedBone;
     };
 
 }

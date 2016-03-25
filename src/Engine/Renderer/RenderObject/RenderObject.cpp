@@ -14,7 +14,7 @@ namespace Ra
 {
     namespace Engine
     {
-        RenderObject::RenderObject( const std::string& name, const Component* comp,
+        RenderObject::RenderObject( const std::string& name, Component* comp,
                                     const RenderObjectType& type, int lifetime )
             : IndexedObject()
             , m_localTransform( Core::Transform::Identity() )
@@ -109,6 +109,11 @@ namespace Ra
             return m_component;
         }
 
+        Component* RenderObject::getComponent()
+        {
+            return m_component;
+        }
+
         void RenderObject::setRenderTechnique( RenderTechnique* technique )
         {
             CORE_ASSERT( technique, "Passing a nullptr as render technique" );
@@ -183,8 +188,7 @@ namespace Ra
 
         void RenderObject::hasExpired()
         {
-            // HACK(Charly): How do we wanna handle this ?
-            const_cast<Component*>( m_component )->notifyRenderObjectExpired( idx );
+            m_component->notifyRenderObjectExpired( idx );
         }
 
     } // namespace Engine

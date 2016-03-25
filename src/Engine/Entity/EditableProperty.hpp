@@ -66,7 +66,7 @@ namespace Ra
             virtual Core::Transform getWorldTransform() const { return Core::Transform::Identity(); }
 
             /// Notify the editable which drawable has been picked.
-            virtual bool picked( uint drawableIdx ) const { return false ;}
+            virtual bool picked( uint drawableIdx ) { return false ;}
         };
 
     }

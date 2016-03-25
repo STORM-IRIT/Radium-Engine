@@ -40,6 +40,7 @@ namespace Ra
 
         m_materialEditor = new MaterialEditor();
 
+        m_lastSelectedRO = -1;
         createConnections();
 
         mainApp->framesCountForStatsChanged( m_avgFramesCount->value() );
@@ -307,6 +308,21 @@ namespace Ra
 
     void Gui::MainWindow::handlePicking( int drawableIndex )
     {
+        if (m_lastSelectedRO >= 0)
+        {
+
+            if ( mainApp->m_engine->getRenderObjectManager()->exists( m_lastSelectedRO ))
+            {
+                const std::shared_ptr<Engine::RenderObject>& ro =
+                    mainApp->m_engine->getRenderObjectManager()->getRenderObject( m_lastSelectedRO );
+
+                Engine::Component* comp = ro->getComponent();
+                Engine::Entity* ent = comp->getEntity();
+                comp->picked( -1 );
+                ent->picked(-1);
+            }
+        }
+
         if ( drawableIndex >= 0 )
         {
             const std::shared_ptr<Engine::RenderObject>& ro =
@@ -323,7 +339,7 @@ namespace Ra
             LOG( logDEBUG ) << "RO Name  : " << ro->getName();
             /////////////////////////////////////////////
 
-            const Engine::Component* comp = ro->getComponent();
+            Engine::Component* comp = ro->getComponent();
             const Engine::Entity* ent = comp->getEntity();
             int compIdx = -1;
             int i = 0;
@@ -361,6 +377,7 @@ namespace Ra
         {
             m_entitiesTreeView->selectionModel()->clear();
         }
+        m_lastSelectedRO = drawableIndex;
     }
 
     void Gui::MainWindow::onSelectionChanged( const QItemSelection& selected, const QItemSelection& deselected )
@@ -490,7 +507,6 @@ namespace Ra
         {
             m_currentShaderBox->addItem( QString( shaderName.c_str() ) );
             m_currentShaderBox->setCurrentText( shaderName.c_str() );
-            //m_currentShaderBox->setCurrentText( "" );
         }
         else
         {
