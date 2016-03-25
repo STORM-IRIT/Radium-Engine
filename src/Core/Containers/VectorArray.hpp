@@ -42,6 +42,8 @@ namespace Ra
 
         };
 
+        /// This specialization stores an array of scalars which can be used as a dynamic
+        /// Eigen column vector.
         template<>
         class VectorArray<Scalar> : public AlignedStdVector<Scalar>
         {
@@ -81,6 +83,7 @@ namespace Ra
         // alignment...
         // But actually it is not necessary to do so in C++11 [3] (it is actually harmful
         // as it removes some vector features such as initializer lists).
+        // Finally we use our own aligned allocator.
 
         // [1] https://forum.kde.org/viewtopic.php?f=74&t=126959
         // [2] http://eigen.tuxfamily.org/dox-devel/group__TopicStlContainers.html

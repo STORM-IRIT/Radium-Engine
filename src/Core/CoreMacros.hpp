@@ -34,35 +34,35 @@
 // OS and architecture identification
 // ----------------------------------------------------------------------------
 
-#if defined(_WIN32) || defined(_WIN64)
+#if defined(_WIN32) || defined(_WIN64) // ------------------------------ Windows
 #define OS_WINDOWS
-#if defined(_M_X64)
-#define ARCH_X64
-#elif defined(_M_IX86)
-#define ARCH_X86
-#else
-#error unsupported arch
+#   if defined(_M_X64)
+#       define ARCH_X64
+#   elif defined(_M_IX86)
+#       define ARCH_X86
+#   else
+#       error unsupported arch
+#   endif
+#elif defined(__APPLE__) || defined(__MACH__) // ------------------------ Mac OS
+#   define OS_MACOS
+#   if defined(__i386__)
+#       define ARCH_X86
+#   elif defined(__x86_64__) || defined (__x86_64)
+#       define ARCH_X64
+#   else
+#   error unsupported arch
 #endif
-#elif defined(__APPLE__) || defined(__MACH__)
-#define OS_MACOS
-#if defined(__i386__)
-#define ARCH_X86
-#elif defined(__x86_64__) || defined (__x86_64)
-#define ARCH_X64
+#elif defined(__linux__) || defined (__CYGWIN__) // ---------------------- Linux
+#   define OS_LINUX
+#   if defined(__i386__)
+#       define ARCH_X86
+#   elif defined(__x86_64__) || defined (__x86_64)
+#       define ARCH_X64
+#   else
+#       error unsupported arch
+#   endif
 #else
-#error unsupported arch
-#endif
-#elif defined(__linux__) || defined (__CYGWIN__)
-#define OS_LINUX
-#if defined(__i386__)
-#define ARCH_X86
-#elif defined(__x86_64__) || defined (__x86_64)
-#define ARCH_X64
-#else
-#error unsupported arch
-#endif
-#else
-#error unsupported OS
+    #error unsupported OS
 #endif
 
 // Todo : endianness, pointer sixe
@@ -74,32 +74,32 @@
 // This will cause assert to be disabled except if DEBUG is defined
 // Make sure all "debug" macros are defined
 #if defined (DEBUG) || defined(_DEBUG) || defined (CORE_DEBUG)
-#undef CORE_DEBUG
-#define CORE_DEBUG
+#   undef CORE_DEBUG
+#   define CORE_DEBUG
 
-#undef _DEBUG
-#define _DEBUG
+#   undef _DEBUG
+#   define _DEBUG
 
-#undef DEBUG
-#define DEBUG
+#   undef DEBUG
+#   define DEBUG
 
-#undef NDEBUG
-#undef RELEASE
+#   undef NDEBUG
+#   undef RELEASE
 
-#define ON_DEBUG(CODE) CODE
-#else // not in debug
+#   define ON_DEBUG(CODE) CODE
+#else // --------------------------------------------------------------- Release
 
-#define RELEASE
+#   define RELEASE
 
-#undef CORE_DEBUG
-#undef DEBUG
-#undef _DEBUG
+#   undef CORE_DEBUG
+#   undef DEBUG
+#   undef _DEBUG
 
-#if !defined (NDEBUG)
-#define NDEBUG
-#endif
+#   if !defined (NDEBUG)
+#       define NDEBUG
+#   endif
 
-#define ON_DEBUG(CODE) /* Nothing */
+#   define ON_DEBUG(CODE) /* Nothing */
 #endif
 
 // ----------------------------------------------------------------------------
@@ -111,11 +111,11 @@
 // in a debugger such as gdb.
 // In release we use the if(1) else;  which compilers can optimize better
 #ifdef CORE_DEBUG
-#define MACRO_START do {
-#define MACRO_END   } while (0)
+#   define MACRO_START do {
+#   define MACRO_END   } while (0)
 #else
-#define MACRO_START if(1) {
-#define MACRO_END   } else {}
+#   define MACRO_START if(1) {
+#   define MACRO_END   } else {}
 #endif
 
 // Macro to avoid the "unused variable" warning with no side-effects.
@@ -134,10 +134,10 @@
 
 // Stringification has a similar problem.
 #ifdef __STRING
-#define STRINGIFY(X) __STRING(X)
+#   define STRINGIFY(X) __STRING(X)
 #else
-#define STRINGIFY(X) STRINGIFY2(X)
-#define STRINGIFY2(X) #X
+#   define STRINGIFY(X) STRINGIFY2(X)
+#   define STRINGIFY2(X) #X
 #endif
 
 // ----------------------------------------------------------------------------
@@ -148,11 +148,11 @@
 // This macro will trigger a breakpoint where it is placed. With MSVC a dialog
 // will ask you if you want to launch the debugger.
 #if defined (COMPILER_GCC) || defined (COMPILER_CLANG)
-#define BREAKPOINT(ARG) asm volatile ("int $3")
+    #define BREAKPOINT(ARG) asm volatile ("int $3")
 #elif defined (COMPILER_MSVC)
-#define BREAKPOINT(ARG) __debugbreak()
+    #define BREAKPOINT(ARG) __debugbreak()
 #else
-#error unsupported platform
+    #error unsupported platform
 #endif
 
 // Platform-independent macros
@@ -176,48 +176,49 @@
 
 // STDCALL, CDECL, FASTCALL : keyword for the corresponding calling convention.
 
-#if defined (COMPILER_MSVC)
+#if defined (COMPILER_MSVC) // ----------------------------------- Visual Studio
 
-#define ALIGN_OF(X) __alignof(X)
-#define ALIGNED(DECL,ALIGN) __declspec(align(ALIGN)) DECL
+#   define ALIGN_OF(X) __alignof(X)
+#   define ALIGNED(DECL,ALIGN) __declspec(align(ALIGN)) DECL
 
 // Unfortunately visual studio does not have a branch prediction primitive.
-#define UNLIKELY(IFEXPR) IFEXPR
-#define LIKELY(IFEXPR)   IFEXPR
+#   define UNLIKELY(IFEXPR) IFEXPR
+#   define LIKELY(IFEXPR)   IFEXPR
 
-#define ALWAYS_INLINE __forceinline
-#define STRONG_INLINE __forceinline
-#define NO_INLINE     __declspec(noinline)
+#   define ALWAYS_INLINE __forceinline
+#   define STRONG_INLINE __forceinline
+#   define NO_INLINE     __declspec(noinline)
 
-#define DEPRECATED __declspec(deprecated)
+#   define DEPRECATED __declspec(deprecated)
 
-#define DLL_EXPORT __declspec(dllexport)
-#define DLL_IMPORT __declspec(dllimport)
+#   define DLL_EXPORT __declspec(dllexport)
+#   define DLL_IMPORT __declspec(dllimport)
 
-#define STDCALL __stdcall
-#define CDECL __cdecl
-#define FASTCALL __fastcall
-#elif defined(COMPILER_GCC) || defined (COMPILER_CLANG)
+#   define STDCALL __stdcall
+#   define CDECL __cdecl
+#   define FASTCALL __fastcall
+#elif defined(COMPILER_GCC) || defined (COMPILER_CLANG) // ------- GCC and CLang
 
-#define ALIGN_OF(X) __alignof__(X)
-#define ALIGNED(DECL,ALIGN) DECL __attribute__((aligned(ALIGN)))
+#   define ALIGN_OF(X) __alignof__(X)
+#   define ALIGNED(DECL,ALIGN) DECL __attribute__((aligned(ALIGN)))
 
-#define UNLIKELY(IFEXPR) __builtin_expect(bool(IFEXPR),0)
-#define LIKELY(IFEXPR)   __builtin_expect(bool(IFEXPR),1)
+#   define UNLIKELY(IFEXPR) __builtin_expect(bool(IFEXPR),0)
+#   define LIKELY(IFEXPR)   __builtin_expect(bool(IFEXPR),1)
 
-#define ALWAYS_INLINE  __attribute((always_inline))
-#define STRONG_INLINE  inline
-#define NO_INLINE     __attribute__((noinline))
+#   define ALWAYS_INLINE  __attribute((always_inline))
+#   define STRONG_INLINE  inline
+#   define NO_INLINE      __attribute__((noinline))
 
-#define DEPRECATED __attribute__((deprecated))
+#   define DEPRECATED __attribute__((deprecated))
 
-#define DLL_EXPORT
-#define DLL_IMPORT
-#define STDCALL  __attribute__((stdcall))
-#define CDECL /* default */
-#define FASTCALL __attribute__((fastcall))
+#   define DLL_EXPORT
+#   define DLL_IMPORT
+
+#   define STDCALL  __attribute__((stdcall))
+#   define CDECL /* default */
+#   define FASTCALL __attribute__((fastcall))
 #else
-#error unsupported platform
+#   error unsupported platform
 #endif
 
 
