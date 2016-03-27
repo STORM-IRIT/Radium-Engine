@@ -7,6 +7,7 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
 namespace Ra {
@@ -17,16 +18,11 @@ namespace Ra {
                 ShaderConfiguration config;
                 if (mesh->getRenderMode() == GL_LINES)
                 {
-                    config.m_name = "Lines";
-                    config.addShader(ShaderType_VERTEX, "../Shaders/Lines.vert.glsl");
-                    config.addShader(ShaderType_FRAGMENT, "../Shaders/Lines.frag.glsl");
-                    // config.addShader(ShaderType_GEOMETRY, "../Shaders/Lines.geom.glsl");
+                    config = ShaderConfigurationFactory::getConfiguration("Lines");
                 }
                 else
                 {
-                    config.m_name = "Plain";
-                    config.addShader(ShaderType_VERTEX, "../Shaders/Plain.vert.glsl");
-                    config.addShader(ShaderType_FRAGMENT, "../Shaders/Plain.frag.glsl");
+                    config = ShaderConfigurationFactory::getConfiguration("Plain");
                 }
 
                 RenderTechnique* rt = new RenderTechnique;

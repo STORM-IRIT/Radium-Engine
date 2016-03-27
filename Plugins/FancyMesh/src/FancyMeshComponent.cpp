@@ -17,6 +17,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
 #include <Engine/Assets/FileData.hpp>
 #include <Engine/Assets/GeometryData.hpp>
@@ -141,10 +142,7 @@ namespace FancyMeshPlugin
         //if ( m.hasNormalTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_NORMAL, m.m_texNormal );
 
         rt->material = mat;
-        Ra::Engine::ShaderConfiguration config("BlinnPhong");
-        config.addShader(Ra::Engine::ShaderType_VERTEX, "../Shaders/BlinnPhong.vert.glsl");
-        config.addShader(Ra::Engine::ShaderType_FRAGMENT, "../Shaders/BlinnPhong.frag.glsl");
-        rt->shaderConfig = config;
+        rt->shaderConfig = Ra::Engine::ShaderConfigurationFactory::getConfiguration("BlinnPhong");
 
         renderObject->setRenderTechnique( rt );
     }

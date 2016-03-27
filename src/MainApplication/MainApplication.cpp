@@ -28,6 +28,7 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/Renderers/DebugRender.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
 #include <MainApplication/Gui/MainWindow.hpp>
 #include <MainApplication/Version.hpp>
@@ -126,6 +127,8 @@ namespace Ra
         m_mainWindow.reset( new Gui::MainWindow );
         m_mainWindow->show();
 
+        addBasicShaders();
+
         // Allow all events to be processed (thus the viewer should have
         // initialized the OpenGL context..)
         processEvents();
@@ -214,6 +217,38 @@ namespace Ra
     void MainApplication::framesCountForStatsChanged( int count )
     {
         m_frameCountBeforeUpdate = count;
+    }
+
+    void MainApplication::addBasicShaders()
+    {
+        using namespace Ra::Engine;
+
+        ShaderConfiguration bpConfig("BlinnPhong");
+        bpConfig.addShader(ShaderType_VERTEX, "../Shaders/BlinnPhong.vert.glsl");
+        bpConfig.addShader(ShaderType_FRAGMENT, "../Shaders/BlinnPhong.frag.glsl");
+        ShaderConfigurationFactory::addConfiguration(bpConfig);
+
+        ShaderConfiguration bpwConfig("BlinnPhongWireframe");
+        bpwConfig.addShader(ShaderType_VERTEX, "../Shaders/BlinnPhongWireframe.vert.glsl");
+        bpwConfig.addShader(ShaderType_FRAGMENT, "../Shaders/BlinnPhongWireframe.frag.glsl");
+        bpwConfig.addShader(ShaderType_GEOMETRY, "../Shaders/BlinnPhongWireframe.geom.glsl");
+        ShaderConfigurationFactory::addConfiguration(bpwConfig);
+
+        ShaderConfiguration pConfig("Plain");
+        pConfig.addShader(ShaderType_VERTEX, "../Shaders/Plain.vert.glsl");
+        pConfig.addShader(ShaderType_FRAGMENT, "../Shaders/Plain.frag.glsl");
+        ShaderConfigurationFactory::addConfiguration(pConfig);
+
+        ShaderConfiguration lgConfig("LinesGeom");
+        lgConfig.addShader(ShaderType_VERTEX, "../Shaders/Lines.vert.glsl");
+        lgConfig.addShader(ShaderType_FRAGMENT, "../Shaders/Lines.frag.glsl");
+        lgConfig.addShader(ShaderType_GEOMETRY, "../Shaders/Lines.geom.glsl");
+        ShaderConfigurationFactory::addConfiguration(lgConfig);
+
+        ShaderConfiguration lConfig("Lines");
+        lConfig.addShader(ShaderType_VERTEX, "../Shaders/Lines.vert.glsl");
+        lConfig.addShader(ShaderType_FRAGMENT, "../Shaders/Lines.frag.glsl");
+        ShaderConfigurationFactory::addConfiguration(lConfig);
     }
 
     void MainApplication::radiumFrame()

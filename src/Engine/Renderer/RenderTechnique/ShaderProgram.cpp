@@ -49,6 +49,13 @@ namespace Ra
         {
         }
 
+        ShaderConfiguration::ShaderConfiguration(const std::string& name, const std::string& vertexShader, const std::string& fragmentShader)
+            : m_name(name)
+        {
+            m_shaders[ShaderType_VERTEX] = vertexShader;
+            m_shaders[ShaderType_FRAGMENT] = fragmentShader;
+        }
+
         void ShaderConfiguration::addShader(ShaderType type, const std::string& name)
         {
             m_shaders[type] = name;
@@ -70,6 +77,11 @@ namespace Ra
         void ShaderConfiguration::removeProperty( const std::string& prop )
         {
             m_properties.erase( prop );
+        }
+
+        bool ShaderConfiguration::isComplete() const
+        {
+             return ((m_shaders[ShaderType_VERTEX] != "") && (m_shaders[ShaderType_FRAGMENT] != "")) || m_shaders[ShaderType_COMPUTE] != "";
         }
 
         bool ShaderConfiguration::operator< (const ShaderConfiguration& o) const

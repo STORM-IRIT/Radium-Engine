@@ -35,6 +35,7 @@ namespace Ra
         public:
             ShaderConfiguration() = default;
             ShaderConfiguration(const std::string& name);
+            ShaderConfiguration(const std::string& name, const std::string& vertexShader, const std::string& fragmentShader);
 
             // Add a shader given its type
             void addShader(ShaderType type, const std::string& name);
@@ -45,7 +46,7 @@ namespace Ra
 
             /// Tell if a shader configuration has at least a vertex and a fragment shader, or a compute shader.
             /// @todo: Is a shader complete if it only has a compute shader ?
-            bool isComplete() const { return ((m_shaders[ShaderType_VERTEX] != "") && (m_shaders[ShaderType_FRAGMENT] != "")) || m_shaders[ShaderType_COMPUTE != ""]; }
+            bool isComplete() const;
 
             bool operator< (const ShaderConfiguration& other) const;
 

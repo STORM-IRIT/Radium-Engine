@@ -88,6 +88,7 @@ namespace Ra
         bool loadPlugins( const std::string& pluginsPath );
 
         void setupScene();
+        void addBasicShaders();
 
 
         // Public variables, accessible through the mainApp singleton.

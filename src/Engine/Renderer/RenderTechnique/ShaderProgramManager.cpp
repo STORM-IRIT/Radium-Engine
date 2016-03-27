@@ -34,7 +34,7 @@ namespace Ra
 
         const ShaderProgram* ShaderProgramManager::addShaderProgram(const ShaderConfiguration& config)
         {
-            // Check if not already inserted
+
             auto found = m_shaderPrograms.find(config);
 
             if (found != m_shaderPrograms.end())

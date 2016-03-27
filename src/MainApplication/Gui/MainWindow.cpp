@@ -9,6 +9,7 @@
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
 #include <MainApplication/MainApplication.hpp>
 #include <MainApplication/Gui/EntityTreeModel.hpp>
@@ -528,18 +529,7 @@ namespace Ra
             return;
         }
 
-        Engine::ShaderConfiguration config;
-
-        config.m_name = name;
-
-        config.addShader(Ra::Engine::ShaderType_VERTEX, "../Shaders/" + name + ".vert.glsl");
-        config.addShader(Ra::Engine::ShaderType_FRAGMENT, "../Shaders/" + name + ".frag.glsl");
-
-        if ( name == "BlinnPhongWireframe" || shaderName == "Lines" )
-        {
-            config.addShader(Ra::Engine::ShaderType_GEOMETRY, "../Shaders/" + name + ".geom.glsl");
-        }
-
+        Engine::ShaderConfiguration config = Ra::Engine::ShaderConfigurationFactory::getConfiguration(name);
         ro->getRenderTechnique()->changeShader(config);
     }
 
