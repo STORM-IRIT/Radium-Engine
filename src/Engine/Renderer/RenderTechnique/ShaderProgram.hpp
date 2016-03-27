@@ -43,8 +43,9 @@ namespace Ra
             void addProperties(const std::list<std::string>& props );
             void removeProperty(const std::string& prop);
 
-            /// Tell if a shader configuration has at least a vertex and a fragment shader.
-            bool isComplete() const { return ((m_shaders[ShaderType_VERTEX] != "") && (m_shaders[ShaderType_FRAGMENT] != "")); }
+            /// Tell if a shader configuration has at least a vertex and a fragment shader, or a compute shader.
+            /// @todo: Is a shader complete if it only has a compute shader ?
+            bool isComplete() const { return ((m_shaders[ShaderType_VERTEX] != "") && (m_shaders[ShaderType_FRAGMENT] != "")) || m_shaders[ShaderType_COMPUTE != ""]; }
 
             bool operator< (const ShaderConfiguration& other) const;
 
