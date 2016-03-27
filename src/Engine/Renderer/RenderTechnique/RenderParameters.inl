@@ -7,7 +7,7 @@ namespace Ra
     {
 
         template <typename T>
-        inline void RenderParameters::UniformBindableVector<T>::bind( ShaderProgram* shader ) const
+        inline void RenderParameters::UniformBindableVector<T>::bind(const ShaderProgram* shader ) const
         {
             for ( auto& value : *this )
             {
@@ -16,12 +16,12 @@ namespace Ra
         }
 
         template <typename T>
-        inline void RenderParameters::TParameter<T>::bind( ShaderProgram* shader ) const
+        inline void RenderParameters::TParameter<T>::bind(const ShaderProgram* shader ) const
         {
             shader->setUniform( m_name, m_value );
         }
 
-        inline void RenderParameters::TextureParameter::bind( ShaderProgram* shader ) const
+        inline void RenderParameters::TextureParameter::bind(const ShaderProgram* shader ) const
         {
             shader->setUniform( m_name, m_texture, m_texUnit );
         }

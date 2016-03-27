@@ -16,7 +16,7 @@ namespace Ra
     {
         if ( nullptr == shader || shaderIsDirty )
         {
-            shader = ShaderProgramManager::getInstance()->getShaderProgram( shaderConfig );
+            shader = ShaderProgramManager::getInstance()->getShaderProgram(shaderConfig);
             shaderIsDirty = false;
         }
 

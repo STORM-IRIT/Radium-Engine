@@ -14,7 +14,7 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
@@ -42,7 +42,7 @@ namespace FancyMeshPlugin
     {
         Ra::Engine::RenderTechnique* technique = new Ra::Engine::RenderTechnique;
         technique->material = new Ra::Engine::Material( "Default" );
-        technique->shaderConfig = Ra::Engine::ShaderConfiguration( "Default", "../Shaders" );
+        technique->shaderConfig = Ra::Engine::ShaderProgramManager::getInstance()->getDefaultShaderProgram()->getBasicConfiguration();
 
         addMeshRenderObject(mesh, name, technique);
     }
@@ -141,7 +141,10 @@ namespace FancyMeshPlugin
         //if ( m.hasNormalTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_NORMAL, m.m_texNormal );
 
         rt->material = mat;
-        rt->shaderConfig = Ra::Engine::ShaderConfiguration( "BlinnPhong", "../Shaders" );
+        Ra::Engine::ShaderConfiguration config("BlinnPhong");
+        config.addShader(Ra::Engine::ShaderType_VERTEX, "../Shaders/BlinnPhong.vert.glsl");
+        config.addShader(Ra::Engine::ShaderType_FRAGMENT, "../Shaders/BlinnPhong.frag.glsl");
+        rt->shaderConfig = config;
 
         renderObject->setRenderTechnique( rt );
     }

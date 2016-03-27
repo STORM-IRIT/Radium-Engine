@@ -1,3 +1,5 @@
+#include "Structs.glsl"
+
 layout (location = 0) in vec3 inPosition;
 layout (location = 1) in vec3 inNormal;
 layout (location = 2) in vec3 inTangent;
@@ -5,23 +7,15 @@ layout (location = 3) in vec3 inBitangent;
 layout (location = 4) in vec3 inTexcoord;
 // TODO(Charly): Add other inputs
 
-struct Transform
-{
-    mat4 model;
-    mat4 view;
-    mat4 proj;
-    mat4 mvp;
-    mat4 modelView;
-    mat4 worldNormal;
-    mat4 viewNormal;
-};
-
 uniform Transform transform;
 
-out vec3 vPosition;
-out vec3 vNormal;
-out vec3 vTexcoord;
-out vec3 vEye;
+out VS_OUT
+{
+    vec3 position;
+    vec3 normal;
+    vec3 texcoord;
+    vec3 eye;
+} vs_out;
 
 void main()
 {
@@ -34,9 +28,9 @@ void main()
 
     vec3 eye = -transform.view[3].xyz * mat3(transform.view);
 
-    vPosition = vec3(pos);
-    vNormal   = vec3(normal);
-    vEye      = vec3(eye);
+    vs_out.position = vec3(pos);
+    vs_out.normal   = vec3(normal);
+    vs_out.eye      = vec3(eye);
 
-    vTexcoord = inTexcoord;
+    vs_out.texcoord = inTexcoord;
 }

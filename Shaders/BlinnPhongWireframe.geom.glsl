@@ -1,16 +1,22 @@
 layout (triangles) in;
 layout (triangle_strip, max_vertices = 3) out;
 
-in vec3 vPosition[3];
-in vec3 vNormal[3];
-in vec3 vTexcoord[3];
-in vec3 vEye[3];
+in VS_OUT
+{
+    vec3 position;
+    vec3 normal;
+    vec3 texcoord;
+    vec3 eye;
+} gs_in[3];
 
-out vec3 gPosition;
-out vec3 gNormal;
-out vec3 gTexcoord;
-out vec3 gEye;
-out vec3 gTriDistance;
+out GS_OUT
+{
+    vec3 position;
+    vec3 normal;
+    vec3 texcoord;
+    vec3 eye;
+    vec3 triDistance;
+} gs_out;
 
 void main()
 {
@@ -21,12 +27,14 @@ void main()
 
     for (int i = 0; i < 3; ++i)
     {
-        gNormal = vNormal[i];
-        gPosition = vPosition[i];
-        gEye = vEye[i];
-        gTexcoord = vTexcoord[i];
-        gTriDistance = triDistances[i];
-        gl_Position = gl_in[i].gl_Position; EmitVertex();
+        gs_out.normal       = gs_in[i].normal;
+        gs_out.position     = gs_in[i].position;
+        gs_out.eye          = gs_in[i].eye;
+        gs_out.texcoord     = gs_in[i].texcoord;
+        gs_out.triDistance  = triDistances[i];
+
+        gl_Position         = gl_in[i].gl_Position;
+        EmitVertex();
     }
 
     EndPrimitive();

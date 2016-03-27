@@ -2,7 +2,7 @@
 
 #include <cstdio>
 
-#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
+#include <Core/Containers/MakeShared.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 #include <Core/Log/Log.hpp>
@@ -10,172 +10,82 @@
 
 namespace Ra
 {
-namespace Engine 
-{
-
-    ShaderProgramManager::ShaderProgramManager( const std::string& shaderPath,
-        const std::string& defaultShaderProgram )
-        : m_shaderPath( shaderPath )
+    namespace Engine
     {
-        ShaderConfiguration config = getDefaultShaderConfiguration( defaultShaderProgram );
-        m_defaultShaderProgram = new ShaderProgram( config );
-    }
+        using ShaderProgramPtr = std::shared_ptr<ShaderProgram>;
 
-    ShaderProgramManager::~ShaderProgramManager()
-    {
-        m_shaderPrograms.clear();
-        m_shaderProgramStatus.clear();
-    }
-
-    ShaderProgram* ShaderProgramManager::addShaderProgram( const std::string& name )
-    {
-        ShaderConfiguration config = getDefaultShaderConfiguration( name );
-        return addShaderProgram( config );
-    }
-
-    ShaderProgram* ShaderProgramManager::addShaderProgram( const ShaderConfiguration& config )
-    {
-        ShaderProgram* ret;
-
-        // Check if not already inserted
-        if ( m_shaderPrograms.find( config ) != m_shaderPrograms.end() )
+        ShaderProgramManager::ShaderProgramManager(const std::string& vs, const std::string& fs)
         {
-            ret = m_shaderPrograms[config];
+            m_defaultShaderProgram = addShaderProgram("Default Program", vs, fs);
         }
-        else
+
+        ShaderProgramManager::~ShaderProgramManager()
         {
-            // Try to load the shader
-            ShaderProgram* shader = new ShaderProgram( config );
-            if ( shader->isOk() )
+            m_shaderPrograms.clear();
+        }
+
+        const ShaderProgram* ShaderProgramManager::addShaderProgram(const std::string& name, const std::string& vert, const std::string& frag)
+        {
+            ShaderConfiguration config(name);
+            config.addShader(ShaderType_VERTEX, vert);
+            config.addShader(ShaderType_FRAGMENT, frag);
+            return addShaderProgram(config);
+        }
+
+        const ShaderProgram* ShaderProgramManager::addShaderProgram(const ShaderConfiguration& config)
+        {
+            // Check if not already inserted
+            auto found = m_shaderPrograms.find(config);
+
+            if (found != m_shaderPrograms.end())
             {
-                insertShader( config, shader, ShaderProgramStatus::COMPILED );
-                ret = shader;
+                return found->second.get();
             }
             else
             {
-                std::string error;
-                Core::StringUtils::stringPrintf( error,
-                    "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
-                    config.getName().c_str() );
-                LOG( logERROR ) << error;
-                ret = m_defaultShaderProgram;
+                // Try to load the shader
+                auto prog = Core::make_shared<ShaderProgram>(config);
+                if (prog->isOk())
+                {
+                    insertShader(config, prog);
+                    return prog.get();
+                }
+                else
+                {
+                    std::string error;
+                    Core::StringUtils::stringPrintf( error,
+                        "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
+                        config.m_name.c_str() );
+                    LOG( logERROR ) << error;
+                    return m_defaultShaderProgram;
+                }
             }
         }
 
-        return ret;
-    }
-
-    ShaderProgram* ShaderProgramManager::getShaderProgram( const ShaderConfiguration& config )
-    {
-        ShaderProgram* ret;
-
-        if ( m_shaderPrograms.find( config ) != m_shaderPrograms.end() )
+        const ShaderProgram* ShaderProgramManager::getShaderProgram(const ShaderConfiguration& config)
         {
-            // Already in the map
-            ret = m_shaderPrograms[config];
-        }
-        else
-        {
-            ret = addShaderProgram( config );
+            return addShaderProgram(config);
         }
 
-        return ret;
-    }
-
-    void ShaderProgramManager::reloadAllShaderPrograms()
-    {
-        // For each shader in the map
-        for ( auto shader : m_shaderPrograms )
+        void ShaderProgramManager::reloadAllShaderPrograms()
         {
-            if ( m_shaderProgramStatus.at( shader.first ) == ShaderProgramStatus::COMPILED )
+            // For each shader in the map
+            for (auto& shader : m_shaderPrograms)
             {
-                // Shader program has already been compiled successfully, try to reload it
                 shader.second->reload();
-                if ( !shader.second->isOk() )
-                {
-                    std::string error;
-                    Core::StringUtils::stringPrintf( error,
-                        "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
-                        shader.first.getName().c_str() );
-                    CORE_WARN_IF( true, error.c_str() );
-                    m_shaderPrograms.at( shader.first ) = m_defaultShaderProgram;
-                    m_shaderProgramStatus.at( shader.first ) = ShaderProgramStatus::NOT_COMPILED;
-                }
-            }
-            else
-            {
-                ShaderProgram* newShader = new ShaderProgram( shader.first );
-                if ( newShader->isOk() )
-                {
-                    // Ok compiled, register it in the map
-                    m_shaderPrograms.at( shader.first ) = newShader;
-                    m_shaderProgramStatus.at( shader.first ) = ShaderProgramStatus::COMPILED;
-                }
-                else
-                {
-                    std::string error;
-                    Core::StringUtils::stringPrintf( error,
-                        "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
-                        shader.first.getName().c_str() );
-                    CORE_WARN_IF( true, error.c_str() );
-                }
             }
         }
-    }
 
-    void ShaderProgramManager::reloadNotCompiledShaderPrograms()
-    {
-        for ( auto shader : m_shaderPrograms )
+        const ShaderProgram* ShaderProgramManager::getDefaultShaderProgram() const
         {
-            // Just look not compiled shaders
-            if ( m_shaderProgramStatus.at( shader.first ) == ShaderProgramStatus::NOT_COMPILED )
-            {
-
-                ShaderProgram* newShader = new ShaderProgram( shader.first );
-                if ( newShader->isOk() )
-                {
-                    // Ok compiled, register it in the map
-                    m_shaderPrograms.at( shader.first ) = newShader;
-                    m_shaderProgramStatus.at( shader.first ) = ShaderProgramStatus::COMPILED;
-                }
-                else
-                {
-                    std::string error;
-                    Core::StringUtils::stringPrintf( error,
-                        "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
-                        shader.first.getName().c_str() );
-                    CORE_WARN_IF( true, error.c_str() );
-                }
-            }
+            return m_defaultShaderProgram;
         }
-    }
 
-    ShaderConfiguration ShaderProgramManager::getDefaultShaderConfiguration(
-        const std::string& shaderName )
-    {
-        return ShaderConfiguration( shaderName, m_shaderPath );
-    }
+        void ShaderProgramManager::insertShader(const ShaderConfiguration& config, const ShaderProgramPtr& shader)
+        {
+            m_shaderPrograms.insert(std::pair<ShaderConfiguration, ShaderProgramPtr>(config, shader));
+        }
 
-    ShaderProgram* ShaderProgramManager::getDefaultShaderProgram() const
-    {
-        return m_defaultShaderProgram;
-    }
-
-    std::string ShaderProgramManager::getFullShaderName( const std::string& shaderName )
-    {
-        std::stringstream ss;
-        ss << m_shaderPath << '/' << shaderName;
-        return ss.str();
-    }
-
-    void ShaderProgramManager::insertShader( const ShaderConfiguration& config,
-        ShaderProgram* shader,
-        const ShaderProgramStatus& status )
-    {
-        m_shaderPrograms.insert( std::pair<ShaderConfiguration, ShaderProgram*>( config, shader ) );
-        m_shaderProgramStatus.insert( std::pair<ShaderConfiguration, ShaderProgramStatus>( config, status ) );
-    }
-
-    RA_SINGLETON_IMPLEMENTATION( ShaderProgramManager );
-}// namespace Engine
+        RA_SINGLETON_IMPLEMENTATION( ShaderProgramManager );
+    }// namespace Engine
 } // namespace Ra

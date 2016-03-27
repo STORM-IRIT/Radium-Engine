@@ -2,7 +2,7 @@
 #define RADIUMENGINE_RENDERTECHNIQUE_HPP
 
 #include <Engine/RaEngine.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 namespace Ra
 {
@@ -22,7 +22,7 @@ namespace Ra
         struct RenderTechnique
         {
             ShaderConfiguration shaderConfig;
-            ShaderProgram* shader = nullptr;
+            const ShaderProgram* shader = nullptr;
             Material* material = nullptr;
 
             RA_ENGINE_API void changeShader( const ShaderConfiguration& newConfig );

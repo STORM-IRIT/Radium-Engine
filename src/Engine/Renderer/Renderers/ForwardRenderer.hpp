@@ -39,8 +39,8 @@ namespace Ra
             };
 
             // Default renderer logic here, no need to be accessed by overriding renderers.
-            ShaderProgram* m_depthAmbientShader;
-            ShaderProgram* m_postprocessShader;
+            const ShaderProgram* m_depthAmbientShader;
+            const ShaderProgram* m_postprocessShader;
 
             std::unique_ptr<FBO> m_fbo;
             std::unique_ptr<FBO> m_postprocessFbo;

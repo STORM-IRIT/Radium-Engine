@@ -14,11 +14,23 @@ namespace Ra {
         namespace DrawPrimitives {
             RenderObject* Primitive(Component* component, const MeshPtr& mesh)
             {
-                std::string shader(mesh->getRenderMode() == GL_LINES ?
-                                   "Lines" : "Plain");
+                ShaderConfiguration config;
+                if (mesh->getRenderMode() == GL_LINES)
+                {
+                    config.m_name = "Lines";
+                    config.addShader(ShaderType_VERTEX, "../Shaders/Lines.vert.glsl");
+                    config.addShader(ShaderType_FRAGMENT, "../Shaders/Lines.frag.glsl");
+                    // config.addShader(ShaderType_GEOMETRY, "../Shaders/Lines.geom.glsl");
+                }
+                else
+                {
+                    config.m_name = "Plain";
+                    config.addShader(ShaderType_VERTEX, "../Shaders/Plain.vert.glsl");
+                    config.addShader(ShaderType_FRAGMENT, "../Shaders/Plain.frag.glsl");
+                }
 
                 RenderTechnique* rt = new RenderTechnique;
-                rt->shaderConfig = ShaderConfiguration(shader, "../Shaders");
+                rt->shaderConfig = config;
                 rt->material = new Material("Default material");
 
                 RenderObject* ro = new RenderObject(mesh->getName(), component,

@@ -20,9 +20,9 @@ namespace Ra
 
         void DebugRender::initialize()
         {
-            m_lineShader = ShaderProgramManager::getInstance()->addShaderProgram("DebugLine");
-            m_pointShader = ShaderProgramManager::getInstance()->addShaderProgram("DebugPoint");
-            m_plainShader = ShaderProgramManager::getInstance()->getShaderProgram(ShaderConfiguration("Plain", "../Shaders"));
+            m_lineShader    = ShaderProgramManager::getInstance()->addShaderProgram("DebugLine", "../Shaders/DebugLine.vert.glsl", "../Shaders/DebugLine.frag.glsl");
+            m_pointShader   = ShaderProgramManager::getInstance()->addShaderProgram("DebugPoint", "../Shaders/DebugPoint.vert.glsl", "../Shaders/DebugPoint.frag.glsl");
+            m_plainShader   = ShaderProgramManager::getInstance()->addShaderProgram("Plain", "../Shaders/Plain.vert.glsl", "../Shaders/Plain.frag.glsl");
         }
 
         void DebugRender::render(const Core::Matrix4& viewMatrix,

@@ -295,7 +295,7 @@ namespace Ra
 
         private:
             // Final display shader
-            ShaderProgram* m_drawScreenShader;
+            const ShaderProgram* m_drawScreenShader;
 
 
             // Qt has the nice idea to bind an fbo before giving you the opengl context,
@@ -308,9 +308,9 @@ namespace Ra
             std::mutex m_renderMutex;
 
             // PICKING STUFF
-            std::unique_ptr<FBO>        m_pickingFbo;
-            std::unique_ptr<Texture>    m_pickingTexture;
-            ShaderProgram*              m_pickingShader;
+            std::unique_ptr<FBO>     m_pickingFbo;
+            std::unique_ptr<Texture> m_pickingTexture;
+            const ShaderProgram*     m_pickingShader;
 
             // TODO(Charly): Check if this leads to some rendering / picking bugs
             // (because different depth textures would be written, and so on)

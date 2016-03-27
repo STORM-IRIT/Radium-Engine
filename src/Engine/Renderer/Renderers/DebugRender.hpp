@@ -50,9 +50,9 @@ namespace Ra
             void renderMeshes(const Core::Matrix4& view, const Core::Matrix4& proj);
 
         private:
-            ShaderProgram* m_lineShader;
-            ShaderProgram* m_pointShader;
-            ShaderProgram* m_plainShader;
+            const ShaderProgram* m_lineShader;
+            const ShaderProgram* m_pointShader;
+            const ShaderProgram* m_plainShader;
 
             std::vector<Line> m_lines;
             std::vector<std::shared_ptr<Mesh>> m_meshes;

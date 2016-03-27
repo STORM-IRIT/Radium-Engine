@@ -5,12 +5,10 @@
 
 #include <string>
 #include <map>
+#include <memory>
 
 #include <Core/Utils/Singleton.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
-
-// TODO (Charly) :  Since ShaderProgramManager has the responsability for the shaders,
-//                  use shared_ptrs here
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 namespace Ra
 {
@@ -36,34 +34,29 @@ namespace Ra
             };
 
         public:
-            int getShaderId( const std::string& shader ) const;
+            int getShaderId(const std::string& shader) const;
 
-            ShaderProgram* addShaderProgram( const std::string& name );
-            ShaderProgram* addShaderProgram( const ShaderConfiguration& config );
+            const ShaderProgram* addShaderProgram(const std::string& name, const std::string& vert, const std::string& frag);
+            const ShaderProgram* addShaderProgram(const ShaderConfiguration& config);
 
-            ShaderProgram* getShaderProgram( const ShaderConfiguration& config );
+            const ShaderProgram* getShaderProgram(const ShaderConfiguration& config);
 
-            ShaderProgram* getDefaultShaderProgram() const;
+            const ShaderProgram* getDefaultShaderProgram() const;
 
             void reloadAllShaderPrograms();
             void reloadNotCompiledShaderPrograms();
 
         private:
-            ShaderProgramManager( const std::string& shaderPath,
-                                  const std::string& defaultShaderProgram );
+            ShaderProgramManager(const std::string& vs, const std::string& fs);
             ~ShaderProgramManager();
 
-            void insertShader( const ShaderConfiguration& config, ShaderProgram* shader, const ShaderProgramStatus& status );
-            ShaderConfiguration getDefaultShaderConfiguration( const std::string& shaderName );
-            std::string getFullShaderName( const std::string& shaderName );
+            void insertShader(const ShaderConfiguration& config, const std::shared_ptr<ShaderProgram>& shader);
 
         private:
             std::string m_shaderPath;
 
-            std::map<ShaderConfiguration, ShaderProgram*> m_shaderPrograms;
-            std::map<ShaderConfiguration, ShaderProgramStatus> m_shaderProgramStatus;
-
-            ShaderProgram* m_defaultShaderProgram;
+            std::map<ShaderConfiguration, std::shared_ptr<ShaderProgram>> m_shaderPrograms;
+            const ShaderProgram* m_defaultShaderProgram;
 
             int m_defaultShaderId;
         };

@@ -73,8 +73,8 @@ namespace Ra
 
         void ForwardRenderer::initShaders()
         {
-            m_depthAmbientShader = m_shaderManager->addShaderProgram( "DepthAmbientPass" );
-            m_postprocessShader  = m_shaderManager->addShaderProgram( "PostProcess" );
+            m_depthAmbientShader = m_shaderManager->addShaderProgram("DepthAmbientPass", "../Shaders/DepthAmbientPass.vert.glsl", "../Shaders/DepthAmbientPass.frag.glsl");
+            m_postprocessShader  = m_shaderManager->addShaderProgram("PostProcess", "../Shaders/PostProcess.vert.glsl", "../Shaders/PostProcess.frag.glsl");
         }
 
         void ForwardRenderer::initBuffers()
@@ -101,7 +101,7 @@ namespace Ra
         {
             // FIXME(Charly): Do a bit of cleanup in the forward renderer
             // (e.g. Remove the "depth ambient pass")
-            ShaderProgram* shader;
+            const ShaderProgram* shader;
 
             m_fbo->useAsTarget();
 

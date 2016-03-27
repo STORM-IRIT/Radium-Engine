@@ -5,7 +5,7 @@ namespace Ra
 {
     namespace Engine
     {
-        void RenderParameters::bind( ShaderProgram* shader ) const
+        void RenderParameters::bind(const ShaderProgram* shader) const
         {
             m_intParamsVector.bind( shader );
             m_uintParamsVector.bind( shader );

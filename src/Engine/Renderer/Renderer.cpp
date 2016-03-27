@@ -68,15 +68,12 @@ namespace Ra
         void Renderer::initialize()
         {
             // Initialize managers
-            std::string shaderPath( "../Shaders" );
-            std::string defaultShader( "Default" );
-
-            m_shaderManager = ShaderProgramManager::createInstance( shaderPath, defaultShader );
+            m_shaderManager = ShaderProgramManager::createInstance("../Shaders/Default.vert.glsl", "../Shaders/Default.frag.glsl");
             m_textureManager = TextureManager::createInstance();
             m_roManager = RadiumEngine::getInstance()->getRenderObjectManager();
 
-            m_drawScreenShader = m_shaderManager->addShaderProgram( "DrawScreen" );
-            m_pickingShader = m_shaderManager->addShaderProgram( "Picking" );
+            m_drawScreenShader = m_shaderManager->addShaderProgram("DrawScreen", "../Shaders/DrawScreen.vert.glsl", "../Shaders/DrawScreen.frag.glsl");
+            m_pickingShader = m_shaderManager->addShaderProgram("Picking", "../Shaders/Picking.vert.glsl", "../Shaders/Picking.frag.glsl");
 
             m_depthTexture.reset( new Texture( "Depth", GL_TEXTURE_2D ) );
 
@@ -229,7 +226,7 @@ namespace Ra
             GL_ASSERT( glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ) );
 
             m_pickingShader->bind();
-            ShaderProgram* shader = m_pickingShader;
+            const ShaderProgram* shader = m_pickingShader;
 
             GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
             GL_ASSERT( glDepthFunc( GL_LESS ) );

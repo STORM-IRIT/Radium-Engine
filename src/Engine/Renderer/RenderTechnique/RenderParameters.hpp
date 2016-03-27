@@ -31,7 +31,7 @@ namespace Ra
             public:
                 Parameter() = default;
                 Parameter( const char* name ) : m_name( name ) {}
-                virtual void bind( ShaderProgram* shader ) const = 0;
+                virtual void bind(const ShaderProgram* shader ) const = 0;
                 
                 const char* m_name;
             };
@@ -43,7 +43,7 @@ namespace Ra
                 TParameter() = default;
                 TParameter( const char* name, const T& value )
                     : Parameter( name ), m_value( value ) {}
-                virtual void bind( ShaderProgram* shader ) const override;
+                virtual void bind(const ShaderProgram* shader ) const override;
 
                 T m_value;
             };
@@ -54,7 +54,7 @@ namespace Ra
                 TextureParameter() = default;
                 TextureParameter( const char* name, Texture* tex, int texUnit )
                     : Parameter( name ), m_texture( tex ), m_texUnit( texUnit ) {}
-                virtual void bind( ShaderProgram* shader ) const override;
+                virtual void bind( const ShaderProgram* shader ) const override;
 
                 Texture* m_texture;
                 int m_texUnit;
@@ -63,7 +63,7 @@ namespace Ra
             template <typename T> class UniformBindableVector : public std::map<std::string, T, std::less<std::string>, Core::AlignedAllocator<T,16> >
             {
             public:
-                void bind( ShaderProgram* shader ) const;
+                void bind(const ShaderProgram* shader ) const;
             };
 
             typedef TParameter<int>    IntParameter;
@@ -107,7 +107,7 @@ namespace Ra
 
             void concatParameters( const RenderParameters& params );
 
-            void bind( ShaderProgram* shader ) const;
+            void bind(const ShaderProgram* shader ) const;
 
             void print() const
             {

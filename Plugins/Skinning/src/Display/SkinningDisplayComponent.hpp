@@ -15,7 +15,7 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
@@ -108,7 +108,11 @@ public:
             technique->material->setKd( Ra::Core::Vector4::Zero() );
             technique->material->setKs( Ra::Core::Vector4::Zero() );
             technique->material->setNs( 100 );
-            technique->shaderConfig = Ra::Engine::ShaderConfiguration( "Plain", "../Shaders" );
+            Ra::Engine::ShaderConfiguration config("Plain");
+            config.addShader(Ra::Engine::ShaderType_VERTEX, "../Shaders/Plain.vert.glsl");
+            config.addShader(Ra::Engine::ShaderType_FRAGMENT, "../Shaders/Plain.frag.glsl");
+            technique->shaderConfig = config;
+
 
             std::string name = m_name + "_Partition";
 

@@ -15,7 +15,10 @@ namespace AnimationPlugin
         // FIXME(Charly): Debug or fancy ?
         Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, comp, Ra::Engine::RenderObjectType::Debug );
         renderObject->setXRay( true );
-        Ra::Engine::ShaderConfiguration shader("BlinnPhong", "../Shaders");
+
+        Ra::Engine::ShaderConfiguration shader("BlinnPhong");
+        shader.addShader(Ra::Engine::ShaderType_VERTEX, "../Shaders/BlinnPhong.vert.glsl");
+        shader.addShader(Ra::Engine::ShaderType_FRAGMENT, "../Shaders/BlinnPhong.frag.glsl");
 
         m_material.reset(new Ra::Engine::Material("Bone Material"));
         m_material->setKd(Ra::Core::Color(0.4, 0.4, 0.4, 0.5));

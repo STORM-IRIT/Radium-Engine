@@ -7,7 +7,7 @@
 #include <string>
 
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
 namespace Ra

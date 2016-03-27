@@ -494,7 +494,7 @@ namespace Ra
         auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
         auto ro = roMgr->getRenderObject( itemIdx );
 
-        auto shaderName = ro->getRenderTechnique()->shader->getBasicConfiguration().getName();
+        auto shaderName = ro->getRenderTechnique()->shader->getBasicConfiguration().m_name;
 
         m_materialEditor->changeRenderObject( ro->idx );
 
@@ -511,7 +511,8 @@ namespace Ra
 
     void Gui::MainWindow::changeRenderObjectShader( const QString& shaderName )
     {
-        if ( shaderName == "" )
+        std::string name = shaderName.toStdString();
+        if ( name == "" )
         {
             return;
         }
@@ -522,26 +523,24 @@ namespace Ra
             return;
         }
 
-        if ( ro->getRenderTechnique()->shader->getBasicConfiguration().getName() == shaderName.toStdString() )
+        if (ro->getRenderTechnique()->shader->getBasicConfiguration().m_name == name)
         {
             return;
         }
 
         Engine::ShaderConfiguration config;
 
-        config.setName( shaderName.toStdString() );
-        config.setPath( "../Shaders" );
+        config.m_name = name;
 
-        if ( shaderName == "BlinnPhong" || shaderName == "Plain" )
+        config.addShader(Ra::Engine::ShaderType_VERTEX, "../Shaders/" + name + ".vert.glsl");
+        config.addShader(Ra::Engine::ShaderType_FRAGMENT, "../Shaders/" + name + ".frag.glsl");
+
+        if ( name == "BlinnPhongWireframe" || shaderName == "Lines" )
         {
-            config.setType( Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM );
-        }
-        if ( shaderName == "BlinnPhongWireframe" || shaderName == "Lines" )
-        {
-            config.setType( Engine::ShaderConfiguration::DEFAULT_SHADER_PROGRAM_W_GEOM );
+            config.addShader(Ra::Engine::ShaderType_GEOMETRY, "../Shaders/" + name + ".geom.glsl");
         }
 
-        ro->getRenderTechnique()->changeShader( config );
+        ro->getRenderTechnique()->changeShader(config);
     }
 
     void Gui::MainWindow::toggleVisisbleRO()

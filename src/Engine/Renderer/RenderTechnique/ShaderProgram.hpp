@@ -6,24 +6,57 @@
 #include <set>
 #include <string>
 #include <array>
+#include <list>
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-
-#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
 namespace Ra
 {
     namespace Engine
     {
         class Texture;
-    }
-}
 
-namespace Ra
-{
-    namespace Engine
-    {
+        enum ShaderType : uint
+        {
+            ShaderType_VERTEX = 0,
+            ShaderType_FRAGMENT,
+            ShaderType_GEOMETRY,
+            ShaderType_TESS_CONTROL,
+            ShaderType_TESS_EVALUATION,
+            ShaderType_COMPUTE,
+            ShaderType_COUNT
+        };
+
+        class RA_ENGINE_API ShaderConfiguration
+        {
+            friend class ShaderProgram;
+
+        public:
+            ShaderConfiguration() = default;
+            ShaderConfiguration(const std::string& name);
+
+            // Add a shader given its type
+            void addShader(ShaderType type, const std::string& name);
+
+            void addProperty(const std::string& prop);
+            void addProperties(const std::list<std::string>& props );
+            void removeProperty(const std::string& prop);
+
+            /// Tell if a shader configuration has at least a vertex and a fragment shader.
+            bool isComplete() const { return ((m_shaders[ShaderType_VERTEX] != "") && (m_shaders[ShaderType_FRAGMENT] != "")); }
+
+            bool operator< (const ShaderConfiguration& other) const;
+
+            std::set<std::string> getProperties() const;
+
+        public:
+            std::string m_name;
+
+        private:
+            std::array<std::string, ShaderType_COUNT> m_shaders;
+            std::set<std::string> m_properties;
+        };
 
         class RA_ENGINE_API ShaderObject
         {
@@ -42,31 +75,21 @@ namespace Ra
         private:
             bool parseFile( const std::string& filename, std::string& content );
             std::string load();
+            /// @param level Prevent cyclic includes
+            std::string preprocessIncludes(const std::string& shader, int level = 0);
             void compile( const std::string& shader, const std::set<std::string>& properties );
             bool check();
 
         private:
             uint m_id;
             std::string m_filename;
+            std::string m_filepath;
             uint m_type;
             std::set<std::string> m_properties;
         };
 
         class RA_ENGINE_API ShaderProgram
         {
-        public:
-            // Todo : remove duplicate flag in ShaderConfig
-            enum ShaderType
-            {
-                VERT_SHADER = 0,
-                FRAG_SHADER,
-                GEOM_SHADER,
-                TESC_SHADER,
-                TESE_SHADER,
-                COMP_SHADER,
-                SHADER_TYPE_COUNT
-            };
-
         public:
             ShaderProgram();
             explicit ShaderProgram( const ShaderConfiguration& shaderConfig );
@@ -82,9 +105,9 @@ namespace Ra
             //void delProperty(const std::string& property);
             //void removeAllProperties() { m_properties.clear(); }
 
-            void bind();
+            void bind() const;
             //void bind(const RenderParameters& params);
-            void unbind();
+            void unbind() const;
 
             uint getId() const;
 
@@ -108,24 +131,20 @@ namespace Ra
             void setUniform( const char* name, const Core::Matrix4f& value ) const;
             void setUniform( const char* name, const Core::Matrix4d& value ) const;
 
-            // TODO (Charly) : Add Texture support
             void setUniform( const char* name, Texture* tex, int texUnit ) const;
 
         private:
             //  bool exists(const std::string& filename);
             void loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props);
             uint getTypeAsGLEnum(ShaderType type) const;
-            std::string getExtensionGivenType(ShaderType type) const;
 
             void link();
 
         private:
             ShaderConfiguration m_configuration;
             uint m_shaderId;
-            std::array<ShaderObject*, SHADER_TYPE_COUNT> m_shaderObjects;
-            std::array<bool, SHADER_TYPE_COUNT> m_shaderStatus;
-
-            bool m_binded;
+            std::array<ShaderObject*, ShaderType_COUNT> m_shaderObjects;
+            std::array<bool, ShaderType_COUNT> m_shaderStatus;
         };
 
     } // namespace Engine
