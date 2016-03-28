@@ -124,6 +124,7 @@ namespace Ra
             void reloadShaders();
             void displayTexture( const QString& tex );
             void changeRenderer( int index );
+            void enablePostProcess(int enabled);
 
         private slots:
             /// These slots are connected to the base class signals to properly handle

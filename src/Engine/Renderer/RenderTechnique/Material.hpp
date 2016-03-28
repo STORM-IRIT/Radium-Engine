@@ -52,23 +52,23 @@ namespace Ra
             void updateGL();
             void bind( const ShaderProgram* shader );
 
-            inline const std::string& getName() const;
+            const std::string& getName() const;
 
-            inline void setKd( const Core::Color& kd );
-            inline void setKs( const Core::Color& ks );
-            inline void setNs( Scalar ns );
+            void setKd( const Core::Color& kd );
+            void setKs( const Core::Color& ks );
+            void setNs( Scalar ns );
 
-            inline const Core::Color& getKd() const;
-            inline const Core::Color& getKs() const;
-            inline Scalar getNs() const;
+            const Core::Color& getKd() const;
+            const Core::Color& getKs() const;
+            Scalar getNs() const;
 
-            inline void addTexture( const TextureType& type, Texture* texture );
-            inline TextureData& addTexture( const TextureType& type, const std::string& texture );
-            inline TextureData& addTexture( const TextureType& type, const TextureData& texture );
-            inline Texture* getTexture( const TextureType& type ) const;
+            void addTexture( const TextureType& type, Texture* texture );
+            TextureData& addTexture( const TextureType& type, const std::string& texture );
+            TextureData& addTexture( const TextureType& type, const TextureData& texture );
+            Texture* getTexture( const TextureType& type ) const;
 
-            inline void setMaterialType( const MaterialType& type );
-            inline const MaterialType& getMaterialType() const;
+            void setMaterialType( const MaterialType& type );
+            const MaterialType& getMaterialType() const;
 
         private:
             Core::Color m_kd;
@@ -87,7 +87,5 @@ namespace Ra
 
     } // namespace Engine
 } // namespace Ra
-
-#include <Engine/Renderer/RenderTechnique/Material.inl>
 
 #endif

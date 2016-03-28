@@ -4,10 +4,8 @@ vec3 getKd()
     {
         return vec3(texture(material.tex.kd, fs_in.texcoord.xy));
     }
-    else
-    {
-        return material.kd.xyz;
-    }
+
+    return material.kd.xyz;
 }
 
 vec3 getKs()
@@ -16,10 +14,8 @@ vec3 getKs()
     {
         return vec3(texture(material.tex.ks, fs_in.texcoord.xy));
     }
-    else
-    {
-        return material.ks.xyz;
-    }
+
+    return material.ks.xyz;
 }
 
 float getNs()
@@ -41,10 +37,8 @@ vec3 getNormal()
         n = n * 2 - 1;
         return dir * n;
     }
-    else
-    {
-        return vec3(dir * normalize(fs_in.normal));
-    }
+
+    return vec3(dir * normalize(fs_in.normal));
 }
 
 bool toDiscard()

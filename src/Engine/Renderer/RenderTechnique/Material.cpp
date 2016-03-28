@@ -119,5 +119,91 @@ namespace Ra
                 shader->setUniform( "material.tex.hasAlpha", 0 );
             }
         }
+
+        const std::string& Material::getName() const
+        {
+            return m_name;
+        }
+
+        void Material::setKd( const Core::Color& kd )
+        {
+            m_kd = kd;
+        }
+
+        void Material::setKs( const Core::Color& ks )
+        {
+            m_ks = ks;
+        }
+
+        void Material::setNs( Scalar ns )
+        {
+            m_ns = ns;
+        }
+
+        void Material::addTexture( const TextureType& type, Texture* texture )
+        {
+            // FIXME(Charly): Check if already present ?
+            m_textures[type] = texture;
+        }
+
+        TextureData& Material::addTexture( const TextureType& type, const std::string& texture )
+        {
+            CORE_ASSERT(!texture.empty(), "Invalid texture name");
+
+            TextureData data;
+            data.name = texture;
+            data.sWrap = GL_REPEAT;
+            data.tWrap = GL_REPEAT;
+            data.magMipmap = GL_NEAREST;
+            data.minMipmap = GL_NEAREST;
+
+            return addTexture(type, data);
+        }
+
+        TextureData& Material::addTexture(const TextureType& type, const TextureData& texture)
+        {
+            m_pendingTextures[type] = texture;
+            m_isDirty = true;
+
+            return m_pendingTextures[type];
+        }
+
+        const Core::Color& Material::getKd() const
+        {
+            return m_kd;
+        }
+
+        const Core::Color& Material::getKs() const
+        {
+            return m_ks;
+        }
+
+        Scalar Material::getNs() const
+        {
+            return m_ns;
+        }
+
+        Texture* Material::getTexture( const TextureType& type ) const
+        {
+            Texture* tex = nullptr;
+
+            auto it = m_textures.find( type );
+            if ( it != m_textures.end() )
+            {
+                tex = it->second;
+            }
+
+            return tex;
+        }
+
+        void Material::setMaterialType( const MaterialType& type )
+        {
+            m_type = type;
+        }
+
+        const Material::MaterialType& Material::getMaterialType() const
+        {
+            return m_type;
+        }
     }
 }

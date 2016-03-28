@@ -50,13 +50,12 @@ namespace Ra
         Renderer::Renderer( uint width, uint height )
             : m_width( width )
             , m_height( height )
-            , m_shaderManager( nullptr )
+            , m_shaderMgr( nullptr )
             , m_displayedTexture( nullptr )
             , m_renderQueuesUpToDate( false )
             , m_quadMesh( nullptr )
             , m_drawDebug( true )
             , m_wireframe(false)
-            , m_drawScreenShader( nullptr )
         {
         }
 
@@ -68,12 +67,12 @@ namespace Ra
         void Renderer::initialize()
         {
             // Initialize managers
-            m_shaderManager = ShaderProgramManager::createInstance("../Shaders/Default.vert.glsl", "../Shaders/Default.frag.glsl");
-            m_textureManager = TextureManager::createInstance();
-            m_roManager = RadiumEngine::getInstance()->getRenderObjectManager();
+            m_shaderMgr = ShaderProgramManager::createInstance("../Shaders/Default.vert.glsl", "../Shaders/Default.frag.glsl");
+            m_roMgr = RadiumEngine::getInstance()->getRenderObjectManager();
+            TextureManager::createInstance();
 
-            m_drawScreenShader = m_shaderManager->addShaderProgram("DrawScreen", "../Shaders/DrawScreen.vert.glsl", "../Shaders/DrawScreen.frag.glsl");
-            m_pickingShader = m_shaderManager->addShaderProgram("Picking", "../Shaders/Picking.vert.glsl", "../Shaders/Picking.frag.glsl");
+            m_shaderMgr->addShaderProgram("DrawScreen", "../Shaders/Basic2D.vert.glsl", "../Shaders/DrawScreen.frag.glsl");
+            m_shaderMgr->addShaderProgram("Picking", "../Shaders/Picking.vert.glsl", "../Shaders/Picking.frag.glsl");
 
             m_depthTexture.reset( new Texture( "Depth", GL_TEXTURE_2D ) );
 
@@ -168,9 +167,9 @@ namespace Ra
             m_uiRenderObjects.clear();
             m_xrayRenderObjects.clear();
 
-            m_roManager->getRenderObjectsByType( m_fancyRenderObjects, RenderObjectType::Fancy, true );
-            m_roManager->getRenderObjectsByType( m_debugRenderObjects, RenderObjectType::Debug, true );
-            m_roManager->getRenderObjectsByType( m_uiRenderObjects, RenderObjectType::UI, true );
+            m_roMgr->getRenderObjectsByType( m_fancyRenderObjects, RenderObjectType::Fancy, true );
+            m_roMgr->getRenderObjectsByType( m_debugRenderObjects, RenderObjectType::Debug, true );
+            m_roMgr->getRenderObjectsByType( m_uiRenderObjects, RenderObjectType::UI, true );
 
             for ( auto it = m_fancyRenderObjects.begin(); it != m_fancyRenderObjects.end(); )
             {
@@ -225,8 +224,8 @@ namespace Ra
             GL_ASSERT( glClearDepth( 1.0 ) );
             GL_ASSERT( glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ) );
 
-            m_pickingShader->bind();
-            const ShaderProgram* shader = m_pickingShader;
+            const ShaderProgram* shader = m_shaderMgr->getShaderProgram("Picking");
+            shader->bind();
 
             GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
             GL_ASSERT( glDepthFunc( GL_LESS ) );
@@ -354,8 +353,9 @@ namespace Ra
 
             GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
 
-            m_drawScreenShader->bind();
-            m_drawScreenShader->setUniform( "screenTexture", m_displayedTexture, 0 );
+            auto shader = m_shaderMgr->getShaderProgram("DrawScreen");
+            shader->bind();
+            shader->setUniform( "screenTexture", m_displayedTexture, 0 );
             m_quadMesh->render();
 
             GL_ASSERT( glDepthFunc( GL_LESS ) );
@@ -390,32 +390,12 @@ namespace Ra
             m_height = h;
             glViewport( 0, 0, m_width, m_height );
 
-            if ( m_depthTexture->getId() != 0 )
-            {
-                m_depthTexture->deleteGL();
-            }
-
-            if ( m_pickingTexture->getId() != 0 )
-            {
-                m_pickingTexture->deleteGL();
-            }
-
-            if ( m_fancyTexture->getId() != 0 )
-            {
-                m_fancyTexture->deleteGL();
-            }
-
             m_depthTexture->initGL( GL_DEPTH_COMPONENT24, m_width, m_height, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr );
-            m_depthTexture->setFilter( GL_LINEAR, GL_LINEAR );
-            m_depthTexture->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
             m_pickingTexture->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );
             m_pickingTexture->setFilter( GL_NEAREST, GL_NEAREST );
-            m_pickingTexture->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
             m_fancyTexture->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );
-            m_fancyTexture->setFilter( GL_LINEAR, GL_LINEAR );
-            m_fancyTexture->setClamp( GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER );
 
             m_pickingFbo->bind();
             m_pickingFbo->setSize( w, h );
@@ -465,7 +445,6 @@ namespace Ra
 
         void Renderer::handleFileLoading( const std::string& filename )
         {
-            return;
             Assimp::Importer importer;
             const aiScene* scene = importer.ReadFile( filename,
                                                       aiProcess_Triangulate |

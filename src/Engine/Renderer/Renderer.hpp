@@ -104,6 +104,11 @@ namespace Ra
                 m_wireframe = wireframe;
             }
 
+            virtual void enablePostProcess(bool enabled) final
+            {
+                m_postProcessEnabled = enabled;
+            }
+
             /**
              * @brief Tell the renderer it needs to render.
              * This method does the following steps :
@@ -258,11 +263,8 @@ namespace Ra
             uint m_width;
             uint m_height;
 
-            ShaderProgramManager* m_shaderManager;
-            // FIXME(Charly): Remove this ?
-            TextureManager* m_textureManager;
-
-            RenderObjectManager* m_roManager;
+            ShaderProgramManager* m_shaderMgr;
+            RenderObjectManager* m_roMgr;
 
             // FIXME(Charly): Should we change "displayedTexture" to "debuggedTexture" ?
             //                It would make more sense if we are able to show the
@@ -290,14 +292,11 @@ namespace Ra
             // Simple quad mesh, used to render the final image
             std::unique_ptr<Mesh> m_quadMesh;
 
-            bool m_drawDebug; // Should we render debug stuff ?
-            bool m_wireframe; // Are we rendering in "real" wireframe mode
+            bool m_drawDebug;           // Should we render debug stuff ?
+            bool m_wireframe;           // Are we rendering in "real" wireframe mode
+            bool m_postProcessEnabled;  // Should we do post processing ?
 
         private:
-            // Final display shader
-            const ShaderProgram* m_drawScreenShader;
-
-
             // Qt has the nice idea to bind an fbo before giving you the opengl context,
             // this flag is used to save it (and render the final screen on it)
             int m_qtPlz;
@@ -310,7 +309,6 @@ namespace Ra
             // PICKING STUFF
             std::unique_ptr<FBO>     m_pickingFbo;
             std::unique_ptr<Texture> m_pickingTexture;
-            const ShaderProgram*     m_pickingShader;
 
             // TODO(Charly): Check if this leads to some rendering / picking bugs
             // (because different depth textures would be written, and so on)
@@ -319,7 +317,6 @@ namespace Ra
             std::vector<PickingQuery>   m_pickingQueries;
             std::vector<PickingQuery>   m_lastFramePickingQueries;
             std::vector<int>            m_pickingResults;
-
         };
 
     } // namespace Engine

@@ -150,6 +150,9 @@ if (${LOAD_TEXTURES})
     message(STATUS "Textures will be loaded")
     add_definitions(-DLOAD_TEXTURES)
 endif()
+
+add_definitions(-Wall)
+
 add_subdirectory(src)
 
 # FIXME(Charly) Not sure this is really the greatest idea ever

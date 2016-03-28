@@ -116,6 +116,8 @@ namespace Ra
 
         GL_ASSERT( glTexImage2D( m_target, 0, internal, w, h, 0, format, type, data ) );
 
+        setFilter(GL_LINEAR, GL_LINEAR);
+
         setBPP( internal );
         m_format = format;
 
@@ -249,7 +251,10 @@ namespace Ra
 
     void Engine::Texture::deleteGL()
     {
-        GL_ASSERT( glDeleteTextures( 1, &m_textureId ) );
+        if (m_textureId != 0)
+        {
+            GL_ASSERT( glDeleteTextures( 1, &m_textureId ) );
+        }
     }
 
     uint Engine::Texture::getId() const

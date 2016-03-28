@@ -7,25 +7,14 @@ vec3 blinnPhongInternal(vec3 d, vec3 n)
 
     //direction = vec3(1, 0, 0);
 
-    float diffFactor = dot(normal, -direction);
+    float diffFactor = max(dot(normal, -direction), 0.0);
+    vec3 diff = diffFactor * light.color.xyz * getKd();
 
-    vec3 diff = vec3(0);
-    vec3 spec = vec3(0);
+    vec3 viewDir = normalize(fs_in.eye - fs_in.position);
+    vec3 halfVec = normalize(direction + viewDir);
 
-    if (diffFactor > 0.0)
-    {
-        diff = diffFactor * light.color.xyz * getKd();
-
-        vec3 vertToEye = normalize(fs_in.position - fs_in.eye);
-        vec3 lightReflect = normalize(reflect(-direction, normal));
-        float specFactor = dot(vertToEye, lightReflect);
-
-        if (specFactor > 0.0)
-        {
-            specFactor = pow(specFactor, getNs());
-            spec = specFactor * light.color.xyz * getKs();
-        }
-    }
+    float specFactor = pow(max(dot(normal, halfVec), 0.0), getNs());
+    vec3 spec = specFactor * light.color.xyz * getKs();
 
     return diff + spec;
 }

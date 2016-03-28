@@ -39,6 +39,7 @@ namespace Ra
             const ShaderProgram* addShaderProgram(const std::string& name, const std::string& vert, const std::string& frag);
             const ShaderProgram* addShaderProgram(const ShaderConfiguration& config);
 
+            const ShaderProgram* getShaderProgram(const std::string& id);
             const ShaderProgram* getShaderProgram(const ShaderConfiguration& config);
 
             const ShaderProgram* getDefaultShaderProgram() const;
@@ -55,6 +56,7 @@ namespace Ra
         private:
             std::string m_shaderPath;
 
+            std::map<std::string, ShaderConfiguration> m_shaderProgramIds;
             std::map<ShaderConfiguration, std::shared_ptr<ShaderProgram>> m_shaderPrograms;
             const ShaderProgram* m_defaultShaderProgram;
 

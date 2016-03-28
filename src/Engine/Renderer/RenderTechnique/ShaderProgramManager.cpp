@@ -62,6 +62,17 @@ namespace Ra
             }
         }
 
+        const ShaderProgram* ShaderProgramManager::getShaderProgram(const std::string &id)
+        {
+            auto found = m_shaderProgramIds.find(id);
+            if (found != m_shaderProgramIds.end())
+            {
+                return getShaderProgram(found->second);
+            }
+
+            return nullptr;
+        }
+
         const ShaderProgram* ShaderProgramManager::getShaderProgram(const ShaderConfiguration& config)
         {
             return addShaderProgram(config);
@@ -83,6 +94,7 @@ namespace Ra
 
         void ShaderProgramManager::insertShader(const ShaderConfiguration& config, const ShaderProgramPtr& shader)
         {
+            m_shaderProgramIds.insert(std::pair<std::string, ShaderConfiguration>(config.m_name, config));
             m_shaderPrograms.insert(std::pair<ShaderConfiguration, ShaderProgramPtr>(config, shader));
         }
 

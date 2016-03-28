@@ -406,4 +406,9 @@ namespace Ra
         return ret;
     }
 
+    void Gui::Viewer::enablePostProcess(int enabled)
+    {
+        m_currentRenderer->enablePostProcess(enabled);
+    }
+
 } // namespace Ra

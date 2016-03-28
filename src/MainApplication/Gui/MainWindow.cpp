@@ -117,6 +117,8 @@ namespace Ra
         connect( m_currentRendererCombo, static_cast<void (QComboBox::*)( int )>( &QComboBox::currentIndexChanged ),
                  m_viewer, &Viewer::changeRenderer );
 
+        connect(m_enablePostProcess, &QCheckBox::stateChanged, m_viewer, &Viewer::enablePostProcess);
+
         // Connect engine signals to the appropriate callbacks
         std::function<void(void)> f =  std::bind(&MainWindow::onEntitiesUpdated, this);
         mainApp->m_engine->getSignalManager()->m_entityCreatedCallbacks.push_back(f);

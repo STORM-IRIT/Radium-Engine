@@ -185,11 +185,12 @@ namespace Ra
                 std::ostringstream error;
                 error << m_filename << " not found.\n";
                 char currentPath[FILENAME_MAX];
-                getCurrentDir( currentPath, sizeof( currentPath ) );
-                error << "Path : " << currentPath;
+                if (getCurrentDir( currentPath, sizeof( currentPath ) ) != nullptr)
+                {
+                    error << "Path : " << currentPath;
+                }
                 CORE_WARN_IF( !ok, error.str().c_str() );
-                shader = "";
-                return shader;
+                return "";
             }
 
             return shader;
