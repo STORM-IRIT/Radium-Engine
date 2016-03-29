@@ -193,18 +193,16 @@ namespace Ra {
                 Core::TriangleMesh sphere =
                     Core::MeshUtils::makeGeodesicSphere(radius, 2);
 
+                for (auto& t : sphere.m_vertices)
+                {
+                    t += center;
+                }
+
                 Core::Vector4Array colors(sphere.m_vertices.size(), color);
 
                 MeshPtr mesh(new Mesh("Sphere Primitive", GL_LINES));
                 mesh->loadGeometry(sphere);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
-
-                /*
-                Core::Transform t;
-                t.setIdentity();
-                t.translate( center );
-                ro->setLocalTransform( t.matrix() );
-                */
 
                 return mesh;
             }
