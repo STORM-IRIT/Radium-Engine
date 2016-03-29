@@ -5,15 +5,13 @@ vec3 blinnPhongInternal(vec3 d, vec3 n)
     vec3 direction = normalize(d);
     vec3 normal = normalize(n);
 
-    //direction = vec3(1, 0, 0);
-
     float diffFactor = max(dot(normal, -direction), 0.0);
     vec3 diff = diffFactor * light.color.xyz * getKd();
 
-    vec3 viewDir = normalize(fs_in.eye - fs_in.position);
-    vec3 halfVec = normalize(direction + viewDir);
+    vec3 viewDir = normalize(fs_in.position - fs_in.eye);
+    vec3 halfVec = normalize(viewDir + direction);
 
-    float specFactor = pow(max(dot(normal, halfVec), 0.0), getNs());
+    float specFactor = pow(max(dot(normal, -halfVec), 0.0), getNs());
     vec3 spec = specFactor * light.color.xyz * getKs();
 
     return diff + spec;
