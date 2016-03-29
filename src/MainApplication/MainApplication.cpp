@@ -58,11 +58,13 @@ namespace Ra
         parser.addHelpOption();
         parser.addVersionOption();
 
+        // For any reason, the third parameter must be set if you want to be able to read anything from it (and it cannot be "")
         QCommandLineOption fpsOpt(QStringList{"r", "framerate", "fps"}, "Control the application framerate, 0 to disable it (and run as fast as possible)", "60");
         QCommandLineOption pluginOpt(QStringList{"p", "plugins", "pluginsPath"}, "Set the path to the plugin dlls", "../Plugins/bin");
+        QCommandLineOption fileOpt(QStringList{"f", "file", "scene"}, "Open a scene file at startup", "foo.bar");
         // NOTE(Charly): Add other options here
 
-        parser.addOptions({fpsOpt, pluginOpt});
+        parser.addOptions({fpsOpt, pluginOpt, fileOpt});
         parser.process(*this);
 
         if (parser.isSet(fpsOpt))      m_targetFPS = parser.value(fpsOpt).toUInt();
@@ -149,6 +151,12 @@ namespace Ra
         setupScene();
         emit starting();
 
+        // A file has been required, load it.
+        if (parser.isSet(fileOpt))
+        {
+            loadFile(parser.value(fileOpt));
+        }
+
         m_lastFrameStart = Core::Timer::Clock::now();
     }
 
@@ -170,6 +178,7 @@ namespace Ra
     void MainApplication::loadFile( QString path )
     {
         std::string pathStr = path.toLocal8Bit().data();
+        LOG(logINFO) << "Loading file " << pathStr << "...";
         bool res = m_engine->loadFile( pathStr );
         CORE_UNUSED( res );
         m_viewer->handleFileLoading( pathStr );
@@ -198,6 +207,8 @@ namespace Ra
         }
 
         m_viewer->fitCameraToScene( aabb );
+
+        emit loadComplete();
     }
 
     void MainApplication::framesCountForStatsChanged( int count )
@@ -303,7 +314,8 @@ namespace Ra
             emit( updateFrameStats( m_timerData ) );
             m_timerData.clear();
         }
-        emit endFrame();
+
+        m_mainWindow->onFrameComplete();
     }
 
     void MainApplication::appNeedsToQuit()

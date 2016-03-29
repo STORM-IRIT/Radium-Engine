@@ -60,6 +60,8 @@ namespace Ra
 
             void updateUi( Plugins::RadiumPluginInterface* plugin );
 
+            void onFrameComplete();
+
         private slots:
             void loadFile();
             void openMaterialEditor();

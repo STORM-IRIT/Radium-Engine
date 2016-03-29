@@ -70,7 +70,7 @@ namespace Ra
 
         void updateFrameStats( const std::vector<FrameTimerData>& );
 
-        void endFrame();
+        void loadComplete();
 
     public slots:
 

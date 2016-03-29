@@ -71,6 +71,7 @@ namespace Ra
 
         // Loading setup.
         connect( this, &MainWindow::fileLoading, mainApp, &MainApplication::loadFile );
+        connect( mainApp, &MainApplication::loadComplete, this, &MainWindow::onEntitiesUpdated);
 
         // Side menu setup.
         connect( m_entityTreeModel, &EntityTreeModel::dataChanged, m_entityTreeModel, &EntityTreeModel::handleRename );
@@ -96,10 +97,6 @@ namespace Ra
 
         connect( this, &MainWindow::selectedEntity, this, &MainWindow::displayEntityRenderObjects );
         connect( this, &MainWindow::selectedComponent, this, &MainWindow::displayComponentRenderObjects );
-
-        // Editors should be updated after each frame
-        connect(mainApp, &MainApplication::endFrame, tab_edition, &TransformEditorWidget::updateValues);
-        connect(mainApp, &MainApplication::endFrame, m_viewer->getGizmoManager(), &GizmoManager::updateValues);
 
         // Enable changing shaders
         connect( m_renderObjectsListView, &QListWidget::currentRowChanged, this, &MainWindow::renderObjectListItemClicked );
@@ -148,8 +145,6 @@ namespace Ra
         {
             emit fileLoading( path );
         }
-
-        onEntitiesUpdated();
     }
 
     void Gui::MainWindow::onUpdateFramestats( const std::vector<FrameTimerData>& stats )
@@ -635,5 +630,11 @@ namespace Ra
         {
             m_currentRendererCombo->addItem( renderer.c_str() );
         }
+    }
+
+    void Gui::MainWindow::onFrameComplete()
+    {
+        tab_edition->updateValues();
+        m_viewer->getGizmoManager()->updateValues();
     }
 } // namespace Ra
