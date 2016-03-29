@@ -46,7 +46,7 @@ public:
             const uint size = mesh.m_vertices.size();
 
             const uint   fiveColor = 5;
-            const Scalar magenta   = 5.0 / 6.0;
+            const Scalar magenta   = 5.0f/ 6.0f;
             Ra::Core::Vector4Array palette( fiveColor );
             for( uint i = 0; i < fiveColor; ++i ) {
                 Scalar hue = ( Scalar( i ) / Scalar( fiveColor - 1 ) ) * magenta;
@@ -65,7 +65,7 @@ public:
             Ra::Core::Geometry::AdjacencyMatrix Adj = Ra::Core::Geometry::uniformAdjacency( mesh.m_vertices, mesh.m_triangles );
             Ra::Core::Geometry::AdjacencyMatrix Seg( weights.cols(), weights.cols() );
 
-            for( uint k = 0; k < Adj.outerSize(); ++k ) {
+            for( int k = 0; k < Adj.outerSize(); ++k ) {
                 for( Ra::Core::Geometry::AdjacencyMatrix::InnerIterator it( Adj, k ); it; ++it ) {
                     const uint i = it.row();
                     const uint j = it.col();
@@ -76,7 +76,7 @@ public:
             }
 
             std::vector< uint > assignedColor( weights.cols(), uint( -1 ) );
-            for( uint k = 0; k < Seg.outerSize(); ++k ) {
+            for( int k = 0; k < Seg.outerSize(); ++k ) {
                 std::set< uint > option;
                 for( uint i = 0; i < fiveColor; ++i ) {
                     option.insert( i );

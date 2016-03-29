@@ -126,7 +126,7 @@ namespace Ra
 
 
             inline
-            int size_linear() const
+            uint size_linear() const
             {
                 return _size( 0 ) * _size( 1 ) * _size( 2 );
             }

@@ -133,7 +133,7 @@ namespace Ra
                 glEnable(GL_LINE_SMOOTH);
                 glLineWidth(1.f);
                 glEnable(GL_POLYGON_OFFSET_LINE);
-                glPolygonOffset(-1.0, -1.1);
+                glPolygonOffset(-1.0f, -1.1f);
             }
 
             shader = m_depthAmbientShader;
