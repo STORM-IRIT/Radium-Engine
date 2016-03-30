@@ -139,7 +139,7 @@ namespace Ra
             bool isDirty = false;
             for ( const auto& b : m_typeIsDirty )
             {
-                isDirty ==  isDirty || b ;
+                isDirty = (isDirty || b) ;
             }
 
             return isDirty;

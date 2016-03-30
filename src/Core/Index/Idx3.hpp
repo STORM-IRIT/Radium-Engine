@@ -143,7 +143,7 @@ namespace Ra
             inline
             bool is_valid() const
             {
-                return _id != InvalidId && size_linear() >= 0;
+                return _id != InvalidId ;
             }
 
             /// Does the index is out of its bounds (defined at construction)
