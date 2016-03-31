@@ -171,10 +171,10 @@ namespace Ra
     void MainApplication::setupScene()
     {
         using namespace Engine::DrawPrimitives;
-        
+
         Engine::SystemEntity::uiCmp()->addRenderObject(
             Primitive(Engine::SystemEntity::uiCmp(), Grid(
-                    Core::Vector3::Zero(), Core::Vector3::UnitX(), 
+                    Core::Vector3::Zero(), Core::Vector3::UnitX(),
                     Core::Vector3::UnitZ(), Core::Colors::Grey(0.6f))));
     }
 
@@ -274,38 +274,6 @@ namespace Ra
         m_viewer->processPicking();
 
         m_mainWindow->flushEvents();
-
-        // DebugRender examples
-        if (false)
-        {
-            auto dbg = Engine::DebugRender::getInstance();
-            using v3 = Core::Vector3;
-            using v4 = Core::Vector4;
-            using Engine::DrawPrimitives::Triangle;
-            using Engine::DrawPrimitives::Spline;
-
-            dbg->addLine(v3(-0.5, -0.5, 0), v3(0.5, 0.5, 0), v4(0, 1, 0, 1));
-            dbg->addPoint(v3(-0.5, -0.5, 0), v4(1, 0, 0, 1));
-            dbg->addPoint(v3(0.5, 0.5, 0), v4(0, 0, 1, 1));
-
-            dbg->addMesh(Triangle(v3(-1, 0, 0), v3(0, 0, 0), v3(-1, 1, 0), v4(0, 1, 0, 1), false));
-            dbg->addMesh(Triangle(v3(0, 0, 0), v3(0, 1, 0), v3(-1, 1, 0), v4(1, 0, 0, 1), true));
-            dbg->addMesh(Triangle(v3(0, 0, 0), v3(1, 0, 0), v3(0, 1, 0), v4(0, 0, 1, 1), false));
-            dbg->addMesh(Triangle(v3(1, 0, 0), v3(1, 1, 0), v3(0, 1, 0), v4(0, 1, 1, 1), true));
-
-            Core::Vector3Array ctrlPoints =
-            {
-                v3(-3.5,  2, -2), v3(-3.5, -2, -2),
-                v3(-1.5, -2, -2), v3(-1.5,  2, -2),
-                v3( 1.5,  2, -2), v3( 1.5, -2, -2),
-                v3( 3.5, -2, -2), v3( 3.5,  2, -2),
-            };
-
-            Core::Spline<3, 3> sp(Core::Spline<3, 3>::OPEN_UNIFORM);
-            sp.setCtrlPoints(ctrlPoints);
-            dbg->addMesh(Spline(sp, 32, Core::Colors::Magenta()));
-            dbg->addPoints(ctrlPoints, Core::Colors::Grey());
-        }
 
         // ----------
         // 2. Kickoff rendering

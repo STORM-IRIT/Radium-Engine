@@ -34,7 +34,6 @@ void main()
     if ( material.tex.hasKd == 1 )
     {
         vec4 color = texture( material.tex.kd, vTexcoord.xy ).rgba;
-
         if (material.tex.hasAlpha == 1)
         {
             float alpha = texture(material.tex.alpha, vTexcoord.xy).r;
