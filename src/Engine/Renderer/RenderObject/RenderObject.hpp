@@ -74,7 +74,7 @@ namespace Ra
 
             void setMesh( const std::shared_ptr<Mesh>& mesh );
             std::shared_ptr<const Mesh> getMesh() const;
-            const std::shared_ptr<Mesh> &getMesh();
+            const std::shared_ptr<Mesh>& getMesh();
 
             Core::Transform getTransform() const;
             Core::Matrix4 getTransformAsMatrix() const;
