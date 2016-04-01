@@ -73,8 +73,8 @@ namespace Ra
             RenderTechnique* getRenderTechnique();
 
             void setMesh( const std::shared_ptr<Mesh>& mesh );
-            const Mesh* getMesh() const;
-            Mesh* getMesh();
+            std::shared_ptr<const Mesh> getMesh() const;
+            const std::shared_ptr<Mesh> &getMesh();
 
             Core::Transform getTransform() const;
             Core::Matrix4 getTransformAsMatrix() const;

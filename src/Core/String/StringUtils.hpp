@@ -15,7 +15,7 @@ namespace Ra
         {
             //
             // File names and paths.
-            // Todo : support bacward slashes in windows paths.
+            // Todo : support backward slashes in windows paths.
             //
 
             /// @return the file extension or the empty string if not found
@@ -43,14 +43,13 @@ namespace Ra
             ///  any error.
             RA_CORE_API int stringPrintf( std::string& str, const char* fmt, ... );
 
-
             /// Appends a formatted print to the given string.
             /// @return the number of characters appended or a negative value if there was
             /// any error.
             RA_CORE_API int appendPrintf( std::string& str, const char* fmt, ... );
 
             /// Split a string given a token.
-            /// E.g. tokenizeString("Hello, World, and Universe !", ',') would return
+            /// E.g. splitString("Hello, World, and Universe !", ',') would return
             /// { "Hello", " World", " and Universe !" }.
             /// @return a vector containing n substrings given a split token.
             RA_CORE_API std::vector<std::string> splitString( const std::string& str, char token );

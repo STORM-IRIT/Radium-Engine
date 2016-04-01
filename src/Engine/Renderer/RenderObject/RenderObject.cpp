@@ -135,14 +135,14 @@ namespace Ra
             m_mesh = mesh;
         }
 
-        const Mesh* RenderObject::getMesh() const
+        std::shared_ptr<const Mesh> RenderObject::getMesh() const
         {
-            return m_mesh.get();
+            return m_mesh;
         }
 
-        Mesh* RenderObject::getMesh()
+        const std::shared_ptr<Mesh>& RenderObject::getMesh()
         {
-            return m_mesh.get();
+            return m_mesh;
         }
 
         Core::Transform RenderObject::getTransform() const

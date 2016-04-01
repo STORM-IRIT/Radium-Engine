@@ -148,6 +148,9 @@ namespace Ra
                 return result;
             }
 
+
+            // These functions are exposed to the interface, but they just cal
+            // the va_list versions above.
             int stringPrintf( std::string& str, const char* fmt, ... )
             {
                 va_list args;
@@ -156,6 +159,7 @@ namespace Ra
                 va_end(args);
                 return result;
             }
+
             int appendPrintf( std::string& str, const char* fmt, ... )
             {
                 va_list args;
