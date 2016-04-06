@@ -28,7 +28,7 @@ namespace Ra
             virtual void addPoint(const Core::Vector3& p, const Core::Color& color);
             virtual void addPoints(const Core::Vector3Array& p, const Core::Color& color);
             virtual void addPoints(const Core::Vector3Array& p, const Core::Vector4Array& colors);
-            virtual void addMesh(const std::shared_ptr<Mesh>& mesh);
+            virtual void addMesh(const std::shared_ptr<Mesh>& mesh, const Core::Transform& transform = Core::Transform::Identity());
 
         private:
             struct Line
@@ -45,6 +45,12 @@ namespace Ra
                 Core::Vector3 c;
             };
 
+            struct DbgMesh
+            {
+                std::shared_ptr<Mesh> mesh;
+                Core::Transform transform;
+            };
+
             void renderLines(const Core::Matrix4& view, const Core::Matrix4& proj);
             void renderPoints(const Core::Matrix4& view, const Core::Matrix4& proj);
             void renderMeshes(const Core::Matrix4& view, const Core::Matrix4& proj);
@@ -55,7 +61,7 @@ namespace Ra
             const ShaderProgram* m_plainShader;
 
             std::vector<Line> m_lines;
-            std::vector<std::shared_ptr<Mesh>> m_meshes;
+            std::vector<DbgMesh> m_meshes;
 
             std::vector<Point> m_points;
             uint m_pointVao = 0;

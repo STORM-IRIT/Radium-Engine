@@ -132,27 +132,27 @@ namespace Ra
 
             // Avoid too much states change
             uint idx = 0;
-            std::sort(m_meshes.begin(), m_meshes.end(), [](const std::shared_ptr<Mesh>& a, const std::shared_ptr<Mesh>& b) -> bool { return a->getRenderMode() < b->getRenderMode(); });
-            for (; idx < m_meshes.size() && m_meshes[idx]->getRenderMode() != GL_TRIANGLES; ++idx);
+            std::sort(m_meshes.begin(), m_meshes.end(), [](const DbgMesh& a, const DbgMesh& b) -> bool { return a.mesh->getRenderMode() < b.mesh->getRenderMode(); });
+            for (; idx < m_meshes.size() && m_meshes[idx].mesh->getRenderMode() != GL_TRIANGLES; ++idx);
 
             m_lineShader->bind();
             m_lineShader->setUniform("view", view);
             m_lineShader->setUniform("proj", proj);
             for (uint i = 0; i < idx; ++i)
             {
-                m_meshes[i]->updateGL();
-                m_meshes[i]->render();
+                m_lineShader->setUniform("model", m_meshes[i].transform.matrix());
+                m_meshes[i].mesh->updateGL();
+                m_meshes[i].mesh->render();
             }
 
-            Core::Matrix4 id = Core::Matrix4::Identity();
             m_plainShader->bind();
             m_plainShader->setUniform("transform.view", view);
             m_plainShader->setUniform("transform.proj", proj);
-            m_plainShader->setUniform("transform.model", id);
             for (uint i = idx; i < m_meshes.size(); ++i)
             {
-                m_meshes[i]->updateGL();
-                m_meshes[i]->render();
+                m_plainShader->setUniform("transform.model", m_meshes[i].transform.matrix());
+                m_meshes[i].mesh->updateGL();
+                m_meshes[i].mesh->render();
             }
 
             m_meshes.clear();
@@ -187,9 +187,9 @@ namespace Ra
             }
         }
 
-        void DebugRender::addMesh(const std::shared_ptr<Mesh> &mesh)
+        void DebugRender::addMesh(const std::shared_ptr<Mesh> &mesh, const Core::Transform& transform)
         {
-            m_meshes.push_back(mesh);
+            m_meshes.push_back({mesh, transform});
         }
 
         RA_SINGLETON_IMPLEMENTATION(DebugRender);
