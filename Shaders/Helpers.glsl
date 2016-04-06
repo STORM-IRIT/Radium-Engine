@@ -20,12 +20,13 @@ vec3 getKs()
 
 float getNs()
 {
+    float ns = material.ns;
     if (material.tex.hasNs == 1)
     {
-        return texture(material.tex.ns, fs_in.texcoord.xy).r;
+        ns = texture(material.tex.ns, fs_in.texcoord.xy).r;
     }
 
-    return material.ns;
+    return max(ns, 0.001);
 }
 
 vec3 getNormal()

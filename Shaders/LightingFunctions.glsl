@@ -10,11 +10,10 @@ vec3 blinnPhongInternal(vec3 d, vec3 n)
 
     vec3 viewDir = normalize(fs_in.position - fs_in.eye);
     vec3 halfVec = normalize(viewDir + direction);
-
     float specFactor = pow(max(dot(normal, -halfVec), 0.0), getNs());
     vec3 spec = specFactor * light.color.xyz * getKs();
 
-    return diff + spec;
+    return diff + spec ;
 }
 
 vec3 blinnPhongSpot()

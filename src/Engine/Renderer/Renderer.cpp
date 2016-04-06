@@ -56,6 +56,7 @@ namespace Ra
             , m_quadMesh( nullptr )
             , m_drawDebug( true )
             , m_wireframe(false)
+            , m_postProcessEnabled(true)
         {
         }
 

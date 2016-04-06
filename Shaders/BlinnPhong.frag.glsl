@@ -22,5 +22,4 @@ void main()
     vec3 color = computeLighting();
 
     fragColor = vec4(color, 1.0);
-
 }
