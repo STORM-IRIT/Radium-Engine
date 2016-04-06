@@ -253,6 +253,33 @@ namespace Ra
                 }
             }
 
+            // Draw debug objects
+            GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
+            if ( m_drawDebug )
+            {
+                for ( const auto& ro : m_debugRenderObjects )
+                {
+                    if ( ro->isVisible() )
+                    {
+                        auto id = ro->idx.getValue();
+                        float r = float( ( id & 0x000000FF ) >> 0 ) / 255.0;
+                        float g = float( ( id & 0x0000FF00 ) >> 8 ) / 255.0;
+                        float b = float( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
+                        shader->setUniform( "objectId", Core::Colorf( r, g, b, 1.0 ) );
+
+                        Core::Matrix4 M = ro->getTransformAsMatrix();
+                        shader->setUniform( "transform.proj", renderData.projMatrix );
+                        shader->setUniform( "transform.view", renderData.viewMatrix );
+                        shader->setUniform( "transform.model", M );
+
+                        ro->getRenderTechnique()->material->bind( shader );
+
+                        // render
+                        ro->getMesh()->render();
+                    }
+                }
+            }
+
             // Draw xrayed objects on top of normal objects
             GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
             if ( m_drawDebug )
@@ -279,6 +306,7 @@ namespace Ra
                     }
                 }
             }
+
 
             // Always draw ui stuff on top of everything
             GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
