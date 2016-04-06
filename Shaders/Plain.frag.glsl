@@ -1,53 +1,31 @@
-struct Textures
-{
-    int hasKd;
-    int hasKs;
-    int hasNs;
-    int hasNormal;
-    int hasAlpha;
-
-    sampler2D kd;
-    sampler2D ks;
-    sampler2D ns;
-    sampler2D normal;
-    sampler2D alpha;
-};
-
-struct Material
-{
-    vec4 kd;
-    vec4 ks;
-
-    float ns;
-
-    Textures tex;
-};
+#include "Structs.glsl"
 
 uniform Material material;
+uniform Light light;
 
-in vec3 vTexcoord;
-in vec4 vColor;
+in VS_OUT
+{
+    vec3 normal;
+    vec3 texcoord;
+    vec3 color;
+} fs_in;
+
 out vec4 fragColor;
+
+#include "Helpers.glsl"
+
 
 void main()
 {
     if ( material.tex.hasKd == 1 )
     {
-        vec4 color = texture( material.tex.kd, vTexcoord.xy ).rgba;
-        if (material.tex.hasAlpha == 1)
-        {
-            float alpha = texture(material.tex.alpha, vTexcoord.xy).r;
-            if (alpha < 0.5)
-            {
-                discard;
-            }
-        }
-
-        fragColor = vec4( color.rgb, 1.0 );
+        vec3 color = getKd();
+        if (toDiscard()) discard;
+        fragColor = vec4(color,1);
     }
     else
     {
-        fragColor = vColor;
+        fragColor = vec4( fs_in.color.rgb, 1.0);
     }
 }
 

@@ -90,7 +90,7 @@ public:
                     }
                 }
 
-                uint random = std::rand() % option.size();
+                uint random = std::rand() % std::max<uint>(option.size(),1);
                 auto it = option.begin();
                 for( uint i = 0; i < random; ++i ) {
                     ++it;

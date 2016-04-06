@@ -7,7 +7,6 @@ vec3 getKd()
 
     return material.kd.xyz;
 }
-
 vec3 getKs()
 {
     if (material.tex.hasKs == 1)

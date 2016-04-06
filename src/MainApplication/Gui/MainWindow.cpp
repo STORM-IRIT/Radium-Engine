@@ -332,10 +332,8 @@ namespace Ra
                 return;
             }
 
-            /////////////////////////////////////////////
             LOG( logDEBUG ) << "Picked RO: " << ro->idx.getValue();
             LOG( logDEBUG ) << "RO Name  : " << ro->getName();
-            /////////////////////////////////////////////
 
             Engine::Component* comp = ro->getComponent();
             const Engine::Entity* ent = comp->getEntity();

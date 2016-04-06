@@ -1,19 +1,18 @@
+#include "Structs.glsl"
+
 layout (location = 0) in vec3 inPos;
 layout (location = 4) in vec3 inTexcoord;
 layout (location = 5) in vec4 inColor;
 
-struct Transform
-{
-    mat4 model;
-    mat4 view;
-    mat4 proj;
-};
-
 uniform Transform transform;
 uniform int drawFixedSize;
 
-out vec3 vTexcoord;
-out vec4 vColor;
+out VS_OUT
+{
+    vec3 normal; // unused
+    vec3 texcoord;
+    vec3 color;
+} vs_out;
 
 void main()
 {
@@ -34,6 +33,6 @@ void main()
     }
 
     gl_Position = mvp * vec4(inPos.xyz, 1.0);
-    vColor = inColor;
-	vTexcoord = inTexcoord;
+    vs_out.color = inColor.xyz;
+    vs_out.texcoord = inTexcoord;
 }
