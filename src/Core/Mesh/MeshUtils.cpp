@@ -1,5 +1,9 @@
 #include <Core/Mesh/MeshUtils.hpp>
 
+#include <utility>
+#include <set>
+#include <map>
+
 #include <Core/Math/Math.hpp>
 #include <Core/Math/RayCast.hpp>
 #include <Core/String/StringUtils.hpp>
@@ -128,6 +132,37 @@ namespace Ra
                 }
 
                 return result;
+            }
+
+            /// Return the mean edge length of the given triangle mesh
+            Scalar getMeanEdgeLength( const TriangleMesh& mesh ) {
+                typedef std::pair< uint, uint > Key;
+                std::set< Key > list;
+                const uint size = mesh.m_triangles.size();
+                uint   edgeSize   = 0;
+                Scalar edgeLength = 0.0;
+                #pragma omp parallel for
+                for( uint t = 0; t < size; ++t ) {
+                    for( uint v = 0; v < 3; ++v ) {
+                        const uint i = mesh.m_triangles[t][v];
+                        const uint j = mesh.m_triangles[t][( v + 1 ) % 3];
+                        Key k( ( ( i < j ) ? i : j ), ( ( i < j ) ? j : i ) );
+                        Scalar length = ( mesh.m_vertices[i] - mesh.m_vertices[j] ).norm();
+                        #pragma omp critical
+                        {
+                            auto it = list.find( k );
+                            if( it == list.end() ) {
+                                list.insert( k );
+                                ++edgeSize;
+                                edgeLength += length;
+                            }
+                        }
+                    }
+                }
+                if( edgeSize != 0 ) {
+                    return ( edgeLength / Scalar( edgeSize ) );
+                }
+                return 0.0;
             }
 
         } // namespace MeshUtils

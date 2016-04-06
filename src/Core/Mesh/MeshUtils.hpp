@@ -47,6 +47,9 @@ namespace Ra
             /// Return the index of the triangle hit by the ray or -1 if there's no hit.
             RA_CORE_API RayCastResult castRay( const TriangleMesh& mesh, const Ray& ray);
 
+            /// Return the mean edge length of the given triangle mesh
+            RA_CORE_API Scalar getMeanEdgeLength( const TriangleMesh& mesh );
+
             //
             // Checks
             //
