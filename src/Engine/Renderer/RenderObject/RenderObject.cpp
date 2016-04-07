@@ -5,6 +5,7 @@
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -33,6 +34,40 @@ namespace Ra
 
         RenderObject::~RenderObject()
         {
+        }
+
+        RenderObject* RenderObject::createRenderObject(const std::string& name, Component* comp, const RenderObjectType& type, const std::shared_ptr<Mesh> &mesh, const ShaderConfiguration &shaderConfig, Material *material)
+        {
+            RenderObject* obj = new RenderObject(name, comp, type);
+            obj->setMesh(mesh);
+            obj->setVisible(true);
+
+            RenderTechnique* rt = new RenderTechnique;
+
+            if (shaderConfig.isComplete())
+            {
+                rt->shaderConfig = shaderConfig;
+            }
+            else
+            {
+                rt->shaderConfig = ShaderProgramManager::getInstance()->getDefaultShaderProgram()->getBasicConfiguration();
+            }
+
+            if (material != nullptr)
+            {
+                rt->material = material;
+            }
+            else
+            {
+                // Lightgrey non specular material by default
+                rt->material = new Material(name + "_Mat");
+                rt->material->setKd(Core::Color::Constant(0.9));
+                rt->material->setKs(Core::Color::Zero());
+            }
+
+            obj->setRenderTechnique(rt);
+
+            return obj;
         }
 
         void RenderObject::updateGL()

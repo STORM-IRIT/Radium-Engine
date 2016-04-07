@@ -54,7 +54,8 @@ namespace FancyMeshPlugin
         FancyMeshComponent* comp = new FancyMeshComponent(name);
         if ( technique )
         {
-            comp->addMeshRenderObject( mesh, "Mesh RenderObject", technique );
+            CORE_WARN_IF(0, "(Charly): FMSystem::makeFancyMeshFromGeometry rendertechnique ignored from now. Just tell me if needed.");
+            comp->addMeshRenderObject(mesh, "Mesh RenderObject");
         }
         else
         {

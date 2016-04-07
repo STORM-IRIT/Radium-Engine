@@ -41,27 +41,13 @@ namespace FancyMeshPlugin
 
     void FancyMeshComponent::addMeshRenderObject( const Ra::Core::TriangleMesh& mesh, const std::string& name )
     {
-        Ra::Engine::RenderTechnique* technique = new Ra::Engine::RenderTechnique;
-        technique->material = new Ra::Engine::Material( "Default" );
-        technique->shaderConfig = Ra::Engine::ShaderProgramManager::getInstance()->getDefaultShaderProgram()->getBasicConfiguration();
-
-        addMeshRenderObject(mesh, name, technique);
-    }
-
-    void FancyMeshComponent::addMeshRenderObject( const Ra::Core::TriangleMesh& mesh,
-                                                  const std::string& name,
-                                                  Ra::Engine::RenderTechnique* technique )
-    {
         setupIO(name);
-
-        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, this, Ra::Engine::RenderObjectType::Fancy );
-        renderObject->setVisible( true );
-        renderObject->setRenderTechnique( technique );
 
         std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( name ) );
         displayMesh->loadGeometry( mesh );
-        renderObject->setMesh( displayMesh );
-        addRenderObject( renderObject );
+
+        auto renderObject = Ra::Engine::RenderObject::createRenderObject(name, this, Ra::Engine::RenderObjectType::Fancy, displayMesh);
+        addRenderObject(renderObject);
     }
 
     void FancyMeshComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
@@ -79,9 +65,6 @@ namespace FancyMeshPlugin
         matName.append( "_Mat" );
 
         m_contentName = data->getName();
-
-        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( roName, this, Ra::Engine::RenderObjectType::Fancy );
-        renderObject->setVisible( true );
 
         std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( meshName ) );
 
@@ -120,14 +103,10 @@ namespace FancyMeshPlugin
         displayMesh->addData( Ra::Engine::Mesh::VERTEX_BITANGENT, bitangents );
         displayMesh->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, texcoords );
         displayMesh->addData( Ra::Engine::Mesh::VERTEX_COLOR, colors );
+
         // FIXME(Charly): Should not weights be part of the geometry ?
         //        mesh->addData( Ra::Engine::Mesh::VERTEX_WEIGHTS, meshData.weights );
 
-        renderObject->setMesh( displayMesh );
-
-        m_meshIndex = addRenderObject(renderObject);
-
-        Ra::Engine::RenderTechnique* rt = new Ra::Engine::RenderTechnique;
         Ra::Engine::Material* mat = new Ra::Engine::Material( matName );
         auto m = data->getMaterial();
         if ( m.hasDiffuse() )   mat->setKd( m.m_diffuse );
@@ -141,10 +120,10 @@ namespace FancyMeshPlugin
         //if ( m.hasOpacityTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_ALPHA, m.m_texOpacity );
         //if ( m.hasNormalTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_NORMAL, m.m_texNormal );
 
-        rt->material = mat;
-        rt->shaderConfig = Ra::Engine::ShaderConfigurationFactory::getConfiguration("BlinnPhong");
+        auto config = Ra::Engine::ShaderConfigurationFactory::getConfiguration("BlinnPhong");
 
-        renderObject->setRenderTechnique( rt );
+        Ra::Engine::RenderObject* renderObject = Ra::Engine::RenderObject::createRenderObject(roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, config, mat);
+        m_meshIndex = addRenderObject(renderObject);
     }
 
     Ra::Core::Index FancyMeshComponent::getRenderObjectIndex() const

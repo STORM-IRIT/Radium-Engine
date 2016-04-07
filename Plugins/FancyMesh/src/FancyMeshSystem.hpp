@@ -42,7 +42,7 @@ namespace FancyMeshPlugin
 
         // Specialized factory method for this systems.
         static FancyMeshComponent* makeFancyMeshFromGeometry( const Ra::Core::TriangleMesh& mesh, const std::string& name,
-                                                            Ra::Engine::RenderTechnique* technique = nullptr );
+                                                              Ra::Engine::RenderTechnique* technique = nullptr );
 
     };
 

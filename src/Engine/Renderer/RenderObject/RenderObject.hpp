@@ -34,7 +34,6 @@ namespace Ra
         class RA_ENGINE_API RenderObject : public Core::IndexedObject
         {
         public:
-
             RA_CORE_ALIGNED_NEW
 
             /// A -1 (or any other negative value) lifetime is considered infinite,
@@ -44,6 +43,8 @@ namespace Ra
             RenderObject( const std::string& name, Component* comp,
                           const RenderObjectType& type, int lifetime = -1 );
             ~RenderObject();
+
+            static RenderObject* createRenderObject(const std::string& name, Component* comp, const RenderObjectType& type, const std::shared_ptr<Mesh>& mesh, const ShaderConfiguration& shaderConfig = ShaderConfiguration(), Material* material = nullptr);
 
             // FIXME(Charly): Remove this
             void updateGL();
