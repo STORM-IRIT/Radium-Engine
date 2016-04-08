@@ -1,17 +1,25 @@
 #include "Helpers.glsl"
 
+const float Pi = 3.14159265;
+
 vec3 blinnPhongInternal(vec3 d, vec3 n)
 {
     vec3 direction = normalize(d);
     vec3 normal = normalize(n);
 
+    // http://www.thetenthplanet.de/archives/255 / VortexEngine BlinnPhong
+    float Ns = getNs();
+    vec3 Kd = getKd() / Pi;
+    float normalization = ((Ns + 2) * (Ns + 4)) / (8 * Pi * (exp2(-Ns * 0.5) + Ns));
+    vec3 Ks = getKs() * normalization;
+
     float diffFactor = max(dot(normal, -direction), 0.0);
-    vec3 diff = diffFactor * light.color.xyz * getKd();
+    vec3 diff = diffFactor * light.color.xyz * Kd;
 
     vec3 viewDir = normalize(fs_in.position - fs_in.eye);
     vec3 halfVec = normalize(viewDir + direction);
-    float specFactor = pow(max(dot(normal, -halfVec), 0.0), getNs());
-    vec3 spec = specFactor * light.color.xyz * getKs();
+    float specFactor = pow(max(dot(normal, -halfVec), 0.0), Ns);
+    vec3 spec = specFactor * light.color.xyz * Ks;
 
     return diff + spec ;
 }

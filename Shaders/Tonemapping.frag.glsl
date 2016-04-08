@@ -12,16 +12,16 @@ uniform float lumMean;
 
 void main()
 {
-    vec3 color = texture(hdr, varTexcoord).rgb;
+    vec2 size = vec2(textureSize(hdr, 0));
+    vec3 color = texelFetch(hdr, ivec2(varTexcoord * size), 0).rgb;
 
     vec3 Yxy = rgb2Yxy(color);
 
-    // FIXME(charly): 2.0 might be too high with many lights (or very shiny ones). Reinhard's suggestion is 0.18. VortexEngine uses 1.03
-    float middleGrey = getMiddleGrey(lumMean);
-    float lumScaled = getLumScaled(Yxy.r, middleGrey, lumMean);
-    float white = max(2 * lumMean, lumMax);
-    float lumCompressed = (lumScaled * (1.0 + lumScaled / (white * white))) / (1.0 + lumScaled);
-    Yxy.r = lumCompressed;
+    float grey = getMiddleGrey(lumMean);
+    float white = getWhite(lumMean, lumMax);
+    float scaled = getLumScaled(Yxy.r, grey, lumMean);
+    float compressed = getLumCompressed(scaled, white);
+    Yxy.r = compressed;
 
     color = Yxy2rgb(Yxy);
 

@@ -10,7 +10,8 @@ uniform sampler2D hdr;
 
 void main()
 {
-    vec3 color = texture(hdr, varTexcoord).rgb;
+    vec2 size = vec2(textureSize(hdr, 0));
+    vec3 color = texelFetch(hdr, ivec2(varTexcoord * size), 0).rgb;
 
     float Y = luminance(color);
     float logY = log(Y + 0.0001);

@@ -22,12 +22,28 @@ vec3 Yxy2rgb(vec3 colorYxy){
     return XYZ2RGB*XYZColor;
 }
 
-float getMiddleGrey(float mean)
+float getMiddleGrey(float lmean)
 {
-    return (1.8 - 2.0 / (2.0 + (log(mean + 1) / log(10.0))));
+    // FIXME(charly): 2.0 might be too high with many lights (or very shiny ones). Reinhard's suggestion is 0.18. VortexEngine uses 1.03
+    float grey = 2.0 - 2.0 / (2.0 + (log(lmean + 1) / log(10.0)));
+    return grey;
+}
+
+float getWhite(float lmean, float lmax)
+{
+    float white = max(2 * lmean, lmax);
+    return white;
 }
 
 float getLumScaled(float Y, float mean, float grey)
 {
-    return (Y * grey / (mean + 0.001));
+    float scaled = Y * grey / (mean + 0.001);
+    return scaled;
 }
+
+float getLumCompressed(float scaled, float white)
+{
+    float compressed = (scaled * (1 + scaled / (white * white))) / (1 + scaled);
+    return compressed;
+}
+
