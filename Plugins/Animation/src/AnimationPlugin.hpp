@@ -48,6 +48,9 @@ namespace AnimationPlugin
     public slots:
         void toggleXray( bool on );
         void step();
+        void play();
+        void pause();
+
     private:
         class AnimationSystem* m_system;
 

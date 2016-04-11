@@ -1,6 +1,8 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
     <file>Assets/Images/gizmo.png</file>
+    <file>Assets/Images/pause.png</file>
+    <file>Assets/Images/play.png</file>
     <file>Assets/Images/RadiumIcon.png</file>
     <file>Assets/Images/rotate.png</file>
     <file>Assets/Images/scale.png</file>
