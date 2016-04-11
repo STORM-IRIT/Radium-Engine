@@ -50,6 +50,7 @@ namespace AnimationPlugin
         void step();
         void play();
         void pause();
+        void reset();
 
     private:
         class AnimationSystem* m_system;

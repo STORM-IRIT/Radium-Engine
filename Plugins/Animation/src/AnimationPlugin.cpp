@@ -54,6 +54,11 @@ namespace AnimationPlugin
             connect( step , &QAction::triggered, this, &AnimationPluginC::step);
             tb->addAction(step);
         }
+        {
+            QAction* reset = new QAction( "Reset", widget );
+            connect( reset , &QAction::triggered, this, &AnimationPluginC::reset);
+            tb->addAction(reset);
+        }
 
         return widget;
     }
@@ -90,5 +95,11 @@ namespace AnimationPlugin
     {
         CORE_ASSERT(m_system, "System should be there ");
         m_system->step();
+    }
+
+    void AnimationPluginC::reset()
+    {
+        CORE_ASSERT(m_system, "System should be there ");
+        m_system->reset();
     }
 }
