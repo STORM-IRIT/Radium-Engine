@@ -19,7 +19,7 @@ namespace AnimationPlugin
     class AnimationComponent : public Ra::Engine::Component
     {
     public:
-        AnimationComponent(const std::string& name) : Component(name), m_selectedBone(-1) {}
+        AnimationComponent(const std::string& name) : Component(name), m_selectedBone(-1),m_wasReset(false) {}
         virtual ~AnimationComponent() {}
 
         virtual void initialize() override{}
@@ -80,6 +80,7 @@ namespace AnimationPlugin
         const void* getSkeletonOutput() const;
         const void* getRefPoseOutput() const;
         const void* getWeightsOutput() const;
+        const void* getWasReset() const;
 
     private:
         std::string m_contentName;
@@ -93,6 +94,7 @@ namespace AnimationPlugin
         Scalar m_animationTime;
 
         int m_selectedBone;
+        bool m_wasReset;
     };
 
 }

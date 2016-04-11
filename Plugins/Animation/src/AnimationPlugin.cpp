@@ -94,12 +94,14 @@ namespace AnimationPlugin
     void AnimationPluginC::step()
     {
         CORE_ASSERT(m_system, "System should be there ");
+        pause();
         m_system->step();
     }
 
     void AnimationPluginC::reset()
     {
         CORE_ASSERT(m_system, "System should be there ");
+        pause();
         m_system->reset();
     }
 }

@@ -44,7 +44,13 @@ namespace Skinning
         /// Relative pose from reference pose to current.
         Ra::Core::Animation::Pose m_refToCurrentRelPose;
 
+        /// Indicator whether skinning must be processed.
+        /// It is set to true if the current pose is different from previous.
         bool m_doSkinning;
+
+        /// Indicator whether the skin must be reset to its initial reference
+        /// configuration.
+        bool m_doReset;
     };
 
 } // Skinning

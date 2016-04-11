@@ -52,6 +52,7 @@ void SkinningComponent::setupSkinning()
 
         m_frameData.m_previousPose = refPose;
         m_frameData.m_doSkinning = false;
+        m_frameData.m_doReset = false;
 
         m_prevFrame = m_refData.m_referenceMesh;
 
@@ -71,20 +72,33 @@ void SkinningComponent::skin()
     CORE_ASSERT( m_isReady, "Skinning is not setup");
 
     const Skeleton* skel = static_cast<const Skeleton*>(m_skeletonGetter());
-    m_frameData.m_currentPose = skel->getPose(SpaceType::MODEL);
-    if ( !Ra::Core::Animation::areEqual( m_frameData.m_currentPose, m_frameData.m_previousPose))
+
+    bool reset = false;
+    ON_DEBUG(bool success =) ComponentMessenger::getInstance()->get(getEntity(), m_contentsName, reset);
+    CORE_ASSERT( success, "Could not get reset flag.");
+
+    // Reset the skin if it wasn't done before
+    if (reset && !m_frameData.m_doReset )
     {
-        m_frameData.m_doSkinning = true;
-        Ra::Core::Vector3Array* vertices = static_cast<Ra::Core::Vector3Array* >(m_verticesWriter());
-        CORE_ASSERT( vertices->size() == m_refData.m_referenceMesh.m_vertices.size(), "Inconsistent meshes");
+        m_frameData.m_doReset = true;
+    }
+    else
+    {
+        m_frameData.m_currentPose = skel->getPose(SpaceType::MODEL);
+        if ( !Ra::Core::Animation::areEqual( m_frameData.m_currentPose, m_frameData.m_previousPose))
+        {
+            m_frameData.m_doSkinning = true;
+            Ra::Core::Vector3Array* vertices = static_cast<Ra::Core::Vector3Array* >(m_verticesWriter());
+            CORE_ASSERT( vertices->size() == m_refData.m_referenceMesh.m_vertices.size(), "Inconsistent meshes");
 
-        m_frameData.m_refToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_refData.m_refPose);
-        m_frameData.m_prevToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_frameData.m_previousPose);
+            m_frameData.m_refToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_refData.m_refPose);
+            m_frameData.m_prevToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_frameData.m_previousPose);
 
-        Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion > DQ;
-        computeDQ( m_frameData.m_prevToCurrentRelPose, m_refData.m_weights, DQ );
-        DualQuaternionSkinning( m_prevFrame.m_vertices, DQ, (*vertices) );
-        computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_DQ );
+            Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion > DQ;
+            computeDQ( m_frameData.m_prevToCurrentRelPose, m_refData.m_weights, DQ );
+            DualQuaternionSkinning( m_prevFrame.m_vertices, DQ, (*vertices) );
+            computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_DQ );
+        }
     }
 }
 
@@ -101,6 +115,21 @@ void SkinningComponent::endSkinning()
 
         m_prevFrame.m_vertices = *vertices;
         m_prevFrame.m_normals = *normals;
+    }
+
+    else if (m_frameData.m_doReset)
+    {
+        // Reset mesh to its initial state.
+        Ra::Core::Vector3Array* vertices = static_cast<Ra::Core::Vector3Array* >(m_verticesWriter());
+        Ra::Core::Vector3Array* normals = static_cast<Ra::Core::Vector3Array* >(m_normalsWriter());
+
+        *vertices = m_refData.m_referenceMesh.m_vertices;
+        *normals = m_refData.m_referenceMesh.m_normals;
+
+        m_frameData.m_doReset = false;
+        m_frameData.m_currentPose = m_refData.m_refPose;
+        m_frameData.m_previousPose = m_refData.m_refPose;
+        m_prevFrame = m_refData.m_referenceMesh;
     }
 }
 

@@ -122,6 +122,7 @@ namespace AnimationPlugin
         // get the current pose from the animation
         if ( dt > 0 && m_animations.size() > 0)
         {
+            m_wasReset = false;
             Ra::Core::Animation::Pose currentPose = m_animations[0].getPose(m_animationTime);
 
             // update the pose of the skeleton
@@ -178,7 +179,13 @@ namespace AnimationPlugin
 
     void AnimationComponent::reset()
     {
-        m_animationTime= 0;
+        m_animationTime = 0;
+        m_skel.setPose(m_refPose, Ra::Core::Animation::Handle::SpaceType::MODEL);
+        for (SkeletonBoneRenderObject* bone : m_boneDrawables)
+        {
+            bone->update();
+        }
+        m_wasReset = true;
     }
 
     Ra::Core::Animation::Pose AnimationComponent::getRefPose() const
@@ -323,6 +330,8 @@ namespace AnimationPlugin
         Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::Pose>( getEntity(), this, id, refpOut);
         Ra::Engine::ComponentMessenger::GetterCallback wOut = std::bind( &AnimationComponent::getWeightsOutput, this );
         Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::WeightMatrix>( getEntity(), this, id, wOut);
+        Ra::Engine::ComponentMessenger::GetterCallback resetOut = std::bind( &AnimationComponent::getWasReset, this );
+        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<bool>( getEntity(), this, id, resetOut);
     }
 
     const void* AnimationComponent::getSkeletonOutput() const
@@ -340,6 +349,10 @@ namespace AnimationPlugin
         return &m_refPose;
     }
 
+    const void* AnimationComponent::getWasReset() const
+    {
+        return &m_wasReset;
+    }
 
     void AnimationComponent::toggleXray(bool on) const
     {

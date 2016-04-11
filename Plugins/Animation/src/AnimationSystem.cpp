@@ -49,7 +49,6 @@ namespace AnimationPlugin
                 component->reset();
             }
         }
-        m_oneStep = true;
     }
 
     bool AnimationSystem::isXrayOn()
