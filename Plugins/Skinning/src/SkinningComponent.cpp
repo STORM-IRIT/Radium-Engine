@@ -150,8 +150,8 @@ void SkinningComponent::setupIO( const std::string& id )
     Ra::Engine::ComponentMessenger::GetterCallback refData = std::bind( &SkinningComponent::getRefData, this );
     Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::Skinning::RefData>( getEntity(), this, id, refData);
 
-    Ra::Engine::ComponentMessenger::ReadWriteCallback frameData = std::bind( &SkinningComponent::getFrameData, this );
-    Ra::Engine::ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Skinning::FrameData>( getEntity(), this, id, frameData);
+    Ra::Engine::ComponentMessenger::GetterCallback frameData = std::bind( &SkinningComponent::getFrameData, this );
+    Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::Skinning::FrameData>( getEntity(), this, id, frameData);
 }
 
 
