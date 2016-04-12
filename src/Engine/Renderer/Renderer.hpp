@@ -245,7 +245,7 @@ namespace Ra
             virtual void saveExternalFBOInternal() final;
 
             // 1.
-            virtual void feedRenderQueuesInternal() final;
+            virtual void feedRenderQueuesInternal(const RenderData &renderData) final;
 
             // 2.0
             virtual void updateRenderObjectsInternal( const RenderData& renderData) final;

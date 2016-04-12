@@ -13,7 +13,10 @@
 
 #include <Core/Index/Index.hpp>
 #include <Core/Index/IndexMap.hpp>
+#include <Core/TreeStructures/BVH.hpp>
+#include <Core/Math/Frustum.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
+#include <Engine/Renderer/Renderer.hpp>
 
 namespace Ra
 {
@@ -49,10 +52,10 @@ namespace Ra
              * @param type Required type
              * @param undirty True if the given type should be marked as clean
              */
-            void getRenderObjectsByTypeIfDirty( std::vector<std::shared_ptr<RenderObject>>& objectsOut,
+            void getRenderObjectsByTypeIfDirty( const RenderData& renderData, std::vector<std::shared_ptr<RenderObject>>& objectsOut,
                                                 const RenderObjectType& type, bool undirty = false ) const;
 
-            void getRenderObjectsByType( std::vector<std::shared_ptr<RenderObject>>& objectsOut,
+            void getRenderObjectsByType( const RenderData& renderData, std::vector<std::shared_ptr<RenderObject>>& objectsOut,
                                          const RenderObjectType& type, bool undirty = false ) const;
 
             /// Returns true if the index points to a valid render object.
@@ -64,6 +67,8 @@ namespace Ra
 
         private:
             Core::IndexMap<std::shared_ptr<RenderObject>> m_renderObjects;
+
+            mutable Core::BVH<RenderObject> m_fancyBVH ;
 
             std::array<std::set<Core::Index>, (int)RenderObjectType::Count> m_renderObjectByType;
             mutable std::array<bool, (int)RenderObjectType::Count> m_typeIsDirty;

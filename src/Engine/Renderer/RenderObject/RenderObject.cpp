@@ -8,6 +8,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
@@ -188,6 +189,38 @@ namespace Ra
         Core::Matrix4 RenderObject::getTransformAsMatrix() const
         {
             return getTransform().matrix();
+        }
+
+        Core::Aabb RenderObject::getAabb() const
+        {
+            Core::Aabb aabb = Core::MeshUtils::getAabb(m_mesh->getGeometry());
+
+            Core::Vector3 min(aabb.min());
+            Core::Vector3 max(aabb.max());
+
+            Eigen::Matrix<Scalar, 8, 4> vertices;
+            vertices << min(0), min(1), min(2), 1,  // Left  Bottom Near
+                        min(0), min(1), max(2), 1,  // Left  Bottom Far
+                        max(0), min(1), min(2), 1,  // Right Bottom Near
+                        max(0), min(1), max(2), 1,  // Right Bottom Far
+                        min(0), max(1), min(2), 1,  // Left  Top    Near
+                        min(0), max(1), max(2), 1,  // Left  Top    Far
+                        max(0), max(1), min(2), 1,  // Right Top    Near
+                        max(0), max(1), max(2), 1;  // Right Top    Far
+
+            Core::Matrix4 trans = getTransformAsMatrix();
+
+            vertices *= trans;
+
+            aabb = Core::Aabb(Core::Vector3(vertices.col(0).minCoeff(),
+                                            vertices.col(1).minCoeff(),
+                                            vertices.col(2).minCoeff()));
+            aabb.extend(Core::Vector3(vertices.col(0).maxCoeff(),
+                                      vertices.col(1).maxCoeff(),
+                                      vertices.col(2).maxCoeff()));
+
+
+            return aabb;
         }
 
         void RenderObject::setLocalTransform( const Core::Transform& transform )

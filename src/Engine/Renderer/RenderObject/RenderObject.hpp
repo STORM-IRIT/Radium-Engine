@@ -80,6 +80,8 @@ namespace Ra
             Core::Transform getTransform() const;
             Core::Matrix4 getTransformAsMatrix() const;
 
+            Core::Aabb getAabb() const;
+
             void setLocalTransform( const Core::Transform& transform );
             void setLocalTransform( const Core::Matrix4& transform );
             const Core::Transform& getLocalTransform() const;

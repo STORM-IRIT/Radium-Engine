@@ -111,7 +111,7 @@ namespace Ra
             saveExternalFBOInternal();
 
             // 1. Gather render objects if needed
-            feedRenderQueuesInternal();
+            feedRenderQueuesInternal( data );
 
             m_timerData.feedRenderQueuesEnd = Core::Timer::Clock::now();
 
@@ -161,16 +161,16 @@ namespace Ra
             updateStepInternal( renderData );
         }
 
-        void Renderer::feedRenderQueuesInternal()
+        void Renderer::feedRenderQueuesInternal( const RenderData& renderData )
         {
             m_fancyRenderObjects.clear();
             m_debugRenderObjects.clear();
             m_uiRenderObjects.clear();
             m_xrayRenderObjects.clear();
 
-            m_roMgr->getRenderObjectsByType( m_fancyRenderObjects, RenderObjectType::Fancy, true );
-            m_roMgr->getRenderObjectsByType( m_debugRenderObjects, RenderObjectType::Debug, true );
-            m_roMgr->getRenderObjectsByType( m_uiRenderObjects, RenderObjectType::UI, true );
+            m_roMgr->getRenderObjectsByType( renderData, m_fancyRenderObjects, RenderObjectType::Fancy, true );
+            m_roMgr->getRenderObjectsByType( renderData, m_debugRenderObjects, RenderObjectType::Debug, true );
+            m_roMgr->getRenderObjectsByType( renderData, m_uiRenderObjects, RenderObjectType::UI, true );
 
             for ( auto it = m_fancyRenderObjects.begin(); it != m_fancyRenderObjects.end(); )
             {
@@ -187,6 +187,9 @@ namespace Ra
 
             for ( auto it = m_debugRenderObjects.begin(); it != m_debugRenderObjects.end(); )
             {
+                // DEBUG
+                Engine::DebugRender::getInstance()->addMesh(Engine::DrawPrimitives::AABB((*it)->getAabb(), Core::Colors::Cyan()));
+
                 if ( (*it)->isXRay() )
                 {
                     m_xrayRenderObjects.push_back( *it );
@@ -197,6 +200,9 @@ namespace Ra
                     ++it;
                 }
             }
+
+            //DEBUG
+            m_debugRenderObjects.clear();
 
             for ( auto it = m_uiRenderObjects.begin(); it != m_uiRenderObjects.end(); )
             {
