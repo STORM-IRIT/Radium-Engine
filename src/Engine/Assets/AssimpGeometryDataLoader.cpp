@@ -291,7 +291,7 @@ void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, GeometryData
 }
 
 void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh, GeometryData& data ) const {
-#if defined(TEXTURE_MAPPING_IS_IMPLEMENTED_CORRECTLY) or defined(LOAD_TEXTURES)
+#if ( defined(TEXTURE_MAPPING_IS_IMPLEMENTED_CORRECTLY) || defined(LOAD_TEXTURES) )
     const uint size = mesh.mNumVertices;
     std::vector<Core::Vector3> texcoord;
     texcoord.resize(data.getVerticesSize());

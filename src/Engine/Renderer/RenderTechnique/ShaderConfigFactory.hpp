@@ -12,9 +12,9 @@ namespace Engine
 
 namespace ShaderConfigurationFactory
 {
-void addConfiguration(const ShaderConfiguration& config);
-void addConfiguration(const std::string& name, const ShaderConfiguration& config);
-ShaderConfiguration getConfiguration(const std::string& name);
+    RA_ENGINE_API void addConfiguration(const ShaderConfiguration& config);
+    RA_ENGINE_API void addConfiguration(const std::string& name, const ShaderConfiguration& config);
+    RA_ENGINE_API ShaderConfiguration getConfiguration(const std::string& name);
 }
 
 } // namespace Engine
