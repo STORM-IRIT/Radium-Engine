@@ -129,9 +129,6 @@ namespace Ra
                 Core::Matrix4 mvp(renderData.projMatrix * renderData.viewMatrix);
                 m_fancyBVH.update();
                 m_fancyBVH.getInFrustumSlow(objectsOut, Core::Frustum(mvp));
-
-                // DEBUG purpose
-                LOG(logDEBUG) << "RO inside frustum / Total : " << objectsOut.size() << "/" << m_renderObjectByType[(int)RenderObjectType::Fancy].size() ;
             }
             else
             {

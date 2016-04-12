@@ -1,4 +1,3 @@
- 
 #include <Core/TreeStructures/BVH.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 
@@ -133,41 +132,45 @@ namespace Ra
         template <typename T>
         inline void BVH<T>::getInFrustumSlow(std::vector<std::shared_ptr<T>> & objects, const Frustum & frustum) const
         {
-            std::vector<NodePtr> toCheck;
-            toCheck.push_back(m_root);
 
-            while (!toCheck.empty())
+            if (m_root)
             {
-                NodePtr current = toCheck.back() ;
-                toCheck.pop_back();
+                std::vector<NodePtr> toCheck;
+                toCheck.push_back(m_root);
 
-                if (current->isFinal())
-                    objects.push_back(current->getData());
-                else
+                while (!toCheck.empty())
                 {
-                    // If BBOX cuts the frustum, add child in toCheck list
-                    bool isIn = true;
-                    for (uint i=0; i<6 && isIn; ++i)
-                    {
-                        Vector4 plane = frustum.getPlane(i);
-                        Aabb aabb = current->getAabb();
+                    NodePtr current = toCheck.back() ;
+                    toCheck.pop_back();
 
-                        // If the BBOX is fully outside (at least) one plane, it is not in
-                        if ((plane.dot(fromV3(aabb.corner(Aabb::BottomLeftFloor), 1))    < 0.f) &&
-                            (plane.dot(fromV3(aabb.corner(Aabb::BottomRightFloor), 1))   < 0.f) &&
-                            (plane.dot(fromV3(aabb.corner(Aabb::TopLeftFloor), 1))       < 0.f) &&
-                            (plane.dot(fromV3(aabb.corner(Aabb::TopRightFloor), 1))      < 0.f) &&
-                            (plane.dot(fromV3(aabb.corner(Aabb::BottomLeftCeil), 1))     < 0.f) &&
-                            (plane.dot(fromV3(aabb.corner(Aabb::BottomRightCeil), 1))    < 0.f) &&
-                            (plane.dot(fromV3(aabb.corner(Aabb::TopLeftCeil), 1))        < 0.f) &&
-                            (plane.dot(fromV3(aabb.corner(Aabb::TopRightCeil), 1))       < 0.f) )
-                                isIn = false ;
-                    }
-
-                    if (isIn)
+                    if (current->isFinal())
+                        objects.push_back(current->getData());
+                    else
                     {
-                        toCheck.push_back(current->getLeftChild());
-                        toCheck.push_back(current->getRightChild());
+                        // If BBOX cuts the frustum, add child in toCheck list
+                        bool isIn = true;
+                        for (uint i=0; i<6 && isIn; ++i)
+                        {
+                            Vector4 plane = frustum.getPlane(i);
+                            Aabb aabb = current->getAabb();
+
+                            // If the BBOX is fully outside (at least) one plane, it is not in
+                            if ((plane.dot(fromV3(aabb.corner(Aabb::BottomLeftFloor), 1))    < 0.f) &&
+                                (plane.dot(fromV3(aabb.corner(Aabb::BottomRightFloor), 1))   < 0.f) &&
+                                (plane.dot(fromV3(aabb.corner(Aabb::TopLeftFloor), 1))       < 0.f) &&
+                                (plane.dot(fromV3(aabb.corner(Aabb::TopRightFloor), 1))      < 0.f) &&
+                                (plane.dot(fromV3(aabb.corner(Aabb::BottomLeftCeil), 1))     < 0.f) &&
+                                (plane.dot(fromV3(aabb.corner(Aabb::BottomRightCeil), 1))    < 0.f) &&
+                                (plane.dot(fromV3(aabb.corner(Aabb::TopLeftCeil), 1))        < 0.f) &&
+                                (plane.dot(fromV3(aabb.corner(Aabb::TopRightCeil), 1))       < 0.f) )
+                                    isIn = false ;
+                        }
+
+                        if (isIn)
+                        {
+                            toCheck.push_back(current->getLeftChild());
+                            toCheck.push_back(current->getRightChild());
+                        }
                     }
                 }
             }
