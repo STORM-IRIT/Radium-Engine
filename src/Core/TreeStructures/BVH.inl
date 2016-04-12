@@ -81,15 +81,15 @@ namespace Ra
         template <typename T>
         inline void BVH<T>::buildBottomUpSlow()
         {
-            if (m_root != nullptr)
-                clear();
+            /*if (m_root != nullptr)
+                clear();*/
 
             // We start from known leaves, bottom up
             std::vector<NodePtr> toMerge(m_leaves);
 
             // As long as there are several leaves to merge
             while (toMerge.size() > 2) {
-                Scalar low = m_root_aabb.volume();
+                Scalar low = m_root_aabb.isEmpty() ? 0 : m_root_aabb.volume();
                 typename std::vector<NodePtr>::iterator l_min, r_min;
                 Aabb merge;
 

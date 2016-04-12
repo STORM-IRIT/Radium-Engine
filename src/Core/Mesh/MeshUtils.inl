@@ -39,9 +39,16 @@ namespace Ra
 
             inline Aabb getAabb( const TriangleMesh& mesh )
             {
-                const Vector3 min = mesh.m_vertices.getMap().rowwise().minCoeff();
-                const Vector3 max = mesh.m_vertices.getMap().rowwise().maxCoeff();
-                return Aabb( min, max );
+                if ( mesh.m_vertices.size() > 0 )
+                {
+                    const Vector3 min = mesh.m_vertices.getMap().rowwise().minCoeff();
+                    const Vector3 max = mesh.m_vertices.getMap().rowwise().maxCoeff();
+                    return Aabb( min, max );
+                }
+                else
+                {
+                    return Aabb();
+                }
             }
 
         }

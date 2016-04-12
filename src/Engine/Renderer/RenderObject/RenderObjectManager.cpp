@@ -124,13 +124,13 @@ namespace Ra
             // Take the mutex
             std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
-            if (type == RenderObjectType::Fancy)
+            /*if (type == RenderObjectType::Fancy)
             {
                 Core::Matrix4 mvp(renderData.projMatrix * renderData.viewMatrix);
                 m_fancyBVH.update();
                 m_fancyBVH.getInFrustumSlow(objectsOut, Core::Frustum(mvp));
             }
-            else
+            else*/
             {
                 // Copy each element in m_renderObjects
                 for ( const auto& idx : m_renderObjectByType[(int)type] )
