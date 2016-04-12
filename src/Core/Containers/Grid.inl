@@ -131,67 +131,223 @@ namespace Ra
         }
 
         template<typename T, uint D>
-        inline typename Grid<T, D>::IdxVector
-        Grid<T, D>::getIdxVector( const typename  Grid<T, D>::ConstIterator& iterator ) const
+        const T& Grid<T,D>::at(const Grid<T,D>::Iterator &it) const
         {
-            const uint diff = ( iterator - cbegin() );
-            return linearToIdxVector<T, D> ( diff, sizeVector() );
+           CORE_ASSERT( it.getGridSize() == m_size, "Incompatible iterator" );
+           return at(it.getLinear());
         }
 
         template<typename T, uint D>
-        inline typename Grid<T,D>::Iterator
-        Grid<T,D>::getIterator( const typename Grid<T,D>::IdxVector &idx )
+        T& Grid<T,D>::at(const Grid<T,D>::Iterator &it)
         {
-           return this->begin() + idxVectorToLinear<T,D>( idx, m_size );
-        }
-
-        template<typename T, uint D>
-        inline typename Grid<T,D>::ConstIterator
-        Grid<T,D>::getConstIterator( const typename Grid<T,D>::IdxVector &idx ) const
-        {
-           return this->cbegin() + idxVectorToLinear<T,D>( idx, m_size );
+           CORE_ASSERT( it.getGridSize() == m_size, "Incompatible iterator" );
+           return at(it.getLinear());
         }
 
         //
-        // Iterators stuff.
+        // Iterators begin / end functions.
         //
 
         template<typename T, uint D>
         inline typename Grid<T, D>::Iterator Grid<T, D>::begin()
         {
-            return m_data.begin();
+            return Iterator(*this);
         }
 
         template<typename T, uint D>
-        inline typename Grid<T, D>::ConstIterator Grid<T, D>::begin() const
+        inline typename Grid<T, D>::Iterator Grid<T, D>::begin() const
         {
-            return m_data.begin();
+            return Iterator(*this);
         }
-
-        template<typename T, uint D>
-        inline typename Grid<T, D>::ConstIterator Grid<T, D>::cbegin() const
-        {
-            return m_data.cbegin();
-        }
-
 
         template<typename T, uint D>
         inline typename Grid<T, D>::Iterator Grid<T, D>::end()
         {
-            return m_data.end();
+            return Iterator(*this, size());
         }
 
         template<typename T, uint D>
-        inline typename Grid<T, D>::ConstIterator Grid<T, D>::end() const
+        inline typename Grid<T, D>::Iterator Grid<T, D>::end() const
         {
-            return m_data.end();
+            return Iterator(*this, size());
+        }
+
+        //
+        // Iterators construction
+        //
+
+
+        template<typename T, uint D>
+        inline Grid<T,D>::Iterator::Iterator(const Grid<T,D>::IdxVector &size, uint startIdx)
+            : m_sizes(size)
+        {
+            setFromLinear ( startIdx );
         }
 
         template<typename T, uint D>
-        inline typename Grid<T, D>::ConstIterator Grid<T, D>::cend() const
+        inline Grid<T,D>::Iterator::Iterator(const Grid<T,D>::IdxVector &size, const Grid<T,D>::IdxVector &startIdx)
+            : m_sizes(size)
         {
-            return m_data.cend();
+            setFromVector(startIdx);
         }
+
+        template<typename T, uint D>
+        inline Grid<T,D>::Iterator::Iterator( const Grid<T,D>& grid, uint startIdx)
+            : m_sizes(grid.sizeVector())
+        {
+            setFromLinear ( startIdx );
+        }
+
+        template<typename T, uint D>
+        inline Grid<T,D>::Iterator::Iterator(const Grid<T,D>& grid, const Grid<T,D>::IdxVector &startIdx)
+            : m_sizes(grid.sizeVector())
+        {
+            setFromVector( startIdx );
+        }
+
+        //
+        // Basic Iterator get/set
+        //
+
+        template<typename T, uint D>
+        inline void Grid<T,D>::Iterator::setFromLinear( uint i )
+        {
+            m_index = i;
+        }
+
+        template<typename T, uint D>
+        inline void Grid<T,D>::Iterator::setFromVector( const Grid<T,D>::IdxVector& idx )
+        {
+            m_index = idxVectorToLinear<T,D>( idx, m_sizes ) ;
+        }
+
+        template<typename T, uint D>
+        inline uint Grid<T,D>::Iterator::getLinear() const
+        {
+            return m_index;
+        }
+
+        template<typename T, uint D>
+        inline typename Grid<T,D>::IdxVector Grid<T,D>::Iterator::getVector() const
+        {
+            return linearToIdxVector<T,D>( m_index, m_sizes );
+        }
+
+        template<typename T, uint D>
+        inline bool Grid<T,D>::Iterator::isOut() const
+        {
+            return !isIn();
+        }
+
+        template<typename T, uint D>
+        inline bool Grid<T,D>::Iterator::isIn() const
+        {
+            return m_index < m_sizes.prod();
+        }
+
+        //
+        // Iterator increment and decrement
+        //
+
+        template<typename T, uint D>
+        typename Grid<T,D>::Iterator &Grid<T,D>::Iterator::operator++()
+        {
+            m_index++;
+            return *this;
+        }
+
+        template<typename T, uint D>
+        typename Grid<T,D>::Iterator &Grid<T,D>::Iterator::operator--()
+        {
+            m_index--;
+            return *this;
+        }
+
+        template<typename T, uint D>
+        typename Grid<T,D>::Iterator Grid<T,D>::Iterator::operator++(int)
+        {
+            Iterator copy (*this);
+            ++(*this);
+            return copy;
+        }
+
+        template<typename T, uint D>
+        typename Grid<T,D>::Iterator Grid<T,D>::Iterator::operator--(int)
+        {
+            Iterator copy (*this);
+            --(*this);
+            return copy;
+        }
+
+        template<typename T, uint D>
+        typename Grid<T,D>::Iterator& Grid<T,D>::Iterator::operator+=(uint i)
+        {
+            m_index+= i;
+            return *this;
+        }
+
+        template<typename T, uint D>
+        typename Grid<T,D>::Iterator& Grid<T,D>::Iterator::operator-=(uint i)
+        {
+            m_index -= i;
+            return *this;
+        }
+
+        template<typename T, uint D>
+        typename Grid<T,D>::Iterator& Grid<T,D>::Iterator::operator+=(const typename  Grid<T,D>::IdxVector &idx)
+        {
+            setFromVector( getVector()  + idx );
+            return *this;
+        }
+
+        template<typename T, uint D>
+        typename Grid<T,D>::Iterator& Grid<T,D>::Iterator::operator-=(const typename Grid<T,D>::IdxVector &idx)
+        {
+            setFromVector( getVector()  - idx );
+            return *this;
+        }
+
+        template<typename T, uint D>
+        typename Grid<T,D>::Iterator& Grid<T,D>::Iterator::operator+=(const typename  Grid<T,D>::OffsetVector &idx)
+        {
+            setFromVector( (getVector().cast<int>()  + idx).cast<uint>() );
+            return *this;
+        }
+
+        template<typename T, uint D>
+        bool Grid<T,D>::Iterator::operator==(const typename Grid<T,D>::Iterator &other) const
+        {
+            CORE_ASSERT( m_sizes == other.m_sizes, "Comparing unrelated grid iterators");
+            return m_index == other.m_index;
+        }
+
+        template<typename T, uint D>
+        bool Grid<T,D>::Iterator::operator<(const typename Grid<T,D>::Iterator &other) const
+        {
+            CORE_ASSERT( m_sizes == other.m_sizes, "Comparing unrelated grid iterators");
+            return m_index < other.m_index;
+        }
+
+        template<typename T, uint D>
+        const typename Grid<T,D>::IdxVector& Grid<T,D>::Iterator::getGridSize() const
+        {
+            return m_sizes;
+        }
+
+        template<typename T,uint D>
+        template<typename T2>
+        typename Grid<T2,D>::Iterator Grid<T,D>::Iterator::cast() const
+        {
+            return typename Grid<T2,D>::Iterator(m_sizes, m_index);
+        }
+
+        template< typename T, uint D>
+        bool Grid<T,D>::Iterator::isValidOffset(const typename Grid<T,D>::OffsetVector &idx)
+        {
+            OffsetVector  pos = getVector().cast<int>() + idx;
+            return !((pos.array() < 0 ).any() || (pos.array() >= m_sizes.cast<int>().array()).any());
+        }
+
     }
 }
 
