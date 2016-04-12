@@ -26,17 +26,17 @@ namespace Ra
             Frustum(const Matrix4 & mvp)
             {
                 // Near clipping plane.
-                m_planes[FRONT]     = mvp.row(3) + mvp.row(2) ; //Vector4(mvp(0,3)+mvp(0,2), mvp(1,3)+mvp(1,2), mvp(2,3)+mvp(2,2), mvp(3,3)+mvp(3,2));
+                m_planes[FRONT]     = mvp.row(3) + mvp.row(2);
                 // Far clipping plane.
-                m_planes[BACK]      = mvp.row(3) - mvp.row(2) ; //Vector4(mvp(0,3)-mvp(0,2), mvp(1,3)-mvp(1,2), mvp(2,3)-mvp(2,2), mvp(3,3)-mvp(3,2));
+                m_planes[BACK]      = mvp.row(3) - mvp.row(2);
                 // Top clipping plane.
-                m_planes[TOP]       = mvp.row(3) - mvp.row(1) ; //Vector4(mvp(0,3)-mvp(0,1), mvp(1,3)-mvp(1,1), mvp(2,3)-mvp(2,1), mvp(3,3)-mvp(3,1));
+                m_planes[TOP]       = mvp.row(3) - mvp.row(1);
                 // Bottom clipping plane.
-                m_planes[BOTTOM]    = mvp.row(3) + mvp.row(1) ; //Vector4(mvp(0,3)+mvp(0,1), mvp(1,3)+mvp(1,1), mvp(2,3)+mvp(2,1), mvp(3,3)+mvp(3,1));
+                m_planes[BOTTOM]    = mvp.row(3) + mvp.row(1);
                 // Left clipping plane.
-                m_planes[LEFT]      = mvp.row(3) + mvp.row(0) ; //Vector4(mvp(0,3)+mvp(0,0), mvp(1,3)+mvp(1,0), mvp(2,3)+mvp(2,0), mvp(3,3)+mvp(3,0));
+                m_planes[LEFT]      = mvp.row(3) + mvp.row(0);
                 // Right clipping plane.
-                m_planes[RIGHT]     = mvp.row(3) - mvp.row(0) ; //Vector4(mvp(0,3)-mvp(0,0), mvp(1,3)-mvp(1,0), mvp(2,3)-mvp(2,0), mvp(3,3)-mvp(3,0));
+                m_planes[RIGHT]     = mvp.row(3) - mvp.row(0);
             }
 
             Vector4 getPlane(uint p) const

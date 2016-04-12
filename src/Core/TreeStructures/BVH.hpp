@@ -68,20 +68,6 @@ namespace Ra
 
             inline void insertLeaf(const std::shared_ptr<T>& t);
 
-            // For debug purpose
-            inline Aabb getLastAABB() const
-            {
-                return m_leaves.back()->getAabb();
-            }
-            inline Aabb getAABB() const
-            {
-                return m_root_aabb;
-            }
-            inline NodePtr getRoot()
-            {
-                return m_root ;
-            }
-
             //TODO removeLeaf()
 
             inline void clear();
@@ -95,9 +81,6 @@ namespace Ra
             //TODO void buildTopDown();
 
             void getInFrustumSlow(std::vector<std::shared_ptr<T>> & objects, const Frustum & frustum) const;
-
-            // DEBUG
-            void getNotInFrustumSlow(std::vector<std::shared_ptr<T>> & objects, const Frustum & frustum) const;
 
         protected:
             std::vector<NodePtr> m_leaves;

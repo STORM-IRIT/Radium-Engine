@@ -187,9 +187,6 @@ namespace Ra
 
             for ( auto it = m_debugRenderObjects.begin(); it != m_debugRenderObjects.end(); )
             {
-                // DEBUG
-                Engine::DebugRender::getInstance()->addMesh(Engine::DrawPrimitives::AABB((*it)->getAabb(), Core::Colors::Cyan()));
-
                 if ( (*it)->isXRay() )
                 {
                     m_xrayRenderObjects.push_back( *it );
@@ -200,9 +197,6 @@ namespace Ra
                     ++it;
                 }
             }
-
-            //DEBUG
-            m_debugRenderObjects.clear();
 
             for ( auto it = m_uiRenderObjects.begin(); it != m_uiRenderObjects.end(); )
             {

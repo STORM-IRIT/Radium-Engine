@@ -127,25 +127,14 @@ namespace Ra
             if (type == RenderObjectType::Fancy)
             {
                 Core::Matrix4 mvp(renderData.projMatrix * renderData.viewMatrix);
-
-                //std::cout << mvp << std::endl;
-
                 m_fancyBVH.update();
                 m_fancyBVH.getInFrustumSlow(objectsOut, Core::Frustum(mvp));
 
-                // DEBUG
-                LOG(logINFO) << "Objets dans le frustum / Total : " << objectsOut.size() << "/" << m_renderObjectByType[(int)RenderObjectType::Fancy].size() ;
+                // DEBUG purpose
+                LOG(logDEBUG) << "RO inside frustum / Total : " << objectsOut.size() << "/" << m_renderObjectByType[(int)RenderObjectType::Fancy].size() ;
             }
             else
             {
-                // DEBUG
-                if (type == RenderObjectType::Debug)
-                {
-                    Core::Matrix4 mvp(renderData.projMatrix * renderData.viewMatrix);
-                    m_fancyBVH.update();
-                    m_fancyBVH.getNotInFrustumSlow(objectsOut, Core::Frustum(mvp));
-                }
-
                 // Copy each element in m_renderObjects
                 for ( const auto& idx : m_renderObjectByType[(int)type] )
                 {
