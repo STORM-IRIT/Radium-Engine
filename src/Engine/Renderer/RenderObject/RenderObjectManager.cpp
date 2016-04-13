@@ -116,6 +116,20 @@ namespace Ra
             }
         }
 
+        void RenderObjectManager::getRenderObjectsByType(std::vector<std::shared_ptr<RenderObject> > &objectsOut, const RenderObjectType &type, bool undirty) const
+        {
+            std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
+
+            for ( const auto& idx : m_renderObjectByType[(int)type] )
+            {
+                objectsOut.push_back( m_renderObjects.at( idx ) );
+            }
+
+            if ( undirty )
+            {
+                m_typeIsDirty[(int)type] = false;
+            }
+        }
 
         void RenderObjectManager::getRenderObjectsByType( const RenderData& renderData,
                                                           std::vector<std::shared_ptr<RenderObject>>& objectsOut,

@@ -55,6 +55,9 @@ namespace Ra
             void getRenderObjectsByTypeIfDirty( const RenderData& renderData, std::vector<std::shared_ptr<RenderObject>>& objectsOut,
                                                 const RenderObjectType& type, bool undirty = false ) const;
 
+            void getRenderObjectsByType( std::vector<std::shared_ptr<RenderObject>>& objectsOut,
+                                         const RenderObjectType& type, bool undirty = false ) const;
+
             void getRenderObjectsByType( const RenderData& renderData, std::vector<std::shared_ptr<RenderObject>>& objectsOut,
                                          const RenderObjectType& type, bool undirty = false ) const;
 
