@@ -37,6 +37,12 @@ RA_CORE_API VectorArray< Edge > extractEdgeList( const AdjacencyList& adj, const
 
 
 
+
+/*
+* Store the given AdjacencyList into a text file with the given name
+*/
+RA_CORE_API void storeAdjacencyList( const AdjacencyList& adj, const std::string& name );
+
 } // namespace GraphicsEntity
 } // namespace Core
 } // namespace Ra

@@ -1,5 +1,7 @@
 #include <Core/Utils/Graph/AdjacencyListOperation.hpp>
 
+#include <iostream>
+#include <fstream>
 #include <utility>
 #include <Core/Utils/Graph/AdjacencyList.hpp>
 
@@ -60,6 +62,29 @@ VectorArray< Edge > extractEdgeList( const AdjacencyList& adj, const bool includ
         }
     }
     return edgeList;
+}
+
+
+void storeAdjacencyList( const AdjacencyList& adj, const std::string& name ) {
+    const std::string filename = name + ".adj";
+    const std::string header   = "ADJACENCYLIST\n";
+    const std::string comment  = "#ID PARENT nCHILDREN CHILDREN\n";
+    const uint        size     = adj.size();
+
+    std::string content = header + comment + std::to_string( size ) + "\n";
+    for( uint i = 0; i < size; ++i ) {
+        uint c;
+        content = content + std::to_string( i ) + " " + std::to_string( adj.m_parent[i] ) + " " + std::to_string( c = adj.m_child[i].size() );
+        for( uint j = 0; j < c; ++j ) {
+            content = content + " " + std::to_string( adj.m_child[i][j] );
+        }
+        content = content + "\n";
+    }
+
+    std::ofstream myfile( filename );
+    CORE_ASSERT(myfile.is_open(), "FILE PROBLEM" );
+    myfile << content;
+    myfile.close();
 }
 
 } // namespace GraphicsEntity
