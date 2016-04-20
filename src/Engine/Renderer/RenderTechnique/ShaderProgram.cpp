@@ -136,6 +136,8 @@ namespace Ra
         ShaderObject::ShaderObject()
             : m_id( 0 )
         {
+            m_lineerr.start = 1;
+            m_lineerr.end   = 1;
         }
 
         ShaderObject::~ShaderObject()
@@ -149,12 +151,13 @@ namespace Ra
         bool ShaderObject::loadAndCompile( uint type, const std::string& filename, const std::set<std::string>& properties )
         {
             m_filename = filename;
+            m_lineerr.name = filename;
             m_filepath = Core::StringUtils::getDirName(m_filename) + "/";
             m_type = type;
             m_properties = properties;
             GL_ASSERT( m_id = glCreateShader( type ) );
 
-            std::string shader = preprocessIncludes(load());
+            std::string shader = preprocessIncludes(load(), 0, m_lineerr);
 
             if ( shader != "" )
             {
@@ -196,7 +199,7 @@ namespace Ra
             return shader;
         }
 
-        std::string ShaderObject::preprocessIncludes(const std::string& shader, int level)
+        std::string ShaderObject::preprocessIncludes(const std::string& shader, int level, struct LineErr& lerr)
         {
             CORE_ERROR_IF(level < 32, "Shader inclusion depth limit reached.");
 
@@ -204,6 +207,9 @@ namespace Ra
             std::vector<std::string> finalStrings;
             auto shaderLines = Core::StringUtils::splitString(shader, '\n');
             finalStrings.reserve(shaderLines.size());
+
+            uint nline = lerr.start;
+            struct LineErr sublerr;
 
             static const std::regex reg("^[ ]*#[ ]*include[ ]+[\"<](.*)[\">].*");
 
@@ -217,7 +223,12 @@ namespace Ra
                     std::string file = m_filepath + match[1].str();
                     if (parseFile(file, inc))
                     {
-                        line = preprocessIncludes(inc, level + 1);
+                        sublerr.start = nline;
+                        sublerr.name  = file;
+                        lerr.subfiles.push_back(sublerr);
+
+                        line  = preprocessIncludes(inc, level + 1, lerr.subfiles.back());
+                        nline = lerr.subfiles.back().end;
                     }
                     else
                     {
@@ -227,6 +238,7 @@ namespace Ra
                 }
 
                 finalStrings.push_back(line);
+                ++ nline;
             }
 
             // Build final shader string
@@ -237,6 +249,8 @@ namespace Ra
             }
 
             result.append("\0");
+
+            lerr.end = nline - 1;
 
             return result;
         }
@@ -263,12 +277,17 @@ namespace Ra
         {
             GLint ok;
             std::stringstream error;
+            std::string message;
+            uint wrongline;
+
             GL_ASSERT( glGetShaderiv( m_id, GL_COMPILE_STATUS, &ok ) );
 
             if ( !ok )
             {
-                error << m_filename << " not compiled.\n";
-                error << getShaderInfoLog( m_id );
+                message = getShaderInfoLog( m_id );
+                wrongline = lineParseGLMesg(message) - 2;
+                error << "\nUnable to compile " << lineFind(wrongline);
+
                 glDeleteShader( m_id );
 
                 // For now, crash when a shader is not compiling
@@ -356,6 +375,89 @@ namespace Ra
             bool status = shader->loadAndCompile(getTypeAsGLEnum(type), name, props);
             m_shaderObjects[type] = shader;
             m_shaderStatus[type] = status;
+        }
+
+        bool ShaderObject::lineInside(const struct LineErr* node, uint line) const
+        {
+            return (node->start <= line) && (node->end >= line);
+        }
+
+        std::string ShaderObject::lineFind(uint line) const
+        {
+            // just a wrapper to keep lineerr hidden
+            return lineFind(&m_lineerr, line);
+        }
+
+        std::string ShaderObject::lineFind(const struct LineErr* node, uint line) const
+        {
+            // first of all check if we can find line in this chunk (should never e)
+            if (! lineInside(node, line))
+                return "";
+
+            // so we are in the good place, check in every subfile
+            auto it = node->subfiles.begin();
+            uint found = NOT_FOUND, offset = 0;
+
+            while ((it != node->subfiles.end()) && (found == NOT_FOUND))
+            {
+                // if the line is before the beginning of subfile
+                if (line < it->start)
+                {
+                    found = FOUND_OUTSIDE;
+                }
+                // else line could be in or after the subfile
+                else
+                {
+                    found = lineInside(&(*it), line) ? FOUND_INSIDE : NOT_FOUND;
+                    offset += it->end - it->start;
+                    if (found == NOT_FOUND)
+                        ++ it;
+                }
+            }
+
+            uint realline = line - offset - node->start;
+
+            // print the error message
+            switch (found) {
+            case NOT_FOUND:
+            case FOUND_OUTSIDE:
+                return node->name + " (line " + std::to_string(realline) + ")";
+                break;
+            case FOUND_INSIDE:
+                return lineFind(&(*it), line);
+                break;
+            default:
+                return node->name + " (bad line)";
+                break;
+            }
+        }
+
+        uint ShaderObject::lineParseGLMesg(const std::string& msg) const
+        {
+            uint errline = 0;
+            sscanf(msg.c_str(), "%*s\n %*s 0(%u) ", &errline);
+            return errline;
+        }
+
+        void ShaderObject::linePrint(const LineErr *node, uint level) const
+        {
+            for (uint i = 1; i-1 < level; ++i)
+                  std::cout << "  ";
+            std::cout << " └ ";
+
+            // presentation
+            std::cout << "file " << node->name << " [";
+            std::cout << node->start << "," << node->end << "]";
+
+            if (! node->subfiles.empty())
+                std::cout << " including:";
+            std::cout << std::endl;
+
+            // inclusions
+            for (auto const& sub: node->subfiles)
+            {
+                linePrint(&sub, level+1);
+            }
         }
 
         uint ShaderProgram::getTypeAsGLEnum(ShaderType type) const
@@ -532,5 +634,7 @@ namespace Ra
             tex->bind( texUnit );
             GL_ASSERT( glUniform1i( glGetUniformLocation( m_shaderId, name ), texUnit ) );
         }
+
+
     }
 } // namespace Ra

@@ -28,6 +28,22 @@ namespace Ra
             ShaderType_COUNT
         };
 
+        // finding GLSL errors after .glsl includes
+        enum LineFound : uint
+        {
+            NOT_FOUND = 0,
+            FOUND_INSIDE,
+            FOUND_OUTSIDE,
+        };
+
+        // a node representing one file, each include is a leaf
+        struct LineErr {
+            std::string name;
+            uint start;
+            uint end;
+            std::vector<struct LineErr> subfiles;
+        };
+
         class RA_ENGINE_API ShaderConfiguration
         {
             friend class ShaderProgram;
@@ -74,13 +90,20 @@ namespace Ra
 
             uint getId() const;
 
+            // return an error message with wrong file and line - offset
+            std::string lineFind(uint line) const;
+
         private:
             bool parseFile( const std::string& filename, std::string& content );
             std::string load();
             /// @param level Prevent cyclic includes
-            std::string preprocessIncludes(const std::string& shader, int level = 0);
+            std::string preprocessIncludes(const std::string& shader, int level, struct LineErr& lerr);
             void compile( const std::string& shader, const std::set<std::string>& properties );
             bool check();
+            bool lineInside(const struct LineErr* node, uint line) const;
+            uint lineParseGLMesg(const std::string& msg) const;
+            void linePrint(const struct LineErr* node, uint level = 0) const;
+            std::string lineFind(const struct LineErr* node, uint line) const;
 
         private:
             uint m_id;
@@ -88,6 +111,7 @@ namespace Ra
             std::string m_filepath;
             uint m_type;
             std::set<std::string> m_properties;
+            struct LineErr m_lineerr;
         };
 
         class RA_ENGINE_API ShaderProgram
