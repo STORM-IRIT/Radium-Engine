@@ -57,6 +57,7 @@ namespace Ra
                         "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
                         config.m_name.c_str() );
                     LOG( logERROR ) << error;
+                    //insertShader(config, prog);     // <|<|<|<| DEBUG
                     return m_defaultShaderProgram;
                 }
             }

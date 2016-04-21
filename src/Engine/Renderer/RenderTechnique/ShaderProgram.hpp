@@ -105,13 +105,16 @@ namespace Ra
             void linePrint(const struct LineErr* node, uint level = 0) const;
             std::string lineFind(const struct LineErr* node, uint line) const;
 
+        public:
+            bool m_compiled;
+
         private:
             uint m_id;
             std::string m_filename;
             std::string m_filepath;
             uint m_type;
             std::set<std::string> m_properties;
-            struct LineErr m_lineerr;
+            LineErr m_lineerr;
         };
 
         class RA_ENGINE_API ShaderProgram
@@ -171,6 +174,7 @@ namespace Ra
             uint m_shaderId;
             std::array<ShaderObject*, ShaderType_COUNT> m_shaderObjects;
             std::array<bool, ShaderType_COUNT> m_shaderStatus;
+            bool m_linked;
         };
 
     } // namespace Engine
