@@ -170,8 +170,15 @@ namespace Ra
 
         bool ShaderObject::reloadAndCompile( const std::set<std::string>& properties )
         {
+            bool success = false;
             LOG( logINFO ) << "Reloading shader " << m_filename;
-            return loadAndCompile( m_type, m_filename, properties );
+            success = loadAndCompile( m_type, m_filename, properties );
+            if (success)
+                return success;
+            else {
+                LOG( logINFO ) << "Failed to reload shader" << m_filename;
+                return false;
+            }
         }
 
         uint ShaderObject::getId() const
@@ -342,7 +349,6 @@ namespace Ra
                     {
                         if ((shader->getId() != 0) && shader->m_attached)
                         {
-                            std::cout << "shader " << shader->getId() << " from " << m_configuration.m_name << " detach" << std::endl;
                             GL_ASSERT( glDetachShader( m_shaderId, shader->getId() ) );
                         }
                         delete shader;
