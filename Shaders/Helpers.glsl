@@ -14,7 +14,7 @@ vec3 getKs()
         return vec3(texture(material.tex.ks, fs_in.texcoord.xy));
     }
 
-    return material.ks.xyz
+    return material.ks.xyz;
 }
 
 float getNs()

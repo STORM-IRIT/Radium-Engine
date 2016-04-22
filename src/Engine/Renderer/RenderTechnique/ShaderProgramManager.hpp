@@ -58,6 +58,8 @@ namespace Ra
 
             std::map<std::string, ShaderConfiguration> m_shaderProgramIds;
             std::map<ShaderConfiguration, std::shared_ptr<ShaderProgram>> m_shaderPrograms;
+            std::vector<ShaderConfiguration> m_shaderFailedConfs;
+
             const ShaderProgram* m_defaultShaderProgram;
 
             int m_defaultShaderId;

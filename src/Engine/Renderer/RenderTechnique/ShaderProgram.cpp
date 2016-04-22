@@ -134,11 +134,11 @@ namespace Ra
         }
 
         ShaderObject::ShaderObject()
-            : m_id( 0 )
+            : m_attached(false)
+            , m_id(0)
         {
             m_lineerr.start = 1;
             m_lineerr.end   = 1;
-            m_compiled      = false;
         }
 
         ShaderObject::~ShaderObject()
@@ -165,8 +165,7 @@ namespace Ra
                 compile( shader, properties );
             }
 
-            m_compiled = check();
-            return m_compiled;
+            return check();
         }
 
         bool ShaderObject::reloadAndCompile( const std::set<std::string>& properties )
@@ -211,7 +210,7 @@ namespace Ra
             finalStrings.reserve(shaderLines.size());
 
             uint nline = lerr.start;
-            struct LineErr sublerr;
+            LineErr sublerr;
 
             static const std::regex reg("^[ ]*#[ ]*include[ ]+[\"<](.*)[\">].*");
 
@@ -291,8 +290,6 @@ namespace Ra
                 error << "\nUnable to compile " << lineFind(wrongline) << " :";
                 error << std::endl << message;
 
-                glDeleteShader( m_id );
-
                 // For now, crash when a shader is not compiling
                 if (!ok)
                 {
@@ -319,8 +316,8 @@ namespace Ra
         }
 
         ShaderProgram:: ShaderProgram()
-            : m_shaderId( 0 )
-            , m_linked(false)
+            : m_linked(false)
+            , m_shaderId( 0 )
         {
             for ( uint i = 0; i < m_shaderObjects.size(); ++i )
             {
@@ -337,14 +334,15 @@ namespace Ra
 
         ShaderProgram::~ShaderProgram()
         {
-            if ( m_shaderId != 0 && m_linked )
+            if ( m_shaderId != 0 )
             {
                 for ( auto shader : m_shaderObjects )
                 {
                     if ( shader )
                     {
-                        if (shader->getId() != 0 && shader->m_compiled)
+                        if ((shader->getId() != 0) && shader->m_attached)
                         {
+                            std::cout << "shader " << shader->getId() << " from " << m_configuration.m_name << " detach" << std::endl;
                             GL_ASSERT( glDetachShader( m_shaderId, shader->getId() ) );
                         }
                         delete shader;
@@ -384,7 +382,7 @@ namespace Ra
             ShaderObject* shader = new ShaderObject;
             bool status = shader->loadAndCompile(getTypeAsGLEnum(type), name, props);
             m_shaderObjects[type] = shader;
-            m_shaderStatus[type] = status;
+            m_shaderStatus[type]  = status;
         }
 
         bool ShaderObject::lineInside(const struct LineErr* node, uint line) const
@@ -508,30 +506,19 @@ namespace Ra
 
         void ShaderProgram::link()
         {
-            bool allCompiled = true;
+            if (! isOk())
+                return;
 
-            // check first if all shaders are compiled
-            for ( auto shader : m_shaderObjects )
+            for (int i=0; i < ShaderType_COUNT; ++i)
             {
-                if (shader)
+                if (m_shaderObjects[i])
                 {
-                    allCompiled &= shader->m_compiled;
+                    GL_ASSERT( glAttachShader( m_shaderId, m_shaderObjects[i]->getId() ) );
+                    m_shaderObjects[i]->m_attached = true;
                 }
             }
 
-            if (allCompiled)
-            {
-                for ( auto shader : m_shaderObjects )
-                {
-                    if ( shader )
-                    {
-                        GL_ASSERT( glAttachShader( m_shaderId, shader->getId() ) );
-                    }
-                }
-
-                GL_ASSERT( glLinkProgram( m_shaderId ) );
-                m_linked = true;
-            }
+            GL_ASSERT( glLinkProgram( m_shaderId ) );
         }
 
         void ShaderProgram::bind() const

@@ -57,7 +57,10 @@ namespace Ra
                         "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
                         config.m_name.c_str() );
                     LOG( logERROR ) << error;
-                    //insertShader(config, prog);     // <|<|<|<| DEBUG
+
+                    // insert in the failed shaders list
+                    m_shaderFailedConfs.push_back(config);
+
                     return m_defaultShaderProgram;
                 }
             }
@@ -71,7 +74,7 @@ namespace Ra
                 return getShaderProgram(found->second);
             }
 
-            return nullptr;
+            return m_defaultShaderProgram;
         }
 
         const ShaderProgram* ShaderProgramManager::getShaderProgram(const ShaderConfiguration& config)
@@ -85,6 +88,26 @@ namespace Ra
             for (auto& shader : m_shaderPrograms)
             {
                 shader.second->reload();
+            }
+
+            // and also try the failed ones
+            reloadNotCompiledShaderPrograms();
+        }
+
+        void ShaderProgramManager::reloadNotCompiledShaderPrograms()
+        {
+            // for each shader in the failed map, try to reload
+            for (std::vector<ShaderConfiguration>::iterator conf = m_shaderFailedConfs.begin();
+                 conf != m_shaderFailedConfs.end();
+                 ++ conf)
+            {
+                auto prog = Core::make_shared<ShaderProgram>(*conf);
+
+                if (prog->isOk())
+                {
+                    insertShader(*conf, prog);
+                    // m_shaderFailedConfs.erase(conf);
+                }
             }
         }
 

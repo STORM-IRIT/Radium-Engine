@@ -106,7 +106,7 @@ namespace Ra
             std::string lineFind(const struct LineErr* node, uint line) const;
 
         public:
-            bool m_compiled;
+            bool m_attached;
 
         private:
             uint m_id;
@@ -169,12 +169,14 @@ namespace Ra
 
             void link();
 
+        public:
+            bool m_linked;
+
         private:
             ShaderConfiguration m_configuration;
             uint m_shaderId;
             std::array<ShaderObject*, ShaderType_COUNT> m_shaderObjects;
             std::array<bool, ShaderType_COUNT> m_shaderStatus;
-            bool m_linked;
         };
 
     } // namespace Engine
