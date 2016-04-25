@@ -73,7 +73,7 @@
 
 // This will cause assert to be disabled except if DEBUG is defined
 // Make sure all "debug" macros are defined
-#if defined (DEBUG) || defined(_DEBUG) || defined (CORE_DEBUG)
+#if defined (DEBUG) || defined(_DEBUG) || defined (CORE_DEBUG) // ------- Debug
 #   undef CORE_DEBUG
 #   define CORE_DEBUG
 

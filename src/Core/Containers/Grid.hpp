@@ -23,8 +23,8 @@ namespace Ra
         typedef Eigen::Matrix<uint, D, 1> IdxVector; /// A vector of the size of the grid along each dimension.
         typedef Eigen::Matrix< int, D, 1> OffsetVector; /// A vector of signed offsets.
 
-        /// This class implements an interator thought elements of the grid that
-        /// can be referenced with a linear index or a D-dimensionnal uint vector.
+        /// This class implements an iterator though elements of the grid that
+        /// can be referenced with a linear index or a D-dimensional uint vector.
         class Iterator
         {
         public:
@@ -113,7 +113,7 @@ namespace Ra
             inline Iterator& operator-= ( const IdxVector& idx );
             inline Iterator& operator+= ( const OffsetVector& idx );
 
-            /// Rreturns true if adding offset idx with current iterator will act
+            /// Returns true if adding offset idx with current iterator will act
             /// as expected and false if it will put it out of bounds.
             bool isValidOffset( const OffsetVector& idx );
 
