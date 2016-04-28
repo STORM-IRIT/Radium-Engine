@@ -18,6 +18,11 @@
 #include <Drawing/SkeletonBoneDrawable.hpp>
 #include "Core/Mesh/TriangleMesh.hpp"
 
+using Ra::Engine::ComponentMessenger;
+using Ra::Core::Animation::RefPose;
+using Ra::Core::Animation::Skeleton;
+using Ra::Core::Animation::WeightMatrix;
+
 namespace AnimationPlugin
 {
 
@@ -324,32 +329,35 @@ namespace AnimationPlugin
 
     void AnimationComponent::setupIO(const std::string &id)
     {
-        Ra::Engine::ComponentMessenger::GetterCallback skelOut = std::bind( &AnimationComponent::getSkeletonOutput, this );
-        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::Skeleton>( getEntity(), this, id, skelOut);
-        Ra::Engine::ComponentMessenger::GetterCallback refpOut = std::bind( &AnimationComponent::getRefPoseOutput, this );
-        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::Pose>( getEntity(), this, id, refpOut);
-        Ra::Engine::ComponentMessenger::GetterCallback wOut = std::bind( &AnimationComponent::getWeightsOutput, this );
-        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::WeightMatrix>( getEntity(), this, id, wOut);
-        Ra::Engine::ComponentMessenger::GetterCallback resetOut = std::bind( &AnimationComponent::getWasReset, this );
-        Ra::Engine::ComponentMessenger::getInstance()->registerOutput<bool>( getEntity(), this, id, resetOut);
+        ComponentMessenger::CallbackTypes<Skeleton>::Getter skelOut = std::bind( &AnimationComponent::getSkeletonOutput, this );
+        ComponentMessenger::getInstance()->registerOutput<Skeleton>( getEntity(), this, id, skelOut);
+
+        ComponentMessenger::CallbackTypes<RefPose>::Getter refpOut = std::bind( &AnimationComponent::getRefPoseOutput, this );
+        ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::Pose>( getEntity(), this, id, refpOut);
+
+        ComponentMessenger::CallbackTypes<WeightMatrix>::Getter wOut = std::bind( &AnimationComponent::getWeightsOutput, this );
+        ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::WeightMatrix>( getEntity(), this, id, wOut);
+
+        ComponentMessenger::CallbackTypes<bool>::Getter resetOut = std::bind( &AnimationComponent::getWasReset, this );
+        ComponentMessenger::getInstance()->registerOutput<bool>( getEntity(), this, id, resetOut);
     }
 
-    const void* AnimationComponent::getSkeletonOutput() const
+    const Ra::Core::Animation::Skeleton* AnimationComponent::getSkeletonOutput() const
     {
         return &m_skel;
     }
 
-    const void* AnimationComponent::getWeightsOutput() const
+    const Ra::Core::Animation::WeightMatrix* AnimationComponent::getWeightsOutput() const
     {
         return &m_weights;
     }
 
-    const void* AnimationComponent::getRefPoseOutput() const
+    const Ra::Core::Animation::RefPose* AnimationComponent::getRefPoseOutput() const
     {
         return &m_refPose;
     }
 
-    const void* AnimationComponent::getWasReset() const
+    const bool* AnimationComponent::getWasReset() const
     {
         return &m_wasReset;
     }

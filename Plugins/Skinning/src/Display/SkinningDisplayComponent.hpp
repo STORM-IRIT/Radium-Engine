@@ -21,6 +21,10 @@
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
+using Ra::Engine::ComponentMessenger;
+using Ra::Core::TriangleMesh;
+using Ra::Core::Animation::WeightMatrix;
+
 namespace SkinningPlugin {
 
 class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
@@ -36,14 +40,16 @@ public:
         display();
     }
 
-    void display() {
-        Ra::Core::TriangleMesh mesh;
-        bool hasMesh = Ra::Engine::ComponentMessenger::getInstance()->get(getEntity(), m_contentsName, mesh);
+    void display()
+    {
+        bool hasMesh = ComponentMessenger::getInstance()->canGet<TriangleMesh>(getEntity(), m_contentsName);
+        bool hasWeights = ComponentMessenger::getInstance()->canGet<WeightMatrix>(getEntity(), m_contentsName);
 
-        Ra::Core::Animation::WeightMatrix weights;
-        bool hasWeights = Ra::Engine::ComponentMessenger::getInstance()->get(getEntity(), m_contentsName, weights);
+        if( hasMesh && hasWeights )
+        {
+            const TriangleMesh& mesh =  ComponentMessenger::getInstance()->get<TriangleMesh>(getEntity(), m_contentsName);
+            const WeightMatrix& weights = ComponentMessenger::getInstance()->get<WeightMatrix>(getEntity(), m_contentsName);
 
-        if( hasMesh && hasWeights ) {
             const uint size = mesh.m_vertices.size();
 
             const uint   fiveColor = 5;

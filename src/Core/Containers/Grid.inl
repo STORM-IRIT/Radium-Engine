@@ -12,7 +12,7 @@ namespace Ra
         {
 
             template<typename T, uint D>
-            typename Grid<T, D>::IdxVector linearToIdxVector( uint linIdx, const typename Grid<T, D>::IdxVector& size )
+            inline typename Grid<T, D>::IdxVector linearToIdxVector( uint linIdx, const typename Grid<T, D>::IdxVector& size )
             {
                 typename Grid<T, D>::IdxVector result = Grid<T, D>::IdxVector::Zero();
 
@@ -25,7 +25,7 @@ namespace Ra
             }
 
             template<typename T, uint D>
-            uint idxVectorToLinear( const typename Grid<T, D>::IdxVector& vecIdx, const typename Grid<T, D>::IdxVector& size )
+            inline uint idxVectorToLinear( const typename Grid<T, D>::IdxVector& vecIdx, const typename Grid<T, D>::IdxVector& size )
             {
                 uint result = 0;
                 uint dimProd = 1;
@@ -296,6 +296,7 @@ namespace Ra
         template<typename T, uint D>
         typename Grid<T,D>::Iterator& Grid<T,D>::Iterator::operator+=(const typename  Grid<T,D>::IdxVector &idx)
         {
+            CORE_ASSERT( isValidOffset( idx.cast<int>() ), "Invalid offset vector.");
             setFromVector( getVector()  + idx );
             return *this;
         }
@@ -303,6 +304,7 @@ namespace Ra
         template<typename T, uint D>
         typename Grid<T,D>::Iterator& Grid<T,D>::Iterator::operator-=(const typename Grid<T,D>::IdxVector &idx)
         {
+            CORE_ASSERT( isValidOffset( -(idx.cast<int>())), "Invalid offset vector.");
             setFromVector( getVector()  - idx );
             return *this;
         }
@@ -310,6 +312,7 @@ namespace Ra
         template<typename T, uint D>
         typename Grid<T,D>::Iterator& Grid<T,D>::Iterator::operator+=(const typename  Grid<T,D>::OffsetVector &idx)
         {
+            CORE_ASSERT( isValidOffset(idx), "Invalid offset vector");
             setFromVector( (getVector().cast<int>()  + idx).cast<uint>() );
             return *this;
         }
@@ -350,5 +353,3 @@ namespace Ra
 
     }
 }
-
-#undef TYPENAME

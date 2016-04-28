@@ -77,10 +77,10 @@ namespace AnimationPlugin
         // Component communication
         void setupIO( const std::string& id );
 
-        const void* getSkeletonOutput() const;
-        const void* getRefPoseOutput() const;
-        const void* getWeightsOutput() const;
-        const void* getWasReset() const;
+        const Ra::Core::Animation::Skeleton*     getSkeletonOutput() const;
+        const Ra::Core::Animation::RefPose*      getRefPoseOutput() const;
+        const Ra::Core::Animation::WeightMatrix* getWeightsOutput() const;
+        const bool*                              getWasReset() const;
 
     private:
         std::string m_contentName;
