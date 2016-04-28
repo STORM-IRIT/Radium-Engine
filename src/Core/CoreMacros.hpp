@@ -243,21 +243,10 @@ typedef double Scalar;
 // Debug tools
 // ----------------------------------------------------------------------------
 
-// Static assert (works only with C++)
-// (note : there is static assert in C++11)
 namespace compile_time_utils
 {
-    template<bool b> struct error;
-    template<> struct error<true> {};
-
     template<int x> struct size;
 }
-// This macro will output a compiler error if the argument evaluates to false
-// at compile time.
-#define STATIC_ASSERT(...) \
-    typedef compile_time_utils::error <static_cast<bool>(__VA_ARGS__)>  \
-    CONCATENATE(static_assert_line_, __LINE__)
-
 // This macro will print the size of a type in a compiler error
 // Note : there is a way to print it as a warning instead on StackOverflow
 #define STATIC_SIZEOF(TYPE) compile_time_utils::size<sizeof(TYPE)> static_sizeof

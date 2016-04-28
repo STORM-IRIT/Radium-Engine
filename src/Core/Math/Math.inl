@@ -47,7 +47,7 @@ namespace Ra
                     static inline constexpr T pow( const T& x )
                     {
                         return ( N % 2 == 0 ) ? IpowHelper < T, N / 2 >::pow( x ) * IpowHelper < T, N / 2 >::pow( x )
-                               : IpowHelper < T, N / 2 >::pow( x ) * IpowHelper < T, N / 2 >::pow( x ) * x;
+                                              : IpowHelper < T, N / 2 >::pow( x ) * IpowHelper < T, N / 2 >::pow( x ) * x;
                     }
                 };
 
