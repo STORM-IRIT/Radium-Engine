@@ -16,6 +16,7 @@ bool compatible( const Pose& p0, const Pose& p1 ) {
 Pose relativePose( const Pose& modelPose, const RestPose& restPose )  {
     CORE_ASSERT( compatible( modelPose, restPose ), " Poses with different size " );
     Pose T( restPose.size() );
+    #pragma omp parallel for
     for( uint i = 0; i < T.size(); ++i ) {
         T[i] = modelPose[i] * restPose[i].inverse( Eigen::Affine );
     }
@@ -26,6 +27,7 @@ Pose relativePose( const Pose& modelPose, const RestPose& restPose )  {
 
 Pose applyTransformation(const Pose& pose, const AlignedStdVector<Transform> &transform ) {
     Pose T( std::min( pose.size(), transform.size() ) );
+    #pragma omp parallel for
     for( uint i = 0; i < T.size(); ++i ) {
         T[i] = transform[i] * pose[i];
     }
@@ -36,6 +38,7 @@ Pose applyTransformation(const Pose& pose, const AlignedStdVector<Transform> &tr
 
 Pose applyTransformation( const Pose& pose, const Transform& transform ) {
     Pose T( pose.size() );
+    #pragma omp parallel for
     for( uint i = 0; i < T.size(); ++i ) {
         T[i] = transform * pose[i];
     }
