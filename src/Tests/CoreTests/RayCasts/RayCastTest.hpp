@@ -34,17 +34,17 @@ class RayCastAabbTests : public Test
 
                             Scalar t;
                             Ra::Core::Vector3 n;
-                            bool result = Ra::Core::RayCastInternal::RayvsAabb(r, ones, t, n);
+                            const bool result = Ra::Core::RayCast::vsAabb(r, ones, t, n);
 
                             if (std::abs(p) <= 5 && std::abs(q) <= 5)
                             {
-                                RA_UNIT_TEST(result == true, "The ray should have hit");
+                                RA_UNIT_TEST(result, "The ray should have hit");
                                 RA_UNIT_TEST(n.dot(sig * Ra::Core::Vector3::Unit(i)) == 1.f, "Wrong normal");
                                 RA_UNIT_TEST(Ra::Core::Math::areApproxEqual(r.pointAt(t)[i],sig), "Wrong hit point");
                             }
                             else
                             {
-                                RA_UNIT_TEST(result == false, "The ray should have missed");
+                                RA_UNIT_TEST(!result, "The ray should have missed");
                             }
                         }
 
@@ -54,9 +54,9 @@ class RayCastAabbTests : public Test
 
                             Scalar t;
                             Ra::Core::Vector3 n;
-                            bool result = Ra::Core::RayCastInternal::RayvsAabb(r, ones, t, n);
+                            const bool result = Ra::Core::RayCast::vsAabb(r, ones, t, n);
 
-                            RA_UNIT_TEST(result == false, "The ray should have missed (t<0)");
+                            RA_UNIT_TEST(!result, "The ray should have missed (t<0)");
                         }
 
                         // Fire a ray from within the box.
@@ -65,11 +65,10 @@ class RayCastAabbTests : public Test
 
                             Scalar t;
                             Ra::Core::Vector3 n;
-                            bool result = Ra::Core::RayCastInternal::RayvsAabb(r, ones, t, n);
+                            const bool result = Ra::Core::RayCast::vsAabb(r, ones, t, n);
 
-                            RA_UNIT_TEST(result == true, "The ray should have hit (inside hit)");
+                            RA_UNIT_TEST(result, "The ray should have hit (inside hit)");
                             RA_UNIT_TEST(t == 0, "Hit should be at origin");
-                            Scalar xxx = n.dot(dir.normalized());
                             RA_UNIT_TEST(Ra::Core::Math::areApproxEqual(n.dot(dir.normalized()), -1.f),
                                 "Wrong normal (inside hit)");
                         }

@@ -106,8 +106,8 @@ namespace Ra
                 std::vector<Scalar> hits1, hits2;
                 Core::Ray rayToFirstClick  = cam.getRayFromScreen(m_initialPix);
                 Core::Ray rayToCurrentClick = cam.getRayFromScreen(nextXY);
-                bool hit1 = Core::RayCastInternal::vsPlane(rayToFirstClick,   m_worldTo * origin, m_worldTo * rotationAxis, hits1);
-                bool hit2 = Core::RayCastInternal::vsPlane(rayToCurrentClick, m_worldTo * origin, m_worldTo * rotationAxis, hits2);
+                bool hit1 = Core::RayCast::vsPlane(rayToFirstClick,   m_worldTo * origin, m_worldTo * rotationAxis, hits1);
+                bool hit2 = Core::RayCast::vsPlane(rayToCurrentClick, m_worldTo * origin, m_worldTo * rotationAxis, hits2);
 
                 if (hit1 && hit2)
                 {

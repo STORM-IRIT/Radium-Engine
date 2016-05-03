@@ -16,11 +16,11 @@ namespace Ra
         /// All functions return true if there was a hit, false if not.
         /// If a ray starts inside the shape, the resulting hit will be at the ray's origin (t=0).
 
-        namespace RayCastInternal
+        namespace RayCast
         {
 
             /// Intersect a ray with an axis-aligned bounding box.
-            inline bool RayvsAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector3& normalOut );
+            inline bool vsAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector3& normalOut );
 
             /// Intersects a ray with a sphere.
             inline bool vsSphere( const Ray& r, const Core::Vector3& center, Scalar radius, std::vector<Scalar>& hitsOut );

@@ -124,7 +124,7 @@ namespace Ra
 
             std::vector<Scalar> hit;
             const Core::Ray ray = cam.getRayFromScreen( pix );
-            bool hasHit = Core::RayCastInternal::vsPlane(ray, origin, normal, hit);
+            bool hasHit = Core::RayCast::vsPlane(ray, origin, normal, hit);
             if (hasHit)
             {
                 pointOut = origin + (axis.dot(ray.pointAt(hit[0]) - origin)) * axis;

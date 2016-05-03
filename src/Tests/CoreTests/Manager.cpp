@@ -5,14 +5,14 @@
 
 namespace RaTests {
 
-    RA_SINGLETON_IMPLEMENTATION( RaTests::Manager )
+    RA_SINGLETON_IMPLEMENTATION( TestManager );
 
-    void Manager::add(Test* test)
+    void TestManager::add(Test* test)
     {
         m_tests.push_back(TestEntry(test));
     }
 
-    int Manager::run()
+    int TestManager::run()
     {
         for (auto& t : m_tests)
         {
@@ -37,11 +37,11 @@ namespace RaTests {
             }
         }
 
-        printf("Result : %i / %i tests passed\n", m_tests.size() - numFailed, m_tests.size());
+        printf("Result : %lu / %lu tests passed\n", m_tests.size() - numFailed, m_tests.size());
         return numFailed;
     }
 
-    void Manager::testFailed(const Test* test)
+    void TestManager::testFailed(const Test* test)
     {
         auto t = std::find_if(
             m_tests.begin(),

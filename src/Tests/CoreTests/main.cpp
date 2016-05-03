@@ -3,10 +3,10 @@
 
 int main()
 {
-    RaTests::Manager::createInstance();
-    RaTests::Manager::getInstance()->m_options.m_breakOnFailure = true;
+    RaTests::TestManager::createInstance();
+    RaTests::TestManager::getInstance()->m_options.m_breakOnFailure = true;
     RaTests::DummyTestPass p;
     RaTests::RayCastAabbTests a;
-    return RaTests::Manager::getInstance()->run();
+    return RaTests::TestManager::getInstance()->run();
 }
 

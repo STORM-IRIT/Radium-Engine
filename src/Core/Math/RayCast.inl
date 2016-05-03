@@ -5,10 +5,10 @@ namespace Ra
     namespace Core
     {
         // useful : http://www.realtimerendering.com/intersections.html
-        namespace RayCastInternal
+        namespace RayCast
         {
             /// Intersect a ray with an axis-aligned bounding box.
-            inline bool RayvsAabb(const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector3& normalOut)
+            inline bool vsAabb(const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector3& normalOut)
             {
                 // Based on optimized Woo version (ray vs 3 slabs)
                 // Ref : Graphics Gems p.395

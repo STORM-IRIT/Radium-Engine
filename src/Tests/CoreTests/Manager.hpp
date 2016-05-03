@@ -9,9 +9,9 @@ namespace RaTests {
 class Test;
 
 /// Singleton class responsible for running the tests.
-class Manager {
+class TestManager {
 
-    RA_SINGLETON_INTERFACE(RaTests::Manager);
+    RA_SINGLETON_INTERFACE(TestManager);
 public:
     /// Options regarding the test behavior.
     struct Options
@@ -29,7 +29,7 @@ public:
     };
 
     /// Empty constructor.
-    Manager() {}
+    TestManager() {}
 
     /// Register one test into the manager.
     void add(Test* test);
