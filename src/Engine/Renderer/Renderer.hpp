@@ -239,6 +239,16 @@ namespace Ra
             // FIXME(Charly): pure virtual ?
             virtual void postProcessInternal( const RenderData& renderData ) = 0;
 
+            /**
+             * @brief Add the debug layer with useful informations
+             */
+            virtual void debugInternal( const RenderData& renderData ) = 0; // is renderData useful ?
+
+            /**
+             * @brief Draw the UI data
+             */
+            virtual void uiInternal( const RenderData& renderData ) = 0; // idem ?
+
         private:
 
             // 0.

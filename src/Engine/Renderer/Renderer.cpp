@@ -138,11 +138,17 @@ namespace Ra
             postProcessInternal( data );
             m_timerData.postProcessEnd = Core::Timer::Clock::now();
 
-            // 6. write image to framebuffer.
+            // 6. Debug
+            debugInternal( data );
+
+            // 7. Draw UI
+            uiInternal( data );
+
+            // 8. Write image to framebuffer.
             drawScreenInternal();
             m_timerData.renderEnd = Core::Timer::Clock::now();
 
-            // 7. Tell renderobjects they have been drawn (to decreaase the counter)
+            // 9. Tell renderobjects they have been drawn (to decreaase the counter)
             notifyRenderObjectsRenderingInternal();
         }
 

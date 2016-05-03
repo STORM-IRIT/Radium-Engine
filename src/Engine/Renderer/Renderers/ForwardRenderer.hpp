@@ -22,8 +22,11 @@ namespace Ra
             virtual void resizeInternal() override;
 
             virtual void updateStepInternal( const RenderData& renderData ) override;
-            virtual void renderInternal( const RenderData& renderData ) override;
+
             virtual void postProcessInternal( const RenderData& renderData ) override;
+            virtual void renderInternal( const RenderData& renderData ) override;
+            virtual void debugInternal( const RenderData& renderData ) override;
+            virtual void uiInternal( const RenderData& renderData ) override;
 
         private:
             void initShaders();
