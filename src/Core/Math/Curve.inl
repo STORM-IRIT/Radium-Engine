@@ -4,20 +4,28 @@ namespace Ra
 {
     namespace Core
     {
-        Curve<2>::Vector CubicBezier::f(Scalar u) const
+        void CubicBezier::addPoint(const Curve::Vector p)
         {
-            Vector grad;
-            return eval(u, grad);
+            if(size < 4)
+            {
+                m_points[size ++] = p;
+            }
         }
 
-        Curve<2>::Vector CubicBezier::df(Scalar u) const
+        Curve::Vector CubicBezier::f(Scalar u) const
         {
             Vector grad;
-            eval(u, grad);
+            return fdf(u, grad);
+        }
+
+        Curve::Vector CubicBezier::df(Scalar u) const
+        {
+            Vector grad;
+            fdf(u, grad);
             return grad;
         }
 
-        Curve<2>::Vector CubicBezier::eval(Scalar t, Vector& grad) const
+        Curve::Vector CubicBezier::fdf(Scalar t, Vector& grad) const
         {
             float t2 = t * t;
             float t3 = t2 * t;
@@ -29,31 +37,64 @@ namespace Ra
             return oneMinusT3 * m_points[0] + 3.0 * oneMinusT2 * t * m_points[1] + 3.0 * oneMinusT * t2 * m_points[2] + t3 * m_points[3];
         }
 
-//        void CubicBezier::setPoint(const Curve::Vector &p, int idx)
-//        {
-//            if (idx > 0 && idx < 4)
-//            {
-//                m_points[idx] = p;
-//            }
-//        }
+        /*--------------------------------------------------*/
 
-        Curve<2>::Vector Line::f(Scalar u) const
+        void Line::addPoint(const Curve::Vector p)
         {
-            Vector grad;
-            return eval(u, grad);
+            if(size < 2)
+            {
+                m_points[size ++] = p;
+            }
         }
 
-        Curve<2>::Vector Line::df(Scalar u) const
+        Curve::Vector Line::f(Scalar u) const
         {
-            Vector grad;
-            eval(u, grad);
-            return grad;
+            return (1.0 - u) * m_points[0] + u * m_points[1];
         }
 
-        Curve<2>::Vector Line::eval(Scalar t, Vector& grad) const
+        Curve::Vector Line::df(Scalar u) const
+        {
+            return m_points[1] - m_points[0];
+        }
+
+        Curve::Vector Line::fdf(Scalar t, Vector& grad) const
         {
             grad = m_points[1] - m_points[0];
             return (1.0 - t) * m_points[0] + t * m_points[1];
+        }
+
+        /*--------------------------------------------------*/
+
+
+        void SplineCurve::addPoint(const Curve::Vector p)
+        {
+            m_points.push_back(p);
+            ++size;
+        }
+
+        Curve::Vector SplineCurve::f(Scalar u) const
+        {
+           Ra::Core::Spline<2, 3> spline;
+           spline.setCtrlPoints(m_points);
+
+           return spline.f(u);
+        }
+
+        Curve::Vector SplineCurve::df(Scalar u) const
+        {
+            Ra::Core::Spline<2, 3> spline;
+            spline.setCtrlPoints(m_points);
+
+            return spline.df(u);
+        }
+
+        Curve::Vector SplineCurve::fdf(Scalar u, Curve::Vector &grad) const
+        {
+            Ra::Core::Spline<2, 3> spline;
+            spline.setCtrlPoints(m_points);
+
+            grad = spline.df(u);
+            return spline.f(u);
         }
 
     }
