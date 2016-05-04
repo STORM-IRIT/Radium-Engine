@@ -32,8 +32,8 @@ class RayCastAabbTests : public Test
                         {
                             Ra::Core::Ray r = Ra::Core::Ray(s, dir.normalized());
 
-                            Scalar t;
-                            Ra::Core::Vector3 n;
+                            Scalar t = 0.f;
+                            Ra::Core::Vector3 n = Ra::Core::Vector3::Zero();
                             const bool result = Ra::Core::RayCast::vsAabb(r, ones, t, n);
 
                             if (std::abs(p) <= 5 && std::abs(q) <= 5)

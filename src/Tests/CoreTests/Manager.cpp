@@ -51,7 +51,7 @@ namespace RaTests {
 
         CORE_ASSERT(t != m_tests.cend(), "Failing test not registred.");
 
-        t->m_fails++;
+        ++(t->m_fails);
 
         // The program will break here if you enabled the "break on failure" option.
         if (m_options.m_breakOnFailure)
