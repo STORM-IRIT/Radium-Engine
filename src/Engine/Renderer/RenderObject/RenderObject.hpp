@@ -30,6 +30,8 @@ namespace Ra
     namespace Engine
     {
 
+        struct RenderData;
+
         // FIXME(Charly): Does this need a bit of cleanup ?
         class RA_ENGINE_API RenderObject : public Core::IndexedObject
         {
@@ -92,6 +94,8 @@ namespace Ra
             /// Does nothing if lifetime is set to -1
             void hasBeenRenderedOnce();
             void hasExpired();
+
+            virtual void render( const RenderParameters& lightParams, const RenderData& rdata, ShaderProgram* altShader = nullptr );
 
         private:
             Core::Transform m_localTransform;

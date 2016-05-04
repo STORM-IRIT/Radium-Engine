@@ -7,6 +7,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -257,6 +258,32 @@ namespace Ra
         void RenderObject::hasExpired()
         {
             m_component->notifyRenderObjectExpired( idx );
+        }
+
+        void RenderObject::render( const RenderParameters& lightParams, const RenderData& rdata, ShaderProgram* altShader )
+        {
+            const ShaderProgram* shader;
+
+            if (m_visible)
+            {
+                shader = (altShader == nullptr) ? getRenderTechnique()->shader : altShader;
+
+                Core::Matrix4 M = getTransformAsMatrix();
+                Core::Matrix4 N = M.inverse().transpose();
+
+                // bind data
+                shader->bind();
+                shader->setUniform( "transform.proj", rdata.projMatrix );
+                shader->setUniform( "transform.view", rdata.viewMatrix );
+                shader->setUniform( "transform.model", M );
+                shader->setUniform( "transform.worldNormal", N );
+                lightParams.bind( shader );
+
+                getRenderTechnique()->material->bind( shader );
+
+                // render
+                getMesh()->render();
+            }
         }
 
     } // namespace Engine
