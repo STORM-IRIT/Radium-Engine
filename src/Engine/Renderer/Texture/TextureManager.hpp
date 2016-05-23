@@ -27,6 +27,10 @@ namespace Ra
             int width;
             int height;
 
+            GLenum format = GL_RGBA;
+            GLenum internalFormat = GL_RGBA8UI;
+            GLenum type = GL_UNSIGNED_INT_8_8_8_8;
+
             GLenum sWrap = GL_CLAMP;
             GLenum tWrap = GL_CLAMP;
             GLenum minMipmap = GL_LINEAR;
@@ -42,7 +46,7 @@ namespace Ra
             typedef std::pair<std::string, Texture*> TexturePair;
 
         public:
-            void addTexture( const std::string& name, int width, int height, void* data );
+            TextureData& addTexture( const std::string& name, int width, int height, void* data );
             Texture* addTexture( const std::string& filename );
             Texture* getOrLoadTexture( const std::string& filename );
             Texture* getOrLoadTexture( const TextureData& data );
