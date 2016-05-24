@@ -2,10 +2,14 @@
 
 Radium Engine © the Radium Contributors :
 
-* Baptiste Angles
-* Maurizio Kovačič
-* Charly Mourglia
-* Valentin Roussellet
+* Baptiste Angles (file loading, animation plugin)
+* Agathe Duyck (curves)
+* Maurizio Kovačič (geometry processing, file loading)
+* Charly Mourglia (core engine, rendering, file loading, GUI)
+* Mathias Paulin (MacOS port)
+* Hugo Renes (imgui and shader editor)
+* Valentin Roussellet (core engine, animation and skinning plugins, Windows port)
+* Thomas Subileau (spatial data structures)
 
 # Third-party libraries
 
