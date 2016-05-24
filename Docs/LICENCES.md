@@ -1,4 +1,4 @@
-# Radium contributors.
+# Radium contributors
 
 Radium Engine © the Radium Contributors :
 
