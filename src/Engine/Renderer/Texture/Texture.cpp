@@ -42,6 +42,7 @@ namespace Ra
 
             case GL_DEPTH_COMPONENT24:
             case GL_RGB:
+            case GL_RGB8:
             case GL_SRGB:
             case GL_SRGB8:
             {
