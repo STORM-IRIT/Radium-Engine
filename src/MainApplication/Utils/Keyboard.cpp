@@ -11,6 +11,20 @@
 #include <X11/Xos.h>
 #include <X11/keysym.h>
 #include <xcb/xcb.h>
+#elif defined( OS_MACOS )
+
+#if defined (DEBUG)
+    #   undef DEBUG
+    #   define DEBUG 0
+    #   include <Carbon/Carbon.h>
+    #   undef DEBUG
+    #   define DEBUG
+#else
+    #   define DEBUG 0
+    #   include <Carbon/Carbon.h>
+    #   undef DEBUG
+#endif
+
 #endif
 
 namespace Ra
@@ -262,6 +276,121 @@ namespace Ra
 
             // NOTE(Charly): No real idea what is going on there, but it seems to work :D
             return ( keymap->keys[keycode / 8] & ( 1 << ( keycode % 8 ) ) ) != 0;
+        }
+#elif defined( OS_MACOS )
+        // FIXME (Mathias) On MacoX, symbol with ANSI in their name are given for an ANSI US keyboard ...
+        // FIXME (Mathias) : WARNING : some symbols do'nt exist on Apple keyboard ...
+        bool isKeyPressed( Key key )
+        {
+            unsigned short keysym = 0;
+            switch (key)
+            {
+                case Key_LShift:     keysym = kVK_Shift;      break;
+                case Key_RShift:     keysym = kVK_RightShift;      break;
+                case Key_LControl:   keysym = kVK_Control;    break;
+                case Key_RControl:   keysym = kVK_RightControl;    break;
+                case Key_LAlt:       keysym = kVK_Option;        break;
+                case Key_RAlt:       keysym = kVK_RightOption;        break;
+                case Key_LSystem:    keysym = kVK_Command;      break;
+                case Key_RSystem:    keysym = kVK_Command;      break;
+                case Key_Menu:       keysym = kVK_Function;         break;
+                case Key_Escape:     keysym = kVK_Escape;       break;
+                case Key_SemiColon:  keysym = kVK_ANSI_Semicolon;    break;
+                case Key_Slash:      keysym = kVK_ANSI_Slash;        break;
+                case Key_Equal:      keysym = kVK_ANSI_Equal;        break;
+                case Key_Dash:       keysym = kVK_ANSI_Minus;        break;
+                case Key_LBracket:   keysym = kVK_ANSI_LeftBracket;  break;
+                case Key_RBracket:   keysym = kVK_ANSI_RightBracket; break;
+                case Key_Comma:      keysym = kVK_ANSI_Comma;        break;
+                case Key_Period:     keysym = kVK_ANSI_Period;       break;
+                case Key_Quote:      keysym = kVK_ANSI_Quote;   break;
+                case Key_BackSlash:  keysym = kVK_ANSI_Backslash;    break;
+                case Key_Tilde:      keysym = kVK_ANSI_Grave;        break;
+                case Key_Space:      keysym = kVK_Space;        break;
+                case Key_Return:     keysym = kVK_Return;       break;
+                case Key_BackSpace:  keysym = kVK_Delete;    break;
+                case Key_Tab:        keysym = kVK_Tab;          break;
+                case Key_PageUp:     keysym = kVK_PageUp;        break;
+                case Key_PageDown:   keysym = kVK_PageDown;         break;
+                case Key_End:        keysym = kVK_End;          break;
+                case Key_Home:       keysym = kVK_Home;         break;
+                case Key_Insert:     keysym = kVK_F20;       break;
+                case Key_Delete:     keysym = kVK_Delete;       break;
+                case Key_Add:        keysym = kVK_ANSI_KeypadPlus;       break;
+                case Key_Subtract:   keysym = kVK_ANSI_KeypadMinus;  break;
+                case Key_Multiply:   keysym = kVK_ANSI_KeypadMultiply;  break;
+                case Key_Divide:     keysym = kVK_ANSI_KeypadDivide;    break;
+                case Key_Pause:      keysym = kVK_Mute;        break;
+                case Key_F1:         keysym = kVK_F1;           break;
+                case Key_F2:         keysym = kVK_F2;           break;
+                case Key_F3:         keysym = kVK_F3;           break;
+                case Key_F4:         keysym = kVK_F4;           break;
+                case Key_F5:         keysym = kVK_F5;           break;
+                case Key_F6:         keysym = kVK_F6;           break;
+                case Key_F7:         keysym = kVK_F7;           break;
+                case Key_F8:         keysym = kVK_F8;           break;
+                case Key_F9:         keysym = kVK_F9;           break;
+                case Key_F10:        keysym = kVK_F10;          break;
+                case Key_F11:        keysym = kVK_F11;          break;
+                case Key_F12:        keysym = kVK_F12;          break;
+                case Key_F13:        keysym = kVK_F13;          break;
+                case Key_F14:        keysym = kVK_F14;          break;
+                case Key_F15:        keysym = kVK_F15;          break;
+                case Key_Left:       keysym = kVK_LeftArrow;         break;
+                case Key_Right:      keysym = kVK_RightArrow;        break;
+                case Key_Up:         keysym = kVK_UpArrow;           break;
+                case Key_Down:       keysym = kVK_DownArrow;         break;
+                case Key_Numpad0:    keysym = kVK_ANSI_Keypad0;      break;
+                case Key_Numpad1:    keysym = kVK_ANSI_Keypad1;      break;
+                case Key_Numpad2:    keysym = kVK_ANSI_Keypad2;      break;
+                case Key_Numpad3:    keysym = kVK_ANSI_Keypad3;      break;
+                case Key_Numpad4:    keysym = kVK_ANSI_Keypad4;      break;
+                case Key_Numpad5:    keysym = kVK_ANSI_Keypad5;      break;
+                case Key_Numpad6:    keysym = kVK_ANSI_Keypad6;      break;
+                case Key_Numpad7:    keysym = kVK_ANSI_Keypad7;      break;
+                case Key_Numpad8:    keysym = kVK_ANSI_Keypad8;      break;
+                case Key_Numpad9:    keysym = kVK_ANSI_Keypad9;      break;
+                case Key_A:          keysym = kVK_ANSI_A;            break;
+                case Key_B:          keysym = kVK_ANSI_B;            break;
+                case Key_C:          keysym = kVK_ANSI_C;            break;
+                case Key_D:          keysym = kVK_ANSI_D;            break;
+                case Key_E:          keysym = kVK_ANSI_E;            break;
+                case Key_F:          keysym = kVK_ANSI_F;            break;
+                case Key_G:          keysym = kVK_ANSI_G;            break;
+                case Key_H:          keysym = kVK_ANSI_H;            break;
+                case Key_I:          keysym = kVK_ANSI_I;            break;
+                case Key_J:          keysym = kVK_ANSI_J;            break;
+                case Key_K:          keysym = kVK_ANSI_K;            break;
+                case Key_L:          keysym = kVK_ANSI_L;            break;
+                case Key_M:          keysym = kVK_ANSI_M;            break;
+                case Key_N:          keysym = kVK_ANSI_N;            break;
+                case Key_O:          keysym = kVK_ANSI_O;            break;
+                case Key_P:          keysym = kVK_ANSI_P;            break;
+                case Key_Q:          keysym = kVK_ANSI_Q;            break;
+                case Key_R:          keysym = kVK_ANSI_R;            break;
+                case Key_S:          keysym = kVK_ANSI_S;            break;
+                case Key_T:          keysym = kVK_ANSI_T;            break;
+                case Key_U:          keysym = kVK_ANSI_U;            break;
+                case Key_V:          keysym = kVK_ANSI_V;            break;
+                case Key_W:          keysym = kVK_ANSI_W;            break;
+                case Key_X:          keysym = kVK_ANSI_X;            break;
+                case Key_Y:          keysym = kVK_ANSI_Y;            break;
+                case Key_Z:          keysym = kVK_ANSI_Z;            break;
+                case Key_Num0:       keysym = kVK_ANSI_0;            break;
+                case Key_Num1:       keysym = kVK_ANSI_1;            break;
+                case Key_Num2:       keysym = kVK_ANSI_2;            break;
+                case Key_Num3:       keysym = kVK_ANSI_3;            break;
+                case Key_Num4:       keysym = kVK_ANSI_4;            break;
+                case Key_Num5:       keysym = kVK_ANSI_5;            break;
+                case Key_Num6:       keysym = kVK_ANSI_6;            break;
+                case Key_Num7:       keysym = kVK_ANSI_7;            break;
+                case Key_Num8:       keysym = kVK_ANSI_8;            break;
+                case Key_Num9:       keysym = kVK_ANSI_9;            break;
+                default:             keysym = 0;               break;
+            }
+            unsigned char keyMap[16];
+            GetKeys((BigEndianUInt32*) &keyMap);
+            return (0 != ((keyMap[ keysym >> 3] >> (keysym & 7)) & 1));
         }
 #else
         bool isKeyPressed( Key key )

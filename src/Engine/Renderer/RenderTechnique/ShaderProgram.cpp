@@ -483,7 +483,10 @@ namespace Ra
                 case ShaderType_GEOMETRY: return GL_GEOMETRY_SHADER;
                 case ShaderType_TESS_EVALUATION: return GL_TESS_EVALUATION_SHADER;
                 case ShaderType_TESS_CONTROL: return GL_TESS_CONTROL_SHADER;
+#ifndef OS_MACOS
+                // FIXME (Mathias) : GL_COMPUTE_SHADER requires OpenGL >= 4.2, Apple provides OpenGL 4.1
                 case ShaderType_COMPUTE: return GL_COMPUTE_SHADER;
+#endif
                 default: CORE_ERROR("Wrong ShaderType");
             }
             // Should never get there

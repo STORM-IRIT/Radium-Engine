@@ -30,9 +30,14 @@ namespace Ra
             GLenum format = GL_RGBA;
             GLenum internalFormat = GL_RGBA8UI;
             GLenum type = GL_UNSIGNED_INT_8_8_8_8;
-
+#ifdef OS_MACOS
+            // FIXME (Mathias): GL_CLAMP is deprecated in OpenGL >= 3.0
+            GLenum sWrap = GL_CLAMP_TO_EDGE;
+            GLenum tWrap = GL_CLAMP_TO_EDGE;
+#else
             GLenum sWrap = GL_CLAMP;
             GLenum tWrap = GL_CLAMP;
+#endif
             GLenum minMipmap = GL_LINEAR;
             GLenum magMipmap = GL_LINEAR;
 

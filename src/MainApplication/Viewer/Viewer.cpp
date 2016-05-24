@@ -31,6 +31,7 @@ namespace
     {
     public:
         RA_CORE_ALIGNED_NEW
+
         RenderThread( Ra::Gui::Viewer* viewer, Ra::Engine::Renderer* renderer )
             : QThread( viewer ), m_viewer( viewer ), m_renderer( renderer ), isInit( false )
         {
@@ -141,6 +142,7 @@ namespace Ra
 #endif
         // FIXME(Charly): Renderer type should not be changed here
         m_renderers.resize( 1 );
+        // FIXME(Mathias): width and height might be wrong the first time ResizeGL is called (see QOpenGLWidget doc). This may cause problem on Retina display under MacOsX
         m_renderers[0].reset( new Engine::ForwardRenderer( width(), height() ) );
 
         for ( auto& renderer : m_renderers )
@@ -153,7 +155,8 @@ namespace Ra
 #if !defined (FORCE_RENDERING_ON_MAIN_THREAD)
         m_renderThread = new RenderThread( this, m_renderer.get() );
 #endif
-
+        // FIXME (Mathias) : according to modern C++ guidelines (Stroustrup), prefer the following
+        // auto light = std::make_shared<Engine::DirectionalLight>();
         auto light = std::shared_ptr<Engine::DirectionalLight>(new Engine::DirectionalLight);
 
         for ( auto& renderer : m_renderers )
@@ -198,6 +201,7 @@ namespace Ra
 
     void Gui::Viewer::resizeGL( int width, int height )
     {
+        // FIXME(Mathias) : Problem of glarea dimension on OsX Retina Display (half the size)
         // Renderer should have been locked by previous events.
         m_camera->resizeViewport( width, height );
         m_currentRenderer->resize( width, height );
@@ -209,6 +213,21 @@ namespace Ra
         {
             case Qt::LeftButton:
             {
+#ifdef OS_MACOS
+                // (Mathias) no middle button on Apple (only left, right and wheel)
+                // replace middle button by <ctrl>+left (note : ctrl = "command"
+                // fake the subsistem by setting MiddleButtonEvent and masking ControlModifier
+                if (event->modifiers().testFlag( Qt::ControlModifier ) )
+                {
+                    auto mods = event->modifiers();
+                    mods^=Qt::ControlModifier;
+                    auto macevent = new QMouseEvent(event->type(), event->localPos(), event->windowPos(), event->screenPos(),
+                                                    Qt::MiddleButton, event->buttons(),
+                                                    mods, event->source() );
+                    m_camera->handleMousePressEvent(macevent);
+                    delete macevent;
+                }
+#endif
                 if ( isKeyPressed( Key_Space ) )
                 {
                     LOG( logINFO ) << "Raycast query launched";
