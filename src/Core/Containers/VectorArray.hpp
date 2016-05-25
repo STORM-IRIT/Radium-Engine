@@ -72,10 +72,11 @@ namespace Ra
         };
 
         // Convenience typedefs
-        typedef VectorArray<Scalar>  Vector1Array;
-        typedef VectorArray<Vector2> Vector2Array;
-        typedef VectorArray<Vector3> Vector3Array;
-        typedef VectorArray<Vector4> Vector4Array;
+        typedef VectorArray<Scalar>    Vector1Array;
+        typedef VectorArray<Vector2>   Vector2Array;
+        typedef VectorArray<Vector3>   Vector3Array;
+        typedef VectorArray<Vector3ui> Vector3uiArray;
+        typedef VectorArray<Vector4>   Vector4Array;
 
         // Notes :
         // Using a map for eigen integration was recommended by [1].
