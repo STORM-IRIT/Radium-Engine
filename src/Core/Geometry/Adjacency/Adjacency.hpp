@@ -26,6 +26,9 @@ namespace Geometry {
 //      A( i, j ) = 0         , otherwise
 // where f( i, j ) is a generic function defined over an edge
 typedef Sparse AdjacencyMatrix;
+typedef AdjacencyMatrix VVAdj;
+typedef AdjacencyMatrix VTAdj;
+typedef AdjacencyMatrix TVAdj;
 
 
 
@@ -47,6 +50,15 @@ RA_CORE_API AdjacencyMatrix uniformAdjacency( const uint point_size, const Vecto
 */
 RA_CORE_API AdjacencyMatrix uniformAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
 
+
+
+/*
+* Return the AdjacencyMatrix for the given set of points and triangles.
+* The function defined over the triangle is:
+*       f( i, j ) = 1 , if triangle i contains to vertex j
+*       f( i, j ) = 0 , otherwise
+*/
+RA_CORE_API TVAdj triangleUniformAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
 
 
 /*

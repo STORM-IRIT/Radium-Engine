@@ -3,6 +3,8 @@
 #include <Core/Index/CircularIndex.hpp>
 #include <Core/Geometry/Triangle/TriangleOperation.hpp>
 
+#include <Core/Time/Timer.hpp>
+
 namespace Ra {
 namespace Core {
 namespace Geometry {
@@ -15,7 +17,7 @@ void uniformNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle
     const uint N = p.size();
     normal.clear();
     normal.resize( N, Vector3::Zero() );
-#pragma omp parallel for
+//#pragma omp parallel for
     for( uint n = 0; n < T.size(); ++n ) {
     //for( const auto& t : T ) {
         const auto& t = T[n];
@@ -26,19 +28,33 @@ void uniformNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle
         if( !triN.allFinite() ) {
             continue;
         }
-#pragma omp critical
-{
+//#pragma omp critical
+//{
         normal[i] += triN;
         normal[j] += triN;
         normal[k] += triN;
-}
+//}
     }
-#pragma omp parallel for
+//#pragma omp parallel for
     for( uint i = 0; i < N; ++i ) {
         if( !normal[i].isApprox( Vector3::Zero() ) ) {
             normal[i].normalize();
         }
     }
+}
+
+
+
+Vector3 localUniformNormal( const uint i, const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, const TVAdj& adj ) {
+    Vector3 normal = Vector3::Zero();
+    for( TVAdj::InnerIterator it( adj, i ); it; ++it ) {
+        const uint t = it.row();
+        const uint i = T[t]( 0 );
+        const uint j = T[t]( 1 );
+        const uint k = T[t]( 2 );
+        normal += triangleNormal( p[i], p[j], p[k] );
+    }
+    return normal;//.normalized();
 }
 
 

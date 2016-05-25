@@ -4,6 +4,7 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/MeshTypes.hpp>
+#include <Core/Geometry/Adjacency/Adjacency.hpp>
 
 namespace Ra {
 namespace Core {
@@ -22,6 +23,16 @@ namespace Geometry {
 * where normal( face_j ) is the normalized normal of face_j belonging to v_i one-ring.
 */
 void RA_CORE_API uniformNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, VectorArray< Vector3 >& normal );
+
+
+
+/*
+* Return the normalized normal of vertex v_i, expressed as:
+*       sum( normal( face_j ) ) / || sum( normal( face_j ) ) ||
+*
+* where normal( face_j ) is the normalized normal of face_j belonging to v_i one-ring.
+*/
+Vector3 RA_CORE_API localUniformNormal( const uint i, const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, const TVAdj& adj );
 
 
 

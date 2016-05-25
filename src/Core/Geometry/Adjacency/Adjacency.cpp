@@ -62,6 +62,23 @@ void uniformAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Trian
 
 
 
+TVAdj triangleUniformAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
+    const uint p_size = p.size();
+    const uint t_size = T.size();
+    TVAdj A( p_size, t_size );
+    for( uint t = 0; t < t_size; ++t ) {
+        const uint i = T[t]( 0 );
+        const uint j = T[t]( 1 );
+        const uint k = T[t]( 2 );
+        A.coeffRef( t, i ) = 1;
+        A.coeffRef( t, j ) = 1;
+        A.coeffRef( t, k ) = 1;
+    }
+    return A;
+}
+
+
+
 AdjacencyMatrix cotangentWeightAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     AdjacencyMatrix A( p.size(), p.size() );
     for( const auto& t : T ) {
