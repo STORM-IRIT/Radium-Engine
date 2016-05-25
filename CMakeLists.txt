@@ -2,7 +2,8 @@ project(RadiumEngine)
 
 cmake_minimum_required(VERSION 2.8.11)
 
-if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang"))
+#if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang"))
+if (APPLE)
     # No openmp on MacosX Clang (TODO, find better compiler identification)
     set(CMAKE_CXX_FLAGS                "-Wall -Wextra  -std=c++1y -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions ${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
@@ -11,10 +12,18 @@ if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang"))
 
     add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
 elseif (UNIX)
-  set(CMAKE_CXX_FLAGS                "-Wall -Wextra  -pthread -std=c++1y -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions -fopenmp ${CMAKE_CXX_FLAGS}")
-  set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -O3 -ffast-math -mfpmath=sse -ftree-vectorize")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 ${CMAKE_CXX_FLAGS_RELEASE}")
+    if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang"))
+        set(OMP_FLAG "-fopenmp=libiomp5")
+        set(MATH_FLAG "-mfpmath=sse")
+    else()
+        set(OMP_FLAG "-fopenmp -ftree-vectorize")
+        set(MATH_FLAG "-mfpmath=sse -ffast-math")
+    endif()
+
+    set(CMAKE_CXX_FLAGS                "-Wall -Wextra  -pthread -std=c++1y -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions ${OMP_FLAG} ${CMAKE_CXX_FLAGS}")
+    set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
+    set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -O2 ${MATH_FLAG}")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 ${CMAKE_CXX_FLAGS_RELEASE}")
 
   add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
 elseif (MSVC)
