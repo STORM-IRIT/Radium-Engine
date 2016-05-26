@@ -130,7 +130,7 @@ namespace Ra
     Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
         Ra::Engine::DrawPrimitives::Primitive(                      \
             Ra::Engine::SystemEntity::dbgCmp(),                     \
-            Ra::Engine::DrawPrimitives::OOB(a, color)))
+            Ra::Engine::DrawPrimitives::OBB(a, color)))
 
 #define RA_DISPLAY_SPHERE( c, r, color )                            \
     Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \

@@ -371,7 +371,7 @@ namespace Ra {
                 return mesh;
             }
 
-            MeshPtr AABB(const Core::Aabb& aabb, const Core::Color& color, Scalar scale)
+            MeshPtr AABB(const Core::Aabb& aabb, const Core::Color& color)
             {
                 Core::Vector3Array vertices(8);
 
@@ -396,7 +396,7 @@ namespace Ra {
                 return mesh;
             }
 
-            MeshPtr OBB(const Core::Obb& obb, const Core::Color& color, Scalar scale)
+            MeshPtr OBB(const Core::Obb& obb, const Core::Color& color)
             {
                 Core::Vector3Array vertices(8);
 
@@ -407,8 +407,8 @@ namespace Ra {
 
                 std::vector<uint> indices =
                 {
-                    0, 1, 1, 2, 2, 3, 3, 0, // Floor
-                    4, 5, 5, 6, 6, 7, 7, 4, // Ceil
+                    0, 1, 1, 3, 3, 2, 2, 0, // Floor
+                    4, 5, 5, 7, 7, 6, 6, 4, // Ceil
                     0, 4, 1, 5, 2, 6, 3, 7, // Links
                 };
 

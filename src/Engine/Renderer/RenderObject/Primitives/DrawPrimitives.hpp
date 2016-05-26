@@ -100,13 +100,11 @@ namespace Ra
 
             /// Display a wireframe AABB
             RA_ENGINE_API MeshPtr AABB(const Core::Aabb& aabb,
-                                       const Core::Color& color,
-                                       Scalar scale = 0.1f);
+                                       const Core::Color& color);
 
-            /// Display a wireframe OOB, given an AABB and a transform
-            RA_ENGINE_API MeshPtr OOB(const Core::Obb& obb,
-                                      const Core::Color& color,
-                                      Scalar scale = 0.1f);
+            /// Display a wireframe OBB, given an AABB and a transform
+            RA_ENGINE_API MeshPtr OBB(const Core::Obb& obb,
+                                      const Core::Color& color);
 
             RA_ENGINE_API MeshPtr Spline(const Core::Spline<3, 3>& spline, uint pointCount, const Core::Color& color, Scalar scale = 1.0f);
         }
