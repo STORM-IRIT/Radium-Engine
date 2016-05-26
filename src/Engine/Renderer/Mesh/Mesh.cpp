@@ -15,7 +15,9 @@ namespace Ra {
             , m_numElements (0)
             , m_isDirty( false )
         {
-            CORE_ASSERT( m_renderMode == GL_LINES || m_renderMode == GL_TRIANGLES,
+            CORE_ASSERT( m_renderMode == GL_LINES
+                      || m_renderMode == GL_LINES_ADJACENCY
+                      || m_renderMode == GL_TRIANGLES,
                          "Unsupported render mode" );
         }
 

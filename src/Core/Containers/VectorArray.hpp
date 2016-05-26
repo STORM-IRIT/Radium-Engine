@@ -31,13 +31,15 @@ namespace Ra
             /// Returns the array as an Eigen Matrix Map
             MatrixMap getMap()
             {
-                return MatrixMap( this->data()->data(), V::RowsAtCompileTime, this->size() );
+                CORE_ASSERT(!this->empty(), "Cannot map an empty vector ");
+                return MatrixMap(this->data()->data(), V::RowsAtCompileTime, this->size());
             }
 
             /// Returns the array as an Eigen Matrix Map (const version)
             ConstMatrixMap getMap() const
             {
-                return ConstMatrixMap( this->data()->data(), V::RowsAtCompileTime, this->size() );
+                CORE_ASSERT(! this->empty(), "Cannot map an empty vector ");
+                return ConstMatrixMap(this->data()->data(), V::RowsAtCompileTime, this->size());
             }
 
         };
@@ -60,13 +62,15 @@ namespace Ra
             /// Returns the array as an Eigen Matrix Map
             MatrixMap getMap()
             {
-                return MatrixMap( this->data(), 1, this->size() );
+                CORE_ASSERT(!empty(), "Cannot map an empty vector ");
+                return MatrixMap(this->data(), 1, this->size());
             }
 
             /// Returns the array as an Eigen Matrix Map (const version)
             ConstMatrixMap getMap() const
             {
-                return ConstMatrixMap( this->data(), 1, this->size() );
+                CORE_ASSERT(!empty(), "Cannot map an empty vector ");
+                return ConstMatrixMap(this->data(), 1, this->size());
             }
 
         };

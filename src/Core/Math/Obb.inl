@@ -1,6 +1,6 @@
 #include "Obb.hpp"
 
-namespace Ra 
+namespace Ra
 {
     namespace Core
     {
@@ -30,7 +30,6 @@ namespace Ra
 
         inline void Obb::addPoint( const Vector3& p )
         {
-            // TODO: take the transform into account, but then apply the changes in capsule_implicit.cpp
             m_aabb.extend( p );
         }
     }

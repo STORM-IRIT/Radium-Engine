@@ -1,5 +1,5 @@
 #include "MeshUtils.hpp"
-
+#include <Core/Geometry/PointCloud/PointCloud.hpp>
 namespace Ra
 {
     namespace Core
@@ -39,18 +39,8 @@ namespace Ra
 
             inline Aabb getAabb( const TriangleMesh& mesh )
             {
-                if ( mesh.m_vertices.size() > 0 )
-                {
-                    const Vector3 min = mesh.m_vertices.getMap().rowwise().minCoeff();
-                    const Vector3 max = mesh.m_vertices.getMap().rowwise().maxCoeff();
-                    return Aabb( min, max );
-                }
-                else
-                {
-                    return Aabb();
-                }
+                return PointCloud::aabb(mesh.m_vertices);
             }
-
         }
     }
 }
