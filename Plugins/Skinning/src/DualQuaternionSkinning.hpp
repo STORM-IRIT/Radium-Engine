@@ -38,7 +38,7 @@ inline void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ 
 
         // Normalize all dual quats.
     #pragma omp parallel for
-        for(uint i = 0; i < DQ.size() ; ++i) {
+        for(int i = 0; i < int(DQ.size()) ; ++i) {
             DQ[i].normalize();
         }
 }
@@ -47,7 +47,7 @@ inline void DualQuaternionSkinning( const VertexList& input, const DQList& DQ, V
     const uint size = input.size();
     output.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         output[i] = DQ[i].transform( input[i] );
     }
 }

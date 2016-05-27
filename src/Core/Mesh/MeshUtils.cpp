@@ -142,7 +142,7 @@ namespace Ra
                 uint   edgeSize   = 0;
                 Scalar edgeLength = 0.0;
                 #pragma omp parallel for
-                for( uint t = 0; t < size; ++t ) {
+                for( int t = 0; t < int(size); ++t ) {
                     for( uint v = 0; v < 3; ++v ) {
                         const uint i = mesh.m_triangles[t][v];
                         const uint j = mesh.m_triangles[t][( v + 1 ) % 3];

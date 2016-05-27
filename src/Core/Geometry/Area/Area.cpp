@@ -35,7 +35,7 @@ void oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >
     A.resize( p.size(), p.size() );
     A.reserve( p.size() );
 #pragma omp parallel for
-    for( uint n = 0; n < T.size(); ++n ) {
+    for( int n = 0; n < int(T.size()); ++n ) {
         const Triangle& t = T[n];
         const uint i = t( 0 );
         const uint j = t( 1 );
@@ -62,7 +62,7 @@ void barycentricArea( const VectorArray< Vector3 >& p, const VectorArray< Triang
     oneRingArea( p, T, A );
     const uint size = p.size();
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         A.coeffRef( i, i ) /= 3.0;
     }
 }

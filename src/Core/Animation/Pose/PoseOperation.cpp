@@ -17,7 +17,7 @@ Pose relativePose( const Pose& modelPose, const RestPose& restPose )  {
     CORE_ASSERT( compatible( modelPose, restPose ), " Poses with different size " );
     Pose T( restPose.size() );
     #pragma omp parallel for
-    for( uint i = 0; i < T.size(); ++i ) {
+    for( int i = 0; i < int(T.size()); ++i ) {
         T[i] = modelPose[i] * restPose[i].inverse( Eigen::Affine );
     }
     return T;
@@ -28,7 +28,7 @@ Pose relativePose( const Pose& modelPose, const RestPose& restPose )  {
 Pose applyTransformation(const Pose& pose, const AlignedStdVector<Transform> &transform ) {
     Pose T( std::min( pose.size(), transform.size() ) );
     #pragma omp parallel for
-    for( uint i = 0; i < T.size(); ++i ) {
+    for( int i = 0; i < int(T.size()); ++i ) {
         T[i] = transform[i] * pose[i];
     }
     return T;
@@ -39,7 +39,7 @@ Pose applyTransformation(const Pose& pose, const AlignedStdVector<Transform> &tr
 Pose applyTransformation( const Pose& pose, const Transform& transform ) {
     Pose T( pose.size() );
     #pragma omp parallel for
-    for( uint i = 0; i < T.size(); ++i ) {
+    for( int i = 0; i < int(T.size()); ++i ) {
         T[i] = transform * pose[i];
     }
     return T;
@@ -66,7 +66,7 @@ Pose interpolatePoses(const Pose& a, const Pose& b, const Scalar t ) {
     Pose interpolatedPose( size );
 
 #pragma omp parallel for
-    for ( uint i = 0; i < size; ++i ) {
+    for ( int i = 0; i < int(size); ++i ) {
         // interpolate between the transforms
         Ra::Core::Transform aTransform = a[i];
         Ra::Core::Transform bTransform = b[i];

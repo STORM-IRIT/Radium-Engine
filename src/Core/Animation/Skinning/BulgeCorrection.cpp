@@ -28,7 +28,7 @@ void bulgeCorrection( const Vector3Array&        restMesh,
     CORE_ASSERT( ( restMesh.size() == currMesh.size() ), " Meshes don't match " );
     const uint n = restMesh.size();
 #pragma omp parallel for
-    for( uint i = 0; i < n; ++i )
+    for( int i = 0; i < int(n); ++i )
     {
         if( restData.m_dv[i] < currData.m_dv[i] )
         {
@@ -49,7 +49,7 @@ void findCorrectionData( const Vector3Array&         mesh,
     const uint n = mesh.size();
     data.resize( n );
 #pragma omp parallel for
-    for( uint i = 0; i < n; ++i ) {
+    for( int i = 0; i < int(n); ++i ) {
         Vector3 start;
         Vector3 end;
         const auto& child = graph.m_child[wID[i]];

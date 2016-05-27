@@ -8,6 +8,12 @@
 # GLEW_LIBRARY
 #
 
+if (CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set( WIN_FOLDER_NAME "x64")
+else()
+    set( WIN_FOLDER_NAME "Win32")
+endif()
+
 FIND_PATH( GLEW_INCLUDE_DIR GL/glew.h
 		${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Glew/include
 		/usr/include
@@ -19,7 +25,7 @@ FIND_PATH( GLEW_INCLUDE_DIR GL/glew.h
 FIND_LIBRARY( GLEW_LIBRARY
 		NAMES GLEW glew glew32.lib
 		PATHS
-		${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Glew/lib/Release/Win32
+        ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Glew/lib/Release/${WIN_FOLDER_NAME}
 		/usr/lib64
 		/usr/lib
 		/usr/local/lib64

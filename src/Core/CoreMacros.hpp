@@ -319,6 +319,7 @@ namespace compile_time_utils
     #pragma warning(disable: 4577) // noexcept used with no exception handling mode
     #pragma warning(disable: 4838) // conversion from enum to uint.
     #pragma warning(disable: 4996) // sprintf unsafe
+    #pragma warning(disable: 4503) // Truncated decorated name
     #define NOMINMAX
     #include <windows.h>
 #endif

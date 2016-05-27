@@ -2,72 +2,21 @@ project(RadiumEngine)
 
 cmake_minimum_required(VERSION 2.8.11)
 
-#if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang"))
-if (APPLE)
-    # No openmp on MacosX Clang (TODO, find better compiler identification)
-    set(CMAKE_CXX_FLAGS                "-Wall -Wextra  -std=c++1y -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions ${CMAKE_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
-    set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -O3 -ffast-math -mfpmath=sse")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 ${CMAKE_CXX_FLAGS_RELEASE}")
+# CMake setups
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
-    add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
-elseif (UNIX)
-    if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang"))
-        set(OMP_FLAG "-fopenmp=libiomp5")
-        set(MATH_FLAG "-mfpmath=sse")
-    else()
-        set(OMP_FLAG "-fopenmp -ftree-vectorize")
-        set(MATH_FLAG "-mfpmath=sse -ffast-math")
-    endif()
+# Build options options.
+set( USE_DOUBLE False CACHE BOOL "Use double precision" )
 
-    set(CMAKE_CXX_FLAGS                "-Wall -Wextra  -pthread -std=c++1y -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions ${OMP_FLAG} ${CMAKE_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
-    set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -O2 ${MATH_FLAG}")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 ${CMAKE_CXX_FLAGS_RELEASE}")
-
-  add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
-elseif (MSVC)
-    # Visual studio flags breakdown
-    # /GR- : no rtti ; /Ehs-c- : no exceptions
-    # /Od  : disable optimization
-    # /Ox :  maximum optimization
-    # /GL : enable link time optimization
-    # /Zi  : generate debug info
-    #remove exceptions from default args
-    add_definitions(-D_HAS_EXCEPTIONS=0)
-    string (REGEX REPLACE "/EHsc *" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    string (REGEX REPLACE "/GR" ""     CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-
-    set(CMAKE_CXX_FLAGS	               "/arch:AVX2 /GR- /EHs-c- /MP ${CMAKE_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS_DEBUG		   "/D_DEBUG /DCORE_DEBUG /Od /Zi ${CMAKE_CXX_FLAGS_DEBUG} /MDd")
-    set(CMAKE_CXX_FLAGS_RELEASE		   "/DNDEBUG /Ox /fp:fast /GL /MT")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi ${CMAKE_CXX_FLAGS_RELEASE}")
-endif()
+# Set the compiler flags.
+include(CompileFlags)
 
 # Problem with Qt linking
 # FIXME(Charly): Not sure if this should be done on Linux
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_COMPILING_QSTRING_COMPAT_CPP")
 
-set( USE_DOUBLE False CACHE BOOL "Use double precision" )
-if ("${USE_DOUBLE}" STREQUAL "True")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_USE_DOUBLE")
-  message("Compile using double precision.")
-else()
-  message("Compile using single precision.")
-endif()
 
-# CMake setups
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules)
-
-# Debug by default !
-if ( NOT CMAKE_BUILD_TYPE )
-  set( CMAKE_BUILD_TYPE Debug )
-endif()
-
-set( VALID_CMAKE_BUILD_TYPES "Debug Release RelWithDebInfo" )
-if ( NOT "${VALID_CMAKE_BUILD_TYPES}" MATCHES ${CMAKE_BUILD_TYPE} )
-    set( CMAKE_BUILD_TYPE Debug )
-endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_SOURCE_DIR}/bin)
@@ -105,12 +54,9 @@ if (MSVC OR MSVC_IDE)
     endif()
 endif(MSVC OR MSVC_IDE)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
-
 # EXTERNALS
 # TODO Move this in another cmake config file
 set(EXTERNAL_DIR ${CMAKE_SOURCE_DIR}/3rdPartyLibraries)
-
 add_subdirectory(3rdPartyLibraries)
 
 # Eigen
@@ -159,8 +105,6 @@ if (${LOAD_TEXTURES})
     message(STATUS "Textures will be loaded")
     add_definitions(-DLOAD_TEXTURES)
 endif()
-
-add_definitions(-Wall)
 
 add_subdirectory(src)
 

@@ -37,7 +37,7 @@ namespace RaTests {
             }
         }
 
-        printf("Result : %lu / %lu tests passed\n", m_tests.size() - numFailed, m_tests.size());
+        printf("Result : %lu / %lu tests passed\n", ulong(m_tests.size() - numFailed), ulong(m_tests.size()));
         return numFailed;
     }
 

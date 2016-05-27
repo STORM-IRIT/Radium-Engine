@@ -46,7 +46,7 @@ AdjacencyMatrix uniformAdjacency( const VectorArray< Vector3 >& p, const VectorA
 void uniformAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, AdjacencyMatrix& Adj ) {
     Adj.resize( p.size(), p.size() );
 #pragma omp parallel for
-    for( uint n = 0; n < T.size(); ++n ) {
+    for( int n = 0; n < int(T.size()); ++n ) {
         const Triangle& t = T[n];
         const uint i = t( 0 );
         const uint j = t( 1 );

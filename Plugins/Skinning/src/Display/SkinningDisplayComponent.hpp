@@ -62,7 +62,7 @@ public:
 
             std::vector< uint > partition( size );
             #pragma omp parallel for
-            for( uint i = 0; i < size; ++i ) {
+            for( int i = 0; i < int(size); ++i ) {
                 uint ID;
                 Ra::Core::VectorN row = weights.row( i );
                 row.maxCoeff( &ID );
@@ -106,7 +106,7 @@ public:
 
             Ra::Core::Vector4Array color( size, Ra::Core::Vector4::Zero() );
             #pragma omp parallel for
-            for( uint i = 0; i < size; ++i ) {
+            for( int i = 0; i < int(size); ++i ) {
                 color[i] = palette[ assignedColor[ partition[i] ] ];
             }
 

@@ -24,7 +24,7 @@ void delta( const BitSet& bit,
             const Scalar& default_value ) {
     Delta d( bit.size(), 1 );
 #pragma omp parallel for
-    for( uint i = 0; i < bit.size(); ++i ) {
+    for( int i = 0; i < int(bit.size()); ++i ) {
         if( bit[i]) {
 #pragma omp critical
 {

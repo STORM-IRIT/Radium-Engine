@@ -134,7 +134,7 @@ inline void HandleData::setComponents( const Core::AlignedStdVector< HandleCompo
     const uint size = components.size();
     m_component.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         m_component[i] = components[i];
     }
 }
@@ -144,7 +144,7 @@ inline void HandleData::setEdges( const Core::AlignedStdVector< Core::Vector2i >
     const uint size = edgeList.size();
     m_edge.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         m_edge[i] = edgeList[i];
     }
 }
@@ -154,7 +154,7 @@ inline void HandleData::setFaces( const Core::AlignedStdVector< Core::VectorNi >
     const uint size = faceList.size();
     m_face.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         m_face[i] = faceList[i];
     }
 }

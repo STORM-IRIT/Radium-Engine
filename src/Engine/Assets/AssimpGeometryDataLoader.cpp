@@ -224,7 +224,7 @@ void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, GeometryData& dat
     const uint size = mesh.mNumFaces;
     std::vector< Core::Vector2ui > edge( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         edge[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
         edge[i][0] = data.m_duplicateTable.at( edge[i][0] );
         edge[i][1] = data.m_duplicateTable.at( edge[i][1] );
@@ -236,7 +236,7 @@ void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, GeometryData& dat
     const uint size = mesh.mNumFaces;
     std::vector< Core::VectorNui > face( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         face[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
         const uint face_vertices = mesh.mFaces[i].mNumIndices;
         for( uint j = 0; j < face_vertices; ++j ) {
@@ -254,11 +254,11 @@ void AssimpGeometryDataLoader::fetchNormals( const aiMesh& mesh, GeometryData& d
     const uint size = mesh.mNumVertices;
     std::vector< Core::Vector3 > normal( data.getVerticesSize(), Core::Vector3::Zero() );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         normal.at( data.m_duplicateTable.at( i ) ) += assimpToCore( mesh.mNormals[i] );
     }
 #pragma omp parallel for
-    for( uint i = 0; i < normal.size(); ++i ) {
+    for( int i = 0; i < int(normal.size()); ++i ) {
         normal[i].normalize();
     }
     data.setNormals( normal );

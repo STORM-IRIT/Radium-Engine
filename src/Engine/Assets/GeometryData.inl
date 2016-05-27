@@ -277,7 +277,7 @@ inline void GeometryData::setVertices( const std::vector< Core::Vector3 >& verte
     const uint size = vertexList.size();
     m_vertex.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         m_vertex[i] = vertexList[i];
     }
 }
@@ -287,7 +287,7 @@ inline void GeometryData::setEdges( const std::vector< Core::Vector2ui >& edgeLi
     const uint size = edgeList.size();
     m_edge.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         m_edge[i] = edgeList[i];
     }
 }
@@ -297,7 +297,7 @@ inline void GeometryData::setFaces( const std::vector< Core::VectorNui >& faceLi
     const uint size = faceList.size();
     m_faces.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         m_faces[i] = faceList[i];
     }
 }
@@ -307,7 +307,7 @@ inline void GeometryData::setPolyhedron( const std::vector< Core::VectorNui >& p
     const uint size = polyList.size();
     m_polyhedron.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         m_polyhedron[i] = polyList[i];
     }
 }
@@ -317,7 +317,7 @@ inline void GeometryData::setNormals( const std::vector< Core::Vector3 >& normal
     const uint size = normalList.size();
     m_normal.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         m_normal[i] = normalList[i];
     }
 }
@@ -327,7 +327,7 @@ inline void GeometryData::setTangents( const std::vector< Core::Vector3 >& tange
     const uint size = tangentList.size();
     m_tangent.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         m_tangent[i] = tangentList[i];
     }
 }
@@ -337,7 +337,7 @@ inline void GeometryData::setBitangents( const std::vector< Core::Vector3 >& bit
     const uint size = bitangentList.size();
     m_bitangent.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         m_bitangent[i] = bitangentList[i];
     }
 }
@@ -347,7 +347,7 @@ inline void GeometryData::setTextureCoordinates( const std::vector< Core::Vector
     const uint size = texCoordList.size();
     m_texCoord.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         m_texCoord[i] = texCoordList[i];
     }
 }
@@ -357,7 +357,7 @@ inline void GeometryData::setColors( const std::vector< Core::Color >& colorList
     const uint size = colorList.size();
     m_color.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         m_color[i] = colorList[i];
     }
 }

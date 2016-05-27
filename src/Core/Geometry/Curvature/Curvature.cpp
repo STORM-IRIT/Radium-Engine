@@ -29,7 +29,7 @@ void gaussianCurvature( const VectorArray< Vector3 >& p, const VectorArray< Tria
     K.clear();
     K.resize( size, 0.0 );
 #pragma omp parallel for
-    for( uint n = 0; n < T.size(); ++n ) {
+    for( int n = 0; n < int(T.size()); ++n ) {
         const Triangle& t = T[n];
         const uint i = t[0];
         const uint j = t[1];
@@ -48,7 +48,7 @@ void gaussianCurvature( const VectorArray< Vector3 >& p, const VectorArray< Tria
     }
 
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         K[i] = A.coeff( i, i ) * ( Math::PiMul2 - K[i] );
     }
 }
@@ -65,7 +65,7 @@ void gaussianCurvature( const VectorArray< MaximumCurvature >& k1, const VectorA
     const uint size = k1.size();
     K.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         K[i] = k1[i] * k2[i];
     }
 }
@@ -113,7 +113,7 @@ void meanCurvature( const VectorArray< MaximumCurvature >& k1, const VectorArray
     const uint size = k1.size();
     H.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         H[i] = 0.5 * ( k1[i] + k2[i] );
     }
 }
@@ -137,7 +137,7 @@ void maxCurvature( const VectorArray< MeanCurvature >& H, const VectorArray< Gau
     const uint size = H.size();
     k1.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         CORE_ASSERT( ( ( H[i] * H[i] ) >= K[i] ), "Bad curvatures" );
         k1[i] = H[i] + std::sqrt( ( H[i] * H[i] ) - K[i] );
     }
@@ -159,7 +159,7 @@ void minCurvature( const VectorArray< MeanCurvature >& H, const VectorArray< Gau
     const uint size = H.size();
     k2.resize( size );
 #pragma omp parallel for
-    for( uint i = 0; i < size; ++i ) {
+    for( int i = 0; i < int(size); ++i ) {
         CORE_ASSERT( ( ( H[i] * H[i] ) >= K[i] ), "Bad curvatures" );
         k2[i] = H[i] - std::sqrt( ( H[i] * H[i] ) - K[i] );
     }
