@@ -36,6 +36,24 @@ namespace Ra
             int size;
         };
 
+        class QuadraSpline : public Curve
+        {
+        public:
+            QuadraSpline() {this->size = 0;}
+            QuadraSpline(const Curve::Vector &p0, const Curve::Vector &p1, const Curve::Vector &p2)
+                : m_points{p0, p1, p2} {this->size = 3;}
+
+            inline  void addPoint(const Vector p) override;
+
+            inline Vector f(Scalar u) const override;
+            inline Vector df( Scalar u ) const override;
+            inline Vector fdf(Scalar u, Vector& grad) const override;
+
+        private:
+            Core::VectorArray<Vector> m_points;
+
+        };
+
         class CubicBezier : public Curve
         {
         public:

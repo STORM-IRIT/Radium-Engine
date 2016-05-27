@@ -4,6 +4,11 @@ namespace Ra
 {
     namespace Core
     {
+
+
+        /*--------------------------------------------------*/
+
+
         void CubicBezier::addPoint(const Curve::Vector p)
         {
             if(size < 4)
@@ -96,6 +101,42 @@ namespace Ra
             grad = spline.df(u);
             return spline.f(u);
         }
+
+        /*--------------------------------------------------*/
+
+
+        void QuadraSpline::addPoint(const Curve::Vector p)
+        {
+            m_points.push_back(p);
+            ++size;
+        }
+
+        Curve::Vector QuadraSpline::f(Scalar u) const
+        {
+            Ra::Core::Spline<2, 2> spline;
+            spline.setCtrlPoints(m_points);
+
+            return spline.f(u);
+        }
+
+        Curve::Vector QuadraSpline::df(Scalar u) const
+        {
+            Ra::Core::Spline<2, 2> spline;
+            spline.setCtrlPoints(m_points);
+
+            return spline.df(u);
+        }
+
+        Curve::Vector QuadraSpline::fdf(Scalar u, Vector& grad) const
+        {
+            Ra::Core::Spline<2, 2> spline;
+            spline.setCtrlPoints(m_points);
+
+            grad = spline.df(u);
+            return spline.f(u);
+        }
+
+
 
     }
 }
