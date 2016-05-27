@@ -63,7 +63,7 @@ namespace Ra
         /// Among its responsibilities are :
         /// * Owning the renderer and camera, and managing their lifetime.
         /// * setting up the renderer and camera by keeping it informed of interfaces changes
-        //  (e.g. resize).
+        ///  (e.g. resize).
         /// * catching user interaction (mouse clicks) at the lowest level and forward it to
         /// the camera and the rest of the application
         /// * Expose the asynchronous rendering interface

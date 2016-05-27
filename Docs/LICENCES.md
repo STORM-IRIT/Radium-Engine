@@ -1,11 +1,15 @@
-# Radium contributors.
+# Radium contributors
 
 Radium Engine © the Radium Contributors :
 
-* Baptiste Angles
-* Maurizio Kovačič
-* Charly Mourglia
-* Valentin Roussellet
+* Baptiste Angles (file loading, animation plugin)
+* Agathe Duyck (curves)
+* Maurizio Kovačič (geometry processing, file loading)
+* Charly Mourglia (core engine, rendering, file loading, GUI)
+* Mathias Paulin (MacOS port)
+* Hugo Renes (imgui and shader editor)
+* Valentin Roussellet (core engine, animation and skinning plugins, Windows port)
+* Thomas Subileau (spatial data structures)
 
 # Third-party libraries
 
@@ -48,14 +52,11 @@ The source code can be obtained in this repository or at [https://github.com/ass
 A copy of the Assimp licence is included in this repository or can
 be obtained at [https://github.com/assimp/assimp/blob/master/LICENSE]
 
-### FreeImage
+### STB Image
 
-Freeimage is distributed under the FreeImage Public License.
+STB image is a header-only library, released in the public domain.
 
-The source code can be obtained in this repository or at [http://freeimage.sourceforge.net/].
-
-A copy of the FIPL is included in the repository or can be obtained at [http://freeimage.sourceforge.net/license.html]
-
+The source code is included in this repository or can be obtained at [https://github.com/nothings/stb]
 
 ### Additionnal material
 X-ray Icon

@@ -63,7 +63,7 @@ namespace Ra
             {
                 // Lightgrey non specular material by default
                 rt->material = new Material(name + "_Mat");
-                rt->material->setKd(Core::Color::Constant(0.9));
+                rt->material->setKd(Core::Color::Constant(0.9f));
                 rt->material->setKs(Core::Color::Zero());
             }
 

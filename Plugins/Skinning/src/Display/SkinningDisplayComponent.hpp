@@ -91,14 +91,14 @@ public:
 
                 for( Ra::Core::Geometry::AdjacencyMatrix::InnerIterator it( Seg, k ); it; ++it ) {
                     const uint j = it.row();
-                    if( assignedColor[j] != uint( -1 ) ) {
+                    if( assignedColor[j] != uint( -1 ) && option.size() > 1 ) {
                         option.erase( assignedColor[j] );
                     }
                 }
 
                 uint random = std::rand() % std::max<uint>(option.size(),1);
                 auto it = option.begin();
-                for( uint i = 0; i < random; ++i ) {
+                for( uint i = 0; i < random && it != option.end(); ++i ) {
                     ++it;
                 }
                 assignedColor[k] = *it;

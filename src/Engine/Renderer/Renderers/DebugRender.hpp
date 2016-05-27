@@ -64,8 +64,6 @@ namespace Ra
             std::vector<DbgMesh> m_meshes;
 
             std::vector<Point> m_points;
-            uint m_pointVao = 0;
-            uint m_pointVbo = 0;
         };
     }
 }

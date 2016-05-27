@@ -128,7 +128,7 @@ namespace Ra
 
             GL_ASSERT( glDrawBuffers( 2, buffers ) );
 
-            const Core::Colorf clearColor = Core::Colors::FromChars<Core::Colorf>(128, 128, 128, 0);
+            const Core::Colorf clearColor = Core::Colors::FromChars<Core::Colorf>(42, 42, 42, 0);
             const Core::Colorf clearZeros = Core::Colors::Black<Core::Colorf>();
             const float clearDepth( 1.0 );
 
@@ -201,7 +201,7 @@ namespace Ra
             else
             {
                 DirectionalLight l;
-                l.setDirection( Core::Vector3( 0.3, -1.0, 0.0 ) );
+                l.setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
 
                 RenderParameters params;
                 l.getRenderParameters( params );

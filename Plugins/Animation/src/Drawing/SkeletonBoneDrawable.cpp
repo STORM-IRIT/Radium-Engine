@@ -20,8 +20,8 @@ namespace AnimationPlugin
         Ra::Engine::ShaderConfiguration shader = Ra::Engine::ShaderConfigurationFactory::getConfiguration("BlinnPhong");
 
         m_material.reset(new Ra::Engine::Material("Bone Material"));
-        m_material->setKd(Ra::Core::Color(0.4, 0.4, 0.4, 0.5));
-        m_material->setKs(Ra::Core::Color(0.0, 0.0, 0.0, 1.0));
+        m_material->setKd(Ra::Core::Color(0.4f, 0.4f, 0.4f, 0.5f));
+        m_material->setKs(Ra::Core::Color(0.0f, 0.0f, 0.0f, 1.0f));
         m_material->setMaterialType(Ra::Engine::Material::MaterialType::MAT_OPAQUE);
 
         m_renderParams.reset(new Ra::Engine::RenderTechnique());

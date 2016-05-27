@@ -99,7 +99,7 @@ namespace Ra
         inline void Vector::getOrthogonalVectors( const Vector3& fx, Vector3& fy, Vector3& fz )
         {
             //for numerical stability, and seen that z will always be present, take the greatest component between x and y.
-            if ( fabsf( fx( 0 ) ) > fabsf( fx( 1 ) ) )
+            if ( std::abs( fx( 0 ) ) > std::abs( fx( 1 ) ) )
             {
                 float inv_len = 1.f / sqrtf( fx( 0 ) * fx( 0 ) + fx( 2 ) * fx( 2 ) );
                 Vector3 tmp( -fx( 2 ) * inv_len, 0.f, fx( 0 ) * inv_len );

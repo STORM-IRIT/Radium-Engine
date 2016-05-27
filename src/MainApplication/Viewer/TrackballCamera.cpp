@@ -22,10 +22,10 @@ namespace Ra
     Gui::TrackballCamera::TrackballCamera( uint width, uint height )
         : CameraInterface( width, height )
         , m_trackballCenter( 0, 0, 0 )
-        , m_quickCameraModifier( 1.0 )
-        , m_wheelSpeedModifier(0.02 )
-        , m_distFromCenter( 1.0 )
-        , m_cameraRadius( 1.0 )
+        , m_quickCameraModifier( 1.f )
+        , m_wheelSpeedModifier(0.02f )
+        , m_distFromCenter( 1.0f )
+        , m_cameraRadius( 1.0f )
         , m_rotateAround( true )
         , m_cameraRotateMode( false )
         , m_cameraPanMode( false )
@@ -33,9 +33,9 @@ namespace Ra
         , m_walkingOn( false )
         , m_strafingOn( false )
         , m_climbingOn( false )
-        , m_walking( 0.0 )
-        , m_strafing( 0.0 )
-        , m_climbing( 0.0 )
+        , m_walking( 0 )
+        , m_strafing( 0 )
+        , m_climbing( 0 )
     {
         resetCamera();
     }
