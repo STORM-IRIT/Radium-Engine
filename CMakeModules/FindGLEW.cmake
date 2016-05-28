@@ -8,10 +8,14 @@
 # GLEW_LIBRARY
 #
 
-if (CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set( WIN_FOLDER_NAME "x64")
-else()
-    set( WIN_FOLDER_NAME "Win32")
+if (MSVC)
+    if (CMAKE_SIZEOF_VOID_P EQUAL 8)
+        set( WIN_FOLDER_NAME "x64")
+    else()
+        set( WIN_FOLDER_NAME "Win32")
+    endif()
+elseif (MINGW)
+    set (WIN_FOLDER_NAME "mingw")
 endif()
 
 FIND_PATH( GLEW_INCLUDE_DIR GL/glew.h
@@ -23,9 +27,9 @@ FIND_PATH( GLEW_INCLUDE_DIR GL/glew.h
 		DOC "The directory where GL/glew.h resides")
 
 FIND_LIBRARY( GLEW_LIBRARY
-		NAMES GLEW glew glew32.lib
+                NAMES GLEW glew glew32 libglew32 libglew32.a glew32.lib
 		PATHS
-        ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Glew/lib/Release/${WIN_FOLDER_NAME}
+                ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/Glew/lib/Release/${WIN_FOLDER_NAME}
 		/usr/lib64
 		/usr/lib
 		/usr/local/lib64
@@ -33,7 +37,6 @@ FIND_LIBRARY( GLEW_LIBRARY
 		/sw/lib
 		/opt/local/lib
 		DOC "The GLEW library")
-
 
 IF (GLEW_INCLUDE_DIR AND GLEW_LIBRARY)
 	SET( GLEW_FOUND TRUE)
