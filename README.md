@@ -13,63 +13,102 @@ for an overview of the project.
 * stb_image (in repository)
 * To build : CMake 2.8.11+
 
-## Getting submodules 
+## Supported compiler and platforms
+* Windows with MSVC 15 or higher 
+* Mac OSX with clang
+* Linux with gcc 4.8 or higher
+
+## Build instructions
+
+### Getting submodules 
+Assimp is a submodule : you can get it by running these two commands
 ```
 $ git submodule init
 $ git submodule update
 ```
 
-## Compile-time configuration
-This is the list of options that can be configured when compiling. By default all these options are turned off
-but you can enable them by uncommenting the corresponding `#define` or add it to the definitions when running cmake. 
-* `CORE_USE_DOUBLE` (in `CoreMacros.hpp`): Switch the default floating point type to `double` instead of `float`.
-* `FORCE_RENDERING_ON_MAIN_THREAD` (in `Viewer.cpp`) : disables asynchronous rendering.
+### Configure build
 
-## Building on Linux
+Radium offers two build options which are off by default :
+* `USE_DOUBLE` sets the floating point format to double-precision instead of single precisition
+* `USE_OMP` instructs the compiler to use OpenMP
+
+###  Building on Linux
+
+Building on linux should be pretty straightforward, provided that cmake can locate the dependencies.
+You will need to have the openGL headers and libraries, Qt 5.4 or more and cmake.
+
 ```
 $ mkdir build
 $ cd build
 $ cmake ..
 $ make
 ```
+
+If cmake doesn't locate the Qt files (e.g. if you manually installed Qt as opposed to using your distribution's package),
+see the troubleshooting section below.
+
 The compiled application can be found in `bin`. Default plugins DLL are compiled in
 `Plugins/bin` by default.
 
-## Qt cmake errors
+### Building on Windows with Visual Studio.
+
+#### Supported versions of MSVC
+Since Radium requires the C++11/C++14 advanced features such as `constexpr`, you will need a recent MSVC
+* *VS 2015 Community* is strongly advised (https://www.visualstudio.com/products/visual-studio-community-vs)
+* *VS 2013* with the november 2013 CTP (corrective patch)  should work, but is untested.
+[https://www.microsoft.com/en-us/download/confirmation.aspx?id=41151]
+ 
+#### Dependencies
+
+*Qt* distributes version 5.6 with precompiled libraries for VS 2015 - 64 bits. 
+If using earlier versions of Qt (5.4 or 5.5)  or a different toolset you may have to compile Qt yourself.
+You will probaby have to manually point cmake to the Qt folder (see Troubleshooting below)
+
+On windows GLEW is required for all the fancy OpenGL functions such as `glBindBuffers` (sad but true...).
+Dowload GLEW [http://glew.sourceforge.net/].
+You can put the GLEW folder in `3rdPartyLibraries` where cmake will look for it. If GLEW is somewhere else,
+you will have to manually set the variables in cmake.
+
+The default cmake configuration for Assimp should be correct.
+
+
+#### Building
+
+As long as cmake run smoothly the engine should compile.
+
+### Run
+
+* Don't forget to copy the third party DLLs in the executable folder :
+ * glew32.dll
+ * Qt libraries (Qt5xxx.dll or Qt5xxxd.dll if you are in debug) : Core, Gui and Widgets
+* Set "radium" as your startup project
+* Change the application working directory to `$(OutDir)..` (go to the "radium" project properties, *Debugging* menu, *Working Directory*) to get the shaders to load properly.
+
+## Troubleshooting 
+
+### Qt cmake errors
 In case you run into an error like
 ```
 By not providing "FindQt5Widgets.cmake" in CMAKE_MODULE_PATH this project
 has asked CMake to find a package configuration file provided by
 "Qt5Widgets", but CMake did not find one.
 ```
-you need to set `CMAKE_PREFIX_PATH`, pointing to your Qt root dir.
-E.g for the default setup configuration from the web installer on linux you would have
+you need to set `CMAKE_PREFIX_PATH`, pointing to the Qt root dir of your commpiler.
+For example on linux with gcc :
 ```
 $ cmake -DCMAKE_PREFIX_PATH=/opt/Qt/5.x/gcc_64
 ```
-## Building on Windows with Visual Studio.
 
-### Supported versions of MSVC
-Since Radium requires the C++11 advanced features such as constexpr, we need a recent MSVC
-* *VS 2015 Community* is strongly advised (https://www.visualstudio.com/products/visual-studio-community-vs)
-* *VS 2013* with the november 2013 CTP (corrective patch)[https://www.microsoft.com/en-us/download/confirmation.aspx?id=41151} 
- 
-### Dependencies
-On windows GLEW is required for all the fancy OpenGL functions such as `glBindBuffers` (sad but true...).
-* Dowload GLEW and create a Glew folder in 3rdPartyLibraries.
-* Get the assimp submodule as stated above.
+On windows, using cmake-gui you can use the "add entry" button, adding `CMAKE_PREFIX_PATH` 
+as a string to point to the Qt directory (for example in the default installation :
+`C:/Qt/5.6/msvc2015_64` )
 
-### Build
+### Plugins build
 
-* Use cmake-gui and set the `CMAKE_PREFIX_PATH` in the cache (see above) to the Qt base folder.
-* The assimp directory will be compiled automatically (if you have correctly submodule init / update) 
-* The GLEW directory should be automatically detected if it is in your 3rd party folder. If not, set it manually in the GUI.
-
-### Run
-
-* Don't forget to copy the third party DLLs (e.g. Qt) in the executable folder (use `depends.exe` to figure out which).
-* Set "radium" as your startup project
-* Change the application working directory to `$(ProjectDir)..` (go to the "radium" project properties, *Debugging* menu, *Working Directory*) to get the shaders to load properly.
+Remember that the plugins depend from the engine libs (Core and Engine) but there is no
+build dependency between the main application and the plugins. Thus you should be careful
+of plugins not being rebuilt when rebuilding just the main application.
 
 ## Documentation
 For documentation about particular stuff in the engine (how to develop a plugin, how renderer works, how to setup a scene file, ...),
