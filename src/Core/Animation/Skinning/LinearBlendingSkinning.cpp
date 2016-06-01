@@ -8,6 +8,7 @@ void linearBlendingSkinning( const Vector3Array&  inMesh,
                              const Pose&          pose,
                              const WeightMatrix&  weight,
                              Vector3Array&        outMesh ) {
+    outMesh.clear();
     outMesh.resize( inMesh.size(), Vector3::Zero() );
     for( int k = 0; k < weight.outerSize(); ++k ) {
         for( WeightMatrix::InnerIterator it( weight, k ); it; ++it ) {
