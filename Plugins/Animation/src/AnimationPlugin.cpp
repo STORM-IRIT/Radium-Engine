@@ -7,6 +7,8 @@
 #include <Engine/RadiumEngine.hpp>
 #include <AnimationSystem.hpp>
 
+#include <UI/AnimationUI.h>
+
 namespace AnimationPlugin
 {
 
@@ -30,35 +32,19 @@ namespace AnimationPlugin
 
     QWidget* AnimationPluginC::getWidget()
     {
-        QWidget* widget = new QWidget();
-        QToolBar* tb = new QToolBar(widget);
-        {
-            QAction* toggleXray = new QAction( QIcon(":/Assets/Images/xray.png"), "Toggle Xray", widget );
-            toggleXray->setCheckable(true);
-            toggleXray->setChecked(m_system->isXrayOn());
-            connect( toggleXray, &QAction::toggled, this, &AnimationPluginC::toggleXray);
-            tb->addAction(toggleXray);
-        }
-        {
-            QAction* play = new QAction( QIcon(":/Assets/Images/play.png"),"Play", widget );
-            connect( play , &QAction::triggered, this, &AnimationPluginC::play);
-            tb->addAction(play);
-        }
-        {
-            QAction* pause = new QAction( QIcon(":/Assets/Images/pause.png"),"pause", widget );
-            connect( pause , &QAction::triggered, this, &AnimationPluginC::pause);
-            tb->addAction(pause);
-        }
-        {
-            QAction* step = new QAction( "Step", widget );
-            connect( step , &QAction::triggered, this, &AnimationPluginC::step);
-            tb->addAction(step);
-        }
-        {
-            QAction* reset = new QAction( "Reset", widget );
-            connect( reset , &QAction::triggered, this, &AnimationPluginC::reset);
-            tb->addAction(reset);
-        }
+        AnimationUI* widget = new AnimationUI();
+
+        connect( widget, &AnimationUI::toggleXray,              this, &AnimationPluginC::toggleXray );
+        connect( widget, &AnimationUI::showSkeleton,            this, &AnimationPluginC::toggleSkeleton );
+        connect( widget, &AnimationUI::animationID,             this, &AnimationPluginC::setAnimation );
+        connect( widget, &AnimationUI::toggleAnimationTimeStep, this, &AnimationPluginC::toggleAnimationTimeStep );
+        connect( widget, &AnimationUI::animationSpeed,          this, &AnimationPluginC::setAnimationSpeed );
+        connect( widget, &AnimationUI::toggleSlowMotion,        this, &AnimationPluginC::toggleSlowMotion );
+        connect( widget, &AnimationUI::play,                    this, &AnimationPluginC::play );
+        connect( widget, &AnimationUI::pause,                   this, &AnimationPluginC::pause );
+        connect( widget, &AnimationUI::step,                    this, &AnimationPluginC::step );
+        connect( widget, &AnimationUI::stop,                    this, &AnimationPluginC::reset );
+
 
         return widget;
     }
@@ -103,5 +89,25 @@ namespace AnimationPlugin
         CORE_ASSERT(m_system, "System should be there ");
         pause();
         m_system->reset();
+    }
+
+    void AnimationPluginC::toggleSkeleton( bool status ) {
+        m_system->toggleSkeleton( status );
+    }
+
+    void AnimationPluginC::setAnimation( uint i ) {
+        m_system->setAnimation( i );
+    }
+
+    void AnimationPluginC::toggleAnimationTimeStep( bool status ) {
+        m_system->toggleAnimationTimeStep( status );
+    }
+
+    void AnimationPluginC::setAnimationSpeed( Scalar value ) {
+        m_system->setAnimationSpeed( value );
+    }
+
+    void AnimationPluginC::toggleSlowMotion( bool status ) {
+        m_system->toggleSlowMotion( status );
     }
 }

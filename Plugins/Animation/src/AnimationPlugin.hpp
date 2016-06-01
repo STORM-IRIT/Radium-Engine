@@ -47,10 +47,15 @@ namespace AnimationPlugin
 
     public slots:
         void toggleXray( bool on );
+        void toggleSkeleton( bool on );
         void step();
         void play();
         void pause();
         void reset();
+        void setAnimation( uint i );
+        void toggleAnimationTimeStep( bool status );
+        void setAnimationSpeed( Scalar value );
+        void toggleSlowMotion( bool status );
 
     private:
         class AnimationSystem* m_system;

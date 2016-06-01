@@ -75,6 +75,47 @@ namespace AnimationPlugin
         m_isPlaying = isPlaying;
     }
 
+
+    void AnimationSystem::toggleSkeleton( const bool status ) {
+        for (const auto& comp : m_components)
+        {
+            static_cast<AnimationComponent*>(comp.second)->toggleSkeleton( status );
+        }
+    }
+
+    void AnimationSystem::setAnimation( const uint i ) {
+        for (const auto& comp : m_components)
+        {
+            static_cast<AnimationComponent*>(comp.second)->setAnimation( i );
+        }
+    }
+
+    void AnimationSystem::toggleAnimationTimeStep( const bool status ) {
+        for (const auto& comp : m_components)
+        {
+            static_cast<AnimationComponent*>(comp.second)->toggleAnimationTimeStep( status );
+        }
+    }
+
+    void AnimationSystem::setAnimationSpeed( const Scalar value ) {
+        for (const auto& comp : m_components)
+        {
+            static_cast<AnimationComponent*>(comp.second)->setSpeed( value );
+        }
+    }
+
+    void AnimationSystem::toggleSlowMotion( const bool status ) {
+        for (const auto& comp : m_components)
+        {
+            static_cast<AnimationComponent*>(comp.second)->toggleSlowMotion( status );
+        }
+    }
+
+
+
+
+
+
     void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData ) {
         auto geomData = fileData->getGeometryData();
         auto skelData = fileData->getHandleData();

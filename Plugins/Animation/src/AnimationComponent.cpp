@@ -115,8 +115,12 @@ namespace AnimationPlugin
 
     void AnimationComponent::update(Scalar dt)
     {
+        if( dt != 0.0 ) {
+            const Scalar factor = ( m_slowMo ? 0.1 : 1.0 ) * m_speed;
+            dt = factor * ( ( m_animationTimeStep ) ? m_dt[m_animationID] : dt );
+        }
         // Ignore large dt that appear when the engine is paused (while loading a file for instance)
-        if (dt > 0.5)
+        if( !m_animationTimeStep && ( dt > 0.5 ) )
         {
             dt = 0;
         }
@@ -128,7 +132,7 @@ namespace AnimationPlugin
         if ( dt > 0 && m_animations.size() > 0)
         {
             m_wasReset = false;
-            Ra::Core::Animation::Pose currentPose = m_animations[0].getPose(m_animationTime);
+            Ra::Core::Animation::Pose currentPose = m_animations[m_animationID].getPose(m_animationTime);
 
             // update the pose of the skeleton
             m_skel.setPose(currentPose, Ra::Core::Animation::Handle::SpaceType::LOCAL);
@@ -226,36 +230,40 @@ namespace AnimationPlugin
 
 
     void AnimationComponent::handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data ) {
+        m_animations.clear();
         CORE_ASSERT( ( m_skel.size() != 0 ), "At least a skeleton should be loaded first.");
         if( data.empty() ) return;
         std::map< uint, uint > table;
         std::set< Ra::Asset::Time > keyTime;
-        auto handleAnim = data[0]->getFrames();
-        for( uint i = 0; i < m_skel.size(); ++i ) {
-            for( uint j = 0; j < handleAnim.size(); ++j ) {
-                if( m_skel.getLabel( i ) == handleAnim[j].m_name ) {
-                    table[j] = i;
-                    auto set = handleAnim[j].m_anim.timeSchedule();
-                    keyTime.insert( set.begin(), set.end() );
+
+        for( uint n = 0; n < data.size(); ++n ) {
+            auto handleAnim = data[n]->getFrames();
+            for( uint i = 0; i < m_skel.size(); ++i ) {
+                for( uint j = 0; j < handleAnim.size(); ++j ) {
+                    if( m_skel.getLabel( i ) == handleAnim[j].m_name ) {
+                        table[j] = i;
+                        auto set = handleAnim[j].m_anim.timeSchedule();
+                        keyTime.insert( set.begin(), set.end() );
+                    }
                 }
             }
-        }
 
-        Ra::Asset::KeyPose keypose;
-        Ra::Core::Animation::Pose pose = m_skel.m_pose;
+            Ra::Asset::KeyPose keypose;
+            Ra::Core::Animation::Pose pose = m_skel.m_pose;
 
-        m_animations.clear();
-        m_animations.push_back( Ra::Core::Animation::Animation() );
-        for( const auto& t : keyTime ) {
-            for( const auto& it : table ) {
-                pose[it.second] = ( m_skel.m_graph.isRoot( it.second ) ) ? m_skel.m_pose[it.second] : handleAnim[it.first].m_anim.at( t );
+            m_animations.push_back( Ra::Core::Animation::Animation() );
+            for( const auto& t : keyTime ) {
+                for( const auto& it : table ) {
+                    pose[it.second] = ( m_skel.m_graph.isRoot( it.second ) ) ? m_skel.m_pose[it.second] : handleAnim[it.first].m_anim.at( t );
+                }
+                m_animations.back().addKeyPose( pose, t );
+                keypose.insertKeyFrame( t, pose );
             }
-            m_animations[0].addKeyPose( pose, t );
-            keypose.insertKeyFrame( t, pose );
+
+            m_dt.push_back( data[n]->getTimeStep() );
         }
-
-        m_animationTime = 0;
-
+        m_animationID = 0;
+        m_animationTime = 0.0;
     }
 
 
@@ -369,4 +377,33 @@ namespace AnimationPlugin
             b->toggleXray(on);
         }
     }
+
+    void AnimationComponent::toggleSkeleton( const bool status ) {
+        for (const auto& b : m_boneDrawables)
+        {
+            const auto id = b->getRenderObjectIndex();
+            getRoMgr()->getRenderObject( id )->setVisible( status );
+        }
+    }
+
+    void AnimationComponent::toggleAnimationTimeStep( const bool status ) {
+        m_animationTimeStep = status;
+    }
+
+    void AnimationComponent::setSpeed( const Scalar value ) {
+        m_speed = value;
+    }
+
+    void AnimationComponent::toggleSlowMotion( const bool status ) {
+        m_slowMo = status;
+    }
+
+    void AnimationComponent::setAnimation( const uint i ) {
+        if( i < m_animations.size() ) {
+            m_animationID = i;
+        }
+    }
+
+
+
 }

@@ -35,6 +35,12 @@ namespace AnimationPlugin
 
         bool isXrayOn();
 
+        void toggleSkeleton( const bool status );
+        void setAnimation( const uint i );
+        void toggleAnimationTimeStep( const bool status );
+        void setAnimationSpeed( const Scalar value );
+        void toggleSlowMotion( const bool status );
+
     private:
         bool m_isPlaying; /// See if animation is playing or paused
         bool m_oneStep;   /// True if one step has been required to play.

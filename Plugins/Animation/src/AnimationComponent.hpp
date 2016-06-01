@@ -19,7 +19,16 @@ namespace AnimationPlugin
     class AnimationComponent : public Ra::Engine::Component
     {
     public:
-        AnimationComponent(const std::string& name) : Component(name), m_selectedBone(-1),m_wasReset(false) {}
+        AnimationComponent(const std::string& name) :
+            Component(name),
+            m_animationID( 0 ),
+            m_animationTimeStep( true ),
+            m_animationTime( 0.0 ),
+            m_dt(),
+            m_speed( 1.0 ),
+            m_slowMo( false ),
+            m_selectedBone(-1),
+            m_wasReset(false) {}
         virtual ~AnimationComponent() {}
 
         virtual void initialize() override{}
@@ -35,6 +44,13 @@ namespace AnimationPlugin
         void update(Scalar dt);
         void reset();
         ANIM_PLUGIN_API void toggleXray(bool on) const;
+
+        void toggleSkeleton( const bool status );
+        void toggleAnimationTimeStep( const bool status );
+        void setSpeed( const Scalar value );
+        void toggleSlowMotion( const bool status );
+        void setAnimation( const uint i );
+
 
         void handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable );
         void handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data );
@@ -91,7 +107,13 @@ namespace AnimationPlugin
         Ra::Core::Animation::WeightMatrix m_weights; // Skinning weights ( should go in skinning )
 
         std::vector<SkeletonBoneRenderObject*> m_boneDrawables ; // Vector of bone display objects
+        bool   m_showSkeleton;
+        uint   m_animationID;
+        bool   m_animationTimeStep;
         Scalar m_animationTime;
+        std::vector< Scalar > m_dt;
+        Scalar m_speed;
+        bool   m_slowMo;
 
         int m_selectedBone;
         bool m_wasReset;
