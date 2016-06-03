@@ -8,8 +8,8 @@ int main( int argc, char** argv )
 {
     Ra::MainApplication app( argc, argv );
 
-    uint FPS_MAX = app.m_targetFPS;
-    Scalar DELTA_TIME( FPS_MAX == 0 ? 0.0 : 1.0 / Scalar( FPS_MAX ) );
+    const uint& fpsMax = app.m_targetFPS;
+    const Scalar deltaTime( fpsMax == 0 ? 0.f : 1.f / Scalar( fpsMax ) );
 
     Ra::Core::Timer::TimePoint t0, t1;
 
@@ -20,7 +20,7 @@ int main( int argc, char** argv )
         app.radiumFrame();
 
         // Wait for VSync
-        Scalar remaining = DELTA_TIME;
+        Scalar remaining = deltaTime;
         while (remaining > 0.0)
         {
             t1 = Ra::Core::Timer::Clock::now();

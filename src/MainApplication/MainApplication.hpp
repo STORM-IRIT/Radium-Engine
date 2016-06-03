@@ -75,7 +75,7 @@ namespace Ra
     public slots:
 
         void loadFile( QString path );
-        void framesCountForStatsChanged( int count );
+        void framesCountForStatsChanged( uint count );
         void appNeedsToQuit();
 
     private:
@@ -114,8 +114,9 @@ namespace Ra
         /// Time since the last frame start.
         Core::Timer::TimePoint m_lastFrameStart;
 
-        int m_frameCounter;
-        int m_frameCountBeforeUpdate;
+        uint m_frameCounter;
+        uint m_frameCountBeforeUpdate;
+        uint m_numFrames;
         std::vector<FrameTimerData> m_timerData;
 
         bool m_isAboutToQuit;
