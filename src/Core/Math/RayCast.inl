@@ -328,7 +328,7 @@ namespace Ra
                 const Scalar det = ab.dot(pvec);
 
                 const Vector3 tvec = ray.origin() - a;
-                const Scalar inv_det = 1.0 / det;
+                const Scalar inv_det = 1.f / det;
 
                 const Vector3 qvec = tvec.cross(ab);
 
