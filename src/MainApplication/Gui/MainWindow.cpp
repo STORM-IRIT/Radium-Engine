@@ -13,7 +13,6 @@
 
 #include <MainApplication/MainApplication.hpp>
 #include <MainApplication/Gui/EntityTreeModel.hpp>
-#include <MainApplication/Gui/EntityTreeItem.hpp>
 #include <MainApplication/Gui/MaterialEditor.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
 
@@ -36,22 +35,21 @@ namespace Ra
 
         QStringList headers;
         headers << tr( "Entities -> Components" );
-        m_entityTreeModel = new EntityTreeModel( headers );
-        m_entitiesTreeView->setModel( m_entityTreeModel );
-
+        m_itemModel = new ItemModel( mainApp->getEngine(), this);
+        m_entitiesTreeView->setModel( m_itemModel );
         m_materialEditor = new MaterialEditor();
+        m_selectionManager = new SelectionManager(m_itemModel, this);
+        m_entitiesTreeView->setSelectionModel( m_selectionManager);
 
-        m_lastSelectedRO = -1;
         createConnections();
 
-        mainApp->framesCountForStatsChanged( m_avgFramesCount->value() );
+        mainApp->framesCountForStatsChanged((uint) m_avgFramesCount->value());
     }
 
     Gui::MainWindow::~MainWindow()
     {
         // Child QObjects will automatically be deleted
     }
-
 
     void Gui::MainWindow::cleanup()
     {
@@ -75,10 +73,7 @@ namespace Ra
         connect( mainApp, &MainApplication::loadComplete, this, &MainWindow::onEntitiesUpdated);
 
         // Side menu setup.
-        connect( m_entityTreeModel, &EntityTreeModel::dataChanged, m_entityTreeModel, &EntityTreeModel::handleRename );
-
-        connect( m_entitiesTreeView->selectionModel(), &QItemSelectionModel::selectionChanged,
-            this, &MainWindow::onSelectionChanged );
+        //connect( m_entityTreeModel, &EntityTreeModel::dataChanged, m_entityTreeModel, &EntityTreeModel::handleRename );
 
         // Connect picking results (TODO Val : use events to dispatch picking directly)
         connect( m_viewer, &Viewer::rightClickPicking, this, &MainWindow::handlePicking );
@@ -92,6 +87,7 @@ namespace Ra
         connect(mainApp, &MainApplication::updateFrameStats, this, &MainWindow::onUpdateFramestats);
 
         // Inform property editors of new selections
+        connect(m_selectionManager, &SelectionManager::selectionChanged, this, &MainWindow::onSelectionChanged);
         connect(this, &MainWindow::selectedEntity, tab_edition, &TransformEditorWidget::setEditable);
         connect(this, &MainWindow::selectedEntity, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
         connect(this, &MainWindow::selectedComponent, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
@@ -130,7 +126,7 @@ namespace Ra
 
     void Gui::MainWindow::onEntitiesUpdated()
     {
-        m_entityTreeModel->entitiesUpdated();
+        m_itemModel->rebuildModel();
     }
 
     void Gui::MainWindow::loadFile()
@@ -175,8 +171,8 @@ namespace Ra
             }
         }
 
-        const uint N = stats.size();
-        const Scalar T( N * 1000000.0 );
+        const uint N (stats.size());
+        const Scalar T( N * 1000000.f );
 
         m_eventsTime->setValue(sumEvents / N);
         m_eventsUpdates->setValue(T / Scalar(sumEvents));
@@ -304,103 +300,48 @@ namespace Ra
         return m_viewer;
     }
 
-    void Gui::MainWindow::handlePicking( int drawableIndex )
+    void Gui::MainWindow::handlePicking( int pickingResult )
     {
-        if (m_lastSelectedRO >= 0)
+        Ra::Core::Index roIndex(pickingResult);
+        Ra::Engine::RadiumEngine* engine = Ra::Engine::RadiumEngine::getInstance();
+        if (roIndex.isValid())
         {
+            Ra::Engine::Component* comp = engine->getRenderObjectManager()->getRenderObject(roIndex)->getComponent();
+            Ra::Engine::Entity* ent = comp->getEntity();
 
-            if ( mainApp->m_engine->getRenderObjectManager()->exists( m_lastSelectedRO ))
-            {
-                const std::shared_ptr<Engine::RenderObject>& ro =
-                    mainApp->m_engine->getRenderObjectManager()->getRenderObject( m_lastSelectedRO );
-
-                Engine::Component* comp = ro->getComponent();
-                Engine::Entity* ent = comp->getEntity();
-                comp->picked( -1 );
-                ent->picked(-1);
-            }
-        }
-
-        if ( drawableIndex >= 0 )
-        {
-            const std::shared_ptr<Engine::RenderObject>& ro =
-                mainApp->m_engine->getRenderObjectManager()->getRenderObject( drawableIndex );
-
-            // Ignore UI render objects.
-            if(ro->getType() == Engine::RenderObjectType::UI)
-            {
-                return;
-            }
-
-            LOG( logDEBUG ) << "Picked RO: " << ro->idx.getValue();
-            LOG( logDEBUG ) << "RO Name  : " << ro->getName();
-
-            Engine::Component* comp = ro->getComponent();
-            const Engine::Entity* ent = comp->getEntity();
-            int compIdx = -1;
-            int i = 0;
-            for ( const auto& c : ent->getComponents() )
-            {
-                if ( c.get() == comp )
-                {
-                    compIdx = i;
-                    break;
-                }
-                ++i;
-            }
-            CORE_ASSERT( compIdx >= 0, "Component is not in entity" );
-            Core::Index entIdx = ent->idx;
-            QModelIndex entityIdx = m_entityTreeModel->index( entIdx, 0 );
-            QModelIndex treeIdx = entityIdx;
-            if ( comp->picked(drawableIndex)) // select component.
-            {
-                treeIdx = entityIdx.child(compIdx, 0);
-            }
-            m_entitiesTreeView->setExpanded( entityIdx, true );
-            m_entitiesTreeView->selectionModel()->select( treeIdx, QItemSelectionModel::SelectCurrent );
-
-            auto foundItems = m_renderObjectsListView->findItems( QString( ro->getName().c_str() ), Qt::MatchExactly );
-            if  ( foundItems.size() > 0 )
-            {
-                m_renderObjectsListView->setCurrentItem( foundItems.at( 0 ) );
-            }
-            else
-            {
-                LOG( logERROR ) << "Not found";
-            }
+            // For now we don#t enable group selection.
+            m_selectionManager->setCurrentEntry( ItemEntry( ent, comp, roIndex ), QItemSelectionModel::SelectCurrent);
+            // Temporary fix to keep the per-ro picking to work.
+            ent->picked(roIndex.getValue());
+            comp->picked(roIndex.getValue());
         }
         else
         {
-            m_entitiesTreeView->selectionModel()->clear();
+            ItemEntry entry = m_selectionManager->currentItem();
+
+            if (entry.isValid()) { entry.m_entity->picked(-1); }
+            if (entry.isComponentNode()) { entry.m_component->picked(-1);}
+            m_selectionManager->clear();
         }
-        m_lastSelectedRO = drawableIndex;
     }
 
     void Gui::MainWindow::onSelectionChanged( const QItemSelection& selected, const QItemSelection& deselected )
     {
-        if ( selected.size() > 0 )
+        if (m_selectionManager->hasSelection())
         {
-            QModelIndex selIdx = selected.indexes()[0];
-
-            Engine::Entity* entity = m_entityTreeModel->getItem(selIdx)->getData(0).entity;
-            if (entity)
+            ItemEntry ent  = m_selectionManager->currentItem();
+            if ( ent.isValid())
             {
-                // Debug entity and objects are not selectable
-                if (entity != Engine::SystemEntity::getInstance())
+                if (ent.isEntityNode())
                 {
-                    emit selectedEntity(entity);
+                    emit selectedEntity( ent.m_entity );
+                }
+                // Temporary make ro node select the component.
+                else if ( ent.isComponentNode() || ent.isRoNode())
+                {
+                    emit  selectedComponent( ent.m_component );
                 }
             }
-            else
-            {
-                Engine::Component* comp = m_entityTreeModel->getItem(selIdx)->getData(0).component;
-                emit selectedComponent(comp);
-            }
-        }
-        else
-        {
-            emit selectedEntity( nullptr );
-            emit selectedComponent( nullptr );
         }
     }
 

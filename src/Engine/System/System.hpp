@@ -40,6 +40,11 @@ namespace Ra
     namespace Engine
     {
 
+        /// Systems are responsible of updating a specific subset of the components of each entity.
+        /// They can provide factory methods to create components, but their main role is to keep a
+        /// list of "active" components associated to an entity.
+        /// At each frame, each system loaded into the engine will be queried for tasks.
+        /// The goal of the tasks is to update the active components during the frame.
         class RA_ENGINE_API System
         {
         public:
@@ -49,7 +54,7 @@ namespace Ra
             /**
              * @brief Pure virtual method to be overridden by any system.
              * A very basic version of this method could be to iterate on components
-             * and just call Component::udate() method on them.
+             * and just call Component::update() method on them.
              * This update depends on time (e.g. physics system).
              *
              * @param dt Time elapsed since last call.
@@ -60,13 +65,11 @@ namespace Ra
             /// Registers a component belonging to an entity, making it active within the system.
             void registerComponent( const Entity* entity, Component* component );
 
-
             /// Unregisters a component. The system will not update it.
             void unregisterComponent(const Entity* entity, Component* component);
 
             /// Removes all components belonging to a given entity.
             void unregisterAllComponents( const Entity* entity );
-
 
 
             /**
@@ -76,9 +79,8 @@ namespace Ra
              */
             virtual void handleAssetLoading( Entity* entity, const Asset::FileData* data) {}
 
-
-
         protected:
+            /// List of active components.
             std::vector<std::pair< const Entity*, Component*> > m_components;
         };
 

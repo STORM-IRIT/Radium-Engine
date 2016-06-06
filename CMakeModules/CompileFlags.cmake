@@ -21,6 +21,7 @@ elseif (UNIX OR MINGW)
 
     if ("${USE_OMP}" STREQUAL "False")
         set (OMP_FLAG "")
+        add_definitions( -Wno-unknown-pragmas )  # gcc/mingw prints a lot of warnings due to open mp pragmas
     endif()
 
     set(CMAKE_CXX_FLAGS                "-Wall -Wextra  -pthread -std=c++1y -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions ${OMP_FLAG} ${CMAKE_CXX_FLAGS}")
@@ -30,7 +31,6 @@ elseif (UNIX OR MINGW)
 
   add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
   if (MINGW)
-      add_definitions( -Wno-unknown-pragmas )            # mingw prints a lot of warnings due to open mp pragmas
       add_definitions( -static-libgcc -static-libstdc++) # Compile with static libs
   endif()
 elseif (MSVC)

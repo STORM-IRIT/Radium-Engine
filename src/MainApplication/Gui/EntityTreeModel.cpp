@@ -1,341 +1,194 @@
-/****************************************************************************
-**
-** Copyright (C) 2015 The Qt Company Ltd.
-** Contact: http://www.qt.io/licensing/
-**
-** This file is part of the examples of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:BSD$
-** You may use this file under the terms of the BSD license as follows:
-**
-** "Redistribution and use in source and binary forms, with or without
-** modification, are permitted provided that the following conditions are
-** met:
-**   * Redistributions of source code must retain the above copyright
-**     notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**     notice, this list of conditions and the following disclaimer in
-**     the documentation and/or other materials provided with the
-**     distribution.
-**   * Neither the name of The Qt Company Ltd nor the names of its
-**     contributors may be used to endorse or promote products derived
-**     from this software without specific prior written permission.
-**
-**
-** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
 
 #include <MainApplication/Gui/EntityTreeModel.hpp>
-
-#include <Core/String/StringUtils.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Component/Component.hpp>
-#include <MainApplication/Gui/EntityTreeItem.hpp>
+#include <stack>
 
 namespace Ra
 {
-
-    // FIXME(Charly): Remove data from constructor
-    Gui::EntityTreeModel::EntityTreeModel( const QStringList& headers, QObject* parent )
-        : QAbstractItemModel( parent )
+    namespace Gui
     {
-        QVector<EntityTreeItem::ItemData> rootData;
-        foreach( QString header, headers )
+
+        int ItemModel::rowCount( const QModelIndex& parent ) const
         {
-            EntityTreeItem::ItemData data;
-            data.data = QVariant( header );
-            rootData << data;
+            if ( parent.column() > 0 )
+            {
+                return 0;
+            }
+            TreeItem* parentItem = getItem( parent );
+            return int( parentItem->m_children.size() );
         }
 
-        m_rootItem = new EntityTreeItem( rootData );
-    }
-
-    Gui::EntityTreeModel::~EntityTreeModel()
-    {
-        delete m_rootItem;
-    }
-
-    int Gui::EntityTreeModel::columnCount( const QModelIndex& parent ) const
-    {
-        return m_rootItem->getColumnCount();
-    }
-
-    QVariant Gui::EntityTreeModel::data( const QModelIndex& index, int role ) const
-    {
-        if ( !index.isValid() )
+        TreeItem* ItemModel::getItem( const QModelIndex& index ) const
         {
+            if ( index.isValid() )
+            {
+                TreeItem* item = static_cast<TreeItem*> (index.internalPointer());
+                CORE_ASSERT( item, "Null item found" );
+                return item;
+            }
+            return m_rootItem.get();
+        }
+
+        void ItemModel::buildModel()
+        {
+            m_rootItem.reset( new TreeItem );
+            m_rootItem->m_parent = nullptr;
+            for ( const auto& ent : m_engine->getEntityManager()->getEntities() )
+            {
+                TreeItem* entityItem = new TreeItem;
+                entityItem->m_entry = ItemEntry( ent );
+                entityItem->m_parent = m_rootItem.get();
+                for ( const auto& comp : ent->getComponents() )
+                {
+                    TreeItem* componentItem = new TreeItem;
+                    componentItem->m_entry = ItemEntry( ent, comp.get() );
+                    componentItem->m_parent = entityItem;
+                    for ( const auto& roIdx : comp->m_renderObjects )
+                    {
+                        TreeItem* roItem = new TreeItem;
+                        roItem->m_entry = ItemEntry( ent, comp.get(), roIdx );
+                        roItem->m_parent = componentItem;
+                        componentItem->m_children.emplace_back( roItem );
+                    }
+                    entityItem->m_children.emplace_back( componentItem );
+                }
+                m_rootItem->m_children.emplace_back( entityItem );
+            }
+        }
+
+        QVariant ItemModel::data( const QModelIndex& index, int role ) const
+        {
+            if ( index.isValid() && role == Qt::DisplayRole)
+            {
+                if ( index.column() == 0 )
+                {
+                    const ItemEntry& entry = getItem( index )->m_entry;
+                    return QVariant( QString::fromStdString( getEntryName( m_engine, entry ) ) );
+                }
+            }
             return QVariant();
         }
 
-        if ( role != Qt::DisplayRole && role != Qt::EditRole )
+        QVariant ItemModel::headerData( int section, Qt::Orientation orientation, int role ) const
         {
-            return QVariant();
+            if ( section == 0 && orientation == Qt::Horizontal && role == Qt::DisplayRole )
+            {
+                return QVariant( "Engine objects tree" );
+            }
+            else
+            {
+                return QVariant();
+            }
         }
 
-        EntityTreeItem* item = getItem( index );
-
-        return item->getData( index.column() ).data;
-    }
-
-    Qt::ItemFlags Gui::EntityTreeModel::flags( const QModelIndex& index ) const
-    {
-        if ( !index.isValid() )
+        QModelIndex ItemModel::index( int row, int column, const QModelIndex& parent ) const
         {
+            if ( !hasIndex( row, column, parent ) )
+            {
+                return QModelIndex();
+            }
+            // Only items from the first column may have a parent
+            if ( parent.isValid() && parent.column() != 0 )
+            {
+                return QModelIndex();
+            }
+            // Grab the parent and make an index of the child.
+            TreeItem* parentItem = getItem( parent );
+            if ( parentItem && row < parentItem->m_children.size() )
+            {
+                return createIndex( row, column, parentItem->m_children[row].get() );
+            }
+            else
+            {
+                return QModelIndex();
+            }
+
+        }
+
+        QModelIndex ItemModel::parent( const QModelIndex& child ) const
+        {
+            if ( child.isValid() )
+            {
+                TreeItem* childItem = getItem( child );
+                TreeItem* parentItem = childItem->m_parent;
+
+                // No parents of the root item are indexed.
+                if ( parentItem && parentItem != m_rootItem.get() )
+                {
+                    // Figure out which row the parent is in.
+                    return createIndex( parentItem->getIndexInParent(), 0, parentItem );
+                }
+            }
+            return QModelIndex();
+        }
+
+        Qt::ItemFlags ItemModel::flags( const QModelIndex &index ) const
+        {
+            return index.isValid() ? QAbstractItemModel::flags( index ) : Qt::ItemFlags(0);
+        }
+
+        Ra::Gui::ItemEntry ItemModel::getEntry( const QModelIndex& index )const
+        {
+            return getItem( index )->m_entry;
+        }
+
+        void ItemModel::rebuildModel()
+        {
+            // Need to call these function to invalidate the pointers in the
+            // QModelIndex.
+            beginResetModel();
+            buildModel();
+            endResetModel();
+        }
+
+        QModelIndex ItemModel::findEntryIndex(const ItemEntry& entry) const
+        {
+            if ( entry.isValid())
+            {
+                std::stack<TreeItem*> stack;
+                stack.push(m_rootItem.get());
+                while (!stack.empty())
+                {
+                    TreeItem* item = stack.top();
+                    stack.pop();
+                    // Found item, so build the index corresponding to it.
+                    if (item->m_entry == entry)
+                    {
+                        return createIndex(item->getIndexInParent(),0, item);
+                    }
+
+                    // Add children to the stack
+                    for (const auto& child : item->m_children)
+                    {
+                        stack.push(child.get());
+                    }
+                }
+            }
+
+            return QModelIndex();
+        }
+
+
+        int TreeItem::getIndexInParent() const
+        {
+            CORE_ASSERT( m_parent, "Looking for the root item's index." );
+            for ( uint i = 0; i < m_parent->m_children.size(); ++i )
+            {
+                if ( m_parent->m_children[i].get() == this )
+                {
+                    return i;
+                }
+            }
+            // If we reached here, it means that the item
+            // was not found in its parent's child list.
+            // indicating the tree is corrupted.
+            CORE_ASSERT( false, " Did not find child in parent" );
             return 0;
         }
 
-        return Qt::ItemIsEditable | QAbstractItemModel::flags( index );
-    }
 
-    Gui::EntityTreeItem* Gui::EntityTreeModel::getItem( const QModelIndex& index ) const
-    {
-        if ( index.isValid() )
-        {
-            EntityTreeItem* item = static_cast<EntityTreeItem*>( index.internalPointer() );
-            if ( item )
-            {
-                return item;
-            }
-        }
-
-        return m_rootItem;
-    }
-
-    QVariant Gui::EntityTreeModel::headerData( int section, Qt::Orientation orientation, int role ) const
-    {
-        if ( orientation == Qt::Horizontal && role == Qt::DisplayRole )
-        {
-            return m_rootItem->getData( section ).data;
-        }
-
-        return QVariant();
-    }
-
-    QModelIndex Gui::EntityTreeModel::index( int row, int column, const QModelIndex& parent ) const
-    {
-        if ( parent.isValid() && parent.column() != 0 )
-        {
-            return QModelIndex();
-        }
-
-        EntityTreeItem* parentItem = getItem( parent );
-
-        EntityTreeItem* childItem = parentItem->getChild( row );
-        if ( childItem )
-        {
-            return createIndex( row, column, childItem );
-        }
-        else
-        {
-            return QModelIndex();
-        }
-    }
-
-    bool Gui::EntityTreeModel::insertColumns( int position, int columns, const QModelIndex& parent )
-    {
-        bool success;
-
-        beginInsertColumns( parent, position, position + columns - 1 );
-        success = m_rootItem->insertColumns( position, columns );
-        endInsertColumns();
-
-        return success;
-    }
-
-    bool Gui::EntityTreeModel::insertRows( int position, int rows, const QModelIndex& parent )
-    {
-        EntityTreeItem* parentItem = getItem( parent );
-        bool success;
-
-        beginInsertRows( parent, position, position + rows - 1 );
-        success = parentItem->insertChildren( position, rows, m_rootItem->getColumnCount() );
-        endInsertRows();
-
-        return success;
-    }
-
-    QModelIndex Gui::EntityTreeModel::parent( const QModelIndex& child ) const
-    {
-        if ( !child.isValid() )
-        {
-            return QModelIndex();
-        }
-
-        EntityTreeItem* childItem = getItem( child );
-        EntityTreeItem* parentItem = childItem->getParentItem();
-
-        if ( parentItem == m_rootItem )
-        {
-            return QModelIndex();
-        }
-
-        return createIndex( parentItem->getChildCount(), 0, parentItem );
-    }
-
-    bool Gui::EntityTreeModel::removeColumns( int position, int columns, const QModelIndex& parent )
-    {
-        bool success;
-
-        beginRemoveColumns( parent, position, position + columns - 1 );
-        success = m_rootItem->removeColumns( position, columns );
-        endRemoveColumns();
-
-        if ( m_rootItem->getColumnCount() == 0 )
-        {
-            removeRows( 0, rowCount() );
-        }
-
-        return success;
-    }
-
-    bool Gui::EntityTreeModel::removeRows( int position, int rows, const QModelIndex& parent )
-    {
-        EntityTreeItem* parentItem = getItem( parent );
-        bool success = true;
-
-        beginRemoveRows( parent, position, position + rows - 1 );
-        success = parentItem->removeChildren( position, rows );
-        endRemoveRows();
-
-        return success;
-    }
-
-    int Gui::EntityTreeModel::rowCount( const QModelIndex& parent ) const
-    {
-        EntityTreeItem* parentItem = getItem( parent );
-        return parentItem->getChildCount();
-    }
-
-    bool Gui::EntityTreeModel::setData( const QModelIndex& index, const QVariant& value, int role )
-    {
-        if ( role != Qt::EditRole )
-        {
-            return false;
-        }
-
-        EntityTreeItem* item = getItem( index );
-        EntityTreeItem::ItemData data = item->getData( index.column() );
-        data.data = value;
-        bool result = item->setData( index.column(), data );
-
-        if ( result )
-        {
-            emit dataChanged( index, index );
-        }
-
-        return result;
-    }
-
-    bool Gui::EntityTreeModel::setHeaderData( int section, Qt::Orientation orientation, const QVariant& value, int role )
-    {
-        if ( role != Qt::EditRole || orientation != Qt::Horizontal )
-        {
-            return false;
-        }
-
-        EntityTreeItem::ItemData data;
-        data.data = value;
-        bool result = m_rootItem->setData( section, data );
-
-        if ( result )
-        {
-            emit headerDataChanged( orientation, section, section );
-        }
-
-        return result;
-    }
-
-    void Gui::EntityTreeModel::entitiesUpdated()
-    {
-        if ( rowCount() > 0 )
-        {
-            removeRows( 0, rowCount() );
-        }
-
-        // FIXME(Charly): I guess this could be removed since it was used only to avoid duplicates
-        m_entityNames.clear();
-
-        auto entities = Engine::RadiumEngine::getInstance()->getEntityManager()->getEntities();
-
-        for ( const auto& ent : entities )
-        {
-            m_entityNames.insert( ent->getName() );
-
-            uint row = rowCount();
-            insertRows( row, 1 );
-            EntityTreeItem* item = getItem( index( row, 0 ) );
-
-            EntityTreeItem::ItemData data;
-            data.data = QString::fromStdString( ent->getName() );
-            data.entity = ent;
-            data.isEntityNode = true;
-
-            item->setData( 0, data );
-
-            insertComponents( ent, item );
-        }
-    }
-
-    void Gui::EntityTreeModel::insertComponents( Engine::Entity* entity, EntityTreeItem* parent )
-    {
-        for ( const auto& comp : entity->getComponents() )
-        {
-            std::string name = comp->getName();
-            EntityTreeItem* item;
-
-            QVector<EntityTreeItem::ItemData> vec;
-            EntityTreeItem::ItemData data;
-            data.data = QString::fromStdString( name );
-            data.component = comp.get();
-            data.isComponentNode = true;
-
-            vec << data;
-
-            item = new EntityTreeItem( vec, parent );
-            parent->appendChild( item );
-        }
-    }
-
-    void Gui::EntityTreeModel::handleRename( const QModelIndex& topLeft,
-                                             const QModelIndex& bottomRight,
-                                             const QVector<int>& )
-    {
-        EntityTreeItem* item = getItem( topLeft );
-        EntityTreeItem::ItemData data = item->getData( 0 );
-
-        if ( data.isEntityNode )
-        {
-            if ( data.entity )
-            {
-                std::string oldName = data.entity->getName();
-
-                data.entity->rename( data.data.toString().toStdString() );
-
-                m_entityNames.erase( oldName );
-                m_entityNames.insert( data.data.toString().toStdString() );
-            }
-        }
-
-        if ( data.isComponentNode )
-        {
-            // do stuff
-        }
-    }
-
-
+    } // namespace Gui
 } // namespace Ra

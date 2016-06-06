@@ -77,7 +77,7 @@
             <item>
              <widget class="QTreeView" name="m_entitiesTreeView">
               <property name="editTriggers">
-               <set>QAbstractItemView::SelectedClicked</set>
+               <set>QAbstractItemView::NoEditTriggers</set>
               </property>
               <property name="textElideMode">
                <enum>Qt::ElideRight</enum>

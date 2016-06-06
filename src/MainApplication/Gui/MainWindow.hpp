@@ -8,6 +8,9 @@
 #include <QEvent>
 
 #include <MainApplication/TimerData/FrameTimerData.hpp>
+#include <MainApplication/Gui/EntityTreeModel.hpp>
+#include <MainApplication/SelectionManager/SelectionManager.hpp>
+
 
 namespace Ra
 {
@@ -66,7 +69,7 @@ namespace Ra
             void loadFile();
             void openMaterialEditor();
 
-            void handlePicking( int drawableIndex );
+            void handlePicking( int ROIndex );
 
             void onRendererReady();
 
@@ -135,11 +138,9 @@ namespace Ra
             std::vector<Core::MouseEvent> m_mouseEvents;
             std::vector<Core::KeyEvent>   m_keyEvents;
 
-            EntityTreeModel* m_entityTreeModel;
-
+            ItemModel* m_itemModel;
             MaterialEditor* m_materialEditor;
-
-            int m_lastSelectedRO;
+            SelectionManager* m_selectionManager;
         };
 
     } // namespace Gui

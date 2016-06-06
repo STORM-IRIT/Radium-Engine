@@ -364,7 +364,7 @@ namespace Ra {
 
                 Core::Vector4Array colors(vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("Frame Primitive", GL_LINES));
+                MeshPtr mesh(new Mesh("GridPrimitive", GL_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -414,7 +414,7 @@ namespace Ra {
 
                 Core::Vector4Array colors(vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("AABB Primitive", GL_LINES));
+                MeshPtr mesh(new Mesh("OBB Primitive", GL_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 

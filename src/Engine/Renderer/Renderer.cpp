@@ -174,9 +174,9 @@ namespace Ra
             m_uiRenderObjects.clear();
             m_xrayRenderObjects.clear();
 
-            m_roMgr->getRenderObjectsByType( renderData, m_fancyRenderObjects, RenderObjectType::Fancy, true );
-            m_roMgr->getRenderObjectsByType( renderData, m_debugRenderObjects, RenderObjectType::Debug, true );
-            m_roMgr->getRenderObjectsByType( renderData, m_uiRenderObjects, RenderObjectType::UI, true );
+            m_roMgr->getRenderObjectsByType( renderData, m_fancyRenderObjects, RenderObjectType::Fancy );
+            m_roMgr->getRenderObjectsByType( renderData, m_debugRenderObjects, RenderObjectType::Debug );
+            m_roMgr->getRenderObjectsByType( renderData, m_uiRenderObjects,    RenderObjectType::UI );
 
             for ( auto it = m_fancyRenderObjects.begin(); it != m_fancyRenderObjects.end(); )
             {
