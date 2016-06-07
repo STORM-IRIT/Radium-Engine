@@ -2,7 +2,7 @@
 
 #include <Core/CoreMacros.hpp>
 
-#ifdef OS_WINDOWS
+#ifdef COMPILER_MSVC
 #define NOMINMAX                // Avoid C2039 MSVC compiler error
 //#undef vsnprintf
 //#define vsnprintf(buffer, count, format, argptr) vsnprintf_s(buffer, count, count, format, argptr)
@@ -110,18 +110,23 @@ namespace Ra
                 size_t size = strlen( fmt ) * 2;
                 int finalSize = 0;
                 str.clear();
-                std::unique_ptr<char[]> buffer;
+                char* buffer = nullptr;
 
                 while ( 1 )
                 {
-                    // Dynamically allocate a string and assign it to the unique ptr
-                    buffer.reset( new char[size] );
+                    // Dynamically allocate a string.
+                    delete[] buffer;
+                    buffer = new char[size];
 
                     // Attempt to printf into the buffer
                     va_list argsCopy;
                     va_copy(argsCopy,args);
-                    finalSize = vsnprintf( &buffer[0], size, fmt, argsCopy );
+                    finalSize = vsnprintf( buffer, size, fmt, argsCopy );
                     va_end(argsCopy);
+
+                    // vsnprinf can return -1 in case of an encoding error on some platforms.
+                    CORE_ASSERT( finalSize >= 0, "Encoding error");
+
                     // If our buffer was too small, we know that final_size
                     // gives us the required buffer size.
                     if ( uint( finalSize ) >= size )
@@ -135,8 +140,9 @@ namespace Ra
                 }
                 if ( finalSize > 0 )
                 {
-                    str = std::string( buffer.get() );
+                    str = std::string( buffer );
                 }
+                delete[] buffer;
                 return finalSize;
             }
 

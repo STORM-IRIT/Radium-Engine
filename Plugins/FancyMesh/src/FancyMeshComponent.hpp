@@ -3,7 +3,6 @@
 
 #include <FancyMeshPlugin.hpp>
 
-#include <Core/Utils/Any.hpp>
 #include <Core/Mesh/MeshTypes.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 

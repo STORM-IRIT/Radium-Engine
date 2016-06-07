@@ -150,11 +150,13 @@ class FILELog : public Log<Output2FILE> {};
 
 inline std::string NowTime()
 {
-    char buffer[50];
+    char buffer[100];
     std::time_t t = std::time( nullptr );
-    std::strftime( buffer, 50, "%X", std::localtime( &t ) );
-    std::string result;
-    Ra::Core::StringUtils::stringPrintf( result, "%s", buffer );
+    ON_DEBUG(int ok =) std::strftime( buffer, 100, "%X", std::localtime( &t ) );
+    CORE_ASSERT (ok, "Increase buffer size.");
+    std::string result(buffer);
+    // This doesn't work with minGW. Maybe indicates a serious issue ?
+    //Ra::Core::StringUtils::stringPrintf( result, "%s", buffer );
     return result;
 }
 

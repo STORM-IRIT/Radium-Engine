@@ -29,6 +29,10 @@ elseif (UNIX OR MINGW)
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -ggdb ${CMAKE_CXX_FLAGS_RELEASE}")
 
   add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
+  if (MINGW)
+      add_definitions( -Wno-unknown-pragmas )            # mingw prints a lot of warnings due to open mp pragmas
+      add_definitions( -static-libgcc -static-libstdc++) # Compile with static libs
+  endif()
 elseif (MSVC)
     # Visual studio flags breakdown
     # /GR- : no rtti ; /Ehs-c- : no exceptions
