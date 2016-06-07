@@ -140,6 +140,11 @@ Remember that the plugins depend from the engine libs (Core and Engine) but ther
 build dependency between the main application and the plugins. Thus you should be careful
 of plugins not being rebuilt when rebuilding just the main application.
 
+### Shaders not found
+
+The shaders are looked in a folder relative to the `bin`folder. Make sure your working directory is the 
+folder where the radium app executable lives.
+
 ## Documentation
 For more documentation about the engine (how to develop a plugin, 
 how renderer works, how to setup a scene file, ...), please refer to the Docs/ folder.
