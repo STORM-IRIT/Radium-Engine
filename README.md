@@ -14,9 +14,12 @@ for an overview of the project.
 * To build : CMake 2.8.11+
 
 ## Supported compiler and platforms
-* Windows with MSVC 15 or higher 
-* Mac OSX with clang
-* Linux with gcc 4.8 or higher
+
+The following platforms and tool chains have been tested and should work :
+
+* *Windows* : MSVC 2015 or higher, MinGW-32 4.9.2 or higher (with Qt Creator).
+* *Mac OSX* : clang with XCode
+* *Linux* : gcc 4.8 or higher, clang
 
 ## Build instructions
 
@@ -51,7 +54,7 @@ see the troubleshooting section below.
 The compiled application can be found in `bin`. Default plugins DLL are compiled in
 `Plugins/bin` by default.
 
-### Building on Windows with Visual Studio.
+### Building on Windows with Visual Studio
 
 #### Supported versions of MSVC
 Since Radium requires the C++11/C++14 advanced features such as `constexpr`, you will need a recent MSVC
@@ -72,7 +75,6 @@ you will have to manually set the variables in cmake.
 
 The default cmake configuration for Assimp should be correct.
 
-
 #### Building
 
 As long as cmake run smoothly the engine should compile.
@@ -84,6 +86,34 @@ As long as cmake run smoothly the engine should compile.
  * Qt libraries (Qt5xxx.dll or Qt5xxxd.dll if you are in debug) : Core, Gui and Widgets
 * Set "radium" as your startup project
 * Change the application working directory to `$(OutDir)..` (go to the "radium" project properties, *Debugging* menu, *Working Directory*) to get the shaders to load properly.
+
+## Building on Windows with QtCreator / MinGW
+
+### Dependencies 
+
+Unfortunately, GLEW does not have MinGW binaries, so you have to get the GLEW source and compile it.
+* Download the latest glew soure (http://glew.sourceforge.net/)
+* Move the GLEW source folder to  `\Glew`  in `3rdPartyLibraries`
+* Build GLEW in "Release" with Qt creator.
+* Move `libglew32.a`and `libglew32.dll.a` in `3rdPartyLibraries\Glew\lib\Release\mingw`
+
+### Building
+
+You can now run Cmake in Qt Creator. It should locate Qt libs automatically. 
+It should also find GLEW provided you followed the previous step. 
+If not, you can always set `GLEW_INCLUDE_DIR` and `GLEW_LIBRARY` manually to their correct locations.
+
+### Running
+
+If you run the program within QtCreator the path should be correctly set, and the executable should run fine.
+
+However, if you run it directly, you will need to put all the dlls within the `bin`folder :
+* `libgcc_s_dw2-1.dll`
+* `libstdc++-6.dll`
+* `libwinpthread-1.dll`
+* Qt Core, Gui and Widgets libraries
+
+They are found in the Qt distribution folders : e.g. `\Qt\5.x\mingwXX_32\bin`
 
 ## Troubleshooting 
 
@@ -111,5 +141,5 @@ build dependency between the main application and the plugins. Thus you should b
 of plugins not being rebuilt when rebuilding just the main application.
 
 ## Documentation
-For documentation about particular stuff in the engine (how to develop a plugin, how renderer works, how to setup a scene file, ...),
-please refer to the Docs/ folder.
+For more documentation about the engine (how to develop a plugin, 
+how renderer works, how to setup a scene file, ...), please refer to the Docs/ folder.
