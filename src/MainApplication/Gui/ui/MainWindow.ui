@@ -40,7 +40,7 @@
      <x>0</x>
      <y>0</y>
      <width>1350</width>
-     <height>20</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFILE">
@@ -93,7 +93,54 @@
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QPushButton" name="m_toggleRenderObjectButton">
+                <property name="text">
+                 <string>Toggle Visible</string>
+                </property>
+               </widget>
+              </item>
              </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Current shader</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="m_currentShaderBox">
+              <item>
+               <property name="text">
+                <string/>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Plain</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>BlinnPhongWireframe</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>BlinnPhong</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Lines</string>
+               </property>
+              </item>
+             </widget>
             </item>
            </layout>
           </item>
@@ -110,8 +157,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>289</width>
-               <height>240</height>
+               <width>299</width>
+               <height>232</height>
               </rect>
              </property>
              <attribute name="label">
@@ -305,106 +352,13 @@
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="tab_drawables">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>288</width>
-               <height>279</height>
-              </rect>
-             </property>
-             <attribute name="label">
-              <string>Render objects</string>
-             </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout_5">
-              <item>
-               <widget class="QLabel" name="m_selectedStuffName">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QListWidget" name="m_renderObjectsListView"/>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_2">
-                <item>
-                 <widget class="QPushButton" name="m_editRenderObjectButton">
-                  <property name="text">
-                   <string>Edit</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="m_toggleRenderObjectButton">
-                  <property name="text">
-                   <string>Toggle Visible</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="m_removeRenderObjectButton">
-                  <property name="text">
-                   <string>Toggle XRay</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_7">
-                <item>
-                 <widget class="QLabel" name="label">
-                  <property name="text">
-                   <string>Current shader</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="m_currentShaderBox">
-                  <item>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Plain</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>BlinnPhongWireframe</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>BlinnPhong</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Lines</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-             </layout>
-            </widget>
             <widget class="Ra::Gui::TransformEditorWidget" name="tab_edition">
              <property name="geometry">
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>258</width>
-               <height>201</height>
+               <width>264</width>
+               <height>191</height>
               </rect>
              </property>
              <attribute name="label">

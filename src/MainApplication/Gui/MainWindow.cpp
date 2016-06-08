@@ -96,14 +96,14 @@ namespace Ra
         connect( this, &MainWindow::selectedComponent, this, &MainWindow::displayComponentRenderObjects );
 
         // Enable changing shaders
-        connect( m_renderObjectsListView, &QListWidget::currentRowChanged, this, &MainWindow::renderObjectListItemClicked );
-        connect( m_currentShaderBox, static_cast<void (QComboBox::*)(const QString&)>( &QComboBox::currentIndexChanged ),
-                 this, &MainWindow::changeRenderObjectShader );
+//        connect( m_renderObjectsListView, &QListWidget::currentRowChanged, this, &MainWindow::renderObjectListItemClicked );
+  //      connect( m_currentShaderBox, static_cast<void (QComboBox::*)(const QString&)>( &QComboBox::currentIndexChanged ),
+  //               this, &MainWindow::changeRenderObjectShader );
 
         // RO Stuff
         connect( m_toggleRenderObjectButton, &QPushButton::clicked, this, &MainWindow::toggleVisisbleRO );
-        connect( m_removeRenderObjectButton, &QPushButton::clicked, this, &MainWindow::toggleXRayRO );
-        connect( m_editRenderObjectButton, &QPushButton::clicked, this, &MainWindow::editRO );
+   //     connect( m_removeRenderObjectButton, &QPushButton::clicked, this, &MainWindow::toggleXRayRO );
+   //     connect( m_editRenderObjectButton, &QPushButton::clicked, this, &MainWindow::editRO );
 
         // Renderer stuff
         connect( m_viewer, &Viewer::rendererReady, this, &MainWindow::onRendererReady );
@@ -368,7 +368,7 @@ namespace Ra
 
     void Gui::MainWindow::displayEntityRenderObjects( Engine::Entity* entity )
     {
-        m_renderObjectsListView->clear();
+/*        m_renderObjectsListView->clear();
         m_currentShaderBox->setCurrentText( "" );
 
         // NOTE(Charly): When clicking on UI stuff, the returned entity is null
@@ -388,12 +388,12 @@ namespace Ra
         for ( const auto& comp : entity->getComponents())
         {
             displayRenderObjects( comp.get() );
-        }
+        }*/
     }
 
     void Gui::MainWindow::displayComponentRenderObjects( Engine::Component* component )
     {
-        // NOTE(Charly): When clicking on UI stuff, or on nothing, the returned component is null
+    /*    // NOTE(Charly): When clicking on UI stuff, or on nothing, the returned component is null
         m_renderObjectsListView->clear();
         m_currentShaderBox->setCurrentText( "" );
 
@@ -407,24 +407,24 @@ namespace Ra
         text.append( component->getName().c_str() );
         m_selectedStuffName->setText( text );
 
-        displayRenderObjects( component );
+        displayRenderObjects( component );*/
     }
 
     void Gui::MainWindow::displayRenderObjects( Engine::Component* component )
     {
-        auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+      /*  auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
         for ( Core::Index idx : component->m_renderObjects )
         {
             QString name = roMgr->getRenderObject( idx )->getName().c_str();
 
             QListWidgetItem* item = new QListWidgetItem( name, m_renderObjectsListView );
             item->setData( 1, QVariant( idx.getValue() ) );
-        }
+        }*/
     }
 
     void Gui::MainWindow::renderObjectListItemClicked( int idx )
     {
-        if ( idx < 0 )
+     /*   if ( idx < 0 )
         {
             // Got out of scope
             return;
@@ -448,7 +448,7 @@ namespace Ra
         else
         {
             m_currentShaderBox->setCurrentText( shaderName.c_str() );
-        }
+        }*/
     }
 
     void Gui::MainWindow::changeRenderObjectShader( const QString& shaderName )
@@ -507,7 +507,7 @@ namespace Ra
 
     std::shared_ptr<Engine::RenderObject> Gui::MainWindow::getSelectedRO()
     {
-        QListWidgetItem* item = m_renderObjectsListView->currentItem();
+     /*   QListWidgetItem* item = m_renderObjectsListView->currentItem();
 
         if ( nullptr == item )
         {
@@ -519,7 +519,7 @@ namespace Ra
         auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
         auto ro = roMgr->getRenderObject( itemIdx );
 
-        return ro;
+        return ro;*/
     }
 
     void Gui::MainWindow::openMaterialEditor()
