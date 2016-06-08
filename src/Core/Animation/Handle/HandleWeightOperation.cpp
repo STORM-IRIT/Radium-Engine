@@ -100,21 +100,21 @@ void checkWeightMatrix( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT, c
 
 
 bool RA_CORE_API check_NAN( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT, const bool MT ) {
-    int status = 0;
+    int status = 1;
     LOG( logDEBUG ) << "Searching for nans in the matrix...";
     if( MT ) {
         #pragma omp parallel for
         for( int k = 0; k < matrix.outerSize(); ++k ) {
             for( WeightMatrix::InnerIterator it( matrix, k ); it; ++it ) {
                 const Scalar      value = it.value();
-                const bool check = std::isnan( value );
+                const int check = std::isnan( value ) ? 0 : 1;
                 #pragma omp atomic
-                status += check ;
+                status &= check ;
             }
         }
-        if( status > 0 ) {
+        if( status == 0 ) {
             if( FAIL_ON_ASSERT ) {
-                CORE_ASSERT( status, "At least an element is nan" );
+                CORE_ASSERT( false, "At least an element is nan" );
             } else {
                 LOG( logDEBUG ) << "At least an element is nan";
             }
@@ -131,7 +131,7 @@ bool RA_CORE_API check_NAN( const WeightMatrix& matrix, const bool FAIL_ON_ASSER
                 } else {
                     if( std::isnan( value ) ) {
                         LOG( logDEBUG ) << text;
-                        status = false;
+                        status = 0;
                     }
                 }
             }
@@ -141,19 +141,19 @@ bool RA_CORE_API check_NAN( const WeightMatrix& matrix, const bool FAIL_ON_ASSER
 }
 
 bool RA_CORE_API check_NoWeightVertex( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT, const bool MT ) {
-    int status = 0;
+    int status = 1;
     LOG( logDEBUG ) << "Searching for empty rows in the matrix...";
     if( MT ) {
         #pragma omp parallel for
         for( int i = 0; i < matrix.rows(); ++i ) {
             Sparse row = matrix.row( i );
-            const int check = row.size() - row.nonZeros();
+            const int check = ( row.nonZeros() > 0 ) ? 1 : 0;
             #pragma omp atomic
-            status += check;
+            status &= check;
         }
-        if( status > 0 ) {
+        if( status == 0 ) {
             if( FAIL_ON_ASSERT ) {
-                CORE_ASSERT( status, "At least a vertex as no weights" );
+                CORE_ASSERT( false, "At least a vertex as no weights" );
             } else {
                 LOG( logDEBUG ) << "At least a vertex as no weights";
             }
@@ -166,7 +166,7 @@ bool RA_CORE_API check_NoWeightVertex( const WeightMatrix& matrix, const bool FA
                 if( FAIL_ON_ASSERT ) {
                     CORE_ASSERT( false, text.c_str() );
                 } else {
-                    status = false;
+                    status = 0;
                     LOG( logDEBUG ) << text;
                 }
             }
