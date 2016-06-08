@@ -59,7 +59,9 @@ namespace Ra
 
             if (vertices.size() > 0)
             {
+                Core::Matrix4 id = Core::Matrix4::Identity();
                 m_lineShader->bind();
+                m_lineShader->setUniform("model", id);
                 m_lineShader->setUniform("view", viewMatrix);
                 m_lineShader->setUniform("proj", projMatrix);
 
@@ -162,7 +164,8 @@ namespace Ra
                                    const Core::Vector3& to, 
                                    const Core::Color& color)
         {
-            m_lines.push_back(Line(from, to, color));
+            Line l(from, to, color);
+            m_lines.push_back(l);
         }
 
         void DebugRender::addPoint(const Core::Vector3 &p, const Core::Color &c)

@@ -1,5 +1,11 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
+#include <Core/Containers/MakeShared.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Geometry/Normal/Normal.hpp>
+
+#include <Engine/Assets/GeometryData.hpp>
+
 #include <Engine/Component/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
@@ -7,9 +13,9 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
@@ -38,7 +44,9 @@ namespace Ra
         {
         }
 
-        RenderObject* RenderObject::createRenderObject(const std::string& name, Component* comp, const RenderObjectType& type, const std::shared_ptr<Mesh> &mesh, const ShaderConfiguration &shaderConfig, Material *material)
+        RenderObject* RenderObject::createRenderObject(const std::string& name, Component* comp,
+                                                       const RenderObjectType& type, const std::shared_ptr<Mesh> &mesh,
+                                                       const ShaderConfiguration &shaderConfig, Material *material)
         {
             RenderObject* obj = new RenderObject(name, comp, type);
             obj->setMesh(mesh);
@@ -70,6 +78,104 @@ namespace Ra
             obj->setRenderTechnique(rt);
 
             return obj;
+        }
+
+        RenderObject* RenderObject::createFancyFromAsset(const std::string& name, Component* comp, Asset::GeometryData* asset)
+        {
+            auto displayMesh = Core::make_shared<Ra::Engine::Mesh>(name);
+
+            Core::TriangleMesh mesh;
+            for (const auto& v : asset->getVertices())
+            {
+                mesh.m_vertices.push_back(asset->getFrame() * v);
+            }
+
+            for (const auto& face : asset->getFaces())
+            {
+                mesh.m_triangles.push_back(face.head<3>());
+            }
+
+            Core::Geometry::uniformNormal(mesh.m_vertices, mesh.m_triangles, mesh.m_normals);
+            displayMesh->loadGeometry(mesh);
+
+            Core::Vector3Array tangents;
+            Core::Vector3Array bitangents;
+            Core::Vector3Array texcoords;
+
+            Core::Vector4Array colors;
+
+            for (const auto& v : asset->getTangents())
+            {
+                tangents.push_back(v);
+            }
+
+            for (const auto& v : asset->getBiTangents())
+            {
+                bitangents.push_back(v);
+            }
+
+            for (const auto& v : asset->getTexCoords())
+            {
+                texcoords.push_back(v);
+            }
+
+            for (const auto& v : asset->getColors())
+            {
+                colors.push_back(v);
+            }
+
+            displayMesh->addData(Mesh::VERTEX_TANGENT, tangents);
+            displayMesh->addData(Mesh::VERTEX_BITANGENT, bitangents);
+            displayMesh->addData(Mesh::VERTEX_TEXCOORD, texcoords);
+            displayMesh->addData(Mesh::VERTEX_COLOR, colors);
+
+            Material* mat = new Material(name);
+
+            auto m = asset->getMaterial();
+
+            if (m.hasDiffuse())
+            {
+                mat->setKd(m.m_diffuse);
+            }
+
+            if (m.hasSpecular())
+            {
+                mat->setKs(m.m_specular);
+            }
+
+            if (m.hasShininess())
+            {
+                mat->setNs(m.m_shininess);
+            }
+
+            if (m.hasDiffuseTexture())
+            {
+                mat->addTexture(Material::TextureType::TEX_DIFFUSE, m.m_texDiffuse);
+            }
+
+            if (m.hasSpecularTexture())
+            {
+                mat->addTexture(Material::TextureType::TEX_SPECULAR, m.m_texSpecular);
+            }
+
+            if (m.hasShininessTexture())
+            {
+                mat->addTexture(Material::TextureType::TEX_SHININESS, m.m_texShininess);
+            }
+
+            if (m.hasOpacityTexture())
+            {
+                mat->addTexture(Material::TextureType::TEX_ALPHA, m.m_texOpacity);
+            }
+
+            if (m.hasNormalTexture())
+            {
+                mat->addTexture(Material::TextureType::TEX_NORMAL, m.m_texNormal);
+            }
+
+            auto shaderConfig = ShaderConfigurationFactory::getConfiguration("BlinnPhong");
+
+            return createRenderObject(name, comp, RenderObjectType::Fancy, displayMesh, shaderConfig, mat);
         }
 
         void RenderObject::updateGL()

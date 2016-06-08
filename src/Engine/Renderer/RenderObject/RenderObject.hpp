@@ -15,6 +15,11 @@
 
 namespace Ra
 {
+    namespace Asset
+    {
+        class GeometryData;
+    }
+
     namespace Engine
     {
         class Light;
@@ -47,6 +52,7 @@ namespace Ra
             ~RenderObject();
 
             static RenderObject* createRenderObject(const std::string& name, Component* comp, const RenderObjectType& type, const std::shared_ptr<Mesh>& mesh, const ShaderConfiguration& shaderConfig = ShaderConfiguration(), Material* material = nullptr);
+            static RenderObject* createFancyFromAsset(const std::string& name, Component* comp, Ra::Asset::GeometryData* asset);
 
             // FIXME(Charly): Remove this
             void updateGL();
