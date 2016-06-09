@@ -1,4 +1,4 @@
-# Radium Engine programmer manual.
+# Radium Engine programmer manual
 
 ## Source code organization
 * `src` contains the main source code
@@ -37,7 +37,11 @@ of them as "game objects", something that represent an object in the scene.
 Entity data include a world space to object space transform and a list of 
 *Components*
 
-_Important note :_ When creating an entity, if you set its transform, *do not forget* to call
+The entity's role is only to hold together this transform and the list of components.
+The entity uses double buffering to prevent transforms from being updated
+more than once per frame.
+
+When creating an entity, if you set its transform, *do not forget* to call
 `Entity::swapTransformBuffers`, this might prevent you some headache. Example :
 ```
 Ra::Engine::Entity* entity = theEntityManager->getOrCreate( "MyEntity" );
@@ -106,6 +110,10 @@ For this automated build to work the plugins are required to follow these requir
 
 
 ### Tasks and dependencies
+
+Tasks are created by Systems at the beginning of a frame and run concurrently.
+Each frame starts by querying all existing systems and collects all the tasks.
+During the frame tasks are attributed to threads by the task queue.
 
 ### Default plugins
 
