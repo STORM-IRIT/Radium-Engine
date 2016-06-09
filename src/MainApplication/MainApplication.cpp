@@ -267,13 +267,10 @@ namespace Ra
 
         // ----------
         // 1. Gather user input and dispatch it.
-        auto keyEvents = m_mainWindow->getKeyEvents();
-        auto mouseEvents = m_mainWindow->getMouseEvents();
 
         // Get picking results from last frame and forward it to the selection.
         m_viewer->processPicking();
 
-        m_mainWindow->flushEvents();
 
         // ----------
         // 2. Kickoff rendering

@@ -40,10 +40,11 @@ namespace Ra
             /// current item. @seeCurrentIndex;
             ItemEntry currentItem() const;
 
+            /// Select an item through an item entry. @see QItemSelectionModel::Select
             void select( const ItemEntry& ent,  QItemSelectionModel::SelectionFlags command );
 
+            /// Set an item as current through an item entry. @see QItemSelectionModen::setCurrent
             void setCurrentEntry( const ItemEntry& ent, QItemSelectionModel::SelectionFlags command);
-
 
         protected slots:
             void printSelection() const;

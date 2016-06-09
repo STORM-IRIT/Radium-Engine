@@ -2,6 +2,7 @@
 #define RADIUMENGINE_ITEM_ENTRY_HPP_
 
 #include <string>
+#include <vector>
 #include <Core/Index/Index.hpp>
 
 namespace Ra
@@ -26,7 +27,7 @@ namespace Ra
         /// * Entity, component and RO index valid : -> RO
         struct ItemEntry
         {
-            /// Create an invalid entry. 
+            /// Create an invalid entry.
             ItemEntry()
             : m_entity(nullptr), m_component(nullptr), m_roIndex() { }
 
@@ -41,7 +42,7 @@ namespace Ra
 
             /// Compare two items.
             inline bool operator==( const ItemEntry& rhs ) const;
-            
+
 
             /// Returns true if the item can be selected.
             bool isSelectable() const;
@@ -69,14 +70,20 @@ namespace Ra
             /// If null, the item represents an entity.
             Ra::Engine::Component* m_component;
 
-            /// RO index of the represented object. 
+            /// RO index of the represented object.
             Ra::Core::Index m_roIndex;
 
 
         };
 
-        /// Returns the name associated to the given item. 
+        /// Returns the name associated to the given item.
         std::string getEntryName( const Engine::RadiumEngine* engine, const ItemEntry& ent );
+
+        /// Returns a list of all the render object indices belonging to the given item.
+        /// RO item : it returns only the RO index.
+        /// Component item : it returns all its ROs.
+        /// Entity item : all ROs from all compoents of given entity.
+        std::vector< Ra::Core::Index> getItemROs( const Engine::RadiumEngine* engine, const ItemEntry& ent);
     }
 }
 

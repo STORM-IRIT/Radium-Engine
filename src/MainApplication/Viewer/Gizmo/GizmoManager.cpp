@@ -1,12 +1,16 @@
 #include <MainApplication/Viewer/Gizmo/GizmoManager.hpp>
 
-#include <Core/Math/ColorPresets.hpp>
+#include <Engine/Entity/Entity.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+
+#include <MainApplication/ItemModel/ItemEntry.hpp>
+
 #include <MainApplication/Viewer/Viewer.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
 #include <MainApplication/Viewer/Gizmo/TranslateGizmo.hpp>
 #include <MainApplication/Viewer/Gizmo/RotateGizmo.hpp>
 
-#include <Engine/Renderer/Camera/Camera.hpp>
 
 namespace Ra
 {
@@ -19,9 +23,20 @@ namespace Ra
 
         GizmoManager::~GizmoManager() { }
 
-        void GizmoManager::setEditable(Engine::EditableInterface* edit)
+        void GizmoManager::setEditable(const ItemEntry& ent )
         {
-            m_currentEdit = edit;
+            if ( ent.isEntityNode())
+            {
+                m_currentEdit = ent.m_entity;
+            }
+            else if ( ent.isEntityNode() || ent.isRoNode() )
+            {
+                m_currentEdit = ent.m_component;
+            }
+            else
+            {
+                m_currentEdit = nullptr;
+            }
             getTransform();
             spawnGizmo();
         }

@@ -285,7 +285,6 @@ namespace Ra
     {
         m_camera->handleWheelEvent(event);
         QOpenGLWidget::wheelEvent( event );
-        mainApp->m_mainWindow->viewerWheelEvent( event );
     }
 
     void Gui::Viewer::keyPressEvent( QKeyEvent* event )

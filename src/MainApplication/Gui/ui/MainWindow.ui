@@ -85,6 +85,24 @@
              </widget>
             </item>
             <item>
+             <layout class="QHBoxLayout" name="selectionLayout">
+              <item>
+               <widget class="QLabel" name="label_selected">
+                <property name="text">
+                 <string>Selected Object :</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="m_selectedItemName">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
              <layout class="QHBoxLayout" name="horizontalLayout">
               <item>
                <widget class="QPushButton" name="m_removeEntityButton">
@@ -100,12 +118,22 @@
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QPushButton" name="m_editRenderObjectButton">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="text">
+                 <string>Edit</string>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <layout class="QHBoxLayout" name="shaderLayout">
             <item>
              <widget class="QLabel" name="label">
               <property name="text">

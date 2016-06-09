@@ -3,14 +3,15 @@
 
 #include <QObject>
 #include <QMouseEvent>
-#include <Engine/Component/Component.hpp>
 #include <MainApplication/Viewer/Gizmo/Gizmo.hpp>
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
 namespace Ra
 {
     namespace Gui
     {
+
+        struct ItemEntry;
+
         /// This class interfaces the gizmos with the ui commands.
         /// It allows to change the gizmo type when editing an editable transform property.
         class GizmoManager : public QObject
@@ -43,7 +44,7 @@ namespace Ra
         public slots:
 
             /// Change the current editable object,
-            void setEditable(Engine::EditableInterface* edit);
+            void setEditable(const ItemEntry& entry);
 
             /// Callback when a drawable is picked.
             void handlePickingResult( int drawableId );
