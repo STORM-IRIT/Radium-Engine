@@ -1,7 +1,9 @@
 #include <MainApplication/SelectionManager/SelectionManager.hpp>
-#include <MainApplication/ItemModel/ItemEntry.hpp>
+
 #include <Core/Log/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
+
+using Ra::Engine::ItemEntry;
 
 namespace Ra
 {
@@ -12,6 +14,7 @@ namespace Ra
                 : QItemSelectionModel(model, parent)
         {
             connect(this, &SelectionManager::selectionChanged, this, &SelectionManager::printSelection);
+            connect(model,&ItemModel::modelRebuilt, this, &SelectionManager::onModelRebuilt);
         }
 
         bool SelectionManager::isSelected(const ItemEntry& ent) const
@@ -28,7 +31,7 @@ namespace Ra
         std::vector<ItemEntry> SelectionManager::selectedEntries() const
         {
             std::vector<ItemEntry> result;
-            result.reserve(selectedIndexes().size());
+            result.reserve(uint(selectedIndexes().size()));
             for (const auto& idx : selectedIndexes())
             {
                 result.push_back(itemModel()->getEntry(idx));
@@ -37,7 +40,7 @@ namespace Ra
             return result;
         }
 
-        ItemEntry SelectionManager::currentItem() const
+        const ItemEntry& SelectionManager::currentItem() const
         {
             // getEntry returns an invalid entry when given an invalid index.
             return itemModel()->getEntry(currentIndex());
@@ -46,12 +49,11 @@ namespace Ra
         void SelectionManager::select(const ItemEntry& ent, QItemSelectionModel::SelectionFlags command)
         {
             QModelIndex idx = itemModel()->findEntryIndex(ent);
-            if (idx.isValid())
+            if (idx.isValid() && ent.isSelectable())
             {
                 QItemSelectionModel::select(idx, command);
             }
         }
-
 
         void SelectionManager::setCurrentEntry(const ItemEntry& ent, QItemSelectionModel::SelectionFlags command)
         {
@@ -60,6 +62,11 @@ namespace Ra
             {
                 QItemSelectionModel::setCurrentIndex(idx, command);
             }
+        }
+
+        void SelectionManager::onModelRebuilt()
+        {
+            clear();
         }
 
         void SelectionManager::printSelection() const
@@ -71,7 +78,5 @@ namespace Ra
             }
             LOG(logDEBUG) << "Current : " << getEntryName(Ra::Engine::RadiumEngine::getInstance(), currentItem());
         }
-
-
     }
 }

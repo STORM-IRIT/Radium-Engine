@@ -30,9 +30,6 @@ namespace SkinningPlugin
 
         virtual void handleWeightsLoading( const Ra::Asset::HandleData* data );
 
-        virtual void getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const override {}
-        virtual void setProperty(const Ra::Engine::EditableProperty &newProp) override {}
-
         const Ra::Core::Skinning::RefData* getRefData() const { return &m_refData;}
         const Ra::Core::Skinning::FrameData* getFrameData() const { return &m_frameData;}
         const Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion >* getDQ() const {return &m_DQ;}

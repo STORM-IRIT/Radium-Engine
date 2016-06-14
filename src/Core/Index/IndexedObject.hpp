@@ -23,7 +23,7 @@ namespace Ra
             }
 
             /// DESTRUCTOR
-            inline ~IndexedObject() { }
+            virtual inline ~IndexedObject() { }
 
             /// VARIABLE
             Index idx;

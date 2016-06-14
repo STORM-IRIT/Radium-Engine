@@ -2,7 +2,7 @@
 
 namespace Ra
 {
-    namespace Gui
+    namespace Engine
     {
         bool ItemEntry::isEntityNode() const
         {
@@ -22,11 +22,7 @@ namespace Ra
             return (m_entity && m_component && m_roIndex.isValid());
         }
 
-        bool ItemEntry::isValid() const
-        {
-            ON_DEBUG(checkConsistency());
-            return m_entity != nullptr;
-        }
+
 
         void ItemEntry::checkConsistency() const
         {
@@ -42,7 +38,7 @@ namespace Ra
                 && m_roIndex == rhs.m_roIndex;
         }
 
-       
+
 
     }
 }

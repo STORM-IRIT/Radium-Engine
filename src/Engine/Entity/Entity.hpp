@@ -14,8 +14,6 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Math/Ray.hpp>
 
-#include <Engine/Entity/EditableProperty.hpp>
-
 namespace Ra
 {
     namespace Engine
@@ -31,7 +29,7 @@ namespace Ra
     {
 
         /// An entity is an scene element. It ties together components with a transform.
-        class RA_ENGINE_API Entity : public Core::IndexedObject, public EditableInterface
+        class RA_ENGINE_API Entity : public Core::IndexedObject
         {
         public:
             RA_CORE_ALIGNED_NEW
@@ -70,11 +68,6 @@ namespace Ra
 
             // Queries
             void rayCastQuery(const Core::Ray& r) const;
-
-            // Editable Interface
-            virtual void getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const override;
-            virtual void setProperty( const EditableProperty& prop ) override;
-            virtual bool picked(uint drawableIndex) override { return true;} // Entities are always pickable.
 
         private:
             Core::Transform m_transform;

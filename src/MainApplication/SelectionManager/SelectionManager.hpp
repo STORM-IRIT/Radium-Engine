@@ -3,7 +3,7 @@
 
 #include <QItemSelectionModel>
 
-#include <MainApplication/ItemModel/ItemEntry.hpp>
+#include <Engine/ItemModel/ItemEntry.hpp>
 #include <MainApplication/Gui/EntityTreeModel.hpp>
 
 
@@ -31,21 +31,41 @@ namespace Ra
             // operate with ItemEntries instead of model indices.
 
             /// Returns true if the selection contains the given item.
-            bool isSelected(const ItemEntry& ent) const;
+            bool isSelected(const Engine::ItemEntry& ent) const;
 
             /// Return the set of selected entries. @see selectedIndexes()
-            std::vector<ItemEntry> selectedEntries() const;
+            std::vector<Engine::ItemEntry> selectedEntries() const;
 
             /// Return the current selected item, or an invalid entry if there is no
             /// current item. @seeCurrentIndex;
-            ItemEntry currentItem() const;
+            const Engine::ItemEntry& currentItem() const;
 
             /// Select an item through an item entry. @see QItemSelectionModel::Select
-            void select( const ItemEntry& ent,  QItemSelectionModel::SelectionFlags command );
+            void select( const Engine::ItemEntry& ent,  QItemSelectionModel::SelectionFlags command );
+
+            /// Select an item through an item entry. @see QItemSelectionModel::Select
+            void select( const QModelIndex& idx, QItemSelectionModel::SelectionFlags command ) override
+            {
+                Engine::ItemEntry ent = itemModel()->getEntry(idx);
+                QItemSelectionModel::select( idx, command );
+            }
+
+            void select( const QItemSelection& selection, QItemSelectionModel::SelectionFlags command) override
+            {
+                std::vector<Engine::ItemEntry> entries;
+                for ( const auto& idx : selection.indexes())
+                {
+                    entries.push_back(itemModel()->getEntry(idx));
+                }
+
+                QItemSelectionModel::select(selection , command );
+            }
 
             /// Set an item as current through an item entry. @see QItemSelectionModen::setCurrent
-            void setCurrentEntry( const ItemEntry& ent, QItemSelectionModel::SelectionFlags command);
+            void setCurrentEntry( const Engine::ItemEntry& ent, QItemSelectionModel::SelectionFlags command);
 
+        protected slots:
+            void onModelRebuilt();
         protected slots:
             void printSelection() const;
 

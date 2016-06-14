@@ -1,8 +1,8 @@
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
-#include <Core/CoreMacros.hpp>
 
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/RadiumEngine.hpp>
+#include <Engine/Component/Component.hpp>
 
 namespace Ra
 {
@@ -28,18 +28,22 @@ namespace Ra
             std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
             std::shared_ptr<RenderObject> newRenderObject( renderObject );
-            Core::Index idx = m_renderObjects.insert( newRenderObject );
+            Core::Index index = m_renderObjects.insert( newRenderObject );
 
-            newRenderObject->idx = idx;
+            newRenderObject->idx = index;
 
             auto type = renderObject->getType();
 
-            m_renderObjectByType[(int)type].insert( idx );
+            m_renderObjectByType[(int)type].insert( index );
 
             if (type == RenderObjectType::Fancy)
                 m_fancyBVH.insertLeaf(newRenderObject);
 
-            return idx;
+            Engine::RadiumEngine::getInstance()->getSignalManager()->fireRenderObjectAdded(
+                    ItemEntry( renderObject->getComponent()->getEntity(),
+                               renderObject->getComponent(),
+                               index ));
+            return index;
         }
 
         void RenderObjectManager::removeRenderObject( const Core::Index& index )
@@ -49,12 +53,16 @@ namespace Ra
 
             // FIXME(Charly): Should we check if the render object is in the double buffer map ?
             std::shared_ptr<RenderObject> renderObject = m_renderObjects.at( index );
+
+
+            Engine::RadiumEngine::getInstance()->getSignalManager()->fireRenderObjectRemoved(
+                    ItemEntry( renderObject->getComponent()->getEntity(),
+                               renderObject->getComponent(),
+                               index ));
+
             m_renderObjects.remove( index );
-
             auto type = renderObject->getType();
-
             m_renderObjectByType[(int)type].erase( index );
-
             renderObject.reset();
         }
 

@@ -18,7 +18,7 @@ namespace Ra
             ent->idx = m_entities.insert( ent );
             CORE_ASSERT( ent.get() == SystemEntity::getInstance(), "Invalid singleton instanciation");
             m_entitiesName.insert( std::pair< std::string, Core::Index> (ent->getName(),ent->idx ));
-            RadiumEngine::getInstance()->getSignalManager()->fireEntityCreated();
+            RadiumEngine::getInstance()->getSignalManager()->fireEntityCreated( ItemEntry(SystemEntity::getInstance()));
             #endif
         }
 
@@ -50,7 +50,7 @@ namespace Ra
             m_entitiesName.insert( std::pair<std::string, Core::Index> (
                                        ent->getName(), ent->idx ) );
 
-            RadiumEngine::getInstance()->getSignalManager()->fireEntityCreated();
+            RadiumEngine::getInstance()->getSignalManager()->fireEntityCreated(ItemEntry(ent.get()));
             return ent.get();
         }
 
@@ -69,10 +69,10 @@ namespace Ra
 
             CORE_ASSERT( ent.unique(), "Non-unique entity about to be removed." );
 
+            RadiumEngine::getInstance()->getSignalManager()->fireEntityDestroyed(ItemEntry(ent.get()));
             ent.reset();
             m_entities.remove( idx );
             m_entitiesName.erase( name );
-            RadiumEngine::getInstance()->getSignalManager()->fireEntityDestroyed();
         }
 
         void EntityManager::removeEntity( Entity* entity )

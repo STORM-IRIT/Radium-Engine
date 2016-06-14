@@ -46,11 +46,6 @@ namespace Ra
             }
         }
 
-        Core::Transform Component::getWorldTransform() const
-        {
-           return getEntity()->getTransform();
-        }
-
         void Component::notifyRenderObjectExpired( const Core::Index& idx )
         {
             auto found = std::find( m_renderObjects.cbegin(), m_renderObjects.cend(), idx );

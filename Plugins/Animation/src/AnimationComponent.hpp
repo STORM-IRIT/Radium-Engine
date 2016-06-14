@@ -59,11 +59,11 @@ namespace AnimationPlugin
         // Editable interface
         //
 
-        virtual void getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const override;
-        virtual void setProperty( const Ra::Engine::EditableProperty& prop) override;
-        virtual bool picked (uint drawableIdex) override;
+        virtual bool canEdit(Ra::Core::Index roIdx) const override;
 
+        virtual Ra::Core::Transform getTransform(Ra::Core::Index roIdx) const override;
 
+        virtual void setTransform(Ra::Core::Index roIdx, const Ra::Core::Transform& transform) override;
 
     private:
         // debug function to display the hierarchy

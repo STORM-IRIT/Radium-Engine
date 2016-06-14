@@ -56,20 +56,12 @@ namespace Ra
             virtual ~SystemEntity() { };
 
 #ifndef RA_DISABLE_DEBUG_DISPLAY
-
             /// Access the debug component
             static DebugComponent* dbgCmp();
 
 #endif
-
             /// Access the UI Component
             static UiComponent* uiCmp();
-
-            // Override Editable interface to disable property editing
-            virtual void getProperties(Core::AlignedStdVector<EditableProperty>& entityPropsOut) const override { }
-
-            virtual void setProperty(const EditableProperty& prop) override { }
-
         };
 
     }

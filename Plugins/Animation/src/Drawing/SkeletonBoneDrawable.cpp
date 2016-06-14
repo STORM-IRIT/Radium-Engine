@@ -14,7 +14,7 @@ namespace AnimationPlugin
         // TODO ( Val) common material / shader config...
 
         // FIXME(Charly): Debug or fancy ?
-        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, comp, Ra::Engine::RenderObjectType::Debug );
+        Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, comp, Ra::Engine::RenderObjectType::Fancy);
         renderObject->setXRay( true );
 
         Ra::Engine::ShaderConfiguration shader = Ra::Engine::ShaderConfigurationFactory::getConfiguration("BlinnPhong");

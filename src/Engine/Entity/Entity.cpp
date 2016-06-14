@@ -39,7 +39,7 @@ namespace Ra
             m_components.emplace_back( std::unique_ptr<Component>(component));
             component->setEntity( this );
 
-            RadiumEngine::getInstance()->getSignalManager()->fireComponentAdded();
+            RadiumEngine::getInstance()->getSignalManager()->fireComponentAdded( ItemEntry(this, component) );
 
         }
 
@@ -50,10 +50,18 @@ namespace Ra
                         m_components.end(),
                         [ name ] (const auto& c){ return c->getName() == name;} );
 
-
             return pos != m_components.end()? pos->get() : nullptr;
         }
 
+        const Component* Entity::getComponent(const std::string& name) const
+        {
+            const auto& pos = std::find_if(
+                        m_components.begin(),
+                        m_components.end(),
+                        [ name ] (const auto& c){ return c->getName() == name;} );
+
+            return pos != m_components.end()? pos->get() : nullptr;
+        }
         const std::vector<std::unique_ptr<Component> > &Entity::getComponents() const
         {
            return m_components;
@@ -67,51 +75,8 @@ namespace Ra
                         [ name ] (const auto& c){ return c->getName() == name;} );
 
             CORE_ASSERT( pos != m_components.end(), "Component not found in entity" );
+            RadiumEngine::getInstance()->getSignalManager()->fireComponentRemoved(ItemEntry(this,pos->get()));
             m_components.erase(pos);
-            RadiumEngine::getInstance()->getSignalManager()->fireComponentRemoved();
-        }
-
-        void Entity::getProperties( Core::AlignedStdVector<EditableProperty>& entityPropsOut ) const
-        {
-            std::lock_guard<std::mutex> lock( m_transformMutex );
-            entityPropsOut.push_back(EditableProperty(m_transform, "Entity Transform", true, true));
-        }
-
-        void Entity::setProperty( const EditableProperty& prop )
-        {
-            CORE_ASSERT(prop.type == EditableProperty::TRANSFORM, "Only transforms can be set in entities");
-            CORE_ASSERT(prop.name == "Entity Transform", "This is not an entity transform");
-
-            for(const auto& entry: prop.primitives)
-            {
-                const EditablePrimitive& prim = entry.primitive;
-                switch (prim.getType())
-                {
-                    case EditablePrimitive::POSITION:
-                    {
-                        CORE_ASSERT(prim.getName() == "Position", "Inconsistent primitive");
-                        m_doubleBufferedTransform.translation() =
-                                prim.asPosition();
-                        m_transformChanged = true;
-                    }
-                        break;
-
-                    case EditablePrimitive::ROTATION:
-                    {
-                        CORE_ASSERT(prim.getName() == "Rotation", "Inconsistent primitive");
-                        m_doubleBufferedTransform.linear() = //FIXME : this won't work with scale.
-                                prim.asRotation().toRotationMatrix();
-                        m_transformChanged = true;
-                    }
-                        break;
-
-                    default:
-                    {
-                        CORE_ASSERT(false, "Wrong primitive type in property");
-                    }
-                        break;
-                }
-            }
         }
 
         void Entity::swapTransformBuffers()

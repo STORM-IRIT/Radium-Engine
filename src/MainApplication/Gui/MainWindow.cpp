@@ -19,6 +19,8 @@
 #include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
 #include <assimp/Importer.hpp>
 
+using Ra::Engine::ItemEntry;
+
 namespace Ra
 {
 
@@ -70,14 +72,10 @@ namespace Ra
 
         // Loading setup.
         connect(this, &MainWindow::fileLoading, mainApp, &MainApplication::loadFile);
-        connect(mainApp, &MainApplication::loadComplete, this, &MainWindow::onEntitiesUpdated);
 
         // Connect picking results (TODO Val : use events to dispatch picking directly)
         connect(m_viewer, &Viewer::rightClickPicking, this, &MainWindow::handlePicking);
         connect(m_viewer, &Viewer::leftClickPicking, m_viewer->getGizmoManager(), &GizmoManager::handlePickingResult);
-
-        // Update entities when the engine starts.
-        connect(mainApp, &MainApplication::starting, this, &MainWindow::onEntitiesUpdated);
 
         connect(m_avgFramesCount, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
                 mainApp, &MainApplication::framesCountForStatsChanged);
@@ -109,17 +107,17 @@ namespace Ra
         connect(m_enablePostProcess, &QCheckBox::stateChanged, m_viewer, &Viewer::enablePostProcess);
 
         // Connect engine signals to the appropriate callbacks
-        std::function<void(void)> f = std::bind(&MainWindow::onEntitiesUpdated, this);
-        mainApp->m_engine->getSignalManager()->m_entityCreatedCallbacks.push_back(f);
-        mainApp->m_engine->getSignalManager()->m_entityDestroyedCallbacks.push_back(f);
-        mainApp->m_engine->getSignalManager()->m_componentAddedCallbacks.push_back(f);
-        mainApp->m_engine->getSignalManager()->m_componentRemovedCallbacks.push_back(f);
+        std::function<void(const Engine::ItemEntry&)> add = std::bind(&MainWindow::onItemAdded, this, std::placeholders::_1);
+        std::function<void(const Engine::ItemEntry&)> del = std::bind(&MainWindow::onItemRemoved, this, std::placeholders::_1);
+        mainApp->m_engine->getSignalManager()->m_entityCreatedCallbacks.push_back(add);
+        mainApp->m_engine->getSignalManager()->m_entityDestroyedCallbacks.push_back(del);
 
-    }
+        mainApp->m_engine->getSignalManager()->m_componentAddedCallbacks.push_back(add);
+        mainApp->m_engine->getSignalManager()->m_componentRemovedCallbacks.push_back(del);
 
-    void Gui::MainWindow::onEntitiesUpdated()
-    {
-        m_itemModel->rebuildModel();
+        mainApp->m_engine->getSignalManager()->m_roAddedCallbacks.push_back(add);
+        mainApp->m_engine->getSignalManager()->m_roRemovedCallbacks.push_back(del);
+
     }
 
     void Gui::MainWindow::loadFile()
@@ -192,18 +190,11 @@ namespace Ra
             Ra::Engine::Component* comp = engine->getRenderObjectManager()->getRenderObject(roIndex)->getComponent();
             Ra::Engine::Entity* ent = comp->getEntity();
 
-            // For now we don#t enable group selection.
-            m_selectionManager->setCurrentEntry(ItemEntry(ent, comp, roIndex), QItemSelectionModel::SelectCurrent);
-            // Temporary fix to keep the per-ro picking to work.
-            ent->picked(roIndex.getValue());
-            comp->picked(roIndex.getValue());
+            // For now we don't enable group selection.
+            m_selectionManager->setCurrentEntry(ItemEntry(ent, comp, roIndex), QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
         }
         else
         {
-            ItemEntry entry = m_selectionManager->currentItem();
-
-            if (entry.isValid()) { entry.m_entity->picked(-1); }
-            if (entry.isComponentNode()) { entry.m_component->picked(-1); }
             m_selectionManager->clear();
         }
     }
@@ -366,4 +357,16 @@ namespace Ra
         tab_edition->updateValues();
         m_viewer->getGizmoManager()->updateValues();
     }
+
+    void Gui::MainWindow::onItemAdded(const Engine::ItemEntry& ent)
+    {
+        m_itemModel->addItem(ent);
+    }
+
+    void Gui::MainWindow::onItemRemoved(const Engine::ItemEntry& ent)
+    {
+        m_itemModel->removeItem(ent) ;
+    }
+
+
 } // namespace Ra

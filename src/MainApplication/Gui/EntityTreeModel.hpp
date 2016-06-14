@@ -7,7 +7,7 @@
 #include <QAbstractItemModel>
 #include <QVariant>
 
-#include <MainApplication/ItemModel/ItemEntry.hpp>
+#include <Engine/ItemModel/ItemEntry.hpp>
 
 
 namespace Ra
@@ -17,7 +17,7 @@ namespace Ra
         /// Element of the tree representation of items.
         struct TreeItem
         {
-            ItemEntry m_entry;
+            Engine::ItemEntry m_entry;
             TreeItem* m_parent;
             std::vector<std::unique_ptr<TreeItem>> m_children;
 
@@ -71,11 +71,11 @@ namespace Ra
 
             /// Returns the entry corresponding to a given index or an invalid entry
             /// if the index doesn't match any entry.
-            ItemEntry getEntry( const QModelIndex& index )const;
+            const Engine::ItemEntry& getEntry( const QModelIndex& index )const;
 
             /// Returns the index corresponding to the given entry if it exists in the
             /// model, or an invalid index if not found.
-            QModelIndex findEntryIndex( const ItemEntry& entry ) const;
+            QModelIndex findEntryIndex( const Engine::ItemEntry& entry ) const;
 
         public slots:
 
@@ -83,13 +83,25 @@ namespace Ra
             /// current content of the engine.
             void rebuildModel();
 
+            void addItem( const Engine::ItemEntry& ent );
+
+            void removeItem( const Engine::ItemEntry& ent );
+
+       signals:
+            void modelRebuilt();
 
         protected:
             /// Internal function to build the tree.
             void buildModel();
 
+            /// Internal functions to check if an item is in the tree.
+            bool findInTree( const TreeItem* item ) const;
+
             /// Get the tree item corresponding to the given index.
             TreeItem* getItem( const QModelIndex& index ) const;
+
+            /// Prints elements in the model (debug only)
+            void printModel() const;
 
         protected:
             /// Engine instance.

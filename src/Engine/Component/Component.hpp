@@ -7,7 +7,6 @@
 #include <Core/Math/Ray.hpp>
 #include <Core/Index/IndexedObject.hpp>
 
-#include <Engine/Entity/EditableProperty.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
 namespace Ra
@@ -30,7 +29,7 @@ namespace Ra
          * It is also linked to some other components in an entity.
          * Each component share a transform through their entity.
          */
-        class RA_ENGINE_API Component : public EditableInterface
+        class RA_ENGINE_API Component
         {
         public:
             /// CONSTRUCTOR
@@ -54,35 +53,40 @@ namespace Ra
              */
             virtual void setEntity( Entity* entity );
 
+            /// Return the entity the component belongs to
             virtual Entity* getEntity() const;
 
+            /// Return the component's name
             virtual const std::string& getName() const;
 
+            /// Set the system to which the  component belongs.
             virtual void setSystem( System* system );
+
+            /// Returns the system to which the component belongs.
             virtual System* getSystem() const;
 
+            /// Add a new render object to the component. This adds the RO to the manager for drawing.
             virtual Core::Index addRenderObject( RenderObject* renderObject ) final;
 
+            /// Remove the render object from the component.
             virtual void removeRenderObject( Core::Index roIdx ) final;
 
+            /// Perform a ray cast query.
             virtual void rayCastQuery(const Core::Ray& ray) const  {}
 
-            //
-            // Editable interface.
-            //
+            // Editable transform interface.
+            // This allow to edit the data in the component with a render object
+            // as a key. An invalid RO index can be passed, meaning no specific RO is
+            // queried.
 
-            // The base class provides a default implementation with no properties
-            // (but maybe this is not the right thing and we should leave it as pure
-            // virtual ?)
+            /// Returns true if a transform can be edited with the render object index given as a key.
+            virtual bool canEdit( Core::Index roIdx ) const { return false; }
 
-            /// Get a list of all editable properties.
-            virtual void getProperties( Core::AlignedStdVector<EditableProperty>& propsOut ) const override {};
+            /// Get the transform associated with the given RO index key.
+            virtual Core::Transform getTransform( Core::Index roIdx ) const { return Core::Transform::Identity();};
 
-            /// Tell the component to take the new property value into account.
-            virtual void setProperty( const EditableProperty& newProp ) override {};
-
-            /// Return the parent entity's transform.
-            virtual Core::Transform getWorldTransform() const override;
+            /// Set the new transform associated with the RO index key.
+            virtual void setTransform ( Core::Index roIdx, const Core::Transform& transform ) {};
 
             void notifyRenderObjectExpired( const Core::Index& idx );
 

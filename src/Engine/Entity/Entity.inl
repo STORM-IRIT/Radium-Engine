@@ -46,7 +46,7 @@ namespace Ra
 
         inline uint Entity::getNumComponents() const
         {
-            return m_components.size();
+            return uint(m_components.size());
         }
     }
 

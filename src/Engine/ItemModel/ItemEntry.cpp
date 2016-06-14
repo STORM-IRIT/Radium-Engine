@@ -1,13 +1,14 @@
-#include <MainApplication/ItemModel/ItemEntry.hpp>
+#include <Engine/ItemModel/ItemEntry.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Component/Component.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
 
 namespace Ra
 {
-    namespace Gui
+    namespace Engine
     {
 
         std::string getEntryName( const Engine::RadiumEngine* engine, const ItemEntry& ent )
@@ -54,6 +55,15 @@ namespace Ra
             return result;
         }
 
+        bool ItemEntry::isValid() const
+        {
+            ON_DEBUG(checkConsistency());
+            Engine::RadiumEngine* engine = Engine::RadiumEngine::getInstance();
+            return m_entity != nullptr // It has an entity
+                    && engine->getEntityManager()->entityExists( m_entity->getName() ) // The entity exists
+                    && ((!isRoNode() || engine->getRenderObjectManager()->exists(m_roIndex))); // The RO exists
+
+        }
 
         bool ItemEntry::isSelectable() const
         {
@@ -66,10 +76,8 @@ namespace Ra
                     Engine::RenderObjectType::Debug;
                 return (!(isUI || isDebug));
             }
-            else
-            {
-                return true;
-            }
+
+            return m_entity->idx != Engine::SystemEntity::getInstance()->idx;
         }
 
     }

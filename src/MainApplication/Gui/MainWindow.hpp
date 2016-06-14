@@ -65,7 +65,9 @@ namespace Ra
 
         public slots:
             /// Callback to rebuild the item model when the engine objects change.
-            void onEntitiesUpdated();
+            void onItemAdded( const Engine::ItemEntry& ent );
+
+            void onItemRemoved( const Engine::ItemEntry& ent );
 
             // Frame timers ui slots
             void onUpdateFramestats( const std::vector<FrameTimerData>& stats );
@@ -99,7 +101,7 @@ namespace Ra
             void framescountForStatsChanged( int count );
 
             /// Emitted when a new item is selected. An invalid entry is sent when no item is selected.
-            void selectedItem( const ItemEntry& entry );
+            void selectedItem( const Engine::ItemEntry& entry );
 
         private:
             /// Connect qt signals and slots. Called once by the constructor.

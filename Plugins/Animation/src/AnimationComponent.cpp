@@ -26,87 +26,6 @@ using Ra::Core::Animation::WeightMatrix;
 namespace AnimationPlugin
 {
 
-    bool AnimationComponent::picked(uint drawableIdx)
-    {
-        for (const auto& dr: m_boneDrawables)
-        {
-            if ( dr->getRenderObjectIndex() == int( drawableIdx ) )
-            {
-                m_selectedBone = dr->getBoneIndex();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    void AnimationComponent::getProperties(Ra::Core::AlignedStdVector<Ra::Engine::EditableProperty> &propsOut) const
-    {
-        if ( m_selectedBone < 0 || uint(m_selectedBone) >= m_skel.size() )
-        {
-            return;
-        }
-
-        CORE_ASSERT(m_selectedBone >= 0 && uint(m_selectedBone) < m_skel.size(), "Oops");
-        uint i = m_selectedBone;
-        {
-             const Ra::Core::Transform& tr = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL)[i];
-             propsOut.push_back(Ra::Engine::EditableProperty(tr, std::string("Transform ") + std::to_string(i) + "-" + m_skel.getLabel(i)));
-        }
-    }
-
-    void AnimationComponent::setProperty(const Ra::Engine::EditableProperty &prop)
-    {
-        int boneIdx = -1;
-        CORE_ASSERT(prop.type == Ra::Engine::EditableProperty::TRANSFORM, "Only bones transforms are editable");
-        for (uint i =0; i < m_skel.size(); ++i)
-        {
-            if (prop.name == std::string("Transform ") + std::to_string(i) + "-" + m_skel.getLabel(i))
-            {
-                boneIdx = i;
-                break;
-            }
-        }
-        CORE_ASSERT(boneIdx >=0 , "Property not found in skeleton");
-
-        Ra::Core::Transform tr = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL)[boneIdx];
-        // TODO (val) this code is copied from entity.cpp and could be factored.
-        for(const auto& entry: prop.primitives)
-        {
-            const Ra::Engine::EditablePrimitive& prim = entry.primitive;
-            switch (prim.getType())
-            {
-                case Ra::Engine::EditablePrimitive::POSITION:
-                {
-                    CORE_ASSERT(prim.getName() == "Position", "Inconsistent primitive");
-
-                    // Val : ignore translation for now  (todo : use the flags in primitive).
-                    // tr.translation() = prim.asPosition();
-                }
-                break;
-
-                case Ra::Engine::EditablePrimitive::ROTATION:
-                {
-                    CORE_ASSERT(prim.getName() == "Rotation", "Inconsistent primitive");
-                    tr.linear() = prim.asRotation().toRotationMatrix();
-                }
-                break;
-
-                default:
-                {
-                    CORE_ASSERT(false, "Wrong primitive type in property");
-                }
-                break;
-            }
-        }
-
-        // Transforms are edited in model space but applied to local space.
-        const Ra::Core::Transform& TBoneModel = m_skel.getTransform(boneIdx, Ra::Core::Animation::Handle::SpaceType::MODEL);
-        const Ra::Core::Transform& TBoneLocal = m_skel.getTransform(boneIdx, Ra::Core::Animation::Handle::SpaceType::LOCAL);
-        auto diff = TBoneModel.inverse() *  tr;
-
-        m_skel.setTransform(boneIdx,TBoneLocal * diff,  Ra::Core::Animation::Handle::SpaceType::LOCAL);
-    }
-
     void AnimationComponent::setSkeleton(const Ra::Core::Animation::Skeleton& skel)
     {
         m_skel = skel;
@@ -201,6 +120,7 @@ namespace AnimationPlugin
     {
         return m_refPose;
     }
+
     Ra::Core::Animation::WeightMatrix AnimationComponent::getWeights() const
     {
         return m_weights;
@@ -269,7 +189,8 @@ namespace AnimationPlugin
 
 
 
-    void AnimationComponent::createSkeleton( const Ra::Asset::HandleData* data, std::map< uint, uint >& indexTable ) {
+    void AnimationComponent::createSkeleton( const Ra::Asset::HandleData* data, std::map< uint, uint >& indexTable )
+    {
         const uint size = data->getComponentDataSize();
         auto component = data->getComponentData();
 
@@ -295,7 +216,8 @@ namespace AnimationPlugin
                                       const Ra::Core::AlignedStdVector< Ra::Asset::HandleComponentData >& data,
                                       const Ra::Core::AlignedStdVector< Ra::Core::Vector2i >& edgeList,
                                       std::vector< bool >& processed,
-                                      std::map< uint, uint >& indexTable ) {
+                                      std::map< uint, uint >& indexTable )
+    {
         if( !processed[dataID] ) {
             processed[dataID] = true;
             uint index = m_skel.addBone( parent, data.at( dataID ).m_frame, Ra::Core::Animation::Handle::SpaceType::MODEL, data.at( dataID ).m_name );
@@ -406,5 +328,37 @@ namespace AnimationPlugin
     }
 
 
+    bool AnimationComponent::canEdit(Ra::Core::Index roIdx) const
+    {
+        // returns true if the roIdx is one of our bones.
+        return ( std::find_if ( m_boneDrawables.begin(),
+                                m_boneDrawables.end(),
+                                [roIdx]( const auto& bone) { return bone->getRenderObjectIndex() == roIdx; })
+                 != m_boneDrawables.end());
+    }
 
+    Ra::Core::Transform AnimationComponent::getTransform(Ra::Core::Index roIdx) const
+    {
+        CORE_ASSERT( canEdit ( roIdx ), "Transform is not editable");
+        const auto& bonePos = std::find_if ( m_boneDrawables.begin(),
+                                          m_boneDrawables.end(),
+                                          [roIdx]( const auto& bone) { return bone->getRenderObjectIndex() == roIdx; });
+
+        const uint boneIdx =  (*bonePos)->getBoneIndex();
+        return m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL)[boneIdx];
+    }
+
+    void AnimationComponent::setTransform(Ra::Core::Index roIdx, const Ra::Core::Transform& transform)
+    {
+        CORE_ASSERT( canEdit ( roIdx ), "Transform is not editable");
+        const auto& bonePos = std::find_if ( m_boneDrawables.begin(),
+                                             m_boneDrawables.end(),
+                                             [roIdx]( const auto& bone) { return bone->getRenderObjectIndex() == roIdx; });
+
+        const uint boneIdx =  (*bonePos)->getBoneIndex();
+        const Ra::Core::Transform& TBoneModel = m_skel.getTransform(boneIdx, Ra::Core::Animation::Handle::SpaceType::MODEL);
+        const Ra::Core::Transform& TBoneLocal = m_skel.getTransform(boneIdx, Ra::Core::Animation::Handle::SpaceType::LOCAL);
+        auto diff = TBoneModel.inverse() *  transform;
+        m_skel.setTransform(boneIdx,TBoneLocal * diff,  Ra::Core::Animation::Handle::SpaceType::LOCAL);
+    }
 }
