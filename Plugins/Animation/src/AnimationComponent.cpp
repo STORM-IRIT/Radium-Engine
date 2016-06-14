@@ -254,7 +254,8 @@ namespace AnimationPlugin
             m_animations.push_back( Ra::Core::Animation::Animation() );
             for( const auto& t : keyTime ) {
                 for( const auto& it : table ) {
-                    pose[it.second] = ( m_skel.m_graph.isRoot( it.second ) ) ? m_skel.m_pose[it.second] : handleAnim[it.first].m_anim.at( t );
+                    //pose[it.second] = ( m_skel.m_graph.isRoot( it.second ) ) ? m_skel.m_pose[it.second] : handleAnim[it.first].m_anim.at( t );
+                    pose[it.second] = handleAnim[it.first].m_anim.at( t );
                 }
                 m_animations.back().addKeyPose( pose, t );
                 keypose.insertKeyFrame( t, pose );
