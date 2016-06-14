@@ -65,7 +65,7 @@ void uniformAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Trian
 TVAdj triangleUniformAdjacency( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
     const uint p_size = p.size();
     const uint t_size = T.size();
-    TVAdj A( p_size, t_size );
+    TVAdj A( t_size, p_size );
     for( uint t = 0; t < t_size; ++t ) {
         const uint i = T[t]( 0 );
         const uint j = T[t]( 1 );
