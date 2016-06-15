@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QMouseEvent>
-#include <MainApplication/TransformEditor/TransformEditor.hpp>
+#include <GuiBase/TransformEditor/TransformEditor.hpp>
 #include <MainApplication/Viewer/Gizmo/Gizmo.hpp>
 
 namespace Ra { namespace Engine { struct ItemEntry;}}
@@ -13,7 +13,7 @@ namespace Ra
     {
         /// This class interfaces the gizmos with the ui commands.
         /// It allows to change the gizmo type when editing an editable transform object
-        class GizmoManager : public QObject, public TransformEditor
+        class GizmoManager : public QObject, public GuiBase::TransformEditor
         {
             Q_OBJECT
 

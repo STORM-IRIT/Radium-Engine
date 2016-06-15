@@ -7,9 +7,9 @@
 #include <qdebug.h>
 #include <QEvent>
 
+#include <GuiBase/TreeModel/EntityTreeModel.hpp>
+#include <GuiBase/SelectionManager/SelectionManager.hpp>
 #include <MainApplication/TimerData/FrameTimerData.hpp>
-#include <MainApplication/Gui/EntityTreeModel.hpp>
-#include <MainApplication/SelectionManager/SelectionManager.hpp>
 
 
 namespace Ra
@@ -58,7 +58,7 @@ namespace Ra
             Viewer* getViewer();
 
             /// Access the selection manager.
-            SelectionManager* getSelectionManager();
+            GuiBase::SelectionManager* getSelectionManager();
 
             /// Update the ui from the plugins loaded.
             void updateUi( Plugins::RadiumPluginInterface* plugin );
@@ -130,10 +130,10 @@ namespace Ra
 
         private:
             /// Stores the internal model of engine objects for selection.
-            ItemModel* m_itemModel;
+            GuiBase::ItemModel* m_itemModel;
 
             /// Stores and manage the current selection.
-            SelectionManager* m_selectionManager;
+            GuiBase::SelectionManager* m_selectionManager;
 
             /// Widget to allow material edition.
             MaterialEditor* m_materialEditor;

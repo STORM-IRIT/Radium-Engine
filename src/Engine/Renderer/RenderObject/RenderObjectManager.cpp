@@ -49,7 +49,6 @@ namespace Ra
         void RenderObjectManager::removeRenderObject( const Core::Index& index )
         {
             CORE_ASSERT( exists (index), "Trying to access a render object which doesn't exist");
-            std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
             // FIXME(Charly): Should we check if the render object is in the double buffer map ?
             std::shared_ptr<RenderObject> renderObject = m_renderObjects.at( index );
@@ -60,6 +59,8 @@ namespace Ra
                                renderObject->getComponent(),
                                index ));
 
+            // Lock after signal has been fired (as this signal can cause another RO to be deleted)
+            std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
             m_renderObjects.remove( index );
             auto type = renderObject->getType();
             m_renderObjectByType[(int)type].erase( index );

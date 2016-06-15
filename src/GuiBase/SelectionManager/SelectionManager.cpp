@@ -1,4 +1,4 @@
-#include <MainApplication/SelectionManager/SelectionManager.hpp>
+#include <GuiBase/SelectionManager/SelectionManager.hpp>
 
 #include <Core/Log/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -7,7 +7,7 @@ using Ra::Engine::ItemEntry;
 
 namespace Ra
 {
-    namespace Gui
+    namespace GuiBase
     {
 
         SelectionManager::SelectionManager(ItemModel* model, QObject* parent)

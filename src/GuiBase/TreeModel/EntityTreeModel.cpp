@@ -1,4 +1,4 @@
-#include <MainApplication/Gui/EntityTreeModel.hpp>
+#include <GuiBase/TreeModel/EntityTreeModel.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
@@ -9,7 +9,7 @@ using Ra::Engine::ItemEntry;
 
 namespace Ra
 {
-    namespace Gui
+    namespace GuiBase
     {
 
         int ItemModel::rowCount(const QModelIndex& parent) const

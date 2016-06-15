@@ -10,7 +10,7 @@ namespace Ra
     {
         class RadiumEngine;
     }
-    namespace Gui
+    namespace GuiBase
     {
         class SelectionManager;
     }
@@ -19,7 +19,7 @@ namespace Ra
     struct PluginContext
     {
         Engine::RadiumEngine* m_engine;
-        Gui::SelectionManager* m_selectionManager;
+        GuiBase::SelectionManager* m_selectionManager;
     };
 
     namespace Plugins

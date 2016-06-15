@@ -3,6 +3,8 @@
 #include <QFileDialog>
 #include <QToolButton>
 
+#include <assimp/Importer.hpp>
+
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
@@ -11,13 +13,13 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
+#include <GuiBase/TreeModel/EntityTreeModel.hpp>
+
 #include <MainApplication/MainApplication.hpp>
-#include <MainApplication/Gui/EntityTreeModel.hpp>
 #include <MainApplication/Gui/MaterialEditor.hpp>
 #include <MainApplication/Viewer/CameraInterface.hpp>
 
 #include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
-#include <assimp/Importer.hpp>
 
 using Ra::Engine::ItemEntry;
 
@@ -37,10 +39,10 @@ namespace Ra
 
         QStringList headers;
         headers << tr("Entities -> Components");
-        m_itemModel = new ItemModel(mainApp->getEngine(), this);
+        m_itemModel = new GuiBase::ItemModel(mainApp->getEngine(), this);
         m_entitiesTreeView->setModel(m_itemModel);
         m_materialEditor = new MaterialEditor();
-        m_selectionManager = new SelectionManager(m_itemModel, this);
+        m_selectionManager = new GuiBase::SelectionManager(m_itemModel, this);
         m_entitiesTreeView->setSelectionModel(m_selectionManager);
 
         createConnections();
@@ -82,7 +84,7 @@ namespace Ra
         connect(mainApp, &MainApplication::updateFrameStats, this, &MainWindow::onUpdateFramestats);
 
         // Inform property editors of new selections
-        connect(m_selectionManager, &SelectionManager::selectionChanged, this, &MainWindow::onSelectionChanged);
+        connect(m_selectionManager, &GuiBase::SelectionManager::selectionChanged, this, &MainWindow::onSelectionChanged);
         //connect(this, &MainWindow::selectedItem, tab_edition, &TransformEditorWidget::setEditable);
         connect(this, &MainWindow::selectedItem, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
         connect(this, &MainWindow::selectedItem, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
@@ -181,7 +183,7 @@ namespace Ra
         return m_viewer;
     }
 
-    Gui::SelectionManager* Gui::MainWindow::getSelectionManager()
+    GuiBase::SelectionManager* Gui::MainWindow::getSelectionManager()
     {
         return m_selectionManager;
     }

@@ -12,7 +12,7 @@
 
 namespace Ra
 {
-    namespace Gui
+    namespace GuiBase
     {
         /// Element of the tree representation of items.
         struct TreeItem

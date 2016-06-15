@@ -3,7 +3,7 @@
 #include <QWidget>
 
 #include <Core/Containers/AlignedAllocator.hpp>
-#include <MainApplication/TransformEditor/TransformEditor.hpp>
+#include <GuiBase/TransformEditor/TransformEditor.hpp>
 #include <MainApplication/Gui/VectorEditor.hpp>
 
 class QLayout;
@@ -14,7 +14,7 @@ namespace Ra
     {
 
         /// The specialized tab to edit the transform of an object.
-        class TransformEditorWidget : public QWidget, public TransformEditor
+        class TransformEditorWidget : public QWidget, public GuiBase::TransformEditor
         {
             Q_OBJECT
         public:

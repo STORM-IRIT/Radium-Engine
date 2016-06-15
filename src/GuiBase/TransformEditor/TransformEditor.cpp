@@ -1,10 +1,10 @@
-#include <MainApplication/TransformEditor/TransformEditor.hpp>
+#include <GuiBase/TransformEditor/TransformEditor.hpp>
 
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Component/Component.hpp>
 
 namespace Ra {
-    namespace Gui
+    namespace GuiBase
     {
         void TransformEditor::setEditable( const Engine::ItemEntry& ent )
         {

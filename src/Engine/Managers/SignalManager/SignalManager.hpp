@@ -11,6 +11,17 @@
 
 namespace Ra {
 namespace Engine {
+    /** This class is used to inform the external world of events happening in the engine.
+      * You can register a callback function which will be called any time the event happens.
+      * Signals are fired when an object of the engine (entity, component or render object)
+      * is either added or removed.
+      * All signals sen the item entry indicating the object that was added or removed.
+      *
+      * Signals for new objects are fired just after they have been initialized and acquired
+      * by the object owning them.
+      * Signals for destroyed objects are fired just before they are removed from the object
+      * owning them and destroyed
+      **/
     class SignalManager
     {
 

@@ -4,7 +4,7 @@
 #include <Engine/ItemModel/ItemEntry.hpp>
 namespace Ra
 {
-    namespace Gui
+    namespace GuiBase
     {
         class TransformEditor
         {

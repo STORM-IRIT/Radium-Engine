@@ -4,8 +4,7 @@
 #include <QItemSelectionModel>
 
 #include <Engine/ItemModel/ItemEntry.hpp>
-#include <MainApplication/Gui/EntityTreeModel.hpp>
-
+#include <GuiBase/TreeModel/EntityTreeModel.hpp>
 
 namespace Ra
 {
@@ -18,7 +17,7 @@ namespace Ra
 
 namespace Ra
 {
-    namespace Gui
+    namespace GuiBase
     {
 
         class SelectionManager : public QItemSelectionModel
