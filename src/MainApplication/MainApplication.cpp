@@ -349,6 +349,10 @@ namespace Ra
         for (const auto& filename : pluginsDir.entryList(QDir::Files))
 //        foreach (QString filename, pluginsDir.entryList( QDir::Files ) )
         {
+            PluginContext context;
+            context.m_engine = m_engine.get();
+            context.m_selectionManager = m_mainWindow->getSelectionManager();
+
             std::string ext = Core::StringUtils::getFileExt( filename.toStdString() );
 #if defined( OS_WINDOWS )
             std::string sysDllExt = "dll";
@@ -376,7 +380,7 @@ namespace Ra
                     if ( loadedPlugin )
                     {
                         ++pluginCpt;
-                        loadedPlugin->registerPlugin( m_engine.get() );
+                        loadedPlugin->registerPlugin( context );
                         m_mainWindow->updateUi( loadedPlugin );
                     }
                     else

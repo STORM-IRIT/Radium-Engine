@@ -10,6 +10,17 @@ namespace Ra
     {
         class RadiumEngine;
     }
+    namespace Gui
+    {
+        class SelectionManager;
+    }
+
+    /// Data passed to the plugin constructor.
+    struct PluginContext
+    {
+        Engine::RadiumEngine* m_engine;
+        Gui::SelectionManager* m_selectionManager;
+    };
 
     namespace Plugins
     {
@@ -19,14 +30,14 @@ namespace Ra
             virtual ~RadiumPluginInterface() {}
 
             /**
-             * @brief Get the engine to know the plugin system by registering it.
+             * @brief Pass arguments for plugin initialization.
              * This method is supposed to create the system (<emph>new</emph> it)
              * and then call Ra::Engine::RadiumEngine::registerSystem().
              * Without doing this, your system won't do anything
              * (unless you just want to add UI elements)
-             * @param engine Pointer to the radium engine
+             * @param context : plugin context containing the engine and UI interfaces.
              */
-            virtual void registerPlugin( Engine::RadiumEngine* engine ) = 0;
+            virtual void registerPlugin( const PluginContext& context ) = 0;
 
             /**
              * @brief Tells wether the plugin wants to add a widget

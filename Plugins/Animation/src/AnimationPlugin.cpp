@@ -18,10 +18,10 @@ namespace AnimationPlugin
     {
     }
 
-    void AnimationPluginC::registerPlugin( Ra::Engine::RadiumEngine* engine )
+    void AnimationPluginC::registerPlugin(const Ra::PluginContext& context)
     {
         m_system = new AnimationSystem;
-        engine->registerSystem( "AnimationSystem", m_system );
+        context.m_engine->registerSystem( "AnimationSystem", m_system );
     }
 
     bool AnimationPluginC::doAddWidget( QString &name )

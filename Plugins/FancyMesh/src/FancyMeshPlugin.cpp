@@ -11,10 +11,10 @@ namespace FancyMeshPlugin
     {
     }
 
-    void FancyMeshPluginC::registerPlugin( Ra::Engine::RadiumEngine* engine )
+    void FancyMeshPluginC::registerPlugin( const Ra::PluginContext& context )
     {
         FancyMeshSystem* system = new FancyMeshSystem;
-        engine->registerSystem( "FancyMeshSystem", system );
+        context.m_engine->registerSystem( "FancyMeshSystem", system );
     }
 
     bool FancyMeshPluginC::doAddWidget( QString &name )

@@ -181,6 +181,11 @@ namespace Ra
         return m_viewer;
     }
 
+    Gui::SelectionManager* Gui::MainWindow::getSelectionManager()
+    {
+        return m_selectionManager;
+    }
+
     void Gui::MainWindow::handlePicking(int pickingResult)
     {
         Ra::Core::Index roIndex(pickingResult);
@@ -367,6 +372,7 @@ namespace Ra
     {
         m_itemModel->removeItem(ent) ;
     }
+
 
 
 } // namespace Ra

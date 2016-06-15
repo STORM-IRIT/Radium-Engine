@@ -35,7 +35,7 @@ namespace SkinningPlugin
     public:
         virtual ~SkinningPluginC();
 
-        virtual void registerPlugin( Ra::Engine::RadiumEngine* engine ) override;
+        virtual void registerPlugin( const Ra::PluginContext& context ) override;
 
         virtual bool doAddWidget( QString& name ) override;
         virtual QWidget* getWidget() override;

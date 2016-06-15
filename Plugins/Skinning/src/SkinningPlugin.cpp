@@ -11,10 +11,10 @@ namespace SkinningPlugin
     {
     }
 
-    void SkinningPluginC::registerPlugin( Ra::Engine::RadiumEngine* engine )
+    void SkinningPluginC::registerPlugin( const Ra::PluginContext& context )
     {
         SkinningSystem* system = new SkinningSystem;
-        engine->registerSystem( "SkinningSystem", system );
+        context.m_engine->registerSystem( "SkinningSystem", system );
     }
 
     bool SkinningPluginC::doAddWidget( QString &name )

@@ -55,7 +55,10 @@ namespace Ra
             virtual ~MainWindow();
 
             /// Access the viewer, i.e. the rendering widget.
-            Gui::Viewer* getViewer();
+            Viewer* getViewer();
+
+            /// Access the selection manager.
+            SelectionManager* getSelectionManager();
 
             /// Update the ui from the plugins loaded.
             void updateUi( Plugins::RadiumPluginInterface* plugin );
