@@ -176,6 +176,10 @@ namespace Ra
             Primitive(Engine::SystemEntity::uiCmp(), Grid(
                     Core::Vector3::Zero(), Core::Vector3::UnitX(),
                     Core::Vector3::UnitZ(), Core::Colors::Grey(0.6f))));
+
+        Engine::SystemEntity::uiCmp()->addRenderObject(
+                    Primitive(Engine::SystemEntity::uiCmp(), Frame(Ra::Core::Transform::Identity(), 0.05f)));
+
     }
 
     void MainApplication::loadFile( QString path )

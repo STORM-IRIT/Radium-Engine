@@ -10,6 +10,7 @@
 // define RA_DISABLE_DEBUG_DISPLAY
 
 #include <Core/Utils/Singleton.hpp>
+#include <Core/Math/ColorPresets.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>

@@ -329,7 +329,7 @@ namespace Ra
                 {
                     std::string errStr;
                     StringUtils::stringPrintf( errStr, "Triangle %d is degenerate", t);
-                    CORE_ASSERT(getTriangleArea(mesh,t) > 0.f , errStr.c_str());
+                    CORE_WARN_IF(!(getTriangleArea(mesh,t) > 0.f) , errStr.c_str());
                     const Triangle& tri = mesh.m_triangles[t];
                     for ( uint i = 0; i < 3; ++i )
                     {
