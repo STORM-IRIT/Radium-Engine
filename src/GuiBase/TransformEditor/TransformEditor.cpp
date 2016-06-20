@@ -40,7 +40,10 @@ namespace Ra {
                 {
                     m_currentEdit.m_entity->setTransform( tr );
                 }
-                else ( m_currentEdit.m_component->setTransform(m_currentEdit.m_roIndex, tr ));
+                else
+                {
+                    m_currentEdit.m_component->setTransform(m_currentEdit.m_roIndex, tr );
+                }
             }
         }
 

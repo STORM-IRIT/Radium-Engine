@@ -97,9 +97,16 @@ namespace Ra
             {
                 const Core::Vector3 origin =  m_transform.translation();
                 Core::Vector3 rotationAxis = Core::Vector3::Unit(m_selectedAxis);
+
+
+                // Decompose the current transform's linear part into rotation and scale
+                Core::Matrix3 rotationMat;
+                Core::Matrix3 scaleMat;
+                m_transform.computeRotationScaling(&rotationMat, &scaleMat);
+
                 if (m_mode == LOCAL)
                 {
-                    rotationAxis = m_transform.rotation()*rotationAxis;
+                    rotationAxis = rotationMat*rotationAxis;
                 }
 
                 // Project the clicked points against the plane defined by the rotation circles.
@@ -123,8 +130,8 @@ namespace Ra
                     Scalar angle = Core::Math::sign(c.dot(m_worldTo * rotationAxis)) * std::atan2(c.norm(),d);
 
                     // Apply rotation.
-                    auto newRot = Core::AngleAxis(angle, rotationAxis) * m_transform.rotation();
-                    m_transform.fromPositionOrientationScale(origin, newRot, Core::Vector3::Ones());
+                    auto newRot = Core::AngleAxis(angle, rotationAxis) * rotationMat;
+                    m_transform.fromPositionOrientationScale(origin, newRot, scaleMat.diagonal() );
 
                 }
                 m_initialPix = nextXY;
