@@ -9,6 +9,8 @@ namespace Ra
         class TransformEditor
         {
         public:
+            RA_CORE_ALIGNED_NEW
+
             TransformEditor() {}
             virtual ~TransformEditor();
 
