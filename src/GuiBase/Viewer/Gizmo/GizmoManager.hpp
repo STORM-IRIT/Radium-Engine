@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QMouseEvent>
 #include <GuiBase/TransformEditor/TransformEditor.hpp>
-#include <MainApplication/Viewer/Gizmo/Gizmo.hpp>
+#include <GuiBase/Viewer/Gizmo/Gizmo.hpp>
 
 namespace Ra { namespace Engine { struct ItemEntry;}}
 namespace Ra

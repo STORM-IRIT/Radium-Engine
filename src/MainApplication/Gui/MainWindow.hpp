@@ -9,7 +9,8 @@
 
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 #include <GuiBase/SelectionManager/SelectionManager.hpp>
-#include <MainApplication/TimerData/FrameTimerData.hpp>
+
+#include <GuiBase/TimerData/FrameTimerData.hpp>
 
 
 namespace Ra

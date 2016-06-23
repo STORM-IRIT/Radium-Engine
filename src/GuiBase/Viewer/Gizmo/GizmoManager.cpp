@@ -1,13 +1,13 @@
-#include <MainApplication/Viewer/Gizmo/GizmoManager.hpp>
+#include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
 
-#include <MainApplication/Viewer/Viewer.hpp>
-#include <MainApplication/Viewer/CameraInterface.hpp>
-#include <MainApplication/Viewer/Gizmo/TranslateGizmo.hpp>
-#include <MainApplication/Viewer/Gizmo/RotateGizmo.hpp>
+#include <GuiBase/Viewer/Viewer.hpp>
+#include <GuiBase/Viewer/CameraInterface.hpp>
+#include <GuiBase/Viewer/Gizmo/TranslateGizmo.hpp>
+#include <GuiBase/Viewer/Gizmo/RotateGizmo.hpp>
 #include <QtWidgets/QtWidgets>
 
 

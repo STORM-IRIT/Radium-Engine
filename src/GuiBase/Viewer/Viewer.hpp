@@ -14,7 +14,7 @@
 
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <MainApplication/Viewer/Gizmo/GizmoManager.hpp>
+#include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 
 // Uncomment this to deactivate multi-threaded rendering.
 // In that case the call to startRendering() is synchronous
