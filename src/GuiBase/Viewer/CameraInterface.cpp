@@ -1,4 +1,4 @@
-#include <MainApplication/Viewer/CameraInterface.hpp>
+#include <GuiBase/Viewer/CameraInterface.hpp>
 
 #include <Core/Math/Math.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>

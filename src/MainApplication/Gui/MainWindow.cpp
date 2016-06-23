@@ -18,7 +18,7 @@
 
 #include <MainApplication/MainApplication.hpp>
 #include <MainApplication/Gui/MaterialEditor.hpp>
-#include <MainApplication/Viewer/CameraInterface.hpp>
+#include <GuiBase/Viewer/CameraInterface.hpp>
 
 #include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
 
@@ -111,7 +111,7 @@ namespace Ra
                 m_viewer, &Viewer::displayTexture);
 
         connect(m_enablePostProcess, &QCheckBox::stateChanged, m_viewer, &Viewer::enablePostProcess);
-        connect(m_enableDebugDraw,   &QCheckBox::stateChanged, m_viewer, &Viewer::enableDebugDraw);
+//!\fixme        connect(m_enableDebugDraw,   &QCheckBox::stateChanged, m_viewer, &Viewer::enableDebugDraw);
         connect(m_realFrameRate,     &QCheckBox::stateChanged, mainApp,  &MainApplication::setRealFrameRate);
 
         // Connect engine signals to the appropriate callbacks

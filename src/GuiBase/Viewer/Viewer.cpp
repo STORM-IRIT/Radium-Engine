@@ -1,4 +1,4 @@
-#include <MainApplication/Viewer/Viewer.hpp>
+#include <GuiBase/Viewer/Viewer.hpp>
 
 #include <iostream>
 
@@ -23,11 +23,9 @@
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
-#include <MainApplication/Viewer/TrackballCamera.hpp>
-#include <MainApplication/Viewer/Gizmo/GizmoManager.hpp>
-#include <MainApplication/Gui/MainWindow.hpp>
-#include <MainApplication/MainApplication.hpp>
-#include <MainApplication/Utils/Keyboard.hpp>
+#include <GuiBase/Viewer/TrackballCamera.hpp>
+#include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
+#include <GuiBase/Utils/Keyboard.hpp>
 
 /// Helper functions
 namespace

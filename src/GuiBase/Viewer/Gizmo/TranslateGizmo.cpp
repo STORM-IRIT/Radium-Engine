@@ -1,4 +1,4 @@
-#include <MainApplication/Viewer/Gizmo/TranslateGizmo.hpp>
+#include <GuiBase/Viewer/Gizmo/TranslateGizmo.hpp>
 
 #include <Core/Math/RayCast.hpp>
 #include <Core/Math/ColorPresets.hpp>
