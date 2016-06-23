@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_TRACKBALLCAMERA_HPP
 #define RADIUMENGINE_TRACKBALLCAMERA_HPP
 
-#include <MainApplication/Viewer/CameraInterface.hpp>
+#include <GuiBase/Viewer/CameraInterface.hpp>
 
 namespace Ra
 {

@@ -1,7 +1,8 @@
 #ifndef RADIUMENGINE_ROTATE_GIZMO_HPP_
 #define RADIUMENGINE_ROTATE_GIZMO_HPP_
 
-#include <MainApplication/Viewer/Gizmo/Gizmo.hpp>
+#include <GuiBase/Viewer/Gizmo/Gizmo.hpp>
+
 namespace Ra
 {
     namespace Gui

@@ -627,14 +627,14 @@
   <customwidget>
    <class>Ra::Gui::Viewer</class>
    <extends>QWidget</extends>
-   <header>MainApplication/Viewer/Viewer.hpp</header>
+   <header>GuiBase/Viewer/Viewer.hpp</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>Ra::Gui::TransformEditorWidget</class>
    <extends>QWidget</extends>
    <header>MainApplication/Gui/TransformEditorWidget.hpp</header>
-   <container>1</container>
+   <container>1</container>git
   </customwidget>
  </customwidgets>
  <resources>

@@ -1,4 +1,4 @@
-#include <MainApplication/Viewer/Gizmo/RotateGizmo.hpp>
+#include <GuiBase/Viewer/Gizmo/RotateGizmo.hpp>
 
 #include <Core/Math/RayCast.hpp>
 #include <Core/Math/ColorPresets.hpp>
