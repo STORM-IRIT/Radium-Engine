@@ -67,6 +67,9 @@ namespace Ra
             /// Update the UI ( most importantly gizmos ) to the modifications of the engine/
             void onFrameComplete();
 
+            /// overload QWidget::update
+            void update();
+
         public slots:
             /// Callback to rebuild the item model when the engine objects change.
             void onItemAdded( const Engine::ItemEntry& ent );
@@ -128,6 +131,10 @@ namespace Ra
 
             /// Slot to accept a new renderer
             void onRendererReady();
+
+        public:
+            /// Task queue for processing tasks.
+            std::unique_ptr<Core::TaskQueue> m_taskQueue;
 
         private:
             /// Stores the internal model of engine objects for selection.

@@ -164,14 +164,10 @@ namespace Ra
         m_renderThread = new RenderThread( this, m_renderer.get() );
 #endif
         // FIXME (Mathias) : according to modern C++ guidelines (Stroustrup), prefer the following
-<<<<<<< 1ade299af2893232affe57f3d1566167c51b88b1:src/MainApplication/Viewer/Viewer.cpp
         // NOTE(Charly) : Indeed, but on MSVC std::make_shared does not guarantee alignement, hence making Eigen crash.
         //                We introduced Ra::Core::make_shared later and I still have to change all this calls.
         auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
-=======
-        // auto light = std::make_shared<Engine::DirectionalLight>();
-        auto light = std::shared_ptr<Engine::DirectionalLight>(new Engine::DirectionalLight);
->>>>>>> Separates application and engine (closes #70):src/GuiBase/Viewer/Viewer.cpp
+
 
         for ( auto& renderer : m_renderers )
         {
@@ -231,7 +227,20 @@ namespace Ra
         m_camera->resizeViewport( width, height );
         m_currentRenderer->resize( width, height );
     }
+/*
+    void Gui::Viewer::paintGL()
+    {
+        makeCurrent();
+        std::cout << "hello" << std::endl;
+        Engine::RenderData data;
+        data.dt = m_dt;
+        data.projMatrix = m_camera->getProjMatrix();
+        data.viewMatrix = m_camera->getViewMatrix();
 
+        m_currentRenderer->render( data );
+        doneCurrent();
+    }
+*/
     void Gui::Viewer::mousePressEvent( QMouseEvent* event )
     {
         switch ( event->button() )

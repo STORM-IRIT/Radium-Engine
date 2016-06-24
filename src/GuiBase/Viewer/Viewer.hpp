@@ -119,7 +119,6 @@ namespace Ra
             /// Write the current frame as an image. Supports either BMP or PNG file names.
             void grabFrame( const std::string& filename );
 
-
         signals:
             void rendererReady();               //! Emitted when the rendered is correctly initialized
             void leftClickPicking ( int id );   //! Emitted when the result of a left click picking is known
@@ -179,6 +178,8 @@ namespace Ra
             virtual void mouseMoveEvent( QMouseEvent* event ) override;
             virtual void wheelEvent( QWheelEvent* event ) override;
 
+        public:
+            Scalar m_dt;
 
         private:
             /// Owning pointer to the renderers.

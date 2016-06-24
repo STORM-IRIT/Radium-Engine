@@ -103,10 +103,13 @@ namespace Ra
         /// Instance of the radium engine.
         std::unique_ptr<Engine::RadiumEngine> m_engine;
 
+<<<<<<< 84ab4a814076df7c6fddc158a10d333b5e9a1457:src/MainApplication/MainApplication.hpp
         /// Task queue for processing tasks.
         std::unique_ptr<Core::TaskQueue> m_taskQueue;
 
         /// Number of frames per second to generate.
+=======
+>>>>>>> Moving some rendering to Viewer::paintGL:MainApplication/MainApplication.hpp
         uint m_targetFPS;
 
     private:
