@@ -1,5 +1,7 @@
 #ifndef RADIUMENGINE_TRANSFORM_EDITOR_HPP_
 #define RADIUMENGINE_TRANSFORM_EDITOR_HPP_
+
+#include <GuiBase/RaGuiBase.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/ItemModel/ItemEntry.hpp>
 namespace Ra
