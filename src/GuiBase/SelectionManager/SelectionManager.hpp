@@ -42,25 +42,7 @@ namespace Ra
             /// Select an item through an item entry. @see QItemSelectionModel::Select
             void select( const Engine::ItemEntry& ent,  QItemSelectionModel::SelectionFlags command );
 
-            /// Select an item through an item entry. @see QItemSelectionModel::Select
-            void select( const QModelIndex& idx, QItemSelectionModel::SelectionFlags command ) override
-            {
-                Engine::ItemEntry ent = itemModel()->getEntry(idx);
-                QItemSelectionModel::select( idx, command );
-            }
-
-            void select( const QItemSelection& selection, QItemSelectionModel::SelectionFlags command) override
-            {
-                std::vector<Engine::ItemEntry> entries;
-                for ( const auto& idx : selection.indexes())
-                {
-                    entries.push_back(itemModel()->getEntry(idx));
-                }
-
-                QItemSelectionModel::select(selection , command );
-            }
-
-            /// Set an item as current through an item entry. @see QItemSelectionModen::setCurrent
+            /// Set an item as current through an item entry. @see QItemSelectionModel::setCurrent
             void setCurrentEntry( const Engine::ItemEntry& ent, QItemSelectionModel::SelectionFlags command);
 
         protected slots:
