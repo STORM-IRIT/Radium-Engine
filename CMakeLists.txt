@@ -3,8 +3,8 @@ project(RadiumEngine)
 cmake_minimum_required(VERSION 2.8.11)
 
 # CMake setups
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Build options options.
 set( USE_DOUBLE False CACHE BOOL "Use double precision" )
@@ -19,13 +19,13 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_COMPILING_QSTRING_COMPAT_CPP")
 
 
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
-set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_SOURCE_DIR}/bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 if ( NOT CMAKE_PREFIX_PATH )
-  set( CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR} )
+  set( CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR} )
 endif()
 
 
@@ -44,20 +44,20 @@ if (MSVC OR MSVC_IDE)
 
     # Copy libs / targets in the correct directories
     if ("${CMAKE_GENERATOR}" STREQUAL "NMake Makefiles")
-        set(PDB_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+        set(PDB_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
     else()
         foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
             string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG)
-            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin)
-            set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/lib)
-            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/lib)
+            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+            set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_CURRENT_SOURCE_DIR}/lib)
         endforeach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     endif()
 endif(MSVC OR MSVC_IDE)
 
 # EXTERNALS
 # TODO Move this in another cmake config file
-set(EXTERNAL_DIR ${CMAKE_SOURCE_DIR}/3rdPartyLibraries)
+set(EXTERNAL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries)
 add_subdirectory(3rdPartyLibraries)
 
 # Eigen
@@ -67,21 +67,21 @@ set( EIGEN_INC ${EXTERNAL_DIR}/Eigen )
 set( ASSIMP_INC ${EXTERNAL_DIR}/Assimp/include )
 if( APPLE )
     if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimpd.dylib" )
+        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimpd.dylib" )
     else()
-        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimp.dylib" )
+        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimp.dylib" )
     endif()
 elseif ( UNIX )
     if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimpd.so" )
+        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimpd.so" )
     else()
-        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimp.so" )
+        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimp.so" )
     endif()
 elseif (MINGW)
     if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimpd.dll.a" )
+        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimpd.dll.a" )
     else()
-        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimp.dll.a" )
+        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimp.dll.a" )
     endif()
 elseif( MSVC )
     # in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
@@ -101,7 +101,7 @@ elseif( MSVC )
         set(MSVC_PREFIX "vc130")
     endif()
 
-    set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mt.lib" )
+    set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mt.lib" )
 endif()
 
 set( CMAKE_DEBUG_POSTFIX "" )

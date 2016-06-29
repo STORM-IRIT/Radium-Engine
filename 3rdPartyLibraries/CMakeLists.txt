@@ -22,4 +22,6 @@ set( ASSIMP_BUILD_TESTS OFF CACHE BOOL
 set( ASSIMP_BUILD_SAMPLES OFF CACHE BOOL
     "If the official samples are built as well (needs Glut)." )
 
+# Do not clean 3rt party libs when cleaning the build.
+set_directory_properties( PROPERTIES CLEAN_NO_CUSTOM 1)
 add_subdirectory( Assimp )

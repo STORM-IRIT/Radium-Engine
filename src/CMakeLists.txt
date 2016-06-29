@@ -187,4 +187,9 @@ if ( NOT ${OMIT_MAIN_APP} )
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib )
+
+    if (MSVC)
+        set_directory_properties( PROPERTIES VS_STARTUP_PROJECT ${app_target})
+    endif(MSVC)
+
 endif( NOT ${OMIT_MAIN_APP} )
