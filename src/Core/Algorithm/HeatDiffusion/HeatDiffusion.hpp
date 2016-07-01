@@ -52,7 +52,7 @@ Time t( const Scalar& m, const Scalar& h );
 * TOG 2013
 */
 /// WARNING: L must be a positive semi-definite matrix
-void heat( const Geometry::AreaMatrix& A, const Time& t, const Geometry::LaplacianMatrix& L, Heat& u, const Delta& delta );
+void RA_CORE_API heat( const Geometry::AreaMatrix& A, const Time& t, const Geometry::LaplacianMatrix& L, Heat& u, const Delta& delta );
 
 
 
@@ -69,7 +69,7 @@ void heat( const Geometry::AreaMatrix& A, const Time& t, const Geometry::Laplaci
 * TOG 2013
 */
 /// WARNING: L must be a positive semi-definite matrix
-Heat heat( const Geometry::AreaMatrix& A, const Time& t, const Geometry::LaplacianMatrix& L, const Delta& delta );
+Heat RA_CORE_API heat( const Geometry::AreaMatrix& A, const Time& t, const Geometry::LaplacianMatrix& L, const Delta& delta );
 
 
 

@@ -32,7 +32,7 @@ typedef Diagonal AreaMatrix;
 * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
 * Visualization and Mathematics III 2003
 */
-AreaMatrix oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
+AreaMatrix RA_CORE_API oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
 
 
 /*
@@ -44,7 +44,7 @@ AreaMatrix oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Tria
 * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
 * Visualization and Mathematics III 2003
 */
-void oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, AreaMatrix& A );
+void RA_CORE_API oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, AreaMatrix& A );
 
 
 
@@ -57,7 +57,7 @@ void oneRingArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >
 * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
 * Visualization and Mathematics III 2003
 */
-AreaMatrix barycentricArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
+AreaMatrix RA_CORE_API barycentricArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
 
 
 /*
@@ -69,7 +69,7 @@ AreaMatrix barycentricArea( const VectorArray< Vector3 >& p, const VectorArray< 
 * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
 * Visualization and Mathematics III 2003
 */
-void barycentricArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, AreaMatrix& A );
+void RA_CORE_API barycentricArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T, AreaMatrix& A );
 
 
 
@@ -82,7 +82,7 @@ void barycentricArea( const VectorArray< Vector3 >& p, const VectorArray< Triang
 * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
 * Visualization and Mathematics III 2003
 */
-AreaMatrix voronoiArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
+AreaMatrix RA_CORE_API voronoiArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
 
 
 /*
@@ -94,7 +94,7 @@ AreaMatrix voronoiArea( const VectorArray< Vector3 >& p, const VectorArray< Tria
 * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
 * Visualization and Mathematics III 2003
 */
-AreaMatrix mixedArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
+AreaMatrix RA_CORE_API  mixedArea( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T );
 
 
 
@@ -111,7 +111,7 @@ AreaMatrix mixedArea( const VectorArray< Vector3 >& p, const VectorArray< Triang
 * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
 * Visualization and Mathematics III 2003
 */
-Scalar oneRingArea( const Vector3& v, const VectorArray< Vector3 >& p );
+Scalar RA_CORE_API oneRingArea( const Vector3& v, const VectorArray< Vector3 >& p );
 
 
 
@@ -124,7 +124,7 @@ Scalar oneRingArea( const Vector3& v, const VectorArray< Vector3 >& p );
 * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
 * Visualization and Mathematics III 2003
 */
-Scalar barycentricArea ( const Vector3& v, const VectorArray< Vector3 >& p );
+Scalar RA_CORE_API barycentricArea ( const Vector3& v, const VectorArray< Vector3 >& p );
 
 
 
