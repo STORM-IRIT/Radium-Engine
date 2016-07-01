@@ -13,8 +13,8 @@ namespace Animation {
 
 typedef AlignedStdVector< DualQuaternion > DQList;
 
-void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ );
-void DualQuaternionSkinning( const Vector3Array& input, const DQList& DQ, Vector3Array& output );
+void RA_CORE_API computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ );
+void RA_CORE_API DualQuaternionSkinning( const Vector3Array& input, const DQList& DQ, Vector3Array& output );
 
 } // namespace Animation
 } // namespace Core

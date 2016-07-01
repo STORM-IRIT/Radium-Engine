@@ -24,7 +24,7 @@ namespace Ra
                 SIZE
             };
 
-            typedef typename Eigen::Matrix<Scalar, 2, 1> Vector;
+            typedef Eigen::Matrix<Scalar, 2, 1> Vector;
 
             virtual void addPoint(const Vector p) = 0;
 
