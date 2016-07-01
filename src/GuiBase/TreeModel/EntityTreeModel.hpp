@@ -12,7 +12,7 @@ namespace Ra
     namespace GuiBase
     {
 
-        class EngineTreeItem : public TreeItem
+        class RA_GUIBASE_API EngineTreeItem : public TreeItem
         {
         public:
 
@@ -38,7 +38,7 @@ namespace Ra
 
         /// Implementation of QAbstractItemModel to show the engine objects
         /// as a tree in the main GUI.
-        class ItemModel : public TreeModel
+        class RA_GUIBASE_API ItemModel : public TreeModel
         {
             Q_OBJECT
         public:

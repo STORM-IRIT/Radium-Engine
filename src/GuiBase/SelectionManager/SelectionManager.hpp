@@ -20,7 +20,7 @@ namespace Ra
     namespace GuiBase
     {
 
-        class SelectionManager : public QItemSelectionModel
+        class RA_GUIBASE_API SelectionManager : public QItemSelectionModel
         {
         Q_OBJECT
         public:

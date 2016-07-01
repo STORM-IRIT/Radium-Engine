@@ -8,7 +8,7 @@ namespace Ra
 {
     namespace GuiBase
     {
-        class TransformEditor
+        class RA_GUIBASE_API TransformEditor
         {
         public:
             RA_CORE_ALIGNED_NEW

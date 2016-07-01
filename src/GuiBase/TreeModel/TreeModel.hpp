@@ -29,9 +29,15 @@ namespace Ra
         /// Base classes for element of the tree representation.
         /// It just maintains a tree structure leaving the data
         /// storage to derived classes.
-        class TreeItem
+        class RA_GUIBASE_API TreeItem
         {
         public:
+            TreeItem() {}
+            virtual ~TreeItem() {}
+
+            // TreeItems are non-copyable
+            TreeItem( const TreeItem& ) = delete;
+            TreeItem& operator= ( const TreeItem& ) = delete;
 
             // Interface
 
@@ -58,13 +64,13 @@ namespace Ra
             TreeItem* m_parent;
 
             /// Children of item in the tree.
-            std::vector <std::unique_ptr<TreeItem>> m_children;
+            std::vector <std::unique_ptr<TreeItem> > m_children;
         };
 
 
         /// This class implement QAbstractItem model with the TreeItem as its model
         /// Derived class must use some kind of cast to access the derived TreeItems.
-        class TreeModel : public QAbstractItemModel
+        class RA_GUIBASE_API TreeModel : public QAbstractItemModel
         {
             Q_OBJECT
 

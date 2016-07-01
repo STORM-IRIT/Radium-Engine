@@ -189,7 +189,8 @@ if ( NOT ${OMIT_MAIN_APP} )
         ARCHIVE DESTINATION lib )
 
     if (MSVC)
-        set_directory_properties( PROPERTIES VS_STARTUP_PROJECT ${app_target})
+        #This will work from CMake 3.6
+        set_property( DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${app_target})
     endif(MSVC)
 
 endif( NOT ${OMIT_MAIN_APP} )
