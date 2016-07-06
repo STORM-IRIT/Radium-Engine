@@ -5,10 +5,8 @@
 /// Defines the correct macro to export dll symbols.
 #if defined  Dummy_EXPORTS
     #define DUMMY_PLUGIN_API DLL_EXPORT
-#elif defined Dummy_IMPORTS
-    #define DUMMY_PLUGIN_API DLL_IMPORT
 #else
-    #define DUMMY_PLUGIN_API
+    #define DUMMY_PLUGIN_API DLL_IMPORT
 #endif
 
 #include <QObject>
@@ -57,4 +55,4 @@ namespace DummyPlugin
 
 } // namespace
 
-#endif // FANCYMESHPLUGIN_HPP_  
+#endif // FANCYMESHPLUGIN_HPP_

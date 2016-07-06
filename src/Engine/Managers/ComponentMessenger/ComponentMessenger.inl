@@ -1,5 +1,5 @@
 #include "ComponentMessenger.hpp"
-
+#include <Core/Utils/StdUtils.hpp>
 namespace Ra
 {
     namespace Engine
@@ -7,7 +7,7 @@ namespace Ra
 
         inline std::size_t ComponentMessenger::HashFunc::operator()(const Key& k) const
         {
-            return (std::hash<std::string>()(k.first) ^ std::hash<std::type_index>()(k.second));
+            return Core::StdUtils::hash(k);
         }
 
         template<typename ReturnType>

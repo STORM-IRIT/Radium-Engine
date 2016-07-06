@@ -42,7 +42,7 @@ namespace Ra
 
         public:
 
-            /// This descripes the function pointers accepted for each type.
+            /// This describes the function pointers accepted for each type.
             template<typename T>
             struct CallbackTypes
             {

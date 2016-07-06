@@ -5,10 +5,8 @@
 /// Defines the correct macro to export dll symbols.
 #if defined  Skinning_EXPORTS
     #define SKIN_PLUGIN_API DLL_EXPORT
-#elif defined Skinning_IMPORTS
-    #define SKIN_PLUGIN_API DLL_IMPORT
 #else
-    #define SKING_PLUGIN_API
+    #define SKIN_PLUGIN_API DLL_IMPORT
 #endif
 
 #include <QObject>

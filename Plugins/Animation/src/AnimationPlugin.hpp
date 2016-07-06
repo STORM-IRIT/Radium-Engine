@@ -9,10 +9,8 @@
 /// Defines the correct macro to export dll symbols.
 #if defined  Animation_EXPORTS
     #define ANIM_PLUGIN_API DLL_EXPORT
-#elif defined Animation_IMPORTS
-    #define ANIM_PLUGIN_API DLL_IMPORT
 #else
-    #define ANIM_PLUGIN_API
+    #define ANIM_PLUGIN_API DLL_IMPORT
 #endif
 
 
