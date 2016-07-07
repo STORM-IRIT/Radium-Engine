@@ -311,10 +311,21 @@ namespace Ra
             glViewport(0, 0, m_width, m_height);
             glDrawBuffers(1, buffers);
 
-            GL_ASSERT( glDepthMask( GL_FALSE ) );
-            GL_ASSERT(glDisable(GL_DEPTH_TEST));
-            // FIXME(charly): Clear depth ?
-            GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+            // Enable z-test
+            if (1)
+            {                
+                GL_ASSERT(glDepthMask(GL_TRUE));
+                GL_ASSERT(glEnable(GL_DEPTH_TEST));
+                GL_ASSERT(glDepthFunc(GL_LESS));
+                GL_ASSERT(glClear(GL_DEPTH_BUFFER_BIT));
+            }
+            else
+            {
+                GL_ASSERT(glDepthMask(GL_FALSE));
+                GL_ASSERT(glDisable(GL_DEPTH_TEST));
+                GL_ASSERT(glDepthFunc(GL_LESS));
+                GL_ASSERT(glClear(GL_DEPTH_BUFFER_BIT));
+            }
 
             for ( const auto& ro : m_uiRenderObjects )
             {
