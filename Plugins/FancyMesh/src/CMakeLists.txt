@@ -20,8 +20,6 @@ add_library(
     ${headers}
     ${inlines})
 
-target_compile_definitions(${subdir} PRIVATE "-DRA_CORE_IMPORTS")
-target_compile_definitions(${subdir} PRIVATE "-DRA_ENGINE_IMPORTS")
 target_compile_definitions(${subdir} PRIVATE "-D${subdir}_EXPORTS")
 
 target_link_libraries(

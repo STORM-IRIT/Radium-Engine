@@ -71,8 +71,6 @@ add_library( Dummy SHARED ${sources} ${headers} ${inlines} )
 
 add_dependencies( Dummy radiumCore radiumEngine radium )
 
-target_compile_definitions( Dummy PRIVATE "-DRA_CORE_IMPORTS" )
-target_compile_definitions( Dummy PRIVATE "-DRA_ENGINE_IMPORTS" )
 target_compile_definitions( Dummy PRIVATE "-DDummy_EXPORTS" )
 
 set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})

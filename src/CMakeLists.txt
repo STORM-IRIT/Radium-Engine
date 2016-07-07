@@ -75,7 +75,6 @@ add_library(
 
 add_dependencies( ${engine_target} ${core_target} assimp )
 
-target_compile_definitions(${engine_target} PRIVATE "-DRA_CORE_IMPORTS")
 target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 
 target_link_libraries(
@@ -116,8 +115,6 @@ add_library(
 )
 
 add_dependencies( ${guibase_target} ${guibase_target} ${core_target} )
-target_compile_definitions(${guibase_target} PRIVATE "-DRA_CORE_IMPORTS")
-target_compile_definitions(${guibase_target} PRIVATE "-DRA_ENGINE_IMPORTS")
 target_compile_definitions(${guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
 
 target_link_libraries(
@@ -170,10 +167,6 @@ if ( NOT ${OMIT_MAIN_APP} )
         )
 
     add_dependencies( ${app_target} ${core_target} ${engine_target} ${guibase_target} )
-
-    target_compile_definitions(${app_target} PRIVATE "-DRA_CORE_IMPORTS")
-    target_compile_definitions(${app_target} PRIVATE "-DRA_ENGINE_IMPORTS")
-    target_compile_definitions(${app_target} PRIVATE "-DRA_GUIBASE_IMPORTS")
 
     target_link_libraries(
         ${app_target}

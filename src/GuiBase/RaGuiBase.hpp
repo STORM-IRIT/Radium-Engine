@@ -3,11 +3,11 @@
 #define RADIUMENGINE_RA_GUIBASE_HPP_
 
 /// Defines the correct macro to export dll symbols.
-#if defined   RA_GUIBASE_EXPORTS
+#if defined RA_GUIBASE_EXPORTS
     #define RA_GUIBASE_API DLL_EXPORT
-#elif defined RA_GUIBASE_IMPORTS
-    #define RA_GUIBASE_API DLL_IMPORT
+#elif defined RA_GUIBASE_STATIC
+#define RA_GUIBASE_API
 #else
-    #define RA_GUIBASE_API
+    #define RA_GUIBASE_API DLL_IMPORT
 #endif
 #endif //RADIUMENGINE_RA_GUIBASE_HPP_

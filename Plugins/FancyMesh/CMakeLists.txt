@@ -56,8 +56,6 @@ include_directories(
 add_library( FancyMesh SHARED ${sources} ${headers} ${inlines} )
 add_dependencies( FancyMesh radiumCore radiumEngine )
 
-target_compile_definitions( FancyMesh PRIVATE "-DRA_CORE_IMPORTS" )
-target_compile_definitions( FancyMesh PRIVATE "-DRA_ENGINE_IMPORTS" )
 target_compile_definitions( FancyMesh PRIVATE "-DFancyMesh_EXPORTS" )
 
 set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})

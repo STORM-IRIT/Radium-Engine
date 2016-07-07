@@ -59,8 +59,6 @@ include_directories(
 add_library( Animation SHARED ${sources} ${headers} ${inlines} ${app_uis})
 add_dependencies( Animation radiumCore radiumEngine )
 
-target_compile_definitions( Animation PRIVATE "-DRA_CORE_IMPORTS" )
-target_compile_definitions( Animation PRIVATE "-DRA_ENGINE_IMPORTS" )
 target_compile_definitions( Animation PRIVATE "-DAnimation_EXPORTS" )
 
 set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})

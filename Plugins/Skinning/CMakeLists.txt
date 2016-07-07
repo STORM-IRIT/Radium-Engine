@@ -56,8 +56,6 @@ include_directories(
 add_library( Skinning SHARED ${sources} ${headers} ${inlines} )
 add_dependencies( Skinning radiumCore radiumEngine )
 
-target_compile_definitions( Skinning PRIVATE "-DRA_CORE_IMPORTS" )
-target_compile_definitions( Skinning PRIVATE "-DRA_ENGINE_IMPORTS" )
 target_compile_definitions( Skinning PRIVATE "-DSkinning_EXPORTS" )
 
 set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})
