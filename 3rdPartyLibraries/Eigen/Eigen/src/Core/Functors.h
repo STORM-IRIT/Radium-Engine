@@ -969,13 +969,13 @@ template<typename T>
 struct functor_traits<std::not_equal_to<T> >
 { enum { Cost = 1, PacketAccess = false }; };
 
-//template<typename T>
-//struct functor_traits<std::binder2nd<T> >
-//{ enum { Cost = functor_traits<T>::Cost, PacketAccess = false }; };
+template<typename T>
+struct functor_traits<std::binder2nd<T> >
+{ enum { Cost = functor_traits<T>::Cost, PacketAccess = false }; };
 
-//template<typename T>
-//struct functor_traits<std::binder1st<T> >
-//{ enum { Cost = functor_traits<T>::Cost, PacketAccess = false }; };
+template<typename T>
+struct functor_traits<std::binder1st<T> >
+{ enum { Cost = functor_traits<T>::Cost, PacketAccess = false }; };
 
 template<typename T>
 struct functor_traits<std::unary_negate<T> >

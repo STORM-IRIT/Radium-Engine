@@ -35,7 +35,6 @@ elseif (UNIX OR MINGW)
     set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -O3 ${MATH_FLAG}")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -ggdb ${CMAKE_CXX_FLAGS_RELEASE}")
 
-  add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
   if (MINGW)
       add_definitions( -static-libgcc -static-libstdc++) # Compile with static libs
   endif()

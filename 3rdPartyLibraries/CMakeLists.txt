@@ -12,7 +12,8 @@ elseif (MSVC)
     set( CMAKE_DEBUG_POSTFIX "" )
     string (REGEX REPLACE "/EHs-c-" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     string (REGEX REPLACE "/GR-" ""    CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    add_definitions( "/EHsc /GR /w")
+    string (REGEX REPLACE "/W3" ""     CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc /GR /w")
 endif()
 
 set( ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL
