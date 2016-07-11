@@ -28,7 +28,9 @@ namespace AnimationPlugin
             m_speed( 1.0 ),
             m_slowMo( false ),
             m_selectedBone(-1),
-            m_wasReset(false) {}
+            m_wasReset(false),
+            m_resetDone(false)
+        {}
         virtual ~AnimationComponent() {}
 
         virtual void initialize() override{}
@@ -117,6 +119,7 @@ namespace AnimationPlugin
 
         int m_selectedBone;
         bool m_wasReset;
+        bool m_resetDone;
     };
 
 }

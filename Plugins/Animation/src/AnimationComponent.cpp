@@ -47,7 +47,19 @@ namespace AnimationPlugin
 
         // Compute the elapsed time
         m_animationTime += dt;
-        m_wasReset = false;
+
+        if (m_wasReset)
+        {
+            if (!m_resetDone)
+            {
+                m_resetDone = true;
+            }
+            else
+            {
+                m_resetDone = false;
+                m_wasReset = false;
+            }
+        }
 
         // get the current pose from the animation
         if ( dt > 0 && m_animations.size() > 0)
