@@ -174,10 +174,28 @@ namespace Ra
         //
         // Quaternion functions
         //
+        namespace QuaternionUtils
+        {
+            // Define functions for multiplying a quaternion by a scalar
+            // and adding two quaternions. While Quaternion is supposed to
+            // represent a unit quaternion (thus a valid rotation), these functions
+            // are useful for linear interpolation of quaternions.
 
-        inline Quaternion operator+ ( const Quaternion& q1, const Quaternion& q2 );
-        inline Quaternion operator* ( const Scalar& k, const Quaternion& q );
-        inline Quaternion operator/ ( const Quaternion& q, const Scalar& k);
+            /// Returns the quaternion q multipled by a scalar factor of k.
+            inline Quaternion scale(const Quaternion& q, const Scalar k);
+
+            /// Returns the sum of two quaternions.
+            inline Quaternion add(const Quaternion& q1, const Quaternion& q2);
+
+            // Note : the .inl file also define operator+ for quaternions
+            // and operator * and / between quaternions and scalar.
+
+            /// Decompose a given rotation Qin into a swing rotation and a twist rotation.
+            /// Qswing is a rotation whose axis lies in the XY plane and Qtwist is a rotation about axis Z.
+            /// such as Qin = Qswing * Qtwist
+            inline void getSwingTwist(const Quaternion &in, Quaternion &swingOut, Quaternion &twistOut);
+        }
+
 
         // Use this macro in the public: section of a class
         // when declaring objects containing Vector or Matrices.

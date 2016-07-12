@@ -14,8 +14,9 @@
 #ifndef RADIUMENGINE_CORE_HPP
 #define RADIUMENGINE_CORE_HPP
 
-#include <assert.h>
-#include <stdio.h>
+#include <cassert>
+#include <cstdio>
+#include <iostream>
 
 // ----------------------------------------------------------------------------
 // Compiler identification

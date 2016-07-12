@@ -2,7 +2,6 @@
 #define RADIUMENGINE_DUALQUATERNION_HPP
 
 #include <Core/RaCore.hpp>
-#include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
 namespace Ra
