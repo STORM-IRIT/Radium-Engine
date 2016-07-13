@@ -1,4 +1,4 @@
-#include <Core/Geometry/Distance/Distance.hpp>
+#include <Core/Geometry/Distance/VertexDistance.hpp>
 
 namespace Ra {
 namespace Core {

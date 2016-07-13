@@ -59,5 +59,4 @@ namespace RaTests {
             BREAKPOINT(0);
         }
     }
-
 }

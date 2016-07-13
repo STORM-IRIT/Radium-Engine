@@ -43,6 +43,7 @@ namespace RaTests
 
         }
     };
+    RA_TEST_CLASS(AlgebraTests);
 }
 
 

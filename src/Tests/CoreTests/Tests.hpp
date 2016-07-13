@@ -8,9 +8,21 @@ namespace RaTests {
 class Test
 {
 public:
-    Test() { TestManager::getInstance()->add(this); }
+    Test()
+    {
+        if (!TestManager::getInstance())
+        {
+            TestManager::createInstance();
+        }
+        TestManager::getInstance()->add(this);
+    }
     virtual void run() = 0;
+
+    virtual ~Test() {};
 };
+
+// Poor man's singleton to automatically instantiate a test.
+#define RA_TEST_CLASS( TYPE ) namespace TYPE##NS { TYPE test_instance;}
 
 /// This macro is similar to "CORE_ASSERT" but will print a message if
 /// the test condition is false and signal it to the test manager.
@@ -43,5 +55,6 @@ class DummyTestFail: public Test
         RA_UNIT_TEST(false , "Dummy test fail.");
     }
 };
+
 }
 #endif // RADIUM_TESTS_HPP_

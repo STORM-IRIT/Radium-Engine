@@ -9,7 +9,7 @@ namespace Core {
 namespace Geometry {
 
 
-
+// get distance between two sets of vertices.
 void vertexDistance( const VectorArray< Vector3 >& v0,
                      const VectorArray< Vector3 >& v1,
                      std::vector< Scalar >&        sqrDist,

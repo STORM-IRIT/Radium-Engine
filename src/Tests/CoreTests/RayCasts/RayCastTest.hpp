@@ -79,6 +79,7 @@ class RayCastAabbTests : public Test
         }
     }
 };
+    RA_TEST_CLASS(RayCastAabbTests);
 }
 
 
