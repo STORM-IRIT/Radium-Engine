@@ -193,7 +193,9 @@ namespace Ra
             /// Decompose a given rotation Qin into a swing rotation and a twist rotation.
             /// Qswing is a rotation whose axis lies in the XY plane and Qtwist is a rotation about axis Z.
             /// such as Qin = Qswing * Qtwist
-            inline void getSwingTwist(const Quaternion &in, Quaternion &swingOut, Quaternion &twistOut);
+            /// If the rotation is already around axis z, Qswing will be set to identity
+            // and Qtwist equal to Qin
+            inline void getSwingTwist(const Quaternion& in, Quaternion& swingOut, Quaternion& twistOut);
         }
 
 

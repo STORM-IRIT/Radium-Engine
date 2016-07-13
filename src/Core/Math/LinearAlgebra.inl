@@ -115,8 +115,8 @@ namespace Core
         // singular case.
         if ( UNLIKELY(in.z() == 0 && in.w() == 0 ) )
         {
-            twistOut.setIdentity();
-            swingOut = in;
+            twistOut = in;
+            swingOut.setIdentity();
         }
         else
         {

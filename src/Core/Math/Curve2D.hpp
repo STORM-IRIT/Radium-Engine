@@ -1,5 +1,5 @@
-#ifndef CURVE
-#define CURVE
+#ifndef RADIUMENGINE_CURVE2D_HPP_
+#define RADIUMENGINE_CURVE2D_HPP_
 
 #include <Core/RaCore.hpp>
 #include <vector>
@@ -10,10 +10,7 @@ namespace Ra
 {
     namespace Core
     {
-
-
-
-        class Curve
+        class Curve2D
         {
         public:
             enum CurveType
@@ -36,11 +33,11 @@ namespace Ra
             int size;
         };
 
-        class QuadraSpline : public Curve
+        class QuadraSpline : public Curve2D
         {
         public:
             QuadraSpline() {this->size = 0;}
-            QuadraSpline(const Curve::Vector &p0, const Curve::Vector &p1, const Curve::Vector &p2)
+            QuadraSpline(const Curve2D::Vector &p0, const Curve2D::Vector &p1, const Curve2D::Vector &p2)
                 : m_points{p0, p1, p2} {this->size = 3;}
 
             inline  void addPoint(const Vector p) override;
@@ -54,12 +51,12 @@ namespace Ra
 
         };
 
-        class CubicBezier : public Curve
+        class CubicBezier : public Curve2D
         {
         public:
             CubicBezier() { this->size = 0; }
-            CubicBezier (const Curve::Vector &p0, const Curve::Vector &p1,
-                                      const Curve::Vector &p2, const Curve::Vector &p3)
+            CubicBezier (const Curve2D::Vector &p0, const Curve2D::Vector &p1,
+                                      const Curve2D::Vector &p2, const Curve2D::Vector &p3)
                 : m_points{p0, p1, p2, p3} { this->size = 4; }
 
 
@@ -73,7 +70,7 @@ namespace Ra
             Vector m_points[4];
         };
 
-        class Line : public Curve
+        class Line : public Curve2D
         {
         public:
             Line () { this->size = 0; }
@@ -89,7 +86,7 @@ namespace Ra
             Vector m_points[2];
         };
 
-        class SplineCurve : public Curve
+        class SplineCurve : public Curve2D
         {
         public:
             SplineCurve() { this->size = 0; }
@@ -109,8 +106,8 @@ namespace Ra
     }
 }
 
-#include <Core/Math/Curve.inl>
-#endif // CURVE
+#include <Core/Math/Curve2D.inl>
+#endif // RADIUMENGINE_CURVE2D_HPP_
 
 
 
