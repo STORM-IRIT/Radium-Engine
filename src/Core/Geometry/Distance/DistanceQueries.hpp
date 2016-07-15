@@ -15,13 +15,21 @@ namespace Ra
                 // http://mathworld.wolfram.com/Point-LineDistance3-Dimensional.html
                 return (dir.cross(q-a)).squaredNorm() / dir.squaredNorm();
             }
+            
+            /// Projects point q on segment AB defined by point A and vector AB = (B -A).
+            /// Return the paramenter t in [0,1] which identifies the projected point.
+            Scalar projectOnSegment( const Vector3& q, const Vector3& a, const Vector3& ab )
+            {
+                // Edge case : segment has length 0
+                if ( UNLIKELY( ab.squaredNorm() == 0 ) ) { return 0; }
+                return Ra::Core::Math::clamp<Scalar>( (q-a).dot(ab)/(ab.squaredNorm()), 0, 1);
+            }
 
             // Return the squared distance from point Q to the segment AB defined by point A and
             // vector AB = (B - A).
             inline Scalar pointToSegmentSq( const Vector3& q, const Vector3& a, const Vector3& ab )
             {
-                CORE_ASSERT( ab.squaredNorm() > 0, "Segment has 0 length" );
-                const Scalar t = Ra::Core::Math::clamp<Scalar>( (q-a).dot(ab)/(ab.squaredNorm()), 0, 1);
+                const Scalar t = projectOnSegment( q, a, ab );
                 return (q - ( a + t * (ab))).squaredNorm();
             }
         } // ns Distance queries
