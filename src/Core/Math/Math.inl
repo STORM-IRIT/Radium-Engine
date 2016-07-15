@@ -103,6 +103,12 @@ namespace Ra
                 return std::max( min, std::min( v, max ) );
             }
 
+            template <typename T>
+            inline constexpr T saturate( T v )
+            {
+                return clamp( v, static_cast<T>(0), static_cast<T>(1) );
+            }
+
             inline bool areApproxEqual(Scalar a, Scalar b, Scalar eps)
             {
                return std::abs(b-a) < eps;

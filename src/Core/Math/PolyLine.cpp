@@ -71,7 +71,7 @@ Scalar PolyLine::project( const Vector3& p ) const
 Ra::Core::Vector3 PolyLine::f( Scalar t ) const
 {
     // Clamp the parameter between 0 and 1 and scale it.
-    const Scalar param = length() * Ra::Core::Math::clamp( t, 0.f, 1.f );
+    const Scalar param = length() * Ra::Core::Math::saturate( t );
 
     // Try to locate the segment section where f(t) belongs.
     uint i = 0;

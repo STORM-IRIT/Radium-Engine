@@ -58,6 +58,9 @@ namespace Ra
             template <typename T>
             inline constexpr T clamp( T v, T min, T max );
 
+            template <typename T>
+            inline constexpr T saturate( T v );
+
         } // namespace Math
     }
 }
