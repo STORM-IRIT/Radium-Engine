@@ -429,4 +429,9 @@ namespace Ra
         m_currentRenderer->enablePostProcess(enabled);
     }
 
+    void Gui::Viewer::enableDebugDraw(int enabled)
+    {
+        m_currentRenderer->enableDebugDraw(enabled);
+    }
+
 } // namespace Ra

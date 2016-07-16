@@ -315,6 +315,7 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material, Geometr
     MaterialData mat;
     aiColor4D    color;
     float        shininess;
+    float        opacity;
     aiString     name;
 
     if( AI_SUCCESS == material.Get( AI_MATKEY_COLOR_DIFFUSE, color ) )
@@ -333,6 +334,13 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material, Geometr
     {
         mat.m_hasShininess = true;
         mat.m_shininess    = shininess;
+    }
+
+    if (AI_SUCCESS == material.Get( AI_MATKEY_OPACITY, opacity ) )
+    {
+        mat.m_hasOpacity = true;
+        mat.m_opacity    = opacity;
+        LOG(logINFO) << "Opacity : " << opacity;
     }
 
     if( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_DIFFUSE, 0 ), name ) )

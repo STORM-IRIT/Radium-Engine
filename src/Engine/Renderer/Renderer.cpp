@@ -120,7 +120,7 @@ namespace Ra
             // before drawing them, that would be cleaner (performance problem ?)
             updateRenderObjectsInternal( data );
             m_timerData.updateEnd = Core::Timer::Clock::now();
-
+                        
             // 3. Do picking if needed
             m_pickingResults.clear();
             if ( !m_pickingQueries.empty() )
@@ -129,6 +129,8 @@ namespace Ra
             }
             m_lastFramePickingQueries = m_pickingQueries;
             m_pickingQueries.clear();
+            
+            updateStepInternal( data );
 
             // 4. Do the rendering.
             renderInternal( data );
@@ -163,8 +165,6 @@ namespace Ra
             for ( auto& ro : m_xrayRenderObjects  ) ro->updateGL();
             for ( auto& ro : m_debugRenderObjects ) ro->updateGL();
             for ( auto& ro : m_uiRenderObjects    ) ro->updateGL();
-
-            updateStepInternal( renderData );
         }
 
         void Renderer::feedRenderQueuesInternal( const RenderData& renderData )

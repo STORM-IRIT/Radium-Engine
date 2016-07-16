@@ -103,10 +103,9 @@ namespace Ra
         connect(m_displayedTextureCombo,
                 static_cast<void (QComboBox::*)(const QString&)>( &QComboBox::currentIndexChanged ),
                 m_viewer, &Viewer::displayTexture);
-        connect(m_currentRendererCombo, static_cast<void (QComboBox::*)(int)>( &QComboBox::currentIndexChanged ),
-                m_viewer, &Viewer::changeRenderer);
 
         connect(m_enablePostProcess, &QCheckBox::stateChanged, m_viewer, &Viewer::enablePostProcess);
+        connect(m_enableDebugDraw, &QCheckBox::stateChanged, m_viewer, &Viewer::enableDebugDraw);
 
         // Connect engine signals to the appropriate callbacks
         std::function<void(const Engine::ItemEntry&)> add = std::bind(&MainWindow::onItemAdded, this, std::placeholders::_1);
@@ -345,17 +344,11 @@ namespace Ra
         m_viewer->getCameraInterface()->resetCamera();
 
         QSignalBlocker blockTextures(m_displayedTextureCombo);
-        QSignalBlocker blockRenderer(m_currentRendererCombo);
 
         auto texs = m_viewer->getRenderer()->getAvailableTextures();
         for (const auto& tex : texs)
         {
             m_displayedTextureCombo->addItem(tex.c_str());
-        }
-
-        for (const auto& renderer : m_viewer->getRenderersName())
-        {
-            m_currentRendererCombo->addItem(renderer.c_str());
         }
     }
 

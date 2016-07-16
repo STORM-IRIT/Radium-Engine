@@ -44,6 +44,8 @@ namespace Ra
                 TEX_TONEMAP_PONG,
                 TEX_BLOOM_PING,
                 TEX_BLOOM_PONG,
+                TEX_OIT_TEXTURE_ACCUM,
+                TEX_OIT_TEXTURE_REVEALAGE,
                 TEX_COUNT
             };
 
@@ -52,6 +54,11 @@ namespace Ra
             std::unique_ptr<FBO> m_postprocessFbo;
             std::unique_ptr<FBO> m_pingPongFbo;
             std::unique_ptr<FBO> m_bloomFbo;
+
+            std::unique_ptr<FBO> m_oitFbo;
+            
+            std::vector<RenderObjectPtr> m_transparentRenderObjects;
+            uint m_fancyTransparentCount;
 
             uint m_pingPongSize;
 

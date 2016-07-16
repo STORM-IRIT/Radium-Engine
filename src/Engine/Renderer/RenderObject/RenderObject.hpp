@@ -75,6 +75,10 @@ namespace Ra
             void toggleXRay();
             bool isXRay() const;
 
+            void setTransparent( bool transparent );
+            void toggleTransparent();
+            bool isTransparent() const;
+            
             bool isDirty() const;
 
             void setRenderTechnique( RenderTechnique* technique );
@@ -101,7 +105,7 @@ namespace Ra
             void hasBeenRenderedOnce();
             void hasExpired();
 
-            virtual void render( const RenderParameters& lightParams, const RenderData& rdata, ShaderProgram* altShader = nullptr );
+            virtual void render( const RenderParameters& lightParams, const RenderData& rdata, const ShaderProgram* altShader = nullptr );
 
         private:
             Core::Transform m_localTransform;
@@ -122,6 +126,7 @@ namespace Ra
 
             bool m_visible;
             bool m_xray;
+            bool m_transparent;
             bool m_dirty;
             bool m_hasLifetime;
         };

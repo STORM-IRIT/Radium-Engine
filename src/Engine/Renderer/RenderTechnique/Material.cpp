@@ -50,6 +50,7 @@ namespace Ra
             shader->setUniform( "material.kd", m_kd );
             shader->setUniform( "material.ks", m_ks );
             shader->setUniform( "material.ns", m_ns );
+            shader->setUniform( "material.alpha", m_alpha );
 
             Texture* tex = nullptr;
             uint texUnit = 0;
@@ -125,21 +126,6 @@ namespace Ra
             return m_name;
         }
 
-        void Material::setKd( const Core::Color& kd )
-        {
-            m_kd = kd;
-        }
-
-        void Material::setKs( const Core::Color& ks )
-        {
-            m_ks = ks;
-        }
-
-        void Material::setNs( Scalar ns )
-        {
-            m_ns = ns;
-        }
-
         void Material::addTexture( const TextureType& type, Texture* texture )
         {
             // FIXME(Charly): Check if already present ?
@@ -166,21 +152,6 @@ namespace Ra
             m_isDirty = true;
 
             return m_pendingTextures[type];
-        }
-
-        const Core::Color& Material::getKd() const
-        {
-            return m_kd;
-        }
-
-        const Core::Color& Material::getKs() const
-        {
-            return m_ks;
-        }
-
-        Scalar Material::getNs() const
-        {
-            return m_ns;
         }
 
         Texture* Material::getTexture( const TextureType& type ) const

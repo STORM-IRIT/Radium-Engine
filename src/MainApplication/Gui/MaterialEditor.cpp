@@ -37,7 +37,7 @@ namespace Ra
         {
             if ( m_renderObject )
             {
-                m_renderObject->getRenderTechnique()->material->setNs( v );
+                m_renderObject->getRenderTechnique()->material->m_ns = v;
             }
         }
 
@@ -48,7 +48,7 @@ namespace Ra
             if ( m_renderObject )
             {
                 Core::Color c( kdR->value() / 255.f, kdG->value() / 255.f, kdB->value() / 255.f, 1.0 );
-                m_renderObject->getRenderTechnique()->material->setKd( c );
+                m_renderObject->getRenderTechnique()->material->m_kd = c;
             }
         }
 
@@ -59,7 +59,7 @@ namespace Ra
             if ( m_renderObject )
             {
                 Core::Color c( ksR->value() / 255.f, ksG->value() / 255.f, ksB->value() / 255.f, 1.0 );
-                m_renderObject->getRenderTechnique()->material->setKs( c );
+                m_renderObject->getRenderTechnique()->material->m_ks = c;
             }
         }
 
@@ -76,7 +76,7 @@ namespace Ra
             if ( m_renderObject )
             {
                 Core::Color c( color.redF(), color.greenF(), color.blueF(), 1.0 );
-                m_renderObject->getRenderTechnique()->material->setKd( c );
+                m_renderObject->getRenderTechnique()->material->m_kd = c;
             }
         }
 
@@ -93,7 +93,7 @@ namespace Ra
             if ( m_renderObject )
             {
                 Core::Color c( color.redF(), color.greenF(), color.blueF(), 1.0 );
-                m_renderObject->getRenderTechnique()->material->setKs( c );
+                m_renderObject->getRenderTechnique()->material->m_ks = c;
             }
         }
 
@@ -133,8 +133,8 @@ namespace Ra
 
         void MaterialEditor::updateMaterialViz( const Engine::Material* material )
         {
-            const Core::Color kd = material->getKd();
-            const Core::Color ks = material->getKs();
+            const Core::Color kd = material->m_kd;
+            const Core::Color ks = material->m_ks;
 
             int kdr = kd.x() * 255, kdg = kd.y() * 255, kdb = kd.y() * 255;
             int ksr = ks.x() * 255, ksg = ks.y() * 255, ksb = ks.z() * 255;
@@ -157,7 +157,7 @@ namespace Ra
             ksG->setValue( ksg );
             ksB->setValue( ksb );
 
-            exp->setValue( material->getNs() );
+            exp->setValue( material->m_ns );
 
             kdColorWidget->colorChanged( kdr, kdg, kdb );
             ksColorWidget->colorChanged( ksr, ksg, ksb );

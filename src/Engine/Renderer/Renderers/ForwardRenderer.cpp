@@ -8,6 +8,7 @@
 
 #include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
+#include <Core/Containers/Algorithm.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
@@ -27,7 +28,7 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Renderers/DebugRender.hpp>
 
-#define NO_TRANSPARENCY
+//#define NO_TRANSPARENCY
 namespace Ra
 {
     namespace Engine
@@ -79,11 +80,17 @@ namespace Ra
             m_shaderMgr->addShaderProgram("Highpass", "../Shaders/Basic2D.vert.glsl", "../Shaders/Highpass.frag.glsl");
             m_shaderMgr->addShaderProgram("Blur", "../Shaders/Basic2D.vert.glsl", "../Shaders/Blur.frag.glsl");
             m_shaderMgr->addShaderProgram("FinalCompose", "../Shaders/Basic2D.vert.glsl", "../Shaders/FinalCompose.frag.glsl");
+#ifndef NO_TRANSPARENCY
+            m_shaderMgr->addShaderProgram("LitOIT", "../Shaders/BlinnPhong.vert.glsl", "../Shaders/LitOIT.frag.glsl");
+            m_shaderMgr->addShaderProgram("UnlitOIT", "../Shaders/Plain.vert.glsl", "../Shaders/UnlitOIT.frag.glsl");
+            m_shaderMgr->addShaderProgram("ComposeOIT", "../Shaders/Basic2D.vert.glsl", "../Shaders/ComposeOIT.frag.glsl");
+#endif
         }
 
         void ForwardRenderer::initBuffers()
         {
             m_fbo.reset( new FBO( FBO::Components( FBO::COLOR | FBO::DEPTH ), m_width, m_height ) );
+            m_oitFbo.reset( new FBO( FBO::Components( FBO::COLOR | FBO::DEPTH ), m_width, m_height ) );
             m_postprocessFbo.reset( new FBO( FBO::Components( FBO::COLOR | FBO::DEPTH), m_width, m_height ) );
             m_pingPongFbo.reset(new FBO(FBO::Components(FBO::COLOR), 1, 1));
             m_bloomFbo.reset(new FBO(FBO::Components(FBO::COLOR), m_width / 8, m_height / 8));
@@ -98,6 +105,8 @@ namespace Ra
             m_textures[TEX_BLOOM_PONG].reset(new Texture("Bloom Pong", GL_TEXTURE_2D));
             m_textures[TEX_TONEMAP_PING].reset(new Texture("Minmax Ping", GL_TEXTURE_2D));
             m_textures[TEX_TONEMAP_PONG].reset(new Texture("Minmax Pong", GL_TEXTURE_2D));
+            m_textures[TEX_OIT_TEXTURE_ACCUM].reset(new Texture("OIT Accum", GL_TEXTURE_2D));
+            m_textures[TEX_OIT_TEXTURE_REVEALAGE].reset(new Texture("OIT Revealage", GL_TEXTURE_2D));
 
             m_secondaryTextures["Depth Texture"]        = m_textures[TEX_DEPTH].get();
             m_secondaryTextures["Normal Texture"]       = m_textures[TEX_NORMAL].get();
@@ -108,11 +117,24 @@ namespace Ra
             m_secondaryTextures["Bloom Texture 2"]      = m_textures[TEX_BLOOM_PONG].get();
             m_secondaryTextures["Tonemaping Texture 1"] = m_textures[TEX_TONEMAP_PING].get();
             m_secondaryTextures["Tonemaping Texture 2"] = m_textures[TEX_TONEMAP_PONG].get();
+            m_secondaryTextures["OIT Accum"]            = m_textures[TEX_OIT_TEXTURE_ACCUM].get();
+            m_secondaryTextures["OIT Revealage"]        = m_textures[TEX_OIT_TEXTURE_REVEALAGE].get();
         }
 
         void ForwardRenderer::updateStepInternal( const RenderData& renderData )
         {
-            // Do nothing right now
+#ifndef NO_TRANSPARENCY
+            m_transparentRenderObjects.clear();
+            Ra::Core::remove_copy_if(m_fancyRenderObjects, m_transparentRenderObjects,
+                                     [](auto ro) { return ro->isTransparent(); });
+
+            m_fancyTransparentCount = m_transparentRenderObjects.size();
+            
+            Ra::Core::remove_copy_if(m_debugRenderObjects, m_transparentRenderObjects,
+                                     [](auto ro) { return ro->isTransparent(); });
+            
+            // FIXME(charly) Do we want ui too  ?
+#endif
         }
 
         void ForwardRenderer::renderInternal( const RenderData& renderData )
@@ -130,6 +152,7 @@ namespace Ra
 
             const Core::Colorf clearColor = Core::Colors::FromChars<Core::Colorf>(42, 42, 42, 0);
             const Core::Colorf clearZeros = Core::Colors::Black<Core::Colorf>();
+            const Core::Colorf clearOnes  = Core::Colors::FromChars<Core::Colorf>(255, 255, 255, 255);
             const float clearDepth( 1.0 );
 
             GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearZeros.data() ) );   // Clear normals
@@ -218,6 +241,69 @@ namespace Ra
                 glDisable(GL_POLYGON_OFFSET_LINE);
             }
 
+#ifndef NO_TRANSPARENCY
+            m_fbo->unbind();
+            m_oitFbo->useAsTarget();
+
+            GL_ASSERT(glDrawBuffers(2, buffers));
+            GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearZeros.data()));
+            GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearOnes.data()));
+
+            GL_ASSERT(glDepthFunc(GL_LESS));            
+            GL_ASSERT(glEnable(GL_BLEND));
+
+            GL_ASSERT(glBlendEquation(GL_FUNC_ADD));
+            GL_ASSERT(glBlendFunci(0, GL_ONE, GL_ONE));
+            GL_ASSERT(glBlendFunci(1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA));            
+
+            shader = m_shaderMgr->getShaderProgram("LitOIT");
+            shader->bind();
+            
+            if ( m_lights.size() > 0 )
+            {
+                for ( const auto& l : m_lights )
+                {
+                    RenderParameters params;
+                    l->getRenderParameters( params );
+
+                    for (size_t i = 0; i < m_fancyTransparentCount; ++i)
+                    {
+                        auto& ro = m_transparentRenderObjects[i];
+                        ro->render(params, renderData, shader);
+                    }
+                }
+            }
+            else
+            {
+                DirectionalLight l;
+                l.setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
+
+                RenderParameters params;
+                l.getRenderParameters( params );
+
+                for (size_t i = 0; i < m_fancyTransparentCount; ++i)
+                {
+                    auto& ro = m_transparentRenderObjects[i];
+                    ro->render(params, renderData, shader);
+                }
+            }            
+
+            m_oitFbo->unbind();
+            
+            m_fbo->useAsTarget();
+            GL_ASSERT(glDrawBuffers(1, buffers + 1));
+
+            GL_ASSERT(glDepthFunc(GL_ALWAYS));
+            GL_ASSERT(glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA));
+           
+            shader = m_shaderMgr->getShaderProgram("ComposeOIT");
+            shader->bind();
+            shader->setUniform("u_OITSumColor", m_textures[TEX_OIT_TEXTURE_ACCUM].get(), 0);
+            shader->setUniform("u_OITSumWeight", m_textures[TEX_OIT_TEXTURE_REVEALAGE].get(), 1);
+                        
+            m_quadMesh->render();
+#endif
+
             // Restore state
             GL_ASSERT( glDepthFunc( GL_LESS ) );
             GL_ASSERT( glDisable( GL_BLEND ) );
@@ -267,8 +353,75 @@ namespace Ra
 
                 DebugRender::getInstance()->render(renderData.viewMatrix,
                                                    renderData.projMatrix);
-
             }
+           
+#ifndef NO_TRANSPARENCY
+            m_postprocessFbo->unbind();
+            m_oitFbo->useAsTarget();
+
+            Core::Colorf clearZeros(0.0, 0.0, 0.0, 0.0);
+            Core::Colorf clearOnes (1.0, 1.0, 1.0, 1.0);
+            
+            GL_ASSERT(glDrawBuffers(2, buffers));
+            GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearZeros.data()));
+            GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearOnes.data()));
+
+            GL_ASSERT(glDepthFunc(GL_LESS));            
+            GL_ASSERT(glEnable(GL_BLEND));
+
+            GL_ASSERT(glBlendEquation(GL_FUNC_ADD));
+            GL_ASSERT(glBlendFunci(0, GL_ONE, GL_ONE));
+            GL_ASSERT(glBlendFunci(1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA));            
+
+            shader = m_shaderMgr->getShaderProgram("LitOIT");
+            shader->bind();
+            
+            if ( m_lights.size() > 0 )
+            {
+                for ( const auto& l : m_lights )
+                {
+                    RenderParameters params;
+                    l->getRenderParameters( params );
+
+                    for (size_t i = m_fancyTransparentCount; i < m_transparentRenderObjects.size(); ++i)
+                    {
+                        auto& ro = m_transparentRenderObjects[i];
+                        ro->render(params, renderData, shader);
+                    }
+                }
+            }
+            else
+            {
+                DirectionalLight l;
+                l.setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
+
+                RenderParameters params;
+                l.getRenderParameters( params );
+
+                for (size_t i = m_fancyTransparentCount; i < m_transparentRenderObjects.size(); ++i)
+                {
+                    auto& ro = m_transparentRenderObjects[i];
+                    ro->render(params, renderData, shader);
+                }
+            }            
+
+            m_oitFbo->unbind();
+            
+            m_postprocessFbo->useAsTarget();
+            GL_ASSERT(glDrawBuffers(1, buffers + 1));
+
+            GL_ASSERT(glDepthFunc(GL_ALWAYS));
+            GL_ASSERT(glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA));
+           
+            shader = m_shaderMgr->getShaderProgram("ComposeOIT");
+            shader->bind();
+            shader->setUniform("u_OITSumColor", m_textures[TEX_OIT_TEXTURE_ACCUM].get(), 0);
+            shader->setUniform("u_OITSumWeight", m_textures[TEX_OIT_TEXTURE_REVEALAGE].get(), 1);
+                        
+            m_quadMesh->render();
+
+            GL_ASSERT(glBlendFunc(GL_ONE, GL_ONE));
+#endif            
 
             // Draw X rayed objects always on top of normal objects
             GL_ASSERT( glDepthMask( GL_TRUE ) );
@@ -499,6 +652,17 @@ namespace Ra
             m_textures[TEX_TONEMAP_PONG]->initGL(GL_RGBA32F, m_pingPongSize, m_pingPongSize, GL_RGBA, GL_FLOAT, nullptr);
             m_textures[TEX_BLOOM_PING]->initGL(GL_RGBA32F, m_width / 8, m_height / 8, GL_RGBA, GL_FLOAT, nullptr);
             m_textures[TEX_BLOOM_PONG]->initGL(GL_RGBA32F, m_width / 8, m_height / 8, GL_RGBA, GL_FLOAT, nullptr);
+            m_textures[TEX_OIT_TEXTURE_ACCUM]->initGL(GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr);
+            m_textures[TEX_OIT_TEXTURE_REVEALAGE]->initGL(GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr);
+
+            m_textures[TEX_LUMINANCE]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+            m_textures[TEX_TONEMAPPED]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+            m_textures[TEX_TONEMAP_PING]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+            m_textures[TEX_TONEMAP_PONG]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+            m_textures[TEX_BLOOM_PING]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+            m_textures[TEX_BLOOM_PING]->setFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+            m_textures[TEX_BLOOM_PONG]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+            m_textures[TEX_BLOOM_PONG]->setFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
 
             m_fbo->bind();
             m_fbo->setSize( m_width, m_height );
@@ -507,6 +671,16 @@ namespace Ra
             m_fbo->attachTexture( GL_COLOR_ATTACHMENT1, m_textures[TEX_LIT].get() );
             m_fbo->check();
             m_fbo->unbind( true );
+
+#ifndef NO_TRANSPARENCY
+            m_oitFbo->bind();
+            m_oitFbo->setSize( m_width, m_height );
+            m_oitFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[TEX_DEPTH].get());
+            m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[TEX_OIT_TEXTURE_ACCUM].get());
+            m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[TEX_OIT_TEXTURE_REVEALAGE].get());
+            m_oitFbo->check();
+            m_oitFbo->unbind( true );
+#endif
 
             m_postprocessFbo->bind();
             m_postprocessFbo->setSize( m_width, m_height );

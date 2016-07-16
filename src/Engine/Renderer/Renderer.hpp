@@ -181,6 +181,11 @@ namespace Ra
                 m_drawDebug = !m_drawDebug;
             }
 
+            inline virtual void enableDebugDraw(bool enabled)
+            {
+                m_drawDebug = enabled;
+            }
+
             /**
              * @brief Change the texture that is displayed on screen.
              * Set m_displayedIsDepth to true if depth linearization is wanted

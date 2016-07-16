@@ -112,9 +112,11 @@ namespace FancyMeshPlugin
 
         Ra::Engine::Material* mat = new Ra::Engine::Material( matName );
         auto m = data->getMaterial();
-        if ( m.hasDiffuse() )   mat->setKd( m.m_diffuse );
-        if ( m.hasSpecular() )  mat->setKs( m.m_specular );
-        if ( m.hasShininess() ) mat->setNs( m.m_shininess );
+        if ( m.hasDiffuse() )   mat->m_kd    = m.m_diffuse;
+        if ( m.hasSpecular() )  mat->m_ks    = m.m_specular;
+        if ( m.hasShininess() ) mat->m_ns    = m.m_shininess;
+        if ( m.hasOpacity() )   mat->m_alpha = m.m_opacity;
+        
 #ifdef LOAD_TEXTURES
         if ( m.hasDiffuseTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_DIFFUSE, m.m_texDiffuse );
 #endif
@@ -126,6 +128,7 @@ namespace FancyMeshPlugin
         auto config = Ra::Engine::ShaderConfigurationFactory::getConfiguration("BlinnPhong");
 
         Ra::Engine::RenderObject* renderObject = Ra::Engine::RenderObject::createRenderObject(roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, config, mat);
+        if ( mat->m_alpha < 1.0 ) renderObject->setTransparent(true);
         m_meshIndex = addRenderObject(renderObject);
     }
 

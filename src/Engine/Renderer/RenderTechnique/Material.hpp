@@ -54,14 +54,6 @@ namespace Ra
 
             const std::string& getName() const;
 
-            void setKd( const Core::Color& kd );
-            void setKs( const Core::Color& ks );
-            void setNs( Scalar ns );
-
-            const Core::Color& getKd() const;
-            const Core::Color& getKs() const;
-            Scalar getNs() const;
-
             void addTexture( const TextureType& type, Texture* texture );
             TextureData& addTexture( const TextureType& type, const std::string& texture );
             TextureData& addTexture( const TextureType& type, const TextureData& texture );
@@ -70,11 +62,13 @@ namespace Ra
             void setMaterialType( const MaterialType& type );
             const MaterialType& getMaterialType() const;
 
-        private:
+        public:
             Core::Color m_kd;
             Core::Color m_ks;
             Scalar m_ns;
+            Scalar m_alpha;
 
+    private:
             std::string m_name;
 
             bool m_isDirty;

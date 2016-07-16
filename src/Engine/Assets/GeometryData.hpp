@@ -21,6 +21,7 @@ struct MaterialData {
     inline bool hasDiffuse() const;
     inline bool hasSpecular() const;
     inline bool hasShininess() const;
+    inline bool hasOpacity() const;
     inline bool hasDiffuseTexture() const;
     inline bool hasSpecularTexture() const;
     inline bool hasShininessTexture() const;
@@ -31,6 +32,7 @@ struct MaterialData {
     Core::Color m_diffuse;
     Core::Color m_specular;
     Scalar      m_shininess;
+    Scalar      m_opacity;
     std::string m_texDiffuse;
     std::string m_texSpecular;
     std::string m_texShininess;
@@ -39,6 +41,7 @@ struct MaterialData {
     bool        m_hasDiffuse;
     bool        m_hasSpecular;
     bool        m_hasShininess;
+    bool        m_hasOpacity;
 };
 
 class GeometryData : public AssetData {

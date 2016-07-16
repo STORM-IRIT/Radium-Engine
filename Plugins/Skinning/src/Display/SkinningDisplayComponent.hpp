@@ -112,9 +112,9 @@ public:
 
             Ra::Engine::RenderTechnique* technique = new Ra::Engine::RenderTechnique;
             technique->material = new Ra::Engine::Material( std::string( "Partition" ) + m_name );
-            technique->material->setKd( Ra::Core::Vector4::Zero() );
-            technique->material->setKs( Ra::Core::Vector4::Zero() );
-            technique->material->setNs( 100 );
+            technique->material->m_kd = Ra::Core::Vector4::Zero();
+            technique->material->m_ks = Ra::Core::Vector4::Zero();
+            technique->material->m_ns = 100;
             technique->shaderConfig = Ra::Engine::ShaderConfigurationFactory::getConfiguration("Plain");
 
 

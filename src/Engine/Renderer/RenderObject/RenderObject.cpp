@@ -35,6 +35,7 @@ namespace Ra
             , m_lifetime( lifetime )
             , m_visible( true )
             , m_xray( false )
+            , m_transparent( false )
             , m_dirty( true )
             , m_hasLifetime( lifetime > 0 )
         {
@@ -71,8 +72,8 @@ namespace Ra
             {
                 // Lightgrey non specular material by default
                 rt->material = new Material(name + "_Mat");
-                rt->material->setKd(Core::Color::Constant(0.9f));
-                rt->material->setKs(Core::Color::Zero());
+                rt->material->m_kd = Core::Color::Constant(0.9f);
+                rt->material->m_ks = Core::Color::Zero();
             }
 
             obj->setRenderTechnique(rt);
@@ -135,19 +136,24 @@ namespace Ra
 
             if (m.hasDiffuse())
             {
-                mat->setKd(m.m_diffuse);
+                mat->m_kd = m.m_diffuse;
             }
 
             if (m.hasSpecular())
             {
-                mat->setKs(m.m_specular);
+                mat->m_ks = m.m_specular;
             }
 
             if (m.hasShininess())
             {
-                mat->setNs(m.m_shininess);
+                mat->m_ns = m.m_shininess;
             }
 
+            if (m.hasOpacity())
+            {
+                mat->m_alpha = m.m_opacity;
+            }
+            
             if (m.hasDiffuseTexture())
             {
                 mat->addTexture(Material::TextureType::TEX_DIFFUSE, m.m_texDiffuse);
@@ -242,6 +248,21 @@ namespace Ra
             return m_xray;
         }
 
+        void RenderObject::setTransparent( bool transparent )
+        {
+            m_transparent = transparent;
+        }
+
+        void RenderObject::toggleTransparent()
+        {
+            m_transparent = !m_transparent;
+        }
+
+        bool RenderObject::isTransparent() const
+        {
+            return m_transparent;
+        }
+        
         bool RenderObject::isDirty() const
         {
             return m_dirty;
@@ -366,7 +387,7 @@ namespace Ra
             m_component->notifyRenderObjectExpired( idx );
         }
 
-        void RenderObject::render( const RenderParameters& lightParams, const RenderData& rdata, ShaderProgram* altShader )
+        void RenderObject::render( const RenderParameters& lightParams, const RenderData& rdata, const ShaderProgram* altShader )
         {
             const ShaderProgram* shader;
 

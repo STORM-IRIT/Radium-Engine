@@ -27,9 +27,10 @@ struct Textures
 struct Material
 {
     vec4 kd;
-    vec4 ks;
+    vec4 ks;    
 
     float ns;
+    float alpha;
 
     Textures tex;
 };
