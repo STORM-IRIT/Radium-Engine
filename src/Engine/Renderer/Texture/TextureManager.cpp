@@ -53,12 +53,32 @@ namespace Ra
             }
 
             GLuint format = 0;
+            GLuint internal_format = 0;
             switch(n)
             {
-                case 1: format = GL_RED;    break;
-                case 2: format = GL_RG;     break;
-                case 3: format = GL_RGB;    break;
-                case 4: format = GL_RGBA;   break;
+                case 1:
+                {
+                    format = GL_RED;
+                    internal_format = GL_R8;
+                } break;
+                
+                case 2:
+                {
+                    format = GL_RG;
+                    internal_format = GL_RG8;
+                } break;
+                
+                case 3:
+                {
+                    format = GL_RGBA;
+                    internal_format = GL_RGB8;
+                } break;
+                
+                case 4:
+                {
+                    format = GL_RGBA;
+                    internal_format = GL_RGBA8;
+                } break;
             }
 
             if ( m_verbose )
@@ -72,7 +92,7 @@ namespace Ra
             CORE_ASSERT( data, "Data is null" );
 
             ret = new Texture(filename, GL_TEXTURE_2D);
-            ret->initGL( format, w, h, format, GL_UNSIGNED_BYTE, data );
+            ret->initGL( internal_format, w, h, format, GL_UNSIGNED_BYTE, data );
             ret->genMipmap( GL_LINEAR, GL_LINEAR );
 
             m_textures.insert( TexturePair( filename, ret ) );

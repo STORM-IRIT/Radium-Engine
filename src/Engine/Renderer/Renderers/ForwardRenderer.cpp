@@ -268,7 +268,7 @@ namespace Ra
 
                     for (size_t i = 0; i < m_fancyTransparentCount; ++i)
                     {
-                        auto& ro = m_transparentRenderObjects[i];
+                        auto ro = m_transparentRenderObjects[i];
                         ro->render(params, renderData, shader);
                     }
                 }
@@ -316,118 +316,77 @@ namespace Ra
         // Draw debug stuff, do not overwrite depth map but do depth testing
         void ForwardRenderer::debugInternal( const RenderData& renderData )
         {
-            const ShaderProgram* shader;
-
-            GL_ASSERT( glDisable( GL_BLEND ) );
-            GL_ASSERT( glDepthMask( GL_FALSE ) );
-            GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
-            GL_ASSERT( glDepthFunc( GL_LESS ) );
-
-            m_postprocessFbo->useAsTarget( m_width, m_height );
-            glDrawBuffers(1, buffers);
-
-            glViewport(0, 0, m_width, m_height);
-
             if ( m_drawDebug )
             {
+                const ShaderProgram* shader;
+                
+                GL_ASSERT( glDisable( GL_BLEND ) );
+                GL_ASSERT( glDepthMask( GL_FALSE ) );
+                GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
+                GL_ASSERT( glDepthFunc( GL_LESS ) );
+                
+                m_postprocessFbo->useAsTarget( m_width, m_height );
+                glDrawBuffers(1, buffers);
+                
+                glViewport(0, 0, m_width, m_height);
+                
                 for ( const auto& ro : m_debugRenderObjects )
                 {
-                    if ( ro->isVisible() )
-                    {
-                        shader = ro->getRenderTechnique()->shader;
-
-                        // bind data
-                        shader->bind();
-
-                        Core::Matrix4 M = ro->getTransformAsMatrix();
-                        shader->setUniform( "transform.proj", renderData.projMatrix );
-                        shader->setUniform( "transform.view", renderData.viewMatrix );
-                        shader->setUniform( "transform.model", M );
-
-                        ro->getRenderTechnique()->material->bind( shader );
-
-                        // render
-                        ro->getMesh()->render();
-                    }
+                     ro->render(RenderParameters{}, renderData);                 
                 }
 
                 DebugRender::getInstance()->render(renderData.viewMatrix,
-                                                   renderData.projMatrix);
-            }
+                                                   renderData.projMatrix);            
            
 #ifndef NO_TRANSPARENCY
-            m_postprocessFbo->unbind();
-            m_oitFbo->useAsTarget();
-
-            Core::Colorf clearZeros(0.0, 0.0, 0.0, 0.0);
-            Core::Colorf clearOnes (1.0, 1.0, 1.0, 1.0);
-            
-            GL_ASSERT(glDrawBuffers(2, buffers));
-            GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearZeros.data()));
-            GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearOnes.data()));
-
-            GL_ASSERT(glDepthFunc(GL_LESS));            
-            GL_ASSERT(glEnable(GL_BLEND));
-
-            GL_ASSERT(glBlendEquation(GL_FUNC_ADD));
-            GL_ASSERT(glBlendFunci(0, GL_ONE, GL_ONE));
-            GL_ASSERT(glBlendFunci(1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA));            
-
-            shader = m_shaderMgr->getShaderProgram("LitOIT");
-            shader->bind();
-            
-            if ( m_lights.size() > 0 )
-            {
-                for ( const auto& l : m_lights )
-                {
-                    RenderParameters params;
-                    l->getRenderParameters( params );
-
-                    for (size_t i = m_fancyTransparentCount; i < m_transparentRenderObjects.size(); ++i)
-                    {
-                        auto& ro = m_transparentRenderObjects[i];
-                        ro->render(params, renderData, shader);
-                    }
-                }
-            }
-            else
-            {
-                DirectionalLight l;
-                l.setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
-
-                RenderParameters params;
-                l.getRenderParameters( params );
+                m_postprocessFbo->unbind();
+                m_oitFbo->useAsTarget();
+                
+                Core::Colorf clearZeros(0.0, 0.0, 0.0, 0.0);
+                Core::Colorf clearOnes (1.0, 1.0, 1.0, 1.0);
+                
+                GL_ASSERT(glDrawBuffers(2, buffers));
+                GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearZeros.data()));
+                GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearOnes.data()));
+                
+                GL_ASSERT(glDepthFunc(GL_LESS));            
+                GL_ASSERT(glEnable(GL_BLEND));
+                
+                GL_ASSERT(glBlendEquation(GL_FUNC_ADD));
+                GL_ASSERT(glBlendFunci(0, GL_ONE, GL_ONE));
+                GL_ASSERT(glBlendFunci(1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA));            
+                
+                shader = m_shaderMgr->getShaderProgram("UnlitOIT");
+                shader->bind();
 
                 for (size_t i = m_fancyTransparentCount; i < m_transparentRenderObjects.size(); ++i)
                 {
-                    auto& ro = m_transparentRenderObjects[i];
-                    ro->render(params, renderData, shader);
-                }
-            }            
+                    auto ro = m_transparentRenderObjects[i];
+                    ro->render(RenderParameters{}, renderData, shader);
+                }                
 
-            m_oitFbo->unbind();
-            
-            m_postprocessFbo->useAsTarget();
-            GL_ASSERT(glDrawBuffers(1, buffers + 1));
+                m_oitFbo->unbind();
+                
+                m_postprocessFbo->useAsTarget();
+                GL_ASSERT(glDrawBuffers(1, buffers + 1));
+                
+                GL_ASSERT(glDepthFunc(GL_ALWAYS));
+                GL_ASSERT(glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA));
+                
+                shader = m_shaderMgr->getShaderProgram("ComposeOIT");
+                shader->bind();
+                shader->setUniform("u_OITSumColor", m_textures[TEX_OIT_TEXTURE_ACCUM].get(), 0);
+                shader->setUniform("u_OITSumWeight", m_textures[TEX_OIT_TEXTURE_REVEALAGE].get(), 1);
+                
+                m_quadMesh->render();
 
-            GL_ASSERT(glDepthFunc(GL_ALWAYS));
-            GL_ASSERT(glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA));
-           
-            shader = m_shaderMgr->getShaderProgram("ComposeOIT");
-            shader->bind();
-            shader->setUniform("u_OITSumColor", m_textures[TEX_OIT_TEXTURE_ACCUM].get(), 0);
-            shader->setUniform("u_OITSumWeight", m_textures[TEX_OIT_TEXTURE_REVEALAGE].get(), 1);
-                        
-            m_quadMesh->render();
-
-            GL_ASSERT(glBlendFunc(GL_ONE, GL_ONE));
+                GL_ASSERT(glBlendFunc(GL_ONE, GL_ONE));            
 #endif            
-
-            // Draw X rayed objects always on top of normal objects
-            GL_ASSERT( glDepthMask( GL_TRUE ) );
-            GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
-            if ( m_drawDebug )
-            {
+                
+                // Draw X rayed objects always on top of normal objects
+                GL_ASSERT( glDepthMask( GL_TRUE ) );
+                GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
+                
                 for ( const auto& ro : m_xrayRenderObjects )
                 {
                     if ( ro->isVisible() )
@@ -447,10 +406,10 @@ namespace Ra
                         // render
                         ro->getMesh()->render();
                     }
-                }
+                }                
+                
+                m_postprocessFbo->unbind();
             }
-
-             m_postprocessFbo->unbind();
         }
 
         // Draw UI stuff, always drawn on top of everything else + clear ZMask

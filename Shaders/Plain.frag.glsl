@@ -5,6 +5,7 @@ uniform Light light;
 
 in VS_OUT
 {
+    vec3 position;
     vec3 normal;
     vec3 texcoord;
     vec3 color;
@@ -13,7 +14,6 @@ in VS_OUT
 out vec4 fragColor;
 
 #include "Helpers.glsl"
-
 
 void main()
 {

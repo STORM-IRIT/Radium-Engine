@@ -9,9 +9,10 @@ uniform int drawFixedSize;
 
 out VS_OUT
 {
-    vec3 normal; // unused
+    vec3 position;
+    vec3 normal;
     vec3 texcoord;
-    vec3 color;
+    vec3 color;    
 } vs_out;
 
 void main()
@@ -35,4 +36,8 @@ void main()
     gl_Position = mvp * vec4(inPos.xyz, 1.0);
     vs_out.color = inColor.xyz;
     vs_out.texcoord = inTexcoord;
+
+    vec4 pos = transform.model * vec4(inPos, 1.0);
+    pos /= pos.w;
+    vs_out.position = vec3(pos);
 }
