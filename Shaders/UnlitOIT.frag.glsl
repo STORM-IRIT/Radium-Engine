@@ -18,7 +18,7 @@ in VS_OUT
 
 void main()
 {
-    if (toDiscard() || material.alpha == < 0.01)
+    if (toDiscard() || material.alpha < 0.01)
     {
         discard;
     }
