@@ -41,9 +41,7 @@ namespace Ra
             break;
 
             case GL_DEPTH_COMPONENT24:
-            case GL_RGB:
             case GL_RGB8:
-            case GL_SRGB:
             case GL_SRGB8:
             {
                 m_bytesPerPixel = 3;
@@ -51,8 +49,7 @@ namespace Ra
             break;
 
             case GL_DEPTH24_STENCIL8:
-            case GL_RGBA:
-            case GL_BGRA:
+            case GL_RGBA8:
             case GL_R32F:
             {
                 m_bytesPerPixel = 4;
@@ -60,17 +57,23 @@ namespace Ra
             break;
 
             case GL_RG32F:
+            case GL_RG32I:
+            case GL_RG32UI:
             {
                 m_bytesPerPixel = 8;
             }
             break;
 
+            case GL_RGB32I:
+            case GL_RGB32UI:
             case GL_RGB32F:
             {
                 m_bytesPerPixel = 12;
             }
             break;
 
+            case GL_RGBA32I:
+            case GL_RGBA32UI:
             case GL_RGBA32F:
             {
                 m_bytesPerPixel = 16;

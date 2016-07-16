@@ -227,9 +227,12 @@ namespace Ra
             GL_ASSERT( glDepthMask( GL_TRUE ) );
             GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
             GL_ASSERT( glDrawBuffers( 1, buffers ) );
-            GL_ASSERT( glClearColor( 1.0, 1.0, 1.0, 1.0 ) );
-            GL_ASSERT( glClearDepth( 1.0 ) );
-            GL_ASSERT( glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ) );
+
+            float clearDepth = 1.0;
+            int clearColor[] = { -1, -1, -1, -1 };
+
+            GL_ASSERT(glClearBufferiv(GL_COLOR, 0, clearColor));            
+            GL_ASSERT(glClearBufferfv(GL_DEPTH, 0, &clearDepth));
 
             const ShaderProgram* shader = m_shaderMgr->getShaderProgram("Picking");
             shader->bind();
@@ -241,11 +244,9 @@ namespace Ra
             {
                 if ( ro->isVisible() )
                 {
-                    auto id = ro->idx.getValue();
-                    float r = float( ( id & 0x000000FF ) >> 0 )  / 255.0;
-                    float g = float( ( id & 0x0000FF00 ) >> 8 )  / 255.0;
-                    float b = float( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
-                    shader->setUniform( "objectId", Core::Colorf( r, g, b, 1.0 ) );
+                    int id = ro->idx.getValue();
+                    LOG(logINFO) << id;
+                    shader->setUniform( "objectId", id );
 
                     Core::Matrix4 M = ro->getTransformAsMatrix();
                     shader->setUniform( "transform.proj", renderData.projMatrix );
@@ -267,11 +268,9 @@ namespace Ra
                 {
                     if ( ro->isVisible() )
                     {
-                        auto id = ro->idx.getValue();
-                        float r = float( ( id & 0x000000FF ) >> 0 ) / 255.0;
-                        float g = float( ( id & 0x0000FF00 ) >> 8 ) / 255.0;
-                        float b = float( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
-                        shader->setUniform( "objectId", Core::Colorf( r, g, b, 1.0 ) );
+                        int id = ro->idx.getValue();
+                        LOG(logINFO) << id;
+                        shader->setUniform( "objectId", id );
 
                         Core::Matrix4 M = ro->getTransformAsMatrix();
                         shader->setUniform( "transform.proj", renderData.projMatrix );
@@ -294,11 +293,9 @@ namespace Ra
                 {
                     if ( ro->isVisible() )
                     {
-                        auto id = ro->idx.getValue();
-                        float r = float( ( id & 0x000000FF ) >> 0 ) / 255.0;
-                        float g = float( ( id & 0x0000FF00 ) >> 8 ) / 255.0;
-                        float b = float( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
-                        shader->setUniform( "objectId", Core::Colorf( r, g, b, 1.0 ) );
+                        int id = ro->idx.getValue();
+                        LOG(logINFO) << id;
+                        shader->setUniform( "objectId", id );
 
                         Core::Matrix4 M = ro->getTransformAsMatrix();
                         shader->setUniform( "transform.proj", renderData.projMatrix );
@@ -320,11 +317,9 @@ namespace Ra
             {
                 if ( ro->isVisible() )
                 {
-                    auto id = ro->idx.getValue();
-                    float r = float( ( id & 0x000000FF ) >> 0 ) / 255.0;
-                    float g = float( ( id & 0x0000FF00 ) >> 8 ) / 255.0;
-                    float b = float( ( id & 0x00FF0000 ) >> 16 ) / 255.0;
-                    shader->setUniform( "objectId", Core::Colorf( r, g, b, 1.0 ) );
+                    int id = ro->idx.getValue();
+                    LOG(logINFO) << id;
+                    shader->setUniform( "objectId", id );
 
                     Core::Matrix4 M = ro->getTransformAsMatrix();
                     Core::Matrix4 MV = renderData.viewMatrix * M;
@@ -350,17 +345,12 @@ namespace Ra
 
             for ( const auto& query : m_pickingQueries )
             {
-                Core::Colorf color;
-                GL_ASSERT( glReadPixels( query.m_screenCoords.x(), query.m_screenCoords.y(), 1, 1, GL_RGBA, GL_FLOAT, color.data() ) );
+                int picking_result[4];
+                GL_ASSERT( glReadPixels( query.m_screenCoords.x(), query.m_screenCoords.y(),
+                                         1, 1, GL_RGBA_INTEGER, GL_INT, picking_result ) );
 
-                int id = -1;
-                if ( color != Core::Colorf( 1.0, 1.0, 1.0, 1.0 ) )
-                {
-                    color = color * 255;
-                    id = int( color.x() + color.y() * 256 + color.z() * 256 * 256 );
-                }
-
-                m_pickingResults.push_back( id );
+                LOG(logINFO) << "Read " << picking_result[0];
+                m_pickingResults.push_back( picking_result[0] );
             }
 
             m_pickingFbo->unbind();
@@ -427,7 +417,7 @@ namespace Ra
 
             m_depthTexture->initGL( GL_DEPTH_COMPONENT24, m_width, m_height, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr );
 
-            m_pickingTexture->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );
+            m_pickingTexture->initGL( GL_RGBA32I, w, h, GL_RGBA_INTEGER, GL_INT, nullptr );
             m_pickingTexture->setFilter( GL_NEAREST, GL_NEAREST );
 
             m_fancyTexture->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );

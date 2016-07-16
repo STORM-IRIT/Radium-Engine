@@ -1,7 +1,8 @@
-out vec4 fragId;
+out ivec4 fragId;
 
-uniform vec4 objectId;
+uniform int objectId;
 uniform int drawFixedSize;
+
 void main()
 {
     // FIXME(Charly): Do we want to check alpha value of objects to perform picking ? 
@@ -16,5 +17,5 @@ void main()
     }
 	*/
 
-    fragId = objectId;
+    fragId.r = objectId;
 }
