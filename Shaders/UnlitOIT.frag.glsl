@@ -18,6 +18,11 @@ in VS_OUT
 
 void main()
 {
+    if (toDiscard() || material.alpha == < 0.01)
+    {
+        discard;
+    }
+    
     float a = material.alpha;
     float z = -fs_in.position.z;
     
