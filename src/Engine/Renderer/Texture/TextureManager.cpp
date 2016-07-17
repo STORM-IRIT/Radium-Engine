@@ -70,7 +70,7 @@ namespace Ra
                 
                 case 3:
                 {
-                    format = GL_RGBA;
+                    format = GL_RGB;
                     internal_format = GL_RGB8;
                 } break;
                 
