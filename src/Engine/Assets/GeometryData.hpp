@@ -49,6 +49,7 @@ class GeometryData : public AssetData {
     /// FRIEND
     friend class AssimpGeometryDataLoader;
 
+public:
     using Vector3Array  = Core::VectorArray<Core::Vector3>  ;
     using Vector2iArray = Core::VectorArray<Core::Vector2i> ;
     using Vector2uArray = Core::VectorArray<Core::Vector2ui>;
@@ -56,6 +57,10 @@ class GeometryData : public AssetData {
     using VectorNuArray = Core::VectorArray<Core::VectorNui>;
     using Vector4Array  = Core::VectorArray<Core::Vector4>  ;
     using ColorArray    = Core::VectorArray<Core::Color>    ;
+
+    using Weight        = std::pair<Scalar, uint>;
+    using VertexWeights = std::vector<Weight>;
+    using WeightArray   = std::vector<VertexWeights>;
 
 public:
 
@@ -99,7 +104,8 @@ public:
     inline const Vector3Array & getBiTangents() const;
     inline const Vector3Array & getTexCoords()  const;
     inline const ColorArray   & getColors()     const;
-    inline const MaterialData & getMaterial()   const;
+    inline const WeightArray  & getWeights()    const;
+    inline const MaterialData & getMaterial()   const;    
 
     inline const std::map< uint, uint >& getDuplicateTable() const;
 
@@ -123,6 +129,7 @@ public:
     inline bool hasBiTangents() const;
     inline bool hasTextureCoordinates() const;
     inline bool hasColors() const;
+    inline bool hasWeights() const;
     inline bool hasMaterial() const;
     inline bool isLoadingDuplicates() const;
 
@@ -166,6 +173,9 @@ protected:
     /// COLOR
     inline void setColors( const std::vector< Core::Color >& colorList );
 
+    /// WEIGHTS
+    inline void setWeights(const WeightArray& weightList);
+
     /// MATERIAL
     inline void setMaterial( const MaterialData& material );
 
@@ -187,6 +197,7 @@ protected:
     Vector3Array  m_bitangent;
     Vector3Array  m_texCoord;
     ColorArray    m_color;
+    WeightArray   m_weights;
 
     MaterialData m_material;
     bool         m_hasMaterial;

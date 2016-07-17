@@ -84,6 +84,9 @@ protected:
     /// COLOR
     void fetchColors( const aiMesh& mesh, GeometryData& data ) const;
 
+    /// WEIGHTS
+    void fetchBoneWeights(const aiMesh& mesh, GeometryData& data) const;
+
     /// MATERIAL
     void loadMaterial( const aiMaterial& material, GeometryData& data ) const;
 

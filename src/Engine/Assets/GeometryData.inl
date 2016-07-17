@@ -115,6 +115,11 @@ namespace Ra {
             return m_color;
         }
 
+        inline const GeometryData::WeightArray& GeometryData::getWeights() const
+        {
+            return m_weights;
+        }
+
         inline const MaterialData& GeometryData::getMaterial() const
         {
             return m_material;
@@ -192,6 +197,10 @@ namespace Ra {
 
         inline bool GeometryData::hasColors() const {
             return !m_color.empty();
+        }
+
+        inline bool GeometryData::hasWeights() const {
+            return !m_weights.empty();
         }
 
         inline bool GeometryData::hasMaterial() const {
@@ -365,6 +374,12 @@ namespace Ra {
             for( int i = 0; i < int(size); ++i ) {
                 m_color[i] = colorList[i];
             }
+        }
+
+/// WEIGHTS
+        inline void GeometryData::setWeights(const WeightArray& weightList)
+        {
+            m_weights = std::move(weightList);
         }
 
 /// MATERIAL

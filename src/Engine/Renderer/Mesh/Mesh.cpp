@@ -173,17 +173,18 @@ namespace Ra {
                 }
 
                 // Geometry data
-                sendGLData( m_mesh.m_vertices, VERTEX_POSITION);
-                sendGLData( m_mesh.m_normals,  VERTEX_NORMAL);
+                sendGLData(m_mesh.m_vertices, VERTEX_POSITION);
+                sendGLData(m_mesh.m_normals,  VERTEX_NORMAL);
 
                 // Vec3 data
-                sendGLData( m_v3Data[VERTEX_TANGENT],   MAX_MESH + VERTEX_TANGENT);
-                sendGLData( m_v3Data[VERTEX_BITANGENT], MAX_MESH + VERTEX_BITANGENT);
-                sendGLData( m_v3Data[VERTEX_TEXCOORD],  MAX_MESH + VERTEX_TEXCOORD);
+                sendGLData(m_v3Data[VERTEX_TANGENT],   MAX_MESH + VERTEX_TANGENT);
+                sendGLData(m_v3Data[VERTEX_BITANGENT], MAX_MESH + VERTEX_BITANGENT);
+                sendGLData(m_v3Data[VERTEX_TEXCOORD],  MAX_MESH + VERTEX_TEXCOORD);
 
                 // Vec4 data
-                sendGLData( m_v4Data[VERTEX_COLOR],  MAX_MESH + MAX_VEC3 + VERTEX_COLOR );
-                sendGLData( m_v4Data[VERTEX_WEIGHTS], MAX_MESH + MAX_VEC3 + VERTEX_WEIGHTS);
+                sendGLData(m_v4Data[VERTEX_COLOR],      MAX_MESH + MAX_VEC3 + VERTEX_COLOR );
+                sendGLData(m_v4Data[VERTEX_WEIGHTS],    MAX_MESH + MAX_VEC3 + VERTEX_WEIGHTS);
+                sendGLData(m_v4Data[VERTEX_WEIGHT_IDX], MAX_MESH + MAX_VEC3 + VERTEX_WEIGHT_IDX);
 
                 GL_ASSERT( glBindVertexArray( 0 ) );
 

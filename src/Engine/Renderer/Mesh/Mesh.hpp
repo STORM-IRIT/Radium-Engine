@@ -64,6 +64,7 @@ namespace Ra
             {
                 VERTEX_COLOR = 0,   /// RGBA color.
                 VERTEX_WEIGHTS,     /// Skinning weights (not used)
+                VERTEX_WEIGHT_IDX,   /// Associated weight bones
 
                 MAX_VEC4
             };
