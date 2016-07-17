@@ -17,6 +17,9 @@ endif()
 # Set the external project assimp
 include(ExternalAssimp)
 
+# Set the external project assimp
+include(ExternalAssimp)
+
 # Set the compiler flags.
 include(CompileFlags)
 
@@ -74,22 +77,23 @@ set( EIGEN_INC ${EXTERNAL_DIR}/Eigen )
 set( ASSIMP_INC ${EXTERNAL_DIR}/Assimp/include )
 if( APPLE )
     if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimpd.dylib" )
+        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimpd.dylib" )
     else()
-        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimp.dylib" )
+        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimp.dylib" )
     endif()
 elseif ( UNIX )
     if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimpd.so" )
+        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimpd.so" )
     else()
-        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimp.so" )
+        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimp.so" )
     endif()
 elseif (MINGW)
     if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimpd.dll.a" )
+        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimpd.dll.a" )
     else()
-        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimp.dll.a" )
+        set( ASSIMP_LIB "${CMAKE_SOURCE_DIR}/lib/libassimp.dll.a" )
     endif()
+
 elseif( MSVC )
     # in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
     if( MSVC70 OR MSVC71 )
