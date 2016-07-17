@@ -22,6 +22,7 @@ set( ASSIMP_BUILD_TESTS OFF CACHE BOOL
     "If the test suite for Assimp is built in addition to the library." )
 set( ASSIMP_BUILD_SAMPLES OFF CACHE BOOL
     "If the official samples are built as well (needs Glut)." )
+<<<<<<< 66d8312ba62f1839a7251fc91651a0f503295420
 
 # Do not clean 3rt party libs when cleaning the build.
 set_directory_properties( PROPERTIES CLEAN_NO_CUSTOM 1)
