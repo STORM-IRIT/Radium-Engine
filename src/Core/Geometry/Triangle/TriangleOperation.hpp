@@ -56,8 +56,16 @@ Scalar triangleMaxAngle( const Vector3& p, const Vector3& q, const Vector3& r );
 Scalar triangleAngleRatio( const Vector3& p, const Vector3& q, const Vector3& r );
 
 
-}
-}
-}
+
+/*
+* Return the barycentric coordinates (u, v, w) of the given point v for the given triangle PQR
+*/
+Vector3 barycentricCoordinate( const Vector3& v, const Vector3& p, const Vector3& q, const Vector3& r );
+
+
+
+} // namespace Geometry
+} // namespace Core
+} // namespace Ra
 
 #endif // TRIANGLE_OPERATION

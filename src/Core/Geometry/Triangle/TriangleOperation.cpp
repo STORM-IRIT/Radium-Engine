@@ -57,7 +57,27 @@ Scalar triangleAngleRatio( const Vector3& p, const Vector3& q, const Vector3& r 
 }
 
 
+
+Vector3 barycentricCoordinate( const Vector3& v, const Vector3& p, const Vector3& q, const Vector3& r ) {
+    Vector3 result;
+    const Vector3 v0    = q - p;
+    const Vector3 v1    = r - p;
+    const Vector3 v2    = v - p;
+    const Scalar  d00   = v0.dot( v0 );
+    const Scalar  d01   = v0.dot( v1 );
+    const Scalar  d11   = v1.dot( v1 );
+    const Scalar  d20   = v2.dot( v0 );
+    const Scalar  d21   = v2.dot( v1 );
+    const Scalar  denom = ( d00 * d11 ) - ( d01 * d01 );
+    result[1] = ( ( d11 * d20 ) - ( d01 * d21 ) ) / denom;
+    result[2] = ( ( d00 * d21 ) - ( d01 * d20 ) ) / denom;
+    result[0] = 1.0f - result[1] - result[2];
+    return result;
 }
-}
-}
+
+
+
+} // namespace Geometry
+} // namespace Core
+} // namespace Ra
 
