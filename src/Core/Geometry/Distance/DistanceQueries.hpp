@@ -15,9 +15,9 @@ namespace Ra
                 // http://mathworld.wolfram.com/Point-LineDistance3-Dimensional.html
                 return (dir.cross(q-a)).squaredNorm() / dir.squaredNorm();
             }
-            
+
             /// Projects point q on segment AB defined by point A and vector AB = (B -A).
-            /// Return the paramenter t in [0,1] which identifies the projected point.
+            /// Return the parameter t in [0,1] which identifies the projected point.
             Scalar projectOnSegment( const Vector3& q, const Vector3& a, const Vector3& ab )
             {
                 // Edge case : segment has length 0

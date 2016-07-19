@@ -11,6 +11,7 @@ namespace Ra
     namespace Core
     {
         /// A parametrized polyline, i.e. a continuous polygonal chain of segments.
+        /// Points go from P0 to Pn. The ith segments joins Pi and Pi+1.
         class RA_CORE_API PolyLine
         {
 
@@ -18,9 +19,11 @@ namespace Ra
             /// Create a polyline from a given set of points.
             PolyLine(const Vector3Array& pt);
 
-
-            /// Get the segment extremities.
+            /// Get the point vector.
             inline const Vector3Array& getPoints() const;
+
+            /// Get the ith segment AB as starting point A and vector AB.
+            inline void getSegment(uint segment, Vector3& aOut, Vector3& abOut) const;
 
             inline Aabb aabb() const;
 
@@ -35,8 +38,13 @@ namespace Ra
 
             /// Return the distance between the line and a given point p.
             Scalar distance(const Vector3& p) const;
-            
-            /// Returns a point on the line which is the closes point from p.
+
+            /// Returns the parameter t in [0,1] corresponding to the point on the
+            /// ith segment closest from point p.
+            Scalar projectOnSegment(const Vector3& p, uint segment) const;
+
+            /// Returns the parameter t in [0,1] corresponding to the point on the line
+            /// which is the closest point from p.
             Scalar project( const Vector3& p )const;
 
             /// Return a point on the line corresponding to parameter t in [0;1].
@@ -47,13 +55,20 @@ namespace Ra
             /// Update the precomputed values after new points have been set.
             void update();
 
+
+            /// Given a point on one of the segments identified by parameter tSegment in [0,1]
+            /// and segment number, return the t in [0,1] corresponding to the same point
+            /// in the whole line parametrization.
+            inline Scalar getLineParameter(uint segment, Scalar tSegment) const;
+
         private:
-            // Stores the points Pi 
+            // Stores the points Pi
             Vector3Array m_pts;
             // Stores the vectors (Pi+1 - Pi)
             Vector3Array m_ptsDiff;
             // Length from origin to point Pi+1.
             std::vector<Scalar> m_lengths;
+
         };
 
     }

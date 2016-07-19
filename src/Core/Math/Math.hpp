@@ -16,6 +16,7 @@ namespace Ra
         namespace Math
         {
             /// Mathematical constants casted to Scalar. Values taken from math.h
+            constexpr Scalar e      = Scalar(2.7182818284590452354);    // e = exp(1).
             constexpr Scalar Pi     = Scalar(3.14159265358979323846);   // pi
             constexpr Scalar InvPi  = Scalar(0.31830988618379067154);   // 1/pi
             constexpr Scalar PiDiv2 = Scalar(1.57079632679489661923);   // pi/2
@@ -58,6 +59,7 @@ namespace Ra
             template <typename T>
             inline constexpr T clamp( T v, T min, T max );
 
+            /// Clamps the value between 0 and 1
             template <typename T>
             inline constexpr T saturate( T v );
 

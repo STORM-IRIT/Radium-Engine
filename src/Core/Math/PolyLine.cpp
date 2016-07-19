@@ -46,6 +46,15 @@ Scalar PolyLine::distance( const Vector3& p ) const
     return std::sqrt( squaredDistance( p ) );
 }
 
+
+Scalar PolyLine::projectOnSegment( const Vector3&p, uint segment ) const
+{
+    CORE_ASSERT( segment < m_ptsDiff.size(), "invalid segment index");
+    const Scalar tSegment = DistanceQueries::projectOnSegment(p, m_pts[segment], m_ptsDiff[segment]);
+    return getLineParameter( segment, tSegment );
+}
+
+
 Scalar PolyLine::project( const Vector3& p ) const
 {
     CORE_ASSERT( m_pts.size() > 1, "Line must have at least two points" );
@@ -56,16 +65,16 @@ Scalar PolyLine::project( const Vector3& p ) const
     {
         Scalar proj = DistanceQueries::projectOnSegment( p, m_pts[i], m_ptsDiff[i] );
         Scalar d = (p - (m_pts[i] + proj * (m_ptsDiff[i]))).squaredNorm();
-        if ( sqDist < d )
+        if ( d < sqDist )
         {
+            sqDist = d;
             t = proj;
             segment = i;
         }
     }
 
     CORE_ASSERT( segment < m_ptsDiff.size(), "Invalid index" );
-    Scalar lprev = segment  > 0 ? m_lengths[segment - 1] : 0;
-    return (((m_lengths[segment] * t) + lprev) / length());
+    return getLineParameter( segment, t );
 }
 
 Ra::Core::Vector3 PolyLine::f( Scalar t ) const

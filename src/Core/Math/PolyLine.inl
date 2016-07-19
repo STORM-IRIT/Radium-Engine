@@ -19,4 +19,17 @@ Ra::Core::Aabb PolyLine::aabb() const
     return PointCloud::aabb( m_pts );
 }
 
+Scalar PolyLine::getLineParameter ( uint segment, Scalar tSegment ) const
+{
+    CORE_ASSERT( segment < m_ptsDiff.size(), "invalid segment index");
+    const Scalar lprev = segment  > 0 ? m_lengths[segment - 1] : 0;
+    const Scalar lSegment = m_lengths[segment] - lprev;
+    return ((lSegment * tSegment) + lprev) / length();
+}
+
+void PolyLine::getSegment(uint segment, Vector3& aOut, Vector3& abOut) const
+{
+    CORE_ASSERT( segment < m_ptsDiff.size(), "Invalid segment index.");
+    aOut = m_pts[segment]; abOut = m_ptsDiff[segment];
+}
 }}
