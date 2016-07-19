@@ -9,10 +9,17 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
+/*
+* The class Mapping stores the mapping of a vertex on a triangle face.
+* It stores the followings:
+*       ( alpha, beta, gamma ) are the barycentric coordinates of a vertex relative to a triangle. NOTE: gamma = 1 - alpha - beta.
+*       delta is the displacement along a direction from the point given by the barycentric coordinates.
+*       ID is the index of the triangle.
+*/
 class Mapping {
 public:
     /// CONSTRUCTOR
-    inline Mapping( const Scalar alpha = 1.0,
+    inline Mapping( const Scalar alpha = 0.0,
                     const Scalar beta  = 0.0,
                     const Scalar delta = 0.0,
                     const Index& id    = Index::INVALID_IDX() );
@@ -43,9 +50,9 @@ public:
                              const Vector3& n ) const;
 
     /// QUERY
-    inline bool isFinite() const;
-    inline bool isPositive() const;
-    inline bool isBoundToElement() const;
+    inline bool isFinite() const;           // Return true if all the values stored are not nans or infs.
+    inline bool isInside() const;         // Return true if the barycentric coordinates are inside the triangle.
+    inline bool isBoundToElement() const;   // Return true if the index of the triangle is valid.
 
 protected:
     /// VARIABLE

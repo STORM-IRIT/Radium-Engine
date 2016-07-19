@@ -1,5 +1,7 @@
 #include <Core/Geometry/Mapping/MappingOperation.hpp>
 
+#include <Core/Geometry/Triangle/TriangleOperation.hpp>
+
 #ifdef CORE_DEBUG
 #include <Core/Log/Log.hpp>
 #endif
@@ -25,13 +27,13 @@ bool isAllFinite( const Parametrization& param ) {
 
 
 
-bool isAllPositive( const Parametrization& param ) {
+bool isAllInside( const Parametrization& param ) {
     const uint size = param.size();
     bool status = true;
     for( uint i = 0; i < size; ++i ) {
-        if( !param.at( i ).isPositive() ) {
+        if( !param.at( i ).isInside() ) {
 #ifdef CORE_DEBUG
-            LOG( logWARNING ) << "Element " << i << " not positive.";
+            LOG( logWARNING ) << "Element " << i << " not inside.";
             print( param.at( i ) );
 #endif
             status = false;
@@ -58,6 +60,45 @@ bool isAllBoundToElement( const Parametrization& param ) {
 
 
 
+void findParametrization( const TriangleMesh& source, const TriangleMesh& target, Parametrization& param ) {
+    const uint size = source.m_vertices.size();
+    param.clear();
+    param.resize( size );
+    #pragma omp parallel for
+    for( uint i = 0; i < size; ++i ) {
+        const Vector3& v = source.m_vertices[i];
+        Mapping map;
+        for( uint t = 0; t < target.m_triangles.size(); ++t ) {
+            const Vector3& t0 = target.m_vertices[target.m_triangles[t][0]];
+            const Vector3& t1 = target.m_vertices[target.m_triangles[t][1]];
+            const Vector3& t2 = target.m_vertices[target.m_triangles[t][2]];
+            const Vector3  n  = triangleNormal( t0, t1, t2 );
+            const Plane3   plane( n, t0 );
+            const Vector3  p  = plane.projection( v );
+            const Scalar   d  = plane.signedDistance( v );
+            const Vector3  b  = barycentricCoordinate( p, t0, t1, t2 );
+            //if( ( b[0] >= 0.0 ) && ( b[1] >= 0.0 ) && ( b[2] >= 0.0 ) ) {
+                if( map.isBoundToElement() ) {
+                    if( std::abs( d ) < std::abs( map.getDelta() ) ) {
+                        map.setID( Index( t ) );
+                        map.setDelta( d );
+                        map.setAlpha( b[0] );
+                        map.setBeta( b[1] );
+                    }
+                } else {
+                    map.setID( Index( t ) );
+                    map.setDelta( d );
+                    map.setAlpha( b[0] );
+                    map.setBeta( b[1] );
+                }
+            //}
+        }
+        param[i] = map;
+    }
+}
+
+
+
 void applyParametrization( const TriangleMesh& inMesh, const Parametrization& param, Vector3Array& outPoint, const bool FORCE_DISPLACEMENT_TO_ZERO ) {
     const uint size = param.size();
     outPoint.resize( size, Vector3::Zero() );
@@ -77,7 +118,8 @@ void applyParametrization( const TriangleMesh& inMesh, const Parametrization& pa
         const Vector3 n0    = inMesh.m_normals[i];
         const Vector3 n1    = inMesh.m_normals[j];
         const Vector3 n2    = inMesh.m_normals[k];
-        const Vector3 N     = ( FORCE_DISPLACEMENT_TO_ZERO ) ? Vector3::Zero() : ( ( alpha * n0 ) + ( beta * n1 ) + ( gamma * n2 ) ).eval();
+        const Vector3 n     = triangleNormal( p0, p1, p2 ); //( alpha * n0 ) + ( beta * n1 ) + ( gamma * n2 );
+        const Vector3 N     = ( FORCE_DISPLACEMENT_TO_ZERO ) ? Vector3::Zero() : n;
         outPoint[v] = map.getPoint( p0, p1, p2, N );
     }
 }
@@ -85,19 +127,11 @@ void applyParametrization( const TriangleMesh& inMesh, const Parametrization& pa
 
 
 void print( const Mapping& map ) {
-#ifdef CORE_DEBUG
     LOG( logINFO ) << "Alpha : " << map.getAlpha();
     LOG( logINFO ) << "Beta  : " << map.getBeta();
     LOG( logINFO ) << "Gamma : " << map.getGamma();
     LOG( logINFO ) << "Delta : " << map.getDelta();
-    LOG( logINFO ) << "ID    : " << map.getID();
-#else
-    std::cout << "Alpha : " << map.getAlpha() << std::endl;
-    std::cout << "Beta  : " << map.getBeta() << std::endl;
-    std::cout << "Gamma : " << map.getGamma() << std::endl;
-    std::cout << "Delta : " << map.getDelta() << std::endl;
-    std::cout << "ID    : " << map.getID().getValue() << std::endl;
-#endif
+    LOG( logINFO ) << "ID    : " << map.getID().getValue();
 }
 
 void print( const Parametrization& param ) {

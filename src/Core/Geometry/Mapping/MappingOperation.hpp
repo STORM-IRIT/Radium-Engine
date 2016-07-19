@@ -9,9 +9,10 @@ namespace Core {
 namespace Geometry {
 
 bool isAllFinite( const Parametrization& param );
-bool isAllPositive( const Parametrization& param );
+bool isAllInside( const Parametrization& param );
 bool isAllBoundToElement( const Parametrization& param );
 
+void findParametrization( const TriangleMesh& source, const TriangleMesh& target, Parametrization& param );
 void applyParametrization( const TriangleMesh& inMesh, const Parametrization& param, Vector3Array& outPoint, const bool FORCE_DISPLACEMENT_TO_ZERO = false );
 
 void print( const Mapping& map );

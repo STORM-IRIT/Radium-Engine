@@ -81,8 +81,11 @@ inline bool Mapping::isFinite() const {
     return true;
 }
 
-inline bool Mapping::isPositive() const {
-    return ( ( getAlpha() >= 0.0 ) && ( getBeta() >= 0.0 ) && ( getGamma() >= 0.0 ) );
+inline bool Mapping::isInside() const {
+    return ( ( getAlpha() >= 0.0 ) &&
+             ( getBeta()  >= 0.0 ) &&
+             ( getGamma() >= 0.0 ) &&
+             ( ( getAlpha() + getBeta() + getGamma() ) == 1.0 ) );
 }
 
 inline bool Mapping::isBoundToElement() const {
