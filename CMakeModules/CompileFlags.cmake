@@ -78,6 +78,11 @@ else()
   message("Using single precision.")
 endif()
 
+if ("${ENABLE_FANCY_GL}" STREQUAL "False")
+  add_definitions(-DNO_TRANSPARENCY)
+  message("Fancy OpenGL Effects are disabled")
+endif()
+
 if ("${USE_OMP}" STREQUAL "True")
     add_definitions(-DCORE_USE_OMP)
     message("Using OpenMP")
