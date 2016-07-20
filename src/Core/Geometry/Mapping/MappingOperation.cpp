@@ -1,10 +1,6 @@
 #include <Core/Geometry/Mapping/MappingOperation.hpp>
-
 #include <Core/Geometry/Triangle/TriangleOperation.hpp>
-
-#ifdef CORE_DEBUG
 #include <Core/Log/Log.hpp>
-#endif
 
 namespace Ra {
 namespace Core {

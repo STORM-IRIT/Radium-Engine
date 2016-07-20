@@ -25,9 +25,10 @@ namespace Ra
             /// Get the ith segment AB as starting point A and vector AB.
             inline void getSegment(uint segment, Vector3& aOut, Vector3& abOut) const;
 
+            /// Get the aabb of the polyline.
             inline Aabb aabb() const;
 
-            /// Get the total length of the line ( constant time).
+            /// Get the total length of the line .
             inline Scalar length() const;
 
             /// Update the points of the polyline.
