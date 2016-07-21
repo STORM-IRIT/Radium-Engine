@@ -276,9 +276,31 @@ inline IndexMap< T >& IndexMap< T >::operator>>( const Index& idx ) {
     return *this;
 }
 
+/// Iterators
 
+template <typename T>
+inline typename IndexMap<T>::Iterator IndexMap<T>::begin()
+{
+    return m_data.begin();
+}
 
+template <typename T>
+inline typename IndexMap<T>::ConstIterator IndexMap<T>::begin() const
+{
+    return m_data.begin();
+}
 
+template <typename T>
+inline typename IndexMap<T>::Iterator IndexMap<T>::end()
+{
+    return m_data.end();
+}
+
+template <typename T>
+inline typename IndexMap<T>::ConstIterator IndexMap<T>::end() const
+{
+    return m_data.end();
+}
 
 
 /// INSERT

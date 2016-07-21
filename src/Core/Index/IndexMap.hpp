@@ -14,6 +14,34 @@ namespace Core {
 template <typename T>
 class IndexMap {
 public:
+
+    /// MAP ENTRY CLASS
+    struct IndexMapEntry {
+        /// CONSTRUCTOR
+        IndexMapEntry( const Index& index = Index::INVALID_IDX() ) : m_idx( index ) { }
+        IndexMapEntry( const Index& index, const T& object ) : m_idx( index ), m_obj( object ) { }
+
+        /// VARIABLE
+        Index m_idx;
+        T     m_obj;
+
+        /// OPERATOR
+        bool operator< ( const IndexMapEntry& imp ) const {
+            if ( m_idx != imp.m_idx ) {
+                return m_idx <  imp.m_idx;
+            }
+            return false;
+        }
+
+        bool operator== ( const IndexMapEntry& imp ) const {
+            return ( m_idx == imp.m_idx );
+        }
+    };
+
+
+    typedef typename std::deque<IndexMapEntry>::iterator Iterator;
+    typedef typename std::deque<IndexMapEntry>::const_iterator ConstIterator;
+
     /// CONSTRUCTOR
     inline IndexMap();
     inline IndexMap( const IndexMap& id_map );
@@ -57,31 +85,15 @@ public:
     inline Index&     operator<<( const T&     obj );
     inline IndexMap&  operator>>( const Index& idx );
 
+    /// STD iterator interface 
+    inline Iterator begin();
+    ConstIterator begin() const;
+    inline Iterator end();
+    ConstIterator end() const;
+
+
 protected:
-    /// MAP ENTRY CLASS
-    struct IndexMapEntry {
-        /// CONSTRUCTOR
-        IndexMapEntry( const Index& index = Index::INVALID_IDX() ) : m_idx( index ) { }
-        IndexMapEntry( const Index& index, const T& object ) : m_idx( index ), m_obj( object ) { }
-
-        /// VARIABLE
-        Index m_idx;
-        T     m_obj;
-
-        /// OPERATOR
-        bool operator< ( const IndexMapEntry& imp ) const {
-            if ( m_idx != imp.m_idx ) {
-                return m_idx <  imp.m_idx;
-            }
-            return false;
-        }
-
-        bool operator== ( const IndexMapEntry& imp ) const {
-            return ( m_idx == imp.m_idx );
-        }
-    };
-
-    /// VARIABLE
+       /// VARIABLE
     std::deque<IndexMapEntry> m_data;
 
 private:
