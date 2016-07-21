@@ -128,10 +128,12 @@ namespace Ra {
               }
             */
 
+            /*
             if (mesh.HasBones())
             {
                 fetchBoneWeights(mesh, data);
             }
+            */
         }
 
         void AssimpGeometryDataLoader::loadMeshFrame( const aiNode* node, const Core::Transform& parentFrame,
@@ -316,10 +318,11 @@ namespace Ra {
         }
 
         void AssimpGeometryDataLoader::fetchBoneWeights(const aiMesh& mesh, GeometryData& data) const
-        {            
+        {
+#if 0
             GeometryData::WeightArray weights(data.getVerticesSize());
             
-            for (uint i = 0; i < mesh.mNumBones; ++i)
+            for (uint i = 0; i < mesh.mNumBones; ++i)                
             {
                 aiBone* bone = mesh.mBones[i];
 
@@ -334,6 +337,7 @@ namespace Ra {
             }
 
             data.setWeights(weights);
+#endif
         }       
     
         void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material, GeometryData& data ) const {
