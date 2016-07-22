@@ -120,7 +120,7 @@ namespace Ra
             // before drawing them, that would be cleaner (performance problem ?)
             updateRenderObjectsInternal( data );
             m_timerData.updateEnd = Core::Timer::Clock::now();
-                        
+
             // 3. Do picking if needed
             m_pickingResults.clear();
             if ( !m_pickingQueries.empty() )
@@ -129,7 +129,7 @@ namespace Ra
             }
             m_lastFramePickingQueries = m_pickingQueries;
             m_pickingQueries.clear();
-            
+
             updateStepInternal( data );
 
             // 4. Do the rendering.
@@ -231,7 +231,7 @@ namespace Ra
             float clearDepth = 1.0;
             int clearColor[] = { -1, -1, -1, -1 };
 
-            GL_ASSERT(glClearBufferiv(GL_COLOR, 0, clearColor));            
+            GL_ASSERT(glClearBufferiv(GL_COLOR, 0, clearColor));
             GL_ASSERT(glClearBufferfv(GL_DEPTH, 0, &clearDepth));
 
             const ShaderProgram* shader = m_shaderMgr->getShaderProgram("Picking");
@@ -245,7 +245,6 @@ namespace Ra
                 if ( ro->isVisible() )
                 {
                     int id = ro->idx.getValue();
-                    LOG(logINFO) << id;
                     shader->setUniform( "objectId", id );
 
                     Core::Matrix4 M = ro->getTransformAsMatrix();
