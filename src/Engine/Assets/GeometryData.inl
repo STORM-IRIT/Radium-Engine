@@ -28,7 +28,7 @@ namespace Ra {
         {
             return m_hasOpacity;
         }
-    
+
         inline bool MaterialData::hasDiffuseTexture() const {
             return ( m_texDiffuse != "" );
         }
@@ -66,7 +66,8 @@ namespace Ra {
         }
 
 /// DATA
-        inline uint GeometryData::getVerticesSize() const {
+        inline uint GeometryData::getVerticesSize() const
+        {
             return m_vertex.size();
         }
 

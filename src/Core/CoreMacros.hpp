@@ -289,6 +289,7 @@ namespace compile_time_utils
             "%s:%i: ERROR : %s\n",          \
             __FILE__,__LINE__, DESC);       \
     BREAKPOINT(0);                          \
+    exit(EXIT_FAILURE);                     \
     MACRO_END
 
 // Print an error and break if condition is not met, even in release

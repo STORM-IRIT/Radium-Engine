@@ -25,7 +25,7 @@ namespace Ra
                 CORE_ASSERT(Math::areApproxEqual(meanPoint(ptsAvg).squaredNorm(), 0.f), "oops");
 
                 // Compute variance-covariance matrix
-                auto vCov = (1.f / (pts.size() - 1)) * (ptsAvg.getMap() * ptsAvg.getMap().transpose());
+                Ra::Core::MatrixN vCov = (1.f / (pts.size() - 1)) * (ptsAvg.getMap() * ptsAvg.getMap().transpose());
 
                 // Solve eigen vectors
                 Eigen::SelfAdjointEigenSolver<Matrix3> solver(vCov);

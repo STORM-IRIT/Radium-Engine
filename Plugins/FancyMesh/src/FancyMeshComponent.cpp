@@ -82,6 +82,7 @@ namespace FancyMeshPlugin
             mesh.m_normals.push_back((N * data->getNormals()[i]).normalized());
         }
 
+
         for (const auto& face : data->getFaces())
         {
             mesh.m_triangles.push_back(face.head<3>());
@@ -116,7 +117,7 @@ namespace FancyMeshPlugin
         if ( m.hasSpecular() )  mat->m_ks    = m.m_specular;
         if ( m.hasShininess() ) mat->m_ns    = m.m_shininess;
         if ( m.hasOpacity() )   mat->m_alpha = m.m_opacity;
-        
+
 #ifdef LOAD_TEXTURES
         if ( m.hasDiffuseTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_DIFFUSE, m.m_texDiffuse );
 #endif

@@ -105,7 +105,7 @@ public:
     inline const Vector3Array & getTexCoords()  const;
     inline const ColorArray   & getColors()     const;
     inline const WeightArray  & getWeights()    const;
-    inline const MaterialData & getMaterial()   const;    
+    inline const MaterialData & getMaterial()   const;
 
     inline const std::map< uint, uint >& getDuplicateTable() const;
 
