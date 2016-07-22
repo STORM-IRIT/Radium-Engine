@@ -6,6 +6,8 @@ namespace Core {
 
 void PolyLine::update()
 {
+    m_ptsDiff.clear();
+    m_lengths.clear();
     CORE_ASSERT( m_pts.size() > 1, "Line must have at least two points" );
     m_ptsDiff.reserve( m_pts.size() - 1 );
     m_lengths.reserve( m_pts.size() - 1 );

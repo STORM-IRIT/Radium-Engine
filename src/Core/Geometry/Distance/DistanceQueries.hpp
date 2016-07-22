@@ -10,7 +10,7 @@ namespace Ra
         namespace DistanceQueries
         {
             // Return the squared distance from point Q to the line defined by point A and direction dir.
-            inline Scalar pointToLineSq(  const Vector3& q, const Vector3& a, const Vector3& dir )
+            inline RA_CORE_API Scalar pointToLineSq(  const Vector3& q, const Vector3& a, const Vector3& dir )
             {
                 // http://mathworld.wolfram.com/Point-LineDistance3-Dimensional.html
                 return (dir.cross(q-a)).squaredNorm() / dir.squaredNorm();
@@ -18,7 +18,7 @@ namespace Ra
 
             /// Projects point q on segment AB defined by point A and vector AB = (B -A).
             /// Return the parameter t in [0,1] which identifies the projected point.
-            Scalar projectOnSegment( const Vector3& q, const Vector3& a, const Vector3& ab )
+            inline RA_CORE_API Scalar projectOnSegment( const Vector3& q, const Vector3& a, const Vector3& ab )
             {
                 // Edge case : segment has length 0
                 if ( UNLIKELY( ab.squaredNorm() == 0 ) ) { return 0; }
@@ -27,7 +27,7 @@ namespace Ra
 
             // Return the squared distance from point Q to the segment AB defined by point A and
             // vector AB = (B - A).
-            inline Scalar pointToSegmentSq( const Vector3& q, const Vector3& a, const Vector3& ab )
+            inline RA_CORE_API Scalar pointToSegmentSq( const Vector3& q, const Vector3& a, const Vector3& ab )
             {
                 const Scalar t = projectOnSegment( q, a, ab );
                 return (q - ( a + t * (ab))).squaredNorm();
