@@ -40,7 +40,7 @@ namespace Ra
             std::string entityName = name;
             if ( entityExists( name ) )
             {
-                LOG( logWARNING ) << "Entity " << name << "already exists";
+                LOG( logWARNING ) << "Entity `" << name << "` already exists";
                 entityName = name + "_";
             }
 

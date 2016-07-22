@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_SKINNING_DATA_HPP_
 #define RADIUMENGINE_SKINNING_DATA_HPP_
 
+#include <Core/RaCore.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
@@ -27,6 +28,9 @@ namespace Skinning
 
         /// Skinning weights.
         Ra::Core::Animation::WeightMatrix m_weights;
+
+        /// Optionnal centers of rotations for CoR skinning
+        Ra::Core::Vector3Array m_CoR;
     };
 
     /// Pose data of one frame

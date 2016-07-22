@@ -15,7 +15,7 @@ namespace Core {
 * vertices, halfedges and faces.
 *
 * For further references read:
-* "Computetional Geometry - Geometrys and applications"
+* "Computational Geometry - Geometry and applications"
 * [ Mark de Berg, Otfried Cheong, Mark van Kreveld, Mark Overmars ]
 * Chapter 2, Paragraph 2.2, Page 29
 */

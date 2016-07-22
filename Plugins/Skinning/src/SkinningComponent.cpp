@@ -5,6 +5,10 @@
 
 #include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
 
+// TEST CODE
+#include "Core/Animation/Skinning/RotationCenterSkinning.hpp"
+#include "Engine/Managers/SystemDisplay/SystemDisplay.hpp"
+
 using Ra::Core::Quaternion;
 using Ra::Core::DualQuaternion;
 
@@ -52,6 +56,14 @@ void SkinningComponent::setupSkinning()
         m_frameData.m_currentNormal = m_refData.m_referenceMesh.m_normals;
 
 
+
+// TEST CODE
+        Ra::Core::Vector3Array cor = Ra::Core::Skinning::computeCoR( m_refData );
+
+        for ( const auto& v : cor )
+        {
+            RA_DISPLAY_POINT( v, Ra::Core::Colors::Red(), 0.1f );
+        }
 
         m_DQ.resize( m_refData.m_weights.rows(), DualQuaternion( Quaternion( 0.0, 0.0, 0.0, 0.0 ),
                                                                  Quaternion( 0.0 ,0.0, 0.0, 0.0 ) ) );
