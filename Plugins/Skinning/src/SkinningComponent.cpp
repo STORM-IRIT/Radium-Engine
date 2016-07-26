@@ -3,7 +3,7 @@
 #include <Core/Geometry/Normal/Normal.hpp>
 #include <Core/Animation/Pose/PoseOperation.hpp>
 
-#include <DualQuaternionSkinning.hpp>
+#include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
 
 using Ra::Core::Quaternion;
 using Ra::Core::DualQuaternion;
@@ -87,10 +87,10 @@ void SkinningComponent::skin()
             m_frameData.m_refToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_refData.m_refPose);
             m_frameData.m_prevToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_frameData.m_previousPose);
 
-            Ra::Core::AlignedStdVector< DualQuaternion > DQ;
-            computeDQ( m_frameData.m_prevToCurrentRelPose, m_refData.m_weights, DQ );
-            DualQuaternionSkinning( m_frameData.m_previousPos, DQ, m_frameData.m_currentPos );
-            computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_DQ );
+            Ra::Core::Animation::DQList DQ;
+            Ra::Core::Animation::computeDQ( m_frameData.m_prevToCurrentRelPose, m_refData.m_weights, DQ );
+            Ra::Core::Animation::DualQuaternionSkinning( m_frameData.m_previousPos, DQ, m_frameData.m_currentPos );
+            Ra::Core::Animation::computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_DQ );
         }
     }
 }
