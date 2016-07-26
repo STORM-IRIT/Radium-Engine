@@ -19,7 +19,7 @@ namespace Core {
 * [ Mark de Berg, Otfried Cheong, Mark van Kreveld, Mark Overmars ]
 * Chapter 2, Paragraph 2.2, Page 29
 */
-class Dcel : public IndexedObject {
+class RA_CORE_API Dcel : public IndexedObject {
 public:
     /// CONSTRUCTOR
     Dcel( const Index& index = Index::INVALID_IDX() ); // Build an empty DCEL with index equal to "index"

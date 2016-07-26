@@ -20,7 +20,7 @@ namespace Core {
 * Chapter 2, Paragraph 2.2, Page 29
 *
 */
-class Vertex : public IndexedObject {
+class RA_CORE_API Vertex : public IndexedObject {
 public:
     /// CONSTRUCTOR
     Vertex( const Index& index = Index::INVALID_IDX() );        // Build a vertex with a given index

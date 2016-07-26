@@ -20,7 +20,7 @@ namespace Core {
 * Chapter 2, Paragraph 2.2, Page 29
 *
 */
-class Face : public IndexedObject  {
+class RA_CORE_API Face : public IndexedObject  {
 public:
     /// CONSTRUCTOR
     Face( const Index& index = Index::INVALID_IDX() );       // Build a Face with the given index

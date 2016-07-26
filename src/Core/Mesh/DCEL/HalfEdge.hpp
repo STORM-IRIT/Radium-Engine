@@ -21,7 +21,7 @@ namespace Core {
 * Chapter 2, Paragraph 2.2, Page 29
 *
 */
-class HalfEdge : public IndexedObject {
+class RA_CORE_API HalfEdge : public IndexedObject {
 public:
     /// CONSTRUCTOR
     HalfEdge( const Index& index = Index::INVALID_IDX() );        // Build a HalfEdge with the given index

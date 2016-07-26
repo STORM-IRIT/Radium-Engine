@@ -1,5 +1,7 @@
 #include "MeshUtils.hpp"
 #include <Core/Geometry/PointCloud/PointCloud.hpp>
+#include <Core/Geometry/Triangle/TriangleOperation.hpp>
+
 namespace Ra
 {
     namespace Core
@@ -11,20 +13,14 @@ namespace Ra
                 std::array<Vector3, 3> v;
                 getTriangleVertices( mesh, triIdx, v );
 
-                const Vector3 edge0 = v[1] - v[0];
-                const Vector3 edge1 = v[2] - v[0];
-
-                return ( edge0.cross( edge1 ) ).norm() / 2.f;
+                return Geometry::triangleArea( v[0], v[1], v[2] );
             }
 
             inline Vector3 getTriangleNormal( const TriangleMesh& mesh, TriangleIdx triIdx )
             {
                 std::array<Vector3, 3> v;
                 getTriangleVertices( mesh, triIdx, v );
-
-                const Vector3 edge0 = v[1] - v[0];
-                const Vector3 edge1 = v[2] - v[0];
-                return edge0.cross( edge1 ).normalized();
+                return Geometry::triangleNormal( v[0], v[1], v[2] );
             }
 
             inline void getTriangleVertices( const TriangleMesh& mesh, TriangleIdx triIdx,

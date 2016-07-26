@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_MESH_CONVERT_HPP
 #define RADIUMENGINE_MESH_CONVERT_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
@@ -21,8 +21,8 @@ struct Twin {
     uint m_id[2];
 };
 
-void convert( const TriangleMesh& mesh, Dcel& dcel );
-void convert( const Dcel& dcel, TriangleMesh& mesh );
+RA_CORE_API void convert( const TriangleMesh& mesh, Dcel& dcel );
+RA_CORE_API void convert( const Dcel& dcel, TriangleMesh& mesh );
 
 
 
