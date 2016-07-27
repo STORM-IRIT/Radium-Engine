@@ -1,14 +1,13 @@
 set( RADIUM_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../src" )
-# use nothing as debug postfix to avoid creating duplicate plugins when switching builds
 set( CMAKE_DEBUG_POSTFIX "")
 if (APPLE)
-    set( RADIUM_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumCore.dylib;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumEngine.dylib" )
+    set( RADIUM_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumCore.dylib;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumEngine.dylib;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumGuiBase.dylib" )
 elseif(UNIX)
-    set( RADIUM_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumCore.so;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumEngine.so" )
+    set( RADIUM_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumCore.so;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumEngine.so;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumGuiBase.so" )
 elseif (MINGW)
-    set( RADIUM_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumCore.dll.a;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumEngine.dll.a" )
+    set( RADIUM_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumCore.dll.a;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumEngine.dll.a;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumGuiBase.dll.a")
 elseif(MSVC)
-    set( RADIUM_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/../lib/radiumCore.lib;${CMAKE_CURRENT_SOURCE_DIR}/../lib/radiumEngine.lib" )
+    set( RADIUM_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/../lib/radiumCore.lib;${CMAKE_CURRENT_SOURCE_DIR}/../lib/radiumEngine.lib;${CMAKE_CURRENT_SOURCE_DIR}/../lib/radiumGuiBase.lib" )
 endif()
 set( PLUGIN_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../Plugins/bin" )
 

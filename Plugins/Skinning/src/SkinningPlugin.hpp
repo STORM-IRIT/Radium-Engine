@@ -11,6 +11,8 @@
 
 #include <QObject>
 #include <QtPlugin>
+#include <QFrame>
+#include <QComboBox>
 #include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
 
 namespace Ra
@@ -18,12 +20,37 @@ namespace Ra
     namespace Engine
     {
         class RadiumEngine;
+        struct ItemEntry;
+    }
+    namespace Guibase
+    {
+        class SelectionManager;
     }
 }
 
 namespace SkinningPlugin
 {
-// Du to an ambigous name while compiling with Clang, must differentiate plugin claas from plugin namespace
+
+class SkinningComponent;
+class SkinningSystem;
+
+class SkinningWidget : public QFrame
+{
+    Q_OBJECT
+public:
+    explicit SkinningWidget( QWidget* parent = nullptr );
+    public slots:
+    void setCurrent( const Ra::Engine::ItemEntry& entry, SkinningComponent* comp );
+
+    private slots:
+    void onSkinningChanged( int  newType );
+
+private:
+        SkinningComponent* m_current;
+        QComboBox* m_skinningSelect;
+};
+
+// Du to an ambiguous name while compiling with Clang, must differentiate plugin claas from plugin namespace
     class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
     {
         Q_OBJECT
@@ -40,6 +67,15 @@ namespace SkinningPlugin
 
         virtual bool doAddMenu() override;
         virtual QMenu* getMenu() override;
+
+
+    private slots:
+        void onCurrentChanged( const QModelIndex& current , const QModelIndex& prev);
+
+    private:
+        SkinningSystem* m_system;
+        Ra::GuiBase::SelectionManager* m_selectionManager;
+        SkinningWidget* m_widget;
 
     };
 

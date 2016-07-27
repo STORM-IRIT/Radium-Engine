@@ -19,7 +19,18 @@ namespace SkinningPlugin
     class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component
     {
     public:
-        SkinningComponent( const std::string& name) : Component(name), m_isReady(false) {}
+
+        enum SkinningType
+        {
+            LBS = 0, // Linear Blend Skinning
+            DQS,     // Dual Quaternion Skinning
+            COR      // Center of Rotation skinning
+        };
+
+        SkinningComponent( const std::string& name, SkinningType type = DQS)
+            : Component(name),
+            m_skinningType( type ),
+            m_isReady(false) {}
         virtual ~SkinningComponent() {}
 
         virtual void initialize() override { setupSkinning();}
@@ -27,6 +38,10 @@ namespace SkinningPlugin
         void skin();
         void endSkinning();
         void setupSkinning();
+
+        void setSkinningType( SkinningType type  );
+        inline SkinningType getSkinningType() const { return m_skinningType; }
+
 
         virtual void handleWeightsLoading( const Ra::Asset::HandleData* data );
 
@@ -36,6 +51,7 @@ namespace SkinningPlugin
 
     private:
         void setupIO(const std::string &id);
+        void setupSkinningType( SkinningType type);
 
     private:
 
@@ -52,6 +68,7 @@ namespace SkinningPlugin
 
             Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion > m_DQ;
 
+            SkinningType m_skinningType;
             bool m_isReady;
     };
 }

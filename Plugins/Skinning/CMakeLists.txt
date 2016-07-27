@@ -30,7 +30,7 @@ if (MSVC OR MSVC_IDE)
         endforeach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     endif()
 endif(MSVC OR MSVC_IDE)
-    
+
 find_package( Qt5Core    REQUIRED )
 find_package( Qt5Widgets REQUIRED )
 
@@ -54,7 +54,7 @@ include_directories(
     )
 
 add_library( Skinning SHARED ${sources} ${headers} ${inlines} )
-add_dependencies( Skinning radiumCore radiumEngine )
+add_dependencies( Skinning radiumCore radiumEngine radiumGuiBase )
 
 target_compile_definitions( Skinning PRIVATE "-DSkinning_EXPORTS" )
 

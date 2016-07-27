@@ -1,13 +1,10 @@
-#include <SkinningComponent.hpp>
+ #include <SkinningComponent.hpp>
 
 #include <Core/Geometry/Normal/Normal.hpp>
 #include <Core/Animation/Pose/PoseOperation.hpp>
 
 #include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
-
-// TEST CODE
-#include "Core/Animation/Skinning/RotationCenterSkinning.hpp"
-#include "Engine/Managers/SystemDisplay/SystemDisplay.hpp"
+#include <Core/Animation/Skinning/RotationCenterSkinning.hpp>
 
 using Ra::Core::Quaternion;
 using Ra::Core::DualQuaternion;
@@ -56,18 +53,6 @@ void SkinningComponent::setupSkinning()
         m_frameData.m_currentNormal = m_refData.m_referenceMesh.m_normals;
 
 
-
-// TEST CODE
-        Ra::Core::Vector3Array cor = Ra::Core::Skinning::computeCoR( m_refData );
-
-        for ( const auto& v : cor )
-        {
-            RA_DISPLAY_POINT( v, Ra::Core::Colors::Red(), 0.1f );
-        }
-
-        m_DQ.resize( m_refData.m_weights.rows(), DualQuaternion( Quaternion( 0.0, 0.0, 0.0, 0.0 ),
-                                                                 Quaternion( 0.0 ,0.0, 0.0, 0.0 ) ) );
-
         // Do some debug checks:  Attempt to write to the mesh and check the weights match skeleton and mesh.
         ON_DEBUG( bool skinnable = ComponentMessenger::getInstance()->canSet<Ra::Core::TriangleMesh>(getEntity(), m_contentsName ));
         CORE_ASSERT( skinnable, "Mesh cannot be skinned. It could be because the mesh is set to nondeformable" );
@@ -75,6 +60,7 @@ void SkinningComponent::setupSkinning()
         CORE_ASSERT( m_refData.m_referenceMesh.m_vertices.size() == m_refData.m_weights.rows(), "Weights are incompatible with Mesh" );
 
         m_isReady = true;
+        setupSkinningType( m_skinningType );
     }
 }
 void SkinningComponent::skin()
@@ -99,9 +85,27 @@ void SkinningComponent::skin()
             m_frameData.m_refToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_refData.m_refPose);
             m_frameData.m_prevToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_frameData.m_previousPose);
 
-            Ra::Core::Animation::DQList DQ;
-            Ra::Core::Animation::computeDQ( m_frameData.m_prevToCurrentRelPose, m_refData.m_weights, DQ );
-            Ra::Core::Animation::DualQuaternionSkinning( m_frameData.m_previousPos, DQ, m_frameData.m_currentPos );
+            switch ( m_skinningType )
+            {
+            case LBS:
+            {
+                Ra::Core::Animation::linearBlendSkinning( m_refData.m_referenceMesh.m_vertices, m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_frameData.m_currentPos );
+                break;
+            }
+            case DQS:
+            {
+                Ra::Core::AlignedStdVector< DualQuaternion > DQ;
+                //computeDQ( m_frameData.m_prevToCurrentRelPose, m_refData.m_weights, DQ );
+                Ra::Core::Animation::computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights, DQ );
+                Ra::Core::Animation::DualQuaternionSkinning( m_refData.m_referenceMesh.m_vertices, DQ, m_frameData.m_currentPos );
+                break;
+            }
+            case COR:
+            {
+                Ra::Core::Skinning::CoRSkinning( m_refData.m_referenceMesh.m_vertices, m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_refData.m_CoR, m_frameData.m_currentPos );
+                break;
+            }
+            }
             Ra::Core::Animation::computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_DQ );
         }
     }
@@ -162,4 +166,42 @@ void SkinningComponent::setupIO( const std::string& id )
     ComponentMessenger::getInstance()->registerOutput<FrameData>( getEntity(), this, id, frameData);
 }
 
+void SkinningComponent::setSkinningType( SkinningType type )
+{
+    m_skinningType = type;
+    if ( m_isReady )
+    {
+        setupSkinningType( type );
+    }
+}
+
+void SkinningComponent::setupSkinningType( SkinningType type )
+{
+    CORE_ASSERT( m_isReady, "component is not ready" );
+    switch ( type )
+    {
+    case LBS: break;
+    case DQS:
+    {
+        if ( m_DQ.empty() )
+        {
+            m_DQ.resize( m_refData.m_weights.rows(), DualQuaternion( Quaternion( 0.0, 0.0, 0.0, 0.0 ),
+                Quaternion( 0.0, 0.0, 0.0, 0.0 ) ) );
+        }
+        break;
+    }
+    case COR:
+    {
+        if ( m_refData.m_CoR.empty() )
+        {
+            computeCoR( m_refData );
+            /*
+            for ( const auto& v :m_refData.m_CoR )
+            {
+                RA_DISPLAY_POINT( v, Ra::Core::Colors::Red(), 0.1f );
+            }*/
+        }
+    }
+    } // end of switch.
+}
 } // End namespace Skinning plugin
