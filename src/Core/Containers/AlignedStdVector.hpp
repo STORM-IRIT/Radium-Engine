@@ -11,10 +11,10 @@ namespace Ra
     {
 
         /// Shortcut for the ubiquitous 16-byte aligned std::vector
-        template <typename T>
-        class AlignedStdVector : public std::vector <T, AlignedAllocator <T, 16>>
+        template <typename T, uint Align = 16>
+        class AlignedStdVector : public std::vector <T, AlignedAllocator <T, Align>>
         {
-            using std::vector<T, AlignedAllocator <T, 16>>::vector;
+            using std::vector<T, AlignedAllocator <T, Align>>::vector;
         };
     }
 }

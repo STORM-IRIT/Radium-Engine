@@ -58,15 +58,20 @@ namespace Ra
         inline Vector3 DualQuaternion::transform(const Vector3& p) const
         {
             CORE_ASSERT( Ra::Core::Math::areApproxEqual(m_q0.norm(), 1.f), "Dual quaternion not normalized");
+            return translate(rotate(p));
+        }
 
-            // Translation from the normalized dual quaternion equals :
-            // 2 * q_e * conjugate(q_0)
+        inline Vector3 DualQuaternion::rotate( const Vector3& p ) const
+        {
+            CORE_ASSERT( Ra::Core::Math::areApproxEqual(m_q0.norm(), 1.f), "Dual quaternion not normalized");
+            return m_q0.toRotationMatrix() * p;
+        }
+
+        inline Vector3 DualQuaternion::translate( const Vector3& p ) const
+        {
             Vector3 v0 = m_q0.vec();
             Vector3 ve = m_qe.vec();
-            auto trans = (ve * m_q0.w() - v0 * m_qe.w() + v0.cross(ve)) * 2.f;
-
-            // Rotate and return the result.
-            return m_q0.toRotationMatrix() * p + trans;
+            return  p + ((ve * m_q0.w() - v0 * m_qe.w() + v0.cross(ve)) * 2.f);
         }
 
         inline DualQuaternion::DualQuaternion(const Core::Transform& tr)

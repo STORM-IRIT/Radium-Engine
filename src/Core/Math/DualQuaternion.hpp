@@ -67,7 +67,14 @@ namespace Ra
             inline void normalize();
 
             /// Apply the transform represented by the dual quaternion to given vector.
+            /// equivalent to translate( rotate (p)).
             inline Vector3 transform( const Vector3& p ) const;
+
+            /// Apply only the rotational part of the dual quaternion to the given vector.
+            inline Vector3 rotate( const Vector3& p ) const;
+
+            /// Apply only the translational part of the dual quaternion to the given vector.
+            inline Vector3 translate( const Vector3& p ) const;
 
         private:
             /// Non-dual part (representing the rotation)
