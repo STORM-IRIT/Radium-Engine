@@ -57,7 +57,7 @@ include_directories(
     )
 
 add_library( Animation SHARED ${sources} ${headers} ${inlines} ${app_uis})
-add_dependencies( Animation radiumCore radiumEngine )
+add_dependencies( Animation radiumCore radiumEngine radiumGuiBase )
 
 target_compile_definitions( Animation PRIVATE "-DAnimation_EXPORTS" )
 

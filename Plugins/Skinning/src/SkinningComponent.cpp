@@ -97,12 +97,12 @@ void SkinningComponent::skin()
                 Ra::Core::AlignedStdVector< DualQuaternion > DQ;
                 //computeDQ( m_frameData.m_prevToCurrentRelPose, m_refData.m_weights, DQ );
                 Ra::Core::Animation::computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights, DQ );
-                Ra::Core::Animation::DualQuaternionSkinning( m_refData.m_referenceMesh.m_vertices, DQ, m_frameData.m_currentPos );
+                Ra::Core::Animation::dualQuaternionSkinning( m_refData.m_referenceMesh.m_vertices, DQ, m_frameData.m_currentPos );
                 break;
             }
             case COR:
             {
-                Ra::Core::Skinning::CoRSkinning( m_refData.m_referenceMesh.m_vertices, m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_refData.m_CoR, m_frameData.m_currentPos );
+                Ra::Core::Animation::corSkinning( m_refData.m_referenceMesh.m_vertices, m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_refData.m_CoR, m_frameData.m_currentPos );
                 break;
             }
             }
@@ -194,12 +194,13 @@ void SkinningComponent::setupSkinningType( SkinningType type )
     {
         if ( m_refData.m_CoR.empty() )
         {
-            computeCoR( m_refData );
-            /*
+            Ra::Core::Animation::computeCoR( m_refData );
+/*
             for ( const auto& v :m_refData.m_CoR )
             {
                 RA_DISPLAY_POINT( v, Ra::Core::Colors::Red(), 0.1f );
-            }*/
+            }
+*/
         }
     }
     } // end of switch.

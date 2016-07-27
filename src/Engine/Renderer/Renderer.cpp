@@ -293,7 +293,6 @@ namespace Ra
                     if ( ro->isVisible() )
                     {
                         int id = ro->idx.getValue();
-                        LOG(logINFO) << id;
                         shader->setUniform( "objectId", id );
 
                         Core::Matrix4 M = ro->getTransformAsMatrix();
@@ -348,7 +347,6 @@ namespace Ra
                 GL_ASSERT( glReadPixels( query.m_screenCoords.x(), query.m_screenCoords.y(),
                                          1, 1, GL_RGBA_INTEGER, GL_INT, picking_result ) );
 
-                LOG(logINFO) << "Read " << picking_result[0];
                 m_pickingResults.push_back( picking_result[0] );
             }
 

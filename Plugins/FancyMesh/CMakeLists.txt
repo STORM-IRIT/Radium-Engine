@@ -30,7 +30,7 @@ if (MSVC OR MSVC_IDE)
         endforeach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     endif()
 endif(MSVC OR MSVC_IDE)
-    
+
 find_package( Qt5Core    REQUIRED )
 find_package( Qt5Widgets REQUIRED )
 
@@ -46,7 +46,7 @@ add_definitions( ${Qt5Widges_DEFINITIONS} )
 add_definitions( ${Qt5OpenGL_DEFINITIONS} )
 
 include_directories(
-    src/ 
+    src/
     ${CMAKE_CURRENT_BINARY_DIR} # MOC
     ${RADIUM_INCLUDE_DIR}
     ${EIGEN_INC}
@@ -54,7 +54,7 @@ include_directories(
     )
 
 add_library( FancyMesh SHARED ${sources} ${headers} ${inlines} )
-add_dependencies( FancyMesh radiumCore radiumEngine )
+add_dependencies( FancyMesh radiumCore radiumEngine radiumGuiBase )
 
 target_compile_definitions( FancyMesh PRIVATE "-DFancyMesh_EXPORTS" )
 
