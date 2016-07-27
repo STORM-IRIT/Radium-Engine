@@ -1,15 +1,16 @@
-#include <Core/Animation/Skinning/LinearBlendingSkinning.hpp>
+#include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
 
 namespace Ra {
 namespace Core {
 namespace Animation {
 
-void linearBlendingSkinning( const Vector3Array&  inMesh,
+void linearBlendSkinning( const Vector3Array&  inMesh,
                              const Pose&          pose,
                              const WeightMatrix&  weight,
                              Vector3Array&        outMesh ) {
     outMesh.clear();
     outMesh.resize( inMesh.size(), Vector3::Zero() );
+#pragma omp parallel for
     for( int k = 0; k < weight.outerSize(); ++k ) {
         for( WeightMatrix::InnerIterator it( weight, k ); it; ++it ) {
             const uint   i = it.row();
