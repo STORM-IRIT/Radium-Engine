@@ -36,8 +36,15 @@ namespace Ra
 
         Entity* EntityManager::createEntity( const std::string& name )
         {
-            CORE_ASSERT( !entityExists( name ), "Entity already exists" );
-            std::shared_ptr<Entity> ent = std::shared_ptr<Entity> ( new Entity( name ) );
+
+            std::string entityName = name;
+            if ( entityExists( name ) )
+            {
+                LOG( logWARNING ) << "Entity " << name << "already exists";
+                entityName = name + "_";
+            }
+
+            std::shared_ptr<Entity> ent = std::shared_ptr<Entity> ( new Entity(  entityName ) );
             ent->idx = m_entities.insert( ent );
 
             if (name == "")
