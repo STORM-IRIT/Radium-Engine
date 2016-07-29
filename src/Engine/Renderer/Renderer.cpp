@@ -268,7 +268,6 @@ namespace Ra
                     if ( ro->isVisible() )
                     {
                         int id = ro->idx.getValue();
-                        LOG(logINFO) << id;
                         shader->setUniform( "objectId", id );
 
                         Core::Matrix4 M = ro->getTransformAsMatrix();
@@ -316,7 +315,6 @@ namespace Ra
                 if ( ro->isVisible() )
                 {
                     int id = ro->idx.getValue();
-                    LOG(logINFO) << id;
                     shader->setUniform( "objectId", id );
 
                     Core::Matrix4 M = ro->getTransformAsMatrix();

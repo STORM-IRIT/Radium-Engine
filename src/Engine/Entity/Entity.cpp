@@ -62,7 +62,7 @@ namespace Ra
 
             return pos != m_components.end()? pos->get() : nullptr;
         }
-        const std::vector<std::unique_ptr<Component> > &Entity::getComponents() const
+        const std::vector<std::unique_ptr<Component> >& Entity::getComponents() const
         {
            return m_components;
         }
