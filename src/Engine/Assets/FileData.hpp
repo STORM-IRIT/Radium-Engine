@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_FILE_DATA_HPP
 #define RADIUMENGINE_FILE_DATA_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Engine/RaEngine.hpp> 
 
 #include <string>
 #include <vector>
@@ -14,13 +14,13 @@ class GeometryData;
 class HandleData;
 class AnimationData;
 
-class FileData {
+class RA_ENGINE_API FileData {
 public:
     /// CONSTRUCTOR
     FileData( const std::string& filename = "",
               const bool VERBOSE_MODE = false );
 
-    FileData( const FileData& data ) = default;
+    FileData( FileData&& data ) = default;
 
     /// DESTRUCTOR
     ~FileData();
