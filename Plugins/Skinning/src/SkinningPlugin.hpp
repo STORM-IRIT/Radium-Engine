@@ -51,33 +51,33 @@ private:
 };
 
 // Du to an ambiguous name while compiling with Clang, must differentiate plugin claas from plugin namespace
-    class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
-    {
-        Q_OBJECT
-        Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
-        Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
+class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
+{
+    Q_OBJECT
+    Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
+    Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
 
-    public:
-        virtual ~SkinningPluginC();
+public:
+    virtual ~SkinningPluginC();
 
-        virtual void registerPlugin( const Ra::PluginContext& context ) override;
+    virtual void registerPlugin( const Ra::PluginContext& context ) override;
 
-        virtual bool doAddWidget( QString& name ) override;
-        virtual QWidget* getWidget() override;
+    virtual bool doAddWidget( QString& name ) override;
+    virtual QWidget* getWidget() override;
 
-        virtual bool doAddMenu() override;
-        virtual QMenu* getMenu() override;
+    virtual bool doAddMenu() override;
+    virtual QMenu* getMenu() override;
 
 
-    private slots:
-        void onCurrentChanged( const QModelIndex& current , const QModelIndex& prev);
+private slots:
+    void onCurrentChanged( const QModelIndex& current , const QModelIndex& prev);
 
-    private:
-        SkinningSystem* m_system;
-        Ra::GuiBase::SelectionManager* m_selectionManager;
-        SkinningWidget* m_widget;
+private:
+    SkinningSystem* m_system;
+    Ra::GuiBase::SelectionManager* m_selectionManager;
+    SkinningWidget* m_widget;
 
-    };
+};
 
 } // namespace
 

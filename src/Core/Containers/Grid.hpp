@@ -42,7 +42,7 @@ namespace Ra
                 /// Constructor from grid and linear index.
                 Iterator( const Grid<T,D>& grid, uint startIdx = 0 );
 
-                /// Constructor fron grid and vector index.
+                /// Constructor from grid and vector index.
                 Iterator( const Grid<T,D>& grid, const IdxVector& startIdx );
 
                 /// Default copy constructor and assignment operator.
@@ -182,8 +182,8 @@ namespace Ra
             // Element access
             //
 
-            /// Access an element with a D-dimensionnal index.
-            // Note that since initializer lists are implicitely convertible to
+            /// Access an element with a D-dimensional index.
+            // Note that since initializer lists are implicitly convertible to
             // Eigen vectors, you can call grid.at({x,y,z})
             inline const T& at( const IdxVector& idx ) const;
             inline T& at( const IdxVector& idx );
@@ -210,7 +210,7 @@ namespace Ra
             inline Iterator begin();
             inline Iterator begin() const;
 
-            /// Get an interator on this grid past the last element.
+            /// Get an iterator on this grid past the last element.
             inline Iterator end();
             inline Iterator end() const;
 
