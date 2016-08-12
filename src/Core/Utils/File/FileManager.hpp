@@ -10,7 +10,7 @@ namespace Core {
 /*
 * The class FileManager gives the base common interface for handling loading/storing data from/to files.
 */
-template < typename DATA >
+template < typename DATA, bool Binary = false >
 class FileManager {
 public:
     /// CONSTRUCTOR
@@ -33,6 +33,7 @@ public:
 protected:
     /// LOG
     inline void addLogEntry( const std::string& text );                     // Add a line in the log file. A newline character will be automatically added.
+    inline void addLogErrorEntry( const std::string& text );                // Add an error line in the log file.
 
     /// INTERFACE
     virtual std::string fileExtension() const = 0;                          // Return the extension given to the files.
