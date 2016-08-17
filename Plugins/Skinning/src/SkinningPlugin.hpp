@@ -39,10 +39,10 @@ class SkinningWidget : public QFrame
     Q_OBJECT
 public:
     explicit SkinningWidget( QWidget* parent = nullptr );
-    public slots:
+public slots:
     void setCurrent( const Ra::Engine::ItemEntry& entry, SkinningComponent* comp );
 
-    private slots:
+private slots:
     void onSkinningChanged( int  newType );
 
 private:

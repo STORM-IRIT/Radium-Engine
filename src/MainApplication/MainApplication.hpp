@@ -77,6 +77,7 @@ namespace Ra
         void loadFile( QString path );
         void framesCountForStatsChanged( uint count );
         void appNeedsToQuit();
+        void setRealFrameRate( bool on);
 
     private:
         /// Create signal / slots connections
@@ -102,6 +103,7 @@ namespace Ra
         /// Task queue for processing tasks.
         std::unique_ptr<Core::TaskQueue> m_taskQueue;
 
+        /// Number of frames per second to generate.
         uint m_targetFPS;
 
     private:
@@ -119,6 +121,8 @@ namespace Ra
         uint m_numFrames;
         std::vector<FrameTimerData> m_timerData;
 
+        /// If true, use the wall clock to advance the engine. If false, use a fixed time step.
+        bool m_realFrameRate;
         bool m_isAboutToQuit;
     };
 }

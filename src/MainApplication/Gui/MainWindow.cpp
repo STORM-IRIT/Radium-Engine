@@ -105,7 +105,8 @@ namespace Ra
                 m_viewer, &Viewer::displayTexture);
 
         connect(m_enablePostProcess, &QCheckBox::stateChanged, m_viewer, &Viewer::enablePostProcess);
-        connect(m_enableDebugDraw, &QCheckBox::stateChanged, m_viewer, &Viewer::enableDebugDraw);
+        connect(m_enableDebugDraw,   &QCheckBox::stateChanged, m_viewer, &Viewer::enableDebugDraw);
+        connect(m_realFrameRate,     &QCheckBox::stateChanged, mainApp,  &MainApplication::setRealFrameRate);
 
         // Connect engine signals to the appropriate callbacks
         std::function<void(const Engine::ItemEntry&)> add = std::bind(&MainWindow::onItemAdded, this, std::placeholders::_1);

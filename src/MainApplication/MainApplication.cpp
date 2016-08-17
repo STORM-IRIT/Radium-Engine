@@ -262,7 +262,9 @@ namespace Ra
 
         // ----------
         // 0. Compute time since last frame.
-        const Scalar dt = Core::Timer::getIntervalSeconds( m_lastFrameStart, timerData.frameStart );
+        const Scalar dt = m_realFrameRate ?
+                    Core::Timer::getIntervalSeconds( m_lastFrameStart, timerData.frameStart ) :
+                    1.f / Scalar(m_targetFPS);
         m_lastFrameStart = timerData.frameStart;
 
         timerData.eventsStart = Core::Timer::Clock::now();
@@ -331,6 +333,11 @@ namespace Ra
     {
         LOG( logDEBUG ) << "About to quit.";
         m_isAboutToQuit = true;
+    }
+
+    void MainApplication::setRealFrameRate(bool on)
+    {
+       m_realFrameRate = on;
     }
 
     MainApplication::~MainApplication()
