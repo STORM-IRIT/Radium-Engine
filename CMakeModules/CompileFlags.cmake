@@ -38,7 +38,10 @@ elseif (UNIX OR MINGW)
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -ggdb ${CMAKE_CXX_FLAGS_RELEASE}")
 
     # Prevent Eigen from spitting thousands of warnings with gcc 6+
-    add_definitions(-Wno-ignored-attributes -Wno-deprecated-declarations -Wno-misleading-indentation)
+    add_definitions(-Wno-deprecated-declarations)
+    if( ${CMAKE_CXX_COMPILER_VERSION} VERSION_GREATER 6)
+        add_definitions(-Wno-ignored-attributes -Wno-misleading-indentation)
+    endif()
 
   if (MINGW)
       add_definitions( -static-libgcc -static-libstdc++) # Compile with static libs
