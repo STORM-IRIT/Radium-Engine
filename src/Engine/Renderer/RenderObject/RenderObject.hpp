@@ -12,6 +12,7 @@
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
 namespace Ra
 {
@@ -51,7 +52,19 @@ namespace Ra
                           const RenderObjectType& type, int lifetime = -1 );
             ~RenderObject();
 
-            static RenderObject* createRenderObject(const std::string& name, Component* comp, const RenderObjectType& type, const std::shared_ptr<Mesh>& mesh, const ShaderConfiguration& shaderConfig = ShaderConfiguration(), Material* material = nullptr);
+            /// Sort of factory method to easily create a render object.
+            /// Use case example :
+            ///     std::string name = "MyRO";
+            ///     Component* comp;    // Retrieve the component the way you want. 
+            ///                         // Since this method will often be used in a component, 
+            ///                         // just use this pointer.
+            ///     RenderObjectType type = RenderObjectType::Fancy; // For example
+            ///     // Retrieve an already created configuration, or create one (see ShaderConfiguration docs).
+            ///     ShaderConfiguration config = ShaderConfigurationFactory::getConfiguration("MyConfig");
+            ///     Material* mat = new Material; // Then configure your material...
+            ///     // createRenderObject can finally be called.
+            ///     RenderObject* ro = createRenderObject(name, component, type, config, material);
+            static RenderObject* createRenderObject(const std::string& name, Component* comp, const RenderObjectType& type, const std::shared_ptr<Mesh>& mesh, const ShaderConfiguration& shaderConfig = ShaderConfigurationFactory::getConfiguration("BlinnPhong"), Material* material = nullptr);
             static RenderObject* createFancyFromAsset(const std::string& name, Component* comp, Ra::Asset::GeometryData* asset);
 
             // FIXME(Charly): Remove this
