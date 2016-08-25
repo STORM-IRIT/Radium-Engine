@@ -13,6 +13,13 @@ namespace Core {
 template < typename DATA, bool Binary = false >
 class FileManager {
 public:
+    /// ENUM
+    enum LogEntryType {
+        NORMAL,
+        WARNING,
+        ERROR
+    };
+
     /// CONSTRUCTOR
     inline FileManager();                                                   // Default constructor.
 
@@ -33,7 +40,9 @@ public:
 protected:
     /// LOG
     inline void addLogEntry( const std::string& text );                     // Add a line in the log file. A newline character will be automatically added.
+    inline void addLogWarningEntry( const std::string& text );              // Add a warning line in the log file.
     inline void addLogErrorEntry( const std::string& text );                // Add an error line in the log file.
+    inline void addLogEntry( const std::string& text, const LogEntryType type );
 
     /// INTERFACE
     virtual std::string fileExtension() const = 0;                          // Return the extension given to the files.

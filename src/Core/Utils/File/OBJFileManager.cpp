@@ -63,7 +63,7 @@ bool OBJFileManager::importData( std::ifstream& file, TriangleMesh& data ) {
         }
     }
     if( data.m_vertices.size() == 0 ) {
-        addLogEntry( "MESH IS EMPTY." );
+        addLogErrorEntry( "MESH IS EMPTY." );
         return false;
     }
     return true;
@@ -74,7 +74,7 @@ bool OBJFileManager::importData( std::ifstream& file, TriangleMesh& data ) {
 bool OBJFileManager::exportData( std::ofstream& file, const TriangleMesh& data ) {
     std::string content = "";
     if( data.m_vertices.size() == 0 ) {
-        addLogEntry( "MESH IS EMPTY." );
+        addLogErrorEntry( "MESH IS EMPTY." );
         return false;
     }
     // Vertices

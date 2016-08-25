@@ -42,12 +42,12 @@ bool MAPFileManager::importData( std::ifstream& file, Parametrization& data ) {
     uint        size;
     file >> h;
     if( h != header() ) {
-        addLogEntry( "HEADER IS NOT CORRECT." );
+        addLogErrorEntry( "HEADER IS NOT CORRECT." );
         return false;
     }
     file >> size;
     if( size == 0 ) {
-        addLogEntry( "MAPPING ROW SIZE IS ZERO." );
+        addLogErrorEntry( "MAPPING ROW SIZE IS ZERO." );
         return false;
     }
     data = Parametrization( size, Mapping() );
@@ -71,7 +71,7 @@ bool MAPFileManager::exportData( std::ofstream& file, const Parametrization& dat
     std::string content = "";
     const uint size = data.size();
     if( size == 0 ) {
-        addLogEntry( "MAPPING IS EMPTY." );
+        addLogErrorEntry( "MAPPING IS EMPTY." );
         return false;
     }
     content += header() + " " + std::to_string( size ) + "\n";

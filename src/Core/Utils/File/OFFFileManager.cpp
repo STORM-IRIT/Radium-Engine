@@ -39,7 +39,7 @@ bool OFFFileManager::importData( std::ifstream& file, TriangleMesh& data ) {
     std::string h;
     file >> h;
     if( h != header() ) {
-        addLogEntry( "HEADER IS NOT CORRECT." );
+        addLogErrorEntry( "HEADER IS NOT CORRECT." );
         return false;
     }
     uint v_size;
@@ -85,7 +85,7 @@ bool OFFFileManager::exportData( std::ofstream& file, const TriangleMesh& data )
     const uint e_size = 0;
 
     if( v_size == 0 ) {
-        addLogEntry( "NO VERTICES PRESENT." );
+        addLogErrorEntry( "NO VERTICES PRESENT." );
         return false;
     }
 

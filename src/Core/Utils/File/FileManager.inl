@@ -92,16 +92,44 @@ inline std::string FileManager< DATA, Binary >::log() const {
 
 template < typename DATA, bool Binary >
 inline void FileManager< DATA, Binary >::addLogEntry( const std::string& text ) {
-    m_log += text + "\n";
+    addLogEntry( text, NORMAL );
+}
+
+
+
+template < typename DATA, bool Binary >
+inline void FileManager< DATA, Binary >::addLogWarningEntry( const std::string& text ) {
+    addLogEntry( text, WARNING );
 }
 
 
 
 template < typename DATA, bool Binary >
 inline void FileManager< DATA, Binary >::addLogErrorEntry( const std::string& text ) {
-    addLogEntry( "" );
-    m_log += "--- ERROR : " + text + " ---\n";
-    addLogEntry( "" );
+    addLogEntry( text, ERROR );
+}
+
+
+
+template < typename DATA, bool Binary >
+inline void FileManager< DATA, Binary >::addLogEntry( const std::string& text, const LogEntryType type ) {
+    switch ( type ) {
+        case NORMAL: {
+            m_log += text;
+        } break;
+
+        case WARNING: {
+            m_log += "\n--- WARNING : " + text + " ---\n";
+        } break;
+
+        case ERROR: {
+            m_log += "\n### ERROR : " + text + " ###\n";
+        } break;
+
+        default: break;
+    }
+
+    m_log += "\n";
 }
 
 
