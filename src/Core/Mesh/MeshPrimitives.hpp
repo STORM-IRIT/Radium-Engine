@@ -50,6 +50,11 @@ namespace Ra
             /// with given radius.
             RA_CORE_API TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, uint nFaces = 32);
 
+            /// Create a capsule with given cylinder length and radius.
+            /// Total length is length + 2*radius
+            /// The capsule is along z axis
+            RA_CORE_API TriangleMesh makeCapsule(Scalar length, Scalar radius, uint nFaces = 32);
+
             /// Create a tube (empty cylinder) delimited by two radii, with bases centered on A and B.
             /// Outer radius must be larger than inner radius.
             RA_CORE_API TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar outerRadius, Scalar InnerRadius, uint nFaces = 32);
