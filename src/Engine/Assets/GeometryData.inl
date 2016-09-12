@@ -42,7 +42,6 @@ namespace Ra {
         }
 
         inline bool MaterialData::hasNormalTexture() const {
-            LOG(logINFO) << (m_hasTexNormal ? "Yup ! " : "Nope.") << m_texNormal;
             return m_hasTexNormal;
         }
 
