@@ -4,6 +4,8 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Assets/DataLoader.hpp>
 
+#include <set>
+
 struct aiScene;
 struct aiMesh;
 struct aiNode;
@@ -44,7 +46,7 @@ protected:
     /// LOADING
     void loadGeometryData( const aiScene* scene, std::vector< std::unique_ptr< GeometryData > >& data );
 
-    void loadMeshData( const aiMesh& mesh, GeometryData& data );
+    void loadMeshData(const aiMesh& mesh, GeometryData& data , std::set<std::string>& usedNames);
 
     void loadMeshFrame( const aiNode*                                   node,
                         const Core::Transform&                          parentFrame,
@@ -52,7 +54,7 @@ protected:
                         std::vector< std::unique_ptr< GeometryData > >& data ) const;
 
     /// NAME
-    void fetchName( const aiMesh& mesh, GeometryData& data ) const;
+    void fetchName(const aiMesh& mesh, GeometryData& data, std::set<std::string>& usedNames) const;
 
     /// TYPE
     void fetchType( const aiMesh& mesh, GeometryData& data ) const;

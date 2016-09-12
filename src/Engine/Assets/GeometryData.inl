@@ -30,23 +30,24 @@ namespace Ra {
         }
 
         inline bool MaterialData::hasDiffuseTexture() const {
-            return ( m_texDiffuse != "" );
+            return m_hasTexDiffuse;
         }
 
         inline bool MaterialData::hasSpecularTexture() const {
-            return ( m_texSpecular != "" );
+            return m_hasTexSpecular;
         }
 
         inline bool MaterialData::hasShininessTexture() const {
-            return ( m_texShininess != "" );
+            return m_hasTexShininess;
         }
 
         inline bool MaterialData::hasNormalTexture() const {
-            return ( m_texNormal != "" );
+            LOG(logINFO) << (m_hasTexNormal ? "Yup ! " : "Nope.") << m_texNormal;
+            return m_hasTexNormal;
         }
 
         inline bool MaterialData::hasOpacityTexture() const {
-            return ( m_texOpacity != "" );
+            return m_hasTexOpacity;
         }
 
 
@@ -243,6 +244,8 @@ namespace Ra {
                 std::string kd;
                 std::string ks;
                 std::string ns;
+                std::string op;
+
                 if( m_material.hasDiffuse() ) {
                     Core::StringUtils::stringPrintf( kd, "%.3f %.3f %.3f %.3f",
                                                      m_material.m_diffuse.x(),
@@ -250,25 +253,36 @@ namespace Ra {
                                                      m_material.m_diffuse.z(),
                                                      m_material.m_diffuse.w() );
                 }
-                if( m_material.hasSpecular() ) {
+
+                if( m_material.hasSpecular() )
+                {
                     Core::StringUtils::stringPrintf( ks, "%.3f %.3f %.3f %.3f",
                                                      m_material.m_specular.x(),
                                                      m_material.m_specular.y(),
                                                      m_material.m_specular.z(),
                                                      m_material.m_specular.w() );
                 }
-                if( m_material.hasShininess() ) {
+
+                if( m_material.hasShininess() )
+                {
                     Core::StringUtils::stringPrintf( ns, "%.1f", m_material.m_shininess );
                 }
+
+                if (m_material.hasOpacity())
+                {
+                    Core::StringUtils::stringPrintf(op, "%.15f", m_material.m_opacity);
+                }
+
                 LOG( logDEBUG ) << "======== MATERIAL INFO ========";
-                LOG( logDEBUG ) << " Kd             : " << ( ( m_material.hasDiffuse() )          ? kd                        : "NO" );
-                LOG( logDEBUG ) << " Ks             : " << ( ( m_material.hasSpecular() )         ? ks                        : "NO" );
-                LOG( logDEBUG ) << " Ns             : " << ( ( m_material.hasShininess() )        ? ns                        : "NO" );
-                LOG( logDEBUG ) << " Kd Texture     : " << ( ( m_material.hasDiffuseTexture() )   ? m_material.m_texDiffuse   : "NO" );
-                LOG( logDEBUG ) << " Ks Texture     : " << ( ( m_material.hasSpecularTexture() )  ? m_material.m_texSpecular  : "NO" );
-                LOG( logDEBUG ) << " Ns Texture     : " << ( ( m_material.hasShininessTexture() ) ? m_material.m_texShininess : "NO" );
-                LOG( logDEBUG ) << " Normal Texture : " << ( ( m_material.hasNormalTexture() )    ? m_material.m_texNormal    : "NO" );
-                LOG( logDEBUG ) << " Alpha Texture  : " << ( ( m_material.hasOpacityTexture() )   ? m_material.m_texOpacity   : "NO" );
+                LOG( logDEBUG ) << " Kd             : " << ( m_material.hasDiffuse()          ? kd                        : "NO" );
+                LOG( logDEBUG ) << " Ks             : " << ( m_material.hasSpecular()         ? ks                        : "NO" );
+                LOG( logDEBUG ) << " Ns             : " << ( m_material.hasShininess()        ? ns                        : "NO" );
+                LOG( logDEBUG ) << " Opacity        : " << ( m_material.hasOpacity()          ? op                        : "NO" );
+                LOG( logDEBUG ) << " Kd Texture     : " << ( m_material.hasDiffuseTexture()   ? m_material.m_texDiffuse   : "NO" );
+                LOG( logDEBUG ) << " Ks Texture     : " << ( m_material.hasSpecularTexture()  ? m_material.m_texSpecular  : "NO" );
+                LOG( logDEBUG ) << " Ns Texture     : " << ( m_material.hasShininessTexture() ? m_material.m_texShininess : "NO" );
+                LOG( logDEBUG ) << " Normal Texture : " << ( m_material.hasNormalTexture()    ? m_material.m_texNormal    : "NO" );
+                LOG( logDEBUG ) << " Alpha Texture  : " << ( m_material.hasOpacityTexture()   ? m_material.m_texOpacity   : "NO" );
             }
         }
 

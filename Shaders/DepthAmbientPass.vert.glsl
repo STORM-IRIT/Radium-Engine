@@ -14,9 +14,13 @@ struct Transform
 
 uniform Transform transform;
 
-out vec3 vPosition;
-out vec3 vNormal;
-out vec3 vTexcoord;
+out VS_OUT
+{
+    vec3 position;
+    vec3 normal;
+    vec3 texcoord;
+	vec3 eye;
+} vs_out;
 
 void main()
 {
@@ -24,8 +28,8 @@ void main()
     gl_Position = mvp * vec4(inPosition, 1.0);
 
     vec4 pos = transform.model * vec4(inPosition, 1.0);
-    vPosition = pos.xyz / pos.w;
-    vNormal = vec3(transform.worldNormal * vec4(inNormal, 0.0));
+    vs_out.position = pos.xyz / pos.w;
+    vs_out.normal = vec3(transform.worldNormal * vec4(inNormal, 0.0));
 
-    vTexcoord = inTexcoord;
+    vs_out.texcoord = inTexcoord;
 }

@@ -35,6 +35,7 @@ namespace Ra
             case GL_LUMINANCE_ALPHA:
 #endif
             case GL_RED:
+            case GL_R8:
             {
                 m_bytesPerPixel = 1;
             }

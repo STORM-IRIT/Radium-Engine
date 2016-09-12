@@ -42,6 +42,11 @@ struct MaterialData {
     bool        m_hasSpecular;
     bool        m_hasShininess;
     bool        m_hasOpacity;
+    bool        m_hasTexDiffuse;
+    bool        m_hasTexSpecular;
+    bool        m_hasTexShininess;
+    bool        m_hasTexNormal;
+    bool        m_hasTexOpacity;
 };
 
 class GeometryData : public AssetData {

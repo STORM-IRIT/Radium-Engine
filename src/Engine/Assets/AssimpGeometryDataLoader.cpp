@@ -88,8 +88,9 @@ namespace Ra {
             return mesh_size;
         }
 
-        void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, GeometryData& data ) {
-            fetchName( mesh, data );
+        void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, GeometryData& data, std::set<std::string>& usedNames )
+        {
+            fetchName( mesh, data, usedNames );
             fetchType( mesh, data );
             fetchVertices( mesh, data );
             if ( data.isLineMesh() )
@@ -164,9 +165,15 @@ namespace Ra {
             }
         }
 
-        void AssimpGeometryDataLoader::fetchName( const aiMesh& mesh, GeometryData& data ) const
+        void AssimpGeometryDataLoader::fetchName( const aiMesh& mesh, GeometryData& data, std::set<std::string>& usedNames) const
         {
-            data.setName( assimpToCore( mesh.mName ) );
+            std::string name = assimpToCore(mesh.mName);
+            while (usedNames.find(name) != usedNames.end())
+            {
+                name.append("_");
+            }
+            usedNames.insert(name);
+            data.setName(name);
         }
 
         void AssimpGeometryDataLoader::fetchType( const aiMesh& mesh, GeometryData& data ) const
@@ -322,7 +329,7 @@ namespace Ra {
 #if 0
             GeometryData::WeightArray weights(data.getVerticesSize());
             
-            for (uint i = 0; i < mesh.mNumBones; ++i)                
+            for (uint i = 0; i < mesh.mNumBones; ++i)
             {
                 aiBone* bone = mesh.mBones[i];
 
@@ -338,7 +345,7 @@ namespace Ra {
 
             data.setWeights(weights);
 #endif
-        }       
+        }
     
         void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material, GeometryData& data ) const {
 
@@ -369,38 +376,47 @@ namespace Ra {
             if (AI_SUCCESS == material.Get( AI_MATKEY_OPACITY, opacity ) )
             {
                 mat.m_hasOpacity = true;
-                mat.m_opacity    = opacity;
+                // NOTE(charly): Due to collada way of handling objects that have an alpha map, we must ensure
+                //               we do not have zeros in here.
+                mat.m_opacity    = opacity < 1e-5 ? 1 : opacity;
             }
 
             if( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_DIFFUSE, 0 ), name ) )
             {
                 mat.m_texDiffuse = m_filepath + "/" + assimpToCore( name );
+                mat.m_hasTexDiffuse = true;
             }
 
             if( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_SPECULAR, 0 ), name ) )
             {
                 mat.m_texSpecular = m_filepath + "/" + assimpToCore( name );
+                mat.m_hasTexSpecular = true;
             }
 
             if( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_SHININESS, 0 ), name ) )
             {
                 mat.m_texShininess = m_filepath + "/" + assimpToCore( name );
+                mat.m_hasTexShininess = true;
             }
 
             if( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_NORMALS, 0 ), name ) )
             {
                 mat.m_texNormal = m_filepath + "/" + assimpToCore( name );
+                mat.m_hasTexNormal = true;
             }
 
             // Assimp loads objs bump maps as height maps, gj bro
             if( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_HEIGHT, 0 ), name ) )
             {
                 mat.m_texNormal = m_filepath + "/" + assimpToCore( name );
+                mat.m_hasTexNormal = true;
+                LOG(logINFO) << mat.m_texNormal;
             }
 
             if( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_OPACITY, 0 ), name ) )
             {
                 mat.m_texOpacity = m_filepath + "/" + assimpToCore( name );
+                mat.m_hasTexOpacity = true;
             }
 
             data.setMaterial( mat );
@@ -409,6 +425,7 @@ namespace Ra {
         void AssimpGeometryDataLoader::loadGeometryData( const aiScene* scene, std::vector< std::unique_ptr< GeometryData > >& data ) {
             const uint size = scene->mNumMeshes;
             std::map< uint, uint > indexTable;
+            std::set<std::string> usedNames;
             for( uint i = 0; i < size; ++i ) {
                 aiMesh* mesh = scene->mMeshes[i];
                 if( mesh->HasPositions() ) {
@@ -416,7 +433,7 @@ namespace Ra {
 #ifdef LOAD_TEXTURES
                     geometry->setLoadDuplicates(true);
 #endif
-                    loadMeshData( *mesh, *geometry );
+                    loadMeshData( *mesh, *geometry, usedNames );
                     if( scene->HasMaterials() ) {
                         const uint matID = mesh->mMaterialIndex;
                         if( matID < scene->mNumMaterials ) {

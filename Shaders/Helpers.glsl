@@ -31,6 +31,7 @@ float getNs()
 vec3 getNormal()
 {
     float dir = gl_FrontFacing ? 1.0 : -1.0;
+
     if (material.tex.hasNormal == 1)
     {
         vec3 n = normalize(vec3(texture(material.tex.normal, fs_in.texcoord.xy)));
@@ -38,7 +39,8 @@ vec3 getNormal()
         return dir * n;
     }
 
-    return vec3(dir * normalize(fs_in.normal));
+    //return vec3(normalize(fs_in.normal));
+	return vec3(dir * normalize(fs_in.normal));
 }
 
 bool toDiscard()
