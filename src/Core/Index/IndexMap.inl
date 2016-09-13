@@ -161,7 +161,7 @@ template < typename T >
 inline T& IndexMap< T >::access( const Index& idx ) {
     typename std::deque< Index >::iterator it = std::find( m_index.begin(), m_index.end(), idx );
     CORE_ASSERT( ( it != m_index.end() ), "Index not found" );
-    return m_data[ it - m_index.begin() - 1 ];
+    return m_data[ it - m_index.begin()  ];
 }
 
 
@@ -184,7 +184,7 @@ inline bool IndexMap< T >::access( const Index& idx,
     if( it == m_index.end() ) {
         return false;
     }
-    obj = m_data[ it - m_index.begin() - 1 ];
+    obj = m_data[ it - m_index.begin() ];
     return true;
 }
 
