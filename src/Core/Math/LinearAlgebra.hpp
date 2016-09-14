@@ -187,6 +187,12 @@ namespace Ra
             /// Returns the sum of two quaternions.
             inline Quaternion add(const Quaternion& q1, const Quaternion& q2);
 
+            /// Returns the sum of two quaternions, resolving antipodality by flipping
+            /// the sign of q2 if q1.q2 is negative. This operation is usually
+            /// denoted as a circled + sign, forming the basis of the QLERP algorithm.
+            /// See "Spherical Blend Skinning" (Kavan & Zara 2005) for more details.
+            inline Quaternion addQlerp(const Quaternion& q1, const Quaternion& q2);
+
             // Note : the .inl file also define operator+ for quaternions
             // and operator * and / between quaternions and scalar.
 

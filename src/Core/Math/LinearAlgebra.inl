@@ -78,6 +78,12 @@ namespace Core
         return Quaternion( q1.coeffs() + q2.coeffs() );
     }
 
+    inline Quaternion QuaternionUtils::addQlerp ( const Quaternion& q1, const Quaternion& q2 )
+    {
+        const Scalar sign = Ra::Core::Math::signNZ(q1.dot(q2));
+        return Quaternion( q1.coeffs() + (sign * q2.coeffs()) );
+    }
+
     inline Quaternion QuaternionUtils::scale( const Quaternion& q, Scalar k )
     {
         return Quaternion( k * q.coeffs() );

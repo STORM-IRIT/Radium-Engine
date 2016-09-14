@@ -20,6 +20,9 @@ typedef AlignedStdVector< DualQuaternion > DQList;
 */
 void RA_CORE_API computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ );
 
+// Same version, without the parallelism for reference purposes (see github issue #118)
+void RA_CORE_API computeDQ_naive( const Pose& pose, const WeightMatrix& weight, DQList& DQ );
+
 /*
 * DualQuaternionSkinning applies a set of dual quaternions to a given input set of vertices and returns the resulting transformed vertices.
 *

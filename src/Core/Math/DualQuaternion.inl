@@ -93,10 +93,6 @@ namespace Ra
         inline void DualQuaternion::setFromTransform(const Transform& t)
         {
             m_q0 = Quaternion(t.rotation());
-            if (m_q0.w() < 0 )
-            {
-                m_q0.coeffs() =  -m_q0.coeffs(); // enforce positive W for linear blending.
-            }
             Core::Vector4 trans = Core::Vector4::Zero();
             trans.head<3>() = t.translation();
             m_qe = 0.5f * Quaternion(trans) * m_q0;

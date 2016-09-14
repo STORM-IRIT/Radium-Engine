@@ -98,6 +98,12 @@ namespace Ra
             }
 
             template <typename T>
+            inline constexpr T signNZ( const T& val )
+            {
+                return T(std::copysign( T(1), val) );
+            }
+
+            template <typename T>
             inline constexpr T clamp( T v, T min, T max )
             {
                 return std::max( min, std::min( v, max ) );

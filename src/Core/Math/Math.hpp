@@ -55,6 +55,12 @@ namespace Ra
             template<typename T>
             inline constexpr int sign( const T& val );
 
+            /// Returns the sign of any numeric type as { -1, 1}
+            /// Note: signNZ(0) returns 1 for any integral type
+            /// but signNZ(-0.f) will return -1
+            template<typename T>
+            inline constexpr T signNZ( const T& val );
+
             /// Returns value v clamped between bounds min and max.
             template <typename T>
             inline constexpr T clamp( T v, T min, T max );
