@@ -882,6 +882,12 @@ class SparseMatrix<Scalar,_Options,_Index>::InnerIterator
     }
 
     inline InnerIterator& operator++() { m_id++; return *this; }
+    inline InnerIterator& operator+=( _Index i ) { m_id+= i; return *this;}
+    inline InnerIterator operator+( _Index i ) {
+        InnerIterator result = *this;
+        result += i;
+        return result;
+    }
 
     inline const Scalar& value() const { return m_values[m_id]; }
     inline Scalar& valueRef() { return const_cast<Scalar&>(m_values[m_id]); }
@@ -915,6 +921,12 @@ class SparseMatrix<Scalar,_Options,_Index>::ReverseInnerIterator
     }
 
     inline ReverseInnerIterator& operator--() { --m_id; return *this; }
+    inline ReverseInnerIterator& operator-=( _Index i ) { m_id-= i; return *this;}
+    inline InnerIterator operator-( _Index i ) {
+        ReverseInnerIterator result = *this;
+        result -= i;
+        return result;
+    }
 
     inline const Scalar& value() const { return m_values[m_id-1]; }
     inline Scalar& valueRef() { return const_cast<Scalar&>(m_values[m_id-1]); }
