@@ -39,7 +39,7 @@ elseif (UNIX OR MINGW)
 
     # Prevent Eigen from spitting thousands of warnings with gcc 6+
     add_definitions(-Wno-deprecated-declarations)
-    if( ${CMAKE_CXX_COMPILER_VERSION} VERSION_GREATER 6)
+    if( NOT(${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 5.4))
         add_definitions(-Wno-ignored-attributes -Wno-misleading-indentation)
     endif()
 
