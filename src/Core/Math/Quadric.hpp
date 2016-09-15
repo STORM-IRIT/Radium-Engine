@@ -10,6 +10,20 @@ namespace Ra
     namespace Core
     {
 
+        /// A representation for quadratic equation as
+        /// v^T A v + 2 b^T v + c
+        ///
+        /// Reminder on ProgressiveMesh
+        /// ---------------------------
+        ///
+        ///     Calculate the Quadric of the edge Qe = sum(Qf) with f all the faces adjacent
+        ///     to e
+        ///
+        ///     Calculate vmin = Ae^(-1) be                with Qe = (Ae, be, ce)
+        ///
+        ///     Calculate the error on the edge
+        ///         error = vmin^T Ae vmin + 2 be^T vmin + ce       with Qe = (Ae, be, ce)
+
         class Quadric
         {
         public:
