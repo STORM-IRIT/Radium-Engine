@@ -22,6 +22,8 @@ void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
         poseDQ[j] = DualQuaternion( pose[j]);
         // Count how many vertices are influenced by the given transform
         const int nonZero = weight.col( j ).nonZeros();
+
+        WeightMatrix::InnerIterator it0( weight, j );
 #if defined CORE_USE_OMP
         omp_set_dynamic(0);
         #pragma omp parallel for schedule( static ) num_threads(4)
@@ -38,7 +40,7 @@ void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
         * NOTE: this could be definitely improved by using std::thread
         */
         // Loop trhough all vertices vi who depend on Tj
-        WeightMatrix::InnerIterator it0( weight, j );
+
         for( int nz = 0; nz < nonZero; ++nz ) {
 
             WeightMatrix::InnerIterator itn = it0 + nz;
