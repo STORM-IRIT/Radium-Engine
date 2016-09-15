@@ -21,7 +21,7 @@ namespace Timer {
  *      foo_time.run( foo, foo_args... );
  *
  *      Chrono bar_time;
- *      some_type bar_result = bar_time.run( bar, foo_args... );
+ *      some_type bar_result = bar_time< same_type >.run( bar, foo_args... );
  *
  *      if( foo_time == bar_time ) {
  *          std::cout << "time is equal";
@@ -33,7 +33,7 @@ namespace Timer {
  *          }
  *      }
  *
- * \note Note that bar( bar_args ...) == bar_time.run( bar, bar_args... )
+ * \note Note that bar( bar_args ...) == bar_time< same_type >.run( bar, bar_args... )
  *
  */
 class Chrono {
