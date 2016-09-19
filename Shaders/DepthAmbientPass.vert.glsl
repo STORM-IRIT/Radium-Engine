@@ -4,15 +4,10 @@ layout (location = 2) in vec3 inTangent;
 layout (location = 3) in vec3 inBitangent;
 layout (location = 4) in vec3 inTexcoord;
 
-struct Transform
-{
-    mat4 model;
-    mat4 view;
-    mat4 proj;
-    mat4 worldNormal;
-};
+#include "Structs.glsl"
 
 uniform Transform transform;
+uniform Material material;
 
 out VS_OUT
 {
@@ -20,6 +15,7 @@ out VS_OUT
     vec3 normal;
     vec3 texcoord;
 	vec3 eye;
+    mat3 TBN;
 } vs_out;
 
 void main()
@@ -32,4 +28,13 @@ void main()
     vs_out.normal = vec3(transform.worldNormal * vec4(inNormal, 0.0));
 
     vs_out.texcoord = inTexcoord;
+
+    if (material.tex.hasNormal == 1)
+    {
+        vec3 t = normalize(vec3(transform.model * vec4(inTangent,   0.0)));
+        vec3 b = normalize(vec3(transform.model * vec4(inBitangent, 0.0)));
+        vec3 n = normalize(vec3(transform.model * vec4(inNormal,    0.0)));
+
+        vs_out.TBN = mat3(t, b, n);
+    }
 }

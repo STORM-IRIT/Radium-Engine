@@ -12,6 +12,7 @@ in VS_OUT
     vec3 normal;
     vec3 texcoord;
     vec3 eye;
+    mat3 TBN;
 } fs_in;
 
 #include "LightingFunctions.glsl"
