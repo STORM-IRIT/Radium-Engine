@@ -35,8 +35,9 @@ vec3 getNormal()
     if (material.tex.hasNormal == 1)
     {
         vec3 n = normalize(vec3(texture(material.tex.normal, fs_in.texcoord.xy)));
-        n = n * 2 - 1;
-        return dir * n;
+        n = normalize(n * 2 - 1);
+        n = normalize(fs_in.TBN * n);
+        return n;
     }
 
     //return vec3(normalize(fs_in.normal));

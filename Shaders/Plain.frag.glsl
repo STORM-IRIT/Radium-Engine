@@ -9,6 +9,7 @@ in VS_OUT
     vec3 normal;
     vec3 texcoord;
     vec3 color;
+    mat3 TBN;
 } fs_in;
 
 out vec4 fragColor;

@@ -266,46 +266,49 @@ namespace Ra {
 
         void AssimpGeometryDataLoader::fetchNormals( const aiMesh& mesh, GeometryData& data ) const {
             const uint size = mesh.mNumVertices;
-            std::vector< Core::Vector3 > normal( data.getVerticesSize(), Core::Vector3::Zero() );
+            std::vector<Core::Vector3> normal(data.getVerticesSize(), Core::Vector3::Zero());
 #pragma omp parallel for
-            for( int i = 0; i < int(size); ++i ) {
+            for( int i = 0; i < int(size); ++i ) 
+            {
                 normal.at( data.m_duplicateTable.at( i ) ) += assimpToCore( mesh.mNormals[i] );
             }
+
 #pragma omp parallel for
-            for( int i = 0; i < int(normal.size()); ++i ) {
+            for( int i = 0; i < int(normal.size()); ++i ) 
+            {
                 normal[i].normalize();
             }
             data.setNormals( normal );
         }
 
         void AssimpGeometryDataLoader::fetchTangents( const aiMesh& mesh, GeometryData& data ) const {
-#ifdef NORMAL_MAPPING_IS_IMPLEMENTED_CORRECTLY
+#if defined(LOAD_TEXTURES)
             const uint size = mesh.mNumVertices;
-            std::vector< Core::Vector4 > tangent( data.getVerticesSize() );
+            std::vector<Core::Vector3> tangent(data.getVerticesSize(), Core::Vector3::Zero());
 #pragma omp parallel for
-            for( uint i = 0; i < size; ++i ) {
-                Core::Vector3 tmp = assimpToCore( mesh.mTangents[i] );
-                tangent[i] = Core::Vector4( tmp[0], tmp[1], tmp[2], 0.0 );
+            for( uint i = 0; i < size; ++i ) 
+            {
+                tangent[i] = assimpToCore( mesh.mTangents[i]);
             }
             data.setTangents( tangent );
 #endif
         }
 
         void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, GeometryData& data ) const {
-#ifdef NORMAL_MAPPING_IS_IMPLEMENTED_CORRECTLY
+#if defined(LOAD_TEXTURES)
             const uint size = mesh.mNumVertices;
-            std::vector< Core::Vector4 > bitangent( data.getVerticesSize() );
+            std::vector<Core::Vector3> bitangent(data.getVerticesSize());
 #pragma omp parallel for
-            for( uint i = 0; i < size; ++i ) {
-                Core::Vector3 tmp = assimpToCore( mesh.mBitangents[i] );
-                bitangent[i] = Core::Vector4( tmp[0], tmp[1], tmp[2], 0.0 );
+            for( uint i = 0; i < size; ++i ) 
+            {
+                bitangent[i] = assimpToCore(mesh.mBitangents[i]);
             }
             data.setBitangents( bitangent );
 #endif
         }
 
         void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh, GeometryData& data ) const {
-#if ( defined(TEXTURE_MAPPING_IS_IMPLEMENTED_CORRECTLY) || defined(LOAD_TEXTURES) )
+#if ( defined(LOAD_TEXTURES) )
             const uint size = mesh.mNumVertices;
             std::vector<Core::Vector3> texcoord;
             texcoord.resize(data.getVerticesSize());
@@ -410,7 +413,6 @@ namespace Ra {
             {
                 mat.m_texNormal = m_filepath + "/" + assimpToCore( name );
                 mat.m_hasTexNormal = true;
-                LOG(logINFO) << mat.m_texNormal;
             }
 
             if( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_OPACITY, 0 ), name ) )
