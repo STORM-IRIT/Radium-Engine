@@ -144,7 +144,7 @@ namespace Ra
 
     bool Gui::TrackballCamera::handleWheelEvent(QWheelEvent* event)
     {
-        handleCameraZoom( (event->angleDelta().y() + event->angleDelta().x() * 0.1 ) * m_wheelSpeedModifier );
+        handleCameraZoom((event->angleDelta().y() * 0.01 + event->angleDelta().x() * 0.01 ) * m_wheelSpeedModifier);
 
         if ( m_hasLightAttached )
         {
@@ -337,13 +337,12 @@ namespace Ra
 
     void Gui::TrackballCamera::handleCameraZoom( Scalar dx, Scalar dy )
     {
-        handleCameraZoom( std::sqrt( dx * dx + dy * dy ) );
+        handleCameraZoom(Ra::Core::Math::sign(dx) * (abs(dx) + abs(dy)));
     }
 
     void Gui::TrackballCamera::handleCameraZoom( Scalar z )
     {
-        Scalar r = m_distFromCenter;
-        Scalar y = r * 0.1 * z * m_cameraSensitivity * m_quickCameraModifier;
+        Scalar y = m_cameraRadius * z * m_cameraSensitivity * m_quickCameraModifier;
         Core::Vector3 F = m_camera->getDirection();
 
         Core::Transform T( Core::Transform::Identity() );
@@ -352,7 +351,11 @@ namespace Ra
 
         m_camera->applyTransform( T );
 
-        m_distFromCenter = ( m_trackballCenter - m_camera->getPosition() ).norm();
+        m_trackballCenter = m_camera->getPosition() + m_camera->getDirection().normalized();
+
+        emit cameraTargetChanged(m_trackballCenter);
+
+        //m_distFromCenter = ( m_trackballCenter - m_camera->getPosition() ).norm();
     }
 
     void Gui::TrackballCamera::updatePhiTheta()
