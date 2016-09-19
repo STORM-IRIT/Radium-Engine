@@ -92,21 +92,21 @@ inline std::string FileManager< DATA, Binary >::log() const {
 
 template < typename DATA, bool Binary >
 inline void FileManager< DATA, Binary >::addLogEntry( const std::string& text ) {
-    addLogEntry( text, NORMAL );
+    addLogEntry( text, LogEntry_Normal );
 }
 
 
 
 template < typename DATA, bool Binary >
 inline void FileManager< DATA, Binary >::addLogWarningEntry( const std::string& text ) {
-    addLogEntry( text, WARNING );
+    addLogEntry( text, LogEntry_Warning );
 }
 
 
 
 template < typename DATA, bool Binary >
 inline void FileManager< DATA, Binary >::addLogErrorEntry( const std::string& text ) {
-    addLogEntry( text, ERROR );
+    addLogEntry( text, LogEntry_Error );
 }
 
 
@@ -114,16 +114,16 @@ inline void FileManager< DATA, Binary >::addLogErrorEntry( const std::string& te
 template < typename DATA, bool Binary >
 inline void FileManager< DATA, Binary >::addLogEntry( const std::string& text, const LogEntryType type ) {
     switch ( type ) {
-        case NORMAL: {
+        case LogEntry_Normal: {
             m_log += text;
         } break;
 
-        case WARNING: {
-            m_log += "\n--- WARNING : " + text + " ---\n";
+        case LogEntry_Warning: {
+            m_log += "\n--- LogEntry_Warning : " + text + " ---\n";
         } break;
 
-        case ERROR: {
-            m_log += "\n### ERROR : " + text + " ###\n";
+        case LogEntry_Error: {
+            m_log += "\n### LogEntry_Error : " + text + " ###\n";
         } break;
 
         default: break;
