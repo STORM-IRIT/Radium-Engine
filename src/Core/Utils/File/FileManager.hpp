@@ -15,9 +15,9 @@ class FileManager {
 public:
     /// ENUM
     enum LogEntryType {
-        NORMAL,
-        WARNING,
-        ERROR
+        LogEntry_Normal,
+        LogEntry_Warning,
+        LogEntry_Error,
     };
 
     /// CONSTRUCTOR
