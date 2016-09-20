@@ -18,8 +18,8 @@ out VS_OUT
     vec3 normal;
     vec3 texcoord;
     vec3 eye;
-    vec4 position_light_space;
     mat3 TBN;
+    vec4 position_light_space;
 } vs_out;
 
 void main()
@@ -60,6 +60,6 @@ void main()
     light_view[2] = vec4(-1.00000000, 0.0, 0.0, 0.0);
     light_view[3] = vec4(0.0, 0.0, -10.0498762, 1.0);
 
-    vs_out.position_light_space = uLightSpace * vec4(vs_out.position, 1.0);
+    //vs_out.position_light_space = uLightSpace * vec4(vs_out.position, 1.0);
     //vs_out.position_light_space = light_proj * light_view * vec4(vs_out.position, 1.0);
 }

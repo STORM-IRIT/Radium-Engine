@@ -12,7 +12,7 @@ out VS_OUT
     vec3 position;
     vec3 normal;
     vec3 texcoord;
-    vec3 color;    
+    vec3 color;
 } vs_out;
 
 void main()
