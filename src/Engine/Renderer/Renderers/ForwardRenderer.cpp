@@ -125,20 +125,8 @@ namespace Ra
         {
 #ifndef NO_TRANSPARENCY
             m_transparentRenderObjects.clear();
-
-            for (auto it = m_fancyRenderObjects.begin(); it != m_fancyRenderObjects.end();)
-            {
-                std::shared_ptr<RenderObject> ro = *it;
-                if (ro->isTransparent())
-                {
-                    m_transparentRenderObjects.push_back(ro);
-                    it = m_fancyRenderObjects.erase(it);
-                }
-                else
-                {
-                    ++it;
-                }
-            }
+            Ra::Core::remove_copy_if(m_fancyRenderObjects, m_transparentRenderObjects,
+                                     [](auto ro) { return ro->isTransparent(); });
 
             m_fancyTransparentCount = m_transparentRenderObjects.size();
             
@@ -201,7 +189,7 @@ namespace Ra
                     ro->getMesh()->render();
                 }
             }
-            
+
             // Light pass
             GL_ASSERT( glDepthFunc( GL_LEQUAL ) );
             GL_ASSERT( glDepthMask( GL_FALSE ) );

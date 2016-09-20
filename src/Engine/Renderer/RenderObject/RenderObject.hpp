@@ -12,7 +12,6 @@
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
 namespace Ra
 {
@@ -65,7 +64,7 @@ namespace Ra
             ///     // createRenderObject can finally be called.
             ///     RenderObject* ro = createRenderObject(name, component, type, config, material);
             static RenderObject* createRenderObject(const std::string& name, Component* comp, const RenderObjectType& type, const std::shared_ptr<Mesh>& mesh, const ShaderConfiguration& shaderConfig = ShaderConfigurationFactory::getConfiguration("BlinnPhong"), Material* material = nullptr);
-            static RenderObject* createFancyFromAsset(const std::string& name, Component* comp, Ra::Asset::GeometryData* asset);
+            static RenderObject* createFancyFromAsset(const std::string& name, Component* comp, Ra::Asset::GeometryData* asset, bool allow_transparency = false);
 
             // FIXME(Charly): Remove this
             void updateGL();
