@@ -81,14 +81,19 @@ namespace Ra
             return obj;
         }
 
-        RenderObject* RenderObject::createFancyFromAsset(const std::string& name, Component* comp, Asset::GeometryData* asset)
+        RenderObject* RenderObject::createFancyFromAsset(const std::string& name, Component* comp, const Asset::GeometryData* asset, bool allow_transparency)
         {
             auto displayMesh = Core::make_shared<Ra::Engine::Mesh>(name);
 
             Core::TriangleMesh mesh;
-            for (const auto& v : asset->getVertices())
+            Core::Transform T = asset->getFrame();
+            Core::Transform N;
+            N.matrix() = (T.matrix()).inverse().transpose();
+            
+            for (size_t i = 0; i < asset->getVerticesSize(); ++i)
             {
-                mesh.m_vertices.push_back(asset->getFrame() * v);
+                mesh.m_vertices.push_back(T * asset->getVertices()[i]);
+                mesh.m_normals.push_back((N * asset->getNormals()[i]).normalized());
             }
 
             for (const auto& face : asset->getFaces())
@@ -96,7 +101,7 @@ namespace Ra
                 mesh.m_triangles.push_back(face.head<3>());
             }
 
-            Core::Geometry::uniformNormal(mesh.m_vertices, mesh.m_triangles, mesh.m_normals);
+            //Core::Geometry::uniformNormal(mesh.m_vertices, mesh.m_triangles, mesh.m_normals);
             displayMesh->loadGeometry(mesh);
 
             Core::Vector3Array tangents;
@@ -105,25 +110,10 @@ namespace Ra
 
             Core::Vector4Array colors;
 
-            for (const auto& v : asset->getTangents())
-            {
-                tangents.push_back(v);
-            }
-
-            for (const auto& v : asset->getBiTangents())
-            {
-                bitangents.push_back(v);
-            }
-
-            for (const auto& v : asset->getTexCoords())
-            {
-                texcoords.push_back(v);
-            }
-
-            for (const auto& v : asset->getColors())
-            {
-                colors.push_back(v);
-            }
+            for (const auto& v : asset->getTangents())   tangents.push_back(v);
+            for (const auto& v : asset->getBiTangents()) bitangents.push_back(v);
+            for (const auto& v : asset->getTexCoords())  texcoords.push_back(v);
+            for (const auto& v : asset->getColors())     colors.push_back(v);
 
             displayMesh->addData(Mesh::VERTEX_TANGENT, tangents);
             displayMesh->addData(Mesh::VERTEX_BITANGENT, bitangents);
@@ -154,6 +144,7 @@ namespace Ra
                 mat->m_alpha = m.m_opacity;
             }
             
+#ifdef LOAD_TEXTURES
             if (m.hasDiffuseTexture())
             {
                 mat->addTexture(Material::TextureType::TEX_DIFFUSE, m.m_texDiffuse);
@@ -178,10 +169,17 @@ namespace Ra
             {
                 mat->addTexture(Material::TextureType::TEX_NORMAL, m.m_texNormal);
             }
-
+#endif
+            
             auto shaderConfig = ShaderConfigurationFactory::getConfiguration("BlinnPhong");
-
-            return createRenderObject(name, comp, RenderObjectType::Fancy, displayMesh, shaderConfig, mat);
+            auto result = createRenderObject(name, comp, RenderObjectType::Fancy, displayMesh, shaderConfig, mat);
+            
+            if (allow_transparency && mat->m_alpha < 1.0)
+            {
+                result->setTransparent(true);
+            }
+            
+            return result;
         }
 
         void RenderObject::updateGL()

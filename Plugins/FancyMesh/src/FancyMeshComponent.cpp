@@ -60,7 +60,8 @@ namespace FancyMeshPlugin
 
         std::string roName = name;
         roName.append( "_RO" );
-
+        
+#if 1
         std::string meshName = name;
         meshName.append( "_Mesh" );
 
@@ -82,13 +83,10 @@ namespace FancyMeshPlugin
             mesh.m_normals.push_back((N * data->getNormals()[i]).normalized());
         }
 
-
         for (const auto& face : data->getFaces())
         {
             mesh.m_triangles.push_back(face.head<3>());
         }
-
-        setupIO( data->getName());
 
         displayMesh->loadGeometry(mesh);
 
@@ -128,9 +126,14 @@ namespace FancyMeshPlugin
 
         auto config = Ra::Engine::ShaderConfigurationFactory::getConfiguration("BlinnPhong");
 
-        Ra::Engine::RenderObject* renderObject = Ra::Engine::RenderObject::createRenderObject(roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, config, mat);
-        if ( mat->m_alpha < 1.0 ) renderObject->setTransparent(true);
-        m_meshIndex = addRenderObject(renderObject);
+        Ra::Engine::RenderObject* ro = Ra::Engine::RenderObject::createRenderObject(roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, config, mat);
+        if ( mat->m_alpha < 1.0 ) ro->setTransparent(true);
+#else
+        auto ro = Ra::Engine::RenderObject::createFancyFromAsset(roName, this, data, true);
+#endif
+
+        setupIO( data->getName());
+        m_meshIndex = addRenderObject(ro);
     }
 
     Ra::Core::Index FancyMeshComponent::getRenderObjectIndex() const
