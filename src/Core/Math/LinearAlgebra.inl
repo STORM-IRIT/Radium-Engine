@@ -148,6 +148,60 @@ namespace Core
         }
     }
 
+    namespace MatrixUtils
+    {
+        // http://stackoverflow.com/a/13786235/4717805
+        inline Matrix4 lookAt(const Vector3& position, const Vector3& target, const Vector3& up)
+        {
+            Matrix3 R;
+            R.col(2) = (position - target).normalized();
+            R.col(0) = up.cross(R.col(2)).normalized();
+            R.col(1) = R.col(2).cross(R.col(0));
+
+            Matrix4 result = Matrix4::Zero();
+            result.topLeftCorner<3, 3>() = R.transpose();
+            result.topRightCorner<3, 1>() = -R.transpose() * position;
+            result(3, 3) = 1.0;
+        }
+
+        inline Matrix4 perspective(Scalar fovy, Scalar aspect, Scalar near, Scalar far)
+        {
+            Scalar theta = fovy * 0.5;
+            Scalar range = far - near;
+            Scalar invtan = 1.0 / std::tan(theta);
+
+            Matrix4 result = Matrix4::Zero();
+            result(0, 0) = invtan / aspect;
+            result(1, 1) = invtan;
+            result(2, 2) = -(near + far) / range;
+            result(3, 2) = -1.0;
+            result(2, 3) = -2 * near * far / range;
+            result(3, 3) = 0.0;
+
+            return result;
+        }
+
+        inline Matrix4 orthographic(Scalar l, Scalar r, Scalar t, Scalar b, Scalar n, Scalar f)
+        {
+            Matrix4 result = Matrix4::Zero();
+
+            Scalar lr = r - l;
+            Scalar bt = t - b;
+            Scalar nf = f - n;
+
+            result(0, 0) =  2.0 / (r - l);
+            result(1, 1) =  2.0 / (t - b);
+            result(2, 2) = -2.0 / (f - n);
+            result(3, 3) =  1.0;
+
+            result(0, 3) = -(r + l) / (r - l);
+            result(1, 3) = -(t + b) / (t - b);
+            result(2, 3) = -(f + b) / (f - n);
+
+            return result;
+        }
+    }
+
 } // namespace Core
 } // namespace Ra
 
