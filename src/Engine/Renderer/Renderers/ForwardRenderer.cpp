@@ -9,6 +9,7 @@
 #include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Containers/Algorithm.hpp>
+#include <Core/Containers/MakeShared.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
@@ -73,6 +74,7 @@ namespace Ra
 
         void ForwardRenderer::initShaders()
         {
+            m_shaderMgr->addShaderProgram("DepthMap", "../Shaders/DepthMap.vert.glsl", "../Shaders/DepthMap.frag.glsl");
             m_shaderMgr->addShaderProgram("DepthAmbientPass", "../Shaders/DepthAmbientPass.vert.glsl", "../Shaders/DepthAmbientPass.frag.glsl");
             m_shaderMgr->addShaderProgram("Luminance", "../Shaders/Basic2D.vert.glsl", "../Shaders/Luminance.frag.glsl");
             m_shaderMgr->addShaderProgram("Tonemapping", "../Shaders/Basic2D.vert.glsl", "../Shaders/Tonemapping.frag.glsl");
@@ -94,6 +96,7 @@ namespace Ra
             m_postprocessFbo.reset( new FBO( FBO::Components( FBO::COLOR | FBO::DEPTH), m_width, m_height ) );
             m_pingPongFbo.reset(new FBO(FBO::Components(FBO::COLOR), 1, 1));
             m_bloomFbo.reset(new FBO(FBO::Components(FBO::COLOR), m_width / 8, m_height / 8));
+            m_shadowFbo.reset(new FBO(FBO::Components(FBO::DEPTH), ShadowMapSize, ShadowMapSize));
 
             // Render pass
             m_textures[TEX_DEPTH].reset( new Texture( "Depth", GL_TEXTURE_2D ) );
@@ -125,8 +128,6 @@ namespace Ra
         {
 #ifndef NO_TRANSPARENCY
             m_transparentRenderObjects.clear();
-            Ra::Core::remove_copy_if(m_fancyRenderObjects, m_transparentRenderObjects,
-                                     [](auto ro) { return ro->isTransparent(); });
 
             m_fancyTransparentCount = m_transparentRenderObjects.size();
             
@@ -139,6 +140,8 @@ namespace Ra
 
         void ForwardRenderer::renderInternal( const RenderData& renderData )
         {
+            updateShadowMaps();
+
             // FIXME(Charly): Do a bit of cleanup in the forward renderer
             // (e.g. Remove the "depth ambient pass")
             const ShaderProgram* shader;
@@ -201,10 +204,16 @@ namespace Ra
 
             if ( m_lights.size() > 0 )
             {
+                int light_idx = 0;
                 for ( const auto& l : m_lights )
                 {
                     RenderParameters params;
                     l->getRenderParameters( params );
+
+                    params.addParameter("uShadowMap", m_shadowMaps[light_idx].get(), 6);
+                    params.addParameter("uLightSpace", m_lightMatrices[light_idx]);
+
+                    ++light_idx;
 
                     for ( const auto& ro : m_fancyRenderObjects )
                     {
@@ -246,6 +255,7 @@ namespace Ra
             
             if ( m_lights.size() > 0 )
             {
+                uint light_idx = 0;
                 for ( const auto& l : m_lights )
                 {
                     RenderParameters params;
@@ -358,6 +368,141 @@ namespace Ra
             GL_ASSERT( glDepthFunc( GL_LESS ) );
 
             m_fbo->unbind();
+        }
+
+        void ForwardRenderer::updateShadowMaps()
+        {
+            while (m_shadowMaps.size() < m_lights.size())
+            {
+                std::shared_ptr<Texture> tex = Ra::Core::make_shared<Texture>("ShadowMap", GL_TEXTURE_2D);
+                tex->initGL(GL_DEPTH_COMPONENT24, ShadowMapSize, ShadowMapSize, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr);
+                m_shadowMaps.push_back(tex);
+            }
+
+            m_lightMatrices.resize(m_lights.size());
+
+            //m_displayedTexture = m_shadowMaps[0].get();
+
+            m_shadowFbo->useAsTarget(ShadowMapSize, ShadowMapSize);
+            GL_ASSERT(glDrawBuffer(GL_NONE));
+            GL_ASSERT(glReadBuffer(GL_NONE));
+
+            const ShaderProgram* shader = m_shaderMgr->getShaderProgram("DepthMap");
+            shader->bind();
+
+            for (size_t i = 0; i < m_lights.size(); ++i)
+            {
+                m_shadowFbo->attachTexture(GL_DEPTH_ATTACHMENT, m_shadowMaps[i].get());
+                GL_ASSERT(glClear(GL_DEPTH_BUFFER_BIT));
+
+                Light* light = m_lights[i].get();
+
+                switch (light->getType())
+                {
+                    case Light::DIRECTIONAL:
+                    {
+                        Core::Matrix4 proj = Core::Matrix4::Identity();
+
+                        const Scalar r = 10.0;
+                        const Scalar l = -10.0;
+                        const Scalar t = 10.0;
+                        const Scalar b = -10.0;
+                        const Scalar n = 1.0;
+                        const Scalar f = 10.0;
+
+                        proj(0, 0) = 2.0 / (r - l);
+                        proj(0, 3) = -(r + l) / (r - l);
+                        proj(1, 1) = 2.0 / (t - b);
+                        proj(1, 3) = -(t + b) / (t - b);
+                        proj(2, 2) = -2.0 / (f - n);
+                        proj(2, 3) = -(f + n) / (f - n);
+                        proj(3, 3) = 1.0;
+
+                        Core::Matrix4 view = Core::Matrix4::Identity();
+                        Core::Vector3 F = static_cast<DirectionalLight*>(light)->getDirection().normalized();
+                        Core::Vector3 S = (F.cross(Core::Vector3::UnitY())).normalized();
+                        Core::Vector3 U = (S.cross(F)).normalized();
+                        Core::Vector3 E = -F;
+
+                        view.block<3, 1>(0, 0) = S;
+                        view.block<3, 1>(1, 0) = U;
+                        view.block<3, 1>(2, 0) = -F;
+                        view.block<1, 3>(0, 3) = -E;
+                        view(3, 3) = 1.0;
+
+                        Core::Matrix4 lightMat = proj * view;
+
+                        for (const auto& ro : m_fancyRenderObjects)
+                        {
+                            shader->setUniform("proj", ro->getTransformAsMatrix());
+                            shader->setUniform("lightMatrix", lightMat);
+                            ro->getMesh()->render();
+                        }
+
+                        for (size_t i = 0; i < m_fancyTransparentCount; ++i)
+                        {
+                            shader->setUniform("proj", m_transparentRenderObjects[i]->getTransformAsMatrix());
+                            shader->setUniform("lightMatrix", lightMat);
+                            m_transparentRenderObjects[i]->getMesh()->render();
+                        }
+                    } break;
+
+
+                    case Light::SPOT:
+                    {
+                        Core::Matrix4 proj;
+
+                        const Scalar r = 10.0;
+                        const Scalar l = -10.0;
+                        const Scalar t = 10.0;
+                        const Scalar b = -10.0;
+                        const Scalar n = 1.0;
+                        const Scalar f = 10.0;
+
+                        proj(0, 0) = 2.0 / (r - l);
+                        proj(0, 3) = -(r + l) / (r - l);
+                        proj(1, 1) = 2.0 / (t - b);
+                        proj(1, 3) = -(t + b) / (t - b);
+                        proj(2, 2) = -2.0 / (f - n);
+                        proj(2, 3) = -(f + n) / (f - n);
+                        proj(3, 3) = 1.0;
+
+                        Core::Matrix4 view;
+                        Core::Vector3 N = static_cast<SpotLight*>(light)->getDirection().normalized();
+                        Core::Vector3 U = (Core::Vector3::UnitY().cross(N)).normalized();
+                        Core::Vector3 V = N.cross(U);
+
+                        view.block<3, 1>(0, 0) = U;
+                        view.block<3, 1>(1, 0) = V;
+                        view.block<3, 1>(2, 0) = N;
+                        view(3, 3) = 1.0;
+
+                        Core::Matrix4 lightMat = proj * view;
+                        m_lightMatrices[i] = lightMat;
+
+                        for (const auto& ro : m_fancyRenderObjects)
+                        {
+                            shader->setUniform("proj", ro->getTransformAsMatrix());
+                            shader->setUniform("lightMatrix", lightMat);
+                            ro->getMesh()->render();
+                        }
+
+                        for (size_t i = 0; i < m_fancyTransparentCount; ++i)
+                        {
+                            shader->setUniform("proj", m_transparentRenderObjects[i]->getTransformAsMatrix());
+                            shader->setUniform("lightMatrix", lightMat);
+                            m_transparentRenderObjects[i]->getMesh()->render();
+                        }
+                    } break;
+
+                    // TODO(charly): Point shadow mapping
+                    default:
+                    {
+                    }
+                }
+            }
+
+            m_postprocessFbo->unbind(true);
         }
 
         // Draw debug stuff, do not overwrite depth map but do depth testing

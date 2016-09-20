@@ -32,6 +32,8 @@ namespace Ra
             void initShaders();
             void initBuffers();
 
+            void updateShadowMaps();
+
         private:
             enum RendererTextures
             {
@@ -55,6 +57,8 @@ namespace Ra
             std::unique_ptr<FBO> m_pingPongFbo;
             std::unique_ptr<FBO> m_bloomFbo;
 
+            std::unique_ptr<FBO> m_shadowFbo;
+
             std::unique_ptr<FBO> m_oitFbo;
             
             std::vector<RenderObjectPtr> m_transparentRenderObjects;
@@ -63,6 +67,10 @@ namespace Ra
             uint m_pingPongSize;
 
             std::array<std::unique_ptr<Texture>, TEX_COUNT> m_textures;
+
+            static const int ShadowMapSize = 1024;
+            std::vector<std::shared_ptr<Texture>> m_shadowMaps;
+            std::vector<Core::Matrix4> m_lightMatrices;
         };
 
     } // namespace Engine

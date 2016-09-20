@@ -10,12 +10,15 @@ layout (location = 4) in vec3 inTexcoord;
 uniform Transform transform;
 uniform Material material;
 
+uniform mat4 uLightSpace;
+
 out VS_OUT
 {
     vec3 position;
     vec3 normal;
     vec3 texcoord;
     vec3 eye;
+    vec4 position_light_space;
     mat3 TBN;
 } vs_out;
 
@@ -44,4 +47,19 @@ void main()
 
         vs_out.TBN = mat3(t, b, n);
     }
+
+    mat4 light_proj;
+    light_proj[0] = vec4(0.1, 0.0, 0.0, 0.0);
+    light_proj[1] = vec4(0.0, 0.1, 0.0, 0.0);
+    light_proj[2] = vec4(0.0, 0.0, -0.307692319, 0.0);
+    light_proj[3] = vec4(0.0, 0.0, -1.30769229, 1.0);
+
+    mat4 light_view;
+    light_view[0] = vec4(-0.000000000, -0.995037258, 0.0995037258, 0.0);
+    light_view[1] = vec4(0.000000000, 0.0995037258, 0.995037258, 0.0);
+    light_view[2] = vec4(-1.00000000, 0.0, 0.0, 0.0);
+    light_view[3] = vec4(0.0, 0.0, -10.0498762, 1.0);
+
+    vs_out.position_light_space = uLightSpace * vec4(vs_out.position, 1.0);
+    //vs_out.position_light_space = light_proj * light_view * vec4(vs_out.position, 1.0);
 }
