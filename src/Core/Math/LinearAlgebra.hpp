@@ -174,8 +174,8 @@ namespace Ra
         namespace MatrixUtils
         {
             inline Matrix4 lookAt(const Vector3& position, const Vector3& target, const Vector3& up);
-            inline Matrix4 perspective(Scalar fovy, Scalar aspect, Scalar near, Scalar far);
-            inline Matrix4 orthographic(Scalar left, Scalar right, Scalar top, Scalar bottom, Scalar near, Scalar far);
+            inline Matrix4 perspective(Scalar fovy, Scalar aspect, Scalar near, Scalar zfar);
+            inline Matrix4 orthographic(Scalar left, Scalar right, Scalar bottom, Scalar top, Scalar near, Scalar zfar);
         }
 
         //

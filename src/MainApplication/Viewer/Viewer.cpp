@@ -161,10 +161,10 @@ namespace Ra
 
         for ( auto& renderer : m_renderers )
         {
-            renderer->addLight( light );
+            //renderer->addLight( light );
         }
 
-        m_camera->attachLight( light );
+        //m_camera->attachLight( light );
 
         emit rendererReady();
     }

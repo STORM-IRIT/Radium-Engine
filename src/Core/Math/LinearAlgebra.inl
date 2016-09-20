@@ -162,26 +162,28 @@ namespace Core
             result.topLeftCorner<3, 3>() = R.transpose();
             result.topRightCorner<3, 1>() = -R.transpose() * position;
             result(3, 3) = 1.0;
+
+            return result;
         }
 
-        inline Matrix4 perspective(Scalar fovy, Scalar aspect, Scalar near, Scalar far)
+        inline Matrix4 perspective(Scalar fovy, Scalar aspect, Scalar znear, Scalar zfar)
         {
             Scalar theta = fovy * 0.5;
-            Scalar range = far - near;
+            Scalar range = zfar - znear;
             Scalar invtan = 1.0 / std::tan(theta);
 
             Matrix4 result = Matrix4::Zero();
             result(0, 0) = invtan / aspect;
             result(1, 1) = invtan;
-            result(2, 2) = -(near + far) / range;
+            result(2, 2) = -(znear + zfar) / range;
             result(3, 2) = -1.0;
-            result(2, 3) = -2 * near * far / range;
+            result(2, 3) = -2 * znear * zfar / range;
             result(3, 3) = 0.0;
 
             return result;
         }
 
-        inline Matrix4 orthographic(Scalar l, Scalar r, Scalar t, Scalar b, Scalar n, Scalar f)
+        inline Matrix4 orthographic(Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, Scalar f)
         {
             Matrix4 result = Matrix4::Zero();
 

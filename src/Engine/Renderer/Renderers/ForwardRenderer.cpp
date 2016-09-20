@@ -138,9 +138,12 @@ namespace Ra
 #endif
         }
 
+#define SHADOW_MAPPING_KO
         void ForwardRenderer::renderInternal( const RenderData& renderData )
         {
+#ifndef SHADOW_MAPPING_KO
             updateShadowMaps();
+#endif
 
             // FIXME(Charly): Do a bit of cleanup in the forward renderer
             // (e.g. Remove the "depth ambient pass")
@@ -169,7 +172,7 @@ namespace Ra
 
             GL_ASSERT( glDisable( GL_BLEND ) );
 
-            GL_ASSERT( glDrawBuffers( 1, buffers ) );
+            GL_ASSERT( glDrawBuffers( 2, buffers ) );
             
             shader = m_shaderMgr->getShaderProgram("DepthAmbientPass");
             shader->bind();
@@ -210,10 +213,12 @@ namespace Ra
                     RenderParameters params;
                     l->getRenderParameters( params );
 
+#ifndef SHADOW_MAPPING_KO
                     params.addParameter("uShadowMap", m_shadowMaps[light_idx].get(), 6);
                     params.addParameter("uLightSpace", m_lightMatrices[light_idx]);
 
                     ++light_idx;
+#endif
 
                     for ( const auto& ro : m_fancyRenderObjects )
                     {
@@ -401,34 +406,9 @@ namespace Ra
                 {
                     case Light::DIRECTIONAL:
                     {
-                        Core::Matrix4 proj = Core::Matrix4::Identity();
-
-                        const Scalar r = 10.0;
-                        const Scalar l = -10.0;
-                        const Scalar t = 10.0;
-                        const Scalar b = -10.0;
-                        const Scalar n = 1.0;
-                        const Scalar f = 10.0;
-
-                        proj(0, 0) = 2.0 / (r - l);
-                        proj(0, 3) = -(r + l) / (r - l);
-                        proj(1, 1) = 2.0 / (t - b);
-                        proj(1, 3) = -(t + b) / (t - b);
-                        proj(2, 2) = -2.0 / (f - n);
-                        proj(2, 3) = -(f + n) / (f - n);
-                        proj(3, 3) = 1.0;
-
-                        Core::Matrix4 view = Core::Matrix4::Identity();
-                        Core::Vector3 F = static_cast<DirectionalLight*>(light)->getDirection().normalized();
-                        Core::Vector3 S = (F.cross(Core::Vector3::UnitY())).normalized();
-                        Core::Vector3 U = (S.cross(F)).normalized();
-                        Core::Vector3 E = -F;
-
-                        view.block<3, 1>(0, 0) = S;
-                        view.block<3, 1>(1, 0) = U;
-                        view.block<3, 1>(2, 0) = -F;
-                        view.block<1, 3>(0, 3) = -E;
-                        view(3, 3) = 1.0;
+                        DirectionalLight* dl = static_cast<DirectionalLight*>(light);
+                        Core::Matrix4 proj = Core::MatrixUtils::orthographic(-10, 10, -10, 10, 1.0, 7.5);
+                        Core::Matrix4 view = Core::MatrixUtils::lookAt(-dl->getDirection(), Core::Vector3::Zero(), Core::Vector3::UnitY());
 
                         Core::Matrix4 lightMat = proj * view;
 
@@ -450,35 +430,11 @@ namespace Ra
 
                     case Light::SPOT:
                     {
-                        Core::Matrix4 proj;
-
-                        const Scalar r = 10.0;
-                        const Scalar l = -10.0;
-                        const Scalar t = 10.0;
-                        const Scalar b = -10.0;
-                        const Scalar n = 1.0;
-                        const Scalar f = 10.0;
-
-                        proj(0, 0) = 2.0 / (r - l);
-                        proj(0, 3) = -(r + l) / (r - l);
-                        proj(1, 1) = 2.0 / (t - b);
-                        proj(1, 3) = -(t + b) / (t - b);
-                        proj(2, 2) = -2.0 / (f - n);
-                        proj(2, 3) = -(f + n) / (f - n);
-                        proj(3, 3) = 1.0;
-
-                        Core::Matrix4 view;
-                        Core::Vector3 N = static_cast<SpotLight*>(light)->getDirection().normalized();
-                        Core::Vector3 U = (Core::Vector3::UnitY().cross(N)).normalized();
-                        Core::Vector3 V = N.cross(U);
-
-                        view.block<3, 1>(0, 0) = U;
-                        view.block<3, 1>(1, 0) = V;
-                        view.block<3, 1>(2, 0) = N;
-                        view(3, 3) = 1.0;
+                        SpotLight* sl = static_cast<SpotLight*>(light);
+                        Core::Matrix4 proj = Core::MatrixUtils::perspective(20.0, (Scalar)m_width / m_height, 1.0, 50.0);
+                        Core::Matrix4 view = Core::MatrixUtils::lookAt(sl->getPosition(), sl->getPosition() + sl->getDirection(), Core::Vector3::UnitY());
 
                         Core::Matrix4 lightMat = proj * view;
-                        m_lightMatrices[i] = lightMat;
 
                         for (const auto& ro : m_fancyRenderObjects)
                         {
