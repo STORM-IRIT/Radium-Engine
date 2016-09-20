@@ -187,10 +187,6 @@ namespace Core
         {
             Matrix4 result = Matrix4::Zero();
 
-            Scalar lr = r - l;
-            Scalar bt = t - b;
-            Scalar nf = f - n;
-
             result(0, 0) =  2.0 / (r - l);
             result(1, 1) =  2.0 / (t - b);
             result(2, 2) = -2.0 / (f - n);
