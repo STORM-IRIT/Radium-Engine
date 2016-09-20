@@ -51,14 +51,25 @@ namespace Ra
                 Core::Transform transform;
             };
 
-            void renderLines(const Core::Matrix4& view, const Core::Matrix4& proj);
-            void renderPoints(const Core::Matrix4& view, const Core::Matrix4& proj);
-            void renderMeshes(const Core::Matrix4& view, const Core::Matrix4& proj);
+            void renderLines(const Core::Matrix4f& view, const Core::Matrix4f& proj);
+            void renderPoints(const Core::Matrix4f& view, const Core::Matrix4f& proj);
+            void renderMeshes(const Core::Matrix4f& view, const Core::Matrix4f& proj);
 
         private:
-            const ShaderProgram* m_lineShader;
-            const ShaderProgram* m_pointShader;
-            const ShaderProgram* m_plainShader;
+            uint m_lineProg;
+            uint m_pointProg;
+            uint m_meshProg;
+            
+            uint m_modelLineLoc;
+            uint m_viewLineLoc;
+            uint m_projLineLoc;
+            
+            uint m_modelMeshLoc;
+            uint m_viewMeshLoc;
+            uint m_projMeshLoc;
+            
+            uint m_viewPointLoc;
+            uint m_projPointLoc;
 
             std::vector<Line> m_lines;
             std::vector<DbgMesh> m_meshes;

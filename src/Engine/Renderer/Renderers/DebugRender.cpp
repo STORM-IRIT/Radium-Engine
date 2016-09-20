@@ -10,7 +10,6 @@ namespace Ra
     namespace Engine
     {
         DebugRender::DebugRender()
-            : m_lineShader(nullptr)
         {
         }
 
@@ -20,27 +19,122 @@ namespace Ra
 
         void DebugRender::initialize()
         {
-            m_lineShader    = ShaderProgramManager::getInstance()->addShaderProgram("DebugLine", "../Shaders/DebugLine.vert.glsl", "../Shaders/DebugLine.frag.glsl");
-            m_pointShader   = ShaderProgramManager::getInstance()->addShaderProgram("DebugPoint", "../Shaders/DebugPoint.vert.glsl", "../Shaders/DebugPoint.frag.glsl");
-            m_plainShader   = ShaderProgramManager::getInstance()->addShaderProgram("Plain", "../Shaders/Plain.vert.glsl", "../Shaders/Plain.frag.glsl");
+            auto createProgram = [](const char* vertStr, const char* fragStr) -> uint
+            {
+                uint prog = glCreateProgram();
+                
+                uint vert = glCreateShader(GL_VERTEX_SHADER);
+                glShaderSource(vert, 1, &vertStr, 0);
+                glCompileShader(vert);
+                
+                uint frag = glCreateShader(GL_FRAGMENT_SHADER);
+                glShaderSource(frag, 1, &fragStr, 0);
+                glCompileShader(frag);
+                
+                glAttachShader(prog, vert);
+                glAttachShader(prog, frag);
+                glLinkProgram(prog);
+                
+                glDetachShader(prog, vert);
+                glDetachShader(prog, frag);
+                
+                glDeleteShader(vert);
+                glDeleteShader(frag);
+                
+                return prog;
+            };
+        
+            const char* lineVertStr =
+                "#version 410\n"
+                "layout(location = 0) in vec3 in_pos;\n"
+                "layout(location = 5) in vec3 in_col;\n"
+                "uniform mat4 model;\n"
+                "uniform mat4 view;\n"
+                "uniform mat4 proj;\n"
+                "layout(location = 0) out vec3 out_color;\n"
+                "void main() {\n"
+                "    gl_Position = proj * view * model * vec4(in_pos, 1.0);\n"
+                "    out_color = in_col;\n"
+                "}\n";
+            
+            const char* lineFragStr =
+                "#version 410\n"
+                "layout(location = 0) in vec3 in_col;\n"
+                "layout(location = 0) out vec4 out_col;\n"
+                "void main() {\n"
+                "    out_col = vec4(in_col, 1.0);\n"
+                "}\n";
+            
+            m_lineProg = createProgram(lineVertStr, lineFragStr);
+            
+            m_modelLineLoc = glGetUniformLocation(m_lineProg, "model");
+            m_viewLineLoc  = glGetUniformLocation(m_lineProg, "view");
+            m_projLineLoc  = glGetUniformLocation(m_lineProg, "proj");
+           
+            static const char* pointVertStr =
+                "#version 410\n"
+                "layout (location = 0) in vec3 in_pos;\n"
+                "layout (location = 1) in vec3 in_col;\n"
+                "uniform mat4 view;\n"
+                "uniform mat4 proj;\n"
+                "layout(location = 0) out vec3 out_col;\n"
+                "void main() {\n"
+                "    gl_Position = proj * view * vec4(in_pos, 1.0);\n"
+                "    out_col = in_col;\n"
+                "    gl_PointSize = 40 / gl_Position.w;\n"
+                "}\n";
+            
+            static const char* pointFragStr =
+                "#version 410\n"
+                "layout(location = 0) in vec3 in_col;\n"
+                "layout(location = 0) out vec4 out_col;\n"
+                "void main() {\n"
+                "    out_col = vec4(in_col, 1.0);\n"
+                "}\n";
+            
+            m_pointProg = createProgram(pointVertStr, pointFragStr);
+            
+            m_viewPointLoc = glGetUniformLocation(m_pointProg, "view");
+            m_projPointLoc = glGetUniformLocation(m_pointProg, "proj");
+                                                  
+            static const char* meshVertStr =
+                "#version 410\n"
+                "layout(location = 0) in vec3 in_pos;\n"
+                "layout(location = 5) in vec3 in_col;\n"
+                "uniform mat4 model;\n"
+                "uniform mat4 view;\n"
+                "uniform mat4 proj;\n"
+                "layout(location = 0) out vec3 out_col;\n"
+                "void main() {\n"
+                "    gl_Position = proj * view * model * vec4(in_pos, 1.0);\n"
+                "    out_col = in_col;\n"
+                "}\n";
+            
+            static const char* meshFragStr =
+                "#version 410\n"
+                "layout(location = 0) in vec3 in_col;\n"
+                "layout (location = 0) out vec4 out_col;\n"
+                "void main() {\n"
+                "    out_col = vec4(in_col, 1.0);\n"
+                "}\n";
+            
+            m_meshProg = createProgram(meshVertStr, meshFragStr);
+            
+            m_modelMeshLoc = glGetUniformLocation(m_meshProg, "model");
+            m_viewMeshLoc  = glGetUniformLocation(m_meshProg, "view");
+            m_projMeshLoc  = glGetUniformLocation(m_meshProg, "proj");
         }
 
         void DebugRender::render(const Core::Matrix4& viewMatrix,
                                  const Core::Matrix4& projMatrix)
         {
-            renderLines(viewMatrix, projMatrix);
-            renderPoints(viewMatrix, projMatrix);
-            renderMeshes(viewMatrix, projMatrix);
+            renderLines(viewMatrix.cast<float>(), projMatrix.cast<float>());
+            renderPoints(viewMatrix.cast<float>(), projMatrix.cast<float>());
+            renderMeshes(viewMatrix.cast<float>(), projMatrix.cast<float>());
         }
 
-        void DebugRender::renderLines(const Core::Matrix4& viewMatrix, const Core::Matrix4& projMatrix)
+        void DebugRender::renderLines(const Core::Matrix4f& viewMatrix, const Core::Matrix4f& projMatrix)
         {
-            if (nullptr == m_lineShader)
-            {
-                m_lines.clear();
-                return;
-            }
-
             Core::Vector3Array vertices;
             Core::Vector4Array colors;
             std::vector<GLuint>  indices;
@@ -59,11 +153,12 @@ namespace Ra
 
             if (vertices.size() > 0)
             {
-                Core::Matrix4 id = Core::Matrix4::Identity();
-                m_lineShader->bind();
-                m_lineShader->setUniform("model", id);
-                m_lineShader->setUniform("view", viewMatrix);
-                m_lineShader->setUniform("proj", projMatrix);
+                const Core::Matrix4f id = Core::Matrix4f::Identity();
+                
+                glUseProgram(m_lineProg);
+                glUniformMatrix4fv(m_modelLineLoc, 1, GL_FALSE, id.data());
+                glUniformMatrix4fv(m_viewLineLoc, 1, GL_FALSE, viewMatrix.data());
+                glUniformMatrix4fv(m_projLineLoc, 1, GL_FALSE, projMatrix.data());
 
                 Mesh mesh("temp", GL_LINES);
                 mesh.loadGeometry(vertices, indices);
@@ -75,15 +170,8 @@ namespace Ra
             m_lines.clear();
         }
 
-        void DebugRender::renderPoints(const Core::Matrix4& viewMatrix, const Core::Matrix4& projMatrix)
+        void DebugRender::renderPoints(const Core::Matrix4f& viewMatrix, const Core::Matrix4f& projMatrix)
         {
-            if (nullptr == m_pointShader)
-            {
-                m_points.clear();
-
-                return;
-            }
-
             uint size = m_points.size();
             if (0 == size)
             {
@@ -111,9 +199,9 @@ namespace Ra
             glEnableVertexAttribArray(1);
 
             glEnable(GL_PROGRAM_POINT_SIZE);
-            m_pointShader->bind();
-            m_pointShader->setUniform("view", viewMatrix);
-            m_pointShader->setUniform("proj", projMatrix);
+            glUseProgram(m_pointProg);
+            glUniformMatrix4fv(m_viewPointLoc, 1, GL_FALSE, viewMatrix.data());
+            glUniformMatrix4fv(m_projPointLoc, 1, GL_FALSE, projMatrix.data());
 
             glDrawArrays(GL_POINTS, 0, size);
             glDisable(GL_PROGRAM_POINT_SIZE);
@@ -125,7 +213,7 @@ namespace Ra
             m_points.clear();
         }
 
-        void DebugRender::renderMeshes(const Core::Matrix4 &view, const Core::Matrix4 &proj)
+        void DebugRender::renderMeshes(const Core::Matrix4f &view, const Core::Matrix4f &proj)
         {
             if (m_meshes.empty())
             {
@@ -134,25 +222,34 @@ namespace Ra
 
             // Avoid too much states change
             uint idx = 0;
-            std::sort(m_meshes.begin(), m_meshes.end(), [](const DbgMesh& a, const DbgMesh& b) -> bool { return a.mesh->getRenderMode() < b.mesh->getRenderMode(); });
+            std::sort(m_meshes.begin(), m_meshes.end(),
+                      [](const DbgMesh& a, const DbgMesh& b) -> bool
+                      {
+                          return a.mesh->getRenderMode() < b.mesh->getRenderMode();
+                      });
+                      
             for (; idx < m_meshes.size() && m_meshes[idx].mesh->getRenderMode() != GL_TRIANGLES; ++idx);
 
-            m_lineShader->bind();
-            m_lineShader->setUniform("view", view);
-            m_lineShader->setUniform("proj", proj);
+            glUseProgram(m_lineProg);
+            glUniformMatrix4fv(m_viewLineLoc, 1, GL_FALSE, view.data());
+            glUniformMatrix4fv(m_projLineLoc, 1, GL_FALSE, proj.data());
+
             for (uint i = 0; i < idx; ++i)
             {
-                m_lineShader->setUniform("model", m_meshes[i].transform.matrix());
+                Core::Matrix4f model = m_meshes[i].transform.matrix().cast<float>();
+                glUniformMatrix4fv(m_modelLineLoc, 1, GL_FALSE, model.data());
                 m_meshes[i].mesh->updateGL();
                 m_meshes[i].mesh->render();
             }
 
-            m_plainShader->bind();
-            m_plainShader->setUniform("transform.view", view);
-            m_plainShader->setUniform("transform.proj", proj);
+            glUseProgram(m_meshProg);
+            glUniformMatrix4fv(m_viewMeshLoc, 1, GL_FALSE, view.data());
+            glUniformMatrix4fv(m_projMeshLoc, 1, GL_FALSE, proj.data());
+            
             for (uint i = idx; i < m_meshes.size(); ++i)
             {
-                m_plainShader->setUniform("transform.model", m_meshes[i].transform.matrix());
+                Core::Matrix4f model = m_meshes[i].transform.matrix().cast<float>();
+                glUniformMatrix4fv(m_modelMeshLoc, 1, GL_FALSE, model.data());
                 m_meshes[i].mesh->updateGL();
                 m_meshes[i].mesh->render();
             }
@@ -161,7 +258,7 @@ namespace Ra
         }
 
         void DebugRender::addLine(const Core::Vector3& from,
-                                   const Core::Vector3& to, 
+                                   const Core::Vector3& to,
                                    const Core::Color& color)
         {
             Line l(from, to, color);

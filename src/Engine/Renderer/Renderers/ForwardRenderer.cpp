@@ -129,6 +129,20 @@ namespace Ra
 #ifndef NO_TRANSPARENCY
             m_transparentRenderObjects.clear();
 
+            for (auto it = m_fancyRenderObjects.begin(); it != m_fancyRenderObjects.end();)
+            {
+                std::shared_ptr<RenderObject> ro = *it;
+                if (ro->isTransparent())
+                {
+                    m_transparentRenderObjects.push_back(ro);
+                    it = m_fancyRenderObjects.erase(it);
+                }
+                else
+                {
+                    ++it;
+                }
+            }
+            
             m_fancyTransparentCount = m_transparentRenderObjects.size();
             
             //Ra::Core::remove_copy_if(m_debugRenderObjects, m_transparentRenderObjects,
