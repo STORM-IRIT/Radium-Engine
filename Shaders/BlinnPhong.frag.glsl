@@ -18,7 +18,7 @@ in VS_OUT
 
 #include "LightingFunctions.glsl"
 
-float Shadow()
+float InShadow()
 {
     vec3 proj_coords = fs_in.position_light_space.xyz / fs_in.position_light_space.w;
     proj_coords = proj_coords * 0.5 + 0.5;
@@ -34,8 +34,8 @@ void main()
 {
     if (toDiscard()) discard;
 
-    vec3 color = getKd() * 0.1 + (1 - Shadow()) * computeLighting();
-    //vec3 color = vec3(1 - Shadow());
+    //vec3 color = getKd() * 0.1 + (1 - Shadow()) * computeLighting();
+    vec3 color = computeLighting();
 
     fragColor = vec4(color, 1.0);
 }
