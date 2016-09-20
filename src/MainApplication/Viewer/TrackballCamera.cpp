@@ -337,7 +337,7 @@ namespace Ra
 
     void Gui::TrackballCamera::handleCameraZoom( Scalar dx, Scalar dy )
     {
-        handleCameraZoom(Ra::Core::Math::sign(dx) * (abs(dx) + abs(dy)));
+        handleCameraZoom(Ra::Core::Math::sign(dx) * (std::abs(dx) + std::abs(dy)));
     }
 
     void Gui::TrackballCamera::handleCameraZoom( Scalar z )
