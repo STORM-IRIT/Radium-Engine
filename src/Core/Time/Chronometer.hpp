@@ -69,9 +69,9 @@ public:
      */
     template< class Function, class... Args >
     inline void run( Function&& f, Args&&... args ) {
-        m_start = Timer::Clock::now();
+        m_start = Clock::now();
         f( args ... );
-        m_end = Timer::Clock::now();
+        m_end = Clock::now();
     }
 
     /**
@@ -83,10 +83,28 @@ public:
     template < typename ReturnType, class Function,  class ... Args >
     inline ReturnType run( Function&& f, Args ... args ) {
         // TODO //static_assert( /*check if ReturnType is equal to Function return type*/, "RETURN_TYPE_DO_NOT_MATCH_FUNCTION_RETURN_TYPE" );
-        m_start        = Timer::Clock::now();
+        m_start        = Clock::now();
         ReturnType res = f( args ... );
-        m_end          = Timer::Clock::now();
+        m_end          = Clock::now();
         return res;
+    }
+
+    /**
+     *    @brief Run the given function f( args ... ) n Times and compute the average timing.
+     *    @param f                  The function to be timed.
+     *    @param args               The parameters of f.
+     *    @return The average time of f( args ... ) in microseconds.
+     */
+    template< std::size_t Times, class Function, class... Args >
+    inline MicroSeconds test( Function&& f, Args&&... args ) {
+        MicroSeconds avg = 0;
+        for( std::size_t i = 0; i < Times; ++i ) {
+            m_start = Clock::now();
+            f( args ... );
+            m_end = Clock::now();
+            avg += getIntervalMicro( m_start, m_end );
+        }
+        return ( avg / Times );
     }
 
 
@@ -95,16 +113,16 @@ public:
      *    @brief Return the elapsed time for last call of run in microseconds.
      *    @return The elapsed time in microseconds.
      */
-    inline long elapsedMicroSeconds() const {
-        return Timer::getIntervalMicro( m_start, m_end );
+    inline MicroSeconds elapsedMicroSeconds() const {
+        return getIntervalMicro( m_start, m_end );
     }
 
     /**
      *    @brief Return the elapsed time for last call of run in seconds.
      *    @return The elapsed time in seconds.
      */
-    inline Scalar elapsedSeconds() const {
-        return Timer::getIntervalSeconds( m_start, m_end );
+    inline Seconds elapsedSeconds() const {
+        return getIntervalSeconds( m_start, m_end );
     }
 
 
@@ -139,8 +157,8 @@ public:
 
 protected:
     /// VARIABLE
-    Timer::TimePoint m_start; ///< Time at the beginning of the function.
-    Timer::TimePoint m_end;   ///< Time after running the function.
+    TimePoint m_start; ///< Time at the beginning of the function.
+    TimePoint m_end;   ///< Time after running the function.
 };
 
 
