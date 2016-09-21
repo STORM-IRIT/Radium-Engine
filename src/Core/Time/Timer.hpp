@@ -15,7 +15,7 @@ namespace Ra
             typedef long                                MicroSeconds;
             typedef Scalar                              Seconds;
             typedef std::chrono::high_resolution_clock  Clock;
-            typedef std::chrono::time_point<std::chrono::high_resolution_clock> TimePoint;
+            typedef std::chrono::time_point<Clock>      TimePoint;
 
             inline MicroSeconds getIntervalMicro( const TimePoint& start, const TimePoint& end )
             {

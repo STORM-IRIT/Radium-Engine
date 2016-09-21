@@ -104,7 +104,10 @@ public:
             m_end = Clock::now();
             avg += getIntervalMicro( m_start, m_end );
         }
-        return ( avg / Times );
+        avg /= Times;
+        m_start = Clock::now();
+        m_end   = m_start + std::chrono::microseconds(avg);
+        return avg;
     }
 
 
