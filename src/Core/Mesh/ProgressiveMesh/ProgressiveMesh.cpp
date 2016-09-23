@@ -209,10 +209,10 @@ namespace Ra
                 // if isEcolPossible !
 
                 FullEdge_ptr fe = m_dcel->m_fulledge[d.m_edge_id];
-                if (fe->HE()->Twin() == NULL) nbFaces -= 1;
-                else nbFaces -= 2;
+                //if (fe->HE()->Twin() == NULL) nbFaces -= 1;
+                //else nbFaces -= 2;
 
-                m_vsplits[nbVSplits] = DcelOperations::edgeCollapse(m_dcel, d.m_edge_id);
+                //m_vsplits[nbVSplits] = DcelOperations::edgeCollapse(*m_dcel, d.m_edge_id);
                 /*
                 updatePriorityQueue(p_queue, vl_id, -1);//
                 */
