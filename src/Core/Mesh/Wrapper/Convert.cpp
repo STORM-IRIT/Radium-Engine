@@ -137,12 +137,17 @@ void convertPM( const Dcel& dcel, TriangleMesh& mesh )
 
     const uint v_size = dcel.m_vertex.size();
     const uint f_size = dcel.m_face.size();
-    mesh.m_vertices.resize( v_size );  // ce n'est pas le bon nombre de sommet
-    mesh.m_normals.resize( v_size );   // ce n'est pas le bon nombre de sommet
-    mesh.m_triangles.resize( f_size ); // ce n'est pas le bon nombre de face
+//    mesh.m_vertices.resize( v_size );  // ce n'est pas le bon nombre de sommet
+//    mesh.m_normals.resize( v_size );   // ce n'est pas le bon nombre de sommet
+//    mesh.m_triangles.resize( f_size ); // ce n'est pas le bon nombre de face
     std::map< Index, uint > v_table;
     for( uint i = 0; i < v_size; ++i ) {
+
         const Vertex_ptr& v = dcel.m_vertex.at( i );
+
+        if (v->HE() == NULL) //meaning the vertex is deleted
+            continue;
+
         const Vector3 p = v->P();
         const Vector3 n = v->N();
         mesh.m_vertices[i] = p;
@@ -161,17 +166,6 @@ void convertPM( const Dcel& dcel, TriangleMesh& mesh )
         T[2] = v_table[ f->HE()->Prev()->V()->idx ];
         mesh.m_triangles[i] = T;
 
-        HalfEdge_ptr he = f->HE();
-        for (uint j = 0; j < 3; j++)
-        {
-            const Vertex_ptr& v = he->V();
-            uint vId = v->idx;
-            const Vector3 p = v->P();
-            const Vector3 n = v->N();
-            mesh.m_vertices[vId] = p;
-            mesh.m_normals[vId]  = n;
-            v_table[ v->idx ] = i;  // revoir
-        }
     }
 }
 
