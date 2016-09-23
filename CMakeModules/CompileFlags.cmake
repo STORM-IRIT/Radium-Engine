@@ -3,7 +3,7 @@
 # Compilation flag for each platforms =========================================
 
 if (APPLE)
-  # No openmp on MacosX Clang (TODO, find better compiler identification)
+    # No openmp on MacosX Clang (TODO, find better compiler identification)
     set(CMAKE_CXX_STANDARD 14)
     set(CMAKE_CXX_FLAGS                "-Wall -Wextra -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions ${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
@@ -115,4 +115,3 @@ set( VALID_CMAKE_BUILD_TYPES "Debug Release RelWithDebInfo" )
 if ( NOT "${VALID_CMAKE_BUILD_TYPES}" MATCHES ${CMAKE_BUILD_TYPE} )
     set( CMAKE_BUILD_TYPE Debug )
 endif()
-

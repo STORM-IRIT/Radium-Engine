@@ -70,6 +70,7 @@ bin-debug/
 lib-debug/
 bin/
 lib/
+include/
 
 # Mercurial stuff (e.g from Eigen)
 .hg*
