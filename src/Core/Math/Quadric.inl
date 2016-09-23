@@ -5,20 +5,20 @@ namespace Ra
     namespace Core
     {
 
-        inline const Matrix3d& Quadric::getA() const
+        inline const Matrix3& Quadric::getA() const
         {
             return m_a;
         }
-        inline void Quadric::setA(const Eigen::Matrix3d &a)
+        inline void Quadric::setA(const Matrix3 &a)
         {
             m_a = a;
         }
 
-        inline const Vector3d& Quadric::getB() const
+        inline const Vector3& Quadric::getB() const
         {
             return m_b;
         }
-        inline void Quadric::setB(const Vector3d &b)
+        inline void Quadric::setB(const Vector3 &b)
         {
             m_b = b;
         }
