@@ -33,7 +33,7 @@ namespace Skinning
         Ra::Core::Vector3Array m_CoR;
     };
 
-    /// Pose data of one frame
+    /// Pose data of one frame. Poses are in model space
     struct FrameData
     {
         /// Pose of the previous frame.
