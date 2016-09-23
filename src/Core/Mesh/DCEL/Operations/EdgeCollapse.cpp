@@ -44,12 +44,12 @@ void edgeCollapse( Dcel& dcel, Index edgeIndex /*,Vector3d v*/ ) //v=v1+v2/2
     //On met à jour les twins half-edge
     HalfEdge_ptr e1 = (h1->Prev())->Twin();
     HalfEdge_ptr e2 = (h1->Next())->Twin();
-    e1.setTwin(e2);
-    e2.setTwin(e1);
+    e1->setTwin(e2);
+    e2->setTwin(e1);
     HalfEdge_ptr e3 = (h2->Prev())->Twin();
     HalfEdge_ptr e4 = (h2->Next())->Twin();
-    e3.setTwin(e4);
-    e4.setTwin(e3);
+    e3->setTwin(e4);
+    e4->setTwin(e3);
 
     //gérer les half-edges, full-edges et faces
 
