@@ -45,7 +45,7 @@ namespace Ra
             inline Index& operator= ( const Index& id );
             inline Index& operator++();
             inline Index& operator--();
-            inline operator int()
+            inline operator int() const
             {
                 return m_idx;
             }
