@@ -56,7 +56,7 @@ namespace Ra
             Vertex_ptr vt = edge->V(1);
 
             // We go all over the faces which contain vs and vt
-            // We add the quadrics of all this faces
+            // We add the quadrics of all the faces
 
             // Beware : particular cases for going through all the adjacent faces
             // = : border
@@ -74,6 +74,16 @@ namespace Ra
                                   B
               */
 
+            HalfEdge_ptr halfEdge0 = edge->HE(0);
+            HalfEdge_ptr halfEdge1 = edge->HE(1);
+            HalfEdge_ptr halfEdge0Next = halfEdge0->Next();
+            HalfEdge_ptr halfEdge1Prev = halfEdge1->Prev();
+
+            while (halfEdge0Next->F() != halfEdge1Prev->F())
+            {
+
+
+            }
 
             /*
             Quadric q0;
@@ -155,7 +165,7 @@ namespace Ra
             //  e0    x   x
             //  e1        x
             //  e2
-            // Il y a sûrement moyen de faire quelquechose de plus intelligent
+            // Il y a sûrement moyen de faire quelquechose de plus intelligent...
             int edgeProcessedSize = ind(numVertices - 1, numVertices - 1, numVertices) + 1;
             std::vector<bool> edgeProcessed(edgeProcessedSize, false);
 
@@ -186,6 +196,23 @@ namespace Ra
             return pQueue;
         }
 
+        void ProgressiveMesh::updatePriorityQueue(PriorityQueue &pQueue, int vsId, int vtId, int edgeId)
+        {
+            // on supprime de la file toutes les arêtes qui contiennent vs_id ou vt_id
+            pQueue.removeEdges(vsId);
+            if (vtId != -1)
+                pQueue.removeEdges(vtId);
+
+            // parcours des arêtes autour de edgeId
+
+
+
+
+            //p_queue.display();
+        }
+
+
+
         //--------------------------------------------------
 
         void ProgressiveMesh::constructM0(int targetNbFaces)
@@ -209,13 +236,15 @@ namespace Ra
                 // if isEcolPossible !
 
                 FullEdge_ptr fe = m_dcel->m_fulledge[d.m_edge_id];
-                //if (fe->HE()->Twin() == NULL) nbFaces -= 1;
-                //else nbFaces -= 2;
+                if (fe->HE(0) == NULL || fe->HE(1) == NULL) nbFaces -= 1;
+                else nbFaces -= 2;
 
                 //m_vsplits[nbVSplits] = DcelOperations::edgeCollapse(*m_dcel, d.m_edge_id);
                 /*
+                updateQuadrics();
                 updatePriorityQueue(p_queue, vl_id, -1);//
                 */
+                nbVSplits++;
             }
             delete[](m_quadrics);
         }

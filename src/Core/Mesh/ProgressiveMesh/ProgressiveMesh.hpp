@@ -31,6 +31,7 @@ namespace Ra
             /// We construct a priority queue with an error for each
             /// edge
             PriorityQueue constructPriorityQueue();
+            void updatePriorityQueue(PriorityQueue &pQueue, int vsId, int vtId, int edgeId);
 
             /// Construction of the coarser mesh
             void constructM0(int targetNbFaces);
