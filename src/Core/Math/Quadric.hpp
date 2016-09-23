@@ -32,7 +32,7 @@ namespace Ra
             Quadric();
 
             /// Construct and initialize a quadric.
-            Quadric(Matrix3d a, Vector3d b, double c) : m_a(a), m_b(b), m_c(c) {}
+            Quadric(Matrix3 a, Vector3 b, double c) : m_a(a), m_b(b), m_c(c) {}
 
             /// Construct a quadric from an other.
             Quadric(const Quadric &q);
@@ -41,18 +41,18 @@ namespace Ra
 
             /// Getters and setters
 
-            inline const Matrix3d& getA() const;
-            inline void setA(const Matrix3d &a);
+            inline const Matrix3& getA() const;
+            inline void setA(const Matrix3 &a);
 
-            inline const Vector3d& getB() const;
-            inline void setB(const Vector3d &b);
+            inline const Vector3& getB() const;
+            inline void setB(const Vector3 &b);
 
             inline const double & getC() const;
             inline void setC(const double &c);
 
             /// Create a quadric from a normal vector n and the scalar which
             /// represent the distance from the plane of normal n to the origin
-            void compute(const Vector3d& n, double ndotp);
+            void compute(const Vector3& n, double ndotp);
 
             /// Operators
 
@@ -64,8 +64,8 @@ namespace Ra
 
         private:
 
-            Matrix3d m_a;
-            Vector3d m_b;
+            Matrix3 m_a;
+            Vector3 m_b;
             double m_c;
         };
 

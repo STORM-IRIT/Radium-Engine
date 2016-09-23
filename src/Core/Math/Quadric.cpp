@@ -7,8 +7,8 @@ namespace Ra
 
         Quadric::Quadric()
         {
-            m_a = Matrix3d::Zero();
-            m_b = Vector3d::Zero();
+            m_a = Matrix3::Zero();
+            m_b = Vector3::Zero();
             m_c = 0.0;
         }
 
@@ -22,7 +22,7 @@ namespace Ra
 
         Quadric::~Quadric() {}
 
-        void Quadric::compute(const Vector3d& n, double ndotp)
+        void Quadric::compute(const Vector3& n, double ndotp)
         {
             for (int i = 0; i < 3; i++)
             {
