@@ -128,6 +128,7 @@ namespace Ra
                             result.m_nearestVertex = mesh.m_triangles[result.m_hitTriangle][i];
                         }
                     }
+                    result.m_t = minT;
 
                 }
 

@@ -218,6 +218,7 @@ namespace FancyMeshPlugin
         {
             LOG(logINFO) << " Hit triangle " << tidx;
             LOG(logINFO) << " Nearest vertex " << result.m_nearestVertex;
+            LOG(logINFO) << "Hit position : "<< r.pointAt( result.m_t ).transpose();
         }
     }
 

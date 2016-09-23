@@ -214,10 +214,10 @@ namespace Ra
                 for (uint i = 0; i < nFaces; ++i)
                 {
                     const Scalar theta = i * thetaInc;
-                    // Even indices are A circle and odd indices are B circle.                    
+                    // Even indices are A circle and odd indices are B circle.
                     Scalar x = std::cos(theta) * radius;
-                    Scalar y = std::sin(theta) * radius;                    
-                    
+                    Scalar y = std::sin(theta) * radius;
+
                     result.m_vertices.push_back(Vector3(x, y, -l));
                     result.m_vertices.push_back(Vector3(x, y, 0.0));
                     result.m_vertices.push_back(Vector3(x, y, l));
@@ -236,24 +236,24 @@ namespace Ra
                     result.m_triangles.push_back(Triangle( br, mr, ml ));
 
                     result.m_triangles.push_back(Triangle( ml, mr, tl ));
-                    result.m_triangles.push_back(Triangle( mr, tr, tl ));                    
+                    result.m_triangles.push_back(Triangle( mr, tr, tl ));
                 }
 
                 const Scalar phiInc = Core::Math::Pi / Scalar(nFaces);
-                
-                uint vert_count = result.m_vertices.size();                
+
+                uint vert_count = result.m_vertices.size();
                 for (uint j = 1; j <= nFaces / 2; ++j)
                 {
                     const Scalar phi = Core::Math::PiDiv2 + j * phiInc;
-                    
+
                     for (uint i = 0; i < nFaces; ++i)
                     {
                         const Scalar theta = i * thetaInc;
-                        
+
                         const Scalar x = radius * std::cos(theta) * std::sin(phi);
                         const Scalar y = radius * std::sin(theta) * std::sin(phi);
                         const Scalar z = radius * std::cos(phi);
-                        
+
                         result.m_vertices.push_back(Vector3(x, y, z - l));
                     }
                 }
@@ -263,14 +263,14 @@ namespace Ra
                 {
                     uint bl = 3 * i;
                     uint br = 3 * ((i + 1) % nFaces);
-                    
+
                     uint tl = vert_count + i;
                     uint tr = vert_count + (i + 1) % nFaces;
-                    
+
                     result.m_triangles.push_back(Triangle(br, bl, tl));
                     result.m_triangles.push_back(Triangle(br, tl, tr));
                 }
-                
+
                 // Other rings
                 for (uint j = 0; j < (nFaces / 2) - 1; ++j)
                 {
@@ -278,10 +278,10 @@ namespace Ra
                     {
                         uint bl = vert_count + j * nFaces + i;
                         uint br = vert_count + j * nFaces + (i + 1) % nFaces;
-                        
+
                         uint tl = vert_count + (j + 1) * nFaces + i;
                         uint tr = vert_count + (j + 1) * nFaces + (i + 1) % nFaces;
-                        
+
                         result.m_triangles.push_back(Triangle(br, bl, tl));
                         result.m_triangles.push_back(Triangle(br, tl, tr));
                     }
@@ -291,15 +291,15 @@ namespace Ra
                 for (uint j = 1; j <= nFaces / 2; ++j)
                 {
                     const Scalar phi = Core::Math::PiDiv2 - j * phiInc;
-                    
+
                     for (uint i = 0; i < nFaces; ++i)
                     {
                         const Scalar theta = i * thetaInc;
-                        
+
                         const Scalar x = radius * std::cos(theta) * std::sin(phi);
                         const Scalar y = radius * std::sin(theta) * std::sin(phi);
                         const Scalar z = radius * std::cos(phi);
-                        
+
                         result.m_vertices.push_back(Vector3(x, y, z + l));
                     }
                 }
@@ -309,14 +309,14 @@ namespace Ra
                 {
                     uint bl = 3 * i + 2;
                     uint br = 3 * ((i + 1) % nFaces) + 2;
-                    
+
                     uint tl = vert_count + i;
                     uint tr = vert_count + (i + 1) % nFaces;
-                    
+
                     result.m_triangles.push_back(Triangle(bl, br, tl));
                     result.m_triangles.push_back(Triangle(br, tr, tl));
                 }
-                
+
                 // Other rings
                 for (uint j = 0; j < (nFaces / 2) - 1; ++j)
                 {
@@ -324,20 +324,20 @@ namespace Ra
                     {
                         uint bl = vert_count + j * nFaces + i;
                         uint br = vert_count + j * nFaces + (i + 1) % nFaces;
-                        
+
                         uint tl = vert_count + (j + 1) * nFaces + i;
                         uint tr = vert_count + (j + 1) * nFaces + (i + 1) % nFaces;
-                        
+
                         result.m_triangles.push_back(Triangle(bl, br, tl));
                         result.m_triangles.push_back(Triangle(br, tr, tl));
                     }
-                }                
-                
+                }
+
                 getAutoNormals(result, result.m_normals);
                 checkConsistency(result);
-                return result;                
+                return result;
             }
-            
+
             TriangleMesh makeTube(const Vector3& a, const Vector3& b, Scalar outerRadius, Scalar innerRadius, uint nFaces)
             {
 
