@@ -8,7 +8,7 @@
 namespace Ra {
 namespace Core {
 namespace DcelOperations {
-    RA_CORE_API void edgeCollapse( Dcel& dcel, Index edgeIndex , Vector3d v );
+    RA_CORE_API void edgeCollapse( Dcel& dcel, Index edgeIndex /*, Vector3d v*/ );
 }
 }
 }
