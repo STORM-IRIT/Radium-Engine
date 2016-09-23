@@ -11,6 +11,9 @@ set( USE_DOUBLE False CACHE BOOL "Use double precision" )
 set( USE_OMP    False CACHE BOOL "Use OpenMP")
 set( ENABLE_FANCY_GL True CACHE BOOL "Enable Fancy OpenGL effects" )
 
+# Set the external project assimp
+include(ExternalAssimp)
+
 # Set the compiler flags.
 include(CompileFlags)
 
