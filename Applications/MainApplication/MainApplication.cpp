@@ -184,6 +184,16 @@ namespace Ra
         Engine::SystemEntity::uiCmp()->addRenderObject(
                     Primitive(Engine::SystemEntity::uiCmp(), Frame(Ra::Core::Transform::Identity(), 0.05f)));
 
+
+        auto em =  Ra::Engine::RadiumEngine::getInstance()->getEntityManager();
+        Ra::Engine::Entity* e = em->entityExists("Test") ?
+            Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->getEntity("Test"):
+            Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity("Test");
+
+        for (auto& c: e->getComponents())
+        {
+            c->initialize();
+        }
     }
 
     void BaseApplication::loadFile( QString path )
@@ -251,6 +261,11 @@ namespace Ra
         lConfig.addShader(ShaderType_VERTEX, "../Shaders/Lines.vert.glsl");
         lConfig.addShader(ShaderType_FRAGMENT, "../Shaders/Lines.frag.glsl");
         ShaderConfigurationFactory::addConfiguration(lConfig);
+
+        ShaderConfiguration gdConfig("GradientDisplay");
+        lConfig.addShader(ShaderType_VERTEX, "../Shaders/GradientDisplay.vert.glsl");
+        lConfig.addShader(ShaderType_FRAGMENT, "../Shaders/GradientDisplay.frag.glsl");
+        ShaderConfigurationFactory::addConfiguration(gdConfig);
     }
 
     void BaseApplication::radiumFrame()

@@ -50,8 +50,23 @@ namespace Ra
                 typedef std::function<const T*(void)> Getter;
                 /// Function pointer for a setter function.
                 typedef std::function<void(const T*)> Setter;
+
                 /// Function pointer for a read/write getter.
                 typedef std::function<T*(void)> ReadWrite;
+
+
+                /// Calls the callback and retrieves the object
+                static const T& getHelper( const Getter& g ) { return *(g());}
+            };
+
+            template <typename T>
+            struct CallbackTypes<std::shared_ptr<T>>
+            {
+                typedef std::function<std::shared_ptr<const T>(void)> Getter;
+                typedef std::function<void(std::shared_ptr<const T>)> Setter;
+                typedef std::function<std::shared_ptr<T>(void)> ReadWrite;
+
+                static const std::shared_ptr<const T>& getHelper( const Getter& g) { return (g()); }
             };
 
         private:
@@ -121,11 +136,6 @@ namespace Ra
             template<typename ReturnType>
             inline const ReturnType& get(const Entity* entity, const std::string& id);
 
-            template<typename ReturnType>
-            inline void set(const Entity* entity, const std::string& id, const ReturnType& x);
-
-            template<typename ReturnType>
-            inline ReturnType& rw(const Entity* entity, const std::string& id);
 
 
             //
