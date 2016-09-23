@@ -20,7 +20,9 @@ namespace Ra
             constexpr Scalar Pi     = Scalar(3.14159265358979323846);   // pi
             constexpr Scalar InvPi  = Scalar(0.31830988618379067154);   // 1/pi
             constexpr Scalar PiDiv2 = Scalar(1.57079632679489661923);   // pi/2
+            constexpr Scalar PiDiv3 = Scalar(1.04719755119659774615);   // pi/3
             constexpr Scalar PiDiv4 = Scalar(0.78539816339744830962);   // pi/4
+            constexpr Scalar PiDiv6 = Scalar(0.52359877559829887307);   // pi/6
             constexpr Scalar PiMul2 = Scalar( 2 * Pi );                 // 2*pi
             constexpr Scalar toRad  = Scalar( Pi / 180.0 );
             constexpr Scalar toDeg  = Scalar( 180.0 * InvPi );
