@@ -44,7 +44,7 @@ inline bool FileManager< DATA, Binary >::load( const std::string& filename,
     addLogEntry( "File closed." );
     addLogEntry( "Loading " + filename + " ended." );
     if( SAVE_LOG_FILE ) {
-        saveLog( filename );
+        saveLog( filename + "_load" );
     }
     return status;
 }
@@ -73,7 +73,7 @@ inline bool FileManager< DATA, Binary >::save( const std::string& filename,
     addLogEntry( "File closed." );
     addLogEntry( "Saving " + filename + " ended." );
     if( SAVE_LOG_FILE ) {
-        saveLog( filename );
+        saveLog( filename + "_save" );
     }
     return status;
 }
