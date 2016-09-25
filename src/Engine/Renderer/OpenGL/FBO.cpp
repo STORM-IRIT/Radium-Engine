@@ -8,8 +8,8 @@
 namespace Ra
 {
 
-    Engine::FBO::FBO( Components components, uint width, uint height )
-        : m_components( components )
+    Engine::FBO::FBO(int components, uint width, uint height)
+        : m_components(components)
         , m_width( width ? width : 1 )
         , m_height( height ? height : 1 )
         , m_isBound( false )
@@ -50,33 +50,34 @@ namespace Ra
         }
     }
 
-    void Engine::FBO::attachTexture( uint attachment, Engine::Texture* texture, uint level )
+    void Engine::FBO::attachTexture(uint attachment, Engine::Texture* texture)
     {
         assert( m_isBound && "FBO must be bound to attach a texture." );
 
-        switch ( texture->getType() )
+        switch (texture->target)
         {
-            case Engine::Texture::TEXTURE_1D:
+            case GL_TEXTURE_1D:
             {
-                GL_ASSERT( glFramebufferTexture1D( GL_FRAMEBUFFER, attachment, texture->getTarget(),
-                                                   texture->getId(), level ) );
+                GL_ASSERT(glFramebufferTexture1D(GL_FRAMEBUFFER, attachment, texture->target, texture->getId(), 0));
             }
             break;
 
-            case Engine::Texture::TEXTURE_2D:
-            case Engine::Texture::TEXTURE_CUBE:
+            case GL_TEXTURE_2D:
             {
-                GL_ASSERT( glFramebufferTexture2D( GL_FRAMEBUFFER, attachment, texture->getTarget(),
-                                                   texture->getId(), level ) );
+                GL_ASSERT(glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, texture->target, texture->getId(), 0));
             }
             break;
 
-            case Engine::Texture::TEXTURE_3D:
+            case GL_TEXTURE_3D:
             {
-                GL_ASSERT( glFramebufferTexture3D( GL_FRAMEBUFFER, attachment, texture->getTarget(),
-                                                   texture->getId(), level, texture->getZOffset() ) );
+                GL_ASSERT(glFramebufferTexture3D(GL_FRAMEBUFFER, attachment, texture->target, texture->getId(), 0, 0));
             }
             break;
+
+            case GL_TEXTURE_CUBE_MAP:
+            {
+                CORE_ERROR("FBO do not handle cubemaps yet.");
+            } break;
         }
 
         m_textures[attachment] = texture;
@@ -90,26 +91,27 @@ namespace Ra
 
         Engine::Texture* texture = m_textures[attachment];
 
-        switch ( texture->getType() )
+        switch (texture->target)
         {
-            case Engine::Texture::TEXTURE_1D:
+            case GL_TEXTURE_1D:
             {
-                GL_ASSERT( glFramebufferTexture1D( GL_FRAMEBUFFER, attachment, 0, 0, 0 ) );
-            }
-            break;
+                GL_ASSERT(glFramebufferTexture1D(GL_FRAMEBUFFER, attachment, 0, 0, 0));
+            } break;
 
-            case Engine::Texture::TEXTURE_2D:
-            case Engine::Texture::TEXTURE_CUBE:
+            case GL_TEXTURE_2D:
             {
-                GL_ASSERT( glFramebufferTexture2D( GL_FRAMEBUFFER, attachment, 0, 0, 0 ) );
-            }
-            break;
+                GL_ASSERT(glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, 0, 0, 0));
+            } break;
 
-            case Engine::Texture::TEXTURE_3D:
+            case GL_TEXTURE_3D:
             {
                 GL_ASSERT( glFramebufferTexture3D( GL_FRAMEBUFFER, attachment, 0, 0, 0, 0 ) );
-            }
-            break;
+            } break;
+
+            case GL_TEXTURE_CUBE_MAP:
+            {
+                CORE_ERROR("FBO do not handle cubemaps yet.");
+            };
         }
 
         m_textures.erase( attachment );
@@ -183,25 +185,25 @@ namespace Ra
         m_height = height;
     }
 
-    void Engine::FBO::clear( Components components )
+    void Engine::FBO::clear( Component components )
     {
         assert( m_isBound && "FBO must be bound before calling clear()." );
 
-        Components nc = Components( m_components & components );
+        Component nc = Component( m_components & components );
 
         GLbitfield mask = 0;
 
-        if ( nc & COLOR )
+        if ( nc & Component_Color )
         {
             mask |= GL_COLOR_BUFFER_BIT;
         }
 
-        if ( nc & DEPTH )
+        if ( nc & Component_Depth )
         {
             mask |= GL_DEPTH_BUFFER_BIT;
         }
 
-        if ( nc & STENCIL )
+        if ( nc & Component_Stencil )
         {
             mask |= GL_STENCIL_BUFFER_BIT;
         }

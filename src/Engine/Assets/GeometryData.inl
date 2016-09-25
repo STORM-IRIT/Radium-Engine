@@ -225,19 +225,19 @@ namespace Ra {
                 case TETRA_MESH  : type = "TETRA MESH";    break;
                 case HEX_MESH    : type = "HEX MESH";      break;
             }
-            LOG( logDEBUG ) << "======== MESH INFO ========";
-            LOG( logDEBUG ) << " Name           : " << m_name;
-            LOG( logDEBUG ) << " Type           : " << type;
-            LOG( logDEBUG ) << " Vertex #       : " << m_vertex.size();
-            LOG( logDEBUG ) << " Edge #         : " << m_edge.size();
-            LOG( logDEBUG ) << " Face #         : " << m_faces.size();
-            LOG( logDEBUG ) << " Normal ?       : " << ( ( m_normal.empty()    ) ? "NO" : "YES" );
-            LOG( logDEBUG ) << " Tangent ?      : " << ( ( m_tangent.empty()   ) ? "NO" : "YES" );
-            LOG( logDEBUG ) << " Bitangent ?    : " << ( ( m_bitangent.empty() ) ? "NO" : "YES" );
-            LOG( logDEBUG ) << " Tex.Coord. ?   : " << ( ( m_texCoord.empty()  ) ? "NO" : "YES" );
-            LOG( logDEBUG ) << " Color ?        : " << ( ( m_color.empty()     ) ? "NO" : "YES" );
-            LOG( logDEBUG ) << " Material ?     : " << ( ( !m_hasMaterial      ) ? "NO" : "YES" );
-            LOG( logDEBUG ) << " Has Dup. Vert. : " << ( ( m_duplicateTable.size() == m_vertex.size() ) ? "NO" : "YES" );
+            LOG( logINFO ) << "======== MESH INFO ========";
+            LOG( logINFO ) << " Name           : " << m_name;
+            LOG( logINFO ) << " Type           : " << type;
+            LOG( logINFO ) << " Vertex #       : " << m_vertex.size();
+            LOG( logINFO ) << " Edge #         : " << m_edge.size();
+            LOG( logINFO ) << " Face #         : " << m_faces.size();
+            LOG( logINFO ) << " Normal ?       : " << ( ( m_normal.empty()    ) ? "NO" : "YES" );
+            LOG( logINFO ) << " Tangent ?      : " << ( ( m_tangent.empty()   ) ? "NO" : "YES" );
+            LOG( logINFO ) << " Bitangent ?    : " << ( ( m_bitangent.empty() ) ? "NO" : "YES" );
+            LOG( logINFO ) << " Tex.Coord. ?   : " << ( ( m_texCoord.empty()  ) ? "NO" : "YES" );
+            LOG( logINFO ) << " Color ?        : " << ( ( m_color.empty()     ) ? "NO" : "YES" );
+            LOG( logINFO ) << " Material ?     : " << ( ( !m_hasMaterial      ) ? "NO" : "YES" );
+            LOG( logINFO ) << " Has Dup. Vert. : " << ( ( m_duplicateTable.size() == m_vertex.size() ) ? "NO" : "YES" );
 
             if( m_hasMaterial ) {
                 std::string kd;
@@ -272,16 +272,16 @@ namespace Ra {
                     Core::StringUtils::stringPrintf(op, "%.15f", m_material.m_opacity);
                 }
 
-                LOG( logDEBUG ) << "======== MATERIAL INFO ========";
-                LOG( logDEBUG ) << " Kd             : " << ( m_material.hasDiffuse()          ? kd                        : "NO" );
-                LOG( logDEBUG ) << " Ks             : " << ( m_material.hasSpecular()         ? ks                        : "NO" );
-                LOG( logDEBUG ) << " Ns             : " << ( m_material.hasShininess()        ? ns                        : "NO" );
-                LOG( logDEBUG ) << " Opacity        : " << ( m_material.hasOpacity()          ? op                        : "NO" );
-                LOG( logDEBUG ) << " Kd Texture     : " << ( m_material.hasDiffuseTexture()   ? m_material.m_texDiffuse   : "NO" );
-                LOG( logDEBUG ) << " Ks Texture     : " << ( m_material.hasSpecularTexture()  ? m_material.m_texSpecular  : "NO" );
-                LOG( logDEBUG ) << " Ns Texture     : " << ( m_material.hasShininessTexture() ? m_material.m_texShininess : "NO" );
-                LOG( logDEBUG ) << " Normal Texture : " << ( m_material.hasNormalTexture()    ? m_material.m_texNormal    : "NO" );
-                LOG( logDEBUG ) << " Alpha Texture  : " << ( m_material.hasOpacityTexture()   ? m_material.m_texOpacity   : "NO" );
+                LOG( logINFO ) << "======== MATERIAL INFO ========";
+                LOG( logINFO ) << " Kd             : " << ( m_material.hasDiffuse()          ? kd                        : "NO" );
+                LOG( logINFO ) << " Ks             : " << ( m_material.hasSpecular()         ? ks                        : "NO" );
+                LOG( logINFO ) << " Ns             : " << ( m_material.hasShininess()        ? ns                        : "NO" );
+                LOG( logINFO ) << " Opacity        : " << ( m_material.hasOpacity()          ? op                        : "NO" );
+                LOG( logINFO ) << " Kd Texture     : " << ( m_material.hasDiffuseTexture()   ? m_material.m_texDiffuse   : "NO" );
+                LOG( logINFO ) << " Ks Texture     : " << ( m_material.hasSpecularTexture()  ? m_material.m_texSpecular  : "NO" );
+                LOG( logINFO ) << " Ns Texture     : " << ( m_material.hasShininessTexture() ? m_material.m_texShininess : "NO" );
+                LOG( logINFO ) << " Normal Texture : " << ( m_material.hasNormalTexture()    ? m_material.m_texNormal    : "NO" );
+                LOG( logINFO ) << " Alpha Texture  : " << ( m_material.hasOpacityTexture()   ? m_material.m_texOpacity   : "NO" );
             }
         }
 

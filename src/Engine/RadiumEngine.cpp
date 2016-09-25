@@ -104,7 +104,7 @@ namespace Ra
 
         bool RadiumEngine::loadFile( const std::string& filename )
         {
-            Asset::FileData fileData( filename, true );
+            Asset::FileData fileData( filename, false );
 
             std::string entityName = Core::StringUtils::getBaseName( filename, false );
 

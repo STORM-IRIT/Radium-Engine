@@ -96,12 +96,12 @@ inline void FileData::displayInfo() const {
     {
         vtxCount += geom->getVerticesSize();
     }
-    LOG( logDEBUG ) << "======== LOADING SUMMARY ========";
-    LOG( logDEBUG ) << "Mesh loaded        : " << m_geometryData.size();
-    LOG( logDEBUG ) << "Total vertex count : " << vtxCount;
-    LOG( logDEBUG ) << "Handle loaded      : " << m_handleData.size();
-    LOG( logDEBUG ) << "Animation loaded   : " << m_animationData.size();
-    LOG( logDEBUG ) << "Loading Time (sec) : " << m_loadingTime;
+    LOG(logINFO) << "======== LOADING SUMMARY ========";
+    LOG(logINFO) << "Mesh loaded        : " << m_geometryData.size();
+    LOG(logINFO) << "Total vertex count : " << vtxCount;
+    LOG(logINFO) << "Handle loaded      : " << m_handleData.size();
+    LOG(logINFO) << "Animation loaded   : " << m_animationData.size();
+    LOG(logINFO) << "Loading Time (sec) : " << m_loadingTime;
 }
 
 

@@ -16,7 +16,7 @@ vec3 blinnPhongInternal(vec3 d, vec3 n)
     float diffFactor = max(dot(normal, -direction), 0.0);
     vec3 diff = diffFactor * light.color.xyz * Kd;
 
-    vec3 viewDir = normalize(fs_in.position - fs_in.eye);
+    vec3 viewDir = normalize(in_position - in_eye);
     vec3 halfVec = normalize(viewDir + direction);
     float specFactor = pow(max(dot(normal, -halfVec), 0.0), Ns);
     vec3 spec = specFactor * light.color.xyz * Ks;
@@ -35,7 +35,7 @@ vec3 blinnPhongSpot()
                         light.spot.attenuation.quadratic * d * d;
     attenuation = 1.0 / attenuation;
 
-    vec3 lightToPixel = normalize(fs_in.position - light.spot.position);
+    vec3 lightToPixel = normalize(in_position - light.spot.position);
 
     float cosRealAngle = dot(lightToPixel, normalize(dir));
     float cosSpotOuter = cos(light.spot.innerAngle / 2.0);
@@ -49,7 +49,7 @@ vec3 blinnPhongSpot()
 
 vec3 blinnPhongPoint()
 {
-    vec3 dir = fs_in.position - light.point.position;
+    vec3 dir = in_position - light.point.position;
     vec3 color = blinnPhongInternal(normalize(dir), getNormal());
 
     float d = length(dir);

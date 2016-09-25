@@ -6,14 +6,11 @@ layout (location = 1) out vec4 f_Revealage;
 uniform Material material;
 uniform Light light;
 
-in VS_OUT
-{
-    vec3 position;
-    vec3 normal;
-    vec3 texcoord;
-    vec3 eye;
-    mat3 TBN;
-} fs_in;
+layout (location = 0) in vec3 in_position;
+layout (location = 1) in vec3 in_normal;
+layout (location = 2) in vec3 in_texcoord;
+layout (location = 3) in vec3 in_eye;
+layout (location = 4) in vec3 in_tangent;
 
 #include "LightingFunctions.glsl"
 
@@ -25,7 +22,7 @@ void main()
     }
     
     float a = material.alpha;
-    float z = -fs_in.position.z;
+    float z = -in_position.z;
     
     float va = (a + 0.01f);
     float va2 = va * va;

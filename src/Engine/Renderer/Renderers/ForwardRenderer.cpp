@@ -51,10 +51,7 @@ namespace Ra
         }
 
         ForwardRenderer::ForwardRenderer( uint width, uint height )
-            : Renderer( width, height )
-            , m_fbo( nullptr )
-            , m_postprocessFbo( nullptr )
-            , m_pingPongFbo(nullptr)
+            : Renderer(width, height)
         {
         }
 
@@ -75,12 +72,7 @@ namespace Ra
         void ForwardRenderer::initShaders()
         {
             m_shaderMgr->addShaderProgram("DepthMap", "../Shaders/DepthMap.vert.glsl", "../Shaders/DepthMap.frag.glsl");
-            m_shaderMgr->addShaderProgram("DepthAmbientPass", "../Shaders/DepthAmbientPass.vert.glsl", "../Shaders/DepthAmbientPass.frag.glsl");
-            m_shaderMgr->addShaderProgram("Luminance", "../Shaders/Basic2D.vert.glsl", "../Shaders/Luminance.frag.glsl");
-            m_shaderMgr->addShaderProgram("Tonemapping", "../Shaders/Basic2D.vert.glsl", "../Shaders/Tonemapping.frag.glsl");
-            m_shaderMgr->addShaderProgram("MinMax", "../Shaders/Basic2D.vert.glsl", "../Shaders/MinMax.frag.glsl");
-            m_shaderMgr->addShaderProgram("Highpass", "../Shaders/Basic2D.vert.glsl", "../Shaders/Highpass.frag.glsl");
-            m_shaderMgr->addShaderProgram("Blur", "../Shaders/Basic2D.vert.glsl", "../Shaders/Blur.frag.glsl");
+            m_shaderMgr->addShaderProgram("DepthAmbientPass", "../Shaders/BlinnPhong.vert.glsl", "../Shaders/DepthAmbientPass.frag.glsl");
             m_shaderMgr->addShaderProgram("FinalCompose", "../Shaders/Basic2D.vert.glsl", "../Shaders/FinalCompose.frag.glsl");
 #ifndef NO_TRANSPARENCY
             m_shaderMgr->addShaderProgram("LitOIT", "../Shaders/BlinnPhong.vert.glsl", "../Shaders/LitOIT.frag.glsl");
@@ -91,37 +83,47 @@ namespace Ra
 
         void ForwardRenderer::initBuffers()
         {
-            m_fbo.reset( new FBO( FBO::Components( FBO::COLOR | FBO::DEPTH ), m_width, m_height ) );
-            m_oitFbo.reset( new FBO( FBO::Components( FBO::COLOR | FBO::DEPTH ), m_width, m_height ) );
-            m_postprocessFbo.reset( new FBO( FBO::Components( FBO::COLOR | FBO::DEPTH), m_width, m_height ) );
-            m_pingPongFbo.reset(new FBO(FBO::Components(FBO::COLOR), 1, 1));
-            m_bloomFbo.reset(new FBO(FBO::Components(FBO::COLOR), m_width / 8, m_height / 8));
-            m_shadowFbo.reset(new FBO(FBO::Components(FBO::DEPTH), ShadowMapSize, ShadowMapSize));
+            m_fbo.reset(new FBO(FBO::Component_Color | FBO::Component_Depth, m_width, m_height));
+            m_oitFbo.reset(new FBO(FBO::Component_Color | FBO::Component_Depth, m_width, m_height));
+            m_postprocessFbo.reset(new FBO(FBO::Component_Color | FBO::Component_Depth, m_width, m_height));
 
             // Render pass
-            m_textures[TEX_DEPTH].reset( new Texture( "Depth", GL_TEXTURE_2D ) );
-            m_textures[TEX_NORMAL].reset( new Texture( "Normal", GL_TEXTURE_2D ) );
-            m_textures[TEX_LIT].reset( new Texture( "HDR", GL_TEXTURE_2D ) );
-            m_textures[TEX_LUMINANCE].reset(new Texture("Luminance", GL_TEXTURE_2D));
-            m_textures[TEX_TONEMAPPED].reset(new Texture("Tonemapped", GL_TEXTURE_2D));
-            m_textures[TEX_BLOOM_PING].reset(new Texture("Bloom Ping", GL_TEXTURE_2D));
-            m_textures[TEX_BLOOM_PONG].reset(new Texture("Bloom Pong", GL_TEXTURE_2D));
-            m_textures[TEX_TONEMAP_PING].reset(new Texture("Minmax Ping", GL_TEXTURE_2D));
-            m_textures[TEX_TONEMAP_PONG].reset(new Texture("Minmax Pong", GL_TEXTURE_2D));
-            m_textures[TEX_OIT_TEXTURE_ACCUM].reset(new Texture("OIT Accum", GL_TEXTURE_2D));
-            m_textures[TEX_OIT_TEXTURE_REVEALAGE].reset(new Texture("OIT Revealage", GL_TEXTURE_2D));
+            m_textures[RendererTextures_Depth].reset(new Texture("Depth"));
+            m_textures[RendererTextures_HDR].reset(new Texture("HDR"));
+            m_textures[RendererTextures_Normal].reset(new Texture("Normal"));
+            m_textures[RendererTextures_Diffuse].reset(new Texture("Diffuse"));
+            m_textures[RendererTextures_Specular].reset(new Texture("Specular"));
+            m_textures[RendererTextures_OITAccum].reset(new Texture("OIT Accum"));
+            m_textures[RendererTextures_OITRevealage].reset(new Texture("OIT Revealage"));
 
-            m_secondaryTextures["Depth Texture"]        = m_textures[TEX_DEPTH].get();
-            m_secondaryTextures["Normal Texture"]       = m_textures[TEX_NORMAL].get();
-            m_secondaryTextures["HDR Texture"]          = m_textures[TEX_LIT].get();
-            m_secondaryTextures["Luminance Texture"]    = m_textures[TEX_LUMINANCE].get();
-            m_secondaryTextures["Tonemapped Texture"]   = m_textures[TEX_TONEMAPPED].get();
-            m_secondaryTextures["Bloom Texture 1"]      = m_textures[TEX_BLOOM_PING].get();
-            m_secondaryTextures["Bloom Texture 2"]      = m_textures[TEX_BLOOM_PONG].get();
-            m_secondaryTextures["Tonemaping Texture 1"] = m_textures[TEX_TONEMAP_PING].get();
-            m_secondaryTextures["Tonemaping Texture 2"] = m_textures[TEX_TONEMAP_PONG].get();
-            m_secondaryTextures["OIT Accum"]            = m_textures[TEX_OIT_TEXTURE_ACCUM].get();
-            m_secondaryTextures["OIT Revealage"]        = m_textures[TEX_OIT_TEXTURE_REVEALAGE].get();
+            m_textures[RendererTextures_Depth]->internalFormat = GL_DEPTH_COMPONENT24;
+            m_textures[RendererTextures_Depth]->dataType = GL_UNSIGNED_INT;
+
+            m_textures[RendererTextures_HDR]->internalFormat = GL_RGBA32F;
+            m_textures[RendererTextures_HDR]->dataType = GL_FLOAT;
+
+            m_textures[RendererTextures_Normal]->internalFormat = GL_RGBA32F;
+            m_textures[RendererTextures_Normal]->dataType = GL_FLOAT;
+
+            m_textures[RendererTextures_Diffuse]->internalFormat = GL_RGBA32F;
+            m_textures[RendererTextures_Diffuse]->dataType = GL_FLOAT;
+
+            m_textures[RendererTextures_Specular]->internalFormat = GL_RGBA32F;
+            m_textures[RendererTextures_Specular]->dataType = GL_FLOAT;
+
+            m_textures[RendererTextures_OITAccum]->internalFormat = GL_RGBA32F;
+            m_textures[RendererTextures_OITAccum]->dataType = GL_FLOAT;
+            
+            m_textures[RendererTextures_OITRevealage]->internalFormat = GL_RGBA32F;
+            m_textures[RendererTextures_OITRevealage]->dataType = GL_FLOAT;
+
+            m_secondaryTextures["Depth Texture"]    = m_textures[RendererTextures_Depth].get();
+            m_secondaryTextures["HDR Texture"]      = m_textures[RendererTextures_HDR].get();
+            m_secondaryTextures["Normal Texture"]   = m_textures[RendererTextures_Normal].get();
+            m_secondaryTextures["Diffuse Texture"]  = m_textures[RendererTextures_Diffuse].get();
+            m_secondaryTextures["Specular Texture"] = m_textures[RendererTextures_Specular].get();
+            m_secondaryTextures["OIT Accum"]        = m_textures[RendererTextures_OITAccum].get();
+            m_secondaryTextures["OIT Revealage"]    = m_textures[RendererTextures_OITRevealage].get();
         }
 
         void ForwardRenderer::updateStepInternal( const RenderData& renderData )
@@ -152,15 +154,8 @@ namespace Ra
 #endif
         }
 
-#define SHADOW_MAPPING_KO
         void ForwardRenderer::renderInternal( const RenderData& renderData )
         {
-#ifndef SHADOW_MAPPING_KO
-            updateShadowMaps();
-#endif
-
-            // FIXME(Charly): Do a bit of cleanup in the forward renderer
-            // (e.g. Remove the "depth ambient pass")
             const ShaderProgram* shader;
 
             m_fbo->useAsTarget();
@@ -168,15 +163,17 @@ namespace Ra
             GL_ASSERT( glDepthMask( GL_TRUE ) );
             GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
 
-            GL_ASSERT( glDrawBuffers( 2, buffers ) );
+            GL_ASSERT( glDrawBuffers( 4, buffers ) );
 
             const Core::Colorf clearColor = Core::Colors::FromChars<Core::Colorf>(42, 42, 42, 0);
             const Core::Colorf clearZeros = Core::Colors::Black<Core::Colorf>();
             const Core::Colorf clearOnes  = Core::Colors::FromChars<Core::Colorf>(255, 255, 255, 255);
             const float clearDepth( 1.0 );
 
-            GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearZeros.data() ) );   // Clear normals
-            GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearColor.data() ) );   // Clear color
+            GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearColor.data() ) );   // Clear color
+            GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearZeros.data() ) );   // Clear normals
+            GL_ASSERT( glClearBufferfv( GL_COLOR, 2, clearZeros.data() ) );   // Clear diffuse
+            GL_ASSERT( glClearBufferfv( GL_COLOR, 3, clearZeros.data() ) );   // Clear specular
             GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );         // Clear depth
 
             // Z prepass
@@ -186,7 +183,7 @@ namespace Ra
 
             GL_ASSERT( glDisable( GL_BLEND ) );
 
-            GL_ASSERT( glDrawBuffers( 2, buffers ) );
+            GL_ASSERT( glDrawBuffers( 4, buffers ) );
             
             shader = m_shaderMgr->getShaderProgram("DepthAmbientPass");
             shader->bind();
@@ -217,7 +214,7 @@ namespace Ra
             GL_ASSERT( glEnable( GL_BLEND ) );
             GL_ASSERT( glBlendFunc( GL_ONE, GL_ONE ) );
 
-            GL_ASSERT( glDrawBuffers( 1, buffers + 1 ) );   // Draw color texture
+            GL_ASSERT(glDrawBuffers(1, buffers));   // Draw color texture
 
             if ( m_lights.size() > 0 )
             {
@@ -226,13 +223,6 @@ namespace Ra
                 {
                     RenderParameters params;
                     l->getRenderParameters( params );
-
-#ifndef SHADOW_MAPPING_KO
-                    params.addParameter("uShadowMap", m_shadowMaps[light_idx].get(), 6);
-                    params.addParameter("uLightSpace", m_lightMatrices[light_idx]);
-
-                    ++light_idx;
-#endif
 
                     for ( const auto& ro : m_fancyRenderObjects )
                     {
@@ -312,8 +302,8 @@ namespace Ra
            
             shader = m_shaderMgr->getShaderProgram("ComposeOIT");
             shader->bind();
-            shader->setUniform("u_OITSumColor", m_textures[TEX_OIT_TEXTURE_ACCUM].get(), 0);
-            shader->setUniform("u_OITSumWeight", m_textures[TEX_OIT_TEXTURE_REVEALAGE].get(), 1);
+            shader->setUniform("u_OITSumColor", m_textures[RendererTextures_OITAccum].get(), 0);
+            shader->setUniform("u_OITSumWeight", m_textures[RendererTextures_OITRevealage].get(), 1);
                         
             m_quadMesh->render();
 #endif
@@ -387,92 +377,6 @@ namespace Ra
             GL_ASSERT( glDepthFunc( GL_LESS ) );
 
             m_fbo->unbind();
-        }
-
-        void ForwardRenderer::updateShadowMaps()
-        {
-            while (m_shadowMaps.size() < m_lights.size())
-            {
-                std::shared_ptr<Texture> tex = Ra::Core::make_shared<Texture>("ShadowMap", GL_TEXTURE_2D);
-                tex->initGL(GL_DEPTH_COMPONENT24, ShadowMapSize, ShadowMapSize, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr);
-                m_shadowMaps.push_back(tex);
-            }
-
-            m_lightMatrices.resize(m_lights.size());
-
-            //m_displayedTexture = m_shadowMaps[0].get();
-
-            m_shadowFbo->useAsTarget(ShadowMapSize, ShadowMapSize);
-            GL_ASSERT(glDrawBuffer(GL_NONE));
-            GL_ASSERT(glReadBuffer(GL_NONE));
-
-            const ShaderProgram* shader = m_shaderMgr->getShaderProgram("DepthMap");
-            shader->bind();
-
-            for (size_t i = 0; i < m_lights.size(); ++i)
-            {
-                m_shadowFbo->attachTexture(GL_DEPTH_ATTACHMENT, m_shadowMaps[i].get());
-                GL_ASSERT(glClear(GL_DEPTH_BUFFER_BIT));
-
-                Light* light = m_lights[i].get();
-
-                switch (light->getType())
-                {
-                    case Light::DIRECTIONAL:
-                    {
-                        DirectionalLight* dl = static_cast<DirectionalLight*>(light);
-                        Core::Matrix4 proj = Core::MatrixUtils::orthographic(-10, 10, -10, 10, 1.0, 7.5);
-                        Core::Matrix4 view = Core::MatrixUtils::lookAt(-dl->getDirection(), Core::Vector3::Zero(), Core::Vector3::UnitY());
-
-                        Core::Matrix4 lightMat = proj * view;
-
-                        for (const auto& ro : m_fancyRenderObjects)
-                        {
-                            shader->setUniform("proj", ro->getTransformAsMatrix());
-                            shader->setUniform("lightMatrix", lightMat);
-                            ro->getMesh()->render();
-                        }
-
-                        for (size_t i = 0; i < m_fancyTransparentCount; ++i)
-                        {
-                            shader->setUniform("proj", m_transparentRenderObjects[i]->getTransformAsMatrix());
-                            shader->setUniform("lightMatrix", lightMat);
-                            m_transparentRenderObjects[i]->getMesh()->render();
-                        }
-                    } break;
-
-
-                    case Light::SPOT:
-                    {
-                        SpotLight* sl = static_cast<SpotLight*>(light);
-                        Core::Matrix4 proj = Core::MatrixUtils::perspective(20.0, (Scalar)m_width / m_height, 1.0, 50.0);
-                        Core::Matrix4 view = Core::MatrixUtils::lookAt(sl->getPosition(), sl->getPosition() + sl->getDirection(), Core::Vector3::UnitY());
-
-                        Core::Matrix4 lightMat = proj * view;
-
-                        for (const auto& ro : m_fancyRenderObjects)
-                        {
-                            shader->setUniform("proj", ro->getTransformAsMatrix());
-                            shader->setUniform("lightMatrix", lightMat);
-                            ro->getMesh()->render();
-                        }
-
-                        for (size_t i = 0; i < m_fancyTransparentCount; ++i)
-                        {
-                            shader->setUniform("proj", m_transparentRenderObjects[i]->getTransformAsMatrix());
-                            shader->setUniform("lightMatrix", lightMat);
-                            m_transparentRenderObjects[i]->getMesh()->render();
-                        }
-                    } break;
-
-                    // TODO(charly): Point shadow mapping
-                    default:
-                    {
-                    }
-                }
-            }
-
-            m_postprocessFbo->unbind(true);
         }
 
         // Draw debug stuff, do not overwrite depth map but do depth testing
@@ -650,184 +554,56 @@ namespace Ra
             // FIXME(Charly): Do we really need to clear buffers ?
             GL_ASSERT( glClearColor( 1.0, 1.0, 0.0, 0.0 ) );
             GL_ASSERT( glDrawBuffers(5, buffers) );
-            m_postprocessFbo->clear( FBO::Components( FBO::COLOR) );
+            m_postprocessFbo->clear( FBO::Component( FBO::Component_Color) );
 
             const ShaderProgram* shader = nullptr;
 
-            if (false)
-            //if (m_postProcessEnabled) // FIXME(charly)
-            {
-                // Get per pixel luminance
-                GL_ASSERT(glDrawBuffers(1, buffers + 1));
-                shader = m_shaderMgr->getShaderProgram("Luminance");
-                shader->bind();
-                shader->setUniform("hdr", m_textures[TEX_LIT].get(), 0);
-                m_quadMesh->render();
-
-                m_pingPongFbo->useAsTarget();
-
-                uint size = m_pingPongSize;
-                glDrawBuffers(1, buffers);
-                glViewport(0, 0, size, size);
-                shader = m_shaderMgr->getShaderProgram("DrawScreen");
-                shader->bind();
-                shader->setUniform("screenTexture", m_textures[TEX_LUMINANCE].get(), 0);
-                m_quadMesh->render();
-
-                // Get min / max / avg lum values
-                shader = m_shaderMgr->getShaderProgram("MinMax");
-                shader->bind();
-                uint ping = 0;
-                while (size != 1)
-                {
-                    size /= 2;
-                    // Ping pong between textures
-                    GL_ASSERT(glDrawBuffers(1, buffers + (ping + 1)%2));
-                    GL_ASSERT(glViewport(0, 0, size, size));
-
-                    shader->setUniform("color", m_textures[TEX_TONEMAP_PING + ping].get(), 0);
-                    m_quadMesh->render();
-
-                    ++ping %= 2;
-                }
-
-                Core::Color lum = m_textures[TEX_TONEMAP_PING + (ping + 1) % 2]->getTexel(0, 0);
-
-                Scalar lumMin  = lum.x();
-                Scalar lumMax  = lum.y();
-                Scalar lumMean = std::exp(lum.z() / (m_pingPongSize * m_pingPongSize));
-
-                m_postprocessFbo->useAsTarget(m_width, m_height);
-                GL_ASSERT(glViewport(0, 0, m_width, m_height));
-
-                // Do tonemapping
-                GL_ASSERT(glDrawBuffers(1, buffers + 2));
-                shader = m_shaderMgr->getShaderProgram("Tonemapping");
-                shader->bind();
-                shader->setUniform("hdr", m_textures[TEX_LIT].get(), 0);
-                shader->setUniform("lumMin", lumMin);
-                shader->setUniform("lumMax", lumMax);
-                shader->setUniform("lumMean", lumMean);
-                m_quadMesh->render();
-
-                m_bloomFbo->useAsTarget();
-                GL_ASSERT(glViewport(0, 0, m_width / 8, m_height / 8));
-                GL_ASSERT(glDrawBuffers(1, buffers));
-                shader = m_shaderMgr->getShaderProgram("Highpass");
-                shader->bind();
-                shader->setUniform("hdr", m_textures[TEX_LIT].get(), 0);
-                shader->setUniform("lumMin", lumMin);
-                shader->setUniform("lumMax", lumMax);
-                shader->setUniform("lumMean", lumMean);
-                m_quadMesh->render();
-
-                // X blur
-                shader = m_shaderMgr->getShaderProgram("Blur");
-                shader->bind();
-
-                for (uint i = 0; i < 2; ++i)
-                {
-                    GL_ASSERT(glDrawBuffers(1, buffers + 1));
-                    shader->setUniform("color", m_textures[TEX_BLOOM_PING].get(), 0);
-                    shader->setUniform("offset", Core::Vector2(8.0 / m_width, 0.0));
-                    m_quadMesh->render();
-
-                    GL_ASSERT(glDrawBuffers(1, buffers));
-                    shader->setUniform("color", m_textures[TEX_BLOOM_PONG].get(), 0);
-                    shader->setUniform("offset", Core::Vector2(0.0, 8.0 / m_height));
-                    m_quadMesh->render();
-                }
-
-                // Compose final image (tonemapped + bloom + ...)
-                m_postprocessFbo->useAsTarget(m_width, m_height);
-                GL_ASSERT(glViewport(0, 0, m_width, m_height));
-                GL_ASSERT(glDrawBuffers(1, buffers));
-
-                shader = m_shaderMgr->getShaderProgram("FinalCompose");
-                shader->bind();
-                shader->setUniform("texColor", m_textures[TEX_TONEMAPPED].get(), 0);
-                shader->setUniform("texBloom", m_textures[TEX_BLOOM_PING].get(), 1);
-                m_quadMesh->render();
-
-                GL_ASSERT( glDepthFunc( GL_LESS ) );
-                m_postprocessFbo->unbind();
-            }
-            else
-            {
-                GL_ASSERT( glDrawBuffers(1, buffers) );
-                GL_ASSERT( glViewport(0, 0, m_width, m_height) );
-                shader = m_shaderMgr->getShaderProgram("DrawScreen");
-                shader->bind();
-                shader->setUniform("screenTexture", m_textures[TEX_LIT].get(), 0);
-                m_quadMesh->render();
-            }
+            GL_ASSERT(glDrawBuffers(1, buffers));
+            GL_ASSERT(glViewport(0, 0, m_width, m_height));
+            shader = m_shaderMgr->getShaderProgram("DrawScreen");
+            shader->bind();
+            shader->setUniform("screenTexture", m_textures[RendererTextures_HDR].get(), 0);
+            m_quadMesh->render();
         }
 
         void ForwardRenderer::resizeInternal()
         {
             m_pingPongSize = std::pow(2.0, Scalar(uint(std::log2(std::min(m_width, m_height)))));
 
-            m_textures[TEX_DEPTH]->initGL(GL_DEPTH_COMPONENT24, m_width, m_height, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr);
-            m_textures[TEX_NORMAL]->initGL(GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr);
-            m_textures[TEX_LIT]->initGL(GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr);
-            m_textures[TEX_LUMINANCE]->initGL(GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr);
-            m_textures[TEX_TONEMAPPED]->initGL(GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr);
-            m_textures[TEX_TONEMAP_PING]->initGL(GL_RGBA32F, m_pingPongSize, m_pingPongSize, GL_RGBA, GL_FLOAT, nullptr);
-            m_textures[TEX_TONEMAP_PONG]->initGL(GL_RGBA32F, m_pingPongSize, m_pingPongSize, GL_RGBA, GL_FLOAT, nullptr);
-            m_textures[TEX_BLOOM_PING]->initGL(GL_RGBA32F, m_width / 8, m_height / 8, GL_RGBA, GL_FLOAT, nullptr);
-            m_textures[TEX_BLOOM_PONG]->initGL(GL_RGBA32F, m_width / 8, m_height / 8, GL_RGBA, GL_FLOAT, nullptr);
-            m_textures[TEX_OIT_TEXTURE_ACCUM]->initGL(GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr);
-            m_textures[TEX_OIT_TEXTURE_REVEALAGE]->initGL(GL_RGBA32F, m_width, m_height, GL_RGBA, GL_FLOAT, nullptr);
-
-            m_textures[TEX_LUMINANCE]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
-            m_textures[TEX_TONEMAPPED]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
-            m_textures[TEX_TONEMAP_PING]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
-            m_textures[TEX_TONEMAP_PONG]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
-            m_textures[TEX_BLOOM_PING]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
-            m_textures[TEX_BLOOM_PING]->setFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-            m_textures[TEX_BLOOM_PONG]->setClamp(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
-            m_textures[TEX_BLOOM_PONG]->setFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+            m_textures[RendererTextures_Depth]->Generate(m_width, m_height, GL_DEPTH_COMPONENT);
+            m_textures[RendererTextures_HDR]->Generate(m_width, m_height, GL_RGBA);
+            m_textures[RendererTextures_Normal]->Generate(m_width, m_height, GL_RGBA);
+            m_textures[RendererTextures_Diffuse]->Generate(m_width, m_height, GL_RGBA);
+            m_textures[RendererTextures_Specular]->Generate(m_width, m_height, GL_RGBA);
+            m_textures[RendererTextures_OITAccum]->Generate(m_width, m_height, GL_RGBA);
+            m_textures[RendererTextures_OITRevealage]->Generate(m_width, m_height, GL_RGBA);
 
             m_fbo->bind();
             m_fbo->setSize( m_width, m_height );
-            m_fbo->attachTexture( GL_DEPTH_ATTACHMENT , m_textures[TEX_DEPTH].get() );
-            m_fbo->attachTexture( GL_COLOR_ATTACHMENT0, m_textures[TEX_NORMAL].get() );
-            m_fbo->attachTexture( GL_COLOR_ATTACHMENT1, m_textures[TEX_LIT].get() );
+            m_fbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get());
+            m_fbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_HDR].get());
+            m_fbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_Normal].get());
+            m_fbo->attachTexture(GL_COLOR_ATTACHMENT2, m_textures[RendererTextures_Diffuse].get());
+            m_fbo->attachTexture(GL_COLOR_ATTACHMENT3, m_textures[RendererTextures_Specular].get());
             m_fbo->check();
             m_fbo->unbind( true );
 
 #ifndef NO_TRANSPARENCY
             m_oitFbo->bind();
             m_oitFbo->setSize( m_width, m_height );
-            m_oitFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[TEX_DEPTH].get());
-            m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[TEX_OIT_TEXTURE_ACCUM].get());
-            m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[TEX_OIT_TEXTURE_REVEALAGE].get());
+            m_oitFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get());
+            m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_OITAccum].get());
+            m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_OITRevealage].get());
             m_oitFbo->check();
             m_oitFbo->unbind( true );
 #endif
 
             m_postprocessFbo->bind();
-            m_postprocessFbo->setSize( m_width, m_height );
-            m_postprocessFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[TEX_DEPTH].get());
+            m_postprocessFbo->setSize(m_width, m_height);
+            m_postprocessFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get());
             m_postprocessFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_fancyTexture.get());
-            m_postprocessFbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[TEX_LUMINANCE].get());
-            m_postprocessFbo->attachTexture(GL_COLOR_ATTACHMENT2, m_textures[TEX_TONEMAPPED].get());
             m_postprocessFbo->check();
             m_postprocessFbo->unbind( true );
-
-            m_pingPongFbo->bind();
-            m_pingPongFbo->setSize(m_pingPongSize, m_pingPongSize);
-            m_pingPongFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[TEX_TONEMAP_PING].get());
-            m_pingPongFbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[TEX_TONEMAP_PONG].get());
-            m_pingPongFbo->check();
-            m_pingPongFbo->unbind(true);
-
-            m_bloomFbo->bind();
-            m_bloomFbo->setSize(m_width / 8, m_height / 8);
-            m_bloomFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[TEX_BLOOM_PING].get());
-            m_bloomFbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[TEX_BLOOM_PONG].get());
-            m_bloomFbo->check();
-            m_bloomFbo->unbind(true);
 
             GL_CHECK_ERROR;
 

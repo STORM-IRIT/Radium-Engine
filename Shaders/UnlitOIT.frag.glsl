@@ -6,26 +6,19 @@ layout (location = 1) out vec4 f_Revealage;
 uniform Material material;
 uniform Light light;
 
-in VS_OUT
-{
-    vec3 position;
-    vec3 normal;
-    vec3 texcoord;
-    vec3 color;
-    mat3 TBN;
-} fs_in;
-
-#include "Helpers.glsl"
+layout (location = 0) in vec3 in_position;
+layout (location = 1) in vec3 in_texcoord;
+layout (location = 2) in vec3 in_color;
 
 void main()
 {
-    if (toDiscard() || material.alpha < 0.01)
+    if ((material.tex.hasAlpha == 1 && texture(material.tex.alpha, in_texcoord.st).r < 0.1) || material.alpha < 0.01)
     {
         discard;
     }
     
     float a = material.alpha;
-    float z = -fs_in.position.z;
+    float z = -in_position.z;
     
     float va = (a + 0.01f);
     float va2 = va * va;
@@ -40,11 +33,11 @@ void main()
     vec3 color;
     if (material.tex.hasKd == 1)
     {
-        color = getKd();        
+        color = texture(material.tex.kd, in_texcoord.st).rgb;
     }
     else
     {
-        color = fs_in.color;
+        color = in_color;
     }
     
     f_Accumulation = vec4(color * a, a) * w;
