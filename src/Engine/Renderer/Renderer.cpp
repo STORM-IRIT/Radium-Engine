@@ -75,14 +75,23 @@ namespace Ra
             m_shaderMgr->addShaderProgram("DrawScreen", "../Shaders/Basic2D.vert.glsl", "../Shaders/DrawScreen.frag.glsl");
             m_shaderMgr->addShaderProgram("Picking", "../Shaders/Picking.vert.glsl", "../Shaders/Picking.frag.glsl");
 
-            m_depthTexture.reset( new Texture( "Depth", GL_TEXTURE_2D ) );
+            m_depthTexture.reset(new Texture("Depth"));
+            m_depthTexture->internalFormat = GL_DEPTH_COMPONENT24;
+            m_depthTexture->dataType = GL_UNSIGNED_INT;
 
             // Picking
-            m_pickingFbo.reset( new FBO( FBO::Components( FBO::COLOR | FBO::DEPTH ), m_width, m_height ) );
-            m_pickingTexture.reset( new Texture( "Picking", GL_TEXTURE_2D ) );
+            m_pickingFbo.reset(new FBO(FBO::Component( FBO::Component_Color | FBO::Component_Depth ), m_width, m_height));
+            m_pickingTexture.reset(new Texture("Picking"));
+            m_pickingTexture->internalFormat = GL_RGBA32I;
+            m_pickingTexture->dataType = GL_INT;
+            m_pickingTexture->minFilter = GL_NEAREST;
+            m_pickingTexture->magFilter = GL_NEAREST;
 
             // Final texture
-            m_fancyTexture.reset( new Texture( "Final", GL_TEXTURE_2D ) );
+            m_fancyTexture.reset(new Texture( "Final"));
+            m_fancyTexture->internalFormat = GL_RGBA32F;
+            m_fancyTexture->dataType = GL_FLOAT;
+
             m_displayedTexture = m_fancyTexture.get();
             m_secondaryTextures["Picking Texture"] = m_pickingTexture.get();
 
@@ -410,12 +419,9 @@ namespace Ra
             m_height = h;
             glViewport( 0, 0, m_width, m_height );
 
-            m_depthTexture->initGL( GL_DEPTH_COMPONENT24, m_width, m_height, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr );
-
-            m_pickingTexture->initGL( GL_RGBA32I, w, h, GL_RGBA_INTEGER, GL_INT, nullptr );
-            m_pickingTexture->setFilter( GL_NEAREST, GL_NEAREST );
-
-            m_fancyTexture->initGL( GL_RGBA32F, w, h, GL_RGBA, GL_FLOAT, nullptr );
+            m_depthTexture->Generate(m_width, m_height, GL_DEPTH_COMPONENT);
+            m_pickingTexture->Generate(w, h, GL_RGBA_INTEGER);
+            m_fancyTexture->Generate(w, h, GL_RGBA);
 
             m_pickingFbo->bind();
             m_pickingFbo->setSize( w, h );

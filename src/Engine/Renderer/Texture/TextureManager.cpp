@@ -37,7 +37,7 @@ namespace Ra
             return m_pendingTextures[name];
         }
 
-        Texture* TextureManager::addTexture( const std::string& filename )
+        Texture* TextureManager::addTexture(const std::string& filename)
         {
             Texture* ret = nullptr;
 
@@ -58,6 +58,7 @@ namespace Ra
             {
                 case 1:
                 {
+                    LOG(logINFO) << filename << " GL_R";
                     format = GL_RED;
                     internal_format = GL_R8;
                 } break;
@@ -91,11 +92,12 @@ namespace Ra
 
             CORE_ASSERT( data, "Data is null" );
 
-            ret = new Texture(filename, GL_TEXTURE_2D);
-            ret->initGL( internal_format, w, h, format, GL_UNSIGNED_BYTE, data );
-            ret->genMipmap( GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR );
+            ret = new Texture(filename);
+            ret->internalFormat = internal_format;
+            ret->dataType = GL_UNSIGNED_BYTE;
+            ret->Generate(w, h, format, data);
 
-            m_textures.insert( TexturePair( filename, ret ) );
+            m_textures.insert(TexturePair(filename, ret));
 
             stbi_image_free(data);
 
@@ -103,12 +105,12 @@ namespace Ra
         }
 
         Texture* TextureManager::getOrLoadTexture(const TextureData &data)
-        {
+        { 
             m_pendingTextures[data.name] = data;
             return getOrLoadTexture(data.name);
         }
 
-        Texture* TextureManager::getOrLoadTexture( const std::string& filename )
+        Texture* TextureManager::getOrLoadTexture(const std::string& filename)
         {
             Texture* ret = nullptr;
             auto it = m_textures.find( filename );
@@ -119,70 +121,70 @@ namespace Ra
             }
             else
             {
-                auto pending = m_pendingTextures.find( filename );
+                auto pending = m_pendingTextures.find(filename);
                 if ( pending != m_pendingTextures.end() )
                 {
                     auto data = pending->second;
                     if (data.data != nullptr)
                     {
-                        ret = new Texture( filename, GL_TEXTURE_2D );
-                        ret->initGL( data.internalFormat, data.width, data.height,
-                                     data.format, data.type, data.data);
+                        ret = new Texture(filename);
+                        ret->internalFormat = data.internalFormat;
+                        ret->dataType = data.type;
+                        ret->minFilter = data.minFilter;
+                        ret->magFilter = data.magFilter;
+                        ret->wrapS = data.wrapS;
+                        ret->wrapT = data.wrapT;
+                        ret->Generate(data.width, data.height, data.format, data.data);
                     }
                     else
                     {
                         ret = addTexture(data.name);
                     }
 
-                    ret->genMipmap(data.minMipmap, data.magMipmap);
-                    ret->setClamp(data.sWrap, data.tWrap);
-
-                    m_pendingTextures.erase( filename );
+                    m_pendingTextures.erase(filename);
                     m_textures[filename] = ret;
                 }
                 else
                 {
-                    ret = addTexture( filename );
-                    ret->setClamp( GL_REPEAT, GL_REPEAT );
+                    ret = addTexture(filename);
                 }
             }
 
             return ret;
         }
 
-        void TextureManager::deleteTexture( const std::string& filename )
+        void TextureManager::deleteTexture(const std::string& filename)
         {
-            auto it = m_textures.find( filename );
+            auto it = m_textures.find(filename);
 
-            if ( it != m_textures.end() )
+            if (it != m_textures.end())
             {
                 delete it->second;
                 m_textures.erase( it );
             }
         }
 
-        void TextureManager::deleteTexture( Texture* texture )
+        void TextureManager::deleteTexture(Texture* texture)
         {
-            deleteTexture( texture->getName() );
+            deleteTexture(texture->getName());
         }
 
-        void TextureManager::updateTexture( const std::string& texture, void* data )
+        void TextureManager::updateTexture(const std::string& texture, void* data)
         {
-            CORE_ASSERT( m_textures.find( texture ) != m_textures.end(),
-                         "Trying to update non existing texture" );
+            CORE_ASSERT(m_textures.find(texture) != m_textures.end(), "Trying to update non existing texture");
             m_pendingData[texture] = data;
         }
 
         void TextureManager::updateTextures()
         {
-            if ( m_pendingData.empty() )
+            if (m_pendingData.empty())
             {
                 return;
             }
 
-            for ( auto& data : m_pendingData )
+            for (auto& data : m_pendingData)
             {
-                m_textures[data.first]->updateData( data.second );
+                m_textures[data.first]->updateData(data.second);
             }
             m_pendingData.clear();
         }

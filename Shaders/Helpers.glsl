@@ -2,16 +2,17 @@ vec3 getKd()
 {
     if (material.tex.hasKd == 1)
     {
-        return vec3(texture(material.tex.kd, fs_in.texcoord.xy));
+        return vec3(texture(material.tex.kd, in_texcoord.xy));
     }
 
     return material.kd.xyz;
 }
+
 vec3 getKs()
 {
     if (material.tex.hasKs == 1)
     {
-        return vec3(texture(material.tex.ks, fs_in.texcoord.xy));
+        return vec3(texture(material.tex.ks, in_texcoord.xy));
     }
 
     return material.ks.xyz;
@@ -22,7 +23,7 @@ float getNs()
     float ns = material.ns;
     if (material.tex.hasNs == 1)
     {
-        ns = texture(material.tex.ns, fs_in.texcoord.xy).r;
+        ns = texture(material.tex.ns, in_texcoord.xy).r;
     }
 
     return max(ns, 0.001);
@@ -30,25 +31,27 @@ float getNs()
 
 vec3 getNormal()
 {
-    float dir = gl_FrontFacing ? 1.0 : -1.0;
-
     if (material.tex.hasNormal == 1)
     {
-        vec3 n = normalize(vec3(texture(material.tex.normal, fs_in.texcoord.xy)));
-        n = normalize(n * 2 - 1);
-        n = normalize(fs_in.TBN * n);
-        return n;
+        mat3 tbn;
+        vec3 binormal = normalize(cross(in_normal, in_tangent));
+        tbn[0] = in_tangent;
+        tbn[1] = binormal;
+        tbn[2] = in_normal;
+
+        vec3 n = normalize(vec3(texture(material.tex.normal, in_texcoord.xy)) * 2 - 1);
+        return normalize(tbn * n);
     }
 
-    //return vec3(normalize(fs_in.normal));
-	return vec3(dir * normalize(fs_in.normal));
+    //return vec3(normalize(in_normal));
+	return normalize(in_normal);
 }
 
 bool toDiscard()
 {
     if (material.tex.hasAlpha == 1)
     {
-        float alpha = texture(material.tex.alpha, fs_in.texcoord.xy).r;
+        float alpha = texture(material.tex.alpha, in_texcoord.xy).r;
         if (alpha < 0.1)
         {
             return true;

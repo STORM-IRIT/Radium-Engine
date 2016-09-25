@@ -25,15 +25,15 @@ namespace Ra
         class RA_ENGINE_API FBO
         {
         public:
-            enum Components
+            enum Component
             {
-                COLOR = 1 << 0,
-                DEPTH = 1 << 1,
-                STENCIL = 1 << 2,
-                ALL_COMPONENTS = COLOR | DEPTH | STENCIL
+                Component_Color = 1 << 0,
+                Component_Depth = 1 << 1,
+                Component_Stencil = 1 << 2,
+                Component_All = Component_Color | Component_Depth | Component_Stencil
             };
 
-            FBO( Components components, uint width, uint height );
+            FBO(int components, uint width, uint height );
             ~FBO();
 
             void bind();
@@ -43,13 +43,13 @@ namespace Ra
             void useAsTarget( uint width, uint height );
             void unbind( bool complete = false );
 
-            void attachTexture( uint attachment, Texture* texture, uint level = 0 );
-            void detachTexture( uint attachment );
+            void attachTexture(uint attachment, Texture* texture);
+            void detachTexture(uint attachment);
 
             void check() const;
 
             void setSize( uint width, uint height );
-            void clear( Components components );
+            void clear( Component components );
 
             uint getID() const
             {
@@ -62,7 +62,7 @@ namespace Ra
 
         private:
             uint m_fboID;
-            Components m_components;
+            int m_components;
             uint m_width, m_height;
 
             std::map<uint, Texture*> m_textures;

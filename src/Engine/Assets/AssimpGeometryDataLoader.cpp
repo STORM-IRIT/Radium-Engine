@@ -48,24 +48,24 @@ namespace Ra {
             data.clear();
 
             if( scene == nullptr ) {
-                LOG( logDEBUG ) << "AssimpGeometryDataLoader : scene is nullptr.";
+                LOG( logINFO ) << "AssimpGeometryDataLoader : scene is nullptr.";
                 return;
             }
 
             if( !sceneHasGeometry( scene ) ) {
-                LOG( logDEBUG ) << "AssimpGeometryDataLoader : scene has no mesh.";
+                LOG( logINFO ) << "AssimpGeometryDataLoader : scene has no mesh.";
                 return;
             }
 
             if( m_verbose ) {
-                LOG( logDEBUG ) << "File contains geometry.";
-                LOG( logDEBUG ) << "Geometry Loading begin...";
+                LOG( logINFO ) << "File contains geometry.";
+                LOG( logINFO ) << "Geometry Loading begin...";
             }
 
             loadGeometryData( scene, data );
 
             if( m_verbose ) {
-                LOG( logDEBUG ) << "Geometry Loading end.\n";
+                LOG( logINFO ) << "Geometry Loading end.\n";
             }
         }
 

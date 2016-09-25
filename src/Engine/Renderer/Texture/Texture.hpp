@@ -15,13 +15,14 @@ namespace Ra
         class RA_ENGINE_API Texture
         {
         public:
-            enum TextureType
-            {
-                TEXTURE_1D = 1 << 0,
-                TEXTURE_2D = 1 << 1,
-                TEXTURE_3D = 1 << 2,
-                TEXTURE_CUBE = 1 << 3
-            };
+            GLenum target           = GL_TEXTURE_2D;
+            GLenum internalFormat   = GL_RGB;
+            GLenum dataType         = GL_UNSIGNED_BYTE;
+            GLenum wrapS            = GL_REPEAT;
+            GLenum wrapT            = GL_REPEAT;
+            GLenum wrapR            = GL_REPEAT;
+            GLenum minFilter        = GL_LINEAR_MIPMAP_LINEAR;
+            GLenum magFilter        = GL_LINEAR;
 
             /**
              * Texture constructor. No OpenGL initialization is done there.
@@ -39,7 +40,7 @@ namespace Ra
              * @todo Add anonym textures ?
              * @todo Redundancy between target and type ?
              */
-            explicit Texture( std::string name, uint target, TextureType type = TEXTURE_2D, uint zoffset = 0 );
+            explicit Texture(std::string name);
 
             /**
              * Texture desctructor. Both internal data and OpenGL stuff are deleted.
@@ -73,7 +74,7 @@ namespace Ra
              * @param data Data contained in the texture. Can be nullptr. <br/>
              * If \b data is not null, the texture will take the ownership of it.
              */
-            void initGL( uint internalFormat, uint width, uint format, uint type, void* data );
+            void Generate(uint width, uint format, void* data = nullptr);
 
             /**
              * @brief Init the texture 2D from OpenGL point of view.
@@ -104,7 +105,7 @@ namespace Ra
              * @param data Data contained in the texture. Can be nullptr. <br/>
              * If \b data is not null, the texture will take the ownership of it.
              */
-            void initGL( uint internalFormat, uint width, uint height, uint format, uint type, void* data );
+            void Generate(uint width, uint height, uint format, void* data = nullptr);
 
             /**
              * @brief Init the texture 3D from OpenGL point of view.
@@ -137,7 +138,7 @@ namespace Ra
              * @param data Data contained in the texture. Can be nullptr. <br/>
              * If \b data is not null, the texture will take the ownership of it.
              */
-            void initGL( uint internalFormat, uint width, uint height, uint depth, uint format, uint type, void* data );
+            void Generate(uint width, uint height, uint depth, uint format, void* data = nullptr);
 
             /**
              * @brief Init the textures needed for the cubemap from OpenGL point of view.
@@ -168,66 +169,13 @@ namespace Ra
              * @param data Data contained in the texture. Can be nullptr. <br/>
              * If \b data is not null, the texture will take the ownership of it.
              */
-            void initCubeGL( uint internalFormat, uint width, uint height, uint format, uint type, void** data );
-
-            /**
-             * @brief Generate mipmaps for the texture
-             *
-             * @param minFilter The minifying function used by OpenGL. Must be GL_NEAREST, GL_LINEAR,
-             * GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST or GL_LINEAR_MIPMAP_LINEAR.<br/>
-             *
-             * @param magFilter The magnifying function used by OpenGL. Must be GL_NEAREST or GL_LINEAR.
-             */
-            void genMipmap( uint minFilter, uint magFilter );
-
-            /**
-             * @brief Set filter used for textures
-             *
-             * @param minFilter The minifying function used by OpenGL. Must be GL_NEAREST, GL_LINEAR,
-             * GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST or GL_LINEAR_MIPMAP_LINEAR.<br/>
-             *
-             * @param magFilter The magnifying function used by OpenGL. Must be GL_NEAREST or GL_LINEAR.
-             */
-            void setFilter( uint minFilter, uint magFilter );
-
-            /**
-             * @brief Set clamp method for 1D textures.
-             *
-             * @param warpS Clamp parameter for the s texture coordinate.
-             * Must be GL_REPEAT, GL_CLAMP_TO_EDGE or GL_MIRRORED_REPEAT.
-             */
-            void setClamp( uint warpS );
-
-            /**
-             * @brief Set clamp method for both 2D and cube textures.
-             *
-             * @param warpS Clamp parameter for the s texture coordinate.
-             * Must be GL_REPEAT, GL_CLAMP_TO_EDGE or GL_MIRRORED_REPEAT.
-             *
-             * @param warpT Clamp parameter for the t texture coordinate.
-             * Must be GL_REPEAT, GL_CLAMP_TO_EDGE or GL_MIRRORED_REPEAT.
-             */
-            void setClamp( uint warpS, uint warpT );
-
-            /**
-             * @brief Set clamp method for 3D textures.
-             *
-             * @param warpS Clamp parameter for the s texture coordinate.
-             * Must be GL_REPEAT, GL_CLAMP_TO_EDGE or GL_MIRRORED_REPEAT.
-             *
-             * @param warpT Clamp parameter for the t texture coordinate.
-             * Must be GL_REPEAT, GL_CLAMP_TO_EDGE or GL_MIRRORED_REPEAT.
-             *
-             * @param warpR Clamp parameter for the r texture coordinate.
-             * Must be GL_REPEAT, GL_CLAMP_TO_EDGE or GL_MIRRORED_REPEAT.
-             */
-            void setClamp( uint warpS, uint warpT, uint warpR );
+            void GenerateCube(uint width, uint height, uint format, void** data = nullptr);
 
             /**
              * @brief Bind the texture to enable its use in a shader
              * @param unit Index of the texture to be bound.
              */
-            void bind( int unit );
+            void bind(int unit);
 
             /**
              * @brief Clear OpenGL internal data.
@@ -237,59 +185,31 @@ namespace Ra
             /**
              * @return OpenGL internal id of the texture.
              */
-            uint getId() const;
-
-            /**
-             * @return Target of the texture.
-             * (GL_TEXTURE_1D, GL_TEXTURE_2D, GL_TEXTURE_3D or GL_TEXTURE_CUBE_MAP)
-             */
-            uint getTarget() const;
-
-            /**
-             * @return Type of the texture.
-             * (TEXTURE_1D, TEXTURE_2D, TEXTURE_3D or TEXTURE_CUBE)
-             */
-            TextureType getType() const;
+            inline uint getId() const { return m_textureId; }
 
             /**
              * @return Name of the texture.
              */
-            std::string getName() const;
-
-            /**
-             * @return Offset of the texture (for a 3D texture).
-             */
-            uint getZOffset() const;
-
-            Core::Color getTexel( uint u, uint v );
+            inline std::string getName() const { return m_name; }
 
             /**
              * Update the data contained by the texture
              * @param newData The new data, must contain the same number of elements than old data, no check will be performed.
              */
-            void updateData( void* newData );
+            void updateData(void* newData);
 
         private:
             Texture( const Texture& ) = delete;
             void operator= ( const Texture& ) = delete;
 
-            void setBPP( int bpp );
-
         private:
             uint m_textureId;
             std::string m_name;
-            uint m_target;
-            TextureType m_type;
-            uint m_zoffset;
+            GLenum m_format;
 
-            unsigned char* m_pixels;
-            uint m_bytesPerPixel;
-            uint m_format;
             uint m_width;
             uint m_height;
             uint m_depth;
-
-            uint m_dataType;
         };
 
     } // namespace Engine

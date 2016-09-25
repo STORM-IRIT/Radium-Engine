@@ -1,19 +1,15 @@
 #include "Structs.glsl"
 
-layout (location = 0) in vec3 inPos;
-layout (location = 4) in vec3 inTexcoord;
-layout (location = 5) in vec4 inColor;
+layout (location = 0) in vec3 in_position;
+layout (location = 4) in vec3 in_texcoord;
+layout (location = 5) in vec4 in_color;
 
 uniform Transform transform;
 uniform int drawFixedSize;
 
-out VS_OUT
-{
-    vec3 position;
-    vec3 normal;
-    vec3 texcoord;
-    vec3 color;
-} vs_out;
+layout (location = 0) out vec3 out_position;
+layout (location = 1) out vec3 out_texcoord;
+layout (location = 2) out vec3 out_color;
 
 void main()
 {
@@ -33,11 +29,11 @@ void main()
         mvp = transform.proj * transform.view * transform.model;
     }
 
-    gl_Position = mvp * vec4(inPos.xyz, 1.0);
-    vs_out.color = inColor.xyz;
-    vs_out.texcoord = inTexcoord;
+    gl_Position = mvp * vec4(in_position.xyz, 1.0);
+    out_color = in_color.xyz;
+    out_texcoord = in_texcoord;
 
-    vec4 pos = transform.model * vec4(inPos, 1.0);
+    vec4 pos = transform.model * vec4(in_position, 1.0);
     pos /= pos.w;
-    vs_out.position = vec3(pos);
+    out_position = vec3(pos);
 }

@@ -1,5 +1,4 @@
-layout (location = 0) in vec3 inPosition;
-
+layout (location = 0) in vec3 in_position;
 
 struct Transform
 {
@@ -7,7 +6,6 @@ struct Transform
     mat4 view;
     mat4 proj;
 };
-
 
 uniform int drawFixedSize;
 uniform Transform transform;
@@ -30,5 +28,5 @@ void main()
         mvp = transform.proj * transform.view * transform.model;
     }
 
-    gl_Position = mvp * vec4(inPosition, 1.0);
+    gl_Position = mvp * vec4(in_position, 1.0);
 }

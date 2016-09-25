@@ -1,4 +1,4 @@
-layout (location = 0) in vec3 inPosition;
+layout (location = 0) in vec3 in_position;
 layout (location = 1) in vec3 inNormal;
 
 struct Transform
@@ -20,7 +20,7 @@ out vec4 vColor;
 void main()
 {
     mat4 mvp = transform.proj * transform.view * transform.model;
-    gl_Position = mvp * vec4(inPosition, 1.0);
+    gl_Position = mvp * vec4(in_position, 1.0);
 
     float l = length( inNormal );
     vec4 normal = vec4( inNormal, 0.0 );

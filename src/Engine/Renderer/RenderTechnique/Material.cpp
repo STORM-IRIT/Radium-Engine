@@ -139,10 +139,10 @@ namespace Ra
 
             TextureData data;
             data.name = texture;
-            data.sWrap = GL_REPEAT;
-            data.tWrap = GL_REPEAT;
-            data.magMipmap = GL_NEAREST;
-            data.minMipmap = GL_NEAREST;
+            data.wrapS = GL_REPEAT;
+            data.wrapT = GL_REPEAT;
+            data.magFilter = GL_NEAREST;
+            data.minFilter = GL_NEAREST;
 
             return addTexture(type, data);
         }

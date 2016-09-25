@@ -25,8 +25,8 @@ namespace Ra
         // From OpenGL Shading Language 3rd Edition, p215-216
         std::string getShaderInfoLog( GLuint shader )
         {
-            int infoLogLen = 0;
-            int charsWritten = 0;
+            int infoLogLen;
+            int charsWritten;
             GLchar* infoLog;
             std::stringstream ss;
 
@@ -38,6 +38,26 @@ namespace Ra
                 // error check for fail to allocate memory omitted
                 glGetShaderInfoLog( shader, infoLogLen, &charsWritten, infoLog );
                 ss << "InfoLog : " << std::endl << infoLog << std::endl;
+                delete[] infoLog;
+            }
+
+            return ss.str();
+        }
+
+        std::string getProgramInfoLog(GLuint program)
+        {
+            int infoLogLen;
+            int charsWritten;
+            GLchar* infoLog;
+            std::stringstream ss;
+
+            glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLen);
+
+            if (infoLogLen > 0)
+            {
+                infoLog = new GLchar[infoLogLen];
+                glGetProgramInfoLog(program, infoLogLen, &charsWritten, infoLog);
+                ss << "Shader link status : " << std::endl << infoLog << std::endl;
                 delete[] infoLog;
             }
 
@@ -294,7 +314,7 @@ namespace Ra
             {
                 message = getShaderInfoLog( m_id );
                 wrongline = lineParseGLMesg(message) - 2;
-                error << "\nUnable to compile " << lineFind(wrongline) << " :";
+                error << "\nUnable to compile " << lineFind(wrongline) << " (in shader " << m_filename << ") :";
                 error << std::endl << message;
 
                 // For now, crash when a shader is not compiling
@@ -528,11 +548,18 @@ namespace Ra
             }
 
             GL_ASSERT( glLinkProgram( m_shaderId ) );
+
+            auto log = getProgramInfoLog(m_shaderId);
+            if (log.size() > 0)
+            {
+                LOG(logINFO) << log;
+            }
         }
 
         void ShaderProgram::bind() const
         {
             CORE_ASSERT( m_shaderId != 0, "Shader is not initialized" );
+            CORE_ASSERT(checkOpenGLContext(), "Meh");
             GL_ASSERT( glUseProgram( m_shaderId ) );
         }
 

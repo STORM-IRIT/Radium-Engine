@@ -232,12 +232,6 @@ namespace Ra
         bpConfig.addShader(ShaderType_FRAGMENT, "../Shaders/BlinnPhong.frag.glsl");
         ShaderConfigurationFactory::addConfiguration(bpConfig);
 
-        ShaderConfiguration bpwConfig("BlinnPhongWireframe");
-        bpwConfig.addShader(ShaderType_VERTEX, "../Shaders/BlinnPhongWireframe.vert.glsl");
-        bpwConfig.addShader(ShaderType_FRAGMENT, "../Shaders/BlinnPhongWireframe.frag.glsl");
-        bpwConfig.addShader(ShaderType_GEOMETRY, "../Shaders/BlinnPhongWireframe.geom.glsl");
-        ShaderConfigurationFactory::addConfiguration(bpwConfig);
-
         ShaderConfiguration pConfig("Plain");
         pConfig.addShader(ShaderType_VERTEX, "../Shaders/Plain.vert.glsl");
         pConfig.addShader(ShaderType_FRAGMENT, "../Shaders/Plain.frag.glsl");

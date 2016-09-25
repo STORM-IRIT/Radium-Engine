@@ -9,6 +9,7 @@
 #include <Core/String/StringUtils.hpp>
 #include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
+#include <Core/Containers/MakeShared.hpp>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Component/Component.hpp>
@@ -156,15 +157,16 @@ namespace Ra
         m_renderThread = new RenderThread( this, m_renderer.get() );
 #endif
         // FIXME (Mathias) : according to modern C++ guidelines (Stroustrup), prefer the following
-        // auto light = std::make_shared<Engine::DirectionalLight>();
-        auto light = std::shared_ptr<Engine::DirectionalLight>(new Engine::DirectionalLight);
+        // NOTE(Charly) : Indeed, but on MSVC std::make_shared does not guarantee alignement, hence making Eigen crash. 
+        //                We introduced Ra::Core::make_shared later and I still have to change all this calls.
+        auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
 
         for ( auto& renderer : m_renderers )
         {
-            //renderer->addLight( light );
+            renderer->addLight( light );
         }
 
-        //m_camera->attachLight( light );
+        m_camera->attachLight( light );
 
         emit rendererReady();
     }
