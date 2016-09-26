@@ -295,7 +295,7 @@ namespace Ra
             m_oitFbo->unbind();
             
             m_fbo->useAsTarget();
-            GL_ASSERT(glDrawBuffers(1, buffers + 1));
+            GL_ASSERT(glDrawBuffers(1, buffers));
 
             GL_ASSERT(glDepthFunc(GL_ALWAYS));
             GL_ASSERT(glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA));
