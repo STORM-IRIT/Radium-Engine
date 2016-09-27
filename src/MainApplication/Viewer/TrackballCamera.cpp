@@ -345,13 +345,20 @@ namespace Ra
         Scalar y = m_cameraRadius * z * m_cameraSensitivity * m_quickCameraModifier;
         Core::Vector3 F = m_camera->getDirection();
 
+        Scalar dist = (m_trackballCenter - m_camera->getPosition()).norm();
+
+        if (dist < (m_camera->getZNear() + y))
+        {
+            y = dist - m_camera->getZNear();
+        }
+
         Core::Transform T( Core::Transform::Identity() );
         Core::Vector3 t = y * F;
         T.translate( t );
 
         m_camera->applyTransform( T );
 
-        m_trackballCenter = m_camera->getPosition() + m_camera->getDirection().normalized();
+        //m_trackballCenter = m_camera->getPosition() + m_camera->getDirection().normalized();
 
         emit cameraTargetChanged(m_trackballCenter);
 
