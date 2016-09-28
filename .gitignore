@@ -66,8 +66,14 @@
 
 # Output Directories
 build/
+build-dbg/
+build-rel/
 bin-debug/
 lib-debug/
+bin-dbg/
+bin-rel/
+lib-dbg/
+lib/rel
 bin/
 lib/
 include/
@@ -79,7 +85,7 @@ include/
 *.bat
 *.sh
 
-# Json 
+# Json
 *.json
 
 #Auto-generated plugins registration file
