@@ -140,9 +140,9 @@ void convertPM( const Dcel& dcel, TriangleMesh& mesh )
 //    mesh.m_vertices.resize( v_size );  // ce n'est pas le bon nombre de sommet
 //    mesh.m_normals.resize( v_size );   // ce n'est pas le bon nombre de sommet
 //    mesh.m_triangles.resize( f_size ); // ce n'est pas le bon nombre de face
-    mesh.m_vertices.erase(mesh.m_vertices.begin(), mesh.m_vertices.end());
-    mesh.m_normals.erase(mesh.m_normals.begin(), mesh.m_normals.end());
-    mesh.m_triangles.erase(mesh.m_triangles.begin(), mesh.m_triangles.end());
+    //mesh.m_vertices.erase(mesh.m_vertices.begin(), mesh.m_vertices.end());
+    //mesh.m_normals.erase(mesh.m_normals.begin(), mesh.m_normals.end());
+    //mesh.m_triangles.erase(mesh.m_triangles.begin(), mesh.m_triangles.end());
     std::map< Index, uint > v_table;
     for( uint i = 0; i < v_size; ++i ) {
 
