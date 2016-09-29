@@ -29,8 +29,10 @@ void edgeCollapse( Dcel& dcel, Index edgeIndex /*,Vector3d v*/ ) //v=v1+v2/2
     //On récupère les 2 half-edge
     HalfEdge_ptr h1 = edge->HE( 0 );
     HalfEdge_ptr h2 = h1->Twin();
-    Face_ptr f = h1->F();
-    f->setHE(NULL);
+    Face_ptr f1 = h1->F();
+    Face_ptr f2 = h2->F();
+    f1->setHE(NULL);
+    f2->setHE(NULL);
 
 //Cas classique on où n'est pas sur des bords
 //On ne modifie que les half-edge ayant pour premier vertex v2
