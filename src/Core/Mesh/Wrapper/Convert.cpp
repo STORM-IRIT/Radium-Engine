@@ -140,6 +140,9 @@ void convertPM( const Dcel& dcel, TriangleMesh& mesh )
 //    mesh.m_vertices.resize( v_size );  // ce n'est pas le bon nombre de sommet
 //    mesh.m_normals.resize( v_size );   // ce n'est pas le bon nombre de sommet
 //    mesh.m_triangles.resize( f_size ); // ce n'est pas le bon nombre de face
+    mesh.m_vertices.erase(mesh.m_vertices.begin(), mesh.m_vertices.end());
+    mesh.m_normals.erase(mesh.m_normals.begin(), mesh.m_normals.end());
+    mesh.m_triangles.erase(mesh.m_triangles.begin(), mesh.m_triangles.end());
     std::map< Index, uint > v_table;
     for( uint i = 0; i < v_size; ++i ) {
 
@@ -150,9 +153,9 @@ void convertPM( const Dcel& dcel, TriangleMesh& mesh )
 
         const Vector3 p = v->P();
         const Vector3 n = v->N();
-        mesh.m_vertices[i] = p;
-        mesh.m_normals[i]  = n;
-        v_table[ v->idx ] = i;
+        mesh.m_vertices.push_back(p);
+        mesh.m_normals.push_back(n);
+        v_table[ v->idx ] = mesh.m_vertices.size() - 1;
     }
     for( uint i = 0; i < f_size; ++i ) {
         const Face_ptr& f = dcel.m_face.at( i );
@@ -164,7 +167,7 @@ void convertPM( const Dcel& dcel, TriangleMesh& mesh )
         T[0] = v_table[ f->HE()->V()->idx ];
         T[1] = v_table[ f->HE()->Next()->V()->idx ];
         T[2] = v_table[ f->HE()->Prev()->V()->idx ];
-        mesh.m_triangles[i] = T;
+        mesh.m_triangles.push_back(T);
 
     }
 }
