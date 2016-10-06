@@ -113,7 +113,7 @@ namespace Ra
 
             m_textures[RendererTextures_OITAccum]->internalFormat = GL_RGBA32F;
             m_textures[RendererTextures_OITAccum]->dataType = GL_FLOAT;
-            
+
             m_textures[RendererTextures_OITRevealage]->internalFormat = GL_RGBA32F;
             m_textures[RendererTextures_OITRevealage]->dataType = GL_FLOAT;
 
@@ -144,12 +144,12 @@ namespace Ra
                     ++it;
                 }
             }
-            
+
             m_fancyTransparentCount = m_transparentRenderObjects.size();
-            
+
             //Ra::Core::remove_copy_if(m_debugRenderObjects, m_transparentRenderObjects,
             //                         [](auto ro) { return ro->isTransparent(); });
-            
+
             // FIXME(charly) Do we want ui too  ?
 #endif
         }
@@ -184,7 +184,7 @@ namespace Ra
             GL_ASSERT( glDisable( GL_BLEND ) );
 
             GL_ASSERT( glDrawBuffers( 4, buffers ) );
-            
+
             shader = m_shaderMgr->getShaderProgram("DepthAmbientPass");
             shader->bind();
             for ( const auto& ro : m_fancyRenderObjects )
@@ -261,7 +261,7 @@ namespace Ra
 
             shader = m_shaderMgr->getShaderProgram("LitOIT");
             shader->bind();
-            
+
             if ( m_lights.size() > 0 )
             {
                 uint light_idx = 0;
@@ -293,21 +293,21 @@ namespace Ra
             }
 
             m_oitFbo->unbind();
-            
+
             m_fbo->useAsTarget();
             GL_ASSERT(glDrawBuffers(1, buffers));
 
             GL_ASSERT(glDepthFunc(GL_ALWAYS));
             GL_ASSERT(glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA));
-           
+
             shader = m_shaderMgr->getShaderProgram("ComposeOIT");
             shader->bind();
             shader->setUniform("u_OITSumColor", m_textures[RendererTextures_OITAccum].get(), 0);
             shader->setUniform("u_OITSumWeight", m_textures[RendererTextures_OITRevealage].get(), 1);
-                        
+
             m_quadMesh->render();
 #endif
-            
+
             if (m_wireframe)
             {
                 m_fbo->useAsTarget();
@@ -317,28 +317,28 @@ namespace Ra
                 glLineWidth(1.f);
                 glEnable(GL_POLYGON_OFFSET_LINE);
                 glPolygonOffset(-1.0f, -1.1f);
-                
+
                 // Light pass
                 GL_ASSERT( glDepthFunc( GL_LEQUAL ) );
                 GL_ASSERT( glDepthMask( GL_FALSE ) );
-                
+
                 GL_ASSERT( glEnable( GL_BLEND ) );
                 GL_ASSERT( glBlendFunc( GL_ONE, GL_ONE ) );
-                
-                GL_ASSERT( glDrawBuffers( 1, buffers + 1 ) );   // Draw color texture
-                
+
+                GL_ASSERT( glDrawBuffers( 1, buffers) );   // Draw color texture
+
                 if ( m_lights.size() > 0 )
                 {
                     for ( const auto& l : m_lights )
                     {
                         RenderParameters params;
                         l->getRenderParameters( params );
-                        
+
                         for ( const auto& ro : m_fancyRenderObjects )
                         {
                             ro->render(params, renderData);
                         }
-                        
+
                         for (size_t i = 0; i < m_fancyTransparentCount; ++i)
                         {
                             auto& ro = m_transparentRenderObjects[i];
@@ -350,26 +350,26 @@ namespace Ra
                 {
                     DirectionalLight l;
                     l.setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
-                    
+
                     RenderParameters params;
                     l.getRenderParameters( params );
-                    
+
                     for ( const auto& ro : m_fancyRenderObjects )
                     {
                         ro->render(params, renderData);
                     }
-                    
+
                     for (size_t i = 0; i < m_fancyTransparentCount; ++i)
                     {
                         auto& ro = m_transparentRenderObjects[i];
                         ro->render(params, renderData);
                     }
                 }
-                
+
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
                 glDisable(GL_POLYGON_OFFSET_LINE);
             }
-            
+
             // Restore state
             GL_ASSERT( glDepthFunc( GL_LESS ) );
             GL_ASSERT( glDisable( GL_BLEND ) );
@@ -385,17 +385,17 @@ namespace Ra
             if ( m_drawDebug )
             {
                 const ShaderProgram* shader;
-                
+
                 GL_ASSERT( glDisable( GL_BLEND ) );
                 GL_ASSERT( glDepthMask( GL_FALSE ) );
                 GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
                 GL_ASSERT( glDepthFunc( GL_LESS ) );
-                
+
                 m_postprocessFbo->useAsTarget( m_width, m_height );
                 glDrawBuffers(1, buffers);
-                
+
                 glViewport(0, 0, m_width, m_height);
-                
+
                 for ( const auto& ro : m_debugRenderObjects )
                 {
                      ro->render(RenderParameters{}, renderData);
@@ -403,26 +403,26 @@ namespace Ra
 
                 DebugRender::getInstance()->render(renderData.viewMatrix,
                                                    renderData.projMatrix);
-           
+
 //#ifndef NO_TRANSPARENCY
 #if 0
                 m_postprocessFbo->unbind();
                 m_oitFbo->useAsTarget();
-                
+
                 Core::Colorf clearZeros(0.0, 0.0, 0.0, 0.0);
                 Core::Colorf clearOnes (1.0, 1.0, 1.0, 1.0);
-                
+
                 GL_ASSERT(glDrawBuffers(2, buffers));
                 GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearZeros.data()));
                 GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearOnes.data()));
-                
+
                 GL_ASSERT(glDepthFunc(GL_LESS));
                 GL_ASSERT(glEnable(GL_BLEND));
-                
+
                 GL_ASSERT(glBlendEquation(GL_FUNC_ADD));
                 GL_ASSERT(glBlendFunci(0, GL_ONE, GL_ONE));
                 GL_ASSERT(glBlendFunci(1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA));
-                
+
                 shader = m_shaderMgr->getShaderProgram("UnlitOIT");
                 shader->bind();
 
@@ -433,28 +433,28 @@ namespace Ra
                 }
 
                 m_oitFbo->unbind();
-                
+
                 m_postprocessFbo->useAsTarget();
                 GL_ASSERT(glDrawBuffers(1, buffers + 1));
-                
+
                 GL_ASSERT(glDepthFunc(GL_ALWAYS));
                 GL_ASSERT(glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA));
-                
+
                 shader = m_shaderMgr->getShaderProgram("ComposeOIT");
                 shader->bind();
                 shader->setUniform("u_OITSumColor", m_textures[TEX_OIT_TEXTURE_ACCUM].get(), 0);
                 shader->setUniform("u_OITSumWeight", m_textures[TEX_OIT_TEXTURE_REVEALAGE].get(), 1);
-                
+
                 m_quadMesh->render();
 
                 GL_ASSERT(glDisable(GL_BLEND));
 #endif
-                
+
                 // Draw X rayed objects always on top of normal objects
                 GL_ASSERT( glDepthMask( GL_TRUE ) );
                 GL_ASSERT( glDepthFunc( GL_LESS ) );
                 GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
-                
+
                 for ( const auto& ro : m_xrayRenderObjects )
                 {
                     if ( ro->isVisible() )
@@ -475,7 +475,7 @@ namespace Ra
                         ro->getMesh()->render();
                     }
                 }
-                
+
                 m_postprocessFbo->unbind();
             }
         }
