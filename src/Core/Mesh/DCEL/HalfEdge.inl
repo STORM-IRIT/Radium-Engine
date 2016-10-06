@@ -79,6 +79,7 @@ inline HalfEdge_ptr& HalfEdge::Twin() {
 
 
 inline void HalfEdge::setTwin( const HalfEdge_ptr& twin ) {
+    CORE_ASSERT(twin->m_v->idx!=m_v->idx,"Twins with same starting vertex.");
     m_twin = twin;
 }
 
