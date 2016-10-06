@@ -15,7 +15,10 @@ find_package(OpenGL     REQUIRED)
 find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
-find_package(GLEW       REQUIRED) #only used on windows builds.
+
+if (MSVC OR MSVC_IDE OR MINGW)
+  find_package(GLEW       REQUIRED) #only used on windows builds.
+endif (MSVC OR MSVC_IDE OR MINGW)
 
 include_directories(
     .
