@@ -28,24 +28,47 @@ namespace Ra
         public:
             ProgressiveMesh(TriangleMesh* mesh);
 
-            /// We construct a priority queue with an error for each
-            /// edge
+            /// Adjacency
+            /// TODO : put it in an other file for use on general DCEL
+            void edgeFaceAdjacency(Index edgeIndex, std::vector<Index>& adjOut);
+            void vertexFaceAdjacency(Index vertexIndex, std::vector<Index>& adjOut);
+            void vertexVertexAdjacency(Index vertexIndex, std::vector<Index>& adjOut);
+
+            /// We construct a priority queue with an error for each edge
             PriorityQueue constructPriorityQueue();
-            void updatePriorityQueue(PriorityQueue &pQueue, int vsId, int vtId, int edgeId);
+            void updatePriorityQueue(PriorityQueue &pQueue, Index vsId, Index vtId);
 
             /// Construction of the coarser mesh
-            void constructM0(int targetNbFaces);
+            TriangleMesh constructM0(int targetNbFaces);
 
             /// Compute all faces quadrics
             void computeFacesQuadrics();
+            void updateFacesQuadrics(Index vsIndex);
 
             /// Compute an edge quadric
             Ra::Core::Quadric computeEdgeQuadric(Index edgeIndex);
 
-            double computeEdgeError(Index edgeIndex, Vector3&p_result);
-            double computeGeometricError(const Vector3& p, Quadric q);
+            /// Compute the error on an edge
+            Scalar computeEdgeError(Index edgeIndex, Vector3&p_result);
+
+            ///
+            Scalar computeGeometricError(const Vector3& p, Quadric q);
+
+            bool isEcolPossible(Index halfEdgeIndex);
+
+            /// Getters and Setters
+            Dcel* getDcel();
+            TriangleMesh* getTriangleMesh() const;
+
+
+
+            //---------------------
+            void test(Index &vs, Index &vt);
+            //----------------------
 
         private:
+            Scalar getWedgeAngle(Index faceIndex, Index vsIndex, Index vtIndex);
+
 
 
         private:
