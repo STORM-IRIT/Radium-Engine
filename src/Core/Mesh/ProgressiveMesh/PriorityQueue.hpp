@@ -3,6 +3,7 @@
 
 #include <set>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Index/Index.hpp>
 
 namespace Ra
 {
@@ -15,16 +16,16 @@ namespace Ra
 
             struct PriorityQueueData
             {
-                int m_vs_id;
-                int m_vt_id;
-                int m_edge_id;
-                int m_fl_id;
-                double m_err;
+                Index m_vs_id;
+                Index m_vt_id;
+                Index m_edge_id;
+                Index m_fl_id;
+                Scalar m_err;
                 Vector3 m_p_result;
 
                 PriorityQueueData() : m_vs_id(-1), m_vt_id(-1), m_edge_id(-1), m_fl_id(-1), m_err(0.f), m_p_result(Vector3::Zero()) {}
 
-                PriorityQueueData(int vid0, int vid1, int eid, int fid, double error, const Vector3& p)
+                PriorityQueueData(Index vid0, Index vid1, Index eid, Index fid, Scalar error, const Vector3& p)
                         : m_vs_id(vid0), m_vt_id(vid1), m_edge_id(eid), m_fl_id(fid), m_err(error), m_p_result(p) {}
 
                 PriorityQueueData getSwapped()

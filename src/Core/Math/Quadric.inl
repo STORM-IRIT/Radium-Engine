@@ -36,7 +36,7 @@ namespace Ra
         {
             return Quadric(m_a + q.getA(), m_b + q.getB(), m_c + q.getC());
         }
-        inline Quadric Quadric::operator*(const double scal)
+        inline Quadric Quadric::operator*(const Scalar scal)
         {
             return Quadric(m_a * scal, m_b * scal, m_c * scal);
         }
@@ -48,7 +48,7 @@ namespace Ra
             m_c += q.getC();
             return *this;
         }
-        inline Quadric& Quadric::operator*=(double scal)
+        inline Quadric& Quadric::operator*=(Scalar scal)
         {
             m_a *= scal;
             m_b *= scal;
