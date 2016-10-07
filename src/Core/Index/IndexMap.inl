@@ -255,9 +255,7 @@ inline bool IndexMap< T >::contain( const Index& idx ) const {
 
 template < typename T >
 inline bool IndexMap< T >::compact() const {
-    size_t front = m_free.front();
-    bool result = (front > m_data.size());
-    return result;;
+    return ( m_free.front() > m_data.size() );
 }
 
 

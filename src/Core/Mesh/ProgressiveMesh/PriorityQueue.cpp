@@ -1,4 +1,5 @@
 #include "PriorityQueue.hpp"
+#include <Core/Log/Log.hpp>
 #include <iostream>
 
 namespace Ra
@@ -71,7 +72,7 @@ namespace Ra
             std::cout << "__________________" << std::endl;
             for (it = m_priority_queue.begin(); it != m_priority_queue.end(); it++)
             {
-                std::cout << "fl_id = " << (*it).m_fl_id << ", vs_id = " << (*it).m_vs_id << ", vt_id = " << (*it).m_vt_id << " et error = " << (*it).m_err << std::endl;
+                LOG(logINFO) << "fl_id = " << ((*it).m_fl_id).getValue() << ", vs_id = " << ((*it).m_vs_id).getValue() << ", vt_id = " << ((*it).m_vt_id).getValue() << " et error = " << (*it).m_err;
             }
         }
     } // namespace Core
