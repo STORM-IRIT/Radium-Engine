@@ -9,7 +9,7 @@ namespace Core {
 namespace DcelOperations {
 
 //v is the optimal vertex to replace the collapsing edge
-void edgeCollapse( Dcel& dcel, Index edgeIndex /*,Vector3d v*/ ) //v=v1+v2/2
+void edgeCollapse( Dcel& dcel, Index edgeIndex, Vector3 p_result)
 {
 
     //Exception
@@ -31,34 +31,42 @@ void edgeCollapse( Dcel& dcel, Index edgeIndex /*,Vector3d v*/ ) //v=v1+v2/2
     */
 
 
-    //On récupère le edge à collapser
-
+    // Retrieve the edge to collapse
     HalfEdge_ptr edge = dcel.m_halfedge[edgeIndex];
 
     Vertex_ptr v1 = edge->V();
     Vertex_ptr v2 = edge->Next()->V();
 
-    Vector3 v1_c = v1->P();
-    Vector3 v2_c = v2->P();
-    Vector3 v = (v1_c+v2_c)/2;
-
-    //On récupère les 2 half-edge
+    // Retrieve the two halfedges
     HalfEdge_ptr h1 = edge;
     HalfEdge_ptr h2 = h1->Twin();
 
-
-
-
-
+    // Retrieve the two faces
     Face_ptr f1 = h1->F();
-    Face_ptr f2 = nullptr;
-    f1->setHE(NULL);
-    if (h2 != NULL) {
-        f2 = h2->F();
-        f2->setHE(NULL);
-    }
+    Face_ptr f2 = (h2 != NULL) ? h2->F() : nullptr;
 
-    v1->setP(v);
+    // Make the halfEdge of the vertices of the faces
+    // to delete point to existing new edges if needed
+    if (h1->Prev()->V()->HE()->F() == f1)
+        h1->Prev()->V()->setHE(h1->Next()->Twin());
+    if (h2->Prev()->V()->HE()->F() == f2)
+        h2->Prev()->V()->setHE(h2->Next()->Twin());
+    if (v1->HE()->F() == f2)
+        v1->setHE(v1->HE()->Twin()->Next());
+    else if (v1->HE()->F() == f1)
+        v1->setHE(v1->HE()->Prev()->Twin());
+
+    //TODO faire pareil avec les full edge !!!
+    //-----------------------------------------------
+
+
+    // Delete the faces
+    f1->setHE(NULL);
+    if (f2 != NULL) f2->setHE(NULL);
+
+    // Set new position of v1 and delete v2
+    //p_result = (v1->P() + v2->P()) / 2;
+    v1->setP(p_result);
     v2->setHE(NULL); //on supprime v2
 
 //Dans quel cas se trouve-t-on? Cas classique ou exception?
@@ -68,14 +76,7 @@ void edgeCollapse( Dcel& dcel, Index edgeIndex /*,Vector3d v*/ ) //v=v1+v2/2
 //    if ((h1->Next())->Next())
 
 
-    //----------------------------------------------
-    //TODO
-    if (f2 != nullptr && v1->HE()->F() == f2)
-        v1->setHE(v1->HE()->Twin()->Next());
-    else if (v1->HE()->F() == f1)
-        v1->setHE(v1->HE()->Prev()->Twin());
-    //TODO faire pareil avec les full edge !!!
-    //-----------------------------------------------
+
 
 //Cas classique on où n'est pas sur des bords
 
