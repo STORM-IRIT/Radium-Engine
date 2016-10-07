@@ -24,13 +24,7 @@ namespace Ra
 
         void Quadric::compute(const Vector3& n, double ndotp)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                for (int k = 0; k < 3; k++)
-                {
-                    m_a(i, k) = n[i] * n[k];
-                }
-            }
+            m_a = n * n.transpose();
             m_b = ndotp * n;
             m_c = ndotp * ndotp;
         }
