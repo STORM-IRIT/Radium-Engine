@@ -1,5 +1,6 @@
 #include <MainApplication/Gui/MainWindow.hpp>
 
+#include <QSettings>
 #include <QFileDialog>
 #include <QToolButton>
 
@@ -132,9 +133,12 @@ namespace Ra
         std::replace(extListStd.begin(), extListStd.end(), ';', ' ');
         QString filter = QString::fromStdString(extListStd);
 
-        QString path = QFileDialog::getOpenFileName(this, "Open File", "..", filter);
+        QSettings settings;
+        QString path = settings.value("files/load", QDir::homePath()).toString();
+        path = QFileDialog::getOpenFileName(this, "Open File", path, filter);
         if (path.size() > 0)
         {
+            settings.setValue("files/load", path);
             emit fileLoading(path);
         }
     }
