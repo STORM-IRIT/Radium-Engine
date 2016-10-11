@@ -52,6 +52,12 @@ namespace Ra
         , m_isAboutToQuit( false )
         //, m_timerData(TIMER_AVERAGE)
     {
+        // Set application and organization names in order to ensure uniform
+        // QSettings configurations.
+        // \see http://doc.qt.io/qt-5/qsettings.html#QSettings-4
+        QCoreApplication::setOrganizationName("AGGA-IRIT");
+        QCoreApplication::setApplicationName("Radium-Engine");
+
         m_targetFPS = 60; // Default
         std::string pluginsPath = "../Plugins/bin";
 
