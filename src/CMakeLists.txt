@@ -133,8 +133,6 @@ if ( NOT ${OMIT_MAIN_APP} )
     # Build MainApplication
     set(app_target radium)
 
-    include(CMakeGenerateVersion.txt)
-
     if( APPLE)
         set( PLATFORM_LIBS "" )
     elseif( UNIX )
@@ -191,3 +189,5 @@ if ( NOT ${OMIT_MAIN_APP} )
     endif(MSVC)
 
 endif( NOT ${OMIT_MAIN_APP} )
+
+include(CMakeGenerateVersion.txt)
