@@ -1,4 +1,4 @@
-#include <MainApplication/MainApplication.hpp>
+#include <MainApplication.hpp>
 
 #include <Core/CoreMacros.hpp>
 
@@ -30,17 +30,16 @@
 #include <Engine/Renderer/Renderers/DebugRender.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
-#include <MainApplication/Gui/MainWindow.hpp>
-#include <MainApplication/Version.hpp>
+#include "Gui/MainWindow.hpp"
 
-#include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
+#include <PluginBase/RadiumPluginInterface.hpp>
 
 // Const parameters : TODO : make config / command line options
 
 
 namespace Ra
 {
-    MainApplication::MainApplication( int argc, char** argv )
+    MainApplication::MainApplication( int argc, char** argv, QString applicationName, QString organizationName)
         : QApplication( argc, argv )
         , m_mainWindow( nullptr )
         , m_engine( nullptr )
@@ -55,8 +54,8 @@ namespace Ra
         // Set application and organization names in order to ensure uniform
         // QSettings configurations.
         // \see http://doc.qt.io/qt-5/qsettings.html#QSettings-4
-        QCoreApplication::setOrganizationName("AGGA-IRIT");
-        QCoreApplication::setApplicationName("Radium-Engine");
+        QCoreApplication::setOrganizationName(organizationName);
+        QCoreApplication::setApplicationName(applicationName);
 
         m_targetFPS = 60; // Default
         std::string pluginsPath = "../Plugins/bin";
@@ -107,7 +106,7 @@ namespace Ra
         LOG( logINFO ) << config.str();
 
         config.str( std::string() );
-        config<<"build: "<<Version::compiler<<" - "<<Version::compileDate<<" "<<Version::compileTime;
+        //config<<"build: "<<Version::compiler<<" - "<<Version::compileDate<<" "<<Version::compileTime;
 
 
         LOG( logINFO ) << config.str();

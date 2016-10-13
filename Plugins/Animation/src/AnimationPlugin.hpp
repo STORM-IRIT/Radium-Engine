@@ -4,7 +4,7 @@
 #include <Core/CoreMacros.hpp>
 #include <QObject>
 #include <QtPlugin>
-#include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
+#include <PluginBase/RadiumPluginInterface.hpp>
 
 /// Defines the correct macro to export dll symbols.
 #if defined  Animation_EXPORTS

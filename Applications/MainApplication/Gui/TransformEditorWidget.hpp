@@ -4,7 +4,7 @@
 
 #include <Core/Containers/AlignedAllocator.hpp>
 #include <GuiBase/TransformEditor/TransformEditor.hpp>
-#include <MainApplication/Gui/VectorEditor.hpp>
+#include <Gui/VectorEditor.hpp>
 
 class QLayout;
 

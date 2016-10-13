@@ -1,4 +1,4 @@
-#include <MainApplication/Gui/TransformEditorWidget.hpp>
+#include "Gui/TransformEditorWidget.hpp"
 #include <QVBoxLayout>
 #include <Engine/RadiumEngine.hpp>
 
