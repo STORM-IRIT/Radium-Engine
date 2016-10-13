@@ -1,4 +1,4 @@
-#include <MainApplication/Gui/ColorWidget.hpp>
+#include "Gui/ColorWidget.hpp"
 
 #include <QPalette>
 #include <QMouseEvent>

@@ -17,9 +17,6 @@ endif()
 # Set the external project assimp
 include(ExternalAssimp)
 
-# Set the external project assimp
-include(ExternalAssimp)
-
 # Set the compiler flags.
 include(CompileFlags)
 
@@ -29,10 +26,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_COMPILING_QSTRING_COMPAT_CPP")
 
 
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
-set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_CURRENT_SOURCE_DIR}/bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 
 if ( NOT CMAKE_PREFIX_PATH )
   set( CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR} )
@@ -125,6 +122,7 @@ if (${LOAD_TEXTURES})
 endif()
 
 add_subdirectory(src)
+add_subdirectory(Applications)
 
 # FIXME(Charly) Not sure this is really the greatest idea ever
 add_subdirectory(Plugins)

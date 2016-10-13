@@ -1,4 +1,4 @@
-#include <MainApplication/Gui/MainWindow.hpp>
+#include "Gui/MainWindow.hpp"
 
 #include <QSettings>
 #include <QFileDialog>
@@ -16,11 +16,11 @@
 
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 
-#include <MainApplication/MainApplication.hpp>
-#include <MainApplication/Gui/MaterialEditor.hpp>
+#include "MainApplication.hpp"
+#include "Gui/MaterialEditor.hpp"
 #include <GuiBase/Viewer/CameraInterface.hpp>
 
-#include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
+#include "PluginBase/RadiumPluginInterface.hpp"
 
 using Ra::Engine::ItemEntry;
 
