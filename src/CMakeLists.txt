@@ -128,6 +128,7 @@ target_link_libraries(
 # Build tests
 add_subdirectory(Tests)
 
+set(OMIT_MAIN_APP True)
 if ( NOT ${OMIT_MAIN_APP} )
     # Build MainApplication
     set(app_target radium)

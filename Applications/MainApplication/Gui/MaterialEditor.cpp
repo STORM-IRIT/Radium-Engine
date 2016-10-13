@@ -1,4 +1,4 @@
-#include <MainApplication/Gui/MaterialEditor.hpp>
+#include "Gui/MaterialEditor.hpp"
 
 #include <QCloseEvent>
 

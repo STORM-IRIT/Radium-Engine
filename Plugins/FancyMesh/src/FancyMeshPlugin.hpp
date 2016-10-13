@@ -12,7 +12,7 @@
 #include <QObject>
 #include <QtPlugin>
 
-#include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
+#include <PluginBase/RadiumPluginInterface.hpp>
 
 namespace Ra
 {

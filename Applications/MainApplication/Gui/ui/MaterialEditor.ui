@@ -214,7 +214,7 @@
   <customwidget>
    <class>Ra::Gui::ColorWidget</class>
    <extends>QWidget</extends>
-   <header location="global">MainApplication/Gui/ColorWidget.hpp</header>
+   <header location="global">Gui/ColorWidget.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

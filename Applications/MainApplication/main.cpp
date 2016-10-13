@@ -1,6 +1,6 @@
-#include <QCommandLineParser>
+#include "MainApplication.hpp"
 
-#include <MainApplication/MainApplication.hpp>
+#include <QCommandLineParser>
 
 #include <cstdio>
 
