@@ -10,12 +10,15 @@ namespace Ra
             return m_dcel;
         }
 
-        inline TriangleMesh* ProgressiveMesh::getTriangleMesh() const
+        inline int ProgressiveMesh::getNbFaces()
         {
-            return m_mesh;
+            return m_nb_faces;
         }
 
-        //-----------------------------------------------------------
+        inline int ProgressiveMesh::getNbVertices()
+        {
+            return m_nb_vertices;
+        }
 
 
     }
