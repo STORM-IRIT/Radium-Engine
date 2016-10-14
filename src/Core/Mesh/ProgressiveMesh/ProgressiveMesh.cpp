@@ -10,6 +10,7 @@
 #include <Core/Mesh/DCEL/FullEdge.hpp>
 #include <Core/Mesh/DCEL/Dcel.hpp>
 #include <Core/Mesh/DCEL/Operations/EdgeCollapse.hpp>
+#include <Core/Mesh/DCEL/Operations/VertexSplit.hpp>
 #include <Core/Mesh/ProgressiveMesh/PriorityQueue.hpp>
 
 #include <Core/Geometry/Triangle/TriangleOperation.hpp>
@@ -26,10 +27,12 @@ namespace Ra
 
         ProgressiveMesh::ProgressiveMesh(TriangleMesh* mesh)
         {
-            m_mesh = mesh;
+            LOG(logINFO) << "new pmesh";
             m_dcel = new Dcel();
-            m_quadrics = new Quadric[m_mesh->m_triangles.size()]();
-            convert(*m_mesh, *m_dcel);
+            m_quadrics = new Quadric[mesh->m_triangles.size()]();
+            m_nb_faces = mesh->m_triangles.size();
+            m_nb_vertices = mesh->m_vertices.size();
+            convert(*mesh, *m_dcel);
         }
 
         //------------------------------------------------
@@ -465,7 +468,7 @@ namespace Ra
 
         //--------------------------------------------------
 
-        bool ProgressiveMesh::isEcolPossible(Index halfEdgeIndex)
+        bool ProgressiveMesh::isEcolPossible(Index halfEdgeIndex, Vector3 pResult)
         {
             HalfEdge_ptr he = m_dcel->m_halfedge[halfEdgeIndex];
 
@@ -487,60 +490,148 @@ namespace Ra
             if (countIntersection > 2)
                 hasTIntersection = true;
 
-            return (!hasTIntersection);
+            // Look if normals of faces change after collapse
+            bool isFlipped = false;
+            std::vector<Index> adjFaces;
+            edgeFaceAdjacency(he->idx, adjFaces);
+            Index vsId = he->V()->idx;
+            Index vtId = he->Next()->V()->idx;
+            for (uint i = 0; i < adjFaces.size(); i++)
+            {
+                HalfEdge_ptr heCurr = m_dcel->m_face[adjFaces[i]]->HE();
+                Vertex_ptr v1 = nullptr;
+                Vertex_ptr v2 = nullptr;
+                Vertex_ptr v = nullptr;
+                for (uint j = 0; j < 3; j++)
+                {
+                    if (heCurr->V()->idx != vsId && heCurr->V()->idx != vtId)
+                    {
+                        if (v1 == nullptr)
+                            v1 = heCurr->V();
+                        else if (v2 == nullptr)
+                            v2 = heCurr->V();
+                    }
+                    else
+                    {
+                        v = heCurr->V();
+                    }
+                    heCurr = heCurr->Next();
+                }
+                if (v1 != nullptr && v2 != nullptr)
+                {
+                    Vector3 d1 = v1->P() - pResult;
+                    Vector3 d2 = v2->P() - pResult;
+                    d1.normalize();
+                    d2.normalize();
+
+                    //TEST
+                    //A-t'on besoin de ça ?
+                    /*
+                    Scalar a = fabs(d1.dot(d2));
+                    Vector3 d1_before = v1->P() - v->P();
+                    Vector3 d2_before = v2->P() - v->P();
+                    d1_before.normalize();
+                    d2_before.normalize();
+                    Scalar a_before = fabs(d1_before.dot(d2_before));
+                    if (a > 0.999 && a_before < 0.999)
+                        isFlipped = true;
+                    */
+
+                    Vector3 fp_n = d1.cross(d2);
+                    fp_n.normalize();
+                    Vector3 f_n = Geometry::triangleNormal(v->P(), v1->P(), v2->P());
+                    if (fp_n.dot(f_n) < 0.1)
+                        isFlipped = true;
+
+                }
+            }
+
+            return ((!hasTIntersection) && (!isFlipped));
         }
 
         //--------------------------------------------------
 
-        TriangleMesh ProgressiveMesh::constructM0(int targetNbFaces)
+        std::vector<ProgressiveMeshData> ProgressiveMesh::constructM0(int targetNbFaces, int &nbNoFrVSplit)
         {
-            uint nbFaces = m_dcel->m_face.size();
-            uint nbFullEdges = m_dcel->m_fulledge.size();
-            uint nbVSplits = 0;
+            uint nbPMData = 0;
 
-            m_vsplits = new VSplit[nbFullEdges];
+            //m_pmdata = new ProgressiveMeshData[nbFullEdges];
+            std::vector<ProgressiveMeshData> pmdata;
+
             computeFacesQuadrics();
 
             PriorityQueue pQueue = constructPriorityQueue();
             PriorityQueue::PriorityQueueData d;
 
             // while we do not have 'targetNbFaces' faces
-            while (nbFaces > targetNbFaces)
+            while (m_nb_faces > targetNbFaces)
             {
                 if (pQueue.empty()) break;
                 d = pQueue.top();
 
+                LOG(logINFO) << "Edge Collapse " << d.m_vs_id << ", " << d.m_vt_id << ", " << d.m_p_result.transpose();
+
                 HalfEdge_ptr he = m_dcel->m_halfedge[d.m_edge_id];
 
                 // TODO !
-                if (!isEcolPossible(he->idx))
+                if (!isEcolPossible(he->idx, d.m_p_result))
                 {
                     LOG(logINFO) << "This edge is not collapsable for now";
                     continue;
                 }
 
-                if (he == NULL || he->Twin() == NULL) nbFaces -= 1;
-                else nbFaces -= 2;
+                if (he->Twin() == NULL)
+                {
+                    m_nb_faces -= 1;
+                    nbNoFrVSplit++;
+                }
+                else
+                {
+                    m_nb_faces -= 2;
+                }
+                m_nb_vertices -= 1;
 
                 HalfEdge_ptr test = m_dcel->m_vertex[d.m_vs_id]->HE();
                 std::vector<Index> adjFaces;
                 edgeFaceAdjacency(d.m_edge_id, adjFaces);
 
-                DcelOperations::edgeCollapse(*m_dcel, d.m_edge_id, d.m_p_result);
-                LOG(logINFO) << "Edge Collapse " << d.m_vs_id << ", " << d.m_vt_id << ", " << d.m_p_result.transpose();
+                ProgressiveMeshData pmData = DcelOperations::edgeCollapse(*m_dcel, d.m_edge_id, d.m_p_result);
                 updateFacesQuadrics(d.m_vs_id);
                 updatePriorityQueue(pQueue, d.m_vs_id, d.m_vt_id);
 
-                nbVSplits++;
+                //m_pmdata[nbPMData] = pmData;
+                pmdata.push_back(pmData);
+
+                nbPMData++;
             }
             delete[](m_quadrics);
-            TriangleMesh newMesh;
-            convertPM(*m_dcel, newMesh);
-            return newMesh;
+            //TriangleMesh newMesh;
+            //convertPM(*m_dcel, newMesh);
+            return pmdata;
         }
 
         //--------------------------------------------------
 
+        void ProgressiveMesh::vsplit(ProgressiveMeshData pmData)
+        {
+            HalfEdge_ptr he = m_dcel->m_halfedge[pmData.getHeFlId()];
+            if (he->Twin() == NULL)
+                m_nb_faces -= 1;
+            else
+                m_nb_faces -= 2;
+            m_nb_vertices -= 1;
+            DcelOperations::vertexSplit(*m_dcel, pmData);
+        }
 
+        void ProgressiveMesh::ecol(ProgressiveMeshData pmData)
+        {
+            HalfEdge_ptr he = m_dcel->m_halfedge[pmData.getHeFlId()];
+            if (he->Twin() == NULL)
+                m_nb_faces += 1;
+            else
+                m_nb_faces += 2;
+            m_nb_vertices += 1;
+            DcelOperations::edgeCollapse(*m_dcel, pmData);
+        }
     }
 }

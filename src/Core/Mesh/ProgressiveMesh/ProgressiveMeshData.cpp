@@ -1,14 +1,16 @@
-#include "VSplit.hpp"
+#include "ProgressiveMeshData.hpp"
 
 namespace Ra
 {
     namespace Core
     {
 
-        VSplit::VSplit()
+        ProgressiveMeshData::ProgressiveMeshData()
         {
             m_vad_l = Vector3::Zero();
             m_vad_s = Vector3::Zero();
+            m_he_fl_id = -1;
+            m_he_fr_id = -1;
             m_flclw_id = -1;
             m_fl_id = -1;
             m_fr_id = -1;
@@ -16,19 +18,19 @@ namespace Ra
             m_vt_id = -1;
             m_vl_id = -1;
             m_vr_id = -1;
-            m_vs_id_fl = -1;
-            m_vs_id_fr = -1;
             m_ii = 0;
         }
 
-        VSplit::VSplit(const Vector3& vad_l, const Vector3& vad_s,
-                       int flclw_id, int fl_id, int fr_id,
-                       int vs_id, int vt_id, int vl_id, int vr_id,
-                       int vs_id_fl, int vs_id_fr,
+        ProgressiveMeshData::ProgressiveMeshData(const Vector3& vad_l, const Vector3& vad_s,
+                       Index he_fl_id, Index he_fr_id,
+                       Index flclw_id, Index fl_id, Index fr_id,
+                       Index vs_id, Index vt_id, Index vl_id, Index vr_id,
                        short int ii)
         {
             m_vad_l = vad_l;
             m_vad_s = vad_s;
+            m_he_fl_id = he_fl_id;
+            m_he_fr_id = he_fr_id;
             m_flclw_id = flclw_id;
             m_fl_id = fl_id;
             m_fr_id = fr_id;
@@ -36,13 +38,11 @@ namespace Ra
             m_vt_id = vt_id;
             m_vl_id = vl_id;
             m_vr_id = vr_id;
-            m_vs_id_fl = vs_id_fl;
-            m_vs_id_fr = vs_id_fr;
             m_ii = ii;
 
         }
 
-        Vector3 VSplit::computePResult(const Vector3& vt, const Vector3& vs)
+        Vector3 ProgressiveMeshData::computePResult(const Vector3& vt, const Vector3& vs)
         {
             Vector3 p_result;
             if (m_ii == 0)
