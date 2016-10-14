@@ -39,7 +39,7 @@
 
 namespace Ra
 {
-    MainApplication::MainApplication( int argc, char** argv, QString applicationName, QString organizationName)
+    BaseApplication::BaseApplication( int argc, char** argv, QString applicationName, QString organizationName)
         : QApplication( argc, argv )
         , m_mainWindow( nullptr )
         , m_engine( nullptr )
@@ -169,12 +169,12 @@ namespace Ra
         m_lastFrameStart = Core::Timer::Clock::now();
     }
 
-    void MainApplication::createConnections()
+    void BaseApplication::createConnections()
     {
-        connect( m_mainWindow.get(), &Gui::MainWindow::closed , this, &MainApplication::appNeedsToQuit );
+        connect( m_mainWindow.get(), &Gui::MainWindow::closed , this, &BaseApplication::appNeedsToQuit );
     }
 
-    void MainApplication::setupScene()
+    void BaseApplication::setupScene()
     {
         using namespace Engine::DrawPrimitives;
 
@@ -188,7 +188,7 @@ namespace Ra
 
     }
 
-    void MainApplication::loadFile( QString path )
+    void BaseApplication::loadFile( QString path )
     {
         std::string pathStr = path.toLocal8Bit().data();
         LOG(logINFO) << "Loading file " << pathStr << "...";
@@ -224,12 +224,12 @@ namespace Ra
         emit loadComplete();
     }
 
-    void MainApplication::framesCountForStatsChanged( uint count )
+    void BaseApplication::framesCountForStatsChanged( uint count )
     {
         m_frameCountBeforeUpdate = count;
     }
 
-    void MainApplication::addBasicShaders()
+    void BaseApplication::addBasicShaders()
     {
         using namespace Ra::Engine;
 
@@ -255,7 +255,7 @@ namespace Ra
         ShaderConfigurationFactory::addConfiguration(lConfig);
     }
 
-    void MainApplication::radiumFrame()
+    void BaseApplication::radiumFrame()
     {
         FrameTimerData timerData;
         timerData.frameStart = Core::Timer::Clock::now();
@@ -337,30 +337,29 @@ namespace Ra
         m_mainWindow->onFrameComplete();
     }
 
-    void MainApplication::appNeedsToQuit()
+    void BaseApplication::appNeedsToQuit()
     {
         LOG( logDEBUG ) << "About to quit.";
         m_isAboutToQuit = true;
     }
 
-    void MainApplication::setRealFrameRate(bool on)
+    void BaseApplication::setRealFrameRate(bool on)
     {
        m_realFrameRate = on;
     }
-
-    void MainApplication::setRecordFrames(bool on)
+    void BaseApplication::setRecordFrames(bool on)
     {
         m_recordFrames = on;
     }
 
-    void MainApplication::recordFrame()
+    void BaseApplication::recordFrame()
     {
         std::string filename;
         Ra::Core::StringUtils::stringPrintf(filename, "radiumframe_%06u.png", m_frameCounter);
         m_viewer->grabFrame(filename);
     }
 
-    MainApplication::~MainApplication()
+    BaseApplication::~BaseApplication()
     {
         LOG( logINFO ) << "About to quit... Cleaning RadiumEngine memory";
         emit stopping();
@@ -368,7 +367,7 @@ namespace Ra
         m_engine->cleanup();
     }
 
-    bool MainApplication::loadPlugins( const std::string& pluginsPath )
+    bool BaseApplication::loadPlugins( const std::string& pluginsPath )
     {
         LOG( logINFO )<<" *** Loading Plugins ***";
         QDir pluginsDir( qApp->applicationDirPath() );

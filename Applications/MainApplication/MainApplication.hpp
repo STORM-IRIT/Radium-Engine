@@ -40,16 +40,17 @@ namespace Ra
 #endif
 #define mainApp (static_cast<Ra::MainApplication*>(qApp))
 
+
 namespace Ra
 {
     /// This class contains the main application logic. It owns the engine and the GUI.
-    class MainApplication : public QApplication
+    class BaseApplication : public QApplication
     {
         Q_OBJECT
 
     public:
-        MainApplication( int argc, char** argv, QString applicationName = "RadiumEngine", QString organizationName = "AGGA-IRIT" );
-        ~MainApplication();
+        BaseApplication( int argc, char** argv, QString applicationName = "RadiumEngine", QString organizationName = "AGGA-IRIT" );
+        ~BaseApplication();
 
         /// Advance the engine for one frame.
         void radiumFrame();
@@ -82,7 +83,7 @@ namespace Ra
 
         void recordFrame();
 
-    private:
+    protected:
         /// Create signal / slots connections
         void createConnections();
 
@@ -135,3 +136,13 @@ namespace Ra
 }
 
 
+namespace Ra
+{
+    class MainApplication : public BaseApplication
+    {
+    public:
+        using BaseApplication::BaseApplication;
+
+    };
+
+}

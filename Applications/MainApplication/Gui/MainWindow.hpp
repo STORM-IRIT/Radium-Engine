@@ -136,6 +136,9 @@ namespace Ra
             /// Task queue for processing tasks.
             std::unique_ptr<Core::TaskQueue> m_taskQueue;
 
+        protected:
+            Ra::Gui::Viewer *m_viewer;
+
         private:
             /// Stores the internal model of engine objects for selection.
             GuiBase::ItemModel* m_itemModel;
