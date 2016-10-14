@@ -36,6 +36,13 @@ namespace Ra
 
         setupUi(this);
 
+        m_viewer = new Ra::Gui::Viewer(m_centralWidget);
+        m_viewer->setObjectName(QStringLiteral("m_viewer"));
+        m_viewer->setEnabled(true);
+        m_viewer->setMinimumSize(QSize(800, 600));
+
+        gridLayout_2->addWidget(m_viewer, 0, 0, 1, 1);
+
         setWindowIcon(QPixmap(":/Assets/Images/RadiumIcon.png"));
         setWindowTitle(QString("Radium Engine"));
 
@@ -80,15 +87,15 @@ namespace Ra
         connect(actionRecord_Frames, &QAction::toggled, mainApp, &MainApplication::setRecordFrames);
 
         // Loading setup.
-        connect(this, &MainWindow::fileLoading, mainApp, &MainApplication::loadFile);
+        connect(this, &MainWindow::fileLoading, mainApp, &BaseApplication::loadFile);
 
         // Connect picking results (TODO Val : use events to dispatch picking directly)
         connect(m_viewer, &Viewer::rightClickPicking, this, &MainWindow::handlePicking);
         connect(m_viewer, &Viewer::leftClickPicking, m_viewer->getGizmoManager(), &GizmoManager::handlePickingResult);
 
         connect(m_avgFramesCount, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
-                mainApp, &MainApplication::framesCountForStatsChanged);
-        connect(mainApp, &MainApplication::updateFrameStats, this, &MainWindow::onUpdateFramestats);
+                mainApp, &BaseApplication::framesCountForStatsChanged);
+        connect(mainApp, &BaseApplication::updateFrameStats, this, &MainWindow::onUpdateFramestats);
 
         // Inform property editors of new selections
         connect(m_selectionManager, &GuiBase::SelectionManager::selectionChanged, this, &MainWindow::onSelectionChanged);
@@ -116,7 +123,7 @@ namespace Ra
 
         connect(m_enablePostProcess, &QCheckBox::stateChanged, m_viewer, &Viewer::enablePostProcess);
 //!\fixme        connect(m_enableDebugDraw,   &QCheckBox::stateChanged, m_viewer, &Viewer::enableDebugDraw);
-        connect(m_realFrameRate,     &QCheckBox::stateChanged, mainApp,  &MainApplication::setRealFrameRate);
+        connect(m_realFrameRate,     &QCheckBox::stateChanged, mainApp,  &BaseApplication::setRealFrameRate);
 
         // Connect engine signals to the appropriate callbacks
         std::function<void(const Engine::ItemEntry&)> add = std::bind(&MainWindow::onItemAdded, this, std::placeholders::_1);

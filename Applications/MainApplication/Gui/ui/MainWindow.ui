@@ -629,7 +629,7 @@
    <class>Ra::Gui::TransformEditorWidget</class>
    <extends>QWidget</extends>
    <header>Gui/TransformEditorWidget.hpp</header>
-   <container>1</container>git
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
