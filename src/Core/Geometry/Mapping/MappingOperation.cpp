@@ -105,9 +105,9 @@ void applyParametrization( const TriangleMesh& inMesh, const Parametrization& pa
 #endif
     for( uint v = 0; v < size; ++v ) {
         const Mapping map   = param[v];
-        const Scalar  alpha = map.getAlpha();
-        const Scalar  beta  = map.getBeta();
-        const Scalar  gamma = map.getGamma();
+        //const Scalar  alpha = map.getAlpha();
+        //const Scalar  beta  = map.getBeta();
+        //const Scalar  gamma = map.getGamma();
         const uint    t     = map.getID();
         const uint    i     = inMesh.m_triangles[t][0];
         const uint    j     = inMesh.m_triangles[t][1];
@@ -115,9 +115,9 @@ void applyParametrization( const TriangleMesh& inMesh, const Parametrization& pa
         const Vector3 p0    = inMesh.m_vertices[i];
         const Vector3 p1    = inMesh.m_vertices[j];
         const Vector3 p2    = inMesh.m_vertices[k];
-        const Vector3 n0    = inMesh.m_normals[i];
-        const Vector3 n1    = inMesh.m_normals[j];
-        const Vector3 n2    = inMesh.m_normals[k];
+        //const Vector3 n0    = inMesh.m_normals[i];
+        //const Vector3 n1    = inMesh.m_normals[j];
+        //const Vector3 n2    = inMesh.m_normals[k];
         const Vector3 n     = triangleNormal( p0, p1, p2 ); //( alpha * n0 ) + ( beta * n1 ) + ( gamma * n2 );
         const Vector3 N     = ( FORCE_DISPLACEMENT_TO_ZERO ) ? Vector3::Zero() : n;
         outPoint[v] = map.getPoint( p0, p1, p2, N );

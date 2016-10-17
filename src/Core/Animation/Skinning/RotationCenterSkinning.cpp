@@ -132,9 +132,9 @@ namespace Ra
                 // for all vertices (of the original mesh).
                 for (uint i = 0; i < nVerts; ++i)
                 {
-                    const Vector3& p = dataInOut.m_referenceMesh.m_vertices[i];
 
                     // Check that the first vertices of the subdivided mesh have not changed.
+                    ON_DEBUG(const Vector3& p = dataInOut.m_referenceMesh.m_vertices[i]);
                     CORE_ASSERT(subdividedMesh.m_vertices[i] == p, "Inconsistency in the meshes");
 
                     Vector3 cor(0, 0, 0);
@@ -173,7 +173,7 @@ namespace Ra
 #if defined CORE_DEBUG
                     if (i % 100 == 0)
                     {
-                        LOG(logDEBUG) << i << " / " << nVerts;
+                        LOG(logDEBUG) << "CoR:" << i << " / " << nVerts;
                     }
 #endif // CORE_DEBUG
                 }
@@ -194,10 +194,6 @@ namespace Ra
                 // Do LBS on the COR with weights of their associated vertices
                 Vector3Array transformedCoR;
                 Animation::linearBlendSkinning(CoR, pose, weight, transformedCoR);
-
-
-                uint sgn = Ra::Core::Math::signNZ( 43u);
-
 #pragma omp parallel for
                 for (int i = 0; i < int(size); ++i)
                 {

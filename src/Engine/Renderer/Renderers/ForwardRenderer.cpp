@@ -218,7 +218,6 @@ namespace Ra
 
             if ( m_lights.size() > 0 )
             {
-                int light_idx = 0;
                 for ( const auto& l : m_lights )
                 {
                     RenderParameters params;
@@ -264,7 +263,6 @@ namespace Ra
 
             if ( m_lights.size() > 0 )
             {
-                uint light_idx = 0;
                 for ( const auto& l : m_lights )
                 {
                     RenderParameters params;
@@ -484,7 +482,6 @@ namespace Ra
         void ForwardRenderer::uiInternal( const RenderData& renderData )
         {
             const ShaderProgram* shader;
-            const float          clearDepth( 1.0 );
 
             m_postprocessFbo->useAsTarget( m_width, m_height );
 

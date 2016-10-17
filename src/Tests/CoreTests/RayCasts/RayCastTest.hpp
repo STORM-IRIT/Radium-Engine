@@ -64,7 +64,7 @@ class RayCastAabbTests : public Test
                             Ra::Core::Ray r = Ra::Core::Ray(Ra::Core::Vector3::Zero(), dir.normalized());
 
                             Scalar t;
-                            Ra::Core::Vector3 n;
+                            Ra::Core::Vector3 n{0,0,0};
                             const bool result = Ra::Core::RayCast::vsAabb(r, ones, t, n);
 
                             RA_UNIT_TEST(result, "The ray should have hit (inside hit)");
