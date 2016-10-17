@@ -49,8 +49,9 @@ namespace Ra
         , m_frameTimer( new QTimer( this ) )
         , m_frameCounter( 0 )
         , m_numFrames( 0 )
+        , m_realFrameRate( false )
+        , m_recordFrames( false )
         , m_isAboutToQuit( false )
-        //, m_timerData(TIMER_AVERAGE)
     {
         // Set application and organization names in order to ensure uniform
         // QSettings configurations.
@@ -148,9 +149,6 @@ namespace Ra
         m_viewer = m_mainWindow->getViewer();
         CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
         CORE_ASSERT( m_viewer->context()->isValid(), "OpenGL was not initialized" );
-
-        // Pass the engine to the renderer to complete the initialization process.
-        m_viewer->initRenderer();
 
         // Create task queue with N-1 threads (we keep one for rendering).
         m_taskQueue.reset( new Core::TaskQueue( std::thread::hardware_concurrency() - 1 ) );
@@ -282,6 +280,7 @@ namespace Ra
         // 2. Kickoff rendering
         m_viewer->startRendering( dt );
 
+
         timerData.tasksStart = Core::Timer::Clock::now();
 
         // ----------
@@ -313,6 +312,12 @@ namespace Ra
         timerData.numFrame = m_frameCounter;
 
         m_timerData.push_back( timerData );
+
+        if (m_recordFrames)
+        {
+            recordFrame();
+        }
+
         ++m_frameCounter;
 
         if (m_numFrames > 0  &&  m_frameCounter > m_numFrames )
@@ -340,6 +345,18 @@ namespace Ra
        m_realFrameRate = on;
     }
 
+    void MainApplication::setRecordFrames(bool on)
+    {
+        m_recordFrames = on;
+    }
+
+    void MainApplication::recordFrame()
+    {
+        std::string filename;
+        Ra::Core::StringUtils::stringPrintf(filename, "radiumframe_%06u.png", m_frameCounter);
+        m_viewer->grabFrame(filename);
+    }
+
     MainApplication::~MainApplication()
     {
         LOG( logINFO ) << "About to quit... Cleaning RadiumEngine memory";
@@ -358,7 +375,6 @@ namespace Ra
         uint pluginCpt = 0;
 
         for (const auto& filename : pluginsDir.entryList(QDir::Files))
-//        foreach (QString filename, pluginsDir.entryList( QDir::Files ) )
         {
             PluginContext context;
             context.m_engine = m_engine.get();

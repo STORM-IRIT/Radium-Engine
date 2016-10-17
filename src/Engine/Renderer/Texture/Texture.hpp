@@ -11,7 +11,6 @@ namespace Ra
 {
     namespace Engine
     {
-
         class RA_ENGINE_API Texture
         {
         public:
@@ -173,9 +172,9 @@ namespace Ra
 
             /**
              * @brief Bind the texture to enable its use in a shader
-             * @param unit Index of the texture to be bound.
+             * @param unit Index of the texture to be bound. If -1 only calls glBindTexture.
              */
-            void bind(int unit);
+            void bind(int unit = -1);
 
             /**
              * @brief Clear OpenGL internal data.
@@ -198,6 +197,10 @@ namespace Ra
              */
             void updateData(void* newData);
 
+            GLenum format() const { return m_format;}
+            uint width() const { return m_width;}
+            uint height() const{ return m_height;}
+
         private:
             Texture( const Texture& ) = delete;
             void operator= ( const Texture& ) = delete;
@@ -211,7 +214,6 @@ namespace Ra
             uint m_height;
             uint m_depth;
         };
-
     } // namespace Engine
 } // namespace Ra
 

@@ -4,7 +4,6 @@
 
 namespace Ra
 {
-
     Engine::Texture::Texture(std::string name)
         : m_textureId(0)
         , m_name(name)
@@ -85,7 +84,7 @@ namespace Ra
         {
             GL_ASSERT(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalFormat, w, h, 0, format, dataType, data[i]));
         }
-        
+
         GL_ASSERT(glTexParameteri(target, GL_TEXTURE_WRAP_S, wrapS));
         GL_ASSERT(glTexParameteri(target, GL_TEXTURE_WRAP_T, wrapT));
         GL_ASSERT(glTexParameteri(target, GL_TEXTURE_WRAP_R, wrapR));
@@ -100,7 +99,11 @@ namespace Ra
 
     void Engine::Texture::bind( int unit )
     {
-        GL_ASSERT(glActiveTexture(GL_TEXTURE0 + unit));
+        if (unit >= 0)
+        {
+            GL_ASSERT(glActiveTexture(GL_TEXTURE0 + unit));
+        }
+
         GL_ASSERT(glBindTexture(target, m_textureId));
     }
 
@@ -139,5 +142,4 @@ namespace Ra
             } break;
         }
     }
-
 } // namespace Ra

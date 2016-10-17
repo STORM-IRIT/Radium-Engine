@@ -77,7 +77,10 @@ namespace Ra
         void loadFile( QString path );
         void framesCountForStatsChanged( uint count );
         void appNeedsToQuit();
-        void setRealFrameRate( bool on);
+        void setRealFrameRate( bool on );
+        void setRecordFrames( bool on );
+
+        void recordFrame();
 
     private:
         /// Create signal / slots connections
@@ -123,6 +126,10 @@ namespace Ra
 
         /// If true, use the wall clock to advance the engine. If false, use a fixed time step.
         bool m_realFrameRate;
+
+        /// If true, dump each frame to a file.
+        bool m_recordFrames;
+
         bool m_isAboutToQuit;
     };
 }

@@ -57,7 +57,6 @@ namespace Ra
         //                  Can it be done during runtime ? Must it be at startup ? ...
         //                  For now, default ForwardRenderer is used.
 
-
         /// The Viewer is the main display class. It's the central screen QWidget.
         /// Its acts as a bridge between the interface, the engine and the renderer
         /// Among its responsibilities are :
@@ -72,60 +71,75 @@ namespace Ra
             Q_OBJECT
 
         public:
-            /// CONSTRUCTOR
+            /// Constructor
             explicit Viewer( QWidget* parent = nullptr );
 
-            /// DESTRUCTOR
+            /// Destructor
             ~Viewer();
 
-            void initRenderer();
+            //
+            // Accessors
+            //
 
             /// Access to camera interface.
-            CameraInterface* getCameraInterface()
-            {
-                return m_camera.get();
-            }
+            CameraInterface* getCameraInterface();
 
             /// Access to gizmo manager
-            GizmoManager* getGizmoManager()
-            {
-                return m_gizmoManager;
-            }
+            GizmoManager* getGizmoManager();
 
             /// Read-only access to renderer
-            const Engine::Renderer* getRenderer()
-            {
-                return m_currentRenderer;
-            }
+            const Engine::Renderer* getRenderer() const;
 
-            /// Start asynchronous rendering in a separate thread.
+            //
+            // Rendering management
+            //
+
+            /// Start rendering (potentially asynchronously in a separate thread)
             void startRendering( const Scalar dt );
 
             /// Blocks until rendering is finished.
             void waitForRendering();
 
-            ///
+            //
+            // Misc functions
+            //
+
+            /// Load data from a file.
             void handleFileLoading( const std::string& file );
 
             /// Emits signals corresponding to picking requests.
             void processPicking();
 
+            /// Moves the camera so that the whole scene is visible.
             void fitCameraToScene( const Core::Aabb& sceneAabb );
 
+            /// Returns the names of the different registred renderers.
             std::vector<std::string> getRenderersName() const;
 
+            /// Write the current frame as an image. Supports either BMP or PNG file names.
+            void grabFrame( const std::string& filename );
+
+
         signals:
-            void rendererReady();
-            void leftClickPicking( int id );
-            void rightClickPicking( int id );
+            void rendererReady();               //! Emitted when the rendered is correctly initialized
+            void leftClickPicking ( int id );   //! Emitted when the result of a left click picking is known
+            void rightClickPicking( int id );   //! Emitted when the resut of a right click picking is known
 
         public slots:
             /// Tell the renderer to reload all shaders.
             void reloadShaders();
+
+            /// Set the final display texture
             void displayTexture( const QString& tex );
+
+            /// Set the renderer
             void changeRenderer( int index );
+
+            /// Toggle the post-process effetcs
             void enablePostProcess(int enabled);
-            void enableDebugDraw(int enabled);                                               
+
+            /// Toggle the debug drawing
+            void enableDebugDraw(int enabled);
 
         private slots:
             /// These slots are connected to the base class signals to properly handle
@@ -136,7 +150,10 @@ namespace Ra
             void onResized();
 
         private:
-            /// QOpenGlWidget primitives
+
+            //
+            // QOpenGlWidget primitives
+            //
 
             /// Initialize openGL. Called on by the first "show" call to the main window.
             virtual void initializeGL() override;
@@ -148,7 +165,9 @@ namespace Ra
             /// We don't implement paintGL as well.
             virtual void paintEvent( QPaintEvent* e ) override {}
 
-            /// INTERACTION
+            //
+            // Qt input events.
+            //
 
             virtual void keyPressEvent( QKeyEvent* event ) override;
             virtual void keyReleaseEvent( QKeyEvent* event ) override;
@@ -162,7 +181,7 @@ namespace Ra
 
 
         private:
-            /// Owning pointer to the renderer.
+            /// Owning pointer to the renderers.
             std::vector<std::unique_ptr<Engine::Renderer>> m_renderers;
             Engine::Renderer* m_currentRenderer;
 

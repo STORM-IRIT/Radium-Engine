@@ -9,13 +9,18 @@
 #include <Core/String/StringUtils.hpp>
 #include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
+#include <Core/Math/Math.hpp>
 #include <Core/Containers/MakeShared.hpp>
+
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include <Core/Image/stb_image_write.h>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
+#include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
@@ -74,7 +79,6 @@ namespace
         Ra::Engine::Renderer* m_renderer;
         bool isInit;
     };
-
 }
 
 namespace Ra
@@ -97,7 +101,6 @@ namespace Ra
         connect( this, &QOpenGLWidget::aboutToResize,  this, &Viewer::onAboutToResize );
         connect( this, &QOpenGLWidget::resized,        this, &Viewer::onResized );
 #endif
-
     }
 
     Gui::Viewer::~Viewer()
@@ -157,7 +160,7 @@ namespace Ra
         m_renderThread = new RenderThread( this, m_renderer.get() );
 #endif
         // FIXME (Mathias) : according to modern C++ guidelines (Stroustrup), prefer the following
-        // NOTE(Charly) : Indeed, but on MSVC std::make_shared does not guarantee alignement, hence making Eigen crash. 
+        // NOTE(Charly) : Indeed, but on MSVC std::make_shared does not guarantee alignement, hence making Eigen crash.
         //                We introduced Ra::Core::make_shared later and I still have to change all this calls.
         auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
 
@@ -171,8 +174,19 @@ namespace Ra
         emit rendererReady();
     }
 
-    void Gui::Viewer::initRenderer()
+    Gui::CameraInterface* Gui::Viewer::getCameraInterface()
     {
+        return m_camera.get();
+    }
+
+    Gui::GizmoManager* Gui::Viewer::getGizmoManager()
+    {
+        return m_gizmoManager;
+    }
+
+    const Engine::Renderer* Gui::Viewer::getRenderer() const
+    {
+        return m_currentRenderer;
     }
 
     void Gui::Viewer::onAboutToCompose()
@@ -426,6 +440,54 @@ namespace Ra
         return ret;
     }
 
+    void Gui::Viewer::grabFrame( const std::string& filename )
+    {
+        makeCurrent();
+
+        Engine::Texture* tex = m_currentRenderer->getDisplayTexture();
+        tex->bind();
+
+        // Get a buffer to store the pixels of the OpenGL texture (in float format)
+        float* pixels = new float[tex->width() * tex->height() * 4];
+
+        // Grab the texture data
+        GL_ASSERT(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_FLOAT, pixels));
+
+        // Now we must convert the floats to RGB while flipping the image updisde down.
+        unsigned char* writtenPixels = new uchar[tex->width() * tex->height() * 4];
+        for (uint j = 0; j < tex->height(); ++j)
+        {
+            for (uint i = 0; i < tex->width(); ++i)
+            {
+                uint in = 4 * (j * tex->width() + i);  // Index in the texture buffer
+                uint ou = 4 * ((tex->height() - 1 - j) * tex->width() + i); // Index in the final image (note the j flipping).
+
+                writtenPixels[ou + 0] = Ra::Core::Math::clamp<uchar>(pixels[in + 0] * 255.f, 0u, 0xffu);
+                writtenPixels[ou + 1] = Ra::Core::Math::clamp<uchar>(pixels[in + 1] * 255.f, 0u, 0xffu);
+                writtenPixels[ou + 2] = Ra::Core::Math::clamp<uchar>(pixels[in + 2] * 255.f, 0u, 0xffu);
+                writtenPixels[ou + 3] = 0xff;
+            }
+        }
+
+        std::string ext = Core::StringUtils::getFileExt(filename);
+
+        if (ext == "bmp")
+        {
+            stbi_write_bmp(filename.c_str(), tex->width(), tex->height(), 4, writtenPixels);
+        }
+        else if (ext == "png")
+        {
+            stbi_write_png(filename.c_str(), tex->width(), tex->height(), 4, writtenPixels, tex->width() * 4 * sizeof(uchar));
+        }
+        else
+        {
+            LOG(logWARNING) << "Cannot write frame to "<<filename<<" : unsupported extension";
+        }
+
+        delete[] pixels;
+        delete[] writtenPixels;
+    }
+
     void Gui::Viewer::enablePostProcess(int enabled)
     {
         m_currentRenderer->enablePostProcess(enabled);
@@ -435,5 +497,4 @@ namespace Ra
     {
         m_currentRenderer->enableDebugDraw(enabled);
     }
-
 } // namespace Ra

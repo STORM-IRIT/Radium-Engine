@@ -83,6 +83,11 @@ namespace Ra
                 return m_timerData;
             }
 
+            virtual Texture* getDisplayTexture()
+            {
+                return m_displayedTexture;
+            }
+
             // Lock the renderer (for MT access)
             virtual void lockRendering() final
             {
@@ -235,7 +240,7 @@ namespace Ra
             // 5.
             /**
              * @brief Do all post processing stuff. If you override this method,
-             * be careful to fill @see m_finalTexture since it is the texture that
+             * be careful to fill @see m_fancyTexture since it is the texture that
              * will be displayed at the very end of the @see render method.
              *
              * @param renderData The basic data needed for the rendering :
@@ -287,7 +292,7 @@ namespace Ra
             /**
              * @brief The texture that will be displayed on screen. If no call to
              * @see debugTexture has been done, this is just a pointer to
-             * @see m_finalTexture.
+             * @see m_fancyTexture.
              */
             Texture* m_displayedTexture;
 
