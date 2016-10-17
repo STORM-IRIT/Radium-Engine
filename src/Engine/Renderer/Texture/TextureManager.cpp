@@ -2,8 +2,7 @@
 
 #include <cstdio>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <Engine/Renderer/Texture/stb_image.h>
+#include <Core/Image/stb_image.h>
 #include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra
@@ -62,19 +61,19 @@ namespace Ra
                     format = GL_RED;
                     internal_format = GL_R8;
                 } break;
-                
+
                 case 2:
                 {
                     format = GL_RG;
                     internal_format = GL_RG8;
                 } break;
-                
+
                 case 3:
                 {
                     format = GL_RGB;
                     internal_format = GL_RGB8;
                 } break;
-                
+
                 case 4:
                 {
                     format = GL_RGBA;
@@ -105,7 +104,7 @@ namespace Ra
         }
 
         Texture* TextureManager::getOrLoadTexture(const TextureData &data)
-        { 
+        {
             m_pendingTextures[data.name] = data;
             return getOrLoadTexture(data.name);
         }
