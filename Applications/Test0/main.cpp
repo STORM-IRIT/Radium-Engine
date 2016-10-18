@@ -74,7 +74,7 @@ int main ( int argc, char *argv[] )
 
     app._engine->initialize();
 
-    app._viewer.initRenderer();
+    //app._viewer.initRenderer();
     app._viewer.show();
 
     return app.exec();
