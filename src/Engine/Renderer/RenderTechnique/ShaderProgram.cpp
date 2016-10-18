@@ -46,22 +46,26 @@ namespace Ra
 
         std::string getProgramInfoLog(GLuint program)
         {
-            int infoLogLen;
-            int charsWritten;
-            GLchar* infoLog;
-            std::stringstream ss;
+            int status;
 
-            glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLen);
-
-            if (infoLogLen > 0)
+            glGetProgramiv( program, GL_LINK_STATUS, & status );
+            if ( status != GL_TRUE )
             {
-                infoLog = new GLchar[infoLogLen];
-                glGetProgramInfoLog(program, infoLogLen, &charsWritten, infoLog);
-                ss << "Shader link status : " << std::endl << infoLog << std::endl;
-                delete[] infoLog;
-            }
+                int infoLogLen;
+                glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLen);
 
-            return ss.str();
+                if (infoLogLen > 0)
+                {
+                    int charsWritten;
+                    GLchar* infoLog = new GLchar[infoLogLen];
+                    glGetProgramInfoLog(program, infoLogLen, &charsWritten, infoLog);
+                    std::stringstream ss;
+                    ss << "Shader link status : " << std::endl << infoLog << std::endl;
+                    delete[] infoLog;
+                    return ss.str();
+                }
+            }
+            return "";
         }
 
         ShaderConfiguration::ShaderConfiguration(const std::string& name)

@@ -114,7 +114,7 @@ namespace Ra
 
             /// Threads working on tasks.
             std::vector<std::thread> m_workerThreads;
-            /// Storage for the tasks (task will be deleted
+            /// Storage for the tasks (task will be deleted after flushQueue()).
             std::vector<std::unique_ptr<Task>> m_tasks;
             /// For each task, stores which tasks depend on it.
             std::vector<std::vector <TaskId>> m_dependencies;

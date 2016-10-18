@@ -102,12 +102,14 @@ namespace Ra
            for ( const auto& pre : m_pendingDepsPre )
            {
                ON_DEBUG(bool result =) addDependency( pre.first, pre.second );
-               CORE_ASSERT( result, "Pending dependency unresolved");
+               ON_DEBUG( std::string errMsg = "Pending dependency unresolved : "+ pre.second; )
+               CORE_ASSERT( result, errMsg.c_str() );
            }
            for ( const auto& pre : m_pendingDepsSucc )
            {
                ON_DEBUG(bool result =) addDependency( pre.first, pre.second );
-               CORE_ASSERT( result, "Pending dependency unresolved");
+               ON_DEBUG( std::string errMsg = "Pending dependency unresolved : "+ pre.first; )
+               CORE_ASSERT( result, errMsg.c_str() );
            }
            m_pendingDepsPre.clear();
            m_pendingDepsSucc.clear();
