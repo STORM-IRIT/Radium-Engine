@@ -18,6 +18,20 @@
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 
+
+/*
+ * Mathias : on MacOsX, interface matching between shaders somehow buggy ... Explanations here ...
+ * https://www.opengl.org/wiki/Shader_Compilation#Before_linking
+ * and here
+ * https://www.opengl.org/wiki/Layout_Qualifier_(GLSL)
+ * Note: The ARB_separate_shader_objects extension was released in a form where this kind of layout location linking outside of separate shaders did not work.
+ * That is, if you specified location indices, they were effectively ignored unless you were linking a separate program.
+ *
+ * Remeber to re-declare "out gl_PerVertex  ..." in shaders with layout binding.
+ *
+ * TODO : be more rigourous thant this hack (like in ShaderObject::loadAndCompile and ShaderProgram::link)
+ */
+
 namespace Ra
 {
     namespace Engine
@@ -182,8 +196,21 @@ namespace Ra
             m_properties = properties;
             GL_ASSERT( m_id = glCreateShader( type ) );
 
-            std::string shader = preprocessIncludes(load(), 0, m_lineerr);
-
+            std::string shader;
+            if (type == GL_VERTEX_SHADER)
+            {
+                shader = "\
+                out gl_PerVertex { \
+                  vec4 gl_Position; \
+                  float gl_PointSize; \
+                  float gl_ClipDistance[]; \
+                };";
+                shader += preprocessIncludes(load(), 0, m_lineerr);
+            }
+            else
+            {
+                shader = preprocessIncludes(load(), 0, m_lineerr);
+            }
             if ( shader != "" )
             {
                 compile( shader, properties );
@@ -551,11 +578,13 @@ namespace Ra
                 }
             }
 
+            GL_ASSERT( glProgramParameteri(m_shaderId, GL_PROGRAM_SEPARABLE, GL_TRUE) );
             GL_ASSERT( glLinkProgram( m_shaderId ) );
 
             auto log = getProgramInfoLog(m_shaderId);
             if (log.size() > 0)
             {
+                LOG(logINFO) << "Shader name : " << m_configuration.m_name;
                 LOG(logINFO) << log;
             }
         }
