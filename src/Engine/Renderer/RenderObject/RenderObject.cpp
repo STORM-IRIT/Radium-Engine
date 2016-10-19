@@ -260,7 +260,7 @@ namespace Ra
         {
             return m_transparent;
         }
-        
+
         bool RenderObject::isDirty() const
         {
             return m_dirty;
@@ -392,6 +392,11 @@ namespace Ra
             if (m_visible)
             {
                 shader = (altShader == nullptr) ? getRenderTechnique()->shader : altShader;
+
+                if (!shader)
+                {
+                    return;
+                }
 
                 Core::Matrix4 M = getTransformAsMatrix();
                 Core::Matrix4 N = M.inverse().transpose();
