@@ -5,12 +5,18 @@
 #include <Core/Log/Log.hpp>
 
 #include <Core/Mesh/Wrapper/Convert.hpp>
+
 #include <Core/Mesh/DCEL/Vertex.hpp>
 #include <Core/Mesh/DCEL/HalfEdge.hpp>
 #include <Core/Mesh/DCEL/FullEdge.hpp>
 #include <Core/Mesh/DCEL/Dcel.hpp>
 #include <Core/Mesh/DCEL/Operations/EdgeCollapse.hpp>
 #include <Core/Mesh/DCEL/Operations/VertexSplit.hpp>
+
+#include <Core/Mesh/DCEL/Iterator/Vertex/VVIterator.hpp>
+#include <Core/Mesh/DCEL/Iterator/Vertex/VFIterator.hpp>
+#include <Core/Mesh/DCEL/Iterator/Edge/EFIterator.hpp>
+
 #include <Core/Mesh/ProgressiveMesh/PriorityQueue.hpp>
 
 #include <Core/Geometry/Triangle/TriangleOperation.hpp>
@@ -32,178 +38,6 @@ namespace Ra
             m_nb_faces = mesh->m_triangles.size();
             m_nb_vertices = mesh->m_vertices.size();
             convert(*mesh, *m_dcel);
-        }
-
-        //------------------------------------------------
-
-        void ProgressiveMesh::edgeFaceAdjacency(Index halfEdgeIndex, std::vector<Index>& adjOut)
-        {
-            // Beware : particular cases for going through all the adjacent faces
-            // = : border
-            /*
-                                  A                                     A
-                        \\      /   \       //       |        \\      /   \       //
-                         \\    /     \     //        |         \\    /     \     //
-                          \\  /       \   //         |          \\  /       \   //
-                           \\/         \ //          |           \\/         \ //
-                            V1— — — — — V2           |            V1==========V2
-                           //\         / \\          |
-                          //  \       /   \\         |
-                         //    \     /     \\        |
-                        //      \   /       \\       |
-                                  B
-              */
-
-            HalfEdge_ptr h1 = m_dcel->m_halfedge[halfEdgeIndex];
-            HalfEdge_ptr h2 = h1->Twin();
-
-            Face_ptr f1, f2;
-
-            if (h1 != NULL)
-            {
-                f1 = h1->F();
-                adjOut.push_back(f1->idx);
-                h1 = h1->Next()->Twin();
-            }
-            if (h2 != NULL)
-            {
-                f2 = h2->F();
-                adjOut.push_back(f2->idx);
-                h2 = h2->Prev()->Twin();
-            }
-
-            // First path around v2
-            while(h1 != NULL || h2 != NULL)
-            {
-                if (h1 != NULL)
-                {
-                    f1 = h1->F();
-                    if (f1 == f2) break;
-                    adjOut.push_back(f1->idx);
-                    h1 = h1->Next()->Twin();
-                }
-                if (h2 != NULL)
-                {
-                    f2 = h2->F();
-                    if (f2 == f1) break;
-                    adjOut.push_back(f2->idx);
-                    h2 = h2->Prev()->Twin();
-                }
-            }
-
-            // Second path around v1
-            h1 = m_dcel->m_halfedge[halfEdgeIndex];
-            if (h1->Twin() != NULL) h2 = h1->Twin()->Next()->Twin();
-            else h2 = nullptr;
-            h1 = h1->Prev()->Twin();
-            while(h1 != NULL || h2 != NULL)
-            {
-                if (h1 != NULL)
-                {
-                    f1 = h1->F();
-                    if (f1 == f2) break;
-                    adjOut.push_back(f1->idx);
-                    h1 = h1->Prev()->Twin();
-                }
-                if (h2 != NULL)
-                {
-                    f2 = h2->F();
-                    if (f2 == f1) break;
-                    adjOut.push_back(f2->idx);
-                    h2 = h2->Next()->Twin();
-                }
-            }
-        }
-
-        void ProgressiveMesh::vertexFaceAdjacency(Index vertexIndex, std::vector<Index>& adjOut)
-        {
-            // Beware : particular cases for going through all the adjacent faces
-            // see edgeFaceAdjacency function
-
-            Vertex_ptr v = m_dcel->m_vertex[vertexIndex];
-            HalfEdge_ptr h1 = v->HE();
-            HalfEdge_ptr h2 = h1 != NULL ? h1->Twin() : NULL;
-
-            Face_ptr f1, f2;
-
-            if (h1 != NULL)
-            {
-                f1 = h1->F();
-                adjOut.push_back(f1->idx);
-                h1 = h1->Prev()->Twin();
-            }
-            if (h2 != NULL)
-            {
-                f2 = h2->F();
-                adjOut.push_back(f2->idx);
-                h2 = h2->Next()->Twin();
-            }
-
-            while(h1 != NULL || h2 != NULL)
-            {
-                if (h1 != NULL)
-                {
-                    f1 = h1->F();
-                    if (f1 == f2) break;
-                    adjOut.push_back(f1->idx);
-                    h1 = h1->Prev()->Twin();
-                }
-                if (h2 != NULL)
-                {
-                    f2 = h2->F();
-                    if (f2 == f1) break;
-                    adjOut.push_back(f2->idx);
-                    h2 = h2->Next()->Twin();
-                }
-            }
-        }
-
-        void ProgressiveMesh::vertexVertexAdjacency(Index vertexIndex, std::vector<Index>& adjOut)
-        {
-            // Beware : particular cases for going through all the adjacent vertices
-            // see edgeFaceAdjacency function
-
-            Vertex_ptr v = m_dcel->m_vertex[vertexIndex];
-            HalfEdge_ptr h1 = v->HE();
-            HalfEdge_ptr h2 = h1 != NULL ? h1->Prev()->Twin() : NULL;
-
-            Vertex_ptr v1, v2;
-
-            if (h1 != NULL)
-            {
-                CORE_ASSERT(h1->V()->idx == vertexIndex, "pb vertex vertex adjacency");
-                v1 = h1->Next()->V();
-                adjOut.push_back(v1->idx);
-                h1 = h1->Twin()->Next();
-            }
-            if (h2 != NULL)
-            {
-                CORE_ASSERT(h2->V()->idx == vertexIndex, "pb vertex vertex adjacency");
-                v2 = h2->Next()->V();
-                adjOut.push_back(v2->idx);
-                h2 = h2->Prev()->Twin();
-            }
-
-            while(h1 != NULL || h2 != NULL)
-            {
-                if (h1 != NULL)
-                {
-                    CORE_ASSERT(h1->V()->idx == vertexIndex, "pb vertex vertex adjacency");
-                    v1 = h1->Next()->V();
-                    if (v1 == v2) break;
-                    adjOut.push_back(v1->idx);
-                    h1 = h1->Twin()->Next();
-                }
-                if (h2 != NULL)
-                {
-                    CORE_ASSERT(h2->V()->idx == vertexIndex, "pb vertex vertex adjacency");
-                    v2 = h2->Next()->V();
-                    if (v2 == v1) break;
-                    adjOut.push_back(v2->idx);
-                    h2 = h2->Prev()->Twin();
-                }
-            }
-
         }
 
         //------------------------------------------------
@@ -230,20 +64,20 @@ namespace Ra
         void ProgressiveMesh::updateFacesQuadrics(Index vsIndex)
         {
             // We go all over the faces which contain vsIndex
-            std::vector<Index> adjFaces;
-            vertexFaceAdjacency(vsIndex, adjFaces);
+            VFIterator vsfIt = VFIterator(m_dcel->m_vertex[vsIndex]);
+            FaceList adjFaces = vsfIt.list();
 
             Vector3 n;
             for (uint t = 0; t < adjFaces.size(); ++t)
             {
-                Face_ptr f = m_dcel->m_face[ adjFaces[t] ];
+                Face_ptr f = adjFaces[t];
                 Vertex_ptr v0 = f->HE()->V();
                 Vertex_ptr v1 = f->HE()->Next()->V();
                 Vertex_ptr v2 = f->HE()->Next()->Next()->V();
 
                 n = Geometry::triangleNormal(v0->P(), v1->P(), v2->P());
 
-                m_quadrics[adjFaces[t]] = Quadric(n,-n.dot(v0->P()));
+                m_quadrics[adjFaces[t]->idx] = Quadric(n,-n.dot(v0->P()));
             }
 
         }
@@ -275,25 +109,26 @@ namespace Ra
 
         Ra::Core::Quadric ProgressiveMesh::computeEdgeQuadric(Index halfEdgeIndex)
         {
-            std::vector<Index> adjFaces;
-            edgeFaceAdjacency(halfEdgeIndex, adjFaces);
+            EFIterator eIt = EFIterator(m_dcel->m_halfedge[halfEdgeIndex]);
+            FaceList adjFaces = eIt.list();
 
             // We go all over the faces which contain vs and vt
             // We add the quadrics of all the faces
             Quadric q;
+            Index fIdx;
 
             for (unsigned int i = 0; i < adjFaces.size(); i++)
             {
-                Face_ptr f = m_dcel->m_face[adjFaces[i]];
+                Face_ptr f = adjFaces[i];
+                fIdx = f->idx;
 //                Scalar area = Ra::Core::Geometry::triangleArea
 //                                ( f->HE()->V()->P(),
 //                                  f->HE()->Next()->V()->P(),
 //                                  f->HE()->Prev()->V()->P());
-                Scalar wedgeAngle = getWedgeAngle(adjFaces[i],
+                Scalar wedgeAngle = getWedgeAngle(fIdx,
                                                 m_dcel->m_halfedge[halfEdgeIndex]->V()->idx,
                                                 m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->idx);
-
-                q += m_quadrics[ adjFaces[i] ] * wedgeAngle;
+                q += m_quadrics[ fIdx ] * wedgeAngle;
             }
 
             return q; // * (1.0/double(adjFaces.size()));
@@ -467,16 +302,17 @@ namespace Ra
 
             // Look at configuration T inside a triangle
             bool hasTIntersection = false;
-            std::vector<Index> adjVerticesV1, adjVerticesV2;
-            vertexVertexAdjacency(he->V()->idx, adjVerticesV1);
-            vertexVertexAdjacency(he->Next()->V()->idx, adjVerticesV2);
+            VVIterator v1vIt = VVIterator(he->V());
+            VVIterator v2vIt = VVIterator(he->Next()->V());
+            VertexList adjVerticesV1 = v1vIt.list();
+            VertexList adjVerticesV2 = v2vIt.list();
 
             uint countIntersection = 0;
             for (uint i = 0; i < adjVerticesV1.size(); i++)
             {
                 for (uint j = 0; j < adjVerticesV2.size(); j++)
                 {
-                    if (adjVerticesV1[i] == adjVerticesV2[j])
+                    if (adjVerticesV1[i]->idx == adjVerticesV2[j]->idx)
                         countIntersection++;
                 }
             }
@@ -485,13 +321,14 @@ namespace Ra
 
             // Look if normals of faces change after collapse
             bool isFlipped = false;
-            std::vector<Index> adjFaces;
-            edgeFaceAdjacency(he->idx, adjFaces);
+            EFIterator eIt = EFIterator(he);
+            FaceList adjFaces = eIt.list();
+
             Index vsId = he->V()->idx;
             Index vtId = he->Next()->V()->idx;
             for (uint i = 0; i < adjFaces.size(); i++)
             {
-                HalfEdge_ptr heCurr = m_dcel->m_face[adjFaces[i]]->HE();
+                HalfEdge_ptr heCurr = adjFaces[i]->HE();
                 Vertex_ptr v1 = nullptr;
                 Vertex_ptr v2 = nullptr;
                 Vertex_ptr v = nullptr;
@@ -518,7 +355,7 @@ namespace Ra
                     d2.normalize();
 
                     //TEST
-                    //A-t'on besoin de ça ?
+                    //Do we really need this ?
                     /*
                     Scalar a = fabs(d1.dot(d2));
                     Vector3 d1_before = v1->P() - v->P();
@@ -550,6 +387,8 @@ namespace Ra
 
             //m_pmdata = new ProgressiveMeshData[nbFullEdges];
             std::vector<ProgressiveMeshData> pmdata;
+            // TODO ameliorer prédictopn nbr de VSPlit
+            pmdata.reserve(targetNbFaces);
 
             LOG(logINFO) << "Computing Faces Quadrics";
             computeFacesQuadrics();
@@ -587,18 +426,16 @@ namespace Ra
                 }
                 m_nb_vertices -= 1;
 
-                edgeFaceAdjacency(d.m_edge_id, adjFaces);
-
                 pmData = DcelOperations::edgeCollapse(*m_dcel, d.m_edge_id, d.m_p_result);
                 updateFacesQuadrics(d.m_vs_id);
                 updatePriorityQueue(pQueue, d.m_vs_id, d.m_vt_id);
 
-                //m_pmdata[nbPMData] = pmData;
                 pmdata.push_back(pmData);
 
                 nbPMData++;
             }
             delete[](m_quadrics);
+
             m_quadrics = nullptr;
 
             LOG(logINFO) << "Collapsing done";
