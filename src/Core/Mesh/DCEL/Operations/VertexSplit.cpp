@@ -3,6 +3,7 @@
 #include <Core/Mesh/DCEL/Vertex.hpp>
 #include <Core/Mesh/DCEL/FullEdge.hpp>
 #include <Core/Mesh/DCEL/Operations/VertexSplit.hpp>
+#include <Core/Log/Log.hpp>
 
 
 namespace Ra {
@@ -92,13 +93,14 @@ void findFlclwNeig(Dcel& dcel, ProgressiveMeshData pmdata,
     for (uint i = 0; i < adjOut.size(); i++)
     {
         Index fId = adjOut[i];
-        if (pmdata.getVrId() != -1)
+        if (pmdata.getVrId() != -1 && frcrwId == -1 && frcrwOpId == -1)
         {
             he = dcel.m_face[fId]->HE();
             heCurr = nullptr;
             for (uint j = 0; j < 3; j++)
             {
-                if (he->V()->idx == pmdata.getVrId())
+                if (he->V()->idx == pmdata.getVrId() &&
+                    he->Next()->V()->idx == pmdata.getVsId())
                 {
                     heCurr = he;
                     break;
@@ -108,34 +110,39 @@ void findFlclwNeig(Dcel& dcel, ProgressiveMeshData pmdata,
             }
             if (heCurr != nullptr) // vrId exists in the face
             {
-                if (heCurr->Next()->V()->idx == pmdata.getVsId())
-                    frcrwId = fId;
-                else if (heCurr->Next()->Next()->V()->idx == pmdata.getVsId())
-                    frcrwOpId = fId;
+                frcrwId = heCurr->F()->idx;
+                frcrwOpId = heCurr->Twin()->F()->idx;
             }
         }
-
-        // Vl
-        he = dcel.m_face[fId]->HE();
-        heCurr = nullptr;
-        for (uint j = 0; j < 3; j++)
+        if (flclwId == -1 && flclwOpId == -1)
         {
-            if (he->V()->idx == pmdata.getVlId())
+            // Vl
+            he = dcel.m_face[fId]->HE();
+            heCurr = nullptr;
+            for (uint j = 0; j < 3; j++)
             {
-                heCurr = he;
-                break;
+                if (he->V()->idx == pmdata.getVlId() &&
+                    he->Next()->V()->idx == pmdata.getVsId())
+                {
+                    heCurr = he;
+                    break;
+                }
+                else
+                    he = he->Next();
             }
-            else
-                he = he->Next();
+            if (heCurr != nullptr) // vlId exists in the face
+            {
+                flclwOpId = he->F()->idx;
+                flclwId = he->Twin()->F()->idx;
+            }
         }
-        if (heCurr != nullptr) // vlId exists in the face
-        {
-            if (heCurr->Next()->V()->idx == pmdata.getVsId())
-                flclwId = fId;
-            else if (heCurr->Next()->Next()->V()->idx == pmdata.getVsId())
-                flclwOpId = fId;
-        }
+        if (flclwId != -1 && flclwOpId != -1 && frcrwOpId != -1 && frcrwId)
+            break;
     }
+    CORE_ASSERT(flclwOpId != -1, "PROBLEM FLCLWOP NOT FOUND");
+    CORE_ASSERT(flclwId != -1, "PROBLEM FLCLW NOT FOUND");
+    CORE_ASSERT(frcrwId != -1, "PROBLEM FRCRW NOT FOUND");
+    CORE_ASSERT(frcrwOpId != -1, "PROBLEM FRCRWOP NOT FOUND");
 }
 
 void vertexSplit(Dcel& dcel, ProgressiveMeshData pmdata)
@@ -205,6 +212,7 @@ void vertexSplit(Dcel& dcel, ProgressiveMeshData pmdata)
     heFlNext->FE()->setHE(heFlNext);
     heFlNext->setTwin(heFlclwOpCurr);
     heFlclwOpCurr->setTwin(heFlNext);
+    heFlclwOpCurr->Next()->setV(dcel.m_vertex[vtId]);
 
     heFlPrev->setV(dcel.m_vertex[vlId]);
     heFlPrev->setF(dcel.m_face[flId]);
@@ -224,6 +232,22 @@ void vertexSplit(Dcel& dcel, ProgressiveMeshData pmdata)
     heFrPrev->FE()->setHE(heFrPrev);
     heFrPrev->setTwin(heFrcrwOpCurr);
     heFrcrwOpCurr->setTwin(heFrPrev);
+    heFrcrwOpCurr->setV(dcel.m_vertex[vtId]);
+
+    // Vs becomes Vt in some faces
+    HalfEdge_ptr he = heFlclwOpCurr->Next();
+    he = he->Twin()->Next();
+    while (he != heFrcrwOpCurr)
+    {
+        he->setV(dcel.m_vertex[vtId]);
+        he = he->Twin()->Next();
+    }
+
+    // Set HE of Vs and Vt
+    Vertex_ptr vs = dcel.m_vertex[vsId];
+    Vertex_ptr vt = dcel.m_vertex[vtId];
+    vs->setHE(heFl);
+    vt->setHE(heFr);
 
     // Update Fl and Fr
     dcel.m_face[pmdata.getFlId()]->setHE(heFl);

@@ -16,6 +16,7 @@ public:
     ~VVIterator();
 
     /// LIST
+    //inline VertexList list() const override;
     inline VertexList list() const override;
 
     /// OPERATOR
