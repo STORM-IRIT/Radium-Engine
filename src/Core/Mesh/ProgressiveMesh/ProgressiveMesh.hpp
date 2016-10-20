@@ -62,12 +62,6 @@ namespace Ra
             inline int getNbFaces();
             inline int getNbVertices();
 
-
-
-            //---------------------
-            void test(Index &vs, Index &vt);
-            //----------------------
-
         private:
             Scalar getWedgeAngle(Index faceIndex, Index vsIndex, Index vtIndex);
 
@@ -78,8 +72,6 @@ namespace Ra
             Quadric* m_quadrics;
             int m_nb_faces;
             int m_nb_vertices;
-            //ProgressiveMeshData* m_pmdata;
-
         };
     }
 
