@@ -37,6 +37,11 @@ namespace Ra
             /// Construct a quadric from an other.
             Quadric(const Quadric &q);
 
+            /// Create a quadric from a normal vector n and the scalar which
+            /// represent the distance from the plane of normal n to the origin
+            /// \see compute
+            Quadric(const Vector3& n, double ndotp);
+
             ~Quadric();
 
             /// Getters and setters
@@ -52,6 +57,7 @@ namespace Ra
 
             /// Create a quadric from a normal vector n and the scalar which
             /// represent the distance from the plane of normal n to the origin
+            /// \deprecated Use constructor instead
             void compute(const Vector3& n, double ndotp);
 
             /// Operators

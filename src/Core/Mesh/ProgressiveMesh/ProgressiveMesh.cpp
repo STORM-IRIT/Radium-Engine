@@ -211,6 +211,9 @@ namespace Ra
         void ProgressiveMesh::computeFacesQuadrics()
         {
             const uint numTriangles = m_dcel->m_face.size();
+
+            Vector3 n;
+#pragma omp parallel for private(n)
             for (uint t = 0; t < numTriangles; ++t)
             {
                 Face_ptr f = m_dcel->m_face[t];
@@ -218,22 +221,9 @@ namespace Ra
                 Vertex_ptr v1 = f->HE()->Next()->V();
                 Vertex_ptr v2 = f->HE()->Next()->Next()->V();
 
-                Vector3 n = Geometry::triangleNormal(v0->P(), v1->P(), v2->P());
-                Scalar ndotp = -n.dot(v0->P());
+                n = Geometry::triangleNormal(v0->P(), v1->P(), v2->P());
 
-                Quadric q;
-                q.compute(n, ndotp);
-
-                Scalar test = computeGeometricError(v0->P(), q);
-                //CORE_ASSERT(std::abs(test) < 0.000001, "Pb quadric");
-
-                /*
-                LOG(logINFO) << "sommets : " << v0->P().transpose() << "/" << v1->P().transpose() << "/" << v2->P().transpose();
-                LOG(logINFO) << "normal : " << n.transpose();
-                LOG(logINFO) << "quadric : " << q.getA() << " / " << q.getB().transpose() << "/" << q.getC();
-                */
-
-                m_quadrics[t] = q;
+                m_quadrics[t] = Quadric(n, -n.dot(v0->P()));
             }
         }
 
@@ -243,6 +233,7 @@ namespace Ra
             std::vector<Index> adjFaces;
             vertexFaceAdjacency(vsIndex, adjFaces);
 
+            Vector3 n;
             for (uint t = 0; t < adjFaces.size(); ++t)
             {
                 Face_ptr f = m_dcel->m_face[ adjFaces[t] ];
@@ -250,13 +241,9 @@ namespace Ra
                 Vertex_ptr v1 = f->HE()->Next()->V();
                 Vertex_ptr v2 = f->HE()->Next()->Next()->V();
 
-                Vector3 n = Geometry::triangleNormal(v0->P(), v1->P(), v2->P());
-                Scalar ndotp = -n.dot(v0->P());
+                n = Geometry::triangleNormal(v0->P(), v1->P(), v2->P());
 
-                Quadric q;
-                q.compute(n, ndotp);
-
-                m_quadrics[adjFaces[t]] = q;
+                m_quadrics[adjFaces[t]] = Quadric(n,-n.dot(v0->P()));
             }
 
         }
@@ -278,7 +265,7 @@ namespace Ra
                     Vector3 v1 = he->Prev()->V()->P() - he->V()->P();
                     v0.normalize();
                     v1.normalize();
-                    wedgeAngle = acos(v0.dot(v1));
+                    wedgeAngle = std::acos(v0.dot(v1));
                     break;
                 }
                 he = he->Next();
@@ -298,15 +285,15 @@ namespace Ra
             for (unsigned int i = 0; i < adjFaces.size(); i++)
             {
                 Face_ptr f = m_dcel->m_face[adjFaces[i]];
-                Scalar area = Ra::Core::Geometry::triangleArea
-                                ( f->HE()->V()->P(),
-                                  f->HE()->Next()->V()->P(),
-                                  f->HE()->Prev()->V()->P());
+//                Scalar area = Ra::Core::Geometry::triangleArea
+//                                ( f->HE()->V()->P(),
+//                                  f->HE()->Next()->V()->P(),
+//                                  f->HE()->Prev()->V()->P());
                 Scalar wedgeAngle = getWedgeAngle(adjFaces[i],
                                                 m_dcel->m_halfedge[halfEdgeIndex]->V()->idx,
                                                 m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->idx);
-                Quadric qf = m_quadrics[ adjFaces[i] ] * wedgeAngle;
-                q += qf;
+
+                q += m_quadrics[ adjFaces[i] ] * wedgeAngle;
             }
 
             return q; // * (1.0/double(adjFaces.size()));
@@ -384,6 +371,8 @@ namespace Ra
             const uint numTriangles = m_dcel->m_face.size();
             const uint numVertices = m_dcel->m_vertex.size();
 
+            pQueue.reserve(numTriangles*3 / 2);
+
             // matrice triangulaire inferieure sans diagonale dans un tableau 1D
             // pour eviter de mettre deux fois la meme arete dans la priority queue
             // index = row * (N - 2) - t(row - 1) + col - 1     où t(a) = a*(a+1) / 2
@@ -396,30 +385,36 @@ namespace Ra
             std::vector<bool> edgeProcessed(edgeProcessedSize, false);
 
             // parcours des aretes
-            uint vsId, vtId, edgeProcessedInd;
+            uint edgeProcessedInd;
             double edgeError;
             Vector3 p = Vector3::Zero();
-            Vector3 p_test = Vector3::Zero();
+            int j;
+
+#pragma omp parallel for private(j, edgeProcessedInd, edgeError, p)
             for (unsigned int i = 0; i < numTriangles; i++)
             {
                 const Face_ptr& f = m_dcel->m_face.at( i );
                 HalfEdge_ptr h = f->HE();
-                for (int j = 0; j < 3; j++)
+                for (j = 0; j < 3; j++)
                 {
                     const Vertex_ptr& vs = h->V();
                     const Vertex_ptr& vt = h->Next()->V();
-                    edgeProcessedInd = ind(min((vs->idx).getValue(), (vt->idx).getValue()), max((vs->idx).getValue(), (vt->idx).getValue()), numVertices);
+                    edgeProcessedInd = ind(min((vs->idx).getValue(), (vt->idx).getValue()),
+                                           max((vs->idx).getValue(), (vt->idx).getValue()), numVertices);
                     if (!edgeProcessed[edgeProcessedInd])
                     {
                         edgeError = computeEdgeError(f->HE()->idx, p);
 
-                        edgeProcessed[edgeProcessedInd] = true;
-                        pQueue.insert(PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p));
+#pragma omp critical
+                        {
+                            edgeProcessed[edgeProcessedInd] = true;
+                            pQueue.insert(PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p));
+                        }
                     }
                     h = h->Next();
                 }
             }
-            pQueue.display();
+
             return pQueue;
         }
 
@@ -431,7 +426,6 @@ namespace Ra
 
             double edgeError;
             Vector3 p = Vector3::Zero();
-            Vector3 p_test = Vector3::Zero();
             Index vIndex;
 
             // Adding an edge
@@ -557,12 +551,17 @@ namespace Ra
             //m_pmdata = new ProgressiveMeshData[nbFullEdges];
             std::vector<ProgressiveMeshData> pmdata;
 
+            LOG(logINFO) << "Computing Faces Quadrics";
             computeFacesQuadrics();
 
+            LOG(logINFO) << "Computing Priority Queue";
             PriorityQueue pQueue = constructPriorityQueue();
             PriorityQueue::PriorityQueueData d;
 
+            LOG(logINFO) << "Collapsing...";
             // while we do not have 'targetNbFaces' faces
+            std::vector<Index> adjFaces;
+            ProgressiveMeshData pmData;
             while (m_nb_faces > targetNbFaces)
             {
                 if (pQueue.empty()) break;
@@ -577,10 +576,7 @@ namespace Ra
                     continue;
                 }
 
-                LOG(logINFO) << "Edge Collapse " << d.m_vs_id << ", " << d.m_vt_id << ", " << d.m_p_result.transpose();
-
-
-                if (he->Twin() == NULL)
+                if (he->Twin() == nullptr)
                 {
                     m_nb_faces -= 1;
                     nbNoFrVSplit++;
@@ -591,11 +587,9 @@ namespace Ra
                 }
                 m_nb_vertices -= 1;
 
-                HalfEdge_ptr test = m_dcel->m_vertex[d.m_vs_id]->HE();
-                std::vector<Index> adjFaces;
                 edgeFaceAdjacency(d.m_edge_id, adjFaces);
 
-                ProgressiveMeshData pmData = DcelOperations::edgeCollapse(*m_dcel, d.m_edge_id, d.m_p_result);
+                pmData = DcelOperations::edgeCollapse(*m_dcel, d.m_edge_id, d.m_p_result);
                 updateFacesQuadrics(d.m_vs_id);
                 updatePriorityQueue(pQueue, d.m_vs_id, d.m_vt_id);
 
@@ -605,8 +599,10 @@ namespace Ra
                 nbPMData++;
             }
             delete[](m_quadrics);
-            //TriangleMesh newMesh;
-            //convertPM(*m_dcel, newMesh);
+            m_quadrics = nullptr;
+
+            LOG(logINFO) << "Collapsing done";
+
             return pmdata;
         }
 
@@ -621,7 +617,7 @@ namespace Ra
                 m_nb_faces += 2;
             m_nb_vertices += 1;
 
-            LOG(logINFO) << "Vertex Split " << pmData.getVsId() << ", " << pmData.getVtId() << ", faces " << pmData.getFlId() << ", " << pmData.getFrId();
+            //LOG(logINFO) << "Vertex Split " << pmData.getVsId() << ", " << pmData.getVtId() << ", faces " << pmData.getFlId() << ", " << pmData.getFrId();
 
             DcelOperations::vertexSplit(*m_dcel, pmData);
         }
@@ -635,7 +631,7 @@ namespace Ra
                 m_nb_faces -= 2;
             m_nb_vertices -= 1;
 
-            LOG(logINFO) << "Edge Collapse " << pmData.getVsId() << ", " << pmData.getVtId() << ", faces " << pmData.getFlId() << ", " << pmData.getFrId();
+            //LOG(logINFO) << "Edge Collapse " << pmData.getVsId() << ", " << pmData.getVtId() << ", faces " << pmData.getFlId() << ", " << pmData.getFrId();
 
             DcelOperations::edgeCollapse(*m_dcel, pmData);
         }
