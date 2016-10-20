@@ -12,7 +12,6 @@
 #include <Core/Math/Math.hpp>
 #include <Core/Containers/MakeShared.hpp>
 
-#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <Core/Image/stb_image_write.h>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>

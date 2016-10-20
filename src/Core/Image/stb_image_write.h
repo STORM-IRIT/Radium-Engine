@@ -122,7 +122,7 @@ extern "C" {
 #ifdef STB_IMAGE_WRITE_STATIC
 #define STBIWDEF static
 #else
-#define STBIWDEF extern
+#define STBIWDEF extern RA_CORE_API
 extern int stbi_write_tga_with_rle;
 #endif
 

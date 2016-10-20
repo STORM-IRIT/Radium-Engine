@@ -76,13 +76,13 @@ void computeDQ_naive( const Pose& pose, const WeightMatrix& weight, DQList& DQ )
     poseDQ.reserve( pose.size());
 
     // 1. Convert all transforms to DQ
-    for ( uint j = 0 ; j < weight.cols(); ++j)
+    for ( int j = 0 ; j < weight.cols(); ++j)
     {
         poseDQ.push_back(DualQuaternion(pose[j]));
     }
 
     // 2. for all vertices, blend the dual quats.
-    for (uint i = 0; i < weight.rows(); ++i)
+    for (int i = 0; i < weight.rows(); ++i)
     {
         int firstNonZero = -1;
         for (uint j = 0; j < weight.cols(); ++j)
@@ -101,7 +101,7 @@ void computeDQ_naive( const Pose& pose, const WeightMatrix& weight, DQList& DQ )
     }
 
     // 3. renormalize all dual quats.
-    for( int i = 0; i < int(DQ.size()) ; ++i) {
+    for( uint i = 0; i < DQ.size() ; ++i) {
         DQ[i].normalize();
     }
 }
