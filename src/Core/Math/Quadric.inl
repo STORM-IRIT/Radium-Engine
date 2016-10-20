@@ -4,6 +4,23 @@ namespace Ra
 {
     namespace Core
     {
+        inline Quadric::Quadric() :
+            m_a(Matrix3::Zero()), m_b(Vector3::Zero()), m_c(0) {}
+
+        inline Quadric::Quadric(const Quadric &q) :
+            m_a(q.m_a), m_b(q.m_b), m_c(q.m_c) {}
+
+        inline Quadric::Quadric(const Vector3& n, double ndotp) :
+            m_a(n * n.transpose()), m_b(ndotp * n), m_c(ndotp * ndotp) {}
+
+        inline Quadric::~Quadric() {}
+
+        inline void Quadric::compute(const Vector3& n, double ndotp)
+        {
+            m_a = n * n.transpose();
+            m_b = ndotp * n;
+            m_c = ndotp * ndotp;
+        }
 
         inline const Matrix3& Quadric::getA() const
         {
