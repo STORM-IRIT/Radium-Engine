@@ -17,6 +17,7 @@ VVIterator::~VVIterator() { }
 
 
 /// LIST
+/*
 inline VertexList VVIterator::list() const {
     VertexList L;
     HalfEdge_ptr it = m_v->HE();
@@ -24,6 +25,51 @@ inline VertexList VVIterator::list() const {
         L.push_back( it->Next()->V() );
         it = it->Prev()->Twin();
     } while( it != m_v->HE() );
+    return L;
+}
+*/
+inline VertexList VVIterator::list() const
+{
+    VertexList L;
+    HalfEdge_ptr h1 = m_v->HE();
+    HalfEdge_ptr h2 = h1 != NULL ? h1->Prev()->Twin() : NULL;
+
+    Vertex_ptr v1, v2;
+
+    if (h1 != NULL)
+    {
+        CORE_ASSERT(h1->V()->idx == m_v->idx, "Halfedge does not have the right vertex reference");
+        v1 = h1->Next()->V();
+        L.push_back(v1);
+        h1 = h1->Twin()->Next();
+    }
+    if (h2 != NULL)
+    {
+        CORE_ASSERT(h2->V()->idx == m_v->idx, "Halfedge does not have the right vertex reference");
+        v2 = h2->Next()->V();
+        L.push_back(v2);
+        h2 = h2->Prev()->Twin();
+    }
+
+    while(h1 != NULL || h2 != NULL)
+    {
+        if (h1 != NULL)
+        {
+            CORE_ASSERT(h1->V()->idx == m_v->idx, "Halfedge does not have the right vertex reference");
+            v1 = h1->Next()->V();
+            if (v1 == v2) break;
+            L.push_back(v1);
+            h1 = h1->Twin()->Next();
+        }
+        if (h2 != NULL)
+        {
+            CORE_ASSERT(h2->V()->idx == m_v->idx, "Halfedge does not have the right vertex reference");
+            v2 = h2->Next()->V();
+            if (v2 == v1) break;
+            L.push_back(v2);
+            h2 = h2->Prev()->Twin();
+        }
+    }
     return L;
 }
 

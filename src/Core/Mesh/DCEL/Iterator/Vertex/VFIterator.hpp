@@ -16,6 +16,7 @@ public:
     ~VFIterator();
 
     /// LIST
+    //inline FaceList list() const override;
     inline FaceList list() const override;
 
     /// OPERATOR
