@@ -108,8 +108,11 @@ endif()
 
 # Debug by default
 
-
-set( VALID_CMAKE_BUILD_TYPES "Debug Release RelWithDebInfo" )
-if ( NOT "${VALID_CMAKE_BUILD_TYPES}" MATCHES ${CMAKE_BUILD_TYPE} )
-    set( CMAKE_BUILD_TYPE Debug )
+if ( NOT MSVC )
+    set( VALID_CMAKE_BUILD_TYPES "Debug Release RelWithDebInfo" )
+    if ( NOT CMAKE_BUILD_TYPE )
+        set( CMAKE_BUILD_TYPE Debug )
+    elseif ( NOT "${VALID_CMAKE_BUILD_TYPES}" MATCHES ${CMAKE_BUILD_TYPE} )
+        set( CMAKE_BUILD_TYPE Debug )
+    endif()
 endif()
