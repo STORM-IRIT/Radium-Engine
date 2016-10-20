@@ -13,7 +13,7 @@ namespace Ra
             m_nb_no_fr_vsplit = 0;
         }
 
-        ProgressiveMeshLOD::ProgressiveMeshLOD(ProgressiveMesh* pm)
+        ProgressiveMeshLOD::ProgressiveMeshLOD(ProgressiveMeshBase* pm)
         {
             m_pm = pm;
             m_curr_vsplit = 0;
@@ -141,7 +141,7 @@ namespace Ra
             return m_curr_vsplit;
         }
 
-        ProgressiveMesh* ProgressiveMeshLOD::getProgressiveMesh()
+        ProgressiveMeshBase* ProgressiveMeshLOD::getProgressiveMesh()
         {
             return m_pm;
         }

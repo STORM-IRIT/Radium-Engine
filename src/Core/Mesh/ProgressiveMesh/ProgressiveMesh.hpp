@@ -9,6 +9,7 @@
 
 #include <Core/Mesh/ProgressiveMesh/PriorityQueue.hpp>
 #include <Core/Mesh/ProgressiveMesh/ProgressiveMeshData.hpp>
+#include <Core/Mesh/ProgressiveMesh/ErrorMetric.hpp>
 
 #include <Core/Math/Quadric.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
@@ -22,10 +23,27 @@ namespace Ra
 {
     namespace Core
     {
-
-        class ProgressiveMesh
+        class ProgressiveMeshBase
         {
         public:
+            virtual std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit) = 0;
+            virtual void vsplit(ProgressiveMeshData pmData) = 0;
+            virtual void ecol(ProgressiveMeshData pmData) = 0;
+
+            virtual Dcel* getDcel() = 0;
+            virtual int getNbFaces() = 0;
+
+        };
+
+        //template<class Primitive = Quadric<3> >
+        template<class ErrorMetric = QuadricErrorMetric>
+        class ProgressiveMesh : public ProgressiveMeshBase
+        {
+
+        public:
+
+            using Primitive = typename ErrorMetric::Primitive;
+
             ProgressiveMesh(TriangleMesh* mesh);
             ProgressiveMesh(const ProgressiveMesh& mesh) {}
 
@@ -36,31 +54,30 @@ namespace Ra
             void updatePriorityQueue(PriorityQueue &pQueue, Index vsId, Index vtId);
 
             /// Construction of the coarser mesh
-            std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit);
+            std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit) override;
 
             /// Vertex Split
-            void vsplit(ProgressiveMeshData pmData);
-            void ecol(ProgressiveMeshData pmData);
+            void vsplit(ProgressiveMeshData pmData) override;
+            void ecol(ProgressiveMeshData pmData) override;
 
             /// Compute all faces quadrics
             void computeFacesQuadrics();
             void updateFacesQuadrics(Index vsIndex);
 
             /// Compute an edge quadric
-            Ra::Core::Quadric computeEdgeQuadric(Index edgeIndex);
+            Primitive computeEdgeQuadric(Index edgeIndex);
 
             /// Compute the error on an edge
             Scalar computeEdgeError(Index edgeIndex, Vector3&p_result);
 
             ///
-            Scalar computeGeometricError(const Vector3& p, Quadric q);
+            Scalar computeGeometricError(const Vector3& p, Primitive q);
 
             bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult);
 
             /// Getters and Setters
             inline Dcel* getDcel();
             inline int getNbFaces();
-            inline int getNbVertices();
 
         private:
             Scalar getWedgeAngle(Index faceIndex, Index vsIndex, Index vtIndex);
@@ -69,7 +86,8 @@ namespace Ra
 
         private:
             Dcel* m_dcel;
-            Quadric* m_quadrics;
+            std::vector<Primitive> m_primitives;
+            ErrorMetric m_em;
             int m_nb_faces;
             int m_nb_vertices;
         };

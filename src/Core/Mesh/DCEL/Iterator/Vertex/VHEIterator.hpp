@@ -9,11 +9,11 @@ namespace Core {
 class VHEIterator : public VIterator< HalfEdge > {
 public:
     /// CONSTRUCTOR
-    VHEIterator( Vertex_ptr& v );
-    VHEIterator( const VHEIterator& it ) = default;
+    inline VHEIterator( Vertex_ptr& v );
+    inline VHEIterator( const VHEIterator& it ) = default;
 
     /// DESTRUCTOR
-    ~VHEIterator();
+    inline ~VHEIterator();
 
     /// LIST
     inline HalfEdgeList list() const override;
