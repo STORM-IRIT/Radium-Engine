@@ -9,7 +9,8 @@ namespace Core {
 template < typename OBJECT >
 VIterator< OBJECT >::VIterator( Vertex_ptr& v ) :
     Iterator< OBJECT >(),
-    m_v( v ) {
+    m_v( v )
+{
     this->m_he = m_v->HE();
 }
 
