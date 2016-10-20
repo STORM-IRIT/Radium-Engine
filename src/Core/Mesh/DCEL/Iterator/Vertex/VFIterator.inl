@@ -10,12 +10,12 @@ namespace Core {
 
 
 /// CONSTRUCTOR
-VFIterator::VFIterator( Vertex_ptr& v ) : VIterator< Face >( v ) { }
+inline VFIterator::VFIterator( Vertex_ptr& v ) : VIterator< Face >( v ) { }
 
 
 
 /// DESTRUCTOR
-VFIterator::~VFIterator() { }
+inline VFIterator::~VFIterator() { }
 
 
 
@@ -59,14 +59,14 @@ inline FaceList VFIterator::list() const
         {
             f1 = h1->F();
             if (f1 == f2) break;
-            adjOut.push_back(f1);
+            L.push_back(f1);
             h1 = h1->Prev()->Twin();
         }
         if (h2 != NULL)
         {
             f2 = h2->F();
             if (f2 == f1) break;
-            adjOut.push_back(f2);
+            L.push_back(f2);
             h2 = h2->Next()->Twin();
         }
     }
