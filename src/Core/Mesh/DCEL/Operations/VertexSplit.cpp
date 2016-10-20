@@ -1,59 +1,20 @@
 #include <Core/Index/Index.hpp>
+
 #include <Core/Mesh/DCEL/HalfEdge.hpp>
 #include <Core/Mesh/DCEL/Vertex.hpp>
 #include <Core/Mesh/DCEL/FullEdge.hpp>
+
 #include <Core/Mesh/DCEL/Operations/VertexSplit.hpp>
+
+#include <Core/Mesh/DCEL/Iterator/Vertex/VFIterator.hpp>
+
 #include <Core/Log/Log.hpp>
 
 
 namespace Ra {
 namespace Core {
+
 namespace DcelOperations {
-
-// TODO
-// Function duplication in ProgressiveMesh
-void vertexFaceAdjacency(Dcel& dcel, Index vertexIndex, std::vector<Index>& adjOut)
-{
-    // Beware : particular cases for going through all the adjacent faces
-    // see edgeFaceAdjacency function
-
-    Vertex_ptr v = dcel.m_vertex[vertexIndex];
-    HalfEdge_ptr h1 = v->HE();
-    HalfEdge_ptr h2 = h1 != NULL ? h1->Twin() : NULL;
-
-    Face_ptr f1, f2;
-
-    if (h1 != NULL)
-    {
-        f1 = h1->F();
-        adjOut.push_back(f1->idx);
-        h1 = h1->Prev()->Twin();
-    }
-    if (h2 != NULL)
-    {
-        f2 = h2->F();
-        adjOut.push_back(f2->idx);
-        h2 = h2->Next()->Twin();
-    }
-
-    while(h1 != NULL || h2 != NULL)
-    {
-        if (h1 != NULL)
-        {
-            f1 = h1->F();
-            if (f1 == f2) break;
-            adjOut.push_back(f1->idx);
-            h1 = h1->Prev()->Twin();
-        }
-        if (h2 != NULL)
-        {
-            f2 = h2->F();
-            if (f2 == f1) break;
-            adjOut.push_back(f2->idx);
-            h2 = h2->Next()->Twin();
-        }
-    }
-}
 
 void createVt(Dcel& dcel, ProgressiveMeshData pmdata)
 {
@@ -81,7 +42,7 @@ void createVt(Dcel& dcel, ProgressiveMeshData pmdata)
 
 void findFlclwNeig(Dcel& dcel, ProgressiveMeshData pmdata,
                    Index &flclwId, Index &flclwOpId, Index &frcrwId, Index &frcrwOpId,
-                   std::vector<Index> adjOut)
+                   FaceList adjOut)
 {
     frcrwId = -1;
     frcrwOpId = -1;
@@ -92,10 +53,10 @@ void findFlclwNeig(Dcel& dcel, ProgressiveMeshData pmdata,
     // Vr
     for (uint i = 0; i < adjOut.size(); i++)
     {
-        Index fId = adjOut[i];
+        Face_ptr f = adjOut[i];
         if (pmdata.getVrId() != -1 && frcrwId == -1 && frcrwOpId == -1)
         {
-            he = dcel.m_face[fId]->HE();
+            he = f->HE();
             heCurr = nullptr;
             for (uint j = 0; j < 3; j++)
             {
@@ -117,7 +78,7 @@ void findFlclwNeig(Dcel& dcel, ProgressiveMeshData pmdata,
         if (flclwId == -1 && flclwOpId == -1)
         {
             // Vl
-            he = dcel.m_face[fId]->HE();
+            he = f->HE();
             heCurr = nullptr;
             for (uint j = 0; j < 3; j++)
             {
@@ -156,8 +117,11 @@ void vertexSplit(Dcel& dcel, ProgressiveMeshData pmdata)
     Index frId = pmdata.getFrId();
 
     // Looking for the faces affected by the vertex split
-    std::vector<Index> adjFaces;
-    vertexFaceAdjacency(dcel, vsId, adjFaces);
+    //std::vector<Index> adjFaces;
+    //FaceListvertexFaceAdjacency(dcel, vsId, adjFaces);
+
+    VFIterator vsfIt = VFIterator(dcel.m_vertex[vsId]);
+    FaceList adjFaces = vsfIt.list();
 
     //  Looking for faces whose neighboring need to be updated
     Index flclwOpId, frcrwId, frcrwOpId;

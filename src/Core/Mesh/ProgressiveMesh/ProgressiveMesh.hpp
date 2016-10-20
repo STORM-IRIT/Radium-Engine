@@ -27,20 +27,9 @@ namespace Ra
         {
         public:
             ProgressiveMesh(TriangleMesh* mesh);
-            ProgressiveMesh(const ProgressiveMesh& mesh)
-            {
-                std::cout << "test2" << std::endl;
-            }
-            ~ProgressiveMesh()
-            {
-                std::cout << "dest_test2" << std::endl;
-            }
+            ProgressiveMesh(const ProgressiveMesh& mesh) {}
 
-            /// Adjacency
-            /// TODO : put it in an other file for use on general DCEL
-            void edgeFaceAdjacency(Index edgeIndex, std::vector<Index>& adjOut);
-            void vertexFaceAdjacency(Index vertexIndex, std::vector<Index>& adjOut);
-            void vertexVertexAdjacency(Index vertexIndex, std::vector<Index>& adjOut);
+            ~ProgressiveMesh() {}
 
             /// We construct a priority queue with an error for each edge
             PriorityQueue constructPriorityQueue();
