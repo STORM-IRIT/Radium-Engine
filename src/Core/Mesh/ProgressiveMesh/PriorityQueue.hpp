@@ -31,9 +31,13 @@ namespace Ra
                 PriorityQueueData getSwapped()
                 {
                     PriorityQueueData data = *this;
-                    data.m_vs_id = m_vt_id;
-                    data.m_vt_id = m_vs_id;
+                    data.swap();
                     return data;
+                }
+
+                inline const PriorityQueueData& swap() {
+                    std::swap(m_vs_id, m_vt_id);
+                    return *this;
                 }
             };
 
@@ -82,13 +86,9 @@ namespace Ra
             /// Delete edges having v_id as vertex
             void removeEdges(int v_id);
 
-
+            void reserve(size_t size);
             bool empty();
-
-
             void display();
-
-
             int size();
 
 
@@ -100,5 +100,7 @@ namespace Ra
 
     } // namespace Ra
 } // namespace Core
+
+#include <Core/Mesh/ProgressiveMesh/PriorityQueue.inl>
 
 #endif // PRIORITYQUEUE_H
