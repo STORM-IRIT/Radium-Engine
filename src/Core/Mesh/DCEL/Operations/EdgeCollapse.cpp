@@ -38,6 +38,7 @@ short int computeii(Dcel& dcel, Index vsId, Index vtId, Vector3 pResult, Vector3
 
 ProgressiveMeshData edgeCollapse(Dcel& dcel, Index edgeIndex, Vector3 pResult)
 {
+    CORE_ASSERT(dcel.m_halfedge[edgeIndex]->V()->idx != dcel.m_halfedge[edgeIndex]->Twin()->V()->idx,"Twins with same starting vertex.");
 
     //Exception
     /*
@@ -119,9 +120,10 @@ ProgressiveMeshData edgeCollapse(Dcel& dcel, Index edgeIndex, Vector3 pResult)
     //on parcourt à partir de h1
     HalfEdge_ptr h = h1;
     do {
-       h = h->Next();
-       h -> setV(v1);
-       h = h->Twin();
+        h = h->Next();
+        if (h->idx != h2->idx)
+            h->setV(v1);
+        h = h->Twin();
     } while (h != h1 && h != NULL);
 
     //Si on a une ouverture dans le maillage, on parcourt à partir de h2 également
@@ -131,7 +133,8 @@ ProgressiveMeshData edgeCollapse(Dcel& dcel, Index edgeIndex, Vector3 pResult)
         h = h->Twin();
         while (h!=NULL)
         {
-            h->setV(v1);
+            if (h->idx != h2->idx)
+                h->setV(v1);
             h = h->Prev();
             h = h->Twin();
         }
@@ -154,7 +157,7 @@ ProgressiveMeshData edgeCollapse(Dcel& dcel, Index edgeIndex, Vector3 pResult)
     //gérer les half-edges, full-edges et faces
 
     // Return ProgressiveMeshData on this edge collapse
-    // CORE_ASSERT(dcel.m_halfedge[edgeIndex]->V()->idx != dcel.m_halfedge[edgeIndex]->Twin()->V()->idx,"Twins with same starting vertex.");
+    CORE_ASSERT(dcel.m_halfedge[edgeIndex]->V()->idx != dcel.m_halfedge[edgeIndex]->Twin()->V()->idx,"Twins with same starting vertex.");
 
     return ProgressiveMeshData(vadL, vadS,
                                edgeIndex, dcel.m_halfedge[edgeIndex]->Twin()->idx,
