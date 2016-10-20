@@ -13,14 +13,12 @@ namespace Ra
 
             /// Constructor
             ProgressiveMeshLOD();
-            ProgressiveMeshLOD(ProgressiveMesh* pm);
+            ProgressiveMeshLOD(ProgressiveMeshBase* pm);
             ProgressiveMeshLOD(const ProgressiveMeshLOD &pmlod)
             {
-                std::cout << "test" << std::endl;
             }
             ~ProgressiveMeshLOD()
             {
-                std::cout << "dest_test" << std::endl;
             }
 
             /// This method will build the Progressive Mesh
@@ -44,11 +42,11 @@ namespace Ra
             void setNbNoFrVSplit(const int v);
             int getNbNoFrVSplit();
             int getCurrVSplit();
-            ProgressiveMesh* getProgressiveMesh();
+            ProgressiveMeshBase* getProgressiveMesh();
 
         private:
             std::vector<ProgressiveMeshData> m_pmdata;
-            ProgressiveMesh* m_pm;
+            ProgressiveMeshBase* m_pm;
             int m_nb_no_fr_vsplit;
             int m_curr_vsplit;
 
