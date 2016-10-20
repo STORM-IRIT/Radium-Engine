@@ -35,7 +35,8 @@ namespace Ra
                     return data;
                 }
 
-                inline const PriorityQueueData& swap() {
+                inline const PriorityQueueData& swap()
+                {
                     std::swap(m_vs_id, m_vt_id);
                     return *this;
                 }

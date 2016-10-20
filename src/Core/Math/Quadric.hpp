@@ -24,33 +24,37 @@ namespace Ra
         ///     Calculate the error on the edge
         ///         error = vmin^T Ae vmin + 2 be^T vmin + ce       with Qe = (Ae, be, ce)
 
+        template<int _DIM = 3>
         class Quadric
         {
         public:
+            static constexpr int DIM = _DIM;
+            using Matrix = Eigen::Matrix<Scalar, DIM, DIM>;
+            using Vector = Eigen::Matrix<Scalar, 3, 1>;
 
             /// Construct an initialized quadric.
             Quadric();
 
             /// Construct and initialize a quadric.
-            Quadric(Matrix3 a, Vector3 b, double c) : m_a(a), m_b(b), m_c(c) {}
+            Quadric(const Matrix &a, const Vector &b, double c) : m_a(a), m_b(b), m_c(c) {}
 
             /// Construct a quadric from an other.
-            Quadric(const Quadric &q);
+            Quadric(const Quadric<DIM> &q);
 
             /// Create a quadric from a normal vector n and the scalar which
             /// represent the distance from the plane of normal n to the origin
             /// \see compute
-            Quadric(const Vector3& n, double ndotp);
+            Quadric(const Vector& n, double ndotp);
 
             ~Quadric();
 
             /// Getters and setters
 
-            inline const Matrix3& getA() const;
-            inline void setA(const Matrix3 &a);
+            inline const Matrix& getA() const;
+            inline void setA(const Matrix &a);
 
-            inline const Vector3& getB() const;
-            inline void setB(const Vector3 &b);
+            inline const Vector& getB() const;
+            inline void setB(const Vector &b);
 
             inline const double & getC() const;
             inline void setC(const double &c);
@@ -58,7 +62,7 @@ namespace Ra
             /// Create a quadric from a normal vector n and the scalar which
             /// represent the distance from the plane of normal n to the origin
             /// \deprecated Use constructor instead
-            void compute(const Vector3& n, double ndotp);
+            void compute(const Vector& n, double ndotp);
 
             /// Operators
 
@@ -70,8 +74,8 @@ namespace Ra
 
         private:
 
-            Matrix3 m_a;
-            Vector3 m_b;
+            Matrix m_a;
+            Vector m_b;
             double m_c;
         };
 

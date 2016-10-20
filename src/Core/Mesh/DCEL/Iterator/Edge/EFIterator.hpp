@@ -9,11 +9,11 @@ namespace Core {
 class EFIterator : public EIterator< Face > {
 public:
     /// CONSTRUCTOR
-    EFIterator( HalfEdge_ptr& he );
-    EFIterator( const EFIterator& it ) = default;
+    inline EFIterator( HalfEdge_ptr& he );
+    inline EFIterator( const EFIterator& it ) = default;
 
     /// DESTRUCTOR
-    ~EFIterator();
+    inline ~EFIterator();
 
     /// LIST
     inline FaceList list() const override;
