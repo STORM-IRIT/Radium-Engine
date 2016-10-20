@@ -27,7 +27,6 @@ namespace Ra
 
         ProgressiveMesh::ProgressiveMesh(TriangleMesh* mesh)
         {
-            LOG(logINFO) << "new pmesh";
             m_dcel = new Dcel();
             m_quadrics = new Quadric[mesh->m_triangles.size()]();
             m_nb_faces = mesh->m_triangles.size();
@@ -569,8 +568,6 @@ namespace Ra
                 if (pQueue.empty()) break;
                 d = pQueue.top();
 
-                LOG(logINFO) << "Edge Collapse " << d.m_vs_id << ", " << d.m_vt_id << ", " << d.m_p_result.transpose();
-
                 HalfEdge_ptr he = m_dcel->m_halfedge[d.m_edge_id];
 
                 // TODO !
@@ -579,6 +576,9 @@ namespace Ra
                     LOG(logINFO) << "This edge is not collapsable for now";
                     continue;
                 }
+
+                LOG(logINFO) << "Edge Collapse " << d.m_vs_id << ", " << d.m_vt_id << ", " << d.m_p_result.transpose();
+
 
                 if (he->Twin() == NULL)
                 {
@@ -616,10 +616,13 @@ namespace Ra
         {
             HalfEdge_ptr he = m_dcel->m_halfedge[pmData.getHeFlId()];
             if (he->Twin() == NULL)
-                m_nb_faces -= 1;
+                m_nb_faces += 1;
             else
-                m_nb_faces -= 2;
-            m_nb_vertices -= 1;
+                m_nb_faces += 2;
+            m_nb_vertices += 1;
+
+            LOG(logINFO) << "Vertex Split " << pmData.getVsId() << ", " << pmData.getVtId() << ", faces " << pmData.getFlId() << ", " << pmData.getFrId();
+
             DcelOperations::vertexSplit(*m_dcel, pmData);
         }
 
@@ -627,10 +630,13 @@ namespace Ra
         {
             HalfEdge_ptr he = m_dcel->m_halfedge[pmData.getHeFlId()];
             if (he->Twin() == NULL)
-                m_nb_faces += 1;
+                m_nb_faces -= 1;
             else
-                m_nb_faces += 2;
-            m_nb_vertices += 1;
+                m_nb_faces -= 2;
+            m_nb_vertices -= 1;
+
+            LOG(logINFO) << "Edge Collapse " << pmData.getVsId() << ", " << pmData.getVtId() << ", faces " << pmData.getFlId() << ", " << pmData.getFrId();
+
             DcelOperations::edgeCollapse(*m_dcel, pmData);
         }
     }

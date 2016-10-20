@@ -9,14 +9,12 @@ namespace Ra
 
         ProgressiveMeshLOD::ProgressiveMeshLOD()
         {
-            LOG(logINFO) << "new pmeshlod";
             m_curr_vsplit = 0;
             m_nb_no_fr_vsplit = 0;
         }
 
         ProgressiveMeshLOD::ProgressiveMeshLOD(ProgressiveMesh* pm)
         {
-            LOG(logINFO) << "new pmeshlod with pm";
             m_pm = pm;
             m_curr_vsplit = 0;
             m_nb_no_fr_vsplit = 0;
@@ -74,7 +72,7 @@ namespace Ra
             }
             else if (m_pm->getNbFaces() > target)
             {
-                while (m_pm->getNbFaces() < target)
+                while (m_pm->getNbFaces() > target)
                 {
                     if (!less())
                         break;

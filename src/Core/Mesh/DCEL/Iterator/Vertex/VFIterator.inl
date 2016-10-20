@@ -20,6 +20,7 @@ VFIterator::~VFIterator() { }
 
 
 /// LIST
+/*
 inline FaceList VFIterator::list() const {
     FaceList L;
     HalfEdge_ptr it = m_v->HE();
@@ -29,6 +30,49 @@ inline FaceList VFIterator::list() const {
     } while( it != m_v->HE() );
     return L;
 }
+*/
+
+inline FaceList VFIterator::list() const
+{
+    FaceList L;
+    HalfEdge_ptr h1 = m_v->HE();
+    HalfEdge_ptr h2 = h1 != NULL ? h1->Twin() : NULL;
+
+    Face_ptr f1, f2;
+
+    if (h1 != NULL)
+    {
+        f1 = h1->F();
+        L.push_back(f1);
+        h1 = h1->Prev()->Twin();
+    }
+    if (h2 != NULL)
+    {
+        f2 = h2->F();
+        L.push_back(f2);
+        h2 = h2->Next()->Twin();
+    }
+
+    while(h1 != NULL || h2 != NULL)
+    {
+        if (h1 != NULL)
+        {
+            f1 = h1->F();
+            if (f1 == f2) break;
+            adjOut.push_back(f1);
+            h1 = h1->Prev()->Twin();
+        }
+        if (h2 != NULL)
+        {
+            f2 = h2->F();
+            if (f2 == f1) break;
+            adjOut.push_back(f2);
+            h2 = h2->Next()->Twin();
+        }
+    }
+    return L;
+}
+
 
 
 
