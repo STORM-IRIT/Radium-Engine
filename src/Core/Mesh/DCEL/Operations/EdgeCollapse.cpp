@@ -157,8 +157,6 @@ ProgressiveMeshData edgeCollapse(Dcel& dcel, Index edgeIndex, Vector3 pResult)
     //gérer les half-edges, full-edges et faces
 
     // Return ProgressiveMeshData on this edge collapse
-    CORE_ASSERT(dcel.m_halfedge[edgeIndex]->V()->idx != dcel.m_halfedge[edgeIndex]->Twin()->V()->idx,"Twins with same starting vertex.");
-
     return ProgressiveMeshData(vadL, vadS,
                                edgeIndex, dcel.m_halfedge[edgeIndex]->Twin()->idx,
                                flclw->idx, f1->idx, f2->idx,
