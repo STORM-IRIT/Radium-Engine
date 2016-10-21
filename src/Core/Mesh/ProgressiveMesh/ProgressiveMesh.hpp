@@ -9,6 +9,7 @@
 
 #include <Core/Mesh/ProgressiveMesh/PriorityQueue.hpp>
 #include <Core/Mesh/ProgressiveMesh/ProgressiveMeshData.hpp>
+#include <Core/Mesh/ProgressiveMesh/ErrorMetric.hpp>
 
 #include <Core/Math/Quadric.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
@@ -31,14 +32,18 @@ namespace Ra
 
             virtual Dcel* getDcel() = 0;
             virtual int getNbFaces() = 0;
-            virtual int getNbVertices() = 0;
 
         };
 
-        template<class Primitive = Quadric<3> >
+        //template<class Primitive = Quadric<3> >
+        template<class ErrorMetric = QuadricErrorMetric>
         class ProgressiveMesh : public ProgressiveMeshBase
         {
+
         public:
+
+            using Primitive = typename ErrorMetric::Primitive;
+
             ProgressiveMesh(TriangleMesh* mesh);
             ProgressiveMesh(const ProgressiveMesh& mesh) {}
 
@@ -73,7 +78,6 @@ namespace Ra
             /// Getters and Setters
             inline Dcel* getDcel();
             inline int getNbFaces();
-            inline int getNbVertices();
 
         private:
             Scalar getWedgeAngle(Index faceIndex, Index vsIndex, Index vtIndex);
@@ -82,7 +86,8 @@ namespace Ra
 
         private:
             Dcel* m_dcel;
-            Primitive* m_quadrics;
+            std::vector<Primitive> m_primitives;
+            ErrorMetric m_em;
             int m_nb_faces;
             int m_nb_vertices;
         };

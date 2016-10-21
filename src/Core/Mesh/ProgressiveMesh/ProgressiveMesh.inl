@@ -22,21 +22,17 @@
 
 #include <Core/Geometry/Triangle/TriangleOperation.hpp>
 
-#define min(x, y) (((x) < (y)) ? (x) : (y))
-#define max(x, y) (((x) > (y)) ? (x) : (y))
-#define triang(x) (((x) * ((x) + 1)) / 2)
-#define ind(row, col, n) ((row) * ((n) - 2) - triang((row) - 1) + (col) - 1)
-
 namespace Ra
 {
     namespace Core
     {
 
-        template <class Primitive>
-        ProgressiveMesh<Primitive>::ProgressiveMesh(TriangleMesh* mesh)
+        template<class ErrorMetric>
+        ProgressiveMesh<ErrorMetric>::ProgressiveMesh(TriangleMesh* mesh)
         {
             m_dcel = new Dcel();
-            m_quadrics = new Primitive[mesh->m_triangles.size()]();
+            m_primitives.reserve(mesh->m_triangles.size());
+            m_em = ErrorMetric();
             m_nb_faces = mesh->m_triangles.size();
             m_nb_vertices = mesh->m_vertices.size();
             convert(*mesh, *m_dcel);
@@ -44,70 +40,48 @@ namespace Ra
 
         //------------------------------------------------
 
-        template <class Primitive>
-        inline Dcel* ProgressiveMesh<Primitive>::getDcel()
+        template <class ErrorMetric>
+        inline Dcel* ProgressiveMesh<ErrorMetric>::getDcel()
         {
             return m_dcel;
         }
 
-        template <class Primitive>
-        inline int ProgressiveMesh<Primitive>::getNbFaces()
+        template <class ErrorMetric>
+        inline int ProgressiveMesh<ErrorMetric>::getNbFaces()
         {
             return m_nb_faces;
         }
 
-        template <class Primitive>
-        inline int ProgressiveMesh<Primitive>::getNbVertices()
-        {
-            return m_nb_vertices;
-        }
-
         //------------------------------------------------
 
-        template <class Primitive>
-        void ProgressiveMesh<Primitive>::computeFacesQuadrics()
+        template <class ErrorMetric>
+        void ProgressiveMesh<ErrorMetric>::computeFacesQuadrics()
         {
             const uint numTriangles = m_dcel->m_face.size();
-
-            Vector3 n;
-#pragma omp parallel for private(n)
             for (uint t = 0; t < numTriangles; ++t)
             {
-                Face_ptr f = m_dcel->m_face[t];
-                Vertex_ptr v0 = f->HE()->V();
-                Vertex_ptr v1 = f->HE()->Next()->V();
-                Vertex_ptr v2 = f->HE()->Next()->Next()->V();
-
-                n = Geometry::triangleNormal(v0->P(), v1->P(), v2->P());
-                m_quadrics[t] = Primitive(n, -n.dot(v0->P()));
+                Primitive q;
+                m_em.generateFacePrimitive(q, m_dcel->m_face[t]);
+                m_primitives.push_back(q);
             }
         }
 
-        template <class Primitive>
-        void ProgressiveMesh<Primitive>::updateFacesQuadrics(Index vsIndex)
+        template <class ErrorMetric>
+        void ProgressiveMesh<ErrorMetric>::updateFacesQuadrics(Index vsIndex)
         {
             // We go all over the faces which contain vsIndex
             VFIterator vsfIt = VFIterator(m_dcel->m_vertex[vsIndex]);
             FaceList adjFaces = vsfIt.list();
-
-            Vector3 n;
             for (uint t = 0; t < adjFaces.size(); ++t)
             {
-                Face_ptr f = adjFaces[t];
-                Vertex_ptr v0 = f->HE()->V();
-                Vertex_ptr v1 = f->HE()->Next()->V();
-                Vertex_ptr v2 = f->HE()->Next()->Next()->V();
-
-                n = Geometry::triangleNormal(v0->P(), v1->P(), v2->P());
-
-                m_quadrics[adjFaces[t]->idx] = Primitive(n,-n.dot(v0->P()));
+                Primitive q;
+                m_em.generateFacePrimitive(q, adjFaces[t]);
+                m_primitives[adjFaces[t]->idx] = q;
             }
-
         }
 
-
-        template <class Primitive>
-        Scalar ProgressiveMesh<Primitive>::getWedgeAngle(Index faceIndex, Index vsIndex, Index vtIndex)
+        template <class ErrorMetric>
+        Scalar ProgressiveMesh<ErrorMetric>::getWedgeAngle(Index faceIndex, Index vsIndex, Index vtIndex)
         {
             Scalar wedgeAngle;
             Face_ptr face = m_dcel->m_face[faceIndex];
@@ -131,8 +105,8 @@ namespace Ra
             return wedgeAngle;
         }
 
-        template <class Primitive>
-        Primitive ProgressiveMesh<Primitive>::computeEdgeQuadric(Index halfEdgeIndex)
+        template <class ErrorMetric>
+        typename ErrorMetric::Primitive ProgressiveMesh<ErrorMetric>::computeEdgeQuadric(Index halfEdgeIndex)
         {
             EFIterator eIt = EFIterator(m_dcel->m_halfedge[halfEdgeIndex]);
             FaceList adjFaces = eIt.list();
@@ -153,7 +127,7 @@ namespace Ra
                 Scalar wedgeAngle = getWedgeAngle(fIdx,
                                                 m_dcel->m_halfedge[halfEdgeIndex]->V()->idx,
                                                 m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->idx);
-                q += m_quadrics[ fIdx ] * wedgeAngle;
+                q += m_primitives[ fIdx ] * wedgeAngle;
             }
 
             return q; // * (1.0/double(adjFaces.size()));
@@ -161,137 +135,22 @@ namespace Ra
 
         //-----------------------------------------------------
 
-        template <class Primitive>
-        Scalar ProgressiveMesh<Primitive>::computeEdgeError(Index halfEdgeIndex, Vector3 &p_result)
+        template <class ErrorMetric>
+        Scalar ProgressiveMesh<ErrorMetric>::computeEdgeError(Index halfEdgeIndex, Vector3 &pResult)
         {
             Primitive q = computeEdgeQuadric(halfEdgeIndex);
-            Scalar error;
-
-            // on cherche v_result
-            // A v_result = -b		avec A = nn^T
-            //							 b = dn
-            Matrix3 A_inverse = q.getA().inverse();
-
-            Scalar det = q.getA().determinant();
-            if (det > 0.0001)
-            {
-                p_result = -A_inverse * q.getB();
-                error = computeGeometricError(p_result, q);
-            }
-            else //matrix non inversible
-            {
-                Vector3 p1 = m_dcel->m_halfedge[halfEdgeIndex]->V()->P();
-                Vector3 p2 = m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->P();
-                Vector3 p12 = (p1 + p2) / 2.0;
-
-                Scalar p1_error = computeGeometricError(p1, q);
-                Scalar p2_error = computeGeometricError(p2, q);
-                Scalar p12_error = computeGeometricError(p12, q);
-
-                error = p1_error;
-                Vector3 p = p1;
-                if (p2_error < error && p12_error > p2_error)
-                {
-                    p = p2;
-                    p_result = p;
-                    error = p2_error;
-                }
-                else if (p12_error < error && p2_error > p12_error)
-                {
-                    p = p12;
-                    p_result = p;
-                    error = p12_error;
-                }
-                else
-                {
-                    p_result = p;
-                }
-            }
-            return error;
-        }
-
-
-        template <class Primitive>
-        Scalar ProgressiveMesh<Primitive>::computeGeometricError(const Vector3& p, Primitive q)
-        {
-            // Computing geometric error
-            // v^T A v + 2 * b^T v + c
-            Eigen::Matrix<Scalar, 1, 3> row_p = p.transpose();
-            Eigen::Matrix<Scalar, 1, 3> row_b = q.getB().transpose();
-            Scalar error_a = row_p * q.getA() * p;
-            Scalar error_b = 2.0 * row_b * p;
-            Scalar error_c = q.getC();
-            return (error_a + error_b + error_c);
+            Vector3 vs = m_dcel->m_halfedge[halfEdgeIndex]->V()->P();
+            Vector3 vt = m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->P();
+            return m_em.computeError(q, vs, vt, pResult);
         }
 
         //--------------------------------------------------
 
-        /*
-        template <class Primitive>
-        PriorityQueue ProgressiveMesh<Primitive>::constructPriorityQueue()
+        template <class ErrorMetric>
+        PriorityQueue ProgressiveMesh<ErrorMetric>::constructPriorityQueue()
         {
             PriorityQueue pQueue = PriorityQueue();
-
             const uint numTriangles = m_dcel->m_face.size();
-            const uint numVertices = m_dcel->m_vertex.size();
-
-            //pQueue.reserve(numTriangles*3 / 2);
-
-            // matrice triangulaire inferieure sans diagonale dans un tableau 1D
-            // pour eviter de mettre deux fois la meme arete dans la priority queue
-            // index = row * (N - 2) - t(row - 1) + col - 1     où t(a) = a*(a+1) / 2
-            //    e0  e1  e2
-            //  e0    x   x
-            //  e1        x
-            //  e2
-            // Il y a surement moyen de faire quelquechose de plus intelligent...
-            int edgeProcessedSize = ind(numVertices - 1, numVertices - 1, numVertices) + 1;
-            std::vector<bool> edgeProcessed(edgeProcessedSize, false);
-
-            // parcours des aretes
-            uint edgeProcessedInd;
-            double edgeError;
-            Vector3 p = Vector3::Zero();
-            int j;
-#pragma omp parallel for private(j, edgeProcessedInd, edgeError, p)
-            for (unsigned int i = 0; i < numTriangles; i++)
-            {
-                const Face_ptr& f = m_dcel->m_face.at( i );
-                HalfEdge_ptr h = f->HE();
-                for (j = 0; j < 3; j++)
-                {
-                    const Vertex_ptr& vs = h->V();
-                    const Vertex_ptr& vt = h->Next()->V();
-                    if (vs->idx > vt->idx)//
-                        continue;//
-                    edgeProcessedInd = ind(min((vs->idx).getValue(), (vt->idx).getValue()),
-                                           max((vs->idx).getValue(), (vt->idx).getValue()), numVertices);
-                    if (!edgeProcessed[edgeProcessedInd])
-                    {
-                        edgeError = computeEdgeError(f->HE()->idx, p);
-
-#pragma omp critical
-                        {
-                            edgeProcessed[edgeProcessedInd] = true;
-                            pQueue.insert(PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p));
-                        }
-                    }
-                    h = h->Next();
-                }
-            }
-
-            return pQueue;
-        }
-        */
-
-        template <class Primitive>
-        PriorityQueue ProgressiveMesh<Primitive>::constructPriorityQueue()
-        {
-            PriorityQueue pQueue = PriorityQueue();
-
-            const uint numTriangles = m_dcel->m_face.size();
-            const uint numVertices = m_dcel->m_vertex.size();
-
             //pQueue.reserve(numTriangles*3 / 2);
 
             // parcours des aretes
@@ -307,21 +166,23 @@ namespace Ra
                 {
                     const Vertex_ptr& vs = h->V();
                     const Vertex_ptr& vt = h->Next()->V();
-                    if (vs->idx > vt->idx)
-                        continue;
+
+                    // To prevent adding twice the same edge
+                    if (vs->idx > vt->idx) continue;
+
                     edgeError = computeEdgeError(f->HE()->idx, p);
 #pragma omp critical
-                        {
-                            pQueue.insert(PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p));
-                        }
+                    {
+                        pQueue.insert(PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p));
+                    }
                     h = h->Next();
                 }
             }
             return pQueue;
         }
 
-        template <class Primitive>
-        void ProgressiveMesh<Primitive>::updatePriorityQueue(PriorityQueue &pQueue, Index vsIndex, Index vtIndex)
+        template <class ErrorMetric>
+        void ProgressiveMesh<ErrorMetric>::updatePriorityQueue(PriorityQueue &pQueue, Index vsIndex, Index vtIndex)
         {
             // we delete of the priority queue all the edge containing vs_id or vt_id
             pQueue.removeEdges(vsIndex);
@@ -331,36 +192,23 @@ namespace Ra
             Vector3 p = Vector3::Zero();
             Index vIndex;
 
-            //VHEIterator vsHEIt = VHEIterator(m_dcel->m_vertex[vsIndex]);
-            //HalfEdgeList adjHE = vsHEIt.list();
+            VHEIterator vsHEIt = VHEIterator(m_dcel->m_vertex[vsIndex]);
+            HalfEdgeList adjHE = vsHEIt.list();
 
-            // Adding an edge
-            Vertex_ptr vs = m_dcel->m_vertex[vsIndex];
-            HalfEdge_ptr h_start = vs->HE();
-            edgeError = computeEdgeError(h_start->idx, p);
-            vIndex = h_start->Next()->V()->idx;
-            pQueue.insert(PriorityQueue::PriorityQueueData(vsIndex, vIndex, h_start->idx, h_start->F()->idx, edgeError, p));
-
-            // Adding the other edges around vs
-            HalfEdge_ptr h = h_start->Twin()->Next();
-            // TODO if there is a hole
-            while(h != h_start)
+            for (uint i = 0; i < adjHE.size(); i++)
             {
-                edgeError = computeEdgeError(h->idx, p);
-                vIndex = h->Next()->V()->idx;
-
-                pQueue.insert(PriorityQueue::PriorityQueueData(vsIndex, vIndex, h->idx, h->F()->idx, edgeError, p));
-
-                h = h->Twin()->Next();
-                CORE_ASSERT(h->V()->idx == vsIndex, "Invalid reference vertex");
+                HalfEdge_ptr he = adjHE[i];
+                edgeError = computeEdgeError(he->idx, p);
+                vIndex = he->Next()->V()->idx;
+                pQueue.insert(PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p));
             }
             //pQueue.display();
         }
 
         //--------------------------------------------------
 
-        template <class Primitive>
-        bool ProgressiveMesh<Primitive>::isEcolPossible(Index halfEdgeIndex, Vector3 pResult)
+        template <class ErrorMetric>
+        bool ProgressiveMesh<ErrorMetric>::isEcolPossible(Index halfEdgeIndex, Vector3 pResult)
         {
             HalfEdge_ptr he = m_dcel->m_halfedge[halfEdgeIndex];
 
@@ -445,14 +293,12 @@ namespace Ra
 
         //--------------------------------------------------
 
-        template <class Primitive>
-        std::vector<ProgressiveMeshData> ProgressiveMesh<Primitive>::constructM0(int targetNbFaces, int &nbNoFrVSplit)
+        template <class ErrorMetric>
+        std::vector<ProgressiveMeshData> ProgressiveMesh<ErrorMetric>::constructM0(int targetNbFaces, int &nbNoFrVSplit)
         {
             uint nbPMData = 0;
 
-            //m_pmdata = new ProgressiveMeshData[nbFullEdges];
             std::vector<ProgressiveMeshData> pmdata;
-            // TODO ameliorer prédictopn nbr de VSPlit
             pmdata.reserve(targetNbFaces);
 
             LOG(logINFO) << "Computing Faces Quadrics";
@@ -463,7 +309,6 @@ namespace Ra
             PriorityQueue::PriorityQueueData d;
 
             LOG(logINFO) << "Collapsing...";
-            // while we do not have 'targetNbFaces' faces
             ProgressiveMeshData pmData;
             while (m_nb_faces > targetNbFaces)
             {
@@ -498,10 +343,6 @@ namespace Ra
 
                 nbPMData++;
             }
-            delete[](m_quadrics);
-
-            m_quadrics = nullptr;
-
             LOG(logINFO) << "Collapsing done";
 
             return pmdata;
@@ -509,8 +350,8 @@ namespace Ra
 
         //--------------------------------------------------
 
-        template <class Primitive>
-        void ProgressiveMesh<Primitive>::vsplit(ProgressiveMeshData pmData)
+        template <class ErrorMetric>
+        void ProgressiveMesh<ErrorMetric>::vsplit(ProgressiveMeshData pmData)
         {
             HalfEdge_ptr he = m_dcel->m_halfedge[pmData.getHeFlId()];
             if (he->Twin() == NULL)
@@ -524,8 +365,8 @@ namespace Ra
             DcelOperations::vertexSplit(*m_dcel, pmData);
         }
 
-        template <class Primitive>
-        void ProgressiveMesh<Primitive>::ecol(ProgressiveMeshData pmData)
+        template <class ErrorMetric>
+        void ProgressiveMesh<ErrorMetric>::ecol(ProgressiveMeshData pmData)
         {
             HalfEdge_ptr he = m_dcel->m_halfedge[pmData.getHeFlId()];
             if (he->Twin() == NULL)

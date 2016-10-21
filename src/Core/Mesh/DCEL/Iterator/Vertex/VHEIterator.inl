@@ -34,15 +34,16 @@ inline HalfEdgeList VHEIterator::list() const {
     HalfEdge_ptr h1 = m_v->HE();
     HalfEdge_ptr h2 = m_v->HE()->Prev()->Twin();
     do {
-        if (h1 == h2) break;
         if (h1 != NULL)
         {
             L.push_back(h1);
+            if (h1 == h2) break;
             h1 = h1->Twin()->Next();
         }
         if (h2 != NULL)
         {
             L.push_back(h2);
+            if (h1 == h2) break;
             h2 = h2->Prev()->Twin();
         }
     } while( h1 != NULL || h2 != NULL );
