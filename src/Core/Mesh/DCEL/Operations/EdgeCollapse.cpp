@@ -2,6 +2,7 @@
 #include <Core/Mesh/DCEL/HalfEdge.hpp>
 #include <Core/Mesh/DCEL/Vertex.hpp>
 #include <Core/Mesh/DCEL/FullEdge.hpp>
+#include <Core/Mesh/DCEL/Iterator/Vertex/VHEIterator.hpp>
 
 
 namespace Ra {
@@ -89,63 +90,32 @@ ProgressiveMeshData edgeCollapse(Dcel& dcel, Index edgeIndex, Vector3 pResult)
     else if (v1->HE()->F() == f1)
         v1->setHE(v1->HE()->Prev()->Twin());
 
-    //TODO do the same with full edges !!!
     //-----------------------------------------------
-
+    // TODO do the same with full edges !!!
+    //-----------------------------------------------
+    // TODO do something for mesh with holes
+    //-----------------------------------------------
 
     // Delete the faces
     f1->setHE(NULL);
     if (f2 != NULL) f2->setHE(NULL);
 
-    // Set new position of v1 and delete v2
-    v1->setP(pResult);
-    v2->setHE(NULL); //on supprime v2
-
-//Dans quel cas se trouve-t-on? Cas classique ou exception?
-//    FullEdge_ptr ST = ((h1->Next())->Next())->FE();
-//    Vertex_ptr S = ST->V(0);
-//    Vertex_ptr T = ST->V(1);
-//    if ((h1->Next())->Next())
-
-
-
-
-//Cas classique on où n'est pas sur des bords
-
-
-//Cas classique
-//On ne modifie que les half-edge ayant pour premier vertex v2
-
-    //h pour parcourir les half-edges et remplacer v2 par v1
-    //on parcourt à partir de h1
-    HalfEdge_ptr h = h1;
-    do {
-        h = h->Next();
-        if (h->idx != h2->idx)
-            h->setV(v1);
-        h = h->Twin();
-    } while (h != h1 && h != NULL);
-
-    //Si on a une ouverture dans le maillage, on parcourt à partir de h2 également
-    if (h == NULL && h2 != NULL)
+    VHEIterator vIt = VHEIterator(v2);
+    HalfEdgeList adjHE = vIt.list();
+    for (uint i = 0; i < adjHE.size(); i++)
     {
-        h = h2->Prev();
-        h = h->Twin();
-        while (h!=NULL)
-        {
-            if (h->idx != h2->idx)
-                h->setV(v1);
-            h = h->Prev();
-            h = h->Twin();
-        }
+        adjHE[i]->setV(v1);
     }
 
-    //On met à jour les twins half-edge
+    // Set new position of v1 and delete v2
+    v1->setP(pResult);
+    v2->setHE(NULL);
+
+    // Updating twins
     HalfEdge_ptr e1 = (h1->Prev())->Twin();
     HalfEdge_ptr e2 = (h1->Next())->Twin();
     e1->setTwin(e2);
     e2->setTwin(e1);
-
     if (h2 != NULL)
     {
         HalfEdge_ptr e3 = (h2->Prev())->Twin();
@@ -153,8 +123,6 @@ ProgressiveMeshData edgeCollapse(Dcel& dcel, Index edgeIndex, Vector3 pResult)
         e3->setTwin(e4);
         e4->setTwin(e3);
     }
-
-    //gérer les half-edges, full-edges et faces
 
     // Return ProgressiveMeshData on this edge collapse
     return ProgressiveMeshData(vadL, vadS,
