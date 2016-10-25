@@ -28,6 +28,8 @@ inline VertexList VVIterator::list() const {
     return L;
 }
 */
+
+/*
 inline VertexList VVIterator::list() const
 {
     VertexList L;
@@ -70,6 +72,33 @@ inline VertexList VVIterator::list() const
             h2 = h2->Prev()->Twin();
         }
     }
+    return L;
+}
+*/
+
+inline VertexList VVIterator::list() const
+{
+    VertexList L;
+    HalfEdge_ptr h1 = m_v->HE();
+    HalfEdge_ptr h2 = h1 != NULL ? h1->Prev()->Twin() : NULL;
+    Vertex_ptr v1 = h1->Next()->V();
+    Vertex_ptr v2 = h2->Next()->V();
+    do {
+        if (h1 != NULL)
+        {
+            L.push_back(v1);
+            if (v1 == v2) break;
+            h1 = h1->Twin()->Next();
+            v1 = h1->Next()->V();
+        }
+        if (h2 != NULL)
+        {
+            L.push_back(v2);
+            if (v1 == v2) break;
+            h2 = h2->Prev()->Twin();
+            v2 = h2->Next()->V();
+        }
+    } while( h1 != NULL || h2 != NULL );
     return L;
 }
 
