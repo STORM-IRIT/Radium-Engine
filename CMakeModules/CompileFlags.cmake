@@ -97,29 +97,37 @@ endif()
 
 # Additional flags depending on build options =================================
 
+message("RADIUM COMPILE FLAGS:")
 if ("${USE_DOUBLE}" STREQUAL "True")
   add_definitions(-DCORE_USE_DOUBLE)
-  message("Using double precision.")
+  message(STATUS "Using double precision.")
 else()
-  message("Using single precision.")
+  message(STATUS "Using single precision.")
 endif()
 
 if ("${ENABLE_FANCY_GL}" STREQUAL "False")
   add_definitions(-DNO_TRANSPARENCY)
-  message("Fancy OpenGL Effects are disabled")
+  message(STATUS "Fancy OpenGL Effects are disabled")
 endif()
 
 if ("${USE_OMP}" STREQUAL "True")
     add_definitions(-DCORE_USE_OMP)
-    message("Using OpenMP")
+    message(STATUS "Using OpenMP")
 else()
-    message("OpenMP disabled")
+    message(STATUS "OpenMP disabled")
+endif()
+
+if (${LOAD_TEXTURES})
+    message(STATUS "Textures will be loaded")
+    add_definitions(-DLOAD_TEXTURES)
+else()
+	message(STATUS "Textures won't be loaded, use LOAD_TEXTURES flag to enable them.")
 endif()
 
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
-    message("64 bits build")
+    message(STATUS "64 bits build")
 else()
-    message("32 bits build")
+    message(STATUS "32 bits build")
 endif()
 
 

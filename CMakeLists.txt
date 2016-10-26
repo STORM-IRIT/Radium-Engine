@@ -7,9 +7,10 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Build options options.
-set( USE_DOUBLE False CACHE BOOL "Use double precision" )
-set( USE_OMP    True CACHE BOOL "Use OpenMP")
-set( ENABLE_FANCY_GL True CACHE BOOL "Enable Fancy OpenGL effects" )
+set(USE_DOUBLE		False	CACHE BOOL "Use double precision" )
+set(USE_OMP			True	CACHE BOOL "Use OpenMP")
+set(ENABLE_FANCY_GL True	CACHE BOOL "Enable Fancy OpenGL effects" )
+set(LOAD_TEXTURES	False	CACHE BOOL "Compile Radium enabling texture loading stuff")
 
 if ( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Debug )
@@ -23,8 +24,6 @@ include(CompileFlags)
 # Problem with Qt linking
 # FIXME(Charly): Not sure if this should be done on Linux
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_COMPILING_QSTRING_COMPAT_CPP")
-
-
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_CURRENT_SOURCE_DIR}/bin)
@@ -113,12 +112,6 @@ endif()
 
 set( CMAKE_DEBUG_POSTFIX "" )
 set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
-
-set(LOAD_TEXTURES False CACHE BOOL "Compile Radium enabling texture loading stuff")
-if (${LOAD_TEXTURES})
-    message(STATUS "Textures will be loaded")
-    add_definitions(-DLOAD_TEXTURES)
-endif()
 
 add_subdirectory(src)
 
