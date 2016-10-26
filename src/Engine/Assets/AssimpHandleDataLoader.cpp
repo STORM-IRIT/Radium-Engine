@@ -1,4 +1,3 @@
-
 #include <Engine/Assets/AssimpHandleDataLoader.hpp>
 
 #include <set>
@@ -12,7 +11,6 @@
 
 namespace Ra {
 namespace Asset {
-
 /// CONSTRUCTOR
 AssimpHandleDataLoader::AssimpHandleDataLoader( const bool VERBOSE_MODE ) : DataLoader< HandleData > ( VERBOSE_MODE ) { }
 
@@ -45,8 +43,6 @@ void AssimpHandleDataLoader::loadData( const aiScene* scene, std::vector< std::u
     }
 }
 
-
-
 /// QUERY
 bool AssimpHandleDataLoader::sceneHasHandle( const aiScene* scene ) const {
     return ( sceneHandleSize( scene ) != 0 );
@@ -66,17 +62,16 @@ uint AssimpHandleDataLoader::sceneHandleSize( const aiScene* scene ) const {
     return handle_size;
 }
 
-
-
 /// LOAD
 void AssimpHandleDataLoader::loadHandleData( const aiScene* scene, std::vector< std::unique_ptr< HandleData > >& data ) const {
     const uint meshSize = scene->mNumMeshes;
     std::map< uint, uint > indexTable;
+    std::set<std::string> usedNames;
     for( uint n = 0; n < meshSize; ++n ) {
         aiMesh* mesh = scene->mMeshes[n];
         if( mesh->HasBones() ) {
             HandleData* handle = new HandleData();
-            fetchName( *mesh, *handle );
+            fetchName( *mesh, *handle, usedNames);
             fetchType( *mesh, *handle );
             loadHandleComponentData( scene, mesh, handle );
             loadHandleTopologyData( scene, handle );
@@ -213,8 +208,16 @@ void AssimpHandleDataLoader::loadHandleFrame( const aiNode*                     
 }
 
 /// NAME
-void AssimpHandleDataLoader::fetchName( const aiMesh& mesh, HandleData& data ) const {
-    data.setName( assimpToCore( mesh.mName ) );
+void AssimpHandleDataLoader::fetchName( const aiMesh& mesh, HandleData& data, std::set<std::string>& usedNames ) const
+{
+    std::string name = assimpToCore(mesh.mName);
+    while (usedNames.find(name) != usedNames.end())
+    {
+        name.append("_");
+    }
+
+    usedNames.insert(name);
+    data.setName(name);
 }
 
 /// TYPE
@@ -233,6 +236,5 @@ void AssimpHandleDataLoader::fetchVertexSize( HandleData& data ) const {
         }
     }
 }
-
 } // namespace Asset
 } // namespace Ra

@@ -8,7 +8,6 @@ struct aiScene;
 
 namespace Ra {
 namespace Asset {
-
 template < class DATA >
 class DataLoader {
 public:
@@ -33,7 +32,6 @@ public:
 protected:
     bool m_verbose;
 };
-
 } // namespace Asset
 } // namespace Ra
 

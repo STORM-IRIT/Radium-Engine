@@ -2,6 +2,7 @@
 #define RADIUMENGINE_ASSIMP_HANDLE_DATA_LOADER_HPP
 
 #include <map>
+#include <set>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Assets/DataLoader.hpp>
 
@@ -12,7 +13,6 @@ struct aiBone;
 
 namespace Ra {
 namespace Asset {
-
 class HandleData;
 struct HandleComponentData;
 class AssimpHandleDataLoader : public DataLoader< HandleData > {
@@ -43,7 +43,7 @@ protected:
                           std::vector< std::unique_ptr< HandleData > >& data ) const;
 
     /// NAME
-    void fetchName( const aiMesh& mesh, HandleData& data ) const;
+    void fetchName( const aiMesh& mesh, HandleData& data, std::set<std::string>& usedNames ) const;
 
     /// TYPE
     void fetchType( const aiMesh& mesh, HandleData& data ) const;
@@ -51,7 +51,6 @@ protected:
     /// VERTEX SIZE
     void fetchVertexSize( HandleData& data ) const;
 };
-
 } // namespace Asset
 } // namespace Ra
 

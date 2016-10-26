@@ -3,7 +3,6 @@
 namespace Ra {
 namespace Core {
 namespace Animation {
-
 void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
     CORE_ASSERT( ( pose.size() == weight.cols() ), "pose/weight size mismatch." );
     DQ.clear();
@@ -13,12 +12,11 @@ void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
     std::vector<uint> firstNonZero( weight.rows(), std::numeric_limits<uint>::max());
 
     // Contains the converted dual quaternions from the pose
-    std::vector<DualQuaternion> poseDQ;
-    poseDQ.reserve( pose.size());
+    std::vector<DualQuaternion> poseDQ(pose.size());
+    //poseDQ.reserve( pose.size());
 
     // Loop through all transforms Tj
     for( int j = 0; j < weight.outerSize(); ++j ) {
-
         poseDQ[j] = DualQuaternion( pose[j]);
         // Count how many vertices are influenced by the given transform
         const int nonZero = weight.col( j ).nonZeros();
@@ -42,7 +40,6 @@ void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
         // Loop trhough all vertices vi who depend on Tj
 
         for( int nz = 0; nz < nonZero; ++nz ) {
-
             WeightMatrix::InnerIterator itn = it0 + nz;
             const uint   i  = itn.row();
             const Scalar w  = itn.value();
@@ -118,7 +115,6 @@ void dualQuaternionSkinning( const Vector3Array& input, const DQList& DQ, Vector
         output[i] = DQ[i].transform( input[i] );
     }
 }
-
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
