@@ -3,11 +3,30 @@
 # Compilation flag for each platforms =========================================
 
 if (APPLE)
-    # No openmp on MacosX Clang (TODO, find better compiler identification)
+    message("Compiling on Apple with compiler " ${CMAKE_CXX_COMPILER_ID})
+    if ( (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") )
+        set(OMP_FLAG "-fopenmp -ftree-vectorize")
+        set(MATH_FLAG "-mfpmath=sse -ffast-math")
+    else()
+        # No openmp on MacosX Clang (TODO, find better compiler identification)
+        set(MATH_FLAG "-mfpmath=sse")
+        set(OMP_FLAG "")
+    endif()
+
+    if ("${USE_OMP}" STREQUAL "False")
+        message("Compiling without OpenMP support")
+        set (OMP_FLAG "")
+        add_definitions( -Wno-unknown-pragmas )  # gcc/mingw prints a lot of warnings due to open mp pragmas
+    endif()
+
+# Crappy key event polling
+# TODO define POLL_ON_MACOS to use crappy keyboard
+
     set(CMAKE_CXX_STANDARD 14)
-    set(CMAKE_CXX_FLAGS                "-Wall -Wextra -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions ${CMAKE_CXX_FLAGS}")
+#    set(CMAKE_CXX_FLAGS                "-Wall -Wextra -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions ${CMAKE_CXX_FLAGS}")
+    set(CMAKE_CXX_FLAGS                "-Wall -Wextra  -pthread -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions -fPIC ${OMP_FLAG} ${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
-    set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -O3 -ffast-math -mfpmath=sse")
+    set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -O3 ${MATH_FLAG}")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 ${CMAKE_CXX_FLAGS_RELEASE}")
 
     add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated

@@ -8,7 +8,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Build options options.
 set( USE_DOUBLE False CACHE BOOL "Use double precision" )
-set( USE_OMP    False CACHE BOOL "Use OpenMP")
+set( USE_OMP    True CACHE BOOL "Use OpenMP")
 set( ENABLE_FANCY_GL True CACHE BOOL "Enable Fancy OpenGL effects" )
 
 if ( NOT CMAKE_BUILD_TYPE )

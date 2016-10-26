@@ -3,6 +3,7 @@
 #include <Core/CoreMacros.hpp>
 #include <Core/Log/Log.hpp>
 
+
 #if defined( OS_WINDOWS )
 #include <Windows.h>
 #elif defined( OS_LINUX )
@@ -12,19 +13,19 @@
 #include <X11/keysym.h>
 #include <xcb/xcb.h>
 #elif defined( OS_MACOS )
-
-#if defined (DEBUG)
-    #   undef DEBUG
-    #   define DEBUG 0
-    #   include <Carbon/Carbon.h>
-    #   undef DEBUG
-    #   define DEBUG
-#else
-    #   define DEBUG 0
-    #   include <Carbon/Carbon.h>
-    #   undef DEBUG
+#if defined( POLL_ON_MACOS )
+    #if defined (DEBUG)
+        #   undef DEBUG
+        #   define DEBUG 0
+        #   include <Carbon/Carbon.h>
+        #   undef DEBUG
+        #   define DEBUG
+    #else
+        #   define DEBUG 0
+        #   include <Carbon/Carbon.h>
+        #   undef DEBUG
+    #endif
 #endif
-
 #endif
 
 namespace Ra
@@ -280,8 +281,13 @@ namespace Ra
 #elif defined( OS_MACOS )
         // FIXME (Mathias) On MacoX, symbol with ANSI in their name are given for an ANSI US keyboard ...
         // FIXME (Mathias) : WARNING : some symbols do'nt exist on Apple keyboard ...
+        // FIXME(Mathias): This is really crappy. Prevents compiling with g++ on MacOsX because of key event polling (need Carbon lib + Objective C). Use Event handler and not polling
         bool isKeyPressed( Key key )
         {
+
+#if !defined( POLL_ON_MACOS)
+            return false;
+#else
             unsigned short keysym = 0;
             switch (key)
             {
@@ -391,6 +397,7 @@ namespace Ra
             unsigned char keyMap[16];
             GetKeys((BigEndianUInt32*) &keyMap);
             return (0 != ((keyMap[ keysym >> 3] >> (keysym & 7)) & 1));
+#endif
         }
 #else
         bool isKeyPressed( Key key )
