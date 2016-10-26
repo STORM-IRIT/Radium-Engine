@@ -24,4 +24,5 @@ ExternalProject_Add(
             -DASSIMP_BUILD_SAMPLES=False
             -DASSIMP_BUILD_TESTS=False
             -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+			-DASSIMP_INSTALL_PDB=False
 )
