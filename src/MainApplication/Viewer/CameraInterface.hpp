@@ -63,11 +63,7 @@ namespace Ra
 
             const Engine::Camera* getCamera() const { return m_camera.get();}
 
-            void attachLight( const std::shared_ptr<Engine::Light>& light )
-            {
-                m_light = light;
-                m_hasLightAttached = true;
-            }
+            void attachLight( const std::shared_ptr<Engine::Light>& light );
 
             virtual void update( Scalar dt ) {}
 

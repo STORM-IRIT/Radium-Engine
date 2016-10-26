@@ -2,10 +2,10 @@
 
 #include <Core/Math/Math.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
+#include <Engine/Renderer/Light/Light.hpp>
 
 namespace Ra
 {
-
     Gui::CameraInterface::CameraInterface( uint width, uint height )
         : m_cameraSensitivity( 1.0 )
         , m_hasLightAttached( false )
@@ -72,5 +72,13 @@ namespace Ra
     {
         m_mapCameraBahaviourToAabb = false;
     }
-}
 
+    void Gui::CameraInterface::attachLight(const std::shared_ptr<Engine::Light>& light)
+    {
+        m_light = light;
+        m_hasLightAttached = true;
+
+        m_light->setPosition(m_camera->getPosition());
+        m_light->setDirection(m_camera->getDirection());
+    }
+}

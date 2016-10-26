@@ -425,7 +425,6 @@ namespace Ra
 
     void Gui::Viewer::fitCameraToScene( const Core::Aabb& aabb )
     {
-        // FIXME(Charly): Does not work, the camera needs to be fixed
         m_camera->fitScene( aabb );
     }
 
