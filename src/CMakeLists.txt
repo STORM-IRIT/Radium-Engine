@@ -143,7 +143,7 @@ if ( NOT ${OMIT_MAIN_APP} )
         set( PLATFORM_LIBS "" )
     endif()
 
-    set(app_libs radiumGuiBase radiumEngine radiumCore ${Qt5_LIBRARIES} ${OPENGL_LIBRARIES} ${PLATFORM_LIBS})
+    set(app_libs radiumGuiBase radiumEngine radiumCore ${Qt5_LIBRARIES} ${OPENGL_LIBRARIES} ${PLATFORM_LIBS} ${ASSIMP_LIB})
 
     file(GLOB_RECURSE app_sources MainApplication/*.cpp)
     file(GLOB_RECURSE app_headers MainApplication/*.h MainApplication/*.hpp)

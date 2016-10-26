@@ -182,8 +182,21 @@ namespace Ra
             m_properties = properties;
             GL_ASSERT( m_id = glCreateShader( type ) );
 
-            std::string shader = preprocessIncludes(load(), 0, m_lineerr);
-
+            std::string shader;
+            if (type == GL_VERTEX_SHADER)
+            {
+                shader = "\
+                out gl_PerVertex { \
+                  vec4 gl_Position; \
+                  float gl_PointSize; \
+                  float gl_ClipDistance[]; \
+                };";
+                shader += preprocessIncludes(load(), 0, m_lineerr);
+            }
+            else
+            {
+                shader = preprocessIncludes(load(), 0, m_lineerr);
+            }
             if ( shader != "" )
             {
                 compile( shader, properties );
@@ -551,11 +564,13 @@ namespace Ra
                 }
             }
 
+            GL_ASSERT( glProgramParameteri(m_shaderId, GL_PROGRAM_SEPARABLE, GL_TRUE) );
             GL_ASSERT( glLinkProgram( m_shaderId ) );
 
             auto log = getProgramInfoLog(m_shaderId);
             if (log.size() > 0)
             {
+                LOG(logINFO) << "Shader name : " << m_configuration.m_name;
                 LOG(logINFO) << log;
             }
         }
