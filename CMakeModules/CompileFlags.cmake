@@ -8,7 +8,6 @@ if (APPLE)
         set(OMP_FLAG "-fopenmp -ftree-vectorize")
         set(MATH_FLAG "-mfpmath=sse -ffast-math")
     else()
-        # No openmp on MacosX Clang (TODO, find better compiler identification)
         set(MATH_FLAG "-mfpmath=sse")
         set(OMP_FLAG "")
     endif()
@@ -19,11 +18,7 @@ if (APPLE)
         add_definitions( -Wno-unknown-pragmas )  # gcc/mingw prints a lot of warnings due to open mp pragmas
     endif()
 
-# Crappy key event polling
-# TODO define POLL_ON_MACOS to use crappy keyboard
-
     set(CMAKE_CXX_STANDARD 14)
-#    set(CMAKE_CXX_FLAGS                "-Wall -Wextra -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions ${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS                "-Wall -Wextra  -pthread -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions -fPIC ${OMP_FLAG} ${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb ${CMAKE_CXX_FLAGS_DEBUG}")
     set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -O3 ${MATH_FLAG}")
