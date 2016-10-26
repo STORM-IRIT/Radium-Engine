@@ -7,7 +7,6 @@ namespace Ra
 {
     namespace Gui
     {
-
         class TrackballCamera : public CameraInterface
         {
             Q_OBJECT
@@ -29,8 +28,6 @@ namespace Ra
             virtual bool handleKeyPressEvent( QKeyEvent* event ) override;
             /// @return true if the event has been taken into account, false otherwise
             virtual bool handleKeyReleaseEvent( QKeyEvent* event ) override;
-
-            virtual void update( Scalar dt ) override;
 
         public slots:
             virtual void setCameraPosition( const Core::Vector3& position ) override;
@@ -76,7 +73,6 @@ namespace Ra
             Scalar m_strafing;
             Scalar m_climbing;
         };
-
     } // namespace Engine
 } // namespace Ra
 

@@ -173,43 +173,8 @@ namespace Ra
         return false;
     }
 
-    void Gui::TrackballCamera::update( Scalar dt )
-    {
-        if ( !static_cast<MainApplication*>(qApp)->m_mainWindow->isActiveWindow() )
-        {
-            return;
-        }
-
-        Core::Transform T( Core::Transform::Identity() );
-        Core::Vector3 t;
-
-        // FIXME(Charly): WASDQE should be handled by a keymap, not hard coded
-        Scalar f = Gui::isKeyPressed( Gui::Key_W ) ? 1.0 : Gui::isKeyPressed( Gui::Key_S ) ? -1.0 : 0.0;
-        Scalar r = Gui::isKeyPressed( Gui::Key_D ) ? 1.0 : Gui::isKeyPressed( Gui::Key_A ) ? -1.0 : 0.0;
-        Scalar u = Gui::isKeyPressed( Gui::Key_Q ) ? 1.0 : Gui::isKeyPressed( Gui::Key_E ) ? -1.0 : 0.0;
-
-        Scalar m = Gui::isKeyPressed( Gui::Key_LAlt ) ? 1.5 : 0.25;
-
-        Core::Vector3 F = m_camera->getDirection() * dt * f * m_cameraRadius * m;
-        Core::Vector3 R = m_camera->getRightVector() * dt * r * m_cameraRadius * m;
-        Core::Vector3 U = m_camera->getUpVector() * dt * u * m_cameraRadius * m;
-
-        t = F + R + U;
-        T.translate( t );
-        m_camera->applyTransform( T );
-
-        if ( f != 0.0 || r != 0.0 || u != 0.0 )
-        {
-            m_trackballCenter = m_camera->getPosition() + m_camera->getDirection().normalized();
-
-            emit cameraPositionChanged( m_camera->getPosition() );
-            emit cameraTargetChanged( m_trackballCenter );
-        }
-    }
-
     void Gui::TrackballCamera::setCameraPosition( const Core::Vector3& position )
     {
-
         if ( position == m_trackballCenter )
         {
             QMessageBox::warning( nullptr,
@@ -377,4 +342,3 @@ namespace Ra
         CORE_ASSERT( std::isfinite( m_theta ) && std::isfinite( m_phi ), "Error in trackball camera" );
     }
 } // namespace Ra
-

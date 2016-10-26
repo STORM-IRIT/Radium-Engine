@@ -243,7 +243,7 @@ namespace Ra
                     delete macevent;
                 }
 #endif
-                if ( isKeyPressed( Key_Space ) )
+                if ( isKeyPressed( Qt::Key_Space ) )
                 {
                     LOG( logINFO ) << "Raycast query launched";
                     Core::Ray r = m_camera->getCamera()->getRayFromScreen(Core::Vector2(event->x(), event->y()));
@@ -304,6 +304,7 @@ namespace Ra
 
     void Gui::Viewer::keyPressEvent( QKeyEvent* event )
     {
+        keyPressed(event->key());
         m_camera->handleKeyPressEvent( event );
 
         QOpenGLWidget::keyPressEvent(event);
@@ -311,6 +312,7 @@ namespace Ra
 
     void Gui::Viewer::keyReleaseEvent( QKeyEvent* event )
     {
+        keyReleased(event->key());
         m_camera->handleKeyReleaseEvent( event );
 
         if (event->key() == Qt::Key_Z && !event->isAutoRepeat())
