@@ -236,11 +236,10 @@ namespace Ra
                 {
                     auto mods = event->modifiers();
                     mods^=Qt::ControlModifier;
-                    auto macevent = new QMouseEvent(event->type(), event->localPos(), event->windowPos(), event->screenPos(),
+                    QMouseEvent macevent(event->type(), event->localPos(), event->windowPos(), event->screenPos(),
                                                     Qt::MiddleButton, event->buttons(),
                                                     mods, event->source() );
-                    m_camera->handleMousePressEvent(macevent);
-                    delete macevent;
+                    m_camera->handleMousePressEvent(&macevent);
                 }
 #endif
                 if ( isKeyPressed( Qt::Key_Space ) )

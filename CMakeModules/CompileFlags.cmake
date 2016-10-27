@@ -4,6 +4,7 @@
 
 if (APPLE)
     message("Compiling on Apple with compiler " ${CMAKE_CXX_COMPILER_ID})
+    message("USE_OMP is " ${USE_OMP})
     if ( (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") )
         set(OMP_FLAG "-fopenmp -ftree-vectorize")
         set(MATH_FLAG "-mfpmath=sse -ffast-math")
@@ -16,6 +17,8 @@ if (APPLE)
         message("Compiling without OpenMP support")
         set (OMP_FLAG "")
         add_definitions( -Wno-unknown-pragmas )  # gcc/mingw prints a lot of warnings due to open mp pragmas
+    else()
+        set(USE_OMP "True")
     endif()
 
     set(CMAKE_CXX_STANDARD 14)

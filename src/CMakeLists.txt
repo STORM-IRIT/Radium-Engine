@@ -142,6 +142,7 @@ if ( NOT ${OMIT_MAIN_APP} )
         set( PLATFORM_LIBS "" )
     endif()
 
+    message("Used assimp lib is " ${ASSIMP_LIB})
     set(app_libs radiumGuiBase radiumEngine radiumCore ${Qt5_LIBRARIES} ${OPENGL_LIBRARIES} ${PLATFORM_LIBS} ${ASSIMP_LIB})
 
     file(GLOB_RECURSE app_sources MainApplication/*.cpp)
