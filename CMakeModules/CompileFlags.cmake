@@ -13,12 +13,12 @@ if (APPLE)
         set(OMP_FLAG "")
     endif()
 
-    if ("${USE_OMP}" STREQUAL "False")
+    if (NOT ${USE_OMP})
         message("Compiling without OpenMP support")
         set (OMP_FLAG "")
         add_definitions( -Wno-unknown-pragmas )  # gcc/mingw prints a lot of warnings due to open mp pragmas
     else()
-        set(USE_OMP "True")
+        set(USE_OMP ON)
     endif()
 
     set(CMAKE_CXX_STANDARD 14)
@@ -37,7 +37,7 @@ elseif (UNIX OR MINGW)
         set(MATH_FLAG "-mfpmath=sse -ffast-math")
     endif()
 
-    if ("${USE_OMP}" STREQUAL "False")
+    if (NOT ${USE_OMP})
         set (OMP_FLAG "")
         add_definitions( -Wno-unknown-pragmas )  # gcc/mingw prints a lot of warnings due to open mp pragmas
     endif()
@@ -96,19 +96,19 @@ endif()
 # Additional flags depending on build options =================================
 
 message("RADIUM COMPILE FLAGS:")
-if ("${USE_DOUBLE}" STREQUAL "True")
+if (${USE_DOUBLE})
   add_definitions(-DCORE_USE_DOUBLE)
   message(STATUS "Using double precision.")
 else()
   message(STATUS "Using single precision.")
 endif()
 
-if ("${ENABLE_FANCY_GL}" STREQUAL "False")
+if (${ENABLE_FANCY_GL})
   add_definitions(-DNO_TRANSPARENCY)
   message(STATUS "Fancy OpenGL Effects are disabled")
 endif()
 
-if ("${USE_OMP}" STREQUAL "True")
+if (${USE_OMP})
     add_definitions(-DCORE_USE_OMP)
     message(STATUS "Using OpenMP")
 else()
