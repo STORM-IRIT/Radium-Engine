@@ -52,11 +52,13 @@ namespace FancyMeshPlugin
         Ra::Engine::Mesh& getDisplayMesh();
 
         // Fancy mesh accepts to give its mesh and (if deformable) to update it
-        const Ra::Core::TriangleMesh *getMeshOutput() const;
+        const Ra::Core::TriangleMesh* getMeshOutput() const;
         void setMeshInput( const Ra::Core::TriangleMesh* mesh );
         Ra::Core::Vector3Array* getVerticesRw();
-        Ra::Core::Vector3Array * getNormalsRw();
+        Ra::Core::Vector3Array* getNormalsRw();
         Ra::Core::VectorArray<Ra::Core::Triangle>* getTrianglesRw();
+
+        const Ra::Core::Index* roIndexRead() const;
 
     private:
         Ra::Core::Index m_meshIndex;
