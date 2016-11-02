@@ -89,6 +89,9 @@ namespace Ra
         // Inform property editors of new selections
         connect(m_selectionManager, &GuiBase::SelectionManager::selectionChanged, this, &MainWindow::onSelectionChanged);
         //connect(this, &MainWindow::selectedItem, tab_edition, &TransformEditorWidget::setEditable);
+
+        // Make selected item event visible to plugins
+        connect(this, &MainWindow::selectedItem, mainApp, &MainApplication::onSelectedItem);
         connect(this, &MainWindow::selectedItem, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
         connect(this, &MainWindow::selectedItem, m_viewer->getGizmoManager(), &GizmoManager::setEditable);
 

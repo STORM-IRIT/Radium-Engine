@@ -72,6 +72,8 @@ namespace Ra
 
         void loadComplete();
 
+        void selectedItem(const Ra::Engine::ItemEntry& entry);
+
     public slots:
 
         void loadFile( QString path );
@@ -81,6 +83,8 @@ namespace Ra
         void setRecordFrames( bool on );
 
         void recordFrame();
+
+        void onSelectedItem(const Ra::Engine::ItemEntry& entry) { emit selectedItem(entry); }
 
     private:
         /// Create signal / slots connections
