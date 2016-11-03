@@ -16,6 +16,7 @@ namespace Ra
         namespace Math
         {
             /// Mathematical constants casted to Scalar. Values taken from math.h
+            constexpr Scalar Sqrt2  = Scalar(1.41421356237309504880);   // sqrt(2)
             constexpr Scalar e      = Scalar(2.7182818284590452354);    // e = exp(1).
             constexpr Scalar Pi     = Scalar(3.14159265358979323846);   // pi
             constexpr Scalar InvPi  = Scalar(0.31830988618379067154);   // 1/pi
