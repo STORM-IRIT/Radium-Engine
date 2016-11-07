@@ -1,5 +1,7 @@
 #include <Core/Utils/Graph/AdjacencyList.hpp>
 
+#include <set>
+
 namespace Ra {
 namespace Core {
 namespace Graph {
@@ -12,10 +14,59 @@ namespace Graph {
         // If is not a root node
         if( parent >= 0 ) {
             m_child[parent].push_back( idx );
+            m_level.push_back( m_level[parent] + 1 );
+        } else {
+            m_level.push_back( 0 );
         }
         m_parent.push_back( parent ); // Set new node parent
         return idx;
     }
+
+
+    inline void AdjacencyList::pruneLeaves( std::vector<uint>& pruned, std::vector<bool>& delete_flag ) {
+        pruned.clear();
+        delete_flag.clear();
+        delete_flag.resize( this->size(), false );
+        std::vector<bool> prune_flag = delete_flag;
+        for( uint i = 0; i < this->size(); ++i ) {
+            if( this->isLeaf( i ) && !this->isRoot( i ) ) {
+                delete_flag[i] = true;
+                prune_flag[i] = true;
+            } else {
+                pruned.push_back( i );
+            }
+        }
+
+        for( uint j = this->size(); j > 0; --j ) {
+            const uint i = j - 1;
+            if( prune_flag[i] ) {
+                this->m_parent.erase( this->m_parent.begin() + i );
+                this->m_child.erase( this->m_child.begin() + i );
+                prune_flag.erase( prune_flag.begin() + i );
+                ++j;
+            }
+        }
+
+        for( uint i = 0; i < this->size(); ++i ) {
+            this->m_parent[i] = ( ( this->m_parent[i] == -1 ) || ( delete_flag[i] ) ) ? -1 : pruned[this->m_parent[i]];
+            for( auto it = this->m_child[i].begin(); it != this->m_child[i].end(); ++it ) {
+                if( delete_flag[(*it)] ) {
+                    this->m_child[i].erase( it );
+                    --it;
+                } else {
+                    *it = pruned[*it];
+                }
+            }
+        }
+    }
+
+
+    inline void AdjacencyList::pruneLeaves() {
+        std::vector<uint> p;
+        std::vector<bool> d;
+        this->pruneLeaves( p, d );
+    }
+
 
     /// SIZE
     inline uint AdjacencyList::size() const {
