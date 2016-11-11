@@ -69,7 +69,7 @@ TriangleSegment extractTriangleSegment( const BitSet& bit, const VectorArray< Tr
 
 
 
-MeshPartition partition( const TriangleMesh& mesh, const Animation::WeightMatrix& weight, const bool use_max = true ) {
+MeshPartition partition( const TriangleMesh& mesh, const Animation::WeightMatrix& weight, const bool use_max ) {
     const uint size   = weight.cols();
     const uint v_size = mesh.m_vertices.size();
     MeshPartition part( size );
