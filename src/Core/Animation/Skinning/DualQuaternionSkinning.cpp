@@ -37,10 +37,10 @@ void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
         *
         * NOTE: this could be definitely improved by using std::thread
         */
-        // Loop trhough all vertices vi who depend on Tj
+        // Loop through all vertices vi who depend on Tj
 
         for( int nz = 0; nz < nonZero; ++nz ) {
-            WeightMatrix::InnerIterator itn = it0 + nz;
+            WeightMatrix::InnerIterator itn = it0 + Eigen::Index(nz);
             const uint   i  = itn.row();
             const Scalar w  = itn.value();
 
