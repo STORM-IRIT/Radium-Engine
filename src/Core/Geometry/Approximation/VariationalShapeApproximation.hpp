@@ -164,13 +164,13 @@ protected:
     //////////////////////////////////////////////////////////////////////////////
     const Mesh&     m_mesh;
 
-    FaceBarycenter  m_bary;
-    FaceNormal      m_normal;
-    FaceArea        m_area;
-    FaceRegion      m_region;
-    FaceVisited     m_visited;
-    FaceValue       m_value;
-    FaceAdjacency   m_adj;
+    FaceBarycenter  m_fbary;
+    FaceNormal      m_fnormal;
+    FaceArea        m_farea;
+    FaceRegion      m_fregion;
+    FaceVisited     m_fvisited;
+    FaceValue       m_fvalue;
+    FaceAdjacency   m_fadj;
 
     PriorityQueue   m_queue;
     RegionList      m_region;
@@ -199,7 +199,7 @@ public:
     //////////////////////////////////////////////////////////////////////////////
     // TYPEDEF
     //////////////////////////////////////////////////////////////////////////////
-    typedef typename VariationalShapeApproximationBase< K_Region >::Triangle Triangle;
+    //typedef typename VariationalShapeApproximationBase< K_Region >::Triangle Triangle;
     typedef typename VariationalShapeApproximationBase< K_Region >::Proxy    Proxy;
 
 
@@ -249,7 +249,7 @@ public:
     //////////////////////////////////////////////////////////////////////////////
     // TYPEDEF
     //////////////////////////////////////////////////////////////////////////////
-    typedef typename VariationalShapeApproximationBase< K_Region >::Triangle Triangle;
+    //typedef typename VariationalShapeApproximationBase< K_Region >::Triangle Triangle;
     typedef typename VariationalShapeApproximationBase< K_Region >::Proxy    Proxy;
 
 
@@ -308,4 +308,4 @@ using VSA_L21 = VariationalShapeApproximation< K_Region, MetricType::L21 >;
 } // namespace Core
 } // namespace Ra
 
-#include "VariationalShapeApproximation.inl"
+#include <Core/Geometry/Approximation/VariationalShapeApproximation.inl>

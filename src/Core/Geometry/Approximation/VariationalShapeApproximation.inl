@@ -1,4 +1,4 @@
-#include "VariationalShapeApproximation.hpp"
+#include <Core/Geometry/Approximation/VariationalShapeApproximation.hpp>
 
 #include <set>
 #include <random>
@@ -114,7 +114,7 @@ inline void VariationalShapeApproximationBase< K_Region >::create_region_color()
     for( uint i = 0; i < K; ++i ) {
         const Scalar q = Scalar( i ) / static_cast< Scalar >( K - 1 );
         for( const auto& T : this->m_region[i] ) {
-            this->m_value[T]  = q;
+            this->m_fvalue[T]  = q;
         }
     }
 }
@@ -125,7 +125,7 @@ template < uint K_Region >
 inline void VariationalShapeApproximationBase< K_Region >::create_energy_color() {
     for( uint i = 0; i < K; ++i ) {
         for( const auto& T : this->m_region[i] ) {
-            this->m_value[T]  = this->E( T, this->m_proxy[i] );
+            this->m_fvalue[T]  = this->E( T, this->m_proxy[i] );
         }
     }
 }
@@ -151,7 +151,7 @@ inline void VariationalShapeApproximationBase< K_Region >::shuffle_regions() {
     std::swap( tmp_proxy,  this->m_proxy  );
     for( uint i = 0; i < K; ++i ) {
         for( const auto& T : this->m_region[i] ) {
-            this->m_region[T] = i;
+            this->m_fregion[T] = i;
         }
     }
 }
@@ -164,12 +164,12 @@ inline void VariationalShapeApproximationBase< K_Region >::shuffle_regions() {
 template < uint K_Region >
 inline void VariationalShapeApproximationBase< K_Region >::compute_data() {
     const uint size = this->m_mesh.m_triangles.size();
-    this->m_bary.resize( size );
-    this->m_area.resize( size );
-    this->m_region.resize( size, -1 );
-    this->m_visited.resize( size, false );
-    this->m_value.resize( 0 );
-    this->m_adj.resize( size );
+    this->m_fbary.resize( size );
+    this->m_farea.resize( size );
+    this->m_fregion.resize( size, -1 );
+    this->m_fvisited.resize( size, false );
+    this->m_fvalue.resize( 0 );
+    this->m_fadj.resize( size );
 
     std::vector< std::vector< TriangleIdx > > vadj( this->m_mesh.m_vertices.size() );
     for( uint t = 0; t < size; ++t ) {
@@ -177,9 +177,9 @@ inline void VariationalShapeApproximationBase< K_Region >::compute_data() {
         const uint      i    = T[0];
         const uint      j    = T[1];
         const uint      k    = T[2];
-        const Vector3&  v[3] = { this->m_mesh.m_vertices[i], this->m_mesh.m_vertices[j], this->m_mesh.m_vertices[k] };
-        this->m_bary[t] = triangleBarycenter( v[0], v[1], v[2] );
-        this->m_area[t] = triangleArea( v[0], v[1], v[2] );
+        const Vector3   v[3] = { this->m_mesh.m_vertices[i], this->m_mesh.m_vertices[j], this->m_mesh.m_vertices[k] };
+        this->m_fbary[t] = triangleBarycenter( v[0], v[1], v[2] );
+        this->m_farea[t] = triangleArea( v[0], v[1], v[2] );
         vadj[i].push_back( t );
         vadj[j].push_back( t );
         vadj[k].push_back( t );
@@ -188,8 +188,8 @@ inline void VariationalShapeApproximationBase< K_Region >::compute_data() {
     for( const auto& list : vadj ) {
         for( uint i = 0; i < list.size(); ++i ) {
             for( uint j = i+1; j < list.size(); ++j ) {
-                this->m_adj[list[i]].insert( list[j] );
-                this->m_adj[list[j]].insert( list[i] );
+                this->m_fadj[list[i]].insert( list[j] );
+                this->m_fadj[list[j]].insert( list[i] );
             }
         }
     }
@@ -203,9 +203,9 @@ inline void VariationalShapeApproximationBase< K_Region >::compute_data() {
 //////////////////////////////////////////////////////////////////////////////
 template < uint K_Region >
 inline void VariationalShapeApproximationBase< K_Region >::compute_seed() {
-    std::set< uint > t;
+    std::set< TriangleIdx > t;
     std::default_random_engine g(time(0));
-    std::uniform_int_distribution< uint > rnd( 0, this->m_mesh.m_triangles() );
+    std::uniform_int_distribution< TriangleIdx > rnd( 0, this->m_mesh.m_triangles.size() );
     while( t.size() != K ) {
         t.insert( rnd(g) );
     }
@@ -224,7 +224,7 @@ template < uint K_Region >
 inline void VariationalShapeApproximationBase< K_Region >::geometry_partitioning() {
     //Reset the visited flag
     for( TriangleIdx T = 0; T < this->m_mesh.m_triangles.size(); ++T ) {
-        this->m_visited[T] = false;
+        this->m_fvisited[T] = false;
     }
 
     //Force the queue to be empty
@@ -247,8 +247,8 @@ inline void VariationalShapeApproximationBase< K_Region >::geometry_partitioning
         // Clear the region
         this->m_region[i].clear();
         this->m_region[i].push_back( T );
-        this->m_region[T]  = i;
-        this->m_visited[T] = true;
+        this->m_fregion[T]  = i;
+        this->m_fvisited[T] = true;
     }
 
     //While the queue is not empty
@@ -256,13 +256,13 @@ inline void VariationalShapeApproximationBase< K_Region >::geometry_partitioning
          const auto q = this->m_queue.top();
          this->m_queue.pop();
          const TriangleIdx t = q.second.first;
-         if( this->m_visited[t] ) {
+         if( this->m_fvisited[t] ) {
              continue;
          }
          const uint R = q.second.second;
          this->m_region[R].push_back( t );
-         this->m_region[t]  = R;
-         this->m_visited[t] = true;
+         this->m_fregion[t]  = R;
+         this->m_fvisited[t] = true;
 
          this->add_neighbors_to_queue( t, R );
      }
@@ -272,7 +272,7 @@ inline void VariationalShapeApproximationBase< K_Region >::geometry_partitioning
 
 template < uint K_Region >
 inline void VariationalShapeApproximationBase< K_Region >::add_neighbors_to_queue( const TriangleIdx& T, const uint proxy_id ) {
-    for( const auto& r : this->m_adj[T] ) {
+    for( const auto& r : this->m_fadj[T] ) {
         this->m_queue.push( QueueEntry( this->E( r, this->m_proxy[proxy_id] ), Pair( r, proxy_id ) ) );
     }
 }
@@ -310,24 +310,24 @@ inline void VariationalShapeApproximation< K_Region, Type >::proxy_fitting() {
     for( uint i = 0; i < this->K; ++i ) {
 
         Scalar area_sum         = 0;
-        this->m_proxy[i].first  = Point::Zero();
+        this->m_proxy[i].first  = Vector3::Zero();
         Matrix3 Q               = Matrix3::Zero();
 
         for( const auto& T : this->m_region[i] ) {
             const Vector3  v[3] = { this->m_mesh.m_vertices[this->m_mesh.m_triangles[T][0]],
                                     this->m_mesh.m_vertices[this->m_mesh.m_triangles[T][1]],
                                     this->m_mesh.m_vertices[this->m_mesh.m_triangles[T][2]] };
-            const Vector3& g    = this->m_bary[T];
+            const Vector3& g    = this->m_fbary[T];
 
             Matrix3 M;
             M.row(0) = v[1] - v[0];
             M.row(1) = v[2] - v[0];
             M.row(2) = Vector3::Zero();
 
-            Q += ( c * this->m_area[T] * M * m * M.transpose() ) + ( this->m_area[T] * g * g.transpose() );
+            Q += ( c * this->m_farea[T] * M * m * M.transpose() ) + ( this->m_farea[T] * g * g.transpose() );
 
-            this->m_proxy[i].first += this->m_area[T] * g;
-            area_sum               += this->m_area[T];
+            this->m_proxy[i].first += this->m_farea[T] * g;
+            area_sum               += this->m_farea[T];
         }
         this->m_proxy[i].first /= area_sum;
         Q -= area_sum * this->m_proxy[i].first * this->m_proxy[i].first.transpose();
@@ -357,7 +357,7 @@ inline Scalar VariationalShapeApproximation< K_Region, Type >::E( const Triangle
                    ( d[2] * d[2] ) +
                    ( d[0] * d[1] ) +
                    ( d[0] * d[2] ) +
-                   ( d[1] * d[2] ) ) * this->m_area[T] );
+                   ( d[1] * d[2] ) ) * this->m_farea[T] );
 }
 
 
@@ -392,9 +392,9 @@ inline void VariationalShapeApproximation< K_Region, MetricType::L21 >::proxy_fi
         this->m_proxy[i].first  = Vector3::Zero();
         this->m_proxy[i].second = Vector3::Zero();
         for( const auto& T : this->m_region[i] ) {
-            this->m_proxy[i].first  += this->m_area[T] * this->m_bary[T];
-            this->m_proxy[i].second += this->m_area[T] * this->m_normal[T];
-            area_sum                += this->m_area[T];
+            this->m_proxy[i].first  += this->m_farea[T] * this->m_fbary[T];
+            this->m_proxy[i].second += this->m_farea[T] * this->m_fnormal[T];
+            area_sum                += this->m_farea[T];
         }
         this->m_proxy[i].first  /= area_sum;
         this->m_proxy[i].second = this->m_proxy[i].second.normalized();
@@ -408,8 +408,8 @@ inline void VariationalShapeApproximation< K_Region, MetricType::L21 >::proxy_fi
 //////////////////////////////////////////////////////////////////////////////
 template < uint K_Region >
 inline Scalar VariationalShapeApproximation< K_Region, MetricType::L21 >::E( const TriangleIdx& T, const Proxy& P ) const {
-    const Scalar  a      = this->m_area[T];
-    const Vector3 n      = this->m_normal[T];
+    const Scalar  a      = this->m_farea[T];
+    const Vector3 n      = this->m_fnormal[T];
     const Vector3 d      = n - P.second;
     const Scalar  result = a * d.squaredNorm();
     return result;
