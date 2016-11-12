@@ -166,6 +166,38 @@ namespace Ra
                 return 0.0;
             }
 
+
+            void checkConsistency( const TriangleMesh& mesh )
+            {
+#ifdef CORE_DEBUG
+                std::vector<bool> visited( mesh.m_vertices.size(), false );
+                for ( uint t = 0 ; t < mesh.m_triangles.size(); ++t )
+                {
+                    std::string errStr;
+                    StringUtils::stringPrintf( errStr, "Triangle %d is degenerate", t);
+                    CORE_WARN_IF(!(getTriangleArea(mesh,t) > 0.f) , errStr.c_str());
+                    const Triangle& tri = mesh.m_triangles[t];
+                    for ( uint i = 0; i < 3; ++i )
+                    {
+                        StringUtils::stringPrintf( errStr, "Vertex %d is in triangle %d (#%d) is out of bounds", tri[i], t, i );
+                        CORE_ASSERT( uint( tri[i] ) < mesh.m_vertices.size(), errStr.c_str() );
+                        visited[tri[i]] = true;
+                    }
+                }
+
+                for ( uint v = 0; v < visited.size(); ++v )
+                {
+                    std::string errStr;
+                    StringUtils::stringPrintf( errStr, "Vertex %d does not belong to any triangle", v );
+                    CORE_ASSERT( visited[v], errStr.c_str() );
+                }
+
+                // Normals are optional but if they are present then every vertex should have one.
+                CORE_ASSERT( mesh.m_normals.size() ==  0 || mesh.m_normals.size() == mesh.m_vertices.size(),
+                             "Inconsistent number of normals" );
+#endif
+            }
+
         } // namespace MeshUtils
     } // namespace Core
 } // namespace Ra
