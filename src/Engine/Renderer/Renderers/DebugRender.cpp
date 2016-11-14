@@ -22,28 +22,28 @@ namespace Ra
             auto createProgram = [](const char* vertStr, const char* fragStr) -> uint
             {
                 uint prog = glCreateProgram();
-                
+
                 uint vert = glCreateShader(GL_VERTEX_SHADER);
                 glShaderSource(vert, 1, &vertStr, 0);
                 glCompileShader(vert);
-                
+
                 uint frag = glCreateShader(GL_FRAGMENT_SHADER);
                 glShaderSource(frag, 1, &fragStr, 0);
                 glCompileShader(frag);
-                
+
                 glAttachShader(prog, vert);
                 glAttachShader(prog, frag);
                 glLinkProgram(prog);
-                
+
                 glDetachShader(prog, vert);
                 glDetachShader(prog, frag);
-                
+
                 glDeleteShader(vert);
                 glDeleteShader(frag);
-                
+
                 return prog;
             };
-        
+
             const char* lineVertStr =
                 "#version 410\n"
                 "layout(location = 0) in vec3 in_pos;\n"
@@ -56,7 +56,7 @@ namespace Ra
                 "    gl_Position = proj * view * model * vec4(in_pos, 1.0);\n"
                 "    out_color = in_col;\n"
                 "}\n";
-            
+
             const char* lineFragStr =
                 "#version 410\n"
                 "layout(location = 0) in vec3 in_col;\n"
@@ -64,13 +64,13 @@ namespace Ra
                 "void main() {\n"
                 "    out_col = vec4(in_col, 1.0);\n"
                 "}\n";
-            
+
             m_lineProg = createProgram(lineVertStr, lineFragStr);
-            
+
             m_modelLineLoc = glGetUniformLocation(m_lineProg, "model");
             m_viewLineLoc  = glGetUniformLocation(m_lineProg, "view");
             m_projLineLoc  = glGetUniformLocation(m_lineProg, "proj");
-           
+
             static const char* pointVertStr =
                 "#version 410\n"
                 "layout (location = 0) in vec3 in_pos;\n"
@@ -83,7 +83,7 @@ namespace Ra
                 "    out_col = in_col;\n"
                 "    gl_PointSize = 40 / gl_Position.w;\n"
                 "}\n";
-            
+
             static const char* pointFragStr =
                 "#version 410\n"
                 "layout(location = 0) in vec3 in_col;\n"
@@ -91,12 +91,12 @@ namespace Ra
                 "void main() {\n"
                 "    out_col = vec4(in_col, 1.0);\n"
                 "}\n";
-            
+
             m_pointProg = createProgram(pointVertStr, pointFragStr);
-            
+
             m_viewPointLoc = glGetUniformLocation(m_pointProg, "view");
             m_projPointLoc = glGetUniformLocation(m_pointProg, "proj");
-                                                  
+
             static const char* meshVertStr =
                 "#version 410\n"
                 "layout(location = 0) in vec3 in_pos;\n"
@@ -109,7 +109,7 @@ namespace Ra
                 "    gl_Position = proj * view * model * vec4(in_pos, 1.0);\n"
                 "    out_col = in_col;\n"
                 "}\n";
-            
+
             static const char* meshFragStr =
                 "#version 410\n"
                 "layout(location = 0) in vec3 in_col;\n"
@@ -117,9 +117,9 @@ namespace Ra
                 "void main() {\n"
                 "    out_col = vec4(in_col, 1.0);\n"
                 "}\n";
-            
+
             m_meshProg = createProgram(meshVertStr, meshFragStr);
-            
+
             m_modelMeshLoc = glGetUniformLocation(m_meshProg, "model");
             m_viewMeshLoc  = glGetUniformLocation(m_meshProg, "view");
             m_projMeshLoc  = glGetUniformLocation(m_meshProg, "proj");
@@ -154,7 +154,7 @@ namespace Ra
             if (vertices.size() > 0)
             {
                 const Core::Matrix4f id = Core::Matrix4f::Identity();
-                
+
                 glUseProgram(m_lineProg);
                 glUniformMatrix4fv(m_modelLineLoc, 1, GL_FALSE, id.data());
                 glUniformMatrix4fv(m_viewLineLoc, 1, GL_FALSE, viewMatrix.data());
@@ -227,7 +227,7 @@ namespace Ra
                       {
                           return a.mesh->getRenderMode() < b.mesh->getRenderMode();
                       });
-                      
+
             for (; idx < m_meshes.size() && m_meshes[idx].mesh->getRenderMode() != GL_TRIANGLES; ++idx);
 
             glUseProgram(m_lineProg);
@@ -245,7 +245,7 @@ namespace Ra
             glUseProgram(m_meshProg);
             glUniformMatrix4fv(m_viewMeshLoc, 1, GL_FALSE, view.data());
             glUniformMatrix4fv(m_projMeshLoc, 1, GL_FALSE, proj.data());
-            
+
             for (uint i = idx; i < m_meshes.size(); ++i)
             {
                 Core::Matrix4f model = m_meshes[i].transform.matrix().cast<float>();
@@ -290,6 +290,62 @@ namespace Ra
         void DebugRender::addMesh(const std::shared_ptr<Mesh> &mesh, const Core::Transform& transform)
         {
             m_meshes.push_back({mesh, transform});
+        }
+
+        void DebugRender::addCross(const Core::Vector3& position,
+                                   Scalar size,
+                                   const Core::Color& color)
+        {
+            const Scalar hz = size / 2.0;
+            for (int i = 0; i < 3; ++i)
+            {
+                Core::Vector3 offset = Core::Vector3::Zero();
+                offset[i] = hz;
+
+                const Core::Vector3 from = position - offset;
+                const Core::Vector3 to   = position + offset;
+
+                addLine(from, to, color);
+            }
+        }
+
+        void DebugRender::addSphere(const Core::Vector3& center,
+                                    Scalar radius,
+                                    const Core::Color& color)
+        {
+            addMesh(DrawPrimitives::Sphere(center, radius, color));
+        }
+
+        void DebugRender::addCircle(const Core::Vector3& center,
+                                    const Core::Vector3& normal,
+                                    Scalar radius,
+                                    const Core::Color& color)
+        {
+            addMesh(DrawPrimitives::Circle(center, normal, radius, 64, color));
+        }
+
+        void DebugRender::addFrame(const Core::Transform& transform,
+                                   Scalar size)
+        {
+            addMesh(DrawPrimitives::Frame(transform, size));
+        }
+
+        void DebugRender::addTriangle(const Core::Vector3& p0,
+                                      const Core::Vector3& p1,
+                                      const Core::Vector3& p2,
+                                      const Core::Color& color)
+        {
+            addMesh(DrawPrimitives::Triangle(p0, p1, p2, color));
+        }
+
+        void DebugRender::addAABB(const Core::Aabb& box, const Core::Color& color)
+        {
+            addMesh(DrawPrimitives::AABB(box, color));
+        }
+
+        void DebugRender::addOBB(const Core::Aabb& box, const Core::Transform& transform, const Core::Color& color)
+        {
+            addMesh(DrawPrimitives::AABB(box, color), transform);
         }
 
         RA_SINGLETON_IMPLEMENTATION(DebugRender);
