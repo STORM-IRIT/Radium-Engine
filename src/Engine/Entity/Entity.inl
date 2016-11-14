@@ -18,11 +18,6 @@ namespace Ra
 
         inline void Entity::setTransform( const Core::Transform& transform )
         {
-            if ( m_transformChanged )
-            {
-                LOG( logWARNING ) << "This entity transform has already been set during this frame, ignored.";
-                return;
-            }
             m_transformChanged = true;
             m_doubleBufferedTransform = transform;
         }
