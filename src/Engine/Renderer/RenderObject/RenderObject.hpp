@@ -55,8 +55,8 @@ namespace Ra
             /// Sort of factory method to easily create a render object.
             /// Use case example :
             ///     std::string name = "MyRO";
-            ///     Component* comp;    // Retrieve the component the way you want. 
-            ///                         // Since this method will often be used in a component, 
+            ///     Component* comp;    // Retrieve the component the way you want.
+            ///                         // Since this method will often be used in a component,
             ///                         // just use this pointer.
             ///     RenderObjectType type = RenderObjectType::Fancy; // For example
             ///     // Retrieve an already created configuration, or create one (see ShaderConfiguration docs).
@@ -91,7 +91,7 @@ namespace Ra
             void setTransparent( bool transparent );
             void toggleTransparent();
             bool isTransparent() const;
-            
+
             bool isDirty() const;
 
             void setRenderTechnique( RenderTechnique* technique );
@@ -106,6 +106,7 @@ namespace Ra
             Core::Matrix4 getTransformAsMatrix() const;
 
             Core::Aabb getAabb() const;
+            Core::Aabb getMeshAabb() const;
 
             void setLocalTransform( const Core::Transform& transform );
             void setLocalTransform( const Core::Matrix4& transform );

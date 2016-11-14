@@ -89,7 +89,7 @@ namespace Ra
             Core::Transform T = asset->getFrame();
             Core::Transform N;
             N.matrix() = (T.matrix()).inverse().transpose();
-            
+
             for (size_t i = 0; i < asset->getVerticesSize(); ++i)
             {
                 mesh.m_vertices.push_back(T * asset->getVertices()[i]);
@@ -143,7 +143,7 @@ namespace Ra
             {
                 mat->m_alpha = m.m_opacity;
             }
-            
+
 #ifdef LOAD_TEXTURES
             if (m.hasDiffuseTexture())
             {
@@ -170,15 +170,15 @@ namespace Ra
                 mat->addTexture(Material::TextureType::TEX_NORMAL, m.m_texNormal);
             }
 #endif
-            
+
             auto shaderConfig = ShaderConfigurationFactory::getConfiguration("BlinnPhong");
             auto result = createRenderObject(name, comp, RenderObjectType::Fancy, displayMesh, shaderConfig, mat);
-            
+
             if (allow_transparency && mat->m_alpha < 1.0)
             {
                 result->setTransparent(true);
             }
-            
+
             return result;
         }
 
@@ -320,33 +320,19 @@ namespace Ra
         Core::Aabb RenderObject::getAabb() const
         {
             Core::Aabb aabb = Core::MeshUtils::getAabb(m_mesh->getGeometry());
+            Core::Aabb result;
 
-            Core::Vector3 min(aabb.min());
-            Core::Vector3 max(aabb.max());
+            for (int i = 0; i < 8; ++i)
+            {
+                result.extend(getTransform() * aabb.corner((Core::Aabb::CornerType)i));
+            }
 
-            Eigen::Matrix<Scalar, 8, 4> vertices;
-            vertices << min(0), min(1), min(2), 1,  // Left  Bottom Near
-                        min(0), min(1), max(2), 1,  // Left  Bottom Far
-                        max(0), min(1), min(2), 1,  // Right Bottom Near
-                        max(0), min(1), max(2), 1,  // Right Bottom Far
-                        min(0), max(1), min(2), 1,  // Left  Top    Near
-                        min(0), max(1), max(2), 1,  // Left  Top    Far
-                        max(0), max(1), min(2), 1,  // Right Top    Near
-                        max(0), max(1), max(2), 1;  // Right Top    Far
+            return result;
+        }
 
-            Core::Matrix4 trans = getTransformAsMatrix();
-
-            vertices *= trans;
-
-            aabb = Core::Aabb(Core::Vector3(vertices.col(0).minCoeff(),
-                                            vertices.col(1).minCoeff(),
-                                            vertices.col(2).minCoeff()));
-            aabb.extend(Core::Vector3(vertices.col(0).maxCoeff(),
-                                      vertices.col(1).maxCoeff(),
-                                      vertices.col(2).maxCoeff()));
-
-
-            return aabb;
+        Core::Aabb RenderObject::getMeshAabb() const
+        {
+            return Core::MeshUtils::getAabb(m_mesh->getGeometry());
         }
 
         void RenderObject::setLocalTransform( const Core::Transform& transform )
