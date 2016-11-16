@@ -5,6 +5,12 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
+#define STB_TRUETYPE_IMPLEMENTATION
+#include <Engine/Renderer/Font/stb_truetype.h>
+#include <Core/Containers/MakeShared.hpp>
+#include <Core/Mesh/MeshPrimitives.hpp>
+#include <fstream>
+
 namespace Ra
 {
     namespace Engine
@@ -44,26 +50,35 @@ namespace Ra
                 return prog;
             };
 
-            const char* lineVertStr =
-                "#version 410\n"
-                "layout(location = 0) in vec3 in_pos;\n"
-                "layout(location = 5) in vec3 in_col;\n"
-                "uniform mat4 model;\n"
-                "uniform mat4 view;\n"
-                "uniform mat4 proj;\n"
-                "layout(location = 0) out vec3 out_color;\n"
-                "void main() {\n"
-                "    gl_Position = proj * view * model * vec4(in_pos, 1.0);\n"
-                "    out_color = in_col;\n"
-                "}\n";
+            const char* lineVertStr = R"(
+                #version 330
 
-            const char* lineFragStr =
-                "#version 410\n"
-                "layout(location = 0) in vec3 in_col;\n"
-                "layout(location = 0) out vec4 out_col;\n"
-                "void main() {\n"
-                "    out_col = vec4(in_col, 1.0);\n"
-                "}\n";
+                layout (location = 0) in vec3 in_pos;
+                layout (location = 5) in vec3 in_col;
+
+                uniform mat4 model;
+                uniform mat4 view;
+                uniform mat4 proj;
+
+                out vec3 v_color;
+                void main()
+                {
+                    gl_Position = proj * view * model * vec4(in_pos, 1.0);
+                    v_color = in_col;
+                }
+            )";
+
+            const char* lineFragStr = R"(
+                #version 330;
+
+                in vec3 v_color;
+                out vec4 f_color;
+
+                void main()
+                {
+                    f_color = vec4(v_color, 1.0);
+                }
+            )";
 
             m_lineProg = createProgram(lineVertStr, lineFragStr);
 
@@ -71,52 +86,72 @@ namespace Ra
             m_viewLineLoc  = glGetUniformLocation(m_lineProg, "view");
             m_projLineLoc  = glGetUniformLocation(m_lineProg, "proj");
 
-            static const char* pointVertStr =
-                "#version 410\n"
-                "layout (location = 0) in vec3 in_pos;\n"
-                "layout (location = 1) in vec3 in_col;\n"
-                "uniform mat4 view;\n"
-                "uniform mat4 proj;\n"
-                "layout(location = 0) out vec3 out_col;\n"
-                "void main() {\n"
-                "    gl_Position = proj * view * vec4(in_pos, 1.0);\n"
-                "    out_col = in_col;\n"
-                "    gl_PointSize = 40 / gl_Position.w;\n"
-                "}\n";
+            static const char* pointVertStr = R"(
+                #version 330
 
-            static const char* pointFragStr =
-                "#version 410\n"
-                "layout(location = 0) in vec3 in_col;\n"
-                "layout(location = 0) out vec4 out_col;\n"
-                "void main() {\n"
-                "    out_col = vec4(in_col, 1.0);\n"
-                "}\n";
+                layout (location = 0) in vec3 in_pos;
+                layout (location = 1) in vec3 in_col;
+
+                uniform mat4 view;
+                uniform mat4 proj;
+
+                out vec3 v_color;
+
+                void main()
+                {
+                    gl_Position = proj * view * vec4(in_pos, 1.0);
+                    v_color = in_col;
+                    gl_PointSize = 40 / gl_Position.w;
+                }
+            )";
+
+            static const char* pointFragStr = R"(
+                #version 330
+
+                in vec3 v_color;
+                out vec4 f_color;
+
+                void main()
+                {
+                    f_color = vec4(in_color, 1.0);
+                }
+            )";
 
             m_pointProg = createProgram(pointVertStr, pointFragStr);
 
             m_viewPointLoc = glGetUniformLocation(m_pointProg, "view");
             m_projPointLoc = glGetUniformLocation(m_pointProg, "proj");
 
-            static const char* meshVertStr =
-                "#version 410\n"
-                "layout(location = 0) in vec3 in_pos;\n"
-                "layout(location = 5) in vec3 in_col;\n"
-                "uniform mat4 model;\n"
-                "uniform mat4 view;\n"
-                "uniform mat4 proj;\n"
-                "layout(location = 0) out vec3 out_col;\n"
-                "void main() {\n"
-                "    gl_Position = proj * view * model * vec4(in_pos, 1.0);\n"
-                "    out_col = in_col;\n"
-                "}\n";
+            static const char* meshVertStr = R"(
+                #version 330
 
-            static const char* meshFragStr =
-                "#version 410\n"
-                "layout(location = 0) in vec3 in_col;\n"
-                "layout (location = 0) out vec4 out_col;\n"
-                "void main() {\n"
-                "    out_col = vec4(in_col, 1.0);\n"
-                "}\n";
+                layout (location = 0) in vec3 in_pos;
+                layout (location = 5) in vec3 in_col;
+
+                uniform mat4 model;
+                uniform mat4 view;
+                uniform mat4 proj;
+
+                out vec3 v_color;
+
+                void main()
+                {
+                    gl_Position = proj * view * model * vec4(in_pos, 1.0);
+                    v_color = in_col;
+                }
+            )";
+
+            static const char* meshFragStr = R"(
+                #version 330
+
+                in vec3 v_color;
+                out vec4 f_color;
+
+                void main()
+                {
+                    f_color = vec4(v_color, 1.0);
+                }
+            )";
 
             m_meshProg = createProgram(meshVertStr, meshFragStr);
 
