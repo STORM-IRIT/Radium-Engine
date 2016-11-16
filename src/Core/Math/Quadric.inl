@@ -13,7 +13,7 @@ namespace Ra
             m_a(q.m_a), m_b(q.m_b), m_c(q.m_c) {}
 
         template<int DIM>
-        inline Quadric<DIM>::Quadric(const Vector& n, double ndotp) :
+        inline Quadric<DIM>::Quadric(const Vector& n, Scalar ndotp) :
             m_a(n * n.transpose()), m_b(ndotp * n), m_c(ndotp * ndotp) {}
 
         template<int DIM>

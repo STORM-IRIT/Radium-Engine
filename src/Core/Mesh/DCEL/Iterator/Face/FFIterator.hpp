@@ -17,6 +17,7 @@ public:
 
     /// LIST
     inline FaceList list() const override;
+    inline FaceList list2() const;
 
     /// OPERATOR
     inline Face* operator->() const override;

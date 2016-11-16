@@ -11,7 +11,7 @@ namespace Ra
             std::pair<PriorityQueueContainer::iterator,bool> pair = m_priority_queue.insert(item);
             if(!(bool)pair.second)
             {
-                LOG(logINFO) << "test : " << item.m_vs_id << ", " << item.m_vt_id;
+                LOG(logINFO) << "pb bad insert in priority queue : " << item.m_vs_id << ", " << item.m_vt_id;
                 return; // temporary fix
             }
             m_vertex_hash.insert(item);
