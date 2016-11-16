@@ -23,21 +23,29 @@ namespace Ra
 {
     namespace Core
     {
+
+//      template<class ErrorMetric = QuadricErrorMetric>
+        template<class ErrorMetric = SimpleAPSSErrorMetric>
         class ProgressiveMeshBase
         {
         public:
+
+            using Primitive = typename ErrorMetric::Primitive;
+
             virtual std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit) = 0;
+            virtual void computeFacesQuadrics() = 0;
+            virtual Primitive computeEdgeQuadric(Index edgeIndex) = 0;
             virtual void vsplit(ProgressiveMeshData pmData) = 0;
             virtual void ecol(ProgressiveMeshData pmData) = 0;
 
             virtual Dcel* getDcel() = 0;
             virtual int getNbFaces() = 0;
-
+            virtual ErrorMetric getEM() = 0;
         };
 
-        //template<class Primitive = Quadric<3> >
-        template<class ErrorMetric = QuadricErrorMetric>
-        class ProgressiveMesh : public ProgressiveMeshBase
+//      template<class ErrorMetric = QuadricErrorMetric>
+        template<class ErrorMetric = SimpleAPSSErrorMetric>
+        class ProgressiveMesh : public ProgressiveMeshBase<ErrorMetric>
         {
 
         public:
@@ -61,7 +69,7 @@ namespace Ra
             void ecol(ProgressiveMeshData pmData) override;
 
             /// Compute all faces quadrics
-            void computeFacesQuadrics();
+            inline void computeFacesQuadrics();
             void updateFacesQuadrics(Index vsIndex);
 
             /// Compute an edge quadric
@@ -75,9 +83,12 @@ namespace Ra
 
             bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult);
 
+            Scalar computeBoundingBoxSize();
+
             /// Getters and Setters
             inline Dcel* getDcel();
             inline int getNbFaces();
+            inline ErrorMetric getEM();
 
         private:
             Scalar getWedgeAngle(Index faceIndex, Index vsIndex, Index vtIndex);
@@ -88,6 +99,7 @@ namespace Ra
             Dcel* m_dcel;
             std::vector<Primitive> m_primitives;
             ErrorMetric m_em;
+            Scalar m_bbox_size;
             int m_nb_faces;
             int m_nb_vertices;
         };

@@ -31,11 +31,11 @@ namespace Ra
         ProgressiveMesh<ErrorMetric>::ProgressiveMesh(TriangleMesh* mesh)
         {
             m_dcel = new Dcel();
-            m_primitives.reserve(mesh->m_triangles.size());
-            m_em = ErrorMetric();
+            m_em = ErrorMetric(100.0);
             m_nb_faces = mesh->m_triangles.size();
             m_nb_vertices = mesh->m_vertices.size();
             convert(*mesh, *m_dcel);
+            m_bbox_size = computeBoundingBoxSize();
         }
 
         //------------------------------------------------
@@ -52,16 +52,53 @@ namespace Ra
             return m_nb_faces;
         }
 
+        template <class ErrorMetric>
+        inline ErrorMetric ProgressiveMesh<ErrorMetric>::getEM()
+        {
+            return m_em;
+        }
+
+        //------------------------------------------------
+
+        template <class ErrorMetric>
+        Scalar ProgressiveMesh<ErrorMetric>::computeBoundingBoxSize()
+        {
+            Scalar min_x, max_x, min_y, max_y, min_z, max_z;
+            min_x = max_x = m_dcel->m_vertex[0]->P().x();
+            min_y = max_y = m_dcel->m_vertex[0]->P().y();
+            min_z = max_z = m_dcel->m_vertex[0]->P().z();
+            for (int i = 0; i < m_dcel->m_vertex.size(); i++)
+            {
+                if (m_dcel->m_vertex[i]->P().x() < min_x) min_x = m_dcel->m_vertex[i]->P().x();
+                if (m_dcel->m_vertex[i]->P().x() > max_x) max_x = m_dcel->m_vertex[i]->P().x();
+                if (m_dcel->m_vertex[i]->P().y() < min_y) min_y = m_dcel->m_vertex[i]->P().y();
+                if (m_dcel->m_vertex[i]->P().y() > max_y) max_y = m_dcel->m_vertex[i]->P().y();
+                if (m_dcel->m_vertex[i]->P().z() < min_z) min_z = m_dcel->m_vertex[i]->P().z();
+                if (m_dcel->m_vertex[i]->P().z() > max_z) max_z = m_dcel->m_vertex[i]->P().z();
+            }
+            Vector3 size = Vector3(max_x-min_x, max_y-min_y, max_z-min_z);
+            //Vector3 center = Vector3((min_x+max_x)/2, (min_y+max_y)/2, (min_z+max_z)/2);
+            return size.norm();
+        }
+
         //------------------------------------------------
 
         template <class ErrorMetric>
         void ProgressiveMesh<ErrorMetric>::computeFacesQuadrics()
         {
             const uint numTriangles = m_dcel->m_face.size();
+
+            m_primitives.clear();
+            m_primitives.reserve(numTriangles);
+
+            Primitive q;
+//#pragma omp parallel for private (q)
             for (uint t = 0; t < numTriangles; ++t)
             {
-                Primitive q;
-                m_em.generateFacePrimitive(q, m_dcel->m_face[t]);
+                //m_em.generateFacePrimitive(q, m_dcel->m_face[t], *m_dcel, m_bbox_size);
+                m_em.generateFacePrimitive(q, m_dcel->m_face[t], *m_dcel, m_bbox_size);
+
+//#pragma omp critical
                 m_primitives.push_back(q);
             }
         }
@@ -75,7 +112,8 @@ namespace Ra
             for (uint t = 0; t < adjFaces.size(); ++t)
             {
                 Primitive q;
-                m_em.generateFacePrimitive(q, adjFaces[t]);
+                //m_em.generateFacePrimitive(q, adjFaces[t], *m_dcel);
+                m_em.generateFacePrimitive(q, adjFaces[t], *m_dcel, m_bbox_size);
                 m_primitives[adjFaces[t]->idx] = q;
             }
         }
@@ -102,6 +140,7 @@ namespace Ra
                 }
                 he = he->Next();
             }
+            CORE_ASSERT(wedgeAngle < 360, "WEDGE ANGLE WAY TOO HIGH");
             return wedgeAngle;
         }
 
@@ -113,10 +152,15 @@ namespace Ra
 
             // We go all over the faces which contain vs and vt
             // We add the quadrics of all the faces
-            Primitive q;
+            Primitive q, qToAdd;
             Index fIdx;
 
-            for (unsigned int i = 0; i < adjFaces.size(); i++)
+            Scalar weight = 1.0/adjFaces.size();
+            q = m_primitives[adjFaces[0]->idx];
+            q *= weight;
+            q.applyPrattNorm();
+
+            for (unsigned int i = 1; i < adjFaces.size(); i++)
             {
                 Face_ptr f = adjFaces[i];
                 fIdx = f->idx;
@@ -127,10 +171,21 @@ namespace Ra
                 Scalar wedgeAngle = getWedgeAngle(fIdx,
                                                 m_dcel->m_halfedge[halfEdgeIndex]->V()->idx,
                                                 m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->idx);
-                q += m_primitives[ fIdx ] * wedgeAngle;
+                qToAdd = m_primitives[fIdx];
+                qToAdd *= weight;
+                qToAdd.applyPrattNorm();
+
+                LOG(logINFO) << "q1 : " << q.center().x()       << q.center().y()       << q.center().z() << ", " << q.radius();
+                LOG(logINFO) << "q2 : " << qToAdd.center().x()  << qToAdd.center().y()  << qToAdd.center().z() << ", " << qToAdd.radius();
+
+                q = m_em.combine(qToAdd, q);
+                q.applyPrattNorm();
+
+                LOG(logINFO) << "r  : " << q.center().x()       << q.center().y()       << q.center().z() << ", " << q.radius();
             }
 
-            return q; // * (1.0/double(adjFaces.size()));
+            q.applyPrattNorm();
+            return q;
         }
 
         //-----------------------------------------------------
@@ -157,7 +212,7 @@ namespace Ra
             double edgeError;
             Vector3 p = Vector3::Zero();
             int j;
-#pragma omp parallel for private(j, edgeError, p)
+//#pragma omp parallel for private(j, edgeError, p)
             for (unsigned int i = 0; i < numTriangles; i++)
             {
                 const Face_ptr& f = m_dcel->m_face.at( i );
@@ -171,13 +226,15 @@ namespace Ra
                     if (vs->idx > vt->idx) continue;
 
                     edgeError = computeEdgeError(f->HE()->idx, p);
-#pragma omp critical
+//#pragma omp critical
                     {
                         pQueue.insert(PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p));
                     }
                     h = h->Next();
                 }
             }
+
+            //pQueue.display();
             return pQueue;
         }
 
@@ -229,9 +286,14 @@ namespace Ra
                 }
             }
             if (countIntersection > 2)
+            {
+                LOG(logINFO) << "The edge " << he->V()->idx << ", " << he->Next()->V()->idx << " in face " << he->F()->idx << " is not collapsable for now : T-Intersection";
                 hasTIntersection = true;
+                return false;
+            }
 
             // Look if normals of faces change after collapse
+
             bool isFlipped = false;
             EFIterator eIt = EFIterator(he);
             FaceList adjFaces = eIt.list();
@@ -268,27 +330,36 @@ namespace Ra
 
                     //TEST
                     //Do we really need this ?
-                    /*
-                    Scalar a = fabs(d1.dot(d2));
-                    Vector3 d1_before = v1->P() - v->P();
-                    Vector3 d2_before = v2->P() - v->P();
-                    d1_before.normalize();
-                    d2_before.normalize();
-                    Scalar a_before = fabs(d1_before.dot(d2_before));
-                    if (a > 0.999 && a_before < 0.999)
-                        isFlipped = true;
-                    */
+
+                    //Scalar a = fabs(d1.dot(d2));
+                    //Vector3 d1_before = v1->P() - v->P();
+                    //Vector3 d2_before = v2->P() - v->P();
+                    //d1_before.normalize();
+                    //d2_before.normalize();
+                    //Scalar a_before = fabs(d1_before.dot(d2_before));
+                    //if (a > 0.999 && a_before < 0.999)
+                    //    isFlipped = true;
+
 
                     Vector3 fp_n = d1.cross(d2);
                     fp_n.normalize();
                     Vector3 f_n = Geometry::triangleNormal(v->P(), v1->P(), v2->P());
-                    if (fp_n.dot(f_n) < 0.1)
+                    Scalar fpnDotFn = fp_n.dot(f_n);
+                    if (fpnDotFn < -0.5)
+                    {
                         isFlipped = true;
+                        LOG(logINFO) << "The edge " << he->V()->idx << ", " << he->Next()->V()->idx << " in face " << he->F()->idx << " is not collapsable for now : Flipped face";
+                        return false;
+                        break;
+                    }
 
                 }
             }
 
             return ((!hasTIntersection) && (!isFlipped));
+
+
+            //return !hasTIntersection;
         }
 
         //--------------------------------------------------
@@ -309,7 +380,7 @@ namespace Ra
             PriorityQueue::PriorityQueueData d;
 
             LOG(logINFO) << "Collapsing...";
-            ProgressiveMeshData pmData;
+            ProgressiveMeshData data;
             while (m_nb_faces > targetNbFaces)
             {
                 if (pQueue.empty()) break;
@@ -319,10 +390,7 @@ namespace Ra
 
                 // TODO !
                 if (!isEcolPossible(he->idx, d.m_p_result))
-                {
-                    LOG(logINFO) << "This edge is not collapsable for now";
                     continue;
-                }
 
                 if (he->Twin() == nullptr)
                 {
@@ -335,11 +403,11 @@ namespace Ra
                 }
                 m_nb_vertices -= 1;
 
-                pmData = DcelOperations::edgeCollapse(*m_dcel, d.m_edge_id, d.m_p_result);
+                data = DcelOperations::edgeCollapse(*m_dcel, d.m_edge_id, d.m_p_result);
                 updateFacesQuadrics(d.m_vs_id);
                 updatePriorityQueue(pQueue, d.m_vs_id, d.m_vt_id);
 
-                pmdata.push_back(pmData);
+                pmdata.push_back(data);
 
                 nbPMData++;
             }

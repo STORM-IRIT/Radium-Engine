@@ -24,13 +24,14 @@ namespace Ra
         ///     Calculate the error on the edge
         ///         error = vmin^T Ae vmin + 2 be^T vmin + ce       with Qe = (Ae, be, ce)
 
-        template<int _DIM = 3>
+        //template<int _DIM = 3>
+        template<int _DIM>
         class Quadric
         {
         public:
             static constexpr int DIM = _DIM;
             using Matrix = Eigen::Matrix<Scalar, DIM, DIM>;
-            using Vector = Eigen::Matrix<Scalar, 3, 1>;
+            using Vector = Eigen::Matrix<Scalar, DIM, 1>;
 
             /// Construct an initialized quadric.
             Quadric();
@@ -44,7 +45,7 @@ namespace Ra
             /// Create a quadric from a normal vector n and the scalar which
             /// represent the distance from the plane of normal n to the origin
             /// \see compute
-            Quadric(const Vector& n, double ndotp);
+            Quadric(const Vector& n, Scalar ndotp);
 
             ~Quadric();
 
