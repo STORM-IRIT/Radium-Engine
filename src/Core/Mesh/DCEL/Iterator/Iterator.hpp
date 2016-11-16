@@ -38,6 +38,7 @@ protected:
     HalfEdge_ptr m_he;
 };
 
+
 } // namespace Core
 } // namespace Ra
 

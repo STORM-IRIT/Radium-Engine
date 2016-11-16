@@ -13,7 +13,7 @@ namespace Ra
 
             /// Constructor
             ProgressiveMeshLOD();
-            ProgressiveMeshLOD(ProgressiveMeshBase* pm);
+            ProgressiveMeshLOD(ProgressiveMeshBase<>* pm);
             ProgressiveMeshLOD(const ProgressiveMeshLOD &pmlod)
             {
             }
@@ -38,15 +38,17 @@ namespace Ra
             //TriangleMesh gotoM(Type t, int target_nb_faces);
             //TriangleMesh gotoM(int target_vsplit);
 
+
+
             /// Getters and Setters
             void setNbNoFrVSplit(const int v);
             int getNbNoFrVSplit();
             int getCurrVSplit();
-            ProgressiveMeshBase* getProgressiveMesh();
+            ProgressiveMeshBase<>* getProgressiveMesh();
 
         private:
             std::vector<ProgressiveMeshData> m_pmdata;
-            ProgressiveMeshBase* m_pm;
+            ProgressiveMeshBase<>* m_pm;
             int m_nb_no_fr_vsplit;
             int m_curr_vsplit;
 
