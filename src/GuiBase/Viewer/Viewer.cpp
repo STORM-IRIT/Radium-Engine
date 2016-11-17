@@ -1,4 +1,4 @@
-#include <GuiBase/Viewer/Viewer.hpp>
+#include <MainApplication/Viewer/Viewer.hpp>
 
 #include <iostream>
 
@@ -49,32 +49,6 @@ namespace Ra
 
     void Gui::Viewer::initializeGL()
     {
-        initializeOpenGLFunctions();
-
-        LOG( logINFO ) << "*** Radium Engine Viewer ***";
-        LOG( logINFO ) << "Renderer : " << glGetString( GL_RENDERER );
-        LOG( logINFO ) << "Vendor   : " << glGetString( GL_VENDOR );
-        LOG( logINFO ) << "OpenGL   : " << glGetString( GL_VERSION );
-        LOG( logINFO ) << "GLSL     : " << glGetString( GL_SHADING_LANGUAGE_VERSION );
-
-#if defined (OS_WINDOWS)
-        glewExperimental = GL_TRUE;
-
-        GLuint result = glewInit();
-        if ( result != GLEW_OK )
-        {
-            std::string errorStr;
-            Ra::Core::StringUtils::stringPrintf( errorStr, " GLEW init failed : %s", glewGetErrorString( result ) );
-            CORE_ERROR( errorStr.c_str() );
-        }
-        else
-        {
-            LOG( logINFO ) << "GLEW     : " << glewGetString( GLEW_VERSION );
-            glFlushError();
-        }
-
-#endif
-
         // FIXME(Charly): Renderer type should not be changed here
         m_renderers.resize( 1 );
         // FIXME(Mathias): width and height might be wrong the first time ResizeGL is called (see QOpenGLWidget doc). This may cause problem on Retina display under MacOsX

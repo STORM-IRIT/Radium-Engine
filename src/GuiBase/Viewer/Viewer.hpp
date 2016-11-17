@@ -3,14 +3,12 @@
 
 #include <GuiBase/RaGuiBase.hpp>
 
-#if defined (OS_WINDOWS)
-    #include <Engine/Renderer/OpenGL/glew.h>
-#endif
 
 #include <memory>
 
+#include <GL/gl3w.h>
 #include <QOpenGLWidget>
-#include <QOpenGLFunctions>
+#include <QOpenGLContext>
 #include <QThread>
 
 #include <Core/Math/LinearAlgebra.hpp>
@@ -62,7 +60,7 @@ namespace Ra
         /// * catching user interaction (mouse clicks) at the lowest level and forward it to
         /// the camera and the rest of the application
         /// * Expose the asynchronous rendering interface
-        class RA_GUIBASE_API Viewer : public QOpenGLWidget, protected QOpenGLFunctions
+        class RA_GUIBASE_API Viewer : public QOpenGLWidget
         {
             Q_OBJECT
 
