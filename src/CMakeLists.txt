@@ -23,6 +23,7 @@ endif (MSVC OR MSVC_IDE OR MINGW)
 include_directories(
     .
     ${EIGEN_INC}
+    ${PATATE_INC}
     ${ASSIMP_INC}
 )
 
@@ -158,6 +159,7 @@ if ( NOT ${OMIT_MAIN_APP} )
         .
         ${CMAKE_CURRENT_BINARY_DIR} # Moc
         ${EIGEN_INC}
+        ${PATATE_INC}
         )
 
     add_executable(

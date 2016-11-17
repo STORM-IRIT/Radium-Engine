@@ -70,6 +70,9 @@ add_subdirectory(3rdPartyLibraries)
 # Eigen
 set( EIGEN_INC ${EXTERNAL_DIR}/Eigen )
 
+# Patate
+set( PATATE_INC ${EXTERNAL_DIR}/Patate )
+
 # Assimp
 set( ASSIMP_INC ${EXTERNAL_DIR}/Assimp/include )
 if( APPLE )
