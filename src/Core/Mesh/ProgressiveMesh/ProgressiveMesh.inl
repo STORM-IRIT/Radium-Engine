@@ -175,13 +175,16 @@ namespace Ra
                 qToAdd *= weight;
                 qToAdd.applyPrattNorm();
 
-                LOG(logINFO) << "q1 : " << q.center().x()       << q.center().y()       << q.center().z() << ", " << q.radius();
-                LOG(logINFO) << "q2 : " << qToAdd.center().x()  << qToAdd.center().y()  << qToAdd.center().z() << ", " << qToAdd.radius();
+                LOG(logINFO) << "q1 : " << q.center().x() << ", " << q.center().y() << ", " << q.center().z() << "; " << q.radius();
+                LOG(logINFO) << "q1 : " << q.tau() << ", " << q.eta().transpose() << ", " << q.kappa();
+                LOG(logINFO) << "q2 : " << qToAdd.center().x() << ", " << qToAdd.center().y() << ", " << qToAdd.center().z() << "; " << qToAdd.radius();
+                LOG(logINFO) << "q2 : " << qToAdd.tau() << ", " << qToAdd.eta().transpose() << ", " << qToAdd.kappa();
 
                 q = m_em.combine(qToAdd, q);
                 q.applyPrattNorm();
 
-                LOG(logINFO) << "r  : " << q.center().x()       << q.center().y()       << q.center().z() << ", " << q.radius();
+                LOG(logINFO) << "r  : " << q.center().x() << ", " << q.center().y() << ", " << q.center().z() << "; " << q.radius();
+                LOG(logINFO) << "r  : " << q.tau() << ", " << q.eta().transpose() << ", " << q.kappa();
             }
 
             q.applyPrattNorm();
