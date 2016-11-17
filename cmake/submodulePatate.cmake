@@ -1,0 +1,1 @@
+set(PATATE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/Patate)

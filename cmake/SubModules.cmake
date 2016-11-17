@@ -13,6 +13,9 @@ include(submoduleGlBinding)
 # Eigen
 include(submoduleEigen3)
 
+# Patate
+include(submodulePatate)
+
 # Assimp
 # Set the external project assimp
 include(submoduleAssimp)

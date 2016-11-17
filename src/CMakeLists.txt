@@ -19,11 +19,12 @@ find_package(Qt5OpenGL  REQUIRED)
 
 include_directories(
     ${EIGEN3_INCLUDE_DIR}
+    ${PATATE_INCLUDE_DIR}
     ${ASSIMP_INCLUDE_DIR}
     ${GLBINDING_INCLUDE_DIR}
 )
 
-message(STATUS "Compiling Radium with include dirs : ${EIGEN3_INCLUDE_DIR} -- ${ASSIMP_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR}" )
+message(STATUS "Compiling Radium with include dirs : ${EIGEN3_INCLUDE_DIR} -- ${PATATE_INCLUDE_DIR} -- ${ASSIMP_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR}" )
 # Build Core
 set(core_target radiumCore)
 
