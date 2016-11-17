@@ -23,6 +23,7 @@ endif (MSVC OR MSVC_IDE OR MINGW)
 include_directories(
     .
     ${EIGEN_INC}
+    ${PATATE_INC}
     ${ASSIMP_INC}
 )
 
@@ -129,3 +130,66 @@ target_link_libraries(
 
 # Build tests
 add_subdirectory(Tests)
+if ( NOT ${OMIT_MAIN_APP} )
+    # Build MainApplication
+    set(app_target radium)
+
+    include(CMakeGenerateVersion.txt)
+
+    if( APPLE)
+        set( PLATFORM_LIBS "" )
+    elseif( UNIX )
+        set( PLATFORM_LIBS X11 xcb )
+    else()
+        set( PLATFORM_LIBS "" )
+    endif()
+
+    message("Used assimp lib is " ${ASSIMP_LIB})
+    set(app_libs radiumGuiBase radiumEngine radiumCore ${Qt5_LIBRARIES} ${OPENGL_LIBRARIES} ${PLATFORM_LIBS} ${ASSIMP_LIB})
+
+    file(GLOB_RECURSE app_sources MainApplication/*.cpp)
+    file(GLOB_RECURSE app_headers MainApplication/*.h MainApplication/*.hpp)
+    file(GLOB_RECURSE app_inlines MainApplication/*.inl)
+
+    file(GLOB_RECURSE app_uis     MainApplication/*.ui)
+    qt5_wrap_ui(app_uis_moc ${app_uis})
+
+    file(GLOB resources ${CMAKE_SOURCE_DIR}/*.qrc)
+
+    include_directories(
+        .
+        ${CMAKE_CURRENT_BINARY_DIR} # Moc
+        ${EIGEN_INC}
+        ${PATATE_INC}
+        )
+
+    add_executable(
+        ${app_target}
+        ${app_sources}
+        ${app_headers}
+        ${app_inlines}
+        ${app_uis_moc}
+        ${resources}
+        )
+
+    add_dependencies( ${app_target} ${core_target} ${engine_target} ${guibase_target} )
+
+    target_link_libraries(
+        ${app_target}
+        ${app_libs}
+        )
+
+    install( DIRECTORY . DESTINATION include FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl" PATTERN "*.h" )
+    install( FILES ${engine_shaders} DESTINATION Shaders )
+    install( DIRECTORY ${CMAKE_SOURCE_DIR}/Assets/. DESTINATION Assets )
+    install( TARGETS ${app_target} ${core_target} ${engine_target} ${guibase_target}
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib )
+
+    if (MSVC)
+        #This will work from CMake 3.6
+        set_property( DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${app_target})
+    endif(MSVC)
+
+endif( NOT ${OMIT_MAIN_APP} )
