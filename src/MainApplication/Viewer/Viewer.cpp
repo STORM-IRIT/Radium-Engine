@@ -32,7 +32,7 @@
 /// Helper functions
 namespace
 {
-    class RenderThread : public QThread, protected QOpenGLFunctions
+    class RenderThread : public QThread
     {
     public:
         RA_CORE_ALIGNED_NEW
@@ -56,9 +56,9 @@ namespace
             // Grab the context
             m_viewer->makeCurrent();
 
+            // FIXME(charly): Is this ever needed ?
             if ( !isInit )
             {
-                initializeOpenGLFunctions();
                 isInit = true;
             }
 
@@ -112,32 +112,6 @@ namespace Ra
 
     void Gui::Viewer::initializeGL()
     {
-        initializeOpenGLFunctions();
-
-        LOG( logINFO ) << "*** Radium Engine Viewer ***";
-        LOG( logINFO ) << "Renderer : " << glGetString( GL_RENDERER );
-        LOG( logINFO ) << "Vendor   : " << glGetString( GL_VENDOR );
-        LOG( logINFO ) << "OpenGL   : " << glGetString( GL_VERSION );
-        LOG( logINFO ) << "GLSL     : " << glGetString( GL_SHADING_LANGUAGE_VERSION );
-
-#if defined (OS_WINDOWS)
-        glewExperimental = GL_TRUE;
-
-        GLuint result = glewInit();
-        if ( result != GLEW_OK )
-        {
-            std::string errorStr;
-            Ra::Core::StringUtils::stringPrintf( errorStr, " GLEW init failed : %s", glewGetErrorString( result ) );
-            CORE_ERROR( errorStr.c_str() );
-        }
-        else
-        {
-            LOG( logINFO ) << "GLEW     : " << glewGetString( GLEW_VERSION );
-            glFlushError();
-        }
-
-#endif
-
 #if defined(FORCE_RENDERING_ON_MAIN_THREAD)
         LOG( logDEBUG ) << "Rendering on main thread";
 #else

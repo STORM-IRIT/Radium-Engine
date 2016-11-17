@@ -16,10 +16,6 @@ find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
 
-if (MSVC OR MSVC_IDE OR MINGW)
-  find_package(GLEW       REQUIRED) #only used on windows builds.
-endif (MSVC OR MSVC_IDE OR MINGW)
-
 include_directories(
     .
     ${EIGEN_INC}
@@ -62,7 +58,7 @@ set( engine_shaders ${engine_glsl})
 
 set(engine_libs
     radiumCore
-    ${GLEW_LIBRARIES}
+    gl3w
     ${ASSIMP_LIB}
     ${Qt5OpenGL_LIBRARIES}
     ${OPENGL_LIBRARIES})

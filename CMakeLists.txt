@@ -116,6 +116,7 @@ endif()
 set( CMAKE_DEBUG_POSTFIX "" )
 set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
 
+include(ExternalGl3w)
 add_subdirectory(src)
 
 # FIXME(Charly) Not sure this is really the greatest idea ever

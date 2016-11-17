@@ -67,6 +67,22 @@ namespace Ra
 
         void Renderer::initialize()
         {
+            if (gl3wInit())
+            {
+                CORE_ERROR("Could not initialize gl3w.");
+            }
+
+            if (!gl3wIsSupported(4, 5))
+            {
+                CORE_ERROR("OpenGL 4.1 not supported.");
+            }
+
+            LOG(logINFO) << "*** Radium Engine Viewer ***";
+            LOG(logINFO) << "Renderer : " << glGetString(GL_RENDERER);
+            LOG(logINFO) << "Vendor   : " << glGetString(GL_VENDOR);
+            LOG(logINFO) << "OpenGL   : " << glGetString(GL_VERSION);
+            LOG(logINFO) << "GLSL     : " << glGetString(GL_SHADING_LANGUAGE_VERSION);
+
             // Initialize managers
             m_shaderMgr = ShaderProgramManager::createInstance("../Shaders/Default.vert.glsl", "../Shaders/Default.frag.glsl");
             m_roMgr = RadiumEngine::getInstance()->getRenderObjectManager();

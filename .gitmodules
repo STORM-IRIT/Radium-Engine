@@ -1,3 +1,6 @@
 [submodule "3rdPartyLibraries/Assimp"]
 	path = 3rdPartyLibraries/Assimp
 	url = https://github.com/assimp/assimp.git
+[submodule "3rdPartyLibraries/gl3w"]
+	path = 3rdPartyLibraries/gl3w
+	url = https://github.com/zouch/gl3w.git
