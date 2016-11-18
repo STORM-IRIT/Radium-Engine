@@ -31,13 +31,50 @@ namespace Ra
                 glShaderSource(vert, 1, &vertStr, 0);
                 glCompileShader(vert);
 
+                GLint compiled = 0;
+                glGetShaderiv(vert, GL_COMPILE_STATUS, &compiled);
+                if (!compiled)
+                {
+                    GLint length = 0;
+                    glGetShaderiv(vert, GL_INFO_LOG_LENGTH, &length);
+
+                    std::vector<GLchar> log(length);
+                    glGetShaderInfoLog(vert, length, &length, log.data());
+
+                    LOG(logERROR) << "Vertex shader not compiled : " << std::string(log.data()) << "\n" << vertStr;
+                }
+
                 uint frag = glCreateShader(GL_FRAGMENT_SHADER);
                 glShaderSource(frag, 1, &fragStr, 0);
                 glCompileShader(frag);
 
+                compiled = 0;
+                glGetShaderiv(frag, GL_COMPILE_STATUS, &compiled);
+                if (!compiled)
+                {
+                    GLint length = 0;
+                    glGetShaderiv(frag, GL_INFO_LOG_LENGTH, &length);
+
+                    std::vector<GLchar> log(length);
+                    glGetShaderInfoLog(frag, length, &length, log.data());
+
+                    LOG(logERROR) << "Fragment shader not compiled : " << std::string(log.data()) << "\n" << fragStr;
+                }
+
                 glAttachShader(prog, vert);
                 glAttachShader(prog, frag);
                 glLinkProgram(prog);
+
+                GLint linked = 0;
+                glGetProgramiv(prog, GL_LINK_STATUS, &linked);
+                if (!linked)
+                {
+                    GLint length = 0;
+                    glGetProgramiv(prog, GL_INFO_LOG_LENGTH, &length);
+                    std::vector<GLchar> log(length);
+                    glGetProgramInfoLog(prog, length, &length, log.data());
+                    LOG(logERROR) << "Program not linked : " << std::string(log.data());
+                }
 
                 glDetachShader(prog, vert);
                 glDetachShader(prog, frag);
@@ -67,7 +104,7 @@ namespace Ra
             )";
 
             const char* lineFragStr = R"(
-                #version 330;
+                #version 330
 
                 in vec3 v_color;
                 out vec4 f_color;
@@ -111,7 +148,7 @@ namespace Ra
 
                 void main()
                 {
-                    f_color = vec4(in_color, 1.0);
+                    f_color = vec4(v_color, 1.0);
                 }
             )";
 
@@ -156,6 +193,8 @@ namespace Ra
             m_modelMeshLoc = glGetUniformLocation(m_meshProg, "model");
             m_viewMeshLoc  = glGetUniformLocation(m_meshProg, "view");
             m_projMeshLoc  = glGetUniformLocation(m_meshProg, "proj");
+
+            GL_CHECK_ERROR;
         }
 
         void DebugRender::render(const Core::Matrix4& viewMatrix,
