@@ -72,7 +72,7 @@ namespace Ra
                 CORE_ERROR("Could not initialize gl3w.");
             }
 
-            if (!gl3wIsSupported(4, 5))
+            if (!gl3wIsSupported(4, 1))
             {
                 CORE_ERROR("OpenGL 4.1 not supported.");
             }
@@ -92,7 +92,7 @@ namespace Ra
             m_shaderMgr->addShaderProgram("Picking", "../Shaders/Picking.vert.glsl", "../Shaders/Picking.frag.glsl");
 
             m_depthTexture.reset(new Texture("Depth"));
-            m_depthTexture->internalFormat = GL_DEPTH_COMPONENT24;
+            m_depthTexture->internalFormat = GL_DEPTH_COMPONENT16;
             m_depthTexture->dataType = GL_UNSIGNED_INT;
 
             // Picking
@@ -119,8 +119,6 @@ namespace Ra
             m_quadMesh->updateGL();
 
             initializeInternal();
-
-            resize( m_width, m_height );
         }
 
         void Renderer::render( const RenderData& data )
@@ -441,8 +439,8 @@ namespace Ra
 
             m_pickingFbo->bind();
             m_pickingFbo->setSize( w, h );
-            m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT , m_depthTexture.get() );
-            m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get() );
+            //m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT , m_depthTexture.get() );
+            //m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get() );
             m_pickingFbo->check();
             m_pickingFbo->unbind( true );
 

@@ -176,7 +176,7 @@ namespace Ra
             LOG( logERROR ) << "FBO Error : " << err;
         }
 
-        assert( fboStatus == GL_FRAMEBUFFER_COMPLETE && "Something went wrong with the Framebuffer.\n" );
+        CORE_ASSERT(fboStatus == GL_FRAMEBUFFER_COMPLETE, "Something went wrong with the Framebuffer");
     }
 
     void Engine::FBO::setSize( uint width, uint height )
