@@ -117,7 +117,7 @@ namespace Ra
 
         // Create default format for Qt.
         QSurfaceFormat format;
-        format.setVersion( 4, 5 );
+        format.setVersion( 4, 1 );
         format.setProfile( QSurfaceFormat::CoreProfile );
         format.setDepthBufferSize( 24 );
         format.setStencilBufferSize( 8 );
