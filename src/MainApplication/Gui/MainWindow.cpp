@@ -105,9 +105,9 @@ namespace Ra
 
         // Renderer stuff
 
-        connect(m_currentRendererCombo,
-                static_cast<void (QComboBox::*)(const QString&)>( &QComboBox::currentIndexChanged ),
-                this, &MainWindow::changeRenderer);
+        //connect(m_currentRendererCombo,
+        //        static_cast<void (QComboBox::*)(const QString&)>( &QComboBox::currentIndexChanged ),
+        //        this, &MainWindow::changeRenderer);
 
         connect(m_viewer, &Viewer::rendererReady, this, &MainWindow::onRendererReady);
 
@@ -282,9 +282,9 @@ namespace Ra
 
     void Gui::MainWindow::changeRenderer(const QString& rendererName)
     {
-        LOG(logINFO) << "Choosen renderer : " << rendererName.toStdString() << " (" << m_currentRendererCombo->currentText().toStdString() << " - " <<
-                     m_currentRendererCombo->currentIndex() << ")";
-        m_viewer->changeRenderer(m_currentRendererCombo->currentIndex());
+        //LOG(logINFO) << "Choosen renderer : " << rendererName.toStdString() << " (" << m_currentRendererCombo->currentText().toStdString() << " - " <<
+        //             m_currentRendererCombo->currentIndex() << ")";
+        //m_viewer->changeRenderer(m_currentRendererCombo->currentIndex());
     }
 
 
