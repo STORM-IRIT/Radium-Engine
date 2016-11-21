@@ -610,5 +610,6 @@ namespace Ra
             GL_ASSERT( glDrawBuffer( GL_BACK ) );
             GL_ASSERT( glReadBuffer( GL_BACK ) );
         }
+
     }
 } // namespace Ra

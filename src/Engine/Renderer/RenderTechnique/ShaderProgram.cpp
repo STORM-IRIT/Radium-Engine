@@ -183,7 +183,7 @@ namespace Ra
             GL_ASSERT( m_id = glCreateShader( type ) );
 
             std::string shader;
-            if (type == GL_VERTEX_SHADER)
+            if (type == GL_VERTEX_SHADER || type == GL_GEOMETRY_SHADER)
             {
                 shader = "\
                 out gl_PerVertex { \
