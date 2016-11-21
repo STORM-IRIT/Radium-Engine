@@ -22,6 +22,7 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
+#include <Engine/Renderer/Renderers/ExperimentalRenderer.hpp>
 
 #include <GuiBase/Viewer/TrackballCamera.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
@@ -32,6 +33,7 @@ namespace Ra
 {
     Gui::Viewer::Viewer( QWidget* parent )
         : QOpenGLWidget( parent )
+        , m_renderers(3)
         , m_gizmoManager(new GizmoManager(this))
         , m_renderThread( nullptr )
     {
@@ -76,13 +78,18 @@ namespace Ra
 #endif
 
         // FIXME(Charly): Renderer type should not be changed here
-        m_renderers.resize( 1 );
+        //m_renderers.resize( 3 );
         // FIXME(Mathias): width and height might be wrong the first time ResizeGL is called (see QOpenGLWidget doc). This may cause problem on Retina display under MacOsX
-        m_renderers[0].reset( new Engine::ForwardRenderer( width(), height() ) );
+        m_renderers[0].reset( new Engine::ForwardRenderer( width(), height() ) ); // Forward
+        m_renderers[1].reset( nullptr ); // deferred
+        m_renderers[2].reset( new Engine::ExperimentalRenderer( width(), height() ) ); // experimental
 
         for ( auto& renderer : m_renderers )
         {
-            renderer->initialize();
+            if (renderer)
+            {
+                renderer->initialize();
+            }
         }
 
         m_currentRenderer = m_renderers[0].get();
@@ -91,7 +98,10 @@ namespace Ra
 
         for ( auto& renderer : m_renderers )
         {
-            renderer->addLight( light );
+            if (renderer)
+            {
+                renderer->addLight( light );
+            }
         }
 
         m_camera->attachLight( light );
@@ -267,13 +277,15 @@ namespace Ra
 
     void Gui::Viewer::changeRenderer( int index )
     {
-        // NOTE(Charly): This is probably buggy since it has not been tested.
-        LOG( logWARNING ) << "Changing renderers might be buggy since it has not been tested.";
-        m_currentRenderer->lockRendering();
-        m_currentRenderer = m_renderers[index].get();
-        m_currentRenderer->initialize();
-        m_currentRenderer->resize( width(), height() );
-        m_currentRenderer->unlockRendering();
+        if (m_renderers[index]) {
+            // NOTE(Charly): This is probably buggy since it has not been tested.
+            LOG( logWARNING ) << "Changing renderers might be buggy since it has not been tested.";
+            m_currentRenderer->lockRendering();
+            m_currentRenderer = m_renderers[index].get();
+            m_currentRenderer->initialize();
+            m_currentRenderer->resize( width(), height() );
+            m_currentRenderer->unlockRendering();
+        }
     }
 
     // Asynchronous rendering implementation
@@ -300,7 +312,10 @@ namespace Ra
     {
         for ( auto& renderer : m_renderers )
         {
-            renderer->handleFileLoading( file );
+            if (renderer)
+            {
+                renderer->handleFileLoading( file );
+            }
         }
     }
 
@@ -335,9 +350,12 @@ namespace Ra
     {
         std::vector<std::string> ret;
 
-        for ( const auto& r : m_renderers )
+        for ( const auto& renderer : m_renderers )
         {
-            ret.push_back( r->getRendererName() );
+            if (renderer)
+            {
+                ret.push_back( renderer->getRendererName() );
+            }
         }
 
         return ret;

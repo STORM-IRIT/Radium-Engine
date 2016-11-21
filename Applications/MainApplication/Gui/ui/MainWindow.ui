@@ -163,6 +163,11 @@
               </item>
               <item>
                <property name="text">
+                <string>LinesGeom</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
                 <string>Lines</string>
                </property>
               </item>
@@ -183,8 +188,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>289</width>
-               <height>232</height>
+               <width>303</width>
+               <height>272</height>
               </rect>
              </property>
              <attribute name="label">
@@ -390,13 +395,46 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>292</width>
-               <height>224</height>
+               <width>291</width>
+               <height>126</height>
               </rect>
              </property>
              <attribute name="label">
               <string>Edition</string>
              </attribute>
+            </widget>
+            <widget class="QWidget" name="tab_renderers">
+             <attribute name="label">
+              <string>Renderers</string>
+             </attribute>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QLabel" name="label_3">
+                <property name="text">
+                 <string>Current renderer :</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="m_currentRendererCombo">
+                <item>
+                 <property name="text">
+                  <string>Forward</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Deferred</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Experimental</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </widget>
           </item>

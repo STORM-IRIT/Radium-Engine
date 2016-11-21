@@ -125,6 +125,9 @@ namespace Ra
             /// Slot for the user changing the current shader
             void changeRenderObjectShader(const QString& shaderName);
 
+            /// Slot for the user changing the current renderer
+            void changeRenderer(const QString& rendererName);
+
             /// Slot for the picking results from the viewer.
             void handlePicking( int ROIndex );
 

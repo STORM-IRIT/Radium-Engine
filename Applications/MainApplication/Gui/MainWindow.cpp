@@ -105,6 +105,11 @@ namespace Ra
         connect(m_editRenderObjectButton, &QPushButton::clicked, this, &MainWindow::editRO);
 
         // Renderer stuff
+
+        //connect(m_currentRendererCombo,
+        //        static_cast<void (QComboBox::*)(const QString&)>( &QComboBox::currentIndexChanged ),
+        //        this, &MainWindow::changeRenderer);
+
         connect(m_viewer, &Viewer::rendererReady, this, &MainWindow::onRendererReady);
 
         connect(m_displayedTextureCombo,
@@ -286,6 +291,13 @@ namespace Ra
         m_viewer->getGizmoManager()->changeGizmoType(GizmoManager::ROTATION);
     }
 
+    void Gui::MainWindow::changeRenderer(const QString& rendererName)
+    {
+        // LOG(logINFO) << "Chosen renderer : " << rendererName.toStdString() << " (" << m_currentRendererCombo->currentText().toStdString() << " - " <<
+        //             m_currentRendererCombo->currentIndex() << ")";
+        // m_viewer->changeRenderer(m_currentRendererCombo->currentIndex());
+    }
+
 
     void Gui::MainWindow::changeRenderObjectShader(const QString& shaderName)
     {
@@ -296,6 +308,18 @@ namespace Ra
         }
 
         const ItemEntry& item = m_selectionManager->currentItem();
+
+#if 1
+        auto vector_of_ros = getItemROs( mainApp->m_engine.get(), item );
+        for (const auto& ro_index : vector_of_ros) {
+            const auto& ro = mainApp->m_engine->getRenderObjectManager()->getRenderObject(ro_index);
+            if (ro->getRenderTechnique()->shader->getBasicConfiguration().m_name != name)
+            {
+            Engine::ShaderConfiguration config = Ra::Engine::ShaderConfigurationFactory::getConfiguration(name);
+            ro->getRenderTechnique()->changeShader(config);
+            }
+        }
+#else
         if (!item.isRoNode())
         {
             return;
@@ -308,6 +332,7 @@ namespace Ra
         }
         Engine::ShaderConfiguration config = Ra::Engine::ShaderConfigurationFactory::getConfiguration(name);
         ro->getRenderTechnique()->changeShader(config);
+#endif
     }
 
     void Gui::MainWindow::toggleVisisbleRO()
