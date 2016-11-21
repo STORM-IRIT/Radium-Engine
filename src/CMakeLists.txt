@@ -10,17 +10,13 @@ if ( "${isSysDir}" STREQUAL "-1" )
     set( CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib" )
 endif( "${isSysDir}" STREQUAL "-1" )
 
+include_directories(.)
+
 # Find packages
 find_package(OpenGL     REQUIRED)
 find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
-
-include_directories(
-    .
-    ${EIGEN_INC}
-    ${ASSIMP_INC}
-)
 
 # Build Core
 set(core_target radiumCore)
@@ -60,7 +56,6 @@ set( engine_shaders ${engine_glsl})
 
 set(engine_libs
     radiumCore
-    gl3w
     ${ASSIMP_LIB}
     ${Qt5OpenGL_LIBRARIES}
     ${OPENGL_LIBRARIES})
@@ -70,6 +65,7 @@ add_library(
     ${engine_sources}
     ${engine_headers}
     ${engine_inlines}
+    ${GL3W_SRC}
 
     ${engine_shaders}
 )
