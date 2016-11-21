@@ -3,45 +3,52 @@
 namespace Ra {
 namespace Core {
 
-/// ===============================================================================
-/// CONSTRUCTOR
-/// ===============================================================================
+//////////////////////////////////////////////////////////////////////////////
+// CONSTRUCTOR
+//////////////////////////////////////////////////////////////////////////////
 template < typename DATA, bool Binary >
 inline FileManager< DATA, Binary >::FileManager() : m_log("") { }
 
 
 
-/// ===============================================================================
-/// DESTRUCTOR
-/// ===============================================================================
+//////////////////////////////////////////////////////////////////////////////
+// DESTRUCTOR
+//////////////////////////////////////////////////////////////////////////////
 template < typename DATA, bool Binary >
 inline FileManager< DATA, Binary >::~FileManager() { }
 
 
 
-/// ===============================================================================
-/// INTERFACE
-/// ===============================================================================
+//////////////////////////////////////////////////////////////////////////////
+// INTERFACE
+//////////////////////////////////////////////////////////////////////////////
 template < typename DATA, bool Binary >
 inline bool FileManager< DATA, Binary >::load( const std::string& filename,
-                                       DATA&              data,
-                                       const bool         SAVE_LOG_FILE ) {
+                                               DATA&              data,
+                                               const bool         SAVE_LOG_FILE ) {
+    bool status = true;
     resetLog();
     addLogEntry( "Filename        : " + filename );
     addLogEntry( "Expected Format : " + fileExtension() );
     addLogEntry( "File Type       : " + std::string( Binary ? "Binary" : "Text" ) );
     addLogEntry( "Loading start..." );
     std::ifstream file( filename, std::ios_base::in | ( Binary ? std::ios_base::binary : std::ios_base::in ) );
-    if( !file.is_open() ) {
-        addLogEntry( "Error occured while opening the file. HINT: FILENAME MAY BE WRONG." );
-        return false;
+    if( !( status = file.is_open() ) ) {
+        addLogWarningEntry( "Error occurred while opening the file. Trying to see if extension is missing..." );
+        file.open( filename + "." + fileExtension(), std::ios_base::in | ( Binary ? std::ios_base::binary : std::ios_base::in ) );
+        if( !( status = file.is_open() ) ) {
+            addLogErrorEntry( "Error occured while opening the file. HINT: FILENAME IS WRONG." );
+        }
     }
-    addLogEntry( "File opened successfully." );
-    addLogEntry( "Starting to import the data." );
-    const bool status = importData( file, data );
-    addLogEntry( "Import " + ( ( status ) ? std::string( "DONE." ) : std::string( "FAILED." ) ) );
-    file.close();
-    addLogEntry( "File closed." );
+    if( status ) {
+        addLogEntry( "File opened successfully." );
+        addLogEntry( "Starting to import the data." );
+        status = importData( file, data );
+        addLogEntry( "Import " + ( ( status ) ? std::string( "DONE." ) : std::string( "FAILED." ) ),
+                                 ( ( status ) ? LogEntry_Normal        : LogEntry_Error         ) );
+        file.close();
+        addLogEntry( "File closed." );
+    }
     addLogEntry( "Loading " + filename + " ended." );
     if( SAVE_LOG_FILE ) {
         saveLog( filename + "_load" );
@@ -53,24 +60,27 @@ inline bool FileManager< DATA, Binary >::load( const std::string& filename,
 
 template < typename DATA, bool Binary >
 inline bool FileManager< DATA, Binary >::save( const std::string& filename,
-                                       const DATA&        data,
-                                       const bool         SAVE_LOG_FILE ) {
+                                               const DATA&        data,
+                                               const bool         SAVE_LOG_FILE ) {
+    bool status = true;
     resetLog();
     addLogEntry( "Filename         : " + filename );
     addLogEntry( "Exporting Format : " + fileExtension() );
     addLogEntry( "File Type        : " + std::string( Binary ? "Binary" : "Text" ) );
     addLogEntry( "Saving start..." );
     std::ofstream file( filename + "." + fileExtension(), std::ios_base::out | std::ios_base::trunc | ( Binary ? std::ios_base::binary : std::ios_base::out )  );
-    if( !file.is_open() ) {
-        addLogEntry( "Error occured while opening the file." );
-        return false;
+    if( !( status = file.is_open() ) ) {
+        addLogErrorEntry( "Error occured while opening the file." );
     }
-    addLogEntry( "File opened successfully." );
-    addLogEntry( "Starting to export the data..." );
-    const bool status = exportData( file, data );
-    addLogEntry( "Export " + ( ( status ) ? std::string( "DONE." ) : std::string( "FAILED." ) ) );
-    file.close();
-    addLogEntry( "File closed." );
+    if( status ) {
+        addLogEntry( "File opened successfully." );
+        addLogEntry( "Starting to export the data..." );
+        status = exportData( file, data );
+        addLogEntry( "Export " + ( ( status ) ? std::string( "DONE." ) : std::string( "FAILED." ) ),
+                                 ( ( status ) ? LogEntry_Normal        : LogEntry_Error         ) );
+        file.close();
+        addLogEntry( "File closed." );
+    }
     addLogEntry( "Saving " + filename + " ended." );
     if( SAVE_LOG_FILE ) {
         saveLog( filename + "_save" );
@@ -80,9 +90,9 @@ inline bool FileManager< DATA, Binary >::save( const std::string& filename,
 
 
 
-/// ===============================================================================
-/// LOG
-/// ===============================================================================
+//////////////////////////////////////////////////////////////////////////////
+// LOG
+//////////////////////////////////////////////////////////////////////////////
 template < typename DATA, bool Binary >
 inline std::string FileManager< DATA, Binary >::log() const {
     return m_log;

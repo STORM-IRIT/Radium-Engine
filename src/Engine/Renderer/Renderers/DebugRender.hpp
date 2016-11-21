@@ -24,11 +24,40 @@ namespace Ra
             void initialize();
             void render(const Core::Matrix4& view, const Core::Matrix4& proj);
 
-            virtual void addLine(const Core::Vector3& from, const Core::Vector3& to, const Core::Color& color);
-            virtual void addPoint(const Core::Vector3& p, const Core::Color& color);
-            virtual void addPoints(const Core::Vector3Array& p, const Core::Color& color);
-            virtual void addPoints(const Core::Vector3Array& p, const Core::Vector4Array& colors);
-            virtual void addMesh(const std::shared_ptr<Mesh>& mesh, const Core::Transform& transform = Core::Transform::Identity());
+            void addLine(const Core::Vector3& from, const Core::Vector3& to, const Core::Color& color);
+            void addPoint(const Core::Vector3& p, const Core::Color& color);
+            void addPoints(const Core::Vector3Array& p, const Core::Color& color);
+            void addPoints(const Core::Vector3Array& p, const Core::Vector4Array& colors);
+            void addMesh(const std::shared_ptr<Mesh>& mesh, const Core::Transform& transform = Core::Transform::Identity());
+
+            // Shortcuts
+            void addCross(const Core::Vector3& position,
+                          Scalar size,
+                          const Core::Color& color);
+
+            void addSphere(const Core::Vector3& center,
+                           Scalar radius,
+                           const Core::Color& color);
+
+            void addCircle(const Core::Vector3& center,
+                           const Core::Vector3& normal,
+                           Scalar radius,
+                           const Core::Color& color);
+
+            void addFrame(const Core::Transform& transform,
+                          Scalar size);
+
+            void addTriangle(const Core::Vector3& p0,
+                             const Core::Vector3& p1,
+                             const Core::Vector3& p2,
+                             const Core::Color& color);
+
+            void addAABB(const Core::Aabb& box,
+                         const Core::Color& color);
+
+            void addOBB(const Core::Aabb& box,
+                        const Core::Transform& transform,
+                        const Core::Color& color);
 
         private:
             struct Line
@@ -59,15 +88,15 @@ namespace Ra
             uint m_lineProg;
             uint m_pointProg;
             uint m_meshProg;
-            
+
             uint m_modelLineLoc;
             uint m_viewLineLoc;
             uint m_projLineLoc;
-            
+
             uint m_modelMeshLoc;
             uint m_viewMeshLoc;
             uint m_projMeshLoc;
-            
+
             uint m_viewPointLoc;
             uint m_projPointLoc;
 

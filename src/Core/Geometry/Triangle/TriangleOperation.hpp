@@ -17,6 +17,16 @@ RA_CORE_API bool isTriangleObtuse( const Vector3& p, const Vector3& q, const Vec
 
 
 /*
+* Return the barycenter of the triangle PQR
+*
+* The barycenter is computed as:
+*       ( P + Q + R ) / 3
+*/
+RA_CORE_API Vector3 triangleBarycenter( const Vector3& p, const Vector3& q, const Vector3& r );
+
+
+
+/*
 * Return the area of the triangle PQR
 *
 * The area is computed as:

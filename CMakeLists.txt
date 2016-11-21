@@ -7,10 +7,11 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Build options options.
-set(USE_DOUBLE		OFF CACHE BOOL "Use double precision" )
-set(USE_OMP         OFF	CACHE BOOL "Use OpenMP")
-set(ENABLE_FANCY_GL ON  CACHE BOOL "Enable Fancy OpenGL effects" )
-set(LOAD_TEXTURES	ON  CACHE BOOL "Compile Radium enabling texture loading stuff")
+option(RADIUM_WITH_DOUBLE_PRECISION "Use double precision" OFF)
+option(RADIUM_WITH_OMP              "Use OpenMP" OFF)
+option(RADIUM_WITH_FANCY_GL         "Enable Fancy OpenGL effects" ON)
+option(RADIUM_WITH_TEXTURES         "Compile Radium enabling texture loading stuff" ON)
+option(RADIUM_WITH_PROFILING        "Enable functions profiling." OFF)
 
 if ( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Debug )
@@ -106,8 +107,10 @@ elseif( MSVC )
     else()
         set(MSVC_PREFIX "vc130")
     endif()
+    
+    set(ASSIMP_LIB optimized "${CMAKE_CURRENT_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mt.lib"
+                 debug "${CMAKE_CURRENT_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mtd.lib")
 
-    set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mt.lib" )
 endif()
 
 set( CMAKE_DEBUG_POSTFIX "" )

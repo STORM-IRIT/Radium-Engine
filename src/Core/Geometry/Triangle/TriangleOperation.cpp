@@ -13,6 +13,12 @@ bool isTriangleObtuse( const Vector3& p, const Vector3& q, const Vector3& r ) {
 
 
 
+Vector3 triangleBarycenter( const Vector3& p, const Vector3& q, const Vector3& r ) {
+    return ( ( p + q + r ) / 3.0 );
+}
+
+
+
 Scalar triangleArea( const Vector3& p, const Vector3& q, const Vector3& r ) {
     return ( ( ( q - p ).cross( r - p ) ).norm() * 0.5 );
 }
