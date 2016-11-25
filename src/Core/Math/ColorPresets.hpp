@@ -15,18 +15,19 @@ namespace Ra{
             template <typename C = Color> inline C Alpha() { return C(0.0, 0.0, 0.0, 0.0); }
             template <typename C = Color> inline C Black() { return C(0,0,0,1); }
 
-            template <typename C = Color> inline C Red()   { return Color(1,0,0,1); }
-            template <typename C = Color> inline C Green() { return Color(0,1,0,1); }
-            template <typename C = Color> inline C Blue()  { return Color(0,0,1,1); }
+            template <typename C = Color> inline C Red()   { return C(1,0,0,1); }
+            template <typename C = Color> inline C Green() { return C(0,1,0,1); }
+            template <typename C = Color> inline C Blue()  { return C(0,0,1,1); }
 
-            template <typename C = Color> inline C Yellow()  { return Color(1,1,0,1); }
-            template <typename C = Color> inline C Magenta() { return Color(1,0,1,1); }
-            template <typename C = Color> inline C Cyan()    { return Color(0,1,1,1); }
+            template <typename C = Color> inline C Yellow()  { return C(1,1,0,1); }
+            template <typename C = Color> inline C Magenta() { return C(1,0,1,1); }
+            template <typename C = Color> inline C Cyan()    { return C(0,1,1,1); }
 
-            template <typename C = Color> inline C White()   { return Color(1,1,1,1); }
+            template <typename C = Color> inline C White()   { return C(1,1,1,1); }
 
             template <typename C = Color> inline C Grey( Scalar f = 0.5f) { return Color(f,f,f,1);}
 
+            template <typename C = Color> inline C Skin() { return Color(1.0,0.87,0.74,1.0);}
             // Convert to/from various int formats
             template <typename C = Color>
             inline C FromChars(uchar r, uchar g, uchar b, uchar a = 0xff)
