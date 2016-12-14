@@ -10,13 +10,13 @@ find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
 
-
 set( Qt5_LIBRARIES
      ${Qt5Core_LIBRARIES}
      ${Qt5Widgets_LIBRARIES}
      ${Qt5OpenGL_LIBRARIES} )
 
-if( APPLE)
+
+if(APPLE)
     FIND_LIBRARY(CARBON_LIBRARY Carbon)
     set( PLATFORM_LIBS ${CARBON_LIBRARY} )
 elseif( UNIX )
@@ -25,13 +25,14 @@ else()
     set( PLATFORM_LIBS "" )
 endif()
 
-set(app_libs  ${RADIUM_LIB_CORE}              # core
-    ${RADIUM_LIB_ENGINE}            # engine
-    ${RADIUM_LIB_GUIBASE}           # gui
+set(app_libs  
+    ${RA_GUIBASE_LIB}           # gui
+    ${RA_ENGINE_LIB}            # engine
+    ${RA_CORE_LIB}              # core
     ${Qt5_LIBRARIES}                # the Qt beast
-    ${Qt5_LIBRARIES} ${OPENGL_LIBRARIES} ${PLATFORM_LIBS}
-      ${ASSIMP_LIB}
-
+    ${OPENGL_LIBRARIES} 
+    ${PLATFORM_LIBS}
+    ${ASSIMP_LIB}
       )
 
 file(GLOB_RECURSE app_sources *.cpp)
@@ -44,8 +45,11 @@ file(GLOB resources ${CMAKE_CURRENT_SOURCE_DIR}/*.qrc)
 
 include_directories(
     .
+    ${RADIUM_INCLUDE_DIR}
+    ${EIGEN_INCLUDE_DIR}
+    ${ASSIMP_INCLUDE_DIR}
+
     ${CMAKE_CURRENT_BINARY_DIR} # Moc
-    ${EIGEN_INC}
     )
 
 add_executable(
@@ -74,26 +78,3 @@ if (MSVC)
     #This will work from CMake 3.6
     set_property( DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${app_target})
 endif(MSVC)
-
-set( Qt5_LIBRARIES
-     ${Qt5Core_LIBRARIES}
-     ${Qt5Widgets_LIBRARIES}
-     ${Qt5OpenGL_LIBRARIES} )
-
-# ///////////////////////////////
-
-# Flags
-set( CMAKE_CXX_FLAGS "-std=c++14" )
-
-# Access to Radium headers and declarations/defintions
-include_directories(
-    .
-    ${RADIUM_LIB_SRC}
-    ${RADIUM_INC_EIGEN}
-    ${RADIUM_INC_ASSIMP}
-)
-
-# Libs include
-link_directories(
-    ${RADIUM_LIB_DIR}
-)

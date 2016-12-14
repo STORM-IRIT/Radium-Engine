@@ -6,7 +6,7 @@
 #if defined RA_GUIBASE_EXPORTS
     #define RA_GUIBASE_API DLL_EXPORT
 #elif defined RA_GUIBASE_STATIC
-#define RA_GUIBASE_API
+    #define RA_GUIBASE_API
 #else
     #define RA_GUIBASE_API DLL_IMPORT
 #endif

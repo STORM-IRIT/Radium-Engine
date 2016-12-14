@@ -1,9 +1,10 @@
 #ifndef RADIUMENGINE_VIEWER_HPP
 #define RADIUMENGINE_VIEWER_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <GuiBase/RaGuiBase.hpp>
+
 #if defined (OS_WINDOWS)
-#include <Engine/Renderer/OpenGL/glew.h>
+    #include <Engine/Renderer/OpenGL/glew.h>
 #endif
 
 #include <memory>
@@ -15,11 +16,6 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
-
-// Uncomment this to deactivate multi-threaded rendering.
-// In that case the call to startRendering() is synchronous
-// and waitForRendering() does nothing.
-#define FORCE_RENDERING_ON_MAIN_THREAD
 
 // Forward declarations
 namespace Ra
@@ -66,7 +62,7 @@ namespace Ra
         /// * catching user interaction (mouse clicks) at the lowest level and forward it to
         /// the camera and the rest of the application
         /// * Expose the asynchronous rendering interface
-        class Viewer : public QOpenGLWidget, protected QOpenGLFunctions
+        class RA_GUIBASE_API Viewer : public QOpenGLWidget, protected QOpenGLFunctions
         {
             Q_OBJECT
 

@@ -38,7 +38,7 @@ namespace Ra
 #if defined(mainApp)
 #undef mainApp
 #endif
-#define mainApp (static_cast<Ra::MainApplication*>(qApp))
+#define mainApp (static_cast<Ra::BaseApplication*>(qApp))
 
 namespace Ra
 {

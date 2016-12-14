@@ -27,56 +27,6 @@
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 #include <GuiBase/Utils/Keyboard.hpp>
 
-/// Helper functions
-namespace
-{
-    class RenderThread : public QThread, protected QOpenGLFunctions
-    {
-    public:
-        RA_CORE_ALIGNED_NEW
-
-        RenderThread( Ra::Gui::Viewer* viewer, Ra::Engine::Renderer* renderer )
-            : QThread( viewer ), m_viewer( viewer ), m_renderer( renderer ), isInit( false )
-        {
-            CORE_ASSERT( m_renderer != nullptr && m_viewer != nullptr,
-                         "Uninitialized renderer" );
-        }
-
-        virtual ~RenderThread() {}
-
-        // This is the function that gets called in the render thread
-        virtual void run() override
-        {
-            // check that the context has correctly been moved from the main thread.
-            CORE_ASSERT( m_viewer->context()->thread() == QThread::currentThread(),
-                         "Context is in the wrong thread" );
-
-            // Grab the context
-            m_viewer->makeCurrent();
-
-            if ( !isInit )
-            {
-                initializeOpenGLFunctions();
-                isInit = true;
-            }
-
-            CORE_ASSERT( glGetString( GL_VERSION ) != 0, "GL context unavailable" );
-
-            // render will lock the renderer itself.
-            m_renderer->render( m_renderData );
-
-            // Give back viewer context to main thread.
-            m_viewer->doneCurrent();
-            m_viewer->context()->moveToThread( mainApp->thread() );
-        }
-
-        /// Keep a local copy of the render data.
-        Ra::Engine::RenderData m_renderData;
-        Ra::Gui::Viewer* m_viewer;
-        Ra::Engine::Renderer* m_renderer;
-        bool isInit;
-    };
-}
 
 namespace Ra
 {
@@ -92,21 +42,10 @@ namespace Ra
         m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
 
         /// Intercept events to properly lock the renderer when it is compositing.
-#if !defined(FORCE_RENDERING_ON_MAIN_THREAD)
-        connect( this, &QOpenGLWidget::aboutToCompose, this, &Viewer::onAboutToCompose );
-        connect( this, &QOpenGLWidget::frameSwapped,   this, &Viewer::onFrameSwapped );
-        connect( this, &QOpenGLWidget::aboutToResize,  this, &Viewer::onAboutToResize );
-        connect( this, &QOpenGLWidget::resized,        this, &Viewer::onResized );
-#endif
+
     }
 
-    Gui::Viewer::~Viewer()
-    {
-#if !defined(FORCE_RENDERING_ON_MAIN_THREAD)
-        CORE_ASSERT( m_renderThread->isFinished(), "Render thread is still running" );
-        delete m_renderThread;
-#endif
-    }
+    Gui::Viewer::~Viewer(){}
 
     void Gui::Viewer::initializeGL()
     {
@@ -136,11 +75,6 @@ namespace Ra
 
 #endif
 
-#if defined(FORCE_RENDERING_ON_MAIN_THREAD)
-        LOG( logDEBUG ) << "Rendering on main thread";
-#else
-        LOG( logDEBUG ) << "Rendering on dedicated thread";
-#endif
         // FIXME(Charly): Renderer type should not be changed here
         m_renderers.resize( 1 );
         // FIXME(Mathias): width and height might be wrong the first time ResizeGL is called (see QOpenGLWidget doc). This may cause problem on Retina display under MacOsX
@@ -153,12 +87,6 @@ namespace Ra
 
         m_currentRenderer = m_renderers[0].get();
 
-#if !defined (FORCE_RENDERING_ON_MAIN_THREAD)
-        m_renderThread = new RenderThread( this, m_renderer.get() );
-#endif
-        // FIXME (Mathias) : according to modern C++ guidelines (Stroustrup), prefer the following
-        // NOTE(Charly) : Indeed, but on MSVC std::make_shared does not guarantee alignement, hence making Eigen crash.
-        //                We introduced Ra::Core::make_shared later and I still have to change all this calls.
         auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
 
         for ( auto& renderer : m_renderers )
@@ -246,7 +174,7 @@ namespace Ra
                     Core::Ray r = m_camera->getCamera()->getRayFromScreen(Core::Vector2(event->x(), event->y()));
                     RA_DISPLAY_POINT(r.origin(), Core::Colors::Cyan(), 0.1f);
                     RA_DISPLAY_RAY(r, Core::Colors::Yellow());
-                    auto ents = mainApp->getEngine()->getEntityManager()->getEntities();
+                    auto ents = Engine::RadiumEngine::getInstance()->getEntityManager()->getEntities();
                     for (auto e : ents)
                     {
                         e->rayCastQuery(r);
@@ -352,7 +280,6 @@ namespace Ra
 
     void Gui::Viewer::startRendering( const Scalar dt )
     {
-#if defined(FORCE_RENDERING_ON_MAIN_THREAD)
         makeCurrent();
 
         // Move camera if needed. Disabled for now as it takes too long (see issue #69)
@@ -363,34 +290,10 @@ namespace Ra
         data.projMatrix = m_camera->getProjMatrix();
         data.viewMatrix = m_camera->getViewMatrix();
         m_currentRenderer->render( data );
-#else
-        CORE_ASSERT( m_renderThread != nullptr,
-                     "Render thread is not initialized (should have been done in initGL)" );
-
-        // First release the context and give it to the rendering thread.
-        doneCurrent();
-        context()->moveToThread( m_renderThread );
-
-        // Copy camera data from the main thread as some later events may overwrite it.
-        Engine::RenderData& data = static_cast<RenderThread*>( m_renderThread )->m_renderData;
-        data.projMatrix = m_camera->getProjMatrix();
-        data.viewMatrix = m_camera->getViewMatrix();
-        data.dt = dt;
-
-        // Launch the thread, calling the run() method.
-        m_renderThread->start();
-#endif
     }
 
     void Gui::Viewer::waitForRendering()
     {
-#if !defined(FORCE_RENDERING_ON_MAIN_THREAD)
-        // Join with render thread.
-        m_renderThread->wait();
-        CORE_ASSERT( context()->thread() == QThread::currentThread(),
-                     "Context has not been properly given back to main thread." );
-        makeCurrent();
-#endif
     }
 
     void Gui::Viewer::handleFileLoading( const std::string& file )

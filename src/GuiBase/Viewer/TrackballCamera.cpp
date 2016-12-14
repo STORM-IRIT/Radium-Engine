@@ -1,4 +1,4 @@
-#include <MainApplication/Viewer/TrackballCamera.hpp>
+#include <GuiBase/Viewer/TrackballCamera.hpp>
 
 #include <iostream>
 #include <QMessageBox>

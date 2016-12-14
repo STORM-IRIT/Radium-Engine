@@ -1,4 +1,4 @@
-#include "Gui/MainWindow.hpp"
+#include <Gui/MainWindow.hpp>
 
 #include <QSettings>
 #include <QFileDialog>
@@ -14,13 +14,14 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
+#include <GuiBase/Viewer/CameraInterface.hpp>
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 
-#include "MainApplication.hpp"
-#include "Gui/MaterialEditor.hpp"
-#include <GuiBase/Viewer/CameraInterface.hpp>
+#include <Gui/MaterialEditor.hpp>
+#include <Gui/MainWindow.hpp>
 
-#include "PluginBase/RadiumPluginInterface.hpp"
+#include <MainApplication.hpp>
+#include <PluginBase/RadiumPluginInterface.hpp>
 
 using Ra::Engine::ItemEntry;
 
@@ -29,19 +30,18 @@ namespace Ra
 
     Gui::MainWindow::MainWindow(QWidget* parent)
             : QMainWindow(parent)
-            , m_taskQueue( nullptr )
     {
         // Note : at this point most of the components (including the Engine) are
         // not initialized. Listen to the "started" signal.
 
         setupUi(this);
 
-        m_viewer = new Ra::Gui::Viewer(m_centralWidget);
+        /*m_viewer = new Ra::Gui::Viewer(m_centralWidget);
         m_viewer->setObjectName(QStringLiteral("m_viewer"));
         m_viewer->setEnabled(true);
         m_viewer->setMinimumSize(QSize(800, 600));
 
-        gridLayout_2->addWidget(m_viewer, 0, 0, 1, 1);
+        gridLayout_2->addWidget(m_viewer, 0, 0, 1, 1);*/
 
         setWindowIcon(QPixmap(":/Assets/Images/RadiumIcon.png"));
         setWindowTitle(QString("Radium Engine"));
@@ -53,9 +53,6 @@ namespace Ra
         m_materialEditor = new MaterialEditor();
         m_selectionManager = new GuiBase::SelectionManager(m_itemModel, this);
         m_entitiesTreeView->setSelectionModel(m_selectionManager);
-
-        // Create task queue with N-1 threads (we keep one for rendering).
-        m_taskQueue.reset( new Core::TaskQueue( std::thread::hardware_concurrency() - 1 ) );
 
         createConnections();
 
@@ -137,16 +134,6 @@ namespace Ra
         mainApp->m_engine->getSignalManager()->m_roAddedCallbacks.push_back(add);
         mainApp->m_engine->getSignalManager()->m_roRemovedCallbacks.push_back(del);
 
-    }
-
-    void Gui::MainWindow::update()
-    {
-        //timerData.tasksStart = Core::Timer::Clock::now();
-        m_taskQueue->startTasks();
-        m_taskQueue->waitForTasks();
-        //timerData.taskData = m_taskQueue->getTimerData();
-        m_taskQueue->flushTaskQueue();
-        //timerData.tasksEnd = Core::Timer::Clock::now();
     }
 
     void Gui::MainWindow::loadFile()

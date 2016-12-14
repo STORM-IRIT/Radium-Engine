@@ -1,15 +1,15 @@
 #ifndef RADIUMENGINE_VERSION_HPP
 #define RADIUMENGINE_VERSION_HPP
 
-#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
 
 namespace Ra {
     namespace Version {
 
-        extern const char* compiler;
-        extern const char* compileFlags;
-        extern const char* compileDate;
-        extern const char* compileTime;
+        RA_CORE_API extern const char* compiler;
+        RA_CORE_API extern const char* compileFlags;
+        RA_CORE_API extern const char* compileDate;
+        RA_CORE_API extern const char* compileTime;
 
         // TODO :
 

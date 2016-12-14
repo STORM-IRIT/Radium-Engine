@@ -13,7 +13,7 @@ namespace Ra
     {
         /// This class interfaces the gizmos with the ui commands.
         /// It allows to change the gizmo type when editing an editable transform object
-        class GizmoManager : public QObject, public GuiBase::TransformEditor
+        class RA_GUIBASE_API GizmoManager : public QObject, public GuiBase::TransformEditor
         {
             Q_OBJECT
 

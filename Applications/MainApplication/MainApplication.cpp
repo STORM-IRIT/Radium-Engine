@@ -15,6 +15,7 @@
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/String/StringUtils.hpp>
+#include <Core/Utils/Version.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
@@ -30,7 +31,7 @@
 #include <Engine/Renderer/Renderers/DebugRender.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
-#include "Gui/MainWindow.hpp"
+#include <Gui/MainWindow.hpp>
 
 #include <PluginBase/RadiumPluginInterface.hpp>
 
@@ -43,6 +44,7 @@ namespace Ra
         : QApplication( argc, argv )
         , m_mainWindow( nullptr )
         , m_engine( nullptr )
+        , m_taskQueue( nullptr )
         , m_viewer( nullptr )
         , m_frameTimer( new QTimer( this ) )
         , m_frameCounter( 0 )
@@ -106,7 +108,7 @@ namespace Ra
         LOG( logINFO ) << config.str();
 
         config.str( std::string() );
-        //config<<"build: "<<Version::compiler<<" - "<<Version::compileDate<<" "<<Version::compileTime;
+        config<<"core build: "<<Version::compiler<<" - "<<Version::compileDate<<" "<<Version::compileTime;
 
 
         LOG( logINFO ) << config.str();
@@ -161,10 +163,6 @@ namespace Ra
         {
             loadFile(parser.value(fileOpt));
         }
-
-        // Update the window every 1/60 sec.
-        connect( m_frameTimer, &QTimer::timeout, m_mainWindow.get(), &Ra::Gui::MainWindow::update );
-        m_frameTimer->start((m_targetFPS > 0) ? 1000/m_targetFPS : 0);
 
         m_lastFrameStart = Core::Timer::Clock::now();
     }
@@ -280,12 +278,11 @@ namespace Ra
 
         // ----------
         // 2. Kickoff rendering
-        m_viewer->m_dt = dt;
-//        m_viewer->update();
         m_viewer->startRendering( dt );
 
-/*
+
         timerData.tasksStart = Core::Timer::Clock::now();
+
         // ----------
         // 3. Run the engine task queue.
         m_engine->getTasks( m_taskQueue.get(), dt );
@@ -297,7 +294,7 @@ namespace Ra
         m_taskQueue->flushTaskQueue();
 
         timerData.tasksEnd = Core::Timer::Clock::now();
-*/
+
         // ----------
         // 4. Wait until frame is fully rendered and display.
         m_viewer->waitForRendering();
