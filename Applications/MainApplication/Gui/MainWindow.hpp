@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_MAINWINDOW_HPP
 #define RADIUMENGINE_MAINWINDOW_HPP
 
+#include <GuiBase/RaGuiBase.hpp>
+
 #include <QMainWindow>
 #include "ui_MainWindow.h"
 
@@ -67,9 +69,6 @@ namespace Ra
             /// Update the UI ( most importantly gizmos ) to the modifications of the engine/
             void onFrameComplete();
 
-            /// overload QWidget::update
-            void update();
-
         public slots:
             /// Callback to rebuild the item model when the engine objects change.
             void onItemAdded( const Engine::ItemEntry& ent );
@@ -131,13 +130,6 @@ namespace Ra
 
             /// Slot to accept a new renderer
             void onRendererReady();
-
-        public:
-            /// Task queue for processing tasks.
-            std::unique_ptr<Core::TaskQueue> m_taskQueue;
-
-        protected:
-            Ra::Gui::Viewer *m_viewer;
 
         private:
             /// Stores the internal model of engine objects for selection.

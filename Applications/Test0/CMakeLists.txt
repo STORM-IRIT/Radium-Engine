@@ -18,23 +18,14 @@ set(CMAKE_AUTORCC ON)
 
 # ///////////////////////////////
 
-# Flags
-set( CMAKE_CXX_FLAGS "-std=c++14" )
-
 # Access to Radium headers and declarations/defintions
 include_directories(
     .
-    ${RADIUM_LIB_SRC}
-    ${RADIUM_INC_EIGEN}
-    ${RADIUM_INC_ASSIMP}
+    ${RADIUM_INCLUDE_DIR}
+    ${EIGEN_INCLUDE_DIR}
+    ${ASSIMP_INCLUDE_DIR}
 )
 
-
-
-# Libs include
-link_directories(
-    ${RADIUM_LIB_DIR}
-)
 
 
 # Get files
@@ -51,8 +42,9 @@ add_executable( ${app_target} ${file_sources} ${file_headers} )
 
 # Link good libraries
 target_link_libraries( ${app_target} # target
-    ${RADIUM_LIB_CORE}              # core
-    ${RADIUM_LIB_ENGINE}            # engine
-    ${RADIUM_LIB_GUIBASE}           # gui
+
+    ${RA_GUIBASE_LIB}           # gui
+    ${RA_ENGINE_LIB}            # engine
+    ${RA_CORE_LIB}              # core
     ${Qt5_LIBRARIES}                # the Qt beast
 )

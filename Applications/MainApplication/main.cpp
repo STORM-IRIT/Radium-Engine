@@ -1,4 +1,4 @@
-#include "MainApplication.hpp"
+#include <MainApplication.hpp>
 
 #include <QCommandLineParser>
 
