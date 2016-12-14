@@ -25,6 +25,8 @@ else()
     set( PLATFORM_LIBS "" )
 endif()
 
+
+include(CompileFlags)
 set(app_libs  
     ${RA_GUIBASE_LIB}           # gui
     ${RA_ENGINE_LIB}            # engine
