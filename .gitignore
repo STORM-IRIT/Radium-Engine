@@ -89,5 +89,4 @@ include/
 *.json
 
 #Auto-generated plugins registration file
-src/MainApplication/Systems.cpp
-src/MainApplication/Version.cpp
+src/Core/Utils/Version.cpp

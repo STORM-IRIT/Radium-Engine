@@ -10,12 +10,7 @@
 #include <Core/Event/KeyEvent.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
-/*
-#include <MainApplication/MainApplication.hpp>
-#include <MainApplication/Utils/Keyboard.hpp>
-#include <MainApplication/MainApplication.hpp>
-#include <MainApplication/Gui/MainWindow.hpp>
-*/
+
 namespace Ra
 {
     using Core::Math::Pi;
