@@ -354,7 +354,7 @@ namespace Ra
         GL_ASSERT(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_FLOAT, pixels));
 
         // Now we must convert the floats to RGB while flipping the image updisde down.
-        unsigned char* writtenPixels = new uchar[tex->width() * tex->height() * 4];
+        uchar* writtenPixels = new uchar[tex->width() * tex->height() * 4];
         for (uint j = 0; j < tex->height(); ++j)
         {
             for (uint i = 0; i < tex->width(); ++i)
@@ -362,9 +362,9 @@ namespace Ra
                 uint in = 4 * (j * tex->width() + i);  // Index in the texture buffer
                 uint ou = 4 * ((tex->height() - 1 - j) * tex->width() + i); // Index in the final image (note the j flipping).
 
-                writtenPixels[ou + 0] = Ra::Core::Math::clamp<uchar>(pixels[in + 0] * 255.f, 0u, 0xffu);
-                writtenPixels[ou + 1] = Ra::Core::Math::clamp<uchar>(pixels[in + 1] * 255.f, 0u, 0xffu);
-                writtenPixels[ou + 2] = Ra::Core::Math::clamp<uchar>(pixels[in + 2] * 255.f, 0u, 0xffu);
+                writtenPixels[ou + 0] = (uchar)Ra::Core::Math::clamp<Scalar>(pixels[in + 0] * 255.f, 0, 255);
+                writtenPixels[ou + 1] = (uchar)Ra::Core::Math::clamp<Scalar>(pixels[in + 1] * 255.f, 0, 255);
+                writtenPixels[ou + 2] = (uchar)Ra::Core::Math::clamp<Scalar>(pixels[in + 2] * 255.f, 0, 255);
                 writtenPixels[ou + 3] = 0xff;
             }
         }
