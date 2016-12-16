@@ -3,6 +3,7 @@
 
 #include <Core/RaCore.hpp>
 #include <string>
+#include <functional>
 
 namespace Ra
 {
@@ -21,6 +22,29 @@ namespace Ra
             /// Do the task job. Will be called from the task queue threads.
             virtual void process() = 0;
         };
+
+        /// A wrapper for a task around a std::function.
+        /// The function must be of type void(void)
+        /// Use std::bind to bind the arguments to the function object when creating the task.
+        class FunctionTask : public Task
+        {
+        public:
+            /// Create a function task
+            FunctionTask(const std::function<void(void)>& f, const std::string& name)
+                    : m_f(f), m_name(name) {}
+
+            /// Return the provided task name
+            virtual std::string getName() const override { return m_name; }
+
+            /// Call the function.
+            virtual void process() override { m_f(); }
+
+        protected:
+            std::function<void(void)> m_f; /// The function to call
+            std::string m_name; /// Name of the task
+        };
+
+
     }
 }
 
