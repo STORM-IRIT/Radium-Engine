@@ -368,16 +368,23 @@ namespace Ra
     {
         LOG( logINFO )<<" *** Loading Plugins ***";
         QDir pluginsDir( qApp->applicationDirPath() );
-        pluginsDir.cd( pluginsPath.c_str() );
+        bool result = pluginsDir.cd( pluginsPath.c_str() );
 
+        if (!result)
+        {
+            LOG(logERROR) << "Cannot open specified plugins directory "<<pluginsPath;
+        }
+
+        LOG( logDEBUG )<<"Plugin directory :"<<pluginsDir.absolutePath().toStdString();
         bool res = true;
         uint pluginCpt = 0;
 
+        PluginContext context;
+        context.m_engine = m_engine.get();
+        context.m_selectionManager = m_mainWindow->getSelectionManager();
+
         for (const auto& filename : pluginsDir.entryList(QDir::Files))
         {
-            PluginContext context;
-            context.m_engine = m_engine.get();
-            context.m_selectionManager = m_mainWindow->getSelectionManager();
 
             std::string ext = Core::StringUtils::getFileExt( filename.toStdString() );
 #if defined( OS_WINDOWS )

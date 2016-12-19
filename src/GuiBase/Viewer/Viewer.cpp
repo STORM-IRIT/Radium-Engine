@@ -325,7 +325,10 @@ namespace Ra
 
     void Gui::Viewer::fitCameraToScene( const Core::Aabb& aabb )
     {
-        m_camera->fitScene( aabb );
+        if (!aabb.isEmpty())
+        {
+            m_camera->fitScene(aabb);
+        }
     }
 
     std::vector<std::string> Gui::Viewer::getRenderersName() const
