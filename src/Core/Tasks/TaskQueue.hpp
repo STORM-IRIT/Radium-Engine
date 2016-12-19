@@ -51,7 +51,7 @@ namespace Ra
             /// Constructor. Initializes the thread pools with numThreads threads.
             TaskQueue( uint numThreads );
 
-            /// Destructor. Waits for all the threads and saefly deletes them.
+            /// Destructor. Waits for all the threads and safely deletes them.
             ~TaskQueue();
 
             //
