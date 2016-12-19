@@ -18,7 +18,7 @@ FIND_PATH( RADIUM_ROOT NAMES src/Core/RaCore.hpp
 IF ( RADIUM_ROOT )
     SET ( RADIUM_INCLUDE_DIR "${RADIUM_ROOT}/src")
     SET ( EIGEN_INCLUDE_DIR "${RADIUM_ROOT}/3rdPartyLibraries/Eigen")
-    SET ( ASSIMP_INCLUDE_DIR "${RADIUM_ROOT}/3rdPartyLibraries/assimp/include")
+    SET ( ASSIMP_INCLUDE_DIR "${RADIUM_ROOT}/3rdPartyLibraries/Assimp/include")
 
     IF (TARGET radiumCore)
         set (RA_CORE_LIB radiumCore)
