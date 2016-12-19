@@ -27,12 +27,12 @@ endif()
 
 
 include(CompileFlags)
-set(app_libs  
+set(app_libs
     ${RA_GUIBASE_LIB}           # gui
     ${RA_ENGINE_LIB}            # engine
     ${RA_CORE_LIB}              # core
     ${Qt5_LIBRARIES}                # the Qt beast
-    ${OPENGL_LIBRARIES} 
+    ${OPENGL_LIBRARIES}
     ${PLATFORM_LIBS}
     ${ASSIMP_LIB}
       )
@@ -43,7 +43,7 @@ file(GLOB_RECURSE app_inlines *.inl)
 file(GLOB_RECURSE app_uis     *.ui)
 qt5_wrap_ui(app_uis_moc ${app_uis})
 
-file(GLOB resources ${CMAKE_CURRENT_SOURCE_DIR}/*.qrc)
+file(GLOB resources ${CMAKE_CURRENT_SOURCE_DIR}/../../*.qrc)
 
 include_directories(
     .
