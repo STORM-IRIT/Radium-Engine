@@ -155,6 +155,16 @@ namespace Ra
                 .arg(stats.front().numFrame).arg(stats.back().numFrame);
         m_frameA2BLabel->setText(framesA2B);
 
+
+        auto romgr = mainApp->m_engine->getRenderObjectManager();
+
+        uint polycount = romgr->getNumFaces();
+        uint vertexcount = romgr->getNumVertices();
+
+
+        QString polyCountText = QString("Rendering %1 faces and %2 vertices").arg(polycount).arg(vertexcount);
+        m_labelCount->setText(polyCountText);
+
         long sumEvents = 0;
         long sumRender = 0;
         long sumTasks = 0;

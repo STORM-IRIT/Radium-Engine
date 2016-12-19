@@ -100,6 +100,8 @@ public:
     /// ===============================================================================
     inline      Iterator  begin();                          // Return a iterator to the first object in the IndexMap.
     inline      Iterator    end();                          // Return a iterator to the end of the object list in the IndexMap.
+    inline ConstIterator  begin() const;                    // Return a iterator to the first object in the IndexMap.
+    inline ConstIterator    end() const;                    // Return a iterator to the end of the object list in the IndexMap.
     inline ConstIterator cbegin() const;                    // Return a const iterator to the first object in the IndexMap.
     inline ConstIterator   cend() const;                    // Return a const iterator to the end of the object list in the IndexMap.
 

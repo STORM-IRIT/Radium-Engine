@@ -53,6 +53,12 @@ namespace Ra
 
             void renderObjectExpired( const Ra::Core::Index& idx );
 
+            /// Return the total number of faces drawn
+            uint getNumFaces() const;
+
+            /// Return the total number of vertices drawn
+            uint getNumVertices() const;
+
         private:
             Core::IndexMap<std::shared_ptr<RenderObject>> m_renderObjects;
 

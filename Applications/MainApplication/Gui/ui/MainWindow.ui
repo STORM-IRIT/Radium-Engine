@@ -48,7 +48,7 @@
    </property>
    <widget class="QMenu" name="menuFILE">
     <property name="title">
-     <string>Fi&amp;le</string>
+     <string>File</string>
     </property>
     <addaction name="actionOpenMesh"/>
     <addaction name="separator"/>
@@ -56,7 +56,7 @@
    </widget>
    <widget class="QMenu" name="menuMisc">
     <property name="title">
-     <string>&amp;Materials</string>
+     <string>Materials</string>
     </property>
     <addaction name="actionReload_Shaders"/>
     <addaction name="actionOpen_Material_Editor"/>
@@ -226,6 +226,13 @@
                </widget>
               </item>
               <item>
+               <widget class="QLabel" name="m_labelCount">
+                <property name="text">
+                 <string>Rendering #f faces and #v vertices</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <layout class="QGridLayout" name="gridLayout_6">
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_26">
@@ -383,8 +390,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>268</width>
-               <height>212</height>
+               <width>292</width>
+               <height>224</height>
               </rect>
              </property>
              <attribute name="label">

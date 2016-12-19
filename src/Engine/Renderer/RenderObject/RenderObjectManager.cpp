@@ -123,5 +123,31 @@ namespace Ra
 
             ro.reset();
         }
+
+        uint RenderObjectManager::getNumFaces() const
+        {
+            uint result = 0;
+            for (const auto& ro : m_renderObjects)
+            {
+                if (ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Fancy )
+                {
+                    result += ro->getMesh()->getGeometry().m_triangles.size();
+                }
+            }
+            return result;
+        }
+
+        uint RenderObjectManager::getNumVertices() const
+        {
+            uint result = 0;
+            for (const auto& ro : m_renderObjects)
+            {
+                if (ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Fancy )
+                {
+                    result += ro->getMesh()->getGeometry().m_vertices.size();
+                }
+            }
+            return result;
+        }
     }
 } // namespace Ra
