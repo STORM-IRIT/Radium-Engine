@@ -101,6 +101,28 @@ inline FaceList VFIterator::list() const
     return L;
 }
 
+/// N-RING
+void VFIterator::nRing(uint n, std::set<Face_ptr, VFIterator::compareFacePtr>& adjFacesSet)
+{
+    if (n == 0) return;
+    FaceList adjFaces = list();
+    for (uint t = 0; t < adjFaces.size(); t++)
+    {
+        adjFacesSet.insert(adjFaces[t]);
+        HalfEdge_ptr he = adjFaces[t]->HE();
+        for (uint i = 0; i < 3; i++)
+        {
+            if (he->V()->idx == m_v->idx)
+            {
+                VFIterator newvfIt = VFIterator(he->Next()->V());
+                newvfIt.nRing(n-1, adjFacesSet);
+                break;
+            }
+            he = he->Next();
+        }
+    }
+}
+
 
 
 

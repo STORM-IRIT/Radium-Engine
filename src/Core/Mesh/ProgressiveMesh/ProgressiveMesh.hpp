@@ -19,6 +19,9 @@
 
 #include <Core/Containers/VectorArray.hpp>
 
+#include <iostream>
+#include <fstream>
+
 namespace Ra
 {
     namespace Core
@@ -32,9 +35,10 @@ namespace Ra
 
             using Primitive = typename ErrorMetric::Primitive;
 
-            virtual std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit) = 0;
+            virtual std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, bool primitiveUpdate, float scale) = 0;
             virtual void computeFacesQuadrics() = 0;
             virtual Primitive computeEdgeQuadric(Index edgeIndex) = 0;
+            virtual Primitive computeEdgeQuadric(Index edgeIndex, std::ofstream &file) = 0;
             virtual void vsplit(ProgressiveMeshData pmData) = 0;
             virtual void ecol(ProgressiveMeshData pmData) = 0;
 
@@ -59,12 +63,12 @@ namespace Ra
 
             /// We construct a priority queue with an error for each edge
             PriorityQueue constructPriorityQueue();
-            void updatePriorityQueue(PriorityQueue &pQueue, Index vsId, Index vtId);
+            void updatePriorityQueue(PriorityQueue &pQueue, Index vsId, Index vtId, std::ofstream &file);
 
             /// Construction of the coarser mesh
-            std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit) override;
+            std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, bool primitiveUpdate, float scale) override;
 
-            /// Vertex Split
+            /// Vertex Split and Edge Collapse
             void vsplit(ProgressiveMeshData pmData) override;
             void ecol(ProgressiveMeshData pmData) override;
 
@@ -72,17 +76,21 @@ namespace Ra
             inline void computeFacesQuadrics();
             void updateFacesQuadrics(Index vsIndex);
 
+            /// ComputeVertexQuadric
+            Primitive computeVertexQuadric(Index vertexIndex);
+
             /// Compute an edge quadric
             Primitive computeEdgeQuadric(Index edgeIndex);
+            Primitive computeEdgeQuadric(Index edgeIndex, std::ofstream &file);
 
             /// Compute the error on an edge
-            Scalar computeEdgeError(Index edgeIndex, Vector3&p_result);
+            Scalar computeEdgeError(Index edgeIndex, Vector3&p_result, Primitive &q, std::ofstream &file);
+            Scalar computeEdgeError(Index edgeIndex, Vector3&p_result, Primitive &q);
 
-            ///
-            Scalar computeGeometricError(const Vector3& p, Primitive q);
-
+            /// Check if an edge collapse is doable
             bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult);
 
+            /// Compute the size of the bounding box of a mesh
             Scalar computeBoundingBoxSize();
 
             /// Getters and Setters
@@ -98,8 +106,14 @@ namespace Ra
         private:
             Dcel* m_dcel;
             std::vector<Primitive> m_primitives;
+            std::vector<Primitive> m_primitives_he; //TO REMOVE
+            std::vector<Primitive> m_primitives_v;
             ErrorMetric m_em;
+
             Scalar m_bbox_size;
+            Scalar m_mean_edge_size;
+            Scalar m_scale;
+
             int m_nb_faces;
             int m_nb_vertices;
         };

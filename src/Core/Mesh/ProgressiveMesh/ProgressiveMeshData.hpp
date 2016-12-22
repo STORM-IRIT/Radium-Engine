@@ -31,6 +31,16 @@ namespace Ra
                    Index vs_id, Index vt_id, Index vl_id, Index vr_id,
                    short int ii);
 
+            ProgressiveMeshData(const Vector3& vad_l, const Vector3& vad_s,
+                   Index he_fl_id, Index he_fr_id,
+                   Index flclw_id, Index fl_id, Index fr_id,
+                   Index vs_id, Index vt_id, Index vl_id, Index vr_id,
+                   short int ii,
+                   Scalar error, Vector3 p_result,
+                   Vector3 q1_center, Scalar q1_radius,
+                   Vector3 q2_center, Scalar q2_radius,
+                   Vector3 q_center, Scalar q_radius);
+
             ~ProgressiveMeshData()
             {}
 
@@ -51,6 +61,25 @@ namespace Ra
 
             //----------------------------------------------
 
+            inline Scalar getError();
+            inline void setError(Scalar& s);
+            inline Vector3 getPResult();
+            inline void setPResult(Vector3& v);
+            inline Vector3 getQ1Center();
+            inline void setQ1Center(const Vector3& c);
+            inline Vector3 getQ2Center();
+            inline void setQ2Center(const Vector3& c);
+            inline Vector3 getQCenter();
+            inline void setQCenter(const Vector3& c);
+            inline Scalar getQ1Radius();
+            inline void setQ1Radius(const Scalar& r);
+            inline Scalar getQ2Radius();
+            inline void setQ2Radius(const Scalar& r);
+            inline Scalar getQRadius();
+            inline void setQRadius(const Scalar& r);
+
+            //----------------------------------------------
+
             Vector3 computePResult(const Vector3& vt, const Vector3& vs);
 
 
@@ -66,6 +95,19 @@ namespace Ra
 
             // gives the attribute of the new vertex
             short int m_ii; // prediction of p position
+
+            ///////////////////////////////////
+            /// only for debug interactions ///
+            ///////////////////////////////////
+            // TODO add
+            Scalar m_error;
+            Vector3 m_p_result;
+            Vector3 m_q1_center;
+            Vector3 m_q2_center;
+            Vector3 m_q_center;
+            Scalar m_q1_radius;
+            Scalar m_q2_radius;
+            Scalar m_q_radius;
         };
     } // namespace Core
 } // namespace Ra

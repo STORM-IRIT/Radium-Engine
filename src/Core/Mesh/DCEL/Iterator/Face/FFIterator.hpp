@@ -2,6 +2,7 @@
 #define RADIUMENGINE_DCEL_FACE_FACE_ITERATOR_HPP
 
 #include <Core/Mesh/DCEL/Iterator/Face/FaceIterator.hpp>
+#include <set>
 
 namespace Ra {
 namespace Core {
@@ -17,7 +18,17 @@ public:
 
     /// LIST
     inline FaceList list() const override;
-    inline FaceList list2() const;
+
+    /// N-RING
+    struct compareFacePtr
+    {
+        inline bool operator()(const Face_ptr& a1, const Face_ptr& a2) const
+        {
+            return a1->idx < a2->idx;
+        }
+    };
+    inline void nRing(uint n, std::set<Face_ptr, FFIterator::compareFacePtr>& adjFacesSet);
+
 
     /// OPERATOR
     inline Face* operator->() const override;

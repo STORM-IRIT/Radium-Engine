@@ -6,6 +6,9 @@
 #include <Core/Mesh/DCEL/Dcel.hpp>
 #include <Patate/grenaille.h>
 
+#include <iostream>
+#include <fstream>
+
 namespace Ra
 {
     namespace Core
@@ -145,41 +148,16 @@ namespace Ra
 
             Scalar computeError(Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult);
             Scalar computeGeometricError(const Primitive& q, const Vector3& p);
-            Primitive combine(const Primitive& a, const Primitive& b);
+            Primitive combine(const Primitive& a, const Scalar& a_weight, const Primitive& b, const Scalar& b_weight, std::ofstream &file);
+            Primitive combine(const Primitive& a, const Scalar& a_weight, const Primitive& b, const Scalar& b_weight);
 
-            void generateFacePrimitive(Primitive &q, Face_ptr f, Dcel &dcel, Scalar scale);
+            void generateFacePrimitive(Primitive &q, Face_ptr f, Dcel &dcel, Scalar mean_edge_size, Scalar scale);
 
         //private:
         public:
             Param m_param;
 
         };
-
-        /*
-        typedef DistWeightFunc<GrenaillePoint, ConstantWeightKernel<Scalar> > WeightFunc;
-        typedef Basket<GrenaillePoint, WeightFunc, OrientedSphereFit, GLSParam> Fit1;
-
-        /// Operators
-        Fit1 operator+(const Fit1& q1, const Fit1& q2)
-        {
-            Fit1 fit;
-            //fit.setWeightFunc(WeightFunc());
-            fit.m_uc = q1.m_uc + q2.m_uc;
-            fit.m_uq = q1.m_uq + q2.m_uq;
-            fit.m_ul = q1.m_ul + q2.m_ul;
-            fit.applyPrattNorm();
-            return fit;
-        }
-        Fit1 operator*(const Fit1& q1, const Scalar scal)
-        {
-            Fit1 fit;
-            fit.m_uc = q1.m_uc * scal;
-            fit.m_uq = q1.m_uq * scal;
-            fit.m_ul = q1.m_ul * scal;
-            fit.applyPrattNorm();
-            return fit;
-        }
-        */
 
     }
 
