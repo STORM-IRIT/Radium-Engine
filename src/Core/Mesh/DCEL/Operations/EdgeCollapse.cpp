@@ -37,7 +37,7 @@ short int computeii(Dcel& dcel, Index vsId, Index vtId, Vector3 pResult, Vector3
 
 //------------------------------------------------------------
 
-ProgressiveMeshData edgeCollapse(Dcel& dcel, Index edgeIndex, Vector3 pResult)
+void edgeCollapse(Dcel& dcel, Index edgeIndex, Vector3 pResult, bool updatePMData, ProgressiveMeshData& data)
 {
     CORE_ASSERT(dcel.m_halfedge[edgeIndex]->V()->idx != dcel.m_halfedge[edgeIndex]->Twin()->V()->idx,"Twins with same starting vertex.");
 
@@ -124,13 +124,22 @@ ProgressiveMeshData edgeCollapse(Dcel& dcel, Index edgeIndex, Vector3 pResult)
         e4->setTwin(e3);
     }
 
-    // Return ProgressiveMeshData on this edge collapse
-    return ProgressiveMeshData(vadL, vadS,
-                               edgeIndex, dcel.m_halfedge[edgeIndex]->Twin()->idx,
-                               flclw->idx, f1->idx, f2->idx,
-                               v1->idx, v2->idx, vl->idx, vr->idx,
-                               ii);
-
+    // update ProgressiveMeshData on this edge collapse
+    if (updatePMData)
+    {
+        data.setVadl(vadL);
+        data.setVads(vadS);
+        data.setHeFlId(edgeIndex);
+        data.setHeFrId(dcel.m_halfedge[edgeIndex]->Twin()->idx);
+        data.setFlclwId(flclw->idx);
+        data.setFlId(f1->idx);
+        data.setFrId(f2->idx);
+        data.setVsId(v1->idx);
+        data.setVtId(v2->idx);
+        data.setVlId(vl->idx);
+        data.setVrId(vr->idx);
+        data.setii(ii);
+    }
 }
 
 //------------------------------------------------------------
@@ -142,7 +151,7 @@ void edgeCollapse( Dcel& dcel, ProgressiveMeshData pmData)
     Vector3 vsPos = dcel.m_vertex[pmData.getVsId()]->P();
     Vector3 pResult = pmData.computePResult(vtPos, vsPos);
 
-    edgeCollapse(dcel, pmData.getHeFlId(), pResult);
+    edgeCollapse(dcel, pmData.getHeFlId(), pResult, false, pmData);
 }
 
 
