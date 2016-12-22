@@ -4,6 +4,7 @@
 #include <set>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Index/Index.hpp>
+#include <Core/Mesh/ProgressiveMesh/ErrorMetric.hpp>
 
 namespace Ra
 {
@@ -13,6 +14,7 @@ namespace Ra
         class PriorityQueue
         {
         public:
+
 
             struct PriorityQueueData
             {
@@ -83,6 +85,9 @@ namespace Ra
 
             /// Pop the first element
             PriorityQueueData top();
+
+            /// Get the ith element
+            PriorityQueueData get(int i);
 
             /// Delete edges having v_id as vertex
             void removeEdges(int v_id);

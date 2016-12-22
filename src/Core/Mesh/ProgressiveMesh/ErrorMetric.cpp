@@ -203,12 +203,13 @@ namespace Ra
 
             Fit1 fit;
             fit.setWeightFunc(WeightFunc());
+
             fit.init(pg);
-            //fit.init(GrenaillePoint::VectorType::Zero()); //no more local
 
             GrenaillePoint::VectorType pgi;
             FFIterator ffIt = FFIterator(f);
             FaceList adjFaces = ffIt.list();
+
             for (uint i = 0; i < adjFaces.size(); i++)
             {
                 Face_ptr fi = adjFaces[i];
@@ -221,29 +222,13 @@ namespace Ra
                 GrenaillePoint gpi(pgi, n);
                 fit.addNeighbor(gpi);
             }
+
             fit.finalize();
 
             if (fit.isStable())
             {
                 //fit.applyPrattNorm();
-
-                Scalar uc = fit.m_uc; // + pg.dot(fit.m_ul); //switch local to global
-                GrenaillePoint::VectorType ul = fit.m_ul;
-                Scalar uq = fit.m_uq;
-
-                // Test
-                uc = uc / ul.norm();
-                ul.normalize();
-
-                Primitive::Vector n = Primitive::Vector(ul.x(),  //ul
-                                                        ul.y(),
-                                                        ul.z(),
-                                                        0.0);     //uq
-                Scalar s = uc;
-                q = Primitive(n, s);
-
-                GrenaillePoint::VectorType center = fit.center();
-                Scalar radius = fit.radius();
+                //q = fit;
                 m_param.fits.push_back(fit);
             }
             else
@@ -268,16 +253,104 @@ namespace Ra
 
         }
 
+        /*
         SimpleAPSSErrorMetric::Primitive SimpleAPSSErrorMetric::combine(const Primitive& a, const Primitive& b)
         {
             Primitive c = a;
             c.changeBasis(b.basisCenter());
             c.applyPrattNorm();
 
+            //c.setParameters((c.tau() + b.tau())/Scalar(2), (c.eta() + b.eta()), (c.kappa() + b.kappa())/Scalar(2));
             c.setParameters((c.tau() + b.tau()), (c.eta() + b.eta()), (c.kappa() + b.kappa()));
 
             c.changeBasis(a.basisCenter());
             c.applyPrattNorm();
+            return c;
+        }
+        */
+
+        SimpleAPSSErrorMetric::Primitive SimpleAPSSErrorMetric::combine(const Primitive& a, const Scalar& a_weight, const Primitive& b, const Scalar& b_weight, std::ofstream &file)
+        {
+            Primitive c;
+            Scalar new_uc   =   0.5*a_weight*b_weight*(a.m_ul.dot(b.m_ul)) +
+                                a_weight*a_weight*a.m_uc*b.m_uq +
+                                b_weight*b_weight*b.m_uc*a.m_uq -
+                                0.5*a_weight*b_weight*a.prattNorm()*b.prattNorm();
+            Vector3 new_ul  = a_weight*a.m_ul*b.m_uq + b_weight*b.m_ul*a.m_uq;
+            Scalar new_uq   = a.m_uq*b.m_uq;
+            Vector3 new_p   = a_weight*a.m_p + b_weight*b.m_p;
+            Scalar test = new_ul.squaredNorm() - Scalar(4.) * new_uc * new_uq;
+
+            /*
+            if ((a.m_uc > 0 && b.m_uc < 0) || (a.m_uc < 0 && b.m_uc > 0))
+            {
+                if ((a.m_uq > 0 && b.m_uq < 0) || (a.m_uq < 0 && b.m_uq > 0))
+                {
+                    if (((a.m_ul.x() > 0 && b.m_ul.x() < 0) || (a.m_ul.x() < 0 && b.m_ul.x() > 0)) &&
+                        ((a.m_ul.y() > 0 && b.m_ul.y() < 0) || (a.m_ul.y() < 0 && b.m_ul.y() > 0)) &&
+                        ((a.m_ul.z() > 0 && b.m_ul.z() < 0) || (a.m_ul.z() < 0 && b.m_ul.z() > 0)))
+                    {
+                        LOG(logINFO) << "inversion de signes";
+                    }
+                }
+            }
+            */
+
+            if (test > -0.00000000001 && test < 0.00000000001)
+            {
+                LOG(logINFO) << "ca merde ici : norm 0 \n";
+                file << a.m_uc  << " " << a.m_ul.transpose()  << " " << a.m_uq << " " << a.m_p.transpose() << "\n";
+                file << a.center().x() << " " << a.center().y() << " " << a.center().z() << " " << a.radius() << "\n";
+                file << b.m_uc  << " " << b.m_ul.transpose()  << " " << b.m_uq << " " << b.m_p.transpose() << "\n";
+                file << b.center().x() << " " << b.center().y() << " " << b.center().z() << " " << b.radius() << "\n";
+            }
+            if (std::abs(test) > 10000000000000)
+            {
+                LOG(logINFO) << "ca merde ici : norm inf \n";
+                file << a.m_uc  << " " << a.m_ul.transpose()  << " " << a.m_uq << " " << a.m_p.transpose() << "\n";
+                file << a.center().x() << " " << a.center().y() << " " << a.center().z() << " " << a.radius() << "\n";
+                file << b.m_uc  << " " << b.m_ul.transpose()  << " " << b.m_uq << " " << b.m_p.transpose() << "\n";
+                file << b.center().x() << " " << b.center().y() << " " << b.center().z() << " " << b.radius() << "\n";
+            }
+            if (test < 0)
+            {
+                LOG(logINFO) << "ca merde ici : norm negative \n";
+                file << a.m_uc  << " " << a.m_ul.transpose()  << " " << a.m_uq << " " << a.m_p.transpose() << "\n";
+                file << a.center().x() << " " << a.center().y() << " " << a.center().z() << " " << a.radius() << "\n";
+                file << b.m_uc  << " " << b.m_ul.transpose()  << " " << b.m_uq << " " << b.m_p.transpose() << "\n";
+                file << b.center().x() << " " << b.center().y() << " " << b.center().z() << " " << b.radius() << "\n";
+            }
+            c.setParameters(new_uc, new_ul, new_uq, new_p);
+            return c;
+        }
+
+        SimpleAPSSErrorMetric::Primitive SimpleAPSSErrorMetric::combine(const Primitive& a, const Scalar& a_weight, const Primitive& b, const Scalar& b_weight)
+        {
+            Primitive c;
+            if (a.m_uq > -0.00000000001 && a.m_uq < 0.00000000001 &&
+                   b.m_uq > -0.00000000001 && b.m_uq < 0.00000000001 )
+                LOG(logINFO) << "plan";
+            Scalar new_uc   =   0.5*a_weight*b_weight*(a.m_ul.dot(b.m_ul)) +
+                                a_weight*a_weight*a.m_uc*b.m_uq +
+                                b_weight*b_weight*b.m_uc*a.m_uq -
+                                0.5*a_weight*b_weight*a.prattNorm()*b.prattNorm();
+            Vector3 new_ul  = a_weight*a.m_ul*b.m_uq + b_weight*b.m_ul*a.m_uq;
+            Scalar new_uq   = a.m_uq*b.m_uq;
+            Vector3 new_p   = a_weight*a.m_p + b_weight*b.m_p;
+            Scalar test = new_ul.squaredNorm() - Scalar(4.) * new_uc * new_uq;
+            if (test > -0.00000000001 && test < 0.00000000001)
+            {
+                LOG(logINFO) << "ca merde ici : norm 0 \n";
+            }
+            if (std::abs(test) > 10000000000000)
+            {
+                LOG(logINFO) << "ca merde ici : norm inf \n";
+            }
+            if (test < 0)
+            {
+                LOG(logINFO) << "ca merde ici : norm negative \n";
+            }
+            c.setParameters(new_uc, new_ul, new_uq, new_p);
             return c;
         }
 
@@ -287,8 +360,8 @@ namespace Ra
             Scalar radius = q.radius();
             GrenaillePoint::VectorType p12 = (vs + vt) / 2.0;
             pResult = q.project(p12);
-
-            return std::abs(q.potential(p12));
+            Scalar error = std::abs(q.potential(p12));
+            return error;
 
             // Projection of p12 on the sphere
             /*
@@ -306,43 +379,51 @@ namespace Ra
             */
         }
 
-        void SimpleAPSSErrorMetric::generateFacePrimitive(Primitive &q, Face_ptr f, Dcel &dcel, Scalar scale)
+        void SimpleAPSSErrorMetric::generateFacePrimitive(Primitive &q, Face_ptr f, Dcel &dcel, Scalar mean_edge_size, Scalar scale)
         {
             Vertex_ptr v0 = f->HE()->V();
             Vertex_ptr v1 = f->HE()->Next()->V();
             Vertex_ptr v2 = f->HE()->Next()->Next()->V();
             Vector3 p = (v0->P() + v1->P() + v2->P()) / 3.0;
             GrenaillePoint::VectorType pg = GrenaillePoint::VectorType(p.x(), p.y(), p.z());
+            GrenaillePoint::VectorType new_pg = GrenaillePoint::VectorType(p.x(), p.y(), p.z());
 
             Fit1 fit;
-            fit.setWeightFunc(WeightFunc(scale));
-            fit.init(pg);
-            //fit.init(GrenaillePoint::VectorType::Zero()); //no more local
+            fit.setWeightFunc(WeightFunc(mean_edge_size)); // TODO weight func
 
-            GrenaillePoint::VectorType pgi;
+            Scalar error;
             FFIterator ffIt = FFIterator(f);
-            FaceList adjFaces = ffIt.list();
-            for (uint i = 0; i < adjFaces.size(); i++)
-            {
-                Face_ptr fi = adjFaces[i];
-                v0 = fi->HE()->V();
-                v1 = fi->HE()->Next()->V();
-                v2 = fi->HE()->Next()->Next()->V();
-                p = (v0->P() + v1->P() + v2->P()) / 3.0;
-                pgi = GrenaillePoint::VectorType(p.x(), p.y(), p.z());
-                Vector3 n = Geometry::triangleNormal(v0->P(), v1->P(), v2->P());
-                GrenaillePoint::VectorType ng = GrenaillePoint::VectorType(n.x(), n.y(), n.z());
-                GrenaillePoint gpi(pgi, ng);
-                fit.addNeighbor(gpi);
-            }
-            fit.finalize();
+            std::set<Face_ptr, FFIterator::compareFacePtr> adjFacesSet;
+            ffIt.nRing(std::ceil((scale/mean_edge_size) + 1), adjFacesSet); // TODO N-ring
+            //ffIt.nRing(1, adjFacesSet); // TODO N-ring
+            do {
+                fit.init(new_pg);
+                GrenaillePoint::VectorType pgi;
+                std::set<Face_ptr, FFIterator::compareFacePtr>::iterator it;
+                for (it = adjFacesSet.begin(); it != adjFacesSet.end(); ++it)
+                {
+                    Face_ptr fi = *it;
+                    v0 = fi->HE()->V();
+                    v1 = fi->HE()->Next()->V();
+                    v2 = fi->HE()->Next()->Next()->V();
+                    p = (v0->P() + v1->P() + v2->P()) / 3.0;
+                    pgi = GrenaillePoint::VectorType(p.x(), p.y(), p.z());
+                    Vector3 n = Geometry::triangleNormal(v0->P(), v1->P(), v2->P());
+                    GrenaillePoint::VectorType ng = GrenaillePoint::VectorType(n.x(), n.y(), n.z());
+                    GrenaillePoint gpi(pgi, ng);
+                    fit.addNeighbor(gpi);
+                }
+
+                fit.finalize();
+                fit.applyPrattNorm();
+                new_pg = fit.project(pg);
+                error = (new_pg-pg).norm();
+                pg = new_pg;
+            } while (error > 0.01); // TODO threshold
 
             if (fit.getCurrentState() != UNDEFINED)
             {
                 q = fit;
-                Scalar uc = fit.m_uc;
-                GrenaillePoint::VectorType ul = fit.m_ul;
-                Scalar uq = fit.m_uq;
                 m_param.fits.push_back(fit);
             }
             else

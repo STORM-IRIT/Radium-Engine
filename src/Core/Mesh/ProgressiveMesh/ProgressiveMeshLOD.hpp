@@ -22,7 +22,7 @@ namespace Ra
             }
 
             /// This method will build the Progressive Mesh
-            TriangleMesh build(int target_nb_faces);
+            TriangleMesh build(int target_nb_faces, bool primitive_update, float scale);
 
             /// Applies one vertex split :
             /// enables 1 vertex, and 2 faces
@@ -44,6 +44,7 @@ namespace Ra
             void setNbNoFrVSplit(const int v);
             int getNbNoFrVSplit();
             int getCurrVSplit();
+            ProgressiveMeshData* getCurrPMData();
             ProgressiveMeshBase<>* getProgressiveMesh();
 
         private:

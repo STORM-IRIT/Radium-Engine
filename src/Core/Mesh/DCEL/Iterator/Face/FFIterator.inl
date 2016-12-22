@@ -81,21 +81,17 @@ inline FaceList FFIterator::list() const {
     return L;
 }
 
-// Neighboring size
-inline FaceList FFIterator::list2() const
+/// N-RING
+void FFIterator::nRing(uint n, std::set<Face_ptr, FFIterator::compareFacePtr>& adjFacesSet)
 {
-    FaceList L;
-    HalfEdge_ptr it = m_f->HE();
-
-    // Vertex neighbors of the face
-
-
-    //
-
-    return L;
-
-
-
+    if (n == 0) return;
+    FaceList adjFaces = list();
+    for (uint t = 0; t < adjFaces.size(); t++)
+    {
+        adjFacesSet.insert(adjFaces[t]);
+        FFIterator newffIt = FFIterator(adjFaces[t]);
+        newffIt.nRing(n-1, adjFacesSet);
+    }
 }
 
 

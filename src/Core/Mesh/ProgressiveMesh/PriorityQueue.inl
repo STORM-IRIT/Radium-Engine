@@ -37,7 +37,6 @@ namespace Ra
             return data;
         }
 
-
         inline void PriorityQueue::reserve(size_t size)
         {
            // m_vertex_hash.get_allocator().allocate(2*size);

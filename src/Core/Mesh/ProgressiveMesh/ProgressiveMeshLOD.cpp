@@ -22,9 +22,9 @@ namespace Ra
 
         //------------------------------
 
-        TriangleMesh ProgressiveMeshLOD::build(int target_nb_faces)
+        TriangleMesh ProgressiveMeshLOD::build(int target_nb_faces, bool primitive_update, float scale)
         {
-            m_pmdata = m_pm->constructM0(target_nb_faces, m_nb_no_fr_vsplit);
+            m_pmdata = m_pm->constructM0(target_nb_faces, m_nb_no_fr_vsplit, primitive_update, scale);
             m_curr_vsplit = m_pmdata.size();
 
             TriangleMesh newMesh;
@@ -139,6 +139,11 @@ namespace Ra
         int ProgressiveMeshLOD::getCurrVSplit()
         {
             return m_curr_vsplit;
+        }
+
+        ProgressiveMeshData* ProgressiveMeshLOD::getCurrPMData()
+        {
+            return &m_pmdata[m_curr_vsplit];
         }
 
         ProgressiveMeshBase<>* ProgressiveMeshLOD::getProgressiveMesh()
