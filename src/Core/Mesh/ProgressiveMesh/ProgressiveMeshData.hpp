@@ -39,7 +39,9 @@ namespace Ra
                    Scalar error, Vector3 p_result,
                    Vector3 q1_center, Scalar q1_radius,
                    Vector3 q2_center, Scalar q2_radius,
-                   Vector3 q_center, Scalar q_radius);
+                   Vector3 q_center, Scalar q_radius,
+                   Vector3 vs, Vector3 vt,
+                   Vector3 q1_grad, Vector3 q2_grad);
 
             ~ProgressiveMeshData()
             {}
@@ -47,17 +49,29 @@ namespace Ra
             //---------------------------------------------
 
             inline Index getHeFlId();
+            inline void setHeFlId(Index& i);
             inline Index getHeFrId();
+            inline void setHeFrId(Index& i);
             inline Index getFlclwId();
+            inline void setFlclwId(Index& i);
             inline Index getFlId();
+            inline void setFlId(Index& i);
             inline Index getFrId();
+            inline void setFrId(Index& i);
             inline Index getVsId();
+            inline void setVsId(Index& i);
             inline Index getVtId();
+            inline void setVtId(Index& i);
             inline Index getVlId();
+            inline void setVlId(Index& i);
             inline Index getVrId();
+            inline void setVrId(Index& i);
             inline short int getii();
+            inline void setii(short int &i);
             inline Vector3 getVads();
+            inline void setVads(Vector3& v);
             inline Vector3 getVadl();
+            inline void setVadl(Vector3& v);
 
             //----------------------------------------------
 
@@ -77,6 +91,14 @@ namespace Ra
             inline void setQ2Radius(const Scalar& r);
             inline Scalar getQRadius();
             inline void setQRadius(const Scalar& r);
+            inline Vector3 getVs();
+            inline void setVs(const Vector3& c);
+            inline Vector3 getVt();
+            inline void setVt(const Vector3& c);
+            inline Vector3 getGradientQ1();
+            inline void setGradientQ1(const Vector3& v);
+            inline Vector3 getGradientQ2();
+            inline void setGradientQ2(const Vector3& v);
 
             //----------------------------------------------
 
@@ -108,6 +130,10 @@ namespace Ra
             Scalar m_q1_radius;
             Scalar m_q2_radius;
             Scalar m_q_radius;
+            Vector3 m_vs;
+            Vector3 m_vt;
+            Vector3 m_q1_grad;
+            Vector3 m_q2_grad;
         };
     } // namespace Core
 } // namespace Ra

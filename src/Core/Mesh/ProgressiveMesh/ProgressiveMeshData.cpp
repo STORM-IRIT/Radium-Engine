@@ -27,6 +27,8 @@ namespace Ra
             m_q1_radius = 0.0;
             m_q2_radius = 0.0;
             m_q_radius = 0.0;
+            m_vs = Vector3::Zero();
+            m_vt = Vector3::Zero();
         }
 
         ProgressiveMeshData::ProgressiveMeshData(const Vector3& vad_l, const Vector3& vad_s,
@@ -55,7 +57,8 @@ namespace Ra
                        Index vs_id, Index vt_id, Index vl_id, Index vr_id,
                        short int ii, Scalar error, Vector3 p_result,
                        Vector3 q1_center, Scalar q1_radius,
-                       Vector3 q2_center, Scalar q2_radius, Vector3 q_center, Scalar q_radius)
+                       Vector3 q2_center, Scalar q2_radius, Vector3 q_center, Scalar q_radius,
+                       Vector3 vs, Vector3 vt, Vector3 q1_grad, Vector3 q2_grad)
         {
             m_vad_l = vad_l;
             m_vad_s = vad_s;
@@ -78,6 +81,10 @@ namespace Ra
             m_q1_radius = q1_radius;
             m_q2_radius = q2_radius;
             m_q_radius = q_radius;
+            m_vs = vs;
+            m_vt = vt;
+            m_q1_grad = q1_grad;
+            m_q2_grad = q2_grad;
         }
 
         Vector3 ProgressiveMeshData::computePResult(const Vector3& vt, const Vector3& vs)

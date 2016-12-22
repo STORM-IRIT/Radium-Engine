@@ -113,11 +113,40 @@ namespace Ra
             // We go all over the faces which contain vsIndex
             VFIterator vsfIt = VFIterator(m_dcel->m_vertex[vsIndex]);
             FaceList adjFaces = vsfIt.list();
+
+            /*
             for (uint t = 0; t < adjFaces.size(); ++t)
             {
                 Primitive q;
                 m_em.generateFacePrimitive(q, adjFaces[t], *m_dcel, m_mean_edge_size, m_scale);
                 m_primitives[adjFaces[t]->idx] = q;
+            }
+            */
+            for (uint t = 0; t < adjFaces.size(); ++t)
+            {
+                Face_ptr f = adjFaces[t];
+                HalfEdge_ptr he = f->HE();
+                Vertex_ptr v1 = NULL;
+                Vertex_ptr v2 = NULL;
+                for (int j = 0; j < 3; j++)
+                {
+                    if (v1 == NULL && he->V()->idx != vsIndex)
+                    {
+                        v1 = he->V();
+                    }
+                    else if (v1 != NULL && he->V()->idx != vsIndex)
+                    {
+                        v2 = he->V();
+                        break;
+                    }
+                    he = he->Next();
+                }
+                Primitive q = m_primitives_v[vsIndex];
+                Primitive qq1 = m_em.combine(q, 1.0/3.0, m_primitives_v[v1->idx], 1.0/3.0);
+                Primitive qq1q2 = m_em.combine(qq1, 2.0/3.0, m_primitives_v[v2->idx], 1.0/3.0);
+                //qq1q2.applyPrattNorm();
+                m_primitives[adjFaces[t]->idx] = qq1q2;
+                // TODO CA MARCHE PAS
             }
         }
 
@@ -625,10 +654,6 @@ namespace Ra
                 }
                 m_nb_vertices -= 1;
 
-                data = DcelOperations::edgeCollapse(*m_dcel, d.m_edge_id, d.m_p_result);
-                updateFacesQuadrics(d.m_vs_id);
-                updatePriorityQueue(pQueue, d.m_vs_id, d.m_vt_id, myfile);
-
                 // if debug
                 data.setError(d.m_err);
                 data.setPResult(d.m_p_result);
@@ -638,7 +663,26 @@ namespace Ra
                 data.setQ1Radius(m_primitives_v[d.m_vs_id].radius());
                 data.setQ2Center(m_primitives_v[d.m_vt_id].center());
                 data.setQ2Radius(m_primitives_v[d.m_vt_id].radius());
+                data.setVs((m_dcel->m_vertex[d.m_vs_id])->P());
+                data.setVt((m_dcel->m_vertex[d.m_vt_id])->P());
+                data.setGradientQ1(m_primitives_v[d.m_vs_id].primitiveGradient(data.getVs()));
+                data.setGradientQ2(m_primitives_v[d.m_vt_id].primitiveGradient(data.getVt()));
                 // end if
+
+                DcelOperations::edgeCollapse(*m_dcel, d.m_edge_id, d.m_p_result, true, data);
+
+                //if (primitiveUpdate)
+                //{
+                    m_primitives_v[d.m_vs_id] = m_primitives_he[he->idx];
+                    updateFacesQuadrics(d.m_vs_id);
+                //}
+                //else
+                //{
+                    //TODO
+                    // UPDATE AS INTERPOLATION OF VERTICES PRIMITIVES
+                //}
+
+                updatePriorityQueue(pQueue, d.m_vs_id, d.m_vt_id, myfile);
 
                 pmdata.push_back(data);
 
