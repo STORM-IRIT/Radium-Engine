@@ -77,6 +77,7 @@ lib/rel
 bin/
 lib/
 include/
+!3rdPartyLibraries/gl3w/include
 
 # Mercurial stuff (e.g from Eigen)
 .hg*
