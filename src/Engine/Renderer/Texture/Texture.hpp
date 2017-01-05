@@ -201,6 +201,8 @@ namespace Ra
             uint width() const { return m_width;}
             uint height() const{ return m_height;}
 
+            void data(void* d);
+
         private:
             Texture( const Texture& ) = delete;
             void operator= ( const Texture& ) = delete;
@@ -214,6 +216,7 @@ namespace Ra
             uint m_height;
             uint m_depth;
         };
+
     } // namespace Engine
 } // namespace Ra
 

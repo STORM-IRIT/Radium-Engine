@@ -143,4 +143,10 @@ namespace Ra
             } break;
         }
     }
+
+    void Ra::Engine::Texture::data(void* d)
+    {
+        bind();
+        GL_ASSERT(glGetTexImage(GL_TEXTURE_2D, 0, m_format, dataType, d));
+    }
 } // namespace Ra

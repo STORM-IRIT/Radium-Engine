@@ -322,16 +322,13 @@ namespace Ra
         makeCurrent();
 
         Engine::Texture* tex = m_currentRenderer->getDisplayTexture();
-        tex->bind();
 
-        // Get a buffer to store the pixels of the OpenGL texture (in float format)
-        float* pixels = new float[tex->width() * tex->height() * 4];
+        std::vector<float> pixels(tex->width() * tex->height() * 4);
+        tex->data(pixels.data());
 
-        // Grab the texture data
-        GL_ASSERT(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_FLOAT, pixels));
+        std::vector<uchar> writtenPixels(pixels.size());
 
         // Now we must convert the floats to RGB while flipping the image updisde down.
-        uchar* writtenPixels = new uchar[tex->width() * tex->height() * 4];
         for (uint j = 0; j < tex->height(); ++j)
         {
             for (uint i = 0; i < tex->width(); ++i)
@@ -350,19 +347,16 @@ namespace Ra
 
         if (ext == "bmp")
         {
-            stbi_write_bmp(filename.c_str(), tex->width(), tex->height(), 4, writtenPixels);
+            stbi_write_bmp(filename.c_str(), tex->width(), tex->height(), 4, writtenPixels.data());
         }
         else if (ext == "png")
         {
-            stbi_write_png(filename.c_str(), tex->width(), tex->height(), 4, writtenPixels, tex->width() * 4 * sizeof(uchar));
+            stbi_write_png(filename.c_str(), tex->width(), tex->height(), 4, writtenPixels.data(), tex->width() * 4 * sizeof(uchar));
         }
         else
         {
             LOG(logWARNING) << "Cannot write frame to "<<filename<<" : unsupported extension";
         }
-
-        delete[] pixels;
-        delete[] writtenPixels;
     }
 
     void Gui::Viewer::enablePostProcess(int enabled)
