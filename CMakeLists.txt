@@ -121,12 +121,6 @@ set(GL3W_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/gl3w)
 set(GL3W_SRC ${GL3W_DIR}/src/gl3w.c)
 set(GL3W_INC ${GL3W_DIR}/include)
 
-if (NOT EXISTS ${GL3W_SRC})
-    execute_process(COMMAND git submodule init
-                    COMMAND git submodule update)
-    execute_process(COMMAND python gl3w_gen.py WORKING_DIRECTORY ${GL3W_DIR})
-endif()
-
 # FIXME(charly): Not sure if it's really clean but this allows Plugins
 #                to inherit those include dirs
 include_directories(
