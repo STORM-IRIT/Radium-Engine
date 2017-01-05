@@ -107,7 +107,7 @@ elseif( MSVC )
     else()
         set(MSVC_PREFIX "vc130")
     endif()
-
+    
     set(ASSIMP_LIB optimized "${CMAKE_CURRENT_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mt.lib"
                  debug "${CMAKE_CURRENT_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mtd.lib")
 
@@ -116,7 +116,6 @@ endif()
 set( CMAKE_DEBUG_POSTFIX "" )
 set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
 
-# include(ExternalGl3w)
 set(GL3W_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/gl3w)
 set(GL3W_SRC ${GL3W_DIR}/src/gl3w.c)
 set(GL3W_INC ${GL3W_DIR}/include)
