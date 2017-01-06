@@ -135,7 +135,7 @@ namespace Core
 
             // The parentheses here are important. because otherwise k * rotation2D would
             // be evaluated first (which would yield the rotation of angle k * gamma).
-            const auto sxy = k * (Eigen::Rotation2D<Scalar>( gamma ) * in.coeffs().head<2>());
+            const Vector2 sxy = k * (Eigen::Rotation2D<Scalar>( gamma ) * in.coeffs().head<2>());
 
             AngleAxis twist( 2 * gamma, Vector3::UnitZ());
             twistOut = twist;
