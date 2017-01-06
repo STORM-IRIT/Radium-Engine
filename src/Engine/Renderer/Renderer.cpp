@@ -67,6 +67,7 @@ namespace Ra
 
         void Renderer::initialize()
         {
+#ifdef OS_WINDOWS
             if (gl3wInit())
             {
                 CORE_ERROR("Could not initialize gl3w.");
@@ -76,7 +77,7 @@ namespace Ra
             {
                 CORE_ERROR("OpenGL 4.1 not supported.");
             }
-
+#endif
             LOG(logINFO) << "*** Radium Engine Viewer ***";
             LOG(logINFO) << "Renderer : " << glGetString(GL_RENDERER);
             LOG(logINFO) << "Vendor   : " << glGetString(GL_VENDOR);

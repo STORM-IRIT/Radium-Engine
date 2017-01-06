@@ -116,6 +116,7 @@ endif()
 set( CMAKE_DEBUG_POSTFIX "" )
 set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
 
+if( MSVC )
 set(GL3W_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/gl3w)
 set(GL3W_SRC ${GL3W_DIR}/src/gl3w.c)
 set(GL3W_INC ${GL3W_DIR}/include)
@@ -127,6 +128,13 @@ include_directories(
     ${ASSIMP_INC}
     ${GL3W_INC}
 )
+else()
+#FIXME(Mathias) : see note from Charly above
+include_directories(
+    ${EIGEN_INC}
+    ${ASSIMP_INC}
+)
+endif()
 
 add_subdirectory(src)
 add_subdirectory(Applications)

@@ -6,7 +6,9 @@
 
 #include <memory>
 
+#ifdef OS_WINDOWS
 #include <GL/gl3w.h>
+#endif
 #include <QOpenGLWidget>
 #include <QOpenGLContext>
 #include <QThread>

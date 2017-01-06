@@ -60,6 +60,7 @@ set(engine_libs
     ${Qt5OpenGL_LIBRARIES}
     ${OPENGL_LIBRARIES})
 
+if( MSVC )
 add_library(
     ${engine_target} SHARED
     ${engine_sources}
@@ -69,7 +70,16 @@ add_library(
 
     ${engine_shaders}
 )
+else()
+add_library(
+    ${engine_target} SHARED
+    ${engine_sources}
+    ${engine_headers}
+    ${engine_inlines}
 
+    ${engine_shaders}
+)
+endif()
 add_dependencies( ${engine_target} ${core_target} assimp )
 
 target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")

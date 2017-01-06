@@ -10,7 +10,19 @@
 #include <Engine/RaEngine.hpp>
 #include <Core/Log/Log.hpp>
 
+
+#ifdef OS_WINDOWS
 #include <GL/gl3w.h>
+#else
+#ifdef OS_MACOS
+#include <OpenGL/gl3.h>
+#include <OpenGL/gl3ext.h>
+#define __gl_h_
+#else
+#include <GL/gl.h>
+#include <GL/glext.h>
+#endif
+#endif
 
 /// Checks that an openGLContext is available (mostly for debug checks and asserts).
 inline bool checkOpenGLContext()
