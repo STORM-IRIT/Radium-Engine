@@ -1,7 +1,5 @@
 #include <QTimer>
-#include <QObject>
 #include <QApplication>
-#include <QCoreApplication>
 
 #include <Core/Time/Timer.hpp>
 #include <Core/Tasks/Task.hpp>
