@@ -20,8 +20,6 @@ classic "Spinning Cube" demo. */
 
 namespace
 {
-
-
     /// Our minimal application uses QTimer to be called at a regular frame rate.
     class MinimalApp : public QApplication
     {
@@ -64,10 +62,10 @@ namespace
 
             // Finish the frame
             _viewer.waitForRendering();
-            _viewer.update();
+            //_viewer.update();
+            _viewer.repaint();
             _engine->endFrameSync();
         }
-
 
     public:
         // Our instance of the engine
