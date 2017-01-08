@@ -20,8 +20,6 @@ classic "Spinning Cube" demo. */
 
 namespace
 {
-
-
     /// Our minimal application uses QTimer to be called at a regular frame rate.
     class MinimalApp : public QApplication
     {
@@ -64,10 +62,10 @@ namespace
 
             // Finish the frame
             _viewer.waitForRendering();
-            _viewer.update();
+            //_viewer.update();
+            _viewer.repaint();
             _engine->endFrameSync();
         }
-
 
     public:
         // Our instance of the engine
@@ -140,6 +138,18 @@ public:
 
 int main(int argc, char* argv[])
 {
+
+    // Create default format for Qt.
+    QSurfaceFormat format;
+    format.setVersion( 4, 1 );
+    format.setProfile( QSurfaceFormat::CoreProfile );
+    format.setDepthBufferSize( 24 );
+    format.setStencilBufferSize( 8 );
+    //format.setSamples( 16 );
+    format.setSwapBehavior( QSurfaceFormat::DoubleBuffer );
+    format.setSwapInterval( 0 );
+    QSurfaceFormat::setDefaultFormat( format );
+
     // Create app
     MinimalApp app(argc, argv);
     app._engine->initialize();

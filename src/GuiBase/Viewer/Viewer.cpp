@@ -82,7 +82,7 @@ namespace Ra
         // FIXME(Mathias): width and height might be wrong the first time ResizeGL is called (see QOpenGLWidget doc). This may cause problem on Retina display under MacOsX
         m_renderers[0].reset( new Engine::ForwardRenderer( width(), height() ) ); // Forward
         m_renderers[1].reset( nullptr ); // deferred
-        m_renderers[2].reset( new Engine::ExperimentalRenderer( width(), height() ) ); // experimental
+//        m_renderers[2].reset( new Engine::ExperimentalRenderer( width(), height() ) ); // experimental
 
         for ( auto& renderer : m_renderers )
         {
