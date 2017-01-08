@@ -140,6 +140,18 @@ public:
 
 int main(int argc, char* argv[])
 {
+
+    // Create default format for Qt.
+    QSurfaceFormat format;
+    format.setVersion( 4, 1 );
+    format.setProfile( QSurfaceFormat::CoreProfile );
+    format.setDepthBufferSize( 24 );
+    format.setStencilBufferSize( 8 );
+    //format.setSamples( 16 );
+    format.setSwapBehavior( QSurfaceFormat::DoubleBuffer );
+    format.setSwapInterval( 0 );
+    QSurfaceFormat::setDefaultFormat( format );
+
     // Create app
     MinimalApp app(argc, argv);
     app._engine->initialize();
