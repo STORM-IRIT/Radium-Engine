@@ -117,6 +117,7 @@ set( CMAKE_DEBUG_POSTFIX "" )
 set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
 
 add_subdirectory(src)
+add_subdirectory(Applications)
 
 # FIXME(Charly) Not sure this is really the greatest idea ever
 add_subdirectory(Plugins)

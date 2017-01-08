@@ -6,10 +6,11 @@
 #include <Engine/System/System.hpp>
 
 #include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Tasks/Task.hpp>
+
 #include <Engine/Assets/FileData.hpp>
 #include <Engine/Assets/HandleData.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <SkinningTask.hpp>
 #include <SkinningComponent.hpp>
 
 #include <Display/SkinningDisplayComponent.hpp>
@@ -27,8 +28,15 @@ namespace SkinningPlugin
             for (const auto& compEntry : m_components)
             {
                 SkinningComponent* comp = static_cast<SkinningComponent*>(compEntry.second);
-                SkinnerTask* skinTask = new SkinnerTask(comp);
-                SkinnerEndTask* endTask = new SkinnerEndTask(comp);
+                Ra::Core::FunctionTask* skinTask = new Ra::Core::FunctionTask(
+                        std::bind(&SkinningComponent::skin, comp),
+                        "SkinnerTask"
+                );
+
+                Ra::Core::FunctionTask* endTask = new Ra::Core::FunctionTask(
+                        std::bind(&SkinningComponent::endSkinning, comp),
+                        "SkinnerEndTask"
+                );
 
                 Ra::Core::TaskQueue::TaskId skinTaskId = taskQueue->registerTask(skinTask);
                 Ra::Core::TaskQueue::TaskId endTaskId = taskQueue->registerTask(endTask);

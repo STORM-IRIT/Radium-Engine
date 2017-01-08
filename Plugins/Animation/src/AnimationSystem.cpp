@@ -4,14 +4,13 @@
 #include <iostream>
 
 #include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Tasks/Task.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Assets/FileData.hpp>
-#include <Engine/Assets/HandleData.hpp>
 
 #include <AnimationComponent.hpp>
-#include <AnimatorTask.hpp>
 #include <Drawing/SkeletonBoneDrawable.hpp>
 
 
@@ -33,7 +32,9 @@ namespace AnimationPlugin
         for (auto compEntry : this->m_components)
         {
             AnimationComponent* component = static_cast<AnimationComponent*>(compEntry.second);
-            AnimatorTask* task = new AnimatorTask(component, currentDelta);
+            Ra::Core::FunctionTask* task = new Ra::Core::FunctionTask(
+                    std::bind(&AnimationComponent::update, component, currentDelta),
+                    "Animator Task");
             taskQueue->registerTask( task );
         }
 
