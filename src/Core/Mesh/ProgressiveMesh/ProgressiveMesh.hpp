@@ -24,8 +24,8 @@ namespace Ra
     namespace Core
     {
 
-//      template<class ErrorMetric = QuadricErrorMetric>
-        template<class ErrorMetric = SimpleAPSSErrorMetric>
+      template<class ErrorMetric = QuadricErrorMetric>
+//        template<class ErrorMetric = SimpleAPSSErrorMetric>
         class ProgressiveMeshBase
         {
         public:
@@ -43,8 +43,8 @@ namespace Ra
             virtual ErrorMetric getEM() = 0;
         };
 
-//      template<class ErrorMetric = QuadricErrorMetric>
-        template<class ErrorMetric = SimpleAPSSErrorMetric>
+      template<class ErrorMetric = QuadricErrorMetric>
+//        template<class ErrorMetric = SimpleAPSSErrorMetric>
         class ProgressiveMesh : public ProgressiveMeshBase<ErrorMetric>
         {
 

@@ -95,8 +95,7 @@ namespace Ra
 //#pragma omp parallel for private (q)
             for (uint t = 0; t < numTriangles; ++t)
             {
-                //m_em.generateFacePrimitive(q, m_dcel->m_face[t], *m_dcel, m_bbox_size);
-                m_em.generateFacePrimitive(q, m_dcel->m_face[t], *m_dcel, m_bbox_size);
+                m_em.generateFacePrimitive(q, m_dcel->m_face[t], *m_dcel);
 
 //#pragma omp critical
                 m_primitives.push_back(q);
@@ -112,8 +111,7 @@ namespace Ra
             for (uint t = 0; t < adjFaces.size(); ++t)
             {
                 Primitive q;
-                //m_em.generateFacePrimitive(q, adjFaces[t], *m_dcel);
-                m_em.generateFacePrimitive(q, adjFaces[t], *m_dcel, m_bbox_size);
+                m_em.generateFacePrimitive(q, adjFaces[t], *m_dcel);
                 m_primitives[adjFaces[t]->idx] = q;
             }
         }
@@ -158,7 +156,6 @@ namespace Ra
             Scalar weight = 1.0/adjFaces.size();
             q = m_primitives[adjFaces[0]->idx];
             q *= weight;
-            q.applyPrattNorm();
 
             for (unsigned int i = 1; i < adjFaces.size(); i++)
             {
@@ -173,21 +170,9 @@ namespace Ra
                                                 m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->idx);
                 qToAdd = m_primitives[fIdx];
                 qToAdd *= weight;
-                qToAdd.applyPrattNorm();
 
-                LOG(logINFO) << "q1 : " << q.center().x() << ", " << q.center().y() << ", " << q.center().z() << "; " << q.radius();
-                LOG(logINFO) << "q1 : " << q.tau() << ", " << q.eta().transpose() << ", " << q.kappa();
-                LOG(logINFO) << "q2 : " << qToAdd.center().x() << ", " << qToAdd.center().y() << ", " << qToAdd.center().z() << "; " << qToAdd.radius();
-                LOG(logINFO) << "q2 : " << qToAdd.tau() << ", " << qToAdd.eta().transpose() << ", " << qToAdd.kappa();
-
-                q = m_em.combine(qToAdd, q);
-                q.applyPrattNorm();
-
-                LOG(logINFO) << "r  : " << q.center().x() << ", " << q.center().y() << ", " << q.center().z() << "; " << q.radius();
-                LOG(logINFO) << "r  : " << q.tau() << ", " << q.eta().transpose() << ", " << q.kappa();
+                q += qToAdd;
             }
-
-            q.applyPrattNorm();
             return q;
         }
 
@@ -271,6 +256,10 @@ namespace Ra
         bool ProgressiveMesh<ErrorMetric>::isEcolPossible(Index halfEdgeIndex, Vector3 pResult)
         {
             HalfEdge_ptr he = m_dcel->m_halfedge[halfEdgeIndex];
+
+            // Look if either point of the halfedge is too close to another object
+            bool hasContact = false;
+
 
             // Look at configuration T inside a triangle
             bool hasTIntersection = false;
@@ -359,7 +348,7 @@ namespace Ra
                 }
             }
 
-            return ((!hasTIntersection) && (!isFlipped));
+            return ((!hasTIntersection) && (!isFlipped) && (!hasContact));
 
 
             //return !hasTIntersection;
