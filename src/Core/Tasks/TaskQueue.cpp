@@ -270,5 +270,59 @@ namespace Ra
                 }
             } // End of while(true)
         }
+
+        void TaskQueue::printTraskGraph(std::ostream& output) const
+        {
+            output<<"digraph tasks {"<<std::endl;
+
+            for (const auto& t : m_tasks )
+            {
+                output<<"\""<<t->getName()<<"\""<<std::endl;
+            }
+
+
+            for (uint i = 0; i < m_dependencies.size(); ++i)
+            {
+                const auto& task1 =  m_tasks[i];
+                for (const auto& dep : m_dependencies[i])
+                {
+                    const auto& task2 =  m_tasks[dep];
+                    output<<"\""<<task1->getName()<<"\""<<" -> ";
+                    output<<"\""<<task2->getName()<<"\""<<std::endl;
+                }
+            }
+
+            for (const auto & preDep :m_pendingDepsPre)
+            {
+                const auto& task1 = m_tasks[preDep.first];
+                std::string t2name = preDep.second;
+
+                if ( std::find_if( m_tasks.begin(), m_tasks.end(),
+                                   [=](const auto& task){ return task->getName() == t2name;}) == m_tasks.end())
+                {
+                    t2name += "?";
+                }
+
+                output<<"\""<<task1->getName()<<"\""<<" -> ";
+                output<<"\""<<t2name<<"\""<<std::endl;
+            }
+
+            for (const auto & postDep :m_pendingDepsSucc)
+            {
+                std::string t1name = postDep.first;
+                const auto&t2 = m_tasks[postDep.second];
+
+                if ( std::find_if( m_tasks.begin(), m_tasks.end(),
+                                   [=](const auto& task){ return task->getName() == t1name;}) == m_tasks.end())
+                {
+                    t1name += "?";
+                }
+
+                output<<"\""<<t1name<<"\""<<" -> ";
+                output<<"\""<<t2->getName()<<"\""<<std::endl;
+            }
+
+            output<<"}"<<std::endl;
+        }
     }
 }
