@@ -34,7 +34,7 @@ namespace AnimationPlugin
             AnimationComponent* component = static_cast<AnimationComponent*>(compEntry.second);
             Ra::Core::FunctionTask* task = new Ra::Core::FunctionTask(
                     std::bind(&AnimationComponent::update, component, currentDelta),
-                    "Animator Task");
+                    "AnimatorTask");
             taskQueue->registerTask( task );
         }
 

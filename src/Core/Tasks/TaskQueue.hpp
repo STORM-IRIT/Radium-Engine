@@ -94,6 +94,10 @@ namespace Ra
             /// Erases all tasks. Will assert if tasks are unprocessed.
             void flushTaskQueue();
 
+
+            /// Prints the current task graph in dot format
+            void printTraskGraph( std::ostream& output ) const;
+
         private:
 
             /// Function called by a new thread.
