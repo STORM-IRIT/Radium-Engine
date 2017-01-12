@@ -6,6 +6,8 @@
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/MeshTypes.hpp>
 
+#include <Core/TreeStructures/kdtree.hpp>
+
 namespace Ra
 {
     namespace Core
@@ -26,9 +28,14 @@ namespace Ra
             /// Appends another mesh to this one.
             inline void append( const TriangleMesh& other );
 
+            //inline void computeKdTree();
+
             VectorArray<Vector3>  m_vertices;
             VectorArray<Vector3>  m_normals;
             VectorArray<Triangle> m_triangles;
+
+            //Super4PCS::KdTree<float>* m_kdtree;
+
         };
     }
 }

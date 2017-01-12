@@ -3,6 +3,8 @@
 
 #include <Core/Mesh/ProgressiveMesh/ProgressiveMesh.hpp>
 
+#include <Core/TreeStructures/kdtree.hpp>
+
 namespace Ra
 {
     namespace Core
@@ -22,7 +24,7 @@ namespace Ra
             }
 
             /// This method will build the Progressive Mesh
-            TriangleMesh build(int target_nb_faces);
+            TriangleMesh build(int target_nb_faces, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx);
 
             /// Applies one vertex split :
             /// enables 1 vertex, and 2 faces

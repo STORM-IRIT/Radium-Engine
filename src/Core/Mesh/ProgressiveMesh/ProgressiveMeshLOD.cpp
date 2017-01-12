@@ -22,13 +22,15 @@ namespace Ra
 
         //------------------------------
 
-        TriangleMesh ProgressiveMeshLOD::build(int target_nb_faces)
+        TriangleMesh ProgressiveMeshLOD::build(int target_nb_faces, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx)
         {
-            m_pmdata = m_pm->constructM0(target_nb_faces, m_nb_no_fr_vsplit);
+            m_pmdata = m_pm->constructM0(target_nb_faces, m_nb_no_fr_vsplit, kdtrees, idx);
             m_curr_vsplit = m_pmdata.size();
 
             TriangleMesh newMesh;
             convertPM(*(m_pm->getDcel()), newMesh);
+            //newMesh.computeKdTree();
+
             return newMesh;
         }
 

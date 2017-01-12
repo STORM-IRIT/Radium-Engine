@@ -19,6 +19,8 @@
 
 #include <Core/Containers/VectorArray.hpp>
 
+#include <Core/TreeStructures/kdtree.hpp>
+
 namespace Ra
 {
     namespace Core
@@ -32,7 +34,7 @@ namespace Ra
 
             using Primitive = typename ErrorMetric::Primitive;
 
-            virtual std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit) = 0;
+            virtual std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx) = 0;
             virtual void computeFacesQuadrics() = 0;
             virtual Primitive computeEdgeQuadric(Index edgeIndex) = 0;
             virtual void vsplit(ProgressiveMeshData pmData) = 0;
@@ -62,7 +64,7 @@ namespace Ra
             void updatePriorityQueue(PriorityQueue &pQueue, Index vsId, Index vtId);
 
             /// Construction of the coarser mesh
-            std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit) override;
+            std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx) override;
 
             /// Vertex Split
             void vsplit(ProgressiveMeshData pmData) override;
@@ -81,7 +83,7 @@ namespace Ra
             ///
             Scalar computeGeometricError(const Vector3& p, Primitive q);
 
-            bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult);
+            bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx);
 
             Scalar computeBoundingBoxSize();
 

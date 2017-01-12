@@ -139,6 +139,7 @@ namespace Ra
                 he = he->Next();
             }
             CORE_ASSERT(wedgeAngle < 360, "WEDGE ANGLE WAY TOO HIGH");
+
             return wedgeAngle;
         }
 
@@ -165,9 +166,9 @@ namespace Ra
 //                                ( f->HE()->V()->P(),
 //                                  f->HE()->Next()->V()->P(),
 //                                  f->HE()->Prev()->V()->P());
-                Scalar wedgeAngle = getWedgeAngle(fIdx,
-                                                m_dcel->m_halfedge[halfEdgeIndex]->V()->idx,
-                                                m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->idx);
+//                Scalar wedgeAngle = getWedgeAngle(fIdx,
+//                                                m_dcel->m_halfedge[halfEdgeIndex]->V()->idx,
+//                                                m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->idx);
                 qToAdd = m_primitives[fIdx];
                 qToAdd *= weight;
 
@@ -253,13 +254,45 @@ namespace Ra
         //--------------------------------------------------
 
         template <class ErrorMetric>
-        bool ProgressiveMesh<ErrorMetric>::isEcolPossible(Index halfEdgeIndex, Vector3 pResult)
+        bool ProgressiveMesh<ErrorMetric>::isEcolPossible(Index halfEdgeIndex, Vector3 pResult, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx)
         {
             HalfEdge_ptr he = m_dcel->m_halfedge[halfEdgeIndex];
 
             // Look if either point of the halfedge is too close to another object
-            bool hasContact = false;
+            bool hasContact = false; //idx of the simplified mesh?
+            Vertex_ptr v1 = he->V();
+            Vertex_ptr v2 = he->Next()->V();
+            bool v1Contact = false;
+            bool v2Contact = false;
+            for (uint i=0; i<kdtrees.size(); i++) //while loop is better, optimization possible : find the closest kdtrees
+            {
+                if (i!=idx)
+                {
+                    if (!v1Contact)
+                    {
+                        //const Super4PCS::KdTree<float>::VectorType& p1 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v1);
+                        const Super4PCS::KdTree<float>::VectorType& p1 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v1->P());
+                        int index1 = kdtrees[i]->doQueryRestrictedClosestIndex(p1, 0.8);
+                        if (kdtrees[i]->doQueryRestrictedClosestIndex(p1, 0.8) != -1)
+                            v1Contact = true;
 
+                    }
+                    if (!v2Contact)
+                    {
+                        //const Super4PCS::KdTree<float>::VectorType& p2 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v2);
+                        const Super4PCS::KdTree<float>::VectorType& p2 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v2->P());
+                        int index2 = kdtrees[i]->doQueryRestrictedClosestIndex(p2, 0.8);
+                        if (kdtrees[i]->doQueryRestrictedClosestIndex(p2, 0.8) != -1)
+                            v2Contact = true;
+                    }
+                }
+            }
+
+            if (v1Contact || v2Contact)
+            {
+                hasContact = true;
+                LOG(logINFO) << "Contact found";
+            }
 
             // Look at configuration T inside a triangle
             bool hasTIntersection = false;
@@ -348,16 +381,18 @@ namespace Ra
                 }
             }
 
-            return ((!hasTIntersection) && (!isFlipped) && (!hasContact));
-
-
             //return !hasTIntersection;
+
+            LOG(logINFO) << "edge collapse" << ((!hasTIntersection) && (!isFlipped) && (!hasContact));
+            return ((!hasTIntersection) && (!isFlipped) && (!hasContact));
         }
+
+
 
         //--------------------------------------------------
 
         template <class ErrorMetric>
-        std::vector<ProgressiveMeshData> ProgressiveMesh<ErrorMetric>::constructM0(int targetNbFaces, int &nbNoFrVSplit)
+        std::vector<ProgressiveMeshData> ProgressiveMesh<ErrorMetric>::constructM0(int targetNbFaces, int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx)
         {
             uint nbPMData = 0;
 
@@ -381,8 +416,11 @@ namespace Ra
                 HalfEdge_ptr he = m_dcel->m_halfedge[d.m_edge_id];
 
                 // TODO !
-                if (!isEcolPossible(he->idx, d.m_p_result))
+                if (!isEcolPossible(he->idx, d.m_p_result, kdtrees, idx))
+                {
+                    LOG(logINFO) << "Collapse not possible";
                     continue;
+                }
 
                 if (he->Twin() == nullptr)
                 {
