@@ -134,6 +134,7 @@ namespace Ra
             Vector3 m_vt;
             Vector3 m_q1_grad;
             Vector3 m_q2_grad;
+
         };
     } // namespace Core
 } // namespace Ra

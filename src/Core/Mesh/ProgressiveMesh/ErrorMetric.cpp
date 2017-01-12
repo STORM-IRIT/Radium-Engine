@@ -4,6 +4,8 @@
 
 #include <Core/Mesh/DCEL/Iterator/Edge/EFIterator.hpp>
 #include <Core/Mesh/DCEL/Iterator/Face/FFIterator.hpp>
+#include <Core/Mesh/DCEL/Iterator/Vertex/VVIterator.hpp>
+#include <Core/Mesh/DCEL/Iterator/Vertex/VFIterator.hpp>
 
 #include <Core/Log/Log.hpp>
 
@@ -20,7 +22,6 @@ namespace Ra
 
         QuadricErrorMetric::QuadricErrorMetric(Scalar scale)
         {
-            m_param.scale = scale;
         }
 
         Scalar QuadricErrorMetric::computeGeometricError(const Primitive& q, const Primitive::Vector& p)
@@ -102,7 +103,6 @@ namespace Ra
 
         APSSErrorMetric::APSSErrorMetric(Scalar scale)
         {
-            m_param.scale = scale;
         }
 
         Scalar APSSErrorMetric::computeGeometricError(const Primitive& q, const Primitive::Vector& p)
@@ -229,7 +229,6 @@ namespace Ra
             {
                 //fit.applyPrattNorm();
                 //q = fit;
-                m_param.fits.push_back(fit);
             }
             else
             {
@@ -245,7 +244,6 @@ namespace Ra
 
         SimpleAPSSErrorMetric::SimpleAPSSErrorMetric(Scalar scale)
         {
-            m_param.scale = scale;
         }
 
         Scalar SimpleAPSSErrorMetric::computeGeometricError(const Primitive& q, const Vector3& p)
@@ -269,74 +267,33 @@ namespace Ra
         }
         */
 
-        SimpleAPSSErrorMetric::Primitive SimpleAPSSErrorMetric::combine(const Primitive& a, const Scalar& a_weight, const Primitive& b, const Scalar& b_weight, std::ofstream &file)
-        {
-            Primitive c;
-            Scalar new_uc   =   0.5*a_weight*b_weight*(a.m_ul.dot(b.m_ul)) +
-                                a_weight*a_weight*a.m_uc*b.m_uq +
-                                b_weight*b_weight*b.m_uc*a.m_uq -
-                                0.5*a_weight*b_weight*a.prattNorm()*b.prattNorm();
-            Vector3 new_ul  = a_weight*a.m_ul*b.m_uq + b_weight*b.m_ul*a.m_uq;
-            Scalar new_uq   = a.m_uq*b.m_uq;
-            Vector3 new_p   = a_weight*a.m_p + b_weight*b.m_p;
-            Scalar test = new_ul.squaredNorm() - Scalar(4.) * new_uc * new_uq;
-
-            /*
-            if ((a.m_uc > 0 && b.m_uc < 0) || (a.m_uc < 0 && b.m_uc > 0))
-            {
-                if ((a.m_uq > 0 && b.m_uq < 0) || (a.m_uq < 0 && b.m_uq > 0))
-                {
-                    if (((a.m_ul.x() > 0 && b.m_ul.x() < 0) || (a.m_ul.x() < 0 && b.m_ul.x() > 0)) &&
-                        ((a.m_ul.y() > 0 && b.m_ul.y() < 0) || (a.m_ul.y() < 0 && b.m_ul.y() > 0)) &&
-                        ((a.m_ul.z() > 0 && b.m_ul.z() < 0) || (a.m_ul.z() < 0 && b.m_ul.z() > 0)))
-                    {
-                        LOG(logINFO) << "inversion de signes";
-                    }
-                }
-            }
-            */
-
-            if (test > -0.00000000001 && test < 0.00000000001)
-            {
-                LOG(logINFO) << "ca merde ici : norm 0 \n";
-                file << a.m_uc  << " " << a.m_ul.transpose()  << " " << a.m_uq << " " << a.m_p.transpose() << "\n";
-                file << a.center().x() << " " << a.center().y() << " " << a.center().z() << " " << a.radius() << "\n";
-                file << b.m_uc  << " " << b.m_ul.transpose()  << " " << b.m_uq << " " << b.m_p.transpose() << "\n";
-                file << b.center().x() << " " << b.center().y() << " " << b.center().z() << " " << b.radius() << "\n";
-            }
-            if (std::abs(test) > 10000000000000)
-            {
-                LOG(logINFO) << "ca merde ici : norm inf \n";
-                file << a.m_uc  << " " << a.m_ul.transpose()  << " " << a.m_uq << " " << a.m_p.transpose() << "\n";
-                file << a.center().x() << " " << a.center().y() << " " << a.center().z() << " " << a.radius() << "\n";
-                file << b.m_uc  << " " << b.m_ul.transpose()  << " " << b.m_uq << " " << b.m_p.transpose() << "\n";
-                file << b.center().x() << " " << b.center().y() << " " << b.center().z() << " " << b.radius() << "\n";
-            }
-            if (test < 0)
-            {
-                LOG(logINFO) << "ca merde ici : norm negative \n";
-                file << a.m_uc  << " " << a.m_ul.transpose()  << " " << a.m_uq << " " << a.m_p.transpose() << "\n";
-                file << a.center().x() << " " << a.center().y() << " " << a.center().z() << " " << a.radius() << "\n";
-                file << b.m_uc  << " " << b.m_ul.transpose()  << " " << b.m_uq << " " << b.m_p.transpose() << "\n";
-                file << b.center().x() << " " << b.center().y() << " " << b.center().z() << " " << b.radius() << "\n";
-            }
-            c.setParameters(new_uc, new_ul, new_uq, new_p);
-            return c;
-        }
-
         SimpleAPSSErrorMetric::Primitive SimpleAPSSErrorMetric::combine(const Primitive& a, const Scalar& a_weight, const Primitive& b, const Scalar& b_weight)
         {
             Primitive c;
+            Scalar new_uc, new_uq;
+            Vector3 new_ul, new_p;
             if (a.m_uq > -0.00000000001 && a.m_uq < 0.00000000001 &&
                    b.m_uq > -0.00000000001 && b.m_uq < 0.00000000001 )
-                LOG(logINFO) << "plan";
-            Scalar new_uc   =   0.5*a_weight*b_weight*(a.m_ul.dot(b.m_ul)) +
-                                a_weight*a_weight*a.m_uc*b.m_uq +
-                                b_weight*b_weight*b.m_uc*a.m_uq -
-                                0.5*a_weight*b_weight*a.prattNorm()*b.prattNorm();
-            Vector3 new_ul  = a_weight*a.m_ul*b.m_uq + b_weight*b.m_ul*a.m_uq;
-            Scalar new_uq   = a.m_uq*b.m_uq;
-            Vector3 new_p   = a_weight*a.m_p + b_weight*b.m_p;
+            {
+                // PLAN
+                new_ul  = a_weight * a.m_ul + b_weight * b.m_ul;
+                new_uq  = 0.0;
+                new_p   = a_weight * a.m_p + b_weight * b.m_p;
+                new_uc  = new_ul.dot(new_p);
+            }
+            else
+            {
+                // SPHERE
+                new_uc  =   0.5*a_weight*b_weight*(a.m_ul.dot(b.m_ul)) +
+                                    a_weight*a_weight*a.m_uc*b.m_uq +
+                                    b_weight*b_weight*b.m_uc*a.m_uq -
+                                    0.5*a_weight*b_weight*a.prattNorm()*b.prattNorm();
+                new_ul  = a_weight*a.m_ul*b.m_uq + b_weight*b.m_ul*a.m_uq;
+                new_uq  = a.m_uq*b.m_uq;
+                new_p   = a_weight*a.m_p + b_weight*b.m_p;
+            }
+
+#ifdef CORE_DEBUG
             Scalar test = new_ul.squaredNorm() - Scalar(4.) * new_uc * new_uq;
             if (test > -0.00000000001 && test < 0.00000000001)
             {
@@ -353,6 +310,7 @@ namespace Ra
             c.setParameters(new_uc, new_ul, new_uq, new_p);
             return c;
         }
+#endif
 
         Scalar SimpleAPSSErrorMetric::computeError(Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult)
         {
@@ -362,24 +320,9 @@ namespace Ra
             pResult = q.project(p12);
             Scalar error = std::abs(q.potential(p12));
             return error;
-
-            // Projection of p12 on the sphere
-            /*
-            Vector3 pSphere = Vector3(p12.x() - center.x(),
-                                      p12.y() - center.y(),
-                                      p12.z() - center.z());
-
-            Scalar pSphereLength = pSphere.norm();
-            Vector3 qSphere = pSphere * (radius / pSphereLength);
-            Vector3 rSphere = Vector3(qSphere.x() + center.x(),
-                                      qSphere.y() + center.y(),
-                                      qSphere.z() + center.z());
-            pResult = rSphere;
-            return (p12 - rSphere).norm();
-            */
         }
 
-        void SimpleAPSSErrorMetric::generateFacePrimitive(Primitive &q, Face_ptr f, Dcel &dcel, Scalar mean_edge_size, Scalar scale)
+        void SimpleAPSSErrorMetric::generateFacePrimitive(Primitive &q, Face_ptr f, Dcel &dcel, Scalar weight, int nRingSize)
         {
             Vertex_ptr v0 = f->HE()->V();
             Vertex_ptr v1 = f->HE()->Next()->V();
@@ -389,12 +332,12 @@ namespace Ra
             GrenaillePoint::VectorType new_pg = GrenaillePoint::VectorType(p.x(), p.y(), p.z());
 
             Fit1 fit;
-            fit.setWeightFunc(WeightFunc(mean_edge_size)); // TODO weight func
+            fit.setWeightFunc(WeightFunc(weight)); // TODO weight func
 
             Scalar error;
             FFIterator ffIt = FFIterator(f);
             std::set<Face_ptr, FFIterator::compareFacePtr> adjFacesSet;
-            ffIt.nRing(std::ceil((scale/mean_edge_size) + 1), adjFacesSet); // TODO N-ring
+            ffIt.nRing(nRingSize, adjFacesSet); // TODO N-ring
             //ffIt.nRing(1, adjFacesSet); // TODO N-ring
             do {
                 fit.init(new_pg);
@@ -424,7 +367,6 @@ namespace Ra
             if (fit.getCurrentState() != UNDEFINED)
             {
                 q = fit;
-                m_param.fits.push_back(fit);
             }
             else
             {

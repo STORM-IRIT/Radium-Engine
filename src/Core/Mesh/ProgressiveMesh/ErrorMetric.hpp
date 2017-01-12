@@ -15,10 +15,6 @@ namespace Ra
     {
         class QuadricErrorMetric
         {
-            struct Param
-            {
-                Scalar scale;
-            };
 
         public:
             using Primitive = Quadric<3>;
@@ -30,9 +26,6 @@ namespace Ra
             Scalar computeGeometricError(const Primitive& q, const Primitive::Vector& p);
 
             void generateFacePrimitive(Primitive &q, const Face_ptr f, Dcel &dcel);
-
-        private:
-            Param m_param;
         };
 
         //---------------------------------------------------
@@ -98,13 +91,6 @@ namespace Ra
             typedef Basket<GrenaillePoint, WeightFunc, UnorientedSphereFit, GLSParam> Fit2;
             typedef Basket<GrenaillePoint, WeightFunc, OrientedSphereFit, GLSParam, OrientedSphereSpaceDer, GLSDer, GLSCurvatureHelper> Fit3;
 
-            struct Param
-            {
-                Scalar scale;
-                std::vector<Fit1> fits; //not needed except to see the spheres in debug mode
-            };
-
-
         public:
             using Primitive = Quadric<4>;
 
@@ -115,10 +101,6 @@ namespace Ra
             Scalar computeGeometricError(const Primitive& q, const Primitive::Vector& p);
 
             void generateFacePrimitive(Primitive &q, Face_ptr f, Dcel &dcel);
-
-        //private:
-        public:
-            Param m_param;
 
         };
 
@@ -132,14 +114,6 @@ namespace Ra
             typedef Basket<GrenaillePoint, WeightFunc, UnorientedSphereFit, GLSParam> Fit2;
             typedef Basket<GrenaillePoint, WeightFunc, OrientedSphereFit, GLSParam, OrientedSphereSpaceDer, GLSDer, GLSCurvatureHelper> Fit3;
 
-            struct Param
-            {
-                Scalar scale;
-                std::vector<Fit1> fits; //not needed except to see the spheres in debug mode
-
-            };
-
-
         public:
             using Primitive = Fit1;
 
@@ -148,14 +122,9 @@ namespace Ra
 
             Scalar computeError(Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult);
             Scalar computeGeometricError(const Primitive& q, const Vector3& p);
-            Primitive combine(const Primitive& a, const Scalar& a_weight, const Primitive& b, const Scalar& b_weight, std::ofstream &file);
             Primitive combine(const Primitive& a, const Scalar& a_weight, const Primitive& b, const Scalar& b_weight);
 
-            void generateFacePrimitive(Primitive &q, Face_ptr f, Dcel &dcel, Scalar mean_edge_size, Scalar scale);
-
-        //private:
-        public:
-            Param m_param;
+            void generateFacePrimitive(Primitive &q, Face_ptr f, Dcel &dcel, Scalar weight, int nRingSize);
 
         };
 

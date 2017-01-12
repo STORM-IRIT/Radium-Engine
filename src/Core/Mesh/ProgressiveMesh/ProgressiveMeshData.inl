@@ -246,5 +246,6 @@ inline void ProgressiveMeshData::setGradientQ2(const Vector3& v)
 }
 
 
+
 } // namespace Core
 } // namespace Ra
