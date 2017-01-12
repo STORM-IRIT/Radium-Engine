@@ -35,10 +35,9 @@ namespace Ra
 
             using Primitive = typename ErrorMetric::Primitive;
 
-            virtual std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, bool primitiveUpdate, float scale) = 0;
+            virtual std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, int primitiveUpdate, float scale, int weight_per_vertex) = 0;
             virtual void computeFacesQuadrics() = 0;
             virtual Primitive computeEdgeQuadric(Index edgeIndex) = 0;
-            virtual Primitive computeEdgeQuadric(Index edgeIndex, std::ofstream &file) = 0;
             virtual void vsplit(ProgressiveMeshData pmData) = 0;
             virtual void ecol(ProgressiveMeshData pmData) = 0;
 
@@ -63,10 +62,10 @@ namespace Ra
 
             /// We construct a priority queue with an error for each edge
             PriorityQueue constructPriorityQueue();
-            void updatePriorityQueue(PriorityQueue &pQueue, Index vsId, Index vtId, std::ofstream &file);
+            void updatePriorityQueue(PriorityQueue &pQueue, Index vsId, Index vtId);
 
             /// Construction of the coarser mesh
-            std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, bool primitiveUpdate, float scale) override;
+            std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, int primitiveUpdate, float scale, int weight_per_vertex) override;
 
             /// Vertex Split and Edge Collapse
             void vsplit(ProgressiveMeshData pmData) override;
@@ -74,14 +73,13 @@ namespace Ra
 
             /// Compute all faces quadrics
             inline void computeFacesQuadrics();
-            void updateFacesQuadrics(Index vsIndex);
+            void updateFacesQuadrics(Index vsIndex, HalfEdge_ptr he);
 
             /// ComputeVertexQuadric
             Primitive computeVertexQuadric(Index vertexIndex);
 
             /// Compute an edge quadric
             Primitive computeEdgeQuadric(Index edgeIndex);
-            Primitive computeEdgeQuadric(Index edgeIndex, std::ofstream &file);
 
             /// Compute the error on an edge
             Scalar computeEdgeError(Index edgeIndex, Vector3&p_result, Primitive &q, std::ofstream &file);
@@ -99,7 +97,7 @@ namespace Ra
             inline ErrorMetric getEM();
 
         private:
-            Scalar getWedgeAngle(Index faceIndex, Index vsIndex, Index vtIndex);
+            Scalar getWedgeAngle(Index faceIndex, Index vIndex);
 
 
 
@@ -113,6 +111,8 @@ namespace Ra
             Scalar m_bbox_size;
             Scalar m_mean_edge_size;
             Scalar m_scale;
+            int m_weight_per_vertex;
+            int m_primitive_update;
 
             int m_nb_faces;
             int m_nb_vertices;

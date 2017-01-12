@@ -102,6 +102,19 @@ inline VertexList VVIterator::list() const
     return L;
 }
 
+/// N-RING
+void VVIterator::nRing(uint n, std::set<Vertex_ptr, VVIterator::compareVertexPtr>& adjVerticesSet)
+{
+    if (n == 0) return;
+    VertexList adjVertices = list();
+    for (uint t = 0; t < adjVertices.size(); t++)
+    {
+        adjVerticesSet.insert(adjVertices[t]);
+        VVIterator newvvIt = VVIterator(adjVertices[t]);
+        newvvIt.nRing(n-1, adjVerticesSet);
+    }
+}
+
 
 
 /// OPERATOR

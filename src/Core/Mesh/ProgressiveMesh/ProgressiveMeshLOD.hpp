@@ -22,7 +22,7 @@ namespace Ra
             }
 
             /// This method will build the Progressive Mesh
-            TriangleMesh build(int target_nb_faces, bool primitive_update, float scale);
+            TriangleMesh build(int target_nb_faces, int primitive_update, float scale, int weight_per_vertex);
 
             /// Applies one vertex split :
             /// enables 1 vertex, and 2 faces

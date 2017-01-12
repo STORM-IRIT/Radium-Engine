@@ -41,6 +41,8 @@ namespace Ra
             m_bbox_size = computeBoundingBoxSize();
             m_mean_edge_size = MeshUtils::getMeanEdgeLength(*mesh);
             m_scale = 0.0;
+            m_weight_per_vertex = 0;
+            m_primitive_update = 0;
         }
 
         //------------------------------------------------
@@ -96,11 +98,27 @@ namespace Ra
             m_primitives.clear();
             m_primitives.reserve(numTriangles);
 
+            // for debug only ?
+            m_primitives_he.clear();
+            m_primitives_he.reserve(numTriangles*3);
+            m_primitives_v.clear();
+            m_primitives_v.reserve(numTriangles*3);
+            for (int i = 0; i < numTriangles*3; i++)
+            {
+                m_primitives_he.push_back(Primitive());
+                m_primitives_v.push_back(Primitive());
+            }
+            //
+
             Primitive q;
+            int nRingSize = std::floor((m_scale/m_mean_edge_size) + 1);
+            Scalar weight = m_mean_edge_size;
+            LOG(logINFO) << "     ring size = " << nRingSize;
+            LOG(logINFO) << "     weight func : " << weight;
             //#pragma omp parallel for private (q)
             for (uint t = 0; t < numTriangles; ++t)
             {
-                m_em.generateFacePrimitive(q, m_dcel->m_face[t], *m_dcel, m_mean_edge_size, m_scale);
+                m_em.generateFacePrimitive(q, m_dcel->m_face[t], *m_dcel, weight, nRingSize);
 
             //#pragma omp critical
                 m_primitives.push_back(q);
@@ -108,251 +126,127 @@ namespace Ra
         }
 
         template <class ErrorMetric>
-        void ProgressiveMesh<ErrorMetric>::updateFacesQuadrics(Index vsIndex)
+        void ProgressiveMesh<ErrorMetric>::updateFacesQuadrics(Index vsIndex, HalfEdge_ptr he)
         {
             // We go all over the faces which contain vsIndex
             VFIterator vsfIt = VFIterator(m_dcel->m_vertex[vsIndex]);
             FaceList adjFaces = vsfIt.list();
 
-            /*
-            for (uint t = 0; t < adjFaces.size(); ++t)
+            if (m_primitive_update == 0) // re_calcul
             {
-                Primitive q;
-                m_em.generateFacePrimitive(q, adjFaces[t], *m_dcel, m_mean_edge_size, m_scale);
-                m_primitives[adjFaces[t]->idx] = q;
-            }
-            */
-            for (uint t = 0; t < adjFaces.size(); ++t)
-            {
-                Face_ptr f = adjFaces[t];
-                HalfEdge_ptr he = f->HE();
-                Vertex_ptr v1 = NULL;
-                Vertex_ptr v2 = NULL;
-                for (int j = 0; j < 3; j++)
+                for (uint t = 0; t < adjFaces.size(); ++t)
                 {
-                    if (v1 == NULL && he->V()->idx != vsIndex)
-                    {
-                        v1 = he->V();
-                    }
-                    else if (v1 != NULL && he->V()->idx != vsIndex)
-                    {
-                        v2 = he->V();
-                        break;
-                    }
-                    he = he->Next();
+                    Primitive q = Primitive();
+                    int nRingSize = std::floor((m_scale/m_mean_edge_size) + 1);
+                    Scalar weight = m_mean_edge_size;
+                    m_em.generateFacePrimitive(q, adjFaces[t], *m_dcel, weight, nRingSize);
+                    m_primitives[adjFaces[t]->idx] = q;
                 }
-                Primitive q = m_primitives_v[vsIndex];
-                Primitive qq1 = m_em.combine(q, 1.0/3.0, m_primitives_v[v1->idx], 1.0/3.0);
-                Primitive qq1q2 = m_em.combine(qq1, 2.0/3.0, m_primitives_v[v2->idx], 1.0/3.0);
-                //qq1q2.applyPrattNorm();
-                m_primitives[adjFaces[t]->idx] = qq1q2;
-                // TODO CA MARCHE PAS
+                m_primitives_v[vsIndex] = m_primitives_he[he->idx];
+            }
+            else if (m_primitive_update == 1) // interpolation
+            {
+                m_primitives_v[vsIndex] = m_primitives_he[he->idx];
+                for (uint t = 0; t < adjFaces.size(); ++t)
+                {
+                    Face_ptr f = adjFaces[t];
+                    Vertex_ptr v0 = f->HE()->V();
+                    Vertex_ptr v1 = f->HE()->Next()->V();
+                    Vertex_ptr v2 = f->HE()->Prev()->V();
+                    Primitive q0 = m_primitives_v[v0->idx];
+                    Primitive q1 = m_primitives_v[v1->idx];
+                    Primitive q2 = m_primitives_v[v2->idx];
+                    Primitive q0q1, q0q1q2;
+                    if (m_weight_per_vertex == 0) // equal
+                    {
+                        q0q1 = m_em.combine(q0, 1.0/3.0, q1, 1.0/3.0);
+                        q0q1q2 = m_em.combine(q0q1, 1.0, q2, 1.0/3.0);
+                    }
+                    else if (m_weight_per_vertex == 1)
+                    {
+                        Scalar wedgeAngle0 = getWedgeAngle(f->idx, v0->idx) / M_PI;
+                        Scalar wedgeAngle1 = getWedgeAngle(f->idx, v1->idx) / M_PI;
+                        Scalar wedgeAngle2 = getWedgeAngle(f->idx, v2->idx) / M_PI;
+                        q0q1 = m_em.combine(q0, wedgeAngle0, q1, wedgeAngle1);
+                        q0q1q2 = m_em.combine(q0q1, 1.0, q2, wedgeAngle2);
+                    }
+                    m_primitives[adjFaces[t]->idx] = q0q1q2;
+                }
             }
         }
 
-        template <class ErrorMetric>
-        Scalar ProgressiveMesh<ErrorMetric>::getWedgeAngle(Index faceIndex, Index vsIndex, Index vtIndex)
-        {
-            Scalar wedgeAngle;
-            Face_ptr face = m_dcel->m_face[faceIndex];
-            Vertex_ptr vs = m_dcel->m_vertex[vsIndex];
-            Vertex_ptr vt = m_dcel->m_vertex[vtIndex];
-
-            HalfEdge_ptr he = face->HE();
-            for (int i = 0; i < 3; i++)
-            {
-                if (he->V() == vs || he->V() == vt)
-                {
-                    Vector3 v0 = he->Next()->V()->P() - he->V()->P();
-                    Vector3 v1 = he->Prev()->V()->P() - he->V()->P();
-                    v0.normalize();
-                    v1.normalize();
-                    wedgeAngle = std::acos(v0.dot(v1));
-                    break;
-                }
-                he = he->Next();
-            }
-            CORE_ASSERT(wedgeAngle < 360, "WEDGE ANGLE WAY TOO HIGH");
-            return wedgeAngle;
-        }
+        //-----------------------------------------------------
 
         template<class ErrorMetric>
         typename ErrorMetric::Primitive ProgressiveMesh<ErrorMetric>::computeVertexQuadric(Index vertexIndex)
         {
             VFIterator vIt = VFIterator(m_dcel->m_vertex[vertexIndex]);
             FaceList adjFaces = vIt.list();
-
-            // We go all over the faces which contain vIndex
+            // We go all over the faces which contain v
             // We add the quadrics of all the faces
             Primitive q, qToAdd;
             Index fIdx;
 
-            Scalar weight = 1.0/adjFaces.size();
-            q = m_primitives[adjFaces[0]->idx];
-            q.applyPrattNorm();
-
-            for (unsigned int i = 1; i < adjFaces.size(); i++)
+            if (m_weight_per_vertex == 0) // equal
             {
-                Face_ptr f = adjFaces[i];
-                fIdx = f->idx;
-
-                qToAdd = m_primitives[fIdx];
-                qToAdd.applyPrattNorm();
-
-                Primitive qtest;
-                if (i == 1)
-                    qtest = m_em.combine(qToAdd, weight, q, weight);
-                else
-                    qtest = m_em.combine(qToAdd, weight, q, 1);
-                q = qtest;
+                Scalar weight = 1.0/adjFaces.size();
+                q = m_primitives[adjFaces[0]->idx];
                 q.applyPrattNorm();
-            }
-            return q;
-        }
 
-        template <class ErrorMetric>
-        typename ErrorMetric::Primitive ProgressiveMesh<ErrorMetric>::computeEdgeQuadric(Index halfEdgeIndex, std::ofstream &file)
-        {
-            EFIterator eIt = EFIterator(m_dcel->m_halfedge[halfEdgeIndex]);
-            FaceList adjFaces = eIt.list();
-
-            // We go all over the faces which contain vs and vt
-            // We add the quadrics of all the faces
-            Primitive q, qToAdd;
-            Index fIdx;
-
-            Scalar weight = 1.0/adjFaces.size();
-            q = m_primitives[adjFaces[0]->idx];
-            //q *= weight;
-            q.applyPrattNorm();
-
-            Vector3 normal0 = Geometry::triangleNormal(adjFaces[0]->HE()->V()->P(), adjFaces[0]->HE()->Next()->V()->P(), adjFaces[0]->HE()->Next()->Next()->V()->P());
-
-            for (unsigned int i = 1; i < adjFaces.size(); i++)
-            {
-                Face_ptr f = adjFaces[i];
-                Vector3 normali = Geometry::triangleNormal(f->HE()->V()->P(), f->HE()->Next()->V()->P(), f->HE()->Next()->Next()->V()->P());
-                Scalar test = normal0.dot(normali);
-                if (test < -0.9)
-                    LOG(logINFO) << "inversion normales";
-                normal0 = (normal0+normali)/2.0;
-
-                fIdx = f->idx;
-//              Scalar area = Ra::Core::Geometry::triangleArea
-//                                ( f->HE()->V()->P(),
-//                                  f->HE()->Next()->V()->P(),
-//                                  f->HE()->Prev()->V()->P());
-                //Scalar wedgeAngle = getWedgeAngle(fIdx,
-                //                                m_dcel->m_halfedge[halfEdgeIndex]->V()->idx,
-                //                                m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->idx);
-                qToAdd = m_primitives[fIdx];
-                //qToAdd *= weight;
-                qToAdd.applyPrattNorm();
-
-                //LOG(logINFO) << "q1 : " << q.center().x() << "; " << q.center().y() << "; " << q.center().z() << "/ " << q.radius();
-                //LOG(logINFO) << "q1 : " << q.tau() << ", " << q.eta().transpose() << ", " << q.kappa();
-                //file << q.m_uc << " " << q.m_ul.transpose() << " " << q.m_uq << " " << q.m_p.transpose() << "\n";
-                //file << q.center().x() << " " << q.center().y() << " " << q.center().z() << " " << q.radius() << "\n";
-
-
-                //LOG(logINFO) << "q2 : " << qToAdd.center().x() << "; " << qToAdd.center().y() << "; " << qToAdd.center().z() << "/ " << qToAdd.radius();
-                //LOG(logINFO) << "q2 : " << qToAdd.tau() << ", " << qToAdd.eta().transpose() << ", " << qToAdd.kappa();
-                //file << qToAdd.m_uc << " " << qToAdd.m_ul.transpose() << " " << qToAdd.m_uq << " " << qToAdd.m_p.transpose() << "\n";
-                //file << qToAdd.center().x() << " " << qToAdd.center().y() << " " << qToAdd.center().z() << " " << qToAdd.radius() << "\n";
-
-
-                //q = m_em.combine(qToAdd, q);
-                Primitive qtest;
-                if (i == 1)
-                    qtest = m_em.combine(qToAdd, weight, q, weight, file);
-                else
-                    qtest = m_em.combine(qToAdd, weight, q, 1, file);
-
-                /*
-                Scalar test = qtest.m_ul.squaredNorm() - Scalar(4.) * qtest.m_uc * qtest.m_uq;
-                if (test < 0)
+                for (unsigned int i = 1; i < adjFaces.size(); i++)
                 {
-                    LOG(logINFO) << "combine norm < 0";
-                    file << q.m_uc << " " << q.m_ul.transpose() << " " << q.m_uq << " " << q.m_p.transpose() << "\n";
-                    file << q.center().x() << " " << q.center().y() << " " << q.center().z() << " " << q.radius() << "\n";
-                    file << qToAdd.m_uc << " " << qToAdd.m_ul.transpose() << " " << qToAdd.m_uq << " " << qToAdd.m_p.transpose() << "\n";
-                    file << qToAdd.center().x() << " " << qToAdd.center().y() << " " << qToAdd.center().z() << " " << qToAdd.radius() << "\n";
-                    file << qtest.m_uc << " " << qtest.m_ul.transpose() << " " << qtest.m_uq << " " << qtest.m_p.transpose() << "\n";
-                    file << qtest.center().x() << " " << qtest.center().y() << " " << qtest.center().z() << " " << qtest.radius() << "\n";
+                    Face_ptr f = adjFaces[i];
+                    fIdx = f->idx;
+
+                    qToAdd = m_primitives[fIdx];
+                    qToAdd.applyPrattNorm();
+
+                    Primitive qtest;
+                    if (i == 1)
+                        qtest = m_em.combine(qToAdd, weight, q, weight);
+                    else
+                        qtest = m_em.combine(qToAdd, weight, q, 1);
+                    q = qtest;
+                    q.applyPrattNorm();
                 }
-                */
-                q = qtest;
-                q.applyPrattNorm();
-
             }
-
-            //q.applyPrattNorm();
-            return q;
-        }
-
-        template <class ErrorMetric>
-        typename ErrorMetric::Primitive ProgressiveMesh<ErrorMetric>::computeEdgeQuadric(Index halfEdgeIndex)
-        {
-            EFIterator eIt = EFIterator(m_dcel->m_halfedge[halfEdgeIndex]);
-            FaceList adjFaces = eIt.list();
-
-            // We go all over the faces which contain vs and vt
-            // We add the quadrics of all the faces
-            Primitive q, qToAdd;
-            Index fIdx;
-
-            Scalar weight = 1.0/adjFaces.size();
-            q = m_primitives[adjFaces[0]->idx];
-            //q *= weight;
-            q.applyPrattNorm();
-
-            for (unsigned int i = 1; i < adjFaces.size(); i++)
+            else if (m_weight_per_vertex == 1) // wedge angle
             {
-                Face_ptr f = adjFaces[i];
-                fIdx = f->idx;
-//              Scalar area = Ra::Core::Geometry::triangleArea
-//                                ( f->HE()->V()->P(),
-//                                  f->HE()->Next()->V()->P(),
-//                                  f->HE()->Prev()->V()->P());
-                Scalar wedgeAngle = getWedgeAngle(fIdx,
-                                                m_dcel->m_halfedge[halfEdgeIndex]->V()->idx,
-                                                m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->idx);
-                qToAdd = m_primitives[fIdx];
-                //qToAdd *= weight;
-                qToAdd.applyPrattNorm();
+                std::vector<Scalar> wedgeAngles;
+                wedgeAngles.reserve(adjFaces.size());
+                Scalar sumWedgeAngles = 0.0;
+                for (unsigned int i = 0; i < adjFaces.size(); i++)
+                {
+                    wedgeAngles[i] = getWedgeAngle(adjFaces[i]->idx, vertexIndex);
+                    sumWedgeAngles += wedgeAngles[i];
+                }
 
-                //LOG(logINFO) << "q1 : " << q.center().x() << "; " << q.center().y() << "; " << q.center().z() << "/ " << q.radius();
-                //LOG(logINFO) << "q1 : " << q.tau() << ", " << q.eta().transpose() << ", " << q.kappa();
-                //LOG(logINFO) << q.m_uc << " " << q.m_ul.transpose() << " " << q.m_uq << " " << q.m_p;
-
-                //LOG(logINFO) << "q2 : " << qToAdd.center().x() << "; " << qToAdd.center().y() << "; " << qToAdd.center().z() << "/ " << qToAdd.radius();
-                //LOG(logINFO) << "q2 : " << qToAdd.tau() << ", " << qToAdd.eta().transpose() << ", " << qToAdd.kappa();
-                //LOG(logINFO) << qToAdd.m_uc << " " << qToAdd.m_ul.transpose() << " " << qToAdd.m_uq << " " << qToAdd.m_p;
-
-                Primitive qtest;
-                if (i == 1)
-                    qtest = m_em.combine(qToAdd, weight, q, weight);
-                else
-                    qtest = m_em.combine(qToAdd, weight, q, 1);
+                q = m_primitives[adjFaces[0]->idx];
                 q.applyPrattNorm();
-
-                //LOG(logINFO) << "r  : " << q.center().x() << "; " << q.center().y() << "; " << q.center().z() << "/ " << q.radius();
-                //LOG(logINFO) << "r  : " << q.tau() << ", " << q.eta().transpose() << ", " << q.kappa();
+                for (unsigned int i = 1; i < adjFaces.size(); i++)
+                {
+                    qToAdd = m_primitives[adjFaces[i]->idx];
+                    qToAdd.applyPrattNorm();
+                    Primitive qtest;
+                    if (i == 1)
+                        qtest = m_em.combine(qToAdd, wedgeAngles[i]/sumWedgeAngles, q, wedgeAngles[0]/sumWedgeAngles);
+                    else
+                        qtest = m_em.combine(qToAdd, wedgeAngles[i]/sumWedgeAngles, q, 1);
+                    q = qtest;
+                    q.applyPrattNorm();
+                }
             }
-            q.applyPrattNorm();
             return q;
         }
 
         //-----------------------------------------------------
 
         template <class ErrorMetric>
-        Scalar ProgressiveMesh<ErrorMetric>::computeEdgeError(Index halfEdgeIndex, Vector3 &pResult, Primitive &q, std::ofstream &file)
+        typename ErrorMetric::Primitive ProgressiveMesh<ErrorMetric>::computeEdgeQuadric(Index halfEdgeIndex)
         {
-            q = computeEdgeQuadric(halfEdgeIndex, file);
-            Vector3 vs = m_dcel->m_halfedge[halfEdgeIndex]->V()->P();
-            Vector3 vt = m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->P();
-            Scalar error = m_em.computeError(q, vs, vt, pResult);
-            return error;
+            Primitive q_vs = computeVertexQuadric(m_dcel->m_halfedge[halfEdgeIndex]->V()->idx);
+            Primitive q_vt = computeVertexQuadric(m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->idx);
+            return m_em.combine(q_vs, 0.5, q_vt, 0.5);
         }
 
         template <class ErrorMetric>
@@ -363,6 +257,32 @@ namespace Ra
             Vector3 vt = m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->P();
             Scalar error = m_em.computeError(q, vs, vt, pResult);
             return error;
+        }
+
+        //-----------------------------------------------------
+
+        template <class ErrorMetric>
+        Scalar ProgressiveMesh<ErrorMetric>::getWedgeAngle(Index faceIndex, Index vIndex)
+        {
+            Scalar wedgeAngle;
+            Face_ptr face = m_dcel->m_face[faceIndex];
+            Vertex_ptr v = m_dcel->m_vertex[vIndex];
+
+            HalfEdge_ptr he = face->HE();
+            for (int i = 0; i < 3; i++)
+            {
+                if (he->V() == v)
+                {
+                    Vector3 v0 = he->Next()->V()->P() - he->V()->P();
+                    Vector3 v1 = he->Prev()->V()->P() - he->V()->P();
+                    v0.normalize();
+                    v1.normalize();
+                    wedgeAngle = std::acos(v0.dot(v1));
+                    break;
+                }
+                he = he->Next();
+            }
+            return wedgeAngle;
         }
 
         //--------------------------------------------------
@@ -378,16 +298,6 @@ namespace Ra
             double edgeError;
             Vector3 p = Vector3::Zero();
             int j;
-
-            //std::ofstream myfile;
-            //myfile.open ("algebraic_spheres_data.txt");
-            m_primitives_he.reserve(numTriangles*3);
-            m_primitives_v.reserve(numTriangles*3);
-            for (int i = 0; i < numTriangles*3; i++)
-            {
-                m_primitives_he.push_back(Primitive());
-                m_primitives_v.push_back(Primitive());
-            }
 
 //#pragma omp parallel for private(j, edgeError, p)
             for (unsigned int i = 0; i < numTriangles; i++)
@@ -406,11 +316,10 @@ namespace Ra
                         continue;
                     }
 
-                    //edgeError = computeEdgeError(f->HE()->idx, p, myfile);
                     Primitive q;
                     edgeError = computeEdgeError(h->idx, p, q);
-                    m_primitives_he[h->idx] = q;
 
+                    m_primitives_he[h->idx] = q;
                     m_primitives_v[vs->idx] = computeVertexQuadric(vs->idx);
                     m_primitives_v[vt->idx] = computeVertexQuadric(vt->idx);
 
@@ -421,63 +330,13 @@ namespace Ra
                     h = h->Next();
                 }
             }
-
-            //myfile.close();
-
             pQueue.display();
-
-
-            /* TEST PROJECTION SUR SPHERES */
-
-            // Primitive par arete
-            /*
-            for (unsigned int i = 0; i < numTriangles; i++)
-            {
-                const Face_ptr& f = m_dcel->m_face.at( i );
-                HalfEdge_ptr h = f->HE();
-                for (j = 0; j < 3; j++)
-                {
-                    const Vertex_ptr& vs = h->V();
-                    const Vertex_ptr& vt = h->Next()->V();
-
-                    // To prevent adding twice the same edge
-                    if (vs->idx > vt->idx) continue;
-
-                    Primitive qtest = m_primitives_he[h->idx];
-                    Vector3 new_vs = qtest.project(vs->P());
-                    Vector3 new_vt = qtest.project(vt->P());
-                    m_dcel->m_vertex[vs->idx]->setP(new_vs);
-                    m_dcel->m_vertex[vt->idx]->setP(new_vt);
-                    h = h->Next();
-                }
-            }
-            */
-
-            // primitive par face
-            /*
-            for (unsigned int i = 0; i < numTriangles; i++)
-            {
-                const Face_ptr& f = m_dcel->m_face.at( i );
-                HalfEdge_ptr h = f->HE();
-                for (j = 0; j < 3; j++)
-                {
-                    const Vertex_ptr& v = h->V();
-
-                    Primitive qtest = m_primitives[f->idx];
-                    Vector3 new_v = qtest.project(v->P());
-                    m_dcel->m_vertex[v->idx]->setP(new_v);
-                    h = h->Next();
-                }
-            }
-            */
-
-            /* FIN TEST PROJECTION SUR SPHERES */
 
             return pQueue;
         }
 
         template <class ErrorMetric>
-        void ProgressiveMesh<ErrorMetric>::updatePriorityQueue(PriorityQueue &pQueue, Index vsIndex, Index vtIndex, std::ofstream &file)
+        void ProgressiveMesh<ErrorMetric>::updatePriorityQueue(PriorityQueue &pQueue, Index vsIndex, Index vtIndex)
         {
             // we delete of the priority queue all the edge containing vs_id or vt_id
             pQueue.removeEdges(vsIndex);
@@ -495,13 +354,11 @@ namespace Ra
                 HalfEdge_ptr he = adjHE[i];
 
                 Primitive q;
-                edgeError = computeEdgeError(he->idx, p, q, file);
+                edgeError = computeEdgeError(he->idx, p, q);
 
                 m_primitives_he[he->idx] = q;
-
                 m_primitives_v[he->V()->idx] = computeVertexQuadric(he->V()->idx);
                 m_primitives_v[he->Next()->V()->idx] = computeVertexQuadric(he->Next()->V()->idx);
-
 
                 vIndex = he->Next()->V()->idx;
                 pQueue.insert(PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p));
@@ -612,10 +469,12 @@ namespace Ra
         //--------------------------------------------------
 
         template <class ErrorMetric>
-        std::vector<ProgressiveMeshData> ProgressiveMesh<ErrorMetric>::constructM0(int targetNbFaces, int &nbNoFrVSplit, bool primitiveUpdate, Scalar scale)
+        std::vector<ProgressiveMeshData> ProgressiveMesh<ErrorMetric>::constructM0(int targetNbFaces, int &nbNoFrVSplit, int primitiveUpdate, Scalar scale, int weightPerVertex)
         {
             uint nbPMData = 0;
             m_scale = scale;
+            m_weight_per_vertex = weightPerVertex;
+            m_primitive_update = primitiveUpdate;
 
             std::vector<ProgressiveMeshData> pmdata;
             pmdata.reserve(targetNbFaces);
@@ -630,8 +489,6 @@ namespace Ra
             LOG(logINFO) << "Collapsing...";
             ProgressiveMeshData data;
 
-            std::ofstream myfile;
-            myfile.open ("algebraic_spheres_data.txt");
             while (m_nb_faces > targetNbFaces)
             {
                 if (pQueue.empty()) break;
@@ -654,7 +511,7 @@ namespace Ra
                 }
                 m_nb_vertices -= 1;
 
-                // if debug
+#ifdef CORE_DEBUG
                 data.setError(d.m_err);
                 data.setPResult(d.m_p_result);
                 data.setQCenter(m_primitives_he[he->idx].center());
@@ -667,28 +524,17 @@ namespace Ra
                 data.setVt((m_dcel->m_vertex[d.m_vt_id])->P());
                 data.setGradientQ1(m_primitives_v[d.m_vs_id].primitiveGradient(data.getVs()));
                 data.setGradientQ2(m_primitives_v[d.m_vt_id].primitiveGradient(data.getVt()));
-                // end if
+#endif
 
                 DcelOperations::edgeCollapse(*m_dcel, d.m_edge_id, d.m_p_result, true, data);
 
-                //if (primitiveUpdate)
-                //{
-                    m_primitives_v[d.m_vs_id] = m_primitives_he[he->idx];
-                    updateFacesQuadrics(d.m_vs_id);
-                //}
-                //else
-                //{
-                    //TODO
-                    // UPDATE AS INTERPOLATION OF VERTICES PRIMITIVES
-                //}
-
-                updatePriorityQueue(pQueue, d.m_vs_id, d.m_vt_id, myfile);
+                updateFacesQuadrics(d.m_vs_id, he);
+                updatePriorityQueue(pQueue, d.m_vs_id, d.m_vt_id);
 
                 pmdata.push_back(data);
 
                 nbPMData++;
             }
-            myfile.close();
             LOG(logINFO) << "Collapsing done";
 
             return pmdata;
@@ -706,8 +552,6 @@ namespace Ra
                 m_nb_faces += 2;
             m_nb_vertices += 1;
 
-            //LOG(logINFO) << "Vertex Split " << pmData.getVsId() << ", " << pmData.getVtId() << ", faces " << pmData.getFlId() << ", " << pmData.getFrId();
-
             DcelOperations::vertexSplit(*m_dcel, pmData);
         }
 
@@ -720,8 +564,6 @@ namespace Ra
             else
                 m_nb_faces -= 2;
             m_nb_vertices -= 1;
-
-            //LOG(logINFO) << "Edge Collapse " << pmData.getVsId() << ", " << pmData.getVtId() << ", faces " << pmData.getFlId() << ", " << pmData.getFrId();
 
             DcelOperations::edgeCollapse(*m_dcel, pmData);
         }
