@@ -1,6 +1,3 @@
-execute_process( COMMAND git submodule init )
-execute_process( COMMAND git submodule update )
-
 if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang"))
     add_definitions( -fexceptions -frtti -w )
 elseif ( UNIX OR MINGW )
