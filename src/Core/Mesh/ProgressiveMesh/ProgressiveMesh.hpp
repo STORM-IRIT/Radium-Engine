@@ -34,7 +34,9 @@ namespace Ra
 
             using Primitive = typename ErrorMetric::Primitive;
 
-            virtual std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx) = 0;
+//            virtual std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx) = 0;
+            virtual void constructM0(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue) = 0;
+
             virtual void computeFacesQuadrics() = 0;
             virtual Primitive computeEdgeQuadric(Index edgeIndex) = 0;
             virtual void vsplit(ProgressiveMeshData pmData) = 0;
@@ -60,11 +62,13 @@ namespace Ra
             ~ProgressiveMesh() {}
 
             /// We construct a priority queue with an error for each edge
-            PriorityQueue constructPriorityQueue();
-            void updatePriorityQueue(PriorityQueue &pQueue, Index vsId, Index vtId);
+            PriorityQueue constructPriorityQueue(int objIndex);
+            void updatePriorityQueue(PriorityQueue &pQueue, Index vsId, Index vtId, int objIndex);
 
             /// Construction of the coarser mesh
-            std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx) override;
+            //std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx) override;
+            void constructM0(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue) override;
+
 
             /// Vertex Split
             void vsplit(ProgressiveMeshData pmData) override;

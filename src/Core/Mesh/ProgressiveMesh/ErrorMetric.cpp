@@ -42,44 +42,44 @@ namespace Ra
             // on cherche v_result
             // A v_result = -b		avec A = nn^T
             //							 b = dn
-            Primitive::Matrix AInverse = q.getA().inverse();
+//            Primitive::Matrix AInverse = q.getA().inverse();
             Primitive::Vector result;
 
-            Scalar det = q.getA().determinant();
-            if (det > 0.0001)
-            {
-                result = -AInverse * q.getB();
-                error = computeGeometricError(q, result);
-            }
-            else //matrix non inversible
-            {
+//            Scalar det = q.getA().determinant();
+//            if (det > 0.0001)
+//            {
+//                result = -AInverse * q.getB();
+//                error = std::abs(computeGeometricError(q, result));
+//            }
+//            else //matrix non inversible
+//            {
                 Primitive::Vector p1  = vs;
                 Primitive::Vector p2  = vt;
                 Primitive::Vector p12 = (p1 + p2) / 2.0;
 
-                Scalar p1_error     = computeGeometricError(q, p1);
-                Scalar p2_error     = computeGeometricError(q, p2);
-                Scalar p12_error    = computeGeometricError(q, p12);
+//                Scalar p1_error     = std::abs(computeGeometricError(q, p1));
+//                Scalar p2_error     = std::abs(computeGeometricError(q, p2));
+                Scalar p12_error    = std::abs(computeGeometricError(q, p12));
 
-                error = p1_error;
+//                error = p1_error;
                 Primitive::Vector p = p1;
-                if (p2_error < error && p12_error > p2_error)
-                {
-                    p = p2;
-                    result = p;
-                    error = p2_error;
-                }
-                else if (p12_error < error && p2_error > p12_error)
-                {
+//                if (p2_error < error && p12_error > p2_error)
+//                {
+//                    p = p2;
+//                    result = p;
+//                    error = p2_error;
+//                }
+//                else if (p12_error < error && p2_error > p12_error)
+//                {
                     p = p12;
                     result = p;
                     error = p12_error;
-                }
-                else
-                {
-                    result = p;
-                }
-            }
+//                }
+//                else
+//                {
+//                    result = p;
+//                }
+//            }
             pResult = Vector3(result.x(), result.y(), result.z());
             return error;
         }

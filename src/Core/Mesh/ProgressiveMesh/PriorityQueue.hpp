@@ -23,10 +23,13 @@ namespace Ra
                 Scalar m_err;
                 Vector3 m_p_result;
 
-                PriorityQueueData() : m_vs_id(-1), m_vt_id(-1), m_edge_id(-1), m_fl_id(-1), m_err(0.f), m_p_result(Vector3::Zero()) {}
+                int m_index;
 
-                PriorityQueueData(Index vid0, Index vid1, Index eid, Index fid, Scalar error, const Vector3& p)
-                        : m_vs_id(vid0), m_vt_id(vid1), m_edge_id(eid), m_fl_id(fid), m_err(error), m_p_result(p) {}
+
+                PriorityQueueData() : m_vs_id(-1), m_vt_id(-1), m_edge_id(-1), m_fl_id(-1), m_err(0.f), m_p_result(Vector3::Zero()), m_index(-1) {}
+
+                PriorityQueueData(Index vid0, Index vid1, Index eid, Index fid, Scalar error, const Vector3& p, int idx)
+                        : m_vs_id(vid0), m_vt_id(vid1), m_edge_id(eid), m_fl_id(fid), m_err(error), m_p_result(p), m_index(idx) {}
 
                 PriorityQueueData getSwapped()
                 {
@@ -84,6 +87,10 @@ namespace Ra
             /// Pop the first element
             PriorityQueueData top();
 
+
+            ///Return the first element
+            PriorityQueueData firstData();
+
             /// Delete edges having v_id as vertex
             void removeEdges(int v_id);
 
@@ -92,11 +99,16 @@ namespace Ra
             void display();
             int size();
 
+//            int getIndex();
+//            void setIndex(int idx);
+
 
         private:
 
             PriorityQueueContainer m_priority_queue;
             VertexHashContainer m_vertex_hash;
+
+            //int m_index;
         };
 
     } // namespace Ra

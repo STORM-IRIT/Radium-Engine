@@ -37,6 +37,20 @@ namespace Ra
             return data;
         }
 
+        inline PriorityQueue::PriorityQueueData PriorityQueue::firstData()
+        {
+
+            CORE_ASSERT(! m_priority_queue.empty(), "Invalid reference vertex");
+
+            PriorityQueueContainer::iterator it_priority_queue;
+            PriorityQueue::PriorityQueueData data;
+
+            it_priority_queue = m_priority_queue.begin();
+            data = *it_priority_queue;
+
+            return data;
+        }
+
 
         inline void PriorityQueue::reserve(size_t size)
         {
@@ -58,6 +72,16 @@ namespace Ra
         {
             return m_priority_queue.size();
         }
+
+//        inline int PriorityQueue::getIndex()
+//        {
+//            return m_index;
+//        }
+
+//        inline void PriorityQueue::setIndex(int idx)
+//        {
+//            m_index = idx;
+//        }
 
     }
 

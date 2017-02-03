@@ -41,6 +41,7 @@ ProgressiveMeshData edgeCollapse(Dcel& dcel, Index edgeIndex, Vector3 pResult)
 {
     CORE_ASSERT(dcel.m_halfedge[edgeIndex]->V()->idx != dcel.m_halfedge[edgeIndex]->Twin()->V()->idx,"Twins with same starting vertex.");
 
+
     //Exception
     /*
                 T
