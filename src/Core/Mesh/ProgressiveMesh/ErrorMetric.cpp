@@ -355,7 +355,7 @@ namespace Ra
                 {
                     new_ul  += weights[i] * p[i].m_ul;
                     new_uq  = 0.0;
-                    new_p   += weights[i] * p[i].m_p;
+                    new_p   += weights[i] * p[i].basisCenter();
                     sumWeights += weights[i];
                 }
                 //
@@ -378,7 +378,7 @@ namespace Ra
                     new_ul  += weights[i] * p[i].m_ul;
                     new_uq  += weights[i] * p[i].m_uq;
                     //new_uq  *= p[i].m_uq;
-                    new_p   += weights[i] * p[i].m_p;
+                    new_p   += weights[i] * p[i].basisCenter();
                     sumWeights += weights[i];
                 }
                 //

@@ -4,6 +4,7 @@
 #include <Core/Math/Quadric.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Mesh/DCEL/Dcel.hpp>
+#include <Core/Mesh/ProgressiveMesh/AlgebraicSphere.hpp>
 #include <Patate/grenaille.h>
 
 #include <iostream>
@@ -113,9 +114,9 @@ namespace Ra
         {
             //typedef DistWeightFunc<GrenaillePoint, ConstantWeightKernel<Scalar> > WeightFunc;
             typedef DistWeightFunc<GrenaillePoint, SmoothWeightKernel<Scalar> > WeightFunc;
-            typedef Basket<GrenaillePoint, WeightFunc, OrientedSphereFit, GLSParam> Fit1;
-            typedef Basket<GrenaillePoint, WeightFunc, UnorientedSphereFit, GLSParam> Fit2;
-            typedef Basket<GrenaillePoint, WeightFunc, OrientedSphereFit, GLSParam, OrientedSphereSpaceDer, GLSDer, GLSCurvatureHelper> Fit3;
+            typedef Basket<GrenaillePoint, WeightFunc, OrientedSphereFit, GLSParam, APSSInterpolation> Fit1;
+            //typedef Basket<GrenaillePoint, WeightFunc, UnorientedSphereFit, GLSParam> Fit2;
+            //typedef Basket<GrenaillePoint, WeightFunc, OrientedSphereFit, GLSParam, OrientedSphereSpaceDer, GLSDer, GLSCurvatureHelper> Fit3;
 
         public:
             using Primitive = Fit1;
