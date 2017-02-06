@@ -191,7 +191,7 @@ namespace Ra
         //--------------------------------------------------
 
         template <class ErrorMetric>
-        PriorityQueue ProgressiveMesh<ErrorMetric>::constructPriorityQueue(int objIndex)
+        PriorityQueue ProgressiveMesh<ErrorMetric>::constructPriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, int objIndex)
         {
             PriorityQueue pQueue = PriorityQueue();
             const uint numTriangles = m_dcel->m_face.size();
@@ -215,11 +215,31 @@ namespace Ra
                     if (vs->idx > vt->idx) continue;
 
                     edgeError = computeEdgeError(f->HE()->idx, p);
+
+                    // test if the edge can be collapsed or if it has contact
+                    //bool isPossible = isEcolPossible(f->HE()->idx, p);
+                    bool isContact = false;
+
+                    //if (isPossible)
+                        isContact = hasContact(h->idx, kdtrees, objIndex);
+
+
+                    if (/*isPossible && */!isContact)
 //#pragma omp critical
                     {
                         pQueue.insert(PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p, objIndex));
                     }
+
+                    //else if (isPossible && isContact)
+                    else
+//#pragma omp critical
+                    {
+                        pQueue.insert(PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, 1000, p, objIndex));
+                    }
+
+                    LOG(logINFO) << "Halfedge " << h->idx;
                     h = h->Next();
+                    LOG(logINFO) << "Next halfedge " << h->idx;
                 }
             }
 
@@ -228,7 +248,7 @@ namespace Ra
         }
 
         template <class ErrorMetric>
-        void ProgressiveMesh<ErrorMetric>::updatePriorityQueue(PriorityQueue &pQueue, Index vsIndex, Index vtIndex, int objIndex)
+        void ProgressiveMesh<ErrorMetric>::updatePriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, PriorityQueue &pQueue, Index vsIndex, Index vtIndex, int objIndex)
         {
             // we delete of the priority queue all the edge containing vs_id or vt_id
             pQueue.removeEdges(vsIndex);
@@ -246,25 +266,48 @@ namespace Ra
                 HalfEdge_ptr he = adjHE[i];
                 edgeError = computeEdgeError(he->idx, p);
                 vIndex = he->Next()->V()->idx;
-                pQueue.insert(PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p, objIndex));
+                LOG(logINFO) << "Halfedge " << he->idx;
+                LOG(logINFO) << "Next halfedge " << vIndex;
+
+                // test if the edge can be collapsed or if it has contact
+                //bool isPossible = isEcolPossible(he->idx, p);
+                bool isContact = false;
+
+                //if (isPossible)
+                    isContact = hasContact(he->idx, kdtrees, objIndex);
+
+
+                if (/*isPossible && */!isContact)
+                    pQueue.insert(PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p, objIndex));
+
+
+                //else if (isPossible && isContact)
+                else
+                    pQueue.insert(PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, 1000, p, objIndex));
+
+
+
+                //pQueue.insert(PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p, objIndex));
             }
             //pQueue.display();
         }
 
         //--------------------------------------------------
 
+
         template <class ErrorMetric>
-        bool ProgressiveMesh<ErrorMetric>::isEcolPossible(Index halfEdgeIndex, Vector3 pResult, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx)
+        bool ProgressiveMesh<ErrorMetric>::hasContact(Index halfEdgeIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx)
         {
+
             HalfEdge_ptr he = m_dcel->m_halfedge[halfEdgeIndex];
 
             // Look if either point of the halfedge is too close to another object
-            bool hasContact = false; //idx of the simplified mesh?
+            bool hasContact = false;
             Vertex_ptr v1 = he->V();
             Vertex_ptr v2 = he->Next()->V();
             bool v1Contact = false;
             bool v2Contact = false;
-            for (uint i=0; i<kdtrees.size() && !v1Contact && !v2Contact; i++) //while loop is better, optimization possible : find the closest kdtrees
+            for (uint i=0; i<kdtrees.size() && !hasContact; i++) //optimization possible : find the closest kdtrees
             {
                 if (i!=idx)
                 {
@@ -275,7 +318,8 @@ namespace Ra
                     LOG(logINFO) << "v1 : " << p1.transpose();
                     //int index1 = kdtrees[i]->doQueryRestrictedClosestIndex(p1, 0.8);
                     if (kdtrees[i]->doQueryRestrictedClosestIndex(p1, 0.00001) != -1)
-                        v1Contact = true;
+                        hasContact = true;
+
                     else
                     {
                         //const Super4PCS::KdTree<float>::VectorType& p2 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v2);
@@ -283,19 +327,65 @@ namespace Ra
                         LOG(logINFO) << "v2 : " << p2.transpose();
                         //int index2 = kdtrees[i]->doQueryRestrictedClosestIndex(p2, 0.8);
                         if (kdtrees[i]->doQueryRestrictedClosestIndex(p2, 0.00001) != -1)
-                            v2Contact = true;
+                            hasContact = true;
                     }
                 }
+
                 else
                     LOG(logINFO) << "Same object";
             }
 
-            if (v1Contact || v2Contact)
-            {
-                hasContact = true;
+            if (hasContact)
                 LOG(logINFO) << "The edge " << v1->idx << ", " << v2->idx << " is not collapsable for now : contact found";
-                return false;
-            }
+
+            return hasContact;
+
+        }
+
+
+        template <class ErrorMetric>
+        bool ProgressiveMesh<ErrorMetric>::isEcolPossible(Index halfEdgeIndex, Vector3 pResult/*, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx*/)
+        {
+            HalfEdge_ptr he = m_dcel->m_halfedge[halfEdgeIndex];
+
+//            // Look if either point of the halfedge is too close to another object
+//            bool hasContact = false; //idx of the simplified mesh?
+//            Vertex_ptr v1 = he->V();
+//            Vertex_ptr v2 = he->Next()->V();
+//            bool v1Contact = false;
+//            bool v2Contact = false;
+//            for (uint i=0; i<kdtrees.size() && !v1Contact && !v2Contact; i++) //while loop is better, optimization possible : find the closest kdtrees
+//            {
+//                if (i!=idx)
+//                {
+//                    LOG(logINFO) << "idx " << idx;
+//                    LOG(logINFO) << "kdtree size " << kdtrees[i]->_getPoints().size();
+//                    //const Super4PCS::KdTree<float>::VectorType& p1 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v1);
+//                    const Super4PCS::KdTree<float>::VectorType& p1 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v1->P());
+//                    LOG(logINFO) << "v1 : " << p1.transpose();
+//                    //int index1 = kdtrees[i]->doQueryRestrictedClosestIndex(p1, 0.8);
+//                    if (kdtrees[i]->doQueryRestrictedClosestIndex(p1, 0.00001) != -1)
+//                        v1Contact = true;
+//                    else
+//                    {
+//                        //const Super4PCS::KdTree<float>::VectorType& p2 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v2);
+//                        const Super4PCS::KdTree<float>::VectorType& p2 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v2->P());
+//                        LOG(logINFO) << "v2 : " << p2.transpose();
+//                        //int index2 = kdtrees[i]->doQueryRestrictedClosestIndex(p2, 0.8);
+//                        if (kdtrees[i]->doQueryRestrictedClosestIndex(p2, 0.00001) != -1)
+//                            v2Contact = true;
+//                    }
+//                }
+//                else
+//                    LOG(logINFO) << "Same object";
+//            }
+
+//            if (v1Contact || v2Contact)
+//            {
+//                hasContact = true;
+//                LOG(logINFO) << "The edge " << v1->idx << ", " << v2->idx << " is not collapsable for now : contact found";
+//                return false;
+//            }
 
             // Look at configuration T inside a triangle
             bool hasTIntersection = false;
@@ -386,8 +476,8 @@ namespace Ra
 
             //return !hasTIntersection;
 
-            LOG(logINFO) << "edge collapse" << ((!hasTIntersection) && (!isFlipped) && (!hasContact));
-            return ((!hasTIntersection) && (!isFlipped) && (!hasContact));
+            LOG(logINFO) << "edge collapse" << ((!hasTIntersection) && (!isFlipped) /*&& (!hasContact)*/);
+            return ((!hasTIntersection) && (!isFlipped) /*&& (!hasContact)*/);
         }
 
 
@@ -467,7 +557,7 @@ namespace Ra
                 HalfEdge_ptr he = m_dcel->m_halfedge[d.m_edge_id];
 
                 // TODO !
-                if (!isEcolPossible(he->idx, d.m_p_result, kdtrees, idx))
+                if (!isEcolPossible(he->idx, d.m_p_result/*, kdtrees, idx*/))
                 {
                     LOG(logINFO) << "Collapse not possible";
 
@@ -479,7 +569,7 @@ namespace Ra
                     data = DcelOperations::edgeCollapse(*m_dcel, d.m_edge_id, d.m_p_result);
                     //pmData.push_back(data);
                     updateFacesQuadrics(d.m_vs_id);
-                    updatePriorityQueue(pQueue, d.m_vs_id, d.m_vt_id, idx);
+                    updatePriorityQueue(kdtrees, pQueue, d.m_vs_id, d.m_vt_id, idx);
                     //ec = true;
                     LOG(logINFO) << "Collapsing done";
                     LOG(logINFO) << "pResult : " << d.m_p_result(0,0) << " " << d.m_p_result(1,0) << " " << d.m_p_result(2,0);
@@ -488,6 +578,7 @@ namespace Ra
 
             //return ec;
         }
+
 
         //--------------------------------------------------
 

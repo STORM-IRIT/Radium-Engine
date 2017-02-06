@@ -62,8 +62,8 @@ namespace Ra
             ~ProgressiveMesh() {}
 
             /// We construct a priority queue with an error for each edge
-            PriorityQueue constructPriorityQueue(int objIndex);
-            void updatePriorityQueue(PriorityQueue &pQueue, Index vsId, Index vtId, int objIndex);
+            PriorityQueue constructPriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, int objIndex);
+            void updatePriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, PriorityQueue &pQueue, Index vsId, Index vtId, int objIndex);
 
             /// Construction of the coarser mesh
             //std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx) override;
@@ -87,7 +87,9 @@ namespace Ra
             ///
             Scalar computeGeometricError(const Vector3& p, Primitive q);
 
-            bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx);
+            bool hasContact(Index halfEdgeIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx);
+
+            bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult/*, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx*/);
 
             Scalar computeBoundingBoxSize();
 
