@@ -36,7 +36,7 @@ namespace Ra
             return (error_a + error_b + error_c);
         }
 
-        Scalar QuadricErrorMetric::computeError(Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult)
+        Scalar QuadricErrorMetric::computeError(const Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult)
         {
             Scalar error;
 

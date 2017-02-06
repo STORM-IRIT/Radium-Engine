@@ -22,7 +22,7 @@ namespace Ra
             QuadricErrorMetric();
             QuadricErrorMetric(Scalar scale);
 
-            Scalar computeError(Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult);
+            Scalar computeError(const Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult);
             Scalar computeGeometricError(const Primitive& q, const Vector3& p);
 
             Primitive combine(const std::vector<Primitive>& p, const std::vector<Scalar>& weights, Scalar normalizing_weight_factor);
