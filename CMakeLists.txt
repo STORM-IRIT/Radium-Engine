@@ -71,6 +71,7 @@ add_subdirectory(3rdPartyLibraries)
 set( EIGEN_INC ${EXTERNAL_DIR}/Eigen )
 
 # Patate
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPATATE_EXPERIMENTAL")
 set( PATATE_INC ${EXTERNAL_DIR}/Patate )
 
 # Assimp
