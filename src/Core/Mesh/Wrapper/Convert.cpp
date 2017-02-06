@@ -11,6 +11,7 @@
 #include <Core/Mesh/DCEL/Dcel.hpp>
 #include <Core/Containers/MakeShared.hpp>
 
+#include <Core/Log/Log.hpp>
 
 namespace Ra {
 namespace Core {
@@ -59,7 +60,8 @@ void convert( const TriangleMesh& mesh, Dcel& dcel ) {
         // Create the face
         Face_ptr f = Ra::Core::make_shared< Face >( he[0] );
         CORE_ASSERT( ( f != nullptr ), "Face_ptr == nullptr" );
-        CORE_ASSERT( dcel.m_face.insert( f, f->idx ), "Face not inserted" );
+        ON_DEBUG( bool result = ) dcel.m_face.insert( f, f->idx );
+        CORE_ASSERT( result, "Face not inserted" );
         // Create the connections
         for( uint i = 0; i < 3; ++i ) {
 

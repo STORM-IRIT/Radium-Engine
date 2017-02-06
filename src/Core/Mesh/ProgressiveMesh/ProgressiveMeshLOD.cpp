@@ -22,14 +22,12 @@ namespace Ra
 
         //------------------------------
 
-        TriangleMesh ProgressiveMeshLOD::build(int target_nb_faces, int primitive_update, float scale, int weight_per_vertex)
+        void ProgressiveMeshLOD::build(int target_nb_faces, int primitive_update, float scale, int weight_per_vertex, TriangleMesh &newMesh, std::ofstream &file)
         {
-            m_pmdata = m_pm->constructM0(target_nb_faces, m_nb_no_fr_vsplit, primitive_update, scale, weight_per_vertex);
+            m_pmdata = m_pm->constructM0(target_nb_faces, m_nb_no_fr_vsplit, primitive_update, scale, weight_per_vertex, file);
             m_curr_vsplit = m_pmdata.size();
 
-            TriangleMesh newMesh;
             convertPM(*(m_pm->getDcel()), newMesh);
-            return newMesh;
         }
 
         //------------------------------
@@ -60,7 +58,7 @@ namespace Ra
 
         //------------------------------
 
-        TriangleMesh ProgressiveMeshLOD::gotoM(int target)
+        void ProgressiveMeshLOD::gotoM(int target, TriangleMesh &newMesh)
         {
             if (m_pm->getNbFaces() < target)
             {
@@ -78,9 +76,7 @@ namespace Ra
                         break;
                 }
             }
-            TriangleMesh newMesh;
             convertPM(*(m_pm->getDcel()), newMesh);
-            return newMesh;
         }
 
         /*
@@ -131,6 +127,11 @@ namespace Ra
             m_nb_no_fr_vsplit = v;
         }
 
+        int ProgressiveMeshLOD::getNbPMData()
+        {
+            return m_pmdata.size();
+        }
+
         int ProgressiveMeshLOD::getNbNoFrVSplit()
         {
             return m_nb_no_fr_vsplit;
@@ -150,5 +151,16 @@ namespace Ra
         {
             return m_pm;
         }
+
+        std::vector<ProgressiveMeshData> ProgressiveMeshLOD::getProgressiveMeshDataVector()
+        {
+            return m_pmdata;
+        }
+
+        ProgressiveMeshData ProgressiveMeshLOD::getPMData(int i)
+        {
+            return m_pmdata[i];
+        }
+
     } // Core
 } // Ra

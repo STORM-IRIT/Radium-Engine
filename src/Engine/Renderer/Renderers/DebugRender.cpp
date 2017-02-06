@@ -5,6 +5,8 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
+//#define STB_TRUETYPE_IMPLEMENTATION
+//#include <Engine/Renderer/Font/stb_truetype.h>
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Mesh/MeshPrimitives.hpp>
 #include <fstream>

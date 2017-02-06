@@ -35,7 +35,10 @@ namespace Ra
     {
         CORE_ASSERT(target == GL_TEXTURE_2D, "Wrong texture target");
 
-        if (!glIsTexture(m_textureId)) GL_ASSERT(glGenTextures(1, &m_textureId));
+        if (!glIsTexture(m_textureId))
+        {
+            GL_ASSERT(glGenTextures(1, &m_textureId));
+        }
 
         GL_ASSERT(glBindTexture(target, m_textureId));
         GL_ASSERT(glTexImage2D(target, 0, internalFormat, w, h, 0, format, dataType, data));

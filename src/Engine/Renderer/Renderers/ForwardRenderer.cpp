@@ -74,6 +74,8 @@ namespace Ra
             m_shaderMgr->addShaderProgram("DepthMap", "../Shaders/DepthMap.vert.glsl", "../Shaders/DepthMap.frag.glsl");
             m_shaderMgr->addShaderProgram("DepthAmbientPass", "../Shaders/BlinnPhong.vert.glsl", "../Shaders/DepthAmbientPass.frag.glsl");
             m_shaderMgr->addShaderProgram("FinalCompose", "../Shaders/Basic2D.vert.glsl", "../Shaders/FinalCompose.frag.glsl");
+            m_shaderMgr->addShaderProgram("DepthDistance", "../Shaders/DepthDistance.vert.glsl", "../Shaders/DepthDistance.frag.glsl");
+            m_shaderMgr->addShaderProgram("DepthDistanceDiff", "../Shaders/DepthDistanceDiff.vert.glsl", "../Shaders/DepthDistanceDiff.frag.glsl");
 #ifndef NO_TRANSPARENCY
             m_shaderMgr->addShaderProgram("LitOIT", "../Shaders/BlinnPhong.vert.glsl", "../Shaders/LitOIT.frag.glsl");
             m_shaderMgr->addShaderProgram("UnlitOIT", "../Shaders/Plain.vert.glsl", "../Shaders/UnlitOIT.frag.glsl");
@@ -86,6 +88,7 @@ namespace Ra
             m_fbo.reset(new FBO(FBO::Component_Color | FBO::Component_Depth, m_width, m_height));
             m_oitFbo.reset(new FBO(FBO::Component_Color | FBO::Component_Depth, m_width, m_height));
             m_postprocessFbo.reset(new FBO(FBO::Component_Color | FBO::Component_Depth, m_width, m_height));
+            m_depthdiffFbo.reset(new FBO(FBO::Component_Color | FBO::Component_Depth, m_width, m_height));
 
             // Render pass
             m_textures[RendererTextures_Depth].reset(new Texture("Depth"));
@@ -95,6 +98,17 @@ namespace Ra
             m_textures[RendererTextures_Specular].reset(new Texture("Specular"));
             m_textures[RendererTextures_OITAccum].reset(new Texture("OIT Accum"));
             m_textures[RendererTextures_OITRevealage].reset(new Texture("OIT Revealage"));
+
+            // Textures to get the depth difference betwenn two meshes
+            m_textureDepthFirstMesh.reset(new Texture("Depth First Mesh"));
+            m_textureDepthFirstMesh->internalFormat = GL_RGBA32F;
+            m_textureDepthFirstMesh->dataType = GL_FLOAT;
+            m_textureDepthSecondMesh.reset(new Texture("Depth Second Mesh"));
+            m_textureDepthSecondMesh->internalFormat = GL_RGBA32F;
+            m_textureDepthSecondMesh->dataType = GL_FLOAT;
+            m_textureDepthDifference.reset(new Texture("Depth Diff Mesh"));
+            m_textureDepthDifference->internalFormat = GL_RGBA32F;
+            m_textureDepthDifference->dataType = GL_FLOAT;
 
             m_textures[RendererTextures_Depth]->internalFormat = GL_DEPTH_COMPONENT24;
             m_textures[RendererTextures_Depth]->dataType = GL_UNSIGNED_INT;
@@ -124,6 +138,9 @@ namespace Ra
             m_secondaryTextures["Specular Texture"] = m_textures[RendererTextures_Specular].get();
             m_secondaryTextures["OIT Accum"]        = m_textures[RendererTextures_OITAccum].get();
             m_secondaryTextures["OIT Revealage"]    = m_textures[RendererTextures_OITRevealage].get();
+            m_secondaryTextures["Depth First Mesh"]  = m_textureDepthFirstMesh.get();
+            m_secondaryTextures["Depth Second Mesh"] = m_textureDepthSecondMesh.get();
+            m_secondaryTextures["Depth Diff Mesh"]  = m_textureDepthDifference.get();
         }
 
         void ForwardRenderer::updateStepInternal( const RenderData& renderData )
@@ -476,6 +493,50 @@ namespace Ra
 
                 m_postprocessFbo->unbind();
             }
+
+            // Compute the distance between two meshes
+            if (m_fancyRenderObjects.size() > 1)
+            {
+                // bind the shader writing the depth of objects
+                const ShaderProgram* shaderDepth;
+                shaderDepth = m_shaderMgr->getShaderProgram("DepthDistance");
+                shaderDepth->bind();
+
+                Core::Matrix4 M = m_fancyRenderObjects[0]->getTransformAsMatrix();
+                shaderDepth->setUniform("transform.proj", renderData.projMatrix);
+                shaderDepth->setUniform("transform.view", renderData.viewMatrix);
+                shaderDepth->setUniform("transform.model", M );
+
+                m_depthdiffFbo->useAsTarget();
+
+                glDrawBuffers(3, buffers);
+
+                // draw object 0 in texture 0
+                glDrawBuffers(1, buffers);
+                glClear(GL_DEPTH_BUFFER_BIT);
+                glClear(GL_COLOR_BUFFER_BIT);
+                m_fancyRenderObjects[0]->getMesh()->render();
+
+                // draw object 1 in texture 1
+                glDrawBuffers(1, buffers + 1);
+                glClear(GL_DEPTH_BUFFER_BIT);
+                glClear(GL_COLOR_BUFFER_BIT);
+                m_fancyRenderObjects[1]->getMesh()->render();
+
+                shaderDepth->unbind();
+
+                // draw distance
+                // bind the shader outputting the distance given 2 depth textures
+                const ShaderProgram* shaderDepthDiff;
+                shaderDepthDiff = m_shaderMgr->getShaderProgram("DepthDistanceDiff");
+                shaderDepthDiff->bind();
+                glDrawBuffers(1, buffers + 2);
+                shaderDepthDiff->setUniform("u_depthDistance0", m_textureDepthFirstMesh.get(), 0);
+                shaderDepthDiff->setUniform("u_depthDistance1", m_textureDepthSecondMesh.get(), 1);
+                m_quadMesh->render();
+
+                m_depthdiffFbo->unbind();
+            }
         }
 
         // Draw UI stuff, always drawn on top of everything else + clear ZMask
@@ -574,6 +635,9 @@ namespace Ra
             m_textures[RendererTextures_Specular]->Generate(m_width, m_height, GL_RGBA);
             m_textures[RendererTextures_OITAccum]->Generate(m_width, m_height, GL_RGBA);
             m_textures[RendererTextures_OITRevealage]->Generate(m_width, m_height, GL_RGBA);
+            m_textureDepthFirstMesh->Generate(m_width, m_height, GL_RGBA);
+            m_textureDepthSecondMesh->Generate(m_width, m_height, GL_RGBA);
+            m_textureDepthDifference->Generate(m_width, m_height, GL_RGBA);
 
             m_fbo->bind();
             m_fbo->setSize( m_width, m_height );
@@ -601,6 +665,15 @@ namespace Ra
             m_postprocessFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_fancyTexture.get());
             m_postprocessFbo->check();
             m_postprocessFbo->unbind( true );
+
+            m_depthdiffFbo->bind();
+            m_depthdiffFbo->setSize( m_width, m_height );
+            m_depthdiffFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get());
+            m_depthdiffFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textureDepthFirstMesh.get());
+            m_depthdiffFbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textureDepthSecondMesh.get());
+            m_depthdiffFbo->attachTexture(GL_COLOR_ATTACHMENT2, m_textureDepthDifference.get());
+            m_depthdiffFbo->check();
+            m_depthdiffFbo->unbind( true );
 
             GL_CHECK_ERROR;
 

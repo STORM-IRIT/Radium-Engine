@@ -62,6 +62,11 @@ namespace Ra
             static const int ShadowMapSize = 1024;
             std::vector<std::shared_ptr<Texture>> m_shadowMaps;
             std::vector<Core::Matrix4> m_lightMatrices;
+
+            std::unique_ptr<Texture> m_textureDepthFirstMesh;
+            std::unique_ptr<Texture> m_textureDepthSecondMesh;
+            std::unique_ptr<Texture> m_textureDepthDifference;
+            std::unique_ptr<FBO> m_depthdiffFbo;
         };
 
     } // namespace Engine

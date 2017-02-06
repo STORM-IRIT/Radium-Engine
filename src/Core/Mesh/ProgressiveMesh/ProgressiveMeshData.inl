@@ -245,6 +245,15 @@ inline void ProgressiveMeshData::setGradientQ2(const Vector3& v)
     m_q2_grad = v;
 }
 
+inline std::vector<ProgressiveMeshData::DataPerEdgeColor> ProgressiveMeshData::getErrorPerEdge()
+{
+    return m_error_per_edge;
+}
+
+inline void ProgressiveMeshData::setErrorPerEdge(const std::vector<ProgressiveMeshData::DataPerEdgeColor>& v)
+{
+    m_error_per_edge = v;
+}
 
 
 } // namespace Core

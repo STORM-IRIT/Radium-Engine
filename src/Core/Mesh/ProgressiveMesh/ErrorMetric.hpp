@@ -22,10 +22,13 @@ namespace Ra
             QuadricErrorMetric();
             QuadricErrorMetric(Scalar scale);
 
-            Scalar computeError(const Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult);
-            Scalar computeGeometricError(const Primitive& q, const Primitive::Vector& p);
+            Scalar computeError(Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult);
+            Scalar computeGeometricError(const Primitive& q, const Vector3& p);
 
-            void generateFacePrimitive(Primitive &q, const Face_ptr f, Dcel &dcel);
+            Primitive combine(const std::vector<Primitive>& p, const std::vector<Scalar>& weights, Scalar normalizing_weight_factor);
+
+            void generateVertexPrimitive    (Primitive &q, Vertex_ptr v, Dcel &dcel, Scalar weight, int ringSize);
+            void generateFacePrimitive      (Primitive &q, Face_ptr f, Dcel &dcel, Scalar weight, int ringSize);
         };
 
         //---------------------------------------------------
@@ -118,14 +121,14 @@ namespace Ra
             using Primitive = Fit1;
 
             SimpleAPSSErrorMetric();
-            SimpleAPSSErrorMetric(Scalar scale);
 
             Scalar computeError(Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult);
             Scalar computeGeometricError(const Primitive& q, const Vector3& p);
-            Primitive combine(const Primitive& a, const Scalar& a_weight, const Primitive& b, const Scalar& b_weight);
 
-            void generateFacePrimitive(Primitive &q, Face_ptr f, Dcel &dcel, Scalar weight, int nRingSize);
+            Primitive combine(const std::vector<Primitive>& p, const std::vector<Scalar>& weights, Scalar normalizing_weight_factor);
 
+            void generateVertexPrimitive    (Primitive &q, Vertex_ptr v, Dcel &dcel, Scalar weight, int ringSize);
+            void generateFacePrimitive      (Primitive &q, Face_ptr f, Dcel &dcel, Scalar weight, int ringSize);
         };
 
     }

@@ -58,7 +58,8 @@ namespace Ra
                        short int ii, Scalar error, Vector3 p_result,
                        Vector3 q1_center, Scalar q1_radius,
                        Vector3 q2_center, Scalar q2_radius, Vector3 q_center, Scalar q_radius,
-                       Vector3 vs, Vector3 vt, Vector3 q1_grad, Vector3 q2_grad)
+                       Vector3 vs, Vector3 vt, Vector3 q1_grad, Vector3 q2_grad,
+                       std::vector<ProgressiveMeshData::DataPerEdgeColor> error_per_edge)
         {
             m_vad_l = vad_l;
             m_vad_s = vad_s;
@@ -85,6 +86,7 @@ namespace Ra
             m_vt = vt;
             m_q1_grad = q1_grad;
             m_q2_grad = q2_grad;
+            m_error_per_edge = error_per_edge;
         }
 
         Vector3 ProgressiveMeshData::computePResult(const Vector3& vt, const Vector3& vs)

@@ -1,5 +1,7 @@
 #include "PriorityQueue.hpp"
 #include <Core/Log/Log.hpp>
+#include <Core/Mesh/ProgressiveMesh/ProgressiveMeshData.hpp>
+#include <Core/Mesh/DCEL/Vertex.hpp>
 
 namespace Ra
 {
@@ -56,6 +58,64 @@ namespace Ra
         inline int PriorityQueue::size()
         {
             return m_priority_queue.size();
+        }
+
+        //------------------------------
+
+        /*
+        inline std::vector<ProgressiveMeshData::DataPerEdgeColor> PriorityQueue::copyToVector(unsigned int nb_edges, Dcel& dcel)
+        {
+            std::vector<ProgressiveMeshData::DataPerEdgeColor> err_per_edge;
+            err_per_edge.reserve(nb_edges + 2);
+            for (unsigned int i = 0; i <= nb_edges; i++)
+            {
+                ProgressiveMeshData::DataPerEdgeColor d;
+                err_per_edge.push_back(d);
+            }
+            PriorityQueue::PriorityQueueData data;
+            Scalar error_max = -100000.0;
+            Scalar error_min = 100000.0;
+            for (PriorityQueueContainer::iterator it = m_priority_queue.begin(); it != m_priority_queue.end(); ++it)
+            {
+                data = *it;
+                ProgressiveMeshData::DataPerEdgeColor d((dcel.m_vertex[data.m_vs_id])->P(), (dcel.m_vertex[data.m_vt_id])->P(), data.m_err);
+                err_per_edge[data.m_edge_id] = d;
+                if (data.m_err > error_max) error_max = data.m_err;
+                if (data.m_err < error_min) error_min = data.m_err;
+            }
+            err_per_edge[nb_edges + 1].error = error_min;
+            err_per_edge[nb_edges].error = error_max;
+            return err_per_edge;
+        }
+        */
+
+        inline std::vector<ProgressiveMeshData::DataPerEdgeColor> PriorityQueue::copyToVector(unsigned int nb_edges, Dcel& dcel)
+        {
+            std::vector<ProgressiveMeshData::DataPerEdgeColor> err_per_edge;
+            err_per_edge.reserve(m_priority_queue.size() + 3);
+            PriorityQueue::PriorityQueueData data;
+            Scalar error_max = -100000.0;
+            Scalar error_min = 100000.0;
+            Scalar error_mediane = 0.0;
+            unsigned int nb_data = 0;
+            for (PriorityQueueContainer::iterator it = m_priority_queue.begin(); it != m_priority_queue.end(); ++it)
+            {
+                data = *it;
+                ProgressiveMeshData::DataPerEdgeColor d((dcel.m_vertex[data.m_vs_id])->P(), (dcel.m_vertex[data.m_vt_id])->P(), data.m_err);
+                err_per_edge.push_back(d);
+                if (nb_data == int(m_priority_queue.size() / 2.0))
+                    error_mediane = data.m_err;
+                if (data.m_err > error_max) error_max = data.m_err;
+                if (data.m_err < error_min) error_min = data.m_err;
+                nb_data++;
+            }
+            ProgressiveMeshData::DataPerEdgeColor dmin(Vector3::Zero(), Vector3::Zero(), error_min);
+            ProgressiveMeshData::DataPerEdgeColor dmax(Vector3::Zero(), Vector3::Zero(), error_max);
+            ProgressiveMeshData::DataPerEdgeColor dmediane(Vector3::Zero(), Vector3::Zero(), error_mediane);
+            err_per_edge.push_back(dmin);
+            err_per_edge.push_back(dmax);
+            err_per_edge.push_back(dmediane);
+            return err_per_edge;
         }
 
     }

@@ -68,10 +68,10 @@ namespace Ra
             /// Operators
 
             inline Quadric operator+(const Quadric& q) const;
-            inline Quadric operator*(const Scalar scal);
+            inline Quadric operator*(const Scalar scal) const;
 
             inline Quadric& operator+=(const Quadric& q);
-            inline Quadric& operator*=(Scalar scal);
+            inline Quadric& operator*=(const Scalar scal);
 
         private:
 

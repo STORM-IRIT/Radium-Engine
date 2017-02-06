@@ -23,6 +23,22 @@ namespace Ra
         {
         public:
 
+            struct DataPerEdgeColor
+            {
+                Vector3 v0;
+                Vector3 v1;
+                Scalar error;
+
+                DataPerEdgeColor() : v0(Vector3::Zero()), v1(Vector3::Zero()), error(0.0) {}
+                DataPerEdgeColor(Vector3 p0, Vector3 p1, Scalar err) : v0(p0), v1(p1), error(err) {}
+                DataPerEdgeColor(const DataPerEdgeColor& data)
+                {
+                    v0 = data.v0;
+                    v1 = data.v1;
+                    error = data.error;
+                }
+            };
+
             ProgressiveMeshData();
 
             ProgressiveMeshData(const Vector3& vad_l, const Vector3& vad_s,
@@ -41,7 +57,8 @@ namespace Ra
                    Vector3 q2_center, Scalar q2_radius,
                    Vector3 q_center, Scalar q_radius,
                    Vector3 vs, Vector3 vt,
-                   Vector3 q1_grad, Vector3 q2_grad);
+                   Vector3 q1_grad, Vector3 q2_grad,
+                   std::vector<DataPerEdgeColor> err_per_edge);
 
             ~ProgressiveMeshData()
             {}
@@ -99,6 +116,8 @@ namespace Ra
             inline void setGradientQ1(const Vector3& v);
             inline Vector3 getGradientQ2();
             inline void setGradientQ2(const Vector3& v);
+            inline std::vector<DataPerEdgeColor> getErrorPerEdge();
+            inline void setErrorPerEdge(const std::vector<DataPerEdgeColor> &v);
 
             //----------------------------------------------
 
@@ -121,7 +140,6 @@ namespace Ra
             ///////////////////////////////////
             /// only for debug interactions ///
             ///////////////////////////////////
-            // TODO add
             Scalar m_error;
             Vector3 m_p_result;
             Vector3 m_q1_center;
@@ -134,6 +152,7 @@ namespace Ra
             Vector3 m_vt;
             Vector3 m_q1_grad;
             Vector3 m_q2_grad;
+            std::vector<DataPerEdgeColor> m_error_per_edge;
 
         };
     } // namespace Core

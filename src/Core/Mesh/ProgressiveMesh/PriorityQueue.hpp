@@ -4,12 +4,15 @@
 #include <set>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Index/Index.hpp>
-#include <Core/Mesh/ProgressiveMesh/ErrorMetric.hpp>
+#include <Core/Mesh/ProgressiveMesh/ProgressiveMeshData.hpp>
+#include <Core/Mesh/DCEL/Dcel.hpp>
 
 namespace Ra
 {
     namespace Core
     {
+
+        class ProgressiveMeshData;
 
         class PriorityQueue
         {
@@ -92,9 +95,15 @@ namespace Ra
             /// Delete edges having v_id as vertex
             void removeEdges(int v_id);
 
+            /// Copy priority queue to vector
+            std::vector<ProgressiveMeshData::DataPerEdgeColor> copyToVector(unsigned int nb, Dcel& dcel);
+
             void reserve(size_t size);
+
             bool empty();
+
             void display();
+
             int size();
 
 

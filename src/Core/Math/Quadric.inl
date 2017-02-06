@@ -70,7 +70,7 @@ namespace Ra
         }
 
         template<int DIM>
-        inline Quadric<DIM> Quadric<DIM>::operator*(const Scalar scal)
+        inline Quadric<DIM> Quadric<DIM>::operator*(const Scalar scal) const
         {
             return Quadric<DIM>(m_a * scal, m_b * scal, m_c * scal);
         }
@@ -85,7 +85,7 @@ namespace Ra
         }
 
         template<int DIM>
-        inline Quadric<DIM>& Quadric<DIM>::operator*=(Scalar scal)
+        inline Quadric<DIM>& Quadric<DIM>::operator*=(const Scalar scal)
         {
             m_a *= scal;
             m_b *= scal;
