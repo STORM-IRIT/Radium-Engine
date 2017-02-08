@@ -539,9 +539,24 @@ namespace Ra
 //            return pmdata;
 //        }
 
-
         template <class ErrorMetric>
-        void ProgressiveMesh<ErrorMetric>::constructM0(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue)
+        bool ProgressiveMesh<ErrorMetric>::isConstructM0(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue)
+        {
+            PriorityQueue::PriorityQueueData d = pQueue.firstData();
+            HalfEdge_ptr he = m_dcel->m_halfedge[d.m_edge_id];
+            if (!isEcolPossible(he->idx, d.m_p_result/*, kdtrees, idx*/))
+            {
+                LOG(logINFO) << "Collapse not possible";
+                pQueue.top();
+                return false;
+            }
+            else
+                return true;
+        }
+
+        // constructM0 is called only if isConstructM0 true
+        template <class ErrorMetric>
+        ProgressiveMeshData ProgressiveMesh<ErrorMetric>::constructM0(int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue)
         {
 
 
@@ -556,15 +571,27 @@ namespace Ra
 
                 HalfEdge_ptr he = m_dcel->m_halfedge[d.m_edge_id];
 
-                // TODO !
-                if (!isEcolPossible(he->idx, d.m_p_result/*, kdtrees, idx*/))
-                {
-                    LOG(logINFO) << "Collapse not possible";
+//                // TODO !
+//                if (!isEcolPossible(he->idx, d.m_p_result/*, kdtrees, idx*/))
+//                {
+//                    LOG(logINFO) << "Collapse not possible";
 
-                }
+//                }
 
-                else
-                {
+//                else
+//                {
+
+                                if (he->Twin() == nullptr)
+                                {
+                                    m_nb_faces -= 1;
+                                    nbNoFrVSplit++;
+                                }
+                                else
+                                {
+                                    m_nb_faces -= 2;
+                                }
+                                m_nb_vertices -= 1;
+
                     LOG(logINFO) << "Edge " << d.m_vs_id << " " << d.m_vt_id;
                     data = DcelOperations::edgeCollapse(*m_dcel, d.m_edge_id, d.m_p_result);
                     //pmData.push_back(data);
@@ -574,9 +601,14 @@ namespace Ra
                     LOG(logINFO) << "Collapsing done";
                     LOG(logINFO) << "pResult : " << d.m_p_result(0,0) << " " << d.m_p_result(1,0) << " " << d.m_p_result(2,0);
 
-                }
+//                    pmlod.m_pmdata.push_back(data);
+//                    (pmlod.m_curr_vsplit)++;
+
+//                }
 
             //return ec;
+
+                return data;
         }
 
 

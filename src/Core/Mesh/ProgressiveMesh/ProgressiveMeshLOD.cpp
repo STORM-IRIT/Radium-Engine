@@ -41,6 +41,15 @@ namespace Ra
 ////                m_curr_vsplit++;
 //        }
 
+                void ProgressiveMeshLOD::build(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue)
+                {
+                    if (m_pm->isConstructM0(kdtrees, idx, pQueue))
+                    {
+                        m_pmdata.push_back(m_pm->constructM0(m_nb_no_fr_vsplit, kdtrees, idx, pQueue));
+                        m_curr_vsplit++;
+                    }
+                }
+
         //------------------------------
 
         int ProgressiveMeshLOD::more()
@@ -154,5 +163,17 @@ namespace Ra
         {
             return m_pm;
         }
+
+
+//        void ProgressiveMeshLOD::addData(ProgressiveMeshData data)
+//        {
+//            m_pmdata.push_back(data);
+//        }
+
+//        void ProgressiveMeshLOD::oneEdgeCollapseDone()
+//        {
+//            m_curr_vsplit++;
+//        }
+
     } // Core
 } // Ra

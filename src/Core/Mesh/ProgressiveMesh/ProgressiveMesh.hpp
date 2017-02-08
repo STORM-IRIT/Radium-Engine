@@ -26,6 +26,8 @@ namespace Ra
     namespace Core
     {
 
+    //class ProgressiveMeshLOD;
+
       template<class ErrorMetric = QuadricErrorMetric>
 //        template<class ErrorMetric = SimpleAPSSErrorMetric>
         class ProgressiveMeshBase
@@ -35,7 +37,10 @@ namespace Ra
             using Primitive = typename ErrorMetric::Primitive;
 
 //            virtual std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx) = 0;
-            virtual void constructM0(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue) = 0;
+            virtual ProgressiveMeshData constructM0(int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue) = 0;
+            virtual bool isConstructM0(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue) = 0;
+
+            virtual PriorityQueue constructPriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, int objIndex) = 0;
 
             virtual void computeFacesQuadrics() = 0;
             virtual Primitive computeEdgeQuadric(Index edgeIndex) = 0;
@@ -67,7 +72,10 @@ namespace Ra
 
             /// Construction of the coarser mesh
             //std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx) override;
-            void constructM0(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue) override;
+            ProgressiveMeshData constructM0(int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue) override;
+            bool isConstructM0(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue) override;
+
+
 
 
             /// Vertex Split

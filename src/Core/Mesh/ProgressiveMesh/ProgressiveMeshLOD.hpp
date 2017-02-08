@@ -26,6 +26,8 @@ namespace Ra
             /// This method will build the Progressive Mesh
 //            TriangleMesh build(int target_nb_faces, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx);
             //void build(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue, ProgressiveMesh<>* pm);
+            void build(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue);
+
 
             /// Applies one vertex split :
             /// enables 1 vertex, and 2 faces
@@ -48,6 +50,9 @@ namespace Ra
             int getNbNoFrVSplit();
             int getCurrVSplit();
             ProgressiveMeshBase<>* getProgressiveMesh();
+
+//            void addData(ProgressiveMeshData data);
+//            void oneEdgeCollapseDone();
 
         private:
             std::vector<ProgressiveMeshData> m_pmdata;
