@@ -41,13 +41,16 @@ namespace Ra
 ////                m_curr_vsplit++;
 //        }
 
-                void ProgressiveMeshLOD::build(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue)
+                bool ProgressiveMeshLOD::build(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue)
                 {
                     if (m_pm->isConstructM0(kdtrees, idx, pQueue))
                     {
                         m_pmdata.push_back(m_pm->constructM0(m_nb_no_fr_vsplit, kdtrees, idx, pQueue));
                         m_curr_vsplit++;
+                        return true;
                     }
+                    else
+                        return false;
                 }
 
         //------------------------------
