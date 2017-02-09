@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include <QToolButton>
 
+#include <Core/Utils/File/OBJFileManager.hpp>
 #include <assimp/Importer.hpp>
 
 #include <Engine/RadiumEngine.hpp>
@@ -103,6 +104,7 @@ namespace Ra
         // RO Stuff
         connect(m_toggleRenderObjectButton, &QPushButton::clicked, this, &MainWindow::toggleVisisbleRO);
         connect(m_editRenderObjectButton, &QPushButton::clicked, this, &MainWindow::editRO);
+        connect(m_exportMeshButton, &QPushButton::clicked, this, &MainWindow::exportCurrentMesh);
 
         // Renderer stuff
 
@@ -414,6 +416,34 @@ namespace Ra
         m_itemModel->removeItem(ent) ;
     }
 
+    void Gui::MainWindow::exportCurrentMesh()
+    {
+        std::string filename;
+        Ra::Core::StringUtils::stringPrintf(filename, "radiummesh_%06u", mainApp->getFrameCount());
+        ItemEntry e = m_selectionManager->currentItem();
+
+        // For now we only export a mesh if the selected entry is a render object.
+        // There could be a virtual method to get a mesh representation for any object.
+        if (e.isRoNode())
+        {
+            Ra::Core::OBJFileManager obj;
+            auto ro = Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(e.m_roIndex);
+            Ra::Core::TriangleMesh mesh = ro->getMesh()->getGeometry();
+            bool result = obj.save( filename, mesh );
+            if (result)
+            {
+                LOG(logINFO)<<"Mesh from "<<ro->getName()<<" successfully exported to "<<filename;
+            }
+            else
+            {
+                LOG(logERROR)<<"Mesh from "<<ro->getName()<<"failed to export";
+            }
+        }
+        else
+        {
+            LOG(logWARNING)<< "Current entry was not a render object. No mesh was exported.";
+        }
+    }
 
 
 } // namespace Ra

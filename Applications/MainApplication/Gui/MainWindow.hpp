@@ -134,6 +134,9 @@ namespace Ra
             /// Slot to accept a new renderer
             void onRendererReady();
 
+            /// Exports the mesh of the currently selected object to a file.
+            void exportCurrentMesh();
+
         private:
             /// Stores the internal model of engine objects for selection.
             GuiBase::ItemModel* m_itemModel;
