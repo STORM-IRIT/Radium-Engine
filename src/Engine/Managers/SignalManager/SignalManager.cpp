@@ -40,6 +40,10 @@ void SignalManager::fireRenderObjectRemoved( const ItemEntry& ro ) const
 }
 void SignalManager::callFunctions(const std::vector<Callback>& funcs, const ItemEntry& arg) const
 {
-    if (m_isOn) { for (const auto& f : funcs) { f(arg); } }
+    if (m_isOn)
+    {
+        std::lock_guard<std::mutex> lock (m_mutex);
+        for (const auto& f : funcs) { f(arg); }
+    }
 }
 }}

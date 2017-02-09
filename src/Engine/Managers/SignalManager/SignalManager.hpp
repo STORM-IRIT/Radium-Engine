@@ -7,6 +7,7 @@
 #include <vector>
 
 #include <Engine/ItemModel/ItemEntry.hpp>
+#include <mutex>
 
 
 namespace Ra {
@@ -45,6 +46,7 @@ namespace Engine {
 
     private:
         void callFunctions( const std::vector<Callback>& funcs, const ItemEntry& arg ) const;
+        mutable std::mutex m_mutex;
 
 
     public:
