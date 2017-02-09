@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1350</width>
-    <height>763</height>
+    <height>804</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -106,28 +106,35 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout">
-              <item>
-               <widget class="QPushButton" name="m_removeEntityButton">
-                <property name="text">
-                 <string>Remove</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="m_toggleRenderObjectButton">
-                <property name="text">
-                 <string>Toggle Visible</string>
-                </property>
-               </widget>
-              </item>
-              <item>
+             <layout class="QGridLayout" name="gridLayout_4">
+              <item row="0" column="2">
                <widget class="QPushButton" name="m_editRenderObjectButton">
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
                 <property name="text">
                  <string>Edit</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="m_toggleRenderObjectButton">
+                <property name="text">
+                 <string>Toggle Visible</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QPushButton" name="m_removeEntityButton">
+                <property name="text">
+                 <string>Remove</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QPushButton" name="m_exportMeshButton">
+                <property name="text">
+                 <string>Export Mesh</string>
                 </property>
                </widget>
               </item>
@@ -188,8 +195,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>303</width>
-               <height>272</height>
+               <width>269</width>
+               <height>227</height>
               </rect>
              </property>
              <attribute name="label">
@@ -395,8 +402,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>291</width>
-               <height>126</height>
+               <width>260</width>
+               <height>218</height>
               </rect>
              </property>
              <attribute name="label">
@@ -501,7 +508,7 @@
           <item row="3" column="0">
            <widget class="QLabel" name="label_7">
             <property name="text">
-             <string>Real-time frame rate</string>
+             <string>Variable Frame Rate</string>
             </property>
            </widget>
           </item>

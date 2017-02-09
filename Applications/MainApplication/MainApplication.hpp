@@ -58,6 +58,7 @@ namespace Ra
 
         const Engine::RadiumEngine* getEngine () const { return m_engine.get();}
 
+        uint getFrameCount() const { return m_frameCounter; }
     signals:
         /// Fired when the engine has just started, before the frame timer is set.
         void starting();

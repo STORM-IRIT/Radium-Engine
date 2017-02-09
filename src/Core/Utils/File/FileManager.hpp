@@ -24,7 +24,7 @@ public:
     inline FileManager();                                                   // Default constructor.
 
     /// DESTRUCTOR
-    inline ~FileManager();                                                  // Destructor.
+    virtual ~FileManager();                                                  // Destructor.
 
     /// INTERFACE
     inline bool load( const std::string& filename,
