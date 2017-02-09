@@ -215,6 +215,40 @@ namespace Ra {
                 return mesh;
             }
 
+            MeshPtr Capsule(const Core::Vector3& p1,
+                            const Core::Vector3& p2,
+                            Scalar radius, const Core::Color& color)
+            {
+                const Scalar l = (p2-p1).norm();
+
+                Core::TriangleMesh capsule =
+                    Core::MeshUtils::makeCapsule(l,radius);
+
+
+                // Compute the transform so that
+                // (0,0,-l/2) maps to p1 and (0,0,l/2) maps to p2
+
+                const Core::Vector3 trans = 0.5f*(p2+p1);
+                Core::Quaternion rot = Core::Quaternion::FromTwoVectors( Core::Vector3{0,0,l/2}, 0.5f*(p1-p2));
+
+                Core::Transform t = Core::Transform::Identity();
+                t.rotate(rot);
+                t.pretranslate(trans);
+
+                for (auto& v : capsule.m_vertices)
+                {
+                    v = t*v;
+                }
+
+                Core::Vector4Array colors(capsule.m_vertices.size(), color);
+
+                MeshPtr mesh(new Mesh("Sphere Primitive", GL_LINES));
+                mesh->loadGeometry(capsule);
+                mesh->addData(Mesh::VERTEX_COLOR, colors);
+
+                return mesh;
+            }
+
             MeshPtr Disk(const Core::Vector3& center, const Core::Vector3& normal,
                          Scalar radius, uint segments, const Core::Color& color)
             {

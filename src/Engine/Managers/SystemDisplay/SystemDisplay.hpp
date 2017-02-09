@@ -131,6 +131,13 @@ namespace Ra
             Ra::Engine::SystemEntity::dbgCmp(),                     \
             Ra::Engine::DrawPrimitives::Sphere(c, r, color)))
 
+#define RA_DISPLAY_CAPSULE( p1, p2, r, color )                            \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
+        Ra::Engine::DrawPrimitives::Primitive(                      \
+            Ra::Engine::SystemEntity::dbgCmp(),                     \
+            Ra::Engine::DrawPrimitives::Capsule(p1,p2, r, color)))
+
+
 #define RA_DISPLAY_LINE_ONCE(a, b, color)                           \
     Ra::Engine::DebugRender::getInstance()->drawLine(a, b, color)
 

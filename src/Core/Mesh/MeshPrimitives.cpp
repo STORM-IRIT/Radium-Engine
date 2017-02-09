@@ -204,10 +204,6 @@ namespace Ra
             {
                 TriangleMesh result;
 
-                Core::Vector3 a(-length / 2.0, 0.0, 0.0);
-                Core::Vector3 b(length / 2.0, 0.0, 0.0);
-                Core::Vector3 c(0.0, 0.0, 0.0);
-
                 const Scalar l = length / 2.0;
 
                 const Scalar thetaInc( Core::Math::PiMul2 / Scalar( nFaces ) );
