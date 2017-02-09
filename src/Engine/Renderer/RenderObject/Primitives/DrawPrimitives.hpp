@@ -66,6 +66,13 @@ namespace Ra
                                          Scalar radius,
                                          const Core::Color& color);
 
+
+            /// Displays a capsule computed with given endpoints and radius.
+            RA_ENGINE_API MeshPtr Capsule(const Core::Vector3& p1,
+                                          const Core::Vector3& p2,
+                                          Scalar radius,
+                                          const Core::Color& color);
+
             /// Displays disk (filled circle) computed with given center and radius,
             /// in plane normal to given vector in wireframe
             RA_ENGINE_API MeshPtr Disk(const Core::Vector3& center,
@@ -105,6 +112,7 @@ namespace Ra
             /// Display a wireframe OBB, given an AABB and a transform
             RA_ENGINE_API MeshPtr OBB(const Core::Obb& obb,
                                       const Core::Color& color);
+
 
             RA_ENGINE_API MeshPtr Spline(const Core::Spline<3, 3>& spline, uint pointCount, const Core::Color& color, Scalar scale = 1.0f);
         }
