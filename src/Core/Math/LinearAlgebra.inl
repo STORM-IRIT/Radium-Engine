@@ -1,5 +1,3 @@
-
-
 namespace Ra
 {
 namespace Core
@@ -69,6 +67,23 @@ namespace Core
         return  (v1.dot(v2)) / std::sqrt( v1.normSquared() * v2.normSquared());
     }
 
+    template <typename Vector_>
+    Scalar Vector::getNormAndNormalize(Vector_& v)
+    {
+        const Scalar norm = v.norm();
+        v /= norm;
+        return norm;
+    }
+
+    template <typename Vector_>
+    Scalar Vector::getNormAndNormalizeSafe(Vector_& v)
+    {
+        const Scalar norm = v.norm();
+        if (norm > 0 ) {v /= norm;}
+        return norm;
+    }
+
+
     //
     // Quaternion functions.
     //
@@ -111,7 +126,6 @@ namespace Core
     {
         return point + planeNormal * (planePos - point).dot(planeNormal);
     }
-
 
     // Reference : Paolo Baerlocher, Inverse Kinematics techniques for interactive posture control
     // of articulated figures (PhD Thesis), p.138. EPFL, 2001.

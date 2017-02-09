@@ -156,9 +156,9 @@ namespace Ra
             /// Get the angle between two vectors. Works for types where the cross product is
             /// defined (i.e. 2D and 3D vectors).
             template<typename Vector_>
-            inline Scalar angle( const Vector_& v1, const Vector_& v2);
+            inline Scalar angle( const Vector_& v1, const Vector_& v2 );
 
-            /// @return the projection of point on the plane define by planePos and planeNormal
+            /// @return the projection of point on the plane define by plane and planeNormal
             inline Vector3 projectOnPlane(const Vector3& planePos, const Vector3 planeNormal, const Vector3& point);
 
             /// Get the cotangent of the angle between two vectors. Works for vector types where
@@ -169,6 +169,16 @@ namespace Ra
             /// Get the cosine of the angle between two vectors.
             template <typename Vector_>
             inline Scalar cos( const Vector_& v1, const Vector_& v2);
+
+            /// Normalize a vector and returns its norm before normalization.
+            /// If the vector's norm is 0, the vector's components will be overwritten by NaNs
+            template< typename Vector_ >
+            inline Scalar getNormAndNormalize(Vector_& v);
+
+            /// Normalize a vector and returns its norm before normalization.
+            /// If the vector's norm is 0, the vector remains null
+            template< typename Vector_ >
+            inline Scalar getNormAndNormalizeSafe(Vector_& v);
         }
 
         namespace MatrixUtils
