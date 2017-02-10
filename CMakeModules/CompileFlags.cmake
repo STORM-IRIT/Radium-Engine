@@ -127,6 +127,16 @@ if (${RADIUM_WITH_PROFILING})
     message(STATUS "Profiling is enabled")
 endif()
 
+if (${RADIUM_WARNINGS_AS_ERRORS})
+    message(STATUS "Enabling warnings as errors")
+    if ( APPLE OR ( UNIX OR MINGW ) )
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
+    elseif (MSVC)
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
+    endif()
+endif()
+
+
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
     message(STATUS "64 bits build")
 else()
