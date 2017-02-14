@@ -7,6 +7,8 @@
 using Ra::Core::DistanceQueries::pointToLineSq;
 using Ra::Core::DistanceQueries::pointToSegmentSq;
 using Ra::Core::DistanceQueries::pointToTriSq;
+using Ra::Core::DistanceQueries::PointToTriangleOutput;
+using Ra::Core::DistanceQueries::FlagsInternal;
 using Ra::Core::Math::areApproxEqual;
 using Ra::Core::Vector3;
 namespace RaTests
@@ -51,44 +53,49 @@ namespace RaTests
             // Test triangle queries
 
             // Test that each vertex returns itself
-            Vector3 d;
 
-            Scalar da = pointToTriSq(a,a,b,c,d);
-            RA_UNIT_TEST( da == 0.f, "distance from A to ABC" );
-            RA_UNIT_TEST( d == a, "distance from A to ABC");
+            auto da = pointToTriSq(a,a,b,c);
+            RA_UNIT_TEST( da.distanceSquared == 0.f, "distance from A to ABC" );
+            RA_UNIT_TEST( da.meshPoint == a, "distance from A to ABC");
+            RA_UNIT_TEST( da.flags == FlagsInternal::HIT_A , "distance from A to ABC");
 
-            Scalar db = pointToTriSq(b,a,b,c,d);
-            RA_UNIT_TEST( db == 0.f, "distance from B to ABC" );
-            RA_UNIT_TEST( d == b, "distance from B to ABC");
+            auto db = pointToTriSq(b,a,b,c);
+            RA_UNIT_TEST( db.distanceSquared == 0.f, "distance from B to ABC" );
+            RA_UNIT_TEST( db.meshPoint == b, "distance from B to ABC");
+            RA_UNIT_TEST( db.flags == FlagsInternal::HIT_B, "distance from B to ABC");
 
-            Scalar dc = pointToTriSq(c,a,b,c,d);
-            RA_UNIT_TEST( dc == 0.f, "distance from C to ABC" );
-            RA_UNIT_TEST( d == c, "distance from C to ABC");
+            auto dc = pointToTriSq(c,a,b,c);
+            RA_UNIT_TEST( dc.distanceSquared == 0.f, "distance from C to ABC" );
+            RA_UNIT_TEST( dc.meshPoint == c, "distance from C to ABC");
+            RA_UNIT_TEST( dc.flags == FlagsInternal::HIT_C, "distance from C to ABC");
 
             // Test midpoints of edges
             Vector3 mab = 0.5f * (a+b);
             Vector3 mac = 0.5f * (a+c);
             Vector3 mbc = 0.5f * (b+c);
 
-            Scalar dmab = pointToTriSq(mab, a,b,c,d);
-            RA_UNIT_TEST( areApproxEqual(dmab, 0.f), "Distance from AB midpoint to ABC");
-            RA_UNIT_TEST( d.isApprox(mab) , "Distance from AB midpoint to ABC");
+            auto dmab = pointToTriSq(mab, a,b,c);
+            RA_UNIT_TEST( areApproxEqual(dmab.distanceSquared, 0.f), "Distance from AB midpoint to ABC");
+            RA_UNIT_TEST( dmab.meshPoint.isApprox(mab), "Distance from AB midpoint to ABC");
+            RA_UNIT_TEST( dmab.flags == FlagsInternal::HIT_AB, "Distance from AB midpoint to ABC");
 
-            Scalar dmac = pointToTriSq(mac, a,b,c,d);
-            RA_UNIT_TEST( areApproxEqual(dmac, 0.f), "Distance from AC midpoint to ABC");
-            RA_UNIT_TEST( d.isApprox(mac) , "Distance from AC midpoint to ABC");
+            auto dmac = pointToTriSq(mac, a,b,c);
+            RA_UNIT_TEST( areApproxEqual(dmac.distanceSquared, 0.f), "Distance from AC midpoint to ABC");
+            RA_UNIT_TEST( dmac.meshPoint.isApprox(mac), "Distance from AC midpoint to ABC");
+            RA_UNIT_TEST( dmac.flags == FlagsInternal::HIT_CA, "Distance from AC midpoint to ABC");
 
-            Scalar dmbc = pointToTriSq(mbc, a,b,c,d);
-            RA_UNIT_TEST( areApproxEqual(dmbc, 0.f), "Distance from BC midpoint to ABC");
-            RA_UNIT_TEST( d.isApprox(mbc) , "Distance from BC midpoint to ABC");
-
+            auto dmbc = pointToTriSq(mbc, a,b,c);
+            RA_UNIT_TEST( areApproxEqual(dmbc.distanceSquared, 0.f), "Distance from BC midpoint to ABC");
+            RA_UNIT_TEST( dmbc.meshPoint.isApprox(mbc), "Distance from BC midpoint to ACC");
+            RA_UNIT_TEST( dmbc.flags == FlagsInternal::HIT_BC, "Distance from BC midpoint to ACC");
 
             // Point inside the triangle
             Vector3 g = (1.f/3.f) * (a+b+c);
 
-            Scalar dg = pointToTriSq(g,a,b,c,d);
-            RA_UNIT_TEST( areApproxEqual(dg, 0.f), "Distance from centroid to ABC");
-            RA_UNIT_TEST( d.isApprox(g), "Distance from centroid to ABC");
+            auto dg = pointToTriSq(g,a,b,c);
+            RA_UNIT_TEST( areApproxEqual(dg.distanceSquared, 0.f), "Distance from centroid to ABC");
+            RA_UNIT_TEST( dg.meshPoint.isApprox(g), "Distance from centroid to ABC");
+            RA_UNIT_TEST( dg.flags == FlagsInternal::HIT_FACE, "Distance from centroid to ABC");
         }
     };
 
