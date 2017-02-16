@@ -178,7 +178,7 @@ namespace Ra
             // and then by the inverted view matrix ( = m_frame) to get it in world space.
             // NB : localPoint needs to be a vec4 to be multiplied by the proj matrix.
             const Core::Vector4 localPoint (localX, localY, -m_zNear, 1.f);
-            auto unproj = getProjMatrix().inverse()*localPoint;
+            const Core::Vector4 unproj = getProjMatrix().inverse()*localPoint;
             return m_frame *unproj.head<3>();
         }
     } // End of Engine

@@ -117,7 +117,7 @@ namespace Ra
 
             // Find a plane containing axis and as parallel as possible to
             // the camera image plane
-            auto ortho = cam.getDirection().cross(axis);
+            const Core::Vector3 ortho = cam.getDirection().cross(axis);
             const Core::Vector3 normal = (ortho.squaredNorm() > 0) ?
                                              axis.cross(ortho) :
                                              axis.cross(cam.getUpVector());
@@ -155,7 +155,7 @@ namespace Ra
                 Ra::Core::Vector3 endPoint;
                 if (findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, endPoint ))
                 {
-                    m_transform.translation()= m_initialTrans + endPoint - m_startPoint;
+                    m_transform.translation() = m_initialTrans + endPoint - m_startPoint;
                 }
 
             }
