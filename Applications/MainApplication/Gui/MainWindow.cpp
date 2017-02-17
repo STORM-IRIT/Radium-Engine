@@ -144,7 +144,7 @@ namespace Ra
         importer.GetExtensionList(extList);
         std::string extListStd(extList.C_Str());
         std::replace(extListStd.begin(), extListStd.end(), ';', ' ');
-        QString filter = QString::fromStdString(extListStd);
+        QString filter =""/* QString::fromStdString(extListStd)*/;
 
         QSettings settings;
         QString path = settings.value("files/load", QDir::homePath()).toString();

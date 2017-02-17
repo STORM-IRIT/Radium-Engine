@@ -114,9 +114,17 @@ namespace Ra
                 system.second->handleAssetLoading( entity, &fileData );
             }
 
-            for (auto& comp :entity->getComponents())
+            if ( entity->getComponents().size() > 0 )
             {
-                comp->initialize();
+                for (auto& comp :entity->getComponents())
+                {
+                    comp->initialize();
+                }
+            }
+            else
+            {
+                LOG(logWARNING)<<"File \""<<filename<<"\" has no usable data. Deleting entity...";
+                m_entityManager->removeEntity(entity);
             }
 
             return true;

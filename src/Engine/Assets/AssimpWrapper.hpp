@@ -9,59 +9,64 @@
 #include <Core/Math/LinearAlgebra.hpp>
 
 namespace Ra {
-namespace Asset {
+    namespace Asset {
 
-inline Core::Vector3 assimpToCore( const aiVector3D& v ) {
-    return Core::Vector3( v.x, v.y, v.z );
-}
-
-inline Core::Quaternion assimpToCore( const aiQuaternion& q ) {
-    return Core::Quaternion( q.w, q.x, q.y, q.z );
-}
-
-inline Core::Transform assimpToCore( const aiMatrix4x4& M ) {
-    Core::Matrix4 m( Core::Matrix4::Identity() );
-    for( uint i = 0; i < 4; ++i )
-    {
-        for( uint j = 0; j < 4; ++j )
-        {
-            m( i, j ) = M[i][j];
+        inline Core::Vector3 assimpToCore( const aiVector3D& v ) {
+            return Core::Vector3( v.x, v.y, v.z );
         }
-    }
-    return Core::Transform( m );
-}
 
-inline Core::Transform assimpToCore( const aiVector3D&    T,
-                                     const aiQuaternion& R,
-                                     const aiVector3D&    S ) {
-    Core::Vector3    t = assimpToCore( T );
-    Core::Quaternion r = assimpToCore( R );
-    Core::Vector3    s = assimpToCore( S );
-    Core::Transform M;
-    M.fromPositionOrientationScale( t, r, s );
-    return M;
-}
 
-inline Core::Color assimpToCore( const aiColor4D& c ) {
+        inline aiVector3D coreToAssimp( const Core::Vector3& v ) {
+            return aiVector3D( v.x(), v.y(), v.z() );
+        }
+
+        inline Core::Quaternion assimpToCore( const aiQuaternion& q ) {
+            return Core::Quaternion( q.w, q.x, q.y, q.z );
+        }
+
+        inline Core::Transform assimpToCore( const aiMatrix4x4& M ) {
+            Core::Matrix4 m( Core::Matrix4::Identity() );
+            for( uint i = 0; i < 4; ++i )
+            {
+                for( uint j = 0; j < 4; ++j )
+                {
+                    m( i, j ) = M[i][j];
+                }
+            }
+            return Core::Transform( m );
+        }
+
+        inline Core::Transform assimpToCore( const aiVector3D&    T,
+                                             const aiQuaternion& R,
+                                             const aiVector3D&    S ) {
+            Core::Vector3    t = assimpToCore( T );
+            Core::Quaternion r = assimpToCore( R );
+            Core::Vector3    s = assimpToCore( S );
+            Core::Transform M;
+            M.fromPositionOrientationScale( t, r, s );
+            return M;
+        }
+
+        inline Core::Color assimpToCore( const aiColor4D& c ) {
 //inline Core::Color assimpToCore( const aiColor4D& c ) {
-    return Core::Color( c.r, c.g, c.b, c.a );
-}
+            return Core::Color( c.r, c.g, c.b, c.a );
+        }
 
-inline std::string assimpToCore( const aiString& string ) {
-    return std::string( string.C_Str() );
-}
+        inline std::string assimpToCore( const aiString& string ) {
+            return std::string( string.C_Str() );
+        }
 
-inline Core::VectorNi assimpToCore( uint* index, const uint size )
-{
-    Core::VectorNi v( size );
-    for( uint i = 0; i < size; ++i ) {
-        v[i] = index[i];
-    }
+        inline Core::VectorNi assimpToCore( uint* index, const uint size )
+        {
+            Core::VectorNi v( size );
+            for( uint i = 0; i < size; ++i ) {
+                v[i] = index[i];
+            }
 
-    return v;
-}
+            return v;
+        }
 
-} // namespace Asset
+    } // namespace Asset
 } // namespace Ra
 
 #endif // RADIUMENGINE_ASSIMP_WRAPPER_HPP
