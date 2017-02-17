@@ -35,7 +35,7 @@ std::string OFFFileManager::fileExtension() const {
 
 
 
-bool OFFFileManager::importData( std::ifstream& file, TriangleMesh& data ) {
+bool OFFFileManager::importData( std::istream& file, TriangleMesh& data ) {
     std::string h;
     file >> h;
     if( h != header() ) {
@@ -78,7 +78,7 @@ bool OFFFileManager::importData( std::ifstream& file, TriangleMesh& data ) {
 
 
 
-bool OFFFileManager::exportData( std::ofstream& file, const TriangleMesh& data ) {
+bool OFFFileManager::exportData( std::ostream& file, const TriangleMesh& data ) {
     std::string content = "";
     const uint v_size = data.m_vertices.size();
     const uint f_size = data.m_triangles.size();

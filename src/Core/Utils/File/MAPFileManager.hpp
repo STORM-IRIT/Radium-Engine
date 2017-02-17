@@ -34,8 +34,8 @@ protected:
 
     /// INTERFACE
     virtual std::string fileExtension() const override;
-    virtual bool importData( std::ifstream& file, Parametrization& data ) override;
-    virtual bool exportData( std::ofstream& file, const Parametrization& data ) override;
+    virtual bool importData( std::istream& file, Parametrization& data ) override;
+    virtual bool exportData( std::ostream& file, const Parametrization& data ) override;
 };
 
 } // namespace Core
