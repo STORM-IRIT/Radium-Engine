@@ -26,7 +26,7 @@ std::string OBJFileManager::fileExtension() const {
 
 
 
-bool OBJFileManager::importData( std::ifstream& file, TriangleMesh& data ) {
+bool OBJFileManager::importData( std::istream& file, TriangleMesh& data ) {
     data = TriangleMesh();
     std::string line;
     while( std::getline( file, line ) ) {
@@ -71,7 +71,7 @@ bool OBJFileManager::importData( std::ifstream& file, TriangleMesh& data ) {
 
 
 
-bool OBJFileManager::exportData( std::ofstream& file, const TriangleMesh& data ) {
+bool OBJFileManager::exportData( std::ostream& file, const TriangleMesh& data ) {
     std::string content = "";
     if( data.m_vertices.size() == 0 ) {
         addLogErrorEntry( "MESH IS EMPTY." );

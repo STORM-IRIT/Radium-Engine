@@ -37,7 +37,7 @@ std::string MAPFileManager::fileExtension() const {
 
 
 
-bool MAPFileManager::importData( std::ifstream& file, Parametrization& data ) {
+bool MAPFileManager::importData( std::istream& file, Parametrization& data ) {
     std::string h;
     uint        size;
     file >> h;
@@ -67,7 +67,7 @@ bool MAPFileManager::importData( std::ifstream& file, Parametrization& data ) {
 
 
 
-bool MAPFileManager::exportData( std::ofstream& file, const Parametrization& data ) {
+bool MAPFileManager::exportData( std::ostream& file, const Parametrization& data ) {
     std::string content = "";
     const uint size = data.size();
     if( size == 0 ) {

@@ -46,8 +46,8 @@ protected:
 
     /// INTERFACE
     virtual std::string fileExtension() const = 0;                          // Return the extension given to the files.
-    virtual bool importData( std::ifstream& file, DATA& data ) = 0;         // Load data from a given file. Return false if an error occurs, true otherwise.
-    virtual bool exportData( std::ofstream& file, const DATA& data ) = 0;   // Store given data into a given file. Return false if an error occurs, true otherwise.
+    virtual bool importData( std::istream& file, DATA& data ) = 0;         // Load data from a given file. Return false if an error occurs, true otherwise.
+    virtual bool exportData( std::ostream& file, const DATA& data ) = 0;   // Store given data into a given file. Return false if an error occurs, true otherwise.
 
 private:
     /// LOG

@@ -24,8 +24,8 @@ protected:
 
     /// INTERFACE
     virtual std::string fileExtension() const override;
-    virtual bool importData( std::ifstream& file, TriangleMesh& data ) override;
-    virtual bool exportData( std::ofstream& file, const TriangleMesh& data ) override;
+    virtual bool importData( std::istream& file, TriangleMesh& data ) override;
+    virtual bool exportData( std::ostream& file, const TriangleMesh& data ) override;
 };
 
 } // namespace Core
