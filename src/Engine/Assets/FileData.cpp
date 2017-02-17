@@ -1,15 +1,8 @@
 #include <Engine/Assets/FileData.hpp>
 
-#include <ctime>
-#include <Core/Log/Log.hpp>
-
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-
-#include <Engine/Assets/AssimpGeometryDataLoader.hpp>
-#include <Engine/Assets/AssimpHandleDataLoader.hpp>
-#include <Engine/Assets/AssimpAnimationDataLoader.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -63,7 +56,7 @@ void FileData::loadFile( const bool FORCE_RELOAD ) {
 
     // File was not loaded
     if( scene == nullptr ) {
-        LOG( logERROR ) << "Error while loading file \"" << getFileName() << "\" : " << importer.GetErrorString() << ".";
+        LOG( logINFO) << "File \"" << getFileName() << "\" assimp error : " << importer.GetErrorString() << ".";
         return;
     }
 
