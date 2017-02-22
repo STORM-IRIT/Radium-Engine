@@ -221,11 +221,16 @@ namespace Ra
         Ra::Engine::RadiumEngine* engine = Ra::Engine::RadiumEngine::getInstance();
         if (roIndex.isValid())
         {
-            Ra::Engine::Component* comp = engine->getRenderObjectManager()->getRenderObject(roIndex)->getComponent();
-            Ra::Engine::Entity* ent = comp->getEntity();
+            auto ro = engine->getRenderObjectManager()->getRenderObject(roIndex);
+            if ( ro->getType() != Ra::Engine::RenderObjectType::UI)
+            {
+                Ra::Engine::Component* comp = ro->getComponent();
+                Ra::Engine::Entity* ent = comp->getEntity();
 
-            // For now we don't enable group selection.
-            m_selectionManager->setCurrentEntry(ItemEntry(ent, comp, roIndex), QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
+                // For now we don't enable group selection.
+                m_selectionManager->setCurrentEntry(ItemEntry(ent, comp, roIndex),
+                                                    QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
+            }
         }
         else
         {
