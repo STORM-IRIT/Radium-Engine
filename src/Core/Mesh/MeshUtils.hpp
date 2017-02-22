@@ -32,6 +32,12 @@ namespace Ra
 
             inline Aabb getAabb( const TriangleMesh& mesh );
 
+            /// If t1 is triangle (v1,v2,v3), returns v3.
+            inline uint getLastVertex( const Triangle& t1, uint v1, uint v2 );
+
+            /// Returns true if the triangle contains a given edge
+            inline bool containsEdge( const Triangle& t1, uint v1, uint v2);
+
             /// Automatically compute normals for each vertex by averaging connected triangle normals.
             RA_CORE_API void getAutoNormals( TriangleMesh& mesh, VectorArray<Vector3>& normalsOut );
 
