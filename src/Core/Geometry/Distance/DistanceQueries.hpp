@@ -43,6 +43,9 @@ namespace Ra
                     HIT_VERTEX = 1,
                     HIT_EDGE = 2,
                 };
+
+                PointToTriangleOutput() : meshPoint({0,0,0}), distanceSquared(std::numeric_limits<Scalar>::max()), flags(0){}
+
                 Vector3 meshPoint; // the point hit on the mesh
                 Scalar distanceSquared; // distance squared to the point
                 uchar flags;     // Bits 0-1 : if the hit is a face (00) a vertex (01) or an edge (10)

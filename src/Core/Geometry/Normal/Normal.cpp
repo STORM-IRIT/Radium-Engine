@@ -76,9 +76,7 @@ void angleWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Tr
         normal[k] += theta_k * triN;
     }
     for( auto& n : normal ) {
-        if( !n.isApprox( Vector3::Zero() ) ) {
-            n.normalize();
-        }
+        n.normalize();
     }
 }
 
@@ -99,9 +97,7 @@ void areaWeightedNormal( const VectorArray< Vector3 >& p, const VectorArray< Tri
         normal[k] += triN;
     }
     for( auto& n : normal ) {
-        if( !n.isApprox( Vector3::Zero() ) ) {
-            n.normalize();
-        }
+        n.normalize();
     }
 }
 

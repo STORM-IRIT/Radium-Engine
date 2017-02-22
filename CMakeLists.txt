@@ -107,7 +107,7 @@ elseif( MSVC )
     else()
         set(MSVC_PREFIX "vc130")
     endif()
-    
+
     set(ASSIMP_LIB optimized "${CMAKE_CURRENT_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mt.lib"
                  debug "${CMAKE_CURRENT_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mtd.lib")
 
