@@ -173,10 +173,20 @@ namespace Ra
 //            m_pmdata.push_back(data);
 //        }
 
-//        void ProgressiveMeshLOD::oneEdgeCollapseDone()
-//        {
-//            m_curr_vsplit++;
-//        }
+        void ProgressiveMeshLOD::oneEdgeCollapseDone()
+        {
+            m_curr_vsplit++;
+        }
+
+        void ProgressiveMeshLOD::oneVertexSplitPossible()
+        {
+            m_nb_no_fr_vsplit++;
+        }
+
+        void ProgressiveMeshLOD::addData(ProgressiveMeshData data)
+        {
+            m_pmdata.push_back(data);
+        }
 
     } // Core
 } // Ra

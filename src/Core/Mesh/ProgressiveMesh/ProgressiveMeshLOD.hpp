@@ -52,7 +52,10 @@ namespace Ra
             ProgressiveMeshBase<>* getProgressiveMesh();
 
 //            void addData(ProgressiveMeshData data);
-//            void oneEdgeCollapseDone();
+            void oneEdgeCollapseDone();
+            void oneVertexSplitPossible();
+
+            void addData(ProgressiveMeshData data);
 
         private:
             std::vector<ProgressiveMeshData> m_pmdata;

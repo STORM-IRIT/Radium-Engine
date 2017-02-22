@@ -40,16 +40,29 @@ namespace Ra
             virtual ProgressiveMeshData constructM0(int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue) = 0;
             virtual bool isConstructM0(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue) = 0;
 
-            virtual PriorityQueue constructPriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, int objIndex) = 0;
+            //virtual PriorityQueue constructPriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, int objIndex) = 0;
 
             virtual void computeFacesQuadrics() = 0;
+            virtual std::vector<Primitive> getFacesQuadrics() = 0;
+            virtual void updateFacesQuadrics(Index vsIndex) = 0;
             virtual Primitive computeEdgeQuadric(Index edgeIndex) = 0;
+            //virtual Primitive computeVertexQuadric(Index vertexIndex) = 0;
+
+            virtual int vertexContact(Index vertexIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idxOtherObject) = 0;
+
+            virtual bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult/*, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx*/) = 0;
+
+            virtual Scalar computeEdgeErrorContact(Index halfEdgeIndex, Vector3 &pResult, Primitive qc) = 0;
+
             virtual void vsplit(ProgressiveMeshData pmData) = 0;
             virtual void ecol(ProgressiveMeshData pmData) = 0;
 
             virtual Dcel* getDcel() = 0;
             virtual int getNbFaces() = 0;
             virtual ErrorMetric getEM() = 0;
+
+            virtual void collapseFace() = 0;
+            virtual void collapseVertex() = 0;
         };
 
       template<class ErrorMetric = QuadricErrorMetric>
@@ -67,7 +80,7 @@ namespace Ra
             ~ProgressiveMesh() {}
 
             /// We construct a priority queue with an error for each edge
-            PriorityQueue constructPriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, int objIndex);
+            //PriorityQueue constructPriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, int objIndex);
             void updatePriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, PriorityQueue &pQueue, Index vsId, Index vtId, int objIndex);
 
             /// Construction of the coarser mesh
@@ -84,17 +97,23 @@ namespace Ra
 
             /// Compute all faces quadrics
             inline void computeFacesQuadrics();
+            std::vector<Primitive> getFacesQuadrics();
             void updateFacesQuadrics(Index vsIndex);
 
             /// Compute an edge quadric
             Primitive computeEdgeQuadric(Index edgeIndex);
 
+            ///Compute a vertex quadric
+            //Primitive computeVertexQuadric(Index vertexIndex);
+
             /// Compute the error on an edge
             Scalar computeEdgeError(Index edgeIndex, Vector3&p_result);
+            Scalar computeEdgeErrorContact(Index halfEdgeIndex, Vector3 &pResult, Primitive qc);
 
             ///
             Scalar computeGeometricError(const Vector3& p, Primitive q);
 
+            int vertexContact(Index vertexIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idxOtherObject);
             bool hasContact(Index halfEdgeIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx);
 
             bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult/*, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx*/);
@@ -105,6 +124,9 @@ namespace Ra
             inline Dcel* getDcel();
             inline int getNbFaces();
             inline ErrorMetric getEM();
+
+            inline void collapseFace();
+            inline void collapseVertex();
 
         private:
             Scalar getWedgeAngle(Index faceIndex, Index vsIndex, Index vtIndex);

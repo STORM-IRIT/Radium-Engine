@@ -83,6 +83,8 @@ namespace Ra
 
         //------------------------------------------------
 
+
+
         template <class ErrorMetric>
         void ProgressiveMesh<ErrorMetric>::computeFacesQuadrics()
         {
@@ -103,6 +105,12 @@ namespace Ra
         }
 
         template <class ErrorMetric>
+        std::vector<typename ErrorMetric::Primitive> ProgressiveMesh<ErrorMetric>::getFacesQuadrics()
+        {
+            return m_primitives;
+        }
+
+        template <class ErrorMetric>
         void ProgressiveMesh<ErrorMetric>::updateFacesQuadrics(Index vsIndex)
         {
             // We go all over the faces which contain vsIndex
@@ -115,6 +123,8 @@ namespace Ra
                 m_primitives[adjFaces[t]->idx] = q;
             }
         }
+
+
 
         template <class ErrorMetric>
         Scalar ProgressiveMesh<ErrorMetric>::getWedgeAngle(Index faceIndex, Index vsIndex, Index vtIndex)
@@ -177,6 +187,26 @@ namespace Ra
             return q;
         }
 
+//        template <class ErrorMetric>
+//        typename ErrorMetric::Primitive ProgressiveMesh<ErrorMetric>::computeVertexQuadric(Index vertexIndex)
+//        {
+//            // We go all over the faces which contain vertexIndex
+//            VFIterator vfIt = VFIterator(m_dcel->m_vertex[vertexIndex]);
+//            FaceList adjFaces = vfIt.list();
+
+//            Primitive q = m_primitives[adjFaces[0]->idx];
+//            for (uint i = 1; i < adjFaces.size(); i++)
+//            {
+//                q += m_primitives[adjFaces[i]->idx];
+//            }
+
+//            Scalar weight = 1.0/adjFaces.size();
+//            q *= weight;
+
+//            return q;
+//        }
+
+
         //-----------------------------------------------------
 
         template <class ErrorMetric>
@@ -188,64 +218,182 @@ namespace Ra
             return m_em.computeError(q, vs, vt, pResult);
         }
 
+        template <class ErrorMetric>
+        Scalar ProgressiveMesh<ErrorMetric>::computeEdgeErrorContact(Index halfEdgeIndex, Vector3 &pResult, Primitive q)
+        {
+
+            Vector3 vs = m_dcel->m_halfedge[halfEdgeIndex]->V()->P();
+            Vector3 vt = m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->P();
+            return m_em.computeError(q, vs, vt, pResult);
+        }
+
         //--------------------------------------------------
 
         template <class ErrorMetric>
-        PriorityQueue ProgressiveMesh<ErrorMetric>::constructPriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, int objIndex)
+        int ProgressiveMesh<ErrorMetric>::vertexContact(Index vertexIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idxOtherObject)
         {
-            PriorityQueue pQueue = PriorityQueue();
-            const uint numTriangles = m_dcel->m_face.size();
-            //pQueue.reserve(numTriangles*3 / 2);
+            Vertex_ptr v = m_dcel->m_vertex[vertexIndex];
 
-            // parcours des aretes
-            double edgeError;
-            Vector3 p = Vector3::Zero();
-            int j;
-//#pragma omp parallel for private(j, edgeError, p)
-            for (unsigned int i = 0; i < numTriangles; i++)
+            // Look if the vertex is too close to another object
+            const Super4PCS::KdTree<float>::VectorType& p = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v->P());
+
+            int contact = kdtrees[idxOtherObject]->doQueryRestrictedClosestIndex(p, 0.00001);
+            return contact;
+        }
+
+        template <class ErrorMetric>
+        bool ProgressiveMesh<ErrorMetric>::hasContact(Index halfEdgeIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx)
+        {
+
+            HalfEdge_ptr he = m_dcel->m_halfedge[halfEdgeIndex];
+
+            // Look if either point of the halfedge is too close to another object
+            bool contact = false;
+            Index v1 = he->V()->idx;
+            Index v2 = he->Next()->V()->idx;
+            bool v1Contact = false;
+            bool v2Contact = false;
+            for (uint i=0; i<kdtrees.size() && !contact; i++) //optimization possible : find the closest kdtrees
             {
-                const Face_ptr& f = m_dcel->m_face.at( i );
-                HalfEdge_ptr h = f->HE();
-                for (j = 0; j < 3; j++)
+                if (i!=idx)
                 {
-                    const Vertex_ptr& vs = h->V();
-                    const Vertex_ptr& vt = h->Next()->V();
-
-                    // To prevent adding twice the same edge
-                    if (vs->idx > vt->idx) continue;
-
-                    edgeError = computeEdgeError(f->HE()->idx, p);
-
-                    // test if the edge can be collapsed or if it has contact
-                    //bool isPossible = isEcolPossible(f->HE()->idx, p);
-                    bool isContact = false;
-
-                    //if (isPossible)
-                        isContact = hasContact(h->idx, kdtrees, objIndex);
-
-
-                    if (/*isPossible && */!isContact)
-//#pragma omp critical
-                    {
-                        pQueue.insert(PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p, objIndex));
-                    }
-
-                    //else if (isPossible && isContact)
+                    if (vertexContact(v1, kdtrees, i) != -1)
+                        contact = true;
                     else
-//#pragma omp critical
                     {
-                        pQueue.insert(PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, 1000, p, objIndex));
+                        if (vertexContact(v2, kdtrees, i) != -1)
+                            contact = true;
                     }
+                }
 
-                    LOG(logINFO) << "Halfedge " << h->idx;
-                    h = h->Next();
-                    LOG(logINFO) << "Next halfedge " << h->idx;
+                else
+                {
+                    LOG(logINFO) << "Same object";
                 }
             }
 
-            //pQueue.display();
-            return pQueue;
+            if (contact)
+            {
+                LOG(logINFO) << "The edge " << v1 << ", " << v2 << " is not collapsable for now : contact found";
+            }
+            return contact;
+
         }
+
+//        template <class ErrorMetric>
+//        bool ProgressiveMesh<ErrorMetric>::hasContact(Index halfEdgeIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx)
+//        {
+
+//            HalfEdge_ptr he = m_dcel->m_halfedge[halfEdgeIndex];
+
+//            // Look if either point of the halfedge is too close to another object
+//            bool contact = false;
+//            Vertex_ptr v1 = he->V();
+//            Vertex_ptr v2 = he->Next()->V();
+//            bool v1Contact = false;
+//            bool v2Contact = false;
+//            for (uint i=0; i<kdtrees.size() && !contact; i++) //optimization possible : find the closest kdtrees
+//            {
+//                if (i!=idx)
+//                {
+//                    LOG(logINFO) << "idx " << idx;
+//                    LOG(logINFO) << "kdtree size " << kdtrees[i]->_getPoints().size();
+//                    //const Super4PCS::KdTree<float>::VectorType& p1 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v1);
+//                    const Super4PCS::KdTree<float>::VectorType& p1 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v1->P());
+//                    LOG(logINFO) << "v1 : " << p1.transpose();
+//                    //int index1 = kdtrees[i]->doQueryRestrictedClosestIndex(p1, 0.8);
+//                    if (kdtrees[i]->doQueryRestrictedClosestIndex(p1, 0.00001) != -1)
+//                        contact = true;
+
+//                    else
+//                    {
+//                        //const Super4PCS::KdTree<float>::VectorType& p2 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v2);
+//                        const Super4PCS::KdTree<float>::VectorType& p2 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v2->P());
+//                        LOG(logINFO) << "v2 : " << p2.transpose();
+//                        //int index2 = kdtrees[i]->doQueryRestrictedClosestIndex(p2, 0.8);
+//                        if (kdtrees[i]->doQueryRestrictedClosestIndex(p2, 0.00001) != -1)
+//                            contact = true;
+//                    }
+//                }
+
+//                else
+//                {
+//                    LOG(logINFO) << "Same object";
+//                }
+//            }
+
+//            if (contact)
+//            {
+//                LOG(logINFO) << "The edge " << v1->idx << ", " << v2->idx << " is not collapsable for now : contact found";
+//            }
+//            return contact;
+
+//        }
+
+
+
+        //--------------------------------------------------
+
+
+
+
+//        template <class ErrorMetric>
+//        PriorityQueue ProgressiveMesh<ErrorMetric>::constructPriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, int objIndex)
+//        {
+//            PriorityQueue pQueue = PriorityQueue();
+//            const uint numTriangles = m_dcel->m_face.size();
+//            //pQueue.reserve(numTriangles*3 / 2);
+
+//            // parcours des aretes
+//            double edgeError;
+//            Vector3 p = Vector3::Zero();
+//            int j;
+////#pragma omp parallel for private(j, edgeError, p)
+//            for (unsigned int i = 0; i < numTriangles; i++)
+//            {
+//                const Face_ptr& f = m_dcel->m_face.at( i );
+//                HalfEdge_ptr h = f->HE();
+//                for (j = 0; j < 3; j++)
+//                {
+//                    const Vertex_ptr& vs = h->V();
+//                    const Vertex_ptr& vt = h->Next()->V();
+
+//                    // To prevent adding twice the same edge
+//                    if (vs->idx > vt->idx) continue;
+
+
+
+//                    // test if the edge can be collapsed or if it has contact
+//                    //bool isPossible = isEcolPossible(f->HE()->idx, p);
+//                    bool contact = false;
+
+//                    //if (isPossible)
+//                        contact = hasContact(h->idx, kdtrees, objIndex);
+
+
+//                    if (/*isPossible && */!contact)
+////#pragma omp critical
+//                    {
+//                        edgeError = computeEdgeError(f->HE()->idx, p);
+//                        pQueue.insert(PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p, objIndex));
+//                    }
+
+//                    //else if (isPossible && isContact)
+//                    else
+////#pragma omp critical
+//                    {
+//                        pQueue.insert(PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, 1000, p, objIndex));
+//                    }
+
+//                    LOG(logINFO) << "Halfedge " << h->idx;
+//                    h = h->Next();
+//                    LOG(logINFO) << "Next halfedge " << h->idx;
+//                }
+//            }
+
+//            //pQueue.display();
+//            return pQueue;
+//        }
 
         template <class ErrorMetric>
         void ProgressiveMesh<ErrorMetric>::updatePriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, PriorityQueue &pQueue, Index vsIndex, Index vtIndex, int objIndex)
@@ -264,27 +412,30 @@ namespace Ra
             for (uint i = 0; i < adjHE.size(); i++)
             {
                 HalfEdge_ptr he = adjHE[i];
-                edgeError = computeEdgeError(he->idx, p);
+
                 vIndex = he->Next()->V()->idx;
                 LOG(logINFO) << "Halfedge " << he->idx;
                 LOG(logINFO) << "Next halfedge " << vIndex;
 
                 // test if the edge can be collapsed or if it has contact
                 //bool isPossible = isEcolPossible(he->idx, p);
-                bool isContact = false;
+                bool contact = false;
 
                 //if (isPossible)
-                    isContact = hasContact(he->idx, kdtrees, objIndex);
+                    contact = hasContact(he->idx, kdtrees, objIndex);
 
 
-                if (/*isPossible && */!isContact)
+                if (/*isPossible && */!contact)
+                {
+                    edgeError = computeEdgeError(he->idx, p);
                     pQueue.insert(PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p, objIndex));
-
+                }
 
                 //else if (isPossible && isContact)
                 else
+                {
                     pQueue.insert(PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, 1000, p, objIndex));
-
+                }
 
 
                 //pQueue.insert(PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p, objIndex));
@@ -295,52 +446,7 @@ namespace Ra
         //--------------------------------------------------
 
 
-        template <class ErrorMetric>
-        bool ProgressiveMesh<ErrorMetric>::hasContact(Index halfEdgeIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx)
-        {
 
-            HalfEdge_ptr he = m_dcel->m_halfedge[halfEdgeIndex];
-
-            // Look if either point of the halfedge is too close to another object
-            bool hasContact = false;
-            Vertex_ptr v1 = he->V();
-            Vertex_ptr v2 = he->Next()->V();
-            bool v1Contact = false;
-            bool v2Contact = false;
-            for (uint i=0; i<kdtrees.size() && !hasContact; i++) //optimization possible : find the closest kdtrees
-            {
-                if (i!=idx)
-                {
-                    LOG(logINFO) << "idx " << idx;
-                    LOG(logINFO) << "kdtree size " << kdtrees[i]->_getPoints().size();
-                    //const Super4PCS::KdTree<float>::VectorType& p1 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v1);
-                    const Super4PCS::KdTree<float>::VectorType& p1 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v1->P());
-                    LOG(logINFO) << "v1 : " << p1.transpose();
-                    //int index1 = kdtrees[i]->doQueryRestrictedClosestIndex(p1, 0.8);
-                    if (kdtrees[i]->doQueryRestrictedClosestIndex(p1, 0.00001) != -1)
-                        hasContact = true;
-
-                    else
-                    {
-                        //const Super4PCS::KdTree<float>::VectorType& p2 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v2);
-                        const Super4PCS::KdTree<float>::VectorType& p2 = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v2->P());
-                        LOG(logINFO) << "v2 : " << p2.transpose();
-                        //int index2 = kdtrees[i]->doQueryRestrictedClosestIndex(p2, 0.8);
-                        if (kdtrees[i]->doQueryRestrictedClosestIndex(p2, 0.00001) != -1)
-                            hasContact = true;
-                    }
-                }
-
-                else
-                    LOG(logINFO) << "Same object";
-            }
-
-            if (hasContact)
-                LOG(logINFO) << "The edge " << v1->idx << ", " << v2->idx << " is not collapsable for now : contact found";
-
-            return hasContact;
-
-        }
 
 
         template <class ErrorMetric>
@@ -643,6 +749,19 @@ namespace Ra
 
             DcelOperations::edgeCollapse(*m_dcel, pmData);
         }
+
+        template <class ErrorMetric>
+        void ProgressiveMesh<ErrorMetric>::collapseFace()
+        {
+            m_nb_faces--;
+        }
+
+        template <class ErrorMetric>
+        void ProgressiveMesh<ErrorMetric>::collapseVertex()
+        {
+            m_nb_vertices--;
+        }
+
     }
 }
 
