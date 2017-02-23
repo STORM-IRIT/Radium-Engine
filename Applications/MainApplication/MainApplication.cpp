@@ -67,14 +67,14 @@ namespace Ra
         parser.addHelpOption();
         parser.addVersionOption();
 
-        // For any reason, the third parameter must be set if you want to be able to read anything from it (and it cannot be "")
-        QCommandLineOption fpsOpt(QStringList{"r", "framerate", "fps"}, "Control the application framerate, 0 to disable it (and run as fast as possible)", "60");
-        QCommandLineOption pluginOpt(QStringList{"p", "plugins", "pluginsPath"}, "Set the path to the plugin dlls", "../Plugins/bin");
-        QCommandLineOption fileOpt(QStringList{"f", "file", "scene"}, "Open a scene file at startup", "foo.bar");
-        QCommandLineOption numFramesOpt(QStringList{"n", "numframes"}, "Run for a fixed number of frames", "0");
-        // NOTE(Charly): Add other options here
+        QCommandLineOption fpsOpt(QStringList{"r", "framerate", "fps"}, "Control the application framerate, 0 to disable it (and run as fast as possible).", "number", "60");
+        QCommandLineOption numFramesOpt(QStringList{"n", "numframes"}, "Run for a fixed number of frames.", "number", "0");
+        QCommandLineOption pluginOpt(QStringList{"p", "plugins", "pluginsPath"}, "Set the path to the plugin dlls.", "folder", "../Plugins/bin");
+        QCommandLineOption pluginLoadOpt(QStringList{"l", "load", "loadPlugin"}, "Only load plugin with the given name (filename without the extension). If this option is not used, all plugins in the plugins folder will be loaded. ", "name");
+        QCommandLineOption pluginIgnoreOpt(QStringList{"i", "ignore", "ignorePlugin"}, "Ignore plugins with the given name. If the name appears within both load and ignore options, it will be ignored.", "name");
+        QCommandLineOption fileOpt(QStringList{"f", "file", "scene"}, "Open a scene file at startup.", "file name", "foo.bar");
 
-        parser.addOptions({fpsOpt, pluginOpt, fileOpt, numFramesOpt });
+        parser.addOptions({fpsOpt, pluginOpt, pluginLoadOpt, pluginIgnoreOpt, fileOpt, numFramesOpt });
         parser.process(*this);
 
         if (parser.isSet(fpsOpt))       m_targetFPS = parser.value(fpsOpt).toUInt();
@@ -141,7 +141,7 @@ namespace Ra
         processEvents();
 
         // Load plugins
-        if ( !loadPlugins( pluginsPath ) )
+        if ( !loadPlugins( pluginsPath, parser.values(pluginLoadOpt), parser.values(pluginIgnoreOpt) ) )
         {
             LOG( logERROR ) << "An error occurred while trying to load plugins.";
         }
@@ -379,7 +379,7 @@ namespace Ra
         m_engine->cleanup();
     }
 
-    bool BaseApplication::loadPlugins( const std::string& pluginsPath )
+    bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QStringList& loadList, const QStringList& ignoreList )
     {
         LOG( logINFO )<<" *** Loading Plugins ***";
         QDir pluginsDir( qApp->applicationDirPath() );
@@ -388,6 +388,7 @@ namespace Ra
         if (!result)
         {
             LOG(logERROR) << "Cannot open specified plugins directory "<<pluginsPath;
+            return false;
         }
 
         LOG( logDEBUG )<<"Plugin directory :"<<pluginsDir.absolutePath().toStdString();
@@ -413,6 +414,21 @@ namespace Ra
 #endif
             if ( ext == sysDllExt )
             {
+                std::string basename = Core::StringUtils::getBaseName(filename.toStdString(),false);
+
+                auto stringCmp = [basename](const QString& str) { return str.toStdString() == basename;};
+
+                if (!loadList.empty() && std::find_if(loadList.begin(), loadList.end(),stringCmp ) == loadList.end() )
+                {
+                    LOG(logDEBUG)<<"Ignoring "<<filename.toStdString()<<" (not on load list)";
+                    continue;
+                }
+                if ( std::find_if (ignoreList.begin(), ignoreList.end(), stringCmp) != ignoreList.end())
+                {
+                    LOG(logDEBUG)<<"Ignoring "<<filename.toStdString()<<" (on ignore list)";
+                    continue;
+                }
+
                 QPluginLoader pluginLoader( pluginsDir.absoluteFilePath( filename ) );
                 // Force symbol resolution at load time.
                 pluginLoader.setLoadHints( QLibrary::ResolveAllSymbolsHint );
