@@ -29,8 +29,6 @@ namespace Ra
             }
 
             // Triangle funcs
-
-
             enum FlagsInternal
             {
                 HIT_FACE = PointToTriangleOutput::HIT_FACE,
@@ -59,8 +57,8 @@ namespace Ra
                  *     |        |
                  *  1  |   4    |
                  *
-                 * It first checks if the nearest point is a vertex ( zones 1,2,3), then if
-                 * it belongs to an edge ( zone, 4,5,6). If not the nearest point lies on the
+                 * It first checks if the nearest point is a vertex (zones 1,2,3), then if
+                 * it belongs to an edge (zone, 4,5,6). If not the nearest point lies on the
                  * triangle.
                  * Reference : Fast Distance Queries for Triangles, Lines and Points using SSE instructions
                  * Evan Shellshear, Robin Ytterlid.
