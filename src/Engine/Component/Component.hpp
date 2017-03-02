@@ -72,7 +72,7 @@ namespace Ra
             virtual void removeRenderObject( Core::Index roIdx ) final;
 
             /// Perform a ray cast query.
-            virtual void rayCastQuery(const Core::Ray& ray) const  {}
+            virtual void rayCastQuery(const Core::Ray& ray) const;
 
             // Editable transform interface.
             // This allow to edit the data in the component with a render object
