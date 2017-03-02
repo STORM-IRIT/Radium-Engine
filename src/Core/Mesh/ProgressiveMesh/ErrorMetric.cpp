@@ -23,6 +23,34 @@ namespace Ra
             m_param.scale = scale;
         }
 
+        bool QuadricErrorMetric::isPlanarEdge(Index halfEdgeIndex, Dcel* dcel)
+        {
+            bool planar = true;
+
+            EFIterator efIt = EFIterator(dcel->m_halfedge[halfEdgeIndex]);
+            FaceList adjFaces = efIt.list();
+
+            Vector3 p0 = adjFaces[0]->HE()->V()->P();
+            Vector3 q0 = adjFaces[0]->HE()->Next()->V()->P();
+            Vector3 r0 = adjFaces[0]->HE()->Next()->Next()->V()->P();
+            Vector3 n0 = Geometry::triangleNormal(p0,q0,r0);
+            Scalar norm0 = n0.norm();
+            Vector3 p, q, r, ni;
+            Scalar normi;
+
+            for (uint i = 1; i < adjFaces.size() && planar; i++)
+            {
+                p = adjFaces[i]->HE()->V()->P();
+                q = adjFaces[i]->HE()->Next()->V()->P();
+                r = adjFaces[i]->HE()->Next()->Next()->V()->P();
+                ni = Geometry::triangleNormal(p,q,r);
+                normi = ni.norm();
+                planar = (std::abs(n0.dot(ni)) == norm0 * normi);
+            }
+
+            return planar;
+        }
+
         Scalar QuadricErrorMetric::computeGeometricError(const Primitive& q, const Primitive::Vector& p)
         {
             // Computing geometric error
@@ -35,34 +63,70 @@ namespace Ra
             return (error_a + error_b + error_c);
         }
 
-        Scalar QuadricErrorMetric::computeError(const Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult)
+        //Scalar QuadricErrorMetric::computeError(const Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult)
+        Scalar QuadricErrorMetric::computeError(const Primitive& q, Index halfEdgeIndex, Vector3& pResult, Dcel* dcel)
         {
+            Vector3 vs = dcel->m_halfedge[halfEdgeIndex]->V()->P();
+            Vector3 vt = dcel->m_halfedge[halfEdgeIndex]->Next()->V()->P();
+
             Scalar error;
 
             // on cherche v_result
             // A v_result = -b		avec A = nn^T
             //							 b = dn
-//            Primitive::Matrix AInverse = q.getA().inverse();
+            Primitive::Matrix AInverse = q.getA().inverse();
             Primitive::Vector result;
 
-//            Scalar det = q.getA().determinant();
-//            if (det > 0.0001)
-//            {
-//                result = -AInverse * q.getB();
-//                error = std::abs(computeGeometricError(q, result));
-//            }
-//            else //matrix non inversible
-//            {
+            Scalar det = q.getA().determinant();
+            if (det > 0.0001)
+            {
+                result = -AInverse * q.getB();
+                error = std::abs(computeGeometricError(q, result));
+            }
+            else //matrix non inversible
+            {
                 Primitive::Vector p1  = vs;
                 Primitive::Vector p2  = vt;
                 Primitive::Vector p12 = (p1 + p2) / 2.0;
+                Scalar p12_error = std::abs(computeGeometricError(q, p12));
+                bool planar = isPlanarEdge(halfEdgeIndex, dcel);
+                if (planar)
+                {
+                    result = p12;
+                    error = p12_error;
+                }
+                else
+                {
+                    Scalar p1_error     = std::abs(computeGeometricError(q, p1));
+                    Scalar p2_error     = std::abs(computeGeometricError(q, p2));
+                    error = p1_error;
+                    if (p2_error < error && p12_error > p2_error)
+                    {
+                        result = p2;
+                        error = p2_error;
+                    }
+                    else if (p12_error < error && p2_error > p12_error)
+                    {
+                        result = p12;
+                        error = p12_error;
+                    }
+                    else
+                    {
+                        result = p1;
+                    }
+                }
+
+
+//                Primitive::Vector p1  = vs;
+//                Primitive::Vector p2  = vt;
+//                Primitive::Vector p12 = (p1 + p2) / 2.0;
 
 //                Scalar p1_error     = std::abs(computeGeometricError(q, p1));
 //                Scalar p2_error     = std::abs(computeGeometricError(q, p2));
-                Scalar p12_error    = std::abs(computeGeometricError(q, p12));
+//                Scalar p12_error    = std::abs(computeGeometricError(q, p12));
 
 //                error = p1_error;
-                Primitive::Vector p = p1;
+//                Primitive::Vector p = p1;
 //                if (p2_error < error && p12_error > p2_error)
 //                {
 //                    p = p2;
@@ -71,18 +135,74 @@ namespace Ra
 //                }
 //                else if (p12_error < error && p2_error > p12_error)
 //                {
-                    p = p12;
-                    result = p;
-                    error = p12_error;
+//                    p = p12;
+//                    result = p;
+//                    error = p12_error;
 //                }
 //                else
 //                {
 //                    result = p;
 //                }
-//            }
+            }
             pResult = Vector3(result.x(), result.y(), result.z());
             return error;
         }
+
+//        Scalar QuadricErrorMetric::computeError(const Primitive& q, Index halfEdgeIndex, Vector3& pResult, Dcel* dcel)
+//        {
+//            Vector3 vs = dcel->m_halfedge[halfEdgeIndex]->V()->P();
+//            Vector3 vt = dcel->m_halfedge[halfEdgeIndex]->Next()->V()->P();
+
+//            Scalar error;
+//            Primitive::Vector result;
+
+//            Primitive::Vector p1  = vs;
+//            Primitive::Vector p2  = vt;
+//            Primitive::Vector p12 = (p1 + p2) / 2.0;
+//            Scalar p12_error = std::abs(computeGeometricError(q, p12));
+//            bool planar = isPlanarEdge(halfEdgeIndex, dcel);
+//            if (planar)
+//            {
+//                result = p12;
+//                error = p12_error;
+//            }
+
+//            else
+//            {
+//                // on cherche v_result
+//                // A v_result = -b		avec A = nn^T
+//                //							 b = dn
+//                Primitive::Matrix AInverse = q.getA().inverse();
+
+
+//                Scalar det = q.getA().determinant();
+//                if (det > 0.0001)
+//                {
+//                    result = -AInverse * q.getB();
+//                    error = std::abs(computeGeometricError(q, result));
+//                }
+//                else //matrix non inversible
+//                {
+
+//                    Scalar p1_error     = std::abs(computeGeometricError(q, p1));
+//                    Scalar p2_error     = std::abs(computeGeometricError(q, p2));
+//                    error = p1_error;
+//                    if (p2_error < error && p12_error > p2_error)
+//                    {
+//                        result = p2;
+//                        error = p2_error;
+//                    }
+
+//                    else
+//                    {
+//                        result = p1;
+//                    }
+//                }
+//            }
+
+//            pResult = Vector3(result.x(), result.y(), result.z());
+//            return error;
+//        }
 
         void QuadricErrorMetric::generateFacePrimitive(Primitive &q, const Face_ptr f, Dcel &dcel)
         {

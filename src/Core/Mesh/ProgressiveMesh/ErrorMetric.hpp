@@ -23,10 +23,14 @@ namespace Ra
             QuadricErrorMetric();
             QuadricErrorMetric(Scalar scale);
 
-            Scalar computeError(const Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult);
+            bool isPlanarEdge(Index halfEdgeIndex, Dcel* dcel);
+
+            //Scalar computeError(const Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult);
+            Scalar computeError(const Primitive& q, Index halfedgeIndex, Vector3& pResult, Dcel* dcel);
             Scalar computeGeometricError(const Primitive& q, const Primitive::Vector& p);
 
             void generateFacePrimitive(Primitive &q, const Face_ptr f, Dcel &dcel);
+
 
         private:
             Param m_param;

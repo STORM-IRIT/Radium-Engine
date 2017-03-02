@@ -213,19 +213,21 @@ namespace Ra
         Scalar ProgressiveMesh<ErrorMetric>::computeEdgeError(Index halfEdgeIndex, Vector3 &pResult)
         {
             Primitive q = computeEdgeQuadric(halfEdgeIndex);
-            Vector3 vs = m_dcel->m_halfedge[halfEdgeIndex]->V()->P();
-            Vector3 vt = m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->P();
-            return m_em.computeError(q, vs, vt, pResult);
+//            Vector3 vs = m_dcel->m_halfedge[halfEdgeIndex]->V()->P();
+//            Vector3 vt = m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->P();
+//            return m_em.computeError(q, vs, vt, pResult);
+            return m_em.computeError(q, halfEdgeIndex, pResult, m_dcel);
         }
 
         template <class ErrorMetric>
         Scalar ProgressiveMesh<ErrorMetric>::computeEdgeErrorContact(Index halfEdgeIndex, Vector3 &pResult, Primitive q)
         {
 
-            Vector3 vs = m_dcel->m_halfedge[halfEdgeIndex]->V()->P();
-            Vector3 vt = m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->P();
-            return m_em.computeError(q, vs, vt, pResult);
-        }
+//            Vector3 vs = m_dcel->m_halfedge[halfEdgeIndex]->V()->P();
+//            Vector3 vt = m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->P();
+//            return m_em.computeError(q, vs, vt, pResult);
+            return m_em.computeError(q, halfEdgeIndex, pResult, m_dcel);
+        }     
 
         //--------------------------------------------------
 
@@ -445,8 +447,81 @@ namespace Ra
 
         //--------------------------------------------------
 
+        //Quadric-Based Polygonal Surface Simplification, PhD thesis by Michael Garland (1999), p.56-57 : Consistency Checks
+        template <class ErrorMetric>
+        bool ProgressiveMesh<ErrorMetric>::isEcolConsistent(Index halfEdgeIndex, Vector3 pResult)
+        {
+            HalfEdge_ptr he = m_dcel->m_halfedge[halfEdgeIndex];
+            Face_ptr f1 = he->F();
+            Face_ptr f2 = he->Twin()->F();
+            Vertex_ptr v1 = he->V();
+            Vertex_ptr v2 = he->Next()->V();
 
+            VFIterator v1fIt = VFIterator(v1);
+            VFIterator v2fIt = VFIterator(v2);
+            FaceList adjFacesV1 = v1fIt.list();
+            FaceList adjFacesV2 = v2fIt.list();
 
+            bool consistent = true;
+
+            for (uint i = 0; i < adjFacesV1.size() && consistent; i++)
+            {
+               Face_ptr f = adjFacesV1[i];
+               if ((f != f1) && (f != f2))
+               {
+                HalfEdge_ptr h = f->HE();
+                Vertex_ptr v = he->V();
+                while (v != v1)
+                {
+                    h = h->Next();
+                    v = h->V();
+                }
+                h = h->Next();
+                Vertex_ptr vs = h->V();
+                Vertex_ptr vt = h->Next()->V();
+
+                Vector3 vsvt = vs->P() - vt->P();
+                Vector3 nf = Geometry::triangleNormal(v1->P(), vs->P(), vt->P());
+                Vector3 n = vsvt.cross(nf);
+
+                consistent = ((n.dot(v1->P()) >= 0) == (n.dot(pResult) >= 0));
+                if (! consistent)
+                {
+                    LOG(logINFO) << "Edge " << v1->idx << " " << v2->idx << " is not collapsable due to inconsistency";
+                }
+               }
+            }
+
+            for (uint i = 0; i < adjFacesV2.size() && consistent; i++)
+            {
+               Face_ptr f = adjFacesV2[i];
+               if ((f != f1) && (f != f2))
+               {
+                HalfEdge_ptr h = f->HE();
+                Vertex_ptr v = he->V();
+                while (v != v2)
+                {
+                    h = h->Next();
+                    v = h->V();
+                }
+                h = h->Next();
+                Vertex_ptr vs = h->V();
+                Vertex_ptr vt = h->Next()->V();
+
+                Vector3 vsvt = vs->P() - vt->P();
+                Vector3 nf = Geometry::triangleNormal(v2->P(), vs->P(), vt->P());
+                Vector3 n = vsvt.cross(nf);
+
+                consistent = ((n.dot(v2->P()) >= 0) == (n.dot(pResult) >= 0));
+                if (! consistent)
+                {
+                    LOG(logINFO) << "Edge " << v1->idx << " " << v2->idx << " is not collapsable due to inconsistency";
+                }
+               }
+            }
+
+           return consistent;
+        }
 
 
         template <class ErrorMetric>

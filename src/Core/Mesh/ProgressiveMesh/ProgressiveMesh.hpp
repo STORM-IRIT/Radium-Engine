@@ -50,6 +50,7 @@ namespace Ra
 
             virtual int vertexContact(Index vertexIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idxOtherObject) = 0;
 
+            virtual bool isEcolConsistent(Index halfEdgeIndex, Vector3 pResult) = 0;
             virtual bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult/*, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx*/) = 0;
 
             virtual Scalar computeEdgeErrorContact(Index halfEdgeIndex, Vector3 &pResult, Primitive qc) = 0;
@@ -116,6 +117,7 @@ namespace Ra
             int vertexContact(Index vertexIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idxOtherObject);
             bool hasContact(Index halfEdgeIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx);
 
+            bool isEcolConsistent(Index halfEdgeIndex, Vector3 pResult);
             bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult/*, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx*/);
 
             Scalar computeBoundingBoxSize();
