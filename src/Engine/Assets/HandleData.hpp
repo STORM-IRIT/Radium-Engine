@@ -14,7 +14,10 @@ namespace Ra {
 namespace Asset {
 
 struct HandleComponentData {
+    RA_CORE_ALIGNED_NEW;
+
     HandleComponentData();
+
 
     Core::Transform                          m_frame;
     std::string                              m_name;
