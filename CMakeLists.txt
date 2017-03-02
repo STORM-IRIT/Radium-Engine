@@ -18,6 +18,17 @@ if ( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Debug )
 endif()
 
+
+# get changeset id
+find_package(Git)
+if(GIT_FOUND)
+  execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    OUTPUT_VARIABLE GIT_CHANGESET)
+else()
+  set(GIT_CHANGESET "")
+endif()
+
 # guard against in-source builds (source: Eigen)
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   message(FATAL_ERROR "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there. You may need to remove CMakeCache.txt. ")
@@ -144,14 +155,6 @@ add_subdirectory(Plugins)
 
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
-  # get changeset id
-  find_package(Git)
-  if(GIT_FOUND)
-    execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
-      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-      OUTPUT_VARIABLE GIT_CHANGESET)
-  endif()
-
   set (RADIUM_PROJECT_NUMBER ${GIT_CHANGESET})
 
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
