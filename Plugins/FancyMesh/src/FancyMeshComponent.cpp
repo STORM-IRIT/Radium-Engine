@@ -60,7 +60,7 @@ namespace FancyMeshPlugin
 
         std::string roName = name;
         roName.append( "_RO" );
-        
+
 #if 1
         std::string meshName = name;
         meshName.append( "_Mesh" );
@@ -217,18 +217,6 @@ namespace FancyMeshPlugin
     const Ra::Core::Index* FancyMeshComponent::roIndexRead() const
     {
         return &m_meshIndex;
-    }
-
-    void FancyMeshComponent::rayCastQuery( const Ra::Core::Ray& r) const
-    {
-        auto result  = Ra::Core::MeshUtils::castRay( getMesh(), r );
-        int tidx = result.m_hitTriangle;
-        if (tidx >= 0)
-        {
-            LOG(logINFO) << " Hit triangle " << tidx;
-            LOG(logINFO) << " Nearest vertex " << result.m_nearestVertex;
-            LOG(logINFO) << "Hit position : "<< r.pointAt( result.m_t ).transpose();
-        }
     }
 
 } // namespace FancyMeshPlugin

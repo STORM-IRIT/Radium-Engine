@@ -32,7 +32,6 @@ namespace FancyMeshPlugin
 
 
         virtual void initialize() override;
-        virtual void rayCastQuery(const Ra::Core::Ray& r) const override;
 
         void addMeshRenderObject(const Ra::Core::TriangleMesh& mesh, const std::string& name);
         void handleMeshLoading(const Ra::Asset::GeometryData* data);
