@@ -7,7 +7,7 @@
 #include <set>
 
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Containers/AlignedStdVector.hpp>
+#include <Core/Containers/AlignedAllocator.hpp>
 #include <Core/Log/Log.hpp>
 
 namespace Ra
@@ -60,7 +60,7 @@ namespace Ra
                 int m_texUnit;
             };
 
-            template <typename T> class UniformBindableVector : public std::map<std::string, T, std::less<std::string>, Core::AlignedAllocator<T,16> >
+            template <typename T> class UniformBindableVector : public std::map<std::string, T, std::less<std::string>, Core::AlignedAllocator<T, RA_DEFAULT_ALIGN> >
             {
             public:
                 void bind(const ShaderProgram* shader ) const;

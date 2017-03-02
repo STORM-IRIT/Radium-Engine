@@ -226,6 +226,8 @@ namespace Ra
         // when declaring objects containing Vector or Matrices.
         // http://eigen.tuxfamily.org/dox-devel/group__TopicStructHavingEigenMembers.html
 #define  RA_CORE_ALIGNED_NEW EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+        /// Use this parameter for aligning structures with Eigen members in it
+#define  RA_DEFAULT_ALIGN EIGEN_MAX_ALIGN_BYTES
 
     }
 } // end namespace Ra::Core
