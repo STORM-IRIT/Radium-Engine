@@ -35,8 +35,6 @@ file(GLOB_RECURSE core_sources Core/*.cpp)
 file(GLOB_RECURSE core_headers Core/*.h Core/*.hpp)
 file(GLOB_RECURSE core_inlines Core/*.inl)
 
-set(core_libs ${OPENGL_LIBRARIES})
-
 add_library(
     ${core_target} SHARED
     ${core_sources}
@@ -48,7 +46,6 @@ target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
 
 target_link_libraries(
     ${core_target}
-    ${core_libs}
 )
 
 # Build Engine
