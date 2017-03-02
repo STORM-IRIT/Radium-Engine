@@ -136,3 +136,39 @@ add_subdirectory(Applications)
 
 # FIXME(Charly) Not sure this is really the greatest idea ever
 add_subdirectory(Plugins)
+
+
+################################################################################
+# add a target to generate API documentation with Doxygen                      #
+################################################################################
+
+find_package(Doxygen)
+if(DOXYGEN_FOUND)
+  # get changeset id
+  find_package(Git)
+  if(GIT_FOUND)
+    execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
+      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+      OUTPUT_VARIABLE GIT_CHANGESET)
+  endif()
+
+  set (RADIUM_PROJECT_NUMBER ${GIT_CHANGESET})
+
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+
+  add_custom_target(doc
+     ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/Docs
+     COMMAND ${CMAKE_COMMAND} -E copy_directory
+       ${CMAKE_CURRENT_SOURCE_DIR}/Docs/images/
+       ${CMAKE_CURRENT_BINARY_DIR}/Docs/html/images
+     COMMAND ${CMAKE_COMMAND} -E copy
+       ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG
+       ${CMAKE_CURRENT_BINARY_DIR}/Docs/
+     COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+     DEPENDS
+       ${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile.in
+       ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG
+     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+     COMMENT "Generating API documentation with Doxygen" VERBATIM
+  )
+endif(DOXYGEN_FOUND)
