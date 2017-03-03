@@ -1,15 +1,16 @@
 # Radium Engine programmer manual
 
 ## Source code organization
-* `src` contains the main source code
+* `src` contains the main source code of the engine libs
  * `Core` : the Core module (static library) contains the foundation
  classes such as math classes, containers, adapters to the standard
  library, etc. 
  * `Engine` the Engine module (static library) contains all graphics
  related code and engine subsystems running.
- * `Main Application` has the Qt-based GUI and the program entry point.
- * `Plugins` contains the plugins which add Systems and Components to the engine.
+ * `GuiBase` has the Qt-based GUI classes.
+* `Plugins` contains the plugins which add Systems and Components to the engine.
 * `Shaders` contains the OpenGL Shaders used by the renderer.
+* `Applications` contains applications build with the engine. Currently it contains a minimal example application and the full-fledge `main-app`
 * `3rdPartyLibs` contains any library dependency. CMake will automatically
 look in this folder to find the libraries if they are not installed on your system.
 
@@ -71,19 +72,24 @@ during every frame. Tasks can have dependencies between them (e.g. the physics u
 
 Each Component may have some *RenderObjects* (aka Drawables) which are (usually) OpenGL objects. When a Component has 
 changed it needs to tell its drawables to update their internal data (such as OpenGL VBOs).
+Render objects are stored together by the *render object manager* for efficiency, thus components only store an index to reference their render objects.
 
 The Render Objects are drawn by the *Renderer* which may live in a separated thread. Each frame it grabs all 
 the drawables (which should be double-buffered in case we are mid-VBO update) and calls `draw()` on them.
 
 (TODO : a nice class schema).
 
-### Object manipulation through Editables.
+### ItemEntry : Handles to engine objects
 
-Components and Entity implement the `EditableInterface` which allow them to be manipulated through the UI. Editable objects offer a list of *Properties* on demand. Each property must be unique (have a unique name) within the object instance.
+The structure `ItemEntry` acts as a general identifier for all three levels of engine objects (entities, components and render objects) by storing a handle to the three objects (a pointer or an index for render objects). An entry representing an entity will have its entity handle set and the other two invalid; an entry representing a component will have the component handle set and the entity handle set to the entity owning the component. Similarly a render object entry will have all three handles sets .
+Any other combination is invalid.
 
-A Property itself is a structure packing primitive objects of different types (scalars, vectors, quaternions, etc.) impemented through a variant-like structure (` EditablePrimitive`). Each primitive can be marked as read-only within the property, and any editor should prevent changing this primitive within the property (this can be enforced by your editable but it's not done automatically).
+Item entries are mainly used to harmonize the interface to manipulate objects in the GUI.
 
-The archetypal example of a property is a Transform, with its primitives being for example a position, rotation and scale. By default, all entities have only one editable property which is their transform, while Components have no editable properties.
+### Object manipulation and editable transforms
+
+Components have an interface through which transforms can be edited with three functions.
+
 
 ### The system Entity and Debug Display.
 
