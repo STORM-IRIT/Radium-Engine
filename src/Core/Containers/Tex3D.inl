@@ -32,7 +32,10 @@ namespace Ra
         inline T Tex3D<T>::fetch( const Vector3& v ) const
         {
             Vector3 scaled_coords( (v -  m_aabb.min() ).cwiseQuotient( m_cellSize ) );
-            Vector3 tmp = Vector::floor( scaled_coords );
+            // Sometimes due to float imprecision, a value of 0 is passed as -1e7
+            // which floors incorrectly rounds down to -1, hence the use of trunc().
+            Vector3 tmp = Vector::trunc( scaled_coords );
+            CORE_ASSERT( !((tmp.array() < Vector3::Zero().array()).any()), "Cannot cast to uint");
             Vector3ui nearest = tmp.cast<uint>();
 
             Vector3 fact = scaled_coords - Vector3( nearest[0], nearest[1], nearest[2] ) ;

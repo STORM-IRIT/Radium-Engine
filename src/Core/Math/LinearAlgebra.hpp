@@ -130,6 +130,7 @@ namespace Ra
         //
         namespace Vector
         {
+
             /// Component-wise floor() function on a floating-point vector.
             template<typename Vector>
             inline Vector floor( const Vector& v );
@@ -137,6 +138,10 @@ namespace Ra
             /// Component-wise ceil() function on a floating-point vector.
             template<typename Vector>
             inline Vector ceil( const Vector& v );
+
+            /// Component-wise trunc() function on a floating-point vector
+            template<typename Vector>
+            inline Vector trunc( const Vector& v );
 
             /// Component-wise clamp() function on a floating-point vector.
             template<typename Vector>

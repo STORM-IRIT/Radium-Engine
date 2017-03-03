@@ -32,6 +32,13 @@ namespace Core
     }
 
     template<typename Vector_>
+    inline Vector_ Vector::trunc( const Vector_& v )
+    {
+        typedef typename Vector_::Scalar Scalar_;
+        return v.unaryExpr( std::function<Scalar_( Scalar_ )> ( static_cast<Scalar_( & )( Scalar_ )> ( std::trunc) ) );
+    }
+
+    template<typename Vector_>
     inline Vector_ Vector::clamp( const Vector_& v, const Vector_& min, const Vector_& max )
     {
         return v.cwiseMin( max ).cwiseMax( min );
@@ -182,15 +189,15 @@ namespace Core
 
         inline Matrix4 perspective(Scalar fovy, Scalar aspect, Scalar znear, Scalar zfar)
         {
-            Scalar theta = fovy * 0.5;
+            Scalar theta = fovy * 0.5f;
             Scalar range = zfar - znear;
-            Scalar invtan = 1.0 / std::tan(theta);
+            Scalar invtan = 1.f / std::tan(theta);
 
             Matrix4 result = Matrix4::Zero();
             result(0, 0) = invtan / aspect;
             result(1, 1) = invtan;
             result(2, 2) = -(znear + zfar) / range;
-            result(3, 2) = -1.0;
+            result(3, 2) = -1.f;
             result(2, 3) = -2 * znear * zfar / range;
             result(3, 3) = 0.0;
 
@@ -201,10 +208,10 @@ namespace Core
         {
             Matrix4 result = Matrix4::Zero();
 
-            result(0, 0) =  2.0 / (r - l);
-            result(1, 1) =  2.0 / (t - b);
-            result(2, 2) = -2.0 / (f - n);
-            result(3, 3) =  1.0;
+            result(0, 0) =  2.f / (r - l);
+            result(1, 1) =  2.f / (t - b);
+            result(2, 2) = -2.f / (f - n);
+            result(3, 3) =  1.f;
 
             result(0, 3) = -(r + l) / (r - l);
             result(1, 3) = -(t + b) / (t - b);
