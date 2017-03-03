@@ -49,12 +49,15 @@ namespace Ra
         /// It should have only one component and its transform should not change.
         class RA_ENGINE_API SystemEntity : public Entity
         {
-            RA_SINGLETON_INTERFACE(SystemEntity);
+        RA_SINGLETON_INTERFACE(SystemEntity);
 
         public:
             SystemEntity();
 
-            virtual ~SystemEntity() { };
+            virtual ~SystemEntity() {};
+
+            /// Ignore raycast queries
+            virtual void rayCastQuery(const Core::Ray& r) const override{}
 
 #ifndef RA_DISABLE_DEBUG_DISPLAY
             /// Access the debug component
