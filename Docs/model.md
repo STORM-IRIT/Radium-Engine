@@ -10,7 +10,7 @@
  * `GuiBase` has the Qt-based GUI classes.
 * `Plugins` contains the plugins which add Systems and Components to the engine.
 * `Shaders` contains the OpenGL Shaders used by the renderer.
-* `Applications` contains applications build with the engine. Currently it contains a minimal example application and the full-fledge `main-app`
+* `Applications` contains applications build with the engine. Currently it contains a minimal example application and the full-fledged `main-app`
 * `3rdPartyLibs` contains any library dependency. CMake will automatically
 look in this folder to find the libraries if they are not installed on your system.
 
@@ -65,8 +65,33 @@ For example, an Entity may have a Physics Component (which represent its collisi
 and the engine's corresponding Physics System will update its position according to the physics
 engine's result.
 
-At each frame, each System is given the opportunity to add *Tasks* to a task queue. Tasks are processed in parallel
-during every frame. Tasks can have dependencies between them (e.g. the physics update can wait for the animation update to complete).
+### Frame and Tasks
+
+At each frame, the main loop first starts the renderer, then each System is given the opportunity 
+to add *Tasks* to the task queue. Tasks are processed in parallel during every frame. They can have 
+dependencies between them (e.g. the physics update can wait for the animation update to complete).
+
+A Task imust implement the interface `Core::Task` which defines a `process()` function which will be called
+when the task is executed. However for most cases, it is usually convenient to use a `FunctionTask` which takes
+an instance of `std::function` (which will be called by the `process()` method). Calling an object's member function
+in a task is thus easily achieved by using `std::bind()` to create the function object.
+
+When a task is added, the task queue assumes ownership of the task and returns a `TaskID`
+which identifies the task.
+
+Dependencies between tasks can be specified either as *immediate* dependencies or *pending* dependencies.
+Immediate dependencies are dependencies between tasks which are already present in the task queue. 
+Adding a dependency with `TaskkQueue::addDependency()` takes two arguments, the predecessor and the successor task,
+and the task queue will ensure that the successor task must be executed after all its predecesors have finished.
+In `addDependency()`, tasks can be identified with either a `TaskID` or a name; at least one of
+the arguments must be a `TaskID`.
+If a name is given, *all* tasks matching with the name will be added as dependencies.
+
+Since the order in which the systems are called is unspecified, a system may want 
+to add a dependency to a task that is not yet present. Pending dependencies solve 
+this problem by specifying a dependency between a `TaskID`and a name (which may not be present 
+in the task queue).
+Pending dependencies are resolved just before the task queue starts executing all tasks.
 
 ### Rendering
 
@@ -88,8 +113,13 @@ Item entries are mainly used to harmonize the interface to manipulate objects in
 
 ### Object manipulation and editable transforms
 
-Components have an interface through which transforms can be edited with three functions.
+Components have an interface through which transforms can be edited with three functions :
+* `canEdit()` 
+* `getTransform()`
+* `setTransform()`
 
+Each of these functions takes a render object index as argument, as sometimes a component exposes multiple objects whose
+transform can be edited. Function `canEdit()` tells whether a given idnex can be used as a handle for the other two functions.
 
 ### The system Entity and Debug Display.
 
@@ -115,12 +145,10 @@ For this automated build to work the plugins are required to follow these requir
  * The system must inherit from `Engine::System` and have a default empty constructor.
 
 
-### Tasks and dependencies
-
-Tasks are created by Systems at the beginning of a frame and run concurrently.
-Each frame starts by querying all existing systems and collects all the tasks.
-During the frame tasks are attributed to threads by the task queue.
-
 ### Default plugins
 
 See the structure of the default plugins (e.g. `FancyMesh`) for an example of a working plugin.
+So far three default plugin exist:
+* *Fancy Mesh* is simply a display component (it does not have tasks) which can display a mesh with textures.
+* *Animation* handles an animation skeleton and can play keyframed animations.
+* *Skinning* uses a geometric skinning method (like linear blend skinning or dual quaternion) on a fancy mesh.
