@@ -60,20 +60,27 @@ namespace Ra
         {
             for (const auto& idx : m_renderObjects)
             {
-
                 const auto ro = getRoMgr()->getRenderObject(idx);
-                const Ra::Core::Transform& t = ro->getLocalTransform();
-                Core::Ray transformedRay = Ra::Core::transformRay(ray, t.inverse());
-                auto result  = Ra::Core::MeshUtils::castRay( ro->getMesh()->getGeometry(), ray );
-                const int& tidx = result.m_hitTriangle;
-                if (tidx >= 0)
+                if (ro->isVisible())
                 {
-                    LOG(logINFO) << " Ray cast vs "<<ro->getName();
-                    LOG(logINFO) << " Hit triangle " << tidx;
-                    LOG(logINFO) << " Nearest vertex " << result.m_nearestVertex;
-                    LOG(logINFO) << "Hit position (RO): "<< ray.pointAt( result.m_t ).transpose();
-                    LOG(logINFO) << "Hit position (Comp): "<< (t * ray.pointAt( result.m_t )).transpose();
-                    LOG(logINFO) << "Hit position (World): "<< (getEntity()->getTransform() * t * ray.pointAt( result.m_t )).transpose();
+                    const Ra::Core::Transform& t = ro->getLocalTransform();
+                    Core::Ray transformedRay = Ra::Core::transformRay(ray, t.inverse());
+                    auto result = Ra::Core::MeshUtils::castRay(ro->getMesh()->getGeometry(), transformedRay);
+                    const int& tidx = result.m_hitTriangle;
+                    if (tidx >= 0)
+                    {
+
+                        const Ra::Core::Vector3 pLocal = transformedRay.pointAt(result.m_t);
+                        const Ra::Core::Vector3 pEntity = t * pLocal;
+                        const Ra::Core::Vector3 pWorld = getEntity()->getTransform() * pEntity;
+
+                        LOG(logINFO) << " Ray cast vs " << ro->getName();
+                        LOG(logINFO) << " Hit triangle " << tidx;
+                        LOG(logINFO) << " Nearest vertex " << result.m_nearestVertex;
+                        LOG(logINFO) << "Hit position (RO): " << pLocal.transpose();
+                        LOG(logINFO) << "Hit position (Comp): " << pEntity.transpose();
+                        LOG(logINFO) << "Hit position (World): " << pWorld.transpose();
+                    }
                 }
             }
 
