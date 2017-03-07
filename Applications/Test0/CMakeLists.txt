@@ -38,6 +38,7 @@ file( GLOB file_headers          )
 # Generate an executable
 add_executable( ${app_target} ${file_sources} ${file_headers} )
 
+add_dependencies( ${app_target}  radium_assets)
 
 
 # Link good libraries

@@ -60,7 +60,7 @@ namespace Ra
         QCoreApplication::setApplicationName(applicationName);
 
         m_targetFPS = 60; // Default
-        std::string pluginsPath = "../Plugins/bin";
+        std::string pluginsPath = "../Plugins";
 
         QCommandLineParser parser;
         parser.setApplicationDescription("Radium Engine RPZ, TMTC");
@@ -69,7 +69,7 @@ namespace Ra
 
         QCommandLineOption fpsOpt(QStringList{"r", "framerate", "fps"}, "Control the application framerate, 0 to disable it (and run as fast as possible).", "number", "60");
         QCommandLineOption numFramesOpt(QStringList{"n", "numframes"}, "Run for a fixed number of frames.", "number", "0");
-        QCommandLineOption pluginOpt(QStringList{"p", "plugins", "pluginsPath"}, "Set the path to the plugin dlls.", "folder", "../Plugins/bin");
+        QCommandLineOption pluginOpt(QStringList{"p", "plugins", "pluginsPath"}, "Set the path to the plugin dlls.", "folder", "Plugins");
         QCommandLineOption pluginLoadOpt(QStringList{"l", "load", "loadPlugin"}, "Only load plugin with the given name (filename without the extension). If this option is not used, all plugins in the plugins folder will be loaded. ", "name");
         QCommandLineOption pluginIgnoreOpt(QStringList{"i", "ignore", "ignorePlugin"}, "Ignore plugins with the given name. If the name appears within both load and ignore options, it will be ignored.", "name");
         QCommandLineOption fileOpt(QStringList{"f", "file", "scene"}, "Open a scene file at startup.", "file name", "foo.bar");
@@ -242,29 +242,29 @@ namespace Ra
         using namespace Ra::Engine;
 
         ShaderConfiguration bpConfig("BlinnPhong");
-        bpConfig.addShader(ShaderType_VERTEX, "../Shaders/BlinnPhong.vert.glsl");
-        bpConfig.addShader(ShaderType_FRAGMENT, "../Shaders/BlinnPhong.frag.glsl");
+        bpConfig.addShader(ShaderType_VERTEX, "Shaders/BlinnPhong.vert.glsl");
+        bpConfig.addShader(ShaderType_FRAGMENT, "Shaders/BlinnPhong.frag.glsl");
         ShaderConfigurationFactory::addConfiguration(bpConfig);
 
         ShaderConfiguration pConfig("Plain");
-        pConfig.addShader(ShaderType_VERTEX, "../Shaders/Plain.vert.glsl");
-        pConfig.addShader(ShaderType_FRAGMENT, "../Shaders/Plain.frag.glsl");
+        pConfig.addShader(ShaderType_VERTEX, "Shaders/Plain.vert.glsl");
+        pConfig.addShader(ShaderType_FRAGMENT, "Shaders/Plain.frag.glsl");
         ShaderConfigurationFactory::addConfiguration(pConfig);
 
         ShaderConfiguration lgConfig("LinesGeom");
-        lgConfig.addShader(ShaderType_VERTEX, "../Shaders/Lines.vert.glsl");
-        lgConfig.addShader(ShaderType_FRAGMENT, "../Shaders/Lines.frag.glsl");
-        lgConfig.addShader(ShaderType_GEOMETRY, "../Shaders/Lines.geom.glsl");
+        lgConfig.addShader(ShaderType_VERTEX, "Shaders/Lines.vert.glsl");
+        lgConfig.addShader(ShaderType_FRAGMENT, "Shaders/Lines.frag.glsl");
+        lgConfig.addShader(ShaderType_GEOMETRY, "Shaders/Lines.geom.glsl");
         ShaderConfigurationFactory::addConfiguration(lgConfig);
 
         ShaderConfiguration lConfig("Lines");
-        lConfig.addShader(ShaderType_VERTEX, "../Shaders/Lines.vert.glsl");
-        lConfig.addShader(ShaderType_FRAGMENT, "../Shaders/Lines.frag.glsl");
+        lConfig.addShader(ShaderType_VERTEX, "Shaders/Lines.vert.glsl");
+        lConfig.addShader(ShaderType_FRAGMENT, "Shaders/Lines.frag.glsl");
         ShaderConfigurationFactory::addConfiguration(lConfig);
 
         ShaderConfiguration gdConfig("GradientDisplay");
-        lConfig.addShader(ShaderType_VERTEX, "../Shaders/GradientDisplay.vert.glsl");
-        lConfig.addShader(ShaderType_FRAGMENT, "../Shaders/GradientDisplay.frag.glsl");
+        lConfig.addShader(ShaderType_VERTEX, "Shaders/GradientDisplay.vert.glsl");
+        lConfig.addShader(ShaderType_FRAGMENT, "Shaders/GradientDisplay.frag.glsl");
         ShaderConfigurationFactory::addConfiguration(gdConfig);
     }
 
@@ -381,8 +381,8 @@ namespace Ra
 
     bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QStringList& loadList, const QStringList& ignoreList )
     {
-        LOG( logINFO )<<" *** Loading Plugins ***";
         QDir pluginsDir( qApp->applicationDirPath() );
+        LOG( logINFO )<<" *** Loading Plugins ***";
         bool result = pluginsDir.cd( pluginsPath.c_str() );
 
         if (!result)

@@ -3,6 +3,7 @@
 # RADIUM_ROOT : the root of the radium SDK
 # RADIUM_INCLUDE_DIR : the include directory of radium
 # EIGEN_INCLUDE_DIR : the eigen directory
+# RADIUM_PLUGIN_OUTPUT_PATH : output path for radiums plugin
 
 
 # Radium_FOUND if found
@@ -19,6 +20,7 @@ IF ( RADIUM_ROOT )
     SET ( RADIUM_INCLUDE_DIR "${RADIUM_ROOT}/src")
     SET ( EIGEN_INCLUDE_DIR "${RADIUM_ROOT}/3rdPartyLibraries/Eigen")
     SET ( ASSIMP_INCLUDE_DIR "${RADIUM_ROOT}/3rdPartyLibraries/Assimp/include")
+    SET ( RADIUM_PLUGIN_OUTPUT_PATH "${RADIUM_ROOT}/${CMAKE_BUILD_TYPE}/Plugins")
 
     IF (TARGET radiumCore)
         set (RA_CORE_LIB radiumCore)

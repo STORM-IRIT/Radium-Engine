@@ -44,6 +44,7 @@ include(CompileFlags)
 # FIXME(Charly): Not sure if this should be done on Linux
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_COMPILING_QSTRING_COMPAT_CPP")
 
+# These paths need to be synchronized with FindRadium.cmake
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/bin)
 set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/lib)
@@ -167,3 +168,14 @@ if(DOXYGEN_FOUND)
      COMMENT "Generating API documentation with Doxygen" VERBATIM
   )
 endif(DOXYGEN_FOUND)
+
+################################################################################
+# Assets                                                                       #
+################################################################################
+#
+set(SHADER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
+
+add_custom_target( radium_assets
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
+    COMMENT "Copying shaders and other ressources" VERBATIM
+)
