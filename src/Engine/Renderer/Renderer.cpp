@@ -68,12 +68,12 @@ namespace Ra
         void Renderer::initialize()
         {
             // Initialize managers
-            m_shaderMgr = ShaderProgramManager::createInstance("../Shaders/Default.vert.glsl", "../Shaders/Default.frag.glsl");
+            m_shaderMgr = ShaderProgramManager::createInstance("Shaders/Default.vert.glsl", "Shaders/Default.frag.glsl");
             m_roMgr = RadiumEngine::getInstance()->getRenderObjectManager();
             TextureManager::createInstance();
 
-            m_shaderMgr->addShaderProgram("DrawScreen", "../Shaders/Basic2D.vert.glsl", "../Shaders/DrawScreen.frag.glsl");
-            m_shaderMgr->addShaderProgram("Picking", "../Shaders/Picking.vert.glsl", "../Shaders/Picking.frag.glsl");
+            m_shaderMgr->addShaderProgram("DrawScreen", "Shaders/Basic2D.vert.glsl", "Shaders/DrawScreen.frag.glsl");
+            m_shaderMgr->addShaderProgram("Picking", "Shaders/Picking.vert.glsl", "Shaders/Picking.frag.glsl");
 
             m_depthTexture.reset(new Texture("Depth"));
             m_depthTexture->internalFormat = GL_DEPTH_COMPONENT24;

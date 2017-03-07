@@ -1,15 +1,18 @@
-set( RADIUM_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../src" )
+
+find_package(Radium REQUIRED)
+
+
 set( CMAKE_DEBUG_POSTFIX "")
 if (APPLE)
-    set( RADIUM_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumCore.dylib;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumEngine.dylib;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumGuiBase.dylib" )
+    FILE(GLOB RADIUM_LIBRARIES "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/*.dylib" )
 elseif(UNIX)
-    set( RADIUM_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumCore.so;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumEngine.so;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumGuiBase.so" )
+    FILE(GLOB RADIUM_LIBRARIES "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/*.so" )
 elseif (MINGW)
-    set( RADIUM_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumCore.dll.a;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumEngine.dll.a;${CMAKE_CURRENT_SOURCE_DIR}/../lib/libradiumGuiBase.dll.a")
+    FILE(GLOB RADIUM_LIBRARIES "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/*.dll.a")
 elseif(MSVC)
-    set( RADIUM_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/../lib/radiumCore.lib;${CMAKE_CURRENT_SOURCE_DIR}/../lib/radiumEngine.lib;${CMAKE_CURRENT_SOURCE_DIR}/../lib/radiumGuiBase.lib" )
+    FILE(GLOB RADIUM_LIBRARIES "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/*.lib" )
 endif()
-set( PLUGIN_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../Plugins/bin" )
+set( PLUGIN_OUTPUT_PATH "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Plugins")
 
 #add_subdirectory( Dummy )
 add_subdirectory( FancyMesh )

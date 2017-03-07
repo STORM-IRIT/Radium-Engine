@@ -68,6 +68,8 @@ target_link_libraries(
     ${app_libs}
     )
 
+add_dependencies( ${app_target}  radium_assets)
+
 #install( DIRECTORY . DESTINATION include FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl" PATTERN "*.h" )
 #install( FILES ${engine_shaders} DESTINATION Shaders )
 #install( DIRECTORY ${CMAKE_SOURCE_DIR}/Assets/. DESTINATION Assets )
