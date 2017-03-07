@@ -3,6 +3,7 @@
 #include <Tests/CoreTests/Algebra/AlgebraTests.hpp>
 #include <Tests/CoreTests/Geometry/GeometryTests.hpp>
 #include <Tests/CoreTests/RayCasts/RayCastTest.hpp>
+#include <Tests/CoreTests/String/StringTest.hpp>
 
 int main()
 {
