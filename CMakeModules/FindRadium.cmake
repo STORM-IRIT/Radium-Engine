@@ -25,7 +25,7 @@ IF ( RADIUM_ROOT )
     ELSE()
         FIND_LIBRARY( RA_CORE_LIB
             NAMES radiumCore
-            PATHS ${RADIUM_ROOT}/lib
+            PATHS ${RADIUM_ROOT}/${CMAKE_BUILD_TYPE}/lib
             )
     ENDIF()
 
@@ -34,7 +34,7 @@ IF ( RADIUM_ROOT )
     ELSE()
         FIND_LIBRARY( RA_ENGINE_LIB
             NAMES radiumEngine
-            PATHS ${RADIUM_ROOT}/lib
+            PATHS ${RADIUM_ROOT}/${CMAKE_BUILD_TYPE}/lib
             )
     ENDIF()
 
@@ -43,7 +43,7 @@ IF ( RADIUM_ROOT )
     ELSE()
         FIND_LIBRARY ( RA_GUIBASE_LIB
             NAMES radiumGuiBase
-            PATHS ${RADIUM_ROOT}/lib
+            PATHS ${RADIUM_ROOT}/${CMAKE_BUILD_TYPE}/lib
             )
     ENDIF()
 
