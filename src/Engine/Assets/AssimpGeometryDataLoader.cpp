@@ -268,13 +268,13 @@ namespace Ra {
             const uint size = mesh.mNumVertices;
             std::vector<Core::Vector3> normal(data.getVerticesSize(), Core::Vector3::Zero());
 #pragma omp parallel for
-            for( int i = 0; i < int(size); ++i ) 
+            for( int i = 0; i < int(size); ++i )
             {
                 normal.at( data.m_duplicateTable.at( i ) ) += assimpToCore( mesh.mNormals[i] );
             }
 
 #pragma omp parallel for
-            for( int i = 0; i < int(normal.size()); ++i ) 
+            for( int i = 0; i < int(normal.size()); ++i )
             {
                 normal[i].normalize();
             }
@@ -286,7 +286,7 @@ namespace Ra {
             const uint size = mesh.mNumVertices;
             std::vector<Core::Vector3> tangent(data.getVerticesSize(), Core::Vector3::Zero());
 #pragma omp parallel for
-            for( uint i = 0; i < size; ++i ) 
+            for( uint i = 0; i < size; ++i )
             {
                 tangent[i] = assimpToCore( mesh.mTangents[i]);
             }
@@ -299,7 +299,7 @@ namespace Ra {
             const uint size = mesh.mNumVertices;
             std::vector<Core::Vector3> bitangent(data.getVerticesSize());
 #pragma omp parallel for
-            for( uint i = 0; i < size; ++i ) 
+            for( uint i = 0; i < size; ++i )
             {
                 bitangent[i] = assimpToCore(mesh.mBitangents[i]);
             }
@@ -331,7 +331,7 @@ namespace Ra {
         {
 #if 0
             GeometryData::WeightArray weights(data.getVerticesSize());
-            
+
             for (uint i = 0; i < mesh.mNumBones; ++i)
             {
                 aiBone* bone = mesh.mBones[i];
@@ -349,7 +349,7 @@ namespace Ra {
             data.setWeights(weights);
 #endif
         }
-    
+
         void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material, GeometryData& data ) const {
 
             MaterialData mat;
