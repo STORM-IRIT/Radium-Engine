@@ -53,7 +53,8 @@ namespace Ra {
         }
 
         inline std::string assimpToCore( const aiString& string ) {
-            return std::string( string.C_Str() );
+            std::string result ( string.C_Str() );
+            return result.empty() ? "default" : result;
         }
 
         inline Core::VectorNi assimpToCore( uint* index, const uint size )
