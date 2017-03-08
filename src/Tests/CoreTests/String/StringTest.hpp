@@ -59,17 +59,9 @@ namespace RaTests
             memset(buffer, 0x0, 100);
             std::string str;
 
-
             int v1 = sprintf(buffer, format, 42, this, 3.14);
             int v2 = stringPrintf( str, format, 42, this, 3.14);
             RA_UNIT_TEST( v1 == v2 && str == std::string(buffer), "String printf");
-
-
-
-
-
-
-
         }
     };
     RA_TEST_CLASS(StringTests);
