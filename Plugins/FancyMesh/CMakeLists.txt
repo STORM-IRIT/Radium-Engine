@@ -1,9 +1,6 @@
 project(FancyMeshPlugin)
 
 cmake_minimum_required(VERSION 2.8.11)
-if ( NOT RADIUM_PLUGIN_OUTPUT_PATH )
-  set ( RADIUM_PLUGIN_OUTPUT_PATH "${RADIUM_ROOT}/${CMAKE_BUILD_TYPE}/Plugins")
-endif()
 message( "${PROJECT_NAME} output path : ${RADIUM_PLUGIN_OUTPUT_PATH}" )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${RADIUM_PLUGIN_OUTPUT_PATH} )
