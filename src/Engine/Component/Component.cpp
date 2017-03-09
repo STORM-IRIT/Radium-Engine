@@ -3,7 +3,9 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/System/System.hpp>
+#include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/ItemModel/ItemEntry.hpp>
 
 namespace Ra
 {
@@ -22,6 +24,11 @@ namespace Ra
             {
                 getRoMgr()->removeRenderObject( ro );
             }
+            if (m_system)
+            {
+                m_system->unregisterComponent(getEntity(), this);
+            }
+            RadiumEngine::getInstance()->getSignalManager()->fireComponentRemoved( ItemEntry(getEntity(),this));
         }
 
         RenderObjectManager* Component::getRoMgr()

@@ -1,8 +1,6 @@
 #include <Engine/Entity/Entity.hpp>
 
-#include <Core/CoreMacros.hpp>
 #include <Core/String/StringUtils.hpp>
-#include <Core/Math/Ray.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
@@ -25,7 +23,10 @@ namespace Ra
 
         Entity::~Entity()
         {
-            // Assert if I've been removed from ent mgr ?
+            // Ensure components are deleted before the entity for conssistent
+            // ordering of signals.
+            m_components.clear();
+            RadiumEngine::getInstance()->getSignalManager()->fireEntityDestroyed( ItemEntry(this) );
         }
 
         void Entity::addComponent( Engine::Component* component )
@@ -75,7 +76,6 @@ namespace Ra
                         [ name ] (const auto& c){ return c->getName() == name;} );
 
             CORE_ASSERT( pos != m_components.end(), "Component not found in entity" );
-            RadiumEngine::getInstance()->getSignalManager()->fireComponentRemoved(ItemEntry(this,pos->get()));
             m_components.erase(pos);
         }
 

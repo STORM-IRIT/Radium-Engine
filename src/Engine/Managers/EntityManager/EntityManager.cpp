@@ -13,25 +13,15 @@ namespace Ra
 
         EntityManager::EntityManager()
         {
-            #if !defined (RA_DISABLE_DEBUG_DISPLAY)
-            std::shared_ptr<Entity> ent( SystemEntity::createInstance() );
-            ent->idx = m_entities.insert( ent );
-            CORE_ASSERT( ent.get() == SystemEntity::getInstance(), "Invalid singleton instanciation");
+            Entity* ent( SystemEntity::createInstance() );
+            ent->idx = m_entities.emplace( std::move(ent) );
+            CORE_ASSERT( ent == SystemEntity::getInstance(), "Invalid singleton instanciation");
             m_entitiesName.insert( std::pair< std::string, Core::Index> (ent->getName(),ent->idx ));
             RadiumEngine::getInstance()->getSignalManager()->fireEntityCreated( ItemEntry(SystemEntity::getInstance()));
-            #endif
         }
 
         EntityManager::~EntityManager()
         {
-            for ( uint i = 0; i < m_entities.size(); ++i )
-            {
-                auto ent = m_entities[i];
-                ent.reset();
-            }
-
-            m_entitiesName.clear();
-            m_entities.clear();
         }
 
         Entity* EntityManager::createEntity( const std::string& name )
@@ -43,19 +33,19 @@ namespace Ra
                 LOG( logWARNING ) << "Entity `" << name << "` already exists";
                 entityName = name + "_";
             }
-
-            std::shared_ptr<Entity> ent = std::shared_ptr<Entity> ( new Entity(  entityName ) );
-            ent->idx = m_entities.insert( ent );
+            Core::Index idx = m_entities.emplace( new Entity(entityName) );
+            auto& ent = m_entities[idx];
+            ent->idx = idx;
 
             if (name == "")
             {
                 std::string name;
-                Core::StringUtils::stringPrintf( name, "Entity_%u", ent->idx.getValue() );
+                Core::StringUtils::stringPrintf( name, "Entity_%u", idx.getValue() );
                 ent->rename( name );
             }
 
             m_entitiesName.insert( std::pair<std::string, Core::Index> (
-                                       ent->getName(), ent->idx ) );
+                                       ent->getName(), idx ) );
 
             RadiumEngine::getInstance()->getSignalManager()->fireEntityCreated(ItemEntry(ent.get()));
             return ent.get();
@@ -71,13 +61,8 @@ namespace Ra
             CORE_ASSERT( idx != Core::Index::INVALID_IDX() && m_entities.contain( idx ),
                          "Trying to remove an entity that has not been added to the manager." );
 
-            auto ent = m_entities[idx];
+            auto& ent = m_entities[idx];
             std::string name = ent->getName();
-
-            CORE_ASSERT( ent.unique(), "Non-unique entity about to be removed." );
-
-            RadiumEngine::getInstance()->getSignalManager()->fireEntityDestroyed(ItemEntry(ent.get()));
-            ent.reset();
             m_entities.remove( idx );
             m_entitiesName.erase( name );
         }
@@ -95,7 +80,7 @@ namespace Ra
 
             if ( m_entities.contain( idx ) )
             {
-                ent = m_entities.at( idx ).get();
+                ent = m_entities[idx].get();
             }
 
             return ent;
@@ -110,7 +95,7 @@ namespace Ra
 
             for ( uint i = 0; i < size; ++i )
             {
-                entities.push_back( m_entities.at( i ).get() );
+                entities.push_back( m_entities[i].get() );
             }
 
             return entities;
@@ -126,6 +111,19 @@ namespace Ra
             for ( uint i = 0; i < m_entities.size(); ++i )
             {
                 m_entities[i]->swapTransformBuffers();
+            }
+        }
+
+        void EntityManager::deleteEntities()
+        {
+            std::vector<uint> indices;
+            for (uint i = 1 ; i < m_entities.size(); ++i)
+            {
+                indices.push_back(m_entities.index(i));
+            }
+            for (const auto& idx : indices)
+            {
+                removeEntity(idx);
             }
         }
     }
