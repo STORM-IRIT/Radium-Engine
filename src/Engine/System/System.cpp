@@ -45,7 +45,7 @@ namespace Ra
 
             CORE_ASSERT( pos != m_components.end(), "Component is not registered." );
             CORE_ASSERT( pos->first == ent, "Component belongs to a different entity" );
-
+            component->setSystem(nullptr);
             m_components.erase( pos );
         }
 

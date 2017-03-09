@@ -136,6 +136,9 @@ namespace Ra
             /// Toggle the debug drawing
             void enableDebugDraw(int enabled);
 
+            /// Resets the camaera to initial values
+            void resetCamera();
+
         private slots:
             /// These slots are connected to the base class signals to properly handle
             /// concurrent access to the renderer.

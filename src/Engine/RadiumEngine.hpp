@@ -10,6 +10,7 @@
 #include <vector>
 
 #include <Core/Log/Log.hpp>
+#include <Core/Utils/Singleton.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
