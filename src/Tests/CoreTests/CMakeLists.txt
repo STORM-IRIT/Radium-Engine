@@ -1,8 +1,8 @@
 set(target coretests)
 
-file(GLOB sources *.cpp)
-file(GLOB headers *.hpp)
-file(GLOB inlines *.inl)
+file(GLOB_RECURSE sources *.cpp)
+file(GLOB_RECURSE headers *.hpp)
+file(GLOB_RECURSE inlines *.inl)
 
 add_executable(
  ${target}
