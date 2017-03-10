@@ -8,11 +8,25 @@
 #include <AnimationSystem.hpp>
 
 #include <UI/AnimationUI.h>
+#include "ui_AnimationUI.h"
 
 namespace AnimationPlugin
 {
 
-    AnimationPluginC::AnimationPluginC() :m_system(nullptr){}
+    AnimationPluginC::AnimationPluginC() :m_system(nullptr)
+    {
+        m_widget = new AnimationUI();
+        connect( m_widget, &AnimationUI::toggleXray,              this, &AnimationPluginC::toggleXray );
+        connect( m_widget, &AnimationUI::showSkeleton,            this, &AnimationPluginC::toggleSkeleton );
+        connect( m_widget, &AnimationUI::animationID,             this, &AnimationPluginC::setAnimation );
+        connect( m_widget, &AnimationUI::toggleAnimationTimeStep, this, &AnimationPluginC::toggleAnimationTimeStep );
+        connect( m_widget, &AnimationUI::animationSpeed,          this, &AnimationPluginC::setAnimationSpeed );
+        connect( m_widget, &AnimationUI::toggleSlowMotion,        this, &AnimationPluginC::toggleSlowMotion );
+        connect( m_widget, &AnimationUI::play,                    this, &AnimationPluginC::play );
+        connect( m_widget, &AnimationUI::pause,                   this, &AnimationPluginC::pause );
+        connect( m_widget, &AnimationUI::step,                    this, &AnimationPluginC::step );
+        connect( m_widget, &AnimationUI::stop,                    this, &AnimationPluginC::reset );
+    }
 
     AnimationPluginC::~AnimationPluginC()
     {
@@ -32,20 +46,6 @@ namespace AnimationPlugin
 
     QWidget* AnimationPluginC::getWidget()
     {
-        AnimationUI* widget = new AnimationUI();
-
-        connect( widget, &AnimationUI::toggleXray,              this, &AnimationPluginC::toggleXray );
-        connect( widget, &AnimationUI::showSkeleton,            this, &AnimationPluginC::toggleSkeleton );
-        connect( widget, &AnimationUI::animationID,             this, &AnimationPluginC::setAnimation );
-        connect( widget, &AnimationUI::toggleAnimationTimeStep, this, &AnimationPluginC::toggleAnimationTimeStep );
-        connect( widget, &AnimationUI::animationSpeed,          this, &AnimationPluginC::setAnimationSpeed );
-        connect( widget, &AnimationUI::toggleSlowMotion,        this, &AnimationPluginC::toggleSlowMotion );
-        connect( widget, &AnimationUI::play,                    this, &AnimationPluginC::play );
-        connect( widget, &AnimationUI::pause,                   this, &AnimationPluginC::pause );
-        connect( widget, &AnimationUI::step,                    this, &AnimationPluginC::step );
-        connect( widget, &AnimationUI::stop,                    this, &AnimationPluginC::reset );
-
-
         return widget;
     }
 
@@ -57,6 +57,28 @@ namespace AnimationPlugin
     QMenu* AnimationPluginC::getMenu()
     {
         return nullptr;
+    }
+
+    bool AnimationPluginC::doAddAction( int& nb )
+    {
+        nb = 4;
+        return true;
+    }
+
+    QAction* AnimationPluginC::getAction( int id )
+    {
+        switch (id) {
+        case 0:
+            return m_widget->ui->actionXray;
+        case 1:
+            return m_widget->ui->actionPlay;
+        case 2:
+            return m_widget->ui->actionStep;
+        case 3:
+            return m_widget->ui->actionStop;
+        default:
+            return nullptr;
+        }
     }
 
     void AnimationPluginC::toggleXray(bool on)

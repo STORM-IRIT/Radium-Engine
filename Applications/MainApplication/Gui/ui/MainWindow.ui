@@ -43,7 +43,7 @@
      <x>0</x>
      <y>0</y>
      <width>1350</width>
-     <height>19</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFILE">
@@ -195,8 +195,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>269</width>
-               <height>227</height>
+               <width>305</width>
+               <height>306</height>
               </rect>
              </property>
              <attribute name="label">
@@ -402,8 +402,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>260</width>
-               <height>218</height>
+               <width>285</width>
+               <height>144</height>
               </rect>
              </property>
              <attribute name="label">
@@ -411,6 +411,14 @@
              </attribute>
             </widget>
             <widget class="QWidget" name="tab_renderers">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>285</width>
+               <height>144</height>
+              </rect>
+             </property>
              <attribute name="label">
               <string>Renderers</string>
              </attribute>
@@ -553,6 +561,7 @@
    <addaction name="actionGizmoRotate"/>
    <addaction name="separator"/>
    <addaction name="actionRecord_Frames"/>
+   <addaction name="separator"/>
   </widget>
   <action name="actionOpenMesh">
    <property name="text">
@@ -662,7 +671,8 @@
    </property>
    <property name="icon">
     <iconset resource="../../../../icons.qrc">
-     <normaloff>:/Assets/Images/play.png</normaloff>:/Assets/Images/play.png</iconset>
+     <normaloff>:/Assets/Images/rec.png</normaloff>
+     <normalon>:/Assets/Images/rec_on.png</normalon>:/Assets/Images/rec.png</iconset>
    </property>
    <property name="text">
     <string>Record Frames</string>

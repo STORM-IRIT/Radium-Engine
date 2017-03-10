@@ -20,7 +20,7 @@ namespace AnimationPlugin
     {
         m_isPlaying = false;
         m_oneStep = false;
-        m_xrayOn = true;
+        m_xrayOn = false;
     }
 
     void AnimationSystem::generateTasks(Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo)
@@ -62,7 +62,7 @@ namespace AnimationPlugin
        m_xrayOn = on;
        for (const auto& comp : m_components)
        {
-           static_cast<AnimationComponent*>(comp.second)->toggleXray(on);
+           static_cast<AnimationComponent*>(comp.second)->setXray(on);
        }
     }
 
@@ -112,11 +112,6 @@ namespace AnimationPlugin
         }
     }
 
-
-
-
-
-
     void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData ) {
         auto geomData = fileData->getGeometryData();
         auto skelData = fileData->getHandleData();
@@ -137,7 +132,7 @@ namespace AnimationPlugin
             component->handleSkeletonLoading( skel, ( geomID == uint( -1 ) ) ? std::map< uint, uint >() : geomData[geomID]->getDuplicateTable() );
             component->handleAnimationLoading( animData );
 
-            component->toggleXray( m_xrayOn );
+            component->setXray( m_xrayOn );
             registerComponent( entity, component );
         }
     }

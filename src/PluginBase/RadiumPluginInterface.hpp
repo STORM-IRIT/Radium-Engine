@@ -59,8 +59,7 @@ namespace Ra
 
             /**
              * @brief Tells wether the plugin wants to add a menu
-             * or not. If it does, it must provide
-             * a name for it, and getMenu() will be called.
+             * or not. If it does, getMenu() will be called.
              * @return True if the plugin wants to add a menu, false otherwise
              */
             virtual bool doAddMenu() = 0;
@@ -71,6 +70,20 @@ namespace Ra
              * @todo Find a better name ?
              */
             virtual QMenu* getMenu() = 0;
+
+            /**
+             * @brief Tells wether the plugin wants to add actions
+             * or not. If it does, getAction() will be called for each one of them.
+             * @param nb the number of action the plugin wants to add.
+             * @return True if the plugin wants to add a menu, false otherwise
+             */
+            virtual bool doAddAction( int& nb ) = 0;
+
+            /**
+             * @brief Returns the action to be added to the ui and then returns it.
+             * @return The action to add.
+             */
+            virtual QAction* getAction( int id ) = 0;
         };
     }
 }
