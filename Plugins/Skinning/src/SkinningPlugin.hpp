@@ -13,6 +13,7 @@
 #include <QtPlugin>
 #include <QFrame>
 #include <QComboBox>
+#include <QAction>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
 namespace Ra
