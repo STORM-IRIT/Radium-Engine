@@ -6,6 +6,8 @@
 #include <QtPlugin>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
+#include <UI/AnimationUI.h>
+
 /// Defines the correct macro to export dll symbols.
 #if defined  Animation_EXPORTS
     #define ANIM_PLUGIN_API DLL_EXPORT
@@ -43,6 +45,9 @@ namespace AnimationPlugin
         virtual bool doAddMenu() override;
         virtual QMenu* getMenu() override;
 
+        virtual bool doAddAction( int& nb ) override;
+        virtual QAction* getAction( int id ) override;
+
     public slots:
         void toggleXray( bool on );
         void toggleSkeleton( bool on );
@@ -57,6 +62,7 @@ namespace AnimationPlugin
 
     private:
         class AnimationSystem* m_system;
+        AnimationUI* m_widget;
 
     };
 

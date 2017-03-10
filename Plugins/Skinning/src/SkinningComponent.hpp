@@ -1,7 +1,13 @@
 #ifndef SKINPLUGIN_SKINNING_COMPONENT_HPP_
 #define SKINPLUGIN_SKINNING_COMPONENT_HPP_
 
-#include <SkinningPlugin.hpp>
+#include <Core/CoreMacros.hpp>
+/// Defines the correct macro to export dll symbols.
+#if defined  Skinning_EXPORTS
+    #define SKIN_PLUGIN_API DLL_EXPORT
+#else
+    #define SKIN_PLUGIN_API DLL_IMPORT
+#endif
 
 #include <Core/Math/DualQuaternion.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
@@ -54,22 +60,21 @@ namespace SkinningPlugin
         void setupSkinningType( SkinningType type);
 
     private:
+        std::string m_contentsName;
 
-            std::string m_contentsName;
+        // Skinning data
+        Ra::Core::Skinning::RefData m_refData;
+        Ra::Core::Skinning::FrameData m_frameData;
 
-            // Skinning data
-            Ra::Core::Skinning::RefData m_refData;
-            Ra::Core::Skinning::FrameData m_frameData;
+        Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Animation::Skeleton>::Getter m_skeletonGetter;
 
-            Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Animation::Skeleton>::Getter m_skeletonGetter;
+        Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite m_verticesWriter;
+        Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite m_normalsWriter;
 
-            Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite m_verticesWriter;
-            Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite m_normalsWriter;
+        Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion > m_DQ;
 
-            Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion > m_DQ;
-
-            SkinningType m_skinningType;
-            bool m_isReady;
+        SkinningType m_skinningType;
+        bool m_isReady;
     };
 }
 

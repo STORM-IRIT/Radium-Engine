@@ -42,6 +42,8 @@ namespace FancyMeshPlugin
         virtual bool doAddMenu() override;
         virtual QMenu* getMenu() override;
 
+        virtual bool doAddAction( int& nb ) override;
+        virtual QAction* getAction( int id ) override;
     };
 
 } // namespace
