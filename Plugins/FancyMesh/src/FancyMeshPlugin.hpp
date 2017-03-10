@@ -11,6 +11,7 @@
 
 #include <QObject>
 #include <QtPlugin>
+#include <QAction>
 
 #include <PluginBase/RadiumPluginInterface.hpp>
 

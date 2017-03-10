@@ -4,6 +4,7 @@
 #include <Core/CoreMacros.hpp>
 #include <QObject>
 #include <QtPlugin>
+#include <QAction>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
 #include <UI/AnimationUI.h>
