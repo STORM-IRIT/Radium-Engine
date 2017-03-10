@@ -44,30 +44,51 @@ namespace SkinningPlugin
 
     bool SkinningPluginC::doAddAction( int& nb )
     {
-        nb = 0;
-        return false;
+        nb = 3;
+        return true;
     }
 
     QAction* SkinningPluginC::getAction( int id )
     {
-        return nullptr;
+        switch (id){
+        case 0:
+        {
+            return m_widget->m_actionLBS;
+        }
+        case 1:
+        {
+            return m_widget->m_actionDQ;
+        }
+        case 2:
+        {
+            return m_widget->m_actionCoR;
+        }
+        default:
+            return nullptr;
+        }
     }
 
     void SkinningPluginC::onCurrentChanged( const QModelIndex& current, const QModelIndex& prev )
     {
         Ra::Engine::ItemEntry it = m_selectionManager->currentItem();
-        if (it.isComponentNode() || it.isRoNode() )
+        if (it.m_entity)
         {
-            if ( it.m_component->getSystem() == m_system)
+            const std::vector< std::unique_ptr<Ra::Engine::Component> >& comps = it.m_entity->getComponents();
+            for (size_t i = 0; i<comps.size(); ++i)
             {
-                m_widget->setCurrent(it, static_cast<SkinningComponent*>(it.m_component));
-            }
-            else
-            {
-                m_widget->setCurrent(it, nullptr);
+                auto skinComp = dynamic_cast<SkinningPlugin::SkinningComponent*>(comps[i].get());
+                if(skinComp)
+                {
+                    m_widget->setCurrent(it, static_cast<SkinningComponent*>(skinComp));
+                    break;
+                }
             }
         }
     }
+
+
+    // Class SkinningWidget
+
 
     SkinningWidget::SkinningWidget( QWidget * parent ) : QFrame( parent ),
         m_current( nullptr )
@@ -82,11 +103,34 @@ namespace SkinningPlugin
             << "Linear Blend Skinning" << "Dual Quaternion Skinning" << "Center of Rotation skinning" );
         m_skinningSelect->setEnabled( false );
 
+        m_actionLBS = new QAction(QIcon("../../Assets/Images/LB.png"), QString("Linear Blending"));
+        m_actionDQ  = new QAction(QIcon("../../Assets/Images/DQ_on.png"), QString("Dual Quaternion"));
+        m_actionCoR = new QAction(QIcon("../../Assets/Images/CoR.png"), QString("Center of Rotation"));
+
         connect( m_skinningSelect,
             static_cast< void (QComboBox::*) (int)>(&QComboBox::currentIndexChanged),
             this,
             &SkinningWidget::onSkinningChanged );
 
+        connect( m_actionLBS, &QAction::triggered, this, &SkinningWidget::onLSBActionTriggered );
+        connect( m_actionDQ,  &QAction::triggered, this, &SkinningWidget::onDQActionTriggered );
+        connect( m_actionCoR, &QAction::triggered, this, &SkinningWidget::onCoRActionTriggered );
+    }
+
+
+    void SkinningWidget::onLSBActionTriggered()
+    {
+        m_skinningSelect->setCurrentIndex(0);
+    }
+
+    void SkinningWidget::onDQActionTriggered()
+    {
+        m_skinningSelect->setCurrentIndex(1);
+    }
+
+    void SkinningWidget::onCoRActionTriggered()
+    {
+        m_skinningSelect->setCurrentIndex(2);
     }
 
     void SkinningWidget::setCurrent( const Ra::Engine::ItemEntry& entry, SkinningComponent* comp )
@@ -96,11 +140,17 @@ namespace SkinningPlugin
         {
             CORE_ASSERT( entry.m_component == comp, "Component Inconsistency" );
             m_skinningSelect->setEnabled( true );
+            m_actionLBS->setEnabled( true );
+            m_actionDQ->setEnabled( true );
+            m_actionCoR->setEnabled( true );
             m_skinningSelect->setCurrentIndex( int( comp->getSkinningType() ) );
         }
         else
         {
             m_skinningSelect->setEnabled( false );
+            m_actionLBS->setEnabled( false );
+            m_actionDQ->setEnabled( false );
+            m_actionCoR->setEnabled( false );
         }
     }
 
@@ -109,6 +159,33 @@ namespace SkinningPlugin
         CORE_ASSERT( m_current, "should be disabled" );
         CORE_ASSERT( newType >= 0 && newType < 3, "Invalid Skinning Type" );
         m_current->setSkinningType( SkinningComponent::SkinningType( newType ) );
+        switch (newType) {
+        case 0:
+        {
+            m_actionLBS->setIcon(QIcon("../../Assets/Images/LB_on.png"));
+            m_actionDQ->setIcon(QIcon("../../Assets/Images/DQ.png"));
+            m_actionCoR->setIcon(QIcon("../../Assets/Images/CoR.png"));
+            break;
+        }
+        case 1:
+        {
+            m_actionLBS->setIcon(QIcon("../../Assets/Images/LB.png"));
+            m_actionDQ->setIcon(QIcon("../../Assets/Images/DQ_on.png"));
+            m_actionCoR->setIcon(QIcon("../../Assets/Images/CoR.png"));
+            break;
+        }
+        case 2:
+        {
+            m_actionLBS->setIcon(QIcon("../../Assets/Images/LB.png"));
+            m_actionDQ->setIcon(QIcon("../../Assets/Images/DQ.png"));
+            m_actionCoR->setIcon(QIcon("../../Assets/Images/CoR_on.png"));
+            break;
+        }
+        default:
+        {
+            break;
+        }
+        }
     }
 
 }

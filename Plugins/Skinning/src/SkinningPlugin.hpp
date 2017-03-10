@@ -38,17 +38,28 @@ class SkinningSystem;
 class SkinningWidget : public QFrame
 {
     Q_OBJECT
+
+    friend class SkinningPluginC;
+
 public:
     explicit SkinningWidget( QWidget* parent = nullptr );
+
 public slots:
     void setCurrent( const Ra::Engine::ItemEntry& entry, SkinningComponent* comp );
 
 private slots:
     void onSkinningChanged( int  newType );
 
+    void onLSBActionTriggered();
+    void onDQActionTriggered();
+    void onCoRActionTriggered();
+
 private:
-        SkinningComponent* m_current;
-        QComboBox* m_skinningSelect;
+    SkinningComponent* m_current;
+    QComboBox* m_skinningSelect;
+    QAction* m_actionLBS;
+    QAction* m_actionDQ;
+    QAction* m_actionCoR;
 };
 
 // Du to an ambiguous name while compiling with Clang, must differentiate plugin claas from plugin namespace
