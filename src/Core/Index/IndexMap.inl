@@ -79,7 +79,7 @@ template < typename T>
 template <typename... Args>
 Index IndexMap<T>::emplace(const Args&&... args)
 {
-     Index idx;
+    Index idx;
     if( pop_free_index( idx ) ) {
         typename std::deque< Index >::iterator it = std::lower_bound( m_index.begin(), m_index.end(), idx );
         if( it == m_index.end() ) {
