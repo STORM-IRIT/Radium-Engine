@@ -46,7 +46,7 @@ namespace AnimationPlugin
 
     QWidget* AnimationPluginC::getWidget()
     {
-        return widget;
+        return m_widget;
     }
 
     bool AnimationPluginC::doAddMenu()
