@@ -63,6 +63,7 @@ void SkinningComponent::setupSkinning()
         setupSkinningType( m_skinningType );
     }
 }
+
 void SkinningComponent::skin()
 {
     CORE_ASSERT( m_isReady, "Skinning is not setup");
@@ -205,4 +206,5 @@ void SkinningComponent::setupSkinningType( SkinningType type )
     }
     } // end of switch.
 }
+
 } // End namespace Skinning plugin

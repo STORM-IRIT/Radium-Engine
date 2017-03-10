@@ -306,11 +306,11 @@ namespace AnimationPlugin
         return &m_wasReset;
     }
 
-    void AnimationComponent::toggleXray(bool on) const
+    void AnimationComponent::setXray(bool on) const
     {
         for (const auto& b : m_boneDrawables)
         {
-            b->toggleXray(on);
+            b->setXray(on);
         }
     }
 

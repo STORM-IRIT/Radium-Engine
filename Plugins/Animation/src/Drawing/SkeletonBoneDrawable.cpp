@@ -15,7 +15,7 @@ namespace AnimationPlugin
 
         // FIXME(Charly): Debug or fancy ?
         Ra::Engine::RenderObject* renderObject = new Ra::Engine::RenderObject( name, comp, Ra::Engine::RenderObjectType::Fancy);
-        renderObject->setXRay( true );
+        renderObject->setXRay( false );
 
         Ra::Engine::ShaderConfiguration shader = Ra::Engine::ShaderConfigurationFactory::getConfiguration("BlinnPhong");
 
@@ -91,9 +91,9 @@ namespace AnimationPlugin
         return mesh;
     }
 
-    void SkeletonBoneRenderObject::toggleXray(bool on)
+    void SkeletonBoneRenderObject::setXray(bool on)
     {
         std::shared_ptr<Ra::Engine::RenderObject> ro = m_roMgr->getRenderObject( m_roIdx );
-        ro->toggleXRay();
+        ro->setXRay(on);
     }
 }

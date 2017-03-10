@@ -68,6 +68,8 @@ public:
     virtual bool doAddMenu() override;
     virtual QMenu* getMenu() override;
 
+    virtual bool doAddAction( int& nb ) override;
+    virtual QAction* getAction( int id ) override;
 
 private slots:
     void onCurrentChanged( const QModelIndex& current , const QModelIndex& prev);

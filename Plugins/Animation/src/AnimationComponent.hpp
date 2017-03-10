@@ -45,7 +45,7 @@ namespace AnimationPlugin
         /// Update the skeleton with an animation.
         void update(Scalar dt);
         void reset();
-        ANIM_PLUGIN_API void toggleXray(bool on) const;
+        ANIM_PLUGIN_API void setXray(bool on) const;
 
         void toggleSkeleton( const bool status );
         void toggleAnimationTimeStep( const bool status );
