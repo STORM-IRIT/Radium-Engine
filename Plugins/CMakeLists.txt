@@ -1,7 +1,6 @@
 
 find_package(Radium REQUIRED)
 
-
 set( CMAKE_DEBUG_POSTFIX "")
 if (APPLE)
     FILE(GLOB RADIUM_LIBRARIES "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/*.dylib" )
