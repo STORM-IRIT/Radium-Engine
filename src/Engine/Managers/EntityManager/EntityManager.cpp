@@ -117,6 +117,7 @@ namespace Ra
         void EntityManager::deleteEntities()
         {
             std::vector<uint> indices;
+            indices.reserve( m_entities.size() - 1 );
             for (uint i = 1 ; i < m_entities.size(); ++i)
             {
                 indices.push_back(m_entities.index(i));
