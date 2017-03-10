@@ -138,7 +138,6 @@ namespace SkinningPlugin
         m_current = comp;
         if ( comp )
         {
-            CORE_ASSERT( entry.m_component == comp, "Component Inconsistency" );
             m_skinningSelect->setEnabled( true );
             m_actionLBS->setEnabled( true );
             m_actionDQ->setEnabled( true );
