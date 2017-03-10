@@ -3,6 +3,7 @@
 
 class QWidget;
 class QMenu;
+class QAction;
 
 namespace Ra
 {
