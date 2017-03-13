@@ -39,6 +39,8 @@
 *.swp
 *.old
 .idea/
+\#*\#
+.\#*\#
 
 # Binary asset files
 *.obj

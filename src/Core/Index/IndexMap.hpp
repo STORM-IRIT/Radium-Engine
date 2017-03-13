@@ -45,6 +45,11 @@ public:
     inline Index insert( const T& obj );                    // Insert a object in the IndexMap. Return an invalid index if the object is not inserted.
     inline bool  insert( const T& obj, Index& idx );        // Insert a object in the IndexMap. Return true if the object is inserted, and store it in idx.
 
+    template<typename... Args>
+    inline Index emplace( const Args&&... args );             // Construct an object in place in the IndexMap. Return an invalid index if the object is not inserted.
+    template<typename... Args>
+    inline bool  emplace(  Index& idx, const Args&&... args ); // Construct an object in place in the IndexMap. Return true if the object is inserted, and store it in idx.
+
     /// ===============================================================================
     /// REMOVE
     /// ===============================================================================
@@ -54,8 +59,8 @@ public:
     /// ===============================================================================
     /// ACCESS
     /// ===============================================================================
-    inline T     at( const Index& idx ) const;              // Return the object with the given index. Crash if the index is not present.
-    inline T     at( const uint     i ) const;              // Return the i-th object. Crash if i is out of bound.
+    inline const T&  at( const Index& idx ) const;          // Return the object with the given index. Crash if the index is not present.
+    inline const T&  at( const uint     i ) const;          // Return the i-th object. Crash if i is out of bound.
     inline bool  at( const Index& idx, T& obj ) const;      // Return the object with the given index. Return false if the index is not present, true otherwise.
     inline bool  at( const uint     i, T& obj ) const;      // Return the i-th object. Return false if i is out of bound, true otherwise.
 
@@ -85,6 +90,8 @@ public:
     /// ===============================================================================
     inline T&         operator[]( const Index& idx );       // Return the reference to the object with given index. Equal to using access( idx ).
     inline T&         operator[]( const uint     i );       // Return the reference to the i-th object. Equal to using access( i ).
+    inline const T&   operator[]( const Index& idx ) const; // Return the reference to the object with given index. Equal to using access( idx ).
+    inline const T&   operator[]( const uint     i ) const; // Return the reference to the i-th object. Equal to using access( i ).
     inline Index&     operator<<( const T&     obj );       // Insert a new object in the IndexMap. Equal to using insert( obj ).
     inline IndexMap&  operator>>( const Index& idx );       // Remove the object with the given index and return the current IndexMap. Kind of equal to using remove( idx ).
     inline IndexMap&  operator>>( const uint     i );       // Remove the i-th object and return the current IndexMap. Kind of equal to using remove( i ).

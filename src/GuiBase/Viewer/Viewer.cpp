@@ -418,4 +418,9 @@ namespace Ra
     {
         m_currentRenderer->enableDebugDraw(enabled);
     }
+
+    void Gui::Viewer::resetCamera()
+    {
+        m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
+    }
 } // namespace Ra

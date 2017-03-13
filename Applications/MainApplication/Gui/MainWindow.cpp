@@ -105,6 +105,8 @@ namespace Ra
         connect(m_toggleRenderObjectButton, &QPushButton::clicked, this, &MainWindow::toggleVisisbleRO);
         connect(m_editRenderObjectButton, &QPushButton::clicked, this, &MainWindow::editRO);
         connect(m_exportMeshButton, &QPushButton::clicked, this, &MainWindow::exportCurrentMesh);
+        connect(m_removeEntityButton, &QPushButton::clicked, this, &MainWindow::deleteCurrentItem);
+        connect(m_clearSceneButton, &QPushButton::clicked, this, &MainWindow::resetScene);
 
         // Renderer stuff
 
@@ -448,6 +450,40 @@ namespace Ra
         {
             LOG(logWARNING)<< "Current entry was not a render object. No mesh was exported.";
         }
+    }
+
+    void Gui::MainWindow::deleteCurrentItem()
+    {
+        ItemEntry e = m_selectionManager->currentItem();
+
+        // This call is very important to avoid a potential race condition
+        // which happens if an object is selected while a gizmo is present.
+        // If we do not do this, the removal of the object will call ItemModel::removeItem() which
+        // will cause it to be unselected by the selection model. This in turn will cause
+        // the gizmos ROs to disappear, but the RO mutex is already acquired by the call for
+        // the object we want to delete, which causes a deadlock.
+        // Clearing the selection before deleting the object will avoid this problem.
+        m_selectionManager->clearSelection();
+        if (e.isRoNode())
+        {
+            e.m_component->removeRenderObject(e.m_roIndex);
+        }
+        else if (e.isComponentNode())
+        {
+            e.m_entity->removeComponent(e.m_component->getName());
+        }
+        else if (e.isEntityNode())
+        {
+            Engine::RadiumEngine::getInstance()->getEntityManager()->removeEntity(e.m_entity->idx);
+        }
+    }
+
+    void Gui::MainWindow::resetScene()
+    {
+        // To see why this call is important, please see deleteCurrentItem().
+        m_selectionManager->clearSelection();
+        Engine::RadiumEngine::getInstance()->getEntityManager()->deleteEntities();
+        m_viewer->resetCamera();
     }
 
 

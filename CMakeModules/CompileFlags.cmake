@@ -95,7 +95,7 @@ endif()
 
 # Additional flags depending on build options =================================
 
-message("RADIUM COMPILE FLAGS:")
+message("RADIUM COMPILE FLAGS for ${PROJECT_NAME}")
 if (${RADIUM_WITH_DOUBLE_PRECISION})
   add_definitions(-DCORE_USE_DOUBLE)
   message(STATUS "Using double precision.")
