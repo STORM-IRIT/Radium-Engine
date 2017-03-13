@@ -21,7 +21,7 @@ Core and Engine (and the plugins) are compiled as dynamic libraries, therefore y
 `Core` contains most of the basic code on which the rest of the software is built.
 * `CoreMacros.hpp` has definitions of basic types, build configuration and useful macros.
 * `Math` is our math library, which is a wrapper around *Eigen*. The most useful files are `Math.hpp` which has mathematical constants and simple functions, and `LinearAlgebra.hpp` which contains the type definitions of most basic vector and matrix types.
-* `Containers` has some specially useful std-like containers, most importantly `VectorArray.hpp` which defines a dynamic aray of vectors with both a`std::vector`-like interface and compatibility with Eigen. 
+* `Containers` has some specially useful std-like containers, most importantly `VectorArray.hpp` which defines a dynamic array of vectors with both a`std::vector`-like interface and compatibility with Eigen. 
 * `Mesh` contains our basic mesh geometry primitives, including the representation of a simple triangle mesh and many functions to operate on geometry.
 * `String` contains utilities extending `std::string`. 
 * `Log` is a wrapper around the header-only *EasyLogger* library which allows us to log various events.
