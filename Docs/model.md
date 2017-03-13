@@ -71,7 +71,7 @@ At each frame, the main loop first starts the renderer, then each System is give
 to add *Tasks* to the task queue. Tasks are processed in parallel during every frame. They can have 
 dependencies between them (e.g. the physics update can wait for the animation update to complete).
 
-A Task imust implement the interface `Core::Task` which defines a `process()` function which will be called
+A Task must implement the interface `Core::Task` which defines a `process()` function which will be called
 when the task is executed. However for most cases, it is usually convenient to use a `FunctionTask` which takes
 an instance of `std::function` (which will be called by the `process()` method). Calling an object's member function
 in a task is thus easily achieved by using `std::bind()` to create the function object.
