@@ -143,6 +143,11 @@ namespace Ra
             /// Clears all entities and resets the camera.
             void resetScene();
 
+            /// Change the Renderer
+            void on_actionForward_triggered();
+            void on_actionDeferred_triggered();
+            void on_actionExperimental_triggered();
+
         private:
             /// Stores the internal model of engine objects for selection.
             GuiBase::ItemModel* m_itemModel;
