@@ -9,3 +9,4 @@ find_package(Radium REQUIRED)
 
 add_subdirectory(MainApplication)
 add_subdirectory(Test0)
+add_subdirectory(OpenGLExperiment)
