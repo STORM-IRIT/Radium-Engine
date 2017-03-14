@@ -36,7 +36,7 @@ add_definitions(-D__has_feature\\\(x\\\)=false)
 if(DEFINED glbinding_DIR)
 else(DEFINED glbinding_DIR)
     set(glbinding_DIR ${CMAKE_CURRENT_SOURCE_DIR}/glbinding)
-    message("Opengl Submodules : glbinding DIR is ${glbinding_DIR}")
+    #message("Opengl Submodules : glbinding DIR is ${glbinding_DIR}")
     # configure glbinding submodule
     add_subdirectory(${glbinding_DIR})
 
@@ -49,8 +49,7 @@ else(DEFINED glbinding_DIR)
             COMMAND ${CMAKE_COMMAND} -E make_directory ${GLSUBMODILES_INSTALL_PREFIX}/lib
             COMMAND ${CMAKE_COMMAND} -E make_directory ${GLSUBMODILES_INSTALL_PREFIX}/include
             #copy lib files
-            COMMAND echo "$<TARGET_FILE_NAME:glbinding> ... $<TARGET_SONAME_FILE_NAME:glbinding> +++ $<TARGET_LINKER_FILE_NAME:glbinding> ---  "
-
+            #COMMAND echo "$<TARGET_FILE_NAME:glbinding> ... $<TARGET_SONAME_FILE_NAME:glbinding> +++ $<TARGET_LINKER_FILE_NAME:glbinding> ---  "
             COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:glbinding> ${GLSUBMODILES_INSTALL_PREFIX}/lib
             COMMAND ${CMAKE_COMMAND} -E create_symlink ${GLSUBMODILES_INSTALL_PREFIX}/lib/$<TARGET_FILE_NAME:glbinding> ${GLSUBMODILES_INSTALL_PREFIX}/lib/$<TARGET_SONAME_FILE_NAME:glbinding>
             COMMAND ${CMAKE_COMMAND} -E create_symlink ${GLSUBMODILES_INSTALL_PREFIX}/lib/$<TARGET_SONAME_FILE_NAME:glbinding> ${GLSUBMODILES_INSTALL_PREFIX}/lib/$<TARGET_LINKER_FILE_NAME:glbinding>
@@ -60,41 +59,49 @@ else(DEFINED glbinding_DIR)
             DEPENDS glbinding
             )
     # Create target which consume the command via DEPENDS.
-    add_custom_target(copy_files ALL
+    add_custom_target(copy_glbinding_files ALL
             DEPENDS ${GLSUBMODILES_INSTALL_PREFIX}/glbinding}
             )
 endif(DEFINED glbinding_DIR)
 
-
-# glm
-if(DEFINED glm_DIR)
-else(DEFINED glm_DIR)
-    set(glm_DIR ${CMAKE_CURRENT_SOURCE_DIR}/glm)
-    message("Opengl Submodules : glm DIR is ${glm_DIR}")
-endif(DEFINED glm_DIR)
-
-FIND_PATH(GLM_INCLUDE_DIR glm/glm.hpp
-        PATHS
-        $ENV{GLM_DIR}
-        ${glm_DIR}
-        /usr
-        /usr/local
-        /sw
-        /opt/local
-
-        PATH_SUFFIXES
-        /include
-
-        DOC "The directory where glm/glm.hpp resides.")
-
-find_package_handle_standard_args(GLM REQUIRED_VARS GLM_INCLUDE_DIR)
-mark_as_advanced(GLM_INCLUDE_DIR)
+find_package(GLM REQUIRED)
 
 #globjects
 if(DEFINED globjects_DIR)
 else(DEFINED globjects_DIR)
     set(globjects_DIR ${CMAKE_CURRENT_SOURCE_DIR}/globjects)
-    message("Opengl Submodules : globjects DIR is ${globjects_DIR}")
+    #message("Opengl Submodules : globjects DIR is ${globjects_DIR}")
+
+    set_target_properties(pack component_install
+            PROPERTIES OUTPUT_NAME pack_globject
+            OUTPUT_NAME component_install_globject)
+
+    # configure globjects submodule
+    add_subdirectory(${globjects_DIR})
+
+
+    # taken from http://stackoverflow.com/questions/40294146/alternative-to-cmake-post-build-command-when-target-is-in-subdirectory?rq=1
+    # make copied file be dependent from one which is build.
+    # Note, that DEPENDS here creates dependencies both from the target
+    # and from the file it creates.
+    add_custom_command(OUTPUT ${GLSUBMODILES_INSTALL_PREFIX}/globjects}
+            #create directory
+            COMMAND ${CMAKE_COMMAND} -E make_directory ${GLSUBMODILES_INSTALL_PREFIX}/lib
+            COMMAND ${CMAKE_COMMAND} -E make_directory ${GLSUBMODILES_INSTALL_PREFIX}/include
+            #copy lib files
+            #COMMAND echo "$<TARGET_FILE_NAME:glbinding> ... $<TARGET_SONAME_FILE_NAME:glbinding> +++ $<TARGET_LINKER_FILE_NAME:glbinding> ---  "
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:globjects> ${GLSUBMODILES_INSTALL_PREFIX}/lib
+            COMMAND ${CMAKE_COMMAND} -E create_symlink ${GLSUBMODILES_INSTALL_PREFIX}/lib/$<TARGET_FILE_NAME:globjects> ${GLSUBMODILES_INSTALL_PREFIX}/lib/$<TARGET_SONAME_FILE_NAME:globjects>
+            COMMAND ${CMAKE_COMMAND} -E create_symlink ${GLSUBMODILES_INSTALL_PREFIX}/lib/$<TARGET_SONAME_FILE_NAME:globjects> ${GLSUBMODILES_INSTALL_PREFIX}/lib/$<TARGET_LINKER_FILE_NAME:globjects>
+            #copy include files
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/globjects/source/globjects/include/globjects ${GLSUBMODILES_INSTALL_PREFIX}/include/globjects
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_BINARY_DIR}/globjects/source/globjects/include/globjects ${GLSUBMODILES_INSTALL_PREFIX}/include/globjects
+            DEPENDS glbinding
+            )
+    # Create target which consume the command via DEPENDS.
+    add_custom_target(copy_globjects_files ALL
+            DEPENDS ${GLSUBMODILES_INSTALL_PREFIX}/globjects}
+            )
 endif(DEFINED globjects_DIR)
 
 
