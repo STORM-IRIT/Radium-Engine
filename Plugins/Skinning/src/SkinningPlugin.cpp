@@ -103,9 +103,9 @@ namespace SkinningPlugin
             << "Linear Blend Skinning" << "Dual Quaternion Skinning" << "Center of Rotation skinning" );
         m_skinningSelect->setEnabled( false );
 
-        m_actionLBS = new QAction(QIcon("../../Assets/Images/LB.png"), QString("Linear Blending"));
-        m_actionDQ  = new QAction(QIcon("../../Assets/Images/DQ_on.png"), QString("Dual Quaternion"));
-        m_actionCoR = new QAction(QIcon("../../Assets/Images/CoR.png"), QString("Center of Rotation"));
+        m_actionLBS = new QAction(QIcon(":/Assets/Images/LB.png"), QString("Linear Blending"));
+        m_actionDQ  = new QAction(QIcon(":/Assets/Images/DQ_on.png"), QString("Dual Quaternion"));
+        m_actionCoR = new QAction(QIcon(":/Assets/Images/CoR.png"), QString("Center of Rotation"));
 
         connect( m_skinningSelect,
             static_cast< void (QComboBox::*) (int)>(&QComboBox::currentIndexChanged),
@@ -161,23 +161,23 @@ namespace SkinningPlugin
         switch (newType) {
         case 0:
         {
-            m_actionLBS->setIcon(QIcon("../../Assets/Images/LB_on.png"));
-            m_actionDQ->setIcon(QIcon("../../Assets/Images/DQ.png"));
-            m_actionCoR->setIcon(QIcon("../../Assets/Images/CoR.png"));
+            m_actionLBS->setIcon(QIcon(":/Assets/Images/LB_on.png"));
+            m_actionDQ->setIcon(QIcon(":/Assets/Images/DQ.png"));
+            m_actionCoR->setIcon(QIcon(":/Assets/Images/CoR.png"));
             break;
         }
         case 1:
         {
-            m_actionLBS->setIcon(QIcon("../../Assets/Images/LB.png"));
-            m_actionDQ->setIcon(QIcon("../../Assets/Images/DQ_on.png"));
-            m_actionCoR->setIcon(QIcon("../../Assets/Images/CoR.png"));
+            m_actionLBS->setIcon(QIcon(":/Assets/Images/LB.png"));
+            m_actionDQ->setIcon(QIcon(":/Assets/Images/DQ_on.png"));
+            m_actionCoR->setIcon(QIcon(":/Assets/Images/CoR.png"));
             break;
         }
         case 2:
         {
-            m_actionLBS->setIcon(QIcon("../../Assets/Images/LB.png"));
-            m_actionDQ->setIcon(QIcon("../../Assets/Images/DQ.png"));
-            m_actionCoR->setIcon(QIcon("../../Assets/Images/CoR_on.png"));
+            m_actionLBS->setIcon(QIcon(":/Assets/Images/LB.png"));
+            m_actionDQ->setIcon(QIcon(":/Assets/Images/DQ.png"));
+            m_actionCoR->setIcon(QIcon(":/Assets/Images/CoR_on.png"));
             break;
         }
         default:
