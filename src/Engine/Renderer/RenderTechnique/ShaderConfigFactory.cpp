@@ -26,21 +26,28 @@ void addConfiguration(const std::string &name, const ShaderConfiguration &config
         return;
     }
 
-    configs.insert(std::pair<std::string, ShaderConfiguration>(name, config));
+    configs.insert(std::make_pair(name, config));
 }
 
 ShaderConfiguration getConfiguration(const std::string &name)
 {
-    auto found = configs.find(name);
+    if (name.empty())
+    {
+        LOG(logWARNING) << "Empty name in ShaderConfigurationFactory::getConfiguration call.";
+        return ShaderConfiguration();
+    }
 
+    auto found = configs.find(name);
     if (found != configs.end())
     {
         return found->second;
     }
     else
     {
-        LOG(logWARNING) << "ShaderConfiguration \"" << name << "\" has not been registered.";
-        return ShaderConfiguration(name);
+        LOG(logWARNING) << "ShaderConfiguration \"" << name << "\" has not been registered. Create it.";
+        const ShaderConfiguration config(name);
+        configs.insert(std::make_pair(name, config));
+        return config;
     }
 }
 
