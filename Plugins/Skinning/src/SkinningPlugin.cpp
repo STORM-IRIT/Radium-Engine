@@ -74,7 +74,8 @@ namespace SkinningPlugin
         if (it.m_entity)
         {
             const std::vector< std::unique_ptr<Ra::Engine::Component> >& comps = it.m_entity->getComponents();
-            for (size_t i = 0; i<comps.size(); ++i)
+            size_t i = 0;
+            for ( ; i<comps.size(); ++i)
             {
                 auto skinComp = dynamic_cast<SkinningPlugin::SkinningComponent*>(comps[i].get());
                 if(skinComp)
@@ -83,6 +84,12 @@ namespace SkinningPlugin
                     break;
                 }
             }
+            if (i >= comps.size())
+            {
+                m_widget->setCurrent(it, nullptr);
+            }
+        } else {
+            m_widget->setCurrent(it, nullptr);
         }
     }
 
@@ -106,6 +113,9 @@ namespace SkinningPlugin
         m_actionLBS = new QAction(QIcon(":/Assets/Images/LB.png"), QString("Linear Blending"));
         m_actionDQ  = new QAction(QIcon(":/Assets/Images/DQ_on.png"), QString("Dual Quaternion"));
         m_actionCoR = new QAction(QIcon(":/Assets/Images/CoR.png"), QString("Center of Rotation"));
+        m_actionLBS->setEnabled( false );
+        m_actionDQ->setEnabled( false );
+        m_actionCoR->setEnabled( false );
 
         connect( m_skinningSelect,
             static_cast< void (QComboBox::*) (int)>(&QComboBox::currentIndexChanged),
