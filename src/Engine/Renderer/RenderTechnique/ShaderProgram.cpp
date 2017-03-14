@@ -605,6 +605,7 @@ namespace Ra
         {
             ShaderConfiguration basicConfig;
             basicConfig.m_shaders = m_configuration.m_shaders;
+            basicConfig.m_name = m_configuration.m_name;
             return basicConfig;
         }
 
