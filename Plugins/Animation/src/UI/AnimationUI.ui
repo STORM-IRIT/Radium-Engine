@@ -156,19 +156,19 @@
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton[pressed=&quot;false&quot;] {
-border-image: url(../Assets/Images/play_off.png);
+border-image: url(:/Assets/Images/play_off.png);
 }
 
 QPushButton:hover[pressed=&quot;false&quot;] {
-border-image: url(../Assets/Images/play_on.png);
+border-image: url(:/Assets/Images/play_on.png);
 }
 
 QPushButton[pressed=&quot;true&quot;] {
-border-image: url(../Assets/Images/pause_off.png);
+border-image: url(:/Assets/Images/pause_off.png);
 }
 
 QPushButton:hover[pressed=&quot;true&quot;] {
-border-image: url(../Assets/Images/pause_on.png);
+border-image: url(:/Assets/Images/pause_on.png);
 }
 </string>
            </property>
@@ -214,11 +214,11 @@ border-image: url(../Assets/Images/pause_on.png);
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
-border-image: url(../Assets/Images/step_off.png);
+border-image: url(:/Assets/Images/step_off.png);
 }
 
 QPushButton:hover {
-border-image: url(../Assets/Images/step_on.png);
+border-image: url(:/Assets/Images/step_on.png);
 }
 </string>
            </property>
@@ -258,11 +258,11 @@ border-image: url(../Assets/Images/step_on.png);
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
-border-image: url(../Assets/Images/stop_off.png);
+border-image: url(:/Assets/Images/stop_off.png);
 }
 
 QPushButton:hover {
-border-image: url(../Assets/Images/stop_on.png);
+border-image: url(:/Assets/Images/stop_on.png);
 }
 </string>
            </property>
