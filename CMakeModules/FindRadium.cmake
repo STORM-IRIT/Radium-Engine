@@ -60,18 +60,25 @@ IF ( RADIUM_ROOT_DIR )
             )
     ENDIF()
 
+    FIND_LIBRARY ( ASSIMP_LIBRARIES
+        NAMES assimp assimp32.lib assimp.lib libassimp.a
+        PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
+        ${RADIUM_ROOT_DIR}/lib
+        )
+
     SET ( Radium_FOUND TRUE )
     SET( RADIUM_LIBRARIES )
-    IF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB)
+    IF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES)
        LIST(APPEND RADIUM_LIBRARIES "${RA_CORE_LIB}" "${RA_ENGINE_LIB}" "${RA_GUIBASE_LIB}")
        SET ( Radium_Libs_FOUND TRUE)
-    ENDIF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB)
+    ENDIF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES)
 ENDIF( RADIUM_ROOT_DIR)
 
 IF ( Radium_FOUND )
     IF(NOT Radium_FIND_QUIETLY)
       MESSAGE ( STATUS "Found Radium Engine: ${RADIUM_ROOT_DIR}")
-      MESSAGE ( STATUS " ---  Radium libs: ${RADIUM_LIBRARIES}")
+      MESSAGE ( STATUS "      Radium libs: ${RADIUM_LIBRARIES}")
+      MESSAGE ( STATUS "      Assimp libs: ${ASSIMP_LIBRARIES}")
     ENDIF(NOT Radium_FIND_QUIETLY)
     IF (NOT Radium_Libs_FOUND)
         MESSAGE( WARNING "Could not find Radium libraries. You must compile them first")
