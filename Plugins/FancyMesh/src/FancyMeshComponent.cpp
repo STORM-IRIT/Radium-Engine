@@ -153,6 +153,9 @@ namespace FancyMeshPlugin
         ComponentMessenger::CallbackTypes<TriangleMesh>::Getter cbOut = std::bind( &FancyMeshComponent::getMeshOutput, this );
         msg->registerOutput<TriangleMesh>( getEntity(), this, id, cbOut);
 
+        ComponentMessenger::CallbackTypes<TriangleMesh>::ReadWrite cbRw = std::bind( &FancyMeshComponent::getMeshRw, this );
+        msg->registerReadWrite<TriangleMesh>( getEntity(), this, id, cbRw);
+
         ComponentMessenger::CallbackTypes<Ra::Core::Index>::Getter roOut = std::bind(&FancyMeshComponent::roIndexRead, this);
         msg->registerOutput<Ra::Core::Index>(getEntity(), this, id, roOut);
 
@@ -185,6 +188,14 @@ namespace FancyMeshPlugin
     const Ra::Core::TriangleMesh* FancyMeshComponent::getMeshOutput() const
     {
         return &(getMesh());
+    }
+
+    Ra::Core::TriangleMesh *FancyMeshComponent::getMeshRw()
+    {
+        getDisplayMesh().setDirty( Ra::Engine::Mesh::VERTEX_POSITION );
+        getDisplayMesh().setDirty( Ra::Engine::Mesh::VERTEX_NORMAL );
+        getDisplayMesh().setDirty( Ra::Engine::Mesh::INDEX);
+        return &(getDisplayMesh().getGeometry());
     }
 
     void FancyMeshComponent::setMeshInput(const TriangleMesh *meshptr)
