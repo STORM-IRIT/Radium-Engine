@@ -34,6 +34,11 @@ namespace Ra
         public:
             RA_CORE_ALIGNED_NEW
             explicit Entity( const std::string& name = "" );
+
+            // Entities are not copyable.
+            Entity( const Entity& entity ) = delete;
+            Entity& operator= ( const Entity& ) = delete;
+
             virtual ~Entity();
 
             // Name

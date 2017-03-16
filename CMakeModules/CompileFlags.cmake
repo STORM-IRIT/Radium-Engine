@@ -73,6 +73,9 @@ elseif (MSVC)
 
     # remove exceptions from default args
     add_definitions(-D_HAS_EXCEPTIONS=0)
+    # disable secure CRT warnings
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+    add_definitions(-D_SCL_SECURE_NO_WARNINGS)
     string (REGEX REPLACE "/EHsc *" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     string (REGEX REPLACE "/GR" ""     CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 

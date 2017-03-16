@@ -30,6 +30,10 @@ namespace Ra
             /// CONSTRUCTOR
             EntityManager();
 
+            // Entity manager is non-copyable
+            EntityManager( const EntityManager& ) = delete;
+            EntityManager& operator= ( const EntityManager& ) = delete;
+
             /// DESTRUCTOR
             virtual ~EntityManager();
 
