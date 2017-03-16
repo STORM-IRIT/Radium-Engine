@@ -59,6 +59,8 @@ namespace AnimationPlugin
         void handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable );
         void handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data );
 
+        uint getBoneIdx( Ra::Core::Index roIndex ) const;
+
         //
         // Editable interface
         //
