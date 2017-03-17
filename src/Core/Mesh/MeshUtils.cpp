@@ -174,13 +174,12 @@ namespace Ra
                 for ( uint t = 0 ; t < mesh.m_triangles.size(); ++t )
                 {
                     std::string errStr;
-                    StringUtils::stringPrintf( errStr, "Triangle %d is degenerate", t);
-                    CORE_WARN_IF(!(getTriangleArea(mesh,t) > 0.f) , errStr.c_str());
+                    CORE_WARN_IF( !(getTriangleArea( mesh, t ) > 0.f), "Triangle" << t << " is degenerate" );
                     const Triangle& tri = mesh.m_triangles[t];
                     for ( uint i = 0; i < 3; ++i )
                     {
-                        StringUtils::stringPrintf( errStr, "Vertex %d is in triangle %d (#%d) is out of bounds", tri[i], t, i );
-                        CORE_ASSERT( uint( tri[i] ) < mesh.m_vertices.size(), errStr.c_str() );
+                        CORE_ASSERT( uint( tri[i] ) < mesh.m_vertices.size(), 
+                            "Vertex "<< tri[i] <<" is in triangle "<< t <<" (#"<< i <<") is out of bounds");
                         visited[tri[i]] = true;
                     }
                 }
@@ -188,8 +187,7 @@ namespace Ra
                 for ( uint v = 0; v < visited.size(); ++v )
                 {
                     std::string errStr;
-                    StringUtils::stringPrintf( errStr, "Vertex %d does not belong to any triangle", v );
-                    CORE_ASSERT( visited[v], errStr.c_str() );
+                    CORE_ASSERT( visited[v], "Vertex "<< v <<" does not belong to any triangle");
                 }
 
                 // Normals are optional but if they are present then every vertex should have one.

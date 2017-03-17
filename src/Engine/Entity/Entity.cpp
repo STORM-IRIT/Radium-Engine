@@ -31,11 +31,9 @@ namespace Ra
 
         void Entity::addComponent( Engine::Component* component )
         {
-            std::string name = component->getName();
-            std::string err;
-            Core::StringUtils::stringPrintf( err, "Component \"%s\" has already been added to the entity.",
-                                             name.c_str());
-            CORE_ASSERT( getComponent(name) == nullptr, err.c_str());
+            
+            CORE_ASSERT( getComponent( component->getName() ) == nullptr,
+                "Component \"" << component->getName() << "\" has already been added to the entity." );
 
             m_components.emplace_back( std::unique_ptr<Component>(component));
             component->setEntity( this );

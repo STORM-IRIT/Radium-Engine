@@ -17,6 +17,7 @@
 #include <cassert>
 #include <cstdio>
 #include <iostream>
+#include <sstream>
 
 // ----------------------------------------------------------------------------
 // Compiler identification
@@ -72,7 +73,14 @@
 // Build configuration
 // ----------------------------------------------------------------------------
 
-// This will cause assert to be disabled except if DEBUG is defined
+// This tells apart between debug and release builds :
+// CORE_DEBUG is defined in debug builds and CORE_RELEASe in release builds.
+// Also the macro ON_DEBUG() can be used to execute an expression only on debug.
+// By default, debug has assert macros enabled. In release builds
+// asserts are disabled except if explicitly required by 
+// defining CORE_USE_ASSERT
+
+
 // Make sure all "debug" macros are defined
 #if defined (DEBUG) || defined(_DEBUG) || defined (CORE_DEBUG) // ------- Debug
 #   undef CORE_DEBUG
@@ -246,11 +254,37 @@ typedef double Scalar;
 
 namespace compile_time_utils
 {
-    template<int x> struct size;
+template<int x> struct size;
 }
 // This macro will print the size of a type in a compiler error
 // Note : there is a way to print it as a warning instead on StackOverflow
 #define STATIC_SIZEOF(TYPE) compile_time_utils::size<sizeof(TYPE)> static_sizeof
+
+// This macro controls if asserts are triggered or not.
+#if defined CORE_DEBUG || defined CORE_USE_ASSERT
+# define CORE_ENABLE_ASSERT
+# define ON_ASSERT( CODE ) CODE
+#else
+# undef CORE_ENABLE_ASSERT
+# define ON_ASSERT( CODE ) /* nothing */
+#endif
+
+
+
+// Common code to report a failure
+// expects the expression which triggered the report,
+// the description of the error, and a format string.
+// (arguments to printf are, in order :
+// filename (%s), line (%i), expr(%s), desc (%s)
+#define REPORT_FAIL( EXP, DESC, FMT )   \
+    MACRO_START                         \
+    std::stringstream stream;           \
+    stream << DESC;                     \
+    fprintf(stderr,                     \
+          FMT,__FILE__,__LINE__, #EXP, stream.str().c_str() );   \
+MACRO_END
+
+
 
 // Custom assert, warn and error macros.
 // Standard assert has two main drawbacks : on some OSes it aborts the program,
@@ -258,24 +292,20 @@ namespace compile_time_utils
 // uses assert(). CORE_ASSERT guarantees a breakpoint when in a debugger,
 // and always prints a useful message.
 // CORE_WARN_IF has the same effect but it will only print a message.
-#ifdef CORE_DEBUG
-#define CORE_ASSERT( EXP, DESC )                       \
-    MACRO_START                                        \
-    if (UNLIKELY(!(EXP))) {                            \
-        fprintf(stderr,                                \
-                "%s:%i: Assertion `%s` failed : %s\n", \
-                __FILE__,__LINE__, #EXP, DESC);        \
-        BREAKPOINT(0);                                 \
-    } else {}                                          \
+#ifdef CORE_ENABLE_ASSERT
+#define CORE_ASSERT( EXP, DESC )    \
+    MACRO_START                     \
+    if (UNLIKELY(!(EXP))) {         \
+        REPORT_FAIL(EXP, DESC, "%s:%i: Assertion `%s` failed : %s\n");\
+        BREAKPOINT(0);              \
+    } else {}                       \
     MACRO_END
 
-#define CORE_WARN_IF( EXP, DESC )                      \
-    MACRO_START                                        \
-    if (UNLIKELY((EXP))) {                             \
-        fprintf(stderr,                                \
-                "%s:%i: WARNING `%s` : %s\n",          \
-                __FILE__,__LINE__, #EXP, DESC);        \
-    } else{}                                           \
+#define CORE_WARN_IF( EXP, DESC )  \
+    MACRO_START                    \
+    if (UNLIKELY((EXP))) {         \
+        REPORT_FAIL(EXP, DESC, "%s:%i: WARNING `%s` : %s\n");\
+    } else{}                       \
     MACRO_END
 #else
 #define CORE_ASSERT( EXP, DESC ) // nothing
@@ -283,21 +313,19 @@ namespace compile_time_utils
 #endif
 
 // Print an error and break, even in release.
-#define CORE_ERROR( DESC )                  \
-    MACRO_START                             \
-    fprintf(stderr,                         \
-            "%s:%i: ERROR : %s\n",          \
-            __FILE__,__LINE__, DESC);       \
-    BREAKPOINT(0);                          \
-    exit(EXIT_FAILURE);                     \
+#define CORE_ERROR( DESC )                     \
+    MACRO_START                                \
+    REPORT_FAIL(ERROR, DESC, "%s:%i %s: %s\n");\
+    BREAKPOINT(0);                             \
+    exit(EXIT_FAILURE);                        \
     MACRO_END
 
 // Print an error and break if condition is not met, even in release
-#define CORE_ERROR_IF( EXP, DESC )          \
-    MACRO_START                             \
-    if( UNLIKELY(!(EXP)) ) {                \
-        CORE_ERROR( DESC );                 \
-    }                                       \
+#define CORE_ERROR_IF( EXP, DESC ) \
+    MACRO_START                    \
+    if( UNLIKELY(!(EXP)) ) {       \
+        CORE_ERROR( DESC );        \
+    }                              \
     MACRO_END
 
 

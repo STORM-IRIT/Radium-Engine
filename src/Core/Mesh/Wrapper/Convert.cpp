@@ -43,7 +43,7 @@ void convert( const TriangleMesh& mesh, Dcel& dcel ) {
         Vector3 n = mesh.m_normals.at( i );
         Vertex_ptr v = std::shared_ptr< Vertex >( new Vertex( p, n ) );
         CORE_ASSERT( ( v != nullptr ), "Vertex_ptr == nullptr" );
-        ON_DEBUG( bool result = ) dcel.m_vertex.insert( v, v->idx );
+        ON_ASSERT( bool result = ) dcel.m_vertex.insert( v, v->idx );
         CORE_ASSERT(result , "Vertex not inserted" );
     }
     /// TWIN DATA
@@ -71,7 +71,7 @@ void convert( const TriangleMesh& mesh, Dcel& dcel ) {
             he[i]->setNext( he[( i + 1 ) % 3] );
             he[i]->setPrev( he[( i + 2 ) % 3] );
             he[i]->setF( f );
-            ON_DEBUG( bool result = ) dcel.m_halfedge.insert( he[i], he[i]->idx );
+            ON_ASSERT( bool result = ) dcel.m_halfedge.insert( he[i], he[i]->idx );
             CORE_ASSERT( result, "HalfEdge not inserted" );
             /// TWIN SEARCH
             Twin twin( t[i], t[( i + 1 ) % 3]);
@@ -90,7 +90,7 @@ void convert( const TriangleMesh& mesh, Dcel& dcel ) {
                 // Create the fulledge
                 FullEdge_ptr fe = std::shared_ptr< FullEdge >( new FullEdge( he[i] ) );
                 CORE_ASSERT( ( fe != nullptr ), "FullEdge_ptr == nullptr" );
-                ON_DEBUG( bool result =) dcel.m_fulledge.insert( fe, fe->idx );
+                ON_ASSERT( bool result =) dcel.m_fulledge.insert( fe, fe->idx );
                 CORE_ASSERT(result,  "FullEdge not inserted" );
                 he[i]->setFE( fe );
                 he[i]->Twin()->setFE( fe );

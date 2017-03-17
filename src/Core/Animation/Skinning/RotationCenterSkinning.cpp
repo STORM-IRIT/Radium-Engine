@@ -134,7 +134,7 @@ namespace Ra
                 {
 
                     // Check that the first vertices of the subdivided mesh have not changed.
-                    ON_DEBUG(const Vector3& p = dataInOut.m_referenceMesh.m_vertices[i]);
+                    ON_ASSERT(const Vector3& p = dataInOut.m_referenceMesh.m_vertices[i]);
                     CORE_ASSERT(subdividedMesh.m_vertices[i] == p, "Inconsistency in the meshes");
 
                     Vector3 cor(0, 0, 0);

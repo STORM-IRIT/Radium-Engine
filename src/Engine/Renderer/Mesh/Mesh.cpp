@@ -144,7 +144,7 @@ namespace Ra {
             if ( m_isDirty )
             {
                 // Check that our dirty bits are consistent.
-                ON_DEBUG(bool dirtyTest = false; for (const auto& d : m_dataDirty) { dirtyTest = dirtyTest || d;});
+                ON_ASSERT(bool dirtyTest = false; for (const auto& d : m_dataDirty) { dirtyTest = dirtyTest || d;});
                 CORE_ASSERT( dirtyTest == m_isDirty, "Dirty flags inconsistency");
 
                 CORE_ASSERT( ! ( m_mesh.m_vertices.empty()|| m_mesh.m_triangles.empty() ),

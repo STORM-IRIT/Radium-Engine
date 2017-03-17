@@ -101,15 +101,13 @@ namespace Ra
         {
            for ( const auto& pre : m_pendingDepsPre )
            {
-               ON_DEBUG(bool result =) addDependency( pre.first, pre.second );
-               ON_DEBUG( std::string errMsg = "Pending dependency unresolved : "+ pre.second; )
-               CORE_ASSERT( result, errMsg.c_str() );
+               ON_ASSERT(bool result =) addDependency( pre.first, pre.second );
+               CORE_ASSERT( result, "Pending dependency unresolved : " << pre.second);
            }
            for ( const auto& pre : m_pendingDepsSucc )
            {
-               ON_DEBUG(bool result =) addDependency( pre.first, pre.second );
-               ON_DEBUG( std::string errMsg = "Pending dependency unresolved : "+ pre.first; )
-               CORE_ASSERT( result, errMsg.c_str() );
+               ON_ASSERT(bool result =) addDependency( pre.first, pre.second );
+               CORE_ASSERT( result, "Pending dependency unresolved : " << pre.first );
            }
            m_pendingDepsPre.clear();
            m_pendingDepsSucc.clear();
@@ -117,7 +115,7 @@ namespace Ra
 
         void TaskQueue::queueTask( TaskQueue::TaskId task )
         {
-            CORE_ASSERT( m_remainingDependencies[task] == 0, " Task has unsatisfied dependencies" );
+            CORE_ASSERT( m_remainingDependencies[task] == 0, " Task" << m_tasks[task]->getName() <<"has unmet dependencies" );
             m_taskQueue.push_front( task );
         }
 
