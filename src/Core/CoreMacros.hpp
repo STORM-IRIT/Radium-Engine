@@ -323,9 +323,11 @@ MACRO_END
 // Print an error and break if condition is not met, even in release
 #define CORE_ERROR_IF( EXP, DESC ) \
     MACRO_START                    \
-    if( UNLIKELY(!(EXP)) ) {       \
-        CORE_ERROR( DESC );        \
-    }                              \
+    if( UNLIKELY(!(EXP))) {        \
+        REPORT_FAIL(EXP, DESC, "%s:%i ERROR `%s`: %s\n");\
+        BREAKPOINT(0);             \
+        exit(EXIT_FAILURE);        \
+    }else{}                        \
     MACRO_END
 
 
