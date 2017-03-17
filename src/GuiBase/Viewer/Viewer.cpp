@@ -65,9 +65,7 @@ namespace Ra
         GLuint result = glewInit();
         if ( result != GLEW_OK )
         {
-            std::string errorStr;
-            Ra::Core::StringUtils::stringPrintf( errorStr, " GLEW init failed : %s", glewGetErrorString( result ) );
-            CORE_ERROR( errorStr.c_str() );
+            CORE_ERROR( "GLEW init failed : "<<glewGetErrorString(result) );
         }
         else
         {
