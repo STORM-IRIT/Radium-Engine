@@ -139,6 +139,10 @@ if (${RADIUM_WARNINGS_AS_ERRORS})
     endif()
 endif()
 
+if (${RADIUM_FORCE_ASSERTS})
+    message( STATUS "Enabling asserts")
+    add_definitions(-DCORE_USE_ASSERT)
+endif()
 
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
     message(STATUS "64 bits build")
