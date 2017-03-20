@@ -54,7 +54,7 @@ void SkinningComponent::setupSkinning()
 
 
         // Do some debug checks:  Attempt to write to the mesh and check the weights match skeleton and mesh.
-        ON_DEBUG( bool skinnable = ComponentMessenger::getInstance()->canSet<Ra::Core::TriangleMesh>(getEntity(), m_contentsName ));
+        ON_ASSERT( bool skinnable = ComponentMessenger::getInstance()->canSet<Ra::Core::TriangleMesh>(getEntity(), m_contentsName ));
         CORE_ASSERT( skinnable, "Mesh cannot be skinned. It could be because the mesh is set to nondeformable" );
         CORE_ASSERT( m_refData.m_skeleton.size() == m_refData.m_weights.cols(), "Weights are incompatible with bones" );
         CORE_ASSERT( m_refData.m_referenceMesh.m_vertices.size() == m_refData.m_weights.rows(), "Weights are incompatible with Mesh" );
