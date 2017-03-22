@@ -1,7 +1,7 @@
 #ifndef FANCYMESHPLUGIN_FANCYMESHCOMPONENT_HPP
 #define FANCYMESHPLUGIN_FANCYMESHCOMPONENT_HPP
 
-#include <FancyMeshPlugin.hpp>
+#include <FancyMeshPluginMacros.hpp>
 
 #include <Core/Mesh/MeshTypes.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>

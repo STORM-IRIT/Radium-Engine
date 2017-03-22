@@ -1,7 +1,8 @@
 #ifndef ANIMPLUGIN_ANIMATION_COMPONENT_HPP_
 #define ANIMPLUGIN_ANIMATION_COMPONENT_HPP_
 
-#include <AnimationPlugin.hpp>
+#include <AnimationPluginMacros.hpp>
+
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
 #include <Core/Animation/Animation.hpp>

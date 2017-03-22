@@ -1,13 +1,7 @@
 #ifndef SKINPLUGIN_SKINNING_COMPONENT_HPP_
 #define SKINPLUGIN_SKINNING_COMPONENT_HPP_
 
-#include <Core/CoreMacros.hpp>
-/// Defines the correct macro to export dll symbols.
-#if defined  Skinning_EXPORTS
-    #define SKIN_PLUGIN_API DLL_EXPORT
-#else
-    #define SKIN_PLUGIN_API DLL_IMPORT
-#endif
+#include <SkinningPluginMacros.hpp>
 
 #include <Core/Math/DualQuaternion.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>

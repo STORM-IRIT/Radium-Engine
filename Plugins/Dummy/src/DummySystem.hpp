@@ -1,7 +1,7 @@
 #ifndef DUMMYPLUGIN_DUMMYSYSTEM_HPP
 #define DUMMYPLUGIN_DUMMYSYSTEM_HPP
 
-#include "DummyPlugin.hpp"
+#include <DummyPluginMacros.hpp>
 
 #include <Engine/Entity/System.hpp>
 
