@@ -3,7 +3,7 @@
 
 #include <Engine/System/System.hpp>
 
-#include <AnimationPlugin.hpp>
+#include <AnimationPluginMacros.hpp>
 
 namespace AnimationPlugin
 {

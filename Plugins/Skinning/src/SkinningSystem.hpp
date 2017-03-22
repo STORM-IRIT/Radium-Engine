@@ -1,7 +1,7 @@
 #ifndef SKINPLUGIN_SKINNING_SYSTEM_HPP_
 #define SKINPLUGIN_SKINNING_SYSTEM_HPP_
 
-#include <SkinningPlugin.hpp>
+#include <SkinningPluginMacros.hpp>
 
 #include <Engine/System/System.hpp>
 
