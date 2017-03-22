@@ -1,7 +1,7 @@
 #ifndef FANCYMESHPLUGIN_FANCYMESHSYSTEM_HPP
 #define FANCYMESHPLUGIN_FANCYMESHSYSTEM_HPP
 
-#include "FancyMeshPlugin.hpp"
+#include <FancyMeshPluginMacros.hpp>
 
 #include <Engine/System/System.hpp>
 

@@ -1,18 +1,13 @@
 #ifndef SKINNINGLUGIN_HPP_
 #define SKINNINGLUGIN_HPP_
 
-#include <Core/CoreMacros.hpp>
-/// Defines the correct macro to export dll symbols.
-#if defined  Skinning_EXPORTS
-    #define SKIN_PLUGIN_API DLL_EXPORT
-#else
-    #define SKIN_PLUGIN_API DLL_IMPORT
-#endif
+#include <SkinningPluginMacros.hpp>
 
 #include <QObject>
 #include <QtPlugin>
 #include <QFrame>
 #include <QComboBox>
+#include <QAction>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
 namespace Ra
@@ -37,17 +32,28 @@ class SkinningSystem;
 class SkinningWidget : public QFrame
 {
     Q_OBJECT
+
+    friend class SkinningPluginC;
+
 public:
     explicit SkinningWidget( QWidget* parent = nullptr );
+
 public slots:
     void setCurrent( const Ra::Engine::ItemEntry& entry, SkinningComponent* comp );
 
 private slots:
     void onSkinningChanged( int  newType );
 
+    void onLSBActionTriggered();
+    void onDQActionTriggered();
+    void onCoRActionTriggered();
+
 private:
-        SkinningComponent* m_current;
-        QComboBox* m_skinningSelect;
+    SkinningComponent* m_current;
+    QComboBox* m_skinningSelect;
+    QAction* m_actionLBS;
+    QAction* m_actionDQ;
+    QAction* m_actionCoR;
 };
 
 // Du to an ambiguous name while compiling with Clang, must differentiate plugin claas from plugin namespace
@@ -68,6 +74,8 @@ public:
     virtual bool doAddMenu() override;
     virtual QMenu* getMenu() override;
 
+    virtual bool doAddAction( int& nb ) override;
+    virtual QAction* getAction( int id ) override;
 
 private slots:
     void onCurrentChanged( const QModelIndex& current , const QModelIndex& prev);

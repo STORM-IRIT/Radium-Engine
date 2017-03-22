@@ -29,7 +29,7 @@ public:
 
     Ra::Core::Index getRenderObjectIndex() const { return m_roIdx;}
 
-    void toggleXray(bool on);
+    void setXray(bool on);
 
 private:
     void updateLocalTransform();

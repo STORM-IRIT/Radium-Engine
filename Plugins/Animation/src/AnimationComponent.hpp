@@ -1,7 +1,8 @@
 #ifndef ANIMPLUGIN_ANIMATION_COMPONENT_HPP_
 #define ANIMPLUGIN_ANIMATION_COMPONENT_HPP_
 
-#include <AnimationPlugin.hpp>
+#include <AnimationPluginMacros.hpp>
+
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
 #include <Core/Animation/Animation.hpp>
@@ -45,7 +46,7 @@ namespace AnimationPlugin
         /// Update the skeleton with an animation.
         void update(Scalar dt);
         void reset();
-        ANIM_PLUGIN_API void toggleXray(bool on) const;
+        ANIM_PLUGIN_API void setXray(bool on) const;
 
         void toggleSkeleton( const bool status );
         void toggleAnimationTimeStep( const bool status );

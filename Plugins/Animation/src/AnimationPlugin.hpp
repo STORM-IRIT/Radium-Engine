@@ -4,15 +4,12 @@
 #include <Core/CoreMacros.hpp>
 #include <QObject>
 #include <QtPlugin>
+#include <QAction>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
-/// Defines the correct macro to export dll symbols.
-#if defined  Animation_EXPORTS
-    #define ANIM_PLUGIN_API DLL_EXPORT
-#else
-    #define ANIM_PLUGIN_API DLL_IMPORT
-#endif
+#include <UI/AnimationUI.h>
 
+#include <AnimationPluginMacros.hpp>
 
 namespace Ra
 {
@@ -43,6 +40,9 @@ namespace AnimationPlugin
         virtual bool doAddMenu() override;
         virtual QMenu* getMenu() override;
 
+        virtual bool doAddAction( int& nb ) override;
+        virtual QAction* getAction( int id ) override;
+
     public slots:
         void toggleXray( bool on );
         void toggleSkeleton( bool on );
@@ -57,6 +57,7 @@ namespace AnimationPlugin
 
     private:
         class AnimationSystem* m_system;
+        AnimationUI* m_widget;
 
     };
 

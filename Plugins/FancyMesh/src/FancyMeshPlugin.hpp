@@ -1,18 +1,13 @@
 #ifndef FANCYMESHPLUGIN_HPP_
 #define FANCYMESHPLUGIN_HPP_
 
-#include <Core/CoreMacros.hpp>
-/// Defines the correct macro to export dll symbols.
-#if defined  FancyMesh_EXPORTS
-    #define FM_PLUGIN_API DLL_EXPORT
-#else
-    #define FM_PLUGIN_API DLL_IMPORT
-#endif
-
 #include <QObject>
 #include <QtPlugin>
+#include <QAction>
 
 #include <PluginBase/RadiumPluginInterface.hpp>
+
+#include <FancyMeshPluginMacros.hpp>
 
 namespace Ra
 {
@@ -42,6 +37,8 @@ namespace FancyMeshPlugin
         virtual bool doAddMenu() override;
         virtual QMenu* getMenu() override;
 
+        virtual bool doAddAction( int& nb ) override;
+        virtual QAction* getAction( int id ) override;
     };
 
 } // namespace

@@ -382,15 +382,27 @@ namespace Ra
     {
         QString tabName;
 
+        // Add menu
         if (plugin->doAddMenu())
         {
             QMainWindow::menuBar()->addMenu(plugin->getMenu());
-            // Add menu
         }
 
+        // Add widget
         if (plugin->doAddWidget(tabName))
         {
             toolBox->addItem(plugin->getWidget(), tabName);
+        }
+
+        // Add actions
+        int nbActions;
+        if (plugin->doAddAction( nbActions ))
+        {
+            for (int i=0; i<nbActions; ++i)
+            {
+                toolBar->insertAction( 0, plugin->getAction(i) );
+            }
+            toolBar->addSeparator();
         }
     }
 

@@ -36,4 +36,16 @@ namespace FancyMeshPlugin
     {
         return nullptr;
     }
+
+    bool FancyMeshPluginC::doAddAction( int& nb )
+    {
+        nb = 0;
+        return false;
+    }
+
+    QAction* FancyMeshPluginC::getAction( int id )
+    {
+        return nullptr;
+    }
+
 }

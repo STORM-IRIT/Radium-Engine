@@ -12,6 +12,11 @@ AnimationUI::AnimationUI(QWidget *parent) :
     ui->m_play->style()->unpolish( ui->m_play );
     ui->m_play->style()->polish( ui->m_play );
     ui->m_play->update();
+    connect( ui->actionXray, &QAction::toggled, this, &AnimationUI::on_m_xray_clicked );
+    connect( ui->actionXray, &QAction::toggled, this, &AnimationUI::on_m_showSkeleton_toggled );
+    connect( ui->actionPlay, &QAction::toggled, this, &AnimationUI::on_m_play_clicked );
+    connect( ui->actionStep, &QAction::triggered, this, &AnimationUI::on_m_step_clicked );
+    connect( ui->actionStop, &QAction::triggered, this, &AnimationUI::on_m_reset_clicked );
 }
 
 AnimationUI::~AnimationUI()

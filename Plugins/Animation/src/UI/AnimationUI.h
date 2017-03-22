@@ -3,6 +3,16 @@
 
 #include <QFrame>
 
+namespace UI
+{
+    class AnimationUi;
+}
+
+namespace AnimationPlugin
+{
+    class AnimationPluginC;
+}
+
 namespace Ui {
 class AnimationUI;
 }
@@ -10,6 +20,8 @@ class AnimationUI;
 class AnimationUI : public QFrame
 {
     Q_OBJECT
+
+    friend class AnimationPlugin::AnimationPluginC;
 
 public:
     explicit AnimationUI(QWidget *parent = 0);
