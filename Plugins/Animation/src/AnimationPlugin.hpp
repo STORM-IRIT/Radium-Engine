@@ -9,13 +9,7 @@
 
 #include <UI/AnimationUI.h>
 
-/// Defines the correct macro to export dll symbols.
-#if defined  Animation_EXPORTS
-    #define ANIM_PLUGIN_API DLL_EXPORT
-#else
-    #define ANIM_PLUGIN_API DLL_IMPORT
-#endif
-
+#include <AnimationPluginMacros.hpp>
 
 namespace Ra
 {

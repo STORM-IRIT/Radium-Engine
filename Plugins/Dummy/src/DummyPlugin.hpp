@@ -1,13 +1,7 @@
 #ifndef DUMMYPLUGIN_DUMMYPLUGIN_HPP
 #define DUMMYPLUGIN_DUMMYPLUGIN_HPP
 
-#include <Core/CoreMacros.hpp>
-/// Defines the correct macro to export dll symbols.
-#if defined  Dummy_EXPORTS
-    #define DUMMY_PLUGIN_API DLL_EXPORT
-#else
-    #define DUMMY_PLUGIN_API DLL_IMPORT
-#endif
+#include <DummyPluginMacros.hpp>
 
 #include <QObject>
 #include <QtPlugin>
