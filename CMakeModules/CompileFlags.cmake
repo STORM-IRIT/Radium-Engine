@@ -73,6 +73,9 @@ elseif (MSVC)
 
     # remove exceptions from default args
     add_definitions(-D_HAS_EXCEPTIONS=0)
+    # disable secure CRT warnings
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+    add_definitions(-D_SCL_SECURE_NO_WARNINGS)
     string (REGEX REPLACE "/EHsc *" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     string (REGEX REPLACE "/GR" ""     CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
@@ -95,7 +98,7 @@ endif()
 
 # Additional flags depending on build options =================================
 
-message("RADIUM COMPILE FLAGS:")
+message("RADIUM COMPILE FLAGS for ${PROJECT_NAME}")
 if (${RADIUM_WITH_DOUBLE_PRECISION})
   add_definitions(-DCORE_USE_DOUBLE)
   message(STATUS "Using double precision.")
@@ -136,6 +139,10 @@ if (${RADIUM_WARNINGS_AS_ERRORS})
     endif()
 endif()
 
+if (${RADIUM_FORCE_ASSERTS})
+    message( STATUS "Enabling asserts")
+    add_definitions(-DCORE_USE_ASSERT)
+endif()
 
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
     message(STATUS "64 bits build")

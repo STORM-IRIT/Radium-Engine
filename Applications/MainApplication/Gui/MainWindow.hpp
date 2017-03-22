@@ -137,6 +137,12 @@ namespace Ra
             /// Exports the mesh of the currently selected object to a file.
             void exportCurrentMesh();
 
+            /// Remove the currently selected item (entity, component or ro)
+            void deleteCurrentItem();
+
+            /// Clears all entities and resets the camera.
+            void resetScene();
+
         private:
             /// Stores the internal model of engine objects for selection.
             GuiBase::ItemModel* m_itemModel;

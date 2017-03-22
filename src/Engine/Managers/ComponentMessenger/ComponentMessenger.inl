@@ -54,7 +54,8 @@ namespace Ra
         {
             // Attempt to find the given entity list.
             const auto& entityListPos = m_entityGetLists.find(entity);
-            CORE_ASSERT(entityListPos != m_entityGetLists.end(), " Entity has no registered component");
+            if (entityListPos == m_entityGetLists.end())
+                return false; // Entity has no registered component
 
             Key key(id, std::type_index(typeid(ReturnType)));
             const CallbackMap& entityList = entityListPos->second;
@@ -70,8 +71,9 @@ namespace Ra
         inline bool ComponentMessenger::canSet(const Entity* entity, const std::string& id)
         {
             // Attempt to find the given entity list.
-            const auto& entityListPos = m_entitySetLists.find(entity);
-            CORE_ASSERT(entityListPos != m_entitySetLists.end(), " Entity has no registered component");
+            auto entityListPos = m_entitySetLists.find(entity);
+            if (entityListPos == m_entitySetLists.end())
+                return false; // Entity has no registered component
 
             Key key(id, std::type_index(typeid(ReturnType)));
             const CallbackMap& entityList = entityListPos->second;
@@ -88,7 +90,8 @@ namespace Ra
         {
             // Attempt to find the given entity list.
             const auto& entityListPos = m_entityRwLists.find(entity);
-            CORE_ASSERT(entityListPos != m_entityRwLists.end(), " Entity has no registered component");
+            if (entityListPos == m_entityRwLists.end())
+                return false; // Entity has no registered component
 
             Key key(id, std::type_index(typeid(ReturnType)));
             const CallbackMap& entityList = entityListPos->second;

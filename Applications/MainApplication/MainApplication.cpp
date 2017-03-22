@@ -85,9 +85,14 @@ namespace Ra
         LOG( logINFO ) << "*** Radium Engine Main App  ***";
         std::stringstream config;
 #if defined (CORE_DEBUG)
-        config << "(Debug Build) -- ";
+        config << "Debug Build ";
 #else
-        config << "(Release Build) -- ";
+        config << "Release Build ";
+#endif
+#if defined (CORE_ENABLE_ASSERT)
+        config<< "(with asserts) --";
+#else
+        config<<" --";
 #endif
 
 #if defined (ARCH_X86)

@@ -152,7 +152,7 @@ inline std::string NowTime()
 {
     char buffer[100];
     std::time_t t = std::time( nullptr );
-    ON_DEBUG(int ok =) std::strftime( buffer, 100, "%X", std::localtime( &t ) );
+    ON_ASSERT(int ok =) std::strftime( buffer, 100, "%X", std::localtime( &t ) );
     CORE_ASSERT (ok, "Increase buffer size.");
     std::string result(buffer);
     // This doesn't work with minGW. Maybe indicates a serious issue ?

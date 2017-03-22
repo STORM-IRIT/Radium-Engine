@@ -19,7 +19,7 @@ namespace RaTests
         {
             Vector3 a(1.f, 2.3f, 4.5f);
             Vector3 b(-6.f, 7.f, 8.9f);
-            Vector3 c(-3.f, 12.3, -42.1);
+            Vector3 c(-3.f, 12.3f, -42.1f);
 
             // Midpoint.
             Vector3 m = 0.5f*(a+b);

@@ -30,6 +30,10 @@ namespace Ra
             /// CONSTRUCTOR
             EntityManager();
 
+            // Entity manager is non-copyable
+            EntityManager( const EntityManager& ) = delete;
+            EntityManager& operator= ( const EntityManager& ) = delete;
+
             /// DESTRUCTOR
             virtual ~EntityManager();
 
@@ -85,9 +89,15 @@ namespace Ra
              */
             Entity* getEntity( const std::string& name ) const;
 
+            /**
+             * @brief Removes all entities.
+             */
+            void deleteEntities();
+
         private:
-            Core::IndexMap<std::shared_ptr<Entity>> m_entities;
+            Core::IndexMap<std::unique_ptr<Entity>> m_entities;
             std::map<std::string, Core::Index> m_entitiesName;
+
         };
 
     } // namespace Engine

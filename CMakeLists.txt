@@ -13,6 +13,7 @@ option(RADIUM_WITH_FANCY_GL         "Enable Fancy OpenGL effects" ON)
 option(RADIUM_WITH_TEXTURES         "Compile Radium enabling texture loading stuff" ON)
 option(RADIUM_WITH_PROFILING        "Enable functions profiling." OFF)
 option(RADIUM_WARNINGS_AS_ERRORS    "Treat compiler warning as errors" OFF)
+option(RADIUM_FORCE_ASSERTS         "Enable asserts regardless of build type" OFF)
 
 if ( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Debug )

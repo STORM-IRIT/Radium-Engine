@@ -24,6 +24,15 @@ namespace Ra
 
 namespace FancyMeshPlugin
 {
+    /*!
+     * \brief The FancyMeshComponent class
+     *
+     * Exports access to the mesh geometry:
+     *  - TriangleMesh: get, rw (set vertices, normals and triangles dirty)
+     *  - Vertices: rw (if deformable)
+     *  - normals: rw (if deformable)
+     *  - triangles: rw (if deformable)
+     */
     class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component
     {
     public:
@@ -52,6 +61,7 @@ namespace FancyMeshPlugin
 
         // Fancy mesh accepts to give its mesh and (if deformable) to update it
         const Ra::Core::TriangleMesh* getMeshOutput() const;
+        Ra::Core::TriangleMesh* getMeshRw();
         void setMeshInput( const Ra::Core::TriangleMesh* mesh );
         Ra::Core::Vector3Array* getVerticesRw();
         Ra::Core::Vector3Array* getNormalsRw();

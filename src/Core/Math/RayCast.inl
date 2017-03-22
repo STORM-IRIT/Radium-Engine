@@ -316,12 +316,12 @@ namespace Ra
             {
                 const Vector3 ab = b-a;
                 const Vector3 ac = c-a;
-                ON_DEBUG(const Vector3 n = ab.cross(ac));
+
+                ON_ASSERT(const Vector3 n = ab.cross(ac));
+                CORE_ASSERT( n.squaredNorm() > 0 , "Degenerate triangle");
 
                 Scalar u = 0.0;
                 Scalar v = 0.0;
-
-                CORE_ASSERT( n.squaredNorm() > 0 , "Degenerate triangle");
 
                 // Compute determinant
                 const Vector3 pvec = ray.direction().cross(ac);
