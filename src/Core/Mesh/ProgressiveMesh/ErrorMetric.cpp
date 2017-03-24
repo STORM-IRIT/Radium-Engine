@@ -5,6 +5,8 @@
 #include <Core/Mesh/DCEL/Iterator/Edge/EFIterator.hpp>
 #include <Core/Mesh/DCEL/Iterator/Face/FFIterator.hpp>
 
+#include <Core/Mesh/DCEL/Iterator/Vertex/VFIterator.hpp>
+
 #include <Core/Log/Log.hpp>
 
 namespace Ra
@@ -49,6 +51,72 @@ namespace Ra
             }
 
             return planar;
+        }
+
+        bool QuadricErrorMetric::isPlanarEdge2(Index halfEdgeIndex, Dcel* dcel, Index &vsIndex, Index &vtIndex)
+        {
+            bool planarVs = true;
+            bool planarVt = true;
+
+            VFIterator vsIt = VFIterator(dcel->m_halfedge[halfEdgeIndex]->V());
+            FaceList adjFacesVs = vsIt.list();
+
+            Vector3 p0 = adjFacesVs[0]->HE()->V()->P();
+            Vector3 q0 = adjFacesVs[0]->HE()->Next()->V()->P();
+            Vector3 r0 = adjFacesVs[0]->HE()->Next()->Next()->V()->P();
+            Vector3 n0 = Geometry::triangleNormal(p0,q0,r0);
+            Scalar norm0 = n0.norm();
+            Vector3 p, q, r, ni;
+            Scalar normi;
+
+            for (uint i = 1; i < adjFacesVs.size() && planarVs; i++)
+            {
+                p = adjFacesVs[i]->HE()->V()->P();
+                q = adjFacesVs[i]->HE()->Next()->V()->P();
+                r = adjFacesVs[i]->HE()->Next()->Next()->V()->P();
+                ni = Geometry::triangleNormal(p,q,r);
+                normi = ni.norm();
+                planarVs = (std::abs(n0.dot(ni)) == norm0 * normi);
+            }
+
+            VFIterator vtIt = VFIterator(dcel->m_halfedge[halfEdgeIndex]->Next()->V());
+            FaceList adjFacesVt = vtIt.list();
+
+            p0 = adjFacesVt[0]->HE()->V()->P();
+            q0 = adjFacesVt[0]->HE()->Next()->V()->P();
+            r0 = adjFacesVt[0]->HE()->Next()->Next()->V()->P();
+            n0 = Geometry::triangleNormal(p0,q0,r0);
+            norm0 = n0.norm();
+
+            for (uint i = 1; i < adjFacesVt.size() && planarVt; i++)
+            {
+                p = adjFacesVt[i]->HE()->V()->P();
+                q = adjFacesVt[i]->HE()->Next()->V()->P();
+                r = adjFacesVt[i]->HE()->Next()->Next()->V()->P();
+                ni = Geometry::triangleNormal(p,q,r);
+                normi = ni.norm();
+                planarVt = (std::abs(n0.dot(ni)) == norm0 * normi);
+            }
+
+            if (planarVs)
+            {
+                vsIndex = -1;
+            }
+            else
+            {
+                vsIndex = dcel->m_halfedge[halfEdgeIndex]->V()->idx;
+            }
+
+            if (planarVt)
+            {
+                vtIndex = -1;
+            }
+            else
+            {
+                vtIndex = dcel->m_halfedge[halfEdgeIndex]->Next()->V()->idx;
+            }
+
+            return (planarVs && planarVt);
         }
 
         Scalar QuadricErrorMetric::computeGeometricError(const Primitive& q, const Primitive::Vector& p)

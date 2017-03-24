@@ -62,6 +62,33 @@ namespace Ra
                 }
             };
 
+//            struct comparePriorityQueueDataByError
+//            {
+//                inline bool operator()(const PriorityQueueData &a1, const PriorityQueueData &a2)
+//                {
+//                    if (a1.m_err != a2.m_err)
+//                    {
+//                        return a1.m_err < a2.m_err;
+//                    }
+//                    else
+//                    {
+//                        if (a1.m_fl_id != a2.m_fl_id)
+//                        {
+//                            return a1.m_fl_id < a2.m_fl_id;
+//                        }
+//                        else
+//                        {
+//                            if (a1.m_vs_id != a2.m_vs_id)
+//                            {
+//                                return a1.m_vs_id < a2.m_vs_id; }
+//                            else
+//                            {
+//                                return a1.m_vt_id < a2.m_vt_id; }
+//                        }
+//                    }
+//                }
+//            };
+
             struct comparePriorityQueueDataByVertex
             {
                 inline bool operator()(const PriorityQueueData &a1, const PriorityQueueData &a2) const

@@ -138,6 +138,12 @@ namespace Ra
             Ra::Engine::SystemEntity::dbgCmp(),                     \
             Ra::Engine::DrawPrimitives::Sphere(c, r, color)))
 
+#define RA_DISPLAY_ELLIPSOID( center, a, b, c, lambda_a, lambda_b, lambda_c, color )                            \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
+        Ra::Engine::DrawPrimitives::Primitive(                      \
+            Ra::Engine::SystemEntity::dbgCmp(),                     \
+            Ra::Engine::DrawPrimitives::Ellipsoid(center, a, b, c, lambda_a, lambda_b, lambda_c, color)))
+
 #define RA_DISPLAY_CAPSULE( p1, p2, r, color )                            \
     Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
         Ra::Engine::DrawPrimitives::Primitive(                      \

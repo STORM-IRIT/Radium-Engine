@@ -64,6 +64,20 @@ namespace Ra
         }
 
         template<int DIM>
+        inline typename Eigen::EigenSolver<Matrix3>::EigenvalueType Quadric<DIM>::computeEigenValuesA()
+        {
+            typename Eigen::EigenSolver<Matrix3> es(m_a);
+            return es.eigenvalues();
+        }
+
+        template<int DIM>
+        inline typename Eigen::EigenSolver<Matrix3>::EigenvectorsType Quadric<DIM>::computeEigenVectorsA()
+        {
+            typename Eigen::EigenSolver<Matrix3> es(m_a);
+            return es.eigenvectors();
+        }
+
+        template<int DIM>
         inline Quadric<DIM> Quadric<DIM>::operator+(const Quadric& q) const
         {
             return Quadric<DIM>(m_a + q.getA(), m_b + q.getB(), m_c + q.getC());

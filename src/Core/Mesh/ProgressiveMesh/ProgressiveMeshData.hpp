@@ -4,6 +4,8 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Index/Index.hpp>
 
+#include <Core/Math/Quadric.hpp>
+
 /**
  * Class VSplit
  * The class VSplit contains all the information needed for
@@ -29,7 +31,7 @@ namespace Ra
                    Index he_fl_id, Index he_fr_id,
                    Index flclw_id, Index fl_id, Index fr_id,
                    Index vs_id, Index vt_id, Index vl_id, Index vr_id,
-                   short int ii);
+                   short int ii /*, ProgressiveMesh<>::Primitive qVt*/);
 
             ~ProgressiveMeshData()
             {}
@@ -48,6 +50,10 @@ namespace Ra
             inline short int getii();
             inline Vector3 getVads();
             inline Vector3 getVadl();
+            inline void setQVt(Ra::Core::Quadric<3> qVt);
+            inline Ra::Core::Quadric<3> getQVt();
+//            inline void setQVt(ProgressiveMesh<>::Primitive qVt);
+//            inline ProgressiveMesh<>::Primitive getQVt();
 
             //----------------------------------------------
 
@@ -66,6 +72,9 @@ namespace Ra
 
             // gives the attribute of the new vertex
             short int m_ii; // prediction of p position
+
+            Ra::Core::Quadric<3> m_qVt;
+//            ProgressiveMesh<>::Primitive m_qVt;
         };
     } // namespace Core
 } // namespace Ra

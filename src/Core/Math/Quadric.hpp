@@ -4,6 +4,8 @@
 #include <Core/RaCore.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
+#include <Eigen/Eigenvalues>
+
 
 namespace Ra
 {
@@ -64,6 +66,10 @@ namespace Ra
             /// represent the distance from the plane of normal n to the origin
             /// \deprecated Use constructor instead
             void compute(const Vector& n, double ndotp);
+
+            /// Computes eigen values and vectors of matrix A
+            inline typename Eigen::EigenSolver<Matrix3>::EigenvalueType computeEigenValuesA();
+            inline typename Eigen::EigenSolver<Matrix3>::EigenvectorsType computeEigenVectorsA();
 
             /// Operators
 

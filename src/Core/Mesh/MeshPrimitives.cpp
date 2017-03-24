@@ -149,6 +149,178 @@ namespace Ra
                 return result;
             }
 
+            TriangleMesh makeEllipsoid(const Vector3& a, const Vector3& b, const Vector3& c, const float& lambda_a, const float& lambda_b, const float& lambda_c, uint numSubdiv)
+            {
+                TriangleMesh result;
+
+//                Matrix3f M;
+//                M << 1, 0, 0,
+//                     0, 1, 0,
+//                     0, 0, 1;
+
+                // Scaling matrix
+
+//                float la, lb, lc;
+//                if (lambda_a != 0)
+//                {
+//                    la = 1 / lambda_a;
+//                }
+//                else
+//                {
+//                    la = 0;
+//                }
+//                if (lambda_b != 0)
+//                {
+//                    lb = 1 / lambda_b;
+//                }
+//                else
+//                {
+//                    lb = 0;
+//                }
+//                if (lambda_c != 0)
+//                {
+//                    lc = 1 / lambda_c;
+//                }
+//                else
+//                {
+//                    lc = 0;
+//                }
+
+                Matrix3f MS;
+
+                MS << lambda_a, 0, 0,
+                      0, lambda_b, 0,
+                      0, 0, lambda_c;
+
+//                MS << la, 0, 0,
+//                      0, lb, 0,
+//                      0, 0, lc;
+
+                // Scaling to have smaller ellipsoids
+                Matrix3f S;
+                S << 0.1, 0, 0,
+                     0, 0.1, 0,
+                     0, 0, 0.1;
+
+                Vector3 x (1, 0, 0);
+                Vector3 y (0, 1, 0);
+                Vector3 z (0, 0, 1);
+
+                // Change of basis from (x,y,z) to (a,b,c)
+                Matrix3f P;
+                P << a[0], b[0], c[0],
+                     a[1], b[1], c[1],
+                     a[2], b[2], c[2];
+
+                // Computation of the 3 rotation matrices
+//                Scalar thetaX = acos(x.dot(a) / (x.norm() * a.norm()));
+
+//                Matrix3f RotX;
+//                RotX << 1, 0, 0,
+//                        0, cos(thetaX), -sin(thetaX),
+//                        0, sin(thetaX), cos(thetaX);
+
+//                Scalar thetaY = acos(y.dot(b) / (y.norm() * b.norm()));
+
+//                Matrix3f RotY;
+//                RotY << cos(thetaY), 0, sin(thetaY),
+//                        0, 1, 0,
+//                        -sin(thetaY), 0, cos(thetaY);
+
+//                Scalar thetaZ = acos(z.dot(c) / (z.norm() * c.norm()));
+
+//                Matrix3f RotZ;
+//                RotZ << cos(thetaZ), -sin(thetaZ), 0,
+//                        sin(thetaZ), cos(thetaZ), 0,
+//                        0, 0, 1;
+
+//                Matrix3f R = RotZ * RotY * RotX;
+
+                // First, make an icosahedron.
+                // Top vertex
+                result.m_vertices.push_back( Vector3( 0, 0, 1 ) );
+
+                const Scalar sq5_5 = std::sqrt( 5.f ) / 5.f;
+
+                // Middle vertices are on pentagons inscribed on a circle of 2*sqrt(5)
+                for ( int i = 0; i < 5 ; ++i )
+                {
+                    for ( int j = 0; j < 2 ; ++j )
+                    {
+                        const Scalar theta = ( Scalar( i ) + ( j * 0.5f ) ) * Math::PiMul2 / 5.f;
+
+                        const Scalar x = 2.f * sq5_5 * std::cos( theta );
+                        const Scalar y = 2.f * sq5_5 * std::sin( theta );
+                        const Scalar z = j == 0 ? sq5_5 : -sq5_5;
+                        result.m_vertices.push_back( Vector3( x, y, z ) );
+                    }
+                }
+
+                // Bottom vertex
+                result.m_vertices.push_back( Vector3( 0, 0, -1 ) );
+
+                for ( int i = 0; i < 5; ++i )
+                {
+                    uint i1 = ( i + 1 ) % 5;
+                    // Top triangles
+                    result.m_triangles.push_back( Triangle( 0, 2 * i + 1, ( 2 * i1 + 1 ) ) );
+
+                    // Bottom triangles
+                    result.m_triangles.push_back( Triangle( 2 * i + 2, 11, ( 2 * i1 + 2 ) ) );
+
+                }
+                for ( uint i = 0; i < 10; ++i )
+                {
+                    uint i1 = ( i + 0 ) % 10 + 1;
+                    uint i2 = ( i + 1 ) % 10 + 1;
+                    uint i3 = ( i + 2 ) % 10 + 1;
+                    i % 2 ?  result.m_triangles.push_back( Triangle( i3, i2, i1 ) )
+                    : result.m_triangles.push_back( Triangle( i2, i3, i1 ) );
+                }
+
+
+                for ( uint n = 0; n < numSubdiv; ++n )
+                {
+                    VectorArray<Triangle> newTris; //= result.m_triangles;
+                    // Now subdivide every face into 4 triangles.
+                    for ( uint i = 0 ; i < result.m_triangles.size(); ++i )
+                    {
+                        const Triangle& tri = result.m_triangles[i];
+                        std::array<Vector3, 3> triVertices;
+                        std::array<uint, 3> middles;
+
+                        getTriangleVertices( result, i, triVertices );
+
+                        for ( int v = 0; v < 3 ; ++v )
+                        {
+                            middles[v] = result.m_vertices.size();
+                            result.m_vertices.push_back(0.5f * ( triVertices[v] + triVertices[( v + 1 ) % 3] ) );
+                        }
+
+                        newTris.push_back( Triangle( tri[0], middles[0], middles[2] ) );
+                        newTris.push_back( Triangle( middles[0], tri[1], middles[1] ) );
+                        newTris.push_back( Triangle( middles[2], middles[1], tri[2] ) );
+                        newTris.push_back( Triangle( middles[0], middles[1], middles[2] ) );
+
+                    }
+                    result.m_triangles = newTris;
+                }
+
+                // Project vertices on the ellipsoid
+
+                for ( auto& vertex : result.m_vertices )
+                {
+                    const Scalar r = 1 / vertex.norm();
+                    vertex *= r;
+                    vertex = P.inverse() * MS * S * vertex;
+                    //vertex = S * MS * R * vertex;
+                }
+                getAutoNormals( result, result.m_normals );
+                checkConsistency( result );
+                return result;
+
+            }
+
             TriangleMesh makeCylinder(const Vector3& a, const Vector3& b, Scalar radius, uint nFaces)
             {
                 TriangleMesh result;
@@ -454,6 +626,46 @@ namespace Ra
                 checkConsistency( result );
                 return result;
             }
+
+//            TriangleMesh makeEllipsoid(const Vector3& a, const Vector3& b, const Vector3& c, uint nFaces)
+//            {
+//                TriangleMesh result;
+
+//                Core::Vector3 xPlane = a;
+//                Core::Vector3 yPlane = b;
+//                Core::Vector3 zPlane = c;
+
+//                xPlane.normalize();
+//                yPlane.normalize();
+//                zPlane.normalize();
+
+//                result.m_vertices.push_back(a);
+//                result.m_vertices.push_back(b);
+//                result.m_vertices.push_back(c);
+
+//                const Scalar thetaInc( Core::Math::PiMul2 / Scalar( nFaces ) );
+//                for (uint i = 0; i < nFaces; ++i)
+//                {
+//                    const Scalar theta =  i*thetaInc;
+//                    result.m_vertices.push_back(a.norm() * std::cos(theta) * xPlane + b.norm() * std::sin(theta) * yPlane + c.norm() * zPlane);
+//                }
+
+//                for (uint i = 0; i < nFaces; ++i)
+//                {
+//                    uint v1 = i + 3;
+//                    uint v2 = ((i+1)%nFaces) + 3;
+//                    uint v3 = ((i+2)%nFaces) + 3;
+
+//                    result.m_triangles.push_back(Triangle( 0, v1, v2 ));
+//                    result.m_triangles.push_back(Triangle( 1, v1, v3 ));
+//                    result.m_triangles.push_back(Triangle( 2, v2, v3 ));
+//                }
+//                getAutoNormals(result,result.m_normals);
+//                checkConsistency( result );
+//                return result;
+
+
+//            }
 
 
 

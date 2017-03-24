@@ -63,5 +63,15 @@ inline Vector3 ProgressiveMeshData::getVadl()
     return m_vad_l;
 }
 
+inline void ProgressiveMeshData::setQVt(Ra::Core::Quadric<3> qVt)
+{
+    m_qVt = Quadric<3>(qVt);
+}
+
+inline Ra::Core::Quadric<3> ProgressiveMeshData::getQVt()
+{
+    return m_qVt;
+}
+
 } // namespace Core
 } // namespace Ra

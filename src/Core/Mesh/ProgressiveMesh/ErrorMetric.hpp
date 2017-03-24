@@ -24,6 +24,7 @@ namespace Ra
             QuadricErrorMetric(Scalar scale);
 
             bool isPlanarEdge(Index halfEdgeIndex, Dcel* dcel);
+            bool isPlanarEdge2(Index halfEdgeIndex, Dcel* dcel, Index &vsIndex, Index &vtIndex);
 
             //Scalar computeError(const Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult);
             Scalar computeError(const Primitive& q, Index halfedgeIndex, Vector3& pResult, Dcel* dcel);
