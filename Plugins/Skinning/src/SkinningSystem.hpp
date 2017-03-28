@@ -17,9 +17,15 @@
 
 namespace SkinningPlugin
 {
+    class SkinningPluginC;
+}
+
+namespace SkinningPlugin
+{
 
     class SKIN_PLUGIN_API SkinningSystem :  public Ra::Engine::System
     {
+        friend class SkinningPlugin::SkinningPluginC;
     public:
         SkinningSystem(){}
         virtual void generateTasks( Ra::Core::TaskQueue* taskQueue,

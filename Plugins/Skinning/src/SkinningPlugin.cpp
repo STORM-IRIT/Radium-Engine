@@ -73,17 +73,13 @@ namespace SkinningPlugin
         Ra::Engine::ItemEntry it = m_selectionManager->currentItem();
         if (it.m_entity)
         {
-            bool found = false;
-            for (auto ec : m_system->m_components)
+            auto comp = std::find_if( m_system->m_components.begin(), m_system->m_components.end(),
+                                      [it](const auto& ec){return ec.first == it.m_entity;});
+            if (comp != m_system->m_components.end())
             {
-                if (ec.first == it.m_entity)
-                {
-                    m_widget->setCurrent(it, static_cast<SkinningPlugin::SkinningComponent*>(ec.second));
-                    found = true;
-                    break;
-                }
+                m_widget->setCurrent(it, static_cast<SkinningPlugin::SkinningComponent*>(comp->second));
             }
-            if (!found)
+            else
             {
                 m_widget->setCurrent(it, nullptr);
             }

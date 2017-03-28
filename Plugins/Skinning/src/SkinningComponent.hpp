@@ -15,14 +15,8 @@
 
 namespace SkinningPlugin
 {
-    class SkinningPluginC;
-}
-
-namespace SkinningPlugin
-{
     class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component
     {
-        friend class SkinningPlugin::SkinningPluginC;
     public:
 
         enum SkinningType
