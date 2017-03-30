@@ -3,8 +3,10 @@
 # GLM_INCLUDE_DIR
 
 include(FindPackageHandleStandardArgs)
-set(glm_DIR ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/OpenGL/glm)
+#set(glm_DIR ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/OpenGL/glm)
+set(glm_DIR ../../../glm)
 
+message("Source dir = ${CMAKE_CURRENT_SOURCE_DIR}")
 FIND_PATH(GLM_INCLUDE_DIR glm/glm.hpp
 
     PATHS
@@ -19,7 +21,7 @@ FIND_PATH(GLM_INCLUDE_DIR glm/glm.hpp
     /include
 
     DOC "The directory where glm/glm.hpp resides.")
-    
+
 find_package_handle_standard_args(GLM REQUIRED_VARS GLM_INCLUDE_DIR)
 
 mark_as_advanced(GLM_INCLUDE_DIR)

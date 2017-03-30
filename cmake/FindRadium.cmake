@@ -27,10 +27,14 @@ IF(NOT RADIUM_ROOT_DIR)
     DOC "The radium engine source folder")
 ENDIF(NOT RADIUM_ROOT_DIR)
 
+
 IF ( RADIUM_ROOT_DIR )
-    SET ( RADIUM_INCLUDE_DIR "${RADIUM_ROOT_DIR}/src")
-    SET ( EIGEN_INCLUDE_DIR "${RADIUM_ROOT_DIR}/3rdPartyLibraries/Eigen")
-    SET ( ASSIMP_INCLUDE_DIR "${RADIUM_ROOT_DIR}/3rdPartyLibraries/Assimp/include")
+    SET ( RADIUM_INCLUDES "${RADIUM_ROOT_DIR}/src")
+
+    find_package(Eigen3 3.1.2 REQUIRED)
+
+    #find_package(Assimp REQUIRED)
+
     SET ( RADIUM_PLUGIN_OUTPUT_PATH "${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/Plugins")
 
     IF (TARGET radiumCore)
@@ -67,6 +71,12 @@ IF ( RADIUM_ROOT_DIR )
         )
 
     SET ( Radium_FOUND TRUE )
+
+    # TODO (Mathias) : verify if cmake recommand this
+    SET( RADIUM_INCLUDE_DIR ${RADIUM_INCLUDES})
+    #LIST(APPEND RADIUM_INCLUDE_DIR "${RADIUM_INCLUDES}" "${EIGEN3_INCLUDE_DIR}" ) #"${ASSIMP_INCLUDE_DIR}")
+
+
     SET( RADIUM_LIBRARIES )
     IF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES)
        LIST(APPEND RADIUM_LIBRARIES "${RA_CORE_LIB}" "${RA_ENGINE_LIB}" "${RA_GUIBASE_LIB}")
