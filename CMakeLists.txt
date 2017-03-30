@@ -99,7 +99,9 @@ add_subdirectory(src)
 # ----------------------------------------------------------------------------------------------------------------------
 #   Applications
 #   Set Base directories for dependencies
+# use Eigen version included in the Radium distribution, not the system-wide installed if available
 set (EIGEN3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/Eigen")
+
 add_subdirectory(Applications)
 
 
