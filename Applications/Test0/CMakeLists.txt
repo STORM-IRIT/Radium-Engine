@@ -22,7 +22,7 @@ set(CMAKE_AUTORCC ON)
 include_directories(
     .
     ${RADIUM_INCLUDE_DIR}
-    ${EIGEN_INCLUDE_DIR}
+    ${EIGEN3_INCLUDE_DIR}
     ${ASSIMP_INCLUDE_DIR}
 )
 

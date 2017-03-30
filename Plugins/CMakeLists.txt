@@ -1,7 +1,11 @@
 
 find_package(Radium REQUIRED)
+message(STATUS "Building plugins with radium libs : ${RADIUM_LIBRARIES} ")
 
 set( CMAKE_DEBUG_POSTFIX "")
+
+# FIXME (Mathias) this is a very strange thing. Why overwriting variables constructed by find_package ???
+
 if (APPLE)
     FILE(GLOB RADIUM_LIBRARIES "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/*.dylib" )
 elseif(UNIX)
@@ -11,6 +15,7 @@ elseif (MINGW)
 elseif(MSVC)
     FILE(GLOB RADIUM_LIBRARIES "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/*.lib" )
 endif()
+
 set( PLUGIN_OUTPUT_PATH "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Plugins")
 
 #add_subdirectory( Dummy )

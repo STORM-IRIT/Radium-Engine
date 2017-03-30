@@ -3,8 +3,8 @@
 # Compilation flag for each platforms =========================================
 
 if (APPLE)
-    message("Compiling on Apple with compiler " ${CMAKE_CXX_COMPILER_ID})
-    message("RADIUM_WITH_OMP is " ${RADIUM_WITH_OMP})
+#    message(STATUS "${PROJECT_NAME} : Compiling on Apple with compiler " ${CMAKE_CXX_COMPILER_ID})
+
     if ( (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") )
         set(OMP_FLAG "-fopenmp -ftree-vectorize")
         set(MATH_FLAG "-mfpmath=sse -ffast-math")
@@ -14,7 +14,6 @@ if (APPLE)
     endif()
 
     if (NOT ${RADIUM_WITH_OMP})
-        message("Compiling without OpenMP support")
         set (OMP_FLAG "")
         add_definitions( -Wno-unknown-pragmas )  # gcc/mingw prints a lot of warnings due to open mp pragmas
     else()
@@ -94,44 +93,48 @@ elseif (MSVC)
     set(CMAKE_CXX_FLAGS_DEBUG          "/D_DEBUG /DCORE_DEBUG /Od /Zi ${CMAKE_CXX_FLAGS_DEBUG} /MDd")
     set(CMAKE_CXX_FLAGS_RELEASE        "/DNDEBUG /Ox /fp:fast ${CMAKE_CXX_FLAGS_RELEASE} /MT")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi ${CMAKE_CXX_FLAGS_RELEASE}")
+
+    # Problem with Qt linking
+    # FIXME(Charly): Not sure if this should be done on Linux
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_COMPILING_QSTRING_COMPAT_CPP")
+
 endif()
 
 # Additional flags depending on build options =================================
 
-message("RADIUM COMPILE FLAGS for ${PROJECT_NAME}")
 if (${RADIUM_WITH_DOUBLE_PRECISION})
   add_definitions(-DCORE_USE_DOUBLE)
-  message(STATUS "Using double precision.")
+  message(STATUS "${PROJECT_NAME} : Using double precision.")
 else()
-  message(STATUS "Using single precision.")
+  message(STATUS "${PROJECT_NAME} : Using single precision.")
 endif()
 
 if (NOT ${RADIUM_WITH_FANCY_GL})
   add_definitions(-DNO_TRANSPARENCY)
-  message(STATUS "Fancy OpenGL Effects are disabled")
+  message(STATUS "${PROJECT_NAME} : Fancy OpenGL Effects are disabled")
 endif()
 
 if (${RADIUM_WITH_OMP})
     add_definitions(-DCORE_USE_OMP)
-    message(STATUS "Using OpenMP")
+    message(STATUS "${PROJECT_NAME} : Using OpenMP")
 else()
-    message(STATUS "OpenMP disabled")
+    message(STATUS "${PROJECT_NAME} : OpenMP disabled")
 endif()
 
 if (${RADIUM_WITH_TEXTURES})
-    message(STATUS "Textures will be loaded")
+    message(STATUS "${PROJECT_NAME} : Textures will be loaded")
     add_definitions(-DRADIUM_WITH_TEXTURES)
 else()
-	message(STATUS "Textures won't be loaded, use RADIUM_WITH_TEXTURES flag to enable them.")
+	message(STATUS "${PROJECT_NAME} : Textures won't be loaded, use RADIUM_WITH_TEXTURES flag to enable them.")
 endif()
 
 if (${RADIUM_WITH_PROFILING})
     add_definitions(-DALLOW_PROFILING)
-    message(STATUS "Profiling is enabled")
+    message(STATUS "${PROJECT_NAME} : Profiling is enabled")
 endif()
 
 if (${RADIUM_WARNINGS_AS_ERRORS})
-    message(STATUS "Enabling warnings as errors")
+    message(STATUS "${PROJECT_NAME} : Enabling warnings as errors")
     if ( APPLE OR ( UNIX OR MINGW ) )
         set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
     elseif (MSVC)
@@ -145,9 +148,9 @@ if (${RADIUM_FORCE_ASSERTS})
 endif()
 
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
-    message(STATUS "64 bits build")
+    message(STATUS "${PROJECT_NAME} : 64 bits build")
 else()
-    message(STATUS "32 bits build")
+    message(STATUS "${PROJECT_NAME} : 32 bits build")
 endif()
 
 
