@@ -16,27 +16,12 @@ set( Qt5_LIBRARIES
      ${Qt5Widgets_LIBRARIES}
      ${Qt5OpenGL_LIBRARIES} )
 
-# TODO, do we really need this ?
-#if(APPLE)
-#    FIND_LIBRARY(CARBON_LIBRARY Carbon)
-#    set( PLATFORM_LIBS ${CARBON_LIBRARY} )
-#elseif( UNIX )
-#    set( PLATFORM_LIBS X11 xcb )
-#else()
-#    set( PLATFORM_LIBS "" )
-#endif()
-
-
-#include(CompileFlags)
-
 set(app_libs
     ${RADIUM_LIBRARIES}
 
     ${Qt5_LIBRARIES}                # the Qt beast
     ${OPENGL_LIBRARIES}
-#    ${PLATFORM_LIBS}
-#    ${ASSIMP_LIBRARIES}
-      )
+    )
 
 file(GLOB_RECURSE app_sources *.cpp)
 file(GLOB_RECURSE app_headers *.h *.hpp)
@@ -51,8 +36,6 @@ include_directories(
     .
     ${RADIUM_INCLUDE_DIR}
     ${EIGEN3_INCLUDE_DIR}
-#    ${ASSIMP_INCLUDE_DIR}
-
     ${CMAKE_CURRENT_BINARY_DIR} # Moc
     )
 
