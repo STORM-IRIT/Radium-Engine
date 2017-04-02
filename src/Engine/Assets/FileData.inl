@@ -1,4 +1,3 @@
-#include <Engine/Assets/FileData.hpp>
 
 #include <Core/Log/Log.hpp>
 #include <Engine/Assets/GeometryData.hpp>

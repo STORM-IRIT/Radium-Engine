@@ -27,6 +27,8 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 namespace Ra
 {
@@ -602,6 +604,37 @@ namespace Ra
                     } break;
                 }
             }
+        }
+
+        uchar* Renderer::grabFrame(uint &w, uint &h) const {
+            Engine::Texture* tex = getDisplayTexture();
+            tex->bind();
+
+            // Get a buffer to store the pixels of the OpenGL texture (in float format)
+            float* pixels = new float[tex->width() * tex->height() * 4];
+
+            // Grab the texture data
+            GL_ASSERT(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_FLOAT, pixels));
+
+            // Now we must convert the floats to RGB while flipping the image updisde down.
+            uchar* writtenPixels = new uchar[tex->width() * tex->height() * 4];
+            for (uint j = 0; j < tex->height(); ++j)
+            {
+                for (uint i = 0; i < tex->width(); ++i)
+                {
+                    uint in = 4 * (j * tex->width() + i);  // Index in the texture buffer
+                    uint ou = 4 * ((tex->height() - 1 - j) * tex->width() + i); // Index in the final image (note the j flipping).
+
+                    writtenPixels[ou + 0] = (uchar)Ra::Core::Math::clamp<Scalar>(pixels[in + 0] * 255.f, 0, 255);
+                    writtenPixels[ou + 1] = (uchar)Ra::Core::Math::clamp<Scalar>(pixels[in + 1] * 255.f, 0, 255);
+                    writtenPixels[ou + 2] = (uchar)Ra::Core::Math::clamp<Scalar>(pixels[in + 2] * 255.f, 0, 255);
+                    writtenPixels[ou + 3] = 0xff;
+                }
+            }
+            delete[] pixels;
+            w = tex->width();
+            h = tex->height();
+            return writtenPixels;
         }
 
     }

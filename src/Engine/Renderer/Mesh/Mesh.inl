@@ -9,7 +9,7 @@ namespace Engine {
         return m_name;
     }
 
-    void Mesh::setRenderMode( GLenum mode )
+    void Mesh::setRenderMode( MeshRenderMode mode )
     {
         m_renderMode = mode;
     }

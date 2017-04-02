@@ -1,11 +1,14 @@
 #include <Engine/Component/Component.hpp>
 
+#include <Core/Log/Log.hpp>
+
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/System/System.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/ItemModel/ItemEntry.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
 
 namespace Ra
 {

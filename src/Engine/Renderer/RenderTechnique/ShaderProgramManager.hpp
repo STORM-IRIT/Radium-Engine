@@ -5,10 +5,11 @@
 
 #include <string>
 #include <map>
+#include <vector>
 #include <memory>
 
 #include <Core/Utils/Singleton.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
 namespace Ra
 {

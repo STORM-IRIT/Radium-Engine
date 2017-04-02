@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_GIZMO_MANAGER_HPP_
 #define RADIUMENGINE_GIZMO_MANAGER_HPP_
 
+#include <memory>
+
 #include <QObject>
 #include <QMouseEvent>
 #include <GuiBase/TransformEditor/TransformEditor.hpp>

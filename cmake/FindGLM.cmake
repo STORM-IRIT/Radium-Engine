@@ -3,15 +3,15 @@
 # GLM_INCLUDE_DIR
 
 include(FindPackageHandleStandardArgs)
-#set(glm_DIR ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/OpenGL/glm)
-set(glm_DIR ../../../glm)
+#set(GLM_DIR ${CMAKE_SOURCE_DIR}/3rdPartyLibraries/OpenGL/glm)
+set(GLM_DIR ../../../glm)
 
 message("Source dir = ${CMAKE_CURRENT_SOURCE_DIR}")
 FIND_PATH(GLM_INCLUDE_DIR glm/glm.hpp
 
     PATHS
     $ENV{GLM_DIR}
-	${glm_DIR}
+	${GLM_DIR}
 	/usr
 	/usr/local
     /sw

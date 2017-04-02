@@ -2,7 +2,6 @@
 #define RADIUMENGINE_INTERPOLATION_HPP
 
 #include <Core/Math/LinearAlgebra.hpp>
-//#include <Engine/Assets/FileData.hpp>
 
 namespace Ra {
 namespace Core {

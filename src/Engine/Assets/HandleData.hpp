@@ -8,7 +8,6 @@
 #include <Core/Containers/AlignedStdVector.hpp>
 
 #include <Engine/Assets/AssetData.hpp>
-#include <Engine/Assets/AssimpHandleDataLoader.hpp>
 
 namespace Ra {
 namespace Asset {

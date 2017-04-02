@@ -7,7 +7,7 @@ cmake_policy(SET CMP0042 NEW)
 endif(APPLE)
 
 # CMake setups
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Build options options.
 option(RADIUM_WITH_DOUBLE_PRECISION "Use double precision" OFF)
@@ -101,6 +101,7 @@ add_subdirectory(src)
 #   Set Base directories for dependencies
 # use Eigen version included in the Radium distribution, not the system-wide installed if available
 set (EIGEN3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/Eigen")
+set (GLBINDING_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY})
 
 add_subdirectory(Applications)
 

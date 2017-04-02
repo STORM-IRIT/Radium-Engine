@@ -9,8 +9,7 @@
 
 #include <Core/Index/IndexedObject.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Engine/Renderer/RenderTechnique/Material.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
+
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
@@ -28,6 +27,9 @@ namespace Ra
         class Component;
         class Mesh;
         class RenderQueue;
+        class Material;
+        class RenderParameters;
+        class ShaderProgram;
     }
 }
 
@@ -132,7 +134,7 @@ namespace Ra
             std::shared_ptr<Mesh> m_mesh;
 
             // FIXME(Charly): Remove this
-            RenderParameters m_renderParameters;
+            //RenderParameters m_renderParameters;
 
             mutable std::mutex m_updateMutex;
 

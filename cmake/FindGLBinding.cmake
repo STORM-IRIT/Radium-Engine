@@ -1,39 +1,41 @@
 # - Try to find glbinding
 # Once done, this will define
 #
-# GlBinding_FOUND - system has Assimp
-# GlBinding_INCLUDE_DIR - the Assimp include directories
-# GlBinding_LIBRARIES - link these to use Assimp
+# GLBINDING_FOUND - system has Assimp
+# GLBINDING_INCLUDE_DIR - the Assimp include directories
+# GLBINDING_LIBRARIES - link these to use Assimp
 
-FIND_PATH( GlBinding_INCLUDE_DIR glbinding/glbinding_features.h
-  ${SUBMODULES_OUTPUT_DIRECTORY}/glsubmodules/include
+FIND_PATH( GLBINDING_INCLUDE_DIR NAMES glbinding/glbinding_features.h
+  PATHS
+  ${GLBINDING_DIR}
   /usr/include
   /usr/local/include
   /opt/local/include
 )
 
-FIND_LIBRARY( GlBinding_LIBRARY
+FIND_LIBRARY( GLBINDING_LIBRARY
   NAMES glbinding
   PATHS
-  ${SUBMODULES_OUTPUT_DIRECTORY}/glsubmodules/lib/
+  ${GLBINDING_DIR}
   /usr/lib64
   /usr/lib
   /usr/local/lib
   /opt/local/lib
 )
 
-IF(GlBinding_INCLUDE_DIR AND GlBinding_LIBRARY)
-  SET( GlBinding_FOUND TRUE )
-  SET( GlBinding_LIBRARIES ${GlBinding_LIBRARY} )
-ENDIF(GlBinding_INCLUDE_DIR AND GlBinding_LIBRARY)
+SET( GLBINDING_FOUND FALSE )
+IF(GLBINDING_INCLUDE_DIR AND GLBINDING_LIBRARY)
+  SET( GLBINDING_FOUND TRUE )
+  SET( GLBINDING_LIBRARIES ${GLBINDING_LIBRARY} )
+ENDIF(GLBINDING_INCLUDE_DIR AND GLBINDING_LIBRARY)
 
-SET(GlBinding_FIND_QUIETLY FALSE)
-IF(GlBinding_FOUND)
-   IF(NOT GlBinding_FIND_QUIETLY)
-      MESSAGE(STATUS "Found glbinding: ${GlBinding_LIBRARY}")
-   ENDIF(NOT GlBinding_FIND_QUIETLY)
-ELSE(GlBinding_FOUND)
-   IF(GlBinding_FIND_REQUIRED)
+SET(GLBINDING_FIND_QUIETLY FALSE)
+IF(GLBINDING_FOUND)
+   IF(NOT GLBINDING_FIND_QUIETLY)
+      MESSAGE(STATUS "Found glbinding: ${GLBINDING_LIBRARY}")
+   ENDIF(NOT GLBINDING_FIND_QUIETLY)
+ELSE(GLBINDING_FOUND)
+   IF(GLBINDING_FIND_REQUIRED)
       MESSAGE(FATAL_ERROR "Could not find libglbinding")
-   ENDIF(GlBinding_FIND_REQUIRED)
-ENDIF(GlBinding_FOUND)
+   ENDIF(GLBINDING_FIND_REQUIRED)
+ENDIF(GLBINDING_FOUND)

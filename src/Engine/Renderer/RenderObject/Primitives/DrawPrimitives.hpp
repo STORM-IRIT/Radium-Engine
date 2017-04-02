@@ -9,7 +9,8 @@
 #include <Core/Math/Ray.hpp>
 #include <Core/Math/Spline.hpp>
 
-#include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <memory>
+
 
 namespace Ra
 {
@@ -17,6 +18,7 @@ namespace Ra
     {
         class RenderObject;
         class Component;
+        class Mesh;
 
         /// A set of convenient functions to instantiate simple displays such as points, lines, etc.
         /// note that objects will be drawn in their entity's local frame.

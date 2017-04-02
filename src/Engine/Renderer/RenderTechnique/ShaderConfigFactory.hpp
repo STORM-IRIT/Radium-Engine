@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
 namespace Ra
 {

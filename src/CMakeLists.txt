@@ -25,6 +25,7 @@ endif (MSVC OR MSVC_IDE OR MINGW)
 include_directories(
     ${EIGEN3_INCLUDE_DIR}
     ${ASSIMP_INCLUDE_DIR}
+    ${GLBINDING_INCLUDE_DIR}
 )
 
 # Build Core
@@ -49,7 +50,6 @@ target_link_libraries(
     ${core_target}
 )
 
-
 # Build Engine
 set(engine_target radiumEngine)
 
@@ -65,8 +65,8 @@ set(engine_libs
     radiumCore
     ${Qt5OpenGL_LIBRARIES}
     ${OPENGL_LIBRARIES}
-    ${GLEW_LIBRARIES}
     ${ASSIMP_LIBRARIES}
+    ${GLBINDING_LIBRARIES}
    )
 
 add_library(
@@ -85,8 +85,6 @@ target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 target_link_libraries(
     ${engine_target}
     ${engine_libs}
-#    PRIVATE     ${ASSIMP_LIBRARIES}
-#    INTERFACE   ${ASSIMP_LIBRARIES}
 )
 
 
@@ -112,6 +110,7 @@ set (guibase_libs
     radiumEngine
     radiumCore
     ${Qt5_LIBRARIES}
+    ${GLBINDING_LIBRARIES}
 )
 
 add_library(

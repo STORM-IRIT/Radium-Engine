@@ -9,6 +9,7 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/RenderTechnique/Material.hpp>
 
 namespace Ra {
     namespace Engine {
@@ -59,7 +60,7 @@ namespace Ra {
 
                 Core::Vector4Array colors(vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("Point Primitive", GL_LINES));
+                MeshPtr mesh(new Mesh("Point Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -78,7 +79,7 @@ namespace Ra {
 
                 Core::Vector4Array colors(vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("Line Primitive", GL_LINES));
+                MeshPtr mesh(new Mesh("Line Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -107,7 +108,7 @@ namespace Ra {
 
                 Core::Vector4Array colors(vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("Vector Primitive", GL_LINES));
+                MeshPtr mesh(new Mesh("Vector Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -123,7 +124,7 @@ namespace Ra {
 
                 Core::Vector4Array colors(vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("Ray Primitive", GL_LINES));
+                MeshPtr mesh(new Mesh("Ray Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -145,7 +146,7 @@ namespace Ra {
                     indices ={ 0, 1, 1, 2, 2, 0 };
                 }
 
-                GLenum renderType = fill ? GL_TRIANGLES : GL_LINES;
+                Mesh::MeshRenderMode renderType = fill ? Mesh::RM_TRIANGLES : Mesh::RM_LINES;
 
                 Core::Vector4Array colors(vertices.size(), color);
 
@@ -188,7 +189,7 @@ namespace Ra {
 
                 Core::Vector4Array colors(vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("Circle Primitive", GL_LINES_ADJACENCY));
+                MeshPtr mesh(new Mesh("Circle Primitive", Mesh::RM_LINES_ADJACENCY));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -208,7 +209,7 @@ namespace Ra {
 
                 Core::Vector4Array colors(sphere.m_vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("Sphere Primitive", GL_LINES));
+                MeshPtr mesh(new Mesh("Sphere Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(sphere);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -242,7 +243,7 @@ namespace Ra {
 
                 Core::Vector4Array colors(capsule.m_vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("Sphere Primitive", GL_LINES));
+                MeshPtr mesh(new Mesh("Sphere Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(capsule);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -282,7 +283,7 @@ namespace Ra {
                 Core::Vector4Array colors(vertices.size(), color);
 
                 // FIXME(Charly): This will assert in mesh
-                MeshPtr mesh(new Mesh("Circle Primitive", GL_TRIANGLE_FAN));
+                MeshPtr mesh(new Mesh("Circle Primitive", Mesh::RM_TRIANGLE_FAN));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -323,7 +324,7 @@ namespace Ra {
                                              4, 5, 5, 6, 6, 7, 7, 4, 4, 6,  5, 7
                 };
 
-                MeshPtr mesh(new Mesh("Normal Primitive", GL_LINES));
+                MeshPtr mesh(new Mesh("Normal Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -360,7 +361,7 @@ namespace Ra {
                     Core::Colors::Blue(), Core::Colors::Blue(),
                 };
 
-                MeshPtr mesh(new Mesh("Frame Primitive", GL_LINES_ADJACENCY));
+                MeshPtr mesh(new Mesh("Frame Primitive", Mesh::RM_LINES_ADJACENCY));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -398,7 +399,7 @@ namespace Ra {
 
                 Core::Vector4Array colors(vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("GridPrimitive", GL_LINES));
+                MeshPtr mesh(new Mesh("GridPrimitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -423,7 +424,7 @@ namespace Ra {
 
                 Core::Vector4Array colors(vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("AABB Primitive", GL_LINES));
+                MeshPtr mesh(new Mesh("AABB Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -448,7 +449,7 @@ namespace Ra {
 
                 Core::Vector4Array colors(vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("OBB Primitive", GL_LINES));
+                MeshPtr mesh(new Mesh("OBB Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -478,7 +479,7 @@ namespace Ra {
 
                 Core::Vector4Array colors(vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("Spline Primitive", GL_LINES));
+                MeshPtr mesh(new Mesh("Spline Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 

@@ -1,23 +1,16 @@
-#include <QTimer>
 #include <QApplication>
+#include <QTimer>
 
-#include <Core/Time/Timer.hpp>
-#include <Core/Tasks/Task.hpp>
-#include <Core/Tasks/TaskQueue.hpp>
-#include <Core/Mesh/MeshPrimitives.hpp>
-
-#include <Engine/RadiumEngine.hpp>
-#include <Engine/System/System.hpp>
-#include <Engine/Entity/Entity.hpp>
 
 #include <GuiBase/Viewer/Viewer.hpp>
 #include <GuiBase/TimerData/FrameTimerData.hpp>
 
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+
+#include <minimalradium.hpp>
 /* This file contains a minimal radium/qt application which shows the
 classic "Spinning Cube" demo. */
 
-namespace
-{
     /// Our minimal application uses QTimer to be called at a regular frame rate.
     class MinimalApp : public QApplication
     {
@@ -82,56 +75,7 @@ namespace
         uint _target_fps;
 
     }; // end class
-}
 
-/// This is a very basic component which holds a spinning cube.
-struct MinimalComponent : public Ra::Engine::Component
-{
-
-    MinimalComponent()
-            : Ra::Engine::Component("Minimal Component") {}
-
-    /// This function is called when the component is properly
-    /// setup, i.e. it has an entity.
-    void initialize() override
-    {
-        // Create a cube mesh render object.
-        std::shared_ptr<Ra::Engine::Mesh> display(new Ra::Engine::Mesh("Cube"));
-        display->loadGeometry(Ra::Core::MeshUtils::makeBox({0.1f, 0.1f, 0.1f}));
-        auto renderObject = Ra::Engine::RenderObject::createRenderObject("CubeRO", this,
-                                                                         Ra::Engine::RenderObjectType::Fancy, display);
-        addRenderObject(renderObject);
-    }
-
-    /// This function will spin our cube
-    void spin()
-    {
-        Ra::Core::AngleAxis aa(0.01f, Ra::Core::Vector3::UnitY());
-        Ra::Core::Transform rot(aa);
-
-        auto ro = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(
-                m_renderObjects[0]);
-        Ra::Core::Transform t = ro->getLocalTransform();
-        ro->setLocalTransform(rot * t);
-    }
-
-};
-
-/// This system will be added to the engine. Every frame it will
-/// add a task to be executed, calling the spin function of the component.
-class MinimalSystem : public Ra::Engine::System
-{
-public:
-    virtual void generateTasks(Ra::Core::TaskQueue* q, const Ra::Engine::FrameInfo& info) override
-    {
-        // We check that our component is here.
-        CORE_ASSERT(m_components.size() == 1, "System incorrectly initialized");
-        MinimalComponent* c = static_cast<MinimalComponent*>(m_components[0].second);
-
-        // Create a new task which wil call c->spin() when executed.
-        q->registerTask(new Ra::Core::FunctionTask(std::bind(&MinimalComponent::spin, c), "spin"));
-    }
-};
 
 
 int main(int argc, char* argv[])

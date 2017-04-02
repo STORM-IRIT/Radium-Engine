@@ -1,8 +1,9 @@
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 
 #include <Core/String/StringUtils.hpp>
+#include <Core/Log/Log.hpp>
+
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 

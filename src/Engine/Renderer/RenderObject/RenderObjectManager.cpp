@@ -2,7 +2,13 @@
 
 
 #include <Engine/RadiumEngine.hpp>
+
 #include <Engine/Component/Component.hpp>
+
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
+
+#include <Engine/Managers/SignalManager/SignalManager.hpp>
 
 namespace Ra
 {

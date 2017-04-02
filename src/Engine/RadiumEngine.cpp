@@ -9,19 +9,27 @@
 #include <string>
 #include <streambuf>
 
+
+
+
 #include <Core/Log/Log.hpp>
 #include <Core/String/StringUtils.hpp>
 #include <Core/Event/EventEnums.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
 
+
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
+#include <Engine/Managers/SignalManager/SignalManager.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+
 #include <Engine/FrameInfo.hpp>
 #include <Engine/System/System.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Component/Component.hpp>
+//#include <Engine/Component/Component.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+//#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
 #include <Engine/Assets/FileData.hpp>
 

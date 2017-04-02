@@ -2,7 +2,7 @@
 #define RADIUMENGINE_RENDERTECHNIQUE_HPP
 
 #include <Engine/RaEngine.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
 namespace Ra
 {
@@ -29,6 +29,9 @@ namespace Ra
 
             RA_ENGINE_API void updateGL();
             bool shaderIsDirty;
+
+            ShaderConfiguration getBasicConfiguration() const;
+
         };
 
     } // namespace Engine

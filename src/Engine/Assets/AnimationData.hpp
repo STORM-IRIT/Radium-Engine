@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 
-#include <Engine/Assets/AssimpAnimationDataLoader.hpp>
 #include <Engine/Assets/KeyFrame/AnimationTime.hpp>
 #include <Engine/Assets/KeyFrame/KeyTransform.hpp>
 
