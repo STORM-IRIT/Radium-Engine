@@ -27,10 +27,14 @@ IF(NOT RADIUM_ROOT_DIR)
     DOC "The radium engine source folder")
 ENDIF(NOT RADIUM_ROOT_DIR)
 
+
 IF ( RADIUM_ROOT_DIR )
-    SET ( RADIUM_INCLUDE_DIR "${RADIUM_ROOT_DIR}/src")
-    SET ( EIGEN_INCLUDE_DIR "${RADIUM_ROOT_DIR}/3rdPartyLibraries/Eigen")
-    SET ( ASSIMP_INCLUDE_DIR "${RADIUM_ROOT_DIR}/3rdPartyLibraries/Assimp/include")
+    SET ( RADIUM_INCLUDES "${RADIUM_ROOT_DIR}/src")
+
+    find_package(Eigen3 3.1.2 REQUIRED)
+
+    #find_package(Assimp REQUIRED)
+
     SET ( RADIUM_PLUGIN_OUTPUT_PATH "${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/Plugins")
 
     IF (TARGET radiumCore)
@@ -66,12 +70,25 @@ IF ( RADIUM_ROOT_DIR )
         ${RADIUM_ROOT_DIR}/lib
         )
 
+#    FIND_LIBRARY ( GLBINDING_LIBRARIES
+#            NAMES glbinding glbinding32.lib glbinding.lib libglbinding.a
+#            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
+#            ${RADIUM_ROOT_DIR}/lib
+#            )
+
     SET ( Radium_FOUND TRUE )
+    find_package(GlBinding REQUIRED)
+
+    # TODO (Mathias) : verify if cmake recommand this
+    SET( RADIUM_INCLUDE_DIR)
+    LIST(APPEND RADIUM_INCLUDE_DIR "${RADIUM_INCLUDES}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}")
+
+    # TODO (Mathias) Like above : is it recommended to add all dependencies here ?
     SET( RADIUM_LIBRARIES )
-    IF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES)
+    IF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES AND GLBINDING_LIBRARIES)
        LIST(APPEND RADIUM_LIBRARIES "${RA_CORE_LIB}" "${RA_ENGINE_LIB}" "${RA_GUIBASE_LIB}")
        SET ( Radium_Libs_FOUND TRUE)
-    ENDIF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES)
+    ENDIF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES AND GLBINDING_LIBRARIES)
 ENDIF( RADIUM_ROOT_DIR)
 
 IF ( Radium_FOUND )
@@ -79,6 +96,7 @@ IF ( Radium_FOUND )
       MESSAGE ( STATUS "Found Radium Engine: ${RADIUM_ROOT_DIR}")
       MESSAGE ( STATUS "      Radium libs: ${RADIUM_LIBRARIES}")
       MESSAGE ( STATUS "      Assimp libs: ${ASSIMP_LIBRARIES}")
+      MESSAGE ( STATUS "      GlBinding libs: ${GLBINDING_LIBRARIES}")
     ENDIF(NOT Radium_FIND_QUIETLY)
     IF (NOT Radium_Libs_FOUND)
         MESSAGE( WARNING "Could not find Radium libraries. You must compile them first")

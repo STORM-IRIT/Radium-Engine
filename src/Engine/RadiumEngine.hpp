@@ -3,16 +3,11 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <mutex>
+#include <Core/Utils/Singleton.hpp>
+
 #include <map>
 #include <string>
 #include <memory>
-#include <vector>
-
-#include <Core/Log/Log.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/Managers/SignalManager/SignalManager.hpp>
 
 namespace Ra
 {
@@ -30,6 +25,9 @@ namespace Ra
         class System;
         class Entity;
         class Component;
+        class RenderObjectManager;
+        class EntityManager;
+        class SignalManager;
     }
 }
 

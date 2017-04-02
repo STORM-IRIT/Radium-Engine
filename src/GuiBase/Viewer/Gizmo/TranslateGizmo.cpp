@@ -6,12 +6,15 @@
 #include <Core/Mesh/MeshPrimitives.hpp>
 
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+
 #include <Engine/Renderer/Camera/Camera.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+#include <Engine/Renderer/RenderTechnique/Material.hpp>
 
 namespace Ra
 {

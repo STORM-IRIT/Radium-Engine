@@ -7,7 +7,7 @@
 #include <Core/Containers/VectorArray.hpp>
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+
 
 namespace Ra
 {

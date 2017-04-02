@@ -7,11 +7,13 @@
 #include <array>
 #include <map>
 
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+//#include <Engine/Renderer/OpenGL/OpenGL.hpp>
+
+//#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+
+//#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 namespace Ra
 {
@@ -69,19 +71,40 @@ namespace Ra
                 MAX_VEC4
             };
 
+            /** Mesh render mode enum.
+             * values taken from OpenGL specification
+            */
+            enum MeshRenderMode : uint {
+                RM_POINTS                                                     = 0x0000,
+                RM_LINES                                                      = 0x0001, // decimal value: 1
+                RM_LINE_LOOP                                                  = 0x0002, // decimal value: 2
+                RM_LINE_STRIP                                                 = 0x0003, // decimal value: 3
+                RM_TRIANGLES                                                  = 0x0004, // decimal value: 4
+                RM_TRIANGLE_STRIP                                             = 0x0005, // decimal value: 5
+                RM_TRIANGLE_FAN                                               = 0x0006, // decimal value: 6
+                RM_QUADS                                                      = 0x0007, // decimal value: 7
+                RM_QUAD_STRIP                                                 = 0x0008, // decimal value: 8
+                RM_POLYGON                                                    = 0x0009, // decimal value: 9
+                RM_LINES_ADJACENCY                                            = 0x000A, // decimal value: 10
+                RM_LINE_STRIP_ADJACENCY                                       = 0x000B, // decimal value: 11
+                RM_TRIANGLES_ADJACENCY                                        = 0x000C, // decimal value: 12
+                RM_TRIANGLE_STRIP_ADJACENCY                                   = 0x000D, // decimal value: 13
+                RM_PATCHES                                                    = 0x000E, // decimal value: 14
+            };
+
             /// Total number of vertex attributes.
             constexpr static uint MAX_DATA = MAX_MESH + MAX_VEC3 + MAX_VEC4;
 
         public:
-            Mesh( const std::string& name, GLenum renderMode = GL_TRIANGLES );
+            Mesh( const std::string& name, MeshRenderMode renderMode = RM_TRIANGLES );
             ~Mesh();
 
             /// Returns the name of the mesh.
             inline const std::string& getName() const;
 
             /// GL_POINTS, GL_LINES, GL_TRIANGLES, GL_TRIANGLE_ADJACENCY, etc...
-            inline void setRenderMode( GLenum mode );
-            GLenum getRenderMode() const { return m_renderMode; }
+            inline void setRenderMode( MeshRenderMode mode );
+            MeshRenderMode getRenderMode() const { return m_renderMode; }
 
             /// Returns the underlying triangle mesh.
             inline const Core::TriangleMesh& getGeometry() const;
@@ -125,7 +148,7 @@ namespace Ra
             std::string m_name;  /// Name of the mesh.
 
             uint m_vao;          /// Index of our openGL VAO
-            GLenum m_renderMode; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)
+            MeshRenderMode m_renderMode; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)
 
             Core::TriangleMesh m_mesh; /// Base geometry : vertices, triangles and normals
 

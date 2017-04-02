@@ -15,6 +15,7 @@
 #include <Core/Index/IndexMap.hpp>
 #include <Core/TreeStructures/BVH.hpp>
 #include <Core/Math/Frustum.hpp>
+
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 

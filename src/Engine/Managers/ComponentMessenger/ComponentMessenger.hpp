@@ -8,6 +8,7 @@
 #include <typeindex>
 #include <functional>
 #include <iostream>
+#include <memory>
 
 #include <Core/Utils/Singleton.hpp>
 #include <Engine/Component/Component.hpp>

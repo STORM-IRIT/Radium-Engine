@@ -21,7 +21,7 @@ set( ASSIMP_BUILD_SAMPLES OFF CACHE BOOL
     "If the official samples are built as well (needs Glut)." )
 
 # Do not clean 3rt party libs when cleaning the build.
-set_directory_properties( PROPERTIES CLEAN_NO_CUSTOM 1)
+set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM 1)
 
 MACRO(REMOVE_ASSIMP_IMPORT_EXPORT name)
   OPTION(ASSIMP_BUILD_${name}_IMPORTER "build the ${name} importer" FALSE)

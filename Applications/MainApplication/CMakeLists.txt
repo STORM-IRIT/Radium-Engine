@@ -1,4 +1,5 @@
 # Build MainApplication
+
 set(app_target main-app)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -15,27 +16,12 @@ set( Qt5_LIBRARIES
      ${Qt5Widgets_LIBRARIES}
      ${Qt5OpenGL_LIBRARIES} )
 
-
-if(APPLE)
-    FIND_LIBRARY(CARBON_LIBRARY Carbon)
-    set( PLATFORM_LIBS ${CARBON_LIBRARY} )
-elseif( UNIX )
-    set( PLATFORM_LIBS X11 xcb )
-else()
-    set( PLATFORM_LIBS "" )
-endif()
-
-
-include(CompileFlags)
 set(app_libs
-    ${RA_GUIBASE_LIB}           # gui
-    ${RA_ENGINE_LIB}            # engine
-    ${RA_CORE_LIB}              # core
+    ${RADIUM_LIBRARIES}
+
     ${Qt5_LIBRARIES}                # the Qt beast
     ${OPENGL_LIBRARIES}
-    ${PLATFORM_LIBS}
-    ${ASSIMP_LIB}
-      )
+    )
 
 file(GLOB_RECURSE app_sources *.cpp)
 file(GLOB_RECURSE app_headers *.h *.hpp)
@@ -45,12 +31,11 @@ qt5_wrap_ui(app_uis_moc ${app_uis})
 
 file(GLOB resources ${CMAKE_CURRENT_SOURCE_DIR}/../../*.qrc)
 
+
 include_directories(
     .
     ${RADIUM_INCLUDE_DIR}
-    ${EIGEN_INCLUDE_DIR}
-    ${ASSIMP_INCLUDE_DIR}
-
+    ${EIGEN3_INCLUDE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR} # Moc
     )
 

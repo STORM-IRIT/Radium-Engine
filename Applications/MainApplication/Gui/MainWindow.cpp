@@ -7,22 +7,26 @@
 #include <Core/Utils/File/OBJFileManager.hpp>
 #include <assimp/Importer.hpp>
 
-#include <Engine/RadiumEngine.hpp>
-#include <Engine/Component/Component.hpp>
-#include <Engine/Entity/Entity.hpp>
-#include <Engine/Renderer/Renderer.hpp>
+#include <Engine/Managers/SignalManager/SignalManager.hpp>
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
+
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
+
+#include <Engine/Entity/Entity.hpp>
+
+#include <PluginBase/RadiumPluginInterface.hpp>
 
 #include <GuiBase/Viewer/CameraInterface.hpp>
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 
 #include <Gui/MaterialEditor.hpp>
-#include <Gui/MainWindow.hpp>
 
 #include <MainApplication.hpp>
-#include <PluginBase/RadiumPluginInterface.hpp>
+
 
 using Ra::Engine::ItemEntry;
 
@@ -170,7 +174,6 @@ namespace Ra
         uint polycount = romgr->getNumFaces();
         uint vertexcount = romgr->getNumVertices();
 
-
         QString polyCountText = QString("Rendering %1 faces and %2 vertices").arg(polycount).arg(vertexcount);
         m_labelCount->setText(polyCountText);
 
@@ -256,7 +259,7 @@ namespace Ra
                 m_materialEditor->changeRenderObject(ent.m_roIndex);
                 const std::string& shaderName = mainApp->m_engine->getRenderObjectManager()->getRenderObject(
                                                                ent.m_roIndex)
-                                                       ->getRenderTechnique()->shader->getBasicConfiguration().m_name;
+                                                       ->getRenderTechnique()->getBasicConfiguration().m_name;
 
 
                 if (m_currentShaderBox->findText(shaderName.c_str()) == -1)
@@ -322,7 +325,7 @@ namespace Ra
         auto vector_of_ros = getItemROs( mainApp->m_engine.get(), item );
         for (const auto& ro_index : vector_of_ros) {
             const auto& ro = mainApp->m_engine->getRenderObjectManager()->getRenderObject(ro_index);
-            if (ro->getRenderTechnique()->shader->getBasicConfiguration().m_name != name)
+            if (ro->getRenderTechnique()->getBasicConfiguration().m_name != name)
             {
             Engine::ShaderConfiguration config = Ra::Engine::ShaderConfigurationFactory::getConfiguration(name);
             ro->getRenderTechnique()->changeShader(config);

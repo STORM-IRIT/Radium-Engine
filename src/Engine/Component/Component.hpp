@@ -7,7 +7,6 @@
 #include <Core/Math/Ray.hpp>
 #include <Core/Index/IndexedObject.hpp>
 
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
 namespace Ra
 {
@@ -15,6 +14,7 @@ namespace Ra
     {
         class System;
         class Entity;
+        class RenderObject;
         class RenderObjectManager;
     }
 }

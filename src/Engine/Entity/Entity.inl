@@ -1,5 +1,3 @@
-#include <Engine/Entity/Entity.hpp>
-#include <Core/Log/Log.hpp>
 
 namespace Ra
 {

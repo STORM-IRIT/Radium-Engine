@@ -3,8 +3,10 @@
 
 #include <map>
 #include <set>
+
 #include <Core/Containers/AlignedAllocator.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+
 #include <Engine/Assets/KeyFrame/AnimationTime.hpp>
 
 namespace Ra {

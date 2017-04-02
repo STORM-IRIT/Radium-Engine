@@ -1,20 +1,24 @@
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
 
-#include <GuiBase/Viewer/Viewer.hpp>
+//#include <GuiBase/Viewer/Viewer.hpp>
+
 #include <GuiBase/Viewer/CameraInterface.hpp>
 #include <GuiBase/Viewer/Gizmo/TranslateGizmo.hpp>
 #include <GuiBase/Viewer/Gizmo/RotateGizmo.hpp>
-#include <QtWidgets/QtWidgets>
+//#include <QtWidgets/QtWidgets>
 
 
 namespace Ra
 {
     namespace Gui
     {
+
+
         GizmoManager::GizmoManager(QObject* parent)
                 : QObject(parent),m_currentGizmo(nullptr)
                 , m_currentGizmoType(NONE), m_mode(Gizmo::GLOBAL){ }
@@ -90,7 +94,8 @@ namespace Ra
             CORE_ASSERT(m_currentGizmo, "Gizmo is not there !");
 
             // Access the camera from the viewer. (TODO : a cleaner way to access the camera).
-            const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
+            // const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
+            const Engine::Camera& cam = CameraInterface::getCameraFromViewer(parent());
             m_currentGizmo->setInitialState(cam, Core::Vector2(Scalar(event->x()), Scalar(event->y())));
 
             return true;
@@ -110,7 +115,8 @@ namespace Ra
             if ( event->buttons() & Qt::LeftButton && m_currentGizmo )
             {
                 Core::Vector2 currentXY(event->x(), event->y());
-                const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
+                // const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
+                const Engine::Camera& cam = CameraInterface::getCameraFromViewer(parent());
                 Core::Transform newTransform = m_currentGizmo->mouseMove(cam, currentXY);
                 setTransform( newTransform );
             }

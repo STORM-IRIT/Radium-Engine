@@ -18,6 +18,8 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/RenderTechnique/Material.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
 namespace Ra
 {

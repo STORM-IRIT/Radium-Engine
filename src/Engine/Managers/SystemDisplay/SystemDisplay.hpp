@@ -11,9 +11,13 @@
 
 #include <Core/Utils/Singleton.hpp>
 #include <Core/Math/ColorPresets.hpp>
+
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Component/Component.hpp>
+
+#ifndef RA_DISABLE_DEBUG_DISPLAY
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
+#endif
 
 namespace Ra
 {

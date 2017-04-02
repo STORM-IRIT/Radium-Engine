@@ -73,7 +73,7 @@ namespace Ra
              * @param data Data contained in the texture. Can be nullptr. <br/>
              * If \b data is not null, the texture will take the ownership of it.
              */
-            void Generate(uint width, uint format, void* data = nullptr);
+            void Generate(uint width, GLenum format, void* data = nullptr);
 
             /**
              * @brief Init the texture 2D from OpenGL point of view.
@@ -104,7 +104,7 @@ namespace Ra
              * @param data Data contained in the texture. Can be nullptr. <br/>
              * If \b data is not null, the texture will take the ownership of it.
              */
-            void Generate(uint width, uint height, uint format, void* data = nullptr);
+            void Generate(uint width, uint height, GLenum format, void* data = nullptr);
 
             /**
              * @brief Init the texture 3D from OpenGL point of view.
@@ -137,7 +137,7 @@ namespace Ra
              * @param data Data contained in the texture. Can be nullptr. <br/>
              * If \b data is not null, the texture will take the ownership of it.
              */
-            void Generate(uint width, uint height, uint depth, uint format, void* data = nullptr);
+            void Generate(uint width, uint height, uint depth, GLenum format, void* data = nullptr);
 
             /**
              * @brief Init the textures needed for the cubemap from OpenGL point of view.
@@ -168,7 +168,7 @@ namespace Ra
              * @param data Data contained in the texture. Can be nullptr. <br/>
              * If \b data is not null, the texture will take the ownership of it.
              */
-            void GenerateCube(uint width, uint height, uint format, void** data = nullptr);
+            void GenerateCube(uint width, uint height, GLenum format, void** data = nullptr);
 
             /**
              * @brief Bind the texture to enable its use in a shader

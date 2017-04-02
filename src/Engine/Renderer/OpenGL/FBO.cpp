@@ -50,7 +50,7 @@ namespace Ra
         }
     }
 
-    void Engine::FBO::attachTexture(uint attachment, Engine::Texture* texture)
+    void Engine::FBO::attachTexture(GLenum attachment, Engine::Texture* texture)
     {
         assert( m_isBound && "FBO must be bound to attach a texture." );
 
@@ -78,12 +78,16 @@ namespace Ra
             {
                 CORE_ERROR("FBO do not handle cubemaps yet.");
             } break;
+            default:
+            {
+                CORE_ERROR("unexpected texture type as FBO target.");
+            };
         }
 
         m_textures[attachment] = texture;
     }
 
-    void Engine::FBO::detachTexture( uint attachment )
+    void Engine::FBO::detachTexture( GLenum attachment )
     {
         assert( m_isBound && "FBO must be bound to detach a texture." );
         assert( m_textures.find( attachment ) != m_textures.end() &&
@@ -95,22 +99,26 @@ namespace Ra
         {
             case GL_TEXTURE_1D:
             {
-                GL_ASSERT(glFramebufferTexture1D(GL_FRAMEBUFFER, attachment, 0, 0, 0));
+                GL_ASSERT(glFramebufferTexture1D(GL_FRAMEBUFFER, attachment, texture->target, 0, 0));
             } break;
 
             case GL_TEXTURE_2D:
             {
-                GL_ASSERT(glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, 0, 0, 0));
+                GL_ASSERT(glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, texture->target, 0, 0));
             } break;
 
             case GL_TEXTURE_3D:
             {
-                GL_ASSERT( glFramebufferTexture3D( GL_FRAMEBUFFER, attachment, 0, 0, 0, 0 ) );
+                GL_ASSERT( glFramebufferTexture3D( GL_FRAMEBUFFER, attachment, texture->target, 0, 0, 0 ) );
             } break;
 
             case GL_TEXTURE_CUBE_MAP:
             {
                 CORE_ERROR("FBO do not handle cubemaps yet.");
+            };
+            default:
+            {
+                CORE_ERROR("unexpected texture type as FBO target.");
             };
         }
 
@@ -191,7 +199,7 @@ namespace Ra
 
         Component nc = Component( m_components & components );
 
-        GLbitfield mask = 0;
+        gl::ClearBufferMask mask(GL_NONE_BIT);
 
         if ( nc & Component_Color )
         {

@@ -7,7 +7,6 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/VectorArray.hpp>
 
-#include <Engine/Assets/AssimpGeometryDataLoader.hpp>
 #include <Engine/Assets/AssetData.hpp>
 
 namespace Ra {

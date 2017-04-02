@@ -22,7 +22,7 @@ set(CMAKE_AUTORCC ON)
 include_directories(
     .
     ${RADIUM_INCLUDE_DIR}
-    ${EIGEN_INCLUDE_DIR}
+    ${EIGEN3_INCLUDE_DIR}
     ${ASSIMP_INCLUDE_DIR}
 )
 
@@ -31,8 +31,8 @@ include_directories(
 # Get files
 #file( GLOB file_sources *.cpp *.c )
 #file( GLOB file_headers *.hpp *.h )
-file( GLOB file_sources main.cpp )
-file( GLOB file_headers          )
+file( GLOB file_sources main.cpp minimalradium.cpp)
+file( GLOB file_headers minimalradium.hpp)
 
 
 # Generate an executable

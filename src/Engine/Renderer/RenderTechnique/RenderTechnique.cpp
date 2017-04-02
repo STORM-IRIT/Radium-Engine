@@ -2,6 +2,7 @@
 
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 
 namespace Ra
@@ -24,6 +25,11 @@ namespace Ra
         {
             material->updateGL();
         }
+    }
+
+    Engine::ShaderConfiguration Engine::RenderTechnique::getBasicConfiguration() const
+    {
+        return shader->getBasicConfiguration();
     }
 
 } // namespace Ra
