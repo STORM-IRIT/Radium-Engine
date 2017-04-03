@@ -77,7 +77,7 @@ IF ( RADIUM_ROOT_DIR )
 #            )
 
     SET ( Radium_FOUND TRUE )
-    find_package(GlBinding REQUIRED)
+#    find_package(GLBinding REQUIRED)
 
     # TODO (Mathias) : verify if cmake recommand this
     SET( RADIUM_INCLUDE_DIR)
