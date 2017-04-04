@@ -11,8 +11,7 @@ include(submoduleGlBinding)
 
 
 # Eigen
-set(EIGEN3_INCLUDE_DIR ${SUBMODULE_SOURCE_DIR}/Eigen)
-
+include(submoduleEigen3)
 
 # Assimp
 # Set the external project assimp

@@ -16,10 +16,6 @@ find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
 
-if (MSVC OR MSVC_IDE OR MINGW)
-  find_package(GLEW       REQUIRED) #only used on windows builds.
-endif (MSVC OR MSVC_IDE OR MINGW)
-
 
 #TODO(Mathias) --> make dependencies include found by cmake ?
 include_directories(
@@ -28,6 +24,7 @@ include_directories(
     ${GLBINDING_INCLUDE_DIR}
 )
 
+message(STATUS "Compiling Radium with include dirs : ${EIGEN3_INCLUDE_DIR} -- ${ASSIMP_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR}" )
 # Build Core
 set(core_target radiumCore)
 
@@ -44,6 +41,7 @@ add_library(
     ${core_inlines}
 )
 
+add_dependencies( ${core_target} eigen3)
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
 
 target_link_libraries(

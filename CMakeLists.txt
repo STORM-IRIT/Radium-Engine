@@ -100,8 +100,9 @@ add_subdirectory(src)
 #   Applications
 #   Set Base directories for dependencies
 # use Eigen version included in the Radium distribution, not the system-wide installed if available
-set (EIGEN3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/Eigen")
-set (GLBINDING_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY})
+
+#set (EIGEN3_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY})
+#set (GLBINDING_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY})
 
 add_subdirectory(Applications)
 

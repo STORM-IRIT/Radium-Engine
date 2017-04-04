@@ -1,6 +1,5 @@
 
-# here is defined the way we want to import glbinding
-# TODO : verify with VERBOSE=1 on build time that CXX_FLAGS are correct
+# here is defined the way we want to import eigen
 ExternalProject_Add(
 		eigen
 
@@ -15,15 +14,10 @@ ExternalProject_Add(
 		INSTALL_DIR "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}"
 		CMAKE_ARGS
 		-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
-		-DOPTION_BUILD_TESTS=OFF
-		-DOPTION_BUILD_GPU_TESTS=OFF
-		-DOPTION_BUILD_DOCS=OFF
-		-DOPTION_BUILD_TOOLS=OFF
-		-DOPTION_BUILD_EXAMPLES=OFF
+        -DINCLUDE_INSTALL_DIR=${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include
 		-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
 		-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
 		-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-		-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false
 
 		STEP_TARGETS install
 		EXCLUDE_FROM_ALL TRUE
@@ -35,4 +29,4 @@ add_custom_target(eigen3
 		)
 # ----------------------------------------------------------------------------------------------------------------------
 
-set(EIGEN3_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include/eigen3)
+set(EIGEN3_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include/)

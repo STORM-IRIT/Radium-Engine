@@ -2,7 +2,6 @@
 # Will define
 # RADIUM_ROOT_DIR : the root of the radium SDK
 # RADIUM_INCLUDE_DIR : the include directory of radium
-# EIGEN_INCLUDE_DIR : the eigen directory
 # RADIUM_PLUGIN_OUTPUT_PATH : output path for radiums plugin
 
 
@@ -31,9 +30,9 @@ ENDIF(NOT RADIUM_ROOT_DIR)
 IF ( RADIUM_ROOT_DIR )
     SET ( RADIUM_INCLUDES "${RADIUM_ROOT_DIR}/src")
 
-    find_package(Eigen3 3.1.2 REQUIRED)
-
+    #find_package(Eigen3 3.1.2 REQUIRED)
     #find_package(Assimp REQUIRED)
+    #find_package(GLBinding REQUIRED)
 
     SET ( RADIUM_PLUGIN_OUTPUT_PATH "${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/Plugins")
 
@@ -64,20 +63,7 @@ IF ( RADIUM_ROOT_DIR )
             )
     ENDIF()
 
-    FIND_LIBRARY ( ASSIMP_LIBRARIES
-        NAMES assimp assimp32.lib assimp.lib libassimp.a
-        PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
-        ${RADIUM_ROOT_DIR}/lib
-        )
-
-#    FIND_LIBRARY ( GLBINDING_LIBRARIES
-#            NAMES glbinding glbinding32.lib glbinding.lib libglbinding.a
-#            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
-#            ${RADIUM_ROOT_DIR}/lib
-#            )
-
     SET ( Radium_FOUND TRUE )
-#    find_package(GLBinding REQUIRED)
 
     # TODO (Mathias) : verify if cmake recommand this
     SET( RADIUM_INCLUDE_DIR)
@@ -94,6 +80,7 @@ ENDIF( RADIUM_ROOT_DIR)
 IF ( Radium_FOUND )
     IF(NOT Radium_FIND_QUIETLY)
       MESSAGE ( STATUS "Found Radium Engine: ${RADIUM_ROOT_DIR}")
+      MESSAGE ( STATUS "      Eigen3 includes: ${EIGEN3_INCLUDE_DIR}")
       MESSAGE ( STATUS "      Radium libs: ${RADIUM_LIBRARIES}")
       MESSAGE ( STATUS "      Assimp libs: ${ASSIMP_LIBRARIES}")
       MESSAGE ( STATUS "      GlBinding libs: ${GLBINDING_LIBRARIES}")
