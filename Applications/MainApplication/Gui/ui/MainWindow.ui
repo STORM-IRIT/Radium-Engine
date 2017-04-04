@@ -296,62 +296,62 @@
                  </widget>
                 </item>
                 <item row="2" column="2">
-                 <widget class="QSpinBox" name="m_renderUpdates">
-                  <property name="readOnly">
-                   <bool>true</bool>
+                 <widget class="QLabel" name="m_renderUpdates">
+                  <property name="text">
+                   <string>render</string>
                   </property>
-                  <property name="maximum">
-                   <number>100000000</number>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
                 <item row="3" column="2">
-                 <widget class="QSpinBox" name="m_tasksUpdates">
-                  <property name="readOnly">
-                   <bool>true</bool>
+                 <widget class="QLabel" name="m_tasksUpdates">
+                  <property name="text">
+                   <string>tasks</string>
                   </property>
-                  <property name="maximum">
-                   <number>100000000</number>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
                 <item row="4" column="2">
-                 <widget class="QSpinBox" name="m_frameUpdates">
-                  <property name="readOnly">
-                   <bool>true</bool>
+                 <widget class="QLabel" name="m_frameUpdates">
+                  <property name="text">
+                   <string>frame</string>
                   </property>
-                  <property name="maximum">
-                   <number>100000000</number>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
                 <item row="2" column="1">
-                 <widget class="QSpinBox" name="m_renderTime">
-                  <property name="readOnly">
-                   <bool>true</bool>
+                 <widget class="QLabel" name="m_renderTime">
+                  <property name="text">
+                   <string>render</string>
                   </property>
-                  <property name="maximum">
-                   <number>100000000</number>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
                 <item row="3" column="1">
-                 <widget class="QSpinBox" name="m_tasksTime">
-                  <property name="readOnly">
-                   <bool>true</bool>
+                 <widget class="QLabel" name="m_tasksTime">
+                  <property name="text">
+                   <string>tasks</string>
                   </property>
-                  <property name="maximum">
-                   <number>100000000</number>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
                 <item row="4" column="1">
-                 <widget class="QSpinBox" name="m_frameTime">
-                  <property name="readOnly">
-                   <bool>true</bool>
+                 <widget class="QLabel" name="m_frameTime">
+                  <property name="text">
+                   <string>frame</string>
                   </property>
-                  <property name="maximum">
-                   <number>100000000</number>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -363,16 +363,25 @@
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QSpinBox" name="m_eventsTime">
-                  <property name="maximum">
-                   <number>100000000</number>
+                 <widget class="QLabel" name="m_eventsTime">
+                  <property name="text">
+                   <string>events</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                  <property name="events" stdset="0">
+                   <string>render</string>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="2">
-                 <widget class="QSpinBox" name="m_eventsUpdates">
-                  <property name="maximum">
-                   <number>100000000</number>
+                 <widget class="QLabel" name="m_eventsUpdates">
+                  <property name="text">
+                   <string>events</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -380,23 +389,17 @@
               </item>
               <item>
                <layout class="QFormLayout" name="formLayout_7">
-                <item row="0" column="1">
-                 <widget class="QDoubleSpinBox" name="m_avgFramerate">
-                  <property name="readOnly">
-                   <bool>true</bool>
-                  </property>
-                  <property name="decimals">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <double>1000000.000000000000000</double>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
+                <item row="1" column="0">
                  <widget class="QLabel" name="label_24">
                   <property name="text">
                    <string>Average framerate :</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLabel" name="m_avgFramerate">
+                  <property name="text">
+                   <string>fps</string>
                   </property>
                  </widget>
                 </item>

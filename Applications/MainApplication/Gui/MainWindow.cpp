@@ -199,15 +199,15 @@ namespace Ra
         const uint N(stats.size());
         const Scalar T(N * 1000000.f);
 
-        m_eventsTime->setValue(sumEvents / N);
-        m_eventsUpdates->setValue(T / Scalar(sumEvents));
-        m_renderTime->setValue(sumRender / N);
-        m_renderUpdates->setValue(T / Scalar(sumRender));
-        m_tasksTime->setValue(sumTasks / N);
-        m_tasksUpdates->setValue(T / Scalar(sumTasks));
-        m_frameTime->setValue(sumFrame / N);
-        m_frameUpdates->setValue(T / Scalar(sumFrame));
-        m_avgFramerate->setValue((N - 1) * Scalar(1000000.0 / sumInterFrame));
+        m_eventsTime->setNum(int(sumEvents / N));
+        m_eventsUpdates->setNum(int(T / Scalar(sumEvents)));
+        m_renderTime->setNum(int(sumRender / N));
+        m_renderUpdates->setNum(int(T / Scalar(sumRender)));
+        m_tasksTime->setNum(int(sumTasks / N));
+        m_tasksUpdates->setNum(int(T / Scalar(sumTasks)));
+        m_frameTime->setNum(int(sumFrame / N));
+        m_frameUpdates->setNum(int(T / Scalar(sumFrame)));
+        m_avgFramerate->setNum(int((N - 1) * Scalar(1000000.0 / sumInterFrame)));
     }
 
     Gui::Viewer* Gui::MainWindow::getViewer()
