@@ -5,6 +5,7 @@
 #include <GuiBase/Viewer/Viewer.hpp>
 #include <GuiBase/TimerData/FrameTimerData.hpp>
 
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
 #include <minimalradium.hpp>
