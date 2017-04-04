@@ -10,3 +10,6 @@
 [submodule "3rdPartyLibraries/OpenGL/glm"]
 	path = 3rdPartyLibraries/OpenGL/glm
 	url = https://github.com/g-truc/glm.git
+[submodule "3rdPartyLibraries/Eigen"]
+	path = 3rdPartyLibraries/Eigen
+	url = https://github.com/RLovelett/eigen.git
