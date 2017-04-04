@@ -24,7 +24,7 @@ ExternalProject_Add(
 		-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
 		-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
 		-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false
-
+		-DCMAKE_DEBUG_POSTFIX=""
 		STEP_TARGETS build
 		EXCLUDE_FROM_ALL TRUE
 )
@@ -37,11 +37,24 @@ add_custom_target(glbinding_lib
 
 set(GLBINDING_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include)
 if( APPLE )
-	set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.dylib" )
+	if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
+		set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbindingd.dylib" )
+	else()
+		set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbindingd.dylib" )
+	endif()
 elseif ( UNIX )
-	set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.so" )
+	if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
+		set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbindingd.so" )
+	else()
+		set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.so")
+	endif()
 elseif (MINGW)
-	set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.dll.a" )
+	if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
+		set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbindingd.dll.a" )
+	else()
+		set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.dll.a" )
+	endif()
+
 elseif( MSVC )
 	# in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
 	if( MSVC70 OR MSVC71 )

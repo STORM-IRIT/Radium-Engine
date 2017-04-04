@@ -30,7 +30,10 @@ ENDIF(NOT RADIUM_ROOT_DIR)
 IF ( RADIUM_ROOT_DIR )
     SET ( RADIUM_INCLUDES "${RADIUM_ROOT_DIR}/src")
 
-    #find_package(Eigen3 3.1.2 REQUIRED)
+#    IF(NOT EIGEN3_INCLUDE_DIR)
+#        set(EIGEN3_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
+#    find_package(Eigen3 3.1.2 REQUIRED)
+#    ENDIF(NOT EIGEN3_INCLUDE_DIR)
     #find_package(Assimp REQUIRED)
     #find_package(GLBinding REQUIRED)
 
