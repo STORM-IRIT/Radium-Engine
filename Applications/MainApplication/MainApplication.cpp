@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QPluginLoader>
 #include <QCommandLineParser>
+#include <QOpenGLContext>
 
 #include <Core/Log/Log.hpp>
 #include <Core/String/StringUtils.hpp>
