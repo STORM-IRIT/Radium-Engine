@@ -475,7 +475,7 @@ namespace Ra
         // the gizmos ROs to disappear, but the RO mutex is already acquired by the call for
         // the object we want to delete, which causes a deadlock.
         // Clearing the selection before deleting the object will avoid this problem.
-        m_selectionManager->clearSelection();
+        m_selectionManager->clear();
         if (e.isRoNode())
         {
             e.m_component->removeRenderObject(e.m_roIndex);
