@@ -71,6 +71,8 @@ namespace Ra
             /// Removes all components belonging to a given entity.
             void unregisterAllComponents( const Entity* entity );
 
+            /// Returns the components stored for the given entity.
+            std::vector< Component* > getEntityComponents( const Entity* entity );
 
             /**
              * Factory method for component creation from file data.
@@ -81,7 +83,7 @@ namespace Ra
 
         protected:
             /// List of active components.
-            std::vector<std::pair< const Entity*, Component*> > m_components;
+            std::vector< std::pair<const Entity*, Component*> > m_components;
         };
 
     } // namespace Engine

@@ -59,5 +59,18 @@ namespace Ra
                 m_components.erase( pos );
             }
         }
+
+        std::vector< Component* > System::getEntityComponents( const Entity* entity )
+        {
+            std::vector< Component* > comps;
+            for (const auto& ec : m_components)
+            {
+                if (ec.first == entity)
+                {
+                    comps.push_back( ec.second );
+                }
+            }
+            return comps;
+        }
     }
 } // namespace Ra

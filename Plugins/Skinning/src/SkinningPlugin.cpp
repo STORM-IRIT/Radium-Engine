@@ -73,18 +73,12 @@ namespace SkinningPlugin
         Ra::Engine::ItemEntry it = m_selectionManager->currentItem();
         if (it.m_entity)
         {
-            const std::vector< std::unique_ptr<Ra::Engine::Component> >& comps = it.m_entity->getComponents();
-            size_t i = 0;
-            for ( ; i<comps.size(); ++i)
+            auto comps = m_system->getEntityComponents( it.m_entity );
+            if (comps.size() != 0)
             {
-                auto skinComp = dynamic_cast<SkinningPlugin::SkinningComponent*>(comps[i].get());
-                if(skinComp)
-                {
-                    m_widget->setCurrent(it, static_cast<SkinningComponent*>(skinComp));
-                    break;
-                }
+                m_widget->setCurrent(it, static_cast<SkinningPlugin::SkinningComponent*>(comps[0]));
             }
-            if (i >= comps.size())
+            else
             {
                 m_widget->setCurrent(it, nullptr);
             }
