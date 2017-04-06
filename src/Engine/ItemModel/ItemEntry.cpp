@@ -1,9 +1,15 @@
+
 #include <Engine/ItemModel/ItemEntry.hpp>
+
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Entity/Entity.hpp>
-#include <Engine/Component/Component.hpp>
+
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
+
+
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+
 
 
 namespace Ra

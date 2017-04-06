@@ -1,8 +1,11 @@
 #include <Engine/Renderer/Renderers/DebugRender.hpp>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+
+#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
+
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
@@ -232,7 +235,7 @@ namespace Ra
                 glUniformMatrix4fv(m_viewLineLoc, 1, GL_FALSE, viewMatrix.data());
                 glUniformMatrix4fv(m_projLineLoc, 1, GL_FALSE, projMatrix.data());
 
-                Mesh mesh("temp", GL_LINES);
+                Mesh mesh("temp", Mesh::RM_LINES);
                 mesh.loadGeometry(vertices, indices);
                 mesh.addData(Mesh::VERTEX_COLOR, colors);
                 mesh.updateGL();

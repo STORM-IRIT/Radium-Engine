@@ -11,6 +11,7 @@
 #include <Core/Containers/Algorithm.hpp>
 #include <Core/Containers/MakeShared.hpp>
 
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/OpenGL/FBO.hpp>

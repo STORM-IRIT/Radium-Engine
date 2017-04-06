@@ -10,26 +10,8 @@
 #include <Engine/RaEngine.hpp>
 #include <Core/Log/Log.hpp>
 
-#ifdef OS_MACOS // Apple has different gl includes.
-
-#include <OpenGL/gl3.h>
-#include <OpenGL/gl3ext.h>
-
-#define __gl_h_
-
-#else // Non-apple OSes.
-
-#ifdef OS_WINDOWS // Windows requires GLEW.
-#include <Engine/Renderer/OpenGL/glew.h>
-#endif // OS_WINDOWS
-
-// Now the standard OpenGL includes.
-#define GL_GLEXT_PROTOTYPES 1
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <Engine/Renderer/OpenGL/glext.h>
-
-#endif // OS_MACOS
+#include <glbinding/gl45core/gl.h>
+using namespace gl45core;
 
 /// Checks that an openGLContext is available (mostly for debug checks and asserts).
 inline bool checkOpenGLContext()
@@ -67,7 +49,7 @@ inline const char* glErrorString(GLenum err)
 #ifdef _DEBUG
 #define GL_ASSERT(x) \
     x; { \
-        GLuint err = glGetError(); \
+        GLenum err = glGetError(); \
         if (err != GL_NO_ERROR) { \
             const char* errBuf = glErrorString(err); \
             LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
@@ -80,7 +62,7 @@ inline const char* glErrorString(GLenum err)
 /// This macro will query the last openGL error.
 #define GL_CHECK_ERROR \
     {\
-        GLuint err = glGetError(); \
+        GLenum err = glGetError(); \
         if (err != GL_NO_ERROR) { \
             const char* errBuf = glErrorString(err); \
             LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \

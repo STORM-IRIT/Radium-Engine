@@ -43,8 +43,8 @@ namespace Ra
             void useAsTarget( uint width, uint height );
             void unbind( bool complete = false );
 
-            void attachTexture(uint attachment, Texture* texture);
-            void detachTexture(uint attachment);
+            void attachTexture(GLenum attachment, Texture* texture);
+            void detachTexture(GLenum attachment);
 
             void check() const;
 
@@ -65,7 +65,7 @@ namespace Ra
             int m_components;
             uint m_width, m_height;
 
-            std::map<uint, Texture*> m_textures;
+            std::map<GLenum, Texture*> m_textures;
 
             bool m_isBound;
         };

@@ -2,7 +2,8 @@
 
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Core/Animation/Handle/SkeletonUtils.hpp>
 
 namespace AnimationPlugin

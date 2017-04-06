@@ -4,6 +4,10 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include <Engine/Assets/AssimpHandleDataLoader.hpp>
+#include <Engine/Assets/AssimpGeometryDataLoader.hpp>
+#include <Engine/Assets/AssimpAnimationDataLoader.hpp>
+
 namespace Ra {
 namespace Asset {
 

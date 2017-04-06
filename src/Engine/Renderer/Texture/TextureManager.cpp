@@ -51,8 +51,8 @@ namespace Ra
                 return nullptr;
             }
 
-            GLuint format = 0;
-            GLuint internal_format = 0;
+            GLenum format;
+            GLenum internal_format;
             switch(n)
             {
                 case 1:
@@ -75,6 +75,11 @@ namespace Ra
                 } break;
 
                 case 4:
+                {
+                    format = GL_RGBA;
+                    internal_format = GL_RGBA8;
+                } break;
+                default :
                 {
                     format = GL_RGBA;
                     internal_format = GL_RGBA8;

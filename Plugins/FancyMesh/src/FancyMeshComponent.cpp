@@ -11,6 +11,8 @@
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+
+#include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>

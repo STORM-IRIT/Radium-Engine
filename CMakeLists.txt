@@ -2,8 +2,11 @@ project(RadiumEngine)
 
 cmake_minimum_required(VERSION 2.8.11)
 
+if (APPLE)
+cmake_policy(SET CMP0042 NEW)
+endif(APPLE)
+
 # CMake setups
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Build options options.
@@ -20,8 +23,17 @@ if ( NOT CMAKE_BUILD_TYPE )
 endif()
 
 
+# These paths need to be synchronized with FindRadium.cmake
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/bin)
+set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/lib)
+set(RADIUM_SUBMODULES_INSTALL_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries)
+
+
 # get changeset id
 find_package(Git)
+
 if(GIT_FOUND)
   execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
@@ -30,26 +42,16 @@ else()
   set(GIT_CHANGESET "")
 endif()
 
+
 # guard against in-source builds (source: Eigen)
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   message(FATAL_ERROR "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there. You may need to remove CMakeCache.txt. ")
 endif()
 
-# Set the external project assimp
-include(ExternalAssimp)
 
 # Set the compiler flags.
 include(CompileFlags)
 
-# Problem with Qt linking
-# FIXME(Charly): Not sure if this should be done on Linux
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_COMPILING_QSTRING_COMPAT_CPP")
-
-# These paths need to be synchronized with FindRadium.cmake
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/bin)
-set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/lib)
 
 if ( NOT CMAKE_PREFIX_PATH )
   set( CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR} )
@@ -82,63 +84,31 @@ if (MSVC OR MSVC_IDE)
     endif()
 endif(MSVC OR MSVC_IDE)
 
-# EXTERNALS
-# TODO Move this in another cmake config file
-set(EXTERNAL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries)
-add_subdirectory(3rdPartyLibraries)
 
-# Eigen
-set( EIGEN_INC ${EXTERNAL_DIR}/Eigen )
+# ----------------------------------------------------------------------------------------------------------------------
+#   SUBMODULES : assimp, glbinding, ....
+include(SubModules)
 
-# Assimp
-set( ASSIMP_INC ${EXTERNAL_DIR}/Assimp/include )
-if( APPLE )
-    if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimpd.dylib" )
-    else()
-        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimp.dylib" )
-    endif()
-elseif ( UNIX )
-    if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimpd.so" )
-    else()
-        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimp.so" )
-    endif()
-elseif (MINGW)
-    if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimpd.dll.a" )
-    else()
-        set( ASSIMP_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/libassimp.dll.a" )
-    endif()
-elseif( MSVC )
-    # in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
-    if( MSVC70 OR MSVC71 )
-        set(MSVC_PREFIX "vc70")
-    elseif( MSVC80 )
-        set(MSVC_PREFIX "vc80")
-    elseif( MSVC90 )
-        set(MSVC_PREFIX "vc90")
-    elseif( MSVC10 )
-        set(MSVC_PREFIX "vc100")
-    elseif( MSVC11 )
-        set(MSVC_PREFIX "vc110")
-    elseif( MSVC12 )
-        set(MSVC_PREFIX "vc120")
-    else()
-        set(MSVC_PREFIX "vc130")
-    endif()
-
-    set(ASSIMP_LIB optimized "${CMAKE_CURRENT_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mt.lib"
-                 debug "${CMAKE_CURRENT_SOURCE_DIR}/lib/assimp-${MSVC_PREFIX}-mtd.lib")
-
-endif()
-
+# ----------------------------------------------------------------------------------------------------------------------
+#   Main Libraries
 set( CMAKE_DEBUG_POSTFIX "" )
 set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
 
 add_subdirectory(src)
+
+# ----------------------------------------------------------------------------------------------------------------------
+#   Applications
+#   Set Base directories for dependencies
+# use Eigen version included in the Radium distribution, not the system-wide installed if available
+
+#set (EIGEN3_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY})
+#set (GLBINDING_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY})
+
 add_subdirectory(Applications)
 
+
+# ----------------------------------------------------------------------------------------------------------------------
+#   External plugins
 # FIXME(Charly) Not sure this is really the greatest idea ever
 add_subdirectory(Plugins)
 

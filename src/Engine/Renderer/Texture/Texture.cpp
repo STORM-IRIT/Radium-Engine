@@ -15,7 +15,7 @@ namespace Ra
         deleteGL();
     }
 
-    void Engine::Texture::Generate(uint w, uint format, void* data)
+    void Engine::Texture::Generate(uint w, GLenum format, void* data)
     {
         if (!glIsTexture(m_textureId)) GL_ASSERT(glGenTextures(1, &m_textureId));
         GL_ASSERT(glBindTexture(target, m_textureId));
@@ -31,7 +31,7 @@ namespace Ra
         m_width = w;
     }
 
-    void Engine::Texture::Generate(uint w, uint h, uint format, void* data)
+    void Engine::Texture::Generate(uint w, uint h, GLenum format, void* data)
     {
         CORE_ASSERT(target == GL_TEXTURE_2D, "Wrong texture target");
 
@@ -52,7 +52,7 @@ namespace Ra
         m_height = h;
     }
 
-    void Engine::Texture::Generate(uint w, uint h, uint d, uint format, void* data)
+    void Engine::Texture::Generate(uint w, uint h, uint d, GLenum format, void* data)
     {
         CORE_ASSERT(target == GL_TEXTURE_3D, "Wrong texture target");
 
@@ -74,7 +74,7 @@ namespace Ra
         m_depth  = d;
     }
 
-    void Engine::Texture::GenerateCube(uint w, uint h, uint format, void** data)
+    void Engine::Texture::GenerateCube(uint w, uint h, GLenum format, void** data)
     {
         CORE_ASSERT(target == GL_TEXTURE_CUBE_MAP, "Wrong texture target");
         if (!glIsTexture(m_textureId)) GL_ASSERT(glGenTextures(1, &m_textureId));

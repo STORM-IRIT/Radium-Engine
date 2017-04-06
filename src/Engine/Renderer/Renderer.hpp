@@ -83,7 +83,7 @@ namespace Ra
                 return m_timerData;
             }
 
-            virtual Texture* getDisplayTexture()
+            virtual Texture* getDisplayTexture() const
             {
                 return m_displayedTexture;
             }
@@ -215,6 +215,8 @@ namespace Ra
              * @return
              */
             virtual std::string getRendererName() const = 0;
+
+            virtual uchar* grabFrame( uint &w, uint &h) const;
 
         protected:
 

@@ -1,5 +1,5 @@
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
-
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 namespace Ra
 {
     namespace Engine

@@ -2,22 +2,22 @@
 
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Core/Mesh/HalfEdge.hpp>
-
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 namespace Ra {
     namespace Engine {
 
         // Dirty is initializes as false so that we do not create the vao while
         // we have no data to send to the gpu.
-        Mesh::Mesh( const std::string& name, GLenum renderMode )
+        Mesh::Mesh( const std::string& name, MeshRenderMode renderMode )
             : m_name( name )
             , m_vao( 0 )
             , m_renderMode(renderMode)
             , m_numElements (0)
             , m_isDirty( false )
         {
-            CORE_ASSERT( m_renderMode == GL_LINES
-                      || m_renderMode == GL_LINES_ADJACENCY
-                      || m_renderMode == GL_TRIANGLES,
+            CORE_ASSERT( m_renderMode == RM_LINES
+                      || m_renderMode == RM_LINES_ADJACENCY
+                      || m_renderMode == RM_TRIANGLES,
                          "Unsupported render mode" );
         }
 
@@ -42,7 +42,7 @@ namespace Ra {
             if ( m_vao != 0 )
             {
                 GL_ASSERT( glBindVertexArray( m_vao ) );
-                GL_ASSERT( glDrawElements( m_renderMode, m_numElements, GL_UNSIGNED_INT, (void*)0 ) );
+                GL_ASSERT( glDrawElements( static_cast<GLenum >(m_renderMode), m_numElements, GL_UNSIGNED_INT, (void*)0 ) );
             }
         }
 
@@ -111,7 +111,7 @@ namespace Ra {
             GLenum type = GL_FLOAT;
 #endif
             constexpr GLuint size = VecArray::Vector::RowsAtCompileTime;
-            constexpr GLboolean normalized  = GL_FALSE;
+            const GLboolean normalized  = GL_FALSE;
             constexpr GLint64 ptr = 0;
 
             // This vbo has not been created yet

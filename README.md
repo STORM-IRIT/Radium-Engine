@@ -5,11 +5,11 @@ See [this presentation](https://docs.google.com/presentation/d/12W2KXY7ctJXFIelm
 for an overview of the project.
 
 ## Dependencies 
-* Eigen 3.2 (in repository)
-* Assimp 3.2 (included as a submodule)
-* OpenGL 3+ / GLSL 330
-* Qt Core, Qt Widgets and Qt OpenGL v5.4+ 
-* GLEW (used on Windows only for now)
+* Eigen 3.3 (as submodule )
+* Assimp 3.2 (as submodule in repository)
+* glbinding (as submodule in repository)
+* OpenGL 3+ / GLSL 330+
+* Qt Core, Qt Widgets and Qt OpenGL v5.4+
 * stb_image (in repository)
 * To build : CMake 2.8.11+
 
@@ -18,13 +18,13 @@ for an overview of the project.
 The following platforms and tool chains have been tested and should work :
 
 * *Windows* : MSVC 2015 or higher, MinGW-32 4.9.2 or higher (with Qt Creator).
-* *Mac OSX* : clang with XCode
+* *Mac OSX* : gcc 4.8 or higher, Apple clang
 * *Linux* : gcc 4.8 or higher, clang
 
 ## Build instructions
 
 ### Getting submodules 
-Assimp is a submodule : you can get it by running these two commands
+Eigen, Assimp, glbinding are submodules : you can get them by running these two commands
 ```
 $ git submodule init
 $ git submodule update
@@ -68,12 +68,9 @@ Since Radium requires the C++11/C++14 advanced features such as `constexpr`, you
 If using earlier versions of Qt (5.4 or 5.5)  or a different toolset you may have to compile Qt yourself.
 You will probaby have to manually point cmake to the Qt folder (see Troubleshooting below)
 
-On windows GLEW is required for all the fancy OpenGL functions such as `glBindBuffers` (sad but true...).
-Dowload GLEW [http://glew.sourceforge.net/].
-You can put the GLEW folder in `3rdPartyLibraries` where cmake will look for it. If GLEW is somewhere else,
-you will have to manually set the variables in cmake.
-
-The default cmake configuration for Assimp should be correct.
+Eigen : included as a submodule in the git repository.
+Assimp : included as a submodule in the git repository.
+glbinding : included as a submodule in the git repository.
 
 #### Building
 
@@ -82,20 +79,11 @@ As long as cmake run smoothly the engine should compile.
 ### Run
 
 * Don't forget to copy the third party DLLs in the executable folder :
- * glew32.dll
  * Qt libraries (Qt5xxx.dll or Qt5xxxd.dll if you are in debug) : Core, Gui and Widgets
 * Set "radium" as your startup project
 * Change the application working directory to `$(OutDir)..` (go to the "radium" project properties, *Debugging* menu, *Working Directory*) to get the shaders to load properly.
 
 ## Building on Windows with QtCreator / MinGW
-
-### Dependencies 
-
-Unfortunately, GLEW does not have MinGW binaries, so you have to get the GLEW source and compile it.
-* Download the latest glew soure (http://glew.sourceforge.net/)
-* Move the GLEW source folder to  `\Glew`  in `3rdPartyLibraries`
-* Build GLEW in "Release" with Qt creator.
-* Move `libglew32.a`and `libglew32.dll.a` in `3rdPartyLibraries\Glew\lib\Release\mingw`
 
 ### Building
 

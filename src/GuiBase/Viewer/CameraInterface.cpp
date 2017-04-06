@@ -4,6 +4,8 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
+#include <GuiBase/Viewer/Viewer.hpp>
+
 namespace Ra
 {
     Gui::CameraInterface::CameraInterface( uint width, uint height )
@@ -80,5 +82,10 @@ namespace Ra
 
         m_light->setPosition(m_camera->getPosition());
         m_light->setDirection(m_camera->getDirection());
+    }
+
+    const Engine::Camera& Gui::CameraInterface::getCameraFromViewer(QObject *v)
+    {
+        return *static_cast<Gui::Viewer*>(v)->getCameraInterface()->getCamera();
     }
 }

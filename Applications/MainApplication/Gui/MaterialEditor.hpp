@@ -6,7 +6,7 @@
 #include <memory>
 
 #include <Core/Index/Index.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+//#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 #include <ui_MaterialEditor.h>
 
@@ -19,6 +19,7 @@ namespace Ra
     {
         class RadiumEngine;
         class RenderObjectManager;
+        class RenderObject;
         class Material;
     }
 }

@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QPluginLoader>
 #include <QCommandLineParser>
+#include <QOpenGLContext>
 
 #include <Core/Log/Log.hpp>
 #include <Core/String/StringUtils.hpp>
@@ -19,21 +20,20 @@
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
+
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
 
 #include <Engine/Renderer/Renderer.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/RenderTechnique/Material.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/Renderers/DebugRender.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+
+#include <PluginBase/RadiumPluginInterface.hpp>
 
 #include <Gui/MainWindow.hpp>
 
-#include <PluginBase/RadiumPluginInterface.hpp>
 
 // Const parameters : TODO : make config / command line options
 

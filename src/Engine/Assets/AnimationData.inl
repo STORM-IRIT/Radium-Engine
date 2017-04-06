@@ -1,5 +1,3 @@
-#include <Engine/Assets/AnimationData.hpp>
-
 #include <Core/Log/Log.hpp>
 
 namespace Ra {

@@ -1,6 +1,10 @@
 project(FancyMeshPlugin)
 
 cmake_minimum_required(VERSION 2.8.11)
+if (APPLE)
+    cmake_policy(SET CMP0042 NEW)
+endif(APPLE)
+
 message( "${PROJECT_NAME} output path : ${RADIUM_PLUGIN_OUTPUT_PATH}" )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${RADIUM_PLUGIN_OUTPUT_PATH} )
@@ -45,12 +49,12 @@ include_directories(
     src/
     ${CMAKE_CURRENT_BINARY_DIR} # MOC
     ${RADIUM_INCLUDE_DIR}
-    ${EIGEN_INC}
-    ${ASSIMP_INC}
+    ${EIGEN3_INCLUDE_DIR}
+    ${ASSIMP_INCLUDE_DIR}
     )
 
 add_library( FancyMesh SHARED ${sources} ${headers} ${inlines} )
-add_dependencies( FancyMesh radiumCore radiumEngine radiumGuiBase )
+add_dependencies( FancyMesh radiumCore radiumEngine radiumGuiBase)
 
 target_compile_definitions( FancyMesh PRIVATE "-DFancyMesh_EXPORTS" )
 

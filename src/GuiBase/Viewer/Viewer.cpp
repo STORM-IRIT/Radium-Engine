@@ -1,3 +1,11 @@
+// Must include this before any qt include
+//#include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <glbinding/Binding.h>
+#include <glbinding/ContextInfo.h>
+#include <glbinding/Version.h>
+#include <Engine/RadiumEngine.hpp>
+
+
 #include <GuiBase/Viewer/Viewer.hpp>
 
 #include <iostream>
@@ -11,21 +19,21 @@
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/Math.hpp>
 #include <Core/Containers/MakeShared.hpp>
-
 #include <Core/Image/stb_image_write.h>
 
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
-#include <Engine/Renderer/Texture/Texture.hpp>
+
+
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
+
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 #include <Engine/Renderer/Renderers/ExperimentalRenderer.hpp>
 
 #include <GuiBase/Viewer/TrackballCamera.hpp>
-#include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 #include <GuiBase/Utils/Keyboard.hpp>
 
 
@@ -51,36 +59,20 @@ namespace Ra
 
     void Gui::Viewer::initializeGL()
     {
-        initializeOpenGLFunctions();
-
+//        initializeOpenGLFunctions();
+        glbinding::Binding::initialize(false); // only resolve functions that are actually used (lazy)
         LOG( logINFO ) << "*** Radium Engine Viewer ***";
-        LOG( logINFO ) << "Renderer : " << glGetString( GL_RENDERER );
-        LOG( logINFO ) << "Vendor   : " << glGetString( GL_VENDOR );
-        LOG( logINFO ) << "OpenGL   : " << glGetString( GL_VERSION );
-        LOG( logINFO ) << "GLSL     : " << glGetString( GL_SHADING_LANGUAGE_VERSION );
-
-#if defined (OS_WINDOWS)
-        glewExperimental = GL_TRUE;
-
-        GLuint result = glewInit();
-        if ( result != GLEW_OK )
-        {
-            CORE_ERROR( "GLEW init failed : "<<glewGetErrorString(result) );
-        }
-        else
-        {
-            LOG( logINFO ) << "GLEW     : " << glewGetString( GLEW_VERSION );
-            glFlushError();
-        }
-
-#endif
+        LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::ContextInfo::renderer();
+        LOG( logINFO ) << "Vendor   (glbinding) : " << glbinding::ContextInfo::vendor();
+        LOG( logINFO ) << "OpenGL   (glbinding) : " << glbinding::ContextInfo::version().toString();
+        LOG( logINFO ) << "GLSL                 : " << glGetString( GL_SHADING_LANGUAGE_VERSION );
 
         // FIXME(Charly): Renderer type should not be changed here
-        //m_renderers.resize( 3 );
-        // FIXME(Mathias): width and height might be wrong the first time ResizeGL is called (see QOpenGLWidget doc). This may cause problem on Retina display under MacOsX
+        // m_renderers.resize( 3 );
+        // FIXME (Mathias): width and height might be wrong the first time ResizeGL is called (see QOpenGLWidget doc). This may cause problem on Retina display under MacOsX (and this happens)
         m_renderers[0].reset( new Engine::ForwardRenderer( width(), height() ) ); // Forward
         m_renderers[1].reset( nullptr ); // deferred
-//        m_renderers[2].reset( new Engine::ExperimentalRenderer( width(), height() ) ); // experimental
+        // m_renderers[2].reset( new Engine::ExperimentalRenderer( width(), height() ) ); // experimental
 
         for ( auto& renderer : m_renderers )
         {
@@ -150,7 +142,7 @@ namespace Ra
 
     void Gui::Viewer::resizeGL( int width, int height )
     {
-        // FIXME(Mathias) : Problem of glarea dimension on OsX Retina Display (half the size)
+        // FIXME (Mathias) : Problem of glarea dimension on OsX Retina Display (half the size)
         // Renderer should have been locked by previous events.
         m_camera->resizeViewport( width, height );
         m_currentRenderer->resize( width, height );
@@ -163,7 +155,7 @@ namespace Ra
             case Qt::LeftButton:
             {
 #ifdef OS_MACOS
-                // (Mathias) no middle button on Apple (only left, right and wheel)
+                // No middle button on Apple (only left, right and wheel)
                 // replace middle button by <ctrl>+left (note : ctrl = "command"
                 // fake the subsistem by setting MiddleButtonEvent and masking ControlModifier
                 if (event->modifiers().testFlag( Qt::ControlModifier ) )
@@ -363,48 +355,27 @@ namespace Ra
     {
         makeCurrent();
 
-        Engine::Texture* tex = m_currentRenderer->getDisplayTexture();
-        tex->bind();
-
-        // Get a buffer to store the pixels of the OpenGL texture (in float format)
-        float* pixels = new float[tex->width() * tex->height() * 4];
-
-        // Grab the texture data
-        GL_ASSERT(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_FLOAT, pixels));
-
-        // Now we must convert the floats to RGB while flipping the image updisde down.
-        uchar* writtenPixels = new uchar[tex->width() * tex->height() * 4];
-        for (uint j = 0; j < tex->height(); ++j)
-        {
-            for (uint i = 0; i < tex->width(); ++i)
-            {
-                uint in = 4 * (j * tex->width() + i);  // Index in the texture buffer
-                uint ou = 4 * ((tex->height() - 1 - j) * tex->width() + i); // Index in the final image (note the j flipping).
-
-                writtenPixels[ou + 0] = (uchar)Ra::Core::Math::clamp<Scalar>(pixels[in + 0] * 255.f, 0, 255);
-                writtenPixels[ou + 1] = (uchar)Ra::Core::Math::clamp<Scalar>(pixels[in + 1] * 255.f, 0, 255);
-                writtenPixels[ou + 2] = (uchar)Ra::Core::Math::clamp<Scalar>(pixels[in + 2] * 255.f, 0, 255);
-                writtenPixels[ou + 3] = 0xff;
-            }
-        }
+        uint w, h;
+        uchar* writtenPixels = m_currentRenderer->grabFrame(w, h);
 
         std::string ext = Core::StringUtils::getFileExt(filename);
 
         if (ext == "bmp")
         {
-            stbi_write_bmp(filename.c_str(), tex->width(), tex->height(), 4, writtenPixels);
+            stbi_write_bmp(filename.c_str(), w, h, 4, writtenPixels);
         }
         else if (ext == "png")
         {
-            stbi_write_png(filename.c_str(), tex->width(), tex->height(), 4, writtenPixels, tex->width() * 4 * sizeof(uchar));
+            stbi_write_png(filename.c_str(), w, h, 4, writtenPixels, w * 4 * sizeof(uchar));
         }
         else
         {
             LOG(logWARNING) << "Cannot write frame to "<<filename<<" : unsupported extension";
         }
 
-        delete[] pixels;
+
         delete[] writtenPixels;
+
     }
 
     void Gui::Viewer::enablePostProcess(int enabled)

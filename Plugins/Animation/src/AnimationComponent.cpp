@@ -15,6 +15,8 @@
 #include <Engine/Assets/KeyFrame/KeyPose.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+
 #include <Drawing/SkeletonBoneDrawable.hpp>
 #include "Core/Mesh/TriangleMesh.hpp"
 
