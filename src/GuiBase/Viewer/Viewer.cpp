@@ -68,11 +68,11 @@ namespace Ra
         LOG( logINFO ) << "GLSL                 : " << glGetString( GL_SHADING_LANGUAGE_VERSION );
 
         // FIXME(Charly): Renderer type should not be changed here
-        //m_renderers.resize( 3 );
-        // FIXME(Mathias): width and height might be wrong the first time ResizeGL is called (see QOpenGLWidget doc). This may cause problem on Retina display under MacOsX
+        // m_renderers.resize( 3 );
+        // FIXME (Mathias): width and height might be wrong the first time ResizeGL is called (see QOpenGLWidget doc). This may cause problem on Retina display under MacOsX (and this happens)
         m_renderers[0].reset( new Engine::ForwardRenderer( width(), height() ) ); // Forward
         m_renderers[1].reset( nullptr ); // deferred
-//        m_renderers[2].reset( new Engine::ExperimentalRenderer( width(), height() ) ); // experimental
+        // m_renderers[2].reset( new Engine::ExperimentalRenderer( width(), height() ) ); // experimental
 
         for ( auto& renderer : m_renderers )
         {
@@ -142,7 +142,7 @@ namespace Ra
 
     void Gui::Viewer::resizeGL( int width, int height )
     {
-        // FIXME(Mathias) : Problem of glarea dimension on OsX Retina Display (half the size)
+        // FIXME (Mathias) : Problem of glarea dimension on OsX Retina Display (half the size)
         // Renderer should have been locked by previous events.
         m_camera->resizeViewport( width, height );
         m_currentRenderer->resize( width, height );
@@ -155,7 +155,7 @@ namespace Ra
             case Qt::LeftButton:
             {
 #ifdef OS_MACOS
-                // (Mathias) no middle button on Apple (only left, right and wheel)
+                // No middle button on Apple (only left, right and wheel)
                 // replace middle button by <ctrl>+left (note : ctrl = "command"
                 // fake the subsistem by setting MiddleButtonEvent and masking ControlModifier
                 if (event->modifiers().testFlag( Qt::ControlModifier ) )

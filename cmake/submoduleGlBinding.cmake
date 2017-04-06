@@ -1,6 +1,5 @@
 
 # here is defined the way we want to import glbinding
-# TODO : verify with VERBOSE=1 on build time that CXX_FLAGS are correct
 ExternalProject_Add(
 		glbinding
 

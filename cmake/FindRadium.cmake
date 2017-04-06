@@ -68,7 +68,7 @@ IF ( RADIUM_ROOT_DIR )
 
     SET ( Radium_FOUND TRUE )
 
-    # TODO (Mathias) : verify if cmake recommand this
+    # TODO (Mathias) : verify if cmake recommand this (append the include dir of module dependencis in the include dir of the module header)
     SET( RADIUM_INCLUDE_DIR)
     LIST(APPEND RADIUM_INCLUDE_DIR "${RADIUM_INCLUDES}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}")
 

@@ -17,7 +17,6 @@ find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
 
 
-#TODO(Mathias) --> make dependencies include found by cmake ?
 include_directories(
     ${EIGEN3_INCLUDE_DIR}
     ${ASSIMP_INCLUDE_DIR}
