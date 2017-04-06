@@ -111,7 +111,7 @@ namespace Ra {
             GLenum type = GL_FLOAT;
 #endif
             constexpr GLuint size = VecArray::Vector::RowsAtCompileTime;
-             GLboolean normalized  = GL_FALSE;
+            GLboolean normalized  = GL_FALSE;
             constexpr GLint64 ptr = 0;
 
             // This vbo has not been created yet

@@ -1,16 +1,11 @@
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
-
-#include <Engine/Renderer/Camera/Camera.hpp>
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
-
-
-//#include <GuiBase/Viewer/Viewer.hpp>
-
 #include <GuiBase/Viewer/CameraInterface.hpp>
 #include <GuiBase/Viewer/Gizmo/TranslateGizmo.hpp>
 #include <GuiBase/Viewer/Gizmo/RotateGizmo.hpp>
-//#include <QtWidgets/QtWidgets>
+
+#include <Engine/Renderer/Camera/Camera.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
 
 namespace Ra

@@ -133,9 +133,6 @@ namespace Ra
             RenderTechnique* m_renderTechnique;
             std::shared_ptr<Mesh> m_mesh;
 
-            // FIXME(Charly): Remove this
-            //RenderParameters m_renderParameters;
-
             mutable std::mutex m_updateMutex;
 
             int m_lifetime;
