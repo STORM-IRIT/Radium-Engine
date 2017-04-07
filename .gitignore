@@ -69,7 +69,7 @@
 # Output Directories
 build/
 build-dbg/
-build-rel/
+build-release/
 bin-debug/
 lib-debug/
 bin-dbg/
