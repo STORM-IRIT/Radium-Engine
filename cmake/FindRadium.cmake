@@ -50,6 +50,7 @@ IF ( RADIUM_ROOT_DIR )
 
     SET ( Radium_FOUND TRUE )
 
+    ############################################################################
     # Get dependencies if not already specified
     IF(NOT EIGEN3_INCLUDE_DIR)
         set(EIGEN3_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
@@ -57,14 +58,14 @@ IF ( RADIUM_ROOT_DIR )
 
     IF (NOT ASSIMP_LIBRARIES)
         FIND_LIBRARY ( ASSIMP_LIBRARIES
-            NAMES assimp
+            NAMES assimp assimpd
             PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
             )
     ENDIF (NOT ASSIMP_LIBRARIES)
 
     IF (NOT GLBINDING_LIBRARIES)
         FIND_LIBRARY ( GLBINDING_LIBRARIES
-            NAMES glbinding
+            NAMES glbinding glbindingd
             PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
             )
     ENDIF (NOT GLBINDING_LIBRARIES)
