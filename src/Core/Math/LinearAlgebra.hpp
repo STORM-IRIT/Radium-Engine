@@ -156,7 +156,7 @@ namespace Ra
             inline bool checkRange( const Vector_& v, const Scalar& min, const Scalar& max );
 
             /// Get two vectors orthogonal to a given vector.
-            inline void getOrthogonalVectors( const Vector3& fx, Vector3& fy, Vector3& fz );
+            inline void getOrthogonalVectors( const Vector3& fx, Eigen::Ref<Vector3> fy, Eigen::Ref<Vector3> fz );
 
             /// Get the angle between two vectors. Works for types where the cross product is
             /// defined (i.e. 2D and 3D vectors).
@@ -164,7 +164,7 @@ namespace Ra
             inline Scalar angle( const Vector_& v1, const Vector_& v2 );
 
             /// @return the projection of point on the plane define by plane and planeNormal
-            inline Vector3 projectOnPlane(const Vector3& planePos, const Vector3 planeNormal, const Vector3& point);
+            inline Vector3 projectOnPlane(const Vector3& planePos, const Vector3& planeNormal, const Vector3& point);
 
             /// Get the cotangent of the angle between two vectors. Works for vector types where
             /// dot and cross product is defined (2D or 3D vectors).

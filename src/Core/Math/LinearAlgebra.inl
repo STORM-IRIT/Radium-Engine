@@ -75,7 +75,7 @@ namespace Core
     }
 
     template <typename Vector_>
-    Scalar Vector::getNormAndNormalize(Vector_& v)
+    Scalar Vector::getNormAndNormalize( Vector_& v)
     {
         const Scalar norm = v.norm();
         v /= norm;
@@ -83,7 +83,7 @@ namespace Core
     }
 
     template <typename Vector_>
-    Scalar Vector::getNormAndNormalizeSafe(Vector_& v)
+    Scalar Vector::getNormAndNormalizeSafe( Vector_& v)
     {
         const Scalar norm = v.norm();
         if (norm > 0 ) {v /= norm;}
@@ -111,7 +111,7 @@ namespace Core
         return Quaternion( k * q.coeffs() );
     }
 
-    inline void Vector::getOrthogonalVectors( const Vector3& fx, Vector3& fy, Vector3& fz )
+    inline void Vector::getOrthogonalVectors( const Vector3& fx, Eigen::Ref<Vector3> fy, Eigen::Ref<Vector3> fz )
     {
         //for numerical stability, and seen that z will always be present, take the greatest component between x and y.
         if ( std::abs( fx( 0 ) ) > std::abs( fx( 1 ) ) )
@@ -129,7 +129,7 @@ namespace Core
         fz = fx.cross( fy );
     }
 
-    inline Vector3 Vector::projectOnPlane(const Vector3& planePos, const Vector3 planeNormal, const Vector3& point)
+    inline Vector3 Vector::projectOnPlane(const Vector3& planePos, const Vector3& planeNormal, const Vector3& point)
     {
         return point + planeNormal * (planePos - point).dot(planeNormal);
     }
