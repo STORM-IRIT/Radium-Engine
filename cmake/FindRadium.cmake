@@ -30,45 +30,47 @@ ENDIF(NOT RADIUM_ROOT_DIR)
 IF ( RADIUM_ROOT_DIR )
     SET ( RADIUM_INCLUDES "${RADIUM_ROOT_DIR}/src")
 
-#    IF(NOT EIGEN3_INCLUDE_DIR)
-#        set(EIGEN3_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
-#    find_package(Eigen3 3.1.2 REQUIRED)
-#    ENDIF(NOT EIGEN3_INCLUDE_DIR)
-    #find_package(Assimp REQUIRED)
-    #find_package(GLBinding REQUIRED)
 
     SET ( RADIUM_PLUGIN_OUTPUT_PATH "${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/Plugins")
 
-    IF (TARGET radiumCore)
-        set (RA_CORE_LIB radiumCore)
-    ELSE()
-        FIND_LIBRARY( RA_CORE_LIB
-            NAMES radiumCore
-            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
-            )
-    ENDIF()
+    FIND_LIBRARY( RA_CORE_LIB
+        NAMES radiumCore
+        PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
+        )
 
-    IF (TARGET radiumEngine)
-        set (RA_ENGINE_LIB radiumEngine)
-    ELSE()
-        FIND_LIBRARY( RA_ENGINE_LIB
-            NAMES radiumEngine
-            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
-            )
-    ENDIF()
+    FIND_LIBRARY( RA_ENGINE_LIB
+        NAMES radiumEngine
+        PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
+        )
 
-    IF (TARGET radiumGuiBase)
-        set (RA_GUIBASE_LIB radiumGuiBase)
-    ELSE()
-        FIND_LIBRARY ( RA_GUIBASE_LIB
-            NAMES radiumGuiBase
-            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
-            )
-    ENDIF()
+    FIND_LIBRARY ( RA_GUIBASE_LIB
+        NAMES radiumGuiBase
+        PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
+        )
 
     SET ( Radium_FOUND TRUE )
 
+    # Get dependencies if not already specified
+    IF(NOT EIGEN3_INCLUDE_DIR)
+        set(EIGEN3_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
+    ENDIF(NOT EIGEN3_INCLUDE_DIR)
+
+    IF (NOT ASSIMP_LIBRARIES)
+        FIND_LIBRARY ( ASSIMP_LIBRARIES
+            NAMES assimp
+            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
+            )
+    ENDIF (NOT ASSIMP_LIBRARIES)
+
+    IF (NOT GLBINDING_LIBRARIES)
+        FIND_LIBRARY ( GLBINDING_LIBRARIES
+            NAMES glbinding
+            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
+            )
+    ENDIF (NOT GLBINDING_LIBRARIES)
+
     # TODO (Mathias) : verify if cmake recommand this (append the include dir of module dependencis in the include dir of the module header)
+    # TODO (Nico) : this is unconsistent with the lib behavior: deps *.so are not added in RADIUM_LIBRARIES
     SET( RADIUM_INCLUDE_DIR)
     LIST(APPEND RADIUM_INCLUDE_DIR "${RADIUM_INCLUDES}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}")
 
