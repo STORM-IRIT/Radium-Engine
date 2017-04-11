@@ -75,13 +75,18 @@ namespace Ra
 //                                         Scalar rc,
 //                                         const Core::Color& color);
 
+//            RA_ENGINE_API MeshPtr Ellipsoid(const Core::Vector3& center,
+//                           const Core::Vector3& a,
+//                           const Core::Vector3& b,
+//                           const Core::Vector3& c,
+//                           const float& lambda_a,
+//                           const float& lambda_b,
+//                           const float& lambda_c,
+//                           const Core::Color& color);
+
             RA_ENGINE_API MeshPtr Ellipsoid(const Core::Vector3& center,
-                           const Core::Vector3& a,
-                           const Core::Vector3& b,
-                           const Core::Vector3& c,
-                           const float& lambda_a,
-                           const float& lambda_b,
-                           const float& lambda_c,
+                           const Core::Matrix4f& R,
+                           Scalar radius,
                            const Core::Color& color);
 
             /// Displays a capsule computed with given endpoints and radius.

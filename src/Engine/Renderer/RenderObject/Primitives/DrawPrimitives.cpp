@@ -216,21 +216,41 @@ namespace Ra {
                 return mesh;
             }
 
+//            MeshPtr Ellipsoid(const Core::Vector3& center,
+//                           const Core::Vector3& a, const Core::Vector3& b, const Core::Vector3& c,
+//                           const float &lambda_a, const float& lambda_b, const float& lambda_c, const Core::Color& color)
+//            {
+//                Core::TriangleMesh ellipsoid =
+//                    Core::MeshUtils::makeEllipsoid(a, b, c, lambda_a, lambda_b, lambda_c);
+
+//                for (auto& t : ellipsoid.m_vertices)
+//                {
+//                    t += center;
+//                }
+
+//                Core::Vector4Array colors(ellipsoid.m_vertices.size(), color);
+
+//                MeshPtr mesh(new Mesh("Ellipsoid Primitive", Mesh::RM_LINES));
+//                mesh->loadGeometry(ellipsoid);
+//                mesh->addData(Mesh::VERTEX_COLOR, colors);
+
+//                return mesh;
+//            }
+
             MeshPtr Ellipsoid(const Core::Vector3& center,
-                           const Core::Vector3& a, const Core::Vector3& b, const Core::Vector3& c,
-                           const float &lambda_a, const float& lambda_b, const float& lambda_c, const Core::Color& color)
+                           const Core::Matrix4f& R, Scalar radius, const Core::Color& color)
             {
                 Core::TriangleMesh ellipsoid =
-                    Core::MeshUtils::makeEllipsoid(a, b, c, lambda_a, lambda_b, lambda_c);
+                    Core::MeshUtils::makeEllipsoid(R, radius);
 
-                for (auto& t : ellipsoid.m_vertices)
-                {
-                    t += center;
-                }
+//                for (auto& t : ellipsoid.m_vertices)
+//                {
+//                    t += center;
+//                }
 
                 Core::Vector4Array colors(ellipsoid.m_vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("Ellipsoid Primitive", GL_LINES));
+                MeshPtr mesh(new Mesh("Ellipsoid Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(ellipsoid);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 

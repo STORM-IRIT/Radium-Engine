@@ -129,6 +129,8 @@ namespace Ra
 //            int getIndex();
 //            void setIndex(int idx);
 
+            PriorityQueueContainer getPriorityQueueContainer();
+
 
         private:
 
