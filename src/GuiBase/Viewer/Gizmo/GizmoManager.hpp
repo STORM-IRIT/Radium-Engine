@@ -19,6 +19,7 @@ namespace Ra
         {
             Q_OBJECT
 
+
         public:
 
             RA_CORE_ALIGNED_NEW;
@@ -43,7 +44,11 @@ namespace Ra
 
 
         public slots:
+            /// Set the object being currently edited
             void setEditable( const Engine::ItemEntry& ent ) override;
+
+            /// Destroy all gizmos
+            void cleanup();
 
             /// Callback when a drawable is picked.
             void handlePickingResult( int drawableId );
@@ -57,13 +62,17 @@ namespace Ra
             /// Retrieve the transform from the editable and update the gizmos.
             void updateValues() override;
 
-        private:
-
-            // Helper factory method to create the right gizmo.
-            void spawnGizmo();
 
         private:
-            std::unique_ptr<Gizmo> m_currentGizmo;  //! Owning pointer to the gizmo
+
+            // Helper method to change the current gizmo
+            void updateGizmo();
+
+            // Returs the current gizmo
+            Gizmo* currentGizmo();
+
+        private:
+            std::array<std::unique_ptr<Gizmo>,3> m_gizmos; //! Owning pointers to the gizmos
             GizmoType m_currentGizmoType;           //! Type of the gizmo
             Gizmo::Mode m_mode;                     //! Local/global axis mode.
         };

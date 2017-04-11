@@ -64,7 +64,7 @@ namespace Ra
 
     void Gui::MainWindow::cleanup()
     {
-        gizmoShowNone();
+        m_viewer->getGizmoManager()->cleanup();
     }
 
     void Gui::MainWindow::createConnections()
