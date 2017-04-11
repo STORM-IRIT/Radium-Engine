@@ -134,12 +134,12 @@ namespace Ra
         // Create engine
         m_engine.reset(Engine::RadiumEngine::createInstance());
         m_engine->initialize();
+        addBasicShaders();
 
         // Create main window.
         m_mainWindow.reset( new Gui::MainWindow );
         m_mainWindow->show();
 
-        addBasicShaders();
 
         // Allow all events to be processed (thus the viewer should have
         // initialized the OpenGL context..)
