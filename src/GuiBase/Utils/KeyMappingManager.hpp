@@ -58,7 +58,6 @@ namespace Ra
                 bool actionTriggered( QMouseEvent * event, KeyMappingAction action );
                 /// Utility method to check if a QKeyEvent triggers a specific action
                 bool actionTriggered( QKeyEvent * event, KeyMappingAction action );
-
             private:
                 KeyMappingManager();
                 ~KeyMappingManager();

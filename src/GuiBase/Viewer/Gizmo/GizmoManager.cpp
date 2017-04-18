@@ -103,6 +103,7 @@ namespace Ra
             CORE_ASSERT(currentGizmo(), "Gizmo is not there !");
 
             // Access the camera from the viewer. (TODO : a cleaner way to access the camera).
+            // const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
             const Engine::Camera& cam = CameraInterface::getCameraFromViewer(parent());
             currentGizmo()->setInitialState(cam, Core::Vector2(Scalar(event->x()), Scalar(event->y())));
 
@@ -123,6 +124,7 @@ namespace Ra
             if ( event->buttons() & Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) && currentGizmo() )
             {
                 Core::Vector2 currentXY(event->x(), event->y());
+                // const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
                 const Engine::Camera& cam = CameraInterface::getCameraFromViewer(parent());
                 Core::Transform newTransform = currentGizmo()->mouseMove(cam, currentXY);
                 setTransform( newTransform );
