@@ -88,8 +88,10 @@ target_link_libraries(
 # Build GuiBase
 set(guibase_target radiumGuiBase)
 
+find_package(Qt5Xml REQUIRED)
+
 # Qt5
-set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})
+set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES} ${Qt5Xml_LIBRARIES})
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -98,6 +100,7 @@ set(CMAKE_AUTORCC ON)
 add_definitions(${Qt5Core_DEFINITIONS})
 add_definitions(${Qt5Widgets_DEFINITIONS})
 add_definitions(${Qt5OpenGL_DEFINITIONS})
+add_definitions(${Qt5Xml_DEFINITIONS})
 
 file(GLOB_RECURSE guibase_sources GuiBase/*.cpp)
 file(GLOB_RECURSE guibase_headers GuiBase/*.h guibase/*.hpp)
@@ -115,7 +118,7 @@ add_library(
     ${guibase_sources}
     ${guibase_headers}
     ${guibase_inlines}
-)
+        GuiBase/Utils/KeyMappingManager.cpp GuiBase/Utils/KeyMappingManager.hpp)
 
 add_dependencies( ${guibase_target} ${engine_target} )
 target_compile_definitions(${guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
