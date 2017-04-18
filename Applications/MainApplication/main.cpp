@@ -2,7 +2,7 @@
 
 #include <QCommandLineParser>
 
-#include <cstdio>
+#include <GuiBase/Utils/KeyMappingManager.hpp>
 
 int main( int argc, char** argv )
 {
@@ -12,6 +12,9 @@ int main( int argc, char** argv )
     const Scalar deltaTime( fpsMax == 0 ? 0.f : 1.f / Scalar( fpsMax ) );
 
     Ra::Core::Timer::TimePoint t0, t1;
+
+    Ra::Gui::KeyMappingManager::createInstance();
+    Ra::Gui::KeyMappingManager::getInstance()->loadConfiguration( "../../Applications/MainApplication/config_matthieu.xml" );
 
     while ( app.isRunning() )
     {
