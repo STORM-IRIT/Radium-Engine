@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<keymaps>
+	<keymap>
+		<information id="type" modifier="NoModifier" type="mouse" value="MiddleButton"></information>
+		<information id="action" value="TRACKBALL_CAMERA_MANIPULATION"></information>
+	</keymap>
+	<keymap>
+		<information id="type" modifier="NoModifier" type="key" value="Key_F"></information>
+		<information id="action" value="TRACKBALL_CAMERA_ROTATE_AROUND"></information>
+	</keymap>
+	<keymap>
+		<information id="type" modifier="NoModifier" type="mouse" value="RightButton"></information>
+		<information id="action" value="VIEWER_RIGHT_BUTTON_PICKING_QUERY"></information>
+	</keymap>
+	<keymap>
+		<information id="type" modifier="NoModifier" type="mouse" value="LeftButton"></information>
+		<information id="action" value="VIEWER_LEFT_BUTTON_PICKING_QUERY"></information>
+	</keymap>
+	<keymap>
+		<information id="type" modifier="NoModifier" type="key" value="Key_Space"></information>
+		<information id="action" value="VIEWER_RAYCAST_QUERY"></information>
+	</keymap>
+	<keymap>
+		<information id="type" modifier="NoModifier" type="key" value="Key_Z"></information>
+		<information id="action" value="VIEWER_TOGGLE_WIREFRAME"></information>
+	</keymap>
+	<keymap>
+		<information id="type" modifier="NoModifier" type="mouse" value="LeftButton"></information>
+		<information id="action" value="GIZMO_MANIPULATION"></information>
+	</keymap>
+	<keymap>
+		<information id="type" modifier="NoModifier" type="mouse" value="LeftButton"></information>
+		<information id="action" value="COLORWIDGET_PRESSBUTTON"></information>
+	</keymap>
+</keymaps>
