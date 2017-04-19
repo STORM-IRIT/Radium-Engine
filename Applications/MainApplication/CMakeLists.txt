@@ -21,6 +21,7 @@ set(app_libs
     ${GLBINDING_LIBRARIES}          # Radium dep
     ${ASSIMP_LIBRARIES}             # Radium dep
     ${Qt5_LIBRARIES}                # the Qt beast
+    ${OPENGL_LIBRARIES}
     )
 
 file(GLOB_RECURSE app_sources *.cpp)
@@ -35,6 +36,7 @@ file(GLOB resources ${CMAKE_CURRENT_SOURCE_DIR}/../../*.qrc)
 include_directories(
     .
     ${RADIUM_INCLUDE_DIR}
+    ${EIGEN3_INCLUDE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR} # Moc
     )
 
@@ -52,7 +54,7 @@ target_link_libraries(
     ${app_libs}
     )
 
-add_dependencies( ${app_target}  radium_assets radium_configs )
+add_dependencies( ${app_target} radiumEngine radiumGuiBase radium_assets radium_configs )
 
 #install( DIRECTORY . DESTINATION include FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl" PATTERN "*.h" )
 #install( FILES ${engine_shaders} DESTINATION Shaders )
