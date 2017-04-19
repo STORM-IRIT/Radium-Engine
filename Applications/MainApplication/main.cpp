@@ -13,8 +13,6 @@ int main( int argc, char** argv )
 
     Ra::Core::Timer::TimePoint t0, t1;
 
-    Ra::Gui::KeyMappingManager::getInstance()->loadConfiguration( "Configs/config_matthieu.xml" );
-
     while ( app.isRunning() )
     {
         t0 = Ra::Core::Timer::Clock::now();
