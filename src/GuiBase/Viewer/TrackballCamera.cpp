@@ -57,7 +57,7 @@ namespace Ra
     {
         // Whole manipulation is done with middle button and modifiers
         /*if ( event->button() != Qt::MiddleButton )*/
-        if ( event->button() != Gui::KeyMappingManager::getInstance()->getKeyFromAction(Gui::KeyMappingManager::TRACKBALL_CAMERA_MANIPULATION) )
+        if ( !( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::TRACKBALL_CAMERA_MANIPULATION) ) )
         {
             return false;
         }
@@ -66,6 +66,7 @@ namespace Ra
         m_lastMouseX = event->pos().x();
         m_lastMouseY = event->pos().y();
 
+        /* TODO: Better handling of rotation/pan/zoom with KeyMappingManager */
         if ( event->modifiers().testFlag( Qt::NoModifier ) )
         {
             m_cameraRotateMode = true;
@@ -158,7 +159,7 @@ namespace Ra
 
     bool Gui::TrackballCamera::handleKeyPressEvent( QKeyEvent* e )
     {
-        if ( e->key() == Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::TRACKBALL_CAMERA_ROTATE_AROUND ) )
+        if ( Gui::KeyMappingManager::getInstance()->actionTriggered( e, Gui::KeyMappingManager::TRACKBALL_CAMERA_ROTATE_AROUND ) )
         {
             m_rotateAround = !m_rotateAround;
             return true;

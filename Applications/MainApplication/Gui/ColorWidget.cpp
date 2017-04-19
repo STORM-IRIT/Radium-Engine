@@ -34,7 +34,7 @@ namespace Ra
 
         void ColorWidget::mousePressEvent( QMouseEvent* e )
         {
-            if ( e->button() == KeyMappingManager::getInstance()->getKeyFromAction( KeyMappingManager::COLORWIDGET_PRESSBUTTON ) )
+            if ( KeyMappingManager::getInstance()->actionTriggered( e, KeyMappingManager::COLORWIDGET_PRESSBUTTON ) )
             {
                 QColor color = QColorDialog::getColor( m_currentColor );
                 if ( color != m_currentColor )
