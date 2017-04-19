@@ -83,8 +83,11 @@ namespace AnimationPlugin
     {
 
         for( uint i = 0; i < m_skel.size(); ++i ) {
-            if( !m_skel.m_graph.isLeaf( i ) ) {
-                SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject( m_skel.getLabel( i ), this, i, getRoMgr());
+            if( !m_skel.m_graph.isLeaf( i ) )
+            {
+                std::string name = m_skel.getLabel(i);
+                Ra::Core::StringUtils::appendPrintf( name, " (%d)", i);
+                SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject( name, this, i, getRoMgr());
                 m_boneDrawables.push_back(boneRenderObject);
                 m_renderObjects.push_back( boneRenderObject->getRenderObjectIndex());
             } else {
@@ -375,5 +378,14 @@ namespace AnimationPlugin
         const Ra::Core::Transform& TBoneLocal = m_skel.getTransform(boneIdx, Ra::Core::Animation::Handle::SpaceType::LOCAL);
         auto diff = TBoneModel.inverse() *  transform;
         m_skel.setTransform(boneIdx,TBoneLocal * diff,  Ra::Core::Animation::Handle::SpaceType::LOCAL);
+    }
+
+    uint AnimationComponent::getBoneIdx(Ra::Core::Index index) const
+    {
+        auto found = std::find_if(m_boneDrawables.begin(), m_boneDrawables.end(),
+                                  [index](const auto& draw) { return draw->getRenderObjectIndex() == index; });
+        return found == m_boneDrawables.end() ?
+               uint(-1) :
+               (*found)->getBoneIndex();
     }
 }

@@ -54,6 +54,7 @@ namespace AnimationPlugin
         void toggleSlowMotion( const bool status );
         void setAnimation( const uint i );
 
+        uint getBoneIdx(Ra::Core::Index index) const ;
 
         void handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable );
         void handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data );
@@ -67,6 +68,7 @@ namespace AnimationPlugin
         virtual Ra::Core::Transform getTransform(Ra::Core::Index roIdx) const override;
 
         virtual void setTransform(Ra::Core::Index roIdx, const Ra::Core::Transform& transform) override;
+
 
     private:
         // debug function to display the hierarchy
