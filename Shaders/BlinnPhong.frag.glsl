@@ -26,7 +26,7 @@ float InShadow()
     float result = current > closest ? 1.0 : 0.0;
     return result;
 }
-#endif 
+#endif
 
 void main()
 {
