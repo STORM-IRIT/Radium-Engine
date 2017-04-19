@@ -57,7 +57,7 @@ namespace Ra
     {
         // Whole manipulation is done with middle button and modifiers
         /*if ( event->button() != Qt::MiddleButton )*/
-        if ( !( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::TRACKBALL_CAMERA_MANIPULATION) ) )
+        if ( !( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION) ) )
         {
             return false;
         }
@@ -159,7 +159,7 @@ namespace Ra
 
     bool Gui::TrackballCamera::handleKeyPressEvent( QKeyEvent* e )
     {
-        if ( Gui::KeyMappingManager::getInstance()->actionTriggered( e, Gui::KeyMappingManager::TRACKBALL_CAMERA_ROTATE_AROUND ) )
+        if ( Gui::KeyMappingManager::getInstance()->actionTriggered( e, Gui::KeyMappingManager::TRACKBALLCAMERA_ROTATE_AROUND ) )
         {
             m_rotateAround = !m_rotateAround;
             return true;

@@ -13,8 +13,7 @@ int main( int argc, char** argv )
 
     Ra::Core::Timer::TimePoint t0, t1;
 
-    Ra::Gui::KeyMappingManager::createInstance();
-    Ra::Gui::KeyMappingManager::getInstance()->loadConfiguration( "../../Applications/MattApp/config_matthieu.xml" );
+    Ra::Gui::KeyMappingManager::getInstance()->loadConfiguration( "Configs/config_matthieu.xml" );
 
     while ( app.isRunning() )
     {
