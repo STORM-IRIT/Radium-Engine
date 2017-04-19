@@ -95,7 +95,7 @@ namespace Ra
 
         bool GizmoManager::handleMousePressEvent(QMouseEvent* event)
         {
-            if( !( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::GIZMO_MANIPULATION ) ) || !canEdit() || m_currentGizmoType == NONE)
+            if( !( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) ) || !canEdit() || m_currentGizmoType == NONE)
             {
                 return false;
             }
@@ -111,7 +111,7 @@ namespace Ra
 
         bool GizmoManager::handleMouseReleaseEvent(QMouseEvent* event)
         {
-            if ( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::GIZMO_MANIPULATION ) && currentGizmo() )
+            if ( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) && currentGizmo() )
             {
                 currentGizmo()->selectConstraint(-1);
             }
@@ -120,7 +120,7 @@ namespace Ra
 
         bool GizmoManager::handleMouseMoveEvent(QMouseEvent* event)
         {
-            if ( event->buttons() & Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::GIZMO_MANIPULATION ) && currentGizmo() )
+            if ( event->buttons() & Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) && currentGizmo() )
             {
                 Core::Vector2 currentXY(event->x(), event->y());
                 const Engine::Camera& cam = CameraInterface::getCameraFromViewer(parent());
