@@ -2,6 +2,8 @@
 #define RADIUMENGINE_KEYMAPPINGMANAGER_HPP
 
 #include <QtXml/QtXml>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QMouseEvent>
 
 #include <Engine/RaEngine.hpp>
 
@@ -30,9 +32,7 @@ namespace Ra
 
                     GIZMO_MANIPULATION,
 
-                    COLORWIDGET_PRESSBUTTON,
-
-                    KEYMAPPINGACTION_MAX = COLORWIDGET_PRESSBUTTON
+                    COLORWIDGET_PRESSBUTTON
                 };
 
                 Q_ENUM(KeyMappingAction)
@@ -44,6 +44,9 @@ namespace Ra
                 void reloadConfiguration();
 
                 int getKeyFromAction( KeyMappingAction action );
+
+                bool actionTriggered( QMouseEvent * event, KeyMappingAction action );
+                bool actionTriggered( QKeyEvent * event, KeyMappingAction action );
 
             private:
                 KeyMappingManager();

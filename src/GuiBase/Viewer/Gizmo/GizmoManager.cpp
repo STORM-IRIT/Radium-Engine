@@ -83,7 +83,7 @@ namespace Ra
 
         bool GizmoManager::handleMousePressEvent(QMouseEvent* event)
         {
-            if( event->button() != Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::GIZMO_MANIPULATION ) || !canEdit() || m_currentGizmoType == NONE)
+            if( !( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::GIZMO_MANIPULATION ) ) || !canEdit() || m_currentGizmoType == NONE)
             {
                 return false;
             }
@@ -100,7 +100,7 @@ namespace Ra
 
         bool GizmoManager::handleMouseReleaseEvent(QMouseEvent* event)
         {
-            if ( event->button() == Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::GIZMO_MANIPULATION ) && m_currentGizmo)
+            if ( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::GIZMO_MANIPULATION ) && m_currentGizmo)
             {
                 m_currentGizmo->selectConstraint(-1);
             }

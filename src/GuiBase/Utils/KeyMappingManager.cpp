@@ -29,6 +29,16 @@ namespace Ra
             return m_mapping[action];
         }
 
+        bool KeyMappingManager::actionTriggered( QMouseEvent * event, KeyMappingAction action )
+        {
+            return event->button() == getKeyFromAction( action );
+        }
+
+        bool KeyMappingManager::actionTriggered( QKeyEvent * event, KeyMappingAction action )
+        {
+            return ( event->key() | event->modifiers() ) == getKeyFromAction( action );
+        }
+
         void KeyMappingManager::loadConfiguration( const char * filename )
         {
             if( !filename )
@@ -108,18 +118,16 @@ namespace Ra
             KeyMappingAction actionValue = static_cast<KeyMappingAction>( m_metaEnumAction.keyToValue( actionString.c_str() ) );
             Qt::KeyboardModifier modifierValue = getQtModifierValue( modifierString );
 
-            int keyValue;
-
             if( typeString == "key" )
             {
-                keyValue = m_metaEnumKey.keyToValue( keyString.c_str() );
+                int keyValue = m_metaEnumKey.keyToValue( keyString.c_str() );
+                bindKeyToAction( keyValue | modifierValue, actionValue );
             }
             else if( typeString == "mouse" )
             {
-                keyValue = getQtMouseButtonValue( keyString );
+                int buttonValue = getQtMouseButtonValue( keyString );
+                bindKeyToAction( buttonValue, actionValue );
             }
-
-            bindKeyToAction( keyValue | modifierValue, actionValue );
         }
 
         Qt::KeyboardModifier KeyMappingManager::getQtModifierValue( const std::string& modifierString )
