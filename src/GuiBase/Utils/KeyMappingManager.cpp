@@ -12,11 +12,7 @@ namespace Ra
             m_metaEnumKey(QMetaEnum::fromType<Qt::Key>()),
             m_file(new QFile("Configs/default.xml"))
         {
-            if( !m_file->open( QIODevice::ReadOnly ) )
-            {
-                LOG(logERROR) << "Failed to open default keymapping configuration file !";
-                delete m_file;
-            }
+            loadConfiguration();
         }
 
         void KeyMappingManager::bindKeyToAction( int keyCode, KeyMappingAction action )
@@ -59,13 +55,29 @@ namespace Ra
 
             if( !m_file->open( QIODevice::ReadOnly ) )
             {
-                LOG(logERROR) << "Failed to open default keymapping configuration file !";
-                delete m_file;
+                if( !strcmp( filename, "Configs/default.xml") )
+                {
+                    LOG(logERROR) << "Failed to open keymapping configuration file !";
+                    LOG(logERROR) << "Trying to load default configuration...";
+
+                    loadConfiguration( "Configs/default.xml" );
+
+                    return;
+                }
+                else
+                {
+                    LOG(logERROR) << "Failed to open default keymapping configuration file !";
+                    return;
+                }
             }
 
             if( !m_domDocument.setContent( m_file ) )
             {
                 LOG( logERROR ) << "Can't associate XML file to QDomDocument !";
+                LOG( logERROR ) << "Trying to load default configuration...";
+
+                loadConfiguration( "Configs/default.xml" );
+
                 m_file->close();
             }
 
@@ -79,7 +91,7 @@ namespace Ra
 
             if( domElement.tagName() != "keymaps" )
             {
-                LOG(logERROR) << "Error while loading keymapping configuration file : no <keymaps> global bounding tag !";
+                LOG(logWARNING) << "No <keymaps> global bounding tag ! Maybe you set a different global tag ? (Not a big deal)";
             }
 
             while( !node.isNull() )
@@ -100,7 +112,9 @@ namespace Ra
                 std::string keyString = nodeChild.toElement().attribute("value").toStdString();
                 std::string typeString = nodeChild.toElement().attribute("type").toStdString();
                 std::string modifierString = nodeChild.toElement().attribute("modifier").toStdString();
+
                 nodeChild = nodeChild.nextSibling();
+
                 std::string actionString = nodeChild.toElement().attribute("value").toStdString();
 
                 loadConfigurationMappingInternal( typeString, modifierString, keyString, actionString );
@@ -108,6 +122,10 @@ namespace Ra
             else
             {
                 LOG(logERROR) << "Unrecognized XML keymapping configuration file tag \"" << qPrintable(node.tagName()) << "\" !";
+                LOG(logERROR) << "Trying to load default configuration...";
+
+                loadConfiguration( "Configs/default.xml" );
+
                 return;
             }
         }
@@ -121,7 +139,18 @@ namespace Ra
             if( typeString == "key" )
             {
                 int keyValue = m_metaEnumKey.keyToValue( keyString.c_str() );
-                bindKeyToAction( keyValue | modifierValue, actionValue );
+
+                if( keyValue == -1 )
+                {
+                    LOG(logERROR) << "Unrecognized \"" << keyString << "\" key !";
+                    LOG(logERROR) << "Trying to load default configuration...";
+
+                    loadConfiguration( "Configs/default.xml" );
+                }
+                else
+                {
+                    bindKeyToAction( keyValue | modifierValue, actionValue );
+                }
             }
             else if( typeString == "mouse" )
             {
