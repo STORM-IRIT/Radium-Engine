@@ -55,7 +55,7 @@ namespace Ra
 
             if( !m_file->open( QIODevice::ReadOnly ) )
             {
-                if( !strcmp( filename, "Configs/default.xml") )
+                if( strcmp( filename, "Configs/default.xml") )
                 {
                     LOG(logERROR) << "Failed to open keymapping configuration file !";
                     LOG(logERROR) << "Trying to load default configuration...";
