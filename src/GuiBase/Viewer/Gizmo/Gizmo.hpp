@@ -64,7 +64,7 @@ namespace Ra
             virtual void setInitialState(const Engine::Camera& cam, const Core::Vector2& initialXY) = 0;
 
             /// Called when the mose movement is recorder with the camera parameters and the current pixel coordinates.
-            virtual Core::Transform mouseMove(const Engine::Camera& cam, const Core::Vector2& nextXY) = 0;
+            virtual Core::Transform mouseMove(const Engine::Camera& cam, const Core::Vector2& nextXY, bool stepped = false) = 0;
 
         protected:
             Core::Transform m_worldTo;      //! World to local space where the transform lives.

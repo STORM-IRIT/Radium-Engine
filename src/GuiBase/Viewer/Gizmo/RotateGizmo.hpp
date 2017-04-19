@@ -16,10 +16,14 @@ namespace Ra
             virtual void updateTransform( Gizmo::Mode mode, const Core::Transform &worldTo, const Core::Transform& t ) override;
             virtual void selectConstraint( int drawableIndex ) override;
             virtual void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY) override;
-            virtual Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY) override;
+            virtual Core::Transform mouseMove(const Engine::Camera& cam, const Core::Vector2& nextXY, bool stepped = false) override;
         private:
             Core::Vector2 m_initialPix;
             int m_selectedAxis;
+            bool m_start;
+            bool m_stepped;
+            float m_totalAngle;
+            Core::Matrix3 m_initialRot;
         };
     }
 }

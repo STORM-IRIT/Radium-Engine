@@ -53,7 +53,7 @@ include_directories(
 
 add_library( FancyMesh SHARED ${sources} ${headers} ${inlines} )
 message(INFO " FancyMesh : dependencies are ${RADIUM_LIBRARIES}")
-add_dependencies( FancyMesh ${RADIUM_LIBRARIES}) #radiumCore radiumEngine radiumGuiBase)
+add_dependencies( FancyMesh ${RADIUM_LIBRARIES})
 
 target_compile_definitions( FancyMesh PRIVATE "-DFancyMesh_EXPORTS" )
 

@@ -30,6 +30,7 @@ namespace Engine {
     public:
         // Callbacks are functions which accept an item entry.
         typedef std::function<void( const ItemEntry& )> Callback;
+        typedef std::function<void( void )> EoFCallback;
 
     public:
         SignalManager() : m_isOn( true ) {}
@@ -40,8 +41,10 @@ namespace Engine {
         void fireComponentAdded     (const ItemEntry& component ) const;
         void fireComponentRemoved   (const ItemEntry& component ) const;
 
-        void fireRenderObjectAdded  ( const ItemEntry& ro) const;
-        void fireRenderObjectRemoved(const ItemEntry& ro ) const;
+        void fireRenderObjectAdded  ( const ItemEntry& ro ) const;
+        void fireRenderObjectRemoved( const ItemEntry& ro ) const;
+
+        void fireFrameEnded() const;
 
         void setOn( bool on )  { m_isOn = on; }
 
@@ -59,6 +62,7 @@ namespace Engine {
         std::vector<Callback> m_componentRemovedCallbacks;
         std::vector<Callback> m_roAddedCallbacks;
         std::vector<Callback> m_roRemovedCallbacks;
+        std::vector<EoFCallback> m_frameEndCallbacks;
     };
 }}
 

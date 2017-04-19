@@ -57,6 +57,9 @@ namespace Skinning
         /// Current vertex normals
         Ra::Core::Vector3Array m_currentNormal;
 
+        /// Number of animation frames
+        uint m_frameCounter;
+
         /// Indicator whether skinning must be processed.
         /// It is set to true if the current pose is different from previous.
         bool m_doSkinning;

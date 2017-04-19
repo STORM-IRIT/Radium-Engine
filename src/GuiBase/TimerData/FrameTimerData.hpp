@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_FRAME_TIMER_DATA_HPP
 #define RADIUMENGINE_FRAME_TIMER_DATA_HPP
 
+#include <GuiBase/RaGuiBase.hpp>
+
 #include <iostream>
 #include <iomanip>
 
@@ -13,9 +15,9 @@ namespace Ra
 {
 
     /// This struct holds all timings for one frame of the engine.
-    struct FrameTimerData
+    struct RA_GUIBASE_API FrameTimerData
     {
-        int numFrame;
+        uint numFrame;
         Core::Timer::TimePoint frameStart;
         Core::Timer::TimePoint eventsStart;
         Core::Timer::TimePoint eventsEnd;
@@ -24,6 +26,8 @@ namespace Ra
         Core::Timer::TimePoint frameEnd;
         Engine::Renderer::TimerData renderData;
         std::vector<Core::TaskQueue::TimerData> taskData;
+
+        void print(std::ostream& ostream) const;
     };
 
 #if 0
