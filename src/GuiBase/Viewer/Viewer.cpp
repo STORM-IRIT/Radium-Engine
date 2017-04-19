@@ -181,7 +181,7 @@ namespace Ra
                 m_gizmoManager->handleMousePressEvent(event);
             }
         }
-        else if ( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::TRACKBALL_CAMERA_MANIPULATION ) )
+        else if ( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) )
         {
             m_camera->handleMousePressEvent(event);
         }

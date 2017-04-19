@@ -10,7 +10,7 @@ namespace Ra
             m_domDocument("Keymapping QDomDocument"),
             m_metaEnumAction(QMetaEnum::fromType<KeyMappingAction>()),
             m_metaEnumKey(QMetaEnum::fromType<Qt::Key>()),
-            m_file(new QFile("../../Applications/MattApp/config.xml"))
+            m_file(new QFile("Configs/default.xml"))
         {
             if( !m_file->open( QIODevice::ReadOnly ) )
             {
@@ -43,7 +43,7 @@ namespace Ra
         {
             if( !filename )
             {
-                filename = "../../Applications/MattApp/config.xml";
+                filename = "Configs/default.xml";
             }
 
             if( m_file )
