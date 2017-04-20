@@ -60,8 +60,13 @@ IF ( RADIUM_ROOT_DIR )
         FIND_LIBRARY ( ASSIMP_LIBRARIES
             NAMES assimp assimpd
             PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
-            )
+            )        
     ENDIF (NOT ASSIMP_LIBRARIES)
+
+    IF(NOT ASSIMP_INCLUDE_DIR)
+        set(ASSIMP_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
+    ENDIF(NOT ASSIMP_INCLUDE_DIR)
+
 
     IF (NOT GLBINDING_LIBRARIES)
         FIND_LIBRARY ( GLBINDING_LIBRARIES
@@ -69,6 +74,10 @@ IF ( RADIUM_ROOT_DIR )
             PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
             )
     ENDIF (NOT GLBINDING_LIBRARIES)
+
+    IF(NOT GLBINDING_INCLUDE_DIR)
+        set(GLBINDING_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
+    ENDIF(NOT GLBINDING_INCLUDE_DIR)
 
     # TODO (Mathias) : verify if cmake recommand this (append the include dir of module dependencis in the include dir of the module header)
     # TODO (Nico) : this is unconsistent with the lib behavior: deps *.so are not added in RADIUM_LIBRARIES
