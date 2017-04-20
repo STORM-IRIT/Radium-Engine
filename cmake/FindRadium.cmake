@@ -60,7 +60,7 @@ IF ( RADIUM_ROOT_DIR )
         FIND_LIBRARY ( ASSIMP_LIBRARIES
             NAMES assimp assimpd
             PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
-            )        
+            )
     ENDIF (NOT ASSIMP_LIBRARIES)
 
     IF(NOT ASSIMP_INCLUDE_DIR)
