@@ -61,8 +61,17 @@
     <addaction name="actionReload_Shaders"/>
     <addaction name="actionOpen_Material_Editor"/>
    </widget>
+   <widget class="QMenu" name="menuKeymapping">
+    <property name="title">
+     <string>Keymapping</string>
+    </property>
+    <addaction name="actionReload_configuration"/>
+    <addaction name="separator"/>
+    <addaction name="actionLoad_configuration_file"/>
+   </widget>
    <addaction name="menuFILE"/>
    <addaction name="menuMisc"/>
+   <addaction name="menuKeymapping"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget">
    <attribute name="dockWidgetArea">
@@ -203,7 +212,7 @@
                <x>0</x>
                <y>0</y>
                <width>305</width>
-               <height>306</height>
+               <height>267</height>
               </rect>
              </property>
              <attribute name="label">
@@ -686,6 +695,22 @@
    </property>
    <property name="text">
     <string>Record Frames</string>
+   </property>
+  </action>
+  <action name="actionReload_configuration">
+   <property name="text">
+    <string>Reload configuration</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+R</string>
+   </property>
+  </action>
+  <action name="actionLoad_configuration_file">
+   <property name="text">
+    <string>Load configuration file...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+O</string>
    </property>
   </action>
  </widget>
