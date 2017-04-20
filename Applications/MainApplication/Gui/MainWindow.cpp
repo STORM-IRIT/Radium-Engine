@@ -26,6 +26,7 @@
 #include <Gui/MaterialEditor.hpp>
 
 #include <MainApplication.hpp>
+#include <GuiBase/Utils/KeyMappingManager.hpp>
 
 
 using Ra::Engine::ItemEntry;
@@ -80,6 +81,9 @@ namespace Ra
         connect(actionGizmoRotate, &QAction::triggered, this, &MainWindow::gizmoShowRotate);
 
         connect(actionRecord_Frames, &QAction::toggled, mainApp, &MainApplication::setRecordFrames);
+
+        connect(actionReload_configuration, &QAction::triggered, this, &MainWindow::reloadConfiguration);
+        connect(actionLoad_configuration_file, &QAction::triggered, this, &MainWindow::loadConfiguration);
 
         // Loading setup.
         connect(this, &MainWindow::fileLoading, mainApp, &BaseApplication::loadFile);
@@ -301,6 +305,24 @@ namespace Ra
     void Gui::MainWindow::gizmoShowRotate()
     {
         m_viewer->getGizmoManager()->changeGizmoType(GizmoManager::ROTATION);
+    }
+
+    void Gui::MainWindow::reloadConfiguration()
+    {
+        KeyMappingManager::getInstance()->reloadConfiguration();
+    }
+
+    void Gui::MainWindow::loadConfiguration()
+    {
+        QSettings settings;
+        QString path = settings.value("configs/load", QDir::homePath()).toString();
+        path = QFileDialog::getOpenFileName(this, "Open Configuration File", path, "Configuration file (*.xml)");
+
+        if (path.size() > 0)
+        {
+            settings.setValue("configs/load", path);
+            KeyMappingManager::getInstance()->loadConfiguration( path.toStdString().c_str() );
+        }
     }
 
     void Gui::MainWindow::changeRenderer(const QString& rendererName)
