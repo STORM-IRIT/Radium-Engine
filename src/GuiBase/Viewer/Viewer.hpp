@@ -81,6 +81,9 @@ namespace Ra
             /// Read-only access to renderer
             const Engine::Renderer* getRenderer() const;
 
+            /// Read-write access to renderer
+            Engine::Renderer* getRenderer();
+
             //
             // Rendering management
             //
