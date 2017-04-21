@@ -34,7 +34,6 @@ add_custom_target(glbinding_lib
 # ----------------------------------------------------------------------------------------------------------------------
 
 set(GLBINDING_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include)
-
 if( APPLE )
 	if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
 		set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbindingd.dylib" )
@@ -72,6 +71,5 @@ elseif( MSVC )
 		set(MSVC_PREFIX "vc140")
 	endif()
 
-	set(GLBINDING_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbinding-${MSVC_PREFIX}-mt.lib"
-			debug "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbinding-${MSVC_PREFIX}-mtd.lib")
+	set(GLBINDING_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbinding.lib")
 endif()
