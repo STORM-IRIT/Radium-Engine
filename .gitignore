@@ -79,6 +79,7 @@ lib/rel
 bin/
 lib/
 include/
+bundle/
 
 # Mercurial stuff (e.g from Eigen)
 .hg*
