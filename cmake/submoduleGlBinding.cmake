@@ -72,7 +72,7 @@ elseif( MSVC )
 		set(MSVC_PREFIX "vc140")
 	endif()
 
-	set(GLBINDING_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbinding-${MSVC_PREFIX}-mt.lib"
-			debug "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbinding-${MSVC_PREFIX}-mtd.lib")
+	set(GLBINDING_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbinding.lib"
+			debug "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbindingd.lib")
 
 endif()
