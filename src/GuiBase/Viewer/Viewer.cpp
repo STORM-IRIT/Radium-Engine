@@ -32,7 +32,6 @@
 
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 #include <Engine/Renderer/Renderers/ExperimentalRenderer.hpp>
-#include <Engine/Renderer/Renderers/PhotoStudioRenderer.hpp>
 
 #include <GuiBase/Viewer/TrackballCamera.hpp>
 #include <GuiBase/Utils/Keyboard.hpp>
@@ -75,7 +74,6 @@ namespace Ra
         m_renderers[0].reset( new Engine::ForwardRenderer( width(), height() ) ); // Forward
         m_renderers[1].reset( nullptr ); // deferred
         // m_renderers[2].reset( new Engine::ExperimentalRenderer( width(), height() ) ); // experimental
-        // m_renderers[3].reset( new Engine::ForwardRenderer ( width(), height() ) );
 
         for ( auto& renderer : m_renderers )
         {
