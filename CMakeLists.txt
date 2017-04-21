@@ -120,7 +120,7 @@ if(DOXYGEN_FOUND)
   set (RADIUM_PROJECT_NUMBER ${GIT_CHANGESET})
   set (RADIUM_DOC_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/Docs)
 
-  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile.in ${RADIUM_BUNDLE_DIRECTORY}/Doxyfile @ONLY)
 
   add_custom_target(doc
      ${CMAKE_COMMAND} -E make_directory ${RADIUM_DOC_DIRECTORY}
