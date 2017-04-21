@@ -59,7 +59,7 @@ elseif( MSVC )
 	elseif( MSVC12 )
 		set(MSVC_PREFIX "vc120")
 	else()
-		set(MSVC_PREFIX "vc130")
+		set(MSVC_PREFIX "vc140")
 	endif()
 
 	set(ASSIMP_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/assimp-${MSVC_PREFIX}-mt.lib"
