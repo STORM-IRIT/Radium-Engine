@@ -54,6 +54,9 @@ namespace Ra
             /// Checks the structure is internally consistent (in debug mode).
             void checkConsistency() const;
 
+            /// Returns the number of HalfEdges.
+            uint nbHalfEdges() const { return (uint) m_halfEdgeList.size(); }
+
         private:
             // Internal building function called by update and the constructor.
             void build( const TriangleMesh& mesh );
