@@ -106,7 +106,7 @@ namespace Algorithm {
                     F += mesh.m_vertices[ N + he.m_leftTriIdx ];
                     R += (mesh.m_vertices[ he.m_endVertexIdx ] + mesh.m_vertices[ heData[he.m_pair].m_endVertexIdx ]) / 2.0;
                 }
-                uint n = heData.getVertexNbHalfEdges( v );
+                uint n = v_he.size();
                 F /= n;
                 R /= n;
                 new_pos[ v ] = (F + 2*R + (n-3)*P ) / n;
