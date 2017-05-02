@@ -99,6 +99,8 @@ Ra::Core::Vector3 PolyLine::f( Scalar t ) const
     return m_pts[i] + ((param - lprev) / (m_lengths[i] - lprev)) * m_ptsDiff[i];
 }
 
+
+
 }
 }
 

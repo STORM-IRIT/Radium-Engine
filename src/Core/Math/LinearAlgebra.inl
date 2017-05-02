@@ -134,6 +134,15 @@ namespace Core
         return point + planeNormal * (planePos - point).dot(planeNormal);
     }
 
+    template <typename Vector_>
+    Vector_ Ra::Core::Vector::slerp(const Vector_& v1, const Vector_& v2, Scalar t)
+    {
+        const Scalar dot = v1.dot(v2);
+        const Scalar theta = t* angle(v1, v2);
+        const Vector_ relativeVec = (v2 - v1*dot).normalized();
+        return ((v1 *std::cos(theta)) + (relativeVec * std::sin(theta)));
+    }
+
     // Reference : Paolo Baerlocher, Inverse Kinematics techniques for interactive posture control
     // of articulated figures (PhD Thesis), p.138. EPFL, 2001.
     // http://www0.cs.ucl.ac.uk/research/equator/papers/Documents2002/Paolo%20Baerlocher_Thesis_2001.pdf
