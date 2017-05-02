@@ -32,4 +32,8 @@ void PolyLine::getSegment(uint segment, Vector3& aOut, Vector3& abOut) const
     CORE_ASSERT( segment < m_ptsDiff.size(), "Invalid segment index.");
     aOut = m_pts[segment]; abOut = m_ptsDiff[segment];
 }
+const Vector3Array& PolyLine::getSegmentVectors() const
+{
+    return m_ptsDiff;
+}
 }}

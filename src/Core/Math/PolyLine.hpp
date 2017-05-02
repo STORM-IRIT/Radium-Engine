@@ -25,6 +25,9 @@ namespace Ra
             /// Get the ith segment AB as starting point A and vector AB.
             inline void getSegment(uint segment, Vector3& aOut, Vector3& abOut) const;
 
+            /// Get the segment vector ( Pi+1 - Pi)
+            inline const Vector3Array& getSegmentVectors() const;
+
             /// Get the aabb of the polyline.
             inline Aabb aabb() const;
 
