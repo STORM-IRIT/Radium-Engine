@@ -104,9 +104,9 @@ namespace SkinningPlugin
             << "Linear Blend Skinning" << "Dual Quaternion Skinning" << "Center of Rotation skinning" );
         m_skinningSelect->setEnabled( false );
 
-        m_actionLBS = new QAction(QIcon(":/Assets/Images/LB.png"), QString("Linear Blending"));
-        m_actionDQ  = new QAction(QIcon(":/Assets/Images/DQ_on.png"), QString("Dual Quaternion"));
-        m_actionCoR = new QAction(QIcon(":/Assets/Images/CoR.png"), QString("Center of Rotation"));
+        m_actionLBS = new QAction(QIcon(":/Assets/Images/LB.png"), QString("Linear Blending"),nullptr);
+        m_actionDQ  = new QAction(QIcon(":/Assets/Images/DQ_on.png"), QString("Dual Quaternion"), nullptr);
+        m_actionCoR = new QAction(QIcon(":/Assets/Images/CoR.png"), QString("Center of Rotation"),nullptr);
         m_actionLBS->setEnabled( false );
         m_actionDQ->setEnabled( false );
         m_actionCoR->setEnabled( false );
