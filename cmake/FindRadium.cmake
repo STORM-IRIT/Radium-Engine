@@ -56,6 +56,10 @@ IF ( RADIUM_ROOT_DIR )
         set(EIGEN3_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
     ENDIF(NOT EIGEN3_INCLUDE_DIR)
 
+    IF(NOT GLM_INCLUDE_DIR)
+        set(GLM_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
+    ENDIF(NOT GLM_INCLUDE_DIR)
+
     IF (NOT ASSIMP_LIBRARIES)
         FIND_LIBRARY ( ASSIMP_LIBRARIES
             NAMES assimp assimpd
@@ -70,14 +74,26 @@ IF ( RADIUM_ROOT_DIR )
 
     IF (NOT GLBINDING_LIBRARIES)
         FIND_LIBRARY ( GLBINDING_LIBRARIES
-            NAMES glbinding glbindingd
-            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
-            )
+                NAMES glbinding glbindingd
+                PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
+                )
     ENDIF (NOT GLBINDING_LIBRARIES)
 
     IF(NOT GLBINDING_INCLUDE_DIR)
         set(GLBINDING_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
     ENDIF(NOT GLBINDING_INCLUDE_DIR)
+
+
+    IF (NOT GLOBJECTS_LIBRARIES)
+        FIND_LIBRARY ( GLOBJECTS_LIBRARIES
+                NAMES globjects globjectsd
+                PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
+                )
+    ENDIF (NOT GLOBJECTS_LIBRARIES)
+
+    IF(NOT GLOBJECTS_INCLUDE_DIR)
+        set(GLOBJECTS_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
+    ENDIF(NOT GLOBJECTS_INCLUDE_DIR)
 
     # TODO (Mathias) : verify if cmake recommand this (append the include dir of module dependencis in the include dir of the module header)
     # TODO (Nico) : this is unconsistent with the lib behavior: deps *.so are not added in RADIUM_LIBRARIES
