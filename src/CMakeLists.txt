@@ -15,15 +15,18 @@ find_package(OpenGL     REQUIRED)
 find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
+find_package(GLM        REQUIRED)
 
 
 include_directories(
     ${EIGEN3_INCLUDE_DIR}
+    ${GLM_INCLUDE_DIR}
     ${ASSIMP_INCLUDE_DIR}
     ${GLBINDING_INCLUDE_DIR}
+    ${GLOBJECTS_INCLUDE_DIR}
 )
 
-message(STATUS "Compiling Radium with include dirs : ${EIGEN3_INCLUDE_DIR} -- ${ASSIMP_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR}" )
+message(STATUS "Compiling Radium with include dirs : ${EIGEN3_INCLUDE_DIR} -- ${ASSIMP_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}" )
 # Build Core
 set(core_target radiumCore)
 
@@ -40,7 +43,7 @@ add_library(
     ${core_inlines}
 )
 
-add_dependencies( ${core_target} eigen3)
+add_dependencies( ${core_target} eigen3 GLM)
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
 
 target_link_libraries(
@@ -64,6 +67,7 @@ set(engine_libs
     ${OPENGL_LIBRARIES}
     ${ASSIMP_LIBRARIES}
     ${GLBINDING_LIBRARIES}
+    ${GLOBJECTS_LIBRARIES}
    )
 
 add_library(
@@ -75,7 +79,7 @@ add_library(
     ${engine_shaders}
 )
 
-add_dependencies( ${engine_target} ${core_target} assimp_lib glbinding_lib)
+add_dependencies( ${engine_target} ${core_target} assimp_lib glbinding_lib globjects_lib)
 
 target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 

@@ -9,9 +9,13 @@ set(RADIUM_SUBMODULES_BUILD_TYPE Release)
 
 #OpenGL Stuff
 include(submoduleGlBinding)
+include(submoduleGlObjects)
 
 # Eigen
 include(submoduleEigen3)
+
+# GLM
+include(submoduleGLM)
 
 # Assimp
 include(submoduleAssimp)

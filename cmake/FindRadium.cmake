@@ -6,6 +6,7 @@
 
 
 # Radium_FOUND if found
+
 IF(NOT RADIUM_ROOT_DIR)
   FIND_PATH( RADIUM_ROOT_DIR NAMES src/Core/RaCore.hpp
     PATHS
@@ -25,6 +26,7 @@ IF(NOT RADIUM_ROOT_DIR)
     DOC "The radium engine source folder")
 ENDIF(NOT RADIUM_ROOT_DIR)
 
+
 IF ( RADIUM_ROOT_DIR )
     SET ( RADIUM_INCLUDES "${RADIUM_ROOT_DIR}/src")
     SET ( RADIUM_BUNDLE_DIRECTORY ${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
@@ -35,7 +37,7 @@ IF ( RADIUM_ROOT_DIR )
     ELSE()
     FIND_LIBRARY( RA_CORE_LIB
         NAMES radiumCore
-        PATHS ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/lib
+        PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
         )
     ENDIF()
 
@@ -56,11 +58,16 @@ IF ( RADIUM_ROOT_DIR )
     ENDIF()
 
     SET ( Radium_FOUND TRUE )
+
     ############################################################################
     # Get dependencies if not already specified
     IF(NOT EIGEN3_INCLUDE_DIR)
         set(EIGEN3_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
     ENDIF(NOT EIGEN3_INCLUDE_DIR)
+
+    IF(NOT GLM_INCLUDE_DIR)
+        set(GLM_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
+    ENDIF(NOT GLM_INCLUDE_DIR)
 
     IF (NOT ASSIMP_LIBRARIES)
         FIND_LIBRARY ( ASSIMP_LIBRARIES
@@ -85,9 +92,24 @@ IF ( RADIUM_ROOT_DIR )
         set(GLBINDING_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
     ENDIF(NOT GLBINDING_INCLUDE_DIR)
 
+
+    IF (NOT GLOBJECTS_LIBRARIES)
+        FIND_LIBRARY ( GLOBJECTS_LIBRARIES
+                NAMES globjects globjectsd
+                PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
+                )
+    ENDIF (NOT GLOBJECTS_LIBRARIES)
+
+    IF(NOT GLOBJECTS_INCLUDE_DIR)
+        set(GLOBJECTS_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
+    ENDIF(NOT GLOBJECTS_INCLUDE_DIR)
+
+    # TODO (Mathias) : verify if cmake recommand this (append the include dir of module dependencis in the include dir of the module header)
+    # TODO (Nico) : this is unconsistent with the lib behavior: deps *.so are not added in RADIUM_LIBRARIES
     SET( RADIUM_INCLUDE_DIR)
     LIST(APPEND RADIUM_INCLUDE_DIR "${RADIUM_INCLUDES}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}")
 
+    # TODO (Mathias) Like above : is it recommended to add all dependencies here ?
     SET( RADIUM_LIBRARIES )
     IF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES AND GLBINDING_LIBRARIES)
        LIST(APPEND RADIUM_LIBRARIES "${RA_CORE_LIB}" "${RA_ENGINE_LIB}" "${RA_GUIBASE_LIB}")
