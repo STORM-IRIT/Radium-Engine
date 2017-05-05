@@ -8,7 +8,10 @@ namespace Ra {
 namespace Core {
 namespace Algorithm {
 
-    /// Applies one pass of the Loop subdivision scheme to \p mesh.
+    /// \brief Applies one pass of the Loop subdivision scheme to \p mesh.
+    ///
+    /// Operations are performed considering the triangulation only.
+    ///
     /// For more details, see https://graphics.stanford.edu/~mdfisher/subdivision.html
     void LoopSubdivision( TriangleMesh& mesh, HalfEdgeData& heData );
 

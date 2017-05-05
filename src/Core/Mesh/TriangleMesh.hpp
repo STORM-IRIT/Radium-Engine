@@ -26,9 +26,14 @@ namespace Ra
             /// Appends another mesh to this one.
             inline void append( const TriangleMesh& other );
 
+            /// Triangulates quads
+            inline void triangulate();
+
             VectorArray<Vector3>  m_vertices;
             VectorArray<Vector3>  m_normals;
             VectorArray<Triangle> m_triangles;
+
+            VectorArray<VectorNui>  m_faces;
         };
     }
 }

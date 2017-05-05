@@ -21,7 +21,7 @@ namespace Algorithm {
                 const HalfEdge& he_pair = heData[ he.m_pair ];
                 Vector3 p;
                 Vector3 n;
-                if (he_pair.m_leftTriIdx != InvalidIdx || he_pair.m_leftTriIdx != InvalidIdx)
+                if (he.m_leftTriIdx != InvalidIdx && he_pair.m_leftTriIdx != InvalidIdx)
                 {
                     const Triangle &tri1 = mesh.m_triangles[ he.m_leftTriIdx ];
                     const Triangle &tri2 = mesh.m_triangles[ he_pair.m_leftTriIdx ];
@@ -104,7 +104,9 @@ namespace Algorithm {
                     RN += mesh.m_normals[ he.m_endVertexIdx ];
                 }
                 uint n = v_he.size();
-                const Scalar b = ( n>3 ? 3.0/(8*n) : 3.0/(16*n) );
+//                const Scalar b = ( n>3 ? 3.0/(8*n) : 3.0/(16*n) );  // FISHER'S FORMULA
+                const Scalar b_ = (3.0/8.0 + 0.25*cos(2.0*M_PI / n)); // LOIC'S FORMULA
+                const Scalar b = 1.0/n*(5.0/8.0-b_*b_);               //
                 new_pos[ v ] = (b*R + (1-n*b)*P);
                 new_nor[ v ] = (b*RN + (1-n*b)*PN);
             }
