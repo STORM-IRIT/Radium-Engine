@@ -47,13 +47,19 @@ namespace Ra
             /// ith segment closest from point p.
             Scalar projectOnSegment(const Vector3& p, uint segment) const;
 
+            /// Returns the index of the nearest segment.
+            uint getNearestSegment(const Vector3& p) const;
+
+            /// Returns the index of the segment to which t belons
+            inline uint getSegmentIndex(Scalar t) const;
+
             /// Returns the parameter t in [0,1] corresponding to the point on the line
             /// which is the closest point from p.
-            Scalar project( const Vector3& p )const;
+            Scalar project(const Vector3& p) const;
 
             /// Return a point on the line corresponding to parameter t in [0;1].
             /// Values of t below 0 map to the first point, and values above 1 to the last.
-            Vector3 f(Scalar t) const ;
+            Vector3 f(Scalar t) const;
 
         protected:
             /// Update the precomputed values after new points have been set.
