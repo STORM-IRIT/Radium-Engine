@@ -15,6 +15,7 @@ namespace Ra
     {
         /// This class interfaces the gizmos with the ui commands.
         /// It allows to change the gizmo type when editing an editable transform object
+        /// Note :  currently the scale gizmo is not implemented so it will just return a null pointer
         class RA_GUIBASE_API GizmoManager : public QObject, public GuiBase::TransformEditor
         {
             Q_OBJECT
@@ -28,9 +29,8 @@ namespace Ra
                 NONE,
                 TRANSLATION,
                 ROTATION,
-                SCALE,
+                SCALE, // Not supported yet, see GH issue #47
             };
-
 
             GizmoManager(QObject* parent = nullptr);
             ~GizmoManager();
@@ -62,9 +62,7 @@ namespace Ra
             /// Retrieve the transform from the editable and update the gizmos.
             void updateValues() override;
 
-
         private:
-
             // Helper method to change the current gizmo
             void updateGizmo();
 
