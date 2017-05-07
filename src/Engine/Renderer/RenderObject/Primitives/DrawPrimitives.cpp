@@ -464,7 +464,7 @@ namespace Ra {
                 std::vector<uint> indices;
                 indices.reserve(pointCount * 2 - 2);
 
-                Scalar dt = 1.0f / Scalar(pointCount - 1);
+                Scalar dt = Scalar(1) / Scalar(pointCount - 1);
                 for (uint i = 0; i < pointCount; ++i)
                 {
                     Scalar t = dt * i;

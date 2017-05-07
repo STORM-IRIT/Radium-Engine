@@ -47,9 +47,10 @@ namespace Ra
             // shows or hides the gizmos drawables.
             void show(bool on)
             {
+                auto roMgr = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager();
                 for (auto ro: m_renderObjects)
                 {
-                    Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(ro)->setVisible(on);
+                    roMgr->getRenderObject(ro)->setVisible(on);
                 }
             }
 
