@@ -127,6 +127,7 @@ namespace Ra
         uint m_frameCounter;
         uint m_frameCountBeforeUpdate;
         uint m_numFrames;
+        uint m_maxThreads;
         std::vector<FrameTimerData> m_timerData;
 
         /// If true, use the wall clock to advance the engine. If false, use a fixed time step.

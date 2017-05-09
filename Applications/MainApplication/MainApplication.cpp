@@ -68,18 +68,20 @@ namespace Ra
         parser.addVersionOption();
 
         QCommandLineOption fpsOpt(QStringList{"r", "framerate", "fps"}, "Control the application framerate, 0 to disable it (and run as fast as possible).", "number", "60");
+        QCommandLineOption maxThreadsOpt(QStringList{"m", "maxthreads", "max-threads"}, "Control the maximum number of threads. 0 will set to the number of cores available", "number", "0");
         QCommandLineOption numFramesOpt(QStringList{"n", "numframes"}, "Run for a fixed number of frames.", "number", "0");
         QCommandLineOption pluginOpt(QStringList{"p", "plugins", "pluginsPath"}, "Set the path to the plugin dlls.", "folder", "Plugins");
         QCommandLineOption pluginLoadOpt(QStringList{"l", "load", "loadPlugin"}, "Only load plugin with the given name (filename without the extension). If this option is not used, all plugins in the plugins folder will be loaded. ", "name");
         QCommandLineOption pluginIgnoreOpt(QStringList{"i", "ignore", "ignorePlugin"}, "Ignore plugins with the given name. If the name appears within both load and ignore options, it will be ignored.", "name");
         QCommandLineOption fileOpt(QStringList{"f", "file", "scene"}, "Open a scene file at startup.", "file name", "foo.bar");
 
-        parser.addOptions({fpsOpt, pluginOpt, pluginLoadOpt, pluginIgnoreOpt, fileOpt, numFramesOpt });
+        parser.addOptions({fpsOpt, pluginOpt, pluginLoadOpt, pluginIgnoreOpt, fileOpt, maxThreadsOpt, numFramesOpt });
         parser.process(*this);
 
         if (parser.isSet(fpsOpt))       m_targetFPS = parser.value(fpsOpt).toUInt();
         if (parser.isSet(pluginOpt))    pluginsPath = parser.value(pluginOpt).toStdString();
         if (parser.isSet(numFramesOpt)) m_numFrames = parser.value(numFramesOpt).toUInt();
+        if (parser.isSet(maxThreadsOpt)) m_maxThreads = parser.value(maxThreadsOpt).toUInt();
 
         // Boilerplate print.
         LOG( logINFO ) << "*** Radium Engine Main App  ***";
@@ -145,6 +147,7 @@ namespace Ra
         // initialized the OpenGL context..)
         processEvents();
 
+        Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity("Test");
         // Load plugins
         if ( !loadPlugins( pluginsPath, parser.values(pluginLoadOpt), parser.values(pluginIgnoreOpt) ) )
         {
@@ -156,7 +159,12 @@ namespace Ra
         CORE_ASSERT( m_viewer->context()->isValid(), "OpenGL was not initialized" );
 
         // Create task queue with N-1 threads (we keep one for rendering).
-        m_taskQueue.reset( new Core::TaskQueue( std::thread::hardware_concurrency() - 1 ) );
+        uint numThreads =  std::thread::hardware_concurrency() - 1;
+        if (m_maxThreads > 0 && m_maxThreads < numThreads)
+        {
+            numThreads = m_maxThreads;
+        }
+        m_taskQueue.reset( new Core::TaskQueue(numThreads) );
 
         createConnections();
 

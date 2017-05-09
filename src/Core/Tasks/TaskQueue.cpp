@@ -102,12 +102,12 @@ namespace Ra
            for ( const auto& pre : m_pendingDepsPre )
            {
                ON_ASSERT(bool result =) addDependency( pre.first, pre.second );
-               CORE_ASSERT( result, "Pending dependency unresolved : " << pre.second);
+               CORE_WARN_IF( !result, "Pending dependency unresolved : " << pre.second);
            }
            for ( const auto& pre : m_pendingDepsSucc )
            {
                ON_ASSERT(bool result =) addDependency( pre.first, pre.second );
-               CORE_ASSERT( result, "Pending dependency unresolved : " << pre.first );
+               CORE_WARN_IF( result, "Pending dependency unresolved : " << pre.first );
            }
            m_pendingDepsPre.clear();
            m_pendingDepsSucc.clear();
@@ -269,7 +269,7 @@ namespace Ra
             } // End of while(true)
         }
 
-        void TaskQueue::printTraskGraph(std::ostream& output) const
+        void TaskQueue::printTaskGraph(std::ostream& output) const
         {
             output<<"digraph tasks {"<<std::endl;
 
