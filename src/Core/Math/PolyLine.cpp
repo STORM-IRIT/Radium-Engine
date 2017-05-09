@@ -62,15 +62,17 @@ Scalar PolyLine::project( const Vector3& p ) const
     CORE_ASSERT( m_pts.size() > 1, "Line must have at least two points" );
     Scalar sqDist = std::numeric_limits<Scalar>::max();
     uint segment = 0;
-    std::vector<Scalar> ts ( m_ptsDiff.size());
-    std::vector<Scalar> ds ( m_ptsDiff.size());
+    std::vector<Scalar> ts;
+    std::vector<Scalar> ds;
+    ts.reserve( m_ptsDiff.size());
+    ds.reserve( m_ptsDiff.size());
 
     for ( uint i = 0; i < m_ptsDiff.size(); ++i )
     {
         Scalar proj = DistanceQueries::projectOnSegment( p, m_pts[i], m_ptsDiff[i] );
         Scalar d = (p - (m_pts[i] + proj * (m_ptsDiff[i]))).squaredNorm();
-            ds[i] = d;
-            ts[i] = proj;
+        ds.push_back(d);
+        ts.push_back( proj);
         if ( d < sqDist )
         {
              sqDist = d;
