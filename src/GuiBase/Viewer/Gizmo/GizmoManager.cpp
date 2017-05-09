@@ -7,6 +7,8 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
+#include <GuiBase/Utils/KeyMappingManager.hpp>
+
 
 namespace Ra
 {
