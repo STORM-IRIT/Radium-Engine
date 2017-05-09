@@ -18,8 +18,9 @@ namespace Algorithm {
 
         uint m_nbVertices; // number of vertices after the subdivision
         VectorArray<VectorNui> m_quads; // the list of quads introduced by the subdivision
-        std::vector<PointOperation> m_newPointsOperations;   // the list of operations produced by the subdivision
-        std::vector<PointOperation> m_oldPointsOperations; // the list of operations produced by the subdivision
+        std::vector<PointOperation> m_facePointsOperations; // the list of operations to compute face points
+        std::vector<PointOperation> m_edgePointsOperations; // the list of operations to compute edge points
+        std::vector<PointOperation> m_oldPointsOperations;  // the list of operations to move original points
     };
 
     /// \brief Applies one pass of the Catmull-Clark subdivision scheme to \p mesh.

@@ -259,6 +259,11 @@ namespace Ra
         bpConfig.addShader(ShaderType_FRAGMENT, "Shaders/BlinnPhong.frag.glsl");
         ShaderConfigurationFactory::addConfiguration(bpConfig);
 
+        ShaderConfiguration bpwConfig("BlinnPhong_wire");
+        bpwConfig.addShader(ShaderType_VERTEX, "Shaders/BlinnPhong_wire.vert.glsl");
+        bpwConfig.addShader(ShaderType_FRAGMENT, "Shaders/BlinnPhong_wire.frag.glsl");
+        ShaderConfigurationFactory::addConfiguration(bpwConfig);
+
         ShaderConfiguration pConfig("Plain");
         pConfig.addShader(ShaderType_VERTEX, "Shaders/Plain.vert.glsl");
         pConfig.addShader(ShaderType_FRAGMENT, "Shaders/Plain.frag.glsl");

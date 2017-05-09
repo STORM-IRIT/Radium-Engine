@@ -53,7 +53,7 @@ namespace Algorithm {
                 }
                 if (register_op)
                 {
-                    operation->m_newPointsOperations.push_back( PO(mesh.m_vertices.size(), cs) );
+                    operation->m_edgePointsOperations.push_back( PO(mesh.m_vertices.size(), cs) );
                 }
                 edgePoints[he_idx   ] = mesh.m_vertices.size();
                 edgePoints[he.m_pair] = mesh.m_vertices.size();
@@ -71,7 +71,7 @@ namespace Algorithm {
         const uint F = mesh.m_faces.size();
         if (register_op)
         {
-            operation->m_newPointsOperations.resize( F ); // will push_back() for edge points
+            operation->m_facePointsOperations.resize( F );
             operation->m_oldPointsOperations.resize( N );
         }
         // first: add face points
@@ -99,7 +99,7 @@ namespace Algorithm {
             faceNormal *= fs_inv;
             if (register_op)
             {
-                operation->m_newPointsOperations[ f ] = PO( N+f, cs );
+                operation->m_facePointsOperations[ f ] = PO( N+f, cs );
             }
             mesh.m_vertices[ N + f ] = facePoint;
             mesh.m_normals[ N + f ] = faceNormal;
@@ -132,10 +132,6 @@ namespace Algorithm {
             Vector3 F( 0, 0, 0 );
             Vector3 R( 0, 0, 0 );
             CS cs;
-            if (register_op)
-            {
-                cs.push_back( CP(v, 1.0) );
-            }
             if (hole)
             {
                 if (register_op)
@@ -164,7 +160,7 @@ namespace Algorithm {
                 new_pos[ v ] = (P + R) * n_inv;
                 if (register_op)
                 {
-                    for (uint v = 0; v<n; ++v)
+                    for (uint v = 0; v<cs.size(); ++v)
                     {
                         cs[v].second *= n_inv;
                     }
