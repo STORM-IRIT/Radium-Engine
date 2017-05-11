@@ -21,6 +21,7 @@ using Ra::Engine::ComponentMessenger;
 using Ra::Core::Animation::RefPose;
 using Ra::Core::Animation::Skeleton;
 using Ra::Core::Animation::WeightMatrix;
+using Ra::Core::Animation::Animation;
 
 namespace AnimationPlugin
 {
@@ -61,7 +62,7 @@ namespace AnimationPlugin
         }
 
         // get the current pose from the animation
-        if ( dt > 0 && m_animations.size() > 0)
+        if ( dt > 0 && !m_animations.empty() )
         {
             Ra::Core::Animation::Pose currentPose = m_animations[m_animationID].getPose(m_animationTime);
 
@@ -286,6 +287,13 @@ namespace AnimationPlugin
 
         ComponentMessenger::CallbackTypes<bool>::Getter resetOut = std::bind( &AnimationComponent::getWasReset, this );
         ComponentMessenger::getInstance()->registerOutput<bool>( getEntity(), this, id, resetOut);
+
+        ComponentMessenger::CallbackTypes<Animation>::Getter animOut = std::bind( &AnimationComponent::getAnimation, this );
+        ComponentMessenger::getInstance()->registerOutput<Animation>(getEntity(), this, id, animOut);
+
+        ComponentMessenger::CallbackTypes<Scalar>::Getter timeOut = std::bind( &AnimationComponent::getTime, this );
+        ComponentMessenger::getInstance()->registerOutput<Scalar>(getEntity(), this, id, timeOut);
+
     }
 
     const Ra::Core::Animation::Skeleton* AnimationComponent::getSkeletonOutput() const
@@ -384,5 +392,19 @@ namespace AnimationPlugin
         return found == m_boneDrawables.end() ?
                uint(-1) :
                (*found)->getBoneIndex();
+    }
+
+    const Ra::Core::Animation::Animation* AnimationComponent::getAnimation() const
+    {
+        if (m_animations.empty())
+        {
+            return nullptr;
+        }
+        return &m_animations[m_animationID];
+    }
+
+    const Scalar* AnimationComponent::getTime() const
+    {
+        return &m_animationTime;
     }
 }
