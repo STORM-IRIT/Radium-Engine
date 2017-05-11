@@ -102,6 +102,8 @@ namespace AnimationPlugin
         const Ra::Core::Animation::RefPose*      getRefPoseOutput() const;
         const Ra::Core::Animation::WeightMatrix* getWeightsOutput() const;
         const bool*                              getWasReset() const;
+        const Ra::Core::Animation::Animation* getAnimation() const;
+        const Scalar* getTime() const;
 
     private:
         std::string m_contentName;
@@ -112,7 +114,6 @@ namespace AnimationPlugin
         Ra::Core::Animation::WeightMatrix m_weights; // Skinning weights ( should go in skinning )
 
         std::vector<SkeletonBoneRenderObject*> m_boneDrawables ; // Vector of bone display objects
-        bool   m_showSkeleton;
         uint   m_animationID;
         bool   m_animationTimeStep;
         Scalar m_animationTime;
