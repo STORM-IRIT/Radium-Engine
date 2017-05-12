@@ -13,6 +13,7 @@
 #include <Core/Time/Timer.hpp>
 #include <Core/Event/EventEnums.hpp>
 
+#include <globjects/Framebuffer.h>
 
 namespace Ra
 {
@@ -29,7 +30,6 @@ namespace Ra
     {
         class Camera;
         class RenderObject;
-        class FBO;
         class Light;
         class Mesh;
         class ShaderProgram;
@@ -329,8 +329,8 @@ namespace Ra
             std::mutex m_renderMutex;
 
             // PICKING STUFF
-            std::unique_ptr<FBO>     m_pickingFbo;
-            std::unique_ptr<Texture> m_pickingTexture;
+            std::unique_ptr<globjects::Framebuffer> m_pickingFbo;
+            std::unique_ptr<Texture>                m_pickingTexture;
 
             // TODO(Charly): Check if this leads to some rendering / picking bugs
             // (because different depth textures would be written, and so on)
