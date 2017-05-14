@@ -225,19 +225,22 @@ namespace Ra
 
         for ( auto ro : ros )
         {
-            auto mesh = ro->getMesh();
-            auto pos = mesh->getGeometry().m_vertices;
-
-            for ( auto& p : pos )
+            if (ro->isVisible())
             {
-                p = ro->getLocalTransform() * p;
+                auto mesh = ro->getMesh();
+                auto pos = mesh->getGeometry().m_vertices;
+
+                for (auto& p : pos)
+                {
+                    p = ro->getLocalTransform() * p;
+                }
+
+                Ra::Core::Vector3 bmin = pos.getMap().rowwise().minCoeff().head<3>();
+                Ra::Core::Vector3 bmax = pos.getMap().rowwise().maxCoeff().head<3>();
+
+                aabb.extend(bmin);
+                aabb.extend(bmax);
             }
-
-            Ra::Core::Vector3 bmin = pos.getMap().rowwise().minCoeff().head<3>();
-            Ra::Core::Vector3 bmax = pos.getMap().rowwise().maxCoeff().head<3>();
-
-            aabb.extend( bmin );
-            aabb.extend( bmax );
         }
 
         m_viewer->fitCameraToScene( aabb );
