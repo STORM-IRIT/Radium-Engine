@@ -127,7 +127,7 @@ namespace Ra
             return m_name;
         }
 
-        void Material::addTexture( const TextureType& type, Texture* texture )
+        void Material::addTexture( const TextureType& type, globjects::Texture* texture )
         {
             // FIXME(Charly): Check if already present ?
             m_textures[type] = texture;
@@ -155,7 +155,7 @@ namespace Ra
             return m_pendingTextures[type];
         }
 
-        Texture* Material::getTexture( const TextureType& type ) const
+        globjects::Texture* Material::getTexture( const TextureType& type ) const
         {
             Texture* tex = nullptr;
 
