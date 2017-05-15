@@ -1,10 +1,13 @@
 // Must include this before any qt include
 //#include <Engine/Renderer/OpenGL/OpenGL.hpp>
+
 #include <glbinding/Binding.h>
 #include <glbinding/ContextInfo.h>
 #include <glbinding/Version.h>
-#include <Engine/RadiumEngine.hpp>
 
+#include <globjects/globjects.h>
+
+#include <Engine/RadiumEngine.hpp>
 
 #include <GuiBase/Viewer/Viewer.hpp>
 
@@ -26,7 +29,6 @@
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 
-
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 
@@ -35,7 +37,6 @@
 
 #include <GuiBase/Viewer/TrackballCamera.hpp>
 #include <GuiBase/Utils/Keyboard.hpp>
-
 
 namespace Ra
 {
@@ -61,6 +62,8 @@ namespace Ra
     {
 //        initializeOpenGLFunctions();
         glbinding::Binding::initialize(false); // only resolve functions that are actually used (lazy)
+        globjects::init();
+
         LOG( logINFO ) << "*** Radium Engine Viewer ***";
         LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::ContextInfo::renderer();
         LOG( logINFO ) << "Vendor   (glbinding) : " << glbinding::ContextInfo::vendor();
