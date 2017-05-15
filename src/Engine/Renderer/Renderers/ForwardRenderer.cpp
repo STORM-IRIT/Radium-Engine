@@ -85,21 +85,19 @@ namespace Ra
 
         void ForwardRenderer::initBuffers()
         {
-            gl::ClearBufferMask mask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
-
             m_fbo.reset( new globjects::Framebuffer() );
             m_fbo->create();
-            m_fbo->clear( mask );
+            m_fbo->clear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
             glViewport( 0, 0, m_width, m_height );
 
             m_oitFbo.reset( new globjects::Framebuffer() );
             m_oitFbo->create();
-            m_oitFbo->clear( mask );
+            m_oitFbo->clear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
             glViewport( 0, 0, m_width, m_height );
 
             m_postprocessFbo.reset( new globjects::Framebuffer() );
             m_postprocessFbo->create();
-            m_postprocessFbo->clear( mask );
+            m_postprocessFbo->clear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
             glViewport( 0, 0, m_width, m_height );
 
             // Render pass
@@ -602,7 +600,7 @@ namespace Ra
             m_fbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_Normal].get());
             m_fbo->attachTexture(GL_COLOR_ATTACHMENT2, m_textures[RendererTextures_Diffuse].get());
             m_fbo->attachTexture(GL_COLOR_ATTACHMENT3, m_textures[RendererTextures_Specular].get());
-            if ( m_fbo->checkStatus() )
+            if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
             {
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
             }
@@ -614,7 +612,7 @@ namespace Ra
             m_oitFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get());
             m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_OITAccum].get());
             m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_OITRevealage].get());
-            if ( m_fbo->checkStatus() )
+            if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
             {
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
             }
@@ -625,7 +623,7 @@ namespace Ra
             glViewport( 0, 0, m_width, m_height );
             m_postprocessFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get());
             m_postprocessFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_fancyTexture.get());
-            if ( m_fbo->checkStatus() )
+            if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
             {
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
             }
