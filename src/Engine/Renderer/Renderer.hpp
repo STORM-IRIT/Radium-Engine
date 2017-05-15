@@ -13,8 +13,6 @@
 #include <Core/Time/Timer.hpp>
 #include <Core/Event/EventEnums.hpp>
 
-#include <globjects/Framebuffer.h>
-
 namespace Ra
 {
     namespace Core
@@ -38,6 +36,11 @@ namespace Ra
         class TextureManager;
         class RenderObjectManager;
     }
+}
+
+namespace globjects
+{
+    class Framebuffer;
 }
 
 namespace Ra

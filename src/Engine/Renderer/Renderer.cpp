@@ -1,5 +1,7 @@
 #include <Engine/Renderer/Renderer.hpp>
 
+#include <globjects/Framebuffer.h>
+
 #include <iostream>
 
 #include <assimp/Importer.hpp>
@@ -82,8 +84,7 @@ namespace Ra
 
             m_pickingFbo.reset( new globjects::Framebuffer() );
             m_pickingFbo->create();
-            gl::ClearBufferMask mask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
-            m_pickingFbo->clear( mask );
+            m_pickingFbo->clear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
             glViewport( 0, 0, m_width, m_height );
 
             m_pickingTexture.reset(new Texture("Picking"));
@@ -429,11 +430,9 @@ namespace Ra
             m_fancyTexture->Generate(w, h, GL_RGBA);
 
             m_pickingFbo->bind();
-            // m_pickingFbo->setSize( w, h );
             glViewport( 0, 0, w, h );
             m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT , m_depthTexture.get() );
             m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get() );
-            // m_pickingFbo->check();
             if ( m_pickingFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
             {
                 LOG( logERROR ) << "FBO Error : " << m_pickingFbo->checkStatus();
