@@ -14,9 +14,13 @@ namespace Ra
 {
     namespace Engine
     {
-        class Texture;
         class ShaderProgram;
     }
+}
+
+namespace globjects
+{
+    class Texture;
 }
 
 namespace Ra
@@ -54,10 +58,10 @@ namespace Ra
 
             const std::string& getName() const;
 
-            void addTexture( const TextureType& type, Texture* texture );
+            void addTexture( const TextureType& type, globjects::Texture* texture );
             TextureData& addTexture( const TextureType& type, const std::string& texture );
             TextureData& addTexture( const TextureType& type, const TextureData& texture );
-            Texture* getTexture( const TextureType& type ) const;
+            globjects::Texture* getTexture( const TextureType& type ) const;
 
             void setMaterialType( const MaterialType& type );
             const MaterialType& getMaterialType() const;
@@ -73,7 +77,7 @@ namespace Ra
 
             bool m_isDirty;
 
-            std::map<TextureType, Texture*> m_textures;
+            std::map<TextureType, globjects::Texture*> m_textures;
             std::map<TextureType, TextureData> m_pendingTextures;
 
             MaterialType m_type;
