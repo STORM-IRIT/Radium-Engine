@@ -1,10 +1,10 @@
 #ifndef RADIUMENGINE_FORWARDRENDERER_HPP
 #define RADIUMENGINE_FORWARDRENDERER_HPP
 
+#include <globjects/Framebuffer.h>
+
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
-
-#include <globjects/Framebuffer.h>
 
 namespace Ra
 {
