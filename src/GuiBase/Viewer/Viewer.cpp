@@ -4,6 +4,8 @@
 // Do not import namespace to prevent glbinding/QTOpenGL collision
 #include <glbinding/gl/gl.h>
 
+#include <globjects/globjects.h>
+
 #include <Engine/RadiumEngine.hpp>
 
 #include <GuiBase/Viewer/Viewer.hpp>
@@ -25,7 +27,6 @@
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
-
 
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
