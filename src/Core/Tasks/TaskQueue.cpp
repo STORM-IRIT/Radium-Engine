@@ -240,6 +240,7 @@ namespace Ra
 
                 // Run task
                 m_timerData[task].start = Timer::Clock::now();
+                m_timerData[task].threadId = id;
                 m_tasks[task]->process();
                 m_timerData[task].end = Timer::Clock::now();
 

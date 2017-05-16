@@ -15,7 +15,7 @@ namespace Ra
     /// This struct holds all timings for one frame of the engine.
     struct FrameTimerData
     {
-        int numFrame;
+        uint numFrame;
         Core::Timer::TimePoint frameStart;
         Core::Timer::TimePoint eventsStart;
         Core::Timer::TimePoint eventsEnd;
@@ -24,6 +24,8 @@ namespace Ra
         Core::Timer::TimePoint frameEnd;
         Engine::Renderer::TimerData renderData;
         std::vector<Core::TaskQueue::TimerData> taskData;
+
+        void print(std::ostream& ostream) const;
     };
 
 #if 0

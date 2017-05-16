@@ -11,9 +11,6 @@
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
 #include <Engine/Entity/Entity.hpp>
@@ -21,7 +18,6 @@
 #include <PluginBase/RadiumPluginInterface.hpp>
 
 #include <GuiBase/Viewer/CameraInterface.hpp>
-#include <GuiBase/TreeModel/EntityTreeModel.hpp>
 
 #include <Gui/MaterialEditor.hpp>
 
@@ -131,6 +127,9 @@ namespace Ra
         connect(m_enablePostProcess, &QCheckBox::stateChanged, m_viewer, &Viewer::enablePostProcess);
         connect(m_enableDebugDraw,   &QCheckBox::stateChanged, m_viewer, &Viewer::enableDebugDraw);
         connect(m_realFrameRate,     &QCheckBox::stateChanged, mainApp,  &BaseApplication::setRealFrameRate);
+
+        connect(m_printGraph,       &QCheckBox::stateChanged, mainApp,  &BaseApplication::setRecordGraph);
+        connect(m_printTimings,     &QCheckBox::stateChanged, mainApp,  &BaseApplication::setRecordTimings);
 
         // Connect engine signals to the appropriate callbacks
         std::function<void(const Engine::ItemEntry&)> add = std::bind(&MainWindow::onItemAdded, this, std::placeholders::_1);
