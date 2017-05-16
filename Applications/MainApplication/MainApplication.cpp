@@ -51,6 +51,8 @@ namespace Ra
         , m_numFrames( 0 )
         , m_realFrameRate( false )
         , m_recordFrames( false )
+        , m_recordTimings( false )
+        , m_recordGraph( false )
         , m_isAboutToQuit( false )
     {
         // Set application and organization names in order to ensure uniform
@@ -323,6 +325,8 @@ namespace Ra
         // 3. Run the engine task queue.
         m_engine->getTasks( m_taskQueue.get(), dt );
 
+        if (m_recordGraph) {m_taskQueue->printTaskGraph(std::cout);}
+
         // Run one frame of tasks
         m_taskQueue->startTasks();
         m_taskQueue->waitForTasks();
@@ -346,6 +350,8 @@ namespace Ra
         // 6. Frame end.
         timerData.frameEnd = Core::Timer::Clock::now();
         timerData.numFrame = m_frameCounter;
+
+        if (m_recordTimings) { timerData.print(std::cout); }
 
         m_timerData.push_back( timerData );
 
@@ -495,5 +501,15 @@ namespace Ra
         }
 
         return res;
+    }
+
+    void BaseApplication::setRecordTimings(bool on)
+    {
+        m_recordTimings = on;
+    }
+
+    void BaseApplication::setRecordGraph(bool on)
+    {
+        m_recordGraph = on;
     }
 }

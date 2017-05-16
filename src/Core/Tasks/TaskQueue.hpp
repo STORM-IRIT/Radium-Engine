@@ -43,6 +43,7 @@ namespace Ra
             {
                 Timer::TimePoint start;
                 Timer::TimePoint end;
+                uint threadId;
                 std::string taskName;
             };
 

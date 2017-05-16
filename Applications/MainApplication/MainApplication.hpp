@@ -82,6 +82,8 @@ namespace Ra
         void appNeedsToQuit();
         void setRealFrameRate( bool on );
         void setRecordFrames( bool on );
+        void setRecordTimings( bool on );
+        void setRecordGraph( bool on );
 
         void recordFrame();
 
@@ -133,8 +135,14 @@ namespace Ra
         /// If true, use the wall clock to advance the engine. If false, use a fixed time step.
         bool m_realFrameRate;
 
-        /// If true, dump each frame to a file.
+        // Options to control monitoring and outputs
+
+        /// If true, dump each frame to a PNG file.
         bool m_recordFrames;
+        /// If true, print the detailed timings of each frame
+        bool m_recordTimings;
+        /// If true, print the task graph;
+        bool m_recordGraph;
 
         bool m_isAboutToQuit;
     };
