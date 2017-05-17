@@ -241,7 +241,7 @@ namespace Ra {
                            const Core::Matrix4f& R, Scalar radius, const Core::Color& color)
             {
                 Core::TriangleMesh ellipsoid =
-                    Core::MeshUtils::makeEllipsoid(R, radius);
+                    Core::MeshUtils::makeEllipsoid(R, radius, 2);
 
 //                for (auto& t : ellipsoid.m_vertices)
 //                {

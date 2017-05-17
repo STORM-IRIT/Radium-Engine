@@ -43,7 +43,6 @@ namespace Ra
             //virtual PriorityQueue constructPriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, int objIndex) = 0;
 
             virtual void computeFacesQuadrics() = 0;
-            virtual std::vector<Primitive> getFacesQuadrics() = 0;
             virtual void updateFacesQuadrics(Index vsIndex) = 0;
             virtual Primitive computeEdgeQuadric(Index edgeIndex) = 0;
             virtual Primitive computeVertexQuadric(Index vertexIndex) = 0;
@@ -64,6 +63,7 @@ namespace Ra
             virtual Dcel* getDcel() = 0;
             virtual int getNbFaces() = 0;
             virtual ErrorMetric getEM() = 0;
+            virtual std::vector<Primitive> getFacesQuadrics() = 0;
 
             virtual void collapseFace() = 0;
             virtual void collapseVertex() = 0;
@@ -101,7 +101,6 @@ namespace Ra
 
             /// Compute all faces quadrics
             inline void computeFacesQuadrics();
-            std::vector<Primitive> getFacesQuadrics();
             void updateFacesQuadrics(Index vsIndex);
 
             /// Compute an edge quadric
@@ -132,6 +131,7 @@ namespace Ra
             inline Dcel* getDcel();
             inline int getNbFaces();
             inline ErrorMetric getEM();
+            inline std::vector<Primitive> getFacesQuadrics();
 
             inline void collapseFace();
             inline void collapseVertex();

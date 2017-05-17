@@ -326,7 +326,7 @@ namespace Ra
             Primitive::Vector vtPrimitiveType = Primitive::Vector(vt.x(), vt.y(), vt.z(), vt.norm() * vt.norm());
             Primitive::Vector result;
 
-            Scalar det = q.getA().determinant();
+            //Scalar det = q.getA().determinant();
             /*
             if (det > 0.0001)
             {
@@ -370,8 +370,8 @@ namespace Ra
                                                       (vs.z() + vt.z()) / 2.0,
                                                       (vs + vt).norm() * (vs + vt).norm());
 
-            Scalar p1_error     = computeGeometricError(q, p1);
-            Scalar p2_error     = computeGeometricError(q, p2);
+            //Scalar p1_error     = computeGeometricError(q, p1);
+            //Scalar p2_error     = computeGeometricError(q, p2);
             Scalar p12_error    = computeGeometricError(q, p12);
             result = p12;
             error = p12_error;
@@ -417,7 +417,7 @@ namespace Ra
 
                 Scalar uc = fit.m_uc; // + pg.dot(fit.m_ul); //switch local to global
                 GrenaillePoint::VectorType ul = fit.m_ul;
-                Scalar uq = fit.m_uq;
+                //Scalar uq = fit.m_uq;
 
                 // Test
                 uc = uc / ul.norm();
@@ -430,8 +430,8 @@ namespace Ra
                 Scalar s = uc;
                 q = Primitive(n, s);
 
-                GrenaillePoint::VectorType center = fit.center();
-                Scalar radius = fit.radius();
+                //GrenaillePoint::VectorType center = fit.center();
+                //Scalar radius = fit.radius();
                 m_param.fits.push_back(fit);
             }
             else
@@ -451,10 +451,10 @@ namespace Ra
             m_param.scale = scale;
         }
 
-        Scalar SimpleAPSSErrorMetric::computeGeometricError(const Primitive& q, const Vector3& p)
-        {
+//        Scalar SimpleAPSSErrorMetric::computeGeometricError(const Primitive& q, const Vector3& p)
+//        {
 
-        }
+//        }
 
         SimpleAPSSErrorMetric::Primitive SimpleAPSSErrorMetric::combine(const Primitive& a, const Primitive& b)
         {
@@ -471,8 +471,8 @@ namespace Ra
 
         Scalar SimpleAPSSErrorMetric::computeError(Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult)
         {
-            GrenaillePoint::VectorType center = q.center();
-            Scalar radius = q.radius();
+            //GrenaillePoint::VectorType center = q.center();
+            //Scalar radius = q.radius();
             GrenaillePoint::VectorType p12 = (vs + vt) / 2.0;
             pResult = q.project(p12);
 
@@ -528,9 +528,9 @@ namespace Ra
             if (fit.getCurrentState() != UNDEFINED)
             {
                 q = fit;
-                Scalar uc = fit.m_uc;
-                GrenaillePoint::VectorType ul = fit.m_ul;
-                Scalar uq = fit.m_uq;
+                //Scalar uc = fit.m_uc;
+                //GrenaillePoint::VectorType ul = fit.m_ul;
+                //Scalar uq = fit.m_uq;
                 m_param.fits.push_back(fit);
             }
             else

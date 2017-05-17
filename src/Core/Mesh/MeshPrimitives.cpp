@@ -409,6 +409,8 @@ namespace Ra
                 VectorArray<Vector3> newVertices;
                 for (auto& vertex : result.m_vertices)
                 {
+//                    const Scalar r = radius / vertex.norm();
+//                    vertex *= r;
                     Vector4 v(vertex(0),vertex(1),vertex(2),1);
                     const Scalar r = radius / v.norm();
                     v *= r;

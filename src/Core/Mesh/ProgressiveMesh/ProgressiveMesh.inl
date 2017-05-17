@@ -27,6 +27,7 @@ namespace Ra
     namespace Core
     {
 
+
         template<class ErrorMetric>
         ProgressiveMesh<ErrorMetric>::ProgressiveMesh(TriangleMesh* mesh)
         {
@@ -56,6 +57,12 @@ namespace Ra
         inline ErrorMetric ProgressiveMesh<ErrorMetric>::getEM()
         {
             return m_em;
+        }
+
+        template <class ErrorMetric>
+        inline std::vector<typename ErrorMetric::Primitive> ProgressiveMesh<ErrorMetric>::getFacesQuadrics()
+        {
+            return m_primitives;
         }
 
         //------------------------------------------------
@@ -102,12 +109,6 @@ namespace Ra
 //#pragma omp critical
                 m_primitives.push_back(q);
             }
-        }
-
-        template <class ErrorMetric>
-        std::vector<typename ErrorMetric::Primitive> ProgressiveMesh<ErrorMetric>::getFacesQuadrics()
-        {
-            return m_primitives;
         }
 
         template <class ErrorMetric>

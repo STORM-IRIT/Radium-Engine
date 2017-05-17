@@ -149,7 +149,7 @@ namespace Ra
             SimpleAPSSErrorMetric(Scalar scale);
 
             Scalar computeError(Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult);
-            Scalar computeGeometricError(const Primitive& q, const Vector3& p);
+            //Scalar computeGeometricError(const Primitive& q, const Vector3& p);
             Primitive combine(const Primitive& a, const Primitive& b);
 
             void generateFacePrimitive(Primitive &q, Face_ptr f, Dcel &dcel, Scalar scale);
