@@ -6,6 +6,7 @@
 
 
 # Radium_FOUND if found
+message(STATUS "Radium Root (1) is ${RADIUM_ROOT_DIR}")
 
 IF(NOT RADIUM_ROOT_DIR)
   FIND_PATH( RADIUM_ROOT_DIR NAMES src/Core/RaCore.hpp
@@ -26,6 +27,7 @@ IF(NOT RADIUM_ROOT_DIR)
     DOC "The radium engine source folder")
 ENDIF(NOT RADIUM_ROOT_DIR)
 
+message(STATUS "Radium Root (2) is ${RADIUM_ROOT_DIR}")
 
 IF ( RADIUM_ROOT_DIR )
     SET ( RADIUM_INCLUDES "${RADIUM_ROOT_DIR}/src")
@@ -33,20 +35,32 @@ IF ( RADIUM_ROOT_DIR )
 
     SET ( RADIUM_PLUGIN_OUTPUT_PATH "${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/Plugins")
 
-    FIND_LIBRARY( RA_CORE_LIB
-        NAMES radiumCore
-        PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
-        )
+    IF (TARGET radiumCore)
+        set (RA_CORE_LIB radiumCore)
+    ELSE()
+        FIND_LIBRARY( RA_CORE_LIB
+                NAMES radiumCore
+                PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
+                )
+    ENDIF()
 
-    FIND_LIBRARY( RA_ENGINE_LIB
-        NAMES radiumEngine
-        PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
+    IF (TARGET radiumEngine)
+         SET (RA_ENGINE_LIB radiumEngine)
+    ELSE()
+        FIND_LIBRARY( RA_ENGINE_LIB
+            NAMES radiumEngine
+            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
         )
+    ENDIF()
 
-    FIND_LIBRARY ( RA_GUIBASE_LIB
-        NAMES radiumGuiBase
-        PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
+    IF (TARGET radiumGuiBase)
+         SET (RA_GUIBASE_LIB radiumGuiBase)
+    ELSE()
+        FIND_LIBRARY ( RA_GUIBASE_LIB
+            NAMES radiumGuiBase
+            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
         )
+    ENDIF()
 
     SET ( Radium_FOUND TRUE )
 
