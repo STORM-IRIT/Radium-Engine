@@ -6,8 +6,6 @@
 
 
 # Radium_FOUND if found
-message(STATUS "Radium Root (1) is ${RADIUM_ROOT_DIR}")
-
 IF(NOT RADIUM_ROOT_DIR)
   FIND_PATH( RADIUM_ROOT_DIR NAMES src/Core/RaCore.hpp
     PATHS
@@ -27,11 +25,8 @@ IF(NOT RADIUM_ROOT_DIR)
     DOC "The radium engine source folder")
 ENDIF(NOT RADIUM_ROOT_DIR)
 
-message(STATUS "Radium Root (2) is ${RADIUM_ROOT_DIR}")
-
 IF ( RADIUM_ROOT_DIR )
     SET ( RADIUM_INCLUDES "${RADIUM_ROOT_DIR}/src")
-
 
     SET ( RADIUM_PLUGIN_OUTPUT_PATH "${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/Plugins")
 
@@ -63,7 +58,6 @@ IF ( RADIUM_ROOT_DIR )
     ENDIF()
 
     SET ( Radium_FOUND TRUE )
-
     ############################################################################
     # Get dependencies if not already specified
     IF(NOT EIGEN3_INCLUDE_DIR)
@@ -93,12 +87,9 @@ IF ( RADIUM_ROOT_DIR )
         set(GLBINDING_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
     ENDIF(NOT GLBINDING_INCLUDE_DIR)
 
-    # TODO (Mathias) : verify if cmake recommand this (append the include dir of module dependencis in the include dir of the module header)
-    # TODO (Nico) : this is unconsistent with the lib behavior: deps *.so are not added in RADIUM_LIBRARIES
     SET( RADIUM_INCLUDE_DIR)
     LIST(APPEND RADIUM_INCLUDE_DIR "${RADIUM_INCLUDES}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}")
 
-    # TODO (Mathias) Like above : is it recommended to add all dependencies here ?
     SET( RADIUM_LIBRARIES )
     IF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES AND GLBINDING_LIBRARIES)
        LIST(APPEND RADIUM_LIBRARIES "${RA_CORE_LIB}" "${RA_ENGINE_LIB}" "${RA_GUIBASE_LIB}")
