@@ -181,7 +181,7 @@ namespace AnimationPlugin
                 for( uint j = 0; j < handleAnim.size(); ++j ) {
                     if( m_skel.getLabel( i ) == handleAnim[j].m_name ) {
                         table[j] = i;
-                        auto set = handleAnim[j].m_anim.timeSchedule();
+                        auto set = std::move( handleAnim[j].m_anim.timeSchedule() );
                         keyTime.insert( set.begin(), set.end() );
                     }
                 }
