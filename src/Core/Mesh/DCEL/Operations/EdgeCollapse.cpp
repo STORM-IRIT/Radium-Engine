@@ -13,10 +13,21 @@ short int computeii(Dcel& dcel, Index vsId, Index vtId, Vector3 pResult, Vector3
 {
     Vector3 vtPos = dcel.m_vertex[vtId]->P();
     Vector3 vsPos = dcel.m_vertex[vsId]->P();
-    Scalar disVtVp = (vtPos - pResult).squaredNorm();
+    Scalar distVtVp = (vtPos - pResult).squaredNorm();
     Scalar distVmVp = (((vtPos + vsPos) / 2.f) - pResult).squaredNorm();
     Scalar distVsVp = (vsPos - pResult).squaredNorm();
-    short int ii = std::min(disVtVp, std::min(distVmVp, distVsVp));
+    Scalar min = distVtVp;
+    short int ii = 0;
+    if (min > distVsVp)
+    {
+        min = distVsVp;
+        ii = 1;
+    }
+    if (min > distVmVp)
+    {
+        min = distVmVp;
+        ii = 2;
+    }
     if (ii == 0)
     {
         vadS = vtPos - pResult;
