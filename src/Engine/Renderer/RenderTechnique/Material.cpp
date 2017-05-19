@@ -1,10 +1,9 @@
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 
-#include <globjects/Texture.h>
-
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
+#include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra
 {
@@ -54,13 +53,13 @@ namespace Ra
             shader->setUniform( "material.ns", m_ns );
             shader->setUniform( "material.alpha", m_alpha );
 
-            globjects::Texture* tex = nullptr;
+            Texture* tex = nullptr;
             uint texUnit = 0;
 
             tex = getTexture( Material::TextureType::TEX_DIFFUSE );
             if ( tex != nullptr )
             {
-                tex->bindActive( texUnit );
+                tex->bind( texUnit );
                 shader->setUniform( "material.tex.kd", tex, texUnit );
                 shader->setUniform( "material.tex.hasKd", 1 );
                 ++texUnit;
@@ -73,7 +72,7 @@ namespace Ra
             tex = getTexture( Material::TextureType::TEX_SPECULAR );
             if ( tex != nullptr )
             {
-                tex->bindActive( texUnit );
+                tex->bind( texUnit );
                 shader->setUniform( "material.tex.ks", tex, texUnit );
                 shader->setUniform( "material.tex.hasKs", 1 );
                 ++texUnit;
@@ -86,7 +85,7 @@ namespace Ra
             tex = getTexture( Material::TextureType::TEX_NORMAL );
             if ( tex != nullptr )
             {
-                tex->bindActive( texUnit );
+                tex->bind( texUnit );
                 shader->setUniform( "material.tex.normal", tex, texUnit );
                 shader->setUniform( "material.tex.hasNormal", 1 );
                 ++texUnit;
@@ -99,7 +98,7 @@ namespace Ra
             tex = getTexture( Material::TextureType::TEX_SHININESS );
             if ( tex != nullptr )
             {
-                tex->bindActive( texUnit );
+                tex->bind( texUnit );
                 shader->setUniform( "material.tex.ns", tex, texUnit );
                 shader->setUniform( "material.tex.hasNs", 1 );
                 ++texUnit;
@@ -112,7 +111,7 @@ namespace Ra
             tex = getTexture( Material::TextureType::TEX_ALPHA );
             if ( tex != nullptr )
             {
-                tex->bindActive( texUnit );
+                tex->bind( texUnit );
                 shader->setUniform( "material.tex.alpha", tex, texUnit );
                 shader->setUniform( "material.tex.hasAlpha", 1 );
                 ++texUnit;
@@ -128,7 +127,7 @@ namespace Ra
             return m_name;
         }
 
-        void Material::addTexture( const TextureType& type, globjects::Texture* texture )
+        void Material::addTexture( const TextureType& type, Texture* texture )
         {
             // FIXME(Charly): Check if already present ?
             m_textures[type] = texture;
@@ -156,9 +155,9 @@ namespace Ra
             return m_pendingTextures[type];
         }
 
-        globjects::Texture* Material::getTexture( const TextureType& type ) const
+        Texture* Material::getTexture( const TextureType& type ) const
         {
-            globjects::Texture* tex = nullptr;
+            Texture* tex = nullptr;
 
             auto it = m_textures.find( type );
             if ( it != m_textures.end() )
