@@ -50,8 +50,6 @@ namespace Ra
             /// Returns true if the index points to a valid render object.
             bool exists( const Core::Index& index) const;
 
-            bool isDirty() const;
-
             void renderObjectExpired( const Ra::Core::Index& idx );
 
             /// Return the total number of faces drawn
@@ -59,6 +57,9 @@ namespace Ra
 
             /// Return the total number of vertices drawn
             uint getNumVertices() const;
+
+            /// Return the AABB of all visible render objects
+            Core::Aabb getSceneAabb() const;
 
         private:
             Core::IndexMap<std::shared_ptr<RenderObject>> m_renderObjects;
