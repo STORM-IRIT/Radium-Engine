@@ -112,6 +112,7 @@ namespace Ra
         connect(m_exportMeshButton, &QPushButton::clicked, this, &MainWindow::exportCurrentMesh);
         connect(m_removeEntityButton, &QPushButton::clicked, this, &MainWindow::deleteCurrentItem);
         connect(m_clearSceneButton, &QPushButton::clicked, this, &MainWindow::resetScene);
+        connect(m_fitCameraButton, &QPushButton::clicked, this, &MainWindow::fitCamera);
 
         // Renderer stuff
 
@@ -510,6 +511,11 @@ namespace Ra
         actionForward->setChecked( false );
         actionDeferred->setChecked( false );
         actionDeferred->setChecked( true );
+    }
+
+    void Gui::MainWindow::fitCamera()
+    {
+        m_viewer->fitCameraToScene(Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getSceneAabb());
     }
 
 } // namespace Ra

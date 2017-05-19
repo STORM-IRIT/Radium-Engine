@@ -90,6 +90,9 @@ namespace Ra
             /// Slot for the "visible" button
             void toggleVisisbleRO();
 
+            /// Reset the camera to see all visible objects
+            void fitCamera();
+
             /// Slot for the "edit" button.
             void editRO();
 
