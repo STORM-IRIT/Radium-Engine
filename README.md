@@ -17,7 +17,7 @@ for an overview of the project.
 
 The following platforms and tool chains have been tested and should work :
 
-* *Windows* : MSVC 2015 or higher, MinGW-32 4.9.2 or higher (with Qt Creator).
+* *Windows* : MSVC 2017 with cmake support, MinGW-32 4.9.2 or higher (with Qt Creator).
 * *Mac OSX* : gcc 5 or higher, Apple clang
 * *Linux* : gcc 5 or higher, clang
 
@@ -54,13 +54,17 @@ see the troubleshooting section below.
 The compiled application can be found in `bin`. Default plugins DLL are compiled in
 `Plugins/bin` by default.
 
-### Building on Windows with Visual Studio
+### Building on Microsoft Windows with Visual Studio
 
 #### Supported versions of MSVC
-Since Radium requires the C++11/C++14 advanced features such as `constexpr`, you will need a recent MSVC
-* *VS 2015 Community* is strongly advised (https://www.visualstudio.com/products/visual-studio-community-vs)
-* *VS 2013* with the november 2013 CTP (corrective patch)  should work, but is untested.
-[https://www.microsoft.com/en-us/download/confirmation.aspx?id=41151]
+Since Radium requires:
+* the C++11/C++14 advanced features such as `constexpr`, 
+* cmake built-in support
+
+you will need a recent MSVC (2015 minimum).
+We tested our code with *VS 2017 Community* (https://www.visualstudio.com/products/visual-studio-community-vs), with the *CMake Tools for Visual Studio* extension.
+
+
  
 #### Dependencies
 
@@ -68,15 +72,26 @@ Since Radium requires the C++11/C++14 advanced features such as `constexpr`, you
 If using earlier versions of Qt (5.4 or 5.5)  or a different toolset you may have to compile Qt yourself.
 You will probaby have to manually point cmake to the Qt folder (see Troubleshooting below)
 
-Eigen : included as a submodule in the git repository.
-Assimp : included as a submodule in the git repository.
-glbinding : included as a submodule in the git repository.
+Other dependencies (Eigen, Assimp and glbinding) are included as a submodule in the git repository.
 
-#### Building
+#### Getting started with Visual Studio
 
-As long as cmake run smoothly the engine should compile.
+Thanks to the integrated support of CMake in Visual Studio, you don't need a VS solution to build your project: open the Radium folder (via *File* > *Open* > *Folder ...* or `devenv.exe <foldername>`).
+VS should run cmake, generate the target builds (Debug and Release by default).
+See more general details [here](https://blogs.msdn.microsoft.com/vcblog/2016/10/05/cmake-support-in-visual-studio/).
+
+You may have Cmake errors occuring at the first run (see Troubleshooting section below).
+To fix them, you need to edit the VS-specific file `CMakeSettings.json`, via *CMake* > *Change CMake Settings* > path-to-CMakeLists (configuration-name) from the main menu. 
+
+### Compilation
+
+WIP
+
+Right click on CMakeList.txt > build > all.
 
 ### Run
+
+WIP
 
 * Don't forget to copy the third party DLLs in the executable folder :
  * Qt libraries (Qt5xxx.dll or Qt5xxxd.dll if you are in debug) : Core, Gui and Widgets
