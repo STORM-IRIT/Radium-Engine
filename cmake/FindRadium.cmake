@@ -35,7 +35,7 @@ IF ( RADIUM_ROOT_DIR )
     ELSE()
     FIND_LIBRARY( RA_CORE_LIB
         NAMES radiumCore
-        PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/lib
+        PATHS ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/lib
         )
     ENDIF()
 
