@@ -87,17 +87,17 @@ namespace Ra
         {
             m_fbo.reset( new globjects::Framebuffer() );
             m_fbo->create();
-            m_fbo->clear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+            //m_fbo->clear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
             glViewport( 0, 0, m_width, m_height );
 
             m_oitFbo.reset( new globjects::Framebuffer() );
             m_oitFbo->create();
-            m_oitFbo->clear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+            //m_oitFbo->clear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
             glViewport( 0, 0, m_width, m_height );
 
             m_postprocessFbo.reset( new globjects::Framebuffer() );
             m_postprocessFbo->create();
-            m_postprocessFbo->clear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+            //m_postprocessFbo->clear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
             glViewport( 0, 0, m_width, m_height );
 
             // Render pass
@@ -595,11 +595,11 @@ namespace Ra
 
             m_fbo->bind();
             glViewport( 0, 0, m_width, m_height );
-            m_fbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get());
-            m_fbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_HDR].get());
-            m_fbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_Normal].get());
-            m_fbo->attachTexture(GL_COLOR_ATTACHMENT2, m_textures[RendererTextures_Diffuse].get());
-            m_fbo->attachTexture(GL_COLOR_ATTACHMENT3, m_textures[RendererTextures_Specular].get());
+            m_fbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get()->texture());
+            m_fbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_HDR].get()->texture());
+            m_fbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_Normal].get()->texture());
+            m_fbo->attachTexture(GL_COLOR_ATTACHMENT2, m_textures[RendererTextures_Diffuse].get()->texture());
+            m_fbo->attachTexture(GL_COLOR_ATTACHMENT3, m_textures[RendererTextures_Specular].get()->texture());
             if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
             {
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
@@ -609,9 +609,9 @@ namespace Ra
 #ifndef NO_TRANSPARENCY
             m_oitFbo->bind();
             glViewport( 0, 0, m_width, m_height );
-            m_oitFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get());
-            m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_OITAccum].get());
-            m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_OITRevealage].get());
+            m_oitFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get()->texture());
+            m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_OITAccum].get()->texture());
+            m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_OITRevealage].get()->texture());
             if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
             {
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
@@ -621,8 +621,8 @@ namespace Ra
 
             m_postprocessFbo->bind();
             glViewport( 0, 0, m_width, m_height );
-            m_postprocessFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get());
-            m_postprocessFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_fancyTexture.get());
+            m_postprocessFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get()->texture());
+            m_postprocessFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_fancyTexture.get()->texture());
             if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
             {
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();

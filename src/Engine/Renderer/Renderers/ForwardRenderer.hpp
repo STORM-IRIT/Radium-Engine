@@ -10,6 +10,14 @@ namespace Ra
 {
     namespace Engine
     {
+        class Texture;
+    }
+}
+
+namespace Ra
+{
+    namespace Engine
+    {
         class RA_ENGINE_API ForwardRenderer : public Renderer
         {
         public:
