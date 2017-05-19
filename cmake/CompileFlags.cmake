@@ -102,6 +102,10 @@ endif()
 
 # Additional flags depending on build options =================================
 
+if ("${CMAKE_BUILD_TYPE}"  STREQUAL "Release" )
+    add_definitions(-DNO_DEBUG_INFO)
+endif()
+
 if (${RADIUM_WITH_DOUBLE_PRECISION})
   add_definitions(-DCORE_USE_DOUBLE)
   message(STATUS "${PROJECT_NAME} : Using double precision.")
