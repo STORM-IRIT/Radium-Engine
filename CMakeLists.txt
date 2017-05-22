@@ -91,19 +91,14 @@ include(SubModules)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Main Libraries
-set( CMAKE_DEBUG_POSTFIX "" )
-set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
 
 add_subdirectory(src)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Applications
 #   Set Base directories for dependencies
-# use Eigen version included in the Radium distribution, not the system-wide installed if available
 
-#set (EIGEN3_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY})
-#set (GLBINDING_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY})
-
+set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
 add_subdirectory(Applications)
 
 
@@ -119,25 +114,26 @@ add_subdirectory(Plugins)
 
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
+
   set (RADIUM_PROJECT_NUMBER ${GIT_CHANGESET})
 
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
-
   add_custom_target(doc
-     ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/Docs
-     COMMAND ${CMAKE_COMMAND} -E copy_directory
-       ${CMAKE_CURRENT_SOURCE_DIR}/Docs/images/
-       ${CMAKE_CURRENT_BINARY_DIR}/Docs/html/images
-     COMMAND ${CMAKE_COMMAND} -E copy
-       ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG
-       ${CMAKE_CURRENT_BINARY_DIR}/Docs/
-     COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-     DEPENDS
-       ${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile.in
-       ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG
-     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-     COMMENT "Generating API documentation with Doxygen" VERBATIM
-  )
+          ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/Docs
+          COMMAND ${CMAKE_COMMAND} -E copy_directory
+          ${CMAKE_CURRENT_SOURCE_DIR}/Docs/images/
+          ${CMAKE_CURRENT_BINARY_DIR}/Docs/html/images
+          COMMAND ${CMAKE_COMMAND} -E copy
+          ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG
+          ${CMAKE_CURRENT_BINARY_DIR}/Docs/
+          COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+          DEPENDS
+          ${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile.in
+          ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG
+          WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+          COMMENT "Generating API documentation with Doxygen" VERBATIM
+          )
+
 endif(DOXYGEN_FOUND)
 
 ################################################################################

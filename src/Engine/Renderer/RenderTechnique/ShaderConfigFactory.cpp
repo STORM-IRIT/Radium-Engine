@@ -44,9 +44,15 @@ ShaderConfiguration getConfiguration(const std::string &name)
     }
     else
     {
-        LOG(logWARNING) << "ShaderConfiguration \"" << name << "\" has not been registered. Create it.";
+        // Instead of creating a inconsistant configuration, warn and return a default one
+        // default configuration is defined as a static member of ShaderConfiguration
+        LOG(logWARNING) << "ShaderConfiguration \"" << name << "\" has not been registered. Return default (added to the factory).";
+/*
         const ShaderConfiguration config(name);
         configs.insert(std::make_pair(name, config));
+*/
+        ShaderConfiguration config = ShaderConfiguration::getDefaultShaderConfig();
+        configs.insert(std::make_pair(config.m_name, config));
         return config;
     }
 }
