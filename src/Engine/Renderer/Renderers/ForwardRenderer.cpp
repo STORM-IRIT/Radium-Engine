@@ -565,8 +565,7 @@ namespace Ra
             GL_ASSERT( glClearColor( 1.0, 1.0, 0.0, 0.0 ) );
             GL_ASSERT( glDrawBuffers(5, buffers) );
 
-            gl::ClearBufferMask mask = GL_COLOR_BUFFER_BIT;
-            m_postprocessFbo->clear( mask );
+            m_postprocessFbo->clear( GL_COLOR_BUFFER_BIT );
 
             const ShaderProgram* shader = nullptr;
 
