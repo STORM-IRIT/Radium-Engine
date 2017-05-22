@@ -111,6 +111,7 @@ add_subdirectory(src)
 #   Applications
 #   Set Base directories for dependencies
 
+set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
 add_subdirectory(Applications)
 
 
