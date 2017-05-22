@@ -84,7 +84,6 @@ namespace Ra
 
             m_pickingFbo.reset( new globjects::Framebuffer() );
             m_pickingFbo->create();
-            //m_pickingFbo->clear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
             glViewport( 0, 0, m_width, m_height );
 
             m_pickingTexture.reset(new Texture("Picking"));

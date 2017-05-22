@@ -87,17 +87,14 @@ namespace Ra
         {
             m_fbo.reset( new globjects::Framebuffer() );
             m_fbo->create();
-            //m_fbo->clear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
             glViewport( 0, 0, m_width, m_height );
 
             m_oitFbo.reset( new globjects::Framebuffer() );
             m_oitFbo->create();
-            //m_oitFbo->clear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
             glViewport( 0, 0, m_width, m_height );
 
             m_postprocessFbo.reset( new globjects::Framebuffer() );
             m_postprocessFbo->create();
-            //m_postprocessFbo->clear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
             glViewport( 0, 0, m_width, m_height );
 
             // Render pass
