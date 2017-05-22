@@ -45,3 +45,7 @@ target_link_libraries( ${app_target} # target
     ${GLBINDING_LIBRARIES}           # Radium dep
     ${Qt5_LIBRARIES}                 # the Qt beast
 )
+
+if (MSVC)
+	set_property( TARGET ${app_target} PROPERTY IMPORTED_LOCATION "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin" )
+endif(MSVC)

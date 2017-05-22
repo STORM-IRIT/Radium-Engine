@@ -14,6 +14,7 @@ ExternalProject_Add(
 		INSTALL_DIR "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}"
 		CMAKE_ARGS
 		-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
+		-DCMAKE_RUNTIME_OUTPUT_DIRECTORY="${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin" # mandatory for dlls with MVSC
 		-DOPTION_BUILD_TESTS=OFF
 		-DOPTION_BUILD_GPU_TESTS=OFF
 		-DOPTION_BUILD_DOCS=OFF
@@ -35,12 +36,11 @@ add_custom_target(glbinding_lib
 
 set(GLBINDING_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include)
 if( APPLE )
-	set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.dylib" )elseif ( UNIX )
+	set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.dylib" )
+elseif ( UNIX )
 	set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.so")
 elseif (MINGW)
 	set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.dll.a" )
-endif()
-
 elseif( MSVC )
 	# in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
 	if( MSVC70 OR MSVC71 )
@@ -58,6 +58,7 @@ elseif( MSVC )
 	else()
 		set(MSVC_PREFIX "vc140")
 	endif()
-
+	
 	set(GLBINDING_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbinding.lib")
+
 endif()
