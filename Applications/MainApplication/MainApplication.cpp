@@ -60,7 +60,7 @@ namespace Ra
         QCoreApplication::setApplicationName(applicationName);
 
         m_targetFPS = 60; // Default
-        std::string pluginsPath = "../Plugins";
+        std::string pluginsPath = "Plugins";
 
         QCommandLineParser parser;
         parser.setApplicationDescription("Radium Engine RPZ, TMTC");
