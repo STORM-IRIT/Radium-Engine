@@ -15,7 +15,6 @@ else()
 	set(RADIUM_SUBMODULES_BUILD_TYPE Release)
 endif()
 
-
 #OpenGL Stuff
 include(submoduleGLM)
 include(submoduleGlBinding)
