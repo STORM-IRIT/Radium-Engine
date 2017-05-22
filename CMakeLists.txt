@@ -91,19 +91,14 @@ include(SubModules)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Main Libraries
-set( CMAKE_DEBUG_POSTFIX "" )
-set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
 
 add_subdirectory(src)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Applications
 #   Set Base directories for dependencies
-# use Eigen version included in the Radium distribution, not the system-wide installed if available
 
-#set (EIGEN3_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY})
-#set (GLBINDING_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY})
-
+set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
 add_subdirectory(Applications)
 
 

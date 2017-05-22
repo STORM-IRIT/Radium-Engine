@@ -79,12 +79,17 @@ namespace Ra
 
             std::set<std::string> getProperties() const;
 
+            // get default shader configuration
+            static ShaderConfiguration getDefaultShaderConfig() { return m_defaultShaderConfig; }
+
         public:
             std::string m_name;
 
         private:
             std::array<std::string, ShaderType_COUNT> m_shaders;
             std::set<std::string> m_properties;
+
+            static ShaderConfiguration m_defaultShaderConfig;
         };
 
     } // namespace Engine

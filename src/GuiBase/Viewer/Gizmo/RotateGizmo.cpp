@@ -51,6 +51,7 @@ namespace Ra
                                                                                Engine::RenderObjectType::UI);
 
                 Engine::RenderTechnique* rt = new Engine::RenderTechnique;
+                /* TODO : Mathias -- Ugly hypothesis. Gizmos must define their own shaders*/
                 rt->shaderConfig = Ra::Engine::ShaderConfigurationFactory::getConfiguration("Plain");
                 rt->material = new Ra::Engine::Material("Default material");
                 arrowDrawable->setRenderTechnique(rt);

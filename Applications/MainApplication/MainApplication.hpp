@@ -48,7 +48,7 @@ namespace Ra
         Q_OBJECT
 
     public:
-        BaseApplication( int argc, char** argv, QString applicationName = "RadiumEngine", QString organizationName = "AGGA-IRIT" );
+        BaseApplication( int argc, char** argv, QString applicationName = "RadiumEngine", QString organizationName = "STORM-IRIT" );
         ~BaseApplication();
 
         /// Advance the engine for one frame.

@@ -23,7 +23,6 @@ ExternalProject_Add(
 		-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
 		-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
 		-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false
-		-DCMAKE_DEBUG_POSTFIX=""
 		STEP_TARGETS build
 		EXCLUDE_FROM_ALL TRUE
 )
@@ -35,6 +34,7 @@ add_custom_target(glbinding_lib
 # ----------------------------------------------------------------------------------------------------------------------
 
 set(GLBINDING_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include)
+
 if( APPLE )
 	if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
 		set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbindingd.dylib" )
@@ -74,5 +74,4 @@ elseif( MSVC )
 
 	set(GLBINDING_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbinding-${MSVC_PREFIX}-mt.lib"
 			debug "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbinding-${MSVC_PREFIX}-mtd.lib")
-
 endif()
