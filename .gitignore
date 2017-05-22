@@ -41,6 +41,7 @@
 .idea/
 \#*\#
 .\#*\#
+.vs
 
 # Binary asset files
 *.obj
