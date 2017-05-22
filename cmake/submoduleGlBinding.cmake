@@ -19,7 +19,7 @@ ExternalProject_Add(
 		-DOPTION_BUILD_DOCS=OFF
 		-DOPTION_BUILD_TOOLS=OFF
 		-DOPTION_BUILD_EXAMPLES=OFF
-		-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+		-DCMAKE_BUILD_TYPE=${RADIUM_SUBMODULES_BUILD_TYPE}
 		-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
 		-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
 		-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false
@@ -36,23 +36,12 @@ add_custom_target(glbinding_lib
 
 set(GLBINDING_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include)
 if( APPLE )
-	if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-		set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbindingd.dylib" )
-	else()
-		set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbindingd.dylib" )
-	endif()
+	set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbindingd.dylib" )
 elseif ( UNIX )
-	if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-		set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbindingd.so" )
-	else()
-		set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.so")
-	endif()
+	set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.so")
 elseif (MINGW)
-	if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-		set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbindingd.dll.a" )
-	else()
-		set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.dll.a" )
-	endif()
+	set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.dll.a" )
+endif()
 
 elseif( MSVC )
 	# in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
@@ -72,7 +61,6 @@ elseif( MSVC )
 		set(MSVC_PREFIX "vc140")
 	endif()
 
-	set(GLBINDING_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbinding.lib"
-			debug "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbindingd.lib")
+	set(GLBINDING_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbinding.lib")
 
 endif()
