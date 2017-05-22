@@ -83,6 +83,22 @@ See more general details [here](https://blogs.msdn.microsoft.com/vcblog/2016/10/
 You may have Cmake errors occuring at the first run (see Troubleshooting section below).
 To fix them, you need to edit the VS-specific file `CMakeSettings.json`, via *CMake* > *Change CMake Settings* > path-to-CMakeLists (configuration-name) from the main menu. 
 
+It seems that VS does not set cmake build type properly.
+To fix it, edit `CMakeSettings.json`, such that:
+```
+      {
+        ...
+        "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:\\Qt\\5.7\\winrt_x64_msvc2015 -DCMAKE_BUILD_TYPE=Debug",
+        ...
+      },
+      {
+        "name": "x64-Release",
+        ...
+        "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:\\Qt\\5.7\\winrt_x64_msvc2015 -DCMAKE_BUILD_TYPE=Release",
+        ...
+      }
+```
+
 ### Compilation
 
 WIP
