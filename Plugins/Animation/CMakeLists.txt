@@ -67,6 +67,7 @@ set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRA
 target_link_libraries( Animation
                        ${Qt5_LIBRARIES}
                        ${RADIUM_LIBRARIES}
+					   ${GLBINDING_LIBRARIES}           # Radium dep
                      )
 
 
