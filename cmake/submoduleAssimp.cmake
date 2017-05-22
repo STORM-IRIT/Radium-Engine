@@ -16,7 +16,7 @@ ExternalProject_Add(
             -DASSIMP_BUILD_TESTS=False
 			-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
 			-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-			-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+			-DCMAKE_BUILD_TYPE=${RADIUM_SUBMODULES_BUILD_TYPE}
 			-DASSIMP_INSTALL_PDB=False
 )
 
@@ -27,23 +27,11 @@ add_custom_target(assimp_lib
 # ----------------------------------------------------------------------------------------------------------------------
 set( ASSIMP_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include )
 if( APPLE )
-	if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-		set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimpd.dylib" )
-	else()
-		set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimp.dylib" )
-	endif()
+	set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimp.dylib" )
 elseif ( UNIX )
-	if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-		set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimpd.so" )
-	else()
-		set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimp.so" )
-	endif()
+	set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimp.so" )
 elseif (MINGW)
-	if ( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-		set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimpd.dll.a" )
-	else()
-		set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimp.dll.a" )
-	endif()
+	set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimp.dll.a" )
 elseif( MSVC )
 	# in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
 	if( MSVC70 OR MSVC71 )
@@ -62,7 +50,6 @@ elseif( MSVC )
 		set(MSVC_PREFIX "vc140")
 	endif()
 
-	set(ASSIMP_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/assimp-${MSVC_PREFIX}-mt.lib"
-			debug "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/assimp-${MSVC_PREFIX}-mtd.lib")
+	set(ASSIMP_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/assimp-${MSVC_PREFIX}-mt.lib")
 
 endif()
