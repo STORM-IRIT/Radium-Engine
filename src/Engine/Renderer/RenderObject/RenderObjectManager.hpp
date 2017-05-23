@@ -64,8 +64,6 @@ namespace Ra
         private:
             Core::IndexMap<std::shared_ptr<RenderObject>> m_renderObjects;
 
-            mutable Core::BVH<RenderObject> m_fancyBVH ;
-
             std::array<std::set<Core::Index>, (int)RenderObjectType::Count> m_renderObjectByType;
 
             mutable std::mutex m_doubleBufferMutex;
