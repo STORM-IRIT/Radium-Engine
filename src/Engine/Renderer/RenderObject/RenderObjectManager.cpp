@@ -43,9 +43,6 @@ namespace Ra
 
             m_renderObjectByType[(int)type].insert( index );
 
-            if (type == RenderObjectType::Fancy)
-                m_fancyBVH.insertLeaf(newRenderObject);
-
             Engine::RadiumEngine::getInstance()->getSignalManager()->fireRenderObjectAdded(
                     ItemEntry( renderObject->getComponent()->getEntity(),
                                renderObject->getComponent(),
@@ -60,7 +57,6 @@ namespace Ra
             // FIXME(Charly): Should we check if the render object is in the double buffer map ?
             std::shared_ptr<RenderObject> renderObject = m_renderObjects.at( index );
 
-
             Engine::RadiumEngine::getInstance()->getSignalManager()->fireRenderObjectRemoved(
                     ItemEntry( renderObject->getComponent()->getEntity(),
                                renderObject->getComponent(),
@@ -69,6 +65,7 @@ namespace Ra
             // Lock after signal has been fired (as this signal can cause another RO to be deleted)
             std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
             m_renderObjects.remove( index );
+
             auto type = renderObject->getType();
             m_renderObjectByType[(int)type].erase( index );
             renderObject.reset();
@@ -99,19 +96,10 @@ namespace Ra
             // Take the mutex
             std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
-            /*if (type == RenderObjectType::Fancy)
+            //// Copy each element in m_renderObjects
+            for ( const auto& idx : m_renderObjectByType[(int)type] )
             {
-                Core::Matrix4 mvp(renderData.projMatrix * renderData.viewMatrix);
-                m_fancyBVH.update();
-                m_fancyBVH.getInFrustumSlow(objectsOut, Core::Frustum(mvp));
-            }
-            else*/
-            {
-                //// Copy each element in m_renderObjects
-                for ( const auto& idx : m_renderObjectByType[(int)type] )
-                {
-                    objectsOut.push_back( m_renderObjects.at( idx ) );
-                }
+                objectsOut.push_back( m_renderObjects.at( idx ) );
             }
         }
 
