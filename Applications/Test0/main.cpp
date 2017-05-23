@@ -34,6 +34,10 @@ classic "Spinning Cube" demo. */
             _task_queue.reset(new Ra::Core::TaskQueue(std::thread::hardware_concurrency() - 1));
             LOG(logDEBUG) << "Initialize viewer.";
             _viewer.reset(new Ra::Gui::Viewer);
+
+            CORE_ASSERT( _viewer != nullptr, "GUI was not initialized" );
+            CORE_ASSERT( _viewer->context()->isValid(), "OpenGL was not initialized" );
+
             LOG(logDEBUG) << "Initialize timer.";
             _frame_timer = new QTimer(this);
             _frame_timer->setInterval(1000 / _target_fps);
