@@ -64,6 +64,7 @@ Since Radium requires:
 you will need a recent MSVC (2015 minimum).
 We tested our code with *VS 2017 Community* (https://www.visualstudio.com/products/visual-studio-community-vs), with the *CMake Tools for Visual Studio* extension.
 
+See general instruction on cmake for Visual Studio here: https://blogs.msdn.microsoft.com/vcblog/2016/10/05/cmake-support-in-visual-studio/
 
  
 #### Dependencies
@@ -78,13 +79,11 @@ Other dependencies (Eigen, Assimp and glbinding) are included as a submodule in 
 
 Thanks to the integrated support of CMake in Visual Studio, you don't need a VS solution to build your project: open the Radium folder (via *File* > *Open* > *Folder ...* or `devenv.exe <foldername>`).
 VS should run cmake, generate the target builds (Debug and Release by default).
-See more general details [here](https://blogs.msdn.microsoft.com/vcblog/2016/10/05/cmake-support-in-visual-studio/).
 
 You may have Cmake errors occuring at the first run (see Troubleshooting section below).
 To fix them, you need to edit the VS-specific file `CMakeSettings.json`, via *CMake* > *Change CMake Settings* > path-to-CMakeLists (configuration-name) from the main menu. 
-
-It seems that VS does not set cmake build type properly.
-To fix it, edit `CMakeSettings.json`, such that:
+For instance, it usually requires to set cmake build types manually, and to give path to Qt libraries.
+To fix it, edit `CMakeSettings.json`, such that
 ```
       {
         ...
