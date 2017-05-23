@@ -36,7 +36,6 @@ classic "Spinning Cube" demo. */
             _viewer.reset(new Ra::Gui::Viewer);
 
             CORE_ASSERT( _viewer != nullptr, "GUI was not initialized" );
-            CORE_ASSERT( _viewer->context()->isValid(), "OpenGL was not initialized" );
 
             LOG(logDEBUG) << "Initialize timer.";
             _frame_timer = new QTimer(this);
@@ -126,6 +125,7 @@ int main(int argc, char* argv[])
     MinimalApp app(argc, argv);
     LOG(logINFO) << "Show viewer.";
     app._viewer->show();
+    CORE_ASSERT( app._viewer->context()->isValid(), "OpenGL was not initialized" );
 
     LOG(logINFO) << "Creating BlinnPhong Shader.";
     // Load Blinn-Phong shader
