@@ -8,7 +8,7 @@
 /// glFlushError() : Ignores the previous openGL errors (no effect in release).
 
 //#include <Engine/RaEngine.hpp>
-//#include <Core/Log/Log.hpp>
+#include <Core/Log/Log.hpp>
 
 #include <glbinding/gl45core/gl.h>
 using namespace gl45core;
