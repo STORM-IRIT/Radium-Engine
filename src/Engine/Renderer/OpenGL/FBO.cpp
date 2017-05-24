@@ -3,6 +3,7 @@
 #include <cstdio>
 
 #include <Core/String/StringUtils.hpp>
+#include <Core/Log/Log.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra

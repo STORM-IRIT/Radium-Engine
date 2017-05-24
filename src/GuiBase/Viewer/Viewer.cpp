@@ -1,10 +1,10 @@
-// Must include this before any qt include
-//#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <glbinding/Binding.h>
 #include <glbinding/ContextInfo.h>
 #include <glbinding/Version.h>
-#include <Engine/RadiumEngine.hpp>
+// Do not import namespace to prevent glbinding/QTOpenGL collision
+#include <glbinding/gl/gl.h>
 
+#include <Engine/RadiumEngine.hpp>
 
 #include <GuiBase/Viewer/Viewer.hpp>
 
@@ -59,15 +59,12 @@ namespace Ra
 
     void Gui::Viewer::initializeGL()
     {
-//        initializeOpenGLFunctions();
         glbinding::Binding::initialize(false); // only resolve functions that are actually used (lazy)
         LOG( logINFO ) << "*** Radium Engine Viewer ***";
         LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::ContextInfo::renderer();
         LOG( logINFO ) << "Vendor   (glbinding) : " << glbinding::ContextInfo::vendor();
         LOG( logINFO ) << "OpenGL   (glbinding) : " << glbinding::ContextInfo::version().toString();
-#ifndef WIN32
-        LOG( logINFO ) << "GLSL                 : " << glGetString( GL_SHADING_LANGUAGE_VERSION );
-#endif
+        LOG( logINFO ) << "GLSL                 : " << gl::glGetString(gl::GLenum(GL_SHADING_LANGUAGE_VERSION));
 
         // FIXME(Charly): Renderer type should not be changed here
         // m_renderers.resize( 3 );

@@ -8,6 +8,7 @@
 
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
+#include <Core/Log/Log.hpp>
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Mesh/MeshPrimitives.hpp>
 #include <fstream>

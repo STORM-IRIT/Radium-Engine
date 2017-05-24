@@ -12,92 +12,14 @@
 #include <minimalradium.hpp>
 /* This file contains a minimal radium/qt application which shows the
 classic "Spinning Cube" demo. */
-
-    /// Our minimal application uses QTimer to be called at a regular frame rate.
-    class MinimalApp : public QApplication
-    {
-    public:
-        MinimalApp(int argc, char** argv)
-                : QApplication(argc, argv), _engine(nullptr),
-                  _task_queue(nullptr),
-                  _viewer(nullptr),
-                  _frame_timer(nullptr),
-                  _target_fps(60)
-        {
-            LOG(logDEBUG) << "Initialize engine.";
-            _engine.reset(Ra::Engine::RadiumEngine::createInstance());
-            _engine->initialize();
-            LOG(logDEBUG) << "Initialize taskqueue.";
-            _task_queue.reset(new Ra::Core::TaskQueue(std::thread::hardware_concurrency() - 1));
-            LOG(logDEBUG) << "Initialize viewer.";
-            _viewer.reset(new Ra::Gui::Viewer);
-
-            CORE_ASSERT( _viewer != nullptr, "GUI was not initialized" );
-
-            LOG(logDEBUG) << "Initialize timer.";
-            _frame_timer = new QTimer(this);
-            _frame_timer->setInterval(1000 / _target_fps);
-            connect(_frame_timer, &QTimer::timeout, this, &MinimalApp::frame);
-        }
-
-        ~MinimalApp()
-        {
-            _engine->cleanup();
-        }
-
-
-    public slots:
-
-        /// This function is the basic "game loop" iteration of the engine.
-        /// It starts the rendering then advance all systems by one frame.
-        void frame()
-        {
-            // We use a fixed time step, but it is also possible
-            // to check the time from last frame.
-            const Scalar dt = 1.f / Scalar(_target_fps);
-
-            // Starts the renderer
-            _viewer->startRendering(dt);
-
-            // Collect and run tasks
-            _engine->getTasks(_task_queue.get(), dt);
-            _task_queue->startTasks();
-            _task_queue->waitForTasks();
-            _task_queue->flushTaskQueue();
-
-            // Finish the frame
-            _viewer->waitForRendering();
-            //_viewer.update();
-            _viewer->repaint();
-            _engine->endFrameSync();
-        }
-
-    public:
-        // Our instance of the engine
-        std::unique_ptr<Ra::Engine::RadiumEngine> _engine;
-
-        // Task queue
-        std::unique_ptr<Ra::Core::TaskQueue> _task_queue;
-
-        // Pointer to Qt/OpenGL Viewer widget.
-        std::unique_ptr<Ra::Gui::Viewer>  _viewer;
-
-        // Timer to wake us up at every frame start.
-        QTimer* _frame_timer;
-
-        // Our framerate
-        uint _target_fps;
-
-    }; // end class
-
-
+#include <minimalapp.hpp>
 
 int main(int argc, char* argv[])
 {
 
     // Create default format for Qt.
     QSurfaceFormat format;
-    format.setVersion( 4, 1 );
+    format.setVersion( 4, 4 );
     format.setProfile( QSurfaceFormat::CoreProfile );
     format.setDepthBufferSize( 24 );
     format.setStencilBufferSize( 8 );
@@ -107,13 +29,13 @@ int main(int argc, char* argv[])
     QSurfaceFormat::setDefaultFormat( format );
 
     // Create app
-    LOG(logINFO) << "Creating application.";
+    LOG(logDEBUG) << "Creating application.";
     MinimalApp app(argc, argv);
-    LOG(logINFO) << "Show viewer.";
+    LOG(logDEBUG) << "Show viewer.";
     app._viewer->show();
     CORE_ASSERT( app._viewer->context()->isValid(), "OpenGL was not initialized" );
 
-    LOG(logINFO) << "Creating BlinnPhong Shader.";
+    LOG(logDEBUG) << "Creating BlinnPhong Shader.";
     // Load Blinn-Phong shader
     Ra::Engine::ShaderConfiguration bpConfig("BlinnPhong");
     bpConfig.addShader(Ra::Engine::ShaderType_VERTEX, "Shaders/BlinnPhong.vert.glsl");
@@ -121,12 +43,12 @@ int main(int argc, char* argv[])
     Ra::Engine::ShaderConfigurationFactory::addConfiguration(bpConfig);
 
     // Create one system
-    LOG(logINFO) << "Creating minimal system.";
+    LOG(logDEBUG) << "Creating minimal system.";
     Ra::Engine::System* sys = new MinimalSystem;
     app._engine->registerSystem("Minimal system", sys);
 
     // Create and initialize entity and component
-    LOG(logINFO) << "Creating an entity.";
+    LOG(logDEBUG) << "Creating an entity.";
     Ra::Engine::Entity* e = app._engine->getEntityManager()->createEntity("Cube");
     Ra::Engine::Component* c = new MinimalComponent;
     e->addComponent(c);
@@ -136,7 +58,7 @@ int main(int argc, char* argv[])
 
     // Start the app.
 
-    LOG(logINFO) << "Main loop.";
+    LOG(logDEBUG) << "Main loop.";
     app._frame_timer->start();
     return app.exec();
 }
