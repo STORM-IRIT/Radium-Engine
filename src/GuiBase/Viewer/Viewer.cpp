@@ -65,7 +65,9 @@ namespace Ra
         LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::ContextInfo::renderer();
         LOG( logINFO ) << "Vendor   (glbinding) : " << glbinding::ContextInfo::vendor();
         LOG( logINFO ) << "OpenGL   (glbinding) : " << glbinding::ContextInfo::version().toString();
+#ifndef WIN32
         LOG( logINFO ) << "GLSL                 : " << glGetString( GL_SHADING_LANGUAGE_VERSION );
+#endif
 
         // FIXME(Charly): Renderer type should not be changed here
         // m_renderers.resize( 3 );
