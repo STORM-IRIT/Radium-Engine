@@ -3,6 +3,8 @@
 
 #include <glm/glm.hpp>
 
+#include <Core/Math/LinearAlgebra.hpp>
+
 namespace Ra
 {
     namespace Core
@@ -77,6 +79,42 @@ namespace Ra
         {
             return glm::mat2x3( m.coeff( 0, 0 ), m.coeff( 0, 1 ), m.coeff( 0, 2 ),
                                 m.coeff( 1, 0 ), m.coeff( 1, 1 ), m.coeff( 1, 2 ) );
+        }
+
+        inline glm::mat3x2 toGlm( const Eigen::Matrix<Scalar, 3, 2>& m )
+        {
+            return glm::mat3x2( m.coeff( 0, 0 ), m.coeff( 0, 1 ),
+                                m.coeff( 1, 0 ), m.coeff( 1, 1 ),
+                                m.coeff( 2, 0 ), m.coeff( 2, 1 ) );
+        }
+
+        inline glm::mat2x4 toGlm( const Eigen::Matrix<Scalar, 2, 4>& m )
+        {
+            return glm::mat2x4( m.coeff( 0, 0 ), m.coeff( 0, 1 ), m.coeff( 0, 2 ), m.coeff( 0, 3 ),
+                                m.coeff( 1, 0 ), m.coeff( 1, 1 ), m.coeff( 1, 2 ), m.coeff( 1, 3 ) );
+        }
+
+        inline glm::mat4x2 toGlm( const Eigen::Matrix<Scalar, 4, 2>& m )
+        {
+            return glm::mat4x2( m.coeff( 0, 0 ), m.coeff( 0, 1 ),
+                                m.coeff( 1, 0 ), m.coeff( 1, 1 ),
+                                m.coeff( 2, 0 ), m.coeff( 2, 1 ),
+                                m.coeff( 3, 0 ), m.coeff( 3, 1 ) );
+        }
+
+        inline glm::mat3x4 toGlm( const Eigen::Matrix<Scalar, 3, 4>& m )
+        {
+            return glm::mat3x4( m.coeff( 0, 0 ), m.coeff( 0, 1 ), m.coeff( 0, 2 ), m.coeff( 0, 3 ),
+                                m.coeff( 1, 0 ), m.coeff( 1, 1 ), m.coeff( 1, 2 ), m.coeff( 1, 3 ),
+                                m.coeff( 2, 0 ), m.coeff( 2, 1 ), m.coeff( 2, 2 ), m.coeff( 2, 3 ) );
+        }
+
+        inline glm::mat4x3 toGlm( const Eigen::Matrix<Scalar, 4, 3>& m )
+        {
+            return glm::mat4x3( m.coeff( 0, 0 ), m.coeff( 0, 1 ), m.coeff( 0, 2 ),
+                                m.coeff( 1, 0 ), m.coeff( 1, 1 ), m.coeff( 1, 2 ),
+                                m.coeff( 2, 0 ), m.coeff( 2, 1 ), m.coeff( 2, 2 ),
+                                m.coeff( 3, 0 ), m.coeff( 3, 1 ), m.coeff( 3, 2 ) );
         }
     }
 }
