@@ -4,6 +4,7 @@
 #include <Engine/System/System.hpp>
 
 #include <AnimationPluginMacros.hpp>
+#include <Engine/ItemModel/ItemEntry.hpp>
 
 namespace AnimationPlugin
 {
@@ -40,6 +41,8 @@ namespace AnimationPlugin
         void toggleAnimationTimeStep( const bool status );
         void setAnimationSpeed( const Scalar value );
         void toggleSlowMotion( const bool status );
+
+        Scalar getTime(const Ra::Engine::ItemEntry& entry) const;
 
     private:
         bool m_isPlaying; /// See if animation is playing or paused

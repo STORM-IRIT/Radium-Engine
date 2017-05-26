@@ -46,4 +46,9 @@ void SignalManager::callFunctions(const std::vector<Callback>& funcs, const Item
         for (const auto& f : funcs) { f(arg); }
     }
 }
+
+    void SignalManager::fireFrameEnded() const
+    {
+        for (const auto&f :m_frameEndCallbacks) { f(); }
+    }
 }}

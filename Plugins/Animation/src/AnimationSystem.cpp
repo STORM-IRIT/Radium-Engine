@@ -135,4 +135,34 @@ namespace AnimationPlugin
             registerComponent( entity, component );
         }
     }
+
+    Scalar AnimationSystem::getTime(const Ra::Engine::ItemEntry& entry) const
+    {
+        if (entry.isValid())
+        {
+            // If entry is an existing animation component, we return this one's time
+            // if not, look for other components in this entity to see if some are animation
+            std::vector<const AnimationComponent*> comps;
+            for (const auto& ec : m_components)
+            {
+                if (ec.first == entry.m_entity)
+                {
+                    const AnimationComponent* c = static_cast< AnimationComponent*>(ec.second);
+                    // Entry match, return that one
+                    if (ec.second == c)
+                    {
+                        return c->getTime();
+                    }
+                    comps.push_back(c);
+                }
+            }
+            // If comps is not empty, it means that we have a component in current entity
+            // We just pick the first one
+            if (!comps.empty())
+            {
+                return comps[0]->getTime();
+            }
+        }
+        return 0.f;
+    }
 }
