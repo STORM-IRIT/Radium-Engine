@@ -55,6 +55,8 @@ namespace AnimationPlugin
         void setAnimation( const uint i );
 
         uint getBoneIdx(Ra::Core::Index index) const ;
+        Scalar getTime() const;
+
 
         void handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable );
         void handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data );
@@ -103,7 +105,7 @@ namespace AnimationPlugin
         const Ra::Core::Animation::WeightMatrix* getWeightsOutput() const;
         const bool*                              getWasReset() const;
         const Ra::Core::Animation::Animation* getAnimation() const;
-        const Scalar* getTime() const;
+        const Scalar* getTimeOutput() const;
 
     private:
         std::string m_contentName;
