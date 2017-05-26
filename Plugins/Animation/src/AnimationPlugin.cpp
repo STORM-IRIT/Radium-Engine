@@ -5,6 +5,8 @@
 #include <QToolBar>
 
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Managers/SignalManager/SignalManager.hpp>
+#include <GuiBase/SelectionManager/SelectionManager.hpp>
 #include <AnimationSystem.hpp>
 
 #include <UI/AnimationUI.h>
@@ -36,6 +38,10 @@ namespace AnimationPlugin
     {
         m_system = new AnimationSystem;
         context.m_engine->registerSystem( "AnimationSystem", m_system );
+        context.m_engine->getSignalManager()->m_frameEndCallbacks.push_back(
+                std::bind(&AnimationPluginC::updateAnimTime, this)
+        );
+        m_selectionManager = context.m_selectionManager;
     }
 
     bool AnimationPluginC::doAddWidget( QString &name )
@@ -131,5 +137,10 @@ namespace AnimationPlugin
 
     void AnimationPluginC::toggleSlowMotion( bool status ) {
         m_system->toggleSlowMotion( status );
+    }
+
+    void AnimationPluginC::updateAnimTime()
+    {
+        m_widget->updateTime( m_system->getTime( m_selectionManager->currentItem()));
     }
 }

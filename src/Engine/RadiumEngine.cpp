@@ -67,6 +67,7 @@ namespace Ra
         void RadiumEngine::endFrameSync()
         {
             m_entityManager->swapBuffers();
+            m_signalManager->fireFrameEnded();
         }
 
         void RadiumEngine::getTasks( Core::TaskQueue* taskQueue,  Scalar dt )

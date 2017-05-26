@@ -43,6 +43,7 @@ namespace AnimationPlugin
         virtual bool doAddAction( int& nb ) override;
         virtual QAction* getAction( int id ) override;
 
+
     public slots:
         void toggleXray( bool on );
         void toggleSkeleton( bool on );
@@ -54,11 +55,13 @@ namespace AnimationPlugin
         void toggleAnimationTimeStep( bool status );
         void setAnimationSpeed( Scalar value );
         void toggleSlowMotion( bool status );
+        void updateAnimTime();
 
     private:
         class AnimationSystem* m_system;
         AnimationUI* m_widget;
 
+        Ra::GuiBase::SelectionManager* m_selectionManager;
     };
 
 } // namespace

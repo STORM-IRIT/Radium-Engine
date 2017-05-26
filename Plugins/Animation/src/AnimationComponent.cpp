@@ -291,7 +291,7 @@ namespace AnimationPlugin
         ComponentMessenger::CallbackTypes<Animation>::Getter animOut = std::bind( &AnimationComponent::getAnimation, this );
         ComponentMessenger::getInstance()->registerOutput<Animation>(getEntity(), this, id, animOut);
 
-        ComponentMessenger::CallbackTypes<Scalar>::Getter timeOut = std::bind( &AnimationComponent::getTime, this );
+        ComponentMessenger::CallbackTypes<Scalar>::Getter timeOut = std::bind(&AnimationComponent::getTimeOutput, this );
         ComponentMessenger::getInstance()->registerOutput<Scalar>(getEntity(), this, id, timeOut);
 
     }
@@ -403,8 +403,13 @@ namespace AnimationPlugin
         return &m_animations[m_animationID];
     }
 
-    const Scalar* AnimationComponent::getTime() const
+    const Scalar* AnimationComponent::getTimeOutput() const
     {
         return &m_animationTime;
+    }
+
+    Scalar AnimationComponent::getTime() const
+    {
+        return m_animationTime;
     }
 }
