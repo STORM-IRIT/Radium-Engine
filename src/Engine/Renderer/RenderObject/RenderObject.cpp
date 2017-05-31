@@ -49,7 +49,8 @@ namespace Ra
 
         RenderObject* RenderObject::createRenderObject(const std::string& name, Component* comp,
                                                        const RenderObjectType& type, const std::shared_ptr<Mesh> &mesh,
-                                                       const ShaderConfiguration &shaderConfig, Material *material)
+                                                       const ShaderConfiguration &shaderConfig,
+                                                       const std::shared_ptr<Material>& material)
         {
             RenderObject* obj = new RenderObject(name, comp, type);
             obj->setMesh(mesh);
@@ -73,7 +74,7 @@ namespace Ra
             else
             {
                 // Lightgrey non specular material by default
-                rt->material = new Material(name + "_Mat");
+                rt->material.reset(new Material(name + "_Mat"));
                 rt->material->m_kd = Core::Color::Constant(0.9f);
                 rt->material->m_ks = Core::Color::Zero();
             }
@@ -122,7 +123,7 @@ namespace Ra
             displayMesh->addData(Mesh::VERTEX_TEXCOORD, texcoords);
             displayMesh->addData(Mesh::VERTEX_COLOR, colors);
 
-            Material* mat = new Material(name);
+            std::shared_ptr<Material> mat (new Material(name));
 
             auto m = asset->getMaterial();
 

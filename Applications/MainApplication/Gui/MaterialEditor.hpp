@@ -38,7 +38,7 @@ namespace Ra
             void changeRenderObject( Ra::Core::Index roIdx );
 
         private slots:
-            void updateMaterialViz( const Engine::Material* material );
+            void updateMaterialViz( const std::shared_ptr<Engine::Material>& material );
 
             void onKdColorChanged( int );
             void onKsColorChanged( int );
