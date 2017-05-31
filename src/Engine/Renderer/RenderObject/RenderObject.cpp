@@ -55,7 +55,7 @@ namespace Ra
             obj->setMesh(mesh);
             obj->setVisible(true);
 
-            RenderTechnique* rt = new RenderTechnique;
+            std::shared_ptr<RenderTechnique> rt(new RenderTechnique);
 
             if (shaderConfig.isComplete())
             {
@@ -278,18 +278,18 @@ namespace Ra
             return m_component;
         }
 
-        void RenderObject::setRenderTechnique( RenderTechnique* technique )
+        void RenderObject::setRenderTechnique( const std::shared_ptr<RenderTechnique>& technique )
         {
             CORE_ASSERT( technique, "Passing a nullptr as render technique" );
             m_renderTechnique = technique;
         }
 
-        const RenderTechnique* RenderObject::getRenderTechnique() const
+        std::shared_ptr<const RenderTechnique> RenderObject::getRenderTechnique() const
         {
             return m_renderTechnique;
         }
 
-        RenderTechnique* RenderObject::getRenderTechnique()
+        std::shared_ptr<RenderTechnique> RenderObject::getRenderTechnique()
         {
             return m_renderTechnique;
         }

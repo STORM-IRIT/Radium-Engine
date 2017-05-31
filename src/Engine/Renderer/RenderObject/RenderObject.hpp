@@ -96,9 +96,9 @@ namespace Ra
 
             bool isDirty() const;
 
-            void setRenderTechnique( RenderTechnique* technique );
-            const RenderTechnique* getRenderTechnique() const;
-            RenderTechnique* getRenderTechnique();
+            void setRenderTechnique( const std::shared_ptr<RenderTechnique>& technique );
+            std::shared_ptr<const RenderTechnique> getRenderTechnique() const;
+            std::shared_ptr<RenderTechnique> getRenderTechnique();
 
             void setMesh( const std::shared_ptr<Mesh>& mesh );
             std::shared_ptr<const Mesh> getMesh() const;
@@ -130,7 +130,7 @@ namespace Ra
             std::string m_name;
 
             RenderObjectType m_type;
-            RenderTechnique* m_renderTechnique;
+            std::shared_ptr<RenderTechnique> m_renderTechnique;
             std::shared_ptr<Mesh> m_mesh;
 
             mutable std::mutex m_updateMutex;
