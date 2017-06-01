@@ -1,5 +1,9 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
+#include <globjects/Shader.h>
+#include <globjects/base/File.h>
+#include <globjects/base/StringTemplate.h>
+
 #include <algorithm>
 #include <iostream>
 #include <sstream>
@@ -78,15 +82,33 @@ namespace Ra
 
         ShaderObject::~ShaderObject()
         {
-            if ( m_id != 0 )
+            /*if ( m_id != 0 )
             {
                 GL_ASSERT( glDeleteShader( m_id ) );
-            }
+            }*/
+
+            // Code inutile car les Shader globjects sont détruits via leur destructeur
         }
 
         bool ShaderObject::loadAndCompile( GLenum type, const std::string& filename, const std::set<std::string>& properties )
         {
+            globjects::File * shaderFile = new globjects::File( filename );
+
+            m_shader = new globjects::Shader( type, shaderFile );
+
             m_filename = filename;
+            m_lineerr.name = filename;
+            m_filepath = Core::StringUtils::getDirName(m_filename) + "/";
+            m_type = type;
+            m_properties = properties;
+
+            // Pas besoin de glCreateShader : fait dans ShaderResource crée dans constructeur de Shader
+
+            m_shader->compile();
+
+            return m_shader->checkCompileStatus();
+
+            /*m_filename = filename;
             m_lineerr.name = filename;
             m_filepath = Core::StringUtils::getDirName(m_filename) + "/";
             m_type = type;
@@ -113,28 +135,33 @@ namespace Ra
                 compile( shader, properties );
             }
 
-            return check();
+            return check();*/
         }
 
         bool ShaderObject::reloadAndCompile( const std::set<std::string>& properties )
         {
             bool success = false;
+
             LOG( logINFO ) << "Reloading shader " << m_filename;
+
             success = loadAndCompile( m_type, m_filename, properties );
-            if (success)
-                return success;
-            else {
+
+            if(!success)
+            {
                 LOG( logINFO ) << "Failed to reload shader" << m_filename;
-                return false;
             }
+
+            return success;
         }
 
         uint ShaderObject::getId() const
         {
-            return m_id;
+            /*return m_id;*/
+
+            return m_shader->id();
         }
 
-        std::string ShaderObject::load()
+        /*std::string ShaderObject::load()
         {
             std::string shader;
 
@@ -153,9 +180,9 @@ namespace Ra
             }
 
             return shader;
-        }
+        }*/
 
-        std::string ShaderObject::preprocessIncludes(const std::string& shader, int level, struct LineErr& lerr)
+        /*std::string ShaderObject::preprocessIncludes(const std::string& shader, int level, struct LineErr& lerr)
         {
             CORE_ERROR_IF(level < 32, "Shader inclusion depth limit reached.");
 
@@ -209,9 +236,9 @@ namespace Ra
             lerr.end = nline - 1;
 
             return result;
-        }
+        }*/
 
-        void ShaderObject::compile( const std::string& shader, const std::set<std::string>& properties )
+        /*void ShaderObject::compile( const std::string& shader, const std::set<std::string>& properties )
         {
             const char* data[3];
             data[0] = "#version 410\n";
@@ -227,9 +254,9 @@ namespace Ra
 
             GL_ASSERT( glShaderSource( m_id, 3, data, nullptr ) );
             GL_ASSERT( glCompileShader( m_id ) );
-        }
+        }*/
 
-        bool ShaderObject::check()
+        /*bool ShaderObject::check()
         {
             GLint ok;
             std::stringstream error;
@@ -252,9 +279,9 @@ namespace Ra
                 }
             }
             return (ok != 0);
-        }
+        }*/
 
-        bool ShaderObject::parseFile( const std::string& filename, std::string& content )
+        /*bool ShaderObject::parseFile( const std::string& filename, std::string& content )
         {
             std::ifstream ifs( filename.c_str(), std::ios::in );
             if ( !ifs )
@@ -268,7 +295,7 @@ namespace Ra
 
             ifs.close();
             return true;
-        }
+        }*/
 
         ShaderProgram:: ShaderProgram()
             : m_linked(false)
@@ -339,18 +366,18 @@ namespace Ra
             m_shaderStatus[type]  = status;
         }
 
-        bool ShaderObject::lineInside(const struct LineErr* node, uint line) const
+        /*bool ShaderObject::lineInside(const struct LineErr* node, uint line) const
         {
             return (node->start <= line) && (node->end >= line);
-        }
+        }*/
 
-        std::string ShaderObject::lineFind(uint line) const
+        /*std::string ShaderObject::lineFind(uint line) const
         {
             // just a wrapper to keep lineerr hidden
             return lineFind(&m_lineerr, line);
-        }
+        }*/
 
-        std::string ShaderObject::lineFind(const struct LineErr* node, uint line) const
+        /*std::string ShaderObject::lineFind(const struct LineErr* node, uint line) const
         {
             // first of all check if we can find line in this chunk (should never e)
             if (! lineInside(node, line))
@@ -392,16 +419,16 @@ namespace Ra
                 return node->name + " (bad line)";
                 break;
             }
-        }
+        }*/
 
-        uint ShaderObject::lineParseGLMesg(const std::string& msg) const
+        /*uint ShaderObject::lineParseGLMesg(const std::string& msg) const
         {
             uint errline = 0;
             sscanf(msg.c_str(), "%*s\n %*s 0(%u) ", &errline);
             return errline;
-        }
+        }*/
 
-        void ShaderObject::linePrint(const LineErr *node, uint level) const
+        /*void ShaderObject::linePrint(const LineErr *node, uint level) const
         {
             for (uint i = 1; i-1 < level; ++i)
                   std::cout << "  ";
@@ -420,7 +447,7 @@ namespace Ra
             {
                 linePrint(&sub, level+1);
             }
-        }
+        }*/
 
         GLenum ShaderProgram::getTypeAsGLEnum(ShaderType type) const
         {
