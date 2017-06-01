@@ -72,6 +72,10 @@ namespace Ra
             template <typename T>
             inline constexpr T saturate( T v );
 
+            /// Returns the linear interpolation between a and b
+            template <typename T>
+            inline constexpr T lerp( const T& a, const T&b, Scalar t);
+
         } // namespace Math
     }
 }
