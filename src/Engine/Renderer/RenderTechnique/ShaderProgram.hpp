@@ -55,21 +55,6 @@ namespace Ra
 
             uint getId() const;
 
-            // return an error message with wrong file and line - offset
-            std::string lineFind(uint line) const;
-
-        private:
-            /*bool parseFile( const std::string& filename, std::string& content );*/
-            /*std::string load();*/
-            /// @param level Prevent cyclic includes
-            /*std::string preprocessIncludes(const std::string& shader, int level, struct LineErr& lerr);*/
-            /*void compile( const std::string& shader, const std::set<std::string>& properties );*/
-            /*bool check();*/
-            /*bool lineInside(const struct LineErr* node, uint line) const;*/
-            /*uint lineParseGLMesg(const std::string& msg) const;*/
-            /*void linePrint(const struct LineErr* node, uint level = 0) const;*/
-            /*std::string lineFind(const struct LineErr* node, uint line) const;*/
-
         public:
             bool m_attached;
 
