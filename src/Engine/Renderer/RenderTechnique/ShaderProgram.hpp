@@ -13,6 +13,12 @@
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
+namespace globjects
+{
+    class File;
+    class Shader;
+}
+
 namespace Ra
 {
     namespace Engine
@@ -53,16 +59,16 @@ namespace Ra
             std::string lineFind(uint line) const;
 
         private:
-            bool parseFile( const std::string& filename, std::string& content );
-            std::string load();
+            /*bool parseFile( const std::string& filename, std::string& content );*/
+            /*std::string load();*/
             /// @param level Prevent cyclic includes
-            std::string preprocessIncludes(const std::string& shader, int level, struct LineErr& lerr);
-            void compile( const std::string& shader, const std::set<std::string>& properties );
-            bool check();
-            bool lineInside(const struct LineErr* node, uint line) const;
-            uint lineParseGLMesg(const std::string& msg) const;
-            void linePrint(const struct LineErr* node, uint level = 0) const;
-            std::string lineFind(const struct LineErr* node, uint line) const;
+            /*std::string preprocessIncludes(const std::string& shader, int level, struct LineErr& lerr);*/
+            /*void compile( const std::string& shader, const std::set<std::string>& properties );*/
+            /*bool check();*/
+            /*bool lineInside(const struct LineErr* node, uint line) const;*/
+            /*uint lineParseGLMesg(const std::string& msg) const;*/
+            /*void linePrint(const struct LineErr* node, uint level = 0) const;*/
+            /*std::string lineFind(const struct LineErr* node, uint line) const;*/
 
         public:
             bool m_attached;
@@ -74,6 +80,8 @@ namespace Ra
             GLenum m_type;
             std::set<std::string> m_properties;
             LineErr m_lineerr;
+
+            globjects::Shader * m_shader;
         };
 
         class RA_ENGINE_API ShaderProgram
