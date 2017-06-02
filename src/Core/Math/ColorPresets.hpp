@@ -112,6 +112,20 @@ namespace Ra{
                 return (uint32_t(scaled[3])<<24) | (uint32_t(scaled[0])<<16) |(uint32_t(scaled[1])<<8) |(uint32_t(scaled[2])<<0);
             }
 
+            template <typename C = Color>
+            inline std::vector<C> scatter( const uint size, const Scalar gamma ) {
+                std::vector<C> color(size);
+                if( size > 1 )
+                for( uint i = 0; i < size; ++i ) {
+                    color[i] = fromHSV( (Scalar(i)/Scalar(size-1)) * 0.777 );
+                    color[i] = ( color[i] + C::Constant(gamma) ) * 0.5;
+                }
+                else {
+                    color[0] = Red();
+                }
+                std::random_shuffle( color.begin(), color.end() );
+                return color;
+            }
         }
     }
 }
