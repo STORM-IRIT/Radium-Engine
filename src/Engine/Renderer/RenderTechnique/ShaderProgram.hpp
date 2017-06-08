@@ -7,6 +7,7 @@
 #include <string>
 #include <array>
 #include <list>
+#include <memory>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
@@ -17,6 +18,7 @@ namespace globjects
 {
     class File;
     class Shader;
+    class NamedString;
 }
 
 namespace Ra
@@ -48,25 +50,22 @@ namespace Ra
             ~ShaderObject();
 
             bool loadAndCompile( GLenum type,
-                                 const std::string& filename,
-                                 const std::set<std::string>& properties );
+                                 const std::string& filename );
 
-            bool reloadAndCompile( const std::set<std::string>& properties );
+            bool reloadAndCompile();
 
             uint getId() const;
+
+            globjects::Shader * getShaderObject();
 
         public:
             bool m_attached;
 
         private:
-            uint m_id;
             std::string m_filename;
-            std::string m_filepath;
             GLenum m_type;
-            std::set<std::string> m_properties;
-            LineErr m_lineerr;
 
-            globjects::Shader * m_shader;
+            std::unique_ptr<globjects::Shader> m_shader;
         };
 
         class RA_ENGINE_API ShaderProgram

@@ -1,7 +1,9 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 #include <globjects/Shader.h>
+#include <globjects/Program.h>
 #include <globjects/base/File.h>
+#include <globjects/NamedString.h>
 #include <globjects/base/StringTemplate.h>
 
 #include <algorithm>
@@ -76,10 +78,8 @@ namespace Ra
 
         ShaderObject::ShaderObject()
             : m_attached(false)
-            , m_id(0)
         {
-            m_lineerr.start = 1;
-            m_lineerr.end   = 1;
+            m_shader.reset( nullptr );
         }
 
         ShaderObject::~ShaderObject()
@@ -87,30 +87,57 @@ namespace Ra
 
         }
 
-        bool ShaderObject::loadAndCompile( GLenum type, const std::string& filename, const std::set<std::string>& properties )
+        bool ShaderObject::loadAndCompile( GLenum type, const std::string& filename )
         {
-            globjects::File * shaderFile = new globjects::File( filename );
+            std::unique_ptr<globjects::AbstractStringSource> shaderSource = globjects::Shader::sourceFromFile( filename );
+            std::unique_ptr<globjects::AbstractStringSource> shaderTemplate = globjects::Shader::applyGlobalReplacements( shaderSource.get() );
 
-            m_shader = new globjects::Shader( type, shaderFile );
+            globjects::NamedString::create( "Structs.glsl", new globjects::File( "/export/home/ingres/locussol/Radium-Engine/Radium-Engine/Shaders/Structs.glsl" ) );
+
+            m_shader.reset( new globjects::Shader( type, shaderTemplate.get() ) );
+
+            /*LOG(logDEBUG) << "Filename : " << filename;
+            LOG(logDEBUG) << "ID : " << m_shader->id();*/
+
+            m_shader->setName( filename );
+
+            m_shader->updateSource();
+            m_shader->compile();
 
             m_filename = filename;
-            m_lineerr.name = filename;
-            m_filepath = Core::StringUtils::getDirName(m_filename) + "/";
             m_type = type;
-            m_properties = properties;
 
-            m_shader->compile();
+            ///////
+
+            /*std::unique_ptr<globjects::AbstractStringSource> shaderStringSource = globjects::Shader::sourceFromFile( "Shaders/Default.vert.glsl" );
+            std::unique_ptr<globjects::AbstractStringSource> shaderStringTemplate = globjects::Shader::applyGlobalReplacements( shaderStringSource.get() );
+            std::unique_ptr<globjects::Shader> shaderTest = globjects::Shader::create( GL_VERTEX_SHADER, shaderStringTemplate.get() );
+
+            bool status = shaderTest->compile();
+
+            if( status )
+            {
+                std::cout << "SHADER TEST COMPILATION SUCCESS" << std::endl;
+            }
+            else
+            {
+                std::cout << "SHADER TEST COMPILATION FAILURE" << std::endl;
+            }
+
+            std::cout << "SHADER TEST ID : " << shaderTest->id() << std::endl;*/
+
+            ///////
 
             return m_shader->checkCompileStatus();
         }
 
-        bool ShaderObject::reloadAndCompile( const std::set<std::string>& properties )
+        bool ShaderObject::reloadAndCompile()
         {
-            bool success = false;
+            bool success;
 
             LOG( logINFO ) << "Reloading shader " << m_filename;
 
-            success = loadAndCompile( m_type, m_filename, properties );
+            success = loadAndCompile( m_type, m_filename );
 
             if(!success)
             {
@@ -124,6 +151,11 @@ namespace Ra
         uint ShaderObject::getId() const
         {
             return m_shader->id();
+        }
+
+        globjects::Shader * ShaderObject::getShaderObject()
+        {
+            return m_shader.get();
         }
 
         ShaderProgram:: ShaderProgram()
@@ -166,7 +198,6 @@ namespace Ra
         {
             return m_shaderId;
         }
-
         bool ShaderProgram::isOk() const
         {
             bool ok = true;
@@ -190,7 +221,7 @@ namespace Ra
             }
     #endif
             ShaderObject* shader = new ShaderObject;
-            bool status = shader->loadAndCompile(getTypeAsGLEnum(type), name, props);
+            bool status = shader->loadAndCompile(getTypeAsGLEnum(type), name);
             m_shaderObjects[type] = shader;
             m_shaderStatus[type]  = status;
         }
@@ -236,14 +267,17 @@ namespace Ra
 
         void ShaderProgram::link()
         {
-            if (! isOk())
-                return;
-
-            for (int i=0; i < ShaderType_COUNT; ++i)
+            if ( !isOk() )
             {
-                if (m_shaderObjects[i])
+                return;
+            }
+
+            for ( int i=0; i < ShaderType_COUNT; ++i )
+            {
+                if ( m_shaderObjects[i] )
                 {
-                    GL_ASSERT( glAttachShader( m_shaderId, m_shaderObjects[i]->getId() ) );
+                    std::cout << "ProgID : " << m_shaderId << ", ShaderID : " << m_shaderObjects[i]->getShaderObject()->id() << std::endl;
+                    GL_ASSERT( glAttachShader( m_shaderId, m_shaderObjects[i]->getShaderObject()->id() ) );
                     m_shaderObjects[i]->m_attached = true;
                 }
             }
@@ -252,7 +286,8 @@ namespace Ra
             GL_ASSERT( glLinkProgram( m_shaderId ) );
 
             auto log = getProgramInfoLog(m_shaderId);
-            if (log.size() > 0)
+
+            if ( log.size() > 0 )
             {
                 LOG(logINFO) << "Shader name : " << m_configuration.m_name;
                 LOG(logINFO) << log;
@@ -278,7 +313,7 @@ namespace Ra
                 if ( m_shaderObjects[i] != nullptr )
                 {
                     GL_ASSERT( glDetachShader( m_shaderId, m_shaderObjects[i]->getId() ) );
-                    m_shaderObjects[i]->reloadAndCompile( m_configuration.getProperties() );
+                    m_shaderObjects[i]->reloadAndCompile();
                 }
             }
 
