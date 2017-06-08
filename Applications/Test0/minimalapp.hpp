@@ -32,19 +32,19 @@ public slots:
 
 public:
     // Our instance of the engine
-    std::unique_ptr<Ra::Engine::RadiumEngine> _engine;
+    std::unique_ptr<Ra::Engine::RadiumEngine> m_engine;
 
     // Task queue
-    std::unique_ptr<Ra::Core::TaskQueue> _task_queue;
+    std::unique_ptr<Ra::Core::TaskQueue> m_task_queue;
 
     // Pointer to Qt/OpenGL Viewer widget.
-    std::unique_ptr<Ra::Gui::Viewer>  _viewer;
+    std::unique_ptr<Ra::Gui::Viewer>  m_viewer;
 
     // Timer to wake us up at every frame start.
-    QTimer* _frame_timer;
+    QTimer* m_frame_timer;
 
     // Our framerate
-    uint _target_fps;
+    uint m_target_fps;
 
 }; // end class
 

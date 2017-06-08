@@ -12,8 +12,14 @@ namespace Ra
 {
     namespace Gui
     {
-        /* TODO : Mathias -- Beuurk. Creating gizmos by default implies that all applications developped on top of the engine will have them.
-         * This is not a good idea. Applications mus be able to define and create their their own gizmos */
+        /*
+         * TODO : Mathias -- Beuurk. Creating gizmos by default implies that all
+         * applications developped on top of the engine will have them.
+         * This is not a good idea. Applications mus be able to define and
+         * create their their own gizmos
+         *
+         * \see issue #194
+         */
         GizmoManager::GizmoManager(QObject* parent)
                 : QObject(parent)
                 , m_currentGizmoType(NONE), m_mode(Gizmo::GLOBAL)

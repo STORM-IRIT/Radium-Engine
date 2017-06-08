@@ -5,7 +5,7 @@ uniform int drawFixedSize;
 
 void main()
 {
-    // FIXME(Charly): Do we want to check alpha value of objects to perform picking ? 
+    // FIXME(Charly): Do we want to check alpha value of objects to perform picking ?
     /*
     if (material.tex.hasAlpha == 1)
     {
@@ -15,7 +15,7 @@ void main()
             discard;
         }
     }
-	*/
+        */
 
     fragId.r = objectId;
 }

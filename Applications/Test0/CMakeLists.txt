@@ -47,5 +47,5 @@ target_link_libraries( ${app_target} # target
 )
 
 if (MSVC)
-	set_property( TARGET ${app_target} PROPERTY IMPORTED_LOCATION "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin" )
+    set_property( TARGET ${app_target} PROPERTY IMPORTED_LOCATION "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin" )
 endif(MSVC)

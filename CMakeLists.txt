@@ -3,7 +3,19 @@ project(RadiumEngine)
 cmake_minimum_required(VERSION 2.8.11)
 
 if (APPLE)
-cmake_policy(SET CMP0042 NEW)
+# CMake 2.8.12 and newer has support for using @rpath in a target’s install
+# name. This was enabled by setting the target property MACOSX_RPATH. The
+# @rpath in an install name is a more flexible and powerful mechanism than
+# @executable_path or @loader_path for locating shared libraries.
+
+# CMake 3.0 and later prefer this property to be ON by default. Projects wanting
+# @rpath in a target’s install name may remove any setting of the
+# INSTALL_NAME_DIR and CMAKE_INSTALL_NAME_DIR variables.
+
+# This policy was introduced in CMake version 3.0. CMake version 3.0.2 warns
+# when the policy is not set and uses OLD behavior. Use the cmake_policy command
+# to set it to OLD or NEW explicitly.
+    cmake_policy(SET CMP0042 NEW)
 endif(APPLE)
 
 # CMake setups
@@ -99,7 +111,6 @@ add_subdirectory(src)
 #   Applications
 #   Set Base directories for dependencies
 
-set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
 add_subdirectory(Applications)
 
 

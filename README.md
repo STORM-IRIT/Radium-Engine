@@ -4,7 +4,7 @@ Coolest engine ever made #yolo #swag
 See [this presentation](https://docs.google.com/presentation/d/12W2KXY7ctJXFIelmgNEn7obiBv_E4bmcMl3mXeJPVgc/edit?usp=sharing)
 for an overview of the project.
 
-## Dependencies 
+## Dependencies
 * Eigen 3.3 (as submodule )
 * Assimp 3.2 (as submodule in repository)
 * glbinding (as submodule in repository)
@@ -23,7 +23,7 @@ The following platforms and tool chains have been tested and should work :
 
 ## Build instructions
 
-### Getting submodules 
+### Getting submodules
 Eigen, Assimp, glbinding are submodules : you can get them by running these two commands
 ```
 $ git submodule init
@@ -70,18 +70,18 @@ $ make
 
 #### Supported versions of MSVC
 Since Radium requires:
-* the C++11/C++14 advanced features such as `constexpr`, 
+* the C++11/C++14 advanced features such as `constexpr`,
 * cmake built-in support
 
-you will need a recent MSVC (2015 minimum).
+you will need a recent MSVC (2017 minimum).
 We tested our code with *VS 2017 Community* (https://www.visualstudio.com/products/visual-studio-community-vs), with the *CMake Tools for Visual Studio* extension.
 
 See general instruction on cmake for Visual Studio here: https://blogs.msdn.microsoft.com/vcblog/2016/10/05/cmake-support-in-visual-studio/
 
- 
+
 #### Dependencies
 
-*Qt* distributes version 5.6 with precompiled libraries for VS 2015 - 64 bits. 
+*Qt* distributes version 5.6 with precompiled libraries for VS 2015 - 64 bits.
 If using earlier versions of Qt (5.4 or 5.5)  or a different toolset you may have to compile Qt yourself.
 You will probaby have to manually point cmake to the Qt folder (see Troubleshooting below)
 
@@ -91,9 +91,10 @@ Other dependencies (Eigen, Assimp and glbinding) are included as a submodule in 
 
 Thanks to the integrated support of CMake in Visual Studio, you don't need a VS solution to build your project: open the Radium folder (via *File* > *Open* > *Folder ...* or `devenv.exe <foldername>`).
 VS should run cmake, generate the target builds (Debug and Release by default).
+Other build types can be added by editing `CMakeSettings.json`.
 
 You may have Cmake errors occuring at the first run (see Troubleshooting section below).
-To fix them, you need to edit the VS-specific file `CMakeSettings.json`, via *CMake* > *Change CMake Settings* > path-to-CMakeLists (configuration-name) from the main menu. 
+To fix them, you need to edit the VS-specific file `CMakeSettings.json`, via *CMake* > *Change CMake Settings* > path-to-CMakeLists (configuration-name) from the main menu.
 For instance, it usually requires to set cmake build types manually, and to give path to Qt libraries.
 To fix it, edit `CMakeSettings.json`, such that
 ```
@@ -116,14 +117,14 @@ Right click on CMakeList.txt > build > all.
 
 #### Run
 
-Assimp and GlBinding libs need to be manually copied in the bin directory (FIXME).
+Assimp and GlBinding DLLs need to be manually copied in the bin directory (FIXME).
 
 ### Building with QtCreator
 
 QtCreator is supported on Windows, MacOS and Linux.
 No specific requirement here, just open Radium-Engine CMake project and enjoy !
 
-## Troubleshooting 
+## Troubleshooting
 
 ### Qt cmake errors
 In case you run into an error like
@@ -138,10 +139,10 @@ For example on linux with gcc :
 $ cmake -DCMAKE_PREFIX_PATH=/opt/Qt/5.x/gcc_64
 ```
 
-On windows, using cmake-gui you can use the "add entry" button, adding `CMAKE_PREFIX_PATH` 
+On windows, using cmake-gui you can use the "add entry" button, adding `CMAKE_PREFIX_PATH`
 as a string to point to the Qt directory (for example in the default installation :
 `C:/Qt/5.6/msvc2015_64` )
 
 ## Documentation
-For more documentation about the engine (how to develop a plugin, 
+For more documentation about the engine (how to develop a plugin,
 how renderer works, how to setup a scene file, ...), please refer to the Docs/ folder.

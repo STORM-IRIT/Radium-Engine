@@ -1,9 +1,14 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
 /**
- * @todo : make default shader configuration/default shader programm usable outside of the main radium distribution or
- * find a way to ensure that "plain.glsl.*" is always reachable (and change the name of this.
- * @see TranslateGizmo and RotateGizmo that explicitely try to load the shaer "Plain" that is main-app dependant!
+ * @todo : make default shader configuration/default shader programm usable
+ * outside of the main radium distribution or
+ * find a way to ensure that "plain.glsl.*" is always reachable
+ * (and change the name of this).
+ * @see TranslateGizmo and RotateGizmo that explicitely try to load the shader
+ * "Plain" that is main-app dependant!
+ *
+ * \see issue #194
  */
 
 #if 0

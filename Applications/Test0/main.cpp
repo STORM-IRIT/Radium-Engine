@@ -32,8 +32,8 @@ int main(int argc, char* argv[])
     LOG(logDEBUG) << "Creating application.";
     MinimalApp app(argc, argv);
     LOG(logDEBUG) << "Show viewer.";
-    app._viewer->show();
-    CORE_ASSERT( app._viewer->context()->isValid(), "OpenGL was not initialized" );
+    app.m_viewer->show();
+    CORE_ASSERT( app.m_viewer->context()->isValid(), "OpenGL was not initialized" );
 
     LOG(logDEBUG) << "Creating BlinnPhong Shader.";
     // Load Blinn-Phong shader
@@ -45,11 +45,11 @@ int main(int argc, char* argv[])
     // Create one system
     LOG(logDEBUG) << "Creating minimal system.";
     Ra::Engine::System* sys = new MinimalSystem;
-    app._engine->registerSystem("Minimal system", sys);
+    app.m_engine->registerSystem("Minimal system", sys);
 
     // Create and initialize entity and component
     LOG(logDEBUG) << "Creating an entity.";
-    Ra::Engine::Entity* e = app._engine->getEntityManager()->createEntity("Cube");
+    Ra::Engine::Entity* e = app.m_engine->getEntityManager()->createEntity("Cube");
     Ra::Engine::Component* c = new MinimalComponent;
     e->addComponent(c);
     sys->registerComponent(e, c);
@@ -59,6 +59,6 @@ int main(int argc, char* argv[])
     // Start the app.
 
     LOG(logDEBUG) << "Main loop.";
-    app._frame_timer->start();
+    app.m_frame_timer->start();
     return app.exec();
 }

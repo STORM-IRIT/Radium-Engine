@@ -30,7 +30,7 @@ namespace Ra
             RA_ENGINE_API void updateGL();
             bool shaderIsDirty;
 
-			RA_ENGINE_API ShaderConfiguration getBasicConfiguration() const;
+            RA_ENGINE_API ShaderConfiguration getBasicConfiguration() const;
 
         };
 

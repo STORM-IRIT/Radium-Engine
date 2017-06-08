@@ -65,5 +65,5 @@ add_dependencies( ${app_target} radiumEngine radiumGuiBase radiumCore radium_ass
 if (MSVC)
     #This will work from CMake 3.6
     set_property( DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${app_target})
-	set_property( TARGET ${app_target} PROPERTY IMPORTED_LOCATION "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin" )
+    set_property( TARGET ${app_target} PROPERTY IMPORTED_LOCATION "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin" )
 endif(MSVC)

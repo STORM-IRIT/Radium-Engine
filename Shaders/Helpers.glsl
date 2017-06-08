@@ -44,7 +44,7 @@ vec3 getNormal()
     }
 
     //return vec3(normalize(in_normal));
-	return normalize(in_normal);
+    return normalize(in_normal);
 }
 
 bool toDiscard()

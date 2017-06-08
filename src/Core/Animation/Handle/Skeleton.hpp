@@ -34,10 +34,10 @@ public:
     virtual void clear() override;  // Empty the data of the skeleton
 
     /// SPACE INTERFACE
-    virtual const Pose&		getPose( const SpaceType MODE ) const override;                                  // Return the pose in MODE space
-    virtual void       		setPose( const Pose& pose, const SpaceType MODE ) override;                      // Set the MODE space pose
+    virtual const Pose&      getPose( const SpaceType MODE ) const override;                                  // Return the pose in MODE space
+    virtual void             setPose( const Pose& pose, const SpaceType MODE ) override;                      // Set the MODE space pose
     virtual const Transform& getTransform( const uint i, const SpaceType MODE ) const override;               // Return the i-th transform matrix of the pose in MODE space
-    virtual void       		setTransform( const uint i, const Transform& T, const SpaceType MODE ) override; // Set the i-th transform of the MODE space pose
+    virtual void             setTransform( const uint i, const Transform& T, const SpaceType MODE ) override; // Set the i-th transform of the MODE space pose
 
     void getBonePoints( uint i, Vector3& startOut, Vector3& endOut ) const;
 
