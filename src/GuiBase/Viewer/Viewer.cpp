@@ -62,7 +62,9 @@ namespace Ra
 
     void Gui::Viewer::initializeGL()
     {
-        glbinding::Binding::initialize(false); // only resolve functions that are actually used (lazy)
+        //glbinding::Binding::initialize(false); // only resolve functions that are actually used (lazy)
+        globjects::init(); // globjects initializes glbinding internally
+
         LOG( logINFO ) << "*** Radium Engine Viewer ***";
         LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::ContextInfo::renderer();
         LOG( logINFO ) << "Vendor   (glbinding) : " << glbinding::ContextInfo::vendor();
