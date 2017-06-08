@@ -27,10 +27,10 @@ include_directories(
 
 
 # Get files
-#file( GLOB file_sources *.cpp *.c )
-#file( GLOB file_headers *.hpp *.h )
-file( GLOB file_sources main.cpp minimalradium.cpp)
-file( GLOB file_headers minimalradium.hpp)
+file( GLOB file_sources *.cpp *.c )
+file( GLOB file_headers *.hpp *.h )
+#file( GLOB file_sources main.cpp minimalradium.cpp)
+#file( GLOB file_headers minimalradium.hpp)
 
 
 # Generate an executable
@@ -45,3 +45,7 @@ target_link_libraries( ${app_target} # target
     ${GLBINDING_LIBRARIES}           # Radium dep
     ${Qt5_LIBRARIES}                 # the Qt beast
 )
+
+if (MSVC)
+    set_property( TARGET ${app_target} PROPERTY IMPORTED_LOCATION "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin" )
+endif(MSVC)

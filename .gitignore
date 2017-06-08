@@ -41,6 +41,7 @@
 .idea/
 \#*\#
 .\#*\#
+.vs
 
 # Binary asset files
 *.obj
@@ -79,6 +80,8 @@ lib/rel
 bin/
 lib/
 include/
+Bundle*/
+build*/
 
 # Mercurial stuff (e.g from Eigen)
 .hg*

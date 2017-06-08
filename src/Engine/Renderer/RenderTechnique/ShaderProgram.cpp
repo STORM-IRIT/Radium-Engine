@@ -1,5 +1,5 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
-
+#include <Core/Log/Log.hpp>
 #include <algorithm>
 #include <iostream>
 #include <sstream>

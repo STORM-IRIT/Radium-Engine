@@ -3,7 +3,19 @@ project(RadiumEngine)
 cmake_minimum_required(VERSION 2.8.11)
 
 if (APPLE)
-cmake_policy(SET CMP0042 NEW)
+# CMake 2.8.12 and newer has support for using @rpath in a target’s install
+# name. This was enabled by setting the target property MACOSX_RPATH. The
+# @rpath in an install name is a more flexible and powerful mechanism than
+# @executable_path or @loader_path for locating shared libraries.
+
+# CMake 3.0 and later prefer this property to be ON by default. Projects wanting
+# @rpath in a target’s install name may remove any setting of the
+# INSTALL_NAME_DIR and CMAKE_INSTALL_NAME_DIR variables.
+
+# This policy was introduced in CMake version 3.0. CMake version 3.0.2 warns
+# when the policy is not set and uses OLD behavior. Use the cmake_policy command
+# to set it to OLD or NEW explicitly.
+    cmake_policy(SET CMP0042 NEW)
 endif(APPLE)
 
 # CMake setups
@@ -24,12 +36,13 @@ endif()
 
 
 # These paths need to be synchronized with FindRadium.cmake
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/bin)
-set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/lib)
-set(RADIUM_SUBMODULES_INSTALL_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries)
+set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
 
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin)
+set(EXECUTABLE_OUTPUT_PATH         ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/lib)
 
 # get changeset id
 find_package(Git)
@@ -73,13 +86,13 @@ if (MSVC OR MSVC_IDE)
 
     # Copy libs / targets in the correct directories
     if ("${CMAKE_GENERATOR}" STREQUAL "NMake Makefiles")
-        set(PDB_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/bin)
+        set(PDB_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
     else()
         foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
             string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG)
-            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/bin)
-            set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/lib)
-            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/lib)
+            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+            set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
         endforeach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     endif()
 endif(MSVC OR MSVC_IDE)
@@ -91,18 +104,12 @@ include(SubModules)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Main Libraries
-set( CMAKE_DEBUG_POSTFIX "" )
-set( OMIT_MAIN_APP False CACHE BOOL "Choose to build or not the main radium application" )
 
 add_subdirectory(src)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Applications
 #   Set Base directories for dependencies
-# use Eigen version included in the Radium distribution, not the system-wide installed if available
-
-#set (EIGEN3_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY})
-#set (GLBINDING_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY})
 
 add_subdirectory(Applications)
 
@@ -119,23 +126,25 @@ add_subdirectory(Plugins)
 
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
-  set (RADIUM_PROJECT_NUMBER ${GIT_CHANGESET})
 
-  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+  set (RADIUM_PROJECT_NUMBER ${GIT_CHANGESET})
+  set (RADIUM_DOC_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/Docs)
+
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile.in ${RADIUM_BUNDLE_DIRECTORY}/Doxyfile @ONLY)
 
   add_custom_target(doc
-     ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/Docs
+     ${CMAKE_COMMAND} -E make_directory ${RADIUM_DOC_DIRECTORY}
      COMMAND ${CMAKE_COMMAND} -E copy_directory
        ${CMAKE_CURRENT_SOURCE_DIR}/Docs/images/
-       ${CMAKE_CURRENT_BINARY_DIR}/Docs/html/images
+       ${RADIUM_DOC_DIRECTORY}/html/images
      COMMAND ${CMAKE_COMMAND} -E copy
        ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG
-       ${CMAKE_CURRENT_BINARY_DIR}/Docs/
-     COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+       ${RADIUM_BUNDLE_DIRECTORY}/
+     COMMAND ${DOXYGEN_EXECUTABLE} ${RADIUM_BUNDLE_DIRECTORY}/Doxyfile
      DEPENDS
        ${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile.in
        ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG
-     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+     WORKING_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}
      COMMENT "Generating API documentation with Doxygen" VERBATIM
   )
 endif(DOXYGEN_FOUND)

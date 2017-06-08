@@ -4,7 +4,7 @@ Coolest engine ever made #yolo #swag
 See [this presentation](https://docs.google.com/presentation/d/12W2KXY7ctJXFIelmgNEn7obiBv_E4bmcMl3mXeJPVgc/edit?usp=sharing)
 for an overview of the project.
 
-## Dependencies 
+## Dependencies
 * Eigen 3.3 (as submodule )
 * Assimp 3.2 (as submodule in repository)
 * glbinding (as submodule in repository)
@@ -17,18 +17,37 @@ for an overview of the project.
 
 The following platforms and tool chains have been tested and should work :
 
-* *Windows* : MSVC 2015 or higher, MinGW-32 4.9.2 or higher (with Qt Creator).
+* *Windows* : MSVC 2017 with cmake support, MinGW-32 4.9.2 or higher (with Qt Creator).
 * *Mac OSX* : gcc 5 or higher, Apple clang
 * *Linux* : gcc 5 or higher, clang
 
 ## Build instructions
 
-### Getting submodules 
+### Getting submodules
 Eigen, Assimp, glbinding are submodules : you can get them by running these two commands
 ```
 $ git submodule init
 $ git submodule update
 ```
+### Folder structure
+Radium-Engine relies on CMake buildchain on all supported platforms.
+In most cases, building should be pretty straightforward, provided that cmake can locate the dependencies.
+You will need to have the openGL headers and libraries, Qt 5.4 or more and cmake.
+If cmake doesn't locate the Qt files (e.g. if you manually installed Qt as opposed to using your distribution's package),
+see the troubleshooting section below.
+
+See plateform-dependent instructions for detailled how-to.
+
+Build output is generated in the `Radium-Engine/Bundle-*` directory (with `*` the name of the CXX compiler), with the following structure:
+```
+Bundle-*
+  - 3rdPartyLibraries
+  - Debug: bin/, lib/
+  - Release: bin/, lib/
+  - ...  #other build types if any (generated at compile time)
+```
+`3rdPartyLibraries` are always compiled in `Release` mode.
+Plugins are generated in `bin/Plugins`.
 
 ### Configure build
 
@@ -36,10 +55,9 @@ Radium offers two build options which are off by default :
 * `USE_DOUBLE` sets the floating point format to double-precision instead of single precisition
 * `USE_OMP` instructs the compiler to use OpenMP
 
-###  Building on Linux
+###  Building on Linux/MacOS (command line instruction)
 
-Building on linux should be pretty straightforward, provided that cmake can locate the dependencies.
-You will need to have the openGL headers and libraries, Qt 5.4 or more and cmake.
+Out-of source builds are mandatory, we recommand to follow the usual sequence:
 
 ```
 $ mkdir build
@@ -48,62 +66,65 @@ $ cmake ..
 $ make
 ```
 
-If cmake doesn't locate the Qt files (e.g. if you manually installed Qt as opposed to using your distribution's package),
-see the troubleshooting section below.
-
-The compiled application can be found in `bin`. Default plugins DLL are compiled in
-`Plugins/bin` by default.
-
-### Building on Windows with Visual Studio
+### Building on Microsoft Windows with Visual Studio
 
 #### Supported versions of MSVC
-Since Radium requires the C++11/C++14 advanced features such as `constexpr`, you will need a recent MSVC
-* *VS 2015 Community* is strongly advised (https://www.visualstudio.com/products/visual-studio-community-vs)
-* *VS 2013* with the november 2013 CTP (corrective patch)  should work, but is untested.
-[https://www.microsoft.com/en-us/download/confirmation.aspx?id=41151]
- 
+Since Radium requires:
+* the C++11/C++14 advanced features such as `constexpr`,
+* cmake built-in support
+
+you will need a recent MSVC (2017 minimum).
+We tested our code with *VS 2017 Community* (https://www.visualstudio.com/products/visual-studio-community-vs), with the *CMake Tools for Visual Studio* extension.
+
+See general instruction on cmake for Visual Studio here: https://blogs.msdn.microsoft.com/vcblog/2016/10/05/cmake-support-in-visual-studio/
+
+
 #### Dependencies
 
-*Qt* distributes version 5.6 with precompiled libraries for VS 2015 - 64 bits. 
+*Qt* distributes version 5.6 with precompiled libraries for VS 2015 - 64 bits.
 If using earlier versions of Qt (5.4 or 5.5)  or a different toolset you may have to compile Qt yourself.
 You will probaby have to manually point cmake to the Qt folder (see Troubleshooting below)
 
-Eigen : included as a submodule in the git repository.
-Assimp : included as a submodule in the git repository.
-glbinding : included as a submodule in the git repository.
+Other dependencies (Eigen, Assimp and glbinding) are included as a submodule in the git repository.
 
-#### Building
+#### Getting started with Visual Studio
 
-As long as cmake run smoothly the engine should compile.
+Thanks to the integrated support of CMake in Visual Studio, you don't need a VS solution to build your project: open the Radium folder (via *File* > *Open* > *Folder ...* or `devenv.exe <foldername>`).
+VS should run cmake, generate the target builds (Debug and Release by default).
+Other build types can be added by editing `CMakeSettings.json`.
 
-### Run
+You may have Cmake errors occuring at the first run (see Troubleshooting section below).
+To fix them, you need to edit the VS-specific file `CMakeSettings.json`, via *CMake* > *Change CMake Settings* > path-to-CMakeLists (configuration-name) from the main menu.
+For instance, it usually requires to set cmake build types manually, and to give path to Qt libraries.
+To fix it, edit `CMakeSettings.json`, such that
+```
+      {
+        ...
+        "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:\\Qt\\5.7\\winrt_x64_msvc2015 -DCMAKE_BUILD_TYPE=Debug",
+        ...
+      },
+      {
+        "name": "x64-Release",
+        ...
+        "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:\\Qt\\5.7\\winrt_x64_msvc2015 -DCMAKE_BUILD_TYPE=Release",
+        ...
+      }
+```
 
-* Don't forget to copy the third party DLLs in the executable folder :
- * Qt libraries (Qt5xxx.dll or Qt5xxxd.dll if you are in debug) : Core, Gui and Widgets
-* Set "radium" as your startup project
-* Change the application working directory to `$(OutDir)..` (go to the "radium" project properties, *Debugging* menu, *Working Directory*) to get the shaders to load properly.
+#### Compilation
 
-## Building on Windows with QtCreator / MinGW
+Right click on CMakeList.txt > build > all.
 
-### Building
+#### Run
 
-You can now run Cmake in Qt Creator. It should locate Qt libs automatically. 
-It should also find GLEW provided you followed the previous step. 
-If not, you can always set `GLEW_INCLUDE_DIR` and `GLEW_LIBRARY` manually to their correct locations.
+Assimp and GlBinding DLLs need to be manually copied in the bin directory (FIXME).
 
-### Running
+### Building with QtCreator
 
-If you run the program within QtCreator the path should be correctly set, and the executable should run fine.
+QtCreator is supported on Windows, MacOS and Linux.
+No specific requirement here, just open Radium-Engine CMake project and enjoy !
 
-However, if you run it directly, you will need to put all the dlls within the `bin`folder :
-* `libgcc_s_dw2-1.dll`
-* `libstdc++-6.dll`
-* `libwinpthread-1.dll`
-* Qt Core, Gui and Widgets libraries
-
-They are found in the Qt distribution folders : e.g. `\Qt\5.x\mingwXX_32\bin`
-
-## Troubleshooting 
+## Troubleshooting
 
 ### Qt cmake errors
 In case you run into an error like
@@ -118,21 +139,10 @@ For example on linux with gcc :
 $ cmake -DCMAKE_PREFIX_PATH=/opt/Qt/5.x/gcc_64
 ```
 
-On windows, using cmake-gui you can use the "add entry" button, adding `CMAKE_PREFIX_PATH` 
+On windows, using cmake-gui you can use the "add entry" button, adding `CMAKE_PREFIX_PATH`
 as a string to point to the Qt directory (for example in the default installation :
 `C:/Qt/5.6/msvc2015_64` )
 
-### Plugins build
-
-Remember that the plugins depend from the engine libs (Core and Engine) but there is no
-build dependency between the main application and the plugins. Thus you should be careful
-of plugins not being rebuilt when rebuilding just the main application.
-
-### Shaders not found
-
-The shaders are looked in a folder relative to the `bin`folder. Make sure your working directory is the 
-folder where the radium app executable lives.
-
 ## Documentation
-For more documentation about the engine (how to develop a plugin, 
+For more documentation about the engine (how to develop a plugin,
 how renderer works, how to setup a scene file, ...), please refer to the Docs/ folder.

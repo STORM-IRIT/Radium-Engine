@@ -14,11 +14,12 @@ namespace Ra
 
         UiComponent* SystemEntity::uiCmp()
         {
-            CORE_ASSERT(getInstance()->getNumComponents() == 2,  
+            SystemEntity *instance=getInstance();
+            CORE_ASSERT(instance->getNumComponents() == 2,
                         "This entity should have two components only");
-            CORE_ASSERT(getInstance()->getTransformAsMatrix() == 
+            CORE_ASSERT(instance->getTransformAsMatrix() ==
                         Core::Matrix4::Identity(), "Transform has been changed !");
-            return static_cast<UiComponent*>(getInstance()->getComponent("UI"));
+            return static_cast<UiComponent*>(instance->getComponent("UI"));
         }
 
 #ifndef RA_DISABLE_DEBUG_DISPLAY
