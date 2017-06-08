@@ -6,7 +6,7 @@
 #include <QObject>
 #include <QtPlugin>
 
-#include <MainApplication/PluginBase/RadiumPluginInterface.hpp>
+#include <PluginBase/RadiumPluginInterface.hpp>
 
 class QLabel;
 
@@ -31,7 +31,7 @@ namespace DummyPlugin
     public:
         virtual ~DummyPlugin();
 
-        virtual void registerPlugin( Ra::Engine::RadiumEngine* engine ) override;
+        virtual void registerPlugin( const Ra::PluginContext& context ) override;
 
         virtual bool doAddWidget( QString& name ) override;
         virtual QWidget* getWidget() override;

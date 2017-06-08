@@ -31,8 +31,8 @@ if (MSVC OR MSVC_IDE)
     endif()
 endif(MSVC OR MSVC_IDE)
 
-find_package(Qt5Core    REQUIRED)
-find_package(Qt5Widgets REQUIRED)
+find_package( Qt5Core    REQUIRED )
+find_package( Qt5Widgets REQUIRED )
 
 file( GLOB_RECURSE sources src/*.cpp )
 file( GLOB_RECURSE headers src/*.hpp )
@@ -46,21 +46,24 @@ add_definitions( ${Qt5Widges_DEFINITIONS} )
 add_definitions( ${Qt5OpenGL_DEFINITIONS} )
 
 include_directories(
+    src/
     ${CMAKE_CURRENT_BINARY_DIR} # MOC
     ${RADIUM_INCLUDE_DIR}
-    ${EIGEN3_INCLUDE_DIR} )
+    ${EIGEN3_INCLUDE_DIR}
+    ${ASSIMP_INCLUDE_DIR}
+    )
 
 add_library( Dummy SHARED ${sources} ${headers} ${inlines} )
-
-add_dependencies( Dummy radiumCore radiumEngine radium )
+add_dependencies( Dummy radiumCore radiumEngine radiumGuiBase)
 
 target_compile_definitions( Dummy PRIVATE "-DDummy_EXPORTS" )
 
 set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})
+
 target_link_libraries( Dummy
                        ${Qt5_LIBRARIES}
                        ${RADIUM_LIBRARIES}
-				       ${GLBINDING_LIBRARIES}           # Radium dep
+                       ${GLBINDING_LIBRARIES}           # Radium dep
                      )
 
 
