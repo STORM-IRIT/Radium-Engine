@@ -94,37 +94,9 @@ namespace Ra
 
             m_shader.reset( new globjects::Shader( type, shaderTemplate.get() ) );
 
-            /*LOG(logDEBUG) << "Filename : " << filename;
-            LOG(logDEBUG) << "ID : " << m_shader->id();*/
-
             m_shader->setName( filename );
 
-            m_shader->updateSource();
             m_shader->compile();
-
-            m_filename = filename;
-            m_type = type;
-
-            ///////
-
-            /*std::unique_ptr<globjects::AbstractStringSource> shaderStringSource = globjects::Shader::sourceFromFile( "Shaders/Default.vert.glsl" );
-            std::unique_ptr<globjects::AbstractStringSource> shaderStringTemplate = globjects::Shader::applyGlobalReplacements( shaderStringSource.get() );
-            std::unique_ptr<globjects::Shader> shaderTest = globjects::Shader::create( GL_VERTEX_SHADER, shaderStringTemplate.get() );
-
-            bool status = shaderTest->compile();
-
-            if( status )
-            {
-                std::cout << "SHADER TEST COMPILATION SUCCESS" << std::endl;
-            }
-            else
-            {
-                std::cout << "SHADER TEST COMPILATION FAILURE" << std::endl;
-            }
-
-            std::cout << "SHADER TEST ID : " << shaderTest->id() << std::endl;*/
-
-            ///////
 
             return m_shader->checkCompileStatus();
         }
@@ -133,13 +105,13 @@ namespace Ra
         {
             bool success;
 
-            LOG( logINFO ) << "Reloading shader " << m_filename;
+            LOG( logINFO ) << "Reloading shader " << m_shader->name();
 
-            success = loadAndCompile( m_type, m_filename );
+            success = loadAndCompile( m_shader->type(), m_shader->name() );
 
             if(!success)
             {
-                LOG( logINFO ) << "Failed to reload shader" << m_filename;
+                LOG( logINFO ) << "Failed to reload shader" << m_shader->name();
             }
 
             return success;
@@ -273,8 +245,7 @@ namespace Ra
             {
                 if ( m_shaderObjects[i] )
                 {
-                    std::cout << "ProgID : " << m_shaderId << ", ShaderID : " << m_shaderObjects[i]->getShaderObject()->id() << std::endl;
-                    GL_ASSERT( glAttachShader( m_shaderId, m_shaderObjects[i]->getShaderObject()->id() ) );
+                    GL_ASSERT( glAttachShader( m_shaderId, m_shaderObjects[i]->getId() ) );
                     m_shaderObjects[i]->m_attached = true;
                 }
             }

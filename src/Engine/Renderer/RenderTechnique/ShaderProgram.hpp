@@ -61,10 +61,6 @@ namespace Ra
         public:
             bool m_attached;
 
-        private:
-            std::string m_filename;
-            GLenum m_type;
-
             std::unique_ptr<globjects::Shader> m_shader;
         };
 
