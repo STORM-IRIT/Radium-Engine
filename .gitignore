@@ -80,7 +80,8 @@ lib/rel
 bin/
 lib/
 include/
-bundle/
+Bundle*/
+build*/
 
 # Mercurial stuff (e.g from Eigen)
 .hg*
