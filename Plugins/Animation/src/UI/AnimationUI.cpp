@@ -92,3 +92,9 @@ void AnimationUI::on_m_slowMo_toggled( bool checked ) {
     emit toggleSlowMotion( checked );
 }
 
+void AnimationUI::updateTime(float t)
+{
+    QString text = QString("%1").arg(t);
+    ui->m_animationTimeDisplay->setText(text);
+}
+

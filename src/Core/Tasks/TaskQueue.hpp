@@ -43,6 +43,7 @@ namespace Ra
             {
                 Timer::TimePoint start;
                 Timer::TimePoint end;
+                uint threadId;
                 std::string taskName;
             };
 
@@ -96,7 +97,7 @@ namespace Ra
 
 
             /// Prints the current task graph in dot format
-            void printTraskGraph( std::ostream& output ) const;
+            void printTaskGraph( std::ostream& output ) const;
 
         private:
 

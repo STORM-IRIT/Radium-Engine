@@ -55,7 +55,6 @@ namespace Ra {
                 m_dataDirty[i] = true;
             }
             m_isDirty = true;
-
         }
 
         void Mesh::loadGeometry(const Core::Vector3Array &vertices, const std::vector<uint> &indices)

@@ -11,6 +11,7 @@
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -111,6 +112,7 @@ namespace Ra
         connect(m_exportMeshButton, &QPushButton::clicked, this, &MainWindow::exportCurrentMesh);
         connect(m_removeEntityButton, &QPushButton::clicked, this, &MainWindow::deleteCurrentItem);
         connect(m_clearSceneButton, &QPushButton::clicked, this, &MainWindow::resetScene);
+        connect(m_fitCameraButton, &QPushButton::clicked, this, &MainWindow::fitCamera);
 
         // Renderer stuff
 
@@ -127,6 +129,9 @@ namespace Ra
         connect(m_enablePostProcess, &QCheckBox::stateChanged, m_viewer, &Viewer::enablePostProcess);
         connect(m_enableDebugDraw,   &QCheckBox::stateChanged, m_viewer, &Viewer::enableDebugDraw);
         connect(m_realFrameRate,     &QCheckBox::stateChanged, mainApp,  &BaseApplication::setRealFrameRate);
+
+        connect(m_printGraph,       &QCheckBox::stateChanged, mainApp,  &BaseApplication::setRecordGraph);
+        connect(m_printTimings,     &QCheckBox::stateChanged, mainApp,  &BaseApplication::setRecordTimings);
 
         // Connect engine signals to the appropriate callbacks
         std::function<void(const Engine::ItemEntry&)> add = std::bind(&MainWindow::onItemAdded, this, std::placeholders::_1);
@@ -305,8 +310,6 @@ namespace Ra
 
     void Gui::MainWindow::changeRenderer(const QString& rendererName)
     {
-        // LOG(logINFO) << "Chosen renderer : " << rendererName.toStdString() << " (" << m_currentRendererCombo->currentText().toStdString() << " - " <<
-        //             m_currentRendererCombo->currentIndex() << ")";
         // m_viewer->changeRenderer(m_currentRendererCombo->currentIndex());
     }
 
@@ -320,31 +323,16 @@ namespace Ra
         }
 
         const ItemEntry& item = m_selectionManager->currentItem();
+        const Engine::ShaderConfiguration config = Ra::Engine::ShaderConfigurationFactory::getConfiguration(name);
 
-#if 1
         auto vector_of_ros = getItemROs( mainApp->m_engine.get(), item );
         for (const auto& ro_index : vector_of_ros) {
             const auto& ro = mainApp->m_engine->getRenderObjectManager()->getRenderObject(ro_index);
             if (ro->getRenderTechnique()->getBasicConfiguration().m_name != name)
             {
-            Engine::ShaderConfiguration config = Ra::Engine::ShaderConfigurationFactory::getConfiguration(name);
-            ro->getRenderTechnique()->changeShader(config);
+                ro->getRenderTechnique()->changeShader(config);
             }
         }
-#else
-        if (!item.isRoNode())
-        {
-            return;
-        }
-
-        const auto& ro = mainApp->m_engine->getRenderObjectManager()->getRenderObject(item.m_roIndex);
-        if (ro->getRenderTechnique()->shader->getBasicConfiguration().m_name == name)
-        {
-            return;
-        }
-        Engine::ShaderConfiguration config = Ra::Engine::ShaderConfigurationFactory::getConfiguration(name);
-        ro->getRenderTechnique()->changeShader(config);
-#endif
     }
 
     void Gui::MainWindow::toggleVisisbleRO()
@@ -394,7 +382,7 @@ namespace Ra
         // Add widget
         if (plugin->doAddWidget(tabName))
         {
-            toolBox->addItem(plugin->getWidget(), tabName);
+            toolBox->addTab(plugin->getWidget(), tabName);
         }
 
         // Add actions
@@ -501,5 +489,33 @@ namespace Ra
         m_viewer->resetCamera();
     }
 
+    void Gui::MainWindow::on_actionForward_triggered()
+    {
+        changeRenderer("Forward");
+        actionForward->setChecked( true );
+        actionDeferred->setChecked( false );
+        actionExperimental->setChecked( false );
+    }
+
+    void Gui::MainWindow::on_actionDeferred_triggered()
+    {
+        changeRenderer("Deferred");
+        actionForward->setChecked( false );
+        actionDeferred->setChecked( true );
+        actionExperimental->setChecked( false );
+    }
+
+    void Ra::Gui::MainWindow::on_actionExperimental_triggered()
+    {
+        changeRenderer("Experimental");
+        actionForward->setChecked( false );
+        actionDeferred->setChecked( false );
+        actionDeferred->setChecked( true );
+    }
+
+    void Gui::MainWindow::fitCamera()
+    {
+        m_viewer->fitCameraToScene(Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getSceneAabb());
+    }
 
 } // namespace Ra

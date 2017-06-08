@@ -69,20 +69,18 @@ namespace Ra
                     CORE_ASSERT( pair.m_endVertexIdx == v, "Inconsistent vertex index" );
                 }
             }
-
-            for ( TriangleIdx t = 0; t < m_triangleToHalfEdge.size(); ++t )
+            for ( uint f = 0; f < m_triangleToHalfEdge.size(); ++f )
             {
                 // Check that we can go around a face.
-                HalfEdgeIdx heIdx = m_triangleToHalfEdge[t];
-                const HalfEdge& he = m_halfEdgeList[heIdx];
-                const HalfEdge& next = m_halfEdgeList[he.m_next];
-                const HalfEdge& nextNext = m_halfEdgeList[next.m_next];
-
-                CORE_ASSERT( he.m_leftTriIdx        == t, "Inconsistent triangle index" );
-                CORE_ASSERT( next.m_leftTriIdx      == t, "Inconsistent triangle index" );
-                CORE_ASSERT( nextNext.m_leftTriIdx  == t, "Inconsistent triangle index" );
-
-                CORE_ASSERT( nextNext.m_next == heIdx, "We didn't end back where we started" );
+                HalfEdgeIdx heIdx = m_triangleToHalfEdge[f];
+                HalfEdge cur_he = m_halfEdgeList[heIdx];
+                for (uint i=0; i<m_faceSize[f]-1; ++i)
+                {
+                    CORE_ASSERT( cur_he.m_leftTriIdx == f, "Inconsistent triangle index" );
+                    cur_he = m_halfEdgeList[cur_he.m_next];
+                }
+                CORE_ASSERT( cur_he.m_leftTriIdx == f, "Inconsistent triangle index" );
+                CORE_ASSERT( cur_he.m_next == heIdx, "We didn't end back where we started" );
             }
 #endif
         }
@@ -90,14 +88,121 @@ namespace Ra
         void HalfEdgeData::build( const TriangleMesh& mesh )
         {
             m_vertexToHalfEdge.resize( mesh.m_vertices.size() );
-            m_triangleToHalfEdge.resize( mesh.m_triangles.size(), InvalidIdx );
+            m_triangleToHalfEdge.resize( mesh.m_faces.size(), InvalidIdx );
+            m_faceSize.resize( mesh.m_faces.size(), 0 );
 
             std::map<EdgeKey, HalfEdgeIdx> edgeToHalfEdges;
 
             // For all triangles.
-            for ( TriangleIdx t = 0; t < mesh.m_triangles.size(); ++t )
+            for ( uint f = 0; f < mesh.m_faces.size(); ++f )
             {
-                const Triangle& tri = mesh.m_triangles[t];
+                const VectorNui& face = mesh.m_faces[f];
+                const uint fs = face.size();
+                m_faceSize[f] = fs;
+
+                // This arrays contains the indices of all three half edges of the current face
+                // in halfEdgeList.
+                VectorNui faceHalfEdges( fs );
+                #pragma parallel for
+                for (uint i=0; i<fs; ++i)
+                {
+                    faceHalfEdges[i] = InvalidIdx;
+                }
+
+                // for all edges in face.
+                for ( uint i = 0; i < fs; ++i )
+                {
+                    VertexIdx vStart = face[i];
+                    VertexIdx vEnd = face[( i + 1 ) % fs];
+
+                    EdgeKey key;
+                    key.vSmaller = std::min( vStart, vEnd );
+                    key.vLarger = std::max( vStart, vEnd );
+
+                    // If we never visited this edge before, that means we must create the two half edges.
+                    auto edgeFound = edgeToHalfEdges.find( key );
+                    if ( edgeFound == edgeToHalfEdges.end() )
+                    {
+                        HalfEdge he1; // Half edge from vStart to vEnd (belonging to this triangle)
+                        HalfEdge he2; // Half edge from vEnd to VStart (belonging to a triangle not yet visited)
+
+                        // Setup data on half edges
+                        he1.m_prev = InvalidIdx;
+                        he1.m_next = InvalidIdx;
+                        he2.m_prev = InvalidIdx;
+                        he2.m_next = InvalidIdx;
+
+                        he1.m_endVertexIdx = vEnd;
+                        he2.m_endVertexIdx = vStart;
+
+                        // he1 is the half edge belonging to this triangle.
+                        he1.m_leftTriIdx = f;
+                        // he2's triangle will be set when its triangle is visited.
+                        he2.m_leftTriIdx = InvalidIdx;
+
+                        uint baseIdx = m_halfEdgeList.size();
+                        he1.m_pair = baseIdx + 1;
+                        he2.m_pair = baseIdx;
+
+                        // Adds them to the vector
+                        m_halfEdgeList.push_back( he1 );
+                        m_halfEdgeList.push_back( he2 );
+                        edgeToHalfEdges.insert( std::make_pair( key, baseIdx ) );
+                        faceHalfEdges[i] = baseIdx;
+
+                        m_vertexToHalfEdge[vStart].push_back( baseIdx );
+                        m_vertexToHalfEdge[vEnd].push_back( baseIdx + 1 );
+                    }
+                    else
+                    {
+                        // If we found an existing edge, it means only one of them was belonging to a face
+                        // so we look for the other, which should be next to the first.
+                        uint firstHeIdx = edgeFound->second;
+
+                        // Check face index consistency
+                        CORE_ASSERT( m_halfEdgeList[firstHeIdx].m_leftTriIdx != InvalidIdx,
+                                     "First part of the half edge was not visited" );
+                        CORE_ASSERT( m_halfEdgeList[firstHeIdx + 1].m_leftTriIdx == InvalidIdx,
+                                     "Second part of the half edge already visited (3 or more faces share an edge?)" );
+
+                        m_halfEdgeList[firstHeIdx + 1].m_leftTriIdx = f;
+                        faceHalfEdges[i] = firstHeIdx + 1;
+                    }
+                }
+                // Now all our half edges must be consistent.
+                bool ok = true;
+                for (uint he=0; he<fs; ++he)
+                {
+                    ok &= faceHalfEdges[he] != InvalidIdx;
+                }
+                CORE_ASSERT( ok, "face half edges are missing !" );
+
+                m_triangleToHalfEdge[f] = faceHalfEdges[0];
+                // We can finally fixup the looping path on the half edges.
+                for ( uint i = 0; i < fs; ++i )
+                {
+                    CORE_ASSERT( m_halfEdgeList[faceHalfEdges[i]].m_leftTriIdx == f, "Inconsistent face index" );
+
+                    m_halfEdgeList[faceHalfEdges[i]].m_prev = faceHalfEdges[( i + fs - 1 ) % fs];
+                    m_halfEdgeList[faceHalfEdges[i]].m_next = faceHalfEdges[( i + 1 ) % fs];
+                }
+            }
+            checkConsistency();
+        }
+
+        void HalfEdgeData::build( const VectorArray<Vector3>& vertices,
+                                  const VectorArray<Triangle>& triangles )
+        {
+            m_vertexToHalfEdge.resize( vertices.size() );
+            m_triangleToHalfEdge.resize( triangles.size(), InvalidIdx );
+            m_faceSize.resize( triangles.size(), 3 );
+
+            std::map<EdgeKey, HalfEdgeIdx> edgeToHalfEdges;
+
+            // For all triangles.
+            for ( TriangleIdx t = 0; t < triangles.size(); ++t )
+            {
+                const Triangle& tri = triangles[t];
 
                 // This arrays contains the indices of all three half edges of the current triangle
                 // in halfEdgeList.

@@ -137,6 +137,7 @@ public:
     inline bool hasMaterial() const;
     inline bool isLoadingDuplicates() const;
 
+
     /// DEBUG
     inline void displayInfo() const;
 

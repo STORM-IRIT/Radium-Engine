@@ -54,9 +54,14 @@ namespace AnimationPlugin
         void toggleSlowMotion( const bool status );
         void setAnimation( const uint i );
 
+        uint getBoneIdx(Ra::Core::Index index) const ;
+        Scalar getTime() const;
+
 
         void handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable );
         void handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data );
+
+        uint getBoneIdx( Ra::Core::Index roIndex ) const;
 
         //
         // Editable interface
@@ -67,6 +72,7 @@ namespace AnimationPlugin
         virtual Ra::Core::Transform getTransform(Ra::Core::Index roIdx) const override;
 
         virtual void setTransform(Ra::Core::Index roIdx, const Ra::Core::Transform& transform) override;
+
 
     private:
         // debug function to display the hierarchy
@@ -100,6 +106,8 @@ namespace AnimationPlugin
         const Ra::Core::Animation::RefPose*      getRefPoseOutput() const;
         const Ra::Core::Animation::WeightMatrix* getWeightsOutput() const;
         const bool*                              getWasReset() const;
+        const Ra::Core::Animation::Animation* getAnimation() const;
+        const Scalar* getTimeOutput() const;
 
     private:
         std::string m_contentName;
@@ -110,7 +118,6 @@ namespace AnimationPlugin
         Ra::Core::Animation::WeightMatrix m_weights; // Skinning weights ( should go in skinning )
 
         std::vector<SkeletonBoneRenderObject*> m_boneDrawables ; // Vector of bone display objects
-        bool   m_showSkeleton;
         uint   m_animationID;
         bool   m_animationTimeStep;
         Scalar m_animationTime;

@@ -12,7 +12,9 @@ namespace Ra
         // todo : enclose this in a more specific namespace ?
         typedef Vector2ui Edge;
         typedef Vector3ui Triangle;
+        typedef Vector4ui Quad;
 
+        typedef uint QuadIdx;
         typedef uint TriangleIdx;
         typedef uint VertexIdx;
         typedef uint HalfEdgeIdx;

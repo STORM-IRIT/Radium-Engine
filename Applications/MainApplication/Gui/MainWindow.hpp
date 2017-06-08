@@ -90,6 +90,9 @@ namespace Ra
             /// Slot for the "visible" button
             void toggleVisisbleRO();
 
+            /// Reset the camera to see all visible objects
+            void fitCamera();
+
             /// Slot for the "edit" button.
             void editRO();
 
@@ -142,6 +145,11 @@ namespace Ra
 
             /// Clears all entities and resets the camera.
             void resetScene();
+
+            /// Change the Renderer
+            void on_actionForward_triggered();
+            void on_actionDeferred_triggered();
+            void on_actionExperimental_triggered();
 
         private:
             /// Stores the internal model of engine objects for selection.

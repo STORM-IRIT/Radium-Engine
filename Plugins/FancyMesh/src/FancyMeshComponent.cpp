@@ -24,6 +24,8 @@
 #include <Engine/Assets/FileData.hpp>
 #include <Engine/Assets/GeometryData.hpp>
 
+#include <Core/Algorithm/Subdivision/CatmullClarkSubdivision.hpp>
+
 using Ra::Core::TriangleMesh;
 using Ra::Engine::ComponentMessenger;
 
@@ -85,10 +87,8 @@ namespace FancyMeshPlugin
             mesh.m_normals.push_back((N * data->getNormals()[i]).normalized());
         }
 
-        for (const auto& face : data->getFaces())
-        {
-            mesh.m_triangles.push_back(face.head<3>());
-        }
+        mesh.m_faces = data->getFaces();
+        mesh.triangulate();
 
         displayMesh->loadGeometry(mesh);
 

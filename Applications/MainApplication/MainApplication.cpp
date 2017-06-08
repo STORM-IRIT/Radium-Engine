@@ -51,6 +51,8 @@ namespace Ra
         , m_numFrames( 0 )
         , m_realFrameRate( false )
         , m_recordFrames( false )
+        , m_recordTimings( false )
+        , m_recordGraph( false )
         , m_isAboutToQuit( false )
     {
         // Set application and organization names in order to ensure uniform
@@ -68,18 +70,20 @@ namespace Ra
         parser.addVersionOption();
 
         QCommandLineOption fpsOpt(QStringList{"r", "framerate", "fps"}, "Control the application framerate, 0 to disable it (and run as fast as possible).", "number", "60");
+        QCommandLineOption maxThreadsOpt(QStringList{"m", "maxthreads", "max-threads"}, "Control the maximum number of threads. 0 will set to the number of cores available", "number", "0");
         QCommandLineOption numFramesOpt(QStringList{"n", "numframes"}, "Run for a fixed number of frames.", "number", "0");
         QCommandLineOption pluginOpt(QStringList{"p", "plugins", "pluginsPath"}, "Set the path to the plugin dlls.", "folder", "Plugins");
         QCommandLineOption pluginLoadOpt(QStringList{"l", "load", "loadPlugin"}, "Only load plugin with the given name (filename without the extension). If this option is not used, all plugins in the plugins folder will be loaded. ", "name");
         QCommandLineOption pluginIgnoreOpt(QStringList{"i", "ignore", "ignorePlugin"}, "Ignore plugins with the given name. If the name appears within both load and ignore options, it will be ignored.", "name");
         QCommandLineOption fileOpt(QStringList{"f", "file", "scene"}, "Open a scene file at startup.", "file name", "foo.bar");
 
-        parser.addOptions({fpsOpt, pluginOpt, pluginLoadOpt, pluginIgnoreOpt, fileOpt, numFramesOpt });
+        parser.addOptions({fpsOpt, pluginOpt, pluginLoadOpt, pluginIgnoreOpt, fileOpt, maxThreadsOpt, numFramesOpt });
         parser.process(*this);
 
         if (parser.isSet(fpsOpt))       m_targetFPS = parser.value(fpsOpt).toUInt();
         if (parser.isSet(pluginOpt))    pluginsPath = parser.value(pluginOpt).toStdString();
         if (parser.isSet(numFramesOpt)) m_numFrames = parser.value(numFramesOpt).toUInt();
+        if (parser.isSet(maxThreadsOpt)) m_maxThreads = parser.value(maxThreadsOpt).toUInt();
 
         // Boilerplate print.
         LOG( logINFO ) << "*** Radium Engine Main App  ***";
@@ -145,6 +149,7 @@ namespace Ra
         // initialized the OpenGL context..)
         processEvents();
 
+        Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity("Test");
         // Load plugins
         if ( !loadPlugins( pluginsPath, parser.values(pluginLoadOpt), parser.values(pluginIgnoreOpt) ) )
         {
@@ -156,7 +161,12 @@ namespace Ra
         CORE_ASSERT( m_viewer->context()->isValid(), "OpenGL was not initialized" );
 
         // Create task queue with N-1 threads (we keep one for rendering).
-        m_taskQueue.reset( new Core::TaskQueue( std::thread::hardware_concurrency() - 1 ) );
+        uint numThreads =  std::thread::hardware_concurrency() - 1;
+        if (m_maxThreads > 0 && m_maxThreads < numThreads)
+        {
+            numThreads = m_maxThreads;
+        }
+        m_taskQueue.reset( new Core::TaskQueue(numThreads) );
 
         createConnections();
 
@@ -208,31 +218,7 @@ namespace Ra
         bool res = m_engine->loadFile( pathStr );
         CORE_UNUSED( res );
         m_viewer->handleFileLoading( pathStr );
-
-        // Compute new scene aabb
-        Core::Aabb aabb;
-
-        std::vector<std::shared_ptr<Engine::RenderObject>> ros;
-        m_engine->getRenderObjectManager()->getRenderObjects( ros );
-
-        for ( auto ro : ros )
-        {
-            auto mesh = ro->getMesh();
-            auto pos = mesh->getGeometry().m_vertices;
-
-            for ( auto& p : pos )
-            {
-                p = ro->getLocalTransform() * p;
-            }
-
-            Ra::Core::Vector3 bmin = pos.getMap().rowwise().minCoeff().head<3>();
-            Ra::Core::Vector3 bmax = pos.getMap().rowwise().maxCoeff().head<3>();
-
-            aabb.extend( bmin );
-            aabb.extend( bmax );
-        }
-
-        m_viewer->fitCameraToScene( aabb );
+        m_mainWindow->fitCamera();
 
         emit loadComplete();
     }
@@ -250,6 +236,11 @@ namespace Ra
         bpConfig.addShader(ShaderType_VERTEX, "Shaders/BlinnPhong.vert.glsl");
         bpConfig.addShader(ShaderType_FRAGMENT, "Shaders/BlinnPhong.frag.glsl");
         ShaderConfigurationFactory::addConfiguration(bpConfig);
+
+        ShaderConfiguration bpwConfig("BlinnPhong_wire");
+        bpwConfig.addShader(ShaderType_VERTEX, "Shaders/BlinnPhong_wire.vert.glsl");
+        bpwConfig.addShader(ShaderType_FRAGMENT, "Shaders/BlinnPhong_wire.frag.glsl");
+        ShaderConfigurationFactory::addConfiguration(bpwConfig);
 
         ShaderConfiguration pConfig("Plain");
         pConfig.addShader(ShaderType_VERTEX, "Shaders/Plain.vert.glsl");
@@ -307,6 +298,8 @@ namespace Ra
         // 3. Run the engine task queue.
         m_engine->getTasks( m_taskQueue.get(), dt );
 
+        if (m_recordGraph) {m_taskQueue->printTaskGraph(std::cout);}
+
         // Run one frame of tasks
         m_taskQueue->startTasks();
         m_taskQueue->waitForTasks();
@@ -330,6 +323,8 @@ namespace Ra
         // 6. Frame end.
         timerData.frameEnd = Core::Timer::Clock::now();
         timerData.numFrame = m_frameCounter;
+
+        if (m_recordTimings) { timerData.print(std::cout); }
 
         m_timerData.push_back( timerData );
 
@@ -479,5 +474,15 @@ namespace Ra
         }
 
         return res;
+    }
+
+    void BaseApplication::setRecordTimings(bool on)
+    {
+        m_recordTimings = on;
+    }
+
+    void BaseApplication::setRecordGraph(bool on)
+    {
+        m_recordGraph = on;
     }
 }

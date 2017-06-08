@@ -47,6 +47,11 @@ namespace Ra
 
             RA_CORE_API void removeDuplicates(TriangleMesh& mesh, std::vector<VertexIdx>& vertexMap);
 
+
+            /// Returns a list of edges from a given triangle mesh
+            RA_CORE_API inline std::vector<Ra::Core::Vector2ui> getEdges( const TriangleMesh& mesh );
+
+            /// Results of a raycast vs a mesh
             struct RayCastResult { int m_hitTriangle; int m_nearestVertex; Scalar m_t; };
 
             /// Return the index of the triangle hit by the ray or -1 if there's no hit.

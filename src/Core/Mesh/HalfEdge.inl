@@ -9,6 +9,12 @@ namespace Ra
             build( mesh );
         }
 
+        inline HalfEdgeData::HalfEdgeData( const VectorArray<Vector3>& vertices,
+                                           const VectorArray<Triangle>& triangles )
+        {
+            build( vertices, triangles );
+        }
+
         inline const HalfEdge& HalfEdgeData::operator[]( HalfEdgeIdx i ) const
         {
             CORE_ASSERT( i != InvalidIdx && i < m_halfEdgeList.size(), "Invalid Index" );
@@ -39,6 +45,7 @@ namespace Ra
             m_halfEdgeList.clear();
             m_vertexToHalfEdge.clear();
             m_triangleToHalfEdge.clear();
+            m_faceSize.clear();
         }
 
     }

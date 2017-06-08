@@ -45,6 +45,8 @@ namespace Ra
 
         RenderObject::~RenderObject()
         {
+            delete m_renderTechnique->material;
+            delete m_renderTechnique;
         }
 
         RenderObject* RenderObject::createRenderObject(const std::string& name, Component* comp,

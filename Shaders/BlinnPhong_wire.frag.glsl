@@ -26,7 +26,7 @@ float InShadow()
     float result = current > closest ? 1.0 : 0.0;
     return result;
 }
-#endif
+#endif 
 
 void main()
 {
@@ -35,5 +35,13 @@ void main()
     //vec3 color = getKd() * 0.1 + (1 - Shadow()) * computeLighting();
     vec3 color = computeLighting();
 
-    fragColor = vec4(color, 1.0);
+
+    if (in_texcoord.x > 0.9)
+    {
+        fragColor = vec4(0.0, 0.0, 0.0, 1.0);
+    }
+    else
+    {
+        fragColor = vec4(color, 1.0);
+    }
 }
