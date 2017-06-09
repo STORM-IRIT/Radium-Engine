@@ -22,7 +22,6 @@
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
-#include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/PointLight.hpp>
 #include <Engine/Renderer/Light/SpotLight.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -480,6 +479,7 @@ namespace Ra
 
         void Renderer::handleFileLoading( const std::string& filename )
         {
+            CORE_ASSERT( false, "Renderer::handleFileLoading : this method must not be called !!!." );
             Assimp::Importer importer;
             const aiScene* scene = importer.ReadFile( filename,
                                                       aiProcess_Triangulate |
@@ -613,6 +613,17 @@ namespace Ra
             }
         }
 
+        void Renderer::handleFileLoading(const Asset::FileData &filedata) {
+            if (! filedata.hasLight() )
+                return;
+
+            std::vector<  Asset::LightData * > data = filedata.getLightData();
+            LOG (logINFO) << "Adding " <<data.size() << " lights in the renderer";
+            for (auto light : data )
+                addLight( light->getLight() );
+
+        }
+
         uchar* Renderer::grabFrame(uint &w, uint &h) const {
             Engine::Texture* tex = getDisplayTexture();
             tex->bind();
@@ -643,6 +654,7 @@ namespace Ra
             h = tex->height();
             return writtenPixels;
         }
+
 
     }
 } // namespace Ra

@@ -7,6 +7,7 @@
 #include <Engine/Assets/AssimpHandleDataLoader.hpp>
 #include <Engine/Assets/AssimpGeometryDataLoader.hpp>
 #include <Engine/Assets/AssimpAnimationDataLoader.hpp>
+#include <Engine/Assets/AssimpLightDataLoader.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -21,6 +22,7 @@ FileData::FileData( const std::string& filename,
     m_geometryData(),
     m_handleData(),
     m_animationData(),
+    m_lightData(),
     m_processed( false ),
     m_verbose( VERBOSE_MODE ) {
     loadFile();
@@ -79,6 +81,9 @@ void FileData::loadFile( const bool FORCE_RELOAD ) {
 
     AssimpAnimationDataLoader animationLoader( m_verbose );
     animationLoader.loadData( scene, m_animationData );
+
+    AssimpLightDataLoader lightLoader( Core::StringUtils::getDirName( getFileName() ), m_verbose );
+    lightLoader.loadData( scene, m_lightData );
 
     m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );
 

@@ -13,6 +13,7 @@ namespace Asset {
 class GeometryData;
 class HandleData;
 class AnimationData;
+class LightData;
 
 class RA_ENGINE_API FileData {
 public:
@@ -40,6 +41,7 @@ public:
     inline std::vector<  GeometryData* > getGeometryData() const;
     inline std::vector<    HandleData* > getHandleData()   const;
     inline std::vector< AnimationData* > getAnimationData() const;
+    inline std::vector<     LightData* > getLightData() const;
 
     inline void setVerbose( const bool VERBOSE_MODE );
 
@@ -49,6 +51,7 @@ public:
     inline bool hasGeometry() const;
     inline bool hasHandle() const;
     inline bool hasAnimation() const;
+    inline bool hasLight() const;
     inline bool isVerbose() const;
 
     /// RESET
@@ -63,6 +66,7 @@ protected:
     std::vector< std::unique_ptr< GeometryData > >  m_geometryData;
     std::vector< std::unique_ptr< HandleData > >    m_handleData;
     std::vector< std::unique_ptr< AnimationData > > m_animationData;
+    std::vector< std::unique_ptr< LightData > >     m_lightData;
     bool                                            m_processed;
     bool                                            m_verbose;
 };

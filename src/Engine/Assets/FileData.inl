@@ -3,6 +3,7 @@
 #include <Engine/Assets/GeometryData.hpp>
 #include <Engine/Assets/HandleData.hpp>
 #include <Engine/Assets/AnimationData.hpp>
+#include <Engine/Assets/LightData.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -50,6 +51,15 @@ inline std::vector< AnimationData* > FileData::getAnimationData() const {
     return list;
 }
 
+inline std::vector< LightData* > FileData::getLightData() const {
+    std::vector< LightData* > list;
+    list.reserve( m_lightData.size() );
+    for( const auto& item : m_lightData ) {
+        list.push_back( item.get() );
+    }
+    return list;
+}
+
 inline void FileData::setVerbose( const bool VERBOSE_MODE ) {
     m_verbose = VERBOSE_MODE;
 }
@@ -73,6 +83,10 @@ inline bool FileData::hasHandle() const {
 
 inline bool FileData::hasAnimation() const {
     return ( !m_animationData.empty() );
+}
+
+inline bool FileData::hasLight() const {
+    return ( !m_lightData.empty() );
 }
 
 inline bool FileData::isVerbose() const {

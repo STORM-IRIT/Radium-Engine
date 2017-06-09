@@ -211,7 +211,9 @@ namespace Ra
         LOG(logINFO) << "Loading file " << pathStr << "...";
         bool res = m_engine->loadFile( pathStr );
         CORE_UNUSED( res );
-        m_viewer->handleFileLoading( pathStr );
+        m_viewer->handleFileLoading( m_engine->getFileData() );
+
+        m_engine->releaseFile();
 
         // Compute new scene aabb
         Core::Aabb aabb;

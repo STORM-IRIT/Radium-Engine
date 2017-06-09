@@ -24,7 +24,6 @@
 #include <Engine/FrameInfo.hpp>
 #include <Engine/System/System.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Assets/FileData.hpp>
 
 namespace Ra
 {
@@ -45,6 +44,7 @@ namespace Ra
             m_signalManager.reset( new SignalManager );
             m_entityManager.reset( new EntityManager );
             m_renderObjectManager.reset( new RenderObjectManager );
+            m_loadedFile.reset();
             ComponentMessenger::createInstance();
 
         }
@@ -54,6 +54,7 @@ namespace Ra
             m_signalManager->setOn( false );
             m_entityManager.reset();
             m_renderObjectManager.reset();
+            m_loadedFile.reset();
 
             for ( auto& system : m_systems )
             {
@@ -104,14 +105,14 @@ namespace Ra
 
         bool RadiumEngine::loadFile( const std::string& filename )
         {
-            Asset::FileData fileData( filename, false );
+            m_loadedFile.reset( new Asset::FileData( filename, false ) );
 
             std::string entityName = Core::StringUtils::getBaseName( filename, false );
 
             Entity* entity = m_entityManager->createEntity( entityName );
 
             for( auto& system : m_systems ) {
-                system.second->handleAssetLoading( entity, &fileData );
+                system.second->handleAssetLoading( entity, m_loadedFile.get() );
             }
 
             if ( entity->getComponents().size() > 0 )
@@ -130,6 +131,10 @@ namespace Ra
             return true;
         }
 
+        void RadiumEngine::releaseFile() {
+            m_loadedFile.reset(nullptr);
+        }
+
         RenderObjectManager* RadiumEngine::getRenderObjectManager() const
         {
             return m_renderObjectManager.get();
@@ -146,5 +151,11 @@ namespace Ra
         }
 
         RA_SINGLETON_IMPLEMENTATION( RadiumEngine );
+
+        const Asset::FileData &RadiumEngine::getFileData() const {
+            return *(m_loadedFile.get());
+        }
+
+
     } // Namespace engine
 } // namespace Ra
