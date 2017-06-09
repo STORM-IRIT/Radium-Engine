@@ -38,7 +38,7 @@ namespace Ra
 
 //            virtual std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx) = 0;
             //virtual ProgressiveMeshData constructM0(int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue) = 0;
-            virtual bool isConstructM0(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue) = 0;
+            virtual bool isConstructM0(std::vector<Super4PCS::KdTree<Scalar>*> kdtrees, int idx, PriorityQueue &pQueue) = 0;
 
             //virtual PriorityQueue constructPriorityQueue(std::vector<Super4PCS::KdTree<float>*> kdtrees, int objIndex) = 0;
 
@@ -47,7 +47,7 @@ namespace Ra
             virtual Primitive computeEdgeQuadric(Index edgeIndex) = 0;
             virtual Primitive computeVertexQuadric(Index vertexIndex) = 0;
 
-            virtual int vertexContact(Index vertexIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idxOtherObject, double threshold) = 0;
+            virtual int vertexContact(Index vertexIndex, std::vector<Super4PCS::KdTree<Scalar>*> kdtrees, int idxOtherObject, Scalar threshold) = 0;
 
             virtual bool isEcolConsistent(Index halfEdgeIndex, Vector3 pResult) = 0;
             virtual bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult/*, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx*/) = 0;
@@ -90,7 +90,7 @@ namespace Ra
             /// Construction of the coarser mesh
             //std::vector<ProgressiveMeshData> constructM0(int targetNbFaces, int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx) override;
             //ProgressiveMeshData constructM0(int &nbNoFrVSplit, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue) override;
-            bool isConstructM0(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue) override;
+            bool isConstructM0(std::vector<Super4PCS::KdTree<Scalar>*> kdtrees, int idx, PriorityQueue &pQueue) override;
 
 
 
@@ -116,8 +116,8 @@ namespace Ra
             ///
             Scalar computeGeometricError(const Vector3& p, Primitive q);
 
-            int vertexContact(Index vertexIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idxOtherObject, double threshold);
-            bool hasContact(Index halfEdgeIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx);
+            int vertexContact(Index vertexIndex, std::vector<Super4PCS::KdTree<Scalar>*> kdtrees, int idxOtherObject, Scalar threshold);
+            //bool hasContact(Index halfEdgeIndex, std::vector<Super4PCS::KdTree<Scalar>*> kdtrees, int idx);
 
             bool isEcolConsistent(Index halfEdgeIndex, Vector3 pResult);
             bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult/*, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx*/);

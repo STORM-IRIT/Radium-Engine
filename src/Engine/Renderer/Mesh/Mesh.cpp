@@ -192,6 +192,8 @@ namespace Ra {
 
                 GL_CHECK_ERROR;
                 m_isDirty = false;
+
+                m_numElements = m_mesh.m_triangles.size() * 3; //needed with double precision
             }
         }
 

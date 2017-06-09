@@ -322,7 +322,7 @@ namespace Ra
 
 //            }
 
-            TriangleMesh makeEllipsoid(const Matrix4f& R, Scalar radius, uint numSubdiv)
+            TriangleMesh makeEllipsoid(const Matrix4& R, Scalar radius, uint numSubdiv)
             {
                 TriangleMesh result;
 
@@ -414,7 +414,7 @@ namespace Ra
                     Vector4 v(vertex(0),vertex(1),vertex(2),1);
                     const Scalar r = radius / v.norm();
                     v *= r;
-                    v = R.inverse() * v;
+                    //v = R.inverse() * v;
                     Vector3 newV(v(0)/v(3),v(1)/v(3),v(2)/v(3));
                     newVertices.push_back(newV);
                 }

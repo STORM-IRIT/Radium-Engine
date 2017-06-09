@@ -248,12 +248,12 @@ namespace Ra
         //--------------------------------------------------
 
         template <class ErrorMetric>
-        int ProgressiveMesh<ErrorMetric>::vertexContact(Index vertexIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idxOtherObject, double threshold)
+        int ProgressiveMesh<ErrorMetric>::vertexContact(Index vertexIndex, std::vector<Super4PCS::KdTree<Scalar>*> kdtrees, int idxOtherObject, Scalar threshold)
         {
             Vertex_ptr v = m_dcel->m_vertex[vertexIndex];
 
             // Look if the vertex is too close to another object
-            const Super4PCS::KdTree<float>::VectorType& p = reinterpret_cast<const Super4PCS::KdTree<float>::VectorType&>(v->P());
+            const Super4PCS::KdTree<Scalar>::VectorType& p = reinterpret_cast<const Super4PCS::KdTree<Scalar>::VectorType&>(v->P());
 
             int contact = kdtrees[idxOtherObject]->doQueryRestrictedClosestIndex(p, threshold);
             return contact;
@@ -736,7 +736,7 @@ namespace Ra
 //        }
 
         template <class ErrorMetric>
-        bool ProgressiveMesh<ErrorMetric>::isConstructM0(std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx, PriorityQueue &pQueue)
+        bool ProgressiveMesh<ErrorMetric>::isConstructM0(std::vector<Super4PCS::KdTree<Scalar>*> kdtrees, int idx, PriorityQueue &pQueue)
         {
             PriorityQueue::PriorityQueueData d = pQueue.firstData();
             HalfEdge_ptr he = m_dcel->m_halfedge[d.m_edge_id];
