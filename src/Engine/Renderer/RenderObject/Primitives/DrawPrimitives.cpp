@@ -238,7 +238,7 @@ namespace Ra {
 //            }
 
             MeshPtr Ellipsoid(const Core::Vector3& center,
-                           const Core::Matrix4f& R, Scalar radius, const Core::Color& color)
+                           const Core::Matrix4& R, Scalar radius, const Core::Color& color)
             {
                 Core::TriangleMesh ellipsoid =
                     Core::MeshUtils::makeEllipsoid(R, radius, 2);

@@ -85,7 +85,7 @@ namespace Ra
 //                           const Core::Color& color);
 
             RA_ENGINE_API MeshPtr Ellipsoid(const Core::Vector3& center,
-                           const Core::Matrix4f& R,
+                           const Core::Matrix4 &R,
                            Scalar radius,
                            const Core::Color& color);
 
