@@ -11,4 +11,5 @@ message(STATUS "Building applications with radium libs : ${RADIUM_LIBRARIES}")
 
 add_subdirectory(MainApplication)
 add_subdirectory(Test0)
+add_subdirectory(Simplifier)
 #add_subdirectory(OpenGLExperiment)
