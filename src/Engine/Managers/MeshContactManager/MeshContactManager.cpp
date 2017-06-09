@@ -136,40 +136,6 @@ namespace Ra
     //                  }
 
                      MeshContactElement* obj = static_cast<MeshContactElement*>(m_meshContactElements[0]);
-
-                     //DEBUG
-    //                 for (uint v = 0; v < obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex.size(); v++)
-    //                 {
-    //                     if (obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[v]->P()[2] < -1.9)
-    //                     {
-    //                         LOG(logINFO) << "vertex (" << obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[v]->P()[0] << ", " << obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[v]->P()[1] << ", " << obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[v]->P()[2] << ") : " << v;
-    //                     }
-    //                 }
-    //                 for (uint he = 0; he < obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge.size(); he++)
-    //                 {
-    //                     if (obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[16]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->Next()->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[16]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[24]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->Next()->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[24]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[25]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->Next()->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[25]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[26]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->Next()->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[26]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[27]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->Next()->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[27]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[30]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->Next()->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[30]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[67]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->Next()->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[67]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[68]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->Next()->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[68]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[69]
-    //                             || obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->Next()->V() == obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[69])
-    //                     {
-    //                         LOG(logINFO) << "halfedge (" << obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->V()->P()[0] << ", " << obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->V()->P()[1] << ", " << obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->V()->P()[2] << ") (" << obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->Next()->V()->P()[0] << ", " << obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->Next()->V()->P()[1] << ", " << obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[he]->Next()->V()->P()[2] << ") : " << he;
-    //                     }
-    //                 }
-
                      m_mainqueue.insert(obj->getPriorityQueue()->firstData());
 
 
@@ -182,13 +148,12 @@ namespace Ra
                         {
                           const Ra::Core::PriorityQueue::PriorityQueueData &d = *it;
                           LOG(logINFO) << "Number of faces" << i << " : " << m_nb_faces_max;
-    //                      m_mainqueue.erase(it);
                           MeshContactElement* obj = static_cast<MeshContactElement*>(m_meshContactElements[d.m_index]);
                           int nbfaces = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getNbFaces();
                           int vs = d.m_vs_id;
                           int vt = d.m_vt_id;
 
-                          //DEBUG
+                          //DEBUG for spinning top
                           if (vs == 190 || vt == 190)
                           {
                               LOG(logINFO) << "contact";
@@ -220,7 +185,6 @@ namespace Ra
                           it = m_mainqueue.begin();
                         }
 
-
               for (const auto& elem : m_meshContactElements)
               {
                     MeshContactElement* obj = static_cast<MeshContactElement*>(elem);
@@ -233,9 +197,7 @@ namespace Ra
     //                obj->computeQuadricDisplay();
 
     //                obj->displayEllipsoids();
-
               }
-
         }
 
         int MeshContactManager::getNbFacesMax()
@@ -251,8 +213,8 @@ namespace Ra
             Ra::Core::PriorityQueue pQueue = Ra::Core::PriorityQueue();
             const uint numTriangles = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_face.size();
 
-            // parcours des aretes
-            double edgeError;
+            //browse edges
+            Scalar  edgeError;
             Ra::Core::Vector3 p = Ra::Core::Vector3::Zero();
             int j;
             for (unsigned int i = 0; i < numTriangles; i++)
@@ -264,8 +226,6 @@ namespace Ra
                     const Ra::Core::Vertex_ptr& vs = h->V();
                     const Ra::Core::Vertex_ptr& vt = h->Next()->V();
 
-                    //bool planar = obj->getProgressiveMeshLOD()->getProgressiveMesh()->isPlanarEdge(h->idx);
-
                     // To prevent adding twice the same edge
                     if (vs->idx > vt->idx)
                     {
@@ -273,15 +233,19 @@ namespace Ra
                         continue;
                     }
 
+                    if (vs->idx == 190 || vt->idx == 190)
+                    {
+                       LOG(logINFO) << "CONTACT";
+                    }
+
+
                     // test if the edge can be collapsed or if it has contact
                     int vertexIndex = -1;
                     bool contact = false;
-                    //bool contactVs = false;
-                    //bool contactVt = false;
                     Ra::Core::ProgressiveMesh<>::Primitive qk;
-                    double dist;
-                    double weight;
-                    double sumWeight = 0;
+                    Scalar dist;
+                    Scalar weight;
+                    Scalar sumWeight = 0;
 
                     // for each vertex, we look for all contacts with other objects and add the contact quadrics to the quadric of the vertex
                     Ra::Core::ProgressiveMesh<>::Primitive qc = Ra::Core::ProgressiveMesh<>::Primitive();
@@ -295,7 +259,6 @@ namespace Ra
                             if ( vertexIndex != -1)
                             {
                                 contact = true;
-                                //contactVs = true;
                                 const Ra::Core::Vertex_ptr& c = otherObj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[vertexIndex];
                                 //dist = (c->P() - vs->P()).norm(); //in kdtree.hpp, the distance is a squared distance
                                 dist = (c->P() - vs->P()).squaredNorm();
@@ -304,7 +267,6 @@ namespace Ra
                                 sumWeight += weight;
                                 qk = otherObj->getPrimitive(vertexIndex);
                                 qk *= weight;
-                                //qk *= -weight;
                                 qc += qk;
                             }
 
@@ -312,7 +274,6 @@ namespace Ra
                             if ( vertexIndex != -1)
                             {
                                 contact = true;
-                                //contactVt = true;
                                 const Ra::Core::Vertex_ptr& c = otherObj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[vertexIndex];
                                 //dist = (c->P() - vt->P()).norm();
                                 dist = (c->P() - vt->P()).squaredNorm();
@@ -321,7 +282,6 @@ namespace Ra
                                 sumWeight += weight;
                                 qk = otherObj->getPrimitive(vertexIndex);
                                 qk *= weight;
-                                //qk *= -weight;
                                 qc += qk;
                             }
                         }
@@ -338,73 +298,15 @@ namespace Ra
                         qc *= 1 - m_lambda;
                         q += qc;
                         q *= 1 / (m_lambda * nbFacesAdj + (1 - m_lambda) * sumWeight);
-                        //q *= m_lambda;
-                        //qc *= 1/sumWeight;
-                        //qc *= 1 - m_lambda;
-                        //q += qc;
                     }
 
                     edgeError = obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeEdgeErrorContact(h->idx, p, q);
 
-    //                //for non-planar edges, we want to conserve contact points
-    //                if (!planar)
-    //                {
-    //                //for edges where one endpoint has contacts, this endpoint is the resulting point
-    //                if (contactVs && !contactVt)
-    //                {
-    //                    p = vs->P();
-    //                    pQueue.insert(Ra::Core::PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p, objIndex));
-    //                }
-    //                else if (contactVt && !contactVs)
-    //                {
-    //                    p = vt->P();
-    //                    pQueue.insert(Ra::Core::PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p, objIndex));
-    //                }
-    //                //edges where both endpoints have contacts are not collapsed
-    //                else if (!contact)
-    //                {
-    //                    obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeEdgeErrorContact(h->idx, p, qe);
-    //                    pQueue.insert(Ra::Core::PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p, objIndex));
-    //                }
-    //                }
-    //                else
-    //                {
-    //                    obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeEdgeErrorContact(h->idx, p, qe);
-    //                    pQueue.insert(Ra::Core::PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p, objIndex));
-    //                }
-
-    //                //ameliorated version
-    //                if (contact)
-    //                {
-    //                    Ra::Core::Index vsIndex, vtIndex;
-    //                    obj->getProgressiveMeshLOD()->getProgressiveMesh()->isPlanarEdge2(h->idx, vsIndex, vtIndex);
-    //                    if (contactVs && !contactVt && vtIndex == -1)
-    //                    {
-    //                        p = vs->P();
-    //                        pQueue.insert(Ra::Core::PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p, objIndex));
-    //                    }
-    //                    else if (contactVt && !contactVs && vsIndex == -1)
-    //                    {
-    //                        p = vt->P();
-    //                        pQueue.insert(Ra::Core::PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p, objIndex));
-    //                    }
-    //                }
-    //                else
-    //                {
-    //                    obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeEdgeErrorContact(h->idx, p, qe);
-    //                    pQueue.insert(Ra::Core::PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p, objIndex));
-    //                }
-
                     //insert into the priority queue with the real resulting point
                     obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeEdgeErrorContact(h->idx, p, qe);
-
-                    if (vs->idx == 1 || vt->idx == 1)
-                    {
-                        LOG(logINFO) << vs->idx << "   " << vt->idx << "   " << "error : " << edgeError;
-                    }
-
                     pQueue.insert(Ra::Core::PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, edgeError, p, objIndex));
 
+                    LOG(logINFO) << vs->idx << "   " << vt->idx << "   " << "error : " << edgeError;
                     h = h->Next();
                 }
             }
@@ -418,11 +320,9 @@ namespace Ra
             obj->getPriorityQueue()->removeEdges(vsIndex);
             obj->getPriorityQueue()->removeEdges(vtIndex);
 
-            double edgeError;
+            Scalar edgeError;
             Ra::Core::Vector3 p = Ra::Core::Vector3::Zero();
             Ra::Core::Index vIndex;
-
-            //const Ra::Core::Vertex_ptr& vs = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[vsIndex];
 
             //Listing of all the new edges formed with vs
             Ra::Core::VHEIterator vsHEIt = Ra::Core::VHEIterator(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[vsIndex]);
@@ -432,9 +332,9 @@ namespace Ra
             int vertexIndex;
             bool contactVs = false;
             Ra::Core::ProgressiveMesh<>::Primitive qk;
-            double dist;
-            double weight;
-            double sumWeightVs = 0;
+            Scalar dist;
+            Scalar weight;
+            Scalar sumWeightVs = 0;
 
             Ra::Core::ProgressiveMesh<>::Primitive qVs = Ra::Core::ProgressiveMesh<>::Primitive();
             for (uint k=0; k<m_kdtrees.size(); k++)
@@ -450,12 +350,11 @@ namespace Ra
                         const Ra::Core::Vertex_ptr& c = otherObj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[vertexIndex];
                         //dist = (c->P() - obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[vsIndex]->P()).norm();
                         dist = (c->P() - obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[vsIndex]->P()).squaredNorm();
-                        //weight = std::pow(std::pow(dist/m_threshold,2)-1,2);
-                        weight = 1;
+                        weight = std::pow(std::pow(dist/m_threshold,2)-1,2);
+                        //weight = 1;
                         sumWeightVs += weight;
                         qk = otherObj->getPrimitive(vertexIndex);
                         qk *= weight;
-                        //qk *= -weight;
                         qVs += qk;
                     }
                 }
@@ -468,13 +367,8 @@ namespace Ra
 
                 int vIndex = he->Next()->V()->idx;
 
-
-                //const Ra::Core::Vertex_ptr& v = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[vIndex];
-
-                //bool planar = obj->getProgressiveMeshLOD()->getProgressiveMesh()->isPlanarEdge(he->idx);
-
                 bool contact = false;
-                double sumWeightV = 0;
+                Scalar sumWeightV = 0;
                 Ra::Core::ProgressiveMesh<>::Primitive qV = Ra::Core::ProgressiveMesh<>::Primitive();
 
                 for (uint k=0; k<m_kdtrees.size(); k++)
@@ -490,12 +384,11 @@ namespace Ra
                             const Ra::Core::Vertex_ptr& c = otherObj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[vertexIndex];
                             //dist = (c->P() - obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[vIndex]->P()).norm();
                             dist = (c->P() - obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[vIndex]->P()).squaredNorm();
-                            //weight = std::pow(std::pow(dist/m_threshold,2)-1,2);
-                            weight = 1;
+                            weight = std::pow(std::pow(dist/m_threshold,2)-1,2);
+                            //weight = 1;
                             sumWeightV += weight;
                             qk = otherObj->getPrimitive(vertexIndex);
                             qk *= weight;
-                            //qk *= -weight;
                             qV += qk;
                         }
                     }
@@ -504,7 +397,7 @@ namespace Ra
                 Ra::Core::ProgressiveMesh<>::Primitive qe = obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeEdgeQuadric(he->idx);
                 Ra::Core::ProgressiveMesh<>::Primitive qc = Ra::Core::ProgressiveMesh<>::Primitive();
                 Ra::Core::ProgressiveMesh<>::Primitive q = Ra::Core::ProgressiveMesh<>::Primitive(qe);
-                double sumWeight = sumWeightVs + sumWeightV;
+                Scalar sumWeight = sumWeightVs + sumWeightV;
                 if (contactVs)
                 {
                     qc += qVs;
@@ -522,82 +415,15 @@ namespace Ra
                     qc *= 1 - m_lambda;
                     q += qc;
                     q *= 1 / (m_lambda * nbFacesAdj + (1 - m_lambda) * sumWeight);
-    //                q *= m_lambda;
-    //                qc *= 1/sumWeight;
-    //                qc *= 1 - m_lambda;
-    //                q += qc;
                 }
-
-
-
-    //            //for non-planar edges,we want to conserve contact points
-    //            if (!planar)
-    //            {
-    //            //for edges where one endpoint has contacts, this endpoint is the resulting point
-    //            if (contactVs && !contact)
-    //            {
-    //                p = vs->P();
-    //                obj->getPriorityQueue()->insert(Ra::Core::PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p, objIndex));
-    //            }
-    //            else if (contact && !contactVs)
-    //            {
-    //                p = v->P();
-    //                obj->getPriorityQueue()->insert(Ra::Core::PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p, objIndex));
-    //            }
-    //            //edges where both endpoints have contacts are not collapsed
-    //            else if (!contactVs && !contact)
-    //            {
-    //                obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeEdgeErrorContact(he->idx, p, qe);
-    //                obj->getPriorityQueue()->insert(Ra::Core::PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p, objIndex));
-    //            }
-    //            }
-    //            else
-    //            {
-    //                obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeEdgeErrorContact(he->idx, p, qe);
-    //                obj->getPriorityQueue()->insert(Ra::Core::PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p, objIndex));
-    //            }
-
-    //            //ameliorated version
-    //            if (contactVs || contact)
-    //            {
-    //                Ra::Core::Index vsIdx, vtIdx;
-    //                obj->getProgressiveMeshLOD()->getProgressiveMesh()->isPlanarEdge2(he->idx, vsIdx, vtIdx);
-    //                if (contactVs && !contact && vtIdx == -1)
-    //                {
-    //                    p = vs->P();
-    //                    obj->getPriorityQueue()->insert(Ra::Core::PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p, objIndex));
-    //                }
-    //                else if (contact && !contactVs && vsIdx == -1)
-    //                {
-    //                    p = v->P();
-    //                    obj->getPriorityQueue()->insert(Ra::Core::PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p, objIndex));
-    //                }
-    //            }
-    //            else
-    //            {
-    //                obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeEdgeErrorContact(he->idx, p, qe);
-    //                obj->getPriorityQueue()->insert(Ra::Core::PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p, objIndex));
-    //            }
-
-                // check is vsIndex is smaller than vIndex
-    //            if (vsIndex > vIndex)
-    //            {
-    //                he = he->Twin();
-    //            }
 
                 // compute the error while considering contacts in the quadric
                 edgeError = obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeEdgeErrorContact(he->idx, p, q);
 
-                if (vsIndex == 1 || vIndex == 1)
-                {
-                    LOG(logINFO) << vsIndex << "   " << vIndex << "   " << "error : " << edgeError;
-                }
-
                 // insert into the priority queue with the real resulting point
                 obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeEdgeErrorContact(he->idx, p, qe);
 
-                //obj->getPriorityQueue()->insert(Ra::Core::PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p, objIndex));
-
+                // check that the index of the starting point of the edge is smaller than the index of its ending point
                 if (vsIndex < vIndex)
                 {
                     obj->getPriorityQueue()->insert(Ra::Core::PriorityQueue::PriorityQueueData(vsIndex, vIndex, he->idx, he->F()->idx, edgeError, p, objIndex));

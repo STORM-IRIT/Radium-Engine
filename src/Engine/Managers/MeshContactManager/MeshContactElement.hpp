@@ -32,11 +32,11 @@ namespace Ra
                     ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite trianglesWriter
                     );
 
-            Super4PCS::KdTree<float>* computeKdTree();
-            void computePrimitives(); //Computes initial vertices quadrics to be used to detect contacts
+            Super4PCS::KdTree<Scalar>* computeKdTree();
+            void computePrimitives(); //Computes initial vertices quadrics used to detect contacts
             void computeProgressiveMesh();
             void updateTriangleMesh(Ra::Core::TriangleMesh newMesh);
-            void lodValueChanged(int value);
+            void setlodValueChanged(int value);
             bool isConstructM0();
             int getNbFacesMax();
 

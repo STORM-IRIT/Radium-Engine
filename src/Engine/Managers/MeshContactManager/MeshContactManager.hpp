@@ -45,10 +45,10 @@ namespace Ra
 
             int m_nb_faces_max;
             int m_nbfaces;
-            double m_threshold; // distance used to define "contacts"
-            double m_lambda; // influence of the original quadric considering contacts
+            Scalar m_threshold; // distance used to define "contacts"
+            Scalar m_lambda; // influence of the original quadric considering contacts
 
-            std::vector<Super4PCS::KdTree<float>*> m_kdtrees;
+            std::vector<Super4PCS::KdTree<Scalar>*> m_kdtrees;
             std::vector<MeshContactElement*> m_meshContactElements;
 
 

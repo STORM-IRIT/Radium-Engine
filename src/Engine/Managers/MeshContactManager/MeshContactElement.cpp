@@ -38,7 +38,7 @@ namespace Ra
             m_trianglesWriter = trianglesWriter;
         }
 
-        void MeshContactElement::lodValueChanged(int value)
+        void MeshContactElement::setlodValueChanged(int value)
         {
             // Retrieving the data of the displayed mesh
             Ra::Core::Vector3Array& vertices = *(m_verticesWriter());
@@ -61,10 +61,10 @@ namespace Ra
         }
 
 
-        Super4PCS::KdTree<float>* MeshContactElement::computeKdTree()
+        Super4PCS::KdTree<Scalar>* MeshContactElement::computeKdTree()
         {
-            const Super4PCS::KdTree<float>::PointList& points = reinterpret_cast<const Super4PCS::KdTree<float>::PointList&>(*(m_verticesWriter()));
-            return (new Super4PCS::KdTree<float>(points));
+            const Super4PCS::KdTree<Scalar>::PointList& points = reinterpret_cast<const Super4PCS::KdTree<Scalar>::PointList&>(*(m_verticesWriter()));
+            return (new Super4PCS::KdTree<Scalar>(points));
         }
 
         Ra::Core::PriorityQueue* MeshContactElement::getPriorityQueue()
@@ -90,7 +90,6 @@ namespace Ra
 
             Ra::Core::ProgressiveMeshBase<>* pm = new Ra::Core::ProgressiveMesh<>(m);
             m_pmlod = new Ra::Core::ProgressiveMeshLOD(pm);
-
         }
 
         Ra::Core::ProgressiveMeshLOD* MeshContactElement::getProgressiveMeshLOD()
@@ -131,7 +130,6 @@ namespace Ra
 
         void MeshContactElement::computePrimitives()
         {
-
             // We retrieve the initial faces quadrics
             std::vector<Ra::Core::ProgressiveMesh<>::Primitive> facesPrimitives = getProgressiveMeshLOD()->getProgressiveMesh()->getFacesQuadrics();
 
@@ -144,7 +142,6 @@ namespace Ra
                 Ra::Core::FaceList adjFaces = vfIt.list();
 
                 Ra::Core::ProgressiveMesh<>::Primitive q = facesPrimitives[adjFaces[0]->idx];
-
                 for (uint i = 1; i < adjFaces.size(); i++)
                 {
                     q += facesPrimitives[adjFaces[i]->idx];
@@ -155,7 +152,6 @@ namespace Ra
 
                 m_primitives.push_back(q);
             }
-
          }
 
          Ra::Core::ProgressiveMesh<>::Primitive MeshContactElement::getPrimitive(int vertexIndex)
