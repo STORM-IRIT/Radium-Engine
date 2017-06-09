@@ -7,6 +7,8 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
+#include <GuiBase/Utils/KeyMappingManager.hpp>
+
 
 namespace Ra
 {
@@ -93,7 +95,7 @@ namespace Ra
 
         bool GizmoManager::handleMousePressEvent(QMouseEvent* event)
         {
-            if( event->button() != Qt::LeftButton || !canEdit() || m_currentGizmoType == NONE)
+            if( !( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) ) || !canEdit() || m_currentGizmoType == NONE)
             {
                 return false;
             }
@@ -101,6 +103,7 @@ namespace Ra
             CORE_ASSERT(currentGizmo(), "Gizmo is not there !");
 
             // Access the camera from the viewer. (TODO : a cleaner way to access the camera).
+            // const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
             const Engine::Camera& cam = CameraInterface::getCameraFromViewer(parent());
             currentGizmo()->setInitialState(cam, Core::Vector2(Scalar(event->x()), Scalar(event->y())));
 
@@ -109,7 +112,7 @@ namespace Ra
 
         bool GizmoManager::handleMouseReleaseEvent(QMouseEvent* event)
         {
-            if ( event->button() == Qt::LeftButton && currentGizmo())
+            if ( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) && currentGizmo() )
             {
                 currentGizmo()->selectConstraint(-1);
             }
@@ -118,9 +121,10 @@ namespace Ra
 
         bool GizmoManager::handleMouseMoveEvent(QMouseEvent* event)
         {
-            if ( event->buttons() & Qt::LeftButton && currentGizmo() )
+            if ( event->buttons() & Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) && currentGizmo() )
             {
                 Core::Vector2 currentXY(event->x(), event->y());
+                // const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
                 const Engine::Camera& cam = CameraInterface::getCameraFromViewer(parent());
                 Core::Transform newTransform = currentGizmo()->mouseMove(cam, currentXY);
                 setTransform( newTransform );

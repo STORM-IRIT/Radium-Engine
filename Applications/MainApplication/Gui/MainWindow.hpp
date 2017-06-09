@@ -87,6 +87,10 @@ namespace Ra
             void gizmoShowRotate();
             //void gizmoShowScale();
 
+            // Keymapping configuration tool
+            void reloadConfiguration();
+            void loadConfiguration();
+
             /// Slot for the "visible" button
             void toggleVisisbleRO();
 

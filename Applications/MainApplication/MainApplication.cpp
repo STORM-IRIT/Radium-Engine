@@ -34,6 +34,8 @@
 
 #include <Gui/MainWindow.hpp>
 
+#include <GuiBase/Utils/KeyMappingManager.hpp>
+
 
 // Const parameters : TODO : make config / command line options
 
@@ -140,7 +142,6 @@ namespace Ra
         m_mainWindow.reset( new Gui::MainWindow );
         m_mainWindow->show();
 
-
         // Allow all events to be processed (thus the viewer should have
         // initialized the OpenGL context..)
         processEvents();
@@ -157,6 +158,9 @@ namespace Ra
 
         // Create task queue with N-1 threads (we keep one for rendering).
         m_taskQueue.reset( new Core::TaskQueue( std::thread::hardware_concurrency() - 1 ) );
+
+        // Create the instance of the keymapping manager (should it be done here ?)
+        Gui::KeyMappingManager::createInstance();
 
         createConnections();
 
