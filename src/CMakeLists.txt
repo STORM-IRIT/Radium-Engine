@@ -117,8 +117,7 @@ add_library(
     ${guibase_target} SHARED
     ${guibase_sources}
     ${guibase_headers}
-    ${guibase_inlines}
-        GuiBase/Utils/KeyMappingManager.cpp GuiBase/Utils/KeyMappingManager.hpp)
+    ${guibase_inlines})
 
 add_dependencies( ${guibase_target} ${engine_target} )
 target_compile_definitions(${guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
