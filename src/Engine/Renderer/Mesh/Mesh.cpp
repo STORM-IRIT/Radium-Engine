@@ -172,6 +172,8 @@ namespace Ra {
 
                 }
 
+                m_numElements  = m_mesh.m_triangles.size() * 3;
+
                 // Geometry data
                 sendGLData(m_mesh.m_vertices, VERTEX_POSITION);
                 sendGLData(m_mesh.m_normals,  VERTEX_NORMAL);
