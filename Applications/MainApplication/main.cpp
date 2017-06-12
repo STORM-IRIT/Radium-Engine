@@ -2,7 +2,7 @@
 
 #include <QCommandLineParser>
 
-#include <cstdio>
+#include <GuiBase/Utils/KeyMappingManager.hpp>
 
 int main( int argc, char** argv )
 {

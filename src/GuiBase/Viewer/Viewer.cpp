@@ -1,10 +1,10 @@
-// Must include this before any qt include
-//#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <glbinding/Binding.h>
 #include <glbinding/ContextInfo.h>
 #include <glbinding/Version.h>
-#include <Engine/RadiumEngine.hpp>
+// Do not import namespace to prevent glbinding/QTOpenGL collision
+#include <glbinding/gl/gl.h>
 
+#include <Engine/RadiumEngine.hpp>
 
 #include <GuiBase/Viewer/Viewer.hpp>
 
@@ -36,6 +36,8 @@
 #include <GuiBase/Viewer/TrackballCamera.hpp>
 #include <GuiBase/Utils/Keyboard.hpp>
 
+#include <GuiBase/Utils/KeyMappingManager.hpp>
+
 
 namespace Ra
 {
@@ -59,13 +61,12 @@ namespace Ra
 
     void Gui::Viewer::initializeGL()
     {
-//        initializeOpenGLFunctions();
         glbinding::Binding::initialize(false); // only resolve functions that are actually used (lazy)
         LOG( logINFO ) << "*** Radium Engine Viewer ***";
         LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::ContextInfo::renderer();
         LOG( logINFO ) << "Vendor   (glbinding) : " << glbinding::ContextInfo::vendor();
         LOG( logINFO ) << "OpenGL   (glbinding) : " << glbinding::ContextInfo::version().toString();
-        LOG( logINFO ) << "GLSL                 : " << glGetString( GL_SHADING_LANGUAGE_VERSION );
+        LOG( logINFO ) << "GLSL                 : " << gl::glGetString(gl::GLenum(GL_SHADING_LANGUAGE_VERSION));
 
         // FIXME(Charly): Renderer type should not be changed here
         // m_renderers.resize( 3 );
@@ -114,6 +115,11 @@ namespace Ra
         return m_currentRenderer;
     }
 
+    Engine::Renderer* Gui::Viewer::getRenderer()
+    {
+        return m_currentRenderer;
+    }
+
     void Gui::Viewer::onAboutToCompose()
     {
         // This slot function is called from the main thread as part of the event loop
@@ -150,7 +156,40 @@ namespace Ra
 
     void Gui::Viewer::mousePressEvent( QMouseEvent* event )
     {
-        switch ( event->button() )
+
+        if( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::VIEWER_LEFT_BUTTON_PICKING_QUERY ) )
+        {
+            if ( isKeyPressed( Gui::KeyMappingManager::getInstance()->getKeyFromAction(Gui::KeyMappingManager::VIEWER_RAYCAST_QUERY ) ) )
+            {
+                LOG( logINFO ) << "Raycast query launched";
+                Core::Ray r = m_camera->getCamera()->getRayFromScreen(Core::Vector2(event->x(), event->y()));
+                RA_DISPLAY_POINT(r.origin(), Core::Colors::Cyan(), 0.1f);
+                RA_DISPLAY_RAY(r, Core::Colors::Yellow());
+                auto ents = Engine::RadiumEngine::getInstance()->getEntityManager()->getEntities();
+                for (auto e : ents)
+                {
+                    e->rayCastQuery(r);
+                }
+            }
+            else
+            {
+                Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_LEFT_BUTTON };
+                m_currentRenderer->addPickingRequest(query);
+                m_gizmoManager->handleMousePressEvent(event);
+            }
+        }
+        else if ( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) )
+        {
+            m_camera->handleMousePressEvent(event);
+        }
+        else if ( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::VIEWER_RIGHT_BUTTON_PICKING_QUERY ) )
+        {
+            // Check picking
+            Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_RIGHT_BUTTON };
+            m_currentRenderer->addPickingRequest(query);
+        }
+
+        /*switch ( event->button() )
         {
             case Qt::LeftButton:
             {
@@ -206,7 +245,7 @@ namespace Ra
             default:
             {
             } break;
-        }
+        }*/
     }
 
     void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event )
@@ -240,7 +279,7 @@ namespace Ra
         keyReleased(event->key());
         m_camera->handleKeyReleaseEvent( event );
 
-        if (event->key() == Qt::Key_Z && !event->isAutoRepeat())
+        if ( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::VIEWER_TOGGLE_WIREFRAME ) && !event->isAutoRepeat())
         {
             m_currentRenderer->toggleWireframe();
         }
@@ -291,6 +330,7 @@ namespace Ra
         data.dt = dt;
         data.projMatrix = m_camera->getProjMatrix();
         data.viewMatrix = m_camera->getViewMatrix();
+
         m_currentRenderer->render( data );
     }
 

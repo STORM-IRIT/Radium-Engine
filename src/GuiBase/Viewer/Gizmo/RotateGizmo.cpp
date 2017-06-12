@@ -51,20 +51,22 @@ namespace Ra
                                                                                Engine::RenderObjectType::UI);
 
                 Engine::RenderTechnique* rt = new Engine::RenderTechnique;
+                /* TODO : Mathias -- Ugly hypothesis. Gizmos must define their own shaders*/
                 rt->shaderConfig = Ra::Engine::ShaderConfigurationFactory::getConfiguration("Plain");
                 rt->material = new Ra::Engine::Material("Default material");
                 arrowDrawable->setRenderTechnique(rt);
                 arrowDrawable->setMesh( mesh );
 
-                updateTransform(m_worldTo, m_transform);
+                updateTransform(mode, m_worldTo, m_transform);
 
                 m_renderObjects.push_back(m_comp->addRenderObject(arrowDrawable));
 
             }
         }
 
-        void RotateGizmo::updateTransform(const Core::Transform& worldTo, const Core::Transform& t)
+        void RotateGizmo::updateTransform(Gizmo::Mode mode, const Core::Transform& worldTo, const Core::Transform& t)
         {
+            m_mode = mode;
             m_worldTo = worldTo;
             m_transform = t;
             Core::Transform displayTransform = Core::Transform::Identity();

@@ -54,8 +54,8 @@ namespace Ra
             virtual bool handleMouseReleaseEvent( QMouseEvent* event ) = 0;
             /// @return true if the event has been taken into account, false otherwise
             virtual bool handleMouseMoveEvent( QMouseEvent* event ) = 0;
-			/// @return true if the event has been taken into account, false otherwise
-			virtual bool handleWheelEvent(QWheelEvent* event) = 0;
+            /// @return true if the event has been taken into account, false otherwise
+            virtual bool handleWheelEvent(QWheelEvent* event) = 0;
 
             /// @return true if the event has been taken into account, false otherwise
             virtual bool handleKeyPressEvent( QKeyEvent* event ) = 0;

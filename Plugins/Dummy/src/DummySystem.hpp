@@ -3,7 +3,7 @@
 
 #include <DummyPluginMacros.hpp>
 
-#include <Engine/Entity/System.hpp>
+#include <Engine/System/System.hpp>
 
 namespace Ra
 {

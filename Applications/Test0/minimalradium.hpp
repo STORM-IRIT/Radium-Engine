@@ -3,6 +3,7 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/System/System.hpp>
 #include <Engine/Entity/Entity.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
 /* This file contains a minimal radium/qt application which shows the
 classic "Spinning Cube" demo. */

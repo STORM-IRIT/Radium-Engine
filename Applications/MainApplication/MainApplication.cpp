@@ -34,6 +34,8 @@
 
 #include <Gui/MainWindow.hpp>
 
+#include <GuiBase/Utils/KeyMappingManager.hpp>
+
 
 // Const parameters : TODO : make config / command line options
 
@@ -60,7 +62,7 @@ namespace Ra
         QCoreApplication::setApplicationName(applicationName);
 
         m_targetFPS = 60; // Default
-        std::string pluginsPath = "../Plugins";
+        std::string pluginsPath = "Plugins";
 
         QCommandLineParser parser;
         parser.setApplicationDescription("Radium Engine RPZ, TMTC");
@@ -134,12 +136,11 @@ namespace Ra
         // Create engine
         m_engine.reset(Engine::RadiumEngine::createInstance());
         m_engine->initialize();
+        addBasicShaders();
 
         // Create main window.
         m_mainWindow.reset( new Gui::MainWindow );
         m_mainWindow->show();
-
-        addBasicShaders();
 
         // Allow all events to be processed (thus the viewer should have
         // initialized the OpenGL context..)
@@ -157,6 +158,9 @@ namespace Ra
 
         // Create task queue with N-1 threads (we keep one for rendering).
         m_taskQueue.reset( new Core::TaskQueue( std::thread::hardware_concurrency() - 1 ) );
+
+        // Create the instance of the keymapping manager (should it be done here ?)
+        Gui::KeyMappingManager::createInstance();
 
         createConnections();
 

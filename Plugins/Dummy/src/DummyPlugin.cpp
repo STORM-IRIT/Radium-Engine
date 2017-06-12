@@ -20,10 +20,10 @@ namespace DummyPlugin
     {
     }
 
-    void DummyPlugin::registerPlugin( Ra::Engine::RadiumEngine* engine )
+    void DummyPlugin::registerPlugin(const Ra::PluginContext &context )
     {
         DummySystem* system = new DummySystem;
-        engine->registerSystem( "DummySystem", system );
+        context->registerSystem( "DummySystem", system );
     }
 
     bool DummyPlugin::doAddWidget( QString &name )

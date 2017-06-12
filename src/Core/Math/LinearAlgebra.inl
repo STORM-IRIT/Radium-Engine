@@ -63,19 +63,19 @@ namespace Core
     }
 
     template<typename Vector_>
-    Scalar Vector::cotan(const Vector_& v1, const Vector_& v2)
+    Scalar Vector::cotan( const Vector_& v1, const Vector_& v2 )
     {
         return  v1.dot(v2) / v1.cross(v2).norm();
     }
 
     template<typename Vector_>
-    Scalar Vector::cos(const Vector_& v1, const Vector_& v2)
+    Scalar Vector::cos( const Vector_& v1, const Vector_& v2 )
     {
         return  (v1.dot(v2)) / std::sqrt( v1.normSquared() * v2.normSquared());
     }
 
     template <typename Vector_>
-    Scalar Vector::getNormAndNormalize(Vector_& v)
+    Scalar Vector::getNormAndNormalize( Vector_& v )
     {
         const Scalar norm = v.norm();
         v /= norm;
@@ -83,7 +83,7 @@ namespace Core
     }
 
     template <typename Vector_>
-    Scalar Vector::getNormAndNormalizeSafe(Vector_& v)
+    Scalar Vector::getNormAndNormalizeSafe( Vector_& v )
     {
         const Scalar norm = v.norm();
         if (norm > 0 ) {v /= norm;}
@@ -111,7 +111,7 @@ namespace Core
         return Quaternion( k * q.coeffs() );
     }
 
-    inline void Vector::getOrthogonalVectors( const Vector3& fx, Vector3& fy, Vector3& fz )
+    inline void Vector::getOrthogonalVectors( const Vector3& fx, Eigen::Ref<Vector3> fy, Eigen::Ref<Vector3> fz )
     {
         //for numerical stability, and seen that z will always be present, take the greatest component between x and y.
         if ( std::abs( fx( 0 ) ) > std::abs( fx( 1 ) ) )
@@ -129,7 +129,7 @@ namespace Core
         fz = fx.cross( fy );
     }
 
-    inline Vector3 Vector::projectOnPlane(const Vector3& planePos, const Vector3 planeNormal, const Vector3& point)
+    inline Vector3 Vector::projectOnPlane( const Vector3& planePos, const Vector3& planeNormal, const Vector3& point )
     {
         return point + planeNormal * (planePos - point).dot(planeNormal);
     }
@@ -172,7 +172,7 @@ namespace Core
     namespace MatrixUtils
     {
         // http://stackoverflow.com/a/13786235/4717805
-        inline Matrix4 lookAt(const Vector3& position, const Vector3& target, const Vector3& up)
+        inline Matrix4 lookAt( const Vector3& position, const Vector3& target, const Vector3& up )
         {
             Matrix3 R;
             R.col(2) = (position - target).normalized();
@@ -187,7 +187,7 @@ namespace Core
             return result;
         }
 
-        inline Matrix4 perspective(Scalar fovy, Scalar aspect, Scalar znear, Scalar zfar)
+        inline Matrix4 perspective( Scalar fovy, Scalar aspect, Scalar znear, Scalar zfar )
         {
             Scalar theta = fovy * 0.5f;
             Scalar range = zfar - znear;
@@ -204,7 +204,7 @@ namespace Core
             return result;
         }
 
-        inline Matrix4 orthographic(Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, Scalar f)
+        inline Matrix4 orthographic( Scalar l, Scalar r, Scalar b, Scalar t, Scalar n, Scalar f )
         {
             Matrix4 result = Matrix4::Zero();
 
@@ -232,22 +232,22 @@ namespace Core
 
 namespace Eigen
 {
-    inline Quaternion<Scalar> operator*(Scalar k, const Quaternion <Scalar>& q)
+    inline Quaternion<Scalar> operator*( Scalar k, const Quaternion <Scalar>& q )
     {
         return Ra::Core::QuaternionUtils::scale(q, k);
     }
 
-    inline Quaternion <Scalar> operator*( const Quaternion <Scalar>& q, Scalar k)
+    inline Quaternion <Scalar> operator*( const Quaternion <Scalar>& q, Scalar k )
     {
         return Ra::Core::QuaternionUtils::scale(q, k);
     }
 
-    inline Quaternion <Scalar> operator+(const Quaternion <Scalar>& q1, const Quaternion<Scalar>& q2)
+    inline Quaternion <Scalar> operator+( const Quaternion <Scalar>& q1, const Quaternion<Scalar>& q2 )
     {
         return Ra::Core::QuaternionUtils::add(q1,q2);
     }
 
-    inline Quaternion<Scalar> operator/ (const Quaternion<Scalar>& q, Scalar k)
+    inline Quaternion<Scalar> operator/ ( const Quaternion<Scalar>& q, Scalar k )
     {
         return Ra::Core::QuaternionUtils::scale(q, Scalar(1)/k);
     }

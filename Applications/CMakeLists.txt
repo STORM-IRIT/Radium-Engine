@@ -6,7 +6,6 @@
 #set (CMAKE_MODULE_PATH  ${CMAKE_MODULE_PATH} ../cmake)
 
 find_package(Radium REQUIRED)
-message(STATUS "Building applications with radium libs : ${RADIUM_LIBRARIES}")
 # Add Painty source code
 
 add_subdirectory(MainApplication)

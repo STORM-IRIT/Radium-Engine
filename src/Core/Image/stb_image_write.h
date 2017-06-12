@@ -103,7 +103,7 @@ CREDITS:
       Jonas Karlsson
       Filip Wasil
       Thatcher Ulrich
-      
+
 LICENSE
 
 This software is dual-licensed to the public domain and under the following
@@ -1035,7 +1035,7 @@ STBIWDEF int stbi_write_png_to_func(stbi_write_func *func, void *context, int x,
              add HDR output
              fix monochrome BMP
       0.95 (2014-08-17)
-		       add monochrome TGA output
+               add monochrome TGA output
       0.94 (2014-05-31)
              rename private functions to avoid conflicts with stb_image.h
       0.93 (2014-05-27)

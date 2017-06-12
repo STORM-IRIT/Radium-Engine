@@ -5,7 +5,7 @@
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Entity/FrameInfo.hpp>
+#include <Engine/FrameInfo.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
 #include "DummyComponent.hpp"

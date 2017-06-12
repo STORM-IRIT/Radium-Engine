@@ -3,6 +3,7 @@
 #include <cstdio>
 
 #include <Core/Image/stb_image.h>
+#include <Core/Log/Log.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra

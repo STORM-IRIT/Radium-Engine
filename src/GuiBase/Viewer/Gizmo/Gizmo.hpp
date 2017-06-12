@@ -6,6 +6,9 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Index/Index.hpp>
 #include <Engine/Component/Component.hpp>
+#include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
 
 
@@ -41,9 +44,18 @@ namespace Ra
                 }
             }
 
+            // shows or hides the gizmos drawables.
+            void show(bool on)
+            {
+                auto roMgr = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+                for (auto ro: m_renderObjects)
+                {
+                    roMgr->getRenderObject(ro)->setVisible(on);
+                }
+            }
 
             /// Called every time the underlying transform may have changed.
-            virtual void updateTransform(const Core::Transform& worldTo, const Core::Transform& t) = 0;
+            virtual void updateTransform(Mode mode, const Core::Transform& worldTo, const Core::Transform& t) = 0;
 
             /// Called when one of the drawables of the gizmo has been selected.
             virtual void selectConstraint(int drawableIndex) = 0;
