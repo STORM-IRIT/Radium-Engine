@@ -18,8 +18,8 @@ for an overview of the project.
 The following platforms and tool chains have been tested and should work :
 
 * *Windows* : MSVC 2015 or higher, MinGW-32 4.9.2 or higher (with Qt Creator).
-* *Mac OSX* : gcc 4.8 or higher, Apple clang
-* *Linux* : gcc 4.8 or higher, clang
+* *Mac OSX* : gcc 5 or higher, Apple clang
+* *Linux* : gcc 5 or higher, clang
 
 ## Build instructions
 
