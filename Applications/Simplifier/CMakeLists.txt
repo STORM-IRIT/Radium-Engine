@@ -2,9 +2,7 @@
 
 set(app_target simplifier)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
+# Qt stuff //////////////////////
 
 find_package(OpenGL     REQUIRED)
 find_package(Qt5Core    REQUIRED)
@@ -16,55 +14,43 @@ set( Qt5_LIBRARIES
      ${Qt5Widgets_LIBRARIES}
      ${Qt5OpenGL_LIBRARIES} )
 
-set(app_libs
-    ${RADIUM_LIBRARIES}
-
-    ${Qt5_LIBRARIES}                # the Qt beast
-    ${OPENGL_LIBRARIES}
-    )
-
-file(GLOB_RECURSE app_sources *.cpp)
-file(GLOB_RECURSE app_headers *.h *.hpp)
-file(GLOB_RECURSE app_inlines *.inl)
-file(GLOB_RECURSE app_uis     *.ui)
-qt5_wrap_ui(app_uis_moc ${app_uis})
-
-file(GLOB resources ${CMAKE_CURRENT_SOURCE_DIR}/../../*.qrc)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 
+# ///////////////////////////////
+
+# Access to Radium headers and declarations/defintions
 include_directories(
     .
     ${RADIUM_INCLUDE_DIR}
     ${PATATE_INCLUDE_DIR}
     ${EIGEN3_INCLUDE_DIR}
-    ${CMAKE_CURRENT_BINARY_DIR} # Moc
-    )
+)
 
-add_executable(
-    ${app_target}
-    ${app_sources}
-    ${app_headers}
-    ${app_inlines}
-    ${app_uis_moc}
-    ${resources}
-    )
 
-target_link_libraries(
-    ${app_target}
-    ${app_libs}
-    )
 
-add_dependencies( ${app_target}  radium_assets)
+# Get files
+file( GLOB file_sources *.cpp *.c )
+file( GLOB file_headers *.hpp *.h )
+#file( GLOB file_sources main.cpp minimalradium.cpp)
+#file( GLOB file_headers minimalradium.hpp)
 
-#install( DIRECTORY . DESTINATION include FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl" PATTERN "*.h" )
-#install( FILES ${engine_shaders} DESTINATION Shaders )
-#install( DIRECTORY ${CMAKE_SOURCE_DIR}/Assets/. DESTINATION Assets )
-#install( TARGETS ${app_target} ${core_target} ${engine_target} ${guibase_target}
-#    RUNTIME DESTINATION bin
-#    LIBRARY DESTINATION lib
-#    ARCHIVE DESTINATION lib )
+
+# Generate an executable
+add_executable( ${app_target} ${file_sources} ${file_headers} )
+
+add_dependencies( ${app_target} radiumEngine radiumGuiBase radiumCore radium_assets)
+
+
+# Link good libraries
+target_link_libraries( ${app_target} # target
+    ${RADIUM_LIBRARIES}              # Radium libs
+    ${GLBINDING_LIBRARIES}           # Radium dep
+    ${Qt5_LIBRARIES}                 # the Qt beast
+)
 
 if (MSVC)
-    #This will work from CMake 3.6
-    set_property( DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${app_target})
+    set_property( TARGET ${app_target} PROPERTY IMPORTED_LOCATION "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin" )
 endif(MSVC)
