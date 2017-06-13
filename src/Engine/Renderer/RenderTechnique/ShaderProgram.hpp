@@ -18,6 +18,7 @@ namespace globjects
 {
     class File;
     class Shader;
+    class Program;
     class NamedString;
 }
 
@@ -59,8 +60,6 @@ namespace Ra
             globjects::Shader * getShaderObject();
 
         public:
-            bool m_attached;
-
             std::unique_ptr<globjects::Shader> m_shader;
         };
 
@@ -125,6 +124,8 @@ namespace Ra
             uint m_shaderId;
             std::array<ShaderObject*, ShaderType_COUNT> m_shaderObjects;
             std::array<bool, ShaderType_COUNT> m_shaderStatus;
+
+            std::unique_ptr<globjects::Program> m_program;
         };
 
     } // namespace Engine
