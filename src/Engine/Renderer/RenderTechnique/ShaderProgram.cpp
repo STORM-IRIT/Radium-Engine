@@ -190,7 +190,6 @@ namespace Ra
                 if ( m_shaderObjects[i] != nullptr )
                 {
                     m_program->detach( m_shaderObjects[i] );
-                    //m_shaderObjects[i]->reloadAndCompile();
                     loadShader( getGLenumAsType( m_shaderObjects[i]->type() ), m_shaderObjects[i]->name(), {} );
                 }
             }
@@ -201,8 +200,10 @@ namespace Ra
         ShaderConfiguration ShaderProgram::getBasicConfiguration() const
         {
             ShaderConfiguration basicConfig;
+
             basicConfig.m_shaders = m_configuration.m_shaders;
             basicConfig.m_name = m_configuration.m_name;
+
             return basicConfig;
         }
 
