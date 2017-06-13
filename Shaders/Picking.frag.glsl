@@ -1,3 +1,5 @@
+/* RADIUM_SHADER_GLOBAL_REPLACE_OTHER */
+
 out ivec4 fragId;
 
 uniform int objectId;

@@ -1,3 +1,5 @@
+/* RADIUM_SHADER_GLOBAL_REPLACE_OTHER */
+
 layout (lines_adjacency) in;
 layout (triangle_strip, max_vertices = 4) out;
 

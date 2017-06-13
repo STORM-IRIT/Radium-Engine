@@ -1,3 +1,5 @@
+/* RADIUM_SHADER_GLOBAL_REPLACE_OTHER */
+
 #include "Structs.glsl"
 
 uniform Material material;
