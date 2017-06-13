@@ -28,41 +28,6 @@ namespace Ra
     {
         class Texture;
 
-        // finding GLSL errors after .glsl includes
-        enum LineFound : uint
-        {
-            NOT_FOUND = 0,
-            FOUND_INSIDE,
-            FOUND_OUTSIDE,
-        };
-
-        // a node representing one file, each include is a leaf
-        struct LineErr {
-            std::string name;
-            uint start;
-            uint end;
-            std::vector<struct LineErr> subfiles;
-        };
-
-        class RA_ENGINE_API ShaderObject
-        {
-        public:
-            ShaderObject();
-            ~ShaderObject();
-
-            bool loadAndCompile( GLenum type,
-                                 const std::string& filename );
-
-            bool reloadAndCompile();
-
-            uint getId() const;
-
-            globjects::Shader * getShaderObject();
-
-        public:
-            std::unique_ptr<globjects::Shader> m_shader;
-        };
-
         class RA_ENGINE_API ShaderProgram
         {
         public:
@@ -73,16 +38,9 @@ namespace Ra
             void load( const ShaderConfiguration& shaderConfig );
             void reload();
 
-            bool isOk() const;
-
             ShaderConfiguration getBasicConfiguration() const;
 
-            //void addProperty(const std::string& property);
-            //void delProperty(const std::string& property);
-            //void removeAllProperties() { m_properties.clear(); }
-
             void bind() const;
-            //void bind(const RenderParameters& params);
             void unbind() const;
 
             uint getId() const;
@@ -109,10 +67,12 @@ namespace Ra
 
             void setUniform( const char* name, Texture* tex, int texUnit ) const;
 
+            globjects::Program * getProgramObject();
+
         private:
-            //  bool exists(const std::string& filename);
             void loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props);
             GLenum getTypeAsGLEnum(ShaderType type) const;
+            ShaderType getGLenumAsType(GLenum type) const;
 
             void link();
 
@@ -121,9 +81,8 @@ namespace Ra
 
         private:
             ShaderConfiguration m_configuration;
-            uint m_shaderId;
-            std::array<ShaderObject*, ShaderType_COUNT> m_shaderObjects;
-            std::array<bool, ShaderType_COUNT> m_shaderStatus;
+
+            std::array< globjects::Shader *, ShaderType_COUNT > m_shaderObjects;
 
             std::unique_ptr<globjects::Program> m_program;
         };

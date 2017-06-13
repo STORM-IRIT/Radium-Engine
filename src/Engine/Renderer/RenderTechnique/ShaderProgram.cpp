@@ -1,5 +1,3 @@
-#define GLM_ENABLE_EXPERIMENTAL
-
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 #include <globjects/Shader.h>
@@ -7,17 +5,10 @@
 #include <globjects/Texture.h>
 #include <globjects/base/File.h>
 #include <globjects/NamedString.h>
-#include <globjects/base/StringTemplate.h>
 
-#include <glm/gtx/string_cast.hpp>
-
-#include <algorithm>
-#include <iostream>
-#include <sstream>
 #include <fstream>
 #include <regex>
 
-#include <cstdio>
 #ifdef OS_WINDOWS
 #include <direct.h>
 #define getCurrentDir _getcwd
@@ -37,83 +28,13 @@ namespace Ra
     namespace Engine
     {
 
-        ShaderObject::ShaderObject()
-        {
-        }
-
-        ShaderObject::~ShaderObject()
-        {
-
-        }
-
-        bool ShaderObject::loadAndCompile( GLenum type, const std::string& filename )
-        {
-            std::unique_ptr<globjects::AbstractStringSource> shaderSource = globjects::Shader::sourceFromFile( filename );
-            std::unique_ptr<globjects::AbstractStringSource> shaderTemplate = globjects::Shader::applyGlobalReplacements( shaderSource.get() );
-
-            // Paths in which globjects will be looking for shaders includes.
-            // Shaders are all situated in Shaders/ folder so the only path needed for shaders is the current directory.
-            globjects::Shader::IncludePaths includePaths;
-            includePaths.push_back( "/." );
-
-            m_shader.reset( new globjects::Shader( type, shaderTemplate.get(), includePaths ) );
-            m_shader->setName( filename );
-
-            // Create, if they weren't already created, named strings which correspond to shader files that you want to
-            // use in shaders's includes.
-            if( !globjects::NamedString::isNamedString("/Helpers.glsl") )
-            {
-                new globjects::NamedString( "/Helpers.glsl", new globjects::File( "Shaders/Helpers.glsl" ) );
-            }
-
-            if( !globjects::NamedString::isNamedString("/Structs.glsl") ) {
-                new globjects::NamedString( "/Structs.glsl", new globjects::File( "Shaders/Structs.glsl" ) );
-            }
-
-            if( !globjects::NamedString::isNamedString("/LightingFunctions.glsl") ) {
-                new globjects::NamedString( "/LightingFunctions.glsl", new globjects::File( "Shaders/LightingFunctions.glsl" ) );
-            }
-
-            m_shader->compile();
-
-            return m_shader->checkCompileStatus();
-        }
-
-        bool ShaderObject::reloadAndCompile()
-        {
-            bool success;
-
-            LOG( logINFO ) << "Reloading shader " << m_shader->name();
-
-            success = loadAndCompile( m_shader->type(), m_shader->name() );
-
-            if(!success)
-            {
-                LOG( logINFO ) << "Failed to reload shader" << m_shader->name();
-            }
-
-            return success;
-        }
-
-        uint ShaderObject::getId() const
-        {
-            return m_shader->id();
-        }
-
-        globjects::Shader * ShaderObject::getShaderObject()
-        {
-            return m_shader.get();
-        }
-
         ShaderProgram::ShaderProgram()
             : m_linked( false )
-            , m_shaderId( 0 )
             , m_program( nullptr )
         {
             for ( uint i = 0; i < m_shaderObjects.size(); ++i )
             {
                 m_shaderObjects[i] = nullptr;
-                m_shaderStatus[i]  = false;
             }
         }
 
@@ -125,39 +46,27 @@ namespace Ra
 
         ShaderProgram::~ShaderProgram()
         {
-            if ( m_shaderId != 0 )
+            // TODO: Remove this useless piece of code
+            if ( m_program->id() != 0 )
             {
                 for ( auto shader : m_shaderObjects )
                 {
                     if ( shader )
                     {
-                        if ( shader->getId() != 0 )
+                        if ( shader->id() != 0 )
                         {
-                            m_program->detach( shader->getShaderObject() );
+                            m_program->detach( shader );
                         }
                         delete shader;
                     }
                 }
-                glDeleteProgram( m_shaderId );
+                glDeleteProgram( m_program->id() );
             }
         }
 
         uint ShaderProgram::getId() const
         {
             return m_program->id();
-        }
-
-        bool ShaderProgram::isOk() const
-        {
-            bool ok = true;
-            for ( uint i = 0; i < ShaderType_COUNT; ++i )
-            {
-                if ( m_configuration.m_shaders[i] != "" )
-                {
-                    ok = ( ok && m_shaderStatus[i] );
-                }
-            }
-            return ok;
         }
 
         void ShaderProgram::loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props)
@@ -169,10 +78,21 @@ namespace Ra
                 return;
             }
     #endif
-            ShaderObject* shader = new ShaderObject;
-            bool status = shader->loadAndCompile(getTypeAsGLEnum(type), name);
+
+            std::unique_ptr<globjects::AbstractStringSource> shaderSource = globjects::Shader::sourceFromFile( name );
+            std::unique_ptr<globjects::AbstractStringSource> shaderTemplate = globjects::Shader::applyGlobalReplacements( shaderSource.get() );
+
+            // Paths in which globjects will be looking for shaders includes.
+            // Shaders are all situated in Shaders/ folder so the only path needed for shaders is the current directory.
+            globjects::Shader::IncludePaths includePaths;
+            includePaths.push_back( "/." );
+
+            globjects::Shader * shader = new globjects::Shader( getTypeAsGLEnum( type ), shaderTemplate.get(), includePaths );
+            shader->setName( name );
+
+            shader->compile();
+
             m_shaderObjects[type] = shader;
-            m_shaderStatus[type]  = status;
         }
 
         GLenum ShaderProgram::getTypeAsGLEnum(ShaderType type) const
@@ -185,24 +105,47 @@ namespace Ra
                 case ShaderType_TESS_EVALUATION: return GL_TESS_EVALUATION_SHADER;
                 case ShaderType_TESS_CONTROL: return GL_TESS_CONTROL_SHADER;
 #ifndef OS_MACOS
-                // FIXED (Mathias) : GL_COMPUTE_SHADER requires OpenGL >= 4.2, Apple provides OpenGL 4.1
+                    // FIXED (Mathias) : GL_COMPUTE_SHADER requires OpenGL >= 4.2, Apple provides OpenGL 4.1
                 case ShaderType_COMPUTE: return GL_COMPUTE_SHADER;
 #endif
                 default: CORE_ERROR("Wrong ShaderType");
             }
+
             // Should never get there
             return GL_ZERO;
         }
 
+        ShaderType ShaderProgram::getGLenumAsType(GLenum type) const
+        {
+            switch(type) {
+                case GL_VERTEX_SHADER:
+                    return ShaderType_VERTEX;
+                case GL_FRAGMENT_SHADER:
+                    return ShaderType_FRAGMENT;
+                case GL_GEOMETRY_SHADER:
+                    return ShaderType_GEOMETRY;
+                case GL_TESS_EVALUATION_SHADER:
+                    return ShaderType_TESS_EVALUATION;
+                case GL_TESS_CONTROL_SHADER:
+                    return ShaderType_TESS_CONTROL;
+#ifndef OS_MACOS
+                    // FIXED (Mathias) : GL_COMPUTE_SHADER requires OpenGL >= 4.2, Apple provides OpenGL 4.1
+                case GL_COMPUTE_SHADER:
+                    return ShaderType_COMPUTE;
+#endif
+                default: break;
+            }
+
+            return ShaderType_VERTEX;
+        }
+
         void ShaderProgram::load( const ShaderConfiguration& shaderConfig )
         {
-            //    LOG(INFO) << "Loading shader " << shaderConfig.getName() << " <type = " << std::hex << shaderConfig.getType() << std::dec << ">";
             m_configuration = shaderConfig;
 
-            CORE_ERROR_IF(m_configuration.isComplete(), ("Shader program " + shaderConfig.m_name + " misses vertex or fragment shader.").c_str());
+            CORE_ERROR_IF( m_configuration.isComplete(), ("Shader program " + shaderConfig.m_name + " misses vertex or fragment shader.").c_str() );
 
             m_program = globjects::Program::create();
-            m_shaderId = m_program->id();
             m_program->setName( shaderConfig.m_name );
 
             for (size_t i = 0; i < ShaderType_COUNT; ++i)
@@ -218,16 +161,11 @@ namespace Ra
 
         void ShaderProgram::link()
         {
-            if ( !isOk() )
-            {
-                return;
-            }
-
             for ( int i=0; i < ShaderType_COUNT; ++i )
             {
                 if ( m_shaderObjects[i] )
                 {
-                    m_program->attach( m_shaderObjects[i]->getShaderObject() );
+                    m_program->attach( m_shaderObjects[i] );
                 }
             }
 
@@ -238,8 +176,6 @@ namespace Ra
 
         void ShaderProgram::bind() const
         {
-            CORE_ASSERT( m_shaderId != 0, "Shader is not initialized" );
-            CORE_ASSERT(checkOpenGLContext(), "Meh");
             m_program->use();
         }
 
@@ -254,8 +190,9 @@ namespace Ra
             {
                 if ( m_shaderObjects[i] != nullptr )
                 {
-                    m_program->detach( m_shaderObjects[i]->getShaderObject() );
-                    m_shaderObjects[i]->reloadAndCompile();
+                    m_program->detach( m_shaderObjects[i] );
+                    //m_shaderObjects[i]->reloadAndCompile();
+                    loadShader( getGLenumAsType( m_shaderObjects[i]->type() ), m_shaderObjects[i]->name(), {} );
                 }
             }
 
@@ -372,6 +309,9 @@ namespace Ra
             m_program->setUniform( name, texUnit );
         }
 
-
+        globjects::Program * ShaderProgram::getProgramObject()
+        {
+            return m_program.get();
+        }
     }
 } // namespace Ra
