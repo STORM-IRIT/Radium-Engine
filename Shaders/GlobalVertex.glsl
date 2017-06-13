@@ -1,4 +1,4 @@
-#version 410
+#version 41
 #extension GL_ARB_shading_language_include : require
 
 out gl_PerVertex {
