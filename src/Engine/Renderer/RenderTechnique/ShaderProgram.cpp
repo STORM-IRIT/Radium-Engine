@@ -1,10 +1,15 @@
+#define GLM_ENABLE_EXPERIMENTAL
+
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 #include <globjects/Shader.h>
 #include <globjects/Program.h>
+#include <globjects/Texture.h>
 #include <globjects/base/File.h>
 #include <globjects/NamedString.h>
 #include <globjects/base/StringTemplate.h>
+
+#include <glm/gtx/string_cast.hpp>
 
 #include <algorithm>
 #include <iostream>
@@ -21,6 +26,7 @@
 #define getCurrentDir getcwd
 #endif
 
+#include <Core/Math/GlmAdapters.inl>
 #include <Core/Log/Log.hpp>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
@@ -30,56 +36,9 @@ namespace Ra
 {
     namespace Engine
     {
-        // From OpenGL Shading Language 3rd Edition, p215-216
-        std::string getShaderInfoLog( GLuint shader )
-        {
-            int infoLogLen;
-            int charsWritten;
-            GLchar* infoLog;
-            std::stringstream ss;
-
-            glGetShaderiv( shader, GL_INFO_LOG_LENGTH, &infoLogLen );
-
-            if ( infoLogLen > 0 )
-            {
-                infoLog = new GLchar[infoLogLen];
-                // error check for fail to allocate memory omitted
-                glGetShaderInfoLog( shader, infoLogLen, &charsWritten, infoLog );
-                ss << "InfoLog : " << std::endl << infoLog << std::endl;
-                delete[] infoLog;
-            }
-
-            return ss.str();
-        }
-
-        std::string getProgramInfoLog(GLuint program)
-        {
-            GLboolean status;
-
-            glGetProgramiv( program, GL_LINK_STATUS, & status );
-            if ( status != GL_TRUE )
-            {
-                int infoLogLen;
-                glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLen);
-
-                if (infoLogLen > 0)
-                {
-                    int charsWritten;
-                    GLchar* infoLog = new GLchar[infoLogLen];
-                    glGetProgramInfoLog(program, infoLogLen, &charsWritten, infoLog);
-                    std::stringstream ss;
-                    ss << "Shader link status : " << std::endl << infoLog << std::endl;
-                    delete[] infoLog;
-                    return ss.str();
-                }
-            }
-            return "";
-        }
 
         ShaderObject::ShaderObject()
-            : m_attached(false)
         {
-            m_shader.reset( nullptr );
         }
 
         ShaderObject::~ShaderObject()
@@ -92,11 +51,28 @@ namespace Ra
             std::unique_ptr<globjects::AbstractStringSource> shaderSource = globjects::Shader::sourceFromFile( filename );
             std::unique_ptr<globjects::AbstractStringSource> shaderTemplate = globjects::Shader::applyGlobalReplacements( shaderSource.get() );
 
-            globjects::NamedString::create( "Structs.glsl", new globjects::File( "/export/home/ingres/locussol/Radium-Engine/Radium-Engine/Shaders/Structs.glsl" ) );
+            // Paths in which globjects will be looking for shaders includes.
+            // Shaders are all situated in Shaders/ folder so the only path needed for shaders is the current directory.
+            globjects::Shader::IncludePaths includePaths;
+            includePaths.push_back( "/." );
 
-            m_shader.reset( new globjects::Shader( type, shaderTemplate.get() ) );
-
+            m_shader.reset( new globjects::Shader( type, shaderTemplate.get(), includePaths ) );
             m_shader->setName( filename );
+
+            // Create, if they weren't already created, named strings which correspond to shader files that you want to
+            // use in shaders's includes.
+            if( !globjects::NamedString::isNamedString("/Helpers.glsl") )
+            {
+                new globjects::NamedString( "/Helpers.glsl", new globjects::File( "Shaders/Helpers.glsl" ) );
+            }
+
+            if( !globjects::NamedString::isNamedString("/Structs.glsl") ) {
+                new globjects::NamedString( "/Structs.glsl", new globjects::File( "Shaders/Structs.glsl" ) );
+            }
+
+            if( !globjects::NamedString::isNamedString("/LightingFunctions.glsl") ) {
+                new globjects::NamedString( "/LightingFunctions.glsl", new globjects::File( "Shaders/LightingFunctions.glsl" ) );
+            }
 
             m_shader->compile();
 
@@ -129,9 +105,10 @@ namespace Ra
             return m_shader.get();
         }
 
-        ShaderProgram:: ShaderProgram()
-            : m_linked(false)
+        ShaderProgram::ShaderProgram()
+            : m_linked( false )
             , m_shaderId( 0 )
+            , m_program( nullptr )
         {
             for ( uint i = 0; i < m_shaderObjects.size(); ++i )
             {
@@ -154,9 +131,9 @@ namespace Ra
                 {
                     if ( shader )
                     {
-                        if ((shader->getId() != 0) && shader->m_attached)
+                        if ( shader->getId() != 0 )
                         {
-                            GL_ASSERT( glDetachShader( m_shaderId, shader->getId() ) );
+                            m_program->detach( shader->getShaderObject() );
                         }
                         delete shader;
                     }
@@ -167,8 +144,9 @@ namespace Ra
 
         uint ShaderProgram::getId() const
         {
-            return m_shaderId;
+            return m_program->id();
         }
+
         bool ShaderProgram::isOk() const
         {
             bool ok = true;
@@ -223,7 +201,9 @@ namespace Ra
 
             CORE_ERROR_IF(m_configuration.isComplete(), ("Shader program " + shaderConfig.m_name + " misses vertex or fragment shader.").c_str());
 
-            GL_ASSERT( m_shaderId = glCreateProgram() );
+            m_program = globjects::Program::create();
+            m_shaderId = m_program->id();
+            m_program->setName( shaderConfig.m_name );
 
             for (size_t i = 0; i < ShaderType_COUNT; ++i)
             {
@@ -247,33 +227,25 @@ namespace Ra
             {
                 if ( m_shaderObjects[i] )
                 {
-                    GL_ASSERT( glAttachShader( m_shaderId, m_shaderObjects[i]->getId() ) );
-                    m_shaderObjects[i]->m_attached = true;
+                    m_program->attach( m_shaderObjects[i]->getShaderObject() );
                 }
             }
 
-            GL_ASSERT( glProgramParameteri(m_shaderId, GL_PROGRAM_SEPARABLE, GL_TRUE) );
-            GL_ASSERT( glLinkProgram( m_shaderId ) );
+            m_program->setParameter( GL_PROGRAM_SEPARABLE, GL_TRUE );
 
-            auto log = getProgramInfoLog(m_shaderId);
-
-            if ( log.size() > 0 )
-            {
-                LOG(logINFO) << "Shader name : " << m_configuration.m_name;
-                LOG(logINFO) << log;
-            }
+            m_program->link();
         }
 
         void ShaderProgram::bind() const
         {
             CORE_ASSERT( m_shaderId != 0, "Shader is not initialized" );
             CORE_ASSERT(checkOpenGLContext(), "Meh");
-            GL_ASSERT( glUseProgram( m_shaderId ) );
+            m_program->use();
         }
 
         void ShaderProgram::unbind() const
         {
-            GL_ASSERT( glUseProgram( 0 ) );
+            m_program->release();
         }
 
         void ShaderProgram::reload()
@@ -282,7 +254,7 @@ namespace Ra
             {
                 if ( m_shaderObjects[i] != nullptr )
                 {
-                    GL_ASSERT( glDetachShader( m_shaderId, m_shaderObjects[i]->getId() ) );
+                    m_program->detach( m_shaderObjects[i]->getShaderObject() );
                     m_shaderObjects[i]->reloadAndCompile();
                 }
             }
@@ -300,96 +272,104 @@ namespace Ra
 
         void ShaderProgram::setUniform( const char* name, int value ) const
         {
-            GL_ASSERT( glUniform1i( glGetUniformLocation( m_shaderId, name ), value ) );
+            m_program->setUniform( name, value );
         }
 
         void ShaderProgram::setUniform( const char* name, unsigned int value ) const
         {
-            GL_ASSERT( glUniform1ui( glGetUniformLocation( m_shaderId, name ), value ) );
+            m_program->setUniform(name, value);
         }
 
         void ShaderProgram::setUniform( const char* name, float value ) const
         {
-            GL_ASSERT( glUniform1f( glGetUniformLocation( m_shaderId, name ), value ) );
+            m_program->setUniform( name, value );
         }
 
         void ShaderProgram::setUniform( const char* name, double value ) const
         {
             float v = static_cast<float>(value);
-            GL_ASSERT( glUniform1f( glGetUniformLocation( m_shaderId, name ), v ) );
+
+            m_program->setUniform( name, v );
         }
 
         void ShaderProgram::setUniform( const char* name, const Core::Vector2f& value ) const
         {
-            GL_ASSERT( glUniform2fv( glGetUniformLocation( m_shaderId, name ), 1, value.data() ) );
+            m_program->setUniform( name, Core::toGlm( value ) );
         }
 
         void ShaderProgram::setUniform( const char* name, const Core::Vector2d& value ) const
         {
             Core::Vector2f v = value.cast<float>();
-            GL_ASSERT( glUniform2fv( glGetUniformLocation( m_shaderId, name ), 1, v.data() ) );
+
+            m_program->setUniform( name, Core::toGlm( v ) );
         }
 
         void ShaderProgram::setUniform( const char* name, const Core::Vector3f& value ) const
         {
-            GL_ASSERT( glUniform3fv( glGetUniformLocation( m_shaderId, name ), 1, value.data() ) );
+            m_program->setUniform( name, Core::toGlm( value ) );
         }
 
         void ShaderProgram::setUniform( const char* name, const Core::Vector3d& value ) const
         {
             Core::Vector3f v = value.cast<float>();
-            GL_ASSERT( glUniform3fv( glGetUniformLocation( m_shaderId, name ), 1, v.data() ) );
+
+            m_program->setUniform( name, Core::toGlm( v ) );
         }
 
         void ShaderProgram::setUniform( const char* name, const Core::Vector4f& value ) const
         {
-            GL_ASSERT( glUniform4fv( glGetUniformLocation( m_shaderId, name ), 1, value.data() ) );
+            m_program->setUniform( name, Core::toGlm( value ) );
         }
 
         void ShaderProgram::setUniform( const char* name, const Core::Vector4d& value ) const
         {
             Core::Vector4f v = value.cast<float>();
-            GL_ASSERT( glUniform4fv( glGetUniformLocation( m_shaderId, name ), 1, v.data() ) );
+
+            m_program->setUniform( name, Core::toGlm( v ) );
         }
 
         void ShaderProgram::setUniform( const char* name, const Core::Matrix2f& value ) const
         {
-            GL_ASSERT( glUniformMatrix2fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, value.data() ) );
+            m_program->setUniform( name, Core::toGlm( value ) );
         }
 
         void ShaderProgram::setUniform( const char* name, const Core::Matrix2d& value ) const
         {
             Core::Matrix2f v = value.cast<float>();
-            GL_ASSERT( glUniformMatrix2fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, v.data() ) );
+
+            m_program->setUniform( name, Core::toGlm( v ) );
         }
 
         void ShaderProgram::setUniform( const char* name, const Core::Matrix3f& value ) const
         {
-            GL_ASSERT( glUniformMatrix3fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, value.data() ) );
+            m_program->setUniform( name, Core::toGlm( value ) );
         }
 
         void ShaderProgram::setUniform( const char* name, const Core::Matrix3d& value ) const
         {
             Core::Matrix3f v = value.cast<float>();
-            GL_ASSERT( glUniformMatrix3fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, v.data() ) );
+
+            m_program->setUniform( name, Core::toGlm( v ) );
         }
 
         void ShaderProgram::setUniform( const char* name, const Core::Matrix4f& value ) const
         {
-            GL_ASSERT( glUniformMatrix4fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, value.data() ) );
+            m_program->setUniform( name, Core::toGlm( value ) );
         }
 
         void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) const
         {
             Core::Matrix4f v = value.cast<float>();
-            GL_ASSERT( glUniformMatrix4fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, v.data() ) );
+
+            m_program->setUniform( name, Core::toGlm( v ) );
         }
 
         // TODO : Provide Texture support
         void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const
         {
             tex->bind( texUnit );
-            GL_ASSERT( glUniform1i( glGetUniformLocation( m_shaderId, name ), texUnit ) );
+
+            m_program->setUniform( name, texUnit );
         }
 
 
