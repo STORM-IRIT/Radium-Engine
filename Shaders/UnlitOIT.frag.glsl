@@ -1,3 +1,5 @@
+/* RADIUM_SHADER_GLOBAL_REPLACE_OTHER */
+
 layout (location = 0) out vec4 f_Accumulation;
 layout (location = 1) out vec4 f_Revealage;
 

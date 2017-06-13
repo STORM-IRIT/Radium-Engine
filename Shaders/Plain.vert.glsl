@@ -1,3 +1,5 @@
+/* RADIUM_SHADER_GLOBAL_REPLACE_VERTEX */
+
 #include "Structs.glsl"
 
 layout (location = 0) in vec3 in_position;

@@ -1,3 +1,5 @@
+/* RADIUM_SHADER_GLOBAL_REPLACE_VERTEX */
+
 layout (location = 0) in vec3 in_position;
 layout (location = 1) in vec3 in_normal;
 layout (location = 2) in vec3 in_tangent;
