@@ -36,14 +36,6 @@ namespace Ra
             new globjects::NamedString( "/Structs.glsl", new globjects::File( "Shaders/Structs.glsl" ) );
             new globjects::NamedString( "/Tonemap.glsl", new globjects::File( "Shaders/Tonemap.glsl" ) );
             new globjects::NamedString( "/LightingFunctions.glsl", new globjects::File( "Shaders/LightingFunctions.glsl" ) );
-
-            globjects::File globalVertex = globjects::File("Shaders/GlobalVertex.glsl");
-            globjects::File globalOther = globjects::File("Shaders/GlobalOther.glsl");
-
-            // Add a global replace value to the globjects's global replace list.
-            // Every shader that will be created will apply these replacements.
-            globjects::Shader::globalReplace( "/* RADIUM_SHADER_GLOBAL_REPLACE_VERTEX */", globalVertex.string() );
-            globjects::Shader::globalReplace( "/* RADIUM_SHADER_GLOBAL_REPLACE_OTHER */", globalOther.string() );
         }
 
         const ShaderProgram* ShaderProgramManager::addShaderProgram(const std::string& name, const std::string& vert, const std::string& frag)
