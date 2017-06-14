@@ -41,7 +41,7 @@ add_library(
     ${core_inlines}
 )
 
-add_dependencies( ${core_target} eigen3)
+add_dependencies( ${core_target} eigen3 patate)
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
 
 target_link_libraries(
@@ -76,7 +76,7 @@ add_library(
     ${engine_shaders}
 )
 
-add_dependencies( ${engine_target} ${core_target} assimp_lib glbinding_lib)
+add_dependencies( ${engine_target} ${core_target} assimp glbinding)
 
 target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 

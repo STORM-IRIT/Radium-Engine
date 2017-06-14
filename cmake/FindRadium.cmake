@@ -59,34 +59,38 @@ IF ( RADIUM_ROOT_DIR )
     ############################################################################
     # Get dependencies if not already specified
     IF(NOT EIGEN3_INCLUDE_DIR)
-        set(EIGEN3_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
+        set(EIGEN3_INCLUDE_DIR ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/include)
     ENDIF(NOT EIGEN3_INCLUDE_DIR)
+
+    IF(NOT PATATE_INCLUDE_DIR)
+        set(PATATE_INCLUDE_DIR ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/include)
+    ENDIF(NOT PATATE_INCLUDE_DIR)
 
     IF (NOT ASSIMP_LIBRARIES)
         FIND_LIBRARY ( ASSIMP_LIBRARIES
             NAMES assimp assimpd
-            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
+            PATHS ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/lib
             )
     ENDIF (NOT ASSIMP_LIBRARIES)
 
     IF(NOT ASSIMP_INCLUDE_DIR)
-        set(ASSIMP_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
+        set(ASSIMP_INCLUDE_DIR ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/include)
     ENDIF(NOT ASSIMP_INCLUDE_DIR)
 
 
     IF (NOT GLBINDING_LIBRARIES)
         FIND_LIBRARY ( GLBINDING_LIBRARIES
             NAMES glbinding glbindingd
-            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
+            PATHS ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/lib
             )
     ENDIF (NOT GLBINDING_LIBRARIES)
 
     IF(NOT GLBINDING_INCLUDE_DIR)
-        set(GLBINDING_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
+        set(GLBINDING_INCLUDE_DIR ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/include)
     ENDIF(NOT GLBINDING_INCLUDE_DIR)
 
     SET( RADIUM_INCLUDE_DIR)
-    LIST(APPEND RADIUM_INCLUDE_DIR "${RADIUM_INCLUDES}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}")
+    LIST(APPEND RADIUM_INCLUDE_DIR "${RADIUM_INCLUDES}" "${EIGEN3_INCLUDE_DIR}" "${PATATE_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}")
 
     SET( RADIUM_LIBRARIES )
     IF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES AND GLBINDING_LIBRARIES)
@@ -99,6 +103,7 @@ IF ( Radium_FOUND )
     IF(NOT Radium_FIND_QUIETLY)
       MESSAGE ( STATUS "Found Radium Engine: ${RADIUM_ROOT_DIR}")
       MESSAGE ( STATUS "      Eigen3 includes: ${EIGEN3_INCLUDE_DIR}")
+      MESSAGE ( STATUS "      Patate includes: ${PATATE_INCLUDE_DIR}")
       MESSAGE ( STATUS "      Radium libs: ${RADIUM_LIBRARIES}")
       MESSAGE ( STATUS "      Assimp libs: ${ASSIMP_LIBRARIES}")
       MESSAGE ( STATUS "      GlBinding libs: ${GLBINDING_LIBRARIES}")
