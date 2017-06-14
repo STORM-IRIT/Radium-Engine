@@ -1,5 +1,3 @@
-/* RADIUM_SHADER_GLOBAL_REPLACE_OTHER */
-
 in vec2 varTexcoord;
 out vec4 fragColor;
 

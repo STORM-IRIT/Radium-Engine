@@ -1,5 +1,3 @@
-/* RADIUM_SHADER_GLOBAL_REPLACE_OTHER */
-
 // Mostly copied from vortex engine's luminance shader
 
 out vec4 fragColor;
