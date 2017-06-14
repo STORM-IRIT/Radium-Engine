@@ -90,7 +90,6 @@ namespace Ra
             std::unique_ptr<globjects::StaticStringSource> newStringSource = globjects::Shader::sourceFromString( newSource );
 
             shader->setSource( newStringSource.get() );
-            //shader->setName( name );
 
             shader->compile();
 
@@ -143,7 +142,6 @@ namespace Ra
             CORE_ERROR_IF( m_configuration.isComplete(), ("Shader program " + shaderConfig.m_name + " misses vertex or fragment shader.").c_str() );
 
             m_program = globjects::Program::create();
-            //m_program->setName( shaderConfig.m_name );
 
             for (size_t i = 0; i < ShaderType_COUNT; ++i)
             {
