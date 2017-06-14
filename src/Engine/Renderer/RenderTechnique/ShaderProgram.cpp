@@ -3,8 +3,10 @@
 #include <globjects/Shader.h>
 #include <globjects/Program.h>
 #include <globjects/Texture.h>
-#include <globjects/base/File.h>
 #include <globjects/NamedString.h>
+
+#include <globjects/base/File.h>
+#include <globjects/base/StaticStringSource.h>
 
 #include <fstream>
 #include <regex>
@@ -87,6 +89,27 @@ namespace Ra
             includePaths.push_back( "/." );
 
             globjects::Shader * shader = new globjects::Shader( getTypeAsGLEnum( type ), shaderTemplate.get(), includePaths );
+
+            // We apply replacements directly in source to add #version directives and other stuff for example.
+            // GLSL files used to include shader's headers are GlobalVertex and GlobalOther, but you can add as many
+            // as you wish.
+            std::unique_ptr<globjects::File> replacement;
+
+            if( type == ShaderType_VERTEX )
+            {
+                replacement = globjects::File::create("Shaders/GlobalVertex.glsl");
+            }
+            else
+            {
+                replacement = globjects::File::create("Shaders/GlobalOther.glsl");
+            }
+
+            // Updating shader's source with file's content.
+            std::string oldSource = shader->getSource();
+            std::string newSource = replacement->string() + "\n" + oldSource;
+            std::unique_ptr<globjects::StaticStringSource> newStringSource = globjects::Shader::sourceFromString( newSource );
+
+            shader->setSource( newStringSource.get() );
             shader->setName( name );
 
             shader->compile();
