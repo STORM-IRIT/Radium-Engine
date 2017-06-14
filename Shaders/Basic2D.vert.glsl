@@ -1,5 +1,3 @@
-/* RADIUM_SHADER_GLOBAL_REPLACE_VERTEX */
-
 layout (location = 0) in vec3 position;
 
 out vec2 varTexcoord;

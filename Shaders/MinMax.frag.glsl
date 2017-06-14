@@ -1,5 +1,3 @@
-/* RADIUM_SHADER_GLOBAL_REPLACE_OTHER */
-
 out vec4 fragColor;
 
 uniform sampler2D color;

@@ -1,5 +1,3 @@
-/* RADIUM_SHADER_GLOBAL_REPLACE_VERTEX */
-
 layout (location = 0) in vec3 inPos;
 layout (location = 5) in vec3 inCol;
 
