@@ -29,8 +29,6 @@ namespace Ra
             RA_SINGLETON_INTERFACE(ShaderProgramManager);
 
         public:
-            int getShaderId(const std::string& shader) const;
-
             const ShaderProgram* addShaderProgram(const std::string& name, const std::string& vert, const std::string& frag);
             const ShaderProgram* addShaderProgram(const ShaderConfiguration& config);
 
