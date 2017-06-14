@@ -21,7 +21,6 @@
 
 #include <Core/Math/GlmAdapters.inl>
 
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra
@@ -47,27 +46,7 @@ namespace Ra
 
         ShaderProgram::~ShaderProgram()
         {
-            // TODO: Remove this useless piece of code
-            if ( m_program->id() != 0 )
-            {
-                for ( auto shader : m_shaderObjects )
-                {
-                    if ( shader )
-                    {
-                        if ( shader->id() != 0 )
-                        {
-                            m_program->detach( shader );
-                        }
-                        delete shader;
-                    }
-                }
-                glDeleteProgram( m_program->id() );
-            }
-        }
 
-        uint ShaderProgram::getId() const
-        {
-            return m_program->id();
         }
 
         void ShaderProgram::loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props)
@@ -88,7 +67,7 @@ namespace Ra
             globjects::Shader::IncludePaths includePaths;
             includePaths.push_back( "/." );
 
-            globjects::Shader * shader = new globjects::Shader( getTypeAsGLEnum( type ), shaderTemplate.get(), includePaths );
+            std::unique_ptr<globjects::Shader> shader = globjects::Shader::create( getTypeAsGLEnum( type ), shaderTemplate.get(), includePaths );
 
             // We apply replacements directly in source to add #version directives and other stuff for example.
             // GLSL files used to include shader's headers are GlobalVertex and GlobalOther, but you can add as many
@@ -110,11 +89,11 @@ namespace Ra
             std::unique_ptr<globjects::StaticStringSource> newStringSource = globjects::Shader::sourceFromString( newSource );
 
             shader->setSource( newStringSource.get() );
-            shader->setName( name );
+            //shader->setName( name );
 
             shader->compile();
 
-            m_shaderObjects[type] = shader;
+            m_shaderObjects[type].swap( shader );
         }
 
         GLenum ShaderProgram::getTypeAsGLEnum(ShaderType type) const
@@ -139,26 +118,21 @@ namespace Ra
 
         ShaderType ShaderProgram::getGLenumAsType(GLenum type) const
         {
-            switch(type) {
-                case GL_VERTEX_SHADER:
-                    return ShaderType_VERTEX;
-                case GL_FRAGMENT_SHADER:
-                    return ShaderType_FRAGMENT;
-                case GL_GEOMETRY_SHADER:
-                    return ShaderType_GEOMETRY;
-                case GL_TESS_EVALUATION_SHADER:
-                    return ShaderType_TESS_EVALUATION;
-                case GL_TESS_CONTROL_SHADER:
-                    return ShaderType_TESS_CONTROL;
+            switch(type)
+            {
+                case GL_VERTEX_SHADER: return ShaderType_VERTEX;
+                case GL_FRAGMENT_SHADER: return ShaderType_FRAGMENT;
+                case GL_GEOMETRY_SHADER: return ShaderType_GEOMETRY;
+                case GL_TESS_EVALUATION_SHADER: return ShaderType_TESS_EVALUATION;
+                case GL_TESS_CONTROL_SHADER: return ShaderType_TESS_CONTROL;
 #ifndef OS_MACOS
-                    // FIXED (Mathias) : GL_COMPUTE_SHADER requires OpenGL >= 4.2, Apple provides OpenGL 4.1
-                case GL_COMPUTE_SHADER:
-                    return ShaderType_COMPUTE;
+                case GL_COMPUTE_SHADER: return ShaderType_COMPUTE;
 #endif
-                default: break;
+                default: CORE_ERROR("Wrong GLenum");
             }
 
-            return ShaderType_VERTEX;
+            // Should never get there
+            return ShaderType_COUNT;
         }
 
         void ShaderProgram::load( const ShaderConfiguration& shaderConfig )
@@ -168,7 +142,7 @@ namespace Ra
             CORE_ERROR_IF( m_configuration.isComplete(), ("Shader program " + shaderConfig.m_name + " misses vertex or fragment shader.").c_str() );
 
             m_program = globjects::Program::create();
-            m_program->setName( shaderConfig.m_name );
+            //m_program->setName( shaderConfig.m_name );
 
             for (size_t i = 0; i < ShaderType_COUNT; ++i)
             {
@@ -187,7 +161,7 @@ namespace Ra
             {
                 if ( m_shaderObjects[i] )
                 {
-                    m_program->attach( m_shaderObjects[i] );
+                    m_program->attach( m_shaderObjects[i].get() );
                 }
             }
 
@@ -212,7 +186,7 @@ namespace Ra
             {
                 if ( m_shaderObjects[i] != nullptr )
                 {
-                    m_program->detach( m_shaderObjects[i] );
+                    m_program->detach( m_shaderObjects[i].get() );
                     loadShader( getGLenumAsType( m_shaderObjects[i]->type() ), m_shaderObjects[i]->name(), {} );
                 }
             }

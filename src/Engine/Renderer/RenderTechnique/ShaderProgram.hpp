@@ -9,10 +9,11 @@
 #include <list>
 #include <memory>
 
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
 namespace globjects
 {
@@ -42,8 +43,6 @@ namespace Ra
 
             void bind() const;
             void unbind() const;
-
-            uint getId() const;
 
             // Uniform setters
             void setUniform( const char* name, int value ) const;
@@ -82,7 +81,7 @@ namespace Ra
         private:
             ShaderConfiguration m_configuration;
 
-            std::array< globjects::Shader *, ShaderType_COUNT > m_shaderObjects;
+            std::array< std::unique_ptr<globjects::Shader>, ShaderType_COUNT > m_shaderObjects;
 
             std::unique_ptr<globjects::Program> m_program;
         };
