@@ -60,8 +60,6 @@ namespace Ra
 
     void Gui::Viewer::initializeGL()
     {
-//        initializeOpenGLFunctions();
-        //glbinding::Binding::initialize(false); // only resolve functions that are actually used (lazy)
         globjects::init(); // globjects initializes glbinding internally
 
         LOG( logINFO ) << "*** Radium Engine Viewer ***";
