@@ -9,7 +9,8 @@ namespace Ra
 {
     namespace Core
     {
-        // Transform an Eigen vector/matrix into a glm vector/matrix
+        // Transform an Eigen vector/matrix into a glm vector/matrix.
+        // Used to deal with globjects's setUniform() method which uses glm structures instead of Eigen's structures.
 
         inline glm::vec2 toGlm( const Vector2& v )
         {
@@ -119,9 +120,11 @@ namespace Ra
                                 m.coeff( 0, 3 ), m.coeff( 1, 3 ), m.coeff( 2, 3 ) );
         }
 
-        // Transform a glm vector/matrix into an Eigen vector/matrix
+        // Transform a glm vector/matrix into an Eigen vector/matrix.
+        // It may be useful because globjects's getUniform() method returns a glm structure and Radium
+        // only deals with Eigen's structures.
 
-/*        inline Vector2 fromGlm( const glm::vec2& v )
+        inline Vector2 fromGlm( const glm::vec2& v )
         {
             return Vector2( v[0], v[1] );
         }
@@ -168,66 +171,102 @@ namespace Ra
 
         inline Matrix2 fromGlm( const glm::mat2& m )
         {
-            return Matrix2 ( m[0][0], m[0][1],
-                             m[1][0], m[1][1] );
+            Matrix2 returnMatrix;
+
+            returnMatrix << m[0][0], m[1][0],
+                            m[0][1], m[1][1];
+
+            return returnMatrix;
         }
 
         inline Matrix3 fromGlm( const glm::mat3& m )
         {
-            return Matrix3 ( m[0][0], m[0][1], m[0][2],
-                             m[1][0], m[1][1], m[1][2],
-                             m[2][0], m[2][1], m[2][2] );
+            Matrix3 returnMatrix;
+
+            returnMatrix << m[0][0], m[1][0], m[2][0],
+                            m[0][1], m[1][1], m[2][1],
+                            m[0][2], m[1][2], m[2][2];
+
+            return returnMatrix;
         }
 
         inline Matrix4 fromGlm( const glm::mat4& m )
         {
-            return Matrix4 ( m[0][0], m[0][1], m[0][2], m[0][3],
-                             m[1][0], m[1][1], m[1][2], m[1][3],
-                             m[2][0], m[2][1], m[2][2], m[2][3],
-                             m[3][0], m[3][1], m[3][2], m[3][3] );
+            Matrix4 returnMatrix;
+
+            returnMatrix << m[0][0], m[1][0], m[2][0], m[3][0],
+                            m[0][1], m[1][1], m[2][1], m[3][1],
+                            m[0][2], m[1][2], m[2][2], m[3][2],
+                            m[0][3], m[1][3], m[2][3], m[3][3];
+
+            return returnMatrix;
         }
 
         inline Eigen::Matrix<Scalar, 2, 3> fromGlm( const glm::mat2x3& m )
         {
-            return Eigen::Matrix<Scalar, 2, 3> ( m[0][0], m[0][1], m[0][2],
-                                                 m[1][0], m[1][1], m[1][2] );
+            Eigen::Matrix<Scalar, 2, 3> returnMatrix;
+
+            returnMatrix << m[0][0], m[1][0], m[2][0],
+                            m[0][1], m[1][1], m[2][1];
+
+            return returnMatrix;
         }
 
         inline Eigen::Matrix<Scalar, 3, 2> fromGlm( const glm::mat3x2& m )
         {
-            return Eigen::Matrix<Scalar, 3, 2> ( m[0][0], m[0][1],
-                                                 m[1][0], m[1][1],
-                                                 m[2][0], m[2][1] );
+            Eigen::Matrix<Scalar, 3, 2> returnMatrix;
+
+            returnMatrix << m[0][0], m[1][0],
+                            m[0][1], m[1][1],
+                            m[0][2], m[1][2];
+
+            return returnMatrix;
         }
 
         inline Eigen::Matrix<Scalar, 2, 4> fromGlm( const glm::mat2x4& m )
         {
-            return Eigen::Matrix<Scalar, 2, 4> ( m[0][0], m[0][1], m[0][2], m[0][3],
-                                                 m[1][0], m[1][1], m[1][2], m[1][3] );
+            Eigen::Matrix<Scalar, 2, 4> returnMatrix;
+
+            returnMatrix << m[0][0], m[1][0], m[2][0], m[3][0],
+                            m[0][1], m[1][1], m[2][1], m[3][1];
+
+            return returnMatrix;
         }
 
         inline Eigen::Matrix<Scalar, 4, 2> fromGlm( const glm::mat4x2& m )
         {
-            return Eigen::Matrix<Scalar, 4, 2> ( m[0][0], m[0][1],
-                                                 m[1][0], m[1][1],
-                                                 m[2][0], m[2][1],
-                                                 m[3][0], m[3][1] );
+            Eigen::Matrix<Scalar, 4, 2> returnMatrix;
+
+            returnMatrix << m[0][0], m[1][0],
+                            m[0][1], m[1][1],
+                            m[0][2], m[1][2],
+                            m[0][3], m[1][3];
+
+            return returnMatrix;
         }
 
         inline Eigen::Matrix<Scalar, 3, 4> fromGlm( const glm::mat3x4& m )
         {
-            return Eigen::Matrix<Scalar, 3, 4> ( m[0][0], m[0][1], m[0][2], m[0][3],
-                                                 m[1][0], m[1][1], m[1][2], m[1][3],
-                                                 m[2][0], m[2][1], m[2][2], m[2][3] );
+            Eigen::Matrix<Scalar, 3, 4> returnMatrix;
+
+            returnMatrix << m[0][0], m[1][0], m[2][0], m[3][0],
+                            m[0][1], m[1][1], m[2][1], m[3][1],
+                            m[0][2], m[1][2], m[2][2], m[3][2];
+
+            return returnMatrix;
         }
 
         inline Eigen::Matrix<Scalar, 4, 3> fromGlm( const glm::mat4x3& m )
         {
-            return Eigen::Matrix<Scalar, 4, 3> ( m[0][0], m[0][1], m[0][2],
-                                                 m[1][0], m[1][1], m[1][2],
-                                                 m[2][0], m[2][1], m[2][2],
-                                                 m[3][0], m[3][1], m[3][2] );
-        }*/
+            Eigen::Matrix<Scalar, 4, 3> returnMatrix;
+
+            returnMatrix << m[0][0], m[1][0], m[2][0],
+                            m[0][1], m[1][1], m[2][1],
+                            m[0][2], m[1][2], m[2][2],
+                            m[0][3], m[1][3], m[2][3];
+
+            return returnMatrix;
+        }
     }
 }
 

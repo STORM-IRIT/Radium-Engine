@@ -19,7 +19,7 @@
 #define getCurrentDir getcwd
 #endif
 
-#include <Core/Math/GlmAdapters.inl>
+#include <Core/Math/GlmAdapters.hpp>
 
 #include <Engine/Renderer/Texture/Texture.hpp>
 
@@ -29,8 +29,7 @@ namespace Ra
     {
 
         ShaderProgram::ShaderProgram()
-            : m_linked( false )
-            , m_program( nullptr )
+            : m_program( nullptr )
         {
             for ( uint i = 0; i < m_shaderObjects.size(); ++i )
             {
@@ -89,6 +88,7 @@ namespace Ra
             std::unique_ptr<globjects::StaticStringSource> newStringSource = globjects::Shader::sourceFromString( newSource );
 
             shader->setSource( newStringSource.get() );
+            shader->setName( name );
 
             shader->compile();
 
@@ -184,6 +184,8 @@ namespace Ra
             {
                 if ( m_shaderObjects[i] != nullptr )
                 {
+                    LOG( logDEBUG ) << "Reloading shader " << m_shaderObjects[i]->name();
+
                     m_program->detach( m_shaderObjects[i].get() );
                     loadShader( getGLenumAsType( m_shaderObjects[i]->type() ), m_shaderObjects[i]->name(), {} );
                 }

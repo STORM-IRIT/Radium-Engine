@@ -70,13 +70,11 @@ namespace Ra
 
         private:
             void loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props);
+
             GLenum getTypeAsGLEnum(ShaderType type) const;
             ShaderType getGLenumAsType(GLenum type) const;
 
             void link();
-
-        public:
-            bool m_linked;
 
         private:
             ShaderConfiguration m_configuration;
