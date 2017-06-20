@@ -143,8 +143,8 @@ static const std::string defaultFragmentShader(
 );
 
 #else
-static const std::string defaultVertexShader("DefaultShader.vert.glsl");
-static const std::string defaultFragmentShader("DefaultShader.frag.glsl");
+static const std::string defaultVertexShader("Shaders/Default.vert.glsl");
+static const std::string defaultFragmentShader("Shaders/Default.frag.glsl");
 #endif
 
 namespace Ra

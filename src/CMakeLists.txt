@@ -115,6 +115,7 @@ set (guibase_libs
     radiumCore
     ${Qt5_LIBRARIES}
     ${GLBINDING_LIBRARIES}
+    ${GLOBJECTS_LIBRARIES}
 )
 
 add_library(

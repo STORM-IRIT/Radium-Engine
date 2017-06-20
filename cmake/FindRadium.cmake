@@ -95,9 +95,9 @@ IF ( RADIUM_ROOT_DIR )
 
     IF (NOT GLOBJECTS_LIBRARIES)
         FIND_LIBRARY ( GLOBJECTS_LIBRARIES
-                NAMES globjects globjectsd
-                PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
-                )
+            NAMES globjects globjectsd
+            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
+            )
     ENDIF (NOT GLOBJECTS_LIBRARIES)
 
     IF(NOT GLOBJECTS_INCLUDE_DIR)
@@ -107,14 +107,14 @@ IF ( RADIUM_ROOT_DIR )
     # TODO (Mathias) : verify if cmake recommand this (append the include dir of module dependencis in the include dir of the module header)
     # TODO (Nico) : this is unconsistent with the lib behavior: deps *.so are not added in RADIUM_LIBRARIES
     SET( RADIUM_INCLUDE_DIR)
-    LIST(APPEND RADIUM_INCLUDE_DIR "${RADIUM_INCLUDES}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}")
+    LIST(APPEND RADIUM_INCLUDE_DIR "${RADIUM_INCLUDES}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}" "${GLOBJECTS_INCLUDE_DIR}")
 
     # TODO (Mathias) Like above : is it recommended to add all dependencies here ?
     SET( RADIUM_LIBRARIES )
-    IF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES AND GLBINDING_LIBRARIES)
+    IF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES AND GLBINDING_LIBRARIES AND GLOBJECTS_LIBRARIES)
        LIST(APPEND RADIUM_LIBRARIES "${RA_CORE_LIB}" "${RA_ENGINE_LIB}" "${RA_GUIBASE_LIB}")
        SET ( Radium_Libs_FOUND TRUE)
-    ENDIF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES AND GLBINDING_LIBRARIES)
+    ENDIF ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES AND GLBINDING_LIBRARIES AND GLOBJECTS_LIBRARIES)
 ENDIF( RADIUM_ROOT_DIR)
 
 IF ( Radium_FOUND )
@@ -124,6 +124,7 @@ IF ( Radium_FOUND )
       MESSAGE ( STATUS "      Radium libs: ${RADIUM_LIBRARIES}")
       MESSAGE ( STATUS "      Assimp libs: ${ASSIMP_LIBRARIES}")
       MESSAGE ( STATUS "      GlBinding libs: ${GLBINDING_LIBRARIES}")
+      MESSAGE ( STATUS "      GlObjects libs: ${GLOBJECTS_LIBRARIES}")
     ENDIF(NOT Radium_FIND_QUIETLY)
     IF (NOT Radium_Libs_FOUND)
         MESSAGE( WARNING "Could not find Radium libraries. You must compile them first")
