@@ -202,7 +202,7 @@ namespace Ra
             GLenum format() const { return m_format; }
             uint width() const { return m_width; }
             uint height() const{ return m_height; }
-            globjects::Texture * texture() const { return m_texture; }
+            globjects::Texture * texture() const { return m_texture.get(); }
 
         private:
             Texture( const Texture& ) = delete;
@@ -217,7 +217,7 @@ namespace Ra
             uint m_height;
             uint m_depth;
 
-            globjects::Texture * m_texture;
+            std::unique_ptr<globjects::Texture> m_texture;
         };
     } // namespace Engine
 } // namespace Ra

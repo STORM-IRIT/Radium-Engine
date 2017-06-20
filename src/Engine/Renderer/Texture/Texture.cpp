@@ -20,7 +20,7 @@ namespace Ra
     {
         if( m_texture == nullptr )
         {
-            m_texture = new globjects::Texture( GL_TEXTURE_1D );
+            m_texture = globjects::Texture::create( GL_TEXTURE_1D );
             m_texture->create(); // glGenTextures + Bind
         }
 
@@ -40,7 +40,7 @@ namespace Ra
     {
         if( m_texture == nullptr )
         {
-            m_texture = new globjects::Texture( GL_TEXTURE_2D );
+            m_texture = globjects::Texture::create( GL_TEXTURE_2D );
             m_texture->create();
         }
 
@@ -62,7 +62,7 @@ namespace Ra
     {
         if( m_texture == nullptr )
         {
-            m_texture = new globjects::Texture( GL_TEXTURE_3D );
+            m_texture = globjects::Texture::create( GL_TEXTURE_3D );
             m_texture->create();
         }
 
@@ -86,7 +86,7 @@ namespace Ra
     {
         if( m_texture == nullptr )
         {
-            m_texture = new globjects::Texture( GL_TEXTURE_CUBE_MAP );
+            m_texture = globjects::Texture::create( GL_TEXTURE_CUBE_MAP );
             m_texture->create();
         }
 
@@ -140,6 +140,10 @@ namespace Ra
             case GL_TEXTURE_3D:
             {
                 m_texture->image3D( 0, internalFormat, m_width, m_height, m_depth, 0, m_format, dataType, data );
+            } break;
+            case GL_TEXTURE_CUBE_MAP:
+            {
+                m_texture->cubeMapImage( 0, internalFormat, m_width, m_height, 0, m_format, dataType, data );
             } break;
             default:
             {
