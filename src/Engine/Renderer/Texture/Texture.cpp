@@ -13,7 +13,7 @@ namespace Ra
 
     Engine::Texture::~Texture()
     {
-        deleteGL();
+
     }
 
     void Engine::Texture::Generate(uint w, GLenum format, void* data)
@@ -114,14 +114,6 @@ namespace Ra
         else
         {
             m_texture->bind();
-        }
-    }
-
-    void Engine::Texture::deleteGL()
-    {
-        if(m_texture != nullptr)
-        {
-            delete m_texture;
         }
     }
 

@@ -184,11 +184,6 @@ namespace Ra
             void bind(int unit = -1);
 
             /**
-             * @brief Clear OpenGL internal data.
-             */
-            void deleteGL();
-
-            /**
              * @return Name of the texture.
              */
             inline std::string getName() const { return m_name; }
