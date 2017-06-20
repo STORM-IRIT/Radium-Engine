@@ -83,9 +83,9 @@ IF ( RADIUM_ROOT_DIR )
 
     IF (NOT GLBINDING_LIBRARIES)
         FIND_LIBRARY ( GLBINDING_LIBRARIES
-            NAMES glbinding glbindingd
-            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
-            )
+                NAMES glbinding glbindingd
+                PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
+                )
     ENDIF (NOT GLBINDING_LIBRARIES)
 
     IF(NOT GLBINDING_INCLUDE_DIR)

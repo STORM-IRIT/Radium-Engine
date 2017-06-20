@@ -39,7 +39,6 @@
 
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 
-
 namespace Ra
 {
     Gui::Viewer::Viewer( QWidget* parent )
