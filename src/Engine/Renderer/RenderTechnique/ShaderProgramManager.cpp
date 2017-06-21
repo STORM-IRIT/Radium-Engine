@@ -32,13 +32,21 @@ namespace Ra
             // Create named strings which correspond to shader files that you want to use in shaders's includes.
             // NOTE: if you want to add a named string to handle a new shader include file, be SURE that the name (first
             // parameter) begin with a "/", otherwise it won't work !
-            new globjects::NamedString( "/Helpers.glsl", new globjects::File( "Shaders/Helpers.glsl" ) );
-            new globjects::NamedString( "/Structs.glsl", new globjects::File( "Shaders/Structs.glsl" ) );
-            new globjects::NamedString( "/Tonemap.glsl", new globjects::File( "Shaders/Tonemap.glsl" ) );
-            new globjects::NamedString( "/LightingFunctions.glsl", new globjects::File( "Shaders/LightingFunctions.glsl" ) );
+
+            m_files.push_back( globjects::File::create( "Shaders/Helpers.glsl" ) );
+            m_files.push_back( globjects::File::create( "Shaders/Structs.glsl" ) );
+            m_files.push_back( globjects::File::create( "Shaders/Tonemap.glsl" ) );
+            m_files.push_back( globjects::File::create( "Shaders/LightingFunctions.glsl" ) );
+
+            m_namedStrings.push_back( globjects::NamedString::create( "/Helpers.glsl", m_files[0].get() ) );
+            m_namedStrings.push_back( globjects::NamedString::create( "/Structs.glsl", m_files[1].get() ) );
+            m_namedStrings.push_back( globjects::NamedString::create( "/Tonemap.glsl", m_files[2].get() ) );
+            m_namedStrings.push_back( globjects::NamedString::create( "/LightingFunctions.glsl", m_files[3].get() ) );
         }
 
-        const ShaderProgram* ShaderProgramManager::addShaderProgram(const std::string& name, const std::string& vert, const std::string& frag)
+        const ShaderProgram* ShaderProgramManager::addShaderProgram(const std::string& name,
+                                                                    const std::string& vert,
+                                                                    const std::string& frag)
         {
             ShaderConfiguration config(name);
 

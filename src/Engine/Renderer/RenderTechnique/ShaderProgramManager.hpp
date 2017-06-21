@@ -11,6 +11,12 @@
 #include <Core/Utils/Singleton.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
+namespace globjects
+{
+    class File;
+    class NamedString;
+}
+
 namespace Ra
 {
     namespace Engine
@@ -51,6 +57,9 @@ namespace Ra
             std::map<std::string, ShaderConfiguration> m_shaderProgramIds;
             std::map<ShaderConfiguration, std::shared_ptr<ShaderProgram>> m_shaderPrograms;
             std::vector<ShaderConfiguration> m_shaderFailedConfs;
+
+            std::vector<std::unique_ptr<globjects::File>> m_files;
+            std::vector<std::unique_ptr<globjects::NamedString>> m_namedStrings;
 
             const ShaderProgram* m_defaultShaderProgram;
         };
