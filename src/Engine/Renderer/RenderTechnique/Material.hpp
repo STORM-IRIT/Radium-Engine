@@ -14,13 +14,9 @@ namespace Ra
 {
     namespace Engine
     {
+        class Texture;
         class ShaderProgram;
     }
-}
-
-namespace globjects
-{
-    class Texture;
 }
 
 namespace Ra

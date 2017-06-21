@@ -1,9 +1,9 @@
-#include "Structs.glsl"
-
 layout (location = 0) out vec4 out_ambient;
 layout (location = 1) out vec4 out_normal;
 layout (location = 2) out vec4 out_diffuse;
 layout (location = 3) out vec4 out_specular;
+
+#include "Structs.glsl"
 
 uniform Material material;
 
