@@ -3,7 +3,7 @@
 
 namespace Ra
 {
-    namespace Engine
+    namespace Asset
     {
         class FileData;
     }
@@ -11,7 +11,7 @@ namespace Ra
 
 namespace Ra
 {
-    namespace Engine
+    namespace Asset
     {
         class FileLoaderInterface
         {
@@ -22,7 +22,7 @@ namespace Ra
 
             virtual bool handleFileExtension( const std::string& extension ) const = 0;
 
-            virtual FileData * loadFile( const std::string& filename ) const = 0;
+            virtual FileData * loadFile( const std::string& filename ) = 0;
         };
     }
 }
