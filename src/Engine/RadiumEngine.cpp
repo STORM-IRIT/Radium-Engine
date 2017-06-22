@@ -116,7 +116,12 @@ namespace Ra
                 }
             }
 
-            //m_loadedFile.reset( new Asset::FileData( filename, false ) );
+            if ( m_loadedFile == nullptr )
+            {
+                LOG( logERROR ) << "There is no loader to handle \"" << extension << "\" extension ! File can't be loaded.";
+
+                return false;
+            }
 
             std::string entityName = Core::StringUtils::getBaseName( filename, false );
 
@@ -161,7 +166,7 @@ namespace Ra
            return m_signalManager.get();
         }
 
-        void RadiumEngine::registerFileLoader( FileLoaderInterface * fileLoader )
+        void RadiumEngine::registerFileLoader( Asset::FileLoaderInterface * fileLoader )
         {
             m_fileLoaders.push_back( fileLoader );
         }
