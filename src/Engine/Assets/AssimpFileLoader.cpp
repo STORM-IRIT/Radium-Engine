@@ -24,11 +24,13 @@ namespace Ra
 
         const std::vector<std::string>& AssimpFileLoader::getFileExtensions() const
         {
-            aiString extensionsList;
+            std::string extensionsList;
 
             m_importer.GetExtensionList( extensionsList );
 
-            return std::vector<std::string>();
+            std::vector<std::string> extensions = Core::StringUtils::splitString( extensionsList, ';' );
+
+            return extensions;
         }
 
         bool AssimpFileLoader::handleFileExtension( const std::string& extension ) const
