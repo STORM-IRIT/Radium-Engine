@@ -1,14 +1,20 @@
-//
-// Created by mlocusso on 6/21/17.
-//
+#ifndef RADIUMENGINE_ASSIMPFILELOADER_HPP
+#define RADIUMENGINE_ASSIMPFILELOADER_HPP
 
-#ifndef RADIUMENGINE_ASSIMPFILELOADER_H
-#define RADIUMENGINE_ASSIMPFILELOADER_H
+#include <Engine/Assets/FileLoaderInterface.hpp>
 
+namespace Ra
+{
+    namespace Engine
+    {
+        class AssimpFileLoader : public FileLoaderInterface
+        {
+        public:
+            virtual const std::vector<std::string>& getFileExtensions() const override;
+            virtual bool handleFileExtension( const std::string& extension ) const override;
+            virtual FileData * loadFile( const std::string& filename ) const override;
+        };
+    }
+}
 
-class AssimpFileLoader {
-
-};
-
-
-#endif //RADIUMENGINE_ASSIMPFILELOADER_H
+#endif //RADIUMENGINE_ASSIMPFILELOADER_HPP
