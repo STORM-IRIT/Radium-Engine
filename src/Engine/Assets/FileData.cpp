@@ -25,7 +25,7 @@ FileData::FileData( const std::string& filename,
     m_lightData(),
     m_processed( false ),
     m_verbose( VERBOSE_MODE ) {
-    loadFile();
+    // loadFile();
 }
 
 
