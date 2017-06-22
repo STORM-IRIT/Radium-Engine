@@ -6,6 +6,7 @@
 #include <Core/Utils/Singleton.hpp>
 
 #include <Engine/Assets/FileData.hpp>
+#include <Engine/Assets/FileLoaderInterface.hpp>
 
 #include <map>
 #include <string>
@@ -68,8 +69,12 @@ namespace Ra
             EntityManager*        getEntityManager()        const;
             SignalManager*        getSignalManager()        const;
 
+            void registerFileLoader( FileLoaderInterface * fileLoader );
+
         private:
             std::map<std::string, std::shared_ptr<System>> m_systems;
+
+            std::vector< FileLoaderInterface * > m_fileLoaders;
 
             std::unique_ptr<RenderObjectManager> m_renderObjectManager;
             std::unique_ptr<EntityManager>       m_entityManager;

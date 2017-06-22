@@ -105,7 +105,18 @@ namespace Ra
 
         bool RadiumEngine::loadFile( const std::string& filename )
         {
-            m_loadedFile.reset( new Asset::FileData( filename, false ) );
+            std::string extension = Core::StringUtils::getFileExt( filename );
+
+            for ( auto& l : m_fileLoaders )
+            {
+                if ( l->handleFileExtension( extension ) )
+                {
+                    m_loadedFile.reset( l->loadFile( filename ) );
+                    break;
+                }
+            }
+
+            //m_loadedFile.reset( new Asset::FileData( filename, false ) );
 
             std::string entityName = Core::StringUtils::getBaseName( filename, false );
 
@@ -148,6 +159,11 @@ namespace Ra
         SignalManager *RadiumEngine::getSignalManager() const
         {
            return m_signalManager.get();
+        }
+
+        void RadiumEngine::registerFileLoader( FileLoaderInterface * fileLoader )
+        {
+            m_fileLoaders.push_back( fileLoader );
         }
 
         RA_SINGLETON_IMPLEMENTATION( RadiumEngine );
