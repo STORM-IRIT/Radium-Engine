@@ -210,7 +210,14 @@ namespace Ra
         std::string pathStr = path.toLocal8Bit().data();
         LOG(logINFO) << "Loading file " << pathStr << "...";
         bool res = m_engine->loadFile( pathStr );
-        CORE_UNUSED( res );
+
+        if ( !res )
+        {
+           LOG ( logERROR ) << "Aborting file loading !";
+
+            return;
+        }
+
         m_viewer->handleFileLoading( m_engine->getFileData() );
 
         m_engine->releaseFile();
