@@ -7,71 +7,73 @@
 #include <vector>
 #include <memory>
 
-namespace Ra {
-namespace Asset {
+namespace Ra
+{
+    namespace Asset
+    {
+        class GeometryData;
+        class HandleData;
+        class AnimationData;
+        class LightData;
 
-class GeometryData;
-class HandleData;
-class AnimationData;
-class LightData;
+        class RA_ENGINE_API FileData
+        {
+        public:
+            /// CONSTRUCTOR
+            FileData( const std::string& filename = "",
+                      const bool VERBOSE_MODE = false );
 
-class RA_ENGINE_API FileData {
-public:
-    /// CONSTRUCTOR
-    FileData( const std::string& filename = "",
-              const bool VERBOSE_MODE = false );
+            FileData( FileData&& data ) = default;
 
-    FileData( FileData&& data ) = default;
+            /// DESTRUCTOR
+            ~FileData();
 
-    /// DESTRUCTOR
-    ~FileData();
+            /// LOAD
+            void loadFile( const bool FORCE_RELOAD = false );
 
-    /// LOAD
-    void loadFile( const bool FORCE_RELOAD = false );
+            /// FILENAME
+            inline std::string getFileName() const;
 
-    /// FILENAME
-    inline std::string getFileName() const;
+            inline void setFileName( const std::string& filename );
 
-    inline void setFileName( const std::string& filename );
+            /// TIMING
+            inline Scalar getLoadingTime() const;
 
-    /// TIMING
-    inline Scalar getLoadingTime() const;
+            /// DATA
+            inline std::vector<  GeometryData* > getGeometryData() const;
+            inline std::vector<    HandleData* > getHandleData()   const;
+            inline std::vector< AnimationData* > getAnimationData() const;
+            inline std::vector<     LightData* > getLightData() const;
 
-    /// DATA
-    inline std::vector<  GeometryData* > getGeometryData() const;
-    inline std::vector<    HandleData* > getHandleData()   const;
-    inline std::vector< AnimationData* > getAnimationData() const;
-    inline std::vector<     LightData* > getLightData() const;
+            inline void setVerbose( const bool VERBOSE_MODE );
 
-    inline void setVerbose( const bool VERBOSE_MODE );
+            /// QUERY
+            inline bool isInitialized() const;
+            inline bool isProcessed() const;
+            inline bool hasGeometry() const;
+            inline bool hasHandle() const;
+            inline bool hasAnimation() const;
+            inline bool hasLight() const;
+            inline bool isVerbose() const;
 
-    /// QUERY
-    inline bool isInitialized() const;
-    inline bool isProcessed() const;
-    inline bool hasGeometry() const;
-    inline bool hasHandle() const;
-    inline bool hasAnimation() const;
-    inline bool hasLight() const;
-    inline bool isVerbose() const;
+            /// RESET
+            inline void reset();
 
-    /// RESET
-    inline void reset();
+            inline void displayInfo() const;
 
-    inline void displayInfo() const;
+        public:
+            /// VARIABLE
+            std::string                                     m_filename;
+            Scalar                                          m_loadingTime;
+            std::vector< std::unique_ptr< GeometryData > >  m_geometryData;
+            std::vector< std::unique_ptr< HandleData > >    m_handleData;
+            std::vector< std::unique_ptr< AnimationData > > m_animationData;
+            std::vector< std::unique_ptr< LightData > >     m_lightData;
+            bool                                            m_processed;
+            bool                                            m_verbose;
+        };
 
-protected:
-    /// VARIABLE
-    std::string                                     m_filename;
-    Scalar                                          m_loadingTime;
-    std::vector< std::unique_ptr< GeometryData > >  m_geometryData;
-    std::vector< std::unique_ptr< HandleData > >    m_handleData;
-    std::vector< std::unique_ptr< AnimationData > > m_animationData;
-    std::vector< std::unique_ptr< LightData > >     m_lightData;
-    bool                                            m_processed;
-    bool                                            m_verbose;
-};
-
-} // namespace Asset
+    } // namespace Asset
 } // namespace Ra
 
 #include <Engine/Assets/FileData.inl>
