@@ -7,6 +7,8 @@
 
 #include <PluginBase/RadiumPluginInterface.hpp>
 
+#include <AssimpLoaderPluginMacros.hpp>
+
 namespace Ra
 {
     namespace Engine
@@ -40,4 +42,4 @@ namespace AssimpLoaderPlugin
 }
 
 
-#endif //ASSIMPLOADERPLUGIN_HPP_
+#endif // ASSIMPLOADERPLUGIN_HPP_
