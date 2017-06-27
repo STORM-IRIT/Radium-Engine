@@ -30,7 +30,7 @@ ExternalProject_Add(
 
 
 add_custom_target(globjects_lib
-    DEPENDS globjects
+    DEPENDS globjects glm_lib glbinding_lib
     )
 # ----------------------------------------------------------------------------------------------------------------------
 

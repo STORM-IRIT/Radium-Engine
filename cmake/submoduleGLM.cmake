@@ -23,7 +23,7 @@ ExternalProject_Add(
         EXCLUDE_FROM_ALL TRUE
 )
 
-add_custom_target(GLM
+add_custom_target(glm_lib
         DEPENDS glm
         )
 # ----------------------------------------------------------------------------------------------------------------------
