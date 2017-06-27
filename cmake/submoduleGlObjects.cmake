@@ -1,3 +1,9 @@
+# Allow to compile with AppleCLang
+if ( APPLE AND (${CMAKE_CXX_COMPILER_ID} EQUAL Clang) )
+    set( PLATFORM_ARGS= "" )
+else()
+    set( PLATFORM_ARGS= "-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false" )
+endif()
 
 # here is defined the way we want to import globjects
 ExternalProject_Add(
@@ -25,7 +31,7 @@ ExternalProject_Add(
     -DCMAKE_BUILD_TYPE=${RADIUM_SUBMODULES_BUILD_TYPE}
     -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
     -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-    -DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false
+    ${PLATFORM_ARGS}
     STEP_TARGETS build
     EXCLUDE_FROM_ALL TRUE
     )
