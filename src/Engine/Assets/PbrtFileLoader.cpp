@@ -18,6 +18,7 @@ namespace Ra
         {
             std::string extensionsList;
 
+            // TODO(Matthieu) : get a list of extensions
             // m_importer.GetExtensionList( extensionsList );
 
             std::vector<std::string> extensions = Core::StringUtils::splitString( extensionsList, ';' );
@@ -27,7 +28,9 @@ namespace Ra
 
         bool PbrtFileLoader::handleFileExtension( const std::string& extension ) const
         {
-            //return m_importer.IsExtensionSupported( extension );
+            // return m_importer.IsExtensionSupported( extension );
+
+            // TODO(Matthieu) : search within extensions vector
             return false;
         }
 
@@ -35,7 +38,7 @@ namespace Ra
         {
             FileData * fileData = new FileData( filename );
 
-
+            // TODO(Matthieu) : do some pbrt loading stuff...
 
             return fileData;
         }

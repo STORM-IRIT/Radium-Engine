@@ -28,9 +28,6 @@ namespace Ra
             /// DESTRUCTOR
             ~FileData();
 
-            /// LOAD
-            void loadFile( const bool FORCE_RELOAD = false );
-
             /// FILENAME
             inline std::string getFileName() const;
 
@@ -61,6 +58,7 @@ namespace Ra
 
             inline void displayInfo() const;
 
+        // TODO(Matthieu) : handle attributes in a better way than "public:"
         public:
             /// VARIABLE
             std::string                                     m_filename;
