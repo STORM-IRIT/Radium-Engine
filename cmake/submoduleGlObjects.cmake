@@ -1,8 +1,8 @@
 # Allow to compile with AppleCLang
-if ( APPLE AND (${CMAKE_CXX_COMPILER_ID} EQUAL Clang) )
-    set( PLATFORM_ARGS= "" )
+if ( APPLE AND ${CMAKE_CXX_COMPILER_ID} EQUAL Clang )
+    set( PLATFORM_ARGS "" )
 else()
-    set( PLATFORM_ARGS= "-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false" )
+    set( PLATFORM_ARGS "-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false" )
 endif()
 
 # here is defined the way we want to import globjects
