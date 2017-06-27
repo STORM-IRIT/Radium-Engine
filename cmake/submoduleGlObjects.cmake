@@ -2,6 +2,8 @@
 # here is defined the way we want to import globjects
 ExternalProject_Add(
     globjects
+    # Need to build glbinding_lib before configuring globjects
+    DEPENDS glbinding_lib
 
     # where the source will live
     SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/OpenGL/globjects"
@@ -30,7 +32,7 @@ ExternalProject_Add(
 
 
 add_custom_target(globjects_lib
-    DEPENDS globjects glm_lib glbinding_lib
+    DEPENDS  glbinding_lib glm_lib globjects
     )
 # ----------------------------------------------------------------------------------------------------------------------
 
