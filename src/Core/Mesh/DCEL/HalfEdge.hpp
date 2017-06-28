@@ -21,7 +21,8 @@ namespace Core {
 * Chapter 2, Paragraph 2.2, Page 29
 *
 */
-class RA_CORE_API HalfEdge : public IndexedObject {
+
+class [[deprecated]] RA_CORE_API HalfEdge : public IndexedObject {
 public:
     /// CONSTRUCTOR
     HalfEdge( const Index& index = Index::INVALID_IDX() );        // Build a HalfEdge with the given index
@@ -30,7 +31,7 @@ public:
               const HalfEdge_ptr& prev  = nullptr,
               const HalfEdge_ptr& twin  = nullptr,
               const Face_ptr&     f     = nullptr,
-              const Index&        index = Index::INVALID_IDX() ); // Build a complete Halfedge
+              const Index&        index = Index::INVALID_IDX() ); // Build a complete Halfedg
     HalfEdge( const HalfEdge& he ) = default;                     // Copy constructor
 
     /// DESTRUCTOR

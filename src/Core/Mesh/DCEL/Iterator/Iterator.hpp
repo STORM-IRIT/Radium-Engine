@@ -8,7 +8,7 @@ namespace Ra {
 namespace Core {
 
 template < typename OBJECT >
-class Iterator {
+class [[deprecated]] Iterator {
 public:
     /// CONSTRUCTOR
     Iterator();

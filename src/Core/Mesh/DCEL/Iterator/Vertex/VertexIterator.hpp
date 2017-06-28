@@ -7,7 +7,7 @@ namespace Ra {
 namespace Core {
 
 template < typename OBJECT >
-class VIterator : public Iterator< OBJECT > {
+class [[deprecated]] VIterator : public Iterator< OBJECT > {
 public:
     /// CONSTRUCTOR
     VIterator( Vertex_ptr& v );
