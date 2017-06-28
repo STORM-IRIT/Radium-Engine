@@ -20,7 +20,8 @@ namespace Core {
 * Chapter 2, Paragraph 2.2, Page 29
 *
 */
-class RA_CORE_API Face : public IndexedObject  {
+
+class [[deprecated]] RA_CORE_API Face : public IndexedObject  {
 public:
     /// CONSTRUCTOR
     Face( const Index& index = Index::INVALID_IDX() );       // Build a Face with the given index
@@ -40,6 +41,8 @@ protected:
     /// VARIABLE
     HalfEdge_ptr m_he; // The halfedge reference
 };
+
+
 
 } // namespace Core
 } // namespace Ra

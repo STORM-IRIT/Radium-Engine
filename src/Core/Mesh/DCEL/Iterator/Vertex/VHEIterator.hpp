@@ -6,7 +6,7 @@
 namespace Ra {
 namespace Core {
 
-class VHEIterator : public VIterator< HalfEdge > {
+class [[deprecated]] VHEIterator : public VIterator< HalfEdge > {
 public:
     /// CONSTRUCTOR
     VHEIterator( Vertex_ptr& v );
