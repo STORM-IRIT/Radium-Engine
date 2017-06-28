@@ -59,7 +59,7 @@ IF ( RADIUM_ROOT_DIR )
     ############################################################################
     # Get dependencies if not already specified
     IF(NOT EIGEN3_INCLUDE_DIR)
-        set(EIGEN3_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
+        set(EIGEN3_INCLUDE_DIR ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/include)
     ENDIF(NOT EIGEN3_INCLUDE_DIR)
 
     IF (NOT OPENMESH_LIBRARIES)
@@ -76,23 +76,23 @@ IF ( RADIUM_ROOT_DIR )
     IF (NOT ASSIMP_LIBRARIES)
         FIND_LIBRARY ( ASSIMP_LIBRARIES
             NAMES assimp assimpd
-            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
+            PATHS ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/lib
             )
     ENDIF (NOT ASSIMP_LIBRARIES)
 
     IF(NOT ASSIMP_INCLUDE_DIR)
-        set(ASSIMP_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
+        set(ASSIMP_INCLUDE_DIR ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/include)
     ENDIF(NOT ASSIMP_INCLUDE_DIR)
 
     IF (NOT GLBINDING_LIBRARIES)
         FIND_LIBRARY ( GLBINDING_LIBRARIES
             NAMES glbinding glbindingd
-            PATHS ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/lib
+            PATHS ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/lib
             )
     ENDIF (NOT GLBINDING_LIBRARIES)
 
     IF(NOT GLBINDING_INCLUDE_DIR)
-        set(GLBINDING_INCLUDE_DIR ${RADIUM_ROOT_DIR}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries/include)
+        set(GLBINDING_INCLUDE_DIR ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/include)
     ENDIF(NOT GLBINDING_INCLUDE_DIR)
 
     SET( RADIUM_INCLUDE_DIR)
