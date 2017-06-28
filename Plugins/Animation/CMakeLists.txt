@@ -53,7 +53,6 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR} # MOC
     ${RADIUM_INCLUDE_DIR}
     ${EIGEN3_INCLUDE_DIR}
-    ${ASSIMP_INCLUDE_DIR}
     )
 
 add_library( Animation SHARED ${sources} ${headers} ${inlines} ${app_uis})

@@ -36,6 +36,8 @@
 
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 
+#include <IO/AssimpLoader/AssimpFileLoader.hpp>
+
 
 // Const parameters : TODO : make config / command line options
 
@@ -137,6 +139,7 @@ namespace Ra
         m_engine.reset(Engine::RadiumEngine::createInstance());
         m_engine->initialize();
         addBasicShaders();
+        m_engine->registerFileLoader( new IO::AssimpFileLoader() );
 
         // Create main window.
         m_mainWindow.reset( new Gui::MainWindow );

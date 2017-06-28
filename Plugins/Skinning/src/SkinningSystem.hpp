@@ -7,9 +7,9 @@
 
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Tasks/Task.hpp>
+#include <Core/File/FileData.hpp>
+#include <Core/File/HandleData.hpp>
 
-#include <Engine/Assets/FileData.hpp>
-#include <Engine/Assets/HandleData.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <SkinningComponent.hpp>
 

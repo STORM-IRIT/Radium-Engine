@@ -12,7 +12,7 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Time/Timer.hpp>
 #include <Core/Event/EventEnums.hpp>
-#include <Engine/Assets/FileData.hpp>
+#include <Core/File/FileData.hpp>
 
 namespace Ra
 {
@@ -170,8 +170,6 @@ namespace Ra
 
 
             // FIXME(Charly): Final ?
-            virtual void handleFileLoading( const std::string& filename ) final;
-
             virtual void handleFileLoading( const Asset::FileData& filedata ) final;
 
             virtual void addPickingRequest(const PickingQuery& query)

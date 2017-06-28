@@ -5,8 +5,9 @@
 #include <Core/String/StringUtils.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Core/Containers/MakeShared.hpp>
-
 #include <Core/Geometry/Normal/Normal.hpp>
+#include <Core/File/FileData.hpp>
+#include <Core/File/GeometryData.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
@@ -22,8 +23,6 @@
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
-#include <Engine/Assets/FileData.hpp>
-#include <Engine/Assets/GeometryData.hpp>
 
 using Ra::Core::TriangleMesh;
 using Ra::Engine::ComponentMessenger;

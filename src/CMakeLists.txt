@@ -49,6 +49,35 @@ target_link_libraries(
     ${core_target}
 )
 
+# Build IO
+set(io_target radiumIO)
+
+file(GLOB_RECURSE io_sources IO/*.cpp)
+file(GLOB_RECURSE io_headers IO/*.h IO/*.hpp)
+file(GLOB_RECURSE io_inlines IO/*.inl)
+
+set(io_libs
+    radiumCore
+    ${ASSIMP_LIBRARIES}
+    ${PBRT_LIBRARIES}
+)
+
+add_library(
+    ${io_target} SHARED
+    ${io_sources}
+    ${io_headers}
+    ${io_inlines}
+)
+
+add_dependencies( ${io_target} ${core_target} assimp_lib )#pbrt_lib)
+
+target_compile_definitions(${io_target} PRIVATE "-DRA_IO_EXPORTS")
+
+target_link_libraries(
+    ${io_target}
+    ${io_libs}
+)
+
 # Build Engine
 set(engine_target radiumEngine)
 
@@ -107,7 +136,7 @@ add_definitions(${Qt5OpenGL_DEFINITIONS})
 add_definitions(${Qt5Xml_DEFINITIONS})
 
 file(GLOB_RECURSE guibase_sources GuiBase/*.cpp)
-file(GLOB_RECURSE guibase_headers GuiBase/*.h guibase/*.hpp)
+file(GLOB_RECURSE guibase_headers GuiBase/*.h GuiBase/*.hpp)
 file(GLOB_RECURSE guibase_inlines GuiBase/*.inl)
 
 set (guibase_libs

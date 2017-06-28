@@ -3,13 +3,13 @@
 
 #include <SkinningPluginMacros.hpp>
 
-#include <Core/Math/DualQuaternion.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
 #include <Core/Animation/Handle/HandleWeight.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Skinning/SkinningData.hpp>
+#include <Core/Math/DualQuaternion.hpp>
+#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/File/HandleData.hpp>
 
-#include <Engine/Assets/HandleData.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 

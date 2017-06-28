@@ -5,8 +5,8 @@
 
 #include <Core/Utils/Singleton.hpp>
 
-#include <Engine/Assets/FileData.hpp>
-#include <Engine/Assets/FileLoaderInterface.hpp>
+#include <Core/File/FileData.hpp>
+#include <Core/File/FileLoaderInterface.hpp>
 
 #include <map>
 #include <string>

@@ -5,14 +5,13 @@
 
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Tasks/Task.hpp>
+#include <Core/File/FileData.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/FrameInfo.hpp>
-#include <Engine/Assets/FileData.hpp>
 
 #include <AnimationComponent.hpp>
 #include <Drawing/SkeletonBoneDrawable.hpp>
-
 
 namespace AnimationPlugin
 {

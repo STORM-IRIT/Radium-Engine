@@ -1,10 +1,9 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
+#include <Core/File/GeometryData.hpp>
 #include <Core/Geometry/Normal/Normal.hpp>
-
-#include <Engine/Assets/GeometryData.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
 
 #include <Engine/Component/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
