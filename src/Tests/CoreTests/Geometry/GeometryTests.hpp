@@ -36,7 +36,7 @@ namespace RaTests
 
             // Test line queries.
             RA_UNIT_TEST(  pointToLineSq(a, a, b-a) == 0.f, "distance from A to AB" );
-            RA_UNIT_TEST(  pointToLineSq(b, a, b-a) == 0.f, "distance from B to AB" );
+            RA_UNIT_TEST(  areApproxEqual(pointToLineSq(b, a, b-a), 0.f), "distance from B to AB" );
             RA_UNIT_TEST(  areApproxEqual(pointToLineSq(na, a, b-a), 0.f), "point on the line.");
             RA_UNIT_TEST(  areApproxEqual(pointToLineSq(nb, a, b-a), 0.f), "point on the line.");
             RA_UNIT_TEST(  areApproxEqual(pointToLineSq(m + y, a, b-a), y.squaredNorm()), "point perpendicular to segment.");
