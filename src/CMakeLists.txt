@@ -21,9 +21,10 @@ include_directories(
     ${EIGEN3_INCLUDE_DIR}
     ${ASSIMP_INCLUDE_DIR}
     ${GLBINDING_INCLUDE_DIR}
+    ${OPENMESH_INCLUDE_DIR}
 )
 
-message(STATUS "Compiling Radium with include dirs : ${EIGEN3_INCLUDE_DIR} -- ${ASSIMP_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR}" )
+message(STATUS "Compiling Radium with include dirs : ${EIGEN3_INCLUDE_DIR} -- ${ASSIMP_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${OPENMESH_INCLUDE_DIR}" )
 # Build Core
 set(core_target radiumCore)
 
@@ -33,6 +34,10 @@ file(GLOB_RECURSE core_sources Core/*.cpp)
 file(GLOB_RECURSE core_headers Core/*.h Core/*.hpp)
 file(GLOB_RECURSE core_inlines Core/*.inl)
 
+set(core_libs
+    ${OPENMESH_LIBRARIES}
+   )
+
 add_library(
     ${core_target} SHARED
     ${core_sources}
@@ -40,11 +45,12 @@ add_library(
     ${core_inlines}
 )
 
-add_dependencies( ${core_target} eigen3)
+add_dependencies( ${core_target} eigen3 openmesh_lib)
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
 
 target_link_libraries(
     ${core_target}
+    ${core_libs}
 )
 
 # Build Engine

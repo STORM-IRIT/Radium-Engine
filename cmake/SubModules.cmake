@@ -15,3 +15,6 @@ include(submoduleEigen3)
 
 # Assimp
 include(submoduleAssimp)
+
+# OpenMesh
+include(submoduleOpenMesh)
