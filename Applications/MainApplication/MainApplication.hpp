@@ -136,6 +136,8 @@ namespace Ra
         bool m_realFrameRate;
 
         // Options to control monitoring and outputs
+        /// Name of the folder where exported data goes
+        std::string m_exportFoldername;
 
         /// If true, dump each frame to a PNG file.
         bool m_recordFrames;

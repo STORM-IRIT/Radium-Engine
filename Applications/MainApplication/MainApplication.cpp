@@ -94,6 +94,19 @@ namespace Ra
         if (parser.isSet(numFramesOpt)) m_numFrames = parser.value(numFramesOpt).toUInt();
         if (parser.isSet(maxThreadsOpt)) m_maxThreads = parser.value(maxThreadsOpt).toUInt();
 
+
+        std::time_t startTime = std::time(nullptr);
+        std::tm* startTm = std::localtime(&startTime);
+        Ra::Core::StringUtils::stringPrintf(m_exportFoldername, "%4u%02u%02u-%02u%02u",
+                                            1900 + startTm->tm_year,
+                                            startTm->tm_mon,
+                                            startTm->tm_mday,
+                                            startTm->tm_hour,
+                                            startTm->tm_min);
+
+
+        QDir().mkdir(m_exportFoldername.c_str());
+
         // Boilerplate print.
         LOG( logINFO ) << "*** Radium Engine Main App  ***";
         std::stringstream config;
@@ -388,7 +401,7 @@ namespace Ra
     void BaseApplication::recordFrame()
     {
         std::string filename;
-        Ra::Core::StringUtils::stringPrintf(filename, "radiumframe_%06u.png", m_frameCounter);
+        Ra::Core::StringUtils::stringPrintf(filename, "%s/radiumframe_%06u.png", m_exportFoldername.c_str(), m_frameCounter);
         m_viewer->grabFrame(filename);
     }
 
@@ -398,6 +411,8 @@ namespace Ra
         emit stopping();
         m_mainWindow->cleanup();
         m_engine->cleanup();
+        // This will remove the directory if empty.
+        QDir().rmdir( m_exportFoldername.c_str());
     }
 
     bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QStringList& loadList, const QStringList& ignoreList )
