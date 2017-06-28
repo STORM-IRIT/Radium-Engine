@@ -7,7 +7,7 @@ namespace Ra {
 namespace Core {
 
 template < typename OBJECT >
-class FIterator : public Iterator< OBJECT > {
+class [[deprecated]] FIterator : public Iterator< OBJECT > {
 public:
     /// CONSTRUCTOR
     FIterator( Face_ptr& f );

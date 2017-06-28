@@ -20,9 +20,11 @@ namespace Core {
 * Chapter 2, Paragraph 2.2, Page 29
 *
 */
-class RA_CORE_API Vertex : public IndexedObject {
+
+class [[deprecated]] RA_CORE_API Vertex : public IndexedObject {
 public:
     /// CONSTRUCTOR
+
     Vertex( const Index& index = Index::INVALID_IDX() );        // Build a vertex with a given index
     Vertex( const HalfEdge_ptr& he );                           // Build a vertex having he as its halfedge
     Vertex( const Vector3&      p,
