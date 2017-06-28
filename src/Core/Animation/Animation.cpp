@@ -46,6 +46,10 @@ void Animation::normalize()
 }
 Scalar Animation::getTime( Scalar timestamp ) const
 {
+    if (m_keys.empty())
+    {
+        return 0;
+    }
     Scalar duration = m_keys.back().first;
     // ping pong: d - abs(mod(x, 2 * d) - d)
     return duration - std::abs(std::fmod(timestamp, 2 * duration) - duration);
