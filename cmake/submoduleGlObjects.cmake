@@ -67,6 +67,19 @@ elseif( MSVC )
         set(MSVC_PREFIX "vc140")
     endif()
 
-    set(GLOBJECTS_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/globjects.lib")
+	if(RADIUM_SUBMODULES_BUILD_TYPE MATCHES Debug)
+		set(GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/globjectsd.lib")
+		set(GLOBJECTS_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/globjectsd.dll")
+	else()
+	    set(GLOBJECTS_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/globjects.lib")
+		set(GLOBJECTS_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/globjects.dll")
+	endif()
+
+	add_custom_target( globjects_install_compiled_dll
+		COMMAND ${CMAKE_COMMAND} -E copy ${GLOBJECTS_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+		COMMENT "copy globject dll to bin dir" VERBATIM
+		DEPENDS globjects
+	)
+	add_dependencies(globjects_lib globjects_install_compiled_dll)
 
 endif()

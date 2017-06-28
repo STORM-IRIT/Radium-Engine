@@ -66,6 +66,19 @@ elseif( MSVC )
         set(MSVC_PREFIX "vc140")
     endif()
 
-    set(GLBINDING_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbinding.lib")
+	if(RADIUM_SUBMODULES_BUILD_TYPE MATCHES Debug)
+		set(GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbindingd.lib")
+		set(GLBINDING_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/glbindingd.dll")
+	else()
+	    set(GLBINDING_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbinding.lib")
+		set(GLBINDING_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/glbinding.dll")
+	endif()
+
+	add_custom_target( glbinding_install_compiled_dll
+		COMMAND ${CMAKE_COMMAND} -E copy ${GLBINDING_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+		COMMENT "copy glbinding dll to bin dir" VERBATIM
+		DEPENDS glbinding
+	)
+	add_dependencies(glbinding_lib glbinding_install_compiled_dll)
 
 endif()
