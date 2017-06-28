@@ -18,7 +18,7 @@ namespace Ra
         /// internal version of the default configuration.
         class RA_GUIBASE_API KeyMappingManager
         {
-			RA_SINGLETON_INTERFACE(KeyMappingManager);
+            RA_SINGLETON_INTERFACE(KeyMappingManager);
 
             // Needed by Q_ENUM
             Q_GADGET
