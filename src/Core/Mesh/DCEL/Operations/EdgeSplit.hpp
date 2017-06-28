@@ -3,7 +3,7 @@
 namespace Ra {
 namespace Core {
 namespace DcelOperations {
-    RA_CORE_API void splitEdge( Dcel& dcel, Index edgeIndex, Scalar fraction );
+    RA_CORE_API [[deprecated]] void splitEdge( Dcel& dcel, Index edgeIndex, Scalar fraction );
 }
 }
 }
