@@ -19,3 +19,6 @@
 [submodule "3rdPartyLibraries/tinyply"]
 	path = 3rdPartyLibraries/tinyply
 	url = https://github.com/nmellado/tinyply.git
+[submodule "3rdPartyLibraries/OpenMesh"]
+	path = 3rdPartyLibraries/OpenMesh
+	url = https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git
