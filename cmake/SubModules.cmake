@@ -8,14 +8,12 @@ set(RADIUM_SUBMODULES_INSTALL_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibra
 set(RADIUM_SUBMODULES_BUILD_TYPE Release)
 
 #OpenGL Stuff
+include(submoduleGLM)
 include(submoduleGlBinding)
 include(submoduleGlObjects)
 
 # Eigen
 include(submoduleEigen3)
-
-# GLM
-include(submoduleGLM)
 
 # Assimp
 include(submoduleAssimp)
