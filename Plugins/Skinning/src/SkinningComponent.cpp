@@ -45,6 +45,7 @@ void SkinningComponent::setupSkinning()
         m_refData.m_weights         = ComponentMessenger::getInstance()->get<WeightMatrix> ( getEntity(), m_contentsName );
 
         m_frameData.m_previousPose = m_refData.m_refPose;
+        m_frameData.m_frameCounter = 0;
         m_frameData.m_doSkinning = false;
         m_frameData.m_doReset = false;
 
@@ -76,6 +77,7 @@ void SkinningComponent::skin()
     if (reset && !m_frameData.m_doReset )
     {
         m_frameData.m_doReset = true;
+        m_frameData.m_frameCounter = 0;
     }
     else
     {
@@ -83,6 +85,7 @@ void SkinningComponent::skin()
         if ( !Ra::Core::Animation::areEqual( m_frameData.m_currentPose, m_frameData.m_previousPose))
         {
             m_frameData.m_doSkinning = true;
+            m_frameData.m_frameCounter++;
             m_frameData.m_refToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_refData.m_refPose);
             m_frameData.m_prevToCurrentRelPose = Ra::Core::Animation::relativePose(m_frameData.m_currentPose, m_frameData.m_previousPose);
 
