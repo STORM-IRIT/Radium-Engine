@@ -19,13 +19,18 @@ find_package(Qt5OpenGL  REQUIRED)
 
 include_directories(
     ${EIGEN3_INCLUDE_DIR}
-    ${ASSIMP_INCLUDE_DIR}
     ${GLBINDING_INCLUDE_DIR}
     ${GLOBJECTS_INCLUDE_DIR}
     ${GLM_INCLUDE_DIR}
 )
 
-message(STATUS "Compiling Radium with include dirs : ${EIGEN3_INCLUDE_DIR} -- ${ASSIMP_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}" )
+message(STATUS "Compiling Radium with include dirs : ${EIGEN3_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}" )
+
+if( RADIUM_ASSIMP_SUPPORT )
+    include_directories( ${ASSIMP_INCLUDE_DIR} )
+    message(STATUS "Compiling Radium with Assimp's include dir : ${ASSIMP_INCLUDE_DIR}" )
+endif( RADIUM_ASSIMP_SUPPORT )
+
 # Build Core
 set(core_target radiumCore)
 
@@ -52,15 +57,26 @@ target_link_libraries(
 # Build IO
 set(io_target radiumIO)
 
-file(GLOB_RECURSE io_sources IO/*.cpp)
-file(GLOB_RECURSE io_headers IO/*.h IO/*.hpp)
-file(GLOB_RECURSE io_inlines IO/*.inl)
+file(GLOB io_sources IO/*.cpp)
+file(GLOB io_headers IO/*.h IO/*.hpp)
+file(GLOB io_inlines IO/*.inl)
+
+if( RADIUM_ASSIMP_SUPPORT )
+    add_subdirectory( IO/AssimpLoader )
+endif( RADIUM_ASSIMP_SUPPORT )
 
 set(io_libs
     radiumCore
-    ${ASSIMP_LIBRARIES}
     ${PBRT_LIBRARIES}
 )
+
+if( RADIUM_ASSIMP_SUPPORT )
+    set( io_libs ${ASSIMP_LIBRARIES} ${io_libs} )
+
+    set( io_sources ${assimp_sources} ${io_sources} )
+    set( io_headers ${assimp_headers} ${io_headers} )
+    set( io_inlines ${assimp_inlines} ${io_inlines} )
+endif( RADIUM_ASSIMP_SUPPORT )
 
 add_library(
     ${io_target} SHARED
@@ -69,7 +85,11 @@ add_library(
     ${io_inlines}
 )
 
-add_dependencies( ${io_target} ${core_target} assimp_lib )#pbrt_lib)
+add_dependencies( ${io_target} ${core_target} )#pbrt_lib)
+
+if( RADIUM_ASSIMP_SUPPORT )
+    add_dependencies( ${io_target} assimp_lib ${io_target} )
+endif( RADIUM_ASSIMP_SUPPORT )
 
 target_compile_definitions(${io_target} PRIVATE "-DRA_IO_EXPORTS")
 
@@ -93,11 +113,14 @@ set(engine_libs
     radiumCore
     ${Qt5OpenGL_LIBRARIES}
     ${OPENGL_LIBRARIES}
-    ${ASSIMP_LIBRARIES}
     ${GLBINDING_LIBRARIES}
     ${GLOBJECTS_LIBRARIES}
     ${GLM_LIBRARIES}
    )
+
+if( RADIUM_ASSIMP_SUPPORT )
+    set( engine_libs ${ASSIMP_LIBRARIES} ${engine_libs} )
+endif( RADIUM_ASSIMP_SUPPORT )
 
 add_library(
     ${engine_target} SHARED
@@ -108,7 +131,11 @@ add_library(
     ${engine_shaders}
 )
 
-add_dependencies( ${engine_target} ${core_target} assimp_lib glbinding_lib globjects_lib glm_lib)
+add_dependencies( ${engine_target} ${core_target} glbinding_lib globjects_lib glm_lib)
+
+if( RADIUM_ASSIMP_SUPPORT )
+    add_dependencies( ${engine_target} assimp_lib ${engine_target} )
+endif( RADIUM_ASSIMP_SUPPORT )
 
 target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 
