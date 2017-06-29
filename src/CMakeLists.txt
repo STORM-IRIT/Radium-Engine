@@ -5,6 +5,8 @@ set( CMAKE_BUILD_WITH_INSTALL_RPATH FALSE )
 set( CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib )
 set( CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE )
 
+set( RADIUM_IO_IS_INTERFACE TRUE )
+
 list( FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSysDir )
 if ( "${isSysDir}" STREQUAL "-1" )
     set( CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib" )
@@ -78,12 +80,25 @@ if( RADIUM_ASSIMP_SUPPORT )
     set( io_inlines ${assimp_inlines} ${io_inlines} )
 endif( RADIUM_ASSIMP_SUPPORT )
 
-add_library(
-    ${io_target} SHARED
-    ${io_sources}
-    ${io_headers}
-    ${io_inlines}
-)
+if( RADIUM_IO_IS_INTERFACE )
+    add_library(
+            ${io_target} INTERFACE
+    )
+
+    target_sources(
+            ${io_target} INTERFACE
+            ${io_sources}
+            ${io_headers}
+            ${io_inlines}
+    )
+else( RADIUM_IO_IS_INTERFACE )
+    add_library(
+            ${io_target} SHARED
+            ${io_sources}
+            ${io_headers}
+            ${io_inlines}
+    )
+endif( RADIUM_IO_IS_INTERFACE )
 
 add_dependencies( ${io_target} ${core_target} )#pbrt_lib)
 
@@ -91,12 +106,21 @@ if( RADIUM_ASSIMP_SUPPORT )
     add_dependencies( ${io_target} assimp_lib ${io_target} )
 endif( RADIUM_ASSIMP_SUPPORT )
 
-target_compile_definitions(${io_target} PRIVATE "-DRA_IO_EXPORTS")
+if( RADIUM_IO_IS_INTERFACE )
+    target_compile_definitions(${io_target} INTERFACE "-DRA_IO_EXPORTS")
 
-target_link_libraries(
-    ${io_target}
-    ${io_libs}
-)
+    target_link_libraries(
+            ${io_target} INTERFACE
+            ${io_libs}
+    )
+else( RADIUM_IO_IS_INTERFACE )
+    target_compile_definitions(${io_target} PRIVATE "-DRA_IO_EXPORTS")
+
+    target_link_libraries(
+            ${io_target}
+            ${io_libs}
+    )
+endif( RADIUM_IO_IS_INTERFACE )
 
 # Build Engine
 set(engine_target radiumEngine)
