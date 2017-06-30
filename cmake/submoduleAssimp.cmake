@@ -25,13 +25,19 @@ add_custom_target(assimp_lib
     )
 
 # ----------------------------------------------------------------------------------------------------------------------
+if(${RADIUM_SUBMODULES_BUILD_TYPE} MATCHES Debug)
+    set(ASSIMPLIBNAME assimpd)
+else()
+    set(ASSIMPLIBNAME assimp)
+endif()
+
 set( ASSIMP_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include )
 if( APPLE )
-    set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimp.dylib" )
+    set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${ASSIMPLIBNAME}.dylib" )
 elseif ( UNIX )
-    set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimp.so" )
+    set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${ASSIMPLIBNAME}.so" )
 elseif (MINGW)
-    set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimp.dll.a" )
+    set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${ASSIMPLIBNAME}.dll.a" )
 elseif( MSVC )
     # in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
     if( MSVC70 OR MSVC71 )

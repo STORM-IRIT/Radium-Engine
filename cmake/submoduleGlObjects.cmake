@@ -42,13 +42,19 @@ add_custom_target(globjects_lib
     )
 # ----------------------------------------------------------------------------------------------------------------------
 
+if(${RADIUM_SUBMODULES_BUILD_TYPE} MATCHES Debug)
+    set(GLOBJECTLIBNAME globjectsd)
+else()
+    set(GLOBJECTLIBNAME globjects)
+endif()
+
 set(GLOBJECTS_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include)
 if( APPLE )
-    set( GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglobjects.dylib" )
+    set( GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLOBJECTLIBNAME}.dylib" )
 elseif ( UNIX )
-    set( GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglobjects.so")
+    set( GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLOBJECTLIBNAME}.so")
 elseif (MINGW)
-    set( GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglobjects.dll.a" )
+    set( GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLOBJECTLIBNAME}.dll.a" )
 elseif( MSVC )
     # in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
     if( MSVC70 OR MSVC71 )
@@ -67,12 +73,12 @@ elseif( MSVC )
         set(MSVC_PREFIX "vc140")
     endif()
 
-	if(RADIUM_SUBMODULES_BUILD_TYPE MATCHES Debug)
-		set(GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/globjectsd.lib")
-		set(GLOBJECTS_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/globjectsd.dll")
+    set(GLOBJECTS_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${GLOBJECTLIBNAME}.dll")
+    if(RADIUM_SUBMODULES_BUILD_TYPE MATCHES Debug)
+		set(GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLOBJECTLIBNAME}.lib")
+
 	else()
-	    set(GLOBJECTS_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/globjects.lib")
-		set(GLOBJECTS_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/globjects.dll")
+	    set(GLOBJECTS_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLOBJECTLIBNAME}.lib")
 	endif()
 
 	add_custom_target( globjects_install_compiled_dll

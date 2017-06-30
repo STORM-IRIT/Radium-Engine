@@ -1,11 +1,7 @@
-layout (location = 0) in vec3 pos;
+#include "Structs.glsl"
 
-struct Transform
-{
-    mat4 model;
-    mat4 view;
-    mat4 proj;
-};
+
+layout (location = 0) in vec3 pos;
 
 uniform Transform transform;
 

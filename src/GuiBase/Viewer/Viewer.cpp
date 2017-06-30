@@ -3,6 +3,7 @@
 #include <glbinding/Version.h>
 // Do not import namespace to prevent glbinding/QTOpenGL collision
 #include <glbinding/gl/gl.h>
+#include <glbinding/AbstractFunction.h>
 
 #include <globjects/globjects.h>
 
@@ -54,14 +55,15 @@ namespace Ra
         m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
 
         /// Intercept events to properly lock the renderer when it is compositing.
-
     }
 
     Gui::Viewer::~Viewer(){}
 
     void Gui::Viewer::initializeGL()
     {
-        globjects::init(); // globjects initializes glbinding internally
+        //glbinding::Binding::initialize(false);
+        // no need to initalize glbinding. globjects (magically) do this internally.
+        globjects::init(globjects::Shader::IncludeImplementation::Fallback);
 
         LOG( logINFO ) << "*** Radium Engine Viewer ***";
         LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::ContextInfo::renderer();
@@ -97,6 +99,26 @@ namespace Ra
         }
 
         m_camera->attachLight( light );
+
+        glbinding::setCallbackMask(glbinding::CallbackMask::After | glbinding::CallbackMask::ParametersAndReturnValue);
+        glbinding::setAfterCallback([](const glbinding::FunctionCall & call)
+                                    {
+                                        std::cerr << call.function->name() << "(";
+                                        for (unsigned i = 0; i < call.parameters.size(); ++i)
+                                        {
+                                            std::cerr << call.parameters[i]->asString();
+                                            if (i < call.parameters.size() - 1)
+                                                std::cerr << ", ";
+                                        }
+                                        std::cerr << ")";
+
+                                        if (call.returnValue)
+                                            std::cerr << " -> " << call.returnValue->asString();
+
+                                        std::cerr << std::endl;
+
+                                    });
+
 
         emit rendererReady();
     }

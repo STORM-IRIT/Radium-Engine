@@ -10,6 +10,7 @@ MinimalApp::MinimalApp(int &argc, char** argv)
     LOG(logDEBUG) << "Initialize engine.";
     m_engine.reset(Ra::Engine::RadiumEngine::createInstance());
     m_engine->initialize();
+
     LOG(logDEBUG) << "Initialize taskqueue.";
     m_task_queue.reset(new Ra::Core::TaskQueue(std::thread::hardware_concurrency() - 1));
     LOG(logDEBUG) << "Initialize viewer.";

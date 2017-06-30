@@ -57,41 +57,51 @@ namespace Ra
                 return;
             }
     #endif
-
-            std::unique_ptr<globjects::AbstractStringSource> shaderSource = globjects::Shader::sourceFromFile( name );
-            std::unique_ptr<globjects::AbstractStringSource> shaderTemplate = globjects::Shader::applyGlobalReplacements( shaderSource.get() );
-
+            // FIXME : --> for the moment : standard includepaths. Might be controlled per shader ...
             // Paths in which globjects will be looking for shaders includes.
-            // Shaders are all situated in Shaders/ folder so the only path needed for shaders is the current directory.
-            globjects::Shader::IncludePaths includePaths;
-            includePaths.push_back( "/." );
+            // "/" refer to the root of the directory structure conaining the shader (i.e. the Shaders/ directory).
+            globjects::Shader::IncludePaths includePaths { std::string("/") };
 
-            std::unique_ptr<globjects::Shader> shader = globjects::Shader::create( getTypeAsGLEnum( type ), shaderTemplate.get(), includePaths );
+            // FIXED : use auto instead of the fully qualified type
+            auto loadedSource = globjects::Shader::sourceFromFile( name );
 
-            // We apply replacements directly in source to add #version directives and other stuff for example.
-            // GLSL files used to include shader's headers are GlobalVertex and GlobalOther, but you can add as many
-            // as you wish.
-            std::unique_ptr<globjects::File> replacement;
-
-            if( type == ShaderType_VERTEX )
+            // header string that contains #version and pre-declarations ...
+            std::string shaderHeader;
+            if ( type == ShaderType_VERTEX )
             {
-                replacement = globjects::File::create("Shaders/GlobalVertex.glsl");
+                shaderHeader = std::string( "#version 410\n\n"
+                                            "out gl_PerVertex {\n"
+                                            "    vec4 gl_Position;\n"
+                                            "    float gl_PointSize;\n"
+                                            "    float gl_ClipDistance[];\n"
+                                            "};\n\n" );
             }
             else
             {
-                replacement = globjects::File::create("Shaders/GlobalOther.glsl");
+                shaderHeader = std::string( "#version 410\n\n");
             }
 
-            // Updating shader's source with file's content.
-            std::string oldSource = shader->getSource();
-            std::string newSource = replacement->string() + "\n" + oldSource;
-            std::unique_ptr<globjects::StaticStringSource> newStringSource = globjects::Shader::sourceFromString( newSource );
+            auto fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
 
-            shader->setSource( newStringSource.get() );
+            // FIXME Where are defined the global replacement?
+            auto shaderSource = globjects::Shader::applyGlobalReplacements( fullsource.get() );
+
+
+            auto shader = globjects::Shader::create( getTypeAsGLEnum( type ) );
+            shader->setIncludePaths( { std::string("/") } );
+
+            // Workaround globject #include bug ...
+            std::string preprocessedSource = preprocessIncludes(name, shaderSource->string(), 0);
+
+            auto ptrSource = globjects::Shader::sourceFromString(preprocessedSource);
+
+            shader->setSource(ptrSource.get());
+
             shader->setName( name );
 
             shader->compile();
 
+            GL_CHECK_ERROR;
             m_shaderObjects[type].swap( shader );
         }
 
@@ -146,6 +156,7 @@ namespace Ra
             {
                 if (m_configuration.m_shaders[i] != "")
                 {
+                    LOG( logDEBUG ) << "Loading shader " << m_configuration.m_shaders[i];
                     loadShader(ShaderType(i), m_configuration.m_shaders[i], m_configuration.getProperties());
                 }
             }
@@ -166,11 +177,20 @@ namespace Ra
             m_program->setParameter( GL_PROGRAM_SEPARABLE, GL_TRUE );
 
             m_program->link();
+            GL_CHECK_ERROR;
         }
 
         void ShaderProgram::bind() const
         {
             m_program->use();
+        }
+
+        void ShaderProgram::validate() const
+        {
+            m_program->validate();
+            if (!m_program->isValid()) {
+                LOG( logDEBUG ) << m_program->infoLog();
+            }
         }
 
         void ShaderProgram::unbind() const
@@ -306,9 +326,82 @@ namespace Ra
             m_program->setUniform( name, texUnit );
         }
 
-        globjects::Program * ShaderProgram::getProgramObject()
+        globjects::Program * ShaderProgram::getProgramObject() const
         {
             return m_program.get();
         }
+
+
+        /****************************************************
+         * Include workaround due to globject bugs
+         ****************************************************/
+        std::string ShaderProgram::preprocessIncludes(const std::string &name, const std::string& shader, int level, int line)
+        {
+            CORE_ERROR_IF(level < 32, "Shader inclusion depth limit reached.");
+
+            std::string result = "";
+            std::vector<std::string> finalStrings;
+            auto shaderLines = Core::StringUtils::splitString(shader, '\n');
+            finalStrings.reserve(shaderLines.size());
+
+            uint nline = 0;
+
+            static const std::regex reg("^[ ]*#[ ]*include[ ]+[\"<](.*)[\">].*");
+
+            for (const auto& l : shaderLines)
+            {
+                std::string line = l;
+                std::smatch match;
+                if (std::regex_search(l, match, reg))
+                {
+                    // FIXME : use the includePaths set elsewhere.
+                    auto includeNameString = globjects::NamedString::getFromRegistry(std::string("/") + match[1].str());
+                    if (includeNameString != nullptr )
+                    {
+
+                        line = preprocessIncludes(match[1].str(), includeNameString->string(), level + 1, 0);
+
+                    } else {
+                        LOG(logWARNING) << "Cannot open included file " <<  match[1].str() << " at line" << nline << " of file " << name <<". Ignored.";
+                        continue;
+                    }
+/*
+                    std::string inc;
+                    std::string file = m_filepath + match[1].str();
+                    if (parseFile(file, inc))
+                    {
+                        sublerr.start = nline;
+                        sublerr.name  = file;
+                        lerr.subfiles.push_back(sublerr);
+
+                        line  = preprocessIncludes(inc, level + 1, lerr.subfiles.back());
+                        nline = lerr.subfiles.back().end;
+                    }
+                    else
+                    {
+                        LOG(logWARNING) << "Cannot open included file " << file << " from " << m_filename << ". Ignored.";
+                        continue;
+                    }
+ */
+                }
+
+                finalStrings.push_back(line);
+                ++ nline;
+            }
+
+            // Build final shader string
+            for (const auto& l : finalStrings)
+            {
+                result.append(l);
+                result.append("\n");
+            }
+
+            result.append("\0");
+
+
+            return result;
+        }
+
+
     }
 } // namespace Ra

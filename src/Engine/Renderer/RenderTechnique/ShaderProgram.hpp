@@ -42,6 +42,7 @@ namespace Ra
             ShaderConfiguration getBasicConfiguration() const;
 
             void bind() const;
+            void validate() const;
             void unbind() const;
 
             // Uniform setters
@@ -66,7 +67,7 @@ namespace Ra
 
             void setUniform( const char* name, Texture* tex, int texUnit ) const;
 
-            globjects::Program * getProgramObject();
+            globjects::Program * getProgramObject() const;
 
         private:
             void loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props);
@@ -75,6 +76,8 @@ namespace Ra
             ShaderType getGLenumAsType(GLenum type) const;
 
             void link();
+
+            std::string preprocessIncludes(const std::string &name, const std::string& shader, int level, int line=0);
 
         private:
             ShaderConfiguration m_configuration;

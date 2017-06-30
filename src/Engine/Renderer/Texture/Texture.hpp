@@ -59,6 +59,9 @@ namespace Ra
              * Generate, bind and configure OpenGL texture.<br/>
              * Also sets wrapping to GL_REPEAT and min / mag filters to GL_LINEAR, although no mipmaps are generated.<br/><br/>
              *
+             * If prefiltered texture is needed, user have to set min / mag filters and call the method prefilter() on the
+             * resulting texture
+             *
              * It is highly recommended to take a look at
              * <a href="https://www.opengl.org/wiki/GLAPI/glTexImage1D">glTexImage1D documentation</a>
              * since this method doc will highly refer to it.
@@ -87,6 +90,9 @@ namespace Ra
              *
              * Generate, bind and configure OpenGL texture.<br/>
              * Also sets wrapping to GL_REPEAT and min / mag filters to GL_LINEAR, although no mipmaps are generated.<br/><br/>
+             *
+             * If prefiltered texture is needed, user have to set min / mag filters and call the method prefilter() on the
+             * resulting texture
              *
              * It is highly recommended to take a look at
              * <a href="https://www.opengl.org/wiki/GLAPI/glTexImage2D">glTexImage2D documentation</a>
@@ -118,6 +124,9 @@ namespace Ra
              *
              * Generate, bind and configure OpenGL texture.<br/>
              * Also sets wrapping to GL_REPEAT and min / mag filters to GL_LINEAR, although no mipmaps are generated.<br/><br/>
+             *
+             * If prefiltered texture is needed, user have to set min / mag filters and call the method prefilter() on the
+             * resulting texture
              *
              * It is highly recommended to take a look at
              * <a href="https://www.opengl.org/wiki/GLAPI/glTexImage3D">glTexImage3D documentation</a>
@@ -151,6 +160,9 @@ namespace Ra
              *
              * Generate, bind and configure OpenGL texture.<br/>
              * Also sets wrapping to GL_REPEAT and min / mag filters to GL_LINEAR, although no mipmaps are generated.<br/><br/>
+             *
+             * If prefiltered texture is needed, user have to set min / mag filters and call the method prefilter() on the
+             * resulting texture
              *
              * It is highly recommended to take a look at
              * <a href="https://www.opengl.org/wiki/GLAPI/glTexImage2D">glTexImage2D documentation</a>
@@ -194,6 +206,11 @@ namespace Ra
              */
             void updateData(void* newData);
 
+            /**
+             * Prefilter the texture by building mipmap or any useful information needed to filter the texture..
+             */
+            void prefilter();
+
             GLenum format() const { return m_format; }
             uint width() const { return m_width; }
             uint height() const{ return m_height; }
@@ -213,6 +230,8 @@ namespace Ra
             uint m_depth;
 
             std::unique_ptr<globjects::Texture> m_texture;
+
+            bool m_prefiltered;
         };
     } // namespace Engine
 } // namespace Ra

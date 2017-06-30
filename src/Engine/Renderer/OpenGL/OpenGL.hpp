@@ -12,6 +12,9 @@
 
 #include <glbinding/gl45core/gl.h>
 using namespace gl45core;
+#include <glbinding/gl45ext/gl.h>
+using namespace gl45ext;
+
 
 /// Checks that an openGLContext is available (mostly for debug checks and asserts).
 inline bool checkOpenGLContext()
@@ -82,3 +85,13 @@ inline const char* glErrorString(GLenum err)
 #endif // _DEBUG
 
 #endif // RADIUMENGINE_OPENGL_HPP
+
+/*
+#include <globjects/Error.h>
+auto error = globjects::Error::get();
+
+if (error)
+{
+LOG( logERROR ) << "GLObject Error " << std::hex << error.code() << ": " << error.name() << std::endl;
+}
+ */
