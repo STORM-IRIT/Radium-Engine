@@ -101,7 +101,6 @@ namespace Ra
             ret->internalFormat = internal_format;
             ret->dataType = GL_UNSIGNED_BYTE;
             ret->Generate(w, h, format, data);
-            ret->prefilter();
 
             m_textures.insert(TexturePair(filename, ret));
 
@@ -141,7 +140,6 @@ namespace Ra
                         ret->wrapS = data.wrapS;
                         ret->wrapT = data.wrapT;
                         ret->Generate(data.width, data.height, data.format, data.data);
-                        ret->prefilter();
                     }
                     else
                     {

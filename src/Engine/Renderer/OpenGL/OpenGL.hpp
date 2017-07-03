@@ -85,13 +85,3 @@ inline const char* glErrorString(GLenum err)
 #endif // _DEBUG
 
 #endif // RADIUMENGINE_OPENGL_HPP
-
-/*
-#include <globjects/Error.h>
-auto error = globjects::Error::get();
-
-if (error)
-{
-LOG( logERROR ) << "GLObject Error " << std::hex << error.code() << ": " << error.name() << std::endl;
-}
- */

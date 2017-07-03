@@ -3,7 +3,6 @@
 #include <glbinding/Version.h>
 // Do not import namespace to prevent glbinding/QTOpenGL collision
 #include <glbinding/gl/gl.h>
-#include <glbinding/AbstractFunction.h>
 
 #include <globjects/globjects.h>
 

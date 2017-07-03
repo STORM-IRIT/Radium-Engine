@@ -8,7 +8,6 @@ namespace Ra
         : m_textureId(0)
         , m_name(name)
         , m_texture(nullptr)
-        , m_prefiltered(false)
     {
     }
 
@@ -22,8 +21,7 @@ namespace Ra
         if( m_texture == nullptr )
         {
             m_texture = globjects::Texture::create( GL_TEXTURE_1D );
-            // FIXME : do not need that
-            //m_texture->create(); // glGenTextures + Bind
+            m_texture->create(); // glGenTextures + Bind
         }
 
         m_texture->image1D( 0, internalFormat, w, 0, format, GL_UNSIGNED_BYTE, data );
@@ -31,6 +29,8 @@ namespace Ra
         m_texture->setParameter( GL_TEXTURE_WRAP_S, GL_REPEAT );
         m_texture->setParameter( GL_TEXTURE_MIN_FILTER, minFilter );
         m_texture->setParameter( GL_TEXTURE_MAG_FILTER, magFilter );
+
+        m_texture->generateMipmap();
 
         m_format = format;
         m_width = w;
@@ -41,8 +41,7 @@ namespace Ra
         if( m_texture == nullptr )
         {
             m_texture = globjects::Texture::create( GL_TEXTURE_2D );
-            // FIXME : do not need that
-            //m_texture->create();
+            m_texture->create();
         }
 
         m_texture->image2D( 0, internalFormat, w, h, 0, format, dataType, data );
@@ -51,6 +50,8 @@ namespace Ra
         m_texture->setParameter( GL_TEXTURE_WRAP_T, wrapT );
         m_texture->setParameter( GL_TEXTURE_MIN_FILTER, minFilter );
         m_texture->setParameter( GL_TEXTURE_MAG_FILTER, magFilter );
+
+        m_texture->generateMipmap();
 
         m_format = format;
         m_width  = w;
@@ -62,8 +63,7 @@ namespace Ra
         if( m_texture == nullptr )
         {
             m_texture = globjects::Texture::create( GL_TEXTURE_3D );
-            // FIXME : do not need that
-            //m_texture->create();
+            m_texture->create();
         }
 
         m_texture->image3D( 0, internalFormat, w, h, d, 0, format, dataType, data );
@@ -73,6 +73,8 @@ namespace Ra
         m_texture->setParameter( GL_TEXTURE_WRAP_R, wrapR );
         m_texture->setParameter( GL_TEXTURE_MIN_FILTER, minFilter );
         m_texture->setParameter( GL_TEXTURE_MAG_FILTER, magFilter );
+
+        m_texture->generateMipmap();
 
         m_format = format;
         m_width  = w;
@@ -85,8 +87,7 @@ namespace Ra
         if( m_texture == nullptr )
         {
             m_texture = globjects::Texture::create( GL_TEXTURE_CUBE_MAP );
-            // FIXME : do not need that
-            //m_texture->create();
+            m_texture->create();
         }
 
         m_texture->cubeMapImage( 0, internalFormat, w, h, 0, format, dataType, data );
@@ -97,16 +98,11 @@ namespace Ra
         m_texture->setParameter( GL_TEXTURE_MIN_FILTER, minFilter );
         m_texture->setParameter( GL_TEXTURE_MAG_FILTER, magFilter );
 
+        m_texture->generateMipmap();
+
         m_format = format;
         m_width = w;
         m_height = h;
-    }
-
-    void Engine::Texture::prefilter(){
-        m_prefiltered = true;
-        // FIXME : no need to generate mipmap for each texture ...
-        // This must be under the control of the user.
-        m_texture->generateMipmap();
     }
 
     void Engine::Texture::bind( int unit )
@@ -146,7 +142,5 @@ namespace Ra
                 CORE_ASSERT( 0, "Dafuck ?" );
             } break;
         }
-        if ( m_prefiltered )
-            prefilter();
     }
 } // namespace Ra

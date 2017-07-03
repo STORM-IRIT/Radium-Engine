@@ -209,31 +209,12 @@ namespace Ra
                 {
                     // bind data
                     Core::Matrix4 M = ro->getTransformAsMatrix();
-                    Core::Matrix4 N = M.inverse().transpose();
-                    GL_CHECK_ERROR;
-                    /*
-                    void glProgramUniformMatrix4fv(	GLuint program,
-                                                       GLint location,
-                                                       GLsizei count,
-                                                       GLboolean transpose,
-                                                       const GLfloat *value);
-                    */
-                    GLint dbgloc = glGetUniformLocation(shader->getProgramObject()->id(), "transform.proj");
-                    LOG( logDEBUG ) << "Program (directGL) " << shader->getProgramObject()->id() <<  " -- transform.proj location " << dbgloc;
-                    GL_CHECK_ERROR;
+                    Core::Matrix4 N = M.inverse().transpose();            
 
-                    dbgloc = shader->getProgramObject()->getUniformLocation("transform.proj");
-                    LOG( logDEBUG ) << "Program (globject) " << shader->getProgramObject()->id() <<  " -- transform.proj location " << dbgloc;
-
-                    GL_CHECK_ERROR;
                     shader->setUniform( "transform.proj", renderData.projMatrix );
-                    GL_CHECK_ERROR;
                     shader->setUniform( "transform.view", renderData.viewMatrix );
-                    GL_CHECK_ERROR;
                     shader->setUniform( "transform.model", M );
-                    GL_CHECK_ERROR;
                     shader->setUniform( "transform.worldNormal", N );
-                    GL_CHECK_ERROR;
 
                     ro->getRenderTechnique()->material->bind( shader );
                     //shader->validate();

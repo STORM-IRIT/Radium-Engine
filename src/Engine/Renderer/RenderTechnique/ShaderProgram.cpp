@@ -67,7 +67,7 @@ namespace Ra
 
             // header string that contains #version and pre-declarations ...
             std::string shaderHeader;
-            if ( type == ShaderType_VERTEX )
+            if( type == ShaderType_VERTEX )
             {
                 shaderHeader = std::string( "#version 410\n\n"
                                             "out gl_PerVertex {\n"
