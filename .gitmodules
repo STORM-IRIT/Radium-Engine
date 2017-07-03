@@ -6,7 +6,7 @@
 	url = https://github.com/cginternals/glbinding.git
 [submodule "3rdPartyLibraries/OpenGL/globjects"]
 	path = 3rdPartyLibraries/OpenGL/globjects
-	url = https://github.com/cginternals/globjects.git
+	url = https://github.com/AGGA-IRIT/globjects.git
 [submodule "3rdPartyLibraries/OpenGL/glm"]
 	path = 3rdPartyLibraries/OpenGL/glm
 	url = https://github.com/g-truc/glm.git

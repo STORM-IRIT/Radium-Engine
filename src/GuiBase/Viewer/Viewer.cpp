@@ -125,8 +125,8 @@ namespace Ra
 
                                     });
 */
- 
-       emit rendererReady();
+
+        emit rendererReady();
     }
 
     Gui::CameraInterface* Gui::Viewer::getCameraInterface()
