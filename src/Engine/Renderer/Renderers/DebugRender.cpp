@@ -27,9 +27,11 @@ namespace Ra
 
         void DebugRender::initialize()
         {
+            /// FIXME : this was not ported to globject ...
             auto createProgram = [](const char* vertStr, const char* fragStr) -> uint
             {
                 uint prog = glCreateProgram();
+                GL_CHECK_ERROR;
 
                 uint vert = glCreateShader(GL_VERTEX_SHADER);
                 glShaderSource(vert, 1, &vertStr, 0);

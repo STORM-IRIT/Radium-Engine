@@ -30,6 +30,8 @@
 #include <Engine/Renderer/Renderers/DebugRender.hpp>
 
 #include <globjects/Framebuffer.h>
+// Only for debug purpose, not needed here
+#include <globjects/Program.h>
 
 //#define NO_TRANSPARENCY
 namespace Ra
@@ -55,6 +57,7 @@ namespace Ra
         ForwardRenderer::ForwardRenderer( uint width, uint height )
             : Renderer(width, height)
         {
+
         }
 
         ForwardRenderer::~ForwardRenderer()
@@ -85,17 +88,21 @@ namespace Ra
 
         void ForwardRenderer::initBuffers()
         {
+            LOG ( logDEBUG ) << "Main Framebuffer.";
             m_fbo.reset( new globjects::Framebuffer() );
-            m_fbo->create();
-            glViewport( 0, 0, m_width, m_height );
+            // FIXED : This did twice the work of FB creatio, but destroyed one!
+            //m_fbo->create();
+            GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
 
+            LOG ( logDEBUG ) << "Oit Framebuffer.";
             m_oitFbo.reset( new globjects::Framebuffer() );
-            m_oitFbo->create();
-            glViewport( 0, 0, m_width, m_height );
+            //m_oitFbo->create();
+            GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
 
+            LOG ( logDEBUG ) << "PostProcess Framebuffer.";
             m_postprocessFbo.reset( new globjects::Framebuffer() );
-            m_postprocessFbo->create();
-            glViewport( 0, 0, m_width, m_height );
+            //m_postprocessFbo->create();
+            GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
 
             // Render pass
             m_textures[RendererTextures_Depth].reset(new Texture("Depth"));
@@ -139,6 +146,7 @@ namespace Ra
         void ForwardRenderer::updateStepInternal( const RenderData& renderData )
         {
 #ifndef NO_TRANSPARENCY
+            LOG( logDEBUG ) << "Identifying transparent objects.";
             m_transparentRenderObjects.clear();
 
             for (auto it = m_fancyRenderObjects.begin(); it != m_fancyRenderObjects.end();)
@@ -193,8 +201,6 @@ namespace Ra
 
             GL_ASSERT( glDisable( GL_BLEND ) );
 
-            GL_ASSERT( glDrawBuffers( 4, buffers ) );
-
             shader = m_shaderMgr->getShaderProgram("DepthAmbientPass");
             shader->bind();
             for ( const auto& ro : m_fancyRenderObjects )
@@ -211,7 +217,7 @@ namespace Ra
                     shader->setUniform( "transform.worldNormal", N );
 
                     ro->getRenderTechnique()->material->bind( shader );
-
+                    //shader->validate();
                     // render
                     ro->getMesh()->render();
                 }
@@ -579,6 +585,7 @@ namespace Ra
 
         void ForwardRenderer::resizeInternal()
         {
+            LOG ( logDEBUG ) << "ForwardRenderer::resizeInternal --> Begin";
             m_pingPongSize = std::pow(2.0, Scalar(uint(std::log2(std::min(m_width, m_height)))));
 
             m_textures[RendererTextures_Depth]->Generate(m_width, m_height, GL_DEPTH_COMPONENT);
@@ -600,7 +607,9 @@ namespace Ra
             {
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
             }
-            m_fbo->unbind();
+            GL_CHECK_ERROR;
+            // No need to do that just before binding another FB
+            //m_fbo->unbind();
 
 #ifndef NO_TRANSPARENCY
             m_oitFbo->bind();
@@ -612,7 +621,9 @@ namespace Ra
             {
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
             }
-            m_oitFbo->unbind();
+            GL_CHECK_ERROR;
+            // No need to do that just before binding another FB
+            //m_oitFbo->unbind();
 #endif
 
             m_postprocessFbo->bind();
@@ -623,15 +634,18 @@ namespace Ra
             {
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
             }
-            m_postprocessFbo->unbind();
-
             GL_CHECK_ERROR;
+            // No need to do that just before binding another FB
+            //m_postprocessFbo->unbind();
 
             // Reset framebuffer state
-            GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, 0 ) );
+            glBindFramebuffer( GL_FRAMEBUFFER, 0 ) ;
 
-            GL_ASSERT( glDrawBuffer( GL_BACK ) );
-            GL_ASSERT( glReadBuffer( GL_BACK ) );
+            // FIXME : already done in Renderrer::resize
+            //glDrawBuffer( GL_BACK ) ;
+            //glReadBuffer( GL_BACK ) ;
+
+            LOG ( logDEBUG ) << "ForwardRenderer::resizeInternal --> End";
         }
 
     }

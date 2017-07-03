@@ -18,8 +18,9 @@ namespace Ra
         ShaderProgramManager::ShaderProgramManager(const std::string& vs, const std::string& fs)
         {
             initialize();
-
+            GL_CHECK_ERROR;
             m_defaultShaderProgram = addShaderProgram("Default Program", vs, fs);
+            GL_CHECK_ERROR;
         }
 
         ShaderProgramManager::~ShaderProgramManager()
@@ -42,6 +43,7 @@ namespace Ra
             m_namedStrings.push_back( globjects::NamedString::create( "/Structs.glsl", m_files[1].get() ) );
             m_namedStrings.push_back( globjects::NamedString::create( "/Tonemap.glsl", m_files[2].get() ) );
             m_namedStrings.push_back( globjects::NamedString::create( "/LightingFunctions.glsl", m_files[3].get() ) );
+
         }
 
         const ShaderProgram* ShaderProgramManager::addShaderProgram(const std::string& name,
@@ -69,7 +71,8 @@ namespace Ra
                 // Try to load the shader
                 auto prog = Core::make_shared<ShaderProgram>( config );
 
-                if ( prog->getProgramObject()->isValid() )
+                // FIXED : use isLinked not isValid
+                if ( prog->getProgramObject()->isLinked() )
                 {
                     insertShader(config, prog);
 

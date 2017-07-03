@@ -113,6 +113,9 @@ namespace Ra
             /// Write the current frame as an image. Supports either BMP or PNG file names.
             void grabFrame( const std::string& filename );
 
+            /// Add a renderer and return its index.
+            int addRenderer(std::unique_ptr<Engine::Renderer> e);
+
         signals:
             void rendererReady();               //! Emitted when the rendered is correctly initialized
             void leftClickPicking ( int id );   //! Emitted when the result of a left click picking is known

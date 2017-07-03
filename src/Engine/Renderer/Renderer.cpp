@@ -61,6 +61,7 @@ namespace Ra
             , m_wireframe(false)
             , m_postProcessEnabled(true)
         {
+            GL_CHECK_ERROR;
         }
 
         Renderer::~Renderer()
@@ -72,6 +73,7 @@ namespace Ra
         {
             // Initialize managers
             m_shaderMgr = ShaderProgramManager::createInstance("Shaders/Default.vert.glsl", "Shaders/Default.frag.glsl");
+
             m_roMgr = RadiumEngine::getInstance()->getRenderObjectManager();
             TextureManager::createInstance();
 
@@ -83,8 +85,9 @@ namespace Ra
             m_depthTexture->dataType = GL_UNSIGNED_INT;
 
             m_pickingFbo.reset( new globjects::Framebuffer() );
+            // FIXED : no need for that
             m_pickingFbo->create();
-            glViewport( 0, 0, m_width, m_height );
+            GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
 
             m_pickingTexture.reset(new Texture("Picking"));
             m_pickingTexture->internalFormat = GL_RGBA32I;
@@ -420,6 +423,7 @@ namespace Ra
 
         void Renderer::resize( uint w, uint h )
         {
+            LOG ( logDEBUG ) << "Renderer::resize() --> Begin";
             m_width = w;
             m_height = h;
             glViewport( 0, 0, m_width, m_height );
@@ -437,16 +441,17 @@ namespace Ra
                 LOG( logERROR ) << "FBO Error : " << m_pickingFbo->checkStatus();
             }
             m_pickingFbo->unbind();
+            GL_CHECK_ERROR;
+
+            glDrawBuffer( GL_BACK ) ;
+            glReadBuffer( GL_BACK ) ;
 
             GL_CHECK_ERROR;
 
-            // Reset framebuffer state
-            GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, 0 ) );
-
-            GL_ASSERT( glDrawBuffer( GL_BACK ) );
-            GL_ASSERT( glReadBuffer( GL_BACK ) );
-
             resizeInternal();
+
+            LOG ( logDEBUG ) << "Renderer::resize() --> End";
+
         }
 
         void Renderer::displayTexture( const std::string& texName )

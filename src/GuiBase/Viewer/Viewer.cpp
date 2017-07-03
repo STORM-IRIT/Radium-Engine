@@ -43,7 +43,7 @@ namespace Ra
 {
     Gui::Viewer::Viewer( QWidget* parent )
         : QOpenGLWidget( parent )
-        , m_renderers(3)
+//        , m_renderers(3)
         , m_gizmoManager(new GizmoManager(this))
         , m_renderThread( nullptr )
     {
@@ -54,14 +54,21 @@ namespace Ra
         m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
 
         /// Intercept events to properly lock the renderer when it is compositing.
-
     }
 
     Gui::Viewer::~Viewer(){}
 
+
+    int Gui::Viewer::addRenderer(std::unique_ptr<Engine::Renderer> e){
+        m_renderers.push_back(std::move(e));
+        return m_renderers.size()-1;
+    }
+
     void Gui::Viewer::initializeGL()
     {
-        globjects::init(); // globjects initializes glbinding internally
+        //glbinding::Binding::initialize(false);
+        // no need to initalize glbinding. globjects (magically) do this internally.
+        globjects::init(globjects::Shader::IncludeImplementation::Fallback);
 
         LOG( logINFO ) << "*** Radium Engine Viewer ***";
         LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::ContextInfo::renderer();
@@ -72,8 +79,9 @@ namespace Ra
         // FIXME(Charly): Renderer type should not be changed here
         // m_renderers.resize( 3 );
         // FIXME (Mathias): width and height might be wrong the first time ResizeGL is called (see QOpenGLWidget doc). This may cause problem on Retina display under MacOsX (and this happens)
-        m_renderers[0].reset( new Engine::ForwardRenderer( width(), height() ) ); // Forward
-        m_renderers[1].reset( nullptr ); // deferred
+        m_renderers.push_back(std::unique_ptr<Engine::Renderer>(new Engine::ForwardRenderer( width(), height()))); // Forward
+
+//        m_renderers[1].reset( nullptr ); // deferred
         // m_renderers[2].reset( new Engine::ExperimentalRenderer( width(), height() ) ); // experimental
 
         for ( auto& renderer : m_renderers )
@@ -97,8 +105,28 @@ namespace Ra
         }
 
         m_camera->attachLight( light );
+/*
+        glbinding::setCallbackMask(glbinding::CallbackMask::After | glbinding::CallbackMask::ParametersAndReturnValue);
+        glbinding::setAfterCallback([](const glbinding::FunctionCall & call)
+                                    {
+                                        std::cerr << call.function->name() << "(";
+                                        for (unsigned i = 0; i < call.parameters.size(); ++i)
+                                        {
+                                            std::cerr << call.parameters[i]->asString();
+                                            if (i < call.parameters.size() - 1)
+                                                std::cerr << ", ";
+                                        }
+                                        std::cerr << ")";
 
-        emit rendererReady();
+                                        if (call.returnValue)
+                                            std::cerr << " -> " << call.returnValue->asString();
+
+                                        std::cerr << std::endl;
+
+                                    });
+*/
+ 
+       emit rendererReady();
     }
 
     Gui::CameraInterface* Gui::Viewer::getCameraInterface()

@@ -128,6 +128,9 @@ namespace Ra {
 
                 GL_ASSERT( glEnableVertexAttribArray( vboIdx - 1 ) );
 
+                // Fixed : no need to send the data twice
+                m_dataDirty[vboIdx] = false;
+
             }
 
             if ( m_dataDirty[vboIdx] == true && m_vbos[vboIdx] != 0 && arr.size() > 0 )
@@ -149,7 +152,7 @@ namespace Ra {
 
                 CORE_ASSERT( ! ( m_mesh.m_vertices.empty()|| m_mesh.m_triangles.empty() ),
                              "Either vertices or indices are empty arrays.");
-
+                LOG( logDEBUG ) << "Mesh::updateGL() ...";
                 if ( m_vao == 0 )
                 {
                     // Create VAO if it does not exist
@@ -189,6 +192,7 @@ namespace Ra {
                 GL_ASSERT( glBindVertexArray( 0 ) );
 
                 GL_CHECK_ERROR;
+                LOG( logDEBUG ) << " ... done Mesh::updateGL().";
                 m_isDirty = false;
             }
         }
