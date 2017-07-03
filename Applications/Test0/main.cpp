@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
     bpConfig.addShader(Ra::Engine::ShaderType_VERTEX, "Shaders/BlinnPhong.vert.glsl");
     bpConfig.addShader(Ra::Engine::ShaderType_FRAGMENT, "Shaders/BlinnPhong.frag.glsl");
     Ra::Engine::ShaderConfigurationFactory::addConfiguration(bpConfig);
-
+    
     // Create one system
     LOG(logDEBUG) << "Creating minimal system.";
     Ra::Engine::System* sys = new MinimalSystem;
