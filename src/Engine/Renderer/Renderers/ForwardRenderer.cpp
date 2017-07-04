@@ -146,7 +146,6 @@ namespace Ra
         void ForwardRenderer::updateStepInternal( const RenderData& renderData )
         {
 #ifndef NO_TRANSPARENCY
-            LOG( logDEBUG ) << "Identifying transparent objects.";
             m_transparentRenderObjects.clear();
 
             for (auto it = m_fancyRenderObjects.begin(); it != m_fancyRenderObjects.end();)
@@ -585,7 +584,6 @@ namespace Ra
 
         void ForwardRenderer::resizeInternal()
         {
-            LOG ( logDEBUG ) << "ForwardRenderer::resizeInternal --> Begin";
             m_pingPongSize = std::pow(2.0, Scalar(uint(std::log2(std::min(m_width, m_height)))));
 
             m_textures[RendererTextures_Depth]->Generate(m_width, m_height, GL_DEPTH_COMPONENT);
@@ -608,8 +606,6 @@ namespace Ra
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
             }
             GL_CHECK_ERROR;
-            // No need to do that just before binding another FB
-            //m_fbo->unbind();
 
 #ifndef NO_TRANSPARENCY
             m_oitFbo->bind();
@@ -622,8 +618,6 @@ namespace Ra
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
             }
             GL_CHECK_ERROR;
-            // No need to do that just before binding another FB
-            //m_oitFbo->unbind();
 #endif
 
             m_postprocessFbo->bind();
@@ -635,17 +629,9 @@ namespace Ra
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
             }
             GL_CHECK_ERROR;
-            // No need to do that just before binding another FB
-            //m_postprocessFbo->unbind();
 
-            // Reset framebuffer state
-            glBindFramebuffer( GL_FRAMEBUFFER, 0 ) ;
-
-            // FIXME : already done in Renderrer::resize
-            //glDrawBuffer( GL_BACK ) ;
-            //glReadBuffer( GL_BACK ) ;
-
-            LOG ( logDEBUG ) << "ForwardRenderer::resizeInternal --> End";
+            // finished with fbo, undbind to bind default
+            globjects::Framebuffer::unbind();
         }
 
     }

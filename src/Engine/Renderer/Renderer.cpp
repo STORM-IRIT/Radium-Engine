@@ -423,7 +423,6 @@ namespace Ra
 
         void Renderer::resize( uint w, uint h )
         {
-            LOG ( logDEBUG ) << "Renderer::resize() --> Begin";
             m_width = w;
             m_height = h;
             glViewport( 0, 0, m_width, m_height );
@@ -443,15 +442,12 @@ namespace Ra
             m_pickingFbo->unbind();
             GL_CHECK_ERROR;
 
+            resizeInternal();
+            
             glDrawBuffer( GL_BACK ) ;
             glReadBuffer( GL_BACK ) ;
 
             GL_CHECK_ERROR;
-
-            resizeInternal();
-
-            LOG ( logDEBUG ) << "Renderer::resize() --> End";
-
         }
 
         void Renderer::displayTexture( const std::string& texName )
