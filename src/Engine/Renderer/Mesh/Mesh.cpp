@@ -119,18 +119,14 @@ namespace Ra {
             {
                 GL_ASSERT( glGenBuffers( 1, &m_vbos[vboIdx] ) );
                 GL_ASSERT( glBindBuffer( GL_ARRAY_BUFFER, m_vbos[vboIdx] ) );
-                GL_ASSERT( glBufferData( GL_ARRAY_BUFFER, arr.size() * sizeof( typename VecArray::Vector ),
-                arr.data(), GL_DYNAMIC_DRAW ) );
 
                 // Use (vboIdx - 1) as attribute index because vbo 0 is actually ibo.
                 GL_ASSERT( glVertexAttribPointer( vboIdx - 1, size, type, normalized,
                                                   sizeof( typename VecArray::Vector ), (GLvoid*)ptr ) );
 
                 GL_ASSERT( glEnableVertexAttribArray( vboIdx - 1 ) );
-
-                // Fixed : no need to send the data twice
-                m_dataDirty[vboIdx] = false;
-
+                // Set dirty as true to send data, see below 
+                m_dataDirty[vboIdx] = true;
             }
 
             if ( m_dataDirty[vboIdx] == true && m_vbos[vboIdx] != 0 && arr.size() > 0 )
@@ -152,7 +148,6 @@ namespace Ra {
 
                 CORE_ASSERT( ! ( m_mesh.m_vertices.empty()|| m_mesh.m_triangles.empty() ),
                              "Either vertices or indices are empty arrays.");
-                LOG( logDEBUG ) << "Mesh::updateGL() ...";
                 if ( m_vao == 0 )
                 {
                     // Create VAO if it does not exist
@@ -172,7 +167,6 @@ namespace Ra {
                     GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER, m_mesh.m_triangles.size() * sizeof( Ra::Core::Triangle ),
                                              m_mesh.m_triangles.data(), GL_DYNAMIC_DRAW ) );
                     m_dataDirty[INDEX] = false;
-
                 }
 
                 // Geometry data
@@ -190,9 +184,7 @@ namespace Ra {
                 sendGLData(m_v4Data[VERTEX_WEIGHT_IDX], MAX_MESH + MAX_VEC3 + VERTEX_WEIGHT_IDX);
 
                 GL_ASSERT( glBindVertexArray( 0 ) );
-
                 GL_CHECK_ERROR;
-                LOG( logDEBUG ) << " ... done Mesh::updateGL().";
                 m_isDirty = false;
             }
         }
