@@ -21,7 +21,6 @@ namespace Ra
         if( m_texture == nullptr )
         {
             m_texture = globjects::Texture::create( GL_TEXTURE_1D );
-            m_texture->create(); // glGenTextures + Bind
         }
 
         m_texture->image1D( 0, internalFormat, w, 0, format, GL_UNSIGNED_BYTE, data );
@@ -41,7 +40,6 @@ namespace Ra
         if( m_texture == nullptr )
         {
             m_texture = globjects::Texture::create( GL_TEXTURE_2D );
-            m_texture->create();
         }
 
         m_texture->image2D( 0, internalFormat, w, h, 0, format, dataType, data );
@@ -63,7 +61,6 @@ namespace Ra
         if( m_texture == nullptr )
         {
             m_texture = globjects::Texture::create( GL_TEXTURE_3D );
-            m_texture->create();
         }
 
         m_texture->image3D( 0, internalFormat, w, h, d, 0, format, dataType, data );
@@ -87,7 +84,6 @@ namespace Ra
         if( m_texture == nullptr )
         {
             m_texture = globjects::Texture::create( GL_TEXTURE_CUBE_MAP );
-            m_texture->create();
         }
 
         m_texture->cubeMapImage( 0, internalFormat, w, h, 0, format, dataType, data );
@@ -109,7 +105,7 @@ namespace Ra
     {
         if( unit >= 0 )
         {
-            m_texture->bindActive( unit );
+            m_texture->bindActive( unit );            
         }
         else
         {
