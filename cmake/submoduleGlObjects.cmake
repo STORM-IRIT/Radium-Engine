@@ -5,13 +5,14 @@ else()
     set( PLATFORM_ARGS "-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false" )
 endif()
 
-
-# here is defined the way we want to import glbinding
+# here is defined the way we want to import globjects
 ExternalProject_Add(
-    glbinding
+    globjects
+    # Need to build glbinding_lib before configuring globjects
+    DEPENDS glbinding_lib
 
     # where the source will live
-    SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/OpenGL/glbinding"
+    SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/OpenGL/globjects"
 
     # override default behaviours
     UPDATE_COMMAND ""
@@ -36,23 +37,24 @@ ExternalProject_Add(
     )
 
 
-add_custom_target(glbinding_lib
-    DEPENDS glbinding
+add_custom_target(globjects_lib
+    DEPENDS  glbinding_lib glm_lib globjects
     )
 # ----------------------------------------------------------------------------------------------------------------------
+
 if(${RADIUM_SUBMODULES_BUILD_TYPE} MATCHES Debug)
-    set(GLBINDINGLIBNAME glbindingd)
+    set(GLOBJECTLIBNAME globjectsd)
 else()
-    set(GLBINDINGLIBNAME glbinding)
+    set(GLOBJECTLIBNAME globjects)
 endif()
 
-set(GLBINDING_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include)
+set(GLOBJECTS_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include)
 if( APPLE )
-    set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLBINDINGLIBNAME}.dylib" )
+    set( GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLOBJECTLIBNAME}.dylib" )
 elseif ( UNIX )
-    set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLBINDINGLIBNAME}.so")
+    set( GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLOBJECTLIBNAME}.so")
 elseif (MINGW)
-    set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLBINDINGLIBNAME}.dll.a" )
+    set( GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLOBJECTLIBNAME}.dll.a" )
 elseif( MSVC )
     # in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
     if( MSVC70 OR MSVC71 )
@@ -71,18 +73,19 @@ elseif( MSVC )
         set(MSVC_PREFIX "vc140")
     endif()
 
-    set(GLBINDING_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${GLBINDINGLIBNAME}.dll")
+    set(GLOBJECTS_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${GLOBJECTLIBNAME}.dll")
 	if(RADIUM_SUBMODULES_BUILD_TYPE MATCHES Debug)
-		set(GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLBINDINGLIBNAME}.lib")
+		set(GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLOBJECTLIBNAME}.lib")
+
 	else()
-	    set(GLBINDING_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLBINDINGLIBNAME}.lib")
+	    set(GLOBJECTS_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLOBJECTLIBNAME}.lib")
 	endif()
 
-	add_custom_target( glbinding_install_compiled_dll
-		COMMAND ${CMAKE_COMMAND} -E copy ${GLBINDING_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
-		COMMENT "copy glbinding dll to bin dir" VERBATIM
-		DEPENDS glbinding
+	add_custom_target( globjects_install_compiled_dll
+		COMMAND ${CMAKE_COMMAND} -E copy ${GLOBJECTS_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+		COMMENT "copy globject dll to bin dir" VERBATIM
+		DEPENDS globjects
 	)
-	add_dependencies(glbinding_lib glbinding_install_compiled_dll)
+	add_dependencies(globjects_lib globjects_install_compiled_dll)
 
 endif()

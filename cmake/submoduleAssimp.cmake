@@ -25,13 +25,19 @@ add_custom_target(assimp_lib
     )
 
 # ----------------------------------------------------------------------------------------------------------------------
+if(${RADIUM_SUBMODULES_BUILD_TYPE} MATCHES Debug)
+    set(ASSIMPLIBNAME assimpd)
+else()
+    set(ASSIMPLIBNAME assimp)
+endif()
+
 set( ASSIMP_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include )
 if( APPLE )
-    set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimp.dylib" )
+    set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${ASSIMPLIBNAME}.dylib" )
 elseif ( UNIX )
-    set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimp.so" )
+    set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${ASSIMPLIBNAME}.so" )
 elseif (MINGW)
-    set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libassimp.dll.a" )
+    set( ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${ASSIMPLIBNAME}.dll.a" )
 elseif( MSVC )
     # in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
     if( MSVC70 OR MSVC71 )
@@ -50,6 +56,18 @@ elseif( MSVC )
         set(MSVC_PREFIX "vc140")
     endif()
 
-    set(ASSIMP_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/assimp-${MSVC_PREFIX}-mt.lib")
+	if(RADIUM_SUBMODULES_BUILD_TYPE MATCHES Debug)
+		set(ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/assimp-${MSVC_PREFIX}-mtd.lib")
+		set(ASSIMP_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin/assimp-${MSVC_PREFIX}-mtd.dll")
+	else()
+		set(ASSIMP_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/assimp-${MSVC_PREFIX}-mt.lib")
+		set(ASSIMP_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin/assimp-${MSVC_PREFIX}-mt.dll")
+	endif()
 
+	add_custom_target( assimp_install_compiled_dll
+		COMMAND ${CMAKE_COMMAND} -E copy ${ASSIMP_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+		COMMENT "copy assimp dll to bin dir" VERBATIM
+		DEPENDS assimp
+	)
+	add_dependencies(assimp_lib assimp_install_compiled_dll)
 endif()

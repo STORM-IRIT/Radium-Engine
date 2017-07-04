@@ -39,8 +39,8 @@ private:
     uint m_id;               /// Bone index
 
     const Ra::Core::Animation::Skeleton& m_skel;    /// Skeleton
-    std::unique_ptr<Ra::Engine::RenderTechnique> m_renderParams;
-    std::unique_ptr<Ra::Engine::Material> m_material;
+    std::shared_ptr<Ra::Engine::RenderTechnique> m_renderParams;
+    std::shared_ptr<Ra::Engine::Material> m_material;
     Ra::Engine::RenderObjectManager* m_roMgr;
 };
 

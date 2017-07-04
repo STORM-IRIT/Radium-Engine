@@ -2,6 +2,7 @@
 #define RADIUMENGINE_RENDERTECHNIQUE_HPP
 
 #include <Engine/RaEngine.hpp>
+#include <memory>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
 namespace Ra
@@ -18,12 +19,11 @@ namespace Ra
     namespace Engine
     {
         // NOTE(Charly): Would it be interesting to provide more stuff here ?
-        // TODO(Val) : we need proper memory management of these objects.
         struct RenderTechnique
         {
             ShaderConfiguration shaderConfig;
             const ShaderProgram* shader = nullptr;
-            Material* material = nullptr;
+            std::shared_ptr<Material> material = nullptr;
 
             RA_ENGINE_API void changeShader( const ShaderConfiguration& newConfig );
 

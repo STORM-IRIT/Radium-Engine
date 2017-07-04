@@ -11,6 +11,12 @@
 #include <Core/Utils/Singleton.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
+namespace globjects
+{
+    class File;
+    class NamedString;
+}
+
 namespace Ra
 {
     namespace Engine
@@ -24,19 +30,11 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_ENGINE_API ShaderProgramManager 
+        class RA_ENGINE_API ShaderProgramManager
         {
             RA_SINGLETON_INTERFACE(ShaderProgramManager);
-        public:
-            enum class ShaderProgramStatus
-            {
-                NOT_COMPILED = 0,
-                COMPILED = 1
-            };
 
         public:
-            int getShaderId(const std::string& shader) const;
-
             const ShaderProgram* addShaderProgram(const std::string& name, const std::string& vert, const std::string& frag);
             const ShaderProgram* addShaderProgram(const ShaderConfiguration& config);
 
@@ -52,18 +50,18 @@ namespace Ra
             ShaderProgramManager(const std::string& vs, const std::string& fs);
             ~ShaderProgramManager();
 
+            void initialize();
             void insertShader(const ShaderConfiguration& config, const std::shared_ptr<ShaderProgram>& shader);
 
         private:
-            std::string m_shaderPath;
-
             std::map<std::string, ShaderConfiguration> m_shaderProgramIds;
             std::map<ShaderConfiguration, std::shared_ptr<ShaderProgram>> m_shaderPrograms;
             std::vector<ShaderConfiguration> m_shaderFailedConfs;
 
-            const ShaderProgram* m_defaultShaderProgram;
+            std::vector<std::unique_ptr<globjects::File>> m_files;
+            std::vector<std::unique_ptr<globjects::NamedString>> m_namedStrings;
 
-            int m_defaultShaderId;
+            const ShaderProgram* m_defaultShaderProgram;
         };
 
     } // namespace Engine

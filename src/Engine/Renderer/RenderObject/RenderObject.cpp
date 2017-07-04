@@ -49,13 +49,14 @@ namespace Ra
 
         RenderObject* RenderObject::createRenderObject(const std::string& name, Component* comp,
                                                        const RenderObjectType& type, const std::shared_ptr<Mesh> &mesh,
-                                                       const ShaderConfiguration &shaderConfig, Material *material)
+                                                       const ShaderConfiguration &shaderConfig,
+                                                       const std::shared_ptr<Material>& material)
         {
             RenderObject* obj = new RenderObject(name, comp, type);
             obj->setMesh(mesh);
             obj->setVisible(true);
 
-            RenderTechnique* rt = new RenderTechnique;
+            std::shared_ptr<RenderTechnique> rt(new RenderTechnique);
 
             if (shaderConfig.isComplete())
             {
@@ -73,7 +74,7 @@ namespace Ra
             else
             {
                 // Lightgrey non specular material by default
-                rt->material = new Material(name + "_Mat");
+                rt->material.reset(new Material(name + "_Mat"));
                 rt->material->m_kd = Core::Color::Constant(0.9f);
                 rt->material->m_ks = Core::Color::Zero();
             }
@@ -122,7 +123,7 @@ namespace Ra
             displayMesh->addData(Mesh::VERTEX_TEXCOORD, texcoords);
             displayMesh->addData(Mesh::VERTEX_COLOR, colors);
 
-            Material* mat = new Material(name);
+            std::shared_ptr<Material> mat (new Material(name));
 
             auto m = asset->getMaterial();
 
@@ -278,18 +279,18 @@ namespace Ra
             return m_component;
         }
 
-        void RenderObject::setRenderTechnique( RenderTechnique* technique )
+        void RenderObject::setRenderTechnique( const std::shared_ptr<RenderTechnique>& technique )
         {
             CORE_ASSERT( technique, "Passing a nullptr as render technique" );
             m_renderTechnique = technique;
         }
 
-        const RenderTechnique* RenderObject::getRenderTechnique() const
+        std::shared_ptr<const RenderTechnique> RenderObject::getRenderTechnique() const
         {
             return m_renderTechnique;
         }
 
-        RenderTechnique* RenderObject::getRenderTechnique()
+        std::shared_ptr<RenderTechnique> RenderObject::getRenderTechnique()
         {
             return m_renderTechnique;
         }

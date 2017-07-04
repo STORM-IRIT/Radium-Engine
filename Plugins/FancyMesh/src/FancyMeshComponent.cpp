@@ -111,7 +111,7 @@ namespace FancyMeshPlugin
         // FIXME(Charly): Should not weights be part of the geometry ?
         //        mesh->addData( Ra::Engine::Mesh::VERTEX_WEIGHTS, meshData.weights );
 
-        Ra::Engine::Material* mat = new Ra::Engine::Material( matName );
+        std::shared_ptr<Ra::Engine::Material> mat (new Ra::Engine::Material( matName ));
         auto m = data->getMaterial();
         if ( m.hasDiffuse() )   mat->m_kd    = m.m_diffuse;
         if ( m.hasSpecular() )  mat->m_ks    = m.m_specular;

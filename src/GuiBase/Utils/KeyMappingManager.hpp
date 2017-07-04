@@ -5,7 +5,7 @@
 #include <QtGui/QKeyEvent>
 #include <QtGui/QMouseEvent>
 
-#include <Engine/RaEngine.hpp>
+#include <GuiBase/RaGuiBase.hpp>
 
 #include <Core/Utils/Singleton.hpp>
 
@@ -16,7 +16,7 @@ namespace Ra
         /// An utility class used to map a (combination) of key / modifier to a specific action.
         /// It can load configuration from a file or if no config is found it will load an
         /// internal version of the default configuration.
-        class RA_ENGINE_API KeyMappingManager
+        class RA_GUIBASE_API KeyMappingManager
         {
             RA_SINGLETON_INTERFACE(KeyMappingManager);
 

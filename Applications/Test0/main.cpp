@@ -35,13 +35,6 @@ int main(int argc, char* argv[])
     app.m_viewer->show();
     CORE_ASSERT( app.m_viewer->context()->isValid(), "OpenGL was not initialized" );
 
-    LOG(logDEBUG) << "Creating BlinnPhong Shader.";
-    // Load Blinn-Phong shader
-    Ra::Engine::ShaderConfiguration bpConfig("BlinnPhong");
-    bpConfig.addShader(Ra::Engine::ShaderType_VERTEX, "Shaders/BlinnPhong.vert.glsl");
-    bpConfig.addShader(Ra::Engine::ShaderType_FRAGMENT, "Shaders/BlinnPhong.frag.glsl");
-    Ra::Engine::ShaderConfigurationFactory::addConfiguration(bpConfig);
-
     // Create one system
     LOG(logDEBUG) << "Creating minimal system.";
     Ra::Engine::System* sys = new MinimalSystem;
@@ -54,7 +47,6 @@ int main(int argc, char* argv[])
     e->addComponent(c);
     sys->registerComponent(e, c);
     c->initialize();
-
 
     // Start the app.
 

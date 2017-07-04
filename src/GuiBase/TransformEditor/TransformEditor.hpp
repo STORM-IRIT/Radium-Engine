@@ -13,7 +13,7 @@ namespace Ra
         public:
             RA_CORE_ALIGNED_NEW
 
-            TransformEditor() {}
+            TransformEditor() : m_transform( Core::Transform::Identity() ) {}
             virtual ~TransformEditor();
 
             /// Change the current editable object,

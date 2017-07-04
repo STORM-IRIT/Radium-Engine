@@ -31,9 +31,10 @@ namespace Ra
             {
                 Core::TriangleMesh torus = Core::MeshUtils::makeParametricTorus<32>(torusOutRadius, torusAspectRatio*torusOutRadius);
                 // Transform the torus from z-axis to axis i.
-                if (i < 2)
+                for (auto& v: torus.m_vertices)
                 {
-                    for (auto& v: torus.m_vertices)
+                    v = 0.5f * v;
+                    if (i < 2)
                     {
                         std::swap( v[2], v[i]);
                     }
@@ -50,10 +51,9 @@ namespace Ra
                 Engine::RenderObject* arrowDrawable = new Engine::RenderObject("Gizmo Arrow", m_comp,
                                                                                Engine::RenderObjectType::UI);
 
-                Engine::RenderTechnique* rt = new Engine::RenderTechnique;
-                /* TODO : Mathias -- Ugly hypothesis. Gizmos must define their own shaders*/
+                std::shared_ptr<Engine::RenderTechnique> rt (new Engine::RenderTechnique);
                 rt->shaderConfig = Ra::Engine::ShaderConfigurationFactory::getConfiguration("Plain");
-                rt->material = new Ra::Engine::Material("Default material");
+                rt->material.reset(new Ra::Engine::Material("Default material"));
                 arrowDrawable->setRenderTechnique(rt);
                 arrowDrawable->setMesh( mesh );
 

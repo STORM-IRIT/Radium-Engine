@@ -26,9 +26,9 @@ namespace Ra {
                     config = ShaderConfigurationFactory::getConfiguration("Plain");
                 }
 
-                RenderTechnique* rt = new RenderTechnique;
+                std::shared_ptr<RenderTechnique> rt (new RenderTechnique);
                 rt->shaderConfig = config;
-                rt->material = new Material("Default material");
+                rt->material.reset(new Material("Default material"));
 
                 RenderObject* ro = new RenderObject(mesh->getName(), component,
                                                     RenderObjectType::Debug);

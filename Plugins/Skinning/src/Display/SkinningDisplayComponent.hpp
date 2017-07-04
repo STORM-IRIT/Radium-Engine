@@ -110,8 +110,8 @@ public:
                 color[i] = palette[ assignedColor[ partition[i] ] ];
             }
 
-            Ra::Engine::RenderTechnique* technique = new Ra::Engine::RenderTechnique;
-            technique->material = new Ra::Engine::Material( std::string( "Partition" ) + m_name );
+            std::shared_ptr<Ra::Engine::RenderTechnique> technique(new Ra::Engine::RenderTechnique);
+            technique->material.reset(new Ra::Engine::Material( std::string( "Partition" ) + m_name ));
             technique->material->m_kd = Ra::Core::Vector4::Zero();
             technique->material->m_ks = Ra::Core::Vector4::Zero();
             technique->material->m_ns = 100;
