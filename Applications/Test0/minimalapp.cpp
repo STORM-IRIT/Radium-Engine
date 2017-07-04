@@ -14,6 +14,13 @@ MinimalApp::MinimalApp(int &argc, char** argv)
     LOG(logDEBUG) << "Initialize engine.";
     m_engine.reset(Ra::Engine::RadiumEngine::createInstance());
     m_engine->initialize();
+   
+    // Load Blinn-Phong shader
+    Ra::Engine::ShaderConfiguration bpConfig("BlinnPhong");
+    bpConfig.addShader(Ra::Engine::ShaderType_VERTEX, "Shaders/BlinnPhong.vert.glsl");
+    bpConfig.addShader(Ra::Engine::ShaderType_FRAGMENT, "Shaders/BlinnPhong.frag.glsl");
+    Ra::Engine::ShaderConfigurationFactory::addConfiguration(bpConfig);
+
 
     Ra::Engine::ShaderConfiguration pConfig("Plain");
     pConfig.addShader(Ra::Engine::ShaderType_VERTEX, "Shaders/Plain.vert.glsl");
