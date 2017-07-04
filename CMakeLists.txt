@@ -155,7 +155,7 @@ endif(DOXYGEN_FOUND)
 #
 set(SHADER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
 
-if(MSVC OR MSVC_IDE)
+if(MSVC OR MSVC_IDE OR MINGW)
 add_custom_target( radium_assets
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
     COMMENT "Copying shaders and other ressources" VERBATIM
@@ -171,7 +171,7 @@ endif()
 ################################################################################
 set(CONFIG_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Configs")
 
-if(MSVC OR MSVC_IDE)
+if(MSVC OR MSVC_IDE OR MINGW)
     add_custom_target( radium_configs
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${CONFIG_DIR} "${EXECUTABLE_OUTPUT_PATH}/Configs"
         COMMENT "Copying configs (keymapping)" VERBATIM
