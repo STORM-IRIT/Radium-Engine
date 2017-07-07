@@ -30,7 +30,7 @@ namespace Ra
         /// face and prev/next indices.
         /// Edges shared by more than 2 triangles are not supported and will cause an assert during
         /// the call to build().
-        class HalfEdgeData
+        class RA_CORE_API HalfEdgeData
         {
         public:
             /// Build the half edge data from a mesh.

@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_FRAME_TIMER_DATA_HPP
 #define RADIUMENGINE_FRAME_TIMER_DATA_HPP
 
+#include <GuiBase/RaGuiBase.hpp>
+
 #include <iostream>
 #include <iomanip>
 
@@ -13,7 +15,7 @@ namespace Ra
 {
 
     /// This struct holds all timings for one frame of the engine.
-    struct FrameTimerData
+    struct RA_GUIBASE_API FrameTimerData
     {
         uint numFrame;
         Core::Timer::TimePoint frameStart;
