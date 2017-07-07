@@ -107,7 +107,7 @@ namespace Ra
 
         Core::Transform RotateGizmo::mouseMove(const Engine::Camera& cam, const Core::Vector2& nextXY, bool stepped)
         {
-            static const float step = M_PI / 10;
+            static const float step = Ra::Core::Math::Pi / 10.f;
             if (m_selectedAxis >= 0)
             {
                 const Core::Vector3 origin =  m_transform.translation();
