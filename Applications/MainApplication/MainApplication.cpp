@@ -37,6 +37,7 @@
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 
 #include <IO/AssimpLoader/AssimpFileLoader.hpp>
+#include <IO/PbrtLoader/PbrtFileLoader.hpp>
 
 
 // Const parameters : TODO : make config / command line options
@@ -140,6 +141,7 @@ namespace Ra
         m_engine->initialize();
         addBasicShaders();
         m_engine->registerFileLoader( new IO::AssimpFileLoader() );
+        m_engine->registerFileLoader( new IO::PbrtFileLoader() );
 
         // Create main window.
         m_mainWindow.reset( new Gui::MainWindow );

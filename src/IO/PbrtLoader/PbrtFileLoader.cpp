@@ -1,11 +1,12 @@
 #include <IO/PbrtLoader/PbrtFileLoader.hpp>
 
-namespace Ra {
-    namespace IO {
-
+namespace Ra
+{
+    namespace IO
+    {
         PbrtFileLoader::PbrtFileLoader()
         {
-
+            //parseFile( "Shaders/scene.pbrt" );
         }
 
         PbrtFileLoader::~PbrtFileLoader()
@@ -15,33 +16,48 @@ namespace Ra {
 
         std::vector<std::string> PbrtFileLoader::getFileExtensions() const
         {
-            std::string extensionsList;
-
-            // TODO(Matthieu) : get a list of extensions
-            // m_importer.GetExtensionList( extensionsList );
-
-            std::vector<std::string> extensions = Core::StringUtils::splitString( extensionsList, ';' );
-
-            return extensions;
+            return { "*.pbrt" };
         }
 
         bool PbrtFileLoader::handleFileExtension( const std::string& extension ) const
         {
-            // return m_importer.IsExtensionSupported( extension );
-
-            // TODO(Matthieu) : search within extensions vector
-            return false;
+            return ( extension == "pbrt" );
         }
 
         Asset::FileData * PbrtFileLoader::loadFile( const std::string& filename )
         {
             Asset::FileData* fileData = new Asset::FileData( filename );
 
-            // TODO(Matthieu) : do some pbrt loading stuff...
+            if ( !fileData->isInitialized() )
+            {
+                return nullptr;
+            }
+
+            // Load scene
+
+            if ( fileData->isVerbose() )
+            {
+                LOG( logINFO ) << "File Loading begin...";
+            }
+
+            std::clock_t startTime;
+            startTime = std::clock();
+
+            // Load data
+
+            fileData->m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );
+
+            if ( fileData->isVerbose() )
+            {
+                LOG( logINFO ) << "File Loading end.";
+
+                fileData->displayInfo();
+            }
+
+            fileData->m_processed = true;
 
             return fileData;
         }
-
     } // namespace IO
 } // namespace Ra
 

@@ -8,6 +8,8 @@
 #include <IO/AssimpLoader/AssimpHandleDataLoader.hpp>
 #include <IO/AssimpLoader/AssimpLightDataLoader.hpp>
 
+#include <iostream>
+
 namespace Ra {
     namespace IO {
 

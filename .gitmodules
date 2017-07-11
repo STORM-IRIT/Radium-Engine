@@ -16,3 +16,6 @@
 [submodule "3rdPartyLibraries/pbrt-v3"]
 	path = 3rdPartyLibraries/pbrt-v3
 	url = https://github.com/mmp/pbrt-v3.git
+[submodule "3rdPartyLibraries/Pbrt"]
+	path = 3rdPartyLibraries/Pbrt
+	url = https://github.com/mmp/pbrt-v3.git

@@ -25,3 +25,6 @@ include(submoduleEigen3)
 
 # Assimp
 include(submoduleAssimp)
+
+# Pbrt
+include(submodulePbrt)
