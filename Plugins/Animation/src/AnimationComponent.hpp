@@ -9,6 +9,7 @@
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/File/AnimationData.hpp>
 #include <Core/File/HandleData.hpp>
+#include <Core/File/HandleToSkeleton.hpp>
 
 #include <Engine/Component/Component.hpp>
 
@@ -79,25 +80,9 @@ namespace AnimationPlugin
         // Loading data functions
         //
 
-        // Create a skeleton from a file data.
-        void createSkeleton( const Ra::Asset::HandleData* data, std::map< uint, uint >& indexTable );
-
-        // Internal recursive method to create bones
-        void addBone( const int parent,
-                      const uint dataID,
-                      const Ra::Core::AlignedStdVector< Ra::Asset::HandleComponentData >& data,
-                      const Ra::Core::AlignedStdVector< Ra::Core::Vector2i >& edgeList,
-                      std::vector< bool >& processed,
-                      std::map< uint, uint >& indexTable );
-
         void setWeights (Ra::Core::Animation::WeightMatrix m);
 
-        // Internal function to create the skinning weights.
-        void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable );
-
-        // Internal function to create the bone display objects.
-        void setupSkeletonDisplay();
-
+        
         // Component communication
         void setContentName (const std::string name);
         void setupIO( const std::string& id );
@@ -108,6 +93,14 @@ namespace AnimationPlugin
         const bool*                              getWasReset() const;
         const Ra::Core::Animation::Animation* getAnimation() const;
         const Scalar* getTimeOutput() const;
+
+    private:
+        // Internal function to create the skinning weights.
+        void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable );
+
+        // Internal function to create the bone display objects.
+        void setupSkeletonDisplay();
+
 
     private:
         std::string m_contentName;
