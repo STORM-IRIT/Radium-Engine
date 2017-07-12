@@ -29,6 +29,11 @@ IF ( RADIUM_ROOT_DIR )
     SET ( RADIUM_INCLUDES "${RADIUM_ROOT_DIR}/src")
     SET ( RADIUM_BUNDLE_DIRECTORY ${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
     SET ( RADIUM_PLUGIN_OUTPUT_PATH "${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin/Plugins")
+    IF(MSVC)
+        SET(RADIUM_3RDPARTY_DIR "${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries")
+    ELSE()
+        SET(RADIUM_3RDPARTY_DIR "${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries")
+    ENDIF()
 
     IF (TARGET radiumCore)
         set (RA_CORE_LIB radiumCore)
@@ -59,45 +64,45 @@ IF ( RADIUM_ROOT_DIR )
     ############################################################################
     # Get dependencies if not already specified
     IF(NOT EIGEN3_INCLUDE_DIR)
-        set(EIGEN3_INCLUDE_DIR ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/include)
+        set(EIGEN3_INCLUDE_DIR "${RADIUM_3RDPARTY_DIR}/include")
     ENDIF(NOT EIGEN3_INCLUDE_DIR)
 
     IF (NOT ASSIMP_LIBRARIES)
         FIND_LIBRARY ( ASSIMP_LIBRARIES
-            NAMES assimp assimpd
-            PATHS ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/lib
+            NAMES assimp assimpd assimp-vc140-mtd
+            PATHS "${RADIUM_3RDPARTY_DIR}/lib"
             )
     ENDIF (NOT ASSIMP_LIBRARIES)
 
     IF(NOT ASSIMP_INCLUDE_DIR)
-        set(ASSIMP_INCLUDE_DIR ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/include)
+        set(ASSIMP_INCLUDE_DIR "${RADIUM_3RDPARTY_DIR}/include")
     ENDIF(NOT ASSIMP_INCLUDE_DIR)
 
 
     IF(NOT GLM_INCLUDE_DIR)
-        set(GLM_INCLUDE_DIR ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/include)
+        set(GLM_INCLUDE_DIR "${RADIUM_3RDPARTY_DIR}/include")
     ENDIF(NOT GLM_INCLUDE_DIR)
 
     IF (NOT GLBINDING_LIBRARIES)
         FIND_LIBRARY ( GLBINDING_LIBRARIES
             NAMES glbinding glbindingd
-            PATHS ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/lib
+            PATHS "${RADIUM_3RDPARTY_DIR}/lib"
             )
     ENDIF (NOT GLBINDING_LIBRARIES)
 
     IF(NOT GLBINDING_INCLUDE_DIR)
-        set(GLBINDING_INCLUDE_DIR ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/include)
+        set(GLBINDING_INCLUDE_DIR "${RADIUM_3RDPARTY_DIR}/include")
     ENDIF(NOT GLBINDING_INCLUDE_DIR)
 
     IF (NOT GLOBJECTS_LIBRARIES)
         FIND_LIBRARY ( GLOBJECTS_LIBRARIES
             NAMES globjects globjectsd
-            PATHS ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/lib
+            PATHS "${RADIUM_3RDPARTY_DIR}/lib"
             )
     ENDIF (NOT GLOBJECTS_LIBRARIES)
 
     IF(NOT GLOBJECTS_INCLUDE_DIR)
-        set(GLOBJECTS_INCLUDE_DIR ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries/include)
+        set(GLOBJECTS_INCLUDE_DIR "${RADIUM_3RDPARTY_DIR}/include")
     ENDIF(NOT GLOBJECTS_INCLUDE_DIR)
 
     SET( RADIUM_INCLUDE_DIR)
