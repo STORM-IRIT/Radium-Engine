@@ -34,6 +34,8 @@ namespace Ra
             Core::Index addRenderObject( RenderObject* renderObject );
             void removeRenderObject( const Core::Index& index );
 
+            uint getRenderObjectsCount();
+
             /// Returns the render object corresponding to the given index. Will assert
             /// if the index does not match to an existing render object. See exists()
             std::shared_ptr<RenderObject> getRenderObject( const Core::Index& index );

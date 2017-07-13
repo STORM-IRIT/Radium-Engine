@@ -117,19 +117,42 @@ namespace Ra
 
                 if (result.m_hitTriangle >= 0)
                 {
+                    result.m_t = minT;
                     Scalar minDist = std::numeric_limits<Scalar>::max();
-                    std::array<Vector3,3> v;
-                    getTriangleVertices(mesh, result.m_hitTriangle, v);
+                    std::array<Vector3,3> V;
+                    getTriangleVertices(mesh, result.m_hitTriangle, V);
+                    const Triangle& T = mesh.m_triangles[result.m_hitTriangle];
+                    const Vector3 I = ray.pointAt(minT);
+                    // find closest vertex
                     for (uint i = 0; i < 3; ++i)
                     {
-                        Scalar dSq = (v[i] - ray.pointAt(minT)).squaredNorm();
+                        Scalar dSq = (V[i] - I).squaredNorm();
                         if (dSq < minDist)
                         {
-                            result.m_nearestVertex = mesh.m_triangles[result.m_hitTriangle][i];
+                            result.m_nearestVertex = T(i);
+                            minDist = dSq;
                         }
                     }
-                    result.m_t = minT;
-
+                    // find closest edge vertices
+                    const Scalar inv_2area = 1.0 / (V[1]-V[0]).cross(V[2]-V[0]).norm();
+                    const Scalar u = (V[2]-V[1]).cross(I-V[1]).norm() * inv_2area;
+                    const Scalar v = (V[0]-V[2]).cross(I-V[2]).norm() * inv_2area;
+                    const Scalar w = 1.0 - u - v;
+                    if (u < v && u < w)
+                    {
+                        result.m_edgeVertex0 = T(1);
+                        result.m_edgeVertex1 = T(2);
+                    }
+                    else if (v < w)
+                    {
+                        result.m_edgeVertex0 = T(0);
+                        result.m_edgeVertex1 = T(2);
+                    }
+                    else
+                    {
+                        result.m_edgeVertex0 = T(0);
+                        result.m_edgeVertex1 = T(1);
+                    }
                 }
 
                 return result;

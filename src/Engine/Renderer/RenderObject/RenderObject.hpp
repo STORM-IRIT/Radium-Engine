@@ -93,6 +93,10 @@ namespace Ra
             void toggleVisible();
             bool isVisible() const;
 
+            void setPickable( bool pickable );
+            void togglePickable();
+            bool isPickable() const;
+
             void setXRay( bool xray );
             void toggleXRay();
             bool isXRay() const;
@@ -145,6 +149,7 @@ namespace Ra
             int m_lifetime;
 
             bool m_visible;
+            bool m_pickable;
             bool m_xray;
             bool m_transparent;
             bool m_dirty;

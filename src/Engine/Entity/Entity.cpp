@@ -31,7 +31,6 @@ namespace Ra
 
         void Entity::addComponent( Engine::Component* component )
         {
-            
             CORE_ASSERT( getComponent( component->getName() ) == nullptr,
                 "Component \"" << component->getName() << "\" has already been added to the entity." );
 

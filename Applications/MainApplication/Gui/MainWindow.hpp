@@ -120,6 +120,9 @@ namespace Ra
             /// Connect qt signals and slots. Called once by the constructor.
             void createConnections();
 
+            // Updates the Tracking info according to the selected feature, if any.
+            void updateTrackedFeatureInfo();
+
             virtual void closeEvent( QCloseEvent* event ) override;
 
         private slots:
@@ -136,7 +139,11 @@ namespace Ra
             void changeRenderer(const QString& rendererName);
 
             /// Slot for the picking results from the viewer.
-            void handlePicking( int ROIndex );
+            void handlePicking(int pickingResult);
+
+            /// Slot for tracking info GUI.
+            void on_m_vertexIdx_valueChanged(int arg1);
+            void on_m_triangleIdx_valueChanged(int arg1);
 
             /// Slot to accept a new renderer
             void onRendererReady();
@@ -159,7 +166,7 @@ namespace Ra
             /// Stores the internal model of engine objects for selection.
             GuiBase::ItemModel* m_itemModel;
 
-            /// Stores and manage the current selection.
+            /// Stores and manages the current selection.
             GuiBase::SelectionManager* m_selectionManager;
 
             /// Widget to allow material edition.

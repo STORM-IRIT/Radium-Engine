@@ -85,6 +85,21 @@ namespace Ra
              * @return The action to add.
              */
             virtual QAction* getAction( int id ) = 0;
+
+            /**
+             * @brief Tells whether the plugin wants to add a feature widget
+             * (inside the UI tab widget dedicated to feature tracking) or not.
+             * If it does, getWidget() will be called.
+             * @return True if the plugin wants to add a widget, false otherwise
+             */
+            virtual bool doAddFeatureTrackingWidget() { return false; }
+            /**
+             * @brief Creates the feature widget to be added to the ui and then returns it.
+             * If connections are needed (between plugin ui and plugin internals)
+             * they have to be created here.
+             * @return The created and configured feature widget
+             */
+            virtual QWidget* getFeatureTrackingWidget() { return nullptr; }
         };
     }
 }
