@@ -261,9 +261,10 @@ namespace Ra
                 m_editRenderObjectButton->setEnabled(true);
 
                 m_materialEditor->changeRenderObject(ent.m_roIndex);
-                const std::string& shaderName = mainApp->m_engine->getRenderObjectManager()->getRenderObject(
-                                                               ent.m_roIndex)
-                                                       ->getRenderTechnique()->getBasicConfiguration().m_name;
+                const std::string& shaderName = mainApp->m_engine->getRenderObjectManager()
+                                                       ->getRenderObject(ent.m_roIndex)
+                                                       ->getRenderTechnique()
+                                                       ->getBasicConfiguration().m_name;
 
 
                 if (m_currentShaderBox->findText(shaderName.c_str()) == -1)
@@ -327,8 +328,6 @@ namespace Ra
 
     void Gui::MainWindow::changeRenderer(const QString& rendererName)
     {
-        // LOG(logINFO) << "Chosen renderer : " << rendererName.toStdString() << " (" << m_currentRendererCombo->currentText().toStdString() << " - " <<
-        //             m_currentRendererCombo->currentIndex() << ")";
         // m_viewer->changeRenderer(m_currentRendererCombo->currentIndex());
     }
 
@@ -342,31 +341,17 @@ namespace Ra
         }
 
         const ItemEntry& item = m_selectionManager->currentItem();
+        const Engine::ShaderConfiguration config = Ra::Engine::ShaderConfigurationFactory::getConfiguration(name);
 
-#if 1
         auto vector_of_ros = getItemROs( mainApp->m_engine.get(), item );
         for (const auto& ro_index : vector_of_ros) {
             const auto& ro = mainApp->m_engine->getRenderObjectManager()->getRenderObject(ro_index);
             if (ro->getRenderTechnique()->getBasicConfiguration().m_name != name)
             {
-            Engine::ShaderConfiguration config = Ra::Engine::ShaderConfigurationFactory::getConfiguration(name);
-            ro->getRenderTechnique()->changeShader(config);
+                Engine::ShaderConfiguration config = Ra::Engine::ShaderConfigurationFactory::getConfiguration(name);
+                ro->getRenderTechnique()->changeShader(config);
             }
         }
-#else
-        if (!item.isRoNode())
-        {
-            return;
-        }
-
-        const auto& ro = mainApp->m_engine->getRenderObjectManager()->getRenderObject(item.m_roIndex);
-        if (ro->getRenderTechnique()->shader->getBasicConfiguration().m_name == name)
-        {
-            return;
-        }
-        Engine::ShaderConfiguration config = Ra::Engine::ShaderConfigurationFactory::getConfiguration(name);
-        ro->getRenderTechnique()->changeShader(config);
-#endif
     }
 
     void Gui::MainWindow::toggleVisisbleRO()
@@ -416,7 +401,7 @@ namespace Ra
         // Add widget
         if (plugin->doAddWidget(tabName))
         {
-            toolBox->addItem(plugin->getWidget(), tabName);
+            toolBox->addTab(plugin->getWidget(), tabName);
         }
 
         // Add actions
@@ -523,5 +508,28 @@ namespace Ra
         m_viewer->resetCamera();
     }
 
+    void Gui::MainWindow::on_actionForward_triggered()
+    {
+        changeRenderer("Forward");
+        actionForward->setChecked( true );
+        actionDeferred->setChecked( false );
+        actionExperimental->setChecked( false );
+    }
+
+    void Gui::MainWindow::on_actionDeferred_triggered()
+    {
+        changeRenderer("Deferred");
+        actionForward->setChecked( false );
+        actionDeferred->setChecked( true );
+        actionExperimental->setChecked( false );
+    }
+
+    void Ra::Gui::MainWindow::on_actionExperimental_triggered()
+    {
+        changeRenderer("Experimental");
+        actionForward->setChecked( false );
+        actionDeferred->setChecked( false );
+        actionDeferred->setChecked( true );
+    }
 
 } // namespace Ra
