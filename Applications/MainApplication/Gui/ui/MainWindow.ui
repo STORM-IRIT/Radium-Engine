@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1350</width>
-    <height>804</height>
+    <height>832</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -69,9 +69,24 @@
     <addaction name="separator"/>
     <addaction name="actionLoad_configuration_file"/>
    </widget>
+   <widget class="QMenu" name="menuRendering">
+    <property name="title">
+     <string>Rendering</string>
+    </property>
+    <widget class="QMenu" name="menuRenderers">
+     <property name="title">
+      <string>Renderers</string>
+     </property>
+     <addaction name="actionForward"/>
+     <addaction name="actionDeferred"/>
+     <addaction name="actionExperimental"/>
+    </widget>
+    <addaction name="menuRenderers"/>
+   </widget>
    <addaction name="menuFILE"/>
    <addaction name="menuMisc"/>
    <addaction name="menuKeymapping"/>
+   <addaction name="menuRendering"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget">
    <attribute name="dockWidgetArea">
@@ -88,6 +103,12 @@
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <item>
              <widget class="QTreeView" name="m_entitiesTreeView">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>150</height>
+               </size>
+              </property>
               <property name="editTriggers">
                <set>QAbstractItemView::NoEditTriggers</set>
               </property>
@@ -199,23 +220,27 @@
            </layout>
           </item>
           <item>
-           <widget class="QToolBox" name="toolBox">
+           <widget class="QTabWidget" name="toolBox">
             <property name="minimumSize">
              <size>
               <width>250</width>
               <height>0</height>
              </size>
             </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>500</height>
+             </size>
+            </property>
+            <property name="tabPosition">
+             <enum>QTabWidget::West</enum>
+            </property>
+            <property name="currentIndex">
+             <number>0</number>
+            </property>
             <widget class="QWidget" name="tab_stats">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>305</width>
-               <height>267</height>
-              </rect>
-             </property>
-             <attribute name="label">
+             <attribute name="title">
               <string>Stats</string>
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -414,61 +439,25 @@
                 </item>
                </layout>
               </item>
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
              </layout>
             </widget>
             <widget class="Ra::Gui::TransformEditorWidget" name="tab_edition">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>285</width>
-               <height>144</height>
-              </rect>
-             </property>
-             <attribute name="label">
+             <attribute name="title">
               <string>Edition</string>
              </attribute>
-            </widget>
-            <widget class="QWidget" name="tab_renderers">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>285</width>
-               <height>144</height>
-              </rect>
-             </property>
-             <attribute name="label">
-              <string>Renderers</string>
-             </attribute>
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <item>
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>Current renderer :</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="m_currentRendererCombo">
-                <item>
-                 <property name="text">
-                  <string>Forward</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Deferred</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Experimental</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-             </layout>
             </widget>
            </widget>
           </item>
@@ -711,6 +700,39 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+O</string>
+   </property>
+  </action>
+  <action name="actionForward">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Forward</string>
+   </property>
+  </action>
+  <action name="actionDeferred">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Deferred</string>
+   </property>
+  </action>
+  <action name="actionExperimental">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Experimental</string>
    </property>
   </action>
  </widget>
