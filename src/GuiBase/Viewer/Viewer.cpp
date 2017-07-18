@@ -188,15 +188,16 @@ namespace Ra
 
     Engine::Renderer::PickingMode getPickingMode()
     {
-        if (Gui::isKeyPressed(Qt::Key_V))
+        auto keyMap = Gui::KeyMappingManager::getInstance();
+        if( Gui::isKeyPressed( keyMap->getKeyFromAction( Gui::KeyMappingManager::FEATUREPICKING_VERTEX ) ) )
         {
             return Engine::Renderer::VERTEX;
         }
-        if (Gui::isKeyPressed(Qt::Key_E))
+        if( Gui::isKeyPressed( keyMap->getKeyFromAction( Gui::KeyMappingManager::FEATUREPICKING_EDGE ) ) )
         {
             return Engine::Renderer::EDGE;
         }
-        if (Gui::isKeyPressed(Qt::Key_T))
+        if( Gui::isKeyPressed( keyMap->getKeyFromAction( Gui::KeyMappingManager::FEATUREPICKING_TRIANGLE ) ) )
         {
             return Engine::Renderer::TRIANGLE;
         }
@@ -205,10 +206,10 @@ namespace Ra
 
     void Gui::Viewer::mousePressEvent( QMouseEvent* event )
     {
-
-        if( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::VIEWER_LEFT_BUTTON_PICKING_QUERY ) )
+        auto keyMap = Gui::KeyMappingManager::getInstance();
+        if( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_LEFT_BUTTON_PICKING_QUERY ) )
         {
-            if ( isKeyPressed( Gui::KeyMappingManager::getInstance()->getKeyFromAction(Gui::KeyMappingManager::VIEWER_RAYCAST_QUERY ) ) )
+            if ( isKeyPressed( keyMap->getKeyFromAction(Gui::KeyMappingManager::VIEWER_RAYCAST_QUERY ) ) )
             {
                 LOG( logINFO ) << "Raycast query launched";
                 Core::Ray r = m_camera->getCamera()->getRayFromScreen(Core::Vector2(event->x(), event->y()));
@@ -228,16 +229,16 @@ namespace Ra
                 m_gizmoManager->handleMousePressEvent(event);
             }
         }
-        else if ( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) )
+        else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) )
         {
             m_camera->handleMousePressEvent(event);
         }
-        else if ( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::VIEWER_RIGHT_BUTTON_PICKING_QUERY ) )
+        else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_RIGHT_BUTTON_PICKING_QUERY ) )
         {
             // Check picking
             Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()),
-                                                          Core::MouseButton::RA_MOUSE_RIGHT_BUTTON,
-                                                          getPickingMode() };
+                                                      Core::MouseButton::RA_MOUSE_RIGHT_BUTTON,
+                                                      getPickingMode() };
             m_currentRenderer->addPickingRequest(query);
         }
     }
