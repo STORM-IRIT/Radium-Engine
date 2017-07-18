@@ -78,7 +78,6 @@ endif( RADIUM_PBRT_SUPPORT )
 
 set(io_libs
     radiumCore
-    ${PBRT_LIBRARIES}
 )
 
 if( RADIUM_ASSIMP_SUPPORT )
