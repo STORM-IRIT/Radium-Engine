@@ -51,9 +51,12 @@ if(GIT_FOUND)
   execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     OUTPUT_VARIABLE GIT_CHANGESET)
+    # remove new line sometime appearing in git changeset
+    string(REGEX REPLACE "\n$" "" GIT_CHANGESET "${GIT_CHANGESET}")
 else()
   set(GIT_CHANGESET "")
 endif()
+message("Git Changeset: ${GIT_CHANGESET}")
 
 
 # guard against in-source builds (source: Eigen)
