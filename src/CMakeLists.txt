@@ -75,7 +75,6 @@ add_library(
     ${engine_sources}
     ${engine_headers}
     ${engine_inlines}
-
     ${engine_shaders}
 )
 
@@ -130,7 +129,11 @@ target_compile_definitions(${guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
 target_link_libraries(
     ${guibase_target}
     ${guibase_libs}
-)
+    )
+
+
+set(RADIUM_LIBRARIES ${RADIUM_LIBRARIES} "${core_target}" "${engine_target}" "${guibase_target}" PARENT_SCOPE)
+message(INFO " Radium Lib ${RADIUM_LIBRARIES}")
 
 # Build tests
 include_directories(
