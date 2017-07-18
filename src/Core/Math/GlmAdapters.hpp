@@ -12,17 +12,17 @@ namespace Ra
         // Transform an Eigen vector/matrix into a glm vector/matrix.
         // Used to deal with globjects's setUniform() method which uses glm structures instead of Eigen's structures.
 
-        inline glm::vec2 toGlm( const Vector2& v )
+        inline glm::vec2 toGlm( const Vector2f& v )
         {
             return glm::vec2( v( 0 ), v( 1 ) );
         }
 
-        inline glm::vec3 toGlm( const Vector3& v )
+        inline glm::vec3 toGlm( const Vector3f& v )
         {
             return glm::vec3( v( 0 ), v( 1 ), v( 2 ) );
         }
 
-        inline glm::vec4 toGlm( const Vector4& v )
+        inline glm::vec4 toGlm( const Vector4f& v )
         {
             return glm::vec4( v( 0 ), v( 1 ), v( 2 ), v( 3 ) );
         }
@@ -57,20 +57,20 @@ namespace Ra
             return glm::uvec4( v( 0 ), v( 1 ), v( 2 ), v( 3 ) );
         }
 
-        inline glm::mat2 toGlm( const Matrix2& m )
+        inline glm::mat2 toGlm( const Matrix2f& m )
         {
             return glm::mat2 ( m.coeff( 0, 0 ), m.coeff( 1, 0 ),
                                m.coeff( 0, 1 ), m.coeff( 1, 1 ) );
         }
 
-        inline glm::mat3 toGlm( const Matrix3& m )
+        inline glm::mat3 toGlm( const Matrix3f& m )
         {
             return glm::mat3( m.coeff( 0, 0 ), m.coeff( 1, 0 ), m.coeff( 2, 0 ),
                               m.coeff( 0, 1 ), m.coeff( 1, 1 ), m.coeff( 2, 1 ),
                               m.coeff( 0, 2 ), m.coeff( 1, 2 ), m.coeff( 2, 2 ) );
         }
 
-        inline glm::mat4 toGlm( const Matrix4& m )
+        inline glm::mat4 toGlm( const Matrix4f& m )
         {
             return glm::mat4( m.coeff( 0, 0 ), m.coeff( 1, 0 ), m.coeff( 2, 0 ), m.coeff( 3, 0 ),
                               m.coeff( 0, 1 ), m.coeff( 1, 1 ), m.coeff( 2, 1 ), m.coeff( 3, 1 ),
@@ -78,26 +78,26 @@ namespace Ra
                               m.coeff( 0, 3 ), m.coeff( 1, 3 ), m.coeff( 2, 3 ), m.coeff( 3, 3 ) );
         }
 
-        inline glm::mat2x3 toGlm( const Eigen::Matrix<Scalar, 2, 3>& m )
+        inline glm::mat2x3 toGlm( const Eigen::Matrix<float, 2, 3>& m )
         {
             return glm::mat2x3( m.coeff( 0, 0 ), m.coeff( 1, 0 ), m.coeff( 2, 0 ),
                                 m.coeff( 0, 1 ), m.coeff( 1, 1 ), m.coeff( 2, 1 ) );
         }
 
-        inline glm::mat3x2 toGlm( const Eigen::Matrix<Scalar, 3, 2>& m )
+        inline glm::mat3x2 toGlm( const Eigen::Matrix<float, 3, 2>& m )
         {
             return glm::mat3x2( m.coeff( 0, 0 ), m.coeff( 1, 0 ),
                                 m.coeff( 0, 1 ), m.coeff( 1, 1 ),
                                 m.coeff( 0, 2 ), m.coeff( 1, 2 ) );
         }
 
-        inline glm::mat2x4 toGlm( const Eigen::Matrix<Scalar, 2, 4>& m )
+        inline glm::mat2x4 toGlm( const Eigen::Matrix<float, 2, 4>& m )
         {
             return glm::mat2x4( m.coeff( 0, 0 ), m.coeff( 1, 0 ), m.coeff( 2, 0 ), m.coeff( 3, 0 ),
                                 m.coeff( 0, 1 ), m.coeff( 1, 1 ), m.coeff( 2, 1 ), m.coeff( 3, 1 ) );
         }
 
-        inline glm::mat4x2 toGlm( const Eigen::Matrix<Scalar, 4, 2>& m )
+        inline glm::mat4x2 toGlm( const Eigen::Matrix<float, 4, 2>& m )
         {
             return glm::mat4x2( m.coeff( 0, 0 ), m.coeff( 1, 0 ),
                                 m.coeff( 0, 1 ), m.coeff( 1, 1 ),
@@ -105,14 +105,14 @@ namespace Ra
                                 m.coeff( 0, 3 ), m.coeff( 1, 3 ) );
         }
 
-        inline glm::mat3x4 toGlm( const Eigen::Matrix<Scalar, 3, 4>& m )
+        inline glm::mat3x4 toGlm( const Eigen::Matrix<float, 3, 4>& m )
         {
             return glm::mat3x4( m.coeff( 0, 0 ), m.coeff( 1, 0 ), m.coeff( 2, 0 ), m.coeff( 3, 0 ),
                                 m.coeff( 0, 1 ), m.coeff( 1, 1 ), m.coeff( 2, 1 ), m.coeff( 3, 1 ),
                                 m.coeff( 0, 2 ), m.coeff( 1, 2 ), m.coeff( 2, 2 ), m.coeff( 3, 2 ) );
         }
 
-        inline glm::mat4x3 toGlm( const Eigen::Matrix<Scalar, 4, 3>& m )
+        inline glm::mat4x3 toGlm( const Eigen::Matrix<float, 4, 3>& m )
         {
             return glm::mat4x3( m.coeff( 0, 0 ), m.coeff( 1, 0 ), m.coeff( 2, 0 ),
                                 m.coeff( 0, 1 ), m.coeff( 1, 1 ), m.coeff( 2, 1 ),
