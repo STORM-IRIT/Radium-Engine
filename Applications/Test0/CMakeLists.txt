@@ -21,7 +21,7 @@ set(CMAKE_AUTORCC ON)
 # Access to Radium headers and declarations/defintions
 include_directories(
     .
-    ${RADIUM_INCLUDE_DIR}
+    ${RADIUM_INCLUDE_DIRS}
 )
 
 

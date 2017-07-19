@@ -48,13 +48,12 @@ add_definitions( ${Qt5OpenGL_DEFINITIONS} )
 include_directories(
     src/
     ${CMAKE_CURRENT_BINARY_DIR} # MOC
-    ${RADIUM_INCLUDE_DIR}
-    ${EIGEN3_INCLUDE_DIR}
-    ${ASSIMP_INCLUDE_DIR}
+    ${RADIUM_INCLUDE_DIRS}
     )
 
 add_library( Skinning SHARED ${sources} ${headers} ${inlines} )
-add_dependencies( Skinning radiumCore radiumEngine radiumGuiBase )
+message(INFO " Skinning : dependencies are ${RADIUM_LIBRARIES}")
+add_dependencies( Skinning ${RADIUM_LIBRARIES} )
 
 target_compile_definitions( Skinning PRIVATE "-DSkinning_EXPORTS" )
 
