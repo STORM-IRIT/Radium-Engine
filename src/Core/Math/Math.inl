@@ -120,6 +120,11 @@ namespace Ra
                return std::abs(b-a) < eps;
             }
 
+            template <typename T>
+            constexpr T lerp(const T& a, const T& b, Scalar t)
+            {
+                return (1-t) * a + t * b;
+            }
         }
     }
 }

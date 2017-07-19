@@ -163,6 +163,11 @@ namespace Ra
             template<typename Vector_>
             inline Scalar angle( const Vector_& v1, const Vector_& v2 );
 
+            /// Get the spherical linear interpolation between two unit non-colinear vectors.
+            /// works for types where the cross-product is defined (i.e. 2D and 3D vectors).
+            template<typename Vector_>
+            inline Vector_ slerp( const Vector_& v1, const Vector_& v2, Scalar t );
+
             /// @return the projection of point on the plane define by plane and planeNormal
             inline Vector3 projectOnPlane(const Vector3& planePos, const Vector3& planeNormal, const Vector3& point);
 
@@ -184,6 +189,7 @@ namespace Ra
             /// If the vector's norm is 0, the vector remains null
             template< typename Vector_ >
             inline Scalar getNormAndNormalizeSafe(Vector_& v);
+
         }
 
         namespace MatrixUtils

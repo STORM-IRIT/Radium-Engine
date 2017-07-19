@@ -89,7 +89,7 @@ elseif (MSVC)
         set (OMP_FLAG "")
     endif()
 
-    set(CMAKE_CXX_FLAGS                "/arch:AVX2 /GR- /EHs-c- /MP ${OMP_FLAG} ${CMAKE_CXX_FLAGS}")
+    set(CMAKE_CXX_FLAGS                "/arch:AVX2 /EHs-c- /MP ${OMP_FLAG} ${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS_DEBUG          "/D_DEBUG /DCORE_DEBUG /Od /Zi ${CMAKE_CXX_FLAGS_DEBUG} /MDd")
     set(CMAKE_CXX_FLAGS_RELEASE        "/DNDEBUG /Ox /fp:fast ${CMAKE_CXX_FLAGS_RELEASE} /MT")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi ${CMAKE_CXX_FLAGS_RELEASE}")
@@ -101,6 +101,10 @@ elseif (MSVC)
 endif()
 
 # Additional flags depending on build options =================================
+
+if ("${CMAKE_BUILD_TYPE}"  STREQUAL "Release" )
+    add_definitions(-DNO_DEBUG_INFO)
+endif()
 
 if (${RADIUM_WITH_DOUBLE_PRECISION})
   add_definitions(-DCORE_USE_DOUBLE)
