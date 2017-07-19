@@ -48,13 +48,12 @@ add_definitions( ${Qt5OpenGL_DEFINITIONS} )
 include_directories(
     src/
     ${CMAKE_CURRENT_BINARY_DIR} # MOC
-    ${RADIUM_INCLUDE_DIR}
-    ${EIGEN3_INCLUDE_DIR}
-    ${ASSIMP_INCLUDE_DIR}
+    ${RADIUM_INCLUDE_DIRS}
     )
 
 add_library( FancyMesh SHARED ${sources} ${headers} ${inlines} )
-add_dependencies( FancyMesh radiumCore radiumEngine radiumGuiBase)
+message(INFO " FancyMesh : dependencies are ${RADIUM_LIBRARIES}")
+add_dependencies( FancyMesh ${RADIUM_LIBRARIES}) #radiumCore radiumEngine radiumGuiBase)
 
 target_compile_definitions( FancyMesh PRIVATE "-DFancyMesh_EXPORTS" )
 

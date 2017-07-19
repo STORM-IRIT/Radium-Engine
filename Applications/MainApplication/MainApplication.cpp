@@ -116,11 +116,11 @@ namespace Ra
 
         config.str( std::string() );
         config<<"core build: "<<Version::compiler<<" - "<<Version::compileDate<<" "<<Version::compileTime;
-
-
         LOG( logINFO ) << config.str();
 
-        LOG(logINFO) << "Qt Version: " << qVersion();
+        LOG( logINFO ) << "Git changeset: " << Version::gitChangeSet;
+
+        LOG( logINFO ) << "Qt Version: " << qVersion();
 
         // Create default format for Qt.
         QSurfaceFormat format;

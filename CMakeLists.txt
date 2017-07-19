@@ -37,8 +37,8 @@ endif()
 
 # These paths need to be synchronized with FindRadium.cmake
 set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
-
-
+set(RADIUM_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(RADIUM_PLUGIN_OUTPUT_PATH "${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin/Plugins")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin)
 set(EXECUTABLE_OUTPUT_PATH         ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/lib)
@@ -51,9 +51,12 @@ if(GIT_FOUND)
   execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     OUTPUT_VARIABLE GIT_CHANGESET)
+    # remove new line sometime appearing in git changeset
+    string(REGEX REPLACE "\n$" "" GIT_CHANGESET "${GIT_CHANGESET}")
 else()
   set(GIT_CHANGESET "")
 endif()
+message("Git Changeset: ${GIT_CHANGESET}")
 
 
 # guard against in-source builds (source: Eigen)
@@ -101,22 +104,25 @@ endif(MSVC OR MSVC_IDE)
 # ----------------------------------------------------------------------------------------------------------------------
 #   SUBMODULES : assimp, glbinding, ....
 include(SubModules)
+set( RADIUM_INCLUDE_DIRS)
+list(APPEND RADIUM_INCLUDE_DIRS "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}" "${GLOBJECTS_INCLUDE_DIR}")
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Main Libraries
 
-add_subdirectory(src)
+set(RADIUM_LIBRARIES)
+# Radium libraries are set in RADIUM_SRC_DIR
+add_subdirectory(${RADIUM_SRC_DIR})
+#message(INFO " Radium Lib (general) ${RADIUM_LIBRARIES}")
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Applications
 #   Set Base directories for dependencies
-
 add_subdirectory(Applications)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   External plugins
-# FIXME(Charly) Not sure this is really the greatest idea ever
 add_subdirectory(Plugins)
 
 
