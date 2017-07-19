@@ -34,7 +34,7 @@ file(GLOB resources ${CMAKE_CURRENT_SOURCE_DIR}/../../*.qrc)
 
 include_directories(
     .
-    ${RADIUM_INCLUDE_DIR}
+    ${RADIUM_INCLUDE_DIRS}
     ${CMAKE_CURRENT_BINARY_DIR} # Moc
     )
 

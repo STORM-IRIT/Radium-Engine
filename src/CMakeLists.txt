@@ -25,7 +25,7 @@ include_directories(
     ${GLM_INCLUDE_DIR}
 )
 
-message(STATUS "Compiling Radium with include dirs : ${EIGEN3_INCLUDE_DIR} -- ${ASSIMP_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}" )
+message(STATUS "Compiling Radium with 3rdparty include dirs : ${EIGEN3_INCLUDE_DIR} -- ${ASSIMP_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}" )
 # Build Core
 set(core_target radiumCore)
 
@@ -150,7 +150,6 @@ target_link_libraries(
 
 
 set(RADIUM_LIBRARIES ${RADIUM_LIBRARIES} "${core_target}" "${engine_target}" "${guibase_target}" PARENT_SCOPE)
-message(INFO " Radium Lib ${RADIUM_LIBRARIES}")
 
 # Build tests
 include_directories(

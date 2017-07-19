@@ -104,8 +104,8 @@ endif(MSVC OR MSVC_IDE)
 # ----------------------------------------------------------------------------------------------------------------------
 #   SUBMODULES : assimp, glbinding, ....
 include(SubModules)
-set( RADIUM_INCLUDE_DIR)
-list(APPEND RADIUM_INCLUDE_DIR "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}" "${GLOBJECTS_INCLUDE_DIR}")
+set( RADIUM_INCLUDE_DIRS)
+list(APPEND RADIUM_INCLUDE_DIRS "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}" "${GLOBJECTS_INCLUDE_DIR}")
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Main Libraries
@@ -113,7 +113,7 @@ list(APPEND RADIUM_INCLUDE_DIR "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${AS
 set(RADIUM_LIBRARIES)
 # Radium libraries are set in RADIUM_SRC_DIR
 add_subdirectory(${RADIUM_SRC_DIR})
-message(INFO " Radium Lib ${RADIUM_LIBRARIES}")
+#message(INFO " Radium Lib (general) ${RADIUM_LIBRARIES}")
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Applications

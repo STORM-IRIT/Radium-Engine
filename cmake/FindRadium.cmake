@@ -1,7 +1,7 @@
 # Try to find the radium engine base folder
 # Will define
 # RADIUM_ROOT_DIR : the root of the radium SDK
-# RADIUM_INCLUDE_DIR : the include directory of radium
+# RADIUM_INCLUDE_DIRS : the include directories of radium
 # RADIUM_PLUGIN_OUTPUT_PATH : output path for radiums plugin
 
 
@@ -96,8 +96,8 @@ if ( RADIUM_ROOT_DIR )
     set(GLOBJECTS_INCLUDE_DIR "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include" )
   endif(NOT GLOBJECTS_INCLUDE_DIR)
 
-  set( RADIUM_INCLUDE_DIR)
-  list(APPEND RADIUM_INCLUDE_DIR "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}" "${GLOBJECTS_INCLUDE_DIR}")
+  set( RADIUM_INCLUDE_DIRS)
+  list(APPEND RADIUM_INCLUDE_DIRS "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}" "${GLOBJECTS_INCLUDE_DIR}")
 
   set( RADIUM_LIBRARIES )
   if ( RA_CORE_LIB AND RA_ENGINE_LIB AND RA_GUIBASE_LIB AND ASSIMP_LIBRARIES AND GLBINDING_LIBRARIES AND GLOBJECTS_LIBRARIES)
@@ -110,6 +110,7 @@ if ( Radium_FOUND )
   if( NOT Radium_FIND_QUIETLY )
     message ( STATUS "Found Radium Engine: ${RADIUM_ROOT_DIR}")
     message ( STATUS "      Eigen3 includes: ${EIGEN3_INCLUDE_DIR}")
+    message ( STATUS "      Glm includes: ${GLM_INCLUDE_DIR}")
     message ( STATUS "      Radium libs: ${RADIUM_LIBRARIES}")
     message ( STATUS "      Assimp libs: ${ASSIMP_LIBRARIES}")
     message ( STATUS "      GlBinding libs: ${GLBINDING_LIBRARIES}")
