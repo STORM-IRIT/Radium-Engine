@@ -36,8 +36,12 @@
 
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 
-#include <IO/AssimpLoader/AssimpFileLoader.hpp>
-#include <IO/PbrtLoader/PbrtFileLoader.hpp>
+#ifdef IO_USE_ASSIMP
+    #include <IO/AssimpLoader/AssimpFileLoader.hpp>
+#endif
+#ifdef IO_USE_PBRT
+    #include <IO/PbrtLoader/PbrtFileLoader.hpp>
+#endif
 
 
 // Const parameters : TODO : make config / command line options
@@ -140,7 +144,12 @@ namespace Ra
         m_engine.reset(Engine::RadiumEngine::createInstance());
         m_engine->initialize();
         addBasicShaders();
+#ifdef IO_USE_ASSIMP
         m_engine->registerFileLoader( new IO::AssimpFileLoader() );
+#endif
+#ifdef IO_USE_PBRT
+        m_engine->registerFileLoader( new IO::PbrtFileLoader() );
+#endif
 
         // Create main window.
         m_mainWindow.reset( new Gui::MainWindow );

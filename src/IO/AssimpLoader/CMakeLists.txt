@@ -1,6 +1,6 @@
 include_directories(
         .
-        ${RADIUM_INCLUDE_DIR}
+        ${RADIUM_INCLUDE_DIRS}
 )
 
 file( GLOB_RECURSE assimp_sources *.cpp *.c )

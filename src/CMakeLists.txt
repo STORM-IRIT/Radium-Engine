@@ -26,7 +26,7 @@ include_directories(
     ${GLM_INCLUDE_DIR}
 )
 
-message(STATUS "Compiling Radium with 3rdparty include dirs : ${EIGEN3_INCLUDE_DIR} -- ${ASSIMP_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}" )
+message(STATUS "Compiling Radium with 3rdparty include dirs : ${EIGEN3_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}" )
 
 if( RADIUM_ASSIMP_SUPPORT )
     include_directories( ${ASSIMP_INCLUDE_DIR} )
@@ -84,32 +84,22 @@ file(GLOB io_sources IO/*.cpp)
 file(GLOB io_headers IO/*.h IO/*.hpp)
 file(GLOB io_inlines IO/*.inl)
 
+set(io_libs radiumCore)
+
 if( RADIUM_ASSIMP_SUPPORT )
     add_subdirectory( IO/AssimpLoader )
+    set( io_sources ${io_sources} ${assimp_sources} )
+    set( io_headers ${io_headers} ${assimp_headers} )
+    set( io_inlines ${io_inlines} ${assimp_inlines} )
+    set( io_libs    ${io_libs}    ${ASSIMP_LIBRARIES} )
 endif( RADIUM_ASSIMP_SUPPORT )
 
 if( RADIUM_PBRT_SUPPORT )
     add_subdirectory( IO/PbrtLoader )
-endif( RADIUM_PBRT_SUPPORT )
-
-set(io_libs
-    radiumCore
-)
-
-if( RADIUM_ASSIMP_SUPPORT )
-    set( io_libs ${ASSIMP_LIBRARIES} ${io_libs} )
-
-    set( io_sources ${assimp_sources} ${io_sources} )
-    set( io_headers ${assimp_headers} ${io_headers} )
-    set( io_inlines ${assimp_inlines} ${io_inlines} )
-endif( RADIUM_ASSIMP_SUPPORT )
-
-if( RADIUM_PBRT_SUPPORT )
-    set( io_libs ${PBRT_LIBRARIES} ${io_libs} )
-
-    set( io_sources ${pbrt_sources} ${io_sources} )
-    set( io_headers ${pbrt_headers} ${io_headers} )
-    set( io_inlines ${pbrt_inlines} ${io_inlines} )
+    set( io_sources ${io_sources} ${pbrt_sources} )
+    set( io_headers ${io_headers} ${pbrt_headers} )
+    set( io_inlines ${io_inlines} ${pbrt_inlines} )
+    set( io_libs    ${io_libs}    ${PBRT_LIBRARIES} )
 endif( RADIUM_PBRT_SUPPORT )
 
 if( RADIUM_IO_IS_INTERFACE )
@@ -123,26 +113,6 @@ if( RADIUM_IO_IS_INTERFACE )
             ${io_headers}
             ${io_inlines}
     )
-else( RADIUM_IO_IS_INTERFACE )
-    add_library(
-            ${io_target} SHARED
-            ${io_sources}
-            ${io_headers}
-            ${io_inlines}
-    )
-endif( RADIUM_IO_IS_INTERFACE )
-
-add_dependencies( ${io_target} ${core_target} )
-
-if( RADIUM_ASSIMP_SUPPORT )
-    add_dependencies( ${io_target} assimp_lib ${io_target} )
-endif( RADIUM_ASSIMP_SUPPORT )
-
-if( RADIUM_PBRT_SUPPORT )
-    add_dependencies( ${io_target} pbrt_lib ${io_target} )
-endif( RADIUM_PBRT_SUPPORT )
-
-if( RADIUM_IO_IS_INTERFACE )
     target_compile_definitions(${io_target} INTERFACE "-DRA_IO_EXPORTS")
 
     target_link_libraries(
@@ -150,6 +120,12 @@ if( RADIUM_IO_IS_INTERFACE )
             ${io_libs}
     )
 else( RADIUM_IO_IS_INTERFACE )
+    add_library(
+            ${io_target} SHARED
+            ${io_sources}
+            ${io_headers}
+            ${io_inlines}
+    )
     target_compile_definitions(${io_target} PRIVATE "-DRA_IO_EXPORTS")
 
     target_link_libraries(
@@ -157,6 +133,16 @@ else( RADIUM_IO_IS_INTERFACE )
             ${io_libs}
     )
 endif( RADIUM_IO_IS_INTERFACE )
+
+add_dependencies( ${io_target} ${core_target} )
+
+if( RADIUM_ASSIMP_SUPPORT )
+    add_dependencies( ${io_target} assimp_lib )
+endif( RADIUM_ASSIMP_SUPPORT )
+
+if( RADIUM_PBRT_SUPPORT )
+    add_dependencies( ${io_target} pbrt_lib )
+endif( RADIUM_PBRT_SUPPORT )
 
 # Build Engine
 set(engine_target radiumEngine)
@@ -178,14 +164,6 @@ set(engine_libs
     ${GLM_LIBRARIES}
    )
 
-if( RADIUM_ASSIMP_SUPPORT )
-    set( engine_libs ${ASSIMP_LIBRARIES} ${engine_libs} )
-endif( RADIUM_ASSIMP_SUPPORT )
-
-if( RADIUM_PBRT_SUPPORT )
-    set( engine_libs ${PBRT_LIBRARIES} ${engine_libs} )
-endif( RADIUM_PBRT_SUPPORT )
-
 add_library(
     ${engine_target} SHARED
     ${engine_sources}
@@ -195,14 +173,6 @@ add_library(
 )
 
 add_dependencies( ${engine_target} ${core_target} glbinding_lib globjects_lib glm_lib)
-
-if( RADIUM_ASSIMP_SUPPORT )
-    add_dependencies( ${engine_target} assimp_lib ${engine_target} )
-endif( RADIUM_ASSIMP_SUPPORT )
-
-if( RADIUM_PBRT_SUPPORT )
-    add_dependencies( ${engine_target} pbrt_lib ${engine_target} )
-endif( RADIUM_PBRT_SUPPORT )
 
 target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 
@@ -256,7 +226,7 @@ target_link_libraries(
     )
 
 
-set(RADIUM_LIBRARIES ${RADIUM_LIBRARIES} "${core_target}" "${engine_target}" "${guibase_target}" PARENT_SCOPE)
+set(RADIUM_LIBRARIES ${RADIUM_LIBRARIES} "${core_target}" "${engine_target}" "${io_target}" "${guibase_target}" PARENT_SCOPE)
 
 # Build tests
 include_directories(
