@@ -36,6 +36,13 @@
 
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 
+#ifdef IO_USE_ASSIMP
+    #include <IO/AssimpLoader/AssimpFileLoader.hpp>
+#endif
+#ifdef IO_USE_PBRT
+    #include <IO/PbrtLoader/PbrtFileLoader.hpp>
+#endif
+
 
 // Const parameters : TODO : make config / command line options
 
@@ -137,6 +144,12 @@ namespace Ra
         m_engine.reset(Engine::RadiumEngine::createInstance());
         m_engine->initialize();
         addBasicShaders();
+#ifdef IO_USE_ASSIMP
+        m_engine->registerFileLoader( new IO::AssimpFileLoader() );
+#endif
+#ifdef IO_USE_PBRT
+        m_engine->registerFileLoader( new IO::PbrtFileLoader() );
+#endif
 
         // Create main window.
         m_mainWindow.reset( new Gui::MainWindow );
@@ -210,8 +223,17 @@ namespace Ra
         std::string pathStr = path.toLocal8Bit().data();
         LOG(logINFO) << "Loading file " << pathStr << "...";
         bool res = m_engine->loadFile( pathStr );
-        CORE_UNUSED( res );
-        m_viewer->handleFileLoading( pathStr );
+
+        if ( !res )
+        {
+           LOG ( logERROR ) << "Aborting file loading !";
+
+            return;
+        }
+
+        m_viewer->handleFileLoading( m_engine->getFileData() );
+
+        m_engine->releaseFile();
 
         // Compute new scene aabb
         Core::Aabb aabb;

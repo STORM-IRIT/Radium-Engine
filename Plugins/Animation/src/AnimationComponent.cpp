@@ -3,22 +3,19 @@
 #include <queue>
 #include <iostream>
 
-#include <assimp/scene.h>
-
-#include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/Utils/Graph/AdjacencyListOperation.hpp>
-#include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Handle/HandleWeightOperation.hpp>
 #include <Core/Animation/Handle/SkeletonUtils.hpp>
+#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Containers/AlignedStdVector.hpp>
+#include <Core/File/KeyFrame/KeyPose.hpp>
+#include <Core/File/KeyFrame/KeyTransform.hpp>
+#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Utils/Graph/AdjacencyListOperation.hpp>
 
-#include <Engine/Assets/KeyFrame/KeyTransform.hpp>
-#include <Engine/Assets/KeyFrame/KeyPose.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
-
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
 #include <Drawing/SkeletonBoneDrawable.hpp>
-#include "Core/Mesh/TriangleMesh.hpp"
 
 using Ra::Engine::ComponentMessenger;
 using Ra::Core::Animation::RefPose;

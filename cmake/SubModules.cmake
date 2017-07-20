@@ -4,6 +4,8 @@
 include(ExternalProject)
 
 set(SUBMODULE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries)
+set(RADIUM_SUBMODULES_INSTALL_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries)
+set(RADIUM_SUBMODULES_BUILD_TYPE Release)
 
 if (MSVC OR MSVC_IDE)
 	set(RADIUM_SUBMODULES_INSTALL_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/3rdPartyLibraries)
@@ -12,7 +14,6 @@ else()
 	set(RADIUM_SUBMODULES_INSTALL_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/3rdPartyLibraries)
 	set(RADIUM_SUBMODULES_BUILD_TYPE Release)
 endif()
-
 
 #OpenGL Stuff
 include(submoduleGLM)
@@ -23,4 +24,11 @@ include(submoduleGlObjects)
 include(submoduleEigen3)
 
 # Assimp
-include(submoduleAssimp)
+if (RADIUM_ASSIMP_SUPPORT)
+    include(submoduleAssimp)
+endif()
+
+# Pbrt
+if (RADIUM_PBRT_SUPPORT)
+    include(submodulePbrt)
+endif()

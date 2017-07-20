@@ -78,7 +78,6 @@ We tested our code with *VS 2017 Community* (https://www.visualstudio.com/produc
 
 See general instruction on cmake for Visual Studio here: https://blogs.msdn.microsoft.com/vcblog/2016/10/05/cmake-support-in-visual-studio/
 
-
 #### Dependencies
 
 *Qt* distributes version 5.6 with precompiled libraries for VS 2015 - 64 bits.

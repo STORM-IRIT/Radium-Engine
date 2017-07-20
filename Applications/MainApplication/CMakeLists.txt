@@ -52,7 +52,7 @@ target_link_libraries(
     ${app_libs}
     )
 
-add_dependencies( ${app_target} radiumEngine radiumGuiBase radiumCore radium_assets radium_configs)
+add_dependencies( ${app_target} radiumEngine radiumGuiBase radiumCore radiumIO radium_assets radium_configs)
 
 #install( DIRECTORY . DESTINATION include FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl" PATTERN "*.h" )
 #install( FILES ${engine_shaders} DESTINATION Shaders )

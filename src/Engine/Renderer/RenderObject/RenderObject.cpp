@@ -1,10 +1,9 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
+#include <Core/File/GeometryData.hpp>
 #include <Core/Geometry/Normal/Normal.hpp>
-
-#include <Engine/Assets/GeometryData.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
 
 #include <Engine/Component/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
@@ -84,9 +83,19 @@ namespace Ra
             return obj;
         }
 
+        // FIXME(Mathias) Remove this function if not use anywhere
         RenderObject* RenderObject::createFancyFromAsset(const std::string& name, Component* comp, const Asset::GeometryData* asset, bool allow_transparency)
         {
-            auto displayMesh = Core::make_shared<Ra::Engine::Mesh>(name);
+            std::string meshName = name;
+            meshName.append( "_Mesh" );
+
+            std::string matName = name;
+            matName.append( "_Mat" );
+
+            std::string roName(name);
+            roName.append( "_RO" );
+
+            auto displayMesh = Core::make_shared<Ra::Engine::Mesh>(meshName);
 
             Core::TriangleMesh mesh;
             Core::Transform T = asset->getFrame();
@@ -175,7 +184,7 @@ namespace Ra
 #endif
 
             auto shaderConfig = ShaderConfigurationFactory::getConfiguration("BlinnPhong");
-            auto result = createRenderObject(name, comp, RenderObjectType::Fancy, displayMesh, shaderConfig, mat);
+            auto result = createRenderObject(roName, comp, RenderObjectType::Fancy, displayMesh, shaderConfig, mat);
 
             if (allow_transparency && mat->m_alpha < 1.0)
             {

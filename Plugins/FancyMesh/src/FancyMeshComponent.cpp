@@ -4,8 +4,10 @@
 
 #include <Core/String/StringUtils.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
-
+#include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/Normal/Normal.hpp>
+#include <Core/File/FileData.hpp>
+#include <Core/File/GeometryData.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
@@ -21,8 +23,6 @@
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
-#include <Engine/Assets/FileData.hpp>
-#include <Engine/Assets/GeometryData.hpp>
 
 using Ra::Core::TriangleMesh;
 using Ra::Engine::ComponentMessenger;
@@ -61,9 +61,8 @@ namespace FancyMeshPlugin
         name.append( "_" + data->getName() );
 
         std::string roName = name;
-        roName.append( "_RO" );
 
-#if 1
+        roName.append( "_RO" );
         std::string meshName = name;
         meshName.append( "_Mesh" );
 
@@ -72,7 +71,7 @@ namespace FancyMeshPlugin
 
         m_contentName = data->getName();
 
-        std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( meshName ) );
+        auto displayMesh = Ra::Core::make_shared<Ra::Engine::Mesh>(meshName);
 
         Ra::Core::TriangleMesh mesh;
         Ra::Core::Transform T = data->getFrame();
@@ -128,11 +127,8 @@ namespace FancyMeshPlugin
 
         auto config = Ra::Engine::ShaderConfigurationFactory::getConfiguration("BlinnPhong");
 
-        Ra::Engine::RenderObject* ro = Ra::Engine::RenderObject::createRenderObject(roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, config, mat);
+        auto ro = Ra::Engine::RenderObject::createRenderObject(roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, config, mat);
         if ( mat->m_alpha < 1.0 ) ro->setTransparent(true);
-#else
-        auto ro = Ra::Engine::RenderObject::createFancyFromAsset(roName, this, data, true);
-#endif
 
         setupIO( data->getName());
         m_meshIndex = addRenderObject(ro);

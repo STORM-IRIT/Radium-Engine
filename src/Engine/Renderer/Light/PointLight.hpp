@@ -29,7 +29,7 @@ namespace Ra
 
             virtual void getRenderParameters( RenderParameters& params ) override;
 
-            inline virtual void setPosition( const Core::Vector3& pos ) override;
+            virtual void setPosition( const Core::Vector3& pos ) override;
             inline const Core::Vector3& getPosition() const;
 
             inline void setAttenuation( const Attenuation& attenuation );

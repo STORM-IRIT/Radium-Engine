@@ -29,6 +29,9 @@ option(RADIUM_WITH_TEXTURES         "Compile Radium enabling texture loading stu
 option(RADIUM_WITH_PROFILING        "Enable functions profiling." OFF)
 option(RADIUM_WARNINGS_AS_ERRORS    "Treat compiler warning as errors" OFF)
 option(RADIUM_FORCE_ASSERTS         "Enable asserts regardless of build type" OFF)
+option(RADIUM_ASSIMP_SUPPORT        "Enable assimp loader" ON)
+option(RADIUM_PBRT_SUPPORT          "Enable pbrt loader" OFF)
+option(RADIUM_BUILD_APPS            "Choose to build or not radium applications" ON)
 
 if ( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Debug )
@@ -118,8 +121,9 @@ add_subdirectory(${RADIUM_SRC_DIR})
 # ----------------------------------------------------------------------------------------------------------------------
 #   Applications
 #   Set Base directories for dependencies
-add_subdirectory(Applications)
-
+if(RADIUM_BUILD_APPS)  
+  add_subdirectory(Applications)
+endif(RADIUM_BUILD_APPS)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   External plugins

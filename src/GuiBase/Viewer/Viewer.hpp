@@ -101,6 +101,9 @@ namespace Ra
             /// Load data from a file.
             void handleFileLoading( const std::string& file );
 
+            /// Load data from a FileData.
+            void handleFileLoading( const Ra::Asset::FileData &filedata );
+
             /// Emits signals corresponding to picking requests.
             void processPicking();
 

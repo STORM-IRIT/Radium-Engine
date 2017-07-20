@@ -12,6 +12,7 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Time/Timer.hpp>
 #include <Core/Event/EventEnums.hpp>
+#include <Core/File/FileData.hpp>
 
 namespace Ra
 {
@@ -158,6 +159,8 @@ namespace Ra
 
             // FIXME(Charly): Not sure the lights should be handled by the renderer.
             //                How to do this ?
+            // Lights are now part of FileData filled by the loader. The renderer can access to these or let another class do that.
+            // for the moment, Renderer manage its own list of light sources.
             virtual void addLight( const std::shared_ptr<Light>& light )
             {
                 m_lights.push_back( light );
@@ -165,9 +168,9 @@ namespace Ra
 
             virtual void reloadShaders();
 
-            // FIXME(Charly): Maybe there is a better way to handle lights ?
+
             // FIXME(Charly): Final ?
-            virtual void handleFileLoading( const std::string& filename ) final;
+            virtual void handleFileLoading( const Asset::FileData& filedata ) final;
 
             virtual void addPickingRequest(const PickingQuery& query)
             {

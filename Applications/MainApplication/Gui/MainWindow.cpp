@@ -4,7 +4,7 @@
 #include <QFileDialog>
 #include <QToolButton>
 
-#include <Core/Utils/File/OBJFileManager.hpp>
+#include <Core/File/deprecated/OBJFileManager.hpp>
 #include <assimp/Importer.hpp>
 
 #include <Engine/Managers/SignalManager/SignalManager.hpp>

@@ -147,11 +147,30 @@ if (${RADIUM_FORCE_ASSERTS})
     add_definitions(-DCORE_USE_ASSERT)
 endif()
 
+if (${RADIUM_ASSIMP_SUPPORT})
+    add_definitions(-DIO_USE_ASSIMP)
+    message(STATUS "${PROJECT_NAME} : Using Assimp loader")
+else()
+    message(STATUS "${PROJECT_NAME} : Assimp loader disabled")
+endif()
+
+if (${RADIUM_PBRT_SUPPORT})
+    add_definitions(-DIO_USE_PBRT)
+    message(STATUS "${PROJECT_NAME} : Using PBRT loader")
+else()
+    message(STATUS "${PROJECT_NAME} : PBRT loader disabled")
+endif()
+
+
+
+# Additional flags depending on system        =================================
+
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
     message(STATUS "${PROJECT_NAME} : 64 bits build")
 else()
     message(STATUS "${PROJECT_NAME} : 32 bits build")
 endif()
+
 
 
 # Set build configurations ====================================================

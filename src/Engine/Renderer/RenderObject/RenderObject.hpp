@@ -75,6 +75,7 @@ namespace Ra
                                                       const Ra::Asset::GeometryData* asset,
                                                       bool allow_transparency = false);
 
+
             // FIXME(Charly): Remove this
             void updateGL();
 

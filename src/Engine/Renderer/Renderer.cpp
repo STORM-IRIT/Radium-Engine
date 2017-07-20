@@ -4,10 +4,6 @@
 
 #include <iostream>
 
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-
 #include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
@@ -21,7 +17,6 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
-#include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/PointLight.hpp>
 #include <Engine/Renderer/Light/SpotLight.hpp>
@@ -478,139 +473,15 @@ namespace Ra
             ShaderProgramManager::getInstance()->reloadAllShaderPrograms();
         }
 
-        void Renderer::handleFileLoading( const std::string& filename )
-        {
-            Assimp::Importer importer;
-            const aiScene* scene = importer.ReadFile( filename,
-                                                      aiProcess_Triangulate |
-                                                      aiProcess_JoinIdenticalVertices |
-                                                      aiProcess_GenSmoothNormals |
-                                                      aiProcess_SortByPType |
-                                                      aiProcess_FixInfacingNormals |
-                                                      aiProcess_CalcTangentSpace |
-                                                      aiProcess_GenUVCoords );
-
-            if ( !scene )
-            {
+        void Renderer::handleFileLoading(const Asset::FileData &filedata) {
+            if (! filedata.hasLight() )
                 return;
-            }
 
-            if ( !scene->HasLights() )
-            {
-                return;
-            }
+            std::vector<  Asset::LightData * > data = filedata.getLightData();
+            LOG (logINFO) << "Adding " <<data.size() << " lights in the renderer";
+            for (auto light : data )
+                addLight( light->getLight() );
 
-            // Load lights
-            for ( uint lightId = 0; lightId < scene->mNumLights; ++lightId )
-            {
-                aiLight* ailight = scene->mLights[lightId];
-
-                aiString name = ailight->mName;
-                aiNode* node = scene->mRootNode->FindNode( name );
-
-                Core::Matrix4 transform( Core::Matrix4::Identity() );
-
-                if ( node != nullptr )
-                {
-                    Core::Matrix4 t0;
-                    Core::Matrix4 t1;
-
-                    for ( uint i = 0; i < 4; ++i )
-                    {
-                        for ( uint j = 0; j < 4; ++j )
-                        {
-                            t0( i, j ) = scene->mRootNode->mTransformation[i][j];
-                            t1( i, j ) = node->mTransformation[i][j];
-                        }
-                    }
-                    transform = t0 * t1;
-                }
-
-                Core::Color color( ailight->mColorDiffuse.r,
-                                   ailight->mColorDiffuse.g,
-                                   ailight->mColorDiffuse.b, 1.0 );
-
-                switch ( ailight->mType )
-                {
-                    case aiLightSource_DIRECTIONAL:
-                    {
-                        Core::Vector4 dir( ailight->mDirection[0],
-                                           ailight->mDirection[1],
-                                           ailight->mDirection[2], 0.0 );
-                        dir = transform.transpose().inverse() * dir;
-
-                        Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
-                        finalDir = -finalDir;
-
-                        auto light = std::shared_ptr<DirectionalLight>( new DirectionalLight() );
-                        light->setColor( color );
-                        light->setDirection( finalDir );
-
-                        addLight( light );
-
-                    }
-                    break;
-
-                    case aiLightSource_POINT:
-                    {
-                        Core::Vector4 pos( ailight->mPosition[0],
-                                           ailight->mPosition[1],
-                                           ailight->mPosition[2], 1.0 );
-                        pos = transform * pos;
-                        pos /= pos.w();
-
-                        auto light = std::shared_ptr<PointLight>( new PointLight() );
-                        light->setColor( color );
-                        light->setPosition( Core::Vector3( pos.x(), pos.y(), pos.z() ) );
-                        light->setAttenuation( ailight->mAttenuationConstant,
-                                               ailight->mAttenuationLinear,
-                                               ailight->mAttenuationQuadratic );
-
-                        addLight( light );
-
-                    }
-                    break;
-
-                    case aiLightSource_SPOT:
-                    {
-                        Core::Vector4 pos( ailight->mPosition[0],
-                                           ailight->mPosition[1],
-                                           ailight->mPosition[2], 1.0 );
-                        pos = transform * pos;
-                        pos /= pos.w();
-
-                        Core::Vector4 dir( ailight->mDirection[0],
-                                           ailight->mDirection[1],
-                                           ailight->mDirection[2], 0.0 );
-                        dir = transform.transpose().inverse() * dir;
-
-                        Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
-                        finalDir = -finalDir;
-
-                        auto light = std::shared_ptr<SpotLight>( new SpotLight() );
-                        light->setColor( color );
-                        light->setPosition( Core::Vector3( pos.x(), pos.y(), pos.z() ) );
-                        light->setDirection( finalDir );
-
-                        light->setAttenuation( ailight->mAttenuationConstant,
-                                               ailight->mAttenuationLinear,
-                                               ailight->mAttenuationQuadratic );
-
-                        light->setInnerAngleInRadians( ailight->mAngleInnerCone );
-                        light->setOuterAngleInRadians( ailight->mAngleOuterCone );
-
-                        addLight( light );
-
-                    }
-                    break;
-
-                    case aiLightSource_UNDEFINED:
-                    default:
-                    {
-                        //                LOG(ERROR) << "Light " << name.C_Str() << " has undefined type.";
-                    } break;
-                }
-            }
         }
 
         uchar* Renderer::grabFrame(uint &w, uint &h) const {
@@ -643,6 +514,7 @@ namespace Ra
             h = tex->height();
             return writtenPixels;
         }
+
 
     }
 } // namespace Ra

@@ -3,14 +3,14 @@
 
 #include <AnimationPluginMacros.hpp>
 
-#include <Core/Animation/Pose/Pose.hpp>
-#include <Core/Animation/Handle/Skeleton.hpp>
 #include <Core/Animation/Animation.hpp>
+#include <Core/Animation/Handle/Skeleton.hpp>
 #include <Core/Animation/Handle/HandleWeight.hpp>
+#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/File/AnimationData.hpp>
+#include <Core/File/HandleData.hpp>
 
 #include <Engine/Component/Component.hpp>
-#include <Engine/Assets/HandleData.hpp>
-#include <Engine/Assets/AnimationData.hpp>
 
 namespace AnimationPlugin
 {
