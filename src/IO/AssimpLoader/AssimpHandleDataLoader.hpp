@@ -4,6 +4,7 @@
 #include <map>
 #include <set>
 
+#include <IO/RaIO.hpp>
 #include <Core/File/DataLoader.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
@@ -22,7 +23,7 @@ namespace Ra {
 namespace Ra {
     namespace IO {
 
-        class AssimpHandleDataLoader : public Asset::DataLoader< Asset::HandleData > {
+        class RA_IO_API AssimpHandleDataLoader : public Asset::DataLoader< Asset::HandleData > {
         public:
             /// CONSTRUCTOR
             AssimpHandleDataLoader( const bool VERBOSE_MODE = false );

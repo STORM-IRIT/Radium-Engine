@@ -1,13 +1,13 @@
 #ifndef RADIUMENGINE_ASSET_DATA_HPP
 #define RADIUMENGINE_ASSET_DATA_HPP
 
+#include <Core/RaCore.hpp>
 #include <string>
 
 namespace Ra {
     namespace Asset {
 
-        // FIXME(Charly): Move this somewhere else maybe
-        class AssetData
+        class RA_CORE_API AssetData
         {
         public:
             AssetData( const std::string& name )

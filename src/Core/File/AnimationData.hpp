@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include <Core/RaCore.hpp>
 #include <Core/File/AssetData.hpp>
 #include <Core/File/KeyFrame/AnimationTime.hpp>
 #include <Core/File/KeyFrame/KeyTransform.hpp>
@@ -11,14 +12,14 @@
 namespace Ra {
 namespace Asset {
 
-struct HandleAnimation {
+struct RA_CORE_API HandleAnimation {
     HandleAnimation( const std::string& name = "" );
 
     std::string   m_name;
     KeyTransform  m_anim;
 };
 
-class AnimationData : public AssetData {
+class RA_CORE_API AnimationData : public AssetData {
 public:
 
     /// CONSTRUCTOR

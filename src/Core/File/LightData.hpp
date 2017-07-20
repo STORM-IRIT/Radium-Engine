@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 
+#include <Core/RaCore.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/File/AssetData.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
@@ -17,7 +18,7 @@ namespace Ra {
 
     namespace Asset {
 
-class LightData : public AssetData {
+class RA_CORE_API LightData : public AssetData {
 
 public:
 

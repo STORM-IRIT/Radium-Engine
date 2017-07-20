@@ -3,6 +3,7 @@
 
 #include <set>
 
+#include <IO/RaIO.hpp>
 #include <Core/File/DataLoader.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
@@ -20,7 +21,7 @@ class GeometryData;
 namespace Ra {
 namespace IO {
 
-struct Triplet {
+struct RA_IO_API Triplet {
     Triplet( const Core::Vector3& v = Core::Vector3::Zero() );
 
     Core::Vector3 m_v;
@@ -30,7 +31,7 @@ struct Triplet {
     bool operator<( const Triplet& t ) const;
 };
 
-class AssimpGeometryDataLoader : public Asset::DataLoader< Asset::GeometryData > {
+class RA_IO_API AssimpGeometryDataLoader : public Asset::DataLoader< Asset::GeometryData > {
 public:
     /// CONSTRUCTOR
     AssimpGeometryDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );

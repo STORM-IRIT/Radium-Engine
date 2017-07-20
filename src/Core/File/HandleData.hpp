@@ -4,6 +4,8 @@
 #include <string>
 #include <map>
 #include <vector>
+
+#include <Core/RaCore.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
 
@@ -12,7 +14,7 @@
 namespace Ra {
     namespace Asset {
 
-        struct HandleComponentData {
+        struct RA_CORE_API HandleComponentData {
             RA_CORE_ALIGNED_NEW
 
             HandleComponentData();
@@ -22,7 +24,7 @@ namespace Ra {
             std::vector< std::pair< uint, Scalar > > m_weight;
         };
 
-        class HandleData : public AssetData {
+        class RA_CORE_API HandleData : public AssetData {
         public:
             RA_CORE_ALIGNED_NEW
 

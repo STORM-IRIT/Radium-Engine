@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 
-#include <Engine/RaEngine.hpp>
+#include <Core/RaCore.hpp>
 
 namespace Ra
 {
@@ -16,7 +16,7 @@ namespace Ra
         class AnimationData;
         class LightData;
 
-        class RA_ENGINE_API FileData
+        class RA_CORE_API FileData
         {
         public:
             /// CONSTRUCTOR

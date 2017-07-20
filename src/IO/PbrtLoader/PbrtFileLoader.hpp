@@ -3,13 +3,14 @@
 
 #include <vector>
 
+#include <IO/RaIO.hpp>
 #include <Core/File/FileData.hpp>
 #include <Core/File/FileLoaderInterface.hpp>
 
 namespace Ra {
     namespace IO {
 
-        class PbrtFileLoader : public Asset::FileLoaderInterface
+        class RA_IO_API PbrtFileLoader : public Asset::FileLoaderInterface
         {
         public:
             PbrtFileLoader();

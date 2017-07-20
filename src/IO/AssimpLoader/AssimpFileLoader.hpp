@@ -3,13 +3,14 @@
 
 #include <assimp/Importer.hpp>
 
+#include <IO/RaIO.hpp>
 #include <Core/File/FileData.hpp>
 #include <Core/File/FileLoaderInterface.hpp>
 
 namespace Ra {
     namespace IO {
 
-        class AssimpFileLoader : public Asset::FileLoaderInterface
+        class RA_IO_API AssimpFileLoader : public Asset::FileLoaderInterface
         {
         public:
             AssimpFileLoader();

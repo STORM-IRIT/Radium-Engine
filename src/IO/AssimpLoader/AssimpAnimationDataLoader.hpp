@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
 #define RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
 
+#include <IO/RaIO.hpp>
 #include <Core/File/DataLoader.hpp>
 #include <Core/File/KeyFrame/AnimationTime.hpp>
 
@@ -18,7 +19,7 @@ struct HandleAnimation;
 namespace Ra {
 namespace IO {
 
-class AssimpAnimationDataLoader : public Asset::DataLoader< Asset::AnimationData > {
+class RA_IO_API AssimpAnimationDataLoader : public Asset::DataLoader< Asset::AnimationData > {
 public:
     /// CONSTRUCTOR
     AssimpAnimationDataLoader( const bool VERBOSE_MODE = false );

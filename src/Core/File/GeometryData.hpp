@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include <Core/RaCore.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/VectorArray.hpp>
 
@@ -12,7 +13,7 @@
 namespace Ra {
 namespace Asset {
 
-struct MaterialData {
+struct RA_CORE_API MaterialData {
     MaterialData();
     MaterialData( const MaterialData& material ) = default;
 
@@ -48,7 +49,7 @@ struct MaterialData {
     bool        m_hasTexOpacity;
 };
 
-class GeometryData : public AssetData {
+class RA_CORE_API GeometryData : public AssetData {
 
 public:
     using Vector3Array  = Core::VectorArray<Core::Vector3>  ;

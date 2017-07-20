@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include <Core/RaCore.hpp>
+
 namespace Ra
 {
     namespace Asset

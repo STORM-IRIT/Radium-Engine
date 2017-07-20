@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_ASSIMP_LIGHT_DATA_LOADER_HPP
 #define RADIUMENGINE_ASSIMP_LIGHT_DATA_LOADER_HPP
 
+#include <IO/RaIO.hpp>
 #include <Core/File/DataLoader.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
@@ -26,7 +27,7 @@ namespace Ra {
 namespace Ra {
     namespace IO {
 
-    class AssimpLightDataLoader : public Asset::DataLoader< Asset::LightData > {
+    class RA_IO_API AssimpLightDataLoader : public Asset::DataLoader< Asset::LightData > {
     public:
         /// CONSTRUCTOR
         AssimpLightDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
