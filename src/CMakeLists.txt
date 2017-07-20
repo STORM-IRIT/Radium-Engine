@@ -29,11 +29,13 @@ include_directories(
 message(STATUS "Compiling Radium with 3rdparty include dirs : ${EIGEN3_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}" )
 
 if( RADIUM_ASSIMP_SUPPORT )
+	set( RADIUM_IO_IS_INTERFACE FALSE )
     include_directories( ${ASSIMP_INCLUDE_DIR} )
     message(STATUS "Compiling Radium with Assimp's include dir : ${ASSIMP_INCLUDE_DIR}" )
 endif( RADIUM_ASSIMP_SUPPORT )
 
 if( RADIUM_PBRT_SUPPORT )
+	set( RADIUM_IO_IS_INTERFACE FALSE )
     include_directories( ${PBRT_INCLUDE_DIR} )
     message(STATUS "Compiling Radium with Pbrt's include dir : ${PBRT_INCLUDE_DIR}" )
 endif( RADIUM_PBRT_SUPPORT )
