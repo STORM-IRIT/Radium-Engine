@@ -47,9 +47,9 @@ namespace Ra
             void reloadNotCompiledShaderPrograms();
 
         private:
+            /// need Initialization after ctr and before use
             ShaderProgramManager(const std::string& vs, const std::string& fs);
             ~ShaderProgramManager();
-
             void initialize();
             void insertShader(const ShaderConfiguration& config, const std::shared_ptr<ShaderProgram>& shader);
 
@@ -60,6 +60,9 @@ namespace Ra
 
             std::vector<std::unique_ptr<globjects::File>> m_files;
             std::vector<std::unique_ptr<globjects::NamedString>> m_namedStrings;
+
+            std::string m_defaultVsName;
+            std::string m_defaultFsName;
 
             const ShaderProgram* m_defaultShaderProgram;
         };

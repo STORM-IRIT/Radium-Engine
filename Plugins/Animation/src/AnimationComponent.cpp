@@ -142,6 +142,12 @@ namespace AnimationPlugin
         return m_weights;
     }
 
+   void AnimationComponent::setWeights (Ra::Core::Animation::WeightMatrix m)
+    {
+        m_weights = m;
+    }
+
+
     void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable ) {
         std::string name( m_name );
         name.append( "_" + data->getName() );
@@ -272,6 +278,11 @@ namespace AnimationPlugin
         }
 
         Ra::Core::Animation::checkWeightMatrix( m_weights, false );
+    }
+
+    void AnimationComponent::setContentName (const std::string name)
+    {
+        m_contentName=name;
     }
 
     void AnimationComponent::setupIO(const std::string &id)

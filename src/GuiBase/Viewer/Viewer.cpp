@@ -39,6 +39,8 @@
 
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 
+#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
+
 namespace Ra
 {
     Gui::Viewer::Viewer( QWidget* parent )
@@ -65,25 +67,21 @@ namespace Ra
     }
 
     void Gui::Viewer::initializeGL()
-    {        
-        //glbinding::Binding::initialize(false);
-        // no need to initalize glbinding. globjects (magically) do this internally.
+    {
+        //no need to initalize glbinding. globjects (magically) do this internally.
         globjects::init(globjects::Shader::IncludeImplementation::Fallback);
-
+        
         LOG( logINFO ) << "*** Radium Engine Viewer ***";
         LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::ContextInfo::renderer();
         LOG( logINFO ) << "Vendor   (glbinding) : " << glbinding::ContextInfo::vendor();
         LOG( logINFO ) << "OpenGL   (glbinding) : " << glbinding::ContextInfo::version().toString();
         LOG( logINFO ) << "GLSL                 : " << gl::glGetString(gl::GLenum(GL_SHADING_LANGUAGE_VERSION));
 
-        // FIXME(Charly): Renderer type should not be changed here
-        // m_renderers.resize( 3 );
-        // FIXME (Mathias): width and height might be wrong the first time ResizeGL is called (see QOpenGLWidget doc). This may cause problem on Retina display under MacOsX (and this happens)
-        m_renderers.push_back(std::unique_ptr<Engine::Renderer>(new Engine::ForwardRenderer( width(), height()))); // Forward
+        ShaderProgramManager::createInstance("Shaders/Default.vert.glsl",
+                                             "Shaders/Default.frag.glsl");
 
-//        m_renderers[1].reset( nullptr ); // deferred
-        // m_renderers[2].reset( new Engine::ExperimentalRenderer( width(), height() ) ); // experimental
-
+        m_renderers.push_back(std::unique_ptr<Engine::Renderer>(new Engine::ForwardRenderer( width(), height())));
+            
         for ( auto& renderer : m_renderers )
         {
             if (renderer)
@@ -106,24 +104,24 @@ namespace Ra
 
         m_camera->attachLight( light );
 /*
-        glbinding::setCallbackMask(glbinding::CallbackMask::After | glbinding::CallbackMask::ParametersAndReturnValue);
-        glbinding::setAfterCallback([](const glbinding::FunctionCall & call)
-                                    {
-                                        std::cerr << call.function->name() << "(";
-                                        for (unsigned i = 0; i < call.parameters.size(); ++i)
-                                        {
-                                            std::cerr << call.parameters[i]->asString();
-                                            if (i < call.parameters.size() - 1)
-                                                std::cerr << ", ";
-                                        }
-                                        std::cerr << ")";
+  glbinding::setCallbackMask(glbinding::CallbackMask::After | glbinding::CallbackMask::ParametersAndReturnValue);
+  glbinding::setAfterCallback([](const glbinding::FunctionCall & call)
+  {
+  std::cerr << call.function->name() << "(";
+  for (unsigned i = 0; i < call.parameters.size(); ++i)
+  {
+  std::cerr << call.parameters[i]->asString();
+  if (i < call.parameters.size() - 1)
+  std::cerr << ", ";
+  }
+  std::cerr << ")";
 
-                                        if (call.returnValue)
-                                            std::cerr << " -> " << call.returnValue->asString();
+  if (call.returnValue)
+  std::cerr << " -> " << call.returnValue->asString();
 
-                                        std::cerr << std::endl;
+  std::cerr << std::endl;
 
-                                    });
+  });
 */
 
         emit rendererReady();
@@ -219,62 +217,62 @@ namespace Ra
         }
 
         /*switch ( event->button() )
-        {
-            case Qt::LeftButton:
-            {
-#ifdef OS_MACOS
-                // No middle button on Apple (only left, right and wheel)
-                // replace middle button by <ctrl>+left (note : ctrl = "command"
-                // fake the subsistem by setting MiddleButtonEvent and masking ControlModifier
-                if (event->modifiers().testFlag( Qt::ControlModifier ) )
-                {
-                    auto mods = event->modifiers();
-                    mods^=Qt::ControlModifier;
-                    QMouseEvent macevent(event->type(), event->localPos(), event->windowPos(), event->screenPos(),
-                                                    Qt::MiddleButton, event->buttons(),
-                                                    mods, event->source() );
-                    m_camera->handleMousePressEvent(&macevent);
-                }
-#endif
-                if ( isKeyPressed( Qt::Key_Space ) )
-                {
-                    LOG( logINFO ) << "Raycast query launched";
-                    Core::Ray r = m_camera->getCamera()->getRayFromScreen(Core::Vector2(event->x(), event->y()));
-                    RA_DISPLAY_POINT(r.origin(), Core::Colors::Cyan(), 0.1f);
-                    RA_DISPLAY_RAY(r, Core::Colors::Yellow());
-                    auto ents = Engine::RadiumEngine::getInstance()->getEntityManager()->getEntities();
-                    for (auto e : ents)
-                    {
-                        e->rayCastQuery(r);
-                    }
-                }
-                else
-                {
-                    Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_LEFT_BUTTON };
-                    m_currentRenderer->addPickingRequest(query);
-                    m_gizmoManager->handleMousePressEvent(event);
-                }
-            }
-            break;
+          {
+          case Qt::LeftButton:
+          {
+          #ifdef OS_MACOS
+          // No middle button on Apple (only left, right and wheel)
+          // replace middle button by <ctrl>+left (note : ctrl = "command"
+          // fake the subsistem by setting MiddleButtonEvent and masking ControlModifier
+          if (event->modifiers().testFlag( Qt::ControlModifier ) )
+          {
+          auto mods = event->modifiers();
+          mods^=Qt::ControlModifier;
+          QMouseEvent macevent(event->type(), event->localPos(), event->windowPos(), event->screenPos(),
+          Qt::MiddleButton, event->buttons(),
+          mods, event->source() );
+          m_camera->handleMousePressEvent(&macevent);
+          }
+          #endif
+          if ( isKeyPressed( Qt::Key_Space ) )
+          {
+          LOG( logINFO ) << "Raycast query launched";
+          Core::Ray r = m_camera->getCamera()->getRayFromScreen(Core::Vector2(event->x(), event->y()));
+          RA_DISPLAY_POINT(r.origin(), Core::Colors::Cyan(), 0.1f);
+          RA_DISPLAY_RAY(r, Core::Colors::Yellow());
+          auto ents = Engine::RadiumEngine::getInstance()->getEntityManager()->getEntities();
+          for (auto e : ents)
+          {
+          e->rayCastQuery(r);
+          }
+          }
+          else
+          {
+          Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_LEFT_BUTTON };
+          m_currentRenderer->addPickingRequest(query);
+          m_gizmoManager->handleMousePressEvent(event);
+          }
+          }
+          break;
 
-            case Qt::MiddleButton:
-            {
-                m_camera->handleMousePressEvent(event);
-            }
-            break;
+          case Qt::MiddleButton:
+          {
+          m_camera->handleMousePressEvent(event);
+          }
+          break;
 
-            case Qt::RightButton:
-            {
-                // Check picking
-                Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_RIGHT_BUTTON };
-                m_currentRenderer->addPickingRequest(query);
-            }
-            break;
+          case Qt::RightButton:
+          {
+          // Check picking
+          Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()), Core::MouseButton::RA_MOUSE_RIGHT_BUTTON };
+          m_currentRenderer->addPickingRequest(query);
+          }
+          break;
 
-            default:
-            {
-            } break;
-        }*/
+          default:
+          {
+          } break;
+          }*/
     }
 
     void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event )
@@ -391,7 +389,7 @@ namespace Ra
     void Gui::Viewer::processPicking()
     {
         CORE_ASSERT( m_currentRenderer->getPickingQueries().size() == m_currentRenderer->getPickingResults().size(),
-                    "There should be one result per query." );
+                     "There should be one result per query." );
 
         for (uint i = 0 ; i < m_currentRenderer->getPickingQueries().size(); ++i)
         {

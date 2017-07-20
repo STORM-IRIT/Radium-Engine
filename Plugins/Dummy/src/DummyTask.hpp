@@ -7,10 +7,16 @@ namespace DummyPlugin
 {
     struct DummyData;
 
+    struct DummyParams : public Ra::Core::TaskParams
+    {
+        DummyData* data;
+    };
+
     class DummyTask : public Ra::Core::Task
     {
     public:
         virtual std::string getName() const override;
+        virtual void init( const Ra::Core::TaskParams* params ) override;
         virtual void process() override;
 
     private:
@@ -21,6 +27,7 @@ namespace DummyPlugin
     {
     public:
         virtual std::string getName() const override;
+        virtual void init( const Ra::Core::TaskParams* params ) override;
         virtual void process() override;
 
     private:

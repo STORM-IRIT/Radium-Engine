@@ -64,10 +64,17 @@ namespace Ra
 
             const Engine::Camera* getCamera() const { return m_camera.get();}
 
+            Engine::Camera* getCamera()  { return m_camera.get();}
+
             void attachLight( const std::shared_ptr<Engine::Light>& light );
+            bool hasLightAttached() const { return m_hasLightAttached; }
+            /// pointer acces to the attached light, the caller has to check if
+            /// hasLightAttached is true, it return a shared_ptr, so the light
+            /// could be attached to another camera
+            std::shared_ptr<Engine::Light> getLight(){ return m_light; }
+                
 
             virtual void update( Scalar dt ) {}
-
 
             static const Engine::Camera& getCameraFromViewer(QObject *v);
 

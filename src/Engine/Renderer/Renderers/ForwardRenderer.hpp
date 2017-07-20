@@ -44,7 +44,7 @@ namespace Ra
 
             void updateShadowMaps();
 
-        private:
+        protected:
             enum RendererTextures
             {
                 RendererTextures_Depth = 0,
