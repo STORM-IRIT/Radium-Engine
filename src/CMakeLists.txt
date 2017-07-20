@@ -86,7 +86,7 @@ file(GLOB io_sources IO/*.cpp)
 file(GLOB io_headers IO/*.h IO/*.hpp)
 file(GLOB io_inlines IO/*.inl)
 
-set(io_libs radiumCore)
+set(io_libs radiumCore radiumEngine)
 
 if( RADIUM_ASSIMP_SUPPORT )
     add_subdirectory( IO/AssimpLoader )
