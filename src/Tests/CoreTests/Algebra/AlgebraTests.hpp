@@ -38,7 +38,7 @@ namespace RaTests
             Ra::Core::QuaternionUtils::getSwingTwist(qr, qs, qt);
 
             RA_UNIT_TEST (qr.isApprox( qs * qt ), "Swing decomposition fail.");
-            RA_UNIT_TEST(Ra::Core::AngleAxis(qt).axis() == Ra::Core::Vector3::UnitZ(), "Twist should be around z");
+            RA_UNIT_TEST(Ra::Core::AngleAxis(qt).axis().isApprox(Ra::Core::Vector3::UnitZ()), "Twist should be around z");
             RA_UNIT_TEST(Ra::Core::AngleAxis(qs).axis().dot(Ra::Core::Vector3::UnitZ()) == 0 , "Swing should be in xy");
 
         }

@@ -88,6 +88,7 @@ namespace Ra
 
         void RotateGizmo::selectConstraint(int drawableIdx)
         {
+            int oldAxis = m_selectedAxis;
             m_selectedAxis = -1;
             if (drawableIdx >= 0)
             {
@@ -97,15 +98,20 @@ namespace Ra
                     m_selectedAxis = int(found - m_renderObjects.begin());
                 }
             }
+            if (m_selectedAxis != oldAxis)
+            {
+                m_start = false;
+                m_stepped = false;
+            }
         }
 
-        Core::Transform RotateGizmo::mouseMove(const Engine::Camera& cam, const Core::Vector2& nextXY)
+        Core::Transform RotateGizmo::mouseMove(const Engine::Camera& cam, const Core::Vector2& nextXY, bool stepped)
         {
+            static const float step = Ra::Core::Math::Pi / 10.f;
             if (m_selectedAxis >= 0)
             {
                 const Core::Vector3 origin =  m_transform.translation();
                 Core::Vector3 rotationAxis = Core::Vector3::Unit(m_selectedAxis);
-
 
                 // Decompose the current transform's linear part into rotation and scale
                 Core::Matrix3 rotationMat;
@@ -116,6 +122,14 @@ namespace Ra
                 {
                     rotationAxis = rotationMat*rotationAxis;
                 }
+                rotationAxis.normalize();
+
+                if (!m_start)
+                {
+                    m_start = true;
+                    m_totalAngle = 0;
+                    m_initialRot = rotationMat;
+                }
 
                 // Project the clicked points against the plane defined by the rotation circles.
                 std::vector<Scalar> hits1, hits2;
@@ -124,6 +138,7 @@ namespace Ra
                 bool hit1 = Core::RayCast::vsPlane(rayToFirstClick,   m_worldTo * origin, m_worldTo * rotationAxis, hits1);
                 bool hit2 = Core::RayCast::vsPlane(rayToCurrentClick, m_worldTo * origin, m_worldTo * rotationAxis, hits2);
 
+                Core::Vector2 nextXY_ = nextXY;
                 if (hit1 && hit2)
                 {
                     // Do the calculations relative to the circle center.
@@ -138,11 +153,28 @@ namespace Ra
                     Scalar angle = Core::Math::sign(c.dot(m_worldTo * rotationAxis)) * std::atan2(c.norm(),d);
 
                     // Apply rotation.
-                    auto newRot = Core::AngleAxis(angle, rotationAxis) * rotationMat;
-                    m_transform.fromPositionOrientationScale(origin, newRot, scaleMat.diagonal() );
-
+                    if (stepped)
+                    {
+                        angle = int(angle/step)*step;
+                        if (angle == 0)
+                        {
+                            nextXY_ = m_initialPix;
+                        }
+                        if (!m_stepped)
+                        {
+                            float diff = m_totalAngle - int(m_totalAngle/step)*step;
+                            angle -= diff;
+                        }
+                    }
+                    m_stepped = stepped;
+                    m_totalAngle += angle;
+                    if (angle != 0)
+                    {
+                        auto newRot = Core::AngleAxis( angle, rotationAxis ) * rotationMat;
+                        m_transform.fromPositionOrientationScale( origin, newRot, scaleMat.diagonal() );
+                    }
                 }
-                m_initialPix = nextXY;
+                m_initialPix = nextXY_;
             }
             return m_transform;
         }

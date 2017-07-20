@@ -23,7 +23,7 @@ namespace Ra
 
         Entity::~Entity()
         {
-            // Ensure components are deleted before the entity for conssistent
+            // Ensure components are deleted before the entity for consistent
             // ordering of signals.
             m_components.clear();
             RadiumEngine::getInstance()->getSignalManager()->fireEntityDestroyed( ItemEntry(this) );

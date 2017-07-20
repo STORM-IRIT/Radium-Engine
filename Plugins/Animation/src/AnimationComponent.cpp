@@ -21,6 +21,7 @@ using Ra::Engine::ComponentMessenger;
 using Ra::Core::Animation::RefPose;
 using Ra::Core::Animation::Skeleton;
 using Ra::Core::Animation::WeightMatrix;
+using Ra::Core::Animation::Animation;
 
 namespace AnimationPlugin
 {
@@ -61,7 +62,7 @@ namespace AnimationPlugin
         }
 
         // get the current pose from the animation
-        if ( dt > 0 && m_animations.size() > 0)
+        if ( dt > 0 && !m_animations.empty() )
         {
             Ra::Core::Animation::Pose currentPose = m_animations[m_animationID].getPose(m_animationTime);
 
@@ -80,8 +81,11 @@ namespace AnimationPlugin
     {
 
         for( uint i = 0; i < m_skel.size(); ++i ) {
-            if( !m_skel.m_graph.isLeaf( i ) ) {
-                SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject( m_skel.getLabel( i ), this, i, getRoMgr());
+            if( !m_skel.m_graph.isLeaf( i ) )
+            {
+                std::string name = m_skel.getLabel(i);
+                Ra::Core::StringUtils::appendPrintf( name, " (%d)", i);
+                SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject( name, this, i, getRoMgr());
                 m_boneDrawables.push_back(boneRenderObject);
                 m_renderObjects.push_back( boneRenderObject->getRenderObjectIndex());
             } else {
@@ -174,7 +178,7 @@ namespace AnimationPlugin
                 for( uint j = 0; j < handleAnim.size(); ++j ) {
                     if( m_skel.getLabel( i ) == handleAnim[j].m_name ) {
                         table[j] = i;
-                        auto set = handleAnim[j].m_anim.timeSchedule();
+                        auto set = std::move( handleAnim[j].m_anim.timeSchedule() );
                         keyTime.insert( set.begin(), set.end() );
                     }
                 }
@@ -283,6 +287,13 @@ namespace AnimationPlugin
 
         ComponentMessenger::CallbackTypes<bool>::Getter resetOut = std::bind( &AnimationComponent::getWasReset, this );
         ComponentMessenger::getInstance()->registerOutput<bool>( getEntity(), this, id, resetOut);
+
+        ComponentMessenger::CallbackTypes<Animation>::Getter animOut = std::bind( &AnimationComponent::getAnimation, this );
+        ComponentMessenger::getInstance()->registerOutput<Animation>(getEntity(), this, id, animOut);
+
+        ComponentMessenger::CallbackTypes<Scalar>::Getter timeOut = std::bind(&AnimationComponent::getTimeOutput, this );
+        ComponentMessenger::getInstance()->registerOutput<Scalar>(getEntity(), this, id, timeOut);
+
     }
 
     const Ra::Core::Animation::Skeleton* AnimationComponent::getSkeletonOutput() const
@@ -372,5 +383,33 @@ namespace AnimationPlugin
         const Ra::Core::Transform& TBoneLocal = m_skel.getTransform(boneIdx, Ra::Core::Animation::Handle::SpaceType::LOCAL);
         auto diff = TBoneModel.inverse() *  transform;
         m_skel.setTransform(boneIdx,TBoneLocal * diff,  Ra::Core::Animation::Handle::SpaceType::LOCAL);
+    }
+
+    uint AnimationComponent::getBoneIdx(Ra::Core::Index index) const
+    {
+        auto found = std::find_if(m_boneDrawables.begin(), m_boneDrawables.end(),
+                                  [index](const auto& draw) { return draw->getRenderObjectIndex() == index; });
+        return found == m_boneDrawables.end() ?
+               uint(-1) :
+               (*found)->getBoneIndex();
+    }
+
+    const Ra::Core::Animation::Animation* AnimationComponent::getAnimation() const
+    {
+        if (m_animations.empty())
+        {
+            return nullptr;
+        }
+        return &m_animations[m_animationID];
+    }
+
+    const Scalar* AnimationComponent::getTimeOutput() const
+    {
+        return &m_animationTime;
+    }
+
+    Scalar AnimationComponent::getTime() const
+    {
+        return m_animationTime;
     }
 }

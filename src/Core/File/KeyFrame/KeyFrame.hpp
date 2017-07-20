@@ -93,10 +93,11 @@ public:
         return m_keyframe.empty();
     }
 
-    inline std::set< Time > timeSchedule() const {
-        std::set< Time > time;
+    inline std::vector< Time > timeSchedule() const {
+        std::vector< Time > time;
         for( const auto& it : m_keyframe ) {
-            time.insert( it.first );
+            const Time t = Scalar(it.first);
+            time.push_back( t );
         }
         return time;
     }
@@ -122,22 +123,37 @@ protected:
                            FRAME& F1,
                            Scalar& dt ) const {
         auto it = m_keyframe.find( t );
+        // exact match
         if( it != m_keyframe.end() ) {
             F0 = it->second;
             F1 = it->second;
             dt = 0.0;
             return;
         }
+        // before first
+        if (t < m_keyframe.begin()->first)
+        {
+            F0 = m_keyframe.begin()->second;
+            F1 = F0;
+            dt = 0.0;
+            return;
+        }
+        // after last
+        if (t > m_keyframe.rbegin()->first)
+        {
+            F0 = m_keyframe.rbegin()->second;
+            F1 = F0;
+            dt = 0.0;
+            return;
+        }
+        // in-between
         auto upper = m_keyframe.upper_bound( t );
         auto lower = upper;
         --lower;
-
         F0 = lower->second;
-        F1 = upper->second;
-
         Time t0 = lower->first;
+        F1 = upper->second;
         Time t1 = upper->first;
-
         dt = ( t - t0 ) / ( t1 - t0 );
     }
 

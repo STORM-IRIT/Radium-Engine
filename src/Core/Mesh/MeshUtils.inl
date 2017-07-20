@@ -1,6 +1,8 @@
 #include "MeshUtils.hpp"
 #include <Core/Geometry/PointCloud/PointCloud.hpp>
 #include <Core/Geometry/Triangle/TriangleOperation.hpp>
+#include <Core/Utils/StdUtils.hpp>
+#include <unordered_set>
 
 namespace Ra
 {
@@ -63,6 +65,46 @@ namespace Ra
                 const bool hasv1 = (t1.array() == Ra::Core::Vector3ui{v1,v1,v1}.array()).any();
                 const bool hasv2 = (t1.array() == Ra::Core::Vector3ui{v2,v2,v2}.array()).any();
                 return hasv1 && hasv2;
+            }
+
+            struct EdgeEqual
+            {
+                bool operator()( const std::pair<uint,uint>& e1, const std::pair<uint,uint>& e2) const
+                {
+                    return (e1.first == e2.first && e1.second == e2.second)
+                        || ( e1.first == e2.second && e1.second == e2.first );
+                }
+
+            };
+            struct EdgeHash
+            {
+                std::size_t operator()( const std::pair<uint,uint>& x) const
+                {
+                    return StdUtils::hash<uint,uint>(x);
+                }
+            };
+
+            typedef std::unordered_set<
+                    std::pair<uint,uint>,
+                    EdgeHash,
+                    EdgeEqual> EdgeTable;
+
+            std::vector<Ra::Core::Vector2ui> getEdges(const TriangleMesh& mesh)
+            {
+                EdgeTable table;
+                for (const auto& t : mesh.m_triangles)
+                {
+                    for (uint i = 0; i < 3; ++i)
+                    {
+                        table.insert({t[i], t[(i + 1) % 3]});
+                    }
+                }
+                std::vector<Ra::Core::Vector2ui> edges;
+                for (const auto& e : table)
+                {
+                    edges.push_back({e.first, e.second});
+                }
+                return edges;
             }
         }
     }

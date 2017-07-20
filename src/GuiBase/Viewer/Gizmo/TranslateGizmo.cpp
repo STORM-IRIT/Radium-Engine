@@ -137,11 +137,11 @@ namespace Ra
         }
 
 
-        Core::Transform TranslateGizmo::mouseMove(const Engine::Camera& cam, const Core::Vector2& nextXY)
+        Core::Transform TranslateGizmo::mouseMove(const Engine::Camera& cam, const Core::Vector2& nextXY, bool stepped)
         {
+            static const float step = 0.2;
             if ( m_selectedAxis >= 0)
             {
-
                 const Core::Vector3 origin = m_transform.translation();
                 Core::Vector3 translateDir =  m_mode == LOCAL ?
                             Core::Vector3(m_transform.rotation() * Core::Vector3::Unit(m_selectedAxis)):
@@ -159,7 +159,15 @@ namespace Ra
                 Ra::Core::Vector3 endPoint;
                 if (findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, endPoint ))
                 {
-                    m_transform.translation() = m_initialTrans + endPoint - m_startPoint;
+                    if (stepped)
+                    {
+                        const Ra::Core::Vector3 tr = endPoint - m_startPoint;
+                        m_transform.translation() = m_initialTrans + int(tr.norm()/step)*step * tr.normalized();
+                    }
+                    else
+                    {
+                        m_transform.translation() = m_initialTrans + endPoint - m_startPoint;
+                    }
                 }
 
             }

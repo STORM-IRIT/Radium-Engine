@@ -52,6 +52,8 @@ private slots:
 
 private:
     Ui::AnimationUI *ui;
+
+    void updateTime( float t);
 };
 
 #endif // ANIMATIONUI_H

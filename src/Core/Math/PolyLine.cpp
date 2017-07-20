@@ -62,21 +62,49 @@ Scalar PolyLine::project( const Vector3& p ) const
     CORE_ASSERT( m_pts.size() > 1, "Line must have at least two points" );
     Scalar sqDist = std::numeric_limits<Scalar>::max();
     uint segment = 0;
-    Scalar t = 0;
+    std::vector<Scalar> ts;
+    std::vector<Scalar> ds;
+    ts.reserve( m_ptsDiff.size());
+    ds.reserve( m_ptsDiff.size());
+
     for ( uint i = 0; i < m_ptsDiff.size(); ++i )
     {
         Scalar proj = DistanceQueries::projectOnSegment( p, m_pts[i], m_ptsDiff[i] );
         Scalar d = (p - (m_pts[i] + proj * (m_ptsDiff[i]))).squaredNorm();
+        ds.push_back(d);
+        ts.push_back( proj);
         if ( d < sqDist )
         {
-            sqDist = d;
-            t = proj;
+             sqDist = d;
             segment = i;
         }
     }
 
     CORE_ASSERT( segment < m_ptsDiff.size(), "Invalid index" );
-    return getLineParameter( segment, t );
+    Scalar t  = ts[segment];
+    if ( t > 0 && t < 1)
+    {
+        bool prev = segment > 0 && ts[segment - 1] > 0 && ts[segment - 1] < 1;
+        bool next = segment < m_ptsDiff.size() - 1 && ts[segment + 1] > 0 && ts[segment + 1] < 1;
+        if (prev || next)
+        {
+            if (prev && next)
+            {
+                prev = ds[segment - 1] < ds[segment + 1];
+            }
+            uint i = prev ? segment - 1 : segment;
+            Ra::Core::Vector3 ba = -m_ptsDiff[i];
+            Ra::Core::Vector3 bc = m_ptsDiff[i + 1];
+            Ra::Core::Vector3 bp = p - m_pts[i+1];
+            Scalar c1 = Ra::Core::Vector::cotan(ba, bp);
+            Scalar c2 = Ra::Core::Vector::cotan(bp, bc);
+
+            Scalar t1 = getLineParameter(i, ts[i]);
+            Scalar t2 = getLineParameter(i + 1, ts[i + 1]);
+            return (c1 * t1 + c2 * t2) / (c1 + c2);
+        }
+    }
+    return getLineParameter(segment, t);
 }
 
 Ra::Core::Vector3 PolyLine::f( Scalar t ) const
@@ -98,6 +126,28 @@ Ra::Core::Vector3 PolyLine::f( Scalar t ) const
     // Now we know point f(t) is between point Pi and Pi+1;
     return m_pts[i] + ((param - lprev) / (m_lengths[i] - lprev)) * m_ptsDiff[i];
 }
+
+    uint PolyLine::getNearestSegment(const Vector3& p) const
+    {
+        CORE_ASSERT( m_pts.size() > 1, "Line must have at least two points" );
+        Scalar sqDist = std::numeric_limits<Scalar>::max();
+        uint segment = 0;
+        for ( uint i = 0; i < m_ptsDiff.size(); ++i )
+        {
+            Scalar proj = DistanceQueries::projectOnSegment( p, m_pts[i], m_ptsDiff[i] );
+            Scalar d = (p - (m_pts[i] + proj * (m_ptsDiff[i]))).squaredNorm();
+            if ( d < sqDist )
+            {
+                sqDist = d;
+                segment = i;
+            }
+        }
+
+        CORE_ASSERT( segment < m_ptsDiff.size(), "Invalid index" );
+        return segment;
+    }
+
+
 
 }
 }
