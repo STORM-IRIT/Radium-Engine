@@ -115,7 +115,7 @@ if( RADIUM_IO_IS_INTERFACE )
             ${io_headers}
             ${io_inlines}
     )
-    target_compile_definitions(${io_target} INTERFACE "-DRA_IO_EXPORTS")
+    target_compile_definitions(${io_target} INTERFACE "-DRA_ENGINE_STATIC")
 
     target_link_libraries(
             ${io_target} INTERFACE
