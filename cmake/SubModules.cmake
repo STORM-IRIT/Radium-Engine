@@ -24,11 +24,11 @@ include(submoduleGlObjects)
 include(submoduleEigen3)
 
 # Assimp
-if (${RADIUM_ASSIMP_SUPPORT})
+if (RADIUM_ASSIMP_SUPPORT)
     include(submoduleAssimp)
 endif()
 
 # Pbrt
-if (${RADIUM_PBRT_SUPPORT})
+if (RADIUM_PBRT_SUPPORT)
     include(submodulePbrt)
 endif()
