@@ -31,10 +31,10 @@ namespace Ra
 
             virtual void getRenderParameters( RenderParameters& params ) override;
 
-            inline virtual void setPosition( const Core::Vector3& position ) override;
+            virtual void setPosition( const Core::Vector3& position ) override;
             inline const Core::Vector3& getPosition() const;
 
-            inline virtual void setDirection( const Core::Vector3& direction ) override;
+            virtual void setDirection( const Core::Vector3& direction ) override;
             inline const Core::Vector3& getDirection() const;
 
             inline void setInnerAngleInRadians( Scalar angle );
