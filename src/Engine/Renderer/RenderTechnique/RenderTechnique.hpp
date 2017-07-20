@@ -19,7 +19,6 @@ namespace Ra
     namespace Engine
     {
         // NOTE(Charly): Would it be interesting to provide more stuff here ?
-        // TODO(Val) : we need proper memory management of these objects.
         struct RenderTechnique
         {
             ShaderConfiguration shaderConfig;

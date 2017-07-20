@@ -11,11 +11,7 @@ inline void AnimationData::setName( const std::string& name ) {
 }
 
 /// TIME
-inline AnimationTime AnimationData::getTime() const {
-    return m_time;
-}
-
-inline AnimationTime& AnimationData::getTime() {
+inline const AnimationTime& AnimationData::getTime() const {
     return m_time;
 }
 

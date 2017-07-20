@@ -31,8 +31,7 @@ public:
     inline void setName( const std::string& name );
 
     /// TIME
-    inline AnimationTime  getTime() const;
-    inline AnimationTime& getTime();
+    inline const AnimationTime& getTime() const;
     inline void setTime( const AnimationTime& time );
     inline Time getTimeStep() const;
     inline void setTimeStep( const Time& delta );

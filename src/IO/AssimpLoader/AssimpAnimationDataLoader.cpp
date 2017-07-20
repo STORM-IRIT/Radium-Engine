@@ -119,9 +119,7 @@ void AssimpAnimationDataLoader::fetchAnimation( const aiAnimation* anim, Asset::
         time.merge( keyFrame[i].m_anim.getAnimationTime() );
     }
     data->setFrames( keyFrame );
-    if( time != data->getTime() ) {
-        data->getTime().merge( time );
-    }
+    data->setTime( time );
 }
 
 
