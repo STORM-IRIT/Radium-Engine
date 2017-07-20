@@ -134,7 +134,7 @@ else( RADIUM_IO_IS_INTERFACE )
     )
 endif( RADIUM_IO_IS_INTERFACE )
 
-add_dependencies( ${io_target} ${core_target} )
+add_dependencies( ${io_target} ${core_target} ${engine_target} )
 
 if( RADIUM_ASSIMP_SUPPORT )
     add_dependencies( ${io_target} assimp_lib )
