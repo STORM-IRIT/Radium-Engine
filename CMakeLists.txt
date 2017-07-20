@@ -31,7 +31,7 @@ option(RADIUM_WARNINGS_AS_ERRORS    "Treat compiler warning as errors" OFF)
 option(RADIUM_FORCE_ASSERTS         "Enable asserts regardless of build type" OFF)
 option(RADIUM_ASSIMP_SUPPORT        "Enable assimp loader" ON)
 option(RADIUM_PBRT_SUPPORT          "Enable pbrt loader" OFF)
-option(RADUIM_BUILD_APPS            "Choose to build or not radium applications" ON)
+option(RADIUM_BUILD_APPS            "Choose to build or not radium applications" ON)
 
 if ( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Debug )
@@ -121,9 +121,9 @@ add_subdirectory(${RADIUM_SRC_DIR})
 # ----------------------------------------------------------------------------------------------------------------------
 #   Applications
 #   Set Base directories for dependencies
-if(RADUIM_BUILD_APPS)  
+if(RADIUM_BUILD_APPS)  
   add_subdirectory(Applications)
-endif(RADUIM_BUILD_APPS)
+endif(RADIUM_BUILD_APPS)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   External plugins
