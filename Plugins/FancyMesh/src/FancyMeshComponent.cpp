@@ -144,6 +144,16 @@ namespace FancyMeshPlugin
         return getDisplayMesh().getGeometry();
     }
 
+    void FancyMeshComponent::setDeformable (const bool b)
+    {
+        this->m_deformable=b;
+    }
+
+    void FancyMeshComponent::setContentName (const std::string name)
+    {
+        this->m_contentName=name;
+    }
+
     void FancyMeshComponent::setupIO(const std::string& id)
     {
         auto msg = ComponentMessenger::getInstance();

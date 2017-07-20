@@ -156,6 +156,11 @@ void SkinningComponent::handleWeightsLoading(const Ra::Asset::HandleData *data)
     setupIO(m_contentsName);
 }
 
+void SkinningComponent::setContentsName (const std::string name)
+{
+    m_contentsName = name;
+}
+
 void SkinningComponent::setupIO( const std::string& id )
 {
     typedef Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion > DualQuatVector;

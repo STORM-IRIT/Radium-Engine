@@ -67,8 +67,7 @@ namespace Ra
         void Renderer::initialize()
         {
             // Initialize managers
-            m_shaderMgr = ShaderProgramManager::createInstance("Shaders/Default.vert.glsl", "Shaders/Default.frag.glsl");
-
+            m_shaderMgr = ShaderProgramManager::getInstance();
             m_roMgr = RadiumEngine::getInstance()->getRenderObjectManager();
             TextureManager::createInstance();
 

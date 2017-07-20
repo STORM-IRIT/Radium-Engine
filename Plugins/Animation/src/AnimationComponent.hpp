@@ -71,10 +71,9 @@ namespace AnimationPlugin
 
         virtual void setTransform(Ra::Core::Index roIdx, const Ra::Core::Transform& transform) override;
 
-
-    private:
+    public:
         // debug function to display the hierarchy
-        void printSkeleton(const Ra::Core::Animation::Skeleton& skeleton);private:
+        void printSkeleton(const Ra::Core::Animation::Skeleton& skeleton);
 
         //
         // Loading data functions
@@ -91,6 +90,8 @@ namespace AnimationPlugin
                       std::vector< bool >& processed,
                       std::map< uint, uint >& indexTable );
 
+        void setWeights (Ra::Core::Animation::WeightMatrix m);
+
         // Internal function to create the skinning weights.
         void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable );
 
@@ -98,6 +99,7 @@ namespace AnimationPlugin
         void setupSkeletonDisplay();
 
         // Component communication
+        void setContentName (const std::string name);
         void setupIO( const std::string& id );
 
         const Ra::Core::Animation::Skeleton*     getSkeletonOutput() const;
@@ -116,6 +118,8 @@ namespace AnimationPlugin
         Ra::Core::Animation::WeightMatrix m_weights; // Skinning weights ( should go in skinning )
 
         std::vector<SkeletonBoneRenderObject*> m_boneDrawables ; // Vector of bone display objects
+/// FIXME(david) is that need to be removed ?
+        bool   m_showSkeleton;
         uint   m_animationID;
         bool   m_animationTimeStep;
         Scalar m_animationTime;

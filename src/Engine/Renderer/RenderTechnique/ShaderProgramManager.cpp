@@ -15,12 +15,11 @@ namespace Ra
     {
         using ShaderProgramPtr = std::shared_ptr<ShaderProgram>;
 
-        ShaderProgramManager::ShaderProgramManager(const std::string& vs, const std::string& fs)
+        ShaderProgramManager::ShaderProgramManager(const std::string& vs, const std::string& fs):
+            m_defaultVsName(vs),
+            m_defaultFsName(fs)
         {
             initialize();
-            GL_CHECK_ERROR;
-            m_defaultShaderProgram = addShaderProgram("Default Program", vs, fs);
-            GL_CHECK_ERROR;
         }
 
         ShaderProgramManager::~ShaderProgramManager()
@@ -33,7 +32,7 @@ namespace Ra
             // Create named strings which correspond to shader files that you want to use in shaders's includes.
             // NOTE: if you want to add a named string to handle a new shader include file, be SURE that the name (first
             // parameter) begin with a "/", otherwise it won't work !
-
+            
             m_files.push_back( globjects::File::create( "Shaders/Helpers.glsl" ) );
             m_files.push_back( globjects::File::create( "Shaders/Structs.glsl" ) );
             m_files.push_back( globjects::File::create( "Shaders/Tonemap.glsl" ) );
@@ -43,6 +42,8 @@ namespace Ra
             m_namedStrings.push_back( globjects::NamedString::create( "/Structs.glsl", m_files[1].get() ) );
             m_namedStrings.push_back( globjects::NamedString::create( "/Tonemap.glsl", m_files[2].get() ) );
             m_namedStrings.push_back( globjects::NamedString::create( "/LightingFunctions.glsl", m_files[3].get() ) );
+
+            m_defaultShaderProgram = addShaderProgram("Default Program", m_defaultVsName, m_defaultFsName);
 
         }
 
@@ -75,7 +76,6 @@ namespace Ra
                 if ( prog->getProgramObject()->isLinked() )
                 {
                     insertShader(config, prog);
-
                     return prog.get();
                 }
                 else

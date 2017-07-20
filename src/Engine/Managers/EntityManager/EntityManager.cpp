@@ -104,7 +104,11 @@ namespace Ra
 
         Entity* EntityManager::getEntity( const std::string& name ) const
         {
-            return m_entities.at( m_entitiesName.at( name ) ).get();
+            Entity *ent = nullptr;
+            auto idx = m_entitiesName.find( name );
+            CORE_ASSERT( idx != m_entitiesName.end(), "Trying to access an invalid entity (named: " + name +")");           
+            ent = m_entities.at( idx->second ).get();
+            return ent;
         }
 
         void EntityManager::swapBuffers()

@@ -58,6 +58,18 @@ namespace Ra {
 
         }
 
+        void Mesh::updateMeshGeometry(MeshData type, const Core::Vector3Array& data)
+        {
+            if(type == VERTEX_POSITION)
+                m_mesh.m_vertices = data;
+            if(type == VERTEX_NORMAL)
+                m_mesh.m_normals = data;
+            m_dataDirty[static_cast<uint>(type)] = true;
+            m_isDirty = true;
+
+        }
+
+
         void Mesh::loadGeometry(const Core::Vector3Array &vertices, const std::vector<uint> &indices)
         {
             // TODO : remove this function and force everyone to use triangle mesh.

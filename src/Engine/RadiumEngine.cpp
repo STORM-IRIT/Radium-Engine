@@ -25,19 +25,21 @@
 #include <Engine/System/System.hpp>
 #include <Engine/Entity/Entity.hpp>
 
+#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
+
 namespace Ra
 {
     namespace Engine
     {
-
+        
         RadiumEngine::RadiumEngine()
         {
         }
-
+        
         RadiumEngine::~RadiumEngine()
         {
         }
-
+        
         void RadiumEngine::initialize()
         {
             LOG(logINFO) << "*** Radium Engine ***";
@@ -46,7 +48,6 @@ namespace Ra
             m_renderObjectManager.reset( new RenderObjectManager );
             m_loadedFile.reset();
             ComponentMessenger::createInstance();
-
         }
 
         void RadiumEngine::cleanup()
@@ -62,6 +63,7 @@ namespace Ra
             }
 
             ComponentMessenger::destroyInstance();
+            ShaderProgramManager::destroyInstance();
         }
 
         void RadiumEngine::endFrameSync()
