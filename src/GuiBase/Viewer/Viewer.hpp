@@ -116,7 +116,19 @@ namespace Ra
             /// Write the current frame as an image. Supports either BMP or PNG file names.
             void grabFrame( const std::string& filename );
 
-            /// Add a renderer and return its index.
+            /** Add a renderer and return its index.
+             * \param e : unique_ptr to your own renderer
+             * \return index of the newly added renderer
+             * \code 
+             * int rendererId = addRenderer(std::unique_ptr<Ra::Engine::Renderer>(new MyRenderer(width(), height())));
+             * changeRenderer(rendererId);
+             * getRenderer()->initialize();
+             * auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
+             * getRenderer()->addLight( light );
+             * m_camera->attachLight( light );
+             * \endcode
+             */
+            
             int addRenderer(std::unique_ptr<Engine::Renderer> e);
 
         signals:
