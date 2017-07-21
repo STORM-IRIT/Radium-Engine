@@ -257,6 +257,7 @@ namespace Ra
         m_viewer->handleFileLoading( m_engine->getFileData() );
 
         m_engine->releaseFile();
+
         m_mainWindow->fitCamera();
 
         emit loadComplete();
