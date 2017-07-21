@@ -15,13 +15,13 @@ namespace Ra {
             , m_numElements (0)
             , m_isDirty( false )
         {
-            CORE_ASSERT( m_renderMode == RM_LINES
+         /*   CORE_ASSERT( m_renderMode == RM_LINES
                       || m_renderMode == RM_LINES_ADJACENCY
                       || m_renderMode == RM_TRIANGLES
                       || m_renderMode == RM_POINTS
                       || m_renderMode == RM_LINE_STRIP_ADJACENCY,
                          "Unsupported render mode" );
-        }
+        */}
 
         Mesh::~Mesh()
         {
@@ -71,7 +71,6 @@ namespace Ra {
                 m_dataDirty[i] = true;
             }
             m_isDirty = true;
-
         }
 
         void Mesh::updateMeshGeometry(MeshData type, const Core::Vector3Array& data)

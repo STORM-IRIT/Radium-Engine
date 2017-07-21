@@ -188,6 +188,8 @@ namespace FancyMeshPlugin
 
     void FancyMeshComponent::setupIO(const std::string& id)
     {
+        auto msg = ComponentMessenger::getInstance();
+
         ComponentMessenger::CallbackTypes<TriangleMesh>::Getter cbOut = std::bind( &FancyMeshComponent::getMeshOutput, this );
         ComponentMessenger::getInstance()->registerOutput<TriangleMesh>( getEntity(), this, id, cbOut);
 
