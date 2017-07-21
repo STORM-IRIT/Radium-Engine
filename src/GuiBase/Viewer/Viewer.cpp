@@ -77,8 +77,8 @@ namespace Ra
         LOG( logINFO ) << "OpenGL   (glbinding) : " << glbinding::ContextInfo::version().toString();
         LOG( logINFO ) << "GLSL                 : " << gl::glGetString(gl::GLenum(GL_SHADING_LANGUAGE_VERSION));
 
-        ShaderProgramManager::createInstance("Shaders/Default.vert.glsl",
-                                             "Shaders/Default.frag.glsl");
+        Engine::ShaderProgramManager::createInstance("Shaders/Default.vert.glsl",
+                                                     "Shaders/Default.frag.glsl");
 
         m_renderers.push_back(std::unique_ptr<Engine::Renderer>(new Engine::ForwardRenderer( width(), height())));
             

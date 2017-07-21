@@ -118,8 +118,6 @@ namespace AnimationPlugin
         Ra::Core::Animation::WeightMatrix m_weights; // Skinning weights ( should go in skinning )
 
         std::vector<SkeletonBoneRenderObject*> m_boneDrawables ; // Vector of bone display objects
-/// FIXME(david) is that need to be removed ?
-        bool   m_showSkeleton;
         uint   m_animationID;
         bool   m_animationTimeStep;
         Scalar m_animationTime;
