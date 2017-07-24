@@ -3,8 +3,6 @@
 namespace Ra {
 namespace Core {
 
-
-
 /// ===============================================================================
 /// CONSTRUCTOR
 /// ===============================================================================
@@ -14,29 +12,17 @@ IndexMap< T >::IndexMap() :
     m_index(),
     m_free( 1, Index( 0 ) ) { }
 
-
-
 template < typename T >
 IndexMap< T >::IndexMap( const IndexMap& id_map ) :
     m_data( id_map.m_data ),
     m_index( id_map.m_index ),
     m_free( id_map.m_free ) { }
 
-
-
-
-
-
 /// ===============================================================================
 /// DESTRUCTOR
 /// ===============================================================================
 template < typename T >
 IndexMap< T >::~IndexMap() { }
-
-
-
-
-
 
 /// ===============================================================================
 /// INSERT
@@ -55,8 +41,6 @@ inline Index IndexMap< T >::insert( const T& obj ) {
     }
     return idx;
 }
-
-
 
 template < typename T >
 inline bool IndexMap< T >::insert( const T& obj,
@@ -124,23 +108,6 @@ inline bool IndexMap< T >::remove( const Index& idx ) {
 }
 
 
-
-template < typename T >
-inline bool IndexMap< T >::remove( const uint i ) {
-    if( i >= m_data.size() ) {
-        return false;
-    }
-    push_free_index( m_index[i] );
-    m_data.erase( m_data.begin() + i );
-    m_index.erase( m_index.begin() + i );
-    return true;
-}
-
-
-
-
-
-
 /// ===============================================================================
 /// ACCESS
 /// ===============================================================================
@@ -150,16 +117,6 @@ inline const T& IndexMap< T >::at( const Index& idx ) const {
     CORE_ASSERT( it != m_index.end(), "Index not found" );
     return m_data.at( it - m_index.begin() );
 }
-
-
-
-template < typename T >
-inline const T& IndexMap< T >::at( const uint i ) const {
-    CORE_ASSERT( ( i < m_data.size() ), "Index i out of bound" );
-    return m_data.at( i );
-}
-
-
 
 template < typename T >
 inline bool IndexMap< T >::at( const Index& idx,
@@ -172,36 +129,12 @@ inline bool IndexMap< T >::at( const Index& idx,
     return true;
 }
 
-
-
-template < typename T >
-inline bool IndexMap< T >::at( const uint i,
-                               T&         obj ) const {
-    if( i >= m_data.size() ) {
-        return false;
-    }
-    obj = m_data.at( i );
-    return true;
-}
-
-
-
 template < typename T >
 inline T& IndexMap< T >::access( const Index& idx ) {
     typename std::deque< Index >::iterator it = std::find( m_index.begin(), m_index.end(), idx );
     CORE_ASSERT( ( it != m_index.end() ), "Index not found" );
     return m_data[ it - m_index.begin()  ];
 }
-
-
-
-template < typename T >
-inline T& IndexMap< T >::access( const uint i ) {
-    CORE_ASSERT( ( i < m_data.size() ) , "Index i out of bound");
-    return m_data[i];
-}
-
-
 
 template < typename T >
 inline bool IndexMap< T >::access( const Index& idx,
@@ -217,32 +150,13 @@ inline bool IndexMap< T >::access( const Index& idx,
     return true;
 }
 
-
-
-template < typename T >
-inline bool IndexMap< T >::access( const uint i,
-                                   T&         obj ) {
-    if( i >= m_data.size() ) {
-        return false;
-    }
-    obj = m_data[i];
-    return true;
-}
-
-
-
-
-
-
 /// ===============================================================================
 /// SIZE
 /// ===============================================================================
 template < typename T >
-inline uint IndexMap< T >::size() const {
+inline size_t IndexMap< T >::size() const {
     return m_data.size();
 }
-
-
 
 template < typename T >
 inline void IndexMap< T >::clear() {
@@ -252,11 +166,6 @@ inline void IndexMap< T >::clear() {
     m_free.push_back( Index( 0 ) );
 }
 
-
-
-
-
-
 /// ===============================================================================
 /// QUERY
 /// ===============================================================================
@@ -265,31 +174,23 @@ inline bool IndexMap< T >::empty() const {
     return  m_data.empty();
 }
 
-
-
 template < typename T >
 inline bool IndexMap< T >::full() const {
     return m_free.empty();
 }
 
-
-
 template < typename T >
-inline bool IndexMap< T >::contain( const Index& idx ) const {
+inline bool IndexMap< T >::contains( const Index& idx ) const {
     typename std::deque< Index >::const_iterator it = std::find( m_index.begin(), m_index.end(), idx );
     return !( it == m_index.end() );
 }
-
-
 
 template < typename T >
 inline bool IndexMap< T >::compact() const {
     size_t front = m_free.front();
     bool result = (front > m_data.size());
-    return result;;
+    return result;
 }
-
-
 
 template < typename T >
 inline Index IndexMap< T >::index( const uint i ) const {
@@ -299,22 +200,6 @@ inline Index IndexMap< T >::index( const uint i ) const {
     return m_index.at( i );
 }
 
-
-
-template < typename T >
-inline bool IndexMap< T >::index( const uint i, Index& idx ) const {
-    if( i >= m_index.size() ) {
-        return false;
-    }
-    idx = m_index.at( i );
-    return true;
-}
-
-
-
-
-
-
 /// ===============================================================================
 /// OPERATOR
 /// ===============================================================================
@@ -323,51 +208,10 @@ inline T& IndexMap< T >::operator[]( const Index& idx ) {
     return access( idx );
 }
 
-
-
-template < typename T >
-inline T& IndexMap< T >::operator[]( const uint i ) {
-    return access( i );
-}
-
 template < typename T >
 inline const T& IndexMap< T >::operator[]( const Index& idx ) const {
     return at( idx );
 }
-
-
-
-template < typename T >
-inline const T& IndexMap< T >::operator[]( const uint i ) const{
-    return at( i );
-}
-
-
-template < typename T >
-inline Index& IndexMap< T >::operator<<( const T& obj ) {
-    return insert( obj );
-}
-
-
-
-template < typename T >
-inline IndexMap< T >& IndexMap< T >::operator>>( const Index& idx ) {
-    remove( idx );
-    return *this;
-}
-
-
-
-template < typename T >
-inline IndexMap< T >& IndexMap< T >::operator>>( const uint i ) {
-    remove( i );
-    return *this;
-}
-
-
-
-
-
 
 /// ===============================================================================
 /// INDEX ITERATOR
@@ -377,17 +221,10 @@ inline typename IndexMap< T >::ConstIndexIterator IndexMap< T >::cbegin_index() 
     return m_index.cbegin();
 }
 
-
-
 template <typename T>
 inline typename IndexMap< T >::ConstIndexIterator IndexMap< T >::cend_index() const {
     return m_index.cend();
 }
-
-
-
-
-
 
 /// ===============================================================================
 /// DATA ITERATOR
@@ -397,43 +234,30 @@ inline typename IndexMap< T >::Iterator IndexMap< T >::begin() {
     return m_data.begin();
 }
 
-
-
 template <typename T>
 inline typename IndexMap< T >::Iterator IndexMap< T >::end() {
     return m_data.end();
 }
-
 
 template <typename T>
 inline typename IndexMap< T >::ConstIterator IndexMap< T >::begin() const {
     return m_data.begin();
 }
 
-
-
 template <typename T>
 inline typename IndexMap< T >::ConstIterator IndexMap< T >::end() const {
     return m_data.end();
 }
-
 
 template <typename T>
 inline typename IndexMap< T >::ConstIterator IndexMap< T >::cbegin() const {
     return m_data.cbegin();
 }
 
-
-
 template <typename T>
 inline typename IndexMap< T >::ConstIterator IndexMap< T >::cend() const {
     return m_data.cend();
 }
-
-
-
-
-
 
 /// ===============================================================================
 /// PUSH
@@ -447,11 +271,6 @@ inline void IndexMap< T >::push_free_index( const Index& idx ) {
         m_free.push_back( Index( 0 ) );
     }
 }
-
-
-
-
-
 
 /// ===============================================================================
 /// POP
@@ -474,9 +293,6 @@ inline bool IndexMap< T >::pop_free_index( Index& idx ) {
     }
     return true;
 }
-
-
-
 
 } // namespace Core
 } // namespace Ra

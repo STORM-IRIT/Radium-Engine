@@ -54,25 +54,20 @@ public:
     /// REMOVE
     /// ===============================================================================
     inline bool  remove( const Index& idx );                // Remove the object with the given index. Return false if the operation failed.
-    inline bool  remove( const uint     i );                // Remove the i-th object. Return false if the operation failed.
 
     /// ===============================================================================
     /// ACCESS
     /// ===============================================================================
     inline const T&  at( const Index& idx ) const;          // Return the object with the given index. Crash if the index is not present.
-    inline const T&  at( const uint     i ) const;          // Return the i-th object. Crash if i is out of bound.
     inline bool  at( const Index& idx, T& obj ) const;      // Return the object with the given index. Return false if the index is not present, true otherwise.
-    inline bool  at( const uint     i, T& obj ) const;      // Return the i-th object. Return false if i is out of bound, true otherwise.
 
     inline T&    access( const Index& idx );                // Return a reference to the object with the given index. Crash if index is not present.
-    inline T&    access( const uint     i );                // Return a reference to the i-th object. Crash if i is out of bound.
     inline bool  access( const Index& idx, T& obj );        // Return a reference to the object with the given index. Return false if the index is not present, true otherwise.
-    inline bool  access( const uint     i, T& obj );        // Return a reference to the i-th object. Return false if i is out of bound, true otherwise.
 
     /// ===============================================================================
     /// SIZE
     /// ===============================================================================
-    inline uint  size() const;                              // Return the size of the IndexMap ( number of object contained ).
+    inline size_t size() const;                              // Return the size of the IndexMap ( number of object contained ).
     inline void  clear();                                   // Clear the IndexMap.
 
     /// ===============================================================================
@@ -80,21 +75,15 @@ public:
     /// ===============================================================================
     inline bool  empty() const;                             // Return true if the IndexMap is empty.
     inline bool  full()  const;                             // Return true if the IndexMap cannot contain more objects.
-    inline bool  contain( const Index& idx ) const;         // Return true if the IndexMap contains a object with the given index.
+    inline bool  contains( const Index& idx ) const;         // Return true if the IndexMap contains a object with the given index.
     inline bool  compact() const;                           // Return true if the indices in the map are all consecutive.
     inline Index index( const uint i ) const;               // Return the i-th index. Return an invalid index if i is out of bound.
-    inline bool  index( const uint i, Index& idx ) const;   // Return the i-th index. Return false if i is out of bound.
 
     /// ===============================================================================
     /// OPERATOR
     /// ===============================================================================
     inline T&         operator[]( const Index& idx );       // Return the reference to the object with given index. Equal to using access( idx ).
-    inline T&         operator[]( const uint     i );       // Return the reference to the i-th object. Equal to using access( i ).
     inline const T&   operator[]( const Index& idx ) const; // Return the reference to the object with given index. Equal to using access( idx ).
-    inline const T&   operator[]( const uint     i ) const; // Return the reference to the i-th object. Equal to using access( i ).
-    inline Index&     operator<<( const T&     obj );       // Insert a new object in the IndexMap. Equal to using insert( obj ).
-    inline IndexMap&  operator>>( const Index& idx );       // Remove the object with the given index and return the current IndexMap. Kind of equal to using remove( idx ).
-    inline IndexMap&  operator>>( const uint     i );       // Remove the i-th object and return the current IndexMap. Kind of equal to using remove( i ).
 
     /// ===============================================================================
     /// INDEX ITERATOR

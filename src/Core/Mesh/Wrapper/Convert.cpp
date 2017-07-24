@@ -63,7 +63,7 @@ void convert( const TriangleMesh& mesh, Dcel& dcel ) {
         // Create the connections
         for( uint i = 0; i < 3; ++i ) {
 
-            CORE_ASSERT( dcel.m_vertex.contain( t[i] ), "vertex not found" );
+            CORE_ASSERT( dcel.m_vertex.contains( t[i] ), "vertex not found" );
 
             Vertex_ptr& v = dcel.m_vertex[ t[i] ];
             v->setHE( he[i] );
@@ -83,7 +83,7 @@ void convert( const TriangleMesh& mesh, Dcel& dcel ) {
             } else {
                 // If found, set it and erase it
 
-                CORE_ASSERT( dcel.m_halfedge.contain(it->second), "Map error");
+                CORE_ASSERT( dcel.m_halfedge.contains(it->second), "Map error");
                 CORE_ASSERT(dcel.m_halfedge[it->second]->idx == it->second, "Map error");
                 he[i]->setTwin( dcel.m_halfedge[it->second] );
                 dcel.m_halfedge[it->second]->setTwin( he[i] );
