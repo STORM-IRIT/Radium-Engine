@@ -39,7 +39,7 @@ Dcel::Dcel( const Dcel& dcel ) :
     for( uint i = 0; i < dcel.m_vertex.size(); ++i ) {
         Vertex_ptr dcel_v = dcel.m_vertex.at( i );
         Vertex_ptr v      = Ra::Core::make_shared< Vertex >( dcel_v->P(), dcel_v->N() );
-        m_vertex.insert( v, v->idx );
+        v->idx = m_vertex.insert( v );
         v_table[dcel_v->idx] = v->idx;
     }
 
@@ -47,7 +47,7 @@ Dcel::Dcel( const Dcel& dcel ) :
     for( uint i = 0; i < dcel.m_halfedge.size(); ++i ) {
         HalfEdge_ptr dcel_he = dcel.m_halfedge.at( i );
         HalfEdge_ptr he      = Ra::Core::make_shared< HalfEdge >( m_vertex[v_table[dcel_he->V()->idx]] );
-        m_halfedge.insert( he, he->idx );
+        he->idx = m_halfedge.insert( he );
         he_table[dcel_he->idx] = he->idx;
     }
 
@@ -55,7 +55,7 @@ Dcel::Dcel( const Dcel& dcel ) :
     for( uint i = 0; i < dcel.m_face.size(); ++i ) {
         Face_ptr dcel_f = dcel.m_face.at( i );
         Face_ptr f      = Ra::Core::make_shared< Face >( m_halfedge[he_table[dcel_f->HE()->idx]] );
-        m_face.insert( f, f->idx );
+        f->idx = m_face.insert( f );
         f_table[dcel_f->idx] = f->idx;
     }
 
@@ -74,7 +74,7 @@ Dcel::Dcel( const Dcel& dcel ) :
     for( uint i = 0; i < dcel.m_fulledge.size(); ++i ) {
         FullEdge_ptr dcel_fe = dcel.m_fulledge.at( i );
         FullEdge_ptr fe      = Ra::Core::make_shared< FullEdge >( m_halfedge[he_table[dcel_fe->HE( 0 )->idx]] );
-        m_fulledge.insert( fe, fe->idx );
+        fe->idx = m_fulledge.insert( fe );
         fe->HE( 0 )->Twin()->setFE( fe );
     }
 }

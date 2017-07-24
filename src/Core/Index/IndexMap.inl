@@ -3,6 +3,7 @@
 namespace Ra {
 namespace Core {
 
+
 /// ===============================================================================
 /// CONSTRUCTOR
 /// ===============================================================================
@@ -35,29 +36,12 @@ inline Index IndexMap< T >::insert( const T& obj ) {
         if( it == m_index.end() ) {
             m_data.insert( m_data.end(), obj );
         } else {
-            m_data.insert( ( m_data.begin() + ( it - m_index.begin() ) ), obj );
+            m_data.insert(citfromIndex(it), obj);
         }
         m_index.insert( it, idx );
     }
     return idx;
 }
-
-template < typename T >
-inline bool IndexMap< T >::insert( const T& obj,
-                                   Index&   idx ) {
-    if( !pop_free_index( idx ) ) {
-        return false;
-    }
-    typename std::deque< Index >::iterator it = std::lower_bound( m_index.begin(), m_index.end(), idx );
-    if( it == m_index.end() ) {
-        m_data.insert( m_data.end(), obj );
-    } else {
-        m_data.insert( ( m_data.begin() + ( it - m_index.begin() ) ), obj );
-    }
-    m_index.insert( it, idx );
-    return true;
-}
-
 
 template < typename T>
 template <typename... Args>
@@ -69,28 +53,13 @@ Index IndexMap<T>::emplace(const Args&&... args)
         if( it == m_index.end() ) {
             m_data.emplace( m_data.end(), args... );
         } else {
-            m_data.emplace( ( m_data.begin() + ( it - m_index.begin() ) ), args... );
+            m_data.emplace(citfromIndex(it), args...);
         }
         m_index.insert( it, idx );
     }
     return idx;
 }
 
-template < typename T>
-template<typename... Args >
-inline bool IndexMap< T >::emplace(Index&   idx, const Args&&... args ) {
-    if( !pop_free_index( idx ) ) {
-        return false;
-    }
-    typename std::deque< Index >::iterator it = std::lower_bound( m_index.begin(), m_index.end(), idx );
-    if( it == m_index.end() ) {
-        m_data.emplace( m_data.end(), args... );
-    } else {
-        m_data.emplace( ( m_data.begin() + ( it - m_index.begin() ) ), args... );
-    }
-    m_index.insert( it, idx );
-    return true;
-}
 
 /// ===============================================================================
 /// REMOVE
@@ -101,7 +70,7 @@ inline bool IndexMap< T >::remove( const Index& idx ) {
     if( it == m_index.end() ) {
         return false;
     }
-    m_data.erase( m_data.begin() + ( it - m_index.begin() ) );
+    m_data.erase(itfromIndex(it));
     m_index.erase( it );
     push_free_index( idx );
     return true;
@@ -115,39 +84,14 @@ template < typename T >
 inline const T& IndexMap< T >::at( const Index& idx ) const {
     typename std::deque< Index >::const_iterator it = std::find( m_index.begin(), m_index.end(), idx );
     CORE_ASSERT( it != m_index.end(), "Index not found" );
-    return m_data.at( it - m_index.begin() );
-}
-
-template < typename T >
-inline bool IndexMap< T >::at( const Index& idx,
-                               T&           obj ) const {
-    typename std::deque< Index >::const_iterator it = std::find( m_index.begin(), m_index.end(), idx );
-    if( it == m_index.end() ) {
-        return false;
-    }
-    obj = m_data.at( it - m_index.begin() );
-    return true;
+    return m_data.at(idxfromIndex(it));
 }
 
 template < typename T >
 inline T& IndexMap< T >::access( const Index& idx ) {
     typename std::deque< Index >::iterator it = std::find( m_index.begin(), m_index.end(), idx );
     CORE_ASSERT( ( it != m_index.end() ), "Index not found" );
-    return m_data[ it - m_index.begin()  ];
-}
-
-template < typename T >
-inline bool IndexMap< T >::access( const Index& idx,
-                                   T&           obj ) {
-    if( m_data.empty() ) {
-        return false;
-    }
-    typename std::deque< Index >::iterator it = std::find( m_index.begin(), m_index.end(), idx );
-    if( it == m_index.end() ) {
-        return false;
-    }
-    obj = m_data[ it - m_index.begin() ];
-    return true;
+    return *itfromIndex(it);
 }
 
 /// ===============================================================================
@@ -183,13 +127,6 @@ template < typename T >
 inline bool IndexMap< T >::contains( const Index& idx ) const {
     typename std::deque< Index >::const_iterator it = std::find( m_index.begin(), m_index.end(), idx );
     return !( it == m_index.end() );
-}
-
-template < typename T >
-inline bool IndexMap< T >::compact() const {
-    size_t front = m_free.front();
-    bool result = (front > m_data.size());
-    return result;
 }
 
 template < typename T >
@@ -292,6 +229,28 @@ inline bool IndexMap< T >::pop_free_index( Index& idx ) {
         }
     }
     return true;
+}
+
+template<typename T>
+typename IndexMap<T>::ConstIterator IndexMap<T>::citfromIndex(const typename IndexMap<T>::ConstIndexIterator &it) const
+{
+    auto dataIt = m_data.begin();
+    std::advance(dataIt, std::distance(m_index.cbegin(), it));
+    return dataIt;
+}
+
+template<typename T>
+typename IndexMap<T>::Iterator IndexMap<T>::itfromIndex(const typename IndexMap<T>::ConstIndexIterator &it)
+{
+    auto dataIt = m_data.begin();
+    std::advance(dataIt, std::distance(m_index.cbegin(), it));
+    return dataIt;
+}
+
+template<typename T>
+size_t IndexMap<T>::idxfromIndex(const IndexMap::ConstIndexIterator &it) const
+{
+    return std::distance(m_index.cbegin(), it);
 }
 
 } // namespace Core

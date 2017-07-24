@@ -24,9 +24,12 @@ public:
     /// ===============================================================================
     /// TYPEDEF
     /// ===============================================================================
-    typedef typename std::deque< Index >::const_iterator ConstIndexIterator;    // Const iterator to the list of indices of the IndexMap.
-    typedef typename std::deque< T >::iterator           Iterator;              // Iterator to the list of objects of the IndexMap.
-    typedef typename std::deque< T >::const_iterator     ConstIterator;         // Const iterator to the list of objects of the IndexMap.
+    typedef typename std::deque<T>                  Container; // Where the objects are stored
+    typedef typename std::deque<Index>              IndexContainer; // Where the indices are stored
+
+    typedef typename IndexContainer::const_iterator ConstIndexIterator;    // Const iterator to the list of indices of the IndexMap.
+    typedef typename Container::iterator            Iterator;              // Iterator to the list of objects of the IndexMap.
+    typedef typename Container::const_iterator      ConstIterator;         // Const iterator to the list of objects of the IndexMap.
 
     /// ===============================================================================
     /// CONSTRUCTOR
@@ -43,12 +46,9 @@ public:
     /// INSERT
     /// ===============================================================================
     inline Index insert( const T& obj );                    // Insert a object in the IndexMap. Return an invalid index if the object is not inserted.
-    inline bool  insert( const T& obj, Index& idx );        // Insert a object in the IndexMap. Return true if the object is inserted, and store it in idx.
 
     template<typename... Args>
     inline Index emplace( const Args&&... args );             // Construct an object in place in the IndexMap. Return an invalid index if the object is not inserted.
-    template<typename... Args>
-    inline bool  emplace(  Index& idx, const Args&&... args ); // Construct an object in place in the IndexMap. Return true if the object is inserted, and store it in idx.
 
     /// ===============================================================================
     /// REMOVE
@@ -59,10 +59,8 @@ public:
     /// ACCESS
     /// ===============================================================================
     inline const T&  at( const Index& idx ) const;          // Return the object with the given index. Crash if the index is not present.
-    inline bool  at( const Index& idx, T& obj ) const;      // Return the object with the given index. Return false if the index is not present, true otherwise.
 
     inline T&    access( const Index& idx );                // Return a reference to the object with the given index. Crash if index is not present.
-    inline bool  access( const Index& idx, T& obj );        // Return a reference to the object with the given index. Return false if the index is not present, true otherwise.
 
     /// ===============================================================================
     /// SIZE
@@ -76,7 +74,6 @@ public:
     inline bool  empty() const;                             // Return true if the IndexMap is empty.
     inline bool  full()  const;                             // Return true if the IndexMap cannot contain more objects.
     inline bool  contains( const Index& idx ) const;         // Return true if the IndexMap contains a object with the given index.
-    inline bool  compact() const;                           // Return true if the indices in the map are all consecutive.
     inline Index index( const uint i ) const;               // Return the i-th index. Return an invalid index if i is out of bound.
 
     /// ===============================================================================
@@ -105,8 +102,8 @@ protected:
     /// ===============================================================================
     /// VARIABLE
     /// ===============================================================================
-    std::deque< T >     m_data;                             // Objects in the IndexMap
-    std::deque< Index > m_index;                            // Indices in the IndexMap
+    Container      m_data;                             // Objects in the IndexMap
+    IndexContainer m_index;                            // Indices in the IndexMap
 
 private:
     /// ===============================================================================
@@ -119,10 +116,15 @@ private:
     /// ===============================================================================
     inline bool pop_free_index( Index& idx );               // Pop a free index from the list of free indices. Return false if no free indices are available.
 
+
+    inline ConstIterator citfromIndex( const ConstIndexIterator& it )const ;
+    inline Iterator itfromIndex( const ConstIndexIterator& it );
+    inline size_t idxfromIndex( const ConstIndexIterator& it )const ;
+
     /// ===============================================================================
     /// VARIABLE
     /// ===============================================================================
-    std::deque< Index > m_free;                             // List of available free indices.
+    IndexContainer m_free;                             // List of available free indices.
 };
 
 } // namespace Core
