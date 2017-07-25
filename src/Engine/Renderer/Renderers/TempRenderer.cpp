@@ -77,6 +77,7 @@ namespace Ra
         void TempRenderer::initShaders()
         {
             m_shaderMgr->addShaderProgram("New", "Shaders/Simple.vert.glsl", "Shaders/Simple.frag.glsl");
+            m_shaderMgr->addShaderProgram("Quad", "Shaders/Quad.vert.glsl", "Shaders/Quad.frag.glsl");
         }
 
         void TempRenderer::initBuffers()
@@ -86,11 +87,19 @@ namespace Ra
             GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
 
             m_textures[RendererTextures_Normal].reset(new Texture("Normal Texture"));
-
             m_textures[RendererTextures_Normal]->internalFormat = GL_RGBA32F;
             m_textures[RendererTextures_Normal]->dataType = GL_FLOAT;
-
             m_secondaryTextures["Normal"] = m_textures[RendererTextures_Normal].get();
+
+            m_textures[RendererTextures_Position].reset(new Texture("Position Texture"));
+            m_textures[RendererTextures_Position]->internalFormat = GL_RGBA32F;
+            m_textures[RendererTextures_Position]->dataType = GL_FLOAT;
+            m_secondaryTextures["Position"] = m_textures[RendererTextures_Position].get();
+
+            m_textures[RendererTextures_Quad].reset(new Texture("Quad Texture"));
+            m_textures[RendererTextures_Quad]->internalFormat = GL_RGBA32F;
+            m_textures[RendererTextures_Quad]->dataType = GL_FLOAT;
+            m_secondaryTextures["Quad"] = m_textures[RendererTextures_Quad].get();
         }
 
         void TempRenderer::updateStepInternal( const RenderData& renderData )
@@ -125,10 +134,12 @@ namespace Ra
             m_fbo->bind();
 
             GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
-            GL_ASSERT( glDrawBuffers( 2, buffers ) );
+            GL_ASSERT( glDrawBuffers( 4, buffers ) );
 
             GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearColor.data() ) );   // Clear color
             GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearZeros.data() ) );   // Clear normals
+            GL_ASSERT( glClearBufferfv( GL_COLOR, 2, clearZeros.data() ) );
+            GL_ASSERT( glClearBufferfv( GL_COLOR, 3, clearZeros.data() ) );
 
             GL_ASSERT( glDepthFunc( GL_LESS) );
             GL_ASSERT( glDepthMask( GL_FALSE ) );
@@ -137,7 +148,6 @@ namespace Ra
             GL_ASSERT( glBlendFunc( GL_ONE, GL_ONE ) );
 
             shader = m_shaderMgr->getShaderProgram("New");
-            //shader->bind();
             for ( const auto& l : m_lights )
             {
                 RenderParameters params;
@@ -148,7 +158,20 @@ namespace Ra
                     ro->render(params, renderData, shader);
                 }
             }
+      //      GL_ASSERT( glDrawBuffers(1, buffers) );
+        //    GL_ASSERT( glDepthMask( GL_FALSE ) );
+          //  GL_ASSERT( glDepthFunc( GL_LESS) );
+         //   GL_ASSERT( glEnable( GL_BLEND ) );
+//            GL_ASSERT( glBlendFunc( GL_ONE, GL_ONE ) );
 
+            shader = m_shaderMgr->getShaderProgram("Quad");
+            shader->bind();
+            shader->setUniform("color", m_textures[RendererTextures_Position].get(), 0);
+            shader->setUniform("normal", m_textures[RendererTextures_Normal].get(), 1);
+            shader->setUniform("WindowSize", Core::Vector2(m_width,m_height));
+
+
+            m_quadMesh->render();
             // Restore state
             GL_ASSERT( glDepthFunc( GL_LESS ) );
             GL_ASSERT( glDisable( GL_BLEND ) );
@@ -172,12 +195,16 @@ namespace Ra
         void TempRenderer::resizeInternal()
         {
             m_textures[RendererTextures_Normal]->Generate(m_width, m_height, GL_RGBA);
+            m_textures[RendererTextures_Position]->Generate(m_width, m_height, GL_RGBA);
+            m_textures[RendererTextures_Quad]->Generate(m_width, m_height, GL_RGBA);
 
             m_fbo->bind();
             glViewport( 0, 0, m_width, m_height );
 
             m_fbo->attachTexture(GL_COLOR_ATTACHMENT0, m_fancyTexture.get()->texture());
             m_fbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_Normal].get()->texture());
+            m_fbo->attachTexture(GL_COLOR_ATTACHMENT2, m_textures[RendererTextures_Position].get()->texture());
+            m_fbo->attachTexture(GL_COLOR_ATTACHMENT3, m_textures[RendererTextures_Quad].get()->texture());
             if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
             {
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();

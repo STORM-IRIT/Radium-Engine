@@ -52,13 +52,9 @@ namespace Ra
         private:
             enum RendererTextures
             {
-                RendererTextures_Depth = 0,
-                RendererTextures_HDR,
                 RendererTextures_Normal,
-                RendererTextures_Diffuse,
-                RendererTextures_Specular,
-                RendererTextures_OITAccum,
-                RendererTextures_OITRevealage,
+                RendererTextures_Position,
+                RendererTextures_Quad,
                 RendererTexture_Count
             };
 
