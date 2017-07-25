@@ -5,9 +5,6 @@ layout (location = 1) in vec3 in_normal;
 
 uniform Transform transform;
 
-layout (location = 0) out vec3 out_position;
-layout (location = 1) out vec3 out_normal;
-
 out vec3 transformed_position;
 out vec3 transformed_normal;
 
