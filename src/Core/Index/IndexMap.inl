@@ -286,7 +286,7 @@ typename IndexMap<T>::Iterator IndexMap<T>::itfromIndex(const typename IndexMap<
 }
 
 template<typename T>
-size_t IndexMap<T>::idxfromIndex(const typename IndexMap::ConstIndexIterator &it) const
+size_t IndexMap<T>::idxfromIndex(const typename IndexMap<T>::ConstIndexIterator &it) const
 {
     return std::distance(m_index.cbegin(), it);
 }
