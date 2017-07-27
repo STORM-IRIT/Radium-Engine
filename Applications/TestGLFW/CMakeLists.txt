@@ -3,12 +3,14 @@ set(app_target testGLFW)
 #find_package(glfw3 REQUIRED)
 
 set (GLFW_LIB "/usr/lib/x86_64-linux-gnu/libglfw.so")
-
+set (NANOGUI_DIR "/home/louen/these/nanogui/include")
+set (NANOGUI_LIB "/home/louen/these/nanogui/build/libnanogui.a")
 
 # Access to Radium headers and declarations/defintions
 include_directories(
     .
     ${RADIUM_INCLUDE_DIRS}
+    ${NANOGUI_DIR}
 )
 
 
@@ -22,6 +24,7 @@ file( GLOB file_headers *.hpp *.h )
 add_executable( ${app_target} ${file_sources} ${file_headers} )
 
 add_dependencies( ${app_target} radiumEngine radiumCore radium_assets)
+target_compile_options(${app_target} PRIVATE -fexceptions)
 
 
 # Link good libraries
@@ -29,6 +32,7 @@ target_link_libraries( ${app_target} # target
     ${RADIUM_LIBRARIES}              # Radium libs
     ${GLBINDING_LIBRARIES}           # Radium dep
     ${GLFW_LIB}
+    ${NANOGUI_LIB}
 )
 
 if (MSVC)

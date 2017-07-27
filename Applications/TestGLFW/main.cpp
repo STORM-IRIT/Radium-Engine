@@ -26,6 +26,11 @@
 
 #include <GLFW/glfw3.h>
 
+#include <nanogui/screen.h>
+#include <nanogui/formhelper.h>
+
+
+
 
 class MinimalComponent : public Ra::Engine::Component
 {
@@ -36,6 +41,7 @@ public:
     /// setup, i.e. it has an entity.
     void  initialize()  override
     {
+        m_speed = 0.01f;
         // Create a cube mesh render object.
         std::shared_ptr<Ra::Engine::Mesh> display(new Ra::Engine::Mesh("Cube"));
         display->loadGeometry(Ra::Core::MeshUtils::makeBox({0.1f, 0.1f, 0.1f}));
@@ -48,7 +54,7 @@ public:
     /// This function will spin our cube
     void  spin()
     {
-        Ra::Core::AngleAxis aa(0.01f, Ra::Core::Vector3::UnitY());
+        Ra::Core::AngleAxis aa(m_speed, Ra::Core::Vector3::UnitY());
         Ra::Core::Transform rot(aa);
 
         auto ro = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(
@@ -56,6 +62,8 @@ public:
         Ra::Core::Transform t = ro->getLocalTransform();
         ro->setLocalTransform(rot * t);
     }
+
+    Scalar m_speed ;
 };
 
 /// This system will be added to the engine. Every frame it will
@@ -88,15 +96,10 @@ struct RenderContext
 {
     Ra::Engine::Renderer* renderer;
     Ra::Engine::Camera* camera;
+    nanogui::Screen* screen;
 };
 RenderContext g_context;
 
-/// Function called when resizing the viewport
-void resizeCallback( GLFWwindow* window, int width, int height)
-{
-    g_context.renderer->resize(width, height);
-    g_context.camera->resize(Scalar(width),Scalar(height));
-}
 
 int main()
 {
@@ -137,7 +140,6 @@ int main()
 
     // Initialize Renderer
     glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, resizeCallback);
     globjects::init(globjects::Shader::IncludeImplementation::Fallback);
 
     std::unique_ptr<Ra::Engine::Camera> camera ( new Ra::Engine::Camera(height, width));
@@ -146,9 +148,8 @@ int main()
     std::unique_ptr<Ra::Engine::Renderer> renderer(new Ra::Engine::ForwardRenderer(width, height));
     renderer->initialize();
 
-    // Setup the globals
-    g_context.renderer = renderer.get();
-    g_context.camera = camera.get();
+
+
 
     // Initialize scene
     camera->setPosition({0,1,1});
@@ -157,10 +158,72 @@ int main()
     Ra::Engine::System* sys = new MinimalSystem;
     engine->registerSystem("Minimal system", sys);
     Ra::Engine::Entity* e = engine->getEntityManager()->createEntity("Cube");
-    Ra::Engine::Component* c = new MinimalComponent;
+    MinimalComponent* c = new MinimalComponent;
     e->addComponent(c);
     sys->registerComponent(e, c);
     c->initialize();
+
+
+    // Initialize nanogui
+    nanogui::Screen* screen = new nanogui::Screen();
+    screen->initialize(window, true);
+
+    nanogui::FormHelper* gui = new nanogui::FormHelper(screen);
+    nanogui::ref<nanogui::Window>ngWindow = gui->addWindow({10,10}, "Gui");
+    gui->addVariable("speed", c->m_speed)->setSpinnable(true);
+
+    screen->setVisible(true);
+    screen->performLayout();
+    ngWindow->center();
+
+
+    glfwSetCursorPosCallback(window,
+                             [](GLFWwindow *, double x, double y) {
+        g_context.screen->cursorPosCallbackEvent(x, y);
+    }
+    );
+
+    glfwSetMouseButtonCallback(window,
+                               [](GLFWwindow *, int button, int action, int modifiers) {
+        g_context.screen->mouseButtonCallbackEvent(button, action, modifiers);
+    }
+    );
+
+    glfwSetKeyCallback(window,
+                       [](GLFWwindow *, int key, int scancode, int action, int mods) {
+        g_context.screen->keyCallbackEvent(key, scancode, action, mods);
+    }
+    );
+
+    glfwSetCharCallback(window,
+                        [](GLFWwindow *, unsigned int codepoint) {
+        g_context.screen->charCallbackEvent(codepoint);
+    }
+    );
+
+    glfwSetDropCallback(window,
+                        [](GLFWwindow *, int count, const char **filenames) {
+        g_context.screen->dropCallbackEvent(count, filenames);
+    }
+    );
+
+    glfwSetScrollCallback(window,
+                          [](GLFWwindow *, double x, double y) {
+        g_context.screen->scrollCallbackEvent(x, y);
+    }
+    );
+    glfwSetFramebufferSizeCallback(window,
+                                   [] (GLFWwindow* window, int width, int height) {
+        g_context.renderer->resize(width, height);
+        g_context.camera->resize(Scalar(width), Scalar(height));
+        g_context.screen->resizeCallbackEvent(width, height);
+    }
+    );
+
+    g_context.camera = camera.get();
+    g_context.renderer= renderer.get();
+    g_context.screen = screen;
+
 
     // Main loop
     while (!glfwWindowShouldClose(window))
@@ -185,6 +248,9 @@ int main()
         data.viewMatrix = camera->getViewMatrix();
         data.projMatrix = camera->getProjMatrix();
         renderer->render(data);
+
+        screen->drawContents();
+        screen->drawWidgets();
 
         // End of frame
         glfwSwapBuffers(window);
