@@ -28,9 +28,9 @@ namespace AnimationPlugin
         m_renderParams.reset(new Ra::Engine::RenderTechnique());
         {
             m_renderParams->shaderConfig = shader;
-            m_renderParams->material = m_material.get();
+            m_renderParams->material = m_material;
         }
-        renderObject->setRenderTechnique(m_renderParams.get());
+        renderObject->setRenderTechnique(m_renderParams);
 
         std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( name ) );
 

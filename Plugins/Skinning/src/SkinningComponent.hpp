@@ -3,13 +3,13 @@
 
 #include <SkinningPluginMacros.hpp>
 
-#include <Core/Math/DualQuaternion.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
 #include <Core/Animation/Handle/HandleWeight.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Skinning/SkinningData.hpp>
+#include <Core/Math/DualQuaternion.hpp>
+#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/File/HandleData.hpp>
 
-#include <Engine/Assets/HandleData.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
@@ -48,9 +48,10 @@ namespace SkinningPlugin
         const Ra::Core::Skinning::FrameData* getFrameData() const { return &m_frameData;}
         const Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion >* getDQ() const {return &m_DQ;}
 
-    private:
+    public:
         void setupIO(const std::string &id);
         void setupSkinningType( SkinningType type);
+        void setContentsName (const std::string name);
 
     private:
         std::string m_contentsName;

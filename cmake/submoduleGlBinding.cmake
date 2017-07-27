@@ -1,3 +1,10 @@
+# Allow to compile with AppleCLang
+if ( APPLE AND ${CMAKE_CXX_COMPILER_ID} EQUAL Clang )
+    set( PLATFORM_ARGS "" )
+else()
+    set( PLATFORM_ARGS "-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false" )
+endif()
+
 
 # here is defined the way we want to import glbinding
 ExternalProject_Add(
@@ -23,7 +30,7 @@ ExternalProject_Add(
     -DCMAKE_BUILD_TYPE=${RADIUM_SUBMODULES_BUILD_TYPE}
     -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
     -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-    -DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false
+    ${PLATFORM_ARGS}
     STEP_TARGETS build
     EXCLUDE_FROM_ALL TRUE
     )
@@ -33,14 +40,19 @@ add_custom_target(glbinding_lib
     DEPENDS glbinding
     )
 # ----------------------------------------------------------------------------------------------------------------------
+if(${RADIUM_SUBMODULES_BUILD_TYPE} MATCHES Debug)
+    set(GLBINDINGLIBNAME glbindingd)
+else()
+    set(GLBINDINGLIBNAME glbinding)
+endif()
 
 set(GLBINDING_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include)
 if( APPLE )
-    set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.dylib" )
+    set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLBINDINGLIBNAME}.dylib" )
 elseif ( UNIX )
-    set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.so")
+    set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLBINDINGLIBNAME}.so")
 elseif (MINGW)
-    set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libglbinding.dll.a" )
+    set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLBINDINGLIBNAME}.dll.a" )
 elseif( MSVC )
     # in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
     if( MSVC70 OR MSVC71 )
@@ -59,6 +71,18 @@ elseif( MSVC )
         set(MSVC_PREFIX "vc140")
     endif()
 
-    set(GLBINDING_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/glbinding.lib")
+    set(GLBINDING_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${GLBINDINGLIBNAME}.dll")
+	if(RADIUM_SUBMODULES_BUILD_TYPE MATCHES Debug)
+		set(GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLBINDINGLIBNAME}.lib")
+	else()
+	    set(GLBINDING_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLBINDINGLIBNAME}.lib")
+	endif()
+
+	add_custom_target( glbinding_install_compiled_dll
+		COMMAND ${CMAKE_COMMAND} -E copy ${GLBINDING_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+		COMMENT "copy glbinding dll to bin dir" VERBATIM
+		DEPENDS glbinding
+	)
+	add_dependencies(glbinding_lib glbinding_install_compiled_dll)
 
 endif()

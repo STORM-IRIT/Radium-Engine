@@ -2,10 +2,6 @@
 
 #include <iostream>
 
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-
 #include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Containers/Algorithm.hpp>
@@ -13,7 +9,6 @@
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/Renderer/OpenGL/FBO.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>

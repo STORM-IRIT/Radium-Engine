@@ -89,10 +89,11 @@ elseif (MSVC)
         set (OMP_FLAG "")
     endif()
 
-    set(CMAKE_CXX_FLAGS                "/arch:AVX2 /GR- /EHs-c- /MP ${OMP_FLAG} ${CMAKE_CXX_FLAGS}")
+    set(CMAKE_CXX_FLAGS                "/arch:AVX2 /EHs-c- /MP ${OMP_FLAG} ${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS_DEBUG          "/D_DEBUG /DCORE_DEBUG /Od /Zi ${CMAKE_CXX_FLAGS_DEBUG} /MDd")
     set(CMAKE_CXX_FLAGS_RELEASE        "/DNDEBUG /Ox /fp:fast ${CMAKE_CXX_FLAGS_RELEASE} /MT")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi ${CMAKE_CXX_FLAGS_RELEASE}")
+	set(CMAKE_SHARED_LINKER_FLAGS      "/LTCG ${CMAKE_SHARED_LINKER_FLAGS}")
 
     # Problem with Qt linking
     # FIXME(Charly): Not sure if this should be done on Linux
@@ -101,6 +102,10 @@ elseif (MSVC)
 endif()
 
 # Additional flags depending on build options =================================
+
+if ("${CMAKE_BUILD_TYPE}"  STREQUAL "Release" )
+    add_definitions(-DNO_DEBUG_INFO)
+endif()
 
 if (${RADIUM_WITH_DOUBLE_PRECISION})
   add_definitions(-DCORE_USE_DOUBLE)
@@ -147,11 +152,30 @@ if (${RADIUM_FORCE_ASSERTS})
     add_definitions(-DCORE_USE_ASSERT)
 endif()
 
+if (${RADIUM_ASSIMP_SUPPORT})
+    add_definitions(-DIO_USE_ASSIMP)
+    message(STATUS "${PROJECT_NAME} : Using Assimp loader")
+else()
+    message(STATUS "${PROJECT_NAME} : Assimp loader disabled")
+endif()
+
+if (${RADIUM_PBRT_SUPPORT})
+    add_definitions(-DIO_USE_PBRT)
+    message(STATUS "${PROJECT_NAME} : Using PBRT loader")
+else()
+    message(STATUS "${PROJECT_NAME} : PBRT loader disabled")
+endif()
+
+
+
+# Additional flags depending on system        =================================
+
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
     message(STATUS "${PROJECT_NAME} : 64 bits build")
 else()
     message(STATUS "${PROJECT_NAME} : 32 bits build")
 endif()
+
 
 
 # Set build configurations ====================================================

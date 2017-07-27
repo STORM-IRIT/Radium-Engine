@@ -1,10 +1,9 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
+#include <Core/File/GeometryData.hpp>
 #include <Core/Geometry/Normal/Normal.hpp>
-
-#include <Engine/Assets/GeometryData.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
 
 #include <Engine/Component/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
@@ -49,13 +48,14 @@ namespace Ra
 
         RenderObject* RenderObject::createRenderObject(const std::string& name, Component* comp,
                                                        const RenderObjectType& type, const std::shared_ptr<Mesh> &mesh,
-                                                       const ShaderConfiguration &shaderConfig, Material *material)
+                                                       const ShaderConfiguration &shaderConfig,
+                                                       const std::shared_ptr<Material>& material)
         {
             RenderObject* obj = new RenderObject(name, comp, type);
             obj->setMesh(mesh);
             obj->setVisible(true);
 
-            RenderTechnique* rt = new RenderTechnique;
+            std::shared_ptr<RenderTechnique> rt(new RenderTechnique);
 
             if (shaderConfig.isComplete())
             {
@@ -73,7 +73,7 @@ namespace Ra
             else
             {
                 // Lightgrey non specular material by default
-                rt->material = new Material(name + "_Mat");
+                rt->material.reset(new Material(name + "_Mat"));
                 rt->material->m_kd = Core::Color::Constant(0.9f);
                 rt->material->m_ks = Core::Color::Zero();
             }
@@ -83,9 +83,19 @@ namespace Ra
             return obj;
         }
 
+        // FIXME(Mathias) Remove this function if not use anywhere
         RenderObject* RenderObject::createFancyFromAsset(const std::string& name, Component* comp, const Asset::GeometryData* asset, bool allow_transparency)
         {
-            auto displayMesh = Core::make_shared<Ra::Engine::Mesh>(name);
+            std::string meshName = name;
+            meshName.append( "_Mesh" );
+
+            std::string matName = name;
+            matName.append( "_Mat" );
+
+            std::string roName(name);
+            roName.append( "_RO" );
+
+            auto displayMesh = Core::make_shared<Ra::Engine::Mesh>(meshName);
 
             Core::TriangleMesh mesh;
             Core::Transform T = asset->getFrame();
@@ -122,7 +132,7 @@ namespace Ra
             displayMesh->addData(Mesh::VERTEX_TEXCOORD, texcoords);
             displayMesh->addData(Mesh::VERTEX_COLOR, colors);
 
-            Material* mat = new Material(name);
+            std::shared_ptr<Material> mat (new Material(name));
 
             auto m = asset->getMaterial();
 
@@ -174,7 +184,7 @@ namespace Ra
 #endif
 
             auto shaderConfig = ShaderConfigurationFactory::getConfiguration("BlinnPhong");
-            auto result = createRenderObject(name, comp, RenderObjectType::Fancy, displayMesh, shaderConfig, mat);
+            auto result = createRenderObject(roName, comp, RenderObjectType::Fancy, displayMesh, shaderConfig, mat);
 
             if (allow_transparency && mat->m_alpha < 1.0)
             {
@@ -278,18 +288,18 @@ namespace Ra
             return m_component;
         }
 
-        void RenderObject::setRenderTechnique( RenderTechnique* technique )
+        void RenderObject::setRenderTechnique( const std::shared_ptr<RenderTechnique>& technique )
         {
             CORE_ASSERT( technique, "Passing a nullptr as render technique" );
             m_renderTechnique = technique;
         }
 
-        const RenderTechnique* RenderObject::getRenderTechnique() const
+        std::shared_ptr<const RenderTechnique> RenderObject::getRenderTechnique() const
         {
             return m_renderTechnique;
         }
 
-        RenderTechnique* RenderObject::getRenderTechnique()
+        std::shared_ptr<RenderTechnique> RenderObject::getRenderTechnique()
         {
             return m_renderTechnique;
         }

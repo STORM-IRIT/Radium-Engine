@@ -52,10 +52,12 @@ namespace FancyMeshPlugin
         const Ra::Core::TriangleMesh& getMesh() const;
 
 
-    private:
+    public:
         // Component communication management
         void setupIO(const std::string& id);
-
+        void setContentName (const std::string name);
+        void setDeformable (const bool b);
+    private:
         const Ra::Engine::Mesh& getDisplayMesh() const;
         Ra::Engine::Mesh& getDisplayMesh();
 

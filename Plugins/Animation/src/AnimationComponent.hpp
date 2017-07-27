@@ -3,14 +3,14 @@
 
 #include <AnimationPluginMacros.hpp>
 
-#include <Core/Animation/Pose/Pose.hpp>
-#include <Core/Animation/Handle/Skeleton.hpp>
 #include <Core/Animation/Animation.hpp>
+#include <Core/Animation/Handle/Skeleton.hpp>
 #include <Core/Animation/Handle/HandleWeight.hpp>
+#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/File/AnimationData.hpp>
+#include <Core/File/HandleData.hpp>
 
 #include <Engine/Component/Component.hpp>
-#include <Engine/Assets/HandleData.hpp>
-#include <Engine/Assets/AnimationData.hpp>
 
 namespace AnimationPlugin
 {
@@ -54,6 +54,9 @@ namespace AnimationPlugin
         void toggleSlowMotion( const bool status );
         void setAnimation( const uint i );
 
+        uint getBoneIdx(Ra::Core::Index index) const ;
+        Scalar getTime() const;
+
 
         void handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable );
         void handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data );
@@ -68,9 +71,9 @@ namespace AnimationPlugin
 
         virtual void setTransform(Ra::Core::Index roIdx, const Ra::Core::Transform& transform) override;
 
-    private:
+    public:
         // debug function to display the hierarchy
-        void printSkeleton(const Ra::Core::Animation::Skeleton& skeleton);private:
+        void printSkeleton(const Ra::Core::Animation::Skeleton& skeleton);
 
         //
         // Loading data functions
@@ -87,6 +90,8 @@ namespace AnimationPlugin
                       std::vector< bool >& processed,
                       std::map< uint, uint >& indexTable );
 
+        void setWeights (Ra::Core::Animation::WeightMatrix m);
+
         // Internal function to create the skinning weights.
         void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable );
 
@@ -94,12 +99,15 @@ namespace AnimationPlugin
         void setupSkeletonDisplay();
 
         // Component communication
+        void setContentName (const std::string name);
         void setupIO( const std::string& id );
 
         const Ra::Core::Animation::Skeleton*     getSkeletonOutput() const;
         const Ra::Core::Animation::RefPose*      getRefPoseOutput() const;
         const Ra::Core::Animation::WeightMatrix* getWeightsOutput() const;
         const bool*                              getWasReset() const;
+        const Ra::Core::Animation::Animation* getAnimation() const;
+        const Scalar* getTimeOutput() const;
 
     private:
         std::string m_contentName;
@@ -110,7 +118,6 @@ namespace AnimationPlugin
         Ra::Core::Animation::WeightMatrix m_weights; // Skinning weights ( should go in skinning )
 
         std::vector<SkeletonBoneRenderObject*> m_boneDrawables ; // Vector of bone display objects
-        bool   m_showSkeleton;
         uint   m_animationID;
         bool   m_animationTimeStep;
         Scalar m_animationTime;

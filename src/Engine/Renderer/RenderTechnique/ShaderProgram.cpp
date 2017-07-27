@@ -1,12 +1,16 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
-#include <Core/Log/Log.hpp>
-#include <algorithm>
-#include <iostream>
-#include <sstream>
+
+#include <globjects/Shader.h>
+#include <globjects/Program.h>
+#include <globjects/Texture.h>
+#include <globjects/NamedString.h>
+
+#include <globjects/base/File.h>
+#include <globjects/base/StaticStringSource.h>
+
 #include <fstream>
 #include <regex>
 
-#include <cstdio>
 #ifdef OS_WINDOWS
 #include <direct.h>
 #define getCurrentDir _getcwd
@@ -15,147 +19,323 @@
 #define getCurrentDir getcwd
 #endif
 
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <Core/Math/GlmAdapters.hpp>
+
 #include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra
 {
     namespace Engine
     {
-        // From OpenGL Shading Language 3rd Edition, p215-216
-        std::string getShaderInfoLog( GLuint shader )
+
+        ShaderProgram::ShaderProgram()
+            : m_program( nullptr )
         {
-            int infoLogLen;
-            int charsWritten;
-            GLchar* infoLog;
-            std::stringstream ss;
-
-            glGetShaderiv( shader, GL_INFO_LOG_LENGTH, &infoLogLen );
-
-            if ( infoLogLen > 0 )
+            for ( uint i = 0; i < m_shaderObjects.size(); ++i )
             {
-                infoLog = new GLchar[infoLogLen];
-                // error check for fail to allocate memory omitted
-                glGetShaderInfoLog( shader, infoLogLen, &charsWritten, infoLog );
-                ss << "InfoLog : " << std::endl << infoLog << std::endl;
-                delete[] infoLog;
-            }
-
-            return ss.str();
-        }
-
-        std::string getProgramInfoLog(GLuint program)
-        {
-            GLboolean status;
-
-            glGetProgramiv( program, GL_LINK_STATUS, & status );
-            if ( status != GL_TRUE )
-            {
-                int infoLogLen;
-                glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLen);
-
-                if (infoLogLen > 0)
-                {
-                    int charsWritten;
-                    GLchar* infoLog = new GLchar[infoLogLen];
-                    glGetProgramInfoLog(program, infoLogLen, &charsWritten, infoLog);
-                    std::stringstream ss;
-                    ss << "Shader link status : " << std::endl << infoLog << std::endl;
-                    delete[] infoLog;
-                    return ss.str();
-                }
-            }
-            return "";
-        }
-
-        ShaderObject::ShaderObject()
-            : m_attached(false)
-            , m_id(0)
-        {
-            m_lineerr.start = 1;
-            m_lineerr.end   = 1;
-        }
-
-        ShaderObject::~ShaderObject()
-        {
-            if ( m_id != 0 )
-            {
-                GL_ASSERT( glDeleteShader( m_id ) );
+                m_shaderObjects[i] = nullptr;
             }
         }
 
-        bool ShaderObject::loadAndCompile( GLenum type, const std::string& filename, const std::set<std::string>& properties )
+        ShaderProgram::ShaderProgram( const ShaderConfiguration& config )
+            : ShaderProgram()
         {
-            m_filename = filename;
-            m_lineerr.name = filename;
-            m_filepath = Core::StringUtils::getDirName(m_filename) + "/";
-            m_type = type;
-            m_properties = properties;
-            GL_ASSERT( m_id = glCreateShader( type ) );
+            load( config );
+        }
 
-            std::string shader;
-            if (type == GL_VERTEX_SHADER || type == GL_GEOMETRY_SHADER)
+        ShaderProgram::~ShaderProgram()
+        {
+
+        }
+
+        void ShaderProgram::loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props)
+        {
+    #ifdef OS_MACOS
+            if (type == ShaderType_COMPUTE)
             {
-                shader = "\
-                out gl_PerVertex { \
-                  vec4 gl_Position; \
-                  float gl_PointSize; \
-                  float gl_ClipDistance[]; \
-                };";
-                shader += preprocessIncludes(load(), 0, m_lineerr);
+                LOG(logERROR) << "No compute shader on OsX <= El Capitan";
+                return;
+            }
+    #endif
+            // FIXME : --> for the moment : standard includepaths. Might be controlled per shader ...
+            // Paths in which globjects will be looking for shaders includes.
+            // "/" refer to the root of the directory structure conaining the shader (i.e. the Shaders/ directory).
+            globjects::Shader::IncludePaths includePaths { std::string("/") };
+
+            // FIXED : use auto instead of the fully qualified type
+            auto loadedSource = globjects::Shader::sourceFromFile( name );
+
+            // header string that contains #version and pre-declarations ...
+            std::string shaderHeader;
+            if( type == ShaderType_VERTEX )
+            {
+                shaderHeader = std::string( "#version 410\n\n"
+                                            "out gl_PerVertex {\n"
+                                            "    vec4 gl_Position;\n"
+                                            "    float gl_PointSize;\n"
+                                            "    float gl_ClipDistance[];\n"
+                                            "};\n\n" );
             }
             else
             {
-                shader = preprocessIncludes(load(), 0, m_lineerr);
+                shaderHeader = std::string( "#version 410\n\n");
             }
-            if ( shader != "" )
+
+            auto fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
+
+            // FIXME Where are defined the global replacement?
+            auto shaderSource = globjects::Shader::applyGlobalReplacements( fullsource.get() );
+
+
+            auto shader = globjects::Shader::create( getTypeAsGLEnum( type ) );
+            shader->setIncludePaths( { std::string("/") } );
+
+            // Workaround globject #include bug ...
+            std::string preprocessedSource = preprocessIncludes(name, shaderSource->string(), 0);
+
+            auto ptrSource = globjects::Shader::sourceFromString(preprocessedSource);
+
+            shader->setSource(ptrSource.get());
+
+            shader->setName( name );
+
+            shader->compile();
+
+            GL_CHECK_ERROR;
+            m_shaderObjects[type].swap( shader );
+        }
+
+        GLenum ShaderProgram::getTypeAsGLEnum(ShaderType type) const
+        {
+            switch(type)
             {
-                compile( shader, properties );
+                case ShaderType_VERTEX: return GL_VERTEX_SHADER;
+                case ShaderType_FRAGMENT: return GL_FRAGMENT_SHADER;
+                case ShaderType_GEOMETRY: return GL_GEOMETRY_SHADER;
+                case ShaderType_TESS_EVALUATION: return GL_TESS_EVALUATION_SHADER;
+                case ShaderType_TESS_CONTROL: return GL_TESS_CONTROL_SHADER;
+#ifndef OS_MACOS
+                    // FIXED (Mathias) : GL_COMPUTE_SHADER requires OpenGL >= 4.2, Apple provides OpenGL 4.1
+                case ShaderType_COMPUTE: return GL_COMPUTE_SHADER;
+#endif
+                default: CORE_ERROR("Wrong ShaderType");
             }
 
-            return check();
+            // Should never get there
+            return GL_ZERO;
         }
 
-        bool ShaderObject::reloadAndCompile( const std::set<std::string>& properties )
+        ShaderType ShaderProgram::getGLenumAsType(GLenum type) const
         {
-            bool success = false;
-            LOG( logINFO ) << "Reloading shader " << m_filename;
-            success = loadAndCompile( m_type, m_filename, properties );
-            if (success)
-                return success;
-            else {
-                LOG( logINFO ) << "Failed to reload shader" << m_filename;
-                return false;
-            }
-        }
-
-        uint ShaderObject::getId() const
-        {
-            return m_id;
-        }
-
-        std::string ShaderObject::load()
-        {
-            std::string shader;
-
-            bool ok = parseFile( m_filename, shader );
-            if ( !ok )
+            switch(type)
             {
-                std::ostringstream error;
-                error << m_filename << " not found.\n";
-                char currentPath[FILENAME_MAX];
-                if (getCurrentDir( currentPath, sizeof( currentPath ) ) != nullptr)
+                case GL_VERTEX_SHADER: return ShaderType_VERTEX;
+                case GL_FRAGMENT_SHADER: return ShaderType_FRAGMENT;
+                case GL_GEOMETRY_SHADER: return ShaderType_GEOMETRY;
+                case GL_TESS_EVALUATION_SHADER: return ShaderType_TESS_EVALUATION;
+                case GL_TESS_CONTROL_SHADER: return ShaderType_TESS_CONTROL;
+#ifndef OS_MACOS
+                case GL_COMPUTE_SHADER: return ShaderType_COMPUTE;
+#endif
+                default: CORE_ERROR("Wrong GLenum");
+            }
+
+            // Should never get there
+            return ShaderType_COUNT;
+        }
+
+        void ShaderProgram::load( const ShaderConfiguration& shaderConfig )
+        {
+            m_configuration = shaderConfig;
+
+            CORE_ERROR_IF( m_configuration.isComplete(), ("Shader program " + shaderConfig.m_name + " misses vertex or fragment shader.").c_str() );
+
+            m_program = globjects::Program::create();
+
+            for (size_t i = 0; i < ShaderType_COUNT; ++i)
+            {
+                if (m_configuration.m_shaders[i] != "")
                 {
-                    error << "Path : " << currentPath;
+                    LOG( logDEBUG ) << "Loading shader " << m_configuration.m_shaders[i];
+                    loadShader(ShaderType(i), m_configuration.m_shaders[i], m_configuration.getProperties());
                 }
-                CORE_WARN_IF( !ok, error.str().c_str() );
-                return "";
             }
 
-            return shader;
+            link();
         }
 
-        std::string ShaderObject::preprocessIncludes(const std::string& shader, int level, struct LineErr& lerr)
+        void ShaderProgram::link()
+        {
+            for ( int i=0; i < ShaderType_COUNT; ++i )
+            {
+                if ( m_shaderObjects[i] )
+                {
+                    m_program->attach( m_shaderObjects[i].get() );
+                }
+            }
+
+            m_program->setParameter( GL_PROGRAM_SEPARABLE, GL_TRUE );
+
+            m_program->link();
+            GL_CHECK_ERROR;
+        }
+
+        void ShaderProgram::bind() const
+        {
+            m_program->use();
+        }
+
+        void ShaderProgram::validate() const
+        {
+            m_program->validate();
+            if (!m_program->isValid()) {
+                LOG( logDEBUG ) << m_program->infoLog();
+            }
+        }
+
+        void ShaderProgram::unbind() const
+        {
+            m_program->release();
+        }
+
+        void ShaderProgram::reload()
+        {
+            for ( unsigned int i = 0; i < m_shaderObjects.size(); ++i )
+            {
+                if ( m_shaderObjects[i] != nullptr )
+                {
+                    LOG( logDEBUG ) << "Reloading shader " << m_shaderObjects[i]->name();
+
+                    m_program->detach( m_shaderObjects[i].get() );
+                    loadShader( getGLenumAsType( m_shaderObjects[i]->type() ), m_shaderObjects[i]->name(), {} );
+                }
+            }
+
+            link();
+        }
+
+        ShaderConfiguration ShaderProgram::getBasicConfiguration() const
+        {
+            ShaderConfiguration basicConfig;
+
+            basicConfig.m_shaders = m_configuration.m_shaders;
+            basicConfig.m_name = m_configuration.m_name;
+
+            return basicConfig;
+        }
+
+        void ShaderProgram::setUniform( const char* name, int value ) const
+        {
+            m_program->setUniform( name, value );
+        }
+
+        void ShaderProgram::setUniform( const char* name, unsigned int value ) const
+        {
+            m_program->setUniform(name, value);
+        }
+
+        void ShaderProgram::setUniform( const char* name, float value ) const
+        {
+            m_program->setUniform( name, value );
+        }
+
+        void ShaderProgram::setUniform( const char* name, double value ) const
+        {
+            float v = static_cast<float>(value);
+
+            m_program->setUniform( name, v );
+        }
+
+        void ShaderProgram::setUniform( const char* name, const Core::Vector2f& value ) const
+        {
+            m_program->setUniform( name, Core::toGlm( value ) );
+        }
+
+        void ShaderProgram::setUniform( const char* name, const Core::Vector2d& value ) const
+        {
+            Core::Vector2f v = value.cast<float>();
+
+            m_program->setUniform( name, Core::toGlm( v ) );
+        }
+
+        void ShaderProgram::setUniform( const char* name, const Core::Vector3f& value ) const
+        {
+            m_program->setUniform( name, Core::toGlm( value ) );
+        }
+
+        void ShaderProgram::setUniform( const char* name, const Core::Vector3d& value ) const
+        {
+            Core::Vector3f v = value.cast<float>();
+
+            m_program->setUniform( name, Core::toGlm( v ) );
+        }
+
+        void ShaderProgram::setUniform( const char* name, const Core::Vector4f& value ) const
+        {
+            m_program->setUniform( name, Core::toGlm( value ) );
+        }
+
+        void ShaderProgram::setUniform( const char* name, const Core::Vector4d& value ) const
+        {
+            Core::Vector4f v = value.cast<float>();
+
+            m_program->setUniform( name, Core::toGlm( v ) );
+        }
+
+        void ShaderProgram::setUniform( const char* name, const Core::Matrix2f& value ) const
+        {
+            m_program->setUniform( name, Core::toGlm( value ) );
+        }
+
+        void ShaderProgram::setUniform( const char* name, const Core::Matrix2d& value ) const
+        {
+            Core::Matrix2f v = value.cast<float>();
+
+            m_program->setUniform( name, Core::toGlm( v ) );
+        }
+
+        void ShaderProgram::setUniform( const char* name, const Core::Matrix3f& value ) const
+        {
+            m_program->setUniform( name, Core::toGlm( value ) );
+        }
+
+        void ShaderProgram::setUniform( const char* name, const Core::Matrix3d& value ) const
+        {
+            Core::Matrix3f v = value.cast<float>();
+
+            m_program->setUniform( name, Core::toGlm( v ) );
+        }
+
+        void ShaderProgram::setUniform( const char* name, const Core::Matrix4f& value ) const
+        {
+            m_program->setUniform( name, Core::toGlm( value ) );
+        }
+
+        void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) const
+        {
+            Core::Matrix4f v = value.cast<float>();
+
+            m_program->setUniform( name, Core::toGlm( v ) );
+        }
+
+        // TODO : Provide Texture support
+        void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const
+        {
+            tex->bind( texUnit );
+
+            m_program->setUniform( name, texUnit );
+        }
+
+        globjects::Program * ShaderProgram::getProgramObject() const
+        {
+            return m_program.get();
+        }
+
+
+        /****************************************************
+         * Include workaround due to globject bugs
+         ****************************************************/
+        std::string ShaderProgram::preprocessIncludes(const std::string &name, const std::string& shader, int level, int line)
         {
             CORE_ERROR_IF(level < 32, "Shader inclusion depth limit reached.");
 
@@ -164,8 +344,7 @@ namespace Ra
             auto shaderLines = Core::StringUtils::splitString(shader, '\n');
             finalStrings.reserve(shaderLines.size());
 
-            uint nline = lerr.start;
-            LineErr sublerr;
+            uint nline = 0;
 
             static const std::regex reg("^[ ]*#[ ]*include[ ]+[\"<](.*)[\">].*");
 
@@ -175,6 +354,18 @@ namespace Ra
                 std::smatch match;
                 if (std::regex_search(l, match, reg))
                 {
+                    // FIXME : use the includePaths set elsewhere.
+                    auto includeNameString = globjects::NamedString::getFromRegistry(std::string("/") + match[1].str());
+                    if (includeNameString != nullptr )
+                    {
+
+                        line = preprocessIncludes(match[1].str(), includeNameString->string(), level + 1, 0);
+
+                    } else {
+                        LOG(logWARNING) << "Cannot open included file " <<  match[1].str() << " at line" << nline << " of file " << name <<". Ignored.";
+                        continue;
+                    }
+/*
                     std::string inc;
                     std::string file = m_filepath + match[1].str();
                     if (parseFile(file, inc))
@@ -191,6 +382,7 @@ namespace Ra
                         LOG(logWARNING) << "Cannot open included file " << file << " from " << m_filename << ". Ignored.";
                         continue;
                     }
+ */
                 }
 
                 finalStrings.push_back(line);
@@ -206,412 +398,8 @@ namespace Ra
 
             result.append("\0");
 
-            lerr.end = nline - 1;
 
             return result;
-        }
-
-        void ShaderObject::compile( const std::string& shader, const std::set<std::string>& properties )
-        {
-            const char* data[3];
-            data[0] = "#version 410\n";
-
-            std::stringstream ss;
-            for ( auto property : properties )
-            {
-                ss << property << "\n";
-            }
-            std::string str = ss.str();
-            data[1] = str.c_str();
-            data[2] = shader.c_str();
-
-            GL_ASSERT( glShaderSource( m_id, 3, data, nullptr ) );
-            GL_ASSERT( glCompileShader( m_id ) );
-        }
-
-        bool ShaderObject::check()
-        {
-            GLint ok;
-            std::stringstream error;
-            std::string message;
-            uint wrongline;
-
-            GL_ASSERT( glGetShaderiv( m_id, GL_COMPILE_STATUS, &ok ) );
-
-            if ( !ok )
-            {
-                message = getShaderInfoLog( m_id );
-                wrongline = lineParseGLMesg(message) - 2;
-                error << "\nUnable to compile " << lineFind(wrongline) << " (in shader " << m_filename << ") :";
-                error << std::endl << message;
-
-                // For now, crash when a shader is not compiling
-                if (!ok)
-                {
-                    LOG(logERROR) << error.str();
-                }
-            }
-            return (ok != 0);
-        }
-
-        bool ShaderObject::parseFile( const std::string& filename, std::string& content )
-        {
-            std::ifstream ifs( filename.c_str(), std::ios::in );
-            if ( !ifs )
-            {
-                return false;
-            }
-
-            std::stringstream buf;
-            buf << ifs.rdbuf();
-            content = buf.str();
-
-            ifs.close();
-            return true;
-        }
-
-        ShaderProgram:: ShaderProgram()
-            : m_linked(false)
-            , m_shaderId( 0 )
-        {
-            for ( uint i = 0; i < m_shaderObjects.size(); ++i )
-            {
-                m_shaderObjects[i] = nullptr;
-                m_shaderStatus[i]  = false;
-            }
-        }
-
-        ShaderProgram::ShaderProgram( const ShaderConfiguration& config )
-            : ShaderProgram()
-        {
-            load( config );
-        }
-
-        ShaderProgram::~ShaderProgram()
-        {
-            if ( m_shaderId != 0 )
-            {
-                for ( auto shader : m_shaderObjects )
-                {
-                    if ( shader )
-                    {
-                        if ((shader->getId() != 0) && shader->m_attached)
-                        {
-                            GL_ASSERT( glDetachShader( m_shaderId, shader->getId() ) );
-                        }
-                        delete shader;
-                    }
-                }
-                glDeleteProgram( m_shaderId );
-            }
-        }
-
-        uint ShaderProgram::getId() const
-        {
-            return m_shaderId;
-        }
-
-        bool ShaderProgram::isOk() const
-        {
-            bool ok = true;
-            for ( uint i = 0; i < ShaderType_COUNT; ++i )
-            {
-                if ( m_configuration.m_shaders[i] != "" )
-                {
-                    ok = ( ok && m_shaderStatus[i] );
-                }
-            }
-            return ok;
-        }
-
-        void ShaderProgram::loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props)
-        {
-    #ifdef OS_MACOS
-            if (type == ShaderType_COMPUTE)
-            {
-                LOG(logERROR) << "No compute shader on OsX <= El Capitan";
-                return;
-            }
-    #endif
-            ShaderObject* shader = new ShaderObject;
-            bool status = shader->loadAndCompile(getTypeAsGLEnum(type), name, props);
-            m_shaderObjects[type] = shader;
-            m_shaderStatus[type]  = status;
-        }
-
-        bool ShaderObject::lineInside(const struct LineErr* node, uint line) const
-        {
-            return (node->start <= line) && (node->end >= line);
-        }
-
-        std::string ShaderObject::lineFind(uint line) const
-        {
-            // just a wrapper to keep lineerr hidden
-            return lineFind(&m_lineerr, line);
-        }
-
-        std::string ShaderObject::lineFind(const struct LineErr* node, uint line) const
-        {
-            // first of all check if we can find line in this chunk (should never e)
-            if (! lineInside(node, line))
-                return "";
-
-            // so we are in the good place, check in every subfile
-            auto it = node->subfiles.begin();
-            uint found = NOT_FOUND, offset = 0;
-
-            while ((it != node->subfiles.end()) && (found == NOT_FOUND))
-            {
-                // if the line is before the beginning of subfile
-                if (line < it->start)
-                {
-                    found = FOUND_OUTSIDE;
-                }
-                // else line could be in or after the subfile
-                else
-                {
-                    found = lineInside(&(*it), line) ? FOUND_INSIDE : NOT_FOUND;
-                    offset += it->end - it->start;
-                    if (found == NOT_FOUND)
-                        ++ it;
-                }
-            }
-
-            uint realline = line - offset - node->start;
-
-            // print the error message
-            switch (found) {
-            case NOT_FOUND:
-            case FOUND_OUTSIDE:
-                return node->name + " (line " + std::to_string(realline) + ")";
-                break;
-            case FOUND_INSIDE:
-                return lineFind(&(*it), line);
-                break;
-            default:
-                return node->name + " (bad line)";
-                break;
-            }
-        }
-
-        uint ShaderObject::lineParseGLMesg(const std::string& msg) const
-        {
-            uint errline = 0;
-            sscanf(msg.c_str(), "%*s\n %*s 0(%u) ", &errline);
-            return errline;
-        }
-
-        void ShaderObject::linePrint(const LineErr *node, uint level) const
-        {
-            for (uint i = 1; i-1 < level; ++i)
-                  std::cout << "  ";
-            std::cout << " └ ";
-
-            // presentation
-            std::cout << "file " << node->name << " [";
-            std::cout << node->start << "," << node->end << "]";
-
-            if (! node->subfiles.empty())
-                std::cout << " including:";
-            std::cout << std::endl;
-
-            // inclusions
-            for (auto const& sub: node->subfiles)
-            {
-                linePrint(&sub, level+1);
-            }
-        }
-
-        GLenum ShaderProgram::getTypeAsGLEnum(ShaderType type) const
-        {
-            switch(type)
-            {
-                case ShaderType_VERTEX: return GL_VERTEX_SHADER;
-                case ShaderType_FRAGMENT: return GL_FRAGMENT_SHADER;
-                case ShaderType_GEOMETRY: return GL_GEOMETRY_SHADER;
-                case ShaderType_TESS_EVALUATION: return GL_TESS_EVALUATION_SHADER;
-                case ShaderType_TESS_CONTROL: return GL_TESS_CONTROL_SHADER;
-#ifndef OS_MACOS
-                // FIXED (Mathias) : GL_COMPUTE_SHADER requires OpenGL >= 4.2, Apple provides OpenGL 4.1
-                case ShaderType_COMPUTE: return GL_COMPUTE_SHADER;
-#endif
-                default: CORE_ERROR("Wrong ShaderType");
-            }
-            // Should never get there
-            return GL_ZERO;
-        }
-
-        void ShaderProgram::load( const ShaderConfiguration& shaderConfig )
-        {
-            //    LOG(INFO) << "Loading shader " << shaderConfig.getName() << " <type = " << std::hex << shaderConfig.getType() << std::dec << ">";
-            m_configuration = shaderConfig;
-
-            CORE_ERROR_IF(m_configuration.isComplete(), ("Shader program " + shaderConfig.m_name + " misses vertex or fragment shader.").c_str());
-
-            GL_ASSERT( m_shaderId = glCreateProgram() );
-
-            for (size_t i = 0; i < ShaderType_COUNT; ++i)
-            {
-                if (m_configuration.m_shaders[i] != "")
-                {
-                    loadShader(ShaderType(i), m_configuration.m_shaders[i], m_configuration.getProperties());
-                }
-            }
-
-            link();
-        }
-
-        void ShaderProgram::link()
-        {
-            if (! isOk())
-                return;
-
-            for (int i=0; i < ShaderType_COUNT; ++i)
-            {
-                if (m_shaderObjects[i])
-                {
-                    GL_ASSERT( glAttachShader( m_shaderId, m_shaderObjects[i]->getId() ) );
-                    m_shaderObjects[i]->m_attached = true;
-                }
-            }
-
-            GL_ASSERT( glProgramParameteri(m_shaderId, GL_PROGRAM_SEPARABLE, GL_TRUE) );
-            GL_ASSERT( glLinkProgram( m_shaderId ) );
-
-            auto log = getProgramInfoLog(m_shaderId);
-            if (log.size() > 0)
-            {
-                LOG(logINFO) << "Shader name : " << m_configuration.m_name;
-                LOG(logINFO) << log;
-            }
-        }
-
-        void ShaderProgram::bind() const
-        {
-            CORE_ASSERT( m_shaderId != 0, "Shader is not initialized" );
-            CORE_ASSERT(checkOpenGLContext(), "Meh");
-            GL_ASSERT( glUseProgram( m_shaderId ) );
-        }
-
-        void ShaderProgram::unbind() const
-        {
-            GL_ASSERT( glUseProgram( 0 ) );
-        }
-
-        void ShaderProgram::reload()
-        {
-            for ( unsigned int i = 0; i < m_shaderObjects.size(); ++i )
-            {
-                if ( m_shaderObjects[i] != nullptr )
-                {
-                    GL_ASSERT( glDetachShader( m_shaderId, m_shaderObjects[i]->getId() ) );
-                    m_shaderObjects[i]->reloadAndCompile( m_configuration.getProperties() );
-                }
-            }
-
-            link();
-        }
-
-        ShaderConfiguration ShaderProgram::getBasicConfiguration() const
-        {
-            ShaderConfiguration basicConfig;
-            basicConfig.m_shaders = m_configuration.m_shaders;
-            basicConfig.m_name = m_configuration.m_name;
-            return basicConfig;
-        }
-
-        void ShaderProgram::setUniform( const char* name, int value ) const
-        {
-            GL_ASSERT( glUniform1i( glGetUniformLocation( m_shaderId, name ), value ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, unsigned int value ) const
-        {
-            GL_ASSERT( glUniform1ui( glGetUniformLocation( m_shaderId, name ), value ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, float value ) const
-        {
-            GL_ASSERT( glUniform1f( glGetUniformLocation( m_shaderId, name ), value ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, double value ) const
-        {
-            float v = static_cast<float>(value);
-            GL_ASSERT( glUniform1f( glGetUniformLocation( m_shaderId, name ), v ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, const Core::Vector2f& value ) const
-        {
-            GL_ASSERT( glUniform2fv( glGetUniformLocation( m_shaderId, name ), 1, value.data() ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, const Core::Vector2d& value ) const
-        {
-            Core::Vector2f v = value.cast<float>();
-            GL_ASSERT( glUniform2fv( glGetUniformLocation( m_shaderId, name ), 1, v.data() ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, const Core::Vector3f& value ) const
-        {
-            GL_ASSERT( glUniform3fv( glGetUniformLocation( m_shaderId, name ), 1, value.data() ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, const Core::Vector3d& value ) const
-        {
-            Core::Vector3f v = value.cast<float>();
-            GL_ASSERT( glUniform3fv( glGetUniformLocation( m_shaderId, name ), 1, v.data() ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, const Core::Vector4f& value ) const
-        {
-            GL_ASSERT( glUniform4fv( glGetUniformLocation( m_shaderId, name ), 1, value.data() ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, const Core::Vector4d& value ) const
-        {
-            Core::Vector4f v = value.cast<float>();
-            GL_ASSERT( glUniform4fv( glGetUniformLocation( m_shaderId, name ), 1, v.data() ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, const Core::Matrix2f& value ) const
-        {
-            GL_ASSERT( glUniformMatrix2fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, value.data() ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, const Core::Matrix2d& value ) const
-        {
-            Core::Matrix2f v = value.cast<float>();
-            GL_ASSERT( glUniformMatrix2fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, v.data() ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, const Core::Matrix3f& value ) const
-        {
-            GL_ASSERT( glUniformMatrix3fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, value.data() ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, const Core::Matrix3d& value ) const
-        {
-            Core::Matrix3f v = value.cast<float>();
-            GL_ASSERT( glUniformMatrix3fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, v.data() ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, const Core::Matrix4f& value ) const
-        {
-            GL_ASSERT( glUniformMatrix4fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, value.data() ) );
-        }
-
-        void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) const
-        {
-            Core::Matrix4f v = value.cast<float>();
-            GL_ASSERT( glUniformMatrix4fv( glGetUniformLocation( m_shaderId, name ), 1, GL_FALSE, v.data() ) );
-        }
-
-        // TODO : Provide Texture support
-        void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const
-        {
-            tex->bind( texUnit );
-            GL_ASSERT( glUniform1i( glGetUniformLocation( m_shaderId, name ), texUnit ) );
         }
 
 

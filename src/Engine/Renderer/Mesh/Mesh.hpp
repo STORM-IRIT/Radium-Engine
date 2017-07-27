@@ -113,6 +113,8 @@ namespace Ra
             /// Use the given geometry as base for a display mesh. Normals are optionnal.
             void loadGeometry( const Core::TriangleMesh& mesh);
 
+            void updateMeshGeometry(MeshData type, const Core::Vector3Array& data);
+
             // TODO (val) : remove this function (it is used mostly in the display primitives)
             void loadGeometry( const Core::Vector3Array& vertices, const std::vector<uint>& indices);
 

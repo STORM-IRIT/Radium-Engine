@@ -29,6 +29,9 @@ option(RADIUM_WITH_TEXTURES         "Compile Radium enabling texture loading stu
 option(RADIUM_WITH_PROFILING        "Enable functions profiling." OFF)
 option(RADIUM_WARNINGS_AS_ERRORS    "Treat compiler warning as errors" OFF)
 option(RADIUM_FORCE_ASSERTS         "Enable asserts regardless of build type" OFF)
+option(RADIUM_ASSIMP_SUPPORT        "Enable assimp loader" ON)
+option(RADIUM_PBRT_SUPPORT          "Enable pbrt loader" OFF)
+option(RADIUM_BUILD_APPS            "Choose to build or not radium applications" ON)
 
 if ( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Debug )
@@ -37,8 +40,8 @@ endif()
 
 # These paths need to be synchronized with FindRadium.cmake
 set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
-
-
+set(RADIUM_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(RADIUM_PLUGIN_OUTPUT_PATH "${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin/Plugins")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin)
 set(EXECUTABLE_OUTPUT_PATH         ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/lib)
@@ -51,9 +54,12 @@ if(GIT_FOUND)
   execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     OUTPUT_VARIABLE GIT_CHANGESET)
+    # remove new line sometime appearing in git changeset
+    string(REGEX REPLACE "\n$" "" GIT_CHANGESET "${GIT_CHANGESET}")
 else()
   set(GIT_CHANGESET "")
 endif()
+message("Git Changeset: ${GIT_CHANGESET}")
 
 
 # guard against in-source builds (source: Eigen)
@@ -101,22 +107,26 @@ endif(MSVC OR MSVC_IDE)
 # ----------------------------------------------------------------------------------------------------------------------
 #   SUBMODULES : assimp, glbinding, ....
 include(SubModules)
+set( RADIUM_INCLUDE_DIRS)
+list(APPEND RADIUM_INCLUDE_DIRS "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}" "${GLOBJECTS_INCLUDE_DIR}" "${OPENMESH_INCLUDE_DIR}")
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Main Libraries
 
-add_subdirectory(src)
+set(RADIUM_LIBRARIES)
+# Radium libraries are set in RADIUM_SRC_DIR
+add_subdirectory(${RADIUM_SRC_DIR})
+#message(INFO " Radium Lib (general) ${RADIUM_LIBRARIES}")
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Applications
 #   Set Base directories for dependencies
-
-add_subdirectory(Applications)
-
+if(RADIUM_BUILD_APPS)  
+  add_subdirectory(Applications)
+endif(RADIUM_BUILD_APPS)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   External plugins
-# FIXME(Charly) Not sure this is really the greatest idea ever
 add_subdirectory(Plugins)
 
 
@@ -155,17 +165,30 @@ endif(DOXYGEN_FOUND)
 #
 set(SHADER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
 
+if(MSVC OR MSVC_IDE OR MINGW)
 add_custom_target( radium_assets
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
     COMMENT "Copying shaders and other ressources" VERBATIM
 )
-
+else()
+    add_custom_target( radium_assets
+            COMMAND ${CMAKE_COMMAND} -E create_symlink ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
+            COMMENT "Linking (symlink) shaders and other ressources" VERBATIM
+            )
+endif()
 ################################################################################
 # Configs                                                                      #
 ################################################################################
 set(CONFIG_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Configs")
 
-add_custom_target( radium_configs
+if(MSVC OR MSVC_IDE OR MINGW)
+    add_custom_target( radium_configs
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${CONFIG_DIR} "${EXECUTABLE_OUTPUT_PATH}/Configs"
         COMMENT "Copying configs (keymapping)" VERBATIM
         )
+else()
+    add_custom_target( radium_configs
+            COMMAND ${CMAKE_COMMAND} -E create_symlink ${CONFIG_DIR} "${EXECUTABLE_OUTPUT_PATH}/Configs"
+            COMMENT "Linking (symlink) configs (keymapping)" VERBATIM
+            )
+endif()

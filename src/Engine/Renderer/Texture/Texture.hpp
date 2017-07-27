@@ -2,10 +2,17 @@
 #define RADIUMENGINE_TEXTURE_HPP
 
 #include <Engine/RaEngine.hpp>
+
 #include <string>
+#include <memory>
 
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
+
+namespace globjects
+{
+    class Texture;
+}
 
 namespace Ra
 {
@@ -177,16 +184,6 @@ namespace Ra
             void bind(int unit = -1);
 
             /**
-             * @brief Clear OpenGL internal data.
-             */
-            void deleteGL();
-
-            /**
-             * @return OpenGL internal id of the texture.
-             */
-            inline uint getId() const { return m_textureId; }
-
-            /**
              * @return Name of the texture.
              */
             inline std::string getName() const { return m_name; }
@@ -197,9 +194,10 @@ namespace Ra
              */
             void updateData(void* newData);
 
-            GLenum format() const { return m_format;}
-            uint width() const { return m_width;}
-            uint height() const{ return m_height;}
+            GLenum format() const { return m_format; }
+            uint width() const { return m_width; }
+            uint height() const{ return m_height; }
+            globjects::Texture * texture() const { return m_texture.get(); }
 
         private:
             Texture( const Texture& ) = delete;
@@ -213,6 +211,8 @@ namespace Ra
             uint m_width;
             uint m_height;
             uint m_depth;
+
+            std::unique_ptr<globjects::Texture> m_texture;
         };
     } // namespace Engine
 } // namespace Ra

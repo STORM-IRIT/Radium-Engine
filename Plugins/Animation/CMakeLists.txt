@@ -51,15 +51,12 @@ add_definitions( ${Qt5Widges_DEFINITIONS} )
 include_directories(
     src/
     ${CMAKE_CURRENT_BINARY_DIR} # MOC
-    ${RADIUM_INCLUDE_DIR}
-    ${EIGEN3_INCLUDE_DIR}
-    ${ASSIMP_INCLUDE_DIR}
+    ${RADIUM_INCLUDE_DIRS}
     )
 
 add_library( Animation SHARED ${sources} ${headers} ${inlines} ${app_uis})
-#add_dependencies( Animation radiumCore radiumEngine radiumGuiBase
-message("Animation : dependencies are ${RADIUM_LIBRARIES}")
-add_dependencies( Animation radiumEngine radiumGuiBase )
+message(INFO " Animation : dependencies are ${RADIUM_LIBRARIES}")
+add_dependencies( Animation ${RADIUM_LIBRARIES})
 
 target_compile_definitions( Animation PRIVATE "-DAnimation_EXPORTS" )
 

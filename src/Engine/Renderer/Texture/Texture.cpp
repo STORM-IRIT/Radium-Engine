@@ -1,31 +1,35 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 
-#include <cstdio>
+#include <globjects/Texture.h>
 
 namespace Ra
 {
     Engine::Texture::Texture(std::string name)
         : m_textureId(0)
         , m_name(name)
+        , m_texture(nullptr)
     {
     }
 
     Engine::Texture::~Texture()
     {
-        deleteGL();
+
     }
 
     void Engine::Texture::Generate(uint w, GLenum format, void* data)
     {
-        if (!glIsTexture(m_textureId)) GL_ASSERT(glGenTextures(1, &m_textureId));
-        GL_ASSERT(glBindTexture(target, m_textureId));
-        GL_ASSERT(glTexImage1D(target, 0, internalFormat, w, 0, format, dataType, data));
+        if( m_texture == nullptr )
+        {
+            m_texture = globjects::Texture::create( GL_TEXTURE_1D );
+        }
 
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_REPEAT ) );
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_MIN_FILTER, minFilter));
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_MAG_FILTER, magFilter));
+        m_texture->image1D( 0, internalFormat, w, 0, format, GL_UNSIGNED_BYTE, data );
 
-        GL_ASSERT(glGenerateMipmap(target));
+        m_texture->setParameter( GL_TEXTURE_WRAP_S, GL_REPEAT );
+        m_texture->setParameter( GL_TEXTURE_MIN_FILTER, minFilter );
+        m_texture->setParameter( GL_TEXTURE_MAG_FILTER, magFilter );
+
+        m_texture->generateMipmap();
 
         m_format = format;
         m_width = w;
@@ -33,19 +37,19 @@ namespace Ra
 
     void Engine::Texture::Generate(uint w, uint h, GLenum format, void* data)
     {
-        CORE_ASSERT(target == GL_TEXTURE_2D, "Wrong texture target");
+        if( m_texture == nullptr )
+        {
+            m_texture = globjects::Texture::create( GL_TEXTURE_2D );
+        }
 
-        if (!glIsTexture(m_textureId)) GL_ASSERT(glGenTextures(1, &m_textureId));
+        m_texture->image2D( 0, internalFormat, w, h, 0, format, dataType, data );
 
-        GL_ASSERT(glBindTexture(target, m_textureId));
-        GL_ASSERT(glTexImage2D(target, 0, internalFormat, w, h, 0, format, dataType, data));
+        m_texture->setParameter( GL_TEXTURE_WRAP_S, wrapS );
+        m_texture->setParameter( GL_TEXTURE_WRAP_T, wrapT );
+        m_texture->setParameter( GL_TEXTURE_MIN_FILTER, minFilter );
+        m_texture->setParameter( GL_TEXTURE_MAG_FILTER, magFilter );
 
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_WRAP_S, wrapS));
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_WRAP_T, wrapT));
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_MIN_FILTER, minFilter));
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_MAG_FILTER, magFilter));
-
-        GL_ASSERT(glGenerateMipmap(target));
+        m_texture->generateMipmap();
 
         m_format = format;
         m_width  = w;
@@ -54,19 +58,20 @@ namespace Ra
 
     void Engine::Texture::Generate(uint w, uint h, uint d, GLenum format, void* data)
     {
-        CORE_ASSERT(target == GL_TEXTURE_3D, "Wrong texture target");
+        if( m_texture == nullptr )
+        {
+            m_texture = globjects::Texture::create( GL_TEXTURE_3D );
+        }
 
-        if (!glIsTexture(m_textureId)) GL_ASSERT(glGenTextures(1, &m_textureId));
-        GL_ASSERT(glBindTexture(target, m_textureId));
-        GL_ASSERT(glTexImage3D(target, 0, internalFormat, w, h, d, 0, format, dataType, data));
+        m_texture->image3D( 0, internalFormat, w, h, d, 0, format, dataType, data );
 
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_WRAP_S, wrapS));
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_WRAP_T, wrapT));
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_WRAP_R, wrapR));
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_MIN_FILTER, minFilter));
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_MAG_FILTER, magFilter));
+        m_texture->setParameter( GL_TEXTURE_WRAP_S, wrapS );
+        m_texture->setParameter( GL_TEXTURE_WRAP_T, wrapT );
+        m_texture->setParameter( GL_TEXTURE_WRAP_R, wrapR );
+        m_texture->setParameter( GL_TEXTURE_MIN_FILTER, minFilter );
+        m_texture->setParameter( GL_TEXTURE_MAG_FILTER, magFilter );
 
-        GL_ASSERT(glGenerateMipmap(target));
+        m_texture->generateMipmap();
 
         m_format = format;
         m_width  = w;
@@ -76,22 +81,20 @@ namespace Ra
 
     void Engine::Texture::GenerateCube(uint w, uint h, GLenum format, void** data)
     {
-        CORE_ASSERT(target == GL_TEXTURE_CUBE_MAP, "Wrong texture target");
-        if (!glIsTexture(m_textureId)) GL_ASSERT(glGenTextures(1, &m_textureId));
-        GL_ASSERT(glBindTexture(target, m_textureId));
-
-        // FIXME Type was forced to GL_Scalar, check calls for this method.
-        for (int i = 0; i < 6; ++i)
+        if( m_texture == nullptr )
         {
-            GL_ASSERT(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalFormat, w, h, 0, format, dataType, data[i]));
+            m_texture = globjects::Texture::create( GL_TEXTURE_CUBE_MAP );
         }
 
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_WRAP_S, wrapS));
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_WRAP_T, wrapT));
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_WRAP_R, wrapR));
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_MAG_FILTER, minFilter));
-        GL_ASSERT(glTexParameteri(target, GL_TEXTURE_MIN_FILTER, magFilter));
-        GL_ASSERT(glGenerateMipmap(target));
+        m_texture->cubeMapImage( 0, internalFormat, w, h, 0, format, dataType, data );
+
+        m_texture->setParameter( GL_TEXTURE_WRAP_S, wrapS );
+        m_texture->setParameter( GL_TEXTURE_WRAP_T, wrapT );
+        m_texture->setParameter( GL_TEXTURE_WRAP_R, wrapR );
+        m_texture->setParameter( GL_TEXTURE_MIN_FILTER, minFilter );
+        m_texture->setParameter( GL_TEXTURE_MAG_FILTER, magFilter );
+
+        m_texture->generateMipmap();
 
         m_format = format;
         m_width = w;
@@ -100,43 +103,36 @@ namespace Ra
 
     void Engine::Texture::bind( int unit )
     {
-        if (unit >= 0)
+        if( unit >= 0 )
         {
-            GL_ASSERT(glActiveTexture(GL_TEXTURE0 + unit));
+            m_texture->bindActive( unit );            
         }
-
-        GL_ASSERT(glBindTexture(target, m_textureId));
-    }
-
-    void Engine::Texture::deleteGL()
-    {
-        if (glIsTexture(m_textureId))
+        else
         {
-            GL_ASSERT( glDeleteTextures( 1, &m_textureId ) );
+            m_texture->bind();
         }
     }
 
     void Engine::Texture::updateData( void* data )
     {
-        GL_ASSERT(glBindTexture(target, m_textureId));
-
-        switch (target)
+        switch ( m_texture->target() )
         {
             case GL_TEXTURE_1D:
             {
-                GL_ASSERT(glTexImage1D(target, 0, internalFormat, m_width, 0, m_format, dataType, data));
-            }
-
+                m_texture->image1D( 0, internalFormat, m_width, 0, m_format, dataType, data );
+            } break;
             case GL_TEXTURE_2D:
             {
-                GL_ASSERT(glTexImage2D(target, 0, internalFormat, m_width, m_height, 0, m_format, dataType, data));
+                m_texture->image2D( 0, internalFormat, m_width, m_height, 0, m_format, dataType, data );
             } break;
-
             case GL_TEXTURE_3D:
             {
-                GL_ASSERT(glTexImage3D(target, 0, internalFormat, m_width, m_height, m_depth, 0, m_format, dataType, data));
+                m_texture->image3D( 0, internalFormat, m_width, m_height, m_depth, 0, m_format, dataType, data );
             } break;
-
+            case GL_TEXTURE_CUBE_MAP:
+            {
+                m_texture->cubeMapImage( 0, internalFormat, m_width, m_height, 0, m_format, dataType, data );
+            } break;
             default:
             {
                 CORE_ASSERT( 0, "Dafuck ?" );

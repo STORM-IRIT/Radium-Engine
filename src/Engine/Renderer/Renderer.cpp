@@ -1,10 +1,8 @@
 #include <Engine/Renderer/Renderer.hpp>
 
-#include <iostream>
+#include <globjects/Framebuffer.h>
 
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include <iostream>
 
 #include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
@@ -13,14 +11,12 @@
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/Renderer/OpenGL/FBO.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
-#include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/PointLight.hpp>
 #include <Engine/Renderer/Light/SpotLight.hpp>
@@ -60,6 +56,7 @@ namespace Ra
             , m_wireframe(false)
             , m_postProcessEnabled(true)
         {
+            GL_CHECK_ERROR;
         }
 
         Renderer::~Renderer()
@@ -70,7 +67,7 @@ namespace Ra
         void Renderer::initialize()
         {
             // Initialize managers
-            m_shaderMgr = ShaderProgramManager::createInstance("Shaders/Default.vert.glsl", "Shaders/Default.frag.glsl");
+            m_shaderMgr = ShaderProgramManager::getInstance();
             m_roMgr = RadiumEngine::getInstance()->getRenderObjectManager();
             TextureManager::createInstance();
 
@@ -81,8 +78,11 @@ namespace Ra
             m_depthTexture->internalFormat = GL_DEPTH_COMPONENT24;
             m_depthTexture->dataType = GL_UNSIGNED_INT;
 
-            // Picking
-            m_pickingFbo.reset(new FBO(FBO::Component( FBO::Component_Color | FBO::Component_Depth ), m_width, m_height));
+            m_pickingFbo.reset( new globjects::Framebuffer() );
+            // FIXED : no need for that
+            m_pickingFbo->create();
+            GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
+
             m_pickingTexture.reset(new Texture("Picking"));
             m_pickingTexture->internalFormat = GL_RGBA32I;
             m_pickingTexture->dataType = GL_INT;
@@ -233,7 +233,7 @@ namespace Ra
         {
             m_pickingResults.reserve( m_pickingQueries.size() );
 
-            m_pickingFbo->useAsTarget();
+            m_pickingFbo->bind();
 
             GL_ASSERT( glDepthMask( GL_TRUE ) );
             GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
@@ -426,21 +426,22 @@ namespace Ra
             m_fancyTexture->Generate(w, h, GL_RGBA);
 
             m_pickingFbo->bind();
-            m_pickingFbo->setSize( w, h );
-            m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT , m_depthTexture.get() );
-            m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get() );
-            m_pickingFbo->check();
-            m_pickingFbo->unbind( true );
-
+            glViewport( 0, 0, w, h );
+            m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT , m_depthTexture.get()->texture() );
+            m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get()->texture() );
+            if ( m_pickingFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
+            {
+                LOG( logERROR ) << "FBO Error : " << m_pickingFbo->checkStatus();
+            }
+            m_pickingFbo->unbind();
             GL_CHECK_ERROR;
 
-            // Reset framebuffer state
-            GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, 0 ) );
-
-            GL_ASSERT( glDrawBuffer( GL_BACK ) );
-            GL_ASSERT( glReadBuffer( GL_BACK ) );
-
             resizeInternal();
+            
+            glDrawBuffer( GL_BACK ) ;
+            glReadBuffer( GL_BACK ) ;
+
+            GL_CHECK_ERROR;
         }
 
         void Renderer::displayTexture( const std::string& texName )
@@ -471,139 +472,15 @@ namespace Ra
             ShaderProgramManager::getInstance()->reloadAllShaderPrograms();
         }
 
-        void Renderer::handleFileLoading( const std::string& filename )
-        {
-            Assimp::Importer importer;
-            const aiScene* scene = importer.ReadFile( filename,
-                                                      aiProcess_Triangulate |
-                                                      aiProcess_JoinIdenticalVertices |
-                                                      aiProcess_GenSmoothNormals |
-                                                      aiProcess_SortByPType |
-                                                      aiProcess_FixInfacingNormals |
-                                                      aiProcess_CalcTangentSpace |
-                                                      aiProcess_GenUVCoords );
-
-            if ( !scene )
-            {
+        void Renderer::handleFileLoading(const Asset::FileData &filedata) {
+            if (! filedata.hasLight() )
                 return;
-            }
 
-            if ( !scene->HasLights() )
-            {
-                return;
-            }
+            std::vector<  Asset::LightData * > data = filedata.getLightData();
+            LOG (logINFO) << "Adding " <<data.size() << " lights in the renderer";
+            for (auto light : data )
+                addLight( light->getLight() );
 
-            // Load lights
-            for ( uint lightId = 0; lightId < scene->mNumLights; ++lightId )
-            {
-                aiLight* ailight = scene->mLights[lightId];
-
-                aiString name = ailight->mName;
-                aiNode* node = scene->mRootNode->FindNode( name );
-
-                Core::Matrix4 transform( Core::Matrix4::Identity() );
-
-                if ( node != nullptr )
-                {
-                    Core::Matrix4 t0;
-                    Core::Matrix4 t1;
-
-                    for ( uint i = 0; i < 4; ++i )
-                    {
-                        for ( uint j = 0; j < 4; ++j )
-                        {
-                            t0( i, j ) = scene->mRootNode->mTransformation[i][j];
-                            t1( i, j ) = node->mTransformation[i][j];
-                        }
-                    }
-                    transform = t0 * t1;
-                }
-
-                Core::Color color( ailight->mColorDiffuse.r,
-                                   ailight->mColorDiffuse.g,
-                                   ailight->mColorDiffuse.b, 1.0 );
-
-                switch ( ailight->mType )
-                {
-                    case aiLightSource_DIRECTIONAL:
-                    {
-                        Core::Vector4 dir( ailight->mDirection[0],
-                                           ailight->mDirection[1],
-                                           ailight->mDirection[2], 0.0 );
-                        dir = transform.transpose().inverse() * dir;
-
-                        Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
-                        finalDir = -finalDir;
-
-                        auto light = std::shared_ptr<DirectionalLight>( new DirectionalLight() );
-                        light->setColor( color );
-                        light->setDirection( finalDir );
-
-                        addLight( light );
-
-                    }
-                    break;
-
-                    case aiLightSource_POINT:
-                    {
-                        Core::Vector4 pos( ailight->mPosition[0],
-                                           ailight->mPosition[1],
-                                           ailight->mPosition[2], 1.0 );
-                        pos = transform * pos;
-                        pos /= pos.w();
-
-                        auto light = std::shared_ptr<PointLight>( new PointLight() );
-                        light->setColor( color );
-                        light->setPosition( Core::Vector3( pos.x(), pos.y(), pos.z() ) );
-                        light->setAttenuation( ailight->mAttenuationConstant,
-                                               ailight->mAttenuationLinear,
-                                               ailight->mAttenuationQuadratic );
-
-                        addLight( light );
-
-                    }
-                    break;
-
-                    case aiLightSource_SPOT:
-                    {
-                        Core::Vector4 pos( ailight->mPosition[0],
-                                           ailight->mPosition[1],
-                                           ailight->mPosition[2], 1.0 );
-                        pos = transform * pos;
-                        pos /= pos.w();
-
-                        Core::Vector4 dir( ailight->mDirection[0],
-                                           ailight->mDirection[1],
-                                           ailight->mDirection[2], 0.0 );
-                        dir = transform.transpose().inverse() * dir;
-
-                        Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
-                        finalDir = -finalDir;
-
-                        auto light = std::shared_ptr<SpotLight>( new SpotLight() );
-                        light->setColor( color );
-                        light->setPosition( Core::Vector3( pos.x(), pos.y(), pos.z() ) );
-                        light->setDirection( finalDir );
-
-                        light->setAttenuation( ailight->mAttenuationConstant,
-                                               ailight->mAttenuationLinear,
-                                               ailight->mAttenuationQuadratic );
-
-                        light->setInnerAngleInRadians( ailight->mAngleInnerCone );
-                        light->setOuterAngleInRadians( ailight->mAngleOuterCone );
-
-                        addLight( light );
-
-                    }
-                    break;
-
-                    case aiLightSource_UNDEFINED:
-                    default:
-                    {
-                        //                LOG(ERROR) << "Light " << name.C_Str() << " has undefined type.";
-                    } break;
-                }
-            }
         }
 
         uchar* Renderer::grabFrame(uint &w, uint &h) const {
@@ -636,6 +513,7 @@ namespace Ra
             h = tex->height();
             return writtenPixels;
         }
+
 
     }
 } // namespace Ra

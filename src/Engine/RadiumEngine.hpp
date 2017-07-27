@@ -5,6 +5,9 @@
 
 #include <Core/Utils/Singleton.hpp>
 
+#include <Core/File/FileData.hpp>
+#include <Core/File/FileLoaderInterface.hpp>
+
 #include <map>
 #include <string>
 #include <memory>
@@ -53,6 +56,10 @@ namespace Ra
 
             bool loadFile( const std::string& file );
 
+            const Asset::FileData& getFileData() const;
+
+            void releaseFile();
+
             /// Is called at the end of the frame to synchronize any data
             /// that may have been updated during the frame's multithreaded processing.
             void endFrameSync();
@@ -62,12 +69,17 @@ namespace Ra
             EntityManager*        getEntityManager()        const;
             SignalManager*        getSignalManager()        const;
 
+            void registerFileLoader( Asset::FileLoaderInterface * fileLoader );
+
         private:
             std::map<std::string, std::shared_ptr<System>> m_systems;
+
+            std::vector< Asset::FileLoaderInterface * > m_fileLoaders;
 
             std::unique_ptr<RenderObjectManager> m_renderObjectManager;
             std::unique_ptr<EntityManager>       m_entityManager;
             std::unique_ptr<SignalManager>       m_signalManager;
+            std::unique_ptr<Asset::FileData>     m_loadedFile;
         };
 
     } // namespace Engine

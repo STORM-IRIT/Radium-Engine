@@ -101,6 +101,9 @@ namespace Ra
             /// Load data from a file.
             void handleFileLoading( const std::string& file );
 
+            /// Load data from a FileData.
+            void handleFileLoading( const Ra::Asset::FileData &filedata );
+
             /// Emits signals corresponding to picking requests.
             void processPicking();
 
@@ -112,6 +115,21 @@ namespace Ra
 
             /// Write the current frame as an image. Supports either BMP or PNG file names.
             void grabFrame( const std::string& filename );
+
+            /** Add a renderer and return its index.
+             * \param e : unique_ptr to your own renderer
+             * \return index of the newly added renderer
+             * \code 
+             * int rendererId = addRenderer(std::unique_ptr<Ra::Engine::Renderer>(new MyRenderer(width(), height())));
+             * changeRenderer(rendererId);
+             * getRenderer()->initialize();
+             * auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
+             * getRenderer()->addLight( light );
+             * m_camera->attachLight( light );
+             * \endcode
+             */
+            
+            int addRenderer(std::unique_ptr<Engine::Renderer> e);
 
         signals:
             void rendererReady();               //! Emitted when the rendered is correctly initialized
@@ -145,7 +163,7 @@ namespace Ra
             void onFrameSwapped();
             void onResized();
 
-        private:
+        protected:
 
             //
             // QOpenGlWidget primitives
@@ -178,7 +196,7 @@ namespace Ra
         public:
             Scalar m_dt;
 
-        private:
+        protected:
             /// Owning pointer to the renderers.
             std::vector<std::unique_ptr<Engine::Renderer>> m_renderers;
             Engine::Renderer* m_currentRenderer;

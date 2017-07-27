@@ -66,8 +66,15 @@ namespace Ra
             ///     Material* mat = new Material; // Then configure your material...
             ///     // createRenderObject can finally be called.
             ///     RenderObject* ro = createRenderObject(name, component, type, config, material);
-            static RenderObject* createRenderObject(const std::string& name, Component* comp, const RenderObjectType& type, const std::shared_ptr<Mesh>& mesh, const ShaderConfiguration& shaderConfig = ShaderConfigurationFactory::getConfiguration("BlinnPhong"), Material* material = nullptr);
-            static RenderObject* createFancyFromAsset(const std::string& name, Component* comp, const Ra::Asset::GeometryData* asset, bool allow_transparency = false);
+            static RenderObject* createRenderObject(const std::string& name, Component* comp,
+                                                    const RenderObjectType& type, const std::shared_ptr<Mesh>& mesh,
+                                                    const ShaderConfiguration& shaderConfig = ShaderConfigurationFactory::getConfiguration("BlinnPhong"),
+                                                    const std::shared_ptr<Material>& material = nullptr);
+
+            static RenderObject* createFancyFromAsset(const std::string& name, Component* comp,
+                                                      const Ra::Asset::GeometryData* asset,
+                                                      bool allow_transparency = false);
+
 
             // FIXME(Charly): Remove this
             void updateGL();
@@ -96,9 +103,9 @@ namespace Ra
 
             bool isDirty() const;
 
-            void setRenderTechnique( RenderTechnique* technique );
-            const RenderTechnique* getRenderTechnique() const;
-            RenderTechnique* getRenderTechnique();
+            void setRenderTechnique( const std::shared_ptr<RenderTechnique>& technique );
+            std::shared_ptr<const RenderTechnique> getRenderTechnique() const;
+            std::shared_ptr<RenderTechnique> getRenderTechnique();
 
             void setMesh( const std::shared_ptr<Mesh>& mesh );
             std::shared_ptr<const Mesh> getMesh() const;
@@ -130,7 +137,7 @@ namespace Ra
             std::string m_name;
 
             RenderObjectType m_type;
-            RenderTechnique* m_renderTechnique;
+            std::shared_ptr<RenderTechnique> m_renderTechnique;
             std::shared_ptr<Mesh> m_mesh;
 
             mutable std::mutex m_updateMutex;

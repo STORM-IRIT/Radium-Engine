@@ -1,5 +1,9 @@
 #include <minimalapp.hpp>
 
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+
+#include <GuiBase/Utils/KeyMappingManager.hpp>
+
 MinimalApp::MinimalApp(int &argc, char** argv)
         : QApplication(argc, argv), m_engine(nullptr),
           m_task_queue(nullptr),
@@ -10,6 +14,21 @@ MinimalApp::MinimalApp(int &argc, char** argv)
     LOG(logDEBUG) << "Initialize engine.";
     m_engine.reset(Ra::Engine::RadiumEngine::createInstance());
     m_engine->initialize();
+   
+    // Load Blinn-Phong shader
+    Ra::Engine::ShaderConfiguration bpConfig("BlinnPhong");
+    bpConfig.addShader(Ra::Engine::ShaderType_VERTEX, "Shaders/BlinnPhong.vert.glsl");
+    bpConfig.addShader(Ra::Engine::ShaderType_FRAGMENT, "Shaders/BlinnPhong.frag.glsl");
+    Ra::Engine::ShaderConfigurationFactory::addConfiguration(bpConfig);
+
+
+    Ra::Engine::ShaderConfiguration pConfig("Plain");
+    pConfig.addShader(Ra::Engine::ShaderType_VERTEX, "Shaders/Plain.vert.glsl");
+    pConfig.addShader(Ra::Engine::ShaderType_FRAGMENT, "Shaders/Plain.frag.glsl");
+    Ra::Engine::ShaderConfigurationFactory::addConfiguration(pConfig);
+
+    Ra::Gui::KeyMappingManager::createInstance();
+
     LOG(logDEBUG) << "Initialize taskqueue.";
     m_task_queue.reset(new Ra::Core::TaskQueue(std::thread::hardware_concurrency() - 1));
     LOG(logDEBUG) << "Initialize viewer.";

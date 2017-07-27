@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_EXPERIMENTALRENDERER_HPP
 #define RADIUMENGINE_EXPERIMENTALRENDERER_HPP
 
+#include <globjects/Framebuffer.h>
+
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 
@@ -48,9 +50,9 @@ namespace Ra
             };
 
             // Default renderer logic here, no need to be accessed by overriding renderers.
-            std::unique_ptr<FBO> m_fbo;
-            std::unique_ptr<FBO> m_postprocessFbo;
-            std::unique_ptr<FBO> m_oitFbo;
+            std::unique_ptr<globjects::Framebuffer> m_fbo;
+            std::unique_ptr<globjects::Framebuffer> m_postprocessFbo;
+            std::unique_ptr<globjects::Framebuffer> m_oitFbo;
             
             std::vector<RenderObjectPtr> m_transparentRenderObjects;
             uint m_fancyTransparentCount;

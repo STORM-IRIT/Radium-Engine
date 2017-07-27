@@ -3,13 +3,13 @@
 #include <Core/String/StringUtils.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
+#include <Core/File/FileData.hpp>
+#include <Core/File/GeometryData.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Assets/FileData.hpp>
-#include <Engine/Assets/GeometryData.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
 #include <FancyMeshComponent.hpp>

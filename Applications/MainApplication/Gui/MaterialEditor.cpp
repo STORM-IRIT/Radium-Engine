@@ -131,7 +131,7 @@ namespace Ra
             }
         }
 
-        void MaterialEditor::updateMaterialViz( const Engine::Material* material )
+        void MaterialEditor::updateMaterialViz( const std::shared_ptr<Engine::Material>& material )
         {
             const Core::Color kd = material->m_kd;
             const Core::Color ks = material->m_ks;

@@ -17,7 +17,8 @@ namespace Geometry {
  */
 enum class MetricType {
     L2,
-    L21
+    L21,
+    LLOYD
 };
 
 
@@ -290,6 +291,56 @@ protected:
 
 
 
+/**
+ * @brief This is a specialized version of the VSA for the L21 metric.
+ */
+template < uint K_Region >
+class VariationalShapeApproximation< K_Region, MetricType::LLOYD > : public VariationalShapeApproximationBase< K_Region > {
+public:
+    //////////////////////////////////////////////////////////////////////////////
+    // TYPEDEF
+    //////////////////////////////////////////////////////////////////////////////
+    //typedef typename VariationalShapeApproximationBase< K_Region >::Triangle Triangle;
+    typedef typename VariationalShapeApproximationBase< K_Region >::Proxy    Proxy;
+
+
+
+    //////////////////////////////////////////////////////////////////////////////
+    // CONSTRUCTOR
+    //////////////////////////////////////////////////////////////////////////////
+    using VariationalShapeApproximationBase< K_Region >::VariationalShapeApproximationBase;
+
+
+
+    //////////////////////////////////////////////////////////////////////////////
+    // DESTRUCTOR
+    //////////////////////////////////////////////////////////////////////////////
+    virtual ~VariationalShapeApproximation();
+
+
+
+protected:
+    //////////////////////////////////////////////////////////////////////////////
+    // PROXY FITTING
+    //////////////////////////////////////////////////////////////////////////////
+    inline void proxy_fitting() override final;         ///< Computes the Proxy fitting for the L21 metric.
+
+
+
+    //////////////////////////////////////////////////////////////////////////////
+    // ENERGY
+    //////////////////////////////////////////////////////////////////////////////
+    inline Scalar E( const TriangleIdx& T, const Proxy& P ) const override final;      ///< Computes the energy function for the L21 metric.
+};
+
+
+
+//============================================================================
+//============================================================================
+//============================================================================
+
+
+
 //////////////////////////////////////////////////////////////////////////////
 // ALIAS
 //////////////////////////////////////////////////////////////////////////////
@@ -301,6 +352,9 @@ using VSA_L2 = VariationalShapeApproximation< K_Region, MetricType::L2 >;
 
 template < uint K_Region >
 using VSA_L21 = VariationalShapeApproximation< K_Region, MetricType::L21 >;
+
+template < uint K_Region >
+using VSA_L21 = VariationalShapeApproximation< K_Region, MetricType::LLOYD >;
 
 
 
