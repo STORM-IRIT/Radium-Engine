@@ -173,12 +173,11 @@ namespace Ra
                 std::vector<bool> visited( mesh.m_vertices.size(), false );
                 for ( uint t = 0 ; t < mesh.m_triangles.size(); ++t )
                 {
-                    std::string errStr;
-                    CORE_WARN_IF( !(getTriangleArea( mesh, t ) > 0.f), "Triangle" << t << " is degenerate" );
+                    CORE_WARN_IF( !(getTriangleArea( mesh, t ) > 0.f), "Triangle " << t << " is degenerate" );
                     const Triangle& tri = mesh.m_triangles[t];
                     for ( uint i = 0; i < 3; ++i )
                     {
-                        CORE_ASSERT( uint( tri[i] ) < mesh.m_vertices.size(), 
+                        CORE_ASSERT( uint( tri[i] ) < mesh.m_vertices.size(),
                             "Vertex "<< tri[i] <<" is in triangle "<< t <<" (#"<< i <<") is out of bounds");
                         visited[tri[i]] = true;
                     }
@@ -186,7 +185,6 @@ namespace Ra
 
                 for ( uint v = 0; v < visited.size(); ++v )
                 {
-                    std::string errStr;
                     CORE_ASSERT( visited[v], "Vertex "<< v <<" does not belong to any triangle");
                 }
 
