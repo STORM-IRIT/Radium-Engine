@@ -1,7 +1,7 @@
 #ifndef MESHCONVERTER_H
 #define MESHCONVERTER_H
 
-#include <Core/Mesh/TopologicalTriMesh/topologicalmesh.h>
+#include <Core/Mesh/TopologicalTriMesh/topologicalmesh.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 
 namespace Ra {
@@ -13,6 +13,7 @@ namespace Core {
     public:
         static void convert(TopologicalMesh& in, TriangleMesh& out);
         static void convert(const TriangleMesh& in, TopologicalMesh& out);
+        void convertPM( TopologicalMesh& topologicalMesh, TriangleMesh& mesh );
     };
 }
 }
