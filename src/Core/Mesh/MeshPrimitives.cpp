@@ -206,19 +206,25 @@ namespace Ra
 
                 const Scalar l = length / 2.0;
 
+                // We create a capsule by joining a cylinder with two half spheres.
+
+
+                // Part 1 : create the cylinder based on 3 circles
+                // Cylinder vertices.
                 const Scalar thetaInc( Core::Math::PiMul2 / Scalar( nFaces ) );
                 for (uint i = 0; i < nFaces; ++i)
                 {
                     const Scalar theta = i * thetaInc;
-                    // Even indices are A circle and odd indices are B circle.
                     Scalar x = std::cos(theta) * radius;
                     Scalar y = std::sin(theta) * radius;
 
+                    // Create 3 circles
                     result.m_vertices.push_back(Vector3(x, y, -l));
                     result.m_vertices.push_back(Vector3(x, y, 0.0));
                     result.m_vertices.push_back(Vector3(x, y, l));
                 }
 
+                // Cylinder side faces
                 for (uint i = 0; i < nFaces; ++i)
                 {
                     uint bl = 3*i; // bottom left corner of face
@@ -235,10 +241,12 @@ namespace Ra
                     result.m_triangles.push_back(Triangle( mr, tr, tl ));
                 }
 
+                // Part 2 : create the bottom hemisphere.
                 const Scalar phiInc = Core::Math::Pi / Scalar(nFaces);
-
                 uint vert_count = result.m_vertices.size();
-                for (uint j = 1; j <= nFaces / 2; ++j)
+
+                // Bottom hemisphere vertices
+                for (uint j = 1; j <= nFaces / 2 - 1 ; ++j)
                 {
                     const Scalar phi = Core::Math::PiDiv2 + j * phiInc;
 
@@ -253,8 +261,10 @@ namespace Ra
                         result.m_vertices.push_back(Vector3(x, y, z - l));
                     }
                 }
+                // Add bottom point (south pole)
+                result.m_vertices.push_back(Vector3(0,0,-(l + radius)));
 
-                // First ring
+                // First ring of sphere triangles (joining with the cylinder)
                 for (uint i = 0; i < nFaces; ++i)
                 {
                     uint bl = 3 * i;
@@ -267,8 +277,8 @@ namespace Ra
                     result.m_triangles.push_back(Triangle(br, tl, tr));
                 }
 
-                // Other rings
-                for (uint j = 0; j < (nFaces / 2) - 1; ++j)
+                // Next rings of the sphere triangle
+                for (uint j = 0; j < (nFaces / 2) - 2; ++j)
                 {
                     for (uint i = 0; i < nFaces; ++i)
                     {
@@ -280,11 +290,25 @@ namespace Ra
 
                         result.m_triangles.push_back(Triangle(br, bl, tl));
                         result.m_triangles.push_back(Triangle(br, tl, tr));
+
                     }
                 }
 
+                // End cap triangles, joining with the pole
+                for (uint i = 0; i < nFaces; ++i)
+                {
+                    const uint j = nFaces/2 -2;
+                    uint bl = vert_count + j * nFaces + i;
+                    uint br = vert_count + j * nFaces + (i + 1) % nFaces;
+                    uint bot = result.m_vertices.size() -1;
+                    result.m_triangles.push_back(Triangle(br, bl, bot));
+                }
+
+                // Part 3 : create the top hemisphere
                 vert_count = result.m_vertices.size();
-                for (uint j = 1; j <= nFaces / 2; ++j)
+
+                // Top hemisphere vertices
+                for (uint j = 1; j <= nFaces / 2  -1; ++j)
                 {
                     const Scalar phi = Core::Math::PiDiv2 - j * phiInc;
 
@@ -300,7 +324,10 @@ namespace Ra
                     }
                 }
 
-                // First ring
+                // Add top point (north pole)
+                result.m_vertices.push_back(Vector3(0,0,(l + radius)));
+
+                // First ring of sphere triangles (joining with the cylinder)
                 for (uint i = 0; i < nFaces; ++i)
                 {
                     uint bl = 3 * i + 2;
@@ -309,12 +336,14 @@ namespace Ra
                     uint tl = vert_count + i;
                     uint tr = vert_count + (i + 1) % nFaces;
 
+
                     result.m_triangles.push_back(Triangle(bl, br, tl));
                     result.m_triangles.push_back(Triangle(br, tr, tl));
+
                 }
 
-                // Other rings
-                for (uint j = 0; j < (nFaces / 2) - 1; ++j)
+                // Next rigns of the sphere triangles
+                for (uint j = 0; j < (nFaces / 2) - 2; ++j)
                 {
                     for (uint i = 0; i < nFaces; ++i)
                     {
@@ -329,6 +358,18 @@ namespace Ra
                     }
                 }
 
+
+                // End cap triangles, joining with the pole
+                for (uint i = 0; i < nFaces; ++i)
+                {
+                    const uint j = nFaces/2 - 2;
+                    uint bl = vert_count + j * nFaces + i;
+                    uint br = vert_count + j * nFaces + (i + 1) % nFaces;
+                    uint top = result.m_vertices.size() -1;
+                    result.m_triangles.push_back(Triangle(bl, br, top));
+                }
+
+                // Compute normals and check results.
                 getAutoNormals(result, result.m_normals);
                 checkConsistency(result);
                 return result;
