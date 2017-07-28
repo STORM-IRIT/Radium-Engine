@@ -59,11 +59,12 @@ namespace PointCloudPlugin
     void PointCloudSystem::setUseNormal(bool useNormal)
     {
         LOG(logINFO) << "Using Normal: " << useNormal;
-      m_renderer->setUseNormal(useNormal);
+        m_renderer->setUseNormal(useNormal);
     }
     void PointCloudSystem::setDepthThresh(double dThresh)
     {
         LOG(logINFO) << "Depth Threshold: " << dThresh;
+        m_renderer->setDepthThresh(dThresh);
     }
 
 } // namespace PointCloudPlugin

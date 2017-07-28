@@ -46,7 +46,7 @@ namespace Ra
         private:
             void initShaders();
             void initBuffers();
-            
+
         private:
             enum RendererTextures
             {
@@ -65,12 +65,14 @@ namespace Ra
             uint m_fancyTransparentCount;
             
             std::array<std::unique_ptr<Texture>, RendererTexture_Count> m_textures;
-            
+
             bool m_useNormal=false;
-            int m_neighSize=1;
+            int m_neighSize=0;
+            double m_dThresh = 100;
         public:
             void setUseNormal(bool useNormal);
             void setNeighSize(int neighSize);
+            void setDepthThresh(double dThresh);
         };
 
     } // namespace Engine

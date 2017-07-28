@@ -10,13 +10,12 @@ out vec3 transformed_normal;
 
 void main()
 {
+    vec3 normal = mat3(transform.proj) * mat3(transform.view) * mat3(transform.worldNormal) * in_normal;
     mat4 mvp = transform.proj * transform.view * transform.model;
-    gl_Position = mvp * vec4(in_position, 1.0);
-
     vec4 pos =  mvp * vec4(in_position, 1.0);
     pos /= pos.w;
-    vec3 normal =mat3(transform.proj) * mat3(transform.view) * mat3(transform.worldNormal) * in_normal;//mat3(transform.proj) * mat3(transform.viewNormal) * mat3(transform.worldNormal) * in_normal;
+    gl_Position = pos;
 
     transformed_position = pos.xyz;
-    transformed_normal   = normal;
+    transformed_normal   = normal.xyz;
 }
