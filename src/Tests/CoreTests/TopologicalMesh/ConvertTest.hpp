@@ -5,7 +5,7 @@
 #include <Core/Mesh/MeshPrimitives.hpp>
 #include <Core/Mesh/Wrapper/TopologicalMeshConvert.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
-#include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.h>
+#include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
 
 using Ra::Core::TriangleMesh;
 using Ra::Core::MeshConverter;

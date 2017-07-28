@@ -9,9 +9,9 @@
 
 namespace Ra {
 namespace Core {
-namespace TTMOperations {
+namespace TMOperations {
 
-    void splitEdge( TopologicalMesh& topoMesh, Index edgeIndex, Scalar fraction )
+    void splitEdge( TopologicalMesh& topologicalMesh, TopologicalMesh::EdgeHandle edgeHandle, Scalar fraction )
     {
 
         // Global schema of operation
@@ -36,17 +36,16 @@ namespace TTMOperations {
 
         CORE_ASSERT( fraction > 0 && fraction < 1, "Invalid fraction" );
 
-        TopologicalMesh::EdgeHandle eh = topoMesh.edge_handle(edgeIndex);
-        TopologicalMesh::VertexHandle v1 = topoMesh.to_vertex_handle(topoMesh.halfedge_handle(eh,0));
-        TopologicalMesh::VertexHandle v2 = topoMesh.to_vertex_handle(topoMesh.halfedge_handle(eh,1));
+        TopologicalMesh::VertexHandle v1 = topologicalMesh.to_vertex_handle(topologicalMesh.halfedge_handle(edgeHandle,0));
+        TopologicalMesh::VertexHandle v2 = topologicalMesh.to_vertex_handle(topologicalMesh.halfedge_handle(edgeHandle,1));
 
-        TopologicalMesh::Point p =  TopologicalMesh::Point(fraction * topoMesh.point(v1) + (1. - fraction) * topoMesh.point(v2));
-        TopologicalMesh::Normal n =  TopologicalMesh::Normal((fraction * topoMesh.normal(v1) + (1. - fraction) * topoMesh.normal(v2)).normalized());
+        TopologicalMesh::Point p =  TopologicalMesh::Point(fraction * topologicalMesh.point(v1) + (1. - fraction) * topologicalMesh.point(v2));
+        TopologicalMesh::Normal n =  TopologicalMesh::Normal((fraction * topologicalMesh.normal(v1) + (1. - fraction) * topologicalMesh.normal(v2)).normalized());
 
-        TopologicalMesh::VertexHandle vh = topoMesh.add_vertex(p);
-        topoMesh.set_normal(vh,n);
-        topoMesh.split(eh,vh);
-        topoMesh.garbage_collection();
+        TopologicalMesh::VertexHandle vh = topologicalMesh.add_vertex(p);
+        topologicalMesh.set_normal(vh,n);
+        topologicalMesh.split(edgeHandle,vh);
+        //topologicalMesh.garbage_collection();
 
     }
 }
