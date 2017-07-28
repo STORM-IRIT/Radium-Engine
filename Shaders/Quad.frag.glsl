@@ -3,6 +3,8 @@ layout (location = 1) out vec4 out_normal;
 layout (location = 2) out vec4 out_position;
 layout (location = 3) out vec4 fragColor;
 
+uniform bool useNormal;
+uniform int neighSize;
 uniform vec2 WindowSize;
 uniform sampler2D color;
 uniform sampler2D normal;
@@ -23,9 +25,7 @@ void main()
     xStep = 1/WindowSize.x;
     yStep = 1/WindowSize.y;
 
-    int neighSize = 5;
     float sum =0;
-    bool useNormal = true;
     vec3 c = vec3(0,0,0);
 
     float xStart = varTexcoord.x - neighSize * xStep, xEnd = varTexcoord.x + neighSize * xStep;
@@ -33,9 +33,7 @@ void main()
     for (float i=xStart; i <= xEnd; i+=xStep)
         for (float j=yStart; j <= yEnd; j+=yStep)
         {
-            vec3 tmpColor;
-            if (useNormal) tmpColor = texture(normal, vec2(i,j)).rgb;
-            else tmpColor = texture(color, vec2(i,j)).rgb;
+            vec3 tmpColor = texture(useNormal ? normal : color, vec2(i,j)).rgb;
 
             if (length(tmpColor) > 0.1)
             {

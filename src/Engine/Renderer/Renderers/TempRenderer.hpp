@@ -46,9 +46,7 @@ namespace Ra
         private:
             void initShaders();
             void initBuffers();
-
-            void updateShadowMaps();
-
+            
         private:
             enum RendererTextures
             {
@@ -60,20 +58,19 @@ namespace Ra
 
             // Default renderer logic here, no need to be accessed by overriding renderers.
             std::unique_ptr<globjects::Framebuffer> m_fbo;
-         //   std::unique_ptr<globjects::Framebuffer> m_newFbo;
             std::unique_ptr<globjects::Framebuffer> m_postprocessFbo;
             std::unique_ptr<globjects::Framebuffer> m_oitFbo;
 
             std::vector<RenderObjectPtr> m_transparentRenderObjects;
             uint m_fancyTransparentCount;
-
-            uint m_pingPongSize;
-
+            
             std::array<std::unique_ptr<Texture>, RendererTexture_Count> m_textures;
-
-            static const int ShadowMapSize = 1024;
-            std::vector<std::shared_ptr<Texture>> m_shadowMaps;
-            std::vector<Core::Matrix4> m_lightMatrices;
+            
+            bool m_useNormal=false;
+            int m_neighSize=1;
+        public:
+            void setUseNormal(bool useNormal);
+            void setNeighSize(int neighSize);
         };
 
     } // namespace Engine

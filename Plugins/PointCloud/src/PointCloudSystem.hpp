@@ -4,6 +4,7 @@
 #include <PointCloudPluginMacros.hpp>
 
 #include <Engine/System/System.hpp>
+#include <Engine/Renderer/Renderers/TempRenderer.hpp>
 
 namespace Ra
 {
@@ -22,7 +23,6 @@ namespace Ra
         class Component;
     }
 }
-
 namespace PointCloudPlugin
 {
     class PointCloudComponent;
@@ -33,15 +33,23 @@ namespace PointCloudPlugin
     class PCLOUD_PLUGIN_API PointCloudSystem : public Ra::Engine::System
 {
     public:
-    PointCloudSystem();
-    virtual ~PointCloudSystem();
+
+        PointCloudSystem();
+        virtual ~PointCloudSystem();
 
         void setNeighSize(int size);
         void setUseNormal(bool useNormal);
         void setDepthThresh(double dThresh);
-    virtual void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;
 
-};
+        virtual void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;
+   //    void handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData) override;
+
+    private:
+        Ra::Engine::TempRenderer * m_renderer;
+
+
+
+    };
 
 } // namespace PointCloudPlugin
 

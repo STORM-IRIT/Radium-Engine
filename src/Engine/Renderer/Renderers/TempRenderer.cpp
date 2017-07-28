@@ -1,4 +1,3 @@
-
 #include <Engine/Renderer/Renderers/TempRenderer.hpp>
 
 #include <iostream>
@@ -33,6 +32,7 @@
 #include <globjects/Framebuffer.h>
 // Only for debug purpose, not needed here
 #include <globjects/Program.h>
+
 
 //#define NO_TRANSPARENCY
 namespace Ra
@@ -158,20 +158,17 @@ namespace Ra
                     ro->render(params, renderData, shader);
                 }
             }
-      //      GL_ASSERT( glDrawBuffers(1, buffers) );
-        //    GL_ASSERT( glDepthMask( GL_FALSE ) );
-          //  GL_ASSERT( glDepthFunc( GL_LESS) );
-         //   GL_ASSERT( glEnable( GL_BLEND ) );
-//            GL_ASSERT( glBlendFunc( GL_ONE, GL_ONE ) );
 
             shader = m_shaderMgr->getShaderProgram("Quad");
             shader->bind();
             shader->setUniform("color", m_textures[RendererTextures_Position].get(), 0);
             shader->setUniform("normal", m_textures[RendererTextures_Normal].get(), 1);
+            shader->setUniform("useNormal", m_useNormal);
+            shader->setUniform("neighSize", m_neighSize);
             shader->setUniform("WindowSize", Core::Vector2(m_width,m_height));
 
-
             m_quadMesh->render();
+
             // Restore state
             GL_ASSERT( glDepthFunc( GL_LESS ) );
             GL_ASSERT( glDisable( GL_BLEND ) );
@@ -179,6 +176,14 @@ namespace Ra
 
             m_fbo->unbind();
 
+        }
+        void TempRenderer::setUseNormal(bool useNormal)
+        {
+            m_useNormal = useNormal;
+        }
+        void TempRenderer::setNeighSize(int neighSize)
+        {
+            m_neighSize = neighSize;
         }
 
         // Draw debug stuff, do not overwrite depth map but do depth testing

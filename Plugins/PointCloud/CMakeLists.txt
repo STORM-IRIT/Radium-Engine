@@ -48,13 +48,19 @@ set(CMAKE_AUTORCC ON)
 add_definitions( ${Qt5Core_DEFINITIONS} )
 add_definitions( ${Qt5Widges_DEFINITIONS} )
 
+set(MAIN_APP_DIR ../../Applications/MainApplication)
+message("mainApp in " ${MAIN_APP_DIR})
+file(GLOB_RECURSE main_app_ui  ${MAIN_APP_DIR}/*.ui)
+qt5_wrap_ui(main_app_moc ${main_app_ui})
+
 include_directories(
+        ${MAIN_APP_DIR}
         src/
         ${CMAKE_CURRENT_BINARY_DIR} # MOC
         ${RADIUM_INCLUDE_DIRS}
 )
 
-add_library( PointCloud SHARED ${sources} ${headers} ${inlines} ${app_uis})
+add_library( PointCloud SHARED ${sources} ${headers} ${inlines} ${app_uis} ${main_app_ui})
 message(INFO " PointCloud : dependencies are ${RADIUM_LIBRARIES}")
 add_dependencies( PointCloud ${RADIUM_LIBRARIES})
 
