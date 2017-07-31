@@ -13,7 +13,6 @@ namespace Core {
     public:
         static void convert(TopologicalMesh& in, TriangleMesh& out);
         static void convert(const TriangleMesh& in, TopologicalMesh& out);
-        void convertPM( TopologicalMesh& topologicalMesh, TriangleMesh& mesh );
     };
 }
 }
