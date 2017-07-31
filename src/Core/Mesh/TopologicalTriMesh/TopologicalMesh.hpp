@@ -12,6 +12,8 @@ namespace Ra {
 namespace Core {
 
 
+    //Define an OpenMesh TriMesh structure according to http://openmesh.org/Documentation/OpenMesh-2.1-Documentation/mesh_type.html
+    // Attributes define data store on structure.
     struct TopologicalMeshTraits : public OpenMesh::DefaultTraits
     {
         typedef OpenMesh::VectorT<Scalar, 3> Point;
@@ -26,7 +28,7 @@ namespace Core {
 
     inline Vector3 convertVec3OpenMeshToEigen(TopologicalMesh::Point vec)
     {
-        return Vector3(vec[0],vec[1],vec[2]);
+        return Eigen::Map<Vector3>(vec.begin());
     }
 }
 }
