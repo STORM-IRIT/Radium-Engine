@@ -29,13 +29,9 @@ namespace Core {
 
         vMap vertexHandles;
 
-        //in.garbage_collection();
         in.request_face_normals();
         in.request_vertex_normals();
         in.update_vertex_normals();
-//        in.update_face_normals();
-//        in.update_halfedge_normals(M_PI);
-//        in.release_face_normals();
 
         // iterator over all faces
         unsigned int vertexIndex = 0;
@@ -44,7 +40,7 @@ namespace Core {
             vertexData v;
             int indices[3];
             int i=0;
-            // iterator over vertex (thru haldedge to get access to halfedge normals)
+            // iterator over vertex (thru halfedge to get access to halfedge normals)
             for(TopologicalMesh::FaceHalfedgeIter fv_it = in.fh_iter(*f_it); fv_it.is_valid(); ++fv_it){
                 assert(i<3);
                 TopologicalMesh::Point p = in.point(in.to_vertex_handle(*fv_it));
@@ -88,7 +84,6 @@ namespace Core {
         out = TopologicalMesh();
         out.garbage_collection();
         out.request_vertex_normals();
-        //typedef std::unordered_map<Core::Vector3f, TopologicalMesh::VertexHandle, comp_vec> vMap;
         typedef std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec> vMap;
         vMap vertexHandles;
 
@@ -121,48 +116,5 @@ namespace Core {
         assert(out.n_faces() == num_halfedge/3);
     }
 
-    /// Particular conversion for a progressive mesh
-    /// since some faces doesn't exist anymore
-//    void convertPM( TopologicalMesh& topologicalMesh, TriangleMesh& mesh )
-//    {
-
-//        // TODO !!!
-
-//        const uint v_size = dcel.m_vertex.size();
-//        const uint f_size = dcel.m_face.size();
-//    //    mesh.m_vertices.resize( v_size );  // ce n'est pas le bon nombre de sommet
-//    //    mesh.m_normals.resize( v_size );   // ce n'est pas le bon nombre de sommet
-//    //    mesh.m_triangles.resize( f_size ); // ce n'est pas le bon nombre de face
-//        //mesh.m_vertices.erase(mesh.m_vertices.begin(), mesh.m_vertices.end());
-//        //mesh.m_normals.erase(mesh.m_normals.begin(), mesh.m_normals.end());
-//        //mesh.m_triangles.erase(mesh.m_triangles.begin(), mesh.m_triangles.end());
-//        std::map< Index, uint > v_table;
-//        for( uint i = 0; i < v_size; ++i ) {
-
-//            const Vertex_ptr& v = dcel.m_vertex.at( i );
-
-//            if (v->HE() == NULL) //meaning the vertex is deleted
-//                continue;
-
-//            const Vector3 p = v->P();
-//            const Vector3 n = v->N();
-//            mesh.m_vertices.push_back(p);
-//            mesh.m_normals.push_back(n);
-//            v_table[ v->idx ] = mesh.m_vertices.size() - 1;
-//        }
-//        for( uint i = 0; i < f_size; ++i ) {
-//            const Face_ptr& f = dcel.m_face.at( i );
-
-//            if (f->HE() == NULL) //meaning the face is deleted
-//                continue;
-
-//            Triangle T;
-//            T[0] = v_table[ f->HE()->V()->idx ];
-//            T[1] = v_table[ f->HE()->Next()->V()->idx ];
-//            T[2] = v_table[ f->HE()->Prev()->V()->idx ];
-//            mesh.m_triangles.push_back(T);
-
-//        }
-//    }
 }
 }
