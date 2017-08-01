@@ -23,6 +23,9 @@ include(submoduleGlObjects)
 # Eigen
 include(submoduleEigen3)
 
+# Patate
+include(submodulePatate)
+
 # Assimp
 if (RADIUM_ASSIMP_SUPPORT)
     include(submoduleAssimp)

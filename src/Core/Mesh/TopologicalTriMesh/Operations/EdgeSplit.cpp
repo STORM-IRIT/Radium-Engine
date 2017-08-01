@@ -45,7 +45,6 @@ namespace TMOperations {
         TopologicalMesh::VertexHandle vh = topologicalMesh.add_vertex(p);
         topologicalMesh.set_normal(vh,n);
         topologicalMesh.split(edgeHandle,vh);
-        //topologicalMesh.garbage_collection();
 
     }
 }

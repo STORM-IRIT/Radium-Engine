@@ -1,6 +1,9 @@
 [submodule "3rdPartyLibraries/Assimp"]
 	path = 3rdPartyLibraries/Assimp
 	url = https://github.com/assimp/assimp.git
+[submodule "3rdPartyLibraries/Patate"]
+	path = 3rdPartyLibraries/Patate
+	url = https://gitlab.inria.fr/patate/patate.git
 [submodule "3rdPartyLibraries/OpenGL/glbinding"]
 	path = 3rdPartyLibraries/OpenGL/glbinding
 	url = https://github.com/cginternals/glbinding.git
@@ -19,3 +22,4 @@
 [submodule "3rdPartyLibraries/Pbrt"]
 	path = 3rdPartyLibraries/Pbrt
 	url = https://github.com/mmp/pbrt-v3
+

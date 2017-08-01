@@ -21,13 +21,14 @@ find_package(Qt5OpenGL  REQUIRED)
 
 include_directories(
     ${EIGEN3_INCLUDE_DIR}
+    ${PATATE_INCLUDE_DIR}
     ${GLBINDING_INCLUDE_DIR}
     ${GLOBJECTS_INCLUDE_DIR}
     ${GLM_INCLUDE_DIR}
     ${OPENMESH_INCLUDE_DIR}
 )
 
-message(STATUS "Compiling Radium with 3rdparty include dirs : ${EIGEN3_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}-- ${OPENMESH_INCLUDE_DIR}" )
+message(STATUS "Compiling Radium with 3rdparty include dirs : ${EIGEN3_INCLUDE_DIR} -- ${PATATE_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}-- ${OPENMESH_INCLUDE_DIR}" )
 
 if( RADIUM_ASSIMP_SUPPORT )
 	set( RADIUM_IO_IS_INTERFACE FALSE )
@@ -78,7 +79,7 @@ add_library(
     ${RADIUM_VERSION_FILE} #This file is build-dependant and generated in the Bundle
 )
 
-add_dependencies( ${core_target} eigen3 radiumVersionFile openmesh_lib)
+add_dependencies( ${core_target} eigen3 patate radiumVersionFile openmesh_lib)
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
 
 target_link_libraries(
