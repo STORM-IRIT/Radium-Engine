@@ -5,11 +5,11 @@
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Mesh/MeshPrimitives.hpp>
 #include <Core/Mesh/Wrapper/TopologicalMeshConvert.hpp>
-#include <Core/Utils/File/OBJFileManager.hpp>
+#include <Core/File/deprecated/OBJFileManager.hpp>
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Assets/FileData.hpp>
-#include <Engine/Assets/HandleData.hpp>
+#include <Core/File/FileData.hpp>
+#include <Core/File/HandleData.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>

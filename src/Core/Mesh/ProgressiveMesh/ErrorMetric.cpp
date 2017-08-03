@@ -50,6 +50,7 @@ namespace Ra
                 p = convertVec3OpenMeshToEigen(topologicalMesh->point(topologicalMesh->from_vertex_handle(topologicalMesh->halfedge_handle(adjFaces[i]))));
                 q = convertVec3OpenMeshToEigen(topologicalMesh->point(topologicalMesh->to_vertex_handle(topologicalMesh->halfedge_handle(adjFaces[i]))));
                 r = convertVec3OpenMeshToEigen(topologicalMesh->point(topologicalMesh->to_vertex_handle(topologicalMesh->next_halfedge_handle(topologicalMesh->halfedge_handle(adjFaces[i])))));
+
                 ni = Geometry::triangleNormal(p,q,r);
                 normi = ni.norm();
                 planar = (std::abs(n0.dot(ni)) == norm0 * normi);

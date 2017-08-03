@@ -3,7 +3,7 @@
 
 #include <Core/Math/Quadric.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Mesh/DCEL/Dcel.hpp>
+//#include <Core/Mesh/DCEL/Dcel.hpp>
 #include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
 #include <Patate/grenaille.h>
 
@@ -36,7 +36,6 @@ namespace Ra
 
             void generateFacePrimitive(Primitive &q, const TopologicalMesh::FaceHandle f, TopologicalMesh &topologicalMesh);
 //            void generateFacePrimitive(Primitive &q, const Face_ptr f, Dcel &dcel);
-
 
         private:
             Param m_param;
@@ -120,7 +119,6 @@ namespace Ra
 
             Scalar computeError(const Primitive& q, const Vector3& vs, const Vector3& vt, Vector3& pResult);
             Scalar computeGeometricError(const Primitive& q, const Primitive::Vector& p);
-
             void generateFacePrimitive(Primitive &q, TopologicalMesh::FaceHandle f, TopologicalMesh &topologicalMesh);
             //void generateFacePrimitive(Primitive &q, Face_ptr f, Dcel &dcel);
 

@@ -22,6 +22,7 @@
 //#include <Core/Mesh/DCEL/Iterator/Vertex/VHEIterator.hpp>
 //#include <Core/Mesh/DCEL/Iterator/Edge/EFIterator.hpp>
 
+
 #include <Core/Mesh/ProgressiveMesh/PriorityQueue.hpp>
 
 #include <Core/Geometry/Triangle/TriangleOperation.hpp>

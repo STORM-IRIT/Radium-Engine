@@ -46,6 +46,10 @@ namespace Ra
             /// Create a spherical mesh by subdivision of an icosahedron.
             RA_CORE_API TriangleMesh makeGeodesicSphere( Scalar radius = 1.f, uint numSubdiv = 3 );
 
+            /// Create an ellipsoid mesh by subdivision of an icosahedron.
+            //RA_CORE_API TriangleMesh makeEllipsoid(const Vector3& a, const Vector3& b, const Vector3& c, const float& lambda_a, const float& lambda_b, const float& lambda_c, uint numSubdiv = 3 );
+            RA_CORE_API TriangleMesh makeEllipsoid(const Matrix4 &R, Scalar radius, uint numSubdiv = 3);
+
             /// Create a cylinder approximation (n-faced prism) with base faces centered on A and B
             /// with given radius.
             RA_CORE_API TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, uint nFaces = 32);

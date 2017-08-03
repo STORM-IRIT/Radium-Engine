@@ -6,7 +6,6 @@
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
 #include <Core/Mesh/TriangleMesh.hpp>
-
 //#include <Core/Mesh/Wrapper/Convert.hpp>
 //#include <Core/Mesh/DCEL/Dcel.hpp>
 //#include <Core/Mesh/DCEL/Operations/EdgeCollapse.hpp>
@@ -21,7 +20,7 @@
 #include <Core/Mesh/ProgressiveMesh/ProgressiveMesh.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/Assets/GeometryData.hpp>
+#include <Core/File/GeometryData.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
 #include <Core/TreeStructures/kdtree.hpp>
@@ -108,7 +107,7 @@ namespace Ra
             Ra::Core::PriorityQueue::PriorityQueueData d = getPriorityQueue()->firstData();
             Ra::Core::TopologicalMesh::HalfedgeHandle he = d.m_edge;
 //            Ra::Core::HalfEdge_ptr he = getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[d.m_edge_id];
-// TODO : uncomment lines below
+// TODO : maybe uncomment lines below
 //            if (! getProgressiveMeshLOD()->getProgressiveMesh()->isEcolConsistent(he, d.m_p_result))
 //            {
 //                LOG(logINFO) << "Collapse not possible";
@@ -122,6 +121,7 @@ namespace Ra
 //                return false;
 //            }
 //            else
+
                 return true;
         }
 

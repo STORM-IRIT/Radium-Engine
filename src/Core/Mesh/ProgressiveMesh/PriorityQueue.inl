@@ -35,6 +35,7 @@ namespace Ra
                 LOG(logINFO) << "C'est pas normale...";
             //-------------------------
 
+
             m_priority_queue.erase(it_priority_queue);
             m_vertex_hash.erase(m_vertex_hash.find(data));
             m_vertex_hash.erase(m_vertex_hash.find(data.getSwapped()));

@@ -3,7 +3,6 @@
 
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
-#include <Engine/Assets/HandleData.hpp>
 
 #include <Core/Mesh/ProgressiveMesh/ProgressiveMeshLOD.hpp>
 
@@ -12,7 +11,8 @@
 #include <Core/Mesh/ProgressiveMesh/PriorityQueue.hpp>
 #include <Core/Mesh/ProgressiveMesh/ProgressiveMesh.hpp>
 
-#include <Engine/Assets/GeometryData.hpp>
+#include <Core/File/HandleData.hpp>
+#include <Core/File/GeometryData.hpp>
 
 
 typedef Ra::Core::VectorArray<Ra::Core::Triangle> TriangleArray;

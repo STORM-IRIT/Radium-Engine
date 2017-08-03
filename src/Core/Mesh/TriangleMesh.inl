@@ -1,5 +1,7 @@
 #include "TriangleMesh.hpp"
 
+#include <Core/TreeStructures/kdtree.hpp>
+
 namespace Ra
 {
     namespace Core
@@ -29,5 +31,13 @@ namespace Ra
                 }
             }
         }
+
+//        inline void TriangleMesh::computeKdTree()
+//        {
+//            const Super4PCS::KdTree<float>::PointList& points = reinterpret_cast<const Super4PCS::KdTree<float>::PointList&>(m_vertices);
+//            m_kdtree = new Super4PCS::KdTree<float>(points);
+//        }
+
+
     }
 }

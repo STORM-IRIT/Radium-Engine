@@ -10,16 +10,17 @@ namespace Core {
 
 
 /// CONSTRUCTOR
-VFIterator::VFIterator( Vertex_ptr& v ) : VIterator< Face >( v ) { }
+inline VFIterator::VFIterator( Vertex_ptr& v ) : VIterator< Face >( v ) { }
 
 
 
 /// DESTRUCTOR
-VFIterator::~VFIterator() { }
+inline VFIterator::~VFIterator() { }
 
 
 
 /// LIST
+/*
 inline FaceList VFIterator::list() const {
     FaceList L;
     HalfEdge_ptr it = m_v->HE();
@@ -29,6 +30,77 @@ inline FaceList VFIterator::list() const {
     } while( it != m_v->HE() );
     return L;
 }
+*/
+
+/*
+inline FaceList VFIterator::list() const
+{
+    FaceList L;
+    HalfEdge_ptr h1 = m_v->HE();
+    HalfEdge_ptr h2 = h1 != NULL ? h1->Twin() : NULL;
+
+    Face_ptr f1, f2;
+
+    if (h1 != NULL)
+    {
+        f1 = h1->F();
+        L.push_back(f1);
+        h1 = h1->Prev()->Twin();
+    }
+    if (h2 != NULL)
+    {
+        f2 = h2->F();
+        L.push_back(f2);
+        h2 = h2->Next()->Twin();
+    }
+
+    while(h1 != NULL || h2 != NULL)
+    {
+        if (h1 != NULL)
+        {
+            f1 = h1->F();
+            if (f1 == f2) break;
+            L.push_back(f1);
+            h1 = h1->Prev()->Twin();
+        }
+        if (h2 != NULL)
+        {
+            f2 = h2->F();
+            if (f2 == f1) break;
+            L.push_back(f2);
+            h2 = h2->Next()->Twin();
+        }
+    }
+    return L;
+}
+*/
+
+inline FaceList VFIterator::list() const
+{
+    FaceList L;
+    HalfEdge_ptr h1 = m_v->HE();
+    HalfEdge_ptr h2 = h1 != NULL ? h1->Twin() : NULL;
+    Face_ptr f1 = h1->F();
+    Face_ptr f2 = h2->F();
+    do {
+        if (h1 != NULL)
+        {
+            L.push_back(f1);
+            if (f1 == f2) break;
+            h1 = h1->Prev()->Twin();
+            f1 = h1->F();
+        }
+        if (h2 != NULL)
+        {
+            L.push_back(f2);
+            if (f1 == f2) break;
+            h2 = h2->Next()->Twin();
+            f2 = h2->F();
+        }
+    } while( h1 != NULL || h2 != NULL );
+    return L;
+}
+
 
 
 

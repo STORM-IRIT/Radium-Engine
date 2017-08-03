@@ -167,41 +167,6 @@ ProgressiveMeshData edgeCollapse(TopologicalMesh& topologicalMesh, TopologicalMe
 //        e4->setTwin(e3);
 //    }
 
-    TopologicalMesh::VertexOHalfedgeIter voh0_it ;
-    TopologicalMesh::VertexOHalfedgeIter voh1_it ;
-    TopologicalMesh::VertexOHalfedgeIter voh2_it ;
-    TopologicalMesh::VertexOHalfedgeIter voh3_it ;
-
-    if(v1.is_valid()){
-        voh0_it = topologicalMesh.voh_iter(v1);
-        LOG(logINFO) << "vsId: (" << v1.idx() <<")";
-        for(; voh0_it.is_valid(); ++voh0_it) {
-            LOG(logINFO) << "Edge iter: "<< voh0_it->idx() <<" vertex : "<< (topologicalMesh.to_vertex_handle(voh0_it)).idx() << " Boundary : " << topologicalMesh.is_boundary(voh0_it);
-        }
-    }
-    if(v2.is_valid()){
-        voh1_it = topologicalMesh.voh_iter(v2);
-        LOG(logINFO) << "vtId: (" << v2.idx() <<")";
-        for(; voh1_it.is_valid(); ++voh1_it) {
-            LOG(logINFO) << "Edge iter: "<< voh1_it->idx() <<" vertex : "<< (topologicalMesh.to_vertex_handle(voh1_it)).idx() << " Boundary : " << topologicalMesh.is_boundary(voh1_it);
-        }
-    }
-    if(vl.is_valid()){
-        voh2_it = topologicalMesh.voh_iter(vl);
-        LOG(logINFO) << "vlId: (" << vl.idx() <<")";
-        for(; voh2_it.is_valid(); ++voh2_it) {
-            LOG(logINFO) << "Edge iter: "<< voh2_it->idx() <<" vertex : "<< (topologicalMesh.to_vertex_handle(voh2_it)).idx() << " Boundary : " << topologicalMesh.is_boundary(voh2_it);
-        }
-    }
-
-    if(vr.is_valid()){
-        voh3_it = topologicalMesh.voh_iter(vr);
-        LOG(logINFO) << "vrId: (" << vr.idx() <<")";
-        for(; voh3_it.is_valid(); ++voh3_it) {
-            LOG(logINFO) << "Edge iter: "<< voh3_it->idx() <<" vertex : "<< (topologicalMesh.to_vertex_handle(voh3_it)).idx() << " Boundary : " << topologicalMesh.is_boundary(voh3_it);
-        }
-    }
-
     //Collapse h2 (v2 mark as deleted) -> move v1 to pResult -> destroy v2 (mesh reevaluation)
     TopologicalMesh::HalfedgeHandle nexth1 = topologicalMesh.next_halfedge_handle(h1);
     TopologicalMesh::HalfedgeHandle prevh1 = topologicalMesh.prev_halfedge_handle(h1);
@@ -233,38 +198,6 @@ ProgressiveMeshData edgeCollapse(TopologicalMesh& topologicalMesh, TopologicalMe
 //    LOG(logINFO) << "v2.idx() : "<< v2.idx();
 //    LOG(logINFO) << "vl.idx() : "<< vl.idx();
 //    LOG(logINFO) << "vr.idx() : "<< vr.idx();
-
-
-    if(v1.is_valid()){
-        voh0_it = topologicalMesh.voh_iter(v1);
-        LOG(logINFO) << "vsId: (" << v1.idx() <<")";
-        for(; voh0_it.is_valid(); ++voh0_it) {
-            LOG(logINFO) << "Edge iter: "<< voh0_it->idx() <<" vertex : "<< (topologicalMesh.to_vertex_handle(voh0_it)).idx() << " Boundary : " << topologicalMesh.is_boundary(voh0_it);
-        }
-    }
-    if(v2.is_valid()){
-        voh1_it = topologicalMesh.voh_iter(v2);
-        LOG(logINFO) << "vtId: (" << v2.idx() <<")";
-        for(; voh1_it.is_valid(); ++voh1_it) {
-            LOG(logINFO) << "Edge iter: "<< voh1_it->idx() <<" vertex : "<< (topologicalMesh.to_vertex_handle(voh1_it)).idx() << " Boundary : " << topologicalMesh.is_boundary(voh1_it);
-        }
-    }
-    if(vl.is_valid()){
-        voh2_it = topologicalMesh.voh_iter(vl);
-        LOG(logINFO) << "vlId: (" << vl.idx() <<")";
-        for(; voh2_it.is_valid(); ++voh2_it) {
-            LOG(logINFO) << "Edge iter: "<< voh2_it->idx() <<" vertex : "<< (topologicalMesh.to_vertex_handle(voh2_it)).idx() << " Boundary : " << topologicalMesh.is_boundary(voh2_it);
-        }
-    }
-
-    if(vr.is_valid()){
-        voh3_it = topologicalMesh.voh_iter(vr);
-        LOG(logINFO) << "vrId: (" << vr.idx() <<")";
-        for(; voh3_it.is_valid(); ++voh3_it) {
-            LOG(logINFO) << "Edge iter: "<< voh3_it->idx() <<" vertex : "<< (topologicalMesh.to_vertex_handle(voh3_it)).idx() << " Boundary : " << topologicalMesh.is_boundary(voh3_it);
-        }
-    }
-
 
     return ProgressiveMeshData(vadL, vadS,
                                halfEdgeHandle, h2,

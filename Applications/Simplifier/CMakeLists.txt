@@ -1,7 +1,6 @@
 # Build Simplifier
 
 set(app_target simplifier)
-
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -36,6 +35,7 @@ file(GLOB resources ${CMAKE_CURRENT_SOURCE_DIR}/../../*.qrc)
 include_directories(
     .
     ${RADIUM_INCLUDE_DIRS}
+    ${PATATE_INCLUDE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR} # Moc
     )
 

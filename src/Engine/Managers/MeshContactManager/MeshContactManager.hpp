@@ -12,6 +12,7 @@
 //#include <Core/Mesh/Wrapper/Convert.hpp>
 #include <Core/Mesh/Wrapper/TopologicalMeshConvert.hpp>
 
+
 #include <Core/Mesh/ProgressiveMesh/ProgressiveMeshData.hpp>
 
 #include <Core/Mesh/ProgressiveMesh/ProgressiveMesh.hpp>
@@ -39,7 +40,9 @@ namespace Ra
             void addMesh(MeshContactElement* mesh);
 
             void constructPriorityQueues();
+
             void updatePriorityQueue(Ra::Core::TopologicalMesh::VertexHandle vsHandle, Ra::Core::TopologicalMesh::VertexHandle vtHandle, int objIndex);
+
             bool edgeCollapse(int objIndex);
 
         private:
@@ -68,6 +71,7 @@ namespace Ra
                             return a1.m_fl.idx() < a2.m_fl.idx();
                         else
                             return a1.m_vs.idx() + a1.m_vt.idx() < a2.m_vs.idx() + a2.m_vt.idx();
+
                     }
                 }
             };

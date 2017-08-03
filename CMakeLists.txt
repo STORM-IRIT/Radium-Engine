@@ -108,7 +108,7 @@ endif(MSVC OR MSVC_IDE)
 #   SUBMODULES : assimp, glbinding, ....
 include(SubModules)
 set( RADIUM_INCLUDE_DIRS)
-list(APPEND RADIUM_INCLUDE_DIRS "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}" "${GLOBJECTS_INCLUDE_DIR}" "${OPENMESH_INCLUDE_DIR}")
+list(APPEND RADIUM_INCLUDE_DIRS "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${PATATE_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}" "${GLOBJECTS_INCLUDE_DIR}" "${OPENMESH_INCLUDE_DIR}")
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Main Libraries

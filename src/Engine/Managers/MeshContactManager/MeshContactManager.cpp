@@ -6,8 +6,9 @@
 #include <Core/Tasks/TaskQueue.hpp>
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Assets/FileData.hpp>
-#include <Engine/Assets/HandleData.hpp>
+
+#include <Core/File/FileData.hpp>
+#include <Core/File/HandleData.hpp>
 
 #include <Engine/Entity/Entity.hpp>
 
@@ -71,7 +72,6 @@ namespace Ra
 
         void MeshContactManager::setLodValueChanged(int value)
         {
-
             if (m_nbfaces < value)
             {
                 while (m_nbfaces < value)
@@ -88,17 +88,6 @@ namespace Ra
     //                    int vsIndex = obj->getProgressiveMeshLOD()->getCurrentPMData().getVsId();
     //                    int vtIndex = obj->getProgressiveMeshLOD()->getCurrentPMData().getVtId();
     //                    obj->updateEllipsoidsVS(vsIndex,vtIndex);
-                    }
-                    Ra::Core::TopologicalMesh* topologicalMesh = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getTopologicalMesh();
-
-                    for (Ra::Core::TopologicalMesh::HalfedgeIter h_it=topologicalMesh->halfedges_begin(); h_it!=topologicalMesh->halfedges_end(); ++h_it)
-                    {
-                      LOG(logINFO) << "     Halfedge : " << h_it->idx() << " is deleted = " << topologicalMesh->status(*h_it).deleted();
-                    }
-
-                    for (Ra::Core::TopologicalMesh::VertexIter v_it=topologicalMesh->vertices_begin(); v_it!=topologicalMesh->vertices_end(); ++v_it)
-                    {
-                      LOG(logINFO) << "     Vertex : " << v_it->idx() << " is deleted = " << topologicalMesh->status(*v_it).deleted();
                     }
                 }
             }
@@ -118,17 +107,6 @@ namespace Ra
     //                    int vsIndex = obj->getProgressiveMeshLOD()->getCurrentPMData().getVsId();
     //                    int vtIndex = obj->getProgressiveMeshLOD()->getCurrentPMData().getVtId();
     //                    obj->updateEllipsoidsEC(vsIndex,vtIndex);
-                    }
-                    Ra::Core::TopologicalMesh* topologicalMesh = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getTopologicalMesh();
-
-                    for (Ra::Core::TopologicalMesh::HalfedgeIter h_it=topologicalMesh->halfedges_begin(); h_it!=topologicalMesh->halfedges_end(); ++h_it)
-                    {
-                      LOG(logINFO) << "     Halfedge : " << h_it->idx() << " is deleted = " << topologicalMesh->status(*h_it).deleted();
-                    }
-
-                    for (Ra::Core::TopologicalMesh::VertexIter v_it=topologicalMesh->vertices_begin(); v_it!=topologicalMesh->vertices_end(); ++v_it)
-                    {
-                      LOG(logINFO) << "     Vertex : " << v_it->idx() << " is deleted = " << topologicalMesh->status(*v_it).deleted();
                     }
                 }
             }
@@ -151,6 +129,7 @@ namespace Ra
         void MeshContactManager::setConstructM0()
         {
              constructPriorityQueues();
+
 
     //                  for (const auto& comp : m_components)
     //                  {
@@ -207,8 +186,7 @@ namespace Ra
                   LOG(logINFO) << "i = " << i;
                   m_mainqueue.erase(it);
                   it = m_mainqueue.begin();
-
-
+                }
 
               for (const auto& elem : m_meshContactElements)
               {
@@ -218,6 +196,7 @@ namespace Ra
                     Ra::Core::TriangleMesh newMesh;
                     Ra::Core::MeshConverter::convert(*(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getTopologicalMesh()), newMesh);
 //                    Ra::Core::convertPM(*(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()), newMesh);
+
                     obj->updateTriangleMesh(newMesh);
 
     //                obj->computeQuadricDisplay();
@@ -225,21 +204,6 @@ namespace Ra
     //                obj->displayEllipsoids();
               }
 
-              Ra::Core::TopologicalMesh* topologicalMesh = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getTopologicalMesh();
-
-              for (Ra::Core::TopologicalMesh::HalfedgeIter h_it=topologicalMesh->halfedges_begin(); h_it!=topologicalMesh->halfedges_end(); ++h_it)
-              {
-                LOG(logINFO) << " Halfedge : " << h_it->idx() << " is deleted = " << topologicalMesh->status(*h_it).deleted();
-              }
-
-              for (Ra::Core::TopologicalMesh::VertexIter v_it=topologicalMesh->vertices_begin(); v_it!=topologicalMesh->vertices_end(); ++v_it)
-              {
-                LOG(logINFO) << " Vertex : " << v_it->idx() << " is deleted = " << topologicalMesh->status(*v_it).deleted();
-              }
-            }
-
-
-              obj->getPriorityQueue()->display();
         }
 
         int MeshContactManager::getNbFacesMax()
@@ -256,11 +220,11 @@ namespace Ra
 //            const uint numTriangles = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getTopologicalMesh()->n_faces();
 //            const uint numTriangles = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_face.size();
 
+
             //browse edges
             Scalar  edgeError;
             Ra::Core::Vector3 p = Ra::Core::Vector3::Zero();
             int j;
-
             Ra::Core::TopologicalMesh* topologicalMesh = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getTopologicalMesh();
 
             for(Ra::Core::TopologicalMesh::FaceIter f_it = topologicalMesh->faces_sbegin(); f_it != topologicalMesh->faces_end(); ++f_it)
@@ -536,7 +500,6 @@ namespace Ra
                     if (k != objIndex)
                     {
                         MeshContactElement* otherObj = static_cast<MeshContactElement*>(m_meshContactElements[k]);
-
                         vertexIndex = obj->getProgressiveMeshLOD()->getProgressiveMesh()->vertexContact(vtHandle, m_kdtrees, k, m_threshold);
                         if ( vertexIndex != -1)
                         {
@@ -545,7 +508,6 @@ namespace Ra
                             const Ra::Core::TopologicalMesh::VertexHandle& c = topologicalMesh->vertex_handle(vertexIndex);
                             //dist = (c->P() - obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[vtIndex]->P()).norm();
                             dist = (Ra::Core::convertVec3OpenMeshToEigen(topologicalMesh->point(c) - topologicalMesh->point(vtHandle))).squaredNorm();
-
                             weight = std::pow(std::pow(dist/m_threshold,2)-1,2);
                             //weight = 1;
                             sumWeightV += weight;
@@ -570,7 +532,6 @@ namespace Ra
                 }
                 if (contactVs || contact)
                 {
-
                     Ra::Core::TopologicalMesh::VertexHandle vh_vs = topologicalMesh->from_vertex_handle(he);
                     Ra::Core::TopologicalMesh::VertexHandle vh_vt = topologicalMesh->to_vertex_handle(he);
 
@@ -584,9 +545,9 @@ namespace Ra
                         facesAdj.push_back(vf_it);
                     }
 
-
 //                    Ra::Core::EFIterator efIt = Ra::Core::EFIterator(he);
 //                    Ra::Core::FaceList facesAdj = efIt.list();
+
                     int nbFacesAdj = facesAdj.size();
                     q *= m_lambda * nbFacesAdj;
                     qc *= 1 - m_lambda;
@@ -644,6 +605,7 @@ namespace Ra
 
                 if (topologicalMesh->is_boundary(topologicalMesh->edge_handle(he)))
 //                if (he->Twin() == nullptr)
+
                 {
                     obj->getProgressiveMeshLOD()->getProgressiveMesh()->collapseFace();
                     obj->getProgressiveMeshLOD()->oneVertexSplitPossible();

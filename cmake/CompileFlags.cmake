@@ -33,7 +33,7 @@ elseif (UNIX OR MINGW)
         set(MATH_FLAG "-mfpmath=sse")
     else()
         set(OMP_FLAG "-fopenmp -ftree-vectorize")
-        set(MATH_FLAG "-mfpmath=sse -ffast-math")
+        #set(MATH_FLAG "-mfpmath=sse -ffast-math")
     endif()
 
     if (NOT ${RADIUM_WITH_OMP})

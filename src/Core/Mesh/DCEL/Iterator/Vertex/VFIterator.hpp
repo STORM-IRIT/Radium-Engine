@@ -9,13 +9,14 @@ namespace Core {
 class [[deprecated]] VFIterator : public VIterator< Face > {
 public:
     /// CONSTRUCTOR
-    VFIterator( Vertex_ptr& v );
-    VFIterator( const VFIterator& it ) = default;
+    inline VFIterator( Vertex_ptr& v );
+    inline VFIterator( const VFIterator& it ) = default;
 
     /// DESTRUCTOR
-    ~VFIterator();
+    inline ~VFIterator();
 
     /// LIST
+    //inline FaceList list() const override;
     inline FaceList list() const override;
 
     /// OPERATOR

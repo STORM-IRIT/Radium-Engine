@@ -3,7 +3,8 @@
 	url = https://github.com/assimp/assimp.git
 [submodule "3rdPartyLibraries/Patate"]
 	path = 3rdPartyLibraries/Patate
-	url = https://gitlab.inria.fr/patate/patate.git
+        url = https://gitlab.inria.fr/patate/patate.git
+        branch = apss_metric
 [submodule "3rdPartyLibraries/OpenGL/glbinding"]
 	path = 3rdPartyLibraries/OpenGL/glbinding
 	url = https://github.com/cginternals/glbinding.git
