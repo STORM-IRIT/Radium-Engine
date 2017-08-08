@@ -1,8 +1,4 @@
 #include <Core/Mesh/TopologicalTriMesh/Operations/EdgeSplit.hpp>
-#include <Core/Mesh/DCEL/HalfEdge.hpp>
-#include <Core/Mesh/DCEL/Vertex.hpp>
-#include <Core/Mesh/DCEL/Vertex.hpp>
-#include <Core/Mesh/DCEL/FullEdge.hpp>
 
 #include <Core/Log/Log.hpp>
 
@@ -45,7 +41,6 @@ namespace TMOperations {
         TopologicalMesh::VertexHandle vh = topologicalMesh.add_vertex(p);
         topologicalMesh.set_normal(vh,n);
         topologicalMesh.split(edgeHandle,vh);
-        //topologicalMesh.garbage_collection();
 
     }
 }
