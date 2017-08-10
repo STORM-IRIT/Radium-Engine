@@ -3,11 +3,8 @@
 
 
 #include <Core/RaCore.hpp>
-
 #include <Core/Math/LinearAlgebra.hpp>
-
 #include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
-
 #include <Core/Mesh/ProgressiveMesh/ProgressiveMeshData.hpp>
 
 namespace Ra {

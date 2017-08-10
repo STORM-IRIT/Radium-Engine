@@ -6,7 +6,6 @@
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
-#include <Core/Mesh/DCEL/Dcel.hpp>
 
 #include <Core/Mesh/ProgressiveMesh/PriorityQueue.hpp>
 #include <Core/Mesh/ProgressiveMesh/ProgressiveMeshData.hpp>
@@ -144,7 +143,6 @@ namespace Ra
 
         private:
             TopologicalMesh* m_topologicalMesh;
-            //Dcel* m_dcel;
             std::vector<Primitive> m_primitives;
             ErrorMetric m_em;
             Scalar m_bbox_size;

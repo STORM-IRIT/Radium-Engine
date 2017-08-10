@@ -17,7 +17,16 @@
 
 #include <simplifier.hpp>
 
+#ifdef IO_USE_ASSIMP
+    #include <IO/AssimpLoader/AssimpFileLoader.hpp>
+#endif
+#ifdef IO_USE_PBRT
+    #include <IO/PbrtLoader/PbrtFileLoader.hpp>
+#endif
 
+
+namespace Ra
+{
     enum SimplificationOption { NFACES, NPERCENT, NLOD };
 
     //Class inheriting from QCoreApplication just for parameters management. No loop use in this programme.
@@ -39,7 +48,7 @@
             parser.addHelpOption();
             parser.addVersionOption();
 
-            std::string pluginsPath = "../Plugins";
+            std::string pluginsPath = "Plugins";
 
             QCommandLineOption fileOpt(QStringList{"f", "file", "scene"}, "Open a scene file at startup.", "file name", "foo.bar");
             QCommandLineOption pluginOpt(QStringList{"plugins", "pluginsPath"}, "Set the path to the plugin dlls.", "folder", "Plugins");
@@ -53,6 +62,14 @@
 
             parser.addOptions({pluginOpt, pluginLoadOpt, pluginIgnoreOpt, fileOpt, lodOpt, percentOpt, facesOpt, outFileOpt});
             parser.process(*this);
+
+
+            #ifdef IO_USE_ASSIMP
+                    _engine->registerFileLoader( new IO::AssimpFileLoader() );
+            #endif
+            #ifdef IO_USE_PBRT
+                    _engine->registerFileLoader( new IO::PbrtFileLoader() );
+            #endif
 
             // Load plugins
             if ( !loadPlugins( pluginsPath, parser.values(pluginLoadOpt), parser.values(pluginIgnoreOpt) ) )
@@ -127,7 +144,12 @@
             }
             else
             {
-                 loadFile(m_inputFile);
+                 if(!loadFile(m_inputFile))
+                 {
+                     LOG(logERROR) << "Model can not be loaded";
+                     appNeedsToQuit();
+                     return;
+                 }
             }
 
             //Compute new mesh
@@ -171,14 +193,11 @@
             m_isAboutToQuit = true;
         }
 
-        void loadFile( QString path )
+        bool loadFile( QString path )
         {
             std::string pathStr = path.toLocal8Bit().data();
             LOG(logINFO) << "Loading file " << pathStr << "...";
-            //Change windows path format to posix if needed
-            std::replace(pathStr.begin(), pathStr.end(), '\\', '/');
-            bool res = _engine->loadFile( pathStr );
-            CORE_UNUSED( res );
+            return _engine->loadFile( pathStr );
         }
         void startSimplificationPercentage(int facePercentage)
         {
@@ -333,11 +352,12 @@
         QString m_inputFile;
 
     }; // end class
+}
 
 int main(int argc, char* argv[])
 {
     // Create app
-    SimplifierApp app(argc, argv);
+    Ra::SimplifierApp app(argc, argv);
     app._engine->initialize();
 
     // Load Blinn-Phong shader.Required by fancyMesh plugin.

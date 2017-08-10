@@ -55,29 +55,6 @@ namespace Ra
                 normi = ni.norm();
                 planar = (std::abs(n0.dot(ni)) == norm0 * normi);
             }
-
-            //DCEL Version
-//            EFIterator efIt = EFIterator(dcel->m_halfedge[halfEdgeIndex]);
-//            FaceList adjFaces = efIt.list();
-
-//            Vector3 p0 = adjFaces[0]->HE()->V()->P();
-//            Vector3 q0 = adjFaces[0]->HE()->Next()->V()->P();
-//            Vector3 r0 = adjFaces[0]->HE()->Next()->Next()->V()->P();
-//            Vector3 n0 = Geometry::triangleNormal(p0,q0,r0);
-//            Scalar norm0 = n0.norm();
-//            Vector3 p, q, r, ni;
-//            Scalar normi;
-
-//            for (uint i = 1; i < adjFaces.size() && planar; i++)
-//            {
-//                p = adjFaces[i]->HE()->V()->P();
-//                q = adjFaces[i]->HE()->Next()->V()->P();
-//                r = adjFaces[i]->HE()->Next()->Next()->V()->P();
-//                ni = Geometry::triangleNormal(p,q,r);
-//                normi = ni.norm();
-//                planar = (std::abs(n0.dot(ni)) == norm0 * normi);
-//            }
-
             return planar;
         }
 
@@ -150,65 +127,6 @@ namespace Ra
                 vtHandle = topologicalMesh->to_vertex_handle(halfEdgeHandle);
             }
 
-            //DCEL Version
-//            VFIterator vsIt = VFIterator(dcel->m_halfedge[halfEdgeIndex]->V());
-//            FaceList adjFacesVs = vsIt.list();
-
-//            Vector3 p0 = adjFacesVs[0]->HE()->V()->P();
-//            Vector3 q0 = adjFacesVs[0]->HE()->Next()->V()->P();
-//            Vector3 r0 = adjFacesVs[0]->HE()->Next()->Next()->V()->P();
-//            Vector3 n0 = Geometry::triangleNormal(p0,q0,r0);
-//            Scalar norm0 = n0.norm();
-//            Vector3 p, q, r, ni;
-//            Scalar normi;
-
-//            for (uint i = 1; i < adjFacesVs.size() && planarVs; i++)
-//            {
-//                p = adjFacesVs[i]->HE()->V()->P();
-//                q = adjFacesVs[i]->HE()->Next()->V()->P();
-//                r = adjFacesVs[i]->HE()->Next()->Next()->V()->P();
-//                ni = Geometry::triangleNormal(p,q,r);
-//                normi = ni.norm();
-//                planarVs = (std::abs(n0.dot(ni)) == norm0 * normi);
-//            }
-
-//            VFIterator vtIt = VFIterator(dcel->m_halfedge[halfEdgeIndex]->Next()->V());
-//            FaceList adjFacesVt = vtIt.list();
-
-//            p0 = adjFacesVt[0]->HE()->V()->P();
-//            q0 = adjFacesVt[0]->HE()->Next()->V()->P();
-//            r0 = adjFacesVt[0]->HE()->Next()->Next()->V()->P();
-//            n0 = Geometry::triangleNormal(p0,q0,r0);
-//            norm0 = n0.norm();
-
-//            for (uint i = 1; i < adjFacesVt.size() && planarVt; i++)
-//            {
-//                p = adjFacesVt[i]->HE()->V()->P();
-//                q = adjFacesVt[i]->HE()->Next()->V()->P();
-//                r = adjFacesVt[i]->HE()->Next()->Next()->V()->P();
-//                ni = Geometry::triangleNormal(p,q,r);
-//                normi = ni.norm();
-//                planarVt = (std::abs(n0.dot(ni)) == norm0 * normi);
-//            }
-
-//            if (planarVs)
-//            {
-//                vsIndex = -1;
-//            }
-//            else
-//            {
-//                vsIndex = dcel->m_halfedge[halfEdgeIndex]->V()->idx;
-//            }
-
-//            if (planarVt)
-//            {
-//                vtIndex = -1;
-//            }
-//            else
-//            {
-//                vtIndex = dcel->m_halfedge[halfEdgeIndex]->Next()->V()->idx;
-//            }
-
             return (planarVs && planarVt);
         }
 
@@ -229,9 +147,6 @@ namespace Ra
         {
             Vector3 vs = convertVec3OpenMeshToEigen(topologicalMesh->point(topologicalMesh->from_vertex_handle(halfEdgeHandle)));
             Vector3 vt = convertVec3OpenMeshToEigen(topologicalMesh->point(topologicalMesh->to_vertex_handle(halfEdgeHandle)));
-
-//            Vector3 vs = dcel->m_halfedge[halfEdgeIndex]->V()->P();
-//            Vector3 vt = dcel->m_halfedge[halfEdgeIndex]->Next()->V()->P();
 
             Scalar error;
 
@@ -254,7 +169,6 @@ namespace Ra
                 Primitive::Vector p12 = (p1 + p2) / 2.0;
                 Scalar p12_error = std::abs(computeGeometricError(q, p12));
                 bool planar = isPlanarEdge(halfEdgeHandle, topologicalMesh);
-//                bool planar = isPlanarEdge(halfEdgeIndex, dcel);
                 if (planar)
                 {
                     result = p12;
@@ -280,34 +194,6 @@ namespace Ra
                         result = p1;
                     }
                 }
-
-
-//                Primitive::Vector p1  = vs;
-//                Primitive::Vector p2  = vt;
-//                Primitive::Vector p12 = (p1 + p2) / 2.0;
-
-//                Scalar p1_error     = std::abs(computeGeometricError(q, p1));
-//                Scalar p2_error     = std::abs(computeGeometricError(q, p2));
-//                Scalar p12_error    = std::abs(computeGeometricError(q, p12));
-
-//                error = p1_error;
-//                Primitive::Vector p = p1;
-//                if (p2_error < error && p12_error > p2_error)
-//                {
-//                    p = p2;
-//                    result = p;
-//                    error = p2_error;
-//                }
-//                else if (p12_error < error && p2_error > p12_error)
-//                {
-//                    p = p12;
-//                    result = p;
-//                    error = p12_error;
-//                }
-//                else
-//                {
-//                    result = p;
-//                }
             }
             pResult = Vector3(result.x(), result.y(), result.z());
             return error;
@@ -377,14 +263,6 @@ namespace Ra
 
             Primitive::Vector n = Geometry::triangleNormal(convertVec3OpenMeshToEigen(topologicalMesh.point(v0)), convertVec3OpenMeshToEigen(topologicalMesh.point(v1)), convertVec3OpenMeshToEigen(topologicalMesh.point(v2)));
             q = Primitive(n, -n.dot(convertVec3OpenMeshToEigen(topologicalMesh.point(v0))));
-
-            //DCEL Version
-//            Vertex_ptr v0 = f->HE()->V();
-//            Vertex_ptr v1 = f->HE()->Next()->V();
-//            Vertex_ptr v2 = f->HE()->Next()->Next()->V();
-
-//            Primitive::Vector n = Geometry::triangleNormal(v0->P(), v1->P(), v2->P());
-//            q = Primitive(n, -n.dot(v0->P()));
         }
 
         //---------------------------------------------------
@@ -492,12 +370,6 @@ namespace Ra
             TopologicalMesh::VertexHandle v1 = topologicalMesh.to_vertex_handle(topologicalMesh.halfedge_handle(f));
             TopologicalMesh::VertexHandle v2 = topologicalMesh.to_vertex_handle(topologicalMesh.next_halfedge_handle(topologicalMesh.halfedge_handle(f)));
             Vector3 p = (convertVec3OpenMeshToEigen(topologicalMesh.point(v0)) + convertVec3OpenMeshToEigen(topologicalMesh.point(v1)) + convertVec3OpenMeshToEigen(topologicalMesh.point(v2))) / 3.0;
-            //DCEL Version
-//            Vector3 p = (v0->P() + v1->P() + v2->P()) / 3.0;
-//            Vertex_ptr v0 = f->HE()->V();
-//            Vertex_ptr v1 = f->HE()->Next()->V();
-//            Vertex_ptr v2 = f->HE()->Next()->Next()->V();
-//            Vector3 p = (v0->P() + v1->P() + v2->P()) / 3.0;
 
 
             GrenaillePoint::VectorType pg = GrenaillePoint::VectorType(p.x(), p.y(), p.z());
@@ -528,23 +400,6 @@ namespace Ra
                 GrenaillePoint gpi(pgi, n);
                 fit.addNeighbor(gpi);
             }
-
-
-            //DCEL Version
-//            FFIterator ffIt = FFIterator(f);
-//            FaceList adjFaces = ffIt.list();
-//            for (uint i = 0; i < adjFaces.size(); i++)
-//            {
-//                Face_ptr fi = adjFaces[i];
-//                v0 = fi->HE()->V();
-//                v1 = fi->HE()->Next()->V();
-//                v2 = fi->HE()->Next()->Next()->V();
-//                p = (v0->P() + v1->P() + v2->P()) / 3.0;
-//                pgi = GrenaillePoint::VectorType(p.x(), p.y(), p.z());
-//                Vector3 n = Geometry::triangleNormal(v0->P(), v1->P(), v2->P());
-//                GrenaillePoint gpi(pgi, n);
-//                fit.addNeighbor(gpi);
-//            }
 
             fit.finalize();
 
@@ -638,11 +493,6 @@ namespace Ra
             TopologicalMesh::VertexHandle v2 = topologicalMesh.to_vertex_handle(topologicalMesh.next_halfedge_handle(topologicalMesh.halfedge_handle(f)));
             Vector3 p = (convertVec3OpenMeshToEigen(topologicalMesh.point(v0)) + convertVec3OpenMeshToEigen(topologicalMesh.point(v1)) + convertVec3OpenMeshToEigen(topologicalMesh.point(v2))) / 3.0;
 
-            //DCEL Version
-//            Vertex_ptr v0 = f->HE()->V();
-//            Vertex_ptr v1 = f->HE()->Next()->V();
-//            Vertex_ptr v2 = f->HE()->Next()->Next()->V();
-//            Vector3 p = (v0->P() + v1->P() + v2->P()) / 3.0;
             GrenaillePoint::VectorType pg = GrenaillePoint::VectorType(p.x(), p.y(), p.z());
 
             Fit1 fit;
@@ -673,22 +523,6 @@ namespace Ra
                 fit.addNeighbor(gpi);
             }
 
-            //DCEL Version
-//            FFIterator ffIt = FFIterator(f);
-//            FaceList adjFaces = ffIt.list();
-//            for (uint i = 0; i < adjFaces.size(); i++)
-//            {
-//                Face_ptr fi = adjFaces[i];
-//                v0 = fi->HE()->V();
-//                v1 = fi->HE()->Next()->V();
-//                v2 = fi->HE()->Next()->Next()->V();
-//                p = (v0->P() + v1->P() + v2->P()) / 3.0;
-//                pgi = GrenaillePoint::VectorType(p.x(), p.y(), p.z());
-//                Vector3 n = Geometry::triangleNormal(v0->P(), v1->P(), v2->P());
-//                GrenaillePoint::VectorType ng = GrenaillePoint::VectorType(n.x(), n.y(), n.z());
-//                GrenaillePoint gpi(pgi, ng);
-//                fit.addNeighbor(gpi);
-//            }
             fit.finalize();
 
             if (fit.getCurrentState() != UNDEFINED)

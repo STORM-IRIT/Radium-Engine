@@ -1,12 +1,6 @@
 #include <Core/Index/Index.hpp>
 
-#include <Core/Mesh/DCEL/HalfEdge.hpp>
-#include <Core/Mesh/DCEL/Vertex.hpp>
-#include <Core/Mesh/DCEL/FullEdge.hpp>
-
 #include <Core/Mesh/TopologicalTriMesh/Operations/VertexSplit.hpp>
-
-#include <Core/Mesh/DCEL/Iterator/Vertex/VFIterator.hpp>
 
 #include <Core/Log/Log.hpp>
 
@@ -39,24 +33,6 @@ void createVt(TopologicalMesh& topologicalMesh, ProgressiveMeshData pmdata)
     }
     topologicalMesh.set_point(vtHandle, TopologicalMesh::Point(vtPosition.x(),vtPosition.y(),vtPosition.z()));
     topologicalMesh.set_point(vsHandle, TopologicalMesh::Point(vsPosition.x(),vsPosition.y(),vsPosition.z()));
-
-//    if (pmdata.getii() == 0)
-//    {
-//        vtPosition = dcel.m_vertex[vsId]->P() + pmdata.getVads();
-//        vsPosition = dcel.m_vertex[vsId]->P() + pmdata.getVadl();
-//    }
-//    else if (pmdata.getii() == 1)
-//    {
-//        vtPosition = dcel.m_vertex[vsId]->P() + pmdata.getVadl();
-//        vsPosition = dcel.m_vertex[vsId]->P() + pmdata.getVads();
-//    }
-//    else
-//    {
-//        vtPosition = dcel.m_vertex[vsId]->P() + pmdata.getVads() + pmdata.getVadl();
-//        vsPosition = dcel.m_vertex[vsId]->P() + pmdata.getVads() - pmdata.getVadl();
-//    }
-//    dcel.m_vertex[vtId]->setP(vtPosition);
-//    dcel.m_vertex[vsId]->setP(vsPosition);
 }
 
 void findFlclwNeig(TopologicalMesh& topologicalMesh, ProgressiveMeshData pmdata,
@@ -121,56 +97,6 @@ void findFlclwNeig(TopologicalMesh& topologicalMesh, ProgressiveMeshData pmdata,
             break;
     }
 
-//    // Vr
-//    for (uint i = 0; i < adjOut.size(); i++)
-//    {
-//        Face_ptr f = adjOut[i];
-//        if (pmdata.getVrId() != -1 && frcrwId == -1 && frcrwOpId == -1)
-//        {
-//            he = f->HE();
-//            heCurr = nullptr;
-//            for (uint j = 0; j < 3; j++)
-//            {
-//                if (he->V()->idx == pmdata.getVrId() &&
-//                    he->Next()->V()->idx == pmdata.getVsId())
-//                {
-//                    heCurr = he;
-//                    break;
-//                }
-//                else
-//                    he = he->Next();
-//            }
-//            if (heCurr != nullptr) // vrId exists in the face
-//            {
-//                frcrwId = heCurr->F()->idx;
-//                frcrwOpId = heCurr->Twin()->F()->idx;
-//            }
-//        }
-//        if (flclwId == -1 && flclwOpId == -1)
-//        {
-//            // Vl
-//            he = f->HE();
-//            heCurr = nullptr;
-//            for (uint j = 0; j < 3; j++)
-//            {
-//                if (he->V()->idx == pmdata.getVlId() &&
-//                    he->Next()->V()->idx == pmdata.getVsId())
-//                {
-//                    heCurr = he;
-//                    break;
-//                }
-//                else
-//                    he = he->Next();
-//            }
-//            if (heCurr != nullptr) // vlId exists in the face
-//            {
-//                flclwOpId = he->F()->idx;
-//                flclwId = he->Twin()->F()->idx;
-//            }
-//        }
-//        if (flclwId != -1 && flclwOpId != -1 && frcrwOpId != -1 && frcrwId)
-//            break;
-//    }
     CORE_ASSERT(flclwOp.idx() != -1, "PROBLEM FLCLWOP NOT FOUND");
     CORE_ASSERT(flclw.idx() != -1, "PROBLEM FLCLW NOT FOUND");
     CORE_ASSERT(frcrw.idx() != -1, "PROBLEM FRCRW NOT FOUND");
@@ -179,99 +105,60 @@ void findFlclwNeig(TopologicalMesh& topologicalMesh, ProgressiveMeshData pmdata,
 
 void vertexSplit(TopologicalMesh& topologicalMesh, ProgressiveMeshData pmdata)
 {
+    // (xavier) Caution : If you check OpenMesh algorithms, they use a reverse convention about right and left.
     TopologicalMesh::FaceHandle flclw = pmdata.getFlclw();
     TopologicalMesh::VertexHandle vsHandle = pmdata.getVs();
     TopologicalMesh::VertexHandle vtHandle = pmdata.getVt();
-    TopologicalMesh::VertexHandle vlHandle = pmdata.getVr();
-    TopologicalMesh::VertexHandle vrHandle = pmdata.getVl();
-    TopologicalMesh::FaceHandle flHandle = pmdata.getFr();
-    TopologicalMesh::FaceHandle frHandle = pmdata.getFl();
+    TopologicalMesh::VertexHandle vrHandle = pmdata.getVr();
+    TopologicalMesh::VertexHandle vlHandle = pmdata.getVl();
+    TopologicalMesh::FaceHandle frHandle = pmdata.getFr();
+    TopologicalMesh::FaceHandle flHandle = pmdata.getFl();
 
-    // Looking for the faces affected by the vertex split
-    //std::vector<Index> adjFaces;
-    //FaceListvertexFaceAdjacency(dcel, vsId, adjFaces);
 
-    std::vector<TopologicalMesh::FaceHandle> adjFaces;
-    TopologicalMesh::VertexFaceIter vf_it = topologicalMesh.vf_iter(vsHandle);
-    for(; vf_it.is_valid(); ++vf_it) {
-        adjFaces.push_back(vf_it);
-    }
-
-//    VFIterator vsfIt = VFIterator(dcel.m_vertex[vsId]);
-//    FaceList adjFaces = vsfIt.list();
-
-    //  Looking for faces whose neighboring need to be updated
-// TODO : Uncomment 2 lines below ?
-    //TopologicalMesh::FaceHandle flclwOp, frcrw, frcrwOp;
-    //findFlclwNeig(topologicalMesh, pmdata, flclw, flclwOp, frcrw, frcrwOp, adjFaces);
+    // (xavier) findFlclwNeig seems not needed anymore but check it
+//    std::vector<TopologicalMesh::FaceHandle> adjFaces;
+//    TopologicalMesh::VertexFaceIter vf_it = topologicalMesh.vf_iter(vsHandle);
+//    for(; vf_it.is_valid(); ++vf_it) {
+//        adjFaces.push_back(vf_it);
+//    }
+//      Looking for faces whose neighboring need to be updated
+//    TopologicalMesh::FaceHandle flclwOp, frcrw, frcrwOp;
+//    findFlclwNeig(topologicalMesh, pmdata, flclw, flclwOp, frcrw, frcrwOp, adjFaces);
 
     // Creating vt, and update vt's and vs's position
     createVt(topologicalMesh, pmdata);
 
     TopologicalMesh::HalfedgeHandle heFl = pmdata.getHeFl();
     TopologicalMesh::HalfedgeHandle heFr = pmdata.getHeFr();
-    TopologicalMesh::HalfedgeHandle v1vl, vlv1, vrv1, v0v1;
-
-
-    //----------------- TEST -----------------
-//    vrv1 = topologicalMesh.find_halfedge(vrHandle, vsHandle);
-//    if(!vrv1.is_valid())
-//    {
-//       TopologicalMesh::VertexOHalfedgeIter voh0_it = topologicalMesh.voh_iter(vsHandle);
-//       LOG(logINFO) << "vsId: (" << vsHandle.idx() <<")";
-//       for(; voh0_it.is_valid(); ++voh0_it) {
-//           LOG(logINFO) << "Edge iter: "<< voh0_it->idx() <<" vertex : "<< (topologicalMesh.to_vertex_handle(voh0_it)).idx() << " Boundary : " << topologicalMesh.is_boundary(voh0_it);
-//       }
-
-//       TopologicalMesh::VertexOHalfedgeIter voh1_it = topologicalMesh.voh_iter(vtHandle);
-//       LOG(logINFO) << "vtId: (" << vtHandle.idx() <<")";
-//       for(; voh1_it.is_valid(); ++voh1_it) {
-//           LOG(logINFO) << "Edge iter: "<< voh1_it->idx() <<" vertex : "<< (topologicalMesh.to_vertex_handle(voh1_it)).idx() << " Boundary : " << topologicalMesh.is_boundary(voh0_it);
-//       }
-
-//       TopologicalMesh::VertexOHalfedgeIter voh2_it = topologicalMesh.voh_iter(vlHandle);
-//       LOG(logINFO) << "vlId: (" << vlHandle.idx() <<")";
-//       for(; voh2_it.is_valid(); ++voh2_it) {
-//           LOG(logINFO) << "Edge iter: "<< voh2_it->idx() <<" vertex : "<< (topologicalMesh.to_vertex_handle(voh2_it)).idx() << " Boundary : " << topologicalMesh.is_boundary(voh0_it);
-//       }
-
-//       TopologicalMesh::VertexOHalfedgeIter voh3_it = topologicalMesh.voh_iter(vrHandle);
-//       LOG(logINFO) << "vrId: (" << vrHandle.idx() <<")";
-//       for(; voh3_it.is_valid(); ++voh3_it) {
-//           LOG(logINFO) << "Edge iter: "<< voh3_it->idx() <<" vertex : "<< (topologicalMesh.to_vertex_handle(voh3_it)).idx() << " Boundary : " << topologicalMesh.is_boundary(voh0_it);
-//       }
-//    }
-
-  //-------------------------------------------------
+    TopologicalMesh::HalfedgeHandle v1vr, vrv1, vlv1, v0v1;
 
     // build loop from halfedge v1->vl
-    if (vlHandle.is_valid())
+    if (vrHandle.is_valid())
     {
-      v1vl = topologicalMesh.find_halfedge(vsHandle, vlHandle);
-      assert(v1vl.is_valid());
-      vlv1 = insert_loop(topologicalMesh,v1vl,topologicalMesh.prev_halfedge_handle(heFr),flHandle);
+      v1vr = topologicalMesh.find_halfedge(vsHandle, vrHandle);
+      assert(v1vr.is_valid());
+      vrv1 = insert_loop(topologicalMesh,v1vr,topologicalMesh.prev_halfedge_handle(heFr),frHandle);
     }
 
     // build loop from halfedge vr->v1
-    if (vrHandle.is_valid())
+    if (vlHandle.is_valid())
     {
-      vrv1 = topologicalMesh.find_halfedge(vrHandle, vsHandle);
-      assert(vrv1.is_valid());
-      insert_loop(topologicalMesh,vrv1,topologicalMesh.next_halfedge_handle(heFl),frHandle);
+      vlv1 = topologicalMesh.find_halfedge(vlHandle, vsHandle);
+      assert(vlv1.is_valid());
+      insert_loop(topologicalMesh,vlv1,topologicalMesh.next_halfedge_handle(heFl),flHandle);
     }
 
     // handle boundary cases
-    if (!vlHandle.is_valid())
-      vlv1 = topologicalMesh.prev_halfedge_handle(topologicalMesh.halfedge_handle(vsHandle));
     if (!vrHandle.is_valid())
-      vrv1 = topologicalMesh.prev_halfedge_handle(topologicalMesh.halfedge_handle(vsHandle));
+      vrv1 = topologicalMesh.prev_halfedge_handle(heFr);
+    if (!vlHandle.is_valid())
+        vlv1 = topologicalMesh.prev_halfedge_handle(heFl);
 
 
     // split vertex v1 into edge v0v1
     topologicalMesh.status(heFr).set_deleted(false);
     topologicalMesh.status(heFl).set_deleted(false);
-    v0v1 = insert_edge(topologicalMesh,vtHandle, vlv1, vrv1,heFr,heFl);
-
+    v0v1 = insert_edge(topologicalMesh,vtHandle, vrv1, vlv1,heFr,heFl);
 
 }
 
@@ -366,11 +253,8 @@ TopologicalMesh::HalfedgeHandle insert_edge(TopologicalMesh& topologicalMesh, To
   topologicalMesh.adjust_outgoing_halfedge(v0);
   topologicalMesh.adjust_outgoing_halfedge(v1);
 
-
   return v0v1;
 }
-
-
 
 } // Dcel Operations
 } // Core

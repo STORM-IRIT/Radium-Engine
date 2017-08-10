@@ -10,19 +10,6 @@
 #include <Core/Mesh/TopologicalTriMesh/Operations/EdgeCollapse.hpp>
 #include <Core/Mesh/TopologicalTriMesh/Operations/VertexSplit.hpp>
 
-//#include <Core/Mesh/DCEL/Vertex.hpp>
-//#include <Core/Mesh/DCEL/HalfEdge.hpp>
-//#include <Core/Mesh/DCEL/FullEdge.hpp>
-//#include <Core/Mesh/DCEL/Dcel.hpp>
-//#include <Core/Mesh/DCEL/Operations/EdgeCollapse.hpp>
-//#include <Core/Mesh/DCEL/Operations/VertexSplit.hpp>
-
-//#include <Core/Mesh/DCEL/Iterator/Vertex/VVIterator.hpp>
-//#include <Core/Mesh/DCEL/Iterator/Vertex/VFIterator.hpp>
-//#include <Core/Mesh/DCEL/Iterator/Vertex/VHEIterator.hpp>
-//#include <Core/Mesh/DCEL/Iterator/Edge/EFIterator.hpp>
-
-
 #include <Core/Mesh/ProgressiveMesh/PriorityQueue.hpp>
 
 #include <Core/Geometry/Triangle/TriangleOperation.hpp>
@@ -90,19 +77,6 @@ namespace Ra
                 if (m_topologicalMesh->point(v_it)[2] > max_z) max_z = m_topologicalMesh->point(v_it)[2];
             }
 
-            //DCEL Version
-//            min_x = max_x = m_dcel->m_vertex[0]->P().x();
-//            min_y = max_y = m_dcel->m_vertex[0]->P().y();
-//            min_z = max_z = m_dcel->m_vertex[0]->P().z();
-//            for (int i = 0; i < m_dcel->m_vertex.size(); i++)
-//            {
-//                if (m_dcel->m_vertex[i]->P().x() < min_x) min_x = m_dcel->m_vertex[i]->P().x();
-//                if (m_dcel->m_vertex[i]->P().x() > max_x) max_x = m_dcel->m_vertex[i]->P().x();
-//                if (m_dcel->m_vertex[i]->P().y() < min_y) min_y = m_dcel->m_vertex[i]->P().y();
-//                if (m_dcel->m_vertex[i]->P().y() > max_y) max_y = m_dcel->m_vertex[i]->P().y();
-//                if (m_dcel->m_vertex[i]->P().z() < min_z) min_z = m_dcel->m_vertex[i]->P().z();
-//                if (m_dcel->m_vertex[i]->P().z() > max_z) max_z = m_dcel->m_vertex[i]->P().z();
-//            }
             Vector3 size = Vector3(max_x-min_x, max_y-min_y, max_z-min_z);
             //Vector3 center = Vector3((min_x+max_x)/2, (min_y+max_y)/2, (min_z+max_z)/2);
             return size.norm();
@@ -144,15 +118,6 @@ namespace Ra
                 m_em.generateFacePrimitive(q, vf_it, *m_topologicalMesh);
                 m_primitives[vf_it->idx()] = q;
             }
-            //DCEL Version
-//            VFIterator vsfIt = VFIterator(m_dcel->m_vertex[vsIndex]);
-//            FaceList adjFaces = vsfIt.list();
-//            for (uint t = 0; t < adjFaces.size(); ++t)
-//            {
-//                Primitive q;
-//                m_em.generateFacePrimitive(q, adjFaces[t], *m_dcel);
-//                m_primitives[adjFaces[t]->idx] = q;
-//            }
         }
 
         template <class ErrorMetric>
@@ -173,25 +138,6 @@ namespace Ra
                 }
             }
 
-            //DCEL Version
-//            Face_ptr face = m_dcel->m_face[faceIndex];
-//            Vertex_ptr vs = m_dcel->m_vertex[vsIndex];
-//            Vertex_ptr vt = m_dcel->m_vertex[vtIndex];
-
-//            HalfEdge_ptr he = face->HE();
-//            for (int i = 0; i < 3; i++)
-//            {
-//                if (he->V() == vs || he->V() == vt)
-//                {
-//                    Vector3 v0 = he->Next()->V()->P() - he->V()->P();
-//                    Vector3 v1 = he->Prev()->V()->P() - he->V()->P();
-//                    v0.normalize();
-//                    v1.normalize();
-//                    wedgeAngle = std::acos(v0.dot(v1));
-//                    break;
-//                }
-//                he = he->Next();
-//            }
             CORE_ASSERT(wedgeAngle < 360, "WEDGE ANGLE WAY TOO HIGH");
 
             return wedgeAngle;
@@ -240,36 +186,6 @@ namespace Ra
                 q += qToAdd;
             }
 
-            //DCEL Version
-//            EFIterator eIt = EFIterator(m_dcel->m_halfedge[halfEdgeIndex]);
-//            FaceList adjFaces = eIt.list();
-
-//            // We go all over the faces which contain vs and vt
-//            // We add the quadrics of all the faces
-//            Primitive q, qToAdd;
-//            Index fIdx;
-
-//            Scalar weight = 1.0/adjFaces.size();
-//            q = m_primitives[adjFaces[0]->idx];
-//            q *= weight;
-
-//            for (unsigned int i = 1; i < adjFaces.size(); i++)
-//            {
-//                Face_ptr f = adjFaces[i];
-//                fIdx = f->idx;
-////                Scalar area = Ra::Core::Geometry::triangleArea
-////                                ( f->HE()->V()->P(),
-////                                  f->HE()->Next()->V()->P(),
-////                                  f->HE()->Prev()->V()->P());
-////                Scalar wedgeAngle = getWedgeAngle(fIdx,
-////                                                m_dcel->m_halfedge[halfEdgeIndex]->V()->idx,
-////                                                m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->idx);
-//                qToAdd = m_primitives[fIdx];
-//                qToAdd *= weight;
-
-//                q += qToAdd;
-//            }
-
             return q;
         }
 
@@ -294,20 +210,6 @@ namespace Ra
             Scalar weight = 1.0/adjFaces.size();
             q *= weight;
 
-            //DCEL Version
-
-//            VFIterator vfIt = VFIterator(m_dcel->m_vertex[vertexIndex]);
-//            FaceList adjFaces = vfIt.list();
-
-//            Primitive q = m_primitives[adjFaces[0]->idx];
-//            for (uint i = 1; i < adjFaces.size(); i++)
-//            {
-//                q += m_primitives[adjFaces[i]->idx];
-//            }
-
-//            Scalar weight = 1.0/adjFaces.size();
-//            q *= weight;
-
             return q;
         }
 
@@ -318,16 +220,12 @@ namespace Ra
         bool ProgressiveMesh<ErrorMetric>::isPlanarEdge(TopologicalMesh::HalfedgeHandle halfEdgeHandle)
         {
             return m_em.isPlanarEdge(halfEdgeHandle, m_topologicalMesh);
-            //DCEL Version
-            //return m_em.isPlanarEdge(halfEdgeIndex, m_dcel);
         }
 
         template <class ErrorMetric>
         bool ProgressiveMesh<ErrorMetric>::isPlanarEdge2(TopologicalMesh::HalfedgeHandle halfEdgeHandle, TopologicalMesh::VertexHandle &vsHandle, TopologicalMesh::VertexHandle &vtHandle)
         {
             return m_em.isPlanarEdge2(halfEdgeHandle, m_topologicalMesh, vsHandle, vtHandle);
-            //DCEL Version
-            //return m_em.isPlanarEdge2(halfEdgeIndex, m_dcel, vsIndex, vtIndex);
         }
 
 
@@ -341,8 +239,6 @@ namespace Ra
 //            Vector3 vt = m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->P();
 //            return m_em.computeError(q, vs, vt, pResult);
             return m_em.computeError(q, halfEdgeHandle, pResult, m_topologicalMesh);
-            //DCEL Version
-            //return m_em.computeError(q, halfEdgeIndex, pResult, m_dcel);
         }
 
         template <class ErrorMetric>
@@ -353,8 +249,6 @@ namespace Ra
 //            Vector3 vt = m_dcel->m_halfedge[halfEdgeIndex]->Next()->V()->P();
 //            return m_em.computeError(q, vs, vt, pResult);
             return m_em.computeError(q, halfEdgeHandle, pResult, m_topologicalMesh);
-            //DCEL Version
-            //return m_em.computeError(q, halfEdgeIndex, pResult, m_dcel);
         }     
 
         //--------------------------------------------------
@@ -365,12 +259,6 @@ namespace Ra
 
             // Look if the vertex is too close to another object
             const Super4PCS::KdTree<Scalar>::VectorType& p = reinterpret_cast<const Super4PCS::KdTree<Scalar>::VectorType&>(m_topologicalMesh->point(vertexHandle));
-
-            //DCEL Version
-//            Vertex_ptr v = m_dcel->m_vertex[vertexIndex];
-//            // Look if the vertex is too close to another object
-//            const Super4PCS::KdTree<Scalar>::VectorType& p = reinterpret_cast<const Super4PCS::KdTree<Scalar>::VectorType&>(v->P());
-
             int contact = kdtrees[idxOtherObject]->doQueryRestrictedClosestIndex(p, threshold);
             return contact;
         }
@@ -619,7 +507,8 @@ namespace Ra
                 TopologicalMesh::VertexHandle vs = m_topologicalMesh->from_vertex_handle(heh);
                 TopologicalMesh::VertexHandle vt = m_topologicalMesh->to_vertex_handle(heh);
 
-                Vector3 vsvt = convertVec3OpenMeshToEigen(m_topologicalMesh->point(vs)- m_topologicalMesh->point(vt));
+                TopologicalMesh::Point topological_vsvt = m_topologicalMesh->point(vs)- m_topologicalMesh->point(vt);
+                Vector3 vsvt = convertVec3OpenMeshToEigen(topological_vsvt);
                 Vector3 nf = Geometry::triangleNormal(convertVec3OpenMeshToEigen(m_topologicalMesh->point(v1)), convertVec3OpenMeshToEigen(m_topologicalMesh->point(vs)), convertVec3OpenMeshToEigen(m_topologicalMesh->point(vt)));
                 Vector3 n = vsvt.cross(nf);
 
@@ -647,7 +536,8 @@ namespace Ra
                  TopologicalMesh::VertexHandle vs = m_topologicalMesh->from_vertex_handle(heh);
                  TopologicalMesh::VertexHandle vt = m_topologicalMesh->to_vertex_handle(heh);
 
-                 Vector3 vsvt = convertVec3OpenMeshToEigen(m_topologicalMesh->point(vs)- m_topologicalMesh->point(vt));
+                 TopologicalMesh::Point topological_vsvt = m_topologicalMesh->point(vs)- m_topologicalMesh->point(vt);
+                 Vector3 vsvt = convertVec3OpenMeshToEigen(topological_vsvt);
                  Vector3 nf = Geometry::triangleNormal(convertVec3OpenMeshToEigen(m_topologicalMesh->point(v2)), convertVec3OpenMeshToEigen(m_topologicalMesh->point(vs)), convertVec3OpenMeshToEigen(m_topologicalMesh->point(vt)));
                  Vector3 n = vsvt.cross(nf);
 
@@ -658,77 +548,6 @@ namespace Ra
                  }
                 }
             }
-
-
-            //DCEL Version
-//            HalfEdge_ptr he = m_dcel->m_halfedge[halfEdgeIndex];
-//            Face_ptr f1 = he->F();
-//            Face_ptr f2 = he->Twin()->F();
-//            Vertex_ptr v1 = he->V();
-//            Vertex_ptr v2 = he->Next()->V();
-
-//            VFIterator v1fIt = VFIterator(v1);
-//            VFIterator v2fIt = VFIterator(v2);
-//            FaceList adjFacesV1 = v1fIt.list();
-//            FaceList adjFacesV2 = v2fIt.list();
-
-//            bool consistent = true;
-
-//            for (uint i = 0; i < adjFacesV1.size() && consistent; i++)
-//            {
-//               Face_ptr f = adjFacesV1[i];
-//               if ((f != f1) && (f != f2))
-//               {
-//                HalfEdge_ptr h = f->HE();
-//                Vertex_ptr v = h->V();
-//                while (v != v1)
-//                {
-//                    h = h->Next();
-//                    v = h->V();
-//                }
-//                h = h->Next();
-//                Vertex_ptr vs = h->V();
-//                Vertex_ptr vt = h->Next()->V();
-
-//                Vector3 vsvt = vs->P() - vt->P();
-//                Vector3 nf = Geometry::triangleNormal(v1->P(), vs->P(), vt->P());
-//                Vector3 n = vsvt.cross(nf);
-
-//                consistent = ((n.dot(v1->P()) >= 0) == (n.dot(pResult) >= 0));
-//                if (! consistent)
-//                {
-//                    LOG(logINFO) << "Edge " << v1->idx << " " << v2->idx << " is not collapsable due to inconsistency";
-//                }
-//               }
-//            }
-
-//            for (uint i = 0; i < adjFacesV2.size() && consistent; i++)
-//            {
-//               Face_ptr f = adjFacesV2[i];
-//               if ((f != f1) && (f != f2))
-//               {
-//                HalfEdge_ptr h = f->HE();
-//                Vertex_ptr v = h->V();
-//                while (v != v2)
-//                {
-//                    h = h->Next();
-//                    v = h->V();
-//                }
-//                h = h->Next();
-//                Vertex_ptr vs = h->V();
-//                Vertex_ptr vt = h->Next()->V();
-
-//                Vector3 vsvt = vs->P() - vt->P();
-//                Vector3 nf = Geometry::triangleNormal(v2->P(), vs->P(), vt->P());
-//                Vector3 n = vsvt.cross(nf);
-
-//                consistent = ((n.dot(v2->P()) >= 0) == (n.dot(pResult) >= 0));
-//                if (! consistent)
-//                {
-//                    LOG(logINFO) << "Edge " << v1->idx << " " << v2->idx << " is not collapsable due to inconsistency";
-//                }
-//               }
-//            }
 
            return consistent;
         }
@@ -827,10 +646,6 @@ namespace Ra
             for(; vf_it.is_valid(); ++vf_it) {
                 adjFaces.push_back(vf_it);
             }
-
-//            Index vsId = he->V()->idx;
-//            Index vtId = he->Next()->V()->idx;
-
 
             for (uint i = 0; i < adjFaces.size(); i++)
             {
@@ -957,8 +772,6 @@ namespace Ra
         bool ProgressiveMesh<ErrorMetric>::isConstructM0(std::vector<Super4PCS::KdTree<Scalar>*> kdtrees, int idx, PriorityQueue &pQueue)
         {
             PriorityQueue::PriorityQueueData d = pQueue.firstData();
-//            HalfEdge_ptr he = m_dcel->m_halfedge[d.m_edge_id];
-//            if (!isEcolPossible(he->idx, d.m_p_result/*, kdtrees, idx*/))
             TopologicalMesh::HalfedgeHandle heh = d.m_edge;
             if (!isEcolPossible(heh, d.m_p_result/*, kdtrees, idx*/))
             {
@@ -1035,8 +848,6 @@ namespace Ra
         {
             TopologicalMesh::HalfedgeHandle heh = pmData.getHeFl();
             if(m_topologicalMesh->is_boundary(m_topologicalMesh->opposite_halfedge_handle(heh)) || m_topologicalMesh->is_boundary(heh))
-            //HalfEdge_ptr he = m_dcel->m_halfedge[pmData.getHeFlId()];
-            //if (he->Twin() == NULL)
                 m_nb_faces += 1;
             else
                 m_nb_faces += 2;
@@ -1053,8 +864,6 @@ namespace Ra
             TopologicalMesh::HalfedgeHandle heh = pmData.getHeFl();
 
             if(m_topologicalMesh->is_boundary(m_topologicalMesh->edge_handle(heh)))
-//            HalfEdge_ptr he = m_dcel->m_halfedge[pmData.getHeFlId()];
-//            if (he->Twin() == NULL)
                 m_nb_faces -= 1;
             else
                 m_nb_faces -= 2;

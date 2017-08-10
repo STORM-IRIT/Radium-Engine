@@ -1,8 +1,4 @@
 #include <Core/Mesh/TopologicalTriMesh/Operations/EdgeSplit.hpp>
-#include <Core/Mesh/DCEL/HalfEdge.hpp>
-#include <Core/Mesh/DCEL/Vertex.hpp>
-#include <Core/Mesh/DCEL/Vertex.hpp>
-#include <Core/Mesh/DCEL/FullEdge.hpp>
 
 #include <Core/Log/Log.hpp>
 

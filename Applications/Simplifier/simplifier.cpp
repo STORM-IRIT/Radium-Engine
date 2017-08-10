@@ -45,7 +45,6 @@ void SimplifierComponent::exportMesh(std::string filename)
     Ra::Core::OBJFileManager obj;
     Ra::Core::TriangleMesh mesh;
     Ra::Core::MeshConverter::convert(*(m_meshContactElement->getProgressiveMeshLOD()->getProgressiveMesh()->getTopologicalMesh()), mesh);
-    //Ra::Core::convertPM(*(m_meshContactElement->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()), mesh);
     bool result = obj.save( filename, mesh );
     if (result)
     {
@@ -88,8 +87,8 @@ void SimplifierSystem::handleAssetLoading(Ra::Engine::Entity *entity, const Ra::
 
     for ( const auto& data : geomData )
     {
-        std::string componentName = "SMC_" + entity->getName() + std::to_string( id++ );
-        SimplifierComponent * comp = new SimplifierComponent( componentName);
+        std::string componentName = "PM_" + entity->getName() + std::to_string( id++ );
+        SimplifierComponent * comp = new SimplifierComponent("PM_" + entity->getName());
         comp->getMeshContactElement()->setIndex(m_components.size());
         entity->addComponent(comp);
         comp->handleMeshLoading(data);

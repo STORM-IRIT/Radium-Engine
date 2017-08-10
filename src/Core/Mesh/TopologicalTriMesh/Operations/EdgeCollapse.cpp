@@ -99,91 +99,11 @@ ProgressiveMeshData edgeCollapse(TopologicalMesh& topologicalMesh, TopologicalMe
         vr = topologicalMesh.from_vertex_handle(topologicalMesh.prev_halfedge_handle(h2));
     TopologicalMesh::FaceHandle flclw = topologicalMesh.face_handle(topologicalMesh.opposite_halfedge_handle(topologicalMesh.prev_halfedge_handle(h1)));
 
-
-//    // Retrieve the edge to collapse
-//    HalfEdge_ptr edge = dcel.m_halfedge[edgeIndex];
-
-//    Vertex_ptr v1 = edge->V();
-//    Vertex_ptr v2 = edge->Next()->V();
-
-//    // Retrieve the two halfedges
-//    HalfEdge_ptr h1 = edge;
-//    HalfEdge_ptr h2 = h1->Twin();
-
-//    // Retrieve the two faces
-//    Face_ptr f1 = h1->F();
-//    Face_ptr f2 = (h2 != NULL) ? h2->F() : nullptr;
-
-//    // Data for ProgressiveMeshData
-//    Vector3 vadS, vadL;
-//    short int ii = computeii(dcel, v1->idx, v2->idx, pResult, vadS, vadL);
-//    Vertex_ptr vl = h1->Prev()->V();
-//    Vertex_ptr vr = h2->Prev()->V();
-//    Face_ptr flclw = h1->Prev()->Twin()->F();
-
-
-//    // Make the halfEdge of the vertices of the faces
-//    // to delete point to existing new edges if needed
-//    if (h1->Prev()->V()->HE()->F() == f1)
-//        h1->Prev()->V()->setHE(h1->Next()->Twin());
-//    if (h2->Prev()->V()->HE()->F() == f2)
-//        h2->Prev()->V()->setHE(h2->Next()->Twin());
-//    if (v1->HE()->F() == f2)
-//        v1->setHE(v1->HE()->Twin()->Next());
-//    else if (v1->HE()->F() == f1)
-//        v1->setHE(v1->HE()->Prev()->Twin());
-
-//    //-----------------------------------------------
-//    // TODO do the same with full edges !!!
-//    //-----------------------------------------------
-//    // TODO do something for mesh with holes
-//    //-----------------------------------------------
-
-//    // Delete the faces
-//    f1->setHE(NULL);
-//    if (f2 != NULL) f2->setHE(NULL);
-
-//    VHEIterator vIt = VHEIterator(v2);
-//    HalfEdgeList adjHE = vIt.list();
-//    for (uint i = 0; i < adjHE.size(); i++)
-//    {
-//        adjHE[i]->setV(v1);
-//    }
-
-//    // Set new position of v1 and delete v2
-//    v1->setP(pResult);
-//    v2->setHE(NULL);
-
-//    // Updating twins
-//    HalfEdge_ptr e1 = (h1->Prev())->Twin();
-//    HalfEdge_ptr e2 = (h1->Next())->Twin();
-//    e1->setTwin(e2);
-//    e2->setTwin(e1);
-//    if (h2 != NULL)
-//    {
-//        HalfEdge_ptr e3 = (h2->Prev())->Twin();
-//        HalfEdge_ptr e4 = (h2->Next())->Twin();
-//        e3->setTwin(e4);
-//        e4->setTwin(e3);
-//    }
-
-    //Collapse h2 (v2 mark as deleted) -> move v1 to pResult -> destroy v2 (mesh reevaluation)
-    TopologicalMesh::HalfedgeHandle nexth1 = topologicalMesh.next_halfedge_handle(h1);
-    TopologicalMesh::HalfedgeHandle prevh1 = topologicalMesh.prev_halfedge_handle(h1);
-
-    TopologicalMesh::HalfedgeHandle nexth2 = topologicalMesh.next_halfedge_handle(h2);
-    TopologicalMesh::HalfedgeHandle prevh2 = topologicalMesh.prev_halfedge_handle(h2);
-
     topologicalMesh.collapse(h2);
 
     //Set removed halfedge status
     topologicalMesh.status(h1).set_deleted(true);
-    topologicalMesh.status(nexth1).set_deleted(true);
-    topologicalMesh.status(prevh1).set_deleted(true);
-
     topologicalMesh.status(h2).set_deleted(true);
-    topologicalMesh.status(nexth2).set_deleted(true);
-    topologicalMesh.status(prevh2).set_deleted(true);
 
     topologicalMesh.set_point(v1, TopologicalMesh::Point(pResult.x(),pResult.y(),pResult.z()));
 
@@ -217,12 +137,6 @@ void edgeCollapse( TopologicalMesh& topologicalMesh, ProgressiveMeshData pmData)
     Vector3 pResult = pmData.computePResult(vtPos, vsPos);
 
     edgeCollapse(topologicalMesh, pmData.getHeFl(), pResult);
-//    // compute PResult
-//    Vector3 vtPos = dcel.m_vertex[pmData.getVtId()]->P();
-//    Vector3 vsPos = dcel.m_vertex[pmData.getVsId()]->P();
-//    Vector3 pResult = pmData.computePResult(vtPos, vsPos);
-
-//    edgeCollapse(dcel, pmData.getHeFlId(), pResult);
 }
 
 
