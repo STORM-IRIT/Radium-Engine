@@ -26,9 +26,9 @@ namespace Core {
     };
     typedef OpenMesh::TriMesh_ArrayKernelT<TopologicalMeshTraits> RA_CORE_API TopologicalMesh;
 
-    inline Vector3 convertVec3OpenMeshToEigen(OpenMesh::VectorT<Scalar, 3> &vec)
+    inline Eigen::Map<const Vector3> convertVec3OpenMeshToEigen(const TopologicalMesh::Point &vec)
     {
-        return Eigen::Map<Vector3>(vec.begin());
+        return Eigen::Map<const Vector3>(vec.begin());
     }
 }
 }
