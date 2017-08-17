@@ -1,11 +1,5 @@
 #include <Core/Mesh/TopologicalTriMesh/Operations/EdgeCollapse.hpp>
 
-//#include <Core/Mesh/DCEL/Operations/EdgeCollapse.hpp>
-//#include <Core/Mesh/DCEL/HalfEdge.hpp>
-//#include <Core/Mesh/DCEL/Vertex.hpp>
-//#include <Core/Mesh/DCEL/FullEdge.hpp>
-//#include <Core/Mesh/DCEL/Iterator/Vertex/VHEIterator.hpp>
-
 #include <Core/Log/Log.hpp>
 
 

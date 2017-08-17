@@ -4,7 +4,6 @@
 
 #include <Core/Log/Log.hpp>
 
-//#include <Core/Mesh/Wrapper/Convert.hpp>
 #include <Core/Mesh/Wrapper/TopologicalMeshConvert.hpp>
 #include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
 #include <Core/Mesh/TopologicalTriMesh/Operations/EdgeCollapse.hpp>

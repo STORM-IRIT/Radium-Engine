@@ -1,5 +1,4 @@
 #include <Core/Mesh/ProgressiveMesh/ProgressiveMeshLOD.hpp>
-#include <Core/Mesh/Wrapper/Convert.hpp>
 #include <Core/Log/Log.hpp>
 
 namespace Ra
