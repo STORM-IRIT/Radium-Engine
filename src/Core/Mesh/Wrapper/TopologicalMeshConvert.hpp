@@ -1,7 +1,7 @@
 #ifndef MESHCONVERTER_H
 #define MESHCONVERTER_H
 
-#include <Core/Mesh/TopologicalTriMesh/topologicalmesh.hpp>
+#include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 
 namespace Ra {
