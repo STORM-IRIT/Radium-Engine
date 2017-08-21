@@ -67,4 +67,9 @@ namespace PointCloudPlugin
         m_renderer->setDepthThresh(dThresh);
     }
 
+    void PointCloudSystem::setDepthCalc(int index)
+    {
+        LOG(logINFO) << "Depth Calculation: " << index;
+        m_renderer->setDepthCalc(index);
+    }
 } // namespace PointCloudPlugin

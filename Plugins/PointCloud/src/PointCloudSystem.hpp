@@ -40,6 +40,7 @@ namespace PointCloudPlugin
         void setNeighSize(int size);
         void setUseNormal(bool useNormal);
         void setDepthThresh(double dThresh);
+        void setDepthCalc(int index);
 
         virtual void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;
    //    void handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData) override;

@@ -48,6 +48,7 @@ namespace PointCloudPlugin
         void changeNeighSize (int size);
         void changeUseNormal (bool useNormal);
         void changeDepthThresh (double dThresh);
+        void changeDepthCalc(int index);
 
     private:
         class PointCloudSystem* m_system;

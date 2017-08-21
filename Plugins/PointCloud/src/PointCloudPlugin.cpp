@@ -12,6 +12,7 @@ namespace PointCloudPlugin
         connect( m_widget, &PointCloudUI::changeNeighSize, this, &PointCloudPluginC::changeNeighSize );
         connect( m_widget, &PointCloudUI::changeUseNormal, this, &PointCloudPluginC::changeUseNormal );
         connect( m_widget, &PointCloudUI::changeDepthThresh, this, &PointCloudPluginC::changeDepthThresh );
+        connect( m_widget, &PointCloudUI::changeDepthCalc, this, &PointCloudPluginC::changeDepthCalc );
     }
     PointCloudPluginC::~PointCloudPluginC()
     {
@@ -74,4 +75,9 @@ namespace PointCloudPlugin
         m_system->setDepthThresh(dThresh);
     }
 
+    void PointCloudPluginC::changeDepthCalc(int index)
+    {
+        CORE_ASSERT(m_system, "System should be there ");
+        m_system->setDepthCalc(index);
+    }
 }

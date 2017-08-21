@@ -28,3 +28,8 @@ void PointCloudUI::on_DepthTreshold_valueChanged(double x)
     emit changeDepthThresh(x);
 }
 
+
+void PointCloudUI::on_DepthCalc_currentIndexChanged(int index)
+{
+    emit changeDepthCalc(index);
+}
