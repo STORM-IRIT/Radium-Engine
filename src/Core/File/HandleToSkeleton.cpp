@@ -1,7 +1,7 @@
-#include <Engine/Assets/HandleToSkeleton.hpp>
+#include <Core/File/HandleToSkeleton.hpp>
 
 #include <Core/Animation/Handle/Skeleton.hpp>
-#include <Engine/Assets/HandleData.hpp>
+#include <Core/File/HandleData.hpp>
 
 namespace Ra {
 namespace Asset{
