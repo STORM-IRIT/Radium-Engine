@@ -1,8 +1,9 @@
 #ifndef RADIUMENGINE_HANDLE_TO_SKELETON_HPP_
 #define RADIUMENGINE_HANDLE_TO_SKELETON_HPP_
 
-#include <Engine/RaEngine.hpp>
 #include <map>
+
+#include <Core/RaCore.hpp>
 
 namespace Ra{ namespace Core {namespace Animation { class Skeleton;}}}
 namespace Ra{ namespace Asset { class HandleData;}}
