@@ -105,6 +105,17 @@ if ( RADIUM_ROOT_DIR )
     set(GLOBJECTS_INCLUDE_DIR "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include" )
   endif(NOT GLOBJECTS_INCLUDE_DIR)
 
+  if(NOT OPENMESH_LIBRARIES)
+    find_library ( OPENMESH_LIBRARIES
+      NAMES OpenMeshCore
+      PATHS ${RADIUM_ROOT_DIR} "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib"
+      )
+  endif (NOT OPENMESH_LIBRARIES)
+
+  if(NOT OPENMESH_INCLUDE_DIR)
+    set(OPENMESH_INCLUDE_DIR "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include")
+  ENDIF(NOT OPENMESH_INCLUDE_DIR)
+
   set( RADIUM_INCLUDE_DIRS)
   list(APPEND RADIUM_INCLUDE_DIRS "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}" "${GLOBJECTS_INCLUDE_DIR}")
 
@@ -124,6 +135,7 @@ if ( Radium_FOUND )
     message ( STATUS "      Assimp libs: ${ASSIMP_LIBRARIES}")
     message ( STATUS "      GlBinding libs: ${GLBINDING_LIBRARIES}")
     message ( STATUS "      GlObjects libs: ${GLOBJECTS_LIBRARIES}")
+    message ( STATUS "      OpenMesh libs: ${OPENMESH_LIBRARIES}")
   endif( NOT Radium_FIND_QUIETLY )
   if( NOT Radium_Libs_FOUND )
     message( WARNING "Could not find Radium libraries. You must compile them first")
