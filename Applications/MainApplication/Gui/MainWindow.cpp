@@ -4,8 +4,9 @@
 #include <QFileDialog>
 #include <QToolButton>
 
-#include <Core/File/deprecated/OBJFileManager.hpp>
 #include <assimp/Importer.hpp>
+
+#include <Core/File/deprecated/OBJFileManager.hpp>
 
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
@@ -257,7 +258,7 @@ namespace Ra
 
                 // For now we don't enable group selection.
                 m_selectionManager->setCurrentEntry( ItemEntry(ent, comp, roIndex, fdata),
-                                                    QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
+                                                     QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
             }
         }
         else
@@ -349,7 +350,6 @@ namespace Ra
     {
         // m_viewer->changeRenderer(m_currentRendererCombo->currentIndex());
     }
-
 
     void Gui::MainWindow::changeRenderObjectShader(const QString& shaderName)
     {

@@ -480,7 +480,6 @@ namespace Ra
             LOG (logINFO) << "Adding " <<data.size() << " lights in the renderer";
             for (auto light : data )
                 addLight( light->getLight() );
-
         }
 
         uchar* Renderer::grabFrame(uint &w, uint &h) const {

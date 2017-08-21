@@ -203,7 +203,7 @@ namespace Ra
         setupScene();
         emit starting();
 
-	// FIXME (florian): would be better to use the "starting" signal to connect it within MainWindow to do that.
+        // FIXME (florian): would be better to use the "starting" signal to connect it within MainWindow to do that.
         m_mainWindow->getViewer()->getFeaturePickingManager()->setMinRenderObjectIndex(m_engine->getRenderObjectManager()->getRenderObjectsCount());
 
         // A file has been required, load it.
@@ -226,7 +226,7 @@ namespace Ra
 
         auto grid = Primitive(Engine::SystemEntity::uiCmp(),
                               Grid( Core::Vector3::Zero(), Core::Vector3::UnitX(),
-                                    Core::Vector3::UnitZ(), Core::Colors::Grey(0.6f)));
+                                    Core::Vector3::UnitZ(), Core::Colors::Grey(0.6f) ));
         grid->setPickable( false );
         Engine::SystemEntity::uiCmp()->addRenderObject(grid);
 
@@ -234,6 +234,7 @@ namespace Ra
         frame->setPickable( false );
         Engine::SystemEntity::uiCmp()->addRenderObject(frame);
 
+        // FIXME (Florian): this should disappear
         auto em =  Ra::Engine::RadiumEngine::getInstance()->getEntityManager();
         Ra::Engine::Entity* e = em->entityExists("Test") ?
             Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->getEntity("Test"):

@@ -496,7 +496,7 @@
                <height>579</height>
               </rect>
              </property>
-             <attribute name="label">
+             <attribute name="title">
               <string>Tracking</string>
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_11">

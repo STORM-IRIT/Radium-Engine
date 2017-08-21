@@ -38,7 +38,6 @@ namespace Ra
             component->setEntity( this );
 
             RadiumEngine::getInstance()->getSignalManager()->fireComponentAdded( ItemEntry(this, component) );
-
         }
 
         Component* Entity::getComponent( const std::string& name )

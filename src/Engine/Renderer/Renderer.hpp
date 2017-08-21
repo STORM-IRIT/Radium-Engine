@@ -176,7 +176,7 @@ namespace Ra
             virtual void reloadShaders();
 
             // FIXME(Charly): Final ?
-            virtual void handleFileLoading( const std::string& filename ) final;
+            virtual void handleFileLoading( const Asset::FileData& filedata ) final;
 
             inline virtual void addPickingRequest(const PickingQuery& query)
             {

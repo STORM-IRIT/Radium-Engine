@@ -33,6 +33,7 @@
 
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 #include <Engine/Renderer/Renderers/ExperimentalRenderer.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
 #include <GuiBase/Viewer/TrackballCamera.hpp>
 

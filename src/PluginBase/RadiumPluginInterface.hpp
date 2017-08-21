@@ -93,6 +93,7 @@ namespace Ra
              * @return True if the plugin wants to add a widget, false otherwise
              */
             virtual bool doAddFeatureTrackingWidget() { return false; }
+
             /**
              * @brief Creates the feature widget to be added to the ui and then returns it.
              * If connections are needed (between plugin ui and plugin internals)
