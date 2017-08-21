@@ -50,6 +50,7 @@ namespace Ra
         private:
             enum RendererTextures
             {
+                RendererTextures_Depth,
                 RendererTextures_Normal,
                 RendererTextures_Position,
                 RendererTextures_Quad,
@@ -59,20 +60,27 @@ namespace Ra
             // Default renderer logic here, no need to be accessed by overriding renderers.
             std::unique_ptr<globjects::Framebuffer> m_fbo;
             std::unique_ptr<globjects::Framebuffer> m_postprocessFbo;
-            std::unique_ptr<globjects::Framebuffer> m_oitFbo;
+
+            uint m_pingPongSize;
 
             std::vector<RenderObjectPtr> m_transparentRenderObjects;
             uint m_fancyTransparentCount;
             
             std::array<std::unique_ptr<Texture>, RendererTexture_Count> m_textures;
 
-            bool m_useNormal=false;
+            bool m_showPos=false;
             int m_neighSize=0;
-            double m_dThresh = 100;
+            double m_dThresh = 0;
+            bool m_planeFit = false;
+            double m_radius = 0;
+            int m_depthCalc;
         public:
-            void setUseNormal(bool useNormal);
+            void setShowPos(bool showPos);
+            void setPlaneFit(bool planeFit);
             void setNeighSize(int neighSize);
             void setDepthThresh(double dThresh);
+            void setRadius(double radius);
+            void setDepthCalc(int index);
         };
 
     } // namespace Engine

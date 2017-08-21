@@ -53,20 +53,29 @@ namespace PointCloudPlugin
     }
    */ void PointCloudSystem::setNeighSize(int size)
     {
-        LOG(logINFO) << "Neigh Size: " << size;
+        LOG(logINFO) << "Neighborhood Size: " << size;
         m_renderer->setNeighSize(size);
     }
-    void PointCloudSystem::setUseNormal(bool useNormal)
+    void PointCloudSystem::setShowPos(bool showPos)
     {
-        LOG(logINFO) << "Using Normal: " << useNormal;
-        m_renderer->setUseNormal(useNormal);
+        LOG(logINFO) << "Showing Position: " << showPos;
+        m_renderer->setShowPos(showPos);
+    }
+    void PointCloudSystem::setPlaneFit(bool planeFit)
+    {
+        LOG(logINFO) << "Plane Fit: " << planeFit;
+        m_renderer->setPlaneFit(planeFit);
     }
     void PointCloudSystem::setDepthThresh(double dThresh)
     {
         LOG(logINFO) << "Depth Threshold: " << dThresh;
         m_renderer->setDepthThresh(dThresh);
     }
-
+    void PointCloudSystem::setRadius(double radius)
+    {
+        LOG(logINFO) << "Splat Radius: " << radius;
+        m_renderer->setRadius(radius);
+    }
     void PointCloudSystem::setDepthCalc(int index)
     {
         LOG(logINFO) << "Depth Calculation: " << index;

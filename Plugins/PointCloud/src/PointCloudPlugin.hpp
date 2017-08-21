@@ -46,8 +46,10 @@ namespace PointCloudPlugin
 
     public slots:
         void changeNeighSize (int size);
-        void changeUseNormal (bool useNormal);
+        void changeShowPos (bool showPos);
+        void changePlaneFit (bool planeFit);
         void changeDepthThresh (double dThresh);
+        void changeRadius (double radius);
         void changeDepthCalc(int index);
 
     private:

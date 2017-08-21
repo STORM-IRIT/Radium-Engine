@@ -38,8 +38,10 @@ namespace PointCloudPlugin
         virtual ~PointCloudSystem();
 
         void setNeighSize(int size);
-        void setUseNormal(bool useNormal);
+        void setShowPos(bool showPos);
+        void setPlaneFit(bool planeFit);
         void setDepthThresh(double dThresh);
+        void setRadius(double dThresh);
         void setDepthCalc(int index);
 
         virtual void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;

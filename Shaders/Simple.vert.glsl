@@ -5,17 +5,17 @@ layout (location = 1) in vec3 in_normal;
 
 uniform Transform transform;
 
-out vec3 transformed_position;
-out vec3 transformed_normal;
+layout (location = 0) out vec3 out_position;
+layout (location = 1) out vec3 out_normal;
 
 void main()
 {
-    vec3 normal = mat3(transform.proj) * mat3(transform.view) * mat3(transform.worldNormal) * in_normal;
-    mat4 mvp = transform.proj * transform.view * transform.model;
-    vec4 pos =  mvp * vec4(in_position, 1.0);
+    vec3 normal = normalize(mat3(transform.view) * mat3(transform.worldNormal) * in_normal);
+    mat4 mv = transform.view * transform.model;
+    vec4 pos =  mv * vec4(in_position, 1.0);
     pos /= pos.w;
-    gl_Position = pos;
 
-    transformed_position = pos.xyz;
-    transformed_normal   = normal.xyz;
+    out_position = pos.xyz;
+    out_normal   = normal.xyz;
+    gl_Position = transform.proj * pos;
 }

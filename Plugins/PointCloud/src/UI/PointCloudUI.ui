@@ -6,49 +6,87 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>336</width>
-    <height>182</height>
+    <width>295</width>
+    <height>280</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>PointCloudUI</string>
   </property>
-  <widget class="QWidget" name="formLayoutWidget">
+  <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>30</y>
-     <width>222</width>
-     <height>111</height>
+     <x>10</x>
+     <y>10</y>
+     <width>251</width>
+     <height>228</height>
     </rect>
    </property>
-   <layout class="QFormLayout" name="formLayout">
-    <item row="1" column="1">
-     <widget class="QCheckBox" name="UseNormal">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="1">
+     <widget class="QCheckBox" name="ShowPos">
       <property name="text">
-       <string>Use Normal</string>
+       <string>Show Position Texture</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
+    <item row="3" column="0">
+     <widget class="QSpinBox" name="NeighSize"/>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Depth Calculation Method</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
      <widget class="QLabel" name="label">
       <property name="text">
        <string>Depth Threshold</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
-     <widget class="QSpinBox" name="NeighSize"/>
+    <item row="4" column="1">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Splat Radius</string>
+      </property>
+     </widget>
     </item>
-    <item row="3" column="0">
+    <item row="4" column="0">
+     <widget class="QLineEdit" name="Radius"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QDoubleSpinBox" name="DepthTreshold"/>
+    </item>
+    <item row="1" column="1">
+     <widget class="QCheckBox" name="planeFit">
+      <property name="text">
+       <string>Plane Fit</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QComboBox" name="DepthCalc">
+      <item>
+       <property name="text">
+        <string>Min of Neigh.</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Weighted Av. of Neigh.</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="3" column="1">
      <widget class="QLabel" name="label_2">
       <property name="text">
        <string>Neighborhood Size</string>
       </property>
      </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QDoubleSpinBox" name="DepthTreshold"/>
     </item>
    </layout>
   </widget>

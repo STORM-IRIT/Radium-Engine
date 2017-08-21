@@ -10,8 +10,10 @@ namespace PointCloudPlugin
     {
         m_widget = new PointCloudUI();
         connect( m_widget, &PointCloudUI::changeNeighSize, this, &PointCloudPluginC::changeNeighSize );
-        connect( m_widget, &PointCloudUI::changeUseNormal, this, &PointCloudPluginC::changeUseNormal );
+        connect( m_widget, &PointCloudUI::changeShowPos, this, &PointCloudPluginC::changeShowPos );
         connect( m_widget, &PointCloudUI::changeDepthThresh, this, &PointCloudPluginC::changeDepthThresh );
+        connect( m_widget, &PointCloudUI::changePlaneFit, this, &PointCloudPluginC::changePlaneFit );
+        connect( m_widget, &PointCloudUI::changeRadius, this, &PointCloudPluginC::changeRadius );
         connect( m_widget, &PointCloudUI::changeDepthCalc, this, &PointCloudPluginC::changeDepthCalc );
     }
     PointCloudPluginC::~PointCloudPluginC()
@@ -63,18 +65,26 @@ namespace PointCloudPlugin
         CORE_ASSERT(m_system, "System should be there ");
         m_system->setNeighSize(size);
     }
-
-    void PointCloudPluginC::changeUseNormal(bool useNormal)
+    void PointCloudPluginC::changeShowPos(bool showPos)
     {
         CORE_ASSERT(m_system, "System should be there ");
-        m_system->setUseNormal(useNormal);
+        m_system->setShowPos(showPos);
+    }
+    void PointCloudPluginC::changePlaneFit(bool planeFit)
+    {
+        CORE_ASSERT(m_system, "System should be there ");
+        m_system->setPlaneFit(planeFit);
     }
     void PointCloudPluginC::changeDepthThresh(double dThresh)
     {
         CORE_ASSERT(m_system, "System should be there ");
         m_system->setDepthThresh(dThresh);
     }
-
+    void PointCloudPluginC::changeRadius(double radius)
+    {
+        CORE_ASSERT(m_system, "System should be there ");
+        m_system->setRadius(radius);
+    }
     void PointCloudPluginC::changeDepthCalc(int index)
     {
         CORE_ASSERT(m_system, "System should be there ");
