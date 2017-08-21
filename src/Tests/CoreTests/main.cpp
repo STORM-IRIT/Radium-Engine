@@ -8,6 +8,7 @@
 #include <Tests/CoreTests/String/StringTest.hpp>
 #include <Tests/CoreTests/Distance/DistanceTests.hpp>
 #include <Tests/CoreTests/Containers/IndexMapTest.hpp>
+#include <Tests/CoreTests/TopologicalMesh/ConvertTest.hpp>
 
 int main()
 {

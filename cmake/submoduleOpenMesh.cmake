@@ -1,4 +1,4 @@
-set (CMAKE_CXX_FLAGS "-fexceptions")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fexceptions")
 # here is defined the way we want to import assimp
 ExternalProject_Add(
         openmesh
@@ -27,11 +27,11 @@ add_custom_target(openmesh_lib
 # ----------------------------------------------------------------------------------------------------------------------
 set( OPENMESH_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include )
 if( APPLE )
-    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dylib" "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshTools.dylib")
+    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dylib")
 elseif ( UNIX )
-    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.so" "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshTools.so" )
+    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.so")
 elseif (MINGW)
-    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dll.a" "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshTools.dll.a")
+    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dll.a")
 elseif( MSVC )
     # in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
     if( MSVC70 OR MSVC71 )
