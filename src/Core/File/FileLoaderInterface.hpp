@@ -27,6 +27,7 @@ namespace Ra
 
             virtual bool handleFileExtension( const std::string& extension ) const = 0;
 
+            //! Try to load file, returns nullptr in case of failure
             virtual FileData * loadFile( const std::string& filename ) = 0;
         };
     }

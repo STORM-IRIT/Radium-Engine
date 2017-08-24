@@ -16,3 +16,6 @@
 [submodule "3rdPartyLibraries/Pbrt"]
 	path = 3rdPartyLibraries/Pbrt
 	url = https://github.com/mmp/pbrt-v3
+[submodule "3rdPartyLibraries/tinyply"]
+	path = 3rdPartyLibraries/tinyply
+	url = https://github.com/nmellado/tinyply.git
