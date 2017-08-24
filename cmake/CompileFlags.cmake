@@ -93,7 +93,7 @@ elseif (MSVC)
     set(CMAKE_CXX_FLAGS_DEBUG          "/D_DEBUG /DCORE_DEBUG /Od /Zi ${CMAKE_CXX_FLAGS_DEBUG} /MDd")
     set(CMAKE_CXX_FLAGS_RELEASE        "/DNDEBUG /Ox /fp:fast ${CMAKE_CXX_FLAGS_RELEASE} /MT")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi ${CMAKE_CXX_FLAGS_RELEASE}")
-	set(CMAKE_SHARED_LINKER_FLAGS      "/LTCG ${CMAKE_SHARED_LINKER_FLAGS}")
+        set(CMAKE_SHARED_LINKER_FLAGS      "/LTCG ${CMAKE_SHARED_LINKER_FLAGS}")
 
     # Problem with Qt linking
     # FIXME(Charly): Not sure if this should be done on Linux
@@ -158,6 +158,15 @@ if (${RADIUM_ASSIMP_SUPPORT})
 else()
     message(STATUS "${PROJECT_NAME} : Assimp loader disabled")
 endif()
+
+
+if (${RADIUM_TINYPLY_SUPPORT})
+    add_definitions(-DIO_USE_TINYPLY)
+    message(STATUS "${PROJECT_NAME} : Using TinyPly loader")
+else()
+    message(STATUS "${PROJECT_NAME} : TinyPly loader disabled")
+endif()
+
 
 if (${RADIUM_PBRT_SUPPORT})
     add_definitions(-DIO_USE_PBRT)
