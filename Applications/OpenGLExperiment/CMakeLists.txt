@@ -54,5 +54,5 @@ target_link_libraries( ${app_target} # target
     ${Qt5_LIBRARIES}                # the Qt beast
 )
 if (MSVC)
-    set_property( TARGET ${app_target} PROPERTY IMPORTED_LOCATION "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin" )
+    set_property( TARGET ${app_target} PROPERTY IMPORTED_LOCATION "${RADIUM_BINARY_OUTPUT_PATH}" )
 endif(MSVC)
