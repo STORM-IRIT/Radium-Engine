@@ -104,7 +104,14 @@ public:
     inline uint getVerticesSize() const;
 
     inline const Vector3Array& getVertices() const;
-    inline void setVertices( const std::vector< Core::Vector3 >& vertexList );
+    // Assumes Core::Vector3 can be constructed from Container::value_type
+    // \FIXME Follow same logic for other attributes (edges, faces, etc)
+    template< typename Container >
+    inline void setVertices( const Container &vertexList );
+    // Assumes Core::Vector3 can be constructed from the Iterator type
+    // \FIXME Follow same logic for other attributes (edges, faces, etc)
+    template< typename Iterator >
+    inline void setVertices( Iterator begin, Iterator end );
 
     inline const Vector2uArray& getEdges() const;
     inline void setEdges( const std::vector< Core::Vector2ui >& edgeList );
