@@ -137,7 +137,7 @@ namespace Ra {
                                                   sizeof( typename VecArray::Vector ), (GLvoid*)ptr ) );
 
                 GL_ASSERT( glEnableVertexAttribArray( vboIdx - 1 ) );
-                // Set dirty as true to send data, see below 
+                // Set dirty as true to send data, see below
                 m_dataDirty[vboIdx] = true;
             }
 
@@ -158,6 +158,7 @@ namespace Ra {
                 ON_ASSERT(bool dirtyTest = false; for (const auto& d : m_dataDirty) { dirtyTest = dirtyTest || d;});
                 CORE_ASSERT( dirtyTest == m_isDirty, "Dirty flags inconsistency");
 
+                // FIXME Handle Point-clouds rendering
                 CORE_ASSERT( ! ( m_mesh.m_vertices.empty()|| m_mesh.m_triangles.empty() ),
                              "Either vertices or indices are empty arrays.");
                 if ( m_vao == 0 )
