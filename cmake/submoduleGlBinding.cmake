@@ -1,10 +1,15 @@
-# Allow to compile with AppleCLang
-if ( APPLE AND ${CMAKE_CXX_COMPILER_ID} EQUAL Clang )
-    set( PLATFORM_ARGS "" )
+# Allow to compile with AppleCLang or GCC on APPLE
+if ( APPLE )
+    if ( ${CMAKE_CXX_COMPILER_ID} MATCHES Clang )
+        set( PLATFORM_ARGS "" )
+    else()
+        set( PLATFORM_ARGS "-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false" )
+    endif()
 else()
-    set( PLATFORM_ARGS "-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false" )
+    set( PLATFORM_ARGS "" )
 endif()
 
+message("INFO -- Compiling glbinding with compiler ${CMAKE_CXX_COMPILER_ID} (${CMAKE_CXX_COMPILER}) and platform args \"${PLATFORM_ARGS}\"")
 
 # here is defined the way we want to import glbinding
 ExternalProject_Add(

@@ -113,6 +113,7 @@ int main()
     glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, 	GLFW_TRUE);
 
     // Create the window
     GLFWwindow* window = glfwCreateWindow( width , height, "GLFW test", nullptr, nullptr);
@@ -224,6 +225,9 @@ int main()
     g_context.renderer= renderer.get();
     g_context.screen = screen;
 
+    g_context.renderer->resize(width, height);
+    g_context.camera->resize(Scalar(width), Scalar(height));
+    g_context.screen->resizeCallbackEvent(width, height);
 
     // Main loop
     while (!glfwWindowShouldClose(window))

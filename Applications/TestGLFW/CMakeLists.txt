@@ -22,7 +22,7 @@ add_dependencies( ${app_target} radiumEngine radiumCore radium_assets)
 target_compile_options(${app_target} PRIVATE -fexceptions)
 
 
-if(UNIX)
+if(UNIX AND NOT APPLE)
     find_package(X11 REQUIRED)
     set (ADDITIONAL_LIBS dl X11 Xrandr Xinerama Xxf86vm Xcursor pthread)
 else()
