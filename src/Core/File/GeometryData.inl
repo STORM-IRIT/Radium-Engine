@@ -2,6 +2,9 @@
 
 #include <Core/Log/Log.hpp>
 
+#include <iterator>
+#include <algorithm>
+
 namespace Ra {
     namespace Asset {
 
@@ -101,14 +104,22 @@ namespace Ra {
             return m_vertex;
         }
 
-        inline void GeometryData::setVertices( const std::vector< Core::Vector3 >& vertexList )
+        template < typename Container >
+        inline void GeometryData::setVertices( const Container &vertexList )
         {
-            const uint size = vertexList.size();
+            setVertices(vertexList.cbegin(), vertexList.cend());
+        }
+
+        template < typename Iterator >
+        inline void GeometryData::setVertices( Iterator begin, Iterator end )
+        {
+            static_assert(
+                std::is_same<std::random_access_iterator_tag,
+                             typename std::iterator_traits<Iterator>::iterator_category>::value,
+                "setVertices() function only accepts random access iterators.\n");
+            const uint size = std::distance(begin, end);
             m_vertex.resize( size );
-            #pragma omp parallel for
-            for( int i = 0; i < int(size); ++i ) {
-                m_vertex[i] = vertexList[i];
-            }
+            std::copy(begin, end, m_vertex.begin());
         }
 
         inline const GeometryData::Vector2uArray& GeometryData::getEdges() const
