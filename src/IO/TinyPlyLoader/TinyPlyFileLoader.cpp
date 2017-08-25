@@ -37,57 +37,78 @@ namespace Ra {
         Asset::FileData * TinyPlyFileLoader::loadFile( const std::string& filename )
         {
 
-            LOG( logINFO ) << "This fileloader is not ready yet. Aborting" << std::endl;
-            return nullptr;
-
-            Asset::FileData * fileData = new Asset::FileData( filename );
-
-            if ( !fileData->isInitialized() )
-            {
-                return nullptr;
-            }
             // Read the file and create a std::istringstream suitable
             // for the lib -- tinyply does not perform any file i/o.
-            std::ifstream ss(fileData->getFileName(), std::ios::binary);
+            std::ifstream ss(filename, std::ios::binary);
 
             // Parse the ASCII header fields
             tinyply::PlyFile file(ss);
 
-//            const aiScene *scene = m_importer.ReadFile( fileData->getFileName(),
-//                                                        aiProcess_Triangulate           | // This could/should be taken away if we want to deal with mesh types other than trimehsesaiProcess_JoinIdenticalVertices |
-//                                                        aiProcess_GenSmoothNormals      |
-//                                                        aiProcess_SortByPType           |
-//                                                        aiProcess_FixInfacingNormals    |
-//                                                        aiProcess_CalcTangentSpace      |
-//                                                        aiProcess_GenUVCoords );
+            for (auto e : file.get_elements())
+            {
+                if(e.name.compare("face") == 0 && e.size != 0)
+                {
+                    // Mesh found. Let the other loaders handle it
+                    LOG( logINFO ) << "Faces found. Aborting" << std::endl;
+                    return nullptr;
+                }
+            }
 
-//            if ( scene == nullptr )
-//            {
-//                LOG( logINFO ) << "File \"" << fileData->getFileName() << "\" assimp error : " << m_importer.GetErrorString() << ".";
-//                return nullptr;
-//            }
+            // we are now sure to have a point-cloud
+            Asset::FileData * fileData = new Asset::FileData( filename );
+
+            if ( !fileData->isInitialized() )
+            {
+                delete fileData;
+                return nullptr;
+            }
+
 
             if ( fileData->isVerbose() )
             {
                 LOG( logINFO ) << "File Loading begin...";
             }
 
+
+            // Define containers to hold the extracted data. The type must match
+            // the property type given in the header. Tinyply will interally allocate the
+            // the appropriate amount of memory.
+            std::vector<float> verts;
+
+            // The count returns the number of instances of the property group. The vectors
+            // above will be resized into a multiple of the property group size as
+            // they are "flattened"... i.e. verts = {x, y, z, x, y, z, ...}
+            uint32_t vertexCount= file.request_properties_from_element("vertex", { "x", "y", "z" }, verts);
+
             std::clock_t startTime;
             startTime = std::clock();
 
-//            AssimpGeometryDataLoader geometryLoader( Core::StringUtils::getDirName( filename ), fileData->isVerbose() );
-//            geometryLoader.loadData( scene, fileData->m_geometryData );
+            file.read(ss);
+            fileData->m_geometryData.clear();
+            fileData->m_geometryData.reserve(1);
 
-//            AssimpHandleDataLoader handleLoader( fileData->isVerbose() );
-//            handleLoader.loadData( scene, fileData->m_handleData );
+            Asset::GeometryData* geometry = new Asset::GeometryData();
+            geometry->setType( Asset::GeometryData::POINT_CLOUD );
 
-//            AssimpAnimationDataLoader animationLoader( fileData->isVerbose() );
-//            animationLoader.loadData( scene, fileData->m_animationData );
 
-//            AssimpLightDataLoader lightLoader( Core::StringUtils::getDirName( filename ), fileData->isVerbose() );
-//            lightLoader.loadData( scene, fileData->m_lightData );
+
+            // maps are not vectorized, but who cares, they will be copied
+            Eigen::Matrix <float, 3, 1, Eigen::DontAlign>* beginPtr =
+                    reinterpret_cast<Eigen::Matrix <float, 3, 1, Eigen::DontAlign> *> (&(verts[0]));
+            Eigen::Matrix <float, 3, 1, Eigen::DontAlign>* endPtr   =
+                    reinterpret_cast<Eigen::Matrix <float, 3, 1, Eigen::DontAlign> *> (&(verts[verts.size()]));
+
+            uint32_t vertexCount2= std::distance(beginPtr, endPtr);
+
+//            LOG( logINFO ) << "vertexCount: " << vertexCount;
+//            LOG( logINFO ) << "verts.size(): " << verts.size();
+//            LOG( logINFO ) << "vertexCount2: " << vertexCount2;
+
+            geometry->setVertices(beginPtr, endPtr);
 
             fileData->m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );
+
+            fileData->m_geometryData.push_back( std::unique_ptr< Asset::GeometryData >( geometry ) );
 
             if ( fileData->isVerbose() )
             {
