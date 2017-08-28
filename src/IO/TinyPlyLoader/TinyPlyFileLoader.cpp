@@ -49,7 +49,7 @@ namespace Ra {
                 if(e.name.compare("face") == 0 && e.size != 0)
                 {
                     // Mesh found. Let the other loaders handle it
-                    LOG( logINFO ) << "Faces found. Aborting" << std::endl;
+                    LOG( logINFO ) << "[TinyPLY] Faces found. Aborting" << std::endl;
                     return nullptr;
                 }
             }
@@ -60,13 +60,14 @@ namespace Ra {
             if ( !fileData->isInitialized() )
             {
                 delete fileData;
+                LOG( logINFO ) << "[TinyPLY] Filedata cannot be initialized...";
                 return nullptr;
             }
 
 
             if ( fileData->isVerbose() )
             {
-                LOG( logINFO ) << "File Loading begin...";
+                LOG( logINFO ) << "[TinyPLY] File Loading begin...";
             }
 
 
@@ -80,31 +81,41 @@ namespace Ra {
             // they are "flattened"... i.e. verts = {x, y, z, x, y, z, ...}
             uint32_t vertexCount= file.request_properties_from_element("vertex", { "x", "y", "z" }, verts);
 
-            std::clock_t startTime;
-            startTime = std::clock();
+            if(vertexCount == 0) {
+                delete fileData;
+                LOG( logINFO ) << "[TinyPLY] No vertice found";
+                return nullptr;
+            }
 
-            file.read(ss);
             fileData->m_geometryData.clear();
             fileData->m_geometryData.reserve(1);
 
             Asset::GeometryData* geometry = new Asset::GeometryData();
             geometry->setType( Asset::GeometryData::POINT_CLOUD );
 
+            std::vector<float> normals;
+            std::vector<uint8_t> colors;
+            uint32_t normalCount = file.request_properties_from_element("vertex", { "nx", "ny", "nz" }, normals);
+            uint32_t colorCount = file.request_properties_from_element("vertex", { "red", "green", "blue", "alpha" }, colors);
+
+            std::clock_t startTime;
+            startTime = std::clock();
+
+            file.read(ss);
+
+            geometry->setVertices(*(reinterpret_cast<std::vector<Eigen::Matrix <float, 3, 1, Eigen::DontAlign>> *> (&verts)));
+            geometry->setFrame(Core::Transform::Identity());
+
+            if (normalCount != 0) {
+                geometry->setNormals(*(reinterpret_cast<std::vector<Eigen::Matrix <float, 3, 1, Eigen::DontAlign>> *> (&normals)));
+            }
 
 
-            // maps are not vectorized, but who cares, they will be copied
-            Eigen::Matrix <float, 3, 1, Eigen::DontAlign>* beginPtr =
-                    reinterpret_cast<Eigen::Matrix <float, 3, 1, Eigen::DontAlign> *> (&(verts[0]));
-            Eigen::Matrix <float, 3, 1, Eigen::DontAlign>* endPtr   =
-                    reinterpret_cast<Eigen::Matrix <float, 3, 1, Eigen::DontAlign> *> (&(verts[verts.size()]));
+            if (colorCount != 0) {
+                geometry->setColors(*(reinterpret_cast<std::vector<Eigen::Matrix <uint8_t, 4, 1, Eigen::DontAlign>> *> (&colors)));
+                for (auto& c : geometry->getColors()) c /= Scalar(255);
+            }
 
-            uint32_t vertexCount2= std::distance(beginPtr, endPtr);
-
-//            LOG( logINFO ) << "vertexCount: " << vertexCount;
-//            LOG( logINFO ) << "verts.size(): " << verts.size();
-//            LOG( logINFO ) << "vertexCount2: " << vertexCount2;
-
-            geometry->setVertices(beginPtr, endPtr);
 
             fileData->m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );
 
@@ -112,7 +123,7 @@ namespace Ra {
 
             if ( fileData->isVerbose() )
             {
-                LOG( logINFO ) << "File Loading end.";
+                LOG( logINFO ) << "[TinyPLY] File Loading end.";
 
                 fileData->displayInfo();
             }
