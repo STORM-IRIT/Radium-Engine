@@ -71,7 +71,7 @@ namespace FancyMeshPlugin
 
         m_contentName = data->getName();
 
-        auto displayMesh = Ra::Core::make_shared<Ra::Engine::Mesh>(meshName);
+        auto displayMesh = Ra::Core::make_shared<Ra::Engine::Mesh>(meshName/*, Ra::Engine::Mesh::RM_POINTS*/);
 
         Ra::Core::TriangleMesh mesh;
         Ra::Core::Transform T = data->getFrame();
@@ -84,14 +84,16 @@ namespace FancyMeshPlugin
                        [T](const Ra::Core::Vector3& v){return T * v; });
 
 
-        if(data->hasNormals()) {
+        if(data->hasNormals())
+        {
             mesh.m_normals.resize(data->getVerticesSize());
             std::transform(data->getNormals().begin(), data->getNormals().end(),
                            mesh.m_normals.begin(),
-                           [N](const Ra::Core::Vector3& v){return N * v; });
+                           [N](const Ra::Core::Vector3& v){return (N * v).normalized(); });
         }
 
-        if(data->hasFaces()) {
+        if(data->hasFaces())
+        {
             mesh.m_triangles.resize(data->getFaces().size());
             std::transform(data->getFaces().begin(), data->getFaces().end(),
                            mesh.m_triangles.begin(),
@@ -100,21 +102,33 @@ namespace FancyMeshPlugin
 
         displayMesh->loadGeometry(mesh);
 
-        Ra::Core::Vector3Array tangents;
-        Ra::Core::Vector3Array bitangents;
-        Ra::Core::Vector3Array texcoords;
+        if (data->hasTangents())
+        {
+            Ra::Core::Vector3Array tangents;   tangents.resize(data->getTangents().size());
+            std::copy(data->getTangents().begin(),   data->getTangents().end(),   tangents.begin());
+            displayMesh->addData( Ra::Engine::Mesh::VERTEX_TANGENT, tangents );
+        }
 
-        Ra::Core::Vector4Array colors;
+        if (data->hasBiTangents())
+        {
+            Ra::Core::Vector3Array bitangents; bitangents.resize(data->getBiTangents().size());
+            std::copy(data->getBiTangents().begin(), data->getBiTangents().end(), bitangents.begin());
+            displayMesh->addData( Ra::Engine::Mesh::VERTEX_BITANGENT, bitangents );
+        }
 
-        for ( const auto& v : data->getTangents() )     tangents.push_back( v );
-        for ( const auto& v : data->getBiTangents() )   bitangents.push_back( v );
-        for ( const auto& v : data->getTexCoords() )    texcoords.push_back( v );
-        for ( const auto& v : data->getColors() )       colors.push_back( v );
+        if (data->hasTextureCoordinates())
+        {
+            Ra::Core::Vector3Array texcoords;  texcoords.resize(data->getTexCoords().size());
+            std::copy(data->getTexCoords().begin(),  data->getTexCoords().end(),  texcoords.begin());
+            displayMesh->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, texcoords );
+        }
 
-        displayMesh->addData( Ra::Engine::Mesh::VERTEX_TANGENT, tangents );
-        displayMesh->addData( Ra::Engine::Mesh::VERTEX_BITANGENT, bitangents );
-        displayMesh->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, texcoords );
-        displayMesh->addData( Ra::Engine::Mesh::VERTEX_COLOR, colors );
+        if (data->hasColors())
+        {
+            Ra::Core::Vector4Array colors;     colors.resize(data->getColors().size());
+            std::copy(data->getColors().begin(),     data->getColors().end(),     colors.begin());
+            displayMesh->addData( Ra::Engine::Mesh::VERTEX_COLOR, colors );
+        }
 
         // FIXME(Charly): Should not weights be part of the geometry ?
         //        mesh->addData( Ra::Engine::Mesh::VERTEX_WEIGHTS, meshData.weights );
