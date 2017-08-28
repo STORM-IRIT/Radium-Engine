@@ -103,41 +103,63 @@ public:
     /// DATA
     inline uint getVerticesSize() const;
 
+    inline Vector3Array& getVertices();
     inline const Vector3Array& getVertices() const;
-    // Assumes Core::Vector3 can be constructed from Container::value_type
-    // \FIXME Follow same logic for other attributes (edges, faces, etc)
+    // Copy data from vertexList. In-place setting with getVertices is preferred.
     template< typename Container >
     inline void setVertices( const Container &vertexList );
-    // Assumes Core::Vector3 can be constructed from the Iterator type
-    // \FIXME Follow same logic for other attributes (edges, faces, etc)
-    template< typename Iterator >
-    inline void setVertices( Iterator begin, Iterator end );
 
+    inline Vector2uArray& getEdges();
     inline const Vector2uArray& getEdges() const;
-    inline void setEdges( const std::vector< Core::Vector2ui >& edgeList );
+    // Copy data from edgeList. In-place setting with getEdges is preferred.
+    template< typename Container >
+    inline void setEdges(const Container &edgeList );
 
+    inline VectorNuArray& getFaces();
     inline const VectorNuArray& getFaces() const;
-    inline void setFaces( const std::vector< Core::VectorNui >& faceList );
+    // Copy data from edgeList. In-place setting with getEdges is preferred.
+    template< typename Container >
+    inline void setFaces( const Container& faceList );
 
+    inline VectorNuArray& getPolyhedra();
     inline const VectorNuArray& getPolyhedra() const;
-    inline void setPolyhedron( const std::vector< Core::VectorNui >& polyList );
+    // Copy data from polyList. In-place setting with getPolyhedra is preferred.
+    template< typename Container >
+    inline void setPolyhedron( const Container& polyList );
 
+    inline Vector3Array& getNormals();
     inline const Vector3Array& getNormals() const;
-    inline void setNormals( const std::vector< Core::Vector3 >& normalList );
+    // Copy data from normalList. In-place setting with getNormals is preferred.
+    template< typename Container >
+    inline void setNormals( const Container& normalList );
 
+    inline Vector3Array& getTangents();
     inline const Vector3Array& getTangents() const;
-    inline void setTangents( const std::vector< Core::Vector3 >& tangentList );
+    // Copy data from tangentList. In-place setting with getTangents is preferred.
+    template< typename Container >
+    inline void setTangents( const Container& tangentList );
 
+    inline Vector3Array& getBiTangents();
     inline const Vector3Array& getBiTangents() const;
-    inline void setBitangents( const std::vector< Core::Vector3 >& bitangentList );
+    // Copy data from bitangentList. In-place setting with getBiTangents is preferred.
+    template< typename Container >
+    inline void setBitangents( const Container& bitangentList );
 
+    inline Vector3Array& getTexCoords();
     inline const Vector3Array& getTexCoords() const;
-    inline void setTextureCoordinates( const std::vector< Core::Vector3 >& texCoordList );
+    // Copy data from texCoordList. In-place setting with getTexCoords is preferred.
+    template< typename Container >
+    inline void setTextureCoordinates( const Container& texCoordList );
 
+    inline ColorArray& getColors();
     inline const ColorArray& getColors() const;
-    inline void setColors( const std::vector< Core::Color >& colorList );
+    // Copy data from colorList. In-place setting with getColors is preferred.
+    template< typename Container >
+    inline void setColors( const Container& colorList );
 
+    inline WeightArray& getWeights();
     inline const WeightArray& getWeights() const;
+    // Copy data from weightList. In-place setting with getWeights is preferred.
     inline void setWeights(const WeightArray& weightList);
 
     inline const MaterialData& getMaterial() const;
