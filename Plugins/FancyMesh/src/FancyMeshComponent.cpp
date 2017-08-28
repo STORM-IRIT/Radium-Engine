@@ -78,26 +78,15 @@ namespace FancyMeshPlugin
         Ra::Core::Transform N;
         N.matrix() = (T.matrix()).inverse().transpose();
 
-        mesh.m_vertices.resize(data->getVerticesSize());
-        std::transform(data->getVertices().begin(), data->getVertices().end(),
-                       mesh.m_vertices.begin(),
-                       [T](const Ra::Core::Vector3& v){return T * v; });
-
-
-        if(data->hasNormals())
+        for (size_t i = 0; i < data->getVerticesSize(); ++i)
         {
-            mesh.m_normals.resize(data->getVerticesSize());
-            std::transform(data->getNormals().begin(), data->getNormals().end(),
-                           mesh.m_normals.begin(),
-                           [N](const Ra::Core::Vector3& v){return (N * v).normalized(); });
+            mesh.m_vertices.push_back(T * data->getVertices()[i]);
+            mesh.m_normals.push_back((N * data->getNormals()[i]).normalized());
         }
 
-        if(data->hasFaces())
+        for (const auto& face : data->getFaces())
         {
-            mesh.m_triangles.resize(data->getFaces().size());
-            std::transform(data->getFaces().begin(), data->getFaces().end(),
-                           mesh.m_triangles.begin(),
-                           [](const Ra::Core::VectorNui& face){return face.head<3>(); });
+            mesh.m_triangles.push_back(face.head<3>());
         }
 
         displayMesh->loadGeometry(mesh);
