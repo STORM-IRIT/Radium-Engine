@@ -1,3 +1,6 @@
 add_subdirectory(MainApplication)
 add_subdirectory(Test0)
-add_subdirectory(TestGLFW)
+
+if(${NANOGUI_FOUND})
+    add_subdirectory(TestGLFW)
+endif()

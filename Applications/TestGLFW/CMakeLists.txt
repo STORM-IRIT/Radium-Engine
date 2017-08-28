@@ -1,7 +1,9 @@
 set(app_target testGLFW)
 
+if (NOT ${NANOGUI_FOUND})
+    message(ERROR "Cannot fund nanogui submodule (see cmake/submoduleNanogui.cmake)")
+endif()
 find_package(glfw REQUIRED)
-find_package(nanogui REQUIRED)
 
 # Access to Radium headers and declarations/defintions
 include_directories(
@@ -18,7 +20,7 @@ file( GLOB file_headers *.hpp *.h )
 # Generate an executable
 add_executable( ${app_target} ${file_sources} ${file_headers} )
 
-add_dependencies( ${app_target} radiumEngine radiumCore radium_assets)
+add_dependencies( ${app_target} radiumEngine radiumCore radium_assets nanogui_lib)
 target_compile_options(${app_target} PRIVATE -fexceptions)
 
 
@@ -43,3 +45,4 @@ target_link_libraries( ${app_target} # target
 if (MSVC)
     set_property( TARGET ${app_target} PROPERTY IMPORTED_LOCATION "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin" )
 endif(MSVC)
+
