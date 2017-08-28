@@ -104,22 +104,26 @@ namespace Ra {
             return m_vertex;
         }
 
+        inline GeometryData::Vector3Array& GeometryData::getVertices()
+        {
+            return m_vertex;
+        }
+
         template < typename Container >
         inline void GeometryData::setVertices( const Container &vertexList )
         {
-            setVertices(vertexList.cbegin(), vertexList.cend());
+            const uint size = vertexList.size();
+            m_vertex.resize( size );
+            #pragma omp parallel for
+            for( int i = 0; i < int(size); ++i ) {
+                // unnecessary call to copy constructor and cast are removed at compile time
+                m_vertex[i] = Core::Vector3(vertexList[i].template cast<Core::Vector3::Scalar>());
+            }
         }
 
-        template < typename Iterator >
-        inline void GeometryData::setVertices( Iterator begin, Iterator end )
+        inline GeometryData::Vector2uArray& GeometryData::getEdges()
         {
-            static_assert(
-                std::is_same<std::random_access_iterator_tag,
-                             typename std::iterator_traits<Iterator>::iterator_category>::value,
-                "setVertices() function only accepts random access iterators.\n");
-            const uint size = std::distance(begin, end);
-            m_vertex.resize( size );
-            std::copy(begin, end, m_vertex.begin());
+            return m_edge;
         }
 
         inline const GeometryData::Vector2uArray& GeometryData::getEdges() const
@@ -127,13 +131,15 @@ namespace Ra {
             return m_edge;
         }
 
-        inline void GeometryData::setEdges( const std::vector< Core::Vector2ui >& edgeList )
+        template < typename Container >
+        inline void GeometryData::setEdges( const Container& edgeList )
         {
             const uint size = edgeList.size();
             m_edge.resize( size );
             #pragma omp parallel for
             for( int i = 0; i < int(size); ++i ) {
-                m_edge[i] = edgeList[i];
+                // unnecessary call to copy constructor and cast are removed at compile time
+                m_edge[i] = Core::Vector2ui(edgeList[i].template cast<Core::Vector2ui::Scalar>());
             }
         }
 
@@ -142,14 +148,26 @@ namespace Ra {
             return m_faces;
         }
 
-        inline void GeometryData::setFaces( const std::vector< Core::VectorNui >& faceList )
+        inline GeometryData::VectorNuArray& GeometryData::getFaces()
+        {
+            return m_faces;
+        }
+
+        template < typename Container >
+        inline void GeometryData::setFaces( const Container& faceList )
         {
             const uint size = faceList.size();
             m_faces.resize( size );
             #pragma omp parallel for
             for( int i = 0; i < int(size); ++i ) {
-                m_faces[i] = faceList[i];
+                // unnecessary call to copy constructor and cast are removed at compile time
+                m_faces[i] = Core::VectorNui(faceList[i].template cast<Core::VectorNui::Scalar>());
             }
+        }
+
+        inline GeometryData::VectorNuArray& GeometryData::getPolyhedra()
+        {
+            return m_polyhedron;
         }
 
         inline const GeometryData::VectorNuArray& GeometryData::getPolyhedra() const
@@ -157,14 +175,21 @@ namespace Ra {
             return m_polyhedron;
         }
 
-        inline void GeometryData::setPolyhedron( const std::vector< Core::VectorNui >& polyList )
+        template < typename Container >
+        inline void GeometryData::setPolyhedron( const Container& polyList )
         {
             const uint size = polyList.size();
             m_polyhedron.resize( size );
             #pragma omp parallel for
             for( int i = 0; i < int(size); ++i ) {
-                m_polyhedron[i] = polyList[i];
+                // unnecessary call to copy constructor and cast are removed at compile time
+                m_polyhedron[i] = Core::VectorNui(polyList[i].template cast<Core::VectorNui::Scalar>());
             }
+        }
+
+        inline GeometryData::Vector3Array& GeometryData::getNormals()
+        {
+            return m_normal;
         }
 
         inline const GeometryData::Vector3Array& GeometryData::getNormals() const
@@ -172,14 +197,21 @@ namespace Ra {
             return m_normal;
         }
 
-        inline void GeometryData::setNormals( const std::vector< Core::Vector3 >& normalList )
+        template < typename Container >
+        inline void GeometryData::setNormals( const Container& normalList )
         {
             const uint size = normalList.size();
             m_normal.resize( size );
         #pragma omp parallel for
             for( int i = 0; i < int(size); ++i ) {
-                m_normal[i] = normalList[i];
+                // unnecessary call to copy constructor and cast are removed at compile time
+                m_normal[i] = Core::Vector3(normalList[i].template cast<Core::Vector3::Scalar>());
             }
+        }
+
+        inline GeometryData::Vector3Array& GeometryData::getTangents()
+        {
+            return m_tangent;
         }
 
         inline const GeometryData::Vector3Array& GeometryData::getTangents() const
@@ -187,14 +219,21 @@ namespace Ra {
             return m_tangent;
         }
 
-        inline void GeometryData::setTangents( const std::vector< Core::Vector3 >& tangentList )
+        template < typename Container >
+        inline void GeometryData::setTangents( const Container& tangentList )
         {
             const uint size = tangentList.size();
             m_tangent.resize( size );
             #pragma omp parallel for
             for( int i = 0; i < int(size); ++i ) {
-                m_tangent[i] = tangentList[i];
+                // unnecessary call to copy constructor and cast are removed at compile time
+                m_tangent[i] = Core::Vector3(tangentList[i].template cast<Core::Vector3::Scalar>());
             }
+        }
+
+        inline GeometryData::Vector3Array& GeometryData::getBiTangents()
+        {
+            return m_bitangent;
         }
 
         inline const GeometryData::Vector3Array& GeometryData::getBiTangents() const
@@ -202,14 +241,21 @@ namespace Ra {
             return m_bitangent;
         }
 
-        inline void GeometryData::setBitangents( const std::vector< Core::Vector3 >& bitangentList )
+        template < typename Container >
+        inline void GeometryData::setBitangents( const Container& bitangentList )
         {
             const uint size = bitangentList.size();
             m_bitangent.resize( size );
             #pragma omp parallel for
             for( int i = 0; i < int(size); ++i ) {
-                m_bitangent[i] = bitangentList[i];
+                // unnecessary call to copy constructor and cast are removed at compile time
+                m_bitangent[i] = Core::Vector3(bitangentList[i].template cast<Core::Vector3::Scalar>());
             }
+        }
+
+        inline GeometryData::Vector3Array& GeometryData::getTexCoords()
+        {
+            return m_texCoord;
         }
 
         inline const GeometryData::Vector3Array& GeometryData::getTexCoords() const
@@ -217,14 +263,21 @@ namespace Ra {
             return m_texCoord;
         }
 
-        inline void GeometryData::setTextureCoordinates( const std::vector< Core::Vector3 >& texCoordList )
+        template < typename Container >
+        inline void GeometryData::setTextureCoordinates( const Container& texCoordList )
         {
             const uint size = texCoordList.size();
             m_texCoord.resize( size );
             #pragma omp parallel for
             for( int i = 0; i < int(size); ++i ) {
-                m_texCoord[i] = texCoordList[i];
+                // unnecessary call to copy constructor and cast are removed at compile time
+                m_texCoord[i] = Core::Vector3(texCoordList[i].template cast<Core::Vector3::Scalar>());
             }
+        }
+
+        inline GeometryData::ColorArray& GeometryData::getColors()
+        {
+            return m_color;
         }
 
         inline const GeometryData::ColorArray& GeometryData::getColors() const
@@ -232,14 +285,21 @@ namespace Ra {
             return m_color;
         }
 
-        inline void GeometryData::setColors( const std::vector< Core::Color >& colorList )
+        template < typename Container >
+        inline void GeometryData::setColors( const Container& colorList )
         {
             const uint size = colorList.size();
             m_color.resize( size );
             #pragma omp parallel for
             for( int i = 0; i < int(size); ++i ) {
-                m_color[i] = colorList[i];
+                // unnecessary call to copy constructor and cast are removed at compile time
+                m_color[i] = Core::Color(colorList[i].template cast<Core::Color::Scalar>());
             }
+        }
+
+        inline GeometryData::WeightArray& GeometryData::getWeights()
+        {
+            return m_weights;
         }
 
         inline const GeometryData::WeightArray& GeometryData::getWeights() const
