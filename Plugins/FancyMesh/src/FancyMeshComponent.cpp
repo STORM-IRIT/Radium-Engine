@@ -81,7 +81,8 @@ namespace FancyMeshPlugin
         for (size_t i = 0; i < data->getVerticesSize(); ++i)
         {
             mesh.m_vertices.push_back(T * data->getVertices()[i]);
-            mesh.m_normals.push_back((N * data->getNormals()[i]).normalized());
+            if(data->hasNormals())
+                mesh.m_normals.push_back((N * data->getNormals()[i]).normalized());
         }
 
         for (const auto& face : data->getFaces())
