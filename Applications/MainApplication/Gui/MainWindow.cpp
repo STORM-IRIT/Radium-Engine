@@ -4,26 +4,30 @@
 #include <QFileDialog>
 #include <QToolButton>
 
-#include <Core/File/deprecated/OBJFileManager.hpp>
 #include <assimp/Importer.hpp>
+
+#include <Core/File/deprecated/OBJFileManager.hpp>
 
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
 #include <Engine/Entity/Entity.hpp>
 
-#include <PluginBase/RadiumPluginInterface.hpp>
-
+#include <GuiBase/TreeModel/EntityTreeModel.hpp>
+#include <GuiBase/Utils/KeyMappingManager.hpp>
 #include <GuiBase/Viewer/CameraInterface.hpp>
+
+#include <PluginBase/RadiumPluginInterface.hpp>
 
 #include <Gui/MaterialEditor.hpp>
 
 #include <MainApplication.hpp>
-#include <GuiBase/Utils/KeyMappingManager.hpp>
-
 
 using Ra::Engine::ItemEntry;
 
@@ -50,6 +54,10 @@ namespace Ra
         m_entitiesTreeView->setSelectionModel(m_selectionManager);
 
         createConnections();
+
+        m_vertexInfo->setVisible(false);
+        m_edgeInfo->setVisible(false);
+        m_triangleInfo->setVisible(false);
 
         mainApp->framesCountForStatsChanged((uint) m_avgFramesCount->value());
     }
@@ -235,10 +243,22 @@ namespace Ra
             {
                 Ra::Engine::Component* comp = ro->getComponent();
                 Ra::Engine::Entity* ent = comp->getEntity();
+                const auto& fdata = m_viewer->getFeaturePickingManager()->getFeatureData();
+
+                if (fdata.m_featureType == Ra::Engine::Renderer::VERTEX)
+                {
+                    m_vertexIdx->setValue(fdata.m_data[0]);
+                    m_vertexIdx->setMaximum(ro->getMesh()->getGeometry().m_vertices.size() - 1);
+                }
+                if (fdata.m_featureType == Ra::Engine::Renderer::TRIANGLE)
+                {
+                    m_triangleIdx->setValue(fdata.m_data[0]);
+                    m_triangleIdx->setMaximum(ro->getMesh()->getGeometry().m_triangles.size() - 1);
+                }
 
                 // For now we don't enable group selection.
-                m_selectionManager->setCurrentEntry(ItemEntry(ent, comp, roIndex),
-                                                    QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
+                m_selectionManager->setCurrentEntry( ItemEntry(ent, comp, roIndex, fdata),
+                                                     QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
             }
         }
         else
@@ -331,7 +351,6 @@ namespace Ra
         // m_viewer->changeRenderer(m_currentRendererCombo->currentIndex());
     }
 
-
     void Gui::MainWindow::changeRenderObjectShader(const QString& shaderName)
     {
         std::string name = shaderName.toStdString();
@@ -348,8 +367,7 @@ namespace Ra
             const auto& ro = mainApp->m_engine->getRenderObjectManager()->getRenderObject(ro_index);
             if (ro->getRenderTechnique()->getBasicConfiguration().m_name != name)
             {
-                Engine::ShaderConfiguration config = Ra::Engine::ShaderConfigurationFactory::getConfiguration(name);
-                ro->getRenderTechnique()->changeShader(config);
+            	ro->getRenderTechnique()->changeShader(config);
             }
         }
     }
@@ -414,6 +432,12 @@ namespace Ra
             }
             toolBar->addSeparator();
         }
+
+        // Add feature widget
+        if (plugin->doAddFeatureTrackingWidget())
+        {
+            tab_tracking_layout->addWidget( plugin->getFeatureTrackingWidget() );
+        }
     }
 
     void Gui::MainWindow::onRendererReady()
@@ -433,6 +457,7 @@ namespace Ra
     {
         tab_edition->updateValues();
         m_viewer->getGizmoManager()->updateValues();
+        updateTrackedFeatureInfo();
     }
 
     void Gui::MainWindow::onItemAdded(const Engine::ItemEntry& ent)
@@ -535,6 +560,58 @@ namespace Ra
     void Gui::MainWindow::fitCamera()
     {
         m_viewer->fitCameraToScene(Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getSceneAabb());
+    }
+
+    void Ra::Gui::MainWindow::on_m_vertexIdx_valueChanged(int arg1)
+    {
+        m_viewer->getFeaturePickingManager()->setVertexIndex(arg1);
+        m_viewer->getFeaturePickingManager()->setSpherePosition();
+    }
+
+    void Ra::Gui::MainWindow::on_m_triangleIdx_valueChanged(int arg1)
+    {
+        m_viewer->getFeaturePickingManager()->setTriangleIndex(arg1);
+        m_viewer->getFeaturePickingManager()->setSpherePosition();
+    }
+
+    void Gui::MainWindow::updateTrackedFeatureInfo()
+    {
+        m_vertexInfo->setVisible(false);
+        m_edgeInfo->setVisible(false);
+        m_triangleInfo->setVisible(false);
+        auto fdata = m_viewer->getFeaturePickingManager()->getFeatureData();
+        switch (fdata.m_featureType)
+        {
+        case Engine::Renderer::VERTEX:
+        {
+            m_vertexInfo->setVisible(true);
+            m_vertexPX->setText(QString::number(m_viewer->getFeaturePickingManager()->getFeaturePosition()[0]));
+            m_vertexPY->setText(QString::number(m_viewer->getFeaturePickingManager()->getFeaturePosition()[1]));
+            m_vertexPZ->setText(QString::number(m_viewer->getFeaturePickingManager()->getFeaturePosition()[2]));
+            m_vertexNX->setText(QString::number(m_viewer->getFeaturePickingManager()->getFeatureVector()[0]));
+            m_vertexNY->setText(QString::number(m_viewer->getFeaturePickingManager()->getFeatureVector()[1]));
+            m_vertexNZ->setText(QString::number(m_viewer->getFeaturePickingManager()->getFeatureVector()[2]));
+            break;
+        }
+        case Engine::Renderer::EDGE:
+        {
+            m_edgeInfo->setVisible(true);
+            m_edgeV0->setText(QString::number(fdata.m_data[0]));
+            m_edgeV1->setText(QString::number(fdata.m_data[1]));
+            break;
+        }
+        case Engine::Renderer::TRIANGLE:
+        {
+            m_triangleInfo->setVisible(true);
+            m_triangleV0->setText(QString::number(fdata.m_data[1]));
+            m_triangleV1->setText(QString::number(fdata.m_data[2]));
+            m_triangleV2->setText(QString::number(fdata.m_data[3]));
+            break;
+        }
+        default:
+            break;
+        }
+        m_viewer->getFeaturePickingManager()->setSpherePosition();
     }
 
 } // namespace Ra

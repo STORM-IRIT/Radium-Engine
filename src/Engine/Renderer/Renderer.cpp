@@ -253,7 +253,7 @@ namespace Ra
 
             for ( const auto& ro : m_fancyRenderObjects )
             {
-                if ( ro->isVisible() )
+                if ( ro->isVisible() && ro->isPickable() )
                 {
                     int id = ro->idx.getValue();
                     shader->setUniform( "objectId", id );
@@ -276,7 +276,7 @@ namespace Ra
             {
                 for ( const auto& ro : m_debugRenderObjects )
                 {
-                    if ( ro->isVisible() )
+                    if ( ro->isVisible() && ro->isPickable() )
                     {
                         int id = ro->idx.getValue();
                         shader->setUniform( "objectId", id );
@@ -300,7 +300,7 @@ namespace Ra
             {
                 for ( const auto& ro : m_xrayRenderObjects )
                 {
-                    if ( ro->isVisible() )
+                    if ( ro->isVisible() && ro->isPickable() )
                     {
                         int id = ro->idx.getValue();
                         shader->setUniform( "objectId", id );
@@ -323,7 +323,7 @@ namespace Ra
             GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
             for ( const auto& ro : m_uiRenderObjects )
             {
-                if ( ro->isVisible() )
+                if ( ro->isVisible() && ro->isPickable() )
                 {
                     int id = ro->idx.getValue();
                     shader->setUniform( "objectId", id );

@@ -11,6 +11,7 @@
 
 #include <Core/Math/LinearAlgebra.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
+#include <GuiBase/Utils/FeaturePickingManager.hpp>
 
 // Forward declarations
 namespace Ra
@@ -83,6 +84,9 @@ namespace Ra
 
             /// Read-write access to renderer
             Engine::Renderer* getRenderer();
+
+            /// Access to the feature picking manager
+            FeaturePickingManager* getFeaturePickingManager();
 
             //
             // Rendering management
@@ -200,6 +204,9 @@ namespace Ra
             /// Owning pointer to the renderers.
             std::vector<std::unique_ptr<Engine::Renderer>> m_renderers;
             Engine::Renderer* m_currentRenderer;
+
+            /// Owning Pointer to the feature picking manager.
+            FeaturePickingManager* m_featurePickingManager;
 
             /// Owning pointer to the camera.
             std::unique_ptr<CameraInterface> m_camera;

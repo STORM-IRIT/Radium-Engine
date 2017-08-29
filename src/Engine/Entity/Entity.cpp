@@ -31,7 +31,6 @@ namespace Ra
 
         void Entity::addComponent( Engine::Component* component )
         {
-            
             CORE_ASSERT( getComponent( component->getName() ) == nullptr,
                 "Component \"" << component->getName() << "\" has already been added to the entity." );
 
@@ -39,7 +38,6 @@ namespace Ra
             component->setEntity( this );
 
             RadiumEngine::getInstance()->getSignalManager()->fireComponentAdded( ItemEntry(this, component) );
-
         }
 
         Component* Entity::getComponent( const std::string& name )

@@ -40,7 +40,11 @@ namespace Ra
 
                     GIZMOMANAGER_MANIPULATION,
 
-                    COLORWIDGET_PRESSBUTTON
+                    COLORWIDGET_PRESSBUTTON,
+
+                    FEATUREPICKING_VERTEX,
+                    FEATUREPICKING_EDGE,
+                    FEATUREPICKING_TRIANGLE
                 };
 
                 // In order to have a String corresponding to each enum value

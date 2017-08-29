@@ -78,7 +78,7 @@
 // Additionally REL_DEB is defined on release build with debug info
 // Also the macro ON_DEBUG() can be used to execute an expression only on debug.
 // By default, debug has assert macros enabled. In release builds
-// asserts are disabled except if explicitly required by
+// asserts are disabled except if explicitly required by 
 // defining CORE_USE_ASSERT
 
 
@@ -288,7 +288,7 @@ template<int x> struct size;
     fprintf(stderr,                     \
           FMT,__FILE__,__LINE__,        \
           #EXP, stream.str().c_str() ); \
-    MACRO_END
+MACRO_END
 
 
 
