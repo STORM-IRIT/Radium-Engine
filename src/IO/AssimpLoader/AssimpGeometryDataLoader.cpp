@@ -278,7 +278,7 @@ namespace Ra {
         }
 
         void AssimpGeometryDataLoader::fetchTangents( const aiMesh& mesh, Asset::GeometryData& data ) const {
-#if defined(LOAD_TEXTURES)
+#if defined(RADIUM_WITH_TEXTURES)
             const uint size = mesh.mNumVertices;
             auto &tangent = data.getTangents();
             tangent.resize(size, Core::Vector3::Zero());
@@ -291,10 +291,10 @@ namespace Ra {
         }
 
         void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, Asset::GeometryData& data ) const {
-#if defined(LOAD_TEXTURES)
+#if defined(RADIUM_WITH_TEXTURES)
             const uint size = mesh.mNumVertices;
             auto &bitangent = data.getBiTangents();
-            bitangent.resize(mNumVertices);
+            bitangent.resize(size);
             #pragma omp parallel for
             for( uint i = 0; i < size; ++i )
             {
@@ -304,7 +304,7 @@ namespace Ra {
         }
 
         void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh, Asset::GeometryData& data ) const {
-#if ( defined(LOAD_TEXTURES) )
+#if ( defined(RADIUM_WITH_TEXTURES) )
             const uint size = mesh.mNumVertices;
             auto &texcoord = data.getTexCoords();
             texcoord.resize(data.getVerticesSize());
@@ -313,7 +313,7 @@ namespace Ra {
             {
                 // FIXME(Charly): Is it safe to only consider texcoords[0] ?
                 // FIXME(Charly): This is probably crappy if you do not allow duplicates.
-                texcoord.at(data.m_duplicateTable.at(i)) = assimpToCore( mesh.mTextureCoords[0][i] );
+                texcoord.at(data.getDuplicateTable().at(i)) = assimpToCore( mesh.mTextureCoords[0][i] );
             }
             data.setTextureCoordinates( texcoord );
 #endif
@@ -428,7 +428,7 @@ namespace Ra {
                 aiMesh* mesh = scene->mMeshes[i];
                 if( mesh->HasPositions() ) {
                     Asset::GeometryData* geometry = new Asset::GeometryData();
-#ifdef LOAD_TEXTURES
+#ifdef RADIUM_WITH_TEXTURES
                     geometry->setLoadDuplicates(true);
 #endif
                     loadMeshData( *mesh, *geometry, usedNames );
