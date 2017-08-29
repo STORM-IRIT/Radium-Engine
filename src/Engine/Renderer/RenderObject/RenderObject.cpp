@@ -156,7 +156,7 @@ namespace Ra
                 mat->m_alpha = m.m_opacity;
             }
 
-#ifdef LOAD_TEXTURES
+#ifdef RADIUM_WITH_TEXTURES
             if (m.hasDiffuseTexture())
             {
                 mat->addTexture(Material::TextureType::TEX_DIFFUSE, m.m_texDiffuse);
