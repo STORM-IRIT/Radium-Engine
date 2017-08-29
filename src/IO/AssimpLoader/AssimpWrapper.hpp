@@ -53,6 +53,8 @@ namespace Ra {
 
         inline std::string assimpToCore( const aiString& string ) {
             std::string result ( string.C_Str() );
+            std::transform(result.begin(), result.end(), result.begin(),
+                           [](char in){if(in == '\\') return '/'; return in;});
             return result.empty() ? "default" : result;
         }
 
