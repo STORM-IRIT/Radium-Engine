@@ -25,7 +25,7 @@ The following platforms and tool chains have been tested and should work :
 
 ### Getting submodules
 Eigen, Assimp, glbinding are submodules : you can get them by running these two commands
-```
+```bash
 $ git submodule init
 $ git submodule update
 ```
@@ -59,7 +59,7 @@ Radium offers two build options which are off by default :
 
 Out-of source builds are mandatory, we recommand to follow the usual sequence:
 
-```
+```bash
 $ mkdir build
 $ cd build
 $ cmake ..
@@ -96,27 +96,24 @@ You may have Cmake errors occuring at the first run (see Troubleshooting section
 To fix them, you need to edit the VS-specific file `CMakeSettings.json`, via *CMake* > *Change CMake Settings* > path-to-CMakeLists (configuration-name) from the main menu.
 For instance, it usually requires to set cmake build types manually, and to give path to Qt libraries.
 To fix it, edit `CMakeSettings.json`, such that
-```
+```json
       {
         ...
-        "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:\\Qt\\5.7\\winrt_x64_msvc2015 -DCMAKE_BUILD_TYPE=Debug",
+        "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt/5.7/winrt_x64_msvc2015 -DCMAKE_BUILD_TYPE=Debug",
         ...
       },
       {
         "name": "x64-Release",
         ...
-        "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:\\Qt\\5.7\\winrt_x64_msvc2015 -DCMAKE_BUILD_TYPE=Release",
+        "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt/5.7/winrt_x64_msvc2015 -DCMAKE_BUILD_TYPE=Release",
         ...
       }
 ```
+*Note*: it is strongly encouraged to use `/` separators in your path, instead of `\\` as previously mentionned. See https://stackoverflow.com/questions/13737370/cmake-error-invalid-escape-sequence-u
 
 #### Compilation
 
 Right click on CMakeList.txt > build > all.
-
-#### Run
-
-Assimp and GlBinding DLLs need to be manually copied in the bin directory (FIXME).
 
 ### Building with QtCreator
 
@@ -134,7 +131,7 @@ has asked CMake to find a package configuration file provided by
 ```
 you need to set `CMAKE_PREFIX_PATH`, pointing to the Qt root dir of your commpiler.
 For example on linux with gcc :
-```
+```bash
 $ cmake -DCMAKE_PREFIX_PATH=/opt/Qt/5.x/gcc_64
 ```
 

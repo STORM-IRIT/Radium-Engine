@@ -42,7 +42,7 @@ namespace Ra {
                 LOG( logINFO ) << "Light Loading begin...";
             }
 
-            int lightSize = sceneLightSize(scene);
+            uint lightSize = sceneLightSize(scene);
             data.reserve(lightSize);
             for ( uint lightId = 0; lightId < lightSize; ++lightId ) {
                 Asset::LightData *light = new Asset::LightData();

@@ -71,7 +71,7 @@ namespace FancyMeshPlugin
 
         m_contentName = data->getName();
 
-        auto displayMesh = Ra::Core::make_shared<Ra::Engine::Mesh>(meshName);
+        auto displayMesh = Ra::Core::make_shared<Ra::Engine::Mesh>(meshName/*, Ra::Engine::Mesh::RM_POINTS*/);
 
         Ra::Core::TriangleMesh mesh;
         Ra::Core::Transform T = data->getFrame();
@@ -81,7 +81,8 @@ namespace FancyMeshPlugin
         for (size_t i = 0; i < data->getVerticesSize(); ++i)
         {
             mesh.m_vertices.push_back(T * data->getVertices()[i]);
-            mesh.m_normals.push_back((N * data->getNormals()[i]).normalized());
+            if(data->hasNormals())
+                mesh.m_normals.push_back((N * data->getNormals()[i]).normalized());
         }
 
         for (const auto& face : data->getFaces())
@@ -91,21 +92,33 @@ namespace FancyMeshPlugin
 
         displayMesh->loadGeometry(mesh);
 
-        Ra::Core::Vector3Array tangents;
-        Ra::Core::Vector3Array bitangents;
-        Ra::Core::Vector3Array texcoords;
+        if (data->hasTangents())
+        {
+            Ra::Core::Vector3Array tangents;   tangents.resize(data->getTangents().size());
+            std::copy(data->getTangents().begin(),   data->getTangents().end(),   tangents.begin());
+            displayMesh->addData( Ra::Engine::Mesh::VERTEX_TANGENT, tangents );
+        }
 
-        Ra::Core::Vector4Array colors;
+        if (data->hasBiTangents())
+        {
+            Ra::Core::Vector3Array bitangents; bitangents.resize(data->getBiTangents().size());
+            std::copy(data->getBiTangents().begin(), data->getBiTangents().end(), bitangents.begin());
+            displayMesh->addData( Ra::Engine::Mesh::VERTEX_BITANGENT, bitangents );
+        }
 
-        for ( const auto& v : data->getTangents() )     tangents.push_back( v );
-        for ( const auto& v : data->getBiTangents() )   bitangents.push_back( v );
-        for ( const auto& v : data->getTexCoords() )    texcoords.push_back( v );
-        for ( const auto& v : data->getColors() )       colors.push_back( v );
+        if (data->hasTextureCoordinates())
+        {
+            Ra::Core::Vector3Array texcoords;  texcoords.resize(data->getTexCoords().size());
+            std::copy(data->getTexCoords().begin(),  data->getTexCoords().end(),  texcoords.begin());
+            displayMesh->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, texcoords );
+        }
 
-        displayMesh->addData( Ra::Engine::Mesh::VERTEX_TANGENT, tangents );
-        displayMesh->addData( Ra::Engine::Mesh::VERTEX_BITANGENT, bitangents );
-        displayMesh->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, texcoords );
-        displayMesh->addData( Ra::Engine::Mesh::VERTEX_COLOR, colors );
+        if (data->hasColors())
+        {
+            Ra::Core::Vector4Array colors;     colors.resize(data->getColors().size());
+            std::copy(data->getColors().begin(),     data->getColors().end(),     colors.begin());
+            displayMesh->addData( Ra::Engine::Mesh::VERTEX_COLOR, colors );
+        }
 
         // FIXME(Charly): Should not weights be part of the geometry ?
         //        mesh->addData( Ra::Engine::Mesh::VERTEX_WEIGHTS, meshData.weights );
@@ -117,7 +130,7 @@ namespace FancyMeshPlugin
         if ( m.hasShininess() ) mat->m_ns    = m.m_shininess;
         if ( m.hasOpacity() )   mat->m_alpha = m.m_opacity;
 
-#ifdef LOAD_TEXTURES
+#ifdef RADIUM_WITH_TEXTURES
         if ( m.hasDiffuseTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_DIFFUSE, m.m_texDiffuse );
         if ( m.hasSpecularTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_SPECULAR, m.m_texSpecular );
         if ( m.hasShininessTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_SHININESS, m.m_texShininess );

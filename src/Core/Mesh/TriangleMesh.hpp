@@ -29,6 +29,9 @@ namespace Ra
             VectorArray<Vector3>  m_vertices;
             VectorArray<Vector3>  m_normals;
             VectorArray<Triangle> m_triangles;
+
+        public:
+            EIGEN_MAKE_ALIGNED_OPERATOR_NEW
         };
     }
 }

@@ -1,7 +1,12 @@
 #ifndef RADIUMENGINE_GRID_HPP
 #define RADIUMENGINE_GRID_HPP
-#include <Core/RaCore.hpp>
+
+#include <vector>
+
 #include <Eigen/Core>
+
+#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/RaCore.hpp>
 
 namespace Ra
 {

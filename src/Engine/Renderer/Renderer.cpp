@@ -477,9 +477,20 @@ namespace Ra
                 return;
 
             std::vector<  Asset::LightData * > data = filedata.getLightData();
-            LOG (logINFO) << "Adding " <<data.size() << " lights in the renderer";
+            uint i = 0;
             for (auto light : data )
-                addLight( light->getLight() );
+            {
+                if (light->getLight())
+                {
+                    addLight( light->getLight() );
+                    ++i;
+                }
+            }
+            LOG(logINFO) << "Added " << i << " lights in the renderer";
+            if (data.size() > i)
+            {
+                LOG(logWARNING) << data.size()-i << " lights where of unknown or unsupported type.";
+            }
         }
 
         uchar* Renderer::grabFrame(uint &w, uint &h) const {
