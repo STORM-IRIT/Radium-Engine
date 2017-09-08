@@ -172,6 +172,10 @@ namespace Ra
         m_mainWindow.reset( new Gui::MainWindow );
         m_mainWindow->show();
 
+        m_viewer = m_mainWindow->getViewer();
+        CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
+        CORE_ASSERT( m_viewer->context()->isValid(), "OpenGL was not initialized" );
+
         // Allow all events to be processed (thus the viewer should have
         // initialized the OpenGL context..)
         processEvents();
@@ -182,10 +186,6 @@ namespace Ra
         {
             LOG( logERROR ) << "An error occurred while trying to load plugins.";
         }
-
-        m_viewer = m_mainWindow->getViewer();
-        CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
-        CORE_ASSERT( m_viewer->context()->isValid(), "OpenGL was not initialized" );
 
         // Create task queue with N-1 threads (we keep one for rendering).
         uint numThreads =  std::thread::hardware_concurrency() - 1;
@@ -440,6 +440,7 @@ namespace Ra
         PluginContext context;
         context.m_engine = m_engine.get();
         context.m_selectionManager = m_mainWindow->getSelectionManager();
+        context.m_featureManager = m_viewer->getFeaturePickingManager();
 
         for (const auto& filename : pluginsDir.entryList(QDir::Files))
         {

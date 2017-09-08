@@ -21,6 +21,7 @@
 
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
+#include <GuiBase/Utils/qt_utils.hpp>
 #include <GuiBase/Viewer/CameraInterface.hpp>
 
 #include <PluginBase/RadiumPluginInterface.hpp>
@@ -55,9 +56,8 @@ namespace Ra
 
         createConnections();
 
-        m_vertexInfo->setVisible(false);
-        m_edgeInfo->setVisible(false);
-        m_triangleInfo->setVisible(false);
+        Qt_utils::rec_set_visible( *m_vertexIdx_layout, false );
+        Qt_utils::rec_set_visible( *m_triangleIdx_layout, false );
 
         mainApp->framesCountForStatsChanged((uint) m_avgFramesCount->value());
     }
@@ -562,55 +562,27 @@ namespace Ra
         m_viewer->fitCameraToScene(Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getSceneAabb());
     }
 
-    void Ra::Gui::MainWindow::on_m_vertexIdx_valueChanged(int arg1)
+    void Gui::MainWindow::on_m_vertexIdx_valueChanged(int arg1)
     {
         m_viewer->getFeaturePickingManager()->setVertexIndex(arg1);
         m_viewer->getFeaturePickingManager()->setSpherePosition();
+        m_selectionManager->setCurrentEntry( m_selectionManager->currentItem(),
+                                             QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
     }
 
-    void Ra::Gui::MainWindow::on_m_triangleIdx_valueChanged(int arg1)
+    void Gui::MainWindow::on_m_triangleIdx_valueChanged(int arg1)
     {
         m_viewer->getFeaturePickingManager()->setTriangleIndex(arg1);
         m_viewer->getFeaturePickingManager()->setSpherePosition();
+        m_selectionManager->setCurrentEntry( m_selectionManager->currentItem(),
+                                             QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
     }
 
     void Gui::MainWindow::updateTrackedFeatureInfo()
     {
-        m_vertexInfo->setVisible(false);
-        m_edgeInfo->setVisible(false);
-        m_triangleInfo->setVisible(false);
         auto fdata = m_viewer->getFeaturePickingManager()->getFeatureData();
-        switch (fdata.m_featureType)
-        {
-        case Engine::Renderer::VERTEX:
-        {
-            m_vertexInfo->setVisible(true);
-            m_vertexPX->setText(QString::number(m_viewer->getFeaturePickingManager()->getFeaturePosition()[0]));
-            m_vertexPY->setText(QString::number(m_viewer->getFeaturePickingManager()->getFeaturePosition()[1]));
-            m_vertexPZ->setText(QString::number(m_viewer->getFeaturePickingManager()->getFeaturePosition()[2]));
-            m_vertexNX->setText(QString::number(m_viewer->getFeaturePickingManager()->getFeatureVector()[0]));
-            m_vertexNY->setText(QString::number(m_viewer->getFeaturePickingManager()->getFeatureVector()[1]));
-            m_vertexNZ->setText(QString::number(m_viewer->getFeaturePickingManager()->getFeatureVector()[2]));
-            break;
-        }
-        case Engine::Renderer::EDGE:
-        {
-            m_edgeInfo->setVisible(true);
-            m_edgeV0->setText(QString::number(fdata.m_data[0]));
-            m_edgeV1->setText(QString::number(fdata.m_data[1]));
-            break;
-        }
-        case Engine::Renderer::TRIANGLE:
-        {
-            m_triangleInfo->setVisible(true);
-            m_triangleV0->setText(QString::number(fdata.m_data[1]));
-            m_triangleV1->setText(QString::number(fdata.m_data[2]));
-            m_triangleV2->setText(QString::number(fdata.m_data[3]));
-            break;
-        }
-        default:
-            break;
-        }
+        Qt_utils::rec_set_visible( *m_vertexIdx_layout, fdata.m_featureType == Engine::Renderer::VERTEX );
+        Qt_utils::rec_set_visible( *m_triangleIdx_layout, fdata.m_featureType == Engine::Renderer::TRIANGLE );
         m_viewer->getFeaturePickingManager()->setSpherePosition();
     }
 
