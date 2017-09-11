@@ -5,10 +5,10 @@
 The RadiumEngine's `Renderer` provides a picking method enabling `RenderObject` selection.
 The `MeshFeaturePicking` feature enables to enhance the selection process up to selecting mesh vertices, edges and triangles through a raycast querry on the selected `RenderObject`.
 The result of a `MeshFeaturePicking` is a `FeatureData` containing the selection mode:
-*`PickingMode::RO`
-*`PickingMode::VERTEX`
-*`PickingMode::EDGE`
-*`PickingMode::TRIANGLE`
+* `PickingMode::RO`
+* `PickingMode::VERTEX`
+* `PickingMode::EDGE`
+* `PickingMode::TRIANGLE`
 as well as the selected feature data, i.e. indices of its vertices.
 
 The selection of a mesh feature (can can select only one feature at a time) is activated by holding a specific key while selecting the object (see the `KeyMappingManager` configuration file for those).
