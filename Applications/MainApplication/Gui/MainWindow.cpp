@@ -257,7 +257,7 @@ namespace Ra
                 }
 
                 // For now we don't enable group selection.
-                m_selectionManager->setCurrentEntry( ItemEntry(ent, comp, roIndex, fdata),
+                m_selectionManager->setCurrentEntry( ItemEntry(ent, comp, roIndex),
                                                      QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
             }
         }
@@ -565,7 +565,6 @@ namespace Ra
     void Gui::MainWindow::on_m_vertexIdx_valueChanged(int arg1)
     {
         m_viewer->getFeaturePickingManager()->setVertexIndex(arg1);
-        m_viewer->getFeaturePickingManager()->setSpherePosition();
         m_selectionManager->setCurrentEntry( m_selectionManager->currentItem(),
                                              QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
     }
@@ -573,7 +572,6 @@ namespace Ra
     void Gui::MainWindow::on_m_triangleIdx_valueChanged(int arg1)
     {
         m_viewer->getFeaturePickingManager()->setTriangleIndex(arg1);
-        m_viewer->getFeaturePickingManager()->setSpherePosition();
         m_selectionManager->setCurrentEntry( m_selectionManager->currentItem(),
                                              QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
     }
@@ -583,7 +581,6 @@ namespace Ra
         auto fdata = m_viewer->getFeaturePickingManager()->getFeatureData();
         Qt_utils::rec_set_visible( *m_vertexIdx_layout, fdata.m_featureType == Engine::Renderer::VERTEX );
         Qt_utils::rec_set_visible( *m_triangleIdx_layout, fdata.m_featureType == Engine::Renderer::TRIANGLE );
-        m_viewer->getFeaturePickingManager()->setSpherePosition();
     }
 
 } // namespace Ra

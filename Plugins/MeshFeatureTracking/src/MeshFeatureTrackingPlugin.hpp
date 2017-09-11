@@ -16,6 +16,7 @@ namespace Ra
     namespace Engine
     {
         class RadiumEngine;
+        class Entity;
     }
 }
 
@@ -51,7 +52,7 @@ namespace MeshFeatureTrackingPlugin
         void update();
 
     private:
-        class MeshFeatureTrackingSystem* m_system;
+        Ra::Engine::Entity* m_entity;
         MeshFeatureTrackingUI* m_widget;
 
         Ra::GuiBase::SelectionManager* m_selectionManager;

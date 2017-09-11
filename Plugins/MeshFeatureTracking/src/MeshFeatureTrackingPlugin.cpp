@@ -4,12 +4,15 @@
 #include <QIcon>
 #include <QToolBar>
 
-#include <Engine/RadiumEngine.hpp>
+#include <Engine/Entity/Entity.hpp>
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+#include <Engine/RadiumEngine.hpp>
+
 #include <GuiBase/SelectionManager/SelectionManager.hpp>
 #include <GuiBase/Utils/FeaturePickingManager.hpp>
 
-#include <MeshFeatureTrackingSystem.hpp>
 #include <MeshFeatureTrackingComponent.hpp>
 
 #include <UI/MeshFeatureTrackingUI.h>
@@ -19,8 +22,7 @@ namespace MeshFeatureTrackingPlugin
 {
 
     MeshFeatureTrackingPluginC::MeshFeatureTrackingPluginC()
-        : m_system(nullptr)
-        , m_selectionManager(nullptr)
+        : m_selectionManager(nullptr)
         , m_featurePickingManager(nullptr)
     {
         m_widget = new MeshFeatureTrackingUI();
@@ -32,11 +34,17 @@ namespace MeshFeatureTrackingPlugin
 
     void MeshFeatureTrackingPluginC::registerPlugin(const Ra::PluginContext& context)
     {
-        m_system = new MeshFeatureTrackingSystem;
-        context.m_engine->registerSystem( "MeshFeatureTrackingSystem", m_system );
+        // register system
         context.m_engine->getSignalManager()->m_frameEndCallbacks.push_back(
                 std::bind(&MeshFeatureTrackingPluginC::update, this)
         );
+        // create sphere entity
+        m_entity = context.m_engine->getEntityManager()->createEntity( "FeatureTrackingEntity" );
+        auto component = new MeshFeatureTrackingComponent( "TrackingSphere" );
+        m_entity->addComponent( component );
+        m_entity->idx = Ra::Engine::SystemEntity::getInstance()->idx; // hack to avoid selection through tree view
+        component->initialize();
+        // register selection context
         m_selectionManager = context.m_selectionManager;
         m_featurePickingManager = context.m_featureManager;
         connect( m_selectionManager, &Ra::GuiBase::SelectionManager::currentChanged, this, &MeshFeatureTrackingPluginC::onCurrentChanged );
@@ -97,20 +105,21 @@ namespace MeshFeatureTrackingPlugin
     void MeshFeatureTrackingPluginC::onCurrentChanged( const QModelIndex& current, const QModelIndex& prev )
     {
         auto data = m_featurePickingManager->getFeatureData();
+        auto cmp = static_cast<MeshFeatureTrackingComponent*>(m_entity->getComponents()[0].get());
         if (data.m_featureType != Ra::Engine::Renderer::RO)
         {
-            std::cout << "ici" << std::endl;
-            m_widget->setCurrent( data );
+            cmp->setData( data );
         }
         else
         {
-            std::cout << "la" << std::endl;
-            m_widget->setCurrent( Ra::Gui::FeatureData() );
+            cmp->setData( Ra::Gui::FeatureData() );
         }
     }
 
     void MeshFeatureTrackingPluginC::update()
     {
-        m_widget->updateTracking();
+        auto cmp = static_cast<MeshFeatureTrackingComponent*>(m_entity->getComponents()[0].get());
+        cmp->update();
+        m_widget->updateTracking( cmp->m_data, cmp->getFeaturePosition(), cmp->getFeatureVector() );
     }
 }
