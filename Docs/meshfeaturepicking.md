@@ -9,6 +9,7 @@ The result of a `MeshFeaturePicking` is a `FeatureData` containing the selection
 * `PickingMode::VERTEX`
 * `PickingMode::EDGE`
 * `PickingMode::TRIANGLE`
+
 as well as the selected feature data, i.e. indices of its vertices.
 
 The selection of a mesh feature (can can select only one feature at a time) is activated by holding a specific key while selecting the object (see the `KeyMappingManager` configuration file for those).
