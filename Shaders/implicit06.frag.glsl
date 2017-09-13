@@ -792,17 +792,17 @@ vec3 fitCircle(in sampler2D dirTex,in sampler2D coordTex,in sampler2D validTex,i
 // uniform float outputC; //## min : 0 ## max : 1.0 ## default : 0.0
 // uniform float dmax; //## min : 1.0 ## max : 5.0 ## default : 1.57
 
-uniform float Smin; //## min : 0 ## max : 1.0 ## default : 0.8
-uniform float Smax; //## min : 0 ## max : 1.0 ## default : 1.0
+ float Smin=0.8; //## min : 0 ## max : 1.0 ## default : 0.8
+ float Smax=1.0; //## min : 0 ## max : 1.0 ## default : 1.0
 
-uniform float Hmin; //## min : 0 ## max : 1.0 ## default : 0.0
-uniform float Hmax; //## min : 0 ## max : 1.0 ## default : 0.0
+ float Hmin=0; //## min : 0 ## max : 1.0 ## default : 0.0
+ float Hmax=1.0; //## min : 0 ## max : 1.0 ## default : 0.0
 
-uniform float Cmin; //## min : 0 ## max : 1.0 ## default : 0.0
-uniform float Cmax; //## min : 0 ## max : 1.0 ## default : 0.0
+ float Cmin=0; //## min : 0 ## max : 1.0 ## default : 0.0
+ float Cmax=1.0; //## min : 0 ## max : 1.0 ## default : 0.0
 
-uniform float Dmin; //## min : 0 ## max : 5.0 ## default : 0.0
-uniform float Dmax; //## min : 0 ## max : 5.0 ## default : 2.0
+ float Dmin=0; //## min : 0 ## max : 5.0 ## default : 0.0
+ float Dmax=2.0; //## min : 0 ## max : 5.0 ## default : 2.0
 
 
 /* float scenar1(in float dist, in float height, in float curvature, in float valid) { */

@@ -73,7 +73,7 @@ namespace Ra
             };
 
             // Default renderer logic here, no need to be accessed by overriding renderers.
-            std::unique_ptr<globjects::Framebuffer> m_fbo, m_phongFbo;
+            std::unique_ptr<globjects::Framebuffer> m_fbo;
             std::unique_ptr<globjects::Framebuffer> m_maskFbo;
             std::unique_ptr<globjects::Framebuffer> m_fitFbo;
             std::unique_ptr<globjects::Framebuffer> m_evenSmoothFbo, m_oddSmoothFbo;

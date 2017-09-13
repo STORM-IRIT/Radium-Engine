@@ -76,7 +76,6 @@ namespace Ra
 
         void TempRenderer::initShaders()
         {
-            m_shaderMgr->addShaderProgram("Phong", "Shaders/BasicPhong.vert.glsl", "Shaders/BasicPhong.frag.glsl");
             ShaderConfiguration configPointCloud("FirstPass");
             configPointCloud.addShader(ShaderType_VERTEX,   "Shaders/Simple.vert.glsl");
             configPointCloud.addShader(ShaderType_GEOMETRY, "Shaders/Splatt.geom.glsl");
@@ -96,10 +95,6 @@ namespace Ra
 
         void TempRenderer::initBuffers()
         {
-            LOG ( logDEBUG ) << "phong Framebuffer.";
-            m_phongFbo.reset( new globjects::Framebuffer() );
-            GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
-
             LOG ( logDEBUG ) << "Main Framebuffer.";
             m_fbo.reset( new globjects::Framebuffer() );
             GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
@@ -440,9 +435,10 @@ namespace Ra
             GL_ASSERT( glDisable( GL_DEPTH_TEST ) );
             GL_ASSERT( glDisable( GL_BLEND ) );
 
-            Core::Matrix2f X, Xt, H;
-            int  n=9;
 
+
+            constexpr int  n=9;
+            Eigen::Matrix<Scalar, n, 4> X, H;
             //MatNMf X  = distanceMatrix(n);
             //MatNMf Xt = X.transpose();
 
@@ -457,15 +453,23 @@ namespace Ra
                 X(i,2) = x;
                 X(i,3) = 1.0f;
             }
-            Xt = X.transpose();
-            H = ((Xt*X).inverse() * Xt).transpose();
+
+            H = ((X.transpose()*X).inverse() * X.transpose()).transpose();
 
             shader = m_shaderMgr->getShaderProgram("imp5");
             shader->bind();
             shader->setUniform("desc1", m_textures[RendererTextures_ThirdColor].get(), 0);
             shader->setUniform("desc2", m_textures[RendererTextures_ThirdData].get(), 1);
             shader->setUniform("sing", m_textures[RendererTextures_Sing].get(), 2);
-            shader->setUniform("H", H);
+            shader->setUniform("H0", Core::Vector4f(H.row(0)));
+            shader->setUniform("H1", Core::Vector4f(H.row(1)));
+            shader->setUniform("H2", Core::Vector4f(H.row(2)));
+            shader->setUniform("H3", Core::Vector4f(H.row(3)));
+            shader->setUniform("H4", Core::Vector4f(H.row(4)));
+            shader->setUniform("H5", Core::Vector4f(H.row(5)));
+            shader->setUniform("H6", Core::Vector4f(H.row(6)));
+            shader->setUniform("H7", Core::Vector4f(H.row(7)));
+            shader->setUniform("H8", Core::Vector4f(H.row(8)));
 
             m_quadMesh->render();
             m_analysisFbo->unbind();
@@ -491,7 +495,15 @@ namespace Ra
             shader->setUniform("grad", m_textures[(m_smoothNum%2 == 0 ? RendererTextures_OSmooth : RendererTextures_ESmooth)].get(), 5);
             shader->setUniform("shading", m_textures[RendererTextures_Shade].get(), 6);
             shader->setUniform("sing", m_textures[RendererTextures_Sing].get(), 7);
-            shader->setUniform("H", H);
+            shader->setUniform("H0", Core::Vector4f(H.row(0)));
+            shader->setUniform("H1", Core::Vector4f(H.row(1)));
+            shader->setUniform("H2", Core::Vector4f(H.row(2)));
+            shader->setUniform("H3", Core::Vector4f(H.row(3)));
+            shader->setUniform("H4", Core::Vector4f(H.row(4)));
+            shader->setUniform("H5", Core::Vector4f(H.row(5)));
+            shader->setUniform("H6", Core::Vector4f(H.row(6)));
+            shader->setUniform("H7", Core::Vector4f(H.row(7)));
+            shader->setUniform("H8", Core::Vector4f(H.row(8)));
             shader->setUniform("sw", 1.0/m_width);
             shader->setUniform("sh", 1.0/m_height);
 

@@ -16,7 +16,8 @@ int type;
 
 const int n  = 9; // fitting size 
 const int nb = 2; // number of fittings
-uniform vec4 H[n];
+uniform vec4 H0, H1, H2, H3, H4, H5, H6, H7, H8;
+vec4 H[n];
 
 layout (location = 0) out vec4 A1;
 layout (location = 1) out vec4 A2;
@@ -25,6 +26,14 @@ layout (location = 2) out vec4 A3;
 vec4 maxDirectionAndValue(in sampler2D desc) {
   vec4 d = texelFetch(desc,ivec2(gl_FragCoord.xy),0);
   return vec4(d.y,-d.x,d.z,d.w);
+}
+
+float mtanh(float c) {
+  // remapping [-inf,inf] in [-1,1]
+  const float tanhmax = 3.11622;
+  float x = (c/tanhmax);
+  float e = exp(-2.0*x);
+  return clamp((1.0-e)/(1.0+e),-1.0,1.0);
 }
 
 float fittingStep(in vec2 dir) {
@@ -72,7 +81,7 @@ float cubicValue(in vec4 c,in float x) {
 }
 
 vec3 cubicMaxima(in vec4 cubic,in float f,in int t) {
-  const float dmax = 100.0;
+  const float dmax = 10000000.0;
   const float eps  = 0.00000001;
 
   // searching cubic solutions
@@ -96,23 +105,24 @@ vec3 cubicMaxima(in vec4 cubic,in float f,in int t) {
 
   float v1 = cubicValue(cubic,x1);
   float v2 = cubicValue(cubic,x2);
-  
-  return abs(x1)<abs(x2) ? vec3(x1*f,c1*f*f,v1) : vec3(x2*f,c2*f*f,v2);
 
-  if(t==0 || t==3 || t==6 || t==7) {
+  return abs(v1)<abs(v2) ? vec3(x1*f,c1*f*f,v1) : vec3(x2*f,c2*f*f,v2);
+  //return abs(x1)<abs(x2) ? vec3(x1*f,c1*f*f,v1) : vec3(x2*f,c2*f*f,v2);
+
+ /* if(t==0 || t==3 || t==6 || t==7) {
     // R/V, SC/SH or demarcating curves
     return abs(x1)<abs(x2) ? vec3(x1*f,c1*f*f,v1) : vec3(x2*f,c2*f*f,v2);
   }
-  
+
   if(t==0 || t==1 || t==5) {
-    // looking for convexities
+  */  // looking for convexities
     return c1>=0.0 ? vec3(x1*f,c1*f*f,v1) : vec3(x2/f,c2*f*f,v2);
-  }
+ /* }
 
   if(t==2 || t==4) {
     // looking for concavities
     return c1<0.0 ? vec3(x1*f,c1*f*f,v1) : vec3(x2*f,c2*f*f,v2);
-  }
+  }*/
 }
 
 vec3 fitCubic(in vec2 dir,in sampler2D desc,float f,int t) {
@@ -263,6 +273,15 @@ void main(void) {
   vec3  fitval,tangent;
   vec2  coord;
 
+  H[0] = H0;
+  H[1] = H1;
+  H[2] = H2;
+  H[3] = H3;
+  H[4] = H4;
+  H[5] = H5;
+  H[6] = H6;
+  H[7] = H7;
+  H[8] = H8;
   type = 1;
   a3 = maxDirectionAndValue(desc1);
 
@@ -303,6 +322,6 @@ void main(void) {
     A3 = a3;
   }
 
-   A1 = vec4(vec3(length(gl_FragCoord.xy-coord))/800,float(type));
-
+   //A1 = vec4(vec3(1-mtanh(length(gl_FragCoord.xy-coord))), mtanh(abs(fitval.x)));
+    //A1 = vec4(vec3(a1.w), 1);
 }
