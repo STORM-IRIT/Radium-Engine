@@ -43,6 +43,7 @@ namespace PointCloudPlugin
         void setDepthThresh(double dThresh);
         void setRadius(double dThresh);
         void setDepthCalc(int index);
+        void setSmoothNum(int sNum);
 
         virtual void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;
    //    void handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData) override;

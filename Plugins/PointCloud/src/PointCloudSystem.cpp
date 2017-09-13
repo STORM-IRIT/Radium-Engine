@@ -81,4 +81,9 @@ namespace PointCloudPlugin
         LOG(logINFO) << "Depth Calculation: " << index;
         m_renderer->setDepthCalc(index);
     }
+    void PointCloudSystem::setSmoothNum(int sNum)
+    {
+        LOG(logINFO) << "Smooth Num: " << sNum;
+        m_renderer->setSmoothNum(sNum);
+    }
 } // namespace PointCloudPlugin

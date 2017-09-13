@@ -15,6 +15,7 @@ namespace PointCloudPlugin
         connect( m_widget, &PointCloudUI::changePlaneFit, this, &PointCloudPluginC::changePlaneFit );
         connect( m_widget, &PointCloudUI::changeRadius, this, &PointCloudPluginC::changeRadius );
         connect( m_widget, &PointCloudUI::changeDepthCalc, this, &PointCloudPluginC::changeDepthCalc );
+        connect( m_widget, &PointCloudUI::changeSmoothNum, this, &PointCloudPluginC::changeSmoothNum );
     }
     PointCloudPluginC::~PointCloudPluginC()
     {
@@ -89,5 +90,10 @@ namespace PointCloudPlugin
     {
         CORE_ASSERT(m_system, "System should be there ");
         m_system->setDepthCalc(index);
+    }
+    void PointCloudPluginC::changeSmoothNum(int sNum)
+    {
+        CORE_ASSERT(m_system, "System should be there ");
+        m_system->setSmoothNum(sNum);
     }
 }

@@ -51,6 +51,7 @@ namespace PointCloudPlugin
         void changeDepthThresh (double dThresh);
         void changeRadius (double radius);
         void changeDepthCalc(int index);
+        void changeSmoothNum(int sNum);
 
     private:
         class PointCloudSystem* m_system;

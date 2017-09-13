@@ -5,15 +5,16 @@ layout(triangle_strip, max_vertices = 4) out;
 
 layout (location = 0) in vec3 in_position[];
 layout (location = 1) in vec3 in_normal[];
+layout (location = 2) in vec3 in_eye[];
 
 
 uniform Transform transform;
-uniform vec2 WindowSize;
 uniform float radius;
 
 layout (location = 0) out vec3 out_position;
 layout (location = 1) out vec3 out_normal;
-layout (location = 4) out vec2 out_uv;
+layout (location = 2) out vec3 out_eye;
+out vec2 uv_final;
 
 out gl_PerVertex
 {
@@ -32,7 +33,7 @@ void main()
     // quad corners and uv coordinates
     vec3 point[4];
     vec2 uv[4];
-    float l_radius = radius / WindowSize.x;
+    float l_radius = radius;
 
     point[0] = in_position[0] - l_radius*(u+v);
     uv[0] = vec2(-1,-1);
@@ -51,7 +52,8 @@ void main()
         gl_Position  = transform.proj * vec4(point[idx],1);
         out_position = point[idx];
         out_normal   = tmpNormal;
-        out_uv       = uv[idx];
+        out_eye      = in_eye[0];
+        uv_final       = uv[idx];
         EmitVertex();
     }
 

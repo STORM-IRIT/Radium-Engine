@@ -47,3 +47,8 @@ void PointCloudUI::on_DepthCalc_currentIndexChanged(int index)
 {
     emit changeDepthCalc(index);
 }
+
+void PointCloudUI::on_smoothNum_valueChanged(int sNum)
+{
+    emit changeSmoothNum(sNum);
+}

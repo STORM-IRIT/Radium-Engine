@@ -35,9 +35,7 @@ namespace Ra
 
             virtual void initializeInternal() override;
             virtual void resizeInternal() override;
-
             virtual void updateStepInternal( const RenderData& renderData ) override;
-
             virtual void postProcessInternal( const RenderData& renderData ) override;
             virtual void renderInternal( const RenderData& renderData ) override;
             virtual void debugInternal( const RenderData& renderData ) override;
@@ -50,18 +48,37 @@ namespace Ra
         private:
             enum RendererTextures
             {
-                RendererTextures_Depth,
+                RendererTextures_Depth = 0,
                 RendererTextures_Normal,
                 RendererTextures_Position,
-                RendererTextures_Quad,
+                RendererTextures_FitPos,
+                RendererTextures_Shade,
+                RendererTextures_Mask,
+                RendererTextures_OSmooth,
+                RendererTextures_ESmooth,
+                RendererTextures_ThirdColor,
+                RendererTextures_ThirdData,
+                RendererTextures_Sing,
+                RendererTextures_Analysis1,
+                RendererTextures_Analysis2,
+                RendererTextures_Analysis3,
+                RendererTextures_Filter,
+                RendererTextures_Disp,
+                RendererTextures_Noise,
+                RendererTextures_Eye,
+                RendererTextures_Ks,
+                RendererTextures_Kd,
+                RendererTextures_Ns,
                 RendererTexture_Count
             };
 
             // Default renderer logic here, no need to be accessed by overriding renderers.
-            std::unique_ptr<globjects::Framebuffer> m_fbo;
-            std::unique_ptr<globjects::Framebuffer> m_postprocessFbo;
-
-            uint m_pingPongSize;
+            std::unique_ptr<globjects::Framebuffer> m_fbo, m_phongFbo;
+            std::unique_ptr<globjects::Framebuffer> m_maskFbo;
+            std::unique_ptr<globjects::Framebuffer> m_fitFbo;
+            std::unique_ptr<globjects::Framebuffer> m_evenSmoothFbo, m_oddSmoothFbo;
+            std::unique_ptr<globjects::Framebuffer> m_imp3Fbo;
+            std::unique_ptr<globjects::Framebuffer> m_singFbo, m_analysisFbo, m_filterFbo, m_dispFbo;
 
             std::vector<RenderObjectPtr> m_transparentRenderObjects;
             uint m_fancyTransparentCount;
@@ -73,7 +90,8 @@ namespace Ra
             double m_dThresh = 0;
             bool m_planeFit = false;
             double m_radius = 0;
-            int m_depthCalc;
+            int m_depthCalc = 0;
+            int m_smoothNum = 0;
         public:
             void setShowPos(bool showPos);
             void setPlaneFit(bool planeFit);
@@ -81,6 +99,7 @@ namespace Ra
             void setDepthThresh(double dThresh);
             void setRadius(double radius);
             void setDepthCalc(int index);
+            void setSmoothNum(int sNum);
         };
 
     } // namespace Engine

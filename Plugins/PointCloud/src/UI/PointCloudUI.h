@@ -29,6 +29,7 @@ signals:
     void changePlaneFit(bool planeFit);
     void changeRadius(double radius);
     void changeDepthCalc(int index);
+    void changeSmoothNum(int sNum);
 
 private slots:
     void on_NeighSize_valueChanged(int arg1);
@@ -37,6 +38,7 @@ private slots:
     void on_planeFit_clicked(bool checked);
     void on_Radius_textChanged(const QString st);
     void on_DepthCalc_currentIndexChanged(int index);
+    void on_smoothNum_valueChanged(int sNum);
 
 private:
     Ui::PointCloudUI *ui;
