@@ -292,7 +292,7 @@ void main()
     {
         float tmpDep = -depth;
         float h = u0 + dot(fit, u1to3) + dot(fit, fit)*u4;
-        grad = vec4(-normalOut.xy, tmpDep, tmpDep);//vec4(1.0-max(dot(normalOut, Eye-vec3(varTexcoord, depth)),0.0),depth, depth, depth);//
+        grad = vec4(-normalOut.xy, tmpDep, tmpDep);//vec4(-normalOut.xy, tmpDep, tmpDep);//vec4(1.0-max(dot(normalOut, Eye-vec3(varTexcoord, depth)),0.0),depth, depth, depth);//
         posColor = vec4(varTexcoord, tmpDep, h);
         shade = vec4(blinnPhongInternal(light.directional.direction, normalOut) + Kd * 0.1, 1);
     }

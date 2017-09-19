@@ -10,6 +10,7 @@
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Containers/Algorithm.hpp>
 #include <Core/Containers/MakeShared.hpp>
+#include <Core/Mesh/MeshTypes.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -69,9 +70,24 @@ namespace Ra
         {
             initShaders();
             initBuffers();
-
+            LOG(logDEBUG) << "1";
+            m_strokeMesh.reset(new Mesh("stroke"));
+            LOG(logDEBUG) << "2";
+            quadVertices = new Core::Vector3f[4];
+            quadVertices[0] = Core::Vector3f(0,0,0);
+            quadVertices[1] = Core::Vector3f(1,0,0);
+            quadVertices[2] = Core::Vector3f(1,1,0);
+            quadVertices[3] = Core::Vector3f(0,1,0);
+            LOG(logDEBUG) << "3";
+            quadTex = new Core::Vector4f[4];
+            quadTex[0] = Core::Vector4f(0,0,0,0);
+            quadTex[1] = Core::Vector4f(1,0,0,0);
+            quadTex[2] = Core::Vector4f(1,1,0,0);
+            quadTex[3] = Core::Vector4f(0,1,0,0);
+            LOG(logDEBUG) << "4";
             DebugRender::createInstance();
             DebugRender::getInstance()->initialize();
+            LOG(logDEBUG) << "5";
         }
 
         void TempRenderer::initShaders()
@@ -90,7 +106,7 @@ namespace Ra
             m_shaderMgr->addShaderProgram("imp5", "Shaders/Basic2D.vert.glsl", "Shaders/implicit05.frag.glsl");
             m_shaderMgr->addShaderProgram("filter", "Shaders/Basic2D.vert.glsl", "Shaders/implicit06.frag.glsl");
             m_shaderMgr->addShaderProgram("disp", "Shaders/Basic2D.vert.glsl", "Shaders/implicit07.frag.glsl");
-           // m_shaderMgr->addShaderProgram("stroke", "Shaders/implicitStroke.vert.glsl", "Shaders/implicitStroke.frag.glsl");
+            m_shaderMgr->addShaderProgram("stroke", "Shaders/implicitStroke.vert.glsl", "Shaders/implicitStroke.frag.glsl");
         }
 
         void TempRenderer::initBuffers()
@@ -133,6 +149,10 @@ namespace Ra
 
             LOG ( logDEBUG ) << "disp Framebuffer.";
             m_dispFbo.reset( new globjects::Framebuffer() );
+            GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
+
+            LOG ( logDEBUG ) << "stroke Framebuffer.";
+            m_strokeFbo.reset( new globjects::Framebuffer() );
             GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
 
             m_textures[RendererTextures_Depth].reset(new Texture("Depth"));
@@ -215,6 +235,11 @@ namespace Ra
             m_textures[RendererTextures_Disp]->dataType = GL_FLOAT;
             m_secondaryTextures["7-Disp"] = m_textures[RendererTextures_Disp].get();
 
+            m_textures[RendererTextures_Stroke].reset(new Texture("disp Texture"));
+            m_textures[RendererTextures_Stroke]->internalFormat = GL_RGBA32F;
+            m_textures[RendererTextures_Stroke]->dataType = GL_FLOAT;
+            m_secondaryTextures["8-Stroke"] = m_textures[RendererTextures_Stroke].get();
+
             m_textures[RendererTextures_Eye].reset(new Texture("eye Texture"));
             m_textures[RendererTextures_Eye]->internalFormat = GL_RGBA32F;
             m_textures[RendererTextures_Eye]->dataType = GL_FLOAT;
@@ -238,6 +263,10 @@ namespace Ra
             m_textures[RendererTextures_Noise].reset(TextureManager::getInstance()->addTexture("Shaders/noise.jpg"));
             m_textures[RendererTextures_Noise]->internalFormat = GL_RGBA32F;
             m_textures[RendererTextures_Noise]->dataType = GL_FLOAT;
+
+            m_textures[RendererTextures_Brush].reset(TextureManager::getInstance()->addTexture("Shaders/brush.jpg"));
+            m_textures[RendererTextures_Brush]->internalFormat = GL_RGBA32F;
+            m_textures[RendererTextures_Brush]->dataType = GL_FLOAT;
            // m_secondaryTextures["Noise"] = m_textures[RendererTextures_Noise].get();
         }
 
@@ -248,6 +277,7 @@ namespace Ra
         {
             const ShaderProgram* shader;
             const Core::Colorf clearColor = Core::Colors::FromChars<Core::Colorf>(42, 42, 42, 0);
+            const Core::Colorf clearWhite = Core::Colors::White<Core::Colorf>();
             const Core::Colorf clearZeros = Core::Colors::Black<Core::Colorf>();
             const float clearDepth( 1.0 );
 
@@ -538,6 +568,29 @@ namespace Ra
 
             m_quadMesh->render();
             m_dispFbo->unbind();
+// stroke
+            m_strokeFbo->bind();
+
+            GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
+            GL_ASSERT( glDrawBuffers( 1, buffers ) );
+            GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearWhite.data() ) );   // Clear color
+
+            GL_ASSERT( glDisable( GL_DEPTH_TEST ) );
+            GL_ASSERT( glDisable( GL_BLEND ) );
+
+            shader = m_shaderMgr->getShaderProgram("stroke");
+            shader->bind();
+            shader->setUniform("wh", Core::Vector2f(m_width, m_height));
+            shader->setUniform("texData1", m_textures[RendererTextures_Analysis1].get(), 0);
+            shader->setUniform("texData2", m_textures[RendererTextures_Analysis2].get(), 1);
+            shader->setUniform("texData3", m_textures[RendererTextures_Analysis3].get(), 2);
+            shader->setUniform("texData4", m_textures[RendererTextures_Filter].get(), 3);
+            shader->setUniform("texData5", m_textures[RendererTextures_FitPos].get(), 4);
+            shader->setUniform("texBrush", m_textures[RendererTextures_Brush].get(), 6);
+
+            shader->setUniform("transform.proj", renderData.projMatrix);
+            m_strokeMesh->render();
+            m_strokeFbo->unbind();
 
 // Restore state
             GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
@@ -606,6 +659,7 @@ namespace Ra
             m_textures[RendererTextures_Ks]->Generate(m_width, m_height, GL_RGBA);
             m_textures[RendererTextures_Kd]->Generate(m_width, m_height, GL_RGBA);
             m_textures[RendererTextures_Ns]->Generate(m_width, m_height, GL_RGBA);
+            m_textures[RendererTextures_Stroke]->Generate(m_width, m_height, GL_RGBA);
 
             m_fbo->bind();
             glViewport( 0, 0, m_width, m_height );
@@ -708,8 +762,57 @@ namespace Ra
             }
             GL_CHECK_ERROR;
 
+            m_strokeFbo->bind();
+            glViewport( 0, 0, m_width, m_height );
+            m_strokeFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_Stroke].get()->texture());
+            if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
+            {
+                LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
+            }
+            GL_CHECK_ERROR;
+
             // finished with fbo, undbind to bind default
             globjects::Framebuffer::unbind();
+            LOG(logDEBUG) << "6";
+            uint w = m_width;
+            uint h = m_height;
+            //delete &texCoords;
+            m_mesh.clear();
+            texCoords.resize(w*h*4);
+            m_mesh.m_vertices.resize(w*h*4);
+            m_mesh.m_triangles.resize(w*h*2);
+            uint indexCpt = 0;
+            int faceInd = 0;
+            LOG(logDEBUG) << "7";
+            for(int j=0; j<h; ++j){
+                for(int i=0; i<w; ++i){
+                    Ra::Core::Triangle A = Ra::Core::Triangle(indexCpt, indexCpt+1, indexCpt+2);
+                    Ra::Core::Triangle B = Ra::Core::Triangle(indexCpt, indexCpt+2, indexCpt+3);
+                    m_mesh.m_triangles[faceInd++] = A;
+                    m_mesh.m_triangles[faceInd++] = B;
+
+                    m_mesh.m_vertices[indexCpt] = quadVertices[0];
+                    texCoords[indexCpt] = Core::Vector4f(quadTex[0][0], quadTex[0][1], float(i), float(j));
+                    indexCpt++;
+
+                    m_mesh.m_vertices[indexCpt] = quadVertices[1];
+                    texCoords[indexCpt] = Core::Vector4f(quadTex[1][0], quadTex[1][1], float(i), float(j));
+                    indexCpt++;
+
+                    m_mesh.m_vertices[indexCpt] = quadVertices[2];
+                    texCoords[indexCpt] = Core::Vector4f(quadTex[2][0], quadTex[2][1], float(i), float(j));
+                    indexCpt++;
+
+                    m_mesh.m_vertices[indexCpt] = quadVertices[3];
+                    texCoords[indexCpt] = Core::Vector4f(quadTex[3][0], quadTex[3][1], float(i), float(j));
+                    indexCpt++;
+                }
+            }
+            LOG(logDEBUG) << "8";
+            m_strokeMesh->loadGeometry(m_mesh);
+            m_strokeMesh->addData( Ra::Engine::Mesh::VERTEX_COLOR, texCoords );
+            m_strokeMesh->updateGL();
+            LOG(logDEBUG) << "9";
         }
 
     }

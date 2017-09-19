@@ -910,7 +910,7 @@ void main(void) {
     fragColor = vec4(weight,1.0,1.0,1.0);
   else
     fragColor = vec4(weight,color.x,color.y,color.z);
-
+/// TODO: set x value with respect to mask to discard out of bound pixels
   fragColor = vec4(weight,color.x,color.y,color.z);
 
 

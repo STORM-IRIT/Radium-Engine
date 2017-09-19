@@ -1,3 +1,4 @@
+#include "Structs.glsl"
 uniform sampler2D texData1;
 uniform sampler2D texData2;
 uniform sampler2D texData3;
@@ -7,11 +8,18 @@ uniform sampler2D texNoise;
 
 uniform vec2 wh;
 
+uniform Transform transform;
+
+layout (location = 0) in vec4 in_position;
+layout (location = 5) in vec4 in_texCoord;
+
+layout (location = 0) out vec4 out_texCoord;
+
 uniform int wfType;
 uniform int rotateType;
-uniform int radiusType;
+int radiusType=0;
 
-uniform float radius; //## min : 0.0 ## max : 100 # default :10
+float radius=5; //## min : 0.0 ## max : 100 # default :10
 // uniform float radiusSil; //## min : 0.5 ## max : 100 ## default :48.09
 uniform float wobbling; //## min : 0 ## max : 30 ## default :0
 uniform float sigmaMax; //## min : 0 ## max : 30 ## default :0
@@ -23,9 +31,9 @@ uniform float curvF; //## min : -1 ## max : 1 ## default :1
 uniform float stipple; //## min : 0 ## max : 1 ## default :1
 uniform float angle; //## min : 0 ## max : 7 ## default :3.27
 
-varying vec3 color;
-varying float b;
-varying float type;
+out vec3 color;
+out float b;
+out float type;
 
 /* vec3 rgbToHsv(in float r,in float g,in float b) { */
 /*   float h,s,v; */
@@ -108,7 +116,7 @@ lineData readLineData(vec2 pixelTexCoord, vec4 data1, vec4 data2, vec4 data3, ve
     ret.type = int(data1.w);
     color = vec3(data4.yzw);
 
-    ret.noises = texture2D(texNoise, (fittedPointCoord+ret.dirMax*2.0)/wh);
+    ret.noises = texture(texNoise, (fittedPointCoord+ret.dirMax*2.0)/wh);
 
 /*     color = rgbToHsv(color.x,color.y,color.z); */
 /*     color.y *= ret.noises.x; */
@@ -141,15 +149,15 @@ float footprintNoiseFactor(lineData data){
 
 lineData readLineData(vec2 pixelTexCoord){
 
-    vec2 tt = floor(pixelTexCoord*wh);
-    tt += .5;
-    tt /= wh;
-    pixelTexCoord = tt;
+//    vec2 tt = floor(pixelTexCoord*wh);
+//    tt += .5;
+//    tt /= wh;
+//    pixelTexCoord = tt;
 
-    vec4 data1 = texture2D(texData1, pixelTexCoord);
-    vec4 data2 = texture2D(texData2, pixelTexCoord);
-    vec4 data3 = texture2D(texData3, pixelTexCoord);
-    vec4 data4 = texture2D(texData4, pixelTexCoord);
+    vec4 data1 = texture(texData1, pixelTexCoord);
+    vec4 data2 = texture(texData2, pixelTexCoord);
+    vec4 data3 = texture(texData3, pixelTexCoord);
+    vec4 data4 = texture(texData4, pixelTexCoord);
     return readLineData(pixelTexCoord, data1, data2, data3, data4);
 }
 
@@ -235,6 +243,7 @@ const float PI = 3.14159265;
 vec2 rotate(vec2 v, lineData data){
     if(rotateType == 0) return rotateGlobal(v, data);
     if(rotateType == 1) return rotateLocal(v, data);
+    return rotateGlobal(v, data);
 }
 
 //const int radiusType = 0;
@@ -244,6 +253,7 @@ float radiusFunction(lineData data){
     //if(radiusType == 1) return max(radius*(abs(data.valid)*abs(data.modelCurv)*30),1.0);
     if(radiusType == 1) return 2.0+max(radius*(abs(data.valid)*abs(data.modelCurv)*2),3.0);
     if(radiusType == 2) return radius*(smoothstep(0.5, 0.75, data.depth));
+    return radius;
 }
 
 const int offsetFootprintType = 1;
@@ -255,7 +265,7 @@ vec2 offsetFootprint(lineData data){
 	return data.pos;
     if(offsetFootprintType == 2) // should be better but shows fitting error
 	return data.pos+(data.d-floor(data.d))*(data.dir);
-
+    return data.fittedPos;
 }
 
 //uniform float appear; //## min : 0 ## max : 1 ## default :1
@@ -263,11 +273,9 @@ vec2 offsetFootprint(lineData data){
 void main(void)
 {
 
-
-
-    vec2 pixelPos = gl_MultiTexCoord0.zw;
+    vec2 pixelPos = in_texCoord.zw;
     lineData data = readLineData((pixelPos+.5)/wh);
-    gl_TexCoord[0] = gl_MultiTexCoord0;
+    out_texCoord  = in_texCoord;
     b = data.valid;
 
 
@@ -279,36 +287,36 @@ void main(void)
 
 
     if((data.d<50.0)&& (data.valid>0.1)){
-	// radius variation
-	localGr = radiusFunction(data);
-	float localWobbling = wobbling;
-	// here change for only a type of line, silhouette ...
-	type = 0.0;
-//	if(data.type == 8){
-//	    type = data.type;
-//	    localGr = radiusSil;
-	    //localWobbling = 0.0;
-//	}
-	vec2 v = vec2(localGr,localGr)*(gl_Vertex.xy-vec2(.5));
+        // radius variation
+        localGr = radiusFunction(data)/min(wh.x, wh.y);
+        float localWobbling = wobbling;
+        // here change for only a type of line, silhouette ...
+        type = 0.0;
+    //	if(data.type == 8){
+    //	    type = data.type;
+    //	    localGr = radiusSil;
+            //localWobbling = 0.0;
+    //	}
+        vec2 v =  vec2(localGr,localGr)*(in_position.xy-vec2(.5));
 
-	v = rotate(v, data);
+        v = rotate(v, data);
 
-	v += offsetFootprint(data);
+    //    v += offsetFootprint(data);
+/*
+        float wobblingNorm = (data.noises.y*.5+.5);
+        float wobblingAngle = ((data.noises.z)*.5+.5)*4.0*PI;
+        vec2 wobblingDir = wobblingNorm*vec2(cos(wobblingAngle), sin(wobblingAngle));
 
-	float wobblingNorm = (data.noises.y*.5+.5);
-	float wobblingAngle = ((data.noises.z)*.5+.5)*4.0*PI;
-	vec2 wobblingDir = wobblingNorm*vec2(cos(wobblingAngle), sin(wobblingAngle));
-
-	v += vec2(localWobbling * wobblingDir);
-	b*= footprintNoiseFactor(data);
-	//b*= weightFunction(data);
-
-// for testing without wf
-//	b = 1;
-	gl_Position = gl_ProjectionMatrix*vec4(v, 0.0, 1.0);
+        v += vec2(localWobbling * wobblingDir);
+        b*= footprintNoiseFactor(data);
+        //b*= weightFunction(data);
+    */
+    // for testing without wf
+    //	b = 1;
+        gl_Position = vec4((data.pos*2)/wh-vec2(1) + v, 0.0, 1.0);
     }
     else{
-	gl_Position = vec4(-10);
+	    gl_Position = vec4(-10);
     }
 
 }

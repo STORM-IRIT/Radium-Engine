@@ -7,6 +7,9 @@
 
 
 #include <globjects/Framebuffer.h>
+#include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Mesh/MeshPrimitives.hpp>
+#include <Core/Mesh/MeshTypes.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
@@ -69,6 +72,8 @@ namespace Ra
                 RendererTextures_Ks,
                 RendererTextures_Kd,
                 RendererTextures_Ns,
+                RendererTextures_Stroke,
+                RendererTextures_Brush,
                 RendererTexture_Count
             };
 
@@ -78,7 +83,9 @@ namespace Ra
             std::unique_ptr<globjects::Framebuffer> m_fitFbo;
             std::unique_ptr<globjects::Framebuffer> m_evenSmoothFbo, m_oddSmoothFbo;
             std::unique_ptr<globjects::Framebuffer> m_imp3Fbo;
-            std::unique_ptr<globjects::Framebuffer> m_singFbo, m_analysisFbo, m_filterFbo, m_dispFbo;
+            std::unique_ptr<globjects::Framebuffer> m_singFbo, m_analysisFbo, m_filterFbo, m_dispFbo, m_strokeFbo;
+            Core::TriangleMesh m_mesh;
+            std::unique_ptr<Mesh> m_strokeMesh;
 
             std::vector<RenderObjectPtr> m_transparentRenderObjects;
             uint m_fancyTransparentCount;
@@ -92,6 +99,9 @@ namespace Ra
             double m_radius = 0;
             int m_depthCalc = 0;
             int m_smoothNum = 0;
+            Core::Vector3f *quadVertices;
+            Core::Vector4f *quadTex;
+            Core::Vector4Array texCoords;
         public:
             void setShowPos(bool showPos);
             void setPlaneFit(bool planeFit);
