@@ -36,6 +36,9 @@
 
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 
+#ifdef IO_USE_TINYPLY
+    #include <IO/TinyPlyLoader/TinyPlyFileLoader.hpp>
+#endif
 #ifdef IO_USE_ASSIMP
     #include <IO/AssimpLoader/AssimpFileLoader.hpp>
 #endif
@@ -161,6 +164,11 @@ namespace Ra
         m_engine.reset(Engine::RadiumEngine::createInstance());
         m_engine->initialize();
         addBasicShaders();
+#ifdef IO_USE_TINYPLY
+        // Register before AssimpFileLoader, in order to ease override of such
+        // custom loader (first loader able to load is taking the file)
+        m_engine->registerFileLoader( new IO::TinyPlyFileLoader() );
+#endif
 #ifdef IO_USE_ASSIMP
         m_engine->registerFileLoader( new IO::AssimpFileLoader() );
 #endif

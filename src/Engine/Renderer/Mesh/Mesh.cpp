@@ -17,7 +17,8 @@ namespace Ra {
         {
             CORE_ASSERT( m_renderMode == RM_LINES
                       || m_renderMode == RM_LINES_ADJACENCY
-                      || m_renderMode == RM_TRIANGLES,
+                      || m_renderMode == RM_TRIANGLES
+                      || m_renderMode == RM_POINTS,
                          "Unsupported render mode" );
         }
 
@@ -42,14 +43,28 @@ namespace Ra {
             if ( m_vao != 0 )
             {
                 GL_ASSERT( glBindVertexArray( m_vao ) );
-                GL_ASSERT( glDrawElements( static_cast<GLenum >(m_renderMode), m_numElements, GL_UNSIGNED_INT, (void*)0 ) );
+                if(m_renderMode == RM_POINTS)
+                {
+                    GL_ASSERT( glDrawArrays(GL_POINTS, 0, m_numElements));
+                }
+                else
+                {
+                    GL_ASSERT( glDrawElements( static_cast<GLenum >(m_renderMode), m_numElements, GL_UNSIGNED_INT, (void*)0 ) );
+                }
             }
         }
 
         void Mesh::loadGeometry(const Core::TriangleMesh& mesh)
         {
             m_mesh = mesh;
-            m_numElements = mesh.m_triangles.size() * 3;
+
+            if (m_mesh.m_triangles.empty()) {
+                m_numElements = mesh.m_vertices.size();
+                m_renderMode = RM_POINTS;
+            }
+            else
+                m_numElements = mesh.m_triangles.size() * 3;
+
             for (uint i = 0; i < MAX_MESH; ++i)
             {
                 m_dataDirty[i] = true;
@@ -75,7 +90,13 @@ namespace Ra {
             // TODO : remove this function and force everyone to use triangle mesh.
             // Or not... because we have some line meshes as well...
             const uint nIdx = indices.size();
-            m_numElements = nIdx;
+
+            if (indices.empty()) {
+                m_numElements = vertices.size();
+                m_renderMode = RM_POINTS;
+            }
+            else
+                m_numElements = nIdx;
             m_mesh.m_vertices = vertices;
 
             // Check that when loading a triangle mesh we actually have triangles.
@@ -137,7 +158,7 @@ namespace Ra {
                                                   sizeof( typename VecArray::Vector ), (GLvoid*)ptr ) );
 
                 GL_ASSERT( glEnableVertexAttribArray( vboIdx - 1 ) );
-                // Set dirty as true to send data, see below 
+                // Set dirty as true to send data, see below
                 m_dataDirty[vboIdx] = true;
             }
 
@@ -158,8 +179,8 @@ namespace Ra {
                 ON_ASSERT(bool dirtyTest = false; for (const auto& d : m_dataDirty) { dirtyTest = dirtyTest || d;});
                 CORE_ASSERT( dirtyTest == m_isDirty, "Dirty flags inconsistency");
 
-                CORE_ASSERT( ! ( m_mesh.m_vertices.empty()|| m_mesh.m_triangles.empty() ),
-                             "Either vertices or indices are empty arrays.");
+                CORE_ASSERT( ! ( m_mesh.m_vertices.empty() ), "No vertex.");
+
                 if ( m_vao == 0 )
                 {
                     // Create VAO if it does not exist

@@ -29,13 +29,13 @@ include_directories(
 message(STATUS "Compiling Radium with 3rdparty include dirs : ${EIGEN3_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}" )
 
 if( RADIUM_ASSIMP_SUPPORT )
-	set( RADIUM_IO_IS_INTERFACE FALSE )
+        set( RADIUM_IO_IS_INTERFACE FALSE )
     include_directories( ${ASSIMP_INCLUDE_DIR} )
     message(STATUS "Compiling Radium with Assimp's include dir : ${ASSIMP_INCLUDE_DIR}" )
 endif( RADIUM_ASSIMP_SUPPORT )
 
 if( RADIUM_PBRT_SUPPORT )
-	set( RADIUM_IO_IS_INTERFACE FALSE )
+        set( RADIUM_IO_IS_INTERFACE FALSE )
     include_directories( ${PBRT_INCLUDE_DIR} )
     message(STATUS "Compiling Radium with Pbrt's include dir : ${PBRT_INCLUDE_DIR}" )
 endif( RADIUM_PBRT_SUPPORT )
@@ -104,6 +104,13 @@ if( RADIUM_PBRT_SUPPORT )
     set( io_libs    ${io_libs}    ${PBRT_LIBRARIES} )
 endif( RADIUM_PBRT_SUPPORT )
 
+if( RADIUM_TINYPLY_SUPPORT )
+    add_subdirectory( IO/TinyPlyLoader )
+    set( io_sources ${io_sources} ${tinyply_sources} )
+    set( io_headers ${io_headers} ${tinyply_headers} )
+    set( io_inlines ${io_inlines} ${tinyply_inlines} )
+endif( RADIUM_TINYPLY_SUPPORT )
+
 if( RADIUM_IO_IS_INTERFACE )
     add_library(
             ${io_target} INTERFACE
@@ -145,6 +152,10 @@ endif( RADIUM_ASSIMP_SUPPORT )
 if( RADIUM_PBRT_SUPPORT )
     add_dependencies( ${io_target} pbrt_lib )
 endif( RADIUM_PBRT_SUPPORT )
+
+if( RADIUM_TINYPLY_SUPPORT )
+    add_dependencies( ${io_target} tinyply )
+endif( RADIUM_TINYPLY_SUPPORT )
 
 # Build Engine
 set(engine_target radiumEngine)
