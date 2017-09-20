@@ -71,7 +71,7 @@ namespace MeshFeatureTrackingPlugin
             return 1.0;
         }
         auto ro = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(m_data.m_roIdx);
-        return ro->getAabb().diagonal().squaredNorm() / 2000;
+        return ro->getAabb().diagonal().norm() / 100;
 #if 0
         const auto& V = ro->getMesh()->getGeometry().m_vertices;
         switch (m_data.m_featureType)
