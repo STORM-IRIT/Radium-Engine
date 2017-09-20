@@ -52,7 +52,14 @@ namespace Ra
             RA_CORE_API inline std::vector<Ra::Core::Vector2ui> getEdges( const TriangleMesh& mesh );
 
             /// Results of a raycast vs a mesh
-            struct RayCastResult { int m_hitTriangle; int m_nearestVertex; int m_edgeVertex0; int m_edgeVertex1; Scalar m_t; };
+            struct RayCastResult
+            {
+                int m_hitTriangle   = -1;
+                int m_nearestVertex = -1;
+                int m_edgeVertex0   = -1;
+                int m_edgeVertex1   = -1;
+                Scalar m_t          = -1;
+            };
 
             /// Return the index of the triangle hit by the ray or -1 if there's no hit.
             RA_CORE_API RayCastResult castRay( const TriangleMesh& mesh, const Ray& ray);
