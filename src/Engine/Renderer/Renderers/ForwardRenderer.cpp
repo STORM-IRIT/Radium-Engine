@@ -196,6 +196,8 @@ namespace Ra
 
             GL_ASSERT( glDisable( GL_BLEND ) );
 
+            GL_ASSERT( glPointSize( 3. ) );
+
             shader = m_shaderMgr->getShaderProgram("DepthAmbientPass");
             shader->bind();
             for ( const auto& ro : m_fancyRenderObjects )
