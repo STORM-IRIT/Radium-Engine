@@ -42,7 +42,7 @@ namespace Ra
             const int& tidx = result.m_hitTriangle;
 
             // fill feature data
-            if (tidx<0) // didn't select any
+            if (query.m_mode != Engine::Renderer::VERTEX && tidx<0) // didn't select any
             {
                 m_FeatureData.m_featureType = Engine::Renderer::RO;
                 return;
