@@ -206,7 +206,7 @@ namespace Ra
                 {
                     // bind data
                     Core::Matrix4 M = ro->getTransformAsMatrix();
-                    Core::Matrix4 N = M.inverse().transpose();            
+                    Core::Matrix4 N = M.inverse().transpose();
 
                     shader->setUniform( "transform.proj", renderData.projMatrix );
                     shader->setUniform( "transform.view", renderData.viewMatrix );
