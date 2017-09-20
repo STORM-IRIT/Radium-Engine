@@ -99,59 +99,78 @@ namespace Ra
             RayCastResult castRay(const TriangleMesh &mesh, const Ray &ray)
             {
                 RayCastResult result;
-                result.m_hitTriangle = -1;
-                Scalar minT = std::numeric_limits<Scalar>::max();
 
-                std::vector<Scalar> tValues;
-                std::array<Vector3,3> v;
-                for ( uint i = 0; i < mesh.m_triangles.size(); ++i)
-                {
-                    tValues.clear();
-                    getTriangleVertices(mesh, i, v);
-                    if ( RayCast::vsTriangle(ray, v[0], v[1], v[2], tValues) && tValues[0] < minT )
-                    {
-                        minT = tValues[0];
-                        result.m_hitTriangle = int(i);
-                    }
-                }
+                // point cloud: get closest point
+                if (mesh.m_triangles.empty()){
 
-                if (result.m_hitTriangle >= 0)
-                {
-                    result.m_t = minT;
-                    Scalar minDist = std::numeric_limits<Scalar>::max();
-                    std::array<Vector3,3> V;
-                    getTriangleVertices(mesh, result.m_hitTriangle, V);
-                    const Triangle& T = mesh.m_triangles[result.m_hitTriangle];
-                    const Vector3 I = ray.pointAt(minT);
-                    // find closest vertex
-                    for (uint i = 0; i < 3; ++i)
+                    Scalar minSqAngDist = std::numeric_limits<Scalar>::max();
+                    for ( uint i = 0; i < mesh.m_vertices.size(); ++i)
                     {
-                        Scalar dSq = (V[i] - I).squaredNorm();
-                        if (dSq < minDist)
-                        {
-                            result.m_nearestVertex = T(i);
-                            minDist = dSq;
+                        Scalar dist = ray.squaredDistance(mesh.m_vertices[i]);
+
+                        if (dist < minSqAngDist) {
+                            minSqAngDist = dist;
+                            result.m_nearestVertex = int(i);
                         }
                     }
-                    // find closest edge vertices
-                    const Scalar inv_2area = 1.0 / (V[1]-V[0]).cross(V[2]-V[0]).norm();
-                    const Scalar u = (V[2]-V[1]).cross(I-V[1]).norm() * inv_2area;
-                    const Scalar v = (V[0]-V[2]).cross(I-V[2]).norm() * inv_2area;
-                    const Scalar w = 1.0 - u - v;
-                    if (u < v && u < w)
-                    {
-                        result.m_edgeVertex0 = T(1);
-                        result.m_edgeVertex1 = T(2);
+                    if ( result.m_nearestVertex != -1 ) {
+                        result.m_t = ray.distance(mesh.m_vertices[result.m_nearestVertex]);
                     }
-                    else if (v < w)
+                }
+                else
+                {
+                    Scalar minT = std::numeric_limits<Scalar>::max();
+                    std::vector<Scalar> tValues;
+                    std::array<Vector3,3> v;
+                    for ( uint i = 0; i < mesh.m_triangles.size(); ++i)
                     {
-                        result.m_edgeVertex0 = T(0);
-                        result.m_edgeVertex1 = T(2);
+                        tValues.clear();
+                        getTriangleVertices(mesh, i, v);
+                        if ( RayCast::vsTriangle(ray, v[0], v[1], v[2], tValues) && tValues[0] < minT )
+                        {
+                            minT = tValues[0];
+                            result.m_hitTriangle = int(i);
+                        }
                     }
-                    else
+
+                    if (result.m_hitTriangle >= 0)
                     {
-                        result.m_edgeVertex0 = T(0);
-                        result.m_edgeVertex1 = T(1);
+                        result.m_t = minT;
+                        Scalar minDist = std::numeric_limits<Scalar>::max();
+                        std::array<Vector3,3> V;
+                        getTriangleVertices(mesh, result.m_hitTriangle, V);
+                        const Triangle& T = mesh.m_triangles[result.m_hitTriangle];
+                        const Vector3 I = ray.pointAt(minT);
+                        // find closest vertex
+                        for (uint i = 0; i < 3; ++i)
+                        {
+                            Scalar dSq = (V[i] - I).squaredNorm();
+                            if (dSq < minDist)
+                            {
+                                result.m_nearestVertex = T(i);
+                                minDist = dSq;
+                            }
+                        }
+                        // find closest edge vertices
+                        const Scalar inv_2area = 1.0 / (V[1]-V[0]).cross(V[2]-V[0]).norm();
+                        const Scalar u = (V[2]-V[1]).cross(I-V[1]).norm() * inv_2area;
+                        const Scalar v = (V[0]-V[2]).cross(I-V[2]).norm() * inv_2area;
+                        const Scalar w = 1.0 - u - v;
+                        if (u < v && u < w)
+                        {
+                            result.m_edgeVertex0 = T(1);
+                            result.m_edgeVertex1 = T(2);
+                        }
+                        else if (v < w)
+                        {
+                            result.m_edgeVertex0 = T(0);
+                            result.m_edgeVertex1 = T(2);
+                        }
+                        else
+                        {
+                            result.m_edgeVertex0 = T(0);
+                            result.m_edgeVertex1 = T(1);
+                        }
                     }
                 }
 
