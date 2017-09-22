@@ -1,8 +1,12 @@
+#include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
+#include <Engine/Renderer/Renderers/ExperimentalRenderer.hpp>
+
 #include <Gui/MainWindow.hpp>
 
 #include <QSettings>
 #include <QFileDialog>
 #include <QToolButton>
+#include <QComboBox>
 
 #include <assimp/Importer.hpp>
 
@@ -123,10 +127,11 @@ namespace Ra
 
         // Renderer stuff
 
-        //connect(m_currentRendererCombo,
-        //        static_cast<void (QComboBox::*)(const QString&)>( &QComboBox::currentIndexChanged ),
-        //        this, &MainWindow::changeRenderer);
+        connect(m_currentRendererCombo,
+                static_cast<void (QComboBox::*)(const QString&)>( &QComboBox::currentIndexChanged ),
+                this, &MainWindow::changeRenderer);
 
+        connect(m_viewer, &Viewer::glInitialized, this, &MainWindow::onGLInitialized);
         connect(m_viewer, &Viewer::rendererReady, this, &MainWindow::onRendererReady);
 
         connect(m_displayedTextureCombo,
@@ -348,7 +353,9 @@ namespace Ra
 
     void Gui::MainWindow::changeRenderer(const QString& rendererName)
     {
-        // m_viewer->changeRenderer(m_currentRendererCombo->currentIndex());
+        m_displayedTextureCombo->setCurrentIndex(0);
+        m_viewer->changeRenderer(m_currentRendererCombo->currentIndex());
+        m_displayedTextureCombo->setCurrentIndex(0);
     }
 
     void Gui::MainWindow::changeRenderObjectShader(const QString& shaderName)
@@ -367,7 +374,7 @@ namespace Ra
             const auto& ro = mainApp->m_engine->getRenderObjectManager()->getRenderObject(ro_index);
             if (ro->getRenderTechnique()->getBasicConfiguration().m_name != name)
             {
-            	ro->getRenderTechnique()->changeShader(config);
+                ro->getRenderTechnique()->changeShader(config);
             }
         }
     }
@@ -460,6 +467,15 @@ namespace Ra
         updateTrackedFeatureInfo();
     }
 
+    void Gui::MainWindow::addRenderer(std::string name,
+                                      std::unique_ptr<Engine::Renderer>&& e)
+    {
+        int id = m_viewer->addRenderer(std::move(e));
+        CORE_UNUSED( id );
+        CORE_ASSERT (id == m_currentRendererCombo->count(), "Inconsistent renderer state");
+        m_currentRendererCombo->addItem(QString::fromStdString(name));
+    }
+
     void Gui::MainWindow::onItemAdded(const Engine::ItemEntry& ent)
     {
         m_itemModel->addItem(ent);
@@ -533,30 +549,6 @@ namespace Ra
         m_viewer->resetCamera();
     }
 
-    void Gui::MainWindow::on_actionForward_triggered()
-    {
-        changeRenderer("Forward");
-        actionForward->setChecked( true );
-        actionDeferred->setChecked( false );
-        actionExperimental->setChecked( false );
-    }
-
-    void Gui::MainWindow::on_actionDeferred_triggered()
-    {
-        changeRenderer("Deferred");
-        actionForward->setChecked( false );
-        actionDeferred->setChecked( true );
-        actionExperimental->setChecked( false );
-    }
-
-    void Ra::Gui::MainWindow::on_actionExperimental_triggered()
-    {
-        changeRenderer("Experimental");
-        actionForward->setChecked( false );
-        actionDeferred->setChecked( false );
-        actionDeferred->setChecked( true );
-    }
-
     void Gui::MainWindow::fitCamera()
     {
         m_viewer->fitCameraToScene(Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getSceneAabb());
@@ -574,6 +566,13 @@ namespace Ra
         m_viewer->getFeaturePickingManager()->setTriangleIndex(arg1);
         m_selectionManager->setCurrentEntry( m_selectionManager->currentItem(),
                                              QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
+    }
+
+    void Gui::MainWindow::onGLInitialized()
+    {
+        // set renderers once OpenGL is configured
+        addRenderer("Forward", std::unique_ptr<Engine::Renderer>(new Engine::ForwardRenderer()));
+        addRenderer("Experimental", std::unique_ptr<Engine::Renderer>(new Engine::ExperimentalRenderer()));
     }
 
     void Gui::MainWindow::updateTrackedFeatureInfo()

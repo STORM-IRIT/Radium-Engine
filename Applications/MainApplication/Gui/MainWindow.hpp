@@ -69,6 +69,9 @@ namespace Ra
             /// Update the UI ( most importantly gizmos ) to the modifications of the engine/
             void onFrameComplete();
 
+            // Add render in the application: UI, viewer.
+            void addRenderer(std::string name, std::unique_ptr<Engine::Renderer>&& e);
+
         public slots:
             /// Callback to rebuild the item model when the engine objects change.
             void onItemAdded( const Engine::ItemEntry& ent );
@@ -145,6 +148,9 @@ namespace Ra
             void on_m_vertexIdx_valueChanged(int arg1);
             void on_m_triangleIdx_valueChanged(int arg1);
 
+            // Slot to init renderers once gl is ready
+            void onGLInitialized();
+
             /// Slot to accept a new renderer
             void onRendererReady();
 
@@ -156,11 +162,6 @@ namespace Ra
 
             /// Clears all entities and resets the camera.
             void resetScene();
-
-            /// Change the Renderer
-            void on_actionForward_triggered();
-            void on_actionDeferred_triggered();
-            void on_actionExperimental_triggered();
 
         private:
             /// Stores the internal model of engine objects for selection.

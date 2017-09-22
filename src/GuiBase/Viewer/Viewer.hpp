@@ -120,10 +120,10 @@ namespace Ra
             /// Write the current frame as an image. Supports either BMP or PNG file names.
             void grabFrame( const std::string& filename );
 
-            /** Add a renderer and return its index.
+            /** Add a renderer and return its index. Need to be called when catching
              * \param e : unique_ptr to your own renderer
              * \return index of the newly added renderer
-             * \code 
+             * \code
              * int rendererId = addRenderer(std::unique_ptr<Ra::Engine::Renderer>(new MyRenderer(width(), height())));
              * changeRenderer(rendererId);
              * getRenderer()->initialize();
@@ -132,10 +132,11 @@ namespace Ra
              * m_camera->attachLight( light );
              * \endcode
              */
-            
-            int addRenderer(std::unique_ptr<Engine::Renderer> e);
+
+            int addRenderer(std::unique_ptr<Engine::Renderer> &&e);
 
         signals:
+            void glInitialized();               //! Emitted when GL context is ready. We except call to addRenderer here
             void rendererReady();               //! Emitted when the rendered is correctly initialized
             void leftClickPicking ( int id );   //! Emitted when the result of a left click picking is known
             void rightClickPicking( int id );   //! Emitted when the resut of a right click picking is known
@@ -168,6 +169,8 @@ namespace Ra
             void onResized();
 
         protected:
+            /// Initialize renderer internal state + configure lights.
+            void intializeRenderer(Engine::Renderer* renderer);
 
             //
             // QOpenGlWidget primitives
@@ -216,6 +219,9 @@ namespace Ra
 
             /// Thread in which rendering is done.
             QThread* m_renderThread; // We have to use a QThread for MT rendering
+
+            /// GL initialization status
+            std::atomic_bool m_glInitStatus;
         };
 
     } // namespace Gui

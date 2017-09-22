@@ -13,7 +13,7 @@ namespace Ra
         class RA_ENGINE_API ExperimentalRenderer : public Renderer
         {
         public:
-            ExperimentalRenderer( uint width, uint height );
+            ExperimentalRenderer( uint width = 0, uint height = 0);
             virtual ~ExperimentalRenderer();
 
             virtual std::string getRendererName() const override { return "Experimental Renderer (Mathias)"; }
@@ -53,7 +53,7 @@ namespace Ra
             std::unique_ptr<globjects::Framebuffer> m_fbo;
             std::unique_ptr<globjects::Framebuffer> m_postprocessFbo;
             std::unique_ptr<globjects::Framebuffer> m_oitFbo;
-            
+
             std::vector<RenderObjectPtr> m_transparentRenderObjects;
             uint m_fancyTransparentCount;
 
