@@ -71,8 +71,6 @@ namespace MeshFeatureTrackingPlugin
             return 1.0;
         }
         auto ro = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(m_data.m_roIdx);
-        return ro->getAabb().diagonal().norm() / 100;
-#if 0
         const auto& V = ro->getMesh()->getGeometry().m_vertices;
         switch (m_data.m_featureType)
         {
@@ -90,7 +88,7 @@ namespace MeshFeatureTrackingPlugin
                     return (v1-v0).norm() / 4.0;
                 }
             }
-            return 1.0; // should never come here
+            return ro->getAabb().diagonal().norm() / 100; // default for point clouds
         }
         case Ra::Engine::Renderer::EDGE:
         {
@@ -114,9 +112,8 @@ namespace MeshFeatureTrackingPlugin
                                             C2.squaredNorm() * (v0-v2).normalized().cross(C2.normalized()).squaredNorm()) ) / 2.0;
         }
         default:
-            return 1.0;
+            return ro->getAabb().diagonal().norm() / 100;
         }
-#endif
     }
 
     Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeaturePosition() const
