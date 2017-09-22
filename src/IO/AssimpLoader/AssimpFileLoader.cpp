@@ -51,6 +51,7 @@ namespace Ra {
             const aiScene *scene = m_importer.ReadFile( fileData->getFileName(),
                                                         aiProcess_Triangulate           |
                                                         aiProcess_GenSmoothNormals      |
+                                                        aiProcess_Triangulate           |
                                                         aiProcess_SortByPType           |
                                                         aiProcess_FixInfacingNormals    |
                                                         aiProcess_CalcTangentSpace      |
