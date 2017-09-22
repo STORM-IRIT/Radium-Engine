@@ -180,6 +180,10 @@ namespace Ra
         m_mainWindow.reset( new Gui::MainWindow );
         m_mainWindow->show();
 
+        m_viewer = m_mainWindow->getViewer();
+        CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
+        CORE_ASSERT( m_viewer->context()->isValid(), "OpenGL was not initialized" );
+
         // Allow all events to be processed (thus the viewer should have
         // initialized the OpenGL context..)
         processEvents();
@@ -190,10 +194,6 @@ namespace Ra
         {
             LOG( logERROR ) << "An error occurred while trying to load plugins.";
         }
-
-        m_viewer = m_mainWindow->getViewer();
-        CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
-        CORE_ASSERT( m_viewer->context()->isValid(), "OpenGL was not initialized" );
 
         // Create task queue with N-1 threads (we keep one for rendering).
         uint numThreads =  std::thread::hardware_concurrency() - 1;
@@ -210,6 +210,9 @@ namespace Ra
 
         setupScene();
         emit starting();
+
+        // FIXME (florian): would be better to use the "starting" signal to connect it within MainWindow to do that.
+        m_mainWindow->getViewer()->getFeaturePickingManager()->setMinRenderObjectIndex(m_engine->getRenderObjectManager()->getRenderObjectsCount());
 
         // A file has been required, load it.
         if (parser.isSet(fileOpt))
@@ -229,20 +232,21 @@ namespace Ra
     {
         using namespace Engine::DrawPrimitives;
 
-        Engine::SystemEntity::uiCmp()->addRenderObject(
-            Primitive(Engine::SystemEntity::uiCmp(), Grid(
-                    Core::Vector3::Zero(), Core::Vector3::UnitX(),
-                    Core::Vector3::UnitZ(), Core::Colors::Grey(0.6f))));
+        auto grid = Primitive(Engine::SystemEntity::uiCmp(),
+                              Grid( Core::Vector3::Zero(), Core::Vector3::UnitX(),
+                                    Core::Vector3::UnitZ(), Core::Colors::Grey(0.6f) ));
+        grid->setPickable( false );
+        Engine::SystemEntity::uiCmp()->addRenderObject(grid);
 
-        Engine::SystemEntity::uiCmp()->addRenderObject(
-                    Primitive(Engine::SystemEntity::uiCmp(), Frame(Ra::Core::Transform::Identity(), 0.05f)));
+        auto frame = Primitive(Engine::SystemEntity::uiCmp(), Frame(Ra::Core::Transform::Identity(), 0.05f));
+        frame->setPickable( false );
+        Engine::SystemEntity::uiCmp()->addRenderObject(frame);
 
-
+        // FIXME (Florian): this should disappear
         auto em =  Ra::Engine::RadiumEngine::getInstance()->getEntityManager();
         Ra::Engine::Entity* e = em->entityExists("Test") ?
             Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->getEntity("Test"):
             Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity("Test");
-
         for (auto& c: e->getComponents())
         {
             c->initialize();
@@ -402,6 +406,7 @@ namespace Ra
     {
        m_realFrameRate = on;
     }
+
     void BaseApplication::setRecordFrames(bool on)
     {
         m_recordFrames = on;
@@ -443,6 +448,7 @@ namespace Ra
         PluginContext context;
         context.m_engine = m_engine.get();
         context.m_selectionManager = m_mainWindow->getSelectionManager();
+        context.m_featureManager = m_viewer->getFeaturePickingManager();
 
         for (const auto& filename : pluginsDir.entryList(QDir::Files))
         {

@@ -32,5 +32,17 @@
 	<keymap>
 		<information id="type" modifier="NoModifier" type="mouse" value="LeftButton"></information>
 		<information id="action" value="COLORWIDGET_PRESSBUTTON"></information>
-	</keymap>
+        </keymap>
+        <keymap>
+                <information id="type" modifier="NoModifier" type="key" value="Key_V"></information>
+                <information id="action" value="FEATUREPICKING_VERTEX"></information>
+        </keymap>
+        <keymap>
+                <information id="type" modifier="NoModifier" type="key" value="Key_E"></information>
+                <information id="action" value="FEATUREPICKING_EDGE"></information>
+        </keymap>
+        <keymap>
+                <information id="type" modifier="NoModifier" type="key" value="Key_T"></information>
+                <information id="action" value="FEATUREPICKING_TRIANGLE"></information>
+        </keymap>
 </keymaps>

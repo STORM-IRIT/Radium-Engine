@@ -196,6 +196,8 @@ namespace Ra
 
             GL_ASSERT( glDisable( GL_BLEND ) );
 
+            GL_ASSERT( glPointSize( 3. ) );
+
             shader = m_shaderMgr->getShaderProgram("DepthAmbientPass");
             shader->bind();
             for ( const auto& ro : m_fancyRenderObjects )
@@ -204,7 +206,7 @@ namespace Ra
                 {
                     // bind data
                     Core::Matrix4 M = ro->getTransformAsMatrix();
-                    Core::Matrix4 N = M.inverse().transpose();            
+                    Core::Matrix4 N = M.inverse().transpose();
 
                     shader->setUniform( "transform.proj", renderData.projMatrix );
                     shader->setUniform( "transform.view", renderData.viewMatrix );

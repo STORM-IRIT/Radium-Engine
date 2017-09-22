@@ -7,6 +7,8 @@
 #include <vector>
 #include <Core/Index/Index.hpp>
 
+#include <GuiBase/Utils/FeaturePickingManager.hpp>
+
 namespace Ra
 {
 namespace Engine
@@ -38,8 +40,8 @@ namespace Ra
             /// ItemEntry(entity, component) creates a component entry
             /// ItemEntry(entity, component, RO) creates a render object entity.
             explicit ItemEntry( Ra::Engine::Entity* ent,
-                       Ra::Engine::Component* comp = nullptr,
-                       Ra::Core::Index ro = Ra::Core::Index::INVALID_IDX())
+                                Ra::Engine::Component* comp = nullptr,
+                                Ra::Core::Index ro = Ra::Core::Index::INVALID_IDX() )
                     : m_entity(ent), m_component(comp), m_roIndex(ro) { }
 
             /// Compare two items.
@@ -75,7 +77,6 @@ namespace Ra
 
             /// RO index of the represented object.
             Ra::Core::Index m_roIndex;
-
         };
 
         /// Returns the name associated to the given item.

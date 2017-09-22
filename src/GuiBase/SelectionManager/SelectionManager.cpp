@@ -61,6 +61,7 @@ namespace Ra
             if (idx.isValid())
             {
                 QItemSelectionModel::setCurrentIndex(idx, command);
+                emit currentChanged( idx, idx );
             }
         }
 

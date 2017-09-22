@@ -47,13 +47,12 @@ namespace Ra
 
         protected slots:
             void onModelRebuilt();
+
         protected slots:
             void printSelection() const;
 
         protected:
-
             const ItemModel* itemModel () const  { return static_cast<const ItemModel*>( model());}
-
         };
 
     }
