@@ -69,24 +69,9 @@
     <addaction name="separator"/>
     <addaction name="actionLoad_configuration_file"/>
    </widget>
-   <widget class="QMenu" name="menuRendering">
-    <property name="title">
-     <string>Rendering</string>
-    </property>
-    <widget class="QMenu" name="menuRenderers">
-     <property name="title">
-      <string>Renderers</string>
-     </property>
-     <addaction name="actionForward"/>
-     <addaction name="actionDeferred"/>
-     <addaction name="actionExperimental"/>
-    </widget>
-    <addaction name="menuRenderers"/>
-   </widget>
    <addaction name="menuFILE"/>
    <addaction name="menuMisc"/>
    <addaction name="menuKeymapping"/>
-   <addaction name="menuRendering"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget">
    <attribute name="dockWidgetArea">
@@ -553,25 +538,22 @@
          </layout>
         </item>
         <item>
-         <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0,0,0" columnstretch="1,0">
-          <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0,0,0,0" columnstretch="1,0">
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Enable Debug Drawing</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
              <string>Displayed Texture</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QComboBox" name="m_displayedTextureCombo"/>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>Enable Post-Process</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
+          <item row="2" column="1">
            <widget class="QCheckBox" name="m_enablePostProcess">
             <property name="enabled">
              <bool>true</bool>
@@ -587,14 +569,23 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_6">
+          <item row="4" column="1">
+           <widget class="QCheckBox" name="m_realFrameRate">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
             <property name="text">
-             <string>Enable Debug Drawing</string>
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+            <property name="tristate">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
+          <item row="3" column="1">
            <widget class="QCheckBox" name="m_enableDebugDraw">
             <property name="enabled">
              <bool>true</bool>
@@ -610,28 +601,32 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Enable Post-Process</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
            <widget class="QLabel" name="label_7">
             <property name="text">
              <string>Variable Frame Rate</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QCheckBox" name="m_realFrameRate">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="m_displayedTextureCombo"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_8">
             <property name="text">
-             <string/>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-            <property name="tristate">
-             <bool>false</bool>
+             <string>Current Renderer</string>
             </property>
            </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="m_currentRendererCombo"/>
           </item>
          </layout>
         </item>
@@ -789,39 +784,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+O</string>
-   </property>
-  </action>
-  <action name="actionForward">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Forward</string>
-   </property>
-  </action>
-  <action name="actionDeferred">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Deferred</string>
-   </property>
-  </action>
-  <action name="actionExperimental">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Experimental</string>
    </property>
   </action>
  </widget>

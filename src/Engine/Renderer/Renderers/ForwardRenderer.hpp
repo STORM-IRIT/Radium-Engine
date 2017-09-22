@@ -21,7 +21,7 @@ namespace Ra
         class RA_ENGINE_API ForwardRenderer : public Renderer
         {
         public:
-            ForwardRenderer( uint width, uint height );
+            ForwardRenderer( uint width = 0, uint height = 0 );
             virtual ~ForwardRenderer();
 
             virtual std::string getRendererName() const override { return "Forward Renderer"; }
@@ -61,7 +61,7 @@ namespace Ra
             std::unique_ptr<globjects::Framebuffer> m_fbo;
             std::unique_ptr<globjects::Framebuffer> m_postprocessFbo;
             std::unique_ptr<globjects::Framebuffer> m_oitFbo;
-            
+
             std::vector<RenderObjectPtr> m_transparentRenderObjects;
             uint m_fancyTransparentCount;
 
