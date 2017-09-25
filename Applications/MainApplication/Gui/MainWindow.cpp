@@ -125,10 +125,9 @@ namespace Ra
         connect(m_fitCameraButton, &QPushButton::clicked, this, &MainWindow::fitCamera);
 
         // Renderer stuff
-
         connect(m_currentRendererCombo,
                 static_cast<void (QComboBox::*)(const QString&)>( &QComboBox::currentIndexChanged ),
-                this, &MainWindow::changeRenderer);
+                [=]( const QString& ) { this->onCurrentRenderChangedInUI(); } );
 
         connect(m_viewer, &Viewer::glInitialized, this, &MainWindow::onGLInitialized);
         connect(m_viewer, SIGNAL(glInitialized()), this, SIGNAL(glInitialized()));
@@ -351,7 +350,7 @@ namespace Ra
         }
     }
 
-    void Gui::MainWindow::changeRenderer(const QString& rendererName)
+    void Gui::MainWindow::onCurrentRenderChangedInUI()
     {
         m_displayedTextureCombo->setCurrentIndex(0);
         m_viewer->changeRenderer(m_currentRendererCombo->currentIndex());
