@@ -1,6 +1,8 @@
 #ifndef RADIUM_RADIUMPLUGININTERFACE_HPP
 #define RADIUM_RADIUMPLUGININTERFACE_HPP
 
+#include <vector>
+
 class QWidget;
 class QMenu;
 class QAction;
@@ -18,6 +20,11 @@ namespace Ra
     namespace Gui
     {
         class FeaturePickingManager;
+    }
+
+    namespace Engine
+    {
+        class Renderer;
     }
 
     /// Data passed to the plugin constructor.
@@ -106,6 +113,17 @@ namespace Ra
              * @return The created and configured feature widget
              */
             virtual QWidget* getFeatureTrackingWidget() { return nullptr; }
+
+            virtual bool doAddRenderer() { return false; }
+
+            /**
+             * @brief addRenderers
+             *
+             * \param rds the TODO
+             * \warning Allocated renderers are given to the application and
+             * SHOULD not be destroyed by the plugin
+             */
+            virtual void addRenderers(std::vector<Engine::Renderer*> */*rds*/) {}
         };
     }
 }
