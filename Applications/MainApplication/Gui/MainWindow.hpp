@@ -142,7 +142,7 @@ namespace Ra
             void changeRenderObjectShader(const QString& shaderName);
 
             /// Slot for the user changing the current renderer
-            void changeRenderer(const QString& rendererName);
+            void onCurrentRenderChangedInUI();
 
             /// Slot for the picking results from the viewer.
             void handlePicking(int pickingResult);
