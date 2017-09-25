@@ -31,6 +31,7 @@
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
+#include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
 #include <GuiBase/Viewer/TrackballCamera.hpp>
 
@@ -61,14 +62,14 @@ namespace Ra
     Gui::Viewer::~Viewer(){}
 
 
-    int Gui::Viewer::addRenderer(std::unique_ptr<Engine::Renderer>&& e){
+    int Gui::Viewer::addRenderer(Engine::Renderer* e){
         CORE_ASSERT(m_glInitStatus.load(),
                     "OpenGL needs to be initialized to add renderers.");
 
         // initial state and lighting
-        intializeRenderer(e.get());
+        intializeRenderer(e);
 
-        m_renderers.push_back(std::move(e));
+        m_renderers.push_back(std::unique_ptr<Engine::Renderer>(e));
 
         return m_renderers.size()-1;
     }
@@ -93,7 +94,11 @@ namespace Ra
         m_glInitStatus = true;
         emit glInitialized();
 
-        CORE_ASSERT(! m_renderers.empty(), "At least 1 renderer is required");
+        if(m_renderers.empty()) {
+            LOG(logWARNING)
+                    << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
+            addRenderer(new Ra::Engine::ForwardRenderer());
+        }
 
         m_currentRenderer = m_renderers[0].get();
 
@@ -174,7 +179,7 @@ namespace Ra
 
     void Gui::Viewer::intializeRenderer(Engine::Renderer *renderer)
     {
-        renderer->initialize();
+        renderer->initialize(width(), height());
         if( m_camera->hasLightAttached() )
             renderer->addLight( m_camera->getLight() );
     }
