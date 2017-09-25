@@ -120,21 +120,6 @@ namespace Ra
             /// Write the current frame as an image. Supports either BMP or PNG file names.
             void grabFrame( const std::string& filename );
 
-            /** Add a renderer and return its index. Need to be called when catching
-             * \param e : unique_ptr to your own renderer
-             * \return index of the newly added renderer
-             * \code
-             * int rendererId = addRenderer(std::unique_ptr<Ra::Engine::Renderer>(new MyRenderer(width(), height())));
-             * changeRenderer(rendererId);
-             * getRenderer()->initialize();
-             * auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
-             * getRenderer()->addLight( light );
-             * m_camera->attachLight( light );
-             * \endcode
-             */
-
-            int addRenderer(std::unique_ptr<Engine::Renderer> &&e);
-
         signals:
             void glInitialized();               //! Emitted when GL context is ready. We except call to addRenderer here
             void rendererReady();               //! Emitted when the rendered is correctly initialized
@@ -159,6 +144,20 @@ namespace Ra
 
             /// Resets the camaera to initial values
             void resetCamera();
+
+            /** Add a renderer and return its index. Need to be called when catching
+             * \param e : unique_ptr to your own renderer
+             * \return index of the newly added renderer
+             * \code
+             * int rendererId = addRenderer(new MyRenderer(width(), height()));
+             * changeRenderer(rendererId);
+             * getRenderer()->initialize();
+             * auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
+             * getRenderer()->addLight( light );
+             * m_camera->attachLight( light );
+             * \endcode
+             */
+            int addRenderer(Engine::Renderer *e);
 
         private slots:
             /// These slots are connected to the base class signals to properly handle

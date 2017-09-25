@@ -1,5 +1,4 @@
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
-#include <Engine/Renderer/Renderers/ExperimentalRenderer.hpp>
 
 #include <Gui/MainWindow.hpp>
 
@@ -132,6 +131,7 @@ namespace Ra
                 this, &MainWindow::changeRenderer);
 
         connect(m_viewer, &Viewer::glInitialized, this, &MainWindow::onGLInitialized);
+        connect(m_viewer, SIGNAL(glInitialized()), this, SIGNAL(glInitialized()));
         connect(m_viewer, &Viewer::rendererReady, this, &MainWindow::onRendererReady);
 
         connect(m_displayedTextureCombo,
@@ -468,9 +468,9 @@ namespace Ra
     }
 
     void Gui::MainWindow::addRenderer(std::string name,
-                                      std::unique_ptr<Engine::Renderer>&& e)
+                                      Engine::Renderer* e)
     {
-        int id = m_viewer->addRenderer(std::move(e));
+        int id = m_viewer->addRenderer(e);
         CORE_UNUSED( id );
         CORE_ASSERT (id == m_currentRendererCombo->count(), "Inconsistent renderer state");
         m_currentRendererCombo->addItem(QString::fromStdString(name));
@@ -571,8 +571,7 @@ namespace Ra
     void Gui::MainWindow::onGLInitialized()
     {
         // set renderers once OpenGL is configured
-        addRenderer("Forward", std::unique_ptr<Engine::Renderer>(new Engine::ForwardRenderer()));
-        addRenderer("Experimental", std::unique_ptr<Engine::Renderer>(new Engine::ExperimentalRenderer()));
+        addRenderer("Forward Renderer", new Engine::ForwardRenderer());
     }
 
     void Gui::MainWindow::updateTrackedFeatureInfo()
