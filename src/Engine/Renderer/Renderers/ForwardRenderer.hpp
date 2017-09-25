@@ -21,7 +21,7 @@ namespace Ra
         class RA_ENGINE_API ForwardRenderer : public Renderer
         {
         public:
-            ForwardRenderer( uint width = 0, uint height = 0 );
+            ForwardRenderer();
             virtual ~ForwardRenderer();
 
             virtual std::string getRendererName() const override { return "Forward Renderer"; }

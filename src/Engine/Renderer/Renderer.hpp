@@ -87,7 +87,7 @@ namespace Ra
             };
 
         public:
-            Renderer( uint width, uint height );
+            Renderer();
             virtual ~Renderer();
 
             // -=-=-=-=-=-=-=-=- FINAL -=-=-=-=-=-=-=-=- //
@@ -153,7 +153,7 @@ namespace Ra
             /**
              * @brief Initialize renderer
              */
-            virtual void initialize() final;
+            virtual void initialize(uint width, uint height) final;
 
             /**
              * @brief Resize the viewport and all the screen textures, fbos.
