@@ -497,6 +497,18 @@ namespace Ra
                         ++pluginCpt;
                         loadedPlugin->registerPlugin( context );
                         m_mainWindow->updateUi( loadedPlugin );
+
+                        if(loadedPlugin->doAddRenderer())
+                        {
+                            std::vector<Engine::Renderer*> tmpR;
+                            loadedPlugin->addRenderers(&tmpR);
+                            CORE_ASSERT(! tmpR.empty(), "This plugin is expected to add a renderer");
+                            for(auto ptr : tmpR){
+                                std::string name = ptr->getRendererName()
+                                        + "(" + filename.toStdString() +  ")";
+                                m_mainWindow->addRenderer(name, ptr);
+                            }
+                        }
                     }
                     else
                     {
