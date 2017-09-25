@@ -50,8 +50,8 @@ namespace Ra
             };
         }
 
-        ForwardRenderer::ForwardRenderer( uint width, uint height )
-            : Renderer(width, height)
+        ForwardRenderer::ForwardRenderer( )
+            : Renderer()
         {
 
         }

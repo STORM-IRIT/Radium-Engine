@@ -45,8 +45,8 @@ namespace Ra
             };
         }
 
-        ExperimentalRenderer::ExperimentalRenderer( uint width, uint height )
-            : Renderer(width, height)
+        ExperimentalRenderer::ExperimentalRenderer( )
+            : Renderer()
         {
             LOG(logINFO) << "Building an  ExperimentalRenderer ";
         }
@@ -56,7 +56,7 @@ namespace Ra
             LOG(logINFO) << "Deleting an  ExperimentalRenderer ";
         }
 
-        void ExperimentalRenderer::initializeInternal()        
+        void ExperimentalRenderer::initializeInternal()
         {
             LOG(logINFO) << "ExperimentalRenderer::initializeInternal ";
         }

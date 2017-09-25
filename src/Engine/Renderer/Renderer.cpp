@@ -45,9 +45,9 @@ namespace Ra
             };
         }
 
-        Renderer::Renderer( uint width, uint height )
-            : m_width( width )
-            , m_height( height )
+        Renderer::Renderer( )
+            : m_width( 0 )
+            , m_height( 0 )
             , m_shaderMgr( nullptr )
             , m_displayedTexture( nullptr )
             , m_renderQueuesUpToDate( false )
@@ -64,8 +64,11 @@ namespace Ra
             ShaderProgramManager::destroyInstance();
         }
 
-        void Renderer::initialize()
+        void Renderer::initialize(uint width, uint height)
         {
+            m_width  = width;
+            m_height = height;
+
             // Initialize managers
             m_shaderMgr = ShaderProgramManager::getInstance();
             m_roMgr = RadiumEngine::getInstance()->getRenderObjectManager();
@@ -437,7 +440,7 @@ namespace Ra
             GL_CHECK_ERROR;
 
             resizeInternal();
-            
+
             glDrawBuffer( GL_BACK ) ;
             glReadBuffer( GL_BACK ) ;
 

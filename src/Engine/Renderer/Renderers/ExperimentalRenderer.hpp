@@ -13,7 +13,7 @@ namespace Ra
         class RA_ENGINE_API ExperimentalRenderer : public Renderer
         {
         public:
-            ExperimentalRenderer( uint width = 0, uint height = 0);
+            ExperimentalRenderer( );
             virtual ~ExperimentalRenderer();
 
             virtual std::string getRendererName() const override { return "Experimental Renderer (Mathias)"; }
