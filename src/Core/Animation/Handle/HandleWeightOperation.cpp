@@ -8,7 +8,8 @@ namespace Core {
 namespace Animation {
 
 
-WeightMatrix extractWeightMatrix(const MeshWeight& weight, const uint weight_size)
+WeightMatrix extractWeightMatrix(const MeshWeight &weight,
+                                 const uint weight_size)
 {
     WeightMatrix W(weight.size(), weight_size);
     W.setZero();
@@ -23,7 +24,7 @@ WeightMatrix extractWeightMatrix(const MeshWeight& weight, const uint weight_siz
 }
 
 
-MeshWeight extractMeshWeight(const WeightMatrix& matrix)
+MeshWeight extractMeshWeight(Eigen::Ref<const WeightMatrix> matrix)
 {
     MeshWeight W(matrix.rows());
     for (int i = 0; i < matrix.rows(); ++i)
@@ -42,30 +43,15 @@ MeshWeight extractMeshWeight(const WeightMatrix& matrix)
 
 
 
-WeightMatrix partitionOfUnity( const WeightMatrix& weights ) {
-    WeightMatrix W( weights.rows(), weights.cols() );
-    W.reserve( weights.nonZeros() );
-    Ra::Core::Vector1Array norm( weights.rows() );
-    #pragma omp parallel for
-    for( int i = 0; i < weights.rows(); ++i ) {
-        Ra::Core::VectorN row = weights.row( i );
-        norm[i] = row.lpNorm<1>();
-        norm[i] = ( norm[i] == 0.0 ) ? 1.0 : norm[i];
-    }
-    #pragma omp parallel for
-    for( int k = 0; k < weights.outerSize(); ++k ) {
-        for( WeightMatrix::InnerIterator it( weights, k ); it; ++it ) {
-            const uint   i = it.row();
-            const uint   j = it.col();
-            const Scalar w = it.value();
-            W.coeffRef( i, j ) = w / norm[i];
-        }
-    }
+WeightMatrix partitionOfUnity( Eigen::Ref<const WeightMatrix> weights ) {
+    WeightMatrix W = weights;
+    normalizeWeights(W);
     return W;
 }
 
 
-uint getMaxWeightIndex( const WeightMatrix& weights, const uint vertexID ) {
+uint getMaxWeightIndex(Eigen::Ref<const WeightMatrix> weights,
+                       const uint vertexID ) {
     uint maxId = uint( -1 );
     VectorN row = weights.row( vertexID );
     row.maxCoeff(&maxId);
@@ -74,7 +60,8 @@ uint getMaxWeightIndex( const WeightMatrix& weights, const uint vertexID ) {
 
 
 
-void getMaxWeightIndex( const WeightMatrix& weights, std::vector< uint >& handleID ) {
+void getMaxWeightIndex( Eigen::Ref<const WeightMatrix> weights,
+                        std::vector< uint >& handleID ) {
     handleID.resize( weights.rows() );
     for( int i = 0; i < weights.rows(); ++i ) {
         handleID[i] = getMaxWeightIndex( weights, i );
@@ -83,7 +70,8 @@ void getMaxWeightIndex( const WeightMatrix& weights, std::vector< uint >& handle
 
 
 
-void checkWeightMatrix( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT, const bool MT ) {
+void checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
+                        const bool FAIL_ON_ASSERT, const bool MT ) {
     if( check_NAN( matrix, FAIL_ON_ASSERT, MT ) ) {
         LOG( logDEBUG ) << "Matrix is good.";
     } else {
@@ -99,7 +87,8 @@ void checkWeightMatrix( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT, c
 
 
 
-bool RA_CORE_API check_NAN( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT, const bool MT ) {
+bool RA_CORE_API check_NAN(const WeightMatrix& matrix,
+                           const bool FAIL_ON_ASSERT, const bool MT ) {
     int status = 1;
     LOG( logDEBUG ) << "Searching for nans in the matrix...";
     if( MT ) {
@@ -140,7 +129,8 @@ bool RA_CORE_API check_NAN( const WeightMatrix& matrix, const bool FAIL_ON_ASSER
     return status != 0;
 }
 
-bool RA_CORE_API check_NoWeightVertex( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT, const bool MT ) {
+bool RA_CORE_API check_NoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
+                                       const bool FAIL_ON_ASSERT, const bool MT ) {
     int status = 1;
     LOG( logDEBUG ) << "Searching for empty rows in the matrix...";
     if( MT ) {
@@ -175,7 +165,7 @@ bool RA_CORE_API check_NoWeightVertex( const WeightMatrix& matrix, const bool FA
     return status != 0;
 }
 
-bool normalizeWeights(WeightMatrix &matrix, const bool MT)
+bool RA_CORE_API normalizeWeights(Eigen::Ref<WeightMatrix> matrix, const bool MT)
 {
     bool skinningWeightOk = true;
 
@@ -183,8 +173,10 @@ bool normalizeWeights(WeightMatrix &matrix, const bool MT)
     for (int k = 0; k < matrix.innerSize(); ++k)
     {
         const Scalar sum = matrix.row( k ).sum();
-        skinningWeightOk &= Ra::Core::Math::areApproxEqual(sum, Scalar(1));
-        matrix.row( k ) /= sum;
+        if(! Ra::Core::Math::areApproxEqual(sum, Scalar(0))){
+            skinningWeightOk &= Ra::Core::Math::areApproxEqual(sum, Scalar(1));
+            matrix.row( k ) /= sum;
+        }
     }
     if (! skinningWeightOk)
     {

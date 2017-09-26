@@ -10,14 +10,15 @@ namespace Animation {
 /*
 * Return the WeightMatrix extracted from the MeshWeight vector, for a handle with handle_size transforms
 */
-WeightMatrix RA_CORE_API extractWeightMatrix( const MeshWeight& weight, const uint handle_size );
+WeightMatrix RA_CORE_API extractWeightMatrix( const MeshWeight& weight,
+                                              const uint handle_size );
 
 
 
 /*
 * Return the MeshWeight from the given WeightMatrix.
 */
-MeshWeight RA_CORE_API extractMeshWeight( const WeightMatrix& matrix );
+MeshWeight RA_CORE_API extractMeshWeight( Eigen::Ref<const WeightMatrix> matrix );
 
 
 
@@ -27,31 +28,40 @@ MeshWeight RA_CORE_API extractMeshWeight( const WeightMatrix& matrix );
 *       weights( i, j ) >= 0
 *       lpNorm1( weights.row( i ) ) > 0
 */
-WeightMatrix RA_CORE_API partitionOfUnity( const WeightMatrix& weights );
+WeightMatrix RA_CORE_API partitionOfUnity( Eigen::Ref<const WeightMatrix> weights );
 
 
 
 /*
 * Return the index of the weight that influence the most the position of vertex at vertexId.
 */
-uint RA_CORE_API getMaxWeightIndex( const WeightMatrix& weights, const uint vertexID );
+uint RA_CORE_API getMaxWeightIndex( Eigen::Ref<const WeightMatrix> weights,
+                                    const uint vertexID );
 
 
 
 /*
 * Return the vector containing the index of the handle influencing the most a vertex.
 */
-void RA_CORE_API getMaxWeightIndex( const WeightMatrix& weights, std::vector< uint >& handleID );
+void RA_CORE_API getMaxWeightIndex( Eigen::Ref<const WeightMatrix> weights,
+                                    std::vector< uint >& handleID );
 
 
 
-void RA_CORE_API checkWeightMatrix( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT = false, const bool MT = false );
+void RA_CORE_API checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
+                                    const bool FAIL_ON_ASSERT = false,
+                                    const bool MT = false );
 
-bool RA_CORE_API check_NAN( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT = false, const bool MT = false );
+bool RA_CORE_API check_NAN( const WeightMatrix &matrix,
+                            const bool FAIL_ON_ASSERT = false,
+                            const bool MT = false );
 
-bool RA_CORE_API check_NoWeightVertex( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT = false, const bool MT = false );
+bool RA_CORE_API check_NoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
+                                       const bool FAIL_ON_ASSERT = false,
+                                       const bool MT = false );
 
-bool RA_CORE_API normalizeWeights( WeightMatrix& matrix, const bool MT = false);
+bool RA_CORE_API normalizeWeights( Eigen::Ref<WeightMatrix> matrix,
+                                   const bool MT = false );
 
 
 
