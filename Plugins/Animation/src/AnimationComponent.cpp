@@ -234,6 +234,13 @@ namespace AnimationPlugin
             }
         }
 
+        // renormalize weights just in case
+        #pragma omp parallel for
+        for (int k = 0; k < m_weights.innerSize(); ++k)
+        {
+            m_weights.row( k ) /= m_weights.row( k ).sum();
+        }
+
         Ra::Core::Animation::checkWeightMatrix( m_weights, false );
     }
 
