@@ -51,6 +51,8 @@ bool RA_CORE_API check_NAN( const WeightMatrix& matrix, const bool FAIL_ON_ASSER
 
 bool RA_CORE_API check_NoWeightVertex( const WeightMatrix& matrix, const bool FAIL_ON_ASSERT = false, const bool MT = false );
 
+bool RA_CORE_API normalizeWeights( WeightMatrix& matrix, const bool MT = false);
+
 
 
 } // namespace Animation
