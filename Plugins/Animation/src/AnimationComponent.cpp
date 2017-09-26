@@ -233,15 +233,8 @@ namespace AnimationPlugin
                 m_weights.coeffRef( row, col ) = w;
             }
         }
-
-        // renormalize weights just in case
-        #pragma omp parallel for
-        for (int k = 0; k < m_weights.innerSize(); ++k)
-        {
-            m_weights.row( k ) /= m_weights.row( k ).sum();
-        }
-
-        Ra::Core::Animation::checkWeightMatrix( m_weights, false );
+        Ra::Core::Animation::checkWeightMatrix( m_weights, false, true );
+        Ra::Core::Animation::normalizeWeights ( m_weights, true );
     }
 
     void AnimationComponent::setContentName (const std::string name)
