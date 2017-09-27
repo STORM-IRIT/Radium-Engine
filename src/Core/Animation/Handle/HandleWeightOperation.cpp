@@ -87,14 +87,15 @@ void checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
 
 
 
-bool RA_CORE_API check_NAN(const WeightMatrix& matrix,
+bool RA_CORE_API check_NAN(Eigen::Ref<const WeightMatrix> matrix,
                            const bool FAIL_ON_ASSERT, const bool MT ) {
+    using Iterator = Eigen::Ref<const WeightMatrix>::InnerIterator;
     int status = 1;
     LOG( logDEBUG ) << "Searching for nans in the matrix...";
     if( MT ) {
         #pragma omp parallel for
         for( int k = 0; k < matrix.outerSize(); ++k ) {
-            for( WeightMatrix::InnerIterator it( matrix, k ); it; ++it ) {
+            for( Iterator it( matrix, k ); it; ++it ) {
                 const Scalar      value = it.value();
                 const int check = std::isnan( value ) ? 0 : 1;
                 #pragma omp atomic
@@ -110,7 +111,7 @@ bool RA_CORE_API check_NAN(const WeightMatrix& matrix,
         }
     } else {
         for( int k = 0; k < matrix.outerSize(); ++k ) {
-            for( WeightMatrix::InnerIterator it( matrix, k ); it; ++it ) {
+            for( Iterator it( matrix, k ); it; ++it ) {
                 const uint        i     = it.row();
                 const uint        j     = it.col();
                 const Scalar      value = it.value();
