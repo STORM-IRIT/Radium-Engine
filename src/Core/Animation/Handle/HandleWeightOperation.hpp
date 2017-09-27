@@ -52,7 +52,7 @@ void RA_CORE_API checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
                                     const bool FAIL_ON_ASSERT = false,
                                     const bool MT = false );
 
-bool RA_CORE_API check_NAN( const WeightMatrix &matrix,
+bool RA_CORE_API check_NAN(Eigen::Ref<const WeightMatrix> matrix,
                             const bool FAIL_ON_ASSERT = false,
                             const bool MT = false );
 
