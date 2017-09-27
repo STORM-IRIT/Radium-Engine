@@ -234,7 +234,11 @@ namespace AnimationPlugin
             }
         }
         Ra::Core::Animation::checkWeightMatrix( m_weights, false, true );
-        Ra::Core::Animation::normalizeWeights ( m_weights, true );
+
+        if (Ra::Core::Animation::normalizeWeights ( m_weights, true ))
+        {
+            LOG(logINFO) << "Skinning weights have been normalized";
+        }
     }
 
     void AnimationComponent::setContentName (const std::string name)

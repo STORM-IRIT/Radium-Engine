@@ -168,6 +168,8 @@ bool RA_CORE_API check_NoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
 
 bool RA_CORE_API normalizeWeights(Eigen::Ref<WeightMatrix> matrix, const bool MT)
 {
+    CORE_UNUSED(MT)
+
     bool skinningWeightOk = true;
 
     #pragma omp parallel for if(MT)
@@ -179,10 +181,7 @@ bool RA_CORE_API normalizeWeights(Eigen::Ref<WeightMatrix> matrix, const bool MT
             matrix.row( k ) /= sum;
         }
     }
-    if (! skinningWeightOk)
-    {
-        LOG(logINFO) << "Renormalizing skinning weights";
-    }
+    return ! skinningWeightOk;
 }
 
 
