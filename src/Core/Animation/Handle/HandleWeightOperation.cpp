@@ -168,7 +168,7 @@ bool RA_CORE_API check_NoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
 
 bool RA_CORE_API normalizeWeights(Eigen::Ref<WeightMatrix> matrix, const bool MT)
 {
-    CORE_UNUSED(MT)
+    CORE_UNUSED(MT);
 
     bool skinningWeightOk = true;
 
@@ -177,8 +177,10 @@ bool RA_CORE_API normalizeWeights(Eigen::Ref<WeightMatrix> matrix, const bool MT
     {
         const Scalar sum = matrix.row( k ).sum();
         if(! Ra::Core::Math::areApproxEqual(sum, Scalar(0))){
-            skinningWeightOk &= Ra::Core::Math::areApproxEqual(sum, Scalar(1));
-            matrix.row( k ) /= sum;
+            if (! Ra::Core::Math::areApproxEqual(sum, Scalar(1))){
+                skinningWeightOk = false ;
+                matrix.row( k ) /= sum;
+            }
         }
     }
     return ! skinningWeightOk;
