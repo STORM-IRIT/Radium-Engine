@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>190</width>
+    <width>193</width>
     <height>501</height>
    </rect>
   </property>
@@ -606,77 +606,7 @@
     </layout>
    </item>
   </layout>
-  <action name="actionXray">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset theme="xray.png" resource="../../../../icons.qrc">
-     <normaloff>:/Assets/Images/xray.png</normaloff>:/Assets/Images/xray.png</iconset>
-   </property>
-   <property name="text">
-    <string>xray</string>
-   </property>
-   <property name="toolTip">
-    <string>Show / hide skeleton</string>
-   </property>
-  </action>
-  <action name="actionPlay">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../../../../icons.qrc">
-     <normaloff>:/Assets/Images/play_off.png</normaloff>
-     <normalon>:/Assets/Images/pause_off.png</normalon>
-     <activeoff>:/Assets/Images/play_on.png</activeoff>
-     <activeon>:/Assets/Images/pause_on.png</activeon>:/Assets/Images/play_off.png</iconset>
-   </property>
-   <property name="text">
-    <string>play</string>
-   </property>
-   <property name="toolTip">
-    <string>Play / Pause</string>
-   </property>
-  </action>
-  <action name="actionStop">
-   <property name="icon">
-    <iconset resource="../../../../icons.qrc">
-     <normaloff>:/Assets/Images/stop_off.png</normaloff>
-     <normalon>:/Assets/Images/stop_off.png</normalon>
-     <activeoff>:/Assets/Images/stop_on.png</activeoff>
-     <activeon>:/Assets/Images/stop_on.png</activeon>:/Assets/Images/stop_off.png</iconset>
-   </property>
-   <property name="text">
-    <string>stop</string>
-   </property>
-   <property name="toolTip">
-    <string>Reset</string>
-   </property>
-  </action>
-  <action name="actionStep">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../../../../icons.qrc">
-     <normaloff>:/Assets/Images/step_off.png</normaloff>
-     <normalon>:/Assets/Images/step_on.png</normalon>
-     <activeoff>:/Assets/Images/step_on.png</activeoff>:/Assets/Images/step_off.png</iconset>
-   </property>
-   <property name="text">
-    <string>step</string>
-   </property>
-   <property name="toolTip">
-    <string>Step</string>
-   </property>
-  </action>
  </widget>
- <resources>
-  <include location="../../../../icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

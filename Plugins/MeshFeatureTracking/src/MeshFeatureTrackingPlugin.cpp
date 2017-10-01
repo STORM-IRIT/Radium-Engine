@@ -72,24 +72,13 @@ namespace MeshFeatureTrackingPlugin
 
     bool MeshFeatureTrackingPluginC::doAddAction( int& nb )
     {
-        nb = 4;
-        return true;
+		nb = 0;
+		return false;
     }
 
     QAction* MeshFeatureTrackingPluginC::getAction( int id )
-    {
-        switch (id) {
-        case 0:
-            return m_widget->ui->actionXray;
-        case 1:
-            return m_widget->ui->actionPlay;
-        case 2:
-            return m_widget->ui->actionStep;
-        case 3:
-            return m_widget->ui->actionStop;
-        default:
-            return nullptr;
-        }
+	{
+		return nullptr;
     }
 
     bool MeshFeatureTrackingPluginC::doAddFeatureTrackingWidget()
