@@ -128,7 +128,20 @@ namespace AnimationPlugin
             // FIXME(Charly): Certainly not the best way to do this
             AnimationComponent* component = new AnimationComponent( "AC_" + skel->getName() );
             entity->addComponent( component );
-            component->handleSkeletonLoading( skel, ( geomID == uint( -1 ) ) ? std::map< uint, uint >() : geomData[geomID]->getDuplicateTable() );
+            std::vector<uint> dupliTable;
+            if (geomID != uint(-1))
+            {
+                if (!geomData[geomID]->isLoadingDuplicates())
+                {
+                    dupliTable = geomData[geomID]->getDuplicateTable();
+                }
+                else
+                {
+                    dupliTable.resize( geomData[geomID]->getVerticesSize() );
+                    std::iota( dupliTable.begin(), dupliTable.end(), 0 );
+                }
+            }
+            component->handleSkeletonLoading( skel, dupliTable );
             component->handleAnimationLoading( animData );
 
             component->setXray( m_xrayOn );
@@ -165,4 +178,5 @@ namespace AnimationPlugin
         }
         return 0.f;
     }
+
 }

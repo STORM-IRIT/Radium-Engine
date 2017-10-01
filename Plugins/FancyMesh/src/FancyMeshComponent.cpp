@@ -71,6 +71,8 @@ namespace FancyMeshPlugin
 
         m_contentName = data->getName();
 
+        m_duplicateTable = data->getDuplicateTable();
+
         auto displayMesh = Ra::Core::make_shared<Ra::Engine::Mesh>(meshName/*, Ra::Engine::Mesh::RM_POINTS*/);
 
         Ra::Core::TriangleMesh mesh;
@@ -169,30 +171,31 @@ namespace FancyMeshPlugin
 
     void FancyMeshComponent::setupIO(const std::string& id)
     {
-        auto msg = ComponentMessenger::getInstance();
-
         ComponentMessenger::CallbackTypes<TriangleMesh>::Getter cbOut = std::bind( &FancyMeshComponent::getMeshOutput, this );
-        msg->registerOutput<TriangleMesh>( getEntity(), this, id, cbOut);
+        ComponentMessenger::getInstance()->registerOutput<TriangleMesh>( getEntity(), this, id, cbOut);
+
+        ComponentMessenger::CallbackTypes<std::vector<uint>>::Getter dtOut = std::bind( &FancyMeshComponent::getDuplicateTableOutput, this );
+        ComponentMessenger::getInstance()->registerOutput<std::vector<uint>>( getEntity(), this, id, dtOut);
 
         ComponentMessenger::CallbackTypes<TriangleMesh>::ReadWrite cbRw = std::bind( &FancyMeshComponent::getMeshRw, this );
-        msg->registerReadWrite<TriangleMesh>( getEntity(), this, id, cbRw);
+        ComponentMessenger::getInstance()->registerReadWrite<TriangleMesh>( getEntity(), this, id, cbRw);
 
         ComponentMessenger::CallbackTypes<Ra::Core::Index>::Getter roOut = std::bind(&FancyMeshComponent::roIndexRead, this);
-        msg->registerOutput<Ra::Core::Index>(getEntity(), this, id, roOut);
+        ComponentMessenger::getInstance()->registerOutput<Ra::Core::Index>(getEntity(), this, id, roOut);
 
         if( m_deformable)
         {
             ComponentMessenger::CallbackTypes<TriangleMesh>::Setter cbIn = std::bind( &FancyMeshComponent::setMeshInput, this, std::placeholders::_1 );
-            msg->registerInput<TriangleMesh>( getEntity(), this, id, cbIn);
+            ComponentMessenger::getInstance()->registerInput<TriangleMesh>( getEntity(), this, id, cbIn);
 
             ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite vRW = std::bind( &FancyMeshComponent::getVerticesRw, this);
-            msg->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"v", vRW);
+            ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"v", vRW);
 
             ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite nRW = std::bind( &FancyMeshComponent::getNormalsRw, this);
-            msg->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"n", nRW);
+            ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"n", nRW);
 
             ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite tRW = std::bind( &FancyMeshComponent::getTrianglesRw, this);
-            msg->registerReadWrite<TriangleArray>( getEntity(), this, id+"t", tRW);
+            ComponentMessenger::getInstance()->registerReadWrite<TriangleArray>( getEntity(), this, id+"t", tRW);
         }
     }
 
@@ -209,6 +212,11 @@ namespace FancyMeshPlugin
     const Ra::Core::TriangleMesh* FancyMeshComponent::getMeshOutput() const
     {
         return &(getMesh());
+    }
+
+    const std::vector<uint>* FancyMeshComponent::getDuplicateTableOutput() const
+    {
+        return &m_duplicateTable;
     }
 
     Ra::Core::TriangleMesh *FancyMeshComponent::getMeshRw()

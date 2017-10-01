@@ -61,7 +61,7 @@ namespace AnimationPlugin
         Scalar getTime() const;
 
 
-        void handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable );
+        void handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::vector<uint>& duplicateTable );
         void handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data );
 
         //
@@ -98,7 +98,7 @@ namespace AnimationPlugin
 
     private:
         // Internal function to create the skinning weights.
-        void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable );
+        void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::vector<uint>& duplicateTable );
 
         // Internal function to create the bone display objects.
         void setupSkeletonDisplay();

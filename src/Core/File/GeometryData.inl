@@ -323,20 +323,24 @@ namespace Ra {
             m_hasMaterial = true;
         }
 
-        inline const std::map< uint, uint >& GeometryData::getDuplicateTable() const
+        /// DUPLICATES
+        inline std::vector<uint>& GeometryData::getDuplicateTable()
+        {
+            return m_duplicateTable;
+        }
+        inline const std::vector<uint>& GeometryData::getDuplicateTable() const
         {
             return m_duplicateTable;
         }
 
-        /// DUPLICATES
+        inline void GeometryData::setDuplicateTable( const std::vector<uint>& table )
+        {
+            m_duplicateTable = table;
+        }
+
         inline void GeometryData::setLoadDuplicates( const bool status )
         {
             m_loadDuplicates = status;
-        }
-
-        inline void GeometryData::setDuplicateTable( const std::map< uint, uint >& table )
-        {
-            m_duplicateTable = table;
         }
 
         /// QUERY

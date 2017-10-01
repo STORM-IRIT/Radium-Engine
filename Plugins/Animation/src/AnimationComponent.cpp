@@ -149,7 +149,7 @@ namespace AnimationPlugin
     }
 
 
-    void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::map< uint, uint >& duplicateTable ) {
+    void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::vector<uint>& duplicateTable ) {
         std::string name( m_name );
         name.append( "_" + data->getName() );
 
@@ -210,14 +210,12 @@ namespace AnimationPlugin
         m_animationTime = 0.0;
     }
 
-    void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable ) {
+    void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::vector<uint>& duplicateTable ) {
         // Bad bad bad hack
         // Fails eventually with a 1 vertex mesh
         uint vertexSize = 0;
-        for( const auto& item : duplicateTable ) {
-            if( item.second > vertexSize ) {
-                vertexSize = ( item.second > vertexSize ) ? item.second : vertexSize;
-            }
+        for( const auto& dupli : duplicateTable ) {
+            vertexSize = std::max( dupli, vertexSize );
         }
         vertexSize++;
         m_weights.resize( vertexSize, data->getComponentDataSize() );
@@ -385,4 +383,5 @@ namespace AnimationPlugin
     {
         return m_animationTime;
     }
+
 }

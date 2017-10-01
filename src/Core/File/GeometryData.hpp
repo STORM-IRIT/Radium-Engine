@@ -167,8 +167,9 @@ public:
 
 
     /// DUPLICATES
-    inline const std::map< uint, uint >& getDuplicateTable() const;
-    inline void setDuplicateTable( const std::map< uint, uint >& table );
+    inline std::vector<uint>& getDuplicateTable();
+    inline const std::vector<uint>& getDuplicateTable() const;
+    inline void setDuplicateTable( const std::vector<uint>& table );
     inline void setLoadDuplicates( const bool status );
 
     /// QUERY
@@ -214,7 +215,7 @@ protected:
     MaterialData m_material;
     bool         m_hasMaterial;
 
-    std::map< uint, uint > m_duplicateTable;
+    std::vector<uint> m_duplicateTable;
     bool                   m_loadDuplicates;
 };
 

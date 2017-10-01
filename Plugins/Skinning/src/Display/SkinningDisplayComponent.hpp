@@ -42,13 +42,14 @@ public:
 
     void display()
     {
-        bool hasMesh = ComponentMessenger::getInstance()->canGet<TriangleMesh>(getEntity(), m_contentsName);
-        bool hasWeights = ComponentMessenger::getInstance()->canGet<WeightMatrix>(getEntity(), m_contentsName);
+        auto compMsg = ComponentMessenger::getInstance();
+        bool hasMesh = compMsg->canGet<TriangleMesh>(getEntity(), m_contentsName);
+        bool hasWeights = compMsg->canGet<WeightMatrix>(getEntity(), m_contentsName);
 
         if( hasMesh && hasWeights )
         {
-            const TriangleMesh& mesh =  ComponentMessenger::getInstance()->get<TriangleMesh>(getEntity(), m_contentsName);
-            const WeightMatrix& weights = ComponentMessenger::getInstance()->get<WeightMatrix>(getEntity(), m_contentsName);
+            const TriangleMesh& mesh =  compMsg->get<TriangleMesh>(getEntity(), m_contentsName);
+            const WeightMatrix& weights = compMsg->get<WeightMatrix>(getEntity(), m_contentsName);
 
             const uint size = mesh.m_vertices.size();
 
