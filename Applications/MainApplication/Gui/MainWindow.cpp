@@ -470,7 +470,7 @@ namespace Ra
     }
 
     void Gui::MainWindow::addRenderer(std::string name,
-                                      Engine::Renderer* e)
+                                      std::shared_ptr<Engine::Renderer> e)
     {
         int id = m_viewer->addRenderer(e);
         CORE_UNUSED( id );
@@ -573,7 +573,8 @@ namespace Ra
     void Gui::MainWindow::onGLInitialized()
     {
         // set renderers once OpenGL is configured
-        addRenderer("Forward Renderer", new Engine::ForwardRenderer());
+        std::shared_ptr<Engine::Renderer> e (new Engine::ForwardRenderer());
+        addRenderer("Forward Renderer", e);
     }
 
     void Gui::MainWindow::updateTrackedFeatureInfo()
