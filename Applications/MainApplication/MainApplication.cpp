@@ -500,7 +500,7 @@ namespace Ra
 
                         if(loadedPlugin->doAddRenderer())
                         {
-                            std::vector<Engine::Renderer*> tmpR;
+                            std::vector<std::shared_ptr<Engine::Renderer>> tmpR;
                             loadedPlugin->addRenderers(&tmpR);
                             CORE_ASSERT(! tmpR.empty(), "This plugin is expected to add a renderer");
                             for(auto ptr : tmpR){

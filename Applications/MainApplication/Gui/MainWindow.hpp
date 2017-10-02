@@ -70,7 +70,7 @@ namespace Ra
             void onFrameComplete();
 
             // Add render in the application: UI, viewer.
-            void addRenderer(std::string name, Engine::Renderer *e);
+            void addRenderer(std::string name, std::shared_ptr<Engine::Renderer> e);
 
         public slots:
             /// Callback to rebuild the item model when the engine objects change.

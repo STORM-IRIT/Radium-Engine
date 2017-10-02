@@ -62,14 +62,14 @@ namespace Ra
     Gui::Viewer::~Viewer(){}
 
 
-    int Gui::Viewer::addRenderer(Engine::Renderer* e){
+    int Gui::Viewer::addRenderer(std::shared_ptr<Engine::Renderer> e){
         CORE_ASSERT(m_glInitStatus.load(),
                     "OpenGL needs to be initialized to add renderers.");
 
         // initial state and lighting
-        intializeRenderer(e);
+        intializeRenderer(e.get());
 
-        m_renderers.push_back(std::unique_ptr<Engine::Renderer>(e));
+        m_renderers.push_back(e);
 
         return m_renderers.size()-1;
     }
@@ -97,7 +97,8 @@ namespace Ra
         if(m_renderers.empty()) {
             LOG(logWARNING)
                     << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
-            addRenderer(new Ra::Engine::ForwardRenderer());
+            std::shared_ptr<Ra::Engine::Renderer> e (new Ra::Engine::ForwardRenderer());
+            addRenderer(e);
         }
 
         m_currentRenderer = m_renderers[0].get();

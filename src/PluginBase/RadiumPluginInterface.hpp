@@ -2,6 +2,7 @@
 #define RADIUM_RADIUMPLUGININTERFACE_HPP
 
 #include <vector>
+#include <memory>
 
 class QWidget;
 class QMenu;
@@ -123,7 +124,7 @@ namespace Ra
              * \warning Allocated renderers are given to the application and
              * SHOULD not be destroyed by the plugin
              */
-            virtual void addRenderers(std::vector<Engine::Renderer*> */*rds*/) {}
+            virtual void addRenderers(std::vector<std::shared_ptr<Engine::Renderer>> */*rds*/) {}
         };
     }
 }
