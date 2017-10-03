@@ -5,8 +5,8 @@
 namespace Ra
 {
     Engine::Texture::Texture(std::string name)
-        : m_textureId(0)
-        , m_name(name)
+        : /*m_textureId(0)
+        , */m_name(name)
         , m_texture(nullptr)
     {
     }
@@ -105,7 +105,7 @@ namespace Ra
     {
         if( unit >= 0 )
         {
-            m_texture->bindActive( unit );            
+            m_texture->bindActive( unit );
         }
         else
         {
