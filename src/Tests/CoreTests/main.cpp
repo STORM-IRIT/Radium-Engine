@@ -1,5 +1,6 @@
 #include <Tests/CoreTests/Tests.hpp>
 
+#include <Tests/CoreTests/Containers/ContainersTest.hpp>
 #include <Tests/CoreTests/Algebra/AlgebraTests.hpp>
 #include <Tests/CoreTests/Geometry/GeometryTests.hpp>
 #include <Tests/CoreTests/RayCasts/RayCastTest.hpp>

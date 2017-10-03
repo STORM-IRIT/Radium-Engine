@@ -89,7 +89,7 @@ namespace Animation
             std::cout << "End of Skeleton Hierarchy" << std::endl;
         }
 
-    }
+    } // Skeleton utils
 }
 }
 }

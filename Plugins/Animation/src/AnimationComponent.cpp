@@ -160,7 +160,7 @@ namespace AnimationPlugin
         m_contentName = data->getName();
 
         std::map< uint, uint > indexTable;
-        createSkeleton( data, indexTable );
+        createSkeleton( *data, m_skel, indexTable );
 
         createWeightMatrix( data, indexTable, duplicateTable );
         m_refPose = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL);
@@ -207,49 +207,6 @@ namespace AnimationPlugin
         }
         m_animationID = 0;
         m_animationTime = 0.0;
-    }
-
-
-
-    void AnimationComponent::createSkeleton( const Ra::Asset::HandleData* data, std::map< uint, uint >& indexTable )
-    {
-        const uint size = data->getComponentDataSize();
-        auto component = data->getComponentData();
-
-        std::set< uint > root;
-        for( uint i = 0; i < size; ++i ) {
-            root.insert( i );
-        }
-
-        auto edgeList = data->getEdgeData();
-        for( const auto& edge : edgeList ) {
-            root.erase( edge[1] );
-        }
-
-        std::vector< bool > processed( size, false );
-        for( const auto& r : root ) {
-            addBone( -1, r, component, edgeList, processed, indexTable );
-        }
-    }
-
-
-    void AnimationComponent::addBone( const int parent,
-                                      const uint dataID,
-                                      const Ra::Core::AlignedStdVector< Ra::Asset::HandleComponentData >& data,
-                                      const Ra::Core::AlignedStdVector< Ra::Core::Vector2i >& edgeList,
-                                      std::vector< bool >& processed,
-                                      std::map< uint, uint >& indexTable )
-    {
-        if( !processed[dataID] ) {
-            processed[dataID] = true;
-            uint index = m_skel.addBone( parent, data.at( dataID ).m_frame, Ra::Core::Animation::Handle::SpaceType::MODEL, data.at( dataID ).m_name );
-            indexTable[dataID] = index;
-            for( const auto& edge : edgeList ) {
-                if( edge[0] == dataID ) {
-                    addBone( index, edge[1], data, edgeList, processed, indexTable );
-                }
-            }
-        }
     }
 
     void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::map< uint, uint >& duplicateTable ) {

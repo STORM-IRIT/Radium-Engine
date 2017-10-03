@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_HANDLE_INCLUDE
 #define RADIUMENGINE_HANDLE_INCLUDE
 
-#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 
