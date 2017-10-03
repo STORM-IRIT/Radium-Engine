@@ -162,7 +162,7 @@ protected:
 protected:
     /// VARIABLE
     AnimationTime           m_time;
-    std::map < Time, FRAME, std::less<Time>, Ra::Core::AlignedAllocator<std::pair < Time, FRAME >, RA_DEFAULT_ALIGN> > m_keyframe;
+    std::map < Time, FRAME, std::less<Time>, Ra::Core::AlignedAllocator<std::pair < const Time, FRAME >, RA_DEFAULT_ALIGN> > m_keyframe;
 };
 
 
