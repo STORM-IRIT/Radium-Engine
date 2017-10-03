@@ -29,7 +29,7 @@ namespace AnimationPlugin
             m_dt(),
             m_speed( 1.0 ),
             m_slowMo( false ),
-            m_selectedBone(-1),
+//            m_selectedBone(-1),
             m_wasReset(false),
             m_resetDone(false)
         {}
@@ -82,7 +82,7 @@ namespace AnimationPlugin
 
         void setWeights (Ra::Core::Animation::WeightMatrix m);
 
-        
+
         // Component communication
         void setContentName (const std::string name);
         void setupIO( const std::string& id );
@@ -118,7 +118,7 @@ namespace AnimationPlugin
         Scalar m_speed;
         bool   m_slowMo;
 
-        int m_selectedBone;
+//        int m_selectedBone;
         bool m_wasReset;
         bool m_resetDone;
     };
