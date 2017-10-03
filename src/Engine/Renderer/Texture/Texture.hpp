@@ -204,7 +204,7 @@ namespace Ra
             void operator= ( const Texture& ) = delete;
 
         private:
-            uint m_textureId;
+//            uint m_textureId;
             std::string m_name;
             GLenum m_format;
 
