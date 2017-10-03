@@ -40,7 +40,7 @@ namespace Ra
             const Engine::ItemEntry& currentItem() const;
 
             /// Select an item through an item entry. @see QItemSelectionModel::Select
-            void select( const Engine::ItemEntry& ent,  QItemSelectionModel::SelectionFlags command );
+            virtual void select( const Engine::ItemEntry& ent,  QItemSelectionModel::SelectionFlags command );
 
             /// Set an item as current through an item entry. @see QItemSelectionModel::setCurrent
             void setCurrentEntry( const Engine::ItemEntry& ent, QItemSelectionModel::SelectionFlags command);
