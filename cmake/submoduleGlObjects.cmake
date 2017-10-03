@@ -1,5 +1,5 @@
 # Allow to compile with AppleCLang
-if ( APPLE AND ${CMAKE_CXX_COMPILER_ID} EQUAL Clang )
+if ( APPLE AND ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" )
     set( PLATFORM_ARGS "" )
 else()
     set( PLATFORM_ARGS "-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false" )
