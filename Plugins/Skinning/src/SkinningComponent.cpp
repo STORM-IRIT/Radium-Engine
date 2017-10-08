@@ -126,11 +126,7 @@ namespace SkinningPlugin
 
            vertices = m_frameData.m_currentPos;
 
-#if RADIUM_WITH_TEXTURES
            Ra::Core::Geometry::uniformNormal( vertices, m_refData.m_referenceMesh.m_triangles, *(m_duplicateTableGetter()), normals );
-#else
-           Ra::Core::Geometry::uniformNormal( vertices, m_refData.m_referenceMesh.m_triangles, normals );
-#endif
 
            std::swap( m_frameData.m_previousPose, m_frameData.m_currentPose );
            std::swap( m_frameData.m_previousPos, m_frameData.m_currentPos );

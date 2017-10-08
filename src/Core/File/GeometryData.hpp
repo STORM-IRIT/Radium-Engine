@@ -215,8 +215,10 @@ protected:
     MaterialData m_material;
     bool         m_hasMaterial;
 
+    // the duplicate table for vertices, according to all File Data.
+    // Note: if loading duplicates this table is a 1-1 correspondance, i.e. m_duplicateTable[i] == i .
     std::vector<uint> m_duplicateTable;
-    bool                   m_loadDuplicates;
+    bool              m_loadDuplicates;
 };
 
 } // namespace Asset

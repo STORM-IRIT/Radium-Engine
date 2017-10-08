@@ -73,6 +73,8 @@ namespace FancyMeshPlugin
         const Ra::Core::Index* roIndexRead() const;
 
     private:
+        // the duplicate table for vertices, according to mesh data.
+        // Note: if duplicates have NOT been loaded, this is a 1-1 correspondance, i.e. m_duplicateTable[i] == i .
         std::vector<uint> m_duplicateTable;
         Ra::Core::Index m_meshIndex;
         Ra::Core::Index m_aabbIndex;

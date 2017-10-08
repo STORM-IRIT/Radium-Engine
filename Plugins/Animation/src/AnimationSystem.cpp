@@ -129,19 +129,13 @@ namespace AnimationPlugin
             AnimationComponent* component = new AnimationComponent( "AC_" + skel->getName() );
             entity->addComponent( component );
             std::vector<uint> dupliTable;
+            uint nbMeshVertices = 0;
             if (geomID != uint(-1))
             {
-                if (!geomData[geomID]->isLoadingDuplicates())
-                {
-                    dupliTable = geomData[geomID]->getDuplicateTable();
-                }
-                else
-                {
-                    dupliTable.resize( geomData[geomID]->getVerticesSize() );
-                    std::iota( dupliTable.begin(), dupliTable.end(), 0 );
-                }
+                dupliTable     = geomData[geomID]->getDuplicateTable();
+                nbMeshVertices = geomData[geomID]->getVerticesSize();
             }
-            component->handleSkeletonLoading( skel, dupliTable );
+            component->handleSkeletonLoading( skel, dupliTable, nbMeshVertices );
             component->handleAnimationLoading( animData );
 
             component->setXray( m_xrayOn );
