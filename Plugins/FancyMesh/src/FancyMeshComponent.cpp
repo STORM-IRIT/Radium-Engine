@@ -8,6 +8,7 @@
 #include <Core/Geometry/Normal/Normal.hpp>
 #include <Core/File/FileData.hpp>
 #include <Core/File/GeometryData.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
@@ -94,32 +95,35 @@ namespace FancyMeshPlugin
 
         displayMesh->loadGeometry(mesh);
 
+        // get the actual duplicate table according to the mesh, not to the file data.
+        if (!data->isLoadingDuplicates())
+        {
+            m_duplicateTable.resize( data->getVerticesSize() );
+            std::iota( m_duplicateTable.begin(), m_duplicateTable.end(), 0 );
+        }
+        else
+        {
+            Ra::Core::MeshUtils::findDuplicates( mesh, m_duplicateTable );
+        }
+
         if (data->hasTangents())
         {
-            Ra::Core::Vector3Array tangents;   tangents.resize(data->getTangents().size());
-            std::copy(data->getTangents().begin(),   data->getTangents().end(),   tangents.begin());
-            displayMesh->addData( Ra::Engine::Mesh::VERTEX_TANGENT, tangents );
+            displayMesh->addData( Ra::Engine::Mesh::VERTEX_TANGENT, data->getTangents() );
         }
 
         if (data->hasBiTangents())
         {
-            Ra::Core::Vector3Array bitangents; bitangents.resize(data->getBiTangents().size());
-            std::copy(data->getBiTangents().begin(), data->getBiTangents().end(), bitangents.begin());
-            displayMesh->addData( Ra::Engine::Mesh::VERTEX_BITANGENT, bitangents );
+            displayMesh->addData( Ra::Engine::Mesh::VERTEX_BITANGENT, data->getBiTangents() );
         }
 
         if (data->hasTextureCoordinates())
         {
-            Ra::Core::Vector3Array texcoords;  texcoords.resize(data->getTexCoords().size());
-            std::copy(data->getTexCoords().begin(),  data->getTexCoords().end(),  texcoords.begin());
-            displayMesh->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, texcoords );
+            displayMesh->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, data->getTexCoords() );
         }
 
         if (data->hasColors())
         {
-            Ra::Core::Vector4Array colors;     colors.resize(data->getColors().size());
-            std::copy(data->getColors().begin(),     data->getColors().end(),     colors.begin());
-            displayMesh->addData( Ra::Engine::Mesh::VERTEX_COLOR, colors );
+            displayMesh->addData( Ra::Engine::Mesh::VERTEX_COLOR, data->getColors() );
         }
 
         // FIXME(Charly): Should not weights be part of the geometry ?
@@ -133,14 +137,14 @@ namespace FancyMeshPlugin
         if ( m.hasOpacity() )   mat->m_alpha = m.m_opacity;
 
 #ifdef RADIUM_WITH_TEXTURES
-        if ( m.hasDiffuseTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_DIFFUSE, m.m_texDiffuse );
-        if ( m.hasSpecularTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_SPECULAR, m.m_texSpecular );
+        if ( m.hasDiffuseTexture() )   mat->addTexture( Ra::Engine::Material::TextureType::TEX_DIFFUSE  , m.m_texDiffuse );
+        if ( m.hasSpecularTexture() )  mat->addTexture( Ra::Engine::Material::TextureType::TEX_SPECULAR , m.m_texSpecular );
         if ( m.hasShininessTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_SHININESS, m.m_texShininess );
-        if ( m.hasOpacityTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_ALPHA, m.m_texOpacity );
-        if ( m.hasNormalTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_NORMAL, m.m_texNormal );
+        if ( m.hasOpacityTexture() )   mat->addTexture( Ra::Engine::Material::TextureType::TEX_ALPHA    , m.m_texOpacity );
+        if ( m.hasNormalTexture() )    mat->addTexture( Ra::Engine::Material::TextureType::TEX_NORMAL   , m.m_texNormal );
 #endif
 
-        auto config = Ra::Engine::ShaderConfigurationFactory::getConfiguration("BlinnPhong");
+        auto config = Ra::Engine::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
 
         auto ro = Ra::Engine::RenderObject::createRenderObject(roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, config, mat);
         if ( mat->m_alpha < 1.0 ) ro->setTransparent(true);

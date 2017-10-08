@@ -33,7 +33,7 @@ void addBone( const int parent, // index of parent bone
 }
 }
 
-void createSkeleton( const Ra::Asset::HandleData& data, Core::Animation::Skeleton& skelOut,  std::map<uint,uint>& indexTableOut )
+void createSkeleton( const Ra::Asset::HandleData& data, Core::Animation::Skeleton& skelOut, std::map<uint,uint>& indexTableOut )
 {
     const uint size = data.getComponentDataSize();
     auto component = data.getComponentData();

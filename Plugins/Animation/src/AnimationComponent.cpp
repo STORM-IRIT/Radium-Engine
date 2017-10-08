@@ -7,6 +7,7 @@
 #include <Core/Animation/Handle/SkeletonUtils.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
+#include <Core/File/HandleToSkeleton.hpp>
 #include <Core/File/KeyFrame/KeyPose.hpp>
 #include <Core/File/KeyFrame/KeyTransform.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
@@ -149,7 +150,7 @@ namespace AnimationPlugin
     }
 
 
-    void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::vector<uint>& duplicateTable ) {
+    void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::vector<uint>& duplicateTable, uint nbMeshVertices ) {
         std::string name( m_name );
         name.append( "_" + data->getName() );
 
@@ -161,9 +162,9 @@ namespace AnimationPlugin
         m_contentName = data->getName();
 
         std::map< uint, uint > indexTable;
-        createSkeleton( *data, m_skel, indexTable );
+        Ra::Asset::createSkeleton( *data, m_skel, indexTable );
 
-        createWeightMatrix( data, indexTable, duplicateTable );
+        createWeightMatrix( data, indexTable, duplicateTable, nbMeshVertices );
         m_refPose = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL);
 
         setupSkeletonDisplay();
@@ -210,18 +211,10 @@ namespace AnimationPlugin
         m_animationTime = 0.0;
     }
 
-    void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::vector<uint>& duplicateTable ) {
-        // Bad bad bad hack
-        // Fails eventually with a 1 vertex mesh
-        uint vertexSize = 0;
-        for( const auto& dupli : duplicateTable ) {
-            vertexSize = std::max( dupli, vertexSize );
-        }
-        vertexSize++;
-        m_weights.resize( vertexSize, data->getComponentDataSize() );
+    void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable,
+                                                 const std::vector<uint>& duplicateTable, uint nbMeshVertices ) {
+        m_weights.resize( nbMeshVertices, data->getComponentDataSize() );
 
-        //m_weights.resize( data->getVertexSize(), data->getComponentDataSize() );
-        //m_weights.setZero();
         for( const auto& it : indexTable ) {
             const uint idx = it.first;
             const uint col = it.second;

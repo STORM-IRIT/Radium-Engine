@@ -27,7 +27,7 @@ namespace SkinningPlugin
         {
             for (const auto& compEntry : m_components)
             {
-                SkinningComponent* comp = static_cast<SkinningComponent*>(compEntry.second);
+                SkinningComponent* comp = static_cast<SkinningComponent*>( compEntry.second );
                 Ra::Core::FunctionTask* skinTask = new Ra::Core::FunctionTask(
                         std::bind(&SkinningComponent::skin, comp),
                         "SkinnerTask"
@@ -38,8 +38,8 @@ namespace SkinningPlugin
                         "SkinnerEndTask"
                 );
 
-                Ra::Core::TaskQueue::TaskId skinTaskId = taskQueue->registerTask(skinTask);
-                Ra::Core::TaskQueue::TaskId endTaskId = taskQueue->registerTask(endTask);
+                Ra::Core::TaskQueue::TaskId skinTaskId = taskQueue->registerTask( skinTask );
+                Ra::Core::TaskQueue::TaskId endTaskId = taskQueue->registerTask( endTask );
                 taskQueue->addPendingDependency( "AnimatorTask", skinTaskId );
                 taskQueue->addDependency( skinTaskId, endTaskId);
             }
@@ -56,12 +56,12 @@ namespace SkinningPlugin
             {
                 for (const auto& skel : skelData)
                 {
-                    SkinningComponent* component = new SkinningComponent("SkC_" + skel->getName());
+                    SkinningComponent* component = new SkinningComponent( "SkC_" + skel->getName() );
                     entity->addComponent( component );
-                    component->handleWeightsLoading(skel);
-                    registerComponent(entity, component);
+                    component->handleWeightsLoading( skel );
+                    registerComponent( entity, component );
 
-                    SkinningDisplayComponent* display = new SkinningDisplayComponent("SkC_DSP_" + skel->getName(), skel->getName() );
+                    SkinningDisplayComponent* display = new SkinningDisplayComponent( "SkC_DSP_" + skel->getName(), skel->getName() );
                     entity->addComponent( display );
                     //display->display( component->getRefData() );
                 }

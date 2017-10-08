@@ -106,7 +106,8 @@ namespace Ra
             for (size_t i = 0; i < asset->getVerticesSize(); ++i)
             {
                 mesh.m_vertices.push_back(T * asset->getVertices()[i]);
-                mesh.m_normals.push_back((N * asset->getNormals()[i]).normalized());
+                if(asset->hasNormals())
+                    mesh.m_normals.push_back((N * asset->getNormals()[i]).normalized());
             }
 
             for (const auto& face : asset->getFaces())
@@ -117,74 +118,42 @@ namespace Ra
             //Core::Geometry::uniformNormal(mesh.m_vertices, mesh.m_triangles, mesh.m_normals);
             displayMesh->loadGeometry(mesh);
 
-            Core::Vector3Array tangents;
-            Core::Vector3Array bitangents;
-            Core::Vector3Array texcoords;
+            if (asset->hasTangents())
+            {
+                displayMesh->addData( Mesh::VERTEX_TANGENT, asset->getTangents() );
+            }
 
-            Core::Vector4Array colors;
+            if (asset->hasBiTangents())
+            {
+                displayMesh->addData( Mesh::VERTEX_BITANGENT, asset->getBiTangents() );
+            }
 
-            for (const auto& v : asset->getTangents())   tangents.push_back(v);
-            for (const auto& v : asset->getBiTangents()) bitangents.push_back(v);
-            for (const auto& v : asset->getTexCoords())  texcoords.push_back(v);
-            for (const auto& v : asset->getColors())     colors.push_back(v);
+            if (asset->hasTextureCoordinates())
+            {
+                displayMesh->addData( Mesh::VERTEX_TEXCOORD, asset->getTexCoords() );
+            }
 
-            displayMesh->addData(Mesh::VERTEX_TANGENT, tangents);
-            displayMesh->addData(Mesh::VERTEX_BITANGENT, bitangents);
-            displayMesh->addData(Mesh::VERTEX_TEXCOORD, texcoords);
-            displayMesh->addData(Mesh::VERTEX_COLOR, colors);
+            if (asset->hasColors())
+            {
+                displayMesh->addData( Mesh::VERTEX_COLOR, asset->getColors() );
+            }
 
-            std::shared_ptr<Material> mat (new Material(name));
-
+            std::shared_ptr<Material> mat( new Material( matName ) );
             auto m = asset->getMaterial();
-
-            if (m.hasDiffuse())
-            {
-                mat->m_kd = m.m_diffuse;
-            }
-
-            if (m.hasSpecular())
-            {
-                mat->m_ks = m.m_specular;
-            }
-
-            if (m.hasShininess())
-            {
-                mat->m_ns = m.m_shininess;
-            }
-
-            if (m.hasOpacity())
-            {
-                mat->m_alpha = m.m_opacity;
-            }
+            if ( m.hasDiffuse() )   mat->m_kd    = m.m_diffuse;
+            if ( m.hasSpecular() )  mat->m_ks    = m.m_specular;
+            if ( m.hasShininess() ) mat->m_ns    = m.m_shininess;
+            if ( m.hasOpacity() )   mat->m_alpha = m.m_opacity;
 
 #ifdef RADIUM_WITH_TEXTURES
-            if (m.hasDiffuseTexture())
-            {
-                mat->addTexture(Material::TextureType::TEX_DIFFUSE, m.m_texDiffuse);
-            }
-
-            if (m.hasSpecularTexture())
-            {
-                mat->addTexture(Material::TextureType::TEX_SPECULAR, m.m_texSpecular);
-            }
-
-            if (m.hasShininessTexture())
-            {
-                mat->addTexture(Material::TextureType::TEX_SHININESS, m.m_texShininess);
-            }
-
-            if (m.hasOpacityTexture())
-            {
-                mat->addTexture(Material::TextureType::TEX_ALPHA, m.m_texOpacity);
-            }
-
-            if (m.hasNormalTexture())
-            {
-                mat->addTexture(Material::TextureType::TEX_NORMAL, m.m_texNormal);
-            }
+            if ( m.hasDiffuseTexture() )   mat->addTexture( Material::TextureType::TEX_DIFFUSE  , m.m_texDiffuse );
+            if ( m.hasSpecularTexture() )  mat->addTexture( Material::TextureType::TEX_SPECULAR , m.m_texSpecular );
+            if ( m.hasShininessTexture() ) mat->addTexture( Material::TextureType::TEX_SHININESS, m.m_texShininess );
+            if ( m.hasOpacityTexture() )   mat->addTexture( Material::TextureType::TEX_ALPHA    , m.m_texOpacity );
+            if ( m.hasNormalTexture() )    mat->addTexture( Material::TextureType::TEX_NORMAL   , m.m_texNormal );
 #endif
 
-            auto shaderConfig = ShaderConfigurationFactory::getConfiguration("BlinnPhong");
+            auto shaderConfig = ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
             auto result = createRenderObject(roName, comp, RenderObjectType::Fancy, displayMesh, shaderConfig, mat);
 
             if (allow_transparency && mat->m_alpha < 1.0)

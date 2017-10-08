@@ -205,30 +205,24 @@ namespace Ra {
         void AssimpGeometryDataLoader::fetchVertices( const aiMesh& mesh, Asset::GeometryData& data ) {
             const uint size = mesh.mNumVertices;
             auto &vertex = data.getVertices();
-            vertex.reserve(size/4);
+            vertex.reserve( size );
+            auto& duplicateTable = data.getDuplicateTable();
+            duplicateTable.reserve( size );
             std::map< Triplet, uint > uniqueTable;
-            std::vector<uint>& duplicateTable = data.getDuplicateTable();
-            duplicateTable.resize( size, uint(-1) );
             for( uint i = 0; i < size; ++i ) {
                 const Core::Vector3 v = assimpToCore( mesh.mVertices[i] );
-                if( data.isLoadingDuplicates() ) {
-                    vertex.push_back( v );
-                }
                 const Triplet t( v );
                 auto it = uniqueTable.find( t );
-                if( it == uniqueTable.end() ) {
-                    if( data.isLoadingDuplicates() ) {
-                        uniqueTable[t]    = i;
-                        duplicateTable[i] = i;
-                    } else {
-                        vertex.push_back( v );
-                        uniqueTable[t]    = vertex.size() - 1;
-                        duplicateTable[i] = vertex.size() - 1;
-                    }
+                if( it == uniqueTable.end() || data.isLoadingDuplicates() ) {
+                    duplicateTable.push_back( vertex.size() );
+                    uniqueTable[t] = vertex.size();
+                    vertex.push_back( v );
                 } else {
-                    duplicateTable[i] = it->second;
+                    duplicateTable.push_back( it->second );
                 }
             }
+            vertex.shrink_to_fit();
+            duplicateTable.shrink_to_fit();
         }
 
         /// EDGE

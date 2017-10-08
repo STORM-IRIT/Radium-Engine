@@ -9,7 +9,6 @@
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/File/AnimationData.hpp>
 #include <Core/File/HandleData.hpp>
-#include <Core/File/HandleToSkeleton.hpp>
 
 #include <Engine/Component/Component.hpp>
 
@@ -61,7 +60,7 @@ namespace AnimationPlugin
         Scalar getTime() const;
 
 
-        void handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::vector<uint>& duplicateTable );
+        void handleSkeletonLoading( const Ra::Asset::HandleData* data, const std::vector<uint>& duplicateTable, uint nbMeshVertices );
         void handleAnimationLoading( const std::vector< Ra::Asset::AnimationData* > data );
 
         //
@@ -93,12 +92,13 @@ namespace AnimationPlugin
         const Ra::Core::Animation::RefPose*      getRefPoseOutput() const;
         const Ra::Core::Animation::WeightMatrix* getWeightsOutput() const;
         const bool*                              getWasReset() const;
-        const Ra::Core::Animation::Animation* getAnimation() const;
+        const Ra::Core::Animation::Animation*    getAnimation() const;
         const Scalar* getTimeOutput() const;
 
     private:
         // Internal function to create the skinning weights.
-        void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable, const std::vector<uint>& duplicateTable );
+        void createWeightMatrix( const Ra::Asset::HandleData* data, const std::map< uint, uint >& indexTable,
+                                 const std::vector<uint>& duplicateTable, uint nbMeshVertices );
 
         // Internal function to create the bone display objects.
         void setupSkeletonDisplay();

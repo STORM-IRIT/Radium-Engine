@@ -62,7 +62,7 @@ public:
     LevelList    m_level;
 };
 
-} // namespace GraphicsEntity
+} // namespace Graph
 } // namespace Core
 } // namespace Ra
 
