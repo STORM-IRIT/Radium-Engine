@@ -3,6 +3,7 @@
 
 #include <GuiBase/RaGuiBase.hpp>
 
+#include <atomic>
 #include <memory>
 #include <Engine/RadiumEngine.hpp>
 
