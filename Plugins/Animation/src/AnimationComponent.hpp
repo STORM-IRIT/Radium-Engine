@@ -13,6 +13,8 @@
 
 #include <Engine/Component/Component.hpp>
 
+#include <memory>
+
 namespace AnimationPlugin
 {
 
@@ -109,8 +111,7 @@ namespace AnimationPlugin
         Ra::Core::Animation::RefPose m_refPose; // Ref pose in model space.
         std::vector<Ra::Core::Animation::Animation> m_animations;
         Ra::Core::Animation::WeightMatrix m_weights; // Skinning weights ( should go in skinning )
-
-        std::vector<SkeletonBoneRenderObject*> m_boneDrawables ; // Vector of bone display objects
+        std::vector< std::unique_ptr<SkeletonBoneRenderObject> > m_boneDrawables ; // Vector of bone display objects
         uint   m_animationID;
         bool   m_animationTimeStep;
         Scalar m_animationTime;
