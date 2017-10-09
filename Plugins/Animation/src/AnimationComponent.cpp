@@ -30,6 +30,7 @@ namespace AnimationPlugin
     {
         m_skel = skel;
         m_refPose = skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL);
+        setupSkeletonDisplay();
     }
 
     void AnimationComponent::update(Scalar dt)
@@ -71,7 +72,7 @@ namespace AnimationPlugin
         }
 
         // update the render objects
-        for (SkeletonBoneRenderObject* bone : m_boneDrawables)
+        for (auto & bone : m_boneDrawables)
         {
             bone->update();
         }
@@ -79,15 +80,15 @@ namespace AnimationPlugin
 
     void AnimationComponent::setupSkeletonDisplay()
     {
-
+        m_renderObjects.clear();
+        m_boneDrawables.clear();
         for( uint i = 0; i < m_skel.size(); ++i ) {
             if( !m_skel.m_graph.isLeaf( i ) )
             {
                 std::string name = m_skel.getLabel(i);
                 Ra::Core::StringUtils::appendPrintf( name, " (%d)", i);
-                SkeletonBoneRenderObject* boneRenderObject = new SkeletonBoneRenderObject( name, this, i, getRoMgr());
-                m_boneDrawables.push_back(boneRenderObject);
-                m_renderObjects.push_back( boneRenderObject->getRenderObjectIndex());
+                m_boneDrawables.push_back(std::make_unique<SkeletonBoneRenderObject>( name, this, i, getRoMgr()));
+                m_renderObjects.push_back(m_boneDrawables.back()->getRenderObjectIndex() );
             } else {
                 LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed.";
             }
@@ -125,7 +126,7 @@ namespace AnimationPlugin
     {
         m_animationTime = 0;
         m_skel.setPose(m_refPose, Ra::Core::Animation::Handle::SpaceType::MODEL);
-        for (SkeletonBoneRenderObject* bone : m_boneDrawables)
+        for (auto & bone : m_boneDrawables)
         {
             bone->update();
         }
