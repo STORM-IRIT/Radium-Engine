@@ -1,30 +1,3 @@
-# here is defined the way we want to import assimp
-ExternalProject_Add(
-        assimp
-        # where the source will live
-        SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/Assimp"
-
-        # override default behaviours
-        UPDATE_COMMAND ""
-
-        # set the installatin to installed/assimp
-        INSTALL_DIR "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}"
-        CMAKE_ARGS
-            -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
-            -DASSIMP_BUILD_ASSIMP_TOOLS=False
-            -DASSIMP_BUILD_SAMPLES=False
-            -DASSIMP_BUILD_TESTS=False
-            -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
-            -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-            -DCMAKE_BUILD_TYPE=${RADIUM_SUBMODULES_BUILD_TYPE}
-            -DASSIMP_INSTALL_PDB=False
-)
-
-add_custom_target(assimp_lib
-    DEPENDS assimp
-    )
-
-# ----------------------------------------------------------------------------------------------------------------------
 if(${RADIUM_SUBMODULES_BUILD_TYPE} MATCHES Debug)
     set(ASSIMPLIBNAME assimpd)
 else()
@@ -68,6 +41,38 @@ elseif( MSVC )
 
 	set(ASSIMP_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${ASSIMPLIBNAME}.lib")
 	set(ASSIMP_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin/${ASSIMPLIBNAME}.dll")
+endif()
+
+# here is defined the way we want to import assimp
+ExternalProject_Add(
+        assimp
+        # where the source will live
+        SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/Assimp"
+
+        # override default behaviours
+        UPDATE_COMMAND ""
+
+        # set the installatin to installed/assimp
+        INSTALL_DIR "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}"
+        BUILD_BYPRODUCTS "${ASSIMP_LIBRARIES}"
+        CMAKE_ARGS
+            -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
+            -DASSIMP_BUILD_ASSIMP_TOOLS=False
+            -DASSIMP_BUILD_SAMPLES=False
+            -DASSIMP_BUILD_TESTS=False
+            -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
+            -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+            -DCMAKE_BUILD_TYPE=${RADIUM_SUBMODULES_BUILD_TYPE}
+            -DASSIMP_INSTALL_PDB=False
+)
+
+add_custom_target(assimp_lib
+    DEPENDS assimp
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+if( MSVC )
 
 	add_custom_target( assimp_prerename_compiled_lib_and_dll
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different "${ASSIMP_LIBRARIES_COMPATNAME}" "${ASSIMP_LIBRARIES}"
