@@ -5,41 +5,6 @@ else()
     set( PLATFORM_ARGS "-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false" )
 endif()
 
-
-# here is defined the way we want to import glbinding
-ExternalProject_Add(
-    glbinding
-
-    # where the source will live
-    SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/OpenGL/glbinding"
-
-    # override default behaviours
-    UPDATE_COMMAND ""
-
-    # set the installatin to root
-    # INSTALL_COMMAND cmake -E echo "Skipping install step."
-    INSTALL_DIR "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}"
-    CMAKE_ARGS
-    -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
-    -DCMAKE_RUNTIME_OUTPUT_DIRECTORY="${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin" # mandatory for dlls with MVSC
-    -DOPTION_BUILD_TESTS=OFF
-    -DOPTION_BUILD_GPU_TESTS=OFF
-    -DOPTION_BUILD_DOCS=OFF
-    -DOPTION_BUILD_TOOLS=OFF
-    -DOPTION_BUILD_EXAMPLES=OFF
-    -DCMAKE_BUILD_TYPE=${RADIUM_SUBMODULES_BUILD_TYPE}
-    -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
-    -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-    ${PLATFORM_ARGS}
-    STEP_TARGETS build
-    EXCLUDE_FROM_ALL TRUE
-    )
-
-
-add_custom_target(glbinding_lib
-    DEPENDS glbinding
-    )
-# ----------------------------------------------------------------------------------------------------------------------
 if(${RADIUM_SUBMODULES_BUILD_TYPE} MATCHES Debug)
     set(GLBINDINGLIBNAME glbindingd)
 else()
@@ -72,11 +37,46 @@ elseif( MSVC )
     endif()
 
     set(GLBINDING_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${GLBINDINGLIBNAME}.dll")
-	if(RADIUM_SUBMODULES_BUILD_TYPE MATCHES Debug)
-		set(GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLBINDINGLIBNAME}.lib")
-	else()
-	    set(GLBINDING_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLBINDINGLIBNAME}.lib")
-	endif()
+	set(GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLBINDINGLIBNAME}.lib")
+endif()
+
+
+# here is defined the way we want to import glbinding
+ExternalProject_Add(
+    glbinding
+
+    # where the source will live
+    SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/OpenGL/glbinding"
+
+    # override default behaviours
+    UPDATE_COMMAND ""
+
+    # set the installatin to root
+    # INSTALL_COMMAND cmake -E echo "Skipping install step."
+    INSTALL_DIR "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}"
+    BUILD_BYPRODUCTS "${GLBINDING_LIBRARIES}"
+    CMAKE_ARGS
+    -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
+    -DCMAKE_RUNTIME_OUTPUT_DIRECTORY="${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin" # mandatory for dlls with MVSC
+    -DOPTION_BUILD_TESTS=OFF
+    -DOPTION_BUILD_GPU_TESTS=OFF
+    -DOPTION_BUILD_DOCS=OFF
+    -DOPTION_BUILD_TOOLS=OFF
+    -DOPTION_BUILD_EXAMPLES=OFF
+    -DCMAKE_BUILD_TYPE=${RADIUM_SUBMODULES_BUILD_TYPE}
+    -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
+    -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+    ${PLATFORM_ARGS}
+    STEP_TARGETS build
+    EXCLUDE_FROM_ALL TRUE
+    )
+
+
+add_custom_target(glbinding_lib
+    DEPENDS glbinding
+    )
+# ----------------------------------------------------------------------------------------------------------------------
+if( MSVC )
 
 	add_custom_target( glbinding_install_compiled_dll
 		COMMAND ${CMAKE_COMMAND} -E copy ${GLBINDING_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
