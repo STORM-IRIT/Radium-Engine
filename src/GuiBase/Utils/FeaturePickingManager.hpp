@@ -23,7 +23,7 @@ namespace Ra
         ///  - for vertices: the index.
         ///  - for edges: the vertices indices.
         ///  - for triangles and faces: the triangle/face index and its vertices indices.
-        struct FeatureData
+        struct RA_GUIBASE_API FeatureData
         {
             FeatureData() : m_featureType(Engine::Renderer::RO), m_roIdx(-1)
             {}
@@ -33,7 +33,7 @@ namespace Ra
             uint m_roIdx;
         };
 
-        class FeaturePickingManager
+        class RA_GUIBASE_API FeaturePickingManager
         {
         public:
             FeaturePickingManager();
