@@ -264,7 +264,7 @@ namespace Ra {
             auto &normal = data.getNormals();
             normal.resize( data.getVerticesSize(), Core::Vector3::Zero() );
 
-            // FIXME (florian): can't make it parallel when not loading duplicates
+            #pragma omp parallel for if (data.isLoadingDuplicates())
             for( uint i = 0; i < mesh.mNumVertices; ++i )
             {
                 normal.at( data.getDuplicateTable().at( i ) ) += assimpToCore( mesh.mNormals[i] );
