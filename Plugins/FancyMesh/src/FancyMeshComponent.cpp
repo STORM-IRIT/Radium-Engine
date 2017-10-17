@@ -1,6 +1,7 @@
 #include <FancyMeshComponent.hpp>
 
 #include <iostream>
+#include <numeric> // std::iota
 
 #include <Core/String/StringUtils.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
