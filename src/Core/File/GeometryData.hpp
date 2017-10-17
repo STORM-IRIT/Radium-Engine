@@ -215,7 +215,8 @@ protected:
     MaterialData m_material;
     bool         m_hasMaterial;
 
-    // the duplicate table for vertices, according to all File Data.
+    // the duplicate table for vertices, according to all loaded File Data.
+    // this table is used, when not loading duplicates, to fix vertices indices in edges and faces.
     // Note: if loading duplicates this table is a 1-1 correspondance, i.e. m_duplicateTable[i] == i .
     std::vector<uint> m_duplicateTable;
     bool              m_loadDuplicates;

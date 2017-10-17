@@ -3,10 +3,10 @@
 
 #include <vector>
 
+#include <Core/RaCore.hpp>
 #include <Eigen/Core>
 
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/RaCore.hpp>
 
 namespace Ra
 {

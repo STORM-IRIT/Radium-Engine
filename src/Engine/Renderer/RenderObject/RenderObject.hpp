@@ -15,11 +15,6 @@
 
 namespace Ra
 {
-    namespace Asset
-    {
-        class GeometryData;
-    }
-
     namespace Engine
     {
         class Light;
@@ -66,15 +61,10 @@ namespace Ra
             ///     Material* mat = new Material; // Then configure your material...
             ///     // createRenderObject can finally be called.
             ///     RenderObject* ro = createRenderObject(name, component, type, config, material);
-            static RenderObject* createRenderObject(const std::string& name, Component* comp,
-                                                    const RenderObjectType& type, const std::shared_ptr<Mesh>& mesh,
-                                                    const ShaderConfiguration& shaderConfig = ShaderConfigurationFactory::getConfiguration("BlinnPhong"),
-                                                    const std::shared_ptr<Material>& material = nullptr);
-
-            static RenderObject* createFancyFromAsset(const std::string& name, Component* comp,
-                                                      const Ra::Asset::GeometryData* asset,
-                                                      bool allow_transparency = false);
-
+            static RenderObject* createRenderObject( const std::string& name, Component* comp,
+                                                     const RenderObjectType& type, const std::shared_ptr<Mesh>& mesh,
+                                                     const ShaderConfiguration& shaderConfig = ShaderConfigurationFactory::getConfiguration("BlinnPhong"),
+                                                     const std::shared_ptr<Material>& material = nullptr );
 
             // FIXME(Charly): Remove this
             void updateGL();

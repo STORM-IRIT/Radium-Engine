@@ -43,9 +43,9 @@ elseif (UNIX OR MINGW)
         add_definitions(-Wno-ignored-attributes -Wno-misleading-indentation)
     endif()
 
-  if (MINGW)
-      add_definitions( -static-libgcc -static-libstdc++) # Compile with static libs
-  endif()
+    if (MINGW)
+        add_definitions( -static-libgcc -static-libstdc++) # Compile with static libs
+    endif()
 elseif (MSVC)
     # Visual studio flags breakdown
     # /GR- : no rtti ; /Ehs-c- : no exceptions
@@ -71,7 +71,7 @@ elseif (MSVC)
     set(CMAKE_CXX_FLAGS_DEBUG          "/D_DEBUG /DCORE_DEBUG /Od /Zi ${CMAKE_CXX_FLAGS_DEBUG} /MDd")
     set(CMAKE_CXX_FLAGS_RELEASE        "/DNDEBUG /Ox /fp:fast ${CMAKE_CXX_FLAGS_RELEASE} /MT")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi ${CMAKE_CXX_FLAGS_RELEASE}")
-        set(CMAKE_SHARED_LINKER_FLAGS      "/LTCG ${CMAKE_SHARED_LINKER_FLAGS}")
+    set(CMAKE_SHARED_LINKER_FLAGS      "/LTCG ${CMAKE_SHARED_LINKER_FLAGS}")
 
     # Problem with Qt linking
     # FIXME(Charly): Not sure if this should be done on Linux
@@ -85,10 +85,10 @@ if (${RADIUM_WITH_OMP})
     find_package(OpenMP QUIET)
 
     if(OPENMP_FOUND)
-      message(STATUS "${PROJECT_NAME} : Using OpenMP")
-      add_definitions(-DCORE_USE_OMP)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-      set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+        message(STATUS "${PROJECT_NAME} : Using OpenMP")
+        add_definitions(-DCORE_USE_OMP)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
     endif(OPENMP_FOUND)
 else (${RADIUM_WITH_OMP})
     message(STATUS "${PROJECT_NAME} : OpenMP disabled")
@@ -102,15 +102,15 @@ if ("${CMAKE_BUILD_TYPE}"  STREQUAL "Release" )
 endif()
 
 if (${RADIUM_WITH_DOUBLE_PRECISION})
-  add_definitions(-DCORE_USE_DOUBLE)
-  message(STATUS "${PROJECT_NAME} : Using double precision.")
+    add_definitions(-DCORE_USE_DOUBLE)
+    message(STATUS "${PROJECT_NAME} : Using double precision.")
 else()
-  message(STATUS "${PROJECT_NAME} : Using single precision.")
+    message(STATUS "${PROJECT_NAME} : Using single precision.")
 endif()
 
 if (NOT ${RADIUM_WITH_FANCY_GL})
-  add_definitions(-DNO_TRANSPARENCY)
-  message(STATUS "${PROJECT_NAME} : Fancy OpenGL Effects are disabled")
+    add_definitions(-DNO_TRANSPARENCY)
+    message(STATUS "${PROJECT_NAME} : Fancy OpenGL Effects are disabled")
 endif()
 
 if (${RADIUM_WITH_TEXTURES})

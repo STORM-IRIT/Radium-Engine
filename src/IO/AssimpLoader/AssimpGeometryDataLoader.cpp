@@ -261,14 +261,13 @@ namespace Ra {
         }
 
         void AssimpGeometryDataLoader::fetchNormals( const aiMesh& mesh, Asset::GeometryData& data ) const {
-            const uint size = mesh.mNumVertices;
             auto &normal = data.getNormals();
-            normal.resize( size, Core::Vector3::Zero() );
-            #pragma omp parallel for
-            for( uint i = 0; i < size; ++i )
+            normal.resize( data.getVerticesSize(), Core::Vector3::Zero() );
+
+            // FIXME (florian): can't make it parallel when not loading duplicates
+            for( uint i = 0; i < mesh.mNumVertices; ++i )
             {
-                const uint n = data.isLoadingDuplicates() ? i : data.getDuplicateTable().at( i );
-                normal.at( n ) += assimpToCore( mesh.mNormals[i] );
+                normal.at( data.getDuplicateTable().at( i ) ) += assimpToCore( mesh.mNormals[i] );
             }
 
             #pragma omp parallel for
