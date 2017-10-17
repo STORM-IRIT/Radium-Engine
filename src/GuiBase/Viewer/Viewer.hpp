@@ -5,7 +5,6 @@
 
 #include <atomic>
 #include <memory>
-#include <atomic>
 #include <Engine/RadiumEngine.hpp>
 
 #include <QOpenGLWidget>
