@@ -138,6 +138,20 @@ namespace Ra
             Ra::Engine::SystemEntity::dbgCmp(),                     \
             Ra::Engine::DrawPrimitives::Sphere(c, r, color)))
 
+#if 0 // old version
+#define RA_DISPLAY_ELLIPSOID( center, a, b, c, lambda_a, lambda_b, lambda_c, color )                            \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
+        Ra::Engine::DrawPrimitives::Primitive(                      \
+            Ra::Engine::SystemEntity::dbgCmp(),                     \
+            Ra::Engine::DrawPrimitives::Ellipsoid(center, a, b, c, lambda_a, lambda_b, lambda_c, color)))
+#endif
+
+#define RA_DISPLAY_ELLIPSOID( center, R, radius, color )                            \
+    Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
+        Ra::Engine::DrawPrimitives::Primitive(                      \
+            Ra::Engine::SystemEntity::dbgCmp(),                     \
+            Ra::Engine::DrawPrimitives::Ellipsoid(center, R, radius, color)))
+
 #define RA_DISPLAY_CAPSULE( p1, p2, r, color )                            \
     Ra::Engine::SystemEntity::dbgCmp()->addRenderObject(            \
         Ra::Engine::DrawPrimitives::Primitive(                      \
@@ -157,6 +171,7 @@ namespace Ra
 #define RA_DISPLAY_NORMAL( p, n, color, scale ) // ...
 #define RA_DISPLAY_FRAME( t, scale )            // ...
 #define RA_DISPLAY_LINE_ONCE(a, b, color)       // ...
+#define RA_DISPLAY_ELLIPSOID( center, R, radius, color ) //...
 
 #endif //!defined DISABLED_DEBUG_DISPLAY
 
