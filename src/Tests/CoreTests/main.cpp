@@ -6,6 +6,7 @@
 #include <Tests/CoreTests/Geometry/GeometryTests.hpp>
 #include <Tests/CoreTests/RayCasts/RayCastTest.hpp>
 #include <Tests/CoreTests/String/StringTest.hpp>
+#include <Tests/CoreTests/Distance/DistanceTests.hpp>
 
 int main()
 {
