@@ -10,25 +10,44 @@ namespace Core {
 
 
 /// CONSTRUCTOR
-VFIterator::VFIterator( Vertex_ptr& v ) : VIterator< Face >( v ) { }
+inline VFIterator::VFIterator( Vertex_ptr& v ) : VIterator< Face >( v ) { }
 
 
 
 /// DESTRUCTOR
-VFIterator::~VFIterator() { }
+inline VFIterator::~VFIterator() { }
 
 
 
 /// LIST
-inline FaceList VFIterator::list() const {
+
+
+inline FaceList VFIterator::list() const
+{
     FaceList L;
-    HalfEdge_ptr it = m_v->HE();
+    HalfEdge_ptr h1 = m_v->HE();
+    HalfEdge_ptr h2 = h1 != NULL ? h1->Twin() : NULL;
+    Face_ptr f1 = h1->F();
+    Face_ptr f2 = h2->F();
     do {
-        L.push_back( it->F() );
-        it = it->Prev()->Twin();
-    } while( it != m_v->HE() );
+        if (h1 != NULL)
+        {
+            L.push_back(f1);
+            if (f1 == f2) break;
+            h1 = h1->Prev()->Twin();
+            f1 = h1->F();
+        }
+        if (h2 != NULL)
+        {
+            L.push_back(f2);
+            if (f1 == f2) break;
+            h2 = h2->Next()->Twin();
+            f2 = h2->F();
+        }
+    } while( h1 != NULL || h2 != NULL );
     return L;
 }
+
 
 
 
