@@ -52,6 +52,7 @@ namespace Ra
 //            void computeThresholdTest();
             void computeThresholdDistribution();
             void compareThresholdDistribution();
+            void symmetryDistribution();
 
             void constructPriorityQueues();
             void updatePriorityQueue(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex);

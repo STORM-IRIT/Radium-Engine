@@ -403,6 +403,94 @@ namespace Ra
             }
         }
 
+        void MeshContactManager::symmetryDistribution()
+        {
+            Scalar dist;
+            Scalar step;
+            Scalar th;
+            Ra::Core::Index id;
+            Ra::Core::Index id2;
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                MeshContactElement* obj1 = m_meshContactElements[i];
+                Ra::Core::VectorArray<Ra::Core::Triangle> tm1 = obj1->getInitTriangleMesh().m_triangles;
+                Ra::Core::VectorArray<Ra::Core::Vector3> v1 = obj1->getInitTriangleMesh().m_vertices;
+                //Super4PCS::AABB3D aabb1 = Super4PCS::AABB3D(v1.cbegin(),v1.cend());
+                Super4PCS::AABB3D aabb1 = Super4PCS::AABB3D();
+                for (uint a = 0; a < v1.size(); a++)
+                {
+                    aabb1.extendTo(v1[a]);
+                }
+                for (uint j = i + 1; j < m_meshContactElements.size(); j++)
+                {
+                        MeshContactElement* obj2 = m_meshContactElements[j];
+                        Ra::Core::VectorArray<Ra::Core::Triangle> tm2 = obj2->getInitTriangleMesh().m_triangles;
+                        Ra::Core::VectorArray<Ra::Core::Vector3> v2 = obj2->getInitTriangleMesh().m_vertices;
+                        //Super4PCS::AABB3D aabb2 = Super4PCS::AABB3D(v2.cbegin(),v2.cend());
+                        Super4PCS::AABB3D aabb2 = Super4PCS::AABB3D();
+                        for (uint b = 0; b < v2.size(); b++)
+                        {
+                            aabb2.extendTo(v2[b]);
+                        }
+                        dist = (aabb1.center() - aabb2.center()).norm() / 2;
+                        step = dist / NBMAX_STEP;
+                        uint distArray[NBMAX_STEP] = {0};
+                        uint first, last, mid;
+
+                        // for each face of an object, we find the closest face in the other object
+                        for (uint k = 0; k < tm1.size(); k++)
+                        {
+                            id = m_trianglekdtrees[j]->doQueryRestrictedClosestIndexTriangle(v1[tm1[k][0]],v1[tm1[k][1]],v1[tm1[k][2]]);
+                            CORE_ASSERT(id > -1, "Invalid triangle index.");
+
+                            id2 = m_trianglekdtrees[i]->doQueryRestrictedClosestIndexTriangle(v2[tm2[id][0]],v2[tm2[id][1]],v2[tm2[id][2]]);
+                            CORE_ASSERT(id2 > -1, "Invalid triangle index.");
+
+                            if (id2 == k)
+                            {
+                                const Ra::Core::Vector3 triangle1[3] = {v1[tm1[k][0]], v1[tm1[k][1]], v1[tm1[k][2]]};
+                                const Ra::Core::Vector3 triangle2[3] = {v2[tm2[id][0]], v2[tm2[id][1]], v2[tm2[id][2]]};
+                                th = Ra::Core::DistanceQueries::triangleToTriSq(triangle1,triangle2).distance;
+
+                                first = 0;
+                                last = NBMAX_STEP;
+                                mid = NBMAX_STEP / 2;
+                                while ((first + 1) < last)
+                                {
+                                    if (th <= mid * step)
+                                    {
+                                        last = mid;
+                                        mid = (first + last) / 2;
+                                    }
+                                    else
+                                    {
+                                        first = mid;
+                                        mid = (first + last) / 2;
+                                    }
+                                }
+                                if (last == NBMAX_STEP)
+                                {
+                                    if (th <= NBMAX_STEP * step)
+                                        distArray[first]++;
+                                }
+                                else
+                                {
+                                    distArray[first]++;
+                                }
+                            }
+                        }
+
+                        std::ofstream file("Symm_" + std::to_string(i) + "_" + std::to_string(j) + ".txt", std::ios::out | std::ios::trunc);
+                        CORE_ASSERT(file, "Error while opening distance distribution file.");
+                        for (uint k = 0; k < NBMAX_STEP; k++)
+                        {
+                           file << /*(step * k + */step * (k + 1)/*) / 2 */<< " " << distArray[k] << std::endl;
+                        }
+                        file.close();
+                }
+            }
+        }
+
         void MeshContactManager::setLodValueChanged(int value)
         {
             if (m_nbfaces < value)
@@ -464,6 +552,9 @@ namespace Ra
             {
 //                computeThresholdDistribution();
 //                compareThresholdDistribution();
+
+                symmetryDistribution();
+
 //                computeThreshold();
 //                LOG(logINFO) << "Threshold computed value : " << m_broader_threshold;
 //                computeThresholdTest();
