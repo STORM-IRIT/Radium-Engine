@@ -13,12 +13,16 @@ if ( NOT MSVC )
 endif()
 
 
-# Compilation flag for each platforms =========================================
 
 set(UNIX_DEFAULT_CXX_FLAGS                "-Wall -Wextra  -pthread -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions -fPIC")
 set(UNIX_DEFAULT_CXX_FLATS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb")
 set(UNIX_DEFAULT_CXX_FLATS_RELEASE        "-DNDEBUG -O3")
 set(UNIX_DEFAULT_CXX_FLATS_RELWITHDEBINFO "-g3")
+
+set(CMAKE_CXX_STANDARD 14)
+
+# Compilation flag for each platforms =========================================
+
 if (APPLE)
 #    message(STATUS "${PROJECT_NAME} : Compiling on Apple with compiler " ${CMAKE_CXX_COMPILER_ID})
 
@@ -28,7 +32,6 @@ if (APPLE)
         set(MATH_FLAG "-mfpmath=sse")
     endif()
 
-    set(CMAKE_CXX_STANDARD 14)
     set(CMAKE_CXX_FLAGS                "${UNIX_DEFAULT_CXX_FLAGS}                ${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS_DEBUG          "${UNIX_DEFAULT_CXX_FLATS_DEBUG}          ${CMAKE_CXX_FLAGS_DEBUG}")
     set(CMAKE_CXX_FLAGS_RELEASE        "${UNIX_DEFAULT_CXX_FLATS_RELEASE}        ${MATH_FLAG}")
@@ -49,7 +52,6 @@ elseif (UNIX OR MINGW)
         set( EIGEN_ALIGNMENT_FLAG "" )
     endif()
 
-    set(CMAKE_CXX_STANDARD 14)
     set(CMAKE_CXX_FLAGS                "${UNIX_DEFAULT_CXX_FLAGS}                ${EIGEN_ALIGNMENT_FLAG} ${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS_DEBUG          "${UNIX_DEFAULT_CXX_FLATS_DEBUG}          ${CMAKE_CXX_FLAGS_DEBUG}")
     set(CMAKE_CXX_FLAGS_RELEASE        "${UNIX_DEFAULT_CXX_FLATS_RELEASE}        ${MATH_FLAG}")
@@ -88,7 +90,6 @@ elseif (MSVC)
     set(CMAKE_SHARED_LINKER_FLAGS      "/LTCG ${CMAKE_SHARED_LINKER_FLAGS}")
 
     # Problem with Qt linking
-    # FIXME(Charly): Not sure if this should be done on Linux
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_COMPILING_QSTRING_COMPAT_CPP")
 
 endif()
