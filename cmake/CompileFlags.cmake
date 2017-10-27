@@ -1,5 +1,18 @@
 # This file define common compile flags for all Radium projects.
 
+
+# Set build configurations ====================================================
+# Debug by default: Do it at the beginning to ensure proper configuration
+if ( NOT MSVC )
+    set( VALID_CMAKE_BUILD_TYPES "Debug Release RelWithDebInfo" )
+    if ( NOT CMAKE_BUILD_TYPE )
+        set( CMAKE_BUILD_TYPE Debug )
+    elseif ( NOT "${VALID_CMAKE_BUILD_TYPES}" MATCHES ${CMAKE_BUILD_TYPE} )
+        set( CMAKE_BUILD_TYPE Debug )
+    endif()
+endif()
+
+
 # Compilation flag for each platforms =========================================
 
 if (APPLE)
@@ -173,16 +186,3 @@ else()
 endif()
 
 
-
-# Set build configurations ====================================================
-
-# Debug by default
-
-if ( NOT MSVC )
-    set( VALID_CMAKE_BUILD_TYPES "Debug Release RelWithDebInfo" )
-    if ( NOT CMAKE_BUILD_TYPE )
-        set( CMAKE_BUILD_TYPE Debug )
-    elseif ( NOT "${VALID_CMAKE_BUILD_TYPES}" MATCHES ${CMAKE_BUILD_TYPE} )
-        set( CMAKE_BUILD_TYPE Debug )
-    endif()
-endif()
