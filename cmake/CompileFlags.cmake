@@ -40,6 +40,7 @@ elseif (UNIX OR MINGW)
 
     if( MINGW )
         set( EIGEN_ALIGNMENT_FLAG "-mincoming-stack-boundary=2" )
+        add_definitions( -static-libgcc -static-libstdc++) # Compile with static libs
     else()
         set( EIGEN_ALIGNMENT_FLAG "" )
     endif()
@@ -54,10 +55,6 @@ elseif (UNIX OR MINGW)
     add_definitions(-Wno-deprecated-declarations)
     if( NOT(${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 5.4))
         add_definitions(-Wno-ignored-attributes -Wno-misleading-indentation)
-    endif()
-
-    if (MINGW)
-        add_definitions( -static-libgcc -static-libstdc++) # Compile with static libs
     endif()
 elseif (MSVC)
     # Visual studio flags breakdown
