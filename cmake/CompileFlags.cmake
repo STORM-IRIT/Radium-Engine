@@ -24,12 +24,13 @@ set(CMAKE_CXX_STANDARD 14)
 # Compilation flag for each platforms =========================================
 
 if (APPLE)
-#    message(STATUS "${PROJECT_NAME} : Compiling on Apple with compiler " ${CMAKE_CXX_COMPILER_ID})
+  #    message(STATUS "${PROJECT_NAME} : Compiling on Apple with compiler " ${CMAKE_CXX_COMPILER_ID})
 
-    if ( (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") )
-        set(MATH_FLAG "-mfpmath=sse -ffast-math")
-    else()
-        set(MATH_FLAG "-mfpmath=sse")
+    set(MATH_FLAG "-mfpmath=sse")
+    if(RADIUM_FAST_MATH)
+        if ( (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") )
+            set(MATH_FLAG "${MATH_FLAG} -ffast-math")
+        endif()
     endif()
 
     set(CMAKE_CXX_FLAGS                "${UNIX_DEFAULT_CXX_FLAGS}                ${CMAKE_CXX_FLAGS}")
@@ -39,10 +40,11 @@ if (APPLE)
 
     add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
 elseif (UNIX OR MINGW)
-    if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang"))
-        set(MATH_FLAG "-mfpmath=sse")
-    else()
-        set(MATH_FLAG "-mfpmath=sse -ffast-math")
+    set(MATH_FLAG "-mfpmath=sse")
+    if(RADIUM_FAST_MATH)
+        if ( NOT (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang") )
+            set(MATH_FLAG "${MATH_FLAG} -ffast-math")
+        endif()
     endif()
 
     if( MINGW )
