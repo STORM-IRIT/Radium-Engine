@@ -70,52 +70,20 @@ void getMaxWeightIndex( Eigen::Ref<const WeightMatrix> weights,
 
 
 
-void checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
+bool checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
                         const bool FAIL_ON_ASSERT, const bool MT ) {
-    if( check_NAN( matrix, FAIL_ON_ASSERT, MT ) ) {
-        LOG( logDEBUG ) << "Matrix is good.";
-    } else {
-        LOG( logDEBUG ) << "Matrix is not good.";
-    }
+    bool ok = MatrixUtils::check_InvalidNumbers( matrix, FAIL_ON_ASSERT )
+                        && check_NoWeightVertex( matrix, FAIL_ON_ASSERT, MT );
 
-    if( check_NoWeightVertex( matrix, FAIL_ON_ASSERT, MT ) ) {
-        LOG( logDEBUG ) << "Matrix is good.";
-    } else {
-        LOG( logDEBUG ) << "Matrix is not good.";
-    }
-}
-
-
-
-bool RA_CORE_API check_NAN(Eigen::Ref<const WeightMatrix> matrix,
-                           const bool FAIL_ON_ASSERT, const bool MT ) {
-    CORE_UNUSED(MT); // kept for backward compatibility
-    return check_InvalidNumbers(matrix, FAIL_ON_ASSERT);
-}
-
-
-bool RA_CORE_API check_InvalidNumbers(Eigen::Ref<const WeightMatrix> matrix,
-                                      const bool FAIL_ON_ASSERT ) {
-
-    LOG( logDEBUG ) << "Searching for invalid numbers in the matrix...";
-    bool ok = false;
-    matrix.unaryExpr([&ok, FAIL_ON_ASSERT](Scalar x)
+    if( ! ok )
     {
-        ok |= ! std::isnormal(x);
-        if( !ok ) {
-            if( FAIL_ON_ASSERT ) {
-                CORE_ASSERT( false, "At least an element is nan" );
-            } else {
-                LOG( logDEBUG ) << "At least an element is nan";
-            }
-        }
-        return 1;
-    }).eval();
+        LOG( logDEBUG ) << "Matrix is not good.";
+    }
 
-    return ! ok;
+    return ok;
 }
 
-bool RA_CORE_API check_NoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
+bool check_NoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
                                        const bool FAIL_ON_ASSERT, const bool MT ) {
     int status = 1;
     LOG( logDEBUG ) << "Searching for empty rows in the matrix...";
@@ -152,7 +120,7 @@ bool RA_CORE_API check_NoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
     return status != 0;
 }
 
-bool RA_CORE_API normalizeWeights(Eigen::Ref<WeightMatrix> matrix, const bool MT)
+bool normalizeWeights(Eigen::Ref<WeightMatrix> matrix, const bool MT)
 {
     CORE_UNUSED(MT);
 

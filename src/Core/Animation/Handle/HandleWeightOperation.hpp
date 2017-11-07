@@ -48,16 +48,10 @@ void RA_CORE_API getMaxWeightIndex( Eigen::Ref<const WeightMatrix> weights,
 
 
 
-void RA_CORE_API checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
+bool RA_CORE_API checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
                                     const bool FAIL_ON_ASSERT = false,
                                     const bool MT = false );
 
-bool RA_CORE_API check_NAN(Eigen::Ref<const WeightMatrix> matrix,
-                            const bool FAIL_ON_ASSERT = false,
-                            const bool MT = false );
-
-bool RA_CORE_API check_InvalidNumbers(Eigen::Ref<const WeightMatrix> matrix,
-                                      const bool FAIL_ON_ASSERT = false);
 
 bool RA_CORE_API check_NoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
                                        const bool FAIL_ON_ASSERT = false,

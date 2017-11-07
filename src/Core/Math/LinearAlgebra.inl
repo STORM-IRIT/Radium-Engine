@@ -56,6 +56,12 @@ namespace Core
         return Vector::clamp( v, min, max ) == v;
     }
 
+    template< typename Vector_ >
+    inline bool Vector::check_InvalidNumbers(Eigen::Ref<const Vector_> v,
+                                     const bool FAIL_ON_ASSERT) {
+        return MatrixUtils::check_InvalidNumbers( v, FAIL_ON_ASSERT );
+    }
+
     template <typename Vector_>
     inline Scalar Vector::angle( const Vector_& v1, const Vector_& v2 )
     {
@@ -227,6 +233,24 @@ namespace Core
             result(2, 3) = -(f + b) / (f - n);
 
             return result;
+        }
+
+        template< typename Matrix_ >
+        bool check_InvalidNumbers(Eigen::Ref<const Matrix_> matrix, const bool FAIL_ON_ASSERT)
+        {
+            bool ok = false;
+            matrix.unaryExpr([&ok, FAIL_ON_ASSERT](Scalar x)
+            {
+                ok |= ! std::isnormal(x);
+                if( ! ok ) {
+                    if( FAIL_ON_ASSERT ) {
+                        CORE_ASSERT( false, "At least an element is nan" );
+                    }
+                }
+                return 1;
+            }).eval();
+
+            return ! ok;
         }
     }
 
