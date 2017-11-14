@@ -39,7 +39,9 @@ namespace Ra
             void setLambdaChanged(const double lambda);
             void setMChanged(const double m);
             void setNChanged(const double n);
+            void setInfluenceChanged(const double influence);
             void setLodValueChanged(int value);
+            void setComputeR();
             void setConstructM0();
 
             int getNbFacesMax();
@@ -48,11 +50,12 @@ namespace Ra
 
             void addMesh(MeshContactElement* mesh);
 
-//            void computeThreshold();
-//            void computeThresholdTest();
-            void computeThresholdDistribution();
-            void compareThresholdDistribution();
-            void symmetryDistribution();
+            void computeThreshold();
+            void computeThresholdTest();
+            void distanceDistribution();
+            void compareDistanceDistribution();
+            void distanceAsymmetryDistribution();
+            void thresholdComputation();
 
             void constructPriorityQueues();
             void updatePriorityQueue(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex);
@@ -67,7 +70,8 @@ namespace Ra
             int m_nbfaces;
             int m_nbobjects; // number of objects to be simplify (the first ones to be loaded into the scene)
             Scalar m_threshold; // distance used to define "contacts"
-            //Scalar m_broader_threshold; // amplified threshold
+            Scalar m_influence; // weight value for the threshold in order to compute a broader threshold
+            Scalar m_broader_threshold; // amplified threshold
             Scalar m_lambda; // influence of the original quadric considering contacts
             Scalar m_m;
             Scalar m_n; // slope of the weight function for contacts
