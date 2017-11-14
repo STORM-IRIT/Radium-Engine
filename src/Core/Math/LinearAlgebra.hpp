@@ -157,7 +157,7 @@ namespace Ra
 
             /// Call std::isnormal on vector entries.
             template< typename Vector_ >
-            inline bool check_InvalidNumbers(Eigen::Ref<const Vector_> v,
+            inline bool checkInvalidNumbers(Eigen::Ref<const Vector_> v,
                                              const bool FAIL_ON_ASSERT = false);
 
             /// Get two vectors orthogonal to a given vector.
@@ -206,7 +206,7 @@ namespace Ra
             /// Call std::isnormal on matrix entry.
             /// Dense version
             template< typename Matrix_ >
-            inline bool check_InvalidNumbers(Eigen::Ref<const Matrix_> matrix,
+            inline bool checkInvalidNumbers(Eigen::Ref<const Matrix_> matrix,
                                              const bool FAIL_ON_ASSERT = false);
 
         }
@@ -245,9 +245,9 @@ namespace Ra
 
             /// Call std::isnormal on quaternion entries.
             template< typename Quaternion_ >
-            inline bool check_InvalidNumbers(Eigen::Ref<const Quaternion_> q,
+            inline bool checkInvalidNumbers(Eigen::Ref<const Quaternion_> q,
                                              const bool FAIL_ON_ASSERT = false) {
-                return MatrixUtils::check_InvalidNumbers( q.coeffs(), FAIL_ON_ASSERT );
+                return MatrixUtils::checkInvalidNumbers( q.coeffs(), FAIL_ON_ASSERT );
             }
         }
 

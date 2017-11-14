@@ -57,9 +57,9 @@ namespace Core
     }
 
     template< typename Vector_ >
-    inline bool Vector::check_InvalidNumbers(Eigen::Ref<const Vector_> v,
+    inline bool Vector::checkInvalidNumbers(Eigen::Ref<const Vector_> v,
                                      const bool FAIL_ON_ASSERT) {
-        return MatrixUtils::check_InvalidNumbers( v, FAIL_ON_ASSERT );
+        return MatrixUtils::checkInvalidNumbers( v, FAIL_ON_ASSERT );
     }
 
     template <typename Vector_>
@@ -236,7 +236,7 @@ namespace Core
         }
 
         template< typename Matrix_ >
-        bool check_InvalidNumbers(Eigen::Ref<const Matrix_> matrix, const bool FAIL_ON_ASSERT)
+        bool checkInvalidNumbers(Eigen::Ref<const Matrix_> matrix, const bool FAIL_ON_ASSERT)
         {
             bool ok = false;
             matrix.unaryExpr([&ok, FAIL_ON_ASSERT](Scalar x)

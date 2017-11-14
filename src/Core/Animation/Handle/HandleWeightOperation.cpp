@@ -72,8 +72,8 @@ void getMaxWeightIndex( Eigen::Ref<const WeightMatrix> weights,
 
 bool checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
                         const bool FAIL_ON_ASSERT, const bool MT ) {
-    bool ok = MatrixUtils::check_InvalidNumbers( matrix, FAIL_ON_ASSERT )
-                        && check_NoWeightVertex( matrix, FAIL_ON_ASSERT, MT );
+    bool ok = MatrixUtils::checkInvalidNumbers( matrix, FAIL_ON_ASSERT )
+                        && checkNoWeightVertex( matrix, FAIL_ON_ASSERT, MT );
 
     if( ! ok )
     {
@@ -83,8 +83,8 @@ bool checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
     return ok;
 }
 
-bool check_NoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
-                                       const bool FAIL_ON_ASSERT, const bool MT ) {
+bool checkNoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
+                          const bool FAIL_ON_ASSERT, const bool MT ) {
     int status = 1;
     LOG( logDEBUG ) << "Searching for empty rows in the matrix...";
     if( MT ) {
