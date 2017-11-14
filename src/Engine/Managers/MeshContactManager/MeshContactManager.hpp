@@ -40,6 +40,7 @@ namespace Ra
             void setMChanged(const double m);
             void setNChanged(const double n);
             void setInfluenceChanged(const double influence);
+            void setAsymmetryChanged(const double asymmetry);
             void setLodValueChanged(int value);
             void setComputeR();
             void setConstructM0();
@@ -71,6 +72,7 @@ namespace Ra
             int m_nbobjects; // number of objects to be simplify (the first ones to be loaded into the scene)
             Scalar m_threshold; // distance used to define "contacts"
             Scalar m_influence; // weight value for the threshold in order to compute a broader threshold
+            Scalar m_asymmetry; // threshold for the asymmetry between the 2 triangles defining a contact
             Scalar m_broader_threshold; // amplified threshold
             Scalar m_lambda; // influence of the original quadric considering contacts
             Scalar m_m;
