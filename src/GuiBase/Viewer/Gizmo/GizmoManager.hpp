@@ -38,9 +38,9 @@ namespace Ra
 
         public:
             /// Receive mouse events and transmit them to the gizmos.
-            virtual bool handleMousePressEvent  ( QMouseEvent* event );
+            virtual bool handleMousePressEvent  ( QMouseEvent* event, int hdpiScale );
             virtual bool handleMouseReleaseEvent( QMouseEvent* event );
-            virtual bool handleMouseMoveEvent   ( QMouseEvent* event );
+            virtual bool handleMouseMoveEvent   ( QMouseEvent* event, int hdpiScale );
 
 
         public slots:

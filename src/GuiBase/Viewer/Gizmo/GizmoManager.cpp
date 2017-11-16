@@ -93,7 +93,7 @@ namespace Ra
             }
         }
 
-        bool GizmoManager::handleMousePressEvent(QMouseEvent* event)
+        bool GizmoManager::handleMousePressEvent(QMouseEvent* event, int hdpiScale)
         {
             if( !( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) ) || !canEdit() || m_currentGizmoType == NONE)
             {
@@ -105,7 +105,7 @@ namespace Ra
             // Access the camera from the viewer. (TODO : a cleaner way to access the camera).
             // const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
             const Engine::Camera& cam = CameraInterface::getCameraFromViewer(parent());
-            currentGizmo()->setInitialState(cam, Core::Vector2(Scalar(event->x()), Scalar(event->y())));
+            currentGizmo()->setInitialState(cam, Core::Vector2(Scalar(event->x()*hdpiScale), Scalar(event->y()*hdpiScale)));
 
             return true;
         }
@@ -119,11 +119,11 @@ namespace Ra
             return (currentGizmo() != nullptr);
         }
 
-        bool GizmoManager::handleMouseMoveEvent(QMouseEvent* event)
+        bool GizmoManager::handleMouseMoveEvent(QMouseEvent* event, int hdpiScale)
         {
             if ( event->buttons() & Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) && currentGizmo() )
             {
-                Core::Vector2 currentXY(event->x(), event->y());
+                Core::Vector2 currentXY(event->x()*hdpiScale, event->y()*hdpiScale);
                 // const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
                 const Engine::Camera& cam = CameraInterface::getCameraFromViewer(parent());
                 Core::Transform newTransform = currentGizmo()->mouseMove(cam, currentXY, event->modifiers().testFlag( Qt::ControlModifier ) );

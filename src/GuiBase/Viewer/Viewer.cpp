@@ -237,7 +237,7 @@ namespace Ra
                 m_currentRenderer->addPickingRequest({ Core::Vector2(event->x()*m_hdpiScale, height()*m_hdpiScale - event->y()*m_hdpiScale),
                                                        Core::MouseButton::RA_MOUSE_LEFT_BUTTON,
                                                        Engine::Renderer::RO });
-                m_gizmoManager->handleMousePressEvent(event);
+                m_gizmoManager->handleMousePressEvent(event, m_hdpiScale);
             }
         }
         else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) )
@@ -263,7 +263,7 @@ namespace Ra
     void Gui::Viewer::mouseMoveEvent( QMouseEvent* event )
     {
         m_camera->handleMouseMoveEvent( event );
-        m_gizmoManager->handleMouseMoveEvent(event);
+        m_gizmoManager->handleMouseMoveEvent(event, m_hdpiScale);
     }
 
     void Gui::Viewer::wheelEvent( QWheelEvent* event )
