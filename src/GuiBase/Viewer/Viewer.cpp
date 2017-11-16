@@ -48,14 +48,17 @@ namespace Ra
         , m_gizmoManager( new GizmoManager(this) )
         , m_renderThread( nullptr )
         , m_glInitStatus( false )
+        , m_hdpiScale( 1 )
     {
         // Allow Viewer to receive events
         setFocusPolicy( Qt::StrongFocus );
+
         setMinimumSize( QSize( 800, 600 ) );
 
         m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
         m_featurePickingManager = new FeaturePickingManager();
 
+        m_hdpiScale = devicePixelRatio();
         /// Intercept events to properly lock the renderer when it is compositing.
     }
 
@@ -187,10 +190,11 @@ namespace Ra
 
     void Gui::Viewer::resizeGL( int width, int height )
     {
-        // FIXME (Mathias) : Problem of glarea dimension on OsX Retina Display (half the size)
+        // WARNING (Mathias) : on hdpi screens, this implies very big framebuffers
+        m_hdpiScale = devicePixelRatio();
         // Renderer should have been locked by previous events.
-        m_camera->resizeViewport( width, height );
-        m_currentRenderer->resize( width, height );
+        m_camera->resizeViewport( width*m_hdpiScale, height*m_hdpiScale );
+        m_currentRenderer->resize( width*m_hdpiScale, height*m_hdpiScale );
     }
 
     Engine::Renderer::PickingMode getPickingMode()
@@ -219,7 +223,7 @@ namespace Ra
             if ( isKeyPressed( keyMap->getKeyFromAction(Gui::KeyMappingManager::VIEWER_RAYCAST_QUERY ) ) )
             {
                 LOG( logINFO ) << "Raycast query launched";
-                Core::Ray r = m_camera->getCamera()->getRayFromScreen(Core::Vector2(event->x(), event->y()));
+                Core::Ray r = m_camera->getCamera()->getRayFromScreen(Core::Vector2(event->x()*m_hdpiScale, event->y()*m_hdpiScale));
                 RA_DISPLAY_POINT(r.origin(), Core::Colors::Cyan(), 0.1f);
                 RA_DISPLAY_RAY(r, Core::Colors::Yellow());
                 auto ents = Engine::RadiumEngine::getInstance()->getEntityManager()->getEntities();
@@ -230,7 +234,7 @@ namespace Ra
             }
             else
             {
-                m_currentRenderer->addPickingRequest({ Core::Vector2(event->x(), height() - event->y()),
+                m_currentRenderer->addPickingRequest({ Core::Vector2(event->x()*m_hdpiScale, height()*m_hdpiScale - event->y()*m_hdpiScale),
                                                        Core::MouseButton::RA_MOUSE_LEFT_BUTTON,
                                                        Engine::Renderer::RO });
                 m_gizmoManager->handleMousePressEvent(event);
@@ -243,7 +247,7 @@ namespace Ra
         else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_RIGHT_BUTTON_PICKING_QUERY ) )
         {
             // Check picking
-            Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()),
+            Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x()*m_hdpiScale, height()*m_hdpiScale - event->y()*m_hdpiScale),
                                                       Core::MouseButton::RA_MOUSE_RIGHT_BUTTON,
                                                       getPickingMode() };
             m_currentRenderer->addPickingRequest(query);
@@ -311,7 +315,7 @@ namespace Ra
         if (m_renderers[index]) {
             if(m_currentRenderer != nullptr) m_currentRenderer->lockRendering();
             m_currentRenderer = m_renderers[index].get();
-            m_currentRenderer->resize( width(), height() );
+            m_currentRenderer->resize( width()*m_hdpiScale, height()*m_hdpiScale );
             m_currentRenderer->unlockRendering();
         }
     }
@@ -373,7 +377,7 @@ namespace Ra
             else if (query.m_button == Core::MouseButton::RA_MOUSE_RIGHT_BUTTON)
             {
                 const int roIdx = m_currentRenderer->getPickingResults()[i];
-                const Core::Ray ray = m_camera->getCamera()->getRayFromScreen({query.m_screenCoords(0), height()-query.m_screenCoords(1)});
+                const Core::Ray ray = m_camera->getCamera()->getRayFromScreen({query.m_screenCoords(0), height()*m_hdpiScale-query.m_screenCoords(1)});
                 // FIXME: this is safe as soon as there is no "queued connection" related to the signal
                 m_featurePickingManager->doPicking(roIdx, query, ray);
                 emit rightClickPicking(roIdx);
@@ -447,7 +451,7 @@ namespace Ra
 
     void Gui::Viewer::resetCamera()
     {
-        m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
+        m_camera.reset( new Gui::TrackballCamera( width()*m_hdpiScale, height()*m_hdpiScale ) );
     }
 
 } // namespace Ra

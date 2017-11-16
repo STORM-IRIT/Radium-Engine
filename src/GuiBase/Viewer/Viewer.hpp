@@ -222,6 +222,8 @@ namespace Ra
 
             /// GL initialization status
             std::atomic_bool m_glInitStatus;
+        private :
+            int m_hdpiScale;
         };
 
     } // namespace Gui
