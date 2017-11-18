@@ -33,7 +33,6 @@ public:
 
     /// QUERY
     inline bool empty() const;
-    inline bool compact() const;
 
     /// VARIABLE
     IndexMap< Vertex_ptr >   m_vertex;   // Vertices  Data

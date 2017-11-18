@@ -107,15 +107,15 @@ void splitEdge( Dcel& dcel, Index edgeIndex, Scalar fraction )
     HalfEdge_ptr BV2 = V1B->Next();
 
     // Insert new elements
-    dcel.m_vertex.insert( vm , vm->idx );
+    vm->idx = dcel.m_vertex.insert( vm );
 
-    dcel.m_halfedge.insert( he2, he2->idx );
-    dcel.m_halfedge.insert( he3, he3->idx );
+    he2->idx = dcel.m_halfedge.insert( he2 );
+    he3->idx = dcel.m_halfedge.insert( he3 );
 
-    dcel.m_fulledge.insert( fe1, fe1->idx );
+    fe1->idx = dcel.m_fulledge.insert( fe1 );
 
-    dcel.m_face.insert( f2, f2->idx );
-    dcel.m_face.insert( f3, f3->idx );
+    f2->idx = dcel.m_face.insert( f2 );
+    f3->idx = dcel.m_face.insert( f3 );
 
     // Fixup all pointers.
 

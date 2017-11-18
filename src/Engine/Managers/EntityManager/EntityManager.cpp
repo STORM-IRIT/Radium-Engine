@@ -59,7 +59,7 @@ namespace Ra
 
         void EntityManager::removeEntity( Core::Index idx )
         {
-            CORE_ASSERT( idx != Core::Index::INVALID_IDX() && m_entities.contain( idx ),
+            CORE_ASSERT( idx != Core::Index::INVALID_IDX() && m_entities.contains( idx ),
                          "Trying to remove an entity that has not been added to the manager." );
 
             auto& ent = m_entities[idx];
@@ -79,7 +79,7 @@ namespace Ra
 
             Entity* ent = nullptr;
 
-            if ( m_entities.contain( idx ) )
+            if ( m_entities.contains( idx ) )
             {
                 ent = m_entities[idx].get();
             }
