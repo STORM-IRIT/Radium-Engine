@@ -22,19 +22,8 @@ namespace AnimationPlugin
     class AnimationComponent : public Ra::Engine::Component
     {
     public:
-        AnimationComponent(const std::string& name) :
-            Component(name),
-            m_animationID( 0 ),
-            m_animationTimeStep( true ),
-            m_animationTime( 0.0 ),
-            m_dt(),
-            m_speed( 1.0 ),
-            m_slowMo( false ),
-//            m_selectedBone(-1),
-            m_wasReset(false),
-            m_resetDone(false)
-        {}
-        virtual ~AnimationComponent() {}
+        AnimationComponent(const std::string& name);
+        virtual ~AnimationComponent();
 
         virtual void initialize() override{}
 
@@ -119,7 +108,6 @@ namespace AnimationPlugin
         Scalar m_speed;
         bool   m_slowMo;
 
-//        int m_selectedBone;
         bool m_wasReset;
         bool m_resetDone;
     };

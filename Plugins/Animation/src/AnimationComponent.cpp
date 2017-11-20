@@ -27,6 +27,21 @@ using Ra::Core::Animation::Animation;
 namespace AnimationPlugin
 {
 
+    AnimationComponent::AnimationComponent(const std::string& name) :
+            Component(name),
+            m_animationID( 0 ),
+            m_animationTimeStep( true ),
+            m_animationTime( 0.0 ),
+            m_dt(),
+            m_speed( 1.0 ),
+            m_slowMo( false ),
+            m_wasReset(false),
+            m_resetDone(false)
+        {}
+    
+    AnimationComponent::~AnimationComponent() {}
+
+
     void AnimationComponent::setSkeleton(const Ra::Core::Animation::Skeleton& skel)
     {
         m_skel = skel;
