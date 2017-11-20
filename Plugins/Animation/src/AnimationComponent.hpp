@@ -19,7 +19,7 @@ namespace AnimationPlugin
 
     class SkeletonBoneRenderObject;
 
-    class AnimationComponent : public Ra::Engine::Component
+    class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component
     {
     public:
         AnimationComponent(const std::string& name);
@@ -30,14 +30,14 @@ namespace AnimationPlugin
         void setSkeleton(const Ra::Core::Animation::Skeleton& skel);
 
         inline Ra::Core::Animation::Skeleton& getSkeleton() { return m_skel; }
-        ANIM_PLUGIN_API Ra::Core::Animation::WeightMatrix getWeights() const;
-        ANIM_PLUGIN_API Ra::Core::Animation::Pose getRefPose() const;
+        Ra::Core::Animation::WeightMatrix getWeights() const;
+        Ra::Core::Animation::Pose getRefPose() const;
 
 
         /// Update the skeleton with an animation.
         void update(Scalar dt);
         void reset();
-        ANIM_PLUGIN_API void setXray(bool on) const;
+        void setXray(bool on) const;
 
         void toggleSkeleton( const bool status );
         void toggleAnimationTimeStep( const bool status );
