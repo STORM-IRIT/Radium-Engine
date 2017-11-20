@@ -968,8 +968,8 @@ namespace Ra
                                         // asymmetry computation
                                         Ra::Core::Index id = m_trianglekdtrees[objIndex]->doQueryRestrictedClosestIndexTriangle(triangle[0],triangle[1],triangle[2]);
                                         CORE_ASSERT(id > -1, "Invalid triangle index");
-                                        Ra::Core::VectorArray<Ra::Core::Triangle> t = m_meshContactElements[objIndex]->getInitTriangleMesh().m_triangles;
-                                        Ra::Core::VectorArray<Ra::Core::Vector3> v = m_meshContactElements[objIndex]->getInitTriangleMesh().m_vertices;
+                                        Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getInitTriangleMesh().m_triangles;
+                                        Ra::Core::VectorArray<Ra::Core::Vector3> v = obj->getInitTriangleMesh().m_vertices;
                                         const Ra::Core::Vector3 triangle2[3] = {v[t[id][0]], v[t[id][1]], v[t[id][2]]};
                                         Scalar dist2 = Ra::Core::DistanceQueries::triangleToTriSq(triangle, triangle2).distance;
                                         if (abs(dist - dist2) <= m_asymmetry)
@@ -1071,7 +1071,6 @@ namespace Ra
                             obj->getProgressiveMeshLOD()->getProgressiveMesh()->edgeContacts(vs->idx, vt->idx, m_trianglekdtrees, k, std::pow(m_broader_threshold,2), faceIndexes);
                             if ( faceIndexes.size() != 0)
                             {
-                                contact = true;
                                 const Ra::Core::Vector3& segCenter = (Scalar)0.5 * (vs->P() + vt->P());
                                 const Ra::Core::Vector3& segDirection = vt->P() - vs->P();
                                 Scalar segExtent = (Scalar)0.5 * std::sqrt((vt->P() - vs->P()).dot(vt->P() - vs->P()));
