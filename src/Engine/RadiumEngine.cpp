@@ -21,9 +21,11 @@
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/System/System.hpp>
 #include <Engine/Entity/Entity.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
 
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
@@ -104,6 +106,39 @@ namespace Ra
             }
 
             return sys;
+        }
+
+        Mesh *RadiumEngine::getMesh(const std::string &entityName,
+                                    const std::string &componentName,
+                                    const std::string &roName) const
+        {
+
+            // 1) Get entity
+            if ( m_entityManager->entityExists(entityName) )
+            {
+                Ra::Engine::Entity* e = m_entityManager->getEntity(entityName);
+
+                // 2) Get component
+                const Ra::Engine::Component* c = e->getComponent(componentName);
+
+                if ( c != nullptr && ! c->m_renderObjects.empty() ) {
+                    // 3) Get RO
+                    if ( roName.empty() ) {
+                        return m_renderObjectManager->getRenderObject(
+                                    c->m_renderObjects.front() )->getMesh().get();
+                    }
+                    else
+                    {
+                        for (const auto& idx : c->m_renderObjects) {
+                            const auto& ro = m_renderObjectManager->getRenderObject(idx);
+                            if ( ro->getName() ==  roName) {
+                                return ro->getMesh().get();
+                            }
+                        }
+                    }
+                }
+            }
+            return nullptr;
         }
 
         bool RadiumEngine::loadFile( const std::string& filename )

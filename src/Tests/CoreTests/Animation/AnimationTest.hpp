@@ -50,9 +50,9 @@ namespace RaTests
                           "Two matrices are equivalent after partition of unity" );
 
             matrix2.coeffRef(w/3, h/2) = std::nan("");
-            RA_UNIT_TEST( Ra::Core::Animation::check_NAN(matrix1),
+            RA_UNIT_TEST( Ra::Core::Animation::checkWeightMatrix(matrix1, false),
                           "Should not find NaN in this matrix" );
-            RA_UNIT_TEST( ! Ra::Core::Animation::check_NAN(matrix2),
+            RA_UNIT_TEST( ! Ra::Core::Animation::checkWeightMatrix(matrix2, false),
                           "Should find NaN in this matrix" );
 
         }

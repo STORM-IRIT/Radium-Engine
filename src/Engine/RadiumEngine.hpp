@@ -28,6 +28,7 @@ namespace Ra
         class System;
         class Entity;
         class Component;
+        class Mesh;
         class RenderObjectManager;
         class EntityManager;
         class SignalManager;
@@ -53,6 +54,14 @@ namespace Ra
             void registerSystem( const std::string& name,
                                  System* system );
             System* getSystem( const std::string& system ) const;
+
+            /// Convenience function returning a Mesh from its entity and
+            /// component names.
+            /// When no RenderObject name is given, returns the mesh associated
+            /// to the first render object.
+            Mesh* getMesh( const std::string& entityName,
+                           const std::string& componentName,
+                           const std::string& roName= std::string() ) const;
 
             bool loadFile( const std::string& file );
 

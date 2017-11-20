@@ -200,19 +200,19 @@ namespace FancyMeshPlugin
         ComponentMessenger::CallbackTypes<Ra::Core::Index>::Getter roOut = std::bind(&FancyMeshComponent::roIndexRead, this);
         ComponentMessenger::getInstance()->registerOutput<Ra::Core::Index>(getEntity(), this, id, roOut);
 
+        ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite vRW = std::bind( &FancyMeshComponent::getVerticesRw, this);
+        ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"v", vRW);
+
+        ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite nRW = std::bind( &FancyMeshComponent::getNormalsRw, this);
+        ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"n", nRW);
+
+        ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite tRW = std::bind( &FancyMeshComponent::getTrianglesRw, this);
+        ComponentMessenger::getInstance()->registerReadWrite<TriangleArray>( getEntity(), this, id+"t", tRW);
+
         if( m_deformable)
         {
             ComponentMessenger::CallbackTypes<TriangleMesh>::Setter cbIn = std::bind( &FancyMeshComponent::setMeshInput, this, std::placeholders::_1 );
             ComponentMessenger::getInstance()->registerInput<TriangleMesh>( getEntity(), this, id, cbIn);
-
-            ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite vRW = std::bind( &FancyMeshComponent::getVerticesRw, this);
-            ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"v", vRW);
-
-            ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite nRW = std::bind( &FancyMeshComponent::getNormalsRw, this);
-            ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this, id+"n", nRW);
-
-            ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite tRW = std::bind( &FancyMeshComponent::getTrianglesRw, this);
-            ComponentMessenger::getInstance()->registerReadWrite<TriangleArray>( getEntity(), this, id+"t", tRW);
         }
     }
 
