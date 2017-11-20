@@ -12,19 +12,9 @@ EIterator< OBJECT >::EIterator( HalfEdge_ptr& he ) :
     this->m_he = he;
 }
 
-
-
-
-
-
 /// DESTRUCTOR
 template < typename OBJECT >
 EIterator< OBJECT >::~EIterator() { }
-
-
-
-
-
 
 /// SIZE
 template < typename OBJECT >
@@ -50,7 +40,6 @@ inline void EIterator< OBJECT >::reset()
 {
     //this->m_he = m_v->HE();
 }
-
 
 /// OPERATOR
 template < typename OBJECT >
