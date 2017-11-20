@@ -8,6 +8,7 @@
 
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 
@@ -154,10 +155,11 @@ namespace Ra
         {
             Core::Aabb aabb;
 
-
+            auto ui = Engine::SystemEntity::uiCmp();
+            bool skipUi = m_renderObjects.size() != ui->m_renderObjects.size();
             for ( auto ro: m_renderObjects)
             {
-                if (ro->isVisible())
+                if (ro->isVisible() && (!skipUi || ro->getComponent() != ui))
                 {
                     Core::Transform t = ro->getComponent()->getEntity()->getTransform();
                     auto mesh = ro->getMesh();
