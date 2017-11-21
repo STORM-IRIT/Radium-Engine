@@ -155,6 +155,11 @@ namespace Ra
             template<typename Vector_>
             inline bool checkRange( const Vector_& v, const Scalar& min, const Scalar& max );
 
+            /// Call std::isnormal on vector entries.
+            template< typename Vector_ >
+            inline bool checkInvalidNumbers(Eigen::Ref<const Vector_> v,
+                                             const bool FAIL_ON_ASSERT = false);
+
             /// Get two vectors orthogonal to a given vector.
             inline void getOrthogonalVectors( const Vector3& fx, Eigen::Ref<Vector3> fy, Eigen::Ref<Vector3> fz );
 
@@ -197,6 +202,13 @@ namespace Ra
             inline Matrix4 lookAt(const Vector3& position, const Vector3& target, const Vector3& up);
             inline Matrix4 perspective(Scalar fovy, Scalar aspect, Scalar near, Scalar zfar);
             inline Matrix4 orthographic(Scalar left, Scalar right, Scalar bottom, Scalar top, Scalar near, Scalar zfar);
+
+            /// Call std::isnormal on matrix entry.
+            /// Dense version
+            template< typename Matrix_ >
+            inline bool checkInvalidNumbers(Eigen::Ref<const Matrix_> matrix,
+                                             const bool FAIL_ON_ASSERT = false);
+
         }
 
         //
@@ -230,6 +242,13 @@ namespace Ra
             /// If the rotation is already around axis z, Qswing will be set to identity
             /// and Qtwist equal to Qin
             inline void getSwingTwist(const Quaternion& in, Quaternion& swingOut, Quaternion& twistOut);
+
+            /// Call std::isnormal on quaternion entries.
+            template< typename Quaternion_ >
+            inline bool checkInvalidNumbers(Eigen::Ref<const Quaternion_> q,
+                                             const bool FAIL_ON_ASSERT = false) {
+                return MatrixUtils::checkInvalidNumbers( q.coeffs(), FAIL_ON_ASSERT );
+            }
         }
 
 

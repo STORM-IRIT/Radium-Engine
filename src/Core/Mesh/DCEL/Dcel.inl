@@ -24,16 +24,6 @@ inline bool Dcel::empty() const {
 }
 
 
-
-inline bool Dcel::compact() const {
-    return ( m_vertex.compact()   &&
-             m_halfedge.compact() &&
-             m_fulledge.compact() &&
-             m_face.compact() );
-}
-
-
-
 } // namespace Core
 } // namespace Ra
 

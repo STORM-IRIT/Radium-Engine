@@ -70,68 +70,21 @@ void getMaxWeightIndex( Eigen::Ref<const WeightMatrix> weights,
 
 
 
-void checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
+bool checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
                         const bool FAIL_ON_ASSERT, const bool MT ) {
-    if( check_NAN( matrix, FAIL_ON_ASSERT, MT ) ) {
-        LOG( logDEBUG ) << "Matrix is good.";
-    } else {
+    bool ok = MatrixUtils::checkInvalidNumbers( matrix, FAIL_ON_ASSERT )
+                        && checkNoWeightVertex( matrix, FAIL_ON_ASSERT, MT );
+
+    if( ! ok )
+    {
         LOG( logDEBUG ) << "Matrix is not good.";
     }
 
-    if( check_NoWeightVertex( matrix, FAIL_ON_ASSERT, MT ) ) {
-        LOG( logDEBUG ) << "Matrix is good.";
-    } else {
-        LOG( logDEBUG ) << "Matrix is not good.";
-    }
+    return ok;
 }
 
-
-
-bool RA_CORE_API check_NAN(Eigen::Ref<const WeightMatrix> matrix,
-                           const bool FAIL_ON_ASSERT, const bool MT ) {
-    using Iterator = Eigen::Ref<const WeightMatrix>::InnerIterator;
-    int status = 1;
-    LOG( logDEBUG ) << "Searching for nans in the matrix...";
-    if( MT ) {
-        #pragma omp parallel for
-        for( int k = 0; k < matrix.outerSize(); ++k ) {
-            for( Iterator it( matrix, k ); it; ++it ) {
-                const Scalar      value = it.value();
-                const int check = std::isnan( value ) ? 0 : 1;
-                #pragma omp atomic
-                status &= check ;
-            }
-        }
-        if( status == 0 ) {
-            if( FAIL_ON_ASSERT ) {
-                CORE_ASSERT( false, "At least an element is nan" );
-            } else {
-                LOG( logDEBUG ) << "At least an element is nan";
-            }
-        }
-    } else {
-        for( int k = 0; k < matrix.outerSize(); ++k ) {
-            for( Iterator it( matrix, k ); it; ++it ) {
-                const uint        i     = it.row();
-                const uint        j     = it.col();
-                const Scalar      value = it.value();
-                const std::string text  = "Element (" + std::to_string( i ) + "," + std::to_string(j) + ") is nan.";
-                if( FAIL_ON_ASSERT ) {
-                    CORE_ASSERT( !std::isnan( value ), text.c_str() );
-                } else {
-                    if( std::isnan( value ) ) {
-                        LOG( logDEBUG ) << text;
-                        status = 0;
-                    }
-                }
-            }
-        }
-    }
-    return status != 0;
-}
-
-bool RA_CORE_API check_NoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
-                                       const bool FAIL_ON_ASSERT, const bool MT ) {
+bool checkNoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
+                          const bool FAIL_ON_ASSERT, const bool MT ) {
     int status = 1;
     LOG( logDEBUG ) << "Searching for empty rows in the matrix...";
     if( MT ) {
@@ -153,11 +106,12 @@ bool RA_CORE_API check_NoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
         for( int i = 0; i < matrix.rows(); ++i ) {
             Sparse row = matrix.row( i );
             if( row.nonZeros() == 0 ) {
+                status = 0;
+
                 const std::string text = "Vertex " + std::to_string( i ) + " has no weights.";
                 if( FAIL_ON_ASSERT ) {
                     CORE_ASSERT( false, text.c_str() );
                 } else {
-                    status = 0;
                     LOG( logDEBUG ) << text;
                 }
             }
@@ -166,7 +120,7 @@ bool RA_CORE_API check_NoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
     return status != 0;
 }
 
-bool RA_CORE_API normalizeWeights(Eigen::Ref<WeightMatrix> matrix, const bool MT)
+bool normalizeWeights(Eigen::Ref<WeightMatrix> matrix, const bool MT)
 {
     CORE_UNUSED(MT);
 

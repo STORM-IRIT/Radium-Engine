@@ -7,6 +7,7 @@
 #include <Tests/CoreTests/RayCasts/RayCastTest.hpp>
 #include <Tests/CoreTests/String/StringTest.hpp>
 #include <Tests/CoreTests/Distance/DistanceTests.hpp>
+#include <Tests/CoreTests/Containers/IndexMapTest.hpp>
 
 int main()
 {

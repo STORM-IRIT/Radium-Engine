@@ -8,9 +8,17 @@
 namespace Ra {
 namespace Core {
 
+template <typename T>
+void insertInMap( IndexMap<T>& map, T& t )
+{
+    t->idx = map.insert(t);
+    CORE_ASSERT(t->idx.isValid(), "Not inserted");
+}
+
+
 void fulledgeSplit( Dcel& dcel, const Index fulledge_id ) {
-    FullEdge_ptr ptr;
-    if( dcel.m_fulledge.access( fulledge_id, ptr ) ) {
+    if( dcel.m_fulledge.contains( fulledge_id ) ) {
+        FullEdge_ptr ptr = dcel.m_fulledge.at(fulledge_id);
         // Declare the data
         Vertex_ptr   v;
         HalfEdge_ptr he[4][3];
@@ -63,18 +71,18 @@ void fulledgeSplit( Dcel& dcel, const Index fulledge_id ) {
         }
 
         // Insert new data
-        CORE_ASSERT( dcel.m_vertex.insert( v, v->idx ), "New vertex not inserted" );
-        CORE_ASSERT( dcel.m_halfedge.insert( he[0][2], he[0][2]->idx ), "New halfedge[0][2] not inserted" );
-        CORE_ASSERT( dcel.m_halfedge.insert( he[1][1], he[1][1]->idx ), "New halfedge[1][1] not inserted" );
-        CORE_ASSERT( dcel.m_halfedge.insert( he[2][1], he[2][1]->idx ), "New halfedge[2][1] not inserted" );
-        CORE_ASSERT( dcel.m_halfedge.insert( he[2][2], he[2][2]->idx ), "New halfedge[2][2] not inserted" );
-        CORE_ASSERT( dcel.m_halfedge.insert( he[3][1], he[3][1]->idx ), "New halfedge[3][1] not inserted" );
-        CORE_ASSERT( dcel.m_halfedge.insert( he[3][2], he[3][2]->idx ), "New halfedge[3][2] not inserted" );
-        CORE_ASSERT( dcel.m_fulledge.insert( fe[1], fe[1]->idx ), "New fulledge[1] not inserted" );
-        CORE_ASSERT( dcel.m_fulledge.insert( fe[2], fe[2]->idx ), "New fulledge[2] not inserted" );
-        CORE_ASSERT( dcel.m_fulledge.insert( fe[3], fe[3]->idx ), "New fulledge[3] not inserted" );
-        CORE_ASSERT( dcel.m_face.insert( f[2], f[2]->idx ), "New face[2] not inserted" );
-        CORE_ASSERT( dcel.m_face.insert( f[3], f[3]->idx ), "New face[3] not inserted" );
+        insertInMap( dcel.m_vertex,  v);
+        insertInMap( dcel.m_halfedge, he[0][2]);
+        insertInMap( dcel.m_halfedge, he[1][1]);
+        insertInMap( dcel.m_halfedge, he[2][1]);
+        insertInMap( dcel.m_halfedge, he[2][2]);
+        insertInMap( dcel.m_halfedge, he[3][1]);
+        insertInMap( dcel.m_halfedge, he[3][2]);
+        insertInMap( dcel.m_fulledge, fe[1]);
+        insertInMap( dcel.m_fulledge, fe[2]);
+        insertInMap( dcel.m_fulledge, fe[3]);
+        insertInMap( dcel.m_face, f[2]);
+        insertInMap( dcel.m_face, f[3]);
     }
 }
 

@@ -19,36 +19,25 @@ namespace AnimationPlugin
 
     class SkeletonBoneRenderObject;
 
-    class AnimationComponent : public Ra::Engine::Component
+    class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component
     {
     public:
-        AnimationComponent(const std::string& name) :
-            Component(name),
-            m_animationID( 0 ),
-            m_animationTimeStep( true ),
-            m_animationTime( 0.0 ),
-            m_dt(),
-            m_speed( 1.0 ),
-            m_slowMo( false ),
-//            m_selectedBone(-1),
-            m_wasReset(false),
-            m_resetDone(false)
-        {}
-        virtual ~AnimationComponent() {}
+        AnimationComponent(const std::string& name);
+        virtual ~AnimationComponent();
 
         virtual void initialize() override{}
 
         void setSkeleton(const Ra::Core::Animation::Skeleton& skel);
 
         inline Ra::Core::Animation::Skeleton& getSkeleton() { return m_skel; }
-        ANIM_PLUGIN_API Ra::Core::Animation::WeightMatrix getWeights() const;
-        ANIM_PLUGIN_API Ra::Core::Animation::Pose getRefPose() const;
+        Ra::Core::Animation::WeightMatrix getWeights() const;
+        Ra::Core::Animation::Pose getRefPose() const;
 
 
         /// Update the skeleton with an animation.
         void update(Scalar dt);
         void reset();
-        ANIM_PLUGIN_API void setXray(bool on) const;
+        void setXray(bool on) const;
 
         void toggleSkeleton( const bool status );
         void toggleAnimationTimeStep( const bool status );
@@ -119,7 +108,6 @@ namespace AnimationPlugin
         Scalar m_speed;
         bool   m_slowMo;
 
-//        int m_selectedBone;
         bool m_wasReset;
         bool m_resetDone;
     };
