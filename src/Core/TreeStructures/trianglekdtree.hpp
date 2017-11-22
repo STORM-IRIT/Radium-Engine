@@ -82,9 +82,9 @@ public:
 
     inline Index doQueryRestrictedClosestIndex(const VectorType& s1, const VectorType& s2, Scalar sqdist);
 
-    inline void doQueryRestrictedClosestIndexes(const VectorType &s1, const VectorType &s2, Scalar sqdist, std::vector<Index>& cl_dist);
+    inline void doQueryRestrictedClosestIndexes(const VectorType &s1, const VectorType &s2, Scalar sqdist, std::vector<std::pair<Index,Scalar> >& cl);
 
-    inline Index doQueryRestrictedClosestIndexTriangle(const VectorType &a, const VectorType &b, const VectorType &c);
+    inline std::pair<Index,Scalar> doQueryRestrictedClosestIndexTriangle(const VectorType &a, const VectorType &b, const VectorType &c);
 
 protected:
 
@@ -309,16 +309,14 @@ Index TriangleKdTree<Index>::doQueryRestrictedClosestIndex(const VectorType &s1,
 }
 
 template<typename Index>
-void TriangleKdTree<Index>::doQueryRestrictedClosestIndexes(const VectorType &s1, const VectorType &s2, Scalar sqdist, std::vector<Index>& cl_id)
+void TriangleKdTree<Index>::doQueryRestrictedClosestIndexes(const VectorType &s1, const VectorType &s2, Scalar sqdist, std::vector<std::pair<Index,Scalar> >& cl)
 {
     mNodeStack[0].nodeId = 0;
     mNodeStack[0].sq = 0.f;
     unsigned int count = 1;
 
-    //int nbLoop = 0;
     while (count)
     {
-        //nbLoop++;
         QueryNode& qnode = mNodeStack[count-1];
         KdNode   & node  = mNodes[qnode.nodeId];
 
@@ -339,7 +337,10 @@ void TriangleKdTree<Index>::doQueryRestrictedClosestIndexes(const VectorType &s1
                     const Scalar dist = Ra::Core::DistanceQueries::segmentToTriSq(segCenter, segDirection, segExtent, triangle).sqrDistance;
                     if (dist < sqdist)
                     {
-                        cl_id.push_back(node.triangleIndices[i]);
+                        std::pair<Index,Scalar> t;
+                        t.first = node.triangleIndices[i];
+                        t.second = std::sqrt(dist);
+                        cl.push_back(t);
                     }
                 }
             }
@@ -407,10 +408,11 @@ void TriangleKdTree<Index>::doQueryRestrictedClosestIndexes(const VectorType &s1
 }
 
 template<typename Index>
-Index TriangleKdTree<Index>::doQueryRestrictedClosestIndexTriangle(const VectorType &a, const VectorType &b, const VectorType &c)
+std::pair<Index,Scalar> TriangleKdTree<Index>::doQueryRestrictedClosestIndexTriangle(const VectorType &a, const VectorType &b, const VectorType &c)
 {
-    Index cl_id = invalidIndex();
-    Scalar cl_dist = std::numeric_limits<Scalar>::max();
+    std::pair<Index,Scalar> cl;
+    cl.first = invalidIndex();
+    cl.second = std::numeric_limits<Scalar>::max();
 
     mNodeStack[0].nodeId = 0;
     mNodeStack[0].sq = 0.f;
@@ -421,7 +423,7 @@ Index TriangleKdTree<Index>::doQueryRestrictedClosestIndexTriangle(const VectorT
         QueryNode& qnode = mNodeStack[count-1];
         KdNode   & node  = mNodes[qnode.nodeId];
 
-        if (qnode.sq < cl_dist)
+        if (qnode.sq < cl.second)
         {
             if (node.leaf)
             {
@@ -434,10 +436,10 @@ Index TriangleKdTree<Index>::doQueryRestrictedClosestIndexTriangle(const VectorT
                                                      mPoints[mTriangles[node.triangleIndices[i]][1]],
                                                      mPoints[mTriangles[node.triangleIndices[i]][2]] };
                     const Scalar sqdist = Ra::Core::DistanceQueries::triangleToTriSq(v, triangle).sqrDistance;
-                    if (sqdist < cl_dist)
+                    if (sqdist < cl.second)
                     {
-                        cl_dist = sqdist;
-                        cl_id = node.triangleIndices[i];
+                        cl.second = sqdist;
+                        cl.first = node.triangleIndices[i];
                     }
                 }
             }
@@ -518,7 +520,8 @@ Index TriangleKdTree<Index>::doQueryRestrictedClosestIndexTriangle(const VectorT
             --count;
         }
     }
-    return cl_id;
+    cl.second = std::sqrt(cl.second);
+    return cl;
 }
 
 template<typename Index>

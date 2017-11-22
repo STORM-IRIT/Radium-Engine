@@ -60,6 +60,7 @@ namespace Ra
 
             void constructPriorityQueues();
             void updatePriorityQueue(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex);
+            void edgeErrorComputation(Ra::Core::HalfEdge_ptr h, int objIndex, Scalar& error, Ra::Core::Vector3& p);
             void constructPriorityQueues2();
             void updatePriorityQueue2(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex);
             bool edgeCollapse(int objIndex);
@@ -69,7 +70,7 @@ namespace Ra
             int m_nb_faces_max;
             int m_nbfacesinit;
             int m_nbfaces;
-            int m_nbobjects; // number of objects to be simplify (the first ones to be loaded into the scene)
+            int m_nbobjects; // number of objects to be simplified (the first ones to be loaded into the scene)
             Scalar m_threshold; // distance used to define "contacts"
             Scalar m_influence; // weight value for the threshold in order to compute a broader threshold
             Scalar m_asymmetry; // threshold for the asymmetry between the 2 triangles defining a contact
@@ -80,7 +81,6 @@ namespace Ra
 
             Eigen::Matrix<Scalar, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_thresholds; // thresholds for each pair of objects
 
-            std::vector<Super4PCS::KdTree<>*> m_kdtrees;
             std::vector<Super4PCS::TriangleKdTree<>*> m_trianglekdtrees;
             std::vector<MeshContactElement*> m_meshContactElements;
 

@@ -311,7 +311,7 @@ namespace Ra
         }
 
         template <class ErrorMetric>
-        void ProgressiveMesh<ErrorMetric>::edgeContacts(Index vertexIndex1, Index vertexIndex2, std::vector<Super4PCS::TriangleKdTree<>*> trianglekdtrees, int idxOtherObject, Scalar threshold, std::vector<int>& contacts)
+        void ProgressiveMesh<ErrorMetric>::edgeContacts(Index vertexIndex1, Index vertexIndex2, std::vector<Super4PCS::TriangleKdTree<>*> trianglekdtrees, int idxOtherObject, Scalar threshold, std::vector<std::pair<int,Scalar> >& contacts)
         {
             Vertex_ptr v1 = m_dcel->m_vertex[vertexIndex1];
             Vertex_ptr v2 = m_dcel->m_vertex[vertexIndex2];
