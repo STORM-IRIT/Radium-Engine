@@ -41,15 +41,15 @@ namespace Ra
 
         void MeshContactElement::setlodValueChanged(int value)
         {
-            // Retrieving the data of the displayed mesh
+            // retrieving the data of the displayed mesh
             Ra::Core::Vector3Array& vertices = *(m_verticesWriter());
             Ra::Core::Vector3Array& normals = *(m_normalsWriter());
             TriangleArray& triangles = *(m_trianglesWriter());
 
-            // Go to LOD with 'value' number of faces
+            // go to LOD with 'value' number of faces
             Ra::Core::TriangleMesh mNew = m_pmlod->gotoM(value);
 
-            // Update of the data of the displayed mesh
+            // update of the data of the displayed mesh
             triangles = mNew.m_triangles;
             vertices = mNew.m_vertices;
             Ra::Core::Geometry::uniformNormal(vertices, triangles, normals);
@@ -61,18 +61,9 @@ namespace Ra
             return triangles.size();
         }
 
-
-        Super4PCS::KdTree<>* MeshContactElement::computeKdTree()
-        {
-            const Super4PCS::KdTree<>::PointList& points = reinterpret_cast<const Super4PCS::KdTree<>::PointList&>(*(m_verticesWriter()));
-            return (new Super4PCS::KdTree<>(points));
-        }
-
         Super4PCS::TriangleKdTree<>* MeshContactElement::computeTriangleKdTree(Ra::Core::TriangleMesh& tm)
         {
-            //const Super4PCS::TriangleKdTree<>::TriangleList& triangles = reinterpret_cast<const Super4PCS::TriangleKdTree<>::TriangleList&>(*(m_trianglesWriter()));
             const Super4PCS::TriangleKdTree<>::TriangleList& triangles = reinterpret_cast<const Super4PCS::TriangleKdTree<>::TriangleList&>(tm.m_triangles);
-            //const Super4PCS::TriangleKdTree<>::PointList& points = reinterpret_cast<const Super4PCS::TriangleKdTree<>::PointList&>(*(m_verticesWriter()));
             const Super4PCS::TriangleKdTree<>::PointList& points = reinterpret_cast<const Super4PCS::TriangleKdTree<>::PointList&>(tm.m_vertices);
             return (new Super4PCS::TriangleKdTree<>(triangles, points));
         }
@@ -140,7 +131,7 @@ namespace Ra
             if (! getProgressiveMeshLOD()->getProgressiveMesh()->isEcolConsistent(he->idx, d.m_p_result))
             {
                 LOG(logINFO) << "Collapse not possible";
-                getPriorityQueue()->top(); //it's better not to delete the collapse from the priority queue, but to assign a very big error to it
+                getPriorityQueue()->top();
                 return false;
             }
             else if (! getProgressiveMeshLOD()->getProgressiveMesh()->isEcolPossible(he->idx, d.m_p_result))
@@ -166,14 +157,14 @@ namespace Ra
 
         void MeshContactElement::computePrimitives()
         {
-            // We retrieve the initial faces quadrics
+            // we retrieve the initial faces quadrics
             std::vector<Ra::Core::ProgressiveMesh<>::Primitive> facesPrimitives = getProgressiveMeshLOD()->getProgressiveMesh()->getFacesQuadrics();
 
             int nbVertex = getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex.size();
 
             for (uint v = 0; v < nbVertex; v++)
             {
-                // We go all over the faces which contain vertexIndex
+                // we go all over the faces which contain vertexIndex
                 Ra::Core::VFIterator vfIt = Ra::Core::VFIterator(getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[v]);
                 Ra::Core::FaceList adjFaces = vfIt.list();
 

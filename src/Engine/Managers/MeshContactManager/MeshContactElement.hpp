@@ -33,10 +33,9 @@ namespace Ra
                     ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite trianglesWriter
                     );
 
-            Super4PCS::KdTree<>* computeKdTree();
             Super4PCS::TriangleKdTree<>* computeTriangleKdTree(Ra::Core::TriangleMesh& tm);
-            void computePrimitives(); //Computes initial vertices quadrics used to detect contacts
-            void computeFacePrimitives(); //Computes initial face quadrics used to detect contacts
+            void computePrimitives(); // computes initial vertices quadrics used to detect contacts
+            void computeFacePrimitives(); // computes initial face quadrics used to detect contacts
             void computeTriangleMesh();
             void computeProgressiveMesh();
 
@@ -67,8 +66,8 @@ namespace Ra
 
             Ra::Core::ProgressiveMeshLOD* m_pmlod;
             Ra::Core::PriorityQueue* m_pqueue;
-            std::vector<Ra::Core::ProgressiveMesh<>::Primitive> m_primitives; // Initial vertex quadrics
-            std::vector<Ra::Core::ProgressiveMesh<>::Primitive> m_faceprimitives; // Initial face quadrics
+            std::vector<Ra::Core::ProgressiveMesh<>::Primitive> m_primitives; // initial vertex quadrics
+            std::vector<Ra::Core::ProgressiveMesh<>::Primitive> m_faceprimitives; // initial face quadrics
             Ra::Core::TriangleMesh m_initTriangleMesh;
         };
 

@@ -405,7 +405,7 @@ namespace Ra
 
                 //obj->displayEllipsoids();
 
-                //add the display of the updated ellipsoids
+                // add the display of the updated ellipsoids
             }
         }
 
@@ -515,7 +515,7 @@ namespace Ra
                         MeshContactElement* otherObj = static_cast<MeshContactElement*>(m_meshContactElements[k]);
                         std::vector<std::pair<int,Scalar> > faceIndexes;
 
-                        // All close faces
+                        // all close faces
                         obj->getProgressiveMeshLOD()->getProgressiveMesh()->edgeContacts(vs->idx, vt->idx, m_trianglekdtrees, k, std::pow(m_broader_threshold,2), faceIndexes);
                         if ( faceIndexes.size() != 0)
                         {
@@ -593,7 +593,7 @@ namespace Ra
             for (unsigned int i = 0; i < numTriangles; i++)
             {
 
-                //browse edges
+                // browse edges
                 Ra::Core::Vector3 p = Ra::Core::Vector3::Zero();
                 int j;
                 const Ra::Core::Face_ptr& f = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_face.at( i );
@@ -603,7 +603,7 @@ namespace Ra
                     const Ra::Core::Vertex_ptr& vs = h->V();
                     const Ra::Core::Vertex_ptr& vt = h->Next()->V();
 
-                    // To prevent adding twice the same edge
+                    // to prevent adding twice the same edge
                     if (vs->idx > vt->idx)
                     {
                         h = h->Next();
@@ -613,7 +613,7 @@ namespace Ra
                     Scalar error;
                     edgeErrorComputation(h,objIndex,error, p);
 
-                    //insert into the priority queue with the real resulting point
+                    // insert into the priority queue with the real resulting point
 #pragma omp critical
                     {
                         pQueue.insert(Ra::Core::PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, error, p, objIndex));
@@ -634,7 +634,7 @@ namespace Ra
 
             Ra::Core::Vector3 p = Ra::Core::Vector3::Zero();
 
-            //Listing of all the new edges formed with vs
+            // listing of all the new edges formed with vs
             Ra::Core::VHEIterator vsHEIt = Ra::Core::VHEIterator(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[vsIndex]);
             Ra::Core::HalfEdgeList adjHE = vsHEIt.list();
 
@@ -668,11 +668,11 @@ namespace Ra
 
             if (obj->isConstructM0())
             {
-                //edge collapse and putting the collapse data in the ProgressiveMeshLOD
+                // edge collapse and putting the collapse data in the ProgressiveMeshLOD
                 Ra::Core::PriorityQueue::PriorityQueueData d = obj->getPriorityQueue()->top();
                 Ra::Core::HalfEdge_ptr he = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[d.m_edge_id];
 
-                //retrieve the quadric of vt to store it into data
+                // retrieve the quadric of vt to store it into data
                 Ra::Core::Vertex_ptr vt = he->Next()->V();
                 Ra::Core::Quadric<3> qVt = obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeVertexQuadric(vt->idx);
     //            Ra::Core::ProgressiveMesh<>::Primitive qVt = obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeVertexQuadric(vt->idx);
@@ -690,15 +690,15 @@ namespace Ra
                 obj->getProgressiveMeshLOD()->getProgressiveMesh()->collapseVertex();
                 Ra::Core::ProgressiveMeshData data = Ra::Core::DcelOperations::edgeCollapse(*(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()), d.m_edge_id, d.m_p_result);
 
-                //adding the quadric of vt to data
+                // adding the quadric of vt to data
                 data.setQVt(qVt);
 
                 if (obj->getProgressiveMeshLOD()->getProgressiveMesh()->getNbFaces() > 0)
                 {
                 obj->getProgressiveMeshLOD()->getProgressiveMesh()->updateFacesQuadrics(d.m_vs_id);
                 }
-                //update the priority queue of the object
-                //updatePriorityQueue(d.m_vs_id, d.m_vt_id, objIndex);
+                // update the priority queue of the object
+                // updatePriorityQueue(d.m_vs_id, d.m_vt_id, objIndex);
                 updatePriorityQueue2(d.m_vs_id, d.m_vt_id, objIndex);
     //            else
     //            {
