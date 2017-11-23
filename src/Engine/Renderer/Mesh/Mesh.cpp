@@ -18,7 +18,8 @@ namespace Ra {
             CORE_ASSERT( m_renderMode == RM_LINES
                       || m_renderMode == RM_LINES_ADJACENCY
                       || m_renderMode == RM_TRIANGLES
-                      || m_renderMode == RM_POINTS,
+                      || m_renderMode == RM_POINTS
+                      || m_renderMode == RM_LINE_STRIP_ADJACENCY,
                          "Unsupported render mode" );
         }
 
