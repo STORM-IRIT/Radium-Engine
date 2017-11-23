@@ -125,6 +125,8 @@ namespace Ra
             /// Access the additionnal data arrays by type.
             inline const Core::Vector3Array& getData( const Vec3Data& type ) const;
             inline const Core::Vector4Array& getData( const Vec4Data& type ) const;
+            inline Core::Vector3Array& getData( const Vec3Data& type );
+            inline Core::Vector4Array& getData( const Vec4Data& type );
 
             /// Mark one of the data types as dirty, forcing an update of the openGL buffer.
             inline void setDirty( const MeshData& type );
