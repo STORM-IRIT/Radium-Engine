@@ -355,9 +355,23 @@ namespace Ra
         // always restore displaytexture to 0 before switch to keep coherent renderer state
         m_displayedTextureCombo->setCurrentIndex(0);
         m_viewer->changeRenderer(m_currentRendererCombo->currentIndex());
+        updateDisplayedTexture();
         // in case the newly used renderer has not been set before and set another texture as its default,
         // set displayTexture to 0 again ;)
         m_displayedTextureCombo->setCurrentIndex(0);
+    }
+
+    void Gui::MainWindow::updateDisplayedTexture()
+    {
+        QSignalBlocker blockTextures(m_displayedTextureCombo);
+
+        m_displayedTextureCombo->clear();
+
+        auto texs = m_viewer->getRenderer()->getAvailableTextures();
+        for (const auto& tex : texs)
+        {
+            m_displayedTextureCombo->addItem(tex.c_str());
+        }
     }
 
     void Gui::MainWindow::changeRenderObjectShader(const QString& shaderName)
@@ -452,14 +466,7 @@ namespace Ra
     void Gui::MainWindow::onRendererReady()
     {
         m_viewer->getCameraInterface()->resetCamera();
-
-        QSignalBlocker blockTextures(m_displayedTextureCombo);
-
-        auto texs = m_viewer->getRenderer()->getAvailableTextures();
-        for (const auto& tex : texs)
-        {
-            m_displayedTextureCombo->addItem(tex.c_str());
-        }
+        updateDisplayedTexture();
     }
 
     void Gui::MainWindow::onFrameComplete()
