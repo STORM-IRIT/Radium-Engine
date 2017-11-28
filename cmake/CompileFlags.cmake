@@ -15,9 +15,9 @@ endif()
 
 
 set(UNIX_DEFAULT_CXX_FLAGS                "-Wall -Wextra  -pthread -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions -fPIC")
-set(UNIX_DEFAULT_CXX_FLATS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb")
-set(UNIX_DEFAULT_CXX_FLATS_RELEASE        "-DNDEBUG -O3")
-set(UNIX_DEFAULT_CXX_FLATS_RELWITHDEBINFO "-g3")
+set(UNIX_DEFAULT_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb")
+set(UNIX_DEFAULT_CXX_FLAGS_RELEASE        "-DNDEBUG -O3")
+set(UNIX_DEFAULT_CXX_FLAGS_RELWITHDEBINFO "-g3")
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -34,9 +34,9 @@ if (APPLE)
     endif()
 
     set(CMAKE_CXX_FLAGS                "${UNIX_DEFAULT_CXX_FLAGS}                ${CMAKE_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS_DEBUG          "${UNIX_DEFAULT_CXX_FLATS_DEBUG}          ${CMAKE_CXX_FLAGS_DEBUG}")
-    set(CMAKE_CXX_FLAGS_RELEASE        "${UNIX_DEFAULT_CXX_FLATS_RELEASE}        ${MATH_FLAG}")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${UNIX_DEFAULT_CXX_FLATS_RELWITHDEBINFO} ${CMAKE_CXX_FLAGS_RELEASE}")
+    set(CMAKE_CXX_FLAGS_DEBUG          "${UNIX_DEFAULT_CXX_FLAGS_DEBUG}          ${CMAKE_CXX_FLAGS_DEBUG}")
+    set(CMAKE_CXX_FLAGS_RELEASE        "${UNIX_DEFAULT_CXX_FLAGS_RELEASE}        ${MATH_FLAG}")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${UNIX_DEFAULT_CXX_FLAGS_RELWITHDEBINFO} ${CMAKE_CXX_FLAGS_RELEASE}")
 
     add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
 elseif (UNIX OR MINGW)
@@ -55,9 +55,9 @@ elseif (UNIX OR MINGW)
     endif()
 
     set(CMAKE_CXX_FLAGS                "${UNIX_DEFAULT_CXX_FLAGS}                ${EIGEN_ALIGNMENT_FLAG} ${CMAKE_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS_DEBUG          "${UNIX_DEFAULT_CXX_FLATS_DEBUG}          ${CMAKE_CXX_FLAGS_DEBUG}")
-    set(CMAKE_CXX_FLAGS_RELEASE        "${UNIX_DEFAULT_CXX_FLATS_RELEASE}        ${MATH_FLAG}")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${UNIX_DEFAULT_CXX_FLATS_RELWITHDEBINFO} -ggdb ${CMAKE_CXX_FLAGS_RELEASE}")
+    set(CMAKE_CXX_FLAGS_DEBUG          "${UNIX_DEFAULT_CXX_FLAGS_DEBUG}          ${CMAKE_CXX_FLAGS_DEBUG}")
+    set(CMAKE_CXX_FLAGS_RELEASE        "${UNIX_DEFAULT_CXX_FLAGS_RELEASE}        ${MATH_FLAG}")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${UNIX_DEFAULT_CXX_FLAGS_RELWITHDEBINFO} -ggdb ${CMAKE_CXX_FLAGS_RELEASE}")
 
     # Prevent Eigen from spitting thousands of warnings with gcc 6+
     add_definitions(-Wno-deprecated-declarations)
