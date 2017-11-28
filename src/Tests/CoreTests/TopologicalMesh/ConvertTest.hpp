@@ -25,7 +25,7 @@ namespace RaTests {
             mesh  = Ra::Core::MeshUtils::makeBox();
             Ra::Core::MeshConverter::convert(mesh, topologicalMesh);
             Ra::Core::MeshConverter::convert(topologicalMesh, newMesh);
-            RA_UNIT_TEST( isSameMesh(mesh,newMesh), "Conversion to topological torus mesh failed" );
+            RA_UNIT_TEST( isSameMesh(mesh,newMesh), "Conversion to topological box mesh failed" );
 
             //Test for mesh with bounderies
             mesh  = Ra::Core::MeshUtils::makePlaneGrid(2,2);
