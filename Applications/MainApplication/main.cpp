@@ -6,6 +6,8 @@
 
 int main( int argc, char** argv )
 {
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
     Ra::MainApplication app( argc, argv );
 
     const uint& fpsMax = app.m_targetFPS;
@@ -20,6 +22,7 @@ int main( int argc, char** argv )
         app.radiumFrame();
 
         // Wait for VSync
+        // FIXME : use a timer here instead of an active polling
         Scalar remaining = deltaTime;
         while (remaining > 0.0)
         {
