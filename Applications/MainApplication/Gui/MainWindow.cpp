@@ -46,6 +46,19 @@ namespace Ra
 
         setupUi(this);
 
+
+        m_viewer = new Ra::Gui::Viewer();
+        m_viewer->setObjectName(QStringLiteral("m_viewer"));
+
+
+        QWidget * viewerwidget = QWidget::createWindowContainer(m_viewer);
+        //viewerwidget->setMinimumSize(QSize(800, 600));
+        viewerwidget->setAutoFillBackground(false);
+        viewerwidget->setFocusPolicy( Qt::StrongFocus );
+        //gridLayout_2->addWidget(viewerwidget, 0, 0, 1, 1);
+        setCentralWidget(viewerwidget);
+
+
         setWindowIcon(QPixmap(":/Assets/Images/RadiumIcon.png"));
         setWindowTitle(QString("Radium Engine"));
 

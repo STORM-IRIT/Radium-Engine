@@ -12,6 +12,8 @@
 
 #include <iostream>
 
+#include <QOpenGLContext>
+
 #include <QTimer>
 #include <QMouseEvent>
 #include <QPainter>
@@ -41,25 +43,37 @@
 
 namespace Ra
 {
-    Gui::Viewer::Viewer( QWidget* parent )
-        : QOpenGLWidget( parent )
+    Gui::Viewer::Viewer( QScreen * screen )
+        : QWindow(screen)
+        , m_context(new QOpenGLContext)
         , m_currentRenderer( nullptr )
         , m_featurePickingManager( nullptr )
+        , m_camera( nullptr )
         , m_gizmoManager( new GizmoManager(this) )
         , m_renderThread( nullptr )
         , m_glInitStatus( false )
     {
-        // Allow Viewer to receive events
-        setFocusPolicy( Qt::StrongFocus );
         setMinimumSize( QSize( 800, 600 ) );
+        setSurfaceType(OpenGLSurface);
+        create();
+
+        // Allow Viewer to receive events
+
 
         m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
         m_featurePickingManager = new FeaturePickingManager();
 
         /// Intercept events to properly lock the renderer when it is compositing.
+
+        m_context->create();
+        m_context->makeCurrent(this);
+        initializeGL();
+        m_context->doneCurrent();
     }
 
-    Gui::Viewer::~Viewer(){}
+    Gui::Viewer::~Viewer(){
+        delete m_gizmoManager;
+    }
 
 
     int Gui::Viewer::addRenderer(std::shared_ptr<Engine::Renderer> e){
@@ -189,8 +203,21 @@ namespace Ra
     {
         // FIXME (Mathias) : Problem of glarea dimension on OsX Retina Display (half the size)
         // Renderer should have been locked by previous events.
+        m_context->makeCurrent(this);
         m_camera->resizeViewport( width, height );
         m_currentRenderer->resize( width, height );
+        m_context->doneCurrent();
+    }
+
+    void Gui::Viewer::resizeEvent(QResizeEvent *event)
+    {
+        if (!m_currentRenderer || !m_camera)
+            return;
+
+        resizeGL(event->size().width(), event->size().height());
+        /* if (isExposed() && Hidden != visibility())
+            paintGL();
+        */
     }
 
     Engine::Renderer::PickingMode getPickingMode()
@@ -265,7 +292,7 @@ namespace Ra
     void Gui::Viewer::wheelEvent( QWheelEvent* event )
     {
         m_camera->handleWheelEvent(event);
-        QOpenGLWidget::wheelEvent( event );
+        //QOpenGLWidget::wheelEvent( event );
     }
 
     void Gui::Viewer::keyPressEvent( QKeyEvent* event )
@@ -273,7 +300,7 @@ namespace Ra
         keyPressed(event->key());
         m_camera->handleKeyPressEvent( event );
 
-        QOpenGLWidget::keyPressEvent(event);
+        //QOpenGLWidget::keyPressEvent(event);
     }
 
     void Gui::Viewer::keyReleaseEvent( QKeyEvent* event )
@@ -286,23 +313,27 @@ namespace Ra
             m_currentRenderer->toggleWireframe();
         }
 
-        QOpenGLWidget::keyReleaseEvent(event);
+        //QOpenGLWidget::keyReleaseEvent(event);
     }
 
     void Gui::Viewer::reloadShaders()
     {
         // FIXME : check thread-saefty of this.
         m_currentRenderer->lockRendering();
-        makeCurrent();
+
+        m_context->makeCurrent(this);
         m_currentRenderer->reloadShaders();
-        doneCurrent();
+        m_context->doneCurrent();
+
         m_currentRenderer->unlockRendering();
     }
 
     void Gui::Viewer::displayTexture( const QString &tex )
     {
         m_currentRenderer->lockRendering();
+
         m_currentRenderer->displayTexture( tex.toStdString() );
+
         m_currentRenderer->unlockRendering();
     }
 
@@ -320,7 +351,7 @@ namespace Ra
 
     void Gui::Viewer::startRendering( const Scalar dt )
     {
-        makeCurrent();
+        m_context->makeCurrent(this);
 
         // Move camera if needed. Disabled for now as it takes too long (see issue #69)
         //m_camera->update( dt );
@@ -331,10 +362,13 @@ namespace Ra
         data.viewMatrix = m_camera->getViewMatrix();
 
         m_currentRenderer->render( data );
+
     }
 
     void Gui::Viewer::waitForRendering()
     {
+        m_context->swapBuffers(this);
+        m_context->doneCurrent();
     }
 
     void Gui::Viewer::handleFileLoading( const std::string& file )
@@ -410,7 +444,7 @@ namespace Ra
 
     void Gui::Viewer::grabFrame( const std::string& filename )
     {
-        makeCurrent();
+        m_context->makeCurrent(this);
 
         uint w, h;
         uchar* writtenPixels = m_currentRenderer->grabFrame(w, h);
@@ -430,6 +464,7 @@ namespace Ra
             LOG(logWARNING) << "Cannot write frame to "<<filename<<" : unsupported extension";
         }
 
+        m_context->doneCurrent();
 
         delete[] writtenPixels;
 
