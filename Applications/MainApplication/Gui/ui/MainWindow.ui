@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1350</width>
-    <height>1016</height>
+    <height>877</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,23 +19,7 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
-     <widget class="Ra::Gui::Viewer" name="m_viewer" native="true">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>800</width>
-        <height>600</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
+  <widget class="QWidget" name="m_centralWidget"/>
   <widget class="QStatusBar" name="_statusBar"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -43,7 +27,7 @@
      <x>0</x>
      <y>0</y>
      <width>1350</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFILE">
@@ -789,12 +773,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
-  <customwidget>
-   <class>Ra::Gui::Viewer</class>
-   <extends>QWidget</extends>
-   <header>GuiBase/Viewer/Viewer.hpp</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>Ra::Gui::TransformEditorWidget</class>
    <extends>QWidget</extends>

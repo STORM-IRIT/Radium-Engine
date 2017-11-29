@@ -230,6 +230,7 @@ namespace Ra
 
     void BaseApplication::setupScene()
     {
+
         using namespace Engine::DrawPrimitives;
 
         auto grid = Primitive(Engine::SystemEntity::uiCmp(),
@@ -247,10 +248,12 @@ namespace Ra
         Ra::Engine::Entity* e = em->entityExists("Test") ?
             Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->getEntity("Test"):
             Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity("Test");
+
         for (auto& c: e->getComponents())
         {
             c->initialize();
         }
+
     }
 
     void BaseApplication::loadFile( QString path )
@@ -358,7 +361,8 @@ namespace Ra
         // ----------
         // 4. Wait until frame is fully rendered and display.
         m_viewer->waitForRendering();
-        m_viewer->update();
+
+        //m_viewer->update();
 
         timerData.renderData = m_viewer->getRenderer()->getTimerData();
 

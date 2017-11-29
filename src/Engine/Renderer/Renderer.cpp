@@ -83,8 +83,7 @@ namespace Ra
 
             m_pickingFbo.reset( new globjects::Framebuffer() );
             // FIXED : no need for that
-            m_pickingFbo->create();
-            GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
+            // m_pickingFbo->create();
 
             m_pickingTexture.reset(new Texture("Picking"));
             m_pickingTexture->internalFormat = GL_RGBA32I;
@@ -118,6 +117,12 @@ namespace Ra
 
             std::lock_guard<std::mutex> renderLock( m_renderMutex );
             CORE_UNUSED( renderLock );
+
+            // Before changing the viewport, backup the current ...
+            int previousViewport[4];
+            glGetIntegerv(GL_VIEWPORT, previousViewport);
+
+            glViewport(0, 0, m_width, m_height);
 
             m_timerData.renderStart = Core::Timer::Clock::now();
 
@@ -161,6 +166,7 @@ namespace Ra
             uiInternal( data );
 
             // 8. Write image to framebuffer.
+            glViewport(previousViewport[0], previousViewport[1], previousViewport[2], previousViewport[3]);
             drawScreenInternal();
             m_timerData.renderEnd = Core::Timer::Clock::now();
 
@@ -367,6 +373,7 @@ namespace Ra
 
         void Renderer::drawScreenInternal()
         {
+
             if ( m_qtPlz == 0 )
             {
                 GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, 0 ) );
@@ -378,14 +385,12 @@ namespace Ra
                 GL_ASSERT( glDrawBuffers( 1, buffers ) );
             }
 
-            GL_ASSERT( glClearColor( 0.0, 0.0, 0.0, 0.0 ) );
+            GL_ASSERT( glClearColor( 0.0, 0.5, 0.25, 0.0 ) );
             // FIXME(Charly): Do we really need to clear the depth buffer ?
             GL_ASSERT( glClearDepth( 1.0 ) );
             GL_ASSERT( glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT ) );
 
             GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
-
-            GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
 
             auto shader = m_shaderMgr->getShaderProgram("DrawScreen");
             shader->bind();
@@ -422,14 +427,13 @@ namespace Ra
         {
             m_width = w;
             m_height = h;
-            glViewport( 0, 0, m_width, m_height );
+
 
             m_depthTexture->Generate(m_width, m_height, GL_DEPTH_COMPONENT);
-            m_pickingTexture->Generate(w, h, GL_RGBA_INTEGER);
-            m_fancyTexture->Generate(w, h, GL_RGBA);
+            m_pickingTexture->Generate(m_width, m_height, GL_RGBA_INTEGER);
+            m_fancyTexture->Generate(m_width, m_height, GL_RGBA);
 
             m_pickingFbo->bind();
-            glViewport( 0, 0, w, h );
             m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT , m_depthTexture.get()->texture() );
             m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get()->texture() );
             if ( m_pickingFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
