@@ -86,19 +86,17 @@ namespace Ra
         {
             LOG ( logDEBUG ) << "Main Framebuffer.";
             m_fbo.reset( new globjects::Framebuffer() );
-            // FIXED : This did twice the work of FB creatio, but destroyed one!
-            //m_fbo->create();
-            GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
+
+            // FIXED : Mathias : never do that, Viewport is a global state, i.e. the same for each FBO,
+            // including Default one (FBO 0). Change and set Viewport only when necessary and restore it to its
+            // previous value when done
+            //GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
 
             LOG ( logDEBUG ) << "Oit Framebuffer.";
             m_oitFbo.reset( new globjects::Framebuffer() );
-            //m_oitFbo->create();
-            GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
 
             LOG ( logDEBUG ) << "PostProcess Framebuffer.";
             m_postprocessFbo.reset( new globjects::Framebuffer() );
-            //m_postprocessFbo->create();
-            GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
 
             // Render pass
             m_textures[RendererTextures_Depth].reset(new Texture("Depth"));
@@ -173,6 +171,7 @@ namespace Ra
 
             m_fbo->bind();
 
+            GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
             GL_ASSERT( glDepthMask( GL_TRUE ) );
             GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
 
@@ -190,10 +189,8 @@ namespace Ra
             GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );         // Clear depth
 
             // Z prepass
-            GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
-            GL_ASSERT( glDepthFunc( GL_LESS ) );
-            GL_ASSERT( glDepthMask( GL_TRUE ) );
 
+            GL_ASSERT( glDepthFunc( GL_LESS ) );
             GL_ASSERT( glDisable( GL_BLEND ) );
 
             GL_ASSERT( glPointSize( 3. ) );
@@ -317,6 +314,7 @@ namespace Ra
             shader->setUniform("u_OITSumWeight", m_textures[RendererTextures_OITRevealage].get(), 1);
 
             m_quadMesh->render();
+
 #endif
 
             if (m_wireframe)
@@ -379,13 +377,13 @@ namespace Ra
 
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
                 glDisable(GL_POLYGON_OFFSET_LINE);
+
             }
 
             // Restore state
             GL_ASSERT( glDepthFunc( GL_LESS ) );
-            GL_ASSERT( glDisable( GL_BLEND ) );
             GL_ASSERT( glDepthMask( GL_TRUE ) );
-            GL_ASSERT( glDepthFunc( GL_LESS ) );
+            GL_ASSERT( glDisable( GL_BLEND ) );
 
             m_fbo->unbind();
         }
@@ -403,11 +401,8 @@ namespace Ra
                 GL_ASSERT( glDepthFunc( GL_LESS ) );
 
                 m_postprocessFbo->bind();
-                glViewport(0, 0, m_width, m_height);
 
                 glDrawBuffers(1, buffers);
-
-                glViewport(0, 0, m_width, m_height);
 
                 for ( const auto& ro : m_debugRenderObjects )
                 {
@@ -465,7 +460,6 @@ namespace Ra
 
                 // Draw X rayed objects always on top of normal objects
                 GL_ASSERT( glDepthMask( GL_TRUE ) );
-                GL_ASSERT( glDepthFunc( GL_LESS ) );
                 GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
 
                 for ( const auto& ro : m_xrayRenderObjects )
@@ -500,11 +494,16 @@ namespace Ra
 
             m_postprocessFbo->bind();
 
-            glViewport(0, 0, m_width, m_height);
             glDrawBuffers(1, buffers);
 
             // Enable z-test
-            if (1)
+            GL_ASSERT(glDepthMask(GL_TRUE));
+            GL_ASSERT(glEnable(GL_DEPTH_TEST));
+            GL_ASSERT(glDepthFunc(GL_LESS));
+            GL_ASSERT(glClear(GL_DEPTH_BUFFER_BIT));
+
+/* FIXME --> WTF this test ?
+            if (true)
             {
                 GL_ASSERT(glDepthMask(GL_TRUE));
                 GL_ASSERT(glEnable(GL_DEPTH_TEST));
@@ -518,7 +517,7 @@ namespace Ra
                 GL_ASSERT(glDepthFunc(GL_LESS));
                 GL_ASSERT(glClear(GL_DEPTH_BUFFER_BIT));
             }
-
+*/
             for ( const auto& ro : m_uiRenderObjects )
             {
                 if ( ro->isVisible() )
@@ -556,28 +555,22 @@ namespace Ra
         {
             CORE_UNUSED( renderData );
 
-            GL_ASSERT( glDisable(GL_DEPTH_TEST) );
-
             m_postprocessFbo->bind();
-            glViewport(0, 0, m_width, m_height);
-
-            GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
-            glDepthMask(GL_FALSE);
-
-            // FIXME(Charly): Do we really need to clear buffers ?
-            GL_ASSERT( glClearColor( 1.0, 1.0, 0.0, 0.0 ) );
-            GL_ASSERT( glDrawBuffers(5, buffers) );
-
-            m_postprocessFbo->clear( GL_COLOR_BUFFER_BIT );
-
-            const ShaderProgram* shader = nullptr;
 
             GL_ASSERT(glDrawBuffers(1, buffers));
-            GL_ASSERT(glViewport(0, 0, m_width, m_height));
-            shader = m_shaderMgr->getShaderProgram("DrawScreen");
+
+            GL_ASSERT( glDisable(GL_DEPTH_TEST) );
+            GL_ASSERT( glDepthMask(GL_FALSE) );
+
+            const ShaderProgram* shader = m_shaderMgr->getShaderProgram("DrawScreen");
             shader->bind();
             shader->setUniform("screenTexture", m_textures[RendererTextures_HDR].get(), 0);
             m_quadMesh->render();
+
+            GL_ASSERT( glDepthMask(GL_TRUE) );
+            GL_ASSERT( glEnable(GL_DEPTH_TEST) );
+
+            m_postprocessFbo->unbind();
         }
 
         void ForwardRenderer::resizeInternal()
@@ -593,7 +586,6 @@ namespace Ra
             m_textures[RendererTextures_OITRevealage]->Generate(m_width, m_height, GL_RGBA);
 
             m_fbo->bind();
-            glViewport( 0, 0, m_width, m_height );
             m_fbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get()->texture());
             m_fbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_HDR].get()->texture());
             m_fbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_Normal].get()->texture());
@@ -607,7 +599,6 @@ namespace Ra
 
 #ifndef NO_TRANSPARENCY
             m_oitFbo->bind();
-            glViewport( 0, 0, m_width, m_height );
             m_oitFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get()->texture());
             m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_OITAccum].get()->texture());
             m_oitFbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_OITRevealage].get()->texture());
@@ -619,7 +610,6 @@ namespace Ra
 #endif
 
             m_postprocessFbo->bind();
-            glViewport( 0, 0, m_width, m_height );
             m_postprocessFbo->attachTexture(GL_DEPTH_ATTACHMENT , m_textures[RendererTextures_Depth].get()->texture());
             m_postprocessFbo->attachTexture(GL_COLOR_ATTACHMENT0, m_fancyTexture.get()->texture());
             if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )

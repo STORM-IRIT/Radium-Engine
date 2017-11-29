@@ -7,7 +7,9 @@
 #include <memory>
 #include <Engine/RadiumEngine.hpp>
 
-#include <QOpenGLWidget>
+#include <QWindow>
+
+//#include <QOpenGLWidget>
 #include <QThread>
 
 #include <Core/Math/LinearAlgebra.hpp>
@@ -15,6 +17,10 @@
 #include <GuiBase/Utils/FeaturePickingManager.hpp>
 
 // Forward declarations
+
+class QOpenGLContext;
+class QSurfaceFormat;
+
 namespace Ra
 {
     namespace Core
@@ -59,13 +65,13 @@ namespace Ra
         /// * catching user interaction (mouse clicks) at the lowest level and forward it to
         /// the camera and the rest of the application
         /// * Expose the asynchronous rendering interface
-        class RA_GUIBASE_API Viewer : public QOpenGLWidget
+        class RA_GUIBASE_API Viewer : public QWindow
         {
             Q_OBJECT
 
         public:
             /// Constructor
-            explicit Viewer( QWidget* parent = nullptr );
+            explicit Viewer( QScreen * screen = nullptr );
 
             /// Destructor
             ~Viewer();
@@ -73,6 +79,10 @@ namespace Ra
             //
             // Accessors
             //
+
+            QOpenGLContext * context() {
+                return m_context.data();
+            }
 
             /// Access to camera interface.
             CameraInterface* getCameraInterface();
@@ -177,33 +187,36 @@ namespace Ra
             //
 
             /// Initialize openGL. Called on by the first "show" call to the main window.
-            virtual void initializeGL() override;
+            void initializeGL();
 
             /// Resize the view port and the camera. Called by the resize event.
-            virtual void resizeGL( int width, int height ) override;
+            void resizeGL( int width, int height );
 
             /// Paint event is set to a no-op to prevent synchronous rendering.
             /// We don't implement paintGL as well.
-            virtual void paintEvent( QPaintEvent* e ) override {}
+            //virtual void paintEvent( QPaintEvent* e ) override {}
 
             //
             // Qt input events.
             //
+            void resizeEvent(QResizeEvent * event) override;
 
-            virtual void keyPressEvent( QKeyEvent* event ) override;
-            virtual void keyReleaseEvent( QKeyEvent* event ) override;
+            void keyPressEvent( QKeyEvent* event ) override;
+            void keyReleaseEvent( QKeyEvent* event ) override;
 
             /// We intercept the mouse events in this widget to get the coordinates of the mouse
             /// in screen space.
-            virtual void mousePressEvent( QMouseEvent* event ) override;
-            virtual void mouseReleaseEvent( QMouseEvent* event ) override;
-            virtual void mouseMoveEvent( QMouseEvent* event ) override;
-            virtual void wheelEvent( QWheelEvent* event ) override;
+            void mousePressEvent( QMouseEvent* event ) override;
+            void mouseReleaseEvent( QMouseEvent* event ) override;
+            void mouseMoveEvent( QMouseEvent* event ) override;
+            void wheelEvent( QWheelEvent* event ) override;
 
         public:
             Scalar m_dt;
 
         protected:
+            QScopedPointer<QOpenGLContext> m_context;
+
             /// Owning pointer to the renderers.
             std::vector<std::shared_ptr<Engine::Renderer>> m_renderers;
             Engine::Renderer* m_currentRenderer;

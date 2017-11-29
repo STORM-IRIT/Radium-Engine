@@ -178,6 +178,9 @@ namespace Ra
 
             /// Widget to allow material edition.
             MaterialEditor* m_materialEditor;
+
+            /// viewer widget
+            Ra::Gui::Viewer *m_viewer;
         };
 
     } // namespace Gui
