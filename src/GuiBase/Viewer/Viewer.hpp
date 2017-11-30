@@ -216,7 +216,7 @@ namespace Ra
             void mouseMoveEvent( QMouseEvent* event ) override;
             void wheelEvent( QWheelEvent* event ) override;
 
-            void exposeEvent(QExposeEvent *ev) override;
+            void showEvent(QShowEvent *ev) override;
 
         public:
             Scalar m_dt;

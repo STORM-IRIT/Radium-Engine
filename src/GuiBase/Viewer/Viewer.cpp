@@ -54,12 +54,9 @@ namespace Ra
         , m_glInitStatus( false )
     {
         setMinimumSize( QSize( 800, 600 ) );
+
         setSurfaceType(OpenGLSurface);
-//         create(); // ???
-        
-
         m_featurePickingManager = new FeaturePickingManager();
-
     }
 
     Gui::Viewer::~Viewer(){
@@ -104,6 +101,8 @@ namespace Ra
     
     void Gui::Viewer::initializeGL()
     {
+        LOG( logDEBUG ) << "Gui::Viewer::initializeGL : "  << width() << 'x' << height() << std::endl;
+
         m_context.reset(new QOpenGLContext());
         m_context->create();
         m_context->makeCurrent(this);
@@ -138,8 +137,7 @@ namespace Ra
         m_currentRenderer = m_renderers[0].get();
 
         emit rendererReady();
-
-        m_context->doneCurrent();
+         m_context->doneCurrent();
     }
 
     Gui::CameraInterface* Gui::Viewer::getCameraInterface()
@@ -200,12 +198,22 @@ namespace Ra
             renderer->addLight( m_camera->getLight() );
     }
 
-    void Gui::Viewer::resizeGL( int width, int height )
+    void Gui::Viewer::resizeGL( int width_, int height_ )
     {
+        LOG( logDEBUG ) << "Gui::Viewer::resizeGL : "  << width() << 'x' << height();
+
         // Renderer should have been locked by previous events.
         m_context->makeCurrent(this);
-        m_camera->resizeViewport( width, height );
-        m_currentRenderer->resize( width, height );
+
+#ifndef OS_MACOS
+        glViewport(0, 0, width(), height());
+#endif
+        int qtViewport[4];
+        glGetIntegerv(GL_VIEWPORT, qtViewport);
+        LOG( logDEBUG ) << "Qt Viewport (Viewer/Qwindow): " << qtViewport[0] << '-' << qtViewport[1] << '+' << qtViewport[2] << '-' << qtViewport[3];
+
+        m_camera->resizeViewport( width_, height_ );
+        m_currentRenderer->resize( width_, height_ );
         m_context->doneCurrent();
     }
 
@@ -294,9 +302,10 @@ namespace Ra
         // QWindow::wheelEvent( event );
     }
 
-    void Gui::Viewer::exposeEvent(QExposeEvent *ev) {
+    void Gui::Viewer::showEvent(QShowEvent *ev) {
+        LOG( logDEBUG ) << "Gui::Viewer --> Got show event : " << width() << 'x' << height();
         if(!m_context)
-            initializeGL();       
+            initializeGL();
     }
 
     void Gui::Viewer::keyPressEvent( QKeyEvent* event )

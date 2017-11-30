@@ -429,7 +429,6 @@ namespace Ra
             m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get()->texture() );
             if ( m_pickingFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
             {
-                LOG( logERROR ) << "FBO info : " << m_pickingFbo->checkStatus();
                 LOG( logERROR ) << "FBO Error : " << m_pickingFbo->checkStatus();
             }
             m_pickingFbo->unbind();
