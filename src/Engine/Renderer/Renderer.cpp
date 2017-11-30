@@ -82,8 +82,6 @@ namespace Ra
             m_depthTexture->dataType = GL_UNSIGNED_INT;
 
             m_pickingFbo.reset( new globjects::Framebuffer() );
-            // FIXED : no need for that
-            // m_pickingFbo->create();
 
             m_pickingTexture.reset(new Texture("Picking"));
             m_pickingTexture->internalFormat = GL_RGBA32I;

@@ -33,7 +33,9 @@ int main(int argc, char* argv[])
     MinimalApp app(argc, argv);
     LOG(logDEBUG) << "Show viewer.";
     app.m_viewer->show();
-    CORE_ASSERT( app.m_viewer->context()->isValid(), "OpenGL was not initialized" );
+    CORE_ASSERT( app.m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
+    LOG(logDEBUG) << "Process events.";
+    QApplication::processEvents();
 
     // Create one system
     LOG(logDEBUG) << "Creating minimal system.";
