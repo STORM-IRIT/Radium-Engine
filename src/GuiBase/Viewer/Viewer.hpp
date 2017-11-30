@@ -9,7 +9,6 @@
 
 #include <QWindow>
 
-//#include <QOpenGLWidget>
 #include <QThread>
 
 #include <Core/Math/LinearAlgebra.hpp>
@@ -17,7 +16,6 @@
 #include <GuiBase/Utils/FeaturePickingManager.hpp>
 
 // Forward declarations
-
 class QOpenGLContext;
 class QSurfaceFormat;
 
@@ -56,7 +54,16 @@ namespace Ra
         //                  Can it be done during runtime ? Must it be at startup ? ...
         //                  For now, default ForwardRenderer is used.
 
-        /// The Viewer is the main display class. It's the central screen QWidget.
+        /// The Viewer is the main display class. It could be used as an independant window or
+        /// can be set as a central widget on a more complex gui by using the adapter fro QWindow to QWidget
+        /// To do that, the following code could be used :
+        /// \code{.cpp}
+        ///     m_viewer = new Ra::Gui::Viewer();
+        ///     QWidget * viewerwidget = QWidget::createWindowContainer(m_viewer);
+        ///     viewerwidget->setFocusPolicy( Qt::StrongFocus );
+        ///     setCentralWidget(viewerwidget);
+        /// \endcode
+        /// Whatever its usage (QWindow or QWidget) the Viewer has the same funtionalities.
         /// Its acts as a bridge between the interface, the engine and the renderer
         /// Among its responsibilities are :
         /// * Owning the renderer and camera, and managing their lifetime.
@@ -74,14 +81,14 @@ namespace Ra
             explicit Viewer( QScreen * screen = nullptr );
 
             /// Destructor
-            ~Viewer();
+            virtual ~Viewer();
 
             //
             // Accessors
             //
 
-            QOpenGLContext * context() {
-                return m_context.data();
+            QOpenGLContext * getContext() const {
+                return m_context.get();
             }
 
             /// Access to camera interface.
@@ -131,6 +138,7 @@ namespace Ra
             /// Write the current frame as an image. Supports either BMP or PNG file names.
             void grabFrame( const std::string& filename );
 
+            void enableDebug();
         signals:
             void glInitialized();               //! Emitted when GL context is ready. We except call to addRenderer here
             void rendererReady();               //! Emitted when the rendered is correctly initialized
@@ -183,18 +191,15 @@ namespace Ra
             void intializeRenderer(Engine::Renderer* renderer);
 
             //
-            // QOpenGlWidget primitives
+            // OpenGL primitives
+            // Not herited, defined here in the same way QOpenGLWidget define them.
             //
 
             /// Initialize openGL. Called on by the first "show" call to the main window.
-            void initializeGL();
+            virtual void initializeGL();
 
             /// Resize the view port and the camera. Called by the resize event.
-            void resizeGL( int width, int height );
-
-            /// Paint event is set to a no-op to prevent synchronous rendering.
-            /// We don't implement paintGL as well.
-            //virtual void paintEvent( QPaintEvent* e ) override {}
+            virtual void resizeGL( int width, int height );
 
             //
             // Qt input events.
@@ -211,11 +216,15 @@ namespace Ra
             void mouseMoveEvent( QMouseEvent* event ) override;
             void wheelEvent( QWheelEvent* event ) override;
 
+            void showEvent(QShowEvent *ev) override;
+            void exposeEvent(QExposeEvent *ev) override;
+
         public:
             Scalar m_dt;
 
         protected:
-            QScopedPointer<QOpenGLContext> m_context;
+            // OpenglContext used with this widget
+            std::unique_ptr<QOpenGLContext> m_context;
 
             /// Owning pointer to the renderers.
             std::vector<std::shared_ptr<Engine::Renderer>> m_renderers;
