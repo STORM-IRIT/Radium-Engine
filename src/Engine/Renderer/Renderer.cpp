@@ -82,8 +82,6 @@ namespace Ra
             m_depthTexture->dataType = GL_UNSIGNED_INT;
 
             m_pickingFbo.reset( new globjects::Framebuffer() );
-            // FIXED : no need for that
-            // m_pickingFbo->create();
 
             m_pickingTexture.reset(new Texture("Picking"));
             m_pickingTexture->internalFormat = GL_RGBA32I;
@@ -431,6 +429,7 @@ namespace Ra
             m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get()->texture() );
             if ( m_pickingFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
             {
+                LOG( logERROR ) << "FBO info : " << m_pickingFbo->checkStatus();
                 LOG( logERROR ) << "FBO Error : " << m_pickingFbo->checkStatus();
             }
             m_pickingFbo->unbind();

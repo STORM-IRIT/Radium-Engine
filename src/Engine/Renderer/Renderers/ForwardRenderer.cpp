@@ -87,10 +87,6 @@ namespace Ra
             LOG ( logDEBUG ) << "Main Framebuffer.";
             m_fbo.reset( new globjects::Framebuffer() );
 
-            // FIXED : Mathias : never do that, Viewport is a global state, i.e. the same for each FBO,
-            // including Default one (FBO 0). Change and set Viewport only when necessary and restore it to its
-            // previous value when done
-
             LOG ( logDEBUG ) << "Oit Framebuffer.";
             m_oitFbo.reset( new globjects::Framebuffer() );
 
@@ -589,6 +585,7 @@ namespace Ra
             m_fbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_Normal].get()->texture());
             m_fbo->attachTexture(GL_COLOR_ATTACHMENT2, m_textures[RendererTextures_Diffuse].get()->texture());
             m_fbo->attachTexture(GL_COLOR_ATTACHMENT3, m_textures[RendererTextures_Specular].get()->texture());
+            GL_CHECK_ERROR
             if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
             {
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();

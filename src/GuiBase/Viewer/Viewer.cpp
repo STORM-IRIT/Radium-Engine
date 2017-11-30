@@ -45,7 +45,7 @@ namespace Ra
 {
     Gui::Viewer::Viewer( QScreen * screen )
         : QWindow(screen)
-        , m_context(new QOpenGLContext)
+        , m_context(nullptr)
         , m_currentRenderer( nullptr )
         , m_featurePickingManager( nullptr )
         , m_camera( nullptr )
@@ -55,15 +55,11 @@ namespace Ra
     {
         setMinimumSize( QSize( 800, 600 ) );
         setSurfaceType(OpenGLSurface);
-        create();
+//         create(); // ???
+        
 
-        m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
         m_featurePickingManager = new FeaturePickingManager();
 
-        m_context->create();
-        m_context->makeCurrent(this);
-        initializeGL();
-        m_context->doneCurrent();
     }
 
     Gui::Viewer::~Viewer(){
@@ -83,8 +79,37 @@ namespace Ra
         return m_renderers.size()-1;
     }
 
+
+    void Gui::Viewer::enableDebug()
+    {
+        glbinding::setCallbackMask(glbinding::CallbackMask::After | glbinding::CallbackMask::ParametersAndReturnValue);
+        glbinding::setAfterCallback([](const glbinding::FunctionCall & call)
+                                    {
+                                        std::cerr << call.function->name() << "(";
+                                        for (unsigned i = 0; i < call.parameters.size(); ++i)
+                                        {
+                                            std::cerr << call.parameters[i]->asString();
+                                            if (i < call.parameters.size() - 1)
+                                                std::cerr << ", ";
+                                        }
+                                        std::cerr << ")";
+
+                                        if (call.returnValue)
+                                            std::cerr << " -> " << call.returnValue->asString();
+
+                                        std::cerr << std::endl;
+
+                                    });
+    }
+    
     void Gui::Viewer::initializeGL()
     {
+        m_context.reset(new QOpenGLContext());
+        m_context->create();
+        m_context->makeCurrent(this);
+      
+        m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
+
         // no need to initalize glbinding. globjects (magically) do this internally.
         globjects::init(globjects::Shader::IncludeImplementation::Fallback);
 
@@ -112,28 +137,9 @@ namespace Ra
 
         m_currentRenderer = m_renderers[0].get();
 
-/*
-        glbinding::setCallbackMask(glbinding::CallbackMask::After | glbinding::CallbackMask::ParametersAndReturnValue);
-        glbinding::setAfterCallback([](const glbinding::FunctionCall & call)
-                                    {
-                                        std::cerr << call.function->name() << "(";
-                                        for (unsigned i = 0; i < call.parameters.size(); ++i)
-                                        {
-                                            std::cerr << call.parameters[i]->asString();
-                                            if (i < call.parameters.size() - 1)
-                                                std::cerr << ", ";
-                                        }
-                                        std::cerr << ")";
-
-                                        if (call.returnValue)
-                                            std::cerr << " -> " << call.returnValue->asString();
-
-                                        std::cerr << std::endl;
-
-                                    });
-*/
-
         emit rendererReady();
+
+        m_context->doneCurrent();
     }
 
     Gui::CameraInterface* Gui::Viewer::getCameraInterface()
@@ -286,6 +292,11 @@ namespace Ra
 
         // Do we need this ?
         // QWindow::wheelEvent( event );
+    }
+
+    void Gui::Viewer::exposeEvent(QExposeEvent *ev) {
+        if(!m_context)
+            initializeGL();       
     }
 
     void Gui::Viewer::keyPressEvent( QKeyEvent* event )

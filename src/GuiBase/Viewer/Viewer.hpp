@@ -138,6 +138,7 @@ namespace Ra
             /// Write the current frame as an image. Supports either BMP or PNG file names.
             void grabFrame( const std::string& filename );
 
+            void enableDebug();
         signals:
             void glInitialized();               //! Emitted when GL context is ready. We except call to addRenderer here
             void rendererReady();               //! Emitted when the rendered is correctly initialized
@@ -214,6 +215,8 @@ namespace Ra
             void mouseReleaseEvent( QMouseEvent* event ) override;
             void mouseMoveEvent( QMouseEvent* event ) override;
             void wheelEvent( QWheelEvent* event ) override;
+
+            void exposeEvent(QExposeEvent *ev) override;
 
         public:
             Scalar m_dt;
