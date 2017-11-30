@@ -1,2 +1,2 @@
 add_subdirectory(MainApplication)
-#add_subdirectory(Test0)
+add_subdirectory(Test0)

@@ -45,7 +45,7 @@ namespace Ra
 {
     Gui::Viewer::Viewer( QScreen * screen )
         : QWindow(screen)
-        , m_context(new QOpenGLContext)
+        , m_context(nullptr)
         , m_currentRenderer( nullptr )
         , m_featurePickingManager( nullptr )
         , m_camera( nullptr )
@@ -54,21 +54,9 @@ namespace Ra
         , m_glInitStatus( false )
     {
         setMinimumSize( QSize( 800, 600 ) );
+
         setSurfaceType(OpenGLSurface);
-        create();
-
-        // Allow Viewer to receive events
-
-
-        m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
         m_featurePickingManager = new FeaturePickingManager();
-
-        /// Intercept events to properly lock the renderer when it is compositing.
-
-        m_context->create();
-        m_context->makeCurrent(this);
-        initializeGL();
-        m_context->doneCurrent();
     }
 
     Gui::Viewer::~Viewer(){
@@ -88,36 +76,9 @@ namespace Ra
         return m_renderers.size()-1;
     }
 
-    void Gui::Viewer::initializeGL()
+
+    void Gui::Viewer::enableDebug()
     {
-        // no need to initalize glbinding. globjects (magically) do this internally.
-        globjects::init(globjects::Shader::IncludeImplementation::Fallback);
-
-        LOG( logINFO ) << "*** Radium Engine Viewer ***";
-        LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::ContextInfo::renderer();
-        LOG( logINFO ) << "Vendor   (glbinding) : " << glbinding::ContextInfo::vendor();
-        LOG( logINFO ) << "OpenGL   (glbinding) : " << glbinding::ContextInfo::version().toString();
-        LOG( logINFO ) << "GLSL                 : " << gl::glGetString(gl::GLenum(GL_SHADING_LANGUAGE_VERSION));
-
-        Engine::ShaderProgramManager::createInstance("Shaders/Default.vert.glsl",
-                                                     "Shaders/Default.frag.glsl");
-
-        auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
-        m_camera->attachLight( light );
-
-        m_glInitStatus = true;
-        emit glInitialized();
-
-        if(m_renderers.empty()) {
-            LOG(logWARNING)
-                    << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
-            std::shared_ptr<Ra::Engine::Renderer> e (new Ra::Engine::ForwardRenderer());
-            addRenderer(e);
-        }
-
-        m_currentRenderer = m_renderers[0].get();
-
-/*
         glbinding::setCallbackMask(glbinding::CallbackMask::After | glbinding::CallbackMask::ParametersAndReturnValue);
         glbinding::setAfterCallback([](const glbinding::FunctionCall & call)
                                     {
@@ -136,9 +97,37 @@ namespace Ra
                                         std::cerr << std::endl;
 
                                     });
-*/
+    }
+
+    void Gui::Viewer::initializeGL()
+    {
+//        LOG( logDEBUG ) << "Gui::Viewer::initializeGL : "  << width() << 'x' << height() << std::endl;
+        // verify if context is created ?
+        m_context->makeCurrent(this);
+
+        m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
+
+        LOG( logINFO ) << "*** Radium Engine Viewer ***";
+        Engine::ShaderProgramManager::createInstance("Shaders/Default.vert.glsl",
+                                                     "Shaders/Default.frag.glsl");
+
+        auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
+        m_camera->attachLight( light );
+
+        m_glInitStatus = true;
+        emit glInitialized();
+
+        if(m_renderers.empty()) {
+            LOG(logWARNING)
+                    << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
+            std::shared_ptr<Ra::Engine::Renderer> e (new Ra::Engine::ForwardRenderer());
+            addRenderer(e);
+        }
+
+        m_currentRenderer = m_renderers[0].get();
 
         emit rendererReady();
+        m_context->doneCurrent();
     }
 
     Gui::CameraInterface* Gui::Viewer::getCameraInterface()
@@ -199,25 +188,33 @@ namespace Ra
             renderer->addLight( m_camera->getLight() );
     }
 
-    void Gui::Viewer::resizeGL( int width, int height )
+    void Gui::Viewer::resizeGL( int width_, int height_ )
     {
-        // FIXME (Mathias) : Problem of glarea dimension on OsX Retina Display (half the size)
         // Renderer should have been locked by previous events.
         m_context->makeCurrent(this);
-        m_camera->resizeViewport( width, height );
-        m_currentRenderer->resize( width, height );
+
+        // FIXME (Mathias) : try to understand the reasons of so different functionalities and how is managed the vieport size on MAcOs
+        // On MacOs, no need to define the initial viewport, as written in the glviewport documentation :
+        // "When a GL context is first attached to a window, width and height are set to the dimensions of that window.
+        // https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glViewport.xhtml
+        // INFORMATION FOR MACOS WITH RETINA : on retina screens, the (QWindow) window report a size of wxh and the
+        // initial viewport of size of 2wx2h.
+        // It seems that this is not the case on Linux, where the (QWindow) window report a size of wxh and the
+        // initial viewport of size of 100x100. (at least on my Nvidia OpenGL 4.4 drivers)
+        // So we set here the initial viewport to the size of the window.
+        // Surprisingly, on MacOs, the wiewport follow the size of the window (I presume, as a consequence
+        // of the activation of the context by m_context->makeCurrent(this);). Not on Linux ... is it a Qt bunctionnality ?
+
+//        int qtViewport[4];
+//        glGetIntegerv(GL_VIEWPORT, qtViewport);
+//        LOG( logDEBUG ) << "Qt Viewport (Viewer/Qwindow): " << qtViewport[0] << '-' << qtViewport[1] << '+' << qtViewport[2] << '-' << qtViewport[3];
+
+#ifndef OS_MACOS
+        glViewport(0, 0, width(), height());
+#endif
+        m_camera->resizeViewport( width_, height_ );
+        m_currentRenderer->resize( width_, height_ );
         m_context->doneCurrent();
-    }
-
-    void Gui::Viewer::resizeEvent(QResizeEvent *event)
-    {
-        if (!m_currentRenderer || !m_camera)
-            return;
-
-        resizeGL(event->size().width(), event->size().height());
-        /* if (isExposed() && Hidden != visibility())
-            paintGL();
-        */
     }
 
     Engine::Renderer::PickingMode getPickingMode()
@@ -292,7 +289,9 @@ namespace Ra
     void Gui::Viewer::wheelEvent( QWheelEvent* event )
     {
         m_camera->handleWheelEvent(event);
-        //QOpenGLWidget::wheelEvent( event );
+
+        // Do we need this ?
+        // QWindow::wheelEvent( event );
     }
 
     void Gui::Viewer::keyPressEvent( QKeyEvent* event )
@@ -300,7 +299,8 @@ namespace Ra
         keyPressed(event->key());
         m_camera->handleKeyPressEvent( event );
 
-        //QOpenGLWidget::keyPressEvent(event);
+        // Do we need this ?
+        //QWindow::keyPressEvent(event);
     }
 
     void Gui::Viewer::keyReleaseEvent( QKeyEvent* event )
@@ -313,7 +313,46 @@ namespace Ra
             m_currentRenderer->toggleWireframe();
         }
 
-        //QOpenGLWidget::keyReleaseEvent(event);
+        // Do we need this ?
+        //QWindow::keyReleaseEvent(event);
+    }
+
+    void Gui::Viewer::resizeEvent(QResizeEvent *event)
+    {
+ //       LOG( logDEBUG ) << "Gui::Viewer --> Got resize event : "  << width() << 'x' << height();
+
+        if(!m_glInitStatus)
+            initializeGL();
+
+        if (!m_currentRenderer || !m_camera)
+            return;
+
+        resizeGL(event->size().width(), event->size().height());
+    }
+
+    void Gui::Viewer::showEvent(QShowEvent *ev)
+    {
+ //       LOG( logDEBUG ) << "Gui::Viewer --> Got show event : " << width() << 'x' << height();
+        if(!m_context) {
+            m_context.reset(new QOpenGLContext());
+            m_context->create();
+            m_context->makeCurrent(this);
+            // no need to initalize glbinding. globjects (magically) do this internally.
+            globjects::init(globjects::Shader::IncludeImplementation::Fallback);
+
+            LOG( logINFO ) << "*** Radium Engine OpenGL context ***";
+            LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::ContextInfo::renderer();
+            LOG( logINFO ) << "Vendor   (glbinding) : " << glbinding::ContextInfo::vendor();
+            LOG( logINFO ) << "OpenGL   (glbinding) : " << glbinding::ContextInfo::version().toString();
+            LOG( logINFO ) << "GLSL                 : " << gl::glGetString(gl::GLenum(GL_SHADING_LANGUAGE_VERSION));
+
+            m_context->doneCurrent();
+        }
+    }
+
+    void Gui::Viewer::exposeEvent(QExposeEvent *ev)
+    {
+ //       LOG( logDEBUG ) << "Gui::Viewer --> Got exposed event : " << width() << 'x' << height();
     }
 
     void Gui::Viewer::reloadShaders()
@@ -367,7 +406,9 @@ namespace Ra
 
     void Gui::Viewer::waitForRendering()
     {
-        m_context->swapBuffers(this);
+        if (isExposed())
+            m_context->swapBuffers(this);
+
         m_context->doneCurrent();
     }
 
