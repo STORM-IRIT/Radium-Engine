@@ -90,7 +90,6 @@ namespace Ra
             // FIXED : Mathias : never do that, Viewport is a global state, i.e. the same for each FBO,
             // including Default one (FBO 0). Change and set Viewport only when necessary and restore it to its
             // previous value when done
-            // GL_ASSERT( glViewport( 0, 0, m_width, m_height ) );
 
             LOG ( logDEBUG ) << "Oit Framebuffer.";
             m_oitFbo.reset( new globjects::Framebuffer() );

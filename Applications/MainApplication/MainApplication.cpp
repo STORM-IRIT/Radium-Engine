@@ -230,6 +230,7 @@ namespace Ra
 
     void BaseApplication::setupScene()
     {
+
         using namespace Engine::DrawPrimitives;
 
         auto grid = Primitive(Engine::SystemEntity::uiCmp(),
@@ -252,6 +253,7 @@ namespace Ra
         {
             c->initialize();
         }
+
     }
 
     void BaseApplication::loadFile( QString path )

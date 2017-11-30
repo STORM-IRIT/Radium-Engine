@@ -200,7 +200,6 @@ namespace Ra
             /// Resize the view port and the camera. Called by the resize event.
             virtual void resizeGL( int width, int height );
 
-
             //
             // Qt input events.
             //

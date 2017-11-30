@@ -283,14 +283,16 @@ namespace Ra
     void Gui::Viewer::wheelEvent( QWheelEvent* event )
     {
         m_camera->handleWheelEvent(event);
+
         // Do we need this ?
-        //QWindow::wheelEvent( event );
+        // QWindow::wheelEvent( event );
     }
 
     void Gui::Viewer::keyPressEvent( QKeyEvent* event )
     {
         keyPressed(event->key());
         m_camera->handleKeyPressEvent( event );
+
         // Do we need this ?
         //QWindow::keyPressEvent(event);
     }
@@ -304,6 +306,7 @@ namespace Ra
         {
             m_currentRenderer->toggleWireframe();
         }
+
         // Do we need this ?
         //QWindow::keyReleaseEvent(event);
     }

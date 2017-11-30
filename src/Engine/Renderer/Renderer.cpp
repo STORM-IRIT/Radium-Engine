@@ -118,6 +118,12 @@ namespace Ra
             std::lock_guard<std::mutex> renderLock( m_renderMutex );
             CORE_UNUSED( renderLock );
 
+            // Before changing the viewport, backup the current ...
+            int previousViewport[4];
+            glGetIntegerv(GL_VIEWPORT, previousViewport);
+
+            glViewport(0, 0, m_width, m_height);
+
             m_timerData.renderStart = Core::Timer::Clock::now();
 
             // 0. Save eventual already bound FBO (e.g. QtOpenGLWidget) and viewport
@@ -372,6 +378,7 @@ namespace Ra
         void Renderer::drawScreenInternal()
         {
             glViewport(m_qtViewport[0], m_qtViewport[1], m_qtViewport[2], m_qtViewport[3]);
+
             if ( m_qtPlz == 0 )
             {
                 GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, 0 ) );

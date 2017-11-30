@@ -66,5 +66,6 @@ void MinimalApp::frame()
 
     // Finish the frame
     m_viewer->waitForRendering();
+
     m_engine->endFrameSync();
 }

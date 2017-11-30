@@ -54,6 +54,7 @@ namespace Ra
         viewerwidget->setMinimumSize(QSize(800, 600));
         viewerwidget->setAutoFillBackground(false);
         viewerwidget->setFocusPolicy( Qt::StrongFocus );
+
         setCentralWidget(viewerwidget);
 
 
