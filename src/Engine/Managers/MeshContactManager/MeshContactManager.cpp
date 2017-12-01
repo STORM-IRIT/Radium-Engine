@@ -293,61 +293,138 @@ namespace Ra
 
         void MeshContactManager::distanceAsymmetryDistribution()
         {
-            Scalar dist, dist1, dist2;
-            Scalar asymm;
             std::pair<Ra::Core::Index,Scalar> triangle;
-            std::pair<Ra::Core::Index,Scalar> triangle2;
+
             for (uint i = 0; i < m_meshContactElements.size(); i++)
             {
                 MeshContactElement* obj1 = m_meshContactElements[i];
                 Ra::Core::VectorArray<Ra::Core::Triangle> t1 = obj1->getInitTriangleMesh().m_triangles;
                 Ra::Core::VectorArray<Ra::Core::Vector3> v1 = obj1->getInitTriangleMesh().m_vertices;
-                Super4PCS::AABB3D aabb1 = Super4PCS::AABB3D();
-                for (uint a = 0; a < v1.size(); a++)
-                {
-                    aabb1.extendTo(v1[a]);
-                }
+//                Super4PCS::AABB3D aabb1 = Super4PCS::AABB3D();
+//                for (uint a = 0; a < v1.size(); a++)
+//                {
+//                    aabb1.extendTo(v1[a]);
+//                }
+
+                std::vector<std::vector<std::pair<Ra::Core::Index,Scalar> > > obj1_distances;
+
                 for (uint j = 0; j < m_meshContactElements.size(); j++)
                 {
+
+                    std::vector<std::pair<Ra::Core::Index,Scalar> > distances;
+
                     if (j != i)
                     {
-                        MeshContactElement* obj2 = m_meshContactElements[j];
-                        Ra::Core::VectorArray<Ra::Core::Triangle> t2 = obj2->getInitTriangleMesh().m_triangles;
-                        Ra::Core::VectorArray<Ra::Core::Vector3> v2 = obj2->getInitTriangleMesh().m_vertices;
+//                        MeshContactElement* obj2 = m_meshContactElements[j];
+//                        Ra::Core::VectorArray<Ra::Core::Vector3> v2 = obj2->getInitTriangleMesh().m_vertices;
+//                        Super4PCS::AABB3D aabb2 = Super4PCS::AABB3D();
+//                        for (uint b = 0; b < v2.size(); b++)
+//                        {
+//                            aabb2.extendTo(v2[b]);
+//                        }
 
-                        std::ofstream file("Distrib_" + std::to_string(i) + "_" + std::to_string(j) + ".txt", std::ios::out | std::ios::trunc);
-                        CORE_ASSERT(file, "Error while opening distance distribution file.");
+//                        // intersection between the 2 bboxes to see if it's worth doing the following
+//                        if (aabb1.intersection(aabb2))
+//                        {
 
-                        // for each face of an object, we find the closest face in the other object
-                        for (uint k = 0; k < t1.size(); k++)
-                        {
-                            triangle = m_trianglekdtrees[j]->doQueryRestrictedClosestIndexTriangle(v1[t1[k][0]],v1[t1[k][1]],v1[t1[k][2]]);
-                            CORE_ASSERT(triangle.first > -1, "Invalid triangle index.");
-
-                            triangle2 = m_trianglekdtrees[i]->doQueryRestrictedClosestIndexTriangle(v2[t2[triangle.first][0]],v2[t2[triangle.first][1]],v2[t2[triangle.first][2]]);
-                            CORE_ASSERT(triangle2.first > -1, "Invalid triangle index.");
-
-                            dist1 = triangle.second;
-
-                            if (triangle2.first == k)
+                            // for each face of an object, we find the closest face in the other object
+                            for (uint k = 0; k < t1.size(); k++)
                             {
-                                dist = dist1;
-                                asymm = 0;
-                            }
-                            else
-                            {
-                                dist2 = triangle2.second;
-                                dist = (dist1 + dist2) / 2;
-                                asymm = abs(dist1 - dist2);
+                                triangle = m_trianglekdtrees[j]->doQueryRestrictedClosestIndexTriangle(v1[t1[k][0]],v1[t1[k][1]],v1[t1[k][2]]);
+                                CORE_ASSERT(triangle.first > -1, "Invalid triangle index.");
+
+                                distances.push_back(triangle);
                             }
 
-                            file << dist << " " << asymm << std::endl;
-                        }
+//                        }
+                    }
 
-                        file.close();
+                    obj1_distances.push_back(distances);
+                }
+
+                m_distances.push_back(obj1_distances);
+            }
+        }
+
+        void MeshContactManager::distanceAsymmetryFiles()
+        {
+            Scalar dist, asymm;
+
+            // for each object
+            for (uint i = 0; i < m_distances.size(); i++)
+            {
+                // for each other object whose bbox intersects the one of the object
+                for (uint j = i + 1; j < m_distances[i].size(); j++)
+                {
+                    std::ofstream file("Distrib_" + std::to_string(i) + "_" + std::to_string(j) + ".txt", std::ios::out | std::ios::trunc);
+                    CORE_ASSERT(file, "Error while opening distance distribution file.");
+
+                    // for each face of the object the closest face in the other object is found
+                    for (uint k = 0; k < m_distances[i][j].size(); k++)
+                    {
+                        std::pair<Ra::Core::Index,Scalar> triangle1 = m_distances[i][j][k];
+
+                        std::pair<Ra::Core::Index,Scalar> triangle2 = m_distances[j][i][triangle1.first];
+                        dist = (triangle1.second + triangle2.second) / 2;
+                        asymm = abs(triangle1.second - triangle2.second);
+                        file << dist << " " << asymm << std::endl;
+                    }
+
+                    // for each face of the other object the closest face in the object is found
+                    for (uint k = 0; k < m_distances[j][i].size(); k++)
+                    {
+                        std::pair<Ra::Core::Index,Scalar> triangle1 = m_distances[j][i][k];
+
+                        std::pair<Ra::Core::Index,Scalar> triangle2 = m_distances[i][j][triangle1.first];
+                        dist = (triangle1.second + triangle2.second) / 2;
+                        asymm = abs(triangle1.second - triangle2.second);
+                        file << dist << " " << asymm << std::endl;
+                    }
+
+                    file.close();
+                }
+            }
+        }
+
+        void MeshContactManager::distanceAsymmetryFile()
+        {
+            Scalar dist, asymm;
+
+            std::ofstream file("Distrib.txt", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(file, "Error while opening distance distribution file.");
+
+
+            // for each object
+            for (uint i = 0; i < m_distances.size(); i++)
+            {
+                // for each other object whose bbox intersects the one of the object
+                for (uint j = i + 1; j < m_distances[i].size(); j++)
+                {
+                    // for each face of the object the closest face in the other object is found
+                    for (uint k = 0; k < m_distances[i][j].size(); k++)
+                    {
+                        std::pair<Ra::Core::Index,Scalar> triangle1 = m_distances[i][j][k];
+
+                        std::pair<Ra::Core::Index,Scalar> triangle2 = m_distances[j][i][triangle1.first];
+                        dist = (triangle1.second + triangle2.second) / 2;
+                        asymm = abs(triangle1.second - triangle2.second);
+                        file << dist << " " << asymm << std::endl;
+                    }
+
+                    // for each face of the other object the closest face in the object is found
+                    for (uint k = 0; k < m_distances[j][i].size(); k++)
+                    {
+                        std::pair<Ra::Core::Index,Scalar> triangle1 = m_distances[j][i][k];
+
+                        std::pair<Ra::Core::Index,Scalar> triangle2 = m_distances[i][j][triangle1.first];
+                        dist = (triangle1.second + triangle2.second) / 2;
+                        asymm = abs(triangle1.second - triangle2.second);
+                        file << dist << " " << asymm << std::endl;
                     }
                 }
             }
+
+            file.close();
         }
 
         void MeshContactManager::thresholdComputation()
@@ -412,6 +489,8 @@ namespace Ra
         void MeshContactManager::setComputeR()
         {
             distanceAsymmetryDistribution();
+//            distanceAsymmetryFiles();
+            distanceAsymmetryFile();
             LOG(logINFO) << "Distance asymmetry distributions computed.";
         }
 
@@ -521,16 +600,12 @@ namespace Ra
                         {
                             for (uint l = 0; l < faceIndexes.size(); l++)
                             {
-                                const Ra::Core::Triangle& f = m_initTriangleMeshes[k].m_triangles[faceIndexes[l].first];
-                                Ra::Core::Vector3 triangle[3] = {m_initTriangleMeshes[k].m_vertices[f[0]], m_initTriangleMeshes[k].m_vertices[f[1]], m_initTriangleMeshes[k].m_vertices[f[2]]};
                                 dist = faceIndexes[l].second;
 
                                 // asymmetry computation
-                                std::pair<Ra::Core::Index,Scalar> triangle2 = m_trianglekdtrees[objIndex]->doQueryRestrictedClosestIndexTriangle(triangle[0],triangle[1],triangle[2]);
-                                CORE_ASSERT(triangle2.first > -1, "Invalid triangle index");
-                                Scalar dist2 = triangle2.second;
-                                if (abs(dist - dist2) <= m_asymmetry)
-                                {
+//                                Scalar dist2 = m_distances[k][objIndex][faceIndexes[l].first].second;
+//                                if (abs(dist - dist2) <= m_asymmetry)
+//                                {
                                     contact = true;
                                     if (m_broader_threshold == 0.0)
                                     {
@@ -547,7 +622,7 @@ namespace Ra
                                     qk = otherObj->getFacePrimitive(faceIndexes[l].first);
                                     qk *= weight;
                                     qc += qk;
-                                }
+//                                }
                             }
                         }
                     }

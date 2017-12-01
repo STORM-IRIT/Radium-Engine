@@ -56,6 +56,8 @@ namespace Ra
             void distanceDistribution();
             void compareDistanceDistribution();
             void distanceAsymmetryDistribution();
+            void distanceAsymmetryFiles();
+            void distanceAsymmetryFile();
             void thresholdComputation();
 
             void constructPriorityQueues();
@@ -80,6 +82,7 @@ namespace Ra
             Scalar m_n; // slope of the weight function for contacts
 
             Eigen::Matrix<Scalar, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_thresholds; // thresholds for each pair of objects
+            std::vector<std::vector<std::vector<std::pair<Ra::Core::Index,Scalar> > > > m_distances; // distances for each pair of objects
 
             std::vector<Super4PCS::TriangleKdTree<>*> m_trianglekdtrees;
             std::vector<MeshContactElement*> m_meshContactElements;
