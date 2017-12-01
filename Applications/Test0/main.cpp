@@ -29,21 +29,21 @@ int main(int argc, char* argv[])
     QSurfaceFormat::setDefaultFormat( format );
 
     // Create app
-    LOG(logINFO) << "Creating application.";
+    LOG(logDEBUG) << "Creating application.";
     MinimalApp app(argc, argv);
-    LOG(logINFO) << "Show viewer.";
+    LOG(logDEBUG) << "Show viewer.";
     app.m_viewer->show();
     CORE_ASSERT( app.m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
-    LOG(logINFO) << "Process events.";
+    LOG(logDEBUG) << "Process events.";
     QApplication::processEvents();
 
     // Create one system
-    LOG(logINFO) << "Creating minimal system.";
+    LOG(logDEBUG) << "Creating minimal system.";
     Ra::Engine::System* sys = new MinimalSystem;
     app.m_engine->registerSystem("Minimal system", sys);
 
     // Create and initialize entity and component
-    LOG(logINFO) << "Creating an entity.";
+    LOG(logDEBUG) << "Creating an entity.";
     Ra::Engine::Entity* e = app.m_engine->getEntityManager()->createEntity("Cube");
     Ra::Engine::Component* c = new MinimalComponent;
     e->addComponent(c);
@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
 
     // Start the app.
 
-    LOG(logINFO) << "Main loop.";
+    LOG(logDEBUG) << "Main loop.";
     app.m_frame_timer->start();
     return app.exec();
 }

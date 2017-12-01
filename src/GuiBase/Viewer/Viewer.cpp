@@ -102,22 +102,12 @@ namespace Ra
     void Gui::Viewer::initializeGL()
     {
 //        LOG( logDEBUG ) << "Gui::Viewer::initializeGL : "  << width() << 'x' << height() << std::endl;
-
-        m_context.reset(new QOpenGLContext());
-        m_context->create();
+        // verify if context is created ?
         m_context->makeCurrent(this);
 
         m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
 
-        // no need to initalize glbinding. globjects (magically) do this internally.
-        globjects::init(globjects::Shader::IncludeImplementation::Fallback);
-
         LOG( logINFO ) << "*** Radium Engine Viewer ***";
-        LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::ContextInfo::renderer();
-        LOG( logINFO ) << "Vendor   (glbinding) : " << glbinding::ContextInfo::vendor();
-        LOG( logINFO ) << "OpenGL   (glbinding) : " << glbinding::ContextInfo::version().toString();
-        LOG( logINFO ) << "GLSL                 : " << gl::glGetString(gl::GLenum(GL_SHADING_LANGUAGE_VERSION));
-
         Engine::ShaderProgramManager::createInstance("Shaders/Default.vert.glsl",
                                                      "Shaders/Default.frag.glsl");
 
@@ -329,9 +319,9 @@ namespace Ra
 
     void Gui::Viewer::resizeEvent(QResizeEvent *event)
     {
-        LOG( logINFO ) << "Gui::Viewer --> Got resize event : "  << width() << 'x' << height();
+        LOG( logDEBUG ) << "Gui::Viewer --> Got resize event : "  << width() << 'x' << height();
 
-        if(!m_context)
+        if(!m_glInitStatus)
             initializeGL();
 
         if (!m_currentRenderer || !m_camera)
@@ -342,17 +332,27 @@ namespace Ra
 
     void Gui::Viewer::showEvent(QShowEvent *ev)
     {
-        if (ev->spontaneous())
-            LOG( logINFO ) << "Gui::Viewer --> Got spontaneous show event : " << width() << 'x' << height();
-        else
-            LOG( logINFO ) << "Gui::Viewer --> Got internal show event : " << width() << 'x' << height();
-//        if(!m_context)
-//            initializeGL();
+        LOG( logDEBUG ) << "Gui::Viewer --> Got show event : " << width() << 'x' << height();
+        if(!m_context) {
+            m_context.reset(new QOpenGLContext());
+            m_context->create();
+            m_context->makeCurrent(this);
+            // no need to initalize glbinding. globjects (magically) do this internally.
+            globjects::init(globjects::Shader::IncludeImplementation::Fallback);
+
+            LOG( logINFO ) << "*** Radium Engine OpenGL context ***";
+            LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::ContextInfo::renderer();
+            LOG( logINFO ) << "Vendor   (glbinding) : " << glbinding::ContextInfo::vendor();
+            LOG( logINFO ) << "OpenGL   (glbinding) : " << glbinding::ContextInfo::version().toString();
+            LOG( logINFO ) << "GLSL                 : " << gl::glGetString(gl::GLenum(GL_SHADING_LANGUAGE_VERSION));
+
+            m_context->doneCurrent();
+        }
     }
 
     void Gui::Viewer::exposeEvent(QExposeEvent *ev)
     {
-        LOG( logINFO ) << "Gui::Viewer --> Got exposed event : " << width() << 'x' << height();
+        LOG( logDEBUG ) << "Gui::Viewer --> Got exposed event : " << width() << 'x' << height();
     }
 
     void Gui::Viewer::reloadShaders()
