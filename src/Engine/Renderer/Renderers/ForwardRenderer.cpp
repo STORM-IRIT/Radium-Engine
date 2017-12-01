@@ -376,8 +376,8 @@ namespace Ra
 
             // Restore state
             GL_ASSERT( glDepthFunc( GL_LESS ) );
-            GL_ASSERT( glDepthMask( GL_TRUE ) );
             GL_ASSERT( glDisable( GL_BLEND ) );
+            GL_ASSERT( glDepthMask( GL_TRUE ) );
 
             m_fbo->unbind();
         }
@@ -496,22 +496,6 @@ namespace Ra
             GL_ASSERT(glDepthFunc(GL_LESS));
             GL_ASSERT(glClear(GL_DEPTH_BUFFER_BIT));
 
-/* FIXME --> WTF this test ?
-            if (true)
-            {
-                GL_ASSERT(glDepthMask(GL_TRUE));
-                GL_ASSERT(glEnable(GL_DEPTH_TEST));
-                GL_ASSERT(glDepthFunc(GL_LESS));
-                GL_ASSERT(glClear(GL_DEPTH_BUFFER_BIT));
-            }
-            else
-            {
-                GL_ASSERT(glDepthMask(GL_FALSE));
-                GL_ASSERT(glDisable(GL_DEPTH_TEST));
-                GL_ASSERT(glDepthFunc(GL_LESS));
-                GL_ASSERT(glClear(GL_DEPTH_BUFFER_BIT));
-            }
-*/
             for ( const auto& ro : m_uiRenderObjects )
             {
                 if ( ro->isVisible() )
@@ -585,7 +569,6 @@ namespace Ra
             m_fbo->attachTexture(GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_Normal].get()->texture());
             m_fbo->attachTexture(GL_COLOR_ATTACHMENT2, m_textures[RendererTextures_Diffuse].get()->texture());
             m_fbo->attachTexture(GL_COLOR_ATTACHMENT3, m_textures[RendererTextures_Specular].get()->texture());
-            GL_CHECK_ERROR
             if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
             {
                 LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
