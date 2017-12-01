@@ -200,8 +200,6 @@ namespace Ra
 
     void Gui::Viewer::resizeGL( int width_, int height_ )
     {
-        LOG( logINFO ) << "Gui::Viewer::resizeGL : "  << width() << 'x' << height();
-
         // Renderer should have been locked by previous events.
         m_context->makeCurrent(this);
 
@@ -331,6 +329,8 @@ namespace Ra
 
     void Gui::Viewer::resizeEvent(QResizeEvent *event)
     {
+        LOG( logINFO ) << "Gui::Viewer --> Got resize event : "  << width() << 'x' << height();
+
         if(!m_context)
             initializeGL();
 
