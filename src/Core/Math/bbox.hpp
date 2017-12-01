@@ -110,6 +110,36 @@ public:
     inline Scalar height() const
     { return (_max - _min)(0); }
 
+    inline bool intersection(const AABB<Dim> b)
+    {
+        bool i = false;
+        uint j = 0;
+        while (!i && j < Dim)
+        {
+            if (_max[j] < b.min()[j])
+            {
+                j++;
+            }
+            else
+            {
+                i = true;
+            }
+        }
+        uint k = 0;
+        while (!i && j == Dim)
+        {
+            if (b.max()[k] < _min[k])
+            {
+                k++;
+            }
+            else
+            {
+                i = true;
+            }
+        }
+        return i;
+    }
+
 protected:
     VectorType _min, _max;
 
