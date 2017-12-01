@@ -200,7 +200,7 @@ namespace Ra
 
     void Gui::Viewer::resizeGL( int width_, int height_ )
     {
-//        LOG( logDEBUG ) << "Gui::Viewer::resizeGL : "  << width() << 'x' << height();
+        LOG( logINFO ) << "Gui::Viewer::resizeGL : "  << width() << 'x' << height();
 
         // Renderer should have been locked by previous events.
         m_context->makeCurrent(this);
@@ -227,14 +227,6 @@ namespace Ra
         m_camera->resizeViewport( width_, height_ );
         m_currentRenderer->resize( width_, height_ );
         m_context->doneCurrent();
-    }
-
-    void Gui::Viewer::resizeEvent(QResizeEvent *event)
-    {
-        if (!m_currentRenderer || !m_camera)
-            return;
-
-        resizeGL(event->size().width(), event->size().height());
     }
 
     Engine::Renderer::PickingMode getPickingMode()
@@ -314,12 +306,6 @@ namespace Ra
         // QWindow::wheelEvent( event );
     }
 
-    void Gui::Viewer::showEvent(QShowEvent *ev) {
-//        LOG( logDEBUG ) << "Gui::Viewer --> Got show event : " << width() << 'x' << height();
-        if(!m_context)
-            initializeGL();
-    }
-
     void Gui::Viewer::keyPressEvent( QKeyEvent* event )
     {
         keyPressed(event->key());
@@ -341,6 +327,32 @@ namespace Ra
 
         // Do we need this ?
         //QWindow::keyReleaseEvent(event);
+    }
+
+    void Gui::Viewer::resizeEvent(QResizeEvent *event)
+    {
+        if(!m_context)
+            initializeGL();
+
+        if (!m_currentRenderer || !m_camera)
+            return;
+
+        resizeGL(event->size().width(), event->size().height());
+    }
+
+    void Gui::Viewer::showEvent(QShowEvent *ev)
+    {
+        if (ev->spontaneous())
+            LOG( logINFO ) << "Gui::Viewer --> Got spontaneous show event : " << width() << 'x' << height();
+        else
+            LOG( logINFO ) << "Gui::Viewer --> Got internal show event : " << width() << 'x' << height();
+//        if(!m_context)
+//            initializeGL();
+    }
+
+    void Gui::Viewer::exposeEvent(QExposeEvent *ev)
+    {
+        LOG( logINFO ) << "Gui::Viewer --> Got exposed event : " << width() << 'x' << height();
     }
 
     void Gui::Viewer::reloadShaders()
@@ -394,7 +406,9 @@ namespace Ra
 
     void Gui::Viewer::waitForRendering()
     {
-        m_context->swapBuffers(this);
+        if (isExposed())
+            m_context->swapBuffers(this);
+
         m_context->doneCurrent();
     }
 
