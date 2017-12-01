@@ -319,7 +319,7 @@ namespace Ra
 
     void Gui::Viewer::resizeEvent(QResizeEvent *event)
     {
-        LOG( logDEBUG ) << "Gui::Viewer --> Got resize event : "  << width() << 'x' << height();
+ //       LOG( logDEBUG ) << "Gui::Viewer --> Got resize event : "  << width() << 'x' << height();
 
         if(!m_glInitStatus)
             initializeGL();
@@ -332,7 +332,7 @@ namespace Ra
 
     void Gui::Viewer::showEvent(QShowEvent *ev)
     {
-        LOG( logDEBUG ) << "Gui::Viewer --> Got show event : " << width() << 'x' << height();
+ //       LOG( logDEBUG ) << "Gui::Viewer --> Got show event : " << width() << 'x' << height();
         if(!m_context) {
             m_context.reset(new QOpenGLContext());
             m_context->create();
@@ -352,7 +352,7 @@ namespace Ra
 
     void Gui::Viewer::exposeEvent(QExposeEvent *ev)
     {
-        LOG( logDEBUG ) << "Gui::Viewer --> Got exposed event : " << width() << 'x' << height();
+ //       LOG( logDEBUG ) << "Gui::Viewer --> Got exposed event : " << width() << 'x' << height();
     }
 
     void Gui::Viewer::reloadShaders()
