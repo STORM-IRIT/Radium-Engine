@@ -98,7 +98,7 @@ namespace Ra
 
                                     });
     }
-    
+
     void Gui::Viewer::initializeGL()
     {
 //        LOG( logDEBUG ) << "Gui::Viewer::initializeGL : "  << width() << 'x' << height() << std::endl;
@@ -106,7 +106,7 @@ namespace Ra
         m_context.reset(new QOpenGLContext());
         m_context->create();
         m_context->makeCurrent(this);
-      
+
         m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
 
         // no need to initalize glbinding. globjects (magically) do this internally.
@@ -137,7 +137,7 @@ namespace Ra
         m_currentRenderer = m_renderers[0].get();
 
         emit rendererReady();
-         m_context->doneCurrent();
+        m_context->doneCurrent();
     }
 
     Gui::CameraInterface* Gui::Viewer::getCameraInterface()

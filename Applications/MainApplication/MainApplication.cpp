@@ -182,7 +182,8 @@ namespace Ra
 
         m_viewer = m_mainWindow->getViewer();
         CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
-        CORE_ASSERT( m_viewer->context()->isValid(), "OpenGL was not initialized" );
+        CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
+        CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
 
         // Allow all events to be processed (thus the viewer should have
         // initialized the OpenGL context..)

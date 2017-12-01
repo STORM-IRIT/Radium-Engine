@@ -87,7 +87,7 @@ namespace Ra
             // Accessors
             //
 
-            QOpenGLContext * context() {
+            QOpenGLContext * getContext() const {
                 return m_context.get();
             }
 
