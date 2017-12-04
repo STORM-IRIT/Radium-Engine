@@ -17,6 +17,7 @@ if( APPLE )
 elseif ( UNIX )
     set( GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLOBJECTLIBNAME}.so")
 elseif (MINGW)
+    set( GLOBJECTS_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib${GLOBJECTLIBNAME}.dll")
     set( GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLOBJECTLIBNAME}.dll.a" )
 elseif( MSVC )
     # in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
@@ -37,7 +38,7 @@ elseif( MSVC )
     endif()
 
     set(GLOBJECTS_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${GLOBJECTLIBNAME}.dll")
-	set(GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLOBJECTLIBNAME}.lib")
+    set(GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLOBJECTLIBNAME}.lib")
 endif()
 
 # here is defined the way we want to import globjects
@@ -84,10 +85,10 @@ else()
     set(GLOBJECTLIBNAME globjects)
 endif()
 
-if( MSVC )
+if( MSVC OR MINGW )
 
 	add_custom_target( globjects_install_compiled_dll
-		COMMAND ${CMAKE_COMMAND} -E copy ${GLOBJECTS_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${GLOBJECTS_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
 		COMMENT "copy globject dll to bin dir" VERBATIM
 		DEPENDS globjects
 	)
