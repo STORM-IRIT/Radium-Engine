@@ -237,6 +237,11 @@ namespace Ra
 
     void Gui::Viewer::mousePressEvent( QMouseEvent* event )
     {
+        if(! m_glInitStatus) {
+            event->ignore();
+            return;
+        }
+
         auto keyMap = Gui::KeyMappingManager::getInstance();
         if( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_LEFT_BUTTON_PICKING_QUERY ) )
         {
@@ -282,22 +287,32 @@ namespace Ra
 
     void Gui::Viewer::mouseMoveEvent( QMouseEvent* event )
     {
-        m_camera->handleMouseMoveEvent( event );
-        m_gizmoManager->handleMouseMoveEvent(event);
+        if(m_glInitStatus)
+        {
+            m_camera->handleMouseMoveEvent( event );
+            m_gizmoManager->handleMouseMoveEvent(event);
+        }
+        else
+            event->ignore();
     }
 
     void Gui::Viewer::wheelEvent( QWheelEvent* event )
     {
-        m_camera->handleWheelEvent(event);
-
-        // Do we need this ?
-        // QWindow::wheelEvent( event );
+        if(m_glInitStatus)
+            m_camera->handleWheelEvent(event);
+        else
+            event->ignore();
     }
 
     void Gui::Viewer::keyPressEvent( QKeyEvent* event )
     {
-        keyPressed(event->key());
-        m_camera->handleKeyPressEvent( event );
+        if(m_glInitStatus)
+        {
+            keyPressed(event->key());
+            m_camera->handleKeyPressEvent( event );
+        }
+        else
+            event->ignore();
 
         // Do we need this ?
         //QWindow::keyPressEvent(event);
