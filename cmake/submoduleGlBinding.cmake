@@ -38,7 +38,7 @@ elseif( MSVC )
     endif()
 
     set(GLBINDING_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${GLBINDINGLIBNAME}.dll")
-	set(GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLBINDINGLIBNAME}.lib")
+    set(GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLBINDINGLIBNAME}.lib")
 endif()
 
 
@@ -79,10 +79,10 @@ add_custom_target(glbinding_lib
     DEPENDS glbinding
     )
 # ----------------------------------------------------------------------------------------------------------------------
-if( MSVC )
+if( MSVC OR MINGW )
 
 	add_custom_target( glbinding_install_compiled_dll
-		COMMAND ${CMAKE_COMMAND} -E copy ${GLBINDING_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${GLBINDING_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
 		COMMENT "copy glbinding dll to bin dir" VERBATIM
 		DEPENDS glbinding
 	)
