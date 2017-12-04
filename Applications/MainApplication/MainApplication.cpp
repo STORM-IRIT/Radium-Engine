@@ -338,11 +338,9 @@ namespace Ra
         // Get picking results from last frame and forward it to the selection.
         m_viewer->processPicking();
 
-
         // ----------
         // 2. Kickoff rendering
         m_viewer->startRendering( dt );
-
 
         timerData.tasksStart = Core::Timer::Clock::now();
 
@@ -363,8 +361,6 @@ namespace Ra
         // ----------
         // 4. Wait until frame is fully rendered and display.
         m_viewer->waitForRendering();
-
-        //m_viewer->update();
 
         timerData.renderData = m_viewer->getRenderer()->getTimerData();
 
