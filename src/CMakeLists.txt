@@ -220,8 +220,10 @@ set (guibase_libs
     radiumEngine
     radiumCore
     ${Qt5_LIBRARIES}
+    ${OPENGL_LIBRARIES}
     ${GLBINDING_LIBRARIES}
     ${GLOBJECTS_LIBRARIES}
+    ${GLM_LIBRARIES}
 )
 
 add_library(
@@ -230,7 +232,7 @@ add_library(
     ${guibase_headers}
     ${guibase_inlines})
 
-add_dependencies( ${guibase_target} ${engine_target} )
+add_dependencies( ${guibase_target} ${engine_target} glbinding_lib globjects_lib)
 target_compile_definitions(${guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
 
 target_link_libraries(
