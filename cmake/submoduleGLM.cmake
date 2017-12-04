@@ -12,6 +12,8 @@ ExternalProject_Add(
         # set the installatin to root
         # INSTALL_COMMAND cmake -E echo "Skipping install step."
         INSTALL_DIR "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}"
+        CMAKE_GENERATOR ${CMAKE_GENERATOR}
+        CMAKE_GENERATOR_TOOLSET ${CMAKE_GENERATOR_TOOLSET}
         CMAKE_ARGS
         -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
         -DCMAKE_BUILD_TYPE=${RADIUM_SUBMODULES_BUILD_TYPE}
