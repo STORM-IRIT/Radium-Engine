@@ -60,7 +60,6 @@ namespace Ra
         /// \code{.cpp}
         ///     m_viewer = new Ra::Gui::Viewer();
         ///     QWidget * viewerwidget = QWidget::createWindowContainer(m_viewer);
-        ///     viewerwidget->setFocusPolicy( Qt::StrongFocus );
         ///     setCentralWidget(viewerwidget);
         /// \endcode
         /// Whatever its usage (QWindow or QWidget) the Viewer has the same funtionalities.

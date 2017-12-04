@@ -53,7 +53,6 @@ namespace Ra
         QWidget * viewerwidget = QWidget::createWindowContainer(m_viewer);
         viewerwidget->setMinimumSize(QSize(800, 600));
         viewerwidget->setAutoFillBackground(false);
-        viewerwidget->setFocusPolicy( Qt::StrongFocus );
 
         setCentralWidget(viewerwidget);
 
