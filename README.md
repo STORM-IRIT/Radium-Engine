@@ -5,9 +5,11 @@ See [this presentation](https://docs.google.com/presentation/d/12W2KXY7ctJXFIelm
 for an overview of the project.
 
 ## Dependencies
-* Eigen 3.3 (as submodule )
+* Eigen 3.3 (as submodule in repository)
 * Assimp 3.2 (as submodule in repository)
 * glbinding (as submodule in repository)
+* globjects (as submodule in repository)
+* glm (as submodule in repository)
 * OpenGL 3+ / GLSL 330+
 * Qt Core, Qt Widgets and Qt OpenGL v5.4+
 * stb_image (in repository)
@@ -24,7 +26,7 @@ The following platforms and tool chains have been tested and should work :
 ## Build instructions
 
 ### Getting submodules
-Eigen, Assimp, glbinding are submodules : you can get them by running these two commands
+Eigen, Assimp, glbinding, globjects, glm are submodules : you can get them by running these two commands
 ```bash
 $ git submodule init
 $ git submodule update
@@ -52,8 +54,8 @@ Plugins are generated in `bin/Plugins`.
 ### Configure build
 
 Radium offers two build options which are off by default :
-* `USE_DOUBLE` sets the floating point format to double-precision instead of single precisition
-* `USE_OMP` instructs the compiler to use OpenMP
+* `RADIUM_WITH_DOUBLE_PRECISION` sets the floating point format to double-precision instead of single precisition
+* `RADIUM_WITH_OMP` instructs the compiler to use OpenMP
 
 ###  Building on Linux/MacOS (command line instruction)
 
@@ -84,7 +86,7 @@ See general instruction on cmake for Visual Studio here: https://blogs.msdn.micr
 If using earlier versions of Qt (5.4 or 5.5)  or a different toolset you may have to compile Qt yourself.
 You will probaby have to manually point cmake to the Qt folder (see Troubleshooting below)
 
-Other dependencies (Eigen, Assimp and glbinding) are included as a submodule in the git repository.
+Other dependencies (Eigen, Assimp, glbinding, globjects and glm) are included as a submodule in the git repository.
 
 #### Getting started with Visual Studio
 
