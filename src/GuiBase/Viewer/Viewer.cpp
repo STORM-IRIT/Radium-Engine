@@ -210,7 +210,7 @@ namespace Ra
 //        LOG( logDEBUG ) << "Qt Viewport (Viewer/Qwindow): " << qtViewport[0] << '-' << qtViewport[1] << '+' << qtViewport[2] << '-' << qtViewport[3];
 
 #ifndef OS_MACOS
-        glViewport(0, 0, width(), height());
+        gl::glViewport(0, 0, width(), height());
 #endif
         m_camera->resizeViewport( width_, height_ );
         m_currentRenderer->resize( width_, height_ );
