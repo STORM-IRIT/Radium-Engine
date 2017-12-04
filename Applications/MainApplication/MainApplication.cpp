@@ -160,6 +160,10 @@ namespace Ra
         format.setSwapInterval( 0 );
         QSurfaceFormat::setDefaultFormat( format );
 
+        // Create the instance of the keymapping manager, before creating
+        // Qt main windows, which may throw events on Microsoft Windows
+        Gui::KeyMappingManager::createInstance();
+
         // Create engine
         m_engine.reset(Engine::RadiumEngine::createInstance());
         m_engine->initialize();
@@ -203,9 +207,6 @@ namespace Ra
             numThreads = m_maxThreads;
         }
         m_taskQueue.reset( new Core::TaskQueue(numThreads) );
-
-        // Create the instance of the keymapping manager (should it be done here ?)
-        Gui::KeyMappingManager::createInstance();
 
         createConnections();
 
