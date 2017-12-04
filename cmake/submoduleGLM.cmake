@@ -1,5 +1,16 @@
 
-# here is defined the way we want to import eigen
+
+if( MSCV )
+    # In order to avoid a bug in glm CMakelist, leading to invalid
+	# install path for glmConfig.cmake, we simply copy the glm
+	# library and use the custom FindGLM.cmake as fallback
+    set ( glm_headers "${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/OpenGL/glm/glm")
+
+    add_custom_target(glm
+        FILE (COPY ${glm_headers} DESTINATION ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include)
+    )
+else ()
+# here is defined the way we want to import glm
 ExternalProject_Add(
         glm
 
@@ -22,6 +33,8 @@ ExternalProject_Add(
         STEP_TARGETS install
         EXCLUDE_FROM_ALL TRUE
 )
+
+endif()
 
 add_custom_target(glm_lib
         DEPENDS glm
