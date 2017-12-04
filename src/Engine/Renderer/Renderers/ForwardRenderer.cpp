@@ -450,6 +450,7 @@ namespace Ra
                 m_quadMesh->render();
 
                 GL_ASSERT(glDisable(GL_BLEND));
+                GL_ASSERT( glDepthFunc( GL_LESS ) );
 #endif
 
                 // Draw X rayed objects always on top of normal objects
