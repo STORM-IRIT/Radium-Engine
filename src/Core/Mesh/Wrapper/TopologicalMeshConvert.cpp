@@ -46,7 +46,8 @@ namespace Ra
             // out will have at least least n_vertices and n_normals.
             out.m_vertices.reserve( in.n_vertices() );
             out.m_normals.reserve( in.n_vertices() );
-
+            out.m_triangles.reserve( in.n_faces() );
+            
             for ( TopologicalMesh::FaceIter f_it = in.faces_sbegin(); f_it != in.faces_end(); ++f_it )
             {
                 vertexData v;
