@@ -18,9 +18,9 @@ namespace Ra {
 
             virtual ~AssimpFileLoader();
 
-            virtual std::vector<std::string> getFileExtensions() const override;
-            virtual bool handleFileExtension( const std::string& extension ) const override;
-            virtual Asset::FileData * loadFile( const std::string& filename ) override;
+            std::vector<std::string> getFileExtensions() const override;
+            bool handleFileExtension( const std::string& extension ) const override;
+            Asset::FileData * loadFile( const std::string& filename ) override;
 
         private:
             Assimp::Importer m_importer;
