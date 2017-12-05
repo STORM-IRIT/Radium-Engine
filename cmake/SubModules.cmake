@@ -33,6 +33,9 @@ if (RADIUM_PBRT_SUPPORT)
     include(submodulePbrt)
 endif()
 
+# OpenMesh
+include(submoduleOpenMesh)
+
 # TinyPly
 if (RADIUM_TINYPLY_SUPPORT)
     include(submoduleTinyPly)
