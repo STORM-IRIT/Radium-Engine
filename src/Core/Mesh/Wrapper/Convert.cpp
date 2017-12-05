@@ -134,7 +134,7 @@ void convert( const Dcel& dcel, TriangleMesh& mesh ) {
 
 /// Particular conversion for a progressive mesh
 /// since some faces doesn't exist anymore
-void convertPM( const Dcel& dcel, TriangleMesh& mesh )
+/*void convertPM( const Dcel& dcel, TriangleMesh& mesh )
 {
 
     // TODO !!!
@@ -178,7 +178,7 @@ void convertPM( const Dcel& dcel, TriangleMesh& mesh )
 
 
 
-
+*/
 
 
 } // namespace Core

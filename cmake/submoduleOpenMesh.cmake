@@ -31,6 +31,7 @@ if( APPLE )
 elseif ( UNIX )
     set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.so")
 elseif (MINGW)
+    set( OPENMESH_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dll")
     set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dll.a")
 elseif( MSVC )
     # in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
@@ -49,7 +50,18 @@ elseif( MSVC )
     else()
         set(MSVC_PREFIX "vc140")
     endif()
-
+    set(OPENMESH_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dll")
     set(OPENMESH_LIBRARIES optimized "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/openmesh-${MSVC_PREFIX}-mt.lib")
+
+endif()
+
+if( MSVC OR MINGW )
+
+	add_custom_target( openmesh_install_compiled_dll
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${OPENMESH_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+		COMMENT "copy openmesh dll to bin dir" VERBATIM
+		DEPENDS openmesh
+	)
+	add_dependencies(openmesh_lib openmesh_install_compiled_dll)
 
 endif()
