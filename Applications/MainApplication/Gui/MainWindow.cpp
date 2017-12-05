@@ -172,7 +172,7 @@ namespace Ra
 
         QString filter;
 
-        for ( const Asset::FileLoaderInterface * loader : mainApp->m_engine->getFileLoaders() )
+        for ( const auto& loader : mainApp->m_engine->getFileLoaders() )
         {
             QString exts;
             for (const auto& e : loader->getFileExtensions())
