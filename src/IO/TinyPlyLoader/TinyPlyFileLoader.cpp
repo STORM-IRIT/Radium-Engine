@@ -1,8 +1,5 @@
 #include <IO/TinyPlyLoader/TinyPlyFileLoader.hpp>
 
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-
 #include <tinyply/tinyply.h>
 
 #include <string>
