@@ -7,8 +7,6 @@
 #include <QToolButton>
 #include <QComboBox>
 
-#include <assimp/Importer.hpp>
-
 #include <Core/File/deprecated/OBJFileManager.hpp>
 
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
@@ -171,13 +169,19 @@ namespace Ra
 
     void Gui::MainWindow::loadFile()
     {
-        // Filter the files
-        aiString extList;
-        Assimp::Importer importer;
-        importer.GetExtensionList(extList);
-        std::string extListStd(extList.C_Str());
-        std::replace(extListStd.begin(), extListStd.end(), ';', ' ');
-        QString filter =""/* QString::fromStdString(extListStd)*/;
+
+        QString filter;
+
+        for ( const Asset::FileLoaderInterface * loader : mainApp->m_engine->getFileLoaders() )
+        {
+            QString exts;
+            for (const auto& e : loader->getFileExtensions())
+                exts.append(QString::fromStdString(e) + tr(" "));
+            filter.append( QString::fromStdString(loader->name()) +
+                           tr(" (") +
+                           exts +
+                           tr(");; "));
+        }
 
         QSettings settings;
         QString path = settings.value("files/load", QDir::homePath()).toString();
