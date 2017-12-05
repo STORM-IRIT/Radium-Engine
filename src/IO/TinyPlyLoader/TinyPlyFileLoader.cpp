@@ -132,5 +132,10 @@ namespace Ra {
 
             return fileData;
         }
+
+        std::string TinyPlyFileLoader::name() const
+        {
+            return "TinyPly";
+        }
     }
 }

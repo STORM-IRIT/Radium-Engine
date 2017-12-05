@@ -29,6 +29,9 @@ namespace Ra
 
             //! Try to load file, returns nullptr in case of failure
             virtual FileData * loadFile( const std::string& filename ) = 0;
+
+            //! Unique name of the loader
+            virtual std::string name() const = 0;
         };
     }
 }
