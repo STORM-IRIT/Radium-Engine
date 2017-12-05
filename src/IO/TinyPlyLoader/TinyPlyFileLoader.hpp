@@ -18,6 +18,7 @@ namespace Ra {
             std::vector<std::string> getFileExtensions() const override;
             bool handleFileExtension( const std::string& extension ) const override;
             Asset::FileData * loadFile( const std::string& filename ) override;
+            std::string name() const override;
         };
 
     } // namespace IO
