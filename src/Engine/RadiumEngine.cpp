@@ -212,6 +212,11 @@ namespace Ra
             m_fileLoaders.push_back( fileLoader );
         }
 
+        const std::vector<Asset::FileLoaderInterface *> &RadiumEngine::getFileLoaders() const
+        {
+            return m_fileLoaders;
+        }
+
         RA_SINGLETON_IMPLEMENTATION( RadiumEngine );
 
         const Asset::FileData &RadiumEngine::getFileData() const {

@@ -80,6 +80,8 @@ namespace Ra
 
             void registerFileLoader( Asset::FileLoaderInterface * fileLoader );
 
+            const std::vector< Asset::FileLoaderInterface * >& getFileLoaders() const;
+
         private:
             std::map<std::string, std::shared_ptr<System>> m_systems;
 
