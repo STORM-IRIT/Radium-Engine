@@ -1,5 +1,11 @@
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fexceptions")
 
+if(${RADIUM_SUBMODULES_BUILD_TYPE} MATCHES Debug)
+    set(OPENMESHLIBNAME OpenMeshCored)
+else()
+    set(OPENMESHLIBNAME OpenMeshCore)
+endif()
+
 # ----------------------------------------------------------------------------------------------------------------------
 set( OPENMESH_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include )
 if( APPLE )
@@ -10,8 +16,8 @@ elseif (MINGW)
     set( OPENMESH_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/libOpenMeshCore.dll")
     set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dll.a")
 elseif( MSVC )
-    set(OPENMESH_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/OpenMeshCore.dll")
-    set(OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/OpenMeshCore.lib")
+    set(OPENMESH_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${OPENMESHLIBNAME}.dll")
+    set(OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${OPENMESHLIBNAME}.lib")
 endif()
 
 
