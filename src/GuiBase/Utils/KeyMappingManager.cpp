@@ -10,8 +10,17 @@ namespace Ra
             m_domDocument("Keymapping QDomDocument"),
             m_metaEnumAction(QMetaEnum::fromType<KeyMappingAction>()),
             m_metaEnumKey(QMetaEnum::fromType<Qt::Key>()),
-            m_file(new QFile("Configs/default.xml"))
+            m_file(nullptr)
         {
+            /*
+            QSettings settings;
+            settings.beginGroup("keymapping");
+            const char * keymappingfilename =  settings.value("config", "Configs/default.xml").toString().toStdString().c_str();
+            settings.endGroup();
+
+            LOG(logINFO) << "Loading keymapping " << keymappingfilename << " (from " << settings.fileName().toStdString() << ")";
+            loadConfiguration(keymappingfilename);
+             */
             loadConfiguration();
         }
 
@@ -44,11 +53,13 @@ namespace Ra
 
             if( m_file )
             {
+/*
                 if( m_file->isOpen() )
                 {
                     m_file->close();
-                    delete m_file;
                 }
+*/
+                delete m_file;
             }
 
             m_file = new QFile( filename );
@@ -57,7 +68,7 @@ namespace Ra
             {
                 if( strcmp( filename, "Configs/default.xml") )
                 {
-                    LOG(logERROR) << "Failed to open keymapping configuration file !";
+                    LOG(logERROR) << "Failed to open keymapping configuration file ! " << m_file->fileName().toStdString();
                     LOG(logERROR) << "Trying to load default configuration...";
 
                     loadConfiguration( "Configs/default.xml" );
@@ -80,7 +91,13 @@ namespace Ra
 
                 m_file->close();
             }
-
+/*
+            QSettings settings;
+            LOG(logINFO) << "Writing keymapping settings " << m_file->fileName().toStdString() << "(to " << settings.fileName().toStdString() << ")";
+            settings.beginGroup("keymapping");
+            settings.setValue("config", m_file->fileName());
+            settings.endGroup();
+*/
             loadConfigurationInternal();
         }
 
@@ -237,6 +254,7 @@ namespace Ra
 
         KeyMappingManager::~KeyMappingManager()
         {
+
             if( m_file->isOpen() )
             {
                 m_file->close();

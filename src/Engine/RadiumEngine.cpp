@@ -40,6 +40,7 @@ namespace Ra
 
         RadiumEngine::~RadiumEngine()
         {
+            LOG(logINFO) << "Deleting Radium Engine";
         }
 
         void RadiumEngine::initialize()
