@@ -8,6 +8,7 @@ ExternalProject_Add(
 
     # override default behaviours
     UPDATE_COMMAND ""
+    GIT_SUBMODULES 3rdPartyLibraries/Eigen
 
     # set the installatin to root
     # INSTALL_COMMAND cmake -E echo "Skipping install step."

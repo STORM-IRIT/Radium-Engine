@@ -52,6 +52,7 @@ ExternalProject_Add(
     # override default behaviours
     UPDATE_COMMAND ""
 
+    GIT_SUBMODULES 3rdPartyLibraries/OpenGL/glbinding
     # set the installatin to root
     # INSTALL_COMMAND cmake -E echo "Skipping install step."
     INSTALL_DIR "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}"
