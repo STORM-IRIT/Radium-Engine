@@ -518,6 +518,16 @@ namespace Ra
                                 m_mainWindow->addRenderer(name, ptr);
                             }
                         }
+
+                        if(loadedPlugin->doAddFileLoader())
+                        {
+                            std::vector<std::shared_ptr<Asset::FileLoaderInterface>> tmpL;
+                            loadedPlugin->addFileLoaders(&tmpL);
+                            CORE_ASSERT(! tmpL.empty(), "This plugin is expected to add file loaders");
+                            for(auto ptr : tmpL){
+                                m_engine->registerFileLoader(ptr);
+                            }
+                        }
                     }
                     else
                     {

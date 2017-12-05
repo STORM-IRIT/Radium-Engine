@@ -28,6 +28,11 @@ namespace Ra
         class Renderer;
     }
 
+    namespace Asset
+    {
+        class FileLoaderInterface;
+    }
+
     /// Data passed to the plugin constructor.
     struct PluginContext
     {
@@ -125,6 +130,10 @@ namespace Ra
              * SHOULD not be destroyed by the plugin
              */
             virtual void addRenderers(std::vector<std::shared_ptr<Engine::Renderer>> */*rds*/) {}
+
+            virtual bool doAddFileLoader() { return false; }
+
+            virtual void addFileLoaders(std::vector<std::shared_ptr<Asset::FileLoaderInterface>> */*fl*/) {}
         };
     }
 }
