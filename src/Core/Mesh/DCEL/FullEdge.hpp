@@ -15,7 +15,8 @@ namespace Core {
 * It is possible to sort edges in lexicographical order,
 * based on the vertices indices.
 */
-class RA_CORE_API FullEdge : public IndexedObject  {
+
+class [[deprecated]] RA_CORE_API FullEdge : public IndexedObject  {
 public:
     /// CONSTRUCTOR
     FullEdge( const Index& index = Index::INVALID_IDX() );        // Build an Edge with the given index
