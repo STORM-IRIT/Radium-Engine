@@ -180,8 +180,10 @@ namespace Ra
             filter.append( QString::fromStdString(loader->name()) +
                            tr(" (") +
                            exts +
-                           tr(");; "));
+                           tr(");;"));
         }
+        // remove the last ";;" of the string
+        filter.remove(filter.size()-2, 2);
 
         QSettings settings;
         QString path = settings.value("files/load", QDir::homePath()).toString();
