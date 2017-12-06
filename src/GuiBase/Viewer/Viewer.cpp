@@ -49,7 +49,7 @@ namespace Ra
         , m_currentRenderer( nullptr )
         , m_featurePickingManager( nullptr )
         , m_camera( nullptr )
-        , m_gizmoManager( new GizmoManager(this) )
+        , m_gizmoManager( nullptr )
         , m_renderThread( nullptr )
         , m_glInitStatus( false )
     {
@@ -60,10 +60,15 @@ namespace Ra
     }
 
     Gui::Viewer::~Viewer(){
-        LOG(logINFO) << "Deleting Radium Viewer";
-        delete m_gizmoManager;
+        if (m_gizmoManager != nullptr)
+            delete m_gizmoManager;
     }
 
+    void Gui::Viewer::createGizmoManager()
+    {
+        if (m_gizmoManager == nullptr)
+            m_gizmoManager = new GizmoManager(this);
+    }
 
     int Gui::Viewer::addRenderer(std::shared_ptr<Engine::Renderer> e){
         CORE_ASSERT(m_glInitStatus.load(),
@@ -265,7 +270,8 @@ namespace Ra
                 m_currentRenderer->addPickingRequest({ Core::Vector2(event->x(), height() - event->y()),
                                                        Core::MouseButton::RA_MOUSE_LEFT_BUTTON,
                                                        Engine::Renderer::RO });
-                m_gizmoManager->handleMousePressEvent(event);
+                if (m_gizmoManager != nullptr)
+                    m_gizmoManager->handleMousePressEvent(event);
             }
         }
         else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) )
@@ -285,7 +291,8 @@ namespace Ra
     void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event )
     {
         m_camera->handleMouseReleaseEvent( event );
-        m_gizmoManager->handleMouseReleaseEvent(event);
+        if (m_gizmoManager != nullptr)
+            m_gizmoManager->handleMouseReleaseEvent(event);
     }
 
     void Gui::Viewer::mouseMoveEvent( QMouseEvent* event )
@@ -293,7 +300,8 @@ namespace Ra
         if(m_glInitStatus)
         {
             m_camera->handleMouseMoveEvent( event );
-            m_gizmoManager->handleMouseMoveEvent(event);
+            if (m_gizmoManager != nullptr)
+                m_gizmoManager->handleMouseMoveEvent(event);
         }
         else
             event->ignore();
