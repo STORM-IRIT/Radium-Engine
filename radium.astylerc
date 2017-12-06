@@ -4,7 +4,7 @@
 --indent-switches        # Indent cases inside switch blocks
 --indent-preproc-define  # Indent macros on multiple lines
 --indent-col1-comments   # Indent comments when at the begining of a new block
---indent-namespaces
+# --indent-namespaces    # Since radium as lot's of namespace, indent namespace use too much place !
 
 # Indent multiple lines if, while...(RTFM for the values)
 --min-conditional-indent=0   
@@ -41,5 +41,5 @@
 # Do not backup original file
 --suffix=none 
 
-# Use CRLF as line end
---lineend=windows
+# Use linux line end style !
+--lineend=linux #
