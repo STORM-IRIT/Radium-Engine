@@ -19,8 +19,6 @@ namespace Ra
                              << settings.fileName().toStdString() << ")";
             }
             loadConfiguration(keymappingfilename.toStdString().c_str());
-
-            //loadConfiguration();
         }
 
         void KeyMappingManager::bindKeyToAction( int keyCode, KeyMappingAction action )
@@ -84,13 +82,11 @@ namespace Ra
             }
 
             QSettings settings;
-//            LOG(logINFO) << "Writing keymapping settings " << m_file->fileName().toStdString() << " (to " << settings.fileName().toStdString() << ")";
             settings.setValue("keymapping/config", m_file->fileName());
 
             m_file->close();
 
             loadConfigurationInternal();
-
         }
 
         void KeyMappingManager::loadConfigurationInternal()
