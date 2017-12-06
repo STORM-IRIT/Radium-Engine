@@ -35,11 +35,6 @@ if( RADIUM_ASSIMP_SUPPORT )
     message(STATUS "Compiling Radium with Assimp's include dir : ${ASSIMP_INCLUDE_DIR}" )
 endif( RADIUM_ASSIMP_SUPPORT )
 
-if( RADIUM_PBRT_SUPPORT )
-        set( RADIUM_IO_IS_INTERFACE FALSE )
-    include_directories( ${PBRT_INCLUDE_DIR} )
-    message(STATUS "Compiling Radium with Pbrt's include dir : ${PBRT_INCLUDE_DIR}" )
-endif( RADIUM_PBRT_SUPPORT )
 # Build Core
 set(core_target radiumCore)
 
@@ -102,14 +97,6 @@ if( RADIUM_ASSIMP_SUPPORT )
     set( io_libs    ${io_libs}    ${ASSIMP_LIBRARIES} )
 endif( RADIUM_ASSIMP_SUPPORT )
 
-if( RADIUM_PBRT_SUPPORT )
-    add_subdirectory( IO/PbrtLoader )
-    set( io_sources ${io_sources} ${pbrt_sources} )
-    set( io_headers ${io_headers} ${pbrt_headers} )
-    set( io_inlines ${io_inlines} ${pbrt_inlines} )
-    set( io_libs    ${io_libs}    ${PBRT_LIBRARIES} )
-endif( RADIUM_PBRT_SUPPORT )
-
 if( RADIUM_TINYPLY_SUPPORT )
     add_subdirectory( IO/TinyPlyLoader )
     set( io_sources ${io_sources} ${tinyply_sources} )
@@ -154,10 +141,6 @@ add_dependencies( ${io_target} ${core_target} ${engine_target} )
 if( RADIUM_ASSIMP_SUPPORT )
     add_dependencies( ${io_target} assimp_lib )
 endif( RADIUM_ASSIMP_SUPPORT )
-
-if( RADIUM_PBRT_SUPPORT )
-    add_dependencies( ${io_target} pbrt_lib )
-endif( RADIUM_PBRT_SUPPORT )
 
 if( RADIUM_TINYPLY_SUPPORT )
     add_dependencies( ${io_target} tinyply )
