@@ -23,42 +23,45 @@
 #include <Core/Mesh/DCEL/Face.hpp>
 #include <Core/Mesh/ProgressiveMesh/PriorityQueue.hpp>
 
+#include <Engine/RadiumEngine.hpp>
+
 namespace Ra
 {
     namespace Engine
     {
 
-        void MeshContactElement::addMesh(
-        ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite verticesWriter,
-        ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite normalsWriter,
-        ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite trianglesWriter
-        )
-        {
-            m_verticesWriter = verticesWriter;
-            m_normalsWriter = normalsWriter;
-            m_trianglesWriter = trianglesWriter;
-        }
+//        void MeshContactElement::addMesh(
+//        ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite verticesWriter,
+//        ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite normalsWriter,
+//        ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite trianglesWriter
+//        )
+//        {
+//            m_verticesWriter = verticesWriter;
+//            m_normalsWriter = normalsWriter;
+//            m_trianglesWriter = trianglesWriter;
+//        }
 
-        void MeshContactElement::setlodValueChanged(int value)
-        {
-            // retrieving the data of the displayed mesh
-            Ra::Core::Vector3Array& vertices = *(m_verticesWriter());
-            Ra::Core::Vector3Array& normals = *(m_normalsWriter());
-            TriangleArray& triangles = *(m_trianglesWriter());
+//        void MeshContactElement::setlodValueChanged(int value)
+//        {
+//            // retrieving the data of the displayed mesh
+//            Ra::Core::Vector3Array& vertices = *(m_verticesWriter());
+//            Ra::Core::Vector3Array& normals = *(m_normalsWriter());
+//            TriangleArray& triangles = *(m_trianglesWriter());
 
-            // go to LOD with 'value' number of faces
-            Ra::Core::TriangleMesh mNew = m_pmlod->gotoM(value);
+//            // go to LOD with 'value' number of faces
+//            Ra::Core::TriangleMesh mNew = m_pmlod->gotoM(value);
 
-            // update of the data of the displayed mesh
-            triangles = mNew.m_triangles;
-            vertices = mNew.m_vertices;
-            Ra::Core::Geometry::uniformNormal(vertices, triangles, normals);
-        }
+//            // update of the data of the displayed mesh
+//            triangles = mNew.m_triangles;
+//            vertices = mNew.m_vertices;
+//            Ra::Core::Geometry::uniformNormal(vertices, triangles, normals);
+//        }
 
         int MeshContactElement::getNbFacesMax()
         {
-            TriangleArray& triangles = *(m_trianglesWriter());
-            return triangles.size();
+//            TriangleArray& triangles = *(m_trianglesWriter());
+//            return triangles.size();
+            return m_mesh->getGeometry().m_triangles.size();
         }
 
         Super4PCS::TriangleKdTree<>* MeshContactElement::computeTriangleKdTree(Ra::Core::TriangleMesh& tm)
@@ -78,36 +81,48 @@ namespace Ra
             m_pqueue = new Ra::Core::PriorityQueue(pQueue);
         }
 
-        void MeshContactElement::computeTriangleMesh()
+//        void MeshContactElement::computeTriangleMesh() //use Mesh instead of Triangle Mesh
+//        {
+//            Ra::Core::Vector3Array& vertices = *(m_verticesWriter());
+//            Ra::Core::Vector3Array& normals = *(m_normalsWriter());
+//            TriangleArray& triangles = *(m_trianglesWriter());
+
+//            Ra::Core::TriangleMesh* m = new Ra::Core::TriangleMesh();
+//            m->m_vertices = vertices;
+//            m->m_normals = normals;
+//            m->m_triangles = triangles;
+
+//            m_initTriangleMesh = *m;
+//        }
+
+        void MeshContactElement::computeMesh(const std::string& entityName, const std::string& componentName)
         {
-            Ra::Core::Vector3Array& vertices = *(m_verticesWriter());
-            Ra::Core::Vector3Array& normals = *(m_normalsWriter());
-            TriangleArray& triangles = *(m_trianglesWriter());
+            RadiumEngine* engine = RadiumEngine::getInstance();
+            m_mesh = engine->getMesh(entityName, componentName);
 
-            Ra::Core::TriangleMesh* m = new Ra::Core::TriangleMesh();
-            m->m_vertices = vertices;
-            m->m_normals = normals;
-            m->m_triangles = triangles;
+//            Ra::Core::TriangleMesh tm = Ra::Core::TriangleMesh(engine->getMesh(entityName,componentName)->getGeometry());
+//            m_mesh = new Ra::Engine::Mesh(entityName);
+//            m_mesh->loadGeometry(tm);
 
-            m_initTriangleMesh = *m;
+            m_initTriangleMesh = m_mesh->getGeometry();
         }
 
-        void MeshContactElement::computeProgressiveMesh()
-        {
-            Ra::Core::Vector3Array& vertices = *(m_verticesWriter());
-            Ra::Core::Vector3Array& normals = *(m_normalsWriter());
-            TriangleArray& triangles = *(m_trianglesWriter());
+//        void MeshContactElement::computeProgressiveMesh()
+//        {
+//            Ra::Core::Vector3Array& vertices = *(m_verticesWriter());
+//            Ra::Core::Vector3Array& normals = *(m_normalsWriter());
+//            TriangleArray& triangles = *(m_trianglesWriter());
 
-            Ra::Core::TriangleMesh* m = new Ra::Core::TriangleMesh();
-            m->m_vertices = vertices;
-            m->m_normals = normals;
-            m->m_triangles = triangles;
+//            Ra::Core::TriangleMesh* m = new Ra::Core::TriangleMesh();
+//            m->m_vertices = vertices;
+//            m->m_normals = normals;
+//            m->m_triangles = triangles;
 
-            m_initTriangleMesh = *m;
+//            m_initTriangleMesh = *m;
 
-            Ra::Core::ProgressiveMeshBase<>* pm = new Ra::Core::ProgressiveMesh<>(m);
-            m_pmlod = new Ra::Core::ProgressiveMeshLOD(pm);
-        }
+//            Ra::Core::ProgressiveMeshBase<>* pm = new Ra::Core::ProgressiveMesh<>(m);
+//            m_pmlod = new Ra::Core::ProgressiveMeshLOD(pm);
+//        }
 
         Ra::Core::TriangleMesh MeshContactElement::getInitTriangleMesh()
         {
@@ -146,13 +161,14 @@ namespace Ra
 
         void MeshContactElement::updateTriangleMesh(Ra::Core::TriangleMesh newMesh)
         {
-            Ra::Core::Vector3Array& vertices = *(m_verticesWriter());
-            Ra::Core::Vector3Array& normals = *(m_normalsWriter());
-            TriangleArray& triangles = *(m_trianglesWriter());
+//            Ra::Core::Vector3Array& vertices = *(m_verticesWriter());
+//            Ra::Core::Vector3Array& normals = *(m_normalsWriter());
+//            TriangleArray& triangles = *(m_trianglesWriter());
 
-            vertices = newMesh.m_vertices;
-            triangles = newMesh.m_triangles;
-            Ra::Core::Geometry::uniformNormal(vertices, triangles, normals);
+//            vertices = newMesh.m_vertices;
+//            triangles = newMesh.m_triangles;
+//            Ra::Core::Geometry::uniformNormal(vertices, triangles, normals);
+            m_mesh->loadGeometry(newMesh);
         }
 
         void MeshContactElement::computePrimitives()

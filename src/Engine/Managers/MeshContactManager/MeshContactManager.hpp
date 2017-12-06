@@ -49,7 +49,7 @@ namespace Ra
             void computeNbFacesMax();
             void computeNbFacesMax2();
 
-            void addMesh(MeshContactElement* mesh);
+            void addMesh(MeshContactElement* mesh, const std::string& entityName, const std::string& componentName);
 
             void computeThreshold();
             void computeThresholdTest();

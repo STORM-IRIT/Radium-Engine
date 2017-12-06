@@ -101,11 +101,12 @@ namespace Ra
             m_asymmetry = asymmetry;
         }
 
-        void MeshContactManager::addMesh(MeshContactElement* mesh)
+        void MeshContactManager::addMesh(MeshContactElement* mesh, const std::string& entityName, const std::string& componentName)
         {
             m_meshContactElements.push_back(mesh);
 
-            mesh->computeTriangleMesh();
+            //mesh->computeTriangleMesh();
+            mesh->computeMesh(entityName,componentName);
             m_initTriangleMeshes.push_back(mesh->getInitTriangleMesh());
 
             Super4PCS::TriangleKdTree<>* trianglekdtree = new Super4PCS::TriangleKdTree<>();

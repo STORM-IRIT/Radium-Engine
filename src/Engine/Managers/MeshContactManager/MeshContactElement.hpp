@@ -15,6 +15,8 @@
 
 #include <Core/File/GeometryData.hpp>
 
+#include <Engine/Renderer/Mesh/Mesh.hpp>
+
 
 typedef Ra::Core::VectorArray<Ra::Core::Triangle> TriangleArray;
 
@@ -27,22 +29,23 @@ namespace Ra
         {
         public:
 
-            void addMesh(
-                    ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite verticesWriter,
-                    ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite normalsWriter,
-                    ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite trianglesWriter
-                    );
+//            void addMesh(
+//                    ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite verticesWriter,
+//                    ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite normalsWriter,
+//                    ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite trianglesWriter
+//                    );
 
             Super4PCS::TriangleKdTree<>* computeTriangleKdTree(Ra::Core::TriangleMesh& tm);
             void computePrimitives(); // computes initial vertices quadrics used to detect contacts
             void computeFacePrimitives(); // computes initial face quadrics used to detect contacts
-            void computeTriangleMesh();
-            void computeProgressiveMesh();
+            //void computeTriangleMesh();
+            void computeMesh(const std::string& entityName, const std::string& componentName);
+            //void computeProgressiveMesh();
 
             Ra::Core::TriangleMesh getInitTriangleMesh();
 
             void updateTriangleMesh(Ra::Core::TriangleMesh newMesh);
-            void setlodValueChanged(int value);
+            //void setlodValueChanged(int value);
             bool isConstructM0();
             int getNbFacesMax();
 
@@ -58,9 +61,11 @@ namespace Ra
             Ra::Core::ProgressiveMesh<>::Primitive getFacePrimitive(int faceIndex);
 
         private:
-            ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite m_verticesWriter;
-            ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite m_normalsWriter;
-            ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite m_trianglesWriter;
+//            ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite m_verticesWriter;
+//            ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite m_normalsWriter;
+//            ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite m_trianglesWriter;
+
+            Mesh* m_mesh;
 
             int m_index;
 
