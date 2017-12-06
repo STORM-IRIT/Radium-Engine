@@ -200,22 +200,8 @@ namespace Ra
             // Renderer should have been locked by previous events.
             m_context->makeCurrent(this);
 
-            // FIXME (Mathias) : try to understand the reasons of so different functionalities and how is managed the vieport size on MAcOs
-            // On MacOs, no need to define the initial viewport, as written in the glviewport documentation :
-            // "When a GL context is first attached to a window, width and height are set to the dimensions of that window.
-            // https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glViewport.xhtml
-            // INFORMATION FOR MACOS WITH RETINA : on retina screens, the (QWindow) window report a size of wxh and the
-            // initial viewport of size of 2wx2h.
-            // It seems that this is not the case on Linux, where the (QWindow) window report a size of wxh and the
-            // initial viewport of size of 100x100. (at least on my Nvidia OpenGL 4.4 drivers)
-            // So we set here the initial viewport to the size of the window.
-            // Surprisingly, on MacOs, the wiewport follow the size of the window (I presume, as a consequence
-            // of the activation of the context by m_context->makeCurrent(this);). Not on Linux ... is it a Qt bunctionnality ?
-
-            //        int qtViewport[4];
-            //        glGetIntegerv(GL_VIEWPORT, qtViewport);
-            //        LOG( logDEBUG ) << "Qt Viewport (Viewer/Qwindow): " << qtViewport[0] << '-' << qtViewport[1] << '+' << qtViewport[2] << '-' << qtViewport[3];
-
+            // see issue #261 Qt Event order and default viewport management (Viewer.cpp)
+            // https://github.com/STORM-IRIT/Radium-Engine/issues/261
 #ifndef OS_MACOS
             gl::glViewport(0, 0, width(), height());
 #endif
