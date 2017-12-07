@@ -10,9 +10,15 @@ namespace Ra
             m_domDocument("Keymapping QDomDocument"),
             m_metaEnumAction(QMetaEnum::fromType<KeyMappingAction>()),
             m_metaEnumKey(QMetaEnum::fromType<Qt::Key>()),
-            m_file(new QFile("Configs/default.xml"))
+            m_file(nullptr)
         {
-            loadConfiguration();
+            QSettings settings;
+            QString keymappingfilename =  settings.value("keymapping/config", "Configs/default.xml").toString();
+            if (!keymappingfilename.contains("default.xml")) {
+                LOG(logINFO) << "Loading keymapping " << keymappingfilename.toStdString() << " (from "
+                             << settings.fileName().toStdString() << ")";
+            }
+            loadConfiguration(keymappingfilename.toStdString().c_str());
         }
 
         void KeyMappingManager::bindKeyToAction( int keyCode, KeyMappingAction action )
@@ -37,6 +43,7 @@ namespace Ra
 
         void KeyMappingManager::loadConfiguration( const char * filename )
         {
+            // if no filename is given, load default configuration
             if( !filename )
             {
                 filename = "Configs/default.xml";
@@ -44,11 +51,7 @@ namespace Ra
 
             if( m_file )
             {
-                if( m_file->isOpen() )
-                {
-                    m_file->close();
-                    delete m_file;
-                }
+                delete m_file;
             }
 
             m_file = new QFile( filename );
@@ -57,11 +60,9 @@ namespace Ra
             {
                 if( strcmp( filename, "Configs/default.xml") )
                 {
-                    LOG(logERROR) << "Failed to open keymapping configuration file !";
+                    LOG(logERROR) << "Failed to open keymapping configuration file ! " << m_file->fileName().toStdString();
                     LOG(logERROR) << "Trying to load default configuration...";
-
-                    loadConfiguration( "Configs/default.xml" );
-
+                    loadConfiguration();
                     return;
                 }
                 else
@@ -76,10 +77,14 @@ namespace Ra
                 LOG( logERROR ) << "Can't associate XML file to QDomDocument !";
                 LOG( logERROR ) << "Trying to load default configuration...";
 
-                loadConfiguration( "Configs/default.xml" );
-
-                m_file->close();
+                loadConfiguration();
+                return;
             }
+
+            QSettings settings;
+            settings.setValue("keymapping/config", m_file->fileName());
+
+            m_file->close();
 
             loadConfigurationInternal();
         }

@@ -1,4 +1,4 @@
-set(app_target test0)
+set(app_target helloRadium)
 
 # Qt stuff //////////////////////
 
@@ -29,8 +29,6 @@ include_directories(
 # Get files
 file( GLOB file_sources *.cpp *.c )
 file( GLOB file_headers *.hpp *.h )
-#file( GLOB file_sources main.cpp minimalradium.cpp)
-#file( GLOB file_headers minimalradium.hpp)
 
 
 # Generate an executable

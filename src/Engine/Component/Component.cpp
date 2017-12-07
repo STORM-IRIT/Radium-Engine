@@ -49,7 +49,7 @@ namespace Ra
         {
             auto found = std::find(m_renderObjects.cbegin(), m_renderObjects.cend(),roIdx);
             CORE_WARN_IF(found == m_renderObjects.cend(), " Render object not found in component");
-            if (found != m_renderObjects.cend() && getRoMgr() )
+            if ( (found != m_renderObjects.cend()) && getRoMgr() )
             {
                 getRoMgr()->removeRenderObject(*found);
                 m_renderObjects.erase(found);

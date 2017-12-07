@@ -46,6 +46,7 @@ namespace Ra
 
 
         m_viewer = new Ra::Gui::Viewer();
+        m_viewer->createGizmoManager();
         m_viewer->setObjectName(QStringLiteral("m_viewer"));
 
         QWidget * viewerwidget = QWidget::createWindowContainer(m_viewer);

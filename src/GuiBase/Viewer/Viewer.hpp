@@ -82,6 +82,8 @@ namespace Ra
             /// Destructor
             virtual ~Viewer();
 
+            /// create gizmos
+            void createGizmoManager();
             //
             // Accessors
             //

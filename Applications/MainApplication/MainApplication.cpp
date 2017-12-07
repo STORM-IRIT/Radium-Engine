@@ -430,12 +430,13 @@ namespace Ra
 
     BaseApplication::~BaseApplication()
     {
-        LOG( logINFO ) << "About to quit... Cleaning RadiumEngine memory";
         emit stopping();
         m_mainWindow->cleanup();
         m_engine->cleanup();
+
         // This will remove the directory if empty.
         QDir().rmdir( m_exportFoldername.c_str());
+
     }
 
     bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QStringList& loadList, const QStringList& ignoreList )
