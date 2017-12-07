@@ -61,21 +61,27 @@ namespace Ra
 
     Gui::Viewer::~Viewer(){
         if (m_gizmoManager != nullptr)
+        {
             delete m_gizmoManager;
+        }
     }
 
     void Gui::Viewer::createGizmoManager()
     {
         if (m_gizmoManager == nullptr)
+        {
             m_gizmoManager = new GizmoManager(this);
+        }
     }
 
     int Gui::Viewer::addRenderer(std::shared_ptr<Engine::Renderer> e){
         // initial state and lighting (deferred if GL is not ready yet)
-        if ( m_glInitStatus.load() ) {
+        if ( m_glInitStatus.load() )
+        {
             intializeRenderer(e.get());
         }
-        else {
+        else
+        {
             LOG( logINFO ) << "[Viewer] New Renderer ("
                            << e->getRendererName()
                            << ") added before GL being Ready: deferring initialization...";
@@ -97,15 +103,16 @@ namespace Ra
                                         {
                                             std::cerr << call.parameters[i]->asString();
                                             if (i < call.parameters.size() - 1)
+                                            {
                                                 std::cerr << ", ";
+                                            }
                                         }
                                         std::cerr << ")";
-
                                         if (call.returnValue)
+                                        {
                                             std::cerr << " -> " << call.returnValue->asString();
-
+                                        }
                                         std::cerr << std::endl;
-
                                     });
     }
 
@@ -126,7 +133,8 @@ namespace Ra
 
 
         // initialize renderers added before GL was ready
-        if( ! m_renderers.empty() ) {
+        if( ! m_renderers.empty() )
+        {
             for ( auto& rptr : m_renderers )
             {
                 intializeRenderer( rptr.get() );
@@ -140,7 +148,8 @@ namespace Ra
 
         emit glInitialized();
 
-        if(m_renderers.empty()) {
+        if(m_renderers.empty())
+        {
             LOG( logINFO )
                     << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
             std::shared_ptr<Ra::Engine::Renderer> e (new Ra::Engine::ForwardRenderer());
@@ -208,12 +217,15 @@ namespace Ra
     {
         renderer->initialize(width(), height());
         if( m_camera->hasLightAttached() )
+        {
             renderer->addLight( m_camera->getLight() );
+        }
     }
 
     void Gui::Viewer::resizeGL( int width_, int height_ )
     {
-        if (isExposed()) {
+        if (isExposed())
+        {
             // Renderer should have been locked by previous events.
             m_context->makeCurrent(this);
 
@@ -248,7 +260,8 @@ namespace Ra
 
     void Gui::Viewer::mousePressEvent( QMouseEvent* event )
     {
-        if(! m_glInitStatus) {
+        if(! m_glInitStatus.load())
+        {
             event->ignore();
             return;
         }
@@ -274,7 +287,9 @@ namespace Ra
                                                        Core::MouseButton::RA_MOUSE_LEFT_BUTTON,
                                                        Engine::Renderer::RO });
                 if (m_gizmoManager != nullptr)
+                {
                     m_gizmoManager->handleMousePressEvent(event);
+                }
             }
         }
         else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) )
@@ -295,12 +310,14 @@ namespace Ra
     {
         m_camera->handleMouseReleaseEvent( event );
         if (m_gizmoManager != nullptr)
+        {
             m_gizmoManager->handleMouseReleaseEvent(event);
+        }
     }
 
     void Gui::Viewer::mouseMoveEvent( QMouseEvent* event )
     {
-        if(m_glInitStatus)
+        if(m_glInitStatus.load())
         {
             m_camera->handleMouseMoveEvent( event );
             if (m_gizmoManager != nullptr)
@@ -312,21 +329,27 @@ namespace Ra
 
     void Gui::Viewer::wheelEvent( QWheelEvent* event )
     {
-        if(m_glInitStatus)
+        if(m_glInitStatus.load())
+        {
             m_camera->handleWheelEvent(event);
+        }
         else
+        {
             event->ignore();
+        }
     }
 
     void Gui::Viewer::keyPressEvent( QKeyEvent* event )
     {
-        if(m_glInitStatus)
+        if(m_glInitStatus.load())
         {
             keyPressed(event->key());
             m_camera->handleKeyPressEvent( event );
         }
         else
+        {
             event->ignore();
+        }
 
         // Do we need this ?
         //QWindow::keyPressEvent(event);
@@ -350,8 +373,10 @@ namespace Ra
     {
  //       LOG( logDEBUG ) << "Gui::Viewer --> Got resize event : "  << width() << 'x' << height();
 
-        if(!m_glInitStatus)
+        if(!m_glInitStatus.load())
+        {
             initializeGL();
+        }
 
         if (!m_currentRenderer || !m_camera)
             return;
@@ -362,7 +387,8 @@ namespace Ra
     void Gui::Viewer::showEvent(QShowEvent *ev)
     {
  //       LOG( logDEBUG ) << "Gui::Viewer --> Got show event : " << width() << 'x' << height();
-        if(!m_context) {
+        if(!m_context)
+        {
             m_context.reset(new QOpenGLContext());
             m_context->create();
             m_context->makeCurrent(this);
@@ -411,10 +437,14 @@ namespace Ra
 
     bool Gui::Viewer::changeRenderer( int index )
     {
-        if (m_glInitStatus.load() && m_renderers[index]) {
+        if (m_glInitStatus.load() && m_renderers[index])
+        {
             m_context->makeCurrent(this);
 
-            if(m_currentRenderer != nullptr) m_currentRenderer->lockRendering();
+            if(m_currentRenderer != nullptr)
+            {
+                m_currentRenderer->lockRendering();
+            }
 
             m_currentRenderer = m_renderers[index].get();
             m_currentRenderer->resize( width(), height() );
@@ -452,7 +482,9 @@ namespace Ra
     void Gui::Viewer::waitForRendering()
     {
         if (isExposed())
+        {
             m_context->swapBuffers(this);
+        }
 
         m_context->doneCurrent();
     }
