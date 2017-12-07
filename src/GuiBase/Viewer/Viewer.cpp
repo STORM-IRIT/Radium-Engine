@@ -391,6 +391,7 @@ namespace Ra
     void Gui::Viewer::changeRenderer( int index )
     {
         if (m_renderers[index]) {
+            m_context->makeCurrent(this);
             if(m_currentRenderer != nullptr) m_currentRenderer->lockRendering();
             m_currentRenderer = m_renderers[index].get();
             m_currentRenderer->resize( width(), height() );
