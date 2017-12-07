@@ -154,7 +154,7 @@ namespace Ra
             void displayTexture( const QString& tex );
 
             /// Set the renderer
-            void changeRenderer( int index );
+            bool changeRenderer( int index );
 
             /// Toggle the post-process effetcs
             void enablePostProcess(int enabled);

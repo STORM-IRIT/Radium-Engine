@@ -372,11 +372,13 @@ namespace Ra
     {
         // always restore displaytexture to 0 before switch to keep coherent renderer state
         m_displayedTextureCombo->setCurrentIndex(0);
-        m_viewer->changeRenderer(m_currentRendererCombo->currentIndex());
-        updateDisplayedTexture();
-        // in case the newly used renderer has not been set before and set another texture as its default,
-        // set displayTexture to 0 again ;)
-        m_displayedTextureCombo->setCurrentIndex(0);
+        if ( m_viewer->changeRenderer(m_currentRendererCombo->currentIndex()) )
+        {
+            updateDisplayedTexture();
+            // in case the newly used renderer has not been set before and set another texture as its default,
+            // set displayTexture to 0 again ;)
+            m_displayedTextureCombo->setCurrentIndex(0);
+        }
     }
 
     void Gui::MainWindow::updateDisplayedTexture()

@@ -388,15 +388,23 @@ namespace Ra
         m_currentRenderer->unlockRendering();
     }
 
-    void Gui::Viewer::changeRenderer( int index )
+    bool Gui::Viewer::changeRenderer( int index )
     {
-        if (m_renderers[index]) {
+        if (m_glInitStatus.load() && m_renderers[index]) {
             m_context->makeCurrent(this);
+
             if(m_currentRenderer != nullptr) m_currentRenderer->lockRendering();
+
             m_currentRenderer = m_renderers[index].get();
             m_currentRenderer->resize( width(), height() );
             m_currentRenderer->unlockRendering();
+
+            LOG( logINFO ) << "[Viewer] Set active renderer: "
+                           << m_currentRenderer->getRendererName();
+
+            return true;
         }
+        return false;
     }
 
     // Asynchronous rendering implementation
