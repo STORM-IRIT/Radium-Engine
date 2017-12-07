@@ -84,13 +84,8 @@ namespace Ra
 
         void ForwardRenderer::initBuffers()
         {
-            LOG ( logDEBUG ) << "Main Framebuffer.";
             m_fbo.reset( new globjects::Framebuffer() );
-
-            LOG ( logDEBUG ) << "Oit Framebuffer.";
             m_oitFbo.reset( new globjects::Framebuffer() );
-
-            LOG ( logDEBUG ) << "PostProcess Framebuffer.";
             m_postprocessFbo.reset( new globjects::Framebuffer() );
 
             // Render pass
