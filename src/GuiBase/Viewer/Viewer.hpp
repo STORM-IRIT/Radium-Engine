@@ -197,6 +197,8 @@ namespace Ra
             //
 
             /// Initialize openGL. Called on by the first "show" call to the main window.
+            /// \warning This function is NOT reentrant, and may behave incorrectly
+            /// if called at the same time than #intializeRenderer
             virtual void initializeGL();
 
             /// Resize the view port and the camera. Called by the resize event.

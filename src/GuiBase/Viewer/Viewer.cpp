@@ -124,7 +124,6 @@ namespace Ra
         auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
         m_camera->attachLight( light );
 
-        m_glInitStatus = true;
 
         // initialize renderers added before GL was ready
         if( ! m_renderers.empty() ) {
@@ -136,6 +135,8 @@ namespace Ra
             }
             changeRenderer(0);
         }
+
+        m_glInitStatus = true;
 
         emit glInitialized();
 
