@@ -71,11 +71,15 @@ namespace Ra
     }
 
     int Gui::Viewer::addRenderer(std::shared_ptr<Engine::Renderer> e){
-        CORE_ASSERT(m_glInitStatus.load(),
-                    "OpenGL needs to be initialized to add renderers.");
-
-        // initial state and lighting
-        intializeRenderer(e.get());
+        // initial state and lighting (deferred if GL is not ready yet)
+        if ( m_glInitStatus.load() ) {
+            intializeRenderer(e.get());
+        }
+        else {
+            LOG( logINFO ) << "[Viewer] New Renderer ("
+                           << e->getRendererName()
+                           << ") added before GL being Ready: deferring initialization...";
+        }
 
         m_renderers.push_back(e);
 
@@ -121,10 +125,22 @@ namespace Ra
         m_camera->attachLight( light );
 
         m_glInitStatus = true;
+
+        // initialize renderers added before GL was ready
+        if( ! m_renderers.empty() ) {
+            for ( auto& rptr : m_renderers )
+            {
+                intializeRenderer( rptr.get() );
+                LOG( logINFO ) << "[Viewer] Deferred initialization of "
+                               << rptr->getRendererName();
+            }
+            changeRenderer(0);
+        }
+
         emit glInitialized();
 
         if(m_renderers.empty()) {
-            LOG(logWARNING)
+            LOG( logINFO )
                     << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
             std::shared_ptr<Ra::Engine::Renderer> e (new Ra::Engine::ForwardRenderer());
             addRenderer(e);
@@ -369,6 +385,9 @@ namespace Ra
 
     void Gui::Viewer::reloadShaders()
     {
+        CORE_ASSERT(m_glInitStatus.load(),
+                    "OpenGL needs to be initialized reload shaders.");
+
         // FIXME : check thread-saefty of this.
         m_currentRenderer->lockRendering();
 
@@ -381,10 +400,11 @@ namespace Ra
 
     void Gui::Viewer::displayTexture( const QString &tex )
     {
+        CORE_ASSERT(m_glInitStatus.load(),
+                    "OpenGL needs to be initialized to display textures.");
+
         m_currentRenderer->lockRendering();
-
         m_currentRenderer->displayTexture( tex.toStdString() );
-
         m_currentRenderer->unlockRendering();
     }
 
@@ -411,6 +431,9 @@ namespace Ra
 
     void Gui::Viewer::startRendering( const Scalar dt )
     {
+        CORE_ASSERT(m_glInitStatus.load(),
+                    "OpenGL needs to be initialized before rendering.");
+
         m_context->makeCurrent(this);
 
         // Move camera if needed. Disabled for now as it takes too long (see issue #69)
