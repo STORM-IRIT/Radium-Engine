@@ -6,7 +6,7 @@
 namespace Ra {
 namespace Core {
 
-class FVIterator : public FIterator< Vertex > {
+class [[deprecated]] FVIterator : public FIterator< Vertex > {
 public:
     /// CONSTRUCTOR
     FVIterator( Face_ptr& f );

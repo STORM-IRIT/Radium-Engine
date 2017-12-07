@@ -78,12 +78,14 @@ namespace Ra
             EntityManager*        getEntityManager()        const;
             SignalManager*        getSignalManager()        const;
 
-            void registerFileLoader( Asset::FileLoaderInterface * fileLoader );
+            void registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface> fileLoader );
+
+            const std::vector< std::shared_ptr<Asset::FileLoaderInterface> >& getFileLoaders() const;
 
         private:
             std::map<std::string, std::shared_ptr<System>> m_systems;
 
-            std::vector< Asset::FileLoaderInterface * > m_fileLoaders;
+            std::vector< std::shared_ptr<Asset::FileLoaderInterface> > m_fileLoaders;
 
             std::unique_ptr<RenderObjectManager> m_renderObjectManager;
             std::unique_ptr<EntityManager>       m_entityManager;

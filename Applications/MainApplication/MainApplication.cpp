@@ -139,6 +139,13 @@ namespace Ra
         config << "single precision" ;
 #endif
 
+        config << "\nTexture support : ";
+#if defined(RADIUM_WITH_TEXTURES)
+        config << "enabled";
+#else
+        config << "disabled" ;
+#endif
+        
         LOG( logINFO ) << config.str();
 
         config.str( std::string() );
@@ -171,13 +178,13 @@ namespace Ra
 #ifdef IO_USE_TINYPLY
         // Register before AssimpFileLoader, in order to ease override of such
         // custom loader (first loader able to load is taking the file)
-        m_engine->registerFileLoader( new IO::TinyPlyFileLoader() );
+        m_engine->registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface>(new IO::TinyPlyFileLoader()) );
 #endif
 #ifdef IO_USE_ASSIMP
-        m_engine->registerFileLoader( new IO::AssimpFileLoader() );
+        m_engine->registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface>(new IO::AssimpFileLoader()) );
 #endif
 #ifdef IO_USE_PBRT
-        m_engine->registerFileLoader( new IO::PbrtFileLoader() );
+        m_engine->registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface>(new IO::PbrtFileLoader()) );
 #endif
 
         // Create main window.
@@ -510,6 +517,16 @@ namespace Ra
                                 std::string name = ptr->getRendererName()
                                         + "(" + filename.toStdString() +  ")";
                                 m_mainWindow->addRenderer(name, ptr);
+                            }
+                        }
+
+                        if(loadedPlugin->doAddFileLoader())
+                        {
+                            std::vector<std::shared_ptr<Asset::FileLoaderInterface>> tmpL;
+                            loadedPlugin->addFileLoaders(&tmpL);
+                            CORE_ASSERT(! tmpL.empty(), "This plugin is expected to add file loaders");
+                            for(auto ptr : tmpL){
+                                m_engine->registerFileLoader(ptr);
                             }
                         }
                     }

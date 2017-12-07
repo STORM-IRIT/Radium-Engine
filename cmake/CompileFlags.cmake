@@ -172,14 +172,6 @@ else()
 endif()
 
 
-if (${RADIUM_PBRT_SUPPORT})
-    add_definitions(-DIO_USE_PBRT)
-    message(STATUS "${PROJECT_NAME} : Using PBRT loader")
-else()
-    message(STATUS "${PROJECT_NAME} : PBRT loader disabled")
-endif()
-
-
 
 # Additional flags depending on system        =================================
 

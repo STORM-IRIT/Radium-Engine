@@ -1,8 +1,5 @@
 #include <IO/TinyPlyLoader/TinyPlyFileLoader.hpp>
 
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-
 #include <tinyply/tinyply.h>
 
 #include <string>
@@ -131,6 +128,11 @@ namespace Ra {
             fileData->m_processed = true;
 
             return fileData;
+        }
+
+        std::string TinyPlyFileLoader::name() const
+        {
+            return "TinyPly";
         }
     }
 }

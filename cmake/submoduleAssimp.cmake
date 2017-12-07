@@ -52,6 +52,7 @@ ExternalProject_Add(
 
         # override default behaviours
         UPDATE_COMMAND ""
+        GIT_SUBMODULES 3rdPartyLibraries/Assimp
 
         # set the installatin to installed/assimp
         INSTALL_DIR "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}"

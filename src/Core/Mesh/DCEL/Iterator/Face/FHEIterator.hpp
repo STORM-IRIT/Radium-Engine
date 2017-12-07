@@ -6,7 +6,7 @@
 namespace Ra {
 namespace Core {
 
-class FHEIterator : public FIterator< HalfEdge > {
+class [[deprecated]] FHEIterator : public FIterator< HalfEdge > {
 public:
     /// CONSTRUCTOR
     FHEIterator( Face_ptr& f );

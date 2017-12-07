@@ -13,9 +13,9 @@
 [submodule "3rdPartyLibraries/Eigen"]
 	path = 3rdPartyLibraries/Eigen
 	url = https://github.com/RLovelett/eigen.git
-[submodule "3rdPartyLibraries/Pbrt"]
-	path = 3rdPartyLibraries/Pbrt
-	url = https://github.com/mmp/pbrt-v3
 [submodule "3rdPartyLibraries/tinyply"]
 	path = 3rdPartyLibraries/tinyply
 	url = https://github.com/nmellado/tinyply.git
+[submodule "3rdPartyLibraries/OpenMesh"]
+	path = 3rdPartyLibraries/OpenMesh
+	url = https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git

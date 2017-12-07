@@ -24,9 +24,10 @@ include_directories(
     ${GLBINDING_INCLUDE_DIR}
     ${GLOBJECTS_INCLUDE_DIR}
     ${GLM_INCLUDE_DIR}
+    ${OPENMESH_INCLUDE_DIR}
 )
 
-message(STATUS "Compiling Radium with 3rdparty include dirs : ${EIGEN3_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}" )
+message(STATUS "Compiling Radium with 3rdparty include dirs : ${EIGEN3_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}-- ${OPENMESH_INCLUDE_DIR}" )
 
 if( RADIUM_ASSIMP_SUPPORT )
         set( RADIUM_IO_IS_INTERFACE FALSE )
@@ -34,11 +35,6 @@ if( RADIUM_ASSIMP_SUPPORT )
     message(STATUS "Compiling Radium with Assimp's include dir : ${ASSIMP_INCLUDE_DIR}" )
 endif( RADIUM_ASSIMP_SUPPORT )
 
-if( RADIUM_PBRT_SUPPORT )
-        set( RADIUM_IO_IS_INTERFACE FALSE )
-    include_directories( ${PBRT_INCLUDE_DIR} )
-    message(STATUS "Compiling Radium with Pbrt's include dir : ${PBRT_INCLUDE_DIR}" )
-endif( RADIUM_PBRT_SUPPORT )
 # Build Core
 set(core_target radiumCore)
 
@@ -64,6 +60,10 @@ file(GLOB_RECURSE core_sources Core/*.cpp)
 file(GLOB_RECURSE core_headers Core/*.h Core/*.hpp)
 file(GLOB_RECURSE core_inlines Core/*.inl)
 
+set(core_libs
+    ${OPENMESH_LIBRARIES}
+   )
+
 add_library(
     ${core_target} SHARED
     ${core_sources}
@@ -72,11 +72,12 @@ add_library(
     ${RADIUM_VERSION_FILE} #This file is build-dependant and generated in the Bundle
 )
 
-add_dependencies( ${core_target} eigen3 radiumVersionFile)
+add_dependencies( ${core_target} eigen3 radiumVersionFile openmesh_lib)
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
 
 target_link_libraries(
     ${core_target}
+    ${core_libs}
 )
 
 # Build IO
@@ -95,14 +96,6 @@ if( RADIUM_ASSIMP_SUPPORT )
     set( io_inlines ${io_inlines} ${assimp_inlines} )
     set( io_libs    ${io_libs}    ${ASSIMP_LIBRARIES} )
 endif( RADIUM_ASSIMP_SUPPORT )
-
-if( RADIUM_PBRT_SUPPORT )
-    add_subdirectory( IO/PbrtLoader )
-    set( io_sources ${io_sources} ${pbrt_sources} )
-    set( io_headers ${io_headers} ${pbrt_headers} )
-    set( io_inlines ${io_inlines} ${pbrt_inlines} )
-    set( io_libs    ${io_libs}    ${PBRT_LIBRARIES} )
-endif( RADIUM_PBRT_SUPPORT )
 
 if( RADIUM_TINYPLY_SUPPORT )
     add_subdirectory( IO/TinyPlyLoader )
@@ -148,10 +141,6 @@ add_dependencies( ${io_target} ${core_target} ${engine_target} )
 if( RADIUM_ASSIMP_SUPPORT )
     add_dependencies( ${io_target} assimp_lib )
 endif( RADIUM_ASSIMP_SUPPORT )
-
-if( RADIUM_PBRT_SUPPORT )
-    add_dependencies( ${io_target} pbrt_lib )
-endif( RADIUM_PBRT_SUPPORT )
 
 if( RADIUM_TINYPLY_SUPPORT )
     add_dependencies( ${io_target} tinyply )

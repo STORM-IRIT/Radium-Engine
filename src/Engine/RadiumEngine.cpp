@@ -207,9 +207,14 @@ namespace Ra
            return m_signalManager.get();
         }
 
-        void RadiumEngine::registerFileLoader( Asset::FileLoaderInterface * fileLoader )
+        void RadiumEngine::registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface> fileLoader )
         {
             m_fileLoaders.push_back( fileLoader );
+        }
+
+        const std::vector<std::shared_ptr<Asset::FileLoaderInterface> > &RadiumEngine::getFileLoaders() const
+        {
+            return m_fileLoaders;
         }
 
         RA_SINGLETON_IMPLEMENTATION( RadiumEngine );

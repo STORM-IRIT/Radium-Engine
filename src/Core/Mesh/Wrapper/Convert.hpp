@@ -3,15 +3,18 @@
 
 #include <Core/RaCore.hpp>
 
-namespace Ra {
-namespace Core {
+namespace Ra
+{
+namespace Core
+{
 
 // Forward declaration
 class Index;
 struct TriangleMesh;
 class Dcel;
 
-struct Twin {
+struct Twin
+{
     Twin();
     Twin( const uint i, const uint j );
 
@@ -23,9 +26,6 @@ struct Twin {
 
 RA_CORE_API void convert( const TriangleMesh& mesh, Dcel& dcel );
 RA_CORE_API void convert( const Dcel& dcel, TriangleMesh& mesh );
-
-
-
 
 } // namespace Core
 } // namespace Ra

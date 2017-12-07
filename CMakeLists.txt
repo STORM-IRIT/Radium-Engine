@@ -31,7 +31,6 @@ option(RADIUM_WARNINGS_AS_ERRORS    "Treat compiler warning as errors" OFF)
 option(RADIUM_FORCE_ASSERTS         "Enable asserts regardless of build type" OFF)
 option(RADIUM_ASSIMP_SUPPORT        "Enable assimp loader" ON)
 option(RADIUM_TINYPLY_SUPPORT       "Enable TinyPly loader" ON)
-option(RADIUM_PBRT_SUPPORT          "Enable pbrt loader" OFF)
 option(RADIUM_BUILD_APPS            "Choose to build or not radium applications" ON)
 option(RADIUM_FAST_MATH             "Enable Fast Math optimizations in Release Mode (ignored with MVSC)" OFF)
 
@@ -110,7 +109,7 @@ endif(MSVC OR MSVC_IDE)
 #   SUBMODULES : assimp, glbinding, ....
 include(SubModules)
 set( RADIUM_INCLUDE_DIRS)
-list(APPEND RADIUM_INCLUDE_DIRS "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}" "${GLOBJECTS_INCLUDE_DIR}")
+list(APPEND RADIUM_INCLUDE_DIRS "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}" "${GLOBJECTS_INCLUDE_DIR}" "${OPENMESH_INCLUDE_DIR}")
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Main Libraries

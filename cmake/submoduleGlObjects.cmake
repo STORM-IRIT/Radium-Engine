@@ -45,13 +45,15 @@ endif()
 ExternalProject_Add(
     globjects
     # Need to build glbinding_lib before configuring globjects
-    DEPENDS glbinding_lib
+    DEPENDS glbinding_lib glm_lib
 
     # where the source will live
     SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/OpenGL/globjects"
 
     # override default behaviours
     UPDATE_COMMAND ""
+
+    GIT_SUBMODULES 3rdPartyLibraries/OpenGL/globjects
 
     # set the installatin to root
     # INSTALL_COMMAND cmake -E echo "Skipping install step."
@@ -76,15 +78,9 @@ ExternalProject_Add(
 
 
 add_custom_target(globjects_lib
-    DEPENDS  glbinding_lib glm_lib globjects
+    DEPENDS  glbinding_lib globjects
     )
 # ----------------------------------------------------------------------------------------------------------------------
-
-if(${RADIUM_SUBMODULES_BUILD_TYPE} MATCHES Debug)
-    set(GLOBJECTLIBNAME globjectsd)
-else()
-    set(GLOBJECTLIBNAME globjects)
-endif()
 
 if( MSVC OR MINGW )
 

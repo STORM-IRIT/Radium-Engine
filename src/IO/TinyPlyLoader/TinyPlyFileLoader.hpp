@@ -15,9 +15,10 @@ namespace Ra {
 
             virtual ~TinyPlyFileLoader();
 
-            virtual std::vector<std::string> getFileExtensions() const override;
-            virtual bool handleFileExtension( const std::string& extension ) const override;
-            virtual Asset::FileData * loadFile( const std::string& filename ) override;
+            std::vector<std::string> getFileExtensions() const override;
+            bool handleFileExtension( const std::string& extension ) const override;
+            Asset::FileData * loadFile( const std::string& filename ) override;
+            std::string name() const override;
         };
 
     } // namespace IO
