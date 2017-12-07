@@ -429,10 +429,11 @@ namespace Ra
     {
         CORE_ASSERT(m_glInitStatus.load(),
                     "OpenGL needs to be initialized to display textures.");
-
+        m_context->makeCurrent(this);
         m_currentRenderer->lockRendering();
         m_currentRenderer->displayTexture( tex.toStdString() );
         m_currentRenderer->unlockRendering();
+        m_context->doneCurrent();
     }
 
     bool Gui::Viewer::changeRenderer( int index )
@@ -453,6 +454,7 @@ namespace Ra
             LOG( logINFO ) << "[Viewer] Set active renderer: "
                            << m_currentRenderer->getRendererName();
 
+            m_context->doneCurrent();
             return true;
         }
         return false;
