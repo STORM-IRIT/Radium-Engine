@@ -60,9 +60,16 @@ namespace Ra
     }
 
     Gui::Viewer::~Viewer(){
-        if (m_gizmoManager != nullptr)
+        if ( m_glInitStatus.load() )
         {
-            delete m_gizmoManager;
+            m_context->makeCurrent( this );
+            m_renderers.clear();
+
+            if (m_gizmoManager != nullptr)
+            {
+                delete m_gizmoManager;
+            }
+            m_context->doneCurrent( );
         }
     }
 
