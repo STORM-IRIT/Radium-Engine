@@ -66,8 +66,11 @@ namespace Ra
             initShaders();
             initBuffers();
 
-            DebugRender::createInstance();
-            DebugRender::getInstance()->initialize();
+            if (!DebugRender::getInstance())
+            {
+              DebugRender::createInstance();
+              DebugRender::getInstance()->initialize();
+            }
         }
 
         void ForwardRenderer::initShaders()
