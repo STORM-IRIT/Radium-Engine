@@ -85,7 +85,9 @@ namespace Ra
         // initial state and lighting (deferred if GL is not ready yet)
         if ( m_glInitStatus.load() )
         {
+            m_context->makeCurrent( this );
             intializeRenderer(e.get());
+            m_context->doneCurrent( );
         }
         else
         {
