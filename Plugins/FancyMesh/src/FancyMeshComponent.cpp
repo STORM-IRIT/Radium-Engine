@@ -142,25 +142,44 @@ namespace FancyMeshPlugin
         // FIXME(Charly): Should not weights be part of the geometry ?
         //        mesh->addData( Ra::Engine::Mesh::VERTEX_WEIGHTS, meshData.weights );
 
+        Ra::Engine::ShaderConfiguration config;
+        bool isTransparent { false };
         std::shared_ptr<Ra::Engine::Material> mat( new Ra::Engine::Material( matName ) );
-        auto m = data->getMaterial();
-        if ( m.hasDiffuse() )   mat->m_kd    = m.m_diffuse;
-        if ( m.hasSpecular() )  mat->m_ks    = m.m_specular;
-        if ( m.hasShininess() ) mat->m_ns    = m.m_shininess;
-        if ( m.hasOpacity() )   mat->m_alpha = m.m_opacity;
+        const Ra::Asset::MaterialData& assimpMaterial = data->getMaterial();
+        switch ( assimpMaterial.getType() ) {
+            case Ra::Asset::MaterialData::BLINN_PHONG:
+            {
+                const Ra::Asset::MaterialData::BlinnPhongMaterial &m = assimpMaterial.getBlinnPhong();
+                if ( m.hasDiffuse() )   mat->m_kd    = m.m_diffuse;
+                if ( m.hasSpecular() )  mat->m_ks    = m.m_specular;
+                if ( m.hasShininess() ) mat->m_ns    = m.m_shininess;
+                if ( m.hasOpacity() )   mat->m_alpha = m.m_opacity;
 
 #ifdef RADIUM_WITH_TEXTURES
-        if ( m.hasDiffuseTexture() )   mat->addTexture( Ra::Engine::Material::TextureType::TEX_DIFFUSE  , m.m_texDiffuse );
-        if ( m.hasSpecularTexture() )  mat->addTexture( Ra::Engine::Material::TextureType::TEX_SPECULAR , m.m_texSpecular );
-        if ( m.hasShininessTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_SHININESS, m.m_texShininess );
-        if ( m.hasOpacityTexture() )   mat->addTexture( Ra::Engine::Material::TextureType::TEX_ALPHA    , m.m_texOpacity );
-        if ( m.hasNormalTexture() )    mat->addTexture( Ra::Engine::Material::TextureType::TEX_NORMAL   , m.m_texNormal );
+                if ( m.hasDiffuseTexture() )   mat->addTexture( Ra::Engine::Material::TextureType::TEX_DIFFUSE  , m.m_texDiffuse );
+                if ( m.hasSpecularTexture() )  mat->addTexture( Ra::Engine::Material::TextureType::TEX_SPECULAR , m.m_texSpecular );
+                if ( m.hasShininessTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_SHININESS, m.m_texShininess );
+                if ( m.hasOpacityTexture() )   mat->addTexture( Ra::Engine::Material::TextureType::TEX_ALPHA    , m.m_texOpacity );
+                if ( m.hasNormalTexture() )    mat->addTexture( Ra::Engine::Material::TextureType::TEX_NORMAL   , m.m_texNormal );
 #endif
+                config = Ra::Engine::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
+                isTransparent = ( mat->m_alpha < 1.0) ;
+            }
+                break;
+            case Ra::Asset::MaterialData::DISNEY:
+            case Ra::Asset::MaterialData::MATTE:
+            case Ra::Asset::MaterialData::METAL:
+            case Ra::Asset::MaterialData::MIRROR:
+            case Ra::Asset::MaterialData::PLASTIC:
+            case Ra::Asset::MaterialData::SUBSTRATE:
+            case Ra::Asset::MaterialData::TRANSLUCENT:
+            case Ra::Asset::MaterialData::UNKNOWN:
+                LOG (logERROR) << "FancyMeshComponent only support BlinnPhong Material.";
 
-        auto config = Ra::Engine::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
+        }
 
         auto ro = Ra::Engine::RenderObject::createRenderObject( roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, config, mat );
-        ro->setTransparent( mat->m_alpha < 1.0 );
+        ro->setTransparent( isTransparent );
 
         setupIO( data->getName());
         m_meshIndex = addRenderObject(ro);
