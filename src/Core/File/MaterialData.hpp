@@ -12,6 +12,10 @@
 namespace Ra {
   namespace Asset {
 
+    /** @brief represent material data  loaded by a file loader
+     *  Material data is an union of several material types supported by Radium.
+     *  This class might evolve during the material system rewriting.
+     */
     class RA_CORE_API MaterialData : public AssetData
     {
     public:
@@ -27,22 +31,33 @@ namespace Ra {
             SUBSTRATE   = 1 << 7,
             TRANSLUCENT = 1 << 8
         };
+
         // SUPPORTED MATERIALS
         struct BlinnPhongMaterial
         {
             BlinnPhongMaterial();
+
             BlinnPhongMaterial(const BlinnPhongMaterial& o ) = default;
+
             ~BlinnPhongMaterial() = default;
 
             /// QUERY
             inline bool hasDiffuse() const;
+
             inline bool hasSpecular() const;
+
             inline bool hasShininess() const;
+
             inline bool hasOpacity() const;
+
             inline bool hasDiffuseTexture() const;
+
             inline bool hasSpecularTexture() const;
+
             inline bool hasShininessTexture() const;
+
             inline bool hasNormalTexture() const;
+
             inline bool hasOpacityTexture() const;
 
             /// DEBUG
@@ -71,10 +86,10 @@ namespace Ra {
 
         /// MATERIALDATA
 
-        MaterialData(const std::string&  name = "",
-                     const MaterialType& type = UNKNOWN);
+        MaterialData( const std::string&  name = "", const MaterialType& type = UNKNOWN);
 
         MaterialData( const MaterialData& material );
+
         MaterialData& operator=( const MaterialData& material );
 
         ~MaterialData();
@@ -84,15 +99,16 @@ namespace Ra {
 
         /// TYPE
         inline MaterialType getType() const;
+
         inline void setType( const MaterialType& type );
 
         /// QUERY
         inline const BlinnPhongMaterial &getBlinnPhong() const;
+
         inline void setBlinnPhong(const BlinnPhongMaterial &o);
 
         /// DEBUG
         inline void displayInfo() const;
-
 
     private:
         MaterialType m_type;
@@ -101,7 +117,6 @@ namespace Ra {
             BlinnPhongMaterial m_BlinnPhong;
             // TODO : add here others materials
         };
-
 
     };
 
