@@ -37,7 +37,7 @@ namespace Ra
         {
             if ( m_renderObject )
             {
-                m_renderObject->getRenderTechnique()->material->m_ns = v;
+                m_renderObject->getRenderTechnique()->getMaterial()->m_ns = v;
             }
         }
 
@@ -48,7 +48,7 @@ namespace Ra
             if ( m_renderObject )
             {
                 Core::Color c( kdR->value() / 255.f, kdG->value() / 255.f, kdB->value() / 255.f, 1.0 );
-                m_renderObject->getRenderTechnique()->material->m_kd = c;
+                m_renderObject->getRenderTechnique()->getMaterial()->m_kd = c;
             }
         }
 
@@ -59,7 +59,7 @@ namespace Ra
             if ( m_renderObject )
             {
                 Core::Color c( ksR->value() / 255.f, ksG->value() / 255.f, ksB->value() / 255.f, 1.0 );
-                m_renderObject->getRenderTechnique()->material->m_ks = c;
+                m_renderObject->getRenderTechnique()->getMaterial()->m_ks = c;
             }
         }
 
@@ -76,7 +76,7 @@ namespace Ra
             if ( m_renderObject )
             {
                 Core::Color c( color.redF(), color.greenF(), color.blueF(), 1.0 );
-                m_renderObject->getRenderTechnique()->material->m_kd = c;
+                m_renderObject->getRenderTechnique()->getMaterial()->m_kd = c;
             }
         }
 
@@ -93,7 +93,7 @@ namespace Ra
             if ( m_renderObject )
             {
                 Core::Color c( color.redF(), color.greenF(), color.blueF(), 1.0 );
-                m_renderObject->getRenderTechnique()->material->m_ks = c;
+                m_renderObject->getRenderTechnique()->getMaterial()->m_ks = c;
             }
         }
 
@@ -127,7 +127,7 @@ namespace Ra
             if ( m_renderObject != nullptr )
             {
                 m_renderObjectName->setText( m_renderObject->getName().c_str() );
-                updateMaterialViz( m_renderObject->getRenderTechnique()->material );
+                updateMaterialViz( m_renderObject->getRenderTechnique()->getMaterial() );
             }
         }
 

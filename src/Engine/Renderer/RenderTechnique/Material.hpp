@@ -37,7 +37,7 @@ namespace Ra
             TEX_ALPHA
         };
 
-        // TODO : make Radium Material follow the diversity of MaterialData
+        // TODO : make Radium Material follow the diversity of Asset::MaterialData
         // This material could be the default : Blinn-Phong material
         enum class MaterialType
         {
@@ -52,7 +52,6 @@ namespace Ra
 
         ~Material();
 
-        // FIXME(Charly): This should be a "gl material" class work
         void updateGL();
 
         void bind( const ShaderProgram* shader );

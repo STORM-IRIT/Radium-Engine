@@ -13,7 +13,9 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+//#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
@@ -188,26 +190,11 @@ namespace Ra
 
             GL_ASSERT( glPointSize( 3. ) );
 
-            shader = m_shaderMgr->getShaderProgram("DepthAmbientPass");
-            shader->bind();
+            // Set in RenderParam the configuration about ambiant lighting (instead of hard constant direclty in shaders)
+            RenderParameters params;
             for ( const auto& ro : m_fancyRenderObjects )
             {
-                if ( ro->isVisible() )
-                {
-                    // bind data
-                    Core::Matrix4 M = ro->getTransformAsMatrix();
-                    Core::Matrix4 N = M.inverse().transpose();
-
-                    shader->setUniform( "transform.proj", renderData.projMatrix );
-                    shader->setUniform( "transform.view", renderData.viewMatrix );
-                    shader->setUniform( "transform.model", M );
-                    shader->setUniform( "transform.worldNormal", N );
-
-                    ro->getRenderTechnique()->material->bind( shader );
-                    //shader->validate();
-                    // render
-                    ro->getMesh()->render();
-                }
+                ro->render(params, renderData, RenderTechnique::Z_PREPASS);
             }
 
             // Light pass
@@ -228,7 +215,7 @@ namespace Ra
 
                     for ( const auto& ro : m_fancyRenderObjects )
                     {
-                        ro->render(params, renderData);
+                        ro->render(params, renderData, RenderTechnique::LIGHTING_OPAQUE);
                     }
                 }
             }
@@ -242,7 +229,7 @@ namespace Ra
 
                 for ( const auto& ro : m_fancyRenderObjects )
                 {
-                    ro->render(params, renderData);
+                    ro->render(params, renderData, RenderTechnique::LIGHTING_OPAQUE);
                 }
             }
 
@@ -261,9 +248,6 @@ namespace Ra
             GL_ASSERT(glBlendFunci(0, GL_ONE, GL_ONE));
             GL_ASSERT(glBlendFunci(1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA));
 
-            shader = m_shaderMgr->getShaderProgram("LitOIT");
-            shader->bind();
-
             if ( m_lights.size() > 0 )
             {
                 for ( const auto& l : m_lights )
@@ -271,10 +255,9 @@ namespace Ra
                     RenderParameters params;
                     l->getRenderParameters( params );
 
-                    for (size_t i = 0; i < m_fancyTransparentCount; ++i)
+                    for ( const auto& ro : m_transparentRenderObjects )
                     {
-                        auto ro = m_transparentRenderObjects[i];
-                        ro->render(params, renderData, shader);
+                        ro->render(params, renderData, RenderTechnique::LIGHTING_TRANSPARENT);
                     }
                 }
             }
@@ -286,10 +269,9 @@ namespace Ra
                 RenderParameters params;
                 l.getRenderParameters( params );
 
-                for (size_t i = 0; i < m_fancyTransparentCount; ++i)
+                for ( const auto& ro : m_transparentRenderObjects )
                 {
-                    auto& ro = m_transparentRenderObjects[i];
-                    ro->render(params, renderData, shader);
+                    ro->render(params, renderData, RenderTechnique::LIGHTING_TRANSPARENT);
                 }
             }
 
@@ -337,13 +319,13 @@ namespace Ra
 
                         for ( const auto& ro : m_fancyRenderObjects )
                         {
-                            ro->render(params, renderData);
+                            ro->render(params, renderData, RenderTechnique::LIGHTING_OPAQUE);
                         }
 
                         for (size_t i = 0; i < m_fancyTransparentCount; ++i)
                         {
                             auto& ro = m_transparentRenderObjects[i];
-                            ro->render(params, renderData);
+                            ro->render(params, renderData, RenderTechnique::LIGHTING_OPAQUE);
                         }
                     }
                 }
@@ -357,13 +339,13 @@ namespace Ra
 
                     for ( const auto& ro : m_fancyRenderObjects )
                     {
-                        ro->render(params, renderData);
+                        ro->render(params, renderData, RenderTechnique::LIGHTING_OPAQUE);
                     }
 
                     for (size_t i = 0; i < m_fancyTransparentCount; ++i)
                     {
                         auto& ro = m_transparentRenderObjects[i];
-                        ro->render(params, renderData);
+                        ro->render(params, renderData, RenderTechnique::LIGHTING_OPAQUE);
                     }
                 }
 
@@ -459,7 +441,7 @@ namespace Ra
                 {
                     if ( ro->isVisible() )
                     {
-                        shader = ro->getRenderTechnique()->shader;
+                        shader = ro->getRenderTechnique()->getShader();
 
                         // bind data
                         shader->bind();
@@ -469,7 +451,7 @@ namespace Ra
                         shader->setUniform( "transform.view", renderData.viewMatrix );
                         shader->setUniform( "transform.model", M );
 
-                        ro->getRenderTechnique()->material->bind( shader );
+                        ro->getRenderTechnique()->getMaterial()->bind( shader );
 
                         // render
                         ro->getMesh()->render();
@@ -499,7 +481,7 @@ namespace Ra
             {
                 if ( ro->isVisible() )
                 {
-                    shader = ro->getRenderTechnique()->shader;
+                    shader = ro->getRenderTechnique()->getShader();
 
                     // bind data
                     shader->bind();
@@ -518,7 +500,7 @@ namespace Ra
                     shader->setUniform( "transform.view", renderData.viewMatrix );
                     shader->setUniform( "transform.model", M );
 
-                    ro->getRenderTechnique()->material->bind( shader );
+                    ro->getRenderTechnique()->getMaterial()->bind( shader );
 
                     // render
                     ro->getMesh()->render();
