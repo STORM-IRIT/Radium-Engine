@@ -27,8 +27,8 @@ namespace Ra {
                 }
 
                 std::shared_ptr<RenderTechnique> rt (new RenderTechnique);
-                rt->shaderConfig = config;
-                rt->material.reset(new Material("Default material"));
+                rt->setShader( config );
+                rt->resetMaterial(new Material("Default material"));
 
                 RenderObject* ro = new RenderObject(mesh->getName(), component,
                                                     RenderObjectType::Debug);

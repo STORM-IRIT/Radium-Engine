@@ -32,7 +32,8 @@ namespace MeshFeatureTrackingPlugin
         material-> m_kd = Ra::Core::Color(0.f,1.f,0.f,1.f);
         m_RO = Ra::Engine::RenderObject::createRenderObject( "FeaturePickingManagerSphereRO", this,
                                                              Ra::Engine::RenderObjectType::Fancy, display,
-                                                             Ra::Engine::ShaderConfigurationFactory::getConfiguration("BlinnPhong"),
+ //                                                            Ra::Engine::ShaderConfigurationFactory::getConfiguration("BlinnPhong"),
+                                                             Ra::Engine::RenderTechnique::createDefaultRenderTechnique(),
                                                              material );
         m_RO->setPickable( false );
         m_RO->setVisible( false );

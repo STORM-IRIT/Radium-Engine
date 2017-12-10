@@ -11,14 +11,13 @@
 #include <Core/Math/LinearAlgebra.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
 namespace Ra
 {
     namespace Engine
     {
         class Light;
-        struct RenderTechnique;
         class Component;
         class Mesh;
         class RenderQueue;
@@ -61,10 +60,19 @@ namespace Ra
             ///     Material* mat = new Material; // Then configure your material...
             ///     // createRenderObject can finally be called.
             ///     RenderObject* ro = createRenderObject(name, component, type, config, material);
+            /// TODO : update the above documentation to match the new profile and use case ...
+/*
             static RenderObject* createRenderObject( const std::string& name, Component* comp,
                                                      const RenderObjectType& type, const std::shared_ptr<Mesh>& mesh,
                                                      const ShaderConfiguration& shaderConfig = ShaderConfigurationFactory::getConfiguration("BlinnPhong"),
                                                      const std::shared_ptr<Material>& material = nullptr );
+*/
+            static RenderObject* createRenderObject( const std::string& name, Component* comp,
+                                                     const RenderObjectType& type,
+                                                     const std::shared_ptr<Mesh>& mesh,
+                                                     const RenderTechnique& techniqueConfig = RenderTechnique::createDefaultRenderTechnique(),
+                                                     const std::shared_ptr<Material>& material = nullptr );
+
 
             // FIXME(Charly): Remove this
             void updateGL();
@@ -122,7 +130,8 @@ namespace Ra
             void hasBeenRenderedOnce();
             void hasExpired();
 
-            virtual void render( const RenderParameters& lightParams, const RenderData& rdata, const ShaderProgram* altShader = nullptr );
+//            virtual void render( const RenderParameters& lightParams, const RenderData& rdata, const ShaderProgram* altShader = nullptr );
+            virtual void render( const RenderParameters& lightParams, const RenderData& rdata, RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE );
 
         private:
             Core::Transform m_localTransform;

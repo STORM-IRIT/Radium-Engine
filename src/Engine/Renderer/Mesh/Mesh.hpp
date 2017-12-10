@@ -7,13 +7,10 @@
 #include <array>
 #include <map>
 
-//#include <Engine/Renderer/OpenGL/OpenGL.hpp>
-
-//#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 
-//#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+
 
 namespace Ra
 {
