@@ -24,6 +24,18 @@ struct Textures
     sampler2D alpha;
 };
 
+/*
+// Not sure that this must be here.
+// Material definition "a la Disney BSDF"
+// Correspondances between default material and others material are in comments
+// see http://www.pbrt.org/fileformat-v3.html#materials
+struct Material
+{
+    vec4 kd; // Diney : color
+
+}
+*/
+
 struct Material
 {
     vec4 kd;
@@ -34,6 +46,7 @@ struct Material
 
     Textures tex;
 };
+
 
 struct Attenuation
 {

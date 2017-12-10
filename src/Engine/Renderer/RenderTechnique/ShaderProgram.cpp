@@ -318,7 +318,6 @@ namespace Ra
             m_program->setUniform( name, Core::toGlm( v ) );
         }
 
-        // TODO : Provide Texture support
         void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const
         {
             tex->bind( texUnit );

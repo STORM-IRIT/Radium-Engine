@@ -57,8 +57,8 @@ namespace Ra
                                                                                Engine::RenderObjectType::UI );
 
                 std::shared_ptr<Engine::RenderTechnique> rt (new Engine::RenderTechnique);
-                rt->shaderConfig = Ra::Engine::ShaderConfigurationFactory::getConfiguration("Plain");
-                rt->material.reset(new Ra::Engine::Material("Default material"));
+                rt->setShader( Ra::Engine::ShaderConfigurationFactory::getConfiguration("Plain") );
+                rt->resetMaterial(new Ra::Engine::Material("Default material"));
                 arrowDrawable->setRenderTechnique(rt);
                 arrowDrawable->setMesh( mesh );
 

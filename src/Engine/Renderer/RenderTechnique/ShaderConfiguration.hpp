@@ -72,7 +72,6 @@ namespace Ra
             void removeProperty(const std::string& prop);
 
             /// Tell if a shader configuration has at least a vertex and a fragment shader, or a compute shader.
-            /// @todo: Is a shader complete if it only has a compute shader ?
             bool isComplete() const;
 
             bool operator< (const ShaderConfiguration& other) const;

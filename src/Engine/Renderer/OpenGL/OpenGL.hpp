@@ -48,7 +48,6 @@ inline const char* glErrorString(GLenum err)
     }
 }
 
-// FIXME(Charly): Fix logging
 #ifdef _DEBUG
 #define GL_ASSERT(x) \
     x; { \
