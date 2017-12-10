@@ -67,31 +67,30 @@ namespace Ra
             {
                 return found->second.get();
             }
+
+            // Try to load the shader
+            auto prog = Core::make_shared<ShaderProgram>( config );
+
+            // FIXED : use isLinked not isValid
+            if ( prog->getProgramObject()->isLinked() )
+            {
+                insertShader(config, prog);
+                return prog.get();
+            }
             else
             {
-                // Try to load the shader
-                auto prog = Core::make_shared<ShaderProgram>( config );
+                std::string error;
+                Core::StringUtils::stringPrintf( error,
+                    "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
+                    config.m_name.c_str() );
+                LOG( logERROR ) << error;
 
-                // FIXED : use isLinked not isValid
-                if ( prog->getProgramObject()->isLinked() )
-                {
-                    insertShader(config, prog);
-                    return prog.get();
-                }
-                else
-                {
-                    std::string error;
-                    Core::StringUtils::stringPrintf( error,
-                        "Error occurred while loading shader program %s :\nDefault shader program used instead.\n",
-                        config.m_name.c_str() );
-                    LOG( logERROR ) << error;
+                // insert in the failed shaders list
+                m_shaderFailedConfs.push_back(config);
 
-                    // insert in the failed shaders list
-                    m_shaderFailedConfs.push_back(config);
-
-                    return m_defaultShaderProgram;
-                }
+                return m_defaultShaderProgram;
             }
+
         }
 
         const ShaderProgram* ShaderProgramManager::getShaderProgram(const std::string &id)

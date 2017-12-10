@@ -268,7 +268,7 @@ namespace Ra
                     shader->setUniform( "transform.view", renderData.viewMatrix );
                     shader->setUniform( "transform.model", M );
 
-                    ro->getRenderTechnique()->material->bind( shader );
+                    ro->getRenderTechnique()->getMaterial()->bind( shader );
 
                     // render
                     ro->getMesh()->render();
@@ -291,7 +291,7 @@ namespace Ra
                         shader->setUniform( "transform.view", renderData.viewMatrix );
                         shader->setUniform( "transform.model", M );
 
-                        ro->getRenderTechnique()->material->bind( shader );
+                        ro->getRenderTechnique()->getMaterial()->bind( shader );
 
                         // render
                         ro->getMesh()->render();
@@ -315,7 +315,7 @@ namespace Ra
                         shader->setUniform( "transform.view", renderData.viewMatrix );
                         shader->setUniform( "transform.model", M );
 
-                        ro->getRenderTechnique()->material->bind( shader );
+                        ro->getRenderTechnique()->getMaterial()->bind( shader );
 
                         // render
                         ro->getMesh()->render();
@@ -346,7 +346,7 @@ namespace Ra
                     shader->setUniform( "transform.view", renderData.viewMatrix );
                     shader->setUniform( "transform.model", M );
 
-                    ro->getRenderTechnique()->material->bind( shader );
+                    ro->getRenderTechnique()->getMaterial()->bind( shader );
 
                     // render
                     ro->getMesh()->render();
