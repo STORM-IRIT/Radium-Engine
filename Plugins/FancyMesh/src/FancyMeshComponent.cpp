@@ -142,13 +142,16 @@ namespace FancyMeshPlugin
         // FIXME(Charly): Should not weights be part of the geometry ?
         //        mesh->addData( Ra::Engine::Mesh::VERTEX_WEIGHTS, meshData.weights );
 
-        Ra::Engine::ShaderConfiguration config;
+        Ra::Engine::RenderTechnique rt;
+        Ra::Engine::ShaderConfiguration shaderConfig;
         bool isTransparent { false };
-        std::shared_ptr<Ra::Engine::Material> mat( new Ra::Engine::Material( matName ) );
+
         const Ra::Asset::MaterialData& assimpMaterial = data->getMaterial();
+
         switch ( assimpMaterial.getType() ) {
             case Ra::Asset::MaterialData::BLINN_PHONG:
             {
+                auto mat = Ra::Core::make_shared<Ra::Engine::Material>( matName ) ;
                 const Ra::Asset::MaterialData::BlinnPhongMaterial &m = assimpMaterial.getBlinnPhong();
                 if ( m.hasDiffuse() )   mat->m_kd    = m.m_diffuse;
                 if ( m.hasSpecular() )  mat->m_ks    = m.m_specular;
@@ -162,8 +165,27 @@ namespace FancyMeshPlugin
                 if ( m.hasOpacityTexture() )   mat->addTexture( Ra::Engine::Material::TextureType::TEX_ALPHA    , m.m_texOpacity );
                 if ( m.hasNormalTexture() )    mat->addTexture( Ra::Engine::Material::TextureType::TEX_NORMAL   , m.m_texNormal );
 #endif
-                config = Ra::Engine::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
-                isTransparent = ( mat->m_alpha < 1.0) ;
+                // Configure the technique to render this object
+                isTransparent = ( mat->m_alpha < 1.0);
+
+                rt.setMaterial(mat);
+
+                // Configure the technique to render this object@
+                // Main pass : BlinnPhong
+                Ra::Engine::ShaderConfiguration lpconfig("BlinnPhong", "Shaders/BlinnPhong.vert.glsl", "Shaders/BlinnPhong.frag.glsl");
+                rt.setShader(lpconfig, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE);
+
+                // Z prepass : DepthAmbiantPass
+                Ra::Engine::ShaderConfiguration dpconfig("DepthAmbiantPass", "Shaders/BlinnPhong.vert.glsl", "Shaders/DepthAmbientPass.frag.glsl");
+                rt.setShader(dpconfig, Ra::Engine::RenderTechnique::Z_PREPASS);
+
+                // If Transparent ... add LitOIT
+                if (isTransparent)
+                {
+                    Ra::Engine::ShaderConfiguration tpconfig("LitOIT", "Shaders/BlinnPhong.vert.glsl", "Shaders/LitOIT.frag.glsl");
+                    rt.setShader(tpconfig, Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT);
+                }
+
             }
                 break;
             case Ra::Asset::MaterialData::DISNEY:
@@ -178,7 +200,7 @@ namespace FancyMeshPlugin
 
         }
 
-        auto ro = Ra::Engine::RenderObject::createRenderObject( roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, config, mat );
+        auto ro = Ra::Engine::RenderObject::createRenderObject( roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, rt );
         ro->setTransparent( isTransparent );
 
         setupIO( data->getName());

@@ -112,11 +112,13 @@ public:
             }
 
             std::shared_ptr<Ra::Engine::RenderTechnique> technique(new Ra::Engine::RenderTechnique);
-            technique->material.reset(new Ra::Engine::Material( std::string( "Partition" ) + m_name ));
-            technique->material->m_kd = Ra::Core::Vector4::Zero();
-            technique->material->m_ks = Ra::Core::Vector4::Zero();
-            technique->material->m_ns = 100;
-            technique->shaderConfig = Ra::Engine::ShaderConfigurationFactory::getConfiguration("Plain");
+            Ra::Engine::Material *nm = new Ra::Engine::Material( std::string( "Partition" ) + m_name );
+            nm->m_kd = Ra::Core::Vector4::Zero();
+            nm->m_ks = Ra::Core::Vector4::Zero();
+            nm->m_ns = 100;
+            technique->resetMaterial( nm );
+
+            technique->setShader( Ra::Engine::ShaderConfigurationFactory::getConfiguration("Plain") );
 
 
             std::string name = m_name + "_Partition";

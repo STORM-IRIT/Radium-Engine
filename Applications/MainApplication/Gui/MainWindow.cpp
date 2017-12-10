@@ -306,7 +306,7 @@ namespace Ra
                 const std::string& shaderName = mainApp->m_engine->getRenderObjectManager()
                                                        ->getRenderObject(ent.m_roIndex)
                                                        ->getRenderTechnique()
-                                                       ->getBasicConfiguration().m_name;
+                                                       ->getConfiguration().m_name;
 
 
                 if (m_currentShaderBox->findText(shaderName.c_str()) == -1)
@@ -408,9 +408,9 @@ namespace Ra
         auto vector_of_ros = getItemROs( mainApp->m_engine.get(), item );
         for (const auto& ro_index : vector_of_ros) {
             const auto& ro = mainApp->m_engine->getRenderObjectManager()->getRenderObject(ro_index);
-            if (ro->getRenderTechnique()->getBasicConfiguration().m_name != name)
+            if (ro->getRenderTechnique()->getConfiguration().m_name != name)
             {
-                ro->getRenderTechnique()->changeShader(config);
+                ro->getRenderTechnique()->setShader(config);
             }
         }
     }

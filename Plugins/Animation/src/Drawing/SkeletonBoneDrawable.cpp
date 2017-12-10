@@ -27,8 +27,8 @@ namespace AnimationPlugin
 
         m_renderParams.reset(new Ra::Engine::RenderTechnique());
         {
-            m_renderParams->shaderConfig = shader;
-            m_renderParams->material = m_material;
+            m_renderParams->setShader( shader );
+            m_renderParams->setMaterial( m_material );
         }
         renderObject->setRenderTechnique(m_renderParams);
 

@@ -35,8 +35,6 @@ namespace Ra
             /// CONSTRUCTOR
             Component( const std::string& name );
 
-            // FIXME (Charly) : Should destructor call something like
-            //                  System::removeComponent(this) ?
             /// DESTRUCTOR
             virtual ~Component();
 

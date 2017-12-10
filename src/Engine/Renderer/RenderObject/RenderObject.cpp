@@ -47,10 +47,34 @@ namespace Ra
         {
         }
 
-        RenderObject* RenderObject::createRenderObject(const std::string& name, Component* comp,
-                                                       const RenderObjectType& type, const std::shared_ptr<Mesh> &mesh,
-                                                       const ShaderConfiguration &shaderConfig,
-                                                       const std::shared_ptr<Material>& material)
+
+
+        RenderObject* RenderObject::createRenderObject ( const std::string& name, Component* comp,
+                                                         const RenderObjectType& type,
+                                                         const std::shared_ptr<Mesh>& mesh,
+                                                         const RenderTechnique& techniqueConfig,
+                                                         const std::shared_ptr<Material>& material )
+        {
+            RenderObject* obj = new RenderObject(name, comp, type);
+            obj->setMesh(mesh);
+            obj->setVisible(true);
+
+            std::shared_ptr<RenderTechnique> rt(new RenderTechnique(techniqueConfig));
+
+            if (material != nullptr)
+            {
+                rt->setMaterial( material );
+            }
+
+            obj->setRenderTechnique(rt);
+
+            return obj;
+        }
+/*
+        (const std::string& name, Component* comp,
+         const RenderObjectType& type, const std::shared_ptr<Mesh> &mesh,
+         const ShaderConfiguration &shaderConfig,
+         const std::shared_ptr<Material>& material)
         {
             RenderObject* obj = new RenderObject(name, comp, type);
             obj->setMesh(mesh);
@@ -60,29 +84,31 @@ namespace Ra
 
             if (shaderConfig.isComplete())
             {
-                rt->shaderConfig = shaderConfig;
+                rt->setShader( shaderConfig );
             }
             else
             {
-                rt->shaderConfig = ShaderProgramManager::getInstance()->getDefaultShaderProgram()->getBasicConfiguration();
+                rt->setShader( ShaderProgramManager::getInstance()->getDefaultShaderProgram()->getBasicConfiguration() );
             }
 
             if (material != nullptr)
             {
-                rt->material = material;
+                rt->setMaterial( material );
             }
             else
             {
                 // Lightgrey non specular material by default
-                rt->material.reset(new Material(name + "_Mat"));
-                rt->material->m_kd = Core::Color::Constant(0.9f);
-                rt->material->m_ks = Core::Color::Zero();
-            }
+                Material *nm = new Material(name + "_Mat");
+                nm->m_kd = Core::Color::Constant(0.9f);
+                nm->m_ks = Core::Color::Zero();
+                rt->resetMaterial(nm);
+             }
 
             obj->setRenderTechnique(rt);
 
             return obj;
         }
+*/
 
         void RenderObject::updateGL()
         {
@@ -288,13 +314,14 @@ namespace Ra
             m_component->notifyRenderObjectExpired( idx );
         }
 
-        void RenderObject::render( const RenderParameters& lightParams, const RenderData& rdata, const ShaderProgram* altShader )
+
+//       void RenderObject::render( const RenderParameters& lightParams, const RenderData& rdata, const ShaderProgram* altShader )
+        void RenderObject::render( const RenderParameters& lightParams, const RenderData& rdata, RenderTechnique::PassName passname )
         {
-            const ShaderProgram* shader;
 
             if (m_visible)
             {
-                shader = (altShader == nullptr) ? getRenderTechnique()->shader : altShader;
+                const ShaderProgram* shader = getRenderTechnique()->getShader(passname);
 
                 if (!shader)
                 {
@@ -312,7 +339,7 @@ namespace Ra
                 shader->setUniform( "transform.worldNormal", N );
                 lightParams.bind( shader );
 
-                getRenderTechnique()->material->bind( shader );
+                getRenderTechnique()->getMaterial()->bind( shader );
 
                 // render
                 getMesh()->render();
