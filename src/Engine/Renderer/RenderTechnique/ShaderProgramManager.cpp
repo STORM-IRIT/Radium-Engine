@@ -52,6 +52,18 @@ namespace Ra {
             m_namedStrings.push_back(globjects::NamedString::create(includepath, m_files[m_files.size()-1].get()));
         }
         
+        void ShaderProgramManager::updateNamedString()
+        {
+            auto numNamedString = m_namedStrings.size();
+            for (auto i=0; i<numNamedString; ++i )
+            {
+                m_files[i]->reload();
+                std::string id = m_namedStrings[i]->name();
+                m_namedStrings[i].reset(nullptr);
+                m_namedStrings[i].reset( globjects::NamedString::create(id, m_files[i].get()).release() );
+            }
+        }
+        
         const ShaderProgram *ShaderProgramManager::addShaderProgram(const std::string &name,
                                                                     const std::string &vert,
                                                                     const std::string &frag)
@@ -117,6 +129,9 @@ namespace Ra {
         
         void ShaderProgramManager::reloadAllShaderPrograms()
         {
+            // update the include registry
+            updateNamedString();
+            
             // For each shader in the map
             for (auto &shader : m_shaderPrograms)
             {
