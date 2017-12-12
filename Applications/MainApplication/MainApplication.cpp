@@ -20,6 +20,7 @@
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
+#include <Engine/ItemModel/ItemEntry.hpp>
 
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
