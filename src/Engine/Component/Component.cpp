@@ -15,12 +15,12 @@ namespace Ra
     namespace Engine
     {
         Component::Component( const std::string& name )
-                : m_name( name )
-                , m_entity( nullptr )
-                , m_system( nullptr )
+        : m_name( name )
+        , m_entity( nullptr )
+        , m_system( nullptr )
         {
         }
-
+        
         Component::~Component()
         {
             for (const auto& ro : m_renderObjects )
@@ -33,18 +33,18 @@ namespace Ra
             }
             RadiumEngine::getInstance()->getSignalManager()->fireComponentRemoved( ItemEntry(getEntity(),this));
         }
-
+        
         RenderObjectManager* Component::getRoMgr()
         {
             return RadiumEngine::getInstance()->getRenderObjectManager();
         }
-
+        
         Core::Index Component::addRenderObject( RenderObject* renderObject )
         {
             m_renderObjects.push_back( getRoMgr()->addRenderObject( renderObject ) );
             return m_renderObjects.back();
         }
-
+        
         void Component::removeRenderObject( Core::Index roIdx )
         {
             auto found = std::find(m_renderObjects.cbegin(), m_renderObjects.cend(),roIdx);
@@ -55,7 +55,7 @@ namespace Ra
                 m_renderObjects.erase(found);
             }
         }
-
+        
         void Component::notifyRenderObjectExpired( const Core::Index& idx )
         {
             auto found = std::find( m_renderObjects.cbegin(), m_renderObjects.cend(), idx );
@@ -65,7 +65,7 @@ namespace Ra
                 m_renderObjects.erase( found );
             }
         }
-
+        
         void Component::rayCastQuery(const Core::Ray& ray) const
         {
             for (const auto& idx : m_renderObjects)
@@ -79,11 +79,11 @@ namespace Ra
                     const int& tidx = result.m_hitTriangle;
                     if (tidx >= 0)
                     {
-
+                        
                         const Ra::Core::Vector3 pLocal = transformedRay.pointAt(result.m_t);
                         const Ra::Core::Vector3 pEntity = t * pLocal;
                         const Ra::Core::Vector3 pWorld = getEntity()->getTransform() * pEntity;
-
+                        
                         LOG(logINFO) << " Ray cast vs " << ro->getName();
                         LOG(logINFO) << " Hit triangle " << tidx;
                         LOG(logINFO) << " Nearest vertex " << result.m_nearestVertex;
@@ -93,7 +93,7 @@ namespace Ra
                     }
                 }
             }
-
+            
         }
     }
 } // namespace Ra

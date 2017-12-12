@@ -16,16 +16,16 @@ namespace Ra
     namespace Core
     {
         /**
-        * Allocator for aligned data.
-        * Adapted from https://gist.github.com/donny-dont/1471329
-        * Modified from the Mallocator from Stephan T. Lavavej.
-        * <http://blogs.msdn.com/b/vcblog/archive/2008/08/28/the-mallocator.aspx>
-        */
+         * Allocator for aligned data.
+         * Adapted from https://gist.github.com/donny-dont/1471329
+         * Modified from the Mallocator from Stephan T. Lavavej.
+         * <http://blogs.msdn.com/b/vcblog/archive/2008/08/28/the-mallocator.aspx>
+         */
         template <typename T, std::size_t Alignment>
         class AlignedAllocator
         {
         public:
-
+            
             // The following will be the same for virtually all allocators.
             typedef T* pointer;
             typedef const T* const_pointer;
@@ -34,48 +34,48 @@ namespace Ra
             typedef T value_type;
             typedef std::size_t size_type;
             typedef ptrdiff_t difference_type;
-
+            
             T* address( T& r ) const
             {
                 return &r;
             }
-
+            
             const T* address( const T& s ) const
             {
                 return &s;
             }
-
+            
             std::size_t max_size() const
             {
                 // The following has been carefully written to be independent of
                 // the definition of size_t and to avoid signed/unsigned warnings.
                 return ( static_cast<std::size_t>( 0 ) - static_cast<std::size_t>( 1 ) ) / sizeof( T );
             }
-
-
+            
+            
             // The following must be the same for all allocators.
             template <typename U>
             struct rebind
             {
                 typedef AlignedAllocator<U, Alignment> other;
             };
-
+            
             bool operator!= ( const AlignedAllocator& other ) const
             {
                 return !( *this == other );
             }
-
+            
             void construct( T* const p, const T& t ) const
             {
                 void* const pv = static_cast<void*>( p );
                 new( pv ) T( t );
             }
-
+            
             void destroy( T* const p ) const
             {
                 p->~T();
             }
-
+            
             // Returns true if and only if storage allocated from *this
             // can be deallocated from other, and vice versa.
             // Always returns true for stateless allocators.
@@ -83,19 +83,19 @@ namespace Ra
             {
                 return true;
             }
-
-
+            
+            
             // Default constructor, copy constructor, rebinding constructor, and destructor.
             // Empty for stateless allocators.
             AlignedAllocator() { }
-
+            
             AlignedAllocator( const AlignedAllocator& ) { }
-
+            
             template <typename U> AlignedAllocator( const AlignedAllocator<U, Alignment>& ) { }
-
+            
             ~AlignedAllocator() { }
-
-
+            
+            
             // The following will be different for each allocator.
             T* allocate( const std::size_t n ) const
             {
@@ -109,36 +109,36 @@ namespace Ra
                 {
                     return NULL;
                 }
-
+                
                 // All allocators should contain an integer overflow check.
                 // The Standardization Committee recommends that std::length_error
                 // be thrown in the case of integer overflow.
                 CORE_ASSERT( n <= max_size(), "Integer overflow" );
-
+                
                 // Mallocator wraps malloc().
                 void* const pv = _mm_malloc( n * sizeof( T ), Alignment );
-
+                
                 // Allocators should throw std::bad_alloc in the case of memory allocation failure.
                 CORE_ASSERT( pv != NULL, " Bad alloc" );
                 CORE_ASSERT( (reinterpret_cast<std::size_t>(pv) & (Alignment - 1)) == 0, "Alignment constraint not satisfied" );
-
+                
                 return static_cast<T*>( pv );
             }
-
+            
             void deallocate( T* const p, const std::size_t n ) const
             {
                 _mm_free( p );
             }
-
-
+            
+            
             // The following will be the same for all allocators that ignore hints.
             template <typename U>
             T* allocate( const std::size_t n, const U* /* const hint */ ) const
             {
                 return allocate( n );
             }
-
-
+            
+            
             // Allocators are not required to be assignable, so
             // all allocators should have a private unimplemented
             // assignment operator. Note that this will trigger the
@@ -149,7 +149,7 @@ namespace Ra
         private:
             AlignedAllocator& operator= ( const AlignedAllocator&) = delete;
         };
-
+        
     }
 }
 

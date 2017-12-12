@@ -11,7 +11,7 @@ namespace Ra {
             m_currentEdit = ent;
             getTransform();
         }
-
+        
         void TransformEditor::getTransform()
         {
             if (canEdit())
@@ -26,12 +26,12 @@ namespace Ra {
                 }
             }
         }
-
+        
         bool TransformEditor::canEdit() const
         {
             return m_currentEdit.isValid() && m_currentEdit.isSelectable() && ( m_currentEdit.isEntityNode() || m_currentEdit.m_component->canEdit(m_currentEdit.m_roIndex));
         }
-
+        
         void TransformEditor::setTransform( const Ra::Core::Transform& tr )
         {
             if ( canEdit() )
@@ -46,14 +46,14 @@ namespace Ra {
                 }
             }
         }
-
+        
         Core::Transform TransformEditor::getWorldTransform() const
         {
             return m_currentEdit.isEntityNode() ?
-                   Ra::Core::Transform::Identity() :
-                   m_currentEdit.m_entity->getTransform();
+            Ra::Core::Transform::Identity() :
+            m_currentEdit.m_entity->getTransform();
         }
-
+        
         TransformEditor::~TransformEditor()
         {
             setEditable( Engine::ItemEntry() );

@@ -22,32 +22,32 @@ namespace Ra
             {
                 const uint numVertices = mesh.m_vertices.size();
                 const uint numTriangles = mesh.m_triangles.size();
-
+                
                 normalsOut.clear();
                 normalsOut.resize( numVertices, Vector3::Zero() );
-
+                
                 for ( uint t = 0; t < numTriangles; t++ )
                 {
                     const Triangle& tri = mesh.m_triangles[t];
                     Vector3 n = getTriangleNormal( mesh, t );
-
+                    
                     for ( uint i = 0; i < 3; ++i )
                     {
                         normalsOut[tri[i]] += n;
                     }
                 }
-
+                
                 normalsOut.getMap().colwise().normalize();
             }
-
-
+            
+            
             bool findDuplicates( const TriangleMesh& mesh, std::vector<VertexIdx>& duplicatesMap )
             {
                 bool hasDuplicates = false;
                 duplicatesMap.clear();
                 const uint numVerts = mesh.m_vertices.size();
                 duplicatesMap.resize( numVerts,VertexIdx(-1) );
-
+                
                 VectorArray<Vector3>::const_iterator vertPos;
                 VectorArray<Vector3>::const_iterator duplicatePos;
                 std::vector<std::pair<Vector3, VertexIdx>> vertices;
@@ -65,19 +65,19 @@ namespace Ra
                                       if(a.first.z() == b.first.z())
                                           return a.second < b.second;
                                       else
-                                          return a.first.z() < b.first.z();                                         
-                                  else
-                                      return a.first.y() < b.first.y();
+                                          return a.first.z() < b.first.z();
+                                      else
+                                          return a.first.y() < b.first.y();
                               }
                               return a.first.x() < b.first.x();
                           }
-                    );
+                          );
                 // Here vertices contains vertex pos and idx, with equal
                 // vertices contiguous, sorted by idx, so checking if current
                 // vertex equals the previous one state if its a duplicated
                 // vertex position.
                 duplicatesMap[vertices[0].second] = vertices[0].second;
-                for ( uint i = 1; i < numVerts; ++i )                    
+                for ( uint i = 1; i < numVerts; ++i )
                 {
                     if(vertices[i].first == vertices[i-1].first)
                     {
@@ -88,15 +88,15 @@ namespace Ra
                         duplicatesMap[vertices[i].second] = vertices[i].second;
                     }
                 }
-              
+                
                 return hasDuplicates;
             }
-
+            
             void removeDuplicates(TriangleMesh& mesh, std::vector<VertexIdx>& vertexMap)
             {
                 std::vector<VertexIdx> duplicatesMap;
                 findDuplicates(mesh, duplicatesMap);
-
+                
                 std::vector<VertexIdx> newIndices(mesh.m_vertices.size(), VertexIdx(-1));
                 Vector3Array uniqueVertices;
                 for (uint i = 0; i < mesh.m_vertices.size(); i++)
@@ -105,10 +105,10 @@ namespace Ra
                     {
                         newIndices[i] = uniqueVertices.size();
                         uniqueVertices.push_back(mesh.m_vertices[i]);
-
+                        
                     }
                 }
-
+                
                 for (uint i = 0; i < mesh.m_triangles.size(); i++)
                 {
                     for (uint j = 0; j < 3; j++)
@@ -118,26 +118,26 @@ namespace Ra
                         mesh.m_triangles[i](j) = newIdx;
                     }
                 }
-
+                
                 vertexMap.resize(mesh.m_vertices.size());
                 for (uint i = 0; i < mesh.m_vertices.size(); i++)
                     vertexMap[i] = newIndices[duplicatesMap[i]];
-
+                
                 mesh.m_vertices = uniqueVertices;
             }
-
+            
             RayCastResult castRay(const TriangleMesh &mesh, const Ray &ray)
             {
                 RayCastResult result;
-
+                
                 // point cloud: get closest point
                 if (mesh.m_triangles.empty()){
-
+                    
                     Scalar minSqAngDist = std::numeric_limits<Scalar>::max();
                     for ( uint i = 0; i < mesh.m_vertices.size(); ++i)
                     {
                         Scalar dist = ray.squaredDistance(mesh.m_vertices[i]);
-
+                        
                         if (dist < minSqAngDist) {
                             minSqAngDist = dist;
                             result.m_nearestVertex = int(i);
@@ -162,7 +162,7 @@ namespace Ra
                             result.m_hitTriangle = int(i);
                         }
                     }
-
+                    
                     if (result.m_hitTriangle >= 0)
                     {
                         result.m_t = minT;
@@ -203,10 +203,10 @@ namespace Ra
                         }
                     }
                 }
-
+                
                 return result;
             }
-
+            
             /// Return the mean edge length of the given triangle mesh
             Scalar getMeanEdgeLength( const TriangleMesh& mesh ) {
                 typedef std::pair< uint, uint > Key;
@@ -214,14 +214,14 @@ namespace Ra
                 const uint size = mesh.m_triangles.size();
                 uint   edgeSize   = 0;
                 Scalar edgeLength = 0.0;
-                #pragma omp parallel for
+#pragma omp parallel for
                 for( int t = 0; t < int(size); ++t ) {
                     for( uint v = 0; v < 3; ++v ) {
                         const uint i = mesh.m_triangles[t][v];
                         const uint j = mesh.m_triangles[t][( v + 1 ) % 3];
                         Key k( ( ( i < j ) ? i : j ), ( ( i < j ) ? j : i ) );
                         Scalar length = ( mesh.m_vertices[i] - mesh.m_vertices[j] ).norm();
-                        #pragma omp critical
+#pragma omp critical
                         {
                             auto it = list.find( k );
                             if( it == list.end() ) {
@@ -237,8 +237,8 @@ namespace Ra
                 }
                 return 0.0;
             }
-
-
+            
+            
             void checkConsistency( const TriangleMesh& mesh )
             {
 #ifdef CORE_DEBUG
@@ -250,24 +250,24 @@ namespace Ra
                     for ( uint i = 0; i < 3; ++i )
                     {
                         CORE_ASSERT( uint( tri[i] ) < mesh.m_vertices.size(),
-                            "Vertex "<< tri[i] <<" is in triangle "<< t <<" (#"<< i <<") is out of bounds");
+                                    "Vertex "<< tri[i] <<" is in triangle "<< t <<" (#"<< i <<") is out of bounds");
                         visited[tri[i]] = true;
                     }
                 }
-
+                
                 for ( uint v = 0; v < visited.size(); ++v )
                 {
                     CORE_ASSERT( visited[v], "Vertex "<< v <<" does not belong to any triangle");
                 }
-
+                
                 // Normals are optional but if they are present then every vertex should have one.
                 CORE_ASSERT( mesh.m_normals.size() ==  0 || mesh.m_normals.size() == mesh.m_vertices.size(),
-                             "Inconsistent number of normals" );
+                            "Inconsistent number of normals" );
 #endif
             }
-
-
-
+            
+            
+            
         } // namespace MeshUtils
     } // namespace Core
 } // namespace Ra
