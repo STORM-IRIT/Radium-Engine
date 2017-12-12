@@ -25,7 +25,7 @@ classic "Spinning Cube" demo. */
         void  MinimalComponent::initialize() {
             // Create a cube mesh render object.
             std::shared_ptr<Ra::Engine::Mesh> display(new Ra::Engine::Mesh("Cube"));
-            display->loadGeometry(Ra::Core::MeshUtils::makeBox({0.1f, 0.1f, 0.1f}));
+            display->loadGeometry(Ra::Core::MeshUtils::makeSharpBox({0.1f, 0.1f, 0.1f}));
             auto renderObject = Ra::Engine::RenderObject::createRenderObject("CubeRO", this,
                                                                              Ra::Engine::RenderObjectType::Fancy,
                                                                              display);
