@@ -1,5 +1,7 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
+#include <numeric>
+
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Core/Mesh/HalfEdge.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
@@ -44,14 +46,7 @@ namespace Ra {
             if ( m_vao != 0 )
             {
                 GL_ASSERT( glBindVertexArray( m_vao ) );
-                if(m_renderMode == RM_POINTS)
-                {
-                    GL_ASSERT( glDrawArrays(GL_POINTS, 0, m_numElements));
-                }
-                else
-                {
-                    GL_ASSERT( glDrawElements( static_cast<GLenum >(m_renderMode), m_numElements, GL_UNSIGNED_INT, (void*)0 ) );
-                }
+                GL_ASSERT( glDrawElements( static_cast<GLenum >(m_renderMode), m_numElements, GL_UNSIGNED_INT, (void*)0 ) );
             }
         }
 
@@ -71,7 +66,6 @@ namespace Ra {
                 m_dataDirty[i] = true;
             }
             m_isDirty = true;
-
         }
 
         void Mesh::updateMeshGeometry(MeshData type, const Core::Vector3Array& data)
@@ -82,9 +76,7 @@ namespace Ra {
                 m_mesh.m_normals = data;
             m_dataDirty[static_cast<uint>(type)] = true;
             m_isDirty = true;
-
         }
-
 
         void Mesh::loadGeometry(const Core::Vector3Array &vertices, const std::vector<uint> &indices)
         {
@@ -198,8 +190,18 @@ namespace Ra {
                 }
                 if (m_dataDirty[INDEX])
                 {
-                    GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER, m_mesh.m_triangles.size() * sizeof( Ra::Core::Triangle ),
-                                             m_mesh.m_triangles.data(), GL_DYNAMIC_DRAW ) );
+                    if (m_renderMode == RM_POINTS)
+                    {
+                        std::vector<int> indices(m_numElements);
+                        std::iota(indices.begin(), indices.end(), 0);
+                        GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER, m_numElements * sizeof( int ),
+                                                 indices.data(), GL_DYNAMIC_DRAW ) );
+                    }
+                    else
+                    {
+                        GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER, m_mesh.m_triangles.size() * sizeof( Ra::Core::Triangle ),
+                                                 m_mesh.m_triangles.data(), GL_DYNAMIC_DRAW ) );
+                    }
                     m_dataDirty[INDEX] = false;
                 }
 

@@ -548,11 +548,11 @@ namespace Ra
             const Engine::Renderer::PickingQuery& query  = m_currentRenderer->getPickingQueries()[i];
             if ( query.m_button == Core::MouseButton::RA_MOUSE_LEFT_BUTTON)
             {
-                emit leftClickPicking(m_currentRenderer->getPickingResults()[i]);
+                emit leftClickPicking(m_currentRenderer->getPickingResults()[i].m_roIdx);
             }
             else if (query.m_button == Core::MouseButton::RA_MOUSE_RIGHT_BUTTON)
             {
-                const int roIdx = m_currentRenderer->getPickingResults()[i];
+                const int roIdx = m_currentRenderer->getPickingResults()[i].m_roIdx;
                 const Core::Ray ray = m_camera->getCamera()->getRayFromScreen({query.m_screenCoords(0), height()-query.m_screenCoords(1)});
                 // FIXME: this is safe as soon as there is no "queued connection" related to the signal
                 m_featurePickingManager->doPicking(roIdx, query, ray);
