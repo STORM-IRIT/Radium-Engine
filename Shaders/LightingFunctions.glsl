@@ -47,6 +47,7 @@ vec3 blinnPhongSpot()
     return color * attenuation * radialAttenuation;
 }
 
+
 vec3 blinnPhongPoint()
 {
     vec3 dir = in_position - light.point.position;
