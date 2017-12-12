@@ -495,14 +495,26 @@ namespace Ra
             LOG(logINFO) << "Distance asymmetry distributions computed.";
         }
 
-        void MeshContactManager::setConstructM0()
-        {     
+
+        // Display proximity zones
+        void MeshContactManager::setDisplayProximities()
+        {
             if (m_lambda != 0.0)
             {
                 thresholdComputation(); // computing m_broader_threshold
             }
 
             constructPriorityQueues2();
+        }
+
+        void MeshContactManager::setConstructM0()
+        {     
+//            if (m_lambda != 0.0)
+//            {
+//                thresholdComputation(); // computing m_broader_threshold
+//            }
+
+//            constructPriorityQueues2();
 
             m_mainqueue.clear();
             m_index_pmdata.clear();
@@ -569,7 +581,7 @@ namespace Ra
             return m_nb_faces_max;
         }
 
-        void MeshContactManager::edgeErrorComputation(Ra::Core::HalfEdge_ptr h, int objIndex, Scalar& error, Ra::Core::Vector3& p)
+        bool MeshContactManager::edgeErrorComputation(Ra::Core::HalfEdge_ptr h, int objIndex, Scalar& error, Ra::Core::Vector3& p)
         {
             const Ra::Core::Vertex_ptr& vs = h->V();
             const Ra::Core::Vertex_ptr& vt = h->Next()->V();
@@ -646,6 +658,7 @@ namespace Ra
             {
                 error = edgeErrorQEM;
             }
+            return contact;
         }
 
         void MeshContactManager::constructPriorityQueues2()
@@ -657,6 +670,8 @@ namespace Ra
                 m_meshContactElements[objIndex]->setProgressiveMeshLOD(pm);
                 m_meshContactElements[objIndex]->getProgressiveMeshLOD()->getProgressiveMesh()->computeFacesQuadrics();
                 m_meshContactElements[objIndex]->computeFacePrimitives();
+                // reloading the mesh in case of successive simplifications
+                m_meshContactElements[objIndex]->setMesh(m_initTriangleMeshes[objIndex]);
             }
 
             for (uint objIndex=0; objIndex < m_nbobjects; objIndex++)
@@ -664,6 +679,15 @@ namespace Ra
             MeshContactElement* obj = static_cast<MeshContactElement*>(m_meshContactElements[objIndex]);
             Ra::Core::PriorityQueue pQueue = Ra::Core::PriorityQueue();
             const uint numTriangles = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_face.size();
+
+            Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
+            int nbVertices = obj->getMesh()->getGeometry().m_vertices.size();
+            Ra::Core::Vector4Array colors;
+            for (uint v = 0; v < nbVertices; v++)
+            {
+                colors.push_back(vertexColor);
+            }
+            Ra::Core::Vector4 contactColor (0, 0, 1.0f, 0);
 
 #pragma omp parallel for
             for (unsigned int i = 0; i < numTriangles; i++)
@@ -687,7 +711,14 @@ namespace Ra
                     }
 
                     Scalar error;
-                    edgeErrorComputation(h,objIndex,error, p);
+                    bool contact = edgeErrorComputation(h,objIndex,error, p);
+
+                    // coloring proximity zones
+                    if (contact)
+                    {
+                        colors[vs->idx] = contactColor;
+                        colors[vt->idx] = contactColor;
+                    }
 
                     // insert into the priority queue with the real resulting point
 #pragma omp critical
@@ -698,6 +729,8 @@ namespace Ra
                     h = h->Next();
                 }
             }
+            obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+
             obj->setPriorityQueue(pQueue);
             }
         }

@@ -43,6 +43,7 @@ namespace Ra
             void setAsymmetryChanged(const double asymmetry);
             void setLodValueChanged(int value);
             void setComputeR();
+            void setDisplayProximities();
             void setConstructM0();
 
             int getNbFacesMax();
@@ -62,7 +63,7 @@ namespace Ra
 
             void constructPriorityQueues();
             void updatePriorityQueue(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex);
-            void edgeErrorComputation(Ra::Core::HalfEdge_ptr h, int objIndex, Scalar& error, Ra::Core::Vector3& p);
+            bool edgeErrorComputation(Ra::Core::HalfEdge_ptr h, int objIndex, Scalar& error, Ra::Core::Vector3& p);
             void constructPriorityQueues2();
             void updatePriorityQueue2(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex);
             bool edgeCollapse(int objIndex);

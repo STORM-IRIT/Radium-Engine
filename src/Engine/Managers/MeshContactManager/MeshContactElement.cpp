@@ -169,6 +169,15 @@ namespace Ra
 //            triangles = newMesh.m_triangles;
 //            Ra::Core::Geometry::uniformNormal(vertices, triangles, normals);
             m_mesh->loadGeometry(newMesh);
+
+            Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
+            int nbVertices = m_mesh->getGeometry().m_vertices.size();
+            Ra::Core::Vector4Array colors;
+            for (uint v = 0; v < nbVertices; v++)
+            {
+                colors.push_back(vertexColor);
+            }
+            m_mesh->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
         }
 
         void MeshContactElement::computePrimitives()
