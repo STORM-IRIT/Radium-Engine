@@ -97,12 +97,6 @@ namespace Ra
         }
 
         m_renderers.push_back(e);
-/*
-        if (m_currentRenderer == nullptr)
-        {
-            m_currentRenderer = e.get();
-        }
-*/
 
         return m_renderers.size()-1;
     }
@@ -134,7 +128,6 @@ namespace Ra
     void Gui::Viewer::initializeGL()
     {
         m_glInitStatus = true;
-
         m_context->makeCurrent(this);
 
         m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
@@ -145,6 +138,7 @@ namespace Ra
 
         auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
         m_camera->attachLight( light );
+
 
         // initialize renderers added before GL was ready
         if( ! m_renderers.empty() )
@@ -157,6 +151,7 @@ namespace Ra
             }
         }
 
+
         emit glInitialized();
         m_context->doneCurrent();
 
@@ -165,12 +160,10 @@ namespace Ra
         if(m_renderers.empty())
         {
             LOG( logINFO )
-                << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
-
+                    << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
             m_context->makeCurrent(this);
             std::shared_ptr<Ra::Engine::Renderer> e (new Ra::Engine::ForwardRenderer());
             m_context->doneCurrent();
-
             addRenderer(e);
         }
 
@@ -478,9 +471,7 @@ namespace Ra
                            << m_currentRenderer->getRendererName();
 
             m_context->doneCurrent();
-
             emit rendererReady();
-
             return true;
         }
         return false;
@@ -495,7 +486,6 @@ namespace Ra
 
         CORE_ASSERT(m_currentRenderer != nullptr,
                     "No renderer found.");
-
         m_context->makeCurrent(this);
 
         // Move camera if needed. Disabled for now as it takes too long (see issue #69)
@@ -548,7 +538,6 @@ namespace Ra
 
         CORE_ASSERT(m_currentRenderer != nullptr,
                     "No renderer found.");
-
         CORE_ASSERT( m_currentRenderer->getPickingQueries().size() == m_currentRenderer->getPickingResults().size(),
                     "There should be one result per query." );
 

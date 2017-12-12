@@ -35,17 +35,17 @@ namespace FancyMeshPlugin
     public:
         FancyMeshSystem();
         virtual ~FancyMeshSystem();
-
-        virtual void handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData ) override;
-
-        virtual void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;
-
+        
+        void handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData ) override;
+        
+        void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;
+        
         // Specialized factory method for this systems.
         static FancyMeshComponent* makeFancyMeshFromGeometry( const Ra::Core::TriangleMesh& mesh, const std::string& name,
-                                                              Ra::Engine::RenderTechnique* technique = nullptr );
-
+                                                             Ra::Engine::RenderTechnique* technique = nullptr );
+        
     };
-
+    
 } // namespace FancyMeshPlugin
 
 #endif // FANCYMESHPLUGIN_FANCYMESHSYSTEM_HPP

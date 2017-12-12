@@ -23,8 +23,8 @@ namespace Ra
          * \see issue #194
          */
         GizmoManager::GizmoManager(QObject* parent)
-                : QObject(parent)
-                , m_currentGizmoType(NONE), m_mode(Gizmo::GLOBAL)
+        : QObject(parent)
+        , m_currentGizmoType(NONE), m_mode(Gizmo::GLOBAL)
         {
             m_gizmos[0].reset(new TranslateGizmo(Engine::SystemEntity::uiCmp(), Ra::Core::Transform::Identity(), m_transform, m_mode));
             m_gizmos[1].reset(new RotateGizmo(Engine::SystemEntity::uiCmp(), Ra::Core::Transform::Identity(), m_transform, m_mode));
@@ -37,16 +37,16 @@ namespace Ra
                 }
             }
         }
-
-
+        
+        
         GizmoManager::~GizmoManager() { }
-
+        
         void GizmoManager::setEditable( const Engine::ItemEntry& ent )
         {
             TransformEditor::setEditable(ent);
             updateGizmo();
         }
-
+        
         void GizmoManager::updateGizmo()
         {
             for (auto& g : m_gizmos)
@@ -56,7 +56,7 @@ namespace Ra
                     g->show(false);
                 }
             }
-
+            
             if (canEdit())
             {
                 Core::Transform worldTransform = getWorldTransform();
@@ -68,19 +68,19 @@ namespace Ra
                 }
             }
         }
-
+        
         void GizmoManager::setLocal(bool useLocal)
         {
             m_mode = useLocal ? Gizmo::LOCAL : Gizmo::GLOBAL;
             updateGizmo();
         }
-
+        
         void GizmoManager::changeGizmoType(GizmoManager::GizmoType type)
         {
             m_currentGizmoType = type;
             updateGizmo();
         }
-
+        
         void GizmoManager::updateValues()
         {
             if (canEdit())
@@ -92,7 +92,7 @@ namespace Ra
                 }
             }
         }
-
+        
         bool GizmoManager::handleMousePressEvent(QMouseEvent* event)
         {
             if( !( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) ) || !canEdit() || m_currentGizmoType == NONE)
@@ -101,15 +101,15 @@ namespace Ra
             }
             // If we are there it means that we should have a valid gizmo.
             CORE_ASSERT(currentGizmo(), "Gizmo is not there !");
-
+            
             // Access the camera from the viewer. (TODO : a cleaner way to access the camera).
             // const Engine::Camera& cam = *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
             const Engine::Camera& cam = CameraInterface::getCameraFromViewer(parent());
             currentGizmo()->setInitialState(cam, Core::Vector2(Scalar(event->x()), Scalar(event->y())));
-
+            
             return true;
         }
-
+        
         bool GizmoManager::handleMouseReleaseEvent(QMouseEvent* event)
         {
             if ( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) && currentGizmo() )
@@ -118,7 +118,7 @@ namespace Ra
             }
             return (currentGizmo() != nullptr);
         }
-
+        
         bool GizmoManager::handleMouseMoveEvent(QMouseEvent* event)
         {
             if ( event->buttons() & Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) && currentGizmo() )
@@ -131,7 +131,7 @@ namespace Ra
             }
             return (currentGizmo() != nullptr);
         }
-
+        
         void GizmoManager::handlePickingResult(int drawableId)
         {
             if (currentGizmo())
@@ -139,14 +139,14 @@ namespace Ra
                 currentGizmo()->selectConstraint( drawableId );
             }
         }
-
+        
         Gizmo* GizmoManager::currentGizmo()
         {
             return ( m_currentGizmoType == NONE )?
-                   nullptr :
-                   m_gizmos[ m_currentGizmoType - 1].get();
+            nullptr :
+            m_gizmos[ m_currentGizmoType - 1].get();
         }
-
+        
         void GizmoManager::cleanup()
         {
             for (auto& g : m_gizmos)

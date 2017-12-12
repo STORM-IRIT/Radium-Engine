@@ -9,9 +9,9 @@ namespace Ra
 {
     namespace Core
     {
-
+        
         TaskQueue::TaskQueue( uint numThreads )
-            : m_processingTasks( 0 ), m_shuttingDown( false )
+        : m_processingTasks( 0 ), m_shuttingDown( false )
         {
             CORE_ASSERT( numThreads > 0, " You need at least one thread" );
             m_workerThreads.reserve( numThreads );
@@ -20,7 +20,7 @@ namespace Ra
                 m_workerThreads.emplace_back( std::thread( &TaskQueue::runThread, this, i ) );
             }
         }
-
+        
         TaskQueue::~TaskQueue()
         {
             flushTaskQueue();
@@ -31,7 +31,7 @@ namespace Ra
                 t.join();
             }
         }
-
+        
         TaskQueue::TaskId TaskQueue::registerTask( Task* task )
         {
             m_tasks.emplace_back( std::unique_ptr<Task> ( task ) );
@@ -40,25 +40,25 @@ namespace Ra
             TimerData tdata;
             tdata.taskName = task->getName();
             m_timerData.push_back( tdata );
-
+            
             CORE_ASSERT( m_tasks.size() == m_dependencies.size(), "Inconsistent task list" );
             CORE_ASSERT( m_tasks.size() == m_remainingDependencies.size(), "Inconsistent task list" );
             CORE_ASSERT( m_tasks.size() == m_timerData.size(), "Inconsistent task list" );
             return TaskId( m_tasks.size() - 1 );
         }
-
+        
         void TaskQueue::addDependency( TaskQueue::TaskId predecessor, TaskQueue::TaskId successor )
         {
             CORE_ASSERT( ( predecessor != InvalidTaskId ) && ( predecessor < m_tasks.size() ), "Invalid predecessor task" );
             CORE_ASSERT( ( successor != InvalidTaskId )   && ( successor < m_tasks.size() ), "Invalid successor task" );
             CORE_ASSERT( predecessor != successor, "Cannot add self-dependency" );
-
+            
             CORE_ASSERT( std::find( m_dependencies[predecessor].begin(), m_dependencies[predecessor].end(), successor ) == m_dependencies[predecessor].end(), "Cannot add a dependency twice" );
-
+            
             m_dependencies[predecessor].push_back( successor );
             ++m_remainingDependencies[successor];
         }
-
+        
         bool TaskQueue::addDependency(const std::string &predecessors, TaskQueue::TaskId successor)
         {
             bool added = false;
@@ -72,7 +72,7 @@ namespace Ra
             }
             return added;
         }
-
+        
         bool TaskQueue::addDependency(TaskQueue::TaskId predecessor, const std::string &successors)
         {
             bool added = false;
@@ -86,46 +86,46 @@ namespace Ra
             }
             return added;
         }
-
+        
         void TaskQueue::addPendingDependency(const std::string &predecessors, TaskQueue::TaskId successor)
         {
             m_pendingDepsSucc.push_back(std::make_pair(predecessors, successor));
         }
-
+        
         void TaskQueue::addPendingDependency( TaskId predecessor, const std::string& successors)
         {
             m_pendingDepsPre.push_back(std::make_pair(predecessor, successors));
         }
-
+        
         void TaskQueue::resolveDependencies()
         {
-           for ( const auto& pre : m_pendingDepsPre )
-           {
-               ON_ASSERT(bool result =) addDependency( pre.first, pre.second );
-               CORE_WARN_IF( !result, "Pending dependency unresolved : " << m_tasks[pre.first]->getName() <<" -> (" << pre.second<<")");
-           }
-           for ( const auto& pre : m_pendingDepsSucc )
-           {
-               ON_ASSERT(bool result =) addDependency( pre.first, pre.second );
-               CORE_WARN_IF( !result, "Pending dependency unresolved : (" << pre.first  <<") -> "<< m_tasks[pre.second]->getName());
-           }
-           m_pendingDepsPre.clear();
-           m_pendingDepsSucc.clear();
+            for ( const auto& pre : m_pendingDepsPre )
+            {
+                ON_ASSERT(bool result =) addDependency( pre.first, pre.second );
+                CORE_WARN_IF( !result, "Pending dependency unresolved : " << m_tasks[pre.first]->getName() <<" -> (" << pre.second<<")");
+            }
+            for ( const auto& pre : m_pendingDepsSucc )
+            {
+                ON_ASSERT(bool result =) addDependency( pre.first, pre.second );
+                CORE_WARN_IF( !result, "Pending dependency unresolved : (" << pre.first  <<") -> "<< m_tasks[pre.second]->getName());
+            }
+            m_pendingDepsPre.clear();
+            m_pendingDepsSucc.clear();
         }
-
+        
         void TaskQueue::queueTask( TaskQueue::TaskId task )
         {
             CORE_ASSERT( m_remainingDependencies[task] == 0, " Task" << m_tasks[task]->getName() <<"has unmet dependencies" );
             m_taskQueue.push_front( task );
         }
-
+        
         void TaskQueue::detectCycles()
         {
 #if defined (CORE_DEBUG)
             // Do a depth-first search of the nodes.
             std::vector<bool> visited( m_tasks.size(), false );
             std::stack<TaskId> pending;
-
+            
             for (TaskId id = 0; id < m_tasks.size(); ++id)
             {
                 if ( m_dependencies[id].size() == 0 )
@@ -133,19 +133,19 @@ namespace Ra
                     pending.push(id);
                 }
             }
-
+            
             // If you hit this assert, there are tasks in the list but
             // all tasks have dependencies so no task can start.
             CORE_ASSERT( m_tasks.empty() || !pending.empty(), "No free tasks.");
-
+            
             while (! pending.empty())
             {
                 TaskId id = pending.top();
                 pending.pop();
-
+                
                 // The task has already been visited. It means there is a cycle in the task graph.
                 CORE_ASSERT( !(visited[id]), "Cycle detected in tasks !");
-
+                
                 visited[id] = true;
                 for ( const auto& dep : m_dependencies[id])
                 {
@@ -154,15 +154,15 @@ namespace Ra
             }
 #endif
         }
-
+        
         void TaskQueue::startTasks()
         {
             // Add pending dependencies.
             resolveDependencies();
-
+            
             // Do a debug check
             detectCycles();
-
+            
             // Enqueue all tasks with no dependencies.
             for ( uint t = 0; t < m_tasks.size(); ++t )
             {
@@ -171,11 +171,11 @@ namespace Ra
                     queueTask( t );
                 }
             }
-
+            
             // Wake up all threads.
             m_threadNotifier.notify_all();
         }
-
+        
         void TaskQueue::waitForTasks()
         {
             bool isFinished = false;
@@ -191,12 +191,12 @@ namespace Ra
                 }
             }
         }
-
+        
         const std::vector<TaskQueue::TimerData>& TaskQueue::getTimerData()
         {
             return m_timerData;
         }
-
+        
         void TaskQueue::flushTaskQueue()
         {
             CORE_ASSERT( m_processingTasks == 0, "You have tasks still in process" );
@@ -206,17 +206,17 @@ namespace Ra
             m_timerData.clear();
             m_remainingDependencies.clear();
         }
-
+        
         void TaskQueue::runThread( uint id )
         {
             while ( true )
             {
                 TaskId task = InvalidTaskId;
-
+                
                 // Acquire mutex.
                 {
                     std::unique_lock<std::mutex> lock( m_taskQueueMutex );
-
+                    
                     // Wait for a new task
                     // TODO : use the second form of wait()
                     while ( !m_shuttingDown && m_taskQueue.empty() )
@@ -229,7 +229,7 @@ namespace Ra
                     {
                         return;
                     }
-
+                    
                     // If we are here it means we got a task
                     task = m_taskQueue.back();
                     m_taskQueue.pop_back();
@@ -237,13 +237,13 @@ namespace Ra
                     CORE_ASSERT( task != InvalidTaskId && task < m_tasks.size(), "Invalid task" );
                 }
                 // Release mutex.
-
+                
                 // Run task
                 m_timerData[task].start = Timer::Clock::now();
                 m_timerData[task].threadId = id;
                 m_tasks[task]->process();
                 m_timerData[task].end = Timer::Clock::now();
-
+                
                 // Critical section : mark task as finished and en-queue dependencies.
                 uint newTasks = 0;
                 {
@@ -269,17 +269,17 @@ namespace Ra
                 }
             } // End of while(true)
         }
-
+        
         void TaskQueue::printTaskGraph(std::ostream& output) const
         {
             output<<"digraph tasks {"<<std::endl;
-
+            
             for (const auto& t : m_tasks )
             {
                 output<<"\""<<t->getName()<<"\""<<std::endl;
             }
-
-
+            
+            
             for (uint i = 0; i < m_dependencies.size(); ++i)
             {
                 const auto& task1 =  m_tasks[i];
@@ -290,37 +290,37 @@ namespace Ra
                     output<<"\""<<task2->getName()<<"\""<<std::endl;
                 }
             }
-
+            
             for (const auto & preDep :m_pendingDepsPre)
             {
                 const auto& task1 = m_tasks[preDep.first];
                 std::string t2name = preDep.second;
-
+                
                 if ( std::find_if( m_tasks.begin(), m_tasks.end(),
-                                   [=](const auto& task){ return task->getName() == t2name;}) == m_tasks.end())
+                                  [=](const auto& task){ return task->getName() == t2name;}) == m_tasks.end())
                 {
                     t2name += "?";
                 }
-
+                
                 output<<"\""<<task1->getName()<<"\""<<" -> ";
                 output<<"\""<<t2name<<"\""<<std::endl;
             }
-
+            
             for (const auto & postDep :m_pendingDepsSucc)
             {
                 std::string t1name = postDep.first;
                 const auto&t2 = m_tasks[postDep.second];
-
+                
                 if ( std::find_if( m_tasks.begin(), m_tasks.end(),
-                                   [=](const auto& task){ return task->getName() == t1name;}) == m_tasks.end())
+                                  [=](const auto& task){ return task->getName() == t1name;}) == m_tasks.end())
                 {
                     t1name += "?";
                 }
-
+                
                 output<<"\""<<t1name<<"\""<<" -> ";
                 output<<"\""<<t2->getName()<<"\""<<std::endl;
             }
-
+            
             output<<"}"<<std::endl;
         }
     }

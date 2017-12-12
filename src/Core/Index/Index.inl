@@ -12,19 +12,19 @@ namespace Ra
         {
             m_idx = i.m_idx;
         }
-
+        
         /// COPY
         inline void Index::copy( const Index& id )
         {
             m_idx = id.m_idx;
         }
-
+        
         /// VALID
         inline bool  Index::isValid() const
         {
             return ( m_idx != s_invalid );
         }
-
+        
         /// INVALID
         inline bool  Index::isInvalid() const
         {
@@ -34,7 +34,7 @@ namespace Ra
         {
             m_idx = s_invalid;
         }
-
+        
         /// INDEX
         inline int  Index::getValue() const
         {
@@ -44,7 +44,7 @@ namespace Ra
         {
             m_idx = ( i < 0 ) ? s_invalid : i;
         }
-
+        
         /// OPERATOR
         inline Index& Index::operator= ( const Index& id )
         {
@@ -64,6 +64,6 @@ namespace Ra
             }
             return *this;
         }
-
+        
     }
 } // namespace Ra::Core

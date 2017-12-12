@@ -1,6 +1,6 @@
 include_directories(
-        .
-        ${RADIUM_INCLUDE_DIRS}
+.
+${RADIUM_INCLUDE_DIRS}
 )
 
 file( GLOB_RECURSE tinyply_sources *.cpp *.c )
