@@ -5,7 +5,7 @@
 
 namespace Ra{
     namespace Core{
-
+        
         /// Colors are defined as vector4, i.e. 4 floats in RGBA order.
         /// displayable colors should have all their coordinates between 0 and 1.
         namespace Colors
@@ -14,19 +14,19 @@ namespace Ra{
             // TODO (Val) : check if we can make these constexpr
             template <typename C = Color> inline C Alpha() { return C(0.0, 0.0, 0.0, 0.0); }
             template <typename C = Color> inline C Black() { return C(0,0,0,1); }
-
+            
             template <typename C = Color> inline C Red()   { return C(1,0,0,1); }
             template <typename C = Color> inline C Green() { return C(0,1,0,1); }
             template <typename C = Color> inline C Blue()  { return C(0,0,1,1); }
-
+            
             template <typename C = Color> inline C Yellow()  { return C(1,1,0,1); }
             template <typename C = Color> inline C Magenta() { return C(1,0,1,1); }
             template <typename C = Color> inline C Cyan()    { return C(0,1,1,1); }
-
+            
             template <typename C = Color> inline C White()   { return C(1,1,1,1); }
-
+            
             template <typename C = Color> inline C Grey( Scalar f = 0.5f) { return Color(f,f,f,1);}
-
+            
             template <typename C = Color> inline C Skin() { return Color(1.0,0.87,0.74,1.0);}
             // Convert to/from various int formats
             template <typename C = Color>
@@ -34,7 +34,7 @@ namespace Ra{
             {
                 return C(Scalar(r)/255.0f, Scalar(g)/255.0f, Scalar(b)/255.0f, Scalar(a)/255.0f );
             }
-
+            
             template <typename C = Color>
             inline C FromRGBA32(uint32_t rgba)
             {
@@ -44,7 +44,7 @@ namespace Ra{
                 uchar a = uchar((rgba >>  0) & 0xff);
                 return FromChars(r,g,b,a);
             }
-
+            
             template <typename C = Color>
             inline C FromARGB32(uint32_t argb)
             {
@@ -54,14 +54,14 @@ namespace Ra{
                 uchar b = uchar((argb >>  0) & 0xff);
                 return FromChars(r,g,b,a);
             }
-
+            
             template <typename C = Color>
             inline C fromHSV( const Scalar hue,
-                              const Scalar saturation = 1.0,
-                              const Scalar value      = 1.0,
-                              const Scalar alpha      = 1.0 ) {
+                             const Scalar saturation = 1.0,
+                             const Scalar value      = 1.0,
+                             const Scalar alpha      = 1.0 ) {
                 C c;
-
+                
                 if( saturation == 0.0f ) {
                     c[0] = c[1] = c[2] = value;
                     c[3] = alpha;
@@ -95,7 +95,7 @@ namespace Ra{
                 c[3] = alpha;
                 return c;
             }
-
+            
             template <typename C = Color>
             inline uint32_t ToRGBA32(const C& color)
             {
@@ -103,7 +103,7 @@ namespace Ra{
                 Vector4i scaled(c.x(), c.y(), c.z(), c.w());
                 return (uint32_t(scaled[0])<<24) | (uint32_t(scaled[1])<<16) |(uint32_t(scaled[2])<<8) |(uint32_t(scaled[3])<<0);
             }
-
+            
             template <typename C = Color>
             inline uint32_t ToARGB32( const C& color )
             {
@@ -111,15 +111,15 @@ namespace Ra{
                 Vector4i scaled(c.x(), c.y(), c.z(), c.w());
                 return (uint32_t(scaled[3])<<24) | (uint32_t(scaled[0])<<16) |(uint32_t(scaled[1])<<8) |(uint32_t(scaled[2])<<0);
             }
-
+            
             template <typename C = Color>
             inline std::vector<C> scatter( const uint size, const Scalar gamma ) {
                 std::vector<C> color(size);
                 if( size > 1 )
-                for( uint i = 0; i < size; ++i ) {
-                    color[i] = fromHSV( (Scalar(i)/Scalar(size-1)) * 0.777 );
-                    color[i] = ( color[i] + C::Constant(gamma) ) * 0.5;
-                }
+                    for( uint i = 0; i < size; ++i ) {
+                        color[i] = fromHSV( (Scalar(i)/Scalar(size-1)) * 0.777 );
+                        color[i] = ( color[i] + C::Constant(gamma) ) * 0.5;
+                    }
                 else {
                     color[0] = Red();
                 }

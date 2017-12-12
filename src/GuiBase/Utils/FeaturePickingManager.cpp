@@ -11,13 +11,13 @@ namespace Ra
 {
     namespace Gui
     {
-
+        
         FeaturePickingManager::FeaturePickingManager() : m_firstRO(0)
         {}
-
+        
         FeaturePickingManager::~FeaturePickingManager()
         {}
-
+        
         void FeaturePickingManager::doPicking( int roIndex, const Engine::Renderer::PickingQuery &query, const Core::Ray& ray )
         {
             // first clear the feature data.
@@ -33,14 +33,14 @@ namespace Ra
             {
                 return;
             }
-
+            
             // pick triangle through raycasting
             auto ro = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(roIndex);
             const Ra::Core::Transform& t = ro->getLocalTransform();
             const Core::Ray transformedRay = Ra::Core::transformRay(ray, t.inverse());
             const auto result = Ra::Core::MeshUtils::castRay(ro->getMesh()->getGeometry(), transformedRay);
             const int& tidx = result.m_hitTriangle;
-
+            
             // fill feature data
             if (query.m_mode != Engine::Renderer::VERTEX && tidx<0) // didn't select any
             {
@@ -49,42 +49,42 @@ namespace Ra
             }
             switch (query.m_mode)
             {
-            case Engine::Renderer::VERTEX:
-            {
-                // data is the vertex index
-                m_FeatureData.m_data.push_back( result.m_nearestVertex );
-                break;
-            }
-            case Engine::Renderer::EDGE:
-            {
-                // data are the edge vertices indices
-                // FIXME: some issues there
-                m_FeatureData.m_data.push_back( result.m_edgeVertex0 );
-                m_FeatureData.m_data.push_back( result.m_edgeVertex1 );
-                break;
-            }
-            case Engine::Renderer::TRIANGLE:
-            {
-                // data is the triangle index, along with its vertices indices
-                m_FeatureData.m_data.push_back( tidx );
-                const auto& T = ro->getMesh()->getGeometry().m_triangles[ tidx ];
-                m_FeatureData.m_data.push_back( T(0) );
-                m_FeatureData.m_data.push_back( T(1) );
-                m_FeatureData.m_data.push_back( T(2) );
-                break;
-            }
-            default:
-                break;
+                case Engine::Renderer::VERTEX:
+                {
+                    // data is the vertex index
+                    m_FeatureData.m_data.push_back( result.m_nearestVertex );
+                    break;
+                }
+                case Engine::Renderer::EDGE:
+                {
+                    // data are the edge vertices indices
+                    // FIXME: some issues there
+                    m_FeatureData.m_data.push_back( result.m_edgeVertex0 );
+                    m_FeatureData.m_data.push_back( result.m_edgeVertex1 );
+                    break;
+                }
+                case Engine::Renderer::TRIANGLE:
+                {
+                    // data is the triangle index, along with its vertices indices
+                    m_FeatureData.m_data.push_back( tidx );
+                    const auto& T = ro->getMesh()->getGeometry().m_triangles[ tidx ];
+                    m_FeatureData.m_data.push_back( T(0) );
+                    m_FeatureData.m_data.push_back( T(1) );
+                    m_FeatureData.m_data.push_back( T(2) );
+                    break;
+                }
+                default:
+                    break;
             }
         }
-
+        
         void FeaturePickingManager::clearFeature()
         {
             m_FeatureData.m_featureType = Engine::Renderer::RO;
             m_FeatureData.m_data.clear();
             m_FeatureData.m_roIdx = -1;
         }
-
+        
         void FeaturePickingManager::setVertexIndex(int id)
         {
             if (m_FeatureData.m_featureType == Engine::Renderer::VERTEX)
@@ -96,7 +96,7 @@ namespace Ra
                 }
             }
         }
-
+        
         void FeaturePickingManager::setTriangleIndex(int id)
         {
             if (m_FeatureData.m_featureType == Engine::Renderer::TRIANGLE)
@@ -112,7 +112,7 @@ namespace Ra
                 }
             }
         }
-
+        
     }
 }
 

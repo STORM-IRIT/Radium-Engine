@@ -64,7 +64,7 @@
 #       error unsupported arch
 #   endif
 #else
-    #error unsupported OS
+#error unsupported OS
 #endif
 
 // Todo : endianness, pointer sixe
@@ -78,7 +78,7 @@
 // Additionally REL_DEB is defined on release build with debug info
 // Also the macro ON_DEBUG() can be used to execute an expression only on debug.
 // By default, debug has assert macros enabled. In release builds
-// asserts are disabled except if explicitly required by 
+// asserts are disabled except if explicitly required by
 // defining CORE_USE_ASSERT
 
 
@@ -134,9 +134,9 @@
 
 // Macro to avoid the "unused variable" warning with no side-effects.
 #define CORE_UNUSED(X) \
-    MACRO_START        \
-    (void) sizeof((X));\
-    MACRO_END
+MACRO_START        \
+(void) sizeof((X));\
+MACRO_END
 
 // Token concatenation
 // Preprocessor concatenation can be tricky if arguments are macros unless
@@ -162,11 +162,11 @@
 // This macro will trigger a breakpoint where it is placed. With MSVC a dialog
 // will ask you if you want to launch the debugger.
 #if defined (COMPILER_GCC) || defined (COMPILER_CLANG)
-    #define BREAKPOINT(ARG) asm volatile ("int $3")
+#define BREAKPOINT(ARG) asm volatile ("int $3")
 #elif defined (COMPILER_MSVC)
-    #define BREAKPOINT(ARG) __debugbreak()
+#define BREAKPOINT(ARG) __debugbreak()
 #else
-    #error unsupported platform
+#error unsupported platform
 #endif
 
 // Platform-independent macros
@@ -268,7 +268,7 @@ typedef double Scalar;
 
 namespace compile_time_utils
 {
-template<int x> struct size;
+    template<int x> struct size;
 }
 // This macro will print the size of a type in a compiler error
 // Note : there is a way to print it as a warning instead on StackOverflow
@@ -291,59 +291,59 @@ template<int x> struct size;
 // (arguments to printf are, in order :
 // filename (%s), line (%i), expr(%s), desc (%s)
 #define REPORT_FAIL( EXP, DESC, FMT )   \
-    MACRO_START                         \
-    std::stringstream stream;           \
-    stream << DESC;                     \
-    fprintf(stderr,                     \
-          FMT,__FILE__,__LINE__,        \
-          #EXP, stream.str().c_str() ); \
-MACRO_END
-
-
-
-// Custom assert, warn and error macros.
-// Standard assert has two main drawbacks : on some OSes it aborts the program,
-// and the debugger will break in assert.c or and not where the calling code
-// uses assert(). CORE_ASSERT guarantees a breakpoint when in a debugger,
-// and always prints a useful message.
-// CORE_WARN_IF has the same effect but it will only print a message.
+MACRO_START                         \
+std::stringstream stream;           \
+stream << DESC;                     \
+fprintf(stderr,                     \
+        FMT,__FILE__,__LINE__,        \
+#EXP, stream.str().c_str() ); \
+        MACRO_END
+        
+        
+        
+        // Custom assert, warn and error macros.
+        // Standard assert has two main drawbacks : on some OSes it aborts the program,
+        // and the debugger will break in assert.c or and not where the calling code
+        // uses assert(). CORE_ASSERT guarantees a breakpoint when in a debugger,
+        // and always prints a useful message.
+        // CORE_WARN_IF has the same effect but it will only print a message.
 #ifdef CORE_ENABLE_ASSERT
 #define CORE_ASSERT( EXP, DESC )    \
-    MACRO_START                     \
-    if (UNLIKELY(!(EXP))) {         \
-        REPORT_FAIL(EXP, DESC, "%s:%i: Assertion `%s` failed : %s\n");\
-        BREAKPOINT(0);              \
-    } else {}                       \
-    MACRO_END
-
+        MACRO_START                     \
+        if (UNLIKELY(!(EXP))) {         \
+            REPORT_FAIL(EXP, DESC, "%s:%i: Assertion `%s` failed : %s\n");\
+            BREAKPOINT(0);              \
+        } else {}                       \
+        MACRO_END
+        
 #define CORE_WARN_IF( EXP, DESC )  \
-    MACRO_START                    \
-    if (UNLIKELY((EXP))) {         \
-        REPORT_FAIL(EXP, DESC, "%s:%i: WARNING `%s` : %s\n");\
-    } else{}                       \
-    MACRO_END
+        MACRO_START                    \
+        if (UNLIKELY((EXP))) {         \
+            REPORT_FAIL(EXP, DESC, "%s:%i: WARNING `%s` : %s\n");\
+        } else{}                       \
+        MACRO_END
 #else
 #define CORE_ASSERT( EXP, DESC ) // nothing
 #define CORE_WARN_IF( EXP, DESC ) // nothing
 #endif
-
-// Print an error and break, even in release.
+        
+        // Print an error and break, even in release.
 #define CORE_ERROR( DESC )                     \
-    MACRO_START                                \
-    REPORT_FAIL(ERROR, DESC, "%s:%i %s: %s\n");\
-    BREAKPOINT(0);                             \
-    exit(EXIT_FAILURE);                        \
-    MACRO_END
-
-// Print an error and break if condition is not met, even in release
+        MACRO_START                                \
+        REPORT_FAIL(ERROR, DESC, "%s:%i %s: %s\n");\
+        BREAKPOINT(0);                             \
+        exit(EXIT_FAILURE);                        \
+        MACRO_END
+        
+        // Print an error and break if condition is not met, even in release
 #define CORE_ERROR_IF( EXP, DESC ) \
-    MACRO_START                    \
-    if( UNLIKELY(!(EXP))) {        \
-        REPORT_FAIL(EXP, DESC, "%s:%i ERROR `%s`: %s\n");\
-        BREAKPOINT(0);             \
-        exit(EXIT_FAILURE);        \
-    }else{}                        \
-    MACRO_END
+        MACRO_START                    \
+        if( UNLIKELY(!(EXP))) {        \
+            REPORT_FAIL(EXP, DESC, "%s:%i ERROR `%s`: %s\n");\
+            BREAKPOINT(0);             \
+            exit(EXIT_FAILURE);        \
+        }else{}                        \
+        MACRO_END
 
 
 
@@ -357,18 +357,18 @@ MACRO_END
 
 #if defined(COMPILER_GCC)
 // Triggered by the typedef in static assert.
-    #pragma GCC diagnostic ignored "-Wunused-local-typedefs"
+#pragma GCC diagnostic ignored "-Wunused-local-typedefs"
 #endif
 #if defined(COMPILER_MSVC)
-    #pragma warning(disable: 4244) // Conversion from double to float loses data.
-    #pragma warning(disable: 4251) // stl dllexports
-    #pragma warning(disable: 4267) // conversion from size_t to uint
-    #pragma warning(disable: 4577) // noexcept used with no exception handling mode
-    #pragma warning(disable: 4838) // conversion from enum to uint.
-    #pragma warning(disable: 4996) // sprintf unsafe
-    #pragma warning(disable: 4503) // Truncated decorated name
-    #define NOMINMAX
-    #include <windows.h>
+#pragma warning(disable: 4244) // Conversion from double to float loses data.
+#pragma warning(disable: 4251) // stl dllexports
+#pragma warning(disable: 4267) // conversion from size_t to uint
+#pragma warning(disable: 4577) // noexcept used with no exception handling mode
+#pragma warning(disable: 4838) // conversion from enum to uint.
+#pragma warning(disable: 4996) // sprintf unsafe
+#pragma warning(disable: 4503) // Truncated decorated name
+#define NOMINMAX
+#include <windows.h>
 #endif
 
 #define eigen_assert(XXX) CORE_ASSERT(XXX, "Eigen Assert");

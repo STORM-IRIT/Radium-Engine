@@ -8,23 +8,23 @@ namespace Ra
 {
     namespace Core
     {
-
+        
         class Index
         {
         public:
             /// CONSTRUCTOR
             Index( const int i = s_invalid );
             Index( const Index& i );
-
+            
             /// DESTRUCTOR
             ~Index() { }
-
+            
             /// COPY
             inline void copy( const Index& id );
-
+            
             /// VALID
             inline bool isValid() const;
-
+            
             /// INVALID
             inline bool isInvalid() const;
             inline void setInvalid();
@@ -36,11 +36,11 @@ namespace Ra
             {
                 return Index( s_maxIdx );
             }
-
+            
             /// INDEX
             inline int  getValue() const;
             inline void setValue( const int i );
-
+            
             /// OPERATOR
             inline Index& operator= ( const Index& id );
             inline Index& operator++();
@@ -141,17 +141,17 @@ namespace Ra
             {
                 return ( id.m_idx >= i );
             }
-
+            
         protected:
             /// VARIABLE
             int m_idx;
-
+            
         private:
             /// CONSTANT
             static const int s_invalid = -1;
             static const int s_maxIdx = std::numeric_limits<int>::max();
         };
-
+        
     }
 } // namespace Ra::Core
 

@@ -9,14 +9,14 @@ namespace Ra
 {
     namespace GuiBase
     {
-
+        
         SelectionManager::SelectionManager(ItemModel* model, QObject* parent)
-                : QItemSelectionModel(model, parent)
+        : QItemSelectionModel(model, parent)
         {
             connect(this, &SelectionManager::selectionChanged, this, &SelectionManager::printSelection);
             connect(model,&ItemModel::modelRebuilt, this, &SelectionManager::onModelRebuilt);
         }
-
+        
         bool SelectionManager::isSelected(const ItemEntry& ent) const
         {
             QModelIndex idx = itemModel()->findEntryIndex(ent);
@@ -27,7 +27,7 @@ namespace Ra
             }
             return false;
         }
-
+        
         std::vector<ItemEntry> SelectionManager::selectedEntries() const
         {
             std::vector<ItemEntry> result;
@@ -39,13 +39,13 @@ namespace Ra
             }
             return result;
         }
-
+        
         const ItemEntry& SelectionManager::currentItem() const
         {
             // getEntry returns an invalid entry when given an invalid index.
             return itemModel()->getEntry(currentIndex());
         }
-
+        
         void SelectionManager::select(const ItemEntry& ent, QItemSelectionModel::SelectionFlags command)
         {
             QModelIndex idx = itemModel()->findEntryIndex(ent);
@@ -54,7 +54,7 @@ namespace Ra
                 QItemSelectionModel::select(idx, command);
             }
         }
-
+        
         void SelectionManager::setCurrentEntry(const ItemEntry& ent, QItemSelectionModel::SelectionFlags command)
         {
             QModelIndex idx = itemModel()->findEntryIndex(ent);
@@ -64,12 +64,12 @@ namespace Ra
                 emit currentChanged( idx, idx );
             }
         }
-
+        
         void SelectionManager::onModelRebuilt()
         {
             clear();
         }
-
+        
         void SelectionManager::printSelection() const
         {
             LOG(logDEBUG) << "Selected entries : ";

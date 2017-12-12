@@ -8,7 +8,7 @@ namespace Ra
 {
     namespace Core
     {
-
+        
         class DLL_EXPORT IndexedObject
         {
         public:
@@ -21,14 +21,14 @@ namespace Ra
             {
                 idx = id_obj.idx;
             }
-
+            
             /// DESTRUCTOR
             virtual inline ~IndexedObject() { }
-
+            
             /// VARIABLE
             Index idx;
         };
-
+        
     }
 } // namespace Ra::Core
 
