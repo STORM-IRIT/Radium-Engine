@@ -60,6 +60,9 @@ namespace Ra
             Ra::Core::ProgressiveMesh<>::Primitive getPrimitive(int vertexIndex);
             Ra::Core::ProgressiveMesh<>::Primitive getFacePrimitive(int faceIndex);
 
+            Mesh* getMesh();
+            void setMesh(const Ra::Core::TriangleMesh& tm);
+
         private:
 //            ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite m_verticesWriter;
 //            ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite m_normalsWriter;

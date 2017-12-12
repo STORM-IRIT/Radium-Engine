@@ -222,5 +222,15 @@ namespace Ra
              return m_index;
          }
 
+         Mesh* MeshContactElement::getMesh()
+         {
+             return m_mesh;
+         }
+
+         void MeshContactElement::setMesh(const Ra::Core::TriangleMesh& tm)
+         {
+             m_mesh->loadGeometry(tm);
+         }
+
     }
 }
