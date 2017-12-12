@@ -33,7 +33,7 @@ This corresponds to
 Add a line to include the Radium-Engine cmake module in your main
 CMakeLists.txt
 ```
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/Radium-Engine/CMakeModules)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/Radium-Engine/cmake)
 ```
 
 
@@ -69,10 +69,9 @@ link_directories(
 ```
 # Link good libraries
 target_link_libraries( ${EXEC_FILE} # target
-    ${RADIUM_LIB_CORE}              # core
-    ${RADIUM_LIB_ENGINE}            # engine
-    ${RADIUM_LIB_GUIBASE}           # gui
-    ${Qt5_LIBRARIES}                # the Qt beast
+    ${RADIUM_LIBRARIES}              # Radium libs
+    ${GLBINDING_LIBRARIES}           # Radium dep
+    ${Qt5_LIBRARIES}                 # the Qt beast
 )
 ```
 
