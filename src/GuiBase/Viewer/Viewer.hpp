@@ -11,9 +11,7 @@
 
 #include <QThread>
 
-#include <Core/Math/LinearAlgebra.hpp>
-#include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
-#include <GuiBase/Utils/FeaturePickingManager.hpp>
+#include <Core/CoreMacros.hpp>
 
 // Forward declarations
 class QOpenGLContext;
@@ -42,6 +40,7 @@ namespace Ra
     {
         class CameraInterface;
         class GizmoManager;
+        class FeaturePickingManager;
     }
 }
 
@@ -105,7 +104,7 @@ namespace Ra
             Engine::Renderer* getRenderer();
             
             /// Access to the feature picking manager
-            FeaturePickingManager* getFeaturePickingManager();
+            Ra::Gui::FeaturePickingManager* getFeaturePickingManager();
             
             //
             // Rendering management
