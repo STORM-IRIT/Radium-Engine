@@ -7,7 +7,7 @@ namespace Ra
 {
     namespace Core
     {
-
+        
         namespace Modifier
         {
             enum Modifier
@@ -18,7 +18,7 @@ namespace Ra
                 RA_ALT_KEY   = 0x8
             };
         } // namespace Modifier
-
+        
         namespace KeyEventType
         {
             enum KeyEventType
@@ -27,7 +27,7 @@ namespace Ra
                 RA_KEY_RELEASED = 0x2
             };
         } // namespace KeyEventType
-
+        
         namespace MouseEventType
         {
             enum MouseEventType
@@ -38,7 +38,7 @@ namespace Ra
                 RA_MOUSE_WHEEL    = 0x8
             };
         }
-
+        
         namespace MouseButton
         {
             enum MouseButton

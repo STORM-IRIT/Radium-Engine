@@ -29,7 +29,7 @@ namespace Ra
             GLenum wrapR            = GL_REPEAT;
             GLenum minFilter        = GL_LINEAR_MIPMAP_LINEAR;
             GLenum magFilter        = GL_LINEAR;
-
+            
             /**
              * Texture constructor. No OpenGL initialization is done there.
              *
@@ -37,12 +37,12 @@ namespace Ra
              *
              */
             explicit Texture(std::string name = "");
-
+            
             /**
              * Texture desctructor. Both internal data and OpenGL stuff are deleted.
              */
             ~Texture();
-
+            
             /**
              * @brief Init the texture 1D from OpenGL point of view.
              *
@@ -71,7 +71,7 @@ namespace Ra
              * If \b data is not null, the texture will take the ownership of it.
              */
             void Generate(uint width, GLenum format, void* data = nullptr);
-
+            
             /**
              * @brief Init the texture 2D from OpenGL point of view.
              *
@@ -102,7 +102,7 @@ namespace Ra
              * If \b data is not null, the texture will take the ownership of it.
              */
             void Generate(uint width, uint height, GLenum format, void* data = nullptr);
-
+            
             /**
              * @brief Init the texture 3D from OpenGL point of view.
              *
@@ -135,7 +135,7 @@ namespace Ra
              * If \b data is not null, the texture will take the ownership of it.
              */
             void Generate(uint width, uint height, uint depth, GLenum format, void* data = nullptr);
-
+            
             /**
              * @brief Init the textures needed for the cubemap from OpenGL point of view.
              *
@@ -166,42 +166,42 @@ namespace Ra
              * If \b data is not null, the texture will take the ownership of it.
              */
             void GenerateCube(uint width, uint height, GLenum format, void** data = nullptr);
-
+            
             /**
              * @brief Bind the texture to enable its use in a shader
              * @param unit Index of the texture to be bound. If -1 only calls glBindTexture.
              */
             void bind(int unit = -1);
-
+            
             /**
              * @return Name of the texture.
              */
             inline std::string getName() const { return m_name; }
-
+            
             /**
              * Update the data contained by the texture
              * @param newData The new data, must contain the same number of elements than old data, no check will be performed.
              */
             void updateData(void* newData);
-
+            
             GLenum format() const { return m_format; }
             uint width() const { return m_width; }
             uint height() const{ return m_height; }
             globjects::Texture * texture() const { return m_texture.get(); }
-
+            
         private:
             Texture( const Texture& ) = delete;
             void operator= ( const Texture& ) = delete;
-
+            
         private:
-//            uint m_textureId;
+            //            uint m_textureId;
             std::string m_name;
             GLenum m_format;
-
+            
             uint m_width;
             uint m_height;
             uint m_depth;
-
+            
             std::unique_ptr<globjects::Texture> m_texture;
         };
     } // namespace Engine

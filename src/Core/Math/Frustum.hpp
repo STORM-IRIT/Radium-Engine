@@ -19,9 +19,9 @@ namespace Ra
                 LEFT    = 4,
                 RIGHT   = 5
             } ;
-
+            
             RA_CORE_ALIGNED_NEW
-
+            
             /// Default constructor
             Frustum(const Matrix4 & mvp)
             {
@@ -38,12 +38,12 @@ namespace Ra
                 // Right clipping plane.
                 m_planes[RIGHT]     = mvp.row(3) - mvp.row(0);
             }
-
+            
             Vector4 getPlane(uint p) const
             {
                 return m_planes[p];
             }
-
+            
         public:
             /// Clipping planes
             Vector4 m_planes[6];

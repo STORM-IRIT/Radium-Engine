@@ -12,7 +12,7 @@ using Ra::Core::MeshConverter;
 using Ra::Core::TopologicalMesh;
 
 namespace RaTests {
-
+    
     class ConvertTests : public Test
     {
         void run() override
@@ -20,25 +20,25 @@ namespace RaTests {
             TriangleMesh newMesh;
             TriangleMesh mesh;
             TopologicalMesh topologicalMesh;
-
+            
             //Test for close mesh
             mesh  = Ra::Core::MeshUtils::makeBox();
             Ra::Core::MeshConverter::convert(mesh, topologicalMesh);
             Ra::Core::MeshConverter::convert(topologicalMesh, newMesh);
             RA_UNIT_TEST( isSameMesh(mesh,newMesh), "Conversion to topological box mesh failed" );
-
+            
             //Test for mesh with boundaries
             mesh  = Ra::Core::MeshUtils::makePlaneGrid(2,2);
             Ra::Core::MeshConverter::convert(mesh, topologicalMesh);
             Ra::Core::MeshConverter::convert(topologicalMesh, newMesh);
             RA_UNIT_TEST( isSameMesh(mesh,newMesh), "Conversion to topological grid mesh failed" );
-
+            
             mesh  = Ra::Core::MeshUtils::makeCylinder(Vector3(0,0,0),Vector3(0,0,1), 1);
             Ra::Core::MeshConverter::convert(mesh, topologicalMesh);
             Ra::Core::MeshConverter::convert(topologicalMesh, newMesh);
             RA_UNIT_TEST( isSameMesh(mesh,newMesh), "Conversion to topological cylinder mesh failed" );
         }
-
+        
         bool isSameMesh(TriangleMesh& meshOne,TriangleMesh& meshTwo)
         {
             bool result = true;
@@ -50,10 +50,10 @@ namespace RaTests {
                 return false;
             if(meshOne.m_triangles.size() != meshTwo.m_triangles.size())
                 return false;
-
+            
             //Check triangles
             std::vector<Ra::Core::Vector3> stackVertices;
-
+            
             i = 0;
             while(result && i < meshOne.m_triangles.size())
             {

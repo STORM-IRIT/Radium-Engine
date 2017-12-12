@@ -15,35 +15,35 @@ namespace Ra
         class HandleData;
         class AnimationData;
         class LightData;
-
+        
         class RA_CORE_API FileData
         {
         public:
             /// CONSTRUCTOR
             FileData( const std::string& filename = "",
-                      const bool VERBOSE_MODE = false );
-
+                     const bool VERBOSE_MODE = false );
+            
             FileData( FileData&& data ) = default;
-
+            
             /// DESTRUCTOR
             ~FileData();
-
+            
             /// FILENAME
             inline std::string getFileName() const;
-
+            
             inline void setFileName( const std::string& filename );
-
+            
             /// TIMING
             inline Scalar getLoadingTime() const;
-
+            
             /// DATA
             inline std::vector<  GeometryData* > getGeometryData() const;
             inline std::vector<    HandleData* > getHandleData()   const;
             inline std::vector< AnimationData* > getAnimationData() const;
             inline std::vector<     LightData* > getLightData() const;
-
+            
             inline void setVerbose( const bool VERBOSE_MODE );
-
+            
             /// QUERY
             inline bool isInitialized() const;
             inline bool isProcessed() const;
@@ -52,13 +52,13 @@ namespace Ra
             inline bool hasAnimation() const;
             inline bool hasLight() const;
             inline bool isVerbose() const;
-
+            
             /// RESET
             inline void reset();
-
+            
             inline void displayInfo() const;
-
-        // TODO(Matthieu) : handle attributes in a better way than "public:"
+            
+            // TODO(Matthieu) : handle attributes in a better way than "public:"
         public:
             /// VARIABLE
             std::string                                     m_filename;
@@ -70,7 +70,7 @@ namespace Ra
             bool                                            m_processed;
             bool                                            m_verbose;
         };
-
+        
     } // namespace Asset
 } // namespace Ra
 

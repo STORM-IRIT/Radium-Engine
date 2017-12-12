@@ -4,61 +4,61 @@
 
 namespace Ra {
     namespace Asset {
-
-
+        
+        
         /////////////////////
         ///  LIGHT DATA   ///
         /////////////////////
-
+        
         /// NAME
         inline void LightData::setName( const std::string& name ) {
             m_name = name;
         }
-
+        
         /// TYPE
         inline LightData::LightType LightData::getType() const {
             return m_type;
         }
-
+        
         inline void LightData::setType( const LightType& type ) {
             m_type = type;
         }
-
+        
         /// FRAME
         inline Core::Matrix4 LightData::getFrame() const {
             return m_frame;
         }
-
+        
         inline void LightData::setFrame( const Core::Matrix4& frame ) {
             m_frame = frame;
         }
-
+        
         /// Data
         inline std::shared_ptr<Ra::Engine::Light> LightData::getLight() const {
             return m_light;
         }
-
+        
         inline void LightData::setLight( std::shared_ptr<Ra::Engine::Light> light) {
             m_light = light;
         }
-
+        
         /// QUERY
         inline bool LightData::isPointLight() const {
             return ( m_type == POINT_LIGHT );
         }
-
+        
         inline bool LightData::isSpotLight() const {
             return ( m_type == SPOT_LIGHT );
         }
-
+        
         inline bool LightData::isDirectionalLight() const {
             return ( m_type == DIRECTIONAL_LIGHT );
         }
-
+        
         inline bool LightData::isAreaLight() const {
             return ( m_type == AREA_LIGHT );
         }
-
+        
         /// DEBUG
         inline void LightData::displayInfo() const {
             std::string type;
@@ -73,6 +73,6 @@ namespace Ra {
             LOG( logINFO ) << " Name           : " << m_name;
             LOG( logINFO ) << " Type           : " << type;
         }
-
+        
     } // namespace Asset
 } // namespace Ra

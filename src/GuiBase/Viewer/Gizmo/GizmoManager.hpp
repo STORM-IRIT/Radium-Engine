@@ -19,10 +19,10 @@ namespace Ra
         class RA_GUIBASE_API GizmoManager : public QObject, public GuiBase::TransformEditor
         {
             Q_OBJECT
-
-
+            
+            
         public:
-
+            
             RA_CORE_ALIGNED_NEW;
             enum GizmoType
             {
@@ -31,44 +31,44 @@ namespace Ra
                 ROTATION,
                 SCALE, // Not supported yet, see GH issue #47
             };
-
+            
             GizmoManager(QObject* parent = nullptr);
             ~GizmoManager();
-
-
+            
+            
         public:
             /// Receive mouse events and transmit them to the gizmos.
             virtual bool handleMousePressEvent  ( QMouseEvent* event );
             virtual bool handleMouseReleaseEvent( QMouseEvent* event );
             virtual bool handleMouseMoveEvent   ( QMouseEvent* event );
-
-
-        public slots:
+            
+            
+            public slots:
             /// Set the object being currently edited
             void setEditable( const Engine::ItemEntry& ent ) override;
-
+            
             /// Destroy all gizmos
             void cleanup();
-
+            
             /// Callback when a drawable is picked.
             void handlePickingResult( int drawableId );
-
+            
             /// Change mode from local axis to global
             void setLocal(bool useLocal);
-
+            
             /// Change gizmo type (rotation or translation)
             void changeGizmoType( GizmoType type );
-
+            
             /// Retrieve the transform from the editable and update the gizmos.
             void updateValues() override;
-
+            
         private:
             // Helper method to change the current gizmo
             void updateGizmo();
-
+            
             // Returs the current gizmo
             Gizmo* currentGizmo();
-
+            
         private:
             std::array<std::unique_ptr<Gizmo>,3> m_gizmos; //! Owning pointers to the gizmos
             GizmoType m_currentGizmoType;           //! Type of the gizmo

@@ -16,19 +16,19 @@ namespace Ra
             typedef Scalar                              Seconds;
             typedef std::chrono::high_resolution_clock  Clock;
             typedef std::chrono::time_point<Clock>      TimePoint;
-
+            
             inline MicroSeconds getIntervalMicro( const TimePoint& start, const TimePoint& end )
             {
                 return ( std::chrono::duration_cast<std::chrono::microseconds> ( end - start ) ).count();
             }
-
+            
             inline Seconds getIntervalSeconds( const TimePoint& start, const TimePoint& end )
             {
                 return ( std::chrono::duration_cast<std::chrono::duration<Scalar, std::chrono::seconds::period>>
-                         ( end - start ) ).count();
+                        ( end - start ) ).count();
             }
         }
-
+        
     }
 }
 
