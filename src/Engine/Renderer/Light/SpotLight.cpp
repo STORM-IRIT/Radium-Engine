@@ -5,21 +5,21 @@
 namespace Ra
 {
     Engine::SpotLight::SpotLight()
-        : Light( Light::SPOT )
-        , m_position( 0, 0, 0 )
-        , m_direction( 0, -1, 0 )
-        , m_attenuation()
+    : Light( Light::SPOT )
+    , m_position( 0, 0, 0 )
+    , m_direction( 0, -1, 0 )
+    , m_attenuation()
     {
     }
-
+    
     Engine::SpotLight::~SpotLight()
     {
     }
-
+    
     void Engine::SpotLight::getRenderParameters( RenderParameters& params )
     {
         Light::getRenderParameters( params );
-
+        
         params.addParameter( "light.spot.position", m_position );
         params.addParameter( "light.spot.direction", m_direction );
         params.addParameter( "light.spot.innerAngle", m_innerAngle );
@@ -28,5 +28,5 @@ namespace Ra
         params.addParameter( "light.spot.attenuation.linear", m_attenuation.linear );
         params.addParameter( "light.spot.attenuation.quadratic", m_attenuation.quadratic );
     }
-
+    
 }

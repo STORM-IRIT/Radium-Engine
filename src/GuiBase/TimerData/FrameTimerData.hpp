@@ -13,7 +13,7 @@
 
 namespace Ra
 {
-
+    
     /// This struct holds all timings for one frame of the engine.
     struct RA_GUIBASE_API FrameTimerData
     {
@@ -26,10 +26,10 @@ namespace Ra
         Core::Timer::TimePoint frameEnd;
         Engine::Renderer::TimerData renderData;
         std::vector<Core::TaskQueue::TimerData> taskData;
-
+        
         void print(std::ostream& ostream) const;
     };
-
+    
 #if 0
     class LoggableFrameTimerData
     {
@@ -37,20 +37,20 @@ namespace Ra
         LoggableFrameTimerData( uint average );
         virtual ~LoggableFrameTimerData() {}
         void addFrame( const FrameTimerData& data );
-
+        
         //void log(el::base::type::ostream_t& os) const override;
-
+        
     private:
         // Print timings relative to the beginning of the frame.
         void printTimerData( el::base::type::ostream_t& os ) const;
         void printAverageTimerData( el::base::type::ostream_t& os ) const;
-
+        
     private:
         mutable std::vector<FrameTimerData> m_frames;
         uint m_average;
     };
 #endif
-
+    
 }
 
 

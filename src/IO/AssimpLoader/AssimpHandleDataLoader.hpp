@@ -22,23 +22,23 @@ namespace Ra {
 
 namespace Ra {
     namespace IO {
-
+        
         class RA_IO_API AssimpHandleDataLoader : public Asset::DataLoader< Asset::HandleData > {
         public:
             /// CONSTRUCTOR
             AssimpHandleDataLoader( const bool VERBOSE_MODE = false );
-
+            
             /// DESTRUCTOR
             ~AssimpHandleDataLoader();
-
+            
             /// LOAD
             void loadData( const aiScene* scene, std::vector< std::unique_ptr< Asset::HandleData > >& data ) override;
-
+            
         protected:
             /// QUERY
             bool sceneHasHandle( const aiScene* scene ) const;
             uint sceneHandleSize( const aiScene* scene ) const;
-
+            
             /// LOAD
             void loadHandleData( const aiScene* scene, std::vector< std::unique_ptr< Asset::HandleData > >& data ) const;
             void loadHandleComponentData( const aiScene* scene, const aiMesh* mesh, Asset::HandleData* data ) const;
@@ -46,20 +46,20 @@ namespace Ra {
             void loadHandleComponentData( const aiNode* node, Asset::HandleComponentData& data ) const;
             void loadHandleTopologyData( const aiScene* scene, Asset::HandleData* data ) const;
             void loadHandleFrame( const aiNode*                                        node,
-                                  const Core::Transform&                               parentFrame,
-                                  const std::map< uint, uint >&                        indexTable,
-                                  std::vector< std::unique_ptr< Asset::HandleData > >& data ) const;
-
+                                 const Core::Transform&                               parentFrame,
+                                 const std::map< uint, uint >&                        indexTable,
+                                 std::vector< std::unique_ptr< Asset::HandleData > >& data ) const;
+            
             /// NAME
             void fetchName( const aiMesh& mesh, Asset::HandleData& data, std::set<std::string>& usedNames ) const;
-
+            
             /// TYPE
             void fetchType( const aiMesh& mesh, Asset::HandleData& data ) const;
-
+            
             /// VERTEX SIZE
             void fetchVertexSize( Asset::HandleData& data ) const;
         };
-
+        
     } // namespace IO
 } // namespace Ra
 

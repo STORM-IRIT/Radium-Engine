@@ -10,117 +10,108 @@
 #include <Core/File/AssetData.hpp>
 
 namespace Ra {
-  namespace Asset {
-
-    /** @brief represent material data  loaded by a file loader
-     *  Material data is an union of several material types supported by Radium.
-     *  This class might evolve during the material system rewriting.
-     */
-    class RA_CORE_API MaterialData : public AssetData
-    {
-    public:
-        /// ENUM FOR SUPPORTED MATERIALS
-        enum MaterialType {
-            UNKNOWN     = 1 << 0,
-            BLINN_PHONG = 1 << 1,
-            DISNEY      = 1 << 2,
-            MATTE       = 1 << 3,
-            METAL       = 1 << 4,
-            MIRROR      = 1 << 5,
-            PLASTIC     = 1 << 6,
-            SUBSTRATE   = 1 << 7,
-            TRANSLUCENT = 1 << 8
-        };
-
-        // SUPPORTED MATERIALS
-        struct BlinnPhongMaterial
+    namespace Asset {
+        
+        /** @brief represent material data loaded by a file loader.
+         * Material data must be identified by a unique name.
+         * Radium Engine reserves the following names
+         *  "AbstractMaterial"  --> unknown material, might serve for error management
+         *  "BlinnPhong"        --> standar Blinn-Phong Material
+         *
+         *  When extending the material system with a loader plugin (or something similar) :
+         *      Define your own "Asset" class derived from Ra::Asset::MaterialData with the "type" that identifies it uniquely and
+         *          corresponding to the external format of your material (in the file you load).
+         *      Define your own "Engine" class, derived from Ra::Engine::Material.
+         *
+         *      Make your plugin register the converter function from "Asset" to "Engine" for this material.
+         *          This function may be everithing that is of the same type than std::function<RadiumMaterialPtr(AssetMaterialPtr)>
+         *      Make your plugin register the default technique builder for this material.
+         *          This will require to write some GLSL shaders and make them accessible from the application search directory.
+         *          See example in RadiumEngine.cpp (RadiumEngine::initialize()) that defins default BlinnPhong Material.
+         *
+         *      Make your loader instantiate the right "Asset" MaterialData class while loading material data from a file.
+         *
+         *      The active system (FancyMesh is the Radium Default), will then automatically use your new material and technique
+         *      so that the rendering will be fine.
+         *          When writing your own system, see FancyMesh implementations as an example.
+         *
+         *  That's all folks.
+         */
+        class RA_CORE_API MaterialData : public AssetData
         {
-            BlinnPhongMaterial();
-
-            BlinnPhongMaterial(const BlinnPhongMaterial& o ) = default;
-
-            ~BlinnPhongMaterial() = default;
-
+        public:
+            
+            /// MATERIAL DATA
+            MaterialData(const std::string &name = "", const std::string &type = "AbstractMaterial");
+            virtual ~MaterialData();
+            
+            /// NAME
+            inline void setName(const std::string &name);
+            
+            /// TYPE
+            inline std::string getType() const;
+            
+            inline void setType(const std::string &type);
+            
+            /// DEBUG
+            virtual void displayInfo() const;
+            
+        private:
+            std::string m_type;
+        };
+        
+        
+        // RADIUM SUPPORTED MATERIALS
+        class BlinnPhongMaterialData : public MaterialData
+        {
+        public:
+            explicit BlinnPhongMaterialData(const std::string &name = "");
+            ~BlinnPhongMaterialData();
+            
+            /// DEBUG
+            inline void displayInfo() const final;
+            
             /// QUERY
             inline bool hasDiffuse() const;
-
+            
             inline bool hasSpecular() const;
-
+            
             inline bool hasShininess() const;
-
+            
             inline bool hasOpacity() const;
-
+            
             inline bool hasDiffuseTexture() const;
-
+            
             inline bool hasSpecularTexture() const;
-
+            
             inline bool hasShininessTexture() const;
-
+            
             inline bool hasNormalTexture() const;
-
+            
             inline bool hasOpacityTexture() const;
-
-            /// DEBUG
-            inline void displayInfo() const;
-
-            /// VARIABLE
+            
+            /// DATA MEMBERS
             Core::Color m_diffuse;
             Core::Color m_specular;
-            Scalar      m_shininess;
-            Scalar      m_opacity;
+            Scalar m_shininess;
+            Scalar m_opacity;
             std::string m_texDiffuse;
             std::string m_texSpecular;
             std::string m_texShininess;
             std::string m_texNormal;
             std::string m_texOpacity;
-            bool        m_hasDiffuse;
-            bool        m_hasSpecular;
-            bool        m_hasShininess;
-            bool        m_hasOpacity;
-            bool        m_hasTexDiffuse;
-            bool        m_hasTexSpecular;
-            bool        m_hasTexShininess;
-            bool        m_hasTexNormal;
-            bool        m_hasTexOpacity;
+            bool m_hasDiffuse;
+            bool m_hasSpecular;
+            bool m_hasShininess;
+            bool m_hasOpacity;
+            bool m_hasTexDiffuse;
+            bool m_hasTexSpecular;
+            bool m_hasTexShininess;
+            bool m_hasTexNormal;
+            bool m_hasTexOpacity;
         };
-
-        /// MATERIALDATA
-
-        MaterialData( const std::string&  name = "", const MaterialType& type = UNKNOWN);
-
-        MaterialData( const MaterialData& material );
-
-        MaterialData& operator=( const MaterialData& material );
-
-        ~MaterialData();
-
-        /// NAME
-        inline void setName( const std::string& name );
-
-        /// TYPE
-        inline MaterialType getType() const;
-
-        inline void setType( const MaterialType& type );
-
-        /// QUERY
-        inline const BlinnPhongMaterial &getBlinnPhong() const;
-
-        inline void setBlinnPhong(const BlinnPhongMaterial &o);
-
-        /// DEBUG
-        inline void displayInfo() const;
-
-    private:
-        MaterialType m_type;
-        union
-        {
-            BlinnPhongMaterial m_BlinnPhong;
-            // TODO : add here others materials
-        };
-
-    };
-
-  } // namespace Asset
+        
+    } // namespace Asset
 } // namespace Ra
 
 #include <Core/File/MaterialData.inl>
