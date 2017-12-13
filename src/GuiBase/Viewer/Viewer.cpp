@@ -159,24 +159,6 @@ namespace Ra
 
         m_glInitStatus = true;
 
-        // TODO : remove the following.
-        // This is inconsistant with event glInitialized connected to a method that do the same ...could cause the
-        // default (Forward) renderer added twice. One here, one in the function connected to the signal glInitialized
-        // if any.
-        // WARNING : Application must catch this signal or add a renderer when everything is OK
-/*
-        if(m_renderers.empty())
-        {
-            LOG( logINFO )
-                    << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
-            std::shared_ptr<Ra::Engine::Renderer> e (new Ra::Engine::ForwardRenderer());
-            addRenderer(e);
-        }
-
-        m_currentRenderer = m_renderers[0].get();
-
-        emit rendererReady();
-*/
         m_context->doneCurrent();
         emit glInitialized();
 

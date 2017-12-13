@@ -192,7 +192,7 @@ namespace Ra
         CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
         CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
 
-        // Connect the signals ans allow all pending events to be processed
+        // Connect the signals and allow all pending events to be processed
         // (thus the viewer should have initialized the OpenGL context..)
         createConnections();
         processEvents();
@@ -212,8 +212,6 @@ namespace Ra
         }
         m_taskQueue.reset( new Core::TaskQueue(numThreads) );
 
-
-
         setupScene();
         emit starting();
 
@@ -232,6 +230,7 @@ namespace Ra
     void BaseApplication::createConnections()
     {
         connect( m_mainWindow.get(), &Gui::MainWindow::closed , this, &BaseApplication::appNeedsToQuit );
+        connect( m_viewer, &Gui::Viewer::glInitialized, this, &BaseApplication::initializeOpenGlPlugins );
     }
 
     void BaseApplication::setupScene()
@@ -408,7 +407,7 @@ namespace Ra
         m_isAboutToQuit = true;
     }
 
-    void BaseApplication::openGlIsReady()
+    void BaseApplication::initializeOpenGlPlugins()
     {
         // Initialize plugins that depends on Initialized OpenGL (if any)
         if (m_openGLPlugins.size() > 0) {
