@@ -7,6 +7,7 @@
 #include <Core/Time/Timer.hpp>
 #include <GuiBase/TimerData/FrameTimerData.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
+#include <PluginBase/RadiumPluginInterface.hpp>
 
 class QTimer;
 namespace Ra
@@ -119,6 +120,9 @@ namespace Ra
         uint m_targetFPS;
 
     private:
+        /// Plugins that need to be initialized once OpenGL is ready
+        std::vector<Ra::Plugins::RadiumPluginInterface*> m_openGLPlugins;
+
         /// Pointer to OpenGL Viewer for render call (belongs to MainWindow).
         Gui::Viewer* m_viewer;
 
