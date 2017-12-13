@@ -199,8 +199,9 @@ namespace Ra
         CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
         CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
 
-        // Allow all events to be processed (thus the viewer should have
-        // initialized the OpenGL context..)
+        // Connect the signals ans allow all pending events to be processed
+        // (thus the viewer should have initialized the OpenGL context..)
+        createConnections();
         processEvents();
 
         Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity("Test");
@@ -218,7 +219,7 @@ namespace Ra
         }
         m_taskQueue.reset( new Core::TaskQueue(numThreads) );
 
-        createConnections();
+
 
         setupScene();
         emit starting();
@@ -238,6 +239,7 @@ namespace Ra
     void BaseApplication::createConnections()
     {
         connect( m_mainWindow.get(), &Gui::MainWindow::closed , this, &BaseApplication::appNeedsToQuit );
+        connect( m_viewer, &Gui::Viewer::glInitialized, this, &BaseApplication::openGlIsReady );
     }
 
     void BaseApplication::setupScene()
@@ -412,6 +414,11 @@ namespace Ra
     {
         LOG( logDEBUG ) << "About to quit.";
         m_isAboutToQuit = true;
+    }
+
+    void BaseApplication::openGlIsReady()
+    {
+        LOG( logINFO ) << "****** BaseApplication::openGlIsReady() ******";
     }
 
     void BaseApplication::setRealFrameRate(bool on)

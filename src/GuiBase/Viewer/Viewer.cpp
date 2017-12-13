@@ -98,6 +98,10 @@ namespace Ra
 
         m_renderers.push_back(e);
 
+        if (m_currentRenderer == nullptr)
+        {
+            m_currentRenderer = e.get();
+        }
         return m_renderers.size()-1;
     }
 
@@ -157,6 +161,8 @@ namespace Ra
 
         emit glInitialized();
 
+        // This is inconsistant with event glInitialized connected to a method that do the same ...could cause the Forward renderer added twice. One here, one in the function connected to the signal glInitialized if any.
+        /*
         if(m_renderers.empty())
         {
             LOG( logINFO )
@@ -168,6 +174,7 @@ namespace Ra
         m_currentRenderer = m_renderers[0].get();
 
         emit rendererReady();
+*/
         m_context->doneCurrent();
     }
 
