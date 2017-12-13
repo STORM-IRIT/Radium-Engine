@@ -140,6 +140,7 @@ namespace Ra
                 [=]( const QString& ) { this->onCurrentRenderChangedInUI(); } );
 
         connect(m_viewer, &Viewer::glInitialized, this, &MainWindow::onGLInitialized);
+        // This seems to cause problem on MacOsX : signal is not trasnmitted ...
         connect(m_viewer, SIGNAL(glInitialized()), this, SIGNAL(glInitialized()));
         connect(m_viewer, &Viewer::rendererReady, this, &MainWindow::onRendererReady);
 
@@ -599,9 +600,12 @@ namespace Ra
 
     void Gui::MainWindow::onGLInitialized()
     {
+        LOG( logINFO ) << "****** Gui::MainWindow::onGLInitialized() ******";
         // set renderers once OpenGL is configured
         std::shared_ptr<Engine::Renderer> e (new Engine::ForwardRenderer());
         addRenderer("Forward Renderer", e);
+
+        emit glInitialized();
     }
 
     void Gui::MainWindow::updateTrackedFeatureInfo()
