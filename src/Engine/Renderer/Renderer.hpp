@@ -87,11 +87,11 @@ namespace Ra
                 Core::Vector2 m_screenCoords;
                 Core::MouseButton::MouseButton m_button;
                 PickingMode m_mode;
-                float m_circleRadius;
             };
 
             struct PickingResult
             {
+                PickingMode m_mode;             // Picking mode of the query
                 int m_roIdx;                    // Idx of the picked RO
                 std::vector<int> m_vertexIdx;   // Idx of the picked vertex in the element, i.e. point's idx OR idx in line or triangle
                 std::vector<int> m_elementIdx;  // Idx of the element, i.e. triangle for mesh, edge for lines and -1 for points
@@ -191,6 +191,17 @@ namespace Ra
             inline const std::vector<PickingQuery>& getPickingQueries() const
             {
                 return m_lastFramePickingQueries;
+            }
+
+            inline virtual void setMousePosition(const Core::Vector2& pos) final
+            {
+                m_mousePosition[0] = pos[0];
+                m_mousePosition[1] = m_height - pos[1];
+            }
+
+            inline virtual void setBrushRadius(Scalar brushRadius) final
+            {
+                m_brushRadius = brushRadius;
             }
 
             inline void toggleDrawDebug()
@@ -298,8 +309,8 @@ namespace Ra
             void splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
                                   std::array<std::vector<RenderObjectPtr>,3>& renderQueuePicking );
             void renderForPicking( const RenderData& renderData,
-                                           const std::array<const ShaderProgram*,3>& pickingShaders,
-                                           const std::array<std::vector<RenderObjectPtr>,3>& renderQueuePicking );
+                                   const std::array<const ShaderProgram*,3>& pickingShaders,
+                                   const std::array<std::vector<RenderObjectPtr>,3>& renderQueuePicking );
 
             void doPicking( const RenderData& renderData );
 
@@ -365,10 +376,12 @@ namespace Ra
             std::mutex m_renderMutex;
 
             // PICKING STUFF
+            Ra::Core::Vector2 m_mousePosition;
+            float m_brushRadius;
             std::unique_ptr<globjects::Framebuffer> m_pickingFbo;
             std::unique_ptr<Texture>                m_pickingTexture;
 
-            std::unique_ptr<Texture>    m_depthTexture;
+            std::unique_ptr<Texture>   m_depthTexture;
 
             std::vector<PickingQuery>  m_pickingQueries;
             std::vector<PickingQuery>  m_lastFramePickingQueries;
