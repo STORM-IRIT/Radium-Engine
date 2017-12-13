@@ -30,6 +30,7 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
+#include <PluginBase/RadiumPluginInterface.hpp>
 
 #include <Gui/MainWindow.hpp>
 
