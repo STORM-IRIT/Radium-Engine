@@ -159,10 +159,12 @@ namespace Ra
 
         m_glInitStatus = true;
 
-        emit glInitialized();
-
-        // This is inconsistant with event glInitialized connected to a method that do the same ...could cause the Forward renderer added twice. One here, one in the function connected to the signal glInitialized if any.
-        /*
+        // TODO : remove the following.
+        // This is inconsistant with event glInitialized connected to a method that do the same ...could cause the
+        // default (Forward) renderer added twice. One here, one in the function connected to the signal glInitialized
+        // if any.
+        // WARNING : Application must catch this signal or add a renderer when everything is OK
+/*
         if(m_renderers.empty())
         {
             LOG( logINFO )
@@ -176,6 +178,8 @@ namespace Ra
         emit rendererReady();
 */
         m_context->doneCurrent();
+        emit glInitialized();
+
     }
 
     Gui::CameraInterface* Gui::Viewer::getCameraInterface()
@@ -231,7 +235,6 @@ namespace Ra
 
     void Gui::Viewer::intializeRenderer(Engine::Renderer *renderer)
     {
-        m_context->makeCurrent(this);
         // see issue #261 Qt Event order and default viewport management (Viewer.cpp)
         // https://github.com/STORM-IRIT/Radium-Engine/issues/261
 #ifndef OS_MACOS
@@ -242,7 +245,6 @@ namespace Ra
         {
             renderer->addLight( m_camera->getLight() );
         }
-        m_context->doneCurrent();
     }
 
     void Gui::Viewer::resizeGL( int width_, int height_ )
@@ -476,6 +478,8 @@ namespace Ra
 
             LOG( logINFO ) << "[Viewer] Set active renderer: "
                            << m_currentRenderer->getRendererName();
+
+            emit rendererReady();
 
             m_context->doneCurrent();
             return true;

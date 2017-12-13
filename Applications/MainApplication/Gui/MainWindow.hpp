@@ -119,9 +119,6 @@ namespace Ra
             /// Emitted when a new item is selected. An invalid entry is sent when no item is selected.
             void selectedItem( const Engine::ItemEntry& entry );
 
-            /// Emitted when GL is correclty initialized (forwarded from Viewer)
-            void glInitialized();
-
         private:
             /// Connect qt signals and slots. Called once by the constructor.
             void createConnections();
