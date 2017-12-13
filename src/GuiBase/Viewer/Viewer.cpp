@@ -231,11 +231,18 @@ namespace Ra
 
     void Gui::Viewer::intializeRenderer(Engine::Renderer *renderer)
     {
+        m_context->makeCurrent(this);
+        // see issue #261 Qt Event order and default viewport management (Viewer.cpp)
+        // https://github.com/STORM-IRIT/Radium-Engine/issues/261
+#ifndef OS_MACOS
+        gl::glViewport(0, 0, width(), height());
+#endif
         renderer->initialize(width(), height());
         if( m_camera->hasLightAttached() )
         {
             renderer->addLight( m_camera->getLight() );
         }
+        m_context->doneCurrent();
     }
 
     void Gui::Viewer::resizeGL( int width_, int height_ )
