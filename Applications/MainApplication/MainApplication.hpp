@@ -88,7 +88,7 @@ namespace Ra
         void loadFile( QString path );
         void framesCountForStatsChanged( uint count );
         void appNeedsToQuit();
-        void openGlIsReady();
+        void initializeOpenGlPlugins();
 
         void setRealFrameRate( bool on );
         void setRecordFrames( bool on );
