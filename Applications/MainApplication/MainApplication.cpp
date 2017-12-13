@@ -30,6 +30,7 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
+#include <PluginBase/RadiumPluginInterface.hpp>
 
 #include <Gui/MainWindow.hpp>
 
@@ -40,9 +41,6 @@
 #endif
 #ifdef IO_USE_ASSIMP
     #include <IO/AssimpLoader/AssimpFileLoader.hpp>
-#endif
-#ifdef IO_USE_PBRT
-    #include <IO/PbrtLoader/PbrtFileLoader.hpp>
 #endif
 
 
@@ -147,7 +145,7 @@ namespace Ra
 #else
         config << "disabled" ;
 #endif
-        
+
         LOG( logINFO ) << config.str();
 
         config.str( std::string() );
@@ -185,10 +183,6 @@ namespace Ra
 #ifdef IO_USE_ASSIMP
         m_engine->registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface>(new IO::AssimpFileLoader()) );
 #endif
-#ifdef IO_USE_PBRT
-        m_engine->registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface>(new IO::PbrtFileLoader()) );
-#endif
-
         // Create main window.
         m_mainWindow.reset( new Gui::MainWindow );
         m_mainWindow->show();
