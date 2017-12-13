@@ -140,8 +140,6 @@ namespace Ra
                 [=]( const QString& ) { this->onCurrentRenderChangedInUI(); } );
 
         connect(m_viewer, &Viewer::glInitialized, this, &MainWindow::onGLInitialized);
-        connect(m_viewer, &Viewer::glInitialized, mainApp, &BaseApplication::openGlIsReady);
-
         connect(m_viewer, &Viewer::rendererReady, this, &MainWindow::onRendererReady);
 
         connect(m_displayedTextureCombo,
