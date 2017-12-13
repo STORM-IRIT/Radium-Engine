@@ -7,6 +7,7 @@
 class QWidget;
 class QMenu;
 class QAction;
+class QOpenGLContext;
 
 namespace Ra
 {
