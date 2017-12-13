@@ -134,6 +134,20 @@ namespace Ra
             virtual bool doAddFileLoader() { return false; }
 
             virtual void addFileLoaders(std::vector<std::shared_ptr<Asset::FileLoaderInterface>> */*fl*/) {}
+
+            /**
+             * @brief openGlInitialize
+             *
+             * \param context (const PluginContext& context) the Plugin context
+             * \param openGLContext (const QOpenGLContext *openGLContext) the existing OpenGLcontext use by the viewer
+             * @see https://herbsutter.com/2013/06/05/gotw-91-solution-smart-pointer-parameters/ for the reason a
+             * const QOpenGLContext * is given
+             * \warning Allocated renderers are given to the application and
+             * SHOULD not be destroyed by the plugin
+             */
+            virtual void openGlInitialize(const PluginContext& context, const QOpenGLContext *openGLContext) {}
+
+            virtual bool doAddROpenGLInitializer() { return false; }
         };
     }
 }
