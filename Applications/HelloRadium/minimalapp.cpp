@@ -46,7 +46,6 @@ MinimalApp::MinimalApp(int &argc, char** argv)
     // Initialize timer for the spinning cube.
     m_frame_timer = new QTimer(this);
     m_frame_timer->setInterval(1000 / m_target_fps);
-    connect(m_frame_timer, &QTimer::timeout, this, &MinimalApp::frame);
 }
 
 MinimalApp::~MinimalApp()
@@ -58,6 +57,7 @@ void MinimalApp::openGLReady()
 {
     std::shared_ptr<Ra::Engine::Renderer> e (new Ra::Engine::ForwardRenderer());
     m_viewer->addRenderer(e);
+    connect(m_frame_timer, &QTimer::timeout, this, &MinimalApp::frame);
 }
 
 void MinimalApp::frame()
