@@ -50,8 +50,9 @@ namespace Ra {
             , m_renderQueuesUpToDate( false )
             , m_quadMesh( nullptr )
             , m_drawDebug( true )
-            , m_wireframe(false)
-            , m_postProcessEnabled(true)
+            , m_wireframe( false )
+            , m_postProcessEnabled( true )
+            , m_brushRadius( 0 )
         {
             GL_CHECK_ERROR;
         }
@@ -73,6 +74,7 @@ namespace Ra {
 
             m_shaderMgr->addShaderProgram("DrawScreen", "Shaders/Basic2D.vert.glsl", "Shaders/DrawScreen.frag.glsl");
             m_shaderMgr->addShaderProgram("DrawScreenI", "Shaders/Basic2D.vert.glsl", "Shaders/DrawScreenI.frag.glsl");
+            m_shaderMgr->addShaderProgram("CircleBrush", "Shaders/Basic2D.vert.glsl", "Shaders/CircleBrush.frag.glsl");
 
             ShaderConfiguration pickingPointsConfig( "PickingPoints" );
             pickingPointsConfig.addShader(ShaderType_VERTEX  , "Shaders/Picking.vert.glsl");
@@ -384,7 +386,6 @@ namespace Ra {
                 renderForPicking( renderData, m_pickingShaders, m_xrayRenderObjectsPicking );
             }
 
-
             // Finally draw ui stuff on top of everything
             // these have a different way to compute the transform matrices
             // FIXME (florian): find a way to use renderForPicking()!
@@ -437,6 +438,7 @@ namespace Ra {
             for ( const auto& query : m_pickingQueries )
             {
                 PickingResult result;
+                result.m_mode = query.m_mode;
                 // fill picking result according to picking mode
                 if (query.m_mode < C_VERTEX)
                 {
@@ -446,16 +448,16 @@ namespace Ra {
                     result.m_vertexIdx.emplace_back( pick[1] ); // vertex idx in the element
                     result.m_vertexIdx.emplace_back( pick[2] ); // element idx
                     result.m_vertexIdx.emplace_back( pick[3] ); // edge opposite idx for triangles
-                    std::cout << pick[0] << " " << pick[1] << " " << pick[2] << " " << pick[3] << " " << std::endl;
+                    std::cout << pick[0] << " " << pick[1] << " " << pick[2] << " " << pick[3] << std::endl;
                 }
                 else
                 {
                     // select the results for the RO with the most representatives
                     // (or first to come if same amount)
                     std::map<int,PickingResult> resultPerRO;
-                    for(int i=-query.m_circleRadius; i<=query.m_circleRadius; i+=3)
+                    for(int i=-m_brushRadius; i<=m_brushRadius; i+=3)
                     {
-                        int h = std::round( std::sqrt( query.m_circleRadius*query.m_circleRadius - i*i ) );
+                        int h = std::round( std::sqrt( m_brushRadius*m_brushRadius - i*i ) );
                         for(int j=-h; j<=+h; j+=3)
                         {
                             GL_ASSERT( glReadPixels(query.m_screenCoords.x()+i, m_height-query.m_screenCoords.y()-j,
@@ -510,6 +512,23 @@ namespace Ra {
             m_quadMesh->render();
 
             GL_ASSERT( glDepthFunc( GL_LESS ) );
+
+            // draw brush circle if enabled
+            if( m_brushRadius>0 )
+            {
+                GL_ASSERT( glDrawBuffers( 1, buffers) );
+                GL_ASSERT( glDisable( GL_BLEND ) );
+                GL_ASSERT( glDisable( GL_DEPTH_TEST ) );
+                auto shader = m_shaderMgr->getShaderProgram("CircleBrush");
+                shader->bind();
+                shader->setUniform("mousePosition", m_mousePosition);
+                shader->setUniform("brushRadius", m_brushRadius);
+                shader->setUniform("dim", Core::Vector2(m_width,m_height));
+                m_quadMesh->render();
+                GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
+                GL_ASSERT( glEnable( GL_BLEND ) );
+            }
+
         }
 
         void Renderer::notifyRenderObjectsRenderingInternal()
