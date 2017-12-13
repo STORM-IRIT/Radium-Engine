@@ -139,7 +139,10 @@ namespace Ra
         config << "single precision" ;
 #endif
 
-        config << "\nTexture support : ";
+        LOG( logINFO ) << config.str();
+
+        config.str( std::string() );
+        config << "Texture support : ";
 #if defined(RADIUM_WITH_TEXTURES)
         config << "enabled";
 #else
