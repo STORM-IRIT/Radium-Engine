@@ -30,7 +30,6 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
-#include <PluginBase/RadiumPluginInterface.hpp>
 
 #include <Gui/MainWindow.hpp>
 
@@ -239,7 +238,6 @@ namespace Ra
     void BaseApplication::createConnections()
     {
         connect( m_mainWindow.get(), &Gui::MainWindow::closed , this, &BaseApplication::appNeedsToQuit );
-        connect( m_viewer, &Gui::Viewer::glInitialized, this, &BaseApplication::openGlIsReady );
     }
 
     void BaseApplication::setupScene()
@@ -418,7 +416,18 @@ namespace Ra
 
     void BaseApplication::openGlIsReady()
     {
-        LOG( logINFO ) << "****** BaseApplication::openGlIsReady() ******";
+        // Initialize plugins that depends on Initialized OpenGL (if any)
+        if (m_openGLPlugins.size() > 0) {
+            PluginContext context;
+            context.m_engine = m_engine.get();
+            context.m_selectionManager = m_mainWindow->getSelectionManager();
+            context.m_featureManager = m_viewer->getFeaturePickingManager();
+            for (auto plugin : m_openGLPlugins)
+            {
+                plugin->openGlInitialize( context, m_viewer->getContext() );
+            }
+            m_openGLPlugins.clear();
+        }
     }
 
     void BaseApplication::setRealFrameRate(bool on)
@@ -537,6 +546,20 @@ namespace Ra
                             CORE_ASSERT(! tmpL.empty(), "This plugin is expected to add file loaders");
                             for(auto ptr : tmpL){
                                 m_engine->registerFileLoader(ptr);
+                            }
+                        }
+
+                        if ( loadedPlugin->doAddROpenGLInitializer() )
+                        {
+                            if ( m_viewer->getContext() && m_viewer->getContext()->isValid() )
+                            {
+                                // OpenGL is ready, initialize openGL part of the plugin
+                                loadedPlugin->openGlInitialize( context, m_viewer->getContext() );
+                            }
+                            else
+                            {
+                                // Defer OpenGL initialisation
+                                m_openGLPlugins.push_back(loadedPlugin);
                             }
                         }
                     }
