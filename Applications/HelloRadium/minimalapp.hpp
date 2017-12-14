@@ -29,7 +29,7 @@ public slots:
     /// This function is the basic "game loop" iteration of the engine.
     /// It starts the rendering then advance all systems by one frame.
     void frame();
-    void openGLReady();
+    void onGLInitialized();
 
 public:
     // Our instance of the engine
