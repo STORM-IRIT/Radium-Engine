@@ -97,11 +97,13 @@ namespace Ra
         }
 
         m_renderers.push_back(e);
-
+/*
         if (m_currentRenderer == nullptr)
         {
             m_currentRenderer = e.get();
         }
+*/
+
         return m_renderers.size()-1;
     }
 
@@ -131,8 +133,8 @@ namespace Ra
 
     void Gui::Viewer::initializeGL()
     {
-//        LOG( logDEBUG ) << "Gui::Viewer::initializeGL : "  << width() << 'x' << height() << std::endl;
-        // verify if context is created ?
+        m_glInitStatus = true;
+
         m_context->makeCurrent(this);
 
         m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
@@ -144,7 +146,6 @@ namespace Ra
         auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
         m_camera->attachLight( light );
 
-
         // initialize renderers added before GL was ready
         if( ! m_renderers.empty() )
         {
@@ -154,14 +155,26 @@ namespace Ra
                 LOG( logINFO ) << "[Viewer] Deferred initialization of "
                                << rptr->getRendererName();
             }
-            changeRenderer(0);
         }
 
-        m_glInitStatus = true;
-
         m_context->doneCurrent();
+
         emit glInitialized();
 
+        // this code is usefull only if glInitialized() connected slot does not add a renderer
+        // On Windows, actually, the signal seems to be not fired (DLL_IMPORT/EXPORT problem ?
+        if(m_renderers.empty())
+        {
+            LOG( logINFO )
+                << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
+            std::shared_ptr<Ra::Engine::Renderer> e (new Ra::Engine::ForwardRenderer());
+            addRenderer(e);
+        }
+
+        if (m_currentRenderer == nullptr)
+        {
+            changeRenderer(0);
+        }
     }
 
     Gui::CameraInterface* Gui::Viewer::getCameraInterface()
@@ -461,9 +474,10 @@ namespace Ra
             LOG( logINFO ) << "[Viewer] Set active renderer: "
                            << m_currentRenderer->getRendererName();
 
+            m_context->doneCurrent();
+
             emit rendererReady();
 
-            m_context->doneCurrent();
             return true;
         }
         return false;
