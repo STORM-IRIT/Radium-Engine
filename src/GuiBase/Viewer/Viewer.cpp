@@ -157,9 +157,8 @@ namespace Ra
             }
         }
 
-        m_context->doneCurrent();
-
         emit glInitialized();
+        m_context->doneCurrent();
 
         // this code is usefull only if glInitialized() connected slot does not add a renderer
         // On Windows, actually, the signal seems to be not fired (DLL_IMPORT/EXPORT problem ?
@@ -167,7 +166,11 @@ namespace Ra
         {
             LOG( logINFO )
                 << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
+
+            m_context->makeCurrent(this);
             std::shared_ptr<Ra::Engine::Renderer> e (new Ra::Engine::ForwardRenderer());
+            m_context->doneCurrent();
+
             addRenderer(e);
         }
 
