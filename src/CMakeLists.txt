@@ -134,6 +134,7 @@ else( RADIUM_IO_IS_INTERFACE )
             ${io_target}
             ${io_libs}
     )
+    set_property( TARGET ${io_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
 endif( RADIUM_IO_IS_INTERFACE )
 
 add_dependencies( ${io_target} ${core_target} ${engine_target} )
@@ -231,6 +232,10 @@ target_link_libraries(
 
 
 set(RADIUM_LIBRARIES ${RADIUM_LIBRARIES} "${core_target}" "${engine_target}" "${io_target}" "${guibase_target}" PARENT_SCOPE)
+
+set_property( TARGET ${core_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
+set_property( TARGET ${engine_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
+set_property( TARGET ${guibase_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
 
 # Build tests
 include_directories(
