@@ -476,6 +476,9 @@ namespace Ra
         CORE_ASSERT(m_glInitStatus.load(),
                     "OpenGL needs to be initialized before rendering.");
 
+        CORE_ASSERT(m_currentRenderer != nullptr,
+                    "No renderer found.");
+
         m_context->makeCurrent(this);
 
         // Move camera if needed. Disabled for now as it takes too long (see issue #69)
@@ -523,6 +526,12 @@ namespace Ra
 
     void Gui::Viewer::processPicking()
     {
+        CORE_ASSERT(m_glInitStatus.load(),
+                    "OpenGL needs to be initialized before rendering.");
+
+        CORE_ASSERT(m_currentRenderer != nullptr,
+                    "No renderer found.");
+
         CORE_ASSERT( m_currentRenderer->getPickingQueries().size() == m_currentRenderer->getPickingResults().size(),
                     "There should be one result per query." );
 
@@ -548,6 +557,7 @@ namespace Ra
     {
         if (!aabb.isEmpty())
         {
+            CORE_ASSERT(m_camera != nullptr, "No camera found.");
             m_camera->fitScene(aabb);
         }
         else
