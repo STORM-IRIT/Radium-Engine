@@ -26,7 +26,7 @@ using Ra::Core::TriangleMesh;
 using Ra::Core::Animation::WeightMatrix;
 
 namespace SkinningPlugin {
-    
+
     class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
     public:
         /// CONSTRUCTOR
@@ -136,13 +136,12 @@ namespace SkinningPlugin {
                 
                 addRenderObject( renderObject );
             }
-        }
-        
+        }    
     protected:
         /// VARIABLE
         std::string m_contentsName;
     };
-    
+
 } // namespace SkinningPlugin
 
 #endif //SKINPLUGIN_DISPLAY_COMPONENT_HPP

@@ -25,10 +25,10 @@ namespace FancyMeshPlugin
         Q_OBJECT
         Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
         Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
-        
+
     public:
         virtual ~FancyMeshPluginC();
-        
+
         void registerPlugin( const Ra::PluginContext& context ) override;
         
         bool doAddWidget( QString& name ) override;
@@ -40,7 +40,7 @@ namespace FancyMeshPlugin
         bool doAddAction( int& nb ) override;
         QAction* getAction( int id ) override;
     };
-    
+
 } // namespace
 
 #endif // FANCYMESHPLUGIN_HPP_

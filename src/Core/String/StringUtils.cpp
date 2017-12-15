@@ -28,25 +28,25 @@ namespace Ra
                 res = pos != std::string::npos ? str.substr( pos + 1 ) : "";
                 return res;
             }
-            
-            
+
+
             std::string getDirName( const std::string& path )
             {
                 // We remove any trailing slashes.
                 ulong pos = path.find_last_not_of( '/' );
-                
+
                 // Don't strip the last / from "/"
                 if ( pos == std::string::npos )
                 {
                     pos = path.find_first_of( "/" );
                 }
-                
+
                 std::string res;
                 res = path.substr( 0, pos + 1 );
-                
+
                 // Now find the previous slash and cut the string.
                 pos = res.find_last_of( '/' );
-                
+
                 // The directory is actually "/" because the last slash is in first position.
                 // In that case we should return "/"
                 if ( pos == 0 )
@@ -61,10 +61,10 @@ namespace Ra
                 {
                     res = ".";
                 }
-                
+
                 return res;
             }
-            
+
             std::string getBaseName( const std::string& path, bool keepExtension )
             {
                 std::string res;
@@ -75,17 +75,17 @@ namespace Ra
                 {
                     pos = path.find_first_of( "/" );
                 }
-                
+
                 res = path.substr( 0, pos + 1 );
-                
+
                 // Now find the previous slash and cut the string.
                 pos = res.find_last_of( '/' );
-                
+
                 if ( pos != std::string::npos )
                 {
                     res = res.substr( pos + 1 );
                 }
-                
+
                 if ( !keepExtension )
                 {
                     pos = res.find_last_of( '.' );
@@ -94,16 +94,16 @@ namespace Ra
                         res = res.substr( 0, pos );
                     }
                 }
-                
+
                 return res;
             }
-            
+
             // Printf-to-string functions.
-            
+
             // Each function expecting varargs has a va_list equivalent
             // which does the actual job (because you can't pas varargs to another
             // function). See http://c-faq.com/varargs/handoff.html
-            
+
             int stringvPrintf( std::string& str, const char* fmt, va_list args )
             {
                 // Random guessing value from the size of the format string.
@@ -111,22 +111,22 @@ namespace Ra
                 int finalSize = 0;
                 str.clear();
                 char* buffer = nullptr;
-                
+
                 while ( 1 )
                 {
                     // Dynamically allocate a string.
                     delete[] buffer;
                     buffer = new char[size];
-                    
+
                     // Attempt to printf into the buffer
                     va_list argsCopy;
                     va_copy(argsCopy,args);
                     finalSize = vsnprintf( buffer, size, fmt, argsCopy );
                     va_end(argsCopy);
-                    
+
                     // vsnprinf can return -1 in case of an encoding error on some platforms.
                     CORE_ASSERT( finalSize >= 0, "Encoding error");
-                    
+
                     // If our buffer was too small, we know that final_size
                     // gives us the required buffer size.
                     if ( uint( finalSize ) >= size )
@@ -145,7 +145,7 @@ namespace Ra
                 delete[] buffer;
                 return finalSize;
             }
-            
+
             int appendvPrintf( std::string& str, const char* fmt, va_list args )
             {
                 std::string toAppend;
@@ -153,8 +153,8 @@ namespace Ra
                 str += toAppend;
                 return result;
             }
-            
-            
+
+
             // These functions are exposed to the interface, but they just cal
             // the va_list versions above.
             int stringPrintf( std::string& str, const char* fmt, ... )
@@ -165,7 +165,7 @@ namespace Ra
                 va_end(args);
                 return result;
             }
-            
+
             int appendPrintf( std::string& str, const char* fmt, ... )
             {
                 va_list args;
@@ -174,18 +174,18 @@ namespace Ra
                 va_end(args);
                 return result;
             }
-            
+
             std::vector<std::string> splitString( const std::string& str, char token )
             {
                 std::stringstream ss( str );
                 std::string item;
                 std::vector<std::string> items;
-                
+
                 while ( std::getline( ss, item, token ) )
                 {
                     items.push_back( item );
                 }
-                
+
                 return items;
             }
         }

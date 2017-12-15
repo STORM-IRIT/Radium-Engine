@@ -236,6 +236,10 @@ set_property( TARGET ${core_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
 set_property( TARGET ${engine_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
 set_property( TARGET ${guibase_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
 
+set_property( TARGET ${core_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
+set_property( TARGET ${engine_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
+set_property( TARGET ${guibase_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
+
 # Build tests
 include_directories(
         .

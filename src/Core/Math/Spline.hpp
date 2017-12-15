@@ -27,7 +27,7 @@ namespace Ra
                 UNIFORM,
                 OPEN_UNIFORM ///< Connected to the first and last control points
             };
-            
+
             typedef typename Eigen::Matrix<Scalar, D, 1> Vector;
         public:
             /// Type of the nodal vector
@@ -36,40 +36,40 @@ namespace Ra
             /// This will define the behavior of the spline with its control points
             /// as well as its speed according to its parameter.
             inline Spline( Type type = OPEN_UNIFORM );
-            
+
             /// Set the position of the spline control points.
             inline void setCtrlPoints( const Core::VectorArray<Vector>& points );
-            
+
             /// Get the control points of the spline
             inline const Core::VectorArray<Vector>& getCtrlPoints() const;
-            
+
             /// The the nodal vector type
             inline void setType( Type type );
-            
+
             /// Evaluate position of the spline
             /// @param u : curve parameter ranging from [0; 1]
             inline Vector f( Scalar u ) const;
-            
+
             /// Evaluate speed of the spline
             inline Vector df( Scalar u ) const;
-            
+
         private:
             // -------------------------------------------------------------------------
             /// @name Class tools
             // -------------------------------------------------------------------------
-            
+
             inline void assertSplines() const;
-            
+
             /// set value and size of the nodal vector depending on the current number
             /// of control points
             inline void setNodalVector();
-            
+
             /// Set values of the nodal vector to be uniform
             inline void setNodeToUniform();
-            
+
             /// Set values of the nodal vector to be open uniform
             inline void setNodeToOpenUniform();
-            
+
             /// Evaluate the equation of a splines using the blossom algorithm
             /// @param u : the curve parameter which range from the values
             /// [node[k-1]; node[point.size()]]
@@ -81,21 +81,21 @@ namespace Ra
             /// @param off : offset to apply to the nodal vector 'node' before reading
             /// from it. this is useful to compute derivatives.
             static inline Vector eval( Scalar u,
-                                      const Core::VectorArray<Vector>& points,
-                                      const std::vector<Scalar>& node,
-                                      uint k,
-                                      int off = 0 );
-            
+                                       const Core::VectorArray<Vector>& points,
+                                       const std::vector<Scalar>& node,
+                                       uint k,
+                                       int off = 0 );
+
             static inline Vector evalRec( Scalar u,
-                                         const Core::VectorArray<Vector>& points,
-                                         const std::vector<Scalar>& node,
-                                         uint k
-                                         );
-            
+                                          const Core::VectorArray<Vector>& points,
+                                          const std::vector<Scalar>& node,
+                                          uint k
+                                        );
+
             // -------------------------------------------------------------------------
             /// @name attributes
             // -------------------------------------------------------------------------
-            
+
             Core::VectorArray<Vector> m_points;   ///< Control points
             Core::VectorArray<Vector> m_vecs;    ///< Control points differences
             std::vector<Scalar>  m_node;                 ///< Nodal vector

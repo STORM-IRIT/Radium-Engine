@@ -8,7 +8,7 @@ namespace Ra
 {
     namespace Engine
     {
-        
+
         class RA_ENGINE_API PointLight : public Light
         {
         public:
@@ -17,31 +17,31 @@ namespace Ra
                 Scalar constant;
                 Scalar linear;
                 Scalar quadratic;
-                
+
                 Attenuation() : constant( 1.0 ), linear(), quadratic() {}
             };
-            
+
         public:
             RA_CORE_ALIGNED_NEW
-            
+
             PointLight();
             virtual ~PointLight();
-            
+
             virtual void getRenderParameters( RenderParameters& params ) override;
-            
+
             virtual void setPosition( const Core::Vector3& pos ) override;
             inline const Core::Vector3& getPosition() const;
-            
+
             inline void setAttenuation( const Attenuation& attenuation );
             inline void setAttenuation( Scalar constant, Scalar linear, Scalar quadratic );
             inline const Attenuation& getAttenuation() const;
-            
+
         private:
             Core::Vector3 m_position;
-            
+
             Attenuation m_attenuation;
         };
-        
+
     } // namespace Engine
 } // namespace Ra
 

@@ -1,12 +1,12 @@
 #include <Gui/MaterialEditor.hpp>
 
-#include <QCloseEvent>
-
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+
+#include <QCloseEvent>
 
 namespace Ra
 {
@@ -117,7 +117,7 @@ namespace Ra
 
         void MaterialEditor::changeRenderObject( Core::Index roIdx )
         {
-             if ( !m_visible )
+            if ( !m_visible )
             {
                 return;
             }

@@ -22,7 +22,7 @@ namespace Ra
                 std::hash<T> hasher;
                 seed ^= hasher(key) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
             }
-            
+
             /// Hashes a std::pair of items.
             template<typename T1, typename T2>
             inline std::size_t hash( const std::pair<T1, T2>& p )

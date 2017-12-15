@@ -37,10 +37,10 @@ inline const char* glErrorString(GLenum err)
             return " Invalid framebuffer operation : The framebuffer object is not complete. The offending command is ignored and has no other side effect than to set the error flag.\n";
         case GL_OUT_OF_MEMORY:
             return " Out of memory : There is not enough memory left to execute the command. The state of the GL is undefined, except for the state of the error flags, after this error is recorded.\n";
-            // case GL_STACK_UNDERFLOW:
-            //    return " Stack underflow : An attempt has been made to perform an operation that would cause an internal stack to underflow.\n";
-            //case GL_STACK_OVERFLOW:
-            //    return " Stack overflow : An attempt has been made to perform an operation that would cause an internal stack to overflow.\n";
+        // case GL_STACK_UNDERFLOW:
+        //    return " Stack underflow : An attempt has been made to perform an operation that would cause an internal stack to underflow.\n";
+        //case GL_STACK_OVERFLOW:
+        //    return " Stack overflow : An attempt has been made to perform an operation that would cause an internal stack to overflow.\n";
         case GL_NO_ERROR:
             return " No error\n";
         default:
@@ -50,37 +50,37 @@ inline const char* glErrorString(GLenum err)
 
 #ifdef _DEBUG
 #define GL_ASSERT(x) \
-x; { \
-    GLenum err = glGetError(); \
-    if (err != GL_NO_ERROR) { \
-        const char* errBuf = glErrorString(err); \
-        LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
-        << ", " << STRINGIFY(x) << ") : " << errBuf << "(" \
-        << err << " : 0x" << std::hex << err << std::dec << ")."; \
-        BREAKPOINT(0);\
+    x; { \
+        GLenum err = glGetError(); \
+        if (err != GL_NO_ERROR) { \
+            const char* errBuf = glErrorString(err); \
+            LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
+                          << ", " << STRINGIFY(x) << ") : " << errBuf << "(" \
+                          << err << " : 0x" << std::hex << err << std::dec << ")."; \
+            BREAKPOINT(0);\
         } \
-        }
-        
-        /// This macro will query the last openGL error.
+    }
+
+/// This macro will query the last openGL error.
 #define GL_CHECK_ERROR \
-        {\
-            GLenum err = glGetError(); \
-            if (err != GL_NO_ERROR) { \
-                const char* errBuf = glErrorString(err); \
-                LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
-                << ", glCheckError()) : " << errBuf << "(" \
-                << err << " : 0x" << std::hex << err << std::dec << ")."; \
-                BREAKPOINT(0);\
-            } \
-        }
-        
-        /// Ignore the previous openGL errors.
+    {\
+        GLenum err = glGetError(); \
+        if (err != GL_NO_ERROR) { \
+            const char* errBuf = glErrorString(err); \
+            LOG(logERROR) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
+                          << ", glCheckError()) : " << errBuf << "(" \
+                          << err << " : 0x" << std::hex << err << std::dec << ")."; \
+            BREAKPOINT(0);\
+        } \
+    }
+
+/// Ignore the previous openGL errors.
 #define glFlushError() glGetError()
-        
+
 #else // Release version ignores the checks and errors.
 #define GL_ASSERT(x) x
 #define GL_CHECK_ERROR {}
 #define glFlushError() {}
 #endif // _DEBUG
-        
+
 #endif // RADIUMENGINE_OPENGL_HPP
