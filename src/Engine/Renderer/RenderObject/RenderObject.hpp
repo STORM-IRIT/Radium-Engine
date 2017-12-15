@@ -76,54 +76,54 @@ namespace Ra
             
             // FIXME(Charly): Remove this
             void updateGL();
-            
+
             //
             // Getters and setters.
             //
             const std::string& getName() const;
             const Component* getComponent() const;
-            Component* getComponent();
-            
+                  Component* getComponent();
+
             const RenderObjectType& getType() const;
             void setType( const RenderObjectType& t);
-            
+
             void setVisible( bool visible );
             void toggleVisible();
             bool isVisible() const;
-            
+
             void setPickable( bool pickable );
             void togglePickable();
             bool isPickable() const;
-            
+
             void setXRay( bool xray );
             void toggleXRay();
             bool isXRay() const;
-            
+
             void setTransparent( bool transparent );
             void toggleTransparent();
             bool isTransparent() const;
-            
+
             bool isDirty() const;
-            
+
             void setRenderTechnique( const std::shared_ptr<RenderTechnique>& technique );
             std::shared_ptr<const RenderTechnique> getRenderTechnique() const;
             std::shared_ptr<RenderTechnique> getRenderTechnique();
-            
+
             void setMesh( const std::shared_ptr<Mesh>& mesh );
             std::shared_ptr<const Mesh> getMesh() const;
             const std::shared_ptr<Mesh>& getMesh();
-            
+
             Core::Transform getTransform() const;
             Core::Matrix4 getTransformAsMatrix() const;
-            
+
             Core::Aabb getAabb() const;
             Core::Aabb getMeshAabb() const;
-            
+
             void setLocalTransform( const Core::Transform& transform );
             void setLocalTransform( const Core::Matrix4& transform );
             const Core::Transform& getLocalTransform() const;
             const Core::Matrix4& getLocalTransformAsMatrix() const;
-            
+
             /// Basically just decreases lifetime counter.
             /// If it goes to zero, then render object notifies the manager that it needs to be deleted.
             /// Does nothing if lifetime is set to -1
@@ -135,18 +135,18 @@ namespace Ra
             
         private:
             Core::Transform m_localTransform;
-            
+
             Component* m_component;
             std::string m_name;
-            
+
             RenderObjectType m_type;
             std::shared_ptr<RenderTechnique> m_renderTechnique;
             std::shared_ptr<Mesh> m_mesh;
-            
+
             mutable std::mutex m_updateMutex;
-            
+
             int m_lifetime;
-            
+
             bool m_visible;
             bool m_pickable;
             bool m_xray;
@@ -154,7 +154,7 @@ namespace Ra
             bool m_dirty;
             bool m_hasLifetime;
         };
-        
+
     } // namespace Engine
 } // namespace Ra
 

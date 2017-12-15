@@ -30,12 +30,12 @@ namespace Ra
                 LOCAL,
                 GLOBAL,
             };
-            
+
         public:
             RA_CORE_ALIGNED_NEW
             Gizmo(Engine::Component* c, const Core::Transform& worldTo, const Core::Transform& t, Mode mode)
-            : m_worldTo(worldTo), m_transform(t), m_comp(c), m_mode(mode) { }
-            
+                    : m_worldTo(worldTo), m_transform(t), m_comp(c), m_mode(mode) { }
+
             virtual ~Gizmo()
             {
                 for (auto ro : m_renderObjects)
@@ -43,7 +43,7 @@ namespace Ra
                     m_comp->removeRenderObject(ro);
                 }
             }
-            
+
             // shows or hides the gizmos drawables.
             void show(bool on)
             {
@@ -53,26 +53,26 @@ namespace Ra
                     roMgr->getRenderObject(ro)->setVisible(on);
                 }
             }
-            
+
             /// Called every time the underlying transform may have changed.
             virtual void updateTransform(Mode mode, const Core::Transform& worldTo, const Core::Transform& t) = 0;
-            
+
             /// Called when one of the drawables of the gizmo has been selected.
             virtual void selectConstraint(int drawableIndex) = 0;
-            
+
             /// Called when the gizmo is first clicked, with the camera parameters and the initial pixel coordinates.
             virtual void setInitialState(const Engine::Camera& cam, const Core::Vector2& initialXY) = 0;
-            
+
             /// Called when the mose movement is recorder with the camera parameters and the current pixel coordinates.
             virtual Core::Transform mouseMove(const Engine::Camera& cam, const Core::Vector2& nextXY, bool stepped = false) = 0;
-            
+
         protected:
             Core::Transform m_worldTo;      //! World to local space where the transform lives.
             Core::Transform m_transform;    //! Transform to be edited.
             Engine::Component* m_comp;      //! Engine Ui component
             Mode m_mode;                    //! local or global
             std::vector<Core::Index> m_renderObjects;
-            
+
         };
     }
 }

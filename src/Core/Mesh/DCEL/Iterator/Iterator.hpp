@@ -5,40 +5,40 @@
 #include <Core/Mesh/DCEL/Definition.hpp>
 
 namespace Ra {
-    namespace Core {
-        
-        template < typename OBJECT >
-        class [[deprecated]] Iterator {
-        public:
-            /// CONSTRUCTOR
-            Iterator();
-            Iterator( const Iterator& it ) = default;
-            
-            /// DESTRUCTOR
-            virtual ~Iterator();
-            
-            /// SIZE
-            virtual uint size() const = 0;
-            
-            /// LIST
-            virtual std::vector< std::shared_ptr< OBJECT > > list() const = 0;
-            
-            /// RESET
-            virtual void reset() = 0;
-            
-            /// OPERATOR
-            virtual OBJECT*   operator->() const = 0;
-            virtual Iterator& operator++() = 0;
-            virtual Iterator& operator--() = 0;
-            inline  Iterator& operator+=( const uint n ) const;
-            inline  Iterator& operator-=( const uint n ) const;
-            
-        protected:
-            /// VARIABLE
-            HalfEdge_ptr m_he;
-        };
-        
-    } // namespace Core
+namespace Core {
+
+template < typename OBJECT >
+class [[deprecated]] Iterator {
+public:
+    /// CONSTRUCTOR
+    Iterator();
+    Iterator( const Iterator& it ) = default;
+
+    /// DESTRUCTOR
+    virtual ~Iterator();
+
+    /// SIZE
+    virtual uint size() const = 0;
+
+    /// LIST
+    virtual std::vector< std::shared_ptr< OBJECT > > list() const = 0;
+
+    /// RESET
+    virtual void reset() = 0;
+
+    /// OPERATOR
+    virtual OBJECT*   operator->() const = 0;
+    virtual Iterator& operator++() = 0;
+    virtual Iterator& operator--() = 0;
+    inline  Iterator& operator+=( const uint n ) const;
+    inline  Iterator& operator-=( const uint n ) const;
+
+protected:
+    /// VARIABLE
+    HalfEdge_ptr m_he;
+};
+
+} // namespace Core
 } // namespace Ra
 
 #include <Core/Mesh/DCEL/Iterator/Iterator.inl>

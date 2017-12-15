@@ -47,7 +47,6 @@ struct Material
     Textures tex;
 };
 
-
 struct Attenuation
 {
     float constant;

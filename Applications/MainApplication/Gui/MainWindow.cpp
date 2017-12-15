@@ -1,37 +1,28 @@
-#include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
-
 #include <Gui/MainWindow.hpp>
-
-#include <QSettings>
-#include <QFileDialog>
-#include <QToolButton>
-#include <QComboBox>
+#include <MainApplication.hpp>
 
 #include <Core/File/deprecated/OBJFileManager.hpp>
-
-#include <Engine/Managers/SignalManager/SignalManager.hpp>
+#include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
-
+#include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-
-#include <Engine/Entity/Entity.hpp>
-
+#include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
+#include <Gui/MaterialEditor.hpp>
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 #include <GuiBase/Utils/qt_utils.hpp>
-
 #include <GuiBase/Viewer/CameraInterface.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
-
 #include <PluginBase/RadiumPluginInterface.hpp>
 
-#include <Gui/MaterialEditor.hpp>
-
-#include <MainApplication.hpp>
+#include <QComboBox>
+#include <QFileDialog>
+#include <QSettings>
+#include <QToolButton>
 
 using Ra::Engine::ItemEntry;
 

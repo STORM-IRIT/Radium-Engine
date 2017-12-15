@@ -8,15 +8,15 @@ namespace Ra
 {
     namespace Core
     {
-        
+
         // todo : enclose this in a more specific namespace ?
         typedef Vector2ui Edge;
         typedef Vector3ui Triangle;
-        
+
         typedef uint TriangleIdx;
         typedef uint VertexIdx;
         typedef uint HalfEdgeIdx;
-        
+
         enum { InvalidIdx = uint( -1 ) };
     }
 }
