@@ -545,14 +545,17 @@ namespace Ra
 
                         if ( loadedPlugin->doAddROpenGLInitializer() )
                         {
-                            if ( m_viewer->getContext() && m_viewer->getContext()->isValid() )
+                            //if ( m_viewer->getContext() && m_viewer->getContext()->isValid() )
+                            if ( m_viewer->isOpenGlInitialized() )
                             {
+                                LOG( logINFO ) << "Direct OpenGL initialization for plugin " << filename.toStdString();
                                 // OpenGL is ready, initialize openGL part of the plugin
                                 loadedPlugin->openGlInitialize( context, m_viewer->getContext() );
                             }
                             else
                             {
                                 // Defer OpenGL initialisation
+                                LOG( logINFO ) << "Defered OpenGL initialization for plugin " << filename.toStdString();
                                 m_openGLPlugins.push_back(loadedPlugin);
                             }
                         }
