@@ -1,17 +1,16 @@
 #include <MeshFeatureTrackingComponent.hpp>
 
-#include <queue>
-#include <iostream>
-
 #include <Core/Mesh/TriangleMesh.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
+#include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
-#include <Engine/Renderer/Material/Material.hpp>
-#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
+#include <queue>
+#include <iostream>
 
 using Ra::Engine::ComponentMessenger;
 
@@ -20,10 +19,10 @@ namespace MeshFeatureTrackingPlugin
     MeshFeatureTrackingComponent::MeshFeatureTrackingComponent(const std::string& name) :
     Component(name)
     {}
-    
+
     MeshFeatureTrackingComponent::~MeshFeatureTrackingComponent()
     {}
-    
+
     void MeshFeatureTrackingComponent::initialize()
     {
         std::shared_ptr<Ra::Engine::Mesh> display( new Ra::Engine::Mesh("FeaturePickingManagerSphere") );
@@ -41,32 +40,32 @@ namespace MeshFeatureTrackingPlugin
         m_RO->setVisible( false );
         addRenderObject( m_RO );
     }
-    
+
     void MeshFeatureTrackingComponent::setPosition( Ra::Core::Vector3 position )
     {
         Ra::Core::Translation aa( position );
         Ra::Core::Transform rot( aa );
         m_RO->setLocalTransform( rot );
     }
-    
+
     void MeshFeatureTrackingComponent::setScale( Scalar scale )
     {
         auto T = m_RO->getLocalTransform();
         m_RO->setLocalTransform( T.scale( scale ) );
     }
-    
+
     void MeshFeatureTrackingComponent::setData( const Ra::Gui::FeatureData& data )
     {
         m_data = data;
     }
-    
+
     void MeshFeatureTrackingComponent::update()
     {
         setPosition( getFeaturePosition() );
         setScale( getFeatureScale() );
         m_RO->setVisible( m_data.m_featureType != Ra::Engine::Renderer::RO );
     }
-    
+
     Scalar MeshFeatureTrackingComponent::getFeatureScale() const
     {
         if (m_data.m_featureType == Ra::Engine::Renderer::RO)
@@ -155,14 +154,14 @@ namespace MeshFeatureTrackingPlugin
         
         return P;
     }
-    
+
     Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeatureVector() const
     {
         if (m_data.m_featureType == Ra::Engine::Renderer::RO)
         {
             return Ra::Core::Vector3();
         }
-        
+
         const auto& v = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(m_data.m_roIdx)
         ->getMesh()->getGeometry().m_vertices;
         const auto& n = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(m_data.m_roIdx)
@@ -197,5 +196,5 @@ namespace MeshFeatureTrackingPlugin
         
         return V;
     }
-    
+
 }

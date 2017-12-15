@@ -13,7 +13,7 @@ namespace Ra
 {
     namespace GuiBase
     {
-        
+
         void ItemModel::buildModel()
         {
             m_rootItem.reset(new EngineTreeItem);
@@ -43,12 +43,12 @@ namespace Ra
                 m_rootItem->m_children.emplace_back(entityItem);
             }
         }
-        
+
         const ItemEntry& ItemModel::getEntry(const QModelIndex& index) const
         {
             return static_cast<EngineTreeItem*>(getItem(index))->m_entry;
         }
-        
+
         QModelIndex ItemModel::findEntryIndex(const ItemEntry& entry) const
         {
             if (entry.isValid())
@@ -64,7 +64,7 @@ namespace Ra
                     {
                         return createIndex(item->getIndexInParent(), 0, item);
                     }
-                    
+
                     // Add children to the stack
                     for (const auto& child : item->m_children)
                     {
@@ -72,10 +72,10 @@ namespace Ra
                     }
                 }
             }
-            
+
             return QModelIndex();
         }
-        
+
         void ItemModel::addItem(const Engine::ItemEntry& ent)
         {
             CORE_ASSERT(ent.isValid(), "Inserting invalid entry");
@@ -103,9 +103,9 @@ namespace Ra
                     CORE_ASSERT(parentIdx.isValid(), "Parent does not exist");
                     parentItem = getItem(parentIdx);
                 }
-                
+
                 CORE_ASSERT(getItem(parentIdx) == parentItem, "Model inconsistency");
-                
+
                 EngineTreeItem* childItem = new EngineTreeItem;
                 childItem->m_entry = ent;
                 childItem->m_parent = parentItem;
@@ -115,7 +115,7 @@ namespace Ra
                 endInsertRows();
             }
         }
-        
+
         void ItemModel::removeItem(const Engine::ItemEntry& ent)
         {
             QModelIndex entryIndex = findEntryIndex(ent);
@@ -129,7 +129,7 @@ namespace Ra
                 const auto childPos = std::find_if(childList.begin(),
                                                    childList.end(),
                                                    [ toRemove ](const auto& ptr) { return ptr.get() == toRemove; });
-                
+
                 CORE_ASSERT(childPos != childList.end(), "Child not in parent's list");
                 int row = toRemove->getIndexInParent();
                 CORE_ASSERT(childPos - childList.begin() == row, "Iterator consistency error");
@@ -138,8 +138,8 @@ namespace Ra
                 endRemoveRows();
             }
         }
-        
-        
+
+
         int TreeItem::getIndexInParent() const
         {
             CORE_ASSERT(m_parent, "Looking for the root item's index.");
@@ -156,7 +156,7 @@ namespace Ra
             CORE_ASSERT(false, " Did not find child in parent");
             return -1;
         }
-        
-        
+
+
     } // namespace Gui
 } // namespace Ra

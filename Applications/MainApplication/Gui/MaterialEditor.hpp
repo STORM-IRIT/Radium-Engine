@@ -22,7 +22,6 @@ namespace Ra
         class RenderObject;
         class Material;
         class BlinnPhongMaterial;
-
     }
 }
 
@@ -63,7 +62,7 @@ namespace Ra
             Core::Index m_roIdx;
             std::shared_ptr<Engine::RenderObject> m_renderObject;
 
-            /// TODO generalize mùaterial editor to others materials
+            /// TODO generalize material editor to others materials
             bool m_usable;
             Ra::Engine::BlinnPhongMaterial *m_material;
 

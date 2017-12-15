@@ -11,11 +11,11 @@ namespace RaTests
     {
         void run() override
         {
-            
+
             using Ra::Core::StringUtils::getFileExt;
             using Ra::Core::StringUtils::getDirName;
             using Ra::Core::StringUtils::getBaseName;
-            
+
             // Test getFileExt
             {
                 RA_UNIT_TEST(getFileExt("aaa.xyz") == std::string("xyz"), "File extension");
@@ -24,8 +24,8 @@ namespace RaTests
                 RA_UNIT_TEST(getFileExt("aaa/bbb/xyz") == std::string(""), "File with no extension");
                 RA_UNIT_TEST(getFileExt("aaa/bbb/xyz.") == std::string(""), "File with no extension");
             }
-            
-            
+
+
             // Test getDirName
             {
                 RA_UNIT_TEST(getDirName("aaa.xyz") == std::string("."), "File with no directory");
@@ -34,7 +34,7 @@ namespace RaTests
                 RA_UNIT_TEST(getDirName("/aaa/bbb/ccc.xyz///") == std::string("/aaa/bbb"), "Trailing slashes");
                 RA_UNIT_TEST(getDirName("aaa/bbb/xyz") == std::string("aaa/bbb"), "File with no extension");
             }
-            
+
             // Test getBaseName
             {
                 RA_UNIT_TEST(getBaseName("aaa.xyz", true) == std::string("aaa.xyz"), "File with no directory");
@@ -47,18 +47,18 @@ namespace RaTests
                 RA_UNIT_TEST(getBaseName("aaa/bbb/xyz", true) == std::string("xyz"), "File with no extension");
                 RA_UNIT_TEST(getBaseName("aaa/bbb/xyz", false) == std::string("xyz"), "File with no extension");
             }
-            
+
             std::string path = "/aaa/bbb/ccc.xyz";
             RA_UNIT_TEST( getDirName(path)+"/"+getBaseName( path, false)+"."+getFileExt(path) == path, "Path reconstruction" );
-            
+
             // Test string printf
             using Ra::Core::StringUtils::stringPrintf;
-            
+
             const char* format = "test %u test %p test %f";
             char buffer[100];
             memset(buffer, 0x0, 100);
             std::string str;
-            
+
             int v1 = sprintf(buffer, format, 42, this, 3.14);
             int v2 = stringPrintf( str, format, 42, this, 3.14);
             RA_UNIT_TEST( v1 == v2 && str == std::string(buffer), "String printf");

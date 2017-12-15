@@ -7,11 +7,11 @@
 #include <Core/Index/IndexedObject.hpp>
 
 namespace Ra {
-    namespace Core {
-        namespace TMOperations {
-            void splitEdge( TopologicalMesh& topologicalMesh, TopologicalMesh::EdgeHandle edgeHandle, Scalar fraction );
-        }
-    }
+namespace Core {
+namespace TMOperations {
+    void splitEdge( TopologicalMesh& topologicalMesh, TopologicalMesh::EdgeHandle edgeHandle, Scalar fraction );
+}
+}
 }
 
 #endif // EDGESPLIT_H
