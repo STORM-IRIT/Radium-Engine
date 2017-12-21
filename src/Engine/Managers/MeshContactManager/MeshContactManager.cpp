@@ -294,6 +294,9 @@ namespace Ra
 
         void MeshContactManager::distanceAsymmetryDistribution()
         {
+            std::ofstream file("Distrib.txt", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(file, "Error while opening distance asymmetry distribution file.");
+
             std::pair<Ra::Core::Index,Scalar> triangle;
 
             for (uint i = 0; i < m_meshContactElements.size(); i++)
@@ -337,6 +340,9 @@ namespace Ra
                                 distances.push_back(triangle);
                             }
 
+                                file << triangle.first << " " << triangle.second << std::endl;
+                            }
+                            obj1_distances.push_back(distances);
 //                        }
                     }
 
@@ -345,6 +351,7 @@ namespace Ra
 
                 m_distances.push_back(obj1_distances);
             }
+            file.close();
         }
 
         void MeshContactManager::distanceAsymmetryFiles()
