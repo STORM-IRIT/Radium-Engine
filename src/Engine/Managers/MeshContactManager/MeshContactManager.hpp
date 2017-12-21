@@ -43,6 +43,7 @@ namespace Ra
             void setAsymmetryChanged(const double asymmetry);
             void setLodValueChanged(int value);
             void setComputeR();
+            void setLoadDistribution(std::string filePath);
             void setDisplayProximities();
             void setConstructM0();
 
@@ -57,6 +58,7 @@ namespace Ra
             void distanceDistribution();
             void compareDistanceDistribution();
             void distanceAsymmetryDistribution();
+            void loadDistribution(std::string filePath);
             void distanceAsymmetryFiles();
             void distanceAsymmetryFile();
             void thresholdComputation();

@@ -354,6 +354,43 @@ namespace Ra
             file.close();
         }
 
+        void MeshContactManager::loadDistribution(std::string filePath)
+        {
+            std::ifstream file(filePath, std::ios::in);
+            CORE_ASSERT(file, "Error while opening distance asymmetry distributions file.");
+
+            int id;
+            Scalar dist;
+
+            std::pair<Ra::Core::Index,Scalar> triangle;
+
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                std::vector<std::vector<std::pair<Ra::Core::Index,Scalar> > > obj_distances;
+
+                for (uint j = 0; j < m_meshContactElements.size(); j++)
+                {
+                    int nbFaces = m_meshContactElements[i]->getInitTriangleMesh().m_triangles.size();
+
+                    std::vector<std::pair<Ra::Core::Index,Scalar> > distances;
+
+                    if (j != i)
+                    {
+                        for (uint k = 0; k < nbFaces; k++)
+                        {
+                            file >> id >> dist;
+                            triangle.first = id;
+                            triangle.second = dist;
+                            distances.push_back(triangle);
+                        }
+                        obj_distances.push_back(distances);
+                    }
+                }
+
+                m_distances.push_back(obj_distances);
+            }
+        }
+
         void MeshContactManager::distanceAsymmetryFiles()
         {
             Scalar dist, asymm;
@@ -500,6 +537,12 @@ namespace Ra
 //            distanceAsymmetryFiles();
             distanceAsymmetryFile();
             LOG(logINFO) << "Distance asymmetry distributions computed.";
+        }
+
+        void MeshContactManager::setLoadDistribution(std::string filePath)
+        {
+            loadDistribution(filePath);
+            LOG(logINFO) << m_distances[0][0][0].first << " " << m_distances[0][0][0].second;
         }
 
 
