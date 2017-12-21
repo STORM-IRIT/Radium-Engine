@@ -398,9 +398,26 @@ namespace Ra
             // for each object
             for (uint i = 0; i < m_distances.size(); i++)
             {
+                // Distribution colors for connector and screw
+//                Scalar r = 0.3;
+//                Ra::Core::VectorArray<Ra::Core::Triangle> faces1 = m_meshContactElements[i]->getMesh()->getGeometry().m_triangles;
+//                Ra::Core::Vector4 vertexColor (1, 1, 1, 1);
+//                int nbVertices1 = m_meshContactElements[i]->getMesh()->getGeometry().m_vertices.size();
+//                Ra::Core::Vector4Array colors1;
+//                for (uint v = 0; v < nbVertices1; v++)
+//                {
+//                    colors1.push_back(vertexColor);
+//                }
+//                Ra::Core::Vector4 firstLineColor (1.0f, 0, 0, 0);
+//                Ra::Core::Vector4 secondLineColor (0, 1.0f, 0, 0);
+//                Ra::Core::Vector4 thirdLineColor (0, 0, 1.0f, 0);
+
                 // for each other object whose bbox intersects the one of the object
                 for (uint j = i + 1; j < m_distances[i].size(); j++)
                 {
+                    // Distribution colors for connector and screw
+//                    Ra::Core::VectorArray<Ra::Core::Triangle> faces2 = m_meshContactElements[j]->getMesh()->getGeometry().m_triangles;
+
                     std::ofstream file("Distrib_" + std::to_string(i) + "_" + std::to_string(j) + ".txt", std::ios::out | std::ios::trunc);
                     CORE_ASSERT(file, "Error while opening distance distribution file.");
 
@@ -413,7 +430,38 @@ namespace Ra
                         dist = (triangle1.second + triangle2.second) / 2;
                         asymm = abs(triangle1.second - triangle2.second);
                         file << dist << " " << asymm << std::endl;
+
+                        // Distribution colors for connector and screw
+//                        if (asymm >= 2*dist-1-r && asymm <= 2*dist-1+r)
+//                        {
+//                            colors1[faces1[k][0]] = asymm * firstLineColor / 8;
+//                            colors1[faces1[k][1]] = asymm * firstLineColor / 8;
+//                            colors1[faces1[k][2]] = asymm * firstLineColor / 8;
+//                        }
+//                        else if(asymm >= 2*dist-1.6-r && asymm <= 2*dist-1.6+r)
+//                        {
+//                            colors1[faces1[k][0]] = secondLineColor;
+//                            colors1[faces1[k][1]] = secondLineColor;
+//                            colors1[faces1[k][2]] = secondLineColor;
+//                        }
+//                        else if(asymm >= 2*dist-4-r && asymm <= 2*dist-4+r)
+//                        {
+//                            colors1[faces1[k][0]] = thirdLineColor;
+//                            colors1[faces1[k][1]] = thirdLineColor;
+//                            colors1[faces1[k][2]] = thirdLineColor;
+//                        }
                     }
+
+                    // Distribution colors for connector and screw
+//                    m_meshContactElements[i]->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors1);
+
+                    // Distribution colors for connector and screw
+//                    int nbVertices2 = m_meshContactElements[i]->getMesh()->getGeometry().m_vertices.size();
+//                    Ra::Core::Vector4Array colors2;
+//                    for (uint v = 0; v < nbVertices2; v++)
+//                    {
+//                        colors2.push_back(vertexColor);
+//                    }
 
                     // for each face of the other object the closest face in the object is found
                     for (uint k = 0; k < m_distances[j][i].size(); k++)
@@ -424,7 +472,30 @@ namespace Ra
                         dist = (triangle1.second + triangle2.second) / 2;
                         asymm = abs(triangle1.second - triangle2.second);
                         file << dist << " " << asymm << std::endl;
+
+                        // Distribution colors for connector and screw
+//                        if (asymm >= 2*dist-1-r && asymm <= 2*dist-1+r)
+//                        {
+//                            colors2[faces2[k][0]] = asymm * firstLineColor / 8;
+//                            colors2[faces2[k][1]] = asymm * firstLineColor / 8;
+//                            colors2[faces2[k][2]] = asymm * firstLineColor / 8;
+//                        }
+//                        else if(asymm >= 2*dist-1.6-r && asymm <= 2*dist-1.6+r)
+//                        {
+//                            colors2[faces2[k][0]] = secondLineColor;
+//                            colors2[faces2[k][1]] = secondLineColor;
+//                            colors2[faces2[k][2]] = secondLineColor;
+//                        }
+//                        else if(asymm >= 2*dist-4-r && asymm <= 2*dist-4+r)
+//                        {
+//                            colors2[faces2[k][0]] = thirdLineColor;
+//                            colors2[faces2[k][1]] = thirdLineColor;
+//                            colors2[faces2[k][2]] = thirdLineColor;
+//                        }
                     }
+
+                    // Distribution colors for connector and screw
+//                    m_meshContactElements[j]->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors2);
 
                     file.close();
                 }
