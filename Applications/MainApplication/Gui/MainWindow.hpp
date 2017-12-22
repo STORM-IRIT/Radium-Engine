@@ -147,10 +147,6 @@ namespace Ra
             /// Slot for the picking results from the viewer.
             void handlePicking(const Ra::Engine::Renderer::PickingResult& pickingResult);
 
-            /// Slot for tracking info GUI.
-            void on_m_vertexIdx_valueChanged(int arg1);
-            void on_m_triangleIdx_valueChanged(int arg1);
-
             // Slot to init renderers once gl is ready
             void onGLInitialized();
 

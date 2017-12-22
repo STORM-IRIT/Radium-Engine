@@ -12,6 +12,7 @@
 #include <QThread>
 
 #include <Core/CoreMacros.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 
 // Forward declarations
 class QOpenGLContext;
@@ -40,7 +41,7 @@ namespace Ra
     {
         class CameraInterface;
         class GizmoManager;
-        class FeaturePickingManager;
+        class PickingManager;
     }
 }
 
@@ -107,7 +108,7 @@ namespace Ra
             Engine::Renderer* getRenderer();
 
             /// Access to the feature picking manager
-            Ra::Gui::FeaturePickingManager* getFeaturePickingManager();
+            PickingManager* getPickingManager();
 
             //
             // Rendering management
@@ -142,6 +143,7 @@ namespace Ra
             void grabFrame( const std::string& filename );
 
             void enableDebug();
+
         signals:
             void glInitialized();               //! Emitted when GL context is ready. We except call to addRenderer here
             void rendererReady();               //! Emitted when the rendered is correctly initialized
@@ -239,7 +241,7 @@ namespace Ra
             Engine::Renderer* m_currentRenderer;
 
             /// Owning Pointer to the feature picking manager.
-            FeaturePickingManager* m_featurePickingManager;
+            PickingManager* m_pickingManager;
             bool m_isBrushPickingEnabled;
             float m_brushRadius;
 

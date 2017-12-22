@@ -35,7 +35,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
-#include <GuiBase/Utils/FeaturePickingManager.hpp>
+#include <GuiBase/Utils/PickingManager.hpp>
 #include <GuiBase/Utils/Keyboard.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 
@@ -48,18 +48,18 @@ namespace Ra
         : QWindow(screen)
         , m_context(nullptr)
         , m_currentRenderer( nullptr )
-        , m_featurePickingManager( nullptr )
+        , m_pickingManager( nullptr )
+        , m_isBrushPickingEnabled( false )
+        , m_brushRadius( 10 )
         , m_camera( nullptr )
         , m_gizmoManager( nullptr )
         , m_renderThread( nullptr )
         , m_glInitStatus( false )
-        , m_isBrushPickingEnabled( false )
-        , m_brushRadius( 10 )
     {
         setMinimumSize( QSize( 800, 600 ) );
 
         setSurfaceType(OpenGLSurface);
-        m_featurePickingManager = new FeaturePickingManager();
+        m_pickingManager = new PickingManager();
     }
 
     Gui::Viewer::~Viewer()
@@ -162,10 +162,12 @@ namespace Ra
         if(m_renderers.empty())
         {
             LOG( logINFO )
-                << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
+                    << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
+
             m_context->makeCurrent(this);
             std::shared_ptr<Ra::Engine::Renderer> e (new Ra::Engine::ForwardRenderer());
             m_context->doneCurrent();
+
             addRenderer(e);
         }
 
@@ -195,9 +197,9 @@ namespace Ra
         return m_currentRenderer;
     }
 
-    Gui::FeaturePickingManager* Gui::Viewer::getFeaturePickingManager()
+    Gui::PickingManager* Gui::Viewer::getPickingManager()
     {
-        return m_featurePickingManager;
+        return m_pickingManager;
     }
 
     void Gui::Viewer::onAboutToCompose()
@@ -365,7 +367,7 @@ namespace Ra
         else
         {
             event->ignore();
-        }
+    }
     }
 
     void Gui::Viewer::keyPressEvent( QKeyEvent* event )
@@ -507,6 +509,7 @@ namespace Ra
         CORE_ASSERT(m_currentRenderer != nullptr,
                     "No renderer found.");
 
+        m_pickingManager->clear();
         m_context->makeCurrent(this);
 
         // Move camera if needed. Disabled for now as it takes too long (see issue #69)
@@ -572,12 +575,9 @@ namespace Ra
             }
             else if (query.m_button == Core::MouseButton::RA_MOUSE_RIGHT_BUTTON)
             {
-                const int roIdx = m_currentRenderer->getPickingResults()[i].m_roIdx;
-                const Core::Ray ray = m_camera->getCamera()->getRayFromScreen({query.m_screenCoords(0), height()-query.m_screenCoords(1)});
-                // FIXME: this is safe as soon as there is no "queued connection" related to the signal
-                m_featurePickingManager->doPicking(roIdx, query, ray);
-
-                emit rightClickPicking( m_currentRenderer->getPickingResults()[i] );
+                const auto& result = m_currentRenderer->getPickingResults()[i];
+                m_pickingManager->setCurrent( result );
+                emit rightClickPicking( result );
             }
         }
     }
