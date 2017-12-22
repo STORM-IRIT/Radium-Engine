@@ -11,7 +11,7 @@
 #include <Engine/RadiumEngine.hpp>
 
 #include <GuiBase/SelectionManager/SelectionManager.hpp>
-#include <GuiBase/Utils/FeaturePickingManager.hpp>
+#include <GuiBase/Utils/PickingManager.hpp>
 
 #include <MeshFeatureTrackingComponent.hpp>
 
@@ -23,7 +23,7 @@ namespace MeshFeatureTrackingPlugin
 
     MeshFeatureTrackingPluginC::MeshFeatureTrackingPluginC()
         : m_selectionManager(nullptr)
-        , m_featurePickingManager(nullptr)
+        , m_PickingManager(nullptr)
     {
         m_widget = new MeshFeatureTrackingUI();
     }
@@ -39,25 +39,28 @@ namespace MeshFeatureTrackingPlugin
                 std::bind(&MeshFeatureTrackingPluginC::update, this)
         );
         // create sphere entity
-        m_entity = context.m_engine->getEntityManager()->createEntity( "FeatureTrackingEntity" );
-        auto component = new MeshFeatureTrackingComponent( "TrackingSphere" );
-        m_entity->addComponent( component );
-        m_entity->idx = Ra::Engine::SystemEntity::getInstance()->idx; // hack to avoid selection through tree view
-        component->initialize();
+        auto entity = context.m_engine->getEntityManager()->createEntity( "FeatureTrackingEntity" );
+        m_component = new MeshFeatureTrackingComponent( "TrackingSphere" );
+        entity->addComponent( m_component );
+        entity->idx = Ra::Engine::SystemEntity::getInstance()->idx; // hack to avoid selection through tree view
+        m_component->initialize();
         // register selection context
         m_selectionManager = context.m_selectionManager;
-        m_featurePickingManager = context.m_featureManager;
+        m_PickingManager = context.m_pickingManager;
         connect( m_selectionManager, &Ra::GuiBase::SelectionManager::currentChanged, this, &MeshFeatureTrackingPluginC::onCurrentChanged );
+        connect( m_widget, &MeshFeatureTrackingUI::vertexIdChanged, this, &MeshFeatureTrackingPluginC::vertexIdChanged );
+        connect( m_widget, &MeshFeatureTrackingUI::triangleIdChanged, this, &MeshFeatureTrackingPluginC::triangleIdChanged );
     }
 
     bool MeshFeatureTrackingPluginC::doAddWidget( QString &name )
     {
-        return false;
+        name = "MeshFeatureTracking";
+        return true;
     }
 
     QWidget* MeshFeatureTrackingPluginC::getWidget()
     {
-        return nullptr;
+        return m_widget;
     }
 
     bool MeshFeatureTrackingPluginC::doAddMenu()
@@ -81,34 +84,30 @@ namespace MeshFeatureTrackingPlugin
 		return nullptr;
     }
 
-    bool MeshFeatureTrackingPluginC::doAddFeatureTrackingWidget()
-    {
-        return true;
-    }
-
-    QWidget* MeshFeatureTrackingPluginC::getFeatureTrackingWidget()
-    {
-        return m_widget;
-    }
-
     void MeshFeatureTrackingPluginC::onCurrentChanged( const QModelIndex& current, const QModelIndex& prev )
     {
-        auto data = m_featurePickingManager->getFeatureData();
-        auto cmp = static_cast<MeshFeatureTrackingComponent*>(m_entity->getComponents()[0].get());
-        if (data.m_featureType != Ra::Engine::Renderer::RO)
-        {
-            cmp->setData( data );
-        }
-        else
-        {
-            cmp->setData( Ra::Gui::FeatureData() );
-        }
+        m_component->setData( m_PickingManager->getCurrent() );
+        m_widget->setMaxV( m_component->getMaxV() );
+        m_widget->setMaxT( m_component->getMaxT() );
     }
 
     void MeshFeatureTrackingPluginC::update()
     {
-        auto cmp = static_cast<MeshFeatureTrackingComponent*>(m_entity->getComponents()[0].get());
-        cmp->update();
-        m_widget->updateTracking( cmp->m_data, cmp->getFeaturePosition(), cmp->getFeatureVector() );
+        m_component->update();
+        m_widget->updateTracking( m_component->getFeatureData(),
+                                  m_component->getFeaturePosition(),
+                                  m_component->getFeatureVector() );
     }
+    void MeshFeatureTrackingPluginC::vertexIdChanged( int idx )
+    {
+        m_component->setVertexIdx( idx );
+        update();
+    }
+
+    void MeshFeatureTrackingPluginC::triangleIdChanged( int idx )
+    {
+        m_component->setTriangleIdx( idx );
+        update();
+    }
+
 }

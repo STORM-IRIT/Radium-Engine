@@ -9,7 +9,6 @@ MeshFeatureTrackingUI::MeshFeatureTrackingUI(QWidget *parent) :
     ui(new Ui::MeshFeatureTrackingUI)
 {
     ui->setupUi(this);
-    this->setVisible( false );
 }
 
 MeshFeatureTrackingUI::~MeshFeatureTrackingUI()
@@ -17,20 +16,31 @@ MeshFeatureTrackingUI::~MeshFeatureTrackingUI()
     delete ui;
 }
 
-void MeshFeatureTrackingUI::updateTracking( const Ra::Gui::FeatureData& data,
+void MeshFeatureTrackingUI::setMaxV( int max )
+{
+    ui->m_vertexIdx->setMaximum( max );
+}
+
+void MeshFeatureTrackingUI::setMaxT( int max )
+{
+    ui->m_triangleIdx->setMaximum( max );
+}
+
+void MeshFeatureTrackingUI::updateTracking( const FeatureData &data,
                                             const Ra::Core::Vector3 &pos,
                                             const Ra::Core::Vector3 &vec )
 {
-    this->setVisible( false );
-    ui->m_vertexInfo->setVisible(false);
-    ui->m_edgeInfo->setVisible(false);
-    ui->m_triangleInfo->setVisible(false);
-    switch (data.m_featureType)
+    ui->m_vertexInfo->setEnabled( false );
+    ui->m_edgeInfo->setEnabled( false );
+    ui->m_triangleInfo->setEnabled( false );
+    switch (data.m_mode)
     {
     case Ra::Engine::Renderer::VERTEX:
     {
-        this->setVisible( true );
-        ui->m_vertexInfo->setVisible(true);
+        ui->m_vertexInfo->setEnabled( true );
+        ui->m_vertexIdx->blockSignals( true );
+        ui->m_vertexIdx->setValue( data.m_data[0] );
+        ui->m_vertexIdx->blockSignals( false );
         ui->m_vertexPX->setText( QString::number( pos[0] ) );
         ui->m_vertexPY->setText( QString::number( pos[1] ) );
         ui->m_vertexPZ->setText( QString::number( pos[2] ) );
@@ -41,22 +51,33 @@ void MeshFeatureTrackingUI::updateTracking( const Ra::Gui::FeatureData& data,
     }
     case Ra::Engine::Renderer::EDGE:
     {
-        this->setVisible( true );
-        ui->m_edgeInfo->setVisible(true);
+        ui->m_edgeInfo->setEnabled( true );
         ui->m_edgeV0->setText( QString::number( data.m_data[0] ) );
         ui->m_edgeV1->setText( QString::number( data.m_data[1] ) );
         break;
     }
     case Ra::Engine::Renderer::TRIANGLE:
     {
-        this->setVisible( true );
-        ui->m_triangleInfo->setVisible(true);
-        ui->m_triangleV0->setText( QString::number( data.m_data[1] ) );
-        ui->m_triangleV1->setText( QString::number( data.m_data[2] ) );
-        ui->m_triangleV2->setText( QString::number( data.m_data[3] ) );
+        ui->m_triangleInfo->setEnabled( true );
+        ui->m_triangleIdx->blockSignals( true );
+        ui->m_triangleIdx->setValue( data.m_data[3] );
+        ui->m_triangleIdx->blockSignals( false );
+        ui->m_triangleV0->setText( QString::number( data.m_data[0] ) );
+        ui->m_triangleV1->setText( QString::number( data.m_data[1] ) );
+        ui->m_triangleV2->setText( QString::number( data.m_data[2] ) );
         break;
     }
     default:
         break;
     }
+}
+
+void MeshFeatureTrackingUI::on_m_vertexIdx_valueChanged(int arg1)
+{
+    emit vertexIdChanged( arg1 );
+}
+
+void MeshFeatureTrackingUI::on_m_triangleIdx_valueChanged(int arg1)
+{
+    emit triangleIdChanged( arg1 );
 }

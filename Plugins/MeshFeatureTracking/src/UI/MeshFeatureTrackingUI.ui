@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>193</width>
-    <height>501</height>
+    <width>320</width>
+    <height>581</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,6 +46,29 @@
         <bool>false</bool>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Index :</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="m_vertexIdx"/>
+          </item>
+         </layout>
+        </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_8">
           <property name="bottomMargin">
@@ -98,7 +121,7 @@
                  <string>X :</string>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                 <set>Qt::AlignCenter</set>
                 </property>
                </widget>
               </item>
@@ -145,6 +168,9 @@
                 <property name="text">
                  <string>Y:</string>
                 </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
                </widget>
               </item>
               <item>
@@ -186,6 +212,9 @@
                 </property>
                 <property name="text">
                  <string>Z :</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
                 </property>
                </widget>
               </item>
@@ -263,6 +292,9 @@
                 <property name="text">
                  <string>X:</string>
                 </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
                </widget>
               </item>
               <item>
@@ -305,6 +337,9 @@
                 <property name="text">
                  <string>Y:</string>
                 </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
                </widget>
               </item>
               <item>
@@ -346,6 +381,9 @@
                 </property>
                 <property name="text">
                  <string>Z:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
                 </property>
                </widget>
               </item>
@@ -405,12 +443,15 @@
             </property>
             <property name="maximumSize">
              <size>
-              <width>30</width>
+              <width>50</width>
               <height>16777215</height>
              </size>
             </property>
             <property name="text">
              <string>v0: </string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -447,12 +488,15 @@
             </property>
             <property name="maximumSize">
              <size>
-              <width>30</width>
+              <width>50</width>
               <height>16777215</height>
              </size>
             </property>
             <property name="text">
              <string>v1:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -493,6 +537,29 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Index :</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="m_triangleIdx"/>
+          </item>
+         </layout>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_14">
           <property name="bottomMargin">
            <number>0</number>
@@ -507,12 +574,15 @@
             </property>
             <property name="maximumSize">
              <size>
-              <width>30</width>
+              <width>50</width>
               <height>16777215</height>
              </size>
             </property>
             <property name="text">
              <string>v0:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -543,12 +613,15 @@
             </property>
             <property name="maximumSize">
              <size>
-              <width>30</width>
+              <width>50</width>
               <height>16777215</height>
              </size>
             </property>
             <property name="text">
              <string>v1:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -579,12 +652,15 @@
             </property>
             <property name="maximumSize">
              <size>
-              <width>30</width>
+              <width>50</width>
               <height>16777215</height>
              </size>
             </property>
             <property name="text">
              <string>v2:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -602,6 +678,19 @@
         </item>
        </layout>
       </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>

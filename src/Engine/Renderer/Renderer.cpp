@@ -446,9 +446,8 @@ namespace Ra {
                                              1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
                     result.m_roIdx = pick[0];                   // RO idx
                     result.m_vertexIdx.emplace_back( pick[1] ); // vertex idx in the element
-                    result.m_vertexIdx.emplace_back( pick[2] ); // element idx
-                    result.m_vertexIdx.emplace_back( pick[3] ); // edge opposite idx for triangles
-                    std::cout << pick[0] << " " << pick[1] << " " << pick[2] << " " << pick[3] << std::endl;
+                    result.m_elementIdx.emplace_back( pick[2] ); // element idx
+                    result.m_edgeIdx.emplace_back( pick[3] ); // edge opposite idx for triangles
                 }
                 else
                 {
@@ -464,8 +463,8 @@ namespace Ra {
                                                     1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
                             resultPerRO[ pick[0] ].m_roIdx = pick[0];
                             resultPerRO[ pick[0] ].m_vertexIdx.emplace_back( pick[1] );
-                            resultPerRO[ pick[0] ].m_vertexIdx.emplace_back( pick[2] );
-                            resultPerRO[ pick[0] ].m_vertexIdx.emplace_back( pick[3] );
+                            resultPerRO[ pick[0] ].m_elementIdx.emplace_back( pick[2] );
+                            resultPerRO[ pick[0] ].m_edgeIdx.emplace_back( pick[3] );
                         }
                     }
                     int maxRO = -1;
