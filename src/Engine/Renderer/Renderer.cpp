@@ -438,7 +438,6 @@ namespace Ra {
             for ( const auto& query : m_pickingQueries )
             {
                 PickingResult result;
-                result.m_mode = query.m_mode;
                 // fill picking result according to picking mode
                 if (query.m_mode < C_VERTEX)
                 {
@@ -479,6 +478,7 @@ namespace Ra {
                     }
                     result = resultPerRO[ maxRO ];
                 }
+                result.m_mode = query.m_mode;
                 m_pickingResults.push_back( result );
             }
 
