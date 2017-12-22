@@ -35,7 +35,7 @@ find_package( Qt5Core    REQUIRED )
 find_package( Qt5Widgets REQUIRED )
 
 file( GLOB_RECURSE sources src/*.cpp )
-file( GLOB_RECURSE headers src/*.hpp )
+file( GLOB_RECURSE headers src/*.hpp src/*.h )
 file( GLOB_RECURSE inlines src/*.inl )
 
 file(GLOB_RECURSE app_uis  src/*.ui)

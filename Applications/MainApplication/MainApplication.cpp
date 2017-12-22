@@ -211,9 +211,6 @@ namespace Ra
         setupScene();
         emit starting();
 
-        // FIXME (florian): would be better to use the "starting" signal to connect it within MainWindow to do that.
-        m_mainWindow->getViewer()->getFeaturePickingManager()->setMinRenderObjectIndex(m_engine->getRenderObjectManager()->getRenderObjectsCount());
-
         // A file has been required, load it.
         if (parser.isSet(fileOpt))
         {
@@ -410,7 +407,7 @@ namespace Ra
             PluginContext context;
             context.m_engine = m_engine.get();
             context.m_selectionManager = m_mainWindow->getSelectionManager();
-            context.m_featureManager = m_viewer->getFeaturePickingManager();
+            context.m_pickingManager = m_viewer->getPickingManager();
             for (auto plugin : m_openGLPlugins)
             {
                 plugin->openGlInitialize( context, m_viewer->getContext() );
@@ -466,7 +463,7 @@ namespace Ra
         PluginContext context;
         context.m_engine = m_engine.get();
         context.m_selectionManager = m_mainWindow->getSelectionManager();
-        context.m_featureManager = m_viewer->getFeaturePickingManager();
+        context.m_pickingManager = m_viewer->getPickingManager();
 
         for (const auto& filename : pluginsDir.entryList(QDir::Files))
         {

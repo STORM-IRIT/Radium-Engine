@@ -22,7 +22,9 @@ namespace Ra
 
 namespace MeshFeatureTrackingPlugin
 {
-// Du to an ambigous name while compiling with Clang, must differentiate plugin class from plugin namespace
+    class MeshFeatureTrackingComponent;
+
+    // Due to an ambigous name while compiling with Clang, must differentiate plugin class from plugin namespace
     class MeshFeatureTrackingPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
     {
         Q_OBJECT
@@ -44,19 +46,18 @@ namespace MeshFeatureTrackingPlugin
         virtual bool doAddAction( int& nb ) override;
         virtual QAction* getAction( int id ) override;
 
-        virtual bool doAddFeatureTrackingWidget() override;
-        virtual QWidget* getFeatureTrackingWidget() override;
-
     public slots:
         void onCurrentChanged( const QModelIndex& current , const QModelIndex& prev);
         void update();
+        void vertexIdChanged( int );
+        void triangleIdChanged( int );
 
     private:
-        Ra::Engine::Entity* m_entity;
+        MeshFeatureTrackingComponent* m_component;
         MeshFeatureTrackingUI* m_widget;
 
         Ra::GuiBase::SelectionManager* m_selectionManager;
-        Ra::Gui::FeaturePickingManager* m_featurePickingManager;
+        Ra::Gui::PickingManager* m_PickingManager;
     };
 
 } // namespace
