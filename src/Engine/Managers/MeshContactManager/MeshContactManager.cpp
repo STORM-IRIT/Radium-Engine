@@ -338,11 +338,10 @@ namespace Ra
                                 CORE_ASSERT(triangle.first > -1, "Invalid triangle index.");
 
                                 distances.push_back(triangle);
-                            }
 
                                 file << triangle.first << " " << triangle.second << std::endl;
                             }
-                            obj1_distances.push_back(distances);
+
 //                        }
                     }
 
@@ -359,10 +358,42 @@ namespace Ra
             std::ifstream file(filePath, std::ios::in);
             CORE_ASSERT(file, "Error while opening distance asymmetry distributions file.");
 
-            int id;
-            Scalar dist;
+//            if (filePath != "")
+//            {
+                int id;
+                Scalar dist;
 
-            std::pair<Ra::Core::Index,Scalar> triangle;
+                std::pair<Ra::Core::Index,Scalar> triangle;
+
+                for (uint i = 0; i < m_meshContactElements.size(); i++)
+                {
+                    std::vector<std::vector<std::pair<Ra::Core::Index,Scalar> > > obj_distances;
+
+                    int nbFaces = m_meshContactElements[i]->getInitTriangleMesh().m_triangles.size();
+
+                    for (uint j = 0; j < m_meshContactElements.size(); j++)
+                    {
+                        std::vector<std::pair<Ra::Core::Index,Scalar> > distances;
+
+                        if (j != i)
+                        {
+                            for (uint k = 0; k < nbFaces; k++)
+                            {
+                                file >> id >> dist;
+                                triangle.first = id;
+                                triangle.second = dist;
+                                distances.push_back(triangle);
+                            }
+
+                        }
+
+                        obj_distances.push_back(distances);
+                    }
+
+                    m_distances.push_back(obj_distances);
+                }
+//            }
+        }
 
             for (uint i = 0; i < m_meshContactElements.size(); i++)
             {
