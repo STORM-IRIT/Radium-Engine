@@ -395,28 +395,30 @@ namespace Ra
 //            }
         }
 
+        void MeshContactManager::sortDistAsymm()
+        {
             for (uint i = 0; i < m_meshContactElements.size(); i++)
             {
-                std::vector<std::vector<std::pair<Ra::Core::Index,Scalar> > > obj_distances;
+                int nbFaces = m_meshContactElements[i]->getInitTriangleMesh().m_triangles.size();
 
                 for (uint j = 0; j < m_meshContactElements.size(); j++)
                 {
-                    int nbFaces = m_meshContactElements[i]->getInitTriangleMesh().m_triangles.size();
-
-                    std::vector<std::pair<Ra::Core::Index,Scalar> > distances;
-
                     if (j != i)
                     {
                         for (uint k = 0; k < nbFaces; k++)
                         {
-                            file >> id >> dist;
-                            triangle.first = id;
-                            triangle.second = dist;
-                            distances.push_back(triangle);
+                            PtDistrib pt;
+                            pt.objId = i;
+                            pt.faceId = k;
+                            pt.r = m_distances[i][j][k].second;
+                            pt.a = abs(m_distances[i][j][k].second - m_distances[j][i][pt.faceId].second);
+                            m_distSort.insert(pt);
+                            m_asymmSort.insert(pt);
                         }
-                        obj_distances.push_back(distances);
                     }
                 }
+            }
+        }
 
                 m_distances.push_back(obj_distances);
             }

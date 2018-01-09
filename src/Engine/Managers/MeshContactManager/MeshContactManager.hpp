@@ -30,6 +30,14 @@ namespace Ra
 
         class MeshContactManager
         {
+            struct PtDistrib
+            {
+                Scalar r;
+                Scalar a;
+                Ra::Core::Index faceId;
+                Ra::Core::Index objId;
+            };
+
         public:
 
             MeshContactManager();
@@ -59,6 +67,7 @@ namespace Ra
             void compareDistanceDistribution();
             void distanceAsymmetryDistribution();
             void loadDistribution(std::string filePath);
+            void sortDistAsymm();
             void distanceAsymmetryFiles();
             void distanceAsymmetryFile();
             void thresholdComputation();
@@ -87,6 +96,24 @@ namespace Ra
             Eigen::Matrix<Scalar, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_thresholds; // thresholds for each pair of objects
             std::vector<std::vector<std::vector<std::pair<Ra::Core::Index,Scalar> > > > m_distances; // distances for each pair of objects
 
+            struct comparePtDistribByDistance
+            {
+                inline bool operator() (const PtDistrib &p1, const PtDistrib &p2) const
+                {
+                    return p1.r <= p2.r;
+                }
+            };
+            typedef std::set<PtDistrib, comparePtDistribByDistance> DistanceSorting;
+            DistanceSorting m_distSort;
+            struct comparePtDistribByAsymmetry
+            {
+                inline bool operator() (const PtDistrib &p1, const PtDistrib &p2) const
+                {
+                    return p1.a <= p2.a;
+                }
+            };
+            typedef std::set<PtDistrib, comparePtDistribByAsymmetry> AsymmetrySorting;
+            AsymmetrySorting m_asymmSort;
             std::vector<Super4PCS::TriangleKdTree<>*> m_trianglekdtrees;
             std::vector<MeshContactElement*> m_meshContactElements;
 
