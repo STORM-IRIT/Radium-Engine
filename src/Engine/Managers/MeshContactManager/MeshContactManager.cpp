@@ -470,6 +470,12 @@ namespace Ra
                 std::advance(itAsymm, 1);
             }
         }
+
+        // Displaying colored faces in light of r and a
+        void MeshContactManager::setDisplayDistribution()
+        {
+            sortDistAsymm();
+            displayDistribution();
         }
 
         void MeshContactManager::distanceAsymmetryFiles()

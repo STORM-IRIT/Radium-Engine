@@ -53,6 +53,7 @@ namespace Ra
             void setComputeR();
             void setLoadDistribution(std::string filePath);
             void setDisplayProximities();
+            void setDisplayDistribution();
             void setConstructM0();
 
             int getNbFacesMax();
