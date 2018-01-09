@@ -420,8 +420,56 @@ namespace Ra
             }
         }
 
+        // works well in case of 2 objects only
+        void MeshContactManager::displayDistribution()
+        {
+            Ra::Core::Vector4 distColor(1,0,0,0);
+            Ra::Core::Vector4 asymmColor(0,0,1,0);
+
+            Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                MeshContactElement* obj = m_meshContactElements[i];
+                int nbVertices = obj->getMesh()->getGeometry().m_vertices.size();
+                Ra::Core::Vector4Array colors;
+                for (uint v = 0; v < nbVertices; v++)
+                {
+                    colors.push_back(vertexColor);
+                }
+                obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+            }
+
+            DistanceSorting::iterator itDist = m_distSort.begin();
+            while (itDist != m_distSort.end() && (*itDist).r <= m_threshold)
+            {
+                MeshContactElement* obj = m_meshContactElements[(*itDist).objId];
+                Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getInitTriangleMesh().m_triangles;
+                Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
+
+                colors[t[(*itDist).faceId][0]] = ((*itDist).r * distColor + (*itDist).a * asymmColor);
+                colors[t[(*itDist).faceId][1]] = ((*itDist).r * distColor + (*itDist).a * asymmColor);
+                colors[t[(*itDist).faceId][2]] = ((*itDist).r * distColor + (*itDist).a * asymmColor);
+                obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+
+                std::advance(itDist, 1);
                 m_distances.push_back(obj_distances);
             }
+
+            AsymmetrySorting::iterator itAsymm = m_asymmSort.begin();
+            while (itAsymm != m_asymmSort.end() && (*itAsymm).a <= m_asymmetry)
+            {
+                MeshContactElement* obj = m_meshContactElements[(*itAsymm).objId];
+                Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getInitTriangleMesh().m_triangles;
+                Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
+
+                colors[t[(*itAsymm).faceId][0]] = ((*itAsymm).r * distColor + (*itAsymm).a * asymmColor);
+                colors[t[(*itAsymm).faceId][1]] = ((*itAsymm).r * distColor + (*itAsymm).a * asymmColor);
+                colors[t[(*itAsymm).faceId][2]] = ((*itAsymm).r * distColor + (*itAsymm).a * asymmColor);
+                obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+
+                std::advance(itAsymm, 1);
+            }
+        }
         }
 
         void MeshContactManager::distanceAsymmetryFiles()
@@ -646,6 +694,7 @@ namespace Ra
         void MeshContactManager::setLoadDistribution(std::string filePath)
         {
             loadDistribution(filePath);
+            LOG(logINFO) << "Distance asymmetry distributions loaded.";
             LOG(logINFO) << m_distances[0][0][0].first << " " << m_distances[0][0][0].second;
         }
 
