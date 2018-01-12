@@ -20,7 +20,7 @@ namespace Ra
         class Entity;
         class Callback;
         class Component;
-        
+
         /// This class allows components to communicate data to each other in a type safe way
         /// When a component is created, after being attached to an entity, it can declare
         /// output (get), input (set) or read/write functions on arbitrary type parameters.
@@ -39,10 +39,10 @@ namespace Ra
         /// as well and can be queried with the same identifiers.
         class RA_ENGINE_API ComponentMessenger
         {
-            RA_SINGLETON_INTERFACE(ComponentMessenger);
-            
+        RA_SINGLETON_INTERFACE(ComponentMessenger);
+
         public:
-            
+
             /// This describes the function pointers accepted for each type.
             template<typename T>
             struct CallbackTypes
@@ -51,40 +51,40 @@ namespace Ra
                 typedef std::function<const T*(void)> Getter;
                 /// Function pointer for a setter function.
                 typedef std::function<void(const T*)> Setter;
-                
+
                 /// Function pointer for a read/write getter.
                 typedef std::function<T*(void)> ReadWrite;
-                
-                
+
+
                 /// Calls the callback and retrieves the object
                 static const T& getHelper( const Getter& g ) { return *(g());}
             };
-            
+
             template <typename T>
             struct CallbackTypes<std::shared_ptr<T>>
             {
                 typedef std::function<std::shared_ptr<const T>(void)> Getter;
                 typedef std::function<void(std::shared_ptr<const T>)> Setter;
                 typedef std::function<std::shared_ptr<T>(void)> ReadWrite;
-                
+
                 static const std::shared_ptr<const T>& getHelper( const Getter& g) { return (g()); }
             };
-            
+
         private:
             /// Key used to identify entries.
             typedef std::pair<std::string, std::type_index> Key;
-            
+
             // Unfortunately there is no standard hash functions for std::pair.
             // so we have to provide one (which justs xors the two hashes)
             // We could use a proper hash combination function like this one :
             // http://www.boost.org/doc/libs/1_46_1/doc/html/hash/reference.html#boost.hash_combine
-            
+
             /// Hash function for our key type
             struct HashFunc
             {
                 inline std::size_t operator()(const Key& k) const;
             };
-            
+
             /// Class hierarchy for polymorphic storage of callback functions.
             struct CallbackBase
             {
@@ -104,78 +104,78 @@ namespace Ra
             {
                 typename CallbackTypes<T>::ReadWrite m_cb;
             };
-            
+
             /// A dictionary of callback entries identified with the key.
             typedef std::unordered_map<Key, std::unique_ptr<CallbackBase>, HashFunc> CallbackMap;
-            
+
         public:
             ComponentMessenger() { }
-            
+
             //
             // Direct access to function pointers
             //
-            
+
             template<typename ReturnType>
             inline typename CallbackTypes<ReturnType>::Getter getterCallback(const Entity* entity,
                                                                              const std::string& id);
-            
+
             template<typename ReturnType>
             inline typename CallbackTypes<ReturnType>::ReadWrite rwCallback(const Entity* entity,
                                                                             const std::string& id);
-            
+
             template<typename ReturnType>
             inline typename CallbackTypes<ReturnType>::Setter setterCallback(const Entity* entity,
                                                                              const std::string& id);
-            
+
             //
             // Access the exported data.
             //
-            
+
             // Note : all functions assert when the data is not available.
             // e.g. get() assert if canGet() is false.
-            
+
             template<typename ReturnType>
             inline const ReturnType& get(const Entity* entity, const std::string& id);
-            
-            
-            
+
+
+
             //
             // Query if a given key has registered data.
             //
-            
+
             template<typename ReturnType>
             inline bool canGet(const Entity* entity, const std::string& id);
-            
+
             template<typename ReturnType>
             inline bool canSet(const Entity* entity, const std::string& id);
-            
+
             template<typename ReturnType>
             inline bool canRw(const Entity* entity, const std::string& id);
-            
-            
+
+
             //
             // Register callbacks
             //
-            
+
             template<typename ReturnType>
             inline void registerOutput(const Entity* entity, Component* comp, const std::string& id,
                                        const typename CallbackTypes<ReturnType>::Getter& cb);
-            
+
             template<typename ReturnType>
             inline void registerReadWrite(const Entity* entity, Component* comp, const std::string& id,
                                           const typename CallbackTypes<ReturnType>::ReadWrite& cb);
-            
+
             template<typename ReturnType>
             inline void registerInput(const Entity* entity, Component* comp, const std::string& id,
                                       const typename CallbackTypes<ReturnType>::Setter& cb);
-            
+
         private:
             std::unordered_map<const Entity*, CallbackMap> m_entityGetLists; /// Per-entity callback get list.
             std::unordered_map<const Entity*, CallbackMap> m_entitySetLists; /// Per-entity callback set list.
             std::unordered_map<const Entity*, CallbackMap> m_entityRwLists;  /// Per-entity callback read-write list.
-            
+
         };
-        
+
     }
 }
 

@@ -26,23 +26,20 @@
 #include <Core/Image/stb_image_write.h>
 
 #include <Engine/Component/Component.hpp>
-
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
+
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
+
+#include <GuiBase/Viewer/TrackballCamera.hpp>
 
 #include <GuiBase/Utils/FeaturePickingManager.hpp>
 #include <GuiBase/Utils/Keyboard.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
-#include <GuiBase/Utils/FeaturePickingManager.hpp>
-
-#include <GuiBase/Viewer/TrackballCamera.hpp>
-#include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 
 namespace Ra
 {

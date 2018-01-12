@@ -133,16 +133,16 @@ class FILELog : public Log<Output2FILE> {};
 
 #ifndef FILELOG_MAX_LEVEL
 #ifdef CORE_DEBUG
-#define FILELOG_MAX_LEVEL logDEBUG4
+    #define FILELOG_MAX_LEVEL logDEBUG4
 #else
-#define FILELOG_MAX_LEVEL logINFO
+    #define FILELOG_MAX_LEVEL logINFO
 #endif
 #endif
 
 #define FILE_LOG(level) \
-if (level > FILELOG_MAX_LEVEL) ;\
-else if (level > FILELog::ReportingLevel() || !Output2FILE::Stream()) ; \
-else FILELog().Get(level)
+    if (level > FILELOG_MAX_LEVEL) ;\
+    else if (level > FILELog::ReportingLevel() || !Output2FILE::Stream()) ; \
+    else FILELog().Get(level)
 
 #define LOG(level) FILE_LOG(level)
 

@@ -19,42 +19,42 @@ namespace Ra
 {
     namespace GuiBase
     {
-        
+
         class RA_GUIBASE_API SelectionManager : public QItemSelectionModel
         {
-            Q_OBJECT
+        Q_OBJECT
         public:
             SelectionManager(ItemModel* model, QObject* parent = nullptr);
-            
+
             // The following functions adapt QItemSelectionModel functions to
             // operate with ItemEntries instead of model indices.
-            
+
             /// Returns true if the selection contains the given item.
             bool isSelected(const Engine::ItemEntry& ent) const;
-            
+
             /// Return the set of selected entries. @see selectedIndexes()
             std::vector<Engine::ItemEntry> selectedEntries() const;
-            
+
             /// Return the current selected item, or an invalid entry if there is no
             /// current item. @seeCurrentIndex;
             const Engine::ItemEntry& currentItem() const;
-            
+
             /// Select an item through an item entry. @see QItemSelectionModel::Select
             virtual void select( const Engine::ItemEntry& ent,  QItemSelectionModel::SelectionFlags command );
-            
+
             /// Set an item as current through an item entry. @see QItemSelectionModel::setCurrent
             void setCurrentEntry( const Engine::ItemEntry& ent, QItemSelectionModel::SelectionFlags command);
-            
-            protected slots:
+
+        protected slots:
             void onModelRebuilt();
-            
-            protected slots:
+
+        protected slots:
             void printSelection() const;
-            
+
         protected:
             const ItemModel* itemModel () const  { return static_cast<const ItemModel*>( model());}
         };
-        
+
     }
 }
 

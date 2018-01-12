@@ -16,7 +16,7 @@ namespace Ra
 {
     namespace Engine
     {
-        
+
         std::string getEntryName( const Engine::RadiumEngine* engine, const ItemEntry& ent )
         {
             if ( ent.isValid() )
@@ -36,7 +36,7 @@ namespace Ra
             }
             return "Invalid Entry";
         }
-        
+
         std::vector<Ra::Core::Index> getItemROs(const Engine::RadiumEngine* engine, const ItemEntry& ent)
         {
             std::vector< Ra::Core::Index> result;
@@ -60,31 +60,31 @@ namespace Ra
             }
             return result;
         }
-        
+
         bool ItemEntry::isValid() const
         {
             ON_DEBUG(checkConsistency());
             Engine::RadiumEngine* engine = Engine::RadiumEngine::getInstance();
             return m_entity != nullptr // It has an entity
-            && engine->getEntityManager()->entityExists( m_entity->getName() ) // The entity exists
-            && ((!isRoNode() || engine->getRenderObjectManager()->exists(m_roIndex))); // The RO exists
-            
+                    && engine->getEntityManager()->entityExists( m_entity->getName() ) // The entity exists
+                    && ((!isRoNode() || engine->getRenderObjectManager()->exists(m_roIndex))); // The RO exists
+
         }
-        
+
         bool ItemEntry::isSelectable() const
         {
             Engine::RadiumEngine* engine = Engine::RadiumEngine::getInstance();
             if ( isRoNode() )
             {
                 const bool isUI = engine->getRenderObjectManager()->getRenderObject( m_roIndex )->getType() ==
-                Engine::RenderObjectType::UI;
+                    Engine::RenderObjectType::UI;
                 const bool isDebug = engine->getRenderObjectManager()->getRenderObject( m_roIndex )->getType() ==
-                Engine::RenderObjectType::Debug;
+                    Engine::RenderObjectType::Debug;
                 return (!(isUI || isDebug));
             }
-            
+
             return m_entity->idx != Engine::SystemEntity::getInstance()->idx;
         }
-        
+
     }
 }

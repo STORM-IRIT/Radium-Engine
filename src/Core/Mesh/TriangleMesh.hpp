@@ -19,17 +19,17 @@ namespace Ra
             /// Copy constructor and assignment operator
             TriangleMesh( const TriangleMesh& ) = default;
             TriangleMesh& operator= ( const TriangleMesh& ) = default;
-            
+
             /// Erases all data, making the mesh empty.
             inline void clear();
-            
+
             /// Appends another mesh to this one.
             inline void append( const TriangleMesh& other );
-            
+
             VectorArray<Vector3>  m_vertices;
             VectorArray<Vector3>  m_normals;
             VectorArray<Triangle> m_triangles;
-            
+
         public:
             EIGEN_MAKE_ALIGNED_OPERATOR_NEW
         };

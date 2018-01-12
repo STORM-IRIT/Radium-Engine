@@ -4,25 +4,25 @@
 #include <Core/Mesh/DCEL/Iterator/Face/FaceIterator.hpp>
 
 namespace Ra {
-    namespace Core {
-        
-        class [[deprecated]] FFEIterator : public FIterator< FullEdge > {
-        public:
-            /// CONSTRUCTOR
-            FFEIterator( Face_ptr& f );
-            FFEIterator( const FFEIterator& it ) = default;
-            
-            /// DESTRUCTOR
-            ~FFEIterator();
-            
-            /// LIST
-            inline FullEdgeList list() const override;
-            
-            /// OPERATOR
-            inline FullEdge* operator->() const override;
-        };
-        
-    } // namespace Core
+namespace Core {
+
+class [[deprecated]] FFEIterator : public FIterator< FullEdge > {
+public:
+    /// CONSTRUCTOR
+    FFEIterator( Face_ptr& f );
+    FFEIterator( const FFEIterator& it ) = default;
+
+    /// DESTRUCTOR
+    ~FFEIterator();
+
+    /// LIST
+    inline FullEdgeList list() const override;
+
+    /// OPERATOR
+    inline FullEdge* operator->() const override;
+};
+
+} // namespace Core
 } // namespace Ra
 
 #include <Core/Mesh/DCEL/Iterator/Face/FFEIterator.inl>

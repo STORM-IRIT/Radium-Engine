@@ -14,19 +14,19 @@ namespace Ra
             {
                 std::array<Vector3, 3> v;
                 getTriangleVertices( mesh, triIdx, v );
-                
+
                 return Geometry::triangleArea( v[0], v[1], v[2] );
             }
-            
+
             inline Vector3 getTriangleNormal( const TriangleMesh& mesh, TriangleIdx triIdx )
             {
                 std::array<Vector3, 3> v;
                 getTriangleVertices( mesh, triIdx, v );
                 return Geometry::triangleNormal( v[0], v[1], v[2] );
             }
-            
+
             inline void getTriangleVertices( const TriangleMesh& mesh, TriangleIdx triIdx,
-                                            std::array<Vector3, 3>& verticesOut )
+                                             std::array<Vector3, 3>& verticesOut )
             {
                 const Triangle& tri = mesh.m_triangles[triIdx];
                 for ( uint i = 0; i < 3; ++i )
@@ -34,12 +34,12 @@ namespace Ra
                     verticesOut[i] = mesh.m_vertices[tri[i]];
                 }
             }
-            
+
             inline Aabb getAabb( const TriangleMesh& mesh )
             {
                 return PointCloud::aabb(mesh.m_vertices);
             }
-            
+
             inline uint getLastVertex(const Triangle& t1, uint v1, uint v2)
             {
                 CORE_ASSERT(t1[0] ==v1 || t1[1] == v1 || t1[2] == v1, "Vertex 1 not in triangle");
@@ -58,23 +58,23 @@ namespace Ra
                     return t1[0] == v2 ? t1[1] : t1[0];
                 }
             }
-            
-            
+
+
             inline bool containsEdge( const Triangle& t1, uint v1, uint v2 )
             {
                 const bool hasv1 = (t1.array() == Ra::Core::Vector3ui{v1,v1,v1}.array()).any();
                 const bool hasv2 = (t1.array() == Ra::Core::Vector3ui{v2,v2,v2}.array()).any();
                 return hasv1 && hasv2;
             }
-            
+
             struct EdgeEqual
             {
                 bool operator()( const std::pair<uint,uint>& e1, const std::pair<uint,uint>& e2) const
                 {
                     return (e1.first == e2.first && e1.second == e2.second)
-                    || ( e1.first == e2.second && e1.second == e2.first );
+                        || ( e1.first == e2.second && e1.second == e2.first );
                 }
-                
+
             };
             struct EdgeHash
             {
@@ -83,12 +83,12 @@ namespace Ra
                     return StdUtils::hash<uint,uint>(x);
                 }
             };
-            
+
             typedef std::unordered_set<
-            std::pair<uint,uint>,
-            EdgeHash,
-            EdgeEqual> EdgeTable;
-            
+                    std::pair<uint,uint>,
+                    EdgeHash,
+                    EdgeEqual> EdgeTable;
+
             std::vector<Ra::Core::Vector2ui> getEdges(const TriangleMesh& mesh)
             {
                 EdgeTable table;
