@@ -98,24 +98,32 @@ namespace Ra
             Eigen::Matrix<Scalar, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_thresholds; // thresholds for each pair of objects
             std::vector<std::vector<std::vector<std::pair<Ra::Core::Index,Scalar> > > > m_distances; // distances for each pair of objects
 
-            struct comparePtDistribByDistance
-            {
-                inline bool operator() (const PtDistrib &p1, const PtDistrib &p2) const
-                {
-                    return p1.r <= p2.r;
-                }
-            };
-            typedef std::set<PtDistrib, comparePtDistribByDistance> DistanceSorting;
-            DistanceSorting m_distSort;
-            struct comparePtDistribByAsymmetry
-            {
-                inline bool operator() (const PtDistrib &p1, const PtDistrib &p2) const
-                {
-                    return p1.a <= p2.a;
-                }
-            };
-            typedef std::set<PtDistrib, comparePtDistribByAsymmetry> AsymmetrySorting;
-            AsymmetrySorting m_asymmSort;
+//            struct comparePtDistribByDistance
+//            {
+//                inline bool operator() (const PtDistrib &p1, const PtDistrib &p2) const
+//                {
+//                    return p1.r <= p2.r;
+//                }
+//            };
+//            typedef std::set<PtDistrib, comparePtDistribByDistance> DistanceSorting;
+//            DistanceSorting m_distSort;
+//            Ra::Core::Index m_curr_r;
+
+//            struct comparePtDistribByAsymmetry
+//            {
+//                inline bool operator() (const PtDistrib &p1, const PtDistrib &p2) const
+//                {
+//                    return p1.a < p2.a;
+//                }
+//            };
+//            typedef std::set<PtDistrib, comparePtDistribByAsymmetry> AsymmetrySorting;
+//            AsymmetrySorting m_asymmSort;
+//            Ra::Core::Index m_curr_a;
+
+            std::vector<PtDistrib> m_distrib;
+            Scalar m_threshold_max;
+            Scalar m_asymmetry_max;
+
             std::vector<Super4PCS::TriangleKdTree<>*> m_trianglekdtrees;
             std::vector<MeshContactElement*> m_meshContactElements;
 

@@ -38,6 +38,10 @@ namespace Ra
             ,m_influence ( 0.9 )
             ,m_asymmetry ( 0.0 )
             ,m_curr_vsplit( 0 )
+//            ,m_curr_r( 0 )
+//            ,m_curr_a( 0 )
+            ,m_threshold_max( 0 )
+            ,m_asymmetry_max( 0 )
         {
         }
 
@@ -292,9 +296,10 @@ namespace Ra
             }
         }
 
+        // Data to be loaded next time around
         void MeshContactManager::distanceAsymmetryDistribution()
         {
-            std::ofstream file("Distrib.txt", std::ios::out | std::ios::trunc);
+            std::ofstream file("Data.txt", std::ios::out | std::ios::trunc);
             CORE_ASSERT(file, "Error while opening distance asymmetry distribution file.");
 
             std::pair<Ra::Core::Index,Scalar> triangle;
@@ -347,10 +352,11 @@ namespace Ra
 
                     obj1_distances.push_back(distances);
                 }
-
                 m_distances.push_back(obj1_distances);
             }
             file.close();
+
+            sortDistAsymm();
         }
 
         void MeshContactManager::loadDistribution(std::string filePath)
@@ -393,7 +399,35 @@ namespace Ra
                     m_distances.push_back(obj_distances);
                 }
 //            }
+
+                sortDistAsymm();
         }
+
+//        void MeshContactManager::sortDistAsymm()
+//        {
+//            for (uint i = 0; i < m_meshContactElements.size(); i++)
+//            {
+//                int nbFaces = m_meshContactElements[i]->getInitTriangleMesh().m_triangles.size();
+
+//                for (uint j = 0; j < m_meshContactElements.size(); j++)
+//                {
+//                    if (j != i)
+//                    {
+//                        for (uint k = 0; k < nbFaces; k++)
+//                        {
+//                            PtDistrib pt;
+//                            pt.objId = i;
+//                            pt.faceId = k;
+//                            pt.r = m_distances[i][j][k].second;
+//                            pt.a = abs(m_distances[i][j][k].second - m_distances[j][i][m_distances[i][j][k].first].second);
+//                            m_distSort.insert(pt);
+//                            m_distSortTest.insert(pt);
+//                            m_asymmSort.insert(pt);
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         void MeshContactManager::sortDistAsymm()
         {
@@ -411,9 +445,16 @@ namespace Ra
                             pt.objId = i;
                             pt.faceId = k;
                             pt.r = m_distances[i][j][k].second;
-                            pt.a = abs(m_distances[i][j][k].second - m_distances[j][i][pt.faceId].second);
-                            m_distSort.insert(pt);
-                            m_asymmSort.insert(pt);
+                            pt.a = abs(m_distances[i][j][k].second - m_distances[j][i][m_distances[i][j][k].first].second);
+                            m_distrib.push_back(pt);
+                            if (pt.r > m_threshold_max)
+                            {
+                                m_threshold_max = pt.r;
+                            }
+                            if (pt.a > m_asymmetry_max)
+                            {
+                                m_asymmetry_max = pt.a;
+                            }
                         }
                     }
                 }
@@ -674,16 +715,14 @@ namespace Ra
         void MeshContactManager::setComputeR()
         {
             distanceAsymmetryDistribution();
-//            distanceAsymmetryFiles();
-            distanceAsymmetryFile();
             LOG(logINFO) << "Distance asymmetry distributions computed.";
+            distanceAsymmetryFile();
         }
 
         void MeshContactManager::setLoadDistribution(std::string filePath)
         {
             loadDistribution(filePath);
             LOG(logINFO) << "Distance asymmetry distributions loaded.";
-            LOG(logINFO) << m_distances[0][0][0].first << " " << m_distances[0][0][0].second;
         }
 
 
@@ -700,13 +739,6 @@ namespace Ra
 
         void MeshContactManager::setConstructM0()
         {     
-//            if (m_lambda != 0.0)
-//            {
-//                thresholdComputation(); // computing m_broader_threshold
-//            }
-
-//            constructPriorityQueues2();
-
             m_mainqueue.clear();
             m_index_pmdata.clear();
             m_curr_vsplit = 0;
