@@ -69,7 +69,7 @@ namespace Ra
             void distanceAsymmetryDistribution();
             void loadDistribution(std::string filePath);
             void sortDistAsymm();
-            void displayDistribution();
+            void displayDistribution(Scalar distValue, Scalar asymmValue);
             void distanceAsymmetryFiles();
             void distanceAsymmetryFile();
             void thresholdComputation();
@@ -90,7 +90,7 @@ namespace Ra
             Scalar m_threshold; // distance used to define "contacts"
             Scalar m_influence; // weight value for the threshold in order to compute a broader threshold
             Scalar m_asymmetry; // threshold for the asymmetry between the 2 triangles defining a contact
-            Scalar m_broader_threshold; // amplified threshold
+            Scalar m_broader_threshold; // amplified threshold in order to have a significant weight up until m_threshold
             Scalar m_lambda; // influence of the original quadric considering contacts
             Scalar m_m;
             Scalar m_n; // slope of the weight function for contacts
