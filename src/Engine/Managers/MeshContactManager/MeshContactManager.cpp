@@ -596,32 +596,14 @@ namespace Ra
             std::ofstream file("Distrib.txt", std::ios::out | std::ios::trunc);
             CORE_ASSERT(file, "Error while opening distance distribution file.");
 
-
-            // for each object
             for (uint i = 0; i < m_distances.size(); i++)
             {
-                // for each other object whose bbox intersects the one of the object
-                for (uint j = i + 1; j < m_distances[i].size(); j++)
+                for (uint j = 0; j < m_distances[i].size(); j++)
                 {
-                    // for each face of the object the closest face in the other object is found
                     for (uint k = 0; k < m_distances[i][j].size(); k++)
                     {
-                        std::pair<Ra::Core::Index,Scalar> triangle1 = m_distances[i][j][k];
-
-                        std::pair<Ra::Core::Index,Scalar> triangle2 = m_distances[j][i][triangle1.first];
-                        dist = (triangle1.second + triangle2.second) / 2;
-                        asymm = abs(triangle1.second - triangle2.second);
-                        file << dist << " " << asymm << std::endl;
-                    }
-
-                    // for each face of the other object the closest face in the object is found
-                    for (uint k = 0; k < m_distances[j][i].size(); k++)
-                    {
-                        std::pair<Ra::Core::Index,Scalar> triangle1 = m_distances[j][i][k];
-
-                        std::pair<Ra::Core::Index,Scalar> triangle2 = m_distances[i][j][triangle1.first];
-                        dist = (triangle1.second + triangle2.second) / 2;
-                        asymm = abs(triangle1.second - triangle2.second);
+                        dist = m_distances[i][j][k].second;
+                        asymm = abs(m_distances[i][j][k].second - m_distances[j][i][m_distances[i][j][k].first].second);
                         file << dist << " " << asymm << std::endl;
                     }
                 }
