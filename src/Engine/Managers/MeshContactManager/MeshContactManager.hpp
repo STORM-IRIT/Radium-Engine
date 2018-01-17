@@ -22,6 +22,8 @@
 
 #define NBMAX_STEP 256
 
+#define PRECISION 1000
+
 
 namespace Ra
 {
@@ -55,6 +57,10 @@ namespace Ra
             void setDisplayProximities();
             void setDisplayDistribution();
             void setConstructM0();
+            void setThresholdValueChanged(int value);
+            int getThresholdMax();
+            void setAsymmetryValueChanged(int value);
+            int getAsymmetryMax();
 
             int getNbFacesMax();
             void computeNbFacesMax();
