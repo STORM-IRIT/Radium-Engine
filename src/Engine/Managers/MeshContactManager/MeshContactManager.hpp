@@ -80,6 +80,8 @@ namespace Ra
             void distanceAsymmetryFile();
             void thresholdComputation();
 
+            void normalize();
+
             void constructPriorityQueues();
             void updatePriorityQueue(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex);
             bool edgeErrorComputation(Ra::Core::HalfEdge_ptr h, int objIndex, Scalar& error, Ra::Core::Vector3& p);

@@ -356,7 +356,7 @@ namespace Ra
             }
             file.close();
 
-            sortDistAsymm();
+            sortDistAsymm(); // to move in case there are more than 2 objects and it's not needed
         }
 
         void MeshContactManager::loadDistribution(std::string filePath)
@@ -400,7 +400,7 @@ namespace Ra
                 }
 //            }
 
-                sortDistAsymm();
+                sortDistAsymm(); // to move in case there are more than 2 objects and it's not needed
         }
 
 //        void MeshContactManager::sortDistAsymm()
@@ -1246,6 +1246,72 @@ namespace Ra
             {
                 return false;
             }
+        }
+
+        void MeshContactManager::normalize()
+        {
+            Ra::Core::VectorArray<Ra::Core::Vector3> v1 = m_meshContactElements[0]->getInitTriangleMesh().m_vertices;
+            Super4PCS::AABB3D aabb1 = Super4PCS::AABB3D();
+            for (uint a = 0; a < v1.size(); a++)
+            {
+                aabb1.extendTo(v1[a]);
+            }
+            Scalar height1 = aabb1.height();
+            Scalar width1 = aabb1.width();
+            Scalar depth1 = aabb1.depth();
+
+            Ra::Core::VectorArray<Ra::Core::Vector3> v2 = m_meshContactElements[1]->getInitTriangleMesh().m_vertices;
+            Super4PCS::AABB3D aabb2 = Super4PCS::AABB3D();
+            for (uint a = 0; a < v2.size(); a++)
+            {
+                aabb2.extendTo(v2[a]);
+            }
+            Scalar height2 = aabb2.height();
+            Scalar width2 = aabb2.width();
+            Scalar depth2 = aabb2.depth();
+
+            Scalar max = std::max(std::max(std::max(std::max(std::max(width2, depth2), height2), depth1), width1), height1);
+            LOG(logINFO) << max << std::endl;
+
+            std::string s;
+            Scalar value;
+
+            std::ifstream input("screw.obj", std::ios::in);
+            CORE_ASSERT(input, "Error while opening obj file.");
+
+            std::ofstream output("screw_normalized.obj", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(output, "Error while opening obj file.");
+
+            Scalar newValue;
+
+            while (!input.eof())
+            {
+                input >> s;
+                if (s.compare("v") == 0)
+                {
+                    output << s;
+                    for (uint i = 0; i < 3; i++)
+                    {
+                        input >> value;
+                        newValue = value / max;
+                        output << " " << newValue;
+                    }
+                    output << std::endl;
+                }
+                else
+                {
+                    output << s;
+                    for (uint i = 0; i < 3; i++)
+                    {
+                        input >> s;
+                        output << " " << s;
+                    }
+                    output << std::endl;
+                }
+            }
+
+            output.close();
+            input.close();
         }
     }
 }
