@@ -43,6 +43,8 @@ namespace Ra
             //void computeProgressiveMesh();
 
             Ra::Core::TriangleMesh getInitTriangleMesh();
+            void setTriangleMeshDuplicate();
+            Ra::Core::TriangleMesh getTriangleMeshDuplicate();
 
             void updateTriangleMesh(Ra::Core::TriangleMesh newMesh);
             //void setlodValueChanged(int value);
@@ -77,6 +79,8 @@ namespace Ra
             std::vector<Ra::Core::ProgressiveMesh<>::Primitive> m_primitives; // initial vertex quadrics
             std::vector<Ra::Core::ProgressiveMesh<>::Primitive> m_faceprimitives; // initial face quadrics
             Ra::Core::TriangleMesh m_initTriangleMesh;
+
+            Ra::Core::TriangleMesh m_tm_duplicateVertices;
         };
 
     } // namespace Engine

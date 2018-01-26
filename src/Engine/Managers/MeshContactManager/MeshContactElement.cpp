@@ -105,6 +105,7 @@ namespace Ra
 //            m_mesh->loadGeometry(tm);
 
             m_initTriangleMesh = m_mesh->getGeometry();
+            setTriangleMeshDuplicate();
         }
 
 //        void MeshContactElement::computeProgressiveMesh()
@@ -127,6 +128,34 @@ namespace Ra
         Ra::Core::TriangleMesh MeshContactElement::getInitTriangleMesh()
         {
             return m_initTriangleMesh;
+        }
+
+        void MeshContactElement::setTriangleMeshDuplicate()
+        {
+            m_tm_duplicateVertices.m_normals = m_initTriangleMesh.m_normals;
+
+            int nbTriangles = m_initTriangleMesh.m_triangles.size();
+
+            for (uint i = 0; i < nbTriangles; i++)
+            {
+                for (uint j = 0; j < 3; j++)
+                {
+                    m_tm_duplicateVertices.m_vertices.push_back(m_initTriangleMesh.m_vertices[m_initTriangleMesh.m_triangles[i][j]]);
+                }
+
+                Ra::Core::Triangle t;
+                for (uint k = 0; k < 3; k++)
+                {
+                    t[k] = 3 * i + k;
+                }
+
+                m_tm_duplicateVertices.m_triangles.push_back(t);
+            }
+        }
+
+        Ra::Core::TriangleMesh MeshContactElement::getTriangleMeshDuplicate()
+        {
+            return m_tm_duplicateVertices;
         }
 
         Ra::Core::ProgressiveMeshLOD* MeshContactElement::getProgressiveMeshLOD()

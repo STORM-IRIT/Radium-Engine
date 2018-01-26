@@ -548,7 +548,8 @@ namespace Ra
                 if (m_distrib[j].r <= distValue && m_distrib[j].a <= asymmValue)
                 {
                     MeshContactElement* obj = m_meshContactElements[m_distrib[j].objId];
-                    Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getInitTriangleMesh().m_triangles;
+                    //Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getInitTriangleMesh().m_triangles;
+                    Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getTriangleMeshDuplicate().m_triangles;
                     Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
 
                     Scalar distCoeff, asymmCoeff;
@@ -585,7 +586,8 @@ namespace Ra
             // reloading initial mesh in case of successive simplifications
             for (uint objIndex = 0; objIndex < m_meshContactElements.size(); objIndex++)
             {
-                m_meshContactElements[objIndex]->setMesh(m_initTriangleMeshes[objIndex]);
+                //m_meshContactElements[objIndex]->setMesh(m_initTriangleMeshes[objIndex]);
+                m_meshContactElements[objIndex]->setMesh(m_meshContactElements[objIndex]->getTriangleMeshDuplicate());
             }
 
             displayDistribution(m_threshold, m_asymmetry);
