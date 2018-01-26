@@ -458,7 +458,7 @@ namespace Ra {
                         int h = std::round( std::sqrt( m_brushRadius*m_brushRadius - i*i ) );
                         for(int j=-h; j<=+h; j+=3)
                         {
-                            GL_ASSERT( glReadPixels(query.m_screenCoords.x()+i, m_height-query.m_screenCoords.y()-j,
+                            GL_ASSERT( glReadPixels(query.m_screenCoords.x()+i, query.m_screenCoords.y()-j,
                                                     1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
                             resultPerRO[ pick[0] ].m_roIdx = pick[0];
                             resultPerRO[ pick[0] ].m_vertexIdx.emplace_back( pick[1] );
@@ -470,6 +470,10 @@ namespace Ra {
                     int nbMax = 0;
                     for (const auto& res : resultPerRO)
                     {
+                        if (res.second.m_roIdx == -1)
+                        {
+                            continue;
+                        }
                         if (res.second.m_vertexIdx.size() > nbMax)
                         {
                             maxRO = res.first;
