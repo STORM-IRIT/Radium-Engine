@@ -44,7 +44,6 @@ namespace Ra
             virtual void getRenderParameters( RenderParameters& params );
 
         private:
-            // FIXME(Charly): Add color intensity
             Core::Color m_color;
 
             LightType m_type;

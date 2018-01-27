@@ -1,12 +1,12 @@
 #include <Gui/MaterialEditor.hpp>
 
-#include <QCloseEvent>
-
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/Renderer/RenderTechnique/Material.hpp>
+#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+
+#include <QCloseEvent>
 
 namespace Ra
 {
@@ -16,6 +16,7 @@ namespace Ra
             : QWidget( parent )
             , m_visible( false )
             , m_roIdx( -1 )
+            , m_usable( false )
         {
             setupUi( this );
             typedef void ( QSpinBox::*sigPtr )( int );
@@ -35,9 +36,9 @@ namespace Ra
 
         void MaterialEditor::onExpChanged( double v )
         {
-            if ( m_renderObject )
+            if ( m_renderObject && m_usable )
             {
-                m_renderObject->getRenderTechnique()->material->m_ns = v;
+                m_material->m_ns = v;
             }
         }
 
@@ -45,10 +46,10 @@ namespace Ra
         {
             kdColorWidget->colorChanged( kdR->value(), kdG->value(), kdB->value() );
 
-            if ( m_renderObject )
+            if ( m_renderObject && m_usable )
             {
                 Core::Color c( kdR->value() / 255.f, kdG->value() / 255.f, kdB->value() / 255.f, 1.0 );
-                m_renderObject->getRenderTechnique()->material->m_kd = c;
+                m_material->m_kd = c;
             }
         }
 
@@ -56,10 +57,10 @@ namespace Ra
         {
             ksColorWidget->colorChanged( ksR->value(), ksG->value(), ksB->value() );
 
-            if ( m_renderObject )
+            if ( m_renderObject && m_usable )
             {
                 Core::Color c( ksR->value() / 255.f, ksG->value() / 255.f, ksB->value() / 255.f, 1.0 );
-                m_renderObject->getRenderTechnique()->material->m_ks = c;
+                m_material->m_ks = c;
             }
         }
 
@@ -73,10 +74,10 @@ namespace Ra
             kdG->setValue( color.green() );
             kdB->setValue( color.blue() );
 
-            if ( m_renderObject )
+            if ( m_renderObject && m_usable)
             {
                 Core::Color c( color.redF(), color.greenF(), color.blueF(), 1.0 );
-                m_renderObject->getRenderTechnique()->material->m_kd = c;
+                m_material->m_kd = c;
             }
         }
 
@@ -90,10 +91,10 @@ namespace Ra
             ksG->setValue( color.green() );
             ksB->setValue( color.blue() );
 
-            if ( m_renderObject )
+            if ( m_renderObject && m_usable )
             {
                 Core::Color c( color.redF(), color.greenF(), color.blueF(), 1.0 );
-                m_renderObject->getRenderTechnique()->material->m_ks = c;
+                m_material->m_ks = c;
             }
         }
 
@@ -124,17 +125,25 @@ namespace Ra
             m_roIdx = roIdx;
             m_renderObject = m_roMgr->getRenderObject( m_roIdx );
 
+            /// TODO : replace this ugly dynamic_cast by something more static ...
+            m_material = dynamic_cast<Ra::Engine::BlinnPhongMaterial *>( m_renderObject->getRenderTechnique()->getMaterial().get() );
+            if ( m_material == nullptr )
+            {
+                m_usable = false;
+                return;
+            }
+
             if ( m_renderObject != nullptr )
             {
                 m_renderObjectName->setText( m_renderObject->getName().c_str() );
-                updateMaterialViz( m_renderObject->getRenderTechnique()->material );
+                updateMaterialViz( );
             }
         }
 
-        void MaterialEditor::updateMaterialViz( const std::shared_ptr<Engine::Material>& material )
+        void MaterialEditor::updateMaterialViz( )
         {
-            const Core::Color kd = material->m_kd;
-            const Core::Color ks = material->m_ks;
+            const Core::Color kd = m_material->m_kd;
+            const Core::Color ks = m_material->m_ks;
 
             int kdr = kd.x() * 255, kdg = kd.y() * 255, kdb = kd.y() * 255;
             int ksr = ks.x() * 255, ksg = ks.y() * 255, ksb = ks.z() * 255;
@@ -157,7 +166,7 @@ namespace Ra
             ksG->setValue( ksg );
             ksB->setValue( ksb );
 
-            exp->setValue( material->m_ns );
+            exp->setValue( m_material->m_ns );
 
             kdColorWidget->colorChanged( kdr, kdg, kdb );
             ksColorWidget->colorChanged( ksr, ksg, ksb );

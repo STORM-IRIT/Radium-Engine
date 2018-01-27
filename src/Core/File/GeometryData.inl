@@ -7,60 +7,7 @@
 
 namespace Ra {
     namespace Asset {
-
-
-        ////////////////
-        /// MATERIAL ///
-        ////////////////
-
-        /// QUERY
-        inline bool MaterialData::hasDiffuse() const
-        {
-            return m_hasDiffuse;
-        }
-
-        inline bool MaterialData::hasSpecular() const
-        {
-            return m_hasSpecular;
-        }
-
-        inline bool MaterialData::hasShininess() const
-        {
-            return m_hasShininess;
-        }
-
-        inline bool MaterialData::hasOpacity() const
-        {
-            return m_hasOpacity;
-        }
-
-        inline bool MaterialData::hasDiffuseTexture() const
-        {
-            return m_hasTexDiffuse;
-        }
-
-        inline bool MaterialData::hasSpecularTexture() const
-        {
-            return m_hasTexSpecular;
-        }
-
-        inline bool MaterialData::hasShininessTexture() const
-        {
-            return m_hasTexShininess;
-        }
-
-        inline bool MaterialData::hasNormalTexture() const
-        {
-            return m_hasTexNormal;
-        }
-
-        inline bool MaterialData::hasOpacityTexture() const
-        {
-            return m_hasTexOpacity;
-        }
-
-
-
+        
         /////////////////////
         /// GEOMETRY DATA ///
         /////////////////////
@@ -267,9 +214,10 @@ namespace Ra {
         inline void GeometryData::setTextureCoordinates( const Container& texCoordList )
         {
             const uint size = texCoordList.size();
-            m_texCoord.resize( size );
-            #pragma omp parallel for
-            for( int i = 0; i < int(size); ++i ) {
+            m_texCoord.resize(size);
+#pragma omp parallel for
+            for (int i = 0; i < int(size); ++i)
+            {
                 // unnecessary call to copy constructor and cast are removed at compile time
                 m_texCoord[i] = Core::Vector3(texCoordList[i].template cast<Core::Vector3::Scalar>());
             }
@@ -312,14 +260,14 @@ namespace Ra {
             m_weights = std::move(weightList);
         }
 
-        inline const MaterialData& GeometryData::getMaterial() const
+        inline const MaterialData &GeometryData::getMaterial() const
         {
-            return m_material;
+            return *(m_material.get());
         }
 
-        inline void GeometryData::setMaterial( const MaterialData& material )
+        inline void GeometryData::setMaterial(MaterialData* material)
         {
-            m_material = material;
+            m_material.reset( material );
             m_hasMaterial = true;
         }
 
@@ -467,49 +415,9 @@ namespace Ra {
             LOG( logINFO ) << " Material ?     : " << ( ( !m_hasMaterial      ) ? "NO" : "YES" );
             LOG( logINFO ) << " Has Dup. Vert. : " << ( ( m_duplicateTable.size() == m_vertex.size() ) ? "NO" : "YES" );
 
-            if( m_hasMaterial ) {
-                std::string kd;
-                std::string ks;
-                std::string ns;
-                std::string op;
-
-                if( m_material.hasDiffuse() ) {
-                    Core::StringUtils::stringPrintf( kd, "%.3f %.3f %.3f %.3f",
-                                                     m_material.m_diffuse.x(),
-                                                     m_material.m_diffuse.y(),
-                                                     m_material.m_diffuse.z(),
-                                                     m_material.m_diffuse.w() );
-                }
-
-                if( m_material.hasSpecular() )
-                {
-                    Core::StringUtils::stringPrintf( ks, "%.3f %.3f %.3f %.3f",
-                                                     m_material.m_specular.x(),
-                                                     m_material.m_specular.y(),
-                                                     m_material.m_specular.z(),
-                                                     m_material.m_specular.w() );
-                }
-
-                if( m_material.hasShininess() )
-                {
-                    Core::StringUtils::stringPrintf( ns, "%.1f", m_material.m_shininess );
-                }
-
-                if (m_material.hasOpacity())
-                {
-                    Core::StringUtils::stringPrintf(op, "%.15f", m_material.m_opacity);
-                }
-
-                LOG( logINFO ) << "======== MATERIAL INFO ========";
-                LOG( logINFO ) << " Kd             : " << ( m_material.hasDiffuse()          ? kd                        : "NO" );
-                LOG( logINFO ) << " Ks             : " << ( m_material.hasSpecular()         ? ks                        : "NO" );
-                LOG( logINFO ) << " Ns             : " << ( m_material.hasShininess()        ? ns                        : "NO" );
-                LOG( logINFO ) << " Opacity        : " << ( m_material.hasOpacity()          ? op                        : "NO" );
-                LOG( logINFO ) << " Kd Texture     : " << ( m_material.hasDiffuseTexture()   ? m_material.m_texDiffuse   : "NO" );
-                LOG( logINFO ) << " Ks Texture     : " << ( m_material.hasSpecularTexture()  ? m_material.m_texSpecular  : "NO" );
-                LOG( logINFO ) << " Ns Texture     : " << ( m_material.hasShininessTexture() ? m_material.m_texShininess : "NO" );
-                LOG( logINFO ) << " Normal Texture : " << ( m_material.hasNormalTexture()    ? m_material.m_texNormal    : "NO" );
-                LOG( logINFO ) << " Alpha Texture  : " << ( m_material.hasOpacityTexture()   ? m_material.m_texOpacity   : "NO" );
+           if (m_hasMaterial)
+            {
+                m_material->displayInfo();
             }
         }
 

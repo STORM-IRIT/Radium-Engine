@@ -88,8 +88,8 @@ namespace Ra {
 
         void Mesh::loadGeometry(const Core::Vector3Array &vertices, const std::vector<uint> &indices)
         {
-            // TODO : remove this function and force everyone to use triangle mesh.
-            // Or not... because we have some line meshes as well...
+            // Do not remove this function to force everyone to use triangle mesh.
+            //  ... because we have some line meshes as well...
             const uint nIdx = indices.size();
 
             if (indices.empty()) {

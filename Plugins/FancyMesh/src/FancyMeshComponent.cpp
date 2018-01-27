@@ -16,7 +16,8 @@
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
-#include <Engine/Renderer/RenderTechnique/Material.hpp>
+#include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/Material/MaterialConverters.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
@@ -34,7 +35,7 @@ typedef Ra::Core::VectorArray<Ra::Core::Triangle> TriangleArray;
 namespace FancyMeshPlugin
 {
     FancyMeshComponent::FancyMeshComponent(const std::string& name , bool deformable)
-        : Ra::Engine::Component( name  ) , m_deformable(deformable)
+    : Ra::Engine::Component( name  ) , m_deformable(deformable)
     {
     }
 
@@ -83,7 +84,7 @@ namespace FancyMeshPlugin
         N.matrix() = (T.matrix()).inverse().transpose();
 
         mesh.m_vertices.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
-        #pragma omp parallel for
+#pragma omp parallel for
         for (uint i = 0; i < data->getVerticesSize(); ++i)
         {
             mesh.m_vertices[i] = T * data->getVertices()[i];
@@ -92,7 +93,7 @@ namespace FancyMeshPlugin
         if (data->hasNormals())
         {
             mesh.m_normals.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
-            #pragma omp parallel for
+#pragma omp parallel for
             for (uint i = 0; i < data->getVerticesSize(); ++i)
             {
                 mesh.m_normals[i] = (N * data->getNormals()[i]).normalized();
@@ -100,7 +101,7 @@ namespace FancyMeshPlugin
         }
 
         mesh.m_triangles.resize( data->getFaces().size(), Ra::Core::Triangle::Zero() );
-        #pragma omp parallel for
+#pragma omp parallel for
         for (uint i = 0; i < data->getFaces().size(); ++i)
         {
             mesh.m_triangles[i] = data->getFaces()[i].head<3>();
@@ -142,27 +143,32 @@ namespace FancyMeshPlugin
         // FIXME(Charly): Should not weights be part of the geometry ?
         //        mesh->addData( Ra::Engine::Mesh::VERTEX_WEIGHTS, meshData.weights );
 
-        std::shared_ptr<Ra::Engine::Material> mat( new Ra::Engine::Material( matName ) );
-        auto m = data->getMaterial();
-        if ( m.hasDiffuse() )   mat->m_kd    = m.m_diffuse;
-        if ( m.hasSpecular() )  mat->m_ks    = m.m_specular;
-        if ( m.hasShininess() ) mat->m_ns    = m.m_shininess;
-        if ( m.hasOpacity() )   mat->m_alpha = m.m_opacity;
-
-#ifdef RADIUM_WITH_TEXTURES
-        if ( m.hasDiffuseTexture() )   mat->addTexture( Ra::Engine::Material::TextureType::TEX_DIFFUSE  , m.m_texDiffuse );
-        if ( m.hasSpecularTexture() )  mat->addTexture( Ra::Engine::Material::TextureType::TEX_SPECULAR , m.m_texSpecular );
-        if ( m.hasShininessTexture() ) mat->addTexture( Ra::Engine::Material::TextureType::TEX_SHININESS, m.m_texShininess );
-        if ( m.hasOpacityTexture() )   mat->addTexture( Ra::Engine::Material::TextureType::TEX_ALPHA    , m.m_texOpacity );
-        if ( m.hasNormalTexture() )    mat->addTexture( Ra::Engine::Material::TextureType::TEX_NORMAL   , m.m_texNormal );
-#endif
-
-        auto config = Ra::Engine::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
-
-        auto ro = Ra::Engine::RenderObject::createRenderObject( roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, config, mat );
-        ro->setTransparent( mat->m_alpha < 1.0 );
-
-        setupIO( data->getName());
+        // The technique for rendering this component
+        Ra::Engine::RenderTechnique rt;
+        
+        bool isTransparent { false };
+        const Ra::Asset::MaterialData& loadedMaterial = data->getMaterial();
+        
+        // First extract the material from asset
+        auto converter = Ra::Engine::MaterialConverterSystem::getMaterialConverter(loadedMaterial.getType());
+        auto convertedMaterial = converter.second(&loadedMaterial);
+        
+        // Second, associate the material to the render technique
+        std::shared_ptr<Ra::Engine::Material> radiumMaterial(convertedMaterial);
+        if ( radiumMaterial != nullptr )
+        {
+            isTransparent = radiumMaterial->isTransparent();
+        }
+        rt.setMaterial(radiumMaterial);
+        
+        // Third, define the technique for rendering this material (here, using the default)
+        auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique(loadedMaterial.getType());
+        builder.second(rt, isTransparent);
+        
+        auto ro = Ra::Engine::RenderObject::createRenderObject( roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, rt );
+        ro->setTransparent( isTransparent );
+        
+        setupIO( m_contentName );
         m_meshIndex = addRenderObject(ro);
     }
 

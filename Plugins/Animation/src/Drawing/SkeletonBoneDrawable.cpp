@@ -3,14 +3,16 @@
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/Renderer/RenderTechnique/Material.hpp>
+#include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
+
 #include <Core/Animation/Handle/SkeletonUtils.hpp>
 
 namespace AnimationPlugin
 {
 
     SkeletonBoneRenderObject::SkeletonBoneRenderObject(const std::string& name, AnimationComponent* comp, uint id, Ra::Engine::RenderObjectManager* roMgr)
-            : m_roIdx(Ra::Core::Index::INVALID_IDX()) , m_id( id ), m_skel( comp->getSkeleton() ), m_roMgr( roMgr )
+    : m_roIdx(Ra::Core::Index::INVALID_IDX()) , m_id( id ), m_skel( comp->getSkeleton() ), m_roMgr( roMgr )
     {
         // TODO ( Val) common material / shader config...
 
@@ -19,16 +21,16 @@ namespace AnimationPlugin
         renderObject->setXRay( false );
 
         Ra::Engine::ShaderConfiguration shader = Ra::Engine::ShaderConfigurationFactory::getConfiguration("BlinnPhong");
-
-        m_material.reset(new Ra::Engine::Material("Bone Material"));
-        m_material->m_kd = Ra::Core::Color(0.4f, 0.4f, 0.4f, 0.5f);
-        m_material->m_ks = Ra::Core::Color(0.0f, 0.0f, 0.0f, 1.0f);
+        auto bpMaterial = new Ra::Engine::BlinnPhongMaterial("Bone Material");
+        m_material.reset(bpMaterial);
+        bpMaterial->m_kd = Ra::Core::Color(0.4f, 0.4f, 0.4f, 0.5f);
+        bpMaterial->m_ks = Ra::Core::Color(0.0f, 0.0f, 0.0f, 1.0f);
         m_material->setMaterialType(Ra::Engine::Material::MaterialType::MAT_OPAQUE);
 
         m_renderParams.reset(new Ra::Engine::RenderTechnique());
         {
-            m_renderParams->shaderConfig = shader;
-            m_renderParams->material = m_material;
+            m_renderParams->setShader( shader );
+            m_renderParams->setMaterial( m_material );
         }
         renderObject->setRenderTechnique(m_renderParams);
 

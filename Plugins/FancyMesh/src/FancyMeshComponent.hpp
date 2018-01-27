@@ -40,7 +40,7 @@ namespace FancyMeshPlugin
         virtual ~FancyMeshComponent();
 
 
-        virtual void initialize() override;
+        void initialize() override;
 
         void addMeshRenderObject(const Ra::Core::TriangleMesh& mesh, const std::string& name);
         void handleMeshLoading(const Ra::Asset::GeometryData* data);

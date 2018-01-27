@@ -50,13 +50,13 @@ namespace Ra
 
         void ShaderProgram::loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props)
         {
-    #ifdef OS_MACOS
+#ifdef OS_MACOS
             if (type == ShaderType_COMPUTE)
             {
                 LOG(logERROR) << "No compute shader on OsX <= El Capitan";
                 return;
             }
-    #endif
+#endif
             // FIXME : --> for the moment : standard includepaths. Might be controlled per shader ...
             // Paths in which globjects will be looking for shaders includes.
             // "/" refer to the root of the directory structure conaining the shader (i.e. the Shaders/ directory).
@@ -317,8 +317,7 @@ namespace Ra
 
             m_program->setUniform( name, Core::toGlm( v ) );
         }
-
-        // TODO : Provide Texture support
+        
         void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const
         {
             tex->bind( texUnit );
@@ -365,24 +364,24 @@ namespace Ra
                         LOG(logWARNING) << "Cannot open included file " <<  match[1].str() << " at line" << nline << " of file " << name <<". Ignored.";
                         continue;
                     }
-/*
-                    std::string inc;
-                    std::string file = m_filepath + match[1].str();
-                    if (parseFile(file, inc))
-                    {
-                        sublerr.start = nline;
-                        sublerr.name  = file;
-                        lerr.subfiles.push_back(sublerr);
-
-                        line  = preprocessIncludes(inc, level + 1, lerr.subfiles.back());
-                        nline = lerr.subfiles.back().end;
-                    }
-                    else
-                    {
-                        LOG(logWARNING) << "Cannot open included file " << file << " from " << m_filename << ". Ignored.";
-                        continue;
-                    }
- */
+                    /*
+                     std::string inc;
+                     std::string file = m_filepath + match[1].str();
+                     if (parseFile(file, inc))
+                     {
+                     sublerr.start = nline;
+                     sublerr.name  = file;
+                     lerr.subfiles.push_back(sublerr);
+                     
+                     line  = preprocessIncludes(inc, level + 1, lerr.subfiles.back());
+                     nline = lerr.subfiles.back().end;
+                     }
+                     else
+                     {
+                     LOG(logWARNING) << "Cannot open included file " << file << " from " << m_filename << ". Ignored.";
+                     continue;
+                     }
+                     */
                 }
 
                 finalStrings.push_back(line);

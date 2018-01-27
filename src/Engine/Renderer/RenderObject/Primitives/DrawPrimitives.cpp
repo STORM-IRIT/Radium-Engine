@@ -9,7 +9,9 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/RenderTechnique/Material.hpp>
+
+#include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 
 namespace Ra {
     namespace Engine {
@@ -25,12 +27,12 @@ namespace Ra {
                 {
                     config = ShaderConfigurationFactory::getConfiguration("Plain");
                 }
-
-                std::shared_ptr<RenderTechnique> rt (new RenderTechnique);
-                rt->shaderConfig = config;
-                rt->material.reset(new Material("Default material"));
-
-                RenderObject* ro = new RenderObject(mesh->getName(), component,
+                
+                std::shared_ptr<RenderTechnique> rt(new RenderTechnique);
+                rt->setShader(config);
+                rt->resetMaterial(new BlinnPhongMaterial("Default material"));
+                
+                RenderObject *ro = new RenderObject(mesh->getName(), component,
                                                     RenderObjectType::Debug);
 
                 ro->setRenderTechnique(rt);
@@ -421,68 +423,68 @@ namespace Ra {
                     0, 4, 1, 5, 2, 6, 3, 7, // Links
                     4, 5, 5, 7, 7, 6, 6, 4, // Ceil
                 };
-
+                
                 Core::Vector4Array colors(vertices.size(), color);
-
+                
                 MeshPtr mesh(new Mesh("AABB Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
-
+                
                 return mesh;
             }
-
-            MeshPtr OBB(const Core::Obb& obb, const Core::Color& color)
+            
+            MeshPtr OBB(const Core::Obb &obb, const Core::Color &color)
             {
                 Core::Vector3Array vertices(8);
-
+                
                 for (uint i = 0; i < 8; ++i)
                 {
                     vertices[i] = obb.worldCorner(i);
                 }
-
+                
                 std::vector<uint> indices =
                 {
                     0, 1, 1, 3, 3, 2, 2, 0, // Floor
                     4, 5, 5, 7, 7, 6, 6, 4, // Ceil
                     0, 4, 1, 5, 2, 6, 3, 7, // Links
                 };
-
+                
                 Core::Vector4Array colors(vertices.size(), color);
-
+                
                 MeshPtr mesh(new Mesh("OBB Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
-
+                
                 return mesh;
             }
-
-            MeshPtr Spline(const Core::Spline<3, 3>& spline, uint pointCount, const Core::Color& color, Scalar scale)
+            
+            MeshPtr Spline(const Core::Spline<3, 3> &spline, uint pointCount, const Core::Color &color, Scalar scale)
             {
                 Core::Vector3Array vertices;
                 vertices.reserve(pointCount);
-
+                
                 std::vector<uint> indices;
                 indices.reserve(pointCount * 2 - 2);
-
+                
                 Scalar dt = Scalar(1) / Scalar(pointCount - 1);
                 for (uint i = 0; i < pointCount; ++i)
                 {
                     Scalar t = dt * i;
                     vertices.push_back(spline.f(t));
                 }
-
+                
                 for (uint i = 0; i < pointCount - 1; ++i)
                 {
                     indices.push_back(i);
-                    indices.push_back(i+1);
+                    indices.push_back(i + 1);
                 }
-
+                
                 Core::Vector4Array colors(vertices.size(), color);
-
+                
                 MeshPtr mesh(new Mesh("Spline Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
-
+                
                 return mesh;
             }
         }

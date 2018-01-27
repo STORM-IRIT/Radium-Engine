@@ -8,7 +8,7 @@ namespace Engine {
     {
         return m_name;
     }
-
+    
     void Mesh::setRenderMode( MeshRenderMode mode )
     {
         m_renderMode = mode;
@@ -41,5 +41,5 @@ namespace Engine {
     void Mesh::setDirty(const Mesh::Vec3Data &type) { m_dataDirty[MAX_MESH + type] = true; m_isDirty = true;}
     void Mesh::setDirty(const Mesh::Vec4Data &type) { m_dataDirty[MAX_MESH + MAX_VEC3 + type ] = true ; m_isDirty = true;}
 
-}
+   }
 }

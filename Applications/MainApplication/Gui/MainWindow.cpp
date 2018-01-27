@@ -1,35 +1,28 @@
-#include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
-
 #include <Gui/MainWindow.hpp>
-
-#include <QSettings>
-#include <QFileDialog>
-#include <QToolButton>
-#include <QComboBox>
+#include <MainApplication.hpp>
 
 #include <Core/File/deprecated/OBJFileManager.hpp>
-
-#include <Engine/Managers/SignalManager/SignalManager.hpp>
+#include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
-
+#include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-
-#include <Engine/Entity/Entity.hpp>
-
+#include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
+#include <Gui/MaterialEditor.hpp>
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 #include <GuiBase/Utils/qt_utils.hpp>
 #include <GuiBase/Viewer/CameraInterface.hpp>
-
+#include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
-#include <Gui/MaterialEditor.hpp>
-
-#include <MainApplication.hpp>
+#include <QComboBox>
+#include <QFileDialog>
+#include <QSettings>
+#include <QToolButton>
 
 using Ra::Engine::ItemEntry;
 
@@ -305,7 +298,7 @@ namespace Ra
                 const std::string& shaderName = mainApp->m_engine->getRenderObjectManager()
                                                        ->getRenderObject(ent.m_roIndex)
                                                        ->getRenderTechnique()
-                                                       ->getBasicConfiguration().m_name;
+                                                       ->getConfiguration().m_name;
 
 
                 if (m_currentShaderBox->findText(shaderName.c_str()) == -1)
@@ -407,9 +400,9 @@ namespace Ra
         auto vector_of_ros = getItemROs( mainApp->m_engine.get(), item );
         for (const auto& ro_index : vector_of_ros) {
             const auto& ro = mainApp->m_engine->getRenderObjectManager()->getRenderObject(ro_index);
-            if (ro->getRenderTechnique()->getBasicConfiguration().m_name != name)
+            if (ro->getRenderTechnique()->getConfiguration().m_name != name)
             {
-                ro->getRenderTechnique()->changeShader(config);
+                ro->getRenderTechnique()->setShader(config);
             }
         }
     }

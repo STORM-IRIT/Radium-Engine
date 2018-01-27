@@ -21,6 +21,7 @@ namespace Ra
         class RenderObjectManager;
         class RenderObject;
         class Material;
+        class BlinnPhongMaterial;
     }
 }
 
@@ -38,7 +39,7 @@ namespace Ra
             void changeRenderObject( Ra::Core::Index roIdx );
 
         private slots:
-            void updateMaterialViz( const std::shared_ptr<Engine::Material>& material );
+            void updateMaterialViz( );
 
             void onKdColorChanged( int );
             void onKsColorChanged( int );
@@ -60,6 +61,10 @@ namespace Ra
 
             Core::Index m_roIdx;
             std::shared_ptr<Engine::RenderObject> m_renderObject;
+
+            /// TODO generalize material editor to others materials
+            bool m_usable;
+            Ra::Engine::BlinnPhongMaterial *m_material;
 
         private:
             enum

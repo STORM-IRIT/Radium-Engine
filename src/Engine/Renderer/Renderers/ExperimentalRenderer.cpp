@@ -10,7 +10,7 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/RenderTechnique/Material.hpp>
+#include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
@@ -25,83 +25,80 @@
 #include <Engine/Renderer/Renderers/DebugRender.hpp>
 
 //#define NO_TRANSPARENCY
-namespace Ra
-{
-    namespace Engine
-    {
-
-        namespace
-        {
-//            const GLenum buffers[] =
-//            {
-//                GL_COLOR_ATTACHMENT0,
-//                GL_COLOR_ATTACHMENT1,
-//                GL_COLOR_ATTACHMENT2,
-//                GL_COLOR_ATTACHMENT3,
-//                GL_COLOR_ATTACHMENT4,
-//                GL_COLOR_ATTACHMENT5,
-//                GL_COLOR_ATTACHMENT6,
-//                GL_COLOR_ATTACHMENT7
-//            };
+namespace Ra {
+    namespace Engine {
+        
+        namespace {
+            //            const GLenum buffers[] =
+            //            {
+            //                GL_COLOR_ATTACHMENT0,
+            //                GL_COLOR_ATTACHMENT1,
+            //                GL_COLOR_ATTACHMENT2,
+            //                GL_COLOR_ATTACHMENT3,
+            //                GL_COLOR_ATTACHMENT4,
+            //                GL_COLOR_ATTACHMENT5,
+            //                GL_COLOR_ATTACHMENT6,
+            //                GL_COLOR_ATTACHMENT7
+            //            };
         }
-
-        ExperimentalRenderer::ExperimentalRenderer( )
-            : Renderer()
+        
+        ExperimentalRenderer::ExperimentalRenderer()
+        : Renderer()
         {
             LOG(logINFO) << "Building an  ExperimentalRenderer ";
         }
-
+        
         ExperimentalRenderer::~ExperimentalRenderer()
         {
             LOG(logINFO) << "Deleting an  ExperimentalRenderer ";
         }
-
+        
         void ExperimentalRenderer::initializeInternal()
         {
             LOG(logINFO) << "ExperimentalRenderer::initializeInternal ";
         }
-
+        
         void ExperimentalRenderer::initShaders()
         {
             LOG(logINFO) << "ExperimentalRenderer::initShaders ";
         }
-
+        
         void ExperimentalRenderer::initBuffers()
         {
             LOG(logINFO) << "ExperimentalRenderer::initBuffers ";
         }
-
-        void ExperimentalRenderer::updateStepInternal( const RenderData& renderData )
+        
+        void ExperimentalRenderer::updateStepInternal(const RenderData &renderData)
         {
             LOG(logINFO) << "ExperimentalRenderer::updateStepInternal ";
         }
-
-        void ExperimentalRenderer::renderInternal( const RenderData& renderData )
+        
+        void ExperimentalRenderer::renderInternal(const RenderData &renderData)
         {
             LOG(logINFO) << "ExperimentalRenderer::renderInternal ";
         }
-
+        
         // Draw debug stuff, do not overwrite depth map but do depth testing
-        void ExperimentalRenderer::debugInternal( const RenderData& renderData )
+        void ExperimentalRenderer::debugInternal(const RenderData &renderData)
         {
             LOG(logINFO) << "ExperimentalRenderer::debugInternal ";
         }
-
+        
         // Draw UI stuff, always drawn on top of everything else + clear ZMask
-        void ExperimentalRenderer::uiInternal( const RenderData& renderData )
+        void ExperimentalRenderer::uiInternal(const RenderData &renderData)
         {
             LOG(logINFO) << "ExperimentalRenderer::uiInternal ";
         }
-
-        void ExperimentalRenderer::postProcessInternal( const RenderData& renderData )
+        
+        void ExperimentalRenderer::postProcessInternal(const RenderData &renderData)
         {
             LOG(logINFO) << "ExperimentalRenderer::postProcessInternal ";
         }
-
+        
         void ExperimentalRenderer::resizeInternal()
         {
             LOG(logINFO) << "ExperimentalRenderer::resizeInternal ";
         }
-
+        
     }
 } // namespace Ra

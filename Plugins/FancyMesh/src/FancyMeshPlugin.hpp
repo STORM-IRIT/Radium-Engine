@@ -19,7 +19,7 @@ namespace Ra
 
 namespace FancyMeshPlugin
 {
-// Du to an ambigous name while compiling with Clang, must differentiate plugin claas from plugin namespace
+    // Du to an ambigous name while compiling with Clang, must differentiate plugin claas from plugin namespace
     class FancyMeshPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
     {
         Q_OBJECT
@@ -29,16 +29,16 @@ namespace FancyMeshPlugin
     public:
         virtual ~FancyMeshPluginC();
 
-        virtual void registerPlugin( const Ra::PluginContext& context ) override;
-
-        virtual bool doAddWidget( QString& name ) override;
-        virtual QWidget* getWidget() override;
-
-        virtual bool doAddMenu() override;
-        virtual QMenu* getMenu() override;
-
-        virtual bool doAddAction( int& nb ) override;
-        virtual QAction* getAction( int id ) override;
+        void registerPlugin( const Ra::PluginContext& context ) override;
+        
+        bool doAddWidget( QString& name ) override;
+        QWidget* getWidget() override;
+        
+        bool doAddMenu() override;
+        QMenu* getMenu() override;
+        
+        bool doAddAction( int& nb ) override;
+        QAction* getAction( int id ) override;
     };
 
 } // namespace

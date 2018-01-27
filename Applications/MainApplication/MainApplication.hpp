@@ -22,6 +22,7 @@ namespace Ra
     namespace Engine
     {
         class RadiumEngine;
+        class ItemEntry;
     }
 }
 

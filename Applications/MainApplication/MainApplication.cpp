@@ -1,13 +1,8 @@
 #include <MainApplication.hpp>
 
+#include <Gui/MainWindow.hpp>
+
 #include <Core/CoreMacros.hpp>
-
-#include <QTimer>
-#include <QDir>
-#include <QPluginLoader>
-#include <QCommandLineParser>
-#include <QOpenGLContext>
-
 #include <Core/Log/Log.hpp>
 #include <Core/String/StringUtils.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
@@ -20,20 +15,15 @@
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
-
+#include <Engine/ItemModel/ItemEntry.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
-
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-
 #include <PluginBase/RadiumPluginInterface.hpp>
-
-#include <Gui/MainWindow.hpp>
-
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 
 #ifdef IO_USE_TINYPLY
@@ -42,6 +32,12 @@
 #ifdef IO_USE_ASSIMP
     #include <IO/AssimpLoader/AssimpFileLoader.hpp>
 #endif
+
+#include <QTimer>
+#include <QDir>
+#include <QPluginLoader>
+#include <QCommandLineParser>
+#include <QOpenGLContext>
 
 
 // Const parameters : TODO : make config / command line options
@@ -544,14 +540,16 @@ namespace Ra
 
                         if ( loadedPlugin->doAddROpenGLInitializer() )
                         {
-                            if ( m_viewer->getContext() && m_viewer->getContext()->isValid() )
+                            if ( m_viewer->isOpenGlInitialized() )
                             {
+                                LOG( logINFO ) << "Direct OpenGL initialization for plugin " << filename.toStdString();
                                 // OpenGL is ready, initialize openGL part of the plugin
                                 loadedPlugin->openGlInitialize( context, m_viewer->getContext() );
                             }
                             else
                             {
                                 // Defer OpenGL initialisation
+                                LOG( logINFO ) << "Defered OpenGL initialization for plugin " << filename.toStdString();
                                 m_openGLPlugins.push_back(loadedPlugin);
                             }
                         }
