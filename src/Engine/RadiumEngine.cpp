@@ -28,6 +28,7 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
+#include <Engine/Renderer/Material/MaterialConverters.hpp>
 
 namespace Ra
 {
@@ -50,10 +51,34 @@ namespace Ra
             m_renderObjectManager.reset( new RenderObjectManager );
             m_loadedFile.reset();
             ComponentMessenger::createInstance();
+            // Engine support some built-in materials. Add converters here
+            MaterialConverterSystem::registerMaterialConverter("BlinnPhong", MaterialConverterSystem::BlinnPhongMaterialConverter());
+            EngineRenderTechniques::registerDefaultTechnique("BlinnPhong",
+                                                             [](RenderTechnique &rt, bool isTransparent)
+                                                             {
+                                                                 // Configure the technique to render this object using forward Renderer or any compatible one
+                                                                 // Main pass (Mandatory) : BlinnPhong
+                                                                 Ra::Engine::ShaderConfiguration lpconfig("BlinnPhong", "Shaders/BlinnPhong.vert.glsl", "Shaders/BlinnPhong.frag.glsl");
+                                                                 rt.setShader(lpconfig, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE);
+                                                                 
+                                                                 // Z prepass (Reccomanded) : DepthAmbiantPass
+                                                                 Ra::Engine::ShaderConfiguration dpconfig("DepthAmbiantPass", "Shaders/BlinnPhong.vert.glsl", "Shaders/DepthAmbientPass.frag.glsl");
+                                                                 rt.setShader(dpconfig, Ra::Engine::RenderTechnique::Z_PREPASS);
+                                                                 
+                                                                 // Transparent pass (0ptional) : If Transparent ... add LitOIT
+                                                                 if (isTransparent)
+                                                                 {
+                                                                     Ra::Engine::ShaderConfiguration tpconfig("LitOIT", "Shaders/BlinnPhong.vert.glsl", "Shaders/LitOIT.frag.glsl");
+                                                                     rt.setShader(tpconfig, Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT);
+                                                                 }
+                                                             }
+                                                             );
         }
 
         void RadiumEngine::cleanup()
         {
+            MaterialConverterSystem::removeMaterialConverter("BlinnPhong");
+            EngineRenderTechniques::removeDefaultTechnique("BlinnPhong");
             m_signalManager->setOn( false );
             m_entityManager.reset();
             m_renderObjectManager.reset();
@@ -121,17 +146,21 @@ namespace Ra
                 // 2) Get component
                 const Ra::Engine::Component* c = e->getComponent(componentName);
 
-                if ( c != nullptr && ! c->m_renderObjects.empty() ) {
+                if (c != nullptr && !c->m_renderObjects.empty())
+                {
                     // 3) Get RO
-                    if ( roName.empty() ) {
+                    if (roName.empty())
+                    {
                         return m_renderObjectManager->getRenderObject(
                                     c->m_renderObjects.front() )->getMesh().get();
                     }
                     else
                     {
-                        for (const auto& idx : c->m_renderObjects) {
+                        for (const auto &idx : c->m_renderObjects)
+                        {
                             const auto& ro = m_renderObjectManager->getRenderObject(idx);
-                            if ( ro->getName() ==  roName) {
+                            if (ro->getName() == roName)
+                            {
                                 return ro->getMesh().get();
                             }
                         }
@@ -150,7 +179,8 @@ namespace Ra
                 if ( l->handleFileExtension( extension ) )
                 {
                     Asset::FileData *data = l->loadFile( filename );
-                    if (data != nullptr) {
+                    if (data != nullptr)
+                    {
                         m_loadedFile.reset( data );
                         break;
                     }
@@ -168,7 +198,8 @@ namespace Ra
 
             Entity* entity = m_entityManager->createEntity( entityName );
 
-            for( auto& system : m_systems ) {
+            for (auto &system : m_systems)
+            {
                 system.second->handleAssetLoading( entity, m_loadedFile.get() );
             }
 
@@ -188,7 +219,8 @@ namespace Ra
             return true;
         }
 
-        void RadiumEngine::releaseFile() {
+        void RadiumEngine::releaseFile()
+        {
             m_loadedFile.reset(nullptr);
         }
 
@@ -219,7 +251,8 @@ namespace Ra
 
         RA_SINGLETON_IMPLEMENTATION( RadiumEngine );
 
-        const Asset::FileData &RadiumEngine::getFileData() const {
+        const Asset::FileData &RadiumEngine::getFileData() const
+        {
             return *(m_loadedFile.get());
         }
 

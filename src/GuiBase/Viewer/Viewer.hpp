@@ -11,9 +11,7 @@
 
 #include <QThread>
 
-#include <Core/Math/LinearAlgebra.hpp>
-#include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
-#include <GuiBase/Utils/FeaturePickingManager.hpp>
+#include <Core/CoreMacros.hpp>
 
 // Forward declarations
 class QOpenGLContext;
@@ -93,6 +91,9 @@ namespace Ra
                 return m_context.get();
             }
 
+            bool isOpenGlInitialized() const {
+                return m_glInitStatus;
+            }
             /// Access to camera interface.
             CameraInterface* getCameraInterface();
 
@@ -106,7 +107,7 @@ namespace Ra
             Engine::Renderer* getRenderer();
 
             /// Access to the feature picking manager
-            FeaturePickingManager* getFeaturePickingManager();
+            Ra::Gui::FeaturePickingManager* getFeaturePickingManager();
 
             //
             // Rendering management

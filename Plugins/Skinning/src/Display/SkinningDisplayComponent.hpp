@@ -136,13 +136,11 @@ namespace SkinningPlugin {
                 
                 addRenderObject( renderObject );
             }
-        }
-    }
-
-protected:
-    /// VARIABLE
-    std::string m_contentsName;
-};
+        }    
+    protected:
+        /// VARIABLE
+        std::string m_contentsName;
+    };
 
 } // namespace SkinningPlugin
 
