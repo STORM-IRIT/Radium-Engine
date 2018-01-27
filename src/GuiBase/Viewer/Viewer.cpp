@@ -35,11 +35,13 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
-#include <GuiBase/Viewer/TrackballCamera.hpp>
-
 #include <GuiBase/Utils/FeaturePickingManager.hpp>
 #include <GuiBase/Utils/Keyboard.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
+#include <GuiBase/Utils/FeaturePickingManager.hpp>
+
+#include <GuiBase/Viewer/TrackballCamera.hpp>
+#include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 
 namespace Ra
 {

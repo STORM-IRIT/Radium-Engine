@@ -5,7 +5,6 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/RenderTechnique/Material.hpp>
 
 namespace Ra
 {

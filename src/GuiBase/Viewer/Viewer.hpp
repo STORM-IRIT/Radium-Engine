@@ -42,6 +42,7 @@ namespace Ra
     {
         class CameraInterface;
         class GizmoManager;
+        class FeaturePickingManager;
     }
 }
 
