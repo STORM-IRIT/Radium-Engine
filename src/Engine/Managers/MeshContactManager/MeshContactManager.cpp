@@ -939,6 +939,75 @@ namespace Ra
             constructPriorityQueues2();
         }
 
+        void MeshContactManager::kmeans(int k)
+        {
+            // selecting k random points to be the clusters centers
+            int nbPtDistrib = m_distrib.size();
+            std::vector<int> indices;
+            for (uint i = 0; i < nbPtDistrib; i++)
+            {
+                indices.push_back(i);
+            }
+            std::srand(std::time(0));
+            std::random_shuffle(indices.begin(), indices.end());
+            for (uint i = 0; i < k; i++)
+            {
+                std::vector<int> id;
+                std::pair<Scalar, std::vector<int> > cluster;
+                cluster.first = m_distrib[indices[i]].r;
+                cluster.second = id;
+                m_clusters.push_back(cluster);
+            }
+
+            bool stableMeans;
+
+            do
+            {
+                // clustering all the faces
+                for (uint i = 0; i < k; i++)
+                {
+                    m_clusters[i].second.clear();
+                }
+                for (uint i = 0; i < nbPtDistrib; i++)
+                {
+                    int closestCenterId = 0;
+                    Scalar closestDist = abs(m_distrib[i].r - m_clusters[0].first);
+                    for (uint j = 1; j <k; j++)
+                    {
+                        Scalar dist = abs(m_distrib[i].r - m_clusters[j].first);
+                        if (dist < closestDist)
+                        {
+                            closestDist = dist;
+                            closestCenterId = j;
+                        }
+                    }
+                    m_clusters[closestCenterId].second.push_back(i);
+                }
+
+                for (uint i = 0; i < k; i++)
+                {
+                    LOG(logINFO) << "Center and number of faces of cluster " << i + 1 << " : " << m_clusters[i].first << " " << m_clusters[i].second.size();
+                }
+
+                // updating cluster centers
+                stableMeans = true;
+                for (uint i = 0; i < k; i++)
+                {
+                    Scalar meanCluster = 0;
+                    int nbPtDistribCluster = m_clusters[i].second.size();
+                    for (uint j = 0; j < nbPtDistribCluster; j++)
+                    {
+                        meanCluster += m_distrib[m_clusters[i].second[j]].r;
+                    }
+                    meanCluster /= nbPtDistribCluster;
+                    if (m_clusters[i].first != meanCluster)
+                    {
+                        stableMeans = false;
+                    }
+                    m_clusters[i].first = meanCluster;
+                }
+            } while (!stableMeans);
+        }
         void MeshContactManager::setConstructM0()
         {     
             m_mainqueue.clear();

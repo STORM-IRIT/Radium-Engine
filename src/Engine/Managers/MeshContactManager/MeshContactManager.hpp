@@ -80,6 +80,7 @@ namespace Ra
             void distanceAsymmetryFile();
             void thresholdComputation();
 
+            void kmeans(int k);
             void normalize();
 
             void constructPriorityQueues();
@@ -129,6 +130,7 @@ namespace Ra
 //            Ra::Core::Index m_curr_a;
 
             std::vector<PtDistrib> m_distrib;
+            std::vector<std::pair<Scalar, std::vector<int> > > m_clusters; // distances of cluster centers and indices of cluster faces in m_distrib
             Scalar m_threshold_max;
             Scalar m_asymmetry_max;
 
