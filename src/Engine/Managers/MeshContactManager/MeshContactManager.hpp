@@ -82,6 +82,7 @@ namespace Ra
 
             void kmeans(int k);
             Scalar silhouette();
+            void clustering(Scalar silhouetteMin, int nbClustersMax);
             void normalize();
 
             void constructPriorityQueues();

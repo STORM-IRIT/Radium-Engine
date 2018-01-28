@@ -1058,6 +1058,37 @@ namespace Ra
             S /= nbPtDistrib;
             return S;
         }
+
+        void MeshContactManager::clustering(Scalar silhouetteMin, int nbClustersMax)
+        {
+            int k = 1;
+            Scalar S;
+
+            Scalar maxS = -1;
+
+            int bestNbClusters;
+            std::vector<std::pair<Scalar, std::vector<int> > > bestClusters;
+
+            do
+            {
+                k++;
+                kmeans(k);
+                S = silhouette();
+
+                LOG(logINFO) << "Number of clusters : " << k << " and silhouette value : " << S;
+
+                if (S > maxS)
+                {
+                    maxS = S;
+                    bestNbClusters = k;
+                    bestClusters = m_clusters;
+                }
+            } while (maxS < silhouetteMin && k < nbClustersMax);
+
+            m_clusters = bestClusters;
+
+            LOG(logINFO) << "Best number of clusters : " << bestNbClusters << " and silhouette value : " << maxS;
+        }
         void MeshContactManager::setConstructM0()
         {     
             m_mainqueue.clear();
