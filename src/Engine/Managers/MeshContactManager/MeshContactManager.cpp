@@ -984,10 +984,10 @@ namespace Ra
                     m_clusters[closestCenterId].second.push_back(i);
                 }
 
-                for (uint i = 0; i < k; i++)
-                {
-                    LOG(logINFO) << "Center and number of faces of cluster " << i + 1 << " : " << m_clusters[i].first << " " << m_clusters[i].second.size();
-                }
+//                for (uint i = 0; i < k; i++)
+//                {
+//                    LOG(logINFO) << "Center and number of faces of cluster " << i + 1 << " : " << m_clusters[i].first << " " << m_clusters[i].second.size();
+//                }
 
                 // updating cluster centers
                 stableMeans = true;
@@ -1007,6 +1007,56 @@ namespace Ra
                     m_clusters[i].first = meanCluster;
                 }
             } while (!stableMeans);
+        }
+
+        Scalar MeshContactManager::silhouette()
+        {
+            Scalar S = 0;
+            int nbPtDistrib = m_distrib.size();
+            for (uint i = 0; i < m_clusters.size(); i++)
+            {
+                int nbPtDistribCluster = m_clusters[i].second.size();
+                for (uint j = 0; j < nbPtDistribCluster; j++)
+                {
+                    Scalar a = 0;
+                    for (uint k = 0; k < nbPtDistribCluster; k++)
+                    {
+                        if (k != j)
+                        {
+                            a += abs(m_distrib[m_clusters[i].second[j]].r - m_distrib[m_clusters[i].second[k]].r);
+                        }
+                    }
+                    a /= (nbPtDistribCluster - 1);
+
+                    Scalar b;
+                    int start;
+                    if (i == 0)
+                    {
+                        start = 1;
+                    }
+                    else
+                    {
+                        start = 0;
+                    }
+                    b = abs(m_distrib[m_clusters[i].second[j]].r - m_clusters[start].first);
+                    for (uint k = start; k < m_clusters.size(); k++)
+                    {
+                        if (k != i)
+                        {
+                            Scalar b_cluster = abs(m_distrib[m_clusters[i].second[j]].r - m_clusters[k].first);
+                            if (b_cluster < b)
+                            {
+                                b = b_cluster;
+                            }
+                        }
+                    }
+
+                    Scalar s = (b - a) / std::max(a,b);
+                    S += s;
+                }
+            }
+            S /= nbPtDistrib;
+            return S;
         }
         void MeshContactManager::setConstructM0()
         {     

@@ -81,6 +81,7 @@ namespace Ra
             void thresholdComputation();
 
             void kmeans(int k);
+            Scalar silhouette();
             void normalize();
 
             void constructPriorityQueues();
