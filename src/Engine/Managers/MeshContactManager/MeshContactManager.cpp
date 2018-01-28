@@ -1089,6 +1089,71 @@ namespace Ra
 
             LOG(logINFO) << "Best number of clusters : " << bestNbClusters << " and silhouette value : " << maxS;
         }
+
+        void MeshContactManager::colorClusters()
+        {
+            int nbClusters = m_clusters.size();
+
+            // ordering clusters by distance in order to color them
+            struct compareCenterClusterByDistance
+            {
+                inline bool operator() (const std::pair<int,Scalar> &c1, const std::pair<int,Scalar> &c2) const
+                {
+                    return c1.second <= c2.second;
+                }
+            };
+
+            typedef std::set<std::pair<int,Scalar>, compareCenterClusterByDistance> ClusterSorting;
+
+            ClusterSorting clusters;
+
+            for (uint i = 0; i < nbClusters; i++)
+            {
+                std::pair<int,Scalar> cluster;
+                cluster.first = i;
+                cluster.second = m_clusters[i].first;
+                clusters.insert(cluster);
+            }
+
+            Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                MeshContactElement* obj = m_meshContactElements[i];
+                int nbVertices = obj->getMesh()->getGeometry().m_vertices.size();
+                Ra::Core::Vector4Array colors;
+                for (uint v = 0; v < nbVertices; v++)
+                {
+                    colors.push_back(vertexColor);
+                }
+                obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+            }
+
+            Ra::Core::Vector4 clusterColor (0, 0, 1, 0);
+            ClusterSorting::iterator it = clusters.begin();
+            int k = 0;
+            while (it != clusters.end())
+            {
+                int clusterId = (*it).first;
+                Scalar coeffCluster = (nbClusters - k) / nbClusters;
+
+                int nbFacesCluster = m_clusters[clusterId].second.size();
+                for (uint i = 0; i < nbFacesCluster; i++)
+                {
+                    MeshContactElement* obj = m_meshContactElements[m_distrib[m_clusters[clusterId].second[i]].objId];
+                    Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getTriangleMeshDuplicate().m_triangles;
+                    Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
+
+                    colors[t[m_distrib[m_clusters[clusterId].second[i]].faceId][0]] = coeffCluster * clusterColor;
+                    colors[t[m_distrib[m_clusters[clusterId].second[i]].faceId][1]] = coeffCluster * clusterColor;
+                    colors[t[m_distrib[m_clusters[clusterId].second[i]].faceId][2]] = coeffCluster * clusterColor;
+                    obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+                }
+
+                std::advance(it, 1);
+                k++;
+            }
+        }
+
         void MeshContactManager::setConstructM0()
         {     
             m_mainqueue.clear();
