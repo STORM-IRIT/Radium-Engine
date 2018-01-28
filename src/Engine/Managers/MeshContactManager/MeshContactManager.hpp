@@ -56,6 +56,7 @@ namespace Ra
             void setLoadDistribution(std::string filePath);
             void setDisplayProximities();
             void setDisplayDistribution();
+            void setDisplayClusters();
             void setConstructM0();
             void setThresholdValueChanged(int value);
             int getThresholdMax();

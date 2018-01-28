@@ -1154,6 +1154,19 @@ namespace Ra
             }
         }
 
+        void MeshContactManager::setDisplayClusters()
+        {
+            // reloading initial mesh in case of successive simplifications
+            for (uint objIndex = 0; objIndex < m_meshContactElements.size(); objIndex++)
+            {
+                //m_meshContactElements[objIndex]->setMesh(m_initTriangleMeshes[objIndex]);
+                m_meshContactElements[objIndex]->setMesh(m_meshContactElements[objIndex]->getTriangleMeshDuplicate());
+            }
+
+            clustering(0.75,25);
+            colorClusters();
+        }
+
         void MeshContactManager::setConstructM0()
         {     
             m_mainqueue.clear();
