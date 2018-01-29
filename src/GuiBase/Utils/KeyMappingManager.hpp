@@ -33,18 +33,20 @@ namespace Ra
                     TRACKBALLCAMERA_MANIPULATION = 0,
                     TRACKBALLCAMERA_ROTATE_AROUND,
 
-                    VIEWER_TOGGLE_WIREFRAME,
-                    VIEWER_LEFT_BUTTON_PICKING_QUERY,
-                    VIEWER_RIGHT_BUTTON_PICKING_QUERY,
-                    VIEWER_RAYCAST_QUERY,
-
                     GIZMOMANAGER_MANIPULATION,
 
-                    COLORWIDGET_PRESSBUTTON,
-
+                    VIEWER_BUTTON_PICKING_QUERY,
                     FEATUREPICKING_VERTEX,
                     FEATUREPICKING_EDGE,
-                    FEATUREPICKING_TRIANGLE
+                    FEATUREPICKING_TRIANGLE,
+                    FEATUREPICKING_MULTI_CIRCLE,
+
+                    VIEWER_BUTTON_CAST_RAY_QUERY,
+                    VIEWER_RAYCAST_QUERY,
+
+                    VIEWER_TOGGLE_WIREFRAME,
+
+                    COLORWIDGET_PRESSBUTTON
                 };
 
                 // In order to have a String corresponding to each enum value

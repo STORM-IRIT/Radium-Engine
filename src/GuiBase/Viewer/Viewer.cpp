@@ -287,36 +287,34 @@ namespace Ra
         }
 
         auto keyMap = Gui::KeyMappingManager::getInstance();
-        if( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_LEFT_BUTTON_PICKING_QUERY ) )
+        if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_BUTTON_CAST_RAY_QUERY )
+             && isKeyPressed( keyMap->getKeyFromAction(Gui::KeyMappingManager::VIEWER_RAYCAST_QUERY ) ) )
         {
-            if ( isKeyPressed( keyMap->getKeyFromAction(Gui::KeyMappingManager::VIEWER_RAYCAST_QUERY ) ) )
+            LOG( logINFO ) << "Raycast query launched";
+            Core::Ray r = m_camera->getCamera()->getRayFromScreen(Core::Vector2(event->x(), event->y()));
+            RA_DISPLAY_POINT(r.origin(), Core::Colors::Cyan(), 0.1f);
+            RA_DISPLAY_RAY(r, Core::Colors::Yellow());
+            auto ents = Engine::RadiumEngine::getInstance()->getEntityManager()->getEntities();
+            for (auto e : ents)
             {
-                LOG( logINFO ) << "Raycast query launched";
-                Core::Ray r = m_camera->getCamera()->getRayFromScreen(Core::Vector2(event->x(), event->y()));
-                RA_DISPLAY_POINT(r.origin(), Core::Colors::Cyan(), 0.1f);
-                RA_DISPLAY_RAY(r, Core::Colors::Yellow());
-                auto ents = Engine::RadiumEngine::getInstance()->getEntityManager()->getEntities();
-                for (auto e : ents)
-                {
-                    e->rayCastQuery(r);
-                }
+                e->rayCastQuery(r);
             }
-            else
+        }
+        else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) )
+        {
+            m_currentRenderer->addPickingRequest({ Core::Vector2(event->x(), height() - event->y()),
+                                                   Core::MouseButton::RA_MOUSE_LEFT_BUTTON,
+                                                   Engine::Renderer::RO });
+            if (m_gizmoManager != nullptr)
             {
-                m_currentRenderer->addPickingRequest({ Core::Vector2(event->x(), height() - event->y()),
-                                                       Core::MouseButton::RA_MOUSE_LEFT_BUTTON,
-                                                       Engine::Renderer::RO });
-                if (m_gizmoManager != nullptr)
-                {
-                    m_gizmoManager->handleMousePressEvent(event);
-                }
+                m_gizmoManager->handleMousePressEvent(event);
             }
         }
         else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) )
         {
             m_camera->handleMousePressEvent(event);
         }
-        else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_RIGHT_BUTTON_PICKING_QUERY ) )
+        else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
         {
             // Check picking
             Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()),
@@ -391,11 +389,14 @@ namespace Ra
         keyReleased(event->key());
         m_camera->handleKeyReleaseEvent( event );
 
-        if ( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::VIEWER_TOGGLE_WIREFRAME ) && !event->isAutoRepeat())
+        auto keyMap = Gui::KeyMappingManager::getInstance();
+        if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_TOGGLE_WIREFRAME )
+             && !event->isAutoRepeat() )
         {
             m_currentRenderer->toggleWireframe();
         }
-        if (event->key() == Qt::Key_C && event->modifiers() == Qt::NoModifier)
+        if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::FEATUREPICKING_MULTI_CIRCLE )
+             && event->modifiers() == Qt::NoModifier && !event->isAutoRepeat() )
         {
             m_isBrushPickingEnabled = !m_isBrushPickingEnabled;
             m_currentRenderer->setBrushRadius( m_isBrushPickingEnabled ? m_brushRadius : 0 );
