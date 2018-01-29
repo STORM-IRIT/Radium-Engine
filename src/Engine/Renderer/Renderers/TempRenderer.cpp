@@ -55,10 +55,10 @@ namespace Ra
                 };
         }
 
-        TempRenderer::TempRenderer( uint width, uint height )
-                : Renderer(width, height)
+        TempRenderer::TempRenderer()
+                : Renderer()
         {
-
+            
         }
 
         TempRenderer::~TempRenderer()

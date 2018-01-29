@@ -29,7 +29,7 @@ namespace Ra
         class RA_ENGINE_API TempRenderer : public Renderer
         {
         public:
-            TempRenderer( uint width, uint height );
+            TempRenderer();
             virtual ~TempRenderer();
 
             virtual std::string getRendererName() const override { return "Temp Renderer"; }
