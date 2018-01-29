@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>254</width>
-    <height>317</height>
+    <width>270</width>
+    <height>343</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -396,6 +396,9 @@ border-image: url(:/Assets/Images/stop_on.png);
    <property name="toolTip">
     <string>Show / hide skeleton</string>
    </property>
+   <property name="shortcut">
+    <string>S</string>
+   </property>
   </action>
   <action name="actionPlay">
    <property name="checkable">
@@ -417,6 +420,9 @@ border-image: url(:/Assets/Images/stop_on.png);
    <property name="toolTip">
     <string>Play / Pause</string>
    </property>
+   <property name="shortcut">
+    <string>Space</string>
+   </property>
   </action>
   <action name="actionStop">
    <property name="icon">
@@ -431,6 +437,9 @@ border-image: url(:/Assets/Images/stop_on.png);
    </property>
    <property name="toolTip">
     <string>Reset</string>
+   </property>
+   <property name="shortcut">
+    <string>Backspace</string>
    </property>
   </action>
   <action name="actionStep">
@@ -449,9 +458,13 @@ border-image: url(:/Assets/Images/stop_on.png);
    <property name="toolTip">
     <string>Step</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Space</string>
+   </property>
   </action>
  </widget>
  <resources>
+  <include location="../../../../icons.qrc"/>
   <include location="../../../../icons.qrc"/>
  </resources>
  <connections/>
