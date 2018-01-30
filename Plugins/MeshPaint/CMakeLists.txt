@@ -1,4 +1,4 @@
-project(AnimationPlugin)
+project(MeshPaintPlugin)
 
 cmake_minimum_required(VERSION 2.8.11)
 if (APPLE)
@@ -25,7 +25,7 @@ if (MSVC OR MSVC_IDE)
         foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
             string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG)
             set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-            set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY})
+            set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
             set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
         endforeach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     endif()
@@ -54,14 +54,14 @@ include_directories(
     ${RADIUM_INCLUDE_DIRS}
     )
 
-add_library( Animation SHARED ${sources} ${headers} ${inlines} ${app_uis})
-message(INFO " Animation : dependencies are ${RADIUM_LIBRARIES}")
-add_dependencies( Animation ${RADIUM_LIBRARIES})
+add_library( MeshPaint SHARED ${sources} ${headers} ${inlines} ${app_uis})
+message(INFO " MeshPaint : dependencies are ${RADIUM_LIBRARIES}")
+add_dependencies( MeshPaint ${RADIUM_LIBRARIES})
 
-target_compile_definitions( Animation PRIVATE "-DAnimation_EXPORTS" )
+target_compile_definitions( MeshPaint PRIVATE "-DMeshPaint_EXPORTS" )
 
 set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})
-target_link_libraries( Animation
+target_link_libraries( MeshPaint
                        ${Qt5_LIBRARIES}
                        ${RADIUM_LIBRARIES}
                        ${GLBINDING_LIBRARIES}           # Radium dep
