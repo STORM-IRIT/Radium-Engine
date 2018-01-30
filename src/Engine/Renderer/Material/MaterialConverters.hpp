@@ -31,7 +31,29 @@ namespace Ra {
 
 namespace Ra {
   namespace Engine {
-    namespace MaterialConverterSystem {
+    ///////////////////////////////////////////////
+    ////        Radium Material converters      ///
+    ///////////////////////////////////////////////
+
+    class RA_ENGINE_API MaterialConverter
+    {
+    public:
+        MaterialConverter() = default;
+        ~MaterialConverter() = default;
+
+        Material *operator()(const Ra::Asset::MaterialData *toconvert);
+    };
+
+    class RA_ENGINE_API BlinnPhongMaterialConverter
+    {
+    public:
+        BlinnPhongMaterialConverter() = default;
+        ~BlinnPhongMaterialConverter() = default;
+
+        Material *operator()(const Ra::Asset::MaterialData *toconvert);
+    };
+
+    namespace EngineMaterialConverters {
 
       using AssetMaterialPtr = const Ra::Asset::MaterialData *;
       using RadiumMaterialPtr = Ra::Engine::Material *;
@@ -54,27 +76,7 @@ namespace Ra {
       std::pair<bool, ConverterFunction> getMaterialConverter(const std::string &name);
 
 
-///////////////////////////////////////////////
-////        Radium defined converters       ///
-///////////////////////////////////////////////
 
-      class RA_ENGINE_API MaterialConverter
-      {
-      public:
-          MaterialConverter() = default;
-          ~MaterialConverter() = default;
-
-          Material *operator()(const Ra::Asset::MaterialData *toconvert);
-      };
-
-      class RA_ENGINE_API BlinnPhongMaterialConverter
-      {
-      public:
-          BlinnPhongMaterialConverter() = default;
-          ~BlinnPhongMaterialConverter() = default;
-
-          Material *operator()(const Ra::Asset::MaterialData *toconvert);
-      };
     }
   }
 }

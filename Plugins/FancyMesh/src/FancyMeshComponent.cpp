@@ -150,7 +150,7 @@ namespace FancyMeshPlugin
         const Ra::Asset::MaterialData& loadedMaterial = data->getMaterial();
         
         // First extract the material from asset
-        auto converter = Ra::Engine::MaterialConverterSystem::getMaterialConverter(loadedMaterial.getType());
+        auto converter = Ra::Engine::EngineMaterialConverters::getMaterialConverter(loadedMaterial.getType());
         auto convertedMaterial = converter.second(&loadedMaterial);
         
         // Second, associate the material to the render technique

@@ -118,8 +118,8 @@ namespace SkinningPlugin {
                 nm->m_ks = Ra::Core::Vector4::Zero();
                 nm->m_ns = 100;
                 technique->resetMaterial( nm );
-                
-                technique->setShader( Ra::Engine::ShaderConfigurationFactory::getConfiguration("Plain") );
+
+                technique->setConfiguration(Ra::Engine::ShaderConfigurationFactory::getConfiguration("Plain"));
                 
                 
                 std::string name = m_name + "_Partition";

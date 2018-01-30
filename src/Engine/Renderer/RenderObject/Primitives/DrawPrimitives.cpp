@@ -29,7 +29,7 @@ namespace Ra {
                 }
                 
                 std::shared_ptr<RenderTechnique> rt(new RenderTechnique);
-                rt->setShader(config);
+                rt->setConfiguration(config);
                 rt->resetMaterial(new BlinnPhongMaterial("Default material"));
                 
                 RenderObject *ro = new RenderObject(mesh->getName(), component,
