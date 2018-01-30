@@ -16,10 +16,10 @@ namespace Ra {
 
 
 /// A material converter is a couple <std::string, std::function<Ra::Engine::Material*(Ra::Asset::MaterialData*)>
-/// The string gives the mname of the material, the function is watever is compatible wit std::function :
+/// The string gives the mname of the material, the function is whatever is compatible with std::function :
 ///     - a lambda
 ///     - a functor
-///     - a function with bind parameteres ....
+///     - a function with bind parameters ....
 /// The function is in charge of converting a concrete Ra::Asset::MaterialData* to a concrete Ra::Engine::Material*
 /// according to the type of material described by the string ...
 /**
