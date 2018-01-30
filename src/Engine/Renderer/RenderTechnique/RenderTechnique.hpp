@@ -90,13 +90,18 @@ namespace Ra {
             RenderTechnique(const RenderTechnique &);
             ~RenderTechnique();
             
-            RA_ENGINE_API void setShader(const ShaderConfiguration &newConfig, PassName pass = LIGHTING_OPAQUE);
-            RA_ENGINE_API const ShaderProgram *getShader(PassName pass = LIGHTING_OPAQUE) const;
+            RA_ENGINE_API void setConfiguration(const ShaderConfiguration &newConfig, PassName pass = LIGHTING_OPAQUE);
+            // TODO : do we need all the config or only the basic part ?
             RA_ENGINE_API ShaderConfiguration getConfiguration(PassName pass = LIGHTING_OPAQUE) const;
-            
-            RA_ENGINE_API const std::shared_ptr<Material> &getMaterial() const;
-            RA_ENGINE_API void resetMaterial(Material *mat);
+
+            RA_ENGINE_API const ShaderProgram *getShader(PassName pass = LIGHTING_OPAQUE) const;
+
+
             RA_ENGINE_API void setMaterial(const std::shared_ptr<Material> &material);
+            RA_ENGINE_API const std::shared_ptr<Material> &getMaterial() const;
+
+            RA_ENGINE_API void resetMaterial(Material *mat);
+
             RA_ENGINE_API void updateGL();
             RA_ENGINE_API bool shaderIsDirty(PassName pass = LIGHTING_OPAQUE) const;
             

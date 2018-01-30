@@ -402,7 +402,7 @@ namespace Ra
             const auto& ro = mainApp->m_engine->getRenderObjectManager()->getRenderObject(ro_index);
             if (ro->getRenderTechnique()->getConfiguration().m_name != name)
             {
-                ro->getRenderTechnique()->setShader(config);
+                ro->getRenderTechnique()->setConfiguration(config);
             }
         }
     }

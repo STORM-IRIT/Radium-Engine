@@ -47,7 +47,7 @@ namespace Ra {
             
         }
         
-        void RenderTechnique::setShader(const ShaderConfiguration &newConfig, PassName pass)
+        void RenderTechnique::setConfiguration(const ShaderConfiguration &newConfig, PassName pass)
         {
             shaderConfig[pass] = newConfig;
             dirtyBits |= pass;
@@ -114,7 +114,7 @@ namespace Ra {
             Ra::Engine::RenderTechnique *rt = new Ra::Engine::RenderTechnique;
             
             auto config = ShaderConfigurationFactory::getConfiguration("BlinnPhong");
-            rt->setShader(config, LIGHTING_OPAQUE);
+            rt->setConfiguration(config, LIGHTING_OPAQUE);
             std::shared_ptr<Material> mat(new BlinnPhongMaterial("DefaultGray"));
             rt->setMaterial(mat);
             RadiumDefaultRenderTechnique.reset(rt);
