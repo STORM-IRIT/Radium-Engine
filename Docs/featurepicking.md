@@ -24,4 +24,11 @@ The `SelectionManager`'s `currentChanged` signal is connected to the slot `onCur
 When this slot is triggered, the `MeshFeatureTracking` Plugin accesses the picking data through the `PickingManager` and updates both its information widget with the new picking data and the tracking sphere.
 The `MeshFeatureTracking` plugin also keeps its information widget updated at the end of each frame.
 
-The `MeshFeatureTracking` plugin only manage simple feature selection. For an example on how to deal with multiple selection, please see the `MeshPaint` Plugin (TODO).
+The `MeshFeatureTracking` plugin only manage simple feature selection. For an example on how to deal with multiple selection, please see the `MeshPaint` Plugin.
+
+## MeshPaint Plugin
+
+The `MeshPaint` Plugin is an example of how to use mesh feature multiselection.
+Here again, the `SelectionManager`'s `currentChanged` signal is connected to the slot `onCurrentChanged`.
+
+When this slot is triggered, and if the painting is enabled, the `MeshPaint` Plugin directly changes the render color of the vertices corresponding to the current picking data.
