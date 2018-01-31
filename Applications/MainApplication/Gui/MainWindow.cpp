@@ -177,7 +177,9 @@ namespace Ra
         {
             QString exts;
             for (const auto& e : loader->getFileExtensions())
+            {
                 exts.append( QString::fromStdString(e) + tr(" ") );
+            }
             allexts.append( exts + tr(" ") );
             filter.append( QString::fromStdString(loader->name()) +
                            tr(" (") +
