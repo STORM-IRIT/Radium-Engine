@@ -435,13 +435,21 @@ namespace Ra {
             GL_ASSERT( glReadBuffer( GL_COLOR_ATTACHMENT0 ) );
 
             int pick[4];
-            for ( const auto& query : m_pickingQueries )
+            for ( const PickingQuery& query : m_pickingQueries )
             {
                 PickingResult result;
                 // fill picking result according to picking mode
                 if (query.m_mode < C_VERTEX)
                 {
-                GL_ASSERT( glReadPixels( query.m_screenCoords.x(), query.m_screenCoords.y(),
+                    // skip query if out of window (can occur when picking while moving outside)
+                    if ( query.m_screenCoords.x() < 0 || query.m_screenCoords.x() > m_width-1 ||
+                         query.m_screenCoords.y() < 0 || query.m_screenCoords.y() > m_height-1 )
+                    {
+                        result.m_roIdx = -1;
+                        m_pickingResults.push_back( result );
+                        continue;
+                    }
+                    GL_ASSERT( glReadPixels( query.m_screenCoords.x(), query.m_screenCoords.y(),
                                              1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
                     result.m_roIdx = pick[0];                   // RO idx
                     result.m_vertexIdx.emplace_back( pick[1] ); // vertex idx in the element
@@ -458,8 +466,14 @@ namespace Ra {
                         int h = std::round( std::sqrt( m_brushRadius*m_brushRadius - i*i ) );
                         for(int j=-h; j<=+h; j+=3)
                         {
-                            GL_ASSERT( glReadPixels(query.m_screenCoords.x()+i, query.m_screenCoords.y()-j,
-                                                    1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
+                            const int x = query.m_screenCoords.x()+i;
+                            const int y = query.m_screenCoords.y()-j;
+                            // skip query if out of window (can occur when picking while moving outside)
+                            if ( x < 0 || x > m_width-1 || y < 0 || y > m_height-1 )
+                            {
+                                continue;
+                            }
+                            GL_ASSERT( glReadPixels( x, y, 1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
                             resultPerRO[ pick[0] ].m_roIdx = pick[0];
                             resultPerRO[ pick[0] ].m_vertexIdx.emplace_back( pick[1] );
                             resultPerRO[ pick[0] ].m_elementIdx.emplace_back( pick[2] );
@@ -519,7 +533,6 @@ namespace Ra {
             // draw brush circle if enabled
             if( m_brushRadius>0 )
             {
-                GL_ASSERT( glDrawBuffers( 1, buffers) );
                 GL_ASSERT( glDisable( GL_BLEND ) );
                 GL_ASSERT( glDisable( GL_DEPTH_TEST ) );
                 auto shader = m_shaderMgr->getShaderProgram("CircleBrush");
@@ -653,7 +666,7 @@ namespace Ra {
             {
                 for (uint i = 0; i < tex->width(); ++i)
                 {
-                    uint in = 4 * (j * tex->width() + i);                       // Index in the texture buffer
+                    uint in = 4 * (j * tex->width() + i);  // Index in the texture buffer
                     uint ou = 4 * ((tex->height() - 1 - j) * tex->width() + i); // Index in the final image (note the j flipping).
 
                     writtenPixels[ou + 0] = (uchar)Ra::Core::Math::clamp<Scalar>(pixels[in + 0] * 255.f, 0, 255);
