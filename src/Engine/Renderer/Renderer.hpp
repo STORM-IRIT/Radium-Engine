@@ -91,11 +91,13 @@ namespace Ra
 
             struct PickingResult
             {
-                PickingMode m_mode;             // Picking mode of the query
-                int m_roIdx;                    // Idx of the picked RO
-                std::vector<int> m_vertexIdx;   // Idx of the picked vertex in the element, i.e. point's idx OR idx in line or triangle
-                std::vector<int> m_elementIdx;  // Idx of the element, i.e. triangle for mesh, edge for lines and -1 for points
-                std::vector<int> m_edgeIdx;     // Idx of the opposite vertex in the triangle if mesh
+                PickingMode m_mode;            // Picking mode of the query
+                int m_roIdx;                   // Idx of the picked RO
+                std::vector<int> m_vertexIdx;  // Idx of the picked vertex in the element, i.e. point's idx OR idx in line or triangle
+                std::vector<int> m_elementIdx; // Idx of the element, i.e. triangle for mesh, edge for lines and -1 for points
+                std::vector<int> m_edgeIdx;    // Idx of the opposite vertex in the triangle if mesh
+                // Note: There is exactly one triplet for each querried pixel (thus there can be doublons coming from pixels).
+                // Note: Beware that the same mesh vertex would also be picked for each of its adjacent triangles.
             };
 
         public:
