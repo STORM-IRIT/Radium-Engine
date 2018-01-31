@@ -165,18 +165,26 @@ namespace Ra
 
         QString filter;
 
+        QString allexts;
         for ( const auto& loader : mainApp->m_engine->getFileLoaders() )
         {
             QString exts;
             for (const auto& e : loader->getFileExtensions())
-                exts.append(QString::fromStdString(e) + tr(" "));
+            {
+                exts.append( QString::fromStdString(e) + tr(" ") );
+            }
+            allexts.append( exts + tr(" ") );
             filter.append( QString::fromStdString(loader->name()) +
                            tr(" (") +
                            exts +
-                           tr(");;"));
+                           tr(");;") );
         }
+        // add a filter concetenatting all the supported extensions
+        filter.prepend( tr("Supported files (") + allexts + tr(");;") );
+
         // remove the last ";;" of the string
         filter.remove(filter.size()-2, 2);
+
 
         QSettings settings;
         QString path = settings.value("files/load", QDir::homePath()).toString();
