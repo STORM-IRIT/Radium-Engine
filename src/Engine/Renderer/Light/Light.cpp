@@ -5,10 +5,10 @@
 namespace Ra
 {
 
-    Engine::Light::Light( const LightType& type )
-        : m_color( 1.0, 1.0, 1.0, 1.0 )
+    Engine::Light::Light( const LightType& type, const std::string& name )
+        : Component( name )
+        , m_color( 1.0, 1.0, 1.0, 1.0 )
         , m_type( type )
-
     {
     }
 
@@ -20,6 +20,11 @@ namespace Ra
     {
         params.addParameter( "light.color", m_color );
         params.addParameter( "light.type", m_type );
+    }
+
+    void Engine::Light::initialize()
+    {
+        // Nothing to do.
     }
 
 }
