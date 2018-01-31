@@ -342,6 +342,14 @@ namespace Ra
                 m_gizmoManager->handleMouseMoveEvent(event);
             if (m_isBrushPickingEnabled)
                 m_currentRenderer->setMousePosition(Ra::Core::Vector2(event->x(), event->y()));
+            if ( event->buttons() & Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
+            {
+                // Check picking
+                Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), (height() - event->y())),
+                                                          Core::MouseButton::RA_MOUSE_RIGHT_BUTTON,
+                                                          getPickingMode() };
+                m_currentRenderer->addPickingRequest(query);
+            }
         }
         else
             event->ignore();
