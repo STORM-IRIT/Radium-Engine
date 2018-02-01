@@ -15,8 +15,8 @@ namespace Ra
         UiComponent* SystemEntity::uiCmp()
         {
             SystemEntity *instance=getInstance();
-            CORE_ASSERT(instance->getNumComponents() == 2,
-                        "This entity should have two components only");
+            CORE_ASSERT(instance->getNumComponents() == 2 || instance->getNumComponents() == 3,
+                        "This entity should have only two or three components");
             CORE_ASSERT(instance->getTransformAsMatrix() ==
                         Core::Matrix4::Identity(), "Transform has been changed !");
             return static_cast<UiComponent*>(instance->getComponent("UI"));
