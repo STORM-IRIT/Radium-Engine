@@ -1,11 +1,6 @@
 #include <GuiBase/Utils/PickingManager.hpp>
-#include <Engine/Entity/Entity.hpp>
-#include <Core/Containers/MakeShared.hpp>
 
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/RenderTechnique/Material.hpp>
+#include <Core/Mesh/MeshTypes.hpp>
 
 namespace Ra
 {

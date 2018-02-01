@@ -5,7 +5,6 @@
 
 #include <atomic>
 #include <memory>
-#include <Engine/RadiumEngine.hpp>
 
 #include <QWindow>
 
@@ -13,6 +12,9 @@
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+
+#include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/Renderer.hpp>
 
 // Forward declarations
 class QOpenGLContext;
@@ -24,14 +26,6 @@ namespace Ra
     {
         struct KeyEvent;
         struct MouseEvent;
-    }
-}
-
-namespace Ra
-{
-    namespace Engine
-    {
-        class Renderer;
     }
 }
 
