@@ -660,7 +660,9 @@ namespace Ra
 
     void Gui::Viewer::resetCamera()
     {
+        auto light = m_camera->getLight();
         m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
+        m_camera->attachLight( light );
     }
 
 } // namespace Ra

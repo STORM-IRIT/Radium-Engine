@@ -38,11 +38,9 @@ namespace MeshFeatureTrackingPlugin
         context.m_engine->getSignalManager()->m_frameEndCallbacks.push_back(
                 std::bind(&MeshFeatureTrackingPluginC::update, this)
         );
-        // create sphere entity
-        auto entity = context.m_engine->getEntityManager()->createEntity( "FeatureTrackingEntity" );
+        // create sphere component
         m_component = new MeshFeatureTrackingComponent( "TrackingSphere" );
-        entity->addComponent( m_component );
-        entity->idx = Ra::Engine::SystemEntity::getInstance()->idx; // hack to avoid selection through tree view
+        Ra::Engine::SystemEntity::getInstance()->addComponent( m_component );
         m_component->initialize();
         // register selection context
         m_selectionManager = context.m_selectionManager;
