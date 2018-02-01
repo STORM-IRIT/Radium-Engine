@@ -339,9 +339,10 @@ namespace Ra
         {
             m_camera->handleMouseMoveEvent( event );
             if (m_gizmoManager != nullptr)
+            {
                 m_gizmoManager->handleMouseMoveEvent(event);
-            if (m_isBrushPickingEnabled)
-                m_currentRenderer->setMousePosition(Ra::Core::Vector2(event->x(), event->y()));
+            }
+            m_currentRenderer->setMousePosition(Ra::Core::Vector2(event->x(), event->y()));
             if ( event->buttons() & Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
             {
                 // Check picking
