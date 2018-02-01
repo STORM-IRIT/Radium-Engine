@@ -1,12 +1,8 @@
-#ifndef RADIUMENGINE_VERTEXPICKING_HPP
-#define RADIUMENGINE_VERTEXPICKING_HPP
+#ifndef RADIUMENGINE_PICKINGMANAGER_HPP
+#define RADIUMENGINE_PICKINGMANAGER_HPP
 
 #include <GuiBase/RaGuiBase.hpp>
 
-#include <Engine/RaEngine.hpp>
-#include <Engine/RadiumEngine.hpp>
-#include <Core/Mesh/MeshPrimitives.hpp>
-#include <Engine/Component/Component.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 
 #include <QObject>
@@ -34,4 +30,4 @@ namespace Ra
     } // namespace Gui
 } // namespace Ra
 
-#endif // RADIUMENGINE_VERTEXPICKING_HPP
+#endif // RADIUMENGINE_PICKINGMANAGER_HPP

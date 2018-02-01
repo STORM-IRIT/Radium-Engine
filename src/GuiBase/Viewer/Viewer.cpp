@@ -35,9 +35,9 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
-#include <GuiBase/Utils/PickingManager.hpp>
 #include <GuiBase/Utils/Keyboard.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
+#include <GuiBase/Utils/PickingManager.hpp>
 
 #include <GuiBase/Viewer/TrackballCamera.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
@@ -287,8 +287,8 @@ namespace Ra
         }
 
         auto keyMap = Gui::KeyMappingManager::getInstance();
-        if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_BUTTON_CAST_RAY_QUERY )
-             && isKeyPressed( keyMap->getKeyFromAction(Gui::KeyMappingManager::VIEWER_RAYCAST_QUERY ) ) )
+        if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_BUTTON_CAST_RAY_QUERY ) &&
+             isKeyPressed( keyMap->getKeyFromAction(Gui::KeyMappingManager::VIEWER_RAYCAST_QUERY ) ) )
         {
             LOG( logINFO ) << "Raycast query launched";
             Core::Ray r = m_camera->getCamera()->getRayFromScreen(Core::Vector2(event->x(), event->y()));

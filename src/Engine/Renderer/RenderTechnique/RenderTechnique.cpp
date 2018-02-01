@@ -97,7 +97,7 @@ namespace Ra {
         
         ShaderConfiguration RenderTechnique::getConfiguration(PassName pass) const
         {
-            return shaders.at(pass)->getBasicConfiguration();
+            return shaderConfig.at( pass );
         }
         
         // creates a Radium default rendertechnique :
