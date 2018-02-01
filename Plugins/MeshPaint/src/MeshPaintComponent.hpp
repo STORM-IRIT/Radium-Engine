@@ -39,7 +39,9 @@ protected:
     std::string m_dataId;
 
     // Initial RO shader config when not painting
-    Ra::Engine::ShaderConfiguration m_config;
+    Ra::Engine::ShaderConfiguration m_baseConfig;
+    Ra::Core::Vector4Array m_baseColors;
+    Ra::Core::Vector4Array m_paintColors;
 };
 
 } // namespace MESHPAINTPLUGIN_MESHPAINTCOMPONENT_HPP

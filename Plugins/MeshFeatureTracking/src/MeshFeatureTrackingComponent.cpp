@@ -1,19 +1,15 @@
 #include <MeshFeatureTrackingComponent.hpp>
 
-#include <queue>
-#include <iostream>
-
 #include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Mesh/MeshPrimitives.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
-
-#include <queue>
-#include <iostream>
 
 using Ra::Engine::ComponentMessenger;
 

@@ -11,6 +11,7 @@
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
@@ -339,7 +340,7 @@ namespace Ra {
                         pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
                         pickingShaders[i]->setUniform( "transform.model", M );
 
-                        ro->getRenderTechnique()->material->bind( pickingShaders[i] );
+                        ro->getRenderTechnique()->getMaterial()->bind( pickingShaders[i] );
 
                         // render
                         ro->getMesh()->render();
@@ -423,7 +424,7 @@ namespace Ra {
                         m_pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
                         m_pickingShaders[i]->setUniform( "transform.model", M );
 
-                        ro->getRenderTechnique()->material->bind( m_pickingShaders[i] );
+                        ro->getRenderTechnique()->getMaterial()->bind( m_pickingShaders[i] );
 
                         // render
                         ro->getMesh()->render();

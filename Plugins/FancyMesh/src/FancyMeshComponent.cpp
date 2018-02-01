@@ -16,6 +16,7 @@
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
+#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -147,23 +148,35 @@ namespace FancyMeshPlugin
         Ra::Engine::RenderTechnique rt;
 
         bool isTransparent { false };
-        const Ra::Asset::MaterialData& loadedMaterial = data->getMaterial();
-
-        // First extract the material from asset
-        auto converter = Ra::Engine::EngineMaterialConverters::getMaterialConverter(loadedMaterial.getType());
-        auto convertedMaterial = converter.second(&loadedMaterial);
-
-        // Second, associate the material to the render technique
-        std::shared_ptr<Ra::Engine::Material> radiumMaterial(convertedMaterial);
-        if ( radiumMaterial != nullptr )
+        if ( data->hasMaterial() )
         {
-            isTransparent = radiumMaterial->isTransparent();
-        }
-        rt.setMaterial(radiumMaterial);
+            const Ra::Asset::MaterialData& loadedMaterial = data->getMaterial();
 
-        // Third, define the technique for rendering this material (here, using the default)
-        auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique(loadedMaterial.getType());
-        builder.second(rt, isTransparent);
+            // First extract the material from asset
+            auto converter = Ra::Engine::EngineMaterialConverters::getMaterialConverter(loadedMaterial.getType());
+            auto convertedMaterial = converter.second(&loadedMaterial);
+
+            // Second, associate the material to the render technique
+            std::shared_ptr<Ra::Engine::Material> radiumMaterial(convertedMaterial);
+            if ( radiumMaterial != nullptr )
+            {
+                isTransparent = radiumMaterial->isTransparent();
+            }
+            rt.setMaterial(radiumMaterial);
+
+            // Third, define the technique for rendering this material (here, using the default)
+            auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique(loadedMaterial.getType());
+            builder.second(rt, isTransparent);
+        }
+        else
+        {
+            auto mat = Ra::Core::make_shared<Ra::Engine::BlinnPhongMaterial>(data->getName() + "_DefaulBPMaterial");
+            mat->m_kd = Ra::Core::Colors::Grey();
+            mat->m_ks = Ra::Core::Colors::White();
+            rt.setMaterial( mat );
+            auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique("BlinnPhong");
+            builder.second(rt, isTransparent);
+        }
         
         auto ro = Ra::Engine::RenderObject::createRenderObject( roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, rt );
         ro->setTransparent( isTransparent );

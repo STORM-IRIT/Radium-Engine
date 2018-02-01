@@ -10,7 +10,7 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/Renderer/RenderTechnique/Material.hpp>
+#include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
@@ -46,10 +46,10 @@ void MeshPaintComponent::initialize()
     m_renderObjectReader = compMess->getterCallback< Ra::Core::Index >( getEntity(), m_dataId );
 
     auto ro = getRoMgr()->getRenderObject( *m_renderObjectReader() );
-    m_config = ro->getRenderTechnique()->shaderConfig;
-    ro->getMesh()->addData( Ra::Engine::Mesh::VERTEX_COLOR,
-                            Ra::Core::Vector4Array( ro->getMesh()->getGeometry().m_vertices.size(),
-                                                    Ra::Core::Colors::Skin()) );
+    m_baseConfig = ro->getRenderTechnique()->getConfiguration();
+    m_baseColors = ro->getMesh()->getData( Ra::Engine::Mesh::VERTEX_COLOR );
+    m_paintColors.resize( ro->getMesh()->getGeometry().m_vertices.size(), Ra::Core::Colors::Skin() );
+    ro->getMesh()->addData( Ra::Engine::Mesh::VERTEX_COLOR, m_paintColors );
 }
 
 void MeshPaintComponent::startPaint( bool on )
@@ -57,11 +57,13 @@ void MeshPaintComponent::startPaint( bool on )
     auto ro = getRoMgr()->getRenderObject( *m_renderObjectReader() );
     if (on)
     {
-        ro->getRenderTechnique()->changeShader( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
+        ro->getRenderTechnique()->setConfiguration( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
+        ro->getMesh()->addData( Ra::Engine::Mesh::VERTEX_COLOR, m_paintColors );
     }
     else
     {
-        ro->getRenderTechnique()->changeShader( m_config );
+        ro->getRenderTechnique()->setConfiguration( m_baseConfig );
+        ro->getMesh()->addData( Ra::Engine::Mesh::VERTEX_COLOR, m_baseColors );
     }
 }
 
