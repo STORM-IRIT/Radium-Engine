@@ -23,7 +23,7 @@ namespace Core {
 class [[deprecated]] RA_CORE_API Dcel : public IndexedObject {
 public:
     /// CONSTRUCTOR
-    Dcel( const Index& index = Index::INVALID_IDX() ); // Build an empty DCEL with index equal to "index"
+    Dcel( const Index& index = Index::Invalid() ); // Build an empty DCEL with index equal to "index"
     Dcel( const Dcel& dcel );                          // Copy constructor
 
     /// DESTRUCTOR

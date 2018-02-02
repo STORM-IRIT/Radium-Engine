@@ -3,60 +3,50 @@ namespace Ra
     namespace Core
     {
         /// CONSTRUCTOR
-        inline Index::Index( const int i )
-        {
-            m_idx = ( i < 0 ) ? s_invalid : i;
-        }
-        
-        inline Index::Index( const Index& i )
-        {
-            m_idx = i.m_idx;
-        }
+        constexpr Index::Index( const int i )
+            : m_idx ( ( i < 0 ) ? s_invalid : i ) { }
 
-        /// COPY
-        inline void Index::copy( const Index& id )
-        {
-            m_idx = id.m_idx;
-        }
+        constexpr Index::Index( const Index& i )
+            : m_idx ( i.m_idx ) { }
 
         /// VALID
-        inline bool  Index::isValid() const
+        constexpr bool  Index::isValid() const
         {
             return ( m_idx != s_invalid );
         }
 
         /// INVALID
-        inline bool  Index::isInvalid() const
+        constexpr bool  Index::isInvalid() const
         {
             return ( m_idx == s_invalid );
         }
-        inline void  Index::setInvalid()
+        constexpr void  Index::setInvalid()
         {
             m_idx = s_invalid;
         }
 
         /// INDEX
-        inline int  Index::getValue() const
+        constexpr int  Index::getValue() const
         {
             return m_idx;
         }
-        inline void Index::setValue( const int i )
+        constexpr void Index::setValue( const int i )
         {
             m_idx = ( i < 0 ) ? s_invalid : i;
         }
 
         /// OPERATOR
-        inline Index& Index::operator= ( const Index& id )
+        constexpr Index& Index::operator= ( const Index& id )
         {
             m_idx = id.m_idx;
             return *this;
         }
-        inline Index& Index::operator++()
+        constexpr Index& Index::operator++()
         {
             m_idx++;
             return *this;
         }
-        inline Index& Index::operator--()
+        constexpr Index& Index::operator--()
         {
             if ( m_idx != s_invalid )
             {

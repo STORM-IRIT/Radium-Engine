@@ -27,10 +27,10 @@ namespace Ra
         {
         public:
             /// CONSTRUCTOR
-            Face( const Index& index = Index::INVALID_IDX() );       // Build a Face with the given index
+            Face( const Index& index = Index::Invalid() );       // Build a Face with the given index
             Face( const HalfEdge_ptr& he,
                   const Index&        index =
-                      Index::INVALID_IDX() ); // Build a Face with the given index and having he as its first halfedge
+                      Index::Invalid() ); // Build a Face with the given index and having he as its first halfedge
             Face( const Face& f ) = default;                         // Copy constructor
 
             /// DESTRUCTOR

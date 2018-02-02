@@ -31,21 +31,21 @@ namespace Ra
         void HalfEdgeData::checkConsistency() const
         {
 #if defined CORE_DEBUG
-            for ( HalfEdgeIdx i = 0; i < m_halfEdgeList.size(); ++i )
+            for ( HalfEdgeIdx i = 0; size_t(i) < m_halfEdgeList.size(); ++i )
             {
                 const HalfEdge& he = m_halfEdgeList[i];
 
                 // Check that each half edge has an opposite half.
-                CORE_ASSERT( he.m_pair != InvalidIdx, "Half edge has no pair." );
+                CORE_ASSERT( he.m_pair.isValid(), "Half edge has no pair." );
                 const HalfEdge& pair = m_halfEdgeList[he.m_pair];
                 CORE_ASSERT( pair.m_pair == i, "Edge pair is inconsistent" );
 
                 // Check that the outer half-edges are not in any link.
-                if ( he.m_leftTriIdx == InvalidIdx )
+                if ( he.m_leftTriIdx.isInvalid() )
                 {
-                    CORE_ASSERT( he.m_next == InvalidIdx, "Boundary half edge should be isolated" );
-                    CORE_ASSERT( he.m_prev == InvalidIdx, "Boundary half edge should be isolated" );
-                    CORE_ASSERT( pair.m_leftTriIdx != InvalidIdx, "Isolated edge " );
+                    CORE_ASSERT( he.m_next.isInvalid(), "Boundary half edge should be isolated" );
+                    CORE_ASSERT( he.m_prev.isInvalid(), "Boundary half edge should be isolated" );
+                    CORE_ASSERT( pair.m_leftTriIdx.isValid(), "Isolated edge " );
                 }
                 else
                 {
@@ -90,18 +90,18 @@ namespace Ra
         void HalfEdgeData::build( const TriangleMesh& mesh )
         {
             m_vertexToHalfEdge.resize( mesh.m_vertices.size() );
-            m_triangleToHalfEdge.resize( mesh.m_triangles.size(), InvalidIdx );
+            m_triangleToHalfEdge.resize( mesh.m_triangles.size(), HalfEdgeIdx::Invalid() );
 
             std::map<EdgeKey, HalfEdgeIdx> edgeToHalfEdges;
 
             // For all triangles.
-            for ( TriangleIdx t = 0; t < mesh.m_triangles.size(); ++t )
+            for ( TriangleIdx t = 0; size_t(t) < mesh.m_triangles.size(); ++t )
             {
                 const Triangle& tri = mesh.m_triangles[t];
 
-                // This arrays contains the indices of all three half edges of the current triangle
-                // in halfEdgeList.
-                uint triangleHalfEdges[3] = {InvalidIdx, InvalidIdx, InvalidIdx};
+                // This arrays contains the indices of all three half edges of
+                // the current triangle in halfEdgeList.
+                Index triangleHalfEdges[3];
 
                 // for all edges in triangle.
                 for ( uint i = 0; i < 3; ++i )
@@ -120,19 +120,12 @@ namespace Ra
                         HalfEdge he1; // Half edge from vStart to vEnd (belonging to this triangle)
                         HalfEdge he2; // Half edge from vEnd to VStart (belonging to a triangle not yet visited)
 
-                        // Setup data on half edges
-                        he1.m_prev = InvalidIdx;
-                        he1.m_next = InvalidIdx;
-                        he2.m_prev = InvalidIdx;
-                        he2.m_next = InvalidIdx;
-
                         he1.m_endVertexIdx = vEnd;
                         he2.m_endVertexIdx = vStart;
 
                         // he1 is the half edge belonging to this triangle.
+                        // he2's triangle will be set when its triangle is visited (invalid)
                         he1.m_leftTriIdx = t;
-                        // he2's triangle will be set when its triangle is visited.
-                        he2.m_leftTriIdx = InvalidIdx;
 
                         uint baseIdx = m_halfEdgeList.size();
                         he1.m_pair = baseIdx + 1;
@@ -154,9 +147,9 @@ namespace Ra
                         uint firstHeIdx = edgeFound->second;
 
                         // Check triangle index consistency
-                        CORE_ASSERT( m_halfEdgeList[firstHeIdx].m_leftTriIdx != InvalidIdx,
+                        CORE_ASSERT( m_halfEdgeList[firstHeIdx].m_leftTriIdx.isValid(),
                                      "First part of the half edge was not visited" );
-                        CORE_ASSERT( m_halfEdgeList[firstHeIdx + 1].m_leftTriIdx == InvalidIdx,
+                        CORE_ASSERT( m_halfEdgeList[firstHeIdx + 1].m_leftTriIdx.isInvalid(),
                                      "Second part of the half edge already visited (3 or more triangle share an edge?)" );
 
                         m_halfEdgeList[firstHeIdx + 1].m_leftTriIdx = t;
@@ -164,9 +157,9 @@ namespace Ra
                     }
                 }
                 // Now all our half edges must be consistent.
-                CORE_ASSERT( ( triangleHalfEdges[0] != InvalidIdx )
-                             && ( triangleHalfEdges[1] != InvalidIdx )
-                             && ( triangleHalfEdges[2] != InvalidIdx ), "Triangle half edges are missing !" );
+                CORE_ASSERT( ( triangleHalfEdges[0].isValid() )
+                             && ( triangleHalfEdges[1].isValid() )
+                             && ( triangleHalfEdges[2].isValid() ), "Triangle half edges are missing !" );
 
                 m_triangleToHalfEdge[t] = triangleHalfEdges[0];
                 // We can finally fixup the looping path on the half edges.
@@ -188,7 +181,7 @@ namespace Ra
             for ( HalfEdgeIdx idx : heData.getVertexHalfEdges( vertex ) )
             {
                 const TriangleIdx t = heData[idx].m_leftTriIdx;
-                if ( t != InvalidIdx )
+                if ( t.isValid() )
                 {
                     facesOut.push_back( t );
                 }
@@ -236,14 +229,14 @@ namespace Ra
             for ( auto heIdx : heData.getVertexHalfEdges( vertex ) )
             {
                 const HalfEdge& opposite = heData[heData[heIdx].m_pair];
-                if ( opposite.m_leftTriIdx == InvalidIdx )
+                if ( opposite.m_leftTriIdx.isInvalid() )
                 {
                     starterEdge = heIdx;
                     break;
                 }
             }
 
-            CORE_ASSERT( heData[starterEdge].m_leftTriIdx != InvalidIdx, "Starter edge does not belong to a face" );
+            CORE_ASSERT( heData[starterEdge].m_leftTriIdx.isValid(), "Starter edge does not belong to a face" );
 
             const VertexIdx startVertex = heData[starterEdge].m_endVertexIdx;
             VertexIdx currentVertex = startVertex;
@@ -270,7 +263,7 @@ namespace Ra
                 CORE_ASSERT( flip.m_endVertexIdx == currentVertex, " Inconsistent half edge data" );
 
             }
-            while ( currentVertex != startVertex && currentEdgeIdx != InvalidIdx );
+            while ( currentVertex != startVertex && currentEdgeIdx.isValid() );
 
             // Now we check that we have all the neighbors.
             CORE_ASSERT( ringOut.size() == heData.getVertexHalfEdges( vertex ).size(),

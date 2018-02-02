@@ -25,12 +25,12 @@ class [[deprecated]] RA_CORE_API Vertex : public IndexedObject {
 public:
     /// CONSTRUCTOR
 
-    Vertex( const Index& index = Index::INVALID_IDX() );        // Build a vertex with a given index
+    Vertex( const Index& index = Index::Invalid() );        // Build a vertex with a given index
     Vertex( const HalfEdge_ptr& he );                           // Build a vertex having he as its halfedge
     Vertex( const Vector3&      p,
             const Vector3&      n,
             const HalfEdge_ptr& he    = nullptr,
-            const Index&        index = Index::INVALID_IDX() ); // Build a complete vertex
+            const Index&        index = Index::Invalid() ); // Build a complete vertex
     Vertex( const Vertex& v ) = default;                        // Copy constructor
 
     /// DESTRUCTOR
