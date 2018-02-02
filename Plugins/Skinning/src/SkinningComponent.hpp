@@ -61,7 +61,7 @@ namespace SkinningPlugin
         Ra::Core::Skinning::FrameData m_frameData;
 
         Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Animation::Skeleton>::Getter m_skeletonGetter;
-        Ra::Engine::ComponentMessenger::CallbackTypes<std::vector<uint>>::Getter m_duplicateTableGetter;
+        Ra::Engine::ComponentMessenger::CallbackTypes<std::vector<Ra::Core::Index>>::Getter m_duplicateTableGetter;
 
         Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite m_verticesWriter;
         Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite m_normalsWriter;

@@ -40,16 +40,18 @@ void uniformNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle
 }
 
 
-void uniformNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T,
-                    const std::vector<uint>& duplicateTable, VectorArray< Vector3 >& normal ) {
+void uniformNormal( const VectorArray< Vector3 >& p,
+                    const VectorArray< Triangle >& T,
+                    const std::vector<Ra::Core::Index>& duplicateTable,
+                    VectorArray< Vector3 >& normal ) {
     const uint N = p.size();
     normal.clear();
     normal.resize( N, Vector3::Zero() );
 
     for( const auto& t : T ) {
-        const uint i = duplicateTable.at( t( 0 ) );
-        const uint j = duplicateTable.at( t( 1 ) );
-        const uint k = duplicateTable.at( t( 2 ) );
+        const Index i = duplicateTable.at( t( 0 ) );
+        const Index j = duplicateTable.at( t( 1 ) );
+        const Index k = duplicateTable.at( t( 2 ) );
         const Vector3 triN = triangleNormal( p[i], p[j], p[k] );
         if( !triN.allFinite() ) {
             continue;

@@ -31,8 +31,8 @@ void RA_CORE_API uniformNormal( const VectorArray< Vector3 >& p, const VectorArr
 *
 * where normal( face_j ) is the normalized normal of face_j belonging to v_i one-ring.
 */
-void RA_CORE_API uniformNormal( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T,
-                                const std::vector<uint>& duplicateTable, VectorArray< Vector3 >& normal );
+void RA_CORE_API uniformNormal(const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T,
+                                const std::vector<Index> &duplicateTable, VectorArray< Vector3 >& normal );
 
 
 /*

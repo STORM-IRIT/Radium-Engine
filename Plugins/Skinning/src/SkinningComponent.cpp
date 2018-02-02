@@ -39,7 +39,7 @@ namespace SkinningPlugin
            m_skeletonGetter = compMsg->getterCallback<Skeleton>( getEntity(), m_contentsName );
            m_verticesWriter = compMsg->rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName+"v" );
            m_normalsWriter  = compMsg->rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName+"n" );
-           m_duplicateTableGetter = compMsg->getterCallback<std::vector<uint>>( getEntity(), m_contentsName );
+           m_duplicateTableGetter = compMsg->getterCallback<std::vector<Ra::Core::Index>>( getEntity(), m_contentsName );
 
            m_refData.m_skeleton      = compMsg->get<Skeleton>( getEntity(), m_contentsName );
            m_refData.m_referenceMesh = compMsg->get<TriangleMesh>( getEntity(), m_contentsName );

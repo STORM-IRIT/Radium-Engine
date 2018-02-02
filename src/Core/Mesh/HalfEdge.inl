@@ -11,20 +11,20 @@ namespace Ra
 
         inline const HalfEdge& HalfEdgeData::operator[]( HalfEdgeIdx i ) const
         {
-            CORE_ASSERT( i != InvalidIdx && i < m_halfEdgeList.size(), "Invalid Index" );
+            CORE_ASSERT( i.isValid() && size_t(i) < m_halfEdgeList.size(), "Invalid Index" );
             return m_halfEdgeList[i];
         }
 
         inline const std::vector<HalfEdgeIdx>& HalfEdgeData::getVertexHalfEdges( VertexIdx i ) const
         {
-            CORE_ASSERT( i != InvalidIdx && i < m_vertexToHalfEdge.size(), "Invalid Index" );
+            CORE_ASSERT( i.isValid() && size_t(i) < m_vertexToHalfEdge.size(), "Invalid Index" );
             CORE_ASSERT( !m_vertexToHalfEdge[i].empty(), "Isolated vertex" );
             return m_vertexToHalfEdge[i];
         }
 
         inline HalfEdgeIdx HalfEdgeData::getFirstTriangleHalfEdge( TriangleIdx t ) const
         {
-            CORE_ASSERT( t != InvalidIdx && t < m_triangleToHalfEdge.size(), "Invalid Index" );
+            CORE_ASSERT( t.isValid() && size_t(t) < m_triangleToHalfEdge.size(), "Invalid Index" );
             return m_triangleToHalfEdge[t];
         }
 

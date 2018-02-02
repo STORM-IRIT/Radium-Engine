@@ -13,7 +13,7 @@ namespace Ra
         {
         public:
             /// CONSTRUCTOR
-            explicit inline  IndexedObject( const Index& idx = Index::INVALID_IDX() )
+            explicit inline  IndexedObject( const Index& idx = Index::Invalid() )
             {
                 this->idx = idx;
             }
