@@ -31,7 +31,7 @@ namespace Ra
         void HalfEdgeData::checkConsistency() const
         {
 #if defined CORE_DEBUG
-            for ( HalfEdgeIdx i = 0; size_t(i) < m_halfEdgeList.size(); ++i )
+            for ( HalfEdgeIdx i = 0; i < m_halfEdgeList.size(); ++i )
             {
                 const HalfEdge& he = m_halfEdgeList[i];
 
@@ -95,7 +95,7 @@ namespace Ra
             std::map<EdgeKey, HalfEdgeIdx> edgeToHalfEdges;
 
             // For all triangles.
-            for ( TriangleIdx t = 0; size_t(t) < mesh.m_triangles.size(); ++t )
+            for ( TriangleIdx t = 0; t < mesh.m_triangles.size(); ++t )
             {
                 const Triangle& tri = mesh.m_triangles[t];
 
