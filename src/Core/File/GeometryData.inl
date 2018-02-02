@@ -7,7 +7,7 @@
 
 namespace Ra {
     namespace Asset {
-        
+
         /////////////////////
         /// GEOMETRY DATA ///
         /////////////////////
@@ -272,16 +272,16 @@ namespace Ra {
         }
 
         /// DUPLICATES
-        inline std::vector<uint>& GeometryData::getDuplicateTable()
+        inline GeometryData::DuplicateTable &GeometryData::getDuplicateTable()
         {
             return m_duplicateTable;
         }
-        inline const std::vector<uint>& GeometryData::getDuplicateTable() const
+        inline const GeometryData::DuplicateTable &GeometryData::getDuplicateTable() const
         {
             return m_duplicateTable;
         }
 
-        inline void GeometryData::setDuplicateTable( const std::vector<uint>& table )
+        inline void GeometryData::setDuplicateTable(const DuplicateTable &table )
         {
             m_duplicateTable = table;
         }

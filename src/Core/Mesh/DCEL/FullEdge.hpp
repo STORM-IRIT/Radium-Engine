@@ -19,9 +19,9 @@ namespace Core {
 class [[deprecated]] RA_CORE_API FullEdge : public IndexedObject  {
 public:
     /// CONSTRUCTOR
-    FullEdge( const Index& index = Index::INVALID_IDX() );        // Build an Edge with the given index
+    FullEdge( const Index& index = Index::Invalid() );        // Build an Edge with the given index
     FullEdge( const HalfEdge_ptr& he,
-              const Index&        index = Index::INVALID_IDX() ); // Build an Edge with the given index, having he as its halfedge
+              const Index&        index = Index::Invalid() ); // Build an Edge with the given index, having he as its halfedge
     FullEdge( const FullEdge& edge ) = default;                   // Copy constructor
 
     /// DESTRUCTOR

@@ -152,7 +152,7 @@ inline Index IndexMap< T >::index( const uint i ) const
 {
     if( i >= m_index.size() )
     {
-        return Index::INVALID_IDX();
+        return Index::Invalid();
     }
     return m_index.at( i );
 }
@@ -246,7 +246,7 @@ inline bool IndexMap< T >::pop_free_index( Index& idx )
 {
     if( m_free.empty() )
     {
-        idx = Index::INVALID_IDX();
+        idx = Index::Invalid();
         return false;
     }
     idx = m_free.front();

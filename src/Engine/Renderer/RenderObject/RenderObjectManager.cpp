@@ -26,8 +26,7 @@ namespace Ra
 
         bool RenderObjectManager::exists( const Core::Index& index ) const
         {
-            return (index != Core::Index::INVALID_IDX()) &&
-                    m_renderObjects.contains( index );
+            return (index.isValid() &&  m_renderObjects.contains( index ) );
         }
 
         Core::Index RenderObjectManager::addRenderObject( RenderObject* renderObject )

@@ -6,6 +6,8 @@
 #include <Core/Mesh/MeshTypes.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 
+#include <Core/File/GeometryData.hpp>
+
 #include <Engine/Component/Component.hpp>
 
 namespace Ra
@@ -14,11 +16,6 @@ namespace Ra
     {
         struct RenderTechnique;
         class Mesh;
-    }
-
-    namespace Asset
-    {
-        class GeometryData;
     }
 }
 
@@ -36,6 +33,8 @@ namespace FancyMeshPlugin
     class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component
     {
     public:
+        using DuplicateTable = Ra::Asset::GeometryData::DuplicateTable;
+
         FancyMeshComponent( const std::string& name, bool deformable = true );
         virtual ~FancyMeshComponent();
 
@@ -63,7 +62,7 @@ namespace FancyMeshPlugin
 
         // Fancy mesh accepts to give its mesh and (if deformable) to update it
         const Ra::Core::TriangleMesh* getMeshOutput() const;
-        const std::vector<uint>* getDuplicateTableOutput() const;
+        const DuplicateTable* getDuplicateTableOutput() const;
         Ra::Core::TriangleMesh* getMeshRw();
         void setMeshInput( const Ra::Core::TriangleMesh* mesh );
         Ra::Core::Vector3Array* getVerticesRw();
@@ -79,7 +78,7 @@ namespace FancyMeshPlugin
         // for the duplicated attributes of vertice i in M data (position, one-ring normal, ...) while i is the index
         // for its non duplicated attributes (texture coordinates, face normal, tangent vector, ...).
         // Note: if duplicates have NOT been loaded, then m_duplicateTable[i] == i.
-        std::vector<uint> m_duplicateTable;
+        DuplicateTable m_duplicateTable;
 
         Ra::Core::Index m_meshIndex;
         Ra::Core::Index m_aabbIndex;

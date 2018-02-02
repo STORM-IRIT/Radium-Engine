@@ -41,7 +41,7 @@ namespace Ra
             /// ItemEntry(entity, component, RO) creates a render object entity.
             explicit ItemEntry( Ra::Engine::Entity* ent,
                                 Ra::Engine::Component* comp = nullptr,
-                                Ra::Core::Index ro = Ra::Core::Index::INVALID_IDX() )
+                                Ra::Core::Index ro = Ra::Core::Index::Invalid() )
                     : m_entity(ent), m_component(comp), m_roIndex(ro) { }
 
             /// Compare two items.

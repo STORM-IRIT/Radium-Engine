@@ -3,6 +3,7 @@
 
 #include <Core/RaCore.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Index/Index.hpp>
 
 namespace Ra
 {
@@ -13,11 +14,9 @@ namespace Ra
         typedef Vector2ui Edge;
         typedef Vector3ui Triangle;
 
-        typedef uint TriangleIdx;
-        typedef uint VertexIdx;
-        typedef uint HalfEdgeIdx;
-
-        enum { InvalidIdx = uint( -1 ) };
+        using TriangleIdx = Index;
+        using VertexIdx   = Index;
+        using HalfEdgeIdx = Index;
     }
 }
 

@@ -128,7 +128,7 @@ namespace AnimationPlugin
             // FIXME(Charly): Certainly not the best way to do this
             AnimationComponent* component = new AnimationComponent( "AC_" + skel->getName() );
             entity->addComponent( component );
-            std::vector<uint> dupliTable;
+            std::vector<Ra::Core::Index> dupliTable;
             uint nbMeshVertices = 0;
             if (geomID != uint(-1))
             {

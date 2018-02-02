@@ -59,7 +59,7 @@ namespace Ra
 
         void EntityManager::removeEntity( Core::Index idx )
         {
-            CORE_ASSERT( idx != Core::Index::INVALID_IDX() && m_entities.contains( idx ),
+            CORE_ASSERT( idx.isValid() && m_entities.contains( idx ),
                          "Trying to remove an entity that has not been added to the manager." );
 
             auto& ent = m_entities[idx];
@@ -75,7 +75,7 @@ namespace Ra
 
         Entity* EntityManager::getEntity( Core::Index idx ) const
         {
-            CORE_ASSERT( idx != Core::Index::INVALID_IDX(), "Trying to access an invalid component." );
+            CORE_ASSERT( idx.isValid(), "Trying to access an invalid component." );
 
             Entity* ent = nullptr;
 
@@ -106,7 +106,7 @@ namespace Ra
         {
             Entity *ent = nullptr;
             auto idx = m_entitiesName.find( name );
-            CORE_ASSERT( idx != m_entitiesName.end(), "Trying to access an invalid entity (named: " + name +")");           
+            CORE_ASSERT( idx != m_entitiesName.end(), "Trying to access an invalid entity (named: " + name +")");
             ent = m_entities.at( idx->second ).get();
             return ent;
         }

@@ -15,9 +15,10 @@ namespace Ra
         struct TriangleMesh;
 
         /// A structure representing a Half edge (i.e. directed edge) of a mesh.
+        /// All indices are invalid by default
         struct HalfEdge
         {
-            HalfEdgeIdx m_prev; // Previous half edge along the face.
+            HalfEdgeIdx m_prev; // Previous half edge along the face
             HalfEdgeIdx m_pair; // Oppositely oriented half-edge
             HalfEdgeIdx m_next; // Next half edge around the face
             TriangleIdx m_leftTriIdx; // Face the half-edge borders (may be invalid)

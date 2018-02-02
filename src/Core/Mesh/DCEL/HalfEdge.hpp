@@ -28,13 +28,13 @@ namespace Ra
         {
         public:
             /// CONSTRUCTOR
-            HalfEdge( const Index& index = Index::INVALID_IDX() );        // Build a HalfEdge with the given index
+            HalfEdge( const Index& index = Index::Invalid() );        // Build a HalfEdge with the given index
             HalfEdge( const Vertex_ptr&   v,
                       const HalfEdge_ptr& next  = nullptr,
                       const HalfEdge_ptr& prev  = nullptr,
                       const HalfEdge_ptr& twin  = nullptr,
                       const Face_ptr&     f     = nullptr,
-                      const Index&        index = Index::INVALID_IDX() ); // Build a complete Halfedge
+                      const Index&        index = Index::Invalid() ); // Build a complete Halfedge
             HalfEdge( const HalfEdge& he ) = default;                     // Copy constructor
 
             /// DESTRUCTOR
