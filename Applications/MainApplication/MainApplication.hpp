@@ -22,7 +22,7 @@ namespace Ra
     namespace Engine
     {
         class RadiumEngine;
-        class ItemEntry;
+        struct ItemEntry;
     }
 }
 
@@ -51,13 +51,24 @@ namespace Ra
 
 namespace Ra
 {
+namespace Gui
+{
+
+class WindowFactory{
+public:
+    WindowFactory(){};
+    virtual  Gui::MainWindow *createMainWindow() const =0;
+};
+}
+
+
     /// This class contains the main application logic. It owns the engine and the GUI.
     class BaseApplication : public QApplication
     {
         Q_OBJECT
 
     public:
-        BaseApplication( int argc, char** argv, QString applicationName = "RadiumEngine", QString organizationName = "STORM-IRIT" );
+        BaseApplication( int argc, char** argv, const Gui::WindowFactory &f, QString applicationName = "RadiumEngine", QString organizationName = "STORM-IRIT");
         ~BaseApplication();
 
         /// Advance the engine for one frame.
