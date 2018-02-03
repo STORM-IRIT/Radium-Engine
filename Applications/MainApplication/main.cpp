@@ -7,10 +7,10 @@
 #include <Gui/MainWindow.hpp>
 
 
-class MainWindowFactory:public Ra::Gui::WindowFactory{
+class MainWindowFactory:public Ra::GuiBase::BaseApplication::WindowFactory{
 public:
-    using Ra::Gui::WindowFactory::WindowFactory;
-    Ra::Gui::MainWindowInterface *createMainWindow() const
+    using Ra::GuiBase::BaseApplication::WindowFactory::WindowFactory;
+    Ra::GuiBase::MainWindowInterface *createMainWindow() const
     {
         return new Ra::Gui::MainWindow();
     }
