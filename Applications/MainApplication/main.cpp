@@ -10,7 +10,7 @@
 class MainWindowFactory:public Ra::Gui::WindowFactory{
 public:
     using Ra::Gui::WindowFactory::WindowFactory;
-    Ra::Gui::MainWindow *createMainWindow() const
+    Ra::Gui::MainWindowInterface *createMainWindow() const
     {
         return new Ra::Gui::MainWindow();
     }
