@@ -41,6 +41,49 @@ namespace Ra
     }
 }
 
+namespace Ra {
+namespace Gui {
+/// Interface class for MainWindow
+/// contains abstract methods that MainApplication uses.
+class MainWindowInterface : public QMainWindow {
+  Q_OBJECT
+
+public:
+  /// Constructor and destructor.
+    explicit MainWindowInterface(QWidget *parent = nullptr){};
+    virtual ~MainWindowInterface(){};
+
+  /// Access the viewer, i.e. the rendering widget.
+  virtual Ra::Gui::Viewer *getViewer() = 0;
+
+  /// Access the selection manager.
+  virtual GuiBase::SelectionManager *getSelectionManager() = 0;
+
+  /// Update the ui from the plugins loaded.
+  virtual void updateUi(Plugins::RadiumPluginInterface *plugin) = 0;
+
+  /// Update the UI ( most importantly gizmos ) to the modifications of the
+  /// engine/
+  virtual void onFrameComplete() = 0;
+
+  /// Add render in the application: UI, viewer.
+  virtual void addRenderer(std::string name,
+                           std::shared_ptr<Engine::Renderer> e) = 0;
+
+public slots:
+  /// Call after loading a new file to let the window resetview for instance.
+  virtual void postLoadFile() = 0;
+  /// Cleanup resources.
+  virtual void cleanup() =0;
+
+signals:
+  /// Emitted when the closed button has been hit.
+  void closed();
+};
+}
+}
+
+
 namespace Ra
 {
     namespace Gui
@@ -48,7 +91,7 @@ namespace Ra
 
         /// This class manages most of the GUI of the application :
         /// top menu, side toolbar and side dock.
-        class MainWindow : public QMainWindow, private Ui::MainWindow
+        class MainWindow : public MainWindowInterface, private Ui::MainWindow
         {
             Q_OBJECT
 
@@ -58,19 +101,19 @@ namespace Ra
             virtual ~MainWindow();
 
             /// Access the viewer, i.e. the rendering widget.
-            Viewer* getViewer();
+            Viewer* getViewer() override;
 
             /// Access the selection manager.
-            GuiBase::SelectionManager* getSelectionManager();
+            GuiBase::SelectionManager* getSelectionManager() override;
 
             /// Update the ui from the plugins loaded.
-            void updateUi( Plugins::RadiumPluginInterface* plugin );
+            void updateUi( Plugins::RadiumPluginInterface* plugin ) override;
 
             /// Update the UI ( most importantly gizmos ) to the modifications of the engine/
-            void onFrameComplete();
+            void onFrameComplete() override;
 
             // Add render in the application: UI, viewer.
-            void addRenderer(std::string name, std::shared_ptr<Engine::Renderer> e);
+            void addRenderer(std::string name, std::shared_ptr<Engine::Renderer> e) override;
 
         public slots:
             /// Callback to rebuild the item model when the engine objects change.
@@ -99,17 +142,15 @@ namespace Ra
 
             /// Reset the camera to see all visible objects
             void fitCamera();
+            void postLoadFile() override {fitCamera();}
 
             /// Slot for the "edit" button.
             void editRO();
 
             /// Cleanup resources.
-            void cleanup();
+            void cleanup() override;
 
         signals:
-            /// Emitted when the closed button has been hit.
-            void closed();
-
             /// Emitted when the frame loads
             void fileLoading( const QString path );
 

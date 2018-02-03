@@ -31,7 +31,7 @@ namespace Ra
     namespace Gui
     {
         class Viewer;
-        class MainWindow;
+        class MainWindowInterface;
     }
 }
 
@@ -57,7 +57,7 @@ namespace Gui
 class WindowFactory{
 public:
     WindowFactory(){};
-    virtual  Gui::MainWindow *createMainWindow() const =0;
+    virtual  Gui::MainWindowInterface *createMainWindow() const =0;
 };
 }
 
@@ -127,7 +127,7 @@ public:
         // Public variables, accessible through the mainApp singleton.
     public:
         /// Application main window and GUI root class.
-        std::unique_ptr<Gui::MainWindow> m_mainWindow;
+        std::unique_ptr<Gui::MainWindowInterface> m_mainWindow;
 
         /// Instance of the radium engine.
         std::unique_ptr<Engine::RadiumEngine> m_engine;

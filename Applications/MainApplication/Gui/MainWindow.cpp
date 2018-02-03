@@ -30,7 +30,7 @@ namespace Ra
 {
 
     Gui::MainWindow::MainWindow(QWidget* parent)
-            : QMainWindow(parent)
+            : MainWindowInterface(parent)
     {
         // Note : at this point most of the components (including the Engine) are
         // not initialized. Listen to the "started" signal.
