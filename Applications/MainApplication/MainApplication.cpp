@@ -45,7 +45,7 @@
 
 namespace Ra
 {
-    BaseApplication::BaseApplication( int argc, char** argv, QString applicationName, QString organizationName)
+    BaseApplication::BaseApplication( int argc, char** argv, const Gui::WindowFactory &factory, QString applicationName, QString organizationName)
         : QApplication( argc, argv )
         , m_mainWindow( nullptr )
         , m_engine( nullptr )
@@ -181,7 +181,7 @@ namespace Ra
         m_engine->registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface>(new IO::AssimpFileLoader()) );
 #endif
         // Create main window.
-        m_mainWindow.reset( new Gui::MainWindow );
+        m_mainWindow.reset( factory.createMainWindow() );
         m_mainWindow->show();
 
         m_viewer = m_mainWindow->getViewer();
