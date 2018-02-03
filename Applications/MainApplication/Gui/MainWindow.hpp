@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_MAINWINDOW_HPP
 #define RADIUMENGINE_MAINWINDOW_HPP
 
+#include <GuiBase/MainWindowInterface.hpp>
 #include <GuiBase/RaGuiBase.hpp>
 
 #include <QMainWindow>
@@ -41,49 +42,6 @@ namespace Ra
     }
 }
 
-namespace Ra {
-namespace Gui {
-/// Interface class for MainWindow
-/// contains abstract methods that MainApplication uses.
-class MainWindowInterface : public QMainWindow {
-  Q_OBJECT
-
-public:
-  /// Constructor and destructor.
-    explicit MainWindowInterface(QWidget *parent = nullptr){};
-    virtual ~MainWindowInterface(){};
-
-  /// Access the viewer, i.e. the rendering widget.
-  virtual Ra::Gui::Viewer *getViewer() = 0;
-
-  /// Access the selection manager.
-  virtual GuiBase::SelectionManager *getSelectionManager() = 0;
-
-  /// Update the ui from the plugins loaded.
-  virtual void updateUi(Plugins::RadiumPluginInterface *plugin) = 0;
-
-  /// Update the UI ( most importantly gizmos ) to the modifications of the
-  /// engine/
-  virtual void onFrameComplete() = 0;
-
-  /// Add render in the application: UI, viewer.
-  virtual void addRenderer(std::string name,
-                           std::shared_ptr<Engine::Renderer> e) = 0;
-
-public slots:
-  /// Call after loading a new file to let the window resetview for instance.
-  virtual void postLoadFile() = 0;
-  /// Cleanup resources.
-  virtual void cleanup() =0;
-
-signals:
-  /// Emitted when the closed button has been hit.
-  void closed();
-};
-}
-}
-
-
 namespace Ra
 {
     namespace Gui
@@ -91,7 +49,7 @@ namespace Ra
 
         /// This class manages most of the GUI of the application :
         /// top menu, side toolbar and side dock.
-        class MainWindow : public MainWindowInterface, private Ui::MainWindow
+        class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWindow
         {
             Q_OBJECT
 
