@@ -14,7 +14,7 @@ namespace Ra
 {
     namespace Engine
     {
-        struct RenderTechnique;
+        class RenderTechnique;
         class Mesh;
     }
 }
