@@ -26,14 +26,14 @@ namespace Ra
 
 namespace std {
     template <class T> auto begin(Ra::Core::_internalIterator::_reversed<T>& r)
-    -> decltype(r.t.rbegin()) { return r.t.rbegin(); }
+        -> decltype(r.t.rbegin()) { return r.t.rbegin(); };
     template <class T> auto end(Ra::Core::_internalIterator::_reversed<T>& r)
-    -> decltype(r.t.rend()) { return r.t.rend(); }
+        -> decltype(r.t.rend()) { return r.t.rend(); };
 
     template <class T> auto begin(Ra::Core::_internalIterator::_creversed<T> const& cr)
-    -> decltype(cr.t.rbegin()) { return cr.t.rbegin(); }
+        -> decltype(cr.t.rbegin()) { return cr.t.rbegin(); };
     template <class T> auto end(Ra::Core::_internalIterator::_creversed<T> const& cr)
-    -> decltype(cr.t.rend()) { return cr.t.rend(); }
+        -> decltype(cr.t.rend()) { return cr.t.rend(); };
 }
 
 #endif // RADIUMENGINE_ALGORITHM_HPP
