@@ -1,4 +1,4 @@
-project(MeshFeatureTrackingPlugin)
+project(MeshPaintPlugin)
 
 cmake_minimum_required(VERSION 2.8.11)
 if (APPLE)
@@ -54,14 +54,14 @@ include_directories(
     ${RADIUM_INCLUDE_DIRS}
     )
 
-add_library( MeshFeatureTracking SHARED ${sources} ${headers} ${inlines} ${app_uis})
-message(INFO " MeshFeatureTracking : dependencies are ${RADIUM_LIBRARIES}")
-add_dependencies( MeshFeatureTracking ${RADIUM_LIBRARIES})
+add_library( MeshPaint SHARED ${sources} ${headers} ${inlines} ${app_uis})
+message(INFO " MeshPaint : dependencies are ${RADIUM_LIBRARIES}")
+add_dependencies( MeshPaint ${RADIUM_LIBRARIES})
 
-target_compile_definitions( MeshFeatureTracking PRIVATE "-DMeshFeatureTracking_EXPORTS" )
+target_compile_definitions( MeshPaint PRIVATE "-DMeshPaint_EXPORTS" )
 
 set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})
-target_link_libraries( MeshFeatureTracking
+target_link_libraries( MeshPaint
                        ${Qt5_LIBRARIES}
                        ${RADIUM_LIBRARIES}
                        ${GLBINDING_LIBRARIES}           # Radium dep

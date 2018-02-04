@@ -1,15 +1,16 @@
-#ifndef MESHFEATURETRACKINGPLUGIN_HPP_
-#define MESHFEATURETRACKINGPLUGIN_HPP_
+#ifndef MESHPAINTPLUGIN_HPP_
+#define MESHPAINTPLUGIN_HPP_
 
 #include <Core/CoreMacros.hpp>
 #include <QObject>
 #include <QtPlugin>
 #include <QAction>
+#include <QColor>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
-#include <UI/MeshFeatureTrackingUI.h>
+#include <UI/MeshPaintUI.h>
 
-#include <MeshFeatureTrackingPluginMacros.hpp>
+#include <MeshPaintPluginMacros.hpp>
 
 namespace Ra
 {
@@ -20,20 +21,20 @@ namespace Ra
     }
 }
 
-namespace MeshFeatureTrackingPlugin
+namespace MeshPaintPlugin
 {
-    class MeshFeatureTrackingComponent;
+    class MeshPaintComponent;
 
     // Due to an ambigous name while compiling with Clang, must differentiate plugin class from plugin namespace
-    class MeshFeatureTrackingPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
+    class MeshPaintPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
     {
         Q_OBJECT
         Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
         Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
 
     public:
-        MeshFeatureTrackingPluginC();
-        virtual ~MeshFeatureTrackingPluginC();
+        MeshPaintPluginC();
+        virtual ~MeshPaintPluginC();
 
         virtual void registerPlugin(const Ra::PluginContext& context) override;
 
@@ -48,18 +49,21 @@ namespace MeshFeatureTrackingPlugin
 
     public slots:
         void onCurrentChanged( const QModelIndex& current , const QModelIndex& prev);
-        void update();
-        void vertexIdChanged( int );
-        void triangleIdChanged( int );
+        void activePaintColor( bool on );
+        void changePaintColor( const QColor &color );
 
     private:
-        MeshFeatureTrackingComponent* m_component;
-        MeshFeatureTrackingUI* m_widget;
+        MeshPaintUI* m_widget;
 
         Ra::GuiBase::SelectionManager* m_selectionManager;
         Ra::Gui::PickingManager* m_PickingManager;
+
+        class MeshPaintSystem* m_system;
+
+        Ra::Core::Color m_paintColor;
+        bool m_isPainting;
     };
 
 } // namespace
 
-#endif // MESHFEATURETRACKINGPLUGIN_HPP_
+#endif // MESHPAINTPLUGIN_HPP_

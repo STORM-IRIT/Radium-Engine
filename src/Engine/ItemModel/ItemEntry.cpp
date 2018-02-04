@@ -74,6 +74,12 @@ namespace Ra
         bool ItemEntry::isSelectable() const
         {
             Engine::RadiumEngine* engine = Engine::RadiumEngine::getInstance();
+
+            if ( m_entity->idx == Engine::SystemEntity::getInstance()->idx)
+            {
+                return false;
+            }
+
             if ( isRoNode() )
             {
                 const bool isUI = engine->getRenderObjectManager()->getRenderObject( m_roIndex )->getType() ==
@@ -83,7 +89,7 @@ namespace Ra
                 return (!(isUI || isDebug));
             }
 
-            return m_entity->idx != Engine::SystemEntity::getInstance()->idx;
+            return true;
         }
 
     }

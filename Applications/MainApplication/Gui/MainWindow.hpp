@@ -145,11 +145,7 @@ namespace Ra
             void onCurrentRenderChangedInUI();
 
             /// Slot for the picking results from the viewer.
-            void handlePicking(int pickingResult);
-
-            /// Slot for tracking info GUI.
-            void on_m_vertexIdx_valueChanged(int arg1);
-            void on_m_triangleIdx_valueChanged(int arg1);
+            void handlePicking(const Ra::Engine::Renderer::PickingResult& pickingResult);
 
             // Slot to init renderers once gl is ready
             void onGLInitialized();
@@ -165,6 +161,8 @@ namespace Ra
 
             /// Clears all entities and resets the camera.
             void resetScene();
+
+            void toggleCirclePicking( bool on);
 
         private:
             /// Stores the internal model of engine objects for selection.

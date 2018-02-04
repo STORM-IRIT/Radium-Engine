@@ -16,6 +16,7 @@
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
+#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -35,7 +36,7 @@ typedef Ra::Core::VectorArray<Ra::Core::Triangle> TriangleArray;
 namespace FancyMeshPlugin
 {
     FancyMeshComponent::FancyMeshComponent(const std::string& name , bool deformable)
-    : Ra::Engine::Component( name  ) , m_deformable(deformable)
+        : Ra::Engine::Component( name  ) , m_deformable(deformable)
     {
     }
 
@@ -84,7 +85,7 @@ namespace FancyMeshPlugin
         N.matrix() = (T.matrix()).inverse().transpose();
 
         mesh.m_vertices.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
-#pragma omp parallel for
+        #pragma omp parallel for
         for (uint i = 0; i < data->getVerticesSize(); ++i)
         {
             mesh.m_vertices[i] = T * data->getVertices()[i];
@@ -93,7 +94,7 @@ namespace FancyMeshPlugin
         if (data->hasNormals())
         {
             mesh.m_normals.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
-#pragma omp parallel for
+            #pragma omp parallel for
             for (uint i = 0; i < data->getVerticesSize(); ++i)
             {
                 mesh.m_normals[i] = (N * data->getNormals()[i]).normalized();
@@ -101,7 +102,7 @@ namespace FancyMeshPlugin
         }
 
         mesh.m_triangles.resize( data->getFaces().size(), Ra::Core::Triangle::Zero() );
-#pragma omp parallel for
+        #pragma omp parallel for
         for (uint i = 0; i < data->getFaces().size(); ++i)
         {
             mesh.m_triangles[i] = data->getFaces()[i].head<3>();
@@ -145,25 +146,37 @@ namespace FancyMeshPlugin
 
         // The technique for rendering this component
         Ra::Engine::RenderTechnique rt;
-        
+
         bool isTransparent { false };
-        const Ra::Asset::MaterialData& loadedMaterial = data->getMaterial();
-        
-        // First extract the material from asset
-        auto converter = Ra::Engine::EngineMaterialConverters::getMaterialConverter(loadedMaterial.getType());
-        auto convertedMaterial = converter.second(&loadedMaterial);
-        
-        // Second, associate the material to the render technique
-        std::shared_ptr<Ra::Engine::Material> radiumMaterial(convertedMaterial);
-        if ( radiumMaterial != nullptr )
+        if ( data->hasMaterial() )
         {
-            isTransparent = radiumMaterial->isTransparent();
+            const Ra::Asset::MaterialData& loadedMaterial = data->getMaterial();
+
+            // First extract the material from asset
+            auto converter = Ra::Engine::EngineMaterialConverters::getMaterialConverter(loadedMaterial.getType());
+            auto convertedMaterial = converter.second(&loadedMaterial);
+
+            // Second, associate the material to the render technique
+            std::shared_ptr<Ra::Engine::Material> radiumMaterial(convertedMaterial);
+            if ( radiumMaterial != nullptr )
+            {
+                isTransparent = radiumMaterial->isTransparent();
+            }
+            rt.setMaterial(radiumMaterial);
+
+            // Third, define the technique for rendering this material (here, using the default)
+            auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique(loadedMaterial.getType());
+            builder.second(rt, isTransparent);
         }
-        rt.setMaterial(radiumMaterial);
-        
-        // Third, define the technique for rendering this material (here, using the default)
-        auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique(loadedMaterial.getType());
-        builder.second(rt, isTransparent);
+        else
+        {
+            auto mat = Ra::Core::make_shared<Ra::Engine::BlinnPhongMaterial>(data->getName() + "_DefaulBPMaterial");
+            mat->m_kd = Ra::Core::Colors::Grey();
+            mat->m_ks = Ra::Core::Colors::White();
+            rt.setMaterial( mat );
+            auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique("BlinnPhong");
+            builder.second(rt, isTransparent);
+        }
         
         auto ro = Ra::Engine::RenderObject::createRenderObject( roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, rt );
         ro->setTransparent( isTransparent );
