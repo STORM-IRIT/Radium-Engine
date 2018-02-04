@@ -54,7 +54,7 @@ namespace Ra
         , m_frameTimer( new QTimer( this ) )
         , m_frameCounter( 0 )
         , m_numFrames( 0 )
-        , m_maxThreads( 7 )
+        , m_maxThreads( RA_MAX_THREAD )
         , m_realFrameRate( false )
         , m_recordFrames( false )
         , m_recordTimings( false )
@@ -152,6 +152,8 @@ namespace Ra
         LOG( logINFO ) << "Git changeset: " << Version::gitChangeSet;
 
         LOG( logINFO ) << "Qt Version: " << qVersion();
+
+        LOG( logINFO ) << "Max Thread: " << m_maxThreads;
 
         // Create default format for Qt.
         QSurfaceFormat format;
