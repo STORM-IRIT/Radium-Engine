@@ -10,11 +10,11 @@
 		<information id="action" value="TRACKBALLCAMERA_ROTATE_AROUND"></information>
 	</keymap>
         <keymap>
-                <information id="type" modifier="NoModifier" type="mouse" value="RightButton"></information>
+                <information id="type" modifier="ControlModifier" type="mouse" value="RightButton"></information>
                 <information id="action" value="GIZMOMANAGER_MANIPULATION"></information>
         </keymap>
 	<keymap>
-		<information id="type" modifier="NoModifier" type="mouse" value="MiddleClick"></information>
+                <information id="type" modifier="NoModifier" type="mouse" value="RightButton"></information>
                 <information id="action" value="VIEWER_BUTTON_PICKING_QUERY"></information>
 	</keymap>
         <keymap>
