@@ -18,7 +18,7 @@ namespace Ra
         /// INVALID
         constexpr bool  Index::isInvalid() const
         {
-            return ( m_idx == s_invalid );
+            return ( m_idx < 0 );
         }
         constexpr void  Index::setInvalid()
         {
