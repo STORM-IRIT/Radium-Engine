@@ -60,8 +60,7 @@ namespace Ra
             template <typename Integer>
             friend constexpr Index operator+ ( const Index& id,  const Integer& i )
             {
-                return Index ( ( id.m_idx < -i ) ? s_invalid
-                                                   : ( id.m_idx + i ) );
+                return id + Index(i);
             }
 
             friend constexpr Index operator- ( const Index& id0, const Index& id1 )
