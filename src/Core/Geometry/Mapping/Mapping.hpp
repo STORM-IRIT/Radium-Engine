@@ -22,7 +22,7 @@ public:
     inline Mapping( const Scalar alpha = 0.0,
                     const Scalar beta  = 0.0,
                     const Scalar delta = 0.0,
-                    const Index& id    = Index::Invalid() );
+                    Index        id    = Index::Invalid() );
 
     /// DESTRUCTOR
     inline ~Mapping();
