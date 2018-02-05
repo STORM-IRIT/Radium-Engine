@@ -5,7 +5,7 @@ namespace Core {
 namespace Geometry {
 
 /// CONSTRUCTOR
-Mapping::Mapping( const Scalar alpha, const Scalar beta, const Scalar delta, const Index& id ) :
+Mapping::Mapping(const Scalar alpha, const Scalar beta, const Scalar delta, Index id ) :
     m_coord( Vector2( alpha, beta ) ),
     m_delta( delta ),
     m_id( id ) { }
