@@ -35,12 +35,12 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/Radium-Engine/cmake)
 ```
 
 
-Add the following line int the `CMakeLists.txt` of your application that need Radium as a library
+Add the following line in the `CMakeLists.txt` of your application that need Radium as a library
 ``find_package(Radium REQUIRED)``.
-Setting `RADIUM_ROOT` vraiuble before `find_package` migh be needed to help cmake find the Radium library.
+Setting the `RADIUM_ROOT` variable before the `find_package`command migh be needed to help cmake find the Radium library.
 ``set(RADIUM_ROOT "../external/Radium-Engine")``.
 
-This will define the following cmake varirables:
+This will define the following cmake variables:
 ```
     ${RADIUM_INCLUDE_DIR}
     ${EIGEN_INCLUDE_DIR}
@@ -49,7 +49,7 @@ This will define the following cmake varirables:
 ```
 
 
-and give access to Radium headers and declarations/defintions through the following commands:
+and give access to Radium headers and declarations/definitions through the following commands:
 ```
 include_directories(
     .
