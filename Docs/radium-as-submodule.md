@@ -8,9 +8,7 @@ in the external directory.
 
 ## git submodule, or just clone
 
-You can clone Radium, or add it as a submodule of your git project
-git submodule radium in my own project
-For instance Radium in ./myproject/external/Radium-Engine
+You can clone Radium, or add it as a submodule of your git project for instance Radium in ./myproject/external/Radium-Engine
 
 ```
 mkdir external
@@ -30,17 +28,19 @@ This corresponds to
 
 
 ## Add Radium to the lib of your project
-Add a line to include the Radium-Engine cmake module in your main
+Add the following line to include the Radium-Engine cmake module in your main
 CMakeLists.txt
 ```
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/Radium-Engine/cmake)
 ```
 
 
-add a ``find_package(Radium REQUIRED)`` in CMakeLists.txt of your
-applications that need. If needed add ``set(RADIUM_ROOT "../external/Radium-Engine")``
+Add the following line int the `CMakeLists.txt` of your application that need Radium as a library
+``find_package(Radium REQUIRED)``.
+Setting `RADIUM_ROOT` vraiuble before `find_package` migh be needed to help cmake find the Radium library.
+``set(RADIUM_ROOT "../external/Radium-Engine")``.
 
-This will def the following cmake vars 
+This will define the following cmake varirables:
 ```
     ${RADIUM_INCLUDE_DIR}
     ${EIGEN_INCLUDE_DIR}
@@ -49,7 +49,7 @@ This will def the following cmake vars
 ```
 
 
-access to Radium headers and declarations/defintions
+and give access to Radium headers and declarations/defintions through the following commands:
 ```
 include_directories(
     .
@@ -75,8 +75,7 @@ target_link_libraries( ${EXEC_FILE} # target
 )
 ```
 
-Then build radium (as debug and release)
-For linux something like
+Then build Radium (in debug and release) using the following commands (for Linux):
 ```
 cd external
 mkdir build-radium-debug
@@ -88,3 +87,5 @@ mkdir build-radium-release
 cmake ../Radium-Engine -DCMAKE_BUILD_TYPE=Release
 make -j8
 ```
+Or add Radium to your project cmake process with `ExternalProject_Add`.
+
