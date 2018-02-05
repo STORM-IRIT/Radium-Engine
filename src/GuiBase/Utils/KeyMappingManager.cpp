@@ -23,6 +23,16 @@ namespace Ra
 
         void KeyMappingManager::bindKeyToAction( int keyCode, KeyMappingAction action )
         {
+            auto f = std::find_if( m_mapping.begin(), m_mapping.end(),
+                                   [&keyCode](const auto &a)
+                                   {
+                                       return a.second == keyCode;
+                                   } );
+            if (f != m_mapping.end())
+            {
+                LOG(logWARNING) << "Binding action " << action << " to code " << keyCode <<
+                                   ", which is already used for action " << f->first << ".";
+            }
             m_mapping[action] = keyCode;
         }
 
@@ -91,6 +101,8 @@ namespace Ra
 
         void KeyMappingManager::loadConfigurationInternal()
         {
+            m_mapping.clear();
+
             QDomElement domElement = m_domDocument.documentElement();
             QDomNode node = domElement.firstChild();
 
@@ -126,7 +138,6 @@ namespace Ra
             }
             else
             {
-                std::cout << "WTF" << std::endl;
                 LOG(logERROR) << "Unrecognized XML keymapping configuration file tag \"" << qPrintable(node.tagName()) << "\" !";
                 LOG(logERROR) << "Trying to load default configuration...";
 

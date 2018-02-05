@@ -307,7 +307,6 @@ namespace Ra
         }
         else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) )
         {
-            std::cout << "gizmo" << std::endl;
             m_currentRenderer->addPickingRequest({ Core::Vector2(event->x(), height() - event->y()),
                                                    Core::MouseButton::RA_MOUSE_LEFT_BUTTON,
                                                    Engine::Renderer::RO });
@@ -318,7 +317,6 @@ namespace Ra
         }
         else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
         {
-            std::cout << "picking" << std::endl;
             // Check picking
             Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), height() - event->y()),
                                                       Core::MouseButton::RA_MOUSE_RIGHT_BUTTON,
