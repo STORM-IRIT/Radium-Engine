@@ -33,7 +33,7 @@ namespace Ra
 
         bool KeyMappingManager::actionTriggered( QMouseEvent * event, KeyMappingAction action )
         {
-            return event->button() == getKeyFromAction( action );
+            return (int(event->button()) | event->modifiers()) == getKeyFromAction( action );
         }
 
         bool KeyMappingManager::actionTriggered( QKeyEvent * event, KeyMappingAction action )
@@ -126,6 +126,7 @@ namespace Ra
             }
             else
             {
+                std::cout << "WTF" << std::endl;
                 LOG(logERROR) << "Unrecognized XML keymapping configuration file tag \"" << qPrintable(node.tagName()) << "\" !";
                 LOG(logERROR) << "Trying to load default configuration...";
 
@@ -160,7 +161,7 @@ namespace Ra
             else if( typeString == "mouse" )
             {
                 int buttonValue = getQtMouseButtonValue( keyString );
-                bindKeyToAction( buttonValue, actionValue );
+                bindKeyToAction( buttonValue | modifierValue, actionValue );
             }
         }
 
