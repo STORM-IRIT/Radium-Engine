@@ -11,7 +11,7 @@ in the external directory.
 You can clone Radium, or add it as a submodule of your git project.
 For instance if you want Radium in `myproject/external/Radium-Engine`
 
-```
+```bash
 mkdir external
 git submodule add https://github.com/STORM-IRIT/Radium-Engine/ 
 external/Radium-Engine --recursive
@@ -30,25 +30,29 @@ This corresponds to
 
 ## Add Radium to your project using CMake`find_package` and out-of-project build
 Add the following line to include the Radium-Engine cmake module in your main
-CMakeLists.txt
-```
+`CMakeLists.txt`:
+```cmake
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/Radium-Engine/cmake)
 ```
 
 Add the following line in the `CMakeLists.txt` of your application that need Radium as a library
-``find_package(Radium REQUIRED)``.
-Setting the `RADIUM_ROOT` variable before the `find_package`command might be needed to help cmake find the Radium library.
-``set(RADIUM_ROOT "../external/Radium-Engine")``.
+```cmake
+find_package(Radium REQUIRED)
+```
+Setting the `RADIUM_ROOT` variable before the `find_package`command might be needed to help cmake find the Radium directories:
+```cmake
+set(RADIUM_ROOT "../external/Radium-Engine")
+```
 
 The find package script will will define the following cmake variables:
-```
+```cmake
     ${RADIUM_INCLUDE_DIR}
     ${EIGEN_INCLUDE_DIR}
     ${ASSIMP_INCLUDE_DIR}
     ${RADIUM_LIB_DIR}
 ```
 This is how you should add Radium-related includes in your project's `CMakeLists.txt`
-```
+```cmake
 include_directories(
     ${RADIUM_INCLUDE_DIR} 
     ${EIGEN_INCLUDE_DIR}
@@ -57,14 +61,14 @@ include_directories(
 ```
 
 And this is how you add the Radium libraries to your linker (with the dependent libraries):
-```
+```cmake
 # Libs directory include
 link_directories(
     ${RADIUM_LIB_DIR}
 )
 ```
 
-```
+```cmake
 # Link libraries
 target_link_libraries( ${EXEC_FILE}  # target
     ${RADIUM_LIBRARIES}              # Radium libs
@@ -74,7 +78,7 @@ target_link_libraries( ${EXEC_FILE}  # target
 ```
 
 Then build Radium (here, in debug) using the following commands (for Linux):
-```
+```bash
 cd external
 mkdir build-radium-debug
 cd build-radium-debug
@@ -85,7 +89,7 @@ make -j8
 ## Add Radium to your project using `ExternaProject_Add` and in-project build.
 You can add Radium to your project cmake process with `ExternalProject_Add`, customizing the some options.
 
-```
+```cmake
 include(ExternalProject)
 option(MY_WITH_OMP              "Use OpenMP" ON)
 option(MY_WARNINGS_AS_ERRORS    "Treat compiler warning as errors" ON)
@@ -115,11 +119,11 @@ ExternalProject_Add(
 )
 ```
 Then you have to setup manually all the variables that would have been setted up by `find_package`:
-```
+```cmake
     ${RADIUM_INCLUDE_DIR}
     ${EIGEN_INCLUDE_DIR}
     ${ASSIMP_INCLUDE_DIR}
     ${RADIUM_LIB_DIR}
     ${RADIUM_LIBRARIES}
-    ${GLBINDING_LIBRARIES}
+    ${GLBINDING_LIBRARIES}   
 ```
