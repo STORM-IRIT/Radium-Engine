@@ -28,7 +28,7 @@ This corresponds to
 ```
 
 
-## Add Radium to your project using CMake`find_package` and out-of-project build
+## Add Radium to your project using CMake `find_package` and out-of-project build
 Add the following line to include the Radium-Engine cmake module in your main
 `CMakeLists.txt`:
 ```cmake
@@ -87,15 +87,15 @@ make -j8
 ```
 
 ## Add Radium to your project using `ExternaProject_Add` and in-project build.
-You can add Radium to your project cmake process with `ExternalProject_Add`, customizing the some options.
+You can add Radium to your project cmake process with `ExternalProject_Add`, customizing some options.
 
 ```cmake
 include(ExternalProject)
 option(MY_WITH_OMP              "Use OpenMP" ON)
-option(MY_WARNINGS_AS_ERRORS    "Treat compiler warning as errors" ON)
+option(MY_WARNINGS_AS_ERRORS    "Treat compiler warning as errors" OFF)
 option(MY_ASSIMP_SUPPORT        "Enable assimp loader" ON)
 option(MY_TINYPLY_SUPPORT       "Enable TinyPly loader" OFF)
-option(MY_BUILD_APPS            "Choose to build or not radium applications" ON)
+option(MY_BUILD_APPS            "Choose to build or not radium applications" OFF)
 option(MY_FAST_MATH "Enable Fast Math optimizations in Release Mode (ignored with MVSC)" OFF)
 
 # add Radium with the options you want to override
@@ -125,5 +125,27 @@ Then you have to setup manually all the variables that would have been setted up
     ${ASSIMP_INCLUDE_DIR}
     ${RADIUM_LIB_DIR}
     ${RADIUM_LIBRARIES}
-    ${GLBINDING_LIBRARIES}   
+    ${GLBINDING_LIBRARIES}
+```
+For instance :
+```cmake
+set( CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/external/Radium-Engine/cmake )
+set( RADIUM_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external/Radium-Engine" )
+
+set( EIGEN3_INCLUDE_DIR  "${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}/3rdPartyLibraries/include")
+set( GLM_INCLUDE_DIR     "${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}/3rdPartyLibraries/include")
+set( ASSIMP_LIBRARIES    "${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}/3rdPartyLibraries/lib/libassimp.so")
+set( GLBINDING_LIBRARIES "${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}/3rdPartyLibraries/lib/libglbinding.so")
+set( GLOBJECTS_LIBRARIES "${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}/3rdPartyLibraries/lib/libglobjects.so")
+set( OPENMESH_LIBRARIES  "${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}/3rdPartyLibraries/lib/libOpenMeshCore.so")
+set( RADIUM_PLUGIN_OUTPUT_PATH "${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}//${CMAKE_BUILD_TYPE}/bin/Plugins" )
+set( RADIUM_INCLUDE_DIRS )
+list(APPEND RADIUM_INCLUDE_DIRS "${RADIUM_ROOT_DIR}/src" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}" "${GLOBJECTS_INCLUDE_DIR}")
+
+set( RA_CORE_LIB    "${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}/${CMAKE_BUILD_TYPE}/lib/libradiumCore.so" )
+set( RA_ENGINE_LIB  "${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}/${CMAKE_BUILD_TYPE}/lib/libradiumEngine.so" )
+set( RA_IO_LIB      "${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}/${CMAKE_BUILD_TYPE}/lib/libradiumIO.so" )
+set( RA_GUIBASE_LIB "${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}/${CMAKE_BUILD_TYPE}/lib/libradiumGuiBase.so" )
+set( RADIUM_LIBRARIES  )
+list(APPEND RADIUM_LIBRARIES "${RA_CORE_LIB}" "${RA_ENGINE_LIB}" "${RA_IO_LIB}" "${RA_GUIBASE_LIB}")
 ```
