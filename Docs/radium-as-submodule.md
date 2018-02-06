@@ -27,7 +27,7 @@ This corresponds to
 ```
 
 
-## Add Radium to the lib of your project
+## Add Radium to your project using `find_package` and out of project build
 Add the following line to include the Radium-Engine cmake module in your main
 CMakeLists.txt
 ```
@@ -87,5 +87,45 @@ mkdir build-radium-release
 cmake ../Radium-Engine -DCMAKE_BUILD_TYPE=Release
 make -j8
 ```
-Or add Radium to your project cmake process with `ExternalProject_Add`.
 
+## Add Radium to your project using `ExternaProject_Add` and in project build.
+You can add Radium to your project cmake process with `ExternalProject_Add`, customizing the some options.
+
+```
+include(ExternalProject)
+option(MY_WITH_OMP              "Use OpenMP" ON)
+option(MY_WARNINGS_AS_ERRORS    "Treat compiler warning as errors" ON)
+option(MY_ASSIMP_SUPPORT        "Enable assimp loader" ON)
+option(MY_TINYPLY_SUPPORT       "Enable TinyPly loader" OFF)
+option(MY_BUILD_APPS            "Choose to build or not radium applications" ON)
+option(MY_FAST_MATH "Enable Fast Math optimizations in Release Mode (ignored with MVSC)" OFF)
+
+# add Radium with the options you want to override
+ExternalProject_Add(
+        Radium
+        # where the source will live
+        SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external/Radium-Engine"
+        # set the compilation options
+        CMAKE_ARGS
+            -DRADIUM_WITH_OMP=${MY_WITH_OMP}
+            -DRADIUM_WARNINGS_AS_ERRORS=${MY_WARNINGS_AS_ERRORS}
+            -DRADIUM_ASSIMP_SUPPORT=${MY_ASSIMP_SUPPORT}
+            -DRADIUM_TINYPLY_SUPPORT=${MY_TINYPLY_SUPPORT}
+            -DRADIUM_BUILD_APPS=${MY_BUILD_APPS}
+            -DRADIUM_FAST_MATH=${MY_FAST_MATH}
+            -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
+            -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+            -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+	# skip the install step	
+	INSTALL_COMMAND cmake -E echo "Skipping install step."
+)
+```
+Then you have to setup manually all the variables that would have been setted up by `find_package`:
+```
+    ${RADIUM_INCLUDE_DIR}
+    ${EIGEN_INCLUDE_DIR}
+    ${ASSIMP_INCLUDE_DIR}
+    ${RADIUM_LIB_DIR}
+    ${RADIUM_LIBRARIES}
+    ${GLBINDING_LIBRARIES}
+```
