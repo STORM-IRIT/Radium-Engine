@@ -38,7 +38,7 @@ namespace Ra {
             virtual size_t size() const = 0;
 
             /// Push a Light to the container.
-            virtual void push(Light& li) = 0;
+            virtual void push(Light* li) = 0;
 
             /// Pop a Light from the container.
             //virtual Light& pop() = 0;
@@ -47,7 +47,7 @@ namespace Ra {
             virtual void clear() = 0;
 
             /// Access the container.
-            virtual Light& operator[](unsigned int n) = 0;
+            virtual Light* operator[](unsigned int n) = 0;
         };
 
     }
