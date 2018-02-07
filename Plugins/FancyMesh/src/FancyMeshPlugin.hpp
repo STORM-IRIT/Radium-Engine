@@ -20,7 +20,7 @@ namespace Ra
 namespace FancyMeshPlugin
 {
     // Du to an ambigous name while compiling with Clang, must differentiate plugin claas from plugin namespace
-    class FancyMeshPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
+    class FancyMeshPluginC : public QObject, public Ra::Plugins::RadiumPluginInterface
     {
         Q_OBJECT
         Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
