@@ -7,6 +7,13 @@
 
 namespace Ra {
     namespace Engine {
+        class RenderParameters;
+    }
+}
+
+
+namespace Ra {
+    namespace Engine {
 
         /**
          * Interface providing functions to access and store lights in
@@ -15,10 +22,10 @@ namespace Ra {
         class RA_ENGINE_API LightStorage {
         public:
             /// Constructor
-            LightStorage();
+            LightStorage() {}
 
             /// Destructor
-            virtual ~LightStorage() = 0;
+            virtual ~LightStorage() {}
 
             /**
              * Upload data to the GPU.
@@ -34,7 +41,10 @@ namespace Ra {
             virtual void push(Light& li) = 0;
 
             /// Pop a Light from the container.
-            virtual Light& pop() = 0;
+            //virtual Light& pop() = 0;
+
+            /// Clear the container.
+            virtual void clear() = 0;
 
             /// Access the container.
             virtual Light& operator[](unsigned int n) = 0;

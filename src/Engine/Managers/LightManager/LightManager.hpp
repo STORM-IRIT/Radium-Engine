@@ -33,9 +33,19 @@ namespace Ra {
 
             /// Virtual destructor
             virtual ~LightManager();
-  
-  
+
+
+            //
             // Calls for the Renderer
+            //
+
+            /**
+             * @brief Number of lights.
+             * This is still a work in progress. The idea is to make it possible for a
+             * LightManager to tell it has only one Light, for example if it wants to send
+             * a lot of sources at once in a single RenderParams, let's say a texture.
+             */
+            virtual int count() const;
 
             /**
              * @brief Call before a render, update the general state of the LightManager.
@@ -45,19 +55,21 @@ namespace Ra {
             /**
              * @brief Call before a render, process what is needed for a given Light.
              */
-            virtual void prerender(Light& li) = 0;
+            virtual void prerender(unsigned int li, RenderParameters& params) = 0;
 
             /**
              * @brief Call after a render, process what is needed for a given Light.
              */
-            virtual void postrender(Light& li) = 0;
+            virtual void postrender(unsigned int li) = 0;
 
             /**
              * @brief Call after a render, update the general state of the LightManager.
              */
             virtual void postprocess() = 0;
 
+            //
             // System methods
+            //
 
             /// Method generating the correct tasks for a LightManager.
             void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
@@ -65,7 +77,7 @@ namespace Ra {
             /// Handle Lights loading.
             void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
 
-        private:
+        protected:
             /// Stores the object that stores the lights...
             std::unique_ptr<LightStorage> m_data;
         };

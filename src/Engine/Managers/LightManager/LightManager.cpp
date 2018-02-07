@@ -27,6 +27,21 @@ namespace Ra {
         {
         }
 
+
+        //
+        // Renderer pre/post calls
+        //
+
+        int LightManager::count() const
+        {
+            return m_data->size();
+        }
+
+
+        //
+        // System
+        //
+
         void LightManager::generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo )
         {
             /*
@@ -73,8 +88,9 @@ namespace Ra {
             taskQueue->addDependency( postprocess_id, lastprocess_id);
             */
         }
-    
-        void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fileData )
+
+
+        void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* data )
         {
             std::vector<Asset::LightData*> lightData = fileData->getLightData();
             uint id = 0;
