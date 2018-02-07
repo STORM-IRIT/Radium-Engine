@@ -19,11 +19,11 @@ namespace Ra {
         {
         public:
             DummyLightStorage();
-            void push(Light& i) override;
+            void push(Light* i) override;
             void upload() const override;
             size_t size() const override;
             void clear() override;
-            Light& operator[](unsigned int n) override;
+            Light* operator[](unsigned int n) override;
 
         private:
             // TODO (Hugo) Should handle other simple types of light.
