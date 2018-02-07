@@ -6,6 +6,7 @@
 #include <set>
 #include <string>
 #include <array>
+#include <vector>
 #include <list>
 #include <memory>
 
@@ -50,6 +51,10 @@ namespace Ra
             void setUniform( const char* name, uint value ) const;
             void setUniform( const char* name, float value ) const;
             void setUniform( const char* name, double value ) const;
+            
+            void setUniform( const char* name, std::vector<int> value ) const;
+            void setUniform( const char* name, std::vector<uint> value ) const;
+            void setUniform( const char* name, std::vector<float> value ) const;
 
             void setUniform( const char* name, const Core::Vector2f& value ) const;
             void setUniform( const char* name, const Core::Vector2d& value ) const;
