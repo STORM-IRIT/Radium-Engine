@@ -11,6 +11,10 @@ namespace Ra
             m_uintParamsVector.bind( shader );
             m_scalarParamsVector.bind( shader );
 
+            m_intsParamsVector.bind( shader );
+            m_uintsParamsVector.bind( shader );
+            m_scalarsParamsVector.bind( shader );
+
             m_vec2ParamsVector.bind( shader );
             m_vec3ParamsVector.bind( shader );
             m_vec4ParamsVector.bind( shader );
@@ -36,6 +40,25 @@ namespace Ra
         {
             m_scalarParamsVector[name] = ScalarParameter( name, value );
         }
+        
+        ///!! array version
+
+        void RenderParameters::addParameter( const char* name, std::vector<int> value )
+        {
+            m_intsParamsVector[name] = IntsParameter( name, value );
+        }
+
+        void RenderParameters::addParameter( const char* name, std::vector<uint> value )
+        {
+            m_uintsParamsVector[name] = UIntsParameter( name, value );
+        }
+
+        void RenderParameters::addParameter( const char* name, std::vector<Scalar> value )
+        {
+            m_scalarsParamsVector[name] = ScalarsParameter( name, value );
+        }
+        
+        ///!!
 
         void RenderParameters::addParameter( const char* name, const Core::Vector2& value )
         {
