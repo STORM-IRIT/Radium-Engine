@@ -20,7 +20,7 @@ namespace Ra
 
         // FIXME (Hugo) To me this class could totally be renamed LightComponent and get a Light struct embedded.
         // Thoughts are welcome !
-        class RA_ENGINE_API Light : Component
+        class RA_ENGINE_API Light : public Component
         {
         public:
             enum LightType
