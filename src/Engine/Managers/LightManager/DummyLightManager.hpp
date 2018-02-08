@@ -27,7 +27,7 @@ namespace Ra {
 
         private:
             // TODO (Hugo) Should handle other simple types of light.
-            std::vector<DirectionalLight> m_lights;
+            std::vector<std::shared_ptr<DirectionalLight>> m_lights;
         };
 
 
