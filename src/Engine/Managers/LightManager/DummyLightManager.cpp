@@ -11,9 +11,9 @@ namespace Ra {
             m_data.reset( new DummyLightStorage() );
 
             // Add a dummy light FIXME (Hugo).
-            DirectionalLight l;
-            l.setDirection(Core::Vector3(0.3f, -1.0f, 0.0f));
-            m_data->push(&l);
+            DirectionalLight *l = new DirectionalLight();
+            l->setDirection(Core::Vector3(0.3f, -1.0f, 0.0f));
+            m_data->push(l);
         }
 
         //
@@ -60,9 +60,10 @@ namespace Ra {
             // FIXME (Hugo) This code shouldn't exist.
             // It was done for deadline purpose :)
             // It will be removed.
-            
-            // this create a local copy of the incoming light
-            m_lights.push_back( *static_cast<DirectionalLight*>(li) );
+            DirectionalLight *dl = static_cast<DirectionalLight*>(li);
+            // TODO: evil here, but work as sample
+            // URG:  would be change
+            m_lights.push_back(std::shared_ptr<DirectionalLight>(dl));
         }
 
         size_t DummyLightStorage::size() const
@@ -77,7 +78,7 @@ namespace Ra {
 
         Light* DummyLightStorage::operator[](unsigned int n)
         {
-            return &m_lights[n];
+            return m_lights[n].get();
         }
     }
 }
