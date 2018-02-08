@@ -62,18 +62,18 @@ namespace Ra {
       /** register a new material converter
       *  @return true if converter added, false else (e.g, a converter with the same name exists)
       */
-      bool registerMaterialConverter(const std::string &name, ConverterFunction converter);
+      RA_ENGINE_API bool registerMaterialConverter(const std::string &name, ConverterFunction converter);
 
       /** remove a material converter
        *  @return true if converter removed, false else (e.g, a converter with the same name does't exists)
        */
-      bool removeMaterialConverter(const std::string &name);
+      RA_ENGINE_API bool removeMaterialConverter(const std::string &name);
 
       /**
        * @param name name of the material to convert
        * @return a pair containing the search result and, if true, the functor to call to convert the material
        */
-      std::pair<bool, ConverterFunction> getMaterialConverter(const std::string &name);
+      RA_ENGINE_API std::pair<bool, ConverterFunction> getMaterialConverter(const std::string &name);
 
 
 
