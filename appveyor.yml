@@ -70,7 +70,7 @@ after_build:
   - cmd: dir %RA_BUNDLE_DIR%
 
 artifacts:
-  - path: %RA_BUNDLE_DIR%
+  - path: C:\projects\Radium-Engine\Bundle-MSVC
     name: Radium-Engine-%platform%-%configuration%
     type: zip
 
