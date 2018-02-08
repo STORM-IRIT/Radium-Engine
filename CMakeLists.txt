@@ -177,6 +177,8 @@ else()
             COMMENT "Linking (symlink) shaders and other ressources" VERBATIM
             )
 endif()
+add_dependencies(radium_assets radiumCore)
+
 ################################################################################
 # Configs                                                                      #
 ################################################################################
@@ -193,3 +195,4 @@ else()
             COMMENT "Linking (symlink) configs (keymapping)" VERBATIM
             )
 endif()
+add_dependencies(radium_configs radiumCore)
