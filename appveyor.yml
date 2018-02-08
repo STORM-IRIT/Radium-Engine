@@ -26,7 +26,6 @@ environment:
 
 # build configuration, i.e. Debug, Release, etc.
 configuration:
-  - Debug
   - Release
 
 # scripts that are called at very beginning, before repo cloning
@@ -49,6 +48,7 @@ branches:
 # scripts that run after cloning repository
 install:
   - set QTDIR=C:\Qt\5.10.0\msvc2017_64
+  - cmd: git submodule update --init --recursive
 
 # scripts to run before build
 before_build:
