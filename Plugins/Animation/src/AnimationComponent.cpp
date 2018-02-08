@@ -103,7 +103,7 @@ namespace AnimationPlugin
             {
                 std::string name = m_skel.getLabel(i);
                 Ra::Core::StringUtils::appendPrintf( name, " (%d)", i);
-                m_boneDrawables.push_back(std::make_unique<SkeletonBoneRenderObject>( name, this, i, getRoMgr()));
+                m_boneDrawables.emplace_back( new SkeletonBoneRenderObject( name, this, i, getRoMgr()));
                 m_renderObjects.push_back(m_boneDrawables.back()->getRenderObjectIndex() );
             } else {
                 LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed.";
