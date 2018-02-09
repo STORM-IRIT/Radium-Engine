@@ -59,31 +59,19 @@ before_build:
   - cmd: if "%platform%"=="x64"   set CMAKE_GENERATOR_NAME=Visual Studio 15 2017 Win64
   - cmd: cmake -G "%CMAKE_GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% -DCMAKE_PREFIX_PATH=%QTDIR%  ..
   - cmd: dir .
-  - cmd: msbuild assimp.vcxproj
-  - cmd: dir %RA_BUNDLE_DIR%\%configuration%\
-  - cmd: msbuild eigen.vcxproj
-  - cmd: dir %RA_BUNDLE_DIR%\%configuration%\
-  - cmd: msbuild glbinding.vcxproj
-  - cmd: dir %RA_BUNDLE_DIR%\%configuration%\
-  - cmd: msbuild glm.vcxproj
-  - cmd: dir %RA_BUNDLE_DIR%\%configuration%\
-  - cmd: msbuild globjects.vcxproj
-  - cmd: dir %RA_BUNDLE_DIR%\%configuration%\
-  - cmd: msbuild openmesh.vcxproj
-  - cmd: dir %RA_BUNDLE_DIR%\%configuration%\
 
 
 build:
   project: C:\projects\Radium-Engine\build\ALL_BUILD.vcxproj  # path to Visual Studio solution or project
-  parallel: false                           # enable MSBuild parallel builds
-  verbosity: detailed                         # MSBuild verbosity level (quiet|minimal|normal|detailed)
+  parallel: true                           # enable MSBuild parallel builds (true|false)
+  verbosity: quiet                         # MSBuild verbosity level (quiet|minimal|normal|detailed)
 
 after_build:
   - cmd: cd %RA_REPOSITORY_ROOT%
   - cmd: dir %RA_BUNDLE_DIR%
 
 artifacts:
-  - path: C:\projects\Radium-Engine\Bundle-MSVC
+  - path: Bundle-MSVC
     name: Radium-Engine-%platform%-%configuration%
     type: zip
 
