@@ -13,13 +13,13 @@ for an overview of the project.
 * OpenGL 3+ / GLSL 330+
 * Qt Core, Qt Widgets and Qt OpenGL v5.4+
 * stb_image (in repository)
-* To build : CMake 2.8.11+
+* To build : CMake 3.0.+
 
 ## Supported compiler and platforms
 
 The following platforms and tool chains have been tested and should work :
 
-* *Windows* : RECOMMENDED: MinGW-32 4.9.2 or higher (with Qt Creator), MSVC 2017 with cmake might also be supported.
+* *Windows* : MSVC 2017 cmake support, MinGW-32 4.9.2 (with Qt Creator).
 * *Mac OSX* : gcc 5 or higher, Apple clang
 * *Linux* : gcc 5 or higher, clang
 
