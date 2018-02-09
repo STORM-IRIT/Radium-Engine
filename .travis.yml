@@ -50,6 +50,7 @@ matrix:
     - env:
         - BUILD_TYPE=Release
         - PREFIX_PATH=""
+        - CLANG_VERSION=3.9
       os: linux
       addons: &clang39
         apt:
@@ -66,6 +67,7 @@ matrix:
     - env:
         - BUILD_TYPE=Release
         - PREFIX_PATH=""
+        - GCC_VERSION=7
       os: linux
       addons: &gcc7
         apt:
