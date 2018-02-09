@@ -171,22 +171,40 @@ namespace Ra
             m_shaders[type] = name;
         }
         
-        void ShaderConfiguration::addProperty( const std::string& prop )
+        void ShaderConfiguration::addProperty(const std::string& prop )
         {
-            m_properties.insert( prop );
+            m_properties.insert( "#define " + prop );
         }
         
         void ShaderConfiguration::addProperties( const std::list<std::string>& props )
         {
             for ( const auto& prop : props )
             {
-                m_properties.insert( prop );
+                m_properties.insert( "#define " + prop );
             }
         }
         
         void ShaderConfiguration::removeProperty( const std::string& prop )
         {
-            m_properties.erase( prop );
+            m_properties.erase( "#define " + prop );
+        }
+
+        void ShaderConfiguration::addInclude(const std::string& prop)
+        {
+            m_properties.insert( "#include " + prop );
+        }
+
+        void ShaderConfiguration::addIncludes(const std::list<std::string>& props)
+        {
+            for ( const auto& prop : props )
+            {
+                m_properties.insert( "#include " + prop );
+            }
+        }
+
+        void ShaderConfiguration::removeInclude(const std::string& prop)
+        {
+            m_properties.erase( "#include " + prop );
         }
         
         bool ShaderConfiguration::isComplete() const

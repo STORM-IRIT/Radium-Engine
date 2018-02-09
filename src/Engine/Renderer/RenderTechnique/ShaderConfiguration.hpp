@@ -48,7 +48,7 @@ namespace Ra
         class RA_ENGINE_API ShaderConfiguration
         {
             friend class ShaderProgram;
-            
+
         public:
             ShaderConfiguration() = default;
             /// Initializes a shader configuration with a name
@@ -65,11 +65,17 @@ namespace Ra
             // Add a shader given its type
             void addShader(ShaderType type, const std::string& name);
             
-            /// Will be processed as a #define prop
+            /// Add a property in the form of a #define
             /// The same shader files with different properties leads to different shader programs
             void addProperty(const std::string& prop);
-            void addProperties(const std::list<std::string>& props );
+            void addProperties(const std::list<std::string>& props);
             void removeProperty(const std::string& prop);
+
+            /// Add a property in the form of an #include
+            /// The same shader files with different properties leads to different shader programs
+            void addInclude(const std::string& prop);
+            void addIncludes(const std::list<std::string>& props);
+            void removeInclude(const std::string& prop);
             
             /// Tell if a shader configuration has at least a vertex and a fragment shader, or a compute shader.
             bool isComplete() const;
@@ -83,9 +89,10 @@ namespace Ra
             
         public:
             std::string m_name;
-            
+
         private:
             std::array<std::string, ShaderType_COUNT> m_shaders;
+
             std::set<std::string> m_properties;
             
             static ShaderConfiguration m_defaultShaderConfig;
