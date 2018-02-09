@@ -1,7 +1,7 @@
 language: cpp
 
 script:
-  - make -j 4 VERBOSE=1
+  - make -j 4
 
 cache:
   directories:
@@ -40,12 +40,16 @@ before_install:
 matrix:
   include:
     # mac clang Release
-    - env: BUILD_TYPE=Release
+    - env:
+        - BUILD_TYPE=Release
+        - PREFIX_PATH="/usr/local/opt/qt/bin"
       os: osx
       compiler: clang
 
     # linx clang Release
-    - env: BUILD_TYPE=Release
+    - env:
+        - BUILD_TYPE=Release
+        - PREFIX_PATH=""
       os: linux
       addons: &clang39
         apt:
@@ -59,7 +63,9 @@ matrix:
             - llvm-toolchain-precise-3.9
 
     # linx gcc Release
-    - env: BUILD_TYPE=Release
+    - env:
+        - BUILD_TYPE=Release
+        - PREFIX_PATH=""
       os: linux
       addons: &gcc7
         apt:
@@ -76,7 +82,7 @@ install:
 
   - mkdir -p build
   - cd build
-  - cmake .. -DRADIUM_WITH_OMP=True -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+  - cmake .. -DRADIUM_WITH_OMP=True -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_PREFIX_PATH=${PREFIX_PATH}
 
 
 # safelist
