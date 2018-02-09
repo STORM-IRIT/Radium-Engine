@@ -63,7 +63,7 @@ if( MSVC OR MINGW )
         add_custom_target( openmesh_install_compiled_dll
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${OPENMESH_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
                 COMMENT "copy openmesh dlls to bin dir" VERBATIM
-		DEPENDS openmesh
+            DEPENDS openmesh create_bin_dir
 	)
 	add_dependencies(openmesh_lib openmesh_install_compiled_dll)
 

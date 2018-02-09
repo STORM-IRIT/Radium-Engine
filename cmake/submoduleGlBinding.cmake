@@ -82,11 +82,11 @@ add_custom_target(glbinding_lib
 # ----------------------------------------------------------------------------------------------------------------------
 if( MSVC OR MINGW )
 
-	add_custom_target( glbinding_install_compiled_dll
+    add_custom_target( glbinding_install_compiled_dll
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${GLBINDING_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
-		COMMENT "copy glbinding dll to bin dir" VERBATIM
-		DEPENDS glbinding
+        COMMENT "copy glbinding dll to bin dir" VERBATIM
+        DEPENDS glbinding create_bin_dir
 	)
-	add_dependencies(glbinding_lib glbinding_install_compiled_dll)
+    add_dependencies(glbinding_lib glbinding_install_compiled_dll)
 
 endif()
