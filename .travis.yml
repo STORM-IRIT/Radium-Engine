@@ -42,7 +42,7 @@ matrix:
     # mac clang Release
     - env:
         - BUILD_TYPE=Release
-        - PREFIX_PATH="/usr/local/opt/qt/bin"
+        - PREFIX_PATH="/usr/local/Cellar/qt/5.10.0_1"
       os: osx
       compiler: clang
 
