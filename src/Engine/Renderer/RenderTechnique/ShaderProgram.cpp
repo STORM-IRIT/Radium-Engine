@@ -81,6 +81,11 @@ namespace Ra
                 shaderHeader = std::string( "#version 410\n\n");
             }
 
+            for ( const auto& prop : props )
+            {
+                shaderHeader = shaderHeader + prop + std::string("\n\n");
+            }
+
             auto fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
 
             // FIXME Where are defined the global replacement?
@@ -207,7 +212,7 @@ namespace Ra
                     LOG( logDEBUG ) << "Reloading shader " << m_shaderObjects[i]->name();
 
                     m_program->detach( m_shaderObjects[i].get() );
-                    loadShader( getGLenumAsType( m_shaderObjects[i]->type() ), m_shaderObjects[i]->name(), {} );
+                    loadShader( getGLenumAsType( m_shaderObjects[i]->type() ), m_shaderObjects[i]->name(), m_configuration.getProperties() );
                 }
             }
 
