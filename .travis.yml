@@ -50,18 +50,18 @@ matrix:
     - env:
         - BUILD_TYPE=Release
         - PREFIX_PATH=""
-        - CLANG_VERSION=3.9
+        - CLANG_VERSION=6.0
       os: linux
-      addons: &clang39
+      addons: &clang60
         apt:
           packages:
             - util-linux
-            - clang-3.9
+            - clang-6.0
             - libqt5widgets5
             - libqt5opengl5-dev
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.9
+            - llvm-toolchain-trusty-6.0
 
     # linx gcc Release
     - env:
