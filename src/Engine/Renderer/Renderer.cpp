@@ -286,13 +286,14 @@ namespace Ra {
                     renderQueuePicking[0].push_back( *it );
                     break;
                 }
-                case Mesh::RM_LINES:
-                case Mesh::RM_LINES_ADJACENCY:
-                case Mesh::RM_LINE_STRIP_ADJACENCY: // fall through
-                {
-                    renderQueuePicking[1].push_back( *it );
-                    break;
-                }
+///\todo Fix picking for line meshes
+//               case Mesh::RM_LINES:
+//                case Mesh::RM_LINES_ADJACENCY:
+//                case Mesh::RM_LINE_STRIP_ADJACENCY: // fall through
+//                {
+//                    renderQueuePicking[1].push_back( *it );
+//                    break;
+//                }
                 case Mesh::RM_TRIANGLES:
                 {
                     renderQueuePicking[2].push_back( *it );
