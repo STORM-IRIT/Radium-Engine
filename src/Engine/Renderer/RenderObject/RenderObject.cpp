@@ -265,10 +265,18 @@ namespace Ra {
                                   const RenderData &rdata,
                                   RenderTechnique::PassName passname)
         {
+            renderWithExplicitRenderTechnique(lightParams, rdata, *getRenderTechnique(), passname );
+        }
+
+        void RenderObject::renderWithExplicitRenderTechnique(const RenderParameters& lightParams,
+                                                             const RenderData& rdata,
+                                                             const RenderTechnique& renderTechnique,
+                                                             RenderTechnique::PassName passname )
+        {
             
             if (m_visible)
             {
-                const ShaderProgram *shader = getRenderTechnique()->getShader(passname);
+                const ShaderProgram *shader = renderTechnique.getShader(passname);
                 
                 if (!shader)
                 {
@@ -286,7 +294,7 @@ namespace Ra {
                 shader->setUniform("transform.worldNormal", N);
                 lightParams.bind(shader);
                 
-                getRenderTechnique()->getMaterial()->bind(shader);
+                renderTechnique.getMaterial()->bind(shader);
                 
                 // render
                 getMesh()->render();
