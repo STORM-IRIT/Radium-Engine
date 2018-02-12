@@ -69,7 +69,7 @@ namespace GuiBase{
         ///\param argv from main()
         ///\param factory : a functor that instanciate the mainWindow
         BaseApplication( int argc, char** argv, const WindowFactory &factory, QString applicationName = "RadiumEngine", QString organizationName = "STORM-IRIT");
-        ~BaseApplication();
+        virtual ~BaseApplication();
 
         /// Advance the engine for one frame.
         void radiumFrame();
