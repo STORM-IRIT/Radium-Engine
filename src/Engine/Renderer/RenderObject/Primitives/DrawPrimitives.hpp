@@ -3,7 +3,6 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <Core/Index/Index.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Math/Obb.hpp>
 #include <Core/Math/Ray.hpp>
