@@ -42,6 +42,7 @@ namespace Ra
             ,m_asymmetry_max( 0 )
             ,m_asymmetry_mean( 0 )
             ,m_asymmetry_median( 0 )
+            ,m_distance_median( 0 )
         {
         }
 
@@ -421,6 +422,7 @@ namespace Ra
                             pt.r = m_distances[i][j][k].second;
                             pt.a = abs(m_distances[i][j][k].second - m_distances[j][i][m_distances[i][j][k].first].second);
                             m_distrib.push_back(pt);
+                            m_distSort.insert(pt);
                             m_asymmSort.insert(pt);
                             if (pt.r > m_threshold_max)
                             {
@@ -728,6 +730,78 @@ namespace Ra
             }
 
             std::ofstream file("Final_distrib.txt", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(file, "Error while opening final distance distribution file.");
+
+            for (uint i = 0; i < NBMAX_STEP; i++)
+            {
+                file << ((2 * i + 1) * step) / 2 << " " << areas[i] << std::endl;
+
+                if (areas[i] != 0)
+                {
+                    std::pair<Scalar,Scalar> p;
+                    p.first = ((2 * i + 1) * step) / 2;
+                    p.second = areas[i];
+                    m_finalDistrib.push_back(p);
+                }
+            }
+
+            file.close();
+        }
+
+        void MeshContactManager::finalDistanceFile2()
+        {
+            Scalar dist, area, asymm, distfunc;
+            Scalar step = m_threshold_max / NBMAX_STEP;
+
+            Scalar areas[NBMAX_STEP] = {0};
+
+            // computing the median distance value
+            DistanceSorting::iterator it = m_distSort.begin();
+
+            if (m_distSort.size() % 2)
+            {
+                std::advance(it, m_distSort.size() / 2);
+                m_distance_median = (*it).r;
+            }
+            else
+            {
+                std::advance(it, m_distSort.size() / 2 - 1);
+                Scalar m = (*it).r;
+                std::advance(it, 1);
+                m_distance_median = (m + (*it).r) / 2;
+            }
+
+            LOG(logINFO) << "Distance median : " << m_distance_median;
+
+            for (uint i = 0; i < m_distrib.size(); i++)
+            {
+                dist = m_distrib[i].r;
+                if (dist > m_distance_median / 4)
+                {
+                    distfunc = 0;
+                }
+                else
+                {
+                    distfunc = std::pow(1 - std::pow((dist / (m_distance_median / 4)),2),2); // weight function for distance
+                }
+
+                area = m_facesArea[m_distrib[i].objId][m_distrib[i].faceId];
+                asymm = m_facesAsymmetry[m_distrib[i].objId][m_distrib[i].faceId];
+                if (asymm > m_asymmetry_median)
+                {
+                    asymm = 0;
+                }
+                else
+                {
+                    //asymm = 1 - (asymm / m_asymmetry_median);
+                    asymm = std::pow(1 - std::pow((asymm / m_asymmetry_median),2),2); // weight function for anisotropy
+                }
+
+                int slot = std::floor(dist / step) - 1;
+                areas[slot] = areas[slot] + area * asymm * distfunc;
+            }
+
+            std::ofstream file("Final_distrib2.txt", std::ios::out | std::ios::trunc);
             CORE_ASSERT(file, "Error while opening final distance distribution file.");
 
             for (uint i = 0; i < NBMAX_STEP; i++)

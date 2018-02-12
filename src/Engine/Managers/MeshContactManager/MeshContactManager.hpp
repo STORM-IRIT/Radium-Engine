@@ -84,6 +84,7 @@ namespace Ra
             void weightedDistanceFile();
             void computeFacesAsymmetry();
             void finalDistanceFile();
+            void finalDistanceFile2(); // with distance function
             void thresholdComputation();
 
             void kmeans(int k);
@@ -117,6 +118,15 @@ namespace Ra
             std::vector<std::vector<Scalar> > m_facesArea; // area of the faces of each object
             std::vector<std::vector<Scalar> > m_facesAsymmetry; // asymmetry ponderation of the faces of each object
 
+            struct comparePtDistribByDistance
+            {
+                inline bool operator() (const PtDistrib &p1, const PtDistrib &p2) const
+                {
+                    return p1.r <= p2.r;
+                }
+            };
+            typedef std::set<PtDistrib, comparePtDistribByDistance> DistanceSorting;
+            DistanceSorting m_distSort;
 
             struct comparePtDistribByAsymmetry
             {
@@ -136,6 +146,8 @@ namespace Ra
 
             Scalar m_asymmetry_mean;
             Scalar m_asymmetry_median;
+            Scalar m_distance_median;
+
             std::vector<Super4PCS::TriangleKdTree<>*> m_trianglekdtrees;
             std::vector<MeshContactElement*> m_meshContactElements;
 
