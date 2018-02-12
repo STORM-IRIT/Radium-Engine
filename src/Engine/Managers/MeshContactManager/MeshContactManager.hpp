@@ -80,6 +80,8 @@ namespace Ra
             void distanceAsymmetryFiles();
             void distanceAsymmetryFile();
             void distanceAsymmetryFile2(); // the asymmetry is normalized
+            void computeFacesArea();
+            void weightedDistanceFile();
             void thresholdComputation();
 
             void kmeans(int k);
@@ -110,6 +112,7 @@ namespace Ra
 
             Eigen::Matrix<Scalar, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_thresholds; // thresholds for each pair of objects
             std::vector<std::vector<std::vector<std::pair<Ra::Core::Index,Scalar> > > > m_distances; // distances for each pair of objects
+            std::vector<std::vector<Scalar> > m_facesArea; // area of the faces of each object
 
 
             std::vector<PtDistrib> m_distrib;

@@ -603,6 +603,50 @@ namespace Ra
             file.close();
         }
 
+        void MeshContactManager::computeFacesArea()
+        {
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                std::vector<Scalar> objFacesArea;
+                MeshContactElement* obj = m_meshContactElements[i];
+                Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getInitTriangleMesh().m_triangles;
+                Ra::Core::VectorArray<Ra::Core::Vector3> v = obj->getInitTriangleMesh().m_vertices;
+                for (uint j = 0; j < t.size(); j++)
+                {
+                    Scalar area = Ra::Core::Geometry::triangleArea(v[t[j][0]],v[t[j][1]],v[t[j][2]]);
+                    objFacesArea.push_back(area);
+                }
+                m_facesArea.push_back(objFacesArea);
+            }
+        }
+
+        void MeshContactManager::weightedDistanceFile()
+        {
+            Scalar dist, area;
+            Scalar step = m_threshold_max / NBMAX_STEP;
+
+            Scalar areas[NBMAX_STEP] = {0};
+
+            for (uint i = 0; i < m_distrib.size(); i++)
+            {
+                dist = m_distrib[i].r;
+                area = m_facesArea[m_distrib[i].objId][m_distrib[i].faceId];
+
+                int slot = std::floor(dist / step) - 1;
+                areas[slot] = areas[slot] + area;
+            }
+
+            std::ofstream file("Weighted_distrib.txt", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(file, "Error while opening weighted distance distribution file.");
+
+            for (uint i = 0; i < NBMAX_STEP; i++)
+            {
+                file << ((2 * i + 1) * step) / 2 << " " << areas[i] << std::endl;
+            }
+
+            file.close();
+        }
+
         void MeshContactManager::thresholdComputation()
         {
             m_broader_threshold = m_threshold / (std::pow(1 - std::pow(m_influence,1/m_n),1/m_m));
