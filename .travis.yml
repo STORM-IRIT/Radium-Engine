@@ -71,6 +71,7 @@ matrix:
           packages:
             - util-linux
             - clang-5.0
+            - g++-7
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-5.0
