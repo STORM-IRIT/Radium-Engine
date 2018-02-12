@@ -24,6 +24,8 @@ namespace AnimationPlugin
     public:
         AnimationComponent(const std::string& name);
         virtual ~AnimationComponent();
+        AnimationComponent(const AnimationComponent&) = delete;
+        AnimationComponent& operator= (const AnimationComponent&) = delete;
 
         virtual void initialize() override{}
 

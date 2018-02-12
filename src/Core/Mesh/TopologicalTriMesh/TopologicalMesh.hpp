@@ -28,7 +28,7 @@ namespace Core {
 
     inline Eigen::Map<const Vector3> convertVec3OpenMeshToEigen(const TopologicalMesh::Point &vec)
     {
-        return Eigen::Map<const Vector3>(vec.begin());
+        return Eigen::Map<const Vector3>(vec.data());
     }
 }
 }

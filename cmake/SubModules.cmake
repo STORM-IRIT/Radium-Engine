@@ -15,6 +15,16 @@ else()
         set(RADIUM_SUBMODULES_BUILD_TYPE Release)
 endif()
 
+# ----------------------------------------------------------------------------------------------------------------------
+if( MSVC OR MINGW )
+
+    add_custom_target( create_bin_dir
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+        COMMENT "Force generation of bin directory" VERBATIM
+    )
+
+endif()
+
 #OpenGL Stuff
 include(submoduleGLM)
 include(submoduleGlBinding)

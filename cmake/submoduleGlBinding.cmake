@@ -1,5 +1,5 @@
-# Allow to compile with AppleCLang
-if ( APPLE AND ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" )
+# Allow to compile with CLang
+if ( ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" )
     set( PLATFORM_ARGS "" )
 else()
     set( PLATFORM_ARGS "-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false" )
@@ -20,23 +20,6 @@ elseif (MINGW)
     set(GLBINDING_DLL            "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib${GLBINDINGLIBNAME}.dll")
     set( GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLBINDINGLIBNAME}.dll.a" )
 elseif( MSVC )
-    # in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
-    if( MSVC70 OR MSVC71 )
-        set(MSVC_PREFIX "vc70")
-    elseif( MSVC80 )
-        set(MSVC_PREFIX "vc80")
-    elseif( MSVC90 )
-        set(MSVC_PREFIX "vc90")
-    elseif( MSVC10 )
-        set(MSVC_PREFIX "vc100")
-    elseif( MSVC11 )
-        set(MSVC_PREFIX "vc110")
-    elseif( MSVC12 )
-        set(MSVC_PREFIX "vc120")
-    else()
-        set(MSVC_PREFIX "vc140")
-    endif()
-
     set(GLBINDING_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${GLBINDINGLIBNAME}.dll")
     set(GLBINDING_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLBINDINGLIBNAME}.lib")
 endif()
@@ -82,11 +65,11 @@ add_custom_target(glbinding_lib
 # ----------------------------------------------------------------------------------------------------------------------
 if( MSVC OR MINGW )
 
-	add_custom_target( glbinding_install_compiled_dll
+    add_custom_target( glbinding_install_compiled_dll
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${GLBINDING_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
-		COMMENT "copy glbinding dll to bin dir" VERBATIM
-		DEPENDS glbinding
+        COMMENT "copy glbinding dll to bin dir" VERBATIM
+        DEPENDS glbinding create_bin_dir
 	)
-	add_dependencies(glbinding_lib glbinding_install_compiled_dll)
+    add_dependencies(glbinding_lib glbinding_install_compiled_dll)
 
 endif()

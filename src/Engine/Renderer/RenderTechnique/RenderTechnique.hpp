@@ -75,7 +75,7 @@ namespace Ra {
          *
          *   TODO : Default rendertechnique must be renderer dependant ...
          */
-        class RenderTechnique
+        class RA_ENGINE_API RenderTechnique
         {
         public:
             enum PassName
@@ -90,26 +90,26 @@ namespace Ra {
             RenderTechnique(const RenderTechnique &);
             ~RenderTechnique();
             
-            RA_ENGINE_API void setConfiguration(const ShaderConfiguration &newConfig, PassName pass = LIGHTING_OPAQUE);
+            void setConfiguration(const ShaderConfiguration &newConfig, PassName pass = LIGHTING_OPAQUE);
             // TODO : do we need all the config or only the basic part ?
-            RA_ENGINE_API ShaderConfiguration getConfiguration(PassName pass = LIGHTING_OPAQUE) const;
+            ShaderConfiguration getConfiguration(PassName pass = LIGHTING_OPAQUE) const;
 
-            RA_ENGINE_API const ShaderProgram *getShader(PassName pass = LIGHTING_OPAQUE) const;
+            const ShaderProgram *getShader(PassName pass = LIGHTING_OPAQUE) const;
 
 
-            RA_ENGINE_API void setMaterial(const std::shared_ptr<Material> &material);
-            RA_ENGINE_API const std::shared_ptr<Material> &getMaterial() const;
+            void setMaterial(const std::shared_ptr<Material> &material);
+            const std::shared_ptr<Material> &getMaterial() const;
 
-            RA_ENGINE_API void resetMaterial(Material *mat);
+            void resetMaterial(Material *mat);
 
-            RA_ENGINE_API void updateGL();
-            RA_ENGINE_API bool shaderIsDirty(PassName pass = LIGHTING_OPAQUE) const;
+            void updateGL();
+            bool shaderIsDirty(PassName pass = LIGHTING_OPAQUE) const;
             
             // creates a Radium default rendertechnique :
             //      Z_PREPASS = DepthDepthAmbientPass
             //      LIGHTING_OPAQUE = BlinnPhong
             //      LIGHTING_TRANSPARENT = LitOIT
-            static RA_ENGINE_API Ra::Engine::RenderTechnique createDefaultRenderTechnique();
+            static Ra::Engine::RenderTechnique createDefaultRenderTechnique();
         private:
             using ConfigurationSet = std::map<PassName, ShaderConfiguration>;
             using ShaderSet = std::map<PassName, const ShaderProgram *>;
@@ -137,18 +137,18 @@ namespace Ra {
             /** register a new default builder for a technique
              *  @return true if builder added, false else (e.g, a builder with the same name exists)
              */
-            bool registerDefaultTechnique(const std::string &name, DefaultTechniqueBuilder builder);
+            RA_ENGINE_API bool registerDefaultTechnique(const std::string &name, DefaultTechniqueBuilder builder);
             
             /** remove a default builder
              *  @return true if builder removed, false else (e.g, a builder with the same name does't exists)
              */
-            bool removeDefaultTechnique(const std::string &name);
+            RA_ENGINE_API bool removeDefaultTechnique(const std::string &name);
             
             /**
              * @param name name of the technique to construct
              * @return a pair containing the search result and, if true, the functor to call to build the technique.
              */
-            std::pair<bool, DefaultTechniqueBuilder> getDefaultTechnique(const std::string &name);
+            RA_ENGINE_API std::pair<bool, DefaultTechniqueBuilder> getDefaultTechnique(const std::string &name);
             
             
         }
