@@ -26,7 +26,7 @@ namespace Ra
             enum LightType
             {
                 DIRECTIONAL,
-                POLYGONAL, // Adding this here is a bit bad, since it will rely on a plugin, isn't it ?
+                POLYGONAL,
                 POINT,
                 SPOT
             };
@@ -48,6 +48,8 @@ namespace Ra
             inline const LightType& getType() const;
 
             virtual void getRenderParameters( RenderParameters& params );
+
+            virtual std::string getShaderInclude() const;
 
             void initialize() override;
 

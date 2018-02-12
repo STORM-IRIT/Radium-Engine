@@ -35,6 +35,7 @@ namespace Ra {
             virtual ~LightManager();
 
 
+
             //
             // Calls for the Renderer
             //

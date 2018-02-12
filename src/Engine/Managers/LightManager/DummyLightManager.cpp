@@ -22,11 +22,6 @@ namespace Ra {
 
         void DummyLightManager::preprocess()
         {
-            GL_ASSERT(glDepthFunc(GL_LEQUAL));
-            GL_ASSERT(glDepthMask(GL_FALSE));
-
-            GL_ASSERT(glEnable(GL_BLEND));
-            GL_ASSERT(glBlendFunc(GL_ONE, GL_ONE));
         }
 
         void DummyLightManager::prerender(unsigned int li, RenderParameters& params)
