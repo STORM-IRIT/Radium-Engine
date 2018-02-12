@@ -64,7 +64,7 @@ public slots:
   /// Call after loading a new file to let the window resetview for instance.
   virtual void postLoadFile() = 0;
   /// Cleanup resources.
-  virtual void cleanup() =0;
+  virtual void cleanup() = 0;
 
 signals:
   /// Emitted when the closed button has been hit.
