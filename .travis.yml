@@ -40,13 +40,14 @@ before_install:
   ############################################################################
   # Install a recent Qt
   ############################################################################
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+  - |
+    if [ "$TRAVIS_OS_NAME" = "linux" ]; then
       if [ ! -d "~/Qt/5.10.0/gcc_64" ]; then
         wget http://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run ;
         chmod a+x ./qt-unified-linux-x64-online.run ;
-        export QT_QPA_PLATFORM=minimal ; #Command line run
+        export QT_QPA_PLATFORM=minimal ;
         travis_wait 60 ./qt-unified-linux-x64-online.run --script .ci/qt-installer-noninteractive.qs --no-force-installations --verbose ;
-      fi
+      fi;
     fi;
 
 
