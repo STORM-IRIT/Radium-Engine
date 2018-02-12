@@ -578,6 +578,31 @@ namespace Ra
             file.close();
         }
 
+        // Normalized asymmetry
+        void MeshContactManager::distanceAsymmetryFile2()
+        {
+            Scalar dist, asymm;
+
+            std::ofstream file("Distrib.txt", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(file, "Error while opening distance distribution file.");
+
+            for (uint i = 0; i < m_distances.size(); i++)
+            {
+                for (uint j = 0; j < m_distances[i].size(); j++)
+                {
+                    for (uint k = 0; k < m_distances[i][j].size(); k++)
+                    {
+                        dist = m_distances[i][j][k].second;
+                        asymm = abs(m_distances[i][j][k].second - m_distances[j][i][m_distances[i][j][k].first].second);
+                        asymm = asymm / m_asymmetry_max;
+                        file << dist << " " << asymm << std::endl;
+                    }
+                }
+            }
+
+            file.close();
+        }
+
         void MeshContactManager::thresholdComputation()
         {
             m_broader_threshold = m_threshold / (std::pow(1 - std::pow(m_influence,1/m_n),1/m_m));

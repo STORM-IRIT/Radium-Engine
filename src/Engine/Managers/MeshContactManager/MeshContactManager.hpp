@@ -79,6 +79,7 @@ namespace Ra
             void displayDistribution(Scalar distValue, Scalar asymmValue);
             void distanceAsymmetryFiles();
             void distanceAsymmetryFile();
+            void distanceAsymmetryFile2(); // the asymmetry is normalized
             void thresholdComputation();
 
             void kmeans(int k);
