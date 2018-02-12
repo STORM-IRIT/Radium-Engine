@@ -6,7 +6,6 @@
 #include <map>
 #include <memory>
 
-#include <Core/Index/Index.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
 

@@ -3,7 +3,7 @@ namespace Ra
     namespace Core
     {
         /// CONSTRUCTOR
-        constexpr Index::Index( const int i )
+        constexpr Index::Index( int i )
             : m_idx ( ( i < 0 ) ? s_invalid : i ) { }
 
         constexpr Index::Index( const Index& i )
@@ -24,6 +24,14 @@ namespace Ra
         {
             m_idx = s_invalid;
         }
+        constexpr Index Index::Invalid()
+        {
+            return Index( s_invalid );
+        }
+        constexpr Index Index::Max()
+        {
+            return Index( s_maxIdx );
+        }
 
         /// INDEX
         constexpr int  Index::getValue() const
@@ -33,6 +41,12 @@ namespace Ra
         constexpr void Index::setValue( const int i )
         {
             m_idx = ( i < 0 ) ? s_invalid : i;
+        }
+
+        /// CAST
+        constexpr Index::operator int() const
+        {
+            return m_idx;
         }
 
         /// OPERATOR
@@ -55,5 +69,109 @@ namespace Ra
             return *this;
         }
 
-    }
-} // namespace Ra::Core
+        constexpr Index Index::operator+ ( const Index& id )
+        {
+            if ( isInvalid() || id.isInvalid() )
+            {
+                return Index::Invalid();
+            }
+            return Index( m_idx + id.m_idx );
+        }
+        template <typename Integer>
+        constexpr Index Index::operator+ ( const Integer& id )
+        {
+            return (*this) + Index(id);
+        }
+
+        constexpr Index Index::operator- ( const Index& id )
+        {
+            if ( isInvalid() || id.isInvalid() )
+            {
+                return Index::Invalid();
+            }
+            return Index( m_idx - id.m_idx );
+        }
+        template <typename Integer>
+        constexpr Index Index::operator- ( const Integer& id )
+        {
+            return (*this) - Index(id);
+        }
+
+        constexpr bool Index::operator== ( const Index& id )
+        {
+            return ( m_idx == id.m_idx );
+        }
+        template <typename Integer>
+        constexpr bool Index::operator== ( const Integer& i )
+        {
+            return ( m_idx == i );
+        }
+
+        constexpr bool Index::operator!= ( const Index& id )
+        {
+            return ( m_idx != id.m_idx );
+        }
+        template <typename Integer>
+        constexpr bool Index::operator!= ( const Integer& i )
+        {
+            return ( m_idx != i );
+        }
+
+        constexpr bool Index::operator< ( const Index& id )
+        {
+            if ( isInvalid() || id.isInvalid() )
+            {
+                return false;
+            }
+            return ( m_idx <  id.m_idx );
+        }
+        template <typename Integer>
+        constexpr bool Index::operator< ( const Integer& i )
+        {
+            return ( m_idx <  i );
+        }
+
+        constexpr bool Index::operator<= ( const Index& id )
+        {
+            if ( isInvalid() || id.isInvalid() )
+            {
+                return false;
+            }
+            return ( m_idx <= id.m_idx );
+        }
+        template <typename Integer>
+        constexpr bool Index::operator<= ( const Integer& i )
+        {
+            return ( m_idx <= i );
+        }
+
+        constexpr bool Index::operator> ( const Index& id )
+        {
+            if ( isInvalid() || id.isInvalid() )
+            {
+                return false;
+            }
+            return ( m_idx >  id.m_idx );
+        }
+        template <typename Integer>
+        constexpr bool Index::operator> ( const Integer& i )
+        {
+            return ( m_idx >  i );
+        }
+
+        constexpr bool Index::operator>= ( const Index& id )
+        {
+            if ( isInvalid() || id.isInvalid() )
+            {
+                return false;
+            }
+            return ( m_idx >= id.m_idx );
+        }
+        template <typename Integer>
+        constexpr bool Index::operator>= ( const Integer& i )
+        {
+            return ( m_idx >= i );
+        }
+
+    } // namespace Ra::Core
+} // namespace Ra

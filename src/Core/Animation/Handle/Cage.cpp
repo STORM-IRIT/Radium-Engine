@@ -1,7 +1,5 @@
 #include <Core/Animation/Handle/Cage.hpp>
 
-#include <Core/Index/Index.hpp>
-
 
 namespace Ra {
 namespace Core {

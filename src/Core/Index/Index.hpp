@@ -1,8 +1,6 @@
 #ifndef RADIUMENGINE_INDEX_HPP
 #define RADIUMENGINE_INDEX_HPP
 
-#include <Core/RaCore.hpp>
-#include <Eigen/Core>
 #include <limits>
 
 namespace Ra
@@ -14,7 +12,7 @@ namespace Ra
         {
         public:
             /// CONSTRUCTOR
-            constexpr Index( const int i = s_invalid );
+            constexpr Index( int i = s_invalid );
             constexpr Index( const Index& i );
 
             /// DESTRUCTOR: Must not be defined, we need it trivial to be
@@ -27,131 +25,52 @@ namespace Ra
             /// INVALID
             constexpr bool isInvalid() const;
             constexpr void setInvalid();
-            static constexpr const Index Invalid()
-            {
-                return Index( s_invalid );
-            }
-            static constexpr Index Max()
-            {
-                return Index( s_maxIdx );
-            }
+            static constexpr Index Invalid();
+            static constexpr Index Max();
 
             /// INDEX
             constexpr int  getValue() const;
             constexpr void setValue( const int i );
 
+            /// CAST
+            constexpr operator int() const; // required for `array[idx]`
+
             /// OPERATOR
             constexpr Index& operator= ( const Index& id );
             constexpr Index& operator++();
             constexpr Index& operator--();
-            constexpr operator int() const
-            {
-                return m_idx;
-            }
 
-            friend constexpr Index operator+ ( const Index& id0, const Index& id1 )
-            {
-                if ( id0.isInvalid() || id1.isInvalid() )
-                {
-                    return Invalid();
-                }
-                return Index( id0.m_idx + id1.m_idx );
-            }
+            constexpr Index operator+ ( const Index& id );
             template <typename Integer>
-            friend constexpr Index operator+ ( const Index& id,  const Integer& i )
-            {
-                return id + Index(i);
-            }
+            constexpr Index operator+ ( const Integer& i );
 
-            friend constexpr Index operator- ( const Index& id0, const Index& id1 )
-            {
-                if ( id0.isInvalid() || id1.isInvalid() )
-                {
-                    return Invalid();
-                }
-                return Index( id0.m_idx - id1.m_idx );
-            }
+            constexpr Index operator- ( const Index& id );
             template <typename Integer>
-            friend constexpr Index operator- ( const Index& id,  const Integer& i )
-            {
-                return id + (-i);
-            }
+            constexpr Index operator- ( const Integer& i );
 
-            friend constexpr bool  operator== ( const Index& id0, const Index& id1 )
-            {
-                return ( id0.m_idx == id1.m_idx );
-            }
+            constexpr bool operator== ( const Index& id );
             template <typename Integer>
-            friend constexpr bool  operator== ( const Index& id0, const Integer& i )
-            {
-                return ( id0.m_idx == i );
-            }
+            constexpr bool  operator== ( const Integer& i );
 
-            friend constexpr bool  operator!= ( const Index& id0, const Index& id1 )
-            {
-                return ( id0.m_idx != id1.m_idx );
-            }
+            constexpr bool  operator!= ( const Index& id );
             template <typename Integer>
-            friend constexpr bool  operator!= ( const Index& id0, const Integer& i )
-            {
-                return ( id0.m_idx != i );
-            }
+            constexpr bool  operator!= ( const Integer& i );
 
-            friend constexpr bool  operator< ( const Index& id0, const Index& id1 )
-            {
-                if ( id0.isInvalid() || id1.isInvalid() )
-                {
-                    return false;
-                }
-                return ( id0.m_idx <  id1.m_idx );
-            }
+            constexpr bool  operator< ( const Index& id1 );
             template <typename Integer>
-            friend constexpr bool  operator< ( const Index& id, const Integer& i )
-            {
-                return ( id.m_idx <  i );
-            }
+            constexpr bool  operator< ( const Integer& i );
 
-            friend constexpr bool  operator<= ( const Index& id0, const Index& id1 )
-            {
-                if ( id0.isInvalid() || id1.isInvalid() )
-                {
-                    return false;
-                }
-                return ( id0.m_idx <= id1.m_idx );
-            }
+            constexpr bool  operator<= ( const Index& id1 );
             template <typename Integer>
-            friend constexpr bool  operator<= ( const Index& id,  const Integer& i )
-            {
-                return ( id.m_idx <= i );
-            }
+            constexpr bool  operator<= ( const Integer& i );
 
-            friend constexpr bool  operator> ( const Index& id0, const Index& id1 )
-            {
-                if ( id0.isInvalid() || id1.isInvalid() )
-                {
-                    return false;
-                }
-                return ( id0.m_idx >  id1.m_idx );
-            }
+            constexpr bool  operator> ( const Index& id1 );
             template <typename Integer>
-            friend constexpr bool  operator> ( const Index& id,  const Integer& i )
-            {
-                return ( id.m_idx >  i );
-            }
+            constexpr bool  operator> ( const Integer& i );
 
-            friend constexpr bool  operator>= ( const Index& id0, const Index& id1 )
-            {
-                if ( id0.isInvalid() || id1.isInvalid() )
-                {
-                    return false;
-                }
-                return ( id0.m_idx >= id1.m_idx );
-            }
+            constexpr bool  operator>= ( const Index& id1 );
             template <typename Integer>
-            friend constexpr bool  operator>= ( const Index& id,  const Integer& i )
-            {
-                return ( id.m_idx >= i );
-            }
+            constexpr bool  operator>= ( const Integer& i );
 
         protected:
             /// VARIABLE
@@ -162,7 +81,6 @@ namespace Ra
             static const int s_invalid = -1;
             static const int s_maxIdx = std::numeric_limits<int>::max();
         };
-
     }
 } // namespace Ra::Core
 
