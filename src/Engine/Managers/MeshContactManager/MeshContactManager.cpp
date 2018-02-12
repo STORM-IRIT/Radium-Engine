@@ -436,6 +436,9 @@ namespace Ra
                     }
                 }
             }
+
+            LOG(logINFO) << "Threshold max : " << m_threshold_max;
+            LOG(logINFO) << "Asymmetry max : " << m_asymmetry_max;
         }
 
         // value that will be used for the slider in UI
@@ -820,9 +823,50 @@ namespace Ra
             file.close();
         }
 
+        void MeshContactManager::findClusters()
+        {
+            uint i = 0;
+            Scalar area = m_finalDistrib[i].second;
+            Scalar area2 = m_finalDistrib[i+1].second;
+
+            while (i < m_finalDistrib.size())
+            {
+                if (area <= area2)
+                {
+                    while (area <= area2 && i < m_finalDistrib.size())
+                    {
+                        i++;
+                        area = m_finalDistrib[i].second; // bug when i > size
+                        area2 = m_finalDistrib[i+1].second;
+                    }
+                    if (i < m_finalDistrib.size())
+                    {
+                        m_finalClusters.push_back(m_finalDistrib[i].first);
+                    }
+                 }
+
+                else
+                {
+                    while (area >= area2 && i < m_finalDistrib.size())
+                    {
+                        i++;
+                        area = m_finalDistrib[i].second;
+                        area2 = m_finalDistrib[i+1].second;
+                    }
+                    if (i < m_finalDistrib.size())
+                    {
+                        m_finalClusters.push_back(m_finalDistrib[i].first);
+                    }
+                }
+            }
+            m_finalClusters.push_back(m_finalDistrib[m_finalDistrib.size() - 1].first);
+            LOG(logINFO) << "Number of clusters : " << m_finalClusters.size();
+        }
+
         void MeshContactManager::thresholdComputation()
         {
             m_broader_threshold = m_threshold / (std::pow(1 - std::pow(m_influence,1/m_n),1/m_m));
+            //m_broader_threshold = m_threshold;
         }
 
         void MeshContactManager::setLodValueChanged(int value)
@@ -879,8 +923,18 @@ namespace Ra
 
         void MeshContactManager::setComputeR()
         {
+            //normalize();
+
             distanceAsymmetryDistribution();
             LOG(logINFO) << "Distance asymmetry distributions computed.";
+            distanceAsymmetryFile2();
+
+            computeFacesArea();
+            weightedDistanceFile();
+            computeFacesAsymmetry();
+            finalDistanceFile();
+            finalDistanceFile2();
+            findClusters();
         }
 
         void MeshContactManager::setLoadDistribution(std::string filePath)
@@ -1021,6 +1075,7 @@ namespace Ra
             return S;
         }
 
+
         void MeshContactManager::clustering(Scalar silhouetteMin, int nbClustersMax)
         {
             int k = 1;
@@ -1052,11 +1107,72 @@ namespace Ra
             LOG(logINFO) << "Best number of clusters : " << bestNbClusters << " and silhouette value : " << maxS;
         }
 
+//        void MeshContactManager::colorClusters()
+//        {
+//            int nbClusters = m_clusters.size();
 
+//            // ordering clusters by distance in order to color them
+//            struct compareCenterClusterByDistance
+//            {
+//                inline bool operator() (const std::pair<int,Scalar> &c1, const std::pair<int,Scalar> &c2) const
+//                {
+//                    return c1.second <= c2.second;
+//                }
+//            };
 
+//            typedef std::set<std::pair<int,Scalar>, compareCenterClusterByDistance> ClusterSorting;
 
+//            ClusterSorting clusters;
 
+//            for (uint i = 0; i < nbClusters; i++)
+//            {
+//                std::pair<int,Scalar> cluster;
+//                cluster.first = i;
+//                cluster.second = m_clusters[i].first;
+//                clusters.insert(cluster);
+//            }
 
+//            Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
+//            for (uint i = 0; i < m_meshContactElements.size(); i++)
+//            {
+//                MeshContactElement* obj = m_meshContactElements[i];
+//                int nbVertices = obj->getMesh()->getGeometry().m_vertices.size();
+//                Ra::Core::Vector4Array colors;
+//                for (uint v = 0; v < nbVertices; v++)
+//                {
+//                    colors.push_back(vertexColor);
+//                }
+//                obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+//            }
+
+//            Ra::Core::Vector4 clusterColor (0, 0, 1, 0);
+//            ClusterSorting::iterator it = clusters.begin();
+//            int k = 0;
+//            while (it != clusters.end())
+//            {
+//                int clusterId = (*it).first;
+//                Scalar coeffCluster = (nbClusters - k) / nbClusters;
+
+//                int nbFacesCluster = m_clusters[clusterId].second.size();
+//                for (uint i = 0; i < nbFacesCluster; i++)
+//                {
+//                    MeshContactElement* obj = m_meshContactElements[m_distrib[m_clusters[clusterId].second[i]].objId];
+//                    Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getTriangleMeshDuplicate().m_triangles;
+//                    Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
+
+//                    colors[t[m_distrib[m_clusters[clusterId].second[i]].faceId][0]] = coeffCluster * clusterColor;
+//                    colors[t[m_distrib[m_clusters[clusterId].second[i]].faceId][1]] = coeffCluster * clusterColor;
+//                    colors[t[m_distrib[m_clusters[clusterId].second[i]].faceId][2]] = coeffCluster * clusterColor;
+//                    obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+//                }
+
+//                std::advance(it, 1);
+//                k++;
+//            }
+//        }
+
+        void MeshContactManager::colorClusters()
+        {
             Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
             for (uint i = 0; i < m_meshContactElements.size(); i++)
             {
@@ -1070,13 +1186,24 @@ namespace Ra
                 obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
             }
 
+            std::srand(std::time(0));
+            DistanceSorting::iterator it = m_distSort.begin();
+            for (uint i = 0; i < m_finalClusters.size(); i++)
             {
+                Ra::Core::Vector4 clusterColor ((Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000);
+                while ((*it).r <= m_finalClusters[i] && it != m_distSort.end())
                 {
+                    MeshContactElement* obj = m_meshContactElements[(*it).objId];
                     Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getTriangleMeshDuplicate().m_triangles;
                     Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
 
+                    colors[t[(*it).faceId][0]] = clusterColor;
+                    colors[t[(*it).faceId][1]] = clusterColor;
+                    colors[t[(*it).faceId][2]] = clusterColor;
                     obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
 
+                    std::advance(it, 1);
+                }
             }
         }
 
@@ -1088,6 +1215,7 @@ namespace Ra
                 m_meshContactElements[objIndex]->setMesh(m_meshContactElements[objIndex]->getTriangleMeshDuplicate());
             }
 
+//            clustering(0.75,25);
             colorClusters();
         }
 
@@ -1203,6 +1331,7 @@ namespace Ra
                                     {
                                         CORE_ASSERT(dist/m_broader_threshold >= 0 && dist/m_broader_threshold <= 1, "Contact found out of threshold limit.");
                                         weight = std::pow(std::pow(dist/m_broader_threshold, m_m) - 1, m_n);
+                                        //weight = 1;
                                     }
                                     nbContacts++;
                                     sumWeight += weight;
@@ -1224,6 +1353,7 @@ namespace Ra
                 qc *= 1.0 / nbContacts;
 
                 Scalar edgeErrorContact = abs(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getEM().computeGeometricError(qc,p));
+                error = edgeErrorQEM * (1 + m_lambda * edgeErrorContact);
                 CORE_ASSERT(error >= edgeErrorQEM, "Contacts lower the error");
             }
             else

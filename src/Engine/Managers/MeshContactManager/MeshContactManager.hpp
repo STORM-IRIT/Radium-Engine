@@ -90,6 +90,8 @@ namespace Ra
             void kmeans(int k);
             Scalar silhouette();
             void clustering(Scalar silhouetteMin, int nbClustersMax);
+
+            void findClusters();
             void colorClusters();
 
             void normalize();
@@ -139,8 +141,12 @@ namespace Ra
             AsymmetrySorting m_asymmSort;
 
             std::vector<PtDistrib> m_distrib;
+            std::vector<std::pair<Scalar, std::vector<int> > > m_clusters; // position of cluster centers and indices of cluster faces in m_distrib
 
             std::vector<std::pair<Scalar,Scalar> > m_finalDistrib; // distance and asymmetry positions of the last distribution until the asymmetry is equal to 0
+            std::vector<Scalar> m_finalClusters; // distances defining the clusters
+
+
             Scalar m_threshold_max;
             Scalar m_asymmetry_max;
 
