@@ -36,6 +36,15 @@ before_install:
     fi
   - cmake --version
 
+  ############################################################################
+  # Install a recent Qt
+  ############################################################################
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+      wget http://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run ;
+      chmod a+x ./qt-unified-linux-x64-online.run ;
+      travis_wait 60 ./qt-unified-linux-x64-online.run --script qt-installer-noninteractive.qs --no-force-installations --verbose ;
+    fi;
+
 
 matrix:
   include:
@@ -49,7 +58,7 @@ matrix:
     # linx clang Release
     - env:
         - BUILD_TYPE=Release
-        - PREFIX_PATH=""
+        - PREFIX_PATH="~/Qt/5.10.0/gcc_64/lib/cmake"
         - CLANG_VERSION=6.0
       os: linux
       addons: &clang50
@@ -57,8 +66,6 @@ matrix:
           packages:
             - util-linux
             - clang-5.0
-            - libqt5widgets5
-            - libqt5opengl5-dev
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-5.0
@@ -66,15 +73,13 @@ matrix:
     # linx gcc Release
     - env:
         - BUILD_TYPE=Release
-        - PREFIX_PATH=""
+        - PREFIX_PATH="~/Qt/5.10.0/gcc_64/lib/cmake"
         - GCC_VERSION=7
       os: linux
       addons: &gcc7
         apt:
           packages:
             - g++-7
-            - libqt5widgets5
-            - libqt5opengl5-dev
           sources:
             - ubuntu-toolchain-r-test
 
