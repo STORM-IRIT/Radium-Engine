@@ -11,8 +11,8 @@ namespace Ra
     {
 
         // todo : enclose this in a more specific namespace ?
-        typedef Vector2ui Edge;
-        typedef Vector3ui Triangle;
+        using Edge     = Vector2ui;
+        using Triangle = Vector3ui;
 
         using TriangleIdx = Index;
         using VertexIdx   = Index;

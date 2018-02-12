@@ -4,7 +4,6 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/MeshTypes.hpp>
-#include <Core/Index/Index.hpp>
 
 #include <Core/Animation/Handle/PointCloud.hpp>
 

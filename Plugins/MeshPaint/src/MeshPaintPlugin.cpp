@@ -77,13 +77,13 @@ namespace MeshPaintPlugin
 
     bool MeshPaintPluginC::doAddAction( int& nb )
     {
-		nb = 0;
-		return false;
+        nb = 0;
+        return false;
     }
 
     QAction* MeshPaintPluginC::getAction( int id )
-	{
-		return nullptr;
+    {
+        return nullptr;
     }
 
     void MeshPaintPluginC::activePaintColor( bool on )
@@ -101,7 +101,7 @@ namespace MeshPaintPlugin
 
     void MeshPaintPluginC::onCurrentChanged( const QModelIndex& current, const QModelIndex& prev )
     {
-        if ( m_isPainting && Ra::Core::InvalidIdx != m_selectionManager->currentItem().m_roIndex )
+        if ( m_isPainting && Ra::Core::Index::Invalid() != m_selectionManager->currentItem().m_roIndex )
         {
             m_system->paintMesh( m_PickingManager->getCurrent(), m_paintColor );
         }

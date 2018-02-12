@@ -29,7 +29,7 @@ namespace Ra
         void PickingManager::clear()
         {
             m_pickingResult.m_mode = Engine::Renderer::RO;
-            m_pickingResult.m_roIdx = Core::InvalidIdx;
+            m_pickingResult.m_roIdx = Core::Index::Invalid();
             m_pickingResult.m_vertexIdx.clear();
             m_pickingResult.m_edgeIdx.clear();
             m_pickingResult.m_elementIdx.clear();
