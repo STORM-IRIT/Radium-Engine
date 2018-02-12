@@ -40,6 +40,8 @@ namespace Ra
             ,m_curr_vsplit( 0 )
             ,m_threshold_max( 0 )
             ,m_asymmetry_max( 0 )
+            ,m_asymmetry_mean( 0 )
+            ,m_asymmetry_median( 0 )
         {
         }
 
@@ -419,6 +421,7 @@ namespace Ra
                             pt.r = m_distances[i][j][k].second;
                             pt.a = abs(m_distances[i][j][k].second - m_distances[j][i][m_distances[i][j][k].first].second);
                             m_distrib.push_back(pt);
+                            m_asymmSort.insert(pt);
                             if (pt.r > m_threshold_max)
                             {
                                 m_threshold_max = pt.r;
@@ -642,6 +645,102 @@ namespace Ra
             for (uint i = 0; i < NBMAX_STEP; i++)
             {
                 file << ((2 * i + 1) * step) / 2 << " " << areas[i] << std::endl;
+            }
+
+            file.close();
+        }
+
+        void MeshContactManager::computeFacesAsymmetry()
+        {
+            int objId = m_distrib[0].objId;
+            uint i = 0;
+            while (objId != -1)
+            {
+                std::vector<Scalar> asymm;
+                while (m_distrib[i].objId == objId)
+                {
+                    asymm.push_back(m_distrib[i].a);
+                    i++;
+                }
+                m_facesAsymmetry.push_back(asymm);
+                if (i < m_distrib.size())
+                {
+                    objId = m_distrib[i].objId;
+                }
+                else
+                {
+                    objId = -1;
+                }
+            }
+        }
+
+        void MeshContactManager::finalDistanceFile()
+        {
+            Scalar dist, area, asymm;
+            Scalar step = m_threshold_max / NBMAX_STEP;
+
+            Scalar areas[NBMAX_STEP] = {0};
+
+            // computing the mean asymmetry value
+//            for (uint j = 0; j < m_distrib.size(); j++)
+//            {
+//                m_asymmetry_mean += m_distrib[j].a;
+//            }
+//            m_asymmetry_mean /= m_distrib.size();
+
+            // computing the median asymmetry value
+            AsymmetrySorting::iterator it = m_asymmSort.begin();
+
+            if (m_asymmSort.size() % 2)
+            {
+                std::advance(it, m_asymmSort.size() / 2);
+                m_asymmetry_median = (*it).a;
+            }
+            else
+            {
+                std::advance(it, m_asymmSort.size() / 2 - 1);
+                Scalar m = (*it).a;
+                std::advance(it, 1);
+                m_asymmetry_median = (m + (*it).a) / 2;
+            }
+
+            //LOG(logINFO) << "Asymmetry mean : " << m_asymmetry_mean;
+            LOG(logINFO) << "Asymmetry median : " << m_asymmetry_median;
+
+            for (uint i = 0; i < m_distrib.size(); i++)
+            {
+                dist = m_distrib[i].r;
+
+                area = m_facesArea[m_distrib[i].objId][m_distrib[i].faceId];
+                asymm = m_facesAsymmetry[m_distrib[i].objId][m_distrib[i].faceId];
+                if (asymm > m_asymmetry_median)
+                {
+                    asymm = 0;
+                }
+                else
+                {
+                    //asymm = 1 - (asymm / m_asymmetry_median);
+                    asymm = std::pow(1 - std::pow((asymm / m_asymmetry_median),2),2); // weight function for anisotropy
+                }
+
+                int slot = std::floor(dist / step) - 1;
+                areas[slot] = areas[slot] + area * asymm;
+            }
+
+            std::ofstream file("Final_distrib.txt", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(file, "Error while opening final distance distribution file.");
+
+            for (uint i = 0; i < NBMAX_STEP; i++)
+            {
+                file << ((2 * i + 1) * step) / 2 << " " << areas[i] << std::endl;
+
+                if (areas[i] != 0)
+                {
+                    std::pair<Scalar,Scalar> p;
+                    p.first = ((2 * i + 1) * step) / 2;
+                    p.second = areas[i];
+                    m_finalDistrib.push_back(p);
+                }
             }
 
             file.close();

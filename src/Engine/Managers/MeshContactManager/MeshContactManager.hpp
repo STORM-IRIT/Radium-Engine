@@ -82,6 +82,8 @@ namespace Ra
             void distanceAsymmetryFile2(); // the asymmetry is normalized
             void computeFacesArea();
             void weightedDistanceFile();
+            void computeFacesAsymmetry();
+            void finalDistanceFile();
             void thresholdComputation();
 
             void kmeans(int k);
@@ -113,12 +115,27 @@ namespace Ra
             Eigen::Matrix<Scalar, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_thresholds; // thresholds for each pair of objects
             std::vector<std::vector<std::vector<std::pair<Ra::Core::Index,Scalar> > > > m_distances; // distances for each pair of objects
             std::vector<std::vector<Scalar> > m_facesArea; // area of the faces of each object
+            std::vector<std::vector<Scalar> > m_facesAsymmetry; // asymmetry ponderation of the faces of each object
 
+
+            struct comparePtDistribByAsymmetry
+            {
+                inline bool operator() (const PtDistrib &p1, const PtDistrib &p2) const
+                {
+                    return p1.a < p2.a;
+                }
+            };
+            typedef std::set<PtDistrib, comparePtDistribByAsymmetry> AsymmetrySorting;
+            AsymmetrySorting m_asymmSort;
 
             std::vector<PtDistrib> m_distrib;
+
+            std::vector<std::pair<Scalar,Scalar> > m_finalDistrib; // distance and asymmetry positions of the last distribution until the asymmetry is equal to 0
             Scalar m_threshold_max;
             Scalar m_asymmetry_max;
 
+            Scalar m_asymmetry_mean;
+            Scalar m_asymmetry_median;
             std::vector<Super4PCS::TriangleKdTree<>*> m_trianglekdtrees;
             std::vector<MeshContactElement*> m_meshContactElements;
 
