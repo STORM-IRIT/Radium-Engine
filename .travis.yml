@@ -52,16 +52,16 @@ matrix:
         - PREFIX_PATH=""
         - CLANG_VERSION=6.0
       os: linux
-      addons: &clang60
+      addons: &clang50
         apt:
           packages:
             - util-linux
-            - clang-6.0
+            - clang-5.0
             - libqt5widgets5
             - libqt5opengl5-dev
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-6.0
+            - llvm-toolchain-trusty-5.0
 
     # linx gcc Release
     - env:
