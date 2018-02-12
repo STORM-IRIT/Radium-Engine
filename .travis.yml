@@ -42,7 +42,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
       wget http://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run ;
       chmod a+x ./qt-unified-linux-x64-online.run ;
-      travis_wait 60 ./qt-unified-linux-x64-online.run --script qt-installer-noninteractive.qs --no-force-installations --verbose ;
+      travis_wait 60 ./qt-unified-linux-x64-online.run --script .ci/qt-installer-noninteractive.qs --no-force-installations --verbose ;
     fi;
 
 
