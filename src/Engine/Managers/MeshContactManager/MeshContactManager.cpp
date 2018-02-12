@@ -38,8 +38,6 @@ namespace Ra
             ,m_influence ( 0.9 )
             ,m_asymmetry ( 0.0 )
             ,m_curr_vsplit( 0 )
-//            ,m_curr_r( 0 )
-//            ,m_curr_a( 0 )
             ,m_threshold_max( 0 )
             ,m_asymmetry_max( 0 )
         {
@@ -403,32 +401,6 @@ namespace Ra
                 sortDistAsymm(); // to move in case there are more than 2 objects and it's not needed
         }
 
-//        void MeshContactManager::sortDistAsymm()
-//        {
-//            for (uint i = 0; i < m_meshContactElements.size(); i++)
-//            {
-//                int nbFaces = m_meshContactElements[i]->getInitTriangleMesh().m_triangles.size();
-
-//                for (uint j = 0; j < m_meshContactElements.size(); j++)
-//                {
-//                    if (j != i)
-//                    {
-//                        for (uint k = 0; k < nbFaces; k++)
-//                        {
-//                            PtDistrib pt;
-//                            pt.objId = i;
-//                            pt.faceId = k;
-//                            pt.r = m_distances[i][j][k].second;
-//                            pt.a = abs(m_distances[i][j][k].second - m_distances[j][i][m_distances[i][j][k].first].second);
-//                            m_distSort.insert(pt);
-//                            m_distSortTest.insert(pt);
-//                            m_asymmSort.insert(pt);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
         void MeshContactManager::sortDistAsymm()
         {
             for (uint i = 0; i < m_meshContactElements.size(); i++)
@@ -462,67 +434,18 @@ namespace Ra
         }
 
         // value that will be used for the slider in UI
-//        int MeshContactManager::getThresholdMax()
-//        {
-//           DistanceSorting::iterator it = m_distSort.begin();
-//           std::advance(it, m_distSort.size() - 1);
-//           return ((int)((*it).r * PRECISION) + 1);
-//        }
-
         int MeshContactManager::getThresholdMax()
         {
             return ((int)(m_threshold_max * PRECISION) + 1);
         }
 
         // value that will be used for the slider in UI
-//        int MeshContactManager::getAsymmetryMax()
-//        {
-//           AsymmetrySorting::iterator it = m_asymmSort.begin();
-//           std::advance(it, m_asymmSort.size() - 1);
-//           return ((int)((*it).a * PRECISION) + 1);
-//        }
-
         int MeshContactManager::getAsymmetryMax()
         {
            return ((int)(m_asymmetry_max * PRECISION) + 1);
         }
 
         // works well in case of 2 objects only
-//        void MeshContactManager::displayDistribution()
-//        {
-//            Ra::Core::Vector4 distColor(1,0,0,0);
-//            Ra::Core::Vector4 asymmColor(0,0,1,0);
-
-//            Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
-//            for (uint i = 0; i < m_meshContactElements.size(); i++)
-//            {
-//                MeshContactElement* obj = m_meshContactElements[i];
-//                int nbVertices = obj->getMesh()->getGeometry().m_vertices.size();
-//                Ra::Core::Vector4Array colors;
-//                for (uint v = 0; v < nbVertices; v++)
-//                {
-//                    colors.push_back(vertexColor);
-//                }
-//                obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
-//            }
-
-//            DistanceSorting::iterator itDist = m_distSort.begin();
-//            while (itDist != m_distSort.end() && (*itDist).r <= m_threshold)
-//            {
-//                MeshContactElement* obj = m_meshContactElements[(*itDist).objId];
-//                Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getInitTriangleMesh().m_triangles;
-//                Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
-
-//                colors[t[(*itDist).faceId][0]] = ((*itDist).r * distColor + (*itDist).a * asymmColor);
-//                colors[t[(*itDist).faceId][1]] = ((*itDist).r * distColor + (*itDist).a * asymmColor);
-//                colors[t[(*itDist).faceId][2]] = ((*itDist).r * distColor + (*itDist).a * asymmColor);
-//                obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
-
-//                m_curr_r = m_curr_r + 1;
-//                std::advance(itDist, 1);
-//            }
-//        }
-
         void MeshContactManager::displayDistribution(Scalar distValue, Scalar asymmValue)
         {
             //Ra::Core::Vector4 color(0, 0, 1, 0);
@@ -586,7 +509,6 @@ namespace Ra
             // reloading initial mesh in case of successive simplifications
             for (uint objIndex = 0; objIndex < m_meshContactElements.size(); objIndex++)
             {
-                //m_meshContactElements[objIndex]->setMesh(m_initTriangleMeshes[objIndex]);
                 m_meshContactElements[objIndex]->setMesh(m_meshContactElements[objIndex]->getTriangleMeshDuplicate());
             }
 
@@ -600,26 +522,9 @@ namespace Ra
             // for each object
             for (uint i = 0; i < m_distances.size(); i++)
             {
-                // Distribution colors for connector and screw
-//                Scalar r = 0.3;
-//                Ra::Core::VectorArray<Ra::Core::Triangle> faces1 = m_meshContactElements[i]->getMesh()->getGeometry().m_triangles;
-//                Ra::Core::Vector4 vertexColor (1, 1, 1, 1);
-//                int nbVertices1 = m_meshContactElements[i]->getMesh()->getGeometry().m_vertices.size();
-//                Ra::Core::Vector4Array colors1;
-//                for (uint v = 0; v < nbVertices1; v++)
-//                {
-//                    colors1.push_back(vertexColor);
-//                }
-//                Ra::Core::Vector4 firstLineColor (1.0f, 0, 0, 0);
-//                Ra::Core::Vector4 secondLineColor (0, 1.0f, 0, 0);
-//                Ra::Core::Vector4 thirdLineColor (0, 0, 1.0f, 0);
-
                 // for each other object whose bbox intersects the one of the object
                 for (uint j = i + 1; j < m_distances[i].size(); j++)
                 {
-                    // Distribution colors for connector and screw
-//                    Ra::Core::VectorArray<Ra::Core::Triangle> faces2 = m_meshContactElements[j]->getMesh()->getGeometry().m_triangles;
-
                     std::ofstream file("Distrib_" + std::to_string(i) + "_" + std::to_string(j) + ".txt", std::ios::out | std::ios::trunc);
                     CORE_ASSERT(file, "Error while opening distance distribution file.");
 
@@ -632,38 +537,7 @@ namespace Ra
                         dist = (triangle1.second + triangle2.second) / 2;
                         asymm = abs(triangle1.second - triangle2.second);
                         file << dist << " " << asymm << std::endl;
-
-                        // Distribution colors for connector and screw
-//                        if (asymm >= 2*dist-1-r && asymm <= 2*dist-1+r)
-//                        {
-//                            colors1[faces1[k][0]] = asymm * firstLineColor / 8;
-//                            colors1[faces1[k][1]] = asymm * firstLineColor / 8;
-//                            colors1[faces1[k][2]] = asymm * firstLineColor / 8;
-//                        }
-//                        else if(asymm >= 2*dist-1.6-r && asymm <= 2*dist-1.6+r)
-//                        {
-//                            colors1[faces1[k][0]] = secondLineColor;
-//                            colors1[faces1[k][1]] = secondLineColor;
-//                            colors1[faces1[k][2]] = secondLineColor;
-//                        }
-//                        else if(asymm >= 2*dist-4-r && asymm <= 2*dist-4+r)
-//                        {
-//                            colors1[faces1[k][0]] = thirdLineColor;
-//                            colors1[faces1[k][1]] = thirdLineColor;
-//                            colors1[faces1[k][2]] = thirdLineColor;
-//                        }
                     }
-
-                    // Distribution colors for connector and screw
-//                    m_meshContactElements[i]->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors1);
-
-                    // Distribution colors for connector and screw
-//                    int nbVertices2 = m_meshContactElements[i]->getMesh()->getGeometry().m_vertices.size();
-//                    Ra::Core::Vector4Array colors2;
-//                    for (uint v = 0; v < nbVertices2; v++)
-//                    {
-//                        colors2.push_back(vertexColor);
-//                    }
 
                     // for each face of the other object the closest face in the object is found
                     for (uint k = 0; k < m_distances[j][i].size(); k++)
@@ -674,30 +548,7 @@ namespace Ra
                         dist = (triangle1.second + triangle2.second) / 2;
                         asymm = abs(triangle1.second - triangle2.second);
                         file << dist << " " << asymm << std::endl;
-
-                        // Distribution colors for connector and screw
-//                        if (asymm >= 2*dist-1-r && asymm <= 2*dist-1+r)
-//                        {
-//                            colors2[faces2[k][0]] = asymm * firstLineColor / 8;
-//                            colors2[faces2[k][1]] = asymm * firstLineColor / 8;
-//                            colors2[faces2[k][2]] = asymm * firstLineColor / 8;
-//                        }
-//                        else if(asymm >= 2*dist-1.6-r && asymm <= 2*dist-1.6+r)
-//                        {
-//                            colors2[faces2[k][0]] = secondLineColor;
-//                            colors2[faces2[k][1]] = secondLineColor;
-//                            colors2[faces2[k][2]] = secondLineColor;
-//                        }
-//                        else if(asymm >= 2*dist-4-r && asymm <= 2*dist-4+r)
-//                        {
-//                            colors2[faces2[k][0]] = thirdLineColor;
-//                            colors2[faces2[k][1]] = thirdLineColor;
-//                            colors2[faces2[k][2]] = thirdLineColor;
-//                        }
                     }
-
-                    // Distribution colors for connector and screw
-//                    m_meshContactElements[j]->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors2);
 
                     file.close();
                 }
@@ -745,11 +596,6 @@ namespace Ra
                     else
                     {
                         m_nbfaces += (obj->getProgressiveMeshLOD()->getProgressiveMesh()->getNbFaces() - nbfaces);
-
-                        // find vs and vt in pmdata
-//                        int vsIndex = obj->getProgressiveMeshLOD()->getCurrentPMData().getVsId();
-//                        int vtIndex = obj->getProgressiveMeshLOD()->getCurrentPMData().getVtId();
-//                        obj->updateEllipsoidsVS(vsIndex,vtIndex);
                     }
                 }
             }
@@ -764,11 +610,6 @@ namespace Ra
                     else
                     {
                         m_nbfaces -= (nbfaces - obj->getProgressiveMeshLOD()->getProgressiveMesh()->getNbFaces());
-
-                        // find vs and vt in pmdata
-//                        int vsIndex = obj->getProgressiveMeshLOD()->getCurrentPMData().getVsId();
-//                        int vtIndex = obj->getProgressiveMeshLOD()->getCurrentPMData().getVtId();
-//                        obj->updateEllipsoidsEC(vsIndex,vtIndex);
                     }
                 }
             }
@@ -779,134 +620,14 @@ namespace Ra
                 Ra::Core::TriangleMesh newMesh;
                 Ra::Core::convertPM(*(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()), newMesh);
                 obj->updateTriangleMesh(newMesh);
-
-                //obj->displayEllipsoids();
-
-                // add the display of the updated ellipsoids
             }
         }
-
-//        void MeshContactManager::setThresholdValueChanged(int value)
-//        {
-//            Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
-//            Ra::Core::Vector4 distColor(1, 0, 0, 0);
-//            Ra::Core::Vector4 asymmColor(0, 0, 1, 0);
-
-//            DistanceSorting::iterator it = m_distSort.begin();
-
-//            if (m_threshold * PRECISION < value)
-//            {
-//                std::advance(it, m_curr_r);
-//                while ((*it).r * PRECISION <= value && it != m_distSort.end())
-//                {
-//                    if ((*it).a <= m_asymmetry)
-//                    {
-//                        MeshContactElement* obj = m_meshContactElements[(*it).objId];
-//                        Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getInitTriangleMesh().m_triangles;
-//                        Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
-
-//                        colors[t[(*it).faceId][0]] = ((*it).r * distColor + (*it).a * asymmColor);
-//                        colors[t[(*it).faceId][1]] = ((*it).r * distColor + (*it).a * asymmColor);
-//                        colors[t[(*it).faceId][2]] = ((*it).r * distColor + (*it).a * asymmColor);
-//                        obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
-//                    }
-
-//                    m_curr_r = m_curr_r + 1;
-//                    std::advance(it, 1);
-//                }
-//            }
-
-//            else if (m_threshold * PRECISION > value)
-//            {
-//                std::advance(it, m_curr_r - 1);
-//                bool start = false;
-//                while ((*it).r * PRECISION > value && !start)
-//                {
-//                    MeshContactElement* obj = m_meshContactElements[(*it).objId];
-//                    Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getInitTriangleMesh().m_triangles;
-//                    Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
-
-//                    colors[t[(*it).faceId][0]] = vertexColor;
-//                    colors[t[(*it).faceId][1]] = vertexColor;
-//                    colors[t[(*it).faceId][2]] = vertexColor;
-//                    obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
-
-//                    if (it != m_distSort.begin())
-//                    {
-//                        m_curr_r = m_curr_r - 1;
-//                        std::advance(it, -1);
-//                    }
-//                    else
-//                    {
-//                        start = true;
-//                    }
-//                }
-//            }
-//        }
 
         void MeshContactManager::setThresholdValueChanged(int value)
         {
             Scalar th = (Scalar)(value) / PRECISION;
             displayDistribution(th, m_asymmetry);
         }
-
-//        void MeshContactManager::setAsymmetryValueChanged(int value)
-//        {
-//            Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
-//            Ra::Core::Vector4 distColor(1, 0, 0, 0);
-//            Ra::Core::Vector4 asymmColor(0, 0, 1, 0);
-
-//            AsymmetrySorting::iterator it = m_asymmSort.begin();
-
-//            if (m_asymmetry* PRECISION < value)
-//            {
-//                std::advance(it, m_curr_a);
-//                while ((*it).a * PRECISION <= value && it != m_asymmSort.end())
-//                {
-//                    if ((*it).r <= m_threshold)
-//                    {
-//                        MeshContactElement* obj = m_meshContactElements[(*it).objId];
-//                        Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getInitTriangleMesh().m_triangles;
-//                        Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
-
-//                        colors[t[(*it).faceId][0]] = ((*it).r * distColor + (*it).a * asymmColor);
-//                        colors[t[(*it).faceId][1]] = ((*it).r * distColor + (*it).a * asymmColor);
-//                        colors[t[(*it).faceId][2]] = ((*it).r * distColor + (*it).a * asymmColor);
-//                        obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
-//                    }
-
-//                    m_curr_a = m_curr_a + 1;
-//                    std::advance(it, 1);
-//                }
-//            }
-
-//            else if (m_asymmetry * PRECISION > value)
-//            {
-//                std::advance(it, m_curr_a - 1);
-//                bool start = false;
-//                while ((*it).a * PRECISION > value && !start)
-//                {
-//                    MeshContactElement* obj = m_meshContactElements[(*it).objId];
-//                    Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getInitTriangleMesh().m_triangles;
-//                    Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
-
-//                    colors[t[(*it).faceId][0]] = vertexColor;
-//                    colors[t[(*it).faceId][1]] = vertexColor;
-//                    colors[t[(*it).faceId][2]] = vertexColor;
-//                    obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
-
-//                    if (it != m_asymmSort.begin())
-//                    {
-//                        m_curr_a = m_curr_a - 1;
-//                        std::advance(it, -1);
-//                    }
-//                    else
-//                    {
-//                        start = true;
-//                    }
-//                }
-//            }
-//        }
 
         void MeshContactManager::setAsymmetryValueChanged(int value)
         {
@@ -918,7 +639,6 @@ namespace Ra
         {
             distanceAsymmetryDistribution();
             LOG(logINFO) << "Distance asymmetry distributions computed.";
-            distanceAsymmetryFile();
         }
 
         void MeshContactManager::setLoadDistribution(std::string filePath)
@@ -1090,30 +810,10 @@ namespace Ra
             LOG(logINFO) << "Best number of clusters : " << bestNbClusters << " and silhouette value : " << maxS;
         }
 
-        void MeshContactManager::colorClusters()
-        {
-            int nbClusters = m_clusters.size();
 
-            // ordering clusters by distance in order to color them
-            struct compareCenterClusterByDistance
-            {
-                inline bool operator() (const std::pair<int,Scalar> &c1, const std::pair<int,Scalar> &c2) const
-                {
-                    return c1.second <= c2.second;
-                }
-            };
 
-            typedef std::set<std::pair<int,Scalar>, compareCenterClusterByDistance> ClusterSorting;
 
-            ClusterSorting clusters;
 
-            for (uint i = 0; i < nbClusters; i++)
-            {
-                std::pair<int,Scalar> cluster;
-                cluster.first = i;
-                cluster.second = m_clusters[i].first;
-                clusters.insert(cluster);
-            }
 
             Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
             for (uint i = 0; i < m_meshContactElements.size(); i++)
@@ -1128,29 +828,13 @@ namespace Ra
                 obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
             }
 
-            Ra::Core::Vector4 clusterColor (0, 0, 1, 0);
-            ClusterSorting::iterator it = clusters.begin();
-            int k = 0;
-            while (it != clusters.end())
             {
-                int clusterId = (*it).first;
-                Scalar coeffCluster = (nbClusters - k) / nbClusters;
-
-                int nbFacesCluster = m_clusters[clusterId].second.size();
-                for (uint i = 0; i < nbFacesCluster; i++)
                 {
-                    MeshContactElement* obj = m_meshContactElements[m_distrib[m_clusters[clusterId].second[i]].objId];
                     Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getTriangleMeshDuplicate().m_triangles;
                     Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
 
-                    colors[t[m_distrib[m_clusters[clusterId].second[i]].faceId][0]] = coeffCluster * clusterColor;
-                    colors[t[m_distrib[m_clusters[clusterId].second[i]].faceId][1]] = coeffCluster * clusterColor;
-                    colors[t[m_distrib[m_clusters[clusterId].second[i]].faceId][2]] = coeffCluster * clusterColor;
                     obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
-                }
 
-                std::advance(it, 1);
-                k++;
             }
         }
 
@@ -1159,11 +843,9 @@ namespace Ra
             // reloading initial mesh in case of successive simplifications
             for (uint objIndex = 0; objIndex < m_meshContactElements.size(); objIndex++)
             {
-                //m_meshContactElements[objIndex]->setMesh(m_initTriangleMeshes[objIndex]);
                 m_meshContactElements[objIndex]->setMesh(m_meshContactElements[objIndex]->getTriangleMeshDuplicate());
             }
 
-            clustering(0.75,25);
             colorClusters();
         }
 
@@ -1222,9 +904,6 @@ namespace Ra
                 Ra::Core::TriangleMesh newMesh;
                 Ra::Core::convertPM(*(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()), newMesh);
                 obj->updateTriangleMesh(newMesh);
-
-//                obj->computeQuadricDisplay();
-//                obj->displayEllipsoids();
             }
         }
 
@@ -1301,10 +980,8 @@ namespace Ra
             if (contact)
             {
                 qc *= 1.0 / nbContacts;
-                qc *= m_lambda;
 
                 Scalar edgeErrorContact = abs(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getEM().computeGeometricError(qc,p));
-                error = edgeErrorQEM * (1 + edgeErrorContact);
                 CORE_ASSERT(error >= edgeErrorQEM, "Contacts lower the error");
             }
             else
@@ -1434,11 +1111,6 @@ namespace Ra
                 Ra::Core::PriorityQueue::PriorityQueueData d = obj->getPriorityQueue()->top();
                 Ra::Core::HalfEdge_ptr he = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[d.m_edge_id];
 
-                // retrieve the quadric of vt to store it into data
-                Ra::Core::Vertex_ptr vt = he->Next()->V();
-                Ra::Core::Quadric<3> qVt = obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeVertexQuadric(vt->idx);
-    //            Ra::Core::ProgressiveMesh<>::Primitive qVt = obj->getProgressiveMeshLOD()->getProgressiveMesh()->computeVertexQuadric(vt->idx);
-
                 if (he->Twin() == nullptr)
                 {
                     obj->getProgressiveMeshLOD()->getProgressiveMesh()->collapseFace();
@@ -1451,9 +1123,6 @@ namespace Ra
                 }
                 obj->getProgressiveMeshLOD()->getProgressiveMesh()->collapseVertex();
                 Ra::Core::ProgressiveMeshData data = Ra::Core::DcelOperations::edgeCollapse(*(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()), d.m_edge_id, d.m_p_result);
-
-                // adding the quadric of vt to data
-                data.setQVt(qVt);
 
                 if (obj->getProgressiveMeshLOD()->getProgressiveMesh()->getNbFaces() > 0)
                 {

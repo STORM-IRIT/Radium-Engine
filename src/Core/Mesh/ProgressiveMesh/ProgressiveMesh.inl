@@ -567,7 +567,7 @@ namespace Ra
                 consistent = ((n.dot(v1->P()) >= 0) == (n.dot(pResult) >= 0));
                 if (! consistent)
                 {
-                    LOG(logINFO) << "Edge " << v1->idx << " " << v2->idx << " is not collapsable due to inconsistency";
+                    //LOG(logINFO) << "Edge " << v1->idx << " " << v2->idx << " is not collapsable due to inconsistency";
                 }
                }
             }
@@ -595,7 +595,7 @@ namespace Ra
                 consistent = ((n.dot(v2->P()) >= 0) == (n.dot(pResult) >= 0));
                 if (! consistent)
                 {
-                    LOG(logINFO) << "Edge " << v1->idx << " " << v2->idx << " is not collapsable due to inconsistency";
+                    //LOG(logINFO) << "Edge " << v1->idx << " " << v2->idx << " is not collapsable due to inconsistency";
                 }
                }
             }
@@ -666,7 +666,7 @@ namespace Ra
             }
             if (countIntersection > 2)
             {
-                LOG(logINFO) << "The edge " << he->V()->idx << ", " << he->Next()->V()->idx << " in face " << he->F()->idx << " is not collapsable for now : T-Intersection";
+                //LOG(logINFO) << "The edge " << he->V()->idx << ", " << he->Next()->V()->idx << " in face " << he->F()->idx << " is not collapsable for now : T-Intersection";
                 hasTIntersection = true;
                 return false;
             }
@@ -727,7 +727,7 @@ namespace Ra
                     if (fpnDotFn < -0.5)
                     {
                         isFlipped = true;
-                        LOG(logINFO) << "The edge " << he->V()->idx << ", " << he->Next()->V()->idx << " in face " << he->F()->idx << " is not collapsable for now : Flipped face";
+                        //LOG(logINFO) << "The edge " << he->V()->idx << ", " << he->Next()->V()->idx << " in face " << he->F()->idx << " is not collapsable for now : Flipped face";
                         return false;
                         break;
                     }
@@ -737,7 +737,7 @@ namespace Ra
 
             //return !hasTIntersection;
 
-            LOG(logINFO) << "edge collapse" << ((!hasTIntersection) && (!isFlipped) /*&& (!hasContact)*/);
+            //LOG(logINFO) << "edge collapse" << ((!hasTIntersection) && (!isFlipped) /*&& (!hasContact)*/);
             return ((!hasTIntersection) && (!isFlipped) /*&& (!hasContact)*/);
         }
 
@@ -807,7 +807,7 @@ namespace Ra
             HalfEdge_ptr he = m_dcel->m_halfedge[d.m_edge_id];
             if (!isEcolPossible(he->idx, d.m_p_result/*, kdtrees, idx*/))
             {
-                LOG(logINFO) << "Collapse not possible";
+                //LOG(logINFO) << "Collapse not possible";
                 pQueue.top();
                 return false;
             }

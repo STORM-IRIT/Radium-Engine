@@ -19,14 +19,13 @@ namespace Ra
             m_vl_id = -1;
             m_vr_id = -1;
             m_ii = 0;
-            //m_qVt = Ra::Core::Quadric();
         }
 
         ProgressiveMeshData::ProgressiveMeshData(const Vector3& vad_l, const Vector3& vad_s,
                        Index he_fl_id, Index he_fr_id,
                        Index flclw_id, Index fl_id, Index fr_id,
                        Index vs_id, Index vt_id, Index vl_id, Index vr_id,
-                       short int ii/*, ProgressiveMesh<>::Primitive qVt*/)
+                       short int ii)
         {
             m_vad_l = vad_l;
             m_vad_s = vad_s;
@@ -40,7 +39,6 @@ namespace Ra
             m_vl_id = vl_id;
             m_vr_id = vr_id;
             m_ii = ii;
-            //m_qVt(qVt);
         }
 
         Vector3 ProgressiveMeshData::computePResult(const Vector3& vt, const Vector3& vs)

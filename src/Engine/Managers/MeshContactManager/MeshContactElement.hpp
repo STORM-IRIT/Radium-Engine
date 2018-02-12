@@ -29,25 +29,16 @@ namespace Ra
         {
         public:
 
-//            void addMesh(
-//                    ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite verticesWriter,
-//                    ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite normalsWriter,
-//                    ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite trianglesWriter
-//                    );
-
             Super4PCS::TriangleKdTree<>* computeTriangleKdTree(Ra::Core::TriangleMesh& tm);
             void computePrimitives(); // computes initial vertices quadrics used to detect contacts
             void computeFacePrimitives(); // computes initial face quadrics used to detect contacts
-            //void computeTriangleMesh();
             void computeMesh(const std::string& entityName, const std::string& componentName);
-            //void computeProgressiveMesh();
 
             Ra::Core::TriangleMesh getInitTriangleMesh();
             void setTriangleMeshDuplicate();
             Ra::Core::TriangleMesh getTriangleMeshDuplicate();
 
             void updateTriangleMesh(Ra::Core::TriangleMesh newMesh);
-            //void setlodValueChanged(int value);
             bool isConstructM0();
             int getNbFacesMax();
 
@@ -66,9 +57,6 @@ namespace Ra
             void setMesh(const Ra::Core::TriangleMesh& tm);
 
         private:
-//            ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite m_verticesWriter;
-//            ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite m_normalsWriter;
-//            ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite m_trianglesWriter;
 
             Mesh* m_mesh;
 

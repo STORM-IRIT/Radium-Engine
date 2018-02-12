@@ -88,8 +88,6 @@ namespace Ra
 
             void normalize();
 
-            void constructPriorityQueues();
-            void updatePriorityQueue(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex);
             bool edgeErrorComputation(Ra::Core::HalfEdge_ptr h, int objIndex, Scalar& error, Ra::Core::Vector3& p);
             void constructPriorityQueues2();
             void updatePriorityQueue2(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex);
@@ -112,30 +110,8 @@ namespace Ra
             Eigen::Matrix<Scalar, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_thresholds; // thresholds for each pair of objects
             std::vector<std::vector<std::vector<std::pair<Ra::Core::Index,Scalar> > > > m_distances; // distances for each pair of objects
 
-//            struct comparePtDistribByDistance
-//            {
-//                inline bool operator() (const PtDistrib &p1, const PtDistrib &p2) const
-//                {
-//                    return p1.r <= p2.r;
-//                }
-//            };
-//            typedef std::set<PtDistrib, comparePtDistribByDistance> DistanceSorting;
-//            DistanceSorting m_distSort;
-//            Ra::Core::Index m_curr_r;
-
-//            struct comparePtDistribByAsymmetry
-//            {
-//                inline bool operator() (const PtDistrib &p1, const PtDistrib &p2) const
-//                {
-//                    return p1.a < p2.a;
-//                }
-//            };
-//            typedef std::set<PtDistrib, comparePtDistribByAsymmetry> AsymmetrySorting;
-//            AsymmetrySorting m_asymmSort;
-//            Ra::Core::Index m_curr_a;
 
             std::vector<PtDistrib> m_distrib;
-            std::vector<std::pair<Scalar, std::vector<int> > > m_clusters; // distances of cluster centers and indices of cluster faces in m_distrib
             Scalar m_threshold_max;
             Scalar m_asymmetry_max;
 

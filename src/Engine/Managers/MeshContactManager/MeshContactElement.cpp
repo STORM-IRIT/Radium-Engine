@@ -30,37 +30,8 @@ namespace Ra
     namespace Engine
     {
 
-//        void MeshContactElement::addMesh(
-//        ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite verticesWriter,
-//        ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite normalsWriter,
-//        ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite trianglesWriter
-//        )
-//        {
-//            m_verticesWriter = verticesWriter;
-//            m_normalsWriter = normalsWriter;
-//            m_trianglesWriter = trianglesWriter;
-//        }
-
-//        void MeshContactElement::setlodValueChanged(int value)
-//        {
-//            // retrieving the data of the displayed mesh
-//            Ra::Core::Vector3Array& vertices = *(m_verticesWriter());
-//            Ra::Core::Vector3Array& normals = *(m_normalsWriter());
-//            TriangleArray& triangles = *(m_trianglesWriter());
-
-//            // go to LOD with 'value' number of faces
-//            Ra::Core::TriangleMesh mNew = m_pmlod->gotoM(value);
-
-//            // update of the data of the displayed mesh
-//            triangles = mNew.m_triangles;
-//            vertices = mNew.m_vertices;
-//            Ra::Core::Geometry::uniformNormal(vertices, triangles, normals);
-//        }
-
         int MeshContactElement::getNbFacesMax()
         {
-//            TriangleArray& triangles = *(m_trianglesWriter());
-//            return triangles.size();
             return m_mesh->getGeometry().m_triangles.size();
         }
 
@@ -81,49 +52,13 @@ namespace Ra
             m_pqueue = new Ra::Core::PriorityQueue(pQueue);
         }
 
-//        void MeshContactElement::computeTriangleMesh() //use Mesh instead of Triangle Mesh
-//        {
-//            Ra::Core::Vector3Array& vertices = *(m_verticesWriter());
-//            Ra::Core::Vector3Array& normals = *(m_normalsWriter());
-//            TriangleArray& triangles = *(m_trianglesWriter());
-
-//            Ra::Core::TriangleMesh* m = new Ra::Core::TriangleMesh();
-//            m->m_vertices = vertices;
-//            m->m_normals = normals;
-//            m->m_triangles = triangles;
-
-//            m_initTriangleMesh = *m;
-//        }
-
         void MeshContactElement::computeMesh(const std::string& entityName, const std::string& componentName)
         {
             RadiumEngine* engine = RadiumEngine::getInstance();
             m_mesh = engine->getMesh(entityName, componentName);
-
-//            Ra::Core::TriangleMesh tm = Ra::Core::TriangleMesh(engine->getMesh(entityName,componentName)->getGeometry());
-//            m_mesh = new Ra::Engine::Mesh(entityName);
-//            m_mesh->loadGeometry(tm);
-
             m_initTriangleMesh = m_mesh->getGeometry();
             setTriangleMeshDuplicate();
         }
-
-//        void MeshContactElement::computeProgressiveMesh()
-//        {
-//            Ra::Core::Vector3Array& vertices = *(m_verticesWriter());
-//            Ra::Core::Vector3Array& normals = *(m_normalsWriter());
-//            TriangleArray& triangles = *(m_trianglesWriter());
-
-//            Ra::Core::TriangleMesh* m = new Ra::Core::TriangleMesh();
-//            m->m_vertices = vertices;
-//            m->m_normals = normals;
-//            m->m_triangles = triangles;
-
-//            m_initTriangleMesh = *m;
-
-//            Ra::Core::ProgressiveMeshBase<>* pm = new Ra::Core::ProgressiveMesh<>(m);
-//            m_pmlod = new Ra::Core::ProgressiveMeshLOD(pm);
-//        }
 
         Ra::Core::TriangleMesh MeshContactElement::getInitTriangleMesh()
         {
@@ -174,13 +109,11 @@ namespace Ra
             Ra::Core::HalfEdge_ptr he = getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[d.m_edge_id];
             if (! getProgressiveMeshLOD()->getProgressiveMesh()->isEcolConsistent(he->idx, d.m_p_result))
             {
-                LOG(logINFO) << "Collapse not possible";
                 getPriorityQueue()->top();
                 return false;
             }
             else if (! getProgressiveMeshLOD()->getProgressiveMesh()->isEcolPossible(he->idx, d.m_p_result))
             {
-                LOG(logINFO) << "Collapse not possible";
                 getPriorityQueue()->top();
                 return false;
             }
@@ -190,13 +123,6 @@ namespace Ra
 
         void MeshContactElement::updateTriangleMesh(Ra::Core::TriangleMesh newMesh)
         {
-//            Ra::Core::Vector3Array& vertices = *(m_verticesWriter());
-//            Ra::Core::Vector3Array& normals = *(m_normalsWriter());
-//            TriangleArray& triangles = *(m_trianglesWriter());
-
-//            vertices = newMesh.m_vertices;
-//            triangles = newMesh.m_triangles;
-//            Ra::Core::Geometry::uniformNormal(vertices, triangles, normals);
             m_mesh->loadGeometry(newMesh);
 
             Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
