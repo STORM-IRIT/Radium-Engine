@@ -4,27 +4,35 @@
 
 namespace Ra
 {
-
-    Engine::Light::Light( const LightType& type, const std::string& name )
-        : Component( name )
-        , m_color( 1.0, 1.0, 1.0, 1.0 )
-        , m_type( type )
+    namespace Engine
     {
-    }
 
-    Engine::Light::~Light()
-    {
-    }
+        Light::Light( const LightType& type, const std::string& name )
+            : Component( name )
+            , m_color( 1.0, 1.0, 1.0, 1.0 )
+            , m_type( type )
+        {
+        }
 
-    void Engine::Light::getRenderParameters( RenderParameters& params )
-    {
-        params.addParameter( "light.color", m_color );
-        params.addParameter( "light.type", m_type );
-    }
+        Light::~Light()
+        {
+        }
 
-    void Engine::Light::initialize()
-    {
-        // Nothing to do.
-    }
+        void Light::getRenderParameters( RenderParameters& params )
+        {
+            params.addParameter( "light.color", m_color );
+            params.addParameter( "light.type", m_type );
+        }
 
+        void Light::initialize()
+        {
+            // Nothing to do.
+        }
+
+        std::string Light::getShaderInclude() const
+        {
+            return "";
+        }
+
+    }
 }
