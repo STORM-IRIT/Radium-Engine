@@ -1,0 +1,83 @@
+# Specify version format
+version: "{build}"
+
+# Operating system (build VM template)
+os: Visual Studio 2017
+
+# build platform, i.e. Win32 (instead of x86), x64, Any CPU. This setting is optional.
+platform:
+  - x64
+
+# Do not build feature branch with open Pull Request
+skip_branch_with_pr: true
+
+skip_commits:
+  files:
+    .travis.yml
+    .gitignore
+
+# specify custom environment variables
+environment:
+  MSVC_DEFAULT_OPTIONS: ON
+  RA_REPOSITORY_ROOT: C:\projects\Radium-Engine
+  RA_BUILD_DIR: C:\projects\Radium-Engine\build
+  RA_BUNDLE_DIR: C:\projects\Radium-Engine\Bundle-MSVC
+  RA_RELEASE_NAME: Radium-Engine-%platform%-%configuration%
+
+# build configuration, i.e. Debug, Release, etc.
+configuration:
+  - Release
+
+# scripts that are called at very beginning, before repo cloning
+init:
+  - cmd: cmake --version
+  - cmd: msbuild /version
+
+# clone directory
+clone_folder: C:\projects\Radium-Engine
+
+# branches to build
+branches:
+  # whitelist
+  # only:
+  #   - master
+  # blacklist
+  except:
+    - gh-pages
+
+# scripts that run after cloning repository
+install:
+  - set QTDIR=C:\Qt\5.10.0\msvc2017_64
+  - cmd: git submodule update --init --recursive
+
+# scripts to run before build
+before_build:
+  - cmd: md %RA_BUILD_DIR%
+  - cmd: cd %RA_BUILD_DIR%
+
+  - cmd: if "%platform%"=="Win32" set CMAKE_GENERATOR_NAME=Visual Studio 15 2017
+  - cmd: if "%platform%"=="x64"   set CMAKE_GENERATOR_NAME=Visual Studio 15 2017 Win64
+  - cmd: cmake -G "%CMAKE_GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% -DCMAKE_PREFIX_PATH=%QTDIR%  ..
+  - cmd: dir .
+
+
+build:
+  project: C:\projects\Radium-Engine\build\ALL_BUILD.vcxproj  # path to Visual Studio solution or project
+  parallel: true                           # enable MSBuild parallel builds (true|false)
+  verbosity: quiet                         # MSBuild verbosity level (quiet|minimal|normal|detailed)
+
+after_build:
+  - cmd: cd %RA_REPOSITORY_ROOT%
+  - cmd: dir %RA_BUNDLE_DIR%
+
+artifacts:
+  - path: Bundle-MSVC
+    name: Radium-Engine-%platform%-%configuration%
+    type: zip
+
+#test: on
+#test_script:
+#  - cmd: if "%configuration%"=="Release" msbuild %RA_BUILD_DIR%\buildtests.vcxproj /m /p:Configuration=%configuration%
+#  - cmd: if "%configuration%"=="Release" msbuild %RA_BUILD_DIR%\RUN_TESTS.vcxproj  /m /p:Configuration=%configuration%
+#   - cmd: ctest --build-config %configuration% --parallel 4 --output-on-failure
+

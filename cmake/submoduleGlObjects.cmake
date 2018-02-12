@@ -1,5 +1,5 @@
-# Allow to compile with AppleCLang
-if ( APPLE AND ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" )
+# Allow to compile with CLang
+if ( ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" )
     set( PLATFORM_ARGS "" )
 else()
     set( PLATFORM_ARGS "-DCMAKE_CXX_FLAGS=-D__has_feature\\\(x\\\)=false" )
@@ -20,23 +20,6 @@ elseif (MINGW)
     set( GLOBJECTS_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib${GLOBJECTLIBNAME}.dll")
     set( GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${GLOBJECTLIBNAME}.dll.a" )
 elseif( MSVC )
-    # in order to prevent DLL hell, each of the DLLs have to be suffixed with the major version and msvc prefix
-    if( MSVC70 OR MSVC71 )
-        set(MSVC_PREFIX "vc70")
-    elseif( MSVC80 )
-        set(MSVC_PREFIX "vc80")
-    elseif( MSVC90 )
-        set(MSVC_PREFIX "vc90")
-    elseif( MSVC10 )
-        set(MSVC_PREFIX "vc100")
-    elseif( MSVC11 )
-        set(MSVC_PREFIX "vc110")
-    elseif( MSVC12 )
-        set(MSVC_PREFIX "vc120")
-    else()
-        set(MSVC_PREFIX "vc140")
-    endif()
-
     set(GLOBJECTS_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${GLOBJECTLIBNAME}.dll")
     set(GLOBJECTS_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${GLOBJECTLIBNAME}.lib")
 endif()
@@ -86,8 +69,8 @@ if( MSVC OR MINGW )
 
 	add_custom_target( globjects_install_compiled_dll
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${GLOBJECTS_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
-		COMMENT "copy globject dll to bin dir" VERBATIM
-		DEPENDS globjects
+        COMMENT "copy globject dll to bin dir" VERBATIM
+        DEPENDS globjects create_bin_dir
 	)
 	add_dependencies(globjects_lib globjects_install_compiled_dll)
 

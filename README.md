@@ -11,17 +11,21 @@ for an overview of the project.
 * globjects (as submodule in repository)
 * glm (as submodule in repository)
 * OpenGL 3+ / GLSL 330+
-* Qt Core, Qt Widgets and Qt OpenGL v5.4+
+* Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.10 recommended)
 * stb_image (in repository)
-* To build : CMake 2.8.11+
+* To build : CMake 3.0.+
 
 ## Supported compiler and platforms
 
 The following platforms and tool chains have been tested and should work :
 
-* *Windows* : RECOMMENDED: MinGW-32 4.9.2 or higher (with Qt Creator), MSVC 2017 with cmake might also be supported.
+* *Windows* : MSVC 2017 cmake support, MinGW-32 4.9.2 (with Qt Creator).
 * *Mac OSX* : gcc 5 or higher, Apple clang
 * *Linux* : gcc 5 or higher, clang
+
+### Continuous Integration:
+* *Linux (clang 5, gcc7) and Mac OSX* : https://travis-ci.org/STORM-IRIT/Radium-Engine
+* *Windows* (MSVC 2017): https://ci.appveyor.com/project/nmellado/radium-engine
 
 ## Build instructions
 
@@ -82,8 +86,8 @@ See general instruction on cmake for Visual Studio here: https://blogs.msdn.micr
 
 #### Dependencies
 
-*Qt* distributes version 5.6 with precompiled libraries for VS 2015 - 64 bits.
-If using earlier versions of Qt (5.4 or 5.5)  or a different toolset you may have to compile Qt yourself.
+*Qt* distributes version 5.10 with precompiled libraries for VS 2017 - 64 bits.
+If using earlier versions of Qt (5.5)  or a different toolset you may have to compile Qt yourself.
 You will probaby have to manually point cmake to the Qt folder (see Troubleshooting below)
 
 Other dependencies (Eigen, Assimp, glbinding, globjects and glm) are included as a submodule in the git repository.
