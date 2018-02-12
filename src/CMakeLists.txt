@@ -18,6 +18,14 @@ find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL  REQUIRED)
 
+if(Qt5Core_VERSION VERSION_LESS 5.5 OR
+   Qt5Widgets_VERSION VERSION_LESS 5.5 OR
+   Qt5OpenGL_VERSION VERSION_LESS 5.5)
+    message(FATAL_ERROR "Qt5 or superior required (found ${Qt5Core_VERSION}).")
+else ()
+    message(STATUS "QT ${Qt5Core_VERSION} found." )
+endif()
+
 
 include_directories(
     ${EIGEN3_INCLUDE_DIR}
