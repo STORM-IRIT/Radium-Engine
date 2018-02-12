@@ -52,7 +52,7 @@ namespace Ra
 {
 namespace GuiBase{
     /// This class contains the main application logic. It owns the engine and the GUI.
-    class BaseApplication : public QApplication
+    class RA_GUIBASE_API BaseApplication : public QApplication
     {
         Q_OBJECT
 
