@@ -59,7 +59,7 @@ matrix:
     - env:
         - BUILD_TYPE=Release
         - PREFIX_PATH="~/Qt/5.10.0/gcc_64/lib/cmake"
-        - CLANG_VERSION=6.0
+        - CLANG_VERSION=5.0
       os: linux
       addons: &clang50
         apt:
