@@ -309,10 +309,10 @@ namespace Ra
             // 3.
             void splitRenderQueuesForPicking( const RenderData &renderData );
             void splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
-                                  std::array<std::vector<RenderObjectPtr>,3>& renderQueuePicking );
+                                  std::array<std::vector<RenderObjectPtr>,4>& renderQueuePicking );
             void renderForPicking( const RenderData& renderData,
-                                   const std::array<const ShaderProgram*,3>& pickingShaders,
-                                   const std::array<std::vector<RenderObjectPtr>,3>& renderQueuePicking );
+                                   const std::array<const ShaderProgram*,4>& pickingShaders,
+                                   const std::array<std::vector<RenderObjectPtr>,4>& renderQueuePicking );
 
             void doPicking( const RenderData& renderData );
 
@@ -352,12 +352,6 @@ namespace Ra
             std::vector<RenderObjectPtr> m_xrayRenderObjects;
             std::vector<RenderObjectPtr> m_uiRenderObjects;
 
-            std::array<std::vector<RenderObjectPtr>,3> m_fancyRenderObjectsPicking;
-            std::array<std::vector<RenderObjectPtr>,3> m_debugRenderObjectsPicking;
-            std::array<std::vector<RenderObjectPtr>,3> m_xrayRenderObjectsPicking;
-            std::array<std::vector<RenderObjectPtr>,3> m_uiRenderObjectsPicking;
-            std::array<const ShaderProgram*,3>               m_pickingShaders;
-
             // Simple quad mesh, used to render the final image
             std::unique_ptr<Mesh> m_quadMesh;
 
@@ -383,11 +377,17 @@ namespace Ra
             std::unique_ptr<globjects::Framebuffer> m_pickingFbo;
             std::unique_ptr<Texture>                m_pickingTexture;
 
-            std::unique_ptr<Texture>   m_depthTexture;
+            std::array<std::vector<RenderObjectPtr>,4> m_fancyRenderObjectsPicking;
+            std::array<std::vector<RenderObjectPtr>,4> m_debugRenderObjectsPicking;
+            std::array<std::vector<RenderObjectPtr>,4> m_xrayRenderObjectsPicking;
+            std::array<std::vector<RenderObjectPtr>,4> m_uiRenderObjectsPicking;
+            std::array<const ShaderProgram*,4>         m_pickingShaders;
 
             std::vector<PickingQuery>  m_pickingQueries;
             std::vector<PickingQuery>  m_lastFramePickingQueries;
             std::vector<PickingResult> m_pickingResults;
+
+            std::unique_ptr<Texture> m_depthTexture;
         };
 
     } // namespace Engine

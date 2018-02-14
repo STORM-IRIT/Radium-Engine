@@ -1,5 +1,9 @@
-layout(triangles) in;
-layout(triangle_strip, max_vertices = 3) out;
+#include "Structs.glsl"
+
+// FIXME (florian): TO BE TESTED
+
+layout(lines_adjacency) in;
+layout(line_strip, max_vertices = 2) out;
 
 in gl_PerVertex {
     vec4  gl_Position;
@@ -13,9 +17,11 @@ out gl_PerVertex {
     float gl_ClipDistance[];
 };
 
-layout (location = 0) in vec3 in_position[3];
-layout (location = 1) in vec3 in_normal[3];
-layout (location = 2) in vec3 in_eye[3];
+layout (location = 0) in vec3 in_position[4];
+layout (location = 1) in vec3 in_normal[4];
+layout (location = 2) in vec3 in_eye[4];
+
+uniform Transform transform;
 
 layout (location = 0)      out vec3  out_position;
 layout (location = 1)      out vec3  out_normal;
@@ -25,30 +31,24 @@ layout (location = 4)      out vec3  out_eltCoords;
 
 void main()
 {
-    // a
-    gl_Position   = gl_in[0].gl_Position;
-    out_position  = in_position[0];
-    out_normal    = in_normal[0];
-    out_eye       = in_eye[0];
+    vec3 p1 = in_position[1];
+    vec3 p2 = in_position[2];
+
+    gl_Position   = transform.proj * transform.view * vec4(p1,1);
+    out_position  = p1;
+    out_normal    = in_normal[1];
+    out_eye       = in_eye[1];
     out_eltID     = gl_PrimitiveIDIn;
     out_eltCoords = vec3(1,0,0);
     EmitVertex();
 
-    // b
-    gl_Position   = gl_in[1].gl_Position;
-    out_position  = in_position[1];
-    out_normal    = in_normal[1];
-    out_eye       = in_eye[1];
+    gl_Position   = transform.proj * transform.view * vec4(p2,1);
+    out_position  = p2;
+    out_normal    = in_normal[2];
+    out_eye       = in_eye[2];
     out_eltID     = gl_PrimitiveIDIn;
     out_eltCoords = vec3(0,1,0);
     EmitVertex();
 
-    // c
-    gl_Position   = gl_in[2].gl_Position;
-    out_position  = in_position[2];
-    out_normal    = in_normal[2];
-    out_eye       = in_eye[2];
-    out_eltID     = gl_PrimitiveIDIn;
-    out_eltCoords = vec3(0,0,1);
-    EmitVertex();
+    EndPrimitive();
 }

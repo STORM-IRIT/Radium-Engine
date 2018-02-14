@@ -91,12 +91,19 @@ namespace Ra {
             ShaderConfigurationFactory::addConfiguration( pickingLinesConfig );
             m_pickingShaders[1] = m_shaderMgr->addShaderProgram( pickingLinesConfig );
 
+            ShaderConfiguration pickingLinesAdjacencyConfig( "PickingLinesAdjacency" );
+            pickingLinesAdjacencyConfig.addShader(ShaderType_VERTEX  , "Shaders/Picking.vert.glsl");
+            pickingLinesAdjacencyConfig.addShader(ShaderType_GEOMETRY, "Shaders/PickingLinesAdjacency.geom.glsl");
+            pickingLinesAdjacencyConfig.addShader(ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl");
+            ShaderConfigurationFactory::addConfiguration( pickingLinesAdjacencyConfig );
+            m_pickingShaders[2] = m_shaderMgr->addShaderProgram( pickingLinesAdjacencyConfig );
+
             ShaderConfiguration pickingTrianglesConfig( "PickingTriangles" );
             pickingTrianglesConfig.addShader(ShaderType_VERTEX  , "Shaders/Picking.vert.glsl");
             pickingTrianglesConfig.addShader(ShaderType_GEOMETRY, "Shaders/PickingTriangles.geom.glsl");
             pickingTrianglesConfig.addShader(ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl");
             ShaderConfigurationFactory::addConfiguration( pickingTrianglesConfig );
-            m_pickingShaders[2] = m_shaderMgr->addShaderProgram( pickingTrianglesConfig );
+            m_pickingShaders[3] = m_shaderMgr->addShaderProgram( pickingTrianglesConfig );
 
             m_depthTexture.reset(new Texture("Depth"));
             m_depthTexture->internalFormat = GL_DEPTH_COMPONENT24;
@@ -269,7 +276,7 @@ namespace Ra {
 
         // subroutine to Renderer::splitRenderQueuesForPicking()
         void Renderer::splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
-                                std::array<std::vector<RenderObjectPtr>,3>& renderQueuePicking )
+                                std::array<std::vector<RenderObjectPtr>,4>& renderQueuePicking )
         {
             // clean renderQueuePicking
             for (uint i=0; i<renderQueuePicking.size(); ++i)
@@ -286,17 +293,24 @@ namespace Ra {
                     renderQueuePicking[0].push_back( *it );
                     break;
                 }
-///\todo Fix picking for line meshes
-//               case Mesh::RM_LINES:
-//                case Mesh::RM_LINES_ADJACENCY:
-//                case Mesh::RM_LINE_STRIP_ADJACENCY: // fall through
-//                {
-//                    renderQueuePicking[1].push_back( *it );
-//                    break;
-//                }
-                case Mesh::RM_TRIANGLES:
+                case Mesh::RM_LINES:     // fall through
+                case Mesh::RM_LINE_LOOP: // fall through
+                case Mesh::RM_LINE_STRIP:
+                {
+                    renderQueuePicking[1].push_back( *it );
+                    break;
+                }
+                case Mesh::RM_LINES_ADJACENCY:      // fall through
+                case Mesh::RM_LINE_STRIP_ADJACENCY:
                 {
                     renderQueuePicking[2].push_back( *it );
+                    break;
+                }
+                case Mesh::RM_TRIANGLES:
+                case Mesh::RM_TRIANGLE_STRIP:
+                case Mesh::RM_TRIANGLE_FAN:
+                {
+                    renderQueuePicking[3].push_back( *it );
                     break;
                 }
                 default:
@@ -317,18 +331,12 @@ namespace Ra {
 
         // subroutine to Renderer::doPicking()
         void Renderer::renderForPicking( const RenderData& renderData,
-                                         const std::array<const ShaderProgram*,3>& pickingShaders,
-                                         const std::array<std::vector<RenderObjectPtr>,3>& renderQueuePicking )
+                                         const std::array<const ShaderProgram*,4>& pickingShaders,
+                                         const std::array<std::vector<RenderObjectPtr>,4>& renderQueuePicking )
         {
             for (uint i = 0; i < pickingShaders.size(); ++i)
             {
                 pickingShaders[i]->bind();
-                pickingShaders[i]->setUniform("eltType", i); // FIXME (Florian): this does not apply!
-                if (i==1)
-                {
-                    pickingShaders[i]->setUniform("lineWidth", 10);
-                }
-
                 for ( const auto& ro : renderQueuePicking[i] )
                 {
                     if ( ro->isVisible() && ro->isPickable() )
@@ -395,15 +403,6 @@ namespace Ra {
             for (uint i = 0; i < m_pickingShaders.size(); ++i)
             {
                 m_pickingShaders[i]->bind();
-                m_pickingShaders[i]->setUniform("eltType", i);
-                if (i==0)
-                {
-                    m_pickingShaders[i]->setUniform("pointCloudSplatRadius", 10);
-                }
-                if (i==1)
-                {
-                    m_pickingShaders[i]->setUniform("lineWidth", 10);
-                }
 
                 for ( const auto& ro : m_uiRenderObjectsPicking[i] )
                 {
