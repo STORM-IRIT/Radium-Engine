@@ -64,7 +64,7 @@ before_build:
 build:
   project: C:\projects\Radium-Engine\build\ALL_BUILD.vcxproj  # path to Visual Studio solution or project
   parallel: true                           # enable MSBuild parallel builds (true|false)
-  verbosity: quiet                         # MSBuild verbosity level (quiet|minimal|normal|detailed)
+  verbosity: normal                       # MSBuild verbosity level (quiet|minimal|normal|detailed)
 
 after_build:
   - cmd: cd %RA_REPOSITORY_ROOT%
