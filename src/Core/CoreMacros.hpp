@@ -78,7 +78,7 @@
 // Additionally REL_DEB is defined on release build with debug info
 // Also the macro ON_DEBUG() can be used to execute an expression only on debug.
 // By default, debug has assert macros enabled. In release builds
-// asserts are disabled except if explicitly required by 
+// asserts are disabled except if explicitly required by
 // defining CORE_USE_ASSERT
 
 
@@ -194,8 +194,6 @@
 // STRONG_INLINE is stronger than just "inline" where supported.
 // NO_INLINE tells the compiler to never inline the function.
 
-// DEPRECATED will issue a warning when using a variable or function.
-
 // STDCALL, CDECL, FASTCALL : keyword for the corresponding calling convention.
 
 #if defined (COMPILER_MSVC) // ----------------------------------- Visual Studio
@@ -211,8 +209,6 @@
 #   define STRONG_INLINE __forceinline
 #   define NO_INLINE     __declspec(noinline)
 
-#   define DEPRECATED __declspec(deprecated)
-#   define DEPRECATED(msg) __declspec(deprecated(msg))
 #   define DLL_EXPORT __declspec(dllexport)
 #   define DLL_IMPORT __declspec(dllimport)
 
@@ -230,17 +226,6 @@
 #   define ALWAYS_INLINE  __attribute((always_inline))
 #   define STRONG_INLINE  inline
 #   define NO_INLINE      __attribute__((noinline))
-
-#   undef DEPRECATED
-# if defined(__GNUC__)
-#  if (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__) >= 40500 /* Test for GCC >= 4.5.0 */
-#    define DEPRECATED(msg) __attribute__ ((deprecated(msg)))
-#  else
-#    define DEPRECATED(msg) __attribute__ ((deprecated))
-#  endif
-# elif defined(__clang__)
-#  define DEPRECATED(msg) __attribute__ ((deprecated(msg)))
-# endif
 
 #   define DLL_EXPORT
 #   define DLL_IMPORT
