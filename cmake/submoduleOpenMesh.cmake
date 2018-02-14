@@ -1,5 +1,3 @@
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fexceptions")
-
 if(${RADIUM_SUBMODULES_BUILD_TYPE} MATCHES Debug)
     set(OPENMESHLIBNAME OpenMeshCored)
 else()
