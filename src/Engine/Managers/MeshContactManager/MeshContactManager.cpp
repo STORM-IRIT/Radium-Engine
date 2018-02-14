@@ -523,6 +523,62 @@ namespace Ra
             displayDistribution(m_threshold, m_asymmetry);
         }
 
+        void MeshContactManager::setDisplayWeight()
+        {
+            if (m_lambda != 0.0)
+            {
+                thresholdComputation(); // computing m_broader_threshold
+            }
+
+            // reloading initial mesh in case of successive simplifications
+            for (uint objIndex = 0; objIndex < m_meshContactElements.size(); objIndex++)
+            {
+                m_meshContactElements[objIndex]->setMesh(m_meshContactElements[objIndex]->getTriangleMeshDuplicate());
+            }
+
+            Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                MeshContactElement* obj = m_meshContactElements[i];
+                int nbVertices = obj->getMesh()->getGeometry().m_vertices.size();
+                Ra::Core::Vector4Array colors;
+                for (uint v = 0; v < nbVertices; v++)
+                {
+                    colors.push_back(vertexColor);
+                }
+                obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+            }
+
+            Ra::Core::Vector4 displayColors[5] = {{1,0,0,0}, {1,0.5,0,0}, {1,1,0,0}, {0,1,0,0}, {0,0,1,0}};
+
+            DistanceSorting::iterator it = m_distSort.begin();
+
+            Scalar step = 0.2;
+
+            uint i = 1;
+
+            LOG(logINFO) << "Broader threshold : " << m_broader_threshold;
+
+            while (it != m_distSort.end() && i <= 5)
+            {
+                while ( it != m_distSort.end() && (*it).r / m_broader_threshold <= step * i)
+                {
+                    MeshContactElement* obj = m_meshContactElements[(*it).objId];
+                    Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getTriangleMeshDuplicate().m_triangles;
+                    Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
+
+                    colors[t[(*it).faceId][0]] = displayColors[i-1];
+                    colors[t[(*it).faceId][1]] = displayColors[i-1];
+                    colors[t[(*it).faceId][2]] = displayColors[i-1];
+
+                    obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+
+                    std::advance(it,1);
+                }
+                i++;
+            }
+        }
+
         void MeshContactManager::distanceAsymmetryFiles()
         {
             Scalar dist, asymm;
