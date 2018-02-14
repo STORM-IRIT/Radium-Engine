@@ -301,7 +301,7 @@ namespace Ra
                 e->rayCastQuery(r);
             }
         }
-        else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) )
+        else if ( keyMap->getKeyFromAction(Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION) == event->button() )
         {
             m_camera->handleMousePressEvent(event);
         }
