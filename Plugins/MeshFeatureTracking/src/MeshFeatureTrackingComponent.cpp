@@ -3,6 +3,7 @@
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Core/Mesh/MeshPrimitives.hpp>
 
+#include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
@@ -510,7 +511,8 @@ namespace MeshFeatureTrackingPlugin
             break;
         }
 
-        return P;
+        // deal with transformations
+        return ro->getTransform() * P;
     }
 
     Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeatureVector() const
@@ -556,7 +558,8 @@ namespace MeshFeatureTrackingPlugin
             break;
         }
 
-        return V;
+        // deal with transformations
+        return (ro->getTransformAsMatrix().inverse().transpose() * Ra::Core::Vector4(V(0), V(1), V(2), 0)).head<3>();
     }
 
 }

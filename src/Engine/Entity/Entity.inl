@@ -1,3 +1,4 @@
+#include <Engine/Entity/Entity.hpp>
 
 namespace Ra
 {
