@@ -68,11 +68,11 @@ add_custom_target(globjects_lib
 
 if( MSVC OR MINGW )
 
-	add_custom_target( globjects_install_compiled_dll
+        add_custom_target( globjects_install_compiled_dll
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${GLOBJECTS_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
         COMMENT "copy globject dll to bin dir" VERBATIM
         DEPENDS globjects create_bin_dir
-	)
-	add_dependencies(globjects_lib globjects_install_compiled_dll)
+        )
+        add_dependencies(globjects_lib globjects_install_compiled_dll)
 
 endif()

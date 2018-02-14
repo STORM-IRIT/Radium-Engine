@@ -2,8 +2,8 @@
 
 if( MSCV )
     # In order to avoid a bug in glm CMakelist, leading to invalid
-	# install path for glmConfig.cmake, we simply copy the glm
-	# library and use the custom FindGLM.cmake as fallback
+        # install path for glmConfig.cmake, we simply copy the glm
+        # library and use the custom FindGLM.cmake as fallback
     set ( glm_headers "${CMAKE_CURRENT_SOURCE_DIR}/3rdPartyLibraries/OpenGL/glm/glm")
 
     add_custom_target(glm
