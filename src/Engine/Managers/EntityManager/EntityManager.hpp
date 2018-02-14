@@ -39,7 +39,7 @@ namespace Ra
 
             /**
              * @brief Create (if does not exist) an entity given its name
-             * @param name The name of the entity to ger or create. If
+             * @param name The name of the entity to get or create. If
              * empty, the entity will be created with a generic name "Entity_xx"
              * @return The entity.
              */

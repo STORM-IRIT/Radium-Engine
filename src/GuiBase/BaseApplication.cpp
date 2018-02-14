@@ -39,6 +39,8 @@
 #include <QCommandLineParser>
 #include <QOpenGLContext>
 
+#include <algorithm>
+
 
 // Const parameters : TODO : make config / command line options
 
@@ -56,7 +58,7 @@ namespace GuiBase
         , m_frameTimer( new QTimer( this ) )
         , m_frameCounter( 0 )
         , m_numFrames( 0 )
-        , m_maxThreads( 7 )
+        , m_maxThreads( RA_MAX_THREAD )
         , m_realFrameRate( false )
         , m_recordFrames( false )
         , m_recordTimings( false )
@@ -205,17 +207,14 @@ namespace GuiBase
             LOG( logERROR ) << "An error occurred while trying to load plugins.";
         }
 
-        // Create task queue with N-1 threads (we keep one for rendering).
-        uint numThreads =  std::thread::hardware_concurrency() - 1;
-        if (m_maxThreads > 0 && m_maxThreads < numThreads)
-        {
-            numThreads = m_maxThreads;
-        }
+        // Create task queue with N-1 threads (we keep one for rendering),
+        // unless monothread CPU
+        uint numThreads =  std::max( m_maxThreads == 0 ? RA_MAX_THREAD : std::min(m_maxThreads, RA_MAX_THREAD), 1u);
         m_taskQueue.reset( new Core::TaskQueue(numThreads) );
 
         setupScene();
         emit starting();
- 
+
         // A file has been required, load it.
         if (parser.isSet(fileOpt))
         {
