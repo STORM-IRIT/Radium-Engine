@@ -54,6 +54,13 @@ namespace Ra
                                            const Core::Color& color,
                                            bool fill = false);
 
+            /// Displays a strip of n quads, starting at A and with directions X and Y.
+            RA_ENGINE_API MeshPtr QuadStrip(const Core::Vector3& a,
+                                            const Core::Vector3& x,
+                                            const Core::Vector3& y,
+                                            uint quads,
+                                            const Core::Color& color);
+
             /// Displays circle computed with given center and radius,
             /// in plane normal to given vector in wireframe
             RA_ENGINE_API MeshPtr Circle(const Core::Vector3& center,
@@ -61,6 +68,15 @@ namespace Ra
                                          Scalar radius,
                                          uint segments,
                                          const Core::Color& color);
+
+            /// Displays arc of a circle computed with given center, radius and angle
+            /// in plane normal to given vector in wireframe
+            RA_ENGINE_API MeshPtr CircleArc(const Core::Vector3& center,
+                                            const Core::Vector3& normal,
+                                            Scalar radius,
+                                            Scalar angle,
+                                            uint segments,
+                                            const Core::Color& color);
 
             /// Displays sphere computed with given center and radius
             RA_ENGINE_API MeshPtr Sphere(const Core::Vector3& center,
