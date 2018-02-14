@@ -305,6 +305,12 @@ namespace GuiBase
         lgConfig.addShader(ShaderType_GEOMETRY, "Shaders/Lines.geom.glsl");
         ShaderConfigurationFactory::addConfiguration(lgConfig);
 
+        ShaderConfiguration lagConfig("LinesAdjacencyGeom");
+        lagConfig.addShader(ShaderType_VERTEX, "Shaders/Lines.vert.glsl");
+        lagConfig.addShader(ShaderType_FRAGMENT, "Shaders/LinesAdjacency.frag.glsl");
+        lagConfig.addShader(ShaderType_GEOMETRY, "Shaders/Lines.geom.glsl");
+        ShaderConfigurationFactory::addConfiguration(lagConfig);
+
         ShaderConfiguration lConfig("Lines");
         lConfig.addShader(ShaderType_VERTEX, "Shaders/Lines.vert.glsl");
         lConfig.addShader(ShaderType_FRAGMENT, "Shaders/Lines.frag.glsl");

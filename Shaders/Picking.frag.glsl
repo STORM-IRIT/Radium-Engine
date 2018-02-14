@@ -9,7 +9,6 @@ layout (location = 4)      in vec3 in_eltCoords;
 out ivec4 fragId;
 
 uniform int objectId;
-uniform int eltType; // FIXME (Florian): this one is not set by setUniform("eltType", ...)
 
 void main()
 {
@@ -33,12 +32,7 @@ void main()
         fragId.g = 2;
     // set Element ID
     fragId.b = in_eltID;
-    // set Edge opposite vertex if triangle element
-//    if (eltType != 2)
-//    {
-//        fragId.a = -1;
-//        return;
-//    }
+    // set Edge opposite vertex, valid only if triangle element
     if( in_eltCoords.x < in_eltCoords.y && in_eltCoords.x < in_eltCoords.z)
         fragId.a = 0;
     if( in_eltCoords.y < in_eltCoords.x && in_eltCoords.y < in_eltCoords.z)

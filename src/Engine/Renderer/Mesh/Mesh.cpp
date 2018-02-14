@@ -17,10 +17,14 @@ namespace Ra {
             , m_numElements (0)
             , m_isDirty( false )
         {
-            CORE_ASSERT( m_renderMode == RM_LINES
-                      || m_renderMode == RM_LINES_ADJACENCY
+            CORE_ASSERT( m_renderMode == RM_POINTS
+                      || m_renderMode == RM_LINES
+                      || m_renderMode == RM_LINE_LOOP
+                      || m_renderMode == RM_LINE_STRIP
                       || m_renderMode == RM_TRIANGLES
-                      || m_renderMode == RM_POINTS
+                      || m_renderMode == RM_TRIANGLE_STRIP
+                      || m_renderMode == RM_TRIANGLE_FAN
+                      || m_renderMode == RM_LINES_ADJACENCY
                       || m_renderMode == RM_LINE_STRIP_ADJACENCY,
                          "Unsupported render mode" );
         }
@@ -92,9 +96,10 @@ namespace Ra {
                 m_numElements = nIdx;
             m_mesh.m_vertices = vertices;
 
-            // Check that when loading a triangle mesh we actually have triangles.
-            CORE_ASSERT( m_renderMode != GL_TRIANGLES || nIdx % 3 == 0, "There should be 3 indices per triangle " );
-            CORE_ASSERT( m_renderMode != GL_LINES     || nIdx % 2 == 0, "There should be 2 indices per lines" );
+            // Check that when loading a triangle mesh we actually have triangles or lines.
+            CORE_ASSERT( m_renderMode != GL_TRIANGLES       || nIdx % 3 == 0, "There should be 3 indices per triangle " );
+            CORE_ASSERT( m_renderMode != GL_LINES           || nIdx % 2 == 0, "There should be 2 indices per line" );
+            CORE_ASSERT( m_renderMode != GL_LINES_ADJACENCY || nIdx % 4 == 0, "There should be 4 indices per line adjacency" );
 
             for ( uint i = 0; i < indices.size(); i = i + 3 )
             {

@@ -84,10 +84,15 @@ void MeshPaintComponent::paintMesh( const Ra::Engine::Renderer::PickingResult& p
     }
 
     if ( (ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_LINES ||
+          ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_LINE_LOOP ||
+          ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_LINE_STRIP ||
           ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_LINES_ADJACENCY ||
-          ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_LINE_STRIP_ADJACENCY ) )
+          ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_LINE_STRIP_ADJACENCY ||
+          ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_TRIANGLES ||
+          ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_TRIANGLE_STRIP ||
+          ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_TRIANGLE_FAN ) )
     {
-        // line meshes not supported yet -- because picking not tested
+        // not supported yet -> might use same util functions as MeshFeatureTrackingComponent
         return;
     }
 
