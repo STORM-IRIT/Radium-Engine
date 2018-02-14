@@ -65,13 +65,6 @@ namespace Ra
 
     bool Gui::TrackballCamera::handleMousePressEvent( QMouseEvent* event )
     {
-        // Whole manipulation is done with middle button and modifiers
-        /*if ( event->button() != Qt::MiddleButton )*/
-        if ( !( Gui::KeyMappingManager::getInstance()->actionTriggered( event, Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION) ) )
-        {
-            return false;
-        }
-
         bool handled = false;
         m_lastMouseX = event->pos().x();
         m_lastMouseY = event->pos().y();
