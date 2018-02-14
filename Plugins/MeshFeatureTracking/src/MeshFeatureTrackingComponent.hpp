@@ -20,7 +20,6 @@ namespace MeshFeatureTrackingPlugin
         virtual void initialize() override;
 
         void setData( const Ra::Engine::Renderer::PickingResult& data );
-        const Ra::Engine::Renderer::PickingResult& getData() const;
 
         void setVertexIdx( int idx );
         void setTriangleIdx( int idx );
@@ -40,7 +39,8 @@ namespace MeshFeatureTrackingPlugin
         /// Registers the new scale for the sphere.
         void setScale( Scalar scale );
 
-        Ra::Engine::Renderer::PickingResult m_data;
+        FeatureData m_data;
+        int m_pickedRoIdx;
         Ra::Engine::RenderObject *m_RO;
     };
 }
