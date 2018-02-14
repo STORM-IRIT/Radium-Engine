@@ -53,6 +53,7 @@ ExternalProject_Add(
     -DCMAKE_BUILD_TYPE=${RADIUM_SUBMODULES_BUILD_TYPE}
     -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
     -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+    -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
     ${PLATFORM_ARGS}
     STEP_TARGETS build
     EXCLUDE_FROM_ALL TRUE
@@ -69,7 +70,7 @@ if( MSVC OR MINGW )
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${GLBINDING_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
         COMMENT "copy glbinding dll to bin dir" VERBATIM
         DEPENDS glbinding create_bin_dir
-	)
+        )
     add_dependencies(glbinding_lib glbinding_install_compiled_dll)
 
 endif()
