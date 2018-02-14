@@ -93,6 +93,8 @@ namespace Ra
 
             void findClusters();
             void colorClusters();
+            void findClusters2(); // same with distance function
+            void colorClusters2();
 
             void normalize();
 
@@ -145,6 +147,8 @@ namespace Ra
 
             std::vector<std::pair<Scalar,Scalar> > m_finalDistrib; // distance and asymmetry positions of the last distribution until the asymmetry is equal to 0
             std::vector<Scalar> m_finalClusters; // distances defining the clusters
+            std::vector<std::pair<Scalar,Scalar> > m_finalDistrib2; // same with distance function
+            std::vector<Scalar> m_finalClusters2;
 
 
             Scalar m_threshold_max;

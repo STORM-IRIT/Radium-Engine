@@ -816,7 +816,7 @@ namespace Ra
                     std::pair<Scalar,Scalar> p;
                     p.first = ((2 * i + 1) * step) / 2;
                     p.second = areas[i];
-                    m_finalDistrib.push_back(p);
+                    m_finalDistrib2.push_back(p);
                 }
             }
 
@@ -861,6 +861,106 @@ namespace Ra
             }
             m_finalClusters.push_back(m_finalDistrib[m_finalDistrib.size() - 1].first);
             LOG(logINFO) << "Number of clusters : " << m_finalClusters.size();
+        }
+
+        void MeshContactManager::findClusters2()
+        {
+            uint i = 0;
+            Scalar area = m_finalDistrib2[i].second;
+            Scalar area2 = m_finalDistrib2[i+1].second;
+
+            // defining first cluster
+            if (area > area2)
+            {
+                // lower side of gaussian
+                do
+                {
+                    i++;
+                    area = m_finalDistrib2[i].second;
+                    area2 = m_finalDistrib2[i+1].second;
+                } while (area >= area2 && i < m_finalDistrib2.size());
+                if (i == m_finalDistrib2.size())
+                {
+                    m_finalClusters2.push_back(m_finalDistrib2[i - 1].first); // end of last cluster
+                }
+                else
+                {
+                    m_finalClusters2.push_back(m_finalDistrib2[i].first); // end of first cluster
+                }
+            }
+            else
+            {
+                // upper side of gaussian
+                do
+                {
+                    i++;
+                    area = m_finalDistrib2[i].second;
+                    area2 = m_finalDistrib2[i+1].second;
+                } while (area <= area2 && i < m_finalDistrib2.size());
+                if (i == m_finalDistrib2.size())
+                {
+                    m_finalClusters2.push_back(m_finalDistrib2[i - 1].first); // end of last cluster
+                }
+                else
+                {
+                    // lower side of gaussian
+                    do
+                    {
+                        i++;
+                        area = m_finalDistrib2[i].second;
+                        area2 = m_finalDistrib2[i+1].second;
+                    } while (area >= area2 && i < m_finalDistrib2.size());
+                    if (i == m_finalDistrib2.size())
+                    {
+                        m_finalClusters2.push_back(m_finalDistrib2[i - 1].first); // end of last cluster
+                    }
+                    else
+                    {
+                        m_finalClusters2.push_back(m_finalDistrib2[i].first); // end of first cluster
+                    }
+                }
+            }
+
+            // defining following clusters
+            while (i < m_finalDistrib2.size() - 1)
+            {
+                // upper side of gaussian
+                do
+                {
+                    i++;
+                    area = m_finalDistrib2[i].second;
+                    area2 = m_finalDistrib2[i+1].second;
+                } while (area <= area2 && i < m_finalDistrib2.size());
+                if (i == m_finalDistrib2.size())
+                {
+                    m_finalClusters2.push_back(m_finalDistrib2[i - 1].first); // end of last cluster
+                }
+                else
+                {
+                    // lower side of gaussian
+                    do
+                    {
+                        i++;
+                        area = m_finalDistrib2[i].second;
+                        area2 = m_finalDistrib2[i+1].second;
+                    } while (area >= area2 && i < m_finalDistrib2.size());
+                    if (i == m_finalDistrib2.size())
+                    {
+                        m_finalClusters2.push_back(m_finalDistrib2[i - 1].first); // end of last cluster
+                    }
+                    else
+                    {
+                        m_finalClusters2.push_back(m_finalDistrib2[i].first); // end of cluster
+                    }
+                }
+            }
+
+            LOG(logINFO) << "Number of clusters : " << m_finalClusters2.size();
+
+            for (uint j = 0; j < m_finalClusters2.size(); j++)
+            {
+                LOG(logINFO) << "End of cluster " << j + 1 << ": " << m_finalClusters2[j];
+            }
         }
 
         void MeshContactManager::thresholdComputation()
@@ -934,7 +1034,8 @@ namespace Ra
             computeFacesAsymmetry();
             finalDistanceFile();
             finalDistanceFile2();
-            findClusters();
+            //findClusters();
+            findClusters2();
         }
 
         void MeshContactManager::setLoadDistribution(std::string filePath)
@@ -1207,6 +1308,42 @@ namespace Ra
             }
         }
 
+        void MeshContactManager::colorClusters2()
+        {
+            Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                MeshContactElement* obj = m_meshContactElements[i];
+                int nbVertices = obj->getMesh()->getGeometry().m_vertices.size();
+                Ra::Core::Vector4Array colors;
+                for (uint v = 0; v < nbVertices; v++)
+                {
+                    colors.push_back(vertexColor);
+                }
+                obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+            }
+
+            std::srand(std::time(0));
+            DistanceSorting::iterator it = m_distSort.begin();
+            for (uint i = 0; i < m_finalClusters2.size(); i++)
+            {
+                Ra::Core::Vector4 clusterColor ((Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000);
+                while ((*it).r <= m_finalClusters2[i] && it != m_distSort.end())
+                {
+                    MeshContactElement* obj = m_meshContactElements[(*it).objId];
+                    Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getTriangleMeshDuplicate().m_triangles;
+                    Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
+
+                    colors[t[(*it).faceId][0]] = clusterColor;
+                    colors[t[(*it).faceId][1]] = clusterColor;
+                    colors[t[(*it).faceId][2]] = clusterColor;
+                    obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+
+                    std::advance(it, 1);
+                }
+            }
+        }
+
         void MeshContactManager::setDisplayClusters()
         {
             // reloading initial mesh in case of successive simplifications
@@ -1216,7 +1353,8 @@ namespace Ra
             }
 
 //            clustering(0.75,25);
-            colorClusters();
+            //colorClusters();
+            colorClusters2();
         }
 
         void MeshContactManager::setConstructM0()
