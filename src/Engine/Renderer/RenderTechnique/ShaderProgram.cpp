@@ -48,7 +48,8 @@ namespace Ra
 
         }
 
-        void ShaderProgram::loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props)
+        void ShaderProgram::loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props,
+                                       const std::vector< std::pair<std::string, ShaderType> >& includes)
         {
 #ifdef OS_MACOS
             if (type == ShaderType_COMPUTE)
@@ -81,9 +82,19 @@ namespace Ra
                 shaderHeader = std::string( "#version 410\n\n");
             }
 
+            // Add properties at the beginning of the file.
             for ( const auto& prop : props )
             {
                 shaderHeader = shaderHeader + prop + std::string("\n\n");
+            }
+
+            // Add includes, depending on the shader type.
+            for ( const auto& incl : includes )
+            {
+                if ( incl.second == type )
+                {
+                    shaderHeader = shaderHeader + incl.first + std::string("\n\n");
+                }
             }
 
             auto fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
@@ -162,7 +173,8 @@ namespace Ra
                 if (m_configuration.m_shaders[i] != "")
                 {
                     LOG( logDEBUG ) << "Loading shader " << m_configuration.m_shaders[i];
-                    loadShader(ShaderType(i), m_configuration.m_shaders[i], m_configuration.getProperties());
+                    loadShader(ShaderType(i), m_configuration.m_shaders[i], m_configuration.getProperties(),
+                               m_configuration.getIncludes());
                 }
             }
 
@@ -212,7 +224,8 @@ namespace Ra
                     LOG( logDEBUG ) << "Reloading shader " << m_shaderObjects[i]->name();
 
                     m_program->detach( m_shaderObjects[i].get() );
-                    loadShader( getGLenumAsType( m_shaderObjects[i]->type() ), m_shaderObjects[i]->name(), m_configuration.getProperties() );
+                    loadShader( getGLenumAsType( m_shaderObjects[i]->type() ), m_shaderObjects[i]->name(),
+                                m_configuration.getProperties(), m_configuration.getIncludes() );
                 }
             }
 
