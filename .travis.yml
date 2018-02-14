@@ -6,7 +6,6 @@ script:
 cache:
   directories:
     - ${TRAVIS_BUILD_DIR}/cmake3.3
-    - ~/Qt/5.10.0
 
 env:
   global:
