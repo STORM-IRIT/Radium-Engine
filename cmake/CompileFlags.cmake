@@ -12,7 +12,7 @@ if ( NOT MSVC )
     endif()
 endif()
 
-set(UNIX_DEFAULT_CXX_FLAGS                "-Wall -Wextra  -pthread -msse3 -Wno-sign-compare -Wno-unused-parameter -fno-exceptions")
+set(UNIX_DEFAULT_CXX_FLAGS                "-Wall -Wextra  -pthread -msse3 -Wno-sign-compare -Wno-unused-parameter")
 set(UNIX_DEFAULT_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb")
 set(UNIX_DEFAULT_CXX_FLAGS_RELEASE        "-DNDEBUG -O3")
 set(UNIX_DEFAULT_CXX_FLAGS_RELWITHDEBINFO "-g3")
@@ -64,18 +64,18 @@ elseif (UNIX OR MINGW)
     endif()
 elseif (MSVC)
     # Visual studio flags breakdown
-    # /GR- : no rtti ; /Ehs-c- : no exceptions
+    # /GR- : no rtti ;
     # /Od  : disable optimization
     # /Ox :  maximum optimization
     # /GL : enable link time optimization
     # /Zi  : generate debug info
+    # /wd4251 : -> disable warning: 'identifier': class 'type' needs to have dll-interface to be used by clients of class 'type2'
+    #              See https://github.com/cginternals/glbinding/blob/master/cmake/CompileOptions.cmake and
+    #              and https://github.com/cginternals/glbinding/issues/141#issuecomment-174511579
 
-    # remove exceptions from default args
-    add_definitions(-D_HAS_EXCEPTIONS=0)
     # disable secure CRT warnings
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
     add_definitions(-D_SCL_SECURE_NO_WARNINGS)
-    string (REGEX REPLACE "/EHsc *" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     string (REGEX REPLACE "/GR" ""     CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
     # remove library compilation flags (MT, MD, MTd, MDd
@@ -83,7 +83,7 @@ elseif (MSVC)
     string( REGEX REPLACE "/M(T|D)(d)*" "" CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
     string( REGEX REPLACE "/M(T|D)(d)*" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 
-    set(CMAKE_CXX_FLAGS                "/arch:AVX2 /EHs-c- /MP ${CMAKE_CXX_FLAGS}")
+    set(CMAKE_CXX_FLAGS                "/arch:AVX2 /MP /wd4251 ${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS_DEBUG          "/D_DEBUG /DCORE_DEBUG /Od /Zi ${CMAKE_CXX_FLAGS_DEBUG} /MDd")
     set(CMAKE_CXX_FLAGS_RELEASE        "/DNDEBUG /Ox /fp:fast ${CMAKE_CXX_FLAGS_RELEASE} /MT")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi ${CMAKE_CXX_FLAGS_RELEASE}")
