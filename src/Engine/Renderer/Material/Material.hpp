@@ -43,6 +43,8 @@ namespace Ra {
 
         inline const std::string &getName() const;
 
+        virtual const std::string getShaderInclude() const;
+
         inline void setMaterialType(const MaterialType &type);
 
         inline const MaterialType &getMaterialType() const;

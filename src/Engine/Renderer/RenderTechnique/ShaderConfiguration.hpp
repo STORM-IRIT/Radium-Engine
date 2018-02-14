@@ -4,6 +4,7 @@
 #include <Engine/RaEngine.hpp>
 
 #include <set>
+#include <vector>
 #include <string>
 #include <array>
 #include <list>
@@ -73,9 +74,9 @@ namespace Ra
 
             /// Add a property in the form of an #include
             /// The same shader files with different properties leads to different shader programs
-            void addInclude(const std::string& prop);
-            void addIncludes(const std::list<std::string>& props);
-            void removeInclude(const std::string& prop);
+            void addInclude(const std::string& incl, ShaderType type = ShaderType_FRAGMENT);
+            void addIncludes(const std::list<std::string>& incls, ShaderType type = ShaderType_FRAGMENT);
+            void removeInclude(const std::string& incl, ShaderType type = ShaderType_FRAGMENT);
             
             /// Tell if a shader configuration has at least a vertex and a fragment shader, or a compute shader.
             bool isComplete() const;
@@ -83,6 +84,8 @@ namespace Ra
             bool operator< (const ShaderConfiguration& other) const;
             
             std::set<std::string> getProperties() const;
+
+            const std::vector< std::pair<std::string, ShaderType> >& getIncludes() const;
             
             // get default shader configuration
             static ShaderConfiguration getDefaultShaderConfig() { return m_defaultShaderConfig; }
@@ -94,6 +97,8 @@ namespace Ra
             std::array<std::string, ShaderType_COUNT> m_shaders;
 
             std::set<std::string> m_properties;
+
+            std::vector< std::pair<std::string, ShaderType> > m_includes;
             
             static ShaderConfiguration m_defaultShaderConfig;
         };

@@ -75,7 +75,8 @@ namespace Ra
             globjects::Program * getProgramObject() const;
 
         private:
-            void loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props);
+            void loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props,
+                            const std::vector< std::pair<std::string, ShaderType> >& includes);
 
             GLenum getTypeAsGLEnum(ShaderType type) const;
             ShaderType getGLenumAsType(GLenum type) const;

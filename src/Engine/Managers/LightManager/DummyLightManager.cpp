@@ -16,6 +16,11 @@ namespace Ra {
             m_data->push(l);
         }
 
+        const Light* DummyLightManager::getLight(uint li) const
+        {
+            return (*m_data)[li];
+        }
+
         //
         // Pre/Post render operations.
         //

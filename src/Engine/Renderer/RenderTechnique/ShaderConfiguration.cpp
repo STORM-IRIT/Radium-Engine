@@ -189,22 +189,23 @@ namespace Ra
             m_properties.erase( "#define " + prop );
         }
 
-        void ShaderConfiguration::addInclude(const std::string& prop)
+        void ShaderConfiguration::addInclude(const std::string& incl, ShaderType type )
         {
-            m_properties.insert( "#include " + prop );
+            m_includes.emplace_back( "#include " + incl, type );
         }
 
-        void ShaderConfiguration::addIncludes(const std::list<std::string>& props)
+        void ShaderConfiguration::addIncludes(const std::list<std::string>& incls, ShaderType type )
         {
-            for ( const auto& prop : props )
+            for ( const auto& incl : incls )
             {
-                m_properties.insert( "#include " + prop );
+                m_includes.emplace_back( "#include " + incl, type );
             }
         }
 
-        void ShaderConfiguration::removeInclude(const std::string& prop)
+        void ShaderConfiguration::removeInclude(const std::string& incl, ShaderType type)
         {
-            m_properties.erase( "#include " + prop );
+            // TODO (Hugo)
+            //m_properties.erase( "#include " + prop );
         }
         
         bool ShaderConfiguration::isComplete() const
@@ -260,7 +261,11 @@ namespace Ra
         {
             return m_properties;
         }
-        
+
+        const std::vector< std::pair<std::string, ShaderType> >& ShaderConfiguration::getIncludes() const
+        {
+            return m_includes;
+        }
         
     }
 } // namespace Ra

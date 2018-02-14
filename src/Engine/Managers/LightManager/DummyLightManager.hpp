@@ -40,6 +40,8 @@ namespace Ra {
         public:
             DummyLightManager();
 
+            const Light* getLight(uint li) const;
+
             // Since this manager is dummy, it won't do anything here.
             void preprocess() override;
             void prerender(unsigned int li, RenderParameters& params) override;

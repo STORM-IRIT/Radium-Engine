@@ -293,9 +293,11 @@ namespace Ra {
                 shader->setUniform("transform.model", M);
                 shader->setUniform("transform.worldNormal", N);
                 lightParams.bind(shader);
-                
-                renderTechnique.getMaterial()->bind(shader);
-                
+
+                // FIXME (Hugo) The simplest now, but not the expected behaviour.
+                //renderTechnique.getMaterial()->bind(shader);
+                getRenderTechnique()->getMaterial()->bind(shader);
+
                 // render
                 getMesh()->render();
             }
