@@ -559,9 +559,11 @@ namespace Ra
 
             LOG(logINFO) << "Broader threshold : " << m_broader_threshold;
 
+            Scalar weight = std::pow(std::pow((*it).r/m_broader_threshold, m_m) - 1, m_n);
+
             while (it != m_distSort.end() && i <= 5)
             {
-                while ( it != m_distSort.end() && (*it).r / m_broader_threshold <= step * i)
+                while (it != m_distSort.end() && (*it).r <= m_broader_threshold && weight >= (1- step * i))
                 {
                     MeshContactElement* obj = m_meshContactElements[(*it).objId];
                     Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getTriangleMeshDuplicate().m_triangles;
@@ -574,6 +576,10 @@ namespace Ra
                     obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
 
                     std::advance(it,1);
+                    if (it != m_distSort.end())
+                    {
+                        weight = std::pow(std::pow((*it).r/m_broader_threshold, m_m) - 1, m_n);
+                    }
                 }
                 i++;
             }
