@@ -77,6 +77,14 @@ namespace MeshFeatureTrackingPlugin
             {
                 return ro->getMesh()->getGeometry().m_triangles.size();
             }
+            if (ro->getMesh()->getRenderMode() == MeshRenderMode::RM_TRIANGLE_STRIP)
+            {
+                return int(ro->getMesh()->getGeometry().m_triangles.size()-1)*3 +1;
+            }
+            if (ro->getMesh()->getRenderMode() == MeshRenderMode::RM_TRIANGLE_FAN)
+            {
+                return int(ro->getMesh()->getGeometry().m_triangles.size()-1)*3 +1;
+            }
         }
         return 0;
     }
@@ -221,7 +229,7 @@ namespace MeshFeatureTrackingPlugin
             m_data.m_mode = PickingMode::RO;
             return;
         }
-        auto ro = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject( m_pickedRoIdx );
+        auto ro = getRoMgr()->getRenderObject( m_pickedRoIdx );
         auto rm = ro->getMesh()->getRenderMode();
         if ( rm == MeshRenderMode::RM_POINTS && m_data.m_mode != PickingMode::VERTEX )
         {
@@ -398,12 +406,172 @@ namespace MeshFeatureTrackingPlugin
 
     void MeshFeatureTrackingComponent::setVertexIdx( int idx )
     {
+        if ( !getRoMgr()->exists(m_pickedRoIdx) )
+        {
+            return;
+        }
         m_data.m_data[0] = idx;
+        // also need to change second for feature Scale
+        const auto &ro = getRoMgr()->getRenderObject( m_pickedRoIdx );
+        const auto rm = ro->getMesh()->getRenderMode();
+        if (rm == MeshRenderMode::RM_POINTS)
+        {
+            return;
+        }
+        const auto &t = ro->getMesh()->getGeometry().m_triangles;
+        if (rm == MeshRenderMode::RM_LINES)
+        {
+            for (uint i=0; i<t.size(); ++i)
+            {
+                const auto &T = t[i];
+                if (T(0) == idx)
+                {
+                    m_data.m_data[1] = ( i%2 == 0 ? T(1) : t[i-1](2) );
+                    return;
+                }
+                if (T(1) == idx)
+                {
+                    m_data.m_data[1] = ( i%2 == 0 ? T(0) : T(2) );
+                    return;
+                }
+                if (T(2) == idx)
+                {
+                    m_data.m_data[1] = ( i%2 == 0 ? t[i+1](0) : T(1) );
+                    return;
+                }
+            }
+        }
+        if (rm == MeshRenderMode::RM_LINE_LOOP || rm == MeshRenderMode::RM_LINE_STRIP)
+        {
+            for (uint i=0; i<t.size(); ++i)
+            {
+                const auto &T = t[i];
+                if (T(0) == idx)
+                {
+                    m_data.m_data[1] = T(1);
+                    return;
+                }
+                if (T(1) == idx)
+                {
+                    m_data.m_data[1] = T(0);
+                    return;
+                }
+                if (T(2) == idx)
+                {
+                    m_data.m_data[1] = T(1);
+                    return;
+                }
+            }
+        }
+        if (rm == MeshRenderMode::RM_LINES_ADJACENCY)
+        {
+            for (uint i=0; i<t.size(); ++i)
+            {
+                const auto &T = t[i];
+                if (T(0) == idx && i%4 > 1 )
+                {
+                    m_data.m_data[1] = (i%4 == 2 ? t[i-1](2) : T(1) );
+                    return;
+                }
+                if (T(1) == idx && (i+3)%4 > 1 )
+                {
+                    m_data.m_data[1] = (i%4 == 0 ? T(2) : T(0) );
+                    return;
+                }
+                if (T(2) == idx && i%4 < 2 )
+                {
+                    m_data.m_data[1] = (i%4 == 0 ? T(1) : t[i+1](0) );
+                    return;
+                }
+            }
+        }
+        if (rm == MeshRenderMode::RM_LINE_STRIP_ADJACENCY)
+        {
+            for (uint i=0; i<t.size(); ++i)
+            {
+                const auto &T = t[i];
+                if (T(0) == idx && i != 0)
+                {
+                    m_data.m_data[1] = T(1);
+                    return;
+                }
+                if (T(1) == idx && i != 0)
+                {
+                    m_data.m_data[1] = T(0);
+                    return;
+                }
+                if (T(2) == idx)
+                {
+                    m_data.m_data[1] = T(1);
+                    return;
+                }
+            }
+        }
+        if (rm == MeshRenderMode::RM_TRIANGLES || rm == MeshRenderMode::RM_TRIANGLE_STRIP)
+        {
+            for (uint i=0; i<t.size(); ++i)
+            {
+                const auto &T = t[i];
+                if (T(0) == idx)
+                {
+                    m_data.m_data[1] = T(1);
+                    return;
+                }
+                if (T(1) == idx || T(2) == idx)
+                {
+                    m_data.m_data[1] = T(0);
+                    return;
+                }
+            }
+        }
+        if (rm == MeshRenderMode::RM_TRIANGLE_FAN)
+        {
+            m_data.m_data[1] = ( idx == 0 ? t[0](1) : 0 );
+            return;
+        }
     }
 
     void MeshFeatureTrackingComponent::setTriangleIdx( int idx )
     {
-        m_data.m_data[3] = idx;
+        if ( !getRoMgr()->exists(m_pickedRoIdx) )
+        {
+            return;
+        }
+        // also need to change all for feature Scale, Position and Vector
+        const auto &ro = getRoMgr()->getRenderObject( m_pickedRoIdx );
+        const auto rm = ro->getMesh()->getRenderMode();
+        const auto &t = ro->getMesh()->getGeometry().m_triangles;
+        if (rm == MeshRenderMode::RM_TRIANGLES)
+        {
+            const auto &T = t[idx];
+            m_data.m_data[0] = T(0);
+            m_data.m_data[1] = T(1);
+            m_data.m_data[2] = T(2);
+            m_data.m_data[3] = idx;
+            return;
+        }
+        if (rm == MeshRenderMode::RM_TRIANGLE_STRIP)
+        {
+            int v0, v1, v2, t0, t1, t2;
+            getPos_TS2T( idx, v0, v1, v2, t0, t1, t2 );
+            const auto &t = ro->getMesh()->getGeometry().m_triangles;
+            m_data.m_data[0] = t[t0](v0);
+            m_data.m_data[1] = t[t1](v1);
+            m_data.m_data[2] = t[t2](v2);
+            m_data.m_data[3] = idx;
+            return;
+        }
+        if (rm == MeshRenderMode::RM_TRIANGLE_FAN)
+        {
+            int v1, v2, t1, t2;
+            getPos_TF2T( idx, v1, v2, t1, t2 );
+            const auto &t = ro->getMesh()->getGeometry().m_triangles;
+            m_data.m_data[0] = t[ 0]( 0);
+            m_data.m_data[1] = t[t1](v1);
+            m_data.m_data[2] = t[t2](v2);
+            m_data.m_data[3] = idx;
+            return;
+        }
     }
 
     void MeshFeatureTrackingComponent::update()
