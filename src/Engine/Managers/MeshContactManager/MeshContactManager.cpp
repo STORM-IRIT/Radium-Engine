@@ -801,13 +801,13 @@ namespace Ra
             {
                 file << ((2 * i + 1) * step) / 2 << " " << areas[i] << std::endl;
 
-                if (areas[i] != 0)
-                {
+//                if (areas[i] != 0)
+//                {
                     std::pair<Scalar,Scalar> p;
                     p.first = ((2 * i + 1) * step) / 2;
                     p.second = areas[i];
                     m_finalDistrib.push_back(p);
-                }
+//                }
             }
 
             file.close();
@@ -873,13 +873,13 @@ namespace Ra
             {
                 file << ((2 * i + 1) * step) / 2 << " " << areas[i] << std::endl;
 
-                if (areas[i] != 0)
-                {
+//                if (areas[i] != 0)
+//                {
                     std::pair<Scalar,Scalar> p;
                     p.first = ((2 * i + 1) * step) / 2;
                     p.second = areas[i];
                     m_finalDistrib2.push_back(p);
-                }
+//                }
             }
 
             file.close();
@@ -891,38 +891,106 @@ namespace Ra
             Scalar area = m_finalDistrib[i].second;
             Scalar area2 = m_finalDistrib[i+1].second;
 
-            while (i < m_finalDistrib.size())
+            // defining first cluster
+            if (area > area2)
             {
-                if (area <= area2)
+                // lower side of gaussian
+                do
                 {
-                    while (area <= area2 && i < m_finalDistrib.size())
-                    {
-                        i++;
-                        area = m_finalDistrib[i].second; // bug when i > size
-                        area2 = m_finalDistrib[i+1].second;
-                    }
-                    if (i < m_finalDistrib.size())
-                    {
-                        m_finalClusters.push_back(m_finalDistrib[i].first);
-                    }
-                 }
-
+                    i++;
+                    area = m_finalDistrib[i].second;
+                    area2 = m_finalDistrib[i+1].second;
+                } while (area >= area2 && i < m_finalDistrib.size());
+                if (i == m_finalDistrib.size())
+                {
+                    m_finalClusters.push_back(m_finalDistrib[i - 1].first); // end of last cluster
+                }
                 else
                 {
-                    while (area >= area2 && i < m_finalDistrib.size())
+                    m_finalClusters.push_back(m_finalDistrib[i].first); // end of first cluster
+                }
+            }
+            else
+            {
+                // upper side of gaussian
+                do
+                {
+                    i++;
+                    area = m_finalDistrib[i].second;
+                    area2 = m_finalDistrib[i+1].second;
+                } while (area <= area2 && i < m_finalDistrib.size());
+                if (i == m_finalDistrib.size())
+                {
+                    m_finalClusters.push_back(m_finalDistrib[i - 1].first); // end of last cluster
+                }
+                else
+                {
+                    // lower side of gaussian
+                    do
                     {
                         i++;
                         area = m_finalDistrib[i].second;
                         area2 = m_finalDistrib[i+1].second;
-                    }
-                    if (i < m_finalDistrib.size())
+                    } while (area >= area2 && i < m_finalDistrib.size());
+                    if (i == m_finalDistrib.size())
                     {
-                        m_finalClusters.push_back(m_finalDistrib[i].first);
+                        m_finalClusters.push_back(m_finalDistrib[i - 1].first); // end of last cluster
+                    }
+                    else
+                    {
+                        m_finalClusters.push_back(m_finalDistrib[i].first); // end of first cluster
                     }
                 }
             }
-            m_finalClusters.push_back(m_finalDistrib[m_finalDistrib.size() - 1].first);
+
+            // defining following clusters
+            while (i < m_finalDistrib.size() - 1)
+            {
+                // upper side of gaussian
+                do
+                {
+                    i++;
+                    area = m_finalDistrib[i].second;
+                    area2 = m_finalDistrib[i+1].second;
+                } while (area <= area2 && i < m_finalDistrib.size());
+                if (i == m_finalDistrib.size())
+                {
+                    m_finalClusters.push_back(m_finalDistrib[i - 1].first); // end of last cluster
+                }
+                else
+                {
+                    // lower side of gaussian
+                    do
+                    {
+                        i++;
+                        area = m_finalDistrib[i].second;
+                        area2 = m_finalDistrib[i+1].second;
+                    } while (area >= area2 && i < m_finalDistrib.size());
+                    if (i == m_finalDistrib.size())
+                    {
+                        m_finalClusters.push_back(m_finalDistrib[i - 1].first); // end of last cluster
+                    }
+                    else
+                    {
+                        m_finalClusters.push_back(m_finalDistrib[i].first); // end of cluster
+                    }
+                }
+            }
+
+            // the end of the last cluster will be the first distance value after the last non zero value for area * f(asymm)
+            uint j = m_finalDistrib.size() - 1;
+            while (j >= 0 && m_finalDistrib[j].second == 0)
+            {
+                j--;
+            }
+            m_finalClusters[m_finalClusters.size() - 1] = m_finalDistrib[j + 1].first;
+
             LOG(logINFO) << "Number of clusters : " << m_finalClusters.size();
+
+            for (uint j = 0; j < m_finalClusters.size(); j++)
+            {
+                LOG(logINFO) << "End of cluster " << j + 1 << ": " << m_finalClusters[j];
+            }
         }
 
         void MeshContactManager::findClusters2()
@@ -1017,6 +1085,14 @@ namespace Ra
                 }
             }
 
+            // the end of the last cluster will be the first distance value after the last non zero value for area * f(asymm)
+            uint j = m_finalDistrib2.size() - 1;
+            while (j >= 0 && m_finalDistrib2[j].second == 0)
+            {
+                j--;
+            }
+            m_finalClusters2[m_finalClusters2.size() - 1] = m_finalDistrib2[j + 1].first;
+
             LOG(logINFO) << "Number of clusters : " << m_finalClusters2.size();
 
             for (uint j = 0; j < m_finalClusters2.size(); j++)
@@ -1095,8 +1171,8 @@ namespace Ra
             weightedDistanceFile();
             computeFacesAsymmetry();
             finalDistanceFile();
+            findClusters();
             finalDistanceFile2();
-            //findClusters();
             findClusters2();
         }
 
