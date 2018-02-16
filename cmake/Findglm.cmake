@@ -51,3 +51,9 @@ endif()
 # Hide some variables
 mark_as_advanced(GLM_INCLUDE_DIR)
 
+
+if(GLM_FOUND AND NOT TARGET glm)
+  add_library(glm INTERFACE IMPORTED)
+  set_target_properties(glm PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES "${GLM_INCLUDE_DIRS}")
+endif()
