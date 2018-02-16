@@ -76,7 +76,7 @@ namespace Ra
 
         private:
             void loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props,
-                            const std::vector< std::pair<std::string, ShaderType> >& includes);
+                            const std::vector< std::pair<std::string, ShaderType> >& includes, const std::string &version = "#version 410");
 
             GLenum getTypeAsGLEnum(ShaderType type) const;
             ShaderType getGLenumAsType(GLenum type) const;
