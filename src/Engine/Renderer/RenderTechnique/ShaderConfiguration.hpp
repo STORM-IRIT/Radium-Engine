@@ -92,6 +92,8 @@ namespace Ra
             
         public:
             std::string m_name;
+            
+            std::string m_version;
 
         private:
             std::array<std::string, ShaderType_COUNT> m_shaders;

@@ -49,7 +49,7 @@ namespace Ra
         }
 
         void ShaderProgram::loadShader(ShaderType type, const std::string& name, const std::set<std::string>& props,
-                                       const std::vector< std::pair<std::string, ShaderType> >& includes)
+                                       const std::vector< std::pair<std::string, ShaderType> >& includes, const std::string &version)
         {
 #ifdef OS_MACOS
             if (type == ShaderType_COMPUTE)
@@ -70,7 +70,7 @@ namespace Ra
             std::string shaderHeader;
             if( type == ShaderType_VERTEX )
             {
-                shaderHeader = std::string( "#version 410\n\n"
+                shaderHeader = std::string( version + "\n\n"
                                             "out gl_PerVertex {\n"
                                             "    vec4 gl_Position;\n"
                                             "    float gl_PointSize;\n"
@@ -79,7 +79,7 @@ namespace Ra
             }
             else
             {
-                shaderHeader = std::string( "#version 410\n\n");
+                shaderHeader = std::string( version+"\n\n");
             }
 
             // Add properties at the beginning of the file.
@@ -174,7 +174,7 @@ namespace Ra
                 {
                     LOG( logDEBUG ) << "Loading shader " << m_configuration.m_shaders[i];
                     loadShader(ShaderType(i), m_configuration.m_shaders[i], m_configuration.getProperties(),
-                               m_configuration.getIncludes());
+                               m_configuration.getIncludes(), m_configuration.m_version);
                 }
             }
 
