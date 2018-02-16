@@ -74,6 +74,7 @@ ExternalProject_Add(
             -DCMAKE_BUILD_TYPE=${RADIUM_SUBMODULES_BUILD_TYPE}
             -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
             -DASSIMP_INSTALL_PDB=False
+            -DINSTALL_NAME_DIR=${CMAKE_RUNTIME_OUTPUT_DIRECTORY} #override rpath to solve run bug on MACOSX
 )
 
 add_custom_target(assimp_lib
