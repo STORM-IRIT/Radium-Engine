@@ -172,7 +172,6 @@ set(engine_libs
     ${OPENGL_LIBRARIES}
     ${GLBINDING_LIBRARIES}
     ${GLOBJECTS_LIBRARIES}
-    ${GLM_LIBRARIES}
    )
 
 add_library(
@@ -222,7 +221,6 @@ set (guibase_libs
     ${OPENGL_LIBRARIES}
     ${GLBINDING_LIBRARIES}
     ${GLOBJECTS_LIBRARIES}
-    ${GLM_LIBRARIES}
 )
 
 add_library(
