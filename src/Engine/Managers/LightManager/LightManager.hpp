@@ -4,6 +4,7 @@
 #include <Engine/RaEngine.hpp>
 #include <Engine/System/System.hpp>
 #include <Engine/Renderer/Light/LightStorage.hpp>
+#include <Engine/Renderer/Renderer.hpp>
 
 #include <memory>
 
@@ -53,8 +54,9 @@ namespace Ra {
 
             /**
              * @brief Call before a render, update the general state of the LightManager.
+             * @rd contain the camera properties (matrix) and the frame times
              */
-            virtual void preprocess() = 0;
+            virtual void preprocess(const Ra::Engine::RenderData &rd) = 0;
 
             /**
              * @brief Call before a render, process what is needed for a given Light.

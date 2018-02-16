@@ -25,7 +25,7 @@ namespace Ra {
         // Pre/Post render operations.
         //
 
-        void DummyLightManager::preprocess()
+        void DummyLightManager::preprocess(const Ra::Engine::RenderData &)
         {
         }
 
