@@ -5,8 +5,8 @@
 namespace Ra
 {
 
-    Engine::PointLight::PointLight()
-        : Light( Light::POINT )
+    Engine::PointLight::PointLight( const std::string& name )
+        : Light( Light::POINT, name )
         , m_position( 0, 0, 0 )
         , m_attenuation()
     {

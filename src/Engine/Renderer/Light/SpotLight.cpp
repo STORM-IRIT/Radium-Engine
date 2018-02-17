@@ -4,8 +4,8 @@
 
 namespace Ra
 {
-    Engine::SpotLight::SpotLight()
-        : Light( Light::SPOT )
+    Engine::SpotLight::SpotLight( const std::string& name )
+        : Light( Light::SPOT, name )
         , m_position( 0, 0, 0 )
         , m_direction( 0, -1, 0 )
         , m_attenuation()

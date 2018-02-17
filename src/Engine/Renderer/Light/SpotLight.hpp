@@ -26,7 +26,7 @@ namespace Ra
         public:
             RA_CORE_ALIGNED_NEW
 
-            SpotLight();
+            SpotLight( const std::string& name = "spotlight" );
             virtual ~SpotLight();
 
             virtual void getRenderParameters( RenderParameters& params ) override;

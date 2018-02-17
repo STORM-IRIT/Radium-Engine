@@ -24,7 +24,7 @@ namespace Ra
         public:
             RA_CORE_ALIGNED_NEW
 
-            PointLight();
+            PointLight( const std::string& name = "pointlight" );
             virtual ~PointLight();
 
             virtual void getRenderParameters( RenderParameters& params ) override;
