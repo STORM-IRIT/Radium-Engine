@@ -14,7 +14,7 @@ namespace Ra
         public:
             RA_CORE_ALIGNED_NEW
 
-            DirectionalLight();
+            DirectionalLight( const std::string& name = "dirlight" );
             virtual ~DirectionalLight();
 
             virtual void getRenderParameters( RenderParameters& params ) override;
