@@ -77,6 +77,12 @@ namespace Ra
             m_shaderMgr->addShaderProgram("DrawScreen", "Shaders/Basic2D.vert.glsl", "Shaders/DrawScreen.frag.glsl");
             m_shaderMgr->addShaderProgram("Picking", "Shaders/Picking.vert.glsl", "Shaders/Picking.frag.glsl");
 
+            ShaderConfiguration p2Config("PlainEdge");
+            p2Config.addShader(ShaderType_VERTEX, "Shaders/test.vert.glsl");
+            p2Config.addShader(ShaderType_GEOMETRY, "Shaders/test.geom.glsl");
+            p2Config.addShader(ShaderType_FRAGMENT, "Shaders/test.frag.glsl");
+            ShaderConfigurationFactory::addConfiguration(p2Config);
+
             m_depthTexture.reset(new Texture("Depth"));
             m_depthTexture->internalFormat = GL_DEPTH_COMPONENT24;
             m_depthTexture->dataType = GL_UNSIGNED_INT;
