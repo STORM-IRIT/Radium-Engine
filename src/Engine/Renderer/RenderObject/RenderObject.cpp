@@ -260,32 +260,19 @@ namespace Ra {
             m_component->notifyRenderObjectExpired(idx);
         }
         
-        //       void RenderObject::render( const RenderParameters& lightParams, const RenderData& rdata, const ShaderProgram* altShader )
-        void RenderObject::render(const RenderParameters &lightParams,
-                                  const RenderData &rdata,
-                                  RenderTechnique::PassName passname)
-        {
-            renderWithExplicitRenderTechnique(lightParams, rdata, *getRenderTechnique(), passname );
-        }
-
-        void RenderObject::renderWithExplicitRenderTechnique(const RenderParameters& lightParams,
-                                                             const RenderData& rdata,
-                                                             const RenderTechnique& renderTechnique,
-                                                             RenderTechnique::PassName passname )
-        {
-            
+        void RenderObject::render(const RenderParameters& lightParams,
+                                   const RenderData& rdata,
+                                   const ShaderProgram* shader ) {
             if (m_visible)
             {
-                const ShaderProgram *shader = renderTechnique.getShader(passname);
-                
                 if (!shader)
                 {
                     return;
                 }
-                
+
                 Core::Matrix4 M = getTransformAsMatrix();
                 Core::Matrix4 N = M.inverse().transpose();
-                
+
                 // bind data
                 shader->bind();
                 shader->setUniform("transform.proj", rdata.projMatrix);
@@ -301,6 +288,13 @@ namespace Ra {
                 // render
                 getMesh()->render();
             }
+        }
+
+        void RenderObject::render(const RenderParameters &lightParams,
+                                  const RenderData &rdata,
+                                  RenderTechnique::PassName passname)
+        {
+            render(lightParams, rdata, getRenderTechnique()->getShader(passname));
         }
         
     } // namespace Engine
