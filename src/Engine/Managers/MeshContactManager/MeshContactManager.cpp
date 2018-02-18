@@ -43,6 +43,7 @@ namespace Ra
             ,m_asymmetry_mean( 0 )
             ,m_asymmetry_median( 0 )
             ,m_distance_median( 0 )
+            ,m_nbClusters( 4 )
         {
         }
 
@@ -525,10 +526,7 @@ namespace Ra
 
         void MeshContactManager::setDisplayWeight()
         {
-            if (m_lambda != 0.0)
-            {
-                thresholdComputation(); // computing m_broader_threshold
-            }
+            thresholdComputation(); // computing m_broader_threshold
 
             // reloading initial mesh in case of successive simplifications
             for (uint objIndex = 0; objIndex < m_meshContactElements.size(); objIndex++)
@@ -885,6 +883,206 @@ namespace Ra
             file.close();
         }
 
+        void MeshContactManager::topologicalPersistence()
+        {
+            // the end of the last cluster will be the first distance value after the last non zero value for area * f(asymm)
+            uint j = m_finalDistrib.size() - 1;
+            while (j >= 0 && m_finalDistrib[j].second == 0)
+            {
+                j--;
+            }
+
+            // finding minimums and maximums of the final distribution
+            uint i = 0;
+            Scalar area = m_finalDistrib[i].second;
+            Scalar area2 = m_finalDistrib[i+1].second;
+
+            if (area <= area2)
+            {
+                m_minSort.insert(m_finalDistrib[i]);
+                while (i < j)
+                {
+                    do
+                    {
+                        i++;
+                        area = m_finalDistrib[i].second;
+                        area2 = m_finalDistrib[i+1].second;
+                    } while (area <= area2 && i < j);
+                    m_maxSort.insert(m_finalDistrib[i]);
+                    if (i < j)
+                    {
+                        do
+                        {
+                            i++;
+                            area = m_finalDistrib[i].second;
+                            area2 = m_finalDistrib[i+1].second;
+                        } while (area >= area2 && i < j);
+                        m_minSort.insert(m_finalDistrib[i]);
+                    }
+                }
+            }
+
+            else
+            {
+                m_maxSort.insert(m_finalDistrib[i]);
+                while (i < j)
+                {
+                    do
+                    {
+                        i++;
+                        area = m_finalDistrib[i].second;
+                        area2 = m_finalDistrib[i+1].second;
+                    } while (area >= area2 && i < j);
+                    m_minSort.insert(m_finalDistrib[i]);
+                    if (i < j)
+                    {
+                        do
+                        {
+                            i++;
+                            area = m_finalDistrib[i].second;
+                            area2 = m_finalDistrib[i+1].second;
+                        } while (area <= area2 && i < j);
+                        m_maxSort.insert(m_finalDistrib[i]);
+                    }
+                }
+            }
+
+            // sorting (min,max) pairs by descending difference
+            int nbPairs = std::min(m_minSort.size(), m_maxSort.size());
+            MinSorting::iterator itMin = m_minSort.begin();
+            MaxSorting::iterator itMax = m_maxSort.begin();
+
+            for (uint i = 0; i < nbPairs; i++)
+            {
+                Scalar diff = std::abs((*itMin).second - (*itMax).second);
+                std::pair<int,Scalar> p;
+                p.first = i;
+                p.second = diff;
+                m_diffSort.insert(p);
+                std::advance(itMin,1);
+                std::advance(itMax,1);
+            }
+
+            itMin = m_minSort.begin();
+            itMax = m_maxSort.begin();
+            DiffSorting::iterator diffIt = m_diffSort.begin();
+
+            for (uint i = 0; i < m_nbClusters; i++)
+            {
+                int id = (*diffIt).first;
+                std::advance(itMin,id);
+                std::advance(itMax,id);
+                m_plotSort.insert(*itMin);
+                m_plotSort.insert(*itMax);
+                itMin = m_minSort.begin();
+                itMax = m_maxSort.begin();
+                std::advance(diffIt,1);
+            }
+
+            int n = nbClusters();
+
+            while (n < m_nbClusters)
+            {
+                int id = (*diffIt).first;
+                std::advance(itMin,id);
+                std::advance(itMax,id);
+                m_plotSort.insert(*itMin);
+                m_plotSort.insert(*itMax);
+                itMin = m_minSort.begin();
+                itMax = m_maxSort.begin();
+                std::advance(diffIt,1);
+
+                n = nbClusters();
+            }
+
+            std::ofstream file("Topological_persistence_distrib.txt", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(file, "Error while opening topological persistence distribution file.");
+
+            PlotSorting::iterator plotIt = m_plotSort.begin();
+
+            while (plotIt != m_plotSort.end())
+            {
+                file << (*plotIt).first << " " << (*plotIt).second << std::endl;
+                std::advance(plotIt,1);
+            }
+
+            file.close();
+        }
+
+        int MeshContactManager::nbClusters()
+        {
+            int i = 0;
+
+            PlotSorting::iterator plotIt = m_plotSort.begin();
+            Scalar area = (*plotIt).second;
+            std::advance(plotIt,1);
+            Scalar area2 = (*plotIt).second;
+
+            if (area <= area2)
+            {
+                while (plotIt != m_plotSort.end())
+                {
+                    do
+                    {
+                        area = (*plotIt).second;
+                        std::advance(plotIt,1);
+                        area2 = (*plotIt).second;
+                    } while (area <= area2 && plotIt != m_plotSort.end());
+                    if (plotIt != m_plotSort.end())
+                    {
+                        do
+                        {
+                            area = (*plotIt).second;
+                            std::advance(plotIt,1);
+                            area2 = (*plotIt).second;
+                        } while (area >= area2 && plotIt != m_plotSort.end());
+                        i++;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            }
+
+            else
+            {
+                do
+                {
+                    area = (*plotIt).second;
+                    std::advance(plotIt,1);
+                    area2 = (*plotIt).second;
+                } while (area >= area2 && plotIt != m_plotSort.end());
+                i++;
+
+                while (plotIt != m_plotSort.end())
+                {
+                    do
+                    {
+                        area = (*plotIt).second;
+                        std::advance(plotIt,1);
+                        area2 = (*plotIt).second;
+                    } while (area <= area2 && plotIt != m_plotSort.end());
+                    if (plotIt != m_plotSort.end())
+                    {
+                        do
+                        {
+                            area = (*plotIt).second;
+                            std::advance(plotIt,1);
+                            area2 = (*plotIt).second;
+                        } while (area >= area2 && plotIt != m_plotSort.end());
+                        i++;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            }
+
+            return i;
+        }
+
         void MeshContactManager::findClusters()
         {
             uint i = 0;
@@ -1171,9 +1369,13 @@ namespace Ra
             weightedDistanceFile();
             computeFacesAsymmetry();
             finalDistanceFile();
-            findClusters();
-            finalDistanceFile2();
-            findClusters2();
+            //findClusters();
+            //finalDistanceFile2();
+            //findClusters2();
+            if (m_nbClusters < m_finalDistrib.size() / 2)
+            {
+                topologicalPersistence();
+            }
         }
 
         void MeshContactManager::setLoadDistribution(std::string filePath)
@@ -1689,7 +1891,7 @@ namespace Ra
                     }
 
                     Scalar error;
-                    bool contact = edgeErrorComputation(h,objIndex,error, p);
+                    bool contact = edgeErrorComputation(h, objIndex, error, p);
 
                     // coloring proximity zones
                     if (contact)

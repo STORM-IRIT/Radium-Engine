@@ -97,6 +97,9 @@ namespace Ra
             void findClusters2(); // same with distance function
             void colorClusters2();
 
+            void topologicalPersistence();
+            int nbClusters();
+
             void normalize();
 
             bool edgeErrorComputation(Ra::Core::HalfEdge_ptr h, int objIndex, Scalar& error, Ra::Core::Vector3& p);
@@ -151,6 +154,47 @@ namespace Ra
             std::vector<std::pair<Scalar,Scalar> > m_finalDistrib2; // same with distance function
             std::vector<Scalar> m_finalClusters2;
 
+            int m_nbClusters;
+
+            struct compareMinByAscendingOrdinate
+            {
+                inline bool operator() (const std::pair<Scalar,Scalar> &p1, const std::pair<Scalar,Scalar> &p2) const
+                {
+                    return p1.second < p2.second;
+                }
+            };
+            typedef std::set<std::pair<Scalar,Scalar>, compareMinByAscendingOrdinate> MinSorting;
+            MinSorting m_minSort;
+
+            struct compareMaxByDescendingOrdinate
+            {
+                inline bool operator() (const std::pair<Scalar,Scalar> &p1, const std::pair<Scalar,Scalar> &p2) const
+                {
+                    return p1.second > p2.second;
+                }
+            };
+            typedef std::set<std::pair<Scalar,Scalar>, compareMaxByDescendingOrdinate> MaxSorting;
+            MaxSorting m_maxSort;
+
+            struct compareDiffByDescendingValue
+            {
+                inline bool operator() (const std::pair<int,Scalar> &d1, const std::pair<int,Scalar> &d2) const
+                {
+                    return d1.second > d2.second;
+                }
+            };
+            typedef std::set<std::pair<int, Scalar>, compareDiffByDescendingValue> DiffSorting;
+            DiffSorting m_diffSort;
+
+            struct comparePlotByAscendingDistance
+            {
+                inline bool operator() (const std::pair<Scalar,Scalar> &p1, const std::pair<Scalar,Scalar> &p2) const
+                {
+                    return p1.first < p2.first;
+                }
+            };
+            typedef std::set<std::pair<Scalar,Scalar>, comparePlotByAscendingDistance> PlotSorting;
+            PlotSorting m_plotSort;
 
             Scalar m_threshold_max;
             Scalar m_asymmetry_max;
