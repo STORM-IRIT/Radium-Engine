@@ -26,4 +26,9 @@ namespace Ra
         params.addParameter( "light.point.attenuation.quadratic", m_attenuation.quadratic );
     }
 
+    std::string Engine::PointLight::getShaderInclude() const {
+        return "Point";
+    }
+
+
 }

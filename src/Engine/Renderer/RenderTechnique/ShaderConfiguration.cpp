@@ -226,10 +226,32 @@ namespace Ra
             }
             
             if ( m_properties.size() == o.m_properties.size() )
-            {
+            {   
                 if ( m_properties.size() == 0 )
                 {
-                    res = false;
+                    if ( m_includes.size() == o.m_includes.size() )
+                    {
+                        if ( m_includes.size() == 0 )
+                        {
+                            res = false;
+                        }
+                        else
+                        {
+                            auto lit = m_includes.begin();
+                            auto rit = o.m_includes.begin();
+
+                            for ( ; ( lit != m_includes.end() ) && ( *lit == *rit ); ++lit, ++rit );
+
+                            if ( lit == m_includes.end() )
+                            {
+                                res = false;
+                            }
+                            else
+                            {
+                                res = *lit < *rit;
+                            }
+                        }
+                    }
                 }
                 else
                 {

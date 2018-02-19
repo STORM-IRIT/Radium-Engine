@@ -39,7 +39,7 @@ namespace Ra {
 
             /// Get a pointer to the li-th Light.
             virtual const Light* getLight(uint li) const = 0;
-            
+
             //
             // Calls for the Renderer
             //
@@ -54,9 +54,8 @@ namespace Ra {
 
             /**
              * @brief Call before a render, update the general state of the LightManager.
-             * @rd contain the camera properties (matrix) and the frame times
              */
-            virtual void preprocess(const Ra::Engine::RenderData &rd) = 0;
+            virtual void preprocess(const RenderData & renderData) = 0;
 
             /**
              * @brief Call before a render, process what is needed for a given Light.
