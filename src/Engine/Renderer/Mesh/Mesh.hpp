@@ -4,6 +4,8 @@
 #include <Engine/RaEngine.hpp>
 
 #include <array>
+#include <map>
+#include <vector>
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
@@ -24,7 +26,7 @@ namespace Engine {
 /// It stores the vertex attributes, indices, and can be rendered
 /// with a specific render mode (e.g. GL_TRIANGLES or GL_LINES).
 /// It maintains the attributes and keeps them in sync with the GPU.
-class RA_ENGINE_API Mesh final {
+class RA_ENGINE_API Mesh {
   public:
     /// List of all possible vertex attributes.
 
@@ -140,7 +142,11 @@ class RA_ENGINE_API Mesh final {
     uint m_vao;                  /// Index of our openGL VAO
     MeshRenderMode m_renderMode; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)
 
-    Core::TriangleMesh m_mesh; /// Base geometry : vertices, triangles and normals
+    Core::TriangleMesh m_mesh; /// Base geometry : vertices, triangles
+                               /// and normals
+
+    std::array<Core::TriangleMesh::Vec3AttribHandle, MAX_VEC3> m_v3DataHandle;
+    std::array<Core::TriangleMesh::Vec4AttribHandle, MAX_VEC4> m_v4DataHandle;
 
     std::array<Core::Vector3Array, MAX_VEC3> m_v3Data; /// Additionnal vertex vector 3 data
     std::array<Core::Vector4Array, MAX_VEC4> m_v4Data; /// Additionnal vertex vector 4 data

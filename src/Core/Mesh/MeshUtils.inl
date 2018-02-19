@@ -25,12 +25,12 @@ inline void getTriangleVertices( const TriangleMesh& mesh, TriangleIdx triIdx,
     const Triangle& tri = mesh.m_triangles[triIdx];
     for ( uint i = 0; i < 3; ++i )
     {
-        verticesOut[i] = mesh.m_vertices[tri[i]];
+        verticesOut[i] = mesh.vertices()[tri[i]];
     }
 }
 
 inline Aabb getAabb( const TriangleMesh& mesh ) {
-    return PointCloud::aabb( mesh.m_vertices );
+    return PointCloud::aabb( mesh.vertices() );
 }
 
 inline uint getLastVertex( const Triangle& t1, uint v1, uint v2 ) {

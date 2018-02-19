@@ -42,9 +42,9 @@ class ConvertTests : public Test {
         bool result = true;
         int i = 0;
         // Check length
-        if ( meshOne.m_vertices.size() != meshTwo.m_vertices.size() )
+        if ( meshOne.vertices().size() != meshTwo.vertices().size() )
             return false;
-        if ( meshOne.m_normals.size() != meshTwo.m_normals.size() )
+        if ( meshOne.normals().size() != meshTwo.normals().size() )
             return false;
         if ( meshOne.m_triangles.size() != meshTwo.m_triangles.size() )
             return false;
@@ -57,13 +57,13 @@ class ConvertTests : public Test {
         {
             std::vector<Ra::Core::Vector3>::iterator it;
             stackVertices.clear();
-            stackVertices.push_back( meshOne.m_vertices[meshOne.m_triangles[i][0]] );
-            stackVertices.push_back( meshOne.m_vertices[meshOne.m_triangles[i][1]] );
-            stackVertices.push_back( meshOne.m_vertices[meshOne.m_triangles[i][2]] );
+            stackVertices.push_back( meshOne.vertices()[meshOne.m_triangles[i][0]] );
+            stackVertices.push_back( meshOne.vertices()[meshOne.m_triangles[i][1]] );
+            stackVertices.push_back( meshOne.vertices()[meshOne.m_triangles[i][2]] );
             for ( int j = 0; j < 3; ++j )
             {
                 it = find( stackVertices.begin(), stackVertices.end(),
-                           meshTwo.m_vertices[meshTwo.m_triangles[i][j]] );
+                           meshTwo.vertices()[meshTwo.m_triangles[i][j]] );
                 if ( it != stackVertices.end() )
                 {
                     stackVertices.erase( it );

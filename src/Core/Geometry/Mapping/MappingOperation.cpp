@@ -58,7 +58,7 @@ bool isAllBoundToElement( const Parametrization& param ) {
 
 void findParametrization( const TriangleMesh& source, const TriangleMesh& target,
                           Parametrization& param ) {
-    const uint size = source.m_vertices.size();
+    const uint size = source.vertices().size();
     param.clear();
     param.resize( size );
 #if defined( CORE_USE_OMP )
@@ -66,13 +66,13 @@ void findParametrization( const TriangleMesh& source, const TriangleMesh& target
 #endif
     for ( uint i = 0; i < size; ++i )
     {
-        const Vector3& v = source.m_vertices[i];
+        const Vector3& v = source.vertices()[i];
         Mapping map;
         for ( uint t = 0; t < target.m_triangles.size(); ++t )
         {
-            const Vector3& t0 = target.m_vertices[target.m_triangles[t][0]];
-            const Vector3& t1 = target.m_vertices[target.m_triangles[t][1]];
-            const Vector3& t2 = target.m_vertices[target.m_triangles[t][2]];
+            const Vector3& t0 = target.vertices()[target.m_triangles[t][0]];
+            const Vector3& t1 = target.vertices()[target.m_triangles[t][1]];
+            const Vector3& t2 = target.vertices()[target.m_triangles[t][2]];
             const Vector3 n = triangleNormal( t0, t1, t2 );
             const Plane3 plane( n, t0 );
             const Vector3 p = plane.projection( v );
@@ -118,12 +118,12 @@ void applyParametrization( const TriangleMesh& inMesh, const Parametrization& pa
         const uint i = inMesh.m_triangles[t][0];
         const uint j = inMesh.m_triangles[t][1];
         const uint k = inMesh.m_triangles[t][2];
-        const Vector3 p0 = inMesh.m_vertices[i];
-        const Vector3 p1 = inMesh.m_vertices[j];
-        const Vector3 p2 = inMesh.m_vertices[k];
-        // const Vector3 n0    = inMesh.m_normals[i];
-        // const Vector3 n1    = inMesh.m_normals[j];
-        // const Vector3 n2    = inMesh.m_normals[k];
+        const Vector3 p0 = inMesh.vertices()[i];
+        const Vector3 p1 = inMesh.vertices()[j];
+        const Vector3 p2 = inMesh.vertices()[k];
+        // const Vector3 n0    = inMesh.normals()[i];
+        // const Vector3 n1    = inMesh.normals()[j];
+        // const Vector3 n2    = inMesh.normals()[k];
         const Vector3 n =
             triangleNormal( p0, p1, p2 ); //( alpha * n0 ) + ( beta * n1 ) + ( gamma * n2 );
         const Vector3 N = ( FORCE_DISPLACEMENT_TO_ZERO ) ? Vector3::Zero() : n;
