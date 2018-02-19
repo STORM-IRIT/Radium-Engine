@@ -98,7 +98,7 @@ namespace Ra
             void colorClusters2();
 
             void topologicalPersistence();
-            int nbClusters();
+            //int nbClusters();
 
             void normalize();
 
@@ -156,25 +156,27 @@ namespace Ra
 
             int m_nbClusters;
 
-            struct compareMinByAscendingOrdinate
-            {
-                inline bool operator() (const std::pair<Scalar,Scalar> &p1, const std::pair<Scalar,Scalar> &p2) const
-                {
-                    return p1.second < p2.second;
-                }
-            };
-            typedef std::set<std::pair<Scalar,Scalar>, compareMinByAscendingOrdinate> MinSorting;
-            MinSorting m_minSort;
+//            struct compareMinByAscendingOrdinate
+//            {
+//                inline bool operator() (const std::pair<Scalar,Scalar> &p1, const std::pair<Scalar,Scalar> &p2) const
+//                {
+//                    return p1.second < p2.second;
+//                }
+//            };
+//            typedef std::set<std::pair<Scalar,Scalar>, compareMinByAscendingOrdinate> MinSorting;
+//            MinSorting m_minSort;
 
-            struct compareMaxByDescendingOrdinate
-            {
-                inline bool operator() (const std::pair<Scalar,Scalar> &p1, const std::pair<Scalar,Scalar> &p2) const
-                {
-                    return p1.second > p2.second;
-                }
-            };
-            typedef std::set<std::pair<Scalar,Scalar>, compareMaxByDescendingOrdinate> MaxSorting;
-            MaxSorting m_maxSort;
+//            struct compareMaxByDescendingOrdinate
+//            {
+//                inline bool operator() (const std::pair<Scalar,Scalar> &p1, const std::pair<Scalar,Scalar> &p2) const
+//                {
+//                    return p1.second > p2.second;
+//                }
+//            };
+//            typedef std::set<std::pair<Scalar,Scalar>, compareMaxByDescendingOrdinate> MaxSorting;
+//            MaxSorting m_maxSort;
+
+            std::vector<std::pair<std::pair<Scalar,Scalar>,std::pair<Scalar,Scalar> > > m_pairsMinMax;
 
             struct compareDiffByDescendingValue
             {
