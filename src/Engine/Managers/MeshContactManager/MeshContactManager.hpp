@@ -156,36 +156,34 @@ namespace Ra
 
             int m_nbClusters;
 
-//            struct compareMinByAscendingOrdinate
-//            {
-//                inline bool operator() (const std::pair<Scalar,Scalar> &p1, const std::pair<Scalar,Scalar> &p2) const
-//                {
-//                    return p1.second < p2.second;
-//                }
-//            };
-//            typedef std::set<std::pair<Scalar,Scalar>, compareMinByAscendingOrdinate> MinSorting;
-//            MinSorting m_minSort;
+            struct compareMinByDescendingOrdinate
+            {
+                inline bool operator() (const std::pair<Scalar,Scalar> &p1, const std::pair<Scalar,Scalar> &p2) const
+                {
+                    return p1.second > p2.second;
+                }
+            };
+            typedef std::set<std::pair<Scalar,Scalar>, compareMinByDescendingOrdinate> MinSorting;
+            MinSorting m_minSort;
 
-//            struct compareMaxByDescendingOrdinate
-//            {
-//                inline bool operator() (const std::pair<Scalar,Scalar> &p1, const std::pair<Scalar,Scalar> &p2) const
-//                {
-//                    return p1.second > p2.second;
-//                }
-//            };
-//            typedef std::set<std::pair<Scalar,Scalar>, compareMaxByDescendingOrdinate> MaxSorting;
-//            MaxSorting m_maxSort;
-
-            std::vector<std::pair<std::pair<Scalar,Scalar>,std::pair<Scalar,Scalar> > > m_pairsMinMax;
+            struct compareMaxByAscendingOrdinate
+            {
+                inline bool operator() (const std::pair<Scalar,Scalar>  &p1, const std::pair<Scalar,Scalar> &p2) const
+                {
+                    return p1.second < p2.second;
+                }
+            };
+            typedef std::set<std::pair<Scalar,Scalar>, compareMaxByAscendingOrdinate> MaxSorting;
+            MaxSorting m_maxSort;
 
             struct compareDiffByDescendingValue
             {
-                inline bool operator() (const std::pair<int,Scalar> &d1, const std::pair<int,Scalar> &d2) const
+                inline bool operator() (const std::pair<std::pair<Scalar,Scalar>,std::pair<Scalar,Scalar> > &d1, const std::pair<std::pair<Scalar,Scalar>,std::pair<Scalar,Scalar> > &d2) const
                 {
-                    return d1.second > d2.second;
+                    return std::abs(d1.first.second - d1.second.second) > std::abs(d2.first.second - d2.second.second);
                 }
             };
-            typedef std::set<std::pair<int, Scalar>, compareDiffByDescendingValue> DiffSorting;
+            typedef std::set<std::pair<std::pair<Scalar,Scalar>,std::pair<Scalar,Scalar> >, compareDiffByDescendingValue> DiffSorting;
             DiffSorting m_diffSort;
 
             struct comparePlotByAscendingDistance

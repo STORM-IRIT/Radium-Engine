@@ -897,12 +897,10 @@ namespace Ra
             Scalar area = m_finalDistrib[i].second;
             Scalar area2 = m_finalDistrib[i+1].second;
 
-            std::pair<std::pair<Scalar,Scalar>,std::pair<Scalar,Scalar> > pairMinMax;
+            std::pair<Scalar,Scalar> firstPt = m_finalDistrib[i];
 
             if (area <= area2)
             {
-                //m_minSort.insert(m_finalDistrib[i]);
-                pairMinMax.first = m_finalDistrib[i];
                 while (i < j)
                 {
                     do
@@ -911,9 +909,7 @@ namespace Ra
                         area = m_finalDistrib[i].second;
                         area2 = m_finalDistrib[i+1].second;
                     } while (area <= area2 && i < j);
-                    //m_maxSort.insert(m_finalDistrib[i]);
-                    pairMinMax.second = m_finalDistrib[i];
-                    m_pairsMinMax.push_back(pairMinMax);
+                    m_maxSort.insert(m_finalDistrib[i]);
                     if (i < j)
                     {
                         do
@@ -922,16 +918,13 @@ namespace Ra
                             area = m_finalDistrib[i].second;
                             area2 = m_finalDistrib[i+1].second;
                         } while (area >= area2 && i < j);
-                        //m_minSort.insert(m_finalDistrib[i]);
-                        pairMinMax.first = m_finalDistrib[i];
+                        m_minSort.insert(m_finalDistrib[i]);
                     }
                 }
             }
 
             else
             {
-                //m_maxSort.insert(m_finalDistrib[i]);
-                pairMinMax.second = m_finalDistrib[i];
                 while (i < j)
                 {
                     do
@@ -940,9 +933,7 @@ namespace Ra
                         area = m_finalDistrib[i].second;
                         area2 = m_finalDistrib[i+1].second;
                     } while (area >= area2 && i < j);
-                    //m_minSort.insert(m_finalDistrib[i]);
-                    pairMinMax.first = m_finalDistrib[i];
-                    m_pairsMinMax.push_back(pairMinMax);
+                    m_minSort.insert(m_finalDistrib[i]);
                     if (i < j)
                     {
                         do
@@ -951,84 +942,84 @@ namespace Ra
                             area = m_finalDistrib[i].second;
                             area2 = m_finalDistrib[i+1].second;
                         } while (area <= area2 && i < j);
-                        //m_maxSort.insert(m_finalDistrib[i]);
-                        pairMinMax.second = m_finalDistrib[i];
+                        m_maxSort.insert(m_finalDistrib[i]);
                     }
                 }
             }
 
-            // sorting (min,max) pairs by descending difference and persistence diagram
-            std::ofstream file2("Persistence_diagram.txt", std::ios::out | std::ios::trunc);
-            CORE_ASSERT(file2, "Error while opening persistence diagram file.");
+            // finding (min,max) pairs and sorting them by descending difference
+            MinSorting::iterator itMin = m_minSort.begin();
+            MaxSorting::iterator itMax = m_maxSort.begin();
 
-            //int nbPairs = std::min(m_minSort.size(), m_maxSort.size());
-            int nbPairs = m_pairsMinMax.size();
-            //MinSorting::iterator itMin = m_minSort.begin();
-            //MaxSorting::iterator itMax = m_maxSort.begin();
+            std::pair<std::pair<Scalar,Scalar>, std::pair<Scalar,Scalar> > pairMinMax;
 
-            for (uint i = 0; i < nbPairs; i++)
+            std::ofstream file("Persistence_diagram.txt", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(file, "Error while opening persistence diagram file.");
+
+            while (itMin != m_minSort.end() && itMax != m_maxSort.end())
             {
-                //Scalar diff = std::abs((*itMin).second - (*itMax).second);
-                Scalar diff = std::abs(m_pairsMinMax[i].first.second - m_pairsMinMax[i].second.second);
-                //file2 << (*itMin).second << " " << (*itMax).second << std::endl;
-                file2 << m_pairsMinMax[i].first.second << " " << m_pairsMinMax[i].second.second << std::endl;
-                std::pair<int,Scalar> p;
-                p.first = i;
-                p.second = diff;
-                m_diffSort.insert(p);
-                //std::advance(itMin,1);
-                //std::advance(itMax,1);
-            }
+                while ((*itMax).second < (*itMin).second && itMax != m_maxSort.end())
+                {
+                    std::advance(itMax,1);
+                }
 
-            file2.close();
+                if (itMax != m_maxSort.end())
+                {
+                    pairMinMax.first = *itMin;
+                    pairMinMax.second = *itMax;
+                    m_diffSort.insert(pairMinMax);
+                    m_minSort.erase(itMin);
+                    m_maxSort.erase(itMax);
 
-            // using the pairs with the greatest difference to clusterize
-            //itMin = m_minSort.begin();
-            //itMax = m_maxSort.begin();
-            DiffSorting::iterator diffIt = m_diffSort.begin();
+                    file << pairMinMax.first.second << " " << pairMinMax.second.second << std::endl;
 
-            for (uint i = 0; i < m_nbClusters; i++)
-            {
-                int id = (*diffIt).first;
-                //std::advance(itMin,id);
-                //std::advance(itMax,id);
-                //m_plotSort.insert(*itMin);
-                //m_plotSort.insert(*itMax);
-                m_plotSort.insert(m_pairsMinMax[id].first);
-                m_plotSort.insert(m_pairsMinMax[id].second);
-                //itMin = m_minSort.begin();
-                //itMax = m_maxSort.begin();
-                std::advance(diffIt,1);
-            }
-
-//            int n = nbClusters();
-
-//            while (n < m_nbClusters)
-//            {
-//                int id = (*diffIt).first;
-//                std::advance(itMin,id);
-//                std::advance(itMax,id);
-//                m_plotSort.insert(*itMin);
-//                m_plotSort.insert(*itMax);
-//                itMin = m_minSort.begin();
-//                itMax = m_maxSort.begin();
-//                std::advance(diffIt,1);
-
-//                n = nbClusters();
-//            }
-
-            std::ofstream file("Topological_persistence_distrib.txt", std::ios::out | std::ios::trunc);
-            CORE_ASSERT(file, "Error while opening topological persistence distribution file.");
-
-            PlotSorting::iterator plotIt = m_plotSort.begin();
-
-            while (plotIt != m_plotSort.end())
-            {
-                file << (*plotIt).first << " " << (*plotIt).second << std::endl;
-                std::advance(plotIt,1);
+                    itMin = m_minSort.begin();
+                    itMax = m_maxSort.begin();
+                }
             }
 
             file.close();
+
+            // ploting using topological persistence
+            m_plotSort.insert(firstPt);
+            if (m_minSort.size() > 0)
+            {
+                while (itMin != m_minSort.end())
+                {
+                    m_plotSort.insert(*itMin);
+                    std::advance(itMin,1);
+                }
+            }
+            if (m_maxSort.size() > 0)
+            {
+                while (itMax != m_maxSort.end())
+                {
+                    m_plotSort.insert(*itMax);
+
+                    std::advance(itMax,1);
+                }
+            }
+
+            DiffSorting::iterator itDiff = m_diffSort.begin();
+
+            for (uint i = 0; i < m_nbClusters; i++)
+            {
+                m_plotSort.insert((*itDiff).first);
+                m_plotSort.insert((*itDiff).second);
+                std::advance(itDiff,1);
+            }
+
+            std::ofstream file2("Topological_persistence.txt", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(file2, "Error while opening topological persistence file.");
+
+            PlotSorting::iterator itPlot = m_plotSort.begin();
+            while (itPlot != m_plotSort.end())
+            {
+                file2 << (*itPlot).first << " " << (*itPlot).second << std::endl;
+                std::advance(itPlot,1);
+            }
+
+            file2.close();
         }
 
 //        int MeshContactManager::nbClusters()
