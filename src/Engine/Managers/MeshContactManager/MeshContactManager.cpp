@@ -947,7 +947,10 @@ namespace Ra
                 }
             }
 
-            // sorting (min,max) pairs by descending difference
+            // sorting (min,max) pairs by descending difference and persistence diagram
+            std::ofstream file2("Persistence_diagram.txt", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(file2, "Error while opening persistence diagram file.");
+
             int nbPairs = std::min(m_minSort.size(), m_maxSort.size());
             MinSorting::iterator itMin = m_minSort.begin();
             MaxSorting::iterator itMax = m_maxSort.begin();
@@ -955,6 +958,7 @@ namespace Ra
             for (uint i = 0; i < nbPairs; i++)
             {
                 Scalar diff = std::abs((*itMin).second - (*itMax).second);
+                file2 << (*itMin).second << " " << (*itMax).second << std::endl;
                 std::pair<int,Scalar> p;
                 p.first = i;
                 p.second = diff;
@@ -963,6 +967,9 @@ namespace Ra
                 std::advance(itMax,1);
             }
 
+            file2.close();
+
+            // using the pairs with the greatest difference to clusterize
             itMin = m_minSort.begin();
             itMax = m_maxSort.begin();
             DiffSorting::iterator diffIt = m_diffSort.begin();
