@@ -43,7 +43,7 @@ namespace Ra {
             const Light* getLight(uint li) const;
 
             // Since this manager is dummy, it won't do anything here.
-            void preprocess(const Ra::Engine::RenderData &) override;
+            void preprocess(const RenderData &) override;
             void prerender(unsigned int li, RenderParameters& params) override;
             void postrender(unsigned int li) override;
             void postprocess() override;

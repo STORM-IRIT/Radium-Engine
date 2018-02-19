@@ -36,6 +36,8 @@ namespace Ra
             inline void setAttenuation( Scalar constant, Scalar linear, Scalar quadratic );
             inline const Attenuation& getAttenuation() const;
 
+            std::string getShaderInclude() const;
+
         private:
             Core::Vector3 m_position;
 

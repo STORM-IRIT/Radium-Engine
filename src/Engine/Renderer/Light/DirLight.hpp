@@ -22,6 +22,8 @@ namespace Ra
             virtual void setDirection( const Core::Vector3& pos ) override;
             inline const Core::Vector3& getDirection() const;
 
+            std::string getShaderInclude() const;
+
         private:
             Core::Vector3 m_direction;
         };

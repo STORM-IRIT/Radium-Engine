@@ -22,4 +22,8 @@ namespace Ra
         params.addParameter( "light.directional.direction", m_direction );
     }
 
+    std::string Engine::DirectionalLight::getShaderInclude() const {
+        return "Directional";
+    }
+
 }
