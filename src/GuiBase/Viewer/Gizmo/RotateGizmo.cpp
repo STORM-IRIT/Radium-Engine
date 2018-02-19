@@ -32,7 +32,7 @@ RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
         Core::TriangleMesh torus = Core::MeshUtils::makeParametricTorus<32>(
             torusOutRadius, torusAspectRatio * torusOutRadius );
         // Transform the torus from z-axis to axis i.
-        for ( auto& v : torus.m_vertices )
+        for ( auto& v : torus.vertices() )
         {
             v = 0.5f * v;
             if ( i < 2 )
@@ -43,7 +43,7 @@ RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
 
         Core::Color torusColor = Core::Color::Zero();
         torusColor[i] = 1.f;
-        Core::Vector4Array colors( torus.m_vertices.size(), torusColor );
+        Core::Vector4Array colors( torus.vertices().size(), torusColor );
 
         std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Arrow" ) );
         mesh->loadGeometry( torus );

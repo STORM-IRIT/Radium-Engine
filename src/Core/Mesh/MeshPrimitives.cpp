@@ -30,20 +30,16 @@ TriangleMesh makeBox( const Vector3& halfExts ) {
 
 TriangleMesh makeBox( const Aabb& aabb ) {
     TriangleMesh result;
-    result.m_vertices = {
+    result.vertices() = {
         aabb.corner( Aabb::BottomLeftFloor ), aabb.corner( Aabb::BottomRightFloor ),
         aabb.corner( Aabb::TopLeftFloor ),    aabb.corner( Aabb::TopRightFloor ),
         aabb.corner( Aabb::BottomLeftCeil ),  aabb.corner( Aabb::BottomRightCeil ),
-        aabb.corner( Aabb::TopLeftCeil ),     aabb.corner( Aabb::TopRightCeil )
-    };
+        aabb.corner( Aabb::TopLeftCeil ),     aabb.corner( Aabb::TopRightCeil )};
 
-    Scalar a = 1./std::sqrt(3.);
-    result.m_normals = {
-        Vector3( -a, -a, -a ), Vector3( +a, -a, -a ),
-        Vector3( -a, +a, -a ), Vector3( +a, +a, -a ),
-        Vector3( -a, -a, +a ), Vector3( +a, -a, +a ),
-        Vector3( -a, +a, +a ), Vector3( +a, +a, +a )
-    };
+    Scalar a = 1. / std::sqrt( 3. );
+    result.normals() = {Vector3( -a, -a, -a ), Vector3( +a, -a, -a ), Vector3( -a, +a, -a ),
+                        Vector3( +a, +a, -a ), Vector3( -a, -a, +a ), Vector3( +a, -a, +a ),
+                        Vector3( -a, +a, +a ), Vector3( +a, +a, +a )};
 
     result.m_triangles = {
         Triangle( 0, 2, 1 ), Triangle( 1, 2, 3 ), // Floor
@@ -65,7 +61,7 @@ TriangleMesh makeSharpBox( const Vector3& halfExts ) {
 
 TriangleMesh makeSharpBox( const Aabb& aabb ) {
     TriangleMesh result;
-    result.m_vertices = {// Floor Face
+    result.vertices() = {// Floor Face
                          aabb.corner( Aabb::BottomLeftFloor ), aabb.corner( Aabb::TopLeftFloor ),
                          aabb.corner( Aabb::TopRightFloor ), aabb.corner( Aabb::BottomRightFloor ),
 
@@ -88,22 +84,21 @@ TriangleMesh makeSharpBox( const Aabb& aabb ) {
 
                          // Top face
                          aabb.corner( Aabb::TopLeftFloor ), aabb.corner( Aabb::TopLeftCeil ),
-                         aabb.corner( Aabb::TopRightCeil ), aabb.corner( Aabb::TopRightFloor )
-    };
+                         aabb.corner( Aabb::TopRightCeil ), aabb.corner( Aabb::TopRightFloor )};
 
-    result.m_normals = {// Floor face
-                        Vector3(0,0,-1), Vector3(0,0,-1), Vector3(0,0,-1), Vector3(0,0,-1),
-                        // Ceil Face
-                        Vector3(0,0,+1), Vector3(0,0,+1), Vector3(0,0,+1), Vector3(0,0,+1),
-                        // Left Face
-                        Vector3(-1,0,0), Vector3(-1,0,0), Vector3(-1,0,0), Vector3(-1,0,0),
-                        // Right Face
-                        Vector3(+1,0,0), Vector3(+1,0,0), Vector3(+1,0,0), Vector3(+1,0,0),
-                        // Bottom Face
-                        Vector3(0,-1,0), Vector3(0,-1,0), Vector3(0,-1,0), Vector3(0,-1,0),
-                        // Top Face
-                        Vector3(0,+1,0), Vector3(0,+1,0), Vector3(0,+1,0), Vector3(0,+1,0)
-    };
+    result.normals() = {
+        // Floor face
+        Vector3( 0, 0, -1 ), Vector3( 0, 0, -1 ), Vector3( 0, 0, -1 ), Vector3( 0, 0, -1 ),
+        // Ceil Face
+        Vector3( 0, 0, +1 ), Vector3( 0, 0, +1 ), Vector3( 0, 0, +1 ), Vector3( 0, 0, +1 ),
+        // Left Face
+        Vector3( -1, 0, 0 ), Vector3( -1, 0, 0 ), Vector3( -1, 0, 0 ), Vector3( -1, 0, 0 ),
+        // Right Face
+        Vector3( +1, 0, 0 ), Vector3( +1, 0, 0 ), Vector3( +1, 0, 0 ), Vector3( +1, 0, 0 ),
+        // Bottom Face
+        Vector3( 0, -1, 0 ), Vector3( 0, -1, 0 ), Vector3( 0, -1, 0 ), Vector3( 0, -1, 0 ),
+        // Top Face
+        Vector3( 0, +1, 0 ), Vector3( 0, +1, 0 ), Vector3( 0, +1, 0 ), Vector3( 0, +1, 0 )};
 
     result.m_triangles = {
 
@@ -121,15 +116,15 @@ TriangleMesh makeSharpBox( const Aabb& aabb ) {
 
 TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
     TriangleMesh result;
-    uint faceCount = std::pow(4,numSubdiv)*20;
-    result.m_vertices.reserve(faceCount-8);
-    result.m_normals.reserve(faceCount-8);
-    result.m_triangles.reserve(faceCount);
+    uint faceCount = std::pow( 4, numSubdiv ) * 20;
+    result.vertices().reserve( faceCount - 8 );
+    result.normals().reserve( faceCount - 8 );
+    result.m_triangles.reserve( faceCount );
 
     // First, make an icosahedron.
     // Top vertex
-    result.m_vertices.emplace_back( 0, 0, radius );
-    result.m_normals.emplace_back( 0, 0, 1 );
+    result.vertices().emplace_back( 0, 0, radius );
+    result.normals().emplace_back( 0, 0, 1 );
 
     const Scalar sq5_5 = radius * std::sqrt( 5.f ) / 5.f;
 
@@ -143,14 +138,14 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
             const Scalar x = 2.f * sq5_5 * std::cos( theta );
             const Scalar y = 2.f * sq5_5 * std::sin( theta );
             const Scalar z = j == 0 ? sq5_5 : -sq5_5;
-            result.m_vertices.emplace_back( x, y, z );
-            result.m_normals.push_back( result.m_vertices.back().normalized() );
+            result.vertices().emplace_back( x, y, z );
+            result.normals().push_back( result.vertices().back().normalized() );
         }
     }
 
     // Bottom vertex
-    result.m_vertices.emplace_back( 0, 0, -radius );
-    result.m_normals.emplace_back(0, 0, -1);
+    result.vertices().emplace_back( 0, 0, -radius );
+    result.normals().emplace_back( 0, 0, -1 );
 
     for ( int i = 0; i < 5; ++i )
     {
@@ -184,13 +179,13 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
 
             for ( int v = 0; v < 3; ++v )
             {
-                middles[v] = result.m_vertices.size();
+                middles[v] = result.vertices().size();
 
                 Vector3 vertex = 0.5f * ( triVertices[v] + triVertices[( v + 1 ) % 3] );
                 vertex.normalize();
 
-                result.m_vertices.push_back( radius*vertex );
-                result.m_normals.push_back( vertex );
+                result.vertices().push_back( radius * vertex );
+                result.normals().push_back( vertex );
             }
 
             newTris.emplace_back( tri[0], middles[0], middles[2] );
@@ -207,9 +202,9 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
 
 TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, uint nFaces ) {
     TriangleMesh result;
-    result.m_vertices.reserve(2+3*nFaces);
-    result.m_normals.reserve(2+3*nFaces);
-    result.m_triangles.reserve(6*nFaces);
+    result.vertices().reserve( 2 + 3 * nFaces );
+    result.normals().reserve( 2 + 3 * nFaces );
+    result.m_triangles.reserve( 6 * nFaces );
 
     Vector3 ab = b - a;
     Vector3 dir = ab.normalized();
@@ -222,10 +217,10 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
 
     Vector3 c = 0.5 * ( a + b );
 
-    result.m_vertices.push_back( a );
-    result.m_vertices.push_back( b );
-    result.m_normals.push_back( -dir );
-    result.m_normals.push_back( dir );
+    result.vertices().push_back( a );
+    result.vertices().push_back( b );
+    result.normals().push_back( -dir );
+    result.normals().push_back( dir );
 
     const Scalar thetaInc( Core::Math::PiMul2 / Scalar( nFaces ) );
     for ( uint i = 0; i < nFaces; ++i )
@@ -234,13 +229,13 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
         Vector3 normal = std::cos( theta ) * xPlane + std::sin( theta ) * yPlane;
 
         // Even indices are A circle and odd indices are B circle.
-        result.m_vertices.push_back( a + radius * normal );
-        result.m_vertices.push_back( c + radius * normal );
-        result.m_vertices.push_back( b + radius * normal );
+        result.vertices().push_back( a + radius * normal );
+        result.vertices().push_back( c + radius * normal );
+        result.vertices().push_back( b + radius * normal );
 
-        result.m_normals.push_back((normal-dir).normalized());
-        result.m_normals.push_back(normal.normalized());
-        result.m_normals.push_back((normal+dir).normalized());
+        result.normals().push_back( ( normal - dir ).normalized() );
+        result.normals().push_back( normal.normalized() );
+        result.normals().push_back( ( normal + dir ).normalized() );
     }
 
     for ( uint i = 0; i < nFaces; ++i )
@@ -261,15 +256,16 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
         result.m_triangles.emplace_back( 0, br, bl );
         result.m_triangles.emplace_back( 1, tl, tr );
     }
+    getAutoNormals( result, result.normals() );
     checkConsistency( result );
     return result;
 }
 
 TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
     TriangleMesh result;
-    result.m_vertices.reserve(nFaces*nFaces+nFaces+2);
-    result.m_normals.reserve(nFaces*nFaces+nFaces+2);
-    result.m_triangles.reserve(2*(nFaces*nFaces+nFaces));
+    result.vertices().reserve( nFaces * nFaces + nFaces + 2 );
+    result.normals().reserve( nFaces * nFaces + nFaces + 2 );
+    result.m_triangles.reserve( 2 * ( nFaces * nFaces + nFaces ) );
 
     const Scalar l = length / 2.0;
 
@@ -284,14 +280,14 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
         Vector3 normal( std::cos( theta ), std::sin( theta ), 0 );
 
         // Create 3 circles
-        Vector3 vertex = radius*normal;
-        result.m_vertices.emplace_back( vertex[0], vertex[1], -l );
-        result.m_vertices.emplace_back( vertex[0], vertex[1], 0.0 );
-        result.m_vertices.emplace_back( vertex[0], vertex[1], l );
+        Vector3 vertex = radius * normal;
+        result.vertices().emplace_back( vertex[0], vertex[1], -l );
+        result.vertices().emplace_back( vertex[0], vertex[1], 0.0 );
+        result.vertices().emplace_back( vertex[0], vertex[1], l );
 
-        result.m_normals.push_back( normal );
-        result.m_normals.push_back( normal );
-        result.m_normals.push_back( normal );
+        result.normals().push_back( normal );
+        result.normals().push_back( normal );
+        result.normals().push_back( normal );
     }
 
     // Cylinder side faces
@@ -313,7 +309,7 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
 
     // Part 2 : create the bottom hemisphere.
     const Scalar phiInc = Core::Math::Pi / Scalar( nFaces );
-    uint vert_count = result.m_vertices.size();
+    uint vert_count = result.vertices().size();
 
     // Bottom hemisphere vertices
     for ( uint j = 1; j <= nFaces / 2 - 1; ++j )
@@ -325,19 +321,18 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
             const Scalar theta = i * thetaInc;
 
             const Vector3 normal( std::cos( theta ) * std::sin( phi ),
-                                  std::sin( theta ) * std::sin( phi ),
-                                  std::cos( phi ) );
+                                  std::sin( theta ) * std::sin( phi ), std::cos( phi ) );
 
             Vector3 vertex = radius * normal;
             vertex[2] -= l;
 
-            result.m_vertices.push_back( vertex );
-            result.m_normals.push_back( normal );
+            result.vertices().push_back( vertex );
+            result.normals().push_back( normal );
         }
     }
     // Add bottom point (south pole)
-    result.m_vertices.emplace_back( 0, 0, -( l + radius ) );
-    result.m_normals.emplace_back( 0, 0, -1 );
+    result.vertices().emplace_back( 0, 0, -( l + radius ) );
+    result.normals().emplace_back( 0, 0, -1 );
 
     // First ring of sphere triangles (joining with the cylinder)
     for ( uint i = 0; i < nFaces; ++i )
@@ -374,12 +369,12 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
         const uint j = nFaces / 2 - 2;
         uint bl = vert_count + j * nFaces + i;
         uint br = vert_count + j * nFaces + ( i + 1 ) % nFaces;
-        uint bot = result.m_vertices.size() - 1;
+        uint bot = result.vertices().size() - 1;
         result.m_triangles.emplace_back( br, bl, bot );
     }
 
     // Part 3 : create the top hemisphere
-    vert_count = result.m_vertices.size();
+    vert_count = result.vertices().size();
 
     // Top hemisphere vertices
     for ( uint j = 1; j <= nFaces / 2 - 1; ++j )
@@ -391,20 +386,19 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
             const Scalar theta = i * thetaInc;
 
             const Vector3 normal( std::cos( theta ) * std::sin( phi ),
-                                  std::sin( theta ) * std::sin( phi ),
-                                  std::cos( phi ) );
+                                  std::sin( theta ) * std::sin( phi ), std::cos( phi ) );
 
             Vector3 vertex = radius * normal;
             vertex[2] += l;
 
-            result.m_vertices.push_back( vertex );
-            result.m_normals.push_back( normal );
+            result.vertices().push_back( vertex );
+            result.normals().push_back( normal );
         }
     }
 
     // Add top point (north pole)
-    result.m_vertices.emplace_back( 0, 0, ( l + radius ) );
-    result.m_normals.emplace_back( 0, 0, 1 );
+    result.vertices().emplace_back( 0, 0, ( l + radius ) );
+    result.normals().emplace_back( 0, 0, 1 );
 
     // First ring of sphere triangles (joining with the cylinder)
     for ( uint i = 0; i < nFaces; ++i )
@@ -441,7 +435,7 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
         const uint j = nFaces / 2 - 2;
         uint bl = vert_count + j * nFaces + i;
         uint br = vert_count + j * nFaces + ( i + 1 ) % nFaces;
-        uint top = result.m_vertices.size() - 1;
+        uint top = result.vertices().size() - 1;
         result.m_triangles.emplace_back( bl, br, top );
     }
 
@@ -456,9 +450,9 @@ TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar outerRadius, S
     CORE_ASSERT( outerRadius > innerRadius, "Outer radius must be bigger than inner." );
 
     TriangleMesh result;
-    result.m_vertices.reserve(6*nFaces);
-    result.m_normals.reserve(6*nFaces);
-    result.m_triangles.reserve(12*nFaces);
+    result.vertices().reserve( 6 * nFaces );
+    result.normals().reserve( 6 * nFaces );
+    result.m_triangles.reserve( 12 * nFaces );
 
     Vector3 ab = b - a;
     Vector3 dir = ab.normalized();
@@ -478,21 +472,21 @@ TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar outerRadius, S
 
         Vector3 normal = std::cos( theta ) * xPlane + std::sin( theta ) * yPlane;
 
-        result.m_vertices.push_back(a + outerRadius * normal);
-        result.m_vertices.push_back(c + outerRadius * normal);
-        result.m_vertices.push_back(b + outerRadius * normal);
+        result.vertices().push_back( a + outerRadius * normal );
+        result.vertices().push_back( c + outerRadius * normal );
+        result.vertices().push_back( b + outerRadius * normal );
 
-        result.m_vertices.push_back(a + innerRadius * normal);
-        result.m_vertices.push_back(c + innerRadius * normal);
-        result.m_vertices.push_back(b + innerRadius * normal);
+        result.vertices().push_back( a + innerRadius * normal );
+        result.vertices().push_back( c + innerRadius * normal );
+        result.vertices().push_back( b + innerRadius * normal );
 
-        result.m_normals.push_back((-dir+normal).normalized());
-        result.m_normals.push_back(normal);
-        result.m_normals.push_back((dir+normal).normalized());
+        result.normals().push_back( ( -dir + normal ).normalized() );
+        result.normals().push_back( normal );
+        result.normals().push_back( ( dir + normal ).normalized() );
 
-        result.m_normals.push_back((-dir-normal).normalized());
-        result.m_normals.push_back(-normal);
-        result.m_normals.push_back((dir-normal).normalized());
+        result.normals().push_back( ( -dir - normal ).normalized() );
+        result.normals().push_back( -normal );
+        result.normals().push_back( ( dir - normal ).normalized() );
     }
 
     for ( uint i = 0; i < nFaces; ++i )
@@ -543,9 +537,9 @@ TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar outerRadius, S
 
 TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, uint nFaces ) {
     TriangleMesh result;
-    result.m_vertices.reserve(2+nFaces);
-    result.m_normals.reserve(2+nFaces);
-    result.m_triangles.reserve(2*nFaces);
+    result.vertices().reserve( 2 + nFaces );
+    result.normals().reserve( 2 + nFaces );
+    result.m_triangles.reserve( 2 * nFaces );
 
     Vector3 ab = tip - base;
     Vector3 dir = ab.normalized();
@@ -556,10 +550,10 @@ TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, u
     xPlane.normalize();
     yPlane.normalize();
 
-    result.m_vertices.push_back( base );
-    result.m_vertices.push_back( tip );
-    result.m_normals.push_back( -dir );
-    result.m_normals.push_back( dir );
+    result.vertices().push_back( base );
+    result.vertices().push_back( tip );
+    result.normals().push_back( -dir );
+    result.normals().push_back( dir );
 
     const Scalar thetaInc( Core::Math::PiMul2 / Scalar( nFaces ) );
     for ( uint i = 0; i < nFaces; ++i )
@@ -567,8 +561,8 @@ TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, u
         const Scalar theta = i * thetaInc;
         Vector3 normal = std::cos( theta ) * xPlane + std::sin( theta ) * yPlane;
 
-        result.m_vertices.push_back( base + radius * normal );
-        result.m_normals.push_back( (normal-dir).normalized() );
+        result.vertices().push_back( base + radius * normal );
+        result.normals().push_back( ( normal - dir ).normalized() );
     }
 
     for ( uint i = 0; i < nFaces; ++i )
@@ -591,8 +585,8 @@ TriangleMesh makePlaneGrid( const uint rows, const uint cols, const Vector2& hal
     const uint v_size = C * R;
     const uint t_size = 2 * cols * rows;
 
-    grid.m_vertices.resize( v_size );
-    grid.m_normals.resize( v_size );
+    grid.vertices().resize( v_size );
+    grid.normals().resize( v_size );
     grid.m_triangles.reserve( t_size );
 
     const Vector3 X = T.linear().col( 0 ).normalized();
@@ -610,8 +604,8 @@ TriangleMesh makePlaneGrid( const uint rows, const uint cols, const Vector2& hal
         {
             const uint id = ( i * C ) + j;
             v.at( {i, j} ) = id;
-            grid.m_vertices[id] = o + ( i * y ) + ( j * x );
-            grid.m_normals[id] = Z;
+            grid.vertices()[id] = o + ( i * y ) + ( j * x );
+            grid.normals()[id] = Z;
         }
     }
 
@@ -619,11 +613,9 @@ TriangleMesh makePlaneGrid( const uint rows, const uint cols, const Vector2& hal
     {
         for ( uint j = 0; j < cols; ++j )
         {
-            grid.m_triangles.emplace_back( v.at( {i, j} ),
-                                           v.at( {i, j + 1} ),
+            grid.m_triangles.emplace_back( v.at( {i, j} ), v.at( {i, j + 1} ),
                                            v.at( {i + 1, j + 1} ) );
-            grid.m_triangles.emplace_back( v.at( {i, j} ),
-                                           v.at( {i + 1, j + 1} ),
+            grid.m_triangles.emplace_back( v.at( {i, j} ), v.at( {i + 1, j + 1} ),
                                            v.at( {i + 1, j} ) );
         }
     }

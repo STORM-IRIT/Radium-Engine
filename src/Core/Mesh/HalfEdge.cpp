@@ -79,7 +79,7 @@ void HalfEdgeData::checkConsistency() const {
 }
 
 void HalfEdgeData::build( const TriangleMesh& mesh ) {
-    m_vertexToHalfEdge.resize( mesh.m_vertices.size() );
+    m_vertexToHalfEdge.resize( mesh.vertices().size() );
     m_triangleToHalfEdge.resize( mesh.m_triangles.size(), HalfEdgeIdx::Invalid() );
 
     std::map<EdgeKey, HalfEdgeIdx> edgeToHalfEdges;
@@ -168,7 +168,7 @@ void HalfEdgeData::build( const TriangleMesh& mesh ) {
 
 void AdjacencyQueries::getVertexFaces( const TriangleMesh& mesh, const HalfEdgeData& heData,
                                        VertexIdx vertex, std::vector<TriangleIdx>& facesOut ) {
-    CORE_ASSERT( vertex < mesh.m_vertices.size(), "Invalid vertex index" );
+    CORE_ASSERT( vertex < mesh.vertices().size(), "Invalid vertex index" );
     for ( HalfEdgeIdx idx : heData.getVertexHalfEdges( vertex ) )
     {
         const TriangleIdx t = heData[idx].m_leftTriIdx;
@@ -181,7 +181,7 @@ void AdjacencyQueries::getVertexFaces( const TriangleMesh& mesh, const HalfEdgeD
 void AdjacencyQueries::getVertexNeighbors( const TriangleMesh& mesh, const HalfEdgeData& heData,
                                            VertexIdx vertex,
                                            std::vector<VertexIdx>& neighborsOut ) {
-    CORE_ASSERT( vertex < mesh.m_vertices.size(), "Invalid vertex index" );
+    CORE_ASSERT( vertex < mesh.vertices().size(), "Invalid vertex index" );
     for ( HalfEdgeIdx idx : heData.getVertexHalfEdges( vertex ) )
     {
         neighborsOut.push_back( heData[idx].m_endVertexIdx );
@@ -204,7 +204,7 @@ void AdjacencyQueries::getAdjacentFaces( const TriangleMesh& mesh, const HalfEdg
 // in order. We could have an iterator-like interface(TODO).
 void AdjacencyQueries::getVertexFirstRing( const TriangleMesh& mesh, const HalfEdgeData& heData,
                                            VertexIdx vertex, std::vector<VertexIdx>& ringOut ) {
-    CORE_ASSERT( vertex < mesh.m_vertices.size(), "Invalid vertex index" );
+    CORE_ASSERT( vertex < mesh.vertices().size(), "Invalid vertex index" );
     CORE_ASSERT( heData.getVertexHalfEdges( vertex ).size() > 0, "Vertex has no neighbors" );
 
     // If we are on a border of the mesh, we must start from one of the border edges.
