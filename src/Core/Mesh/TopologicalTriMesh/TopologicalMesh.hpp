@@ -74,6 +74,36 @@ struct TopologicalMeshTraits : public OpenMesh::DefaultTraits
     EdgeAttributes(OpenMesh::Attributes::Status);
     HalfedgeAttributes(OpenMesh::Attributes::Status | OpenMesh::Attributes::Normal);
 
+    VertexTraits
+    {
+      private:
+        bool m_merged;
+        uint m_index;
+
+      public:
+        /// if !isMerged() -> getIndex() <> TriMesh.vertex[index], and vertex
+        /// normal is TriMesh vertex normal
+        uint getIndex() { return m_index; }
+        void setIndex(uint index) { m_index = index; }
+        bool isMerged() { return m_merged; }
+        void setMerged(bool merged) { m_merged = merged; }
+    };
+
+    HalfedgeTraits
+    {
+      private:
+        bool m_merged;
+        uint m_index;
+
+      public:
+        /// if !isMerged() -> getIndex() <> TriMesh.vertex[index], and halfedge
+        /// normal is TriMesh vertex normal
+        uint getIndex() { return m_index; }
+        void setIndex(uint index) { m_index = index; }
+        bool isMerged() { return m_merged; }
+        void setMerged(bool merged) { m_merged = merged; }
+    };
+
   public:
 };
 
