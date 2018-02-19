@@ -47,7 +47,7 @@ namespace Ra
             out.m_vertices.reserve( in.n_vertices() );
             out.m_normals.reserve( in.n_vertices() );
             out.m_triangles.reserve( in.n_faces() );
-            
+
             for ( TopologicalMesh::FaceIter f_it = in.faces_sbegin(); f_it != in.faces_end(); ++f_it )
             {
                 vertexData v;
@@ -59,8 +59,8 @@ namespace Ra
                     assert( i < 3 );
                     TopologicalMesh::Point p = in.point( in.to_vertex_handle( *fv_it ) );
                     TopologicalMesh::Normal n = in.normal( in.to_vertex_handle( *fv_it ) );
-                    v._vertex = Core::Vector3( p[0], p[1], p[2] );
-                    v._normal = Core::Vector3( n[0], n[1], n[2] );
+                    v._vertex = p;
+                    v._normal = n;
 
                     int vi;
                     vMap::iterator vtr = vertexHandles.find( v );
@@ -117,9 +117,9 @@ namespace Ra
                 TopologicalMesh::VertexHandle vh;
                 if ( vtr == vertexHandles.end() )
                 {
-                    vh = out.add_vertex( TopologicalMesh::Point( p[0], p[1], p[2] ) );
+                    vh = out.add_vertex( p );
                     vertexHandles.insert( vtr, vMap::value_type( p, vh ) );
-                    out.set_normal( vh, TopologicalMesh::Normal( n[0], n[1], n[2] ) );
+                    out.set_normal( vh, n );
                 }
                 else
                 {
