@@ -3,6 +3,7 @@
 #include <Engine/RadiumEngine.hpp>
 
 #include <Core/Mesh/MeshUtils.hpp>
+
 #include <Engine/Component/Component.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>

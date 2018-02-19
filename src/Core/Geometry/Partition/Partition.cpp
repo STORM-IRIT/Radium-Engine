@@ -74,7 +74,7 @@ TriangleSegment extractTriangleSegment( const BitSet& bit, const VectorArray<Tri
 MeshPartition partition( const TriangleMesh& mesh, const Animation::WeightMatrix& weight,
                          const bool use_max ) {
     const uint size = weight.cols();
-    const uint v_size = mesh.m_vertices.size();
+    const uint v_size = mesh.vertices().size();
     MeshPartition part( size );
 #pragma omp parallel for
     for ( uint n = 0; n < size; ++n )
@@ -82,15 +82,15 @@ MeshPartition partition( const TriangleMesh& mesh, const Animation::WeightMatrix
         const VertexSegment v = extractVertexSegment( weight, n, use_max );
         const BitSet b = extractBitSet( v, v_size );
         const TriangleSegment t = extractTriangleSegment( b, mesh.m_triangles );
-        part[n].m_vertices.resize( v.size() );
-        part[n].m_normals.resize( v.size() );
+        part[n].vertices().resize( v.size() );
+        part[n].normals().resize( v.size() );
         part[n].m_triangles.resize( t.size() );
         std::map<uint, uint> id;
         for ( uint i = 0; i < v.size(); ++i )
         {
             id[v[i]] = i;
-            part[n].m_vertices[i] = mesh.m_vertices[v[i]];
-            part[n].m_normals[i] = mesh.m_normals[v[i]];
+            part[n].vertices()[i] = mesh.vertices()[v[i]];
+            part[n].normals()[i] = mesh.normals()[v[i]];
         }
         for ( uint i = 0; i < t.size(); ++i )
         {

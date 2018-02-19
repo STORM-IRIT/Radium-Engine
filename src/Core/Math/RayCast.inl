@@ -370,9 +370,9 @@ bool vsTriangleMesh( const Ray& r, const TriangleMesh& mesh, std::vector<Scalar>
     for ( size_t i = 0; i < mesh.m_triangles.size(); ++i )
     {
         Triangle t = mesh.m_triangles[i];
-        Vector3 a = mesh.m_vertices[t[0]];
-        Vector3 b = mesh.m_vertices[t[1]];
-        Vector3 c = mesh.m_vertices[t[2]];
+        Vector3 a = mesh.vertices()[t[0]];
+        Vector3 b = mesh.vertices()[t[1]];
+        Vector3 c = mesh.vertices()[t[2]];
         if ( vsTriangle( r, a, b, c, hitsOut ) )
         {
             trianglesIdxOut.push_back( t );

@@ -1,7 +1,8 @@
+#include <Core/Mesh/MeshUtils.hpp>
+
 #include <Core/Log/Log.hpp>
 #include <Core/Math/Math.hpp>
 #include <Core/Math/RayCast.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
 #include <Core/String/StringUtils.hpp>
 
 #include <map>
@@ -15,8 +16,9 @@
 namespace Ra {
 namespace Core {
 namespace MeshUtils {
+
 void getAutoNormals( TriangleMesh& mesh, VectorArray<Vector3>& normalsOut ) {
-    const uint numVertices = mesh.m_vertices.size();
+    const uint numVertices = mesh.vertices().size();
     const uint numTriangles = mesh.m_triangles.size();
 
     normalsOut.clear();
@@ -39,7 +41,7 @@ void getAutoNormals( TriangleMesh& mesh, VectorArray<Vector3>& normalsOut ) {
 bool findDuplicates( const TriangleMesh& mesh, std::vector<VertexIdx>& duplicatesMap ) {
     bool hasDuplicates = false;
     duplicatesMap.clear();
-    const uint numVerts = mesh.m_vertices.size();
+    const uint numVerts = mesh.vertices().size();
     duplicatesMap.resize( numVerts, VertexIdx( -1 ) );
 
     VectorArray<Vector3>::const_iterator vertPos;
@@ -48,7 +50,7 @@ bool findDuplicates( const TriangleMesh& mesh, std::vector<VertexIdx>& duplicate
 
     for ( uint i = 0; i < numVerts; ++i )
     {
-        vertices.push_back( std::make_pair( mesh.m_vertices[i], VertexIdx( i ) ) );
+        vertices.push_back( std::make_pair( mesh.vertices()[i], VertexIdx( i ) ) );
     }
 
     std::sort( vertices.begin(), vertices.end(),
@@ -87,14 +89,14 @@ void removeDuplicates( TriangleMesh& mesh, std::vector<VertexIdx>& vertexMap ) {
     std::vector<VertexIdx> duplicatesMap;
     findDuplicates( mesh, duplicatesMap );
 
-    std::vector<VertexIdx> newIndices( mesh.m_vertices.size(), VertexIdx( -1 ) );
+    std::vector<VertexIdx> newIndices( mesh.vertices().size(), VertexIdx( -1 ) );
     Vector3Array uniqueVertices;
-    for ( uint i = 0; i < mesh.m_vertices.size(); i++ )
+    for ( uint i = 0; i < mesh.vertices().size(); i++ )
     {
         if ( duplicatesMap[i] == i )
         {
             newIndices[i] = uniqueVertices.size();
-            uniqueVertices.push_back( mesh.m_vertices[i] );
+            uniqueVertices.push_back( mesh.vertices()[i] );
         }
     }
 
@@ -108,11 +110,11 @@ void removeDuplicates( TriangleMesh& mesh, std::vector<VertexIdx>& vertexMap ) {
         }
     }
 
-    vertexMap.resize( mesh.m_vertices.size() );
-    for ( uint i = 0; i < mesh.m_vertices.size(); i++ )
+    vertexMap.resize( mesh.vertices().size() );
+    for ( uint i = 0; i < mesh.vertices().size(); i++ )
         vertexMap[i] = newIndices[duplicatesMap[i]];
 
-    mesh.m_vertices = uniqueVertices;
+    mesh.vertices() = uniqueVertices;
 }
 
 RayCastResult castRay( const TriangleMesh& mesh, const Ray& ray ) {
@@ -123,9 +125,9 @@ RayCastResult castRay( const TriangleMesh& mesh, const Ray& ray ) {
     {
 
         Scalar minSqAngDist = std::numeric_limits<Scalar>::max();
-        for ( uint i = 0; i < mesh.m_vertices.size(); ++i )
+        for ( uint i = 0; i < mesh.vertices().size(); ++i )
         {
-            Scalar dist = ray.squaredDistance( mesh.m_vertices[i] );
+            Scalar dist = ray.squaredDistance( mesh.vertices()[i] );
 
             if ( dist < minSqAngDist )
             {
@@ -135,7 +137,7 @@ RayCastResult castRay( const TriangleMesh& mesh, const Ray& ray ) {
         }
         if ( result.m_nearestVertex != -1 )
         {
-            result.m_t = ray.distance( mesh.m_vertices[result.m_nearestVertex] );
+            result.m_t = ray.distance( mesh.vertices()[result.m_nearestVertex] );
         }
     } else
     {
@@ -210,7 +212,7 @@ Scalar getMeanEdgeLength( const TriangleMesh& mesh ) {
             const uint i = mesh.m_triangles[t][v];
             const uint j = mesh.m_triangles[t][( v + 1 ) % 3];
             Key k( ( ( i < j ) ? i : j ), ( ( i < j ) ? j : i ) );
-            Scalar length = ( mesh.m_vertices[i] - mesh.m_vertices[j] ).norm();
+            Scalar length = ( mesh.vertices()[i] - mesh.vertices()[j] ).norm();
 #pragma omp critical
             {
                 auto it = list.find( k );
@@ -232,14 +234,14 @@ Scalar getMeanEdgeLength( const TriangleMesh& mesh ) {
 
 void checkConsistency( const TriangleMesh& mesh ) {
 #ifdef CORE_DEBUG
-    std::vector<bool> visited( mesh.m_vertices.size(), false );
+    std::vector<bool> visited( mesh.vertices().size(), false );
     for ( uint t = 0; t < mesh.m_triangles.size(); ++t )
     {
         CORE_WARN_IF( !( getTriangleArea( mesh, t ) > 0.f ), "Triangle " << t << " is degenerate" );
         const Triangle& tri = mesh.m_triangles[t];
         for ( uint i = 0; i < 3; ++i )
         {
-            CORE_ASSERT( uint( tri[i] ) < mesh.m_vertices.size(),
+            CORE_ASSERT( uint( tri[i] ) < mesh.vertices().size(),
                          "Vertex " << tri[i] << " is in triangle " << t << " (#" << i
                                    << ") is out of bounds" );
             visited[tri[i]] = true;
@@ -251,9 +253,8 @@ void checkConsistency( const TriangleMesh& mesh ) {
         CORE_ASSERT( visited[v], "Vertex " << v << " does not belong to any triangle" );
     }
 
-    // Normals are optional but if they are present then every vertex should have one.
-    CORE_ASSERT( mesh.m_normals.size() == 0 || mesh.m_normals.size() == mesh.m_vertices.size(),
-                 "Inconsistent number of normals" );
+    // Always have the same number of vertex data and vertices
+    CORE_ASSERT( mesh.normals().size() == mesh.normals().size(), "Inconsistent number of normals" );
 #endif
 }
 

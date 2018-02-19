@@ -51,7 +51,7 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
             const TriangleMesh& mesh = compMsg->get<TriangleMesh>( getEntity(), m_contentsName );
             const WeightMatrix& weights = compMsg->get<WeightMatrix>( getEntity(), m_contentsName );
 
-            const uint size = mesh.m_vertices.size();
+            const uint size = mesh.vertices().size();
 
             const uint fiveColor = 5;
             const Scalar magenta = 5.0f / 6.0f;
@@ -73,7 +73,7 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
             }
 
             Ra::Core::Geometry::AdjacencyMatrix Adj =
-                Ra::Core::Geometry::uniformAdjacency( mesh.m_vertices, mesh.m_triangles );
+                Ra::Core::Geometry::uniformAdjacency( mesh.vertices(), mesh.m_triangles );
             Ra::Core::Geometry::AdjacencyMatrix Seg( weights.cols(), weights.cols() );
 
             for ( int k = 0; k < Adj.outerSize(); ++k )

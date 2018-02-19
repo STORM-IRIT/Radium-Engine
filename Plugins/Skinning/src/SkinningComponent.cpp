@@ -51,9 +51,9 @@ void SkinningComponent::setupSkinning() {
         m_frameData.m_doSkinning = false;
         m_frameData.m_doReset = false;
 
-        m_frameData.m_previousPos = m_refData.m_referenceMesh.m_vertices;
-        m_frameData.m_currentPos = m_refData.m_referenceMesh.m_vertices;
-        m_frameData.m_currentNormal = m_refData.m_referenceMesh.m_normals;
+        m_frameData.m_previousPos = m_refData.m_referenceMesh.vertices();
+        m_frameData.m_currentPos = m_refData.m_referenceMesh.vertices();
+        m_frameData.m_currentNormal = m_refData.m_referenceMesh.normals();
 
         // Do some debug checks:  Attempt to write to the mesh and check the weights match skeleton
         // and mesh.
@@ -64,7 +64,7 @@ void SkinningComponent::setupSkinning() {
             "Mesh cannot be skinned. It could be because the mesh is set to nondeformable" );
         CORE_ASSERT( m_refData.m_skeleton.size() == m_refData.m_weights.cols(),
                      "Weights are incompatible with bones" );
-        CORE_ASSERT( m_refData.m_referenceMesh.m_vertices.size() == m_refData.m_weights.rows(),
+        CORE_ASSERT( m_refData.m_referenceMesh.vertices().size() == m_refData.m_weights.rows(),
                      "Weights are incompatible with Mesh" );
 
         m_isReady = true;
@@ -102,7 +102,7 @@ void SkinningComponent::skin() {
             case LBS:
             {
                 Ra::Core::Animation::linearBlendSkinning(
-                    m_refData.m_referenceMesh.m_vertices, m_frameData.m_refToCurrentRelPose,
+                    m_refData.m_referenceMesh.vertices(), m_frameData.m_refToCurrentRelPose,
                     m_refData.m_weights, m_frameData.m_currentPos );
                 break;
             }
@@ -112,14 +112,14 @@ void SkinningComponent::skin() {
                 // computeDQ( m_frameData.m_prevToCurrentRelPose, m_refData.m_weights, DQ );
                 Ra::Core::Animation::computeDQ( m_frameData.m_refToCurrentRelPose,
                                                 m_refData.m_weights, DQ );
-                Ra::Core::Animation::dualQuaternionSkinning( m_refData.m_referenceMesh.m_vertices,
+                Ra::Core::Animation::dualQuaternionSkinning( m_refData.m_referenceMesh.vertices(),
                                                              DQ, m_frameData.m_currentPos );
                 break;
             }
             case COR:
             {
                 Ra::Core::Animation::corSkinning(
-                    m_refData.m_referenceMesh.m_vertices, m_frameData.m_refToCurrentRelPose,
+                    m_refData.m_referenceMesh.vertices(), m_frameData.m_refToCurrentRelPose,
                     m_refData.m_weights, m_refData.m_CoR, m_frameData.m_currentPos );
                 break;
             }
@@ -152,15 +152,15 @@ void SkinningComponent::endSkinning() {
         Ra::Core::Vector3Array& vertices = *( m_verticesWriter() );
         Ra::Core::Vector3Array& normals = *( m_normalsWriter() );
 
-        vertices = m_refData.m_referenceMesh.m_vertices;
-        normals = m_refData.m_referenceMesh.m_normals;
+        vertices = m_refData.m_referenceMesh.vertices();
+        normals = m_refData.m_referenceMesh.normals();
 
         m_frameData.m_doReset = false;
         m_frameData.m_currentPose = m_refData.m_refPose;
         m_frameData.m_previousPose = m_refData.m_refPose;
-        m_frameData.m_currentPos = m_refData.m_referenceMesh.m_vertices;
-        m_frameData.m_previousPos = m_refData.m_referenceMesh.m_vertices;
-        m_frameData.m_currentNormal = m_refData.m_referenceMesh.m_normals;
+        m_frameData.m_currentPos = m_refData.m_referenceMesh.vertices();
+        m_frameData.m_previousPos = m_refData.m_referenceMesh.vertices();
+        m_frameData.m_currentNormal = m_refData.m_referenceMesh.normals();
     }
 }
 

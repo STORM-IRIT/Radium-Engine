@@ -48,7 +48,7 @@ void MeshPaintComponent::initialize() {
     auto ro = getRoMgr()->getRenderObject( *m_renderObjectReader() );
     m_baseConfig = ro->getRenderTechnique()->getConfiguration();
     m_baseColors = ro->getMesh()->getData( Ra::Engine::Mesh::VERTEX_COLOR );
-    m_paintColors.resize( ro->getMesh()->getGeometry().m_vertices.size(),
+    m_paintColors.resize( ro->getMesh()->getGeometry().vertices().size(),
                           Ra::Core::Colors::Skin() );
     ro->getMesh()->addData( Ra::Engine::Mesh::VERTEX_COLOR, m_paintColors );
 }

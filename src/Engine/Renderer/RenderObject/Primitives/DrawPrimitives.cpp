@@ -221,12 +221,12 @@ MeshPtr CircleArc( const Core::Vector3& center, const Core::Vector3& normal, Sca
 MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Color& color ) {
     Core::TriangleMesh sphere = Core::MeshUtils::makeGeodesicSphere( radius, 2 );
 
-    for ( auto& t : sphere.m_vertices )
+    for ( auto& t : sphere.vertices() )
     {
         t += center;
     }
 
-    Core::Vector4Array colors( sphere.m_vertices.size(), color );
+    Core::Vector4Array colors( sphere.vertices().size(), color );
 
     MeshPtr mesh( new Mesh( "Sphere Primitive", Mesh::RM_LINES ) );
     mesh->loadGeometry( sphere );
@@ -252,12 +252,12 @@ MeshPtr Capsule( const Core::Vector3& p1, const Core::Vector3& p2, Scalar radius
     t.rotate( rot );
     t.pretranslate( trans );
 
-    for ( auto& v : capsule.m_vertices )
+    for ( auto& v : capsule.vertices() )
     {
         v = t * v;
     }
 
-    Core::Vector4Array colors( capsule.m_vertices.size(), color );
+    Core::Vector4Array colors( capsule.vertices().size(), color );
 
     MeshPtr mesh( new Mesh( "Sphere Primitive", Mesh::RM_LINES ) );
     mesh->loadGeometry( capsule );
