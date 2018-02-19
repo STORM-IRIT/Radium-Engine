@@ -2,6 +2,11 @@ language: cpp
 
 script:
   - make -j 4
+  - |
+    if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+      cd ../Bundle-Clang/Release/bin/
+      otool -L ./main-app
+    fi;
 
 cache:
   directories:
