@@ -12,7 +12,6 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/FrameInfo.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
 namespace Ra {

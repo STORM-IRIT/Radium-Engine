@@ -4,6 +4,8 @@
 #include <Engine/RaEngine.hpp>
 #include <Engine/System/System.hpp>
 #include <Engine/Renderer/Light/LightStorage.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 
 #include <memory>
@@ -11,13 +13,14 @@
 
 namespace Ra {
     namespace Engine {
+        class RenderObject;
     }
 }
 
 
 namespace Ra {
     namespace Engine {
-
+    
         /**
          * Interface providing functions to manage a group or type of lights
          * in a specific way.
@@ -60,7 +63,12 @@ namespace Ra {
             /**
              * @brief Call before a render, process what is needed for a given Light.
              */
-            virtual void prerender(unsigned int li, RenderParameters& params) = 0;
+            virtual void prerender(unsigned int li) = 0;
+            
+            /**
+             * @brief render the object with specific technics for the current light (between prerender and postrender)
+             */
+            virtual void render(RenderObject*, unsigned int li, RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE) = 0;
 
             /**
              * @brief Call after a render, process what is needed for a given Light.
@@ -83,6 +91,10 @@ namespace Ra {
             void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
 
         protected:
+            /// store the current renderData
+            RenderData renderData;
+            /// store the current light parameters
+            RenderParameters params;
             /// Stores the object that stores the lights...
             std::unique_ptr<LightStorage> m_data;
         };

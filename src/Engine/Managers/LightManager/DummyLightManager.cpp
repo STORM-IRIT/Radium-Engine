@@ -1,6 +1,7 @@
 #include "DummyLightManager.hpp"
 
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
 namespace Ra {
@@ -25,14 +26,21 @@ namespace Ra {
         // Pre/Post render operations.
         //
 
-        void DummyLightManager::preprocess(const Ra::Engine::RenderData &)
+        void DummyLightManager::preprocess(const Ra::Engine::RenderData &rd)
         {
+            renderData = rd;
         }
 
-        void DummyLightManager::prerender(unsigned int li, RenderParameters& params)
+        void DummyLightManager::prerender(unsigned int li)
         {
             Light *light = (*m_data.get())[li];
+            params = RenderParameters();
             light->getRenderParameters(params);
+        }
+        
+        void DummyLightManager::render(RenderObject *ro, unsigned int li, RenderTechnique::PassName passname)
+        {
+            ro->render( params, renderData, passname );
         }
 
         void DummyLightManager::postrender(unsigned int li)
