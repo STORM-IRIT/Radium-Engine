@@ -1,3 +1,13 @@
+# TODO : verify if this is still OK for installed targets
+
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+SET(CMAKE_INSTALL_RPATH "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib;${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin;${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
+
+message("INFO Radium is built with INSTALL_RPATH_USE_LINK_PATH=${CMAKE_INSTALL_RPATH_USE_LINK_PATH}, BUILD_WITH_INSTALL_RPATH=${CMAKE_BUILD_WITH_INSTALL_RPATH} and INSTALL_RPATH=${CMAKE_INSTALL_RPATH}")
+
+
+
 ## This script comes from https://cmake.org/Wiki/CMake_RPATH_handling#Always_full_RPATH
 #
 # It is designed 'to make sure that the required libraries are always found
@@ -7,11 +17,11 @@
 # untested and not used
 
 # use, i.e. don't skip the full RPATH for the build tree
-SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
+#SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
 
 # when building, don't use the install RPATH already
 # (but later on when installing)
-SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+#SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 
 # SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 
