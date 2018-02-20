@@ -1,7 +1,5 @@
 #include "Structs.glsl"
 
-// FIXME (florian): TO BE TESTED
-
 layout(lines) in;
 layout(line_strip, max_vertices = 2) out;
 
