@@ -240,6 +240,7 @@ namespace Ra
         {
             renderer->addLight( m_camera->getLight() );
         }
+        renderer->lockRendering();
     }
 
     void Gui::Viewer::resizeGL( int width_, int height_ )
@@ -495,7 +496,7 @@ namespace Ra
             }
 
             m_currentRenderer = m_renderers[index].get();
-            m_currentRenderer->lockRendering();
+            // renderers in m_renderers are supposed to be locked
             m_currentRenderer->resize( width(), height() );
             m_currentRenderer->unlockRendering();
 
