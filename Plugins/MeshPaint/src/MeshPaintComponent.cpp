@@ -88,7 +88,6 @@ void MeshPaintComponent::paintMesh( const Ra::Engine::Renderer::PickingResult& p
           ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_LINE_STRIP ||
           ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_LINES_ADJACENCY ||
           ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_LINE_STRIP_ADJACENCY ||
-          ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_TRIANGLES ||
           ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_TRIANGLE_STRIP ||
           ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_TRIANGLE_FAN ) )
     {
