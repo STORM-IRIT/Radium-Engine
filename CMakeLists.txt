@@ -72,9 +72,6 @@ endif()
 # Set the compiler flags.
 include(CompileFlags)
 
-# Configure RPath
-include(ConfigureRPath)
-
 if ( NOT CMAKE_PREFIX_PATH )
   set( CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR} )
 endif()
@@ -115,6 +112,8 @@ list(APPEND RADIUM_INCLUDE_DIRS "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${A
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   Main Libraries
+# Configure RPath once submodules are configured
+include(ConfigureRPath)
 
 set(RADIUM_LIBRARIES)
 # Radium libraries are set in RADIUM_SRC_DIR
