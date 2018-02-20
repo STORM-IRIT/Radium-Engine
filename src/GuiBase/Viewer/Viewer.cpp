@@ -495,6 +495,7 @@ namespace Ra
             }
 
             m_currentRenderer = m_renderers[index].get();
+            m_currentRenderer->lockRendering();
             m_currentRenderer->resize( width(), height() );
             m_currentRenderer->unlockRendering();
 
