@@ -44,7 +44,8 @@ namespace Ra {
 
             // Since this manager is dummy, it won't do anything here.
             void preprocess(const RenderData &) override;
-            void prerender(unsigned int li, RenderParameters& params) override;
+            void prerender(unsigned int li) override;
+            void render(RenderObject*, unsigned int li, RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE);
             void postrender(unsigned int li) override;
             void postprocess() override;
         };
