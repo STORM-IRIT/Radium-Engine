@@ -44,6 +44,7 @@ namespace Ra
             ,m_asymmetry_median( 0 )
             ,m_distance_median( 0 )
             ,m_nbclusters_compute( 4 )
+            ,m_nbclusters_display( 4 )
         {
         }
 
@@ -110,6 +111,11 @@ namespace Ra
         void MeshContactManager::setNbClustersToComputeChanged(const int nb)
         {
             m_nbclusters_compute = nb;
+        }
+
+        void MeshContactManager::setNbClustersToDisplayChanged(const int nb)
+        {
+            m_nbclusters_display = nb;
         }
 
         void MeshContactManager::addMesh(MeshContactElement* mesh, const std::string& entityName, const std::string& componentName)
@@ -445,6 +451,12 @@ namespace Ra
 
             LOG(logINFO) << "Threshold max : " << m_threshold_max;
             LOG(logINFO) << "Asymmetry max : " << m_asymmetry_max;
+        }
+
+        // value that will be displayed as threshold in UI
+        int MeshContactManager::getThresholdCluster()
+        {
+            return ((int)(m_finalClusters3[m_nbclusters_display] * PRECISION) + 1);
         }
 
         // value that will be used for the slider in UI
@@ -1783,6 +1795,42 @@ namespace Ra
             }
         }
 
+        void MeshContactManager::colorClusters3()
+        {
+            Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                MeshContactElement* obj = m_meshContactElements[i];
+                int nbVertices = obj->getMesh()->getGeometry().m_vertices.size();
+                Ra::Core::Vector4Array colors;
+                for (uint v = 0; v < nbVertices; v++)
+                {
+                    colors.push_back(vertexColor);
+                }
+                obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+            }
+
+            std::srand(std::time(0));
+            DistanceSorting::iterator it = m_distSort.begin();
+            for (uint i = 0; i < m_nbclusters_display; i++)
+            {
+                Ra::Core::Vector4 clusterColor ((Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000);
+                while ((*it).r <= m_finalClusters3[i] && it != m_distSort.end())
+                {
+                    MeshContactElement* obj = m_meshContactElements[(*it).objId];
+                    Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getTriangleMeshDuplicate().m_triangles;
+                    Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
+
+                    colors[t[(*it).faceId][0]] = clusterColor;
+                    colors[t[(*it).faceId][1]] = clusterColor;
+                    colors[t[(*it).faceId][2]] = clusterColor;
+                    obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+
+                    std::advance(it, 1);
+                }
+            }
+        }
+
         void MeshContactManager::setComputeClusters()
         {
             if (m_nbclusters_display < m_finalDistrib.size() / 2)
@@ -1802,7 +1850,7 @@ namespace Ra
 
 //            clustering(0.75,25);
             //colorClusters();
-            colorClusters2();
+            colorClusters3();
         }
 
         void MeshContactManager::setConstructM0()

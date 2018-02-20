@@ -59,7 +59,9 @@ namespace Ra
             void setDisplayWeight();
             void setComputeClusters();
             void setDisplayClusters();
+            int getThresholdCluster();
             void setNbClustersToComputeChanged(const int nb);
+            void setNbClustersToDisplayChanged(const int nb);
             void setConstructM0();
             void setThresholdValueChanged(int value);
             int getThresholdMax();
@@ -102,6 +104,7 @@ namespace Ra
             void topologicalPersistence();
             //int nbClusters();
             void findClusters3();
+            void colorClusters3();
 
             void normalize();
 
@@ -160,6 +163,7 @@ namespace Ra
             std::vector<Scalar> m_finalClusters3;
 
             int m_nbclusters_compute;
+            int m_nbclusters_display;
 
             struct compareMinByDescendingOrdinate
             {
