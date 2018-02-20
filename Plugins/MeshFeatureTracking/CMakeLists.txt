@@ -3,6 +3,9 @@ project(MeshFeatureTrackingPlugin)
 cmake_minimum_required(VERSION 2.8.11)
 if (APPLE)
     cmake_policy(SET CMP0042 NEW)
+    # RPATH settings on macOS do not affect install_name.
+    # Run "cmake --help-policy CMP0068" for policy details.
+    cmake_policy(SET CMP0068 NEW)
 endif(APPLE)
 
 message( "${PROJECT_NAME} output path : ${RADIUM_PLUGIN_OUTPUT_PATH}" )
