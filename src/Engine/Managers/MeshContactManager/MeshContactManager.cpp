@@ -43,7 +43,7 @@ namespace Ra
             ,m_asymmetry_mean( 0 )
             ,m_asymmetry_median( 0 )
             ,m_distance_median( 0 )
-            ,m_nbClusters( 4 )
+            ,m_nbclusters_compute( 4 )
         {
         }
 
@@ -105,6 +105,11 @@ namespace Ra
         void MeshContactManager::setAsymmetryChanged(const double asymmetry)
         {
             m_asymmetry = asymmetry;
+        }
+
+        void MeshContactManager::setNbClustersToComputeChanged(const int nb)
+        {
+            m_nbclusters_compute = nb;
         }
 
         void MeshContactManager::addMesh(MeshContactElement* mesh, const std::string& entityName, const std::string& componentName)
@@ -1027,7 +1032,7 @@ namespace Ra
 
             DiffSorting::iterator itDiff = m_diffSort.begin();
 
-            for (uint i = 0; i < m_nbClusters; i++)
+            for (uint i = 0; i < m_nbclusters_compute; i++)
             {
                 m_plotSort.insert((*itDiff).first);
                 m_plotSort.insert((*itDiff).second);
@@ -1470,11 +1475,6 @@ namespace Ra
             //findClusters();
             //finalDistanceFile2();
             //findClusters2();
-            if (m_nbClusters < m_finalDistrib.size() / 2)
-            {
-                topologicalPersistence();
-                findClusters3();
-            }
         }
 
         void MeshContactManager::setLoadDistribution(std::string filePath)
@@ -1780,6 +1780,15 @@ namespace Ra
 
                     std::advance(it, 1);
                 }
+            }
+        }
+
+        void MeshContactManager::setComputeClusters()
+        {
+            if (m_nbclusters_display < m_finalDistrib.size() / 2)
+            {
+                topologicalPersistence();
+                findClusters3();
             }
         }
 

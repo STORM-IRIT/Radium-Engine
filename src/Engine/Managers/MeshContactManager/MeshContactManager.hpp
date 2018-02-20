@@ -57,7 +57,9 @@ namespace Ra
             void setDisplayProximities();
             void setDisplayDistribution();
             void setDisplayWeight();
+            void setComputeClusters();
             void setDisplayClusters();
+            void setNbClustersToComputeChanged(const int nb);
             void setConstructM0();
             void setThresholdValueChanged(int value);
             int getThresholdMax();
@@ -157,7 +159,7 @@ namespace Ra
             std::vector<std::pair<Scalar,Scalar> > m_finalDistrib3; // same with topological persistence
             std::vector<Scalar> m_finalClusters3;
 
-            int m_nbClusters;
+            int m_nbclusters_compute;
 
             struct compareMinByDescendingOrdinate
             {
