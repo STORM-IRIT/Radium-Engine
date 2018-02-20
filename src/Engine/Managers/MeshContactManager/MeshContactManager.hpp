@@ -166,14 +166,14 @@ namespace Ra
             typedef std::set<std::pair<Scalar,Scalar>, compareMinByDescendingOrdinate> MinSorting;
             MinSorting m_minSort;
 
-            struct compareMaxByAscendingOrdinate
+            struct compareMaxByAscendingAbscissa
             {
                 inline bool operator() (const std::pair<Scalar,Scalar>  &p1, const std::pair<Scalar,Scalar> &p2) const
                 {
-                    return p1.second < p2.second;
+                    return p1.first < p2.first;
                 }
             };
-            typedef std::set<std::pair<Scalar,Scalar>, compareMaxByAscendingOrdinate> MaxSorting;
+            typedef std::set<std::pair<Scalar,Scalar>, compareMaxByAscendingAbscissa> MaxSorting;
             MaxSorting m_maxSort;
 
             struct compareDiffByDescendingValue

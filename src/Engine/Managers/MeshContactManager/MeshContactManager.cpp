@@ -886,7 +886,7 @@ namespace Ra
         void MeshContactManager::topologicalPersistence()
         {
             // the end of the last cluster will be the first distance value after the last non zero value for area * f(asymm)
-            uint j = m_finalDistrib.size() - 1;
+            int j = m_finalDistrib.size() - 1;
             while (j >= 0 && m_finalDistrib[j].second == 0)
             {
                 j--;
@@ -901,6 +901,7 @@ namespace Ra
 
             if (area <= area2)
             {
+                //m_minSort.insert(m_finalDistrib[i]);
                 while (i < j)
                 {
                     do
@@ -925,6 +926,7 @@ namespace Ra
 
             else
             {
+                //m_maxSort.insert(m_finalDistrib[i]);
                 while (i < j)
                 {
                     do
@@ -958,13 +960,20 @@ namespace Ra
 
             while (itMin != m_minSort.end() && itMax != m_maxSort.end())
             {
-                while ((*itMax).second < (*itMin).second && itMax != m_maxSort.end())
+                while ((*std::next(itMax)).first < (*itMin).first && std::next(itMax) != m_maxSort.end())
                 {
                     std::advance(itMax,1);
                 }
 
-                if (itMax != m_maxSort.end())
+                if (std::next(itMax) != m_maxSort.end())
                 {
+                    Scalar diff1 = std::abs((*itMin).second - (*itMax).second);
+                    Scalar diff2 = std::abs((*itMin).second - (*std::next(itMax)).second);
+                    if (diff2 <= diff1)
+                    {
+                        std::advance(itMax,1);
+                    }
+
                     pairMinMax.first = *itMin;
                     pairMinMax.second = *itMax;
                     m_diffSort.insert(pairMinMax);
@@ -975,6 +984,22 @@ namespace Ra
 
                     itMin = m_minSort.begin();
                     itMax = m_maxSort.begin();
+                }
+                else
+                {
+                    if ((*itMax).second > (*itMin).second)
+                    {
+                        pairMinMax.first = *itMin;
+                        pairMinMax.second = *itMax;
+                        m_diffSort.insert(pairMinMax);
+                        m_minSort.erase(itMin);
+                        m_maxSort.erase(itMax);
+
+                        file << pairMinMax.first.second << " " << pairMinMax.second.second << std::endl;
+
+                        itMin = m_minSort.begin();
+                        itMax = m_maxSort.begin();
+                    }
                 }
             }
 
