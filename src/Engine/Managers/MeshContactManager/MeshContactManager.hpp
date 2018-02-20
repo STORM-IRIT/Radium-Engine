@@ -99,6 +99,7 @@ namespace Ra
 
             void topologicalPersistence();
             //int nbClusters();
+            void findClusters3();
 
             void normalize();
 
@@ -153,6 +154,8 @@ namespace Ra
             std::vector<Scalar> m_finalClusters; // distances defining the clusters
             std::vector<std::pair<Scalar,Scalar> > m_finalDistrib2; // same with distance function
             std::vector<Scalar> m_finalClusters2;
+            std::vector<std::pair<Scalar,Scalar> > m_finalDistrib3; // same with topological persistence
+            std::vector<Scalar> m_finalClusters3;
 
             int m_nbClusters;
 

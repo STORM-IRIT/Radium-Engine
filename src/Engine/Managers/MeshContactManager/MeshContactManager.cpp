@@ -1041,6 +1041,7 @@ namespace Ra
             while (itPlot != m_plotSort.end())
             {
                 file2 << (*itPlot).first << " " << (*itPlot).second << std::endl;
+                m_finalDistrib3.push_back(*itPlot);
                 std::advance(itPlot,1);
             }
 
@@ -1337,6 +1338,65 @@ namespace Ra
             }
         }
 
+        void MeshContactManager::findClusters3()
+        {
+            // finding minimums and maximums to clusterize
+            uint i = 0;
+            Scalar area = m_finalDistrib3[i].second;
+            Scalar area2 = m_finalDistrib3[i+1].second;
+
+            if (area <= area2)
+            {
+                while (i < m_finalDistrib3.size() - 1)
+                {
+                    do
+                    {
+                        i++;
+                        area = m_finalDistrib3[i].second;
+                        area2 = m_finalDistrib3[i+1].second;
+                    } while (area <= area2 && i < m_finalDistrib3.size() - 1);
+                    if (i < m_finalDistrib3.size())
+                    {
+                        do
+                        {
+                            i++;
+                            area = m_finalDistrib3[i].second;
+                            area2 = m_finalDistrib3[i+1].second;
+                        } while (area >= area2 && i < m_finalDistrib3.size());
+                        m_finalClusters3.push_back(m_finalDistrib3[i].first - 1);
+                    }
+                }
+            }
+
+            else
+            {
+                while (i < m_finalDistrib3.size() - 1)
+                {
+                    do
+                    {
+                        i++;
+                        area = m_finalDistrib3[i].second;
+                        area2 = m_finalDistrib3[i+1].second;
+                    } while (area >= area2 && i < m_finalDistrib3.size() - 1);
+                    m_finalClusters3.push_back(m_finalDistrib3[i].first);
+                    if (i < m_finalDistrib3.size() - 1)
+                    {
+                        do
+                        {
+                            i++;
+                            area = m_finalDistrib3[i].second;
+                            area2 = m_finalDistrib3[i+1].second;
+                        } while (area <= area2 && i < m_finalDistrib3.size() - 1);
+                    }
+                }
+            }
+
+            for (uint j = 0; j < m_finalClusters3.size(); j++)
+            {
+                LOG(logINFO) << "Cluster " << j+1 << " : " << m_finalClusters3[j];
+            }
+        }
+
         void MeshContactManager::thresholdComputation()
         {
             m_broader_threshold = m_threshold / (std::pow(1 - std::pow(m_influence,1/m_n),1/m_m));
@@ -1413,6 +1473,7 @@ namespace Ra
             if (m_nbClusters < m_finalDistrib.size() / 2)
             {
                 topologicalPersistence();
+                findClusters3();
             }
         }
 
