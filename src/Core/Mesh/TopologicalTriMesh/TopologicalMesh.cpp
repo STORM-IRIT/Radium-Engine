@@ -3,11 +3,11 @@
 namespace Ra{
 namespace Core{
 
-Scalar dot(TopoVector3 a, TopoVector3 b){
+Scalar dot(const TopoVector3 &a, const TopoVector3 &b){
     return a.dot(b);
 
 }
-TopoVector3 cross(TopoVector3 a, TopoVector3 b){
+TopoVector3 cross(const TopoVector3 &a, const TopoVector3 &b){
     return a.cross(b);
 }
 }

@@ -27,11 +27,11 @@ namespace Ra {
                 {
                     config = ShaderConfigurationFactory::getConfiguration("Plain");
                 }
-                
+
                 std::shared_ptr<RenderTechnique> rt(new RenderTechnique);
                 rt->setConfiguration(config);
                 rt->resetMaterial(new BlinnPhongMaterial("Default material"));
-                
+
                 RenderObject *ro = new RenderObject(mesh->getName(), component,
                                                     RenderObjectType::Debug);
 
@@ -204,12 +204,12 @@ namespace Ra {
                 Core::TriangleMesh sphere =
                     Core::MeshUtils::makeGeodesicSphere(radius, 2);
 
-                for (auto& t : sphere.m_vertices)
+                for (auto& t : sphere.vertices())
                 {
                     t += center;
                 }
 
-                Core::Vector4Array colors(sphere.m_vertices.size(), color);
+                Core::Vector4Array colors(sphere.vertices().size(), color);
 
                 MeshPtr mesh(new Mesh("Sphere Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(sphere);
@@ -238,12 +238,12 @@ namespace Ra {
                 t.rotate(rot);
                 t.pretranslate(trans);
 
-                for (auto& v : capsule.m_vertices)
+                for (auto& v : capsule.vertices())
                 {
                     v = t*v;
                 }
 
-                Core::Vector4Array colors(capsule.m_vertices.size(), color);
+                Core::Vector4Array colors(capsule.vertices().size(), color);
 
                 MeshPtr mesh(new Mesh("Sphere Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(capsule);
@@ -423,71 +423,70 @@ namespace Ra {
                     0, 4, 1, 5, 2, 6, 3, 7, // Links
                     4, 5, 5, 7, 7, 6, 6, 4, // Ceil
                 };
-                
+
                 Core::Vector4Array colors(vertices.size(), color);
-                
+
                 MeshPtr mesh(new Mesh("AABB Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
-                
+
                 return mesh;
             }
-            
+
             MeshPtr OBB(const Core::Obb &obb, const Core::Color &color)
             {
                 Core::Vector3Array vertices(8);
-                
+
                 for (uint i = 0; i < 8; ++i)
                 {
                     vertices[i] = obb.worldCorner(i);
                 }
-                
+
                 std::vector<uint> indices =
                 {
                     0, 1, 1, 3, 3, 2, 2, 0, // Floor
                     4, 5, 5, 7, 7, 6, 6, 4, // Ceil
                     0, 4, 1, 5, 2, 6, 3, 7, // Links
                 };
-                
+
                 Core::Vector4Array colors(vertices.size(), color);
-                
+
                 MeshPtr mesh(new Mesh("OBB Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
-                
+
                 return mesh;
             }
-            
+
             MeshPtr Spline(const Core::Spline<3, 3> &spline, uint pointCount, const Core::Color &color, Scalar scale)
             {
                 Core::Vector3Array vertices;
                 vertices.reserve(pointCount);
-                
+
                 std::vector<uint> indices;
                 indices.reserve(pointCount * 2 - 2);
-                
+
                 Scalar dt = Scalar(1) / Scalar(pointCount - 1);
                 for (uint i = 0; i < pointCount; ++i)
                 {
                     Scalar t = dt * i;
                     vertices.push_back(spline.f(t));
                 }
-                
+
                 for (uint i = 0; i < pointCount - 1; ++i)
                 {
                     indices.push_back(i);
                     indices.push_back(i + 1);
                 }
-                
+
                 Core::Vector4Array colors(vertices.size(), color);
-                
+
                 MeshPtr mesh(new Mesh("Spline Primitive", Mesh::RM_LINES));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
-                
+
                 return mesh;
             }
         }
     }
 }
-

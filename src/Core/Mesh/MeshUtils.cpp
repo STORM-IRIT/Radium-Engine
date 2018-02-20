@@ -20,7 +20,7 @@ namespace Ra
         {
             void getAutoNormals( TriangleMesh& mesh, VectorArray<Vector3>& normalsOut )
             {
-                const uint numVertices = mesh.m_vertices.size();
+                const uint numVertices = mesh.vertices().size();
                 const uint numTriangles = mesh.m_triangles.size();
 
                 normalsOut.clear();
@@ -40,23 +40,22 @@ namespace Ra
                 normalsOut.getMap().colwise().normalize();
             }
 
-
             bool findDuplicates( const TriangleMesh& mesh, std::vector<VertexIdx>& duplicatesMap )
             {
                 bool hasDuplicates = false;
                 duplicatesMap.clear();
-                const uint numVerts = mesh.m_vertices.size();
+                const uint numVerts = mesh.vertices().size();
                 duplicatesMap.resize( numVerts,VertexIdx(-1) );
 
                 VectorArray<Vector3>::const_iterator vertPos;
                 VectorArray<Vector3>::const_iterator duplicatePos;
                 std::vector<std::pair<Vector3, VertexIdx>> vertices;
-                
+
                 for ( uint i = 0; i < numVerts; ++i )
                 {
-                    vertices.push_back(std::make_pair(mesh.m_vertices[i], VertexIdx(i)));
+                    vertices.push_back(std::make_pair(mesh.vertices()[i], VertexIdx(i)));
                 }
-                
+
                 std::sort(vertices.begin(), vertices.end(),
                           [](std::pair<Vector3, int>a , std::pair<Vector3, int>b){
                               if(a.first.x() == b.first.x())
@@ -65,7 +64,7 @@ namespace Ra
                                       if(a.first.z() == b.first.z())
                                           return a.second < b.second;
                                       else
-                                          return a.first.z() < b.first.z();                                         
+                                          return a.first.z() < b.first.z();
                                   else
                                       return a.first.y() < b.first.y();
                               }
@@ -77,7 +76,7 @@ namespace Ra
                 // vertex equals the previous one state if its a duplicated
                 // vertex position.
                 duplicatesMap[vertices[0].second] = vertices[0].second;
-                for ( uint i = 1; i < numVerts; ++i )                    
+                for ( uint i = 1; i < numVerts; ++i )
                 {
                     if(vertices[i].first == vertices[i-1].first)
                     {
@@ -88,7 +87,7 @@ namespace Ra
                         duplicatesMap[vertices[i].second] = vertices[i].second;
                     }
                 }
-              
+
                 return hasDuplicates;
             }
 
@@ -97,14 +96,14 @@ namespace Ra
                 std::vector<VertexIdx> duplicatesMap;
                 findDuplicates(mesh, duplicatesMap);
 
-                std::vector<VertexIdx> newIndices(mesh.m_vertices.size(), VertexIdx(-1));
+                std::vector<VertexIdx> newIndices(mesh.vertices().size(), VertexIdx(-1));
                 Vector3Array uniqueVertices;
-                for (uint i = 0; i < mesh.m_vertices.size(); i++)
+                for (uint i = 0; i < mesh.vertices().size(); i++)
                 {
                     if (duplicatesMap[i] == i)
                     {
                         newIndices[i] = uniqueVertices.size();
-                        uniqueVertices.push_back(mesh.m_vertices[i]);
+                        uniqueVertices.push_back(mesh.vertices()[i]);
 
                     }
                 }
@@ -119,11 +118,11 @@ namespace Ra
                     }
                 }
 
-                vertexMap.resize(mesh.m_vertices.size());
-                for (uint i = 0; i < mesh.m_vertices.size(); i++)
+                vertexMap.resize(mesh.vertices().size());
+                for (uint i = 0; i < mesh.vertices().size(); i++)
                     vertexMap[i] = newIndices[duplicatesMap[i]];
 
-                mesh.m_vertices = uniqueVertices;
+                mesh.vertices() = uniqueVertices;
             }
 
             RayCastResult castRay(const TriangleMesh &mesh, const Ray &ray)
@@ -134,9 +133,9 @@ namespace Ra
                 if (mesh.m_triangles.empty()){
 
                     Scalar minSqAngDist = std::numeric_limits<Scalar>::max();
-                    for ( uint i = 0; i < mesh.m_vertices.size(); ++i)
+                    for ( uint i = 0; i < mesh.vertices().size(); ++i)
                     {
-                        Scalar dist = ray.squaredDistance(mesh.m_vertices[i]);
+                        Scalar dist = ray.squaredDistance(mesh.vertices()[i]);
 
                         if (dist < minSqAngDist) {
                             minSqAngDist = dist;
@@ -144,7 +143,7 @@ namespace Ra
                         }
                     }
                     if ( result.m_nearestVertex != -1 ) {
-                        result.m_t = ray.distance(mesh.m_vertices[result.m_nearestVertex]);
+                        result.m_t = ray.distance(mesh.vertices()[result.m_nearestVertex]);
                     }
                 }
                 else
@@ -220,7 +219,7 @@ namespace Ra
                         const uint i = mesh.m_triangles[t][v];
                         const uint j = mesh.m_triangles[t][( v + 1 ) % 3];
                         Key k( ( ( i < j ) ? i : j ), ( ( i < j ) ? j : i ) );
-                        Scalar length = ( mesh.m_vertices[i] - mesh.m_vertices[j] ).norm();
+                        Scalar length = ( mesh.vertices()[i] - mesh.vertices()[j] ).norm();
                         #pragma omp critical
                         {
                             auto it = list.find( k );
@@ -242,14 +241,14 @@ namespace Ra
             void checkConsistency( const TriangleMesh& mesh )
             {
 #ifdef CORE_DEBUG
-                std::vector<bool> visited( mesh.m_vertices.size(), false );
+                std::vector<bool> visited( mesh.vertices().size(), false );
                 for ( uint t = 0 ; t < mesh.m_triangles.size(); ++t )
                 {
                     CORE_WARN_IF( !(getTriangleArea( mesh, t ) > 0.f), "Triangle " << t << " is degenerate" );
                     const Triangle& tri = mesh.m_triangles[t];
                     for ( uint i = 0; i < 3; ++i )
                     {
-                        CORE_ASSERT( uint( tri[i] ) < mesh.m_vertices.size(),
+                        CORE_ASSERT( uint( tri[i] ) < mesh.vertices().size(),
                             "Vertex "<< tri[i] <<" is in triangle "<< t <<" (#"<< i <<") is out of bounds");
                         visited[tri[i]] = true;
                     }
@@ -260,8 +259,8 @@ namespace Ra
                     CORE_ASSERT( visited[v], "Vertex "<< v <<" does not belong to any triangle");
                 }
 
-                // Normals are optional but if they are present then every vertex should have one.
-                CORE_ASSERT( mesh.m_normals.size() ==  0 || mesh.m_normals.size() == mesh.m_vertices.size(),
+                // Always have the same number of vertex data and vertices
+                CORE_ASSERT( mesh.normals().size() == mesh.normals().size(),
                              "Inconsistent number of normals" );
 #endif
             }

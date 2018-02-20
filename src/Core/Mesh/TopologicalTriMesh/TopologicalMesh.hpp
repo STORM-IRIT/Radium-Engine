@@ -3,10 +3,11 @@
 
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Index/Index.hpp>
+
 #include <OpenMesh/Core/Mesh/PolyMesh_ArrayKernelT.hh>
 #include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
 #include <OpenMesh/Core/Utils/Property.hh>
-
 #include <OpenMesh/Core/Mesh/Traits.hh>
 
 namespace Ra
@@ -34,8 +35,8 @@ class TopoVector3 : public Ra::Core::Vector3
     }
 };
 
-Scalar dot(TopoVector3 a, TopoVector3 b);
-TopoVector3 cross(TopoVector3 a, TopoVector3 b);
+Scalar dot(const TopoVector3 &a, const TopoVector3 &b);
+TopoVector3 cross(const TopoVector3 &a, const TopoVector3 &b);
 }
 }
 
@@ -77,31 +78,23 @@ struct TopologicalMeshTraits : public OpenMesh::DefaultTraits
     VertexTraits
     {
       private:
-        bool m_merged;
-        uint m_index;
+        Index m_index;
 
       public:
-        /// if !isMerged() -> getIndex() <> TriMesh.vertex[index], and vertex
-        /// normal is TriMesh vertex normal
-        uint getIndex() { return m_index; }
-        void setIndex(uint index) { m_index = index; }
-        bool isMerged() { return m_merged; }
-        void setMerged(bool merged) { m_merged = merged; }
+        /// If index valid, normal is TriMesh vertex normal
+        Index getIndex() { return m_index; }
+        void setIndex(Index index) { m_index = index; }
     };
 
     HalfedgeTraits
     {
       private:
-        bool m_merged;
-        uint m_index;
+        Index m_index;
 
       public:
-        /// if !isMerged() -> getIndex() <> TriMesh.vertex[index], and halfedge
-        /// normal is TriMesh vertex normal
-        uint getIndex() { return m_index; }
-        void setIndex(uint index) { m_index = index; }
-        bool isMerged() { return m_merged; }
-        void setMerged(bool merged) { m_merged = merged; }
+        /// if Index valid, normal and other data of halfedge is TriMesh vertex data
+        Index getIndex() { return m_index; }
+        void setIndex(Index index) { m_index = index; }
     };
 
   public:
@@ -111,6 +104,26 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 {
     using base = OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>;
     using base::PolyMesh_ArrayKernelT;
+
+public:
+
+    Normal &normal(VertexHandle vh, FaceHandle fh){
+        // find halfedge that point to vh and member of fh
+        return property(halfedge_normals_pph(), halfedge_handle(vh, fh));
+    }
+
+    using base::halfedge_handle;
+    HalfedgeHandle halfedge_handle(VertexHandle vh, FaceHandle fh){
+        HalfedgeHandle heh = opposite_halfedge_handle(halfedge_handle(vh));
+        int i=0;
+        while(face_handle(heh) != fh){
+            heh = opposite_halfedge_handle(next_halfedge_handle(heh));
+            i++;
+            CORE_ASSERT(i<40, "there is more than 40 faces around a vertex");
+        }
+        return heh;
+
+    }
 };
 }
 }

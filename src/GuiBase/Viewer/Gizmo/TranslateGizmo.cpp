@@ -49,7 +49,7 @@ namespace Ra
 
                 Core::Color arrowColor = Core::Color::Zero();
                 arrowColor[i] = 1.f;
-                Core::Vector4Array colors(cylinder.m_vertices.size(), arrowColor);
+                Core::Vector4Array colors(cylinder.vertices().size(), arrowColor);
 
                 std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh("Gizmo Arrow") );
                 mesh->loadGeometry(cylinder);

@@ -84,20 +84,20 @@ namespace FancyMeshPlugin
         Ra::Core::Transform N;
         N.matrix() = (T.matrix()).inverse().transpose();
 
-        mesh.m_vertices.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
+        mesh.vertices().resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
         #pragma omp parallel for
         for (uint i = 0; i < data->getVerticesSize(); ++i)
         {
-            mesh.m_vertices[i] = T * data->getVertices()[i];
+            mesh.vertices()[i] = T * data->getVertices()[i];
         }
 
         if (data->hasNormals())
         {
-            mesh.m_normals.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
+            mesh.normals().resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
             #pragma omp parallel for
             for (uint i = 0; i < data->getVerticesSize(); ++i)
             {
-                mesh.m_normals[i] = (N * data->getNormals()[i]).normalized();
+                mesh.normals()[i] = (N * data->getNormals()[i]).normalized();
             }
         }
 
@@ -177,10 +177,10 @@ namespace FancyMeshPlugin
             auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique("BlinnPhong");
             builder.second(rt, isTransparent);
         }
-        
+
         auto ro = Ra::Engine::RenderObject::createRenderObject( roName, this, Ra::Engine::RenderObjectType::Fancy, displayMesh, rt );
         ro->setTransparent( isTransparent );
-        
+
         setupIO( m_contentName );
         m_meshIndex = addRenderObject(ro);
     }
@@ -272,16 +272,18 @@ namespace FancyMeshPlugin
         displayMesh.loadGeometry( *meshptr );
     }
 
-    Ra::Core::Vector3Array* FancyMeshComponent::getVerticesRw()
+Ra::Core::TriangleMesh::vertex_attrib_data_type::data_type* FancyMeshComponent::getVerticesRw()
     {
         getDisplayMesh().setDirty( Ra::Engine::Mesh::VERTEX_POSITION);
-        return &(getDisplayMesh().getGeometry().m_vertices);
+        return &(getDisplayMesh().getGeometry().vertices());
     }
 
-    Ra::Core::Vector3Array* FancyMeshComponent::getNormalsRw()
+Ra::Core::TriangleMesh::normal_attrib_data_type::data_type* FancyMeshComponent::getNormalsRw()
     {
         getDisplayMesh().setDirty( Ra::Engine::Mesh::VERTEX_NORMAL);
-        return &(getDisplayMesh().getGeometry().m_normals);
+///\todo check here
+        ///return &(getDisplayMesh().getGeometry().m_normals);
+        return &(getDisplayMesh().getGeometry().vertices());
     }
 
     Ra::Core::VectorArray<Ra::Core::Triangle>* FancyMeshComponent::getTrianglesRw()

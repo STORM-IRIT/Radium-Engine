@@ -45,10 +45,10 @@ void convert( const TriangleMesh& mesh, Dcel& dcel )
 {
     dcel.clear();
     // Create vertices
-    for ( unsigned int i = 0; i < mesh.m_vertices.size(); ++i )
+    for ( unsigned int i = 0; i < mesh.vertices().size(); ++i )
     {
-        Vector3 p = mesh.m_vertices.at( i );
-        Vector3 n = mesh.m_normals.at( i );
+        Vector3 p = mesh.vertices().at( i );
+        Vector3 n = mesh.normals().at(i);
         Vertex_ptr v = std::shared_ptr< Vertex >( new Vertex( p, n ) );
         CORE_ASSERT( ( v != nullptr ), "Vertex_ptr == nullptr" );
         v->idx = dcel.m_vertex.insert( v );
@@ -106,7 +106,7 @@ void convert( const TriangleMesh& mesh, Dcel& dcel )
                 // Create the fulledge
                 FullEdge_ptr fe = std::shared_ptr< FullEdge >( new FullEdge( he[i] ) );
                 CORE_ASSERT( ( fe != nullptr ), "FullEdge_ptr == nullptr" );
-                
+
                 fe->idx = dcel.m_fulledge.insert( fe );
                 CORE_ASSERT( fe->idx.isValid(),  "FullEdge not inserted" );
 
@@ -124,8 +124,8 @@ void convert( const Dcel& dcel, TriangleMesh& mesh )
 {
     const uint v_size = dcel.m_vertex.size();
     const uint f_size = dcel.m_face.size();
-    mesh.m_vertices.resize( v_size );
-    mesh.m_normals.resize( v_size );
+    mesh.vertices().resize( v_size );
+    mesh.normals().resize( v_size );
     mesh.m_triangles.resize( f_size );
     std::map< Index, uint > v_table;
     for ( uint i = 0; i < v_size; ++i )
@@ -133,8 +133,8 @@ void convert( const Dcel& dcel, TriangleMesh& mesh )
         const Vertex_ptr& v = dcel.m_vertex.at( i );
         const Vector3 p = v->P();
         const Vector3 n = v->N();
-        mesh.m_vertices[i] = p;
-        mesh.m_normals[i]  = n;
+        mesh.vertices()[i] = p;
+        mesh.normals()[i]  = n;
         v_table[ v->idx ] = i;
     }
     for ( uint i = 0; i < f_size; ++i )

@@ -44,8 +44,8 @@ namespace Ra
             unsigned int vertexIndex = 0;
 
             // out will have at least least n_vertices and n_normals.
-            out.m_vertices.reserve( in.n_vertices() );
-            out.m_normals.reserve( in.n_vertices() );
+            out.vertices().reserve( in.n_vertices() );
+            out.normals().reserve( in.n_vertices() );
             out.m_triangles.reserve( in.n_faces() );
 
             for ( TopologicalMesh::FaceIter f_it = in.faces_sbegin(); f_it != in.faces_end(); ++f_it )
@@ -58,7 +58,7 @@ namespace Ra
                 {
                     assert( i < 3 );
                     TopologicalMesh::Point p = in.point( in.to_vertex_handle( *fv_it ) );
-                    TopologicalMesh::Normal n = in.normal( in.to_vertex_handle( *fv_it ) );
+                    TopologicalMesh::Normal n = in.normal( in.to_vertex_handle( *fv_it ), *f_it );
                     v._vertex = p;
                     v._normal = n;
 
@@ -68,8 +68,8 @@ namespace Ra
                     {
                         vi = vertexIndex++;
                         vertexHandles.insert( vtr, vMap::value_type( v, vi ) );
-                        out.m_vertices.push_back( v._vertex );
-                        out.m_normals.push_back( v._normal );
+                        out.vertices().push_back( v._vertex );
+                        out.normals().emplace_back( v._normal );
                     }
                     else
                     {
@@ -80,7 +80,7 @@ namespace Ra
                 }
                 out.m_triangles.emplace_back( indices[0], indices[1], indices[2] );
             }
-            assert( vertexIndex == out.m_vertices.size() );
+            assert( vertexIndex == out.vertices().size() );
 
         }
 
@@ -101,17 +101,19 @@ namespace Ra
             //Delete old data in out mesh
             out = TopologicalMesh();
             out.garbage_collection();
-            out.request_vertex_normals();
+            out.request_halfedge_normals();
+
             typedef std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec> vMap;
             vMap vertexHandles;
 
             std::vector<TopologicalMesh::VertexHandle> face_vhandles;
+            std::vector<TopologicalMesh::Normal> face_normals;
 
             uint num_halfedge = in.m_triangles.size() * 3;
             for ( unsigned int i = 0; i < num_halfedge; i++ )
             {
-                Vector3 p = in.m_vertices[in.m_triangles[i / 3][i % 3]];
-                Vector3 n = in.m_normals[in.m_triangles[i / 3][i % 3]];
+                Vector3 p = in.vertices()[in.m_triangles[i / 3][i % 3]];
+                Vector3 n = in.normals()[in.m_triangles[i / 3][i % 3]];
 
                 vMap::iterator vtr = vertexHandles.find( p );
                 TopologicalMesh::VertexHandle vh;
@@ -119,17 +121,21 @@ namespace Ra
                 {
                     vh = out.add_vertex( p );
                     vertexHandles.insert( vtr, vMap::value_type( p, vh ) );
-                    out.set_normal( vh, n );
                 }
                 else
                 {
                     vh = vtr->second;
                 }
                 face_vhandles.push_back( vh );
+                face_normals.push_back(n);
 
                 if ( ( ( i + 1 ) % 3 ) == 0 )
                 {
-                    out.add_face( face_vhandles );
+                    TopologicalMesh::FaceHandle fh = out.add_face( face_vhandles );
+                    for(int vindex = 0; vindex<face_vhandles.size(); vindex++){
+                        TopologicalMesh::HalfedgeHandle heh = out.halfedge_handle(face_vhandles[i], fh);
+                        out.property(out.halfedge_normals_pph(), heh) = face_normals[i];
+                    }
                     face_vhandles.clear();
                 }
 
