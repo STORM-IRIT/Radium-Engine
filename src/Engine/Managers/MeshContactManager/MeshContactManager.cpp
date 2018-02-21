@@ -902,6 +902,12 @@ namespace Ra
 
         void MeshContactManager::topologicalPersistence()
         {
+            m_minSort.clear();
+            m_maxSort.clear();
+            m_diffSort.clear();
+            m_plotSort.clear();
+            m_finalDistrib3.clear();
+
             // the end of the last cluster will be the first distance value after the last non zero value for area * f(asymm)
             int j = m_finalDistrib.size() - 1;
             while (j >= 0 && m_finalDistrib[j].second == 0)
@@ -1357,6 +1363,8 @@ namespace Ra
 
         void MeshContactManager::findClusters3()
         {
+            m_finalClusters3.clear();
+
             // finding minimums and maximums to clusterize
             uint i = 0;
             Scalar area = m_finalDistrib3[i].second;
