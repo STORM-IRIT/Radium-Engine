@@ -89,6 +89,7 @@ namespace Ra
             void weightedDistanceFile();
             void computeFacesAsymmetry();
             void finalDistanceFile();
+            void finalDistribCleaned(); // keeping only minima and maxima
             void finalDistanceFile2(); // with distance function
             void thresholdComputation();
 
@@ -103,7 +104,6 @@ namespace Ra
 
             void topologicalPersistence();
             //int nbClusters();
-            void findClusters3();
             void colorClusters3();
 
             void normalize();
@@ -156,6 +156,7 @@ namespace Ra
             std::vector<std::pair<Scalar, std::vector<int> > > m_clusters; // position of cluster centers and indices of cluster faces in m_distrib
 
             std::vector<std::pair<Scalar,Scalar> > m_finalDistrib; // distance and asymmetry positions of the last distribution until the asymmetry is equal to 0
+            std::vector<std::pair<Scalar,Scalar> > m_finalDistribCleaned; // keeping only minima and maxima to determine the max nb of clusters
             std::vector<Scalar> m_finalClusters; // distances defining the clusters
             std::vector<std::pair<Scalar,Scalar> > m_finalDistrib2; // same with distance function
             std::vector<Scalar> m_finalClusters2;
@@ -169,7 +170,7 @@ namespace Ra
             {
                 inline bool operator() (const std::pair<Scalar,Scalar> &p1, const std::pair<Scalar,Scalar> &p2) const
                 {
-                    return p1.second > p2.second;
+                    return p1.second >= p2.second;
                 }
             };
             typedef std::set<std::pair<Scalar,Scalar>, compareMinByDescendingOrdinate> MinSorting;
@@ -179,7 +180,7 @@ namespace Ra
             {
                 inline bool operator() (const std::pair<Scalar,Scalar>  &p1, const std::pair<Scalar,Scalar> &p2) const
                 {
-                    return p1.first < p2.first;
+                    return p1.first <= p2.first;
                 }
             };
             typedef std::set<std::pair<Scalar,Scalar>, compareMaxByAscendingAbscissa> MaxSorting;

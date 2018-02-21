@@ -456,7 +456,7 @@ namespace Ra
         // value that will be displayed as threshold in UI
         int MeshContactManager::getThresholdCluster()
         {
-            return ((int)(m_finalClusters3[m_nbclusters_display] * PRECISION) + 1);
+            return ((int)(m_finalClusters3[m_nbclusters_display - 1] * PRECISION) + 1);
         }
 
         // value that will be used for the slider in UI
@@ -900,13 +900,11 @@ namespace Ra
             file.close();
         }
 
-        void MeshContactManager::topologicalPersistence()
+        void MeshContactManager::finalDistribCleaned()
         {
+            m_finalDistribCleaned.clear();
             m_minSort.clear();
             m_maxSort.clear();
-            m_diffSort.clear();
-            m_plotSort.clear();
-            m_finalDistrib3.clear();
 
             // the end of the last cluster will be the first distance value after the last non zero value for area * f(asymm)
             int j = m_finalDistrib.size() - 1;
@@ -915,15 +913,14 @@ namespace Ra
                 j--;
             }
 
-            // finding minimums and maximums of the final distribution
+            // finding minima and maxima of the final distribution
             uint i = 0;
             Scalar area = m_finalDistrib[i].second;
             Scalar area2 = m_finalDistrib[i+1].second;
 
-            std::pair<Scalar,Scalar> firstPt = m_finalDistrib[i];
-
             if (area <= area2)
             {
+                m_finalDistribCleaned.push_back(m_finalDistrib[i]);
                 //m_minSort.insert(m_finalDistrib[i]);
                 while (i < j)
                 {
@@ -933,7 +930,12 @@ namespace Ra
                         area = m_finalDistrib[i].second;
                         area2 = m_finalDistrib[i+1].second;
                     } while (area <= area2 && i < j);
-                    m_maxSort.insert(m_finalDistrib[i]);
+                    m_finalDistribCleaned.push_back(m_finalDistrib[i]);
+//                    m_maxSort.insert(m_finalDistrib[i]);
+                    if (! m_maxSort.insert(m_finalDistrib[i]).second)
+                    {
+                        LOG(logINFO) << "Insert of ( " << m_finalDistrib[i].first << " , " << m_finalDistrib[i].second << " ) in m_maxSort failed";
+                    }
                     if (i < j)
                     {
                         do
@@ -942,13 +944,19 @@ namespace Ra
                             area = m_finalDistrib[i].second;
                             area2 = m_finalDistrib[i+1].second;
                         } while (area >= area2 && i < j);
-                        m_minSort.insert(m_finalDistrib[i]);
+                        m_finalDistribCleaned.push_back(m_finalDistrib[i]);
+//                        m_minSort.insert(m_finalDistrib[i]);
+                        if (! m_minSort.insert(m_finalDistrib[i]).second)
+                        {
+                            LOG(logINFO) << "Insert of ( " << m_finalDistrib[i].first << " , " << m_finalDistrib[i].second << " ) in m_minSort failed";
+                        }
                     }
                 }
             }
 
             else
             {
+                m_finalDistribCleaned.push_back(m_finalDistrib[i]);
                 //m_maxSort.insert(m_finalDistrib[i]);
                 while (i < j)
                 {
@@ -958,7 +966,12 @@ namespace Ra
                         area = m_finalDistrib[i].second;
                         area2 = m_finalDistrib[i+1].second;
                     } while (area >= area2 && i < j);
-                    m_minSort.insert(m_finalDistrib[i]);
+                    m_finalDistribCleaned.push_back(m_finalDistrib[i]);
+//                    m_minSort.insert(m_finalDistrib[i]);
+                    if (! m_minSort.insert(m_finalDistrib[i]).second)
+                    {
+                        LOG(logINFO) << "Insert of ( " << m_finalDistrib[i].first << " , " << m_finalDistrib[i].second << " ) in m_minSort failed";
+                    }
                     if (i < j)
                     {
                         do
@@ -967,10 +980,33 @@ namespace Ra
                             area = m_finalDistrib[i].second;
                             area2 = m_finalDistrib[i+1].second;
                         } while (area <= area2 && i < j);
-                        m_maxSort.insert(m_finalDistrib[i]);
+                        m_finalDistribCleaned.push_back(m_finalDistrib[i]);
+//                        m_maxSort.insert(m_finalDistrib[i]);
+                        if (! m_maxSort.insert(m_finalDistrib[i]).second)
+                        {
+                            LOG(logINFO) << "Insert of ( " << m_finalDistrib[i].first << " , " << m_finalDistrib[i].second << " ) in m_maxSort failed";
+                        }
                     }
                 }
             }
+
+            std::ofstream file("Final_distrib_cleaned.txt", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(file, "Error while opening cleaned final distance distribution file.");
+
+            for (uint i = 0; i < m_finalDistribCleaned.size(); i++)
+            {
+                file << m_finalDistribCleaned[i].first << " " << m_finalDistribCleaned[i].second << std::endl;
+            }
+
+            file.close();
+        }
+
+        void MeshContactManager::topologicalPersistence()
+        {
+            m_diffSort.clear();
+            m_plotSort.clear();
+            m_finalDistrib3.clear();
+            m_finalClusters3.clear();
 
             // finding (min,max) pairs and sorting them by descending difference
             MinSorting::iterator itMin = m_minSort.begin();
@@ -1029,7 +1065,7 @@ namespace Ra
             file.close();
 
             // ploting using topological persistence
-            m_plotSort.insert(firstPt);
+            m_plotSort.insert(m_finalDistribCleaned[0]); // first point
             if (m_minSort.size() > 0)
             {
                 while (itMin != m_minSort.end())
@@ -1069,6 +1105,62 @@ namespace Ra
             }
 
             file2.close();
+
+            // finding minimums and maximums to clusterize
+            uint k = 0;
+            Scalar area = m_finalDistrib3[k].second;
+            Scalar area2 = m_finalDistrib3[k+1].second;
+
+            if (area <= area2)
+            {
+                while (k < m_finalDistrib3.size() - 1)
+                {
+                    do
+                    {
+                        k++;
+                        area = m_finalDistrib3[k].second;
+                        area2 = m_finalDistrib3[k+1].second;
+                    } while (area <= area2 && k < m_finalDistrib3.size() - 1);
+                    if (k < m_finalDistrib3.size())
+                    {
+                        do
+                        {
+                            k++;
+                            area = m_finalDistrib3[k].second;
+                            area2 = m_finalDistrib3[k+1].second;
+                        } while (area >= area2 && k < m_finalDistrib3.size());
+                        m_finalClusters3.push_back(m_finalDistrib3[k].first - 1);
+                    }
+                }
+            }
+
+            else
+            {
+                while (k < m_finalDistrib3.size() - 1)
+                {
+                    do
+                    {
+                        k++;
+                        area = m_finalDistrib3[k].second;
+                        area2 = m_finalDistrib3[k+1].second;
+                    } while (area >= area2 && k < m_finalDistrib3.size() - 1);
+                    m_finalClusters3.push_back(m_finalDistrib3[k].first);
+                    if (k < m_finalDistrib3.size() - 1)
+                    {
+                        do
+                        {
+                            k++;
+                            area = m_finalDistrib3[k].second;
+                            area2 = m_finalDistrib3[k+1].second;
+                        } while (area <= area2 && k < m_finalDistrib3.size() - 1);
+                    }
+                }
+            }
+
+            for (uint l = 0; l < m_finalClusters3.size(); l++)
+            {
+                LOG(logINFO) << "Cluster " << l + 1 << " : " << m_finalClusters3[l];
+            }
         }
 
 //        int MeshContactManager::nbClusters()
@@ -1358,67 +1450,6 @@ namespace Ra
             for (uint j = 0; j < m_finalClusters2.size(); j++)
             {
                 LOG(logINFO) << "End of cluster " << j + 1 << ": " << m_finalClusters2[j];
-            }
-        }
-
-        void MeshContactManager::findClusters3()
-        {
-            m_finalClusters3.clear();
-
-            // finding minimums and maximums to clusterize
-            uint i = 0;
-            Scalar area = m_finalDistrib3[i].second;
-            Scalar area2 = m_finalDistrib3[i+1].second;
-
-            if (area <= area2)
-            {
-                while (i < m_finalDistrib3.size() - 1)
-                {
-                    do
-                    {
-                        i++;
-                        area = m_finalDistrib3[i].second;
-                        area2 = m_finalDistrib3[i+1].second;
-                    } while (area <= area2 && i < m_finalDistrib3.size() - 1);
-                    if (i < m_finalDistrib3.size())
-                    {
-                        do
-                        {
-                            i++;
-                            area = m_finalDistrib3[i].second;
-                            area2 = m_finalDistrib3[i+1].second;
-                        } while (area >= area2 && i < m_finalDistrib3.size());
-                        m_finalClusters3.push_back(m_finalDistrib3[i].first - 1);
-                    }
-                }
-            }
-
-            else
-            {
-                while (i < m_finalDistrib3.size() - 1)
-                {
-                    do
-                    {
-                        i++;
-                        area = m_finalDistrib3[i].second;
-                        area2 = m_finalDistrib3[i+1].second;
-                    } while (area >= area2 && i < m_finalDistrib3.size() - 1);
-                    m_finalClusters3.push_back(m_finalDistrib3[i].first);
-                    if (i < m_finalDistrib3.size() - 1)
-                    {
-                        do
-                        {
-                            i++;
-                            area = m_finalDistrib3[i].second;
-                            area2 = m_finalDistrib3[i+1].second;
-                        } while (area <= area2 && i < m_finalDistrib3.size() - 1);
-                    }
-                }
-            }
-
-            for (uint j = 0; j < m_finalClusters3.size(); j++)
-            {
-                LOG(logINFO) << "Cluster " << j+1 << " : " << m_finalClusters3[j];
             }
         }
 
@@ -1841,11 +1872,12 @@ namespace Ra
 
         void MeshContactManager::setComputeClusters()
         {
-            if (m_nbclusters_display < m_finalDistrib.size() / 2)
+            finalDistribCleaned();
+            if (m_nbclusters_compute > m_finalDistribCleaned.size() / 2 + 1)
             {
-                topologicalPersistence();
-                findClusters3();
+                m_nbclusters_compute = m_finalDistribCleaned.size() / 2 + 1;
             }
+            topologicalPersistence();
         }
 
         void MeshContactManager::setDisplayClusters()
