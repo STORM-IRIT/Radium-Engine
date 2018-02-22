@@ -944,14 +944,19 @@ namespace Ra
                             area = m_finalDistrib[i].second;
                             area2 = m_finalDistrib[i+1].second;
                         } while (area >= area2 && i < j);
-                        m_finalDistribCleaned.push_back(m_finalDistrib[i]);
-//                        m_minSort.insert(m_finalDistrib[i]);
-                        if (! m_minSort.insert(m_finalDistrib[i]).second)
+                        if (i < j)
                         {
-                            LOG(logINFO) << "Insert of ( " << m_finalDistrib[i].first << " , " << m_finalDistrib[i].second << " ) in m_minSort failed";
+                            m_finalDistribCleaned.push_back(m_finalDistrib[i]);
+                            //                        m_minSort.insert(m_finalDistrib[i]);
+                            if (! m_minSort.insert(m_finalDistrib[i]).second)
+                            {
+                                LOG(logINFO) << "Insert of ( " << m_finalDistrib[i].first << " , " << m_finalDistrib[i].second << " ) in m_minSort failed";
+                            }
                         }
                     }
                 }
+
+                m_finalDistribCleaned.push_back(m_finalDistrib[j+1]);
             }
 
             else
@@ -966,20 +971,22 @@ namespace Ra
                         area = m_finalDistrib[i].second;
                         area2 = m_finalDistrib[i+1].second;
                     } while (area >= area2 && i < j);
-                    m_finalDistribCleaned.push_back(m_finalDistrib[i]);
-//                    m_minSort.insert(m_finalDistrib[i]);
-                    if (! m_minSort.insert(m_finalDistrib[i]).second)
-                    {
-                        LOG(logINFO) << "Insert of ( " << m_finalDistrib[i].first << " , " << m_finalDistrib[i].second << " ) in m_minSort failed";
-                    }
                     if (i < j)
                     {
+                        m_finalDistribCleaned.push_back(m_finalDistrib[i]);
+    //                    m_minSort.insert(m_finalDistrib[i]);
+                        if (! m_minSort.insert(m_finalDistrib[i]).second)
+                        {
+                            LOG(logINFO) << "Insert of ( " << m_finalDistrib[i].first << " , " << m_finalDistrib[i].second << " ) in m_minSort failed";
+                        }
+
                         do
                         {
                             i++;
                             area = m_finalDistrib[i].second;
                             area2 = m_finalDistrib[i+1].second;
                         } while (area <= area2 && i < j);
+
                         m_finalDistribCleaned.push_back(m_finalDistrib[i]);
 //                        m_maxSort.insert(m_finalDistrib[i]);
                         if (! m_maxSort.insert(m_finalDistrib[i]).second)
@@ -988,6 +995,8 @@ namespace Ra
                         }
                     }
                 }
+
+                m_finalDistribCleaned.push_back(m_finalDistrib[j+1]);
             }
 
             std::ofstream file("Final_distrib_cleaned.txt", std::ios::out | std::ios::trunc);
@@ -1017,7 +1026,7 @@ namespace Ra
             std::ofstream file("Persistence_diagram.txt", std::ios::out | std::ios::trunc);
             CORE_ASSERT(file, "Error while opening persistence diagram file.");
 
-            while (itMin != m_minSort.end() && itMax != m_maxSort.end())
+            while (itMin != m_minSort.end())
             {
                 while ((*std::next(itMax)).first < (*itMin).first && std::next(itMax) != m_maxSort.end())
                 {
@@ -1026,9 +1035,9 @@ namespace Ra
 
                 if (std::next(itMax) != m_maxSort.end())
                 {
-                    Scalar diff1 = std::abs((*itMin).second - (*itMax).second);
-                    Scalar diff2 = std::abs((*itMin).second - (*std::next(itMax)).second);
-                    if (diff2 <= diff1)
+                    Scalar diff1 = (*itMax).second - (*itMin).second;
+                    Scalar diff2 = (*std::next(itMax)).second - (*itMin).second;
+                    if (diff2 < diff1 && diff2 >= 0)
                     {
                         std::advance(itMax,1);
                     }
@@ -1036,6 +1045,20 @@ namespace Ra
                     pairMinMax.first = *itMin;
                     pairMinMax.second = *itMax;
                     m_diffSort.insert(pairMinMax);
+                    if (pairMinMax.second.second < pairMinMax.first.second)
+                    {
+                        LOG(logINFO) << "Wrong insert in persistence diagram";
+                        LOG(logINFO) << "Min : (" << (*itMin).first << "," << (*itMin).second <<")";
+                        LOG(logINFO) << "Max : (" << (*itMax).first << "," << (*itMax).second <<")";
+
+                        MaxSorting::iterator itMax2 = m_maxSort.begin();
+                        LOG(logINFO) << "Max list : ";
+                        while (itMax2 != m_maxSort.end())
+                        {
+                            LOG(logINFO) << "Max : (" << (*itMax2).first << "," << (*itMax2).second <<")";
+                            std::advance(itMax2,1);
+                        }
+                    }
                     m_minSort.erase(itMin);
                     m_maxSort.erase(itMax);
 
@@ -1044,49 +1067,78 @@ namespace Ra
                     itMin = m_minSort.begin();
                     itMax = m_maxSort.begin();
                 }
-                else
+                else // last pair
                 {
-                    if ((*itMax).second > (*itMin).second)
+                    pairMinMax.first = *itMin;
+                    pairMinMax.second = *itMax;
+                    m_diffSort.insert(pairMinMax);
+                    if (pairMinMax.second.second < pairMinMax.first.second)
                     {
-                        pairMinMax.first = *itMin;
-                        pairMinMax.second = *itMax;
-                        m_diffSort.insert(pairMinMax);
-                        m_minSort.erase(itMin);
-                        m_maxSort.erase(itMax);
+                        LOG(logINFO) << "Wrong last insert in persistence diagram";
+                        LOG(logINFO) << "Min : (" << (*itMin).first << "," << (*itMin).second <<")";
+                        LOG(logINFO) << "Max : (" << (*itMax).first << "," << (*itMax).second <<")";
 
-                        file << pairMinMax.first.second << " " << pairMinMax.second.second << std::endl;
-
-                        itMin = m_minSort.begin();
-                        itMax = m_maxSort.begin();
+                        MaxSorting::iterator itMax2 = m_maxSort.begin();
+                        LOG(logINFO) << "Max list : ";
+                        while (itMax2 != m_maxSort.end())
+                        {
+                            LOG(logINFO) << "Max : (" << (*itMax2).first << "," << (*itMax2).second <<")";
+                            std::advance(itMax2,1);
+                        }
                     }
+                    m_minSort.erase(itMin);
+                    m_maxSort.erase(itMax);
+
+                    file << pairMinMax.first.second << " " << pairMinMax.second.second << std::endl;
+
+                    itMin = m_minSort.end();
                 }
+//                else
+//                {
+//                    if ((*itMax).second > (*itMin).second)
+//                    {
+//                        pairMinMax.first = *itMin;
+//                        pairMinMax.second = *itMax;
+//                        m_diffSort.insert(pairMinMax);
+//                        m_minSort.erase(itMin);
+//                        m_maxSort.erase(itMax);
+
+//                        file << pairMinMax.first.second << " " << pairMinMax.second.second << std::endl;
+
+//                        itMin = m_minSort.begin();
+//                        itMax = m_maxSort.begin();
+//                    }
+//                }
             }
 
             file.close();
 
             // ploting using topological persistence
             m_plotSort.insert(m_finalDistribCleaned[0]); // first point
-            if (m_minSort.size() > 0)
-            {
-                while (itMin != m_minSort.end())
-                {
-                    m_plotSort.insert(*itMin);
-                    std::advance(itMin,1);
-                }
-            }
+//            if (m_minSort.size() > 0)
+//            {
+//                while (itMin != m_minSort.end())
+//                {
+//                    m_plotSort.insert(*itMin);
+//                    std::advance(itMin,1);
+//                }
+//            }
             if (m_maxSort.size() > 0)
             {
-                while (itMax != m_maxSort.end())
-                {
-                    m_plotSort.insert(*itMax);
+//                while (itMax != m_maxSort.end())
+//                {
+//                    m_plotSort.insert(*itMax);
 
-                    std::advance(itMax,1);
-                }
+//                    std::advance(itMax,1);
+//                }
+                m_plotSort.insert(*itMax); // inserting greatest max
             }
+
+            m_plotSort.insert(m_finalDistribCleaned[m_finalDistribCleaned.size()-1]); // last point
 
             DiffSorting::iterator itDiff = m_diffSort.begin();
 
-            for (uint i = 0; i < m_nbclusters_compute; i++)
+            for (uint i = 0; i < m_nbclusters_compute - 1; i++)
             {
                 m_plotSort.insert((*itDiff).first);
                 m_plotSort.insert((*itDiff).second);
@@ -1128,8 +1180,8 @@ namespace Ra
                             k++;
                             area = m_finalDistrib3[k].second;
                             area2 = m_finalDistrib3[k+1].second;
-                        } while (area >= area2 && k < m_finalDistrib3.size());
-                        m_finalClusters3.push_back(m_finalDistrib3[k].first - 1);
+                        } while (area >= area2 && k < m_finalDistrib3.size() - 1);
+                        m_finalClusters3.push_back(m_finalDistrib3[k].first);
                     }
                 }
             }
@@ -2024,7 +2076,7 @@ namespace Ra
 
             if (contact)
             {
-                qc *= 1.0 / nbContacts;
+                qc *= 1.0 / nbContacts; // normalization using the number og proximities instead of the sum of their weights
 
                 Scalar edgeErrorContact = abs(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getEM().computeGeometricError(qc,p));
                 error = edgeErrorQEM * (1 + m_lambda * edgeErrorContact);
