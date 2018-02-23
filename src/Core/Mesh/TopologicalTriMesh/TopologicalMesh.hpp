@@ -114,15 +114,14 @@ public:
 
     using base::halfedge_handle;
     HalfedgeHandle halfedge_handle(VertexHandle vh, FaceHandle fh){
-        HalfedgeHandle heh = opposite_halfedge_handle(halfedge_handle(vh));
-        int i=0;
-        while(face_handle(heh) != fh){
-            heh = opposite_halfedge_handle(next_halfedge_handle(heh));
-            i++;
-            CORE_ASSERT(i<40, "there is more than 40 faces around a vertex");
-        }
-        return heh;
 
+        for(VertexIHalfedgeIter vih_it = vih_iter(vh); vih_it; ++vih_it) {
+            if(face_handle(*vih_it) == fh)
+            {
+                return vih_it;
+            }
+        }
+        return HalfedgeHandle();
     }
 };
 }
