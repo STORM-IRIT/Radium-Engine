@@ -14,11 +14,6 @@ namespace Ra
             , m_color( 1.0, 1.0, 1.0, 1.0 )
             , m_type( type )
         {
-            // By default this is anonymous, to have the EntityManger generate auto. name
-            // for us. If you actually want to be able to name your entity, use the
-            // Entity::rename() method. This is not the definitive behaviour.
-            // FIXME (Hugo).
-            m_entity = RadiumEngine::getInstance()->getEntityManager()->createEntity();
         }
 
         Light::~Light()
