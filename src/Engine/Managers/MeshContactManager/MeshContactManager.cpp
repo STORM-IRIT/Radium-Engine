@@ -1569,6 +1569,7 @@ namespace Ra
         void MeshContactManager::setComputeR()
         {
             //normalize();
+            //scale(0.5);
 
             distanceAsymmetryDistribution();
             LOG(logINFO) << "Distance asymmetry distributions computed.";
@@ -1578,6 +1579,7 @@ namespace Ra
             weightedDistanceFile();
             computeFacesAsymmetry();
             finalDistanceFile();
+
             //findClusters();
             //finalDistanceFile2();
             //findClusters2();
@@ -2294,6 +2296,49 @@ namespace Ra
                     {
                         input >> value;
                         newValue = value / max;
+                        output << " " << newValue;
+                    }
+                    output << std::endl;
+                }
+                else
+                {
+                    output << s;
+                    for (uint i = 0; i < 3; i++)
+                    {
+                        input >> s;
+                        output << " " << s;
+                    }
+                    output << std::endl;
+                }
+            }
+
+            output.close();
+            input.close();
+        }
+
+        void MeshContactManager::scale(Scalar n)
+        {
+            std::string s;
+            Scalar value;
+
+            std::ifstream input("base_scale_2_proximity.obj", std::ios::in);
+            CORE_ASSERT(input, "Error while opening obj file.");
+
+            std::ofstream output("base_scale_1_proximity.obj", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(output, "Error while opening obj file.");
+
+            Scalar newValue;
+
+            while (!input.eof())
+            {
+                input >> s;
+                if (s.compare("v") == 0)
+                {
+                    output << s;
+                    for (uint i = 0; i < 3; i++)
+                    {
+                        input >> value;
+                        newValue = value * n;
                         output << " " << newValue;
                     }
                     output << std::endl;

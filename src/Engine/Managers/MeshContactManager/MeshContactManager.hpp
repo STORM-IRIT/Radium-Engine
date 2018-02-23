@@ -107,6 +107,7 @@ namespace Ra
             void colorClusters3();
 
             void normalize();
+            void scale(Scalar n);
 
             bool edgeErrorComputation(Ra::Core::HalfEdge_ptr h, int objIndex, Scalar& error, Ra::Core::Vector3& p);
             void constructPriorityQueues2();
