@@ -23,6 +23,16 @@ namespace Ra
 
         void KeyMappingManager::bindKeyToAction( int keyCode, KeyMappingAction action )
         {
+            auto f = std::find_if( m_mapping.begin(), m_mapping.end(),
+                                   [&keyCode](const auto &a)
+                                   {
+                                       return a.second == keyCode;
+                                   } );
+            if (f != m_mapping.end())
+            {
+                LOG(logWARNING) << "Binding action " << action << " to code " << keyCode <<
+                                   ", which is already used for action " << f->first << ".";
+            }
             m_mapping[action] = keyCode;
         }
 
@@ -33,7 +43,7 @@ namespace Ra
 
         bool KeyMappingManager::actionTriggered( QMouseEvent * event, KeyMappingAction action )
         {
-            return event->button() == getKeyFromAction( action );
+            return (int(event->button()) | event->modifiers()) == getKeyFromAction( action );
         }
 
         bool KeyMappingManager::actionTriggered( QKeyEvent * event, KeyMappingAction action )
@@ -91,6 +101,8 @@ namespace Ra
 
         void KeyMappingManager::loadConfigurationInternal()
         {
+            m_mapping.clear();
+
             QDomElement domElement = m_domDocument.documentElement();
             QDomNode node = domElement.firstChild();
 
@@ -160,7 +172,7 @@ namespace Ra
             else if( typeString == "mouse" )
             {
                 int buttonValue = getQtMouseButtonValue( keyString );
-                bindKeyToAction( buttonValue, actionValue );
+                bindKeyToAction( buttonValue | modifierValue, actionValue );
             }
         }
 

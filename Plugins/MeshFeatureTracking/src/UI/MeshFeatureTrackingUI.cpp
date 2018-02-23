@@ -18,12 +18,12 @@ MeshFeatureTrackingUI::~MeshFeatureTrackingUI()
 
 void MeshFeatureTrackingUI::setMaxV( int max )
 {
-    ui->m_vertexIdx->setMaximum( max );
+    ui->m_vertexIdx->setMaximum( std::max( max-1, 0) );
 }
 
 void MeshFeatureTrackingUI::setMaxT( int max )
 {
-    ui->m_triangleIdx->setMaximum( max );
+    ui->m_triangleIdx->setMaximum( std::max( max-1, 0) );
 }
 
 void MeshFeatureTrackingUI::updateTracking( const FeatureData &data,

@@ -159,6 +159,35 @@ namespace Ra {
                 return mesh;
             }
 
+            MeshPtr QuadStrip(const Core::Vector3& a, const Core::Vector3& x,
+                              const Core::Vector3& y, uint quads, const Core::Color& color)
+            {
+                Core::Vector3Array vertices(quads*2+2);
+                std::vector<uint> indices(quads*2+2);
+
+                Core::Vector3 B = a;
+                vertices[0] = B;
+                vertices[1] = B + x;
+                indices[0] = 0;
+                indices[1] = 1;
+                for (uint i=0; i<quads; ++i)
+                {
+                    B += y;
+                    vertices[2*i+2] = B;
+                    vertices[2*i+3] = B+x;
+                    indices[2*i+2] = 2*i+2;
+                    indices[2*i+3] = 2*i+3;
+                }
+
+                Core::Vector4Array colors(vertices.size(), color);
+
+                MeshPtr mesh(new Mesh("Quad Strip Primitive", Mesh::RM_TRIANGLE_STRIP));
+                mesh->loadGeometry(vertices, indices);
+                mesh->addData(Mesh::VERTEX_COLOR, colors);
+
+                return mesh;
+            }
+
             MeshPtr Circle(const Core::Vector3& center, const Core::Vector3& normal,
                            Scalar radius, uint segments, const Core::Color& color)
             {
@@ -166,7 +195,7 @@ namespace Ra {
                             "Cannot draw a circle with less than 3 points");
 
                 Core::Vector3Array vertices(segments);
-                std::vector<uint> indices(2 * segments);
+                std::vector<uint> indices(segments);
 
                 Core::Vector3 xPlane, yPlane;
                 Core::Vector::getOrthogonalVectors(normal, xPlane, yPlane);
@@ -177,21 +206,48 @@ namespace Ra {
                 Scalar theta(0.0);
                 for (uint i = 0; i < segments; ++i)
                 {
-                    vertices[i] = center + radius *
-                        (std::cos(theta) * xPlane +
-                         std::sin(theta) * yPlane);
-
-                    indices.push_back((segments - 1 + i) % segments);
-                    indices.push_back(i);
-                    indices.push_back((i + 1) % segments);
-                    indices.push_back((i + 2) % segments);
+                    vertices[i] = center + radius * (std::cos(theta) * xPlane +
+                                                     std::sin(theta) * yPlane);
+                    indices[i] = i;
 
                     theta += thetaInc;
                 }
 
                 Core::Vector4Array colors(vertices.size(), color);
 
-                MeshPtr mesh(new Mesh("Circle Primitive", Mesh::RM_LINES_ADJACENCY));
+                MeshPtr mesh(new Mesh("Circle Primitive", Mesh::RM_LINE_LOOP));
+                mesh->loadGeometry(vertices, indices);
+                mesh->addData(Mesh::VERTEX_COLOR, colors);
+
+                return mesh;
+            }
+
+            MeshPtr CircleArc(const Core::Vector3& center, const Core::Vector3& normal,
+                              Scalar radius, Scalar angle, uint segments,
+                              const Core::Color& color)
+            {
+                Core::Vector3Array vertices(segments);
+                std::vector<uint> indices(segments);
+
+                Core::Vector3 xPlane, yPlane;
+                Core::Vector::getOrthogonalVectors(normal, xPlane, yPlane);
+                xPlane.normalize();
+                yPlane.normalize();
+
+                Scalar thetaInc(2*angle / Scalar(segments));
+                Scalar theta(0.0);
+                for (uint i = 0; i < segments; ++i)
+                {
+                    vertices[i] = center + radius * (std::cos(theta) * xPlane +
+                                                     std::sin(theta) * yPlane);
+                    indices[i] = i;
+
+                    theta += thetaInc;
+                }
+
+                Core::Vector4Array colors(vertices.size(), color);
+
+                MeshPtr mesh(new Mesh("Arc Circle Primitive", Mesh::RM_LINE_STRIP));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 
@@ -260,7 +316,7 @@ namespace Ra {
 
                 uint seg = segments + 1;
                 Core::Vector3Array vertices(seg);
-                std::vector<uint> indices;
+                std::vector<uint> indices(seg+1);
 
                 Core::Vector3 xPlane, yPlane;
                 Core::Vector::getOrthogonalVectors(normal, xPlane, yPlane);
@@ -271,21 +327,20 @@ namespace Ra {
                 Scalar theta(0.0);
 
                 vertices[0] = center;
-                indices.push_back(0);
+                indices[0] = 0;
                 for (uint i = 1; i < seg; ++i)
                 {
                     vertices[i] = center + radius * (std::cos(theta) * xPlane +
                                                      std::sin(theta) * yPlane);
-                    indices.push_back(i);
+                    indices[i] = i;
 
                     theta += thetaInc;
                 }
-                indices.push_back(1);
+                indices[seg] = 1;
 
                 Core::Vector4Array colors(vertices.size(), color);
 
-                // FIXME(Charly): This will assert in mesh
-                MeshPtr mesh(new Mesh("Circle Primitive", Mesh::RM_TRIANGLE_FAN));
+                MeshPtr mesh(new Mesh("Disk Primitive", Mesh::RM_TRIANGLE_FAN));
                 mesh->loadGeometry(vertices, indices);
                 mesh->addData(Mesh::VERTEX_COLOR, colors);
 

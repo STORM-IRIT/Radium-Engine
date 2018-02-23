@@ -301,6 +301,10 @@ namespace Ra
                 e->rayCastQuery(r);
             }
         }
+        else if ( keyMap->getKeyFromAction(Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION) == event->button() )
+        {
+            m_camera->handleMousePressEvent(event);
+        }
         else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) )
         {
             m_currentRenderer->addPickingRequest({ Core::Vector2(event->x(), height() - event->y()),
@@ -310,10 +314,6 @@ namespace Ra
             {
                 m_gizmoManager->handleMousePressEvent(event);
             }
-        }
-        else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) )
-        {
-            m_camera->handleMousePressEvent(event);
         }
         else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
         {
@@ -344,7 +344,7 @@ namespace Ra
                 m_gizmoManager->handleMouseMoveEvent(event);
             }
             m_currentRenderer->setMousePosition(Ra::Core::Vector2(event->x(), event->y()));
-            if ( event->buttons() & Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
+            if ( (int(event->buttons()) | event->modifiers()) == Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
             {
                 // Check picking
                 Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), (height() - event->y())),
