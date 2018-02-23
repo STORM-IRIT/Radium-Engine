@@ -19,7 +19,7 @@
 #define KD_MAX_DEPTH 32
 
 // number of neighbors
-#define KD_TRIANGLES_PER_CELL 64
+#define KD_TRIANGLES_PER_CELL 16
 
 namespace Super4PCS{
 
