@@ -812,6 +812,9 @@ namespace Ra
             std::ofstream file("Final_distrib.txt", std::ios::out | std::ios::trunc);
             CORE_ASSERT(file, "Error while opening final distance distribution file.");
 
+
+            m_finalDistrib.emplace_back(-0.1,0);
+
             for (uint i = 0; i < NBMAX_STEP; i++)
             {
                 file << ((2 * i + 1) * step) / 2 << " " << areas[i] << std::endl;
