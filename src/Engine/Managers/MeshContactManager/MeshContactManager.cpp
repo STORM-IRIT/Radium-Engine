@@ -773,17 +773,17 @@ namespace Ra
             // computing the median asymmetry value
             AsymmetrySorting::iterator it = m_asymmSort.begin();
 
-            if (m_asymmSort.size() % 2)
+            if (m_asymmSort.size() % 4 == 0 || m_asymmSort.size() % 4 == 1)
             {
-                std::advance(it, m_asymmSort.size() / 2);
-                m_asymmetry_median = (*it).a;
-            }
-            else
-            {
-                std::advance(it, m_asymmSort.size() / 2 - 1);
+                std::advance(it, m_asymmSort.size() / 4);
                 Scalar m = (*it).a;
                 std::advance(it, 1);
                 m_asymmetry_median = (m + (*it).a) / 2;
+            }
+            else
+            {
+                std::advance(it, m_asymmSort.size() / 4 + 1);
+                m_asymmetry_median = (*it).a;
             }
 
             //LOG(logINFO) << "Asymmetry mean : " << m_asymmetry_mean;
