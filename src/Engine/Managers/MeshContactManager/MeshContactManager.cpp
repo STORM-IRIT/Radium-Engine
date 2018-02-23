@@ -1906,20 +1906,21 @@ namespace Ra
                 obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
             }
 
-            std::srand(std::time(0));
+            //std::srand(std::time(0));
+            Ra::Core::Vector4 clusterColors[10] = {{0.55,0,0,0}, {0.80,0.36,0.36,0}, {1,0.63,0.48,0}, {1,0.55,0,0}, {1,0.84,0,0}, {0.60,0.80,0.20,0}, {0.18,0.55,0.34,0}, {0.37,0.62,0.63,0}, {0.27,0.51,0.71,0}, {0,0,0.55,0}};
             DistanceSorting::iterator it = m_distSort.begin();
             for (uint i = 0; i < m_nbclusters_display; i++)
             {
-                Ra::Core::Vector4 clusterColor ((Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000);
+                //Ra::Core::Vector4 clusterColor ((Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000, (Scalar)(rand() % 1000) / (Scalar)1000);
                 while ((*it).r <= m_finalClusters3[i] && it != m_distSort.end())
                 {
                     MeshContactElement* obj = m_meshContactElements[(*it).objId];
                     Ra::Core::VectorArray<Ra::Core::Triangle> t = obj->getTriangleMeshDuplicate().m_triangles;
                     Ra::Core::Vector4Array colors = obj->getMesh()->getData(Ra::Engine::Mesh::VERTEX_COLOR);
 
-                    colors[t[(*it).faceId][0]] = clusterColor;
-                    colors[t[(*it).faceId][1]] = clusterColor;
-                    colors[t[(*it).faceId][2]] = clusterColor;
+                    colors[t[(*it).faceId][0]] = clusterColors[i];
+                    colors[t[(*it).faceId][1]] = clusterColors[i];
+                    colors[t[(*it).faceId][2]] = clusterColors[i];
                     obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
 
                     std::advance(it, 1);
