@@ -42,6 +42,7 @@ endif()
 # These paths need to be synchronized with FindRadium.cmake
 set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
 set(RADIUM_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(RADIUM_PLUGINS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Plugins")
 set(RADIUM_PLUGIN_OUTPUT_PATH "${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin/Plugins")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin)
 set(EXECUTABLE_OUTPUT_PATH         ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin)
@@ -129,7 +130,7 @@ endif(RADIUM_BUILD_APPS)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #   External plugins
-add_subdirectory(Plugins)
+add_subdirectory(${RADIUM_PLUGINS_DIR})
 
 
 ################################################################################

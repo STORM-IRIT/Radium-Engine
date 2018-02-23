@@ -130,6 +130,8 @@ namespace Ra
             inline void setDirty( const Vec3Data& type );
             inline void setDirty( const Vec4Data& type );
 
+
+            void bindVao();
             /// This function is called at the start of the rendering. It will update the
             /// necessary openGL buffers.
             void updateGL();

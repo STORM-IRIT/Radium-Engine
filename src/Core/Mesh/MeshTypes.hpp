@@ -13,7 +13,6 @@ namespace Ra
         // todo : enclose this in a more specific namespace ?
         using Edge     = Vector2ui;
         using Triangle = Vector3ui;
-
         using TriangleIdx = Index;
         using VertexIdx   = Index;
         using HalfEdgeIdx = Index;

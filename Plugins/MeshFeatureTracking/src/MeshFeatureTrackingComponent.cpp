@@ -70,7 +70,7 @@ namespace MeshFeatureTrackingPlugin
              getRoMgr()->exists( m_data.m_roIdx ) )
         {
             return Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject( m_data.m_roIdx )
-                    ->getMesh()->getGeometry().m_vertices.size();
+                    ->getMesh()->getGeometry().vertices().size();
         }
         return 0;
     }
@@ -230,7 +230,7 @@ namespace MeshFeatureTrackingPlugin
         }
 
         // manage picking mode
-        const auto& v = ro->getMesh()->getGeometry().m_vertices;
+        const auto& v = ro->getMesh()->getGeometry().vertices();
         const auto& T = ro->getMesh()->getGeometry().m_triangles[ m_data.m_elementIdx[0] ];
         switch (m_data.m_mode)
         {
@@ -292,7 +292,7 @@ namespace MeshFeatureTrackingPlugin
         {
             return Ra::Core::Vector3();
         }
-        const auto& v = ro->getMesh()->getGeometry().m_vertices;
+        const auto& v = ro->getMesh()->getGeometry().vertices();
         if (ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_POINTS)
         {
             return v[ m_data.m_elementIdx[0] ];
@@ -337,7 +337,8 @@ namespace MeshFeatureTrackingPlugin
 
         // check supported RO type
         auto ro = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject( m_data.m_roIdx );
-        const auto& n = ro->getMesh()->getGeometry().m_normals;
+
+        const auto& n = ro->getMesh()->getGeometry().normals();
         if (ro->getMesh()->getRenderMode() == Ra::Engine::Mesh::RM_POINTS)
         {
             if ( !n.empty() )
@@ -348,7 +349,7 @@ namespace MeshFeatureTrackingPlugin
         }
 
         // manage picking mode
-        const auto& v = ro->getMesh()->getGeometry().m_vertices;
+        const auto& v = ro->getMesh()->getGeometry().vertices();
         const auto& T = ro->getMesh()->getGeometry().m_triangles[ m_data.m_elementIdx[0] ];
         Ra::Core::Vector3 V(0,0,0);
         switch (m_data.m_mode)

@@ -144,7 +144,7 @@ namespace Ra
             {
                 if (ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Fancy )
                 {
-                    result += ro->getMesh()->getGeometry().m_vertices.size();
+                    result += ro->getMesh()->getGeometry().vertices().size();
                 }
             }
             return result;
@@ -162,7 +162,7 @@ namespace Ra
                 {
                     Core::Transform t = ro->getComponent()->getEntity()->getTransform();
                     auto mesh = ro->getMesh();
-                    auto pos = mesh->getGeometry().m_vertices;
+                    auto pos = mesh->getGeometry().vertices();
 
                     for (auto& p : pos)
                     {

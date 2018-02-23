@@ -120,22 +120,22 @@ namespace Ra
                 convert(dcel, subdividedMesh);
 
                 // Second step : evaluate the integrals over all triangles for all vertices.
-                CORE_ASSERT(subdividedMesh.m_vertices.size() == subdividedWeights.rows(),
+                CORE_ASSERT(subdividedMesh.vertices().size() == subdividedWeights.rows(),
                             "Weights and vertices don't match");
 
                 dataInOut.m_CoR.clear();
-                dataInOut.m_CoR.reserve(dataInOut.m_referenceMesh.m_vertices.size());
+                dataInOut.m_CoR.reserve(dataInOut.m_referenceMesh.vertices().size());
 
 
-                const uint nVerts = dataInOut.m_referenceMesh.m_vertices.size();
+                const uint nVerts = dataInOut.m_referenceMesh.vertices().size();
                 // naive implementation : iterate over all the triangles (of the subdivided mesh)
                 // for all vertices (of the original mesh).
                 for (uint i = 0; i < nVerts; ++i)
                 {
 
                     // Check that the first vertices of the subdivided mesh have not changed.
-                    ON_ASSERT(const Vector3& p = dataInOut.m_referenceMesh.m_vertices[i]);
-                    CORE_ASSERT(subdividedMesh.m_vertices[i] == p, "Inconsistency in the meshes");
+                    ON_ASSERT(const Vector3& p = dataInOut.m_referenceMesh.vertices()[i]);
+                    CORE_ASSERT(subdividedMesh.vertices()[i] == p, "Inconsistency in the meshes");
 
                     Vector3 cor(0, 0, 0);
                     Scalar sumweight = 0;
@@ -149,7 +149,7 @@ namespace Ra
                         MeshUtils::getTriangleVertices(subdividedMesh, t, triVerts);
 
                         const Scalar area = MeshUtils::getTriangleArea(subdividedMesh, t);
-                        const Eigen::SparseVector<Scalar> triWeight = 
+                        const Eigen::SparseVector<Scalar> triWeight =
                            (1/3.f)*
                             (  subdividedWeights.row( tri[0] )
                              + subdividedWeights.row( tri[1] )
@@ -205,4 +205,3 @@ namespace Ra
         }// ns Animation
     } // ns Core
 }// ns Ra
-

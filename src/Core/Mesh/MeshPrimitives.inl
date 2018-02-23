@@ -22,7 +22,7 @@ namespace Ra
                     {
                         // Regular vertices on the sphere.
                         const Scalar phi = Scalar(v) * Core::Math::Pi / Scalar(stacks);
-                        result.m_vertices.push_back(Vector3(
+                        result.vertices().push_back(Vector3(
                                 radius * std::cos(theta) * std::sin(phi),
                                 radius * std::sin(theta) * std::sin(phi),
                                 radius * std::cos(phi)
@@ -41,10 +41,10 @@ namespace Ra
                 }
 
                 // Add the pole vertices.
-                uint northPoleIdx = result.m_vertices.size();
-                result.m_vertices.push_back(Vector3(0, 0, radius));
-                uint southPoleIdx = result.m_vertices.size();
-                result.m_vertices.push_back(Vector3(0, 0, -radius));
+                uint northPoleIdx = result.vertices().size();
+                result.vertices().push_back(Vector3(0, 0, radius));
+                uint southPoleIdx = result.vertices().size();
+                result.vertices().push_back(Vector3(0, 0, -radius));
 
                 // Add the polar caps triangles.
                 for (uint u = 0; u < slices; ++u)
@@ -57,10 +57,10 @@ namespace Ra
                 }
 
                 // Compute normals.
-                for (const auto v : result.m_vertices)
+                for (const auto v : result.vertices())
                 {
                     const Vector3 n = v.normalized();
-                    result.m_normals.push_back(n);
+                    result.normals().push_back(n);
                 }
                 checkConsistency(result);
                 return result;
@@ -87,8 +87,8 @@ namespace Ra
                                 minorRadius * std::sin(v));
 
 
-                        result.m_vertices.push_back(vertex);
-                        result.m_normals.push_back((vertex - circleCenter).normalized());
+                        result.vertices().push_back(vertex);
+                        result.normals().push_back((vertex - circleCenter).normalized());
 
                         result.m_triangles.push_back(Triangle(iu * V + iv, ((iu + 1) % U) * V + iv, iu * V + ((iv + 1) % V)));
                         result.m_triangles.push_back(Triangle(((iu + 1) % U) * V + iv, ((iu + 1) % U) * V + ((iv + 1) % V), iu * V + ((iv + 1) % V)));

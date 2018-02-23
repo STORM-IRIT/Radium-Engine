@@ -55,7 +55,7 @@ namespace Ra {
             m_mesh = mesh;
 
             if (m_mesh.m_triangles.empty()) {
-                m_numElements = mesh.m_vertices.size();
+                m_numElements = mesh.vertices().size();
                 m_renderMode = RM_POINTS;
             }
             else
@@ -71,9 +71,9 @@ namespace Ra {
         void Mesh::updateMeshGeometry(MeshData type, const Core::Vector3Array& data)
         {
             if(type == VERTEX_POSITION)
-                m_mesh.m_vertices = data;
+                m_mesh.vertices() = data;
             if(type == VERTEX_NORMAL)
-                m_mesh.m_normals = data;
+                m_mesh.normals() = data;
             m_dataDirty[static_cast<uint>(type)] = true;
             m_isDirty = true;
         }
@@ -90,7 +90,7 @@ namespace Ra {
             }
             else
                 m_numElements = nIdx;
-            m_mesh.m_vertices = vertices;
+            m_mesh.vertices() = vertices;
 
             // Check that when loading a triangle mesh we actually have triangles.
             CORE_ASSERT( m_renderMode != GL_TRIANGLES || nIdx % 3 == 0, "There should be 3 indices per triangle " );
@@ -124,6 +124,11 @@ namespace Ra {
             m_v4Data[static_cast<uint>(type)] = data;
             m_dataDirty[MAX_MESH + MAX_VEC3 + static_cast<uint>(type)] = true;
             m_isDirty = true;
+        }
+
+        void Mesh::bindVao()
+        {
+                        GL_ASSERT( glBindVertexArray( m_vao ) );
         }
 
         // Template parameter must be a Core::VectorNArray
@@ -172,7 +177,7 @@ namespace Ra {
                 ON_ASSERT(bool dirtyTest = false; for (const auto& d : m_dataDirty) { dirtyTest = dirtyTest || d;});
                 CORE_ASSERT( dirtyTest == m_isDirty, "Dirty flags inconsistency");
 
-                CORE_ASSERT( ! ( m_mesh.m_vertices.empty() ), "No vertex.");
+                CORE_ASSERT( ! ( m_mesh.vertices().empty() ), "No vertex.");
 
                 if ( m_vao == 0 )
                 {
@@ -206,8 +211,8 @@ namespace Ra {
                 }
 
                 // Geometry data
-                sendGLData(m_mesh.m_vertices, VERTEX_POSITION);
-                sendGLData(m_mesh.m_normals,  VERTEX_NORMAL);
+                sendGLData(m_mesh.vertices(), VERTEX_POSITION);
+                sendGLData(m_mesh.normals(),  VERTEX_NORMAL);
 
                 // Vec3 data
                 sendGLData(m_v3Data[VERTEX_TANGENT],   MAX_MESH + VERTEX_TANGENT);
