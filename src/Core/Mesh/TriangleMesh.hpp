@@ -11,39 +11,55 @@ namespace Ra
     namespace Core
     {
 
-
+/// VertexAttribBase is the base class for VertexAttrib.
+    /// A VertexAttrib is data linked to Vertices of a mesh
+    /// It is also used for rendering, and
 class VertexAttribBase{
 public :
+    /// attrib name is used to automatic location binding when using shaders.
     std::string getName() const {return m_name;}
+    void setName(std::string name) {m_name = name;}
     virtual void resize(size_t s) = 0;
+
+    virtual uint getSize() = 0;
+    virtual int getStride() = 0;
+
+private :
     std::string m_name;
 };
 
 template <typename T>
 class VertexAttrib : public VertexAttribBase{
 public:
-    typedef VectorArray<T> data_type;
     using value_type = T;
-//    using Container = VectorArray<T>;
+    using Container = VectorArray<T>;
     void resize(size_t s) override {
         m_data.resize(s);
     }
-    inline data_type &data(){return m_data;}
-    inline const data_type &data() const {return m_data;}
-    data_type m_data;
+    inline Container &data(){return m_data;}
+    inline const Container &data() const {return m_data;}
+    Container m_data;
+
+    uint getSize() override {return Container::Vector::RowsAtCompileTime;}
+    int getStride() override {return sizeof(typename Container::Vector);}
+
 };
 
 template <typename T>
 class VertexAttribHandle{
 public:
     typedef T value_type;
-    typedef typename VertexAttrib<T>::data_type data_type;
+    using Container = typename VertexAttrib<T>::Container;
     int m_idx;
 };
 
 class VertexAttribManager{
 public:
-    std::vector<VertexAttribBase *> m_attribs;
+    using value_type = VertexAttribBase *;
+    using Container = std::vector<value_type>;
+    Container m_attribs;
+
+    const Container & attribs() const { return m_attribs; }
 
     template <typename T>
     inline VertexAttrib<T> &
@@ -57,22 +73,18 @@ public:
         return *static_cast<VertexAttrib<T>*>(m_attribs[h.m_idx]);
     }
 
-
     template <typename T>
     VertexAttribHandle<T>
     addAttrib(const T&, std::string name){
-        VertexAttrib<T> * attrib = new VertexAttrib<T>;
-        attrib->m_name = name;
         VertexAttribHandle<T> h;
-        m_attribs.push_back(attrib);
-        h.m_idx = m_attribs.size()-1;
+        addAttrib(h, name);
         return h;
     }
 
     template <typename T>
     void addAttrib(VertexAttribHandle<T> &h, std::string name){
         VertexAttrib<T> * attrib = new VertexAttrib<T>;
-        attrib->m_name = name;
+        attrib->setName( name );
         m_attribs.push_back(attrib);
         h.m_idx = m_attribs.size()-1;
     }
@@ -80,18 +92,31 @@ public:
 
 
 
-        /// A very basic structure representing a triangle mesh which stores the bare minimum :
-        /// vertices, faces and normals. See MeshUtils for geometric functions
-        /// operating on a mesh.
-
-
+        /// Simple Mesh structure that handles indexed triangle mesh with vertex
+        /// attributes.
+    /// Attributes are unique per vertex, so that same position with different
+    /// normals are two vertices.
+    /// The VertexAttribManager allows to dynammicaly add VertexAttrib per Vertex
+        /// See MeshUtils for geometric functions operating on a mesh.
+    /// Points and Normals are always present, accessible with
+    /// points() and normals()
+    /// Other attribs could be added with attribManager().addAttrib() and
+    /// accesssed with attribManager().getAttrib()
         struct TriangleMesh
         {
+        public:
+            EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
+
+            using PointAttribHandle = VertexAttribHandle<Vector3>;
+            using NormalAttribHandle = VertexAttribHandle<Vector3>;
+            using Face     = VectorNui;
+
             /// Create an empty mesh.
             inline TriangleMesh() {
 
-                m_vertexAttribs.addAttrib(m_verticesHandle, "position");
-                m_vertexAttribs.addAttrib(m_normalsHandle, "normal");
+                m_vertexAttribs.addAttrib(m_verticesHandle, "in_position");
+                m_vertexAttribs.addAttrib(m_normalsHandle, "in_normal");
 
             }
             /// Copy constructor and assignment operator
@@ -104,26 +129,21 @@ public:
             /// Appends another mesh to this one.
             inline void append( const TriangleMesh& other );
 
-            using Face     = VectorNui;
             VectorArray<Triangle> m_triangles;
             VectorArray<Face>  m_faces;
 
-            VertexAttribHandle<Vector3>::data_type &vertices(){                return m_vertexAttribs.getAttrib(m_verticesHandle).data();            }
-            VertexAttribHandle<Vector3>::data_type &normals(){                return m_vertexAttribs.getAttrib(m_normalsHandle).data();            }
+            PointAttribHandle::Container &vertices(){                return m_vertexAttribs.getAttrib(m_verticesHandle).data();            }
+            NormalAttribHandle::Container &normals(){                return m_vertexAttribs.getAttrib(m_normalsHandle).data();             }
 
-            const VertexAttribHandle<Vector3>::data_type &vertices() const {                return m_vertexAttribs.getAttrib(m_verticesHandle).data();            }
-            const VertexAttribHandle<Vector3>::data_type &normals() const {                return m_vertexAttribs.getAttrib(m_normalsHandle).data();            }
+            const PointAttribHandle::Container &vertices() const {                return m_vertexAttribs.getAttrib(m_verticesHandle).data();   }
+            const NormalAttribHandle::Container &normals() const {                return m_vertexAttribs.getAttrib(m_normalsHandle).data();    }
 
-
+            const VertexAttribManager& attribManager() const { return m_vertexAttribs; }
+        private:
             VertexAttribManager m_vertexAttribs;
-            using vertex_attrib_data_type = VertexAttribHandle<Vector3>;
-            using normal_attrib_data_type = VertexAttribHandle<Vector3>;
-            vertex_attrib_data_type m_verticesHandle;
-            normal_attrib_data_type m_normalsHandle;
+            PointAttribHandle m_verticesHandle;
+            NormalAttribHandle m_normalsHandle;
 
-
-        public:
-            EIGEN_MAKE_ALIGNED_OPERATOR_NEW
         };
 
 

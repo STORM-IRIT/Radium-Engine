@@ -272,18 +272,16 @@ namespace FancyMeshPlugin
         displayMesh.loadGeometry( *meshptr );
     }
 
-Ra::Core::TriangleMesh::vertex_attrib_data_type::data_type* FancyMeshComponent::getVerticesRw()
+    Ra::Core::TriangleMesh::PointAttribHandle::Container* FancyMeshComponent::getVerticesRw()
     {
         getDisplayMesh().setDirty( Ra::Engine::Mesh::VERTEX_POSITION);
         return &(getDisplayMesh().getGeometry().vertices());
     }
 
-Ra::Core::TriangleMesh::normal_attrib_data_type::data_type* FancyMeshComponent::getNormalsRw()
+    Ra::Core::TriangleMesh::NormalAttribHandle::Container* FancyMeshComponent::getNormalsRw()
     {
         getDisplayMesh().setDirty( Ra::Engine::Mesh::VERTEX_NORMAL);
-///\todo check here
-        ///return &(getDisplayMesh().getGeometry().m_normals);
-        return &(getDisplayMesh().getGeometry().vertices());
+        return &(getDisplayMesh().getGeometry().normals());
     }
 
     Ra::Core::VectorArray<Ra::Core::Triangle>* FancyMeshComponent::getTrianglesRw()

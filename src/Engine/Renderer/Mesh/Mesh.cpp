@@ -72,9 +72,8 @@ namespace Ra {
         {
             if(type == VERTEX_POSITION)
                 m_mesh.vertices() = data;
-///\todo check here
-//            if(type == VERTEX_NORMAL)
-//                m_mesh.m_normals = data;
+            if(type == VERTEX_NORMAL)
+                m_mesh.normals() = data;
             m_dataDirty[static_cast<uint>(type)] = true;
             m_isDirty = true;
         }
@@ -125,6 +124,11 @@ namespace Ra {
             m_v4Data[static_cast<uint>(type)] = data;
             m_dataDirty[MAX_MESH + MAX_VEC3 + static_cast<uint>(type)] = true;
             m_isDirty = true;
+        }
+
+        void Mesh::bindVao()
+        {
+                        GL_ASSERT( glBindVertexArray( m_vao ) );
         }
 
         // Template parameter must be a Core::VectorNArray
@@ -208,8 +212,7 @@ namespace Ra {
 
                 // Geometry data
                 sendGLData(m_mesh.vertices(), VERTEX_POSITION);
-                ///\todo check here
-//              sendGLData(m_mesh.m_normals,  VERTEX_NORMAL);
+                sendGLData(m_mesh.normals(),  VERTEX_NORMAL);
 
                 // Vec3 data
                 sendGLData(m_v3Data[VERTEX_TANGENT],   MAX_MESH + VERTEX_TANGENT);
