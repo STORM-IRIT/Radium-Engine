@@ -215,7 +215,7 @@ namespace Ra
         
         bool ShaderConfiguration::operator< (const ShaderConfiguration& o) const
         {
-            bool res;
+            bool res = false;
             
             for (size_t i = 0; i < ShaderType_COUNT; ++i)
             {

@@ -91,7 +91,7 @@ namespace Ra {
 
         void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* data )
         {
-            std::vector<Asset::LightData*> lightData = fileData->getLightData();
+            std::vector<Asset::LightData*> lightData = data->getLightData();
             uint id = 0;
 
             for(const auto& data : lightData)
