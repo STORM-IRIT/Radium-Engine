@@ -813,7 +813,7 @@ namespace Ra
             CORE_ASSERT(file, "Error while opening final distance distribution file.");
 
 
-            m_finalDistrib.emplace_back(-0.1,0);
+            m_finalDistrib.emplace_back(0,0);
 
             for (uint i = 0; i < NBMAX_STEP; i++)
             {
@@ -1568,21 +1568,18 @@ namespace Ra
 
         void MeshContactManager::setComputeR()
         {
-            //normalize();
-            //scale(0.5);
-
             distanceAsymmetryDistribution();
             LOG(logINFO) << "Distance asymmetry distributions computed.";
-            distanceAsymmetryFile2();
+        }
 
+        void MeshContactManager::setComputeDistribution()
+        {
+            distanceAsymmetryFile2();
             computeFacesArea();
             weightedDistanceFile();
             computeFacesAsymmetry();
             finalDistanceFile();
 
-            //findClusters();
-            //finalDistanceFile2();
-            //findClusters2();
         }
 
         void MeshContactManager::setLoadDistribution(std::string filePath)

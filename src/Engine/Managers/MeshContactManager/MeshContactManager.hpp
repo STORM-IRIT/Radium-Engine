@@ -55,6 +55,7 @@ namespace Ra
             void setComputeR();
             void setLoadDistribution(std::string filePath);
             void setDisplayProximities();
+            void setComputeDistribution();
             void setDisplayDistribution();
             void setDisplayWeight();
             void setComputeClusters();
