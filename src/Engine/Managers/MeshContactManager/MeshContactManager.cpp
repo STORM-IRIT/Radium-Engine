@@ -33,7 +33,7 @@ namespace Ra
             ,m_threshold( 0.0 )
             ,m_broader_threshold ( 0.0 )
             ,m_lambda( 0.0 )
-            ,m_m( 2.0 )
+            ,m_m( 3.0 )
             ,m_n ( 2.0 )
             ,m_influence ( 0.9 )
             ,m_asymmetry ( 0.0 )
@@ -44,7 +44,7 @@ namespace Ra
             ,m_asymmetry_median( 0 )
             ,m_distance_median( 0 )
             ,m_nbclusters_compute( 4 )
-            ,m_nbclusters_display( 4 )
+            ,m_nbclusters_display( 1 )
         {
         }
 
