@@ -1574,6 +1574,18 @@ namespace Ra
 
         void MeshContactManager::setComputeDistribution()
         {
+            Super4PCS::AABB3D aabb = Super4PCS::AABB3D();
+            for (auto& elem : m_meshContactElements)
+            {
+                Ra::Core::VectorArray<Ra::Core::Vector3> v = elem->getInitTriangleMesh().m_vertices;
+                for (auto& vertex : v)
+                {
+                    aabb.extendTo(vertex);
+                }
+            }
+
+            LOG(logINFO) << "Scene AABB diagonal : " << aabb.diagonal();
+
             distanceAsymmetryFile2();
             computeFacesArea();
             weightedDistanceFile();
