@@ -192,11 +192,11 @@ namespace Gui
         if(!pathList.empty())
         {
             settings.setValue("files/load", pathList.front());
-        }
 
-        for(auto file : pathList)
-        {
-            emit fileLoading(file);
+            for(const auto& file : pathList)
+            {
+                emit fileLoading(file);
+            }
         }
     }
 
