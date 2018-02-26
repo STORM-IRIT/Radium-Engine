@@ -171,11 +171,16 @@ namespace Ra
 
         QSettings settings;
         QString path = settings.value("files/load", QDir::homePath()).toString();
-        path = QFileDialog::getOpenFileName(this, "Open File", path, filter);
-        if (path.size() > 0)
+        QStringList pathList = QFileDialog::getOpenFileNames(this, "Open Files", path, filter);
+
+        if(!pathList.empty())
         {
-            settings.setValue("files/load", path);
-            emit fileLoading(path);
+            settings.setValue("files/load", pathList.front());
+        }
+
+        for(auto file : pathList)
+        {
+            emit fileLoading(file);
         }
     }
 
