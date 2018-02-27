@@ -68,6 +68,8 @@ namespace Ra
             int getThresholdMax();
             void setAsymmetryValueChanged(int value);
             int getAsymmetryMax();
+            void setComputeAlpha();
+            int getAlpha();
 
             int getNbFacesMax();
             void computeNbFacesMax();

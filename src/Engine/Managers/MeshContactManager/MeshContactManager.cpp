@@ -1514,6 +1514,158 @@ namespace Ra
             //m_broader_threshold = m_threshold;
         }
 
+        void MeshContactManager::setComputeAlpha()
+        {
+            constructPriorityQueues2();
+
+            Ra::Core::PriorityQueue::PriorityQueueContainer::iterator it;
+
+            // finding maximum error value
+            Scalar errorMax = 0;
+            for (uint i = 0; i < m_nbobjects; i++)
+            {
+                MeshContactElement* obj = m_meshContactElements[i];
+                it = obj->getPriorityQueue()->getPriorityQueueContainer().begin();
+                LOG(logINFO) << "Size of priority queue " << i + 1 << " : " << obj->getPriorityQueue()->getPriorityQueueContainer().size();
+                std::advance(it,obj->getPriorityQueue()->getPriorityQueueContainer().size() - 1);
+                LOG(logINFO) << "Error max object " << i + 1 << " : " << (*it).m_err;
+                if ((*it).m_err > errorMax)
+                {
+                    errorMax = (*it).m_err;
+                }
+            }
+            LOG(logINFO) << "Error max : " << errorMax;
+
+            // computing error distribution, error mean and median values
+            Scalar step = errorMax / NBMAX_STEP;
+            LOG(logINFO) << "Step : " << step;
+            int errorArray[NBMAX_STEP] = {0};
+
+            Scalar errorMean = 0;
+            Scalar errorMedian;
+            Scalar errorQuartile;
+            int nbEdges = 0;
+            for (uint i = 0; i < m_nbobjects; i++)
+            {
+                nbEdges += m_meshContactElements[i]->getPriorityQueue()->getPriorityQueueContainer().size();
+            }
+
+            struct compareErrorByAscendingValue
+            {
+                inline bool operator() (const Scalar &e1, const Scalar &e2) const
+                {
+                    return e1 <= e2;
+                }
+            };
+            typedef std::set<Scalar, compareErrorByAscendingValue> ErrorSorting;
+            ErrorSorting errorSort;
+
+            for (uint i = 0; i < m_nbobjects; i++)
+            {
+                MeshContactElement* obj = m_meshContactElements[i];
+                it = obj->getPriorityQueue()->getPriorityQueueContainer().begin();
+                int j = 0;
+                while (j < NBMAX_STEP && it != obj->getPriorityQueue()->getPriorityQueueContainer().end())
+                {
+                    while ((*it).m_err < step * (j + 1) && it != obj->getPriorityQueue()->getPriorityQueueContainer().end())
+                    {
+                        errorArray[j]++;
+                        errorMean += (*it).m_err;
+                        if (!errorSort.insert((*it).m_err).second)
+                        {
+                            LOG(logINFO) << "Error insert failed";
+                        }
+                        ++it;
+                    }
+                    j++;
+                }
+            }
+
+            errorMean /= nbEdges;
+            LOG(logINFO) << "Mean error : " << errorMean;
+
+            ErrorSorting::iterator medianIt = errorSort.begin();
+            if (nbEdges % 2 == 0)
+            {
+                std::advance(medianIt, nbEdges/2 - 1);
+                errorMedian = (*medianIt);
+                ++it;
+                errorMedian += (*medianIt);
+                errorMedian /= 2;
+            }
+            else
+            {
+                std::advance(medianIt, nbEdges/2);
+                errorMedian = (*medianIt);
+            }
+            LOG(logINFO) << "Median error : " << errorMedian;
+
+            medianIt = errorSort.begin();
+            if (nbEdges % 4 == 0 || nbEdges % 4 == 1)
+            {
+                std::advance(medianIt, nbEdges/4 - 1);
+                errorQuartile = (*medianIt);
+                ++it;
+                errorQuartile += (*medianIt);
+                errorQuartile /= 2;
+            }
+            else
+            {
+                std::advance(medianIt, nbEdges/4);
+                errorQuartile = (*medianIt);
+            }
+            LOG(logINFO) << "Quartile error : " << errorQuartile;
+
+            std::ofstream file("Error_distrib.txt", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(file, "Error while opening error distribution file.");
+            for (uint i = 0; i < NBMAX_STEP; i++)
+            {
+               file << step * (i + 1) << " " << errorArray[i] << std::endl;
+            }
+            file.close();
+
+            Scalar errorFirstCluster;
+            int k = 0;
+            int nbError = errorArray[k];
+            int nbErrorNext = errorArray[k+1];
+            if (nbError <= nbErrorNext)
+            {
+                do
+                {
+                    nbError = errorArray[k];
+                    nbErrorNext = errorArray[k+1];
+                } while (nbError <= nbErrorNext && k < NBMAX_STEP - 1);
+                if (k < NBMAX_STEP - 1)
+                {
+                    do
+                    {
+                        k++;
+                        nbError = errorArray[k];
+                        nbErrorNext = errorArray[k+1];
+                    } while (nbError >= nbErrorNext && k < NBMAX_STEP - 1);
+                }
+            }
+            else
+            {
+                do
+                {
+                    k++;
+                    nbError = errorArray[k];
+                    nbErrorNext = errorArray[k+1];
+                } while (nbError >= nbErrorNext && k < NBMAX_STEP - 1);
+            }
+            errorFirstCluster = step * (k + 1);
+            LOG(logINFO) << "Error first cluster : " << errorFirstCluster;
+
+            m_lambda = (errorFirstCluster / errorQuartile - 1) / std::pow(m_broader_threshold, 2);
+            LOG(logINFO) << "Alpha : " << m_lambda;
+        }
+
+        int MeshContactManager::getAlpha()
+        {
+            return (int)m_lambda;
+        }
+
         void MeshContactManager::setLodValueChanged(int value)
         {
             if (m_nbfaces < value)
