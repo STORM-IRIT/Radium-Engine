@@ -83,7 +83,7 @@ namespace Ra
 //            m_index = idx;
 //        }
 
-        inline PriorityQueue::PriorityQueueContainer PriorityQueue::getPriorityQueueContainer()
+        inline const PriorityQueue::PriorityQueueContainer &PriorityQueue::getPriorityQueueContainer() const
         {
             return m_priority_queue;
         }

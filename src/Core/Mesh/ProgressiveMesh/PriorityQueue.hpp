@@ -129,7 +129,7 @@ namespace Ra
 //            int getIndex();
 //            void setIndex(int idx);
 
-            PriorityQueueContainer getPriorityQueueContainer();
+            const PriorityQueueContainer& getPriorityQueueContainer() const;
 
 
         private:
