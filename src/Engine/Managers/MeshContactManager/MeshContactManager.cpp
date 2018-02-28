@@ -309,6 +309,45 @@ namespace Ra
             }
         }
 
+        void MeshContactManager::computeAABB()
+        {
+            for (auto& obj : m_meshContactElements)
+            {
+                Super4PCS::AABB3D aabb = Super4PCS::AABB3D();
+                Ra::Core::VectorArray<Ra::Core::Vector3> vertices = obj->getInitTriangleMesh().m_vertices;
+                for (auto& v: vertices)
+                {
+                    aabb.extendTo(v);
+                }
+                m_aabb.push_back(aabb);
+            }
+        }
+
+        void MeshContactManager::proximityPairs()
+        {
+            m_proximityPairs.setZero();
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                for (uint j = i + 1; j < m_meshContactElements.size(); j++)
+                {
+                    //if (intersectionAABB(m_aabb[i],m_aabb[j]))
+                    if (m_aabb[i].intersection(m_aabb[j]))
+                    {
+                        m_proximityPairs(i,j) = 1;
+                        m_proximityPairs(j,i) = 1;
+                    }
+                }
+            }
+
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                for (uint j = i + 1; j < m_meshContactElements.size(); j++)
+                {
+                    LOG(logINFO) << i + 1 << " and " << j + 1 << " proximity : " << m_proximityPairs(i,j);
+                }
+            }
+        }
+
         // Data to be loaded next time around
         void MeshContactManager::distanceAsymmetryDistribution()
         {
@@ -322,11 +361,7 @@ namespace Ra
                 MeshContactElement* obj1 = m_meshContactElements[i];
                 Ra::Core::VectorArray<Ra::Core::Triangle> t1 = obj1->getInitTriangleMesh().m_triangles;
                 Ra::Core::VectorArray<Ra::Core::Vector3> v1 = obj1->getInitTriangleMesh().m_vertices;
-//                Super4PCS::AABB3D aabb1 = Super4PCS::AABB3D();
-//                for (uint a = 0; a < v1.size(); a++)
-//                {
-//                    aabb1.extendTo(v1[a]);
-//                }
+
 
                 std::vector<std::vector<std::pair<Ra::Core::Index,Scalar> > > obj1_distances;
 
@@ -335,19 +370,8 @@ namespace Ra
 
                     std::vector<std::pair<Ra::Core::Index,Scalar> > distances;
 
-                    if (j != i)
+                    if (m_proximityPairs(i,j))
                     {
-//                        MeshContactElement* obj2 = m_meshContactElements[j];
-//                        Ra::Core::VectorArray<Ra::Core::Vector3> v2 = obj2->getInitTriangleMesh().m_vertices;
-//                        Super4PCS::AABB3D aabb2 = Super4PCS::AABB3D();
-//                        for (uint b = 0; b < v2.size(); b++)
-//                        {
-//                            aabb2.extendTo(v2[b]);
-//                        }
-
-//                        // intersection between the 2 bboxes to see if it's worth doing the following
-//                        if (aabb1.intersection(aabb2))
-//                        {
 
                             // for each face of an object, we find the closest face in the other object
                             for (uint k = 0; k < t1.size(); k++)
@@ -394,7 +418,7 @@ namespace Ra
                     {
                         std::vector<std::pair<Ra::Core::Index,Scalar> > distances;
 
-                        if (j != i)
+                        if (m_proximityPairs(i,j))
                         {
                             for (uint k = 0; k < nbFaces; k++)
                             {
@@ -424,7 +448,7 @@ namespace Ra
 
                 for (uint j = 0; j < m_meshContactElements.size(); j++)
                 {
-                    if (j != i)
+                    if (m_proximityPairs(i,j))
                     {
                         for (uint k = 0; k < nbFaces; k++)
                         {
@@ -1720,23 +1744,26 @@ namespace Ra
 
         void MeshContactManager::setComputeR()
         {
+            computeAABB();
+            proximityPairs();
+
             distanceAsymmetryDistribution();
             LOG(logINFO) << "Distance asymmetry distributions computed.";
         }
 
         void MeshContactManager::setComputeDistribution()
         {
-            Super4PCS::AABB3D aabb = Super4PCS::AABB3D();
-            for (auto& elem : m_meshContactElements)
-            {
-                Ra::Core::VectorArray<Ra::Core::Vector3> v = elem->getInitTriangleMesh().m_vertices;
-                for (auto& vertex : v)
-                {
-                    aabb.extendTo(vertex);
-                }
-            }
+//            Super4PCS::AABB3D aabb = Super4PCS::AABB3D();
+//            for (auto& elem : m_meshContactElements)
+//            {
+//                Ra::Core::VectorArray<Ra::Core::Vector3> v = elem->getInitTriangleMesh().m_vertices;
+//                for (auto& vertex : v)
+//                {
+//                    aabb.extendTo(vertex);
+//                }
+//            }
 
-            LOG(logINFO) << "Scene AABB diagonal : " << aabb.diagonal();
+//            LOG(logINFO) << "Scene AABB diagonal : " << aabb.diagonal();
 
             distanceAsymmetryFile2();
             computeFacesArea();
@@ -1748,6 +1775,9 @@ namespace Ra
 
         void MeshContactManager::setLoadDistribution(std::string filePath)
         {
+            computeAABB();
+            proximityPairs();
+
             loadDistribution(filePath);
             LOG(logINFO) << "Distance asymmetry distributions loaded.";
         }

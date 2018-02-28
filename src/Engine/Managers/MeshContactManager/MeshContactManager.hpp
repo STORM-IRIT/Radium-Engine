@@ -81,6 +81,8 @@ namespace Ra
             void computeThresholdTest();
             void distanceDistribution();
             void compareDistanceDistribution();
+            void computeAABB();
+            void proximityPairs();
             void distanceAsymmetryDistribution();
             void loadDistribution(std::string filePath);
             void sortDistAsymm();
@@ -132,6 +134,8 @@ namespace Ra
             Scalar m_n; // slope of the weight function for contacts
 
             Eigen::Matrix<Scalar, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_thresholds; // thresholds for each pair of objects
+            std::vector<Super4PCS::AABB3D> m_aabb;
+            Eigen::Matrix<int, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_proximityPairs;
             std::vector<std::vector<std::vector<std::pair<Ra::Core::Index,Scalar> > > > m_distances; // distances for each pair of objects
             std::vector<std::vector<Scalar> > m_facesArea; // area of the faces of each object
             std::vector<std::vector<Scalar> > m_facesAsymmetry; // asymmetry ponderation of the faces of each object
