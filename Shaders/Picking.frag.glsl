@@ -12,6 +12,7 @@ uniform int objectId;
 
 void main()
 {
+/*
     // dot product between view and normal
     float angle = dot(normalize(in_eye-in_position),normalize(in_normal));
 
@@ -20,6 +21,7 @@ void main()
     {
         discard;
     }
+*/
 
     // set Object ID
     fragId.r = objectId;
