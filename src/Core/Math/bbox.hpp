@@ -111,33 +111,17 @@ public:
     { return (_max - _min)(0); }
 
     inline bool intersection(const AABB<Dim> b)
-    {
-        bool i = false;
-        uint j = 0;
-        while (!i && j < Dim)
+    {       
+        int j = 0;
+        while (j < Dim)
         {
-            if (_max[j] < b.min()[j])
+            if (_max[j] < b.min()[j] || b.max()[j] < _min[j])
             {
-                j++;
+                return false;
             }
-            else
-            {
-                i = true;
-            }
+            j++;
         }
-        uint k = 0;
-        while (!i && j == Dim)
-        {
-            if (b.max()[k] < _min[k])
-            {
-                k++;
-            }
-            else
-            {
-                i = true;
-            }
-        }
-        return i;
+        return true;
     }
 
 protected:
