@@ -38,6 +38,7 @@ namespace Ra
                 Scalar a;
                 Ra::Core::Index faceId;
                 Ra::Core::Index objId;
+                Ra::Core::Index otherObjId;
             };
 
         public:
@@ -108,6 +109,7 @@ namespace Ra
             void colorClusters2();
 
             void topologicalPersistence();
+            void clusterFiltering();
             //int nbClusters();
             void colorClusters3();
 

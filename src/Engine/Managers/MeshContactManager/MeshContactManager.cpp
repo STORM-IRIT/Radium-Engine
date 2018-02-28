@@ -454,6 +454,7 @@ namespace Ra
                         {
                             PtDistrib pt;
                             pt.objId = i;
+                            pt.otherObjId = j;
                             pt.faceId = k;
                             pt.r = m_distances[i][j][k].second;
                             pt.a = abs(m_distances[i][j][k].second - m_distances[j][i][m_distances[i][j][k].first].second);
@@ -1239,6 +1240,94 @@ namespace Ra
             for (uint l = 0; l < m_finalClusters3.size(); l++)
             {
                 LOG(logINFO) << "Cluster " << l + 1 << " : " << m_finalClusters3[l];
+            }
+        }
+
+        void MeshContactManager::clusterFiltering()
+        {
+            Scalar dist = m_finalClusters3[0];
+
+            std::vector<std::pair<int,int> > pairsToRemove;
+
+            DistanceSorting::iterator it;
+            bool proximity;
+
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                for (uint j = i + 1; j < m_meshContactElements.size(); j++)
+                {
+                    if (m_proximityPairs(i,j))
+                    {
+                        it = m_distSort.begin();
+                        proximity = false;
+                        while ((*it).r <= dist && !proximity && it != m_distSort.end())
+                        {
+                            if (((*it).objId == i && (*it).otherObjId == j) || ((*it).objId == j && (*it).otherObjId == i))
+                            {
+                                proximity = true;
+                            }
+                            else
+                            {
+                                ++it;
+                            }
+                        }
+                        if (!proximity)
+                        {
+                            std::pair<int, int> p;
+                            p.first = i;
+                            p.second = j;
+                            pairsToRemove.push_back(p);
+                        }
+                    }
+                }
+            }
+
+            for (auto& pair : pairsToRemove)
+            {
+                int i = 0;
+
+                while (i < m_distrib.size())
+                {
+                    if ((m_distrib[i].objId == pair.first && m_distrib[i].otherObjId == pair.second) || (m_distrib[i].objId == pair.second && m_distrib[i].otherObjId == pair.first))
+                    {
+                        m_distrib.erase(m_distrib.begin() + i);
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            }
+
+            if (pairsToRemove.size() > 0)
+            {
+                m_distSort.clear();
+                m_asymmSort.clear();
+                m_threshold_max = 0;
+                m_asymmetry_max = 0;
+                m_finalDistrib.clear();
+
+                for (auto& pt : m_distrib)
+                {
+                    m_distSort.insert(pt);
+                    m_asymmSort.insert(pt);
+                    if (pt.r > m_threshold_max)
+                    {
+                        m_threshold_max = pt.r;
+                    }
+                    if (pt.a > m_asymmetry_max)
+                    {
+                        m_asymmetry_max = pt.a;
+                    }
+                }
+
+                finalDistanceFile();
+                finalDistribCleaned();
+                if (m_nbclusters_compute > m_finalDistribCleaned.size() / 2 + 1)
+                {
+                    m_nbclusters_compute = m_finalDistribCleaned.size() / 2 + 1;
+                }
+                topologicalPersistence();
             }
         }
 
@@ -2127,6 +2216,8 @@ namespace Ra
                 m_nbclusters_compute = m_finalDistribCleaned.size() / 2 + 1;
             }
             topologicalPersistence();
+
+            //clusterFiltering();
         }
 
         void MeshContactManager::setDisplayClusters()
