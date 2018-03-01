@@ -318,20 +318,40 @@ namespace Ra
                 for (auto& v: vertices)
                 {
                     aabb.extendTo(v);
+                    m_aabb_scene.extendTo(v);
                 }
                 m_aabb.push_back(aabb);
             }
+
+            LOG(logINFO) << "Scene AABB diagonal : " << m_aabb_scene.diagonal();
+        }
+
+        bool MeshContactManager::intersectionAABB(int id1, int id2)
+        {
+            int i = 0;
+
+            Scalar epsilon = m_aabb_scene.diagonal() / 1000;
+
+            while (i < 3)
+            {
+                if (m_aabb[id1].max()[i] + epsilon < m_aabb[id2].min()[i] || m_aabb[id2].max()[i] + epsilon < m_aabb[id1].min()[i])
+                {
+                    return false;
+                }
+                i++;
+            }
+            return true;
         }
 
         void MeshContactManager::proximityPairs()
         {
             m_proximityPairs.setZero();
+
             for (uint i = 0; i < m_meshContactElements.size(); i++)
             {
                 for (uint j = i + 1; j < m_meshContactElements.size(); j++)
                 {
-                    //if (intersectionAABB(m_aabb[i],m_aabb[j]))
-                    if (m_aabb[i].intersection(m_aabb[j]))
+                    if (intersectionAABB(i,j))
                     {
                         m_proximityPairs(i,j) = 1;
                         m_proximityPairs(j,i) = 1;
@@ -1842,24 +1862,11 @@ namespace Ra
 
         void MeshContactManager::setComputeDistribution()
         {
-//            Super4PCS::AABB3D aabb = Super4PCS::AABB3D();
-//            for (auto& elem : m_meshContactElements)
-//            {
-//                Ra::Core::VectorArray<Ra::Core::Vector3> v = elem->getInitTriangleMesh().m_vertices;
-//                for (auto& vertex : v)
-//                {
-//                    aabb.extendTo(vertex);
-//                }
-//            }
-
-//            LOG(logINFO) << "Scene AABB diagonal : " << aabb.diagonal();
-
             distanceAsymmetryFile2();
             computeFacesArea();
             weightedDistanceFile();
             computeFacesAsymmetry();
             finalDistanceFile();
-
         }
 
         void MeshContactManager::setLoadDistribution(std::string filePath)
