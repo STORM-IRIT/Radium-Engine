@@ -344,7 +344,7 @@ namespace Ra
                 m_gizmoManager->handleMouseMoveEvent(event);
             }
             m_currentRenderer->setMousePosition(Ra::Core::Vector2(event->x(), event->y()));
-            if ( (int(event->buttons()) | event->modifiers()) == Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
+            if ( (int(event->buttons()) | int(event->modifiers())) == Gui::KeyMappingManager::getInstance()->getKeyFromAction( Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
             {
                 // Check picking
                 Engine::Renderer::PickingQuery query  = { Core::Vector2(event->x(), (height() - event->y())),
