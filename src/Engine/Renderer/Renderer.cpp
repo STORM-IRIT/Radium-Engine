@@ -345,9 +345,11 @@ namespace Ra {
                         pickingShaders[i]->setUniform( "objectId", id );
 
                         Core::Matrix4 M = ro->getTransformAsMatrix();
+                        Core::Matrix4 N = M.inverse().transpose();
                         pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
                         pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
                         pickingShaders[i]->setUniform( "transform.model", M );
+                        pickingShaders[i]->setUniform( "transform.worldNormal", N );
 
                         ro->getRenderTechnique()->getMaterial()->bind( pickingShaders[i] );
 
@@ -419,10 +421,12 @@ namespace Ra {
                         S( 0, 0 ) = S( 1, 1 ) = S( 2, 2 ) = d;
 
                         M = M * S;
+                        Core::Matrix4 N = M.inverse().transpose();
 
                         m_pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
                         m_pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
                         m_pickingShaders[i]->setUniform( "transform.model", M );
+                        m_pickingShaders[i]->setUniform( "transform.worldNormal", N );
 
                         ro->getRenderTechnique()->getMaterial()->bind( m_pickingShaders[i] );
 
