@@ -4,6 +4,7 @@
 
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Math/ColorPresets.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
 #include <Engine/Entity/Entity.hpp>

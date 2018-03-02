@@ -1,24 +1,20 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
-#include <Core/Containers/MakeShared.hpp>
-#include <Core/File/GeometryData.hpp>
-#include <Core/Geometry/Normal/Normal.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
+#include <Engine/RadiumEngine.hpp>
 
 #include <Engine/Component/Component.hpp>
-#include <Engine/Entity/Entity.hpp>
-#include <Engine/Renderer/Material/Material.hpp>
-#include <Engine/Renderer/Texture/Texture.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+
+// STRANGE : only needed to access to the entity and its transform for components --> refactor component to give this directly ?
+#include <Engine/Entity/Entity.hpp>
+
+
+// STRANGE : only needed to acces the RenderData struct --> put it in its own header ?
+#include <Engine/Renderer/Renderer.hpp>
 
 namespace Ra {
     namespace Engine {

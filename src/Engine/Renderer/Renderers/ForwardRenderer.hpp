@@ -1,10 +1,12 @@
 #ifndef RADIUMENGINE_FORWARDRENDERER_HPP
 #define RADIUMENGINE_FORWARDRENDERER_HPP
 
-#include <globjects/Framebuffer.h>
-
-#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
+
+
+namespace globjects {
+  class Framebuffer;
+}
 
 namespace Ra
 {
@@ -18,25 +20,25 @@ namespace Ra
 {
     namespace Engine
     {
-        class RA_ENGINE_API ForwardRenderer : public Renderer
+        class RA_ENGINE_API ForwardRenderer final : public Renderer
         {
         public:
             ForwardRenderer();
-            virtual ~ForwardRenderer();
+            ~ForwardRenderer();
             
-            virtual std::string getRendererName() const override { return "Forward Renderer"; }
+            std::string getRendererName() const override { return "Forward Renderer"; }
             
         protected:
             
-            virtual void initializeInternal() override;
-            virtual void resizeInternal() override;
+            void initializeInternal() override;
+            void resizeInternal() override;
             
-            virtual void updateStepInternal( const RenderData& renderData ) override;
+            void updateStepInternal( const RenderData& renderData ) override;
             
-            virtual void postProcessInternal( const RenderData& renderData ) override;
-            virtual void renderInternal( const RenderData& renderData ) override;
-            virtual void debugInternal( const RenderData& renderData ) override;
-            virtual void uiInternal( const RenderData& renderData ) override;
+            void postProcessInternal( const RenderData& renderData ) override;
+            void renderInternal( const RenderData& renderData ) override;
+            void debugInternal( const RenderData& renderData ) override;
+            void uiInternal( const RenderData& renderData ) override;
             
         private:
             void initShaders();

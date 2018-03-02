@@ -23,7 +23,7 @@ namespace Ra
 {
     namespace Engine
     {
-        class RA_ENGINE_API RenderParameters
+        class RA_ENGINE_API RenderParameters final
         {
         public:
             class Parameter
@@ -31,52 +31,56 @@ namespace Ra
             public:
                 Parameter() = default;
                 Parameter( const char* name ) : m_name( name ) {}
+                virtual ~Parameter() = default;
                 virtual void bind(const ShaderProgram* shader ) const = 0;
                 
                 const char* m_name;
             };
 
             template <typename T>
-            class TParameter : public Parameter
+            class TParameter final : public Parameter
             {
             public:
                 TParameter() = default;
                 TParameter( const char* name, const T& value )
                     : Parameter( name ), m_value( value ) {}
-                virtual void bind(const ShaderProgram* shader ) const override;
+                ~TParameter() = default;
+                void bind(const ShaderProgram* shader ) const override;
 
                 T m_value;
             };
 
-            class TextureParameter : public Parameter
+            class TextureParameter final : public Parameter
             {
             public:
                 TextureParameter() = default;
                 TextureParameter( const char* name, Texture* tex, int texUnit )
                     : Parameter( name ), m_texture( tex ), m_texUnit( texUnit ) {}
-                virtual void bind( const ShaderProgram* shader ) const override;
+                ~TextureParameter() = default;
+                void bind( const ShaderProgram* shader ) const override;
 
                 Texture* m_texture;
                 int m_texUnit;
             };
 
-            template <typename T> class UniformBindableVector : public std::map<std::string, T, std::less<std::string>, Core::AlignedAllocator<std::pair<const std::string, T>, RA_DEFAULT_ALIGN> >
+            template <typename T>
+            class UniformBindableVector final : public std::map<std::string, T, std::less<std::string>, Core::AlignedAllocator<std::pair<const std::string, T>, RA_DEFAULT_ALIGN> >
             {
             public:
                 void bind(const ShaderProgram* shader ) const;
             };
 
-            typedef TParameter<int>    IntParameter;
-            typedef TParameter<uint>   UIntParameter;
-            typedef TParameter<Scalar> ScalarParameter;
+            using IntParameter      = TParameter<int>;
+            using UIntParameter     = TParameter<uint>;
+            using ScalarParameter   = TParameter<Scalar>;
 
-            typedef TParameter<Core::Vector2> Vec2Parameter;
-            typedef TParameter<Core::Vector3> Vec3Parameter;
-            typedef TParameter<Core::Vector4> Vec4Parameter;
+            using Vec2Parameter     = TParameter<Core::Vector2>;
+            using Vec3Parameter     = TParameter<Core::Vector3>;
+            using Vec4Parameter     = TParameter<Core::Vector4>;
 
-            typedef TParameter<Core::Matrix2> Mat2Parameter;
-            typedef TParameter<Core::Matrix3> Mat3Parameter;
-            typedef TParameter<Core::Matrix4> Mat4Parameter;
+            using Mat2Parameter     = TParameter<Core::Matrix2>;
+            using Mat3Parameter     = TParameter<Core::Matrix3>;
+            using Mat4Parameter     = TParameter<Core::Matrix4>;
 
         public:
             void addParameter( const char* name, int    value );

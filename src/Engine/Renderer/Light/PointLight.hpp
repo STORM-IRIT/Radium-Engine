@@ -9,7 +9,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_ENGINE_API PointLight : public Light
+        class RA_ENGINE_API PointLight final : public Light
         {
         public:
             struct Attenuation
@@ -25,11 +25,11 @@ namespace Ra
             RA_CORE_ALIGNED_NEW
 
             PointLight();
-            virtual ~PointLight();
+            ~PointLight();
 
-            virtual void getRenderParameters( RenderParameters& params ) override;
+            void getRenderParameters( RenderParameters& params ) override;
 
-            virtual void setPosition( const Core::Vector3& pos ) override;
+            void setPosition( const Core::Vector3& pos ) override;
             inline const Core::Vector3& getPosition() const;
 
             inline void setAttenuation( const Attenuation& attenuation );

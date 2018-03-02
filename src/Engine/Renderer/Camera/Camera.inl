@@ -1,4 +1,3 @@
-#include <Engine/Renderer/Camera/Camera.hpp>
 
 namespace Ra
 {

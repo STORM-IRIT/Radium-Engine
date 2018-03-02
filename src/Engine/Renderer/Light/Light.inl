@@ -1,5 +1,3 @@
-#include <Engine/Renderer/Light/Light.hpp>
-
 namespace Ra
 {
 

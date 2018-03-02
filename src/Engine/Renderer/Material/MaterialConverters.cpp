@@ -1,9 +1,11 @@
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 
-#include <Engine/Renderer/Material/Material.hpp>
+#include <Core/File/MaterialData.hpp>
+
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 
 #include <map>
+
 ///////////////////////////////////////////////
 ////        Material converter system       ///
 ///////////////////////////////////////////////

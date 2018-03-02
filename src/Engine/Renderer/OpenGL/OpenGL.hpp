@@ -7,8 +7,6 @@
 /// GL_CHECK_ERROR : queries the last openGL error in debug (no effect in release)
 /// glFlushError() : Ignores the previous openGL errors (no effect in release).
 
-//#include <Engine/RaEngine.hpp>
-#include <Core/Log/Log.hpp>
 
 #include <glbinding/gl45core/gl.h>
 using namespace gl45core;
@@ -49,6 +47,7 @@ inline const char* glErrorString(GLenum err)
 }
 
 #ifdef _DEBUG
+#include <Core/Log/Log.hpp>
 #define GL_ASSERT(x) \
     x; { \
         GLenum err = glGetError(); \

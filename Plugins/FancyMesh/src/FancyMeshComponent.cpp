@@ -10,6 +10,7 @@
 #include <Core/File/FileData.hpp>
 #include <Core/File/GeometryData.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Math/ColorPresets.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>

@@ -16,7 +16,7 @@ namespace Ra
         class AnimationData;
         class LightData;
 
-        class RA_CORE_API FileData
+        class RA_CORE_API FileData final
         {
         public:
             /// CONSTRUCTOR

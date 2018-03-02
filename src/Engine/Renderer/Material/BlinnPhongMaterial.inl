@@ -1,5 +1,3 @@
-#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
-
 
 namespace Ra {
   namespace Engine {

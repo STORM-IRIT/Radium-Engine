@@ -25,7 +25,7 @@ namespace Ra {
 namespace Ra {
     namespace Engine {
         
-        class RA_ENGINE_API ShaderProgramManager
+        class RA_ENGINE_API ShaderProgramManager final
         {
             RA_SINGLETON_INTERFACE(ShaderProgramManager);
             

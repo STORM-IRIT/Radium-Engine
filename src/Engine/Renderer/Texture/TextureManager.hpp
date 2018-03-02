@@ -40,11 +40,11 @@ namespace Ra
             void* data = nullptr;
         };
         
-        class RA_ENGINE_API TextureManager
+        class RA_ENGINE_API TextureManager final
         {
             RA_SINGLETON_INTERFACE(TextureManager);
         private:
-            typedef std::pair<std::string, Texture*> TexturePair;
+            using TexturePair = std::pair<std::string, Texture*>;
             
         public:
             TextureData& addTexture( const std::string& name, int width, int height, void* data );

@@ -1,7 +1,5 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 
-#include <iostream>
-
 #include <Core/Math/Math.hpp>
 
 namespace Ra

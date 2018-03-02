@@ -6,18 +6,14 @@
 #include <array>
 #include <vector>
 #include <set>
-#include <map>
 #include <memory>
 #include <mutex>
-#include <thread>
 
 #include <Core/Index/Index.hpp>
 #include <Core/Index/IndexMap.hpp>
-#include <Core/TreeStructures/BVH.hpp>
-#include <Core/Math/Frustum.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
-#include <Engine/Renderer/Renderer.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 
 namespace Ra
 {
@@ -25,7 +21,7 @@ namespace Ra
     {
         class RenderObject;
 
-        class RA_ENGINE_API RenderObjectManager
+        class RA_ENGINE_API RenderObjectManager final
         {
         public:
             RenderObjectManager();
@@ -46,7 +42,7 @@ namespace Ra
              */
             void getRenderObjects( std::vector<std::shared_ptr<RenderObject>>& objectsOut) const;
 
-            void getRenderObjectsByType( const RenderData& renderData, std::vector<std::shared_ptr<RenderObject>>& objectsOut,
+            void getRenderObjectsByType( std::vector<std::shared_ptr<RenderObject>>& objectsOut,
                                          const RenderObjectType& type ) const;
 
             /// Returns true if the index points to a valid render object.

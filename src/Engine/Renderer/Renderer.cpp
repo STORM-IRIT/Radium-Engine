@@ -5,22 +5,18 @@
 #include <iostream>
 
 #include <Core/Log/Log.hpp>
-#include <Core/Math/ColorPresets.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
+
+
 #include <Core/Mesh/MeshPrimitives.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
+
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+
 #include <Engine/Renderer/Material/Material.hpp>
-#include <Engine/Renderer/Light/Light.hpp>
-#include <Engine/Renderer/Light/DirLight.hpp>
-#include <Engine/Renderer/Light/PointLight.hpp>
-#include <Engine/Renderer/Light/SpotLight.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
@@ -230,9 +226,9 @@ namespace Ra {
             m_uiRenderObjects.clear();
             m_xrayRenderObjects.clear();
 
-            m_roMgr->getRenderObjectsByType( renderData, m_fancyRenderObjects, RenderObjectType::Fancy );
-            m_roMgr->getRenderObjectsByType( renderData, m_debugRenderObjects, RenderObjectType::Debug );
-            m_roMgr->getRenderObjectsByType( renderData, m_uiRenderObjects,    RenderObjectType::UI );
+            m_roMgr->getRenderObjectsByType( m_fancyRenderObjects, RenderObjectType::Fancy );
+            m_roMgr->getRenderObjectsByType( m_debugRenderObjects, RenderObjectType::Debug );
+            m_roMgr->getRenderObjectsByType( m_uiRenderObjects,    RenderObjectType::UI );
 
             for ( auto it = m_fancyRenderObjects.begin(); it != m_fancyRenderObjects.end(); )
             {

@@ -8,7 +8,7 @@
 #include <globjects/base/File.h>
 #include <globjects/base/StaticStringSource.h>
 
-#include <fstream>
+//#include <fstream>
 #include <regex>
 
 #ifdef OS_WINDOWS
@@ -20,6 +20,10 @@
 #endif
 
 #include <Core/Math/GlmAdapters.hpp>
+
+#ifdef OS_MACOS
+#include <Core/Log/Log.hpp>
+#endif
 
 #include <Engine/Renderer/Texture/Texture.hpp>
 

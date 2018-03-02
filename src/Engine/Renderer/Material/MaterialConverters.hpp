@@ -3,7 +3,6 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <Core/File/MaterialData.hpp>
 
 #include <functional>
 #include <string>
@@ -11,6 +10,9 @@
 namespace Ra {
   namespace Engine {
     class Material;
+  }
+  namespace Asset {
+    class MaterialData;
   }
 }
 
@@ -35,7 +37,7 @@ namespace Ra {
     ////        Radium Material converters      ///
     ///////////////////////////////////////////////
 
-    class RA_ENGINE_API MaterialConverter
+    class RA_ENGINE_API MaterialConverter final
     {
     public:
         MaterialConverter() = default;
@@ -44,7 +46,7 @@ namespace Ra {
         Material *operator()(const Ra::Asset::MaterialData *toconvert);
     };
 
-    class RA_ENGINE_API BlinnPhongMaterialConverter
+    class RA_ENGINE_API BlinnPhongMaterialConverter final
     {
     public:
         BlinnPhongMaterialConverter() = default;

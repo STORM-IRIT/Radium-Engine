@@ -3,13 +3,10 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <vector>
 #include <array>
-#include <map>
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
-
 
 
 namespace Ra
@@ -31,7 +28,7 @@ namespace Ra
         /// It stores the vertex attributes, indices, and can be rendered
         /// with a specific render mode (e.g. GL_TRIANGLES or GL_LINES).
         /// It maintains the attributes and keeps them in sync with the GPU.
-        class RA_ENGINE_API Mesh
+        class RA_ENGINE_API Mesh final
         {
         public:
             /// List of all possible vertex attributes.

@@ -25,6 +25,7 @@ namespace Ra
         namespace DrawPrimitives
         {
             using MeshPtr = std::shared_ptr<Mesh>;
+
             RA_ENGINE_API RenderObject* Primitive(Component* comp,
                                                   const MeshPtr& mesh);
 
@@ -126,7 +127,7 @@ namespace Ra
             RA_ENGINE_API MeshPtr AABB(const Core::Aabb& aabb,
                                        const Core::Color& color);
 
-            /// Display a wireframe OBB, given an AABB and a transform
+            /// Display a wireframe OBB
             RA_ENGINE_API MeshPtr OBB(const Core::Obb& obb,
                                       const Core::Color& color);
 

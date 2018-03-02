@@ -12,10 +12,10 @@ namespace Ra
         // Wrapping the highest resolution time measuring.
         namespace Timer
         {
-            typedef long                                MicroSeconds;
-            typedef Scalar                              Seconds;
-            typedef std::chrono::high_resolution_clock  Clock;
-            typedef std::chrono::time_point<Clock>      TimePoint;
+            using MicroSeconds  = long;
+            using Seconds       = Scalar;
+            using Clock         = std::chrono::high_resolution_clock;
+            using TimePoint     = std::chrono::time_point<Clock>;
 
             inline MicroSeconds getIntervalMicro( const TimePoint& start, const TimePoint& end )
             {

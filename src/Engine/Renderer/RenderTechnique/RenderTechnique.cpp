@@ -1,12 +1,9 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-
-#include <Core/Log/Log.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
-
-#include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
+
+#include <Core/Log/Log.hpp>
 
 
 namespace Ra {

@@ -3,17 +3,15 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <set>
-#include <string>
-#include <array>
-#include <list>
-#include <memory>
-
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
+
+#include <string>
+#include <array>
+#include <memory>
 
 namespace globjects
 {
@@ -29,12 +27,12 @@ namespace Ra
     {
         class Texture;
 
-        class RA_ENGINE_API ShaderProgram
+        class RA_ENGINE_API ShaderProgram final
         {
         public:
             ShaderProgram();
             explicit ShaderProgram( const ShaderConfiguration& shaderConfig );
-            virtual ~ShaderProgram();
+            ~ShaderProgram();
 
             void load( const ShaderConfiguration& shaderConfig );
             void reload();
