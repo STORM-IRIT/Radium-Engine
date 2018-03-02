@@ -1,4 +1,3 @@
-#include <Engine/Renderer/Light/SpotLight.hpp>
 
 namespace Ra
 {
@@ -58,11 +57,11 @@ namespace Ra
         m_attenuation = attenuation;
     }
 
-    inline void Engine::SpotLight::setAttenuation( Scalar c, Scalar l, Scalar q )
+    inline void Engine::SpotLight::setAttenuation( Scalar constant, Scalar linear, Scalar quadratic )
     {
-        m_attenuation.constant = c;
-        m_attenuation.linear = l;
-        m_attenuation.quadratic = q;
+        m_attenuation.constant = constant;
+        m_attenuation.linear = linear;
+        m_attenuation.quadratic = quadratic;
     }
 
     inline const Engine::SpotLight::Attenuation& Engine::SpotLight::getAttenuation() const

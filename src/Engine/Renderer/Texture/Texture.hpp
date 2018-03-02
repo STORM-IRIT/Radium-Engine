@@ -6,7 +6,6 @@
 #include <string>
 #include <memory>
 
-#include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
 namespace globjects
@@ -18,7 +17,7 @@ namespace Ra
 {
     namespace Engine
     {
-        class RA_ENGINE_API Texture
+        class RA_ENGINE_API Texture final
         {
         public:
             GLenum target           = GL_TEXTURE_2D;

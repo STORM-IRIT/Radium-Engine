@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_VECTOR_HPP
 #define RADIUMENGINE_VECTOR_HPP
 
-/// This file contains typedefs and basic vector classes and functions
+/// This file contains definitions of aliases for basic vector classes and functions
 
 #include <Core/RaCore.hpp>
 
@@ -24,87 +24,87 @@ namespace Ra
         //
         // Common vector types
         //
-        typedef Eigen::Matrix< Scalar, Eigen::Dynamic, 1 > VectorN;
-        typedef Eigen::VectorXf                            VectorNf;
-        typedef Eigen::VectorXd                            VectorNd;
+        using VectorN       = Eigen::Matrix< Scalar, Eigen::Dynamic, 1 >;
+        using VectorNf      = Eigen::VectorXf;
+        using VectorNd      = Eigen::VectorXd;
 
-        typedef Eigen::Matrix<Scalar, 4, 1> Vector4;
-        typedef Eigen::Vector4f             Vector4f;
-        typedef Eigen::Vector4d             Vector4d;
+        using Vector4       = Eigen::Matrix<Scalar, 4, 1>;
+        using Vector4f      = Eigen::Vector4f;
+        using Vector4d      = Eigen::Vector4d;
 
 #ifndef CORE_USE_ALIGNED_VEC3
-        typedef Eigen::Matrix<Scalar, 3, 1> Vector3;
-        typedef Eigen::Vector3f             Vector3f;
-        typedef Eigen::Vector3d             Vector3d;
+        using Vector3       = Eigen::Matrix<Scalar, 3, 1>;
+        using Vector3f      = Eigen::Vector3f;
+        using Vector3d      = Eigen::Vector3d;
 #else
-        typedef Eigen::AlignedVector3<Scalar> Vector3;
-        typedef Eigen::AlignedVector3<float> Vector3f;
-        typedef Eigen::AlignedVector3<double> Vector3d;
+        using Vector3       = Eigen::AlignedVector3<Scalar>;
+        using Vector3f      = Eigen::AlignedVector3<float>;
+        using Vector3d      = Eigen::AlignedVector3<double>;
 #endif
 
-        typedef Eigen::Matrix<Scalar, 2, 1> Vector2;
-        typedef Eigen::Vector2f             Vector2f;
-        typedef Eigen::Vector2d             Vector2d;
+        using Vector2       = Eigen::Matrix<Scalar, 2, 1>;
+        using Vector2f      = Eigen::Vector2f;
+        using Vector2d      = Eigen::Vector2d;
 
-        typedef Eigen::VectorXi VectorNi;
-        typedef Eigen::Vector2i Vector2i;
-        typedef Eigen::Vector3i Vector3i;
-        typedef Eigen::Vector4i Vector4i;
+        using VectorNi      = Eigen::VectorXi;
+        using Vector2i      = Eigen::Vector2i;
+        using Vector3i      = Eigen::Vector3i ;
+        using Vector4i      = Eigen::Vector4i;
 
 
-        typedef Eigen::Matrix<uint, Eigen::Dynamic, 1> VectorNui;
-        typedef Eigen::Matrix<uint, 2, 1>              Vector2ui;
-        typedef Eigen::Matrix<uint, 3, 1>              Vector3ui;
-        typedef Eigen::Matrix<uint, 4, 1>              Vector4ui;
+        using VectorNui     = Eigen::Matrix<uint, Eigen::Dynamic, 1>;
+        using Vector2ui     = Eigen::Matrix<uint, 2, 1>;
+        using Vector3ui     = Eigen::Matrix<uint, 3, 1>;
+        using Vector4ui     = Eigen::Matrix<uint, 4, 1>;
 
         //
         // Common matrix types
         //
 
-        typedef Eigen::Matrix< Scalar, Eigen::Dynamic, Eigen::Dynamic > MatrixN;
-        typedef Eigen::Matrix<Scalar, 4, 4> Matrix4;
-        typedef Eigen::Matrix<Scalar, 3, 3> Matrix3;
-        typedef Eigen::Matrix<Scalar, 2, 2> Matrix2;
+        using MatrixN       = Eigen::Matrix< Scalar, Eigen::Dynamic, Eigen::Dynamic >;
+        using Matrix4       = Eigen::Matrix<Scalar, 4, 4>;
+        using Matrix3       = Eigen::Matrix<Scalar, 3, 3>;
+        using Matrix2       = Eigen::Matrix<Scalar, 2, 2>;
 
-        typedef Eigen::MatrixXf MatrixNf;
-        typedef Eigen::Matrix4f Matrix4f;
-        typedef Eigen::Matrix3f Matrix3f;
-        typedef Eigen::Matrix2f Matrix2f;
+        using MatrixNf      = Eigen::MatrixXf;
+        using Matrix4f      = Eigen::Matrix4f;
+        using Matrix3f      = Eigen::Matrix3f;
+        using Matrix2f      = Eigen::Matrix2f;
 
-        typedef Eigen::MatrixXd MatrixNd;
-        typedef Eigen::Matrix4d Matrix4d;
-        typedef Eigen::Matrix3d Matrix3d;
-        typedef Eigen::Matrix2d Matrix2d;
+        using MatrixNd      = Eigen::MatrixXd;
+        using Matrix4d      = Eigen::Matrix4d;
+        using Matrix3d      = Eigen::Matrix3d;
+        using Matrix2d      = Eigen::Matrix2d;
 
-        typedef Eigen::Matrix< uint, Eigen::Dynamic, Eigen::Dynamic > MatrixNui;
+        using MatrixNui     = Eigen::Matrix< uint, Eigen::Dynamic, Eigen::Dynamic >;
 
         //typedef Eigen::DiagonalMatrix< Scalar, Eigen::Dynamic > Diagonal;
-        typedef Eigen::SparseMatrix< Scalar > Diagonal; // Not optimized for Diagonal matrices, but the operations between Sparse and Diagonal are not defined
-        typedef Eigen::SparseMatrix< Scalar > Sparse;
+        using Diagonal      = Eigen::SparseMatrix< Scalar >; // Not optimized for Diagonal matrices, but the operations between Sparse and Diagonal are not defined
+        using Sparse        = Eigen::SparseMatrix< Scalar >;
 
         //
         // Transforms and rotations
         //
 
-        typedef Eigen::Quaternion<Scalar> Quaternion;
-        typedef Eigen::Quaternionf        Quaternionf;
-        typedef Eigen::Quaterniond        Quaterniond;
+        using Quaternion    = Eigen::Quaternion<Scalar>;
+        using Quaternionf   = Eigen::Quaternionf;
+        using Quaterniond   = Eigen::Quaterniond;
 
-        typedef Eigen::Transform<Scalar, 3, Eigen::Affine> Transform;
-        typedef Eigen::Affine3f                            Transformf;
-        typedef Eigen::Affine3d                            Transformd;
+        using Transform     = Eigen::Transform<Scalar, 3, Eigen::Affine>;
+        using Transformf    = Eigen::Affine3f;
+        using Transformd    = Eigen::Affine3d;
 
-        typedef Eigen::AlignedBox<Scalar, 3> Aabb;
-        typedef Eigen::AlignedBox3f          Aabbf;
-        typedef Eigen::AlignedBox3d          Aabbd;
+        using Aabb          = Eigen::AlignedBox<Scalar, 3>;
+        using Aabbf         = Eigen::AlignedBox3f;
+        using Aabbd         = Eigen::AlignedBox3d;
 
-        typedef Eigen::AngleAxis<Scalar> AngleAxis;
-        typedef Eigen::AngleAxisf        AngleAxisf;
-        typedef Eigen::AngleAxisd        AngleAxisd;
+        using AngleAxis     = Eigen::AngleAxis<Scalar>;
+        using AngleAxisf    = Eigen::AngleAxisf;
+        using AngleAxisd    = Eigen::AngleAxisd;
 
-        typedef Eigen::Translation<Scalar, 3> Translation;
-        typedef Eigen::Translation3f         Translationf;
-        typedef Eigen::Translation3d         Translationd;
+        using Translation   = Eigen::Translation<Scalar, 3>;
+        using Translationf  = Eigen::Translation3f;
+        using Translationd  = Eigen::Translation3d;
 
         inline void print( const MatrixN& matrix );
 
@@ -112,18 +112,18 @@ namespace Ra
         // Geometry types
         //
 
-        typedef Eigen::ParametrizedLine< Scalar, 2 > Line2;
-        typedef Eigen::ParametrizedLine< Scalar, 3 > Line3;
-        typedef Eigen::Hyperplane< Scalar, 3 >       Plane3;
+        using Line2         = Eigen::ParametrizedLine< Scalar, 2 >;
+        using Line3         = Eigen::ParametrizedLine< Scalar, 3 >;
+        using Plane3        = Eigen::Hyperplane< Scalar, 3 >;
 
         // Todo : storage transform using quaternions ?
 
         //
         // Misc types
         //
-        typedef Vector4  Color;
-        typedef Vector4f Colorf;
-        typedef Vector4d Colord;
+        using  Color        = Vector4;
+        using Colorf        = Vector4f ;
+        using Colord        = Vector4d;
 
         //
         // Vector Functions

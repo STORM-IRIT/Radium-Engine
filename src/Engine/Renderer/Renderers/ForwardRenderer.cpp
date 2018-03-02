@@ -1,35 +1,21 @@
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
-#include <iostream>
-
-#include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
-#include <Core/Containers/Algorithm.hpp>
-#include <Core/Containers/MakeShared.hpp>
+#include <Core/Log/Log.hpp>
 
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/Renderers/DebugRender.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-//#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
+#include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
-#include <Engine/Renderer/Light/DirLight.hpp>
-#include <Engine/Renderer/Light/PointLight.hpp>
-#include <Engine/Renderer/Light/SpotLight.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/Texture/TextureManager.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
-#include <Engine/Renderer/Renderers/DebugRender.hpp>
 
 #include <globjects/Framebuffer.h>
-// Only for debug purpose, not needed here
-#include <globjects/Program.h>
+
 
 //#define NO_TRANSPARENCY
 namespace Ra {

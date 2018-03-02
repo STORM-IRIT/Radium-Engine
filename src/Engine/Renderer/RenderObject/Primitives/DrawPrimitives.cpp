@@ -5,12 +5,10 @@
 #include <Core/Mesh/MeshPrimitives.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
-#include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 
 namespace Ra {

@@ -94,8 +94,7 @@ namespace Ra
             }
         }
 
-        void RenderObjectManager::getRenderObjectsByType( const RenderData& renderData,
-                                                          std::vector<std::shared_ptr<RenderObject>>& objectsOut,
+        void RenderObjectManager::getRenderObjectsByType( std::vector<std::shared_ptr<RenderObject>>& objectsOut,
                                                           const RenderObjectType& type ) const
         {
             // Take the mutex

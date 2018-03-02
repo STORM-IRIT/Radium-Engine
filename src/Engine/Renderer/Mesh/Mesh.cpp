@@ -2,9 +2,8 @@
 
 #include <numeric>
 
-#include <Core/Mesh/MeshUtils.hpp>
-#include <Core/Mesh/HalfEdge.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
+
 namespace Ra {
     namespace Engine {
 

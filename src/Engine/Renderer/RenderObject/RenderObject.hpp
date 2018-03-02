@@ -17,13 +17,11 @@ namespace Ra
 {
     namespace Engine
     {
-        class Light;
         class Component;
         class Mesh;
-        class RenderQueue;
         class Material;
         class RenderParameters;
-        class ShaderProgram;
+        struct RenderData;
     }
 }
 
@@ -32,10 +30,8 @@ namespace Ra
     namespace Engine
     {
         
-        struct RenderData;
-        
         // FIXME(Charly): Does this need a bit of cleanup ?
-        class RA_ENGINE_API RenderObject : public Core::IndexedObject
+        class RA_ENGINE_API RenderObject final : public Core::IndexedObject
         {
         public:
             RA_CORE_ALIGNED_NEW
@@ -129,8 +125,7 @@ namespace Ra
             /// Does nothing if lifetime is set to -1
             void hasBeenRenderedOnce();
             void hasExpired();
-            
-            //            virtual void render( const RenderParameters& lightParams, const RenderData& rdata, const ShaderProgram* altShader = nullptr );
+
             virtual void render( const RenderParameters& lightParams, const RenderData& rdata, RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE );
             
         private:

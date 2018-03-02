@@ -58,7 +58,7 @@ namespace Ra
         class RA_ENGINE_API Renderer
         {
         protected:
-            typedef std::shared_ptr<RenderObject> RenderObjectPtr;
+            using RenderObjectPtr = std::shared_ptr<RenderObject>;
 
         public:
             struct TimerData

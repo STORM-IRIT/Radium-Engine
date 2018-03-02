@@ -1,10 +1,8 @@
 #include <Engine/Renderer/Texture/TextureManager.hpp>
-
-#include <cstdio>
+#include <Engine/Renderer/Texture/Texture.hpp>
 
 #include <Core/Image/stb_image.h>
 #include <Core/Log/Log.hpp>
-#include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra
 {
@@ -58,7 +56,6 @@ namespace Ra
             {
                 case 1:
                 {
-                    LOG(logINFO) << filename << " GL_R";
                     format = GL_RED;
                     internal_format = GL_R8;
                 } break;

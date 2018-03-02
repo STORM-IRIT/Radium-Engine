@@ -11,7 +11,7 @@ namespace Ra
     namespace Engine
     {
 
-        class RA_ENGINE_API SpotLight : public Light
+        class RA_ENGINE_API SpotLight final: public Light
         {
         public:
             struct Attenuation
@@ -27,14 +27,14 @@ namespace Ra
             RA_CORE_ALIGNED_NEW
 
             SpotLight();
-            virtual ~SpotLight();
+            ~SpotLight();
 
-            virtual void getRenderParameters( RenderParameters& params ) override;
+            void getRenderParameters( RenderParameters& params ) override;
 
-            virtual void setPosition( const Core::Vector3& position ) override;
+            void setPosition( const Core::Vector3& position ) override;
             inline const Core::Vector3& getPosition() const;
 
-            virtual void setDirection( const Core::Vector3& direction ) override;
+            void setDirection( const Core::Vector3& direction ) override;
             inline const Core::Vector3& getDirection() const;
 
             inline void setInnerAngleInRadians( Scalar angle );

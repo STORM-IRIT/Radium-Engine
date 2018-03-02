@@ -3,10 +3,6 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <mutex>
-#include <thread>
-
-#include <Core/Math/Math.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Math/Ray.hpp>
 
@@ -15,7 +11,7 @@ namespace Ra
 namespace Engine
 {
 // The class Camera defines a camera in 3D space with
-class RA_ENGINE_API Camera
+class RA_ENGINE_API Camera final
 {
 public:
     /// Define the projection type.

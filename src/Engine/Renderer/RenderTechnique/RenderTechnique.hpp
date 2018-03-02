@@ -75,7 +75,8 @@ namespace Ra {
          *
          *   TODO : Default rendertechnique must be renderer dependant ...
          */
-        class RA_ENGINE_API RenderTechnique
+        /* FIXME : for the moment, this class is final. We need to discuss on how to make it non final and extensible. */
+        class RA_ENGINE_API RenderTechnique final
         {
         public:
             enum PassName

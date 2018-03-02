@@ -8,6 +8,7 @@
 
 #include <Engine/Renderer/Material/Material.hpp>
 
+// just needed for struct TextureData
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
 namespace Ra {
@@ -15,7 +16,7 @@ namespace Ra {
     class Texture;
     class ShaderProgram;
 
-    class RA_ENGINE_API BlinnPhongMaterial : public Material
+    class RA_ENGINE_API BlinnPhongMaterial final : public Material
     {
     public:
         enum class TextureType
