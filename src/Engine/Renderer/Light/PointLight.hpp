@@ -24,7 +24,7 @@ namespace Ra
         public:
             RA_CORE_ALIGNED_NEW
 
-            PointLight();
+            PointLight( const std::string& name = "pointlight" );
             virtual ~PointLight();
 
             virtual void getRenderParameters( RenderParameters& params ) override;
@@ -35,6 +35,8 @@ namespace Ra
             inline void setAttenuation( const Attenuation& attenuation );
             inline void setAttenuation( Scalar constant, Scalar linear, Scalar quadratic );
             inline const Attenuation& getAttenuation() const;
+
+            std::string getShaderInclude() const;
 
         private:
             Core::Vector3 m_position;

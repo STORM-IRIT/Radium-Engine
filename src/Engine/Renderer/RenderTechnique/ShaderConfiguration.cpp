@@ -155,12 +155,12 @@ namespace Ra
         ShaderConfiguration ShaderConfiguration::m_defaultShaderConfig("DefaultShader", defaultVertexShader, defaultFragmentShader);
         
         ShaderConfiguration::ShaderConfiguration(const std::string& name)
-        : m_name(name)
+        : m_name(name), m_version("#version 410")
         {
         }
         
         ShaderConfiguration::ShaderConfiguration(const std::string& name, const std::string& vertexShader, const std::string& fragmentShader)
-        : m_name(name)
+        : m_name(name), m_version("#version 410")
         {
             m_shaders[ShaderType_VERTEX] = vertexShader;
             m_shaders[ShaderType_FRAGMENT] = fragmentShader;
@@ -171,22 +171,41 @@ namespace Ra
             m_shaders[type] = name;
         }
         
-        void ShaderConfiguration::addProperty( const std::string& prop )
+        void ShaderConfiguration::addProperty(const std::string& prop )
         {
-            m_properties.insert( prop );
+            m_properties.insert( "#define " + prop );
         }
         
         void ShaderConfiguration::addProperties( const std::list<std::string>& props )
         {
             for ( const auto& prop : props )
             {
-                m_properties.insert( prop );
+                m_properties.insert( "#define " + prop );
             }
         }
         
         void ShaderConfiguration::removeProperty( const std::string& prop )
         {
-            m_properties.erase( prop );
+            m_properties.erase( "#define " + prop );
+        }
+
+        void ShaderConfiguration::addInclude(const std::string& incl, ShaderType type )
+        {
+            m_includes.emplace_back( "#include " + incl, type );
+        }
+
+        void ShaderConfiguration::addIncludes(const std::list<std::string>& incls, ShaderType type )
+        {
+            for ( const auto& incl : incls )
+            {
+                m_includes.emplace_back( "#include " + incl, type );
+            }
+        }
+
+        void ShaderConfiguration::removeInclude(const std::string& incl, ShaderType type)
+        {
+            // TODO (Hugo)
+            //m_properties.erase( "#include " + prop );
         }
         
         bool ShaderConfiguration::isComplete() const
@@ -196,7 +215,7 @@ namespace Ra
         
         bool ShaderConfiguration::operator< (const ShaderConfiguration& o) const
         {
-            bool res;
+            bool res = false;
             
             for (size_t i = 0; i < ShaderType_COUNT; ++i)
             {
@@ -207,10 +226,32 @@ namespace Ra
             }
             
             if ( m_properties.size() == o.m_properties.size() )
-            {
+            {   
                 if ( m_properties.size() == 0 )
                 {
-                    res = false;
+                    if ( m_includes.size() == o.m_includes.size() )
+                    {
+                        if ( m_includes.size() == 0 )
+                        {
+                            res = false;
+                        }
+                        else
+                        {
+                            auto lit = m_includes.begin();
+                            auto rit = o.m_includes.begin();
+
+                            for ( ; ( lit != m_includes.end() ) && ( *lit == *rit ); ++lit, ++rit );
+
+                            if ( lit == m_includes.end() )
+                            {
+                                res = false;
+                            }
+                            else
+                            {
+                                res = *lit < *rit;
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -242,7 +283,11 @@ namespace Ra
         {
             return m_properties;
         }
-        
+
+        const std::vector< std::pair<std::string, ShaderType> >& ShaderConfiguration::getIncludes() const
+        {
+            return m_includes;
+        }
         
     }
 } // namespace Ra

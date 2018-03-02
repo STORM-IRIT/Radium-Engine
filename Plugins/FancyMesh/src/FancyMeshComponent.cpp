@@ -56,7 +56,7 @@ namespace FancyMeshPlugin
         displayMesh->loadGeometry( mesh );
 
         auto renderObject = Ra::Engine::RenderObject::createRenderObject(name, this, Ra::Engine::RenderObjectType::Fancy, displayMesh);
-        addRenderObject(renderObject);
+        m_meshIndex = addRenderObject(renderObject);
     }
 
     void FancyMeshComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )

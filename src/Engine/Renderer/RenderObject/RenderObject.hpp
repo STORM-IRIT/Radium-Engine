@@ -130,9 +130,9 @@ namespace Ra
             void hasBeenRenderedOnce();
             void hasExpired();
             
-            //            virtual void render( const RenderParameters& lightParams, const RenderData& rdata, const ShaderProgram* altShader = nullptr );
+            virtual void render( const RenderParameters& lightParams, const RenderData& rdata, const ShaderProgram* shader);
             virtual void render( const RenderParameters& lightParams, const RenderData& rdata, RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE );
-            
+
         private:
             Core::Transform m_localTransform;
 

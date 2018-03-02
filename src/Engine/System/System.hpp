@@ -76,9 +76,9 @@ namespace Ra
             /**
              * Factory method for component creation from file data.
              * Given a given file and the corresponding entity, the system will create the
-             * corresponding components ,add them to the entity.
+             * corresponding components, add them to the entity.
              */
-            virtual void handleAssetLoading( Entity* entity, const Asset::FileData* data) {}
+            virtual void handleAssetLoading( Entity* entity, const Asset::FileData* data ) {}
 
         protected:
             /// List of active components.

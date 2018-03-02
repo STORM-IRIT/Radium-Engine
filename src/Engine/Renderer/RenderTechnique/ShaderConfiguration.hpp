@@ -4,6 +4,7 @@
 #include <Engine/RaEngine.hpp>
 
 #include <set>
+#include <vector>
 #include <string>
 #include <array>
 #include <list>
@@ -48,7 +49,7 @@ namespace Ra
         class RA_ENGINE_API ShaderConfiguration
         {
             friend class ShaderProgram;
-            
+
         public:
             ShaderConfiguration() = default;
             /// Initializes a shader configuration with a name
@@ -65,11 +66,17 @@ namespace Ra
             // Add a shader given its type
             void addShader(ShaderType type, const std::string& name);
             
-            /// Will be processed as a #define prop
+            /// Add a property in the form of a #define
             /// The same shader files with different properties leads to different shader programs
             void addProperty(const std::string& prop);
-            void addProperties(const std::list<std::string>& props );
+            void addProperties(const std::list<std::string>& props);
             void removeProperty(const std::string& prop);
+
+            /// Add a property in the form of an #include
+            /// The same shader files with different properties leads to different shader programs
+            void addInclude(const std::string& incl, ShaderType type = ShaderType_FRAGMENT);
+            void addIncludes(const std::list<std::string>& incls, ShaderType type = ShaderType_FRAGMENT);
+            void removeInclude(const std::string& incl, ShaderType type = ShaderType_FRAGMENT);
             
             /// Tell if a shader configuration has at least a vertex and a fragment shader, or a compute shader.
             bool isComplete() const;
@@ -77,6 +84,8 @@ namespace Ra
             bool operator< (const ShaderConfiguration& other) const;
             
             std::set<std::string> getProperties() const;
+
+            const std::vector< std::pair<std::string, ShaderType> >& getIncludes() const;
             
             // get default shader configuration
             static ShaderConfiguration getDefaultShaderConfig() { return m_defaultShaderConfig; }
@@ -84,9 +93,14 @@ namespace Ra
         public:
             std::string m_name;
             
+            std::string m_version;
+
         private:
             std::array<std::string, ShaderType_COUNT> m_shaders;
+
             std::set<std::string> m_properties;
+
+            std::vector< std::pair<std::string, ShaderType> > m_includes;
             
             static ShaderConfiguration m_defaultShaderConfig;
         };

@@ -260,24 +260,19 @@ namespace Ra {
             m_component->notifyRenderObjectExpired(idx);
         }
         
-        //       void RenderObject::render( const RenderParameters& lightParams, const RenderData& rdata, const ShaderProgram* altShader )
-        void RenderObject::render(const RenderParameters &lightParams,
-                                  const RenderData &rdata,
-                                  RenderTechnique::PassName passname)
-        {
-            
+        void RenderObject::render(const RenderParameters& lightParams,
+                                   const RenderData& rdata,
+                                   const ShaderProgram* shader ) {
             if (m_visible)
             {
-                const ShaderProgram *shader = getRenderTechnique()->getShader(passname);
-                
                 if (!shader)
                 {
                     return;
                 }
-                
+
                 Core::Matrix4 M = getTransformAsMatrix();
                 Core::Matrix4 N = M.inverse().transpose();
-                
+
                 // bind data
                 shader->bind();
                 shader->setUniform("transform.proj", rdata.projMatrix);
@@ -285,12 +280,21 @@ namespace Ra {
                 shader->setUniform("transform.model", M);
                 shader->setUniform("transform.worldNormal", N);
                 lightParams.bind(shader);
-                
+
+                // FIXME (Hugo) The simplest now, but not the expected behaviour.
+                //renderTechnique.getMaterial()->bind(shader);
                 getRenderTechnique()->getMaterial()->bind(shader);
-                
+
                 // render
                 getMesh()->render();
             }
+        }
+
+        void RenderObject::render(const RenderParameters &lightParams,
+                                  const RenderData &rdata,
+                                  RenderTechnique::PassName passname)
+        {
+            render(lightParams, rdata, getRenderTechnique()->getShader(passname));
         }
         
     } // namespace Engine

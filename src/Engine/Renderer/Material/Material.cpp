@@ -17,6 +17,12 @@ namespace Ra {
     {
         return m_type == MaterialType::MAT_TRANSPARENT;
     }
+
+    const std::string Material::getShaderInclude() const
+    {
+        return std::string("");
+    }
+
   }
 }
 
