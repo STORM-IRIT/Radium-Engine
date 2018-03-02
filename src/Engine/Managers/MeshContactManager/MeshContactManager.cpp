@@ -762,7 +762,11 @@ namespace Ra
                 dist = m_distrib[i].r;
                 area = m_facesArea[m_distrib[i].objId][m_distrib[i].faceId];
 
-                int slot = std::floor(dist / step) - 1;
+                int slot = std::floor(dist / step);
+                if (slot == NBMAX_STEP)
+                {
+                    slot--;
+                }
                 areas[slot] = areas[slot] + area;
             }
 
@@ -771,7 +775,8 @@ namespace Ra
 
             for (uint i = 0; i < NBMAX_STEP; i++)
             {
-                file << ((2 * i + 1) * step) / 2 << " " << areas[i] << std::endl;
+                //file << ((2 * i + 1) * step) / 2 << " " << areas[i] << std::endl;
+                file << (i + 1) * step << " " << areas[i] << std::endl;
             }
 
             file.close();
@@ -850,7 +855,11 @@ namespace Ra
                     asymm = std::pow(1 - std::pow((asymm / m_asymmetry_median),2),2); // weight function for anisotropy
                 }
 
-                int slot = std::floor(dist / step) - 1;
+                int slot = std::floor(dist / step);
+                if (slot == NBMAX_STEP)
+                {
+                    slot--;
+                }
                 areas[slot] = areas[slot] + area * asymm;
             }
 
@@ -862,12 +871,14 @@ namespace Ra
 
             for (uint i = 0; i < NBMAX_STEP; i++)
             {
-                file << ((2 * i + 1) * step) / 2 << " " << areas[i] << std::endl;
+                //file << ((2 * i + 1) * step) / 2 << " " << areas[i] << std::endl;
+                file << (i + 1) * step << " " << areas[i] << std::endl;
 
 //                if (areas[i] != 0)
 //                {
                     std::pair<Scalar,Scalar> p;
-                    p.first = ((2 * i + 1) * step) / 2;
+                    //p.first = ((2 * i + 1) * step) / 2;
+                    p.first = (i + 1) * step;
                     p.second = areas[i];
                     m_finalDistrib.push_back(p);
 //                }
@@ -2410,7 +2421,7 @@ namespace Ra
             {
                 colors.push_back(vertexColor);
             }
-            Ra::Core::Vector4 contactColor (0, 0, 1.0f, 0);
+            Ra::Core::Vector4 contactColor (1, 0, 0, 0);
 
 #pragma omp parallel for
             for (unsigned int i = 0; i < numTriangles; i++)
@@ -2563,7 +2574,7 @@ namespace Ra
             Scalar depth2 = aabb2.depth();
 
             Scalar max = std::max(std::max(std::max(std::max(std::max(width2, depth2), height2), depth1), width1), height1);
-            LOG(logINFO) << max << std::endl;
+            LOG(logINFO) << "Max : " << max << std::endl;
 
             std::string s;
             Scalar value;
