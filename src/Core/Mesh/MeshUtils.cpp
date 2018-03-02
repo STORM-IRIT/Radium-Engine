@@ -209,7 +209,7 @@ namespace Ra
 
             /// Return the mean edge length of the given triangle mesh
             Scalar getMeanEdgeLength( const TriangleMesh& mesh ) {
-                typedef std::pair< uint, uint > Key;
+                using Key = std::pair< uint, uint >;
                 std::set< Key > list;
                 const uint size = mesh.m_triangles.size();
                 uint   edgeSize   = 0;

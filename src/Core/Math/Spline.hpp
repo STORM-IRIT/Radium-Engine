@@ -28,7 +28,7 @@ namespace Ra
                 OPEN_UNIFORM ///< Connected to the first and last control points
             };
 
-            typedef typename Eigen::Matrix<Scalar, D, 1> Vector;
+            using Vector = typename Eigen::Matrix<Scalar, D, 1>;
         public:
             /// Type of the nodal vector
             /// @param k : order of the spline (minimum is two)

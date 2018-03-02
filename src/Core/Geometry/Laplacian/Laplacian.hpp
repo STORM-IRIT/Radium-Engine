@@ -39,7 +39,7 @@ namespace Geometry {
 // Defining the LaplacianMatrix as the sparse matrix such that:
 //      L = f( D, A )
 // where f( D, A ) is a function taking in input a DegreeMatrix and an AdjacencyMatrix
-typedef Sparse LaplacianMatrix;
+using LaplacianMatrix = Sparse;
 
 
 

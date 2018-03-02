@@ -12,10 +12,10 @@ namespace Geometry {
 
 
 // Typedef
-typedef Scalar MeanCurvature;
-typedef Scalar GaussianCurvature;
-typedef Scalar MaximumCurvature;
-typedef Scalar MinimumCurvature;
+using MeanCurvature = Scalar;
+using GaussianCurvature =  Scalar;
+using MaximumCurvature = Scalar;
+using MinimumCurvature = Scalar;
 
 
 

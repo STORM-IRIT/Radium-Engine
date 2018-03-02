@@ -20,7 +20,7 @@ namespace Geometry {
 //    A( i, j ) = area(Pi) , if i == j
 //    A( i, j ) = 0        , if i != j
 // where Pi is the i-th point of the mesh.
-typedef Diagonal AreaMatrix;
+using AreaMatrix = Diagonal;
 
 
 /*

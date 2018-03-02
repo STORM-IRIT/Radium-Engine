@@ -84,10 +84,9 @@ namespace Ra
                 }
             };
 
-            typedef std::unordered_set<
-                    std::pair<uint,uint>,
-                    EdgeHash,
-                    EdgeEqual> EdgeTable;
+            using EdgeTable = std::unordered_set< std::pair<uint,uint>,
+                                                  EdgeHash,
+                                                  EdgeEqual>;
 
             std::vector<Ra::Core::Vector2ui> getEdges(const TriangleMesh& mesh)
             {

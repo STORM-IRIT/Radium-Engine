@@ -11,7 +11,7 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-typedef AlignedStdVector< DualQuaternion > DQList;
+using DQList = AlignedStdVector< DualQuaternion >;
 
 /*
 * computeDQ computes the dual quaternions from a given pose and a given set of skinning weights.

@@ -239,20 +239,20 @@
 
 
 // ----------------------------------------------------------------------------
-// Useful typedefs
+// Useful aliases
 // ----------------------------------------------------------------------------
 
-typedef unsigned char   uchar;
-typedef unsigned short  ushort;
-typedef unsigned int    uint;
-typedef unsigned long   ulong;
+using uchar  = unsigned char;
+using ushort = unsigned short;
+using uint   =  unsigned int;
+using ulong  = unsigned long;
 
 // Use this to use double precision for all maths
 // #define CORE_USE_DOUBLE
 #ifndef CORE_USE_DOUBLE
-typedef float Scalar;
+using Scalar = float;
 #else
-typedef double Scalar;
+using Scalar = double;
 #endif
 
 // ----------------------------------------------------------------------------
@@ -349,7 +349,7 @@ MACRO_END
 // own risk...
 
 #if defined(COMPILER_GCC)
-// Triggered by the typedef in static assert.
+// Triggered by the alias in static assert.
     #pragma GCC diagnostic ignored "-Wunused-local-typedefs"
 #endif
 #if defined(COMPILER_MSVC)

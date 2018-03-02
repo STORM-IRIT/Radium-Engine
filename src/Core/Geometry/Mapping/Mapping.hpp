@@ -61,7 +61,7 @@ protected:
     Index   m_id;
 };
 
-typedef AlignedStdVector< Mapping > Parametrization;
+using Parametrization = AlignedStdVector< Mapping >;
 
 } // namespace Geometry
 } // namespace Core

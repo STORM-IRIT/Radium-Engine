@@ -11,9 +11,9 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-typedef Vector1Array        Dv;
-typedef Vector3Array        BoneProjection;
-typedef std::vector< uint > MaxWeightID;    // Array containing the ID of the bone influencing the most a vertex
+using Dv                = Vector1Array;
+using BoneProjection    = Vector3Array;
+using MaxWeightID       = std::vector< uint >;    // Array containing the ID of the bone influencing the most a vertex
 
 struct BulgeCorrectionData {
     BulgeCorrectionData();

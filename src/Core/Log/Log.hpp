@@ -129,7 +129,7 @@ inline void Output2FILE::Output( const std::string& msg )
 }
 
 class FILELog : public Log<Output2FILE> {};
-//typedef Log<Output2FILE> FILELog;
+//using FILELog = Log<Output2FILE>;
 
 #ifndef FILELOG_MAX_LEVEL
 #ifdef CORE_DEBUG

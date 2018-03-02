@@ -9,13 +9,13 @@ namespace Core {
 namespace Algorithm {
 
 // Defining a vector containing true for the indices different than 0
-typedef std::vector< bool > BitSet;
+using BitSet = std::vector< bool >;
 
 // Defining a vector containing the indices of the sources
-typedef std::vector< uint >  Source;
+using Source =  std::vector< uint >;
 
 // Defining the vector containing the value of the sources
-typedef Sparse Delta;
+using Delta = Sparse;
 
 
 

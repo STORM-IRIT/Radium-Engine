@@ -16,15 +16,15 @@ namespace Core {
     // Attributes define data store on structure.
     struct TopologicalMeshTraits : public OpenMesh::DefaultTraits
     {
-        typedef OpenMesh::VectorT<Scalar, 3> Point;
-        typedef OpenMesh::VectorT<Scalar, 3> Normal;
+        using Point = OpenMesh::VectorT<Scalar, 3>;
+        using Normal = OpenMesh::VectorT<Scalar, 3>;
 
         VertexAttributes(OpenMesh::Attributes::Status | OpenMesh::Attributes::Normal);
         FaceAttributes(OpenMesh::Attributes::Status | OpenMesh::Attributes::Normal);
         EdgeAttributes(OpenMesh::Attributes::Status);
         HalfedgeAttributes(OpenMesh::Attributes::Status| OpenMesh::Attributes::Normal);
     };
-    typedef OpenMesh::TriMesh_ArrayKernelT<TopologicalMeshTraits> RA_CORE_API TopologicalMesh;
+    using TopologicalMesh = OpenMesh::TriMesh_ArrayKernelT<TopologicalMeshTraits> RA_CORE_API;
 
     inline Eigen::Map<const Vector3> convertVec3OpenMeshToEigen(const TopologicalMesh::Point &vec)
     {

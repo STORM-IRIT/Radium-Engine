@@ -10,7 +10,7 @@ namespace Ra
     namespace Core
     {
         /// A structure representing a ray in space with an origin and a direction.
-        typedef Eigen::ParametrizedLine<Scalar,3> Ray;
+        using Ray = Eigen::ParametrizedLine<Scalar,3>;
         inline Ray transformRay(const Ray& r, const Core::Transform& t)
         {
             return Ray( t * r.origin(), t.linear() * r.direction() );

@@ -20,21 +20,21 @@ namespace Core
     template<typename Vector_>
     inline Vector_ Vector::floor( const Vector_& v )
     {
-        typedef typename Vector_::Scalar Scalar_;
+        using  Scalar_ = typename Vector_::Scalar;
         return v.unaryExpr( std::function<Scalar_( Scalar_ )> ( static_cast<Scalar_( & )( Scalar_ )> ( std::floor ) ) );
     }
 
     template<typename Vector_>
     inline Vector_ Vector::ceil( const Vector_& v )
     {
-        typedef typename Vector_::Scalar Scalar_;
+        using  Scalar_ = typename Vector_::Scalar;
         return v.unaryExpr( std::function<Scalar_( Scalar_ )> ( static_cast<Scalar_( & )( Scalar_ )> ( std::ceil ) ) );
     }
 
     template<typename Vector_>
     inline Vector_ Vector::trunc( const Vector_& v )
     {
-        typedef typename Vector_::Scalar Scalar_;
+        using Scalar_ = typename Vector_::Scalar;
         return v.unaryExpr( std::function<Scalar_( Scalar_ )> ( static_cast<Scalar_( & )( Scalar_ )> ( std::trunc) ) );
     }
 

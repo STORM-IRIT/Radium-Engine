@@ -9,7 +9,7 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-typedef std::pair<Scalar, Pose> KeyPose;
+using KeyPose = std::pair<Scalar, Pose>;
 
 class RA_CORE_API Animation
 {

@@ -14,14 +14,14 @@ namespace Core {
 namespace Algorithm {
 
 // Defining a vector containing the indices of the heat sources
-typedef Source HeatSource;
+using HeatSource = Source;
 
 // Defining the time the heat is allowed to travel through the surface
-typedef Scalar Time;
+using Time = Scalar;
 
 // Defining the vector containing the heat value of each point of the surface
-typedef VectorArray< Scalar > Heat;
-//typedef Eigen::Matrix< Scalar, Eigen::Dynamic, 1 > Heat;
+using Heat = VectorArray< Scalar >;
+//using  Heat = Eigen::Matrix< Scalar, Eigen::Dynamic, 1 >;
 
 
 

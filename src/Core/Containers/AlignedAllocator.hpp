@@ -27,13 +27,13 @@ namespace Ra
         public:
 
             // The following will be the same for virtually all allocators.
-            typedef T* pointer;
-            typedef const T* const_pointer;
-            typedef T& reference;
-            typedef const T& const_reference;
-            typedef T value_type;
-            typedef std::size_t size_type;
-            typedef ptrdiff_t difference_type;
+            using pointer           = T*;
+            using const_pointer     = const T*;
+            using reference         = T&;
+            using const_reference   = const T&;
+            using value_type        = T;
+            using size_type         = std::size_t;
+            using difference_type   = ptrdiff_t;
 
             T* address( T& r ) const
             {
@@ -57,7 +57,7 @@ namespace Ra
             template <typename U>
             struct rebind
             {
-                typedef AlignedAllocator<U, Alignment> other;
+                using other = AlignedAllocator<U, Alignment>;
             };
 
             bool operator!= ( const AlignedAllocator& other ) const

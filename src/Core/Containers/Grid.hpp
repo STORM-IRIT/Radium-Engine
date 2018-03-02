@@ -25,8 +25,8 @@ namespace Ra
         public:
             // public types and constants.
             static const uint Dimension = D; /// Dimension of our grid
-            typedef Eigen::Matrix<uint, D, 1> IdxVector; /// A vector of the size of the grid along each dimension.
-            typedef Eigen::Matrix< int, D, 1> OffsetVector; /// A vector of signed offsets.
+            using IdxVector     = Eigen::Matrix<uint, D, 1>; /// A vector of the size of the grid along each dimension.
+            using OffsetVector  = Eigen::Matrix< int, D, 1>; /// A vector of signed offsets.
 
             /// This class implements an iterator though elements of the grid that
             /// can be referenced with a linear index or a D-dimensional uint vector.

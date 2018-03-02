@@ -11,13 +11,13 @@ namespace Algorithm {
 
 
 // Defining a ScalarField over the mesh vertices
-typedef Eigen::Matrix< Scalar, Eigen::Dynamic, 1 > ScalarField;
+using ScalarField = Eigen::Matrix< Scalar, Eigen::Dynamic, 1 >;
 
 // Defining the Gradient, over the faces of a mesh, of a ScalarField
-typedef VectorArray< Vector3 > Gradient;
+using Gradient = VectorArray< Vector3 >;
 
 // Defining the Divergence, expressend on the vertices, of a Gradient field, expressed on the faces
-typedef Eigen::Matrix< Scalar, Eigen::Dynamic, 1 > Divergence;
+using Divergence = Eigen::Matrix< Scalar, Eigen::Dynamic, 1 >;
 
 
 

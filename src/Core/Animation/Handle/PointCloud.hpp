@@ -10,10 +10,10 @@ namespace Animation {
 /**
 * The PointCloud Handle class.
 *
-* For now it is just a typedef. Maybe in the future a miracle will happen,
+* For now it is just an alias. Maybe in the future a miracle will happen,
 * PointCloud will grow up, will make friends and will grow a family too.
 */
-typedef Handle PointCloud;
+using PointCloud = Handle;
 
 } // namespace Animation
 } // Namespace Core

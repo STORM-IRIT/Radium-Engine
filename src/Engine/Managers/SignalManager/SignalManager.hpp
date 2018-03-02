@@ -29,8 +29,8 @@ namespace Engine {
 
     public:
         // Callbacks are functions which accept an item entry.
-        typedef std::function<void( const ItemEntry& )> Callback;
-        typedef std::function<void( void )> EoFCallback;
+        using Callback = std::function<void( const ItemEntry& )>;
+        using EoFCallback = std::function<void( void )>;
 
     public:
         SignalManager() : m_isOn( true ) {}
