@@ -78,7 +78,7 @@ namespace Ra
 
         using MatrixNui     = Eigen::Matrix< uint, Eigen::Dynamic, Eigen::Dynamic >;
 
-        //typedef Eigen::DiagonalMatrix< Scalar, Eigen::Dynamic > Diagonal;
+        //using Diagonal = Eigen::DiagonalMatrix< Scalar, Eigen::Dynamic >;
         using Diagonal      = Eigen::SparseMatrix< Scalar >; // Not optimized for Diagonal matrices, but the operations between Sparse and Diagonal are not defined
         using Sparse        = Eigen::SparseMatrix< Scalar >;
 

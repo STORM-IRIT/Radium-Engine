@@ -8,7 +8,7 @@
 namespace Ra {
 namespace Asset {
 
-typedef Scalar Time;
+using Time = Scalar;
 
 class AnimationTime {
 public:

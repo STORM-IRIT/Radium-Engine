@@ -9,7 +9,7 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-typedef std::string Label;
+using Label = std::string;
 
 /**
 * The Handle class describe the base handle structure used for deformation.

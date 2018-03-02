@@ -28,8 +28,8 @@ class TriangleKdTree
 {
 public:
 
-    typedef _Index  Index;
-    typedef std::vector<Index>      IndexList;
+    using Index =  _Index;
+    using IndexList =  std::vector<Index>;
 
     struct KdNode
     {
@@ -47,19 +47,19 @@ public:
 //        };
     };
 
-    //typedef _Scalar Scalar;
-//    typedef _Index  Index;
+    //using Scalar = _Scalar;
+//    using Index = _Index;
 
     static constexpr Index invalidIndex() { return -1; }
 
-    typedef Eigen::Matrix<Scalar,3,1> VectorType;
-    typedef Ra::Core::Triangle Triangle;
-    typedef AABB3D AxisAlignedBoxType;
+    using VectorType            = Eigen::Matrix<Scalar,3,1>;
+    using Triangle              =  Ra::Core::Triangle;
+    using AxisAlignedBoxType    = AABB3D ;
 
-    typedef std::vector<KdNode>     NodeList;
-    typedef std::vector<VectorType> PointList;
-    typedef std::vector<Triangle>   TriangleList;
-//    typedef std::vector<Index>      IndexList;
+    using NodeList              = std::vector<KdNode>;
+    using PointList             = std::vector<VectorType>;
+    using TriangleList          = std::vector<Triangle>;
+//    using IndexList               = std::vector<Index>;
 
     inline const NodeList&      _getNodes      (void) { return mNodes;      }
     inline const PointList&     _getPoints     (void) { return mPoints;     }

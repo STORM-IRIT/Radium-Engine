@@ -48,12 +48,12 @@ namespace Ra
             struct CallbackTypes
             {
                 /// Function pointer for a getter function.
-                typedef std::function<const T*(void)> Getter;
+                using Getter = std::function<const T*(void)>;
                 /// Function pointer for a setter function.
-                typedef std::function<void(const T*)> Setter;
+                using Setter =  std::function<void(const T*)>;
 
                 /// Function pointer for a read/write getter.
-                typedef std::function<T*(void)> ReadWrite;
+                using ReadWrite = std::function<T*(void)>;
 
 
                 /// Calls the callback and retrieves the object
@@ -63,16 +63,16 @@ namespace Ra
             template <typename T>
             struct CallbackTypes<std::shared_ptr<T>>
             {
-                typedef std::function<std::shared_ptr<const T>(void)> Getter;
-                typedef std::function<void(std::shared_ptr<const T>)> Setter;
-                typedef std::function<std::shared_ptr<T>(void)> ReadWrite;
+                using Getter = std::function<std::shared_ptr<const T>(void)>;
+                using Setter = std::function<void(std::shared_ptr<const T>)>;
+                using ReadWrite = std::function<std::shared_ptr<T>(void)>;
 
                 static const std::shared_ptr<const T>& getHelper( const Getter& g) { return (g()); }
             };
 
         private:
             /// Key used to identify entries.
-            typedef std::pair<std::string, std::type_index> Key;
+            using Key = std::pair<std::string, std::type_index>;
 
             // Unfortunately there is no standard hash functions for std::pair.
             // so we have to provide one (which justs xors the two hashes)
@@ -106,7 +106,7 @@ namespace Ra
             };
 
             /// A dictionary of callback entries identified with the key.
-            typedef std::unordered_map<Key, std::unique_ptr<CallbackBase>, HashFunc> CallbackMap;
+            using CallbackMap = std::unordered_map<Key, std::unique_ptr<CallbackBase>, HashFunc>;
 
         public:
             ComponentMessenger() { }

@@ -35,7 +35,7 @@ namespace Ra
         {
         public:
             /// Identifier for a task in the task queue.
-            typedef uint TaskId;
+            using  TaskId = uint;
             enum { InvalidTaskId = TaskId( -1 ) };
 
             /// Record of a task's start and end time.

@@ -32,7 +32,7 @@
 using Ra::Core::TriangleMesh;
 using Ra::Engine::ComponentMessenger;
 
-typedef Ra::Core::VectorArray<Ra::Core::Triangle> TriangleArray;
+using TriangleArray = Ra::Core::VectorArray<Ra::Core::Triangle>;
 
 namespace FancyMeshPlugin
 {

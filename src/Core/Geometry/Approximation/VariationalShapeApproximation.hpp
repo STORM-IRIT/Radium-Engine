@@ -46,29 +46,29 @@ public:
     //////////////////////////////////////////////////////////////////////////////
     // TYPEDEF
     //////////////////////////////////////////////////////////////////////////////
-    typedef TriangleMesh                                Mesh;               ///< Mesh class.
+    using Mesh              = TriangleMesh;             ///< Mesh class.
 
-    typedef Vector3Array                                FaceBarycenter;     ///< Face barycenters.
-    typedef Vector3Array                                FaceNormal;         ///< Face normals.
-    typedef std::vector< Scalar  >                      FaceArea;           ///< Face areas.
-    typedef std::vector< uint    >                      FaceRegion;         ///< Face region IDs.
-    typedef std::vector< bool    >                      FaceVisited;        ///< Dirty bits
-    typedef std::vector< Scalar  >                      FaceValue;          ///< Face value containing the color value.
-    typedef std::vector< std::set< TriangleIdx > >      FaceAdjacency;
+    using FaceBarycenter    = Vector3Array;             ///< Face barycenters.
+    using FaceNormal        = Vector3Array;             ///< Face normals.
+    using FaceArea          = std::vector< Scalar  >;   ///< Face areas.
+    using FaceRegion        = std::vector< uint    >;   ///< Face region IDs.
+    using FaceVisited       = std::vector< bool    >;   ///< Dirty bits
+    using FaceValue         = std::vector< Scalar  >;   ///< Face value containing the color value.
+    using FaceAdjacency     = std::vector< std::set< TriangleIdx > >;
 
-    typedef std::pair< Vector3, Vector3 >               Proxy;              ///< Proxy structure.
-    typedef std::array< Proxy, K >                      ProxyList;          ///< List of proxies.
-    typedef std::vector< TriangleIdx >                  Region;             ///< Region structure.
-    typedef std::array< Region, K >                     RegionList;         ///< List of regions.
-    typedef Scalar                                      Energy;             ///< Energy value.
-    typedef std::pair< TriangleIdx, uint >              Pair;               ///< Triangle-Proxy pair.
-    typedef std::pair< Energy, Pair >                   QueueEntry;         ///< Queue entry. It contains < Energy, <T,P> >.
-    typedef std::vector< QueueEntry >                   QueueEntryList;     ///< List of queue entries.
+    using Proxy             = std::pair< Vector3, Vector3 >;    ///< Proxy structure.
+    using ProxyList         = std::array< Proxy, K >;           ///< List of proxies.
+    using Region            = std::vector< TriangleIdx >;       ///< Region structure.
+    using RegionList        = std::array< Region, K > ;         ///< List of regions.
+    using Energy            = Scalar;                           ///< Energy value.
+    using Pair              = std::pair< TriangleIdx, uint >;   ///< Triangle-Proxy pair.
+    using QueueEntry        = std::pair< Energy, Pair >;        ///< Queue entry. It contains < Energy, <T,P> >.
+    using QueueEntryList    = std::vector< QueueEntry >;        ///< List of queue entries.
 
 
-    typedef std::priority_queue< QueueEntry,
-                                 QueueEntryList,
-                                 std::greater< QueueEntryList::value_type > > PriorityQueue;    ///< Priority queue.
+    using  PriorityQueue    = std::priority_queue< QueueEntry,
+                                    QueueEntryList,
+                                    std::greater< QueueEntryList::value_type > > ;    ///< Priority queue.
 
 
 
@@ -200,8 +200,8 @@ public:
     //////////////////////////////////////////////////////////////////////////////
     // TYPEDEF
     //////////////////////////////////////////////////////////////////////////////
-    //typedef typename VariationalShapeApproximationBase< K_Region >::Triangle Triangle;
-    typedef typename VariationalShapeApproximationBase< K_Region >::Proxy    Proxy;
+    //using Triangle = typename VariationalShapeApproximationBase< K_Region >::Triangle;
+    using  Proxy = typename VariationalShapeApproximationBase< K_Region >::Proxy;
 
 
 
@@ -250,8 +250,8 @@ public:
     //////////////////////////////////////////////////////////////////////////////
     // TYPEDEF
     //////////////////////////////////////////////////////////////////////////////
-    //typedef typename VariationalShapeApproximationBase< K_Region >::Triangle Triangle;
-    typedef typename VariationalShapeApproximationBase< K_Region >::Proxy    Proxy;
+    //using  Triangle = typename VariationalShapeApproximationBase< K_Region >::Triangle;
+    using Proxy =  typename VariationalShapeApproximationBase< K_Region >::Proxy;
 
 
 
@@ -300,8 +300,8 @@ public:
     //////////////////////////////////////////////////////////////////////////////
     // TYPEDEF
     //////////////////////////////////////////////////////////////////////////////
-    //typedef typename VariationalShapeApproximationBase< K_Region >::Triangle Triangle;
-    typedef typename VariationalShapeApproximationBase< K_Region >::Proxy    Proxy;
+    //using  Triangle = typename VariationalShapeApproximationBase< K_Region >::Triangle ;
+    using Proxy = typename VariationalShapeApproximationBase< K_Region >::Proxy;
 
 
 

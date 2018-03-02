@@ -15,7 +15,7 @@ using Ra::Core::Animation::Pose;
 using Ra::Core::Animation::RefPose;
 using Ra::Core::Animation::WeightMatrix;
 
-typedef Ra::Core::Animation::Handle::SpaceType SpaceType;
+using SpaceType = Ra::Core::Animation::Handle::SpaceType;
 
 using Ra::Core::Skinning::RefData;
 using Ra::Core::Skinning::FrameData;
@@ -165,7 +165,7 @@ namespace SkinningPlugin
 
     void SkinningComponent::setupIO( const std::string& id )
     {
-       typedef Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion > DualQuatVector;
+        using DualQuatVector = Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion >;
 
        ComponentMessenger::CallbackTypes<DualQuatVector>::Getter dqOut = std::bind( &SkinningComponent::getDQ, this );
        ComponentMessenger::getInstance()->registerOutput<DualQuatVector>( getEntity(), this, id, dqOut);

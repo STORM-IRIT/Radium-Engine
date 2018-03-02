@@ -15,16 +15,16 @@ namespace Animation {
 /*
 * The Pose is represented just as a vector of Transforms.
 */
-typedef AlignedStdVector< Transform > Pose;
+using Pose = AlignedStdVector< Transform >;
 
 // Typedef for code redability purposes only.
-typedef Pose     RestPose;
-typedef RestPose RefPose;
+using RestPose = Pose;
+using RefPose = RestPose;
 
-typedef Pose LocalPose;
-typedef Pose ModelPose;
+using LocalPose = Pose;
+using ModelPose = Pose;
 
-typedef Pose RelativePose;
+using RelativePose = Pose ;
 
 } // namespace Animation
 } // namespace Core

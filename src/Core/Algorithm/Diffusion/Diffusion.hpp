@@ -14,7 +14,7 @@ namespace Algorithm {
 
 
 // Defining the vector of scalar values over the vertices
-typedef Sparse ScalarValue;
+using ScalarValue = Sparse;
 
 
 

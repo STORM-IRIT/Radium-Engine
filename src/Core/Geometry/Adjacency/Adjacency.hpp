@@ -25,10 +25,10 @@ namespace Geometry {
 //      A( i, j ) = f( i, j ) , if exist the edge from i to j
 //      A( i, j ) = 0         , otherwise
 // where f( i, j ) is a generic function defined over an edge
-typedef Sparse AdjacencyMatrix;
-typedef AdjacencyMatrix VVAdj;
-typedef AdjacencyMatrix VTAdj;
-typedef AdjacencyMatrix TVAdj;
+using AdjacencyMatrix = Sparse;
+using VVAdj = AdjacencyMatrix ;
+using VTAdj = AdjacencyMatrix ;
+using TVAdj = AdjacencyMatrix ;
 
 
 
@@ -89,7 +89,7 @@ RA_CORE_API AdjacencyMatrix cotangentWeightAdjacency( const VectorArray< Vector3
 //      D( i, j ) = sum( A( i ) ) , if i == j
 //      D( i, j ) = 0             , if i != j
 // where A( i ) is the i-th row of a AdjacencyMatrix
-typedef Diagonal DegreeMatrix;
+using DegreeMatrix = Diagonal;
 
 
 
@@ -104,7 +104,7 @@ RA_CORE_API DegreeMatrix adjacencyDegree( const AdjacencyMatrix& A ) ;
 /// ONE RING ///
 ////////////////
 
-//typedef Graph::ChildrenList OneRing;
+//using OneRing = Graph::ChildrenList;
 
 //OneRing vertexOneRing( const uint v, const VectorArray< Triangle >& T );
 

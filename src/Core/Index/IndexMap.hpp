@@ -25,12 +25,12 @@ public:
     // ===============================================================================
     // TYPEDEF
     // ===============================================================================
-    typedef typename std::deque<T>                  Container; /// Where the objects are stored
-    typedef typename std::deque<Index>              IndexContainer; /// Where the indices are stored
+    using Container             = typename std::deque<T>; /// Where the objects are stored
+    using IndexContainer        = typename std::deque<Index>; /// Where the indices are stored
 
-    typedef typename IndexContainer::const_iterator ConstIndexIterator;    /// Const iterator to the list of indices of the IndexMap.
-    typedef typename Container::iterator            Iterator;              /// Iterator to the list of objects of the IndexMap.
-    typedef typename Container::const_iterator      ConstIterator;         /// Const iterator to the list of objects of the IndexMap.
+    using ConstIndexIterator    = typename IndexContainer::const_iterator;/// Const iterator to the list of indices of the IndexMap.
+    using Iterator              = typename Container::iterator; /// Iterator to the list of objects of the IndexMap.
+    using ConstIterator         = typename Container::const_iterator; /// Const iterator to the list of objects of the IndexMap.
 
     // ===============================================================================
     // CONSTRUCTOR

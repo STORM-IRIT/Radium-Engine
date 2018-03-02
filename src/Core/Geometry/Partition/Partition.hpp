@@ -15,19 +15,19 @@ namespace Core {
 namespace Geometry {
 
 // Defining a Index ( useless ), representing the Index of a handle transform
-typedef uint Index;
+using Index = uint;
 
 // Defining the VertexSegment, representing a set of vertices indices of the mesh, hence a segment of the mesh
-typedef std::vector< VertexIdx > VertexSegment;
+using VertexSegment = std::vector< VertexIdx >;
 
 // Defining the TriangleSegment, representing a set of triangles indices of the mesh, hence a segment of the mesh
-typedef std::vector< TriangleIdx > TriangleSegment;
+using TriangleSegment = std::vector< TriangleIdx >;
 
 // Defining a BitSet, where true indicates that the i-th vertex is part of the segment
-typedef std::vector< bool > BitSet;
+using BitSet = std::vector< bool >;
 
 
-typedef std::vector< TriangleMesh > MeshPartition;
+using MeshPartition = std::vector< TriangleMesh >;
 
 
 

@@ -19,10 +19,10 @@ namespace Ra
         {
         public:
             // Type shortcuts
-            typedef V Vector;
-            typedef Eigen::Matrix<Scalar, V::RowsAtCompileTime, Eigen::Dynamic> Matrix;
-            typedef Eigen::Map<Matrix> MatrixMap;
-            typedef Eigen::Map<const Matrix> ConstMatrixMap;
+            using Vector            = V;
+            using Matrix            =  Eigen::Matrix<Scalar, V::RowsAtCompileTime, Eigen::Dynamic>;
+            using MatrixMap         =  Eigen::Map<Matrix>;
+            using ConstMatrixMap    = Eigen::Map<const Matrix>;
 
         public:
             /// Inheriting constructors from std::vector
@@ -51,9 +51,9 @@ namespace Ra
         {
         public:
             // Type shortcuts
-            typedef Eigen::Matrix<Scalar, 1, Eigen::Dynamic> Matrix;
-            typedef Eigen::Map<Matrix> MatrixMap;
-            typedef Eigen::Map<const Matrix> ConstMatrixMap;
+            using Matrix            = Eigen::Matrix<Scalar, 1, Eigen::Dynamic>;
+            using MatrixMap         = Eigen::Map<Matrix>;
+            using ConstMatrixMap    = Eigen::Map<const Matrix>;
 
         public:
             /// Inheriting constructors from std::vector
@@ -75,12 +75,12 @@ namespace Ra
 
         };
 
-        // Convenience typedefs
-        typedef VectorArray<Scalar>    Vector1Array;
-        typedef VectorArray<Vector2>   Vector2Array;
-        typedef VectorArray<Vector3>   Vector3Array;
-        typedef VectorArray<Vector3ui> Vector3uiArray;
-        typedef VectorArray<Vector4>   Vector4Array;
+        // Convenience aliases
+        using Vector1Array      = VectorArray<Scalar>;
+        using Vector2Array      = VectorArray<Vector2>;
+        using Vector3Array      = VectorArray<Vector3>;
+        using Vector3uiArray    = VectorArray<Vector3ui>;
+        using Vector4Array       = VectorArray<Vector4>;
 
         // Notes :
         // Using a map for eigen integration was recommended by [1].

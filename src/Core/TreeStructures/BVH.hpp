@@ -54,9 +54,9 @@ namespace Ra
 
         public:
             // public types and constants.
-            typedef std::shared_ptr<Node> NodePtr;
+            using NodePtr =  std::shared_ptr<Node>;
 
-            typedef Node * Nodep;
+            using Nodep = Node *;
 
         public:
             RA_CORE_ALIGNED_NEW

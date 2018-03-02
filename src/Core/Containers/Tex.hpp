@@ -18,9 +18,9 @@ namespace Ra
 
         public:
             RA_CORE_ALIGNED_NEW
-            typedef typename Grid<T,N>::IdxVector IdxVector;
-            typedef Eigen::Matrix<Scalar, N, 1> Vector;
-            typedef Eigen::AlignedBox<Scalar,N> AabbND;
+            using IdxVector = typename Grid<T,N>::IdxVector;
+            using Vector    = Eigen::Matrix<Scalar, N, 1>;
+            using AabbND    = Eigen::AlignedBox<Scalar,N>;
 
             /// Construct a Tex with the given resolution in the box given by two points.
             Tex( const IdxVector& resolution, const Vector& start, const Vector& end );

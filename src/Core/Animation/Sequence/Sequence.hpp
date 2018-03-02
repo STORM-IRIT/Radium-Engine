@@ -10,8 +10,8 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-typedef Pose                 Frame;
-typedef std::vector< Frame > FrameSet;
+using Frame     = Pose ;
+using FrameSet  = std::vector< Frame >;
 
 
 /**
