@@ -132,6 +132,7 @@ namespace Ra
 
 
             void bindVao();
+            void bindBuffer(std::string name);
             /// This function is called at the start of the rendering. It will update the
             /// necessary openGL buffers.
             void updateGL();

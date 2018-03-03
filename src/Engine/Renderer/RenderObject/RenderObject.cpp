@@ -287,6 +287,7 @@ namespace Ra {
                 GLuint size =  attr->getSize();
                 int stride =  attr->getStride();
                 GL_ASSERT( glVertexAttribPointer( loc, size, type, normalized, stride, (GLvoid*)ptr ) );
+                GL_ASSERT( glEnableVertexAttribArray( loc ) );
             }
         }
     }

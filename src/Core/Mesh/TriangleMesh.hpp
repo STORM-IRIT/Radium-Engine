@@ -57,9 +57,16 @@ class VertexAttribManager{
 public:
     using value_type = VertexAttribBase *;
     using Container = std::vector<value_type>;
+    std::map<std::string, int> m_attribsIndex;
     Container m_attribs;
 
     const Container & attribs() const { return m_attribs; }
+
+    value_type getAttrib(std::string name){
+        auto c = m_attribsIndex.find(name);
+        if(c != m_attribsIndex.end()) return m_attribs[c->second];
+        return nullptr;
+    }
 
     template <typename T>
     inline VertexAttrib<T> &
@@ -87,6 +94,7 @@ public:
         attrib->setName( name );
         m_attribs.push_back(attrib);
         h.m_idx = m_attribs.size()-1;
+        m_attribsIndex[name] = h.m_idx;
     }
 };
 

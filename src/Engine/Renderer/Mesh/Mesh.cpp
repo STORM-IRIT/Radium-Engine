@@ -128,8 +128,15 @@ namespace Ra {
 
         void Mesh::bindVao()
         {
-                        GL_ASSERT( glBindVertexArray( m_vao ) );
+            GL_ASSERT( glBindVertexArray( m_vao ) );
         }
+
+    void Mesh::bindBuffer(std::string name){
+        //Find mesh vertexAttr with that name
+        auto attr = m_mesh->attribManager()->getAttrib(name);
+
+
+    }
 
         // Template parameter must be a Core::VectorNArray
         template< typename VecArray >
