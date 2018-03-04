@@ -556,7 +556,7 @@ void TriangleKdTree<Index>::createTree(unsigned int nodeId, /*IndexList& triangl
     KdNode& node = mNodes[nodeId];
     AxisAlignedBoxType aabb = AxisAlignedBoxType();
 
-    std::cout << "level : " << level << std::endl;
+    //std::cout << "level : " << level << std::endl;
 
     const uint nbTriangles = node.triangleIndices.size();
     const uint nbPoints = 3 * nbTriangles;

@@ -1803,6 +1803,40 @@ namespace Ra
 
             m_lambda = (errorFirstCluster / errorQuartile - 1) / std::pow(m_broader_threshold, 2);
             LOG(logINFO) << "Alpha : " << m_lambda;
+
+            int nbFacesInit = 0;
+            for (auto& obj : m_meshContactElements)
+            {
+                nbFacesInit += obj->getInitTriangleMesh().m_triangles.size();
+            }
+
+            int nbProximityPairs = 0;
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                for (uint j = i + 1; j < m_meshContactElements.size(); j++)
+                {
+                    if (m_proximityPairs(i,j))
+                    {
+                        nbProximityPairs++;
+                    }
+                }
+            }
+
+            std::ofstream file2("Parameters.txt", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(file2, "Error while opening parameters file.");
+            file2 << "Nb objects scene : " << m_meshContactElements.size() << std::endl;
+            file2 << "Nb faces init : " << nbFacesInit << std::endl;
+            file2 << "Nb proximity object pairs : " << nbProximityPairs << std::endl;
+            file2 << "Nb clusters computed : " << m_nbclusters_compute << std::endl;
+            file2 << "Nb clusters selected : " << m_nbclusters_display << std::endl;
+            file2 << "Cluster threshold : " << m_finalClusters3[m_nbclusters_display - 1] << std::endl;
+            file2 << "Weight function parameter m : " << m_m << std::endl;
+            file2 << "Weight function parameter n : " << m_n << std::endl;
+            file2 << "Cluster threshold weight : " << m_influence << std::endl;
+            file2 << "Proximity threshold : " << m_broader_threshold << std::endl;
+            file2 << "Nb objects to simplify : " << m_nbobjects << std::endl;
+            file2 << "Proximity weight parameter alpha: " << m_lambda << std::endl;
+            file2.close();
         }
 
         int MeshContactManager::getAlpha()
@@ -2259,6 +2293,8 @@ namespace Ra
 
             m_nbfaces = m_nbfacesinit;
 
+            LOG(logINFO) << "Simplification begins...";
+
             for (uint e = 0; e < m_nbobjects; e++)
             {
                 MeshContactElement* obj = m_meshContactElements[e];
@@ -2297,6 +2333,8 @@ namespace Ra
                 m_mainqueue.erase(it);
                 it = m_mainqueue.begin();
             }
+
+            LOG(logINFO) << "Simplification ends...";
 
             for (const auto& elem : m_meshContactElements)
             {
@@ -2408,6 +2446,8 @@ namespace Ra
                 m_meshContactElements[objIndex]->setMesh(m_initTriangleMeshes[objIndex]);
             }
 
+            LOG(logINFO) << "Priority queue computation begins...";
+
             for (uint objIndex=0; objIndex < m_nbobjects; objIndex++)
             {
             MeshContactElement* obj = static_cast<MeshContactElement*>(m_meshContactElements[objIndex]);
@@ -2467,6 +2507,8 @@ namespace Ra
 
             obj->setPriorityQueue(pQueue);
             }
+
+            LOG(logINFO) << "Priority queue computation ends...";
         }
 
         void MeshContactManager::updatePriorityQueue2(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex)
