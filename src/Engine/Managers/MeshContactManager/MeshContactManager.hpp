@@ -18,7 +18,7 @@
 
 #include <Core/Geometry/Distance/DistanceQueries.hpp>
 
-#define NBMAX_ELEMENTS 10
+#define NBMAX_ELEMENTS 30
 
 #define NBMAX_STEP 256
 
