@@ -123,12 +123,12 @@
             <item>
              <layout class="QGridLayout" name="gridLayout_4">
               <item row="0" column="2">
-               <widget class="QPushButton" name="m_editRenderObjectButton">
+               <widget class="QPushButton" name="m_exportAllMeshesButton">
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
                 <property name="text">
-                 <string>Edit</string>
+                 <string>Export All Meshes</string>
                 </property>
                </widget>
               </item>

@@ -118,13 +118,14 @@ namespace Ra
 
         // RO Stuff
         connect(m_toggleRenderObjectButton, &QPushButton::clicked, this, &MainWindow::toggleVisisbleRO);
-        connect(m_editRenderObjectButton, &QPushButton::clicked, this, &MainWindow::editRO);
+        //connect(m_editRenderObjectButton, &QPushButton::clicked, this, &MainWindow::editRO);
+        connect(m_exportAllMeshesButton, &QPushButton::clicked, this, &MainWindow::exportAllMeshes);
         connect(m_exportMeshButton, &QPushButton::clicked, this, &MainWindow::exportCurrentMesh);
         connect(m_removeEntityButton, &QPushButton::clicked, this, &MainWindow::deleteCurrentItem);
         connect(m_clearSceneButton, &QPushButton::clicked, this, &MainWindow::resetScene);
         connect(m_fitCameraButton, &QPushButton::clicked, this, &MainWindow::fitCamera);
 
-        // Renderer stuff
+        // Renderer stuffO
         connect(m_currentRendererCombo,
                 static_cast<void (QComboBox::*)(const QString&)>( &QComboBox::currentIndexChanged ),
                 [=]( const QString& ) { this->onCurrentRenderChangedInUI(); } );
@@ -278,11 +279,11 @@ namespace Ra
             const ItemEntry& ent = m_selectionManager->currentItem();
             emit selectedItem(ent);
             m_selectedItemName->setText(QString::fromStdString(getEntryName(mainApp->getEngine(), ent)));
-            m_editRenderObjectButton->setEnabled(false);
+            //m_editRenderObjectButton->setEnabled(false);
 
             if (ent.isRoNode())
             {
-                m_editRenderObjectButton->setEnabled(true);
+                //m_editRenderObjectButton->setEnabled(true);
 
                 m_materialEditor->changeRenderObject(ent.m_roIndex);
                 const std::string& shaderName = mainApp->m_engine->getRenderObjectManager()
@@ -306,7 +307,7 @@ namespace Ra
         {
             emit selectedItem(ItemEntry());
             m_selectedItemName->setText("");
-            m_editRenderObjectButton->setEnabled(false);
+            //m_editRenderObjectButton->setEnabled(false);
             m_materialEditor->hide();
         }
     }
@@ -400,14 +401,47 @@ namespace Ra
         }
     }
 
-    void Gui::MainWindow::editRO()
+//    void Gui::MainWindow::editRO()
+//    {
+//        ItemEntry item = m_selectionManager->currentItem();
+//        if (item.isRoNode())
+//        {
+//            m_materialEditor->changeRenderObject(item.m_roIndex);
+//            m_materialEditor->show();
+//        }
+//    }
+
+    void Gui::MainWindow::exportMesh(/*const std::string& folder, */uint roIdx)
     {
-        ItemEntry item = m_selectionManager->currentItem();
-        if (item.isRoNode())
+        const std::shared_ptr<Engine::RenderObject> ro = Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(roIdx);
+
+        Ra::Core::OBJFileManager obj;
+        Ra::Core::TriangleMesh mesh = ro->getMesh()->getGeometry();
+        //Ra::Core::MeshUtils::bakeTransform(mesh, ro->getLocalTransform());
+
+        std::string filename;
+        const std::string n = ro->getName();
+        Ra::Core::StringUtils::stringPrintf(filename, "%s", n.c_str());
+        std::string path = /*folder + "/" + */filename;
+        bool result = obj.save( path, mesh );
+        if (!result)
         {
-            m_materialEditor->changeRenderObject(item.m_roIndex);
-            m_materialEditor->show();
+            LOG(logWARNING)<<"Could not save mesh to "<<filename;
         }
+    }
+
+    void Gui::MainWindow::exportAllMeshes(/*const std::string& folder*/)
+    {
+        auto romgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+        std::vector<std::shared_ptr<Engine::RenderObject> > ros;
+        romgr->getRenderObjects(ros);
+        for (const auto& ro : ros)
+        {
+            if (ro->isVisible() && ro->getType() != Engine::RenderObjectType::Debug)
+            {
+              exportMesh(/*folder,*/ro->idx);
+            }
+         }
     }
 
     void Gui::MainWindow::openMaterialEditor()

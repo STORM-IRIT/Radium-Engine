@@ -101,7 +101,11 @@ namespace Ra
             void fitCamera();
 
             /// Slot for the "edit" button.
-            void editRO();
+            //void editRO();
+
+            void exportMesh(/*const std::string& folder, */uint roIdx);
+
+            void exportAllMeshes(/*const std::string& folder*/);
 
             /// Cleanup resources.
             void cleanup();
