@@ -33,9 +33,9 @@ namespace Ra {
 
                 for (auto& vbo : m_vbos)
                 {
-                    if (vbo != 0)
+                    if (vbo.second != 0)
                     {
-                        glDeleteBuffers(1, &vbo);
+                        glDeleteBuffers(1, &vbo.second);
                     }
                 }
             }
@@ -137,8 +137,7 @@ namespace Ra {
 
 
     }
-
-        // Template parameter must be a Core::VectorNArray
+/*        // Template parameter must be a Core::VectorNArray
         template< typename VecArray >
         void Mesh::sendGLData( const VecArray& arr, const uint vboIdx )
         {
@@ -175,7 +174,7 @@ namespace Ra {
                 m_dataDirty[vboIdx] = false;
             }
         }
-
+*/
         void Mesh::updateGL()
         {
             if ( m_isDirty )
@@ -195,10 +194,10 @@ namespace Ra {
                 // Bind it
                 GL_ASSERT( glBindVertexArray( m_vao ) );
 
-                if (m_vbos[INDEX] == 0 )
+                if (m_ibo == 0 )
                 {
-                    GL_ASSERT( glGenBuffers( 1, &m_vbos[INDEX]) );
-                    GL_ASSERT( glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, m_vbos[INDEX]) );
+                    GL_ASSERT( glGenBuffers( 1, &m_ibo) );
+                    GL_ASSERT( glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, m_ibo) );
                 }
                 if (m_dataDirty[INDEX])
                 {

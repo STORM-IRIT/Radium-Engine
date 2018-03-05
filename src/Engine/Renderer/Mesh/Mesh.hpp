@@ -166,7 +166,11 @@ namespace Ra
             // Each data type has a corresponding openGL attribute number, which is
             // vbo index - 1 (thus vertex position is VBO number 1 but attribute 0).
 
-            std::array<uint, MAX_DATA> m_vbos = {{ 0 }}; /// Indices of our openGL VBOs.
+/*            std::array<uint, MAX_DATA> m_vbos = {{ 0 }}; /// Indices of our
+                                                         /// openGL VBOs.
+                                                         */
+            std::map<std::string, uint> m_vbos;
+            uint m_ibo;
             std::array<bool, MAX_DATA> m_dataDirty = {{ false }}; /// Dirty bits of our vertex data.
 
             uint m_numElements; /// number of elements to draw. For triangles this is 3*numTriangles but not for lines.
