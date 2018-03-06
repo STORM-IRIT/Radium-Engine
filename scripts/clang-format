@@ -1,0 +1,28 @@
+﻿---
+BasedOnStyle: LLVM
+Language: Cpp
+Standard: Cpp11
+AllowShortFunctionsOnASingleLine: Inline
+AlwaysBreakTemplateDeclarations: true
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterControlStatement: true
+  AfterEnum: false
+  AfterStruct: false
+  AfterUnion: false
+  BeforeCatch: true
+  SplitEmptyFunction: false
+ColumnLimit: 100
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+NamespaceIndentation: None
+IndentPPDirectives: 'AfterHash'
+AlignEscapedNewlines: 'Left'
+Cpp11BracedListStyle: true
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+BreakConstructorInitializers: AfterColon
+SortUsingDeclarations: true
+PointerAlignment: Left
+SpacesInParentheses: true
+...
