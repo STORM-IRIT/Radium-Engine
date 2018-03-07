@@ -328,7 +328,7 @@ namespace Ra
                 glEnable(GL_LINE_SMOOTH);
                 glLineWidth(1.f);
                 glEnable(GL_POLYGON_OFFSET_LINE);
-                glPolygonOffset(-1.0f, -1.1f);
+                glPolygonOffset(0.f, -1.1f);
 
                 // Light pass
                 GL_ASSERT( glDepthFunc( GL_LEQUAL ) );
