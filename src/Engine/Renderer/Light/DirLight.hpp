@@ -4,29 +4,26 @@
 #include <Engine/RaEngine.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
-namespace Ra
-{
-    namespace Engine
-    {
+namespace Ra {
+namespace Engine {
 
-        class RA_ENGINE_API DirectionalLight final : public Light
-        {
-        public:
-            RA_CORE_ALIGNED_NEW
+class RA_ENGINE_API DirectionalLight final : public Light {
+  public:
+    RA_CORE_ALIGNED_NEW
 
-            DirectionalLight();
-            ~DirectionalLight();
+    DirectionalLight();
+    ~DirectionalLight();
 
-            void getRenderParameters( RenderParameters& params ) override;
+    void getRenderParameters( RenderParameters& params ) override;
 
-            void setDirection( const Core::Vector3& pos ) override;
-            inline const Core::Vector3& getDirection() const;
+    void setDirection( const Core::Vector3& pos ) override;
+    inline const Core::Vector3& getDirection() const;
 
-        private:
-            Core::Vector3 m_direction;
-        };
+  private:
+    Core::Vector3 m_direction;
+};
 
-    } // namespace Engine
+} // namespace Engine
 } // namespace Ra
 
 #include <Engine/Renderer/Light/DirLight.inl>

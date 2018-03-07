@@ -3,11 +3,8 @@
 
 #include <iostream>
 
-AnimationUI::AnimationUI(QWidget *parent) :
-    QFrame(parent),
-    ui(new Ui::AnimationUI)
-{
-    ui->setupUi(this);
+AnimationUI::AnimationUI( QWidget* parent ) : QFrame( parent ), ui( new Ui::AnimationUI ) {
+    ui->setupUi( this );
     ui->m_play->setProperty( "pressed", false );
     ui->m_play->style()->unpolish( ui->m_play );
     ui->m_play->style()->polish( ui->m_play );
@@ -19,21 +16,21 @@ AnimationUI::AnimationUI(QWidget *parent) :
     connect( ui->actionStop, &QAction::triggered, this, &AnimationUI::on_m_reset_clicked );
 }
 
-AnimationUI::~AnimationUI()
-{
+AnimationUI::~AnimationUI() {
     delete ui;
 }
 
 void AnimationUI::on_m_xray_clicked( bool checked ) {
-    emit toggleXray(checked);
+    emit toggleXray( checked );
 }
 
 void AnimationUI::on_m_showSkeleton_toggled( bool checked ) {
-    emit showSkeleton(checked);
+    emit showSkeleton( checked );
 }
 
 void AnimationUI::on_m_play_clicked( bool checked ) {
-    if( checked ) {
+    if ( checked )
+    {
         ui->m_play->setChecked( true );
 
         ui->m_play->setProperty( "pressed", true );
@@ -42,7 +39,8 @@ void AnimationUI::on_m_play_clicked( bool checked ) {
         ui->m_play->update();
 
         emit play();
-    } else {
+    } else
+    {
         ui->m_play->setChecked( false );
 
         ui->m_play->setProperty( "pressed", false );
@@ -92,9 +90,7 @@ void AnimationUI::on_m_slowMo_toggled( bool checked ) {
     emit toggleSlowMotion( checked );
 }
 
-void AnimationUI::updateTime(float t)
-{
-    QString text = QString("%1").arg(t);
-    ui->m_animationTimeDisplay->setText(text);
+void AnimationUI::updateTime( float t ) {
+    QString text = QString( "%1" ).arg( t );
+    ui->m_animationTimeDisplay->setText( text );
 }
-

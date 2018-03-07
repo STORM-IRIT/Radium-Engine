@@ -7,7 +7,6 @@ namespace Ra {
 namespace Core {
 namespace Timer {
 
-
 /**
  * @brief The Chrono class represents a chronometer for timing generic functions
  * in an easy way.
@@ -37,7 +36,7 @@ namespace Timer {
  *
  */
 class Chrono {
-public:
+  public:
     /**
      *    @brief Default constructor.
      */
@@ -53,24 +52,20 @@ public:
      */
     Chrono( Chrono&& other ) = default;
 
-
-
     /**
      *    @brief Destructor.
      */
     ~Chrono() {}
-
-
 
     /**
      *    @brief Run the given void function f( args ... ) and times it.
      *    @param f                  The function to be timed.
      *    @param args               The parameters of f.
      */
-    template< class Function, class... Args >
+    template <class Function, class... Args>
     inline void run( Function&& f, Args&&... args ) {
         m_start = Clock::now();
-        f( args ... );
+        f( args... );
         m_end = Clock::now();
     }
 
@@ -80,12 +75,13 @@ public:
      *    @param args               The parameters of f.
      *    @return The output of f( args ... ).
      */
-    template < typename ReturnType, class Function,  class ... Args >
-    inline ReturnType run( Function&& f, Args ... args ) {
-        // TODO //static_assert( /*check if ReturnType is equal to Function return type*/, "RETURN_TYPE_DO_NOT_MATCH_FUNCTION_RETURN_TYPE" );
-        m_start        = Clock::now();
-        ReturnType res = f( args ... );
-        m_end          = Clock::now();
+    template <typename ReturnType, class Function, class... Args>
+    inline ReturnType run( Function&& f, Args... args ) {
+        // TODO //static_assert( /*check if ReturnType is equal to Function return type*/,
+        // "RETURN_TYPE_DO_NOT_MATCH_FUNCTION_RETURN_TYPE" );
+        m_start = Clock::now();
+        ReturnType res = f( args... );
+        m_end = Clock::now();
         return res;
     }
 
@@ -95,76 +91,63 @@ public:
      *    @param args               The parameters of f.
      *    @return The average time of f( args ... ) in microseconds.
      */
-    template< std::size_t Times, class Function, class... Args >
+    template <std::size_t Times, class Function, class... Args>
     inline MicroSeconds test( Function&& f, Args&&... args ) {
         MicroSeconds avg = 0;
-        for( std::size_t i = 0; i < Times; ++i ) {
+        for ( std::size_t i = 0; i < Times; ++i )
+        {
             m_start = Clock::now();
-            f( args ... );
+            f( args... );
             m_end = Clock::now();
             avg += getIntervalMicro( m_start, m_end );
         }
         avg /= Times;
         m_start = Clock::now();
-        m_end   = m_start + std::chrono::microseconds(avg);
+        m_end = m_start + std::chrono::microseconds( avg );
         return avg;
     }
-
-
 
     /**
      *    @brief Return the elapsed time for last call of run in microseconds.
      *    @return The elapsed time in microseconds.
      */
-    inline MicroSeconds elapsedMicroSeconds() const {
-        return getIntervalMicro( m_start, m_end );
-    }
+    inline MicroSeconds elapsedMicroSeconds() const { return getIntervalMicro( m_start, m_end ); }
 
     /**
      *    @brief Return the elapsed time for last call of run in seconds.
      *    @return The elapsed time in seconds.
      */
-    inline Seconds elapsedSeconds() const {
-        return getIntervalSeconds( m_start, m_end );
-    }
-
-
+    inline Seconds elapsedSeconds() const { return getIntervalSeconds( m_start, m_end ); }
 
     /**
-    *    @brief Copy assignment operator.
-    */
+     *    @brief Copy assignment operator.
+     */
     inline Chrono& operator=( const Chrono& other ) = default;
 
     /**
-    *    @brief Move assignment operator.
-    */
+     *    @brief Move assignment operator.
+     */
     inline Chrono& operator=( Chrono&& other ) = default;
 
-
-
     /**
-    *    @brief Equal operator.
-    */
+     *    @brief Equal operator.
+     */
     inline bool operator==( const Chrono& other ) const {
         return ( elapsedMicroSeconds() == other.elapsedMicroSeconds() );
     }
 
     /**
-    *    @brief Less operator.
-    */
+     *    @brief Less operator.
+     */
     inline bool operator<( const Chrono& other ) const {
         return ( elapsedMicroSeconds() < other.elapsedMicroSeconds() );
     }
 
-
-
-protected:
+  protected:
     /// VARIABLE
     TimePoint m_start; ///< Time at the beginning of the function.
     TimePoint m_end;   ///< Time after running the function.
 };
-
-
 
 } // namespace Timer
 } // namespace Core

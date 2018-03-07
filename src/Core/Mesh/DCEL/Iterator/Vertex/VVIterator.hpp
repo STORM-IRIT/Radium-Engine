@@ -6,10 +6,10 @@
 namespace Ra {
 namespace Core {
 
-class [[deprecated]] VVIterator : public VIterator< Vertex > {
-public:
+class[[deprecated]] VVIterator : public VIterator<Vertex> {
+  public:
     /// CONSTRUCTOR
-    VVIterator( Vertex_ptr& v );
+    VVIterator( Vertex_ptr & v );
     VVIterator( const VVIterator& it ) = default;
 
     /// DESTRUCTOR

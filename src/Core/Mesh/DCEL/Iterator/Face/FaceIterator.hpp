@@ -6,11 +6,11 @@
 namespace Ra {
 namespace Core {
 
-template < typename OBJECT >
-class [[deprecated]] FIterator : public Iterator< OBJECT > {
-public:
+template <typename OBJECT>
+class[[deprecated]] FIterator : public Iterator<OBJECT> {
+  public:
     /// CONSTRUCTOR
-    FIterator( Face_ptr& f );
+    FIterator( Face_ptr & f );
     FIterator( const FIterator& it ) = default;
 
     /// DESTRUCTOR
@@ -23,14 +23,14 @@ public:
     inline void reset() override;
 
     /// OPERATOR
-    inline FIterator& operator= ( const FIterator& it );
+    inline FIterator& operator=( const FIterator& it );
     inline FIterator& operator++() override;
     inline FIterator& operator--() override;
-    inline bool       operator==( const FIterator& it ) const;
+    inline bool operator==( const FIterator& it ) const;
 
-protected:
+  protected:
     /// VARIABLE
-    Face_ptr   m_f;
+    Face_ptr m_f;
 };
 
 } // namespace Core

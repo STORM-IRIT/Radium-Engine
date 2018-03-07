@@ -27,12 +27,13 @@ inline CircularIndex::operator int() {
     return idx;
 }
 
-inline CircularIndex& CircularIndex::operator= ( const CircularIndex& id ) {
-    N = id.N; idx = id.idx;
+inline CircularIndex& CircularIndex::operator=( const CircularIndex& id ) {
+    N = id.N;
+    idx = id.idx;
     return *this;
 }
 
-inline CircularIndex& CircularIndex::operator= ( const int i ) {
+inline CircularIndex& CircularIndex::operator=( const int i ) {
     setValue( i );
     return *this;
 }
@@ -47,11 +48,11 @@ inline CircularIndex& CircularIndex::operator--() {
     return *this;
 }
 
-inline CircularIndex CircularIndex::operator+ ( const int off ) {
+inline CircularIndex CircularIndex::operator+( const int off ) {
     return CircularIndex( N, idx + off );
 }
 
-inline CircularIndex CircularIndex::operator- ( const int off ) {
+inline CircularIndex CircularIndex::operator-( const int off ) {
     return ( *this + ( -off ) );
 }
 
@@ -59,7 +60,7 @@ inline bool CircularIndex::operator==( const CircularIndex& id ) const {
     return ( idx == id.idx );
 }
 
-inline bool CircularIndex::operator< ( const CircularIndex& id ) const {
+inline bool CircularIndex::operator<( const CircularIndex& id ) const {
     return ( idx < id.idx );
 }
 
@@ -67,10 +68,9 @@ inline bool CircularIndex::operator==( const int i ) const {
     return ( idx == CircularIndex( N, i ) );
 }
 
-inline bool CircularIndex::operator< ( const int i ) const {
-    return ( idx < uint(CircularIndex( N, i )) );
+inline bool CircularIndex::operator<( const int i ) const {
+    return ( idx < uint( CircularIndex( N, i ) ) );
 }
 
 } // namespace Core
 } // namespace Ra
-

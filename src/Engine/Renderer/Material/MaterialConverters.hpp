@@ -3,27 +3,26 @@
 
 #include <Engine/RaEngine.hpp>
 
-
 #include <functional>
 #include <string>
 
 namespace Ra {
-  namespace Engine {
-    class Material;
-  }
-  namespace Asset {
-    class MaterialData;
-  }
+namespace Engine {
+class Material;
 }
+namespace Asset {
+class MaterialData;
+}
+} // namespace Ra
 
-
-/// A material converter is a couple <std::string, std::function<Ra::Engine::Material*(Ra::Asset::MaterialData*)>
-/// The string gives the mname of the material, the function is whatever is compatible with std::function :
+/// A material converter is a couple <std::string,
+/// std::function<Ra::Engine::Material*(Ra::Asset::MaterialData*)> The string gives the mname of the
+/// material, the function is whatever is compatible with std::function :
 ///     - a lambda
 ///     - a functor
 ///     - a function with bind parameters ....
-/// The function is in charge of converting a concrete Ra::Asset::MaterialData* to a concrete Ra::Engine::Material*
-/// according to the type of material described by the string ...
+/// The function is in charge of converting a concrete Ra::Asset::MaterialData* to a concrete
+/// Ra::Engine::Material* according to the type of material described by the string ...
 /**
  * Instruction on how to extend the material system
  */
@@ -32,56 +31,54 @@ namespace Ra {
 ///////////////////////////////////////////////
 
 namespace Ra {
-  namespace Engine {
-    ///////////////////////////////////////////////
-    ////        Radium Material converters      ///
-    ///////////////////////////////////////////////
+namespace Engine {
+///////////////////////////////////////////////
+////        Radium Material converters      ///
+///////////////////////////////////////////////
 
-    class RA_ENGINE_API MaterialConverter final
-    {
-    public:
-        MaterialConverter() = default;
-        ~MaterialConverter() = default;
+class RA_ENGINE_API MaterialConverter final {
+  public:
+    MaterialConverter() = default;
+    ~MaterialConverter() = default;
 
-        Material *operator()(const Ra::Asset::MaterialData *toconvert);
-    };
+    Material* operator()( const Ra::Asset::MaterialData* toconvert );
+};
 
-    class RA_ENGINE_API BlinnPhongMaterialConverter final
-    {
-    public:
-        BlinnPhongMaterialConverter() = default;
-        ~BlinnPhongMaterialConverter() = default;
+class RA_ENGINE_API BlinnPhongMaterialConverter final {
+  public:
+    BlinnPhongMaterialConverter() = default;
+    ~BlinnPhongMaterialConverter() = default;
 
-        Material *operator()(const Ra::Asset::MaterialData *toconvert);
-    };
+    Material* operator()( const Ra::Asset::MaterialData* toconvert );
+};
 
-    namespace EngineMaterialConverters {
+namespace EngineMaterialConverters {
 
-      using AssetMaterialPtr = const Ra::Asset::MaterialData *;
-      using RadiumMaterialPtr = Ra::Engine::Material *;
-      using ConverterFunction = std::function<RadiumMaterialPtr(AssetMaterialPtr)>;
+using AssetMaterialPtr = const Ra::Asset::MaterialData*;
+using RadiumMaterialPtr = Ra::Engine::Material*;
+using ConverterFunction = std::function<RadiumMaterialPtr( AssetMaterialPtr )>;
 
-      /** register a new material converter
-      *  @return true if converter added, false else (e.g, a converter with the same name exists)
-      */
-      RA_ENGINE_API bool registerMaterialConverter(const std::string &name, ConverterFunction converter);
+/** register a new material converter
+ *  @return true if converter added, false else (e.g, a converter with the same name exists)
+ */
+RA_ENGINE_API bool registerMaterialConverter( const std::string& name,
+                                              ConverterFunction converter );
 
-      /** remove a material converter
-       *  @return true if converter removed, false else (e.g, a converter with the same name does't exists)
-       */
-      RA_ENGINE_API bool removeMaterialConverter(const std::string &name);
+/** remove a material converter
+ *  @return true if converter removed, false else (e.g, a converter with the same name does't
+ * exists)
+ */
+RA_ENGINE_API bool removeMaterialConverter( const std::string& name );
 
-      /**
-       * @param name name of the material to convert
-       * @return a pair containing the search result and, if true, the functor to call to convert the material
-       */
-      RA_ENGINE_API std::pair<bool, ConverterFunction> getMaterialConverter(const std::string &name);
+/**
+ * @param name name of the material to convert
+ * @return a pair containing the search result and, if true, the functor to call to convert the
+ * material
+ */
+RA_ENGINE_API std::pair<bool, ConverterFunction> getMaterialConverter( const std::string& name );
 
+} // namespace EngineMaterialConverters
+} // namespace Engine
+} // namespace Ra
 
-
-    }
-  }
-}
-
-
-#endif //RADIUMENGINE_MATERIALCONVERTERS_HPP
+#endif // RADIUMENGINE_MATERIALCONVERTERS_HPP

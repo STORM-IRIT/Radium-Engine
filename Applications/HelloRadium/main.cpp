@@ -3,8 +3,8 @@
 
 #include <QOpenGLContext>
 
-#include <GuiBase/Viewer/Viewer.hpp>
 #include <GuiBase/TimerData/FrameTimerData.hpp>
+#include <GuiBase/Viewer/Viewer.hpp>
 
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
@@ -14,8 +14,7 @@
 classic "Spinning Cube" demo. */
 #include <minimalapp.hpp>
 
-int main(int argc, char* argv[])
-{
+int main( int argc, char* argv[] ) {
 
     // Create default format for Qt.
     QSurfaceFormat format;
@@ -23,13 +22,13 @@ int main(int argc, char* argv[])
     format.setProfile( QSurfaceFormat::CoreProfile );
     format.setDepthBufferSize( 24 );
     format.setStencilBufferSize( 8 );
-    //format.setSamples( 16 );
+    // format.setSamples( 16 );
     format.setSwapBehavior( QSurfaceFormat::DoubleBuffer );
     format.setSwapInterval( 0 );
     QSurfaceFormat::setDefaultFormat( format );
 
     // Create app and show viewer window
-    MinimalApp app(argc, argv);
+    MinimalApp app( argc, argv );
     app.m_viewer->show();
     CORE_ASSERT( app.m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
     // process all events so that everithing is initialized
@@ -37,13 +36,13 @@ int main(int argc, char* argv[])
 
     // Create one system
     Ra::Engine::System* sys = new MinimalSystem;
-    app.m_engine->registerSystem("Minimal system", sys);
+    app.m_engine->registerSystem( "Minimal system", sys );
 
     // Create and initialize entity and component
-    Ra::Engine::Entity* e = app.m_engine->getEntityManager()->createEntity("Cube");
+    Ra::Engine::Entity* e = app.m_engine->getEntityManager()->createEntity( "Cube" );
     Ra::Engine::Component* c = new MinimalComponent;
-    e->addComponent(c);
-    sys->registerComponent(e, c);
+    e->addComponent( c );
+    sys->registerComponent( e, c );
     c->initialize();
 
     // Start the app.

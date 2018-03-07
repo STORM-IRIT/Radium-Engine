@@ -12,52 +12,43 @@
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
 namespace Ra {
-  namespace Engine {
-    class Texture;
-    class ShaderProgram;
+namespace Engine {
+class Texture;
+class ShaderProgram;
 
-    class RA_ENGINE_API BlinnPhongMaterial final : public Material
-    {
-    public:
-        enum class TextureType
-        {
-            TEX_DIFFUSE,
-            TEX_SPECULAR,
-            TEX_NORMAL,
-            TEX_SHININESS,
-            TEX_ALPHA
-        };
+class RA_ENGINE_API BlinnPhongMaterial final : public Material {
+  public:
+    enum class TextureType { TEX_DIFFUSE, TEX_SPECULAR, TEX_NORMAL, TEX_SHININESS, TEX_ALPHA };
 
-    public:
+  public:
     RA_CORE_ALIGNED_NEW
 
-        explicit BlinnPhongMaterial(const std::string &name);
+    explicit BlinnPhongMaterial( const std::string& name );
 
-        ~BlinnPhongMaterial();
+    ~BlinnPhongMaterial();
 
-        void updateGL() override;
-        void bind(const ShaderProgram *shader) override;
-        bool isTransparent () const override;
+    void updateGL() override;
+    void bind( const ShaderProgram* shader ) override;
+    bool isTransparent() const override;
 
-        inline void addTexture(const TextureType &type, Texture *texture);
-        inline TextureData &addTexture(const TextureType &type, const std::string &texture);
-        inline TextureData &addTexture(const TextureType &type, const TextureData &texture);
-        inline Texture *getTexture(const TextureType &type) const;
+    inline void addTexture( const TextureType& type, Texture* texture );
+    inline TextureData& addTexture( const TextureType& type, const std::string& texture );
+    inline TextureData& addTexture( const TextureType& type, const TextureData& texture );
+    inline Texture* getTexture( const TextureType& type ) const;
 
-    public:
-        Core::Color m_kd;
-        Core::Color m_ks;
-        Scalar m_ns;
-        Scalar m_alpha;
+  public:
+    Core::Color m_kd;
+    Core::Color m_ks;
+    Scalar m_ns;
+    Scalar m_alpha;
 
-    private:
-        std::map<TextureType, Texture *> m_textures;
-        std::map<TextureType, TextureData> m_pendingTextures;
+  private:
+    std::map<TextureType, Texture*> m_textures;
+    std::map<TextureType, TextureData> m_pendingTextures;
+};
 
-    };
-
-}
-}
+} // namespace Engine
+} // namespace Ra
 
 #include <Engine/Renderer/Material/BlinnPhongMaterial.inl>
-#endif //RADIUMENGINE_BLINNPHONGMATERIAL_HPP
+#endif // RADIUMENGINE_BLINNPHONGMATERIAL_HPP

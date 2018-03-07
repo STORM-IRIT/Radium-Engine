@@ -5,53 +5,47 @@
 
 #include <Engine/System/System.hpp>
 
-namespace Ra
-{
-    namespace Core
-    {
-        struct TriangleMesh;
-    }
+namespace Ra {
+namespace Core {
+struct TriangleMesh;
 }
+} // namespace Ra
 
-namespace Ra
-{
-    namespace Engine
-    {
-        class Entity;
-        struct RenderTechnique;
-        class Component;
-    }
-}
+namespace Ra {
+namespace Engine {
+class Entity;
+struct RenderTechnique;
+class Component;
+} // namespace Engine
+} // namespace Ra
 
-namespace DummyPlugin
-{
-    class DummyComponent;
+namespace DummyPlugin {
+class DummyComponent;
 
-    struct DummyData
-    {
-        int foo;
-        int bar;
-    };
+struct DummyData {
+    int foo;
+    int bar;
+};
 
-    class  DummySystem : public Ra::Engine::System
-    {
-    public:
-        DummySystem();
-        virtual ~DummySystem();
+class DummySystem : public Ra::Engine::System {
+  public:
+    DummySystem();
+    virtual ~DummySystem();
 
-        virtual void initialize() override;
-        virtual void handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder,
-                                        const std::map<std::string, Ra::Core::Any>& data ) override;
+    virtual void initialize() override;
+    virtual void handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder,
+                                    const std::map<std::string, Ra::Core::Any>& data ) override;
 
-        virtual void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;
+    virtual void generateTasks( Ra::Core::TaskQueue* taskQueue,
+                                const Ra::Engine::FrameInfo& frameInfo ) override;
 
-    protected:
-        virtual Ra::Engine::Component* addComponentToEntityInternal(
-                Ra::Engine::Entity* entity, uint id ) override;
+  protected:
+    virtual Ra::Engine::Component* addComponentToEntityInternal( Ra::Engine::Entity* entity,
+                                                                 uint id ) override;
 
-    private:
-        DummyData* m_data;
-    };
+  private:
+    DummyData* m_data;
+};
 
 } // namespace DummyPlugin
 

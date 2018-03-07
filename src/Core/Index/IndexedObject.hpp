@@ -1,35 +1,26 @@
 #ifndef RADIUMENGINE_INDEXEDOBJECT_HPP
 #define RADIUMENGINE_INDEXEDOBJECT_HPP
 
-#include <Core/RaCore.hpp>
 #include <Core/Index/Index.hpp>
+#include <Core/RaCore.hpp>
 
-namespace Ra
-{
-    namespace Core
-    {
+namespace Ra {
+namespace Core {
 
-        class DLL_EXPORT IndexedObject
-        {
-        public:
-            /// CONSTRUCTOR
-            explicit inline  IndexedObject( Index idx = Index::Invalid() )
-            {
-                this->idx = idx;
-            }
-            inline IndexedObject( const IndexedObject& id_obj )
-            {
-                idx = id_obj.idx;
-            }
+class DLL_EXPORT IndexedObject {
+  public:
+    /// CONSTRUCTOR
+    explicit inline IndexedObject( Index idx = Index::Invalid() ) { this->idx = idx; }
+    inline IndexedObject( const IndexedObject& id_obj ) { idx = id_obj.idx; }
 
-            /// DESTRUCTOR
-            virtual inline ~IndexedObject() { }
+    /// DESTRUCTOR
+    virtual inline ~IndexedObject() {}
 
-            /// VARIABLE
-            Index idx;
-        };
+    /// VARIABLE
+    Index idx;
+};
 
-    }
-} // namespace Ra::Core
+} // namespace Core
+} // namespace Ra
 
 #endif // RADIUMENGINE_INDEXEDOBJECT_HPP

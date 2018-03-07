@@ -3,33 +3,30 @@
 
 #include <QWidget>
 
-namespace Ra
-{
-    namespace Gui
-    {
+namespace Ra {
+namespace Gui {
 
-        class ColorWidget : public QWidget
-        {
-            Q_OBJECT
+class ColorWidget : public QWidget {
+    Q_OBJECT
 
-        public:
-            ColorWidget( QWidget* parent = nullptr );
+  public:
+    ColorWidget( QWidget* parent = nullptr );
 
-        public slots:
-            void colorChanged( int r, int g, int b );
+  public slots:
+    void colorChanged( int r, int g, int b );
 
-        signals:
-            void newColorPicked( const QColor& color );
+  signals:
+    void newColorPicked( const QColor& color );
 
-        private:
-            void colorChanged();
-            virtual void mousePressEvent( QMouseEvent* e ) override;
+  private:
+    void colorChanged();
+    virtual void mousePressEvent( QMouseEvent* e ) override;
 
-        private:
-            QColor m_currentColor;
-        };
+  private:
+    QColor m_currentColor;
+};
 
-    }
-}
+} // namespace Gui
+} // namespace Ra
 
 #endif

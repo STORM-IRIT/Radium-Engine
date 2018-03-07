@@ -1,19 +1,19 @@
 #ifndef RADIUMENGINE_BULGE_CORRECTION_DEFINITION_HPP
 #define RADIUMENGINE_BULGE_CORRECTION_DEFINITION_HPP
 
+#include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Utils/Graph/AdjacencyList.hpp>
-#include <Core/Animation/Pose/Pose.hpp>
-
 
 namespace Ra {
 namespace Core {
 namespace Animation {
 
-using Dv                = Vector1Array;
-using BoneProjection    = Vector3Array;
-using MaxWeightID       = std::vector< uint >;    // Array containing the ID of the bone influencing the most a vertex
+using Dv = Vector1Array;
+using BoneProjection = Vector3Array;
+using MaxWeightID =
+    std::vector<uint>; // Array containing the ID of the bone influencing the most a vertex
 
 struct BulgeCorrectionData {
     BulgeCorrectionData();
@@ -22,27 +22,18 @@ struct BulgeCorrectionData {
 
     void resize( const uint size );
     BoneProjection m_prj;
-    Dv             m_dv;
+    Dv m_dv;
 };
 
+void bulgeCorrection( const Vector3Array& restMesh, const BulgeCorrectionData& restData,
+                      Vector3Array& currMesh, const BulgeCorrectionData& currData );
 
-
-void bulgeCorrection( const Vector3Array&        restMesh,
-                      const BulgeCorrectionData& restData,
-                      Vector3Array&              currMesh,
-                      const BulgeCorrectionData& currData );
-
-
-
-void findCorrectionData( const Vector3Array&         mesh,
-                         const MaxWeightID&          wID,
-                         const Graph::AdjacencyList& graph,
-                         const Pose&                 pose,
-                         BulgeCorrectionData&        data );
+void findCorrectionData( const Vector3Array& mesh, const MaxWeightID& wID,
+                         const Graph::AdjacencyList& graph, const Pose& pose,
+                         BulgeCorrectionData& data );
 
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
 
 #endif // RADIUMENGINE_BULGE_CORRECTION_DEFINITION_HPP
-

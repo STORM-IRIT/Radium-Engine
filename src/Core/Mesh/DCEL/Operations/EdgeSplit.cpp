@@ -1,16 +1,13 @@
-#include <Core/Mesh/DCEL/Operations/EdgeSplit.hpp>
-#include <Core/Mesh/DCEL/HalfEdge.hpp>
-#include <Core/Mesh/DCEL/Vertex.hpp>
-#include <Core/Mesh/DCEL/Vertex.hpp>
 #include <Core/Mesh/DCEL/FullEdge.hpp>
-
+#include <Core/Mesh/DCEL/HalfEdge.hpp>
+#include <Core/Mesh/DCEL/Operations/EdgeSplit.hpp>
+#include <Core/Mesh/DCEL/Vertex.hpp>
 
 namespace Ra {
 namespace Core {
 namespace DcelOperations {
 
-void splitEdge( Dcel& dcel, Index edgeIndex, Scalar fraction )
-{
+void splitEdge( Dcel& dcel, Index edgeIndex, Scalar fraction ) {
 
     // Global schema of operation
     /*
@@ -34,9 +31,7 @@ void splitEdge( Dcel& dcel, Index edgeIndex, Scalar fraction )
 
     CORE_ASSERT( fraction > 0 && fraction < 1, "Invalid fraction" );
 
-
     FullEdge_ptr edge = dcel.m_fulledge[edgeIndex];
-
 
     Vertex_ptr v1 = edge->V( 0 );
     Vertex_ptr v2 = edge->V( 1 );
@@ -53,7 +48,6 @@ void splitEdge( Dcel& dcel, Index edgeIndex, Scalar fraction )
     // Current edge becomes the "left part"( V1->M)
     FullEdge_ptr fe0 = edge;
 
-
     // The two new half edges for the "right part"
     HalfEdge_ptr he2( new HalfEdge() );
     HalfEdge_ptr he3( new HalfEdge() );
@@ -62,11 +56,9 @@ void splitEdge( Dcel& dcel, Index edgeIndex, Scalar fraction )
     FullEdge_ptr fe1( new FullEdge( he2 ) );
 
     // 2) New vertex M
-    Vertex_ptr vm( new Vertex(
-        fraction * v1->P() + (1. - fraction) * v2->P(),
-        (fraction * v1->N() + (1. - fraction) * v2->N()).normalized(),
-        he2 ) );
-
+    Vertex_ptr vm( new Vertex( fraction * v1->P() + ( 1. - fraction ) * v2->P(),
+                               ( fraction * v1->N() + ( 1. - fraction ) * v2->N() ).normalized(),
+                               he2 ) );
 
     // 3) The two new edges created by joining M with the opposed vertices.
 
@@ -91,7 +83,6 @@ void splitEdge( Dcel& dcel, Index edgeIndex, Scalar fraction )
     // Two new faces
     Face_ptr f2( new Face() );
     Face_ptr f3( new Face() );
-
 
     // Step two : update the data structure
 
@@ -165,7 +156,6 @@ void splitEdge( Dcel& dcel, Index edgeIndex, Scalar fraction )
     heB3->setFE( feB );
     heB3->setF( f3 );
 
-
     if ( f0->HE() == V2A )
     {
         f0->HE() = heA0;
@@ -179,6 +169,6 @@ void splitEdge( Dcel& dcel, Index edgeIndex, Scalar fraction )
     f2->HE() = he2;
     f3->HE() = he3;
 }
-}
-}
-}
+} // namespace DcelOperations
+} // namespace Core
+} // namespace Ra

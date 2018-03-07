@@ -1,97 +1,83 @@
- 
+
 #ifndef RADIUMENGINE_BVH_HPP
 #define RADIUMENGINE_BVH_HPP
 
 #include <Core/RaCore.hpp>
 
-#include <Core/Mesh/TriangleMesh.hpp>
 #include <Core/Math/Frustum.hpp>
+#include <Core/Mesh/TriangleMesh.hpp>
 
-#include <vector>
 #include <memory>
+#include <vector>
 
+namespace Ra {
+namespace Core {
+/// This class stores a 3-dimensional hierarchy of meshes of arbitrary type.
+/// Built on a binary tree
+template <typename T>
+class BVH {
+    class Node {
+      public:
+        inline Node( const std::shared_ptr<T>& t );
 
+        inline Node( const std::shared_ptr<Node>& l, const std::shared_ptr<Node>& r );
 
-namespace Ra
-{
-    namespace Core
-    {
-        /// This class stores a 3-dimensional hierarchy of meshes of arbitrary type.
-        /// Built on a binary tree
-        template <typename T>
-        class BVH
-        {
-            class Node {
-            public:
-                inline Node( const std::shared_ptr<T>& t );
+        inline std::shared_ptr<Node> getLeftChild() const;
+        inline std::shared_ptr<Node> getRightChild() const;
 
-                inline Node( const std::shared_ptr<Node>& l, const std::shared_ptr<Node>& r );
+        inline Aabb getAabb() const { return m_aabb; }
 
-                inline std::shared_ptr<Node> getLeftChild() const;
-                inline std::shared_ptr<Node> getRightChild() const;
+        inline std::shared_ptr<T> getData() { return m_data; }
 
-                inline Aabb getAabb() const
-                {
-                    return m_aabb;
-                }
+        inline bool isFinal() const { return m_children.empty(); }
 
-                inline std::shared_ptr<T> getData()
-                {
-                    return m_data;
-                }
+      protected:
+        Aabb m_aabb;
+        std::vector<std::shared_ptr<Node>> m_children;
 
-                inline bool isFinal() const
-                {
-                    return m_children.empty();
-                }
+        std::shared_ptr<T> m_data;
+    };
 
-            protected:
-                Aabb m_aabb ;
-                std::vector<std::shared_ptr<Node>> m_children ;
+  public:
+    // public types and constants.
+    using NodePtr = std::shared_ptr<Node>;
 
-                std::shared_ptr<T> m_data;
-            };
+    using Nodep = Node*;
 
-        public:
-            // public types and constants.
-            using NodePtr =  std::shared_ptr<Node>;
+  public:
+    RA_CORE_ALIGNED_NEW
 
-            using Nodep = Node *;
+    inline BVH();
 
-        public:
-            RA_CORE_ALIGNED_NEW
+    inline BVH( const BVH& other ) = default;
+    inline BVH& operator=( const BVH& other ) = default;
 
-            inline BVH();
+    inline void insertLeaf( const std::shared_ptr<T>& t );
 
-            inline BVH( const BVH& other ) = default;
-            inline BVH& operator= ( const BVH& other ) = default;
+    // TODO removeLeaf()
 
-            inline void insertLeaf(const std::shared_ptr<T>& t);
+    inline void clear();
 
-            //TODO removeLeaf()
+    inline void update();
 
-            inline void clear();
+    inline void buildBottomUpSlow();
 
-            inline void update();
+    // TODO void buildBottomUpFast();
 
-            inline void buildBottomUpSlow();
+    // TODO void buildTopDown();
 
-            //TODO void buildBottomUpFast();
+    void getInFrustumSlow( std::vector<std::shared_ptr<T>>& objects, const Frustum& frustum ) const;
 
-            //TODO void buildTopDown();
+  protected:
+    std::vector<NodePtr> m_leaves;
+    NodePtr m_root;
+    Aabb m_root_aabb;
 
-            void getInFrustumSlow(std::vector<std::shared_ptr<T>> & objects, const Frustum & frustum) const;
-
-        protected:
-            std::vector<NodePtr> m_leaves;
-            NodePtr m_root;
-            Aabb m_root_aabb;
-
-            bool m_upToDate;
-        };
-    }
-}
+    bool m_upToDate;
+};
+} // namespace Core
+} // namespace Ra
 
 #include <Core/TreeStructures/BVH.inl>
 
-#endif //RADIUMENGINE_BVH_HPP
+#endif // RADIUMENGINE_BVH_HPP

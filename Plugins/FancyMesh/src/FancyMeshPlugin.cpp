@@ -4,48 +4,38 @@
 
 #include <FancyMeshSystem.hpp>
 
-namespace FancyMeshPlugin
-{
+namespace FancyMeshPlugin {
 
-    FancyMeshPluginC::~FancyMeshPluginC()
-    {
-    }
+FancyMeshPluginC::~FancyMeshPluginC() {}
 
-    void FancyMeshPluginC::registerPlugin( const Ra::PluginContext& context )
-    {
-        FancyMeshSystem* system = new FancyMeshSystem;
-        context.m_engine->registerSystem( "FancyMeshSystem", system );
-    }
-
-    bool FancyMeshPluginC::doAddWidget( QString &name )
-    {
-        return false;
-    }
-
-    QWidget* FancyMeshPluginC::getWidget()
-    {
-        return nullptr;
-    }
-
-    bool FancyMeshPluginC::doAddMenu()
-    {
-        return false;
-    }
-
-    QMenu* FancyMeshPluginC::getMenu()
-    {
-        return nullptr;
-    }
-
-    bool FancyMeshPluginC::doAddAction( int& nb )
-    {
-        nb = 0;
-        return false;
-    }
-
-    QAction* FancyMeshPluginC::getAction( int id )
-    {
-        return nullptr;
-    }
-
+void FancyMeshPluginC::registerPlugin( const Ra::PluginContext& context ) {
+    FancyMeshSystem* system = new FancyMeshSystem;
+    context.m_engine->registerSystem( "FancyMeshSystem", system );
 }
+
+bool FancyMeshPluginC::doAddWidget( QString& name ) {
+    return false;
+}
+
+QWidget* FancyMeshPluginC::getWidget() {
+    return nullptr;
+}
+
+bool FancyMeshPluginC::doAddMenu() {
+    return false;
+}
+
+QMenu* FancyMeshPluginC::getMenu() {
+    return nullptr;
+}
+
+bool FancyMeshPluginC::doAddAction( int& nb ) {
+    nb = 0;
+    return false;
+}
+
+QAction* FancyMeshPluginC::getAction( int id ) {
+    return nullptr;
+}
+
+} // namespace FancyMeshPlugin

@@ -1,22 +1,17 @@
 #include <Engine/Renderer/Material/Material.hpp>
 
-
 namespace Ra {
-  namespace Engine {
+namespace Engine {
 
-    Material::Material(const std::string &name, MaterialType type)
-        : m_name(name), m_isDirty(true), m_type(MaterialType::MAT_OPAQUE)
-    {
-    }
+Material::Material( const std::string& name, MaterialType type ) :
+    m_name( name ),
+    m_isDirty( true ),
+    m_type( MaterialType::MAT_OPAQUE ) {}
 
-    Material::~Material()
-    {
-    }
+Material::~Material() {}
 
-    bool Material::isTransparent() const
-    {
-        return m_type == MaterialType::MAT_TRANSPARENT;
-    }
-  }
+bool Material::isTransparent() const {
+    return m_type == MaterialType::MAT_TRANSPARENT;
 }
-
+} // namespace Engine
+} // namespace Ra

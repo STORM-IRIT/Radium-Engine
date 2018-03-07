@@ -32,15 +32,16 @@ inline uint AnimationData::getFramesSize() const {
     return m_keyFrame.size();
 }
 
-inline std::vector< HandleAnimation > AnimationData::getFrames() const {
+inline std::vector<HandleAnimation> AnimationData::getFrames() const {
     return m_keyFrame;
 }
 
-inline void AnimationData::setFrames( const std::vector< HandleAnimation >& frameList ) {
+inline void AnimationData::setFrames( const std::vector<HandleAnimation>& frameList ) {
     const uint size = frameList.size();
     m_keyFrame.resize( size );
 #pragma omp parallel for
-    for( int i = 0; i < int(size); ++i ) {
+    for ( int i = 0; i < int( size ); ++i )
+    {
         m_keyFrame[i] = frameList[i];
     }
 }

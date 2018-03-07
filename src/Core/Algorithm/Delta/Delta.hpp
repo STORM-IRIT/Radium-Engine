@@ -9,86 +9,76 @@ namespace Core {
 namespace Algorithm {
 
 // Defining a vector containing true for the indices different than 0
-using BitSet = std::vector< bool >;
+using BitSet = std::vector<bool>;
 
 // Defining a vector containing the indices of the sources
-using Source =  std::vector< uint >;
+using Source = std::vector<uint>;
 
 // Defining the vector containing the value of the sources
 using Delta = Sparse;
 
-
-
 /*
-* Return the Delta vector.
-* The delta is defined as:
-*       delta( i ) = default_value  ,  if source( i ) is true
-*       delta( i ) = 0              ,  otherwise
-*
-* The definition was taken from:
-* "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
-* [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
-* TOG 2013
-*/
+ * Return the Delta vector.
+ * The delta is defined as:
+ *       delta( i ) = default_value  ,  if source( i ) is true
+ *       delta( i ) = 0              ,  otherwise
+ *
+ * The definition was taken from:
+ * "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
+ * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
+ * TOG 2013
+ */
 Delta delta( const BitSet& source, const Scalar& default_value = 1.0 );
 
-
-
 /*
-* Return the Delta vector.
-* The delta is defined as:
-*       delta( i ) = default_value  ,  if source( i ) is true
-*       delta( i ) = 0              ,  otherwise
-*
-* The definition was taken from:
-* "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
-* [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
-* TOG 2013
-*/
+ * Return the Delta vector.
+ * The delta is defined as:
+ *       delta( i ) = default_value  ,  if source( i ) is true
+ *       delta( i ) = 0              ,  otherwise
+ *
+ * The definition was taken from:
+ * "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
+ * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
+ * TOG 2013
+ */
 void delta( const BitSet& source, Delta& u, const Scalar& default_value = 1.0 );
 
-
-
 /*
-* Return the Delta vector.
-* The delta is defined as:
-*       delta( i ) = default_value  ,  if i is in source
-*       delta( i ) = 0              ,  otherwise
-*
-* The definition was taken from:
-* "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
-* [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
-* TOG 2013
-*/
+ * Return the Delta vector.
+ * The delta is defined as:
+ *       delta( i ) = default_value  ,  if i is in source
+ *       delta( i ) = 0              ,  otherwise
+ *
+ * The definition was taken from:
+ * "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
+ * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
+ * TOG 2013
+ */
 Delta delta( const Source& source, const uint size, const Scalar& default_value = 1.0 );
 
-
-
 /*
-* Return the Delta vector.
-* The delta is defined as:
-*       delta( i ) = default_value  ,  if i is in source
-*       delta( i ) = 0              ,  otherwise
-*
-* The definition was taken from:
-* "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
-* [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
-* TOG 2013
-*/
+ * Return the Delta vector.
+ * The delta is defined as:
+ *       delta( i ) = default_value  ,  if i is in source
+ *       delta( i ) = 0              ,  otherwise
+ *
+ * The definition was taken from:
+ * "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
+ * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
+ * TOG 2013
+ */
 void delta( const Source& source, const uint size, Delta& u, const Scalar& default_value = 1.0 );
 
-
-
 /*
-* Return a BitSet from a given Delta.
-* The BitSet is defined as:
-*       bit_i = false   , if delta( i )  = 0
-*       bit_i = true    , if delta( i ) != 0
-*/
+ * Return a BitSet from a given Delta.
+ * The BitSet is defined as:
+ *       bit_i = false   , if delta( i )  = 0
+ *       bit_i = true    , if delta( i ) != 0
+ */
 void bitset( const Delta& u, BitSet& bit );
 
-}
-}
-}
+} // namespace Algorithm
+} // namespace Core
+} // namespace Ra
 
-#endif //DELTA_DEFINITION
+#endif // DELTA_DEFINITION

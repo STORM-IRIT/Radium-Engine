@@ -6,11 +6,11 @@
 namespace Ra {
 namespace Core {
 
-template < typename OBJECT >
-class [[deprecated]] VIterator : public Iterator< OBJECT > {
-public:
+template <typename OBJECT>
+class[[deprecated]] VIterator : public Iterator<OBJECT> {
+  public:
     /// CONSTRUCTOR
-    VIterator( Vertex_ptr& v );
+    VIterator( Vertex_ptr & v );
     VIterator( const VIterator& it ) = default;
 
     /// DESTRUCTOR
@@ -23,14 +23,14 @@ public:
     inline void reset() override;
 
     /// OPERATOR
-    inline VIterator& operator= ( const VIterator& it );
+    inline VIterator& operator=( const VIterator& it );
     inline VIterator& operator++() override;
     inline VIterator& operator--() override;
-    inline bool       operator==( const VIterator& it ) const;
+    inline bool operator==( const VIterator& it ) const;
 
-protected:
+  protected:
     /// VARIABLE
-    Vertex_ptr   m_v;
+    Vertex_ptr m_v;
 };
 
 } // namespace Core

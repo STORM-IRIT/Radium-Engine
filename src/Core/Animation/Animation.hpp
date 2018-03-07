@@ -1,9 +1,9 @@
 #ifndef ANIMATION_HPP
 #define ANIMATION_HPP
 
-#include <vector>
-#include <utility>
 #include <Core/Animation/Pose/Pose.hpp>
+#include <utility>
+#include <vector>
 
 namespace Ra {
 namespace Core {
@@ -11,14 +11,13 @@ namespace Animation {
 
 using KeyPose = std::pair<Scalar, Pose>;
 
-class RA_CORE_API Animation
-{
-public:
+class RA_CORE_API Animation {
+  public:
     // Add the key pose after the previous ones.
     // Call normalize after all the key poses have been added.
     // timestamp must be given in seconds.
-    void addKeyPose(const Pose& pose, Scalar timestamp);
-    void addKeyPose(const KeyPose& keyPose);
+    void addKeyPose( const Pose& pose, Scalar timestamp );
+    void addKeyPose( const KeyPose& keyPose );
 
     // Remove all the key poses.
     void clear();
@@ -30,18 +29,18 @@ public:
 
     // Get the pose corresponding to the given timestamp.
     // timestamp must be given in seconds.
-    Pose getPose(Scalar timestamp) const;
+    Pose getPose( Scalar timestamp ) const;
 
     // Get the internal animation time from a timestamp.
     // Guaranteed to be between 0 and the animation last time
-    Scalar getTime(Scalar timestamp) const;
+    Scalar getTime( Scalar timestamp ) const;
 
-private:
+  private:
     std::vector<KeyPose> m_keys;
 };
 
-}
-}
-}
+} // namespace Animation
+} // namespace Core
+} // namespace Ra
 
 #endif // ANIMATION_HPP

@@ -28,9 +28,6 @@ inline void Handle::setLabel( const uint i, const Label& text ) {
     m_label[i] = text;
 }
 
-
 } // namespace Animation
 } // Namespace Core
 } // Namespace Ra
-
-

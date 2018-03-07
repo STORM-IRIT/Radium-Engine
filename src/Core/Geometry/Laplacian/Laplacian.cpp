@@ -6,22 +6,18 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-
-
 /////////////////////
 /// GLOBAL MATRIX ///
 /////////////////////
 
-
-
-LaplacianMatrix standardLaplacian( const DegreeMatrix& D, const AdjacencyMatrix& A, const bool POSITIVE_SEMI_DEFINITE ) {
-    if( POSITIVE_SEMI_DEFINITE ) {
+LaplacianMatrix standardLaplacian( const DegreeMatrix& D, const AdjacencyMatrix& A,
+                                   const bool POSITIVE_SEMI_DEFINITE ) {
+    if ( POSITIVE_SEMI_DEFINITE )
+    {
         return ( D - A );
     }
     return ( A - D );
 }
-
-
 
 LaplacianMatrix symmetricNormalizedLaplacian( const DegreeMatrix& D, const AdjacencyMatrix& A ) {
     Sparse I( D.rows(), D.cols() );
@@ -30,28 +26,25 @@ LaplacianMatrix symmetricNormalizedLaplacian( const DegreeMatrix& D, const Adjac
     return ( I - ( sqrt_inv_D * A * sqrt_inv_D ) );
 }
 
-
-
 LaplacianMatrix randomWalkNormalizedLaplacian( const DegreeMatrix& D, const AdjacencyMatrix& A ) {
     return ( D.cwiseInverse() * A );
 }
 
-
-
 LaplacianMatrix powerLaplacian( const LaplacianMatrix& L, const uint k ) {
     LaplacianMatrix lap( L.rows(), L.cols() );
     lap.setIdentity();
-    for( uint i = 0; i < k; ++i ) {
+    for ( uint i = 0; i < k; ++i )
+    {
         lap = L * lap;
     }
     return lap;
 }
 
-
-
-LaplacianMatrix cotangentWeightLaplacian( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T ) {
+LaplacianMatrix cotangentWeightLaplacian( const VectorArray<Vector3>& p,
+                                          const VectorArray<Triangle>& T ) {
     LaplacianMatrix L( p.size(), p.size() );
-    for( const auto& t : T ) {
+    for ( const auto& t : T )
+    {
         uint i = t( 0 );
         uint j = t( 1 );
         uint k = t( 2 );
@@ -74,40 +67,36 @@ LaplacianMatrix cotangentWeightLaplacian( const VectorArray< Vector3 >& p, const
     return ( 0.5 * L );
 }
 
-
-
 ////////////////
 /// ONE RING ///
 ////////////////
 
-Vector3 uniformLaplacian( const Vector3& v, const VectorArray< Vector3 >& p ) {
+Vector3 uniformLaplacian( const Vector3& v, const VectorArray<Vector3>& p ) {
     Vector3 L;
     L.setZero();
-    for( const auto& pi : p ) {
+    for ( const auto& pi : p )
+    {
         L += ( v - pi );
     }
     return L;
 }
 
-
-
-Vector3 cotangentWeightLaplacian( const Vector3& v, const VectorArray< Vector3 >& p ) {
+Vector3 cotangentWeightLaplacian( const Vector3& v, const VectorArray<Vector3>& p ) {
     Vector3 L;
     L.setZero();
     uint N = p.size();
     CircularIndex i;
     i.setSize( N );
-    for( uint j = 0; j < N; ++j ) {
+    for ( uint j = 0; j < N; ++j )
+    {
         i.setValue( j );
-        Scalar cot_a = Vector::cotan( ( v - p[i-1] ), ( p[i] - p[i-1] ) );
-        Scalar cot_b = Vector::cotan( ( v - p[i+1] ), ( p[i] - p[i+1] ) );
+        Scalar cot_a = Vector::cotan( ( v - p[i - 1] ), ( p[i] - p[i - 1] ) );
+        Scalar cot_b = Vector::cotan( ( v - p[i + 1] ), ( p[i] - p[i + 1] ) );
         L += ( cot_a + cot_b ) * ( v - p[i] );
     }
     return ( 0.5 * L );
 }
 
-
-
-}
-}
-}
+} // namespace Geometry
+} // namespace Core
+} // namespace Ra
