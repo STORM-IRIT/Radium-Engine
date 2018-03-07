@@ -178,7 +178,8 @@ namespace Ra
 
             GL_ASSERT( glDrawBuffers( 4, buffers ) );
 
-            const Core::Colorf clearColor = Core::Colors::FromChars<Core::Colorf>(42, 42, 42, 0);
+            //const Core::Colorf clearColor = Core::Colors::FromChars<Core::Colorf>(42, 42, 42, 0);
+            const Core::Colorf clearColor = Core::Colors::FromChars<Core::Colorf>(255, 255, 255, 255);
             const Core::Colorf clearZeros = Core::Colors::Black<Core::Colorf>();
             const Core::Colorf clearOnes  = Core::Colors::FromChars<Core::Colorf>(255, 255, 255, 255);
             const float clearDepth( 1.0 );
