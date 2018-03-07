@@ -71,6 +71,8 @@ namespace Ra
             int getAsymmetryMax();
             void setComputeAlpha();
             int getAlpha();
+            void colorMeshes();
+            void colorMeshesSimplified();
 
             int getNbFacesMax();
             void computeNbFacesMax();

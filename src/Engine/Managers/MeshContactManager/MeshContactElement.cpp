@@ -93,6 +93,34 @@ namespace Ra
             return m_tm_duplicateVertices;
         }
 
+        void MeshContactElement::setTriangleMeshDuplicateSimplified()
+        {
+            m_tm_duplicateVertices.m_normals = m_mesh->getGeometry().m_normals;
+
+            int nbTriangles = m_mesh->getGeometry().m_triangles.size();
+
+            for (uint i = 0; i < nbTriangles; i++)
+            {
+                for (uint j = 0; j < 3; j++)
+                {
+                    m_tm_duplicateVerticesSimplified.m_vertices.push_back(m_mesh->getGeometry().m_vertices[m_mesh->getGeometry().m_triangles[i][j]]);
+                }
+
+                Ra::Core::Triangle t;
+                for (uint k = 0; k < 3; k++)
+                {
+                    t[k] = 3 * i + k;
+                }
+
+                m_tm_duplicateVerticesSimplified.m_triangles.push_back(t);
+            }
+        }
+
+        Ra::Core::TriangleMesh MeshContactElement::getTriangleMeshDuplicateSimplified()
+        {
+            return m_tm_duplicateVerticesSimplified;
+        }
+
         Ra::Core::ProgressiveMeshLOD* MeshContactElement::getProgressiveMeshLOD()
         {
             return m_pmlod;
@@ -133,6 +161,8 @@ namespace Ra
                 colors.push_back(vertexColor);
             }
             m_mesh->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+
+            setTriangleMeshDuplicateSimplified();
         }
 
         void MeshContactElement::computePrimitives()

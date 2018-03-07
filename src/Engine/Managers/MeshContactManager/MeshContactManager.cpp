@@ -124,6 +124,7 @@ namespace Ra
 
             //mesh->computeTriangleMesh();
             mesh->computeMesh(entityName,componentName);
+
             m_initTriangleMeshes.push_back(mesh->getInitTriangleMesh());
 
             Super4PCS::TriangleKdTree<>* trianglekdtree = new Super4PCS::TriangleKdTree<>();
@@ -2587,6 +2588,52 @@ namespace Ra
             else
             {
                 return false;
+            }
+        }
+
+        void MeshContactManager::colorMeshes()
+        {
+
+            Ra::Core::Vector4 vertexColor[2] = {{0.70,0.13,0.13,0}, {0,0,0.355,0}};
+            //Ra::Core::Vector4 vertexColor[2] = {{0.18,0.55,0.34,0}, {1,0.84,0,0}};
+            //Ra::Core::Vector4 vertexColor[2] = {{0.28,0.24,0.55,0}, {0.94,0.50,0.50,0}};
+            //Ra::Core::Vector4 vertexColor[10] = {{0.55,0,0,0}, {0.80,0.36,0.36,0}, {1,0.63,0.48,0}, {1,0.55,0,0}, {1,0.84,0,0}, {0.60,0.80,0.20,0}, {0.18,0.55,0.34,0}, {0.37,0.62,0.63,0}, {0.27,0.51,0.71,0}, {0,0,0.55,0}};
+
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                m_meshContactElements[i]->setMesh(m_meshContactElements[i]->getTriangleMeshDuplicate());
+
+                MeshContactElement* obj = m_meshContactElements[i];
+                int nbVertices = obj->getMesh()->getGeometry().m_vertices.size();
+                Ra::Core::Vector4Array colors;
+                for (uint v = 0; v < nbVertices; v++)
+                {
+                    colors.push_back(vertexColor[i]);
+                }
+                obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+            }
+        }
+
+        void MeshContactManager::colorMeshesSimplified()
+        {
+
+            Ra::Core::Vector4 vertexColor[2] = {{0.70,0.13,0.13,0}, {0,0,0.355,0}};
+            //Ra::Core::Vector4 vertexColor[2] = {{0.18,0.55,0.34,0}, {1,0.84,0,0}};
+            //Ra::Core::Vector4 vertexColor[2] = {{0.28,0.24,0.55,0}, {0.94,0.50,0.50,0}};
+            //Ra::Core::Vector4 vertexColor[10] = {{0.55,0,0,0}, {0.80,0.36,0.36,0}, {1,0.63,0.48,0}, {1,0.55,0,0}, {1,0.84,0,0}, {0.60,0.80,0.20,0}, {0.18,0.55,0.34,0}, {0.37,0.62,0.63,0}, {0.27,0.51,0.71,0}, {0,0,0.55,0}};
+
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                m_meshContactElements[i]->setMesh(m_meshContactElements[i]->getTriangleMeshDuplicateSimplified());
+
+                MeshContactElement* obj = m_meshContactElements[i];
+                int nbVertices = obj->getMesh()->getGeometry().m_vertices.size();
+                Ra::Core::Vector4Array colors;
+                for (uint v = 0; v < nbVertices; v++)
+                {
+                    colors.push_back(vertexColor[i]);
+                }
+                obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
             }
         }
 

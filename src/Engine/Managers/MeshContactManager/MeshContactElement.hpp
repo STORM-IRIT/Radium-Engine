@@ -37,6 +37,8 @@ namespace Ra
             Ra::Core::TriangleMesh getInitTriangleMesh();
             void setTriangleMeshDuplicate();
             Ra::Core::TriangleMesh getTriangleMeshDuplicate();
+            void setTriangleMeshDuplicateSimplified();
+            Ra::Core::TriangleMesh getTriangleMeshDuplicateSimplified();
 
             void updateTriangleMesh(Ra::Core::TriangleMesh newMesh);
             bool isConstructM0();
@@ -69,6 +71,7 @@ namespace Ra
             Ra::Core::TriangleMesh m_initTriangleMesh;
 
             Ra::Core::TriangleMesh m_tm_duplicateVertices;
+            Ra::Core::TriangleMesh m_tm_duplicateVerticesSimplified;
         };
 
     } // namespace Engine
