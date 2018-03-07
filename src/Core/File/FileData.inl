@@ -1,13 +1,12 @@
 
+#include <Core/File/AnimationData.hpp>
 #include <Core/File/GeometryData.hpp>
 #include <Core/File/HandleData.hpp>
-#include <Core/File/AnimationData.hpp>
 #include <Core/File/LightData.hpp>
 #include <Core/Log/Log.hpp>
 
 namespace Ra {
 namespace Asset {
-
 
 /// FILENAME
 inline std::string FileData::getFileName() const {
@@ -24,37 +23,41 @@ inline Scalar FileData::getLoadingTime() const {
 }
 
 /// DATA
-inline std::vector< GeometryData* > FileData::getGeometryData() const {
-    std::vector< GeometryData* > list;
+inline std::vector<GeometryData*> FileData::getGeometryData() const {
+    std::vector<GeometryData*> list;
     list.reserve( m_geometryData.size() );
-    for( const auto& item : m_geometryData ) {
+    for ( const auto& item : m_geometryData )
+    {
         list.push_back( item.get() );
     }
     return list;
 }
 
-inline std::vector< HandleData* > FileData::getHandleData() const {
-    std::vector< HandleData* > list;
+inline std::vector<HandleData*> FileData::getHandleData() const {
+    std::vector<HandleData*> list;
     list.reserve( m_handleData.size() );
-    for( const auto& item : m_handleData ) {
+    for ( const auto& item : m_handleData )
+    {
         list.push_back( item.get() );
     }
     return list;
 }
 
-inline std::vector< AnimationData* > FileData::getAnimationData() const {
-    std::vector< AnimationData* > list;
+inline std::vector<AnimationData*> FileData::getAnimationData() const {
+    std::vector<AnimationData*> list;
     list.reserve( m_animationData.size() );
-    for( const auto& item : m_animationData ) {
+    for ( const auto& item : m_animationData )
+    {
         list.push_back( item.get() );
     }
     return list;
 }
 
-inline std::vector< LightData* > FileData::getLightData() const {
-    std::vector< LightData* > list;
+inline std::vector<LightData*> FileData::getLightData() const {
+    std::vector<LightData*> list;
     list.reserve( m_lightData.size() );
-    for( const auto& item : m_lightData ) {
+    for ( const auto& item : m_lightData )
+    {
         list.push_back( item.get() );
     }
     return list;
@@ -94,8 +97,7 @@ inline bool FileData::isVerbose() const {
 }
 
 /// RESET
-inline void FileData::reset()
-{
+inline void FileData::reset() {
     m_filename = "";
     m_geometryData.clear();
     m_handleData.clear();
@@ -109,15 +111,13 @@ inline void FileData::displayInfo() const {
     {
         vtxCount += geom->getVerticesSize();
     }
-    LOG(logINFO) << "======== LOADING SUMMARY ========";
-    LOG(logINFO) << "Mesh loaded        : " << m_geometryData.size();
-    LOG(logINFO) << "Total vertex count : " << vtxCount;
-    LOG(logINFO) << "Handle loaded      : " << m_handleData.size();
-    LOG(logINFO) << "Animation loaded   : " << m_animationData.size();
-    LOG(logINFO) << "Loading Time (sec) : " << m_loadingTime;
+    LOG( logINFO ) << "======== LOADING SUMMARY ========";
+    LOG( logINFO ) << "Mesh loaded        : " << m_geometryData.size();
+    LOG( logINFO ) << "Total vertex count : " << vtxCount;
+    LOG( logINFO ) << "Handle loaded      : " << m_handleData.size();
+    LOG( logINFO ) << "Animation loaded   : " << m_animationData.size();
+    LOG( logINFO ) << "Loading Time (sec) : " << m_loadingTime;
 }
-
 
 } // namespace Asset
 } // namespace Ra
-

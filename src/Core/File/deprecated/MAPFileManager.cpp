@@ -8,16 +8,12 @@ using namespace Geometry;
 /// ===============================================================================
 /// CONSTRUCTOR
 /// ===============================================================================
-MAPFileManager::MAPFileManager() : FileManager< Parametrization >() { }
-
-
+MAPFileManager::MAPFileManager() : FileManager<Parametrization>() {}
 
 /// ===============================================================================
 /// DESTRUCTOR
 /// ===============================================================================
-MAPFileManager::~MAPFileManager() { }
-
-
+MAPFileManager::~MAPFileManager() {}
 
 /// ===============================================================================
 /// HEADER
@@ -26,8 +22,6 @@ std::string MAPFileManager::header() const {
     return "MAP";
 }
 
-
-
 /// ===============================================================================
 /// INTERFACE
 /// ===============================================================================
@@ -35,23 +29,24 @@ std::string MAPFileManager::fileExtension() const {
     return "map";
 }
 
-
-
 bool MAPFileManager::importData( std::istream& file, Parametrization& data ) {
     std::string h;
-    uint        size;
+    uint size;
     file >> h;
-    if( h != header() ) {
+    if ( h != header() )
+    {
         addLogErrorEntry( "HEADER IS NOT CORRECT." );
         return false;
     }
     file >> size;
-    if( size == 0 ) {
+    if ( size == 0 )
+    {
         addLogErrorEntry( "MAPPING ROW SIZE IS ZERO." );
         return false;
     }
     data = Parametrization( size, Mapping() );
-    for( uint i = 0; i < size; ++i ) {
+    for ( uint i = 0; i < size; ++i )
+    {
         uint ID;
         Scalar alpha;
         Scalar beta;
@@ -65,27 +60,25 @@ bool MAPFileManager::importData( std::istream& file, Parametrization& data ) {
     return true;
 }
 
-
-
 bool MAPFileManager::exportData( std::ostream& file, const Parametrization& data ) {
     std::string content = "";
     const uint size = data.size();
-    if( size == 0 ) {
+    if ( size == 0 )
+    {
         addLogErrorEntry( "MAPPING IS EMPTY." );
         return false;
     }
     content += header() + " " + std::to_string( size ) + "\n";
-    for( uint i = 0; i < size; ++i ) {
+    for ( uint i = 0; i < size; ++i )
+    {
         content += std::to_string( data[i].getID().getValue() ) + " " +
-                   std::to_string( data[i].getAlpha()         ) + " " +
-                   std::to_string( data[i].getBeta()          ) + " " +
-                   std::to_string( data[i].getDelta()         ) + "\n";
+                   std::to_string( data[i].getAlpha() ) + " " +
+                   std::to_string( data[i].getBeta() ) + " " +
+                   std::to_string( data[i].getDelta() ) + "\n";
     }
     file << content;
     return true;
 }
-
-
 
 } // namespace Core
 } // namespace Ra

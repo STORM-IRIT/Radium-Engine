@@ -4,45 +4,41 @@
 #include <Engine/RaEngine.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
-namespace Ra
-{
-    namespace Engine
-    {
+namespace Ra {
+namespace Engine {
 
-        class RA_ENGINE_API PointLight final : public Light
-        {
-        public:
-            struct Attenuation
-            {
-                Scalar constant;
-                Scalar linear;
-                Scalar quadratic;
+class RA_ENGINE_API PointLight final : public Light {
+  public:
+    struct Attenuation {
+        Scalar constant;
+        Scalar linear;
+        Scalar quadratic;
 
-                Attenuation() : constant( 1.0 ), linear(), quadratic() {}
-            };
+        Attenuation() : constant( 1.0 ), linear(), quadratic() {}
+    };
 
-        public:
-            RA_CORE_ALIGNED_NEW
+  public:
+    RA_CORE_ALIGNED_NEW
 
-            PointLight();
-            ~PointLight();
+    PointLight();
+    ~PointLight();
 
-            void getRenderParameters( RenderParameters& params ) override;
+    void getRenderParameters( RenderParameters& params ) override;
 
-            void setPosition( const Core::Vector3& pos ) override;
-            inline const Core::Vector3& getPosition() const;
+    void setPosition( const Core::Vector3& pos ) override;
+    inline const Core::Vector3& getPosition() const;
 
-            inline void setAttenuation( const Attenuation& attenuation );
-            inline void setAttenuation( Scalar constant, Scalar linear, Scalar quadratic );
-            inline const Attenuation& getAttenuation() const;
+    inline void setAttenuation( const Attenuation& attenuation );
+    inline void setAttenuation( Scalar constant, Scalar linear, Scalar quadratic );
+    inline const Attenuation& getAttenuation() const;
 
-        private:
-            Core::Vector3 m_position;
+  private:
+    Core::Vector3 m_position;
 
-            Attenuation m_attenuation;
-        };
+    Attenuation m_attenuation;
+};
 
-    } // namespace Engine
+} // namespace Engine
 } // namespace Ra
 
 #include <Engine/Renderer/Light/PointLight.inl>

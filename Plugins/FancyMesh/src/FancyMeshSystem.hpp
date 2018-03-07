@@ -5,46 +5,41 @@
 
 #include <Engine/System/System.hpp>
 
-namespace Ra
-{
-    namespace Core
-    {
-        struct TriangleMesh;
-    }
+namespace Ra {
+namespace Core {
+struct TriangleMesh;
+}
+} // namespace Ra
+
+namespace Ra {
+namespace Engine {
+class Entity;
+struct RenderTechnique;
+class Component;
+} // namespace Engine
+} // namespace Ra
+
+namespace FancyMeshPlugin {
+class FancyMeshComponent;
 }
 
-namespace Ra
-{
-    namespace Engine
-    {
-        class Entity;
-        struct RenderTechnique;
-        class Component;
-    }
-}
+namespace FancyMeshPlugin {
+class FM_PLUGIN_API FancyMeshSystem : public Ra::Engine::System {
+  public:
+    FancyMeshSystem();
+    virtual ~FancyMeshSystem();
 
-namespace FancyMeshPlugin
-{
-    class FancyMeshComponent;
-}
+    void handleAssetLoading( Ra::Engine::Entity* entity,
+                             const Ra::Asset::FileData* fileData ) override;
 
-namespace FancyMeshPlugin
-{
-    class FM_PLUGIN_API FancyMeshSystem : public Ra::Engine::System
-    {
-    public:
-        FancyMeshSystem();
-        virtual ~FancyMeshSystem();
+    void generateTasks( Ra::Core::TaskQueue* taskQueue,
+                        const Ra::Engine::FrameInfo& frameInfo ) override;
 
-        void handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData ) override;
-
-        void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;
-
-        // Specialized factory method for this systems.
-        static FancyMeshComponent* makeFancyMeshFromGeometry( const Ra::Core::TriangleMesh& mesh, const std::string& name,
-                                                             Ra::Engine::RenderTechnique* technique = nullptr );
-
-    };
+    // Specialized factory method for this systems.
+    static FancyMeshComponent*
+    makeFancyMeshFromGeometry( const Ra::Core::TriangleMesh& mesh, const std::string& name,
+                               Ra::Engine::RenderTechnique* technique = nullptr );
+};
 
 } // namespace FancyMeshPlugin
 

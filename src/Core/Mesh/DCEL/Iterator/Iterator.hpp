@@ -1,15 +1,15 @@
 #ifndef RADIUMENGINE_DCEL_ITERATOR_HPP
 #define RADIUMENGINE_DCEL_ITERATOR_HPP
 
-#include <vector>
 #include <Core/Mesh/DCEL/Definition.hpp>
+#include <vector>
 
 namespace Ra {
 namespace Core {
 
-template < typename OBJECT >
+template <typename OBJECT>
 class [[deprecated]] Iterator {
-public:
+  public:
     /// CONSTRUCTOR
     Iterator();
     Iterator( const Iterator& it ) = default;
@@ -21,19 +21,19 @@ public:
     virtual uint size() const = 0;
 
     /// LIST
-    virtual std::vector< std::shared_ptr< OBJECT > > list() const = 0;
+    virtual std::vector<std::shared_ptr<OBJECT>> list() const = 0;
 
     /// RESET
     virtual void reset() = 0;
 
     /// OPERATOR
-    virtual OBJECT*   operator->() const = 0;
+    virtual OBJECT* operator->() const = 0;
     virtual Iterator& operator++() = 0;
     virtual Iterator& operator--() = 0;
-    inline  Iterator& operator+=( const uint n ) const;
-    inline  Iterator& operator-=( const uint n ) const;
+    inline Iterator& operator+=( const uint n ) const;
+    inline Iterator& operator-=( const uint n ) const;
 
-protected:
+  protected:
     /// VARIABLE
     HalfEdge_ptr m_he;
 };

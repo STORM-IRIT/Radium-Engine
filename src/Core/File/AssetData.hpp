@@ -5,27 +5,21 @@
 #include <string>
 
 namespace Ra {
-    namespace Asset {
+namespace Asset {
 
-        class RA_CORE_API AssetData
-        {
-        public:
-            AssetData( const std::string& name )
-                : m_name( name )
-            {}
+class RA_CORE_API AssetData {
+  public:
+    AssetData( const std::string& name ) : m_name( name ) {}
 
-            virtual ~AssetData() {}
+    virtual ~AssetData() {}
 
-            inline virtual const std::string& getName() const
-            {
-                return m_name;
-            }
+    inline virtual const std::string& getName() const { return m_name; }
 
-        protected:
-            std::string m_name;
-        };
+  protected:
+    std::string m_name;
+};
 
-    } // namespace Asset
+} // namespace Asset
 } // namespace Ra
 
 #endif // RADIUMENGINE_GEOMETRY_DATA_HPP

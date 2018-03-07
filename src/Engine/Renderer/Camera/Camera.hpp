@@ -6,18 +6,15 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Math/Ray.hpp>
 
-namespace Ra
-{
-namespace Engine
-{
+namespace Ra {
+namespace Engine {
 // The class Camera defines a camera in 3D space with
-class RA_ENGINE_API Camera final
-{
-public:
+class RA_ENGINE_API Camera final {
+  public:
     /// Define the projection type.
-    enum class ProjType
-    {
-        ORTHOGRAPHIC, PERSPECTIVE,
+    enum class ProjType {
+        ORTHOGRAPHIC,
+        PERSPECTIVE,
     };
 
     ///
@@ -67,10 +64,8 @@ public:
 
     inline Core::Vector3 getRightVector() const;
 
-
     /// Apply the transformation 'T' to the camera.
     void applyTransform( const Core::Transform& T );
-
 
     //
     // Getters and setters for projection matrix parameters.
@@ -146,21 +141,21 @@ public:
     /// Return the point on the screen plane (near plane) represented by screen coordinates pix.
     inline Core::Vector3 unProject( const Core::Vector2& pix ) const;
 
-protected:
-    Core::Transform m_frame;      // Camera frame (inverse of the view matrix)
-    Core::Matrix4   m_projMatrix; // Projection matrix
+  protected:
+    Core::Transform m_frame;    // Camera frame (inverse of the view matrix)
+    Core::Matrix4 m_projMatrix; // Projection matrix
 
-    Scalar    m_fov;        // Field of view
-    Scalar    m_zNear;      // Z Near plane distance
-    Scalar    m_zFar;       // Z Far plane distance
+    Scalar m_fov;   // Field of view
+    Scalar m_zNear; // Z Near plane distance
+    Scalar m_zFar;  // Z Far plane distance
 
-    Scalar    m_zoomFactor; // Zoom factor (modifies the field of view)
+    Scalar m_zoomFactor; // Zoom factor (modifies the field of view)
 
-    Scalar m_width;         // Viewport width (in pixels)
-    Scalar m_height;        // Viewport height (in pixels)
+    Scalar m_width;  // Viewport width (in pixels)
+    Scalar m_height; // Viewport height (in pixels)
     Scalar m_aspect;
 
-    ProjType  m_projType;   // Projection type
+    ProjType m_projType; // Projection type
 };
 
 } // namespace Engine

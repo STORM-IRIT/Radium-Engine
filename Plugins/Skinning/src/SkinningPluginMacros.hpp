@@ -4,10 +4,10 @@
 #include <Core/CoreMacros.hpp>
 
 /// Defines the correct macro to export dll symbols.
-#if defined  Skinning_EXPORTS
-    #define SKIN_PLUGIN_API DLL_EXPORT
+#if defined Skinning_EXPORTS
+#    define SKIN_PLUGIN_API DLL_EXPORT
 #else
-    #define SKIN_PLUGIN_API DLL_IMPORT
+#    define SKIN_PLUGIN_API DLL_IMPORT
 #endif
 
 #endif // SKINNINGPLUGINMACROS_HPP_

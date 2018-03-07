@@ -1,14 +1,14 @@
 #ifndef RADIUMENGINE_OBJ_FILE_MANAGER_HPP
 #define RADIUMENGINE_OBJ_FILE_MANAGER_HPP
-#include <Core/RaCore.hpp>
 #include <Core/File/deprecated/FileManager.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
 
-class RA_CORE_API OBJFileManager : public FileManager< TriangleMesh > {
-public:
+class RA_CORE_API OBJFileManager : public FileManager<TriangleMesh> {
+  public:
     /// CONSTRUCTOR
     OBJFileManager();
 

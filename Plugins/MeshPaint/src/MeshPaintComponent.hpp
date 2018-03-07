@@ -11,29 +11,34 @@
 #include <Engine/Renderer/Renderer.hpp>
 
 namespace Ra {
-    namespace Core { class TaskQueue; struct TaskParams; }
-    namespace Engine{ struct FrameInfo;}
+namespace Core {
+class TaskQueue;
+struct TaskParams;
+} // namespace Core
+namespace Engine {
+struct FrameInfo;
 }
+} // namespace Ra
 
 namespace MeshPaintPlugin {
 
-class MESH_PAINT_PLUGIN_API MeshPaintComponent : public Ra::Engine::Component
-{
-public:
+class MESH_PAINT_PLUGIN_API MeshPaintComponent : public Ra::Engine::Component {
+  public:
     MeshPaintComponent( const std::string& name );
     virtual ~MeshPaintComponent();
 
     virtual void initialize() override;
     virtual void addTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& info );
 
-    void setDataId( const std::string &id );
+    void setDataId( const std::string& id );
 
     void startPaint( bool on );
-    void paintMesh( const Ra::Engine::Renderer::PickingResult& picking, const Ra::Core::Color &color );
+    void paintMesh( const Ra::Engine::Renderer::PickingResult& picking,
+                    const Ra::Core::Color& color );
 
-protected:
+  protected:
     // Geometry data
-    Ra::Engine::ComponentMessenger::CallbackTypes< Ra::Core::Index >::Getter m_renderObjectReader;
+    Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Index>::Getter m_renderObjectReader;
 
     // Data id for compoenent messenger
     std::string m_dataId;
@@ -44,6 +49,6 @@ protected:
     Ra::Core::Vector4Array m_paintColors;
 };
 
-} // namespace MESHPAINTPLUGIN_MESHPAINTCOMPONENT_HPP
+} // namespace MeshPaintPlugin
 
 #endif

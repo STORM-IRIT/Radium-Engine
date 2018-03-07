@@ -3,48 +3,44 @@
 
 #include <MeshPaintPluginMacros.hpp>
 
-#include <Engine/System/System.hpp>
 #include <Engine/Renderer/Renderer.hpp>
+#include <Engine/System/System.hpp>
 
-namespace Ra
-{
-    namespace Core
-    {
-        struct TriangleMesh;
-    }
+namespace Ra {
+namespace Core {
+struct TriangleMesh;
+}
+} // namespace Ra
+
+namespace Ra {
+namespace Engine {
+class Entity;
+struct RenderTechnique;
+class Component;
+} // namespace Engine
+} // namespace Ra
+
+namespace MeshPaintPlugin {
+class MeshPaintComponent;
 }
 
-namespace Ra
-{
-    namespace Engine
-    {
-        class Entity;
-        struct RenderTechnique;
-        class Component;
-    }
-}
+namespace MeshPaintPlugin {
+class MESH_PAINT_PLUGIN_API MeshPaintSystem : public Ra::Engine::System {
+  public:
+    MeshPaintSystem();
+    virtual ~MeshPaintSystem();
 
-namespace MeshPaintPlugin
-{
-    class MeshPaintComponent;
-}
+    virtual void handleAssetLoading( Ra::Engine::Entity* entity,
+                                     const Ra::Asset::FileData* fileData ) override;
 
-namespace MeshPaintPlugin
-{
-    class MESH_PAINT_PLUGIN_API MeshPaintSystem : public Ra::Engine::System
-    {
-    public:
-        MeshPaintSystem();
-        virtual ~MeshPaintSystem();
+    virtual void generateTasks( Ra::Core::TaskQueue* taskQueue,
+                                const Ra::Engine::FrameInfo& frameInfo ) override;
 
-        virtual void handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Asset::FileData* fileData ) override;
+    void startPaintMesh( bool start );
 
-        virtual void generateTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& frameInfo ) override;
-
-        void startPaintMesh( bool start );
-
-        void paintMesh( const Ra::Engine::Renderer::PickingResult& picking, const Ra::Core::Color& color );
-    };
+    void paintMesh( const Ra::Engine::Renderer::PickingResult& picking,
+                    const Ra::Core::Color& color );
+};
 
 } // namespace MeshPaintPlugin
 

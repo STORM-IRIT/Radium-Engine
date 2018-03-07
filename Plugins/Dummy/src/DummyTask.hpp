@@ -3,36 +3,32 @@
 
 #include <Core/Tasks/Task.hpp>
 
-namespace DummyPlugin
-{
-    struct DummyData;
+namespace DummyPlugin {
+struct DummyData;
 
-    struct DummyParams : public Ra::Core::TaskParams
-    {
-        DummyData* data;
-    };
+struct DummyParams : public Ra::Core::TaskParams {
+    DummyData* data;
+};
 
-    class DummyTask : public Ra::Core::Task
-    {
-    public:
-        virtual std::string getName() const override;
-        virtual void init( const Ra::Core::TaskParams* params ) override;
-        virtual void process() override;
+class DummyTask : public Ra::Core::Task {
+  public:
+    virtual std::string getName() const override;
+    virtual void init( const Ra::Core::TaskParams* params ) override;
+    virtual void process() override;
 
-    private:
-        DummyData* m_data;
-    };
+  private:
+    DummyData* m_data;
+};
 
-    class DummyOtherTask : public Ra::Core::Task
-    {
-    public:
-        virtual std::string getName() const override;
-        virtual void init( const Ra::Core::TaskParams* params ) override;
-        virtual void process() override;
+class DummyOtherTask : public Ra::Core::Task {
+  public:
+    virtual std::string getName() const override;
+    virtual void init( const Ra::Core::TaskParams* params ) override;
+    virtual void process() override;
 
-    private:
-        DummyData* m_data;
-    };
-}
+  private:
+    DummyData* m_data;
+};
+} // namespace DummyPlugin
 
 #endif

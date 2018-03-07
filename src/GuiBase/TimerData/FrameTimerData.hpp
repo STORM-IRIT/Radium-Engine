@@ -3,32 +3,30 @@
 
 #include <GuiBase/RaGuiBase.hpp>
 
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
 #include <Core/Log/Log.hpp>
-#include <Core/Time/Timer.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Time/Timer.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 
-namespace Ra
-{
+namespace Ra {
 
-    /// This struct holds all timings for one frame of the engine.
-    struct RA_GUIBASE_API FrameTimerData
-    {
-        uint numFrame;
-        Core::Timer::TimePoint frameStart;
-        Core::Timer::TimePoint eventsStart;
-        Core::Timer::TimePoint eventsEnd;
-        Core::Timer::TimePoint tasksStart;
-        Core::Timer::TimePoint tasksEnd;
-        Core::Timer::TimePoint frameEnd;
-        Engine::Renderer::TimerData renderData;
-        std::vector<Core::TaskQueue::TimerData> taskData;
+/// This struct holds all timings for one frame of the engine.
+struct RA_GUIBASE_API FrameTimerData {
+    uint numFrame;
+    Core::Timer::TimePoint frameStart;
+    Core::Timer::TimePoint eventsStart;
+    Core::Timer::TimePoint eventsEnd;
+    Core::Timer::TimePoint tasksStart;
+    Core::Timer::TimePoint tasksEnd;
+    Core::Timer::TimePoint frameEnd;
+    Engine::Renderer::TimerData renderData;
+    std::vector<Core::TaskQueue::TimerData> taskData;
 
-        void print(std::ostream& ostream) const;
-    };
+    void print( std::ostream& ostream ) const;
+};
 
 #if 0
     class LoggableFrameTimerData
@@ -51,7 +49,6 @@ namespace Ra
     };
 #endif
 
-}
-
+} // namespace Ra
 
 #endif // RADIUMENGINE_FRAME_TIMER_DATA_HPP_

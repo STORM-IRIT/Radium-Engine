@@ -1,157 +1,146 @@
 #ifndef RADIUMENGINE_TASK_QUEUE_HPP_
 #define RADIUMENGINE_TASK_QUEUE_HPP_
 
-
 #include <Core/RaCore.hpp>
-#include <memory>
-#include <vector>
+#include <condition_variable>
 #include <deque>
-#include <thread>
+#include <memory>
 #include <mutex>
 #include <string>
-#include <condition_variable>
+#include <thread>
+#include <vector>
 
 #include <Core/Time/Timer.hpp>
 
-namespace Ra
-{
-    namespace Core
-    {
-        class Task;
-    }
+namespace Ra {
+namespace Core {
+class Task;
 }
+} // namespace Ra
 
-namespace Ra
-{
-    namespace Core
-    {
-        /// This class allows tasks to be registered and then executed in parallel on separate threads.
-        /// it maintains an internal pool of threads. When instructed, it dispatches the tasks to the
-        /// pooled threads.
-        /// Task are allowed to have dependencies. A task will be executed only when all its dependencies
-        /// are satisfied, i.e. all dependant tasks are finished.
-        /// Note that most functions are not thread safe and must not be called when the task queue is running.
-        class RA_CORE_API TaskQueue
-        {
-        public:
-            /// Identifier for a task in the task queue.
-            using  TaskId = uint;
-            enum { InvalidTaskId = TaskId( -1 ) };
+namespace Ra {
+namespace Core {
+/// This class allows tasks to be registered and then executed in parallel on separate threads.
+/// it maintains an internal pool of threads. When instructed, it dispatches the tasks to the
+/// pooled threads.
+/// Task are allowed to have dependencies. A task will be executed only when all its dependencies
+/// are satisfied, i.e. all dependant tasks are finished.
+/// Note that most functions are not thread safe and must not be called when the task queue is
+/// running.
+class RA_CORE_API TaskQueue {
+  public:
+    /// Identifier for a task in the task queue.
+    using TaskId = uint;
+    enum { InvalidTaskId = TaskId( -1 ) };
 
-            /// Record of a task's start and end time.
-            struct TimerData
-            {
-                Timer::TimePoint start;
-                Timer::TimePoint end;
-                uint threadId;
-                std::string taskName;
-            };
+    /// Record of a task's start and end time.
+    struct TimerData {
+        Timer::TimePoint start;
+        Timer::TimePoint end;
+        uint threadId;
+        std::string taskName;
+    };
 
-        public:
+  public:
+    /// Constructor. Initializes the thread pools with numThreads threads.
+    TaskQueue( uint numThreads );
 
-            /// Constructor. Initializes the thread pools with numThreads threads.
-            TaskQueue( uint numThreads );
+    /// Destructor. Waits for all the threads and safely deletes them.
+    ~TaskQueue();
 
-            /// Destructor. Waits for all the threads and safely deletes them.
-            ~TaskQueue();
+    //
+    // Task management
+    //
 
-            //
-            // Task management
-            //
+    /// Registers a task to be executed.
+    /// Task must have been created with new and be initialized with its parameter.
+    /// The task queue assumes ownership of the task.
+    TaskId registerTask( Task* task );
 
-            /// Registers a task to be executed.
-            /// Task must have been created with new and be initialized with its parameter.
-            /// The task queue assumes ownership of the task.
-            TaskId registerTask( Task* task );
+    /// Add dependency between two tasks. The successor task will be executed only when all
+    /// its predecessor completed.
+    void addDependency( TaskId predecessor, TaskId successor );
 
-            /// Add dependency between two tasks. The successor task will be executed only when all
-            /// its predecessor completed.
-            void addDependency( TaskId predecessor, TaskId successor );
+    /// Add dependency between a task and all task with a given name.
+    /// Will return false if no dependency has been added.
+    bool addDependency( const std::string& predecessors, TaskId successor );
+    bool addDependency( TaskId predecessor, const std::string& successors );
 
-            /// Add dependency between a task and all task with a given name.
-            /// Will return false if no dependency has been added.
-            bool addDependency( const std::string& predecessors, TaskId successor);
-            bool addDependency( TaskId predecessor, const std::string& successors);
+    /// Add a dependency between a task an all tasks with a given name, even
+    /// if the task is not present yet, the name being resolved when task start.
+    void addPendingDependency( const std::string& predecessors, TaskId successor );
+    void addPendingDependency( TaskId predecessor, const std::string& successors );
 
-            /// Add a dependency between a task an all tasks with a given name, even
-            /// if the task is not present yet, the name being resolved when task start.
-            void addPendingDependency( const std::string& predecessors, TaskId successor);
-            void addPendingDependency( TaskId predecessor, const std::string& successors);
+    //
+    // Task queue operations
+    //
 
-            //
-            // Task queue operations
-            //
+    /// Launches the execution of all the threads in the task queue.
+    /// No more tasks should be added at this point.
+    void startTasks();
 
-            /// Launches the execution of all the threads in the task queue.
-            /// No more tasks should be added at this point.
-            void startTasks();
+    /// Blocks until all tasks and dependencies are finished.
+    void waitForTasks();
 
-            /// Blocks until all tasks and dependencies are finished.
-            void waitForTasks();
+    /// Access the data from the last frame execution after processTaskQueue();
+    const std::vector<TimerData>& getTimerData();
 
-            /// Access the data from the last frame execution after processTaskQueue();
-            const std::vector<TimerData>& getTimerData();
+    /// Erases all tasks. Will assert if tasks are unprocessed.
+    void flushTaskQueue();
 
-            /// Erases all tasks. Will assert if tasks are unprocessed.
-            void flushTaskQueue();
+    /// Prints the current task graph in dot format
+    void printTaskGraph( std::ostream& output ) const;
 
+  private:
+    /// Function called by a new thread.
+    void runThread( uint id );
 
-            /// Prints the current task graph in dot format
-            void printTaskGraph( std::ostream& output ) const;
+    /// Puts the task on the queue to be executed. A task can only be queued if it has
+    /// no dependencies.
+    void queueTask( TaskId task );
 
-        private:
+    /// Detect if there are any cycles in the task graph, and asserts if it is the case.
+    /// (this function is compiled to nothing in release).
+    void detectCycles();
 
-            /// Function called by a new thread.
-            void runThread( uint id );
+    /// Resolves the pending named dependencies. Will assert if dependencies don't resolve.
+    void resolveDependencies();
 
-            /// Puts the task on the queue to be executed. A task can only be queued if it has
-            /// no dependencies.
-            void queueTask( TaskId task );
+  private:
+    /// Threads working on tasks.
+    std::vector<std::thread> m_workerThreads;
+    /// Storage for the tasks (task will be deleted after flushQueue()).
+    std::vector<std::unique_ptr<Task>> m_tasks;
+    /// For each task, stores which tasks depend on it.
+    std::vector<std::vector<TaskId>> m_dependencies;
 
-            /// Detect if there are any cycles in the task graph, and asserts if it is the case.
-            /// (this function is compiled to nothing in release).
-            void detectCycles();
+    /// List of pending dependencies
+    std::vector<std::pair<TaskId, std::string>> m_pendingDepsPre;
+    std::vector<std::pair<std::string, TaskId>> m_pendingDepsSucc;
 
-            /// Resolves the pending named dependencies. Will assert if dependencies don't resolve.
-            void resolveDependencies();
+    /// Stores the timings of each frame after execution.
+    std::vector<TimerData> m_timerData;
 
-        private:
+    //
+    // mutex protected variables.
+    //
 
-            /// Threads working on tasks.
-            std::vector<std::thread> m_workerThreads;
-            /// Storage for the tasks (task will be deleted after flushQueue()).
-            std::vector<std::unique_ptr<Task>> m_tasks;
-            /// For each task, stores which tasks depend on it.
-            std::vector<std::vector <TaskId>> m_dependencies;
+    /// Number of tasks each task is waiting on.
+    std::vector<uint> m_remainingDependencies;
+    /// Queue holding the pending tasks.
+    std::deque<TaskId> m_taskQueue;
+    /// Number of tasks currently being processed.
+    uint m_processingTasks;
 
-            /// List of pending dependencies
-            std::vector<std::pair<TaskId,std::string>> m_pendingDepsPre;
-            std::vector<std::pair<std::string,TaskId>> m_pendingDepsSucc;
+    /// Flag to signal threads to quit.
+    bool m_shuttingDown;
+    /// Variable on which threads wait for new tasks.
+    std::condition_variable m_threadNotifier;
+    /// Global mutex over thread-sensitive variables.
+    std::mutex m_taskQueueMutex;
+};
 
-            /// Stores the timings of each frame after execution.
-            std::vector<TimerData> m_timerData;
-
-            //
-            // mutex protected variables.
-            //
-
-            /// Number of tasks each task is waiting on.
-            std::vector<uint> m_remainingDependencies;
-            /// Queue holding the pending tasks.
-            std::deque<TaskId> m_taskQueue;
-            /// Number of tasks currently being processed.
-            uint m_processingTasks;
-
-            /// Flag to signal threads to quit.
-            bool m_shuttingDown;
-            /// Variable on which threads wait for new tasks.
-            std::condition_variable m_threadNotifier;
-            /// Global mutex over thread-sensitive variables.
-            std::mutex m_taskQueueMutex;
-
-        };
-
-    }
-}
+} // namespace Core
+} // namespace Ra
 
 #endif // RADIUMENGINE_TASK_QUEUE_HPP_

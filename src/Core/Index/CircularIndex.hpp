@@ -7,10 +7,9 @@ namespace Ra {
 namespace Core {
 
 class CircularIndex {
-public:
+  public:
     /// CONSTRUCTOR
-    CircularIndex( const uint size = 1,
-                   const int  i    = 0 );
+    CircularIndex( const uint size = 1, const int i = 0 );
     CircularIndex( const CircularIndex& index );
 
     /// DESTRUCTOR
@@ -26,18 +25,18 @@ public:
 
     /// OPERATOR
     inline operator int();
-    inline CircularIndex& operator= ( const CircularIndex& id );
-    inline CircularIndex& operator= ( const int i );
+    inline CircularIndex& operator=( const CircularIndex& id );
+    inline CircularIndex& operator=( const int i );
     inline CircularIndex& operator++();
     inline CircularIndex& operator--();
-    inline CircularIndex  operator+ ( const int off );
-    inline CircularIndex  operator- ( const int off );
+    inline CircularIndex operator+( const int off );
+    inline CircularIndex operator-( const int off );
     inline bool operator==( const CircularIndex& id ) const;
-    inline bool operator< ( const CircularIndex& id ) const;
+    inline bool operator<( const CircularIndex& id ) const;
     inline bool operator==( const int i ) const;
-    inline bool operator< ( const int i ) const;
+    inline bool operator<( const int i ) const;
 
-protected:
+  protected:
     /// VARIABLE
     uint idx;
     uint N;

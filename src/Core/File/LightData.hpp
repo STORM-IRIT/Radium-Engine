@@ -1,41 +1,38 @@
 #ifndef RADIUMENGINE_LIGHT_DATA_HPP
 #define RADIUMENGINE_LIGHT_DATA_HPP
 
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
-#include <Core/RaCore.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/File/AssetData.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/RaCore.hpp>
 
 namespace Ra {
-    namespace Engine
-    {
-        class Light;
-    }
+namespace Engine {
+class Light;
+}
 
-    namespace Asset {
+namespace Asset {
 
 class RA_CORE_API LightData : public AssetData {
 
-public:
-
+  public:
     RA_CORE_ALIGNED_NEW
 
     /// ENUM
     enum LightType {
-        UNKNOWN             = 1 << 0,
-        POINT_LIGHT         = 1 << 1,
-        SPOT_LIGHT          = 1 << 2,
-        DIRECTIONAL_LIGHT   = 1 << 3,
-        AREA_LIGHT          = 1 << 4
+        UNKNOWN = 1 << 0,
+        POINT_LIGHT = 1 << 1,
+        SPOT_LIGHT = 1 << 2,
+        DIRECTIONAL_LIGHT = 1 << 3,
+        AREA_LIGHT = 1 << 4
     };
 
     /// CONSTRUCTOR
-    LightData( const std::string&  name = "",
-                  const LightType& type = UNKNOWN );
+    LightData( const std::string& name = "", const LightType& type = UNKNOWN );
 
     LightData( const LightData& data ) = default;
 
@@ -55,7 +52,7 @@ public:
 
     /// DATA
     inline std::shared_ptr<Ra::Engine::Light> getLight() const;
-    inline void setLight( std::shared_ptr<Ra::Engine::Light> light);
+    inline void setLight( std::shared_ptr<Ra::Engine::Light> light );
 
     /// QUERY
     inline bool isPointLight() const;
@@ -66,14 +63,13 @@ public:
     /// DEBUG
     inline void displayInfo() const;
 
-protected:
+  protected:
     /// VARIABLE
 
     Core::Matrix4 m_frame;
-    LightType    m_type;
+    LightType m_type;
 
     std::shared_ptr<Ra::Engine::Light> m_light;
-
 };
 
 } // namespace Asset

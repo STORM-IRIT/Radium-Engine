@@ -8,41 +8,39 @@
 
 #include <UI/MeshFeatureTrackingUI.h>
 
-namespace MeshFeatureTrackingPlugin
-{
-    class MeshFeatureTrackingComponent : public Ra::Engine::Component
-    {
-    public:
-        MeshFeatureTrackingComponent(const std::string& name);
+namespace MeshFeatureTrackingPlugin {
+class MeshFeatureTrackingComponent : public Ra::Engine::Component {
+  public:
+    MeshFeatureTrackingComponent( const std::string& name );
 
-        virtual ~MeshFeatureTrackingComponent();
+    virtual ~MeshFeatureTrackingComponent();
 
-        virtual void initialize() override;
+    virtual void initialize() override;
 
-        void setData( const Ra::Engine::Renderer::PickingResult& data );
+    void setData( const Ra::Engine::Renderer::PickingResult& data );
 
-        void setVertexIdx( int idx );
-        void setTriangleIdx( int idx );
+    void setVertexIdx( int idx );
+    void setTriangleIdx( int idx );
 
-        void update();
+    void update();
 
-        int getMaxV() const;
-        int getMaxT() const;
+    int getMaxV() const;
+    int getMaxT() const;
 
-        FeatureData getFeatureData() const;
-        Scalar getFeatureScale() const;
-        Ra::Core::Vector3 getFeatureVector() const;
-        Ra::Core::Vector3 getFeaturePosition() const;
+    FeatureData getFeatureData() const;
+    Scalar getFeatureScale() const;
+    Ra::Core::Vector3 getFeatureVector() const;
+    Ra::Core::Vector3 getFeaturePosition() const;
 
-        /// Registers the new center for the sphere.
-        void setPosition( Ra::Core::Vector3 position );
-        /// Registers the new scale for the sphere.
-        void setScale( Scalar scale );
+    /// Registers the new center for the sphere.
+    void setPosition( Ra::Core::Vector3 position );
+    /// Registers the new scale for the sphere.
+    void setScale( Scalar scale );
 
-        FeatureData m_data;
-        int m_pickedRoIdx;
-        Ra::Engine::RenderObject *m_RO;
-    };
-}
+    FeatureData m_data;
+    int m_pickedRoIdx;
+    Ra::Engine::RenderObject* m_RO;
+};
+} // namespace MeshFeatureTrackingPlugin
 
-#endif //MESHFEATURETRACKINGPLUGIN_MESHFEATURETRACKING_COMPONENT_HPP_
+#endif // MESHFEATURETRACKINGPLUGIN_MESHFEATURETRACKING_COMPONENT_HPP_
