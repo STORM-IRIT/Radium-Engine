@@ -95,7 +95,7 @@ namespace Ra
 
         void MeshContactElement::setTriangleMeshDuplicateSimplified()
         {
-            m_tm_duplicateVertices.m_normals = m_mesh->getGeometry().m_normals;
+            m_tm_duplicateVerticesSimplified.m_normals = m_mesh->getGeometry().m_normals;
 
             int nbTriangles = m_mesh->getGeometry().m_triangles.size();
 
