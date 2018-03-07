@@ -1670,9 +1670,7 @@ namespace Ra
             {
                 MeshContactElement* obj = m_meshContactElements[i];
                 it = obj->getPriorityQueue()->getPriorityQueueContainer().begin();
-                LOG(logINFO) << "Size of priority queue " << i + 1 << " : " << obj->getPriorityQueue()->getPriorityQueueContainer().size();
                 std::advance(it,obj->getPriorityQueue()->getPriorityQueueContainer().size() - 1);
-                LOG(logINFO) << "Error max object " << i + 1 << " : " << (*it).m_err;
                 if ((*it).m_err > errorMax)
                 {
                     errorMax = (*it).m_err;
@@ -1682,7 +1680,6 @@ namespace Ra
 
             // computing error distribution, error mean and median values
             Scalar step = errorMax / NBMAX_STEP;
-            LOG(logINFO) << "Step : " << step;
             int errorArray[NBMAX_STEP] = {0};
 
             Scalar errorMean = 0;
