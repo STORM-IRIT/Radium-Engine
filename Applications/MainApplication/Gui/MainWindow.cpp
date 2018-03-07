@@ -421,7 +421,7 @@ namespace Ra
 
         std::string filename;
         const std::string n = ro->getName();
-        Ra::Core::StringUtils::stringPrintf(filename, "%s", n.c_str());
+        Ra::Core::StringUtils::stringPrintf(filename, "%s_%s", "qem", n.c_str());
         std::string path = /*folder + "/" + */filename;
         bool result = obj.save( path, mesh );
         if (!result)
