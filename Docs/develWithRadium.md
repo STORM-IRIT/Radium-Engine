@@ -16,7 +16,7 @@ Direct contributions to master are closed.
 Please submit your pull request.
 
 ## Radium coding style
-Please follow the scripts/clang-format coding style (tested `with clang-format 6.0`
-To use it, you have to copy or link `sciprts/clang-format` to `.clang-format` (in Radium-Engine root dir).
+Please follow the scripts/clang-format coding style (tested `with clang-format 6.0`).
+To use it, you have to copy or link `scripts/clang-format` to `.clang-format` (in Radium-Engine root dir).
 We also provide a pre commit hook that checks the commited files are correctly formated.
 To install both hooks and clang-format, simply run `./scripts/install-scripts-linux.sh` on linux, or adapt to your OS.
