@@ -178,14 +178,6 @@ namespace GuiBase
         m_engine.reset(Engine::RadiumEngine::createInstance());
         m_engine->initialize();
         addBasicShaders();
-#ifdef IO_USE_TINYPLY
-        // Register before AssimpFileLoader, in order to ease override of such
-        // custom loader (first loader able to load is taking the file)
-        m_engine->registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface>(new IO::TinyPlyFileLoader()) );
-#endif
-#ifdef IO_USE_ASSIMP
-        m_engine->registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface>(new IO::AssimpFileLoader()) );
-#endif
         // Create main window.
         m_mainWindow.reset( factory.createMainWindow() );
         m_mainWindow->show();
@@ -206,6 +198,15 @@ namespace GuiBase
         {
             LOG( logERROR ) << "An error occurred while trying to load plugins.";
         }
+        // Make builtin loaders the fallback if no plugins can load some file format
+#ifdef IO_USE_TINYPLY
+        // Register before AssimpFileLoader, in order to ease override of such
+        // custom loader (first loader able to load is taking the file)
+        m_engine->registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface>(new IO::TinyPlyFileLoader()) );
+#endif
+#ifdef IO_USE_ASSIMP
+        m_engine->registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface>(new IO::AssimpFileLoader()) );
+#endif
 
         // Create task queue with N-1 threads (we keep one for rendering),
         // unless monothread CPU
