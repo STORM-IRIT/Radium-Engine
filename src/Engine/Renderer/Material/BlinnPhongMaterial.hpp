@@ -27,6 +27,8 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
 
     ~BlinnPhongMaterial();
 
+    const std::string getShaderInclude() const override;
+
     void updateGL() override;
     void bind( const ShaderProgram* shader ) override;
     bool isTransparent() const override;
