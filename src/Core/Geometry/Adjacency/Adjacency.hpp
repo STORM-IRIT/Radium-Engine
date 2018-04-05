@@ -24,7 +24,7 @@ namespace Geometry {
 //      A( i, j ) = f( i, j ) , if exist the edge from i to j
 //      A( i, j ) = 0         , otherwise
 // where f( i, j ) is a generic function defined over an edge
-using AdjacencyMatrix = Sparse;
+using AdjacencyMatrix = Ra::Core::Sparse;
 using VVAdj = AdjacencyMatrix;
 using VTAdj = AdjacencyMatrix;
 using TVAdj = AdjacencyMatrix;

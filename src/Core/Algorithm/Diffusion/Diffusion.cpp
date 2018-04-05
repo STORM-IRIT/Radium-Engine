@@ -1,12 +1,12 @@
 #include <Core/Algorithm/Diffusion/Diffusion.hpp>
-
 #include <utility>
 
 namespace Ra {
 namespace Core {
 namespace Algorithm {
 
-ScalarValue diffuseDelta( const Geometry::AdjacencyMatrix& A, const Delta& delta,
+ScalarValue diffuseDelta( const Ra::Core::Geometry::AdjacencyMatrix& A,
+                          const Delta& delta,
                           const Scalar lambda, const uint iteration ) {
     ScalarValue u( delta );
     ScalarValue tmp( delta );
@@ -30,7 +30,8 @@ ScalarValue diffuseDelta( const Geometry::AdjacencyMatrix& A, const Delta& delta
     return u;
 }
 
-void diffuseDelta( const Geometry::AdjacencyMatrix& A, const Delta& delta, const Scalar lambda,
+void diffuseDelta( const Ra::Core::Geometry::AdjacencyMatrix& A,
+                   const Delta& delta, const Scalar lambda,
                    const uint iteration, ScalarValue& value ) {
     ScalarValue u = delta;
     ScalarValue tmp = delta;

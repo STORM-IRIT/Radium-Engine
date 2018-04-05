@@ -2,7 +2,6 @@
 #define SKELETON_HANDLE_H
 
 #include <Core/Animation/Handle/PointCloud.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Utils/Graph/AdjacencyList.hpp>
 
 namespace Ra {
@@ -47,7 +46,7 @@ class RA_CORE_API Skeleton : public PointCloud {
     void getBonePoints( uint i, Vector3& startOut, Vector3& endOut ) const;
 
     /// VARIABLE
-    Graph::AdjacencyList m_graph; // The adjacency list.
+    Ra::Core::Graph::AdjacencyList m_graph; // The adjacency list.
 
   protected:
     /// VARIABLE

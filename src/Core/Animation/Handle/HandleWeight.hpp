@@ -2,9 +2,8 @@
 #define HANDLE_WEIGHT_H
 
 #include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/Containers/VectorArray.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <utility>
+#include <map>
 
 namespace Ra {
 namespace Core {
@@ -28,7 +27,7 @@ using MeshWeight = AlignedStdVector<VertexWeight>;
 // If w is a generic weight ( a.k.a. a scalar value ), then the WeightMatrix M is defined as:
 //      M( i, j ) = w   , if vertex i is influenced by transform j
 //      M( i, j ) = 0   , otherwise
-using WeightMatrix = Sparse;
+using WeightMatrix = Ra::Core::Sparse;
 
 } // namespace Animation
 } // Namespace Core

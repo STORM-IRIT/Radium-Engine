@@ -1,12 +1,9 @@
 #ifndef DIFFUSION_DEFINITION
 #define DIFFUSION_DEFINITION
 
-#include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/Mesh/MeshTypes.hpp>
-
-#include <Core/Algorithm/Delta/Delta.hpp>
-#include <Core/Geometry/Adjacency/Adjacency.hpp>
+#include <Core/Math/LinearAlgebra.hpp>    // Sparse
+#include <Core/Algorithm/Delta/Delta.hpp> // Delta
+#include <Core/Geometry/Adjacency/Adjacency.hpp> //Geometry::AdjacencyMatrix
 
 namespace Ra {
 namespace Core {
@@ -25,8 +22,10 @@ using ScalarValue = Sparse;
  * where C_i is the value of the centroid of v_i one-ring.
  */
 /// WARNING: THE IMPLEMENTATION COULD BE WRONG
-ScalarValue diffuseDelta( const Geometry::AdjacencyMatrix& A, const Delta& delta,
-                          const Scalar lambda, const uint iteration );
+RA_CORE_API ScalarValue diffuseDelta( const Geometry::AdjacencyMatrix& A,
+                                      const Delta& delta,
+                                      const Scalar lambda,
+                                      const uint iteration );
 
 /*
  * Return the scalar value over a mesh after diffusion.
@@ -38,8 +37,11 @@ ScalarValue diffuseDelta( const Geometry::AdjacencyMatrix& A, const Delta& delta
  * where C_i is the value of the centroid of v_i one-ring.
  */
 /// WARNING: THE IMPLEMENTATION COULD BE WRONG
-void diffuseDelta( const Geometry::AdjacencyMatrix& A, const Delta& delta, const Scalar lambda,
-                   const uint iteration, ScalarValue& value );
+RA_CORE_API void diffuseDelta( const Geometry::AdjacencyMatrix& A,
+                               const Delta& delta,
+                               const Scalar lambda,
+                               const uint iteration,
+                               ScalarValue& value );
 
 } // namespace Algorithm
 } // namespace Core
