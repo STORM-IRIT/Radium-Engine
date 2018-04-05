@@ -45,6 +45,10 @@ class RA_ENGINE_API ShaderProgram final {
     void setUniform( const char* name, float value ) const;
     void setUniform( const char* name, double value ) const;
 
+    void setUniform( const char* name, std::vector<int> value ) const;
+    void setUniform( const char* name, std::vector<uint> value ) const;
+    void setUniform( const char* name, std::vector<float> value ) const;
+
     void setUniform( const char* name, const Core::Vector2f& value ) const;
     void setUniform( const char* name, const Core::Vector2d& value ) const;
     void setUniform( const char* name, const Core::Vector3f& value ) const;
@@ -64,7 +68,9 @@ class RA_ENGINE_API ShaderProgram final {
     globjects::Program* getProgramObject() const;
 
   private:
-    void loadShader( ShaderType type, const std::string& name, const std::set<std::string>& props );
+    void loadShader( ShaderType type, const std::string& name, const std::set<std::string>& props,
+                     const std::vector< std::pair<std::string, ShaderType> >& includes,
+                     const std::string &version = "#version 410");
 
     GLenum getTypeAsGLEnum( ShaderType type ) const;
     ShaderType getGLenumAsType( GLenum type ) const;

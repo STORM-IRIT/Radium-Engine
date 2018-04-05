@@ -40,8 +40,12 @@ ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) : ShaderProgra
 
 ShaderProgram::~ShaderProgram() {}
 
+        }
+
 void ShaderProgram::loadShader( ShaderType type, const std::string& name,
-                                const std::set<std::string>& props ) {
+                                const std::set<std::string>& props,
+                                const std::vector< std::pair<std::string, ShaderType> >& includes,
+                                const std::string &version) {
 #ifdef OS_MACOS
     if ( type == ShaderType_COMPUTE )
     {
@@ -60,16 +64,34 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
 
     // header string that contains #version and pre-declarations ...
     std::string shaderHeader;
-    if ( type == ShaderType_VERTEX )
+    if( type == ShaderType_VERTEX )
     {
-        shaderHeader = std::string( "#version 410\n\n"
+        shaderHeader = std::string( version + "\n\n"
                                     "out gl_PerVertex {\n"
                                     "    vec4 gl_Position;\n"
                                     "    float gl_PointSize;\n"
                                     "    float gl_ClipDistance[];\n"
                                     "};\n\n" );
-    } else
-    { shaderHeader = std::string( "#version 410\n\n" ); }
+    }
+    else
+    {
+        shaderHeader = std::string( version+"\n\n");
+    }
+
+    // Add properties at the beginning of the file.
+    for ( const auto& prop : props )
+    {
+        shaderHeader = shaderHeader + prop + std::string("\n\n");
+    }
+
+    // Add includes, depending on the shader type.
+    for ( const auto& incl : includes )
+    {
+        if ( incl.second == type )
+        {
+            shaderHeader = shaderHeader + incl.first + std::string("\n\n");
+        }
+    }
 
     auto fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
 
@@ -154,13 +176,13 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
 
     m_program = globjects::Program::create();
 
-    for ( size_t i = 0; i < ShaderType_COUNT; ++i )
+    for (size_t i = 0; i < ShaderType_COUNT; ++i)
     {
-        if ( m_configuration.m_shaders[i] != "" )
+        if (m_configuration.m_shaders[i] != "")
         {
             LOG( logDEBUG ) << "Loading shader " << m_configuration.m_shaders[i];
-            loadShader( ShaderType( i ), m_configuration.m_shaders[i],
-                        m_configuration.getProperties() );
+            loadShader( ShaderType(i), m_configuration.m_shaders[i], m_configuration.getProperties(),
+                        m_configuration.getIncludes(), m_configuration.m_version);
         }
     }
 
@@ -207,7 +229,7 @@ void ShaderProgram::reload() {
 
             m_program->detach( m_shaderObjects[i].get() );
             loadShader( getGLenumAsType( m_shaderObjects[i]->type() ), m_shaderObjects[i]->name(),
-                        {} );
+                        m_configuration.getProperties(), m_configuration.getIncludes() );
         }
     }
 
@@ -240,6 +262,22 @@ void ShaderProgram::setUniform( const char* name, double value ) const {
 
     m_program->setUniform( name, v );
 }
+
+//!
+
+void ShaderProgram::setUniform( const char* name, std::vector<int> values ) const {
+    m_program->setUniform( name, values );
+}
+
+void ShaderProgram::setUniform( const char* name, std::vector<unsigned int> values ) const {
+    m_program->setUniform( name, values );
+}
+
+void ShaderProgram::setUniform( const char* name, std::vector<float> values ) const {
+    m_program->setUniform( name, values );
+}
+
+//!
 
 void ShaderProgram::setUniform( const char* name, const Core::Vector2f& value ) const {
     m_program->setUniform( name, Core::toGlm( value ) );

@@ -4,7 +4,7 @@
 
 namespace Ra {
 
-Engine::PointLight::PointLight() : Light( Light::POINT ), m_position( 0, 0, 0 ), m_attenuation() {}
+Engine::PointLight::PointLight( const std::string& name ) : Light( Light::POINT, name ), m_position( 0, 0, 0 ), m_attenuation() {}
 
 Engine::PointLight::~PointLight() {}
 
@@ -16,5 +16,10 @@ void Engine::PointLight::getRenderParameters( RenderParameters& params ) {
     params.addParameter( "light.point.attenuation.linear", m_attenuation.linear );
     params.addParameter( "light.point.attenuation.quadratic", m_attenuation.quadratic );
 }
+
+    std::string Engine::PointLight::getShaderInclude() const {
+        return "Point";
+    }
+
 
 } // namespace Ra
