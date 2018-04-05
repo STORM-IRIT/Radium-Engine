@@ -46,8 +46,9 @@ branches:
     - gh-pages
 
 # scripts that run after cloning repository
+# https://www.appveyor.com/docs/build-environment/#qt
 install:
-  - set QTDIR=C:\Qt\5.10.0\msvc2017_64
+  - set QTDIR=C:\Qt\5.10.1\msvc2017_64
   - cmd: git submodule update --init --recursive
 
 # scripts to run before build
