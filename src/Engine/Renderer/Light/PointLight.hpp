@@ -20,7 +20,7 @@ class RA_ENGINE_API PointLight final : public Light {
   public:
     RA_CORE_ALIGNED_NEW
 
-    PointLight();
+    PointLight( const std::string& name = "pointlight" );
     ~PointLight();
 
     void getRenderParameters( RenderParameters& params ) override;
@@ -31,6 +31,8 @@ class RA_ENGINE_API PointLight final : public Light {
     inline void setAttenuation( const Attenuation& attenuation );
     inline void setAttenuation( Scalar constant, Scalar linear, Scalar quadratic );
     inline const Attenuation& getAttenuation() const;
+
+    std::string getShaderInclude() const;
 
   private:
     Core::Vector3 m_position;

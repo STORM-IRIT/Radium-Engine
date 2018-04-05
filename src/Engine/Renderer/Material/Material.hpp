@@ -36,7 +36,9 @@ class RA_ENGINE_API Material {
 
     inline const std::string& getName() const;
 
-    inline void setMaterialType( const MaterialType& type );
+    const std::string getShaderInclude() const;
+
+    void setMaterialType(const MaterialType &type);
 
     inline const MaterialType& getMaterialType() const;
 

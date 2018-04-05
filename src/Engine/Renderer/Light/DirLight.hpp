@@ -11,17 +11,20 @@ class RA_ENGINE_API DirectionalLight final : public Light {
   public:
     RA_CORE_ALIGNED_NEW
 
-    DirectionalLight();
-    ~DirectionalLight();
+   DirectionalLight( const std::string& name = "dirlight" );
+   ~DirectionalLight();
 
     void getRenderParameters( RenderParameters& params ) override;
 
     void setDirection( const Core::Vector3& pos ) override;
     inline const Core::Vector3& getDirection() const;
 
+    std::string getShaderInclude() const;
+
   private:
     Core::Vector3 m_direction;
 };
+
 
 } // namespace Engine
 } // namespace Ra
