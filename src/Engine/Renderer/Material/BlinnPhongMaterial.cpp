@@ -35,6 +35,10 @@ void BlinnPhongMaterial::updateGL() {
     m_isDirty = false;
 }
 
+const std::string BlinnPhongMaterial::getShaderInclude() const {
+      return "BlinnPhong";
+}
+
 void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     shader->setUniform( "material.kd", m_kd );
     shader->setUniform( "material.ks", m_ks );

@@ -40,7 +40,6 @@ ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) : ShaderProgra
 
 ShaderProgram::~ShaderProgram() {}
 
-        }
 
 void ShaderProgram::loadShader( ShaderType type, const std::string& name,
                                 const std::set<std::string>& props,
