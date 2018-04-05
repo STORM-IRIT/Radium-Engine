@@ -8,8 +8,8 @@ namespace Core {
 namespace Graph {
 
 using ParentList = AlignedStdVector<int>;
-using LevelList = AlignedStdVector<uint>;
-using ChildrenList = AlignedStdVector<uint>;
+using LevelList = AlignedStdVector<uint8_t>;
+using ChildrenList = AlignedStdVector<uint8_t>;
 using Adjacency = AlignedStdVector<ChildrenList>;
 
 /**

@@ -2,6 +2,7 @@
 #include <Core/Animation/Pose/PoseOperation.hpp>
 #include <algorithm>
 #include <cmath>
+#include <utility>
 
 namespace Ra {
 namespace Core {

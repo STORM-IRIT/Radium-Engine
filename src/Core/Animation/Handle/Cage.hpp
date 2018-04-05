@@ -2,10 +2,9 @@
 #define CAGE_HANDLE_H
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Mesh/MeshTypes.hpp>
-
+#include <Core/Mesh/MeshTypes.hpp>               // Triangle
 #include <Core/Animation/Handle/PointCloud.hpp>
+#include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
@@ -16,8 +15,10 @@ namespace Animation {
  *
  * The Cage handle is a variation of a triangular mesh.
  * Instead of a list of vertices, it owns a list of transforms.
+ *
+ * \warning This class is probably unused
  */
-class Cage : public PointCloud {
+class RA_CORE_API Cage : public PointCloud {
   public:
     /// CONSTRUCTOR
     Cage();                   // Default constructor
@@ -31,7 +32,7 @@ class Cage : public PointCloud {
     virtual void clear() override; // Clear the cage data
 
     /// VARIABLE
-    VectorArray<Triangle> m_triangle; // The list of triangles in the cage.
+    VectorArray<Ra::Core::Triangle> m_triangle; // The list of triangles in the cage.
 };
 
 } // namespace Animation

@@ -2,7 +2,6 @@
 #define ANIMATION_HPP
 
 #include <Core/Animation/Pose/Pose.hpp>
-#include <utility>
 #include <vector>
 
 namespace Ra {

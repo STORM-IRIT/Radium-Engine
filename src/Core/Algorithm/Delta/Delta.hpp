@@ -1,8 +1,11 @@
 #ifndef DELTA_DEFINITION
 #define DELTA_DEFINITION
 
-#include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <vector>
+#include <cstdint>  // uint8_t
+
+#include <Core/Math/LinearAlgebra.hpp> // Sparse
+#include <Core/RaCore.hpp>             // Scalar
 
 namespace Ra {
 namespace Core {
@@ -12,10 +15,10 @@ namespace Algorithm {
 using BitSet = std::vector<bool>;
 
 // Defining a vector containing the indices of the sources
-using Source = std::vector<uint>;
+using Source = std::vector<uint8_t>;
 
 // Defining the vector containing the value of the sources
-using Delta = Sparse;
+using Delta = Ra::Core::Sparse;
 
 /*
  * Return the Delta vector.
@@ -28,7 +31,8 @@ using Delta = Sparse;
  * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
  * TOG 2013
  */
-Delta delta( const BitSet& source, const Scalar& default_value = 1.0 );
+Delta RA_CORE_API delta( const BitSet& source,
+                         const Scalar& default_value = 1.0 );
 
 /*
  * Return the Delta vector.
@@ -41,7 +45,9 @@ Delta delta( const BitSet& source, const Scalar& default_value = 1.0 );
  * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
  * TOG 2013
  */
-void delta( const BitSet& source, Delta& u, const Scalar& default_value = 1.0 );
+void RA_CORE_API delta( const BitSet& source,
+                        Delta& u,
+                        const Scalar& default_value = 1.0 );
 
 /*
  * Return the Delta vector.
@@ -54,7 +60,9 @@ void delta( const BitSet& source, Delta& u, const Scalar& default_value = 1.0 );
  * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
  * TOG 2013
  */
-Delta delta( const Source& source, const uint size, const Scalar& default_value = 1.0 );
+Delta RA_CORE_API delta( const Source& source,
+                         const uint size,
+                         const Scalar& default_value = 1.0 );
 
 /*
  * Return the Delta vector.
@@ -67,7 +75,9 @@ Delta delta( const Source& source, const uint size, const Scalar& default_value 
  * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
  * TOG 2013
  */
-void delta( const Source& source, const uint size, Delta& u, const Scalar& default_value = 1.0 );
+void RA_CORE_API delta( const Source& source,
+                        const uint size, Delta& u,
+                        const Scalar& default_value = 1.0 );
 
 /*
  * Return a BitSet from a given Delta.
@@ -75,7 +85,7 @@ void delta( const Source& source, const uint size, Delta& u, const Scalar& defau
  *       bit_i = false   , if delta( i )  = 0
  *       bit_i = true    , if delta( i ) != 0
  */
-void bitset( const Delta& u, BitSet& bit );
+void RA_CORE_API bitset( const Delta& u, BitSet& bit );
 
 } // namespace Algorithm
 } // namespace Core

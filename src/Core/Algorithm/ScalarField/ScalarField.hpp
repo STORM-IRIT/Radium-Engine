@@ -1,9 +1,9 @@
 #ifndef SCALAR_FIELD_OPERATION
 #define SCALAR_FIELD_OPERATION
 
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Mesh/MeshTypes.hpp>
+#include <Core/Containers/VectorArray.hpp> // VectorArray
+#include <Core/Mesh/MeshTypes.hpp>         // Triangle
+#include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
@@ -26,8 +26,9 @@ using Divergence = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
  * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
  * TOG 2013
  */
-Gradient gradientOfFieldS( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
-                           const ScalarField& S );
+RA_CORE_API Gradient gradientOfFieldS( const VectorArray<Vector3>& p,
+                                       const VectorArray<Triangle>& T,
+                                       const ScalarField& S );
 
 /*
  * Return the Divergence of the Gradient field defined on the surface of a mesh
@@ -37,8 +38,9 @@ Gradient gradientOfFieldS( const VectorArray<Vector3>& p, const VectorArray<Tria
  * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
  * TOG 2013
  */
-Divergence divergenceOfFieldX( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
-                               const Gradient& X );
+RA_CORE_API Divergence divergenceOfFieldX( const VectorArray<Vector3>& p,
+                                           const VectorArray<Triangle>& T,
+                                           const Gradient& X );
 
 } // namespace Algorithm
 } // namespace Core

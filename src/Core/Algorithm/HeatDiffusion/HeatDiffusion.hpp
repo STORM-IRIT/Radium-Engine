@@ -1,13 +1,11 @@
 #ifndef HEAT_DIFFUSION
 #define HEAT_DIFFUSION
 
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
-
-#include <Core/Geometry/Area/Area.hpp>
-#include <Core/Geometry/Laplacian/Laplacian.hpp>
-
-#include <Core/Algorithm/Delta/Delta.hpp>
+#include <Core/Containers/VectorArray.hpp>       // VectorArray
+#include <Core/Geometry/Area/Area.hpp>           // Geometry::AreaMatrix
+#include <Core/Geometry/Laplacian/Laplacian.hpp> // Geometry::LaplacianMatrix
+#include <Core/Algorithm/Delta/Delta.hpp>        // Delta
+#include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
@@ -33,7 +31,7 @@ using Heat = VectorArray<Scalar>;
  * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
  * TOG 2013
  */
-Time t( const Scalar& m, const Scalar& h );
+RA_CORE_API Time t( const Scalar& m, const Scalar& h );
 
 /*
  * Solve the heating equation from the given AreaMatrix, the Time, the LaplacianMatrix and the
@@ -46,7 +44,7 @@ Time t( const Scalar& m, const Scalar& h );
  * TOG 2013
  */
 /// WARNING: L must be a positive semi-definite matrix
-void RA_CORE_API heat( const Geometry::AreaMatrix& A, const Time& t,
+RA_CORE_API void heat( const Geometry::AreaMatrix& A, const Time& t,
                        const Geometry::LaplacianMatrix& L, Heat& u, const Delta& delta );
 
 /*
@@ -60,7 +58,7 @@ void RA_CORE_API heat( const Geometry::AreaMatrix& A, const Time& t,
  * TOG 2013
  */
 /// WARNING: L must be a positive semi-definite matrix
-Heat RA_CORE_API heat( const Geometry::AreaMatrix& A, const Time& t,
+RA_CORE_API Heat heat( const Geometry::AreaMatrix& A, const Time& t,
                        const Geometry::LaplacianMatrix& L, const Delta& delta );
 
 } // namespace Algorithm
