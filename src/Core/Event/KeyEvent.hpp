@@ -9,12 +9,12 @@ namespace Core {
 
 struct KeyEvent {
     /// KeyEventType : Press, Release
-    int event;
+    KeyEventType::KeyEventType event;
     /// Keycode. Test this with Qt::Keys enum values.
     int key;
 
     /// Modifier used : Ctrl, Alt, Shift.
-    int modifier;
+    Modifier::Modifier modifier;
 };
 
 } // namespace Core

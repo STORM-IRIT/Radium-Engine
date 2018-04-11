@@ -6,8 +6,6 @@
 #include <Core/RaCore.hpp>
 #include <Eigen/Core>
 
-#include <Core/Math/LinearAlgebra.hpp>
-
 namespace Ra {
 namespace Core {
 /// This class stores a D-dimensional grid of elements of arbitrary type.
@@ -165,7 +163,7 @@ class Grid {
     };
 
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     //
     // Constructors

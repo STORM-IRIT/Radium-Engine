@@ -7,7 +7,6 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Index/Index.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/RaCore.hpp>
 
 #include <Core/File/AssetData.hpp>
@@ -15,6 +14,8 @@
 
 namespace Ra {
 namespace Asset {
+
+class MaterialData;
 
 class RA_CORE_API GeometryData : public AssetData {
 
