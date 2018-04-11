@@ -1,5 +1,7 @@
 #include <IO/TinyPlyLoader/TinyPlyFileLoader.hpp>
 
+#include <Core/File/FileData.hpp>
+
 #include <tinyply/tinyply.h>
 
 #include <fstream>

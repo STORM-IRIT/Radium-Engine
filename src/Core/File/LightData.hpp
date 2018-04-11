@@ -20,7 +20,7 @@ namespace Asset {
 class RA_CORE_API LightData : public AssetData {
 
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /// ENUM
     enum LightType {

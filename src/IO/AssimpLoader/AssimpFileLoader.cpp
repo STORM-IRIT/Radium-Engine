@@ -1,5 +1,7 @@
 #include <IO/AssimpLoader/AssimpFileLoader.hpp>
 
+#include <Core/File/FileData.hpp>
+
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 

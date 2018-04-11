@@ -9,12 +9,12 @@ namespace Core {
 
 struct MouseEvent {
     /// MouseEventType: Press, Release, Move, Wheel
-    int event;
+    MouseEventType::MouseEventType event;
     /// MouseButton : Left button, Right button, Middle button
-    int button;
+    MouseButton::MouseButton button;
 
     /// Modifier has been used ? Ctrl, Alt, Shift
-    int modifier;
+    Modifier::Modifier modifier;
 
     /// X mouse position in [width, height] when the event occured.
     int absoluteXPosition;

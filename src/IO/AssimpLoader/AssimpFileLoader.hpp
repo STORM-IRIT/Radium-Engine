@@ -3,11 +3,15 @@
 
 #include <assimp/Importer.hpp>
 
-#include <Core/File/FileData.hpp>
 #include <Core/File/FileLoaderInterface.hpp>
 #include <IO/RaIO.hpp>
 
 namespace Ra {
+
+namespace Asset {
+class FileData;
+}
+
 namespace IO {
 
 //! This class loads scenes containing MESHES only (not point-clouds)

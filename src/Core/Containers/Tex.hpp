@@ -1,8 +1,9 @@
 #ifndef RADIUMENGINE_TEX3D_HPP_
 #define RADIUMENGINE_TEX3D_HPP_
 
+#include <Eigen/Core>
+
 #include <Core/Containers/Grid.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {
@@ -14,7 +15,7 @@ template <typename T, uint N>
 class Tex : public Grid<T, N> {
 
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     using IdxVector = typename Grid<T, N>::IdxVector;
     using Vector = Eigen::Matrix<Scalar, N, 1>;
     using AabbND = Eigen::AlignedBox<Scalar, N>;

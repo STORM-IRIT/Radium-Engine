@@ -2,7 +2,7 @@
 #define RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
 
 #include <Core/File/DataLoader.hpp>
-#include <Core/File/KeyFrame/AnimationTime.hpp>
+#include <Core/File/KeyFrame/AnimationTime.hpp>  // Asset::Time
 #include <IO/RaIO.hpp>
 
 struct aiScene;
