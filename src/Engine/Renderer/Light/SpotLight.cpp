@@ -11,7 +11,7 @@ Engine::SpotLight::SpotLight( const std::string& name ) :
 
 Engine::SpotLight::~SpotLight() {}
 
-void Engine::SpotLight::getRenderParameters( RenderParameters& params ) {
+void Engine::SpotLight::getRenderParameters( RenderParameters& params ) const {
     Light::getRenderParameters( params );
 
     params.addParameter( "light.spot.position", m_position );

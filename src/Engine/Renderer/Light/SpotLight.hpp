@@ -25,7 +25,7 @@ class RA_ENGINE_API SpotLight final : public Light {
     SpotLight( const std::string& name = "spotlight" );
     ~SpotLight();
 
-    void getRenderParameters( RenderParameters& params ) override;
+    void getRenderParameters( RenderParameters& params ) const override;
 
     void setPosition( const Core::Vector3& position ) override;
     inline const Core::Vector3& getPosition() const;

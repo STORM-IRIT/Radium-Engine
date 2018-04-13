@@ -4,20 +4,20 @@
 
 namespace Ra {
 
-Engine::DirectionalLight::DirectionalLight( const std::string& name )
-    : Light( Light::DIRECTIONAL, name )
-    , m_direction( 0, -1, 0 ) {}
+Engine::DirectionalLight::DirectionalLight( const std::string& name ) :
+    Light( Light::DIRECTIONAL, name ),
+    m_direction( 0, -1, 0 ) {}
 
 Engine::DirectionalLight::~DirectionalLight() {}
 
-void Engine::DirectionalLight::getRenderParameters( RenderParameters& params ) {
+void Engine::DirectionalLight::getRenderParameters( RenderParameters& params ) const {
     Light::getRenderParameters( params );
 
     params.addParameter( "light.directional.direction", m_direction );
 }
 
-    std::string Engine::DirectionalLight::getShaderInclude() const {
-        return "Directional";
-    }
+std::string Engine::DirectionalLight::getShaderInclude() const {
+    return "Directional";
+}
 
 } // namespace Ra

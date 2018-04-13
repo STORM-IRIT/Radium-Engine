@@ -17,10 +17,13 @@ class ShaderProgram;
 namespace Ra {
 namespace Engine {
 
+/**
+ * Base class for materials/
+ * Do not assume a given Material representation but only make the difference between opaque and
+ * transparent materials.
+ */
 class RA_ENGINE_API Material {
   public:
-    // TODO : make Radium Material follow the diversity of Asset::MaterialData
-    // This material could be the default : Blinn-Phong material
     enum class MaterialType { MAT_OPAQUE, MAT_TRANSPARENT };
 
   public:
@@ -38,7 +41,7 @@ class RA_ENGINE_API Material {
 
     virtual const std::string getShaderInclude() const;
 
-    inline void setMaterialType(const MaterialType &type);
+    inline void setMaterialType( const MaterialType& type );
 
     inline const MaterialType& getMaterialType() const;
 

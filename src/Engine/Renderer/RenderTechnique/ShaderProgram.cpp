@@ -40,11 +40,10 @@ ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) : ShaderProgra
 
 ShaderProgram::~ShaderProgram() {}
 
-
 void ShaderProgram::loadShader( ShaderType type, const std::string& name,
                                 const std::set<std::string>& props,
-                                const std::vector< std::pair<std::string, ShaderType> >& includes,
-                                const std::string &version) {
+                                const std::vector<std::pair<std::string, ShaderType>>& includes,
+                                const std::string& version ) {
 #ifdef OS_MACOS
     if ( type == ShaderType_COMPUTE )
     {
@@ -63,24 +62,21 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
 
     // header string that contains #version and pre-declarations ...
     std::string shaderHeader;
-    if( type == ShaderType_VERTEX )
+    if ( type == ShaderType_VERTEX )
     {
         shaderHeader = std::string( version + "\n\n"
-                                    "out gl_PerVertex {\n"
-                                    "    vec4 gl_Position;\n"
-                                    "    float gl_PointSize;\n"
-                                    "    float gl_ClipDistance[];\n"
-                                    "};\n\n" );
-    }
-    else
-    {
-        shaderHeader = std::string( version+"\n\n");
-    }
+                                              "out gl_PerVertex {\n"
+                                              "    vec4 gl_Position;\n"
+                                              "    float gl_PointSize;\n"
+                                              "    float gl_ClipDistance[];\n"
+                                              "};\n\n" );
+    } else
+    { shaderHeader = std::string( version + "\n\n" ); }
 
     // Add properties at the beginning of the file.
     for ( const auto& prop : props )
     {
-        shaderHeader = shaderHeader + prop + std::string("\n\n");
+        shaderHeader = shaderHeader + prop + std::string( "\n\n" );
     }
 
     // Add includes, depending on the shader type.
@@ -88,7 +84,7 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
     {
         if ( incl.second == type )
         {
-            shaderHeader = shaderHeader + incl.first + std::string("\n\n");
+            shaderHeader = shaderHeader + incl.first + std::string( "\n\n" );
         }
     }
 
@@ -175,13 +171,14 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
 
     m_program = globjects::Program::create();
 
-    for (size_t i = 0; i < ShaderType_COUNT; ++i)
+    for ( size_t i = 0; i < ShaderType_COUNT; ++i )
     {
-        if (m_configuration.m_shaders[i] != "")
+        if ( m_configuration.m_shaders[i] != "" )
         {
             LOG( logDEBUG ) << "Loading shader " << m_configuration.m_shaders[i];
-            loadShader( ShaderType(i), m_configuration.m_shaders[i], m_configuration.getProperties(),
-                        m_configuration.getIncludes(), m_configuration.m_version);
+            loadShader( ShaderType( i ), m_configuration.m_shaders[i],
+                        m_configuration.getProperties(), m_configuration.getIncludes(),
+                        m_configuration.m_version );
         }
     }
 

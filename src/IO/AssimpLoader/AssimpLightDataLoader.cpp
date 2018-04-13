@@ -5,11 +5,6 @@
 #include <Core/File/LightData.hpp>
 #include <Core/Log/Log.hpp>
 
-#include <Engine/Renderer/Light/DirLight.hpp>
-#include <Engine/Renderer/Light/Light.hpp>
-#include <Engine/Renderer/Light/PointLight.hpp>
-#include <Engine/Renderer/Light/SpotLight.hpp>
-
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
 
 namespace Ra {
@@ -88,10 +83,7 @@ void AssimpLightDataLoader::loadLightData( const aiScene* scene, const aiLight& 
         Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
         finalDir = -finalDir;
 
-        auto thelight = std::shared_ptr<Engine::DirectionalLight>( new Engine::DirectionalLight() );
-        thelight->setColor( color );
-        thelight->setDirection( finalDir );
-        data.setLight( thelight );
+        data.setLight( color, finalDir );
     }
     break;
 
@@ -101,12 +93,10 @@ void AssimpLightDataLoader::loadLightData( const aiScene* scene, const aiLight& 
         pos = frame * pos;
         pos /= pos.w();
 
-        auto thelight = std::shared_ptr<Engine::PointLight>( new Engine::PointLight() );
-        thelight->setColor( color );
-        thelight->setPosition( Core::Vector3( pos.x(), pos.y(), pos.z() ) );
-        thelight->setAttenuation( light.mAttenuationConstant, light.mAttenuationLinear,
-                                  light.mAttenuationQuadratic );
-        data.setLight( thelight );
+        data.setLight( color, Core::Vector3( pos.x(), pos.y(), pos.z() ),
+                       Asset::LightData::LightAttenuation( light.mAttenuationConstant,
+                                                           light.mAttenuationLinear,
+                                                           light.mAttenuationQuadratic ) );
     }
     break;
 
@@ -122,15 +112,11 @@ void AssimpLightDataLoader::loadLightData( const aiScene* scene, const aiLight& 
         Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
         finalDir = -finalDir;
 
-        auto thelight = std::shared_ptr<Engine::SpotLight>( new Engine::SpotLight() );
-        thelight->setColor( color );
-        thelight->setPosition( Core::Vector3( pos.x(), pos.y(), pos.z() ) );
-        thelight->setDirection( finalDir );
-        thelight->setAttenuation( light.mAttenuationConstant, light.mAttenuationLinear,
-                                  light.mAttenuationQuadratic );
-        thelight->setInnerAngleInRadians( light.mAngleInnerCone );
-        thelight->setOuterAngleInRadians( light.mAngleOuterCone );
-        data.setLight( thelight );
+        data.setLight( color, Core::Vector3( pos.x(), pos.y(), pos.z() ), finalDir,
+                       light.mAngleInnerCone, light.mAngleOuterCone,
+                       Asset::LightData::LightAttenuation( light.mAttenuationConstant,
+                                                           light.mAttenuationLinear,
+                                                           light.mAttenuationQuadratic ) );
     }
     break;
 

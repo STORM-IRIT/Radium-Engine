@@ -1,10 +1,10 @@
 #ifndef HEAT_DIFFUSION
 #define HEAT_DIFFUSION
 
+#include <Core/Algorithm/Delta/Delta.hpp>        // Delta
 #include <Core/Containers/VectorArray.hpp>       // VectorArray
 #include <Core/Geometry/Area/Area.hpp>           // Geometry::AreaMatrix
 #include <Core/Geometry/Laplacian/Laplacian.hpp> // Geometry::LaplacianMatrix
-#include <Core/Algorithm/Delta/Delta.hpp>        // Delta
 #include <Core/RaCore.hpp>
 
 namespace Ra {

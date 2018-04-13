@@ -58,9 +58,8 @@ VectorArray<Vector3> laplacianSmoothing( const VectorArray<Vector3>& v,
 }
 
 void laplacianSmoothing( const VectorArray<Vector3>& v,
-                         const Ra::Core::Geometry::LaplacianMatrix& L,
-                         const ScalarValue& weight, const uint iteration,
-                         VectorArray<Vector3>& p ) {
+                         const Ra::Core::Geometry::LaplacianMatrix& L, const ScalarValue& weight,
+                         const uint iteration, VectorArray<Vector3>& p ) {
     p = v;
     auto pM = p.getMap();
     VectorArray<Vector3> tmp( v );

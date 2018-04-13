@@ -65,14 +65,14 @@ class RA_ENGINE_API RenderParameters final {
         void bind( const ShaderProgram* shader ) const;
     };
 
-    typedef TParameter<int>    IntParameter;
-    typedef TParameter<uint>   UIntParameter;
+    typedef TParameter<int> IntParameter;
+    typedef TParameter<uint> UIntParameter;
     typedef TParameter<Scalar> ScalarParameter;
 
-    typedef TParameter<std::vector<int>>    IntsParameter;
-    typedef TParameter<std::vector<uint>>   UIntsParameter;
+    typedef TParameter<std::vector<int>> IntsParameter;
+    typedef TParameter<std::vector<uint>> UIntsParameter;
     //! globjects seems to not handle vector of double
-    typedef TParameter<std::vector<float>>  ScalarsParameter;
+    typedef TParameter<std::vector<float>> ScalarsParameter;
 
     using Vec2Parameter = TParameter<Core::Vector2>;
     using Vec3Parameter = TParameter<Core::Vector3>;
@@ -87,8 +87,8 @@ class RA_ENGINE_API RenderParameters final {
     void addParameter( const char* name, uint value );
     void addParameter( const char* name, Scalar value );
 
-    void addParameter( const char* name, std::vector<int>    values );
-    void addParameter( const char* name, std::vector<uint>   values );
+    void addParameter( const char* name, std::vector<int> values );
+    void addParameter( const char* name, std::vector<uint> values );
     void addParameter( const char* name, std::vector<Scalar> values );
 
     void addParameter( const char* name, const Core::Vector2& value );
@@ -126,12 +126,12 @@ class RA_ENGINE_API RenderParameters final {
 
   private:
     // FIXME(Charly): Any way to simplify this a bit ?
-    UniformBindableVector<IntParameter>     m_intParamsVector;
-    UniformBindableVector<UIntParameter>    m_uintParamsVector;
-    UniformBindableVector<ScalarParameter>  m_scalarParamsVector;
+    UniformBindableVector<IntParameter> m_intParamsVector;
+    UniformBindableVector<UIntParameter> m_uintParamsVector;
+    UniformBindableVector<ScalarParameter> m_scalarParamsVector;
 
-    UniformBindableVector<IntsParameter>    m_intsParamsVector;
-    UniformBindableVector<UIntsParameter>   m_uintsParamsVector;
+    UniformBindableVector<IntsParameter> m_intsParamsVector;
+    UniformBindableVector<UIntsParameter> m_uintsParamsVector;
     UniformBindableVector<ScalarsParameter> m_scalarsParamsVector;
 
     UniformBindableVector<Vec2Parameter> m_vec2ParamsVector;

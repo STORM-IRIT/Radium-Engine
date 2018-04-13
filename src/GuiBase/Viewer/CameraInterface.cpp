@@ -61,12 +61,10 @@ void Gui::CameraInterface::unmapCameraBehaviourToAabb() {
     m_mapCameraBahaviourToAabb = false;
 }
 
-void Gui::CameraInterface::attachLight( const std::shared_ptr<Engine::Light>& light ) {
+void Gui::CameraInterface::attachLight( Engine::Light* light ) {
     m_light = light;
     m_hasLightAttached = true;
-
-    m_light->setPosition( m_camera->getPosition() );
-    m_light->setDirection( m_camera->getDirection() );
+    m_light->setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
 }
 
 const Engine::Camera& Gui::CameraInterface::getCameraFromViewer( QObject* v ) {

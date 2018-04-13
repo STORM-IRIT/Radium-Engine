@@ -36,7 +36,7 @@ void BlinnPhongMaterial::updateGL() {
 }
 
 const std::string BlinnPhongMaterial::getShaderInclude() const {
-      return "BlinnPhong";
+    return "BlinnPhong";
 }
 
 void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {

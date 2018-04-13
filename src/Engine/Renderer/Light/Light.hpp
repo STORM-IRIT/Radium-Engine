@@ -2,8 +2,8 @@
 #define RADIUMENGINE_LIGHT_HPP
 
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Engine/RaEngine.hpp>
 #include <Engine/Component/Component.hpp>
+#include <Engine/RaEngine.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -14,12 +14,11 @@ class RenderParameters;
 namespace Ra {
 namespace Engine {
 
-        // FIXME (Hugo) To me this class could totally be renamed LightComponent and get a Light struct embedded.
-        // Thoughts are welcome !
-        class RA_ENGINE_API Light : public Component
-        {
-        public:
-            enum LightType { DIRECTIONAL, POLYGONAL, POINT, SPOT };
+// FIXME (Hugo) To me this class could totally be renamed LightComponent and get a Light struct
+// embedded. Thoughts are welcome !
+class RA_ENGINE_API Light : public Component {
+  public:
+    enum LightType { DIRECTIONAL = 0, POINT, SPOT, POLYGONAL };
 
   public:
     RA_CORE_ALIGNED_NEW
@@ -34,10 +33,10 @@ namespace Engine {
     virtual void setDirection( const Core::Vector3& dir ) {}
     virtual void setPosition( const Core::Vector3& pos ) {}
     // ...
-            
-            inline const LightType& getType() const;
 
-    virtual void getRenderParameters( RenderParameters& params );
+    inline const LightType& getType() const;
+
+    virtual void getRenderParameters( RenderParameters& params ) const;
 
     virtual std::string getShaderInclude() const;
 

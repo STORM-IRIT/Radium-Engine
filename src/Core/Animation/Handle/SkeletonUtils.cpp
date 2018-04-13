@@ -8,9 +8,7 @@ namespace Core {
 namespace Animation {
 namespace SkeletonUtils {
 /// Returns the start and end point of a bone in model space.
-void getBonePoints( const Skeleton& skeleton,
-                    int boneIdx,
-                    Ra::Core::Vector3& startOut,
+void getBonePoints( const Skeleton& skeleton, int boneIdx, Ra::Core::Vector3& startOut,
                     Ra::Core::Vector3& endOut ) {
     // Check bone index is valid
     CORE_ASSERT( boneIdx >= 0 && uint( boneIdx ) < skeleton.m_graph.size(), "invalid bone index" );
@@ -36,8 +34,7 @@ void getBonePoints( const Skeleton& skeleton,
 }
 
 /// Gives out the nearest point on a given bone.
-inline Vector3 projectOnBone( const Skeleton& skeleton,
-                              int boneIdx,
+inline Vector3 projectOnBone( const Skeleton& skeleton, int boneIdx,
                               const Ra::Core::Vector3& pos ) {
     Vector3 start, end;
     getBonePoints( skeleton, boneIdx, start, end );
@@ -94,4 +91,3 @@ inline void to_string( const Skeleton& skeleton ) {
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
-

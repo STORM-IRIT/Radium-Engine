@@ -123,7 +123,8 @@ class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
     void hasExpired();
 
     // FIXME (Mathias) Find why this was added for shader and material refactor ...
-    virtual void render( const RenderParameters& lightParams, const RenderData& rdata, const ShaderProgram* shader);
+    virtual void render( const RenderParameters& lightParams, const RenderData& rdata,
+                         const ShaderProgram* shader );
     virtual void render( const RenderParameters& lightParams, const RenderData& rdata,
                          RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE );
 

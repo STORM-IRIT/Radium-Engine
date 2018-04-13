@@ -15,6 +15,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
+#include <Engine/Managers/LightManager/LightManager.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -587,19 +588,22 @@ void Renderer::reloadShaders() {
     ShaderProgramManager::getInstance()->reloadAllShaderPrograms();
 }
 
+// FIXME : this method is no longer needed ... Light are loaded by a System now.
 void Renderer::handleFileLoading( const Asset::FileData& filedata ) {
     if ( !filedata.hasLight() )
     {
         return;
     }
-
+#if 0
+// lights are loaded through the LightManager system ...
     std::vector<Asset::LightData*> data = filedata.getLightData();
     uint i = 0;
     for ( auto light : data )
     {
         if ( light->getLight() )
         {
-            addLight( light->getLight() );
+            // WARNING (Mathias) : this is awfull and must crash.
+            addLight( light->getLight().get() );
             ++i;
         }
     }
@@ -608,6 +612,7 @@ void Renderer::handleFileLoading( const Asset::FileData& filedata ) {
     {
         LOG( logWARNING ) << data.size() - i << " lights where of unknown or unsupported type.";
     }
+#endif
 }
 
 uchar* Renderer::grabFrame( uint& w, uint& h ) const {
@@ -645,5 +650,19 @@ uchar* Renderer::grabFrame( uint& w, uint& h ) const {
     return writtenPixels;
 }
 
+void Renderer::addLight( const Light* light ) {
+#if 0
+      m_lights.push_back( light );
+#endif
+    for ( auto m : m_lightmanagers )
+        m->addLight( (Light*)light ); // TODO : modify signatures so that no cast is needed.
+}
+
+bool Renderer::hasLight() const {
+    int n = 0;
+    for ( auto m : m_lightmanagers )
+        n += m->count();
+    return n != 0;
+}
 } // namespace Engine
 } // namespace Ra

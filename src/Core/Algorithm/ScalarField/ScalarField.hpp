@@ -27,8 +27,7 @@ using Divergence = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
  * TOG 2013
  */
 RA_CORE_API Gradient gradientOfFieldS( const VectorArray<Vector3>& p,
-                                       const VectorArray<Triangle>& T,
-                                       const ScalarField& S );
+                                       const VectorArray<Triangle>& T, const ScalarField& S );
 
 /*
  * Return the Divergence of the Gradient field defined on the surface of a mesh
@@ -39,8 +38,7 @@ RA_CORE_API Gradient gradientOfFieldS( const VectorArray<Vector3>& p,
  * TOG 2013
  */
 RA_CORE_API Divergence divergenceOfFieldX( const VectorArray<Vector3>& p,
-                                           const VectorArray<Triangle>& T,
-                                           const Gradient& X );
+                                           const VectorArray<Triangle>& T, const Gradient& X );
 
 } // namespace Algorithm
 } // namespace Core
