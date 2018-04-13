@@ -22,8 +22,8 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
         COR      // Center of Rotation skinning
     };
 
-    SkinningComponent( const std::string& name, SkinningType type = DQS ) :
-        Component( name ),
+    SkinningComponent( const std::string& name, SkinningType type, Ra::Engine::Entity* entity ) :
+        Component( name, entity ),
         m_skinningType( type ),
         m_isReady( false ) {}
     virtual ~SkinningComponent() {}

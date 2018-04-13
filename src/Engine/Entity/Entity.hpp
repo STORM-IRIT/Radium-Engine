@@ -47,7 +47,7 @@ class RA_ENGINE_API Entity : public Core::IndexedObject {
     void swapTransformBuffers();
 
     // Components
-    /// Add a component to the given entity. Ownership is transfered to the component.
+    /// Add a component to the given entity. Component ownership is transfered to the entity.
     void addComponent( Component* component );
 
     /// Deletes a component with a given name.

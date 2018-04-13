@@ -33,8 +33,8 @@ void MeshFeatureTrackingPluginC::registerPlugin( const Ra::PluginContext& contex
     context.m_engine->getSignalManager()->m_frameEndCallbacks.push_back(
         std::bind( &MeshFeatureTrackingPluginC::update, this ) );
     // create sphere component
-    m_component = new MeshFeatureTrackingComponent( "TrackingSphere" );
-    Ra::Engine::SystemEntity::getInstance()->addComponent( m_component );
+    m_component = new MeshFeatureTrackingComponent( "TrackingSphere",
+                                                    Ra::Engine::SystemEntity::getInstance() );
     m_component->initialize();
     // register selection context
     m_selectionManager = context.m_selectionManager;

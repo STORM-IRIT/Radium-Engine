@@ -26,7 +26,7 @@ namespace Engine {
 /// Component for debug drawing. @see SystemEntity.
 class RA_ENGINE_API DebugComponent : public Component {
   public:
-    DebugComponent() : Component( "Debug" ) {}
+    DebugComponent( Entity* entity ) : Component( "Debug", entity ) {}
 
     void initialize() override {}
 
@@ -39,7 +39,7 @@ class RA_ENGINE_API DebugComponent : public Component {
 /// Component for UI drawing. @see SystemEntity.
 class RA_ENGINE_API UiComponent : public Component {
   public:
-    UiComponent() : Component( "UI" ) {}
+    UiComponent( Entity* entity ) : Component( "UI", entity ) {}
 
     void initialize() override {}
 };

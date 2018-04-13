@@ -134,8 +134,7 @@ void Gui::Viewer::initializeGL() {
     // FIXED (Mathias): Lights are components. So they must be attached to an entity
     auto headlight =
         Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity( "LI_headlight" );
-    auto light = new Engine::DirectionalLight( "headlight" );
-    headlight->addComponent( light );
+    auto light = new Engine::DirectionalLight( headlight, "headlight" );
     m_camera->attachLight( light );
 
     // initialize renderers added before GL was ready

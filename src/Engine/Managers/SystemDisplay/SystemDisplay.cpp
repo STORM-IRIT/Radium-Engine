@@ -4,8 +4,12 @@ namespace Ra {
 namespace Engine {
 
 SystemEntity::SystemEntity() : Entity( "System Display Entity" ) {
-    addComponent( new UiComponent );
-    addComponent( new DebugComponent );
+    /*
+    addComponent(new UiComponent(nullptr));
+    addComponent(new DebugComponent(nullptr));
+     */
+    new UiComponent( this );
+    new DebugComponent( this );
 }
 
 UiComponent* SystemEntity::uiCmp() {

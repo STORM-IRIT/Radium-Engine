@@ -20,7 +20,7 @@ class RA_ENGINE_API PointLight final : public Light {
   public:
     RA_CORE_ALIGNED_NEW
 
-    PointLight( const std::string& name = "pointlight" );
+    PointLight( Entity* entity, const std::string& name = "pointlight" );
     ~PointLight();
 
     void getRenderParameters( RenderParameters& params ) const override;

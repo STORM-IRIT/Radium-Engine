@@ -12,10 +12,12 @@
 
 namespace Ra {
 namespace Engine {
-Component::Component( const std::string& name ) :
+Component::Component( const std::string& name, Entity* entity ) :
     m_name( name ),
-    m_entity( nullptr ),
-    m_system( nullptr ) {}
+    m_entity( entity ),
+    m_system( nullptr ) {
+    m_entity->addComponent( this );
+}
 
 Component::~Component() {
     for ( const auto& ro : m_renderObjects )
