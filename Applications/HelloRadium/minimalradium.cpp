@@ -16,7 +16,8 @@ classic "Spinning Cube" demo. */
 
 /// This is a very basic component which holds a spinning cube.
 
-MinimalComponent::MinimalComponent() : Ra::Engine::Component( "Minimal Component" ) {}
+MinimalComponent::MinimalComponent( Ra::Engine::Entity* entity ) :
+    Ra::Engine::Component( "Minimal Component", entity ) {}
 
 /// This function is called when the component is properly
 /// setup, i.e. it has an entity.

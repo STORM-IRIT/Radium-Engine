@@ -118,8 +118,7 @@ void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity,
         }
 
         // FIXME(Charly): Certainly not the best way to do this
-        AnimationComponent* component = new AnimationComponent( "AC_" + skel->getName() );
-        entity->addComponent( component );
+        AnimationComponent* component = new AnimationComponent( "AC_" + skel->getName(), entity );
         std::vector<Ra::Core::Index> dupliTable;
         uint nbMeshVertices = 0;
         if ( geomID != uint( -1 ) )

@@ -33,8 +33,9 @@ using Ra::Engine::ComponentMessenger;
 using TriangleArray = Ra::Core::VectorArray<Ra::Core::Triangle>;
 
 namespace FancyMeshPlugin {
-FancyMeshComponent::FancyMeshComponent( const std::string& name, bool deformable ) :
-    Ra::Engine::Component( name ),
+FancyMeshComponent::FancyMeshComponent( const std::string& name, bool deformable,
+                                        Ra::Engine::Entity* entity ) :
+    Ra::Engine::Component( name, entity ),
     m_deformable( deformable ) {}
 
 FancyMeshComponent::~FancyMeshComponent() {}

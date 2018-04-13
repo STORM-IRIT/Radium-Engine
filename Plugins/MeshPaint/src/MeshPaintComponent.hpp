@@ -24,7 +24,7 @@ namespace MeshPaintPlugin {
 
 class MESH_PAINT_PLUGIN_API MeshPaintComponent : public Ra::Engine::Component {
   public:
-    MeshPaintComponent( const std::string& name );
+    MeshPaintComponent( const std::string& name, Ra::Engine::Entity* entity );
     virtual ~MeshPaintComponent();
 
     virtual void initialize() override;

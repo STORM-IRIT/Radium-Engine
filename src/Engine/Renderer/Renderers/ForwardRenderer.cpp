@@ -244,7 +244,7 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
         }
     } else
     {
-#if 0
+#    if 0
         // Fixme : could not create a light like this. Lights are components ...
         // Solution : use the LightManager or the fact that a light is always associated with the
         // camera so that the renderer could always access to at least the headlight
@@ -258,7 +258,7 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
         {
             ro->render( params, renderData, RenderTechnique::LIGHTING_TRANSPARENT );
         }
-#endif
+#    endif
     }
 
     m_oitFbo->unbind();

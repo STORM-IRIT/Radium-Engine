@@ -23,7 +23,7 @@ class RA_ENGINE_API Light : public Component {
   public:
     RA_CORE_ALIGNED_NEW
 
-    Light( const LightType& type, const std::string& name = "light" );
+    Light( Entity* entity, const LightType& type, const std::string& name = "light" );
     virtual ~Light();
 
     inline const Core::Color& getColor() const;

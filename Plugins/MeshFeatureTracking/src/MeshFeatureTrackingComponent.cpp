@@ -17,8 +17,9 @@ using MeshRenderMode = Ra::Engine::Mesh::MeshRenderMode;
 using PickingMode = Ra::Engine::Renderer::PickingMode;
 
 namespace MeshFeatureTrackingPlugin {
-MeshFeatureTrackingComponent::MeshFeatureTrackingComponent( const std::string& name ) :
-    Component( name ) {}
+MeshFeatureTrackingComponent::MeshFeatureTrackingComponent( const std::string& name,
+                                                            Ra::Engine::Entity* entity ) :
+    Component( name, entity ) {}
 
 MeshFeatureTrackingComponent::~MeshFeatureTrackingComponent() {}
 

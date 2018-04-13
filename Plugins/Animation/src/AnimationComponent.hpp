@@ -20,7 +20,7 @@ class SkeletonBoneRenderObject;
 
 class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
   public:
-    AnimationComponent( const std::string& name );
+    AnimationComponent( const std::string& name, Ra::Engine::Entity* entity );
     virtual ~AnimationComponent();
     AnimationComponent( const AnimationComponent& ) = delete;
     AnimationComponent& operator=( const AnimationComponent& ) = delete;

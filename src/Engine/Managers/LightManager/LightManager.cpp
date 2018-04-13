@@ -91,7 +91,7 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* da
         {
         case Asset::LightData::DIRECTIONAL_LIGHT:
         {
-            auto thelight = new Engine::DirectionalLight( data->getName() );
+            auto thelight = new Engine::DirectionalLight( entity, data->getName() );
             thelight->setColor( data->m_color );
             thelight->setDirection( data->m_dirlight.direction );
             comp = thelight;
@@ -99,7 +99,7 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* da
         }
         case Asset::LightData::POINT_LIGHT:
         {
-            auto thelight = new Engine::PointLight( data->getName() );
+            auto thelight = new Engine::PointLight( entity, data->getName() );
             thelight->setColor( data->m_color );
             thelight->setPosition( data->m_pointlight.position );
             thelight->setAttenuation( data->m_pointlight.attenuation.constant,
@@ -110,7 +110,7 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* da
         }
         case Asset::LightData::SPOT_LIGHT:
         {
-            auto thelight = new Engine::SpotLight( data->getName() );
+            auto thelight = new Engine::SpotLight( entity, data->getName() );
             thelight->setColor( data->m_color );
             thelight->setPosition( data->m_spotlight.position );
             thelight->setDirection( data->m_spotlight.direction );
@@ -137,7 +137,6 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* da
         if ( !comp )
             continue;
 
-        entity->addComponent( comp );
         registerComponent( entity, comp );
         m_data->push( comp );
     }

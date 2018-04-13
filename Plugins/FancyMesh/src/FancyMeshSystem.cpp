@@ -29,8 +29,8 @@ void FancyMeshSystem::handleAssetLoading( Ra::Engine::Entity* entity,
     for ( const auto& data : geomData )
     {
         std::string componentName = "FMC_" + entity->getName() + std::to_string( id++ );
-        FancyMeshComponent* comp = new FancyMeshComponent( componentName, fileData->hasHandle() );
-        entity->addComponent( comp );
+        FancyMeshComponent* comp =
+            new FancyMeshComponent( componentName, fileData->hasHandle(), entity );
         comp->handleMeshLoading( data );
         registerComponent( entity, comp );
     }
@@ -39,21 +39,6 @@ void FancyMeshSystem::handleAssetLoading( Ra::Engine::Entity* entity,
 void FancyMeshSystem::generateTasks( Ra::Core::TaskQueue* taskQueue,
                                      const Ra::Engine::FrameInfo& frameInfo ) {
     // Do nothing, as this system only displays meshes.
-}
-
-FancyMeshComponent*
-FancyMeshSystem::makeFancyMeshFromGeometry( const Ra::Core::TriangleMesh& mesh,
-                                            const std::string& name,
-                                            Ra::Engine::RenderTechnique* technique ) {
-    FancyMeshComponent* comp = new FancyMeshComponent( name );
-    if ( technique )
-    {
-        CORE_WARN_IF( 0, "(Charly): FMSystem::makeFancyMeshFromGeometry rendertechnique ignored "
-                         "from now. Just tell me if needed." );
-        comp->addMeshRenderObject( mesh, "Mesh RenderObject" );
-    } else
-    { comp->addMeshRenderObject( mesh, "Mesh RenderObject" ); }
-    return comp;
 }
 
 } // namespace FancyMeshPlugin

@@ -11,7 +11,7 @@ class RA_ENGINE_API DirectionalLight final : public Light {
   public:
     RA_CORE_ALIGNED_NEW
 
-    DirectionalLight( const std::string& name = "dirlight" );
+    DirectionalLight( Entity* entity, const std::string& name = "dirlight" );
     ~DirectionalLight();
 
     void getRenderParameters( RenderParameters& params ) const override;

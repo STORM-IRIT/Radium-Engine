@@ -11,7 +11,7 @@
 namespace MeshFeatureTrackingPlugin {
 class MeshFeatureTrackingComponent : public Ra::Engine::Component {
   public:
-    MeshFeatureTrackingComponent( const std::string& name );
+    MeshFeatureTrackingComponent( const std::string& name, Ra::Engine::Entity* entity );
 
     virtual ~MeshFeatureTrackingComponent();
 

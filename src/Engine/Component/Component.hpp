@@ -27,7 +27,7 @@ namespace Engine {
 class RA_ENGINE_API Component {
   public:
     /// CONSTRUCTOR
-    Component( const std::string& name );
+    Component( const std::string& name, Entity* entity );
 
     /// DESTRUCTOR
     virtual ~Component();

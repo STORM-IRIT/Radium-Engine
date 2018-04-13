@@ -3,15 +3,16 @@
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
 namespace Ra {
-Engine::SpotLight::SpotLight( const std::string& name ) :
-    Light( Light::SPOT, name ),
+namespace Engine {
+SpotLight::SpotLight( Entity* entity, const std::string& name ) :
+    Light( entity, Light::SPOT, name ),
     m_position( 0, 0, 0 ),
     m_direction( 0, -1, 0 ),
     m_attenuation() {}
 
-Engine::SpotLight::~SpotLight() {}
+SpotLight::~SpotLight() {}
 
-void Engine::SpotLight::getRenderParameters( RenderParameters& params ) const {
+void SpotLight::getRenderParameters( RenderParameters& params ) const {
     Light::getRenderParameters( params );
 
     params.addParameter( "light.spot.position", m_position );
@@ -23,8 +24,9 @@ void Engine::SpotLight::getRenderParameters( RenderParameters& params ) const {
     params.addParameter( "light.spot.attenuation.quadratic", m_attenuation.quadratic );
 }
 
-std::string Engine::SpotLight::getShaderInclude() const {
+std::string SpotLight::getShaderInclude() const {
     return "Spot";
 }
 
+} // namespace Engine
 } // namespace Ra

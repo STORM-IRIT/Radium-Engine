@@ -17,7 +17,8 @@
 
 namespace MeshPaintPlugin {
 
-MeshPaintComponent::MeshPaintComponent( const std::string& name ) : Ra::Engine::Component( name ) {}
+MeshPaintComponent::MeshPaintComponent( const std::string& name, Ra::Engine::Entity* entity ) :
+    Ra::Engine::Component( name, entity ) {}
 
 MeshPaintComponent::~MeshPaintComponent() {}
 

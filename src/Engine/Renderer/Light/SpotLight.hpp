@@ -22,7 +22,7 @@ class RA_ENGINE_API SpotLight final : public Light {
   public:
     RA_CORE_ALIGNED_NEW
 
-    SpotLight( const std::string& name = "spotlight" );
+    SpotLight( Entity* entity, const std::string& name = "spotlight" );
     ~SpotLight();
 
     void getRenderParameters( RenderParameters& params ) const override;

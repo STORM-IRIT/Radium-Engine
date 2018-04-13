@@ -48,14 +48,13 @@ class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System {
         {
             for ( const auto& skel : skelData )
             {
-                SkinningComponent* component = new SkinningComponent( "SkC_" + skel->getName() );
-                entity->addComponent( component );
+                SkinningComponent* component = new SkinningComponent(
+                    "SkC_" + skel->getName(), SkinningComponent::LBS, entity );
                 component->handleWeightsLoading( skel );
                 registerComponent( entity, component );
 
-                SkinningDisplayComponent* display =
-                    new SkinningDisplayComponent( "SkC_DSP_" + skel->getName(), skel->getName() );
-                entity->addComponent( display );
+                SkinningDisplayComponent* display = new SkinningDisplayComponent(
+                    "SkC_DSP_" + skel->getName(), skel->getName(), entity );
                 // display->display( component->getRefData() );
             }
         }

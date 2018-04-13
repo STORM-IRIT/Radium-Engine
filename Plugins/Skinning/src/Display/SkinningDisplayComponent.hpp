@@ -30,8 +30,9 @@ namespace SkinningPlugin {
 class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
   public:
     /// CONSTRUCTOR
-    SkinningDisplayComponent( const std::string& name, const std::string& content ) :
-        Ra::Engine::Component( name ),
+    SkinningDisplayComponent( const std::string& name, const std::string& content,
+                              Ra::Engine::Entity* entity ) :
+        Ra::Engine::Component( name, entity ),
         m_contentsName( content ) {}
 
     /// DESTRUCTOR

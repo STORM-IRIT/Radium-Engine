@@ -26,8 +26,8 @@ using Ra::Engine::ComponentMessenger;
 
 namespace AnimationPlugin {
 
-AnimationComponent::AnimationComponent( const std::string& name ) :
-    Component( name ),
+AnimationComponent::AnimationComponent( const std::string& name, Ra::Engine::Entity* entity ) :
+    Component( name, entity ),
     m_animationID( 0 ),
     m_animationTimeStep( true ),
     m_animationTime( 0.0 ),

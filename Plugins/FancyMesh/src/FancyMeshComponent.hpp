@@ -31,7 +31,7 @@ class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component {
   public:
     using DuplicateTable = Ra::Asset::GeometryData::DuplicateTable;
 
-    FancyMeshComponent( const std::string& name, bool deformable = true );
+    FancyMeshComponent( const std::string& name, bool deformable, Ra::Engine::Entity* entity );
     virtual ~FancyMeshComponent();
 
     void initialize() override;
