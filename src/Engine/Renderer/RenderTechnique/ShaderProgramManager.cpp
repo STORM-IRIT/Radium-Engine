@@ -39,6 +39,19 @@ void ShaderProgramManager::initialize() {
     m_namedStrings.push_back(
         globjects::NamedString::create( "/LightingFunctions.glsl", m_files[3].get() ) );
 
+    m_files.push_back( globjects::File::create( "Shaders/Transform/TransformStructs.glsl" ) );
+    m_namedStrings.push_back(
+        globjects::NamedString::create( "/TransformStructs.glsl", m_files[4].get() ) );
+
+    m_files.push_back(
+        globjects::File::create( "Shaders/Materials/BlinnPhong/BlinnPhongMaterial.glsl" ) );
+    m_namedStrings.push_back(
+        globjects::NamedString::create( "/BlinnPhongMaterial.glsl", m_files[5].get() ) );
+
+    m_files.push_back( globjects::File::create( "Shaders/Lights/DefaultLight.glsl" ) );
+    m_namedStrings.push_back(
+        globjects::NamedString::create( "/DefaultLight.glsl", m_files[6].get() ) );
+
     m_defaultShaderProgram =
         addShaderProgram( "Default Program", m_defaultVsName, m_defaultFsName );
 }

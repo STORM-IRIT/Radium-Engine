@@ -59,13 +59,13 @@ class CameraInterface : public QObject {
 
     Engine::Camera* getCamera() { return m_camera.get(); }
 
-    void attachLight( const std::shared_ptr<Engine::Light>& light );
+    // FIXED (Mathias) Light is a component. Camera doen't have ownership
+    void attachLight( Engine::Light* light );
     bool hasLightAttached() const { return m_hasLightAttached; }
     /// pointer acces to the attached light, the caller has to check if
     /// hasLightAttached is true, it return a shared_ptr, so the light
     /// could be attached to another camera
-    std::shared_ptr<Engine::Light> getLight() { return m_light; }
-
+    Engine::Light* getLight() { return m_light; }
     virtual void update( Scalar dt ) {}
 
     static const Engine::Camera& getCameraFromViewer( QObject* v );
@@ -101,7 +101,7 @@ class CameraInterface : public QObject {
     std::unique_ptr<Engine::Camera> m_camera;
     bool m_mapCameraBahaviourToAabb;
 
-    std::shared_ptr<Engine::Light> m_light;
+    Engine::Light* m_light;
     bool m_hasLightAttached;
 };
 } // namespace Gui

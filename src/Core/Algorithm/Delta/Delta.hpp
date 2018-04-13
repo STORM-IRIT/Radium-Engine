@@ -1,8 +1,8 @@
 #ifndef DELTA_DEFINITION
 #define DELTA_DEFINITION
 
+#include <cstdint> // uint8_t
 #include <vector>
-#include <cstdint>  // uint8_t
 
 #include <Core/Math/LinearAlgebra.hpp> // Sparse
 #include <Core/RaCore.hpp>             // Scalar
@@ -31,8 +31,7 @@ using Delta = Ra::Core::Sparse;
  * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
  * TOG 2013
  */
-Delta RA_CORE_API delta( const BitSet& source,
-                         const Scalar& default_value = 1.0 );
+Delta RA_CORE_API delta( const BitSet& source, const Scalar& default_value = 1.0 );
 
 /*
  * Return the Delta vector.
@@ -45,9 +44,7 @@ Delta RA_CORE_API delta( const BitSet& source,
  * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
  * TOG 2013
  */
-void RA_CORE_API delta( const BitSet& source,
-                        Delta& u,
-                        const Scalar& default_value = 1.0 );
+void RA_CORE_API delta( const BitSet& source, Delta& u, const Scalar& default_value = 1.0 );
 
 /*
  * Return the Delta vector.
@@ -60,9 +57,7 @@ void RA_CORE_API delta( const BitSet& source,
  * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
  * TOG 2013
  */
-Delta RA_CORE_API delta( const Source& source,
-                         const uint size,
-                         const Scalar& default_value = 1.0 );
+Delta RA_CORE_API delta( const Source& source, const uint size, const Scalar& default_value = 1.0 );
 
 /*
  * Return the Delta vector.
@@ -75,8 +70,7 @@ Delta RA_CORE_API delta( const Source& source,
  * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
  * TOG 2013
  */
-void RA_CORE_API delta( const Source& source,
-                        const uint size, Delta& u,
+void RA_CORE_API delta( const Source& source, const uint size, Delta& u,
                         const Scalar& default_value = 1.0 );
 
 /*

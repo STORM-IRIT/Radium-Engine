@@ -131,7 +131,11 @@ void Gui::Viewer::initializeGL() {
     Engine::ShaderProgramManager::createInstance( "Shaders/Default.vert.glsl",
                                                   "Shaders/Default.frag.glsl" );
 
-    auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
+    // FIXED (Mathias): Lights are components. So they must be attached to an entity
+    auto headlight =
+        Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity( "LI_headlight" );
+    auto light = new Engine::DirectionalLight( "headlight" );
+    headlight->addComponent( light );
     m_camera->attachLight( light );
 
     // initialize renderers added before GL was ready
@@ -492,6 +496,15 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
     data.projMatrix = m_camera->getProjMatrix();
     data.viewMatrix = m_camera->getViewMatrix();
 
+    // if there is no light on the renderer, add the head light attached to the camera ...
+    // FIXME : what if the camera has no attached light ?
+    if ( !m_currentRenderer->hasLight() )
+    {
+        if ( m_camera->hasLightAttached() )
+            m_currentRenderer->addLight( m_camera->getLight() );
+        else
+            LOG( logDEBUG ) << "Unable to attach the head light. The caera has'nt one!";
+    }
     m_currentRenderer->render( data );
 }
 
@@ -602,9 +615,15 @@ void Gui::Viewer::enableDebugDraw( int enabled ) {
 }
 
 void Gui::Viewer::resetCamera() {
-    auto light = m_camera->getLight();
-    m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
-    m_camera->attachLight( light );
+    // FIXED : according to the documentation of CameraInterface, must check hasLightAttached before
+    // use.
+    if ( m_camera->hasLightAttached() )
+    {
+        auto light = m_camera->getLight();
+        m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
+        m_camera->attachLight( light );
+    } else
+        m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
 }
 
 } // namespace Ra

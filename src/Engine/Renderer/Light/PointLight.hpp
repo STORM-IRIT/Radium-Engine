@@ -23,7 +23,7 @@ class RA_ENGINE_API PointLight final : public Light {
     PointLight( const std::string& name = "pointlight" );
     ~PointLight();
 
-    void getRenderParameters( RenderParameters& params ) override;
+    void getRenderParameters( RenderParameters& params ) const override;
 
     void setPosition( const Core::Vector3& pos ) override;
     inline const Core::Vector3& getPosition() const;

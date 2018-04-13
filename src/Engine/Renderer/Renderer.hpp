@@ -32,6 +32,7 @@ class ShaderProgramManager;
 class Texture;
 class TextureManager;
 class RenderObjectManager;
+class LightManager;
 } // namespace Engine
 } // namespace Ra
 
@@ -174,9 +175,16 @@ class RA_ENGINE_API Renderer {
     // FIXED : lights must be handled by the renderer as they are the reason to have different
     // renderers
     //                How to do this ?
-    inline virtual void addLight( const std::shared_ptr<Light>& light ) {
-        m_lights.push_back( light );
-    }
+    // FIXED : use a light manager (Implement the one you need)
+    /** Add a light to the renderer.
+     * may be overriden to filter the light or to specialize the way ligths are added to the
+     * renderer ...
+     * @param light
+     */
+    virtual void addLight( const Light* light );
+
+    /// Tell if the renderer has an usable light.
+    bool hasLight() const;
 
     virtual void reloadShaders();
 
@@ -295,8 +303,9 @@ class RA_ENGINE_API Renderer {
     std::unique_ptr<Texture> m_fancyTexture;
     std::map<std::string, Texture*> m_secondaryTextures;
 
-    // FIXME(Charly): Scene class
-    std::vector<std::shared_ptr<Light>> m_lights;
+    /// A renderer could define several LightManager (for instance, one for point light, one other
+    /// for infinite light ...)
+    std::vector<Ra::Engine::LightManager*> m_lightmanagers;
 
     bool m_renderQueuesUpToDate;
 

@@ -15,7 +15,7 @@ bool Material::isTransparent() const {
 }
 
 const std::string Material::getShaderInclude() const {
-    return std::string("");
+    return std::string( "" );
 }
 
 } // namespace Engine

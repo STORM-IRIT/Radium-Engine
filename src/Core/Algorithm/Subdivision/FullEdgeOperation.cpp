@@ -2,8 +2,8 @@
 
 #include <Core/Index/Index.hpp>
 
-#include <Core/Mesh/DCEL/Definition.hpp>
 #include <Core/Mesh/DCEL/Dcel.hpp>
+#include <Core/Mesh/DCEL/Definition.hpp>
 #include <Core/Mesh/DCEL/FullEdge.hpp>
 #include <Core/Mesh/DCEL/HalfEdge.hpp>
 #include <Core/Mesh/DCEL/Vertex.hpp>

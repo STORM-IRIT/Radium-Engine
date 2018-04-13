@@ -3,6 +3,7 @@
 #include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
 
+#include <Engine/Managers/LightManager/DefaultLightManager.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
@@ -13,7 +14,6 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Renderers/DebugRender.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
-
 #include <globjects/Framebuffer.h>
 
 //#define NO_TRANSPARENCY
@@ -35,6 +35,10 @@ ForwardRenderer::~ForwardRenderer() {
 void ForwardRenderer::initializeInternal() {
     initShaders();
     initBuffers();
+
+    auto lightManager = new DefaultLightManager();
+    Ra::Engine::RadiumEngine::getInstance()->registerSystem( "DefaultLightManager", lightManager );
+    m_lightmanagers.push_back( lightManager );
 
     if ( !DebugRender::getInstance() )
     {
@@ -174,10 +178,14 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
 
     GL_ASSERT( glDrawBuffers( 1, buffers ) ); // Draw color texture
 
-    if ( m_lights.size() > 0 )
+    // LOG(logDEBUG) << "Forward renderer has " << m_lightmanagers[0]->count() << " lights.";
+    // forward renderer only use one light manager
+    if ( m_lightmanagers[0]->count() > 0 )
     {
-        for ( const auto& l : m_lights )
+        // for ( const auto& l : m_lights )
+        for ( int i = 0; i < m_lightmanagers[0]->count(); ++i )
         {
+            auto l = m_lightmanagers[0]->getLight( i );
             RenderParameters params;
             l->getRenderParameters( params );
 
@@ -188,8 +196,12 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
         }
     } else
     {
+#if 0
+        // Fixme : could not create a light like this. Lights are components ...
+        // Solution : use the LightManager or the fact that a light is always associated with the
+        // camera so that the renderer could always access to at least the headlight
         DirectionalLight l;
-        l.setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
+        // l.setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
 
         RenderParameters params;
         l.getRenderParameters( params );
@@ -198,6 +210,7 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
         {
             ro->render( params, renderData, RenderTechnique::LIGHTING_OPAQUE );
         }
+#endif
     }
 
 #ifndef NO_TRANSPARENCY
@@ -215,10 +228,12 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
     GL_ASSERT( glBlendFunci( 0, GL_ONE, GL_ONE ) );
     GL_ASSERT( glBlendFunci( 1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA ) );
 
-    if ( m_lights.size() > 0 )
+    if ( m_lightmanagers[0]->count() > 0 )
     {
-        for ( const auto& l : m_lights )
+        // for ( const auto& l : m_lights )
+        for ( int i = 0; i < m_lightmanagers[0]->count(); ++i )
         {
+            auto l = m_lightmanagers[0]->getLight( i );
             RenderParameters params;
             l->getRenderParameters( params );
 
@@ -229,8 +244,12 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
         }
     } else
     {
+#if 0
+        // Fixme : could not create a light like this. Lights are components ...
+        // Solution : use the LightManager or the fact that a light is always associated with the
+        // camera so that the renderer could always access to at least the headlight
         DirectionalLight l;
-        l.setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
+        // l.setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
 
         RenderParameters params;
         l.getRenderParameters( params );
@@ -239,6 +258,7 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
         {
             ro->render( params, renderData, RenderTechnique::LIGHTING_TRANSPARENT );
         }
+#endif
     }
 
     m_oitFbo->unbind();
@@ -276,10 +296,12 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
 
         GL_ASSERT( glDrawBuffers( 1, buffers ) ); // Draw color texture
 
-        if ( m_lights.size() > 0 )
+        if ( m_lightmanagers[0]->count() > 0 )
         {
-            for ( const auto& l : m_lights )
+            // for ( const auto& l : m_lights )
+            for ( int i = 0; i < m_lightmanagers[0]->count(); ++i )
             {
+                auto l = m_lightmanagers[0]->getLight( i );
                 RenderParameters params;
                 l->getRenderParameters( params );
 
@@ -296,8 +318,12 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
             }
         } else
         {
+#if 0
+            // Fixme : could not create a light like this. Lights are components ...
+            // Solution : use the LightManager or the fact that a light is always associated with
+            // the camera so that the renderer could always access to at least the headlight
             DirectionalLight l;
-            l.setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
+            // l.setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
 
             RenderParameters params;
             l.getRenderParameters( params );
@@ -312,6 +338,7 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
                 auto& ro = m_transparentRenderObjects[i];
                 ro->render( params, renderData, RenderTechnique::LIGHTING_OPAQUE );
             }
+#endif
         }
 
         glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );

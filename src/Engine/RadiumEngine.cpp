@@ -26,6 +26,7 @@
 #include <Engine/System/System.hpp>
 
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
 namespace Ra {
@@ -45,25 +46,33 @@ void RadiumEngine::initialize() {
     // Engine support some built-in materials. Add converters here
     EngineMaterialConverters::registerMaterialConverter( "BlinnPhong",
                                                          BlinnPhongMaterialConverter() );
-    EngineRenderTechniques::registerDefaultTechnique(
-        "BlinnPhong", []( RenderTechnique& rt, bool isTransparent ) {
+
+    Ra::Engine::EngineRenderTechniques::registerDefaultTechnique(
+        "BlinnPhong",
+
+        []( Ra::Engine::RenderTechnique& rt, bool isTransparent ) {
             // Configure the technique to render this object using forward Renderer or any
             // compatible one Main pass (Mandatory) : BlinnPhong
-            Ra::Engine::ShaderConfiguration lpconfig( "BlinnPhong", "Shaders/BlinnPhong.vert.glsl",
-                                                      "Shaders/BlinnPhong.frag.glsl" );
+            Ra::Engine::ShaderConfiguration lpconfig(
+                "BlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+                "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
+
+            Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
             rt.setConfiguration( lpconfig, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE );
 
             // Z prepass (Reccomanded) : DepthAmbiantPass
-            Ra::Engine::ShaderConfiguration dpconfig( "DepthAmbiantPass",
-                                                      "Shaders/BlinnPhong.vert.glsl",
-                                                      "Shaders/DepthAmbientPass.frag.glsl" );
+            Ra::Engine::ShaderConfiguration dpconfig(
+                "DepthAmbiantBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+                "Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
+            Ra::Engine::ShaderConfigurationFactory::addConfiguration( dpconfig );
             rt.setConfiguration( dpconfig, Ra::Engine::RenderTechnique::Z_PREPASS );
-
             // Transparent pass (0ptional) : If Transparent ... add LitOIT
             if ( isTransparent )
             {
-                Ra::Engine::ShaderConfiguration tpconfig( "LitOIT", "Shaders/BlinnPhong.vert.glsl",
-                                                          "Shaders/LitOIT.frag.glsl" );
+                Ra::Engine::ShaderConfiguration tpconfig(
+                    "LitOITBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+                    "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
+                Ra::Engine::ShaderConfigurationFactory::addConfiguration( tpconfig );
                 rt.setConfiguration( tpconfig, Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT );
             }
         } );

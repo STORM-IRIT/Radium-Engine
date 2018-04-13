@@ -117,8 +117,7 @@ void computeDQ_naive( const Pose& pose, const WeightMatrix& weight, DQList& DQ )
     }
 }
 
-void dualQuaternionSkinning( const Ra::Core::Vector3Array& input,
-                             const DQList& DQ,
+void dualQuaternionSkinning( const Ra::Core::Vector3Array& input, const DQList& DQ,
                              Ra::Core::Vector3Array& output ) {
     const uint size = input.size();
     CORE_ASSERT( ( size == DQ.size() ), "input/DQ size mismatch." );
