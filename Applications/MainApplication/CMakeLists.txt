@@ -6,6 +6,10 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+if(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} VERSION_GREATER "3.9")
+    cmake_policy(SET CMP0071 NEW)
+endif()
+
 find_package(OpenGL     REQUIRED)
 find_package(Qt5Core    REQUIRED)
 find_package(Qt5Widgets REQUIRED)
