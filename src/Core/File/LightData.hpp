@@ -1,41 +1,51 @@
 #ifndef RADIUMENGINE_LIGHT_DATA_HPP
 #define RADIUMENGINE_LIGHT_DATA_HPP
 
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
-#include <Core/RaCore.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/File/AssetData.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/RaCore.hpp>
+#include <Engine/Entity/Entity.hpp>
 
 namespace Ra {
-    namespace Engine
-    {
-        class Light;
-    }
+#if 0
+namespace Engine {
+class Light;
+}
+#endif
 
-    namespace Asset {
+namespace Asset {
 
 class RA_CORE_API LightData : public AssetData {
 
-public:
-
-    RA_CORE_ALIGNED_NEW
+  public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /// ENUM
     enum LightType {
-        UNKNOWN             = 1 << 0,
-        POINT_LIGHT         = 1 << 1,
-        SPOT_LIGHT          = 1 << 2,
-        DIRECTIONAL_LIGHT   = 1 << 3,
-        AREA_LIGHT          = 1 << 4
+        UNKNOWN = 1 << 0,
+        POINT_LIGHT = 1 << 1,
+        SPOT_LIGHT = 1 << 2,
+        DIRECTIONAL_LIGHT = 1 << 3,
+        AREA_LIGHT = 1 << 4
+    };
+
+    struct LightAttenuation {
+        Scalar constant;
+        Scalar linear;
+        Scalar quadratic;
+        explicit LightAttenuation( Scalar c = 1, Scalar l = 0, Scalar q = 0 ) :
+            constant( c ),
+            linear( l ),
+            quadratic( q ) {}
     };
 
     /// CONSTRUCTOR
-    LightData( const std::string&  name = "",
-                  const LightType& type = UNKNOWN );
+    LightData( const std::string& name = "", const LightType& type = UNKNOWN );
 
     LightData( const LightData& data ) = default;
 
@@ -54,8 +64,25 @@ public:
     inline void setFrame( const Core::Matrix4& frame );
 
     /// DATA
+    /*
     inline std::shared_ptr<Ra::Engine::Light> getLight() const;
-    inline void setLight( std::shared_ptr<Ra::Engine::Light> light);
+    inline void setLight( std::shared_ptr<Ra::Engine::Light> light );
+    */
+#if 0
+    /// Acces to the data. The returned component must be attached to an entity after that.
+    // this will add a dependence on the core to the engine. Not a good idea ...
+    Ra::Engine::Light* getLight() const;
+#endif
+
+    /// construct a directional light
+    inline void setLight( Core::Color color, Core::Vector3 direction );
+    /// construct a point light
+    inline void setLight( Core::Color color, Core::Vector3 position, LightAttenuation attenuation );
+    /// construct a spot light
+    inline void setLight( Core::Color color, Core::Vector3 position, Core::Vector3 direction,
+                          Scalar inangle, Scalar outAngle, LightAttenuation attenuation );
+    /// construct an area light
+    inline void setLight( Core::Color color, LightAttenuation attenuation );
 
     /// QUERY
     inline bool isPointLight() const;
@@ -66,14 +93,37 @@ public:
     /// DEBUG
     inline void displayInfo() const;
 
-protected:
+  protected:
     /// VARIABLE
 
     Core::Matrix4 m_frame;
-    LightType    m_type;
+    LightType m_type;
 
-    std::shared_ptr<Ra::Engine::Light> m_light;
+    // This part is public so that systems handling lights could acces to the data.
+    // TODO (Mathias) : make these protected with getters ? Define independant types ?
+  public:
+    Core::Color m_color;
 
+    union {
+        struct {
+            Core::Vector3 direction;
+        } m_dirlight;
+        struct {
+            Core::Vector3 position;
+            LightAttenuation attenuation;
+        } m_pointlight;
+        struct {
+            Core::Vector3 position;
+            Core::Vector3 direction;
+            Scalar innerAngle;
+            Scalar outerAngle;
+            LightAttenuation attenuation;
+        } m_spotlight;
+        struct {
+            // TODO (Mathias) : find how to represent arealight in a generic way
+            LightAttenuation attenuation;
+        } m_arealight;
+    };
 };
 
 } // namespace Asset

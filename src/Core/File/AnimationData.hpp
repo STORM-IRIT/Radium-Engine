@@ -4,10 +4,10 @@
 #include <string>
 #include <vector>
 
-#include <Core/RaCore.hpp>
 #include <Core/File/AssetData.hpp>
 #include <Core/File/KeyFrame/AnimationTime.hpp>
 #include <Core/File/KeyFrame/KeyTransform.hpp>
+#include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -15,13 +15,12 @@ namespace Asset {
 struct RA_CORE_API HandleAnimation {
     HandleAnimation( const std::string& name = "" );
 
-    std::string   m_name;
-    KeyTransform  m_anim;
+    std::string m_name;
+    KeyTransform m_anim;
 };
 
 class RA_CORE_API AnimationData : public AssetData {
-public:
-
+  public:
     /// CONSTRUCTOR
     AnimationData( const std::string& name = "" );
     /// DESTRUCTOR
@@ -38,17 +37,17 @@ public:
 
     /// KEY FRAME
     inline uint getFramesSize() const;
-    inline std::vector< HandleAnimation > getFrames() const;
-    inline void setFrames( const std::vector< HandleAnimation >& frameList );
+    inline std::vector<HandleAnimation> getFrames() const;
+    inline void setFrames( const std::vector<HandleAnimation>& frameList );
 
     /// DEBUG
     inline void displayInfo() const;
 
-protected:
+  protected:
     /// VARIABLE
-    AnimationTime                  m_time;
-    Time                           m_dt;
-    std::vector< HandleAnimation > m_keyFrame;
+    AnimationTime m_time;
+    Time m_dt;
+    std::vector<HandleAnimation> m_keyFrame;
 };
 
 } // namespace Asset

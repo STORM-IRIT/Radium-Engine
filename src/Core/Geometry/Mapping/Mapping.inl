@@ -5,13 +5,13 @@ namespace Core {
 namespace Geometry {
 
 /// CONSTRUCTOR
-Mapping::Mapping(const Scalar alpha, const Scalar beta, const Scalar delta, Index id ) :
+Mapping::Mapping( const Scalar alpha, const Scalar beta, const Scalar delta, Index id ) :
     m_coord( Vector2( alpha, beta ) ),
     m_delta( delta ),
-    m_id( id ) { }
+    m_id( id ) {}
 
 /// DESTRUCTOR
-Mapping::~Mapping() { }
+Mapping::~Mapping() {}
 
 /// BARYCENTRIC COORDINATE
 inline Scalar Mapping::getAlpha() const {
@@ -57,34 +57,35 @@ inline void Mapping::setID( const Index& id ) {
 }
 
 /// POINT
-inline Vector3 Mapping::getPoint( const Vector3& p0,
-                                  const Vector3& p1,
-                                  const Vector3& p2,
+inline Vector3 Mapping::getPoint( const Vector3& p0, const Vector3& p1, const Vector3& p2,
                                   const Vector3& n ) const {
-    return ( ( ( getAlpha() * p0 ) + ( getBeta() * p1 ) + ( getGamma() * p2 ) ) + ( getDelta() * n ) );
+    return ( ( ( getAlpha() * p0 ) + ( getBeta() * p1 ) + ( getGamma() * p2 ) ) +
+             ( getDelta() * n ) );
 }
 
 /// QUERY
 inline bool Mapping::isFinite() const {
-    if( std::isnan( getAlpha() ) || std::isinf( getAlpha() ) ) {
+    if ( std::isnan( getAlpha() ) || std::isinf( getAlpha() ) )
+    {
         return false;
     }
-    if( std::isnan( getBeta() ) || std::isinf( getBeta() ) ) {
+    if ( std::isnan( getBeta() ) || std::isinf( getBeta() ) )
+    {
         return false;
     }
-    if( std::isnan( getGamma() ) || std::isinf( getGamma() ) ) {
+    if ( std::isnan( getGamma() ) || std::isinf( getGamma() ) )
+    {
         return false;
     }
-    if( std::isnan( getDelta() ) || std::isinf( getDelta() ) ) {
+    if ( std::isnan( getDelta() ) || std::isinf( getDelta() ) )
+    {
         return false;
     }
     return true;
 }
 
 inline bool Mapping::isInside() const {
-    return ( ( getAlpha() >= 0.0 ) &&
-             ( getBeta()  >= 0.0 ) &&
-             ( getGamma() >= 0.0 ) &&
+    return ( ( getAlpha() >= 0.0 ) && ( getBeta() >= 0.0 ) && ( getGamma() >= 0.0 ) &&
              ( ( getAlpha() + getBeta() + getGamma() ) == 1.0 ) );
 }
 

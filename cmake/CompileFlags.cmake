@@ -36,7 +36,7 @@ if (APPLE)
     set(CMAKE_CXX_FLAGS_RELEASE        "${UNIX_DEFAULT_CXX_FLAGS_RELEASE}        ${MATH_FLAG}")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${UNIX_DEFAULT_CXX_FLAGS_RELWITHDEBINFO} ${CMAKE_CXX_FLAGS_RELEASE}")
 
-    add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
+    #add_definitions( -Wno-deprecated-declarations ) # Do not warn for eigen bind being deprecated
 elseif (UNIX OR MINGW)
     set(MATH_FLAG "-mfpmath=sse")
     if(RADIUM_FAST_MATH)
@@ -58,7 +58,7 @@ elseif (UNIX OR MINGW)
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${UNIX_DEFAULT_CXX_FLAGS_RELWITHDEBINFO} -ggdb ${CMAKE_CXX_FLAGS_RELEASE}")
 
     # Prevent Eigen from spitting thousands of warnings with gcc 6+
-    add_definitions(-Wno-deprecated-declarations)
+    # add_definitions(-Wno-deprecated-declarations)
     if( NOT(${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 5.4))
         add_definitions(-Wno-ignored-attributes -Wno-misleading-indentation)
     endif()

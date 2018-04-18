@@ -6,9 +6,9 @@
 namespace Ra {
 namespace Core {
 
-template < typename OBJECT >
-class EIterator : public Iterator< OBJECT > {
-public:
+template <typename OBJECT>
+class EIterator : public Iterator<OBJECT> {
+  public:
     /// CONSTRUCTOR
     EIterator( HalfEdge_ptr& he );
     EIterator( const EIterator& it ) = default;
@@ -23,13 +23,12 @@ public:
     inline void reset() override;
 
     /// OPERATOR
-    inline EIterator& operator= ( const EIterator& it );
+    inline EIterator& operator=( const EIterator& it );
     inline EIterator& operator++() override;
     inline EIterator& operator--() override;
-    inline bool       operator==( const EIterator& it ) const;
+    inline bool operator==( const EIterator& it ) const;
 
-protected:
-
+  protected:
 };
 
 } // namespace Core

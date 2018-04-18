@@ -6,10 +6,10 @@
 namespace Ra {
 namespace Core {
 
-class [[deprecated]] FFIterator : public FIterator< Face > {
-public:
+class[[deprecated]] FFIterator : public FIterator<Face> {
+  public:
     /// CONSTRUCTOR
-    FFIterator( Face_ptr& f );
+    FFIterator( Face_ptr & f );
     FFIterator( const FFIterator& it ) = default;
 
     /// DESTRUCTOR

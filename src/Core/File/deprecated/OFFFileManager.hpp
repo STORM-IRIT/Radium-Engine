@@ -8,17 +8,18 @@ namespace Ra {
 namespace Core {
 
 /*
-* The class OFFFileManager handles the loading and storing of TriangleMesh in the standard OFF format.
-*/
-class OFFFileManager : public FileManager< TriangleMesh > {
-public:
+ * The class OFFFileManager handles the loading and storing of TriangleMesh in the standard OFF
+ * format.
+ */
+class OFFFileManager : public FileManager<TriangleMesh> {
+  public:
     /// CONSTRUCTOR
     OFFFileManager();
 
     /// DESTRUCTOR
     virtual ~OFFFileManager();
 
-protected:
+  protected:
     /// HEADER
     std::string header() const;
 

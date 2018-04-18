@@ -1,55 +1,54 @@
 #ifndef RADIUMENGINE_LIGHT_HPP
 #define RADIUMENGINE_LIGHT_HPP
 
-#include <Engine/RaEngine.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Engine/Component/Component.hpp>
+#include <Engine/RaEngine.hpp>
 
-namespace Ra
-{
-    namespace Engine
-    {
-        class RenderParameters;
-    }
+namespace Ra {
+namespace Engine {
+class RenderParameters;
 }
+} // namespace Ra
 
-namespace Ra
-{
-    namespace Engine
-    {
+namespace Ra {
+namespace Engine {
 
-        class RA_ENGINE_API Light
-        {
-        public:
-            enum LightType
-            {
-                DIRECTIONAL,
-                POINT,
-                SPOT
-            };
+// FIXME (Hugo) To me this class could totally be renamed LightComponent and get a Light struct
+// embedded. Thoughts are welcome !
+class RA_ENGINE_API Light : public Component {
+  public:
+    enum LightType { DIRECTIONAL = 0, POINT, SPOT, POLYGONAL };
 
-        public:
-            RA_CORE_ALIGNED_NEW
+  public:
+    RA_CORE_ALIGNED_NEW
 
-            Light( const LightType& type );
-            virtual ~Light();
+    Light( Entity* entity, const LightType& type, const std::string& name = "light" );
+    virtual ~Light();
 
-            inline const Core::Color& getColor() const;
-            inline void setColor( const Core::Color& color );
+    inline const Core::Color& getColor() const;
+    inline void setColor( const Core::Color& color );
 
-            virtual void setDirection( const Core::Vector3& dir ) {}
-            virtual void setPosition( const Core::Vector3& pos ) {}
-            
-            inline const LightType& getType() const;
+    // These function will be replaced by their use of a component -> entity
+    virtual void setDirection( const Core::Vector3& dir ) {}
+    virtual void setPosition( const Core::Vector3& pos ) {}
+    // ...
 
-            virtual void getRenderParameters( RenderParameters& params );
+    inline const LightType& getType() const;
 
-        private:
-            Core::Color m_color;
+    virtual void getRenderParameters( RenderParameters& params ) const;
 
-            LightType m_type;
-        };
+    virtual std::string getShaderInclude() const;
 
-    } // namespace Engine
+    void initialize() override;
+
+  private:
+    Core::Color m_color;
+
+    LightType m_type;
+};
+
+} // namespace Engine
 } // namespace Ra
 
 #include <Engine/Renderer/Light/Light.inl>

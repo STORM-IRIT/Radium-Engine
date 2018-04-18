@@ -6,229 +6,236 @@
 #include <Core/RaCore.hpp>
 #include <Eigen/Core>
 
-#include <Core/Math/LinearAlgebra.hpp>
+namespace Ra {
+namespace Core {
+/// This class stores a D-dimensional grid of elements of arbitrary type.
+/// in a contiguous memory block. Elements are stored in column-major order.
+/// e.g. for a 3x3x3 array the element vector looks like
+///  [A000, A100, A200, A010,... A222].
+/// Elements are accessible with a D-dimensional Vector, or linearly with
+/// iterators, thanks to the std-like interface provided.
+template <typename T, uint D>
+class Grid {
 
-namespace Ra
-{
-    namespace Core
-    {
-        /// This class stores a D-dimensional grid of elements of arbitrary type.
-        /// in a contiguous memory block. Elements are stored in column-major order.
-        /// e.g. for a 3x3x3 array the element vector looks like
-        ///  [A000, A100, A200, A010,... A222].
-        /// Elements are accessible with a D-dimensional Vector, or linearly with
-        /// iterators, thanks to the std-like interface provided.
-        template <typename T, uint D>
-        class Grid
-        {
+  public:
+    // public types and constants.
+    static const uint Dimension = D; /// Dimension of our grid
+    using IdxVector =
+        Eigen::Matrix<uint, D, 1>; /// A vector of the size of the grid along each dimension.
+    using OffsetVector = Eigen::Matrix<int, D, 1>; /// A vector of signed offsets.
 
-        public:
-            // public types and constants.
-            static const uint Dimension = D; /// Dimension of our grid
-            typedef Eigen::Matrix<uint, D, 1> IdxVector; /// A vector of the size of the grid along each dimension.
-            typedef Eigen::Matrix< int, D, 1> OffsetVector; /// A vector of signed offsets.
+    /// This class implements an iterator though elements of the grid that
+    /// can be referenced with a linear index or a D-dimensional uint vector.
+    class Iterator {
+      public:
+        //
+        // Construction
+        //
 
-            /// This class implements an iterator though elements of the grid that
-            /// can be referenced with a linear index or a D-dimensional uint vector.
-            class Iterator
-            {
-            public:
+        /// Constructor from size and linear index.
+        Iterator( const IdxVector& size, uint startIdx = 0 );
 
-                //
-                // Construction
-                //
+        /// Constructor from size and vector index.
+        Iterator( const IdxVector& size, const IdxVector& startIdx );
 
-                /// Constructor from size and linear index.
-                Iterator( const IdxVector& size, uint startIdx = 0 );
+        /// Constructor from grid and linear index.
+        Iterator( const Grid<T, D>& grid, uint startIdx = 0 );
 
-                /// Constructor from size and vector index.
-                Iterator( const IdxVector& size, const IdxVector& startIdx );
+        /// Constructor from grid and vector index.
+        Iterator( const Grid<T, D>& grid, const IdxVector& startIdx );
 
-                /// Constructor from grid and linear index.
-                Iterator( const Grid<T,D>& grid, uint startIdx = 0 );
+        /// Default copy constructor and assignment operator.
+        Iterator( const Iterator& other ) = default;
+        Iterator& operator=( const Iterator& other ) = default;
 
-                /// Constructor from grid and vector index.
-                Iterator( const Grid<T,D>& grid, const IdxVector& startIdx );
+        /// Cast to the an iterator in a different type grid.
+        template <typename T2>
+        typename Grid<T2, D>::Iterator cast() const;
 
-                /// Default copy constructor and assignment operator.
-                Iterator ( const Iterator& other ) = default;
-                Iterator& operator= ( const Iterator& other  ) = default;
+        //
+        // Basic getters and setters
+        //
 
-                /// Cast to the an iterator in a different type grid.
-                template <typename T2 >
-                typename Grid<T2,D>::Iterator cast() const;
+        /// Set an existing iterator to a linear index value.
+        inline void setFromLinear( uint idx );
 
-                //
-                // Basic getters and setters
-                //
+        /// Set an existing iterator to a vector index value.
+        inline void setFromVector( const IdxVector& idx );
 
-                /// Set an existing iterator to a linear index value.
-                inline void setFromLinear( uint idx );
+        /// Get the current linear index.
+        inline uint getLinear() const;
 
-                /// Set an existing iterator to a vector index value.
-                inline void setFromVector( const IdxVector& idx );
+        /// Get the current vector index.
+        inline IdxVector getVector() const;
 
-                /// Get the current linear index.
-                inline uint getLinear() const;
+        /// Get the associated grid size.
+        inline const IdxVector& getGridSize() const;
 
-                /// Get the current vector index.
-                inline IdxVector getVector() const;
+        /// Returns true if the current index is out of the grid.
+        inline bool isOut() const;
 
-                /// Get the associated grid size.
-                inline const IdxVector& getGridSize() const;
+        /// Returns true if the current index is inside the grid.
+        inline bool isIn() const;
 
-                /// Returns true if the current index is out of the grid.
-                inline bool isOut() const;
+        //
+        // Increment and decrement operators
+        //
 
-                /// Returns true if the current index is inside the grid.
-                inline bool isIn() const;
+        /// Advance the iterator to the next-element
+        inline Iterator& operator++();
+        inline Iterator operator++( int );
 
-                //
-                // Increment and decrement operators
-                //
+        /// Move the iterator back to the previous element
+        inline Iterator& operator--();
+        inline Iterator operator--( int );
 
-                /// Advance the iterator to the next-element
-                inline Iterator& operator++ ();
-                inline Iterator  operator++ ( int );
+        //
+        // Add and substract operators with linear offset
+        //
 
-                /// Move the iterator back to the previous element
-                inline Iterator& operator-- ();
-                inline Iterator  operator-- ( int );
+        /// Advance the iterator with an offset of i elements
+        inline Iterator& operator+=( uint i );
 
-                //
-                // Add and substract operators with linear offset
-                //
+        /// Rewind the iterator with an offset of i elements
+        inline Iterator& operator-=( uint i );
 
-                /// Advance the iterator with an offset of i elements
-                inline Iterator& operator+= ( uint i );
+        //
+        // Add and substract operators with vector offset
+        //
 
-                /// Rewind the iterator with an offset of i elements
-                inline Iterator& operator-= ( uint i );
+        // Note : these convenience functions do not do any kind
+        // of check. If you get out of bounds on one dimension, the iterator
+        // might still be valid but not pointing to the element you think
+        // it should.
 
-                //
-                // Add and substract operators with vector offset
-                //
+        inline Iterator& operator+=( const IdxVector& idx );
+        inline Iterator& operator-=( const IdxVector& idx );
+        inline Iterator& operator+=( const OffsetVector& idx );
 
-                // Note : these convenience functions do not do any kind
-                // of check. If you get out of bounds on one dimension, the iterator
-                // might still be valid but not pointing to the element you think
-                // it should.
+        /// Returns true if adding offset idx with current iterator will act
+        /// as expected and false if it will put it out of bounds.
+        bool isValidOffset( const OffsetVector& idx );
 
-                inline Iterator& operator+= ( const IdxVector& idx );
-                inline Iterator& operator-= ( const IdxVector& idx );
-                inline Iterator& operator+= ( const OffsetVector& idx );
+        //
+        // Comparison operators
+        //
 
-                /// Returns true if adding offset idx with current iterator will act
-                /// as expected and false if it will put it out of bounds.
-                bool isValidOffset( const OffsetVector& idx );
+        // Note : comparing iterators of different grid sizes will assert.
 
-                //
-                // Comparison operators
-                //
+        inline bool operator==( const Iterator& other ) const;
+        inline bool operator<( const Iterator& other ) const;
 
-                // Note : comparing iterators of different grid sizes will assert.
+        //
+        // Extra operators
+        //
 
-                inline bool operator== ( const Iterator& other ) const;
-                inline bool operator<  ( const Iterator& other ) const;
+        // Declare binary operators directly (see C++ faq 35.16)
+        friend Iterator operator+( const Iterator& it, uint i ) {
+            Iterator copy( it );
+            return copy += i;
+        }
+        friend Iterator operator-( const Iterator& it, uint i ) {
+            Iterator copy( it );
+            return copy -= i;
+        }
+        friend Iterator operator+( const Iterator& it, const IdxVector& idx ) {
+            Iterator copy( it );
+            return copy += idx;
+        }
+        friend Iterator operator-( const Iterator& it, const IdxVector& idx ) {
+            Iterator copy( it );
+            return copy -= idx;
+        }
+        friend Iterator operator+( const Iterator& it, const OffsetVector& idx ) {
+            Iterator copy( it );
+            return copy += idx;
+        }
 
-                //
-                // Extra operators
-                //
+        // Extraneous comparison operators default implementation.
+        inline bool operator!=( const Iterator& rhs ) const { return !( *this == rhs ); }
+        inline bool operator>( const Iterator& rhs ) const { return rhs < *this; }
+        inline bool operator<=( const Iterator& rhs ) const { return !( *this > rhs ); }
+        inline bool operator>=( const Iterator& rhs ) const { return !( *this < rhs ); }
 
-                // Declare binary operators directly (see C++ faq 35.16)
-                friend Iterator operator+(const Iterator &it, uint i) {  Iterator copy(it); return copy += i; }
-                friend Iterator operator-(const Iterator &it, uint i) {  Iterator copy(it); return copy -= i; }
-                friend Iterator operator+(const Iterator &it, const IdxVector &idx) { Iterator copy (it); return copy += idx; }
-                friend Iterator operator-(const Iterator &it, const IdxVector &idx) { Iterator copy (it); return copy -= idx; }
-                friend Iterator operator+(const Iterator &it, const OffsetVector &idx) { Iterator copy (it); return copy += idx; }
+      private:
+        const IdxVector& m_sizes; /// Size of the underlying grid
+        uint m_index;             /// Current linear index of the iterator
+    };
 
-                // Extraneous comparison operators default implementation.
-                inline bool operator!=(const Iterator& rhs) const {return !(*this == rhs) ;}
-                inline bool operator> (const Iterator& rhs) const {return    rhs  <  *this;}
-                inline bool operator<=(const Iterator& rhs) const {return !(*this >  rhs) ;}
-                inline bool operator>=(const Iterator& rhs) const {return !(*this <  rhs) ;}
+  public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-            private:
-                const IdxVector& m_sizes; /// Size of the underlying grid
-                uint m_index; /// Current linear index of the iterator
+    //
+    // Constructors
+    //
 
-            };
+    /// Construct a grid of a given size and fill it with the given value.
+    Grid( const IdxVector& size = IdxVector::Zero(), const T& val = T() );
+    /// Construct a grid of a given size with values in ()-major format
+    Grid( const IdxVector& size, const T* values );
 
-        public:
-            RA_CORE_ALIGNED_NEW
+    /// Copy constructor and assignment operator.
+    Grid( const Grid<T, D>& other ) = default;
+    Grid& operator=( const Grid<T, D>& other ) = default;
 
-            //
-            // Constructors
-            //
+    //
+    // Basic getters
+    //
 
-            /// Construct a grid of a given size and fill it with the given value.
-            Grid( const IdxVector& size = IdxVector::Zero(), const T& val = T() );
-            /// Construct a grid of a given size with values in ()-major format
-            Grid( const IdxVector& size, const T* values );
+    /// Returns the number of elements stored.
+    inline uint size() const;
+    /// Returns the size vector (a D-dimensional vector with the size along each dimension).
+    inline const IdxVector& sizeVector() const;
+    /// Returns true if the grid is empty (i.e. if size() ==0).
+    inline bool empty() const;
+    /// Erases all data and makes the grid empty.
+    inline void clear();
 
-            /// Copy constructor and assignment operator.
-            Grid( const Grid<T, D>& other ) = default;
-            Grid& operator= ( const Grid<T, D>& other ) = default;
+    //
+    // Element access
+    //
 
-            //
-            // Basic getters
-            //
+    /// Access an element with a D-dimensional index.
+    // Note that since initializer lists are implicitly convertible to
+    // Eigen vectors, you can call grid.at({x,y,z})
+    inline const T& at( const IdxVector& idx ) const;
+    inline T& at( const IdxVector& idx );
 
-            /// Returns the number of elements stored.
-            inline uint size() const;
-            /// Returns the size vector (a D-dimensional vector with the size along each dimension).
-            inline const IdxVector& sizeVector() const;
-            /// Returns true if the grid is empty (i.e. if size() ==0).
-            inline bool empty() const;
-            /// Erases all data and makes the grid empty.
-            inline void clear();
+    /// Access an element with a linear index.
+    inline const T& at( uint idx ) const;
+    inline T& at( uint idx );
 
-            //
-            // Element access
-            //
+    /// Access an element with an iterator.
+    inline const T& at( const Iterator& it ) const;
+    inline T& at( const Iterator& it );
 
-            /// Access an element with a D-dimensional index.
-            // Note that since initializer lists are implicitly convertible to
-            // Eigen vectors, you can call grid.at({x,y,z})
-            inline const T& at( const IdxVector& idx ) const;
-            inline T& at( const IdxVector& idx );
+    /// Read only access to the underlying data.
+    inline const T* data() const;
 
-            /// Access an element with a linear index.
-            inline const T& at( uint idx ) const;
-            inline T& at( uint idx );
+    /// Read-write access to the underlying data.
+    inline T* data();
 
-            /// Access an element with an iterator.
-            inline const T& at( const Iterator& it) const;
-            inline T& at( const Iterator& it);
+    //
+    // std::iterators-like interface
+    //
 
-            /// Read only access to the underlying data.
-            inline const T* data() const;
+    /// Get an iterator on this grid at the first element.
+    inline Iterator begin();
+    inline Iterator begin() const;
 
-            /// Read-write access to the underlying data.
-            inline T* data();
+    /// Get an iterator on this grid past the last element.
+    inline Iterator end();
+    inline Iterator end() const;
 
-            //
-            // std::iterators-like interface
-            //
-
-            /// Get an iterator on this grid at the first element.
-            inline Iterator begin();
-            inline Iterator begin() const;
-
-            /// Get an iterator on this grid past the last element.
-            inline Iterator end();
-            inline Iterator end() const;
-
-        protected:
-            /// Indicate the extends of the grid along each dimension.
-            IdxVector m_size;
-            /// Storage for the grid data.
-            std::vector<T> m_data;
-
-        };
-    }
-}
+  protected:
+    /// Indicate the extends of the grid along each dimension.
+    IdxVector m_size;
+    /// Storage for the grid data.
+    std::vector<T> m_data;
+};
+} // namespace Core
+} // namespace Ra
 
 #include <Core/Containers/Grid.inl>
 
-#endif //RADIUMENGINE_GRID_HPP
+#endif // RADIUMENGINE_GRID_HPP

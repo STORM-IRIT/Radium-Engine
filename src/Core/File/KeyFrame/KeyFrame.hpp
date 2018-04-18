@@ -12,25 +12,21 @@
 namespace Ra {
 namespace Asset {
 
-template < class FRAME >
+template <class FRAME>
 class KeyFrame {
-public:
+  public:
     /// CONSTRUCTOR
-    KeyFrame( const AnimationTime& time = AnimationTime() ) : m_time( time ) { }
+    KeyFrame( const AnimationTime& time = AnimationTime() ) : m_time( time ) {}
     KeyFrame( const KeyFrame& keyframe ) = default;
 
     /// DESTRUCTOR
-    ~KeyFrame() { }
+    ~KeyFrame() {}
 
     /// TIME
-    inline AnimationTime getAnimationTime() const {
-        return m_time;
-    }
+    inline AnimationTime getAnimationTime() const { return m_time; }
 
     // Is this useful? Can this create problems?
-    inline void setAnimationTime( const AnimationTime& time ) {
-        m_time = time;
-    }
+    inline void setAnimationTime( const AnimationTime& time ) { m_time = time; }
 
     /// TRANSFORMATION
     inline FRAME getKeyFrame( const uint i ) const {
@@ -44,7 +40,8 @@ public:
     }
 
     inline FRAME at( const Time& t ) const {
-        if( !m_time.contain( t ) ) {
+        if ( !m_time.contain( t ) )
+        {
             return defaultFrame();
         }
         FRAME F0;
@@ -61,42 +58,38 @@ public:
     }
 
     inline void setKeyFrame( const Time& t, const FRAME& frame ) {
-        if( !m_time.contain( t ) ) {
+        if ( !m_time.contain( t ) )
+        {
             insertKeyFrame( t, frame );
-        } else {
-            m_keyframe[t] = frame;
-        }
+        } else
+        { m_keyframe[t] = frame; }
     }
 
-    inline void insertKeyFrame( const Time& t,
-                                const FRAME& frame ) {
-        if( t < m_time.getStart() ) {
+    inline void insertKeyFrame( const Time& t, const FRAME& frame ) {
+        if ( t < m_time.getStart() )
+        {
             m_time.setStart( t );
         }
-        if( t > m_time.getEnd() ) {
+        if ( t > m_time.getEnd() )
+        {
             m_time.setEnd( t );
         }
         m_keyframe[t] = frame;
     }
 
     /// SIZE
-    inline uint size() const {
-        return m_keyframe.size();
-    }
+    inline uint size() const { return m_keyframe.size(); }
 
-    inline void clear() {
-        m_keyframe.clear();
-    }
+    inline void clear() { m_keyframe.clear(); }
 
     /// QUERY
-    inline bool empty() const {
-        return m_keyframe.empty();
-    }
+    inline bool empty() const { return m_keyframe.empty(); }
 
-    inline std::vector< Time > timeSchedule() const {
-        std::vector< Time > time;
-        for( const auto& it : m_keyframe ) {
-            const Time t = Scalar(it.first);
+    inline std::vector<Time> timeSchedule() const {
+        std::vector<Time> time;
+        for ( const auto& it : m_keyframe )
+        {
+            const Time t = Scalar( it.first );
             time.push_back( t );
         }
         return time;
@@ -110,28 +103,32 @@ public:
     }
 
     /// OPERATOR
-    inline KeyFrame& operator =( const KeyFrame& keyframe ) { m_time = keyframe.m_time; m_keyframe = keyframe.m_keyframe; return *this; }
-    inline bool      operator==( const KeyFrame& keyframe ) const { return ( ( m_time == keyframe.m_time ) && ( m_keyframe == keyframe.m_keyframe ) ); }
-    inline bool      operator!=( const KeyFrame& keyframe ) const { return !( *this == keyframe ); }
+    inline KeyFrame& operator=( const KeyFrame& keyframe ) {
+        m_time = keyframe.m_time;
+        m_keyframe = keyframe.m_keyframe;
+        return *this;
+    }
+    inline bool operator==( const KeyFrame& keyframe ) const {
+        return ( ( m_time == keyframe.m_time ) && ( m_keyframe == keyframe.m_keyframe ) );
+    }
+    inline bool operator!=( const KeyFrame& keyframe ) const { return !( *this == keyframe ); }
 
-protected:
+  protected:
     /// TRANSFORMATION
     virtual FRAME defaultFrame() const = 0;
 
-    inline void findRange( const Time& t,
-                           FRAME& F0,
-                           FRAME& F1,
-                           Scalar& dt ) const {
+    inline void findRange( const Time& t, FRAME& F0, FRAME& F1, Scalar& dt ) const {
         auto it = m_keyframe.find( t );
         // exact match
-        if( it != m_keyframe.end() ) {
+        if ( it != m_keyframe.end() )
+        {
             F0 = it->second;
             F1 = it->second;
             dt = 0.0;
             return;
         }
         // before first
-        if (t < m_keyframe.begin()->first)
+        if ( t < m_keyframe.begin()->first )
         {
             F0 = m_keyframe.begin()->second;
             F1 = F0;
@@ -139,7 +136,7 @@ protected:
             return;
         }
         // after last
-        if (t > m_keyframe.rbegin()->first)
+        if ( t > m_keyframe.rbegin()->first )
         {
             F0 = m_keyframe.rbegin()->second;
             F1 = F0;
@@ -159,13 +156,13 @@ protected:
 
     virtual FRAME interpolate( const FRAME& F0, const FRAME& F1, const Scalar t ) const = 0;
 
-protected:
+  protected:
     /// VARIABLE
-    AnimationTime           m_time;
-    std::map < Time, FRAME, std::less<Time>, Ra::Core::AlignedAllocator<std::pair < const Time, FRAME >, RA_DEFAULT_ALIGN> > m_keyframe;
+    AnimationTime m_time;
+    std::map<Time, FRAME, std::less<Time>,
+             Ra::Core::AlignedAllocator<std::pair<const Time, FRAME>, RA_DEFAULT_ALIGN>>
+        m_keyframe;
 };
-
-
 
 } // namespace Asset
 } // namespace Ra

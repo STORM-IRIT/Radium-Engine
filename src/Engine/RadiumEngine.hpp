@@ -9,91 +9,83 @@
 #include <Core/File/FileLoaderInterface.hpp>
 
 #include <map>
-#include <string>
 #include <memory>
+#include <string>
 
-namespace Ra
-{
-    namespace Core
-    {
-        class TaskQueue;
-        struct MouseEvent;
-        struct KeyEvent;
-    }
-}
-namespace Ra
-{
-    namespace Engine
-    {
-        class System;
-        class Entity;
-        class Component;
-        class Mesh;
-        class RenderObjectManager;
-        class EntityManager;
-        class SignalManager;
-    }
-}
+namespace Ra {
+namespace Core {
+class TaskQueue;
+struct MouseEvent;
+struct KeyEvent;
+} // namespace Core
+} // namespace Ra
+namespace Ra {
+namespace Engine {
+class System;
+class Entity;
+class Component;
+class Mesh;
+class RenderObjectManager;
+class EntityManager;
+class SignalManager;
+} // namespace Engine
+} // namespace Ra
 
-namespace Ra
-{
-    namespace Engine
-    {
-        class RA_ENGINE_API RadiumEngine
-        {
-            RA_SINGLETON_INTERFACE(RadiumEngine);
-        public:
-            RadiumEngine();
-            ~RadiumEngine();
+namespace Ra {
+namespace Engine {
+class RA_ENGINE_API RadiumEngine {
+    RA_SINGLETON_INTERFACE( RadiumEngine );
 
-            void initialize();
-            void cleanup();
+  public:
+    RadiumEngine();
+    ~RadiumEngine();
 
-            void getTasks( Core::TaskQueue* taskQueue, Scalar dt );
+    void initialize();
+    void cleanup();
 
-            void registerSystem( const std::string& name,
-                                 System* system );
-            System* getSystem( const std::string& system ) const;
+    void getTasks( Core::TaskQueue* taskQueue, Scalar dt );
 
-            /// Convenience function returning a Mesh from its entity and
-            /// component names.
-            /// When no RenderObject name is given, returns the mesh associated
-            /// to the first render object.
-            Mesh* getMesh( const std::string& entityName,
-                           const std::string& componentName,
-                           const std::string& roName= std::string() ) const;
+    void registerSystem( const std::string& name, System* system );
+    System* getSystem( const std::string& system ) const;
 
-            bool loadFile( const std::string& file );
+    /// Convenience function returning a Mesh from its entity and
+    /// component names.
+    /// When no RenderObject name is given, returns the mesh associated
+    /// to the first render object.
+    Mesh* getMesh( const std::string& entityName, const std::string& componentName,
+                   const std::string& roName = std::string() ) const;
 
-            const Asset::FileData& getFileData() const;
+    bool loadFile( const std::string& file );
 
-            void releaseFile();
+    const Asset::FileData& getFileData() const;
 
-            /// Is called at the end of the frame to synchronize any data
-            /// that may have been updated during the frame's multithreaded processing.
-            void endFrameSync();
+    void releaseFile();
 
-            /// Manager getters
-            RenderObjectManager*  getRenderObjectManager()  const;
-            EntityManager*        getEntityManager()        const;
-            SignalManager*        getSignalManager()        const;
+    /// Is called at the end of the frame to synchronize any data
+    /// that may have been updated during the frame's multithreaded processing.
+    void endFrameSync();
 
-            void registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface> fileLoader );
+    /// Manager getters
+    RenderObjectManager* getRenderObjectManager() const;
+    EntityManager* getEntityManager() const;
+    SignalManager* getSignalManager() const;
 
-            const std::vector< std::shared_ptr<Asset::FileLoaderInterface> >& getFileLoaders() const;
+    void registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface> fileLoader );
 
-        private:
-            std::map<std::string, std::shared_ptr<System>> m_systems;
+    const std::vector<std::shared_ptr<Asset::FileLoaderInterface>>& getFileLoaders() const;
 
-            std::vector< std::shared_ptr<Asset::FileLoaderInterface> > m_fileLoaders;
+  private:
+    std::map<std::string, std::shared_ptr<System>> m_systems;
 
-            std::unique_ptr<RenderObjectManager> m_renderObjectManager;
-            std::unique_ptr<EntityManager>       m_entityManager;
-            std::unique_ptr<SignalManager>       m_signalManager;
-            std::unique_ptr<Asset::FileData>     m_loadedFile;
-        };
+    std::vector<std::shared_ptr<Asset::FileLoaderInterface>> m_fileLoaders;
 
-    } // namespace Engine
+    std::unique_ptr<RenderObjectManager> m_renderObjectManager;
+    std::unique_ptr<EntityManager> m_entityManager;
+    std::unique_ptr<SignalManager> m_signalManager;
+    std::unique_ptr<Asset::FileData> m_loadedFile;
+};
+
+} // namespace Engine
 } // namespace Ra
 
 #endif // RADIUMENGINE_ENGINE_HPP

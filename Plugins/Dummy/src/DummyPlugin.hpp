@@ -10,43 +10,39 @@
 
 class QLabel;
 
-namespace Ra
-{
-    namespace Engine
-    {
-        class RadiumEngine;
-    }
+namespace Ra {
+namespace Engine {
+class RadiumEngine;
 }
+} // namespace Ra
 
-namespace DummyPlugin
-{
-    class DummySystem;
+namespace DummyPlugin {
+class DummySystem;
 
-    class DummyPlugin : public QObject, Ra::Plugins::RadiumPluginInterface
-    {
-        Q_OBJECT
-        Q_PLUGIN_METADATA( IID "foo.bar.RadiumEngine.PluginInterface" )
-        Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
+class DummyPlugin : public QObject, Ra::Plugins::RadiumPluginInterface {
+    Q_OBJECT
+    Q_PLUGIN_METADATA( IID "foo.bar.RadiumEngine.PluginInterface" )
+    Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
 
-    public:
-        virtual ~DummyPlugin();
+  public:
+    virtual ~DummyPlugin();
 
-        virtual void registerPlugin( const Ra::PluginContext& context ) override;
+    virtual void registerPlugin( const Ra::PluginContext& context ) override;
 
-        virtual bool doAddWidget( QString& name ) override;
-        virtual QWidget* getWidget() override;
+    virtual bool doAddWidget( QString& name ) override;
+    virtual QWidget* getWidget() override;
 
-        virtual bool doAddMenu() override;
-        virtual QMenu* getMenu() override;
+    virtual bool doAddMenu() override;
+    virtual QMenu* getMenu() override;
 
-    private slots:
-        void sayHello();
+  private slots:
+    void sayHello();
 
-    private:
-        DummySystem* m_system;
-        QLabel* m_label;
-    };
+  private:
+    DummySystem* m_system;
+    QLabel* m_label;
+};
 
-} // namespace
+} // namespace DummyPlugin
 
 #endif // FANCYMESHPLUGIN_HPP_

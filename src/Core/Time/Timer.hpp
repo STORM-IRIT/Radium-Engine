@@ -4,33 +4,28 @@
 #include <Core/RaCore.hpp>
 #include <chrono>
 
-namespace Ra
-{
-    namespace Core
-    {
-        // Convenience functions for timing.
-        // Wrapping the highest resolution time measuring.
-        namespace Timer
-        {
-            typedef long                                MicroSeconds;
-            typedef Scalar                              Seconds;
-            typedef std::chrono::high_resolution_clock  Clock;
-            typedef std::chrono::time_point<Clock>      TimePoint;
+namespace Ra {
+namespace Core {
+// Convenience functions for timing.
+// Wrapping the highest resolution time measuring.
+namespace Timer {
+using MicroSeconds = long;
+using Seconds = Scalar;
+using Clock = std::chrono::high_resolution_clock;
+using TimePoint = std::chrono::time_point<Clock>;
 
-            inline MicroSeconds getIntervalMicro( const TimePoint& start, const TimePoint& end )
-            {
-                return ( std::chrono::duration_cast<std::chrono::microseconds> ( end - start ) ).count();
-            }
-
-            inline Seconds getIntervalSeconds( const TimePoint& start, const TimePoint& end )
-            {
-                return ( std::chrono::duration_cast<std::chrono::duration<Scalar, std::chrono::seconds::period>>
-                         ( end - start ) ).count();
-            }
-        }
-
-    }
+inline MicroSeconds getIntervalMicro( const TimePoint& start, const TimePoint& end ) {
+    return ( std::chrono::duration_cast<std::chrono::microseconds>( end - start ) ).count();
 }
 
+inline Seconds getIntervalSeconds( const TimePoint& start, const TimePoint& end ) {
+    return ( std::chrono::duration_cast<
+                 std::chrono::duration<Scalar, std::chrono::seconds::period>>( end - start ) )
+        .count();
+}
+} // namespace Timer
 
-#endif// RADIUMENGINE_TIMER_HPP_
+} // namespace Core
+} // namespace Ra
+
+#endif // RADIUMENGINE_TIMER_HPP_
