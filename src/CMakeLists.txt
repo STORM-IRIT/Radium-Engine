@@ -182,7 +182,11 @@ add_library(
     ${engine_shaders}
 )
 
-add_dependencies( ${engine_target} ${core_target} glbinding_lib globjects_lib glm_lib)
+target_include_directories( ${engine_target}
+    INTERFACE ${STB_INCLUDE_DIR}
+)
+
+add_dependencies( ${engine_target} ${core_target} glbinding_lib globjects_lib glm_lib stb_lib)
 
 target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 
@@ -229,7 +233,11 @@ add_library(
     ${guibase_headers}
     ${guibase_inlines})
 
-add_dependencies( ${guibase_target} ${engine_target} ${io_target} ${core_target} glbinding_lib globjects_lib)
+target_include_directories( ${guibase_target}
+    INTERFACE ${STB_INCLUDE_DIR}
+)
+
+add_dependencies( ${guibase_target} ${engine_target} ${io_target} ${core_target} glbinding_lib globjects_lib stb_lib)
 target_compile_definitions(${guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
 
 target_link_libraries(
