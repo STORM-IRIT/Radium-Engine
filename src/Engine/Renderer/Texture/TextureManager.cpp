@@ -1,8 +1,10 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
-#include <Core/Image/stb_image.h>
 #include <Core/Log/Log.hpp>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb/stb_image.h>
 
 namespace Ra {
 namespace Engine {

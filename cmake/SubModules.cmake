@@ -41,6 +41,9 @@ endif()
 # OpenMesh
 include(submoduleOpenMesh)
 
+# STB
+include(submoduleSTB)
+
 # TinyPly
 if (RADIUM_TINYPLY_SUPPORT)
     include(submoduleTinyPly)

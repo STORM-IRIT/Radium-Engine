@@ -19,3 +19,6 @@
 [submodule "3rdPartyLibraries/OpenMesh"]
 	path = 3rdPartyLibraries/OpenMesh
 	url = https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git
+[submodule "3rdPartyLibraries/stb"]
+	path = 3rdPartyLibraries/stb
+	url = https://github.com/nothings/stb.git

@@ -18,8 +18,10 @@
 #include <QPainter>
 #include <QTimer>
 
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include <stb/stb_image_write.h>
+
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/Image/stb_image_write.h>
 #include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/Math.hpp>
