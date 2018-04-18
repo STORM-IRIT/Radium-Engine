@@ -4,36 +4,30 @@
 
 #include "ui_MeshFeatureTrackingUI.h"
 
-MeshFeatureTrackingUI::MeshFeatureTrackingUI(QWidget *parent) :
-    QFrame(parent),
-    ui(new Ui::MeshFeatureTrackingUI)
-{
-    ui->setupUi(this);
+MeshFeatureTrackingUI::MeshFeatureTrackingUI( QWidget* parent ) :
+    QFrame( parent ),
+    ui( new Ui::MeshFeatureTrackingUI ) {
+    ui->setupUi( this );
 }
 
-MeshFeatureTrackingUI::~MeshFeatureTrackingUI()
-{
+MeshFeatureTrackingUI::~MeshFeatureTrackingUI() {
     delete ui;
 }
 
-void MeshFeatureTrackingUI::setMaxV( int max )
-{
-    ui->m_vertexIdx->setMaximum( std::max( max-1, 0) );
+void MeshFeatureTrackingUI::setMaxV( int max ) {
+    ui->m_vertexIdx->setMaximum( std::max( max - 1, 0 ) );
 }
 
-void MeshFeatureTrackingUI::setMaxT( int max )
-{
-    ui->m_triangleIdx->setMaximum( std::max( max-1, 0) );
+void MeshFeatureTrackingUI::setMaxT( int max ) {
+    ui->m_triangleIdx->setMaximum( std::max( max - 1, 0 ) );
 }
 
-void MeshFeatureTrackingUI::updateTracking( const FeatureData &data,
-                                            const Ra::Core::Vector3 &pos,
-                                            const Ra::Core::Vector3 &vec )
-{
+void MeshFeatureTrackingUI::updateTracking( const FeatureData& data, const Ra::Core::Vector3& pos,
+                                            const Ra::Core::Vector3& vec ) {
     ui->m_vertexInfo->setEnabled( false );
     ui->m_edgeInfo->setEnabled( false );
     ui->m_triangleInfo->setEnabled( false );
-    switch (data.m_mode)
+    switch ( data.m_mode )
     {
     case Ra::Engine::Renderer::VERTEX:
     {
@@ -72,12 +66,10 @@ void MeshFeatureTrackingUI::updateTracking( const FeatureData &data,
     }
 }
 
-void MeshFeatureTrackingUI::on_m_vertexIdx_valueChanged(int arg1)
-{
+void MeshFeatureTrackingUI::on_m_vertexIdx_valueChanged( int arg1 ) {
     emit vertexIdChanged( arg1 );
 }
 
-void MeshFeatureTrackingUI::on_m_triangleIdx_valueChanged(int arg1)
-{
+void MeshFeatureTrackingUI::on_m_triangleIdx_valueChanged( int arg1 ) {
     emit triangleIdChanged( arg1 );
 }

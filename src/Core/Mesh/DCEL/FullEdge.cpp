@@ -5,26 +5,15 @@
 namespace Ra {
 namespace Core {
 
-
-
 /// CONSTRUCTOR
-FullEdge::FullEdge( const Index& index ) :
+FullEdge::FullEdge( const Index& index ) : IndexedObject( index ), m_he( nullptr ) {}
+
+FullEdge::FullEdge( const HalfEdge_ptr& he, const Index& index ) :
     IndexedObject( index ),
-    m_he( nullptr ) { }
-
-
-
-FullEdge::FullEdge( const HalfEdge_ptr& he,
-                    const Index&        index ) :
-    IndexedObject( index ),
-    m_he( he ) { }
-
-
+    m_he( he ) {}
 
 /// DESTRUCTOR
-FullEdge::~FullEdge() { }
-
-
+FullEdge::~FullEdge() {}
 
 } // namespace Core
 } // namespace Ra

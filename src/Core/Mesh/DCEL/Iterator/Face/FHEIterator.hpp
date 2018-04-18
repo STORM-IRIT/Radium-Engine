@@ -6,10 +6,10 @@
 namespace Ra {
 namespace Core {
 
-class [[deprecated]] FHEIterator : public FIterator< HalfEdge > {
-public:
+class[[deprecated]] FHEIterator : public FIterator<HalfEdge> {
+  public:
     /// CONSTRUCTOR
-    FHEIterator( Face_ptr& f );
+    FHEIterator( Face_ptr & f );
     FHEIterator( const FHEIterator& it ) = default;
 
     /// DESTRUCTOR

@@ -8,28 +8,24 @@ struct aiScene;
 
 namespace Ra {
 namespace Asset {
-template < class DATA >
+template <class DATA>
 class DataLoader {
-public:
+  public:
     /// CONSTRUCTOR
-    DataLoader( const bool VERBOSE_MODE = false ) : m_verbose(VERBOSE_MODE){ }
+    DataLoader( const bool VERBOSE_MODE = false ) : m_verbose( VERBOSE_MODE ) {}
 
     /// DESTRUCTOR
-    ~DataLoader() { }
+    ~DataLoader() {}
 
     /// INTERFACE
-    virtual void loadData( const aiScene* scene, std::vector< std::unique_ptr< DATA > >& data ) = 0;
+    virtual void loadData( const aiScene* scene, std::vector<std::unique_ptr<DATA>>& data ) = 0;
 
     /// VERBOSE
-    inline bool isVerbose() const {
-        return m_verbose;
-    }
+    inline bool isVerbose() const { return m_verbose; }
 
-    inline void setVerbose( const bool VERBOSE_MODE ) {
-        m_verbose = VERBOSE_MODE;
-    }
+    inline void setVerbose( const bool VERBOSE_MODE ) { m_verbose = VERBOSE_MODE; }
 
-protected:
+  protected:
     bool m_verbose;
 };
 } // namespace Asset

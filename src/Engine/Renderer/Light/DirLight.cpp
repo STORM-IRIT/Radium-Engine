@@ -2,24 +2,23 @@
 
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
-namespace Ra
-{
+namespace Ra {
+namespace Engine {
+DirectionalLight::DirectionalLight( Entity* entity, const std::string& name ) :
+    Light( entity, Light::DIRECTIONAL, name ),
+    m_direction( 0, -1, 0 ) {}
 
-    Engine::DirectionalLight::DirectionalLight()
-        : Light( Light::DIRECTIONAL )
-        , m_direction( 0, -1, 0 )
-    {
-    }
+DirectionalLight::~DirectionalLight() {}
 
-    Engine::DirectionalLight::~DirectionalLight()
-    {
-    }
+void DirectionalLight::getRenderParameters( RenderParameters& params ) const {
+    Light::getRenderParameters( params );
 
-    void Engine::DirectionalLight::getRenderParameters( RenderParameters& params )
-    {
-        Light::getRenderParameters( params );
-
-        params.addParameter( "light.directional.direction", m_direction );
-    }
-
+    params.addParameter( "light.directional.direction", m_direction );
 }
+
+std::string DirectionalLight::getShaderInclude() const {
+    return "Directional";
+}
+
+} // namespace Engine
+} // namespace Ra
