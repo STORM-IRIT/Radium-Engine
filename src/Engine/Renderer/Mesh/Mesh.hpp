@@ -145,11 +145,15 @@ class RA_ENGINE_API Mesh {
     Core::TriangleMesh m_mesh; /// Base geometry : vertices, triangles
                                /// and normals
 
-    std::array<Core::TriangleMesh::Vec3AttribHandle, MAX_VEC3> m_v3DataHandle;
-    std::array<Core::TriangleMesh::Vec4AttribHandle, MAX_VEC4> m_v4DataHandle;
+    ///\todo @dlyr cleanup this mechanism to have something
+    /// extensible. Now the only attribs should be the one defined in
+    /// the enums MeshData, Vec3Data, Vec4Data.
 
-    std::array<Core::Vector3Array, MAX_VEC3> m_v3Data; /// Additionnal vertex vector 3 data
-    std::array<Core::Vector4Array, MAX_VEC4> m_v4Data; /// Additionnal vertex vector 4 data
+    /// Additionnal vertex vector 3 data handles, stored in Mesh, added
+    std::array<Core::TriangleMesh::Vec3AttribHandle, MAX_VEC3> m_v3DataHandle;
+    /// Additionnal vertex vector 4 data handles, stored in Mesh, added
+    std::array<Core::TriangleMesh::Vec4AttribHandle, MAX_VEC4> m_v4DataHandle;
+    Core::TriangleMesh::Vec4AttribHandle::Container m_dummy;
 
     // Combined arrays store the flags in this order Mesh, then Vec3 then Vec4 data.
     // Following the enum declaration above.
