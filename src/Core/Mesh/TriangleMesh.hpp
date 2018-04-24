@@ -46,7 +46,7 @@ class VertexAttribHandle {
     typedef T value_type;
     using Container = typename VertexAttrib<T>::Container;
     int m_idx = -1;
-    bool valid() { return m_idx != -1; }
+    constexpr bool isValid() const { return m_idx != -1; }
 };
 
 class VertexAttribManager {

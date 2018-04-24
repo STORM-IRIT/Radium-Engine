@@ -108,18 +108,31 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
 
 void Mesh::addData( const Vec3Data& type, const Core::Vector3Array& data ) {
     const int index = static_cast<uint>( type );
-    if ( !m_v3DataHandle[index].valid() )
+    if ( !m_v3DataHandle[index].isValid() )
     {
-        m_mesh.attribManager().addAttrib( m_v3DataHandle[index], std::to_string( index ) );
+        m_mesh.attribManager().addAttrib( m_v3DataHandle[index],
+                                          std::to_string( MAX_MESH + index ) );
     }
     m_mesh.attribManager().getAttrib( m_v3DataHandle[index] ).data() = data;
-    m_dataDirty[MAX_MESH + static_cast<uint>( type )] = true;
+    m_dataDirty[MAX_MESH + index] = true;
     m_isDirty = true;
 }
 
 void Mesh::addData( const Vec4Data& type, const Core::Vector4Array& data ) {
-    m_v4Data[static_cast<uint>( type )] = data;
-    m_dataDirty[MAX_MESH + MAX_VEC3 + static_cast<uint>( type )] = true;
+    const int index = static_cast<uint>( type );
+
+    /// to handle dummy set, if not valid, and dummy data, do nothing
+    if ( data.size() == 0 && !m_v4DataHandle[index].isValid() )
+    {
+        return;
+    }
+    if ( !m_v4DataHandle[index].isValid() )
+    {
+        m_mesh.attribManager().addAttrib( m_v4DataHandle[index],
+                                          std::to_string( MAX_MESH + MAX_VEC3 + index ) );
+    }
+    m_mesh.attribManager().getAttrib( m_v4DataHandle[index] ).data() = data;
+    m_dataDirty[MAX_MESH + MAX_VEC3 + index] = true;
     m_isDirty = true;
 }
 
@@ -207,24 +220,29 @@ void Mesh::updateGL() {
 
         // Vec3 data
 
-        if ( m_v3DataHandle[VERTEX_TANGENT].valid() )
+        if ( m_v3DataHandle[VERTEX_TANGENT].isValid() )
             sendGLData( m_mesh.attribManager().getAttrib( m_v3DataHandle[VERTEX_TANGENT] ).data(),
                         MAX_MESH + VERTEX_TANGENT );
-        //                sendGLData(m_v3Data[VERTEX_TANGENT],   MAX_MESH +
-        //                VERTEX_TANGENT);
-        if ( m_v3DataHandle[VERTEX_BITANGENT].valid() )
+        if ( m_v3DataHandle[VERTEX_BITANGENT].isValid() )
             sendGLData( m_mesh.attribManager().getAttrib( m_v3DataHandle[VERTEX_BITANGENT] ).data(),
                         MAX_MESH + VERTEX_BITANGENT );
-        if ( m_v3DataHandle[VERTEX_TEXCOORD].valid() )
+        if ( m_v3DataHandle[VERTEX_TEXCOORD].isValid() )
             sendGLData( m_mesh.attribManager().getAttrib( m_v3DataHandle[VERTEX_TEXCOORD] ).data(),
                         MAX_MESH + VERTEX_TEXCOORD );
-        //                    sendGLData(m_v3Data[VERTEX_TEXCOORD],  MAX_MESH + VERTEX_TEXCOORD);
 
         // Vec4 data
-        sendGLData( m_v4Data[VERTEX_COLOR], MAX_MESH + MAX_VEC3 + VERTEX_COLOR );
-        sendGLData( m_v4Data[VERTEX_WEIGHTS], MAX_MESH + MAX_VEC3 + VERTEX_WEIGHTS );
-        sendGLData( m_v4Data[VERTEX_WEIGHT_IDX], MAX_MESH + MAX_VEC3 + VERTEX_WEIGHT_IDX );
+        if ( m_v4DataHandle[VERTEX_COLOR].isValid() )
+            sendGLData( m_mesh.attribManager().getAttrib( m_v4DataHandle[VERTEX_COLOR] ).data(),
+                        MAX_MESH + MAX_VEC3 + VERTEX_COLOR );
 
+        if ( m_v4DataHandle[VERTEX_WEIGHTS].isValid() )
+            sendGLData( m_mesh.attribManager().getAttrib( m_v4DataHandle[VERTEX_WEIGHTS] ).data(),
+                        MAX_MESH + MAX_VEC3 + VERTEX_WEIGHTS );
+
+        if ( m_v4DataHandle[VERTEX_WEIGHT_IDX].isValid() )
+            sendGLData(
+                m_mesh.attribManager().getAttrib( m_v4DataHandle[VERTEX_WEIGHT_IDX] ).data(),
+                MAX_MESH + MAX_VEC3 + VERTEX_WEIGHT_IDX );
         GL_ASSERT( glBindVertexArray( 0 ) );
         GL_CHECK_ERROR;
         m_isDirty = false;
