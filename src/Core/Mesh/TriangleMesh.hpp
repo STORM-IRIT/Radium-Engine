@@ -15,6 +15,7 @@ namespace Core {
 class VertexAttribBase {
   public:
     /// attrib name is used to automatic location binding when using shaders.
+    virtual ~VertexAttribBase() {}
     std::string getName() const { return m_name; }
     void setName( std::string name ) { m_name = name; }
     virtual void resize( size_t s ) = 0;
@@ -36,6 +37,7 @@ class VertexAttrib : public VertexAttribBase {
     inline const Container& data() const { return m_data; }
     Container m_data;
 
+    virtual ~VertexAttrib() { m_data.clear(); }
     uint getSize() override { return Container::Vector::RowsAtCompileTime; }
     int getStride() override { return sizeof( typename Container::Vector ); }
 };
@@ -57,6 +59,14 @@ class VertexAttribManager {
     Container m_attribs;
 
     const Container& attribs() const { return m_attribs; }
+    /// clear all attribs, invalidate handles !
+    void clear() {
+        for ( auto a : m_attribs )
+        {
+            delete a;
+        }
+        m_attribs.clear();
+    }
 
     value_type getAttrib( std::string name ) {
         auto c = m_attribsIndex.find( name );
