@@ -6,12 +6,12 @@ const std::string& Material::getName() const {
     return m_name;
 }
 
-void Material::setMaterialType( const MaterialType& type ) {
-    m_type = type;
+void Material::setMaterialAspect(const MaterialAspect &aspect) {
+    m_aspect = aspect;
 }
 
-const Material::MaterialType& Material::getMaterialType() const {
-    return m_type;
+const Material::MaterialAspect& Material::getMaterialAspect() const {
+    return m_aspect;
 }
 
 } // namespace Engine
