@@ -17,14 +17,15 @@ namespace Core {
 class TopoVector3 : public Ra::Core::Vector3 {
   public:
     using Ra::Core::Vector3::Vector3;
-    Scalar length() { return norm(); }
-    TopoVector3 vectorize( Scalar v ) {
+    inline Scalar length() const { return norm(); }
+    inline Scalar sqrnorm() const { return squaredNorm(); }
+    inline TopoVector3 vectorize( Scalar v ) {
         ( *this )[0] = v;
         ( *this )[1] = v;
         ( *this )[2] = v;
         return *this;
     }
-    TopoVector3 normalize() {
+    inline TopoVector3 normalize() {
         Ra::Core::Vector3::normalize();
         return *this;
     }
@@ -51,7 +52,7 @@ struct OpenMesh::vector_traits<Ra::Core::TopoVector3> {
     static const size_t size_ = 3;
 
     /// size/dimension of the vector
-    static size_t size() { return size_; }
+    static inline size_t size() { return size_; }
 };
 
 namespace Ra {
@@ -76,8 +77,8 @@ struct TopologicalMeshTraits : public OpenMesh::DefaultTraits {
 
       public:
         /// If index valid, normal is TriMesh vertex normal
-        Index getIndex() { return m_index; }
-        void setIndex( Index index ) { m_index = index; }
+        inline Index getIndex() { return m_index; }
+        inline void setIndex( Index index ) { m_index = index; }
     };
 
     HalfedgeTraits {
@@ -86,25 +87,25 @@ struct TopologicalMeshTraits : public OpenMesh::DefaultTraits {
 
       public:
         /// if Index valid, normal and other data of halfedge is TriMesh vertex data
-        Index getIndex() { return m_index; }
-        void setIndex( Index index ) { m_index = index; }
+        inline Index getIndex() { return m_index; }
+        inline void setIndex( Index index ) { m_index = index; }
     };
 
   public:
 };
 
-class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits> {
+class TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits> {
     using base = OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>;
     using base::PolyMesh_ArrayKernelT;
 
   public:
-    Normal& normal( VertexHandle vh, FaceHandle fh ) {
+    inline Normal& normal( VertexHandle vh, FaceHandle fh ) {
         // find halfedge that point to vh and member of fh
         return property( halfedge_normals_pph(), halfedge_handle( vh, fh ) );
     }
 
     using base::halfedge_handle;
-    HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) {
+    inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) {
 
         for ( VertexIHalfedgeIter vih_it = vih_iter( vh ); vih_it.is_valid(); ++vih_it )
         {
