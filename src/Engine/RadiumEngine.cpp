@@ -8,7 +8,7 @@
 #include <streambuf>
 #include <string>
 #include <thread>
-
+/*
 #include <Core/Event/EventEnums.hpp>
 #include <Core/Event/KeyEvent.hpp>
 #include <Core/Event/MouseEvent.hpp>
@@ -16,18 +16,25 @@
 #include <Core/String/StringUtils.hpp>
 
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/FrameInfo.hpp>
-#include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/System/System.hpp>
+*/
 
+/*
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+*/
+#include <Engine/FrameInfo.hpp>
+#include <Engine/System/System.hpp>
+
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
+#include <Engine/Managers/SignalManager/SignalManager.hpp>
+#include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
+
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
+#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -44,43 +51,12 @@ void RadiumEngine::initialize() {
     m_loadedFile.reset();
     ComponentMessenger::createInstance();
     // Engine support some built-in materials. Add converters here
-    EngineMaterialConverters::registerMaterialConverter( "BlinnPhong",
-                                                         BlinnPhongMaterialConverter() );
-
-    Ra::Engine::EngineRenderTechniques::registerDefaultTechnique(
-        "BlinnPhong",
-
-        []( Ra::Engine::RenderTechnique& rt, bool isTransparent ) {
-            // Configure the technique to render this object using forward Renderer or any
-            // compatible one Main pass (Mandatory) : BlinnPhong
-            Ra::Engine::ShaderConfiguration lpconfig(
-                "BlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
-
-            Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
-            rt.setConfiguration( lpconfig, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE );
-
-            // Z prepass (Reccomanded) : DepthAmbiantPass
-            Ra::Engine::ShaderConfiguration dpconfig(
-                "DepthAmbiantBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                "Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
-            Ra::Engine::ShaderConfigurationFactory::addConfiguration( dpconfig );
-            rt.setConfiguration( dpconfig, Ra::Engine::RenderTechnique::Z_PREPASS );
-            // Transparent pass (0ptional) : If Transparent ... add LitOIT
-            if ( isTransparent )
-            {
-                Ra::Engine::ShaderConfiguration tpconfig(
-                    "LitOITBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                    "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
-                Ra::Engine::ShaderConfigurationFactory::addConfiguration( tpconfig );
-                rt.setConfiguration( tpconfig, Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT );
-            }
-        } );
+    BlinnPhongMaterial::registerMaterial();
 }
 
 void RadiumEngine::cleanup() {
-    EngineMaterialConverters::removeMaterialConverter( "BlinnPhong" );
-    EngineRenderTechniques::removeDefaultTechnique( "BlinnPhong" );
+    BlinnPhongMaterial::unregisterMaterial();
+
     m_signalManager->setOn( false );
     m_entityManager.reset();
     m_renderObjectManager.reset();

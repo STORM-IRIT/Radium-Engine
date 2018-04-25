@@ -12,6 +12,9 @@
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
 namespace Ra {
+namespace Asset {
+class MaterialData;
+}
 namespace Engine {
 class Texture;
 class ShaderProgram;
@@ -24,7 +27,6 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
     RA_CORE_ALIGNED_NEW
 
     explicit BlinnPhongMaterial( const std::string& name );
-
     ~BlinnPhongMaterial();
 
     const std::string getShaderInclude() const override;
@@ -38,6 +40,9 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
     inline TextureData& addTexture( const TextureType& type, const TextureData& texture );
     inline Texture* getTexture( const TextureType& type ) const;
 
+    static void registerMaterial();
+    static void unregisterMaterial();
+
   public:
     Core::Color m_kd;
     Core::Color m_ks;
@@ -48,6 +53,15 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
     std::map<TextureType, Texture*> m_textures;
     std::map<TextureType, TextureData> m_pendingTextures;
 };
+
+
+  class RA_ENGINE_API BlinnPhongMaterialConverter final {
+  public:
+      BlinnPhongMaterialConverter() = default;
+      ~BlinnPhongMaterialConverter() = default;
+
+      Material* operator()( const Ra::Asset::MaterialData* toconvert );
+  };
 
 } // namespace Engine
 } // namespace Ra
