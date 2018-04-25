@@ -2,6 +2,7 @@
 
 namespace Ra {
 namespace Core {
+namespace Math {
 
 void PolyLine::update() {
     m_ptsDiff.clear();
@@ -18,11 +19,11 @@ void PolyLine::update() {
     }
 }
 
-PolyLine::PolyLine( const Vector3Array& pts ) : m_pts( pts ) {
+PolyLine::PolyLine( const Container::Vector3Array& pts ) : m_pts( pts ) {
     update();
 }
 
-void PolyLine::setPoints( const Vector3Array& pts ) {
+void PolyLine::setPoints( const Container::Vector3Array& pts ) {
     m_pts = pts;
     update();
 }
@@ -32,7 +33,7 @@ Scalar PolyLine::squaredDistance( const Vector3& p ) const {
     Scalar sqDist = std::numeric_limits<Scalar>::max();
     for ( uint i = 0; i < m_ptsDiff.size(); ++i )
     {
-        sqDist = std::min( DistanceQueries::pointToSegmentSq( p, m_pts[i], m_ptsDiff[i] ), sqDist );
+        sqDist = std::min( Geometry::pointToSegmentSq( p, m_pts[i], m_ptsDiff[i] ), sqDist );
     }
     return sqDist;
 }
@@ -44,7 +45,7 @@ Scalar PolyLine::distance( const Vector3& p ) const {
 Scalar PolyLine::projectOnSegment( const Vector3& p, uint segment ) const {
     CORE_ASSERT( segment < m_ptsDiff.size(), "invalid segment index" );
     const Scalar tSegment =
-        DistanceQueries::projectOnSegment( p, m_pts[segment], m_ptsDiff[segment] );
+        Geometry::projectOnSegment( p, m_pts[segment], m_ptsDiff[segment] );
     return getLineParameter( segment, tSegment );
 }
 
@@ -59,7 +60,7 @@ Scalar PolyLine::project( const Vector3& p ) const {
 
     for ( uint i = 0; i < m_ptsDiff.size(); ++i )
     {
-        Scalar proj = DistanceQueries::projectOnSegment( p, m_pts[i], m_ptsDiff[i] );
+        Scalar proj = Geometry::projectOnSegment( p, m_pts[i], m_ptsDiff[i] );
         Scalar d = ( p - ( m_pts[i] + proj * ( m_ptsDiff[i] ) ) ).squaredNorm();
         ds.push_back( d );
         ts.push_back( proj );
@@ -83,11 +84,11 @@ Scalar PolyLine::project( const Vector3& p ) const {
                 prev = ds[segment - 1] < ds[segment + 1];
             }
             uint i = prev ? segment - 1 : segment;
-            Ra::Core::Vector3 ba = -m_ptsDiff[i];
-            Ra::Core::Vector3 bc = m_ptsDiff[i + 1];
-            Ra::Core::Vector3 bp = p - m_pts[i + 1];
-            Scalar c1 = Ra::Core::Vector::cotan( ba, bp );
-            Scalar c2 = Ra::Core::Vector::cotan( bp, bc );
+            Vector3 ba = -m_ptsDiff[i];
+            Vector3 bc = m_ptsDiff[i + 1];
+            Vector3 bp = p - m_pts[i + 1];
+            Scalar c1 = Vector::cotan( ba, bp );
+            Scalar c2 = Vector::cotan( bp, bc );
 
             Scalar t1 = getLineParameter( i, ts[i] );
             Scalar t2 = getLineParameter( i + 1, ts[i + 1] );
@@ -97,9 +98,9 @@ Scalar PolyLine::project( const Vector3& p ) const {
     return getLineParameter( segment, t );
 }
 
-Ra::Core::Vector3 PolyLine::f( Scalar t ) const {
+Vector3 PolyLine::f( Scalar t ) const {
     // Clamp the parameter between 0 and 1 and scale it.
-    const Scalar param = length() * Ra::Core::Math::saturate( t );
+    const Scalar param = length() * saturate( t );
 
     // Try to locate the segment section where f(t) belongs.
     uint i = 0;
@@ -122,7 +123,7 @@ uint PolyLine::getNearestSegment( const Vector3& p ) const {
     uint segment = 0;
     for ( uint i = 0; i < m_ptsDiff.size(); ++i )
     {
-        Scalar proj = DistanceQueries::projectOnSegment( p, m_pts[i], m_ptsDiff[i] );
+        Scalar proj = Geometry::projectOnSegment( p, m_pts[i], m_ptsDiff[i] );
         Scalar d = ( p - ( m_pts[i] + proj * ( m_ptsDiff[i] ) ) ).squaredNorm();
         if ( d < sqDist )
         {
@@ -135,5 +136,6 @@ uint PolyLine::getNearestSegment( const Vector3& p ) const {
     return segment;
 }
 
+} // namespace Math
 } // namespace Core
 } // namespace Ra

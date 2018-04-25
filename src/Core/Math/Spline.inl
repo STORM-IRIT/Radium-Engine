@@ -4,6 +4,9 @@
 
 namespace Ra {
 namespace Core {
+namespace Math {
+
+
 template <uint D, uint K>
 inline Spline<D, K>::Spline( typename Spline<D, K>::Type type ) : m_type( type ) {
     static_assert( K >= 2, "Order must be at least two" );
@@ -17,7 +20,7 @@ inline Spline<D, K>::Spline( typename Spline<D, K>::Type type ) : m_type( type )
 
 template <uint D, uint K>
 inline void
-Spline<D, K>::setCtrlPoints( const Core::VectorArray<typename Spline<D, K>::Vector>& points ) {
+Spline<D, K>::setCtrlPoints( const Core::Container::VectorArray<typename Spline<D, K>::Vector>& points ) {
     m_points = points;
     m_vecs.resize( points.size() - 1, Vector::Zero() );
     for ( uint i = 0; i < m_vecs.size(); ++i )
@@ -36,7 +39,7 @@ Spline<D, K>::setCtrlPoints( const Core::VectorArray<typename Spline<D, K>::Vect
 // -----------------------------------------------------------------------------
 
 template <uint D, uint K>
-inline const Core::VectorArray<typename Spline<D, K>::Vector>& Spline<D, K>::getCtrlPoints() const {
+inline const Core::Container::VectorArray<typename Spline<D, K>::Vector>& Spline<D, K>::getCtrlPoints() const {
     return m_points;
 }
 
@@ -54,7 +57,7 @@ inline void Spline<D, K>::setType( Type type ) {
 
 template <uint D, uint K>
 inline typename Spline<D, K>::Vector Spline<D, K>::f( Scalar u ) const {
-    u = Core::Math::clamp( u, Scalar( 0 ), Scalar( 1 ) );
+    u = clamp( u, Scalar( 0 ), Scalar( 1 ) );
     return eval( u, m_points, m_node, K );
 }
 
@@ -62,7 +65,7 @@ inline typename Spline<D, K>::Vector Spline<D, K>::f( Scalar u ) const {
 
 template <uint D, uint K>
 inline typename Spline<D, K>::Vector Spline<D, K>::df( Scalar u ) const {
-    u = Core::Math::clamp( u, Scalar( 0 ), Scalar( 1 ) );
+    u = clamp( u, Scalar( 0 ), Scalar( 1 ) );
     return eval( u, m_vecs, m_node, K - 1, 1 ) * Scalar( K - 1 );
 }
 
@@ -131,7 +134,7 @@ inline void Spline<D, K>::setNodeToOpenUniform() {
 
 template <uint D, uint K>
 inline typename Spline<D, K>::Vector
-Spline<D, K>::eval( Scalar u, const Core::VectorArray<Vector>& points,
+Spline<D, K>::eval( Scalar u, const Core::Container::VectorArray<Vector>& points,
                     const std::vector<Scalar>& node, uint k, int off ) {
     CORE_ASSERT( k >= 2, "K must be at least 2" );
     CORE_ASSERT( points.size() >= k, "Not enough points" );
@@ -144,7 +147,7 @@ Spline<D, K>::eval( Scalar u, const Core::VectorArray<Vector>& points,
     }
 
     // TODO: use buffers in attributes for better performances ?
-    Core::VectorArray<Vector> pOut( k, Vector::Zero() );
+    Core::Container::VectorArray<Vector> pOut( k, Vector::Zero() );
     for ( uint i = dec, j = 0; i < ( dec + k ); ++i, ++j )
     {
         pOut[j] = points[i];
@@ -162,7 +165,7 @@ Spline<D, K>::eval( Scalar u, const Core::VectorArray<Vector>& points,
 
 template <uint D, uint K>
 inline typename Spline<D, K>::Vector
-Spline<D, K>::evalRec( Scalar u, const Core::VectorArray<Vector>& points,
+Spline<D, K>::evalRec( Scalar u, const Core::Container::VectorArray<Vector>& points,
                        const std::vector<Scalar>& node, uint k ) {
     if ( points.size() == 1 )
     {
@@ -170,7 +173,7 @@ Spline<D, K>::evalRec( Scalar u, const Core::VectorArray<Vector>& points,
     }
 
     // TODO: use buffers in attributes for better performances ?
-    Core::VectorArray<Vector> pOut( k - 1, Vector::Zero() );
+    Core::Container::VectorArray<Vector> pOut( k - 1, Vector::Zero() );
 
     for ( uint i = 0; i < ( k - 1 ); ++i )
     {
@@ -190,5 +193,6 @@ Spline<D, K>::evalRec( Scalar u, const Core::VectorArray<Vector>& points,
     }
     return evalRec( u, pOut, nodeOut, k - 1 );
 }
+} // namespace Math
 } // namespace Core
 } // namespace Ra

@@ -1,12 +1,15 @@
 #ifndef RADIUMENGINE_SPLINE_HPP__
 #define RADIUMENGINE_SPLINE_HPP__
 
-#include <Core/Containers/VectorArray.hpp>
+#include <Core/Container/VectorArray.hpp>
 #include <Core/RaCore.hpp>
 #include <vector>
 
 namespace Ra {
 namespace Core {
+namespace Math {
+
+
 /**
  * @class Spline
  *
@@ -35,10 +38,10 @@ class Spline {
     inline Spline( Type type = OPEN_UNIFORM );
 
     /// Set the position of the spline control points.
-    inline void setCtrlPoints( const Core::VectorArray<Vector>& points );
+    inline void setCtrlPoints( const Core::Container::VectorArray<Vector>& points );
 
     /// Get the control points of the spline
-    inline const Core::VectorArray<Vector>& getCtrlPoints() const;
+    inline const Core::Container::VectorArray<Vector>& getCtrlPoints() const;
 
     /// The the nodal vector type
     inline void setType( Type type );
@@ -77,21 +80,23 @@ class Spline {
     /// parameter u. The nodal vector size must be equal to (k + point.size())
     /// @param off : offset to apply to the nodal vector 'node' before reading
     /// from it. this is useful to compute derivatives.
-    static inline Vector eval( Scalar u, const Core::VectorArray<Vector>& points,
+    static inline Vector eval( Scalar u, const Core::Container::VectorArray<Vector>& points,
                                const std::vector<Scalar>& node, uint k, int off = 0 );
 
-    static inline Vector evalRec( Scalar u, const Core::VectorArray<Vector>& points,
+    static inline Vector evalRec( Scalar u, const Core::Container::VectorArray<Vector>& points,
                                   const std::vector<Scalar>& node, uint k );
 
     // -------------------------------------------------------------------------
     /// @name attributes
     // -------------------------------------------------------------------------
 
-    Core::VectorArray<Vector> m_points; ///< Control points
-    Core::VectorArray<Vector> m_vecs;   ///< Control points differences
+    Core::Container::VectorArray<Vector> m_points; ///< Control points
+    Core::Container::VectorArray<Vector> m_vecs;   ///< Control points differences
     std::vector<Scalar> m_node;         ///< Nodal vector
     Type m_type;                        ///< Nodal vector type
 };
+
+} // namespace Math
 } // namespace Core
 } // namespace Ra
 

@@ -1,7 +1,7 @@
 #include <MeshFeatureTrackingComponent.hpp>
 
-#include <Core/Mesh/MeshPrimitives.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
@@ -25,12 +25,12 @@ MeshFeatureTrackingComponent::~MeshFeatureTrackingComponent() {}
 
 void MeshFeatureTrackingComponent::initialize() {
     std::shared_ptr<Ra::Engine::Mesh> display( new Ra::Engine::Mesh( "PickingManagerSphere" ) );
-    auto sphere = Ra::Core::MeshUtils::makeParametricSphere( 1.0 );
+    auto sphere = Ra::Core::Geometry::makeParametricSphere( 1.0 );
     display->loadGeometry( sphere );
     std::shared_ptr<Ra::Engine::Material> material;
     auto bpMaterial = new Ra::Engine::BlinnPhongMaterial( "PickingManageSphereMaterial" );
     material.reset( bpMaterial );
-    bpMaterial->m_kd = Ra::Core::Color( 0.f, 1.f, 0.f, 1.f );
+    bpMaterial->m_kd = Ra::Core::Math::Color( 0.f, 1.f, 0.f, 1.f );
     m_RO = Ra::Engine::RenderObject::createRenderObject(
         "FeaturePickingManagerSphereRO", this, Ra::Engine::RenderObjectType::Fancy, display,
         Ra::Engine::RenderTechnique::createDefaultRenderTechnique(), material );
@@ -39,9 +39,9 @@ void MeshFeatureTrackingComponent::initialize() {
     addRenderObject( m_RO );
 }
 
-void MeshFeatureTrackingComponent::setPosition( Ra::Core::Vector3 position ) {
-    Ra::Core::Translation aa( position );
-    Ra::Core::Transform rot( aa );
+void MeshFeatureTrackingComponent::setPosition( Ra::Core::Math::Vector3 position ) {
+    Ra::Core::Math::Translation aa( position );
+    Ra::Core::Math::Transform rot( aa );
     m_RO->setLocalTransform( rot );
 }
 
@@ -588,27 +588,27 @@ Scalar MeshFeatureTrackingComponent::getFeatureScale() const {
     case PickingMode::VERTEX:
     {
         // return 1 fourth of the edge length of the first edge we can find with the vertex
-        const Ra::Core::Vector3& v0 = v[m_data.m_data[0]];
-        const Ra::Core::Vector3& v1 = v[m_data.m_data[1]];
+        const Ra::Core::Math::Vector3& v0 = v[m_data.m_data[0]];
+        const Ra::Core::Math::Vector3& v1 = v[m_data.m_data[1]];
         return ( v1 - v0 ).norm() / 4.0;
     }
     case PickingMode::EDGE:
     {
         // return 1 fourth of the edge length
-        const Ra::Core::Vector3& v0 = v[m_data.m_data[0]];
-        const Ra::Core::Vector3& v1 = v[m_data.m_data[1]];
+        const Ra::Core::Math::Vector3& v0 = v[m_data.m_data[0]];
+        const Ra::Core::Math::Vector3& v1 = v[m_data.m_data[1]];
         return ( v1 - v0 ).norm() / 4.0;
     }
     case PickingMode::TRIANGLE:
     {
         // return half the smallest distance from C to an edge
-        const Ra::Core::Vector3& v0 = v[m_data.m_data[0]];
-        const Ra::Core::Vector3& v1 = v[m_data.m_data[1]];
-        const Ra::Core::Vector3& v2 = v[m_data.m_data[2]];
-        const Ra::Core::Vector3 C = ( v0 + v1 + v2 ) / 3.0;
-        const Ra::Core::Vector3 C0 = C - v0;
-        const Ra::Core::Vector3 C1 = C - v1;
-        const Ra::Core::Vector3 C2 = C - v2;
+        const Ra::Core::Math::Vector3& v0 = v[m_data.m_data[0]];
+        const Ra::Core::Math::Vector3& v1 = v[m_data.m_data[1]];
+        const Ra::Core::Math::Vector3& v2 = v[m_data.m_data[2]];
+        const Ra::Core::Math::Vector3 C = ( v0 + v1 + v2 ) / 3.0;
+        const Ra::Core::Math::Vector3 C0 = C - v0;
+        const Ra::Core::Math::Vector3 C1 = C - v1;
+        const Ra::Core::Math::Vector3 C2 = C - v2;
         return sqrt( std::min(
                    std::min( C0.squaredNorm() *
                                  ( v1 - v0 ).normalized().cross( C0.normalized() ).squaredNorm(),
@@ -623,17 +623,17 @@ Scalar MeshFeatureTrackingComponent::getFeatureScale() const {
     }
 }
 
-Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeaturePosition() const {
+Ra::Core::Math::Vector3 MeshFeatureTrackingComponent::getFeaturePosition() const {
     // check supported picking mode
     if ( m_data.m_mode == PickingMode::RO || !getRoMgr()->exists( m_pickedRoIdx ) )
     {
-        return Ra::Core::Vector3();
+        return Ra::Core::Math::Vector3();
     }
 
     // manage picking mode
     auto ro = getRoMgr()->getRenderObject( m_pickedRoIdx );
     const auto& v = ro->getMesh()->getGeometry().m_vertices;
-    Ra::Core::Vector3 P( 0, 0, 0 );
+    Ra::Core::Math::Vector3 P( 0, 0, 0 );
     switch ( m_data.m_mode )
     {
     case PickingMode::VERTEX:
@@ -659,11 +659,11 @@ Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeaturePosition() const {
     return ro->getTransform() * P;
 }
 
-Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeatureVector() const {
+Ra::Core::Math::Vector3 MeshFeatureTrackingComponent::getFeatureVector() const {
     // check supported picking mode
     if ( m_data.m_mode == PickingMode::RO || !getRoMgr()->exists( m_pickedRoIdx ) )
     {
-        return Ra::Core::Vector3();
+        return Ra::Core::Math::Vector3();
     }
 
     // manage picking mode
@@ -675,10 +675,10 @@ Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeatureVector() const {
         {
             return n[m_data.m_data[0]];
         }
-        return Ra::Core::Vector3();
+        return Ra::Core::Math::Vector3();
     }
     const auto& v = ro->getMesh()->getGeometry().m_vertices;
-    Ra::Core::Vector3 V( 0, 0, 0 );
+    Ra::Core::Math::Vector3 V( 0, 0, 0 );
     switch ( m_data.m_mode )
     {
     case PickingMode::EDGE:
@@ -690,9 +690,9 @@ Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeatureVector() const {
     case PickingMode::TRIANGLE:
     {
         // for triangles, the normal
-        const Ra::Core::Vector3& p0 = v[m_data.m_data[0]];
-        const Ra::Core::Vector3& p1 = v[m_data.m_data[1]];
-        const Ra::Core::Vector3& p2 = v[m_data.m_data[2]];
+        const Ra::Core::Math::Vector3& p0 = v[m_data.m_data[0]];
+        const Ra::Core::Math::Vector3& p1 = v[m_data.m_data[1]];
+        const Ra::Core::Math::Vector3& p2 = v[m_data.m_data[2]];
         V = ( p1 - p0 ).cross( p2 - p0 ).normalized();
         break;
     }
@@ -702,7 +702,7 @@ Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeatureVector() const {
 
     // deal with transformations
     return ( ro->getTransformAsMatrix().inverse().transpose() *
-             Ra::Core::Vector4( V( 0 ), V( 1 ), V( 2 ), 0 ) )
+             Ra::Core::Math::Vector4( V( 0 ), V( 1 ), V( 2 ), 0 ) )
         .head<3>();
 }
 

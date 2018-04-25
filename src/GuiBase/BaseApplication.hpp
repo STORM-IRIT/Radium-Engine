@@ -6,7 +6,8 @@
 
 #include <QApplication>
 
-#include <Core/Time/Timer.hpp>
+#include <Core/Utils/Timer.hpp>
+#include <Core/Utils/TaskQueue.hpp>
 #include <GuiBase/TimerData/FrameTimerData.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
 
@@ -78,7 +79,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
     void stopping();
 
     /// Fired when the scene has changed.
-    void sceneChanged( const Core::Aabb& );
+    void sceneChanged( const Core::Math::Aabb& );
 
     void updateFrameStats( const std::vector<FrameTimerData>& );
 
@@ -125,7 +126,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
     std::unique_ptr<Engine::RadiumEngine> m_engine;
 
     /// Task queue for processing tasks.
-    std::unique_ptr<Core::TaskQueue> m_taskQueue;
+    std::unique_ptr<Core::Utils::TaskQueue> m_taskQueue;
 
     /// Number of frames per second to generate.
     uint m_targetFPS;
@@ -141,7 +142,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
     QTimer* m_frameTimer;
 
     /// Time since the last frame start.
-    Core::Timer::TimePoint m_lastFrameStart;
+    Core::Utils::TimePoint m_lastFrameStart;
 
     uint m_frameCounter;
     uint m_frameCountBeforeUpdate;

@@ -1,8 +1,8 @@
 #include <Gui/MainWindow.hpp>
 #include <MainApplication.hpp>
 
-#include <Core/File/FileLoaderInterface.hpp>
-#include <Core/File/deprecated/OBJFileManager.hpp>
+#include <Core/Asset/FileLoaderInterface.hpp>
+#include <Core/Asset/deprecated/OBJFileManager.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
@@ -229,16 +229,16 @@ void MainWindow::onUpdateFramestats( const std::vector<FrameTimerData>& stats ) 
 
     for ( uint i = 0; i < stats.size(); ++i )
     {
-        sumEvents += Core::Timer::getIntervalMicro( stats[i].eventsStart, stats[i].eventsEnd );
-        sumRender += Core::Timer::getIntervalMicro( stats[i].renderData.renderStart,
+        sumEvents += Core::Utils::getIntervalMicro( stats[i].eventsStart, stats[i].eventsEnd );
+        sumRender += Core::Utils::getIntervalMicro( stats[i].renderData.renderStart,
                                                     stats[i].renderData.renderEnd );
-        sumTasks += Core::Timer::getIntervalMicro( stats[i].tasksStart, stats[i].tasksEnd );
-        sumFrame += Core::Timer::getIntervalMicro( stats[i].frameStart, stats[i].frameEnd );
+        sumTasks += Core::Utils::getIntervalMicro( stats[i].tasksStart, stats[i].tasksEnd );
+        sumFrame += Core::Utils::getIntervalMicro( stats[i].frameStart, stats[i].frameEnd );
 
         if ( i > 0 )
         {
             sumInterFrame +=
-                Core::Timer::getIntervalMicro( stats[i - 1].frameEnd, stats[i].frameEnd );
+                Core::Utils::getIntervalMicro( stats[i - 1].frameEnd, stats[i].frameEnd );
         }
     }
 
@@ -269,7 +269,7 @@ void Gui::MainWindow::toggleCirclePicking( bool on ) {
 }
 
 void MainWindow::handlePicking( const Engine::Renderer::PickingResult& pickingResult ) {
-    Ra::Core::Index roIndex( pickingResult.m_roIdx );
+    Ra::Core::Container::Index roIndex( pickingResult.m_roIdx );
     Ra::Engine::RadiumEngine* engine = Ra::Engine::RadiumEngine::getInstance();
     if ( roIndex.isValid() )
     {
@@ -490,26 +490,26 @@ void MainWindow::onItemRemoved( const Engine::ItemEntry& ent ) {
 
 void MainWindow::exportCurrentMesh() {
     std::string filename;
-    Ra::Core::StringUtils::stringPrintf( filename, "radiummesh_%06u", mainApp->getFrameCount() );
+    Ra::Core::Utils::stringPrintf( filename, "radiummesh_%06u", mainApp->getFrameCount() );
     ItemEntry e = m_selectionManager->currentItem();
 
     // For now we only export a mesh if the selected entry is a render object.
     // There could be a virtual method to get a mesh representation for any object.
     if ( e.isRoNode() )
     {
-        Ra::Core::OBJFileManager obj;
+        Ra::Core::Asset::deprecated::OBJFileManager obj;
         auto ro = Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(
             e.m_roIndex );
-        Ra::Core::TriangleMesh mesh = ro->getMesh()->getGeometry();
+        Ra::Core::Geometry::TriangleMesh mesh = ro->getMesh()->getGeometry();
         bool result = obj.save( filename, mesh );
         if ( result )
         {
-            LOG( logINFO ) << "Mesh from " << ro->getName() << " successfully exported to "
+            LOG( Core::Utils::logINFO ) << "Mesh from " << ro->getName() << " successfully exported to "
                            << filename;
         } else
-        { LOG( logERROR ) << "Mesh from " << ro->getName() << "failed to export"; }
+        { LOG( Core::Utils::logERROR ) << "Mesh from " << ro->getName() << "failed to export"; }
     } else
-    { LOG( logWARNING ) << "Current entry was not a render object. No mesh was exported."; }
+    { LOG( Core::Utils::logWARNING ) << "Current entry was not a render object. No mesh was exported."; }
 }
 
 void MainWindow::deleteCurrentItem() {

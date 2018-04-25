@@ -4,11 +4,11 @@
 #include <assimp/scene.h>
 #include <set>
 
-#include <Core/File/AnimationData.hpp>
-#include <Core/File/KeyFrame/KeyRotation.hpp>
-#include <Core/File/KeyFrame/KeyScaling.hpp>
-#include <Core/File/KeyFrame/KeyTranslation.hpp>
-#include <Core/Log/Log.hpp>
+#include <Core/Asset/KeyTranslation.hpp>
+#include <Core/Asset/KeyScaling.hpp>
+#include <Core/Asset/KeyRotation.hpp>
+#include <Core/Asset/AnimationData.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
 
@@ -17,39 +17,39 @@ namespace IO {
 
 /// CONSTRUCTOR
 AssimpAnimationDataLoader::AssimpAnimationDataLoader( const bool VERBOSE_MODE ) :
-    DataLoader<Asset::AnimationData>( VERBOSE_MODE ) {}
+    DataLoader<Core::Asset::AnimationData>( VERBOSE_MODE ) {}
 
 /// DESTRUCTOR
 AssimpAnimationDataLoader::~AssimpAnimationDataLoader() {}
 
 /// LOADING
 void AssimpAnimationDataLoader::loadData(
-    const aiScene* scene, std::vector<std::unique_ptr<Asset::AnimationData>>& data ) {
+    const aiScene* scene, std::vector<std::unique_ptr<Core::Asset::AnimationData>>& data ) {
     data.clear();
 
     if ( scene == nullptr )
     {
-        LOG( logDEBUG ) << "AssimpAnimationDataLoader : scene is nullptr.";
+        LOG( Core::Utils::logDEBUG ) << "AssimpAnimationDataLoader : scene is nullptr.";
         return;
     }
 
     if ( !sceneHasAnimation( scene ) )
     {
-        LOG( logDEBUG ) << "AssimpAnimationDataLoader : scene has no animation.";
+        LOG( Core::Utils::logDEBUG ) << "AssimpAnimationDataLoader : scene has no animation.";
         return;
     }
 
     if ( m_verbose )
     {
-        LOG( logDEBUG ) << "File contains animation.";
-        LOG( logDEBUG ) << "Animation Loading begin...";
+        LOG( Core::Utils::logDEBUG ) << "File contains animation.";
+        LOG( Core::Utils::logDEBUG ) << "Animation Loading begin...";
     }
 
     loadAnimationData( scene, data );
 
     if ( m_verbose )
     {
-        LOG( logDEBUG ) << "Animation Loading end.\n";
+        LOG( Core::Utils::logDEBUG ) << "Animation Loading end.\n";
     }
 }
 
@@ -68,18 +68,18 @@ uint AssimpAnimationDataLoader::sceneAnimationSize( const aiScene* scene ) const
 
 /// NAME
 void AssimpAnimationDataLoader::fetchName( const aiAnimation* anim,
-                                           Asset::AnimationData* data ) const {
+                                           Core::Asset::AnimationData* data ) const {
     data->setName( assimpToCore( anim->mName ) );
 }
 
 /// TIME
 void AssimpAnimationDataLoader::fetchTime( const aiAnimation* anim,
-                                           Asset::AnimationData* data ) const {
+                                           Core::Asset::AnimationData* data ) const {
     const Scalar tick = anim->mTicksPerSecond;
     const Scalar duration = anim->mDuration;
 
-    Asset::AnimationTime time;
-    Asset::Time dt;
+    Core::Asset::AnimationTime time;
+    Core::Asset::Time dt;
     time.setStart( 0.0 );
     if ( tick == 0 )
     {
@@ -96,13 +96,13 @@ void AssimpAnimationDataLoader::fetchTime( const aiAnimation* anim,
 
 /// KEY FRAME
 void AssimpAnimationDataLoader::loadAnimationData(
-    const aiScene* scene, std::vector<std::unique_ptr<Asset::AnimationData>>& data ) const {
+    const aiScene* scene, std::vector<std::unique_ptr<Core::Asset::AnimationData>>& data ) const {
     const uint size = sceneAnimationSize( scene );
     data.resize( size );
     for ( uint i = 0; i < size; ++i )
     {
         aiAnimation* anim = scene->mAnimations[i];
-        Asset::AnimationData* animData = new Asset::AnimationData();
+        Core::Asset::AnimationData* animData = new Core::Asset::AnimationData();
         fetchName( anim, animData );
         fetchTime( anim, animData );
         fetchAnimation( anim, animData );
@@ -115,10 +115,10 @@ void AssimpAnimationDataLoader::loadAnimationData(
 }
 
 void AssimpAnimationDataLoader::fetchAnimation( const aiAnimation* anim,
-                                                Asset::AnimationData* data ) const {
+                                                Core::Asset::AnimationData* data ) const {
     const uint size = anim->mNumChannels;
-    Asset::AnimationTime time = data->getTime();
-    std::vector<Asset::HandleAnimation> keyFrame( size );
+    Core::Asset::AnimationTime time = data->getTime();
+    std::vector<Core::Asset::HandleAnimation> keyFrame( size );
     for ( uint i = 0; i < size; ++i )
     {
         fetchHandleAnimation( anim->mChannels[i], keyFrame[i], data->getTimeStep() );
@@ -129,18 +129,18 @@ void AssimpAnimationDataLoader::fetchAnimation( const aiAnimation* anim,
 }
 
 void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node,
-                                                      Asset::HandleAnimation& data,
-                                                      const Asset::Time dt ) const {
+                                                      Core::Asset::HandleAnimation& data,
+                                                      const Core::Asset::Time dt ) const {
     const uint T_size = node->mNumPositionKeys;
     const uint R_size = node->mNumRotationKeys;
     const uint S_size = node->mNumScalingKeys;
 
-    Asset::KeyTranslation tr;
-    Asset::KeyRotation rot;
-    Asset::KeyScaling s;
+    Core::Asset::KeyTranslation tr;
+    Core::Asset::KeyRotation rot;
+    Core::Asset::KeyScaling s;
 
     data.m_anim.reset();
-    std::set<Asset::Time> keyFrame;
+    std::set<Core::Asset::Time> keyFrame;
 
     for ( uint i = 0; i < T_size; ++i )
     {
@@ -167,10 +167,10 @@ void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node,
     }
 
     data.m_name = assimpToCore( node->mNodeName );
-    data.m_anim.setAnimationTime( Asset::AnimationTime( *keyFrame.begin(), *keyFrame.rbegin() ) );
+    data.m_anim.setAnimationTime( Core::Asset::AnimationTime( *keyFrame.begin(), *keyFrame.rbegin() ) );
     for ( const auto& time : keyFrame )
     {
-        Core::Transform T;
+        Core::Math::Transform T;
         T.fromPositionOrientationScale( tr.at( time ), rot.at( time ), s.at( time ) );
         data.m_anim.insertKeyFrame( ( ( dt == 0 ) ? time : ( dt * time ) ), T );
     }

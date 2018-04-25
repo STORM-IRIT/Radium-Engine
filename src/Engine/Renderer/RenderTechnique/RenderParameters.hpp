@@ -6,8 +6,8 @@
 #include <set>
 #include <vector>
 
-#include <Core/Containers/AlignedAllocator.hpp>
-#include <Core/Log/Log.hpp>
+#include <Core/Container/AlignedAllocator.hpp>
+#include <Core/Utils/Log.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
 namespace Ra {
@@ -60,7 +60,7 @@ class RA_ENGINE_API RenderParameters final {
     class UniformBindableVector final
         : public std::map<
               std::string, T, std::less<std::string>,
-              Core::AlignedAllocator<std::pair<const std::string, T>, RA_DEFAULT_ALIGN>> {
+              Core::Container::AlignedAllocator<std::pair<const std::string, T>, RA_DEFAULT_ALIGN>> {
       public:
         void bind( const ShaderProgram* shader ) const;
     };
@@ -74,13 +74,13 @@ class RA_ENGINE_API RenderParameters final {
     //! globjects seems to not handle vector of double
     typedef TParameter<std::vector<float>> ScalarsParameter;
 
-    using Vec2Parameter = TParameter<Core::Vector2>;
-    using Vec3Parameter = TParameter<Core::Vector3>;
-    using Vec4Parameter = TParameter<Core::Vector4>;
+    using Vec2Parameter = TParameter<Core::Math::Vector2>;
+    using Vec3Parameter = TParameter<Core::Math::Vector3>;
+    using Vec4Parameter = TParameter<Core::Math::Vector4>;
 
-    using Mat2Parameter = TParameter<Core::Matrix2>;
-    using Mat3Parameter = TParameter<Core::Matrix3>;
-    using Mat4Parameter = TParameter<Core::Matrix4>;
+    using Mat2Parameter = TParameter<Core::Math::Matrix2>;
+    using Mat3Parameter = TParameter<Core::Math::Matrix3>;
+    using Mat4Parameter = TParameter<Core::Math::Matrix4>;
 
   public:
     void addParameter( const char* name, int value );
@@ -91,13 +91,13 @@ class RA_ENGINE_API RenderParameters final {
     void addParameter( const char* name, std::vector<uint> values );
     void addParameter( const char* name, std::vector<Scalar> values );
 
-    void addParameter( const char* name, const Core::Vector2& value );
-    void addParameter( const char* name, const Core::Vector3& value );
-    void addParameter( const char* name, const Core::Vector4& value );
+    void addParameter( const char* name, const Core::Math::Vector2& value );
+    void addParameter( const char* name, const Core::Math::Vector3& value );
+    void addParameter( const char* name, const Core::Math::Vector4& value );
 
-    void addParameter( const char* name, const Core::Matrix2& value );
-    void addParameter( const char* name, const Core::Matrix3& value );
-    void addParameter( const char* name, const Core::Matrix4& value );
+    void addParameter( const char* name, const Core::Math::Matrix2& value );
+    void addParameter( const char* name, const Core::Math::Matrix3& value );
+    void addParameter( const char* name, const Core::Math::Matrix4& value );
 
     void addParameter( const char* name, Texture* tex, int texUnit );
 
@@ -105,13 +105,13 @@ class RA_ENGINE_API RenderParameters final {
     void updateParameter( const char* name, uint value );
     void updateParameter( const char* name, Scalar value );
 
-    void updateParameter( const char* name, const Core::Vector2& value );
-    void updateParameter( const char* name, const Core::Vector3& value );
-    void updateParameter( const char* name, const Core::Vector4& value );
+    void updateParameter( const char* name, const Core::Math::Vector2& value );
+    void updateParameter( const char* name, const Core::Math::Vector3& value );
+    void updateParameter( const char* name, const Core::Math::Vector4& value );
 
-    void updateParameter( const char* name, const Core::Matrix2& value );
-    void updateParameter( const char* name, const Core::Matrix3& value );
-    void updateParameter( const char* name, const Core::Matrix4& value );
+    void updateParameter( const char* name, const Core::Math::Matrix2& value );
+    void updateParameter( const char* name, const Core::Math::Matrix3& value );
+    void updateParameter( const char* name, const Core::Math::Matrix4& value );
 
     void concatParameters( const RenderParameters& params );
 
@@ -120,7 +120,7 @@ class RA_ENGINE_API RenderParameters final {
     void print() const {
         for ( const auto& p : m_scalarParamsVector )
         {
-            LOG( logDEBUG ) << "  " << p.first << " : " << p.second.m_name;
+            LOG( Core::Utils::logDEBUG ) << "  " << p.first << " : " << p.second.m_name;
         }
     }
 

@@ -26,12 +26,12 @@ class RA_ENGINE_API Light : public Component {
     Light( Entity* entity, const LightType& type, const std::string& name = "light" );
     virtual ~Light();
 
-    inline const Core::Color& getColor() const;
-    inline void setColor( const Core::Color& color );
+    inline const Core::Math::Color& getColor() const;
+    inline void setColor( const Core::Math::Color& color );
 
     // These function will be replaced by their use of a component -> entity
-    virtual void setDirection( const Core::Vector3& dir ) {}
-    virtual void setPosition( const Core::Vector3& pos ) {}
+    virtual void setDirection( const Core::Math::Vector3& dir ) {}
+    virtual void setPosition( const Core::Math::Vector3& pos ) {}
     // ...
 
     inline const LightType& getType() const;
@@ -43,7 +43,7 @@ class RA_ENGINE_API Light : public Component {
     void initialize() override;
 
   private:
-    Core::Color m_color;
+    Core::Math::Color m_color;
 
     LightType m_type;
 };

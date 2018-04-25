@@ -1,6 +1,6 @@
 #include <IO/AssimpLoader/AssimpFileLoader.hpp>
 
-#include <Core/File/FileData.hpp>
+#include <Core/Asset/FileData.hpp>
 
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
@@ -24,7 +24,7 @@ std::vector<std::string> AssimpFileLoader::getFileExtensions() const {
 
     m_importer.GetExtensionList( extensionsList );
 
-    std::vector<std::string> extensions = Core::StringUtils::splitString( extensionsList, ';' );
+    std::vector<std::string> extensions = Core::Utils::splitString( extensionsList, ';' );
 
     return extensions;
 }
@@ -33,8 +33,8 @@ bool AssimpFileLoader::handleFileExtension( const std::string& extension ) const
     return m_importer.IsExtensionSupported( extension );
 }
 
-Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
-    Asset::FileData* fileData = new Asset::FileData( filename );
+Core::Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
+    Core::Asset::FileData* fileData = new Core::Asset::FileData( filename );
 
     if ( !fileData->isInitialized() )
     {
@@ -48,20 +48,20 @@ Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
 
     if ( scene == nullptr )
     {
-        LOG( logINFO ) << "File \"" << fileData->getFileName()
+        LOG( Core::Utils::logINFO ) << "File \"" << fileData->getFileName()
                        << "\" assimp error : " << m_importer.GetErrorString() << ".";
         return nullptr;
     }
 
     if ( fileData->isVerbose() )
     {
-        LOG( logINFO ) << "File Loading begin...";
+        LOG( Core::Utils::logINFO ) << "File Loading begin...";
     }
 
     std::clock_t startTime;
     startTime = std::clock();
 
-    AssimpGeometryDataLoader geometryLoader( Core::StringUtils::getDirName( filename ),
+    AssimpGeometryDataLoader geometryLoader( Core::Utils::getDirName( filename ),
                                              fileData->isVerbose() );
     geometryLoader.loadData( scene, fileData->m_geometryData );
 
@@ -82,7 +82,7 @@ Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
     {
         if ( fileData->isVerbose() )
         {
-            LOG( logINFO ) << "Point-cloud found. Aborting";
+            LOG( Core::Utils::logINFO ) << "Point-cloud found. Aborting";
             delete fileData;
             return nullptr;
         }
@@ -94,7 +94,7 @@ Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
     AssimpAnimationDataLoader animationLoader( fileData->isVerbose() );
     animationLoader.loadData( scene, fileData->m_animationData );
 
-    AssimpLightDataLoader lightLoader( Core::StringUtils::getDirName( filename ),
+    AssimpLightDataLoader lightLoader( Core::Utils::getDirName( filename ),
                                        fileData->isVerbose() );
     lightLoader.loadData( scene, fileData->m_lightData );
 
@@ -102,7 +102,7 @@ Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
 
     if ( fileData->isVerbose() )
     {
-        LOG( logINFO ) << "File Loading end.";
+        LOG( Core::Utils::logINFO ) << "File Loading end.";
 
         fileData->displayInfo();
     }

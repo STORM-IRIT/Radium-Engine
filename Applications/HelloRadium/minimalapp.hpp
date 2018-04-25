@@ -7,6 +7,8 @@
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
+#include <Core/Utils/TaskQueue.hpp>
+
 /* This file contains a minimal radium/qt application which shows the
 classic "Spinning Cube" demo. */
 
@@ -34,7 +36,7 @@ class MinimalApp : public QApplication {
     std::unique_ptr<Ra::Engine::RadiumEngine> m_engine;
 
     // Task queue
-    std::unique_ptr<Ra::Core::TaskQueue> m_task_queue;
+    std::unique_ptr<Ra::Core::Utils::TaskQueue> m_task_queue;
 
     // Pointer to Qt/OpenGL Viewer widget.
     std::unique_ptr<Ra::Gui::Viewer> m_viewer;

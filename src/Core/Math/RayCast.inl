@@ -2,10 +2,11 @@
 
 namespace Ra {
 namespace Core {
+namespace Math {
 // useful : http://www.realtimerendering.com/intersections.html
 namespace RayCast {
 /// Intersect a ray with an axis-aligned bounding box.
-inline bool vsAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector3& normalOut ) {
+inline bool vsAabb( const Ray& r, const Aabb& aabb, Scalar& hitOut, Vector3& normalOut ) {
     // Based on optimized Woo version (ray vs 3 slabs)
     // Ref : Graphics Gems p.395
     // http://www.codercorner.com/RayAABB.cpp
@@ -14,7 +15,7 @@ inline bool vsAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector
     CORE_ASSERT( !aabb.isEmpty(), "Empty AABB" ); // Or return false ?
 
     // Vector of bool telling which components of the direction are not 0;
-    auto nEqualZero = r.direction().array() != Core::Vector3::Zero().array();
+    auto nEqualZero = r.direction().array() != Vector3::Zero().array();
 
     // Vector of bool telling which components of the ray origin are respectively
     // smaller than the aabb min or higher than aabb max.
@@ -30,9 +31,9 @@ inline bool vsAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector
     }
 
     // Precompute the t values for each plane.
-    const Core::Vector3 invDir = r.direction().cwiseInverse();
-    const Core::Vector3 minOrig = ( aabb.min() - r.origin() ).cwiseProduct( invDir );
-    const Core::Vector3 maxOrig = ( aabb.max() - r.origin() ).cwiseProduct( invDir );
+    const Vector3 invDir = r.direction().cwiseInverse();
+    const Vector3 minOrig = ( aabb.min() - r.origin() ).cwiseProduct( invDir );
+    const Vector3 maxOrig = ( aabb.max() - r.origin() ).cwiseProduct( invDir );
 
     // The following Eigen dark magic should be equivalent to this pseudo code
     // For  i = 1..3
@@ -60,13 +61,13 @@ inline bool vsAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector
     if ( t >= 0 && !inFace.any() )
     {
         hitOut = t;
-        normalOut = -s * Math::sign( r.direction()[i] );
+        normalOut = -s * sign( r.direction()[i] );
         return true;
     }
     return false;
 }
 
-bool vsSphere( const Ray& r, const Core::Vector3& center, Scalar radius,
+bool vsSphere( const Ray& r, const Vector3& center, Scalar radius,
                std::vector<Scalar>& hitsOut ) {
 
     CORE_ASSERT( r.direction().squaredNorm() > 0.f, "Invalid Ray" );
@@ -76,7 +77,7 @@ bool vsSphere( const Ray& r, const Core::Vector3& center, Scalar radius,
     // X = ray.origin + t* ray.direction
     // ||X - center|| = radius.
 
-    const Core::Vector3 co = r.origin() - center;
+    const Vector3 co = r.origin() - center;
     const Scalar co2 = co.squaredNorm();
     const Scalar dirDotCO = r.direction().dot( co );
 
@@ -120,7 +121,7 @@ bool vsSphere( const Ray& r, const Core::Vector3& center, Scalar radius,
     return false;
 }
 
-bool vsPlane( const Ray& r, const Core::Vector3 a, const Core::Vector3& normal,
+bool vsPlane( const Ray& r, const Vector3 a, const Vector3& normal,
               std::vector<Scalar>& hitsOut ) {
     CORE_ASSERT( r.direction().squaredNorm() > 0.f, "Invalid Ray" );
     CORE_ASSERT( normal.squaredNorm() > 0.f, "Invalid plane normal" );
@@ -152,14 +153,14 @@ bool vsPlane( const Ray& r, const Core::Vector3 a, const Core::Vector3& normal,
 }
 
 // TODO : this needs serious optimizing if we want it fast :p
-bool vsCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3& b, Scalar radius,
+bool vsCylinder( const Ray& r, const Vector3& a, const Vector3& b, Scalar radius,
                  std::vector<Scalar>& hitsOut ) {
     /// Ref : Graphics Gem IV.
     /// http://www.realtimerendering.com/resources/GraphicsGems//gemsiv/ray_cyl.c
     const Scalar radiusSquared = radius * radius;
 
-    const Core::Vector3 cylAxis = b - a;
-    const Core::Vector3 ao = r.origin() - a;
+    const Vector3 cylAxis = b - a;
+    const Vector3 ao = r.origin() - a;
 
     // Intersect the ray against plane A and B.
     std::vector<Scalar> hitsA;
@@ -364,12 +365,12 @@ bool vsTriangle( const Ray& ray, const Vector3 a, const Vector3& b, const Vector
     return ( t >= 0 );
 }
 
-bool vsTriangleMesh( const Ray& r, const TriangleMesh& mesh, std::vector<Scalar>& hitsOut,
-                     std::vector<Triangle>& trianglesIdxOut ) {
+bool vsTriangleMesh( const Ray& r, const Geometry::TriangleMesh& mesh, std::vector<Scalar>& hitsOut,
+                     std::vector<Geometry::Triangle>& trianglesIdxOut ) {
     bool hit = false;
     for ( size_t i = 0; i < mesh.m_triangles.size(); ++i )
     {
-        Triangle t = mesh.m_triangles[i];
+        Geometry::Triangle t = mesh.m_triangles[i];
         Vector3 a = mesh.m_vertices[t[0]];
         Vector3 b = mesh.m_vertices[t[1]];
         Vector3 c = mesh.m_vertices[t[2]];
@@ -383,5 +384,6 @@ bool vsTriangleMesh( const Ray& r, const TriangleMesh& mesh, std::vector<Scalar>
     return hit;
 }
 } // namespace RayCast
+} // namespace Math
 } // namespace Core
 } // namespace Ra

@@ -25,7 +25,7 @@ MeshPaintPluginC::MeshPaintPluginC() :
     m_selectionManager( nullptr ),
     m_PickingManager( nullptr ),
     m_system( nullptr ),
-    m_paintColor( Ra::Core::Color( 1.0, 0.0, 0.0, 1.0 ) ),
+    m_paintColor( Ra::Core::Math::Color( 1.0, 0.0, 0.0, 1.0 ) ),
     m_isPainting( false ) {
     m_widget = new MeshPaintUI();
     QColor color;
@@ -82,12 +82,12 @@ void MeshPaintPluginC::activePaintColor( bool on ) {
 }
 
 void MeshPaintPluginC::changePaintColor( const QColor& color ) {
-    m_paintColor = Ra::Core::Color( Scalar( color.red() ) / 255, Scalar( color.green() ) / 255,
+    m_paintColor = Ra::Core::Math::Color( Scalar( color.red() ) / 255, Scalar( color.green() ) / 255,
                                     Scalar( color.blue() ) / 255, 1.0 );
 }
 
 void MeshPaintPluginC::onCurrentChanged( const QModelIndex& current, const QModelIndex& prev ) {
-    if ( m_isPainting && Ra::Core::Index::Invalid() != m_selectionManager->currentItem().m_roIndex )
+    if ( m_isPainting && Ra::Core::Container::Index::Invalid() != m_selectionManager->currentItem().m_roIndex )
     {
         m_system->paintMesh( m_PickingManager->getCurrent(), m_paintColor );
     }

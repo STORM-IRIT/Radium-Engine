@@ -1,15 +1,15 @@
 #ifndef RADIUM_CONVERT_TESTS_HPP_
 #define RADIUM_CONVERT_TESTS_HPP_
 
-#include <Core/Mesh/MeshPrimitives.hpp>
-#include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
-#include <Core/Mesh/Wrapper/TopologicalMeshConvert.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Geometry/TopologicalMesh.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Geometry/TopologicalMeshConvert.hpp>
 #include <Tests/CoreTests/Tests.hpp>
 
-using Ra::Core::MeshConverter;
-using Ra::Core::TopologicalMesh;
-using Ra::Core::TriangleMesh;
+using Ra::Core::Geometry::MeshConverter;
+using Ra::Core::Geometry::TopologicalMesh;
+using Ra::Core::Geometry::TriangleMesh;
 
 namespace RaTests {
 
@@ -20,20 +20,20 @@ class ConvertTests : public Test {
         TopologicalMesh topologicalMesh;
 
         // Test for close mesh
-        mesh = Ra::Core::MeshUtils::makeBox();
-        Ra::Core::MeshConverter::convert( mesh, topologicalMesh );
-        Ra::Core::MeshConverter::convert( topologicalMesh, newMesh );
+        mesh = Ra::Core::Geometry::makeBox();
+        MeshConverter::convert( mesh, topologicalMesh );
+        MeshConverter::convert( topologicalMesh, newMesh );
         RA_UNIT_TEST( isSameMesh( mesh, newMesh ), "Conversion to topological box mesh failed" );
 
         // Test for mesh with boundaries
-        mesh = Ra::Core::MeshUtils::makePlaneGrid( 2, 2 );
-        Ra::Core::MeshConverter::convert( mesh, topologicalMesh );
-        Ra::Core::MeshConverter::convert( topologicalMesh, newMesh );
+        mesh = Ra::Core::Geometry::makePlaneGrid( 2, 2 );
+        MeshConverter::convert( mesh, topologicalMesh );
+        MeshConverter::convert( topologicalMesh, newMesh );
         RA_UNIT_TEST( isSameMesh( mesh, newMesh ), "Conversion to topological grid mesh failed" );
 
-        mesh = Ra::Core::MeshUtils::makeCylinder( Vector3( 0, 0, 0 ), Vector3( 0, 0, 1 ), 1 );
-        Ra::Core::MeshConverter::convert( mesh, topologicalMesh );
-        Ra::Core::MeshConverter::convert( topologicalMesh, newMesh );
+        mesh = Ra::Core::Geometry::makeCylinder( Vector3( 0, 0, 0 ), Vector3( 0, 0, 1 ), 1 );
+        MeshConverter::convert( mesh, topologicalMesh );
+        MeshConverter::convert( topologicalMesh, newMesh );
         RA_UNIT_TEST( isSameMesh( mesh, newMesh ),
                       "Conversion to topological cylinder mesh failed" );
     }
@@ -50,12 +50,12 @@ class ConvertTests : public Test {
             return false;
 
         // Check triangles
-        std::vector<Ra::Core::Vector3> stackVertices;
+        std::vector<Ra::Core::Math::Vector3> stackVertices;
 
         i = 0;
         while ( result && i < meshOne.m_triangles.size() )
         {
-            std::vector<Ra::Core::Vector3>::iterator it;
+            std::vector<Ra::Core::Math::Vector3>::iterator it;
             stackVertices.clear();
             stackVertices.push_back( meshOne.m_vertices[meshOne.m_triangles[i][0]] );
             stackVertices.push_back( meshOne.m_vertices[meshOne.m_triangles[i][1]] );

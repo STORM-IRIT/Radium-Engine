@@ -1,6 +1,6 @@
-#include <Core/File/deprecated/OBJFileManager.hpp>
-#include <Core/Mesh/MeshPrimitives.hpp>
-#include <Core/Mesh/Wrapper/TopologicalMeshConvert.hpp>
+#include <Core/Asset/deprecated/OBJFileManager.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Geometry/TopologicalMeshConvert.hpp>
 #include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh>
 #include <OpenMesh/Tools/Subdivider/Uniform/LoopT.hh>
 #include <memory>
@@ -9,7 +9,7 @@ struct args {
     int iteration;
     std::string outputFilename;
     std::string inputFilename;
-    std::unique_ptr<OpenMesh::Subdivider::Uniform::SubdividerT<Ra::Core::TopologicalMesh>>
+    std::unique_ptr<OpenMesh::Subdivider::Uniform::SubdividerT<Ra::Core::Geometry::TopologicalMesh>>
         subdivider;
 };
 
@@ -56,11 +56,11 @@ args processArgs( int argc, char* argv[] ) {
                 if ( a == std::string( "catmull" ) )
                 {
                     ret.subdivider = std::make_unique<
-                        OpenMesh::Subdivider::Uniform::CatmullClarkT<Ra::Core::TopologicalMesh>>();
+                        OpenMesh::Subdivider::Uniform::CatmullClarkT<Ra::Core::Geometry::TopologicalMesh>>();
                 } else if ( a == std::string( "loop" ) )
                 {
                     ret.subdivider = std::make_unique<
-                        OpenMesh::Subdivider::Uniform::LoopT<Ra::Core::TopologicalMesh>>();
+                        OpenMesh::Subdivider::Uniform::LoopT<Ra::Core::Geometry::TopologicalMesh>>();
                 } else
                 { subdividerSet = false; }
             }
@@ -83,22 +83,22 @@ int main( int argc, char* argv[] ) {
         printHelp( argv );
     } else
     {
-        Ra::Core::TriangleMesh mesh;
-        Ra::Core::TopologicalMesh topologicalMesh;
-        Ra::Core::OBJFileManager obj;
+        Ra::Core::Geometry::TriangleMesh mesh;
+        Ra::Core::Geometry::TopologicalMesh topologicalMesh;
+        Ra::Core::Asset::deprecated::OBJFileManager obj;
         if ( a.inputFilename.empty() )
         {
-            mesh = Ra::Core::MeshUtils::makeBox();
+            mesh = Ra::Core::Geometry::makeBox();
         } else
         { obj.load( a.inputFilename, mesh ); }
 
-        Ra::Core::MeshConverter::convert( mesh, topologicalMesh );
+        Ra::Core::Geometry::MeshConverter::convert( mesh, topologicalMesh );
 
         a.subdivider->attach( topologicalMesh );
         ( *a.subdivider )( a.iteration );
         a.subdivider->detach();
         topologicalMesh.triangulate();
-        Ra::Core::MeshConverter::convert( topologicalMesh, mesh );
+        Ra::Core::Geometry::MeshConverter::convert( topologicalMesh, mesh );
 
         obj.save( a.outputFilename, mesh );
     }

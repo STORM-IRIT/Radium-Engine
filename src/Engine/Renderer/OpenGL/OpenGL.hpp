@@ -54,7 +54,7 @@ inline const char* glErrorString( GLenum err ) {
 }
 
 #ifdef _DEBUG
-#    include <Core/Log/Log.hpp>
+#    include <Core/Utils/Log.hpp>
 #    define GL_ASSERT( x )                                                                     \
         x;                                                                                     \
         {                                                                                      \
@@ -62,7 +62,7 @@ inline const char* glErrorString( GLenum err ) {
             if ( err != GL_NO_ERROR )                                                          \
             {                                                                                  \
                 const char* errBuf = glErrorString( err );                                     \
-                LOG( logERROR ) << "OpenGL error (" << __FILE__ << ":" << __LINE__ << ", "     \
+                LOG( Core::Utils::logERROR ) << "OpenGL error (" << __FILE__ << ":" << __LINE__ << ", "     \
                                 << STRINGIFY( x ) << ") : " << errBuf << "(" << err << " : 0x" \
                                 << std::hex << err << std::dec << ").";                        \
                 BREAKPOINT( 0 );                                                               \
@@ -76,7 +76,7 @@ inline const char* glErrorString( GLenum err ) {
             if ( err != GL_NO_ERROR )                                                        \
             {                                                                                \
                 const char* errBuf = glErrorString( err );                                   \
-                LOG( logERROR ) << "OpenGL error (" << __FILE__ << ":" << __LINE__           \
+                LOG( Core::Utils::logERROR ) << "OpenGL error (" << __FILE__ << ":" << __LINE__           \
                                 << ", glCheckError()) : " << errBuf << "(" << err << " : 0x" \
                                 << std::hex << err << std::dec << ").";                      \
                 BREAKPOINT( 0 );                                                             \

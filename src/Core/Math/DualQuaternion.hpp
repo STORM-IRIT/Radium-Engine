@@ -6,6 +6,9 @@
 
 namespace Ra {
 namespace Core {
+namespace Math {
+
+
 /// Dual quaternions are based on the dual-numbers algebra, somewhat
 /// analogous to complex numbers, but with the imaginary unit `e` defined
 /// such as e*e = 0 ; and using quaternions as the non-dual and dual part.
@@ -28,7 +31,7 @@ class DualQuaternion {
 
     /// Construct a dual-quaternion from a rigid transform
     /// Any non-rigid component (e.g. scale and shear) will be ignored.
-    inline DualQuaternion( const Core::Transform& tr );
+    inline DualQuaternion( const Transform& tr );
 
     /// Default copy constructor and assignment operator.
     DualQuaternion( const DualQuaternion& other ) = default;
@@ -81,6 +84,8 @@ class DualQuaternion {
 
 /// Pre-multiplication of dual quaternion.
 inline DualQuaternion operator*( Scalar scalar, const DualQuaternion& dq );
+
+} // namespace Math
 } // namespace Core
 } // namespace Ra
 

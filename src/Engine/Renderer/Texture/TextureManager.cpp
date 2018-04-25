@@ -1,7 +1,7 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
@@ -42,7 +42,7 @@ TextureData TextureManager::loadTexture( const std::string& filename ){
 
     if ( !data )
     {
-        LOG( logERROR ) << "Something went wrong when loading image \"" << filename << "\".";
+        LOG( Core::Utils::logERROR ) << "Something went wrong when loading image \"" << filename << "\".";
         texData.width = texData.height = -1;
         return texData;
     }
@@ -86,7 +86,7 @@ TextureData TextureManager::loadTexture( const std::string& filename ){
 
     if ( m_verbose )
     {
-        LOG( logINFO ) << "Image stats (" << filename << ") :\n"
+        LOG( Core::Utils::logINFO ) << "Image stats (" << filename << ") :\n"
                        << "\tPixels : " << n << std::endl
                        << "\tFormat : " << texData.format <<  std::endl
                        << "\tSize   : " << texData.width << ", " << texData.height;
@@ -190,7 +190,7 @@ void TextureManager::updatePendingTextures() {
 
     for ( auto& data : m_pendingData )
     {
-        LOG( logINFO ) << "TextureManager::updateTextures \"" << data.first << "\".";
+        LOG( Core::Utils::logINFO ) << "TextureManager::updateTextures \"" << data.first << "\".";
         m_textures[data.first]->updateData( data.second );
     }
     m_pendingData.clear();

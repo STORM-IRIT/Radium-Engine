@@ -3,9 +3,9 @@
 #include <iostream>
 #include <string>
 
-#include <Core/File/FileData.hpp>
-#include <Core/Tasks/Task.hpp>
-#include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Asset/FileData.hpp>
+#include <Core/Utils/Task.hpp>
+#include <Core/Utils/TaskQueue.hpp>
 
 #include <Engine/FrameInfo.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -20,7 +20,7 @@ AnimationSystem::AnimationSystem() {
     m_xrayOn = false;
 }
 
-void AnimationSystem::generateTasks( Ra::Core::TaskQueue* taskQueue,
+void AnimationSystem::generateTasks( Ra::Core::Utils::TaskQueue* taskQueue,
                                      const Ra::Engine::FrameInfo& frameInfo ) {
     const bool playFrame = m_isPlaying || m_oneStep;
 
@@ -29,7 +29,7 @@ void AnimationSystem::generateTasks( Ra::Core::TaskQueue* taskQueue,
     for ( auto compEntry : this->m_components )
     {
         AnimationComponent* component = static_cast<AnimationComponent*>( compEntry.second );
-        Ra::Core::FunctionTask* task = new Ra::Core::FunctionTask(
+        Ra::Core::Utils::FunctionTask* task = new Ra::Core::Utils::FunctionTask(
             std::bind( &AnimationComponent::update, component, currentDelta ), "AnimatorTask" );
         taskQueue->registerTask( task );
     }
@@ -101,7 +101,7 @@ void AnimationSystem::toggleSlowMotion( const bool status ) {
 }
 
 void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity,
-                                          const Ra::Asset::FileData* fileData ) {
+                                          const Ra::Core::Asset::FileData* fileData ) {
     auto geomData = fileData->getGeometryData();
     auto skelData = fileData->getHandleData();
     auto animData = fileData->getAnimationData();
@@ -119,7 +119,7 @@ void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity,
 
         // FIXME(Charly): Certainly not the best way to do this
         AnimationComponent* component = new AnimationComponent( "AC_" + skel->getName(), entity );
-        std::vector<Ra::Core::Index> dupliTable;
+        std::vector<Ra::Core::Container::Index> dupliTable;
         uint nbMeshVertices = 0;
         if ( geomID != uint( -1 ) )
         {

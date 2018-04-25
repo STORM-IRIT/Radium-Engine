@@ -9,8 +9,8 @@
 #include <string>
 #include <thread>
 
-#include <Core/File/FileData.hpp>
-#include <Core/File/FileLoaderInterface.hpp>
+#include <Core/Asset/FileData.hpp>
+#include <Core/Asset/FileLoaderInterface.hpp>
 
 #include <Engine/FrameInfo.hpp>
 #include <Engine/System/System.hpp>
@@ -31,7 +31,7 @@ RadiumEngine::RadiumEngine() {}
 RadiumEngine::~RadiumEngine() {}
 
 void RadiumEngine::initialize() {
-    LOG( logINFO ) << "*** Radium Engine ***";
+    LOG( Core::Utils::logINFO ) << "*** Radium Engine ***";
     m_signalManager.reset( new SignalManager );
     m_entityManager.reset( new EntityManager );
     m_renderObjectManager.reset( new RenderObjectManager );
@@ -65,7 +65,7 @@ void RadiumEngine::endFrameSync() {
     m_signalManager->fireFrameEnded();
 }
 
-void RadiumEngine::getTasks( Core::TaskQueue* taskQueue, Scalar dt ) {
+void RadiumEngine::getTasks( Ra::Core::Utils::TaskQueue* taskQueue, Scalar dt ) {
     static uint frameCounter = 0;
     FrameInfo frameInfo;
     frameInfo.m_dt = dt;
@@ -80,7 +80,7 @@ void RadiumEngine::registerSystem( const std::string& name, System* system ) {
     CORE_ASSERT( m_systems.find( name ) == m_systems.end(), "Same system added multiple times." );
 
     m_systems[name] = std::shared_ptr<System>( system );
-    LOG( logINFO ) << "Loaded : " << name;
+    LOG( Core::Utils::logINFO ) << "Loaded : " << name;
 }
 
 System* RadiumEngine::getSystem( const std::string& system ) const {
@@ -131,13 +131,13 @@ Mesh* RadiumEngine::getMesh( const std::string& entityName, const std::string& c
 }
 
 bool RadiumEngine::loadFile( const std::string& filename ) {
-    std::string extension = Core::StringUtils::getFileExt( filename );
+    std::string extension = Core::Utils::getFileExt( filename );
 
     for ( auto& l : m_fileLoaders )
     {
         if ( l->handleFileExtension( extension ) )
         {
-            Asset::FileData* data = l->loadFile( filename );
+            Core::Asset::FileData* data = l->loadFile( filename );
             if ( data != nullptr )
             {
                 m_loadedFile.reset( data );
@@ -148,13 +148,13 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
 
     if ( m_loadedFile == nullptr )
     {
-        LOG( logERROR ) << "There is no loader to handle \"" << extension
+        LOG( Core::Utils::logERROR ) << "There is no loader to handle \"" << extension
                         << "\" extension ! File can't be loaded.";
 
         return false;
     }
 
-    std::string entityName = Core::StringUtils::getBaseName( filename, false );
+    std::string entityName = Core::Utils::getBaseName( filename, false );
 
     Entity* entity = m_entityManager->createEntity( entityName );
 
@@ -171,7 +171,7 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
         }
     } else
     {
-        LOG( logWARNING ) << "File \"" << filename << "\" has no usable data. Deleting entity...";
+        LOG( Core::Utils::logWARNING ) << "File \"" << filename << "\" has no usable data. Deleting entity...";
         m_entityManager->removeEntity( entity );
     }
     m_loadingState = true;
@@ -195,18 +195,18 @@ SignalManager* RadiumEngine::getSignalManager() const {
     return m_signalManager.get();
 }
 
-void RadiumEngine::registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface> fileLoader ) {
+void RadiumEngine::registerFileLoader( std::shared_ptr<Core::Asset::FileLoaderInterface> fileLoader ) {
     m_fileLoaders.push_back( fileLoader );
 }
 
-const std::vector<std::shared_ptr<Asset::FileLoaderInterface>>&
+const std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>>&
 RadiumEngine::getFileLoaders() const {
     return m_fileLoaders;
 }
 
 RA_SINGLETON_IMPLEMENTATION( RadiumEngine );
 
-const Asset::FileData& RadiumEngine::getFileData() const {
+const Core::Asset::FileData& RadiumEngine::getFileData() const {
     CORE_ASSERT(m_loadingState, "Access to file content is only available at loading time.");
     return *( m_loadedFile.get() );
 }

@@ -1,9 +1,9 @@
 #include <GuiBase/Viewer/Gizmo/RotateGizmo.hpp>
 
-#include <Core/Containers/VectorArray.hpp>
+#include <Core/Container/VectorArray.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/RayCast.hpp>
-#include <Core/Mesh/MeshPrimitives.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -19,17 +19,17 @@
 
 namespace Ra {
 namespace Gui {
-RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
-                          const Core::Transform& t, Mode mode ) :
+RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Math::Transform& worldTo,
+                          const Core::Math::Transform& t, Mode mode ) :
     Gizmo( c, worldTo, t, mode ),
-    m_initialPix( Core::Vector2::Zero() ),
+    m_initialPix( Core::Math::Vector2::Zero() ),
     m_selectedAxis( -1 ) {
     constexpr Scalar torusOutRadius = 0.1f;
     constexpr Scalar torusAspectRatio = 0.1f;
     // For x,y,z
     for ( uint i = 0; i < 3; ++i )
     {
-        Core::TriangleMesh torus = Core::MeshUtils::makeParametricTorus<32>(
+        Core::Geometry::TriangleMesh torus = Core::Geometry::makeParametricTorus<32>(
             torusOutRadius, torusAspectRatio * torusOutRadius );
         // Transform the torus from z-axis to axis i.
         for ( auto& v : torus.m_vertices )
@@ -41,9 +41,9 @@ RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
             }
         }
 
-        Core::Color torusColor = Core::Color::Zero();
+        Core::Math::Color torusColor = Core::Math::Color::Zero();
         torusColor[i] = 1.f;
-        Core::Vector4Array colors( torus.m_vertices.size(), torusColor );
+        Core::Container::Vector4Array colors( torus.m_vertices.size(), torusColor );
 
         std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Arrow" ) );
         mesh->loadGeometry( torus );
@@ -64,12 +64,12 @@ RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
     }
 }
 
-void RotateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& worldTo,
-                                   const Core::Transform& t ) {
+void RotateGizmo::updateTransform( Gizmo::Mode mode, const Core::Math::Transform& worldTo,
+                                   const Core::Math::Transform& t ) {
     m_mode = mode;
     m_worldTo = worldTo;
     m_transform = t;
-    Core::Transform displayTransform = Core::Transform::Identity();
+    Core::Math::Transform displayTransform = Core::Math::Transform::Identity();
     if ( m_mode == LOCAL )
     {
         displayTransform = m_transform;
@@ -91,7 +91,7 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
     if ( drawableIdx >= 0 )
     {
         auto found = std::find( m_renderObjects.cbegin(), m_renderObjects.cend(),
-                                Core::Index( drawableIdx ) );
+                                Core::Container::Index( drawableIdx ) );
         if ( found != m_renderObjects.cend() )
         {
             m_selectedAxis = int( found - m_renderObjects.begin() );
@@ -104,17 +104,17 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
+Core::Math::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::Math::Vector2& nextXY,
                                         bool stepped ) {
     static const float step = Ra::Core::Math::Pi / 10.f;
     if ( m_selectedAxis >= 0 )
     {
-        const Core::Vector3 origin = m_transform.translation();
-        Core::Vector3 rotationAxis = Core::Vector3::Unit( m_selectedAxis );
+        const Core::Math::Vector3 origin = m_transform.translation();
+        Core::Math::Vector3 rotationAxis = Core::Math::Vector3::Unit( m_selectedAxis );
 
         // Decompose the current transform's linear part into rotation and scale
-        Core::Matrix3 rotationMat;
-        Core::Matrix3 scaleMat;
+        Core::Math::Matrix3 rotationMat;
+        Core::Math::Matrix3 scaleMat;
         m_transform.computeRotationScaling( &rotationMat, &scaleMat );
 
         if ( m_mode == LOCAL )
@@ -132,20 +132,20 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::V
 
         // Project the clicked points against the plane defined by the rotation circles.
         std::vector<Scalar> hits1, hits2;
-        Core::Ray rayToFirstClick = cam.getRayFromScreen( m_initialPix );
-        Core::Ray rayToCurrentClick = cam.getRayFromScreen( nextXY );
-        bool hit1 = Core::RayCast::vsPlane( rayToFirstClick, m_worldTo * origin,
+        Core::Math::Ray rayToFirstClick = cam.getRayFromScreen( m_initialPix );
+        Core::Math::Ray rayToCurrentClick = cam.getRayFromScreen( nextXY );
+        bool hit1 = Core::Math::RayCast::vsPlane( rayToFirstClick, m_worldTo * origin,
                                             m_worldTo * rotationAxis, hits1 );
-        bool hit2 = Core::RayCast::vsPlane( rayToCurrentClick, m_worldTo * origin,
+        bool hit2 = Core::Math::RayCast::vsPlane( rayToCurrentClick, m_worldTo * origin,
                                             m_worldTo * rotationAxis, hits2 );
 
-        Core::Vector2 nextXY_ = nextXY;
+        Core::Math::Vector2 nextXY_ = nextXY;
         if ( hit1 && hit2 )
         {
             // Do the calculations relative to the circle center.
-            const Core::Vector3 originalHit =
+            const Core::Math::Vector3 originalHit =
                 rayToFirstClick.pointAt( hits1[0] ) - m_worldTo * origin;
-            const Core::Vector3 currentHit =
+            const Core::Math::Vector3 currentHit =
                 rayToCurrentClick.pointAt( hits2[0] ) - m_worldTo * origin;
 
             // Get the angle between the two vectors with the correct sign
@@ -174,7 +174,7 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::V
             m_totalAngle += angle;
             if ( angle != 0 )
             {
-                auto newRot = Core::AngleAxis( angle, rotationAxis ) * rotationMat;
+                auto newRot = Core::Math::AngleAxis( angle, rotationAxis ) * rotationMat;
                 m_transform.fromPositionOrientationScale( origin, newRot, scaleMat.diagonal() );
             }
         }
@@ -183,7 +183,7 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::V
     return m_transform;
 }
 
-void RotateGizmo::setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) {
+void RotateGizmo::setInitialState( const Engine::Camera& cam, const Core::Math::Vector2& initialXY ) {
     m_initialPix = initialXY;
 }
 } // namespace Gui

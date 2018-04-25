@@ -3,14 +3,14 @@
 #include <iostream>
 #include <queue>
 
-#include <Core/Animation/Handle/HandleWeightOperation.hpp>
-#include <Core/Animation/Pose/Pose.hpp>
-#include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/File/HandleToSkeleton.hpp>
-#include <Core/File/KeyFrame/KeyPose.hpp>
-#include <Core/File/KeyFrame/KeyTransform.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
-#include <Core/Utils/Graph/AdjacencyListOperation.hpp>
+#include <Core/Animation/HandleWeightOperation.hpp>
+#include <Core/Animation/Pose.hpp>
+#include <Core/Container/AlignedStdVector.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Asset/HandleToSkeleton.hpp>
+#include <Core/Asset/KeyPose.hpp>
+#include <Core/Asset/KeyTransform.hpp>
+#include <Core/Utils/AdjacencyListOperation.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
@@ -97,12 +97,12 @@ void AnimationComponent::setupSkeletonDisplay() {
         if ( !m_skel.m_graph.isLeaf( i ) )
         {
             std::string name = m_skel.getLabel( i );
-            Ra::Core::StringUtils::appendPrintf( name, " (%d)", i );
+            Ra::Core::Utils::appendPrintf( name, " (%d)", i );
             m_boneDrawables.emplace_back(
                 new SkeletonBoneRenderObject( name, this, i, getRoMgr() ) );
             m_renderObjects.push_back( m_boneDrawables.back()->getRenderObjectIndex() );
         } else
-        { LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed."; }
+        { LOG( Ra::Core::Utils::logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed."; }
     }
 }
 
@@ -154,8 +154,8 @@ void AnimationComponent::setWeights( Ra::Core::Animation::WeightMatrix m ) {
     m_weights = m;
 }
 
-void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* data,
-                                                const std::vector<Ra::Core::Index>& duplicateTable,
+void AnimationComponent::handleSkeletonLoading( const Ra::Core::Asset::HandleData* data,
+                                                const std::vector<Ra::Core::Container::Index>& duplicateTable,
                                                 uint nbMeshVertices ) {
     std::string name( m_name );
     name.append( "_" + data->getName() );
@@ -168,7 +168,7 @@ void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* dat
     m_contentName = data->getName();
 
     std::map<uint, uint> indexTable;
-    Ra::Asset::createSkeleton( *data, m_skel, indexTable );
+    Ra::Core::Asset::createSkeleton( *data, m_skel, indexTable );
 
     createWeightMatrix( data, indexTable, duplicateTable, nbMeshVertices );
     m_refPose = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL );
@@ -178,13 +178,13 @@ void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* dat
 }
 
 void AnimationComponent::handleAnimationLoading(
-    const std::vector<Ra::Asset::AnimationData*> data ) {
+    const std::vector<Ra::Core::Asset::AnimationData*> data ) {
     m_animations.clear();
     CORE_ASSERT( ( m_skel.size() != 0 ), "At least a skeleton should be loaded first." );
     if ( data.empty() )
         return;
     std::map<uint, uint> table;
-    std::set<Ra::Asset::Time> keyTime;
+    std::set<Ra::Core::Asset::Time> keyTime;
 
     for ( uint n = 0; n < data.size(); ++n )
     {
@@ -202,7 +202,7 @@ void AnimationComponent::handleAnimationLoading(
             }
         }
 
-        Ra::Asset::KeyPose keypose;
+        Ra::Core::Asset::KeyPose keypose;
         Ra::Core::Animation::Pose pose = m_skel.m_pose;
 
         m_animations.push_back( Ra::Core::Animation::Animation() );
@@ -224,9 +224,9 @@ void AnimationComponent::handleAnimationLoading(
     m_animationTime = 0.0;
 }
 
-void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data,
+void AnimationComponent::createWeightMatrix( const Ra::Core::Asset::HandleData* data,
                                              const std::map<uint, uint>& indexTable,
-                                             const std::vector<Ra::Core::Index>& duplicateTable,
+                                             const std::vector<Ra::Core::Container::Index>& duplicateTable,
                                              uint nbMeshVertices ) {
     m_weights.resize( nbMeshVertices, data->getComponentDataSize() );
 
@@ -246,7 +246,7 @@ void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data,
 
     if ( Ra::Core::Animation::normalizeWeights( m_weights, true ) )
     {
-        LOG( logINFO ) << "Skinning weights have been normalized";
+        LOG( Ra::Core::Utils::logINFO ) << "Skinning weights have been normalized";
     }
 }
 
@@ -332,7 +332,7 @@ void AnimationComponent::setAnimation( const uint i ) {
     }
 }
 
-bool AnimationComponent::canEdit( Ra::Core::Index roIdx ) const {
+bool AnimationComponent::canEdit( Ra::Core::Container::Index roIdx ) const {
     // returns true if the roIdx is one of our bones.
     return (
         std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto& bone ) {
@@ -340,7 +340,7 @@ bool AnimationComponent::canEdit( Ra::Core::Index roIdx ) const {
         } ) != m_boneDrawables.end() );
 }
 
-Ra::Core::Transform AnimationComponent::getTransform( Ra::Core::Index roIdx ) const {
+Ra::Core::Math::Transform AnimationComponent::getTransform( Ra::Core::Container::Index roIdx ) const {
     CORE_ASSERT( canEdit( roIdx ), "Transform is not editable" );
     const auto& bonePos =
         std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto& bone ) {
@@ -351,8 +351,8 @@ Ra::Core::Transform AnimationComponent::getTransform( Ra::Core::Index roIdx ) co
     return m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL )[boneIdx];
 }
 
-void AnimationComponent::setTransform( Ra::Core::Index roIdx,
-                                       const Ra::Core::Transform& transform ) {
+void AnimationComponent::setTransform( Ra::Core::Container::Index roIdx,
+                                       const Ra::Core::Math::Transform& transform ) {
     CORE_ASSERT( canEdit( roIdx ), "Transform is not editable" );
     const auto& bonePos =
         std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto& bone ) {
@@ -360,16 +360,16 @@ void AnimationComponent::setTransform( Ra::Core::Index roIdx,
         } );
 
     const uint boneIdx = ( *bonePos )->getBoneIndex();
-    const Ra::Core::Transform& TBoneModel =
+    const Ra::Core::Math::Transform& TBoneModel =
         m_skel.getTransform( boneIdx, Ra::Core::Animation::Handle::SpaceType::MODEL );
-    const Ra::Core::Transform& TBoneLocal =
+    const Ra::Core::Math::Transform& TBoneLocal =
         m_skel.getTransform( boneIdx, Ra::Core::Animation::Handle::SpaceType::LOCAL );
     auto diff = TBoneModel.inverse() * transform;
     m_skel.setTransform( boneIdx, TBoneLocal * diff,
                          Ra::Core::Animation::Handle::SpaceType::LOCAL );
 }
 
-uint AnimationComponent::getBoneIdx( Ra::Core::Index index ) const {
+uint AnimationComponent::getBoneIdx( Ra::Core::Container::Index index ) const {
     auto found =
         std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [index]( const auto& draw ) {
             return draw->getRenderObjectIndex() == index;

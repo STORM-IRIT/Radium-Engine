@@ -20,7 +20,7 @@
 
 #include <Core/Math/GlmAdapters.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <Engine/Renderer/Texture/Texture.hpp>
 
@@ -47,7 +47,7 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
 #ifdef OS_MACOS
     if ( type == ShaderType_COMPUTE )
     {
-        LOG( logERROR ) << "No compute shader on OsX <= El Capitan";
+        LOG( Core::Utils::logERROR ) << "No compute shader on OsX <= El Capitan";
         return;
     }
 #endif
@@ -175,7 +175,7 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
     {
         if ( m_configuration.m_shaders[i] != "" )
         {
-            LOG( logDEBUG ) << "Loading shader " << m_configuration.m_shaders[i];
+            LOG( Core::Utils::logDEBUG ) << "Loading shader " << m_configuration.m_shaders[i];
             loadShader( ShaderType( i ), m_configuration.m_shaders[i],
                         m_configuration.getProperties(), m_configuration.getIncludes(),
                         m_configuration.m_version );
@@ -208,7 +208,7 @@ void ShaderProgram::validate() const {
     m_program->validate();
     if ( !m_program->isValid() )
     {
-        LOG( logDEBUG ) << m_program->infoLog();
+        LOG( Core::Utils::logDEBUG ) << m_program->infoLog();
     }
 }
 
@@ -221,7 +221,7 @@ void ShaderProgram::reload() {
     {
         if ( m_shaderObjects[i] != nullptr )
         {
-            LOG( logDEBUG ) << "Reloading shader " << m_shaderObjects[i]->name();
+            LOG( Core::Utils::logDEBUG ) << "Reloading shader " << m_shaderObjects[i]->name();
 
             m_program->detach( m_shaderObjects[i].get() );
             loadShader( getGLenumAsType( m_shaderObjects[i]->type() ), m_shaderObjects[i]->name(),
@@ -275,64 +275,64 @@ void ShaderProgram::setUniform( const char* name, std::vector<float> values ) co
 
 //!
 
-void ShaderProgram::setUniform( const char* name, const Core::Vector2f& value ) const {
-    m_program->setUniform( name, Core::toGlm( value ) );
+void ShaderProgram::setUniform( const char* name, const Core::Math::Vector2f& value ) const {
+    m_program->setUniform( name, Core::Math::toGlm( value ) );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Vector2d& value ) const {
-    Core::Vector2f v = value.cast<float>();
+void ShaderProgram::setUniform( const char* name, const Core::Math::Vector2d& value ) const {
+    Core::Math::Vector2f v = value.cast<float>();
 
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::Math::toGlm( v ) );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Vector3f& value ) const {
-    m_program->setUniform( name, Core::toGlm( value ) );
+void ShaderProgram::setUniform( const char* name, const Core::Math::Vector3f& value ) const {
+    m_program->setUniform( name, Core::Math::toGlm( value ) );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Vector3d& value ) const {
-    Core::Vector3f v = value.cast<float>();
+void ShaderProgram::setUniform( const char* name, const Core::Math::Vector3d& value ) const {
+    Core::Math::Vector3f v = value.cast<float>();
 
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::Math::toGlm( v ) );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Vector4f& value ) const {
-    m_program->setUniform( name, Core::toGlm( value ) );
+void ShaderProgram::setUniform( const char* name, const Core::Math::Vector4f& value ) const {
+    m_program->setUniform( name, Core::Math::toGlm( value ) );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Vector4d& value ) const {
-    Core::Vector4f v = value.cast<float>();
+void ShaderProgram::setUniform( const char* name, const Core::Math::Vector4d& value ) const {
+    Core::Math::Vector4f v = value.cast<float>();
 
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::Math::toGlm( v ) );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Matrix2f& value ) const {
-    m_program->setUniform( name, Core::toGlm( value ) );
+void ShaderProgram::setUniform( const char* name, const Core::Math::Matrix2f& value ) const {
+    m_program->setUniform( name, Core::Math::toGlm( value ) );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Matrix2d& value ) const {
-    Core::Matrix2f v = value.cast<float>();
+void ShaderProgram::setUniform( const char* name, const Core::Math::Matrix2d& value ) const {
+    Core::Math::Matrix2f v = value.cast<float>();
 
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::Math::toGlm( v ) );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Matrix3f& value ) const {
-    m_program->setUniform( name, Core::toGlm( value ) );
+void ShaderProgram::setUniform( const char* name, const Core::Math::Matrix3f& value ) const {
+    m_program->setUniform( name, Core::Math::toGlm( value ) );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Matrix3d& value ) const {
-    Core::Matrix3f v = value.cast<float>();
+void ShaderProgram::setUniform( const char* name, const Core::Math::Matrix3d& value ) const {
+    Core::Math::Matrix3f v = value.cast<float>();
 
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::Math::toGlm( v ) );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Matrix4f& value ) const {
-    m_program->setUniform( name, Core::toGlm( value ) );
+void ShaderProgram::setUniform( const char* name, const Core::Math::Matrix4f& value ) const {
+    m_program->setUniform( name, Core::Math::toGlm( value ) );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) const {
-    Core::Matrix4f v = value.cast<float>();
+void ShaderProgram::setUniform( const char* name, const Core::Math::Matrix4d& value ) const {
+    Core::Math::Matrix4f v = value.cast<float>();
 
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::Math::toGlm( v ) );
 }
 
 void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const {
@@ -354,7 +354,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
 
     std::string result = "";
     std::vector<std::string> finalStrings;
-    auto shaderLines = Core::StringUtils::splitString( shader, '\n' );
+    auto shaderLines = Core::Utils::splitString( shader, '\n' );
     finalStrings.reserve( shaderLines.size() );
 
     uint nline = 0;
@@ -378,7 +378,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
 
             } else
             {
-                LOG( logWARNING ) << "Cannot open included file " << match[1].str() << " at line"
+                LOG( Core::Utils::logWARNING ) << "Cannot open included file " << match[1].str() << " at line"
                                   << nline << " of file " << name << ". Ignored.";
                 continue;
             }
@@ -396,7 +396,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
              }
              else
              {
-             LOG(logWARNING) << "Cannot open included file " << file << " from " << m_filename << ".
+             LOG(Core::Utils::logWARNING) << "Cannot open included file " << file << " from " << m_filename << ".
              Ignored."; continue;
              }
              */

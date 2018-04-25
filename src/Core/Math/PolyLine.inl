@@ -1,10 +1,12 @@
-#include "PolyLine.hpp"
-#include <Core/Geometry/PointCloud/PointCloud.hpp>
+#include <Core/Math/PolyLine.hpp>
+#include <Core/Geometry/PointCloud.hpp>
 
 namespace Ra {
 namespace Core {
+namespace Math {
 
-const Vector3Array& PolyLine::getPoints() const {
+
+const Container::Vector3Array& PolyLine::getPoints() const {
     return m_pts;
 }
 
@@ -12,8 +14,8 @@ Scalar PolyLine::length() const {
     return m_lengths.back();
 }
 
-Ra::Core::Aabb PolyLine::aabb() const {
-    return PointCloud::aabb( m_pts );
+Aabb PolyLine::aabb() const {
+    return Geometry::aabb( m_pts );
 }
 
 Scalar PolyLine::getLineParameter( uint segment, Scalar tSegment ) const {
@@ -29,13 +31,13 @@ void PolyLine::getSegment( uint segment, Vector3& aOut, Vector3& abOut ) const {
     abOut = m_ptsDiff[segment];
 }
 
-const Vector3Array& PolyLine::getSegmentVectors() const {
+const Container::Vector3Array& PolyLine::getSegmentVectors() const {
     return m_ptsDiff;
 }
 
 uint PolyLine::getSegmentIndex( Scalar t ) const {
     // This could be optimized by dichotomy
-    Scalar param = length() * Ra::Core::Math::saturate( t );
+    Scalar param = length() * saturate( t );
     uint i = 0;
     while ( m_lengths[i] < param )
     {
@@ -44,5 +46,6 @@ uint PolyLine::getSegmentIndex( Scalar t ) const {
     return i;
 }
 
+} // namespace Math
 } // namespace Core
 } // namespace Ra

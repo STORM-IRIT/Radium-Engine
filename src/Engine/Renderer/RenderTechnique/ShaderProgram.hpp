@@ -48,19 +48,18 @@ class RA_ENGINE_API ShaderProgram final {
     void setUniform( const char* name, std::vector<uint> value ) const;
     void setUniform( const char* name, std::vector<float> value ) const;
 
-    void setUniform( const char* name, const Core::Vector2f& value ) const;
-    void setUniform( const char* name, const Core::Vector2d& value ) const;
-    void setUniform( const char* name, const Core::Vector3f& value ) const;
-    void setUniform( const char* name, const Core::Vector3d& value ) const;
-    void setUniform( const char* name, const Core::Vector4f& value ) const;
-    void setUniform( const char* name, const Core::Vector4d& value ) const;
-
-    void setUniform( const char* name, const Core::Matrix2f& value ) const;
-    void setUniform( const char* name, const Core::Matrix2d& value ) const;
-    void setUniform( const char* name, const Core::Matrix3f& value ) const;
-    void setUniform( const char* name, const Core::Matrix3d& value ) const;
-    void setUniform( const char* name, const Core::Matrix4f& value ) const;
-    void setUniform( const char* name, const Core::Matrix4d& value ) const;
+    void setUniform( const char* name, const Core::Math::Vector2f& value ) const;
+    void setUniform( const char* name, const Core::Math::Vector2d& value ) const;
+    void setUniform( const char* name, const Core::Math::Vector3f& value ) const;
+    void setUniform( const char* name, const Core::Math::Vector3d& value ) const;
+    void setUniform( const char* name, const Core::Math::Vector4f& value ) const;
+    void setUniform( const char* name, const Core::Math::Vector4d& value ) const;
+    void setUniform( const char* name, const Core::Math::Matrix2f& value ) const;
+    void setUniform( const char* name, const Core::Math::Matrix2d& value ) const;
+    void setUniform( const char* name, const Core::Math::Matrix3f& value ) const;
+    void setUniform( const char* name, const Core::Math::Matrix3d& value ) const;
+    void setUniform( const char* name, const Core::Math::Matrix4f& value ) const;
+    void setUniform( const char* name, const Core::Math::Matrix4d& value ) const;
 
     void setUniform( const char* name, Texture* tex, int texUnit ) const;
 

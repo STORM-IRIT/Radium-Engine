@@ -6,6 +6,7 @@
 #include <Core/Math/LinearAlgebra.hpp>
 namespace Ra {
 namespace Core {
+namespace Math {
 /// An oriented bounding box.
 class Obb {
   public:
@@ -41,6 +42,7 @@ class Obb {
     /// Orientation of the box.
     Transform m_transform;
 };
+} // namespace Math
 } // namespace Core
 } // namespace Ra
 #include <Core/Math/Obb.inl>

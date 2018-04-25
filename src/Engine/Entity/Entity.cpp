@@ -1,6 +1,6 @@
 #include <Engine/Entity/Entity.hpp>
 
-#include <Core/String/StringUtils.hpp>
+#include <Core/Utils/StringUtils.hpp>
 
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
@@ -11,9 +11,9 @@ namespace Ra {
 namespace Engine {
 
 Entity::Entity( const std::string& name ) :
-    Core::IndexedObject(),
-    m_transform( Core::Transform::Identity() ),
-    m_doubleBufferedTransform( Core::Transform::Identity() ),
+    Core::Container::IndexedObject(),
+    m_transform( Core::Math::Transform::Identity() ),
+    m_doubleBufferedTransform( Core::Math::Transform::Identity() ),
     m_name( name ),
     m_transformChanged( false ) {}
 
@@ -69,9 +69,9 @@ void Entity::swapTransformBuffers() {
     }
 }
 
-void Entity::rayCastQuery( const Core::Ray& r ) const {
+void Entity::rayCastQuery( const Core::Math::Ray& r ) const {
     // put ray in local frame.
-    Core::Ray transformedRay = Ra::Core::transformRay( r, m_transform.inverse() );
+    Core::Math::Ray transformedRay = Ra::Core::Math::transformRay( r, m_transform.inverse() );
     for ( const auto& c : m_components )
     {
         c->rayCastQuery( transformedRay );

@@ -1,7 +1,7 @@
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 
-#include <Core/Log/Log.hpp>
-#include <Core/String/StringUtils.hpp>
+#include <Core/Utils/Log.hpp>
+#include <Core/Utils/StringUtils.hpp>
 
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
@@ -14,7 +14,7 @@ EntityManager::EntityManager() {
     Entity* ent( SystemEntity::createInstance() );
     ent->idx = m_entities.emplace( std::move( ent ) );
     CORE_ASSERT( ent == SystemEntity::getInstance(), "Invalid singleton instanciation" );
-    m_entitiesName.insert( std::pair<std::string, Core::Index>( ent->getName(), ent->idx ) );
+    m_entitiesName.insert( std::pair<std::string, Core::Container::Index>( ent->getName(), ent->idx ) );
     RadiumEngine::getInstance()->getSignalManager()->fireEntityCreated(
         ItemEntry( SystemEntity::getInstance() ) );
 }
@@ -22,14 +22,14 @@ EntityManager::EntityManager() {
 EntityManager::~EntityManager() {}
 
 Entity* EntityManager::createEntity( const std::string& name ) {
-    Core::Index idx = m_entities.emplace( new Entity( name ) );
+    Core::Container::Index idx = m_entities.emplace( new Entity( name ) );
     auto& ent = m_entities[idx];
     ent->idx = idx;
 
     std::string entityName = name;
     if ( name == "" )
     {
-        Core::StringUtils::stringPrintf( entityName, "Entity_%u", idx.getValue() );
+        Core::Utils::stringPrintf( entityName, "Entity_%u", idx.getValue() );
         ent->rename( entityName );
     } else
     {
@@ -37,7 +37,7 @@ Entity* EntityManager::createEntity( const std::string& name ) {
         bool mustRename = false;
         while ( entityExists( entityName ) )
         {
-            LOG( logWARNING ) << "Entity `" << entityName << "` already exists";
+            LOG( Core::Utils::logWARNING ) << "Entity `" << entityName << "` already exists";
             entityName = name + "_" + std::to_string( i++ );
             mustRename = true;
         }
@@ -47,7 +47,7 @@ Entity* EntityManager::createEntity( const std::string& name ) {
         }
     }
 
-    m_entitiesName.insert( std::pair<std::string, Core::Index>( ent->getName(), idx ) );
+    m_entitiesName.insert( std::pair<std::string, Core::Container::Index>( ent->getName(), idx ) );
 
     RadiumEngine::getInstance()->getSignalManager()->fireEntityCreated( ItemEntry( ent.get() ) );
     return ent.get();
@@ -57,7 +57,7 @@ bool EntityManager::entityExists( const std::string& name ) const {
     return m_entitiesName.find( name ) != m_entitiesName.end();
 }
 
-void EntityManager::removeEntity( Core::Index idx ) {
+void EntityManager::removeEntity( Core::Container::Index idx ) {
     CORE_ASSERT( idx.isValid() && m_entities.contains( idx ),
                  "Trying to remove an entity that has not been added to the manager." );
 
@@ -71,7 +71,7 @@ void EntityManager::removeEntity( Entity* entity ) {
     removeEntity( entity->idx );
 }
 
-Entity* EntityManager::getEntity( Core::Index idx ) const {
+Entity* EntityManager::getEntity( Core::Container::Index idx ) const {
     CORE_ASSERT( idx.isValid(), "Trying to access an invalid component." );
 
     Entity* ent = nullptr;

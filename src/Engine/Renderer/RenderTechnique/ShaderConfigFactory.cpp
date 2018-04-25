@@ -2,7 +2,7 @@
 
 #include <map>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -17,7 +17,7 @@ void addConfiguration( const ShaderConfiguration& config ) {
 void addConfiguration( const std::string& name, const ShaderConfiguration& config ) {
     if ( name.empty() )
     {
-        LOG( logWARNING ) << "Empty name in ShaderConfigurationFactory::addConfiguration call.";
+        LOG( Core::Utils::logWARNING ) << "Empty name in ShaderConfigurationFactory::addConfiguration call.";
         return;
     }
 
@@ -27,7 +27,7 @@ void addConfiguration( const std::string& name, const ShaderConfiguration& confi
 ShaderConfiguration getConfiguration( const std::string& name ) {
     if ( name.empty() )
     {
-        LOG( logWARNING ) << "Empty name in ShaderConfigurationFactory::getConfiguration call.";
+        LOG( Core::Utils::logWARNING ) << "Empty name in ShaderConfigurationFactory::getConfiguration call.";
         return ShaderConfiguration();
     }
 
@@ -39,7 +39,7 @@ ShaderConfiguration getConfiguration( const std::string& name ) {
     {
         // Instead of creating a inconsistant configuration, warn and return a default one
         // default configuration is defined as a static member of ShaderConfiguration
-        LOG( logWARNING ) << "ShaderConfiguration \"" << name
+        LOG( Core::Utils::logWARNING ) << "ShaderConfiguration \"" << name
                           << "\" has not been registered. Return default (added to the factory).";
         /*
          const ShaderConfiguration config(name);

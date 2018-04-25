@@ -24,11 +24,11 @@ void Gui::CameraInterface::resizeViewport( uint width, uint height ) {
     m_camera->resize( Scalar( width ), Scalar( height ) );
 }
 
-Core::Matrix4 Gui::CameraInterface::getProjMatrix() const {
+Core::Math::Matrix4 Gui::CameraInterface::getProjMatrix() const {
     return m_camera->getProjMatrix();
 }
 
-Core::Matrix4 Gui::CameraInterface::getViewMatrix() const {
+Core::Math::Matrix4 Gui::CameraInterface::getViewMatrix() const {
     return m_camera->getViewMatrix();
 }
 
@@ -52,7 +52,7 @@ void Gui::CameraInterface::setCameraZFar( double zFar ) {
     m_camera->setZFar( zFar );
 }
 
-void Gui::CameraInterface::mapCameraBehaviourToAabb( const Core::Aabb& aabb ) {
+void Gui::CameraInterface::mapCameraBehaviourToAabb( const Core::Math::Aabb& aabb ) {
     m_targetedAabb = aabb;
     m_targetedAabbVolume = aabb.volume();
     m_mapCameraBahaviourToAabb = true;
@@ -65,7 +65,7 @@ void Gui::CameraInterface::unmapCameraBehaviourToAabb() {
 void Gui::CameraInterface::attachLight( Engine::Light* light ) {
     m_light = light;
     m_hasLightAttached = true;
-    m_light->setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
+    m_light->setDirection( Core::Math::Vector3( 0.3f, -1.0f, 0.0f ) );
 }
 
 const Engine::Camera& Gui::CameraInterface::getCameraFromViewer( QObject* v ) {

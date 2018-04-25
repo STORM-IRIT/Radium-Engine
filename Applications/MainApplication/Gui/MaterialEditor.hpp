@@ -5,7 +5,7 @@
 
 #include <memory>
 
-#include <Core/Index/Index.hpp>
+#include <Core/Container/Index.hpp>
 //#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 #include <ui_MaterialEditor.h>
@@ -31,7 +31,7 @@ class MaterialEditor : public QWidget, private Ui::MaterialEditor {
   public:
     MaterialEditor( QWidget* parent = nullptr );
 
-    void changeRenderObject( Ra::Core::Index roIdx );
+    void changeRenderObject( Ra::Core::Container::Index roIdx );
 
   private slots:
     void updateMaterialViz();
@@ -54,7 +54,7 @@ class MaterialEditor : public QWidget, private Ui::MaterialEditor {
     Engine::RadiumEngine* m_engine;
     Engine::RenderObjectManager* m_roMgr;
 
-    Core::Index m_roIdx;
+    Core::Container::Index m_roIdx;
     std::shared_ptr<Engine::RenderObject> m_renderObject;
 
     /// TODO generalize material editor to others materials

@@ -24,9 +24,9 @@ GizmoManager::GizmoManager( QObject* parent ) :
     m_currentGizmoType( NONE ),
     m_mode( Gizmo::GLOBAL ) {
     m_gizmos[0].reset( new TranslateGizmo( Engine::SystemEntity::uiCmp(),
-                                           Ra::Core::Transform::Identity(), m_transform, m_mode ) );
+                                           Ra::Core::Math::Transform::Identity(), m_transform, m_mode ) );
     m_gizmos[1].reset( new RotateGizmo( Engine::SystemEntity::uiCmp(),
-                                        Ra::Core::Transform::Identity(), m_transform, m_mode ) );
+                                        Ra::Core::Math::Transform::Identity(), m_transform, m_mode ) );
     m_gizmos[2].reset( nullptr ); // add scale gizmo when implemented
     for ( auto& g : m_gizmos )
     {
@@ -55,7 +55,7 @@ void GizmoManager::updateGizmo() {
 
     if ( canEdit() )
     {
-        Core::Transform worldTransform = getWorldTransform();
+        Core::Math::Transform worldTransform = getWorldTransform();
         auto g = currentGizmo();
         if ( g )
         {
@@ -101,7 +101,7 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event ) {
     // *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
     const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
     currentGizmo()->setInitialState( cam,
-                                     Core::Vector2( Scalar( event->x() ), Scalar( event->y() ) ) );
+                                     Core::Math::Vector2( Scalar( event->x() ), Scalar( event->y() ) ) );
 
     return true;
 }
@@ -121,11 +121,11 @@ bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event ) {
                                 Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) &&
          currentGizmo() )
     {
-        Core::Vector2 currentXY( event->x(), event->y() );
+        Core::Math::Vector2 currentXY( event->x(), event->y() );
         // const Engine::Camera& cam =
         // *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
         const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
-        Core::Transform newTransform = currentGizmo()->mouseMove(
+        Core::Math::Transform newTransform = currentGizmo()->mouseMove(
             cam, currentXY, event->modifiers().testFlag( Qt::ControlModifier ) );
         setTransform( newTransform );
     }

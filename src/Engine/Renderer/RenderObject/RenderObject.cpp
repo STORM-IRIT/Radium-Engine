@@ -2,7 +2,7 @@
 
 #include <Engine/RadiumEngine.hpp>
 
-#include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Geometry/MeshUtils.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -20,8 +20,8 @@ namespace Ra {
 namespace Engine {
 RenderObject::RenderObject( const std::string& name, Component* comp, const RenderObjectType& type,
                             int lifetime ) :
-    IndexedObject(),
-    m_localTransform( Core::Transform::Identity() ),
+    Core::Container::IndexedObject(),
+    m_localTransform( Core::Math::Transform::Identity() ),
     m_component( comp ),
     m_name( name ),
     m_type( type ),
@@ -173,43 +173,43 @@ const std::shared_ptr<Mesh>& RenderObject::getMesh() {
     return m_mesh;
 }
 
-Core::Transform RenderObject::getTransform() const {
+Core::Math::Transform RenderObject::getTransform() const {
     return m_component->getEntity()->getTransform() * m_localTransform;
 }
 
-Core::Matrix4 RenderObject::getTransformAsMatrix() const {
+Core::Math::Matrix4 RenderObject::getTransformAsMatrix() const {
     return getTransform().matrix();
 }
 
-Core::Aabb RenderObject::getAabb() const {
-    Core::Aabb aabb = Core::MeshUtils::getAabb( m_mesh->getGeometry() );
-    Core::Aabb result;
+Core::Math::Aabb RenderObject::getAabb() const {
+    Core::Math::Aabb aabb = Core::Geometry::getAabb( m_mesh->getGeometry() );
+    Core::Math::Aabb result;
 
     for ( int i = 0; i < 8; ++i )
     {
-        result.extend( getTransform() * aabb.corner( (Core::Aabb::CornerType)i ) );
+        result.extend( getTransform() * aabb.corner( (Core::Math::Aabb::CornerType)i ) );
     }
 
     return result;
 }
 
-Core::Aabb RenderObject::getMeshAabb() const {
-    return Core::MeshUtils::getAabb( m_mesh->getGeometry() );
+Core::Math::Aabb RenderObject::getMeshAabb() const {
+    return Core::Geometry::getAabb( m_mesh->getGeometry() );
 }
 
-void RenderObject::setLocalTransform( const Core::Transform& transform ) {
+void RenderObject::setLocalTransform( const Core::Math::Transform& transform ) {
     m_localTransform = transform;
 }
 
-void RenderObject::setLocalTransform( const Core::Matrix4& transform ) {
-    m_localTransform = Core::Transform( transform );
+void RenderObject::setLocalTransform( const Core::Math::Matrix4& transform ) {
+    m_localTransform = Core::Math::Transform( transform );
 }
 
-const Core::Transform& RenderObject::getLocalTransform() const {
+const Core::Math::Transform& RenderObject::getLocalTransform() const {
     return m_localTransform;
 }
 
-const Core::Matrix4& RenderObject::getLocalTransformAsMatrix() const {
+const Core::Math::Matrix4& RenderObject::getLocalTransformAsMatrix() const {
     return m_localTransform.matrix();
 }
 
@@ -236,8 +236,8 @@ void RenderObject::render( const RenderParameters& lightParams, const RenderData
             return;
         }
 
-        Core::Matrix4 M = getTransformAsMatrix();
-        Core::Matrix4 N = M.inverse().transpose();
+        Core::Math::Matrix4 M = getTransformAsMatrix();
+        Core::Math::Matrix4 N = M.inverse().transpose();
 
         // bind data
         shader->bind();

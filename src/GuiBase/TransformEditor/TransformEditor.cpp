@@ -27,7 +27,7 @@ bool TransformEditor::canEdit() const {
              m_currentEdit.m_component->canEdit( m_currentEdit.m_roIndex ) );
 }
 
-void TransformEditor::setTransform( const Ra::Core::Transform& tr ) {
+void TransformEditor::setTransform( const Ra::Core::Math::Transform& tr ) {
     if ( canEdit() )
     {
         if ( m_currentEdit.isEntityNode() )
@@ -38,8 +38,8 @@ void TransformEditor::setTransform( const Ra::Core::Transform& tr ) {
     }
 }
 
-Core::Transform TransformEditor::getWorldTransform() const {
-    return m_currentEdit.isEntityNode() ? Ra::Core::Transform::Identity()
+Core::Math::Transform TransformEditor::getWorldTransform() const {
+    return m_currentEdit.isEntityNode() ? Ra::Core::Math::Transform::Identity()
                                         : m_currentEdit.m_entity->getTransform();
 }
 

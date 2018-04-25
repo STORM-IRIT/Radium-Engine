@@ -4,6 +4,9 @@
 #include <Engine/RaEngine.hpp>
 
 #include <Core/Utils/Singleton.hpp>
+#include <Core/Asset/FileData.hpp>
+#include <Core/Utils/TaskQueue.hpp>
+#include <Core/Asset/FileLoaderInterface.hpp>
 
 #include <map>
 #include <vector>
@@ -12,12 +15,17 @@
 
 namespace Ra {
 namespace Core {
+namespace Utils {
 class TaskQueue;
+} // namespace Utils
+
 struct MouseEvent;
 struct KeyEvent;
+
 } // namespace Core
 
 namespace Engine {
+
 class System;
 class Entity;
 class Component;
@@ -25,6 +33,7 @@ class Mesh;
 class RenderObjectManager;
 class EntityManager;
 class SignalManager;
+
 } // namespace Engine
 
 namespace Asset {
@@ -35,6 +44,7 @@ class FileData;
 
 namespace Ra {
 namespace Engine {
+
 class RA_ENGINE_API RadiumEngine {
     RA_SINGLETON_INTERFACE( RadiumEngine );
 
@@ -45,7 +55,7 @@ class RA_ENGINE_API RadiumEngine {
     void initialize();
     void cleanup();
 
-    void getTasks( Core::TaskQueue* taskQueue, Scalar dt );
+    void getTasks( Core::Utils::TaskQueue* taskQueue, Scalar dt );
 
     void registerSystem( const std::string& name, System* system );
     System* getSystem( const std::string& system ) const;
@@ -76,7 +86,7 @@ class RA_ENGINE_API RadiumEngine {
      * @pre The Engine must be in "loading state".
      * @return
      */
-    const Asset::FileData& getFileData() const;
+    const Core::Asset::FileData& getFileData() const;
 
     /**
      * Release the content of the loaded file.
@@ -94,19 +104,19 @@ class RA_ENGINE_API RadiumEngine {
     EntityManager* getEntityManager() const;
     SignalManager* getSignalManager() const;
 
-    void registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface> fileLoader );
+    void registerFileLoader( std::shared_ptr<Core::Asset::FileLoaderInterface> fileLoader );
 
-    const std::vector<std::shared_ptr<Asset::FileLoaderInterface>>& getFileLoaders() const;
+    const std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>>& getFileLoaders() const;
 
   private:
     std::map<std::string, std::shared_ptr<System>> m_systems;
 
-    std::vector<std::shared_ptr<Asset::FileLoaderInterface>> m_fileLoaders;
+    std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>> m_fileLoaders;
 
     std::unique_ptr<RenderObjectManager> m_renderObjectManager;
     std::unique_ptr<EntityManager> m_entityManager;
     std::unique_ptr<SignalManager> m_signalManager;
-    std::unique_ptr<Asset::FileData> m_loadedFile;
+    std::unique_ptr<Core::Asset::FileData> m_loadedFile;
 
     bool m_loadingState = false;
 };

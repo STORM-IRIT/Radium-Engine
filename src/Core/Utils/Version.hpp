@@ -4,7 +4,8 @@
 #include <Core/RaCore.hpp>
 
 namespace Ra {
-namespace Version {
+namespace Core {
+namespace Utils {
 
 RA_CORE_API extern const char* compiler;
 RA_CORE_API extern const char* compileFlags;
@@ -17,7 +18,8 @@ RA_CORE_API extern const char* gitChangeSet;
 // extern const char* gitTag;
 // extern const char* gitVersion;
 // extern const char* versionName;
-} // namespace Version
+} // namespace Utils
+} // namespace Core
 } // namespace Ra
 
 #endif // RADIUMENGINE_VERSION_HPP

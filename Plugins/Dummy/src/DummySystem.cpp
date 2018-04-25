@@ -1,6 +1,6 @@
 #include "DummySystem.hpp"
 
-#include <Core/String/StringUtils.hpp>
+#include <Core/Utils/StringUtils.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Engine/Entity/Entity.hpp>

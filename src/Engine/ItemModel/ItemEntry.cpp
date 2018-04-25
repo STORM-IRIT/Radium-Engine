@@ -27,9 +27,9 @@ std::string getEntryName( const Engine::RadiumEngine* engine, const ItemEntry& e
     return "Invalid Entry";
 }
 
-std::vector<Ra::Core::Index> getItemROs( const Engine::RadiumEngine* engine,
+std::vector<Ra::Core::Container::Index> getItemROs( const Engine::RadiumEngine* engine,
                                          const ItemEntry& ent ) {
-    std::vector<Ra::Core::Index> result;
+    std::vector<Ra::Core::Container::Index> result;
     if ( ent.isValid() )
     {
         if ( ent.isRoNode() )

@@ -1,19 +1,19 @@
 
 namespace Ra {
 
-inline void Engine::SpotLight::setPosition( const Core::Vector3& position ) {
+inline void Engine::SpotLight::setPosition( const Core::Math::Vector3& position ) {
     m_position = position;
 }
 
-inline const Core::Vector3& Engine::SpotLight::getPosition() const {
+inline const Core::Math::Vector3& Engine::SpotLight::getPosition() const {
     return m_position;
 }
 
-inline void Engine::SpotLight::setDirection( const Core::Vector3& direction ) {
+inline void Engine::SpotLight::setDirection( const Core::Math::Vector3& direction ) {
     m_direction = direction.normalized();
 }
 
-inline const Core::Vector3& Engine::SpotLight::getDirection() const {
+inline const Core::Math::Vector3& Engine::SpotLight::getDirection() const {
     return m_direction;
 }
 

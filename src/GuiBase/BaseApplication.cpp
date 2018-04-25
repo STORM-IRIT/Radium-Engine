@@ -3,13 +3,13 @@
 #include <GuiBase/MainWindowInterface.hpp>
 
 #include <Core/CoreMacros.hpp>
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
-#include <Core/String/StringUtils.hpp>
-#include <Core/Tasks/Task.hpp>
-#include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Geometry/MeshUtils.hpp>
+#include <Core/Utils/StringUtils.hpp>
+#include <Core/Utils/Task.hpp>
+#include <Core/Utils/TaskQueue.hpp>
 #include <Core/Utils/Version.hpp>
 
 #include <Engine/Entity/Entity.hpp>
@@ -113,14 +113,14 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
 
     std::time_t startTime = std::time( nullptr );
     std::tm* startTm = std::localtime( &startTime );
-    Ra::Core::StringUtils::stringPrintf( m_exportFoldername, "%4u%02u%02u-%02u%02u",
+    Ra::Core::Utils::stringPrintf( m_exportFoldername, "%4u%02u%02u-%02u%02u",
                                          1900 + startTm->tm_year, startTm->tm_mon, startTm->tm_mday,
                                          startTm->tm_hour, startTm->tm_min );
 
     QDir().mkdir( m_exportFoldername.c_str() );
 
     // Boilerplate print.
-    LOG( logINFO ) << "*** Radium Engine Main App  ***";
+    LOG( Core::Utils::logINFO ) << "*** Radium Engine Main App  ***";
     std::stringstream config;
 #if defined( CORE_DEBUG )
     config << "Debug Build ";
@@ -138,7 +138,7 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
 #elif defined( ARCH_X64 )
     config << " 64 bits x64";
 #endif
-    LOG( logINFO ) << config.str();
+    LOG( Core::Utils::logINFO ) << config.str();
 
     config.str( std::string() );
     config << "Floating point format : ";
@@ -148,7 +148,7 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     config << "single precision";
 #endif
 
-    LOG( logINFO ) << config.str();
+    LOG( Core::Utils::logINFO ) << config.str();
 
     config.str( std::string() );
     config << "Texture support : ";
@@ -158,18 +158,18 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     config << "disabled";
 #endif
 
-    LOG( logINFO ) << config.str();
+    LOG( Core::Utils::logINFO ) << config.str();
 
     config.str( std::string() );
-    config << "core build: " << Version::compiler << " - " << Version::compileDate << " "
-           << Version::compileTime;
-    LOG( logINFO ) << config.str();
+    config << "core build: " << Core::Utils::compiler << " - " << Core::Utils::compileDate << " "
+           << Core::Utils::compileTime;
+    LOG( Core::Utils::logINFO ) << config.str();
 
-    LOG( logINFO ) << "Git changeset: " << Version::gitChangeSet;
+    LOG( Core::Utils::logINFO ) << "Git changeset: " << Core::Utils::gitChangeSet;
 
-    LOG( logINFO ) << "Qt Version: " << qVersion();
+    LOG( Core::Utils::logINFO ) << "Qt Version: " << qVersion();
 
-    LOG( logINFO ) << "Max Thread: " << m_maxThreads;
+    LOG( Core::Utils::logINFO ) << "Max Thread: " << m_maxThreads;
 
     // Create default format for Qt.
     QSurfaceFormat format;
@@ -210,7 +210,7 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     if ( !loadPlugins( pluginsPath, parser.values( pluginLoadOpt ),
                        parser.values( pluginIgnoreOpt ) ) )
     {
-        LOG( logERROR ) << "An error occurred while trying to load plugins.";
+        LOG( Core::Utils::logERROR ) << "An error occurred while trying to load plugins.";
     }
 
     // Make builtin loaders the fallback if no plugins can load some file format
@@ -218,18 +218,18 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     // Register before AssimpFileLoader, in order to ease override of such
     // custom loader (first loader able to load is taking the file)
     m_engine->registerFileLoader(
-        std::shared_ptr<Asset::FileLoaderInterface>( new IO::TinyPlyFileLoader() ) );
+        std::shared_ptr<Core::Asset::FileLoaderInterface>( new IO::TinyPlyFileLoader() ) );
 #endif
 #ifdef IO_USE_ASSIMP
     m_engine->registerFileLoader(
-        std::shared_ptr<Asset::FileLoaderInterface>( new IO::AssimpFileLoader() ) );
+        std::shared_ptr<Core::Asset::FileLoaderInterface>( new IO::AssimpFileLoader() ) );
 #endif
 
     // Create task queue with N-1 threads (we keep one for rendering),
     // unless monothread CPU
     uint numThreads =
         std::max( m_maxThreads == 0 ? RA_MAX_THREAD : std::min( m_maxThreads, RA_MAX_THREAD ), 1u );
-    m_taskQueue.reset( new Core::TaskQueue( numThreads ) );
+    m_taskQueue.reset( new Core::Utils::TaskQueue( numThreads ) );
 
     setupScene();
     emit starting();
@@ -240,7 +240,7 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
         loadFile( parser.value( fileOpt ) );
     }
 
-    m_lastFrameStart = Core::Timer::Clock::now();
+    m_lastFrameStart = Core::Utils::Clock::now();
 }
 
 void BaseApplication::createConnections() {
@@ -255,13 +255,13 @@ void BaseApplication::setupScene() {
     using namespace Engine::DrawPrimitives;
 
     auto grid = Primitive( Engine::SystemEntity::uiCmp(),
-                           Grid( Core::Vector3::Zero(), Core::Vector3::UnitX(),
-                                 Core::Vector3::UnitZ(), Core::Colors::Grey( 0.6f ) ) );
+                           Grid( Core::Math::Vector3::Zero(), Core::Math::Vector3::UnitX(),
+                                 Core::Math::Vector3::UnitZ(), Core::Math::Grey( 0.6f ) ) );
     grid->setPickable( false );
     Engine::SystemEntity::uiCmp()->addRenderObject( grid );
 
     auto frame =
-        Primitive( Engine::SystemEntity::uiCmp(), Frame( Ra::Core::Transform::Identity(), 0.05f ) );
+        Primitive( Engine::SystemEntity::uiCmp(), Frame( Ra::Core::Math::Transform::Identity(), 0.05f ) );
     frame->setPickable( false );
     Engine::SystemEntity::uiCmp()->addRenderObject( frame );
 
@@ -280,12 +280,12 @@ void BaseApplication::setupScene() {
 
 void BaseApplication::loadFile( QString path ) {
     std::string pathStr = path.toLocal8Bit().data();
-    LOG( logINFO ) << "Loading file " << pathStr << "...";
+    LOG( Core::Utils::logINFO ) << "Loading file " << pathStr << "...";
     bool res = m_engine->loadFile( pathStr );
 
     if ( !res )
     {
-        LOG( logERROR ) << "Aborting file loading !";
+        LOG( Core::Utils::logERROR ) << "Aborting file loading !";
 
         return;
     }
@@ -334,18 +334,18 @@ void BaseApplication::addBasicShaders() {
 
 void BaseApplication::radiumFrame() {
     FrameTimerData timerData;
-    timerData.frameStart = Core::Timer::Clock::now();
+    timerData.frameStart = Core::Utils::Clock::now();
 
     // ----------
     // 0. Compute time since last frame.
     const Scalar dt =
-        m_realFrameRate ? Core::Timer::getIntervalSeconds( m_lastFrameStart, timerData.frameStart )
+        m_realFrameRate ? Core::Utils::getIntervalSeconds( m_lastFrameStart, timerData.frameStart )
                         : 1.f / Scalar( m_targetFPS );
     m_lastFrameStart = timerData.frameStart;
 
-    timerData.eventsStart = Core::Timer::Clock::now();
+    timerData.eventsStart = Core::Utils::Clock::now();
     processEvents();
-    timerData.eventsEnd = Core::Timer::Clock::now();
+    timerData.eventsEnd = Core::Utils::Clock::now();
 
     // ----------
     // 1. Gather user input and dispatch it.
@@ -357,7 +357,7 @@ void BaseApplication::radiumFrame() {
     // 2. Kickoff rendering
     m_viewer->startRendering( dt );
 
-    timerData.tasksStart = Core::Timer::Clock::now();
+    timerData.tasksStart = Core::Utils::Clock::now();
 
     // ----------
     // 3. Run the engine task queue.
@@ -374,7 +374,7 @@ void BaseApplication::radiumFrame() {
     timerData.taskData = m_taskQueue->getTimerData();
     m_taskQueue->flushTaskQueue();
 
-    timerData.tasksEnd = Core::Timer::Clock::now();
+    timerData.tasksEnd = Core::Utils::Clock::now();
 
     // ----------
     // 4. Wait until frame is fully rendered and display.
@@ -388,7 +388,7 @@ void BaseApplication::radiumFrame() {
 
     // ----------
     // 6. Frame end.
-    timerData.frameEnd = Core::Timer::Clock::now();
+    timerData.frameEnd = Core::Utils::Clock::now();
     timerData.numFrame = m_frameCounter;
 
     if ( m_recordTimings )
@@ -420,7 +420,7 @@ void BaseApplication::radiumFrame() {
 }
 
 void BaseApplication::appNeedsToQuit() {
-    LOG( logDEBUG ) << "About to quit.";
+    LOG( Core::Utils::logDEBUG ) << "About to quit.";
     m_isAboutToQuit = true;
 }
 
@@ -453,7 +453,7 @@ void BaseApplication::setRecordFrames( bool on ) {
 
 void BaseApplication::recordFrame() {
     std::string filename;
-    Ra::Core::StringUtils::stringPrintf( filename, "%s/radiumframe_%06u.png",
+    Ra::Core::Utils::stringPrintf( filename, "%s/radiumframe_%06u.png",
                                          m_exportFoldername.c_str(), m_frameCounter );
     m_viewer->grabFrame( filename );
 }
@@ -470,16 +470,16 @@ BaseApplication::~BaseApplication() {
 bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QStringList& loadList,
                                    const QStringList& ignoreList ) {
     QDir pluginsDir( qApp->applicationDirPath() );
-    LOG( logINFO ) << " *** Loading Plugins ***";
+    LOG( Core::Utils::logINFO ) << " *** Loading Plugins ***";
     bool result = pluginsDir.cd( pluginsPath.c_str() );
 
     if ( !result )
     {
-        LOG( logERROR ) << "Cannot open specified plugins directory " << pluginsPath;
+        LOG( Core::Utils::logERROR ) << "Cannot open specified plugins directory " << pluginsPath;
         return false;
     }
 
-    LOG( logDEBUG ) << "Plugin directory :" << pluginsDir.absolutePath().toStdString();
+    LOG( Core::Utils::logDEBUG ) << "Plugin directory :" << pluginsDir.absolutePath().toStdString();
     bool res = true;
     uint pluginCpt = 0;
 
@@ -492,7 +492,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
     for ( const auto& filename : pluginsDir.entryList( QDir::Files ) )
     {
 
-        std::string ext = Core::StringUtils::getFileExt( filename.toStdString() );
+        std::string ext = Core::Utils::getFileExt( filename.toStdString() );
 #if defined( OS_WINDOWS )
         std::string sysDllExt = "dll";
 #elif defined( OS_LINUX )
@@ -504,7 +504,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
 #endif
         if ( ext == sysDllExt )
         {
-            std::string basename = Core::StringUtils::getBaseName( filename.toStdString(), false );
+            std::string basename = Core::Utils::getBaseName( filename.toStdString(), false );
 
             auto stringCmp = [basename]( const QString& str ) {
                 return str.toStdString() == basename;
@@ -513,13 +513,13 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
             if ( !loadList.empty() &&
                  std::find_if( loadList.begin(), loadList.end(), stringCmp ) == loadList.end() )
             {
-                LOG( logDEBUG ) << "Ignoring " << filename.toStdString() << " (not on load list)";
+                LOG( Core::Utils::logDEBUG ) << "Ignoring " << filename.toStdString() << " (not on load list)";
                 continue;
             }
             if ( std::find_if( ignoreList.begin(), ignoreList.end(), stringCmp ) !=
                  ignoreList.end() )
             {
-                LOG( logDEBUG ) << "Ignoring " << filename.toStdString() << " (on ignore list)";
+                LOG( Core::Utils::logDEBUG ) << "Ignoring " << filename.toStdString() << " (on ignore list)";
                 continue;
             }
 
@@ -527,7 +527,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
             // Force symbol resolution at load time.
             pluginLoader.setLoadHints( QLibrary::ResolveAllSymbolsHint );
 
-            LOG( logINFO ) << "Found plugin " << filename.toStdString();
+            LOG( Core::Utils::logINFO ) << "Found plugin " << filename.toStdString();
 
             QObject* plugin = pluginLoader.instance();
             Plugins::RadiumPluginInterface* loadedPlugin;
@@ -556,7 +556,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
 
                     if ( loadedPlugin->doAddFileLoader() )
                     {
-                        std::vector<std::shared_ptr<Asset::FileLoaderInterface>> tmpL;
+                        std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>> tmpL;
                         loadedPlugin->addFileLoaders( &tmpL );
                         CORE_ASSERT( !tmpL.empty(), "This plugin is expected to add file loaders" );
                         for ( auto ptr : tmpL )
@@ -569,7 +569,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
                     {
                         if ( m_viewer->isOpenGlInitialized() )
                         {
-                            LOG( logINFO ) << "Direct OpenGL initialization for plugin "
+                            LOG( Core::Utils::logINFO ) << "Direct OpenGL initialization for plugin "
                                            << filename.toStdString();
                             // OpenGL is ready, initialize openGL part of the plugin
                             m_viewer->makeCurrent();
@@ -578,20 +578,20 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
                         } else
                         {
                             // Defer OpenGL initialisation
-                            LOG( logINFO ) << "Defered OpenGL initialization for plugin "
+                            LOG( Core::Utils::logINFO ) << "Defered OpenGL initialization for plugin "
                                            << filename.toStdString();
                             m_openGLPlugins.push_back( loadedPlugin );
                         }
                     }
                 } else
                 {
-                    LOG( logERROR ) << "Something went wrong while trying to cast plugin"
+                    LOG( Core::Utils::logERROR ) << "Something went wrong while trying to cast plugin"
                                     << filename.toStdString();
                     res = false;
                 }
             } else
             {
-                LOG( logERROR ) << "Something went wrong while trying to load plugin "
+                LOG( Core::Utils::logERROR ) << "Something went wrong while trying to load plugin "
                                 << filename.toStdString() << " : "
                                 << pluginLoader.errorString().toStdString();
                 res = false;
@@ -601,9 +601,9 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
 
     if ( pluginCpt == 0 )
     {
-        LOG( logINFO ) << "No plugin found or loaded.";
+        LOG( Core::Utils::logINFO ) << "No plugin found or loaded.";
     } else
-    { LOG( logINFO ) << "Loaded " << pluginCpt << " plugins."; }
+    { LOG( Core::Utils::logINFO ) << "Loaded " << pluginCpt << " plugins."; }
 
     return res;
 }

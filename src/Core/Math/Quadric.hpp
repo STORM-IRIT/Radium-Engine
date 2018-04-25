@@ -8,6 +8,8 @@
 
 namespace Ra {
 namespace Core {
+namespace Math {
+
 
 /// A representation for quadratic equation as
 /// v^T A v + 2 b^T v + c
@@ -81,8 +83,8 @@ class Quadric {
     double m_c;
 };
 
+} // namespace Math
 } // namespace Core
-
 } // namespace Ra
 
 #include <Core/Math/Quadric.inl>

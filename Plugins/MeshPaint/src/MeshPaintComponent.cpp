@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <Core/Math/ColorPresets.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
-#include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Geometry/MeshUtils.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Utils/TaskQueue.hpp>
 
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
@@ -24,7 +24,7 @@ MeshPaintComponent::MeshPaintComponent( const std::string& name, Ra::Engine::Ent
 
 MeshPaintComponent::~MeshPaintComponent() {}
 
-void MeshPaintComponent::addTasks( Ra::Core::TaskQueue* taskQueue,
+void MeshPaintComponent::addTasks( Ra::Core::Utils::TaskQueue* taskQueue,
                                    const Ra::Engine::FrameInfo& info ) {}
 
 void MeshPaintComponent::setDataId( const std::string& id ) {
@@ -34,22 +34,22 @@ void MeshPaintComponent::setDataId( const std::string& id ) {
 void MeshPaintComponent::initialize() {
     auto compMess = Ra::Engine::ComponentMessenger::getInstance();
     // Look for the data we need
-    bool geometryData = compMess->canGet<Ra::Core::TriangleMesh>( getEntity(), m_dataId );
+    bool geometryData = compMess->canGet<Ra::Core::Geometry::TriangleMesh>( getEntity(), m_dataId );
 
     if ( !geometryData )
     {
-        LOG( logWARNING ) << "Cannot initialize MeshPaint Component: no geometry data."
+        LOG( Ra::Core::Utils::logWARNING ) << "Cannot initialize MeshPaint Component: no geometry data."
                           << std::endl;
         return;
     }
 
-    m_renderObjectReader = compMess->getterCallback<Ra::Core::Index>( getEntity(), m_dataId );
+    m_renderObjectReader = compMess->getterCallback<Ra::Core::Container::Index>( getEntity(), m_dataId );
 
     auto ro = getRoMgr()->getRenderObject( *m_renderObjectReader() );
     m_baseConfig = ro->getRenderTechnique()->getConfiguration();
     m_baseColors = ro->getMesh()->getData( Ra::Engine::Mesh::VERTEX_COLOR );
     m_paintColors.resize( ro->getMesh()->getGeometry().m_vertices.size(),
-                          Ra::Core::Colors::Skin() );
+                          Ra::Core::Math::Skin() );
     ro->getMesh()->addData( Ra::Engine::Mesh::VERTEX_COLOR, m_paintColors );
 }
 
@@ -68,7 +68,7 @@ void MeshPaintComponent::startPaint( bool on ) {
 }
 
 void MeshPaintComponent::paintMesh( const Ra::Engine::Renderer::PickingResult& picking,
-                                    const Ra::Core::Color& color ) {
+                                    const Ra::Core::Math::Color& color ) {
     // check it's for us
     if ( *m_renderObjectReader() != picking.m_roIdx || picking.m_mode == Ra::Engine::Renderer::RO )
     {

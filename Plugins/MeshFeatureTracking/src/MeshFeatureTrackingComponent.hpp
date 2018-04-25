@@ -29,11 +29,11 @@ class MeshFeatureTrackingComponent : public Ra::Engine::Component {
 
     FeatureData getFeatureData() const;
     Scalar getFeatureScale() const;
-    Ra::Core::Vector3 getFeatureVector() const;
-    Ra::Core::Vector3 getFeaturePosition() const;
+    Ra::Core::Math::Vector3 getFeatureVector() const;
+    Ra::Core::Math::Vector3 getFeaturePosition() const;
 
     /// Registers the new center for the sphere.
-    void setPosition( Ra::Core::Vector3 position );
+    void setPosition( Ra::Core::Math::Vector3 position );
     /// Registers the new scale for the sphere.
     void setScale( Scalar scale );
 

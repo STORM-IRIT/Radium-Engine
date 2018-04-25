@@ -1,6 +1,6 @@
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <map>
 
@@ -41,7 +41,7 @@ std::pair<bool, ConverterFunction> getMaterialConverter( const std::string& name
         return {true, search->second};
     }
     auto result = std::make_pair( false, [name]( AssetMaterialPtr ) -> RadiumMaterialPtr {
-        LOG( logERROR ) << "Required material converter " << name << " not found!";
+        LOG( Core::Utils::logERROR ) << "Required material converter " << name << " not found!";
         return nullptr;
     } );
     return result;

@@ -10,7 +10,7 @@
 namespace Ra {
 namespace Gui {
 
-/// A small Qt widget to edit a vector3 value.
+/// A small Qt widget to edit a Math::Vector3 value.
 class VectorEditor : public QWidget, private Ui::VectorEditor {
     Q_OBJECT
   public:
@@ -37,7 +37,7 @@ class VectorEditor : public QWidget, private Ui::VectorEditor {
     }
 
     /// Manually set a new value for the vector.
-    void setValue( const Core::Vector3& vec ) {
+    void setValue( const Core::Math::Vector3& vec ) {
         m_x->setValue( vec.x() );
         m_y->setValue( vec.y() );
         m_z->setValue( vec.z() );
@@ -45,13 +45,13 @@ class VectorEditor : public QWidget, private Ui::VectorEditor {
 
   signals:
     /// Emitted when the value changes through the UI.
-    void valueChanged( const Core::Vector3& newValue, uint id );
+    void valueChanged( const Core::Math::Vector3& newValue, uint id );
 
   private slots:
 
     /// Listens to the spin box changes and fires the signal.
     void onValueChangedInternal() {
-        Core::Vector3 v( m_x->value(), m_y->value(), m_z->value() );
+        Core::Math::Vector3 v( m_x->value(), m_y->value(), m_z->value() );
         emit valueChanged( v, m_id );
     };
 

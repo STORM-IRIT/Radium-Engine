@@ -1,5 +1,7 @@
 namespace Ra {
 namespace Core {
+namespace Math {
+
 
 inline void print( const MatrixN& matrix ) {
     // Taken straight from :
@@ -97,7 +99,7 @@ inline Quaternion QuaternionUtils::add( const Quaternion& q1, const Quaternion& 
 }
 
 inline Quaternion QuaternionUtils::addQlerp( const Quaternion& q1, const Quaternion& q2 ) {
-    const Scalar sign = Ra::Core::Math::signNZ( q1.dot( q2 ) );
+    const Scalar sign = signNZ( q1.dot( q2 ) );
     return Quaternion( q1.coeffs() + ( sign * q2.coeffs() ) );
 }
 
@@ -129,7 +131,7 @@ inline Vector3 Vector::projectOnPlane( const Vector3& planePos, const Vector3& p
 }
 
 template <typename Vector_>
-Vector_ Ra::Core::Vector::slerp( const Vector_& v1, const Vector_& v2, Scalar t ) {
+Vector_ Vector::slerp( const Vector_& v1, const Vector_& v2, Scalar t ) {
     const Scalar dot = v1.dot( v2 );
     const Scalar theta = t * angle( v1, v2 );
     const Vector_ relativeVec = ( v2 - v1 * dot ).normalized();
@@ -239,6 +241,7 @@ bool checkInvalidNumbers( Eigen::Ref<const Matrix_> matrix, const bool FAIL_ON_A
 }
 } // namespace MatrixUtils
 
+} // namespace Math
 } // namespace Core
 } // namespace Ra
 
@@ -250,18 +253,18 @@ bool checkInvalidNumbers( Eigen::Ref<const Matrix_> matrix, const bool FAIL_ON_A
 
 namespace Eigen {
 inline Quaternion<Scalar> operator*( Scalar k, const Quaternion<Scalar>& q ) {
-    return Ra::Core::QuaternionUtils::scale( q, k );
+    return Ra::Core::Math::QuaternionUtils::scale( q, k );
 }
 
 inline Quaternion<Scalar> operator*( const Quaternion<Scalar>& q, Scalar k ) {
-    return Ra::Core::QuaternionUtils::scale( q, k );
+    return Ra::Core::Math::QuaternionUtils::scale( q, k );
 }
 
 inline Quaternion<Scalar> operator+( const Quaternion<Scalar>& q1, const Quaternion<Scalar>& q2 ) {
-    return Ra::Core::QuaternionUtils::add( q1, q2 );
+    return Ra::Core::Math::QuaternionUtils::add( q1, q2 );
 }
 
 inline Quaternion<Scalar> operator/( const Quaternion<Scalar>& q, Scalar k ) {
-    return Ra::Core::QuaternionUtils::scale( q, Scalar( 1 ) / k );
+    return Ra::Core::Math::QuaternionUtils::scale( q, Scalar( 1 ) / k );
 }
 } // namespace Eigen

@@ -37,35 +37,35 @@ class RA_ENGINE_API Camera final {
 
     /// Return the frame of the camera.
     /// Where Y is the up vector and -Z is the direction vector.
-    inline Core::Transform getFrame() const;
+    inline Core::Math::Transform getFrame() const;
 
     /// Set the frame of the camera to 'frame'
-    inline void setFrame( const Core::Transform& frame );
+    inline void setFrame( const Core::Math::Transform& frame );
 
     /// Return the position.
-    inline Core::Vector3 getPosition() const;
+    inline Core::Math::Vector3 getPosition() const;
 
     /// Set the position of the camera to 'position'.
-    inline void setPosition( const Core::Vector3& position );
+    inline void setPosition( const Core::Math::Vector3& position );
 
     /// Return the direction the camera is looking at.
-    inline Core::Vector3 getDirection() const;
+    inline Core::Math::Vector3 getDirection() const;
 
     /// Set the direction of the camera to 'direction'.
     /// The other vectors will be rotated accordingly.
-    inline void setDirection( const Core::Vector3& direction );
+    inline void setDirection( const Core::Math::Vector3& direction );
 
     /// Return the up vector.
-    inline Core::Vector3 getUpVector() const;
+    inline Core::Math::Vector3 getUpVector() const;
 
     /// Set the up vector of the camera to 'upVector'.
     /// The other vectors will be rotated accordingly.
-    inline void setUpVector( const Core::Vector3& upVector );
+    inline void setUpVector( const Core::Math::Vector3& upVector );
 
-    inline Core::Vector3 getRightVector() const;
+    inline Core::Math::Vector3 getRightVector() const;
 
     /// Apply the transformation 'T' to the camera.
-    void applyTransform( const Core::Transform& T );
+    void applyTransform( const Core::Math::Transform& T );
 
     //
     // Getters and setters for projection matrix parameters.
@@ -116,10 +116,10 @@ class RA_ENGINE_API Camera final {
     //
 
     /// Return the view matrix.
-    inline Core::Matrix4 getViewMatrix() const;
+    inline Core::Math::Matrix4 getViewMatrix() const;
 
     /// Return the projection matrix.
-    inline Core::Matrix4 getProjMatrix() const;
+    inline Core::Math::Matrix4 getProjMatrix() const;
 
     /// Update the projection matrix according to the current parameters.
     void updateProjMatrix();
@@ -133,17 +133,17 @@ class RA_ENGINE_API Camera final {
 
     /// Return a ray emanating from the camera, passing by the point given by
     /// screen coordinates x and y.
-    Core::Ray getRayFromScreen( const Core::Vector2& pix ) const;
+    Core::Math::Ray getRayFromScreen( const Core::Math::Vector2& pix ) const;
 
     /// Return the screen coordinates of the given point p (in world coordinates).
-    inline Core::Vector2 project( const Core::Vector3& p ) const;
+    inline Core::Math::Vector2 project( const Core::Math::Vector3& p ) const;
 
     /// Return the point on the screen plane (near plane) represented by screen coordinates pix.
-    inline Core::Vector3 unProject( const Core::Vector2& pix ) const;
+    inline Core::Math::Vector3 unProject( const Core::Math::Vector2& pix ) const;
 
   protected:
-    Core::Transform m_frame;    // Camera frame (inverse of the view matrix)
-    Core::Matrix4 m_projMatrix; // Projection matrix
+    Core::Math::Transform m_frame;    // Camera frame (inverse of the view matrix)
+    Core::Math::Matrix4 m_projMatrix; // Projection matrix
 
     Scalar m_fov;   // Field of view
     Scalar m_zNear; // Z Near plane distance

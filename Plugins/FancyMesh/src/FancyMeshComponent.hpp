@@ -3,10 +3,10 @@
 
 #include <FancyMeshPluginMacros.hpp>
 
-#include <Core/Mesh/MeshTypes.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Geometry/MeshTypes.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 
-#include <Core/File/GeometryData.hpp>
+#include <Core/Asset/GeometryData.hpp>
 
 #include <Engine/Component/Component.hpp>
 
@@ -29,21 +29,21 @@ namespace FancyMeshPlugin {
  */
 class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component {
   public:
-    using DuplicateTable = Ra::Asset::GeometryData::DuplicateTable;
+    using DuplicateTable = Ra::Core::Asset::GeometryData::DuplicateTable;
 
     FancyMeshComponent( const std::string& name, bool deformable, Ra::Engine::Entity* entity );
     virtual ~FancyMeshComponent();
 
     void initialize() override;
 
-    void addMeshRenderObject( const Ra::Core::TriangleMesh& mesh, const std::string& name );
-    void handleMeshLoading( const Ra::Asset::GeometryData* data );
+    void addMeshRenderObject( const Ra::Core::Geometry::TriangleMesh& mesh, const std::string& name );
+    void handleMeshLoading( const Ra::Core::Asset::GeometryData* data );
 
     /// Returns the index of the associated RO (the display mesh)
-    Ra::Core::Index getRenderObjectIndex() const;
+    Ra::Core::Container::Index getRenderObjectIndex() const;
 
     /// Returns the current display geometry.
-    const Ra::Core::TriangleMesh& getMesh() const;
+    const Ra::Core::Geometry::TriangleMesh& getMesh() const;
 
   public:
     // Component communication management
@@ -56,15 +56,15 @@ class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component {
     Ra::Engine::Mesh& getDisplayMesh();
 
     // Fancy mesh accepts to give its mesh and (if deformable) to update it
-    const Ra::Core::TriangleMesh* getMeshOutput() const;
+    const Ra::Core::Geometry::TriangleMesh* getMeshOutput() const;
     const DuplicateTable* getDuplicateTableOutput() const;
-    Ra::Core::TriangleMesh* getMeshRw();
-    void setMeshInput( const Ra::Core::TriangleMesh* mesh );
-    Ra::Core::Vector3Array* getVerticesRw();
-    Ra::Core::Vector3Array* getNormalsRw();
-    Ra::Core::VectorArray<Ra::Core::Triangle>* getTrianglesRw();
+    Ra::Core::Geometry::TriangleMesh* getMeshRw();
+    void setMeshInput( const Ra::Core::Geometry::TriangleMesh* mesh );
+    Ra::Core::Container::Vector3Array* getVerticesRw();
+    Ra::Core::Container::Vector3Array* getNormalsRw();
+    Ra::Core::Container::VectorArray<Ra::Core::Geometry::Triangle>* getTrianglesRw();
 
-    const Ra::Core::Index* roIndexRead() const;
+    const Ra::Core::Container::Index* roIndexRead() const;
 
   private:
     // The duplicate table for vertices, according to vertices position and normals in the mesh
@@ -76,8 +76,8 @@ class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component {
     // loaded, then m_duplicateTable[i] == i.
     DuplicateTable m_duplicateTable;
 
-    Ra::Core::Index m_meshIndex;
-    Ra::Core::Index m_aabbIndex;
+    Ra::Core::Container::Index m_meshIndex;
+    Ra::Core::Container::Index m_aabbIndex;
     std::string m_contentName;
     bool m_deformable;
 };

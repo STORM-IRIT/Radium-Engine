@@ -3,6 +3,10 @@
 
 #include <Core/RaCore.hpp>
 
+namespace Ra {
+namespace Core {
+namespace Utils {
+
 // Singleton utility.
 // This file give you two macros to automatically implement a class
 // as a singleton.
@@ -51,5 +55,10 @@
     }                                                          \
     class TYPE
 // The line above is just there to make the macro end with a ;
+
+
+} // namespace Ra
+} // namespace Core
+} // namespace Utils
 
 #endif // RADIUMENGINE_SINGLETON_HPP

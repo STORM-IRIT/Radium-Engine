@@ -3,7 +3,7 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <Core/Index/Index.hpp>
+#include <Core/Container/Index.hpp>
 #include <string>
 #include <vector>
 
@@ -34,7 +34,7 @@ struct RA_ENGINE_API ItemEntry {
     /// ItemEntry(entity, component) creates a component entry
     /// ItemEntry(entity, component, RO) creates a render object entity.
     explicit ItemEntry( Ra::Engine::Entity* ent, Ra::Engine::Component* comp = nullptr,
-                        Ra::Core::Index ro = Ra::Core::Index::Invalid() ) :
+                        Ra::Core::Container::Index ro = Ra::Core::Container::Index::Invalid() ) :
         m_entity( ent ),
         m_component( comp ),
         m_roIndex( ro ) {}
@@ -68,7 +68,7 @@ struct RA_ENGINE_API ItemEntry {
     Ra::Engine::Component* m_component;
 
     /// RO index of the represented object.
-    Ra::Core::Index m_roIndex;
+    Ra::Core::Container::Index m_roIndex;
 };
 
 /// Returns the name associated to the given item.
@@ -78,7 +78,7 @@ RA_ENGINE_API std::string getEntryName( const Engine::RadiumEngine* engine, cons
 /// RO item : it returns only the RO index.
 /// Component item : it returns all its ROs.
 /// Entity item : all ROs from all compoents of given entity.
-RA_ENGINE_API std::vector<Ra::Core::Index> getItemROs( const Engine::RadiumEngine* engine,
+RA_ENGINE_API std::vector<Ra::Core::Container::Index> getItemROs( const Engine::RadiumEngine* engine,
                                                        const ItemEntry& ent );
 } // namespace Engine
 } // namespace Ra

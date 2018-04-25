@@ -31,7 +31,7 @@ class RA_ENGINE_API DebugComponent : public Component {
     void initialize() override {}
 
     /// Access render object through RO manager
-    RenderObject* getRenderObject( Core::Index idx );
+    RenderObject* getRenderObject( Core::Container::Index idx );
 };
 
 #endif
@@ -55,7 +55,7 @@ class RA_ENGINE_API SystemEntity : public Entity {
     virtual ~SystemEntity(){};
 
     /// Ignore raycast queries
-    virtual void rayCastQuery( const Core::Ray& r ) const override {}
+    virtual void rayCastQuery( const Core::Math::Ray& r ) const override {}
 
 #ifndef RA_DISABLE_DEBUG_DISPLAY
     /// Access the debug component

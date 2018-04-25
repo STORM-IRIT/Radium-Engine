@@ -4,10 +4,10 @@
 
 #include <iostream>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
-#include <Core/Mesh/MeshPrimitives.hpp>
-#include <Core/File/FileData.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Asset/FileData.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Managers/LightManager/LightManager.hpp>
@@ -115,7 +115,7 @@ void Renderer::initialize( uint width, uint height ) {
     m_secondaryTextures["Picking Texture"] = m_pickingTexture.get();
 
     // Quad mesh
-    Core::TriangleMesh mesh = Core::MeshUtils::makeZNormalQuad( Core::Vector2( -1.f, 1.f ) );
+    Core::Geometry::TriangleMesh mesh = Core::Geometry::makeZNormalQuad( Core::Math::Vector2( -1.f, 1.f ) );
 
     m_quadMesh.reset( new Mesh( "quad" ) );
     m_quadMesh->loadGeometry( mesh );
@@ -132,7 +132,7 @@ void Renderer::render( const RenderData& data ) {
     std::lock_guard<std::mutex> renderLock( m_renderMutex );
     CORE_UNUSED( renderLock );
 
-    m_timerData.renderStart = Core::Timer::Clock::now();
+    m_timerData.renderStart = Core::Utils::Clock::now();
 
     // 0. Save eventual already bound FBO (e.g. QtOpenGLWidget) and viewport
     saveExternalFBOInternal();
@@ -140,13 +140,13 @@ void Renderer::render( const RenderData& data ) {
     // 1. Gather render objects if needed
     feedRenderQueuesInternal( data );
 
-    m_timerData.feedRenderQueuesEnd = Core::Timer::Clock::now();
+    m_timerData.feedRenderQueuesEnd = Core::Utils::Clock::now();
 
     // 2. Update them (from an opengl point of view)
     // FIXME(Charly): Maybe we could just update objects if they need it
     // before drawing them, that would be cleaner (performance problem ?)
     updateRenderObjectsInternal( data );
-    m_timerData.updateEnd = Core::Timer::Clock::now();
+    m_timerData.updateEnd = Core::Utils::Clock::now();
 
     // 3. Do picking if needed
     m_pickingResults.clear();
@@ -161,11 +161,11 @@ void Renderer::render( const RenderData& data ) {
 
     // 4. Do the rendering.
     renderInternal( data );
-    m_timerData.mainRenderEnd = Core::Timer::Clock::now();
+    m_timerData.mainRenderEnd = Core::Utils::Clock::now();
 
     // 5. Post processing
     postProcessInternal( data );
-    m_timerData.postProcessEnd = Core::Timer::Clock::now();
+    m_timerData.postProcessEnd = Core::Utils::Clock::now();
 
     // 6. Debug
     debugInternal( data );
@@ -175,7 +175,7 @@ void Renderer::render( const RenderData& data ) {
 
     // 8. Write image to Qt framebuffer.
     drawScreenInternal();
-    m_timerData.renderEnd = Core::Timer::Clock::now();
+    m_timerData.renderEnd = Core::Utils::Clock::now();
 
     // 9. Tell renderobjects they have been drawn (to decreaase the counter)
     notifyRenderObjectsRenderingInternal();
@@ -315,8 +315,8 @@ void Renderer::renderForPicking(
                 int id = ro->idx.getValue();
                 pickingShaders[i]->setUniform( "objectId", id );
 
-                Core::Matrix4 M = ro->getTransformAsMatrix();
-                Core::Matrix4 N = M.inverse().transpose();
+                Core::Math::Matrix4 M = ro->getTransformAsMatrix();
+                Core::Math::Matrix4 N = M.inverse().transpose();
                 pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
                 pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
                 pickingShaders[i]->setUniform( "transform.model", M );
@@ -383,15 +383,15 @@ void Renderer::doPicking( const RenderData& renderData ) {
                 int id = ro->idx.getValue();
                 m_pickingShaders[i]->setUniform( "objectId", id );
 
-                Core::Matrix4 M = ro->getTransformAsMatrix();
-                Core::Matrix4 MV = renderData.viewMatrix * M;
+                Core::Math::Matrix4 M = ro->getTransformAsMatrix();
+                Core::Math::Matrix4 MV = renderData.viewMatrix * M;
                 Scalar d = MV.block<3, 1>( 0, 3 ).norm();
 
-                Core::Matrix4 S = Core::Matrix4::Identity();
+                Core::Math::Matrix4 S = Core::Math::Matrix4::Identity();
                 S( 0, 0 ) = S( 1, 1 ) = S( 2, 2 ) = d;
 
                 M = M * S;
-                Core::Matrix4 N = M.inverse().transpose();
+                Core::Math::Matrix4 N = M.inverse().transpose();
 
                 m_pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
                 m_pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
@@ -511,7 +511,7 @@ void Renderer::drawScreenInternal() {
         shader->bind();
         shader->setUniform( "mousePosition", m_mousePosition );
         shader->setUniform( "brushRadius", m_brushRadius );
-        shader->setUniform( "dim", Core::Vector2( m_width, m_height ) );
+        shader->setUniform( "dim", Core::Math::Vector2( m_width, m_height ) );
         m_quadMesh->render();
         GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
         GL_ASSERT( glEnable( GL_BLEND ) );
@@ -553,7 +553,7 @@ void Renderer::resize( uint w, uint h ) {
     m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get()->texture() );
     if ( m_pickingFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     {
-        LOG( logERROR ) << "FBO Error : " << m_pickingFbo->checkStatus();
+        LOG( Core::Utils::logERROR ) << "FBO Error : " << m_pickingFbo->checkStatus();
     }
     m_pickingFbo->unbind();
     GL_CHECK_ERROR;

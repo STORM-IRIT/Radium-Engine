@@ -22,8 +22,8 @@ void MeshFeatureTrackingUI::setMaxT( int max ) {
     ui->m_triangleIdx->setMaximum( std::max( max - 1, 0 ) );
 }
 
-void MeshFeatureTrackingUI::updateTracking( const FeatureData& data, const Ra::Core::Vector3& pos,
-                                            const Ra::Core::Vector3& vec ) {
+void MeshFeatureTrackingUI::updateTracking( const FeatureData& data, const Ra::Core::Math::Vector3& pos,
+                                            const Ra::Core::Math::Vector3& vec ) {
     ui->m_vertexInfo->setEnabled( false );
     ui->m_edgeInfo->setEnabled( false );
     ui->m_triangleInfo->setEnabled( false );

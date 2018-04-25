@@ -3,7 +3,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -140,7 +140,7 @@ std::pair<bool, DefaultTechniqueBuilder> getDefaultTechnique( const std::string&
         return {true, search->second};
     }
     auto result = std::make_pair( false, [name]( RenderTechnique&, bool ) -> void {
-        LOG( logERROR ) << "Undefined default technique for " << name << " !";
+        LOG( Core::Utils::logERROR ) << "Undefined default technique for " << name << " !";
     } );
     return result;
 }

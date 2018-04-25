@@ -8,7 +8,7 @@
 #include <thread>
 #include <vector>
 
-#include <Core/Index/IndexedObject.hpp>
+#include <Core/Container/IndexedObject.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Math/Ray.hpp>
 
@@ -23,7 +23,7 @@ namespace Ra {
 namespace Engine {
 
 /// An entity is an scene element. It ties together components with a transform.
-class RA_ENGINE_API Entity : public Core::IndexedObject {
+class RA_ENGINE_API Entity : public Core::Container::IndexedObject {
   public:
     RA_CORE_ALIGNED_NEW
     explicit Entity( const std::string& name = "" );
@@ -39,10 +39,10 @@ class RA_ENGINE_API Entity : public Core::IndexedObject {
     inline void rename( const std::string& name );
 
     // Transform
-    inline void setTransform( const Core::Transform& transform );
-    inline void setTransform( const Core::Matrix4& transform );
-    Core::Transform getTransform() const;
-    Core::Matrix4 getTransformAsMatrix() const;
+    inline void setTransform( const Core::Math::Transform& transform );
+    inline void setTransform( const Core::Math::Matrix4& transform );
+    Core::Math::Transform getTransform() const;
+    Core::Math::Matrix4 getTransformAsMatrix() const;
 
     void swapTransformBuffers();
 
@@ -65,11 +65,11 @@ class RA_ENGINE_API Entity : public Core::IndexedObject {
     inline uint getNumComponents() const;
 
     // Queries
-    virtual void rayCastQuery( const Core::Ray& r ) const;
+    virtual void rayCastQuery( const Core::Math::Ray& r ) const;
 
   private:
-    Core::Transform m_transform;
-    Core::Transform m_doubleBufferedTransform;
+    Core::Math::Transform m_transform;
+    Core::Math::Transform m_doubleBufferedTransform;
 
     std::string m_name;
 

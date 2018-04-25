@@ -1,15 +1,15 @@
 #ifndef RADIUM_GEOMETRYTESTS_HPP_
 #define RADIUM_GEOMETRYTESTS_HPP_
 
-#include <Core/Geometry/Distance/DistanceQueries.hpp>
+#include <Core/Geometry/DistanceQueries.hpp>
 #include <Core/Math/PolyLine.hpp>
 
-using Ra::Core::Vector3;
-using Ra::Core::DistanceQueries::FlagsInternal;
-using Ra::Core::DistanceQueries::pointToLineSq;
-using Ra::Core::DistanceQueries::pointToSegmentSq;
-using Ra::Core::DistanceQueries::PointToTriangleOutput;
-using Ra::Core::DistanceQueries::pointToTriSq;
+using Ra::Core::Math::Vector3;
+using Ra::Core::Geometry::FlagsInternal;
+using Ra::Core::Geometry::pointToLineSq;
+using Ra::Core::Geometry::pointToSegmentSq;
+using Ra::Core::Geometry::PointToTriangleOutput;
+using Ra::Core::Geometry::pointToTriSq;
 using Ra::Core::Math::areApproxEqual;
 namespace RaTests {
 class GeometryTests : public Test {
@@ -28,7 +28,7 @@ class GeometryTests : public Test {
         Vector3 nb = a + 42. * ( b - a );
 
         Vector3 y, z;
-        Ra::Core::Vector::getOrthogonalVectors( b - a, y, z );
+        Ra::Core::Math::Vector::getOrthogonalVectors( b - a, y, z );
 
         // Test line queries.
         RA_UNIT_TEST( areApproxEqual( pointToLineSq( a, a, b - a ), Scalar( 0. ) ),
@@ -113,10 +113,10 @@ class PolylineTests : public Test {
     void run() override {
         // 2 points polyline
         {
-            Ra::Core::Vector3Array v2{{1, 2, 3}, {4, 5, 6}};
-            Ra::Core::PolyLine p( v2 );
+            Ra::Core::Container::Vector3Array v2{{1, 2, 3}, {4, 5, 6}};
+            Ra::Core::Math::PolyLine p( v2 );
 
-            Ra::Core::Vector3 m = 0.5f * ( v2[0] + v2[1] );
+            Ra::Core::Math::Vector3 m = 0.5f * ( v2[0] + v2[1] );
 
             RA_UNIT_TEST( p.f( 0 ) == v2[0], "Parametrization fail" );
             RA_UNIT_TEST( p.f( 1 ) == v2[1], "Parametrization fail" );
@@ -127,9 +127,9 @@ class PolylineTests : public Test {
         // 4 points polyline
         {
 
-            Ra::Core::Vector3Array v4{{2, 3, 5}, {7, 11, 13}, {17, 23, 29}, {-1, -1, 30}};
+            Ra::Core::Container::Vector3Array v4{{2, 3, 5}, {7, 11, 13}, {17, 23, 29}, {-1, -1, 30}};
 
-            Ra::Core::PolyLine p( v4 );
+            Ra::Core::Math::PolyLine p( v4 );
 
             RA_UNIT_TEST( p.f( 0 ) == v4[0], "Parametrization fail" );
             RA_UNIT_TEST( p.f( 1 ) == v4[3], "Parametrization fail" );

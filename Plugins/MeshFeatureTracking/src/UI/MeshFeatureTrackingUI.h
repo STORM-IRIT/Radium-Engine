@@ -34,8 +34,8 @@ public:
     ~MeshFeatureTrackingUI();
 
     void updateTracking( const FeatureData& data,
-                         const Ra::Core::Vector3 &pos,
-                         const Ra::Core::Vector3 &vec );
+                         const Ra::Core::Math::Vector3 &pos,
+                         const Ra::Core::Math::Vector3 &vec );
     void setMaxV( int );
     void setMaxT( int );
 

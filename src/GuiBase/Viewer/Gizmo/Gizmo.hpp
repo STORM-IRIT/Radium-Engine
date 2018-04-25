@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include <Core/Index/Index.hpp>
+#include <Core/Container/Index.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -39,7 +39,7 @@ class Gizmo {
 
   public:
     RA_CORE_ALIGNED_NEW
-    Gizmo( Engine::Component* c, const Core::Transform& worldTo, const Core::Transform& t,
+    Gizmo( Engine::Component* c, const Core::Math::Transform& worldTo, const Core::Math::Transform& t,
            Mode mode ) :
         m_worldTo( worldTo ),
         m_transform( t ),
@@ -63,27 +63,27 @@ class Gizmo {
     }
 
     /// Called every time the underlying transform may have changed.
-    virtual void updateTransform( Mode mode, const Core::Transform& worldTo,
-                                  const Core::Transform& t ) = 0;
+    virtual void updateTransform( Mode mode, const Core::Math::Transform& worldTo,
+                                  const Core::Math::Transform& t ) = 0;
 
     /// Called when one of the drawables of the gizmo has been selected.
     virtual void selectConstraint( int drawableIndex ) = 0;
 
     /// Called when the gizmo is first clicked, with the camera parameters and the initial pixel
     /// coordinates.
-    virtual void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) = 0;
+    virtual void setInitialState( const Engine::Camera& cam, const Core::Math::Vector2& initialXY ) = 0;
 
     /// Called when the mose movement is recorder with the camera parameters and the current pixel
     /// coordinates.
-    virtual Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
+    virtual Core::Math::Transform mouseMove( const Engine::Camera& cam, const Core::Math::Vector2& nextXY,
                                        bool stepped = false ) = 0;
 
   protected:
-    Core::Transform m_worldTo;   //! World to local space where the transform lives.
-    Core::Transform m_transform; //! Transform to be edited.
+    Core::Math::Transform m_worldTo;   //! World to local space where the transform lives.
+    Core::Math::Transform m_transform; //! Transform to be edited.
     Engine::Component* m_comp;   //! Engine Ui component
     Mode m_mode;                 //! local or global
-    std::vector<Core::Index> m_renderObjects;
+    std::vector<Core::Container::Index> m_renderObjects;
 };
 } // namespace Gui
 } // namespace Ra

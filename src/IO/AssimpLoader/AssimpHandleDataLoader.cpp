@@ -4,9 +4,9 @@
 #include <assimp/scene.h>
 #include <set>
 
-#include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/File/HandleData.hpp>
-#include <Core/Log/Log.hpp>
+#include <Core/Asset/HandleData.hpp>
+#include <Core/Container/AlignedStdVector.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
 
@@ -15,39 +15,39 @@ namespace IO {
 
 /// CONSTRUCTOR
 AssimpHandleDataLoader::AssimpHandleDataLoader( const bool VERBOSE_MODE ) :
-    Asset::DataLoader<Asset::HandleData>( VERBOSE_MODE ) {}
+    Core::Asset::DataLoader<Core::Asset::HandleData>( VERBOSE_MODE ) {}
 
 /// DESTRUCTOR
 AssimpHandleDataLoader::~AssimpHandleDataLoader() {}
 
 /// LOAD
 void AssimpHandleDataLoader::loadData( const aiScene* scene,
-                                       std::vector<std::unique_ptr<Asset::HandleData>>& data ) {
+                                       std::vector<std::unique_ptr<Core::Asset::HandleData>>& data ) {
     data.clear();
 
     if ( scene == nullptr )
     {
-        LOG( logDEBUG ) << "AssimpHandleDataLoader : scene is nullptr.";
+        LOG( Core::Utils::logDEBUG ) << "AssimpHandleDataLoader : scene is nullptr.";
         return;
     }
 
     if ( !sceneHasHandle( scene ) )
     {
-        LOG( logDEBUG ) << "AssimpHandleDataLoader : scene has no handle.";
+        LOG( Core::Utils::logDEBUG ) << "AssimpHandleDataLoader : scene has no handle.";
         return;
     }
 
     if ( m_verbose )
     {
-        LOG( logDEBUG ) << "File contains handle.";
-        LOG( logDEBUG ) << "Handle Loading begin...";
+        LOG( Core::Utils::logDEBUG ) << "File contains handle.";
+        LOG( Core::Utils::logDEBUG ) << "Handle Loading begin...";
     }
 
     loadHandleData( scene, data );
 
     if ( m_verbose )
     {
-        LOG( logDEBUG ) << "Handle Loading end.\n";
+        LOG( Core::Utils::logDEBUG ) << "Handle Loading end.\n";
     }
 }
 
@@ -75,7 +75,7 @@ uint AssimpHandleDataLoader::sceneHandleSize( const aiScene* scene ) const {
 
 /// LOAD
 void AssimpHandleDataLoader::loadHandleData(
-    const aiScene* scene, std::vector<std::unique_ptr<Asset::HandleData>>& data ) const {
+    const aiScene* scene, std::vector<std::unique_ptr<Core::Asset::HandleData>>& data ) const {
     const uint meshSize = scene->mNumMeshes;
     std::map<uint, uint> indexTable;
     std::set<std::string> usedNames;
@@ -84,7 +84,7 @@ void AssimpHandleDataLoader::loadHandleData(
         aiMesh* mesh = scene->mMeshes[n];
         if ( mesh->HasBones() )
         {
-            Asset::HandleData* handle = new Asset::HandleData();
+            Core::Asset::HandleData* handle = new Core::Asset::HandleData();
             fetchName( *mesh, *handle, usedNames );
             fetchType( *mesh, *handle );
             loadHandleComponentData( scene, mesh, handle );
@@ -94,15 +94,15 @@ void AssimpHandleDataLoader::loadHandleData(
             // Remove scale from transform.
             for ( auto& component : handle->getComponentData() )
             {
-                Core::Transform& frame = component.m_frame;
-                Core::Vector3 t = frame.translation();
-                Core::Matrix3 R = frame.rotation();
+                Core::Math::Transform& frame = component.m_frame;
+                Core::Math::Vector3 t = frame.translation();
+                Core::Math::Matrix3 R = frame.rotation();
                 frame.setIdentity();
                 frame.translation() = t;
                 frame.linear() = R;
             }
 
-            data.push_back( std::unique_ptr<Asset::HandleData>( handle ) );
+            data.push_back( std::unique_ptr<Core::Asset::HandleData>( handle ) );
             indexTable[n] = data.size() - 1;
             if ( m_verbose )
             {
@@ -110,14 +110,14 @@ void AssimpHandleDataLoader::loadHandleData(
             }
         }
     }
-    loadHandleFrame( scene->mRootNode, Core::Transform::Identity(), indexTable, data );
+    loadHandleFrame( scene->mRootNode, Core::Math::Transform::Identity(), indexTable, data );
 }
 
 void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, const aiMesh* mesh,
-                                                      Asset::HandleData* data ) const {
+                                                      Core::Asset::HandleData* data ) const {
     const uint size = mesh->mNumBones;
-    Core::AlignedStdVector<Asset::HandleComponentData> component( size,
-                                                                  Asset::HandleComponentData() );
+    Core::Container::AlignedStdVector<Core::Asset::HandleComponentData> component( size,
+                                                                  Core::Asset::HandleComponentData() );
     std::set<std::string> name;
     std::map<std::string, uint> nameTable;
     // Load the meaningful handles
@@ -145,7 +145,7 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
                 auto it = name.find( assimpToCore( child->mName ) );
                 if ( it == name.end() )
                 {
-                    component.push_back( Asset::HandleComponentData() );
+                    component.push_back( Core::Asset::HandleComponentData() );
                     const uint j = component.size() - 1;
                     loadHandleComponentData( child, component[j] );
                     nameTable[component[j].m_name] = j;
@@ -158,7 +158,7 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
 }
 
 void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, const aiBone* bone,
-                                                      Asset::HandleComponentData& data ) const {
+                                                      Core::Asset::HandleComponentData& data ) const {
     data.m_name = assimpToCore( bone->mName );
     // data.m_frame = assimpToCore( bone->mOffsetMatrix );
     data.m_frame.setIdentity();
@@ -177,7 +177,7 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
 }
 
 void AssimpHandleDataLoader::loadHandleComponentData( const aiNode* node,
-                                                      Asset::HandleComponentData& data ) const {
+                                                      Core::Asset::HandleComponentData& data ) const {
     data.m_name = assimpToCore( node->mName );
     // data.m_frame = assimpToCore( node->mTransformation );
     data.m_frame.setIdentity();
@@ -190,12 +190,12 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiNode* node,
 }
 
 void AssimpHandleDataLoader::loadHandleTopologyData( const aiScene* scene,
-                                                     Asset::HandleData* data ) const {
+                                                     Core::Asset::HandleData* data ) const {
     const uint size = data->getComponentDataSize();
     std::vector<std::pair<std::string, std::string>> edgeList;
     for ( uint i = 0; i < size; ++i )
     {
-        const Asset::HandleComponentData& component = data->getComponent( i );
+        const Core::Asset::HandleComponentData& component = data->getComponent( i );
         aiNode* node = scene->mRootNode->FindNode( aiString( component.m_name ) );
         const uint children_size = node->mNumChildren;
         for ( uint j = 0; j < children_size; ++j )
@@ -208,11 +208,11 @@ void AssimpHandleDataLoader::loadHandleTopologyData( const aiScene* scene,
             }
         }
     }
-    Core::AlignedStdVector<Core::Vector2i> edge;
+    Core::Container::AlignedStdVector<Core::Math::Vector2i> edge;
     edge.reserve( edgeList.size() );
     for ( const auto& it : edgeList )
     {
-        Core::Vector2i e;
+        Core::Math::Vector2i e;
         e[0] = data->getIndexOf( it.first );
         e[1] = data->getIndexOf( it.second );
         edge.push_back( e );
@@ -221,15 +221,15 @@ void AssimpHandleDataLoader::loadHandleTopologyData( const aiScene* scene,
 }
 
 void AssimpHandleDataLoader::loadHandleFrame(
-    const aiNode* node, const Core::Transform& parentFrame, const std::map<uint, uint>& indexTable,
-    std::vector<std::unique_ptr<Asset::HandleData>>& data ) const {
+    const aiNode* node, const Core::Math::Transform& parentFrame, const std::map<uint, uint>& indexTable,
+    std::vector<std::unique_ptr<Core::Asset::HandleData>>& data ) const {
     const uint child_size = node->mNumChildren;
     const uint mesh_size = node->mNumMeshes;
     if ( ( child_size == 0 ) && ( mesh_size == 0 ) )
     {
         return;
     }
-    Core::Transform frame = parentFrame * assimpToCore( node->mTransformation );
+    Core::Math::Transform frame = parentFrame * assimpToCore( node->mTransformation );
     for ( uint i = 0; i < mesh_size; ++i )
     {
         const uint ID = node->mMeshes[i];
@@ -246,7 +246,7 @@ void AssimpHandleDataLoader::loadHandleFrame(
 }
 
 /// NAME
-void AssimpHandleDataLoader::fetchName( const aiMesh& mesh, Asset::HandleData& data,
+void AssimpHandleDataLoader::fetchName( const aiMesh& mesh, Core::Asset::HandleData& data,
                                         std::set<std::string>& usedNames ) const {
     std::string name = assimpToCore( mesh.mName );
     while ( usedNames.find( name ) != usedNames.end() )
@@ -259,13 +259,13 @@ void AssimpHandleDataLoader::fetchName( const aiMesh& mesh, Asset::HandleData& d
 }
 
 /// TYPE
-void AssimpHandleDataLoader::fetchType( const aiMesh& mesh, Asset::HandleData& data ) const {
-    data.setType( Asset::HandleData::SKELETON );
+void AssimpHandleDataLoader::fetchType( const aiMesh& mesh, Core::Asset::HandleData& data ) const {
+    data.setType( Core::Asset::HandleData::SKELETON );
     // TO DO: is there a way to know the right type of handle?
 }
 
 /// VERTEX SIZE
-void AssimpHandleDataLoader::fetchVertexSize( Asset::HandleData& data ) const {
+void AssimpHandleDataLoader::fetchVertexSize( Core::Asset::HandleData& data ) const {
     const uint componentSize = data.getComponentDataSize();
     uint vertexSize = 0;
     for ( uint i = 0; i < componentSize; ++i )

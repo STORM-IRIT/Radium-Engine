@@ -1,29 +1,31 @@
 #ifndef RADIUMENGINE_POLYLINE_HPP_
 #define RADIUMENGINE_POLYLINE_HPP_
 
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/Geometry/Distance/DistanceQueries.hpp>
+#include <Core/Container/VectorArray.hpp>
+#include <Core/Geometry/DistanceQueries.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
+namespace Math {
+
 /// A parametrized polyline, i.e. a continuous polygonal chain of segments.
 /// Points go from P0 to Pn. The ith segments joins Pi and Pi+1.
 class RA_CORE_API PolyLine {
 
   public:
     /// Create a polyline from a given set of points.
-    PolyLine( const Vector3Array& pt );
+    PolyLine( const Container::Vector3Array& pt );
 
     /// Get the point vector.
-    inline const Vector3Array& getPoints() const;
+    inline const Container::Vector3Array& getPoints() const;
 
     /// Get the ith segment AB as starting point A and vector AB.
     inline void getSegment( uint segment, Vector3& aOut, Vector3& abOut ) const;
 
     /// Get the segment vector ( Pi+1 - Pi)
-    inline const Vector3Array& getSegmentVectors() const;
+    inline const Container::Vector3Array& getSegmentVectors() const;
 
     /// Get the aabb of the polyline.
     inline Aabb aabb() const;
@@ -32,7 +34,7 @@ class RA_CORE_API PolyLine {
     inline Scalar length() const;
 
     /// Update the points of the polyline.
-    void setPoints( const Vector3Array& pt );
+    void setPoints( const Container::Vector3Array& pt );
 
     /// Return the squared distance between the line and a given point p.
     Scalar squaredDistance( const Vector3& p ) const;
@@ -69,13 +71,14 @@ class RA_CORE_API PolyLine {
 
   private:
     // Stores the points Pi
-    Vector3Array m_pts;
+    Container::Vector3Array m_pts;
     // Stores the vectors (Pi+1 - Pi)
-    Vector3Array m_ptsDiff;
+    Container::Vector3Array m_ptsDiff;
     // Length from origin to point Pi+1.
     std::vector<Scalar> m_lengths;
 };
 
+} // namespace Math
 } // namespace Core
 } // namespace Ra
 #include <Core/Math/PolyLine.inl>

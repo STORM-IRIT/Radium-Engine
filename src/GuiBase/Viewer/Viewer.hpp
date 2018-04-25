@@ -118,7 +118,7 @@ class RA_GUIBASE_API Viewer : public QWindow {
     void processPicking();
 
     /// Moves the camera so that the whole scene is visible.
-    void fitCameraToScene( const Core::Aabb& sceneAabb );
+    void fitCameraToScene( const Core::Math::Aabb& sceneAabb );
 
     /// Returns the names of the different registred renderers.
     std::vector<std::string> getRenderersName() const;
@@ -163,7 +163,7 @@ class RA_GUIBASE_API Viewer : public QWindow {
      * int rendererId = addRenderer(new MyRenderer(width(), height()));
      * changeRenderer(rendererId);
      * getRenderer()->initialize();
-     * auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
+     * auto light = Ra::Core::Container::make_shared<Engine::DirectionalLight>();
      * getRenderer()->addLight( light );
      * m_camera->attachLight( light );
      * \endcode

@@ -30,10 +30,9 @@ class TrackballCamera : public CameraInterface {
     Scalar getCameraRadius();
 
   public slots:
-    virtual void setCameraPosition( const Core::Vector3& position ) override;
-    virtual void setCameraTarget( const Core::Vector3& target ) override;
-    virtual void fitScene( const Core::Aabb& aabb ) override;
-
+    virtual void setCameraPosition( const Core::Math::Vector3& position ) override;
+    virtual void setCameraTarget( const Core::Math::Vector3& target ) override;
+    virtual void fitScene( const Core::Math::Aabb& aabb ) override;
     virtual void resetCamera() override;
 
   protected:
@@ -45,7 +44,7 @@ class TrackballCamera : public CameraInterface {
     void updatePhiTheta();
 
   protected:
-    Core::Vector3 m_trackballCenter;
+    Core::Math::Vector3 m_trackballCenter;
 
     Scalar m_lastMouseX;
     Scalar m_lastMouseY;

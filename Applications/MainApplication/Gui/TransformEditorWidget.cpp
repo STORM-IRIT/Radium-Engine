@@ -21,7 +21,7 @@ void TransformEditorWidget::updateValues() {
     }
 }
 
-void TransformEditorWidget::onChangedPosition( const Core::Vector3& v, uint id ) {
+void TransformEditorWidget::onChangedPosition( const Core::Math::Vector3& v, uint id ) {
     CORE_ASSERT( m_currentEdit.isValid(), "Nothing to edit" );
     m_transform.translation() = v;
     setTransform( m_transform );

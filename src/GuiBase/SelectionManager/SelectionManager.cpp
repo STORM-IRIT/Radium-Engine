@@ -1,6 +1,6 @@
 #include <GuiBase/SelectionManager/SelectionManager.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
 
 using Ra::Engine::ItemEntry;
@@ -63,12 +63,12 @@ void SelectionManager::onModelRebuilt() {
 }
 
 void SelectionManager::printSelection() const {
-    LOG( logDEBUG ) << "Selected entries : ";
+    LOG( Core::Utils::logDEBUG ) << "Selected entries : ";
     for ( const auto& ent : selectedEntries() )
     {
-        LOG( logDEBUG ) << getEntryName( Ra::Engine::RadiumEngine::getInstance(), ent );
+        LOG( Core::Utils::logDEBUG ) << getEntryName( Ra::Engine::RadiumEngine::getInstance(), ent );
     }
-    LOG( logDEBUG ) << "Current : "
+    LOG( Core::Utils::logDEBUG ) << "Current : "
                     << getEntryName( Ra::Engine::RadiumEngine::getInstance(), currentItem() );
 }
 } // namespace GuiBase

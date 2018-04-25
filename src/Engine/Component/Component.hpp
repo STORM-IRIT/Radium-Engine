@@ -3,7 +3,7 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <Core/Index/IndexedObject.hpp>
+#include <Core/Container/IndexedObject.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Math/Ray.hpp>
 
@@ -58,13 +58,13 @@ class RA_ENGINE_API Component {
     virtual System* getSystem() const;
 
     /// Add a new render object to the component. This adds the RO to the manager for drawing.
-    virtual Core::Index addRenderObject( RenderObject* renderObject ) final;
+    virtual Core::Container::Index addRenderObject( RenderObject* renderObject ) final;
 
     /// Remove the render object from the component.
-    virtual void removeRenderObject( Core::Index roIdx ) final;
+    virtual void removeRenderObject( Core::Container::Index roIdx ) final;
 
     /// Perform a ray cast query.
-    virtual void rayCastQuery( const Core::Ray& ray ) const;
+    virtual void rayCastQuery( const Core::Math::Ray& ray ) const;
 
     // Editable transform interface.
     // This allow to edit the data in the component with a render object
@@ -72,24 +72,24 @@ class RA_ENGINE_API Component {
     // queried.
 
     /// Returns true if a transform can be edited with the render object index given as a key.
-    virtual bool canEdit( Core::Index roIdx ) const { return false; }
+    virtual bool canEdit( Core::Container::Index roIdx ) const { return false; }
 
     /// Get the transform associated with the given RO index key.
-    virtual Core::Transform getTransform( Core::Index roIdx ) const {
-        return Core::Transform::Identity();
+    virtual Core::Math::Transform getTransform( Core::Container::Index roIdx ) const {
+        return Core::Math::Transform::Identity();
     };
 
     /// Set the new transform associated with the RO index key.
-    virtual void setTransform( Core::Index roIdx, const Core::Transform& transform ){};
+    virtual void setTransform( Core::Container::Index roIdx, const Core::Math::Transform& transform ){};
 
-    void notifyRenderObjectExpired( const Core::Index& idx );
+    void notifyRenderObjectExpired( const Core::Container::Index& idx );
 
   protected:
     /// Shortcut to access the render object manager.
     static RenderObjectManager* getRoMgr();
 
   public:
-    std::vector<Core::Index> m_renderObjects;
+    std::vector<Core::Container::Index> m_renderObjects;
 
   protected:
     std::string m_name;

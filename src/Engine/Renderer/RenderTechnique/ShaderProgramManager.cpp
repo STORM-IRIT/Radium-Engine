@@ -1,8 +1,8 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
-#include <Core/Containers/MakeShared.hpp>
-#include <Core/Log/Log.hpp>
+#include <Core/Container/MakeShared.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <globjects/NamedString.h>
 #include <globjects/Program.h>
@@ -58,7 +58,7 @@ void ShaderProgramManager::initialize() {
 
 void ShaderProgramManager::addNamedString( const std::string& includepath,
                                            const std::string& realfile ) {
-    LOG( logINFO ) << "Inserting named string : " << includepath << " --> " << realfile;
+    LOG( Core::Utils::logINFO ) << "Inserting named string : " << includepath << " --> " << realfile;
     m_files.push_back( globjects::File::create( realfile ) );
     m_namedStrings.push_back(
         globjects::NamedString::create( includepath, m_files[m_files.size() - 1].get() ) );
@@ -95,7 +95,7 @@ const ShaderProgram* ShaderProgramManager::addShaderProgram( const ShaderConfigu
     }
 
     // Try to load the shader
-    auto prog = Core::make_shared<ShaderProgram>( config );
+    auto prog = Core::Container::make_shared<ShaderProgram>( config );
 
     // FIXED : use isLinked not isValid
     if ( prog->getProgramObject()->isLinked() )
@@ -105,11 +105,11 @@ const ShaderProgram* ShaderProgramManager::addShaderProgram( const ShaderConfigu
     } else
     {
         std::string error;
-        Core::StringUtils::stringPrintf( error,
+        Core::Utils::stringPrintf( error,
                                          "Error occurred while loading shader program %s "
                                          ":\nDefault shader program used instead.\n",
                                          config.m_name.c_str() );
-        LOG( logERROR ) << error;
+        LOG( Core::Utils::logERROR ) << error;
 
         // insert in the failed shaders list
         m_shaderFailedConfs.push_back( config );
@@ -152,7 +152,7 @@ void ShaderProgramManager::reloadNotCompiledShaderPrograms() {
     for ( std::vector<ShaderConfiguration>::iterator conf = m_shaderFailedConfs.begin();
           conf != m_shaderFailedConfs.end(); ++conf )
     {
-        auto prog = Core::make_shared<ShaderProgram>( *conf );
+        auto prog = Core::Container::make_shared<ShaderProgram>( *conf );
 
         if ( prog->getProgramObject()->isValid() )
         {

@@ -35,7 +35,7 @@ MinimalApp::MinimalApp( int& argc, char** argv ) :
     Ra::Gui::KeyMappingManager::createInstance();
 
     // Initialize taskqueue.
-    m_task_queue.reset( new Ra::Core::TaskQueue( std::thread::hardware_concurrency() - 1 ) );
+    m_task_queue.reset( new Ra::Core::Utils::TaskQueue( std::thread::hardware_concurrency() - 1 ) );
     // Initialize viewer.
     m_viewer.reset( new Ra::Gui::Viewer );
 

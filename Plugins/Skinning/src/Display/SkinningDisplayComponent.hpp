@@ -4,13 +4,13 @@
 #include <Engine/Component/Component.hpp>
 #include <SkinningPlugin.hpp>
 
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/Geometry/Adjacency/Adjacency.hpp>
+#include <Core/Container/VectorArray.hpp>
+#include <Core/Geometry/Adjacency.hpp>
 #include <Core/Math/ColorPresets.hpp>
 
-#include <Core/Animation/Handle/HandleWeight.hpp>
-#include <Core/Animation/Skinning/SkinningData.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Animation/HandleWeight.hpp>
+#include <Core/Animation/SkinningData.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -21,7 +21,7 @@
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
-using Ra::Core::TriangleMesh;
+using Ra::Core::Geometry::TriangleMesh;
 using Ra::Core::Animation::WeightMatrix;
 using Ra::Engine::ComponentMessenger;
 
@@ -55,11 +55,11 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
 
             const uint fiveColor = 5;
             const Scalar magenta = 5.0f / 6.0f;
-            Ra::Core::Vector4Array palette( fiveColor );
+            Ra::Core::Container::Vector4Array palette( fiveColor );
             for ( uint i = 0; i < fiveColor; ++i )
             {
                 Scalar hue = ( Scalar( i ) / Scalar( fiveColor - 1 ) ) * magenta;
-                palette[i] = Ra::Core::Colors::fromHSV( hue, 1.0, 0.5 );
+                palette[i] = Ra::Core::Math::fromHSV( hue, 1.0, 0.5 );
             }
 
             std::vector<uint> partition( size );
@@ -67,7 +67,7 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
             for ( int i = 0; i < int( size ); ++i )
             {
                 uint ID;
-                Ra::Core::VectorN row = weights.row( i );
+                Ra::Core::Math::VectorN row = weights.row( i );
                 row.maxCoeff( &ID );
                 partition[i] = ID;
             }
@@ -116,7 +116,7 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
                 assignedColor[k] = *it;
             }
 
-            Ra::Core::Vector4Array color( size, Ra::Core::Vector4::Zero() );
+            Ra::Core::Container::Vector4Array color( size, Ra::Core::Math::Vector4::Zero() );
 #pragma omp parallel for
             for ( int i = 0; i < int( size ); ++i )
             {
@@ -128,8 +128,8 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
 
             Ra::Engine::BlinnPhongMaterial* nm =
                 new Ra::Engine::BlinnPhongMaterial( std::string( "Partition" ) + m_name );
-            nm->m_kd = Ra::Core::Vector4::Zero();
-            nm->m_ks = Ra::Core::Vector4::Zero();
+            nm->m_kd = Ra::Core::Math::Vector4::Zero();
+            nm->m_ks = Ra::Core::Math::Vector4::Zero();
             nm->m_ns = 100;
             technique->resetMaterial( nm );
 

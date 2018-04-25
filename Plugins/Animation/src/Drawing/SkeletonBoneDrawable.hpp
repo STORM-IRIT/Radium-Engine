@@ -1,8 +1,8 @@
 #ifndef ANIMPLUGIN_SKELETON_BONE_DRAWABLE_HPP_
 #define ANIMPLUGIN_SKELETON_BONE_DRAWABLE_HPP_
 
-#include <Core/Animation/Handle/Skeleton.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Animation/Skeleton.hpp>
+#include <Core/Geometry/MeshUtils.hpp>
 
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -22,11 +22,11 @@ class SkeletonBoneRenderObject {
 
     void update(); // Update local transform of the associated render object
 
-    static Ra::Core::TriangleMesh makeBoneShape();
+    static Ra::Core::Geometry::TriangleMesh makeBoneShape();
 
     uint getBoneIndex() const { return m_id; }
 
-    Ra::Core::Index getRenderObjectIndex() const { return m_roIdx; }
+    Ra::Core::Container::Index getRenderObjectIndex() const { return m_roIdx; }
 
     void setXray( bool on );
 
@@ -34,7 +34,7 @@ class SkeletonBoneRenderObject {
     void updateLocalTransform();
 
   private:
-    Ra::Core::Index m_roIdx; /// Index of the corresponding render object
+    Ra::Core::Container::Index m_roIdx; /// Index of the corresponding render object
     uint m_id;               /// Bone index
 
     const Ra::Core::Animation::Skeleton& m_skel; /// Skeleton

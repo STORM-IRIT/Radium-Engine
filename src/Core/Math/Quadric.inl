@@ -2,6 +2,8 @@
 
 namespace Ra {
 namespace Core {
+namespace Math {
+
 template <int DIM>
 inline Quadric<DIM>::Quadric() : m_a( Matrix::Zero() ), m_b( Vector::Zero() ), m_c( 0 ) {}
 
@@ -92,5 +94,6 @@ inline Quadric<DIM>& Quadric<DIM>::operator*=( Scalar scal ) {
     return *this;
 }
 
+} // namespace Math
 } // namespace Core
 } // namespace Ra

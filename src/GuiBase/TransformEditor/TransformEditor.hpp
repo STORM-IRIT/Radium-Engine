@@ -10,7 +10,7 @@ class RA_GUIBASE_API TransformEditor {
   public:
     RA_CORE_ALIGNED_NEW
 
-    TransformEditor() : m_transform( Core::Transform::Identity() ) {}
+    TransformEditor() : m_transform( Core::Math::Transform::Identity() ) {}
     virtual ~TransformEditor();
 
     /// Change the current editable object,
@@ -24,14 +24,14 @@ class RA_GUIBASE_API TransformEditor {
     void getTransform();
 
     /// Helper to set the transform to the editable.
-    void setTransform( const Ra::Core::Transform& tr );
+    void setTransform( const Ra::Core::Math::Transform& tr );
 
     bool canEdit() const;
 
-    Core::Transform getWorldTransform() const;
+    Core::Math::Transform getWorldTransform() const;
 
   protected:
-    Core::Transform m_transform;     //! The transform being edited.
+    Core::Math::Transform m_transform;     //! The transform being edited.
     Engine::ItemEntry m_currentEdit; //! The current item being edited.
 };
 } // namespace GuiBase
