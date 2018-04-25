@@ -1,4 +1,8 @@
 # Radium Engine default rendering informations
+**TODO : update this documentation wrt the new rendering algorithm**
+
+_See [Material management in the Radium Engine](./material.md) documentation for understanding what is a render technique 
+and how it interoperates with geometry, material and shaders._
 
 ## Main render method
 

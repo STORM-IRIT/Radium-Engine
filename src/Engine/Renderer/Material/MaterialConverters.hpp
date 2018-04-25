@@ -44,14 +44,6 @@ class RA_ENGINE_API MaterialConverter final {
     Material* operator()( const Ra::Asset::MaterialData* toconvert );
 };
 
-class RA_ENGINE_API BlinnPhongMaterialConverter final {
-  public:
-    BlinnPhongMaterialConverter() = default;
-    ~BlinnPhongMaterialConverter() = default;
-
-    Material* operator()( const Ra::Asset::MaterialData* toconvert );
-};
-
 namespace EngineMaterialConverters {
 
 using AssetMaterialPtr = const Ra::Asset::MaterialData*;
