@@ -1,5 +1,5 @@
 # Material management in the Radium Engine
-A Material is a way to control the appearance of an object when rendering. It could be The definition of a classical
+A Material is a way to control the appearance of an object when rendering. It could be the definition of a classical
 rendering materials, a _Bidirectionnal Scattering Distribution function (BSDF)_, or just define the way a geometry
 could be rendered and how is computed the final color of an object.
 
@@ -30,7 +30,7 @@ definition to the Engine internal representation.
 The `Material` interface defines the internal abstract representation of a Material. This interface will be used by
 the Engine, mainly by the _Render Technique_ and the renderers.
 
-This interface defines all the methods needed to parameterize the OpenGL pipelline for rendering.
+This interface defines all the methods needed to parametrized the OpenGL pipeline for rendering.
 When implementing this interface, it is a good idea to add two static methods to the implementation to allow to register
 and unregister the material into the Engine.
 These method could have the following profiles :
@@ -60,8 +60,8 @@ where the string gives the type of the material and the function is whatever is 
 - a functor
 - a function with bind parameters ...
 
-The function is in charge of converting a concrete `Ra::Asset::MaterialData*` to a concrete
-`Ra::Engine::Material*` according to the type of material described by the string ...
+The function is in charge of converting a concrete `Ra::Asset::MaterialData *` to a concrete
+`Ra::Engine::Material *` according to the type of material described by the string ...
 
 Material converters are managed by the engine through a Factory defined in the `namespace Ra::Engine::EngineMaterialConverters`
 and located in the `Engine/Renderer/Material` directory as below :
@@ -141,7 +141,7 @@ RA_ENGINE_API std::pair<bool, DefaultTechniqueBuilder> getDefaultTechnique( cons
 
 **Note** that, if needed, an application could bypass the builder factory and construct directly a render technique.
 More, as the material is associated to the RenderObject component and not to the Render technique, an application
- with its own specifi renderer could not use at all this functionality.
+ with its own specific renderer could not use at all this functionality.
 
 ## Engine material management workflow
 For now (master v1), the engine manage only one default material corresponding the the Blinn-Phong BSDF.
@@ -240,10 +240,10 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
 ```
 
 ### Registering the BlinnPhongMaterial to the Engine
-The registration (and unregistration) of a Material into the Engine consists in registering the material converter into
+The registration (and unregistering) of a Material into the Engine consists in registering the material converter into
 the MaterialConvertersFactory and the RenderTechniqueBuilder into the RenderTechniqueFactory.
 
-It is recommanded (see above) to implement specific class methods in the Material implementations that will register
+It is recommended (see above) to implement specific class methods in the Material implementations that will register
 and unregister the material type into the engine.
 
 For the default `BlinnPhongMaterial`, wich is of type `"BlinnPhong"`, these methods will do the following :
@@ -308,9 +308,9 @@ The conversion of a `FileData` structure, resulting from the loading of a data f
 are managed by the Engine and Renderers are in charge of the loading system, by default the `FancyMesh` system.
 
 Thanks to the `MaterialData` interface, the `Material` interface, the `EngineMaterialConverters` factory
-and the `EngineRenderTechniquesFactory`, this task is generic and is the same for every registered materials.
-So, once a material is developped following the above description, is will be directly usable in the `ForwardRenderer`
-thanks to the followinf `FancyMesh`method :
+and the `EngineRenderTechniques` factory, this task is generic and is the same for every registered materials.
+So, once a material is developed following the above description, is will be directly usable in the `ForwardRenderer`
+thanks to the following `FancyMesh`method :
 
 ```cpp
 void FancyMeshComponent::handleMeshLoading( const Ra::Asset::GeometryData* data ) {
