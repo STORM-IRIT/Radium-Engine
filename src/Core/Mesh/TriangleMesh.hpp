@@ -68,10 +68,12 @@ class VertexAttribManager {
         m_attribs.clear();
     }
 
-    value_type getAttrib( std::string name ) {
+    value_type getAttrib( const std::string& name ) {
         auto c = m_attribsIndex.find( name );
         if ( c != m_attribsIndex.end() )
+        {
             return m_attribs[c->second];
+        }
         return nullptr;
     }
 
@@ -99,6 +101,27 @@ class VertexAttribManager {
         m_attribs.push_back( attrib );
         h.m_idx = m_attribs.size() - 1;
         m_attribsIndex[name] = h.m_idx;
+    }
+
+    /// Remove attrib by name, invalidate all handle
+    void removeAttrib( const std::string& name ) {
+        auto c = m_attribsIndex.find( name );
+        if ( c != m_attribsIndex.end() )
+        {
+            int idx = c->second;
+            delete m_attribs[idx];
+            m_attribs.erase( m_attribs.begin() + idx );
+            m_attribsIndex.erase( c );
+
+            // reindex attribs with index superior to removed index
+            for ( auto& d : m_attribsIndex )
+            {
+                if ( d.second > idx )
+                {
+                    --d.second;
+                }
+            }
+        }
     }
 };
 
