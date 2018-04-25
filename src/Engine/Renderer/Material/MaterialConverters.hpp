@@ -35,7 +35,7 @@ namespace Engine {
 ///////////////////////////////////////////////
 ////        Radium Material converters      ///
 ///////////////////////////////////////////////
-
+/*
 class RA_ENGINE_API MaterialConverter final {
   public:
     MaterialConverter() = default;
@@ -43,7 +43,7 @@ class RA_ENGINE_API MaterialConverter final {
 
     Material* operator()( const Ra::Asset::MaterialData* toconvert );
 };
-
+*/
 namespace EngineMaterialConverters {
 
 using AssetMaterialPtr = const Ra::Asset::MaterialData*;

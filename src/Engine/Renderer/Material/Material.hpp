@@ -25,12 +25,12 @@ namespace Engine {
  */
 class RA_ENGINE_API Material {
   public:
-    enum class MaterialType { MAT_OPAQUE, MAT_TRANSPARENT };
+    enum class MaterialAspect { MAT_OPAQUE, MAT_TRANSPARENT };
 
   public:
     RA_CORE_ALIGNED_NEW
 
-    explicit Material( const std::string& name, MaterialType type = MaterialType::MAT_OPAQUE );
+    explicit Material( const std::string& name, MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );
 
     virtual ~Material();
 
@@ -57,16 +57,16 @@ class RA_ENGINE_API Material {
      */
     virtual const std::string getShaderInclude() const;
 
-    /** set the type (MAT_OPAQUE or MAT_TRANSPARENT) of the material.
-     * @param type
+    /** set the aspect (MAT_OPAQUE or MAT_TRANSPARENT) of the material.
+     * @param aspect
      */
-    inline void setMaterialType( const MaterialType& type );
+    inline void setMaterialAspect(const MaterialAspect &aspect);
 
-    /** Get the type (MAT_OPAQUE or MAT_TRANSPARENT) of the material.
+    /** Get the aspect (MAT_OPAQUE or MAT_TRANSPARENT) of the material.
      *
      * @return
      */
-    inline const MaterialType& getMaterialType() const;
+    inline const MaterialAspect& getMaterialAspect() const;
 
     /** Test if material is transperent.
      * @return true if the material is transparent
@@ -76,7 +76,7 @@ class RA_ENGINE_API Material {
   protected:
     std::string m_name;
     bool m_isDirty;
-    MaterialType m_type;
+    MaterialAspect m_aspect;
 };
 
 } // namespace Engine

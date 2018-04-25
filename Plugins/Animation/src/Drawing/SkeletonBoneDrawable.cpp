@@ -30,7 +30,7 @@ SkeletonBoneRenderObject::SkeletonBoneRenderObject( const std::string& name,
     m_material.reset( bpMaterial );
     bpMaterial->m_kd = Ra::Core::Color( 0.4f, 0.4f, 0.4f, 0.5f );
     bpMaterial->m_ks = Ra::Core::Color( 0.0f, 0.0f, 0.0f, 1.0f );
-    m_material->setMaterialType( Ra::Engine::Material::MaterialType::MAT_OPAQUE );
+    m_material->setMaterialAspect(Ra::Engine::Material::MaterialAspect::MAT_OPAQUE);
 
     m_renderParams.reset( new Ra::Engine::RenderTechnique() );
     {

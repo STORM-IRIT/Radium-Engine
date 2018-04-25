@@ -8,31 +8,14 @@
 #include <streambuf>
 #include <string>
 #include <thread>
-/*
-#include <Core/Event/EventEnums.hpp>
-#include <Core/Event/KeyEvent.hpp>
-#include <Core/Event/MouseEvent.hpp>
-#include <Core/Log/Log.hpp>
-#include <Core/String/StringUtils.hpp>
 
-#include <Engine/Entity/Entity.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
-*/
-
-/*
-#include <Engine/Renderer/Material/MaterialConverters.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-*/
 #include <Engine/FrameInfo.hpp>
 #include <Engine/System/System.hpp>
-
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
-
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 
@@ -50,7 +33,7 @@ void RadiumEngine::initialize() {
     m_renderObjectManager.reset( new RenderObjectManager );
     m_loadedFile.reset();
     ComponentMessenger::createInstance();
-    // Engine support some built-in materials. Add converters here
+    // Engine support some built-in materials. Register here
     BlinnPhongMaterial::registerMaterial();
 }
 
