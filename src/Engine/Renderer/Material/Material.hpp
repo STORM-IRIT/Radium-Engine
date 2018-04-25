@@ -21,6 +21,7 @@ namespace Engine {
  * Base class for materials/
  * Do not assume a given Material representation but only make the difference between opaque and
  * transparent materials.
+ *
  */
 class RA_ENGINE_API Material {
   public:
@@ -33,18 +34,43 @@ class RA_ENGINE_API Material {
 
     virtual ~Material();
 
+    /** Update the OpenGL states used by the material.
+     * These state could be textures, precomputed tables or whater data associated to the material and given to OpenGL
+     *  as a buffer object.
+     */
     virtual void updateGL() = 0;
 
+    /** Bind the material to the given shader.
+     * This method must set the uniforms and textures of the shader to reflect the state of the material.
+     * @param shader
+     */
     virtual void bind( const ShaderProgram* shader ) = 0;
 
+    /**
+     * @return the name of the material.
+     */
     inline const std::string& getName() const;
 
+    /** Get the shader file that define the glsl code to evaluate the material.
+     * @note not used yet by the Engine.
+     * @return the glsl file implementing the GLSL material interface.
+     */
     virtual const std::string getShaderInclude() const;
 
+    /** set the type (MAT_OPAQUE or MAT_TRANSPARENT) of the material.
+     * @param type
+     */
     inline void setMaterialType( const MaterialType& type );
 
+    /** Get the type (MAT_OPAQUE or MAT_TRANSPARENT) of the material.
+     *
+     * @return
+     */
     inline const MaterialType& getMaterialType() const;
 
+    /** Test if material is transperent.
+     * @return true if the material is transparent
+     */
     virtual bool isTransparent() const;
 
   protected:
