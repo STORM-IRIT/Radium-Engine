@@ -43,10 +43,10 @@ inline TopoVector3 cross( const TopoVector3& a, const TopoVector3& b ) {
 template <>
 struct OpenMesh::vector_traits<Ra::Core::TopoVector3> {
     /// Type of the vector class
-    typedef typename Ra::Core::Vector3 vector_type;
+    using vector_type = Ra::Core::Vector3;
 
     /// Type of the scalar value
-    typedef Scalar value_type;
+    using value_type = Scalar;
 
     /// size/dimension of the vector
     static const size_t size_ = 3;
@@ -63,8 +63,8 @@ namespace Core {
 // Attributes define data store on structure.
 
 struct TopologicalMeshTraits : public OpenMesh::DefaultTraits {
-    typedef TopoVector3 Point;
-    typedef TopoVector3 Normal;
+    using Point = TopoVector3;
+    using Normal = TopoVector3;
 
     VertexAttributes( OpenMesh::Attributes::Status | OpenMesh::Attributes::Normal );
     FaceAttributes( OpenMesh::Attributes::Status | OpenMesh::Attributes::Normal );
