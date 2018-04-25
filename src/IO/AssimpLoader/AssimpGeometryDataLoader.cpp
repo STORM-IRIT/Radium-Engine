@@ -7,6 +7,7 @@
 #include <Core/Log/Log.hpp>
 
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
+#include <Core/File/BlinnPhongMaterialData.hpp>
 
 namespace Ra {
 namespace IO {

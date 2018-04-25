@@ -5,13 +5,13 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
-#include <Core/File/MaterialData.hpp>
+#include <Core/File/BlinnPhongMaterialData.hpp>
 
 namespace Ra {
 namespace Engine {
 
 BlinnPhongMaterial::BlinnPhongMaterial( const std::string& name ) :
-    Material( name, Material::MaterialType::MAT_OPAQUE ),
+    Material( name, Material::MaterialAspect::MAT_OPAQUE ),
     m_kd( 0.9, 0.9, 0.9, 1.0 ),
     m_ks( 0.0, 0.0, 0.0, 1.0 ),
     m_ns( 1.0 ),

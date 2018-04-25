@@ -13,12 +13,12 @@ namespace Engine {
 ///////////////////////////////////////////////
 ////        Radium Material converters      ///
 ///////////////////////////////////////////////
-
+/*
 Material* MaterialConverter::operator()( const Ra::Asset::MaterialData* toconvert ) {
     LOG( logERROR ) << "Trying to convert a abstract material ... !";
     return nullptr;
 }
-
+*/
 namespace EngineMaterialConverters {
 /// Map that stores each conversion function
 static std::map<std::string, std::function<RadiumMaterialPtr( AssetMaterialPtr )>>
