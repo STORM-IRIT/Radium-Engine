@@ -30,8 +30,12 @@ class TopoVector3 : public Ra::Core::Vector3 {
     }
 };
 
-Scalar dot( const TopoVector3& a, const TopoVector3& b );
-TopoVector3 cross( const TopoVector3& a, const TopoVector3& b );
+inline Scalar dot( const TopoVector3& a, const TopoVector3& b ) {
+    return a.dot( b );
+}
+inline TopoVector3 cross( const TopoVector3& a, const TopoVector3& b ) {
+    return a.cross( b );
+}
 } // namespace Core
 } // namespace Ra
 
@@ -102,11 +106,11 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     using base::halfedge_handle;
     HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) {
 
-        for ( VertexIHalfedgeIter vih_it = vih_iter( vh ); vih_it; ++vih_it )
+        for ( VertexIHalfedgeIter vih_it = vih_iter( vh ); vih_it.is_valid(); ++vih_it )
         {
             if ( face_handle( *vih_it ) == fh )
             {
-                return vih_it;
+                return *vih_it;
             }
         }
         return HalfedgeHandle();

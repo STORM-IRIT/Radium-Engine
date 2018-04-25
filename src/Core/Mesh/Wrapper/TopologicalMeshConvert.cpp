@@ -66,7 +66,8 @@ void MeshConverter::convert( TopologicalMesh& in, TriangleMesh& out ) {
                 vertexHandles.insert( vtr, vMap::value_type( v, vi ) );
                 out.vertices().push_back( v._vertex );
                 out.normals().push_back( v._normal );
-            } else
+            }
+            else
             { vi = vtr->second; }
             indices[i] = vi;
             i++;
@@ -95,6 +96,7 @@ void MeshConverter::convert( const TriangleMesh& in, TopologicalMesh& out ) {
 
     std::vector<TopologicalMesh::VertexHandle> face_vhandles;
     std::vector<TopologicalMesh::Normal> face_normals;
+    ///\todo handle other TriangleMesh attribs.
 
     uint num_halfedge = in.m_triangles.size() * 3;
     for ( unsigned int i = 0; i < num_halfedge; i++ )
@@ -109,11 +111,14 @@ void MeshConverter::convert( const TriangleMesh& in, TopologicalMesh& out ) {
             vh = out.add_vertex( p );
             vertexHandles.insert( vtr, vMap::value_type( p, vh ) );
             out.set_normal( vh, TopologicalMesh::Normal( n[0], n[1], n[2] ) );
-        } else
+        }
+        else
         { vh = vtr->second; }
+
         face_vhandles.push_back( vh );
         face_normals.push_back( n );
 
+        ///\todo also consider non triangular faces
         if ( ( ( i + 1 ) % 3 ) == 0 )
         {
             TopologicalMesh::FaceHandle fh = out.add_face( face_vhandles );
@@ -127,6 +132,7 @@ void MeshConverter::convert( const TriangleMesh& in, TopologicalMesh& out ) {
             face_vhandles.clear();
         }
     }
+    ///\todo also consider non triangular faces
     assert( out.n_faces() == num_halfedge / 3 );
 }
 
