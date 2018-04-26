@@ -2,11 +2,11 @@
 namespace Ra {
 namespace Engine {
 
-inline void BlinnPhongMaterial::addTexture( const TextureType& type, Texture* texture ) {
-    m_textures[type] = texture;
+inline void BlinnPhongMaterial::addTexture( const TextureSemantic& semantic, Texture* texture ) {
+    m_textures[semantic] = texture;
 }
 
-inline TextureData& BlinnPhongMaterial::addTexture( const TextureType& type,
+inline TextureData& BlinnPhongMaterial::addTexture( const TextureSemantic& semantic,
                                                     const std::string& texture ) {
     CORE_ASSERT( !texture.empty(), "Invalid texture name" );
 
@@ -17,21 +17,21 @@ inline TextureData& BlinnPhongMaterial::addTexture( const TextureType& type,
     data.magFilter = GL_NEAREST;
     data.minFilter = GL_NEAREST;
 
-    return addTexture( type, data );
+    return addTexture( semantic, data );
 }
 
-inline TextureData& BlinnPhongMaterial::addTexture( const TextureType& type,
+inline TextureData& BlinnPhongMaterial::addTexture( const TextureSemantic& semantic,
                                                     const TextureData& texture ) {
-    m_pendingTextures[type] = texture;
+    m_pendingTextures[semantic] = texture;
     m_isDirty = true;
 
-    return m_pendingTextures[type];
+    return m_pendingTextures[semantic];
 }
 
-inline Texture* BlinnPhongMaterial::getTexture( const TextureType& type ) const {
+inline Texture* BlinnPhongMaterial::getTexture( const TextureSemantic& semantic ) const {
     Texture* tex = nullptr;
 
-    auto it = m_textures.find( type );
+    auto it = m_textures.find( semantic );
     if ( it != m_textures.end() )
     {
         tex = it->second;
