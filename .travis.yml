@@ -9,6 +9,9 @@ script:
       otool -L ./main-app
     fi;
 
+notifications:
+   slack: storm-cg:oxJ5LToK0qfPBkNW0Hus3TQg
+
 cache:
   directories:
 
