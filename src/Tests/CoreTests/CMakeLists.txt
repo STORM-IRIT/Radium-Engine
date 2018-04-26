@@ -10,11 +10,11 @@ add_executable(
  ${headers}
  ${inlines}
 )
-
 target_link_libraries(
  ${target}
  radiumCore
  radiumTestsUtils
+ ${OPENMESH_LIBRARIES}
 )
 
 add_dependencies( ${target} radiumCore radiumTestsUtils )
