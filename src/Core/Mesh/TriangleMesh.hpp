@@ -9,6 +9,9 @@
 namespace Ra {
 namespace Core {
 
+template <typename T>
+class VertexAttrib;
+
 /// VertexAttribBase is the base class for VertexAttrib.
 /// A VertexAttrib is data linked to Vertices of a mesh
 /// It is also used for rendering, and
@@ -23,8 +26,29 @@ class VertexAttribBase {
     virtual uint getSize() = 0;
     virtual int getStride() = 0;
 
+    bool inline operator==( const VertexAttribBase& rhs ) { return m_name == rhs.getName(); }
+
+    template <typename T>
+    inline VertexAttrib<T>& cast() {
+        return static_cast<VertexAttrib<T>&>( *this );
+    }
+
+    template <typename T>
+    inline const VertexAttrib<T>& cast() const {
+        return static_cast<const VertexAttrib<T>&>( *this );
+    }
+
   private:
     std::string m_name;
+};
+
+class DummyAttrib : public VertexAttribBase {
+  public:
+    DummyAttrib() : VertexAttribBase() { setName( "dummy" ); }
+    void resize( size_t ) override {}
+    virtual ~DummyAttrib() {}
+    uint getSize() override { return 0; }
+    int getStride() override { return 0; }
 };
 
 template <typename T>
@@ -81,14 +105,16 @@ class VertexAttribManager {
         m_attribs.clear();
     }
 
-    value_type getAttrib( const std::string& name ) {
+    inline VertexAttribBase& getAttrib( const std::string& name ) {
         auto c = m_attribsIndex.find( name );
         if ( c != m_attribsIndex.end() )
         {
-            return m_attribs[c->second];
+            return *m_attribs[c->second];
         }
-        return nullptr;
+        return getDummyAttrib();
     }
+
+    inline VertexAttribBase& getDummyAttrib() { return m_dummy; }
 
     template <typename T>
     inline VertexAttrib<T>& getAttrib( VertexAttribHandle<T> h ) {
@@ -102,6 +128,8 @@ class VertexAttribManager {
 
     template <typename T>
     VertexAttribHandle<T> addAttrib( const T&, std::string name ) {
+        CORE_ASSERT( name != m_dummy.getName(),
+                     m_dummy.getName() + std::string( " is not a valid attribute name" ) );
         VertexAttribHandle<T> h;
         addAttrib( h, name );
         return h;
@@ -109,6 +137,8 @@ class VertexAttribManager {
 
     template <typename T>
     void addAttrib( VertexAttribHandle<T>& h, std::string name ) {
+        CORE_ASSERT( name != m_dummy.getName(),
+                     m_dummy.getName() + std::string( " is not a valid attribute name" ) );
         VertexAttrib<T>* attrib = new VertexAttrib<T>;
         attrib->setName( name );
         m_attribs.push_back( attrib );
@@ -140,6 +170,7 @@ class VertexAttribManager {
   private:
     std::map<std::string, int> m_attribsIndex;
     Container m_attribs;
+    DummyAttrib m_dummy;
 };
 
 /// Simple Mesh structure that handles indexed triangle mesh with vertex
