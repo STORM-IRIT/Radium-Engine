@@ -10,6 +10,9 @@
 #include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh>
 #include <OpenMesh/Tools/Subdivider/Uniform/LoopT.hh>
 
+#include <OpenMesh/Tools/Decimater/DecimaterT.hh>
+#include <OpenMesh/Tools/Decimater/ModQuadricT.hh>
+
 using Ra::Core::MeshConverter;
 using Ra::Core::TopologicalMesh;
 using Ra::Core::TriangleMesh;
@@ -19,6 +22,9 @@ namespace RaTests {
 class ConvertTests : public Test {
     using Catmull = OpenMesh::Subdivider::Uniform::CatmullClarkT<Ra::Core::TopologicalMesh>;
     using Loop = OpenMesh::Subdivider::Uniform::LoopT<Ra::Core::TopologicalMesh>;
+
+    using Decimater = OpenMesh::Decimater::DecimaterT<Ra::Core::TopologicalMesh>;
+    using HModQuadric = OpenMesh::Decimater::ModQuadricT<Ra::Core::TopologicalMesh>::Handle;
 
     void testCopyConsistency() {
         TriangleMesh newMesh;
@@ -62,10 +68,36 @@ class ConvertTests : public Test {
         subdivider.attach( topologicalMesh );
         subdivider( nbIter );
         subdivider.detach();
-        topologicalMesh.triangulate();
         Ra::Core::MeshConverter::convert( topologicalMesh, newMesh );
 
         RA_UNIT_TEST( newMesh.m_triangles.size() > 2 * nbIter * mesh.m_triangles.size(),
+                      "Conversion to topological cylinder mesh failed" );
+    }
+
+    template <typename DecimationModule>
+    void testDecimation() {
+
+        TriangleMesh mesh;
+        TriangleMesh newMesh;
+        TopologicalMesh topologicalMesh;
+
+        // Generate input geometry
+        const int nbIter = 2;
+        const int gridSize = 5;
+
+        mesh = Ra::Core::MeshUtils::makePlaneGrid( gridSize, gridSize );
+        Ra::Core::MeshConverter::convert( mesh, topologicalMesh );
+
+        // Decimate
+        Decimater decimater( topologicalMesh );
+        DecimationModule mod;
+        decimater.add( mod );
+        decimater.initialize();
+        decimater.decimate();
+        topologicalMesh.triangulate();
+        Ra::Core::MeshConverter::convert( topologicalMesh, newMesh );
+
+        RA_UNIT_TEST( newMesh.m_triangles.size() < 2 * nbIter * mesh.m_triangles.size(),
                       "Conversion to topological cylinder mesh failed" );
     }
 
@@ -111,6 +143,7 @@ class ConvertTests : public Test {
         testCopyConsistency();
         testSubdivision<Catmull>();
         testSubdivision<Loop>();
+        testDecimation<HModQuadric>();
     }
 };
 RA_TEST_CLASS( ConvertTests );
