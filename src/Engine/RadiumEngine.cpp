@@ -9,6 +9,9 @@
 #include <string>
 #include <thread>
 
+#include <Core/File/FileData.hpp>
+#include <Core/File/FileLoaderInterface.hpp>
+
 #include <Engine/FrameInfo.hpp>
 #include <Engine/System/System.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
@@ -18,6 +21,7 @@
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
+
 
 namespace Ra {
 namespace Engine {

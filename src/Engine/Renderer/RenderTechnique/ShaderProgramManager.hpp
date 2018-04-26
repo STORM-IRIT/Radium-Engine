@@ -9,7 +9,6 @@
 #include <vector>
 
 #include <Core/Utils/Singleton.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
 namespace globjects {
 class File;
@@ -19,6 +18,7 @@ class NamedString;
 namespace Ra {
 namespace Engine {
 class ShaderProgram;
+class ShaderConfiguration;
 }
 } // namespace Ra
 

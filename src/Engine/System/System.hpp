@@ -3,21 +3,15 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <map>
+#include <vector>
 #include <memory>
 
-#include <Core/Event/KeyEvent.hpp>
-#include <Core/Event/MouseEvent.hpp>
-
-#include <Engine/Component/Component.hpp>
 
 namespace Ra {
 namespace Core {
 class TaskQueue;
-}
-} // namespace Ra
+} // namespace Core
 
-namespace Ra {
 namespace Engine {
 struct FrameInfo;
 class Component;

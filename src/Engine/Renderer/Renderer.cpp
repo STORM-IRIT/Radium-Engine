@@ -7,15 +7,15 @@
 #include <Core/Log/Log.hpp>
 
 #include <Core/Mesh/MeshPrimitives.hpp>
+#include <Core/File/FileData.hpp>
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <Engine/Managers/LightManager/LightManager.hpp>
 
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-
-#include <Engine/Managers/LightManager/LightManager.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -586,33 +586,6 @@ std::vector<std::string> Renderer::getAvailableTextures() const {
 
 void Renderer::reloadShaders() {
     ShaderProgramManager::getInstance()->reloadAllShaderPrograms();
-}
-
-// FIXME : this method is no longer needed ... Light are loaded by a System now.
-void Renderer::handleFileLoading( const Asset::FileData& filedata ) {
-    if ( !filedata.hasLight() )
-    {
-        return;
-    }
-#if 0
-// lights are loaded through the LightManager system ...
-    std::vector<Asset::LightData*> data = filedata.getLightData();
-    uint i = 0;
-    for ( auto light : data )
-    {
-        if ( light->getLight() )
-        {
-            // WARNING (Mathias) : this is awfull and must crash.
-            addLight( light->getLight().get() );
-            ++i;
-        }
-    }
-    LOG( logINFO ) << "Added " << i << " lights in the renderer";
-    if ( data.size() > i )
-    {
-        LOG( logWARNING ) << data.size() - i << " lights where of unknown or unsupported type.";
-    }
-#endif
 }
 
 uchar* Renderer::grabFrame( uint& w, uint& h ) const {

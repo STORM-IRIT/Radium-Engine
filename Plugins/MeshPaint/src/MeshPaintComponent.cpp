@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include <Core/Log/Log.hpp>
+
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>

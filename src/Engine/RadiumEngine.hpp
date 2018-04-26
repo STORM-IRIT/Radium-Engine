@@ -5,10 +5,8 @@
 
 #include <Core/Utils/Singleton.hpp>
 
-#include <Core/File/FileData.hpp>
-#include <Core/File/FileLoaderInterface.hpp>
-
 #include <map>
+#include <vector>
 #include <memory>
 #include <string>
 
@@ -18,8 +16,7 @@ class TaskQueue;
 struct MouseEvent;
 struct KeyEvent;
 } // namespace Core
-} // namespace Ra
-namespace Ra {
+
 namespace Engine {
 class System;
 class Entity;
@@ -29,6 +26,11 @@ class RenderObjectManager;
 class EntityManager;
 class SignalManager;
 } // namespace Engine
+
+namespace Asset {
+class FileLoaderInterface;
+class FileData;
+} // namespace Asset
 } // namespace Ra
 
 namespace Ra {

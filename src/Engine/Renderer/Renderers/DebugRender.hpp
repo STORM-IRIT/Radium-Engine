@@ -1,4 +1,7 @@
-#pragma once
+#ifndef RADIUMENGINE_DEBUGRENDERER_HPP
+#define RADIUMENGINE_DEBUGRENDERER_HPP
+
+#include <Engine/RaEngine.hpp>
 
 #include <memory>
 #include <vector>
@@ -6,7 +9,11 @@
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Utils/Singleton.hpp>
 
-#include <Engine/Renderer/Mesh/Mesh.hpp>
+namespace Ra {
+namespace Engine {
+class Mesh;
+} // namespace Engine
+} // namespace Ra
 
 namespace Ra {
 namespace Engine {
@@ -93,3 +100,5 @@ class RA_ENGINE_API DebugRender {
 };
 } // namespace Engine
 } // namespace Ra
+
+#endif //RADIUMENGINE_DEBUGRENDERER_HPP
