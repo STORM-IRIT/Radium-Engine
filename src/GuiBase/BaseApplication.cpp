@@ -290,8 +290,6 @@ void BaseApplication::loadFile( QString path ) {
         return;
     }
 
-    m_viewer->handleFileLoading( m_engine->getFileData() );
-
     m_engine->releaseFile();
 
     m_mainWindow->postLoadFile();
@@ -305,11 +303,6 @@ void BaseApplication::framesCountForStatsChanged( uint count ) {
 
 void BaseApplication::addBasicShaders() {
     using namespace Ra::Engine;
-
-    ShaderConfiguration bpConfig( "BlinnPhong" );
-    bpConfig.addShader( ShaderType_VERTEX, "Shaders/BlinnPhong.vert.glsl" );
-    bpConfig.addShader( ShaderType_FRAGMENT, "Shaders/BlinnPhong.frag.glsl" );
-    ShaderConfigurationFactory::addConfiguration( bpConfig );
 
     ShaderConfiguration pConfig( "Plain" );
     pConfig.addShader( ShaderType_VERTEX, "Shaders/Plain.vert.glsl" );

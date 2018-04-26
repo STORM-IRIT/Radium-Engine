@@ -9,6 +9,7 @@
 #include <Engine/RadiumEngine.hpp>
 
 #include <GuiBase/Viewer/Viewer.hpp>
+#include <Core/File/FileData.hpp>
 
 #include <iostream>
 
@@ -516,26 +517,6 @@ void Gui::Viewer::waitForRendering() {
     }
 
     m_context->doneCurrent();
-}
-
-void Gui::Viewer::handleFileLoading( const std::string& file ) {
-    for ( auto& renderer : m_renderers )
-    {
-        if ( renderer )
-        {
-            renderer->handleFileLoading( file );
-        }
-    }
-}
-
-void Gui::Viewer::handleFileLoading( const Ra::Asset::FileData& filedata ) {
-    for ( auto& renderer : m_renderers )
-    {
-        if ( renderer )
-        {
-            renderer->handleFileLoading( filedata );
-        }
-    }
 }
 
 void Gui::Viewer::processPicking() {
