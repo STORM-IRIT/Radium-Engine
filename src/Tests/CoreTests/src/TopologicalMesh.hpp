@@ -16,10 +16,11 @@
 using Ra::Core::MeshConverter;
 using Ra::Core::TopologicalMesh;
 using Ra::Core::TriangleMesh;
+using Ra::Core::Vector3;
 
 namespace RaTests {
 
-class ConvertTests : public Test {
+class TopologicalMeshTests : public Test {
     using Catmull = OpenMesh::Subdivider::Uniform::CatmullClarkT<Ra::Core::TopologicalMesh>;
     using Loop = OpenMesh::Subdivider::Uniform::LoopT<Ra::Core::TopologicalMesh>;
 
@@ -68,6 +69,7 @@ class ConvertTests : public Test {
         subdivider.attach( topologicalMesh );
         subdivider( nbIter );
         subdivider.detach();
+        topologicalMesh.triangulate();
         Ra::Core::MeshConverter::convert( topologicalMesh, newMesh );
 
         RA_UNIT_TEST( newMesh.m_triangles.size() > 2 * nbIter * mesh.m_triangles.size(),
@@ -94,7 +96,6 @@ class ConvertTests : public Test {
         decimater.add( mod );
         decimater.initialize();
         decimater.decimate();
-        topologicalMesh.triangulate();
         Ra::Core::MeshConverter::convert( topologicalMesh, newMesh );
 
         RA_UNIT_TEST( newMesh.m_triangles.size() < 2 * nbIter * mesh.m_triangles.size(),
@@ -146,7 +147,7 @@ class ConvertTests : public Test {
         testDecimation<HModQuadric>();
     }
 };
-RA_TEST_CLASS( ConvertTests );
+RA_TEST_CLASS( TopologicalMeshTests );
 } // namespace RaTests
 
 #endif // RADIUM_CONVERT_TESTS_HPP_
