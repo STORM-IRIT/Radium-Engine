@@ -11,6 +11,8 @@ void MeshConverter::convert( TopologicalMesh& in, TriangleMesh& out ) {
     struct vertexData {
         Vector3 _vertex;
         Vector3 _normal;
+
+        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     };
 
     struct comp_vec {
@@ -27,7 +29,8 @@ void MeshConverter::convert( TopologicalMesh& in, TriangleMesh& out ) {
     };
 
     out.clear();
-    typedef std::map<vertexData, int, comp_vec> vMap;
+    using vMap = std::map<vertexData, int, comp_vec,
+                          Eigen::aligned_allocator<std::pair<const vertexData, int>>>;
 
     vMap vertexHandles;
 

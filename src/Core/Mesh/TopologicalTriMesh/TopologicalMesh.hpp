@@ -29,6 +29,7 @@ class TopoVector3 : public Ra::Core::Vector3 {
         Ra::Core::Vector3::normalize();
         return *this;
     }
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
 inline Scalar dot( const TopoVector3& a, const TopoVector3& b ) {
@@ -53,6 +54,8 @@ struct OpenMesh::vector_traits<Ra::Core::TopoVector3> {
 
     /// size/dimension of the vector
     static inline size_t size() { return size_; }
+
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
 namespace Ra {
@@ -92,6 +95,7 @@ struct TopologicalMeshTraits : public OpenMesh::DefaultTraits {
     };
 
   public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
 class TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits> {
@@ -116,6 +120,9 @@ class TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTr
         }
         return HalfedgeHandle();
     }
+
+  public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 } // namespace Core
 } // namespace Ra
