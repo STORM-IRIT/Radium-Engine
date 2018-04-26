@@ -7,6 +7,8 @@ inline void TriangleMesh::clear() {
     vertices().clear();
     normals().clear();
     m_triangles.clear();
+
+    initDefaultAttribs();
 }
 
 inline void TriangleMesh::append( const TriangleMesh& other ) {
