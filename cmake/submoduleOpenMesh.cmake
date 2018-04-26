@@ -1,21 +1,29 @@
 if(${RADIUM_SUBMODULES_BUILD_TYPE} MATCHES Debug)
     set(OPENMESHLIBNAME OpenMeshCored)
+    set(OPENMESHTOOLLIBNAME OpenMeshToold)
 else()
     set(OPENMESHLIBNAME OpenMeshCore)
+    set(OPENMESHTOOLLIBNAME OpenMeshTool)
 endif()
 
 # ----------------------------------------------------------------------------------------------------------------------
 set( OPENMESH_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include )
 if( APPLE )
-    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dylib")
+    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dylib"
+                            "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshTools.dylib")
 elseif ( UNIX )
-    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.so")
+    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.so"
+                            "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshTools.so")
 elseif (MINGW)
-    set( OPENMESH_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/libOpenMeshCore.dll")
-    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dll.a")
+    set( OPENMESH_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/libOpenMeshCore.dll"
+                      "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshTools.dll")
+    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dll.a"
+                            "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshTools.dll.a")
 elseif( MSVC )
-    set(OPENMESH_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${OPENMESHLIBNAME}.dll")
-    set(OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${OPENMESHLIBNAME}.lib")
+    set(OPENMESH_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${OPENMESHLIBNAME}.dll"
+                     "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${OPENMESHTOOLLIBNAME}.dll")
+    set(OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${OPENMESHLIBNAME}.lib"
+                           "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${OPENMESHTOOLLIBNAME}.lib")
 endif()
 
 
