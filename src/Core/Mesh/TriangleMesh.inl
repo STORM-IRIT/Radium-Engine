@@ -3,6 +3,7 @@
 namespace Ra {
 namespace Core {
 inline void TriangleMesh::clear() {
+    m_vertexAttribs.clear();
     vertices().clear();
     normals().clear();
     m_triangles.clear();

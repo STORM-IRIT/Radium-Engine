@@ -32,14 +32,22 @@ class VertexAttrib : public VertexAttribBase {
   public:
     using value_type = T;
     using Container = VectorArray<T>;
+
+    /// resize the container (value_type must have a default ctor).
     void resize( size_t s ) override { m_data.resize( s ); }
+
+    /// RW acces to container data
     inline Container& data() { return m_data; }
+
+    /// R only acccess to container data
     inline const Container& data() const { return m_data; }
-    Container m_data;
 
     virtual ~VertexAttrib() { m_data.clear(); }
     uint getSize() override { return Container::Vector::RowsAtCompileTime; }
     int getStride() override { return sizeof( typename Container::Vector ); }
+
+  private:
+    Container m_data;
 };
 
 template <typename T>
@@ -47,16 +55,21 @@ class VertexAttribHandle {
   public:
     typedef T value_type;
     using Container = typename VertexAttrib<T>::Container;
-    int m_idx = -1;
+
+    /// There is no validity check against the corresponding mesh, but just a
+    /// simple test to allow the manipuation of unitialized handles.
     constexpr bool isValid() const { return m_idx != -1; }
+
+  private:
+    int m_idx = -1;
+
+    friend class VertexAttribManager;
 };
 
 class VertexAttribManager {
   public:
     using value_type = VertexAttribBase*;
     using Container = std::vector<value_type>;
-    std::map<std::string, int> m_attribsIndex;
-    Container m_attribs;
 
     const Container& attribs() const { return m_attribs; }
     /// clear all attribs, invalidate handles !
@@ -123,6 +136,10 @@ class VertexAttribManager {
             }
         }
     }
+
+  private:
+    std::map<std::string, int> m_attribsIndex;
+    Container m_attribs;
 };
 
 /// Simple Mesh structure that handles indexed triangle mesh with vertex
@@ -159,6 +176,7 @@ struct TriangleMesh {
     inline void clear();
 
     /// Appends another mesh to this one.
+    /// \todo handle attrib here as well !
     inline void append( const TriangleMesh& other );
 
     VectorArray<Triangle> m_triangles;
