@@ -55,7 +55,7 @@ void MeshConverter::convert( TopologicalMesh& in, TriangleMesh& out ) {
         for ( TopologicalMesh::FaceHalfedgeIter fv_it = in.fh_iter( *f_it ); fv_it.is_valid();
               ++fv_it )
         {
-            assert( i < 3 );
+            CORE_ASSERT( i < 3, "Non-triangular face found." );
             TopologicalMesh::Point p = in.point( in.to_vertex_handle( *fv_it ) );
             TopologicalMesh::Normal n = in.normal( in.to_vertex_handle( *fv_it ), *f_it );
             v._vertex = p;
@@ -77,7 +77,8 @@ void MeshConverter::convert( TopologicalMesh& in, TriangleMesh& out ) {
         }
         out.m_triangles.emplace_back( indices[0], indices[1], indices[2] );
     }
-    assert( vertexIndex == out.vertices().size() );
+    CORE_ASSERT( vertexIndex == out.vertices().size(),
+                 "Inconsistent number of faces in generated TriangleMesh." );
 }
 
 void MeshConverter::convert( const TriangleMesh& in, TopologicalMesh& out ) {
@@ -136,7 +137,8 @@ void MeshConverter::convert( const TriangleMesh& in, TopologicalMesh& out ) {
         }
     }
     ///\todo also consider non triangular faces
-    assert( out.n_faces() == num_halfedge / 3 );
+    CORE_ASSERT( out.n_faces() == num_halfedge / 3,
+                 "Inconsistent number of faces in generated TopologicalMesh." );
 }
 
 } // namespace Core
