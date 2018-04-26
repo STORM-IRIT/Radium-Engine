@@ -10,7 +10,6 @@
 #include <vector>
 
 #include <Core/Event/EventEnums.hpp>
-#include <Core/File/FileData.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Time/Timer.hpp>
 
@@ -19,9 +18,7 @@ namespace Core {
 struct MouseEvent;
 struct KeyEvent;
 } // namespace Core
-} // namespace Ra
 
-namespace Ra {
 namespace Engine {
 class Camera;
 class RenderObject;
@@ -34,6 +31,10 @@ class TextureManager;
 class RenderObjectManager;
 class LightManager;
 } // namespace Engine
+
+namespace Asset {
+class FileData;
+} // namespace Asset
 } // namespace Ra
 
 namespace globjects {
@@ -187,8 +188,6 @@ class RA_ENGINE_API Renderer {
     bool hasLight() const;
 
     virtual void reloadShaders();
-
-    virtual void handleFileLoading( const Asset::FileData& filedata );
 
     /**
      * @brief Change the texture that is displayed on screen.
