@@ -2,7 +2,7 @@
 #define RADIUM_CONTAINERSTESTS_HPP_
 
 #include <Core/Containers/Iterators.hpp>
-#include <Tests/CoreTests/Tests.hpp>
+#include <Tests/Tests.hpp>
 
 #include <algorithm>
 #include <functional>
