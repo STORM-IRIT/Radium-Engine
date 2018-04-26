@@ -163,11 +163,7 @@ struct TriangleMesh {
     using Face = VectorNui;
 
     /// Create an empty mesh.
-    inline TriangleMesh() {
-
-        m_vertexAttribs.addAttrib( m_verticesHandle, "in_position" );
-        m_vertexAttribs.addAttrib( m_normalsHandle, "in_normal" );
-    }
+    inline TriangleMesh() { initDefaultAttribs(); }
     /// Copy constructor and assignment operator
     TriangleMesh( const TriangleMesh& ) = default;
     TriangleMesh& operator=( const TriangleMesh& ) = default;
@@ -203,6 +199,11 @@ struct TriangleMesh {
     VertexAttribManager m_vertexAttribs;
     PointAttribHandle m_verticesHandle;
     NormalAttribHandle m_normalsHandle;
+
+    inline void initDefaultAttribs() {
+        m_vertexAttribs.addAttrib( m_verticesHandle, "in_position" );
+        m_vertexAttribs.addAttrib( m_normalsHandle, "in_normal" );
+    }
 };
 
 } // namespace Core
