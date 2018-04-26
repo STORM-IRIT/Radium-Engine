@@ -53,7 +53,7 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     Texture* tex = nullptr;
     uint texUnit = 0;
 
-    tex = getTexture( BlinnPhongMaterial::TextureType::TEX_DIFFUSE );
+    tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE );
     if ( tex != nullptr )
     {
         tex->bind( texUnit );
@@ -63,7 +63,7 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     } else
     { shader->setUniform( "material.tex.hasKd", 0 ); }
 
-    tex = getTexture( BlinnPhongMaterial::TextureType::TEX_SPECULAR );
+    tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_SPECULAR );
     if ( tex != nullptr )
     {
         tex->bind( texUnit );
@@ -73,7 +73,7 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     } else
     { shader->setUniform( "material.tex.hasKs", 0 ); }
 
-    tex = getTexture( BlinnPhongMaterial::TextureType::TEX_NORMAL );
+    tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_NORMAL );
     if ( tex != nullptr )
     {
         tex->bind( texUnit );
@@ -83,7 +83,7 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     } else
     { shader->setUniform( "material.tex.hasNormal", 0 ); }
 
-    tex = getTexture( BlinnPhongMaterial::TextureType::TEX_SHININESS );
+    tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_SHININESS );
     if ( tex != nullptr )
     {
         tex->bind( texUnit );
@@ -93,7 +93,7 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     } else
     { shader->setUniform( "material.tex.hasNs", 0 ); }
 
-    tex = getTexture( BlinnPhongMaterial::TextureType::TEX_ALPHA );
+    tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_ALPHA );
     if ( tex != nullptr )
     {
         tex->bind( texUnit );
@@ -169,19 +169,19 @@ Material* BlinnPhongMaterialConverter::operator()( const Ra::Asset::MaterialData
 
 #ifdef RADIUM_WITH_TEXTURES
     if ( source->hasDiffuseTexture() )
-      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureType::TEX_DIFFUSE,
+      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE,
                           source->m_texDiffuse );
     if ( source->hasSpecularTexture() )
-      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureType::TEX_SPECULAR,
+      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_SPECULAR,
                           source->m_texSpecular );
     if ( source->hasShininessTexture() )
-      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureType::TEX_SHININESS,
+      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_SHININESS,
                           source->m_texShininess );
     if ( source->hasOpacityTexture() )
-      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureType::TEX_ALPHA,
+      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_ALPHA,
                           source->m_texOpacity );
     if ( source->hasNormalTexture() )
-      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureType::TEX_NORMAL,
+      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_NORMAL,
                           source->m_texNormal );
 #endif
     return result;
