@@ -110,23 +110,26 @@ bool BlinnPhongMaterial::isTransparent() const {
 
 
 void BlinnPhongMaterial::registerMaterial() {
+    // Defining Converter
     EngineMaterialConverters::registerMaterialConverter( "BlinnPhong",
                                                          BlinnPhongMaterialConverter() );
+    //registering re-usable shaders
+    Ra::Engine::ShaderConfiguration lpconfig(
+        "BlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+        "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
+    Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
+    // Registering technique
     Ra::Engine::EngineRenderTechniques::registerDefaultTechnique(
         "BlinnPhong",
 
         []( Ra::Engine::RenderTechnique& rt, bool isTransparent ) {
             // Configure the technique to render this object using forward Renderer or any
             // compatible one Main pass (Mandatory) : BlinnPhong
-            Ra::Engine::ShaderConfiguration lpconfig(
-                "BlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
-
-            Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
+            auto lpconfig = Ra::Engine::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
             rt.setConfiguration( lpconfig, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE );
 
-            // Z prepass (Reccomanded) : DepthAmbiantPass
+            // Z prepass (Recommended) : DepthAmbiantPass
             Ra::Engine::ShaderConfiguration dpconfig(
                 "DepthAmbiantBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
                 "Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );

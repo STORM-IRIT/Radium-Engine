@@ -2,6 +2,7 @@
 #include <MainApplication.hpp>
 
 #include <Core/File/deprecated/OBJFileManager.hpp>
+#include <Core/File/FileLoaderInterface.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>

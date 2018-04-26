@@ -125,7 +125,7 @@ GLenum ShaderProgram::getTypeAsGLEnum( ShaderType type ) const {
     case ShaderType_TESS_CONTROL:
         return GL_TESS_CONTROL_SHADER;
 #ifndef OS_MACOS
-        // FIXED (Mathias) : GL_COMPUTE_SHADER requires OpenGL >= 4.2, Apple provides OpenGL 4.1
+    // GL_COMPUTE_SHADER requires OpenGL >= 4.2, Apple provides OpenGL 4.1
     case ShaderType_COMPUTE:
         return GL_COMPUTE_SHADER;
 #endif

@@ -3,7 +3,6 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <Core/CoreMacros.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>

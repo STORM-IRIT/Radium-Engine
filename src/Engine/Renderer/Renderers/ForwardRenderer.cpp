@@ -48,15 +48,9 @@ void ForwardRenderer::initializeInternal() {
 }
 
 void ForwardRenderer::initShaders() {
-    m_shaderMgr->addShaderProgram( "DepthMap", "Shaders/DepthMap.vert.glsl",
-                                   "Shaders/DepthMap.frag.glsl" );
-    m_shaderMgr->addShaderProgram( "DepthAmbientPass", "Shaders/BlinnPhong.vert.glsl",
-                                   "Shaders/DepthAmbientPass.frag.glsl" );
-    m_shaderMgr->addShaderProgram( "FinalCompose", "Shaders/Basic2D.vert.glsl",
+     m_shaderMgr->addShaderProgram( "FinalCompose", "Shaders/Basic2D.vert.glsl",
                                    "Shaders/FinalCompose.frag.glsl" );
 #ifndef NO_TRANSPARENCY
-    m_shaderMgr->addShaderProgram( "LitOIT", "Shaders/BlinnPhong.vert.glsl",
-                                   "Shaders/LitOIT.frag.glsl" );
     m_shaderMgr->addShaderProgram( "UnlitOIT", "Shaders/Plain.vert.glsl",
                                    "Shaders/UnlitOIT.frag.glsl" );
     m_shaderMgr->addShaderProgram( "ComposeOIT", "Shaders/Basic2D.vert.glsl",
