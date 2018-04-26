@@ -1,7 +1,7 @@
 #ifndef RADIUM_TESTS_HPP_
 #define RADIUM_TESTS_HPP_
 #include <Core/CoreMacros.hpp>
-#include <Tests/CoreTests/Manager.hpp>
+#include <Tests/Manager.hpp>
 
 namespace RaTests {
 /// Base class for all tests.
@@ -33,7 +33,8 @@ class Test {
     {                                                                                             \
         fprintf( stderr, "[TEST FAILED] : %s:%i: `%s` : %s \n", __FILE__, __LINE__, #EXP, DESC ); \
         RaTests::TestManager::getInstance()->testFailed( this );                                  \
-    } else                                                                                        \
+    }                                                                                             \
+    else                                                                                          \
     { fprintf( stdout, "[TEST PASSED]\n" ); }                                                     \
     MACRO_END
 

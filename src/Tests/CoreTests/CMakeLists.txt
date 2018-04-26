@@ -14,4 +14,7 @@ add_executable(
 target_link_libraries(
  ${target}
  radiumCore
+ radiumTestsUtils
 )
+
+add_dependencies( ${target} radiumCore radiumTestsUtils )
