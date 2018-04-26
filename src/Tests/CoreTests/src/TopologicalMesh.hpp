@@ -5,7 +5,7 @@
 #include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Core/Mesh/Wrapper/TopologicalMeshConvert.hpp>
-#include <Tests/CoreTests/Tests.hpp>
+#include <Tests/Tests.hpp>
 
 #include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh>
 #include <OpenMesh/Tools/Subdivider/Uniform/LoopT.hh>
