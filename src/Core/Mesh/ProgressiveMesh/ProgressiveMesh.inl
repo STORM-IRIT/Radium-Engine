@@ -324,6 +324,20 @@ namespace Ra
             trianglekdtrees[idxOtherObject]->doQueryRestrictedClosestIndexes(p1, p2, threshold, contacts);
         }
 
+        template <class ErrorMetric>
+        bool ProgressiveMesh<ErrorMetric>::isProximity(Index vertexIndex1, Index vertexIndex2, std::vector<Super4PCS::TriangleKdTree<>*> trianglekdtrees, int idxOtherObject, Scalar threshold)
+        {
+            Vertex_ptr v1 = m_dcel->m_vertex[vertexIndex1];
+            Vertex_ptr v2 = m_dcel->m_vertex[vertexIndex2];
+
+
+            const Super4PCS::TriangleKdTree<>::VectorType& p1 = reinterpret_cast<const Super4PCS::TriangleKdTree<>::VectorType&>(v1->P());
+            const Super4PCS::TriangleKdTree<>::VectorType& p2 = reinterpret_cast<const Super4PCS::TriangleKdTree<>::VectorType&>(v2->P());
+
+            // Look if the edge is too close to another object
+            return trianglekdtrees[idxOtherObject]->doQueryIsProximity(p1, p2, threshold);
+        }
+
 //        template <class ErrorMetric>
 //        bool ProgressiveMesh<ErrorMetric>::hasContact(Index halfEdgeIndex, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx)
 //        {

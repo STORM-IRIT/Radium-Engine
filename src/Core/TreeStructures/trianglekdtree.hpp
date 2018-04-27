@@ -84,6 +84,8 @@ public:
 
     inline void doQueryRestrictedClosestIndexes(const VectorType &s1, const VectorType &s2, Scalar sqdist, std::vector<std::pair<Index,Scalar> >& cl);
 
+    inline bool doQueryIsProximity(const VectorType &s1, const VectorType &s2, Scalar sqdist);
+
     inline std::pair<Index,Scalar> doQueryRestrictedClosestIndexTriangle(const VectorType &a, const VectorType &b, const VectorType &c);
 
 protected:
@@ -405,6 +407,103 @@ void TriangleKdTree<Index>::doQueryRestrictedClosestIndexes(const VectorType &s1
             --count;
         }
     }
+}
+
+template<typename Index>
+bool TriangleKdTree<Index>::doQueryIsProximity(const VectorType &s1, const VectorType &s2, Scalar sqdist)
+{
+    mNodeStack[0].nodeId = 0;
+    mNodeStack[0].sq = 0.f;
+    unsigned int count = 1;
+
+    while (count)
+    {
+        QueryNode& qnode = mNodeStack[count-1];
+        KdNode   & node  = mNodes[qnode.nodeId];
+
+        if (qnode.sq < sqdist)
+        {
+            if (node.leaf)
+            {
+                --count; // pop
+                const int nbTriangles = node.triangleIndices.size();
+                for (int i = 0; i < nbTriangles; i++)
+                {
+                    const VectorType& segCenter = (Scalar)0.5 * (s1 + s2);
+                    const VectorType& segDirection = s2 - s1;
+                    Scalar segExtent = (Scalar)0.5 * std::sqrt((s2 - s1).dot(s2 - s1));
+                    const VectorType triangle[3] = { mPoints[mTriangles[node.triangleIndices[i]][0]],
+                                                     mPoints[mTriangles[node.triangleIndices[i]][1]],
+                                                     mPoints[mTriangles[node.triangleIndices[i]][2]] };
+                    const Scalar dist = Ra::Core::DistanceQueries::segmentToTriSq(segCenter, segDirection, segExtent, triangle).sqrDistance;
+                    if (dist < sqdist)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                Scalar new_off;
+                const Scalar d1 = s1[node.dim] - node.splitValue;
+                const Scalar d2 = s2[node.dim] - node.splitValue;
+                // the segment is on the left side of the split plane
+                if (d1 < 0. && d2 < 0.)
+                {
+                    if (d1 >= d2)
+                    {
+                        new_off = d1;
+                    }
+                    else
+                    {
+                        new_off = d2;
+                    }
+                    mNodeStack[count].nodeId  = node.firstChildId;
+                    qnode.nodeId = node.firstChildId+1;
+                }
+                // the segment is on the right side of the split plane
+                else if (d1 >= 0. && d2 >= 0.)
+                {
+                    if (d1 <= d2)
+                    {
+                        new_off = d1;
+                    }
+                    else
+                    {
+                        new_off = d2;
+                    }
+                    mNodeStack[count].nodeId  = node.firstChildId+1;
+                    qnode.nodeId = node.firstChildId;
+                }
+                // the segment is intersecting the split plane
+                else
+                {
+                    new_off = 0;
+                    const VectorType &s = (s1 + s2) / 2;
+                    const Scalar d = s[node.dim] - node.splitValue;
+                    if (d < 0.)
+                    {
+                        mNodeStack[count].nodeId  = node.firstChildId; // stack top the farthest
+                        qnode.nodeId = node.firstChildId+1;            // push the closest
+                    }
+                    else
+                    {
+                        mNodeStack[count].nodeId  = node.firstChildId+1;
+                        qnode.nodeId = node.firstChildId;
+                    }
+                }
+                mNodeStack[count].sq = qnode.sq;
+                qnode.sq = new_off*new_off;
+                ++count;
+            }
+        }
+        else
+        {
+            // pop
+            --count;
+        }
+    }
+    return false;
 }
 
 template<typename Index>
