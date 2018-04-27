@@ -1822,6 +1822,8 @@ namespace Ra
                 }
             }
 
+            Scalar proximity_percentage = (m_broader_threshold / m_aabb_scene.diagonal()) * 100;
+
             std::ofstream file2("Parameters.txt", std::ios::out | std::ios::trunc);
             CORE_ASSERT(file2, "Error while opening parameters file.");
             file2 << "Nb objects scene : " << m_meshContactElements.size() << std::endl;
@@ -1834,6 +1836,8 @@ namespace Ra
             file2 << "Weight function parameter n : " << m_n << std::endl;
             file2 << "Cluster threshold weight : " << m_influence << std::endl;
             file2 << "Proximity threshold : " << m_broader_threshold << std::endl;
+            file2 << "Scene AABB diag : " << m_aabb_scene.diagonal() << std::endl;
+            file2 << "Proximity threshold percentage of scene AABB diag : " << proximity_percentage << std::endl;
             file2 << "Nb objects to simplify : " << m_nbobjects << std::endl;
             file2 << "Proximity weight parameter alpha: " << m_lambda << std::endl;
             file2.close();
