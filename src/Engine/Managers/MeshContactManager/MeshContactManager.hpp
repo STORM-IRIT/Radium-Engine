@@ -73,6 +73,8 @@ namespace Ra
             int getAlpha();
             void colorMeshes();
             void colorMeshesSimplified();
+            void setWeightState(bool state);
+            void setWeight(double weight);
 
             int getNbFacesMax();
             void computeNbFacesMax();
@@ -137,6 +139,8 @@ namespace Ra
             Scalar m_lambda; // influence of the original quadric considering contacts
             Scalar m_m;
             Scalar m_n; // slope of the weight function for contacts
+            bool m_proximity;
+            Scalar m_weight;
 
             Eigen::Matrix<Scalar, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_thresholds; // thresholds for each pair of objects
             std::vector<Super4PCS::AABB3D> m_aabb;

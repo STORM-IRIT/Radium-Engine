@@ -45,6 +45,8 @@ namespace Ra
             ,m_distance_median( 0 )
             ,m_nbclusters_compute( 4 )
             ,m_nbclusters_display( 1 )
+            ,m_proximity( true )
+            ,m_weight( 1 )
         {
         }
 
@@ -2370,25 +2372,28 @@ namespace Ra
             Ra::Core::ProgressiveMesh<>::Primitive qc = Ra::Core::ProgressiveMesh<>::Primitive();
             if (m_lambda != 0.0)
             {
-                for (uint k=0; k<m_trianglekdtrees.size(); k++)
+                /// Proximity-aware QEM
+                if (m_proximity)
                 {
-                    if (k != objIndex)
+                    for (uint k=0; k<m_trianglekdtrees.size(); k++)
                     {
-                        MeshContactElement* otherObj = static_cast<MeshContactElement*>(m_meshContactElements[k]);
-                        std::vector<std::pair<int,Scalar> > faceIndexes;
-
-                        // all close faces
-                        obj->getProgressiveMeshLOD()->getProgressiveMesh()->edgeContacts(vs->idx, vt->idx, m_trianglekdtrees, k, std::pow(m_broader_threshold,2), faceIndexes);
-                        if ( faceIndexes.size() != 0)
+                        if (k != objIndex)
                         {
-                            for (uint l = 0; l < faceIndexes.size(); l++)
-                            {
-                                dist = faceIndexes[l].second;
+                            MeshContactElement* otherObj = static_cast<MeshContactElement*>(m_meshContactElements[k]);
+                            std::vector<std::pair<int,Scalar> > faceIndexes;
 
-                                // asymmetry computation
-//                                Scalar dist2 = m_distances[k][objIndex][faceIndexes[l].first].second;
-//                                if (abs(dist - dist2) <= m_asymmetry)
-//                                {
+                            // all close faces
+                            obj->getProgressiveMeshLOD()->getProgressiveMesh()->edgeContacts(vs->idx, vt->idx, m_trianglekdtrees, k, std::pow(m_broader_threshold,2), faceIndexes);
+                            if ( faceIndexes.size() != 0)
+                            {
+                                for (uint l = 0; l < faceIndexes.size(); l++)
+                                {
+                                    dist = faceIndexes[l].second;
+
+                                    // asymmetry computation
+                                    //                                Scalar dist2 = m_distances[k][objIndex][faceIndexes[l].first].second;
+                                    //                                if (abs(dist - dist2) <= m_asymmetry)
+                                    //                                {
                                     contact = true;
                                     if (m_broader_threshold == 0.0)
                                     {
@@ -2406,9 +2411,27 @@ namespace Ra
                                     qk = otherObj->getFacePrimitive(faceIndexes[l].first);
                                     qk *= weight;
                                     qc += qk;
-//                                }
+                                    //                                }
+                                }
                             }
                         }
+                    }
+                }
+
+                /// Weighting QEM (proximity detection, one is enough)
+                else
+                {
+                    uint k = 0;
+                    while(k<m_trianglekdtrees.size() && !contact)
+                    {
+                        if (k != objIndex)
+                        {
+                            if (obj->getProgressiveMeshLOD()->getProgressiveMesh()->isProximity(vs->idx, vt->idx, m_trianglekdtrees, k, std::pow(m_broader_threshold,2)))
+                            {
+                                contact = true;
+                            }
+                        }
+                        k++;
                     }
                 }
             }
@@ -2418,11 +2441,21 @@ namespace Ra
 
             if (contact)
             {
-                qc *= 1.0 / nbContacts; // normalization using the number og proximities instead of the sum of their weights
+                /// Proximity-aware QEM
+                if (m_proximity)
+                {
+                    qc *= 1.0 / nbContacts; // normalization using the number og proximities instead of the sum of their weights
 
-                Scalar edgeErrorContact = abs(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getEM().computeGeometricError(qc,p));
-                error = edgeErrorQEM * (1 + m_lambda * edgeErrorContact);
-                CORE_ASSERT(error >= edgeErrorQEM, "Contacts lower the error");
+                    Scalar edgeErrorContact = abs(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getEM().computeGeometricError(qc,p));
+                    error = edgeErrorQEM * (1 + m_lambda * edgeErrorContact);
+                    CORE_ASSERT(error >= edgeErrorQEM, "Contacts lower the error");
+                }
+
+                /// Weighting QEM
+                else
+                {
+                    error = edgeErrorQEM * m_weight;
+                }
             }
             else
             {
@@ -2639,6 +2672,16 @@ namespace Ra
                 }
                 obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
             }
+        }
+
+        void MeshContactManager::setWeightState(bool state)
+        {
+            m_proximity = state;
+        }
+
+        void MeshContactManager::setWeight(double weight)
+        {
+            m_weight = weight;
         }
 
         void MeshContactManager::normalize()
