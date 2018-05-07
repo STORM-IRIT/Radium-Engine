@@ -95,7 +95,7 @@ void MeshConverter::convert( const TriangleMesh& in, TopologicalMesh& out ) {
     out.garbage_collection();
     out.request_halfedge_normals();
     out.request_vertex_normals();
-    typedef std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec> vMap;
+    using vMap = std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec>;
     vMap vertexHandles;
 
     std::vector<TopologicalMesh::VertexHandle> face_vhandles;
