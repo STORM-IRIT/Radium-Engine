@@ -88,6 +88,8 @@ public:
 
     inline std::pair<Index,Scalar> doQueryRestrictedClosestIndexTriangle(const VectorType &a, const VectorType &b, const VectorType &c);
 
+    inline std::pair<Index,Scalar> doQueryRestrictedClosestIndexPoint(const VectorType& p);
+
 protected:
 
     //! element of the stack
@@ -608,6 +610,73 @@ std::pair<Index,Scalar> TriangleKdTree<Index>::doQueryRestrictedClosestIndexTria
                         qnode.nodeId = node.firstChildId;
                     }
                 }
+                mNodeStack[count].sq = qnode.sq;
+                qnode.sq = new_off*new_off;
+                ++count;
+            }
+        }
+        else
+        {
+            // pop
+            --count;
+        }
+    }
+    cl.second = std::sqrt(cl.second);
+    return cl;
+}
+
+template<typename Index>
+std::pair<Index,Scalar> TriangleKdTree<Index>::doQueryRestrictedClosestIndexPoint(const VectorType& p)
+{
+    std::pair<Index,Scalar> cl;
+    cl.first = invalidIndex();
+    cl.second = std::numeric_limits<Scalar>::max();
+
+    mNodeStack[0].nodeId = 0;
+    mNodeStack[0].sq = 0.f;
+    unsigned int count = 1;
+
+    while (count)
+    {
+        QueryNode& qnode = mNodeStack[count-1];
+        KdNode   & node  = mNodes[qnode.nodeId];
+
+        if (qnode.sq < cl.second)
+        {
+            if (node.leaf)
+            {
+                --count; // pop
+                const int nbTriangles = node.triangleIndices.size();
+                for (int i = 0; i < nbTriangles; i++)
+                {
+                    const VectorType a = mPoints[mTriangles[node.triangleIndices[i]][0]];
+                    const VectorType b = mPoints[mTriangles[node.triangleIndices[i]][1]];
+                    const VectorType c = mPoints[mTriangles[node.triangleIndices[i]][2]];
+
+                    const Scalar sqdist = Ra::Core::DistanceQueries::pointToTriSq(p, a, b, c).distanceSquared;
+                    if (sqdist < cl.second)
+                    {
+                        cl.second = sqdist;
+                        cl.first = node.triangleIndices[i];
+                    }
+                }
+            }
+
+            else
+            {
+                const Scalar new_off = p[node.dim] - node.splitValue;
+
+                if (new_off < 0.)
+                {
+                    mNodeStack[count].nodeId  = node.firstChildId; // stack top the farthest
+                    qnode.nodeId = node.firstChildId+1;            // push the closest
+                }
+                else
+                {
+                    mNodeStack[count].nodeId  = node.firstChildId+1;
+                    qnode.nodeId = node.firstChildId;
+                }
+
                 mNodeStack[count].sq = qnode.sq;
                 qnode.sq = new_off*new_off;
                 ++count;
