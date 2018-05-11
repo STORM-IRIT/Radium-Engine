@@ -118,6 +118,7 @@ namespace Ra
             //int nbClusters();
             void colorClusters3();
 
+            void midpointSubdivision();
             void normalize();
             void scale(Scalar n);
 
@@ -260,6 +261,9 @@ namespace Ra
 
             std::vector<int> m_index_pmdata; // array recording in which objects collapses have been done
             int m_curr_vsplit; // index for m_index_pmdata
+
+            std::vector<Ra::Core::TriangleMesh> m_midptTriangleMeshes;
+            std::vector<Super4PCS::TriangleKdTree<>*> m_midptTrianglekdtrees;
             std::vector<std::set<uint> > m_proxVertices; // for each objects, the list of vertices in the proximity area
         };
 

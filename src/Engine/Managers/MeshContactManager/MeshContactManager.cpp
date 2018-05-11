@@ -2695,6 +2695,49 @@ namespace Ra
             m_weight = weight;
         }
 
+        void MeshContactManager::midpointSubdivision()
+        {
+            // Initializing the triangle meshes in case of successive simplifications
+            m_midptTriangleMeshes.clear();
+
+            for (auto& obj : m_meshContactElements)
+            {
+                Ra::Core::TriangleMesh tm = obj->getMesh()->getGeometry();
+                Ra::Core::TriangleMesh tmSub;
+                tmSub.m_normals = tm.m_normals;
+                tmSub.m_vertices = tm.m_vertices;
+
+                for (auto& triangle : tm.m_triangles)
+                {
+                    uint v0 = triangle[0];
+                    uint v1 = triangle[1];
+                    uint v2 = triangle[2];
+
+                    tmSub.m_vertices.push_back((tm.m_vertices[v0] + tm.m_vertices[v1]) / 2);
+                    uint v3 = tmSub.m_vertices.size() - 1;
+                    tmSub.m_vertices.push_back((tm.m_vertices[v1] + tm.m_vertices[v2]) / 2);
+                    uint v4 = tmSub.m_vertices.size() - 1;
+                    tmSub.m_vertices.push_back((tm.m_vertices[v2] + tm.m_vertices[v0]) / 2);
+                    uint v5 = tmSub.m_vertices.size() - 1;
+
+                    tmSub.m_triangles.push_back({v0,v3,v5});
+                    tmSub.m_triangles.push_back({v1,v4,v3});
+                    tmSub.m_triangles.push_back({v2,v5,v4});
+                    tmSub.m_triangles.push_back({v3,v4,v5});
+
+                    tmSub.m_vertices.push_back(Ra::Core::Geometry::triangleBarycenter(tmSub.m_vertices[v0],tmSub.m_vertices[v3],tmSub.m_vertices[v5]));
+                    tmSub.m_vertices.push_back(Ra::Core::Geometry::triangleBarycenter(tmSub.m_vertices[v1],tmSub.m_vertices[v4],tmSub.m_vertices[v3]));
+                    tmSub.m_vertices.push_back(Ra::Core::Geometry::triangleBarycenter(tmSub.m_vertices[v2],tmSub.m_vertices[v5],tmSub.m_vertices[v4]));
+                    tmSub.m_vertices.push_back(Ra::Core::Geometry::triangleBarycenter(tmSub.m_vertices[v3],tmSub.m_vertices[v4],tmSub.m_vertices[v5]));
+                }
+
+                m_midptTriangleMeshes.push_back(tmSub);
+
+                Super4PCS::TriangleKdTree<>* trianglekdtree = new Super4PCS::TriangleKdTree<>();
+                m_midptTrianglekdtrees.push_back(trianglekdtree);
+                m_midptTrianglekdtrees[m_midptTrianglekdtrees.size()-1] = obj->computeTriangleKdTree(m_midptTriangleMeshes[m_midptTriangleMeshes.size()-1]);
+            }
+        }
         void MeshContactManager::normalize()
         {
             Ra::Core::VectorArray<Ra::Core::Vector3> v1 = m_meshContactElements[0]->getInitTriangleMesh().m_vertices;
