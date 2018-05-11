@@ -119,6 +119,8 @@ namespace Ra
             void colorClusters3();
 
             void midpointSubdivision();
+            void HausdorffDistance();
+
             void normalize();
             void scale(Scalar n);
 
@@ -265,6 +267,7 @@ namespace Ra
             std::vector<Ra::Core::TriangleMesh> m_midptTriangleMeshes;
             std::vector<Super4PCS::TriangleKdTree<>*> m_midptTrianglekdtrees;
             std::vector<std::set<uint> > m_proxVertices; // for each objects, the list of vertices in the proximity area
+            std::vector<std::pair<Ra::Core::Vector4,Ra::Core::Vector4> > m_hausdorffDistances;
         };
 
     } // namespace Engine

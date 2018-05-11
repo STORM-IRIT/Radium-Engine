@@ -2738,6 +2738,145 @@ namespace Ra
                 m_midptTrianglekdtrees[m_midptTrianglekdtrees.size()-1] = obj->computeTriangleKdTree(m_midptTriangleMeshes[m_midptTriangleMeshes.size()-1]);
             }
         }
+
+        void MeshContactManager::HausdorffDistance()
+        {
+            midpointSubdivision();
+
+            bool prox;
+
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                std::pair<Ra::Core::Vector4,Ra::Core::Vector4> hausdorffDistances;
+
+                Scalar initSimpProxMean = 0;
+                Scalar initSimpProxMax = 0;
+                Scalar initSimpNonProxMean = 0;
+                Scalar initSimpNonProxMax = 0;
+
+                for (uint j = 0; j < m_initTriangleMeshes[i].m_vertices.size(); j++)
+                {
+                    if (m_proxVertices[i].find(j) != m_proxVertices[i].end())
+                    {
+                        prox = true;
+                    }
+                    else
+                    {
+                        prox = false;
+                    }
+
+                    std::pair<Ra::Core::Index,Scalar> triangle = m_midptTrianglekdtrees[i]->doQueryRestrictedClosestIndexPoint(m_initTriangleMeshes[i].m_vertices[j]);
+
+                    if (prox)
+                    {
+                        initSimpProxMean += triangle.second;
+                        if (triangle.second > initSimpProxMax)
+                        {
+                            initSimpProxMax = triangle.second;
+                        }
+                    }
+
+                    else
+                    {
+                        initSimpNonProxMean += triangle.second;
+                        if (triangle.second > initSimpNonProxMax)
+                        {
+                            initSimpNonProxMax = triangle.second;
+                        }
+                    }
+                }
+
+                if (initSimpProxMean > 0)
+                {
+                    initSimpProxMean = initSimpProxMean / m_proxVertices[i].size();
+                }
+                if (initSimpNonProxMean > 0)
+                {
+                    initSimpNonProxMean = initSimpNonProxMean / (m_initTriangleMeshes[i].m_vertices.size() - m_proxVertices[i].size());
+                }
+
+                hausdorffDistances.first = {initSimpProxMean, initSimpProxMax, initSimpNonProxMean, initSimpNonProxMax};
+
+                Scalar simpInitProxMean = 0;
+                Scalar simpInitProxMax = 0;
+                Scalar simpInitNonProxMean = 0;
+                Scalar simpInitNonProxMax = 0;
+
+                int nbProxVertices = 0;
+
+                for (uint j = 0; j < m_midptTriangleMeshes[i].m_vertices.size(); j++)
+                {
+                    std::pair<Ra::Core::Index,Scalar> triangle = m_trianglekdtrees[i]->doQueryRestrictedClosestIndexPoint(m_midptTriangleMeshes[i].m_vertices[j]);
+
+                    uint a = m_initTriangleMeshes[i].m_triangles[triangle.first][0];
+                    uint b = m_initTriangleMeshes[i].m_triangles[triangle.first][1];
+                    uint c = m_initTriangleMeshes[i].m_triangles[triangle.first][2];
+
+                    // prox if an edge of the triangle is at prox
+
+                    if (m_proxVertices[i].find(a) != m_proxVertices[i].end())
+                    {
+                        if (m_proxVertices[i].find(b) != m_proxVertices[i].end() || m_proxVertices[i].find(c) != m_proxVertices[i].end())
+                        {
+                            prox = true;
+                            nbProxVertices++;
+                        }
+                    }
+                    else if (m_proxVertices[i].find(b) != m_proxVertices[i].end())
+                    {
+                        if (m_proxVertices[i].find(a) != m_proxVertices[i].end() || m_proxVertices[i].find(c) != m_proxVertices[i].end())
+                        {
+                            prox = true;
+                            nbProxVertices++;
+                        }
+                    }
+                    else if (m_proxVertices[i].find(c) != m_proxVertices[i].end())
+                    {
+                        if (m_proxVertices[i].find(a) != m_proxVertices[i].end() || m_proxVertices[i].find(b) != m_proxVertices[i].end())
+                        {
+                            prox = true;
+                            nbProxVertices++;
+                        }
+                    }
+                    else
+                    {
+                        prox = false;
+                    }
+
+                    if (prox)
+                    {
+                        simpInitProxMean += triangle.second;
+                        if (triangle.second > simpInitProxMax)
+                        {
+                            simpInitProxMax = triangle.second;
+                        }
+                    }
+
+                    else
+                    {
+                        simpInitNonProxMean += triangle.second;
+                        if (triangle.second > simpInitNonProxMax)
+                        {
+                            simpInitNonProxMax = triangle.second;
+                        }
+                    }
+                }
+
+                if (simpInitProxMean > 0)
+                {
+                    simpInitProxMean = simpInitProxMean / nbProxVertices;
+                }
+                if (simpInitNonProxMean > 0)
+                {
+                    simpInitNonProxMean = simpInitNonProxMean / (m_initTriangleMeshes[i].m_vertices.size() - nbProxVertices);
+                }
+
+                hausdorffDistances.second = {initSimpProxMean, initSimpProxMax, initSimpNonProxMean, initSimpNonProxMax};
+
+                m_hausdorffDistances.push_back(hausdorffDistances);
+            }
+        }
+
         void MeshContactManager::normalize()
         {
             Ra::Core::VectorArray<Ra::Core::Vector3> v1 = m_meshContactElements[0]->getInitTriangleMesh().m_vertices;
