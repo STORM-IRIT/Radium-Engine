@@ -260,6 +260,7 @@ namespace Ra
 
             std::vector<int> m_index_pmdata; // array recording in which objects collapses have been done
             int m_curr_vsplit; // index for m_index_pmdata
+            std::vector<std::set<uint> > m_proxVertices; // for each objects, the list of vertices in the proximity area
         };
 
     } // namespace Engine

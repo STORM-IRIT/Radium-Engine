@@ -2486,6 +2486,9 @@ namespace Ra
             for (uint objIndex=0; objIndex < m_nbobjects; objIndex++)
             {
             MeshContactElement* obj = static_cast<MeshContactElement*>(m_meshContactElements[objIndex]);
+
+            std::set<uint> prox;
+
             Ra::Core::PriorityQueue pQueue = Ra::Core::PriorityQueue();
             const uint numTriangles = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_face.size();
 
@@ -2527,6 +2530,8 @@ namespace Ra
                     {
                         colors[vs->idx] = contactColor;
                         colors[vt->idx] = contactColor;
+                        prox.insert(vs->idx);
+                        prox.insert(vt->idx);
                     }
 
                     // insert into the priority queue with the real resulting point
@@ -2541,6 +2546,8 @@ namespace Ra
             obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
 
             obj->setPriorityQueue(pQueue);
+
+            m_proxVertices.push_back(prox);
             }
 
             LOG(logINFO) << "Priority queue computation ends...";
