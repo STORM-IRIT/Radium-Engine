@@ -94,13 +94,11 @@ namespace Ra
         std::vector<Entity*> EntityManager::getEntities() const
         {
             std::vector<Entity*> entities;
-            uint size = m_entities.size();
+            entities.reserve( m_entities.size() );
 
-            entities.reserve( size );
-
-            for ( uint i = 0; i < size; ++i )
+            for ( const auto& e : m_entities )
             {
-                entities.push_back( m_entities[i].get() );
+                entities.push_back( e.get() );
             }
 
             return entities;
@@ -117,9 +115,9 @@ namespace Ra
 
         void EntityManager::swapBuffers()
         {
-            for ( uint i = 0; i < m_entities.size(); ++i )
+            for ( auto& e : m_entities )
             {
-                m_entities[i]->swapTransformBuffers();
+                e->swapTransformBuffers();
             }
         }
 
