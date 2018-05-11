@@ -27,22 +27,26 @@ namespace Ra
 
         Entity* EntityManager::createEntity( const std::string& name )
         {
-
-            std::string entityName = name;
-            if ( entityExists( name ) )
-            {
-                LOG( logWARNING ) << "Entity `" << name << "` already exists";
-                entityName = name + "_";
-            }
-            Core::Index idx = m_entities.emplace( new Entity(entityName) );
+            Core::Index idx = m_entities.emplace( new Entity(name) );
             auto& ent = m_entities[idx];
             ent->idx = idx;
 
+            std::string eName = name;
+            bool mustRename = false;
             if (name == "")
             {
-                std::string name;
-                Core::StringUtils::stringPrintf( name, "Entity_%u", idx.getValue() );
-                ent->rename( name );
+                Core::StringUtils::stringPrintf( eName, "Entity_%u", idx.getValue() );
+                mustRename = true;
+            }
+            while( entityExists( eName ) )
+            {
+                LOG( logWARNING ) << "Entity `" << eName << "` already exists";
+                eName = eName + "_";
+                mustRename = true;
+            }
+            if (mustRename)
+            {
+                ent->rename( eName );
             }
 
             m_entitiesName.insert( std::pair<std::string, Core::Index> (
