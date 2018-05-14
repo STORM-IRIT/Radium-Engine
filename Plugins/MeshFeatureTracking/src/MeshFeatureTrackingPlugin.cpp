@@ -82,7 +82,8 @@ void MeshFeatureTrackingPluginC::onCurrentChanged( const QModelIndex& current,
 
 void MeshFeatureTrackingPluginC::update() {
     m_component->update();
-    m_widget->updateTracking( m_component->getFeatureData(), m_component->getFeaturePosition(),
+    m_widget->updateTracking( m_component->getFeatureData(),
+                              m_component->getFeaturePosition(),
                               m_component->getFeatureVector() );
 }
 void MeshFeatureTrackingPluginC::vertexIdChanged( int idx ) {
