@@ -51,7 +51,8 @@ void Mesh::loadGeometry( const Core::TriangleMesh& mesh ) {
     {
         m_numElements = mesh.vertices().size();
         m_renderMode = RM_POINTS;
-    } else
+    }
+    else
         m_numElements = mesh.m_triangles.size() * 3;
 
     for ( uint i = 0; i < MAX_MESH; ++i )
@@ -79,7 +80,8 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
     {
         m_numElements = vertices.size();
         m_renderMode = RM_POINTS;
-    } else
+    }
+    else
         m_numElements = nIdx;
     m_mesh.vertices() = vertices;
 
@@ -110,8 +112,8 @@ void Mesh::addData( const Vec3Data& type, const Core::Vector3Array& data ) {
     const int index = static_cast<uint>( type );
     if ( !m_v3DataHandle[index].isValid() )
     {
-        m_mesh.attribManager().addAttrib( m_v3DataHandle[index],
-                                          std::to_string( MAX_MESH + index ) );
+        m_v3DataHandle[index] =
+            m_mesh.attribManager().addAttrib<Core::Vector3>( std::to_string( MAX_MESH + index ) );
     }
     m_mesh.attribManager().getAttrib( m_v3DataHandle[index] ).data() = data;
     m_dataDirty[MAX_MESH + index] = true;
@@ -128,8 +130,8 @@ void Mesh::addData( const Vec4Data& type, const Core::Vector4Array& data ) {
     }
     if ( !m_v4DataHandle[index].isValid() )
     {
-        m_mesh.attribManager().addAttrib( m_v4DataHandle[index],
-                                          std::to_string( MAX_MESH + MAX_VEC3 + index ) );
+        m_v4DataHandle[index] = m_mesh.attribManager().addAttrib<Core::Vector4>(
+            std::to_string( MAX_MESH + MAX_VEC3 + index ) );
     }
     m_mesh.attribManager().getAttrib( m_v4DataHandle[index] ).data() = data;
     m_dataDirty[MAX_MESH + MAX_VEC3 + index] = true;
@@ -205,7 +207,8 @@ void Mesh::updateGL() {
                 std::iota( indices.begin(), indices.end(), 0 );
                 GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER, m_numElements * sizeof( int ),
                                          indices.data(), GL_DYNAMIC_DRAW ) );
-            } else
+            }
+            else
             {
                 GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER,
                                          m_mesh.m_triangles.size() * sizeof( Ra::Core::Triangle ),
