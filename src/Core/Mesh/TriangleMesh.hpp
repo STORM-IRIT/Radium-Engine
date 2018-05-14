@@ -58,8 +58,8 @@ class VertexAttrib : public VertexAttribBase {
     inline const Container& data() const { return m_data; }
 
     virtual ~VertexAttrib() { m_data.clear(); }
-    uint getSize() override { return Container::Vector::RowsAtCompileTime; }
-    int getStride() override { return sizeof( typename Container::Vector ); }
+    uint getSize() override { return Container::Matrix::RowsAtCompileTime; }
+    int getStride() override { return sizeof( typename Container::value_type ); }
 
   private:
     Container m_data;
