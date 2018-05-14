@@ -19,15 +19,19 @@ class MeshTests : public Test {
 
         // Add/Remove attributes without filling it
         mesh = Ra::Core::MeshUtils::makeBox();
-        Vec3AttribHandle handlerEmpty, handlerFilled;
-        mesh.attribManager().addAttrib( handlerEmpty, "empty" );
+        mesh.attribManager().addAttrib<Vec3AttribHandle::value_type>( "empty" );
         mesh.attribManager().removeAttrib( "empty" );
+        auto handlerEmpty = mesh.attribManager().addAttrib<Vec3AttribHandle::value_type>( "empty" );
+        RA_UNIT_TEST( handlerEmpty.isValid(), "Should get a valid handler here !" );
+        mesh.attribManager().removeAttrib( handlerEmpty );
 
         // Test access to the attribute container
-        mesh.attribManager().addAttrib( handlerFilled, "filled" );
+        auto handlerFilled =
+            mesh.attribManager().addAttrib<Vec3AttribHandle::value_type>( "filled" );
         auto& container = mesh.attribManager().getAttrib( handlerFilled ).data();
-        auto& container2 =
-            mesh.attribManager().getAttrib( "filled" ).cast<Vec3AttribHandle::value_type>().data();
+        auto containerHandler =
+            mesh.attribManager().getAttribHandler<Vec3AttribHandle::value_type>( "filled" );
+        auto& container2 = mesh.attribManager().getAttrib( containerHandler ).data();
         RA_UNIT_TEST( container == container2, "getAttrib variants are not consistents" );
 
         // Test filling and removing vec3 attributes
@@ -36,8 +40,8 @@ class MeshTests : public Test {
         mesh.attribManager().removeAttrib( "filled" );
 
         // Test attribute creation by type, filling and removal
-        Eigen::Matrix<unsigned int, 1, 1> proxy;
-        auto handler = mesh.attribManager().addAttrib( proxy, "filled2" );
+        auto handler =
+            mesh.attribManager().addAttrib<Eigen::Matrix<unsigned int, 1, 1>>( "filled2" );
         auto& container3 = mesh.attribManager().getAttrib( handler ).data();
         using HandlerType = decltype( handler );
 
@@ -46,9 +50,8 @@ class MeshTests : public Test {
         mesh.attribManager().removeAttrib( "filled2" );
 
         // Test dummy handler
-        auto& dummy = mesh.attribManager().getAttrib( "toto" );
-        RA_UNIT_TEST( dummy == mesh.attribManager().getDummyAttrib(),
-                      "Dummy Attrib Handler cannot be recognized" );
+        auto invalid = mesh.attribManager().getAttribHandler<float>( "toto" );
+        RA_UNIT_TEST( !invalid.isValid(), "Invalid Attrib Handler cannot be recognized" );
     }
 
     void run() override { testAttributeManagement(); }
