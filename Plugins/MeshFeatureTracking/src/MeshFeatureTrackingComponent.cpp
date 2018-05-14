@@ -5,6 +5,7 @@
 
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
@@ -17,9 +18,8 @@ using MeshRenderMode = Ra::Engine::Mesh::MeshRenderMode;
 using PickingMode = Ra::Engine::Renderer::PickingMode;
 
 namespace MeshFeatureTrackingPlugin {
-MeshFeatureTrackingComponent::MeshFeatureTrackingComponent( const std::string& name,
-                                                            Ra::Engine::Entity* entity ) :
-    Component( name, entity ) {}
+MeshFeatureTrackingComponent::MeshFeatureTrackingComponent(const std::string& name) :
+    Component( name, Ra::Engine::SystemEntity::getInstance() ) {}
 
 MeshFeatureTrackingComponent::~MeshFeatureTrackingComponent() {}
 
@@ -32,11 +32,12 @@ void MeshFeatureTrackingComponent::initialize() {
     material.reset( bpMaterial );
     bpMaterial->m_kd = Ra::Core::Color( 0.f, 1.f, 0.f, 1.f );
     m_RO = Ra::Engine::RenderObject::createRenderObject(
-        "FeaturePickingManagerSphereRO", this, Ra::Engine::RenderObjectType::Fancy, display,
+        "FeaturePickingManagerSphereRO", Ra::Engine::SystemEntity::uiCmp(),
+        Ra::Engine::RenderObjectType::Fancy, display,
         Ra::Engine::RenderTechnique::createDefaultRenderTechnique(), material );
     m_RO->setPickable( false );
     m_RO->setVisible( false );
-    addRenderObject( m_RO );
+    Ra::Engine::SystemEntity::uiCmp()->addRenderObject( m_RO );
 }
 
 void MeshFeatureTrackingComponent::setPosition( Ra::Core::Vector3 position ) {
