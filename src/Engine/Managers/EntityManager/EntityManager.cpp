@@ -22,22 +22,26 @@ EntityManager::EntityManager() {
 EntityManager::~EntityManager() {}
 
 Entity* EntityManager::createEntity( const std::string& name ) {
-
-    std::string entityName = name;
-    if ( entityExists( name ) )
-    {
-        LOG( logWARNING ) << "Entity `" << name << "` already exists";
-        entityName = name + "_";
-    }
-    Core::Index idx = m_entities.emplace( new Entity( entityName ) );
+    Core::Index idx = m_entities.emplace( new Entity( name ) );
     auto& ent = m_entities[idx];
     ent->idx = idx;
 
-    if ( name == "" )
+    std::string entityName = name;
+    bool mustRename = false;
+    if ( entityName == "" )
     {
-        std::string name;
-        Core::StringUtils::stringPrintf( name, "Entity_%u", idx.getValue() );
-        ent->rename( name );
+        Core::StringUtils::stringPrintf( entityName, "Entity_%u", idx.getValue() );
+        mustRename = true;
+    }
+    while ( entityExists( entityName ) )
+    {
+        LOG( logWARNING ) << "Entity `" << entityName << "` already exists";
+        entityName = entityName + "_";
+        mustRename = true;
+    }
+    if ( mustRename )
+    {
+        ent->rename( entityName );
     }
 
     m_entitiesName.insert( std::pair<std::string, Core::Index>( ent->getName(), idx ) );
@@ -79,13 +83,11 @@ Entity* EntityManager::getEntity( Core::Index idx ) const {
 
 std::vector<Entity*> EntityManager::getEntities() const {
     std::vector<Entity*> entities;
-    uint size = m_entities.size();
+    entities.reserve( m_entities.size() );
 
-    entities.reserve( size );
-
-    for ( uint i = 0; i < size; ++i )
+    for ( const auto& e : m_entities )
     {
-        entities.push_back( m_entities[i].get() );
+        entities.push_back( e.get() );
     }
 
     return entities;
@@ -101,9 +103,9 @@ Entity* EntityManager::getEntity( const std::string& name ) const {
 }
 
 void EntityManager::swapBuffers() {
-    for ( uint i = 0; i < m_entities.size(); ++i )
+    for ( auto& e : m_entities )
     {
-        m_entities[i]->swapTransformBuffers();
+        e->swapTransformBuffers();
     }
 }
 
