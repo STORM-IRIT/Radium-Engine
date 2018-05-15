@@ -134,10 +134,8 @@ void Gui::Viewer::initializeGL() {
     Engine::ShaderProgramManager::createInstance( "Shaders/Default.vert.glsl",
                                                   "Shaders/Default.frag.glsl" );
 
-    // FIXED (Mathias): Lights are components. So they must be attached to an entity
-    auto headlight =
-        Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity( "LI_headlight" );
-    auto light = new Engine::DirectionalLight( headlight, "headlight" );
+    // Lights are components. So they must be attached to an entity. Attache headlight to system Entity
+    auto light = new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
     m_camera->attachLight( light );
 
     // initialize renderers added before GL was ready
@@ -500,12 +498,13 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
 
     // if there is no light on the renderer, add the head light attached to the camera ...
     // FIXME : what if the camera has no attached light ?
+    // FIXME : avoid adding headlight if not needed.
     if ( !m_currentRenderer->hasLight() )
     {
         if ( m_camera->hasLightAttached() )
             m_currentRenderer->addLight( m_camera->getLight() );
         else
-            LOG( logDEBUG ) << "Unable to attach the head light. The caera has'nt one!";
+            LOG( logDEBUG ) << "Unable to attach the head light!";
     }
     m_currentRenderer->render( data );
 }

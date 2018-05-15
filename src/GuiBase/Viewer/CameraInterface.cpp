@@ -9,6 +9,7 @@
 namespace Ra {
 Gui::CameraInterface::CameraInterface( uint width, uint height ) :
     m_cameraSensitivity( 1.0 ),
+    m_light(nullptr),
     m_hasLightAttached( false ) {
     m_camera.reset( new Engine::Camera( Scalar( height ), Scalar( width ) ) );
 
