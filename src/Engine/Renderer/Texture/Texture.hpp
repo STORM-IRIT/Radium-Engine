@@ -16,7 +16,6 @@ namespace Ra {
 namespace Engine {
 class RA_ENGINE_API Texture final {
   public:
-    GLenum target = GL_TEXTURE_2D;
     GLenum internalFormat = GL_RGB;
     GLenum dataType = GL_UNSIGNED_BYTE;
     GLenum wrapS = GL_REPEAT;
@@ -184,6 +183,14 @@ class RA_ENGINE_API Texture final {
      */
     void updateData( void* newData );
 
+    /**
+     * Update the parameters contained by the texture.
+     * User first modify the public attributes corresponding to the parameter he wants to change the value
+     * (e.g wrap* or *Filter) and call this function to update the OpenGL texture state ...
+     * @return
+     */
+     void updateParameters();
+
     GLenum format() const { return m_format; }
     uint width() const { return m_width; }
     uint height() const { return m_height; }
@@ -194,7 +201,7 @@ class RA_ENGINE_API Texture final {
     void operator=( const Texture& ) = delete;
 
   private:
-    //            uint m_textureId;
+    GLenum m_target;
     std::string m_name;
     GLenum m_format;
 
