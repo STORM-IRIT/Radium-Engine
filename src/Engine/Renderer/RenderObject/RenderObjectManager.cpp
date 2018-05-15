@@ -130,32 +130,27 @@ uint RenderObjectManager::getNumVertices() const {
 }
 
 Core::Aabb RenderObjectManager::getSceneAabb() const {
+    using Ra::Core::Transform;
     Core::Aabb aabb;
 
     const auto& systemEntity = Engine::SystemEntity::getInstance();
     const auto& comps = systemEntity->getComponents();
-    uint nbUiRO = 0;
+    uint nUiRO = 0;
     std::for_each( comps.begin(), comps.end(),
-                   [&nbUiRO](const auto& c){ nbUiRO += c->m_renderObjects.size(); } );
-    bool skipUi = m_renderObjects.size() != nbUiRO;
+                   [&nUiRO]( const auto& c ) { nUiRO += c->m_renderObjects.size(); } );
+    if ( m_renderObjects.size() == nUiRO )
+        return aabb;
+
     for ( auto ro : m_renderObjects )
     {
-        if ( ro->isVisible() && ( !skipUi || ro->getComponent()->getEntity() != systemEntity ) )
+        auto entity = ro->getComponent()->getEntity();
+        if ( ro->isVisible() && ( entity != systemEntity ) )
         {
-            Core::Transform t = ro->getComponent()->getEntity()->getTransform();
-            auto mesh = ro->getMesh();
-            auto pos = mesh->getGeometry().m_vertices;
-
-            for ( auto& p : pos )
+            Transform tr = entity->getTransform() * ro->getLocalTransform();
+            for ( const auto& p : ro->getMesh()->getGeometry().m_vertices )
             {
-                p = t * ro->getLocalTransform() * p;
+                aabb.extend( tr * p );
             }
-
-            const Ra::Core::Vector3 bmin = pos.getMap().rowwise().minCoeff().head<3>();
-            const Ra::Core::Vector3 bmax = pos.getMap().rowwise().maxCoeff().head<3>();
-
-            aabb.extend( bmin );
-            aabb.extend( bmax );
         }
     }
     return aabb;
