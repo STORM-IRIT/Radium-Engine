@@ -9,6 +9,7 @@ namespace Core {
 namespace Animation {
 class Skeleton;
 namespace SkeletonUtils {
+
 /// Returns the start and end point of a bone in model space.
 RA_CORE_API void getBonePoints( const Skeleton& skeleton, int boneIdx, Ra::Core::Vector3& startOut,
                                 Ra::Core::Vector3& endOut );

@@ -7,6 +7,7 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 namespace SkeletonUtils {
+
 /// Returns the start and end point of a bone in model space.
 void getBonePoints( const Skeleton& skeleton, int boneIdx, Ra::Core::Vector3& startOut,
                     Ra::Core::Vector3& endOut ) {
@@ -34,8 +35,8 @@ void getBonePoints( const Skeleton& skeleton, int boneIdx, Ra::Core::Vector3& st
 }
 
 /// Gives out the nearest point on a given bone.
-inline Vector3 projectOnBone( const Skeleton& skeleton, int boneIdx,
-                              const Ra::Core::Vector3& pos ) {
+Vector3 projectOnBone( const Skeleton& skeleton, int boneIdx,
+                       const Ra::Core::Vector3& pos ) {
     Vector3 start, end;
     getBonePoints( skeleton, boneIdx, start, end );
 
@@ -50,7 +51,7 @@ inline Vector3 projectOnBone( const Skeleton& skeleton, int boneIdx,
     return start + ( t * dir );
 }
 
-inline void to_string( const Skeleton& skeleton ) {
+void to_string( const Skeleton& skeleton ) {
     std::cout << "Printing Skeleton Hierarchy..." << std::endl;
 
     for ( uint i = 0; i < skeleton.size(); ++i )
