@@ -215,6 +215,55 @@ void Skeleton::getBonePoints( const uint i, Vector3& startOut, Vector3& endOut )
     }
 }
 
+Vector3 Skeleton::projectOnBone( int boneIdx, const Ra::Core::Vector3& pos ) const {
+    Vector3 start, end;
+    getBonePoints( boneIdx, start, end );
+
+    auto op = pos - start;
+    auto dir = ( end - start );
+    // Square length of bone
+    const Scalar length_sq = dir.squaredNorm();
+    CORE_ASSERT( length_sq != 0.f, "bone has lenght 0, cannot project." );
+
+    // Project on the line segment
+    const Scalar t = Math::clamp( op.dot( dir ) / length_sq, (Scalar)0.0, (Scalar)1.0 );
+    return start + ( t * dir );
+}
+
+std::ostream& operator<<( std::ostream& os, const Skeleton& skeleton ) {
+    for ( uint i = 0; i < skeleton.size(); ++i )
+    {
+        const uint id = i;
+        const std::string name = skeleton.getLabel( i );
+        const std::string type =
+            skeleton.m_graph.isRoot( i )
+                ? "ROOT"
+                : skeleton.m_graph.isJoint( i )
+                      ? "JOINT"
+                      : skeleton.m_graph.isBranch( i )
+                            ? "BRANCH"
+                            : skeleton.m_graph.isLeaf( i ) ? "LEAF" : "UNKNOWN";
+        const int pid = skeleton.m_graph.m_parent.at( i );
+        const std::string pname =
+            ( pid == -1 ) ? "" : ( "(" + std::to_string( pid ) + ") " + skeleton.getLabel( pid ) );
+
+        os << "Bone " << id << "\t: " << name << std::endl;
+        os << "Type\t: " << type << std::endl;
+        os << "Parent\t: " << pname << std::endl;
+        os << "Children#\t: " << skeleton.m_graph.m_child.at( i ).size() << std::endl;
+        os << "Children\t: ";
+        for ( uint j = 0; j < skeleton.m_graph.m_child.at( i ).size(); ++j )
+        {
+            const uint cid = skeleton.m_graph.m_child.at( i ).at( j );
+            const std::string cname = skeleton.getLabel( cid );
+            os << "(" << cid << ") " << cname << " | ";
+        }
+        os << " " << std::endl;
+        os << " " << std::endl;
+    }
+    return os;
+}
+
 } // namespace Animation
 } // Namespace Core
 } // Namespace Ra
