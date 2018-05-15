@@ -31,79 +31,72 @@ TextureData& TextureManager::addTexture( const std::string& name, int width, int
     return m_pendingTextures[name];
 }
 
-Texture* TextureManager::addTexture( const std::string& filename ) {
-    Texture* ret = nullptr;
+TextureData TextureManager::loadTexture( const std::string& filename ){
+    TextureData texData;
+    texData.name = filename;
 
-    int w, h, n;
     stbi_set_flip_vertically_on_load( true );
 
-    unsigned char* data = stbi_load( filename.c_str(), &w, &h, &n, 0 );
+    int  n;
+    unsigned char* data = stbi_load( filename.c_str(), &(texData.width), &(texData.height), &n, 0 );
 
     if ( !data )
     {
         LOG( logERROR ) << "Something went wrong when loading image \"" << filename << "\".";
-        return nullptr;
+        texData.width = texData.height = -1;
+        return texData;
     }
 
-    GLenum format;
-    GLenum internal_format;
     switch ( n )
     {
     case 1:
     {
-        format = GL_RED;
-        internal_format = GL_R8;
+        texData.format = GL_RED;
+        texData.internalFormat = GL_R8;
     }
-    break;
+        break;
 
     case 2:
     {
-        format = GL_RG;
-        internal_format = GL_RG8;
+        texData.format = GL_RG;
+        texData.internalFormat = GL_RG8;
     }
-    break;
+        break;
 
     case 3:
     {
-        format = GL_RGB;
-        internal_format = GL_RGB8;
+        texData.format = GL_RGB;
+        texData.internalFormat = GL_RGB8;
     }
-    break;
+        break;
 
     case 4:
     {
-        format = GL_RGBA;
-        internal_format = GL_RGBA8;
+        texData.format = GL_RGBA;
+        texData.internalFormat = GL_RGBA8;
     }
-    break;
+        break;
     default:
     {
-        format = GL_RGBA;
-        internal_format = GL_RGBA8;
+        texData.format = GL_RGBA;
+        texData.internalFormat = GL_RGBA8;
     }
-    break;
+        break;
     }
 
     if ( m_verbose )
     {
         LOG( logINFO ) << "Image stats (" << filename << ") :\n"
                        << "\tPixels : " << n << std::endl
-                       << "\tFormat : 0x" << std::hex << format << std::dec << std::endl
-                       << "\tSize   : " << w << ", " << h;
+                       << "\tFormat : " << texData.format <<  std::endl
+                       << "\tSize   : " << texData.width << ", " << texData.height;
     }
 
     CORE_ASSERT( data, "Data is null" );
+    texData.data = data;
+    texData.type = GL_UNSIGNED_BYTE;
+    return texData;
 
-    ret = new Texture( filename );
-    ret->internalFormat = internal_format;
-    ret->dataType = GL_UNSIGNED_BYTE;
-    ret->Generate( w, h, format, data );
-
-    m_textures.insert( TexturePair( filename, ret ) );
-
-    stbi_image_free( data );
-
-    return ret;
 }
 
 Texture* TextureManager::getOrLoadTexture( const TextureData& data ) {
@@ -118,29 +111,52 @@ Texture* TextureManager::getOrLoadTexture( const std::string& filename ) {
     if ( it != m_textures.end() )
     {
         ret = it->second;
-    } else
-    {
+    } else {
         auto pending = m_pendingTextures.find( filename );
         if ( pending != m_pendingTextures.end() )
         {
             auto data = pending->second;
-            if ( data.data != nullptr )
-            {
-                ret = new Texture( filename );
-                ret->internalFormat = data.internalFormat;
-                ret->dataType = data.type;
-                ret->minFilter = data.minFilter;
-                ret->magFilter = data.magFilter;
-                ret->wrapS = data.wrapS;
-                ret->wrapT = data.wrapT;
-                ret->Generate( data.width, data.height, data.format, data.data );
-            } else
-            { ret = addTexture( data.name ); }
+
+            bool freedata = false;
+            if (data.data == nullptr) {
+                auto stbidata = loadTexture(data.name);
+                data.width = stbidata.width;
+                data.height = stbidata.height;
+                data.data = stbidata.data;
+                data.type = stbidata.type;
+                data.format = stbidata.format;
+                data.internalFormat = stbidata.internalFormat;
+                freedata = true;
+            }
+
+            ret = new Texture( filename );
+            ret->internalFormat = data.internalFormat;
+            ret->dataType = data.type;
+            ret->minFilter = data.minFilter;
+            ret->magFilter = data.magFilter;
+            ret->wrapS = data.wrapS;
+            ret->wrapT = data.wrapT;
+            ret->Generate( data.width, data.height, data.format, data.data );
+
+            if (freedata)
+                stbi_image_free( data.data );
 
             m_pendingTextures.erase( filename );
             m_textures[filename] = ret;
-        } else
-        { ret = addTexture( filename ); }
+
+        } else {
+            auto data = loadTexture(filename);
+            ret = new Texture( filename );
+            ret->internalFormat = data.internalFormat;
+            ret->dataType = data.type;
+            ret->minFilter = data.minFilter;
+            ret->magFilter = data.magFilter;
+            ret->wrapS = data.wrapS;
+            ret->wrapT = data.wrapT;
+            ret->Generate( data.width, data.height, data.format, data.data );
+            stbi_image_free( data.data );
+            m_textures[filename] = ret;
+        }
     }
 
     return ret;
@@ -174,6 +190,7 @@ void TextureManager::updateTextures() {
 
     for ( auto& data : m_pendingData )
     {
+        LOG( logINFO ) << "TextureManager::updateTextures \"" << data.first << "\".";
         m_textures[data.first]->updateData( data.second );
     }
     m_pendingData.clear();
