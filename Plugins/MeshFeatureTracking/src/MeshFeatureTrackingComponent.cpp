@@ -32,12 +32,11 @@ void MeshFeatureTrackingComponent::initialize() {
     material.reset( bpMaterial );
     bpMaterial->m_kd = Ra::Core::Color( 0.f, 1.f, 0.f, 1.f );
     m_RO = Ra::Engine::RenderObject::createRenderObject(
-        "FeaturePickingManagerSphereRO", Ra::Engine::SystemEntity::uiCmp(),
-        Ra::Engine::RenderObjectType::Fancy, display,
+        "FeaturePickingManagerSphereRO", this, Ra::Engine::RenderObjectType::Fancy, display,
         Ra::Engine::RenderTechnique::createDefaultRenderTechnique(), material );
     m_RO->setPickable( false );
     m_RO->setVisible( false );
-    Ra::Engine::SystemEntity::uiCmp()->addRenderObject( m_RO );
+    addRenderObject( m_RO );
 }
 
 void MeshFeatureTrackingComponent::setPosition( Ra::Core::Vector3 position ) {

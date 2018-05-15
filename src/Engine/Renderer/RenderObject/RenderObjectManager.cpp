@@ -132,11 +132,15 @@ uint RenderObjectManager::getNumVertices() const {
 Core::Aabb RenderObjectManager::getSceneAabb() const {
     Core::Aabb aabb;
 
-    auto ui = Engine::SystemEntity::uiCmp();
-    bool skipUi = m_renderObjects.size() != ui->m_renderObjects.size();
+    const auto& systemEntity = Engine::SystemEntity::getInstance();
+    const auto& comps = systemEntity->getComponents();
+    uint nbUiRO = 0;
+    std::for_each( comps.begin(), comps.end(),
+                   [&nbUiRO](const auto& c){ nbUiRO += c->m_renderObjects.size(); } );
+    bool skipUi = m_renderObjects.size() != nbUiRO;
     for ( auto ro : m_renderObjects )
     {
-        if ( ro->isVisible() && ( !skipUi || ro->getComponent() != ui ) )
+        if ( ro->isVisible() && ( !skipUi || ro->getComponent()->getEntity() != systemEntity ) )
         {
             Core::Transform t = ro->getComponent()->getEntity()->getTransform();
             auto mesh = ro->getMesh();
