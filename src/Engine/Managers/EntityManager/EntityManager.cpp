@@ -27,21 +27,24 @@ Entity* EntityManager::createEntity( const std::string& name ) {
     ent->idx = idx;
 
     std::string entityName = name;
-    bool mustRename = false;
-    if ( entityName == "" )
+    if ( name == "" )
     {
         Core::StringUtils::stringPrintf( entityName, "Entity_%u", idx.getValue() );
-        mustRename = true;
-    }
-    while ( entityExists( entityName ) )
-    {
-        LOG( logWARNING ) << "Entity `" << entityName << "` already exists";
-        entityName = entityName + "_";
-        mustRename = true;
-    }
-    if ( mustRename )
-    {
         ent->rename( entityName );
+    } else
+    {
+        int i=1;
+        bool mustRename = false;
+        while ( entityExists( entityName ) )
+        {
+            LOG( logWARNING ) << "Entity `" << entityName << "` already exists";
+            entityName = name + "_" + std::to_string( i++ );
+            mustRename = true;
+        }
+        if ( mustRename )
+        {
+            ent->rename( entityName );
+        }
     }
 
     m_entitiesName.insert( std::pair<std::string, Core::Index>( ent->getName(), idx ) );
