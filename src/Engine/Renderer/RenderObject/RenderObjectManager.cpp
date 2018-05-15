@@ -72,10 +72,8 @@ void RenderObjectManager::getRenderObjects(
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
     // Copy each element in m_renderObjects
-    for ( const auto& ro : m_renderObjects )
-    {
-        renderObjectsOut.push_back( ro );
-    }
+    renderObjectsOut.resize( m_renderObjects.size() );
+    std::copy( m_renderObjects.begin(), m_renderObjects.end(), renderObjectsOut.begin() );
 }
 
 void RenderObjectManager::getRenderObjectsByType(

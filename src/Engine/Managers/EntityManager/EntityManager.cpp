@@ -86,12 +86,10 @@ Entity* EntityManager::getEntity( Core::Index idx ) const {
 
 std::vector<Entity*> EntityManager::getEntities() const {
     std::vector<Entity*> entities;
-    entities.reserve( m_entities.size() );
+    entities.resize( m_entities.size() );
 
-    for ( const auto& e : m_entities )
-    {
-        entities.push_back( e.get() );
-    }
+    std::transform( m_entities.begin(), m_entities.end(), entities.begin(),
+                    [](const auto &e){ return e.get(); });
 
     return entities;
 }
