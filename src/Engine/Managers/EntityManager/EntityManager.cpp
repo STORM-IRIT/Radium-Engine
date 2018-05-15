@@ -32,21 +32,24 @@ namespace Ra
             ent->idx = idx;
 
             std::string eName = name;
-            bool mustRename = false;
             if (name == "")
             {
                 Core::StringUtils::stringPrintf( eName, "Entity_%u", idx.getValue() );
-                mustRename = true;
-            }
-            while( entityExists( eName ) )
-            {
-                LOG( logWARNING ) << "Entity `" << eName << "` already exists";
-                eName = eName + "_";
-                mustRename = true;
-            }
-            if (mustRename)
-            {
                 ent->rename( eName );
+            } else
+            {
+                uint i=1;
+                bool mustRename = false;
+                while( entityExists( eName ) )
+                {
+                    LOG( logWARNING ) << "Entity `" << eName << "` already exists";
+                    eName = name + "_" + std::to_string( i++ );
+                    mustRename = true;
+                }
+                if (mustRename)
+                {
+                    ent->rename( eName );
+                }
             }
 
             m_entitiesName.insert( std::pair<std::string, Core::Index> (
@@ -94,12 +97,10 @@ namespace Ra
         std::vector<Entity*> EntityManager::getEntities() const
         {
             std::vector<Entity*> entities;
-            entities.reserve( m_entities.size() );
+            entities.resize( m_entities.size() );
 
-            for ( const auto& e : m_entities )
-            {
-                entities.push_back( e.get() );
-            }
+            std::transform( m_entities.begin(), m_entities.end(), entities.begin(),
+                            [](const auto &e){ return e.get(); } );
 
             return entities;
         }
