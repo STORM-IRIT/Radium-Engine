@@ -1,8 +1,8 @@
 #include <Gui/MainWindow.hpp>
 #include <MainApplication.hpp>
 
-#include <Core/File/deprecated/OBJFileManager.hpp>
 #include <Core/File/FileLoaderInterface.hpp>
+#include <Core/File/deprecated/OBJFileManager.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
@@ -538,12 +538,15 @@ void MainWindow::resetScene() {
     // To see why this call is important, please see deleteCurrentItem().
     m_selectionManager->clearSelection();
     Engine::RadiumEngine::getInstance()->getEntityManager()->deleteEntities();
-    m_viewer->resetCamera();
+    fitCamera();
 }
 
 void MainWindow::fitCamera() {
-    m_viewer->fitCameraToScene(
-        Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getSceneAabb() );
+    auto aabb = Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getSceneAabb();
+    if ( aabb.isEmpty() )
+        m_viewer->getCameraInterface()->resetCamera();
+    else
+        m_viewer->fitCameraToScene( aabb );
 }
 
 void MainWindow::onGLInitialized() {
