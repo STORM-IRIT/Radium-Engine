@@ -4,7 +4,6 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-/// CONSTRUCTOR
 Handle::Handle() : m_pose(), m_name( "" ), m_label() {}
 
 Handle::Handle( const uint n ) :
@@ -12,15 +11,12 @@ Handle::Handle( const uint n ) :
     m_name( "" ),
     m_label( n, "" ) {}
 
-/// DESTRUCTOR
 Handle::~Handle() {}
 
-/// SIZE
 void Handle::clear() {
     m_pose.clear();
 }
 
-/// SPACE INTERFACE
 const Pose& Handle::getPose( const SpaceType MODE ) const {
     return m_pose;
 }

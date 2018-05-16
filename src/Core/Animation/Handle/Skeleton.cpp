@@ -6,54 +6,18 @@ namespace Core {
 namespace Animation {
 
 /// CONSTRUCTOR
-Skeleton::Skeleton() : PointCloud(), m_graph(), m_modelSpace() {}
+Skeleton::Skeleton() : Handle(), m_graph(), m_modelSpace() {}
 
-Skeleton::Skeleton( const uint n ) : PointCloud( n ), m_graph( n ), m_modelSpace( n ) {}
+Skeleton::Skeleton( const uint n ) : Handle( n ), m_graph( n ), m_modelSpace( n ) {}
 
-/// DESTRUCTOR
 Skeleton::~Skeleton() {}
 
-/// BONE NODE
-int Skeleton::addBone( const int parent, const Transform& T, const SpaceType MODE,
-                       const Label label ) {
-    switch ( MODE )
-    {
-    case SpaceType::LOCAL:
-    {
-        m_pose.push_back( T );
-        if ( parent == -1 )
-        {
-            m_modelSpace.push_back( T );
-        } else
-        { m_modelSpace.push_back( T * m_modelSpace[parent] ); }
-    }
-    break;
-    case SpaceType::MODEL:
-    {
-        m_modelSpace.push_back( T );
-        if ( parent == -1 )
-        {
-            m_pose.push_back( T );
-        } else
-        { m_pose.push_back( m_modelSpace[parent].inverse() * T ); }
-    }
-    break;
-    default:
-        return -1;
-    }
-    m_label.push_back( label );
-    m_graph.addNode( parent );
-    return ( size() - 1 );
-}
-
-/// SIZE
 void Skeleton::clear() {
     m_pose.clear();
     m_graph.clear();
     m_modelSpace.clear();
 }
 
-/// SPACE INTERFACE
 const Pose& Skeleton::getPose( const SpaceType MODE ) const {
     switch ( MODE )
     {
@@ -192,6 +156,38 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
     }
 }
 
+int Skeleton::addBone( const int parent, const Transform& T, const SpaceType MODE,
+                       const Label label ) {
+    switch ( MODE )
+    {
+    case SpaceType::LOCAL:
+    {
+        m_pose.push_back( T );
+        if ( parent == -1 )
+        {
+            m_modelSpace.push_back( T );
+        } else
+        { m_modelSpace.push_back( T * m_modelSpace[parent] ); }
+    }
+    break;
+    case SpaceType::MODEL:
+    {
+        m_modelSpace.push_back( T );
+        if ( parent == -1 )
+        {
+            m_pose.push_back( T );
+        } else
+        { m_pose.push_back( m_modelSpace[parent].inverse() * T ); }
+    }
+    break;
+    default:
+        return -1;
+    }
+    m_label.push_back( label );
+    m_graph.addNode( parent );
+    return ( size() - 1 );
+}
+
 void Skeleton::getBonePoints( const uint i, Vector3& startOut, Vector3& endOut ) const {
     // Check bone index is valid
     CORE_ASSERT( i < m_modelSpace.size(), "invalid bone index" );
@@ -213,6 +209,55 @@ void Skeleton::getBonePoints( const uint i, Vector3& startOut, Vector3& endOut )
         }
         endOut *= ( 1.f / children.size() );
     }
+}
+
+Vector3 Skeleton::projectOnBone( int boneIdx, const Ra::Core::Vector3& pos ) const {
+    Vector3 start, end;
+    getBonePoints( boneIdx, start, end );
+
+    auto op = pos - start;
+    auto dir = ( end - start );
+    // Square length of bone
+    const Scalar length_sq = dir.squaredNorm();
+    CORE_ASSERT( length_sq != 0.f, "bone has lenght 0, cannot project." );
+
+    // Project on the line segment
+    const Scalar t = Math::clamp( op.dot( dir ) / length_sq, (Scalar)0.0, (Scalar)1.0 );
+    return start + ( t * dir );
+}
+
+std::ostream& operator<<( std::ostream& os, const Skeleton& skeleton ) {
+    for ( uint i = 0; i < skeleton.size(); ++i )
+    {
+        const uint id = i;
+        const std::string name = skeleton.getLabel( i );
+        const std::string type =
+            skeleton.m_graph.isRoot( i )
+                ? "ROOT"
+                : skeleton.m_graph.isJoint( i )
+                      ? "JOINT"
+                      : skeleton.m_graph.isBranch( i )
+                            ? "BRANCH"
+                            : skeleton.m_graph.isLeaf( i ) ? "LEAF" : "UNKNOWN";
+        const int pid = skeleton.m_graph.m_parent.at( i );
+        const std::string pname =
+            ( pid == -1 ) ? "" : ( "(" + std::to_string( pid ) + ") " + skeleton.getLabel( pid ) );
+
+        os << "Bone " << id << "\t: " << name << std::endl;
+        os << "Type\t: " << type << std::endl;
+        os << "Parent\t: " << pname << std::endl;
+        os << "Children#\t: " << skeleton.m_graph.m_child.at( i ).size() << std::endl;
+        os << "Children\t: ";
+        for ( uint j = 0; j < skeleton.m_graph.m_child.at( i ).size(); ++j )
+        {
+            const uint cid = skeleton.m_graph.m_child.at( i ).at( j );
+            const std::string cname = skeleton.getLabel( cid );
+            os << "(" << cid << ") " << cname << " | ";
+        }
+        os << " " << std::endl;
+        os << " " << std::endl;
+    }
+    return os;
 }
 
 } // namespace Animation
