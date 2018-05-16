@@ -81,11 +81,23 @@ class RA_ENGINE_API TextureManager final {
      */
     void deleteTexture( Texture* texture );
 
-    /// Call this method to update given texture
-    void updateTexture( const std::string& texture, void* data );
+    /**
+     * Lazy update the texture content from the raw pointer content.
+     * The real update will be done when calling updatePendingTextures
+     * @note User must ensure that the data pointed by content are of the good type wrt the texture.
+     * @param texture
+     * @param content
+     */
+    void updateTextureContent(const std::string &texture, void *content);
 
-    /// Called by materials
-    void updateTextures();
+    /**
+     * Update all textures that are pending after a call to updateTextureContent.
+     *
+     * The cooperation of updateTextureContent and updatePendingTextures allow applications to manage efficiently
+     * the on line texture generation by separating the content definition (updateTextureContent)
+     * from the OpenGL state modification (updatePendingTextures).
+     */
+    void updatePendingTextures();
 
   private:
     TextureManager();
