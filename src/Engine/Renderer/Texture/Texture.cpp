@@ -120,14 +120,15 @@ void Engine::Texture::updateData( void* data ) {
 
 // let the compiler warn about case fallthrough
 void Engine::Texture::updateParameters() {
-    switch ( m_texture->target() ) {
+    switch ( m_texture->target() )
+    {
     case GL_TEXTURE_CUBE_MAP:
     case GL_TEXTURE_3D:
         m_texture->setParameter( GL_TEXTURE_WRAP_R, wrapR );
-        // __attribute__ ((fallthrough)); // must be updated to [[fallthrough]] when compiler will be C++17
+        [[fallthrough]];
     case GL_TEXTURE_2D:
         m_texture->setParameter( GL_TEXTURE_WRAP_T, wrapT );
-        // __attribute__ ((fallthrough)); // must be updated to [[fallthrough]] when compiler will be C++17
+        [[fallthrough]];
     case GL_TEXTURE_1D:
         m_texture->setParameter( GL_TEXTURE_WRAP_S, wrapS );
         break;
