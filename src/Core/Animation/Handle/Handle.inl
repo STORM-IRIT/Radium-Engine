@@ -4,12 +4,10 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-/// SIZE
 inline uint Handle::size() const {
     return m_pose.size();
 }
 
-/// NAME
 inline std::string Handle::getName() const {
     return m_name;
 }

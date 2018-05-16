@@ -4,7 +4,6 @@
 #include <queue>
 
 #include <Core/Animation/Handle/HandleWeightOperation.hpp>
-#include <Core/Animation/Handle/SkeletonUtils.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/File/HandleToSkeleton.hpp>
