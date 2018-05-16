@@ -8,8 +8,8 @@
 
 #include <Engine/RadiumEngine.hpp>
 
-#include <GuiBase/Viewer/Viewer.hpp>
 #include <Core/File/FileData.hpp>
+#include <GuiBase/Viewer/Viewer.hpp>
 
 #include <iostream>
 
@@ -594,18 +594,6 @@ void Gui::Viewer::enablePostProcess( int enabled ) {
 
 void Gui::Viewer::enableDebugDraw( int enabled ) {
     m_currentRenderer->enableDebugDraw( enabled );
-}
-
-void Gui::Viewer::resetCamera() {
-    // FIXED : according to the documentation of CameraInterface, must check hasLightAttached before
-    // use.
-    if ( m_camera->hasLightAttached() )
-    {
-        auto light = m_camera->getLight();
-        m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
-        m_camera->attachLight( light );
-    } else
-        m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
 }
 
 } // namespace Ra

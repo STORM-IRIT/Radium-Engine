@@ -7,7 +7,6 @@
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/RadiumEngine.hpp>
 
 #include <GuiBase/SelectionManager/SelectionManager.hpp>
@@ -33,8 +32,7 @@ void MeshFeatureTrackingPluginC::registerPlugin( const Ra::PluginContext& contex
     context.m_engine->getSignalManager()->m_frameEndCallbacks.push_back(
         std::bind( &MeshFeatureTrackingPluginC::update, this ) );
     // create sphere component
-    m_component = new MeshFeatureTrackingComponent( "TrackingSphere",
-                                                    Ra::Engine::SystemEntity::getInstance() );
+    m_component = new MeshFeatureTrackingComponent( "TrackingSphere" );
     m_component->initialize();
     // register selection context
     m_selectionManager = context.m_selectionManager;

@@ -5,6 +5,7 @@
 
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
@@ -17,9 +18,8 @@ using MeshRenderMode = Ra::Engine::Mesh::MeshRenderMode;
 using PickingMode = Ra::Engine::Renderer::PickingMode;
 
 namespace MeshFeatureTrackingPlugin {
-MeshFeatureTrackingComponent::MeshFeatureTrackingComponent( const std::string& name,
-                                                            Ra::Engine::Entity* entity ) :
-    Component( name, entity ) {}
+MeshFeatureTrackingComponent::MeshFeatureTrackingComponent(const std::string& name) :
+    Component( name, Ra::Engine::SystemEntity::getInstance() ) {}
 
 MeshFeatureTrackingComponent::~MeshFeatureTrackingComponent() {}
 
