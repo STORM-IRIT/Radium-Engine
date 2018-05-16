@@ -6,54 +6,18 @@ namespace Core {
 namespace Animation {
 
 /// CONSTRUCTOR
-Skeleton::Skeleton() : PointCloud(), m_graph(), m_modelSpace() {}
+Skeleton::Skeleton() : Handle(), m_graph(), m_modelSpace() {}
 
-Skeleton::Skeleton( const uint n ) : PointCloud( n ), m_graph( n ), m_modelSpace( n ) {}
+Skeleton::Skeleton( const uint n ) : Handle( n ), m_graph( n ), m_modelSpace( n ) {}
 
-/// DESTRUCTOR
 Skeleton::~Skeleton() {}
 
-/// BONE NODE
-int Skeleton::addBone( const int parent, const Transform& T, const SpaceType MODE,
-                       const Label label ) {
-    switch ( MODE )
-    {
-    case SpaceType::LOCAL:
-    {
-        m_pose.push_back( T );
-        if ( parent == -1 )
-        {
-            m_modelSpace.push_back( T );
-        } else
-        { m_modelSpace.push_back( T * m_modelSpace[parent] ); }
-    }
-    break;
-    case SpaceType::MODEL:
-    {
-        m_modelSpace.push_back( T );
-        if ( parent == -1 )
-        {
-            m_pose.push_back( T );
-        } else
-        { m_pose.push_back( m_modelSpace[parent].inverse() * T ); }
-    }
-    break;
-    default:
-        return -1;
-    }
-    m_label.push_back( label );
-    m_graph.addNode( parent );
-    return ( size() - 1 );
-}
-
-/// SIZE
 void Skeleton::clear() {
     m_pose.clear();
     m_graph.clear();
     m_modelSpace.clear();
 }
 
-/// SPACE INTERFACE
 const Pose& Skeleton::getPose( const SpaceType MODE ) const {
     switch ( MODE )
     {
@@ -190,6 +154,38 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
     default:
     { CORE_ASSERT( false, "Should not get there" ); }
     }
+}
+
+int Skeleton::addBone( const int parent, const Transform& T, const SpaceType MODE,
+                       const Label label ) {
+    switch ( MODE )
+    {
+    case SpaceType::LOCAL:
+    {
+        m_pose.push_back( T );
+        if ( parent == -1 )
+        {
+            m_modelSpace.push_back( T );
+        } else
+        { m_modelSpace.push_back( T * m_modelSpace[parent] ); }
+    }
+    break;
+    case SpaceType::MODEL:
+    {
+        m_modelSpace.push_back( T );
+        if ( parent == -1 )
+        {
+            m_pose.push_back( T );
+        } else
+        { m_pose.push_back( m_modelSpace[parent].inverse() * T ); }
+    }
+    break;
+    default:
+        return -1;
+    }
+    m_label.push_back( label );
+    m_graph.addNode( parent );
+    return ( size() - 1 );
 }
 
 void Skeleton::getBonePoints( const uint i, Vector3& startOut, Vector3& endOut ) const {
