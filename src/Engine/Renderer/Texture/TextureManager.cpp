@@ -176,13 +176,13 @@ void TextureManager::deleteTexture( Texture* texture ) {
     deleteTexture( texture->getName() );
 }
 
-void TextureManager::updateTexture( const std::string& texture, void* data ) {
+void TextureManager::updateTextureContent(const std::string &texture, void *content) {
     CORE_ASSERT( m_textures.find( texture ) != m_textures.end(),
                  "Trying to update non existing texture" );
-    m_pendingData[texture] = data;
+    m_pendingData[texture] = content;
 }
 
-void TextureManager::updateTextures() {
+void TextureManager::updatePendingTextures() {
     if ( m_pendingData.empty() )
     {
         return;
