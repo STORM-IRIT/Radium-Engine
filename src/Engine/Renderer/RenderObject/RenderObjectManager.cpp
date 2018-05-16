@@ -86,12 +86,9 @@ namespace Ra
         {
             // Take the mutex
             std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
-
+            renderObjectsOut.resize( m_renderObjects.size() );
             // Copy each element in m_renderObjects
-            for ( uint i = 0; i < m_renderObjects.size(); ++i )
-            {
-                renderObjectsOut.push_back( m_renderObjects.at( i ) );
-            }
+            std::copy( m_renderObjects.begin(), m_renderObjects.end(), renderObjectsOut.begin() );
         }
 
         void RenderObjectManager::getRenderObjectsByType( const RenderData& renderData,
