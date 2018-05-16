@@ -17,7 +17,7 @@ set(UNIX_DEFAULT_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb")
 set(UNIX_DEFAULT_CXX_FLAGS_RELEASE        "-DNDEBUG -O3")
 set(UNIX_DEFAULT_CXX_FLAGS_RELWITHDEBINFO "-g3")
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 # Compilation flag for each platforms =========================================
 
@@ -73,7 +73,7 @@ elseif (MSVC)
     #              See https://github.com/cginternals/glbinding/blob/master/cmake/CompileOptions.cmake and
     #              and https://github.com/cginternals/glbinding/issues/141#issuecomment-174511579
     # /EHsc  : enable exceptions
-	# /bigobj: fixes C1128
+        # /bigobj: fixes C1128
 
     # disable secure CRT warnings
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
