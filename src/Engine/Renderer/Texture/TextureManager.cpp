@@ -104,6 +104,8 @@ Texture* TextureManager::getOrLoadTexture( const TextureData& data ) {
     return getOrLoadTexture( data.name );
 }
 
+/// FIXME : for the moment, Texture name is equivalent to file name if the texture is loaded by the manager.
+/// Must allow to differentiates the two.
 Texture* TextureManager::getOrLoadTexture( const std::string& filename ) {
     Texture* ret = nullptr;
     auto it = m_textures.find( filename );
@@ -112,6 +114,18 @@ Texture* TextureManager::getOrLoadTexture( const std::string& filename ) {
     {
         ret = it->second;
     } else {
+        auto makeTexture = [](const TextureData &data) -> Texture* {
+            Texture* tex = new Texture( data.name );
+            tex->internalFormat = data.internalFormat;
+            tex->dataType = data.type;
+            tex->minFilter = data.minFilter;
+            tex->magFilter = data.magFilter;
+            tex->wrapS = data.wrapS;
+            tex->wrapT = data.wrapT;
+            tex->Generate( data.width, data.height, data.format, data.data );
+            return tex;
+        };
+
         auto pending = m_pendingTextures.find( filename );
         if ( pending != m_pendingTextures.end() )
         {
@@ -119,6 +133,7 @@ Texture* TextureManager::getOrLoadTexture( const std::string& filename ) {
 
             bool freedata = false;
             if (data.data == nullptr) {
+
                 auto stbidata = loadTexture(data.name);
                 data.width = stbidata.width;
                 data.height = stbidata.height;
@@ -126,39 +141,24 @@ Texture* TextureManager::getOrLoadTexture( const std::string& filename ) {
                 data.type = stbidata.type;
                 data.format = stbidata.format;
                 data.internalFormat = stbidata.internalFormat;
+
                 freedata = true;
             }
 
-            ret = new Texture( filename );
-            ret->internalFormat = data.internalFormat;
-            ret->dataType = data.type;
-            ret->minFilter = data.minFilter;
-            ret->magFilter = data.magFilter;
-            ret->wrapS = data.wrapS;
-            ret->wrapT = data.wrapT;
-            ret->Generate( data.width, data.height, data.format, data.data );
+            ret = makeTexture(data);
 
             if (freedata)
                 stbi_image_free( data.data );
 
             m_pendingTextures.erase( filename );
-            m_textures[filename] = ret;
-
         } else {
             auto data = loadTexture(filename);
-            ret = new Texture( filename );
-            ret->internalFormat = data.internalFormat;
-            ret->dataType = data.type;
-            ret->minFilter = data.minFilter;
-            ret->magFilter = data.magFilter;
-            ret->wrapS = data.wrapS;
-            ret->wrapT = data.wrapT;
-            ret->Generate( data.width, data.height, data.format, data.data );
+            ret = makeTexture(data);
             stbi_image_free( data.data );
-            m_textures[filename] = ret;
         }
+        /// FIXME : should it be data.name ?
+        m_textures[filename] = ret;
     }
-
     return ret;
 }
 
