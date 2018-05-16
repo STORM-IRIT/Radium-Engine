@@ -149,9 +149,6 @@ class RA_GUIBASE_API Viewer : public QWindow {
     /// Toggle the debug drawing
     void enableDebugDraw( int enabled );
 
-    /// Resets the camaera to initial values
-    void resetCamera();
-
     /** Add a renderer and return its index. Need to be called when catching
      * \param e : unique_ptr to your own renderer
      * \return index of the newly added renderer

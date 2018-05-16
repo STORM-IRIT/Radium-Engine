@@ -14,8 +14,6 @@ inline TextureData& BlinnPhongMaterial::addTexture( const TextureSemantic& seman
     data.name = texture;
     data.wrapS = GL_REPEAT;
     data.wrapT = GL_REPEAT;
-    data.magFilter = GL_NEAREST;
-    data.minFilter = GL_NEAREST;
 
     return addTexture( semantic, data );
 }
