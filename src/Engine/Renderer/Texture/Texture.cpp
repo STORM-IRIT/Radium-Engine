@@ -4,8 +4,6 @@
 
 namespace Ra {
 Engine::Texture::Texture( std::string name ) :
-    /*m_textureId(0)
-     , */
     m_name( name ),
     m_texture( nullptr ) {}
 

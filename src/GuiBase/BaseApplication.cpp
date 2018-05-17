@@ -432,9 +432,12 @@ void BaseApplication::initializeOpenGlPlugins() {
         context.m_engine = m_engine.get();
         context.m_selectionManager = m_mainWindow->getSelectionManager();
         context.m_pickingManager = m_viewer->getPickingManager();
+        context.m_viewer = m_viewer;
         for ( auto plugin : m_openGLPlugins )
         {
-            plugin->openGlInitialize( context, m_viewer->getContext() );
+            m_viewer->makeCurrent();
+            plugin->openGlInitialize( context );
+            m_viewer->doneCurrent();
         }
         m_openGLPlugins.clear();
     }
@@ -484,6 +487,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
     context.m_engine = m_engine.get();
     context.m_selectionManager = m_mainWindow->getSelectionManager();
     context.m_pickingManager = m_viewer->getPickingManager();
+    context.m_viewer = m_viewer;
 
     for ( const auto& filename : pluginsDir.entryList( QDir::Files ) )
     {
@@ -568,7 +572,9 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
                             LOG( logINFO ) << "Direct OpenGL initialization for plugin "
                                            << filename.toStdString();
                             // OpenGL is ready, initialize openGL part of the plugin
-                            loadedPlugin->openGlInitialize( context, m_viewer->getContext() );
+                            m_viewer->makeCurrent();
+                            loadedPlugin->openGlInitialize( context );
+                            m_viewer->doneCurrent();
                         } else
                         {
                             // Defer OpenGL initialisation
