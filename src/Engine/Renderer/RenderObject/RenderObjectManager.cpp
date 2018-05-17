@@ -17,16 +17,16 @@ RenderObjectManager::RenderObjectManager() {}
 
 RenderObjectManager::~RenderObjectManager() {}
 
-bool RenderObjectManager::exists( const Core::Index& index ) const {
+bool RenderObjectManager::exists( const Core::Container::Index& index ) const {
     return ( index.isValid() && m_renderObjects.contains( index ) );
 }
 
-Core::Index RenderObjectManager::addRenderObject( RenderObject* renderObject ) {
+Core::Container::Index RenderObjectManager::addRenderObject( RenderObject* renderObject ) {
     // Avoid data race in the std::maps
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
     std::shared_ptr<RenderObject> newRenderObject( renderObject );
-    Core::Index index = m_renderObjects.insert( newRenderObject );
+    Core::Container::Index index = m_renderObjects.insert( newRenderObject );
 
     newRenderObject->idx = index;
 
@@ -39,7 +39,7 @@ Core::Index RenderObjectManager::addRenderObject( RenderObject* renderObject ) {
     return index;
 }
 
-void RenderObjectManager::removeRenderObject( const Core::Index& index ) {
+void RenderObjectManager::removeRenderObject( const Core::Container::Index& index ) {
     CORE_ASSERT( exists( index ), "Trying to access a render object which doesn't exist" );
 
     // FIXME(Charly): Should we check if the render object is in the double buffer map ?
@@ -61,7 +61,8 @@ uint RenderObjectManager::getRenderObjectsCount() {
     return m_renderObjects.size();
 }
 
-std::shared_ptr<RenderObject> RenderObjectManager::getRenderObject( const Core::Index& index ) {
+std::shared_ptr<RenderObject>
+RenderObjectManager::getRenderObject( const Core::Container::Index& index ) {
     CORE_ASSERT( exists( index ), "Trying to access a render object which doesn't exist" );
     return m_renderObjects.at( index );
 }
@@ -90,7 +91,7 @@ void RenderObjectManager::getRenderObjectsByType(
     }
 }
 
-void RenderObjectManager::renderObjectExpired( const Core::Index& idx ) {
+void RenderObjectManager::renderObjectExpired( const Core::Container::Index& idx ) {
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
     auto ro = m_renderObjects.at( idx );
@@ -129,8 +130,8 @@ uint RenderObjectManager::getNumVertices() const {
     return result;
 }
 
-Core::Aabb RenderObjectManager::getSceneAabb() const {
-    Core::Aabb aabb;
+Core::Math::Aabb RenderObjectManager::getSceneAabb() const {
+    Core::Math::Aabb aabb;
 
     auto ui = Engine::SystemEntity::uiCmp();
     bool skipUi = m_renderObjects.size() != ui->m_renderObjects.size();
@@ -138,7 +139,7 @@ Core::Aabb RenderObjectManager::getSceneAabb() const {
     {
         if ( ro->isVisible() && ( !skipUi || ro->getComponent() != ui ) )
         {
-            Core::Transform t = ro->getComponent()->getEntity()->getTransform();
+            Core::Math::Transform t = ro->getComponent()->getEntity()->getTransform();
             auto mesh = ro->getMesh();
             auto pos = mesh->getGeometry().m_vertices;
 
@@ -147,8 +148,8 @@ Core::Aabb RenderObjectManager::getSceneAabb() const {
                 p = t * ro->getLocalTransform() * p;
             }
 
-            const Ra::Core::Vector3 bmin = pos.getMap().rowwise().minCoeff().head<3>();
-            const Ra::Core::Vector3 bmax = pos.getMap().rowwise().maxCoeff().head<3>();
+            const Core::Math::Vector3 bmin = pos.getMap().rowwise().minCoeff().head<3>();
+            const Core::Math::Vector3 bmax = pos.getMap().rowwise().maxCoeff().head<3>();
 
             aabb.extend( bmin );
             aabb.extend( bmax );

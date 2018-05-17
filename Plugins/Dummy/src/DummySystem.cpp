@@ -1,8 +1,8 @@
 #include "DummySystem.hpp"
 
-#include <Core/String/StringUtils.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Utils/StringUtils.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/RadiumEngine.hpp>

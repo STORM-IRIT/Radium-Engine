@@ -54,33 +54,34 @@ inline const char* glErrorString( GLenum err ) {
 }
 
 #ifdef _DEBUG
-#    include <Core/Log/Log.hpp>
-#    define GL_ASSERT( x )                                                                     \
-        x;                                                                                     \
-        {                                                                                      \
-            GLenum err = glGetError();                                                         \
-            if ( err != GL_NO_ERROR )                                                          \
-            {                                                                                  \
-                const char* errBuf = glErrorString( err );                                     \
-                LOG( logERROR ) << "OpenGL error (" << __FILE__ << ":" << __LINE__ << ", "     \
-                                << STRINGIFY( x ) << ") : " << errBuf << "(" << err << " : 0x" \
-                                << std::hex << err << std::dec << ").";                        \
-                BREAKPOINT( 0 );                                                               \
-            }                                                                                  \
+#    include <Core/Utils/Log.hpp>
+#    define GL_ASSERT( x )                                                                       \
+        x;                                                                                       \
+        {                                                                                        \
+            GLenum err = glGetError();                                                           \
+            if ( err != GL_NO_ERROR )                                                            \
+            {                                                                                    \
+                const char* errBuf = glErrorString( err );                                       \
+                LOG( Core::Utils::logERROR )                                                     \
+                    << "OpenGL error (" << __FILE__ << ":" << __LINE__ << ", " << STRINGIFY( x ) \
+                    << ") : " << errBuf << "(" << err << " : 0x" << std::hex << err << std::dec  \
+                    << ").";                                                                     \
+                BREAKPOINT( 0 );                                                                 \
+            }                                                                                    \
         }
 
 /// This macro will query the last openGL error.
-#    define GL_CHECK_ERROR                                                                   \
-        {                                                                                    \
-            GLenum err = glGetError();                                                       \
-            if ( err != GL_NO_ERROR )                                                        \
-            {                                                                                \
-                const char* errBuf = glErrorString( err );                                   \
-                LOG( logERROR ) << "OpenGL error (" << __FILE__ << ":" << __LINE__           \
-                                << ", glCheckError()) : " << errBuf << "(" << err << " : 0x" \
-                                << std::hex << err << std::dec << ").";                      \
-                BREAKPOINT( 0 );                                                             \
-            }                                                                                \
+#    define GL_CHECK_ERROR                                                                      \
+        {                                                                                       \
+            GLenum err = glGetError();                                                          \
+            if ( err != GL_NO_ERROR )                                                           \
+            {                                                                                   \
+                const char* errBuf = glErrorString( err );                                      \
+                LOG( Core::Utils::logERROR ) << "OpenGL error (" << __FILE__ << ":" << __LINE__ \
+                                             << ", glCheckError()) : " << errBuf << "(" << err  \
+                                             << " : 0x" << std::hex << err << std::dec << ")."; \
+                BREAKPOINT( 0 );                                                                \
+            }                                                                                   \
         }
 
 /// Ignore the previous openGL errors.

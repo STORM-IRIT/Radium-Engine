@@ -1,6 +1,6 @@
 #include <GuiBase/TreeModel/TreeModel.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 #include <stack>
 
 namespace Ra {
@@ -119,14 +119,14 @@ bool TreeModel::findInTree( const TreeItem* item ) const {
 
 void TreeModel::printModel() const {
 #if defined CORE_DEBUG
-    LOG( logDEBUG ) << " Printing tree model";
+    LOG( Core::Utils::logDEBUG ) << " Printing tree model";
     std::stack<const TreeItem*> stack;
     stack.push( m_rootItem.get() );
     while ( !stack.empty() )
     {
         const TreeItem* current = stack.top();
         stack.pop();
-        LOG( logDEBUG ) << current->getName();
+        LOG( Core::Utils::logDEBUG ) << current->getName();
         for ( const auto& child : current->m_children )
         {
             stack.push( child.get() );

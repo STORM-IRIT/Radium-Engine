@@ -1,6 +1,6 @@
 #include "KeyMappingManager.hpp"
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -14,8 +14,8 @@ KeyMappingManager::KeyMappingManager() :
         settings.value( "keymapping/config", "Configs/default.xml" ).toString();
     if ( !keymappingfilename.contains( "default.xml" ) )
     {
-        LOG( logINFO ) << "Loading keymapping " << keymappingfilename.toStdString() << " (from "
-                       << settings.fileName().toStdString() << ")";
+        LOG( Core::Utils::logINFO ) << "Loading keymapping " << keymappingfilename.toStdString()
+                                    << " (from " << settings.fileName().toStdString() << ")";
     }
     loadConfiguration( keymappingfilename.toStdString().c_str() );
 }
@@ -25,8 +25,8 @@ void KeyMappingManager::bindKeyToAction( int keyCode, KeyMappingAction action ) 
                            [&keyCode]( const auto& a ) { return a.second == keyCode; } );
     if ( f != m_mapping.end() )
     {
-        LOG( logWARNING ) << "Binding action " << action << " to code " << keyCode
-                          << ", which is already used for action " << f->first << ".";
+        LOG( Core::Utils::logWARNING ) << "Binding action " << action << " to code " << keyCode
+                                       << ", which is already used for action " << f->first << ".";
     }
     m_mapping[action] = keyCode;
 }
@@ -61,22 +61,23 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
     {
         if ( strcmp( filename, "Configs/default.xml" ) )
         {
-            LOG( logERROR ) << "Failed to open keymapping configuration file ! "
-                            << m_file->fileName().toStdString();
-            LOG( logERROR ) << "Trying to load default configuration...";
+            LOG( Core::Utils::logERROR ) << "Failed to open keymapping configuration file ! "
+                                         << m_file->fileName().toStdString();
+            LOG( Core::Utils::logERROR ) << "Trying to load default configuration...";
             loadConfiguration();
             return;
         } else
         {
-            LOG( logERROR ) << "Failed to open default keymapping configuration file !";
+            LOG( Core::Utils::logERROR )
+                << "Failed to open default keymapping configuration file !";
             return;
         }
     }
 
     if ( !m_domDocument.setContent( m_file ) )
     {
-        LOG( logERROR ) << "Can't associate XML file to QDomDocument !";
-        LOG( logERROR ) << "Trying to load default configuration...";
+        LOG( Core::Utils::logERROR ) << "Can't associate XML file to QDomDocument !";
+        LOG( Core::Utils::logERROR ) << "Trying to load default configuration...";
 
         loadConfiguration();
         return;
@@ -98,8 +99,9 @@ void KeyMappingManager::loadConfigurationInternal() {
 
     if ( domElement.tagName() != "keymaps" )
     {
-        LOG( logWARNING ) << "No <keymaps> global bounding tag ! Maybe you set a different global "
-                             "tag ? (Not a big deal)";
+        LOG( Core::Utils::logWARNING )
+            << "No <keymaps> global bounding tag ! Maybe you set a different global "
+               "tag ? (Not a big deal)";
     }
 
     while ( !node.isNull() )
@@ -128,9 +130,9 @@ void KeyMappingManager::loadConfigurationTagsInternal( QDomElement& node ) {
         loadConfigurationMappingInternal( typeString, modifierString, keyString, actionString );
     } else
     {
-        LOG( logERROR ) << "Unrecognized XML keymapping configuration file tag \""
-                        << qPrintable( node.tagName() ) << "\" !";
-        LOG( logERROR ) << "Trying to load default configuration...";
+        LOG( Core::Utils::logERROR ) << "Unrecognized XML keymapping configuration file tag \""
+                                     << qPrintable( node.tagName() ) << "\" !";
+        LOG( Core::Utils::logERROR ) << "Trying to load default configuration...";
 
         loadConfiguration( "Configs/default.xml" );
 
@@ -152,8 +154,8 @@ void KeyMappingManager::loadConfigurationMappingInternal( const std::string& typ
 
         if ( keyValue == -1 )
         {
-            LOG( logERROR ) << "Unrecognized \"" << keyString << "\" key !";
-            LOG( logERROR ) << "Trying to load default configuration...";
+            LOG( Core::Utils::logERROR ) << "Unrecognized \"" << keyString << "\" key !";
+            LOG( Core::Utils::logERROR ) << "Trying to load default configuration...";
 
             loadConfiguration( "Configs/default.xml" );
         } else

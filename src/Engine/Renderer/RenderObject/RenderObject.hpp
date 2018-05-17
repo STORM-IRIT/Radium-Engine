@@ -7,7 +7,7 @@
 #include <mutex>
 #include <string>
 
-#include <Core/Index/IndexedObject.hpp>
+#include <Core/Container/IndexedObject.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
@@ -27,7 +27,7 @@ namespace Ra {
 namespace Engine {
 
 // FIXME(Charly): Does this need a bit of cleanup ?
-class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
+class RA_ENGINE_API RenderObject final : public Core::Container::IndexedObject {
   public:
     RA_CORE_ALIGNED_NEW
 
@@ -105,16 +105,16 @@ class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
     std::shared_ptr<const Mesh> getMesh() const;
     const std::shared_ptr<Mesh>& getMesh();
 
-    Core::Transform getTransform() const;
-    Core::Matrix4 getTransformAsMatrix() const;
+    Core::Math::Transform getTransform() const;
+    Core::Math::Matrix4 getTransformAsMatrix() const;
 
-    Core::Aabb getAabb() const;
-    Core::Aabb getMeshAabb() const;
+    Core::Math::Aabb getAabb() const;
+    Core::Math::Aabb getMeshAabb() const;
 
-    void setLocalTransform( const Core::Transform& transform );
-    void setLocalTransform( const Core::Matrix4& transform );
-    const Core::Transform& getLocalTransform() const;
-    const Core::Matrix4& getLocalTransformAsMatrix() const;
+    void setLocalTransform( const Core::Math::Transform& transform );
+    void setLocalTransform( const Core::Math::Matrix4& transform );
+    const Core::Math::Transform& getLocalTransform() const;
+    const Core::Math::Matrix4& getLocalTransformAsMatrix() const;
 
     /// Basically just decreases lifetime counter.
     /// If it goes to zero, then render object notifies the manager that it needs to be deleted.
@@ -129,7 +129,7 @@ class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
                          RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE );
 
   private:
-    Core::Transform m_localTransform;
+    Core::Math::Transform m_localTransform;
 
     Component* m_component;
     std::string m_name;

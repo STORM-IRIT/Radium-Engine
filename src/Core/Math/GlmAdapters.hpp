@@ -7,6 +7,7 @@
 
 namespace Ra {
 namespace Core {
+namespace Math {
 // Transform an Eigen vector/matrix into a glm vector/matrix.
 // Used to deal with globjects's setUniform() method which uses glm structures instead of Eigen's
 // structures.
@@ -264,6 +265,7 @@ inline Eigen::Matrix<Scalar, 4, 3> fromGlm( const glm::mat4x3& m ) {
     fromGlm( m, returnMatrix );
     return returnMatrix;
 }
+} // namespace Math
 } // namespace Core
 } // namespace Ra
 

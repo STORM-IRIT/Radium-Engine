@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Core/Utils/Task.hpp>
+#include <Core/Utils/TaskQueue.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -25,6 +27,6 @@ struct MinimalComponent : public Ra::Engine::Component {
 /// add a task to be executed, calling the spin function of the component.
 class MinimalSystem : public Ra::Engine::System {
   public:
-    virtual void generateTasks( Ra::Core::TaskQueue* q,
+    virtual void generateTasks( Ra::Core::Utils::TaskQueue* q,
                                 const Ra::Engine::FrameInfo& info ) override;
 };

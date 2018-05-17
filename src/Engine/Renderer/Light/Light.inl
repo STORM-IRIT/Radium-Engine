@@ -1,10 +1,10 @@
 namespace Ra {
 
-inline const Core::Color& Engine::Light::getColor() const {
+inline const Core::Math::Color& Engine::Light::getColor() const {
     return m_color;
 }
 
-inline void Engine::Light::setColor( const Core::Color& color ) {
+inline void Engine::Light::setColor( const Core::Math::Color& color ) {
     m_color = color;
 }
 

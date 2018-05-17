@@ -14,8 +14,8 @@ namespace Engine {
 /// CONSTRUCTOR
 /// -------------------- ///
 Camera::Camera( Scalar height, Scalar width ) :
-    m_frame( Core::Transform::Identity() ),
-    m_projMatrix( Core::Matrix4::Identity() ),
+    m_frame( Core::Math::Transform::Identity() ),
+    m_projMatrix( Core::Math::Matrix4::Identity() ),
     m_fov( PiDiv4 ),
     m_zNear( Scalar( 0.1f ) ),
     m_zFar( Scalar( 1000.0f ) ),
@@ -33,10 +33,10 @@ Camera::~Camera() {}
 /// -------------------- ///
 /// FRAME
 /// -------------------- ///
-void Camera::applyTransform( const Core::Transform& T ) {
+void Camera::applyTransform( const Core::Math::Transform& T ) {
 
-    Core::Transform t1 = Core::Transform::Identity();
-    Core::Transform t2 = Core::Transform::Identity();
+    Core::Math::Transform t1 = Core::Math::Transform::Identity();
+    Core::Math::Transform t2 = Core::Math::Transform::Identity();
     t1.translation() = -getPosition();
     t2.translation() = getPosition();
 
@@ -61,7 +61,7 @@ void Camera::updateProjMatrix() {
         const Scalar t = dy;  // top
         const Scalar b = -dy; // bottom
 
-        Core::Vector3 tr;
+        Core::Math::Vector3 tr;
         tr( 0 ) = -( r + l ) / ( r - l );
         tr( 1 ) = -( t + b ) / ( t - b );
         tr( 2 ) = -( ( m_zFar + m_zNear ) / ( m_zFar - m_zNear ) );
@@ -97,9 +97,9 @@ void Camera::updateProjMatrix() {
     }
 }
 
-Core::Ray Camera::getRayFromScreen( const Core::Vector2& pix ) const {
+Core::Math::Ray Camera::getRayFromScreen( const Core::Math::Vector2& pix ) const {
     // Ray starts from the camera's current position.
-    return Core::Ray::Through( getPosition(), unProject( pix ) );
+    return Core::Math::Ray::Through( getPosition(), unProject( pix ) );
 }
 } // namespace Engine
 } // namespace Ra

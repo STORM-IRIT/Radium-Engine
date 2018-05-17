@@ -19,6 +19,7 @@
 
 namespace Ra {
 namespace Core {
+namespace Math {
 //
 // Common vector types
 //
@@ -256,6 +257,7 @@ inline bool checkInvalidNumbers( Eigen::Ref<const Quaternion_> q,
 /// Use this parameter for aligning structures with Eigen members in it
 #define RA_DEFAULT_ALIGN EIGEN_MAX_ALIGN_BYTES
 
+} // namespace Math
 } // namespace Core
 } // namespace Ra
 

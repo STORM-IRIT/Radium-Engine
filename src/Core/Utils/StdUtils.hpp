@@ -9,7 +9,7 @@
 /// that didn't fit into any other category (see Strings and Containers)
 namespace Ra {
 namespace Core {
-namespace StdUtils {
+namespace Utils {
 /// Helper function to combine multiple hashes by accumulation
 /// Called repeatedly to accumulate the hash value.
 /// Taken from boost.hash. http://www.boost.org/doc/libs/1_61_0/doc/html/hash.html
@@ -27,7 +27,7 @@ inline std::size_t hash( const std::pair<T1, T2>& p ) {
     hash_combine( result, p.second );
     return result;
 };
-} // namespace StdUtils
+} // namespace Utils
 } // namespace Core
 } // namespace Ra
 

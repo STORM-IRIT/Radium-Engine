@@ -65,7 +65,7 @@ class RA_ENGINE_API ForwardRenderer final : public Renderer {
 
     static const int ShadowMapSize = 1024;
     std::vector<std::shared_ptr<Texture>> m_shadowMaps;
-    std::vector<Core::Matrix4> m_lightMatrices;
+    std::vector<Core::Math::Matrix4> m_lightMatrices;
 };
 
 } // namespace Engine

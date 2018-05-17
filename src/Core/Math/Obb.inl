@@ -2,6 +2,8 @@
 
 namespace Ra {
 namespace Core {
+namespace Math {
+
 //
 // Bounding boxes functions.
 //
@@ -26,5 +28,7 @@ inline Vector3 Obb::worldCorner( int i ) const {
 inline void Obb::addPoint( const Vector3& p ) {
     m_aabb.extend( p );
 }
+
+} // namespace Math
 } // namespace Core
 } // namespace Ra

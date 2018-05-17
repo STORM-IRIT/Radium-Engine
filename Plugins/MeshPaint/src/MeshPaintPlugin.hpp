@@ -57,7 +57,7 @@ class MeshPaintPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
 
     class MeshPaintSystem* m_system;
 
-    Ra::Core::Color m_paintColor;
+    Ra::Core::Math::Color m_paintColor;
     bool m_isPainting;
 };
 

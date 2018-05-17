@@ -6,15 +6,20 @@
 #include <map>
 #include <memory>
 
-#include <Core/Event/KeyEvent.hpp>
-#include <Core/Event/MouseEvent.hpp>
+#include <GuiBase/Event/KeyEvent.hpp>
+#include <GuiBase/Event/MouseEvent.hpp>
 
 #include <Engine/Component/Component.hpp>
+
+#include <Core/Utils/TaskQueue.hpp>
 
 namespace Ra {
 namespace Core {
 class TaskQueue;
-}
+namespace Asset {
+class FileData;
+} // namespace Asset
+} // namespace Core
 } // namespace Ra
 
 namespace Ra {
@@ -22,15 +27,6 @@ namespace Engine {
 struct FrameInfo;
 class Component;
 class Entity;
-} // namespace Engine
-
-namespace Asset {
-class FileData;
-}
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
 
 /// Systems are responsible of updating a specific subset of the components of each entity.
 /// They can provide factory methods to create components, but their main role is to keep a
@@ -50,7 +46,7 @@ class RA_ENGINE_API System {
      *
      * @param dt Time elapsed since last call.
      */
-    virtual void generateTasks( Core::TaskQueue* taskQueue,
+    virtual void generateTasks( Core::Utils::TaskQueue* taskQueue,
                                 const Engine::FrameInfo& frameInfo ) = 0;
 
     /// Registers a component belonging to an entity, making it active within the system.
@@ -70,7 +66,7 @@ class RA_ENGINE_API System {
      * Given a given file and the corresponding entity, the system will create the
      * corresponding components,add them to the entity.
      */
-    virtual void handleAssetLoading( Entity* entity, const Asset::FileData* data ) {}
+    virtual void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) {}
 
   protected:
     /// List of active components.

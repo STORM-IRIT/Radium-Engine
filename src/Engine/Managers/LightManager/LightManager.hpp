@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_LIGHTMANAGER_H
 #define RADIUMENGINE_LIGHTMANAGER_H
 
+#include <Core/Utils/TaskQueue.hpp>
 #include <Engine/Managers/LightManager/LightStorage.hpp>
 #include <Engine/RaEngine.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
@@ -87,10 +88,11 @@ class RA_ENGINE_API LightManager : public System {
     //
 
     /// Method generating the correct tasks for a LightManager.
-    void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
+    void generateTasks( Core::Utils::TaskQueue* taskQueue,
+                        const Engine::FrameInfo& frameInfo ) override;
 
     /// Handle Lights loading.
-    void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
+    void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) override;
 
   protected:
     /// store the current renderData

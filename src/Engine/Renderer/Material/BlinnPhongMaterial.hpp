@@ -39,8 +39,8 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
     inline Texture* getTexture( const TextureType& type ) const;
 
   public:
-    Core::Color m_kd;
-    Core::Color m_ks;
+    Core::Math::Color m_kd;
+    Core::Math::Color m_ks;
     Scalar m_ns;
     Scalar m_alpha;
 

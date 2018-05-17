@@ -8,7 +8,7 @@ namespace Core {
 
 /// Colors are defined as vector4, i.e. 4 floats in RGBA order.
 /// displayable colors should have all their coordinates between 0 and 1.
-namespace Colors {
+namespace Math {
 // Primary and secondary colors.
 // TODO (Val) : check if we can make these constexpr
 template <typename C = Color>
@@ -180,7 +180,8 @@ inline std::vector<C> scatter( const uint size, const Scalar gamma ) {
     std::random_shuffle( color.begin(), color.end() );
     return color;
 }
-} // namespace Colors
+
+} // namespace Math
 } // namespace Core
 } // namespace Ra
 

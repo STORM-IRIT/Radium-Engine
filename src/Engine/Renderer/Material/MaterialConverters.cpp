@@ -1,6 +1,6 @@
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 
-#include <Core/File/MaterialData.hpp>
+#include <Core/Asset/MaterialData.hpp>
 
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 
@@ -16,16 +16,17 @@ namespace Engine {
 ////        Radium Material converters      ///
 ///////////////////////////////////////////////
 
-Material* MaterialConverter::operator()( const Ra::Asset::MaterialData* toconvert ) {
-    LOG( logERROR ) << "Trying to convert a abstract material ... !";
+Material* MaterialConverter::operator()( const Ra::Core::Asset::MaterialData* toconvert ) {
+    LOG( Core::Utils::logERROR ) << "Trying to convert a abstract material ... !";
     return nullptr;
 }
 
-Material* BlinnPhongMaterialConverter::operator()( const Ra::Asset::MaterialData* toconvert ) {
+Material* BlinnPhongMaterialConverter::
+operator()( const Ra::Core::Asset::MaterialData* toconvert ) {
     Ra::Engine::BlinnPhongMaterial* result =
         new Ra::Engine::BlinnPhongMaterial( toconvert->getName() );
 
-    auto source = static_cast<const Ra::Asset::BlinnPhongMaterialData*>( toconvert );
+    auto source = static_cast<const Ra::Core::Asset::BlinnPhongMaterialData*>( toconvert );
 
     if ( source->hasDiffuse() )
         result->m_kd = source->m_diffuse;
@@ -78,7 +79,7 @@ std::pair<bool, ConverterFunction> getMaterialConverter( const std::string& name
         return {true, search->second};
     }
     auto result = std::make_pair( false, [name]( AssetMaterialPtr ) -> RadiumMaterialPtr {
-        LOG( logERROR ) << "Required material converter " << name << " not found!";
+        LOG( Core::Utils::logERROR ) << "Required material converter " << name << " not found!";
         return nullptr;
     } );
     return result;

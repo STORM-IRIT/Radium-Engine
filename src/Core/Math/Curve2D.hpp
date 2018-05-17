@@ -1,13 +1,15 @@
 #ifndef RADIUMENGINE_CURVE2D_HPP_
 #define RADIUMENGINE_CURVE2D_HPP_
 
-#include <Core/Containers/VectorArray.hpp>
+#include <Core/Container/VectorArray.hpp>
 #include <Core/Math/Spline.hpp>
 #include <Core/RaCore.hpp>
 #include <vector>
 
 namespace Ra {
 namespace Core {
+namespace Math {
+
 class Curve2D {
   public:
     enum CurveType { LINE, CUBICBEZIER, SPLINE, SIZE };
@@ -40,7 +42,7 @@ class QuadraSpline : public Curve2D {
     inline Vector fdf( Scalar u, Vector& grad ) const override;
 
   private:
-    Core::VectorArray<Vector> m_points;
+    Core::Container::VectorArray<Vector> m_points;
 };
 
 class CubicBezier : public Curve2D {
@@ -80,7 +82,7 @@ class Line : public Curve2D {
 class SplineCurve : public Curve2D {
   public:
     SplineCurve() { this->size = 0; }
-    SplineCurve( Core::VectorArray<Vector> points ) : m_points( points ) {
+    SplineCurve( Core::Container::VectorArray<Vector> points ) : m_points( points ) {
         this->size = points.size();
     }
 
@@ -91,9 +93,10 @@ class SplineCurve : public Curve2D {
     inline Vector fdf( Scalar t, Vector& grad ) const override;
 
   private:
-    Core::VectorArray<Vector> m_points;
+    Core::Container::VectorArray<Vector> m_points;
 };
 
+} // namespace Math
 } // namespace Core
 } // namespace Ra
 

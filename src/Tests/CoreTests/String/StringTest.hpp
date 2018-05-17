@@ -1,16 +1,16 @@
 #ifndef RADIUM_STRINGTESTS_HPP_
 #define RADIUM_STRINGTESTS_HPP_
 
-#include <Core/String/StringUtils.hpp>
+#include <Core/Utils/StringUtils.hpp>
 #include <Tests/CoreTests/Tests.hpp>
 
 namespace RaTests {
 class StringTests : public Test {
     void run() override {
 
-        using Ra::Core::StringUtils::getBaseName;
-        using Ra::Core::StringUtils::getDirName;
-        using Ra::Core::StringUtils::getFileExt;
+        using Ra::Core::Utils::getBaseName;
+        using Ra::Core::Utils::getDirName;
+        using Ra::Core::Utils::getFileExt;
 
         // Test getFileExt
         {
@@ -66,7 +66,7 @@ class StringTests : public Test {
                       "Path reconstruction" );
 
         // Test string printf
-        using Ra::Core::StringUtils::stringPrintf;
+        using Ra::Core::Utils::stringPrintf;
 
         const char* format = "test %u test %p test %f";
         char buffer[100];

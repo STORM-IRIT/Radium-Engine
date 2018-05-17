@@ -4,31 +4,31 @@
 file(GLOB Core_SUB Core/CoreMacros.hpp)
 source_group("Core" FILES ${Core_SUB})
 
-file(GLOB Core_Containers_SUB Core/Containers/*)
+file(GLOB Core_Containers_SUB Core/Container/*)
 source_group("Core\\Containers" FILES ${Core_Containers_SUB})
 
-file(GLOB Core_Event_SUB Core/Event/*)
+file(GLOB Core_Event_SUB GuiBase/Event/*)
 source_group("Core\\Event" FILES ${Core_Event_SUB})
 
-file(GLOB Core_Index_SUB Core/Index/*)
+file(GLOB Core_Index_SUB Core/Container/*)
 source_group("Core\\Index" FILES ${Core_Index_SUB})
 
-file(GLOB Core_Log_SUB Core/Log/*)
+file(GLOB Core_Log_SUB Core/Utils/*)
 source_group("Core\\Log" FILES ${Core_Log_SUB})
 
 file(GLOB Core_Math_SUB Core/Math/*)
 source_group("Core\\Math" FILES ${Core_Math_SUB})
 
-file(GLOB Core_Mesh_SUB Core/Mesh/*)
+file(GLOB Core_Mesh_SUB Core/Geometry/*)
 source_group("Core\\Mesh" FILES ${Core_Mesh_SUB})
 
-file(GLOB Core_String_SUB Core/String/*)
+file(GLOB Core_String_SUB Core/Utils/*)
 source_group("Core\\String" FILES ${Core_String_SUB})
 
 file(GLOB Core_Tasks_SUB Core/Tasks/*)
 source_group("Core\\Tasks" FILES ${Core_Tasks_SUB})
 
-file(GLOB Core_Time_SUB Core/Time/*)
+file(GLOB Core_Time_SUB Core/Utils/*)
 source_group("Core\\Time" FILES ${Core_Time_SUB})
 
 file(GLOB Core_Utils_SUB Core/Utils/*)

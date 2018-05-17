@@ -5,8 +5,9 @@
 
 #include <Core/Utils/Singleton.hpp>
 
-#include <Core/File/FileData.hpp>
-#include <Core/File/FileLoaderInterface.hpp>
+#include <Core/Asset/FileData.hpp>
+#include <Core/Asset/FileLoaderInterface.hpp>
+#include <Core/Utils/TaskQueue.hpp>
 
 #include <map>
 #include <memory>
@@ -14,13 +15,17 @@
 
 namespace Ra {
 namespace Core {
+
 class TaskQueue;
 struct MouseEvent;
 struct KeyEvent;
+
 } // namespace Core
 } // namespace Ra
+
 namespace Ra {
 namespace Engine {
+
 class System;
 class Entity;
 class Component;
@@ -28,11 +33,13 @@ class Mesh;
 class RenderObjectManager;
 class EntityManager;
 class SignalManager;
+
 } // namespace Engine
 } // namespace Ra
 
 namespace Ra {
 namespace Engine {
+
 class RA_ENGINE_API RadiumEngine {
     RA_SINGLETON_INTERFACE( RadiumEngine );
 
@@ -43,7 +50,7 @@ class RA_ENGINE_API RadiumEngine {
     void initialize();
     void cleanup();
 
-    void getTasks( Core::TaskQueue* taskQueue, Scalar dt );
+    void getTasks( Core::Utils::TaskQueue* taskQueue, Scalar dt );
 
     void registerSystem( const std::string& name, System* system );
     System* getSystem( const std::string& system ) const;
@@ -57,7 +64,7 @@ class RA_ENGINE_API RadiumEngine {
 
     bool loadFile( const std::string& file );
 
-    const Asset::FileData& getFileData() const;
+    const Core::Asset::FileData& getFileData() const;
 
     void releaseFile();
 
@@ -70,19 +77,19 @@ class RA_ENGINE_API RadiumEngine {
     EntityManager* getEntityManager() const;
     SignalManager* getSignalManager() const;
 
-    void registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface> fileLoader );
+    void registerFileLoader( std::shared_ptr<Core::Asset::FileLoaderInterface> fileLoader );
 
-    const std::vector<std::shared_ptr<Asset::FileLoaderInterface>>& getFileLoaders() const;
+    const std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>>& getFileLoaders() const;
 
   private:
     std::map<std::string, std::shared_ptr<System>> m_systems;
 
-    std::vector<std::shared_ptr<Asset::FileLoaderInterface>> m_fileLoaders;
+    std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>> m_fileLoaders;
 
     std::unique_ptr<RenderObjectManager> m_renderObjectManager;
     std::unique_ptr<EntityManager> m_entityManager;
     std::unique_ptr<SignalManager> m_signalManager;
-    std::unique_ptr<Asset::FileData> m_loadedFile;
+    std::unique_ptr<Core::Asset::FileData> m_loadedFile;
 };
 
 } // namespace Engine

@@ -27,11 +27,11 @@ class RA_ENGINE_API SpotLight final : public Light {
 
     void getRenderParameters( RenderParameters& params ) const override;
 
-    void setPosition( const Core::Vector3& position ) override;
-    inline const Core::Vector3& getPosition() const;
+    void setPosition( const Core::Math::Vector3& position ) override;
+    inline const Core::Math::Vector3& getPosition() const;
 
-    void setDirection( const Core::Vector3& direction ) override;
-    inline const Core::Vector3& getDirection() const;
+    void setDirection( const Core::Math::Vector3& direction ) override;
+    inline const Core::Math::Vector3& getDirection() const;
 
     inline void setInnerAngleInRadians( Scalar angle );
     inline void setOuterAngleInRadians( Scalar angle );
@@ -48,8 +48,8 @@ class RA_ENGINE_API SpotLight final : public Light {
     std::string getShaderInclude() const;
 
   private:
-    Core::Vector3 m_position;
-    Core::Vector3 m_direction;
+    Core::Math::Vector3 m_position;
+    Core::Math::Vector3 m_direction;
 
     Scalar m_innerAngle;
     Scalar m_outerAngle;

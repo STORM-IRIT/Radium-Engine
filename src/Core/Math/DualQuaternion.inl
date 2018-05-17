@@ -2,6 +2,7 @@
 
 namespace Ra {
 namespace Core {
+namespace Math {
 
 inline const Quaternion& DualQuaternion::getQ0() const {
     return m_q0;
@@ -45,14 +46,12 @@ inline void DualQuaternion::normalize() {
 }
 
 inline Vector3 DualQuaternion::transform( const Vector3& p ) const {
-    CORE_ASSERT( Ra::Core::Math::areApproxEqual( m_q0.norm(), 1.f ),
-                 "Dual quaternion not normalized" );
+    CORE_ASSERT( areApproxEqual( m_q0.norm(), 1.f ), "Dual quaternion not normalized" );
     return translate( rotate( p ) );
 }
 
 inline Vector3 DualQuaternion::rotate( const Vector3& p ) const {
-    CORE_ASSERT( Ra::Core::Math::areApproxEqual( m_q0.norm(), 1.f ),
-                 "Dual quaternion not normalized" );
+    CORE_ASSERT( areApproxEqual( m_q0.norm(), 1.f ), "Dual quaternion not normalized" );
     return m_q0.toRotationMatrix() * p;
 }
 
@@ -62,14 +61,13 @@ inline Vector3 DualQuaternion::translate( const Vector3& p ) const {
     return p + ( ( ve * m_q0.w() - v0 * m_qe.w() + v0.cross( ve ) ) * 2.f );
 }
 
-inline DualQuaternion::DualQuaternion( const Core::Transform& tr ) {
+inline DualQuaternion::DualQuaternion( const Transform& tr ) {
     setFromTransform( tr );
 }
 
 inline Transform DualQuaternion::getTransform() const {
     // Assume the dual quat is normalized.
-    CORE_ASSERT( Ra::Core::Math::areApproxEqual( m_q0.norm(), 1.f ),
-                 "Dual quaternion not normalized" );
+    CORE_ASSERT( areApproxEqual( m_q0.norm(), 1.f ), "Dual quaternion not normalized" );
 
     Transform result;
     result.linear() = m_q0.toRotationMatrix();
@@ -79,7 +77,7 @@ inline Transform DualQuaternion::getTransform() const {
 
 inline void DualQuaternion::setFromTransform( const Transform& t ) {
     m_q0 = Quaternion( t.rotation() );
-    Core::Vector4 trans = Core::Vector4::Zero();
+    Vector4 trans = Vector4::Zero();
     trans.head<3>() = t.translation();
     m_qe = 0.5f * Quaternion( trans ) * m_q0;
 }
@@ -88,5 +86,6 @@ inline DualQuaternion operator*( Scalar scalar, const DualQuaternion& dq ) {
     return dq * scalar;
 }
 
+} // namespace Math
 } // namespace Core
 } // namespace Ra

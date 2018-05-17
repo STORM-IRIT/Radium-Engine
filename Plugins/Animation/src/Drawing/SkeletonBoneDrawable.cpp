@@ -6,14 +6,14 @@
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
-#include <Core/Animation/Handle/SkeletonUtils.hpp>
+#include <Core/Animation/SkeletonUtils.hpp>
 
 namespace AnimationPlugin {
 
 SkeletonBoneRenderObject::SkeletonBoneRenderObject( const std::string& name,
                                                     AnimationComponent* comp, uint id,
                                                     Ra::Engine::RenderObjectManager* roMgr ) :
-    m_roIdx( Ra::Core::Index::Invalid() ),
+    m_roIdx( Ra::Core::Container::Index::Invalid() ),
     m_id( id ),
     m_skel( comp->getSkeleton() ),
     m_roMgr( roMgr ) {
@@ -28,8 +28,8 @@ SkeletonBoneRenderObject::SkeletonBoneRenderObject( const std::string& name,
         Ra::Engine::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
     auto bpMaterial = new Ra::Engine::BlinnPhongMaterial( "Bone Material" );
     m_material.reset( bpMaterial );
-    bpMaterial->m_kd = Ra::Core::Color( 0.4f, 0.4f, 0.4f, 0.5f );
-    bpMaterial->m_ks = Ra::Core::Color( 0.0f, 0.0f, 0.0f, 1.0f );
+    bpMaterial->m_kd = Ra::Core::Math::Color( 0.4f, 0.4f, 0.4f, 0.5f );
+    bpMaterial->m_ks = Ra::Core::Math::Color( 0.0f, 0.0f, 0.0f, 1.0f );
     m_material->setMaterialType( Ra::Engine::Material::MaterialType::MAT_OPAQUE );
 
     m_renderParams.reset( new Ra::Engine::RenderTechnique() );
@@ -53,43 +53,44 @@ void SkeletonBoneRenderObject::update() {
 }
 
 void SkeletonBoneRenderObject::updateLocalTransform() {
-    Ra::Core::Vector3 start;
-    Ra::Core::Vector3 end;
-    Ra::Core::Animation::SkeletonUtils::getBonePoints( m_skel, m_id, start, end );
+    Ra::Core::Math::Vector3 start;
+    Ra::Core::Math::Vector3 end;
+    Ra::Core::Animation::getBonePoints( m_skel, m_id, start, end );
 
-    Ra::Core::Transform scale = Ra::Core::Transform::Identity();
+    Ra::Core::Math::Transform scale = Ra::Core::Math::Transform::Identity();
     scale.scale( ( end - start ).norm() );
 
-    Ra::Core::Quaternion rot =
-        Ra::Core::Quaternion::FromTwoVectors( Ra::Core::Vector3::UnitZ(), end - start );
+    Ra::Core::Math::Quaternion rot =
+        Ra::Core::Math::Quaternion::FromTwoVectors( Ra::Core::Math::Vector3::UnitZ(), end - start );
 
-    Ra::Core::Transform boneTransform =
+    Ra::Core::Math::Transform boneTransform =
         m_skel.getTransform( m_id, Ra::Core::Animation::Handle::SpaceType::MODEL );
-    Ra::Core::Matrix3 rotation = rot.toRotationMatrix();
-    Ra::Core::Transform drawTransform;
+    Ra::Core::Math::Matrix3 rotation = rot.toRotationMatrix();
+    Ra::Core::Math::Transform drawTransform;
     drawTransform.linear() = rotation;
     drawTransform.translation() = boneTransform.translation();
 
     m_roMgr->getRenderObject( m_roIdx )->setLocalTransform( drawTransform * scale );
 }
 
-Ra::Core::TriangleMesh SkeletonBoneRenderObject::makeBoneShape() {
+Ra::Core::Geometry::TriangleMesh SkeletonBoneRenderObject::makeBoneShape() {
     // Bone along Z axis.
 
-    Ra::Core::TriangleMesh mesh;
+    Ra::Core::Geometry::TriangleMesh mesh;
 
     const Scalar l = 0.1f;
     const Scalar w = 0.1f;
 
-    mesh.m_vertices = {Ra::Core::Vector3( 0, 0, 0 ),  Ra::Core::Vector3( 0, 0, 1 ),
-                       Ra::Core::Vector3( 0, w, l ),  Ra::Core::Vector3( w, 0, l ),
-                       Ra::Core::Vector3( 0, -w, l ), Ra::Core::Vector3( -w, 0, l )};
+    mesh.m_vertices = {Ra::Core::Math::Vector3( 0, 0, 0 ),  Ra::Core::Math::Vector3( 0, 0, 1 ),
+                       Ra::Core::Math::Vector3( 0, w, l ),  Ra::Core::Math::Vector3( w, 0, l ),
+                       Ra::Core::Math::Vector3( 0, -w, l ), Ra::Core::Math::Vector3( -w, 0, l )};
 
-    mesh.m_triangles = {Ra::Core::Triangle( 0, 2, 3 ), Ra::Core::Triangle( 0, 5, 2 ),
-                        Ra::Core::Triangle( 0, 3, 4 ), Ra::Core::Triangle( 0, 4, 5 ),
-                        Ra::Core::Triangle( 1, 3, 2 ), Ra::Core::Triangle( 1, 2, 5 ),
-                        Ra::Core::Triangle( 1, 4, 3 ), Ra::Core::Triangle( 1, 5, 4 )};
-    Ra::Core::MeshUtils::getAutoNormals( mesh, mesh.m_normals );
+    mesh.m_triangles = {
+        Ra::Core::Geometry::Triangle( 0, 2, 3 ), Ra::Core::Geometry::Triangle( 0, 5, 2 ),
+        Ra::Core::Geometry::Triangle( 0, 3, 4 ), Ra::Core::Geometry::Triangle( 0, 4, 5 ),
+        Ra::Core::Geometry::Triangle( 1, 3, 2 ), Ra::Core::Geometry::Triangle( 1, 2, 5 ),
+        Ra::Core::Geometry::Triangle( 1, 4, 3 ), Ra::Core::Geometry::Triangle( 1, 5, 4 )};
+    Ra::Core::Geometry::getAutoNormals( mesh, mesh.m_normals );
     return mesh;
 }
 

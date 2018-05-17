@@ -9,10 +9,10 @@
 #include <mutex>
 #include <vector>
 
-#include <Core/Event/EventEnums.hpp>
-#include <Core/File/FileData.hpp>
+#include <Core/Asset/FileData.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Time/Timer.hpp>
+#include <Core/Utils/Timer.hpp>
+#include <GuiBase/Event/EventEnums.hpp>
 
 namespace Ra {
 namespace Core {
@@ -43,8 +43,8 @@ class Framebuffer;
 namespace Ra {
 namespace Engine {
 struct RA_ENGINE_API RenderData {
-    Core::Matrix4 viewMatrix;
-    Core::Matrix4 projMatrix;
+    Core::Math::Matrix4 viewMatrix;
+    Core::Math::Matrix4 projMatrix;
     Scalar dt;
 };
 
@@ -54,12 +54,12 @@ class RA_ENGINE_API Renderer {
 
   public:
     struct TimerData {
-        Core::Timer::TimePoint renderStart;
-        Core::Timer::TimePoint updateEnd;
-        Core::Timer::TimePoint feedRenderQueuesEnd;
-        Core::Timer::TimePoint mainRenderEnd;
-        Core::Timer::TimePoint postProcessEnd;
-        Core::Timer::TimePoint renderEnd;
+        Core::Utils::TimePoint renderStart;
+        Core::Utils::TimePoint updateEnd;
+        Core::Utils::TimePoint feedRenderQueuesEnd;
+        Core::Utils::TimePoint mainRenderEnd;
+        Core::Utils::TimePoint postProcessEnd;
+        Core::Utils::TimePoint renderEnd;
     };
 
     enum PickingMode {
@@ -73,7 +73,7 @@ class RA_ENGINE_API Renderer {
     };
 
     struct PickingQuery {
-        Core::Vector2 m_screenCoords;
+        Core::Math::Vector2 m_screenCoords;
         Core::MouseButton::MouseButton m_button;
         PickingMode m_mode;
     };
@@ -160,7 +160,7 @@ class RA_ENGINE_API Renderer {
         return m_lastFramePickingQueries;
     }
 
-    inline virtual void setMousePosition( const Core::Vector2& pos ) final {
+    inline virtual void setMousePosition( const Core::Math::Vector2& pos ) final {
         m_mousePosition[0] = pos[0];
         m_mousePosition[1] = m_height - pos[1];
     }
@@ -188,7 +188,7 @@ class RA_ENGINE_API Renderer {
 
     virtual void reloadShaders();
 
-    virtual void handleFileLoading( const Asset::FileData& filedata );
+    virtual void handleFileLoading( const Core::Asset::FileData& filedata );
 
     /**
      * @brief Change the texture that is displayed on screen.
@@ -333,7 +333,7 @@ class RA_ENGINE_API Renderer {
     std::mutex m_renderMutex;
 
     // PICKING STUFF
-    Ra::Core::Vector2 m_mousePosition;
+    Ra::Core::Math::Vector2 m_mousePosition;
     float m_brushRadius;
     std::unique_ptr<globjects::Framebuffer> m_pickingFbo;
     std::unique_ptr<Texture> m_pickingTexture;

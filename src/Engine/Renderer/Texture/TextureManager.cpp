@@ -1,7 +1,7 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
@@ -41,7 +41,8 @@ Texture* TextureManager::addTexture( const std::string& filename ) {
 
     if ( !data )
     {
-        LOG( logERROR ) << "Something went wrong when loading image \"" << filename << "\".";
+        LOG( Core::Utils::logERROR )
+            << "Something went wrong when loading image \"" << filename << "\".";
         return nullptr;
     }
 
@@ -86,10 +87,11 @@ Texture* TextureManager::addTexture( const std::string& filename ) {
 
     if ( m_verbose )
     {
-        LOG( logINFO ) << "Image stats (" << filename << ") :\n"
-                       << "\tPixels : " << n << std::endl
-                       << "\tFormat : 0x" << std::hex << format << std::dec << std::endl
-                       << "\tSize   : " << w << ", " << h;
+        LOG( Core::Utils::logINFO )
+            << "Image stats (" << filename << ") :\n"
+            << "\tPixels : " << n << std::endl
+            << "\tFormat : 0x" << std::hex << format << std::dec << std::endl
+            << "\tSize   : " << w << ", " << h;
     }
 
     CORE_ASSERT( data, "Data is null" );

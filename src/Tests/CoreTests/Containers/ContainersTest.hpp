@@ -1,7 +1,7 @@
 #ifndef RADIUM_CONTAINERSTESTS_HPP_
 #define RADIUM_CONTAINERSTESTS_HPP_
 
-#include <Core/Containers/Iterators.hpp>
+#include <Core/Container/Iterators.hpp>
 #include <Tests/CoreTests/Tests.hpp>
 
 #include <algorithm>
@@ -28,13 +28,13 @@ class IteratorsTests : public Test {
         std::generate( std::begin( container ), std::end( container ), gen );
         std::shuffle( std::begin( container ), std::end( container ), mersenne_engine );
 
-        // check that Ra::Core::reversed produces same results than std::rbegin()
+        // check that Ra::Core::Container::reversed produces same results than std::rbegin()
         Container reverted1;
         reverted1.reserve( nbSamples );
         Container reverted2;
         reverted2.reserve( nbSamples );
 
-        for ( auto v : Ra::Core::reversed( container ) )
+        for ( auto v : Ra::Core::Container::reversed( container ) )
             reverted1.push_back( v );
         for ( auto vIt = container.rbegin(); vIt != container.rend(); vIt++ )
             reverted2.push_back( *vIt );
@@ -52,14 +52,14 @@ class IteratorsTests : public Test {
         const Container& ccontainer = container;
         Container reverted4;
         reverted4.reserve( nbSamples );
-        for ( auto v : Ra::Core::reversed( ccontainer ) )
+        for ( auto v : Ra::Core::Container::reversed( ccontainer ) )
             reverted4.push_back( v );
 
         RA_UNIT_TEST( reverted1 == reverted4,
                       "Const qualifier should not change the loop behavior" );
 
         // check we can also write in the containers
-        for ( auto& v : Ra::Core::reversed( reverted2 ) )
+        for ( auto& v : Ra::Core::Container::reversed( reverted2 ) )
             v++;
         for ( auto& v : reverted1 )
             v++;

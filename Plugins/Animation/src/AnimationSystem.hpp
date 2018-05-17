@@ -4,6 +4,8 @@
 #include <Engine/System/System.hpp>
 
 #include <AnimationPluginMacros.hpp>
+#include <Core/Utils/Task.hpp>
+#include <Core/Utils/TaskQueue.hpp>
 #include <Engine/ItemModel/ItemEntry.hpp>
 
 namespace AnimationPlugin {
@@ -13,12 +15,12 @@ class ANIM_PLUGIN_API AnimationSystem : public Ra::Engine::System {
     AnimationSystem();
 
     /// Create a task for each animation component to advance the current animation.
-    virtual void generateTasks( Ra::Core::TaskQueue* taskQueue,
+    virtual void generateTasks( Ra::Core::Utils::TaskQueue* taskQueue,
                                 const Ra::Engine::FrameInfo& frameInfo ) override;
 
     /// Load a skeleton and an animation from a file.
     void handleAssetLoading( Ra::Engine::Entity* entity,
-                             const Ra::Asset::FileData* fileData ) override;
+                             const Ra::Core::Asset::FileData* fileData ) override;
 
     /// Toggle on/off playing of animations.
     void setPlaying( bool isPlaying );

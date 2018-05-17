@@ -1,7 +1,7 @@
 #ifndef RADIUM_ANIMATIONTESTS_HPP_
 #define RADIUM_ANIMATIONTESTS_HPP_
 
-#include <Core/Animation/Handle/HandleWeightOperation.hpp>
+#include <Core/Animation/HandleWeightOperation.hpp>
 #include <Tests.hpp>
 
 using Ra::Core::Animation::WeightMatrix;

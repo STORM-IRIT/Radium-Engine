@@ -14,7 +14,7 @@ SystemEntity::SystemEntity() : Entity( "System Display Entity" ) {
 
 UiComponent* SystemEntity::uiCmp() {
     SystemEntity* instance = getInstance();
-    CORE_ASSERT( instance->getTransformAsMatrix() == Core::Matrix4::Identity(),
+    CORE_ASSERT( instance->getTransformAsMatrix() == Core::Math::Matrix4::Identity(),
                  "Transform has been changed !" );
     return static_cast<UiComponent*>( instance->getComponent( "UI" ) );
 }
@@ -22,12 +22,12 @@ UiComponent* SystemEntity::uiCmp() {
 #ifndef RA_DISABLE_DEBUG_DISPLAY
 DebugComponent* SystemEntity::dbgCmp() {
     SystemEntity* instance = getInstance();
-    CORE_ASSERT( instance->getTransformAsMatrix() == Core::Matrix4::Identity(),
+    CORE_ASSERT( instance->getTransformAsMatrix() == Core::Math::Matrix4::Identity(),
                  "Transform has been changed !" );
     return static_cast<DebugComponent*>( instance->getComponent( "Debug" ) );
 }
 
-RenderObject* DebugComponent::getRenderObject( Core::Index idx ) {
+RenderObject* DebugComponent::getRenderObject( Core::Container::Index idx ) {
     return getRoMgr()->getRenderObject( idx ).get();
 }
 #endif

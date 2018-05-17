@@ -6,6 +6,8 @@
 
 namespace Ra {
 namespace Core {
+namespace Math {
+
 struct Frustum {
   public:
     enum FACES : int {
@@ -41,6 +43,8 @@ struct Frustum {
     /// Clipping planes
     Vector4 m_planes[6];
 };
+
+} // namespace Math
 } // namespace Core
 } // namespace Ra
 

@@ -27,9 +27,11 @@ namespace Engine {
 class Renderer;
 }
 
+namespace Core {
 namespace Asset {
 class FileLoaderInterface;
 }
+} // namespace Core
 
 /// Data passed to the plugin constructor.
 struct PluginContext {
@@ -113,7 +115,7 @@ class RadiumPluginInterface {
     virtual bool doAddFileLoader() { return false; }
 
     virtual void
-    addFileLoaders( std::vector<std::shared_ptr<Asset::FileLoaderInterface>>* /*fl*/ ) {}
+    addFileLoaders( std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>>* /*fl*/ ) {}
 
     /**
      * @brief openGlInitialize

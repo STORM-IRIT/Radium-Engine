@@ -1,6 +1,6 @@
 #include <IO/TinyPlyLoader/TinyPlyFileLoader.hpp>
 
-#include <Core/File/FileData.hpp>
+#include <Core/Asset/FileData.hpp>
 
 #include <tinyply/tinyply.h>
 
@@ -25,7 +25,7 @@ bool TinyPlyFileLoader::handleFileExtension( const std::string& extension ) cons
     return extension.compare( plyExt ) == 0;
 }
 
-Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
+Core::Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
     // Read the file and create a std::istringstream suitable
     // for the lib -- tinyply does not perform any file i/o.
@@ -39,24 +39,24 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         if ( e.name.compare( "face" ) == 0 && e.size != 0 )
         {
             // Mesh found. Let the other loaders handle it
-            LOG( logINFO ) << "[TinyPLY] Faces found. Aborting" << std::endl;
+            LOG( Core::Utils::logINFO ) << "[TinyPLY] Faces found. Aborting" << std::endl;
             return nullptr;
         }
     }
 
     // we are now sure to have a point-cloud
-    Asset::FileData* fileData = new Asset::FileData( filename );
+    Core::Asset::FileData* fileData = new Core::Asset::FileData( filename );
 
     if ( !fileData->isInitialized() )
     {
         delete fileData;
-        LOG( logINFO ) << "[TinyPLY] Filedata cannot be initialized...";
+        LOG( Core::Utils::logINFO ) << "[TinyPLY] Filedata cannot be initialized...";
         return nullptr;
     }
 
     if ( fileData->isVerbose() )
     {
-        LOG( logINFO ) << "[TinyPLY] File Loading begin...";
+        LOG( Core::Utils::logINFO ) << "[TinyPLY] File Loading begin...";
     }
 
     // Define containers to hold the extracted data. The type must match
@@ -72,15 +72,15 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     if ( vertexCount == 0 )
     {
         delete fileData;
-        LOG( logINFO ) << "[TinyPLY] No vertice found";
+        LOG( Core::Utils::logINFO ) << "[TinyPLY] No vertice found";
         return nullptr;
     }
 
     fileData->m_geometryData.clear();
     fileData->m_geometryData.reserve( 1 );
 
-    Asset::GeometryData* geometry = new Asset::GeometryData();
-    geometry->setType( Asset::GeometryData::POINT_CLOUD );
+    Core::Asset::GeometryData* geometry = new Core::Asset::GeometryData();
+    geometry->setType( Core::Asset::GeometryData::POINT_CLOUD );
 
     std::vector<float> normals;
     std::vector<uint8_t> colors;
@@ -96,7 +96,7 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
     geometry->setVertices( *(
         reinterpret_cast<std::vector<Eigen::Matrix<float, 3, 1, Eigen::DontAlign>>*>( &verts ) ) );
-    geometry->setFrame( Core::Transform::Identity() );
+    geometry->setFrame( Core::Math::Transform::Identity() );
 
     if ( normalCount != 0 )
     {
@@ -116,11 +116,11 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
     fileData->m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );
 
-    fileData->m_geometryData.push_back( std::unique_ptr<Asset::GeometryData>( geometry ) );
+    fileData->m_geometryData.push_back( std::unique_ptr<Core::Asset::GeometryData>( geometry ) );
 
     if ( fileData->isVerbose() )
     {
-        LOG( logINFO ) << "[TinyPLY] File Loading end.";
+        LOG( Core::Utils::logINFO ) << "[TinyPLY] File Loading end.";
 
         fileData->displayInfo();
     }
