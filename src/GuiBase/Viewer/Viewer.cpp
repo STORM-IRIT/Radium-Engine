@@ -124,6 +124,16 @@ void Gui::Viewer::enableDebug() {
     } );
 }
 
+void Gui::Viewer::makeCurrent() {
+    CORE_ASSERT( m_glInitStatus, "[Viewer::makeCurrent] OpenGLContext not created!" );
+    m_context->makeCurrent( this );
+}
+
+void Gui::Viewer::doneCurrent() {
+    CORE_ASSERT( m_glInitStatus, "[Viewer::makeCurrent] OpenGLContext not created!" );
+    m_context->doneCurrent();
+}
+
 void Gui::Viewer::initializeGL() {
     m_glInitStatus = true;
     m_context->makeCurrent( this );

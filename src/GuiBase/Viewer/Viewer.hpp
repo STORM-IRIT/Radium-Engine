@@ -38,10 +38,6 @@ class PickingManager;
 namespace Ra {
 namespace Gui {
 
-// FIXME (Charly) : Which way do we want to be able to change renderers ?
-//                  Can it be done during runtime ? Must it be at startup ? ...
-//                  For now, default ForwardRenderer is used.
-
 /// The Viewer is the main display class. It could be used as an independant window or
 /// can be set as a central widget on a more complex gui by using the adapter fro QWindow to QWidget
 /// To do that, the following code could be used :
@@ -71,6 +67,17 @@ class RA_GUIBASE_API Viewer : public QWindow {
 
     /// create gizmos
     void createGizmoManager();
+
+    /**
+     * Make the OpenGL context associated with the viewer the current context.
+     */
+    void makeCurrent();
+
+    /**
+     * Reset the current OpenGL context that is no more the one associated with the viewer.
+     */
+    void doneCurrent();
+
     //
     // Accessors
     //
@@ -229,8 +236,9 @@ class RA_GUIBASE_API Viewer : public QWindow {
     /// Owning (QObject child) pointer to gizmo manager.
     GizmoManager* m_gizmoManager;
 
+    // TODO are we really use this ? Remove if we do not plan to do multi thread rendering
     /// Thread in which rendering is done.
-    QThread* m_renderThread; // We have to use a QThread for MT rendering
+    [[deprecated]] QThread* m_renderThread = nullptr; // We have to use a QThread for MT rendering
 
     /// GL initialization status
     std::atomic_bool m_glInitStatus;
