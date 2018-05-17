@@ -12,7 +12,7 @@ namespace Core {
 /// Uses Eigen's aligned allocator, as stated in
 /// http://eigen.tuxfamily.org/dox/group__TopicStlContainers.html
 template <typename T>
-class AlignedStdVector : public std::vector<T, Eigen::aligned_allocator<T>> {
+struct AlignedStdVector : public std::vector<T, Eigen::aligned_allocator<T>> {
     using std::vector<T, Eigen::aligned_allocator<T>>::vector;
 };
 } // namespace Core
