@@ -1,7 +1,7 @@
 #ifndef CAGE_HANDLE_H
 #define CAGE_HANDLE_H
 
-#include <Core/Animation/Handle/PointCloud.hpp>
+#include <Core/Animation/Handle/Handle.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/MeshTypes.hpp> // Triangle
 #include <Core/RaCore.hpp>
@@ -18,21 +18,21 @@ namespace Animation {
  *
  * \warning This class is probably unused
  */
-class RA_CORE_API Cage : public PointCloud {
-  public:
-    /// CONSTRUCTOR
-    Cage();                   // Default constructor
-    Cage( const uint n );     // Reserve the memory for n transforms
-    Cage( const Cage& cage ); // Copy constructor
+class RA_CORE_API Cage : public Handle {
+public:
+    Cage();
+    Cage( const uint n );
+    Cage( const Cage& cage );
 
     /// DESTRUCTOR
     ~Cage();
 
-    /// SIZE
-    virtual void clear() override; // Clear the cage data
+    void clear() override;
 
-    /// VARIABLE
-    VectorArray<Ra::Core::Triangle> m_triangle; // The list of triangles in the cage.
+    /**
+     * The list of triangles in the cage.
+     */
+    VectorArray<Ra::Core::Triangle> m_triangle;
 };
 
 } // namespace Animation
