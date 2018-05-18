@@ -119,6 +119,7 @@ namespace Ra
             void colorClusters3();
 
             void proxVertices();
+            int findVertex(Ra::Core::Vector3 vertex, const Ra::Core::VectorArray<Ra::Core::Vector3>& vertices);
             void midpointSubdivision();
             void HausdorffDistance();
 

@@ -2722,6 +2722,18 @@ namespace Ra
             }
         }
 
+        int MeshContactManager::findVertex(Ra::Core::Vector3 vertex, const Ra::Core::VectorArray<Ra::Core::Vector3>& vertices)
+        {
+            for (int i = 0; i < vertices.size(); i++)
+            {
+                if (vertices[i] == vertex)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
         void MeshContactManager::midpointSubdivision()
         {
             // Initializing the triangle meshes in case of successive simplifications
@@ -2741,12 +2753,36 @@ namespace Ra
                     uint v1 = triangle[1];
                     uint v2 = triangle[2];
 
-                    tmSub.m_vertices.push_back((tm.m_vertices[v0] + tm.m_vertices[v1]) / 2);
-                    uint v3 = tmSub.m_vertices.size() - 1;
-                    tmSub.m_vertices.push_back((tm.m_vertices[v1] + tm.m_vertices[v2]) / 2);
-                    uint v4 = tmSub.m_vertices.size() - 1;
-                    tmSub.m_vertices.push_back((tm.m_vertices[v2] + tm.m_vertices[v0]) / 2);
-                    uint v5 = tmSub.m_vertices.size() - 1;
+                    uint v3, v4, v5;
+
+                    // avoiding duplicate mid points of edges
+                    if (findVertex((tm.m_vertices[v0] + tm.m_vertices[v1]) / 2, tmSub.m_vertices) != -1)
+                    {
+                        v3 = findVertex((tm.m_vertices[v0] + tm.m_vertices[v1]) / 2, tmSub.m_vertices);
+                    }
+                    else
+                    {
+                        tmSub.m_vertices.push_back((tm.m_vertices[v0] + tm.m_vertices[v1]) / 2);
+                        v3 = tmSub.m_vertices.size() - 1;
+                    }
+                    if (findVertex((tm.m_vertices[v1] + tm.m_vertices[v2]) / 2, tmSub.m_vertices) != -1)
+                    {
+                        v4 = findVertex((tm.m_vertices[v1] + tm.m_vertices[v2]) / 2, tmSub.m_vertices);
+                    }
+                    else
+                    {
+                        tmSub.m_vertices.push_back((tm.m_vertices[v1] + tm.m_vertices[v2]) / 2);
+                        v4 = tmSub.m_vertices.size() - 1;
+                    }
+                    if (findVertex((tm.m_vertices[v2] + tm.m_vertices[v0]) / 2, tmSub.m_vertices) != -1)
+                    {
+                        v5 = findVertex((tm.m_vertices[v2] + tm.m_vertices[v0]) / 2, tmSub.m_vertices);
+                    }
+                    else
+                    {
+                        tmSub.m_vertices.push_back((tm.m_vertices[v2] + tm.m_vertices[v0]) / 2);
+                        v5 = tmSub.m_vertices.size() - 1;
+                    }
 
                     tmSub.m_triangles.push_back({v0,v3,v5});
                     tmSub.m_triangles.push_back({v1,v4,v3});
