@@ -13,7 +13,7 @@ namespace RaTests {
 class MeshTests : public Test {
 
     void testAttributeManagement() {
-        using Vec3AttribHandle = Ra::Core::VertexAttribHandle<Vector3>;
+        using Vec3AttribHandle = Ra::Core::AttribHandle<Vector3>;
 
         TriangleMesh mesh;
 
