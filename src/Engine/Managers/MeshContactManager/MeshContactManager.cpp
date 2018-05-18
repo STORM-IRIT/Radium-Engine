@@ -2487,8 +2487,6 @@ namespace Ra
             {
             MeshContactElement* obj = static_cast<MeshContactElement*>(m_meshContactElements[objIndex]);
 
-            std::set<uint> prox;
-
             Ra::Core::PriorityQueue pQueue = Ra::Core::PriorityQueue();
             const uint numTriangles = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_face.size();
 
@@ -2530,8 +2528,6 @@ namespace Ra
                     {
                         colors[vs->idx] = contactColor;
                         colors[vt->idx] = contactColor;
-                        prox.insert(vs->idx);
-                        prox.insert(vt->idx);
                     }
 
                     // insert into the priority queue with the real resulting point
@@ -2547,7 +2543,6 @@ namespace Ra
 
             obj->setPriorityQueue(pQueue);
 
-            m_proxVertices.push_back(prox);
             }
 
             LOG(logINFO) << "Priority queue computation ends...";
@@ -2683,6 +2678,8 @@ namespace Ra
                 }
                 obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
             }
+
+            HausdorffDistance();
         }
 
         void MeshContactManager::setWeightState(bool state)
@@ -2695,10 +2692,41 @@ namespace Ra
             m_weight = weight;
         }
 
+        void MeshContactManager::proxVertices()
+        {
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                IndexSorting prox;
+
+                for (uint k = 0; k < m_initTriangleMeshes[i].m_vertices.size(); k++)
+                {
+                    bool find = false;
+                    uint j = 0;
+                    MeshContactElement* obj;
+                    while (!find && j < m_meshContactElements.size())
+                    {
+                        if (j != i)
+                        {
+                            std::pair<Ra::Core::Index,Scalar> triangle = m_trianglekdtrees[j]->doQueryRestrictedClosestIndexPoint(m_initTriangleMeshes[i].m_vertices[k]);
+                            if (triangle.second <= m_threshold)
+                            {
+                                prox.insert(k);
+                                find = true;
+                            }
+                        }
+                        j++;
+                    }
+                }
+
+                m_proxVertices.push_back(prox);
+            }
+        }
+
         void MeshContactManager::midpointSubdivision()
         {
             // Initializing the triangle meshes in case of successive simplifications
             m_midptTriangleMeshes.clear();
+            m_midptTrianglekdtrees.clear();
 
             for (auto& obj : m_meshContactElements)
             {

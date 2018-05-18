@@ -118,6 +118,7 @@ namespace Ra
             //int nbClusters();
             void colorClusters3();
 
+            void proxVertices();
             void midpointSubdivision();
             void HausdorffDistance();
 
@@ -266,7 +267,15 @@ namespace Ra
 
             std::vector<Ra::Core::TriangleMesh> m_midptTriangleMeshes;
             std::vector<Super4PCS::TriangleKdTree<>*> m_midptTrianglekdtrees;
-            std::vector<std::set<uint> > m_proxVertices; // for each objects, the list of vertices in the proximity area
+            struct compareVerticesByIndex
+            {
+                inline bool operator() (const Ra::Core::Index &idx1, const Ra::Core::Index &idx2)
+                {
+                    return idx1 < idx2;
+                }
+            };
+            typedef std::set<Ra::Core::Index, compareVerticesByIndex> IndexSorting;
+            std::vector<IndexSorting> m_proxVertices; // for each objects, the list of vertices in the proximity area
             std::vector<std::pair<Ra::Core::Vector4,Ra::Core::Vector4> > m_hausdorffDistances;
         };
 
