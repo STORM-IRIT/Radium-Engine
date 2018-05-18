@@ -2805,12 +2805,40 @@ namespace Ra
 
         void MeshContactManager::HausdorffDistance()
         {
+            // Initializing the Hausdorff distances in case of successive simplifications
+            m_hausdorffDistances.clear();
+
             midpointSubdivision();
+
+            if (m_proxVertices.size() == 0)
+            {
+                proxVertices();
+            }
 
             bool prox;
 
+            Scalar mean_prox;
+            Scalar max_prox = 0;
+            Scalar mean_non_prox;
+            Scalar max_non_prox = 0;
+
+            // All vertices means
+            Scalar mean_prox_IS = 0;
+            Scalar mean_non_prox_IS = 0;
+            Scalar mean_prox_SI = 0;
+            Scalar mean_non_prox_SI = 0;
+
+            Scalar nbProxVertices_IS = 0;
+            Scalar nbProxVertices_SI = 0;
+
+            Scalar nbVertices = 0;
+
             for (uint i = 0; i < m_meshContactElements.size(); i++)
             {
+                LOG(logINFO) << "Mesh " << i << " : " << m_proxVertices[i].size() << " proximity vertices";
+
+                nbVertices += m_initTriangleMeshes[i].m_vertices.size();
+
                 std::pair<Ra::Core::Vector4,Ra::Core::Vector4> hausdorffDistances;
 
                 Scalar initSimpProxMean = 0;
@@ -2823,6 +2851,7 @@ namespace Ra
                     if (m_proxVertices[i].find(j) != m_proxVertices[i].end())
                     {
                         prox = true;
+                        nbProxVertices_IS++;
                     }
                     else
                     {
@@ -2834,6 +2863,7 @@ namespace Ra
                     if (prox)
                     {
                         initSimpProxMean += triangle.second;
+                        mean_prox_IS += triangle.second;
                         if (triangle.second > initSimpProxMax)
                         {
                             initSimpProxMax = triangle.second;
@@ -2843,6 +2873,7 @@ namespace Ra
                     else
                     {
                         initSimpNonProxMean += triangle.second;
+                        mean_non_prox_IS += triangle.second;
                         if (triangle.second > initSimpNonProxMax)
                         {
                             initSimpNonProxMax = triangle.second;
@@ -2866,7 +2897,7 @@ namespace Ra
                 Scalar simpInitNonProxMean = 0;
                 Scalar simpInitNonProxMax = 0;
 
-                int nbProxVertices = 0;
+                int nbProxVerticesObj = 0;
 
                 for (uint j = 0; j < m_midptTriangleMeshes[i].m_vertices.size(); j++)
                 {
@@ -2883,7 +2914,8 @@ namespace Ra
                         if (m_proxVertices[i].find(b) != m_proxVertices[i].end() || m_proxVertices[i].find(c) != m_proxVertices[i].end())
                         {
                             prox = true;
-                            nbProxVertices++;
+                            nbProxVerticesObj++;
+                            nbProxVertices_SI++;
                         }
                     }
                     else if (m_proxVertices[i].find(b) != m_proxVertices[i].end())
@@ -2891,7 +2923,8 @@ namespace Ra
                         if (m_proxVertices[i].find(a) != m_proxVertices[i].end() || m_proxVertices[i].find(c) != m_proxVertices[i].end())
                         {
                             prox = true;
-                            nbProxVertices++;
+                            nbProxVerticesObj++;
+                            nbProxVertices_SI++;
                         }
                     }
                     else if (m_proxVertices[i].find(c) != m_proxVertices[i].end())
@@ -2899,7 +2932,8 @@ namespace Ra
                         if (m_proxVertices[i].find(a) != m_proxVertices[i].end() || m_proxVertices[i].find(b) != m_proxVertices[i].end())
                         {
                             prox = true;
-                            nbProxVertices++;
+                            nbProxVerticesObj++;
+                            nbProxVertices_SI++;
                         }
                     }
                     else
@@ -2910,6 +2944,7 @@ namespace Ra
                     if (prox)
                     {
                         simpInitProxMean += triangle.second;
+                        mean_prox_SI += triangle.second;
                         if (triangle.second > simpInitProxMax)
                         {
                             simpInitProxMax = triangle.second;
@@ -2919,6 +2954,7 @@ namespace Ra
                     else
                     {
                         simpInitNonProxMean += triangle.second;
+                        mean_non_prox_SI += triangle.second;
                         if (triangle.second > simpInitNonProxMax)
                         {
                             simpInitNonProxMax = triangle.second;
@@ -2928,17 +2964,53 @@ namespace Ra
 
                 if (simpInitProxMean > 0)
                 {
-                    simpInitProxMean = simpInitProxMean / nbProxVertices;
+                    simpInitProxMean = simpInitProxMean / nbProxVerticesObj;
                 }
                 if (simpInitNonProxMean > 0)
                 {
-                    simpInitNonProxMean = simpInitNonProxMean / (m_initTriangleMeshes[i].m_vertices.size() - nbProxVertices);
+                    simpInitNonProxMean = simpInitNonProxMean / (m_initTriangleMeshes[i].m_vertices.size() - nbProxVerticesObj);
                 }
 
-                hausdorffDistances.second = {initSimpProxMean, initSimpProxMax, initSimpNonProxMean, initSimpNonProxMax};
+                hausdorffDistances.second = {simpInitProxMean, simpInitProxMax, simpInitNonProxMean, simpInitNonProxMax};
 
                 m_hausdorffDistances.push_back(hausdorffDistances);
             }
+
+            // writing Hausdorff distances in a file
+            std::ofstream file("Hausdorff_distances.txt", std::ios::out | std::ios::trunc);
+            CORE_ASSERT(file, "Error while opening Hausdorff distances file.");
+
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                file << "Mesh " << i << " :" << std::endl;
+                file << "    Proximity mean : " << (m_hausdorffDistances[i].first[0] + m_hausdorffDistances[i].second[0]) / 2 << std::endl;
+                file << "    Proximity max : " << std::max(m_hausdorffDistances[i].first[1], m_hausdorffDistances[i].second[1]) << std::endl;
+                file << "    Non-proximity mean : " << (m_hausdorffDistances[i].first[2] + m_hausdorffDistances[i].second[2]) / 2 << std::endl;
+                file << "    Non-proximity max : " << std::max(m_hausdorffDistances[i].first[3], m_hausdorffDistances[i].second[3]) << std::endl;
+                file << " " << std::endl;
+
+                if (max_prox < std::max(m_hausdorffDistances[i].first[1], m_hausdorffDistances[i].second[1]))
+                {
+                    max_prox = std::max(m_hausdorffDistances[i].first[1], m_hausdorffDistances[i].second[1]);
+                }
+                if (max_non_prox < std::max(m_hausdorffDistances[i].first[3], m_hausdorffDistances[i].second[3]))
+                {
+                    max_non_prox = std::max(m_hausdorffDistances[i].first[3], m_hausdorffDistances[i].second[3]);
+                }
+            }
+
+            mean_prox_IS /= nbProxVertices_IS;
+            mean_prox_SI /= nbProxVertices_SI;
+            mean_prox = (mean_prox_IS + mean_prox_SI) / 2;
+            file << "Proximity mean : " << mean_prox << std::endl;
+            file << "Proximity max : " << max_prox << std::endl;
+            mean_non_prox_IS /= nbVertices - nbProxVertices_IS;
+            mean_non_prox_SI /= nbVertices - nbProxVertices_SI;
+            mean_non_prox = (mean_non_prox_IS + mean_non_prox_SI) / 2;
+            file << "Non-proximity mean : " << mean_non_prox << std::endl;
+            file << "Non-proximity max : " << max_non_prox << std::endl;
+
+            file.close();
         }
 
         void MeshContactManager::normalize()
