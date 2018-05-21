@@ -36,11 +36,11 @@ class RA_ENGINE_API LightStorage {
     /// Returns the container size.
     virtual size_t size() const = 0;
 
-    /// Push a Light to the container.
-    virtual void push( Light* li ) = 0;
+    /// Add a Light to the container.
+    virtual void add(Light *li) = 0;
 
-    /// Pop a Light from the container.
-    // virtual Light& pop() = 0;
+    /// Remove a Light from the container.
+    virtual void remove(Light* li) = 0;
 
     /// Clear the container.
     virtual void clear() = 0;

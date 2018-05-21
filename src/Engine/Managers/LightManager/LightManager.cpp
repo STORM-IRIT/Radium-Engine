@@ -78,8 +78,8 @@ void LightManager::generateTasks( Core::TaskQueue* taskQueue, const Engine::Fram
     */
 }
 
-void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* data ) {
-    std::vector<Asset::LightData*> lightData = data->getLightData();
+void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* filedata ) {
+    std::vector<Asset::LightData*> lightData = filedata->getLightData();
     uint id = 0;
     m_data->clear();
     for ( const auto& data : lightData )
@@ -138,9 +138,29 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* da
             continue;
 
         registerComponent( entity, comp );
-        m_data->push( comp );
     }
     LOG( logINFO ) << "LightManager : loaded " << count() << " lights.";
 }
-} // namespace Engine
+
+/// Inhereted method is make final so that only the LightStorage could differ from a LightManager to the other.
+void LightManager::registerComponent( const Entity* entity, Component* component ) {
+    System::registerComponent(entity, component);
+        m_data->add(reinterpret_cast<Light *>(component));
+}
+
+/// Inhereted method is make final so that only the LightStorage could differ from a LightManager to the other.
+void LightManager::unregisterComponent( const Entity* entity, Component* component ) {
+    m_data->remove( reinterpret_cast<Light *>(component) );
+    System::unregisterComponent(entity, component);
+
+}
+
+/// Inhereted method is make final so that only the LightStorage could differ from a LightManager to the other.
+void LightManager::unregisterAllComponents( const Entity* entity ) {
+    m_data->clear();
+    System::unregisterAllComponents(entity);
+}
+
+
+  } // namespace Engine
 } // namespace Ra
