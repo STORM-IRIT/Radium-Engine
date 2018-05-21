@@ -57,10 +57,32 @@ class RA_ENGINE_API RadiumEngine {
     Mesh* getMesh( const std::string& entityName, const std::string& componentName,
                    const std::string& roName = std::string() ) const;
 
+    /**
+     * Try to loads the given file.
+     * If no loader able to manage the fileformat of the file (determined based on its extension), return false.
+     * If a loader is found, creates the root entity of the loaded scene and gives the content of the file to all
+     * systems to add components and
+     * to this root entity.
+     * @note Calling this method set the engine in the "loading state".
+     * @param file
+     * @return true if file is loaded, false else.
+     */
     bool loadFile( const std::string& file );
 
+    /**
+     * Access to the content of the loaded file.
+     * Acces to the content is only available at loading time. As soon as the loaded file is released, its content is
+     * no more available outside the Entity/Component architecture.
+     * @pre The Engine must be in "loading state".
+     * @return
+     */
     const Asset::FileData& getFileData() const;
 
+    /**
+     * Release the content of the loaded file.
+     * After calling this, the getFileData method is
+      * @note Calling this method set the engine out of the "loading state".
+    */
     void releaseFile();
 
     /// Is called at the end of the frame to synchronize any data
@@ -85,6 +107,8 @@ class RA_ENGINE_API RadiumEngine {
     std::unique_ptr<EntityManager> m_entityManager;
     std::unique_ptr<SignalManager> m_signalManager;
     std::unique_ptr<Asset::FileData> m_loadedFile;
+
+    bool m_loadingState = false;
 };
 
 } // namespace Engine

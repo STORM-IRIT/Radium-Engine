@@ -17,7 +17,8 @@ namespace Engine {
 class RA_ENGINE_API DefaultLightStorage : public LightStorage {
   public:
     DefaultLightStorage();
-    void push( Light* i ) override;
+    void add(Light *i) override;
+    void remove(Light* li) override;
     void upload() const override;
     size_t size() const override;
     void clear() override;
