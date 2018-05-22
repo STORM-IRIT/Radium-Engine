@@ -19,8 +19,13 @@ This class handles data only, in a way suitable for rendering.
 
 The user can add on the fly new attributes to vertex via `VertexAttribManager` (accessible with `Mesh::attribManager()`).
 An attrib is defined by an unique name (`std::string`) and then represented as a `VertexAttribHandle<T>`.
-To determine the type of the attrib, the template function `addAttrib` need either a base type variable or a defined handle ref.
-The base type or the handle ref value_type is then used to deduce the type of the attrib.
+The type of the attrib is defined by the caller using the template parameter of the method `addAttrib`.
+To ensure consistency, it is strongly recommended to store the handle returned by the `addAttrib` method:
+```
+        auto handle1 = m.attribManager().addAttrib<Vector3>( "vector3_attrib" );
+```
+Note that handles of existing attributes can be retrieved by name (see `getAttrib(const std::string& name)`), however the caller have to provide the type of the associate attribute. 
+There is no type check on this access, and we recommend not to use this. We keep this merthod for convenience in some specific cases, however note that it might be marked as deprecated at any time.
 
 There is no (in the current version) data checking, and attribs are simple `std::vector` added to the attrib manager. It's meant to be used as vector of data as vertices and normals, with the same size and accessed with the faces indices. But please be aware no check nor allocation are done, so the allocation has to be performed on client side.
 
@@ -35,16 +40,15 @@ For instance
         m.normals().push_back( {0, 0, 1} );
         m.m_triangles.push_back( {0, 1, 2} );
 
-        Vector3 dummy;
-        auto handle1 = m.attribManager().addAttrib( dummy, "vector3_attrib" );
+        auto handle1 = m.attribManager().addAttrib<Vector3>( "vector3_attrib" );
+        m.attribManager().getAttrib( handle1 ).data().reserve( 3 );
         m.attribManager().getAttrib( handle1 ).data().push_back( {1, 1, 1} );
         m.attribManager().getAttrib( handle1 ).data().push_back( {2, 2, 2} );
         m.attribManager().getAttrib( handle1 ).data().push_back( {3, 3, 3} );
 
-        VertexAttribHandle<float> handle2;
-        m.attribManager().addAttrib( handle2, "float_attrib" );
-        m.attribManager().getAttrib( handle2 ).data().push_back( 1.f );
-        m.attribManager().getAttrib( handle2 ).data().push_back( 2.f );
-        m.attribManager().getAttrib( handle2 ).data().push_back( 3.f );
+        VertexAttribHandle<float> handle2 =
+        m.attribManager().addAttrib<float>( "float_attrib" );
+        auto attrib2 = m.attribManager().getAttrib( handle2 );
+        attrib2.data().assign( { 1.f, 2.f, 3.f } );
 ```
 
