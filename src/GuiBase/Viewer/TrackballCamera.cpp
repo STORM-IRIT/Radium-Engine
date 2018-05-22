@@ -202,7 +202,7 @@ void Gui::TrackballCamera::fitScene( const Core::Aabb& aabb ) {
     const Scalar y = r / std::sin( f * a / 2.0 );
     Scalar d = std::max( std::max( x, y ), Scalar( 0.001 ) );
 
-    m_camera->setPosition( Core::Vector3( aabb.center().x(), aabb.center().y(), d ) );
+    m_camera->setPosition( Core::Vector3( aabb.center().x(), aabb.center().y(), aabb.center().z()+d ) );
     m_camera->setDirection( Core::Vector3( 0, 0, -1 ) );
     m_trackballCenter = aabb.center();
 
