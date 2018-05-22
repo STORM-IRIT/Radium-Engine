@@ -107,8 +107,11 @@ class RA_ENGINE_API Mesh {
     void loadGeometry( const Core::Vector3Array& vertices, const std::vector<uint>& indices );
 
     /// Load additionnal vertex data.
-    void addData( const Vec3Data& type, const Core::Vector3Array& data );
-    void addData( const Vec4Data& type, const Core::Vector4Array& data );
+    /// \return False for invalid or empty attrib
+    bool addData( const Vec3Data& type, const Core::Vector3Array& data );
+    /// Load additionnal vertex data. 
+    /// \return False for invalid or empty attrib
+    bool addData( const Vec4Data& type, const Core::Vector4Array& data );
 
     /// Access the additionnal data arrays by type.
     inline const Core::Vector3Array& getData( const Vec3Data& type ) const;
