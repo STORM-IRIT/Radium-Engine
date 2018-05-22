@@ -142,20 +142,17 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
     LOG( logINFO ) << "LightManager : loaded " << count() << " lights.";
 }
 
-/// Inhereted method is make final so that only the LightStorage could differ from a LightManager to the other.
 void LightManager::registerComponent( const Entity* entity, Component* component ) {
     System::registerComponent(entity, component);
-        m_data->add(reinterpret_cast<Light *>(component));
+    m_data->add(reinterpret_cast<Light *>(component));
 }
 
-/// Inhereted method is make final so that only the LightStorage could differ from a LightManager to the other.
 void LightManager::unregisterComponent( const Entity* entity, Component* component ) {
     m_data->remove( reinterpret_cast<Light *>(component) );
     System::unregisterComponent(entity, component);
 
 }
 
-/// Inhereted method is make final so that only the LightStorage could differ from a LightManager to the other.
 void LightManager::unregisterAllComponents( const Entity* entity ) {
     m_data->clear();
     System::unregisterAllComponents(entity);
