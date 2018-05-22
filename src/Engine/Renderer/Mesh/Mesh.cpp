@@ -8,6 +8,43 @@
 namespace Ra {
 namespace Engine {
 
+// Template parameter must be a Core::VectorNArray
+template <typename type>
+inline void sendGLData(Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<type>& arr, const uint vboIdx) {
+    using VecArray = Ra::Core::VectorArray<type>;
+#ifdef CORE_USE_DOUBLE
+    GLenum type = GL_DOUBLE;
+#else
+    GLenum type = GL_FLOAT;
+#endif
+    constexpr GLuint size = VecArray::Vector::RowsAtCompileTime;
+    const GLboolean normalized = GL_FALSE;
+    constexpr GLint64 ptr = 0;
+
+    // This vbo has not been created yet
+    if (mesh->m_vbos[vboIdx] == 0 && arr.size() > 0)
+    {
+        GL_ASSERT(glGenBuffers(1, &(mesh->m_vbos[vboIdx])));
+        GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, mesh->m_vbos[vboIdx]));
+
+        // Use (vboIdx - 1) as attribute index because vbo 0 is actually ibo.
+        GL_ASSERT(glVertexAttribPointer(vboIdx - 1, size, type, normalized,
+            sizeof(typename VecArray::Vector), (GLvoid*)ptr));
+
+        GL_ASSERT(glEnableVertexAttribArray(vboIdx - 1));
+        // Set dirty as true to send data, see below
+        mesh->m_dataDirty[vboIdx] = true;
+    }
+
+    if (mesh->m_dataDirty[vboIdx] == true && mesh->m_vbos[vboIdx] != 0 && arr.size() > 0)
+    {
+        GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, mesh->m_vbos[vboIdx]));
+        GL_ASSERT(glBufferData(GL_ARRAY_BUFFER, arr.size() * sizeof(typename VecArray::Vector),
+            arr.data(), GL_DYNAMIC_DRAW));
+        mesh->m_dataDirty[vboIdx] = false;
+    }
+} // sendGLData
+
 // Dirty is initializes as false so that we do not create the vao while
 // we have no data to send to the gpu.
 Mesh::Mesh( const std::string& name, MeshRenderMode renderMode ) :
@@ -142,7 +179,6 @@ void Mesh::addData( const Vec4Data& type, const Core::Vector4Array& data ) {
     m_isDirty = true;
 }
 
-
 void Mesh::updateGL() {
     if ( m_isDirty )
     {
@@ -186,32 +222,32 @@ void Mesh::updateGL() {
         }
 
         // Geometry data
-        sendGLData( m_mesh.vertices(), VERTEX_POSITION );
-        sendGLData( m_mesh.normals(), VERTEX_NORMAL );
+        sendGLData( this, m_mesh.vertices(), VERTEX_POSITION );
+        sendGLData( this, m_mesh.normals(), VERTEX_NORMAL );
 
         // Vec3 data
 
         if ( m_v3DataHandle[VERTEX_TANGENT].isValid() )
-            sendGLData( m_mesh.attribManager().getAttrib( m_v3DataHandle[VERTEX_TANGENT] ).data(),
+            sendGLData( this, m_mesh.attribManager().getAttrib( m_v3DataHandle[VERTEX_TANGENT] ).data(),
                         MAX_MESH + VERTEX_TANGENT );
         if ( m_v3DataHandle[VERTEX_BITANGENT].isValid() )
-            sendGLData( m_mesh.attribManager().getAttrib( m_v3DataHandle[VERTEX_BITANGENT] ).data(),
+            sendGLData( this, m_mesh.attribManager().getAttrib( m_v3DataHandle[VERTEX_BITANGENT] ).data(),
                         MAX_MESH + VERTEX_BITANGENT );
         if ( m_v3DataHandle[VERTEX_TEXCOORD].isValid() )
-            sendGLData( m_mesh.attribManager().getAttrib( m_v3DataHandle[VERTEX_TEXCOORD] ).data(),
+            sendGLData( this, m_mesh.attribManager().getAttrib( m_v3DataHandle[VERTEX_TEXCOORD] ).data(),
                         MAX_MESH + VERTEX_TEXCOORD );
 
         // Vec4 data
         if ( m_v4DataHandle[VERTEX_COLOR].isValid() )
-            sendGLData( m_mesh.attribManager().getAttrib( m_v4DataHandle[VERTEX_COLOR] ).data(),
+            sendGLData( this, m_mesh.attribManager().getAttrib( m_v4DataHandle[VERTEX_COLOR] ).data(),
                         MAX_MESH + MAX_VEC3 + VERTEX_COLOR );
 
         if ( m_v4DataHandle[VERTEX_WEIGHTS].isValid() )
-            sendGLData( m_mesh.attribManager().getAttrib( m_v4DataHandle[VERTEX_WEIGHTS] ).data(),
+            sendGLData( this, m_mesh.attribManager().getAttrib( m_v4DataHandle[VERTEX_WEIGHTS] ).data(),
                         MAX_MESH + MAX_VEC3 + VERTEX_WEIGHTS );
 
         if ( m_v4DataHandle[VERTEX_WEIGHT_IDX].isValid() )
-            sendGLData(
+            sendGLData( this,
                 m_mesh.attribManager().getAttrib( m_v4DataHandle[VERTEX_WEIGHT_IDX] ).data(),
                 MAX_MESH + MAX_VEC3 + VERTEX_WEIGHT_IDX );
         GL_ASSERT( glBindVertexArray( 0 ) );

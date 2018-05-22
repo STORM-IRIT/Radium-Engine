@@ -133,8 +133,8 @@ class RA_ENGINE_API Mesh {
     void operator=( const Mesh& rhs ) = delete;
 
     /// Helper function to send buffer data to openGL.
-    template <typename VecArray>
-    inline void sendGLData( const VecArray& arr, const uint vboIdx );
+    template <typename type>
+    friend void sendGLData(Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<type>& arr, const uint vboIdx);
 
   private:
     std::string m_name; /// Name of the mesh.
