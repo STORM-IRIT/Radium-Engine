@@ -9,9 +9,11 @@ namespace Ra {
 namespace Engine {
 
 // Template parameter must be a Core::VectorNArray
-template <typename type>
-inline void sendGLData(Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<type>& arr, const uint vboIdx) {
-    using VecArray = Ra::Core::VectorArray<type>;
+template <typename ContainedType>
+inline void sendGLData( Ra::Engine::Mesh* mesh,
+                        const Ra::Core::VectorArray<ContainedType>& arr,
+                        const uint vboIdx ) {
+    using VecArray = Ra::Core::VectorArray<ContainedType>;
 #ifdef CORE_USE_DOUBLE
     GLenum type = GL_DOUBLE;
 #else
@@ -149,34 +151,28 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
     m_isDirty = true;
 }
 
-void Mesh::addData( const Vec3Data& type, const Core::Vector3Array& data ) {
+bool Mesh::addData( const Vec3Data& type, const Core::Vector3Array& data ) {
     const int index = static_cast<uint>( type );
-    if ( !m_v3DataHandle[index].isValid() )
+    auto handle = m_v3DataHandle[index];
+    if ( data.size() != 0 && handle.isValid() )
     {
-        m_v3DataHandle[index] =
-            m_mesh.attribManager().addAttrib<Core::Vector3>( std::to_string( MAX_MESH + index ) );
+        m_dataDirty[MAX_MESH + index] = true;
+        m_isDirty = true;
+        return true;
     }
-    m_mesh.attribManager().getAttrib( m_v3DataHandle[index] ).data() = data;
-    m_dataDirty[MAX_MESH + index] = true;
-    m_isDirty = true;
+    return false;
 }
 
-void Mesh::addData( const Vec4Data& type, const Core::Vector4Array& data ) {
-    const int index = static_cast<uint>( type );
-
-    /// to handle dummy set, if not valid, and dummy data, do nothing
-    if ( data.size() == 0 && !m_v4DataHandle[index].isValid() )
+bool Mesh::addData( const Vec4Data& type, const Core::Vector4Array& data ) {
+    const int index = static_cast<uint>(type);
+    auto handle = m_v4DataHandle[index];
+    if ( data.size() != 0 && handle.isValid() )
     {
-        return;
+        m_dataDirty[MAX_MESH + MAX_VEC3 + index] = true;
+        m_isDirty = true;
+        return true;
     }
-    if ( !m_v4DataHandle[index].isValid() )
-    {
-        m_v4DataHandle[index] = m_mesh.attribManager().addAttrib<Core::Vector4>(
-            std::to_string( MAX_MESH + MAX_VEC3 + index ) );
-    }
-    m_mesh.attribManager().getAttrib( m_v4DataHandle[index] ).data() = data;
-    m_dataDirty[MAX_MESH + MAX_VEC3 + index] = true;
-    m_isDirty = true;
+    return false;
 }
 
 void Mesh::updateGL() {
