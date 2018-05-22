@@ -1,6 +1,8 @@
 project(RadiumEngine)
 
-cmake_minimum_required(VERSION 2.8.11)
+# Minimal version 3.8 required to get C++17 support
+# https://cmake.org/cmake/help/v3.8/prop_tgt/CXX_STANDARD.html
+cmake_minimum_required(VERSION 3.8)
 
 if (APPLE)
 # CMake 2.8.12 and newer has support for using @rpath in a target’s install

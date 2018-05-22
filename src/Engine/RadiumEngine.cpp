@@ -39,6 +39,7 @@ void RadiumEngine::initialize() {
     ComponentMessenger::createInstance();
     // Engine support some built-in materials. Register here
     BlinnPhongMaterial::registerMaterial();
+    m_loadingState = false;
 }
 
 void RadiumEngine::cleanup() {
@@ -56,6 +57,7 @@ void RadiumEngine::cleanup() {
 
     ComponentMessenger::destroyInstance();
     ShaderProgramManager::destroyInstance();
+    m_loadingState = false;
 }
 
 void RadiumEngine::endFrameSync() {
@@ -172,12 +174,13 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
         LOG( logWARNING ) << "File \"" << filename << "\" has no usable data. Deleting entity...";
         m_entityManager->removeEntity( entity );
     }
-
+    m_loadingState = true;
     return true;
 }
 
 void RadiumEngine::releaseFile() {
     m_loadedFile.reset( nullptr );
+    m_loadingState = false;
 }
 
 RenderObjectManager* RadiumEngine::getRenderObjectManager() const {
@@ -204,6 +207,7 @@ RadiumEngine::getFileLoaders() const {
 RA_SINGLETON_IMPLEMENTATION( RadiumEngine );
 
 const Asset::FileData& RadiumEngine::getFileData() const {
+    CORE_ASSERT(m_loadingState, "Access to file content is only available at loading time.");
     return *( m_loadedFile.get() );
 }
 

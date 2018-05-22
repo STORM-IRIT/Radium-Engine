@@ -86,10 +86,20 @@ class RA_ENGINE_API LightManager : public System {
     // System methods
     //
 
-    /// Method generating the correct tasks for a LightManager.
+    /// Inherited method marked as final to ensure correct memory management
+    /// even in child classes (e.g. LightStorage).
+    void registerComponent( const Entity* entity, Component* component ) override final;
+
+    /// Inherited method marked as final to ensure correct memory management
+    /// even in child classes (e.g. LightStorage).
+    void unregisterComponent( const Entity* entity, Component* component ) override final;
+
+    /// Inherited method marked as final to ensure correct memory management
+    /// even in child classes (e.g. LightStorage).
+    void unregisterAllComponents( const Entity* entity ) override final;
+
     void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
 
-    /// Handle Lights loading.
     void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
 
   protected:
