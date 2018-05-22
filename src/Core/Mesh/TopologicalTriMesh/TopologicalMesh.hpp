@@ -38,6 +38,19 @@ inline Scalar dot( const TopoVector3& a, const TopoVector3& b ) {
 inline TopoVector3 cross( const TopoVector3& a, const TopoVector3& b ) {
     return a.cross( b );
 }
+
+inline TopoVector3& normalize(TopoVector3& v) {
+    return v = v.normalized();
+}
+
+inline Scalar norm(const TopoVector3& v) {
+    return v.norm();
+}
+
+template <typename OtherScalar>
+inline void vectorize(TopoVector3& _v, const OtherScalar s) {
+    _v.fill( s );
+}
 } // namespace Core
 } // namespace Ra
 
