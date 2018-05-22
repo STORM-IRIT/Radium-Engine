@@ -57,5 +57,43 @@ void Mesh::setDirty( const Mesh::Vec4Data& type ) {
     m_isDirty = true;
 }
 
+
+// Template parameter must be a Core::VectorNArray
+template <typename VecArray>
+void Mesh::sendGLData( const VecArray& arr, const uint vboIdx ) {
+
+#ifdef CORE_USE_DOUBLE
+    GLenum type = GL_DOUBLE;
+#else
+    GLenum type = GL_FLOAT;
+#endif
+    constexpr GLuint size = VecArray::Vector::RowsAtCompileTime;
+    const GLboolean normalized = GL_FALSE;
+    constexpr GLint64 ptr = 0;
+
+    // This vbo has not been created yet
+    if ( m_vbos[vboIdx] == 0 && arr.size() > 0 )
+    {
+        GL_ASSERT( glGenBuffers( 1, &m_vbos[vboIdx] ) );
+        GL_ASSERT( glBindBuffer( GL_ARRAY_BUFFER, m_vbos[vboIdx] ) );
+
+        // Use (vboIdx - 1) as attribute index because vbo 0 is actually ibo.
+        GL_ASSERT( glVertexAttribPointer( vboIdx - 1, size, type, normalized,
+                                          sizeof( typename VecArray::Vector ), (GLvoid*)ptr ) );
+
+        GL_ASSERT( glEnableVertexAttribArray( vboIdx - 1 ) );
+        // Set dirty as true to send data, see below
+        m_dataDirty[vboIdx] = true;
+    }
+
+    if ( m_dataDirty[vboIdx] == true && m_vbos[vboIdx] != 0 && arr.size() > 0 )
+    {
+        GL_ASSERT( glBindBuffer( GL_ARRAY_BUFFER, m_vbos[vboIdx] ) );
+        GL_ASSERT( glBufferData( GL_ARRAY_BUFFER, arr.size() * sizeof( typename VecArray::Vector ),
+                                 arr.data(), GL_DYNAMIC_DRAW ) );
+        m_dataDirty[vboIdx] = false;
+    }
+}
+
 } // namespace Engine
 } // namespace Ra
