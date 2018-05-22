@@ -11,8 +11,9 @@ template <typename T>
 class Attrib;
 
 /// AttribBase is the base class for Attrib.
-/// An Attrib is data linked to Vertices of a mesh
-/// It is also used for rendering, and
+/// An Attrib is data linked to Vertices of a mesh.
+/// In the future, it is expected to allow automatic binding between the CPU
+/// and the rendered data on the GPU.
 class AttribBase {
   public:
     /// attrib name is used to automatic location binding when using shaders.
