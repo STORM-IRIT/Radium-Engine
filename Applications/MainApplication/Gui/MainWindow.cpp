@@ -465,7 +465,6 @@ void Gui::MainWindow::updateUi( Plugins::RadiumPluginInterface* plugin ) {
 }
 
 void MainWindow::onRendererReady() {
-    m_viewer->getCameraInterface()->resetCamera();
     updateDisplayedTexture();
 }
 
