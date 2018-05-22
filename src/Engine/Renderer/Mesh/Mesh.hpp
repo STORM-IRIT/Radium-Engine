@@ -134,7 +134,7 @@ class RA_ENGINE_API Mesh {
 
     /// Helper function to send buffer data to openGL.
     template <typename VecArray>
-    void sendGLData( const VecArray& arr, const uint vboIdx );
+    inline void sendGLData( const VecArray& arr, const uint vboIdx );
 
   private:
     std::string m_name; /// Name of the mesh.
