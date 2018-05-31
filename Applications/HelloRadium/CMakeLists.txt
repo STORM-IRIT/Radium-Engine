@@ -3,14 +3,12 @@ set(app_target helloRadium)
 # Qt stuff //////////////////////
 
 find_package(OpenGL     REQUIRED)
-find_package(Qt5Core    REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5OpenGL  REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets OpenGL REQUIRED)
 
 set( Qt5_LIBRARIES
-     ${Qt5Core_LIBRARIES}
-     ${Qt5Widgets_LIBRARIES}
-     ${Qt5OpenGL_LIBRARIES} )
+     Qt5::Core
+     Qt5::Widgets
+     Qt5::OpenGL )
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
