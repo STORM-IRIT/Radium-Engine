@@ -34,8 +34,7 @@ if (MSVC OR MSVC_IDE)
     endif()
 endif(MSVC OR MSVC_IDE)
 
-find_package( Qt5Core    REQUIRED )
-find_package( Qt5Widgets REQUIRED )
+find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
 file( GLOB_RECURSE sources src/*.cpp )
 file( GLOB_RECURSE headers src/*.hpp src/*.h )
@@ -63,7 +62,7 @@ add_dependencies( MeshPaint ${RADIUM_LIBRARIES})
 
 target_compile_definitions( MeshPaint PRIVATE "-DMeshPaint_EXPORTS" )
 
-set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES})
+set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets )
 target_link_libraries( MeshPaint
                        ${Qt5_LIBRARIES}
                        ${RADIUM_LIBRARIES}
