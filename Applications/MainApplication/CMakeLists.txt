@@ -11,9 +11,7 @@ if(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} VERSION_GREATER "3.9")
 endif()
 
 find_package(OpenGL     REQUIRED)
-find_package(Qt5Core    REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5OpenGL  REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets OpenGL REQUIRED)
 
 set( Qt5_LIBRARIES
      ${Qt5Core_LIBRARIES}

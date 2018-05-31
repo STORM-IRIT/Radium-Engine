@@ -6,9 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 find_package(OpenGL     REQUIRED)
-find_package(Qt5Core    REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5OpenGL  REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets OpenGL REQUIRED)
 
 set( Qt5_LIBRARIES
      ${Qt5Core_LIBRARIES}

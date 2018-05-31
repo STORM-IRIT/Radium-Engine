@@ -14,9 +14,7 @@ endif( "${isSysDir}" STREQUAL "-1" )
 
 # Find packages
 find_package(OpenGL     REQUIRED)
-find_package(Qt5Core    REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5OpenGL  REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
 
 if(Qt5Core_VERSION VERSION_LESS 5.5 OR
    Qt5Widgets_VERSION VERSION_LESS 5.5 OR
@@ -25,7 +23,6 @@ if(Qt5Core_VERSION VERSION_LESS 5.5 OR
 else ()
     message(STATUS "QT ${Qt5Core_VERSION} found." )
 endif()
-
 
 include_directories(
     ${EIGEN3_INCLUDE_DIR}
@@ -103,6 +100,8 @@ if( RADIUM_ASSIMP_SUPPORT )
     set( io_headers ${io_headers} ${assimp_headers} )
     set( io_inlines ${io_inlines} ${assimp_inlines} )
     set( io_libs    ${io_libs}    ${ASSIMP_LIBRARIES} )
+    # RadiumIO is no more an INTERFACE
+    set( RADIUM_IO_IS_INTERFACE FALSE )
 endif( RADIUM_ASSIMP_SUPPORT )
 
 if( RADIUM_TINYPLY_SUPPORT )
@@ -110,6 +109,8 @@ if( RADIUM_TINYPLY_SUPPORT )
     set( io_sources ${io_sources} ${tinyply_sources} )
     set( io_headers ${io_headers} ${tinyply_headers} )
     set( io_inlines ${io_inlines} ${tinyply_inlines} )
+    # RadiumIO is no more an INTERFACE
+    set( RADIUM_IO_IS_INTERFACE FALSE )
 endif( RADIUM_TINYPLY_SUPPORT )
 
 if( RADIUM_IO_IS_INTERFACE )
@@ -199,7 +200,7 @@ target_link_libraries(
 # Build GuiBase
 set(guibase_target radiumGuiBase)
 
-find_package(Qt5Xml REQUIRED)
+
 
 # Qt5
 set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES} ${Qt5Xml_LIBRARIES})
