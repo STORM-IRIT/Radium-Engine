@@ -1,6 +1,6 @@
 #include <Core/File/deprecated/OBJFileManager.hpp>
 #include <Core/Mesh/MeshPrimitives.hpp>
-#include <Core/Mesh/Wrapper/TopologicalMeshConvert.hpp>
+#include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
 #include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh>
 #include <OpenMesh/Tools/Subdivider/Uniform/LoopT.hh>
 #include <memory>
@@ -81,10 +81,10 @@ int main( int argc, char* argv[] ) {
     if ( !a.valid )
     {
         printHelp( argv );
-    } else
+    }
+    else
     {
         Ra::Core::TriangleMesh mesh;
-        Ra::Core::TopologicalMesh topologicalMesh;
         Ra::Core::OBJFileManager obj;
         if ( a.inputFilename.empty() )
         {
@@ -92,13 +92,14 @@ int main( int argc, char* argv[] ) {
         } else
         { obj.load( a.inputFilename, mesh ); }
 
-        Ra::Core::MeshConverter::convert( mesh, topologicalMesh );
+        Ra::Core::TopologicalMesh topologicalMesh(mesh);
 
         a.subdivider->attach( topologicalMesh );
         ( *a.subdivider )( a.iteration );
         a.subdivider->detach();
         topologicalMesh.triangulate();
-        Ra::Core::MeshConverter::convert( topologicalMesh, mesh );
+
+        mesh = topologicalMesh.toTriangleMesh();
 
         obj.save( a.outputFilename, mesh );
     }

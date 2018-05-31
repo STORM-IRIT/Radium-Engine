@@ -1,9 +1,10 @@
 #ifndef TOPOLOGICALMESH_H
 #define TOPOLOGICALMESH_H
 
+#include <Core/RaCore.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/RaCore.hpp>
+#include <Core/Mesh/TriangleMesh.hpp>
 
 #include <OpenMesh/Core/Mesh/PolyMesh_ArrayKernelT.hh>
 #include <OpenMesh/Core/Mesh/Traits.hh>
@@ -13,44 +14,25 @@
 namespace Ra {
 namespace Core {
 
+class TriangleMesh;
+
 ///\class TopoVector3 : small extension to Vector3 for OpenMesh compatibility
 class TopoVector3 : public Ra::Core::Vector3 {
   public:
     using Ra::Core::Vector3::Vector3;
-    inline Scalar length() const { return norm(); }
-    inline Scalar sqrnorm() const { return squaredNorm(); }
-    inline TopoVector3 vectorize( Scalar v ) {
-        ( *this )[0] = v;
-        ( *this )[1] = v;
-        ( *this )[2] = v;
-        return *this;
-    }
-    inline TopoVector3 normalize() {
-        Ra::Core::Vector3::normalize();
-        return *this;
-    }
+    inline Scalar length() const;
+    inline Scalar sqrnorm() const;
+    inline TopoVector3 vectorize( Scalar v );
+    inline TopoVector3 normalize();
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
-inline Scalar dot( const TopoVector3& a, const TopoVector3& b ) {
-    return a.dot( b );
-}
-inline TopoVector3 cross( const TopoVector3& a, const TopoVector3& b ) {
-    return a.cross( b );
-}
-
-inline TopoVector3& normalize(TopoVector3& v) {
-    return v = v.normalized();
-}
-
-inline Scalar norm(const TopoVector3& v) {
-    return v.norm();
-}
-
+inline Scalar dot( const TopoVector3& a, const TopoVector3& b );
+inline TopoVector3 cross( const TopoVector3& a, const TopoVector3& b );
+inline TopoVector3& normalize(TopoVector3& v);
+inline Scalar norm(const TopoVector3& v);
 template <typename OtherScalar>
-inline void vectorize(TopoVector3& _v, const OtherScalar s) {
-    _v.fill( s );
-}
+inline void vectorize(TopoVector3& v, const OtherScalar s);
 } // namespace Core
 } // namespace Ra
 
@@ -111,33 +93,35 @@ struct TopologicalMeshTraits : public OpenMesh::DefaultTraits {
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
+/// This class represent a mesh with topological information on the
+/// vertex graph, using a half-edge representation.
 class TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits> {
+  private:
     using base = OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>;
     using base::PolyMesh_ArrayKernelT;
 
   public:
-    inline Normal& normal( VertexHandle vh, FaceHandle fh ) {
-        // find halfedge that point to vh and member of fh
-        return property( halfedge_normals_pph(), halfedge_handle( vh, fh ) );
-    }
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
+    /// Construct a topological mesh from a triangle mesh
+    /// this is a costly operation.
+    explicit TopologicalMesh( const Ra::Core::TriangleMesh& triMesh );
+
+    /// Obtain a triangleMesh from a topological mesh.
+    /// This is a costly operation.
+    /// This function is non-const because of the computation of face normals.
+    TriangleMesh toTriangleMesh();
 
     using base::halfedge_handle;
-    inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) {
+    /// Return the half-edge associated with a given vertex and face.
+    inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh );
 
-        for ( VertexIHalfedgeIter vih_it = vih_iter( vh ); vih_it.is_valid(); ++vih_it )
-        {
-            if ( face_handle( *vih_it ) == fh )
-            {
-                return *vih_it;
-            }
-        }
-        return HalfedgeHandle();
-    }
+    inline Normal& normal( VertexHandle vh, FaceHandle fh );
 
-  public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 } // namespace Core
 } // namespace Ra
 
+
+#include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.inl>
 #endif // TOPOLOGICALMESH_H
