@@ -62,7 +62,7 @@ add_dependencies( Animation ${RADIUM_LIBRARIES})
 
 target_compile_definitions( Animation PRIVATE "-DAnimation_EXPORTS" )
 
-set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} )
+set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets )
 target_link_libraries( Animation
                        ${Qt5_LIBRARIES}
                        ${RADIUM_LIBRARIES}

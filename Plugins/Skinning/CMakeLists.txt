@@ -59,7 +59,7 @@ add_dependencies( Skinning ${RADIUM_LIBRARIES} )
 
 target_compile_definitions( Skinning PRIVATE "-DSkinning_EXPORTS" )
 
-set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} )
+set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets )
 target_link_libraries( Skinning
                        ${Qt5_LIBRARIES}
                        ${RADIUM_LIBRARIES}

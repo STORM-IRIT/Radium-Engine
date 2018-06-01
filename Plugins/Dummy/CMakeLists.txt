@@ -57,7 +57,7 @@ add_dependencies( Dummy radiumCore radiumEngine radiumGuiBase)
 
 target_compile_definitions( Dummy PRIVATE "-DDummy_EXPORTS" )
 
-set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} )
+set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets )
 
 target_link_libraries( Dummy
                        ${Qt5_LIBRARIES}

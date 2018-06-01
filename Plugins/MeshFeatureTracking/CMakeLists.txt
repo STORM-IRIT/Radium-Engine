@@ -62,7 +62,7 @@ add_dependencies( MeshFeatureTracking ${RADIUM_LIBRARIES})
 
 target_compile_definitions( MeshFeatureTracking PRIVATE "-DMeshFeatureTracking_EXPORTS" )
 
-set(Qt5_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} )
+set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets )
 target_link_libraries( MeshFeatureTracking
                        ${Qt5_LIBRARIES}
                        ${RADIUM_LIBRARIES}
