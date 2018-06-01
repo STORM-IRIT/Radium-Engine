@@ -167,10 +167,12 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
         result.m_triangles = newTris;
     }
 
-    // FIXED : Compute the good normal as vertices are not uniques
-    // getAutoNormals(result, result.m_normals);
+    // project vertices on the sphere and compute normals
     for ( auto& vertex : result.m_vertices )
     {
+        const Scalar r = radius / vertex.norm();
+        vertex *= r;
+
         result.m_normals.push_back( vertex.normalized() );
     }
     checkConsistency( result );
