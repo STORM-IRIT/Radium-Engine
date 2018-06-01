@@ -106,12 +106,14 @@ class RA_ENGINE_API Mesh {
     // TODO (val) : remove this function (it is used mostly in the display primitives)
     void loadGeometry( const Core::Vector3Array& vertices, const std::vector<uint>& indices );
 
+    /// Set additionnal vertex data.
+    /// Initialize vertexAttrib if needed,
+    /// data must have the appropriate size (i.e. num vertex) or empty (to
+    /// remove the data)
+    void addData( const Vec3Data& type, const Core::Vector3Array& data );
     /// Load additionnal vertex data.
     /// \return False for invalid or empty attrib
-    bool addData( const Vec3Data& type, const Core::Vector3Array& data );
-    /// Load additionnal vertex data. 
-    /// \return False for invalid or empty attrib
-    bool addData( const Vec4Data& type, const Core::Vector4Array& data );
+    void addData( const Vec4Data& type, const Core::Vector4Array& data );
 
     /// Access the additionnal data arrays by type.
     inline const Core::Vector3Array& getData( const Vec3Data& type ) const;
@@ -137,7 +139,8 @@ class RA_ENGINE_API Mesh {
 
     /// Helper function to send buffer data to openGL.
     template <typename type>
-    friend void sendGLData(Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<type>& arr, const uint vboIdx);
+    friend void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<type>& arr,
+                            const uint vboIdx );
 
   private:
     std::string m_name; /// Name of the mesh.

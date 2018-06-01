@@ -3,12 +3,11 @@
 namespace Ra {
 namespace Core {
 
-
 //
 // TopoVector3 functions
 //
 
-    inline Scalar TopoVector3::length() const {
+inline Scalar TopoVector3::length() const {
     return norm();
 }
 inline Scalar TopoVector3::sqrnorm() const {
@@ -31,29 +30,35 @@ inline TopoVector3 cross( const TopoVector3& a, const TopoVector3& b ) {
     return a.cross( b );
 }
 
-inline TopoVector3& normalize(TopoVector3& v) {
+inline TopoVector3& normalize( TopoVector3& v ) {
     return v = v.normalized();
 }
 
-inline Scalar norm(const TopoVector3& v) {
+inline Scalar sqrnorm( const TopoVector3& v ) {
+    return v.sqrnorm();
+}
+
+inline Scalar norm( const TopoVector3& v ) {
     return v.norm();
 }
 
 template <typename OtherScalar>
-inline void vectorize(TopoVector3& v, const OtherScalar s) {
+inline void vectorize( TopoVector3& v, const OtherScalar s ) {
     v.fill( s );
 }
-
 
 //
 // TopologicalMesh functions
 //
 
-inline TopologicalMesh::Normal& TopologicalMesh::normal( TopologicalMesh::VertexHandle vh, TopologicalMesh::FaceHandle fh ) {
+inline TopologicalMesh::Normal& TopologicalMesh::normal( TopologicalMesh::VertexHandle vh,
+                                                         TopologicalMesh::FaceHandle fh ) {
     // find halfedge that point to vh and member of fh
     return property( halfedge_normals_pph(), halfedge_handle( vh, fh ) );
 }
-inline TopologicalMesh::HalfedgeHandle TopologicalMesh::halfedge_handle( TopologicalMesh::VertexHandle vh, TopologicalMesh::FaceHandle fh ) {
+inline TopologicalMesh::HalfedgeHandle
+TopologicalMesh::halfedge_handle( TopologicalMesh::VertexHandle vh,
+                                  TopologicalMesh::FaceHandle fh ) {
     for ( VertexIHalfedgeIter vih_it = vih_iter( vh ); vih_it.is_valid(); ++vih_it )
     {
         if ( face_handle( *vih_it ) == fh )
@@ -64,6 +69,5 @@ inline TopologicalMesh::HalfedgeHandle TopologicalMesh::halfedge_handle( Topolog
     return HalfedgeHandle();
 }
 
-
-}
-}
+} // namespace Core
+} // namespace Ra

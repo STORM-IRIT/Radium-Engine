@@ -1,10 +1,10 @@
 #ifndef TOPOLOGICALMESH_H
 #define TOPOLOGICALMESH_H
 
-#include <Core/RaCore.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/RaCore.hpp>
 
 #include <OpenMesh/Core/Mesh/PolyMesh_ArrayKernelT.hh>
 #include <OpenMesh/Core/Mesh/Traits.hh>
@@ -17,7 +17,7 @@ namespace Core {
 class TriangleMesh;
 
 ///\class TopoVector3 : small extension to Vector3 for OpenMesh compatibility
-class TopoVector3 : public Ra::Core::Vector3 {
+class RA_CORE_API TopoVector3 : public Ra::Core::Vector3 {
   public:
     using Ra::Core::Vector3::Vector3;
     inline Scalar length() const;
@@ -27,17 +27,18 @@ class TopoVector3 : public Ra::Core::Vector3 {
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
-inline Scalar dot( const TopoVector3& a, const TopoVector3& b );
-inline TopoVector3 cross( const TopoVector3& a, const TopoVector3& b );
-inline TopoVector3& normalize(TopoVector3& v);
-inline Scalar norm(const TopoVector3& v);
+inline RA_CORE_API Scalar dot( const TopoVector3& a, const TopoVector3& b );
+inline RA_CORE_API TopoVector3 cross( const TopoVector3& a, const TopoVector3& b );
+inline RA_CORE_API TopoVector3& normalize( TopoVector3& v );
+inline RA_CORE_API Scalar sqrnorm( const TopoVector3& v );
+inline RA_CORE_API Scalar norm( const TopoVector3& v );
 template <typename OtherScalar>
-inline void vectorize(TopoVector3& v, const OtherScalar s);
+inline void vectorize( TopoVector3& v, const OtherScalar s );
 } // namespace Core
 } // namespace Ra
 
 template <>
-struct OpenMesh::vector_traits<Ra::Core::TopoVector3> {
+struct RA_CORE_API OpenMesh::vector_traits<Ra::Core::TopoVector3> {
     /// Type of the vector class
     using vector_type = Ra::Core::Vector3;
 
@@ -60,7 +61,7 @@ namespace Core {
 // http://openmesh.org/Documentation/OpenMesh-2.1-Documentation/mesh_type.html
 // Attributes define data store on structure.
 
-struct TopologicalMeshTraits : public OpenMesh::DefaultTraits {
+struct RA_CORE_API TopologicalMeshTraits : public OpenMesh::DefaultTraits {
     using Point = TopoVector3;
     using Normal = TopoVector3;
 
@@ -95,7 +96,7 @@ struct TopologicalMeshTraits : public OpenMesh::DefaultTraits {
 
 /// This class represent a mesh with topological information on the
 /// vertex graph, using a half-edge representation.
-class TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits> {
+class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits> {
   private:
     using base = OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>;
     using base::PolyMesh_ArrayKernelT;
@@ -117,11 +118,9 @@ class TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTr
     inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh );
 
     inline Normal& normal( VertexHandle vh, FaceHandle fh );
-
 };
 } // namespace Core
 } // namespace Ra
-
 
 #include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.inl>
 #endif // TOPOLOGICALMESH_H
