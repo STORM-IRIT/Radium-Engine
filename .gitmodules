@@ -12,7 +12,7 @@
 	url = https://github.com/g-truc/glm.git
 [submodule "3rdPartyLibraries/Eigen"]
 	path = 3rdPartyLibraries/Eigen
-	url = https://github.com/RLovelett/eigen.git
+	url = https://github.com/eigenteam/eigen-git-mirror.git
 [submodule "3rdPartyLibraries/tinyply"]
 	path = 3rdPartyLibraries/tinyply
 	url = https://github.com/nmellado/tinyply.git
