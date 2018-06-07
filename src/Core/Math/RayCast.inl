@@ -318,7 +318,8 @@ namespace Ra
                 const Vector3 ac = c-a;
 
                 ON_ASSERT(const Vector3 n = ab.cross(ac));
-                CORE_ASSERT( n.squaredNorm() > 0 , "Degenerate triangle");
+                //CORE_ASSERT( n.squaredNorm() > 0 , "Degenerate triangle");
+                ON_ASSERT(if (n.squaredNorm() <= 1e-5) return false);
 
                 Scalar u = 0.0;
                 Scalar v = 0.0;

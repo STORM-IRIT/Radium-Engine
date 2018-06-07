@@ -613,6 +613,7 @@ namespace Ra
             }
 
             Ra::Core::Vector4 displayColors[5] = {{1,0,0,0}, {1,0.5,0,0}, {1,1,0,0}, {0,1,0,0}, {0,0,1,0}};
+            //Ra::Core::Vector4 displayColors[5] = {{0.45,0,0,0}, {0.86,0.38,0.15,0}, {0.86,0.64,0.15,0}, {0.10,0.43,0.24,0}, {0.02,0.16,0.25,0}};
 
             DistanceSorting::iterator it = m_distSort.begin();
 
@@ -1733,7 +1734,7 @@ namespace Ra
             {
                 std::advance(medianIt, nbEdges/2 - 1);
                 errorMedian = (*medianIt);
-                ++it;
+                ++it;// medianIt
                 errorMedian += (*medianIt);
                 errorMedian /= 2;
             }
@@ -1744,18 +1745,27 @@ namespace Ra
             }
             LOG(logINFO) << "Median error : " << errorMedian;
 
+	    /*
+	    ErrorSorting::iterator zeroIt = errorSort.begin();
+	    int nbZeros = 0;
+	    while ((*zeroIt) == 0)
+	      {
+		nbZeros++;
+		++zeroIt;
+	      }
+	    */
             medianIt = errorSort.begin();
-            if (nbEdges % 4 == 0 || nbEdges % 4 == 1)
+            if ((nbEdges/* - nbZeros*/) % 4 == 0 || (nbEdges/* - nbZeros*/) % 4 == 1)
             {
-                std::advance(medianIt, nbEdges/4 - 1);
+	        std::advance(medianIt, (nbEdges/* - nbZeros*/)/4 - 1);
                 errorQuartile = (*medianIt);
-                ++it;
+                ++it;//medianIt
                 errorQuartile += (*medianIt);
                 errorQuartile /= 2;
             }
             else
             {
-                std::advance(medianIt, nbEdges/4);
+	      std::advance(medianIt, (nbEdges/* - nbZeros*/)/4);
                 errorQuartile = (*medianIt);
             }
             LOG(logINFO) << "Quartile error : " << errorQuartile;
@@ -1769,6 +1779,7 @@ namespace Ra
             file.close();
 
             Scalar errorFirstCluster;
+            //Scalar errorMeanFirstCluster;
             int k = 0;
             int nbError = errorArray[k];
             int nbErrorNext = errorArray[k+1];
@@ -1799,9 +1810,20 @@ namespace Ra
                 } while (nbError >= nbErrorNext && k < NBMAX_STEP - 1);
             }
             errorFirstCluster = step * (k + 1);
+            //errorMeanFirstCluster = errorFirstCluster / 2;
             LOG(logINFO) << "Error first cluster : " << errorFirstCluster;
 
+            //while (errorQuartile == 0)
+            //{
+	    // std::advance(medianIt, 1);
+	    // errorQuartile = (*medianIt);
+	    // }
+
             m_lambda = (errorFirstCluster / errorQuartile - 1) / std::pow(m_broader_threshold, 2);
+            //m_lambda = (errorFirstCluster / errorMean - 1) / std::pow(m_broader_threshold, 2);
+            //m_lambda = (errorFirstCluster / errorMedian - 1) / std::pow(m_broader_threshold, 2);
+            //m_lambda = (errorFirstCluster / errorMeanFirstCluster - 1) / std::pow(m_broader_threshold, 2);
+
             LOG(logINFO) << "Alpha : " << m_lambda;
 
             int nbFacesInit = 0;
@@ -2243,6 +2265,7 @@ namespace Ra
             }
 
             //std::srand(std::time(0));
+            //Ra::Core::Vector4 clusterColors[10] = {{0.45,0,0,0}, {0.80,0.36,0.36,0}, {1,0.63,0.48,0}, {1,0.55,0,0}, {1,0.84,0,0}, {0.60,0.80,0.20,0}, {0.18,0.55,0.34,0}, {0.37,0.62,0.63,0}, {0.27,0.51,0.71,0}, {0,0,0.55,0}};
             Ra::Core::Vector4 clusterColors[10] = {{0.45,0,0,0}, {0.86,0.64,0.15,0}, {0.10,0.43,0.24,0}, {0.02,0.16,0.25,0}, {1,0.84,0,0}, {0.60,0.80,0.20,0}, {0.18,0.55,0.34,0}, {0.37,0.62,0.63,0}, {0.27,0.51,0.71,0}, {0,0,0.55,0}};
             DistanceSorting::iterator it = m_distSort.begin();
             for (uint i = 0; i < m_nbclusters_display; i++)
@@ -2499,7 +2522,7 @@ namespace Ra
             }
             Ra::Core::Vector4 contactColor (0.45,0,0,0);
 
-#pragma omp parallel for
+//#pragma omp parallel for
             for (unsigned int i = 0; i < numTriangles; i++)
             {
 
@@ -2531,7 +2554,7 @@ namespace Ra
                     }
 
                     // insert into the priority queue with the real resulting point
-#pragma omp critical
+//#pragma omp critical
                     {
                         pQueue.insert(Ra::Core::PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, error, p, objIndex));
                     }

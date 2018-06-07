@@ -251,7 +251,7 @@ namespace Ra
                     else
                     {
                         if (a1.m_index != a2.m_index)
-                               return (a1.m_index < a2.m_index);
+                            return (a1.m_index < a2.m_index);
                         if (a1.m_fl_id != a2.m_fl_id)
                             return a1.m_fl_id < a2.m_fl_id;
                         else

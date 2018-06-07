@@ -15,7 +15,6 @@ void main()
     {
         discard;
     }
-    
     if ( material.tex.hasKd == 1 )
     {
         out_color = vec4(texture(material.tex.kd, in_texcoord.st).rgb, 1);
