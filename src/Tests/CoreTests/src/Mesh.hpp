@@ -30,7 +30,7 @@ class MeshTests : public Test {
             mesh.attribManager().addAttrib<Vec3AttribHandle::value_type>( "filled" );
         auto& container = mesh.attribManager().getAttrib( handlerFilled ).data();
         auto containerHandler =
-            mesh.attribManager().getAttribHandler<Vec3AttribHandle::value_type>( "filled" );
+            mesh.attribManager().getAttribHandle<Vec3AttribHandle::value_type>( "filled" );
         auto& container2 = mesh.attribManager().getAttrib( containerHandler ).data();
         RA_UNIT_TEST( container == container2, "getAttrib variants are not consistents" );
 
@@ -50,7 +50,7 @@ class MeshTests : public Test {
         mesh.attribManager().removeAttrib( "filled2" );
 
         // Test dummy handler
-        auto invalid = mesh.attribManager().getAttribHandler<float>( "toto" );
+        auto invalid = mesh.attribManager().getAttribHandle<float>( "toto" );
         RA_UNIT_TEST( !invalid.isValid(), "Invalid Attrib Handler cannot be recognized" );
     }
 
