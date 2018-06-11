@@ -7,8 +7,10 @@
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Attribs.hpp>
 
-namespace Ra {
-namespace Core {
+namespace Ra
+{
+namespace Core
+{
 
 /// Simple Mesh structure that handles indexed triangle mesh with vertex
 /// attributes.
@@ -20,15 +22,18 @@ namespace Core {
 /// points() and normals()
 /// Other attribs could be added with attribManager().addAttrib() and
 /// accesssed with attribManager().getAttrib()
-struct TriangleMesh {
+class TriangleMesh
+{
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    using PointAttribHandle = AttribHandle<Vector3>;
+    using PointAttribHandle  = AttribHandle<Vector3>;
     using NormalAttribHandle = AttribHandle<Vector3>;
-    using Vec3AttribHandle = AttribHandle<Vector3>;
-    using Vec4AttribHandle = AttribHandle<Vector4>;
-    using Face = VectorNui;
+    using FloatAttribHandle  = AttribHandle<float>;
+    using Vec2AttribHandle   = AttribHandle<Vector2>;
+    using Vec3AttribHandle   = AttribHandle<Vector3>;
+    using Vec4AttribHandle   = AttribHandle<Vector4>;
+    using Face               = VectorNui;
 
     /// Create an empty mesh.
     inline TriangleMesh() { initDefaultAttribs(); }
@@ -46,17 +51,21 @@ struct TriangleMesh {
     VectorArray<Triangle> m_triangles;
     VectorArray<Face> m_faces;
 
-    PointAttribHandle::Container& vertices() {
+    PointAttribHandle::Container& vertices()
+    {
         return m_vertexAttribs.getAttrib( m_verticesHandle ).data();
     }
-    NormalAttribHandle::Container& normals() {
+    NormalAttribHandle::Container& normals()
+    {
         return m_vertexAttribs.getAttrib( m_normalsHandle ).data();
     }
 
-    const PointAttribHandle::Container& vertices() const {
+    const PointAttribHandle::Container& vertices() const
+    {
         return m_vertexAttribs.getAttrib( m_verticesHandle ).data();
     }
-    const NormalAttribHandle::Container& normals() const {
+    const NormalAttribHandle::Container& normals() const
+    {
         return m_vertexAttribs.getAttrib( m_normalsHandle ).data();
     }
 
@@ -68,7 +77,8 @@ struct TriangleMesh {
     PointAttribHandle m_verticesHandle;
     NormalAttribHandle m_normalsHandle;
 
-    inline void initDefaultAttribs() {
+    inline void initDefaultAttribs()
+    {
         m_verticesHandle =
             m_vertexAttribs.addAttrib<PointAttribHandle::value_type>( "in_position" );
         m_normalsHandle = m_vertexAttribs.addAttrib<NormalAttribHandle::value_type>( "in_normal" );
