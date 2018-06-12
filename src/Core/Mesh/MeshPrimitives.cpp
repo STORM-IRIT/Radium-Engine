@@ -99,6 +99,11 @@ TriangleMesh makeSharpBox( const Aabb& aabb ) {
 
 TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
     TriangleMesh result;
+    uint faceCount = std::pow(4,numSubdiv)*20;
+    result.m_vertices.reserve(faceCount-8);
+    result.m_normals.reserve(faceCount-8);
+    result.m_triangles.reserve(faceCount);
+
     // First, make an icosahedron.
     // Top vertex
     result.m_vertices.push_back( Vector3( 0, 0, radius ) );
