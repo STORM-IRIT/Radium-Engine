@@ -66,6 +66,9 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
 template <uint U, uint V>
 TriangleMesh makeParametricTorus( Scalar majorRadius, Scalar minorRadius ) {
     TriangleMesh result;
+    result.m_vertices.reserve(U*V);
+    result.m_normals.reserve(V*V);
+    result.m_triangles.reserve(2*U*V);
 
     for ( uint iu = 0; iu < U; ++iu )
     {
