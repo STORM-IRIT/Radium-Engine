@@ -240,6 +240,9 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
 
 TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
     TriangleMesh result;
+    result.m_vertices.reserve(nFaces*nFaces+nFaces+2);
+    result.m_normals.reserve(nFaces*nFaces+nFaces+2);
+    result.m_triangles.reserve(2*(nFaces*nFaces+nFaces));
 
     const Scalar l = length / 2.0;
 
