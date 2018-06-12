@@ -26,6 +26,8 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
             result.m_vertices.push_back( Vector3( radius * std::cos( theta ) * std::sin( phi ),
                                                   radius * std::sin( theta ) * std::sin( phi ),
                                                   radius * std::cos( phi ) ) );
+            result.m_normals.push_back(result.m_vertices.back().normalized());
+
             // Regular triangles
             if ( v > 1 )
             {
@@ -42,8 +44,10 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
     // Add the pole vertices.
     uint northPoleIdx = result.m_vertices.size();
     result.m_vertices.push_back( Vector3( 0, 0, radius ) );
+    result.m_normals.push_back( Vector3( 0, 0, 1 ) );
     uint southPoleIdx = result.m_vertices.size();
     result.m_vertices.push_back( Vector3( 0, 0, -radius ) );
+    result.m_normals.push_back( Vector3( 0, 0, -1 ) );
 
     // Add the polar caps triangles.
     for ( uint u = 0; u < slices; ++u )
@@ -55,12 +59,6 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
             Triangle( southPoleIdx, nextSlice + stacks - 2, baseSlice + stacks - 2 ) );
     }
 
-    // Compute normals.
-    for ( const auto v : result.m_vertices )
-    {
-        const Vector3 n = v.normalized();
-        result.m_normals.push_back( n );
-    }
     checkConsistency( result );
     return result;
 }
