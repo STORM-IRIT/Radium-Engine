@@ -80,8 +80,22 @@ TriangleMesh makeSharpBox( const Aabb& aabb ) {
                          // Top face
                          aabb.corner( Aabb::TopLeftFloor ), aabb.corner( Aabb::TopLeftCeil ),
                          aabb.corner( Aabb::TopRightCeil ), aabb.corner( Aabb::TopRightFloor )
-
     };
+
+    result.m_normals = {// Foor face
+                        Vector3(0,0,-1), Vector3(0,0,-1), Vector3(0,0,-1), Vector3(0,0,-1),
+                        // Ceil Face
+                        Vector3(0,0,+1), Vector3(0,0,+1), Vector3(0,0,+1), Vector3(0,0,+1),
+                        // Left Face
+                        Vector3(-1,0,0), Vector3(-1,0,0), Vector3(-1,0,0), Vector3(-1,0,0),
+                        // Right Face
+                        Vector3(+1,0,0), Vector3(+1,0,0), Vector3(+1,0,0), Vector3(+1,0,0),
+                        // Bottom Face
+                        Vector3(0,-1,0), Vector3(0,-1,0), Vector3(0,-1,0), Vector3(0,-1,0),
+                        // Top Face
+                        Vector3(0,+1,0), Vector3(0,+1,0), Vector3(0,+1,0), Vector3(0,+1,0)
+    };
+
     result.m_triangles = {
 
         Triangle( 0, 1, 2 ),    Triangle( 0, 2, 3 ),    // Floor
@@ -92,7 +106,6 @@ TriangleMesh makeSharpBox( const Aabb& aabb ) {
         Triangle( 20, 21, 22 ), Triangle( 20, 22, 23 )  // Top
     };
 
-    getAutoNormals( result, result.m_normals );
     checkConsistency( result );
     return result;
 }
