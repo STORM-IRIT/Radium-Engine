@@ -231,15 +231,13 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
     for ( uint i = 0; i < nFaces; ++i )
     {
         const Scalar theta = i * thetaInc;
-        // Even indices are A circle and odd indices are B circle.
-        result.m_vertices.push_back(
-            a + radius * ( std::cos( theta ) * xPlane + std::sin( theta ) * yPlane ) );
-        result.m_vertices.push_back(
-            c + radius * ( std::cos( theta ) * xPlane + std::sin( theta ) * yPlane ) );
-        result.m_vertices.push_back(
-            b + radius * ( std::cos( theta ) * xPlane + std::sin( theta ) * yPlane ) );
-
         Vector3 normal = std::cos( theta ) * xPlane + std::sin( theta ) * yPlane;
+
+        // Even indices are A circle and odd indices are B circle.
+        result.m_vertices.push_back( a + radius * normal );
+        result.m_vertices.push_back( c + radius * normal );
+        result.m_vertices.push_back( b + radius * normal );
+
         result.m_normals.push_back((normal-dir).normalized());
         result.m_normals.push_back(normal.normalized());
         result.m_normals.push_back((normal+dir).normalized());
