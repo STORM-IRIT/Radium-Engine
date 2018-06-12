@@ -527,23 +527,28 @@ TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, u
     result.m_normals.reserve(2+nFaces);
     result.m_triangles.reserve(2*nFaces);
 
-    Core::Vector3 ab = tip - base;
+    Vector3 ab = tip - base;
+    Vector3 dir = ab.normalized();
 
     //  Create two circles normal centered on A and B and normal to ab;
-    Core::Vector3 xPlane, yPlane;
-    Core::Vector::getOrthogonalVectors( ab, xPlane, yPlane );
+    Vector3 xPlane, yPlane;
+    Vector::getOrthogonalVectors( ab, xPlane, yPlane );
     xPlane.normalize();
     yPlane.normalize();
 
     result.m_vertices.push_back( base );
     result.m_vertices.push_back( tip );
+    result.m_normals.push_back( -dir );
+    result.m_normals.push_back( dir );
 
     const Scalar thetaInc( Core::Math::PiMul2 / Scalar( nFaces ) );
     for ( uint i = 0; i < nFaces; ++i )
     {
         const Scalar theta = i * thetaInc;
-        result.m_vertices.push_back(
-            base + radius * ( std::cos( theta ) * xPlane + std::sin( theta ) * yPlane ) );
+        Vector3 normal = std::cos( theta ) * xPlane + std::sin( theta ) * yPlane;
+
+        result.m_vertices.push_back( base + radius * normal );
+        result.m_normals.push_back( (normal-dir).normalized() );
     }
 
     for ( uint i = 0; i < nFaces; ++i )
@@ -554,7 +559,6 @@ TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, u
         result.m_triangles.push_back( Triangle( 0, br, bl ) );
         result.m_triangles.push_back( Triangle( 1, bl, br ) );
     }
-    getAutoNormals( result, result.m_normals );
     checkConsistency( result );
     return result;
 }
