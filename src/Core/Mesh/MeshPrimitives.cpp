@@ -107,6 +107,7 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
     // First, make an icosahedron.
     // Top vertex
     result.m_vertices.push_back( Vector3( 0, 0, radius ) );
+    result.m_normals.push_back( Vector3(0, 0, 1) );
 
     const Scalar sq5_5 = radius * std::sqrt( 5.f ) / 5.f;
 
@@ -121,11 +122,13 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
             const Scalar y = 2.f * sq5_5 * std::sin( theta );
             const Scalar z = j == 0 ? sq5_5 : -sq5_5;
             result.m_vertices.push_back( Vector3( x, y, z ) );
+            result.m_normals.push_back( result.m_vertices.back().normalized() );
         }
     }
 
     // Bottom vertex
     result.m_vertices.push_back( Vector3( 0, 0, -radius ) );
+    result.m_normals.push_back( Vector3(0, 0, -1) );
 
     for ( int i = 0; i < 5; ++i )
     {
@@ -160,8 +163,12 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
             for ( int v = 0; v < 3; ++v )
             {
                 middles[v] = result.m_vertices.size();
-                result.m_vertices.push_back( 0.5f *
-                                             ( triVertices[v] + triVertices[( v + 1 ) % 3] ) );
+
+                Vector3 vertex = 0.5f * ( triVertices[v] + triVertices[( v + 1 ) % 3] );
+                vertex.normalize();
+
+                result.m_vertices.push_back( radius*vertex );
+                result.m_normals.push_back( vertex );
             }
 
             newTris.push_back( Triangle( tri[0], middles[0], middles[2] ) );
@@ -172,14 +179,6 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
         result.m_triangles = newTris;
     }
 
-    // project vertices on the sphere and compute normals
-    for ( auto& vertex : result.m_vertices )
-    {
-        const Scalar r = radius / vertex.norm();
-        vertex *= r;
-
-        result.m_normals.push_back( vertex.normalized() );
-    }
     checkConsistency( result );
     return result;
 }
