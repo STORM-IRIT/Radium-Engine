@@ -498,6 +498,9 @@ TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar outerRadius, S
 
 TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, uint nFaces ) {
     TriangleMesh result;
+    result.m_vertices.reserve(2+nFaces);
+    result.m_normals.reserve(2+nFaces);
+    result.m_triangles.reserve(2*nFaces);
 
     Core::Vector3 ab = tip - base;
 
