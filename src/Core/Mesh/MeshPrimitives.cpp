@@ -202,18 +202,21 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
     result.m_normals.reserve(2+3*nFaces);
     result.m_triangles.reserve(6*nFaces);
 
-    Core::Vector3 ab = b - a;
+    Vector3 ab = b - a;
+    Vector3 dir = ab.normalized();
 
     //  Create two circles normal centered on A and B and normal to ab;
-    Core::Vector3 xPlane, yPlane;
-    Core::Vector::getOrthogonalVectors( ab, xPlane, yPlane );
+    Vector3 xPlane, yPlane;
+    Vector::getOrthogonalVectors( ab, xPlane, yPlane );
     xPlane.normalize();
     yPlane.normalize();
 
-    Core::Vector3 c = 0.5 * ( a + b );
+    Vector3 c = 0.5 * ( a + b );
 
     result.m_vertices.push_back( a );
     result.m_vertices.push_back( b );
+    result.m_normals.push_back( -dir );
+    result.m_normals.push_back( dir );
 
     const Scalar thetaInc( Core::Math::PiMul2 / Scalar( nFaces ) );
     for ( uint i = 0; i < nFaces; ++i )
@@ -226,6 +229,11 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
             c + radius * ( std::cos( theta ) * xPlane + std::sin( theta ) * yPlane ) );
         result.m_vertices.push_back(
             b + radius * ( std::cos( theta ) * xPlane + std::sin( theta ) * yPlane ) );
+
+        Vector3 normal = std::cos( theta ) * xPlane + std::sin( theta ) * yPlane;
+        result.m_normals.push_back((normal-dir).normalized());
+        result.m_normals.push_back(normal.normalized());
+        result.m_normals.push_back((normal+dir).normalized());
     }
 
     for ( uint i = 0; i < nFaces; ++i )
@@ -246,7 +254,6 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
         result.m_triangles.push_back( Triangle( 0, br, bl ) );
         result.m_triangles.push_back( Triangle( 1, tl, tr ) );
     }
-    getAutoNormals( result, result.m_normals );
     checkConsistency( result );
     return result;
 }
