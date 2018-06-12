@@ -185,6 +185,9 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
 
 TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, uint nFaces ) {
     TriangleMesh result;
+    result.m_vertices.reserve(2+3*nFaces);
+    result.m_normals.reserve(2+3*nFaces);
+    result.m_triangles.reserve(6*nFaces);
 
     Core::Vector3 ab = b - a;
 
