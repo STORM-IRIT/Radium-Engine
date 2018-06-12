@@ -3,14 +3,17 @@ BasedOnStyle: LLVM
 Language: Cpp
 Standard: Cpp11
 AllowShortFunctionsOnASingleLine: Inline
+AllowShortBlocksOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: true
 AlwaysBreakTemplateDeclarations: true
-BreakBeforeBraces: Custom
+BreakBeforeBraces: Allman
 BraceWrapping:
   AfterControlStatement: true
   AfterEnum: false
   AfterStruct: false
   AfterUnion: false
   BeforeCatch: true
+  BeforeElse: true
   SplitEmptyFunction: false
 ColumnLimit: 100
 IndentWidth: 4
@@ -25,4 +28,9 @@ BreakConstructorInitializers: AfterColon
 SortUsingDeclarations: true
 PointerAlignment: Left
 SpacesInParentheses: true
+AlignTrailingComments: true
+AlignConsecutiveAssignments: true
+AllowAllParametersOfDeclarationOnNextLine: false
+BinPackArguments: false
+BinPackParameters: false
 ...
