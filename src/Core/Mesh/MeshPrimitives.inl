@@ -8,9 +8,14 @@ namespace MeshUtils {
 
 template <uint U, uint V>
 TriangleMesh makeParametricSphere( Scalar radius ) {
-    const uint slices = U;
-    const uint stacks = V;
+    constexpr uint slices = U;
+    constexpr uint stacks = V;
+
     TriangleMesh result;
+    result.m_vertices.reserve(2+slices*(stacks-1));
+    result.m_normals.reserve(2+slices*(stacks-1));
+    result.m_triangles.reserve(2*slices*(stacks-1));
+
     for ( uint u = 0; u < slices; ++u )
     {
         const Scalar theta = Scalar( 2 * u ) * Core::Math::Pi / Scalar( slices );
@@ -22,7 +27,7 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
                                                   radius * std::sin( theta ) * std::sin( phi ),
                                                   radius * std::cos( phi ) ) );
             // Regular triangles
-            if ( v > 1 && v < stacks )
+            if ( v > 1 )
             {
                 const uint nextSlice = ( ( u + 1 ) % slices ) * ( stacks - 1 );
                 const uint baseSlice = u * ( stacks - 1 );
