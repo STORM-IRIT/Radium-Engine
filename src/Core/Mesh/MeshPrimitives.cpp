@@ -416,6 +416,9 @@ TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar outerRadius, S
     CORE_ASSERT( outerRadius > innerRadius, "Outer radius must be bigger than inner." );
 
     TriangleMesh result;
+    result.m_vertices.reserve(6*nFaces);
+    result.m_normals.reserve(6*nFaces);
+    result.m_triangles.reserve(12*nFaces);
 
     Core::Vector3 ab = b - a;
 
