@@ -34,7 +34,17 @@ TriangleMesh makeBox( const Aabb& aabb ) {
         aabb.corner( Aabb::BottomLeftFloor ), aabb.corner( Aabb::BottomRightFloor ),
         aabb.corner( Aabb::TopLeftFloor ),    aabb.corner( Aabb::TopRightFloor ),
         aabb.corner( Aabb::BottomLeftCeil ),  aabb.corner( Aabb::BottomRightCeil ),
-        aabb.corner( Aabb::TopLeftCeil ),     aabb.corner( Aabb::TopRightCeil )};
+        aabb.corner( Aabb::TopLeftCeil ),     aabb.corner( Aabb::TopRightCeil )
+    };
+
+    Scalar a = 1./std::sqrt(3.);
+    result.m_normals = {
+        Vector3( -a, -a, -a ), Vector3( +a, -a, -a ),
+        Vector3( -a, +a, -a ), Vector3( +a, +a, -a ),
+        Vector3( -a, -a, +a ), Vector3( +a, -a, +a ),
+        Vector3( -a, +a, +a ), Vector3( +a, +a, +a )
+    };
+
     result.m_triangles = {
         Triangle( 0, 2, 1 ), Triangle( 1, 2, 3 ), // Floor
         Triangle( 0, 1, 4 ), Triangle( 4, 1, 5 ), // Front
@@ -44,7 +54,6 @@ TriangleMesh makeBox( const Aabb& aabb ) {
         Triangle( 4, 5, 6 ), Triangle( 6, 5, 7 )  // Top
     };
 
-    getAutoNormals( result, result.m_normals );
     checkConsistency( result );
     return result;
 }
