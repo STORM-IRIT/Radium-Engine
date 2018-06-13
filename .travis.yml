@@ -8,6 +8,10 @@ script:
       cd ../Bundle-Clang/Release/bin/
       otool -L ./main-app
     fi;
+  - |
+    if [ "$BUILD_DOC" = "On" ]; then
+      make doc
+    fi;
 
 notifications:
    slack: storm-cg:oxJ5LToK0qfPBkNW0Hus3TQg
@@ -84,6 +88,7 @@ matrix:
     - env:
         - BUILD_TYPE=Release
         - PREFIX_PATH="/usr/local/opt/qt/lib/cmake"
+        - BUILD_DOC=Off
       os: osx
       compiler: clang
 
@@ -92,6 +97,7 @@ matrix:
         - BUILD_TYPE=Release
         - PREFIX_PATH="~/Qt/5.10.0/gcc_64/lib/cmake"
         - CLANG_VERSION=5.0
+        - BUILD_DOC=Off
       os: linux
       addons: &clang50
         apt:
@@ -109,12 +115,18 @@ matrix:
         - BUILD_TYPE=Release
         - PREFIX_PATH="~/Qt/5.10.0/gcc_64/lib/cmake"
         - GCC_VERSION=7
+        - BUILD_DOC=On
       os: linux
       addons: &gcc7
         apt:
           packages:
             - g++-7
             - cmake3
+            - doxygen
+            - doxygen-doc
+            - doxygen-latex
+            - doxygen-gui
+            - graphviz
           sources:
             - ubuntu-toolchain-r-test
 
@@ -132,4 +144,12 @@ branches:
   except:
   - gh-pages
 
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: Bundle-GNU/Docs/html/
+  github_token: $GITHUB_API_KEY
+  on:
+    branch: master-v1
+    condition: "$BUILD_DOC = On"
 
