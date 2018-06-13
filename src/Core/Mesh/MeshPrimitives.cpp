@@ -91,7 +91,7 @@ TriangleMesh makeSharpBox( const Aabb& aabb ) {
                          aabb.corner( Aabb::TopRightCeil ), aabb.corner( Aabb::TopRightFloor )
     };
 
-    result.m_normals = {// Foor face
+    result.m_normals = {// Floor face
                         Vector3(0,0,-1), Vector3(0,0,-1), Vector3(0,0,-1), Vector3(0,0,-1),
                         // Ceil Face
                         Vector3(0,0,+1), Vector3(0,0,+1), Vector3(0,0,+1), Vector3(0,0,+1),
