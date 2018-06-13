@@ -281,13 +281,17 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
     for ( uint i = 0; i < nFaces; ++i )
     {
         const Scalar theta = i * thetaInc;
-        Scalar x = std::cos( theta ) * radius;
-        Scalar y = std::sin( theta ) * radius;
+        Vector3 normal( std::cos( theta ), std::sin( theta ), 0 );
 
         // Create 3 circles
-        result.m_vertices.emplace_back( x, y, -l );
-        result.m_vertices.emplace_back( x, y, 0.0 );
-        result.m_vertices.emplace_back( x, y, l );
+        Vector3 vertex = radius*normal;
+        result.m_vertices.emplace_back( vertex[0], vertex[1], -l );
+        result.m_vertices.emplace_back( vertex[0], vertex[1], 0.0 );
+        result.m_vertices.emplace_back( vertex[0], vertex[1], l );
+
+        result.m_normals.push_back( normal );
+        result.m_normals.push_back( normal );
+        result.m_normals.push_back( normal );
     }
 
     // Cylinder side faces
@@ -320,15 +324,20 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
         {
             const Scalar theta = i * thetaInc;
 
-            const Scalar x = radius * std::cos( theta ) * std::sin( phi );
-            const Scalar y = radius * std::sin( theta ) * std::sin( phi );
-            const Scalar z = radius * std::cos( phi );
+            const Vector3 normal( std::cos( theta ) * std::sin( phi ),
+                                  std::sin( theta ) * std::sin( phi ),
+                                  std::cos( phi ) );
 
-            result.m_vertices.emplace_back( x, y, z - l );
+            Vector3 vertex = radius * normal;
+            vertex[2] -= l;
+
+            result.m_vertices.push_back( vertex );
+            result.m_normals.push_back( normal );
         }
     }
     // Add bottom point (south pole)
     result.m_vertices.emplace_back( 0, 0, -( l + radius ) );
+    result.m_normals.emplace_back( 0, 0, -1 );
 
     // First ring of sphere triangles (joining with the cylinder)
     for ( uint i = 0; i < nFaces; ++i )
@@ -381,16 +390,21 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
         {
             const Scalar theta = i * thetaInc;
 
-            const Scalar x = radius * std::cos( theta ) * std::sin( phi );
-            const Scalar y = radius * std::sin( theta ) * std::sin( phi );
-            const Scalar z = radius * std::cos( phi );
+            const Vector3 normal( std::cos( theta ) * std::sin( phi ),
+                                  std::sin( theta ) * std::sin( phi ),
+                                  std::cos( phi ) );
 
-            result.m_vertices.emplace_back( x, y, z + l );
+            Vector3 vertex = radius * normal;
+            vertex[2] += l;
+
+            result.m_vertices.push_back( vertex );
+            result.m_normals.push_back( normal );
         }
     }
 
     // Add top point (north pole)
     result.m_vertices.emplace_back( 0, 0, ( l + radius ) );
+    result.m_normals.emplace_back( 0, 0, 1 );
 
     // First ring of sphere triangles (joining with the cylinder)
     for ( uint i = 0; i < nFaces; ++i )
@@ -432,7 +446,6 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
     }
 
     // Compute normals and check results.
-    getAutoNormals( result, result.m_normals );
     checkConsistency( result );
     return result;
 }
