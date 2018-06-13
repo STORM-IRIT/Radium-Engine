@@ -128,8 +128,8 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
 
     // First, make an icosahedron.
     // Top vertex
-    result.m_vertices.push_back( Vector3( 0, 0, radius ) );
-    result.m_normals.push_back( Vector3(0, 0, 1) );
+    result.m_vertices.emplace_back( 0, 0, radius );
+    result.m_normals.emplace_back( 0, 0, 1 );
 
     const Scalar sq5_5 = radius * std::sqrt( 5.f ) / 5.f;
 
@@ -143,31 +143,31 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
             const Scalar x = 2.f * sq5_5 * std::cos( theta );
             const Scalar y = 2.f * sq5_5 * std::sin( theta );
             const Scalar z = j == 0 ? sq5_5 : -sq5_5;
-            result.m_vertices.push_back( Vector3( x, y, z ) );
+            result.m_vertices.emplace_back( x, y, z );
             result.m_normals.push_back( result.m_vertices.back().normalized() );
         }
     }
 
     // Bottom vertex
-    result.m_vertices.push_back( Vector3( 0, 0, -radius ) );
-    result.m_normals.push_back( Vector3(0, 0, -1) );
+    result.m_vertices.emplace_back( 0, 0, -radius );
+    result.m_normals.emplace_back(0, 0, -1);
 
     for ( int i = 0; i < 5; ++i )
     {
         uint i1 = ( i + 1 ) % 5;
         // Top triangles
-        result.m_triangles.push_back( Triangle( 0, 2 * i + 1, ( 2 * i1 + 1 ) ) );
+        result.m_triangles.emplace_back( 0, 2 * i + 1, ( 2 * i1 + 1 ) );
 
         // Bottom triangles
-        result.m_triangles.push_back( Triangle( 2 * i + 2, 11, ( 2 * i1 + 2 ) ) );
+        result.m_triangles.emplace_back( 2 * i + 2, 11, ( 2 * i1 + 2 ) );
     }
     for ( uint i = 0; i < 10; ++i )
     {
         uint i1 = ( i + 0 ) % 10 + 1;
         uint i2 = ( i + 1 ) % 10 + 1;
         uint i3 = ( i + 2 ) % 10 + 1;
-        i % 2 ? result.m_triangles.push_back( Triangle( i3, i2, i1 ) )
-              : result.m_triangles.push_back( Triangle( i2, i3, i1 ) );
+        i % 2 ? result.m_triangles.emplace_back( i3, i2, i1 )
+              : result.m_triangles.emplace_back( i2, i3, i1 );
     }
 
     for ( uint n = 0; n < numSubdiv; ++n )
@@ -193,10 +193,10 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
                 result.m_normals.push_back( vertex );
             }
 
-            newTris.push_back( Triangle( tri[0], middles[0], middles[2] ) );
-            newTris.push_back( Triangle( middles[0], tri[1], middles[1] ) );
-            newTris.push_back( Triangle( middles[2], middles[1], tri[2] ) );
-            newTris.push_back( Triangle( middles[0], middles[1], middles[2] ) );
+            newTris.emplace_back( tri[0], middles[0], middles[2] );
+            newTris.emplace_back( middles[0], tri[1], middles[1] );
+            newTris.emplace_back( middles[2], middles[1], tri[2] );
+            newTris.emplace_back( middles[0], middles[1], middles[2] );
         }
         result.m_triangles = newTris;
     }
@@ -252,14 +252,14 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
         uint tl = ml + 1;                         // top left
         uint tr = mr + 1;                         // top right
 
-        result.m_triangles.push_back( Triangle( bl, br, ml ) );
-        result.m_triangles.push_back( Triangle( br, mr, ml ) );
+        result.m_triangles.emplace_back( bl, br, ml );
+        result.m_triangles.emplace_back( br, mr, ml );
 
-        result.m_triangles.push_back( Triangle( ml, mr, tl ) );
-        result.m_triangles.push_back( Triangle( mr, tr, tl ) );
+        result.m_triangles.emplace_back( ml, mr, tl );
+        result.m_triangles.emplace_back( mr, tr, tl );
 
-        result.m_triangles.push_back( Triangle( 0, br, bl ) );
-        result.m_triangles.push_back( Triangle( 1, tl, tr ) );
+        result.m_triangles.emplace_back( 0, br, bl );
+        result.m_triangles.emplace_back( 1, tl, tr );
     }
     checkConsistency( result );
     return result;
@@ -285,9 +285,9 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
         Scalar y = std::sin( theta ) * radius;
 
         // Create 3 circles
-        result.m_vertices.push_back( Vector3( x, y, -l ) );
-        result.m_vertices.push_back( Vector3( x, y, 0.0 ) );
-        result.m_vertices.push_back( Vector3( x, y, l ) );
+        result.m_vertices.emplace_back( x, y, -l );
+        result.m_vertices.emplace_back( x, y, 0.0 );
+        result.m_vertices.emplace_back( x, y, l );
     }
 
     // Cylinder side faces
@@ -300,11 +300,11 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
         uint tl = ml + 1;                     // top left
         uint tr = mr + 1;                     // top right
 
-        result.m_triangles.push_back( Triangle( bl, br, ml ) );
-        result.m_triangles.push_back( Triangle( br, mr, ml ) );
+        result.m_triangles.emplace_back( bl, br, ml );
+        result.m_triangles.emplace_back( br, mr, ml );
 
-        result.m_triangles.push_back( Triangle( ml, mr, tl ) );
-        result.m_triangles.push_back( Triangle( mr, tr, tl ) );
+        result.m_triangles.emplace_back( ml, mr, tl );
+        result.m_triangles.emplace_back( mr, tr, tl );
     }
 
     // Part 2 : create the bottom hemisphere.
@@ -324,11 +324,11 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
             const Scalar y = radius * std::sin( theta ) * std::sin( phi );
             const Scalar z = radius * std::cos( phi );
 
-            result.m_vertices.push_back( Vector3( x, y, z - l ) );
+            result.m_vertices.emplace_back( x, y, z - l );
         }
     }
     // Add bottom point (south pole)
-    result.m_vertices.push_back( Vector3( 0, 0, -( l + radius ) ) );
+    result.m_vertices.emplace_back( 0, 0, -( l + radius ) );
 
     // First ring of sphere triangles (joining with the cylinder)
     for ( uint i = 0; i < nFaces; ++i )
@@ -339,8 +339,8 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
         uint tl = vert_count + i;
         uint tr = vert_count + ( i + 1 ) % nFaces;
 
-        result.m_triangles.push_back( Triangle( br, bl, tl ) );
-        result.m_triangles.push_back( Triangle( br, tl, tr ) );
+        result.m_triangles.emplace_back( br, bl, tl );
+        result.m_triangles.emplace_back( br, tl, tr );
     }
 
     // Next rings of the sphere triangle
@@ -354,8 +354,8 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
             uint tl = vert_count + ( j + 1 ) * nFaces + i;
             uint tr = vert_count + ( j + 1 ) * nFaces + ( i + 1 ) % nFaces;
 
-            result.m_triangles.push_back( Triangle( br, bl, tl ) );
-            result.m_triangles.push_back( Triangle( br, tl, tr ) );
+            result.m_triangles.emplace_back( br, bl, tl );
+            result.m_triangles.emplace_back( br, tl, tr );
         }
     }
 
@@ -366,7 +366,7 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
         uint bl = vert_count + j * nFaces + i;
         uint br = vert_count + j * nFaces + ( i + 1 ) % nFaces;
         uint bot = result.m_vertices.size() - 1;
-        result.m_triangles.push_back( Triangle( br, bl, bot ) );
+        result.m_triangles.emplace_back( br, bl, bot );
     }
 
     // Part 3 : create the top hemisphere
@@ -385,12 +385,12 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
             const Scalar y = radius * std::sin( theta ) * std::sin( phi );
             const Scalar z = radius * std::cos( phi );
 
-            result.m_vertices.push_back( Vector3( x, y, z + l ) );
+            result.m_vertices.emplace_back( x, y, z + l );
         }
     }
 
     // Add top point (north pole)
-    result.m_vertices.push_back( Vector3( 0, 0, ( l + radius ) ) );
+    result.m_vertices.emplace_back( 0, 0, ( l + radius ) );
 
     // First ring of sphere triangles (joining with the cylinder)
     for ( uint i = 0; i < nFaces; ++i )
@@ -401,8 +401,8 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
         uint tl = vert_count + i;
         uint tr = vert_count + ( i + 1 ) % nFaces;
 
-        result.m_triangles.push_back( Triangle( bl, br, tl ) );
-        result.m_triangles.push_back( Triangle( br, tr, tl ) );
+        result.m_triangles.emplace_back( bl, br, tl );
+        result.m_triangles.emplace_back( br, tr, tl );
     }
 
     // Next rigns of the sphere triangles
@@ -416,8 +416,8 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
             uint tl = vert_count + ( j + 1 ) * nFaces + i;
             uint tr = vert_count + ( j + 1 ) * nFaces + ( i + 1 ) % nFaces;
 
-            result.m_triangles.push_back( Triangle( bl, br, tl ) );
-            result.m_triangles.push_back( Triangle( br, tr, tl ) );
+            result.m_triangles.emplace_back( bl, br, tl );
+            result.m_triangles.emplace_back( br, tr, tl );
         }
     }
 
@@ -428,7 +428,7 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
         uint bl = vert_count + j * nFaces + i;
         uint br = vert_count + j * nFaces + ( i + 1 ) % nFaces;
         uint top = result.m_vertices.size() - 1;
-        result.m_triangles.push_back( Triangle( bl, br, top ) );
+        result.m_triangles.emplace_back( bl, br, top );
     }
 
     // Compute normals and check results.
@@ -502,27 +502,27 @@ TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar outerRadius, S
 
         // Outer face triangles, just like a regular cylinder.
 
-        result.m_triangles.push_back( Triangle( obl, obr, oml ) );
-        result.m_triangles.push_back( Triangle( obr, omr, oml ) );
+        result.m_triangles.emplace_back( obl, obr, oml );
+        result.m_triangles.emplace_back( obr, omr, oml );
 
-        result.m_triangles.push_back( Triangle( oml, omr, otl ) );
-        result.m_triangles.push_back( Triangle( omr, otr, otl ) );
+        result.m_triangles.emplace_back( oml, omr, otl );
+        result.m_triangles.emplace_back( omr, otr, otl );
 
         // Inner face triangles (note how order is reversed because inner face points inwards).
 
-        result.m_triangles.push_back( Triangle( ibr, ibl, iml ) );
-        result.m_triangles.push_back( Triangle( ibr, iml, imr ) );
+        result.m_triangles.emplace_back( ibr, ibl, iml );
+        result.m_triangles.emplace_back( ibr, iml, imr );
 
-        result.m_triangles.push_back( Triangle( imr, iml, itl ) );
-        result.m_triangles.push_back( Triangle( imr, itl, itr ) );
+        result.m_triangles.emplace_back( imr, iml, itl );
+        result.m_triangles.emplace_back( imr, itl, itr );
 
         // Bottom face quad
-        result.m_triangles.push_back( Triangle( ibr, obr, ibl ) );
-        result.m_triangles.push_back( Triangle( obl, ibl, obr ) );
+        result.m_triangles.emplace_back( ibr, obr, ibl );
+        result.m_triangles.emplace_back( obl, ibl, obr );
 
         // Top face quad
-        result.m_triangles.push_back( Triangle( otr, itr, itl ) );
-        result.m_triangles.push_back( Triangle( itl, otl, otr ) );
+        result.m_triangles.emplace_back( otr, itr, itl );
+        result.m_triangles.emplace_back( itl, otl, otr );
     }
     checkConsistency( result );
     return result;
@@ -563,8 +563,8 @@ TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, u
         uint bl = i + 2;                      // bottom left corner of face
         uint br = ( ( i + 1 ) % nFaces ) + 2; // bottom right corner of face
 
-        result.m_triangles.push_back( Triangle( 0, br, bl ) );
-        result.m_triangles.push_back( Triangle( 1, bl, br ) );
+        result.m_triangles.emplace_back( 0, br, bl );
+        result.m_triangles.emplace_back( 1, bl, br );
     }
     checkConsistency( result );
     return result;
@@ -606,10 +606,12 @@ TriangleMesh makePlaneGrid( const uint rows, const uint cols, const Vector2& hal
     {
         for ( uint j = 0; j < cols; ++j )
         {
-            grid.m_triangles.push_back(
-                Triangle( v.at( {i, j} ), v.at( {i, j + 1} ), v.at( {i + 1, j + 1} ) ) );
-            grid.m_triangles.push_back(
-                Triangle( v.at( {i, j} ), v.at( {i + 1, j + 1} ), v.at( {i + 1, j} ) ) );
+            grid.m_triangles.emplace_back( v.at( {i, j} ),
+                                           v.at( {i, j + 1} ),
+                                           v.at( {i + 1, j + 1} ) );
+            grid.m_triangles.emplace_back( v.at( {i, j} ),
+                                           v.at( {i + 1, j + 1} ),
+                                           v.at( {i + 1, j} ) );
         }
     }
 
