@@ -138,15 +138,9 @@ void Gui::Viewer::initializeGL() {
     m_glInitStatus = true;
     m_context->makeCurrent( this );
 
-    m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
-
     LOG( logINFO ) << "*** Radium Engine Viewer ***";
     Engine::ShaderProgramManager::createInstance( "Shaders/Default.vert.glsl",
                                                   "Shaders/Default.frag.glsl" );
-
-    // Lights are components. So they must be attached to an entity. Attache headlight to system Entity
-    auto light = new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
-    m_camera->attachLight( light );
 
     // initialize renderers added before GL was ready
     if ( !m_renderers.empty() )
@@ -433,6 +427,18 @@ void Gui::Viewer::showEvent( QShowEvent* ev ) {
                        << gl::glGetString( gl::GLenum( GL_SHADING_LANGUAGE_VERSION ) );
 
         m_context->doneCurrent();
+    }
+
+    if ( !m_camera )
+    {
+        // quick fix meanwhile camera management refactoring
+        // see issue #339 Crash when using -f option
+        // https://github.com/STORM-IRIT/Radium-Engine/issues/339
+        m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
+
+        // Lights are components. So they must be attached to an entity. Attache headlight to system Entity
+        auto light = new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
+        m_camera->attachLight( light );
     }
 }
 
