@@ -38,6 +38,7 @@ class TriangleMesh
     /// Create an empty mesh.
     inline TriangleMesh() { initDefaultAttribs(); }
     /// Copy constructor and assignment operator
+    /// \warning No deep copy of attributes !
     TriangleMesh( const TriangleMesh& ) = default;
     TriangleMesh& operator=( const TriangleMesh& ) = default;
 

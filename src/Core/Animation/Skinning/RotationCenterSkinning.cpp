@@ -1,5 +1,21 @@
 #include <Core/Animation/Skinning/RotationCenterSkinning.hpp>
 
+
+#include <Core/Index/IndexMap.hpp>
+#include <Core/Log/Log.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Mesh/Wrapper/Convert.hpp>
+
+#include <array>
+
+#include <Core/Animation/Handle/HandleWeight.hpp>
+#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
+#include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
+#include <Core/Mesh/DCEL/Dcel.hpp>
+#include <Core/Mesh/DCEL/FullEdge.hpp>
+#include <Core/Mesh/DCEL/Operations/EdgeSplit.hpp>
+
 namespace Ra {
 namespace Core {
 namespace Animation {

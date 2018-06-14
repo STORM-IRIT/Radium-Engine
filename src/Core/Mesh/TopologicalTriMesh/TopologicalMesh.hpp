@@ -2,6 +2,7 @@
 #define TOPOLOGICALMESH_H
 
 #include <Core/Mesh/TopologicalTriMesh/OpenMesh.h>
+
 #include <Core/Index/Index.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
