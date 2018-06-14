@@ -1,5 +1,6 @@
-#include <Core/Log/Log.hpp>
 #include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
+
+#include <Core/Log/Log.hpp>
 #include <Core/RaCore.hpp>
 
 #include <Eigen/StdVector>

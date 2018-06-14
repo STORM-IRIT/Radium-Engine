@@ -8,10 +8,10 @@ namespace Core {
 
 // Forward declaration
 class Index;
-struct TriangleMesh;
+class TriangleMesh;
 class Dcel;
 
-struct Twin {
+struct RA_CORE_API Twin {
     Twin();
     Twin( const uint i, const uint j );
 
