@@ -3,10 +3,6 @@
 
 #include <Core/RaCore.hpp>
 
-#ifdef OS_WINDOWS
-#    define _USE_MATH_DEFINES
-#else
-#endif
 #include <algorithm>
 #include <cmath>
 namespace Ra {
