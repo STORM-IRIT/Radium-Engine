@@ -5,6 +5,7 @@
 
 #include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
 #include <Core/Animation/Skinning/RotationCenterSkinning.hpp>
+#include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
 
 using Ra::Core::DualQuaternion;
 using Ra::Core::Quaternion;
