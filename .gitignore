@@ -42,6 +42,7 @@
 \#*\#
 .\#*\#
 .vs
+.clang-format
 
 # Binary asset files
 *.obj
