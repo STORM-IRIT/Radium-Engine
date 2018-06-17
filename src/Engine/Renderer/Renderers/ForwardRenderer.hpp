@@ -15,7 +15,7 @@ class Texture;
 
 namespace Ra {
 namespace Engine {
-class RA_ENGINE_API ForwardRenderer final : public Renderer {
+class RA_ENGINE_API ForwardRenderer : public Renderer {
   public:
     ForwardRenderer();
     ~ForwardRenderer();
