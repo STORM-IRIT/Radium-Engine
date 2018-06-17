@@ -256,7 +256,6 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
         result.m_triangles.emplace_back( 0, br, bl );
         result.m_triangles.emplace_back( 1, tl, tr );
     }
-    getAutoNormals( result, result.normals() );
     checkConsistency( result );
     return result;
 }
