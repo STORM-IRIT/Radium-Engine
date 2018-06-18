@@ -1,5 +1,5 @@
-#include <Tests/CoreTests/Manager.hpp>
-#include <Tests/CoreTests/Tests.hpp>
+#include <Tests/Manager.hpp>
+#include <Tests/Tests.hpp>
 
 #include <algorithm>
 
@@ -28,7 +28,8 @@ int TestManager::run() {
         {
             printf( "\tTest %i FAILED (%i unit tests failed)\n", numTest, t.m_fails );
             numFailed++;
-        } else
+        }
+        else
         { printf( "\tTest %i PASSED \n", numTest ); }
     }
 

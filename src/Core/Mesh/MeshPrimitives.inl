@@ -8,9 +8,14 @@ namespace MeshUtils {
 
 template <uint U, uint V>
 TriangleMesh makeParametricSphere( Scalar radius ) {
-    const uint slices = U;
-    const uint stacks = V;
+    constexpr uint slices = U;
+    constexpr uint stacks = V;
+
     TriangleMesh result;
+    result.vertices().reserve( 2 + slices * ( stacks - 1 ) );
+    result.normals().reserve( 2 + slices * ( stacks - 1 ) );
+    result.m_triangles.reserve( 2 * slices * ( stacks - 1 ) );
+
     for ( uint u = 0; u < slices; ++u )
     {
         const Scalar theta = Scalar( 2 * u ) * Core::Math::Pi / Scalar( slices );
@@ -18,11 +23,13 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
         {
             // Regular vertices on the sphere.
             const Scalar phi = Scalar( v ) * Core::Math::Pi / Scalar( stacks );
-            result.m_vertices.push_back( Vector3( radius * std::cos( theta ) * std::sin( phi ),
+            result.vertices().push_back( Vector3( radius * std::cos( theta ) * std::sin( phi ),
                                                   radius * std::sin( theta ) * std::sin( phi ),
                                                   radius * std::cos( phi ) ) );
+            result.normals().push_back( result.vertices().back().normalized() );
+
             // Regular triangles
-            if ( v > 1 && v < stacks )
+            if ( v > 1 )
             {
                 const uint nextSlice = ( ( u + 1 ) % slices ) * ( stacks - 1 );
                 const uint baseSlice = u * ( stacks - 1 );
@@ -35,10 +42,12 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
     }
 
     // Add the pole vertices.
-    uint northPoleIdx = result.m_vertices.size();
-    result.m_vertices.push_back( Vector3( 0, 0, radius ) );
-    uint southPoleIdx = result.m_vertices.size();
-    result.m_vertices.push_back( Vector3( 0, 0, -radius ) );
+    uint northPoleIdx = result.vertices().size();
+    result.vertices().push_back( Vector3( 0, 0, radius ) );
+    result.normals().push_back( Vector3( 0, 0, 1 ) );
+    uint southPoleIdx = result.vertices().size();
+    result.vertices().push_back( Vector3( 0, 0, -radius ) );
+    result.normals().push_back( Vector3( 0, 0, -1 ) );
 
     // Add the polar caps triangles.
     for ( uint u = 0; u < slices; ++u )
@@ -50,12 +59,6 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
             Triangle( southPoleIdx, nextSlice + stacks - 2, baseSlice + stacks - 2 ) );
     }
 
-    // Compute normals.
-    for ( const auto v : result.m_vertices )
-    {
-        const Vector3 n = v.normalized();
-        result.m_normals.push_back( n );
-    }
     checkConsistency( result );
     return result;
 }
@@ -63,6 +66,9 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
 template <uint U, uint V>
 TriangleMesh makeParametricTorus( Scalar majorRadius, Scalar minorRadius ) {
     TriangleMesh result;
+    result.vertices().reserve( U * V );
+    result.normals().reserve( V * V );
+    result.m_triangles.reserve( 2 * U * V );
 
     for ( uint iu = 0; iu < U; ++iu )
     {
@@ -77,8 +83,8 @@ TriangleMesh makeParametricTorus( Scalar majorRadius, Scalar minorRadius ) {
                                   ( majorRadius + minorRadius * std::cos( v ) ) * std::sin( u ),
                                   minorRadius * std::sin( v ) );
 
-            result.m_vertices.push_back( vertex );
-            result.m_normals.push_back( ( vertex - circleCenter ).normalized() );
+            result.vertices().push_back( vertex );
+            result.normals().push_back( ( vertex - circleCenter ).normalized() );
 
             result.m_triangles.push_back(
                 Triangle( iu * V + iv, ( ( iu + 1 ) % U ) * V + iv, iu * V + ( ( iv + 1 ) % V ) ) );

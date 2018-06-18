@@ -1,21 +1,29 @@
 if(${RADIUM_SUBMODULES_BUILD_TYPE} MATCHES Debug)
     set(OPENMESHLIBNAME OpenMeshCored)
+    set(OPENMESHTOOLLIBNAME OpenMeshToold)
 else()
     set(OPENMESHLIBNAME OpenMeshCore)
+    set(OPENMESHTOOLLIBNAME OpenMeshTools)
 endif()
 
 # ----------------------------------------------------------------------------------------------------------------------
 set( OPENMESH_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include )
 if( APPLE )
-    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dylib")
+    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dylib"
+                            "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshTools.dylib")
 elseif ( UNIX )
-    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.so")
+    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.so"
+                            "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshTools.so")
 elseif (MINGW)
-    set( OPENMESH_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/libOpenMeshCore.dll")
-    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dll.a")
+    set( OPENMESH_CORE_DLL  "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/libOpenMeshCore.dll")
+    set( OPENMESH_TOOLS_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshTools.dll")
+    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dll.a"
+                            "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshTools.dll.a")
 elseif( MSVC )
-    set(OPENMESH_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${OPENMESHLIBNAME}.dll")
-    set(OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${OPENMESHLIBNAME}.lib")
+    set(OPENMESH_CORE_DLL  "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${OPENMESHLIBNAME}.dll")
+    set(OPENMESH_TOOLS_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/${OPENMESHTOOLLIBNAME}.dll")
+    set(OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${OPENMESHLIBNAME}.lib"
+                           "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/${OPENMESHTOOLLIBNAME}.lib")
 endif()
 
 
@@ -66,8 +74,10 @@ add_custom_target(openmesh_lib
 if( MSVC OR MINGW )
 
         add_custom_target( openmesh_install_compiled_dll
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${OPENMESH_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
-                COMMENT "copy openmesh dlls to bin dir" VERBATIM
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${OPENMESH_CORE_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+                COMMENT "copy openmesh core dll to bin dir" VERBATIM
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${OPENMESH_TOOLS_DLL} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+                COMMENT "copy openmesh tools dll to bin dir" VERBATIM
             DEPENDS openmesh create_bin_dir
         )
         add_dependencies(openmesh_lib openmesh_install_compiled_dll)
