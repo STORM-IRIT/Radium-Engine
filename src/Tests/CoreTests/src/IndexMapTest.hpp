@@ -2,7 +2,7 @@
 #define RADIUM_INDEXMAP_TEST_HPP_
 
 #include <Core/Index/IndexMap.hpp>
-#include <Tests/CoreTests/Tests.hpp>
+#include <Tests/Tests.hpp>
 
 namespace RaTests {
 using Ra::Core::Index;

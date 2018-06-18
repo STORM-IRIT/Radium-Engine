@@ -2,7 +2,7 @@
 #define RADIUM_ALGEBRATESTS_HPP_
 
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Tests/CoreTests/Tests.hpp>
+#include <Tests/Tests.hpp>
 
 namespace RaTests {
 class AlgebraTests : public Test {

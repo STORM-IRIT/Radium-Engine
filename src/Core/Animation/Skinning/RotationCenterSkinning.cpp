@@ -1,5 +1,21 @@
 #include <Core/Animation/Skinning/RotationCenterSkinning.hpp>
 
+
+#include <Core/Index/IndexMap.hpp>
+#include <Core/Log/Log.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Mesh/Wrapper/Convert.hpp>
+
+#include <array>
+
+#include <Core/Animation/Handle/HandleWeight.hpp>
+#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
+#include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
+#include <Core/Mesh/DCEL/Dcel.hpp>
+#include <Core/Mesh/DCEL/FullEdge.hpp>
+#include <Core/Mesh/DCEL/Operations/EdgeSplit.hpp>
+
 namespace Ra {
 namespace Core {
 namespace Animation {
@@ -114,21 +130,21 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
     convert( dcel, subdividedMesh );
 
     // Second step : evaluate the integrals over all triangles for all vertices.
-    CORE_ASSERT( subdividedMesh.m_vertices.size() == subdividedWeights.rows(),
+    CORE_ASSERT( subdividedMesh.vertices().size() == subdividedWeights.rows(),
                  "Weights and vertices don't match" );
 
     dataInOut.m_CoR.clear();
-    dataInOut.m_CoR.reserve( dataInOut.m_referenceMesh.m_vertices.size() );
+    dataInOut.m_CoR.reserve( dataInOut.m_referenceMesh.vertices().size() );
 
-    const uint nVerts = dataInOut.m_referenceMesh.m_vertices.size();
+    const uint nVerts = dataInOut.m_referenceMesh.vertices().size();
     // naive implementation : iterate over all the triangles (of the subdivided mesh)
     // for all vertices (of the original mesh).
     for ( uint i = 0; i < nVerts; ++i )
     {
 
         // Check that the first vertices of the subdivided mesh have not changed.
-        ON_ASSERT( const Vector3& p = dataInOut.m_referenceMesh.m_vertices[i] );
-        CORE_ASSERT( subdividedMesh.m_vertices[i] == p, "Inconsistency in the meshes" );
+        ON_ASSERT( const Vector3& p = dataInOut.m_referenceMesh.vertices()[i] );
+        CORE_ASSERT( subdividedMesh.vertices()[i] == p, "Inconsistency in the meshes" );
 
         Vector3 cor( 0, 0, 0 );
         Scalar sumweight = 0;

@@ -3,20 +3,6 @@
 
 #include <Core/RaCore.hpp>
 
-#include <array>
-
-#include <Core/Index/IndexMap.hpp>
-#include <Core/Log/Log.hpp>
-#include <Core/Mesh/DCEL/Dcel.hpp>
-#include <Core/Mesh/DCEL/FullEdge.hpp>
-#include <Core/Mesh/DCEL/Operations/EdgeSplit.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
-#include <Core/Mesh/Wrapper/Convert.hpp>
-
-#include <Core/Animation/Handle/HandleWeight.hpp>
-#include <Core/Animation/Pose/Pose.hpp>
-#include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
-#include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
 #include <Core/Animation/Skinning/SkinningData.hpp>
 
 namespace Ra {
@@ -28,7 +14,7 @@ namespace Animation {
 // ACM ToG, 2016.
 
 /// Computes the similarity between two weights vector.
-Scalar weightSimilarity( const Eigen::SparseVector<Scalar>& v1w,
+Scalar RA_CORE_API weightSimilarity( const Eigen::SparseVector<Scalar>& v1w,
                          const Eigen::SparseVector<Scalar>& v2w, Scalar sigma = 0.1f );
 
 /// Compute the optimal center of rotations (1 per vertex) based on weight similarity.

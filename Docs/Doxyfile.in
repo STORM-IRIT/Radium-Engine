@@ -573,7 +573,7 @@ SHOW_USED_FILES        = NO
 # This will remove the Files entry from the Quick Index and from the
 # Folder Tree View (if specified). The default is YES.
 
-SHOW_FILES             = NO
+SHOW_FILES             = YES
 
 # Set the SHOW_NAMESPACES tag to NO to disable the generation of the
 # Namespaces page.  This will remove the Namespaces entry from the Quick Index
@@ -670,7 +670,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  = @RADIUM_SRC_DIR@ @CMAKE_CURRENT_SOURCE_DIR@/Docs
+INPUT                  = @RADIUM_SRC_DIR@ @CMAKE_CURRENT_SOURCE_DIR@/Docs @RADIUM_PLUGINS_DIR@
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is

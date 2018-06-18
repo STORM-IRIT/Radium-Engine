@@ -2,7 +2,7 @@
 #define RADIUM_STRINGTESTS_HPP_
 
 #include <Core/String/StringUtils.hpp>
-#include <Tests/CoreTests/Tests.hpp>
+#include <Tests/Tests.hpp>
 
 namespace RaTests {
 class StringTests : public Test {
