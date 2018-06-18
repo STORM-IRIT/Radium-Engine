@@ -8,9 +8,14 @@ namespace MeshUtils {
 
 template <uint U, uint V>
 TriangleMesh makeParametricSphere( Scalar radius ) {
-    const uint slices = U;
-    const uint stacks = V;
+    constexpr uint slices = U;
+    constexpr uint stacks = V;
+
     TriangleMesh result;
+    result.m_vertices.reserve(2+slices*(stacks-1));
+    result.m_normals.reserve(2+slices*(stacks-1));
+    result.m_triangles.reserve(2*slices*(stacks-1));
+
     for ( uint u = 0; u < slices; ++u )
     {
         const Scalar theta = Scalar( 2 * u ) * Core::Math::Pi / Scalar( slices );
@@ -21,8 +26,10 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
             result.m_vertices.push_back( Vector3( radius * std::cos( theta ) * std::sin( phi ),
                                                   radius * std::sin( theta ) * std::sin( phi ),
                                                   radius * std::cos( phi ) ) );
+            result.m_normals.push_back(result.m_vertices.back().normalized());
+
             // Regular triangles
-            if ( v > 1 && v < stacks )
+            if ( v > 1 )
             {
                 const uint nextSlice = ( ( u + 1 ) % slices ) * ( stacks - 1 );
                 const uint baseSlice = u * ( stacks - 1 );
@@ -37,8 +44,10 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
     // Add the pole vertices.
     uint northPoleIdx = result.m_vertices.size();
     result.m_vertices.push_back( Vector3( 0, 0, radius ) );
+    result.m_normals.push_back( Vector3( 0, 0, 1 ) );
     uint southPoleIdx = result.m_vertices.size();
     result.m_vertices.push_back( Vector3( 0, 0, -radius ) );
+    result.m_normals.push_back( Vector3( 0, 0, -1 ) );
 
     // Add the polar caps triangles.
     for ( uint u = 0; u < slices; ++u )
@@ -50,12 +59,6 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
             Triangle( southPoleIdx, nextSlice + stacks - 2, baseSlice + stacks - 2 ) );
     }
 
-    // Compute normals.
-    for ( const auto v : result.m_vertices )
-    {
-        const Vector3 n = v.normalized();
-        result.m_normals.push_back( n );
-    }
     checkConsistency( result );
     return result;
 }
@@ -63,6 +66,9 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
 template <uint U, uint V>
 TriangleMesh makeParametricTorus( Scalar majorRadius, Scalar minorRadius ) {
     TriangleMesh result;
+    result.m_vertices.reserve(U*V);
+    result.m_normals.reserve(V*V);
+    result.m_triangles.reserve(2*U*V);
 
     for ( uint iu = 0; iu < U; ++iu )
     {
