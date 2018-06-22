@@ -1684,7 +1684,7 @@ namespace Ra
 
             // computing error distribution, error mean and median values
             Scalar step = errorMax / NBMAX_STEP;
-            int errorArray[NBMAX_STEP] = {0};
+            Scalar errorArray[NBMAX_STEP] = {0};
 
             Scalar errorMean = 0;
             Scalar errorMedian;
@@ -1697,12 +1697,12 @@ namespace Ra
 
             struct compareErrorByAscendingValue
             {
-                inline bool operator() (const Scalar &e1, const Scalar &e2) const
+                inline bool operator() (const std::pair<Scalar,Scalar> &e1, const std::pair<Scalar,Scalar> &e2) const
                 {
-                    return e1 <= e2;
+                    return e1.first <= e2.first;
                 }
             };
-            typedef std::set<Scalar, compareErrorByAscendingValue> ErrorSorting;
+            typedef std::set<std::pair<Scalar,Scalar>, compareErrorByAscendingValue> ErrorSorting;
             ErrorSorting errorSort;
 
             for (uint i = 0; i < m_nbobjects; i++)
@@ -1714,9 +1714,12 @@ namespace Ra
                 {
                     while ((*it).m_err < step * (j + 1) && it != obj->getPriorityQueue()->getPriorityQueueContainer().end())
                     {
-                        errorArray[j]++;
-                        errorMean += (*it).m_err;
-                        if (!errorSort.insert((*it).m_err).second)
+                        std::pair<Scalar,Scalar> err;
+                        err.first = (*it).m_err;
+                        err.second = std::sqrt((obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[(*it).m_vs_id]->P() - obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[(*it).m_vt_id]->P()).squaredNorm());
+                        errorMean += err.first;
+                        errorArray[j] += err.second;
+                        if (!errorSort.insert(err).second)
                         {
                             LOG(logINFO) << "Error insert failed";
                         }
@@ -1733,41 +1736,62 @@ namespace Ra
             if (nbEdges % 2 == 0)
             {
                 std::advance(medianIt, nbEdges/2 - 1);
-                errorMedian = (*medianIt);
-                ++it;// medianIt
-                errorMedian += (*medianIt);
+                errorMedian = (*medianIt).first;
+                ++medianIt;
+                errorMedian += (*medianIt).first;
                 errorMedian /= 2;
             }
             else
             {
                 std::advance(medianIt, nbEdges/2);
-                errorMedian = (*medianIt);
+                errorMedian = (*medianIt).first;
             }
             LOG(logINFO) << "Median error : " << errorMedian;
 
-	    /*
-	    ErrorSorting::iterator zeroIt = errorSort.begin();
-	    int nbZeros = 0;
-	    while ((*zeroIt) == 0)
-	      {
-		nbZeros++;
-		++zeroIt;
-	      }
-	    */
             medianIt = errorSort.begin();
-            if ((nbEdges/* - nbZeros*/) % 4 == 0 || (nbEdges/* - nbZeros*/) % 4 == 1)
+            if (nbEdges % 4 == 0 || nbEdges % 4 == 1)
             {
-	        std::advance(medianIt, (nbEdges/* - nbZeros*/)/4 - 1);
-                errorQuartile = (*medianIt);
-                ++it;//medianIt
-                errorQuartile += (*medianIt);
+                std::advance(medianIt, nbEdges/4 - 1);
+                errorQuartile = (*medianIt).first;
+                ++medianIt;
+                errorQuartile += (*medianIt).first;
                 errorQuartile /= 2;
             }
             else
             {
-	      std::advance(medianIt, (nbEdges/* - nbZeros*/)/4);
-                errorQuartile = (*medianIt);
+                std::advance(medianIt, nbEdges/4);
+                errorQuartile = (*medianIt).first;
             }
+
+            if (errorQuartile == 0)
+            {
+                ErrorSorting::iterator zeroIt = errorSort.begin();
+                int nbZeros = 0;
+                if ((*zeroIt).first == 0)
+                {
+                    while ((*zeroIt).first == 0)
+                    {
+                        nbZeros++;
+                        ++zeroIt;
+                    }
+                }
+
+                medianIt = errorSort.begin();
+                if ((nbEdges - nbZeros) % 4 == 0 || (nbEdges - nbZeros) % 4 == 1)
+                {
+                    std::advance(medianIt, nbZeros + (nbEdges - nbZeros)/4 - 1);
+                    errorQuartile = (*medianIt).first;
+                    ++medianIt;
+                    errorQuartile += (*medianIt).first;
+                    errorQuartile /= 2;
+                }
+                else
+                {
+                    std::advance(medianIt, nbZeros + (nbEdges - nbZeros)/4);
+                    errorQuartile = (*medianIt).first;
+                }
+            }
+
             LOG(logINFO) << "Quartile error : " << errorQuartile;
 
             std::ofstream file("Error_distrib.txt", std::ios::out | std::ios::trunc);
@@ -1851,9 +1875,9 @@ namespace Ra
             file2 << "Nb objects scene : " << m_meshContactElements.size() << std::endl;
             file2 << "Nb faces init : " << nbFacesInit << std::endl;
             file2 << "Nb proximity object pairs : " << nbProximityPairs << std::endl;
-            file2 << "Nb clusters computed : " << m_nbclusters_compute << std::endl;
-            file2 << "Nb clusters selected : " << m_nbclusters_display << std::endl;
-            file2 << "Cluster threshold : " << m_finalClusters3[m_nbclusters_display - 1] << std::endl;
+            //file2 << "Nb clusters computed : " << m_nbclusters_compute << std::endl;
+            //file2 << "Nb clusters selected : " << m_nbclusters_display << std::endl;
+            //file2 << "Cluster threshold : " << m_finalClusters3[m_nbclusters_display - 1] << std::endl;
             file2 << "Weight function parameter m : " << m_m << std::endl;
             file2 << "Weight function parameter n : " << m_n << std::endl;
             file2 << "Cluster threshold weight : " << m_influence << std::endl;
