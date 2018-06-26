@@ -21,6 +21,7 @@
 #define NBMAX_ELEMENTS 150
 
 #define NBMAX_STEP 256
+#define NBMAX_STEP_ERROR 256
 
 #define PRECISION 1000
 

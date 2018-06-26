@@ -1731,8 +1731,8 @@ namespace Ra
             LOG(logINFO) << "Error max : " << errorMax;
 
             // computing error distribution, error mean and median values
-            Scalar step = errorMax / NBMAX_STEP;
-            Scalar errorArray[NBMAX_STEP] = {0};
+            Scalar step = errorMax / NBMAX_STEP_ERROR;
+            Scalar errorArray[NBMAX_STEP_ERROR] = {0};
 
             Scalar errorMean = 0;
             Scalar errorMedian;
@@ -1758,7 +1758,7 @@ namespace Ra
                 MeshContactElement* obj = m_meshContactElements[i];
                 it = obj->getPriorityQueue()->getPriorityQueueContainer().begin();
                 int j = 0;
-                while (j < NBMAX_STEP && it != obj->getPriorityQueue()->getPriorityQueueContainer().end())
+                while (j < NBMAX_STEP_ERROR && it != obj->getPriorityQueue()->getPriorityQueueContainer().end())
                 {
                     while ((*it).m_err < step * (j + 1) && it != obj->getPriorityQueue()->getPriorityQueueContainer().end())
                     {
@@ -1844,7 +1844,7 @@ namespace Ra
 
             std::ofstream file("Error_distrib.txt", std::ios::out | std::ios::trunc);
             CORE_ASSERT(file, "Error while opening error distribution file.");
-            for (uint i = 0; i < NBMAX_STEP; i++)
+            for (uint i = 0; i < NBMAX_STEP_ERROR; i++)
             {
                file << step * (i + 1) << " " << errorArray[i] << std::endl;
             }
@@ -1861,15 +1861,15 @@ namespace Ra
                 {
                     nbError = errorArray[k];
                     nbErrorNext = errorArray[k+1];
-                } while (nbError <= nbErrorNext && k < NBMAX_STEP - 1);
-                if (k < NBMAX_STEP - 1)
+                } while (nbError <= nbErrorNext && k < NBMAX_STEP_ERROR - 1);
+                if (k < NBMAX_STEP_ERROR - 1)
                 {
                     do
                     {
                         k++;
                         nbError = errorArray[k];
                         nbErrorNext = errorArray[k+1];
-                    } while (nbError >= nbErrorNext && k < NBMAX_STEP - 1);
+                    } while (nbError >= nbErrorNext && k < NBMAX_STEP_ERROR - 1);
                 }
             }
             else
@@ -1879,7 +1879,7 @@ namespace Ra
                     k++;
                     nbError = errorArray[k];
                     nbErrorNext = errorArray[k+1];
-                } while (nbError >= nbErrorNext && k < NBMAX_STEP - 1);
+                } while (nbError >= nbErrorNext && k < NBMAX_STEP_ERROR - 1);
             }
             errorFirstCluster = step * (k + 1);
             //errorMeanFirstCluster = errorFirstCluster / 2;
