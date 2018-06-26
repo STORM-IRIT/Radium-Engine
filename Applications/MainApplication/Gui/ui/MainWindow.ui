@@ -125,7 +125,7 @@
               <item row="0" column="2">
                <widget class="QPushButton" name="m_exportAllMeshesButton">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                 <property name="text">
                  <string>Export All Meshes</string>
