@@ -637,6 +637,16 @@ namespace Ra
 
         void MeshContactManager::setDisplayWeight()
         {
+            if (m_aabb.size() == 0)
+            {
+                computeAABB();
+            }
+
+//            if (m_proximityPairs.size() == 0)
+//            {
+//                proximityPairs();
+//            }
+
             thresholdComputation(); // computing m_broader_threshold
 
             proximityPairs2();
@@ -1904,17 +1914,17 @@ namespace Ra
                 nbFacesInit += obj->getInitTriangleMesh().m_triangles.size();
             }
 
-            int nbProximityPairs = 0;
-            for (uint i = 0; i < m_meshContactElements.size(); i++)
-            {
-                for (uint j = i + 1; j < m_meshContactElements.size(); j++)
-                {
-                    if (m_proximityPairs(i,j))
-                    {
-                        nbProximityPairs++;
-                    }
-                }
-            }
+//            int nbProximityPairs = 0;
+//            for (uint i = 0; i < m_meshContactElements.size(); i++)
+//            {
+//                for (uint j = i + 1; j < m_meshContactElements.size(); j++)
+//                {
+//                    if (m_proximityPairs(i,j))
+//                    {
+//                        nbProximityPairs++;
+//                    }
+//                }
+//            }
 
             Scalar proximity_percentage = (m_broader_threshold / m_aabb_scene.diagonal()) * 100;
 
@@ -1922,7 +1932,7 @@ namespace Ra
             CORE_ASSERT(file2, "Error while opening parameters file.");
             file2 << "Nb objects scene : " << m_meshContactElements.size() << std::endl;
             file2 << "Nb faces init : " << nbFacesInit << std::endl;
-            file2 << "Nb proximity object pairs : " << nbProximityPairs << std::endl;
+            //file2 << "Nb proximity object pairs : " << nbProximityPairs << std::endl;
             //file2 << "Nb clusters computed : " << m_nbclusters_compute << std::endl;
             //file2 << "Nb clusters selected : " << m_nbclusters_display << std::endl;
             //file2 << "Cluster threshold : " << m_finalClusters3[m_nbclusters_display - 1] << std::endl;
