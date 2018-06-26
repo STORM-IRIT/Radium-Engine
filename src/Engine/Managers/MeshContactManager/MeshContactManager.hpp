@@ -18,7 +18,7 @@
 
 #include <Core/Geometry/Distance/DistanceQueries.hpp>
 
-#define NBMAX_ELEMENTS 30
+#define NBMAX_ELEMENTS 150
 
 #define NBMAX_STEP 256
 
@@ -89,6 +89,8 @@ namespace Ra
             void computeAABB();
             bool intersectionAABB(int id1, int id2);
             void proximityPairs();
+            bool intersectionAABB2(int id1, int id2);
+            void proximityPairs2();
             void distanceAsymmetryDistribution();
             void loadDistribution(std::string filePath);
             void sortDistAsymm();
@@ -150,7 +152,12 @@ namespace Ra
             Eigen::Matrix<Scalar, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_thresholds; // thresholds for each pair of objects
             std::vector<Super4PCS::AABB3D> m_aabb;
             Super4PCS::AABB3D m_aabb_scene;
-            Eigen::Matrix<int, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_proximityPairs;
+//            Eigen::Matrix<int, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_proximityPairs;
+//            Eigen::Matrix<int, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_proximityPairs2;
+            typedef Eigen::Matrix<int,Eigen::Dynamic,Eigen::Dynamic> MatrixXi;
+            MatrixXi m_proximityPairs;
+            MatrixXi m_proximityPairs2;
+
             std::vector<std::vector<std::vector<std::pair<Ra::Core::Index,Scalar> > > > m_distances; // distances for each pair of objects
             std::vector<std::vector<Scalar> > m_facesArea; // area of the faces of each object
             std::vector<std::vector<Scalar> > m_facesAsymmetry; // asymmetry ponderation of the faces of each object

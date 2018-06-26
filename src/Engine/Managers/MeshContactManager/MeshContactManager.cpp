@@ -1,4 +1,4 @@
-﻿#include <Engine/Managers/MeshContactManager/MeshContactManager.hpp>
+#include <Engine/Managers/MeshContactManager/MeshContactManager.hpp>
 
 #include <string>
 #include <iostream>
@@ -348,6 +348,8 @@ namespace Ra
 
         void MeshContactManager::proximityPairs()
         {
+            //m_proximityPairs.setZero();
+            m_proximityPairs.resize(m_meshContactElements.size(),m_meshContactElements.size());
             m_proximityPairs.setZero();
 
             for (uint i = 0; i < m_meshContactElements.size(); i++)
@@ -367,6 +369,50 @@ namespace Ra
                 for (uint j = i + 1; j < m_meshContactElements.size(); j++)
                 {
                     LOG(logINFO) << i + 1 << " and " << j + 1 << " proximity : " << m_proximityPairs(i,j);
+                }
+            }
+        }
+
+        bool MeshContactManager::intersectionAABB2(int id1, int id2)
+        {
+            int i = 0;
+
+            Scalar epsilon = m_broader_threshold;
+
+            while (i < 3)
+            {
+                if (m_aabb[id1].max()[i] + epsilon < m_aabb[id2].min()[i] || m_aabb[id2].max()[i] + epsilon < m_aabb[id1].min()[i])
+                {
+                    return false;
+                }
+                i++;
+            }
+            return true;
+        }
+
+        void MeshContactManager::proximityPairs2()
+        {
+            //m_proximityPairs2.setZero();
+            m_proximityPairs2.resize(m_meshContactElements.size(),m_meshContactElements.size());
+            m_proximityPairs2.setZero();
+
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                for (uint j = i + 1; j < m_meshContactElements.size(); j++)
+                {
+                    if (intersectionAABB2(i,j))
+                    {
+                        m_proximityPairs2(i,j) = 1;
+                        m_proximityPairs2(j,i) = 1;
+                    }
+                }
+            }
+
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                for (uint j = i + 1; j < m_meshContactElements.size(); j++)
+                {
+                    LOG(logINFO) << i + 1 << " and " << j + 1 << " proximity : " << m_proximityPairs2(i,j);
                 }
             }
         }
@@ -592,6 +638,8 @@ namespace Ra
         void MeshContactManager::setDisplayWeight()
         {
             thresholdComputation(); // computing m_broader_threshold
+
+            proximityPairs2();
 
             // reloading initial mesh in case of successive simplifications
             for (uint objIndex = 0; objIndex < m_meshContactElements.size(); objIndex++)
@@ -2428,7 +2476,8 @@ namespace Ra
                 {
                     for (uint k=0; k<m_trianglekdtrees.size(); k++)
                     {
-                        if (k != objIndex)
+                        //if (k != objIndex)
+                        if (m_proximityPairs2(objIndex,k))
                         {
                             MeshContactElement* otherObj = static_cast<MeshContactElement*>(m_meshContactElements[k]);
                             std::vector<std::pair<int,Scalar> > faceIndexes;
@@ -2442,9 +2491,9 @@ namespace Ra
                                     dist = faceIndexes[l].second;
 
                                     // asymmetry computation
-                                    //                                Scalar dist2 = m_distances[k][objIndex][faceIndexes[l].first].second;
-                                    //                                if (abs(dist - dist2) <= m_asymmetry)
-                                    //                                {
+                                    // Scalar dist2 = m_distances[k][objIndex][faceIndexes[l].first].second;
+                                    // if (abs(dist - dist2) <= m_asymmetry)
+                                    // {
                                     contact = true;
                                     if (m_broader_threshold == 0.0)
                                     {
