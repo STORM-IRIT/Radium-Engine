@@ -134,6 +134,8 @@ namespace Ra
             void updatePriorityQueue2(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex);
             bool edgeCollapse(int objIndex);
 
+            void pipeline();
+
         private:
 
             int m_nb_faces_max;

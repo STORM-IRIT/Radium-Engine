@@ -3119,6 +3119,15 @@ namespace Ra
             file.close();
         }
 
+        void MeshContactManager::pipeline()
+        {
+            setDisplayWeight();
+            setComputeAlpha();
+            setDisplayProximities();
+            setConstructM0();
+            colorMeshesSimplified();
+        }
+
         void MeshContactManager::normalize()
         {
             Ra::Core::VectorArray<Ra::Core::Vector3> v1 = m_meshContactElements[0]->getInitTriangleMesh().m_vertices;
