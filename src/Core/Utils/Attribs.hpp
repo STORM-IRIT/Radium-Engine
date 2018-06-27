@@ -140,6 +140,18 @@ class AttribManager
     using value_type = AttribBase*;
     using Container = std::vector<value_type>;
 
+    AttribManager(){}
+    AttribManager(const AttribManager& m)
+    {
+        copyFrom( m );
+    }
+
+    AttribManager& operator=(const AttribManager& m)
+    {
+        copyFrom( m );
+        return *this;
+    }
+
     /// const acces to attrib vector
     const Container& attribs() const { return m_attribs; }
 
@@ -256,6 +268,40 @@ class AttribManager
     }
 
   private:
+    /// Implements deep copy of attributes
+    void copyFrom(const AttribManager& m)
+    {
+        clear();
+        for (const AttribBase* attr : m.attribs())
+        {
+            const auto n = attr->getName();
+            if ( attr->isFloat() )
+            {
+                auto a = addAttrib<float>( n );
+                getAttrib( a ).data() = m.getAttrib( m.getAttribHandle<float>( n ) ).data();
+            }
+            else if ( attr->isVec2() )
+            {
+                auto a = addAttrib<Ra::Core::Vector2>( n );
+                getAttrib( a ).data() = m.getAttrib( m.getAttribHandle<Ra::Core::Vector2>( n ) ).data();
+            }
+            else if ( attr->isVec3() )
+            {
+                auto a = addAttrib<Ra::Core::Vector3>( n );
+                getAttrib( a ).data() = m.getAttrib( m.getAttribHandle<Ra::Core::Vector3>( n ) ).data();
+            }
+            else if ( attr->isVec4() )
+            {
+                auto a = addAttrib<Ra::Core::Vector4>( n );
+                getAttrib( a ).data() = m.getAttrib( m.getAttribHandle<Ra::Core::Vector4>( n ) ).data();
+            }
+            else
+                LOG( logWARNING )
+                    << "Warning, mesh attribute " << attr->getName()
+                    << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
+        }
+    }
+
     std::map<std::string, int> m_attribsIndex;
     Container m_attribs;
 };
