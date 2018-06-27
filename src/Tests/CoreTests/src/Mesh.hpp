@@ -22,8 +22,10 @@ class MeshTests : public Test {
         mesh.attribManager().addAttrib<Vec3AttribHandle::value_type>( "empty" );
         mesh.attribManager().removeAttrib( "empty" );
         auto handlerEmpty = mesh.attribManager().addAttrib<Vec3AttribHandle::value_type>( "empty" );
-        RA_UNIT_TEST( handlerEmpty.isValid(), "Should get a valid handler here !" );
+        RA_UNIT_TEST( handlerEmpty.isValid(), "Should get a valid handle here !" );
         mesh.attribManager().removeAttrib( handlerEmpty );
+        handlerEmpty = mesh.attribManager().getAttribHandle<Vec3AttribHandle::value_type>( "empty" );
+        RA_UNIT_TEST( !handlerEmpty.isValid(), "Should be an invalid handle." );
 
         // Test access to the attribute container
         auto handlerFilled =
@@ -51,12 +53,18 @@ class MeshTests : public Test {
 
         // Test dummy handler
         auto invalid = mesh.attribManager().getAttribHandle<float>( "toto" );
-        RA_UNIT_TEST( !invalid.isValid(), "Invalid Attrib Handler cannot be recognized" );
+        RA_UNIT_TEST( !invalid.isValid(), "Invalid Attrib Handle cannot be recognized" );
+
+        // Test deep copy
+        const auto v0 = mesh.vertices()[0];
+        TriangleMesh meshCopy = mesh;
+        meshCopy.vertices()[0] += Ra::Core::Vector3( 0.5, 0.5, 0.5 );
+        RA_UNIT_TEST( mesh.vertices()[0].isApprox( v0 ), "Cannot deep-copy TriangleMesh" );
     }
 
     void run() override { testAttributeManagement(); }
 };
-RA_TEST_CLASS( MeshTests );
+RA_TEST_CLASS( MeshTests )
 } // namespace RaTests
 
 #endif // RADIUM_CONVERT_TESTS_HPP_
