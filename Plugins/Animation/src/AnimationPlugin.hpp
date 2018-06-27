@@ -18,7 +18,7 @@ class RadiumEngine;
 } // namespace Ra
 
 namespace AnimationPlugin {
-// Du to an ambigous name while compiling with Clang, must differentiate plugin class from plugin
+// Due to an ambigous name while compiling with Clang, must differentiate plugin class from plugin
 // namespace
 class AnimationPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     Q_OBJECT
@@ -52,6 +52,8 @@ class AnimationPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     void setAnimationSpeed( Scalar value );
     void toggleSlowMotion( bool status );
     void updateAnimTime();
+    void cacheFrame();
+    void restoreFrame( int frame );
 
   private:
     class AnimationSystem* m_system;

@@ -1,5 +1,6 @@
 #include <AnimationComponent.hpp>
 
+#include <fstream>
 #include <iostream>
 #include <queue>
 
@@ -142,18 +143,6 @@ void AnimationComponent::reset() {
     m_wasReset = true;
 }
 
-Ra::Core::Animation::Pose AnimationComponent::getRefPose() const {
-    return m_refPose;
-}
-
-Ra::Core::Animation::WeightMatrix AnimationComponent::getWeights() const {
-    return m_weights;
-}
-
-void AnimationComponent::setWeights( Ra::Core::Animation::WeightMatrix m ) {
-    m_weights = m;
-}
-
 void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* data,
                                                 const std::vector<Ra::Core::Index>& duplicateTable,
                                                 uint nbMeshVertices ) {
@@ -250,10 +239,6 @@ void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data,
     }
 }
 
-void AnimationComponent::setContentName( const std::string name ) {
-    m_contentName = name;
-}
-
 void AnimationComponent::setupIO( const std::string& id ) {
     ComponentMessenger::CallbackTypes<Skeleton>::Getter skelOut =
         std::bind( &AnimationComponent::getSkeletonOutput, this );
@@ -274,7 +259,7 @@ void AnimationComponent::setupIO( const std::string& id ) {
     ComponentMessenger::getInstance()->registerOutput<bool>( getEntity(), this, id, resetOut );
 
     ComponentMessenger::CallbackTypes<Animation>::Getter animOut =
-        std::bind( &AnimationComponent::getAnimation, this );
+        std::bind( &AnimationComponent::getAnimationOutput, this );
     ComponentMessenger::getInstance()->registerOutput<Animation>( getEntity(), this, id, animOut );
 
     ComponentMessenger::CallbackTypes<Scalar>::Getter timeOut =
@@ -377,7 +362,7 @@ uint AnimationComponent::getBoneIdx( Ra::Core::Index index ) const {
     return found == m_boneDrawables.end() ? uint( -1 ) : ( *found )->getBoneIndex();
 }
 
-const Ra::Core::Animation::Animation* AnimationComponent::getAnimation() const {
+const Ra::Core::Animation::Animation* AnimationComponent::getAnimationOutput() const {
     if ( m_animations.empty() )
     {
         return nullptr;
@@ -391,6 +376,57 @@ const Scalar* AnimationComponent::getTimeOutput() const {
 
 Scalar AnimationComponent::getTime() const {
     return m_animationTime;
+}
+
+Scalar AnimationComponent::getDuration() const {
+    if ( m_animations.empty() )
+    {
+        return 0;
+    }
+    return m_animations[m_animationID].getDuration();
+}
+
+void AnimationComponent::cacheFrame( int frame ) const {
+    std::ofstream file( "animFrames/"+m_contentName+"_frame"+std::to_string(frame)+".anim",
+                        std::ios::trunc | std::ios::out | std::ios::binary );
+    if (!file.is_open())
+    {
+        return;
+    }
+    file.write( (const char*) &m_animationID, sizeof(uint) );
+    file.write( (const char*) &m_animationTimeStep, sizeof(bool) );
+    file.write( (const char*) &m_animationTime, sizeof(Scalar) );
+    file.write( (const char*) &m_speed, sizeof(Scalar) );
+    file.write( (const char*) &m_slowMo, sizeof(bool) );
+    const auto& pose = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::LOCAL );
+    file.write( (const char*) pose.data(), sizeof(Ra::Core::Transform) * pose.size() );
+    std::cout << "Saving anim data at time: " << m_animationTime << std::endl;
+}
+
+bool AnimationComponent::restoreFrame( int frame )
+{
+    std::ifstream file( "animFrames/"+m_contentName+"_frame"+std::to_string(frame)+".anim",
+                        std::ios::in | std::ios::binary );
+    if (!file.is_open())
+    {
+        return false;
+    }
+    file.read( (char*) &m_animationID, sizeof(uint) );
+    file.read( (char*) &m_animationTimeStep, sizeof(bool) );
+    file.read( (char*) &m_animationTime, sizeof(Scalar) );
+    file.read( (char*) &m_speed, sizeof(Scalar) );
+    file.read( (char*) &m_slowMo, sizeof(bool) );
+    auto pose = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::LOCAL );
+    file.read( (char*) pose.data(), sizeof(Ra::Core::Transform) * pose.size() );
+    m_skel.setPose( pose, Ra::Core::Animation::Handle::SpaceType::LOCAL );
+
+    // update the render objects
+    for (auto& bone : m_boneDrawables)
+    {
+        bone->update();
+    }
+
+    return true;
 }
 
 } // namespace AnimationPlugin
