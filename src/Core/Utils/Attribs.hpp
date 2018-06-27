@@ -2,6 +2,7 @@
 #define RADIUMENGINE_ATTRIBS_HPP
 
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/Index/IndexMap.hpp>
 #include <Core/Log/Log.hpp>
 #include <Core/RaCore.hpp>
 
@@ -90,7 +91,7 @@ class AttribHandle
 
     /// There is no validity check against the corresponding mesh, but just a
     /// simple test to allow the manipuation of unitialized handles.
-    constexpr bool isValid() const { return m_idx != -1; }
+    constexpr bool isValid() const { return m_idx.isValid(); }
 
     /// compare two handle, there are the same if they both represent the same
     /// attrib (type and value).
@@ -100,10 +101,10 @@ class AttribHandle
         return std::is_same<T, U>::value && m_idx == lhs.m_idx;
     }
 
-    int idx() { return m_idx; }
+    Ra::Core::Index idx() { return m_idx; }
 
   private:
-    int m_idx = -1;
+    Ra::Core::Index m_idx = -1;
 
     friend class AttribManager;
 };
@@ -138,12 +139,16 @@ class AttribManager
 {
   public:
     using value_type = AttribBase*;
-    using Container = std::vector<value_type>;
+    using Container = Ra::Core::IndexMap<value_type>;
 
     AttribManager(){}
     AttribManager(const AttribManager& m)
     {
         copyFrom( m );
+    }
+    ~AttribManager()
+    {
+        clear();
     }
 
     AttribManager& operator=(const AttribManager& m)
@@ -158,11 +163,12 @@ class AttribManager
     /// clear all attribs, invalidate handles !
     void clear()
     {
-        for ( auto a : m_attribs )
+        for ( auto attr : m_attribs )
         {
-            delete a;
+            delete attr;
         }
         m_attribs.clear();
+        m_attribsIndex.clear();
     }
 
     /*!
@@ -200,14 +206,14 @@ class AttribManager
     template <typename T>
     inline Attrib<T>& getAttrib( AttribHandle<T> h )
     {
-        return *static_cast<Attrib<T>*>( m_attribs[h.m_idx] );
+        return *static_cast<Attrib<T>*>( m_attribs.at(h.m_idx) );
     }
 
     /// Get attribute by handle (const)
     template <typename T>
     inline const Attrib<T>& getAttrib( AttribHandle<T> h ) const
     {
-        return *static_cast<Attrib<T>*>( m_attribs[h.m_idx] );
+        return *static_cast<Attrib<T>*>( m_attribs.at(h.m_idx) );
     }
 
     /// Add attribute by name
@@ -218,21 +224,21 @@ class AttribManager
         Attrib<T>* attrib = new Attrib<T>;
         attrib->setName( name );
 
-        auto itr = std::find_if( m_attribs.begin(), m_attribs.end(),
-                                 []( AttribBase* b ) { return b == nullptr; } );
-        if ( itr != m_attribs.end() )
-        {
+        auto it = std::find_if( m_attribs.begin(), m_attribs.end(),
+                                [&name](const auto& a){ return a->getName() == name; } );
 
-            *itr = attrib;
-            h.m_idx = std::distance( m_attribs.begin(), itr );
+        if (it != m_attribs.end())
+        {
+            LOG(logWARNING) << "Overwritting existing attribute " << name << ".";
+            *it = attrib;
+            h.m_idx = m_attribsIndex[name];
         }
         else
         {
-
-            m_attribs.push_back( attrib );
-            h.m_idx = m_attribs.size() - 1;
+            h.m_idx = m_attribs.insert( attrib );
+            m_attribsIndex[name] = h.m_idx;
         }
-        m_attribsIndex[name] = h.m_idx;
+
         return h;
     }
 
@@ -242,20 +248,10 @@ class AttribManager
         auto c = m_attribsIndex.find( name );
         if ( c != m_attribsIndex.end() )
         {
-            int idx = c->second;
+            Ra::Core::Index idx = c->second;
             delete m_attribs[idx];
-            m_attribs[idx] = nullptr;
-            //            m_attribs.erase( m_attribs.begin() + idx );
+            m_attribs.remove( idx );
             m_attribsIndex.erase( c );
-
-            // reindex attribs with index superior to removed index
-            //            for ( auto& d : m_attribsIndex )
-            //            {
-            //                if ( d.second > idx )
-            //                {
-            //                    --d.second;
-            //                }
-            //            }
         }
     }
 
@@ -302,7 +298,7 @@ class AttribManager
         }
     }
 
-    std::map<std::string, int> m_attribsIndex;
+    std::map<std::string, Ra::Core::Index> m_attribsIndex;
     Container m_attribs;
 };
 
