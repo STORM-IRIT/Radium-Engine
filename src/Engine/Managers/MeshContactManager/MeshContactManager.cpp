@@ -2785,7 +2785,7 @@ namespace Ra
                 obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
             }
 
-            HausdorffDistance();
+            //HausdorffDistance();
         }
 
         void MeshContactManager::setWeightState(bool state)
@@ -3119,10 +3119,17 @@ namespace Ra
             file.close();
         }
 
-        void MeshContactManager::pipeline()
+        void MeshContactManager::pipelineProx()
         {
             setDisplayWeight();
             setComputeAlpha();
+            setDisplayProximities();
+            setConstructM0();
+            colorMeshesSimplified();
+        }
+
+        void MeshContactManager::pipelineQEM()
+        {
             setDisplayProximities();
             setConstructM0();
             colorMeshesSimplified();

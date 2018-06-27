@@ -134,7 +134,8 @@ namespace Ra
             void updatePriorityQueue2(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex);
             bool edgeCollapse(int objIndex);
 
-            void pipeline();
+            void pipelineProx();
+            void pipelineQEM();
 
         private:
 
