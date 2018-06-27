@@ -38,6 +38,8 @@ signals:
     void toggleAnimationTimeStep(bool);
     void animationSpeed(double);
     void toggleSlowMotion(bool);
+    void cacheFrame();
+    void restoreFrame(int);
 
 private slots:
     void on_m_xray_clicked(bool checked);
@@ -49,11 +51,15 @@ private slots:
     void on_m_timeStep_currentIndexChanged(int index);
     void on_m_speed_valueChanged(double arg1);
     void on_m_slowMo_toggled(bool checked);
+    void on_m_cacheFrame_clicked();
+    void on_m_restoreFrame_clicked();
+    void frameLoaded(int f);
 
 private:
     Ui::AnimationUI *ui;
 
     void updateTime( float t);
+    void updateFrame( int f );
 };
 
 #endif // ANIMATIONUI_H

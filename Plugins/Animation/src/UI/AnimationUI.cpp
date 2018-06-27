@@ -90,7 +90,22 @@ void AnimationUI::on_m_slowMo_toggled( bool checked ) {
     emit toggleSlowMotion( checked );
 }
 
+void AnimationUI::on_m_cacheFrame_clicked() {
+    emit cacheFrame();
+}
+
+void AnimationUI::on_m_restoreFrame_clicked() {
+    emit restoreFrame( ui->m_loadedFrame->value() );
+}
+
+void AnimationUI::frameLoaded( int f ) {
+    ui->m_currentFrame->setText( QString::number( f ) );
+}
+
 void AnimationUI::updateTime( float t ) {
-    QString text = QString( "%1" ).arg( t );
-    ui->m_animationTimeDisplay->setText( text );
+    ui->m_animationTimeDisplay->setText( QString::number( t ) );
+}
+
+void AnimationUI::updateFrame( int f ) {
+    ui->m_currentFrame->setText( QString::number( f ) );
 }
