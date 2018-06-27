@@ -14,20 +14,7 @@
 
 namespace AnimationPlugin {
 
-AnimationPluginC::AnimationPluginC() : m_system( nullptr ) {
-    m_widget = new AnimationUI();
-    connect( m_widget, &AnimationUI::toggleXray, this, &AnimationPluginC::toggleXray );
-    connect( m_widget, &AnimationUI::showSkeleton, this, &AnimationPluginC::toggleSkeleton );
-    connect( m_widget, &AnimationUI::animationID, this, &AnimationPluginC::setAnimation );
-    connect( m_widget, &AnimationUI::toggleAnimationTimeStep, this,
-             &AnimationPluginC::toggleAnimationTimeStep );
-    connect( m_widget, &AnimationUI::animationSpeed, this, &AnimationPluginC::setAnimationSpeed );
-    connect( m_widget, &AnimationUI::toggleSlowMotion, this, &AnimationPluginC::toggleSlowMotion );
-    connect( m_widget, &AnimationUI::play, this, &AnimationPluginC::play );
-    connect( m_widget, &AnimationUI::pause, this, &AnimationPluginC::pause );
-    connect( m_widget, &AnimationUI::step, this, &AnimationPluginC::step );
-    connect( m_widget, &AnimationUI::stop, this, &AnimationPluginC::reset );
-}
+AnimationPluginC::AnimationPluginC() : m_system( nullptr ) {}
 
 AnimationPluginC::~AnimationPluginC() {}
 
@@ -45,6 +32,18 @@ bool AnimationPluginC::doAddWidget( QString& name ) {
 }
 
 QWidget* AnimationPluginC::getWidget() {
+    m_widget = new AnimationUI();
+    connect( m_widget, &AnimationUI::toggleXray, this, &AnimationPluginC::toggleXray );
+    connect( m_widget, &AnimationUI::showSkeleton, this, &AnimationPluginC::toggleSkeleton );
+    connect( m_widget, &AnimationUI::animationID, this, &AnimationPluginC::setAnimation );
+    connect( m_widget, &AnimationUI::toggleAnimationTimeStep, this,
+             &AnimationPluginC::toggleAnimationTimeStep );
+    connect( m_widget, &AnimationUI::animationSpeed, this, &AnimationPluginC::setAnimationSpeed );
+    connect( m_widget, &AnimationUI::toggleSlowMotion, this, &AnimationPluginC::toggleSlowMotion );
+    connect( m_widget, &AnimationUI::play, this, &AnimationPluginC::play );
+    connect( m_widget, &AnimationUI::pause, this, &AnimationPluginC::pause );
+    connect( m_widget, &AnimationUI::step, this, &AnimationPluginC::step );
+    connect( m_widget, &AnimationUI::stop, this, &AnimationPluginC::reset );
     return m_widget;
 }
 
@@ -84,12 +83,12 @@ void AnimationPluginC::toggleXray( bool on ) {
 
 void AnimationPluginC::play() {
     CORE_ASSERT( m_system, "System should be there " );
-    m_system->setPlaying( true );
+    m_system->play( true );
 }
 
 void AnimationPluginC::pause() {
     CORE_ASSERT( m_system, "System should be there " );
-    m_system->setPlaying( false );
+    m_system->play( false );
 }
 
 void AnimationPluginC::step() {
@@ -126,5 +125,18 @@ void AnimationPluginC::toggleSlowMotion( bool status ) {
 
 void AnimationPluginC::updateAnimTime() {
     m_widget->updateTime( m_system->getTime( m_selectionManager->currentItem() ) );
+    m_widget->updateFrame( m_system->getAnimFrame() );
 }
+
+void AnimationPluginC::cacheFrame() {
+    m_system->cacheFrame();
+}
+
+void AnimationPluginC::restoreFrame( int frame ) {
+    if ( m_system->restoreFrame( frame ) )
+    {
+        m_widget->frameLoaded( frame );
+    }
+}
+
 } // namespace AnimationPlugin
