@@ -32,8 +32,8 @@ class RA_ENGINE_API TimedSystem : public System {
 };
 
 /// Coupling Systems are responsible for transmitting calls to a bunch of other Systems.
-template< typename CSystem >
-class RA_ENGINE_API CouplingSystem : public System {
+template <typename CSystem>
+class CouplingSystem : public System {
   public:
     CouplingSystem() {}
     virtual ~CouplingSystem() {}
@@ -46,7 +46,7 @@ class RA_ENGINE_API CouplingSystem : public System {
 
   protected:
     /// Bunch of TimedSystems.
-    std::set<CSystem *> m_systems;
+    std::set<CSystem*> m_systems;
 };
 
 } // namespace Engine
