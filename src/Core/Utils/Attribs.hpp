@@ -6,10 +6,8 @@
 #include <Core/Log/Log.hpp>
 #include <Core/RaCore.hpp>
 
-namespace Ra
-{
-namespace Core
-{
+namespace Ra {
+namespace Core {
 
 template <typename T>
 class Attrib;
@@ -18,8 +16,7 @@ class Attrib;
 /// An Attrib is data linked to Vertices of a mesh.
 /// In the future, it is expected to allow automatic binding between the CPU
 /// and the rendered data on the GPU.
-class AttribBase
-{
+class AttribBase {
   public:
     /// attrib name is used to automatic location binding when using shaders.
     virtual ~AttribBase() {}
@@ -33,14 +30,12 @@ class AttribBase
     bool inline operator==( const AttribBase& rhs ) { return m_name == rhs.getName(); }
 
     template <typename T>
-    inline Attrib<T>& cast()
-    {
+    inline Attrib<T>& cast() {
         return static_cast<Attrib<T>&>( *this );
     }
 
     template <typename T>
-    inline const Attrib<T>& cast() const
-    {
+    inline const Attrib<T>& cast() const {
         return static_cast<const Attrib<T>&>( *this );
     }
 
@@ -54,8 +49,7 @@ class AttribBase
 };
 
 template <typename T>
-class Attrib : public AttribBase
-{
+class Attrib : public AttribBase {
   public:
     using value_type = T;
     using Container = VectorArray<T>;
@@ -83,8 +77,7 @@ class Attrib : public AttribBase
 };
 
 template <typename T>
-class AttribHandle
-{
+class AttribHandle {
   public:
     typedef T value_type;
     using Container = typename Attrib<T>::Container;
@@ -96,8 +89,7 @@ class AttribHandle
     /// compare two handle, there are the same if they both represent the same
     /// attrib (type and value).
     template <typename U>
-    bool operator==( const AttribHandle<U>& lhs ) const
-    {
+    bool operator==( const AttribHandle<U>& lhs ) const {
         return std::is_same<T, U>::value && m_idx == lhs.m_idx;
     }
 
@@ -135,34 +127,36 @@ class AttribHandle
  * \warning There is no error check on the handles attribute type
  *
  */
-class AttribManager
-{
+class AttribManager {
   public:
     using value_type = AttribBase*;
     using Container = Ra::Core::IndexMap<value_type>;
 
-    AttribManager(){}
-    AttribManager(const AttribManager& m)
-    {
-        copyFrom( m );
-    }
-    ~AttribManager()
-    {
-        clear();
+    AttribManager() {}
+
+    /// Shallow copy of attributes
+    AttribManager( const AttribManager& m ) = default;
+    AttribManager& operator=( const AttribManager& m ) = default;
+
+    // Deep copy of attributes
+    /// Base copy, does nothing.
+    void copyAttribs( const AttribManager& m ) {}
+
+    /// Deep copy of attrib.
+    /// Note: if some attrib already exist, it will be replaced but not de-allocated.
+    template <class T, class... Handle>
+    void copyAttribs( const AttribManager& m, const AttribHandle<T>& attr, Handle... attribs ) {
+        // get attrib to copy
+        auto a = m.getAttrib( attr );
+        // add new attrib
+        auto h = addAttrib<T>( a.getName() );
+        getAttrib( h ).data() = a.data();
+        // deal with other attribs
+        copyAttribs( m, attribs... );
     }
 
-    AttribManager& operator=(const AttribManager& m)
-    {
-        copyFrom( m );
-        return *this;
-    }
-
-    /// const acces to attrib vector
-    const Container& attribs() const { return m_attribs; }
-
-    /// clear all attribs, invalidate handles !
-    void clear()
-    {
+    /// clear all attribs, invalidate handles and shallow copies.
+    void clear() {
         for ( auto attr : m_attribs )
         {
             delete attr;
@@ -191,8 +185,7 @@ class AttribManager
      * \warning There is no error check on the attribute type
      */
     template <typename T>
-    inline AttribHandle<T> getAttribHandle( const std::string& name ) const
-    {
+    inline AttribHandle<T> getAttribHandle( const std::string& name ) const {
         auto c = m_attribsIndex.find( name );
         AttribHandle<T> handle;
         if ( c != m_attribsIndex.end() )
@@ -204,36 +197,34 @@ class AttribManager
 
     /// Get attribute by handle
     template <typename T>
-    inline Attrib<T>& getAttrib( AttribHandle<T> h )
-    {
-        return *static_cast<Attrib<T>*>( m_attribs.at(h.m_idx) );
+    inline Attrib<T>& getAttrib( AttribHandle<T> h ) {
+        return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ) );
     }
 
     /// Get attribute by handle (const)
     template <typename T>
-    inline const Attrib<T>& getAttrib( AttribHandle<T> h ) const
-    {
-        return *static_cast<Attrib<T>*>( m_attribs.at(h.m_idx) );
+    inline const Attrib<T>& getAttrib( AttribHandle<T> h ) const {
+        return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ) );
     }
 
-    /// Add attribute by name
+    /// Add attribute by name.
+    /// Note: If an attribute with the same name already exists,
+    ///  it will be replaced but not de-allocated.
     template <typename T>
-    AttribHandle<T> addAttrib( const std::string& name )
-    {
+    AttribHandle<T> addAttrib( const std::string& name ) {
         AttribHandle<T> h;
         Attrib<T>* attrib = new Attrib<T>;
         attrib->setName( name );
 
         auto it = std::find_if( m_attribs.begin(), m_attribs.end(),
-                                [&name](const auto& a){ return a->getName() == name; } );
+                                [&name]( const auto& a ) { return a->getName() == name; } );
 
-        if (it != m_attribs.end())
+        if ( it != m_attribs.end() )
         {
-            LOG(logWARNING) << "Overwritting existing attribute " << name << ".";
+            LOG( logWARNING ) << "Replacing existing attribute " << name << ".";
             *it = attrib;
             h.m_idx = m_attribsIndex[name];
-        }
-        else
+        } else
         {
             h.m_idx = m_attribs.insert( attrib );
             m_attribsIndex[name] = h.m_idx;
@@ -243,8 +234,7 @@ class AttribManager
     }
 
     /// Remove attribute by name
-    void removeAttrib( const std::string& name )
-    {
+    void removeAttrib( const std::string& name ) {
         auto c = m_attribsIndex.find( name );
         if ( c != m_attribsIndex.end() )
         {
@@ -257,49 +247,23 @@ class AttribManager
 
     /// Remove attribute by handle, invalidate all the handles
     template <typename T>
-    void removeAttrib( AttribHandle<T> h )
-    {
+    void removeAttrib( AttribHandle<T> h ) {
         const auto& att = getAttrib( h ); // check the attribute exists
         removeAttrib( att.getName() );
     }
 
   private:
-    /// Implements deep copy of attributes
-    void copyFrom(const AttribManager& m)
-    {
-        clear();
-        for (const AttribBase* attr : m.attribs())
-        {
-            const auto n = attr->getName();
-            if ( attr->isFloat() )
-            {
-                auto a = addAttrib<float>( n );
-                getAttrib( a ).data() = m.getAttrib( m.getAttribHandle<float>( n ) ).data();
-            }
-            else if ( attr->isVec2() )
-            {
-                auto a = addAttrib<Ra::Core::Vector2>( n );
-                getAttrib( a ).data() = m.getAttrib( m.getAttribHandle<Ra::Core::Vector2>( n ) ).data();
-            }
-            else if ( attr->isVec3() )
-            {
-                auto a = addAttrib<Ra::Core::Vector3>( n );
-                getAttrib( a ).data() = m.getAttrib( m.getAttribHandle<Ra::Core::Vector3>( n ) ).data();
-            }
-            else if ( attr->isVec4() )
-            {
-                auto a = addAttrib<Ra::Core::Vector4>( n );
-                getAttrib( a ).data() = m.getAttrib( m.getAttribHandle<Ra::Core::Vector4>( n ) ).data();
-            }
-            else
-                LOG( logWARNING )
-                    << "Warning, mesh attribute " << attr->getName()
-                    << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
-        }
-    }
+    /// const acces to attrib vector
+    const Container& attribs() const { return m_attribs; }
 
+    // Map between the attrib's name and its index
     std::map<std::string, Ra::Core::Index> m_attribsIndex;
+
+    // Attrib list
     Container m_attribs;
+
+    // Ease wrapper
+    friend class TopologicalMesh;
 };
 
 } // namespace Core

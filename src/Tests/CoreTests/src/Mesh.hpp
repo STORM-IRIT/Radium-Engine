@@ -24,7 +24,8 @@ class MeshTests : public Test {
         auto handlerEmpty = mesh.attribManager().addAttrib<Vec3AttribHandle::value_type>( "empty" );
         RA_UNIT_TEST( handlerEmpty.isValid(), "Should get a valid handle here !" );
         mesh.attribManager().removeAttrib( handlerEmpty );
-        handlerEmpty = mesh.attribManager().getAttribHandle<Vec3AttribHandle::value_type>( "empty" );
+        handlerEmpty =
+            mesh.attribManager().getAttribHandle<Vec3AttribHandle::value_type>( "empty" );
         RA_UNIT_TEST( !handlerEmpty.isValid(), "Should be an invalid handle." );
 
         // Test access to the attribute container
@@ -55,11 +56,17 @@ class MeshTests : public Test {
         auto invalid = mesh.attribManager().getAttribHandle<float>( "toto" );
         RA_UNIT_TEST( !invalid.isValid(), "Invalid Attrib Handle cannot be recognized" );
 
-        // Test deep copy
+        // Test shallow copy
         const auto v0 = mesh.vertices()[0];
         TriangleMesh meshCopy = mesh;
         meshCopy.vertices()[0] += Ra::Core::Vector3( 0.5, 0.5, 0.5 );
-        RA_UNIT_TEST( mesh.vertices()[0].isApprox( v0 ), "Cannot deep-copy TriangleMesh" );
+        RA_UNIT_TEST( !mesh.vertices()[0].isApprox( v0 ), "Cannot shallow-copy TriangleMesh" );
+
+        // Test deep copy
+        auto attr = mesh.attribManager().getAttribHandle<Ra::Core::Vector3>( "in_position" );
+        meshCopy.copyAttribs( mesh, attr );
+        meshCopy.vertices()[0] -= Ra::Core::Vector3( 0.5, 0.5, 0.5 );
+        RA_UNIT_TEST( !mesh.vertices()[0].isApprox( v0 ), "Cannot deep-copy TriangleMesh" );
     }
 
     void run() override { testAttributeManagement(); }
