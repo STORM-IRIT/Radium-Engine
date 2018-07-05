@@ -46,6 +46,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     std::vector<OpenMesh::HPropHandleT<Vector4>> m_vec4Pph;
 
     friend class LoopSubdivider;
+    friend class CatmullClarkSubdivider;
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
