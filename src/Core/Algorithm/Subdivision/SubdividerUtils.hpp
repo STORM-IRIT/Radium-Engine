@@ -133,8 +133,17 @@ void interpolateProps( const std::vector<OpenMesh::HPropHandleT<T>>& hprops,
                        const TopologicalMesh::FaceHandle& fh, TopologicalMesh& mesh ) {
     auto heh = mesh.halfedge_handle( fh );
     const int valence = mesh.valence( fh );
-    // sum all
-    for ( int i = 0; i < valence; ++i )
+
+    // init sum to first
+    for ( int j = 0; j < fprops.size(); ++j )
+    {
+        auto hp = hprops[j];
+        auto fp = fprops[j];
+        mesh.property( fp, fh ) = mesh.property( hp, heh );
+    }
+    heh = mesh.next_halfedge_handle( heh );
+    // sum others
+    for ( int i = 1; i < valence; ++i )
     {
         for ( int j = 0; j < hprops.size(); ++j )
         {
@@ -148,7 +157,7 @@ void interpolateProps( const std::vector<OpenMesh::HPropHandleT<T>>& hprops,
     for ( int j = 0; j < fprops.size(); ++j )
     {
         auto fp = fprops[j];
-        mesh.property( fp, fh ) /= valence;
+        mesh.property( fp, fh ) = mesh.property( fp, fh ) / valence;
     }
 }
 

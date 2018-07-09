@@ -112,7 +112,7 @@ bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh, size_t n,
 
 #if defined( _DEBUG ) || defined( DEBUG )
         // Now we have an consistent mesh!
-        assert( OpenMesh::Utils::MeshCheckerT<TopologicalMesh>( _m ).check() );
+        assert( OpenMesh::Utils::MeshCheckerT<TopologicalMesh>( mesh ).check() );
 #endif
     }
 
