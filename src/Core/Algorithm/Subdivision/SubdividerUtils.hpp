@@ -4,7 +4,7 @@
 namespace Ra {
 namespace Core {
 
-/// Create copy \p input properties of \p mesh.
+/// Copy \p input properties of \p mesh.
 template <typename T>
 void addPropsCopy( const std::vector<OpenMesh::HPropHandleT<T>>& input, TopologicalMesh& mesh,
                    std::vector<OpenMesh::HPropHandleT<T>>& copy ) {
