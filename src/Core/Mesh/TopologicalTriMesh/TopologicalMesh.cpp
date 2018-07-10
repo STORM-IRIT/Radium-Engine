@@ -68,8 +68,10 @@ void copyAttribToCore( TriangleMesh& triMesh, HandleAndValueVector<T>& data ) {
 TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
     struct hash_vec {
         size_t operator()( const Vector3& lvalue ) const {
-            return lvalue[0] + lvalue[1] + lvalue[2] + floor( lvalue[0] ) * 1000.f +
-                   floor( lvalue[1] ) * 1000.f + floor( lvalue[2] ) * 1000.f;
+            size_t hx = std::hash<Scalar>()( lvalue[0] );
+            size_t hy = std::hash<Scalar>()( lvalue[1] );
+            size_t hz = std::hash<Scalar>()( lvalue[2] );
+            return ( hx ^ ( hy << 1 ) ) ^ hz;
         }
     };
     // use a hashmap for fast search of existing vertex position
@@ -174,9 +176,10 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
 
     struct hash_vec {
         size_t operator()( const VertexData& lvalue ) const {
-            return lvalue._vertex[0] + lvalue._vertex[1] + lvalue._vertex[2] +
-                   floor( lvalue._vertex[0] ) * 1000.f + floor( lvalue._vertex[1] ) * 1000.f +
-                   floor( lvalue._vertex[2] ) * 1000.f;
+            size_t hx = std::hash<Scalar>()( lvalue._vertex[0] );
+            size_t hy = std::hash<Scalar>()( lvalue._vertex[1] );
+            size_t hz = std::hash<Scalar>()( lvalue._vertex[2] );
+            return ( hx ^ ( hy << 1 ) ) ^ hz;
         }
     };
 
@@ -192,12 +195,16 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
     std::vector<PropPair<Vector4>> vprop_vec4;
 
     // loop over all attribs and build correspondance pair
+    vprop_float.reserve( m_floatPph.size() );
     for ( auto oh : m_floatPph )
         addAttribPairToCore( out, this, oh, vprop_float );
+    vprop_vec2.reserve( m_vec2Pph.size() );
     for ( auto oh : m_vec2Pph )
         addAttribPairToCore( out, this, oh, vprop_vec2 );
+    vprop_vec3.reserve( m_vec3Pph.size() );
     for ( auto oh : m_vec3Pph )
         addAttribPairToCore( out, this, oh, vprop_vec3 );
+    vprop_vec4.reserve( m_vec4Pph.size() );
     for ( auto oh : m_vec4Pph )
         addAttribPairToCore( out, this, oh, vprop_vec4 );
 
@@ -253,10 +260,13 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
         }
         out.m_triangles.emplace_back( indices[0], indices[1], indices[2] );
     }
+
     CORE_ASSERT( vertexIndex == out.vertices().size(),
                  "Inconsistent number of faces in generated TriangleMesh." );
 
     return out;
-} // namespace Core
+}
+
+
 } // namespace Core
 } // namespace Ra
