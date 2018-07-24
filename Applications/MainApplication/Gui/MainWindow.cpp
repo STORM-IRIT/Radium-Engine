@@ -535,7 +535,7 @@ void MainWindow::deleteCurrentItem() {
 
 void MainWindow::resetScene() {
     // To see why this call is important, please see deleteCurrentItem().
-    m_selectionManager->clearSelection();
+    m_selectionManager->clear();
     Engine::RadiumEngine::getInstance()->getEntityManager()->deleteEntities();
     fitCamera();
 }
