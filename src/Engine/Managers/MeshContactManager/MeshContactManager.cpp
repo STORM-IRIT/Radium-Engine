@@ -2494,6 +2494,10 @@ namespace Ra
                 /// Proximity-aware QEM
                 if (m_proximity)
                 {
+                    std::vector<Ra::Core::ProgressiveMesh<>::Primitive> proximities;
+                    std::mutex mutex;
+
+                    #pragma omp parallel for
                     for (uint k=0; k<m_trianglekdtrees.size(); k++)
                     {
                         //if (k != objIndex)
@@ -2529,12 +2533,19 @@ namespace Ra
                                     nbContacts++;
                                     sumWeight += weight;
                                     qk = otherObj->getFacePrimitive(faceIndexes[l].first);
-                                    qk *= weight;
-                                    qc += qk;
-                                    //                                }
+                                    qk *= weight;                      
+                                    mutex.lock();
+                                    proximities.push_back(qk);
+                                    mutex.unlock();
+                                    //qc += qk;
                                 }
                             }
                         }
+                    }
+
+                    for (uint p = 0; p < proximities.size(); p++)
+                    {
+                        qc += proximities[p];
                     }
                 }
 
@@ -2710,6 +2721,7 @@ namespace Ra
                 Ra::Core::PriorityQueue::PriorityQueueData d = obj->getPriorityQueue()->top();
                 Ra::Core::HalfEdge_ptr he = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[d.m_edge_id];
 
+
                 if (he->Twin() == nullptr)
                 {
                     obj->getProgressiveMeshLOD()->getProgressiveMesh()->collapseFace();
@@ -2721,6 +2733,7 @@ namespace Ra
                     obj->getProgressiveMeshLOD()->getProgressiveMesh()->collapseFace();
                 }
                 obj->getProgressiveMeshLOD()->getProgressiveMesh()->collapseVertex();
+
                 Ra::Core::ProgressiveMeshData data = Ra::Core::DcelOperations::edgeCollapse(*(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()), d.m_edge_id, d.m_p_result);
 
                 if (obj->getProgressiveMeshLOD()->getProgressiveMesh()->getNbFaces() > 0)
