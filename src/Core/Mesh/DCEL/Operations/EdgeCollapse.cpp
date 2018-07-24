@@ -93,10 +93,10 @@ ProgressiveMeshData edgeCollapse(Dcel& dcel, Index edgeIndex, Vector3 pResult)
 
     // Make the halfEdge of the vertices of the faces
     // to delete point to existing new edges if needed
-    if (h1->Prev()->V()->HE()->F() == f1)
-        h1->Prev()->V()->setHE(h1->Next()->Twin());
-    if (h2->Prev()->V()->HE()->F() == f2)
-        h2->Prev()->V()->setHE(h2->Next()->Twin());
+    if (vl->HE()->F() == f1)
+        vl->setHE(h1->Next()->Twin());
+    if (vr->HE()->F() == f2)
+        vr->setHE(h2->Next()->Twin());
     if (v1->HE()->F() == f2)
         v1->setHE(v1->HE()->Twin()->Next());
     else if (v1->HE()->F() == f1)
@@ -147,7 +147,7 @@ ProgressiveMeshData edgeCollapse(Dcel& dcel, Index edgeIndex, Vector3 pResult)
 
 //------------------------------------------------------------
 
-void edgeCollapse( Dcel& dcel, ProgressiveMeshData pmData)
+void edgeCollapse( Dcel& dcel, const ProgressiveMeshData& pmData)
 {
     // compute PResult
     Vector3 vtPos = dcel.m_vertex[pmData.getVtId()]->P();

@@ -183,7 +183,7 @@ namespace Ra
             m_nb_no_fr_vsplit++;
         }
 
-        void ProgressiveMeshLOD::addData(ProgressiveMeshData data)
+        void ProgressiveMeshLOD::addData(const ProgressiveMeshData& data)
         {
             m_pmdata.push_back(data);
         }

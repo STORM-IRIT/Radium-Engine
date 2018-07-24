@@ -41,7 +41,7 @@ namespace Ra
             m_ii = ii;
         }
 
-        Vector3 ProgressiveMeshData::computePResult(const Vector3& vt, const Vector3& vs)
+        Vector3 ProgressiveMeshData::computePResult(const Vector3& vt, const Vector3& vs) const
         {
             Vector3 p_result;
             if (m_ii == 0)

@@ -55,7 +55,7 @@ namespace Ra
             void oneEdgeCollapseDone();
             void oneVertexSplitPossible();
 
-            void addData(ProgressiveMeshData data);
+            void addData(const ProgressiveMeshData &data);
 
             ProgressiveMeshData getCurrentPMData();
 

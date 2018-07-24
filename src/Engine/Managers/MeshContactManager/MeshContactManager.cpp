@@ -1793,7 +1793,7 @@ namespace Ra
             ErrorSorting::iterator medianIt = errorSort.begin();
             if (nbEdges % 2 == 0)
             {
-                std::advance(medianIt, nbEdges/2 - 1);
+                std::advance(medianIt, nbEdges/2);
                 errorMedian = (*medianIt).first;
                 ++medianIt;
                 errorMedian += (*medianIt).first;
@@ -1801,7 +1801,7 @@ namespace Ra
             }
             else
             {
-                std::advance(medianIt, nbEdges/2);
+                std::advance(medianIt, nbEdges/2 + 1);
                 errorMedian = (*medianIt).first;
             }
             LOG(logINFO) << "Median error : " << errorMedian;
@@ -2401,6 +2401,7 @@ namespace Ra
             m_curr_vsplit = 0;
 
             m_nbfaces = m_nbfacesinit;
+            int nbfaces_scene_init = m_nb_faces_max;
 
             LOG(logINFO) << "Simplification begins...";
 
@@ -2415,6 +2416,8 @@ namespace Ra
 
             QueueContact::iterator it = m_mainqueue.begin();
 
+            uint n = 99;
+
             while (it != m_mainqueue.end() && m_nb_faces_max > m_nbfaces)
             {
                 const Ra::Core::PriorityQueue::PriorityQueueData &d = *it;
@@ -2428,6 +2431,13 @@ namespace Ra
                         m_index_pmdata.push_back(obj->getIndex());
                         m_curr_vsplit++;
                         m_nb_faces_max -= (nbfaces - obj->getProgressiveMeshLOD()->getProgressiveMesh()->getNbFaces());
+                        //LOG(logINFO) << "Current nb of faces : " << m_nb_faces_max;
+
+                        if (m_nb_faces_max == (nbfaces_scene_init / 100) * n || m_nb_faces_max == (nbfaces_scene_init / 100) * n - 1)
+                        {
+                            LOG(logINFO) << "LOD : " << n << "%";
+                            n--;
+                        }
                     }
                     if (obj->getPriorityQueue()->size() > 0)
                     {
@@ -2715,7 +2725,7 @@ namespace Ra
 
                 if (obj->getProgressiveMeshLOD()->getProgressiveMesh()->getNbFaces() > 0)
                 {
-                obj->getProgressiveMeshLOD()->getProgressiveMesh()->updateFacesQuadrics(d.m_vs_id);
+                    obj->getProgressiveMeshLOD()->getProgressiveMesh()->updateFacesQuadrics(d.m_vs_id);
                 }
                 // update the priority queue of the object
                 // updatePriorityQueue(d.m_vs_id, d.m_vt_id, objIndex);
@@ -3121,6 +3131,10 @@ namespace Ra
 
         void MeshContactManager::pipelineProx()
         {
+//            setComputeR();
+//            setComputeDistribution();
+//            setComputeClusters();
+//            setDisplayClusters();
             setDisplayWeight();
             setComputeAlpha();
             setDisplayProximities();

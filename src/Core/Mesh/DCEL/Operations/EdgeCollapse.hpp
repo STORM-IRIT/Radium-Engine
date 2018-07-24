@@ -13,7 +13,7 @@ namespace Ra {
 namespace Core {
 namespace DcelOperations {
     RA_CORE_API ProgressiveMeshData edgeCollapse( Dcel& dcel, Index edgeIndex, Vector3 pResult);
-    void edgeCollapse( Dcel& dcel, ProgressiveMeshData pmData);
+    void edgeCollapse(Dcel& dcel, const ProgressiveMeshData &pmData);
 }
 }
 }

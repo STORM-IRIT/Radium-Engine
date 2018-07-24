@@ -38,22 +38,22 @@ namespace Ra
 
             //---------------------------------------------
 
-            inline Index getHeFlId();
-            inline Index getHeFrId();
-            inline Index getFlclwId();
-            inline Index getFlId();
-            inline Index getFrId();
-            inline Index getVsId();
-            inline Index getVtId();
-            inline Index getVlId();
-            inline Index getVrId();
-            inline short int getii();
-            inline Vector3 getVads();
-            inline Vector3 getVadl();
+            inline Index getHeFlId() const;
+            inline Index getHeFrId() const;
+            inline Index getFlclwId() const;
+            inline Index getFlId() const;
+            inline Index getFrId() const;
+            inline Index getVsId() const;
+            inline Index getVtId() const;
+            inline Index getVlId() const;
+            inline Index getVrId() const;
+            inline short int getii() const;
+            inline Vector3 getVads() const;
+            inline Vector3 getVadl() const;
 
             //----------------------------------------------
 
-            Vector3 computePResult(const Vector3& vt, const Vector3& vs);
+            Vector3 computePResult(const Vector3& vt, const Vector3& vs) const;
 
 
         private:
