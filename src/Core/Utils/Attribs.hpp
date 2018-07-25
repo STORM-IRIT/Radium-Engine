@@ -96,7 +96,7 @@ class AttribHandle {
     Ra::Core::Index idx() { return m_idx; }
 
   private:
-    Ra::Core::Index m_idx = -1;
+    Ra::Core::Index m_idx = Ra::Core::Index::Invalid();
 
     friend class AttribManager;
 };
