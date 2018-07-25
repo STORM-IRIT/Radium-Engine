@@ -28,12 +28,11 @@ class RA_CORE_API CatmullClarkSubdivider
     const char* name( void ) const override { return "CatmullClarkSubdivider"; }
 
   protected:
-    virtual bool prepare( TopologicalMesh& _m ) override;
+    bool prepare( TopologicalMesh& _m ) override;
 
-    virtual bool cleanup( TopologicalMesh& _m ) override;
+    bool cleanup( TopologicalMesh& _m ) override;
 
-    virtual bool subdivide( TopologicalMesh& _m, size_t _n,
-                            const bool _update_points = true ) override;
+    bool subdivide( TopologicalMesh& _m, size_t _n, const bool _update_points = true ) override;
 
   private:
     // topology helpers
