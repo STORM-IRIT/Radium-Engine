@@ -232,12 +232,6 @@ void SkinningComponent::setupSkinningType( SkinningType type ) {
         if ( m_refData.m_CoR.empty() )
         {
             Ra::Core::Animation::computeCoR( m_refData );
-            /*
-                       for ( const auto& v :m_refData.m_CoR )
-                       {
-                           RA_DISPLAY_POINT( v, Ra::Core::Colors::Red(), 0.1f );
-                       }
-            */
         }
     }
     } // end of switch.
