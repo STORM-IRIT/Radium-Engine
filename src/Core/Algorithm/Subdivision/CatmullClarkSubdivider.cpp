@@ -110,10 +110,8 @@ bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh, size_t n,
         commitProps( m_vec3Props, mesh, mesh.m_vec3Pph );
         commitProps( m_vec4Props, mesh, mesh.m_vec4Pph );
 
-#if defined( _DEBUG ) || defined( DEBUG )
-        // Now we have an consistent mesh!
-        assert( OpenMesh::Utils::MeshCheckerT<TopologicalMesh>( mesh ).check() );
-#endif
+        CORE_ASSERT( OpenMesh::Utils::MeshCheckerT<TopologicalMesh>( mesh ).check(),
+                     "CatmullClarkSubdivision ended with a bad topology." )
     }
 
     // ###########################################################################
