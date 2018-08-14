@@ -80,7 +80,7 @@ public:
 
     ~TriangleKdTree();
 
-    inline Index doQueryRestrictedClosestIndex(const VectorType& s1, const VectorType& s2, Scalar sqdist);
+    inline std::pair<Index,Scalar> doQueryRestrictedClosestIndex(const VectorType& s1, const VectorType& s2, Scalar sqdist);
 
     inline void doQueryRestrictedClosestIndexes(const VectorType &s1, const VectorType &s2, Scalar sqdist, std::vector<std::pair<Index,Scalar> >& cl);
 
@@ -174,10 +174,11 @@ TriangleKdTree<Index>::~TriangleKdTree()
 }
 
 template<typename Index>
-Index TriangleKdTree<Index>::doQueryRestrictedClosestIndex(const VectorType &s1, const VectorType &s2, Scalar sqdist)
+std::pair<Index,Scalar> TriangleKdTree<Index>::doQueryRestrictedClosestIndex(const VectorType &s1, const VectorType &s2, Scalar sqdist)
 {
-    Index  cl_id   = invalidIndex();
-    Scalar cl_dist = sqdist;
+    std::pair<Index,Scalar> cl;
+    cl.first = invalidIndex();
+    cl.second = std::numeric_limits<Scalar>::max();
 
     mNodeStack[0].nodeId = 0;
     mNodeStack[0].sq = 0.f;
@@ -190,7 +191,7 @@ Index TriangleKdTree<Index>::doQueryRestrictedClosestIndex(const VectorType &s1,
         QueryNode& qnode = mNodeStack[count-1];
         KdNode   & node  = mNodes[qnode.nodeId];
 
-        if (qnode.sq < cl_dist)
+        if (qnode.sq < cl.second)
         {
             if (node.leaf)
             {
@@ -213,10 +214,10 @@ Index TriangleKdTree<Index>::doQueryRestrictedClosestIndex(const VectorType &s1,
                                                      mPoints[mTriangles[node.triangleIndices[i]][1]],
                                                      mPoints[mTriangles[node.triangleIndices[i]][2]] };
                     const Scalar sqdist = Ra::Core::DistanceQueries::segmentToTriSq(segCenter, segDirection, segExtent, triangle).sqrDistance;
-                    if (sqdist < cl_dist) // < is enough
+                    if (sqdist < cl.second) // < is enough
                     {
-                        cl_dist = sqdist;
-                        cl_id = node.triangleIndices[i];
+                        cl.second = sqdist;
+                        cl.first = node.triangleIndices[i];
                     }
                 }
             }
@@ -309,7 +310,8 @@ Index TriangleKdTree<Index>::doQueryRestrictedClosestIndex(const VectorType &s1,
             --count;
         }
     }
-    return cl_id;
+    cl.second = std::sqrt(cl.second);
+    return cl;
 }
 
 template<typename Index>

@@ -306,7 +306,7 @@ namespace Ra
             const Super4PCS::TriangleKdTree<>::VectorType& p2 = reinterpret_cast<const Super4PCS::TriangleKdTree<>::VectorType&>(v2->P());
 
             // Look if the edge is too close to another object
-            int contact = trianglekdtrees[idxOtherObject]->doQueryRestrictedClosestIndex(p1, p2, threshold);
+            int contact = trianglekdtrees[idxOtherObject]->doQueryRestrictedClosestIndex(p1, p2, threshold).first;
             return contact;
         }
 
