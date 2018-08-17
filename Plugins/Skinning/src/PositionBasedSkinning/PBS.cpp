@@ -22,7 +22,7 @@ PBS::PBS() :
 
 }
 
-void PBS::init(const Vector3Array *surfaceVertices, const Animation::Skeleton *skeleton)
+void PBS::init(const Vector3 *surfaceVertices, const Animation::Skeleton *skeleton)
 {
     m_surfaceVertices = surfaceVertices;
     m_skeleton = skeleton;
@@ -211,7 +211,7 @@ void PBS::addConstraint_volume ()
 //-----------------------------------------------------------------------------------------------------------
 
 void PBS::compute ( const Animation::Skeleton *skeleton, const Animation::Pose &pose,
-                    Vector3Array &outMesh)
+                    Vector3 &outMesh)
 {
     if (m_volumetricMeshValid)
     {
@@ -471,7 +471,7 @@ void PBS::findBarycentricCoordinatesTetrahedron()
 
     for (auto i = 0; i < num_surfaceVertices ; ++i)
     {
-        findBarycentricCoordinateTetrahedronForVertex(m_surfaceVertices->at(i), tetras, pd);
+       // findBarycentricCoordinateTetrahedronForVertex(m_surfaceVertices->at(i), tetras, pd);
     }
 }
 
@@ -490,7 +490,7 @@ Vector3 PBS::getPositionByBarycentricCoord(const TetModel::Tets &tetras, const P
     return pos;
 }
 
-void PBS::updateVertices(Vector3Array &outMesh)
+void PBS::updateVertices(Vector3 &outMesh)
 {
     TetModel *tetrahedra = m_model.getTetModel();
     const TetModel::Tets tetras = tetrahedra->getTets();
@@ -500,6 +500,6 @@ void PBS::updateVertices(Vector3Array &outMesh)
     //#pragma omp parallel for
     for (auto i = 0; i < num_surfaceVertices; ++i)
     {
-        outMesh[i] = getPositionByBarycentricCoord(tetras, pd, m_linksTetrahedronSurfaceVertex[i]);
+      //  outMesh[i] = getPositionByBarycentricCoord(tetras, pd, m_linksTetrahedronSurfaceVertex[i]);
     }
 }

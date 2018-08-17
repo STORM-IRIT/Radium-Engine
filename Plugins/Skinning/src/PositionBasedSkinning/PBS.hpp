@@ -17,10 +17,10 @@ public :
 
     bool isVolumetricMeshValid () const { return m_volumetricMeshValid; }
 
-    void init(const Ra::Core::Vector3Array *surfaceVertices, const Ra::Core::Animation::Skeleton *skeleton);
+    void init(const Ra::Core::Vector3 *surfaceVertices, const Ra::Core::Animation::Skeleton *skeleton);
 
     void compute (const Ra::Core::Animation::Skeleton *skeleton, const Ra::Core::Animation::Pose &pose,
-                      Ra::Core::Vector3Array &outMesh );    
+                      Ra::Core::Vector3 &outMesh );
 
 private:
 
@@ -38,7 +38,7 @@ private:
     PBD::SimulationModel m_model;
     bool m_volumetricMeshValid;
 
-    const Ra::Core::Vector3Array *m_surfaceVertices;
+    const Ra::Core::Vector3 *m_surfaceVertices;
     const Ra::Core::Animation::Skeleton *m_skeleton;
 
     Ra::Core::Animation::WeightMatrix m_weightParticles;
@@ -108,7 +108,7 @@ private:
     /* Update Surface Mesh */
 
     Ra::Core::Vector3 getPositionByBarycentricCoord(const PBD::TetModel::Tets &tetras, const PBD::ParticleData &pd, const LinkTetrahedron &linkTetra);
-    void updateVertices(Ra::Core::Vector3Array &outMesh);
+    void updateVertices(Ra::Core::Vector3 &outMesh);
 
 }; // PBS
 
