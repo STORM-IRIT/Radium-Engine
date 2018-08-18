@@ -1,5 +1,10 @@
-#include "PBS.hpp"
+#if defined(_WIN32) || defined(_WIN64)
+#define OS_WINDOWS
+#define  __FLT_MAX__   FLT_MAX
+#endif
 
+#include "PBS.hpp"
+#include <float.h>
 #include "TimeManager.h"
 #include "Constraints.h"
 
