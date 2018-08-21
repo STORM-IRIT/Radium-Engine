@@ -27,7 +27,7 @@ PBS::PBS() :
 
 }
 
-void PBS::init(const Vector3 *surfaceVertices, const Animation::Skeleton *skeleton)
+void PBS::init(const Vector3Array *surfaceVertices, const Animation::Skeleton *skeleton)
 {
     m_surfaceVertices = surfaceVertices;
     m_skeleton = skeleton;

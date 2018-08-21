@@ -1,10 +1,13 @@
-#ifndef RADIUMENGINE_POSITIONBASED_SKINNING_HPP
-#define RADIUMENGINE_POSITIONBASED_SKINNING_HPP
+#ifndef POSITIONBASEDSKINNING_HPP
+#define POSITIONBASEDSKINNING_HPP
 
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Animation/Handle/HandleWeight.hpp>
 #include "SimulationModel.h"
-
+\
+using namespace PBD;
+using namespace std;
+using namespace Ra::Core;
 namespace PositionBasedSkinning {
 
 class PBS {
@@ -17,7 +20,7 @@ public :
 
     bool isVolumetricMeshValid () const { return m_volumetricMeshValid; }
 
-    void init(const Ra::Core::Vector3 *surfaceVertices, const Ra::Core::Animation::Skeleton *skeleton);
+    void init(const Vector3Array *surfaceVertices, const Ra::Core::Animation::Skeleton *skeleton);
 
     void compute (const Ra::Core::Animation::Skeleton *skeleton, const Ra::Core::Animation::Pose &pose,
                       Ra::Core::Vector3 &outMesh );
