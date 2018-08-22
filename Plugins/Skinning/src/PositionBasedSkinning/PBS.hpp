@@ -1,13 +1,10 @@
-#ifndef POSITIONBASEDSKINNING_HPP
-#define POSITIONBASEDSKINNING_HPP
-
+#ifndef RADIUMENGINE_POSITIONBASED_SKINNING_HPP
+#define RADIUMENGINE_POSITIONBASED_SKINNING_HPP
+#include <Core/Animation/Skinning/SkinningData.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Animation/Handle/HandleWeight.hpp>
 #include "SimulationModel.h"
-\
-using namespace PBD;
-using namespace std;
-using namespace Ra::Core;
+
 namespace PositionBasedSkinning {
 
 class PBS {
@@ -20,10 +17,10 @@ public :
 
     bool isVolumetricMeshValid () const { return m_volumetricMeshValid; }
 
-    void init(const Vector3Array *surfaceVertices, const Ra::Core::Animation::Skeleton *skeleton);
+    void init(const Ra::Core::Vector3Array *surfaceVertices, const Ra::Core::Animation::Skeleton *skeleton);
 
     void compute (const Ra::Core::Animation::Skeleton *skeleton, const Ra::Core::Animation::Pose &pose,
-                      Ra::Core::Vector3 &outMesh );
+                      Ra::Core::Vector3Array &outMesh );    
 
 private:
 
@@ -39,9 +36,10 @@ private:
     //-------
 
     PBD::SimulationModel m_model;
-    bool m_volumetricMeshValid;
+    //
+    bool m_volumetricMeshValid = false;
 
-    const Ra::Core::Vector3 *m_surfaceVertices;
+    const Ra::Core::Vector3Array *m_surfaceVertices;
     const Ra::Core::Animation::Skeleton *m_skeleton;
 
     Ra::Core::Animation::WeightMatrix m_weightParticles;
@@ -111,7 +109,7 @@ private:
     /* Update Surface Mesh */
 
     Ra::Core::Vector3 getPositionByBarycentricCoord(const PBD::TetModel::Tets &tetras, const PBD::ParticleData &pd, const LinkTetrahedron &linkTetra);
-    void updateVertices(Ra::Core::Vector3 &outMesh);
+    void updateVertices(Ra::Core::Vector3Array &outMesh);
 
 }; // PBS
 

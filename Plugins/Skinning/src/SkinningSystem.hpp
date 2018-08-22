@@ -56,12 +56,12 @@ namespace SkinningPlugin
             {
                 for (const auto& skel : skelData)
                 {
-                    SkinningComponent* component = new SkinningComponent( "SkC_" + skel->getName() );
+                    SkinningComponent* component = new SkinningComponent( "SkC_" + skel->getName(), entity );
                     entity->addComponent( component );
                     component->handleWeightsLoading( skel );
                     registerComponent( entity, component );
 
-                    SkinningDisplayComponent* display = new SkinningDisplayComponent( "SkC_DSP_" + skel->getName(), skel->getName() );
+                    SkinningDisplayComponent* display = new SkinningDisplayComponent( "SkC_DSP_" + skel->getName(), entity, skel->getName() );
                     entity->addComponent( display );
                     //display->display( component->getRefData() );
                 }

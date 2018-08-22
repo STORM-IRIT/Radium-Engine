@@ -3,6 +3,9 @@
 #define  __FLT_MAX__   FLT_MAX
 #endif
 
+#include <QApplication>
+#include <QMessageBox>
+
 #include "PBS.hpp"
 #include <float.h>
 #include "TimeManager.h"
@@ -174,7 +177,7 @@ void PBS::weightParticlesBindConstraint ()
         Vector3 particle_position = pd.getPosition(i);
         searchNearestBone(particle_position, startBone, endBone, indexNearestBone, distanceNearestBone);
 
-        // Attribute Weight        
+        // Attribute Weight
         weightParticle(m_skeleton->m_graph, i, particle_position, indexNearestBone, startBone, endBone);
 
         // Add Bind Constraint
@@ -216,20 +219,28 @@ void PBS::addConstraint_volume ()
 //-----------------------------------------------------------------------------------------------------------
 
 void PBS::compute ( const Animation::Skeleton *skeleton, const Animation::Pose &pose,
-                    Vector3 &outMesh)
+                     Ra::Core::Vector3Array &outMesh)
 {
     if (m_volumetricMeshValid)
     {
         ParticleData &pd = m_model.getParticles();
-        linearBlendSkinning(pose, pd);
-        step(skeleton, pd);
-        updateVertices(outMesh);
+         linearBlendSkinning(pose, pd);
+         step(skeleton, pd);
+         updateVertices(outMesh);
 
         /*for (auto i = 0; i < pd.size(); ++i)
         {
                  RA_DISPLAY_POINT( pd.getPosition(i), Ra::Core::Colors::Red(), 0.1f );
         }*/
     }
+    else
+    {
+
+        QMessageBox messageBox;
+        messageBox.critical(0,"Tetrahedral Mesh"," Tetrahedral mesh must be loaded first!");
+        messageBox.setFixedSize(500,200);
+    }
+
 }
 
 void PBS::linearBlendSkinning(const Animation::Pose &pose, ParticleData &pd)
@@ -495,7 +506,7 @@ Vector3 PBS::getPositionByBarycentricCoord(const TetModel::Tets &tetras, const P
     return pos;
 }
 
-void PBS::updateVertices(Vector3 &outMesh)
+void PBS::updateVertices( Ra::Core::Vector3Array &outMesh)
 {
     TetModel *tetrahedra = m_model.getTetModel();
     const TetModel::Tets tetras = tetrahedra->getTets();
@@ -505,6 +516,6 @@ void PBS::updateVertices(Vector3 &outMesh)
     //#pragma omp parallel for
     for (auto i = 0; i < num_surfaceVertices; ++i)
     {
-      //  outMesh[i] = getPositionByBarycentricCoord(tetras, pd, m_linksTetrahedronSurfaceVertex[i]);
+   //   outMesh[i] = getPositionByBarycentricCoord(tetras, pd, m_linksTetrahedronSurfaceVertex[i]);
     }
 }

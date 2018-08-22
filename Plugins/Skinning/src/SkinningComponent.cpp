@@ -26,6 +26,8 @@ using Ra::Core::Skinning::FrameData;
 
 using Ra::Engine::ComponentMessenger;
 
+namespace SkinningPlugin {
+
 void SkinningComponent::setupSkinning(){
     auto compMsg = ComponentMessenger::getInstance();
     // get the current animation data.
@@ -86,7 +88,7 @@ void SkinningComponent::skin(){
     if (reset && !m_frameData.m_doReset ){
         m_frameData.m_doReset = true;
         m_frameData.m_frameCounter = 0;
-    }else{
+    } else{
         m_frameData.m_currentPose = skel->getPose(SpaceType::MODEL);
         if( !Ra::Core::Animation::areEqual( m_frameData.m_currentPose, m_frameData.m_previousPose)){
             m_frameData.m_doSkinning = true;
@@ -161,6 +163,19 @@ PositionBasedSkinning::PBS &SkinningComponent::getPBS()
 {
     return m_PBS;
 }
+                
+void SkinningComponent::setupIO( const std::string& id ){
+    typedef Ra::Core::AlignedStdVector< Ra::Core::DualQuaternion > DualQuatVector;
+
+    ComponentMessenger::CallbackTypes<DualQuatVector>::Getter dqOut = std::bind( &SkinningComponent::getDQ, this );
+    ComponentMessenger::getInstance()->registerOutput<DualQuatVector>( getEntity(), this, id, dqOut);
+
+    ComponentMessenger::CallbackTypes<RefData>::Getter refData = std::bind( &SkinningComponent::getRefData, this );
+    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Skinning::RefData>( getEntity(), this, id, refData);
+
+    ComponentMessenger::CallbackTypes<FrameData>::Getter frameData = std::bind( &SkinningComponent::getFrameData, this );
+    ComponentMessenger::getInstance()->registerOutput<FrameData>( getEntity(), this, id, frameData);
+}
 
 void SkinningComponent::setSkinningType( SkinningType type ){
     m_skinningType = type;
@@ -174,22 +189,23 @@ void SkinningComponent::setupSkinningType( SkinningType type ){
     case LBS: break;
     case DQS:
         if ( m_DQ.empty() )
-            m_DQ.resize( m_refData.m_weights.rows(), DualQuaternion( Quaternion( 0.0, 0.0, 0.0, 0.0 ),
-                                                                     Quaternion( 0.0, 0.0, 0.0, 0.0 ) ) );
+                m_DQ.resize( m_refData.m_weights.rows(), DualQuaternion( Quaternion( 0.0, 0.0, 0.0, 0.0 ),
+                        Quaternion( 0.0, 0.0, 0.0, 0.0 ) ) );
         break;
     case COR:
         if ( m_refData.m_CoR.empty() ){
-            Ra::Core::Animation::computeCoR( m_refData );
-            /*for ( const auto& v :m_refData.m_CoR )
-                         {
-                                 RA_DISPLAY_POINT( v, Ra::Core::Colors::Red(), 0.1f );
-                         }*/
+                 Ra::Core::Animation::computeCoR( m_refData );
+                /*for ( const auto& v :m_refData.m_CoR )
+                 {
+                         RA_DISPLAY_POINT( v, Ra::Core::Colors::Red(), 0.1f );
+                 }*/
         }
-        break;
+    break;
     case PBS:
-        m_PBS.init(&m_refData.m_referenceMesh.vertices(), &m_refData.m_skeleton);
+        m_PBS.compute( skel, m_frameData.m_refToCurrentRelPose, m_frameData.m_currentPos );
         break;
-    } // end of switch.
+    }
+    Ra::Core::Animation::computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_DQ );
 }
 
 } // End namespace Skinning plugin

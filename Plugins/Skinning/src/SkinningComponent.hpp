@@ -30,8 +30,8 @@ namespace SkinningPlugin
             PBS         // Position Based Skinning
         };
 
-        SkinningComponent( const std::string& name, SkinningType type, Ra::Engine::Entity* entity ) :
-        Component( name, entity ),
+        SkinningComponent( const std::string& name ,  Ra::Engine::Entity* entity , SkinningType type = DQS)
+        : Component( name, entity ),
         m_skinningType( type ),
         m_isReady( false ) {}
         virtual ~SkinningComponent() {}
