@@ -1863,8 +1863,8 @@ namespace Ra
             Scalar errorFirstCluster;
             //Scalar errorMeanFirstCluster;
             int k = 0;
-            int nbError = errorArray[k];
-            int nbErrorNext = errorArray[k+1];
+            Scalar nbError = errorArray[k];
+            Scalar nbErrorNext = errorArray[k+1];
             if (nbError <= nbErrorNext)
             {
                 do
@@ -1897,9 +1897,9 @@ namespace Ra
 
             //while (errorQuartile == 0)
             //{
-	    // std::advance(medianIt, 1);
-	    // errorQuartile = (*medianIt);
-	    // }
+        // std::advance(medianIt, 1);
+        // errorQuartile = (*medianIt);
+        // }
 
             m_lambda = (errorFirstCluster / errorQuartile - 1) / std::pow(m_broader_threshold, 2);
             //m_lambda = (errorFirstCluster / errorMean - 1) / std::pow(m_broader_threshold, 2);
@@ -1914,17 +1914,17 @@ namespace Ra
                 nbFacesInit += obj->getInitTriangleMesh().m_triangles.size();
             }
 
-//            int nbProximityPairs = 0;
-//            for (uint i = 0; i < m_meshContactElements.size(); i++)
-//            {
-//                for (uint j = i + 1; j < m_meshContactElements.size(); j++)
-//                {
-//                    if (m_proximityPairs(i,j))
-//                    {
-//                        nbProximityPairs++;
-//                    }
-//                }
-//            }
+            int nbProximityPairs = 0;
+            for (uint i = 0; i < m_meshContactElements.size(); i++)
+            {
+                for (uint j = i + 1; j < m_meshContactElements.size(); j++)
+                {
+                    if (m_proximityPairs(i,j))
+                    {
+                        nbProximityPairs++;
+                    }
+                }
+            }
 
             Scalar proximity_percentage = (m_broader_threshold / m_aabb_scene.diagonal()) * 100;
 
@@ -1932,10 +1932,10 @@ namespace Ra
             CORE_ASSERT(file2, "Error while opening parameters file.");
             file2 << "Nb objects scene : " << m_meshContactElements.size() << std::endl;
             file2 << "Nb faces init : " << nbFacesInit << std::endl;
-            //file2 << "Nb proximity object pairs : " << nbProximityPairs << std::endl;
-            //file2 << "Nb clusters computed : " << m_nbclusters_compute << std::endl;
-            //file2 << "Nb clusters selected : " << m_nbclusters_display << std::endl;
-            //file2 << "Cluster threshold : " << m_finalClusters3[m_nbclusters_display - 1] << std::endl;
+            file2 << "Nb proximity object pairs : " << nbProximityPairs << std::endl;
+            file2 << "Nb clusters computed : " << m_nbclusters_compute << std::endl;
+            file2 << "Nb clusters selected : " << m_nbclusters_display << std::endl;
+            file2 << "Cluster threshold : " << m_finalClusters3[m_nbclusters_display - 1] << std::endl;
             file2 << "Weight function parameter m : " << m_m << std::endl;
             file2 << "Weight function parameter n : " << m_n << std::endl;
             file2 << "Cluster threshold weight : " << m_influence << std::endl;
@@ -1943,6 +1943,8 @@ namespace Ra
             file2 << "Scene AABB diag : " << m_aabb_scene.diagonal() << std::endl;
             file2 << "Proximity threshold percentage of scene AABB diag : " << proximity_percentage << std::endl;
             file2 << "Nb objects to simplify : " << m_nbobjects << std::endl;
+            file2 << "Quartile error : " << errorQuartile << std::endl;
+            file2 << "Error first cluster : " << errorFirstCluster << std::endl;
             file2 << "Proximity weight parameter alpha: " << m_lambda << std::endl;
             file2.close();
         }
@@ -2578,7 +2580,15 @@ namespace Ra
                     qc *= 1.0 / nbContacts; // normalization using the number og proximities instead of the sum of their weights
 
                     Scalar edgeErrorContact = abs(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getEM().computeGeometricError(qc,p));
-                    error = edgeErrorQEM * (1 + m_lambda * edgeErrorContact);
+
+                    //Ra::Core::Vector3 m = (vs->P() + vt->P()) / 2;
+                    //Scalar edgeErrorContact_init = abs(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getEM().computeGeometricError(qc,m));
+
+//                    Scalar edgeErrorContact_vs = abs(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getEM().computeGeometricError(qc,vs->P()));
+//                    Scalar edgeErrorContact_vt = abs(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getEM().computeGeometricError(qc,vt->P()));
+//                    Scalar edgeErrorContact_e = (edgeErrorContact_vs + edgeErrorContact_vt) / 2;
+
+                    error = edgeErrorQEM * (1 + m_lambda * abs(edgeErrorContact /*- edgeErrorContact_e*/));
                     CORE_ASSERT(error >= edgeErrorQEM, "Contacts lower the error");
                 }
 
@@ -2848,6 +2858,8 @@ namespace Ra
                 }
 
                 m_proxVertices.push_back(prox);
+
+                LOG(logINFO) << "Obj " << i << " proximities found.";
             }
         }
 
@@ -2868,6 +2880,8 @@ namespace Ra
             // Initializing the triangle meshes in case of successive simplifications
             m_midptTriangleMeshes.clear();
             m_midptTrianglekdtrees.clear();
+
+            int i = 0;
 
             for (auto& obj : m_meshContactElements)
             {
@@ -2929,6 +2943,9 @@ namespace Ra
                 Super4PCS::TriangleKdTree<>* trianglekdtree = new Super4PCS::TriangleKdTree<>();
                 m_midptTrianglekdtrees.push_back(trianglekdtree);
                 m_midptTrianglekdtrees[m_midptTrianglekdtrees.size()-1] = obj->computeTriangleKdTree(m_midptTriangleMeshes[m_midptTriangleMeshes.size()-1]);
+
+                LOG(logINFO) << "Obj " << i << " subdivided.";
+                i++;
             }
         }
 
@@ -3103,6 +3120,8 @@ namespace Ra
                 hausdorffDistances.second = {simpInitProxMean, simpInitProxMax, simpInitNonProxMean, simpInitNonProxMax};
 
                 m_hausdorffDistances.push_back(hausdorffDistances);
+
+                LOG(logINFO) << "Obj " << i << " Hausdorff distances computed.";
             }
 
             // writing Hausdorff distances in a file
