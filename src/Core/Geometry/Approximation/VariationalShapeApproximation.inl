@@ -134,7 +134,7 @@ inline void VariationalShapeApproximationBase<K_Region>::shuffle_regions() {
     {
         id[i] = i;
     }
-    std::random_shuffle( id.begin(), id.end() );
+    std::shuffle( id.begin(), id.end(), std::mt19937( std::random_device()() ) );
     for ( uint i = 0; i < K; ++i )
     {
         tmp_region[i] = this->m_region[id[i]];
