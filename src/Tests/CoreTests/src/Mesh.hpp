@@ -64,9 +64,14 @@ class MeshTests : public Test {
 
         // Test deep copy
         auto attr = mesh.attribManager().getAttribHandle<Ra::Core::Vector3>( "in_position" );
-        meshCopy.copyAttribs( mesh, attr );
+        meshCopy.partialCopy( mesh, attr );
         meshCopy.vertices()[0] -= Ra::Core::Vector3( 0.5, 0.5, 0.5 );
         RA_UNIT_TEST( !mesh.vertices()[0].isApprox( v0 ), "Cannot deep-copy TriangleMesh" );
+
+        // Test full copy
+        meshCopy.fullCopy( mesh );
+        meshCopy.vertices()[0] += Ra::Core::Vector3( 0.5, 0.5, 0.5 );
+        RA_UNIT_TEST( !mesh.vertices()[0].isApprox( v0 ), "Cannot full-copy TriangleMesh" );
     }
 
     void run() override { testAttributeManagement(); }

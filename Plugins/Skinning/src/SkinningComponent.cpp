@@ -52,7 +52,7 @@ void SkinningComponent::setupSkinning() {
         const auto norAttr =
             mesh.attribManager().getAttribHandle<TriangleMesh::NormalAttribHandle::value_type>(
                 "in_normal" );
-        m_refData.m_referenceMesh.copyAttribs( mesh, posAttr, norAttr );
+        m_refData.m_referenceMesh.partialCopy( mesh, posAttr, norAttr );
 
         // get other data
         m_refData.m_skeleton = compMsg->get<Skeleton>( getEntity(), m_contentsName );
