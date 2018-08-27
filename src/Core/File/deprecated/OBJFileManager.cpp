@@ -21,7 +21,7 @@ std::string OBJFileManager::fileExtension() const {
 }
 
 bool OBJFileManager::importData( std::istream& file, TriangleMesh& data ) {
-    data = TriangleMesh();
+    data.clear();
     std::string line;
     while ( std::getline( file, line ) )
     {

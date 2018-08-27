@@ -134,25 +134,53 @@ class AttribManager {
 
     AttribManager() {}
 
-    /// Shallow copy of attributes
+    /// Copy constructor and assignment operator are pure shallow copy of attributes.
+    /// For copy, use the partialCopy or fullCopy methods.
     AttribManager( const AttribManager& m ) = default;
     AttribManager& operator=( const AttribManager& m ) = default;
 
     // Deep copy of attributes
     /// Base copy, does nothing.
-    void copyAttribs( const AttribManager& m ) {}
+    void partialCopy( const AttribManager& m ) {}
 
-    /// Deep copy of attrib.
+    /// Deep copy of some attributes.
     /// Note: if some attrib already exist, it will be replaced but not de-allocated.
     template <class T, class... Handle>
-    void copyAttribs( const AttribManager& m, const AttribHandle<T>& attr, Handle... attribs ) {
+    void partialCopy( const AttribManager& m, const AttribHandle<T>& attr, Handle... attribs ) {
         // get attrib to copy
         auto a = m.getAttrib( attr );
         // add new attrib
         auto h = addAttrib<T>( a.getName() );
         getAttrib( h ).data() = a.data();
         // deal with other attribs
-        copyAttribs( m, attribs... );
+        partialCopy( m, attribs... );
+    }
+
+    /// Deep copy of all attributes.
+    void fullCopy( const AttribManager& m ) {
+        for ( const auto& attr : m.m_attribs )
+        {
+            if ( attr->isFloat() )
+            {
+                auto h = addAttrib<float>( attr->getName() );
+                getAttrib( h ).data() = static_cast<Attrib<float>*>( attr )->data();
+            } else if ( attr->isVec2() )
+            {
+                auto h = addAttrib<Vector2>( attr->getName() );
+                getAttrib( h ).data() = static_cast<Attrib<Vector2>*>( attr )->data();
+            } else if ( attr->isVec3() )
+            {
+                auto h = addAttrib<Vector3>( attr->getName() );
+                getAttrib( h ).data() = static_cast<Attrib<Vector3>*>( attr )->data();
+            } else if ( attr->isVec4() )
+            {
+                auto h = addAttrib<Vector4>( attr->getName() );
+                getAttrib( h ).data() = static_cast<Attrib<Vector4>*>( attr )->data();
+            } else
+                LOG( logWARNING )
+                    << "Warning, mesh attribute " << attr->getName()
+                    << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
+        }
     }
 
     /// clear all attribs, invalidate handles and shallow copies.
