@@ -2,6 +2,7 @@
 #define RADIUMENGINE_COLOR_PRESET_HPP_
 
 #include <Core/Math/LinearAlgebra.hpp>
+#include <random>
 
 namespace Ra {
 namespace Core {
@@ -177,7 +178,7 @@ inline std::vector<C> scatter( const uint size, const Scalar gamma ) {
         }
     else
     { color[0] = Red(); }
-    std::random_shuffle( color.begin(), color.end() );
+    std::shuffle( color.begin(), color.end(), std::mt19937( std::random_device()() ) );
     return color;
 }
 } // namespace Colors
