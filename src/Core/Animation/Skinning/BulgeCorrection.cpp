@@ -1,6 +1,6 @@
 #include <Core/Animation/Skinning/BulgeCorrection.hpp>
 
-#include <Core/Geometry/Segment/SegmentOperation.hpp>
+#include <Core/Geometry/Distance/DistanceQueries.hpp>
 
 namespace Ra {
 namespace Core {
@@ -48,7 +48,8 @@ void findCorrectionData( const Vector3Array& mesh, const MaxWeightID& wID,
         {
             end += pose[c].translation();
         }
-        data.m_prj[i] = Geometry::projectPointOnSegment( mesh[i], start, end );
+        const auto s = end - start;
+        data.m_prj[i] = start + DistanceQueries::projectOnSegment( mesh[i], start, s ) * s;
         data.m_dv[i] = ( mesh[i] - data.m_prj[i] ).squaredNorm();
     }
 }
