@@ -31,9 +31,20 @@ inline void TriangleMesh::append( const TriangleMesh& other ) {
 }
 
 template <typename... Handles>
-void TriangleMesh::copyAttribs( const TriangleMesh& input, Handles... attribs ) {
+void TriangleMesh::partialCopy( const TriangleMesh& input, Handles... attribs ) {
     // copy attribs
-    m_vertexAttribs.copyAttribs( input.m_vertexAttribs, attribs... );
+    m_vertexAttribs.partialCopy( input.m_vertexAttribs, input.m_verticesHandle,
+                                 input.m_normalsHandle, attribs... );
+    // update custom handles
+    m_verticesHandle =
+        m_vertexAttribs.getAttribHandle<PointAttribHandle::value_type>( "in_position" );
+    m_normalsHandle =
+        m_vertexAttribs.getAttribHandle<NormalAttribHandle::value_type>( "in_normal" );
+}
+
+inline void TriangleMesh::fullCopy( const TriangleMesh& input ) {
+    // copy attribs
+    m_vertexAttribs.fullCopy( input.m_vertexAttribs );
     // update custom handles
     m_verticesHandle =
         m_vertexAttribs.getAttribHandle<PointAttribHandle::value_type>( "in_position" );

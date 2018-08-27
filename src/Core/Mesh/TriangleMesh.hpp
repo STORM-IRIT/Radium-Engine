@@ -36,15 +36,21 @@ class TriangleMesh {
     /// Create an empty mesh.
     inline TriangleMesh() { initDefaultAttribs(); }
 
-    /// Copy constructor and assignment operator.
-    /// Note: shallow copy of attributes.
+    /// Copy constructor and assignment operator are pure shallow copy of attributes.
+    /// For deep copy of attributes, use the partialCopy or fullCopy methods.
+    /// Note: Directly using the AttribManager is highly discouraged.
     TriangleMesh( const TriangleMesh& ) = default;
     TriangleMesh& operator=( const TriangleMesh& ) = default;
 
     /// Copy only the required attributes (deep copy).
-    /// Note: Passing directly through the AttribManager is highly discouraged.
+    /// The position and normal attributes are always copied, no need to provide their handles.
+    /// Note: The original handles are not valid for the mesh copy.
     template <typename... Handles>
-    void copyAttribs( const TriangleMesh& input, Handles... attribs );
+    void partialCopy( const TriangleMesh& input, Handles... attribs );
+
+    /// Copy all the attributes (deep copy).
+    /// Note: The original handles are also valid for the mesh copy.
+    inline void fullCopy( const TriangleMesh& input );
 
     /// Erases all data, making the mesh empty.
     /// Note: invalidates shallow copies.
