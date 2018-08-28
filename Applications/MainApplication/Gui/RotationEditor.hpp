@@ -44,19 +44,19 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
         connect( m_slider_z, static_cast<slidePtr>( &QSlider::valueChanged ), this,
                  &RotationEditor::onValueChangedAbsSlide );
 
-        connect( m_x_rel, static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ), this,
-                 &RotationEditor::onValueChangedRelSpinX );
-        connect( m_y_rel, static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ), this,
-                 &RotationEditor::onValueChangedRelSpinY );
-        connect( m_z_rel, static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ), this,
-                 &RotationEditor::onValueChangedRelSpinZ );
+        connect( m_x_rel, static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ),
+                 [this]( const double& v ) { this->onValueChangedSpinRel( 0 ); } );
+        connect( m_y_rel, static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ),
+                 [this]( const double& v ) { this->onValueChangedSpinRel( 1 ); } );
+        connect( m_z_rel, static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ),
+                 [this]( const double& v ) { this->onValueChangedSpinRel( 2 ); } );
 
-        connect( m_slider_x_rel, static_cast<slidePtr>( &QSlider::valueChanged ), this,
-                 &RotationEditor::onValueChangedRelSlideX );
-        connect( m_slider_y_rel, static_cast<slidePtr>( &QSlider::valueChanged ), this,
-                 &RotationEditor::onValueChangedRelSlideY );
-        connect( m_slider_z_rel, static_cast<slidePtr>( &QSlider::valueChanged ), this,
-                 &RotationEditor::onValueChangedRelSlideZ );
+        connect( m_slider_x_rel, static_cast<slidePtr>( &QSlider::valueChanged ),
+                 [this]( const double& v ) { this->onValueChangedSlideRel( 2 ); } );
+        connect( m_slider_y_rel, static_cast<slidePtr>( &QSlider::valueChanged ),
+                 [this]( const double& v ) { this->onValueChangedSlideRel( 2 ); } );
+        connect( m_slider_z_rel, static_cast<slidePtr>( &QSlider::valueChanged ),
+                 [this]( const double& v ) { this->onValueChangedSlideRel( 2 ); } );
 
         m_x->setReadOnly( !editable );
         m_y->setReadOnly( !editable );
@@ -96,7 +96,7 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
 
   private slots:
 
-    /// Listens to the absolute spin boxes change signals and update the data accordingly.
+    /// Slot for the user changing the absolute rotation values.
     void onValueChangedAbsSpin() {
         Core::Vector3 ypr( Core::Math::toRadians( Scalar( m_z->value() ) ),
                            Core::Math::toRadians( Scalar( m_y->value() ) ),
@@ -111,7 +111,7 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
         emit( valueChanged( quat, m_id ) );
     };
 
-    /// Listens to the absolute sliders change signals and update the data accordingly.
+    /// Slot for the user changing the absolute rotation sliders.
     void onValueChangedAbsSlide() {
         const Scalar x = Scalar( m_slider_x->value() );
         const Scalar y = Scalar( m_slider_y->value() );
@@ -131,15 +131,8 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
         emit valueChanged( quat, m_id );
     };
 
-    void onValueChangedRelSpinX() { valueChangedSpinRel( 0 ); }
-    void onValueChangedRelSpinY() { valueChangedSpinRel( 1 ); }
-    void onValueChangedRelSpinZ() { valueChangedSpinRel( 2 ); }
-    void onValueChangedRelSlideX() { valueChangedSlideRel( 0 ); }
-    void onValueChangedRelSlideY() { valueChangedSlideRel( 1 ); }
-    void onValueChangedRelSlideZ() { valueChangedSlideRel( 2 ); }
-
-  private:
-    void valueChangedSpinRel( uint axis ) {
+    /// Slot for the user changing the relative rotation values.
+    void onValueChangedSpinRel( uint axis ) {
         if ( m_relativeAxis != axis )
         {
             const Scalar x = Scalar( m_x->value() );
@@ -171,7 +164,8 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
         emit valueChanged( quat, m_id );
     }
 
-    void valueChangedSlideRel( uint axis ) {
+    /// Slot for the user changing the relative rotation sliders.
+    void onValueChangedSlideRel( uint axis ) {
         if ( m_relativeAxis != axis )
         {
             const Scalar x = Scalar( m_x->value() );
@@ -204,7 +198,8 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
         emit valueChanged( quat, m_id );
     }
 
-    /// Update the spin boxes from a YPR vector.
+  private:
+    /// Update the absolute values from a YPR vector.
     void updateAbsSpin( const Core::Vector3& ypr ) {
         // We disable signals to avoid the spin boxes firing a new "valueChanged()" signal
         // which would create an infinite loop.
@@ -221,7 +216,7 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
         m_z->blockSignals( false );
     }
 
-    /// Update the sliders from a YPR vector.
+    /// Update the absolute sliders from a YPR vector.
     void updateAbsSlide( const Core::Vector3& ypr ) {
         m_slider_x->blockSignals( true );
         m_slider_y->blockSignals( true );
@@ -236,6 +231,7 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
         m_slider_z->blockSignals( false );
     }
 
+    /// Update the relative values from \p value.
     void updateRelSlide( double value ) {
         CORE_ASSERT( m_relativeAxis >= 0 && m_relativeAxis < 3, "Invalid relative axis" );
         QSlider* slider = m_relSliders[m_relativeAxis];
@@ -244,6 +240,7 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
         slider->blockSignals( false );
     }
 
+    /// Update the relative sliders from \p value.
     void updateRelSpin( double value ) {
         CORE_ASSERT( m_relativeAxis >= 0 && m_relativeAxis < 3, "Invalid relative axis" );
         QDoubleSpinBox* box = m_relSpinBoxes[m_relativeAxis];
@@ -251,6 +248,8 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
         box->setValue( value );
         box->blockSignals( false );
     }
+
+    /// Reset the relative values and sliders to zero.
     void resetRel() {
         for ( uint i = 0; i < 3; ++i )
         {
@@ -268,14 +267,19 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
     }
 
   private:
+    /// The index of the editor.
     uint m_id;
 
-    // Relative rotation helpers
+    /// Relative rotation values.
     QDoubleSpinBox* m_relSpinBoxes[3];
+
+    /// Relative rotation sliders.
     QSlider* m_relSliders[3];
 
-    // Relative rotation state variables.
+    /// Relative rotation transformation angles.
     Core::Vector3 m_startRelTransformYpr;
+
+    /// Current relative rotation axis.
     int m_relativeAxis;
 };
 } // namespace Gui

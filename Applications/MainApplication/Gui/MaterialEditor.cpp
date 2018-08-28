@@ -122,7 +122,7 @@ void MaterialEditor::changeRenderObject( Core::Index roIdx ) {
     m_roIdx = roIdx;
     m_renderObject = m_roMgr->getRenderObject( m_roIdx );
 
-    /// TODO : replace this ugly dynamic_cast by something more static ...
+    // TODO : replace this ugly dynamic_cast by something more static ...
     m_material = dynamic_cast<Ra::Engine::BlinnPhongMaterial*>(
         m_renderObject->getRenderTechnique()->getMaterial().get() );
     if ( m_material == nullptr )

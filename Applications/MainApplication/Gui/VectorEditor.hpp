@@ -53,9 +53,10 @@ class VectorEditor : public QWidget, private Ui::VectorEditor {
     void onValueChangedInternal() {
         Core::Vector3 v( m_x->value(), m_y->value(), m_z->value() );
         emit valueChanged( v, m_id );
-    };
+    }
 
   private:
+    /// The index of the editor.
     uint m_id;
 };
 } // namespace Gui

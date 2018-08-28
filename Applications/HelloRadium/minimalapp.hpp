@@ -27,22 +27,25 @@ class MinimalApp : public QApplication {
     /// This function is the basic "game loop" iteration of the engine.
     /// It starts the rendering then advance all systems by one frame.
     void frame();
+
+    /// Tells the application that the OpenGL context has been created.
+    /// If the application needs OpenGL stuff, it has to be created here.
     void onGLInitialized();
 
   public:
-    // Our instance of the engine
+    /// Our instance of the engine.
     std::unique_ptr<Ra::Engine::RadiumEngine> m_engine;
 
-    // Task queue
+    /// Task queue.
     std::unique_ptr<Ra::Core::TaskQueue> m_task_queue;
 
-    // Pointer to Qt/OpenGL Viewer widget.
+    /// Pointer to Qt/OpenGL Viewer widget.
     std::unique_ptr<Ra::Gui::Viewer> m_viewer;
 
-    // Timer to wake us up at every frame start.
+    /// Timer to wake us up at every frame start.
     QTimer* m_frame_timer;
 
-    // Our framerate
+    /// Our framerate.
     uint m_target_fps;
 
 }; // end class

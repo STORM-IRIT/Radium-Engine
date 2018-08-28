@@ -17,7 +17,7 @@ struct MinimalComponent : public Ra::Engine::Component {
     /// setup, i.e. it has an entity.
     void initialize() override;
 
-    /// This function will spin our cube
+    /// This function will spin our cube.
     void spin();
 };
 

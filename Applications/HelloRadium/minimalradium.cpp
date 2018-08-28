@@ -14,13 +14,9 @@
 /* This file contains a minimal radium/qt application which shows the
 classic "Spinning Cube" demo. */
 
-/// This is a very basic component which holds a spinning cube.
-
 MinimalComponent::MinimalComponent( Ra::Engine::Entity* entity ) :
     Ra::Engine::Component( "Minimal Component", entity ) {}
 
-/// This function is called when the component is properly
-/// setup, i.e. it has an entity.
 void MinimalComponent::initialize() {
     // Create a cube mesh render object.
     std::shared_ptr<Ra::Engine::Mesh> display( new Ra::Engine::Mesh( "Cube" ) );
@@ -30,7 +26,6 @@ void MinimalComponent::initialize() {
     addRenderObject( renderObject );
 }
 
-/// This function will spin our cube
 void MinimalComponent::spin() {
     Ra::Core::AngleAxis aa( 0.01f, Ra::Core::Vector3::UnitY() );
     Ra::Core::Transform rot( aa );
@@ -41,8 +36,6 @@ void MinimalComponent::spin() {
     ro->setLocalTransform( rot * t );
 }
 
-/// This system will be added to the engine. Every frame it will
-/// add a task to be executed, calling the spin function of the component.
 void MinimalSystem::generateTasks( Ra::Core::TaskQueue* q, const Ra::Engine::FrameInfo& info ) {
     // We check that our component is here.
     CORE_ASSERT( m_components.size() == 1, "System incorrectly initialized" );
