@@ -557,8 +557,7 @@ void MeshFeatureTrackingComponent::setTriangleIdx( int idx ) {
 
 void MeshFeatureTrackingComponent::update() {
     // check supported picking mode
-    if ( m_data.m_mode != PickingMode::RO &&
-         m_data.m_mode <= PickingMode::TRIANGLE &&
+    if ( m_data.m_mode != PickingMode::RO && m_data.m_mode <= PickingMode::TRIANGLE &&
          getRoMgr()->exists( m_pickedRoIdx ) )
     {
         setPosition( getFeaturePosition() );
@@ -674,6 +673,7 @@ Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeatureVector() const {
     const auto& n = ro->getMesh()->getGeometry().normals();
     if ( m_data.m_mode == PickingMode::VERTEX )
     {
+        // for vertices, the normal
         if ( !n.empty() )
         {
             return n[m_data.m_data[0]];

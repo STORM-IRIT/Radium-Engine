@@ -33,31 +33,44 @@ class MeshPaintPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     MeshPaintPluginC();
     virtual ~MeshPaintPluginC();
 
-    virtual void registerPlugin( const Ra::PluginContext& context ) override;
+    void registerPlugin( const Ra::PluginContext& context ) override;
 
-    virtual bool doAddWidget( QString& name ) override;
-    virtual QWidget* getWidget() override;
+    bool doAddWidget( QString& name ) override;
+    QWidget* getWidget() override;
 
-    virtual bool doAddMenu() override;
-    virtual QMenu* getMenu() override;
+    bool doAddMenu() override;
+    QMenu* getMenu() override;
 
-    virtual bool doAddAction( int& nb ) override;
-    virtual QAction* getAction( int id ) override;
+    bool doAddAction( int& nb ) override;
+    QAction* getAction( int id ) override;
 
   public slots:
+    /// Paints on the picked vertices.
     void onCurrentChanged( const QModelIndex& current, const QModelIndex& prev );
+
+    /// Toggle on/off painting.
     void activePaintColor( bool on );
+
+    /// Sets the paint color.
     void changePaintColor( const QColor& color );
 
   private:
+    /// The Paint Widget.
     MeshPaintUI* m_widget;
 
+    /// The SelectionManager of the Engine.
     Ra::GuiBase::SelectionManager* m_selectionManager;
+
+    /// The PickingManager of the Engine.
     Ra::Gui::PickingManager* m_PickingManager;
 
+    /// The Paint System.
     class MeshPaintSystem* m_system;
 
+    /// The Paint color.
     Ra::Core::Color m_paintColor;
+
+    /// Whether painting is active or not.
     bool m_isPainting;
 };
 

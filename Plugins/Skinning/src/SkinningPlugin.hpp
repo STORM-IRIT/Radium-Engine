@@ -25,6 +25,7 @@ namespace SkinningPlugin {
 class SkinningComponent;
 class SkinningSystem;
 
+/// The SkinningWidget is the widget for the SkinningPlugin.
 class SkinningWidget : public QFrame {
     Q_OBJECT
 
@@ -34,20 +35,36 @@ class SkinningWidget : public QFrame {
     explicit SkinningWidget( QWidget* parent = nullptr );
 
   public slots:
+    /// Updates the UI according to the selected Component.
     void setCurrent( const Ra::Engine::ItemEntry& entry, SkinningComponent* comp );
 
   private slots:
+    /// Sets the Skinning Method for the current Component.
     void onSkinningChanged( int newType );
 
+    /// Sets LBS as the Skinning Method.
     void onLSBActionTriggered();
+
+    /// Sets DQS as the Skinning Method.
     void onDQActionTriggered();
+
+    /// Sets CoR as the Skinning Method.
     void onCoRActionTriggered();
 
   private:
+    /// The current SkinningComponent.
     SkinningComponent* m_current;
+
+    /// The comboBox for the Skinning Method.
     QComboBox* m_skinningSelect;
+
+    /// The action for choosing LBS.
     QAction* m_actionLBS;
+
+    /// The action for choosing DQS.
     QAction* m_actionDQ;
+
+    /// The action for choosing CoR.
     QAction* m_actionCoR;
 };
 
@@ -61,23 +78,29 @@ class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
   public:
     virtual ~SkinningPluginC();
 
-    virtual void registerPlugin( const Ra::PluginContext& context ) override;
+    void registerPlugin( const Ra::PluginContext& context ) override;
 
-    virtual bool doAddWidget( QString& name ) override;
-    virtual QWidget* getWidget() override;
+    bool doAddWidget( QString& name ) override;
+    QWidget* getWidget() override;
 
-    virtual bool doAddMenu() override;
-    virtual QMenu* getMenu() override;
+    bool doAddMenu() override;
+    QMenu* getMenu() override;
 
-    virtual bool doAddAction( int& nb ) override;
-    virtual QAction* getAction( int id ) override;
+    bool doAddAction( int& nb ) override;
+    QAction* getAction( int id ) override;
 
   private slots:
+    /// Register the selected Component as the current one.
     void onCurrentChanged( const QModelIndex& current, const QModelIndex& prev );
 
   private:
+    /// The SkinningSystem.
     SkinningSystem* m_system;
+
+    /// The SelectionManager of the Engine.
     Ra::GuiBase::SelectionManager* m_selectionManager;
+
+    /// The Skinning Widget.
     SkinningWidget* m_widget;
 };
 

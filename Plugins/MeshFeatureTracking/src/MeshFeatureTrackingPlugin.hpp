@@ -32,28 +32,41 @@ class MeshFeatureTrackingPluginC : public QObject, Ra::Plugins::RadiumPluginInte
     MeshFeatureTrackingPluginC();
     virtual ~MeshFeatureTrackingPluginC();
 
-    virtual void registerPlugin( const Ra::PluginContext& context ) override;
+    void registerPlugin( const Ra::PluginContext& context ) override;
 
-    virtual bool doAddWidget( QString& name ) override;
-    virtual QWidget* getWidget() override;
+    bool doAddWidget( QString& name ) override;
+    QWidget* getWidget() override;
 
-    virtual bool doAddMenu() override;
-    virtual QMenu* getMenu() override;
+    bool doAddMenu() override;
+    QMenu* getMenu() override;
 
-    virtual bool doAddAction( int& nb ) override;
-    virtual QAction* getAction( int id ) override;
+    bool doAddAction( int& nb ) override;
+    QAction* getAction( int id ) override;
 
   public slots:
+    /// Updates the FeatureData from the lattest selection.
     void onCurrentChanged( const QModelIndex& current, const QModelIndex& prev );
+
+    /// Updates the UI and the sphere.
     void update();
+
+    /// Slot for the user changing the vertex index.
     void vertexIdChanged( int );
+
+    /// Slot for the user changing the triangle index.
     void triangleIdChanged( int );
 
   private:
+    /// The MeshFeatureTrackingComponent displaying the sphere.
     MeshFeatureTrackingComponent* m_component;
+
+    /// The Widget displaying the features informations.
     MeshFeatureTrackingUI* m_widget;
 
+    /// The SelectionManager of the Engine.
     Ra::GuiBase::SelectionManager* m_selectionManager;
+
+    /// The PickingManager of the Engine.
     Ra::Gui::PickingManager* m_PickingManager;
 };
 

@@ -26,6 +26,8 @@ void AnimationSystem::generateTasks( Ra::Core::TaskQueue* taskQueue,
 
     Scalar currentDelta = playFrame ? frameInfo.m_dt : 0;
 
+    // TODO: animation time should be the same for all components.
+    //       we need to use the smallest dt from all the components.
     for ( auto compEntry : this->m_components )
     {
         AnimationComponent* component = static_cast<AnimationComponent*>( compEntry.second );

@@ -24,7 +24,7 @@ using Ra::Core::Skinning::RefData;
 using Ra::Engine::ComponentMessenger;
 namespace SkinningPlugin {
 
-void SkinningComponent::setupSkinning() {
+void SkinningComponent::initialize() {
     auto compMsg = ComponentMessenger::getInstance();
     // get the current animation data.
     bool hasSkel = compMsg->canGet<Skeleton>( getEntity(), m_contentsName );

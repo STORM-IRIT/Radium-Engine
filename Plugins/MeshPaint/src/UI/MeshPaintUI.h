@@ -1,46 +1,50 @@
 #ifndef MESHPAINTUI_H
 #define MESHPAINTUI_H
 
-#include <QFrame>
 #include <QColor>
+#include <QFrame>
 
 #include <GuiBase/Utils/PickingManager.hpp>
 
-namespace UI
-{
-    class MeshPaintUI;
+namespace UI {
+class MeshPaintUI;
 }
 
-namespace MeshPaintPlugin
-{
-    class MeshPaintPluginC;
+namespace MeshPaintPlugin {
+class MeshPaintPluginC;
 }
 
-namespace Ui
-{
-    class MeshPaintUI;
+namespace Ui {
+class MeshPaintUI;
 }
 
-class MeshPaintUI : public QFrame
-{
+/// The MeshPaintUI classs is the Widget for the MeshPaintPlugin.
+class MeshPaintUI : public QFrame {
     Q_OBJECT
 
     friend class MeshPaintPlugin::MeshPaintPluginC;
 
-public:
-    explicit MeshPaintUI(QWidget *parent = 0);
+  public:
+    explicit MeshPaintUI( QWidget* parent = 0 );
     ~MeshPaintUI();
 
-signals:
+  signals:
+    /// Emitted by on_paintColor_rb_toggled.
     void paintColor( bool );
-    void colorChanged( const QColor & );
 
-private slots:
+    /// Emitted by on_changeColor_pb_clicked.
+    void colorChanged( const QColor& );
+
+  private slots:
+    /// Slot for the user activating the paint.
     void on_paintColor_rb_toggled( bool checked );
+
+    /// Slot for the user changing the paint color.
     void on_changeColor_pb_clicked();
 
-private:
-    Ui::MeshPaintUI *ui;
+  private:
+    /// The actual widget UI.
+    Ui::MeshPaintUI* ui;
 };
 
 #endif // MESHPAINTUI_H

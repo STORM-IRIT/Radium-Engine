@@ -27,21 +27,18 @@ using Ra::Engine::ComponentMessenger;
 
 namespace SkinningPlugin {
 
+/// The SkinningDisplayComponent class is responsible for displaying
+/// the partition of the object's mesh according to the skinning weights.
 class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
   public:
-    /// CONSTRUCTOR
     SkinningDisplayComponent( const std::string& name, const std::string& content,
                               Ra::Engine::Entity* entity ) :
         Ra::Engine::Component( name, entity ),
         m_contentsName( content ) {}
 
-    /// DESTRUCTOR
     ~SkinningDisplayComponent() {}
 
-    /// INTERFACE
-    void initialize() { display(); }
-
-    void display() {
+    void initialize() {
         auto compMsg = ComponentMessenger::getInstance();
         bool hasMesh = compMsg->canGet<TriangleMesh>( getEntity(), m_contentsName );
         bool hasWeights = compMsg->canGet<WeightMatrix>( getEntity(), m_contentsName );
@@ -154,7 +151,7 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
     }
 
   protected:
-    /// VARIABLE
+    /// The Entity name for Component communication.
     std::string m_contentsName;
 };
 

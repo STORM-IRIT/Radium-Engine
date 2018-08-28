@@ -25,19 +25,23 @@ class MeshPaintComponent;
 }
 
 namespace MeshPaintPlugin {
+/// The MeshPaintSystem class is responsible for dispatching paint events to the
+/// MeshPaintComponents.
 class MESH_PAINT_PLUGIN_API MeshPaintSystem : public Ra::Engine::System {
   public:
     MeshPaintSystem();
     virtual ~MeshPaintSystem();
 
-    virtual void handleAssetLoading( Ra::Engine::Entity* entity,
-                                     const Ra::Asset::FileData* fileData ) override;
+    void handleAssetLoading( Ra::Engine::Entity* entity,
+                             const Ra::Asset::FileData* fileData ) override;
 
-    virtual void generateTasks( Ra::Core::TaskQueue* taskQueue,
-                                const Ra::Engine::FrameInfo& frameInfo ) override;
+    void generateTasks( Ra::Core::TaskQueue* taskQueue,
+                        const Ra::Engine::FrameInfo& frameInfo ) override;
 
+    /// Prepare the MeshPaintComponents for painting.
     void startPaintMesh( bool start );
 
+    /// Paint on the picked mesh.
     void paintMesh( const Ra::Engine::Renderer::PickingResult& picking,
                     const Ra::Core::Color& color );
 };
