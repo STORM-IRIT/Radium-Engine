@@ -9,17 +9,13 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-/////////////////////
-/// GLOBAL MATRIX ///
-/////////////////////
-
 // Defining the AreaMatrix as the diagonal matrix such that:
 //    A( i, j ) = area(Pi) , if i == j
 //    A( i, j ) = 0        , if i != j
 // where Pi is the i-th point of the mesh.
 using AreaMatrix = Diagonal;
 
-/*
+/**
  * Return the AreaMatrix for the given set of points and triangles.
  * The values correspond to the one-ring area of each point in p.
  *
@@ -30,7 +26,7 @@ using AreaMatrix = Diagonal;
  */
 AreaMatrix RA_CORE_API oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T );
 
-/*
+/**
  * Return the AreaMatrix for the given set of points and triangles.
  * The values correspond to the one-ring area of each point in p.
  *
@@ -42,7 +38,7 @@ AreaMatrix RA_CORE_API oneRingArea( const VectorArray<Vector3>& p, const VectorA
 void RA_CORE_API oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
                               AreaMatrix& A );
 
-/*
+/**
  * Return the AreaMatrix for the given set of points and triangles.
  * The values correspond to the barycentric area of each point in p.
  *
@@ -54,7 +50,7 @@ void RA_CORE_API oneRingArea( const VectorArray<Vector3>& p, const VectorArray<T
 AreaMatrix RA_CORE_API barycentricArea( const VectorArray<Vector3>& p,
                                         const VectorArray<Triangle>& T );
 
-/*
+/**
  * Return the AreaMatrix for the given set of points and triangles.
  * The values correspond to the barycentric area of each point in p.
  *
@@ -66,7 +62,7 @@ AreaMatrix RA_CORE_API barycentricArea( const VectorArray<Vector3>& p,
 void RA_CORE_API barycentricArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
                                   AreaMatrix& A );
 
-/*
+/**
  * Return the AreaMatrix for the given set of points and triangles.
  * The values correspond to the Voronoi area of each point in p.
  *
@@ -77,7 +73,7 @@ void RA_CORE_API barycentricArea( const VectorArray<Vector3>& p, const VectorArr
  */
 AreaMatrix RA_CORE_API voronoiArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T );
 
-/*
+/**
  * Return the AreaMatrix for the given set of points and triangles.
  * The values correspond to the mixed area of each point in p.
  *
@@ -88,11 +84,7 @@ AreaMatrix RA_CORE_API voronoiArea( const VectorArray<Vector3>& p, const VectorA
  */
 AreaMatrix RA_CORE_API mixedArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T );
 
-////////////////
-/// ONE RING ///
-////////////////
-
-/*
+/**
  * Return the area for the given point v and its one-ring.
  * The values correspond to the one-ring area of v.
  *
@@ -103,7 +95,7 @@ AreaMatrix RA_CORE_API mixedArea( const VectorArray<Vector3>& p, const VectorArr
  */
 Scalar RA_CORE_API oneRingArea( const Vector3& v, const VectorArray<Vector3>& p );
 
-/*
+/**
  * Return the area for the given point v and its one-ring.
  * The values correspond to the barycentric area of v.
  *
@@ -114,7 +106,7 @@ Scalar RA_CORE_API oneRingArea( const Vector3& v, const VectorArray<Vector3>& p 
  */
 Scalar RA_CORE_API barycentricArea( const Vector3& v, const VectorArray<Vector3>& p );
 
-/*
+/**
  * Return the area for the given point v and its one-ring.
  * The values correspond to the Voronoi area of v.
  *
@@ -125,7 +117,7 @@ Scalar RA_CORE_API barycentricArea( const Vector3& v, const VectorArray<Vector3>
  */
 Scalar voronoiArea( const Vector3& v, const VectorArray<Vector3>& p );
 
-/*
+/**
  * Return the area for the given point v and its one-ring.
  * The values correspond to the mixed area of v.
  *

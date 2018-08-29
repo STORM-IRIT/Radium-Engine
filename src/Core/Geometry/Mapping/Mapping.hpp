@@ -9,52 +9,71 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-/*
+/**
  * The class Mapping stores the mapping of a vertex on a triangle face.
- * It stores the followings:
- *       ( alpha, beta, gamma ) are the barycentric coordinates of a vertex relative to a triangle.
- * NOTE: gamma = 1 - alpha - beta. delta is the displacement along a direction from the point given
- * by the barycentric coordinates. ID is the index of the triangle.
+ * It stores the barycentric coordinates of a vertex relative to a triangle,
+ * the displacement along a direction from the mapped point on the triangle
+ * and the index of the triangle.
  */
 class Mapping {
   public:
-    /// CONSTRUCTOR
     inline Mapping( const Scalar alpha = 0.0, const Scalar beta = 0.0, const Scalar delta = 0.0,
                     Index id = Index::Invalid() );
 
-    /// DESTRUCTOR
     inline ~Mapping();
 
-    /// BARYCENTRIC COORDINATE
+    /// Return the first barycentric coordinate.
     inline Scalar getAlpha() const;
+
+    /// Set the first barycentric coordinate.
     inline void setAlpha( const Scalar alpha );
+
+    /// Return the second barycentric coordinate.
     inline Scalar getBeta() const;
+
+    /// Set the second barycentric coordinate.
     inline void setBeta( const Scalar beta );
+
+    /// Return the third barycentric coordinate.
     inline Scalar getGamma() const;
+
+    /// Set the third barycentric coordinate.
     inline Vector3 getCoord() const;
 
-    /// DELTA
+    /// Return the displacement along the direction from the mapped point.
     inline Scalar getDelta() const;
+
+    /// Set the displacement along the direction from the mapped point.
     inline void setDelta( const Scalar delta );
 
-    /// ID
+    /// Return the index of the triangle.
     inline Index getID() const;
+
+    /// Set the index of the triangle.
     inline void setID( const Index& id );
 
-    /// POINT
+    /// Return the point resulting from the mapping to triangle (\p p0, \p p1, \p p2) with
+    /// the direction \p n.
     inline Vector3 getPoint( const Vector3& p0, const Vector3& p1, const Vector3& p2,
                              const Vector3& n ) const;
 
-    /// QUERY
-    inline bool isFinite() const; // Return true if all the values stored are not nans or infs.
-    inline bool
-    isInside() const; // Return true if the barycentric coordinates are inside the triangle.
-    inline bool isBoundToElement() const; // Return true if the index of the triangle is valid.
+    /// Return true if all the values stored are not nans or infs.
+    inline bool isFinite() const;
+
+    /// Return true if the barycentric coordinates are inside the triangle.
+    inline bool isInside() const;
+
+    /// Return true if the index of the triangle is valid.
+    inline bool isBoundToElement() const;
 
   protected:
-    /// VARIABLE
+    /// First and second barycentric coordinates for the mapping.
     Vector2 m_coord;
+
+    /// Displacement along any direction fr the mapping.
     Scalar m_delta;
+
+    /// The index of the triangle.
     Index m_id;
 };
 

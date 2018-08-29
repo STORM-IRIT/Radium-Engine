@@ -4,9 +4,8 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-void vertexDistance( const VectorArray<Vector3>& v0, const VectorArray<Vector3>& v1,
-                     std::vector<Scalar>& sqrDist, Scalar& sqrMin, Scalar& sqrMax,
-                     Scalar& sqrAvg ) {
+void vertexDistance( const Vector3Array& v0, const Vector3Array& v1, std::vector<Scalar>& sqrDist,
+                     Scalar& sqrMin, Scalar& sqrMax, Scalar& sqrAvg ) {
     const uint n = v0.size();
     sqrMin = std::numeric_limits<Scalar>::max();
     sqrMax = 0.0;
@@ -21,8 +20,8 @@ void vertexDistance( const VectorArray<Vector3>& v0, const VectorArray<Vector3>&
     sqrAvg = ( sqrMax + sqrMin ) * 0.5;
 }
 
-void vertexDistance( const VectorArray<Vector3>& v0, const VectorArray<Vector3>& v1, Scalar& sqrMin,
-                     Scalar& sqrMax, Scalar& sqrAvg ) {
+void vertexDistance( const Vector3Array& v0, const Vector3Array& v1, Scalar& sqrMin, Scalar& sqrMax,
+                     Scalar& sqrAvg ) {
     const uint n = v0.size();
     sqrMax = 0.0;
     sqrMin = std::numeric_limits<Scalar>::max();

@@ -32,94 +32,88 @@ namespace Geometry {
  *
  **/
 
-/////////////////////
-/// GLOBAL MATRIX ///
-/////////////////////
-
-// Defining the LaplacianMatrix as the sparse matrix such that:
-//      L = f( D, A )
-// where f( D, A ) is a function taking in input a DegreeMatrix and an AdjacencyMatrix
+// Defining the LaplacianMatrix as the sparse matrix such that: L = f( D, A )
+// where f( D, A ) is a function taking in input a DegreeMatrix and an AdjacencyMatrix.
 using LaplacianMatrix = Sparse;
 
-/*
+/**
  * Return the LaplacianMatrix from the given matrices D and A.
  *
- * If POSITIVE_SEMI_DEFINITE is true then:
- *        L = D - A
+ * If POSITIVE_SEMI_DEFINITE is true then: \f$ L = D - A \f$
  * where L could/should be a positive semi-definite matrix.
  *
- * If POSITIVE_SEMI_DEFINITE is false then:
- *        L = A - D
+ * If POSITIVE_SEMI_DEFINITE is false then: \f$ L = A - D \f$
  * where L could/should be a negative semi-definite matrix.
+ *
+ * \warning For computing the positive semi-definite cotangent weight laplacian
+ *          faster use cotangentWeightLaplacian().
  */
-/// WARNING; FOR COMPUTING THE POSITIVE SEMI-DEFINITE COTANGENT WEIGHT LAPLACIAN FASTER USE
-/// cotangentWeightLaplacian
 LaplacianMatrix RA_CORE_API standardLaplacian( const DegreeMatrix& D, const AdjacencyMatrix& A,
                                                const bool POSITIVE_SEMI_DEFINITE = true );
 
-/*
+/**
  * Return the LaplacianMatrix from the given matrices D and A.
  *
- * The LaplacianMatrix is defined as:
- *       L = I - D^-1/2 A D^-1/2
+ * The LaplacianMatrix is defined as: \f$ L = I - D^{-1/2} A D^{-1/2} \f$
  * where I is the identity matrix.
  */
 LaplacianMatrix RA_CORE_API symmetricNormalizedLaplacian( const DegreeMatrix& D,
                                                           const AdjacencyMatrix& A );
 
-/*
+/**
  * Return the LaplacianMatrix from the given matrices D and A.
  *
- * The LaplacianMatrix is defined as:
- *       L = I - D^-1 A
+ * The LaplacianMatrix is defined as: \f$ L = I - D^{-1} A \f$
  * where I is the identity matrix.
  */
 LaplacianMatrix RA_CORE_API randomWalkNormalizedLaplacian( const DegreeMatrix& D,
                                                            const AdjacencyMatrix& A );
 
-/*
+/**
  * Return the LaplacianMatrix computed as the k-power of the matrix L.
  *
  * The definition was taken from:
  * "Remeshing for Multiresolution Modeling"
  * [ Mario Botsch, Leif Kobbelt ]
  * Eurographics 2004
+ *
+ * \warning The implementation could be wrong.
  */
-/// WARNING: THE IMPLEMENTATION COULD BE WRONG
 LaplacianMatrix RA_CORE_API powerLaplacian( const LaplacianMatrix& L, const uint k );
 
-/*
+/**
  * Return the LaplacianMatrix vector for the given set of points and triangles.
  *
  * The LaplacianMatrix is defined as:
- *       L( i, j ) = -0.5 * sum( cot( alpha_ij ) + cot( beta_ij ) )  , with i != j and exist edge {
- * i, j } L( i, i ) =  0.5 * sum( L( i, j ) )                         , with i != j where alpha_ij
- * and beta_ij are the angles opposite the edge { i, j }, and L could/should be a positive
- * semi-definite matrix.
+ *   \f{eqnarray}{
+ *       L( i, j ) &=& -&0.5 * \sum cot( \alpha_{ij} ) + cot( \beta_{ij} ) &,&
+ *  \text{with } i != j \text{ and exist edge } \{i, j\} \\
+ *       L( i, i ) &=&  &0.5 * \sum L( i, j ) &,& \text{with } i != j
+ *   \f}
+ * where \f$ \alpha_{ij} \f$ and \f$ \beta_{ij} \f$ are the angles opposite the
+ * edge {i, j}, and L could/should be a positive semi-definite matrix.
+ *
+ * \warning This implementation is faster than doing L = D - A.
  */
-/// WARNING: THIS IMPLEMENTATION IS FASTER THAN DOING L = D - A.
 LaplacianMatrix RA_CORE_API cotangentWeightLaplacian( const VectorArray<Vector3>& p,
                                                       const VectorArray<Triangle>& T );
 
-////////////////
-/// ONE RING ///
-////////////////
-
-/*
+/**
  * Return the Laplacian vector for the given point v and its one-ring.
  *
- * The Laplacian vector is defined as:
- *       L = sum( ( v - p_j ) )
+ * The Laplacian vector is defined as: \f$ L = \sum ( v - p_j ) \f$
+ *
+ * \warning The implementation could be wrong.
  */
-/// WARNING: THE IMPLEMENTATION COULD BE WRONG
 Vector3 RA_CORE_API uniformLaplacian( const Vector3& v, const VectorArray<Vector3>& p );
 
-/*
+/**
  * Return the Laplacian vector for the given point v and its one-ring.
  *
  * The Laplacian vector is defined as:
- *       L = 0.5 * sum( ( cot( alpha_vj ) + cot( beta_vj ) ) * ( v - p_j ) )
- * where alpha_ij and beta_ij are the angles opposite the edge { v, p_j }
+ *  \f$ L = 0.5 * \sum cot( \alpha_{vj} ) + cot( \beta_{vj} ) * ( v - p_j ) \f$
+ * where \f$ \alpha_{vj} \f$ and \f$ \beta_{vj} \f$ are the angles opposite the edge {v, \f$ p_j
+ * \f$}
  */
 Vector3 RA_CORE_API cotangentWeightLaplacian( const Vector3& v, const VectorArray<Vector3>& p );
 

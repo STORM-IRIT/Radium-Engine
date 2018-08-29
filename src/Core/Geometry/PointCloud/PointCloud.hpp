@@ -12,6 +12,7 @@
 
 namespace Ra {
 namespace Core {
+
 /// This file contains functions operating on any unstructured set of points.
 /// If not stated otherwise the functions behaviour is undefined if the set
 /// of points is empty.

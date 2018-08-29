@@ -4,16 +4,13 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-/// CONSTRUCTOR
 Mapping::Mapping( const Scalar alpha, const Scalar beta, const Scalar delta, Index id ) :
     m_coord( Vector2( alpha, beta ) ),
     m_delta( delta ),
     m_id( id ) {}
 
-/// DESTRUCTOR
 Mapping::~Mapping() {}
 
-/// BARYCENTRIC COORDINATE
 inline Scalar Mapping::getAlpha() const {
     return m_coord[0];
 }
@@ -38,7 +35,6 @@ inline Vector3 Mapping::getCoord() const {
     return Vector3( getAlpha(), getBeta(), getGamma() );
 }
 
-/// DELTA
 inline Scalar Mapping::getDelta() const {
     return m_delta;
 }
@@ -47,7 +43,6 @@ inline void Mapping::setDelta( const Scalar delta ) {
     m_delta = delta;
 }
 
-/// ID
 inline Index Mapping::getID() const {
     return m_id;
 }
@@ -56,14 +51,12 @@ inline void Mapping::setID( const Index& id ) {
     m_id = id;
 }
 
-/// POINT
 inline Vector3 Mapping::getPoint( const Vector3& p0, const Vector3& p1, const Vector3& p2,
                                   const Vector3& n ) const {
     return ( ( ( getAlpha() * p0 ) + ( getBeta() * p1 ) + ( getGamma() * p2 ) ) +
              ( getDelta() * n ) );
 }
 
-/// QUERY
 inline bool Mapping::isFinite() const {
     if ( std::isnan( getAlpha() ) || std::isinf( getAlpha() ) )
     {

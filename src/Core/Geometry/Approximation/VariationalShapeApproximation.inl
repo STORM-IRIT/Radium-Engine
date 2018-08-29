@@ -10,44 +10,31 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-//////////////////////////////////////////////////////////////////////////////
-// CONSTRUCTOR
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-inline VariationalShapeApproximationBase<K_Region>::VariationalShapeApproximationBase(
-    const Mesh& mesh ) :
+template <uint K>
+inline VariationalShapeApproximationBase<K>::VariationalShapeApproximationBase( const Mesh& mesh ) :
     m_mesh( mesh ),
     m_queue(),
     m_region(),
     m_proxy(),
     m_init( false ) {}
 
-//////////////////////////////////////////////////////////////////////////////
-// DESTRUCTOR
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-inline VariationalShapeApproximationBase<K_Region>::~VariationalShapeApproximationBase() {}
+template <uint K>
+inline VariationalShapeApproximationBase<K>::~VariationalShapeApproximationBase() {}
 
-//////////////////////////////////////////////////////////////////////////////
-// INIT
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-inline void VariationalShapeApproximationBase<K_Region>::init() {
+template <uint K>
+inline void VariationalShapeApproximationBase<K>::init() {
     this->compute_data();
     this->compute_seed();
     this->m_init = true;
 }
 
-template <uint K_Region>
-inline bool VariationalShapeApproximationBase<K_Region>::initialized() const {
+template <uint K>
+inline bool VariationalShapeApproximationBase<K>::initialized() const {
     return m_init;
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// EXECUTION
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-inline void VariationalShapeApproximationBase<K_Region>::exec( const uint iteration ) {
+template <uint K>
+inline void VariationalShapeApproximationBase<K>::exec( const uint iteration ) {
     if ( !this->initialized() )
     {
         CORE_WARN_IF( false, "V.S.A. NOT INITIALIZED" );
@@ -62,9 +49,9 @@ inline void VariationalShapeApproximationBase<K_Region>::exec( const uint iterat
     LOG( logDEBUG ) << "V.S.A. completed.";
 }
 
-template <uint K_Region>
+template <uint K>
 template <uint Iteration>
-inline void VariationalShapeApproximationBase<K_Region>::exec() {
+inline void VariationalShapeApproximationBase<K>::exec() {
     if ( !this->initialized() )
     {
         CORE_WARN_IF( false, "V.S.A. NOT INITIALIZED" );
@@ -79,29 +66,20 @@ inline void VariationalShapeApproximationBase<K_Region>::exec() {
     LOG( logDEBUG ) << "V.S.A. completed.";
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// REGION
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-inline const typename VariationalShapeApproximationBase<K_Region>::Region&
-VariationalShapeApproximationBase<K_Region>::region( const uint i ) const {
+template <uint K>
+inline const typename VariationalShapeApproximationBase<K>::Region&
+VariationalShapeApproximationBase<K>::region( const uint i ) const {
     return m_region.at( i );
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// PROXY
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-inline const typename VariationalShapeApproximationBase<K_Region>::Proxy&
-VariationalShapeApproximationBase<K_Region>::proxy( const uint i ) const {
+template <uint K>
+inline const typename VariationalShapeApproximationBase<K>::Proxy&
+VariationalShapeApproximationBase<K>::proxy( const uint i ) const {
     return m_proxy.at( i );
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// COLOR
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-inline void VariationalShapeApproximationBase<K_Region>::create_region_color() {
+template <uint K>
+inline void VariationalShapeApproximationBase<K>::create_region_color() {
     for ( uint i = 0; i < K; ++i )
     {
         const Scalar q = Scalar( i ) / static_cast<Scalar>( K - 1 );
@@ -112,8 +90,8 @@ inline void VariationalShapeApproximationBase<K_Region>::create_region_color() {
     }
 }
 
-template <uint K_Region>
-inline void VariationalShapeApproximationBase<K_Region>::create_energy_color() {
+template <uint K>
+inline void VariationalShapeApproximationBase<K>::create_energy_color() {
     for ( uint i = 0; i < K; ++i )
     {
         for ( const auto& T : this->m_region[i] )
@@ -123,8 +101,8 @@ inline void VariationalShapeApproximationBase<K_Region>::create_energy_color() {
     }
 }
 
-template <uint K_Region>
-inline void VariationalShapeApproximationBase<K_Region>::shuffle_regions() {
+template <uint K>
+inline void VariationalShapeApproximationBase<K>::shuffle_regions() {
     // This function was made in order to have a chance for neighboring regions
     // to have distant IDs, hence having a different color.
     std::array<uint, K> id;
@@ -151,11 +129,8 @@ inline void VariationalShapeApproximationBase<K_Region>::shuffle_regions() {
     }
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// DATA
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-inline void VariationalShapeApproximationBase<K_Region>::compute_data() {
+template <uint K>
+inline void VariationalShapeApproximationBase<K>::compute_data() {
     const uint size = this->m_mesh.m_triangles.size();
     this->m_fbary.resize( size );
     this->m_fnormal.resize( size );
@@ -195,11 +170,8 @@ inline void VariationalShapeApproximationBase<K_Region>::compute_data() {
     }
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// SEED
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-inline void VariationalShapeApproximationBase<K_Region>::compute_seed() {
+template <uint K>
+inline void VariationalShapeApproximationBase<K>::compute_seed() {
     std::set<TriangleIdx> t;
     std::default_random_engine g( time( 0 ) );
     std::uniform_int_distribution<TriangleIdx> rnd( 0, this->m_mesh.m_triangles.size() - 1 );
@@ -214,11 +186,8 @@ inline void VariationalShapeApproximationBase<K_Region>::compute_seed() {
     }
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// GEOMETRY PARTITIONING
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-inline void VariationalShapeApproximationBase<K_Region>::geometry_partitioning() {
+template <uint K>
+inline void VariationalShapeApproximationBase<K>::geometry_partitioning() {
     // Reset the visited flag
     for ( TriangleIdx T = 0; T < this->m_mesh.m_triangles.size(); ++T )
     {
@@ -271,10 +240,9 @@ inline void VariationalShapeApproximationBase<K_Region>::geometry_partitioning()
     }
 }
 
-template <uint K_Region>
-inline void
-VariationalShapeApproximationBase<K_Region>::add_neighbors_to_queue( const TriangleIdx& T,
-                                                                     const uint proxy_id ) {
+template <uint K>
+inline void VariationalShapeApproximationBase<K>::add_neighbors_to_queue( const TriangleIdx& T,
+                                                                          const uint proxy_id ) {
     for ( const auto& r : this->m_fadj[T] )
     {
         this->m_queue.push(
@@ -283,20 +251,12 @@ VariationalShapeApproximationBase<K_Region>::add_neighbors_to_queue( const Trian
 }
 
 //============================================================================
-//============================================================================
-//============================================================================
 
-//////////////////////////////////////////////////////////////////////////////
-// DESTRUCTOR
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region, MetricType Type>
-VariationalShapeApproximation<K_Region, Type>::~VariationalShapeApproximation() {}
+template <uint K, MetricType Type>
+VariationalShapeApproximation<K, Type>::~VariationalShapeApproximation() {}
 
-//////////////////////////////////////////////////////////////////////////////
-// PROXY FITTING
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region, MetricType Type>
-inline void VariationalShapeApproximation<K_Region, Type>::proxy_fitting() {
+template <uint K, MetricType Type>
+inline void VariationalShapeApproximation<K, Type>::proxy_fitting() {
     static const Scalar c = 2.0 / 72.0;
     Matrix3 m;
     m << 10.0, 7.0, 0.0, 7.0, 10.0, 0.0, 0.0, 0.0, 0.0;
@@ -332,12 +292,9 @@ inline void VariationalShapeApproximation<K_Region, Type>::proxy_fitting() {
     }
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// ENERGY
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region, MetricType Type>
-inline Scalar VariationalShapeApproximation<K_Region, Type>::E( const TriangleIdx& T,
-                                                                const Proxy& P ) const {
+template <uint K, MetricType Type>
+inline Scalar VariationalShapeApproximation<K, Type>::E( const TriangleIdx& T,
+                                                         const Proxy& P ) const {
     static const Scalar c = 1.0 / 6.0;
     const Vector3 v[3] = {this->m_mesh.m_vertices[this->m_mesh.m_triangles[T][0]],
                           this->m_mesh.m_vertices[this->m_mesh.m_triangles[T][1]],
@@ -355,20 +312,12 @@ inline Scalar VariationalShapeApproximation<K_Region, Type>::E( const TriangleId
 }
 
 //============================================================================
-//============================================================================
-//============================================================================
 
-//////////////////////////////////////////////////////////////////////////////
-// DESTRUCTOR
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-VariationalShapeApproximation<K_Region, MetricType::L21>::~VariationalShapeApproximation() {}
+template <uint K>
+VariationalShapeApproximation<K, MetricType::L21>::~VariationalShapeApproximation() {}
 
-//////////////////////////////////////////////////////////////////////////////
-// PROXY FITTING
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-inline void VariationalShapeApproximation<K_Region, MetricType::L21>::proxy_fitting() {
+template <uint K>
+inline void VariationalShapeApproximation<K, MetricType::L21>::proxy_fitting() {
     for ( uint i = 0; i < this->K; ++i )
     {
         Scalar area_sum = 0;
@@ -385,12 +334,9 @@ inline void VariationalShapeApproximation<K_Region, MetricType::L21>::proxy_fitt
     }
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// ENERGY
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-inline Scalar VariationalShapeApproximation<K_Region, MetricType::L21>::E( const TriangleIdx& T,
-                                                                           const Proxy& P ) const {
+template <uint K>
+inline Scalar VariationalShapeApproximation<K, MetricType::L21>::E( const TriangleIdx& T,
+                                                                    const Proxy& P ) const {
     const Scalar a = this->m_farea[T];
     const Vector3 n = this->m_fnormal[T];
     const Vector3 d = n - P.second;
@@ -399,20 +345,12 @@ inline Scalar VariationalShapeApproximation<K_Region, MetricType::L21>::E( const
 }
 
 //============================================================================
-//============================================================================
-//============================================================================
 
-//////////////////////////////////////////////////////////////////////////////
-// DESTRUCTOR
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-VariationalShapeApproximation<K_Region, MetricType::LLOYD>::~VariationalShapeApproximation() {}
+template <uint K>
+VariationalShapeApproximation<K, MetricType::LLOYD>::~VariationalShapeApproximation() {}
 
-//////////////////////////////////////////////////////////////////////////////
-// PROXY FITTING
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-inline void VariationalShapeApproximation<K_Region, MetricType::LLOYD>::proxy_fitting() {
+template <uint K>
+inline void VariationalShapeApproximation<K, MetricType::LLOYD>::proxy_fitting() {
     for ( uint i = 0; i < this->K; ++i )
     {
         this->m_proxy[i].first = Vector3::Zero();
@@ -427,13 +365,9 @@ inline void VariationalShapeApproximation<K_Region, MetricType::LLOYD>::proxy_fi
     }
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// ENERGY
-//////////////////////////////////////////////////////////////////////////////
-template <uint K_Region>
-inline Scalar
-VariationalShapeApproximation<K_Region, MetricType::LLOYD>::E( const TriangleIdx& T,
-                                                               const Proxy& P ) const {
+template <uint K>
+inline Scalar VariationalShapeApproximation<K, MetricType::LLOYD>::E( const TriangleIdx& T,
+                                                                      const Proxy& P ) const {
     const Vector3& b = this->m_fbary[T];
     const Scalar result = ( b - P.first ).norm();
     return result;

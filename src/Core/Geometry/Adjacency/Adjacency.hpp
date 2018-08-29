@@ -12,14 +12,6 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-/////////////////////
-/// GLOBAL MATRIX ///
-/////////////////////
-
-// //////////////// //
-// ADJACENCY MATRIX //
-// //////////////// //
-
 // Defining the AdjacencyMatrix as the sparse matrix such that:
 //      A( i, j ) = f( i, j ) , if exist the edge from i to j
 //      A( i, j ) = 0         , otherwise
@@ -29,55 +21,53 @@ using VVAdj = AdjacencyMatrix;
 using VTAdj = AdjacencyMatrix;
 using TVAdj = AdjacencyMatrix;
 
-/*
+/**
  * Return the AdjacencyMatrix for the given set of points and triangles.
  * The function defined over the edges is:
- *       f( i, j ) = 1 , if exist the edge from i to j
- *       f( i, j ) = 0 , otherwise
+ *   \f$ f( i, j ) = \begin{cases} 1 , \text{if exist the edge from } i \text{ to } j \\
+ *                                 0 , \text{otherwise} \end{cases} \f$
  */
 RA_CORE_API AdjacencyMatrix uniformAdjacency( const uint point_size,
                                               const VectorArray<Triangle>& T );
 
-/*
+/**
  * Return the AdjacencyMatrix for the given set of points and triangles.
  * The function defined over the edges is:
- *       f( i, j ) = 1 , if exist the edge from i to j
- *       f( i, j ) = 0 , otherwise
+ *   \f$ f( i, j ) = \begin{cases} 1 , \text{if exist the edge from } i \text{ to } j \\
+ *                                 0 , \text{otherwise} \end{cases} \f$
  */
 RA_CORE_API AdjacencyMatrix uniformAdjacency( const VectorArray<Vector3>& p,
                                               const VectorArray<Triangle>& T );
 
-/*
+/**
  * Return the AdjacencyMatrix for the given set of points and triangles.
  * The function defined over the triangle is:
- *       f( i, j ) = 1 , if triangle i contains to vertex j
- *       f( i, j ) = 0 , otherwise
+ *   \f$ f( i, j ) = \begin{cases} 1 , \text{if triangle } i \text{ contains to vertex } j \\
+ *                                 0 , \text{otherwise} \end{cases} \f$
  */
 RA_CORE_API TVAdj triangleUniformAdjacency( const VectorArray<Vector3>& p,
                                             const VectorArray<Triangle>& T );
 
-/*
+/**
  * Return the AdjacencyMatrix Adj for the given set of points and triangles.
  * The function defined over the edges is:
- *       f( i, j ) = 1 , if exist the edge from i to j
- *       f( i, j ) = 0 , otherwise
+ *   \f$ f( i, j ) = \begin{cases} 1 , \text{if exist the edge from } i \text{ to } j \\
+ *                                 0 , \text{otherwise} \end{cases} \f$
  */
 void uniformAdjacency( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
                        AdjacencyMatrix& Adj );
 
-/*
+/**
  * Return the AdjacencyMatrix for the given set of points and triangles.
  * The function defined over the edges is:
- *       f( i, j ) = 0.5 * ( cot( alpha_ij ) + cot( beta_ij ) ) , if exist the edge from i to j
- *       f( i, j ) = 0                                          , otherwise
- * where alpha_ij and beta_ij are the angles opposite the edge
+ *   \f$ f( i, j ) = \begin{cases} 0.5 * ( cot( \alpha_{ij} ) + cot( \beta_{ij} ) ),
+ *                             \text{if exist the edge from } i \text{ to } j \\
+ *                                 0 , \text{otherwise} \end{cases} \f$
+ *
+ * where \f$ \alpha_{ij} \f$ and \f$ \beta_{ij} \f$ are the angles opposite the edge
  */
 RA_CORE_API AdjacencyMatrix cotangentWeightAdjacency( const VectorArray<Vector3>& p,
                                                       const VectorArray<Triangle>& T );
-
-// ///////////// //
-// DEGREE MATRIX //
-// ///////////// //
 
 // Defining the DegreeMatrix as the diagonal matrix such that:
 //      D( i, j ) = sum( A( i ) ) , if i == j
@@ -85,21 +75,10 @@ RA_CORE_API AdjacencyMatrix cotangentWeightAdjacency( const VectorArray<Vector3>
 // where A( i ) is the i-th row of a AdjacencyMatrix
 using DegreeMatrix = Diagonal;
 
-/*
+/**
  * Return the DegreeMatrix of the given AdjacencyMatrix A.
  */
 RA_CORE_API DegreeMatrix adjacencyDegree( const AdjacencyMatrix& A );
-
-////////////////
-/// ONE RING ///
-////////////////
-
-// using OneRing = Graph::ChildrenList;
-
-// OneRing vertexOneRing( const uint v, const VectorArray< Triangle >& T );
-
-// Graph::Adjacency meshOneRing( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T
-// );
 
 } // namespace Geometry
 } // namespace Core

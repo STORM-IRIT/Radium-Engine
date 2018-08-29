@@ -6,10 +6,9 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-// ========================================================
 // ================== GAUSSIAN CURVATURE ==================
-// ========================================================
-Scalar gaussianCurvature( const Vector3& v, const VectorArray<Vector3>& p, const Scalar& area ) {
+
+Scalar gaussianCurvature( const Vector3& v, const Vector3Array& p, const Scalar& area ) {
     CORE_ASSERT( ( area > 0.0 ), "The area has an invalid value" );
     Scalar theta = 0.0;
     uint N = p.size();
@@ -23,8 +22,8 @@ Scalar gaussianCurvature( const Vector3& v, const VectorArray<Vector3>& p, const
     return ( ( Math::PiMul2 - theta ) / area );
 }
 
-void gaussianCurvature( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
-                        const AreaMatrix& A, VectorArray<Scalar>& K ) {
+void gaussianCurvature( const Vector3Array& p, const VectorArray<Triangle>& T, const AreaMatrix& A,
+                        Vector1Array& K ) {
     const uint size = p.size();
     K.clear();
     K.resize( size, 0.0 );
@@ -60,7 +59,7 @@ Scalar gaussianCurvature( const MaximumCurvature& k1, const MinimumCurvature& k2
 }
 
 void gaussianCurvature( const VectorArray<MaximumCurvature>& k1,
-                        const VectorArray<MinimumCurvature>& k2, VectorArray<Scalar>& K ) {
+                        const VectorArray<MinimumCurvature>& k2, Vector1Array& K ) {
     const uint size = k1.size();
     K.resize( size );
 #pragma omp parallel for
@@ -70,16 +69,14 @@ void gaussianCurvature( const VectorArray<MaximumCurvature>& k1,
     }
 }
 
-// ========================================================
 // ==================== MEAN CURVATURE ====================
-// ========================================================
+
 Vector3 meanCurvatureNormal( const Vector3& laplacian, const Scalar& area ) {
     CORE_ASSERT( ( area > 0.0 ), "The area has an invalid value" );
     return ( laplacian / area );
 }
 
-void meanCurvatureNormal( const VectorArray<Vector3>& laplacian, const AreaMatrix& A,
-                          VectorArray<Vector3>& Hn ) {
+void meanCurvatureNormal( const Vector3Array& laplacian, const AreaMatrix& A, Vector3Array& Hn ) {
     Hn.resize( laplacian.size() );
     Hn.getMap() = laplacian.getMap() * A.cwiseInverse();
 }
@@ -88,7 +85,7 @@ Scalar meanCurvature( const Vector3& mean_curvature_normal ) {
     return ( 0.5 * mean_curvature_normal.norm() );
 }
 
-void meanCurvature( const VectorArray<Vector3>& mean_curvature_normal, VectorArray<Scalar>& H ) {
+void meanCurvature( const Vector3Array& mean_curvature_normal, Vector1Array& H ) {
     const uint size = mean_curvature_normal.size();
     H.resize( size );
     H.getMap() = 0.5 * mean_curvature_normal.getMap().colwise().norm();
@@ -99,7 +96,7 @@ Scalar meanCurvature( const MaximumCurvature& k1, const MinimumCurvature& k2 ) {
 }
 
 void meanCurvature( const VectorArray<MaximumCurvature>& k1,
-                    const VectorArray<MinimumCurvature>& k2, VectorArray<Scalar>& H ) {
+                    const VectorArray<MinimumCurvature>& k2, Vector1Array& H ) {
     const uint size = k1.size();
     H.resize( size );
 #pragma omp parallel for
@@ -109,9 +106,8 @@ void meanCurvature( const VectorArray<MaximumCurvature>& k1,
     }
 }
 
-// ========================================================
 // ================== MAXIMUM  CURVATURE ==================
-// ========================================================
+
 Scalar maxCurvature( const MeanCurvature& H, const GaussianCurvature& K ) {
     if ( ( H * H ) < K )
     {
@@ -122,7 +118,7 @@ Scalar maxCurvature( const MeanCurvature& H, const GaussianCurvature& K ) {
 }
 
 void maxCurvature( const VectorArray<MeanCurvature>& H, const VectorArray<GaussianCurvature>& K,
-                   VectorArray<Scalar>& k1 ) {
+                   Vector1Array& k1 ) {
     const uint size = H.size();
     k1.resize( size );
 #pragma omp parallel for
@@ -133,16 +129,15 @@ void maxCurvature( const VectorArray<MeanCurvature>& H, const VectorArray<Gaussi
     }
 }
 
-// ========================================================
 // ================== MINIMUM  CURVATURE ==================
-// ========================================================
+
 Scalar minCurvature( const MeanCurvature& H, const GaussianCurvature& K ) {
     CORE_ASSERT( ( ( H * H ) >= K ), "Bad curvatures" );
     return ( H - std::sqrt( ( H * H ) - K ) );
 }
 
 void minCurvature( const VectorArray<MeanCurvature>& H, const VectorArray<GaussianCurvature>& K,
-                   VectorArray<Scalar>& k2 ) {
+                   Vector1Array& k2 ) {
     const uint size = H.size();
     k2.resize( size );
 #pragma omp parallel for
