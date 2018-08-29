@@ -1742,7 +1742,8 @@ namespace Ra
 
             // computing error distribution, error mean and median values
             Scalar step = errorMax / NBMAX_STEP_ERROR;
-            Scalar errorArray[NBMAX_STEP_ERROR] = {0};
+            int errorArray[NBMAX_STEP_ERROR] = {0};
+            //Scalar errorArray[NBMAX_STEP_ERROR] = {0};
 
             Scalar errorMean = 0;
             Scalar errorMedian;
@@ -1755,12 +1756,20 @@ namespace Ra
 
             struct compareErrorByAscendingValue
             {
-                inline bool operator() (const std::pair<Scalar,Scalar> &e1, const std::pair<Scalar,Scalar> &e2) const
+                inline bool operator() (const Scalar &e1, const Scalar &e2) const
                 {
-                    return e1.first <= e2.first;
+                    return e1 <= e2;
                 }
             };
-            typedef std::set<std::pair<Scalar,Scalar>, compareErrorByAscendingValue> ErrorSorting;
+            typedef std::set<Scalar, compareErrorByAscendingValue> ErrorSorting;
+//            struct compareErrorByAscendingValue
+//            {
+//                inline bool operator() (const std::pair<Scalar,Scalar> &e1, const std::pair<Scalar,Scalar> &e2) const
+//                {
+//                    return e1.first <= e2.first;
+//                }
+//            };
+//            typedef std::set<std::pair<Scalar,Scalar>, compareErrorByAscendingValue> ErrorSorting;
             ErrorSorting errorSort;
 
             for (uint i = 0; i < m_nbobjects; i++)
@@ -1772,11 +1781,14 @@ namespace Ra
                 {
                     while ((*it).m_err < step * (j + 1) && it != obj->getPriorityQueue()->getPriorityQueueContainer().end())
                     {
-                        std::pair<Scalar,Scalar> err;
-                        err.first = (*it).m_err;
-                        err.second = std::sqrt((obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[(*it).m_vs_id]->P() - obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[(*it).m_vt_id]->P()).squaredNorm());
-                        errorMean += err.first;
-                        errorArray[j] += err.second;
+                        Scalar err = (*it).m_err;
+                        errorMean += err;
+                        errorArray[j]++;
+//                        std::pair<Scalar,Scalar> err;
+//                        err.first = (*it).m_err;
+//                        err.second = std::sqrt((obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[(*it).m_vs_id]->P() - obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[(*it).m_vt_id]->P()).squaredNorm());
+//                        errorMean += err.first;
+//                        errorArray[j] += err.second;
                         if (!errorSort.insert(err).second)
                         {
                             LOG(logINFO) << "Error insert failed";
@@ -1794,15 +1806,18 @@ namespace Ra
             if (nbEdges % 2 == 0)
             {
                 std::advance(medianIt, nbEdges/2);
-                errorMedian = (*medianIt).first;
+                errorMedian = (*medianIt);
+                //errorMedian = (*medianIt).first;
                 ++medianIt;
-                errorMedian += (*medianIt).first;
+                errorMedian += (*medianIt);
+                //errorMedian += (*medianIt).first;
                 errorMedian /= 2;
             }
             else
             {
                 std::advance(medianIt, nbEdges/2 + 1);
-                errorMedian = (*medianIt).first;
+                errorMedian = (*medianIt);
+                //errorMedian = (*medianIt).first;
             }
             LOG(logINFO) << "Median error : " << errorMedian;
 
@@ -1810,24 +1825,29 @@ namespace Ra
             if (nbEdges % 4 == 0 || nbEdges % 4 == 1)
             {
                 std::advance(medianIt, nbEdges/4 - 1);
-                errorQuartile = (*medianIt).first;
+                errorQuartile = (*medianIt);
+                //errorQuartile = (*medianIt).first;
                 ++medianIt;
-                errorQuartile += (*medianIt).first;
+                errorQuartile += (*medianIt);
+                //errorQuartile += (*medianIt).first;
                 errorQuartile /= 2;
             }
             else
             {
                 std::advance(medianIt, nbEdges/4);
-                errorQuartile = (*medianIt).first;
+                errorQuartile = (*medianIt);
+                //errorQuartile = (*medianIt).first;
             }
 
             if (errorQuartile == 0)
             {
                 ErrorSorting::iterator zeroIt = errorSort.begin();
                 int nbZeros = 0;
-                if ((*zeroIt).first == 0)
+                if ((*zeroIt) == 0)
+//                if ((*zeroIt).first == 0)
                 {
-                    while ((*zeroIt).first == 0)
+                    while ((*zeroIt) == 0)
+//                    while ((*zeroIt).first == 0)
                     {
                         nbZeros++;
                         ++zeroIt;
@@ -1838,15 +1858,18 @@ namespace Ra
                 if ((nbEdges - nbZeros) % 4 == 0 || (nbEdges - nbZeros) % 4 == 1)
                 {
                     std::advance(medianIt, nbZeros + (nbEdges - nbZeros)/4 - 1);
-                    errorQuartile = (*medianIt).first;
+                    errorQuartile = (*medianIt);
+                    //errorQuartile = (*medianIt).first;
                     ++medianIt;
-                    errorQuartile += (*medianIt).first;
+                    errorQuartile += (*medianIt);
+                    //errorQuartile += (*medianIt).first;
                     errorQuartile /= 2;
                 }
                 else
                 {
                     std::advance(medianIt, nbZeros + (nbEdges - nbZeros)/4);
-                    errorQuartile = (*medianIt).first;
+                    errorQuartile = (*medianIt);
+                    //errorQuartile = (*medianIt).first;
                 }
             }
 
@@ -1863,8 +1886,10 @@ namespace Ra
             Scalar errorFirstCluster;
             //Scalar errorMeanFirstCluster;
             int k = 0;
-            Scalar nbError = errorArray[k];
-            Scalar nbErrorNext = errorArray[k+1];
+            int nbError = errorArray[k];
+            int nbErrorNext = errorArray[k+1];
+//            Scalar nbError = errorArray[k];
+//            Scalar nbErrorNext = errorArray[k+1];
             if (nbError <= nbErrorNext)
             {
                 do
@@ -1914,17 +1939,17 @@ namespace Ra
                 nbFacesInit += obj->getInitTriangleMesh().m_triangles.size();
             }
 
-            int nbProximityPairs = 0;
-            for (uint i = 0; i < m_meshContactElements.size(); i++)
-            {
-                for (uint j = i + 1; j < m_meshContactElements.size(); j++)
-                {
-                    if (m_proximityPairs(i,j))
-                    {
-                        nbProximityPairs++;
-                    }
-                }
-            }
+//            int nbProximityPairs = 0;
+//            for (uint i = 0; i < m_meshContactElements.size(); i++)
+//            {
+//                for (uint j = i + 1; j < m_meshContactElements.size(); j++)
+//                {
+//                    if (m_proximityPairs(i,j))
+//                    {
+//                        nbProximityPairs++;
+//                    }
+//                }
+//            }
 
             Scalar proximity_percentage = (m_broader_threshold / m_aabb_scene.diagonal()) * 100;
 
@@ -1932,10 +1957,10 @@ namespace Ra
             CORE_ASSERT(file2, "Error while opening parameters file.");
             file2 << "Nb objects scene : " << m_meshContactElements.size() << std::endl;
             file2 << "Nb faces init : " << nbFacesInit << std::endl;
-            file2 << "Nb proximity object pairs : " << nbProximityPairs << std::endl;
-            file2 << "Nb clusters computed : " << m_nbclusters_compute << std::endl;
-            file2 << "Nb clusters selected : " << m_nbclusters_display << std::endl;
-            file2 << "Cluster threshold : " << m_finalClusters3[m_nbclusters_display - 1] << std::endl;
+            //file2 << "Nb proximity object pairs : " << nbProximityPairs << std::endl;
+            //file2 << "Nb clusters computed : " << m_nbclusters_compute << std::endl;
+            //file2 << "Nb clusters selected : " << m_nbclusters_display << std::endl;
+            //file2 << "Cluster threshold : " << m_finalClusters3[m_nbclusters_display - 1] << std::endl;
             file2 << "Weight function parameter m : " << m_m << std::endl;
             file2 << "Weight function parameter n : " << m_n << std::endl;
             file2 << "Cluster threshold weight : " << m_influence << std::endl;
@@ -2418,7 +2443,7 @@ namespace Ra
 
             QueueContact::iterator it = m_mainqueue.begin();
 
-            uint n = 99;
+            //uint n = 99;
 
             while (it != m_mainqueue.end() && m_nb_faces_max > m_nbfaces)
             {
@@ -2435,11 +2460,11 @@ namespace Ra
                         m_nb_faces_max -= (nbfaces - obj->getProgressiveMeshLOD()->getProgressiveMesh()->getNbFaces());
                         //LOG(logINFO) << "Current nb of faces : " << m_nb_faces_max;
 
-                        if (m_nb_faces_max == (nbfaces_scene_init / 100) * n || m_nb_faces_max == (nbfaces_scene_init / 100) * n - 1)
-                        {
-                            LOG(logINFO) << "LOD : " << n << "%";
-                            n--;
-                        }
+//                        if (m_nb_faces_max == (nbfaces_scene_init / 100) * n || m_nb_faces_max == (nbfaces_scene_init / 100) * n - 1)
+//                        {
+//                            LOG(logINFO) << "LOD : " << n << "%";
+//                            n--;
+//                        }
                     }
                     if (obj->getPriorityQueue()->size() > 0)
                     {
@@ -2844,7 +2869,7 @@ namespace Ra
                     MeshContactElement* obj;
                     while (!find && j < m_meshContactElements.size())
                     {
-                        if (j != i)
+                        if (m_proximityPairs2(i,j))
                         {
                             std::pair<Ra::Core::Index,Scalar> triangle = m_trianglekdtrees[j]->doQueryRestrictedClosestIndexPoint(m_initTriangleMeshes[i].m_vertices[k]);
                             if (triangle.second <= m_threshold)
@@ -3172,6 +3197,7 @@ namespace Ra
             setDisplayProximities();
             setConstructM0();
             colorMeshesSimplified();
+            HausdorffDistance();
         }
 
         void MeshContactManager::pipelineQEM()
