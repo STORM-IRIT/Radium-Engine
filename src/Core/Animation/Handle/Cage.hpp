@@ -19,12 +19,11 @@ namespace Animation {
  * \warning This class is probably unused
  */
 class RA_CORE_API Cage : public Handle {
-public:
+  public:
     Cage();
     Cage( const uint n );
     Cage( const Cage& cage );
 
-    /// DESTRUCTOR
     ~Cage();
 
     void clear() override;

@@ -48,7 +48,7 @@ class RA_CORE_API Skeleton : public Handle {
      * Get the i-th bone endpoints.
      * @param i             the bone index
      * @param[out] startOut the bone's start point
-     * @param[ou]  endOut   the bone's end point
+     * @param[out] endOut   the bone's end point
      */
     void getBonePoints( uint i, Vector3& startOut, Vector3& endOut ) const;
 

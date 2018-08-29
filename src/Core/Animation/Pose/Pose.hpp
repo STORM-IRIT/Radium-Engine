@@ -8,13 +8,9 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-/**
- * Definition of the Pose of a generic handle for model animation or deformation.
- */
+// Definition of the Pose of a generic handle for model animation or deformation.
 
-/*
- * The Pose is represented just as a vector of Transforms.
- */
+// The Pose is represented just as a vector of Transforms.
 using Pose = AlignedStdVector<Transform>;
 
 // Typedef for code redability purposes only.
