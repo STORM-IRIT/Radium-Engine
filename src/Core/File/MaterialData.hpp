@@ -37,26 +37,27 @@ namespace Asset {
  * material and technique so that the rendering will be fine. When writing your own system, see
  * FancyMesh implementations as an example.
  *
- *  That's all folks.
  */
 class RA_CORE_API MaterialData : public AssetData {
   public:
-    /// MATERIAL DATA
     MaterialData( const std::string& name = "", const std::string& type = "AbstractMaterial" );
+
     virtual ~MaterialData();
 
-    /// NAME
+    /// Return the name of the Material.
     inline void setName( const std::string& name );
 
-    /// TYPE
+    /// Return the type of the Material.
     inline std::string getType() const;
 
+    /// Set the type of the Material.
     inline void setType( const std::string& type );
 
-    /// DEBUG
+    /// Pring stat info to the Debug output.
     virtual void displayInfo() const;
 
   private:
+    /// The type of the Material.
     std::string m_type;
 };
 

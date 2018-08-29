@@ -8,21 +8,20 @@
 namespace Ra {
 namespace Asset {
 
+/// The KeyPose class is a list of KeyFramed animation Poses.
 class KeyPose : public KeyFrame<Core::Animation::Pose> {
   public:
-    /// CONSTRUCTOR
     KeyPose( const AnimationTime& time = AnimationTime() ) :
         KeyFrame<Core::Animation::Pose>( time ) {}
+
     KeyPose( const KeyPose& keyframe ) = default;
 
-    /// DESTRUCTOR
     ~KeyPose() {}
 
   protected:
-    /// SIZE
+    /// Return the size of the animation Poses.
     inline uint poseSize() const { return m_keyframe.begin()->second.size(); }
 
-    /// TRANSFORMATION
     inline Core::Animation::Pose defaultFrame() const override {
         return Core::Animation::Pose( poseSize(), Core::Transform::Identity() );
     }

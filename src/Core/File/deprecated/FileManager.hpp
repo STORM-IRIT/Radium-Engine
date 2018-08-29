@@ -7,61 +7,66 @@
 namespace Ra {
 namespace Core {
 
-/*
+/**
  * The class FileManager gives the base common interface for handling loading/storing data from/to
  * files.
  */
 template <typename DATA, bool Binary = false>
 class FileManager {
   public:
-    /// ENUM
+    /// Used for indicating the type of message.
     enum LogEntryType {
         LogEntry_Normal,
         LogEntry_Warning,
         LogEntry_Error,
     };
 
-    /// CONSTRUCTOR
-    inline FileManager(); // Default constructor.
+    inline FileManager();
 
-    /// DESTRUCTOR
-    virtual ~FileManager(); // Destructor.
+    virtual ~FileManager();
 
-    /// INTERFACE
-    inline bool load( const std::string& filename, DATA& data,
-                      const bool SAVE_LOG_FILE =
-                          false ); // Return true if the data is correctly loaded, false otherwise.
+    /// Try to load file \p filename and convert its content into \p data.
+    /// Return true if the data is correctly loaded, false otherwise.
+    inline bool load( const std::string& filename, DATA& data, const bool SAVE_LOG_FILE = false );
+
+    /// Try to save the content of \p data into the file \p filename.
+    /// Return true if the data is correctly stored, false otherwise.
     inline bool save( const std::string& filename, const DATA& data,
-                      const bool SAVE_LOG_FILE =
-                          false ); // Return true if the data is correctly stored, false otherwise.
+                      const bool SAVE_LOG_FILE = false );
 
-    /// LOG
-    inline std::string log() const; // Return the log of the last action performed.
+    /// Return the log of the lattest performed action.
+    inline std::string log() const;
 
   protected:
-    /// LOG
-    inline void addLogEntry( const std::string& text ); // Add a line in the log file. A newline
-                                                        // character will be automatically added.
-    inline void
-    addLogWarningEntry( const std::string& text );           // Add a warning line in the log file.
-    inline void addLogErrorEntry( const std::string& text ); // Add an error line in the log file.
+    /// Add a normal line in the log file. A newline character will be automatically added.
+    inline void addLogEntry( const std::string& text );
+
+    /// Add a warning line in the log file. A newline character will be automatically added.
+    inline void addLogWarningEntry( const std::string& text );
+
+    /// Add an error line in the log file. A newline character will be automatically added.
+    inline void addLogErrorEntry( const std::string& text );
+
+    /// Add a line of type \p type in the log file. A newline character will be automatically added.
     inline void addLogEntry( const std::string& text, const LogEntryType type );
 
-    /// INTERFACE
-    virtual std::string fileExtension() const = 0; // Return the extension given to the files.
-    virtual bool importData( std::istream& file,
-                             DATA& data ) = 0; // Load data from a given file. Return false if an
-                                               // error occurs, true otherwise.
-    virtual bool exportData( std::ostream& file,
-                             const DATA& data ) = 0; // Store given data into a given file. Return
-                                                     // false if an error occurs, true otherwise.
+    /// Return the extension given to the files.
+    virtual std::string fileExtension() const = 0;
+
+    /// Load data from a given file. Return false if an error occurs, true otherwise.
+    virtual bool importData( std::istream& file, DATA& data ) = 0;
+
+    /// Store given data into a given file. Return false if an error occurs, true otherwise.
+    virtual bool exportData( std::ostream& file, const DATA& data ) = 0;
 
   private:
-    /// LOG
-    inline void resetLog();                             // Reset the log string.
-    inline void saveLog( const std::string& filename ); // Save the log into a text file.
+    /// Reset the log string.
+    inline void resetLog();
 
-    /// VARIABLE
+    /// Save the log into a text file.
+    inline void saveLog( const std::string& filename );
+
+    /// The log content.
     std::string m_log;
 };
 

@@ -21,7 +21,7 @@ class HandleData;
 namespace Ra {
 namespace Asset {
 
-/// Create a skeleton from a Handle Data extracted from a file
+/// Create a skeleton from a Handle Data extracted from a file.
 /// Outputs the skeleton and a map from the component index in the handle data to the bone index.
 void RA_CORE_API createSkeleton( const Ra::Asset::HandleData& data,
                                  Core::Animation::Skeleton& skelOut,

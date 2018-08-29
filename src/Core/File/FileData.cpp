@@ -2,7 +2,7 @@
 
 namespace Ra {
 namespace Asset {
-/// CONSTRUCTOR
+
 FileData::FileData( const std::string& filename, const bool VERBOSE_MODE ) :
     m_filename( filename ),
     m_loadingTime( 0.0 ),
@@ -13,7 +13,7 @@ FileData::FileData( const std::string& filename, const bool VERBOSE_MODE ) :
     m_processed( false ),
     m_verbose( VERBOSE_MODE ) {}
 
-/// DESTRUCTOR
 FileData::~FileData() {}
+
 } // namespace Asset
 } // namespace Ra

@@ -8,16 +8,10 @@
 namespace Ra {
 namespace Asset {
 
-/////////////////////
-/// GEOMETRY DATA ///
-/////////////////////
-
-/// NAME
 inline void GeometryData::setName( const std::string& name ) {
     m_name = name;
 }
 
-/// TYPE
 inline GeometryData::GeometryType GeometryData::getType() const {
     return m_type;
 }
@@ -26,7 +20,6 @@ inline void GeometryData::setType( const GeometryType& type ) {
     m_type = type;
 }
 
-/// FRAME
 inline Core::Transform GeometryData::getFrame() const {
     return m_frame;
 }
@@ -35,7 +28,6 @@ inline void GeometryData::setFrame( const Core::Transform& frame ) {
     m_frame = frame;
 }
 
-/// DATA
 inline uint GeometryData::getVerticesSize() const {
     return m_vertex.size();
 }
@@ -238,10 +230,8 @@ inline const MaterialData& GeometryData::getMaterial() const {
 
 inline void GeometryData::setMaterial( MaterialData* material ) {
     m_material.reset( material );
-    m_hasMaterial = true;
 }
 
-/// DUPLICATES
 inline GeometryData::DuplicateTable& GeometryData::getDuplicateTable() {
     return m_duplicateTable;
 }
@@ -257,7 +247,6 @@ inline void GeometryData::setLoadDuplicates( const bool status ) {
     m_loadDuplicates = status;
 }
 
-/// QUERY
 inline bool GeometryData::isPointCloud() const {
     return ( m_type == POINT_CLOUD );
 }
@@ -327,14 +316,13 @@ inline bool GeometryData::hasWeights() const {
 }
 
 inline bool GeometryData::hasMaterial() const {
-    return m_hasMaterial;
+    return m_material.operator bool();
 }
 
 inline bool GeometryData::isLoadingDuplicates() const {
     return m_loadDuplicates;
 }
 
-/// DEBUG
 inline void GeometryData::displayInfo() const {
     std::string type;
     switch ( m_type )
@@ -375,11 +363,11 @@ inline void GeometryData::displayInfo() const {
     LOG( logINFO ) << " Bitangent ?    : " << ( ( m_bitangent.empty() ) ? "NO" : "YES" );
     LOG( logINFO ) << " Tex.Coord. ?   : " << ( ( m_texCoord.empty() ) ? "NO" : "YES" );
     LOG( logINFO ) << " Color ?        : " << ( ( m_color.empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Material ?     : " << ( ( !m_hasMaterial ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Material ?     : " << ( ( !hasMaterial() ) ? "NO" : "YES" );
     LOG( logINFO ) << " Has Dup. Vert. : "
                    << ( ( m_duplicateTable.size() == m_vertex.size() ) ? "NO" : "YES" );
 
-    if ( m_hasMaterial )
+    if ( hasMaterial() )
     {
         m_material->displayInfo();
     }

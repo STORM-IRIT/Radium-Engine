@@ -7,26 +7,23 @@
 namespace Ra {
 namespace Core {
 
-/*
+/**
  * The class OFFFileManager handles the loading and storing of TriangleMesh in the standard OFF
  * format.
  */
 class OFFFileManager : public FileManager<TriangleMesh> {
   public:
-    /// CONSTRUCTOR
     OFFFileManager();
 
-    /// DESTRUCTOR
     virtual ~OFFFileManager();
 
   protected:
-    /// HEADER
+    /// Returns the expected file header.
     std::string header() const;
 
-    /// INTERFACE
-    virtual std::string fileExtension() const override;
-    virtual bool importData( std::istream& file, TriangleMesh& data ) override;
-    virtual bool exportData( std::ostream& file, const TriangleMesh& data ) override;
+    std::string fileExtension() const override;
+    bool importData( std::istream& file, TriangleMesh& data ) override;
+    bool exportData( std::ostream& file, const TriangleMesh& data ) override;
 };
 
 } // namespace Core

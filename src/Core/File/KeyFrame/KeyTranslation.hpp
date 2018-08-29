@@ -7,18 +7,17 @@
 namespace Ra {
 namespace Asset {
 
+/// The KeyTranslation class is a list of KeyFramed translation expressed as vectors.
 class KeyTranslation : public KeyFrame<Core::Vector3> {
   public:
-    /// CONSTRUCTOR
     KeyTranslation( const AnimationTime& time = AnimationTime() ) :
         KeyFrame<Core::Vector3>( time ) {}
+
     KeyTranslation( const KeyTranslation& keyframe ) = default;
 
-    /// DESTRUCTOR
     ~KeyTranslation() {}
 
   protected:
-    /// TRANSFORMATION
     inline Core::Vector3 defaultFrame() const override { return Core::Vector3( 0.0, 0.0, 0.0 ); }
 
     inline Core::Vector3 interpolate( const Core::Vector3& F0, const Core::Vector3& F1,

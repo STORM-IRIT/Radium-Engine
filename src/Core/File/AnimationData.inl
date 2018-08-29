@@ -5,12 +5,10 @@
 namespace Ra {
 namespace Asset {
 
-/// NAME
 inline void AnimationData::setName( const std::string& name ) {
     m_name = name;
 }
 
-/// TIME
 inline const AnimationTime& AnimationData::getTime() const {
     return m_time;
 }
@@ -27,7 +25,6 @@ inline void AnimationData::setTimeStep( const Time& delta ) {
     m_dt = delta;
 }
 
-/// KEY FRAME
 inline uint AnimationData::getFramesSize() const {
     return m_keyFrame.size();
 }
@@ -46,7 +43,6 @@ inline void AnimationData::setFrames( const std::vector<HandleAnimation>& frameL
     }
 }
 
-/// DEBUG
 inline void AnimationData::displayInfo() const {
     LOG( logDEBUG ) << "======== ANIMATION INFO ========";
     LOG( logDEBUG ) << " Name              : " << m_name;

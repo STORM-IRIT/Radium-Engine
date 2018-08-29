@@ -7,18 +7,17 @@
 namespace Ra {
 namespace Asset {
 
+/// The class KeyRotation is a list of KeyFramed rotations expressed as Quaternions.
 class KeyRotation : public KeyFrame<Core::Quaternion> {
   public:
-    /// CONSTRUCTOR
     KeyRotation( const AnimationTime& time = AnimationTime() ) :
         KeyFrame<Core::Quaternion>( time ) {}
+
     KeyRotation( const KeyRotation& keyframe ) = default;
 
-    /// DESTRUCTOR
     ~KeyRotation() {}
 
   protected:
-    /// TRANSFORMATION
     inline Core::Quaternion defaultFrame() const override {
         return Core::Quaternion( 1.0, 0.0, 0.0, 0.0 );
     }
