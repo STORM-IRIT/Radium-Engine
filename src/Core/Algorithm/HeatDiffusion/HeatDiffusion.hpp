@@ -21,10 +21,10 @@ using Time = Scalar;
 using Heat = VectorArray<Scalar>;
 // using  Heat = Eigen::Matrix< Scalar, Eigen::Dynamic, 1 >;
 
-/*
+/**
  * Return the time the heating is allowed to travel on the surface.
  * The time is defined as:
- *       t = m * h^2
+ *    \f$ t = m * h^2 \f$
  *
  * The definition was taken from:
  * "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
@@ -33,10 +33,13 @@ using Heat = VectorArray<Scalar>;
  */
 RA_CORE_API Time t( const Scalar& m, const Scalar& h );
 
-/*
- * Solve the heating equation from the given AreaMatrix, the Time, the LaplacianMatrix and the
- * Delta. The heating equation is defined as: ( A + t * L )u = delta where u is the unknown heating
- * after a time t has passed. The equation is solved using a LL^T decomposition.
+/**
+ * Solve the heating equation from the given AreaMatrix, the Time, the
+ * LaplacianMatrix and the Delta. The heating equation is defined as:
+ *    \f$ ( A + t * L ) u = Delta \f$
+ *
+ * where \f$ u \f$ is the unknown heating after a time \f$ t \f$ has passed.
+ * The equation is solved using a \f$ LL^T \f$ decomposition.
  *
  * The definition was taken from:
  * "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
@@ -48,9 +51,11 @@ RA_CORE_API void heat( const Geometry::AreaMatrix& A, const Time& t,
                        const Geometry::LaplacianMatrix& L, Heat& u, const Delta& delta );
 
 /*
- * Solve the heating equation from the given AreaMatrix, the Time, the LaplacianMatrix and the
- * Delta. The heating equation is defined as: ( A + t * L )u = delta where u is the unknown heating
- * after a time t has passed. The equation is solved using a LL^T decomposition.
+ * Solve the heating equation from the given AreaMatrix, the Time, the
+ * LaplacianMatrix and the Delta. The heating equation is defined as:
+ *    \f$ ( A + t * L ) u = Delta \f$
+ * where \f$ u \f$ is the unknown heating after a time \f$ t \f$ has passed.
+ * The equation is solved using a \f$ LL^T \f$ decomposition.
  *
  * The definition was taken from:
  * "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"

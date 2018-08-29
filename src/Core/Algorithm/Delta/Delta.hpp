@@ -20,11 +20,11 @@ using Source = std::vector<uint8_t>;
 // Defining the vector containing the value of the sources
 using Delta = Ra::Core::Sparse;
 
-/*
+/**
  * Return the Delta vector.
  * The delta is defined as:
- *       delta( i ) = default_value  ,  if source( i ) is true
- *       delta( i ) = 0              ,  otherwise
+ *   \f[ delta( i ) = \begin{cases} \text{default_value} , \text{if } source( i ) \text{ is true} \\
+ *                                  0                    , \text{otherwise} \end{cases} \f]
  *
  * The definition was taken from:
  * "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
@@ -33,11 +33,11 @@ using Delta = Ra::Core::Sparse;
  */
 Delta RA_CORE_API delta( const BitSet& source, const Scalar& default_value = 1.0 );
 
-/*
+/**
  * Return the Delta vector.
  * The delta is defined as:
- *       delta( i ) = default_value  ,  if source( i ) is true
- *       delta( i ) = 0              ,  otherwise
+ *   \f[ delta( i ) = \begin{cases} \text{default_value} , \text{if } source( i ) \text{ is true} \\
+ *                                  0                    , \text{otherwise} \end{cases} \f]
  *
  * The definition was taken from:
  * "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
@@ -46,11 +46,11 @@ Delta RA_CORE_API delta( const BitSet& source, const Scalar& default_value = 1.0
  */
 void RA_CORE_API delta( const BitSet& source, Delta& u, const Scalar& default_value = 1.0 );
 
-/*
+/**
  * Return the Delta vector.
  * The delta is defined as:
- *       delta( i ) = default_value  ,  if i is in source
- *       delta( i ) = 0              ,  otherwise
+ *   \f[ delta( i ) = \begin{cases} \text{default_value} , \text{if } i \in source \\
+ *                                  0                    , \text{otherwise} \end{cases} \f]
  *
  * The definition was taken from:
  * "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
@@ -59,11 +59,11 @@ void RA_CORE_API delta( const BitSet& source, Delta& u, const Scalar& default_va
  */
 Delta RA_CORE_API delta( const Source& source, const uint size, const Scalar& default_value = 1.0 );
 
-/*
+/**
  * Return the Delta vector.
  * The delta is defined as:
- *       delta( i ) = default_value  ,  if i is in source
- *       delta( i ) = 0              ,  otherwise
+ *   \f[ delta( i ) = \begin{cases} \text{default_value} , \text{if } i \in source \\
+ *                                  0                    , \text{otherwise} \end{cases} \f]
  *
  * The definition was taken from:
  * "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
@@ -73,11 +73,10 @@ Delta RA_CORE_API delta( const Source& source, const uint size, const Scalar& de
 void RA_CORE_API delta( const Source& source, const uint size, Delta& u,
                         const Scalar& default_value = 1.0 );
 
-/*
+/**
  * Return a BitSet from a given Delta.
  * The BitSet is defined as:
- *       bit_i = false   , if delta( i )  = 0
- *       bit_i = true    , if delta( i ) != 0
+ *   \f$ bit_i = delta( i ) == 0 \f$
  */
 void RA_CORE_API bitset( const Delta& u, BitSet& bit );
 

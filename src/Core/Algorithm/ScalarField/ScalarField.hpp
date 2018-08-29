@@ -18,7 +18,7 @@ using Gradient = VectorArray<Vector3>;
 // Defining the Divergence, expressend on the vertices, of a Gradient field, expressed on the faces
 using Divergence = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
 
-/*
+/**
  * Return the Gradient field computed from the ScalarField S defined on the surface of a mesh.
  *
  * The definition was taken from:
@@ -29,7 +29,7 @@ using Divergence = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
 RA_CORE_API Gradient gradientOfFieldS( const VectorArray<Vector3>& p,
                                        const VectorArray<Triangle>& T, const ScalarField& S );
 
-/*
+/**
  * Return the Divergence of the Gradient field defined on the surface of a mesh
  *
  * The definition was taken from:
