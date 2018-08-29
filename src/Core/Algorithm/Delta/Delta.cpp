@@ -5,49 +5,59 @@ namespace Core {
 namespace Algorithm {
 
 Delta delta( const BitSet& bit, const Scalar& default_value ) {
-    Delta u( bit.size(), 1 );
+    using T = Eigen::Triplet<Scalar>;
+    std::vector<T> t;
     for ( uint i = 0; i < bit.size(); ++i )
     {
         if ( bit[i] )
         {
-            u.insert( i, 0 ) = default_value;
+            t.push_back( T( i, 0, default_value ) );
         }
     }
+    Delta u( bit.size(), 1 );
+    u.setFromTriplets( t.begin(), t.end() );
     return u;
 }
 
 void delta( const BitSet& bit, Delta& u, const Scalar& default_value ) {
-    Delta d( bit.size(), 1 );
-#pragma omp parallel for
+    using T = Eigen::Triplet<Scalar>;
+    std::vector<T> t;
     for ( int i = 0; i < int( bit.size() ); ++i )
     {
         if ( bit[i] )
         {
-#pragma omp critical
-            { d.insert( i, 0 ) = default_value; }
+            t.push_back( T( i, 0, default_value ) );
         }
     }
-#pragma omp barrier
+    Delta d( bit.size(), 1 );
+    d.setFromTriplets( t.begin(), t.end() );
     std::swap( u, d );
 }
 
 Delta delta( const Source& source, const uint size, const Scalar& default_value ) {
-    Delta d( size, 1 );
+    using T = Eigen::Triplet<Scalar>;
+    std::vector<T> t;
+    t.reserve( source.size() );
     for ( const auto& s : source )
     {
-        d.insert( s, 0 ) = default_value;
+        t.push_back( T( s, 0, default_value ) );
     }
+    Delta d( size, 1 );
+    d.setFromTriplets( t.begin(), t.end() );
     return d;
 }
 
 void delta( const Source& source, const uint size, Delta& u, const Scalar& default_value ) {
-    u.resize( size, 1 );
-    u.setZero();
-    u.reserve( source.size() );
+    using T = Eigen::Triplet<Scalar>;
+    std::vector<T> t;
+    t.reserve( source.size() );
     for ( const auto& s : source )
     {
-        u.insert( s, 0 ) = default_value;
+        t.push_back( T( s, 0, default_value ) );
     }
+    Delta d( source.size(), 1 );
+    d.setFromTriplets( t.begin(), t.end() );
+    std::swap( u, d );
 }
 
 void bitset( const Delta& u, BitSet& bit ) {
