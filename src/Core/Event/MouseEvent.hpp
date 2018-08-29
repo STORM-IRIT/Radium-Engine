@@ -7,9 +7,11 @@
 namespace Ra {
 namespace Core {
 
+/// Stores the data related to a mouse event.
 struct MouseEvent {
     /// MouseEventType: Press, Release, Move, Wheel
     MouseEventType::MouseEventType event;
+
     /// MouseButton : Left button, Right button, Middle button
     MouseButton::MouseButton button;
 
@@ -18,6 +20,7 @@ struct MouseEvent {
 
     /// X mouse position in [width, height] when the event occured.
     int absoluteXPosition;
+
     /// Y mouse position in [width, height] when the event occured.
     int absoluteYPosition;
 

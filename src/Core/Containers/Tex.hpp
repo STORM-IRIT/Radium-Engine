@@ -26,10 +26,12 @@ class Tex : public Grid<T, N> {
     /// Construct a Tex with the give resulution in the given AABB.
     Tex( const IdxVector& resolution, const AabbND& aabb );
 
-    /// Copy constructor and assignment operator perform a deep copy.
+    /// Copy constructor performs a deep copy.
     Tex( const Tex& other ) = default;
+    /// Assignment operator performs a deep copy.
     Tex& operator=( const Tex& other ) = default;
 
+    /// Return the Axis Aligned bounding box of the Tex.
     inline const AabbND& getAabb() const;
 
     /// Tri-linear interpolation of the grid values at position v.
@@ -38,8 +40,9 @@ class Tex : public Grid<T, N> {
   private:
     /// The bounding box of the portion of space represented.
     AabbND m_aabb;
-    /// The size of a discrete cell
-    /// i.e. componentwise division of the aabb extents by the spatial resolution.
+
+    /// The size of a discrete cell, i.e. componentwise division of
+    /// the aabb extents by the spatial resolution.
     Vector m_cellSize;
 };
 

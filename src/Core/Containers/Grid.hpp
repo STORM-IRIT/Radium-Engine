@@ -19,10 +19,15 @@ class Grid {
 
   public:
     // public types and constants.
-    static const uint Dimension = D; /// Dimension of our grid
-    using IdxVector =
-        Eigen::Matrix<uint, D, 1>; /// A vector of the size of the grid along each dimension.
-    using OffsetVector = Eigen::Matrix<int, D, 1>; /// A vector of signed offsets.
+
+    /// Dimension of our grid
+    static const uint Dimension = D;
+
+    /// A vector of the size of the grid along each dimension.
+    using IdxVector = Eigen::Matrix<uint, D, 1>;
+
+    /// A vector of signed offsets.
+    using OffsetVector = Eigen::Matrix<int, D, 1>;
 
     /// This class implements an iterator though elements of the grid that
     /// can be referenced with a linear index or a D-dimensional uint vector.
@@ -83,10 +88,12 @@ class Grid {
 
         /// Advance the iterator to the next-element
         inline Iterator& operator++();
+        /// Advance the iterator to the next-element
         inline Iterator operator++( int );
 
         /// Move the iterator back to the previous element
         inline Iterator& operator--();
+        /// Move the iterator back to the previous element
         inline Iterator operator--( int );
 
         //
@@ -103,13 +110,14 @@ class Grid {
         // Add and substract operators with vector offset
         //
 
-        // Note : these convenience functions do not do any kind
-        // of check. If you get out of bounds on one dimension, the iterator
-        // might still be valid but not pointing to the element you think
-        // it should.
-
+        /// Advance the iterator by the offset, in each dimension, given by \p idx.
+        /// \warning no check is done against the dimensions bounds, see isValidOffset().
         inline Iterator& operator+=( const IdxVector& idx );
+        /// Rewind the iterator by the offset, in each dimension, given by \p idx.
+        /// \warning no check is done against the dimensions bounds, see isValidOffset().
         inline Iterator& operator-=( const IdxVector& idx );
+        /// Advance the iterator by the offset, in each dimension, given by \p idx.
+        /// \warning no check is done against the dimensions bounds, see isValidOffset().
         inline Iterator& operator+=( const OffsetVector& idx );
 
         /// Returns true if adding offset idx with current iterator will act
@@ -120,9 +128,11 @@ class Grid {
         // Comparison operators
         //
 
-        // Note : comparing iterators of different grid sizes will assert.
-
+        /// Returns true if both \p this and \p other point to the same grid element.
+        /// \note : comparing iterators of different grid sizes will assert.
         inline bool operator==( const Iterator& other ) const;
+        /// Returns true if \p this points to a grid element stored before the one \p other points
+        /// to. \note : comparing iterators of different grid sizes will assert.
         inline bool operator<( const Iterator& other ) const;
 
         //
@@ -151,15 +161,31 @@ class Grid {
             return copy += idx;
         }
 
+        //
         // Extraneous comparison operators default implementation.
+        //
+
+        /// Returns true if \p this and \p other point to different grid elements.
+        /// \note : comparing iterators of different grid sizes will assert.
         inline bool operator!=( const Iterator& rhs ) const { return !( *this == rhs ); }
+        /// Returns true if \p this points to a grid element stored after the one \p other points
+        /// to. \note : comparing iterators of different grid sizes will assert.
         inline bool operator>( const Iterator& rhs ) const { return rhs < *this; }
+        /// Returns true if \p this points to a grid element stored before the one \p other points
+        /// to or if they both point to the same element. \note : comparing iterators of different
+        /// grid sizes will assert.
         inline bool operator<=( const Iterator& rhs ) const { return !( *this > rhs ); }
+        /// Returns true if \p this points to a grid element stored after the one \p other points to
+        /// or if they both point to the same element.
+        /// \note : comparing iterators of different grid sizes will assert.
         inline bool operator>=( const Iterator& rhs ) const { return !( *this < rhs ); }
 
       private:
-        const IdxVector& m_sizes; /// Size of the underlying grid
-        uint m_index;             /// Current linear index of the iterator
+        /// Size of the underlying grid.
+        const IdxVector& m_sizes;
+
+        /// Current linear index of the iterator.
+        uint m_index;
     };
 
   public:
@@ -174,7 +200,6 @@ class Grid {
     /// Construct a grid of a given size with values in ()-major format
     Grid( const IdxVector& size, const T* values );
 
-    /// Copy constructor and assignment operator.
     Grid( const Grid<T, D>& other ) = default;
     Grid& operator=( const Grid<T, D>& other ) = default;
 
@@ -194,19 +219,22 @@ class Grid {
     //
     // Element access
     //
-
-    /// Access an element with a D-dimensional index.
     // Note that since initializer lists are implicitly convertible to
     // Eigen vectors, you can call grid.at({x,y,z})
+
+    /// Access an element with a D-dimensional index.
     inline const T& at( const IdxVector& idx ) const;
+    /// Access an element with a D-dimensional index.
     inline T& at( const IdxVector& idx );
 
     /// Access an element with a linear index.
     inline const T& at( uint idx ) const;
+    /// Access an element with a linear index.
     inline T& at( uint idx );
 
     /// Access an element with an iterator.
     inline const T& at( const Iterator& it ) const;
+    /// Access an element with an iterator.
     inline T& at( const Iterator& it );
 
     /// Read only access to the underlying data.
@@ -221,15 +249,18 @@ class Grid {
 
     /// Get an iterator on this grid at the first element.
     inline Iterator begin();
+    /// Get an iterator on this grid at the first element.
     inline Iterator begin() const;
 
     /// Get an iterator on this grid past the last element.
     inline Iterator end();
+    /// Get an iterator on this grid past the last element.
     inline Iterator end() const;
 
   protected:
     /// Indicate the extends of the grid along each dimension.
     IdxVector m_size;
+
     /// Storage for the grid data.
     std::vector<T> m_data;
 };

@@ -7,11 +7,13 @@
 namespace Ra {
 namespace Core {
 
+/// Stores the data related to a key event.
 struct KeyEvent {
-    /// KeyEventType : Press, Release
-    KeyEventType::KeyEventType event;
     /// Keycode. Test this with Qt::Keys enum values.
     int key;
+
+    /// KeyEventType : Press, Release
+    KeyEventType::KeyEventType event;
 
     /// Modifier used : Ctrl, Alt, Shift.
     Modifier::Modifier modifier;

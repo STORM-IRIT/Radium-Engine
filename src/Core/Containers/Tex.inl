@@ -5,15 +5,15 @@ namespace Core {
 
 // Helper functions
 namespace {
-// This is a helper class for the texture fetch implementation. This interpolate linear
-// interpolation from values at a corner of a grid.
+/// This is a helper class for the texture fetch implementation. This linearly
+/// interpolates from values at the points of a grid cell.
 template <uint N>
 struct NLinearInterpolator {
     template <typename T>
     static T interpolate(
         const Grid<T, N>& grid,                    // grid from which values are read
         const typename Tex<T, N>::Vector& fact,    // factors of the interpolation (between 0 and 1)
-        const typename Tex<T, N>::IdxVector& size, // size of the  dual grid
+        const typename Tex<T, N>::IdxVector& size, // size of the dual grid
         const typename Tex<T, N>::IdxVector& clamped_nearest ) // base indices of the cell
     {
         CORE_ERROR( "N-linear interpolation not implemented for N= " << N );
@@ -21,9 +21,9 @@ struct NLinearInterpolator {
     }
 };
 
+/// Bilinear interpolation in a quad cell.
 template <>
 struct NLinearInterpolator<2> {
-    // bilinear interpolation in a quad cell
     template <typename T>
     static T interpolate( const Grid<T, 2>& grid, const Vector2& fact, const Vector2ui& size,
                           const Vector2ui& clamped_nearest ) {
@@ -45,9 +45,9 @@ struct NLinearInterpolator<2> {
     }
 };
 
+/// Tri-linear interpolation in a cubic cell.
 template <>
 struct NLinearInterpolator<3> {
-    // tri-linear interpolation in a cubic cell
     template <typename T>
     static T interpolate( const Grid<T, 3>& grid, const Vector3& fact, const Vector3ui& size,
                           const Vector3ui& clamped_nearest ) {
