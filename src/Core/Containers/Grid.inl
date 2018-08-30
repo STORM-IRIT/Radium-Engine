@@ -47,6 +47,7 @@ template <typename T, uint D>
 Grid<T, D>::Grid( const typename Grid<T, D>::IdxVector& size, const T* values ) :
     m_size( size ),
     m_data( size.prod(), values ) {}
+
 //
 // Vector size and data management.
 //

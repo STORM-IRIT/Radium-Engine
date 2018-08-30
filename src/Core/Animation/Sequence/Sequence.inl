@@ -8,11 +8,11 @@ inline bool Sequence::isEmpty() const {
     return ( size() == 0 );
 }
 
-inline Sequence::PoseType Sequence::getFrameType() const {
+inline Sequence::PoseType Sequence::getPoseType() const {
     return m_type;
 }
 
-inline void Sequence::setFrameType( const FrameType& type ) {
+inline void Sequence::setPoseType( const PoseType& type ) {
     m_type = type;
 }
 
