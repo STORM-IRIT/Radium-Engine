@@ -9,9 +9,14 @@
 namespace Ra {
 namespace Core {
 namespace TMOperations {
-void splitEdge( TopologicalMesh& topologicalMesh, TopologicalMesh::EdgeHandle edgeHandle,
-                Scalar fraction );
-}
+
+/// Perform the edge split operation on edge \p edgeHandle of \p mesh.
+/// The newly inserted vertice is set as the linear interpolation between
+/// the edge endpoints according to \p fraction.
+void RA_CORE_API splitEdge( TopologicalMesh& mesh, TopologicalMesh::EdgeHandle edgeHandle,
+                            Scalar fraction );
+
+} // namespace TMOperations
 } // namespace Core
 } // namespace Ra
 

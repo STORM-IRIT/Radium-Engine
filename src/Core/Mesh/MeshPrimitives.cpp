@@ -621,6 +621,7 @@ TriangleMesh makePlaneGrid( const uint rows, const uint cols, const Vector2& hal
 
     return grid;
 }
+
 } // namespace MeshUtils
 } // namespace Core
 } // namespace Ra

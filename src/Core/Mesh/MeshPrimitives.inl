@@ -96,6 +96,7 @@ TriangleMesh makeParametricTorus( Scalar majorRadius, Scalar minorRadius ) {
     checkConsistency( result );
     return result;
 }
+
 } // namespace MeshUtils
 } // namespace Core
 } // namespace Ra

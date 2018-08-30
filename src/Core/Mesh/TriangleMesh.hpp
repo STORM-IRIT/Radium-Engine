@@ -19,7 +19,7 @@ namespace Core {
 /// Other attribs could be added with addAttrib() and accesssed with getAttrib().
 /// \note Attribute names "in_position" and "in_normal" are reserved.
 /// \see MeshUtils for geometric functions operating on a mesh.
-class TriangleMesh {
+class RA_CORE_API TriangleMesh {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 

@@ -16,15 +16,13 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
-namespace Ra
-{
-namespace Core
-{
+namespace Ra {
+namespace Core {
 
 class TriangleMesh;
 
-struct TopologicalMeshTraits : OpenMesh::DefaultTraits
-{
+/// Define the Traits to be used by OpenMesh for TopologicalMesh.
+struct TopologicalMeshTraits : OpenMesh::DefaultTraits {
     using Point = Ra::Core::Vector3;
     using Normal = Ra::Core::Vector3;
 
@@ -38,8 +36,7 @@ struct TopologicalMeshTraits : OpenMesh::DefaultTraits
 /// vertex graph, using a half-edge representation.
 ///
 /// This integration is inspired by: https://gist.github.com/Unril/03fa353d0461ed6bd41d
-class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>
-{
+class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits> {
   private:
     using base = OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>;
     using base::PolyMesh_ArrayKernelT;
@@ -52,28 +49,29 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    /// Construct a topological mesh from a triangle mesh
-    /// this is a costly operation.
-    /// This operation merge vertex with same position, but keep vertex
-    /// attributes on halfedge, so that triMesh vertex with same 3D position are
-    /// represented only once in the topological mesh.
+    /// Construct a topological mesh from a triangle mesh.
+    /// This operation merges vertices with same position, but keeps vertex
+    /// attributes on halfedges, so that TriangleMesh vertices with the same 3D
+    /// position are represented only once in the topological mesh.
+    /// \note this is a costly operation.
     explicit TopologicalMesh( const Ra::Core::TriangleMesh& triMesh );
 
-    /// Construct an empty topological mesh
+    /// Construct an empty topological mesh.
     explicit TopologicalMesh(){};
 
     /// Obtain a triangleMesh from a topological mesh.
-    /// This is a costly operation.
     /// This function is non-const because of the computation of face normals.
+    /// \note this is a costly operation.
     TriangleMesh toTriangleMesh();
 
-    // import other version of halfedge_handle method
+    // import other version of halfedge_handle method.
     using base::halfedge_handle;
+
     /// Return the half-edge associated with a given vertex and face.
     inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh );
 
-    /// return the normal of the vertex vh, when considering its membership to
-    /// the face fh
+    /// Return the normal of the vertex \p vh, when considering its membership to
+    /// the face \p fh.
     inline Normal& normal( VertexHandle vh, FaceHandle fh );
 };
 } // namespace Core

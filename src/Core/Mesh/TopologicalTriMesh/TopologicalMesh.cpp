@@ -72,6 +72,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
                    floor( lvalue[1] ) * 1000.f + floor( lvalue[2] ) * 1000.f;
         }
     };
+
     // use a hashmap for fast search of existing vertex position
     using VertexMap = std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec>;
     VertexMap vertexHandles;
@@ -84,23 +85,23 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
     // loop over all attribs and build correspondance pair
     triMesh.m_vertexAttribs.for_each_attrib(
         [&triMesh, this, &vprop_float, &vprop_vec2, &vprop_vec3, &vprop_vec4]( const auto& attr ) {
-            // skip builtin attribs
-            if ( attr->getName() != std::string( "in_position" ) &&
-                 attr->getName() != std::string( "in_normal" ) )
-            {
-                if ( attr->isFloat() )
-                    addAttribPairToTopo( triMesh, this, attr, vprop_float, m_floatPph );
-                else if ( attr->isVec2() )
-                    addAttribPairToTopo( triMesh, this, attr, vprop_vec2, m_vec2Pph );
-                else if ( attr->isVec3() )
-                    addAttribPairToTopo( triMesh, this, attr, vprop_vec3, m_vec3Pph );
-                else if ( attr->isVec4() )
-                    addAttribPairToTopo( triMesh, this, attr, vprop_vec4, m_vec4Pph );
-                else
-                    LOG( logWARNING )
-                        << "Warning, mesh attribute " << attr->getName()
-                        << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
-            }
+        // skip builtin attribs
+        if ( attr->getName() != std::string( "in_position" ) &&
+             attr->getName() != std::string( "in_normal" ) )
+        {
+            if ( attr->isFloat() )
+                addAttribPairToTopo( triMesh, this, attr, vprop_float, m_floatPph );
+            else if ( attr->isVec2() )
+                addAttribPairToTopo( triMesh, this, attr, vprop_vec2, m_vec2Pph );
+            else if ( attr->isVec3() )
+                addAttribPairToTopo( triMesh, this, attr, vprop_vec3, m_vec3Pph );
+            else if ( attr->isVec4() )
+                addAttribPairToTopo( triMesh, this, attr, vprop_vec4, m_vec4Pph );
+            else
+                LOG( logWARNING )
+                    << "Warning, mesh attribute " << attr->getName()
+                    << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
+        }
         } );
 
     uint num_triangles = triMesh.m_triangles.size();
@@ -257,6 +258,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
                  "Inconsistent number of faces in generated TriangleMesh." );
 
     return out;
-} // namespace Core
+}
+
 } // namespace Core
 } // namespace Ra

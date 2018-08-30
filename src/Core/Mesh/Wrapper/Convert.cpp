@@ -46,7 +46,7 @@ void convert( const TriangleMesh& mesh, Dcel& dcel ) {
 
         CORE_ASSERT( v->idx.isValid(), "Vertex not inserted" );
     }
-    /// TWIN DATA
+    // TWIN DATA
     std::map<Twin, Index> he_table;
     // Create faces and halfedges
     for ( const auto& t : mesh.m_triangles )
@@ -78,7 +78,7 @@ void convert( const TriangleMesh& mesh, Dcel& dcel ) {
             he[i]->setF( f );
             he[i]->idx = dcel.m_halfedge.insert( he[i] );
             CORE_ASSERT( he[i]->idx.isValid(), "HalfEdge not inserted" );
-            /// TWIN SEARCH
+            // TWIN SEARCH
             Twin twin( t[i], t[( i + 1 ) % 3] );
             // Search the right twin
             auto it = he_table.find( twin );

@@ -15,6 +15,7 @@ using Triangle = Vector3ui;
 using TriangleIdx = Index;
 using VertexIdx = Index;
 using HalfEdgeIdx = Index;
+
 } // namespace Core
 } // namespace Ra
 

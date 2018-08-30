@@ -197,7 +197,6 @@ RayCastResult castRay( const TriangleMesh& mesh, const Ray& ray ) {
     return result;
 }
 
-/// Return the mean edge length of the given triangle mesh
 Scalar getMeanEdgeLength( const TriangleMesh& mesh ) {
     using Key = std::pair<uint, uint>;
     std::set<Key> list;
@@ -254,7 +253,8 @@ void checkConsistency( const TriangleMesh& mesh ) {
     }
 
     // Always have the same number of vertex data and vertices
-    CORE_ASSERT( mesh.normals().size() == mesh.normals().size(), "Inconsistent number of normals" );
+    CORE_ASSERT( mesh.vertices().size() == mesh.normals().size(),
+                 "Inconsistent number of normals" );
 #endif
 }
 

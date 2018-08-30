@@ -9,47 +9,45 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
-// Need to define openMesh namespace function before including openmesh, for
-// MSVC
-namespace OpenMesh
-{
+// Need to define openMesh namespace function before including openmesh, for MSVC.
+namespace OpenMesh {
 
+/// Return the dot product \f$ v1 \dot v2 \f$.
 template <typename Derived>
 typename Derived::Scalar dot( Eigen::MatrixBase<Derived> const& v1,
-                              Eigen::MatrixBase<Derived> const& v2 )
-{
+                              Eigen::MatrixBase<Derived> const& v2 ) {
     return v1.dot( v2 );
 }
 
+/// Return the norm of \p v.
 template <typename Derived>
-typename Derived::Scalar norm( Eigen::MatrixBase<Derived> const& v1 )
-{
-    return v1.norm();
+typename Derived::Scalar norm( Eigen::MatrixBase<Derived> const& v ) {
+    return v.norm();
 }
 
+/// Return \p v after normalizing it.
 template <typename Derived>
-Derived normalize( Eigen::MatrixBase<Derived>& v1 )
-{
-    v1.normalize();
-    return v1;
+Derived normalize( Eigen::MatrixBase<Derived>& v ) {
+    v.normalize();
+    return v;
 }
 
+/// Set all components of \p v to \p a.
 template <typename Derived>
-void vectorize( Eigen::MatrixBase<Derived>& v1, Scalar a )
-{
-    v1.setConstant( a );
+void vectorize( Eigen::MatrixBase<Derived>& v, Scalar a ) {
+    v.setConstant( a );
 }
 
+/// \return the squared norm of \p v.
 template <typename Derived>
-typename Derived::Scalar sqrnorm( Eigen::MatrixBase<Derived> const& v1 )
-{
-    return v1.squaredNorm();
+typename Derived::Scalar sqrnorm( Eigen::MatrixBase<Derived> const& v ) {
+    return v.squaredNorm();
 }
 
+/// Return the cross product \f$ v1 \times v2 \f$.
 template <typename Derived>
 typename Derived::template cross_product_return_type<Derived>::type
-cross( Eigen::MatrixBase<Derived> const& v1, Eigen::MatrixBase<Derived> const& v2 )
-{
+cross( Eigen::MatrixBase<Derived> const& v1, Eigen::MatrixBase<Derived> const& v2 ) {
     return v1.cross( v2 );
 }
 
@@ -60,11 +58,11 @@ cross( Eigen::MatrixBase<Derived> const& v1, Eigen::MatrixBase<Derived> const& v
 #include <OpenMesh/Core/Mesh/Traits.hh>
 #include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
 
-namespace OpenMesh
-{
+namespace OpenMesh {
+
+/// Define the Traits to be used by OpenMesh for vectors.
 template <>
-struct vector_traits<Ra::Core::Vector3>
-{
+struct vector_traits<Ra::Core::Vector3> {
     using vector_type = Ra::Core::Vector3;
     using value_type = Scalar;
     static const size_t size_ = 3;
@@ -72,4 +70,5 @@ struct vector_traits<Ra::Core::Vector3>
 };
 
 } // namespace OpenMesh
+
 #endif // TOPOLOGICALMESH_OPENMESH_H
