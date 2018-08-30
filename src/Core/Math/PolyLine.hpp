@@ -8,6 +8,7 @@
 
 namespace Ra {
 namespace Core {
+
 /// A parametrized polyline, i.e. a continuous polygonal chain of segments.
 /// Points go from P0 to Pn. The ith segments joins Pi and Pi+1.
 class RA_CORE_API PolyLine {
@@ -19,7 +20,7 @@ class RA_CORE_API PolyLine {
     /// Get the point vector.
     inline const Vector3Array& getPoints() const;
 
-    /// Get the ith segment AB as starting point A and vector AB.
+    /// Get the \p segment-th segment AB as starting point \p aOut and vector \p abOut.
     inline void getSegment( uint segment, Vector3& aOut, Vector3& abOut ) const;
 
     /// Get the segment vector ( Pi+1 - Pi)
@@ -34,27 +35,27 @@ class RA_CORE_API PolyLine {
     /// Update the points of the polyline.
     void setPoints( const Vector3Array& pt );
 
-    /// Return the squared distance between the line and a given point p.
+    /// Return the squared distance between the line and the given point \p p.
     Scalar squaredDistance( const Vector3& p ) const;
 
-    /// Return the distance between the line and a given point p.
+    /// Return the distance between the line and the given point \p p.
     Scalar distance( const Vector3& p ) const;
 
     /// Returns the parameter t in [0,1] corresponding to the point on the
-    /// ith segment closest from point p.
+    /// \p segment-th segment closest from point \p p.
     Scalar projectOnSegment( const Vector3& p, uint segment ) const;
 
-    /// Returns the index of the nearest segment.
+    /// Returns the index of the nearest segment to \p p.
     uint getNearestSegment( const Vector3& p ) const;
 
-    /// Returns the index of the segment to which t belons
+    /// Returns the index of the segment to which \p t belongs.
     inline uint getSegmentIndex( Scalar t ) const;
 
     /// Returns the parameter t in [0,1] corresponding to the point on the line
-    /// which is the closest point from p.
+    /// which is the closest point from \p p.
     Scalar project( const Vector3& p ) const;
 
-    /// Return a point on the line corresponding to parameter t in [0;1].
+    /// Return a point on the line corresponding to parameter \p t in [0;1].
     /// Values of t below 0 map to the first point, and values above 1 to the last.
     Vector3 f( Scalar t ) const;
 
@@ -62,17 +63,19 @@ class RA_CORE_API PolyLine {
     /// Update the precomputed values after new points have been set.
     void update();
 
-    /// Given a point on one of the segments identified by parameter tSegment in [0,1]
-    /// and segment number, return the t in [0,1] corresponding to the same point
-    /// in the whole line parametrization.
+    /// Given a point on one of the segments identified by parameter \p tSegment in [0,1]
+    /// on the segment-th segment, return the t in [0,1] corresponding to the same point
+    /// in the whole polyline parametrization.
     inline Scalar getLineParameter( uint segment, Scalar tSegment ) const;
 
   private:
-    // Stores the points Pi
+    /// The polyline points.
     Vector3Array m_pts;
-    // Stores the vectors (Pi+1 - Pi)
+
+    /// The polyline segments vector.
     Vector3Array m_ptsDiff;
-    // Length from origin to point Pi+1.
+
+    /// The polyline segments length.
     std::vector<Scalar> m_lengths;
 };
 

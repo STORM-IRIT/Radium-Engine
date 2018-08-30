@@ -7,67 +7,87 @@
 namespace Ra {
 namespace Core {
 
-/// Colors are defined as vector4, i.e. 4 floats in RGBA order.
-/// displayable colors should have all their coordinates between 0 and 1.
+/// Colors are defined as Vector4, i.e. 4 floats in RGBA order.
+/// Displayable colors should have all their coordinates between 0 and 1.
 namespace Colors {
 // Primary and secondary colors.
 // TODO (Val) : check if we can make these constexpr
+/// Return a full transparent color.
 template <typename C = Color>
 inline C Alpha() {
     return C( 0.0, 0.0, 0.0, 0.0 );
 }
+
+/// Return a black color.
 template <typename C = Color>
 inline C Black() {
     return C( 0, 0, 0, 1 );
 }
 
+/// Return a red color.
 template <typename C = Color>
 inline C Red() {
     return C( 1, 0, 0, 1 );
 }
+
+/// Return a green color.
 template <typename C = Color>
 inline C Green() {
     return C( 0, 1, 0, 1 );
 }
+
+/// Return a blue color.
 template <typename C = Color>
 inline C Blue() {
     return C( 0, 0, 1, 1 );
 }
 
+/// Return a yellow color.
 template <typename C = Color>
 inline C Yellow() {
     return C( 1, 1, 0, 1 );
 }
+
+/// Return a magenta color.
 template <typename C = Color>
 inline C Magenta() {
     return C( 1, 0, 1, 1 );
 }
+
+/// Return a Cyan color.
 template <typename C = Color>
 inline C Cyan() {
     return C( 0, 1, 1, 1 );
 }
 
+/// Return a white color.
 template <typename C = Color>
 inline C White() {
     return C( 1, 1, 1, 1 );
 }
 
+/// Return a \p f-grey color.
 template <typename C = Color>
 inline C Grey( Scalar f = 0.5f ) {
     return Color( f, f, f, 1 );
 }
 
+/// Return the color for human skin.
 template <typename C = Color>
 inline C Skin() {
     return Color( 1.0, 0.87, 0.74, 1.0 );
 }
+
 // Convert to/from various int formats
+
+/// Convert the 4 RGBA 1-byte channels into a C RGBA color.
 template <typename C = Color>
 inline C FromChars( uchar r, uchar g, uchar b, uchar a = 0xff ) {
     return C( Scalar( r ) / 255.0f, Scalar( g ) / 255.0f, Scalar( b ) / 255.0f,
               Scalar( a ) / 255.0f );
 }
 
+/// Convert the 4-bytes channel into a C RGBA color, according to the RBGA format.
 template <typename C = Color>
 inline C FromRGBA32( uint32_t rgba ) {
     uchar r = uchar( ( rgba >> 24 ) & 0xff );
@@ -77,6 +97,7 @@ inline C FromRGBA32( uint32_t rgba ) {
     return FromChars( r, g, b, a );
 }
 
+/// Convert the 4-bytes channel into a C RGBA color, according to the ARBG format.
 template <typename C = Color>
 inline C FromARGB32( uint32_t argb ) {
     uchar a = uchar( ( argb >> 24 ) & 0xff );
@@ -86,6 +107,7 @@ inline C FromARGB32( uint32_t argb ) {
     return FromChars( r, g, b, a );
 }
 
+/// Convert the 4 HSV channels into a C RGBA color.
 template <typename C = Color>
 inline C fromHSV( const Scalar hue, const Scalar saturation = 1.0, const Scalar value = 1.0,
                   const Scalar alpha = 1.0 ) {
@@ -151,6 +173,7 @@ inline C fromHSV( const Scalar hue, const Scalar saturation = 1.0, const Scalar 
     return c;
 }
 
+/// Convert the C RGBA color into a 4-bytes RGBA channel.
 template <typename C = Color>
 inline uint32_t ToRGBA32( const C& color ) {
     C c( color * 255 );
@@ -159,6 +182,7 @@ inline uint32_t ToRGBA32( const C& color ) {
            ( uint32_t( scaled[2] ) << 8 ) | ( uint32_t( scaled[3] ) << 0 );
 }
 
+/// Convert the C RGBA color into a 4-bytes ARGB channel.
 template <typename C = Color>
 inline uint32_t ToARGB32( const C& color ) {
     C c( color * 255 );
@@ -167,6 +191,9 @@ inline uint32_t ToARGB32( const C& color ) {
            ( uint32_t( scaled[1] ) << 8 ) | ( uint32_t( scaled[2] ) << 0 );
 }
 
+/// Return a list of \p size C RGBA colors scattering the Hue value of the
+/// HSV color space, with a gamma correction.
+/// \note The colors are randomly shuffled.
 template <typename C = Color>
 inline std::vector<C> scatter( const uint size, const Scalar gamma ) {
     std::vector<C> color( size );
@@ -181,6 +208,7 @@ inline std::vector<C> scatter( const uint size, const Scalar gamma ) {
     std::shuffle( color.begin(), color.end(), std::mt19937( std::random_device()() ) );
     return color;
 }
+
 } // namespace Colors
 } // namespace Core
 } // namespace Ra

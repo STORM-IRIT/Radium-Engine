@@ -2,9 +2,6 @@
 
 namespace Ra {
 namespace Core {
-//
-// Bounding boxes functions.
-//
 
 inline Aabb Obb::toAabb() const {
     Aabb tmp;

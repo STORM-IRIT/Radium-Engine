@@ -10,7 +10,7 @@ namespace Ra {
 namespace Core {
 
 /// A representation for quadratic equation as
-/// v^T A v + 2 b^T v + c
+///   \f$ v^T A v + 2 b^T v + c \f$
 ///
 /// Reminder on ProgressiveMesh
 /// ---------------------------
@@ -31,13 +31,10 @@ class Quadric {
     using Matrix = Eigen::Matrix<Scalar, DIM, DIM>;
     using Vector = Eigen::Matrix<Scalar, DIM, 1>;
 
-    /// Construct an initialized quadric.
     Quadric();
 
-    /// Construct and initialize a quadric.
     Quadric( const Matrix& a, const Vector& b, double c ) : m_a( a ), m_b( b ), m_c( c ) {}
 
-    /// Construct a quadric from an other.
     Quadric( const Quadric<DIM>& q );
 
     /// Create a quadric from a normal vector n and the scalar which
@@ -47,15 +44,22 @@ class Quadric {
 
     ~Quadric();
 
-    /// Getters and setters
-
+    /// Return the quadratic coefficient matrix.
     inline const Matrix& getA() const;
+
+    /// Set the quadratic coefficient matrix.
     inline void setA( const Matrix& a );
 
+    /// Return the linear coefficient vector.
     inline const Vector& getB() const;
+
+    /// Set the linear coefficient vector.
     inline void setB( const Vector& b );
 
+    /// Return the constant coefficient scalar.
     inline const double& getC() const;
+
+    /// Set the constant coefficient scalar.
     inline void setC( const double& c );
 
     /// Create a quadric from a normal vector n and the scalar which
@@ -63,21 +67,32 @@ class Quadric {
     /// \deprecated Use constructor instead
     void compute( const Vector& n, double ndotp );
 
-    /// Computes eigen values and vectors of matrix A
+    /// Computes eigen values of matrix A
     inline typename Eigen::EigenSolver<Matrix3>::EigenvalueType computeEigenValuesA();
+
+    /// Computes eigen vvectors of matrix A
     inline typename Eigen::EigenSolver<Matrix3>::EigenvectorsType computeEigenVectorsA();
 
-    /// Operators
-
+    /// Return the sum of *this and \p q.
     inline Quadric operator+( const Quadric& q ) const;
+
+    /// Return the product of *this by \p scal.
     inline Quadric operator*( const Scalar scal );
 
+    /// Return *this after performing the sum of *this and \p q.
     inline Quadric& operator+=( const Quadric& q );
+
+    /// Return *this after performing the product of *this by \p scal.
     inline Quadric& operator*=( Scalar scal );
 
   private:
+    /// The quadratic coefficient matrix.
     Matrix m_a;
+
+    /// The linear coefficient vector.
     Vector m_b;
+
+    /// The constant coefficient scalar.
     double m_c;
 };
 

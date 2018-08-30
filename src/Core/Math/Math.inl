@@ -3,6 +3,7 @@
 namespace Ra {
 namespace Core {
 namespace Math {
+
 inline constexpr Scalar toRadians( Scalar a ) {
     return toRad * a;
 }
@@ -29,8 +30,8 @@ inline T ipow( const T& x, uint exp ) {
     { return p * p * x; }
 }
 
-/// This helper class is needed because C++ doesn't support function template
-/// partial specialization.
+// These helper class are needed because C++ doesn't support function template
+// partial specialization.
 namespace {
 template <typename T, uint N>
 struct IpowHelper {
@@ -97,6 +98,7 @@ template <typename T>
 constexpr T lerp( const T& a, const T& b, Scalar t ) {
     return ( 1 - t ) * a + t * b;
 }
+
 } // namespace Math
 } // namespace Core
 } // namespace Ra

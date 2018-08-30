@@ -19,9 +19,11 @@
 
 namespace Ra {
 namespace Core {
+
 //
 // Common vector types
 //
+
 using VectorN = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
 using VectorNf = Eigen::VectorXf;
 using VectorNd = Eigen::VectorXd;
@@ -76,9 +78,10 @@ using Matrix2d = Eigen::Matrix2d;
 using MatrixNui = Eigen::Matrix<uint, Eigen::Dynamic, Eigen::Dynamic>;
 
 // using Diagonal = Eigen::DiagonalMatrix< Scalar, Eigen::Dynamic >;
-using Diagonal =
-    Eigen::SparseMatrix<Scalar>; // Not optimized for Diagonal matrices, but the operations between
-                                 // Sparse and Diagonal are not defined
+
+// Not optimized for Diagonal matrices, but the operations between Sparse and Diagonal are not
+// defined
+using Diagonal = Eigen::SparseMatrix<Scalar>;
 using Sparse = Eigen::SparseMatrix<Scalar>;
 
 //
@@ -120,6 +123,7 @@ using Plane3 = Eigen::Hyperplane<Scalar, 3>;
 //
 // Misc types
 //
+
 using Color = Vector4;
 using Colorf = Vector4f;
 using Colord = Vector4d;
@@ -127,6 +131,7 @@ using Colord = Vector4d;
 //
 // Vector Functions
 //
+
 namespace Vector {
 
 /// Component-wise floor() function on a floating-point vector.
@@ -197,8 +202,14 @@ inline Scalar getNormAndNormalizeSafe( Vector_& v );
 } // namespace Vector
 
 namespace MatrixUtils {
+
+/// Return the look at view matrix.
 inline Matrix4 lookAt( const Vector3& position, const Vector3& target, const Vector3& up );
+
+/// Return the symmetric perspective-view frustum matrix.
 inline Matrix4 perspective( Scalar fovy, Scalar aspect, Scalar near, Scalar zfar );
+
+/// Return the parallel orthogonal-view frustum matrix.
 inline Matrix4 orthographic( Scalar left, Scalar right, Scalar bottom, Scalar top, Scalar near,
                              Scalar zfar );
 
@@ -213,6 +224,7 @@ inline bool checkInvalidNumbers( Eigen::Ref<const Matrix_> matrix,
 //
 // Quaternion functions
 //
+
 namespace QuaternionUtils {
 // Define functions for multiplying a quaternion by a scalar
 // and adding two quaternions. While Quaternion is supposed to

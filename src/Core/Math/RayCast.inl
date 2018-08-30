@@ -2,9 +2,11 @@
 
 namespace Ra {
 namespace Core {
+
 // useful : http://www.realtimerendering.com/intersections.html
+
 namespace RayCast {
-/// Intersect a ray with an axis-aligned bounding box.
+
 inline bool vsAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector3& normalOut ) {
     // Based on optimized Woo version (ray vs 3 slabs)
     // Ref : Graphics Gems p.395
@@ -151,7 +153,7 @@ bool vsPlane( const Ray& r, const Core::Vector3 a, const Core::Vector3& normal,
     return false;
 }
 
-// TODO : this needs serious optimizing if we want it fast :p
+// TODO : this needs serious optimizing if we want it fast
 bool vsCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3& b, Scalar radius,
                  std::vector<Scalar>& hitsOut ) {
     /// Ref : Graphics Gem IV.
@@ -382,6 +384,7 @@ bool vsTriangleMesh( const Ray& r, const TriangleMesh& mesh, std::vector<Scalar>
 
     return hit;
 }
+
 } // namespace RayCast
 } // namespace Core
 } // namespace Ra

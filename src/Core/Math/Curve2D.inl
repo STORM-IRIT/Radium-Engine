@@ -3,7 +3,58 @@
 namespace Ra {
 namespace Core {
 
-/*--------------------------------------------------*/
+// Line
+
+void Line::addPoint( const Curve2D::Vector p ) {
+    if ( size < 2 )
+    {
+        m_points[size++] = p;
+    }
+}
+
+Curve2D::Vector Line::f( Scalar u ) const {
+    return ( 1.0 - u ) * m_points[0] + u * m_points[1];
+}
+
+Curve2D::Vector Line::df( Scalar u ) const {
+    return m_points[1] - m_points[0];
+}
+
+Curve2D::Vector Line::fdf( Scalar t, Vector& grad ) const {
+    grad = m_points[1] - m_points[0];
+    return ( 1.0 - t ) * m_points[0] + t * m_points[1];
+}
+
+// QuadraSpline
+
+void QuadraSpline::addPoint( const Curve2D::Vector p ) {
+    m_points.push_back( p );
+    ++size;
+}
+
+Curve2D::Vector QuadraSpline::f( Scalar u ) const {
+    Ra::Core::Spline<2, 2> spline;
+    spline.setCtrlPoints( m_points );
+
+    return spline.f( u );
+}
+
+Curve2D::Vector QuadraSpline::df( Scalar u ) const {
+    Ra::Core::Spline<2, 2> spline;
+    spline.setCtrlPoints( m_points );
+
+    return spline.df( u );
+}
+
+Curve2D::Vector QuadraSpline::fdf( Scalar u, Vector& grad ) const {
+    Ra::Core::Spline<2, 2> spline;
+    spline.setCtrlPoints( m_points );
+
+    grad = spline.df( u );
+    return spline.f( u );
+}
+
+// CubicBezier
 
 void CubicBezier::addPoint( const Curve2D::Vector p ) {
     if ( size < 4 )
@@ -37,29 +88,7 @@ Curve2D::Vector CubicBezier::fdf( Scalar t, Vector& grad ) const {
            3.0 * oneMinusT * t2 * m_points[2] + t3 * m_points[3];
 }
 
-/*--------------------------------------------------*/
-
-void Line::addPoint( const Curve2D::Vector p ) {
-    if ( size < 2 )
-    {
-        m_points[size++] = p;
-    }
-}
-
-Curve2D::Vector Line::f( Scalar u ) const {
-    return ( 1.0 - u ) * m_points[0] + u * m_points[1];
-}
-
-Curve2D::Vector Line::df( Scalar u ) const {
-    return m_points[1] - m_points[0];
-}
-
-Curve2D::Vector Line::fdf( Scalar t, Vector& grad ) const {
-    grad = m_points[1] - m_points[0];
-    return ( 1.0 - t ) * m_points[0] + t * m_points[1];
-}
-
-/*--------------------------------------------------*/
+// SplineCurve
 
 void SplineCurve::addPoint( const Curve2D::Vector p ) {
     m_points.push_back( p );
@@ -82,35 +111,6 @@ Curve2D::Vector SplineCurve::df( Scalar u ) const {
 
 Curve2D::Vector SplineCurve::fdf( Scalar u, Curve2D::Vector& grad ) const {
     Ra::Core::Spline<2, 3> spline;
-    spline.setCtrlPoints( m_points );
-
-    grad = spline.df( u );
-    return spline.f( u );
-}
-
-/*--------------------------------------------------*/
-
-void QuadraSpline::addPoint( const Curve2D::Vector p ) {
-    m_points.push_back( p );
-    ++size;
-}
-
-Curve2D::Vector QuadraSpline::f( Scalar u ) const {
-    Ra::Core::Spline<2, 2> spline;
-    spline.setCtrlPoints( m_points );
-
-    return spline.f( u );
-}
-
-Curve2D::Vector QuadraSpline::df( Scalar u ) const {
-    Ra::Core::Spline<2, 2> spline;
-    spline.setCtrlPoints( m_points );
-
-    return spline.df( u );
-}
-
-Curve2D::Vector QuadraSpline::fdf( Scalar u, Vector& grad ) const {
-    Ra::Core::Spline<2, 2> spline;
     spline.setCtrlPoints( m_points );
 
     grad = spline.df( u );

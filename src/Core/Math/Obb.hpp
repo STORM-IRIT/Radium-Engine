@@ -6,19 +6,18 @@
 #include <Core/Math/LinearAlgebra.hpp>
 namespace Ra {
 namespace Core {
+
 /// An oriented bounding box.
 class Obb {
   public:
-    /// Constructors and destructor.
-
     /// Initializes an empty bounding box.
     Obb() : m_aabb(), m_transform( Transform::Identity() ) {}
 
     /// Initialize an OBB from an AABB and a transform.
     Obb( const Aabb& aabb, const Transform& tr ) : m_aabb( aabb ), m_transform( tr ) {}
 
-    /// Default copy constructor and assignment operator.
     Obb( const Obb& other ) = default;
+
     Obb& operator=( const Obb& other ) = default;
 
     ~Obb() {}
@@ -38,9 +37,11 @@ class Obb {
   public:
     /// The untransformed AABB
     Aabb m_aabb;
+
     /// Orientation of the box.
     Transform m_transform;
 };
+
 } // namespace Core
 } // namespace Ra
 #include <Core/Math/Obb.inl>

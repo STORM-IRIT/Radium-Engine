@@ -2,6 +2,7 @@
 
 namespace Ra {
 namespace Core {
+
 template <int DIM>
 inline Quadric<DIM>::Quadric() : m_a( Matrix::Zero() ), m_b( Vector::Zero() ), m_c( 0 ) {}
 

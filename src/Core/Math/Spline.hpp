@@ -7,6 +7,7 @@
 
 namespace Ra {
 namespace Core {
+
 /**
  * @class Spline
  *
@@ -14,11 +15,14 @@ namespace Core {
  * @note This class use the efficient blossom algorithm to compute a position on
  * the curve.
  * @tparam D : dimension of the curve.
- * @tparam K  :order of the curve (min 2)
+ * @tparam K : order of the curve (min 2)
  */
 template <uint D, uint K = 2>
 class Spline {
   public:
+    /// Type of the nodal vector.
+    /// This will define the behavior of the spline with its control points
+    /// as well as its speed according to its parameter.
     enum Type {
         UNIFORM,
         OPEN_UNIFORM ///< Connected to the first and last control points
@@ -27,47 +31,37 @@ class Spline {
     using Vector = typename Eigen::Matrix<Scalar, D, 1>;
 
   public:
-    /// Type of the nodal vector
-    /// @param k : order of the spline (minimum is two)
-    /// @param node_type : nodal vector type (uniform, open_uniform)
-    /// This will define the behavior of the spline with its control points
-    /// as well as its speed according to its parameter.
     inline Spline( Type type = OPEN_UNIFORM );
 
     /// Set the position of the spline control points.
     inline void setCtrlPoints( const Core::VectorArray<Vector>& points );
 
-    /// Get the control points of the spline
+    /// Return the control points of the spline.
     inline const Core::VectorArray<Vector>& getCtrlPoints() const;
 
-    /// The the nodal vector type
+    /// Return the nodal vector type.
     inline void setType( Type type );
 
-    /// Evaluate position of the spline
-    /// @param u : curve parameter ranging from [0; 1]
+    /// Return the point at the curvilinear parameter \p u.
     inline Vector f( Scalar u ) const;
 
-    /// Evaluate speed of the spline
+    /// Return the tangent vector at the curvilinear parameter \p u.
     inline Vector df( Scalar u ) const;
 
   private:
-    // -------------------------------------------------------------------------
-    /// @name Class tools
-    // -------------------------------------------------------------------------
-
+    /// Assert the spline is correctly initialized.
     inline void assertSplines() const;
 
-    /// set value and size of the nodal vector depending on the current number
-    /// of control points
+    /// Calls setNodeToUniform() or setNodeToOpenUniform() depending on the spline type.
     inline void setNodalVector();
 
-    /// Set values of the nodal vector to be uniform
+    /// Initialize the nodal vector to be uniform, according to the number of control points.
     inline void setNodeToUniform();
 
-    /// Set values of the nodal vector to be open uniform
+    /// Initialize the nodal vector to be open uniform, according to the number of control points.
     inline void setNodeToOpenUniform();
 
-    /// Evaluate the equation of a splines using the blossom algorithm
+    /// Evaluate the equation of a splines using the blossom algorithm.
     /// @param u : the curve parameter which range from the values
     /// [node[k-1]; node[point.size()]]
     /// @param point : the control points which size must be at least equal to
@@ -75,23 +69,30 @@ class Spline {
     /// @param k : the spline order (degree == k-1)
     /// @param node : the nodal vector which defines the speed of the spline
     /// parameter u. The nodal vector size must be equal to (k + point.size())
-    /// @param off : offset to apply to the nodal vector 'node' before reading
-    /// from it. this is useful to compute derivatives.
+    /// @param off : offset to apply to the nodal vector knots before using them.
+    ///              This is useful when computing derivatives.
+    /// @return the curve point at u.
     static inline Vector eval( Scalar u, const Core::VectorArray<Vector>& points,
                                const std::vector<Scalar>& node, uint k, int off = 0 );
 
+    /// Internal recursive call for the blossom algorithm.
     static inline Vector evalRec( Scalar u, const Core::VectorArray<Vector>& points,
                                   const std::vector<Scalar>& node, uint k );
 
-    // -------------------------------------------------------------------------
-    /// @name attributes
-    // -------------------------------------------------------------------------
+  private:
+    /// Control points.
+    Core::VectorArray<Vector> m_points;
 
-    Core::VectorArray<Vector> m_points; ///< Control points
-    Core::VectorArray<Vector> m_vecs;   ///< Control points differences
-    std::vector<Scalar> m_node;         ///< Nodal vector
-    Type m_type;                        ///< Nodal vector type
+    /// Control points differences.
+    Core::VectorArray<Vector> m_vecs;
+
+    /// Nodal vector.
+    std::vector<Scalar> m_node;
+
+    /// Nodal vector type.
+    Type m_type;
 };
+
 } // namespace Core
 } // namespace Ra
 

@@ -6,20 +6,17 @@
 
 namespace Ra {
 namespace Core {
+
+/// A Frustum represents a clipping volume delimited by 6 planes.
+/// This volume usually ressembles a troncated pyramid.
 struct Frustum {
   public:
-    enum FACES : int {
-        FRONT = 0, // Near plane
-        BACK = 1,  // Far plane
-        TOP = 2,
-        BOTTOM = 3,
-        LEFT = 4,
-        RIGHT = 5
-    };
+    /// Used to indicate the face to consider.
+    enum FACES : int { FRONT = 0, BACK = 1, TOP = 2, BOTTOM = 3, LEFT = 4, RIGHT = 5 };
 
     RA_CORE_ALIGNED_NEW
 
-    /// Default constructor
+    /// Construct a Frustum from a ModelViewProjection matrix.
     Frustum( const Matrix4& mvp ) {
         // Near clipping plane.
         m_planes[FRONT] = mvp.row( 3 ) + mvp.row( 2 );
@@ -35,10 +32,12 @@ struct Frustum {
         m_planes[RIGHT] = mvp.row( 3 ) - mvp.row( 0 );
     }
 
+    /// Return the \p p-th delimiting plane.
+    /// \see FACES for allowed \p p values.
     Vector4 getPlane( uint p ) const { return m_planes[p]; }
 
   public:
-    /// Clipping planes
+    /// Clipping planes.
     Vector4 m_planes[6];
 };
 } // namespace Core
