@@ -3,7 +3,6 @@
 namespace Ra {
 namespace Core {
 
-/// DIMENSION
 inline uint CircularIndex::size() const {
     return N;
 }
@@ -12,7 +11,6 @@ inline void CircularIndex::setSize( const uint size ) {
     N = size;
 }
 
-/// INDEX
 inline uint CircularIndex::value() const {
     return idx;
 }
@@ -22,7 +20,6 @@ inline void CircularIndex::setValue( const int i ) {
     idx = ( n + ( i % n ) ) % n;
 }
 
-/// OPERATOR
 inline CircularIndex::operator int() {
     return idx;
 }

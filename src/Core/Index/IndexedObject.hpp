@@ -7,16 +7,16 @@
 namespace Ra {
 namespace Core {
 
+/// An IndexedObject is an object identifiable through it's index.
 class DLL_EXPORT IndexedObject {
   public:
-    /// CONSTRUCTOR
     explicit inline IndexedObject( Index idx = Index::Invalid() ) { this->idx = idx; }
+
     inline IndexedObject( const IndexedObject& id_obj ) { idx = id_obj.idx; }
 
-    /// DESTRUCTOR
     virtual inline ~IndexedObject() {}
 
-    /// VARIABLE
+    /// The index of the object.
     Index idx;
 };
 

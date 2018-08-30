@@ -12,7 +12,7 @@
 namespace Ra {
 namespace Core {
 
-/*!
+/**
  * The class IndexMap define a map where a object is coupled with a index.
  * The index is unique, it is assigned to a object when it's inserted and is kept until the object
  * is removed. After a removal, the index becomes free again. A object will be given the first free
@@ -22,34 +22,35 @@ namespace Core {
 template <typename T>
 class IndexMap {
   public:
-    // ===============================================================================
-    // TYPEDEF
-    // ===============================================================================
-    using Container = typename std::deque<T>;          /// Where the objects are stored
-    using IndexContainer = typename std::deque<Index>; /// Where the indices are stored
+    /// Where the objects are stored
+    using Container = typename std::deque<T>;
 
-    using ConstIndexIterator =
-        typename IndexContainer::const_iterator; /// Const iterator to the list of indices of the
-                                                 /// IndexMap.
-    using Iterator =
-        typename Container::iterator; /// Iterator to the list of objects of the IndexMap.
-    using ConstIterator = typename Container::const_iterator; /// Const iterator to the list of
-                                                              /// objects of the IndexMap.
+    /// Where the indices are stored
+    using IndexContainer = typename std::deque<Index>;
 
-    // ===============================================================================
+    /// Const iterator to the list of indices of the IndexMap.
+    using ConstIndexIterator = typename IndexContainer::const_iterator;
+
+    /// Iterator to the list of objects of the IndexMap.
+    using Iterator = typename Container::iterator;
+
+    /// Const iterator to the list of objects of the IndexMap.
+    using ConstIterator = typename Container::const_iterator;
+
+    // =========================================================================
     // CONSTRUCTOR
-    // ===============================================================================
-    inline IndexMap();                         /// Default constructor.
-    inline IndexMap( const IndexMap& id_map ); /// Copy constructor.
+    // =========================================================================
+    inline IndexMap();
+    inline IndexMap( const IndexMap& id_map );
 
-    // ===============================================================================
+    // =========================================================================
     // DESTRUCTOR
-    // ===============================================================================
-    inline ~IndexMap(); /// Destructor.
+    // =========================================================================
+    inline ~IndexMap();
 
-    // ===============================================================================
+    // =========================================================================
     // INSERT
-    // ===============================================================================
+    // =========================================================================
     /// Insert a object in the IndexMap. Return an invalid index if the object is not inserted.
     inline Index insert( const T& obj );
 
@@ -58,92 +59,123 @@ class IndexMap {
     template <typename... Args>
     inline Index emplace( const Args&&... args );
 
-    // ===============================================================================
+    // =========================================================================
     // REMOVE
-    // ===============================================================================
+    // =========================================================================
     /// Remove the object with the given index. Return false if the operation failed.
     inline bool remove( const Index& idx );
 
-    // ===============================================================================
+    // =========================================================================
     // ACCESS
-    // ===============================================================================
+    // =========================================================================
     /// Return a read-only ref to object with the given index.  Crashes if index does not exist.
     inline const T& at( const Index& idx ) const;
 
     /// Return a reference to the object with the given index. Crash if index does not exist
     inline T& access( const Index& idx );
 
-    // ===============================================================================
+    // =========================================================================
     // SIZE
-    // ===============================================================================
-    inline size_t size() const; /// Return the size of the IndexMap ( number of object contained ).
-    inline void clear();        /// Clear the IndexMap.
+    // =========================================================================
+    /// Return the size of the IndexMap ( number of object contained ).
+    inline size_t size() const;
 
-    // ===============================================================================
+    /// Clear the IndexMap.
+    inline void clear();
+
+    // =========================================================================
     // QUERY
-    // ===============================================================================
-    inline bool empty() const; /// Return true if the IndexMap is empty.
-    inline bool full() const;  /// Return true if the IndexMap cannot contain more objects.
-    inline bool contains( const Index& idx )
-        const; /// Return true if the IndexMap contains a object with the given index.
-    inline Index index( const uint i )
-        const; /// Return the i-th index. Return an invalid index if i is out of bound.
+    // =========================================================================
+    /// Return true if the IndexMap is empty.
+    inline bool empty() const;
 
-    // ===============================================================================
+    /// Return true if the IndexMap cannot contain more objects.
+    inline bool full() const;
+
+    /// Return true if the IndexMap contains a object with the given index.
+    inline bool contains( const Index& idx ) const;
+
+    /// Return the i-th index. Return an invalid index if i is out of bound.
+    inline Index index( const uint i ) const;
+
+    // =========================================================================
     // OPERATOR
-    // ===============================================================================
-    inline T& operator[]( const Index& idx ); /// Return a reference to the object with given index.
-    inline const T& operator[](
-        const Index& idx ) const; /// Return a const reference to the object with given index.
+    // =========================================================================
+    /// Return a reference to the object with given index.
+    inline T& operator[]( const Index& idx );
 
-    // ===============================================================================
+    /// Return a const reference to the object with given index.
+    inline const T& operator[]( const Index& idx ) const;
+
+    // =========================================================================
     // INDEX ITERATOR
-    // ===============================================================================
-    inline ConstIndexIterator
-    cbegin_index() const; /// Return a const iterator to the first index in the IndexMap.
-    inline ConstIndexIterator
-    cend_index() const; /// Return a const iterator to the end of the indices of the IndexMap.
+    // =========================================================================
+    /// Return a const iterator to the first index in the IndexMap.
+    inline ConstIndexIterator cbegin_index() const;
 
-    // ===============================================================================
+    /// Return a const iterator to the end of the indices of the IndexMap.
+    inline ConstIndexIterator cend_index() const;
+
+    // =========================================================================
     // DATA ITERATOR
-    // ===============================================================================
-    inline Iterator begin(); /// Return a iterator to the first object in the IndexMap.
-    inline Iterator end();   /// Return a iterator to the end of the object list in the IndexMap.
-    inline ConstIterator begin() const; /// Return a iterator to the first object in the IndexMap.
-    inline ConstIterator
-    end() const; /// Return a iterator to the end of the object list in the IndexMap.
-    inline ConstIterator
-    cbegin() const; /// Return a const iterator to the first object in the IndexMap.
-    inline ConstIterator
-    cend() const; /// Return a const iterator to the end of the object list in the IndexMap.
+    // =========================================================================
+    /// Return a iterator to the first object in the IndexMap.
+    inline Iterator begin();
+
+    /// Return a iterator to the end of the object list in the IndexMap.
+    inline Iterator end();
+
+    /// Return a iterator to the first object in the IndexMap.
+    inline ConstIterator begin() const;
+
+    /// Return a iterator to the end of the object list in the IndexMap.
+    inline ConstIterator end() const;
+
+    /// Return a const iterator to the first object in the IndexMap.
+    inline ConstIterator cbegin() const;
+
+    /// Return a const iterator to the end of the object list in the IndexMap.
+    inline ConstIterator cend() const;
 
   protected:
+    // =========================================================================
     // Member variables
-    Container m_data;       /// Objects in the IndexMap
-    IndexContainer m_index; /// Indices in the IndexMap
+    // =========================================================================
+    /// Objects in the IndexMap
+    Container m_data;
+
+    /// Indices in the IndexMap
+    IndexContainer m_index;
 
   private:
-    // ===============================================================================
+    // =========================================================================
     // FREE LIST MANAGEMENT
-    // ===============================================================================
-    inline void push_free_index( const Index& idx ); /// Push a new free index in free list
-    inline bool pop_free_index( Index& idx );        /// Pop a free index from the free list
+    // =========================================================================
+    /// Push a new free index in free list
+    inline void push_free_index( const Index& idx );
 
-    // ===============================================================================
+    /// Pop a free index from the free list
+    inline bool pop_free_index( Index& idx );
+
+    // =========================================================================
     // HELPER FUNCTIONS
-    // ===============================================================================
+    // =========================================================================
     // These function return an iterator to an object from an interator in an index.
-    inline ConstIterator citfromIndex( const ConstIndexIterator& it )
-        const; /// Returns a const iterator on an object from its intex iterator
-    inline Iterator
-    itfromIndex( const ConstIndexIterator&
-                     it ); /// Returns a non-const iterator on an object from its intex iterator
-    inline size_t idxfromIndex( const ConstIndexIterator& it )
-        const; /// Return the index of the object in the map from its index iterator
+    /// Returns a const iterator on an object from its intex iterator
+    inline ConstIterator citfromIndex( const ConstIndexIterator& it ) const;
+
+    /// Returns a non-const iterator on an object from its intex iterator
+    inline Iterator itfromIndex( const ConstIndexIterator& it );
+
+    /// Return the index of the object in the map from its index iterator
+    inline size_t idxfromIndex( const ConstIndexIterator& it ) const;
 
   private:
+    // =========================================================================
     // Member variables
-    IndexContainer m_free; /// List of available free indices.
+    // =========================================================================
+    /// List of available free indices.
+    IndexContainer m_free;
 };
 
 } // namespace Core
