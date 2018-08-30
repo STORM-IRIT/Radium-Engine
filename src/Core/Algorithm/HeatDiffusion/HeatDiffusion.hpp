@@ -45,12 +45,13 @@ RA_CORE_API Time t( const Scalar& m, const Scalar& h );
  * "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
  * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
  * TOG 2013
+ *
+ * \warning L must be a positive semi-definite matrix.
  */
-/// WARNING: L must be a positive semi-definite matrix
 RA_CORE_API void heat( const Geometry::AreaMatrix& A, const Time& t,
                        const Geometry::LaplacianMatrix& L, Heat& u, const Delta& delta );
 
-/*
+/**
  * Solve the heating equation from the given AreaMatrix, the Time, the
  * LaplacianMatrix and the Delta. The heating equation is defined as:
  *    \f$ ( A + t * L ) u = Delta \f$
@@ -61,8 +62,9 @@ RA_CORE_API void heat( const Geometry::AreaMatrix& A, const Time& t,
  * "Geodesics in Heat: A New Approach to Computing Distance Based on Heat Flow"
  * [Keenan Crane, Clarisse Weischedel, Max Wardetzky ]
  * TOG 2013
+ *
+ * \warning L must be a positive semi-definite matrix.
  */
-/// WARNING: L must be a positive semi-definite matrix
 RA_CORE_API Heat heat( const Geometry::AreaMatrix& A, const Time& t,
                        const Geometry::LaplacianMatrix& L, const Delta& delta );
 
