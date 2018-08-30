@@ -6,25 +6,29 @@
 
 namespace Ra {
 namespace Core {
+
 // Convenience functions for timing.
 // Wrapping the highest resolution time measuring.
 namespace Timer {
+
 using MicroSeconds = long;
 using Seconds = Scalar;
 using Clock = std::chrono::high_resolution_clock;
 using TimePoint = std::chrono::time_point<Clock>;
 
+/// Return the number of milliseconds between \p start and \p end.
 inline MicroSeconds getIntervalMicro( const TimePoint& start, const TimePoint& end ) {
     return ( std::chrono::duration_cast<std::chrono::microseconds>( end - start ) ).count();
 }
 
+/// Return the number of seconds between \p start and \p end.
 inline Seconds getIntervalSeconds( const TimePoint& start, const TimePoint& end ) {
     return ( std::chrono::duration_cast<
                  std::chrono::duration<Scalar, std::chrono::seconds::period>>( end - start ) )
         .count();
 }
-} // namespace Timer
 
+} // namespace Timer
 } // namespace Core
 } // namespace Ra
 

@@ -247,7 +247,8 @@ void TaskQueue::runThread( uint id ) {
                     queueTask( t );
                     ++newTasks;
                 }
-                // TODO :Easy optimization : grab one of the new task and process it immediately.
+                // TODO: Easy optimization :
+                //       grab one of the new task and process it immediately.
             }
             --m_processingTasks;
         }
@@ -315,5 +316,6 @@ void TaskQueue::printTaskGraph( std::ostream& output ) const {
 
     output << "}" << std::endl;
 }
+
 } // namespace Core
 } // namespace Ra

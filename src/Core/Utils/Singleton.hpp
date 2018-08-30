@@ -34,8 +34,10 @@
     void operator=( const TYPE& ) = delete
 
 /// Add this macro in the singleton cpp, followed by a semicolon.
-// Limitations : TYPE cannot be a nested type
-// RA_SINGLETON_IMPLEMENTATION(A::MySingleton); will *not* work.
+/// Limitations : TYPE cannot be a nested type. The following will not work:
+/// \code
+///  RA_SINGLETON_IMPLEMENTATION(A::MySingleton);
+/// \endcode
 #define RA_SINGLETON_IMPLEMENTATION( TYPE )                    \
     namespace TYPE##NS {                                       \
         TYPE* s_instance = nullptr;                            \

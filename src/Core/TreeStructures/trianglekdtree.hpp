@@ -1,15 +1,15 @@
 #ifndef TRIANGLEKDTREE_H
 #define TRIANGLEKDTREE_H
 
-#include "Core/Math/bbox.hpp"
+#include <Core/Math/bbox.hpp>
 
-#include "Eigen/Core"
+#include <Eigen/Core>
 
-#include "Core/Mesh/TriangleMesh.hpp"
+#include <Core/Mesh/TriangleMesh.hpp>
 
-#include "Core/Geometry/Triangle/TriangleOperation.hpp"
+#include <Core/Geometry/Triangle/TriangleOperation.hpp>
 
-#include "Core/Geometry/Distance/DistanceQueries.hpp"
+#include <Core/Geometry/Distance/DistanceQueries.hpp>
 
 #include <iostream>
 #include <limits>
@@ -23,30 +23,33 @@
 
 namespace Super4PCS {
 
+/// A Triangle KdTree performs spatial hashing of a soup of triangles.
 template <typename _Index = int>
 class TriangleKdTree {
   public:
     using Index = _Index;
     using IndexList = std::vector<Index>;
 
+    /// A KdNode stores data about how to split space.
     struct KdNode {
         //        union {
         //            struct {
-        float splitValue; // value of the dim coordinate
-        IndexList triangleIndices;
-        unsigned int firstChildId : 24;
-        unsigned int dim : 2; // axis of the split
-        unsigned int leaf : 1;
+        float splitValue;               ///< value of split along the axis.
+        IndexList triangleIndices;      ///< the list of triangle indices, only for leaves.
+        unsigned int firstChildId : 24; ///< the list of the first child KdNode.
+        unsigned int dim : 2;           ///< axis of the split
+        unsigned int leaf : 1;          ///< Whether the node is a leaf.
         //            };
         /*            struct { */ // if leaf
-                                  //                IndexList leafTriangleIndices;
-                                  //            };
-                                  //        };
+        //                IndexList leafTriangleIndices;
+        //            };
+        //        };
     };
 
     // using Scalar = _Scalar;
-    //    using Index = _Index;
+    // using Index = _Index;
 
+    /// Return the value for an invalid index.
     static constexpr Index invalidIndex() { return -1; }
 
     using VectorType = Eigen::Matrix<Scalar, 3, 1>;
@@ -56,11 +59,17 @@ class TriangleKdTree {
     using NodeList = std::vector<KdNode>;
     using PointList = std::vector<VectorType>;
     using TriangleList = std::vector<Triangle>;
-    //    using IndexList               = std::vector<Index>;
 
+    /// return the list of nodes.
     inline const NodeList& _getNodes( void ) { return mNodes; }
+
+    /// return the list of vertices.
     inline const PointList& _getPoints( void ) { return mPoints; }
+
+    /// return the list of triangles.
     inline const TriangleList& _getTriangles( void ) { return mTriangles; }
+
+    /// return the list of triangle storage indices.
     inline const IndexList& _getIndices( void ) { return mIndices; }
 
     TriangleKdTree( const TriangleList& t, const PointList& p,
@@ -70,35 +79,44 @@ class TriangleKdTree {
     TriangleKdTree( unsigned int size = 0, unsigned int nofTrianglesPerCell = KD_TRIANGLES_PER_CELL,
                     unsigned int maxDepth = KD_MAX_DEPTH );
 
-    inline void finalize();
-
-    inline const AxisAlignedBoxType& aabb() const { return mAABB; }
-
     ~TriangleKdTree();
 
+    /// Actually call createTree().
+    inline void finalize();
+
+    /// Return the AABB of the triangle soup.
+    inline const AxisAlignedBoxType& aabb() const { return mAABB; }
+
+    /// Return the index of the closest triangle to the segment formed by \p s1 and \p s2.
+    /// The query if performed only for triangles closer than \p sqdist.
     inline Index doQueryRestrictedClosestIndex( const VectorType& s1, const VectorType& s2,
                                                 Scalar sqdist );
 
+    /// Return the indices of all the triangles whose distance to the segment
+    /// formed by \p s1 and \p s2 is lower than \p sqdist.
     inline void doQueryRestrictedClosestIndexes( const VectorType& s1, const VectorType& s2,
                                                  Scalar sqdist, std::vector<Index>& cl_dist );
 
+    /// Return the index of the closest triangle to the triangle formed by \p a, \p b and \p c.
     inline Index doQueryRestrictedClosestIndexTriangle( const VectorType& a, const VectorType& b,
                                                         const VectorType& c );
 
   protected:
-    //! element of the stack
+    /// Element of the stack for queries.
     struct QueryNode {
         inline QueryNode() {}
         inline QueryNode( unsigned int id ) : nodeId( id ) {}
-        //! id of the next node
+        /// Id of the next node.
         unsigned int nodeId;
-        //! squared distance to the next node
+        /// Squared distance to the next node.
         Scalar sq;
     };
 
+    /// Performs the space split for the given node.
     inline void split(
         unsigned int nodeId /*, IndexList& triangleIndices, unsigned int dim, Scalar splitValue*/ );
 
+    /// Creates the tree under the given node according to the space split data for this node.
     void createTree( unsigned int nodeId,
                      //                    IndexList& triangleIndices,
                      //                    unsigned int leftchild,
@@ -108,14 +126,18 @@ class TriangleKdTree {
                      unsigned int level, unsigned int targetCellsize, unsigned int targetMaxDepth );
 
   protected:
-    NodeList mNodes;
-    QueryNode mNodeStack[64];
-    PointList mPoints;
-    TriangleList mTriangles;
-    IndexList mIndices;
+    NodeList mNodes;          ///< The tree nodes.
+    QueryNode mNodeStack[64]; ///< The node stask for queries.
+    PointList mPoints;        ///< The list of vvertices.
+    TriangleList mTriangles;  ///< The list of triangles.
+    IndexList mIndices;       ///< The list of triangles storage indices.
+    AxisAlignedBoxType mAABB; ///< The  AABB of the triangle soup.
 
-    AxisAlignedBoxType mAABB;
+    /// Maximal allowed number of triangles per leaf.
+    /// \note Can be higher for max-depth leaves.
     unsigned int _nofTrianglesPerCell;
+
+    /// Maximal allowed tree depth.
     unsigned int _maxDepth;
 };
 

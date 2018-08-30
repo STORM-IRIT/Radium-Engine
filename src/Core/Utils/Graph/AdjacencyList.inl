@@ -6,7 +6,6 @@ namespace Ra {
 namespace Core {
 namespace Graph {
 
-/// NODE
 inline uint AdjacencyList::addNode( const int parent ) {
     CORE_ASSERT( ( parent < int( size() ) ), "Index parent out of bounds" );
     uint idx = size();
@@ -72,7 +71,6 @@ inline void AdjacencyList::pruneLeaves() {
     this->pruneLeaves( p, d );
 }
 
-/// SIZE
 inline uint AdjacencyList::size() const {
     CORE_ASSERT( m_parent.size() == m_child.size(), "List size inconsistency" );
     return m_parent.size();
@@ -83,7 +81,6 @@ inline void AdjacencyList::clear() {
     m_parent.clear();
 }
 
-/// QUERY
 inline bool AdjacencyList::isEmpty() const {
     return ( size() == 0 );
 }

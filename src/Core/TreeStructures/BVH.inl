@@ -5,7 +5,6 @@
 
 #include <Core/Math/ColorPresets.hpp>
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
-//#include <Engine/Renderer/Renderers/DebugRender.hpp>
 
 namespace Ra {
 namespace Core {
@@ -163,5 +162,6 @@ inline void BVH<T>::getInFrustumSlow( std::vector<std::shared_ptr<T>>& objects,
         }
     }
 }
+
 } // namespace Core
 } // namespace Ra

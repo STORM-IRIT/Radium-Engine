@@ -7,13 +7,13 @@
 
 namespace Ra {
 namespace Core {
+
 /// An interface class representing a basic task.
 /// Tasks are basic processing units of the engine. Tasks are run
 /// in parallel on separate threads by the engine. The work of
 /// a task is defined by overriding its process() function.
 class Task {
   public:
-    /// Destructor
     virtual ~Task() {}
 
     /// Return the name of the task.
@@ -33,15 +33,18 @@ class FunctionTask : public Task {
         m_f( f ),
         m_name( name ) {}
 
-    /// Return the provided task name
+    /// Return the provided task name.
     virtual std::string getName() const override { return m_name; }
 
     /// Call the function.
     virtual void process() override { m_f(); }
 
   protected:
-    std::function<void( void )> m_f; /// The function to call
-    std::string m_name;              /// Name of the task
+    /// The function to call.
+    std::function<void( void )> m_f;
+
+    /// Name of the task.
+    std::string m_name;
 };
 
 } // namespace Core

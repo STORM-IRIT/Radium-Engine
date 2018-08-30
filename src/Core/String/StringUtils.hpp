@@ -7,8 +7,10 @@
 
 namespace Ra {
 namespace Core {
+
 /// A collection of utilities for std::string.
 namespace StringUtils {
+
 //
 // File names and paths.
 // Todo : support backward slashes in windows paths.
@@ -25,6 +27,7 @@ RA_CORE_API std::string getDirName( const std::string& path );
 /// @return the file name from a given file's full path.
 /// Most of the time this function behaves similarly to the unix basename(1)
 /// command. It will ignore any trailing slash.
+/// @param path the file's full path.
 /// @param keepExtension If true it will behave like unix basename(1)
 /// (path/to/file.ext will give file.ext) ;
 /// otherwise it will remove the extension (path/to/file.ext will give file)
@@ -49,6 +52,7 @@ RA_CORE_API int appendPrintf( std::string& str, const char* fmt, ... );
 /// { "Hello", " World", " and Universe !" }.
 /// @return a vector containing n substrings given a split token.
 RA_CORE_API std::vector<std::string> splitString( const std::string& str, char token );
+
 } // namespace StringUtils
 } // namespace Core
 } // namespace Ra

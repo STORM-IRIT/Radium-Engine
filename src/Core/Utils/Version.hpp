@@ -17,6 +17,7 @@ RA_CORE_API extern const char* gitChangeSet;
 // extern const char* gitTag;
 // extern const char* gitVersion;
 // extern const char* versionName;
+
 } // namespace Version
 } // namespace Ra
 

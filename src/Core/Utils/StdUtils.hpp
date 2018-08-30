@@ -10,9 +10,10 @@
 namespace Ra {
 namespace Core {
 namespace StdUtils {
+
 /// Helper function to combine multiple hashes by accumulation
 /// Called repeatedly to accumulate the hash value.
-/// Taken from boost.hash. http://www.boost.org/doc/libs/1_61_0/doc/html/hash.html
+/// Taken from boost.hash: http://www.boost.org/doc/libs/1_61_0/doc/html/hash.html
 template <typename T>
 void hash_combine( std::size_t& seed, const T& key ) {
     std::hash<T> hasher;
@@ -26,7 +27,8 @@ inline std::size_t hash( const std::pair<T1, T2>& p ) {
     hash_combine( result, p.first );
     hash_combine( result, p.second );
     return result;
-};
+}
+
 } // namespace StdUtils
 } // namespace Core
 } // namespace Ra

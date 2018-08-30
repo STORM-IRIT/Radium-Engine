@@ -16,31 +16,51 @@ class Attrib;
 class AttribBase {
   public:
     virtual ~AttribBase() {}
+
+    /// Return the name of the Attrib.
     std::string getName() const { return m_name; }
+
+    /// Set the name of the Attrib.
     void setName( std::string name ) { m_name = name; }
+
+    /// Resize the Attrib content.
     virtual void resize( size_t s ) = 0;
 
+    /// Return the size of the Attrib content.
     virtual uint getSize() = 0;
+
+    /// Return the size of one Attrib element.
     virtual int getStride() = 0;
 
+    /// Return true if *this and \p rhs have the same name.
     bool inline operator==( const AttribBase& rhs ) { return m_name == rhs.getName(); }
 
+    /// Cast AttribBase to Attrib<T>.
     template <typename T>
     inline Attrib<T>& cast() {
         return static_cast<Attrib<T>&>( *this );
     }
 
+    /// Cast AttribBase to Attrib<T>.
     template <typename T>
     inline const Attrib<T>& cast() const {
         return static_cast<const Attrib<T>&>( *this );
     }
 
+    /// Return true if the Attrib content is of float type.
     virtual bool isFloat() const = 0;
+
+    /// Return true if the Attrib content is of Vector2 type.
     virtual bool isVec2() const = 0;
+
+    /// Return true if the Attrib content is of Vector3 type.
     virtual bool isVec3() const = 0;
+
+    /// Return true if the Attrib content is of Vector4 type.
     virtual bool isVec4() const = 0;
 
   private:
+    /// The Attrib's name.
     std::string m_name;
 };
 
@@ -51,16 +71,17 @@ class Attrib : public AttribBase {
     using value_type = T;
     using Container = VectorArray<T>;
 
-    /// resize the container (value_type must have a default ctor).
+    virtual ~Attrib() { m_data.clear(); }
+
+    /// Resize the container (value_type must have a default ctor).
     void resize( size_t s ) override { m_data.resize( s ); }
 
-    /// RW acces to container data
+    /// Read/Write acces to container data.
     inline Container& data() { return m_data; }
 
-    /// R only acccess to container data
+    /// Read only acccess to container data.
     inline const Container& data() const { return m_data; }
 
-    virtual ~Attrib() { m_data.clear(); }
     uint getSize() override { return Container::Matrix::RowsAtCompileTime; }
     int getStride() override { return sizeof( typename Container::value_type ); }
 
@@ -73,6 +94,7 @@ class Attrib : public AttribBase {
     Container m_data;
 };
 
+/// An AttribHandle stores the storage index of an Attrib within the AttribManager.
 template <typename T>
 class AttribHandle {
   public:
@@ -86,18 +108,23 @@ class AttribHandle {
         return std::is_same<T, U>::value && m_idx == lhs.m_idx;
     }
 
+    /// Return the storage index of the Attrib.
     Index idx() const { return m_idx; }
 
+    /// Return the name of the Attrib.
     std::string attribName() const { return m_name; }
 
   private:
+    /// Storage index of the Attrib.
     Index m_idx = Index::Invalid();
+
+    /// Name of the Attrib.
     std::string m_name = "";
 
     friend class AttribManager;
 };
 
-/*!
+/**
  * \brief The AttribManager provides attributes management by handles.
  *
  * The AttribManager stores a container of AttribBase *, which can
@@ -116,7 +143,7 @@ class AttribHandle {
  * // somewhere else: access
  * auto iattribhandler = mng.findAttrib<float>("MyAttrib"); //  iattribhandler == inputfattrib
  * if ( mng.isValid( iattribhandler ) ) { // true
- *     auto &attrib = mng.getAttrib( iattribhandler );
+ *    auto &attrib = mng.getAttrib( iattribhandler );
  *     ...
  * }
  * auto& iattribhandler = mng.findAttrib<float>("InvalidAttrib"); // invalid
@@ -135,8 +162,10 @@ class AttribManager {
 
     AttribManager() {}
 
-    /// Copy constructor and assignment operator are forbidden.
+    /// Copy constructor is forbidden.
     AttribManager( const AttribManager& m ) = delete;
+
+    /// Assignment operator is forbidden.
     AttribManager& operator=( const AttribManager& m ) = delete;
 
     AttribManager( AttribManager&& m ) :
@@ -159,12 +188,12 @@ class AttribManager {
     void copyAttributes( const AttribManager& m, const AttribHandle<T>& attr, Handle... attribs ) {
         if ( m.isValid( attr ) )
         {
-            // get attrib to copy
-            auto a = m.getAttrib( attr );
-            // add new attrib
-            auto h = addAttrib<T>( a.getName() );
+        // get attrib to copy
+        auto a = m.getAttrib( attr );
+        // add new attrib
+        auto h = addAttrib<T>( a.getName() );
             // copy attrib data
-            getAttrib( h ).data() = a.data();
+        getAttrib( h ).data() = a.data();
         }
         // deal with other attribs
         copyAttributes( m, attribs... );
@@ -200,7 +229,7 @@ class AttribManager {
         }
     }
 
-    /// clear all attribs, invalidate handles.
+    /// Clear all attribs, invalidate handles.
     void clear() {
         for ( auto attr : m_attribs )
         {
@@ -216,7 +245,7 @@ class AttribManager {
         return h.m_idx != Index::Invalid() && m_attribsIndex.at( h.attribName() ) == h.m_idx;
     }
 
-    /*!
+    /**
      * \brief findAttrib Grab an attribute handler by name.
      * \param name Name of the attribute.
      * \return Attribute handler if found, an invalid handler otherwise.
@@ -278,7 +307,7 @@ class AttribManager {
             m_attribs.push_back( attrib );
             h.m_idx = m_attribs.size() - 1;
         }
-        m_attribsIndex[name] = h.m_idx;
+            m_attribsIndex[name] = h.m_idx;
         h.m_name = name;
 
         return h;
@@ -345,11 +374,11 @@ class AttribManager {
                 func( attr );
     }
 
-    /// Attrib list, better using attribs() to go through.
+    /// Attrib list.
     Container m_attribs;
 
-    // Map between the attrib's name and its index, used to speedup finding the
-    // handle index from the attribute name.
+    /// Map between the attrib's name and its index, used to speedup finding the
+    /// handle index from the attribute name.
     std::map<std::string, Index> m_attribsIndex;
 
     // Ease wrapper

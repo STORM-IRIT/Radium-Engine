@@ -15,11 +15,12 @@
 namespace Ra {
 namespace Core {
 class Task;
-}
+} // namespace Core
 } // namespace Ra
 
 namespace Ra {
 namespace Core {
+
 /// This class allows tasks to be registered and then executed in parallel on separate threads.
 /// it maintains an internal pool of threads. When instructed, it dispatches the tasks to the
 /// pooled threads.
@@ -31,6 +32,8 @@ class RA_CORE_API TaskQueue {
   public:
     /// Identifier for a task in the task queue.
     using TaskId = uint;
+
+    /// Invalid task id.
     enum { InvalidTaskId = TaskId( -1 ) };
 
     /// Record of a task's start and end time.
@@ -61,14 +64,20 @@ class RA_CORE_API TaskQueue {
     /// its predecessor completed.
     void addDependency( TaskId predecessor, TaskId successor );
 
-    /// Add dependency between a task and all task with a given name.
+    /// Add dependency between a task and all tasks with a given name.
     /// Will return false if no dependency has been added.
     bool addDependency( const std::string& predecessors, TaskId successor );
+
+    /// Add dependency between a task and all tasks with a given name.
+    /// Will return false if no dependency has been added.
     bool addDependency( TaskId predecessor, const std::string& successors );
 
     /// Add a dependency between a task an all tasks with a given name, even
     /// if the task is not present yet, the name being resolved when task start.
     void addPendingDependency( const std::string& predecessors, TaskId successor );
+
+    /// Add a dependency between a task an all tasks with a given name, even
+    /// if the task is not present yet, the name being resolved when task start.
     void addPendingDependency( TaskId predecessor, const std::string& successors );
 
     //
@@ -109,13 +118,18 @@ class RA_CORE_API TaskQueue {
   private:
     /// Threads working on tasks.
     std::vector<std::thread> m_workerThreads;
+
     /// Storage for the tasks (task will be deleted after flushQueue()).
+    ///
     std::vector<std::unique_ptr<Task>> m_tasks;
+
     /// For each task, stores which tasks depend on it.
     std::vector<std::vector<TaskId>> m_dependencies;
 
-    /// List of pending dependencies
+    /// List of pending dependencies to predecessors.
     std::vector<std::pair<TaskId, std::string>> m_pendingDepsPre;
+
+    /// List of pending dependencies to successors.
     std::vector<std::pair<std::string, TaskId>> m_pendingDepsSucc;
 
     /// Stores the timings of each frame after execution.
@@ -127,15 +141,19 @@ class RA_CORE_API TaskQueue {
 
     /// Number of tasks each task is waiting on.
     std::vector<uint> m_remainingDependencies;
+
     /// Queue holding the pending tasks.
     std::deque<TaskId> m_taskQueue;
+
     /// Number of tasks currently being processed.
     uint m_processingTasks;
 
     /// Flag to signal threads to quit.
     bool m_shuttingDown;
+
     /// Variable on which threads wait for new tasks.
     std::condition_variable m_threadNotifier;
+
     /// Global mutex over thread-sensitive variables.
     std::mutex m_taskQueueMutex;
 };

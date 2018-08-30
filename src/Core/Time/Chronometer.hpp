@@ -12,7 +12,7 @@ namespace Timer {
  * in an easy way.
  *
  * Example:
- *
+ * \code
  *      void foo( foo_args ... ) { ... }
  *      some_type bar( bar_args ... ) { ... }
  *
@@ -31,36 +31,25 @@ namespace Timer {
  *              std::cout << "bar is faster";
  *          }
  *      }
+ * \endcode
  *
  * \note Note that bar( bar_args ...) == bar_time< same_type >.run( bar, bar_args... )
  *
  */
 class Chrono {
   public:
-    /**
-     *    @brief Default constructor.
-     */
     Chrono() {}
 
-    /**
-     *    @brief Copy constructor.
-     */
     Chrono( const Chrono& other ) = default;
 
-    /**
-     *    @brief Move constructor.
-     */
     Chrono( Chrono&& other ) = default;
 
-    /**
-     *    @brief Destructor.
-     */
     ~Chrono() {}
 
     /**
-     *    @brief Run the given void function f( args ... ) and times it.
-     *    @param f                  The function to be timed.
-     *    @param args               The parameters of f.
+     * @brief Run the given void function f( args ... ) and times it.
+     * @param f    The function to be timed.
+     * @param args The parameters of f.
      */
     template <class Function, class... Args>
     inline void run( Function&& f, Args&&... args ) {
@@ -70,10 +59,10 @@ class Chrono {
     }
 
     /**
-     *    @brief Run the given ReturnType function f( args ... ) and times it.
-     *    @param f                  The function to be timed.
-     *    @param args               The parameters of f.
-     *    @return The output of f( args ... ).
+     * @brief Run the given ReturnType function f( args ... ) and times it.
+     * @param f    The function to be timed.
+     * @param args The parameters of f.
+     * @return The output of f( args ... ).
      */
     template <typename ReturnType, class Function, class... Args>
     inline ReturnType run( Function&& f, Args... args ) {
@@ -86,10 +75,10 @@ class Chrono {
     }
 
     /**
-     *    @brief Run the given function f( args ... ) n Times and compute the average timing.
-     *    @param f                  The function to be timed.
-     *    @param args               The parameters of f.
-     *    @return The average time of f( args ... ) in microseconds.
+     * @brief Run the given function f( args ... ) n Times and compute the average timing.
+     * @param f    The function to be timed.
+     * @param args The parameters of f.
+     * @return The average time of f( args ... ) in microseconds.
      */
     template <std::size_t Times, class Function, class... Args>
     inline MicroSeconds test( Function&& f, Args&&... args ) {
@@ -108,45 +97,47 @@ class Chrono {
     }
 
     /**
-     *    @brief Return the elapsed time for last call of run in microseconds.
-     *    @return The elapsed time in microseconds.
+     * @brief Return the elapsed time for last call of run in microseconds.
+     * @return The elapsed time in microseconds.
      */
     inline MicroSeconds elapsedMicroSeconds() const { return getIntervalMicro( m_start, m_end ); }
 
     /**
-     *    @brief Return the elapsed time for last call of run in seconds.
-     *    @return The elapsed time in seconds.
+     * @brief Return the elapsed time for last call of run in seconds.
+     * @return The elapsed time in seconds.
      */
     inline Seconds elapsedSeconds() const { return getIntervalSeconds( m_start, m_end ); }
 
     /**
-     *    @brief Copy assignment operator.
+     * @brief Copy assignment operator.
      */
     inline Chrono& operator=( const Chrono& other ) = default;
 
     /**
-     *    @brief Move assignment operator.
+     * @brief Move assignment operator.
      */
     inline Chrono& operator=( Chrono&& other ) = default;
 
     /**
-     *    @brief Equal operator.
+     * @brief Equal operator.
      */
     inline bool operator==( const Chrono& other ) const {
         return ( elapsedMicroSeconds() == other.elapsedMicroSeconds() );
     }
 
     /**
-     *    @brief Less operator.
+     * @brief Less operator.
      */
     inline bool operator<( const Chrono& other ) const {
         return ( elapsedMicroSeconds() < other.elapsedMicroSeconds() );
     }
 
   protected:
-    /// VARIABLE
-    TimePoint m_start; ///< Time at the beginning of the function.
-    TimePoint m_end;   ///< Time after running the function.
+    /// Time at the beginning of the function.
+    TimePoint m_start;
+
+    /// Time after running the function.
+    TimePoint m_end;
 };
 
 } // namespace Timer
