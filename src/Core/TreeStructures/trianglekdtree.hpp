@@ -236,8 +236,8 @@ Index TriangleKdTree<Index>::doQueryRestrictedClosestIndex( const VectorType& s1
             //            else
             //            {
             //                // replace the stack top by the farthest and push the closest
-            ////                const Scalar new_off = queryPoint[node.dim] - node.splitValue; //
-            /// again, no more query point but a segment
+            //                const Scalar new_off = queryPoint[node.dim] - node.splitValue; //
+            // again, no more query point but a segment
 
             //                //const Scalar new_off =
             //                Ra::Core::DistanceQueries::pointToSegmentSq(node.splitValue, s1, s2 -
