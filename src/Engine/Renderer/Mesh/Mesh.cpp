@@ -7,6 +7,7 @@
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
 #include <Core/Log/Log.hpp>
+
 namespace Ra {
 namespace Engine {
 
@@ -54,7 +55,7 @@ inline void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<Cont
     }
 } // sendGLData
 
-// Dirty is initializes as false so that we do not create the vao while
+// Dirty is initialized as false so that we do not create the vao while
 // we have no data to send to the gpu.
 Mesh::Mesh( const std::string& name, MeshRenderMode renderMode ) :
     m_name( name ),

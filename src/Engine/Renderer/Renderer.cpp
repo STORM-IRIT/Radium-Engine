@@ -4,27 +4,27 @@
 
 #include <iostream>
 
-#include <Core/Log/Log.hpp>
-
-#include <Core/Mesh/MeshPrimitives.hpp>
 #include <Core/File/FileData.hpp>
+#include <Core/Log/Log.hpp>
+#include <Core/Mesh/MeshPrimitives.hpp>
 
-#include <Engine/RadiumEngine.hpp>
 #include <Engine/Managers/LightManager/LightManager.hpp>
+#include <Engine/RadiumEngine.hpp>
 
+#include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-#include <Engine/Renderer/Material/Material.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
 namespace Ra {
 namespace Engine {
+
 namespace {
 const GLenum buffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2,
                           GL_COLOR_ATTACHMENT3, GL_COLOR_ATTACHMENT4, GL_COLOR_ATTACHMENT5,
@@ -633,5 +633,6 @@ bool Renderer::hasLight() const {
         n += m->count();
     return n != 0;
 }
+
 } // namespace Engine
 } // namespace Ra

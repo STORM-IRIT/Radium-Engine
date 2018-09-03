@@ -6,6 +6,7 @@
 
 namespace Ra {
 namespace Engine {
+
 System::System() {}
 
 System::~System() {}
@@ -62,5 +63,6 @@ std::vector<Component*> System::getEntityComponents( const Entity* entity ) {
     }
     return comps;
 }
+
 } // namespace Engine
 } // namespace Ra

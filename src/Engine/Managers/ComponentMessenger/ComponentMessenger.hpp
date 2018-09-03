@@ -79,14 +79,20 @@ class RA_ENGINE_API ComponentMessenger {
 
     /// Class hierarchy for polymorphic storage of callback functions.
     struct CallbackBase {};
+
+    /// Getter callback function storage.
     template <typename T>
     struct GetterCallback : public CallbackBase {
         typename CallbackTypes<T>::Getter m_cb;
     };
+
+    /// Setter callback function storage.
     template <typename T>
     struct SetterCallback : public CallbackBase {
         typename CallbackTypes<T>::Setter m_cb;
     };
+
+    /// RW callback function storage.
     template <typename T>
     struct RwCallback : public CallbackBase {
         typename CallbackTypes<T>::ReadWrite m_cb;
@@ -102,17 +108,20 @@ class RA_ENGINE_API ComponentMessenger {
     // Direct access to function pointers
     //
 
+    /// Return the ReturnType getter callback associated to the given Entity and name.
     template <typename ReturnType>
     inline typename CallbackTypes<ReturnType>::Getter getterCallback( const Entity* entity,
                                                                       const std::string& id );
 
-    template <typename ReturnType>
-    inline typename CallbackTypes<ReturnType>::ReadWrite rwCallback( const Entity* entity,
-                                                                     const std::string& id );
-
+    /// Return the ReturnType setter callback associated to the given Entity and name.
     template <typename ReturnType>
     inline typename CallbackTypes<ReturnType>::Setter setterCallback( const Entity* entity,
                                                                       const std::string& id );
+
+    /// Return the ReturnType rw callback associated to the given Entity and name.
+    template <typename ReturnType>
+    inline typename CallbackTypes<ReturnType>::ReadWrite rwCallback( const Entity* entity,
+                                                                     const std::string& id );
 
     //
     // Access the exported data.
@@ -121,6 +130,8 @@ class RA_ENGINE_API ComponentMessenger {
     // Note : all functions assert when the data is not available.
     // e.g. get() assert if canGet() is false.
 
+    /// Return the data accessed via the ReturnType getter callback associated to
+    /// the given Entity and name.
     template <typename ReturnType>
     inline const ReturnType& get( const Entity* entity, const std::string& id );
 
@@ -128,12 +139,18 @@ class RA_ENGINE_API ComponentMessenger {
     // Query if a given key has registered data.
     //
 
+    /// Return true if a ReturnType getter callback has been registered for
+    /// the given Entity and name.
     template <typename ReturnType>
     inline bool canGet( const Entity* entity, const std::string& id );
 
+    /// Return true if a ReturnType setter callback has been registered for
+    /// the given Entity and name.
     template <typename ReturnType>
     inline bool canSet( const Entity* entity, const std::string& id );
 
+    /// Return true if a ReturnType rw callback has been registered for
+    /// the given Entity and name.
     template <typename ReturnType>
     inline bool canRw( const Entity* entity, const std::string& id );
 
@@ -141,25 +158,33 @@ class RA_ENGINE_API ComponentMessenger {
     // Register callbacks
     //
 
+    /// Register \p cb as the ReturnType getter callback associated to
+    /// the given Entity and name.
     template <typename ReturnType>
     inline void registerOutput( const Entity* entity, Component* comp, const std::string& id,
                                 const typename CallbackTypes<ReturnType>::Getter& cb );
 
-    template <typename ReturnType>
-    inline void registerReadWrite( const Entity* entity, Component* comp, const std::string& id,
-                                   const typename CallbackTypes<ReturnType>::ReadWrite& cb );
-
+    /// Register \p cb as the ReturnType setter callback associated to
+    /// the given Entity and name.
     template <typename ReturnType>
     inline void registerInput( const Entity* entity, Component* comp, const std::string& id,
                                const typename CallbackTypes<ReturnType>::Setter& cb );
 
+    /// Register \p cb as the ReturnType rw callback associated to
+    ///  the given Entity and name.
+    template <typename ReturnType>
+    inline void registerReadWrite( const Entity* entity, Component* comp, const std::string& id,
+                                   const typename CallbackTypes<ReturnType>::ReadWrite& cb );
+
   private:
-    std::unordered_map<const Entity*, CallbackMap>
-        m_entityGetLists; /// Per-entity callback get list.
-    std::unordered_map<const Entity*, CallbackMap>
-        m_entitySetLists; /// Per-entity callback set list.
-    std::unordered_map<const Entity*, CallbackMap>
-        m_entityRwLists; /// Per-entity callback read-write list.
+    /// Per-entity callback get list.
+    std::unordered_map<const Entity*, CallbackMap> m_entityGetLists;
+
+    /// Per-entity callback set list.
+    std::unordered_map<const Entity*, CallbackMap> m_entitySetLists;
+
+    /// Per-entity callback read-write list.
+    std::unordered_map<const Entity*, CallbackMap> m_entityRwLists;
 };
 
 } // namespace Engine

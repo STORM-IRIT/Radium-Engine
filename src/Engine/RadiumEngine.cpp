@@ -13,15 +13,14 @@
 #include <Core/File/FileLoaderInterface.hpp>
 
 #include <Engine/FrameInfo.hpp>
-#include <Engine/System/System.hpp>
+#include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
-#include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
+#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
-
+#include <Engine/System/System.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -207,7 +206,7 @@ RadiumEngine::getFileLoaders() const {
 RA_SINGLETON_IMPLEMENTATION( RadiumEngine );
 
 const Asset::FileData& RadiumEngine::getFileData() const {
-    CORE_ASSERT(m_loadingState, "Access to file content is only available at loading time.");
+    CORE_ASSERT( m_loadingState, "Access to file content is only available at loading time." );
     return *( m_loadedFile.get() );
 }
 

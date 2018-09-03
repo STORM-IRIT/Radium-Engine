@@ -49,5 +49,6 @@ void SignalManager::fireFrameEnded() const {
         f();
     }
 }
+
 } // namespace Engine
 } // namespace Ra

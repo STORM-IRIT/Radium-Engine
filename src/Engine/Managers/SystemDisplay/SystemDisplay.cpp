@@ -1,5 +1,6 @@
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+
 namespace Ra {
 namespace Engine {
 
@@ -33,5 +34,6 @@ RenderObject* DebugComponent::getRenderObject( Core::Index idx ) {
 #endif
 
 RA_SINGLETON_IMPLEMENTATION( SystemEntity );
+
 } // namespace Engine
 } // namespace Ra

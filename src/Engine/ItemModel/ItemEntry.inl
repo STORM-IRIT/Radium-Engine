@@ -1,6 +1,8 @@
+#include <Engine/ItemModel/ItemEntry.hpp>
 
 namespace Ra {
 namespace Engine {
+
 bool ItemEntry::isEntityNode() const {
     ON_DEBUG( checkConsistency() );
     return ( m_entity && !m_component );

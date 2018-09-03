@@ -3,13 +3,13 @@
 #include <globjects/Texture.h>
 
 namespace Ra {
-Engine::Texture::Texture( std::string name ) :
-    m_name( name ),
-    m_texture( nullptr ) {}
+namespace Engine {
 
-Engine::Texture::~Texture() {}
+Texture::Texture( std::string name ) : m_name( name ), m_texture( nullptr ) {}
 
-void Engine::Texture::Generate( uint w, GLenum format, void* data ) {
+Texture::~Texture() {}
+
+void Texture::Generate( uint w, GLenum format, void* data ) {
     m_target = GL_TEXTURE_1D;
     if ( m_texture == nullptr )
     {
@@ -26,7 +26,7 @@ void Engine::Texture::Generate( uint w, GLenum format, void* data ) {
     m_width = w;
 }
 
-void Engine::Texture::Generate( uint w, uint h, GLenum format, void* data ) {
+void Texture::Generate( uint w, uint h, GLenum format, void* data ) {
     m_target = GL_TEXTURE_2D;
     if ( m_texture == nullptr )
     {
@@ -44,7 +44,7 @@ void Engine::Texture::Generate( uint w, uint h, GLenum format, void* data ) {
     m_height = h;
 }
 
-void Engine::Texture::Generate( uint w, uint h, uint d, GLenum format, void* data ) {
+void Texture::Generate( uint w, uint h, uint d, GLenum format, void* data ) {
     m_target = GL_TEXTURE_3D;
     if ( m_texture == nullptr )
     {
@@ -63,7 +63,7 @@ void Engine::Texture::Generate( uint w, uint h, uint d, GLenum format, void* dat
     m_depth = d;
 }
 
-void Engine::Texture::GenerateCube( uint w, uint h, GLenum format, void** data ) {
+void Texture::GenerateCube( uint w, uint h, GLenum format, void** data ) {
     m_target = GL_TEXTURE_CUBE_MAP;
     if ( m_texture == nullptr )
     {
@@ -81,7 +81,7 @@ void Engine::Texture::GenerateCube( uint w, uint h, GLenum format, void** data )
     m_height = h;
 }
 
-void Engine::Texture::bind( int unit ) {
+void Texture::bind( int unit ) {
     if ( unit >= 0 )
     {
         m_texture->bindActive( unit );
@@ -89,7 +89,7 @@ void Engine::Texture::bind( int unit ) {
     { m_texture->bind(); }
 }
 
-void Engine::Texture::updateData( void* data ) {
+void Texture::updateData( void* data ) {
     switch ( m_texture->target() )
     {
     case GL_TEXTURE_1D:
@@ -117,7 +117,7 @@ void Engine::Texture::updateData( void* data ) {
 }
 
 // let the compiler warn about case fallthrough
-void Engine::Texture::updateParameters() {
+void Texture::updateParameters() {
     switch ( m_texture->target() )
     {
     case GL_TEXTURE_CUBE_MAP:
@@ -136,4 +136,6 @@ void Engine::Texture::updateParameters() {
     m_texture->setParameter( GL_TEXTURE_MIN_FILTER, minFilter );
     m_texture->setParameter( GL_TEXTURE_MAG_FILTER, magFilter );
 }
+
+} // namespace Engine
 } // namespace Ra

@@ -1,27 +1,29 @@
-
+#include <Engine/Renderer/Light/PointLight.hpp>
 
 namespace Ra {
+namespace Engine {
 
-inline void Engine::PointLight::setPosition( const Core::Vector3& pos ) {
+inline void PointLight::setPosition( const Core::Vector3& pos ) {
     m_position = pos;
 }
 
-inline const Core::Vector3& Engine::PointLight::getPosition() const {
+inline const Core::Vector3& PointLight::getPosition() const {
     return m_position;
 }
 
-inline void Engine::PointLight::setAttenuation( const PointLight::Attenuation& att ) {
+inline void PointLight::setAttenuation( const PointLight::Attenuation& att ) {
     m_attenuation = att;
 }
 
-inline void Engine::PointLight::setAttenuation( Scalar constant, Scalar linear, Scalar quadratic ) {
+inline void PointLight::setAttenuation( Scalar constant, Scalar linear, Scalar quadratic ) {
     m_attenuation.constant = constant;
     m_attenuation.linear = linear;
     m_attenuation.quadratic = quadratic;
 }
 
-inline const Engine::PointLight::Attenuation& Engine::PointLight::getAttenuation() const {
+inline const PointLight::Attenuation& PointLight::getAttenuation() const {
     return m_attenuation;
 }
 
+} // namespace Engine
 } // namespace Ra

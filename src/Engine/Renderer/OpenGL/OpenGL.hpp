@@ -17,7 +17,7 @@ inline bool checkOpenGLContext() {
     return glGetString( GL_VERSION ) != 0;
 }
 
-/// Gets the openGL error string (emulates gluErrorString())
+/// Gets the openGL error string (emulates gluErrorString()).
 inline const char* glErrorString( GLenum err ) {
     switch ( err )
     {

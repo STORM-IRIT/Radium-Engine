@@ -13,7 +13,7 @@
 namespace Ra {
 namespace Engine {
 class RenderObject;
-}
+} // namespace Engine
 } // namespace Ra
 
 namespace Ra {
@@ -26,14 +26,13 @@ namespace Engine {
 class RA_ENGINE_API LightManager : public System {
     // TODO (Mathias) make light manager compatible with range for ...
   public:
-    /// Constructor
     LightManager();
 
     // Make copies impossible
     LightManager( const LightManager& ) = delete;
+
     LightManager& operator=( const LightManager& ) = delete;
 
-    /// Virtual destructor
     virtual ~LightManager();
 
     /// Get a pointer to the li-th Light.
@@ -42,9 +41,8 @@ class RA_ENGINE_API LightManager : public System {
     /// Add a light to the manager ...
     virtual void addLight( Light* li ) = 0;
 
-    //
-    // Calls for the Renderer
-    //
+    /// \name Calls for the Renderer
+    ///@{
 
     /**
      * @brief Number of lights.
@@ -81,10 +79,10 @@ class RA_ENGINE_API LightManager : public System {
      * @brief Call after a render, update the general state of the LightManager.
      */
     virtual void postprocess() = 0;
+    ///@}
 
-    //
-    // System methods
-    //
+    /// \name System methods
+    ///@{
 
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. LightStorage).
@@ -101,13 +99,16 @@ class RA_ENGINE_API LightManager : public System {
     void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
 
     void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
+    ///@}
 
   protected:
-    /// store the current renderData
+    /// Store the current renderData.
     RenderData renderData;
-    /// store the current light parameters
+
+    /// Store the current light parameters.
     RenderParameters params;
-    /// Stores the object that stores the lights...
+
+    /// Store the object that stores the lights...
     std::unique_ptr<LightStorage> m_data;
 };
 

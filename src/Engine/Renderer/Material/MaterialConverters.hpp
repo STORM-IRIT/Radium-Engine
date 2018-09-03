@@ -7,16 +7,16 @@
 #include <string>
 
 namespace Ra {
-namespace Engine {
-class Material;
-}
 namespace Asset {
 class MaterialData;
-}
+} // namespace Asset
+namespace Engine {
+class Material;
+} // namespace Engine
 } // namespace Ra
 
 /// A material converter is a couple <std::string,
-/// std::function<Ra::Engine::Material*(Ra::Asset::MaterialData*)> The string gives the mname of the
+/// std::function<Ra::Engine::Material*(Ra::Asset::MaterialData*)> The string gives the name of the
 /// material, the function is whatever is compatible with std::function :
 ///     - a lambda
 ///     - a functor
@@ -26,15 +26,10 @@ class MaterialData;
 /**
  * Instruction on how to extend the material system
  */
-///////////////////////////////////////////////
-////        Material converter system       ///
-///////////////////////////////////////////////
 
 namespace Ra {
 namespace Engine {
-///////////////////////////////////////////////
-////        Radium Material converters      ///
-///////////////////////////////////////////////
+
 /*
 class RA_ENGINE_API MaterialConverter final {
   public:

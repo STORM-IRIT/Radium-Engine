@@ -33,8 +33,7 @@ RenderObject::RenderObject( const std::string& name, Component* comp, const Rend
     m_pickable( true ),
     m_xray( false ),
     m_transparent( false ),
-    m_dirty( true ),
-    m_hasLifetime( lifetime > 0 ) {}
+    m_dirty( true ) {}
 
 RenderObject::~RenderObject() {}
 
@@ -215,7 +214,7 @@ const Core::Matrix4& RenderObject::getLocalTransformAsMatrix() const {
 }
 
 void RenderObject::hasBeenRenderedOnce() {
-    if ( m_hasLifetime )
+    if ( m_lifetime > 0 )
     {
         if ( --m_lifetime <= 0 )
         {

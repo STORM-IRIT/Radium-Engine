@@ -5,6 +5,7 @@
 
 namespace Ra {
 namespace Engine {
+
 /// Structure passed to each system before they fill the task queue.
 struct RA_ENGINE_API FrameInfo {
     /// Time elapsed since the last frame in seconds.
@@ -16,6 +17,8 @@ struct RA_ENGINE_API FrameInfo {
 
     // Other stuff (e.g. which systems are present, etc).
 };
+
 } // namespace Engine
 } // namespace Ra
+
 #endif // RADIUMENGINE_FRAME_INFO_HPP_

@@ -132,7 +132,7 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
             comp = nullptr;
         }
 
-        //! @comp should be allocated in LightStorage (well, not sure ...)
+        // "comp" should be allocated in LightStorage (well, not sure ...)
 
         if ( !comp )
             continue;
@@ -143,21 +143,19 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
 }
 
 void LightManager::registerComponent( const Entity* entity, Component* component ) {
-    System::registerComponent(entity, component);
-    m_data->add(reinterpret_cast<Light *>(component));
+    System::registerComponent( entity, component );
+    m_data->add( reinterpret_cast<Light*>( component ) );
 }
 
 void LightManager::unregisterComponent( const Entity* entity, Component* component ) {
-    m_data->remove( reinterpret_cast<Light *>(component) );
-    System::unregisterComponent(entity, component);
-
+    m_data->remove( reinterpret_cast<Light*>( component ) );
+    System::unregisterComponent( entity, component );
 }
 
 void LightManager::unregisterAllComponents( const Entity* entity ) {
     m_data->clear();
-    System::unregisterAllComponents(entity);
+    System::unregisterAllComponents( entity );
 }
 
-
-  } // namespace Engine
+} // namespace Engine
 } // namespace Ra

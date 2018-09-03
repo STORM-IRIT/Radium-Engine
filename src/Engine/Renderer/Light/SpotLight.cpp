@@ -4,6 +4,7 @@
 
 namespace Ra {
 namespace Engine {
+
 SpotLight::SpotLight( Entity* entity, const std::string& name ) :
     Light( entity, Light::SPOT, name ),
     m_position( 0, 0, 0 ),

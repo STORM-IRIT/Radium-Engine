@@ -1,15 +1,19 @@
-namespace Ra {
+#include <Engine/Renderer/Light/Light.hpp>
 
-inline const Core::Color& Engine::Light::getColor() const {
+namespace Ra {
+namespace Engine {
+
+inline const Core::Color& Light::getColor() const {
     return m_color;
 }
 
-inline void Engine::Light::setColor( const Core::Color& color ) {
+inline void Light::setColor( const Core::Color& color ) {
     m_color = color;
 }
 
-inline const Engine::Light::LightType& Engine::Light::getType() const {
+inline const Light::LightType& Light::getType() const {
     return m_type;
 }
 
+} // namespace Engine
 } // namespace Ra

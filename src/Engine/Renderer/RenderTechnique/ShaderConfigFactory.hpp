@@ -7,13 +7,13 @@
 
 namespace Ra {
 namespace Engine {
-
 namespace ShaderConfigurationFactory {
+
 RA_ENGINE_API void addConfiguration( const ShaderConfiguration& config );
 RA_ENGINE_API void addConfiguration( const std::string& name, const ShaderConfiguration& config );
 RA_ENGINE_API ShaderConfiguration getConfiguration( const std::string& name );
-} // namespace ShaderConfigurationFactory
 
+} // namespace ShaderConfigurationFactory
 } // namespace Engine
 } // namespace Ra
 

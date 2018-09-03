@@ -13,6 +13,7 @@
 
 namespace Ra {
 namespace Engine {
+
 RenderObjectManager::RenderObjectManager() {}
 
 RenderObjectManager::~RenderObjectManager() {}
@@ -81,7 +82,7 @@ void RenderObjectManager::getRenderObjectsByType(
     // Take the mutex
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
-    //// Copy each element in m_renderObjects
+    // Copy each element in m_renderObjects
     for ( const auto& idx : m_renderObjectByType[(int)type] )
     {
         objectsOut.push_back( m_renderObjects.at( idx ) );
@@ -153,5 +154,6 @@ Core::Aabb RenderObjectManager::getSceneAabb() const {
     }
     return aabb;
 }
+
 } // namespace Engine
 } // namespace Ra

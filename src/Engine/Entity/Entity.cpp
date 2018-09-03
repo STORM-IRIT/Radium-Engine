@@ -79,5 +79,4 @@ void Entity::rayCastQuery( const Core::Ray& r ) const {
 }
 
 } // namespace Engine
-
 } // namespace Ra

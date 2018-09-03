@@ -14,6 +14,7 @@
 namespace Ra {
 namespace Engine {
 namespace DrawPrimitives {
+
 RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
     ShaderConfiguration config;
     if ( mesh->getRenderMode() == GL_LINES )
@@ -446,8 +447,7 @@ MeshPtr OBB( const Core::Obb& obb, const Core::Color& color ) {
     return mesh;
 }
 
-MeshPtr Spline( const Core::Spline<3, 3>& spline, uint pointCount, const Core::Color& color,
-                Scalar scale ) {
+MeshPtr Spline( const Core::Spline<3, 3>& spline, uint pointCount, const Core::Color& color ) {
     Core::Vector3Array vertices;
     vertices.reserve( pointCount );
 
@@ -475,6 +475,7 @@ MeshPtr Spline( const Core::Spline<3, 3>& spline, uint pointCount, const Core::C
 
     return mesh;
 }
+
 } // namespace DrawPrimitives
 } // namespace Engine
 } // namespace Ra

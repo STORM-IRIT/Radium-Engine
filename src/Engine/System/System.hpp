@@ -3,9 +3,8 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <vector>
 #include <memory>
-
+#include <vector>
 
 namespace Ra {
 namespace Core {
@@ -20,13 +19,13 @@ class Entity;
 
 namespace Asset {
 class FileData;
-}
+} // namespace Asset
 } // namespace Ra
 
 namespace Ra {
 namespace Engine {
 
-/// Systems are responsible of updating a specific subset of the components of each entity.
+/// Systems are responsible for updating a specific subset of the components of each entity.
 /// They can provide factory methods to create components, but their main role is to keep a
 /// list of "active" components associated to an entity.
 /// At each frame, each system loaded into the engine will be queried for tasks.
@@ -34,6 +33,7 @@ namespace Engine {
 class RA_ENGINE_API System {
   public:
     System();
+
     virtual ~System();
 
     /**
@@ -41,15 +41,14 @@ class RA_ENGINE_API System {
      * A very basic version of this method could be to iterate on components
      * and just call Component::update() method on them.
      * This update depends on time (e.g. physics system).
-     *
-     * @param dt Time elapsed since last call.
      */
     virtual void generateTasks( Core::TaskQueue* taskQueue,
                                 const Engine::FrameInfo& frameInfo ) = 0;
 
     /**
      * Registers a component belonging to an entity, making it active within the system.
-     * @note If a system overrides this function, it must call the inherited method first to any specific stuff.
+     * @note If a system overrides this function, it must call the inherited
+     *       method first to any specific stuff.
      * @param entity
      * @param component
      */
@@ -57,7 +56,8 @@ class RA_ENGINE_API System {
 
     /**
      * Unregisters a component. The system will not update it.
-     * @note If a system overrides this function, it must call the inherited method first to any specific stuff.
+     * @note If a system overrides this function, it must call the inherited
+     *       method first to any specific stuff.
      * @param entity
      * @param component
      */
@@ -65,7 +65,8 @@ class RA_ENGINE_API System {
 
     /**
      * Removes all components belonging to a given entity.
-     * @note If a system overrides this function, it must call the inherited method first to any specific stuff.
+     * @note If a system overrides this function, it must call the inherited
+     *       method first to any specific stuff.
      * @param entity
      */
     virtual void unregisterAllComponents( const Entity* entity );
@@ -77,9 +78,10 @@ class RA_ENGINE_API System {
      * Factory method for component creation from file data.
      * From a given file and the corresponding entity, the system will create the
      * corresponding components, add them to the entity, and register the component.
-     * @note : Issue #325 - As this method register components and might also manage each component outside the
-     * m_components vectors (e.g in a buffer on the GPU) the methods, the registerComponent and unregister*Component
-     * must be virtual method that could be overriden.
+     * @note Issue #325 - As this method registers components and might also
+     *       manage each component outside the m_components vectors (e.g in a buffer
+     *       on the GPU) the methods registerComponent(), unregisterComponent() and
+     *       unregisterAllComponents() must be virtual method that could be overriden.
      */
     virtual void handleAssetLoading( Entity* entity, const Asset::FileData* data ) {}
 

@@ -83,8 +83,12 @@ namespace Engine {
  */
 /* FIXME : for the moment, this class is final. We need to discuss on how to make it non final and
  * extensible. */
+
+/// A RenderTechnique stores the required data to render on object, from its material
+/// to the different shaders to be used.
 class RA_ENGINE_API RenderTechnique final {
   public:
+    /// Used to indicate the rendering pass actually processed.
     enum PassName {
         Z_PREPASS = 1 << 0,
         LIGHTING_OPAQUE = 1 << 1,
@@ -93,58 +97,75 @@ class RA_ENGINE_API RenderTechnique final {
     };
 
     RenderTechnique();
+
     RenderTechnique( const RenderTechnique& );
+
     ~RenderTechnique();
 
+    /// Set the ShaderConfiguration to be used for the given rendering pass.
     void setConfiguration( const ShaderConfiguration& newConfig, PassName pass = LIGHTING_OPAQUE );
+
+    /// Return the ShaderConfiguration to be used for the given rendering pass.
     // TODO : do we need all the config or only the basic part ?
     ShaderConfiguration getConfiguration( PassName pass = LIGHTING_OPAQUE ) const;
 
+    /// Return the Shader to be used for the given rendering pass.
     const ShaderProgram* getShader( PassName pass = LIGHTING_OPAQUE ) const;
 
+    /// Set the MAterial tu be used for rendering.
     void setMaterial( const std::shared_ptr<Material>& material );
+
+    /// Return the Shader to be used for rendering.
     const std::shared_ptr<Material>& getMaterial() const;
 
+    /// Set the MAterial tu be used for rendering.
     void resetMaterial( Material* mat );
 
+    /// Upload all the rendering data to the GPU.
     void updateGL();
+
+    /// Return true if the Shader for the given rendering pass is not up-to-date.
     bool shaderIsDirty( PassName pass = LIGHTING_OPAQUE ) const;
 
-    // creates a Radium default rendertechnique :
-    //      Z_PREPASS = DepthDepthAmbientPass
-    //      LIGHTING_OPAQUE = BlinnPhong
-    //      LIGHTING_TRANSPARENT = LitOIT
+    /// Creates a Radium default RenderRechnique with only the LIGHTING_OPAQUE pass
+    /// set, using the BlinnPhong lighting scheme for it.
     static Ra::Engine::RenderTechnique createDefaultRenderTechnique();
 
   private:
     using ConfigurationSet = std::map<PassName, ShaderConfiguration>;
     using ShaderSet = std::map<PassName, const ShaderProgram*>;
+
+    /// The list of per-rendering pass ShaderConfigurations.
     ConfigurationSet shaderConfig;
+
+    /// The list of per-rendering pass Shaders.
     ShaderSet shaders;
 
+    /// The material to be used for rendering.
     std::shared_ptr<Material> material = nullptr;
 
-    // Change this if there is more than 8 configurations
+    // Change this if there is more than 8 configurations.
+    /// Dirty bits for each pass Shader.
     unsigned char dirtyBits = ( Z_PREPASS | LIGHTING_OPAQUE | LIGHTING_TRANSPARENT );
+
+    /// Activation bits for each rendering pass.
     unsigned char setPasses = NO_PASS;
 };
 
-///////////////////////////////////////////////
-////        Radium defined technique        ///
-///////////////////////////////////////////////
+/// Radium default technique.
 namespace EngineRenderTechniques {
 
 // A default technique function is a function that will fill the given RenderTEchnique with the
 // default configurations associated with a material
 using DefaultTechniqueBuilder = std::function<void( RenderTechnique&, bool )>;
 
-/** register a new default builder for a technique
+/** Register a new default builder for a technique.
  *  @return true if builder added, false else (e.g, a builder with the same name exists)
  */
 RA_ENGINE_API bool registerDefaultTechnique( const std::string& name,
                                              DefaultTechniqueBuilder builder );
 
-/** remove a default builder
+/** Remove a default builder.
  *  @return true if builder removed, false else (e.g, a builder with the same name does't exists)
  */
 RA_ENGINE_API bool removeDefaultTechnique( const std::string& name );
@@ -158,7 +179,6 @@ RA_ENGINE_API std::pair<bool, DefaultTechniqueBuilder>
 getDefaultTechnique( const std::string& name );
 
 } // namespace EngineRenderTechniques
-
 } // namespace Engine
 } // namespace Ra
 

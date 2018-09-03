@@ -12,13 +12,14 @@
 namespace Ra {
 namespace Engine {
 class Texture;
-}
+} // namespace Engine
 } // namespace Ra
 
 namespace Ra {
 namespace Engine {
 /**
  * Describes the content and parameters of a texture.
+ * \see Engine::Texture for more info.
  */
 struct TextureData {
     std::string name;
@@ -65,7 +66,7 @@ class RA_ENGINE_API TextureManager final {
      * Get or load a named texture.
      * The name of the texture might be different of the associated file but the data must be
      * loaded in the TextureData before calling this method.
-     * @param filename
+     * @param data
      * @return
      */
     Texture* getOrLoadTexture( const TextureData& data );
@@ -75,6 +76,7 @@ class RA_ENGINE_API TextureManager final {
      * @param filename
      */
     void deleteTexture( const std::string& filename );
+
     /**
      * Delete a texture from the manager
      * @param texture
@@ -88,33 +90,41 @@ class RA_ENGINE_API TextureManager final {
      * @param texture
      * @param content
      */
-    void updateTextureContent(const std::string &texture, void *content);
+    void updateTextureContent( const std::string& texture, void* content );
 
     /**
      * Update all textures that are pending after a call to updateTextureContent.
      *
-     * The cooperation of updateTextureContent and updatePendingTextures allow applications to manage efficiently
-     * the on line texture generation by separating the content definition (updateTextureContent)
-     * from the OpenGL state modification (updatePendingTextures).
+     * The cooperation of updateTextureContent and updatePendingTextures allow
+     * applications to manage efficiently the on line texture generation by
+     * separating the content definition (through updateTextureContent()) from
+     * the OpenGL state modification (through updatePendingTextures()).
      */
     void updatePendingTextures();
 
   private:
     TextureManager();
+
     ~TextureManager();
 
     /** Load a given filename and return the associated TextureData.
-    * @note : only loads 2D image file for now.
-    * @param filename
-    * @return
-    */
+     * @note : only loads 2D image file for now.
+     * @param filename
+     * @return
+     */
     TextureData loadTexture( const std::string& filename );
 
-private:
+  private:
+    /// The list of Textures.
     std::map<std::string, Texture*> m_textures;
+
+    /// The list of TextureData for Textures not yet loaded.
     std::map<std::string, TextureData> m_pendingTextures;
+
+    /// The list of Texture data for Textures not yet loaded.
     std::map<std::string, void*> m_pendingData;
 
+    /// Whether to print stat info to the Info output.
     bool m_verbose;
 };
 

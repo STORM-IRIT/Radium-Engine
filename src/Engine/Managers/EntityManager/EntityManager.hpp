@@ -14,22 +14,22 @@
 namespace Ra {
 namespace Engine {
 class Entity;
-}
+} // namespace Engine
 } // namespace Ra
 
 namespace Ra {
 namespace Engine {
 
+/// The EntityManager is responsible for storing the Engine's Entities.
 class RA_ENGINE_API EntityManager {
   public:
-    /// CONSTRUCTOR
     EntityManager();
 
     // Entity manager is non-copyable
     EntityManager( const EntityManager& ) = delete;
+
     EntityManager& operator=( const EntityManager& ) = delete;
 
-    /// DESTRUCTOR
     virtual ~EntityManager();
 
     /**
@@ -74,6 +74,9 @@ class RA_ENGINE_API EntityManager {
      */
     std::vector<Entity*> getEntities() const;
 
+    /**
+     * @brief Update the Entity transformations.
+     */
     void swapBuffers();
 
     /**
@@ -89,7 +92,10 @@ class RA_ENGINE_API EntityManager {
     void deleteEntities();
 
   private:
+    /// The managed Entities.
     Core::IndexMap<std::unique_ptr<Entity>> m_entities;
+
+    /// The map from Entity name to storage index.
     std::map<std::string, Core::Index> m_entitiesName;
 };
 

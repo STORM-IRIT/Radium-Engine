@@ -39,77 +39,91 @@ class FileData;
 
 namespace globjects {
 class Framebuffer;
-}
+} // namespace globjects
 
 namespace Ra {
 namespace Engine {
+
+/// Viewpoint data.
 struct RA_ENGINE_API RenderData {
     Core::Matrix4 viewMatrix;
     Core::Matrix4 projMatrix;
     Scalar dt;
 };
 
+/// The RendererClass is the generic class for renderers.
 class RA_ENGINE_API Renderer {
   protected:
     using RenderObjectPtr = std::shared_ptr<RenderObject>;
 
   public:
+    /// Timer data used for timings, ordered per event order.
     struct TimerData {
-        Core::Timer::TimePoint renderStart;
-        Core::Timer::TimePoint updateEnd;
-        Core::Timer::TimePoint feedRenderQueuesEnd;
-        Core::Timer::TimePoint mainRenderEnd;
-        Core::Timer::TimePoint postProcessEnd;
-        Core::Timer::TimePoint renderEnd;
+        Core::Timer::TimePoint renderStart;         ///< When did the rendering start.
+        Core::Timer::TimePoint updateEnd;           ///< When did the scene update end.
+        Core::Timer::TimePoint feedRenderQueuesEnd; ///< When did the RenderQueue got fed.
+        Core::Timer::TimePoint mainRenderEnd;       ///< When did the main rendering end.
+        Core::Timer::TimePoint postProcessEnd;      ///< When did the postprossed end.
+        Core::Timer::TimePoint renderEnd;           ///< When did the rendering end.
     };
 
+    /// Used to indicate the type of picking.
     enum PickingMode {
-        RO = 0,    ///< Pick a mesh
-        VERTEX,    ///< Pick a vertex of a mesh
-        EDGE,      ///< Pick an edge of a mesh
-        TRIANGLE,  ///< Pick a triangle of a mesh
-        C_VERTEX,  ///< Picks all vertices of a mesh within a screen space circle
-        C_EDGE,    ///< Picks all edges of a mesh within a screen space circle
-        C_TRIANGLE ///< Picks all triangles of a mesh within a screen space circle
+        RO = 0,    ///< Pick a mesh.
+        VERTEX,    ///< Pick a vertex of a mesh.
+        EDGE,      ///< Pick an edge of a mesh.
+        TRIANGLE,  ///< Pick a triangle of a mesh.
+        C_VERTEX,  ///< Picks all vertices of a mesh within a screen space circle.
+        C_EDGE,    ///< Picks all edges of a mesh within a screen space circle.
+        C_TRIANGLE ///< Picks all triangles of a mesh within a screen space circle.
     };
 
+    /// Picking request data.
     struct PickingQuery {
-        Core::Vector2 m_screenCoords;
-        Core::MouseButton::MouseButton m_button;
-        PickingMode m_mode;
+        Core::Vector2 m_screenCoords;            ///< Request pixel.
+        Core::MouseButton::MouseButton m_button; ///< Request mouse button.
+        PickingMode m_mode;                      ///< Request type.
     };
 
+    /// Stores data about the result of a picking.
     struct PickingResult {
-        PickingMode m_mode;            // Picking mode of the query
-        int m_roIdx;                   // Idx of the picked RO
-        std::vector<int> m_vertexIdx;  // Idx of the picked vertex in the element, i.e. point's idx
-                                       // OR idx in line or triangle
-        std::vector<int> m_elementIdx; // Idx of the element, i.e. triangle for mesh, edge for lines
-                                       // and -1 for points
-        std::vector<int> m_edgeIdx;    // Idx of the opposite vertex in the triangle if mesh
-        // Note: There is exactly one triplet for each querried pixel (thus there can be doublons
-        // coming from pixels). Note: Beware that the same mesh vertex would also be picked for each
-        // of its adjacent triangles.
+        PickingMode m_mode;            ///< Picking type.
+        int m_roIdx;                   ///< Idx of the picked RO.
+        std::vector<int> m_vertexIdx;  ///< Idx of the picked vertex in the element,
+                                       ///< i.e. point's idx OR idx in line or triangle.
+        std::vector<int> m_elementIdx; ///< Idx of the element, i.e. triangle idx for meshes,
+                                       ///< edge idx for lines and -1 for point coulds.
+        std::vector<int> m_edgeIdx;    ///< Idx of the opposite vertex in the triangle if mesh.
+        /// \note There is exactly one triplet for each querried pixel (thus
+        /// there can be doublons coming from pixels).
+        /// \note Beware that the same mesh vertex would also be picked for each
+        /// of its adjacent triangles.
     };
 
   public:
     Renderer();
+
     virtual ~Renderer();
 
-    // -=-=-=-=-=-=-=-=- FINAL -=-=-=-=-=-=-=-=- //
+    /// Return the timings data.
     inline const TimerData& getTimerData() const { return m_timerData; }
 
+    /// Return the Texture displayed on the screen.
     inline Texture* getDisplayTexture() const { return m_displayedTexture; }
 
-    // Lock the renderer (for MT access)
+    /// Lock the Renderer to guard it against thread concurrency.
     inline void lockRendering() { m_renderMutex.lock(); }
 
+    /// Unlock the Renderer.
     inline void unlockRendering() { m_renderMutex.unlock(); }
 
-    inline void toggleWireframe() { m_wireframe = !m_wireframe; }
-
+    /// Toggle on/off displaying meshes in wireframe mode.
     inline void setWireframe( bool wireframe ) { m_wireframe = wireframe; }
 
+    /// Toggle on/off displaying meshes in wireframe mode.
+    inline void toggleWireframe() { m_wireframe = !m_wireframe; }
+
+    /// Toggle on/off rendreing post-process.
     inline void enablePostProcess( bool enabled ) { m_postProcessEnabled = enabled; }
 
     /**
@@ -134,7 +148,6 @@ class RA_ENGINE_API Renderer {
      */
     void render( const RenderData& renderData );
 
-    // -=-=-=-=-=-=-=-=- VIRTUAL -=-=-=-=-=-=-=-=- //
     /**
      * @brief Initialize renderer
      */
@@ -151,28 +164,34 @@ class RA_ENGINE_API Renderer {
      */
     void resize( uint width, uint height );
 
+    /// Add the given picking request for treatment at the next frame.
     inline void addPickingRequest( const PickingQuery& query ) {
         m_pickingQueries.push_back( query );
     }
 
-    inline const std::vector<PickingResult>& getPickingResults() const { return m_pickingResults; }
-
+    /// Return all the picking requests processed during the last frame.
     inline const std::vector<PickingQuery>& getPickingQueries() const {
         return m_lastFramePickingQueries;
     }
 
+    /// Return the results of all the picking requests processed during the last frame.
+    inline const std::vector<PickingResult>& getPickingResults() const { return m_pickingResults; }
+
+    /// Set the Mouse position for tracking.
     inline virtual void setMousePosition( const Core::Vector2& pos ) final {
         m_mousePosition[0] = pos[0];
         m_mousePosition[1] = m_height - pos[1];
     }
 
+    /// Set the circle brush radius.
     inline virtual void setBrushRadius( Scalar brushRadius ) final { m_brushRadius = brushRadius; }
 
-    inline void toggleDrawDebug() { m_drawDebug = !m_drawDebug; }
-
+    /// Toggle on/off rendering of Debug objects.
     inline void enableDebugDraw( bool enabled ) { m_drawDebug = enabled; }
 
-    // -=-=-=-=-=-=-=-=- VIRTUAL -=-=-=-=-=-=-=-=- //
+    /// Toggle on/off rendering of Debug objects.
+    inline void toggleDrawDebug() { m_drawDebug = !m_drawDebug; }
+
     // FIXED : lights must be handled by the renderer as they are the reason to have different
     // renderers
     //                How to do this ?
@@ -187,13 +206,14 @@ class RA_ENGINE_API Renderer {
     /// Tell if the renderer has an usable light.
     bool hasLight() const;
 
+    /// Reload the Shaders.
     virtual void reloadShaders();
 
     /**
      * @brief Change the texture that is displayed on screen.
      * Set m_displayedIsDepth to true if depth linearization is wanted
      *
-     * @param texIdx The texture to display.
+     * @param texName The texture to display.
      */
     // FIXME(Charly): For now the drawn texture takes the whole viewport,
     //                maybe it could be great if we had a way to switch between
@@ -214,6 +234,7 @@ class RA_ENGINE_API Renderer {
      */
     virtual std::string getRendererName() const = 0;
 
+    /// Return the rendered frame as raw data, along with its size.
     virtual uchar* grabFrame( uint& w, uint& h ) const;
 
   protected:
@@ -221,9 +242,16 @@ class RA_ENGINE_API Renderer {
      * @brief initializeInternal
      */
     virtual void initializeInternal() = 0;
+
+    /**
+     * @brief resizeInternal
+     */
     virtual void resizeInternal() = 0;
 
     // 2.1
+    /**
+     * @brief updateStepInternal
+     */
     virtual void updateStepInternal( const RenderData& renderData ) = 0;
 
     // 4.
@@ -258,36 +286,57 @@ class RA_ENGINE_API Renderer {
 
   private:
     // 0.
+    /**
+     * @brief updateStepInternal
+     */
     void saveExternalFBOInternal();
 
     // 1.
+    /**
+     * @brief feedRenderQueuesInternal
+     */
     void feedRenderQueuesInternal( const RenderData& renderData );
 
     // 2.0
+    /**
+     * @brief updateRenderObjectsInternal
+     */
     void updateRenderObjectsInternal( const RenderData& renderData );
 
     // 3.
+    /// Split all the render queues by Mesh type.
     void splitRenderQueuesForPicking( const RenderData& renderData );
+
+    /// Split the given render queue by Mesh type.
     void splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
                   std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking );
+
+    /// Render the given render queue with the given picking shader.
     void renderForPicking( const RenderData& renderData,
                            const std::array<const ShaderProgram*, 4>& pickingShaders,
                            const std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking );
 
+    /// Process all the picking requests.
     void doPicking( const RenderData& renderData );
 
     // 6.
+    /**
+     * @brief drawScreenInternal
+     */
     void drawScreenInternal();
 
     // 7.
+    /**
+     * @brief notifyRenderObjectsRenderingInternal
+     */
     void notifyRenderObjectsRenderingInternal();
 
   protected:
-    uint m_width;
-    uint m_height;
+    uint m_width;  ///< The Renderer width.
+    uint m_height; ///< The Renderer height.
 
-    ShaderProgramManager* m_shaderMgr;
-    RenderObjectManager* m_roMgr;
+    ShaderProgramManager* m_shaderMgr; ///< The ShaderProgram Manager.
+    RenderObjectManager* m_roMgr;      ///< The RenderObject Manager.
 
     // FIXME(Charly): Should we change "displayedTexture" to "debuggedTexture" ?
     //                It would make more sense if we are able to show the
@@ -299,26 +348,42 @@ class RA_ENGINE_API Renderer {
      */
     Texture* m_displayedTexture;
 
+    /// The final rendering texture.
     std::unique_ptr<Texture> m_fancyTexture;
+
+    /// All the other textures used for rendering.
     std::map<std::string, Texture*> m_secondaryTextures;
 
     /// A renderer could define several LightManager (for instance, one for point light, one other
     /// for infinite light ...)
     std::vector<Ra::Engine::LightManager*> m_lightmanagers;
 
+    /// Whether the RenderQueues are fed.
     bool m_renderQueuesUpToDate;
 
+    /// The render queue for non x-rayed objects in the scene.
     std::vector<RenderObjectPtr> m_fancyRenderObjects;
-    std::vector<RenderObjectPtr> m_debugRenderObjects;
+
+    /// The render queue for xray-ed objects of the scene.
     std::vector<RenderObjectPtr> m_xrayRenderObjects;
+
+    /// The render queue for debug objects.
+    std::vector<RenderObjectPtr> m_debugRenderObjects;
+
+    /// The render queue for UI objects.
     std::vector<RenderObjectPtr> m_uiRenderObjects;
 
-    // Simple quad mesh, used to render the final image
+    /// Simple quad mesh, used to render the final image.
     std::unique_ptr<Mesh> m_quadMesh;
 
-    bool m_drawDebug;          // Should we render debug stuff ?
-    bool m_wireframe;          // Are we rendering in "real" wireframe mode
-    bool m_postProcessEnabled; // Should we do post processing ?
+    /// Whether to render debug objects.
+    bool m_drawDebug;
+
+    /// Whether to render the scene objects in wireframe mode.
+    bool m_wireframe;
+
+    /// Whether to perform post-process.
+    bool m_postProcessEnabled;
 
   private:
     // Qt has the nice idea to bind an fbo before giving you the opengl context,
@@ -326,27 +391,49 @@ class RA_ENGINE_API Renderer {
     int m_qtPlz;
     int m_qtViewport[4];
 
-    // Renderer timings data
+    /// Renderer timings data.
     TimerData m_timerData;
 
+    /// Guards the Renderer against thread concurrency.
     std::mutex m_renderMutex;
 
-    // PICKING STUFF
+    /// Current position of the mouse.
     Ra::Core::Vector2 m_mousePosition;
+
+    /// Radius of the circle brush.
     float m_brushRadius;
+
+    /// Picking FBO.
     std::unique_ptr<globjects::Framebuffer> m_pickingFbo;
+
+    /// Picking Texture.
     std::unique_ptr<Texture> m_pickingTexture;
 
+    /// The render queues for picking non x-rayed objects in the scene.
     std::array<std::vector<RenderObjectPtr>, 4> m_fancyRenderObjectsPicking;
-    std::array<std::vector<RenderObjectPtr>, 4> m_debugRenderObjectsPicking;
+
+    /// The render queues for picking x-rayed objects in the scene.
     std::array<std::vector<RenderObjectPtr>, 4> m_xrayRenderObjectsPicking;
+
+    /// The render queues for picking debug objects.
+    std::array<std::vector<RenderObjectPtr>, 4> m_debugRenderObjectsPicking;
+
+    /// The render queues for picking UI objects.
     std::array<std::vector<RenderObjectPtr>, 4> m_uiRenderObjectsPicking;
+
+    /// Picking Shaders.
     std::array<const ShaderProgram*, 4> m_pickingShaders;
 
+    /// Picking queries for the next frame.
     std::vector<PickingQuery> m_pickingQueries;
+
+    /// Picking queries from the last frame.
     std::vector<PickingQuery> m_lastFramePickingQueries;
+
+    /// Picking resulsts from the last frame.
     std::vector<PickingResult> m_pickingResults;
 
+    /// Depth Texture.
     std::unique_ptr<Texture> m_depthTexture;
 };
 

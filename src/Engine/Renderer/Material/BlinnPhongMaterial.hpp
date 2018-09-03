@@ -7,15 +7,17 @@
 #include <string>
 
 #include <Engine/Renderer/Material/Material.hpp>
-
-
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
 namespace Ra {
 namespace Asset {
 class MaterialData;
-}
+} // namespace Asset
+} // namespace Ra
+
+namespace Ra {
 namespace Engine {
+
 class Texture;
 class ShaderProgram;
 
@@ -24,6 +26,7 @@ class ShaderProgram;
  */
 class RA_ENGINE_API BlinnPhongMaterial final : public Material {
     friend class BlinnPhongMaterialConverter;
+
   public:
     /// Semantic of the texture : define which BSDF parameter is controled by the texture
     enum class TextureSemantic { TEX_DIFFUSE, TEX_SPECULAR, TEX_NORMAL, TEX_SHININESS, TEX_ALPHA };
@@ -37,19 +40,22 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
     explicit BlinnPhongMaterial( const std::string& name );
     /**
      * Destructor.
-     * @note The material does not have ownership on its texture. This destructor do not delete the associated textures.
+     * @note The material does not have ownership on its texture. This destructor
+     *       do not delete the associated textures.
      */
     ~BlinnPhongMaterial();
 
     /**
-     * Get the basename of the glsl source file to include if one want to build composite shaders that use this material.
+     * Get the basename of the glsl source file to include if one want to build
+     * composite shaders that use this material.
      * @return The basename (without extension .frag.glsl or .vert.glsl) of the glsl source file.
      */
     const std::string getShaderInclude() const override;
 
-
     void updateGL() override;
+
     void bind( const ShaderProgram* shader ) override;
+
     bool isTransparent() const override;
 
     /**
@@ -68,7 +74,8 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
 
     /**
      * Register the material in the material library.
-     * After registration, the material could be instantiated by any Radium system, renderer, plugin, ...
+     * After registration, the material could be instantiated by any Radium system, renderer,
+     * plugin, ...
      */
     static void registerMaterial();
 
@@ -79,43 +86,52 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
     static void unregisterMaterial();
 
   public:
+    /// The diffuse color of the material.
     Core::Color m_kd;
+
+    /// The specular color of the material.
     Core::Color m_ks;
+
+    /// The shininess exponent of the material.
     Scalar m_ns;
+
+    /// The alpha value of the material.
     Scalar m_alpha;
 
     /**
-    * Add an new texture, from a TextureData, to control the specified BSDF parameter.
-    * @param semantic The texture semantic
-    * @param texture  The texture to use (file)
-    * @return the corresponding TextureData struct
-    */
+     * Add an new texture, from a TextureData, to control the specified BSDF parameter.
+     * @param semantic The texture semantic
+     * @param texture  The texture to use (file)
+     * @return the corresponding TextureData struct
+     */
     inline TextureData& addTexture( const TextureSemantic& semantic, const TextureData& texture );
 
-private:
+  private:
+    /// The list of initialized Textures.
     std::map<TextureSemantic, Texture*> m_textures;
+
+    /// The lits of to-initialize Textures.
     std::map<TextureSemantic, TextureData> m_pendingTextures;
 
     /**
-    * Add an new texture, from a given file, to control the specified BSDF parameter.
-    * @param semantic The texture semantic
-    * @param texture  The texture to use (file)
-    * @return the corresponding TextureData struct
-    */
+     * Add an new texture, from a given file, to control the specified BSDF parameter.
+     * @param semantic The texture semantic
+     * @param texture  The texture to use (file)
+     * @return the corresponding TextureData struct
+     */
     inline TextureData& addTexture( const TextureSemantic& semantic, const std::string& texture );
-
 };
 
-  /**
-   * Converter from an external representation comming from FileData to internal representation.
-   */
-  class RA_ENGINE_API BlinnPhongMaterialConverter final {
+/**
+ * Converter from an external representation comming from FileData to internal representation.
+ */
+class RA_ENGINE_API BlinnPhongMaterialConverter final {
   public:
-      BlinnPhongMaterialConverter() = default;
-      ~BlinnPhongMaterialConverter() = default;
+    BlinnPhongMaterialConverter() = default;
+    ~BlinnPhongMaterialConverter() = default;
 
-      Material* operator()( const Ra::Asset::MaterialData* toconvert );
-  };
+    Material* operator()( const Ra::Asset::MaterialData* toconvert );
+};
 
 } // namespace Engine
 } // namespace Ra

@@ -2,6 +2,7 @@
 
 namespace Ra {
 namespace Engine {
+
 inline void Component::setEntity( Entity* entity ) {
     m_entity = entity;
 }
@@ -21,5 +22,6 @@ inline void Component::setSystem( System* system ) {
 inline System* Component::getSystem() const {
     return m_system;
 }
+
 } // namespace Engine
 } // namespace Ra

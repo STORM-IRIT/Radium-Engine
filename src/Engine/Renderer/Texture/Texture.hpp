@@ -14,15 +14,18 @@ class Texture;
 
 namespace Ra {
 namespace Engine {
+
+/// The Texture class stores a globjects::Texture along with informations about how to use it.
 class RA_ENGINE_API Texture final {
   public:
-    GLenum internalFormat = GL_RGB;
-    GLenum dataType = GL_UNSIGNED_BYTE;
-    GLenum wrapS = GL_REPEAT;
-    GLenum wrapT = GL_REPEAT;
-    GLenum wrapR = GL_REPEAT;
-    GLenum minFilter = GL_LINEAR_MIPMAP_LINEAR;
-    GLenum magFilter = GL_LINEAR;
+    // FIXME: what about TextureData?
+    GLenum internalFormat = GL_RGB;             ///< Format of the pixel data on the GPU.
+    GLenum dataType = GL_UNSIGNED_BYTE;         ///< Type used for each pixel channel.
+    GLenum wrapS = GL_REPEAT;                   ///< Wrapping along the s coordinate.
+    GLenum wrapT = GL_REPEAT;                   ///< Wrapping along the t coordinate.
+    GLenum wrapR = GL_REPEAT;                   ///< Wrapping along the r coordinate.
+    GLenum minFilter = GL_LINEAR_MIPMAP_LINEAR; ///< Filtering mode when scalnig down.
+    GLenum magFilter = GL_LINEAR;               ///< Filtering mode when scalnig up.
 
     /**
      * Texture constructor. No OpenGL initialization is done there.
@@ -48,19 +51,11 @@ class RA_ENGINE_API Texture final {
      * <a href="https://www.opengl.org/wiki/GLAPI/glTexImage1D">glTexImage1D documentation</a>
      * since this method doc will highly refer to it.
      *
-     * @param internalFormat The number of color components of the texture, and their size.
-     * Refer to the link given above, at the \b internalFormat section
-     * for further informations about available internal formats.
-     *
      * @param width Width of the 1D texture.
      *
      * @param format The format of the pixel data.
      * Refer to the link given above, at the \b format section
      * for further informations about the available formats.
-     *
-     * @param type The data type of the pixel data.
-     * Refer to the link given above, at the \b type section
-     * for further informations about the available types.
      *
      * @param data Data contained in the texture. Can be nullptr. <br/>
      * If \b data is not null, the texture will take the ownership of it.
@@ -78,10 +73,6 @@ class RA_ENGINE_API Texture final {
      * <a href="https://www.opengl.org/wiki/GLAPI/glTexImage2D">glTexImage2D documentation</a>
      * since this method doc will highly refer to it.
      *
-     * @param internalFormat The number of color components of the texture, and their size.
-     * Refer to the link given above, at the \b internalFormat section
-     * for further informations about available internal formats.
-     *
      * @param width Width of the 2D texture.
      *
      * @param height Height of the 2D texture.
@@ -89,10 +80,6 @@ class RA_ENGINE_API Texture final {
      * @param format The format of the pixel data.
      * Refer to the link given above, at the \b format section
      * for further informations about the available formats.
-     *
-     * @param type The data type of the pixel data.
-     * Refer to the link given above, at the \b type section
-     * for further informations about the available types.
      *
      * @param data Data contained in the texture. Can be nullptr. <br/>
      * If \b data is not null, the texture will take the ownership of it.
@@ -110,10 +97,6 @@ class RA_ENGINE_API Texture final {
      * <a href="https://www.opengl.org/wiki/GLAPI/glTexImage3D">glTexImage3D documentation</a>
      * since this method doc will highly refer to it.
      *
-     * @param internalFormat The number of color components of the texture, and their size.
-     * Refer to the link given above, at the \b internalFormat section
-     * for further informations about available internal formats.
-     *
      * @param width Width of the 3D texture.
      *
      * @param height Height of the 3D texture.
@@ -123,10 +106,6 @@ class RA_ENGINE_API Texture final {
      * @param format The format of the pixel data.
      * Refer to the link given above, at the \b format section
      * for further informations about the available formats.
-     *
-     * @param type The data type of the pixel data.
-     * Refer to the link given above, at the \b type section
-     * for further informations about the available types.
      *
      * @param data Data contained in the texture. Can be nullptr. <br/>
      * If \b data is not null, the texture will take the ownership of it.
@@ -144,10 +123,6 @@ class RA_ENGINE_API Texture final {
      * <a href="https://www.opengl.org/wiki/GLAPI/glTexImage2D">glTexImage2D documentation</a>
      * since this method doc will highly refer to it.
      *
-     * @param internalFormat The number of color components of the texture, and their size.
-     * Refer to the link given above, at the \b internalFormat section
-     * for further informations about available internal formats.
-     *
      * @param width Width of the six 2D textures.
      *
      * @param height Height of the six 2D textures.
@@ -155,10 +130,6 @@ class RA_ENGINE_API Texture final {
      * @param format The format of the pixel data.
      * Refer to the link given above, at the \b format section
      * for further informations about the available formats.
-     *
-     * @param type The data type of the pixel data.
-     * Refer to the link given above, at the \b type section
-     * for further informations about the available types.
      *
      * @param data Data contained in the texture. Can be nullptr. <br/>
      * If \b data is not null, the texture will take the ownership of it.
@@ -185,32 +156,43 @@ class RA_ENGINE_API Texture final {
 
     /**
      * Update the parameters contained by the texture.
-     * User first modify the public attributes corresponding to the parameter he wants to change the value
-     * (e.g wrap* or *Filter) and call this function to update the OpenGL texture state ...
+     * User first modify the public attributes corresponding to the parameter
+     * he wants to change the value of (e.g wrap* or *Filter) and then calls
+     * this function to update the OpenGL texture state ...
      * @return
      */
-     void updateParameters();
+    void updateParameters();
 
+    /// Return the format of the pixel data on the CPU.
     GLenum format() const { return m_format; }
+
+    /// Return the width of the Texture data.
     uint width() const { return m_width; }
+
+    /// Return the height of the Texture data.
     uint height() const { return m_height; }
+
+    /// Return the globjects Texture.
     globjects::Texture* texture() const { return m_texture.get(); }
 
   private:
     Texture( const Texture& ) = delete;
+
     void operator=( const Texture& ) = delete;
 
   private:
-    GLenum m_target;
-    std::string m_name;
-    GLenum m_format;
+    GLenum m_target;    ///< The kind of OpenGL Texture.
+    std::string m_name; ///< The name of the Texture.
+    GLenum m_format;    ///< The format of the pixel data on the CPU.
 
-    uint m_width;
-    uint m_height;
-    uint m_depth;
+    uint m_width;  ///< The Texture width.
+    uint m_height; ///< The Texture height.
+    uint m_depth;  ///< The Texture Depth.
 
+    /// The globjects Texture.
     std::unique_ptr<globjects::Texture> m_texture;
 };
+
 } // namespace Engine
 } // namespace Ra
 

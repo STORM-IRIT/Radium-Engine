@@ -10,9 +10,6 @@ using Core::Math::PiDiv4;
 
 namespace Engine {
 
-/// -------------------- ///
-/// CONSTRUCTOR
-/// -------------------- ///
 Camera::Camera( Scalar height, Scalar width ) :
     m_frame( Core::Transform::Identity() ),
     m_projMatrix( Core::Matrix4::Identity() ),
@@ -25,16 +22,9 @@ Camera::Camera( Scalar height, Scalar width ) :
     m_aspect( width / height ),
     m_projType( ProjType::PERSPECTIVE ) {}
 
-/// -------------------- ///
-/// DESTRUCTOR
-/// -------------------- ///
 Camera::~Camera() {}
 
-/// -------------------- ///
-/// FRAME
-/// -------------------- ///
 void Camera::applyTransform( const Core::Transform& T ) {
-
     Core::Transform t1 = Core::Transform::Identity();
     Core::Transform t2 = Core::Transform::Identity();
     t1.translation() = -getPosition();
@@ -43,18 +33,14 @@ void Camera::applyTransform( const Core::Transform& T ) {
     m_frame = t2 * T * t1 * m_frame;
 }
 
-/// -------------------- ///
-/// PROJECTION MATRIX
-/// -------------------- ///
 void Camera::updateProjMatrix() {
-
     switch ( m_projType )
     {
     case ProjType::ORTHOGRAPHIC:
     {
         const Scalar dx = m_zoomFactor * 0.5f;
         const Scalar dy = m_height * dx / m_width;
-        // ------------
+
         // Compute projection matrix as describe in the doc of gluPerspective()
         const Scalar l = -dx; // left
         const Scalar r = dx;  // right
@@ -101,5 +87,6 @@ Core::Ray Camera::getRayFromScreen( const Core::Vector2& pix ) const {
     // Ray starts from the camera's current position.
     return Core::Ray::Through( getPosition(), unProject( pix ) );
 }
+
 } // namespace Engine
 } // namespace Ra

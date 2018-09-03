@@ -20,10 +20,8 @@ namespace Engine {
 class RA_ENGINE_API LightStorage {
     // TODO (Mathias) make light storage compatible with range for ...
   public:
-    /// Constructor
     LightStorage() {}
 
-    /// Destructor
     virtual ~LightStorage() {}
 
     /**
@@ -37,10 +35,10 @@ class RA_ENGINE_API LightStorage {
     virtual size_t size() const = 0;
 
     /// Add a Light to the container.
-    virtual void add(Light *li) = 0;
+    virtual void add( Light* li ) = 0;
 
     /// Remove a Light from the container.
-    virtual void remove(Light* li) = 0;
+    virtual void remove( Light* li ) = 0;
 
     /// Clear the container.
     virtual void clear() = 0;

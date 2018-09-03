@@ -3,6 +3,7 @@
 
 namespace Ra {
 namespace Engine {
+
 void RenderParameters::bind( const ShaderProgram* shader ) const {
     m_intParamsVector.bind( shader );
     m_uintParamsVector.bind( shader );
@@ -35,8 +36,6 @@ void RenderParameters::addParameter( const char* name, Scalar value ) {
     m_scalarParamsVector[name] = ScalarParameter( name, value );
 }
 
-///!! array version
-
 void RenderParameters::addParameter( const char* name, std::vector<int> value ) {
     m_intsParamsVector[name] = IntsParameter( name, value );
 }
@@ -48,8 +47,6 @@ void RenderParameters::addParameter( const char* name, std::vector<uint> value )
 void RenderParameters::addParameter( const char* name, std::vector<Scalar> value ) {
     m_scalarsParamsVector[name] = ScalarsParameter( name, value );
 }
-
-///!!
 
 void RenderParameters::addParameter( const char* name, const Core::Vector2& value ) {
     m_vec2ParamsVector[name] = Vec2Parameter( name, value );

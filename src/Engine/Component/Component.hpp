@@ -26,10 +26,8 @@ namespace Engine {
  */
 class RA_ENGINE_API Component {
   public:
-    /// CONSTRUCTOR
     Component( const std::string& name, Entity* entity );
 
-    /// DESTRUCTOR
     virtual ~Component();
 
     /**
@@ -38,6 +36,7 @@ class RA_ENGINE_API Component {
      * have been loaded.
      */
     virtual void initialize() = 0;
+
     /**
      * @brief Set entity the component is part of.
      * This method is called by the entity.
@@ -63,13 +62,14 @@ class RA_ENGINE_API Component {
     /// Remove the render object from the component.
     virtual void removeRenderObject( Core::Index roIdx ) final;
 
-    /// Perform a ray cast query.
+    /// Perform a ray cast query and print the result to the Info output.
     virtual void rayCastQuery( const Core::Ray& ray ) const;
 
-    // Editable transform interface.
-    // This allow to edit the data in the component with a render object
-    // as a key. An invalid RO index can be passed, meaning no specific RO is
-    // queried.
+    /// \name Editable transform interface.
+    /// This allow to edit the data in the component with a render object
+    /// as a key. An invalid RO index can be passed, meaning no specific RO is
+    /// queried.
+    ///@{
 
     /// Returns true if a transform can be edited with the render object index given as a key.
     virtual bool canEdit( Core::Index roIdx ) const { return false; }
@@ -77,11 +77,14 @@ class RA_ENGINE_API Component {
     /// Get the transform associated with the given RO index key.
     virtual Core::Transform getTransform( Core::Index roIdx ) const {
         return Core::Transform::Identity();
-    };
+    }
 
     /// Set the new transform associated with the RO index key.
-    virtual void setTransform( Core::Index roIdx, const Core::Transform& transform ){};
+    virtual void setTransform( Core::Index roIdx, const Core::Transform& transform ) {}
 
+    ///@}
+
+    /// Remove \p idx from the list of RenderObject indices.
     void notifyRenderObjectExpired( const Core::Index& idx );
 
   protected:
@@ -89,11 +92,17 @@ class RA_ENGINE_API Component {
     static RenderObjectManager* getRoMgr();
 
   public:
+    /// The list of RenderObject indices.
     std::vector<Core::Index> m_renderObjects;
 
   protected:
+    /// The name of the Component.
     std::string m_name;
+
+    /// The Entity the Component belongs to.
     Entity* m_entity;
+
+    /// The System managing the Component.
     System* m_system;
 };
 

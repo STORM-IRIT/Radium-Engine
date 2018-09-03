@@ -12,6 +12,7 @@
 namespace Ra {
 namespace Engine {
 
+/// Used to indicate the OpenGL pipeline stage the shader controls.
 enum ShaderType : uint {
     ShaderType_VERTEX = 0,
     ShaderType_FRAGMENT,
@@ -26,6 +27,7 @@ enum ShaderType : uint {
 /// A ShaderConfiguration should be added once to the ShaderConfigurationFactory,
 /// then the factory must be used to retrieve the added shader configurations.
 /// Typical use case :
+/// \code
 ///     /**************************** CREATION ****************************/
 ///     // Create the shader configuration once (see MainApplication::addBasicShaders for example)
 ///     ShaderConfiguration config("MyConfig");
@@ -43,11 +45,13 @@ enum ShaderType : uint {
 ///     auto config = ShaderConfigurationFactory::getConfiguration("MyConfig");
 ///     // You can then pass it to createRenderObject for example
 ///     createRenderObject(name, component, RenderObjectType::Fancy, mesh, config, material);
+/// \endcode
 class RA_ENGINE_API ShaderConfiguration final {
     friend class ShaderProgram;
 
   public:
     ShaderConfiguration() = default;
+
     /// Initializes a shader configuration with a name
     /// Warning: This does not query the corresponding configuration in the
     /// ShaderConfigurationFactory. The proper way to do this is by calling
@@ -60,46 +64,70 @@ class RA_ENGINE_API ShaderConfiguration final {
     ShaderConfiguration( const std::string& name, const std::string& vertexShader,
                          const std::string& fragmentShader );
 
-    // Add a shader given its type
+    // Add a shader given its type.
     void addShader( ShaderType type, const std::string& name );
 
-    /// Add a property in the form of a #define
-    /// The same shader files with different properties leads to different shader programs
+    /// Add a property in the form of a \#define.
+    /// \note Properties are to be set for each shader.
+    /// \note The same shader files with different properties leads to different shader programs.
     void addProperty( const std::string& prop );
+    /// Add properties in the form of a \#define for each.
+    /// \note Properties are to be set for each shader.
+    /// \note The same shader files with different properties leads to different shader programs.
     void addProperties( const std::list<std::string>& props );
+    /// Remove the given property.
+    /// \note Properties are to be set for each shader.
+    /// \note The same shader files with different properties leads to different shader programs.
     void removeProperty( const std::string& prop );
 
-    /// Add a property in the form of an #include
-    /// The same shader files with different properties leads to different shader programs
+    /// Add a property in the form of an \#include for the given shader type.
+    /// \note The properties order might be crucial for the shader to compile.
+    /// \note The same shader files with different properties leads to different shader programs.
     void addInclude( const std::string& incl, ShaderType type = ShaderType_FRAGMENT );
+
+    /// Add properties in the form of an \#include for each for the given shader type.
+    /// \note The properties order might be crucial for the shader to compile.
+    /// \note The same shader files with different properties leads to different shader programs.
     void addIncludes( const std::list<std::string>& incls, ShaderType type = ShaderType_FRAGMENT );
+
+    /// Remove the given property for the given shader type.
+    /// \note The same shader files with different properties leads to different shader programs.
     void removeInclude( const std::string& incl, ShaderType type = ShaderType_FRAGMENT );
 
-    /// Tell if a shader configuration has at least a vertex and a fragment shader, or a compute
-    /// shader.
+    /// Tell if a shader configuration has at least a vertex and a fragment shader,
+    /// or a compute shader.
     bool isComplete() const;
 
+    /// Return true if *this is to be considered lower than \p other.
     bool operator<( const ShaderConfiguration& other ) const;
 
+    /// Return the list of \#define properties.
     std::set<std::string> getProperties() const;
 
+    /// Return the list of \#include properties, along with the shader type using them.
     const std::vector<std::pair<std::string, ShaderType>>& getIncludes() const;
 
-    // get default shader configuration
+    // Return default shader configuration.
     static ShaderConfiguration getDefaultShaderConfig() { return m_defaultShaderConfig; }
 
   public:
+    /// The name of the ShaderConfiguration.
     std::string m_name;
 
+    /// The GLSL version to condiser for the Shaders.
     std::string m_version;
 
   private:
+    /// The list of shaders' name.
     std::array<std::string, ShaderType_COUNT> m_shaders;
 
+    /// The list of \#define properties.
     std::set<std::string> m_properties;
 
+    /// The list of \#include properties, along with the shader type using them.
     std::vector<std::pair<std::string, ShaderType>> m_includes;
 
+    /// The default shader configuration.
     static ShaderConfiguration m_defaultShaderConfig;
 };
 

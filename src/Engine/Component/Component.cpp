@@ -12,6 +12,7 @@
 
 namespace Ra {
 namespace Engine {
+
 Component::Component( const std::string& name, Entity* entity ) :
     m_name( name ),
     m_entity( entity ),
@@ -88,5 +89,6 @@ void Component::rayCastQuery( const Core::Ray& ray ) const {
         }
     }
 }
+
 } // namespace Engine
 } // namespace Ra

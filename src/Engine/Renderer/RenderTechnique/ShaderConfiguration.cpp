@@ -206,6 +206,17 @@ bool ShaderConfiguration::isComplete() const {
            m_shaders[ShaderType_COMPUTE] != "";
 }
 
+// In the case *this and \p other use a shader with a different name for the same stage,
+// returns true if the name of *this's comes before the name of \p other's.
+// If *this and \p other do use the shaders with the same name for all stages,
+// returns true if (checked in this order):
+//  - they have the same number of \#define properties and:
+//     - for the first \#define property which is different, *this's one comes before \p other's, or
+//     - *this has less \#define properties than \p other,
+//  - they have no \#define properties but do have \#include properties and:
+//     - for the first \#include property which is different, *this's one comes before \p other's,
+//     or
+//     - *this has less \#include properties,
 bool ShaderConfiguration::operator<( const ShaderConfiguration& o ) const {
     bool res = false;
 

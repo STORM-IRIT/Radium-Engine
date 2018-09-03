@@ -1,5 +1,6 @@
 #include "ComponentMessenger.hpp"
 #include <Core/Utils/StdUtils.hpp>
+
 namespace Ra {
 namespace Engine {
 
@@ -38,6 +39,7 @@ template <typename ReturnType>
 inline const ReturnType& ComponentMessenger::get( const Entity* entity, const std::string& id ) {
     return CallbackTypes<ReturnType>::getHelper( getterCallback<ReturnType>( entity, id ) );
 }
+
 /*
         template<typename ReturnType>
         inline void ComponentMessenger::set(const Entity* entity, const std::string& id, const
@@ -46,6 +48,7 @@ inline const ReturnType& ComponentMessenger::get( const Entity* entity, const st
             return setterCallback<ReturnType>(entity, id)(x);
         }
 */
+
 template <typename ReturnType>
 inline bool ComponentMessenger::canGet( const Entity* entity, const std::string& id ) {
     // Attempt to find the given entity list.

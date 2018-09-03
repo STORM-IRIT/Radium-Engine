@@ -11,7 +11,7 @@
 namespace Ra {
 namespace Engine {
 class ShaderProgram;
-}
+} // namespace Engine
 } // namespace Ra
 
 namespace Ra {
@@ -25,23 +25,26 @@ namespace Engine {
  */
 class RA_ENGINE_API Material {
   public:
+    /// Used to indicate if the Material is opaque or transparent.
     enum class MaterialAspect { MAT_OPAQUE, MAT_TRANSPARENT };
 
   public:
     RA_CORE_ALIGNED_NEW
 
-    explicit Material( const std::string& name, MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );
+    explicit Material( const std::string& name,
+                       MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );
 
     virtual ~Material();
 
     /** Update the OpenGL states used by the material.
-     * These state could be textures, precomputed tables or whater data associated to the material and given to OpenGL
-     *  as a buffer object.
+     * These state could be textures, precomputed tables or whater data
+     * associated to the material and given to OpenGL as a buffer object.
      */
     virtual void updateGL() = 0;
 
     /** Bind the material to the given shader.
-     * This method must set the uniforms and textures of the shader to reflect the state of the material.
+     * This method must set the uniforms and textures of the shader to reflect
+     * the state of the material.
      * @param shader
      */
     virtual void bind( const ShaderProgram* shader ) = 0;
@@ -60,7 +63,7 @@ class RA_ENGINE_API Material {
     /** set the aspect (MAT_OPAQUE or MAT_TRANSPARENT) of the material.
      * @param aspect
      */
-    inline void setMaterialAspect(const MaterialAspect &aspect);
+    inline void setMaterialAspect( const MaterialAspect& aspect );
 
     /** Get the aspect (MAT_OPAQUE or MAT_TRANSPARENT) of the material.
      *
@@ -74,8 +77,13 @@ class RA_ENGINE_API Material {
     virtual bool isTransparent() const;
 
   protected:
+    /// The material's name.
     std::string m_name;
+
+    /// Whether the material data should be updated to the GPU.
     bool m_isDirty;
+
+    /// The aspect of the material.
     MaterialAspect m_aspect;
 };
 

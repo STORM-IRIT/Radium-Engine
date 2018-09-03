@@ -1,3 +1,4 @@
+#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -37,5 +38,6 @@ inline Texture* BlinnPhongMaterial::getTexture( const TextureSemantic& semantic 
 
     return tex;
 }
+
 } // namespace Engine
 } // namespace Ra

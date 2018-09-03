@@ -104,35 +104,22 @@ Ra::Engine::RenderTechnique RenderTechnique::createDefaultRenderTechnique() {
     return *( RadiumDefaultRenderTechnique.get() );
 }
 
-///////////////////////////////////////////////
-////        Radium defined technique        ///
-///////////////////////////////////////////////
+// Radium defined technique
 namespace EngineRenderTechniques {
 
-/// Map that stores each technique builder function
+// Map that stores each technique builder function
 static std::map<std::string, DefaultTechniqueBuilder> EngineTechniqueRegistry;
 
-/** register a new default builder for a technique
- *  @return true if builder added, false else (e.g, a builder with the same name exists)
- */
 bool registerDefaultTechnique( const std::string& name, DefaultTechniqueBuilder builder ) {
     auto result = EngineTechniqueRegistry.insert( {name, builder} );
     return result.second;
 }
 
-/** remove a default builder
- *  @return true if builder removed, false else (e.g, a builder with the same name does't exists)
- */
 bool removeDefaultTechnique( const std::string& name ) {
     std::size_t removed = EngineTechniqueRegistry.erase( name );
     return ( removed == 1 );
 }
 
-/**
- * @param name name of the technique to construct
- * @return a pair containing the search result and, if true, the functor to call to build the
- * technique.
- */
 std::pair<bool, DefaultTechniqueBuilder> getDefaultTechnique( const std::string& name ) {
     auto search = EngineTechniqueRegistry.find( name );
     if ( search != EngineTechniqueRegistry.end() )
@@ -146,6 +133,5 @@ std::pair<bool, DefaultTechniqueBuilder> getDefaultTechnique( const std::string&
 }
 
 } // namespace EngineRenderTechniques
-
 } // namespace Engine
 } // namespace Ra

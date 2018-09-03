@@ -17,9 +17,9 @@ namespace Engine {
 class RA_ENGINE_API DefaultLightStorage : public LightStorage {
   public:
     DefaultLightStorage();
-    void add(Light *i) override;
-    void remove(Light* li) override;
-    void upload() const override;
+    void add( Light* li ) override;
+    void remove( Light* li ) override;
+    void upload() const override; ///< Does nothing here.
     size_t size() const override;
     void clear() override;
     Light* operator[]( unsigned int n ) override;
@@ -36,15 +36,25 @@ class RA_ENGINE_API DefaultLightManager : public LightManager {
   public:
     DefaultLightManager();
 
+    /// Return the \p li-th light.
     const Light* getLight( size_t li ) const override;
+
+    /// Add \p li for management.
     void addLight( Light* li ) override;
 
-    // Since this manager is dummy, it won't do anything here.
+    /// Does nothing here, only register the new RenderData to use.
     void preprocess( const RenderData& ) override;
+
+    /// Collect the Lights' RenderParameters.
     void prerender( unsigned int li ) override;
+
     void render( RenderObject*, unsigned int li,
                  RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE );
+
+    /// Does nothing here.
     void postrender( unsigned int li ) override;
+
+    /// Does nothing here.
     void postprocess() override;
 };
 

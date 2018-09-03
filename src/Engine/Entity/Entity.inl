@@ -33,6 +33,6 @@ inline Core::Matrix4 Entity::getTransformAsMatrix() const {
 inline uint Entity::getNumComponents() const {
     return uint( m_components.size() );
 }
-} // namespace Engine
 
+} // namespace Engine
 } // namespace Ra

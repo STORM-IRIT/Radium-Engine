@@ -33,7 +33,7 @@ Entity* EntityManager::createEntity( const std::string& name ) {
         ent->rename( entityName );
     } else
     {
-        int i=1;
+        int i = 1;
         bool mustRename = false;
         while ( entityExists( entityName ) )
         {
@@ -89,7 +89,7 @@ std::vector<Entity*> EntityManager::getEntities() const {
     entities.resize( m_entities.size() );
 
     std::transform( m_entities.begin(), m_entities.end(), entities.begin(),
-                    [](const auto &e){ return e.get(); });
+                    []( const auto& e ) { return e.get(); } );
 
     return entities;
 }
@@ -122,5 +122,6 @@ void EntityManager::deleteEntities() {
         removeEntity( idx );
     }
 }
+
 } // namespace Engine
 } // namespace Ra

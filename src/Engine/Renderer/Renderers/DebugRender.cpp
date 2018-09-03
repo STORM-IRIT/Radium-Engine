@@ -15,12 +15,13 @@
 
 namespace Ra {
 namespace Engine {
+
 DebugRender::DebugRender() {}
 
 DebugRender::~DebugRender() {}
 
 void DebugRender::initialize() {
-    /// FIXME : this was not ported to globject ...
+    // FIXME : this was not ported to globject ...
     auto createProgram = []( const char* vertStr, const char* fragStr ) -> uint {
         uint prog = glCreateProgram();
         GL_CHECK_ERROR;
@@ -399,5 +400,6 @@ void DebugRender::addOBB( const Core::Aabb& box, const Core::Transform& transfor
 }
 
 RA_SINGLETON_IMPLEMENTATION( DebugRender );
+
 } // namespace Engine
 } // namespace Ra

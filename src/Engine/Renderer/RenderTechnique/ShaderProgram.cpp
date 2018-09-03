@@ -259,8 +259,6 @@ void ShaderProgram::setUniform( const char* name, double value ) const {
     m_program->setUniform( name, v );
 }
 
-//!
-
 void ShaderProgram::setUniform( const char* name, std::vector<int> values ) const {
     m_program->setUniform( name, values );
 }
@@ -272,8 +270,6 @@ void ShaderProgram::setUniform( const char* name, std::vector<unsigned int> valu
 void ShaderProgram::setUniform( const char* name, std::vector<float> values ) const {
     m_program->setUniform( name, values );
 }
-
-//!
 
 void ShaderProgram::setUniform( const char* name, const Core::Vector2f& value ) const {
     m_program->setUniform( name, Core::toGlm( value ) );
