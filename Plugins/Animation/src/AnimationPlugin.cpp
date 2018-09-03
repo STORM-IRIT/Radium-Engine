@@ -14,20 +14,10 @@
 
 namespace AnimationPlugin {
 
-AnimationPluginC::AnimationPluginC() : m_system( nullptr ) {
-    m_widget = new AnimationUI();
-    connect( m_widget, &AnimationUI::toggleXray, this, &AnimationPluginC::toggleXray );
-    connect( m_widget, &AnimationUI::showSkeleton, this, &AnimationPluginC::toggleSkeleton );
-    connect( m_widget, &AnimationUI::animationID, this, &AnimationPluginC::setAnimation );
-    connect( m_widget, &AnimationUI::toggleAnimationTimeStep, this,
-             &AnimationPluginC::toggleAnimationTimeStep );
-    connect( m_widget, &AnimationUI::animationSpeed, this, &AnimationPluginC::setAnimationSpeed );
-    connect( m_widget, &AnimationUI::toggleSlowMotion, this, &AnimationPluginC::toggleSlowMotion );
-    connect( m_widget, &AnimationUI::play, this, &AnimationPluginC::play );
-    connect( m_widget, &AnimationUI::pause, this, &AnimationPluginC::pause );
-    connect( m_widget, &AnimationUI::step, this, &AnimationPluginC::step );
-    connect( m_widget, &AnimationUI::stop, this, &AnimationPluginC::reset );
-}
+AnimationPluginC::AnimationPluginC() :
+    m_system( nullptr ),
+    m_widget( nullptr ),
+    m_selectionManager( nullptr ) {}
 
 AnimationPluginC::~AnimationPluginC() {}
 
@@ -45,6 +35,18 @@ bool AnimationPluginC::doAddWidget( QString& name ) {
 }
 
 QWidget* AnimationPluginC::getWidget() {
+    m_widget = new AnimationUI();
+    connect( m_widget, &AnimationUI::toggleXray, this, &AnimationPluginC::toggleXray );
+    connect( m_widget, &AnimationUI::showSkeleton, this, &AnimationPluginC::toggleSkeleton );
+    connect( m_widget, &AnimationUI::animationID, this, &AnimationPluginC::setAnimation );
+    connect( m_widget, &AnimationUI::toggleAnimationTimeStep, this,
+             &AnimationPluginC::toggleAnimationTimeStep );
+    connect( m_widget, &AnimationUI::animationSpeed, this, &AnimationPluginC::setAnimationSpeed );
+    connect( m_widget, &AnimationUI::toggleSlowMotion, this, &AnimationPluginC::toggleSlowMotion );
+    connect( m_widget, &AnimationUI::play, this, &AnimationPluginC::play );
+    connect( m_widget, &AnimationUI::pause, this, &AnimationPluginC::pause );
+    connect( m_widget, &AnimationUI::step, this, &AnimationPluginC::step );
+    connect( m_widget, &AnimationUI::stop, this, &AnimationPluginC::reset );
     return m_widget;
 }
 

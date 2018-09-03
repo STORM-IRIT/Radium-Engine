@@ -55,6 +55,9 @@ class MeshPaintPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     void changePaintColor( const QColor& color );
 
   private:
+    /// The Paint System.
+    class MeshPaintSystem* m_system;
+
     /// The Paint Widget.
     MeshPaintUI* m_widget;
 
@@ -63,9 +66,6 @@ class MeshPaintPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
 
     /// The PickingManager of the Engine.
     Ra::Gui::PickingManager* m_PickingManager;
-
-    /// The Paint System.
-    class MeshPaintSystem* m_system;
 
     /// The Paint color.
     Ra::Core::Color m_paintColor;

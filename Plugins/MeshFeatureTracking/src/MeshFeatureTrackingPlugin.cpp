@@ -20,10 +20,10 @@
 namespace MeshFeatureTrackingPlugin {
 
 MeshFeatureTrackingPluginC::MeshFeatureTrackingPluginC() :
+    m_component( nullptr ),
+    m_widget( nullptr ),
     m_selectionManager( nullptr ),
-    m_PickingManager( nullptr ) {
-    m_widget = new MeshFeatureTrackingUI();
-}
+    m_PickingManager( nullptr ) {}
 
 MeshFeatureTrackingPluginC::~MeshFeatureTrackingPluginC() {}
 
@@ -39,10 +39,6 @@ void MeshFeatureTrackingPluginC::registerPlugin( const Ra::PluginContext& contex
     m_PickingManager = context.m_pickingManager;
     connect( m_selectionManager, &Ra::GuiBase::SelectionManager::currentChanged, this,
              &MeshFeatureTrackingPluginC::onCurrentChanged );
-    connect( m_widget, &MeshFeatureTrackingUI::vertexIdChanged, this,
-             &MeshFeatureTrackingPluginC::vertexIdChanged );
-    connect( m_widget, &MeshFeatureTrackingUI::triangleIdChanged, this,
-             &MeshFeatureTrackingPluginC::triangleIdChanged );
 }
 
 bool MeshFeatureTrackingPluginC::doAddWidget( QString& name ) {
@@ -51,6 +47,11 @@ bool MeshFeatureTrackingPluginC::doAddWidget( QString& name ) {
 }
 
 QWidget* MeshFeatureTrackingPluginC::getWidget() {
+    m_widget = new MeshFeatureTrackingUI();
+    connect( m_widget, &MeshFeatureTrackingUI::vertexIdChanged, this,
+             &MeshFeatureTrackingPluginC::vertexIdChanged );
+    connect( m_widget, &MeshFeatureTrackingUI::triangleIdChanged, this,
+             &MeshFeatureTrackingPluginC::triangleIdChanged );
     return m_widget;
 }
 
@@ -80,8 +81,7 @@ void MeshFeatureTrackingPluginC::onCurrentChanged( const QModelIndex& current,
 
 void MeshFeatureTrackingPluginC::update() {
     m_component->update();
-    m_widget->updateTracking( m_component->getFeatureData(),
-                              m_component->getFeaturePosition(),
+    m_widget->updateTracking( m_component->getFeatureData(), m_component->getFeaturePosition(),
                               m_component->getFeatureVector() );
 }
 void MeshFeatureTrackingPluginC::vertexIdChanged( int idx ) {

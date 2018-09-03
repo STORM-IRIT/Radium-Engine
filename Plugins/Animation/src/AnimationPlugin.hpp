@@ -27,6 +27,7 @@ class AnimationPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
 
   public:
     AnimationPluginC();
+
     virtual ~AnimationPluginC();
 
     void registerPlugin( const Ra::PluginContext& context ) override;

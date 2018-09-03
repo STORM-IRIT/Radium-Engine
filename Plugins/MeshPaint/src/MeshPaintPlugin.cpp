@@ -22,19 +22,12 @@
 namespace MeshPaintPlugin {
 
 MeshPaintPluginC::MeshPaintPluginC() :
+    m_system( nullptr ),
+    m_widget( nullptr ),
     m_selectionManager( nullptr ),
     m_PickingManager( nullptr ),
-    m_system( nullptr ),
     m_paintColor( Ra::Core::Color( 1.0, 0.0, 0.0, 1.0 ) ),
-    m_isPainting( false ) {
-    m_widget = new MeshPaintUI();
-    QColor color;
-    color.setRed( m_paintColor( 0 ) * 255 );
-    color.setGreen( m_paintColor( 1 ) * 255 );
-    color.setBlue( m_paintColor( 2 ) * 255 );
-    color.setAlpha( m_paintColor( 3 ) * 255 );
-    m_widget->ui->changeColor_pb->setPalette( QPalette( color ) );
-}
+    m_isPainting( false ) {}
 
 MeshPaintPluginC::~MeshPaintPluginC() {}
 
@@ -46,8 +39,6 @@ void MeshPaintPluginC::registerPlugin( const Ra::PluginContext& context ) {
     context.m_engine->registerSystem( "MeshPaintSystem", m_system );
     connect( m_selectionManager, &Ra::GuiBase::SelectionManager::currentChanged, this,
              &MeshPaintPluginC::onCurrentChanged );
-    connect( m_widget, &MeshPaintUI::paintColor, this, &MeshPaintPluginC::activePaintColor );
-    connect( m_widget, &MeshPaintUI::colorChanged, this, &MeshPaintPluginC::changePaintColor );
 }
 
 bool MeshPaintPluginC::doAddWidget( QString& name ) {
@@ -56,6 +47,15 @@ bool MeshPaintPluginC::doAddWidget( QString& name ) {
 }
 
 QWidget* MeshPaintPluginC::getWidget() {
+    m_widget = new MeshPaintUI();
+    QColor color;
+    color.setRed( m_paintColor( 0 ) * 255 );
+    color.setGreen( m_paintColor( 1 ) * 255 );
+    color.setBlue( m_paintColor( 2 ) * 255 );
+    color.setAlpha( m_paintColor( 3 ) * 255 );
+    m_widget->ui->changeColor_pb->setPalette( QPalette( color ) );
+    connect( m_widget, &MeshPaintUI::paintColor, this, &MeshPaintPluginC::activePaintColor );
+    connect( m_widget, &MeshPaintUI::colorChanged, this, &MeshPaintPluginC::changePaintColor );
     return m_widget;
 }
 

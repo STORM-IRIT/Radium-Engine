@@ -76,6 +76,8 @@ class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
 
   public:
+    SkinningPluginC();
+
     virtual ~SkinningPluginC();
 
     void registerPlugin( const Ra::PluginContext& context ) override;
@@ -97,11 +99,11 @@ class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     /// The SkinningSystem.
     SkinningSystem* m_system;
 
-    /// The SelectionManager of the Engine.
-    Ra::GuiBase::SelectionManager* m_selectionManager;
-
     /// The Skinning Widget.
     SkinningWidget* m_widget;
+
+    /// The SelectionManager of the Engine.
+    Ra::GuiBase::SelectionManager* m_selectionManager;
 };
 
 } // namespace SkinningPlugin
