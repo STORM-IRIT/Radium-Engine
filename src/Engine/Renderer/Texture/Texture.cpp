@@ -111,7 +111,7 @@ void Texture::updateData( void* data ) {
     }
     break;
     default:
-    { CORE_ASSERT( 0, "Dafuck ?" ); }
+    { CORE_ASSERT( 0, "Invalid Texture target." ); }
     break;
     }
 }
