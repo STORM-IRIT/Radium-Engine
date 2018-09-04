@@ -4,7 +4,6 @@
 
 #include <Engine/Component/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
-
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 
 using Ra::Engine::ItemEntry;

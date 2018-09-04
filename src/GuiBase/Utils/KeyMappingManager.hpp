@@ -23,8 +23,9 @@ class RA_GUIBASE_API KeyMappingManager {
   public:
     /// An enum which represents all of the actions which can be done
     /// with a combination of key/modifier or with a mouse click.
-    /// If you want to add a new action, just add an value to this enum.
-    /// Try to keep it clear, FILENAME_ACTION_NAME is used here (maybe not the best way to do it ?)
+    /// If you want to add a new action, just add a value to this enum.
+    /// Try to keep it clear, FILENAME_ACTION_NAME is used here
+    // (maybe not the best way to do it ?)
     enum KeyMappingAction {
         TRACKBALLCAMERA_MANIPULATION = 0,
         TRACKBALLCAMERA_ROTATE_AROUND,
@@ -49,7 +50,10 @@ class RA_GUIBASE_API KeyMappingManager {
     Q_ENUM( KeyMappingAction )
 
   public:
+    /// Load the mapping configuration from the given file.
     void loadConfiguration( const char* filename = nullptr );
+
+    /// Reload the configuration.
     void reloadConfiguration();
 
     /// May be useful in some cases, but try to use actionTriggered
@@ -58,19 +62,27 @@ class RA_GUIBASE_API KeyMappingManager {
 
     /// Utility method to check if a QMouseEvent triggers a specific action
     bool actionTriggered( QMouseEvent* event, KeyMappingAction action );
+
     /// Utility method to check if a QKeyEvent triggers a specific action
     bool actionTriggered( QKeyEvent* event, KeyMappingAction action );
 
   private:
     KeyMappingManager();
+
     ~KeyMappingManager();
 
-    // Private for now, but may need to be public if we want to customize keymapping configuration
-    // otherwise than by editing the XML configuration file.
+    /// Bind the given key to the given action.
+    // Private for now, but may need to be public if we want to customize keymapping
+    // configuration otherwise than by editing the XML configuration file.
     void bindKeyToAction( int keyCode, KeyMappingAction action );
 
+    /// Internal process to load all the bindings.
     void loadConfigurationInternal();
+
+    /// Internal process to load the binding from a given xml element.
     void loadConfigurationTagsInternal( QDomElement& node );
+
+    /// Internal process to register the binding from the key and action data.
     void loadConfigurationMappingInternal( const std::string& typeString,
                                            const std::string& modifierString,
                                            const std::string& keyString,
@@ -78,20 +90,27 @@ class RA_GUIBASE_API KeyMappingManager {
 
     // Maybe there's a better way to get enum value from string, even without Q_ENUM
     // defined for Qt::KeyboardModifier and Qt::MouseButton ?
+    /// Convert a string to a Qt::KeyboardModifier.
+    /// \return Qt::NoModifier if the string doesn't correspond to a valid Modifier.
     Qt::KeyboardModifier getQtModifierValue( const std::string& modifierString );
+
+    /// Convert a string to a Qt::MouseButton.
+    /// \return Qt::NoButton if the string doesn't correspond to a valid Button.
     Qt::MouseButton getQtMouseButtonValue( const std::string& keyString );
 
   private:
     // For XML parsing using Qt
-    QDomDocument m_domDocument;
-    QMetaEnum m_metaEnumAction;
-    QMetaEnum m_metaEnumKey;
-    QFile* m_file;
+    QDomDocument m_domDocument; ///< The content of the xml file.
+    QMetaEnum m_metaEnumAction; ///< The current action enum.
+    QMetaEnum m_metaEnumKey;    ///< The current key enum.
+    QFile* m_file;              ///< The configuration file.
 
-    // Stores enum value as key, if we want to have two actions bound to the same
-    // combination (is it possible ?)
+    /// The list of action to key bindings.
+    // Stores enum value as key, if we want to have two actions bound to the same combination.
+    // FIXME: (is that possible ?)
     std::map<KeyMappingAction, int> m_mapping;
 };
+
 } // namespace Gui
 } // namespace Ra
 

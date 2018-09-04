@@ -44,6 +44,7 @@
 
 namespace Ra {
 namespace GuiBase {
+
 BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& factory,
                                   QString applicationName, QString organizationName ) :
     QApplication( argc, argv ),
@@ -615,5 +616,6 @@ void BaseApplication::setRecordTimings( bool on ) {
 void BaseApplication::setRecordGraph( bool on ) {
     m_recordGraph = on;
 }
+
 } // namespace GuiBase
 } // namespace Ra

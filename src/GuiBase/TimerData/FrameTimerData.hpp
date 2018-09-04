@@ -15,17 +15,17 @@ namespace Ra {
 
 /// This struct holds all timings for one frame of the engine.
 struct RA_GUIBASE_API FrameTimerData {
-    uint numFrame;
-    Core::Timer::TimePoint frameStart;
-    Core::Timer::TimePoint eventsStart;
-    Core::Timer::TimePoint eventsEnd;
-    Core::Timer::TimePoint tasksStart;
-    Core::Timer::TimePoint tasksEnd;
-    Core::Timer::TimePoint frameEnd;
-    Engine::Renderer::TimerData renderData;
-    std::vector<Core::TaskQueue::TimerData> taskData;
+    uint numFrame;                                    ///< Frame number.
+    Core::Timer::TimePoint frameStart;                ///< When did the frame start.
+    Core::Timer::TimePoint eventsStart;               ///< When did the events processing start.
+    Core::Timer::TimePoint eventsEnd;                 ///< When did the events processing end.
+    Core::Timer::TimePoint tasksStart;                ///< When did the tasks processing start.
+    Core::Timer::TimePoint tasksEnd;                  ///< When did the tasks processing end.
+    Core::Timer::TimePoint frameEnd;                  ///< When did the frame end.
+    Engine::Renderer::TimerData renderData;           ///< Rendering timings.
+    std::vector<Core::TaskQueue::TimerData> taskData; ///< Tasks processing timings.
 
-    void print( std::ostream& ostream ) const;
+    void print( std::ostream& ostream ) const; ///< Print stat info to the given stream.
 };
 
 #if 0

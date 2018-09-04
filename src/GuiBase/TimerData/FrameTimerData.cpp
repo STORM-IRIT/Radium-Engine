@@ -1,6 +1,7 @@
 #include <GuiBase/TimerData/FrameTimerData.hpp>
 
 namespace Ra {
+
 void FrameTimerData::print( std::ostream& ostream ) const {
 
     long totalTime = Ra::Core::Timer::getIntervalMicro( frameStart, frameEnd );
@@ -36,4 +37,5 @@ void FrameTimerData::print( std::ostream& ostream ) const {
             << "\n";
     ostream << std::endl;
 }
+
 } // namespace Ra

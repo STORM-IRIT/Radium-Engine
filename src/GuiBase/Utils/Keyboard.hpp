@@ -3,9 +3,16 @@
 
 namespace Ra {
 namespace Gui {
+
+/// Return true if the corresponding key is pressed.
 bool isKeyPressed( int code );
+
+/// Notify that the corresponding key is pressed.
 void keyPressed( int code );
+
+/// Notify that the corresponding key is released.
 void keyReleased( int code );
+
 } // namespace Gui
 } // namespace Ra
 

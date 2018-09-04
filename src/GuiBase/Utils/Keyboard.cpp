@@ -7,6 +7,7 @@
 
 namespace Ra {
 namespace Gui {
+
 std::map<int, bool> g_keypresses;
 
 void keyPressed( int code ) {
@@ -21,5 +22,6 @@ bool isKeyPressed( int code ) {
     // Default constructed bool is false, so this should be enough
     return g_keypresses[code];
 }
+
 } // namespace Gui
 } // namespace Ra

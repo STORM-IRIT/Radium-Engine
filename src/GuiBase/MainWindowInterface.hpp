@@ -9,20 +9,19 @@
 namespace Ra {
 namespace Gui {
 class Viewer;
-}
+} // namespace Gui
 
 namespace GuiBase {
 class SelectionManager;
-}
+} // namespace GuiBase
 
 namespace Plugins {
 class RadiumPluginInterface;
-}
+} // namespace Plugins
 
 namespace Engine {
 class Renderer;
-}
-
+} // namespace Engine
 } // namespace Ra
 
 namespace Ra {
@@ -47,8 +46,7 @@ class RA_GUIBASE_API MainWindowInterface : public QMainWindow {
     /// Update the ui from the plugins loaded.
     virtual void updateUi( Plugins::RadiumPluginInterface* plugin ) = 0;
 
-    /// Update the UI ( most importantly gizmos ) to the modifications of the
-    /// engine/
+    /// Update the UI ( most importantly gizmos ) to the modifications of the Engine.
     virtual void onFrameComplete() = 0;
 
     /// Add render in the application: UI, viewer.
@@ -57,6 +55,7 @@ class RA_GUIBASE_API MainWindowInterface : public QMainWindow {
   public slots:
     /// Call after loading a new file to let the window resetview for instance.
     virtual void postLoadFile() = 0;
+
     /// Cleanup resources.
     virtual void cleanup() = 0;
 
@@ -64,6 +63,7 @@ class RA_GUIBASE_API MainWindowInterface : public QMainWindow {
     /// Emitted when the closed button has been hit.
     void closed();
 };
+
 } // namespace GuiBase
 } // namespace Ra
 

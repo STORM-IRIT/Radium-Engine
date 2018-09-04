@@ -149,5 +149,6 @@ void GizmoManager::cleanup() {
         g.reset( nullptr );
     }
 }
+
 } // namespace Gui
 } // namespace Ra

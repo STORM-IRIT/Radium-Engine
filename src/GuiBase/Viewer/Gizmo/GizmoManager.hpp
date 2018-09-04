@@ -11,8 +11,9 @@
 namespace Ra {
 namespace Engine {
 struct ItemEntry;
-}
+} // namespace Engine
 } // namespace Ra
+
 namespace Ra {
 namespace Gui {
 /// This class interfaces the gizmos with the ui commands.
@@ -31,45 +32,50 @@ class RA_GUIBASE_API GizmoManager : public QObject, public GuiBase::TransformEdi
     };
 
     GizmoManager( QObject* parent = nullptr );
+
     ~GizmoManager();
 
   public:
+    /// \note Handling Mouse Events
     /// Receive mouse events and transmit them to the gizmos.
+    ///@{
     virtual bool handleMousePressEvent( QMouseEvent* event );
     virtual bool handleMouseReleaseEvent( QMouseEvent* event );
     virtual bool handleMouseMoveEvent( QMouseEvent* event );
+    ///@}
 
   public slots:
-    /// Set the object being currently edited
+    /// Set the object being currently edited.
     void setEditable( const Engine::ItemEntry& ent ) override;
 
-    /// Destroy all gizmos
+    /// Destroy all gizmos.
     void cleanup();
 
     /// Callback when a drawable is picked.
     void handlePickingResult( int drawableId );
 
-    /// Change mode from local axis to global
+    /// Change mode from local axis to global.
     void setLocal( bool useLocal );
 
-    /// Change gizmo type (rotation or translation)
+    /// Change gizmo type (rotation or translation).
     void changeGizmoType( GizmoType type );
 
     /// Retrieve the transform from the editable and update the gizmos.
     void updateValues() override;
 
   private:
-    // Helper method to change the current gizmo
+    /// Helper method to change the current gizmo.
     void updateGizmo();
 
-    // Returs the current gizmo
+    /// Returs the current gizmo.
     Gizmo* currentGizmo();
 
   private:
-    std::array<std::unique_ptr<Gizmo>, 3> m_gizmos; //! Owning pointers to the gizmos
-    GizmoType m_currentGizmoType;                   //! Type of the gizmo
-    Gizmo::Mode m_mode;                             //! Local/global axis mode.
+    std::array<std::unique_ptr<Gizmo>, 3> m_gizmos; ///< Owning pointers to the gizmos
+    GizmoType m_currentGizmoType;                   ///< Type of the gizmo
+    Gizmo::Mode m_mode;                             ///< Local/global axis mode.
 };
+
 } // namespace Gui
 } // namespace Ra
 

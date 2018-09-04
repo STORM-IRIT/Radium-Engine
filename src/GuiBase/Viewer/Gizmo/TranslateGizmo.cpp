@@ -19,6 +19,7 @@
 
 namespace Ra {
 namespace Gui {
+
 TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& worldTo,
                                 const Core::Transform& t, Mode mode ) :
     Gizmo( c, worldTo, t, mode ),
@@ -171,5 +172,6 @@ void TranslateGizmo::setInitialState( const Engine::Camera& cam, const Core::Vec
     const Core::Vector2 orgScreen = cam.project( origin );
     m_initialPix = orgScreen - initialXY;
 }
+
 } // namespace Gui
 } // namespace Ra

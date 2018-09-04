@@ -27,26 +27,28 @@ struct ItemEntry;
 namespace Ra {
 namespace Gui {
 class Viewer;
-}
+} // namespace Gui
 
 namespace GuiBase {
 class MainWindowInterface;
-}
+} // namespace GuiBase
 } // namespace Ra
 
 namespace Ra {
 namespace Plugins {
 class RadiumPluginInterface;
-}
+} // namespace Plugins
 } // namespace Ra
 
 namespace Ra {
 namespace GuiBase {
+
 /// This class contains the main application logic. It owns the engine and the GUI.
 class RA_GUIBASE_API BaseApplication : public QApplication {
     Q_OBJECT
 
   public:
+    /// Factory for the MainWindow.
     class WindowFactory {
       public:
         WindowFactory(){};
@@ -54,22 +56,29 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
     };
 
     /// Setup the application, create main window and main connections.
-    ///\param argc from main()
-    ///\param argv from main()
-    ///\param factory : a functor that instanciate the mainWindow
+    /// \param argc from main().
+    /// \param argv from main().
+    /// \param factory : a functor that instanciate the mainWindow.
+    /// \param applicationName : the name of the application.
+    /// \param organizationName : the name of the organization delivering the application.
     BaseApplication( int argc, char** argv, const WindowFactory& factory,
                      QString applicationName = "RadiumEngine",
                      QString organizationName = "STORM-IRIT" );
+
     virtual ~BaseApplication();
 
     /// Advance the engine for one frame.
     void radiumFrame();
 
+    /// Return false when the application is about to be closed.
     bool isRunning() const { return !m_isAboutToQuit; }
 
+    /// Return the RadiumEngine of the application.
     const Engine::RadiumEngine* getEngine() const { return m_engine.get(); }
 
+    /// Return the application's target framerate.
     uint getFrameCount() const { return m_frameCounter; }
+
   signals:
     /// Fired when the engine has just started, before the frame timer is set.
     void starting();
@@ -80,30 +89,48 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
     /// Fired when the scene has changed.
     void sceneChanged( const Core::Aabb& );
 
+    /// Fired when an application frame has been processed.
     void updateFrameStats( const std::vector<FrameTimerData>& );
 
+    /// Fired when a file has been successfully loaded.
     void loadComplete();
 
+    /// Fired when an item has been selected.
     void selectedItem( const Ra::Engine::ItemEntry& entry );
 
   public slots:
-
+    /// Load the given file.
     void loadFile( QString path );
+
+    /// Set the number of frames used to compute timings stats.
     void framesCountForStatsChanged( uint count );
+
+    /// Tell the application to close itself after the current frame.
     void appNeedsToQuit();
+
+    /// Initialize the OpenGL data for the application Plugins.
     void initializeOpenGlPlugins();
 
+    /// Toggle on/off using the runtime or the target frame rate for running tasks and rendering.
     void setRealFrameRate( bool on );
+
+    /// Toggle on/off recording the rendered frames.
     void setRecordFrames( bool on );
+
+    /// Toggle on/off printing the timing stats to the standard output.
     void setRecordTimings( bool on );
+
+    /// Toggle on/off printing the Task dependency graph on the standard output.
     void setRecordGraph( bool on );
 
+    /// Saves the rendered frame to a file.
     void recordFrame();
 
+    /// Fire selectedItem().
     void onSelectedItem( const Ra::Engine::ItemEntry& entry ) { emit selectedItem( entry ); }
 
   protected:
-    /// Create signal / slots connections
+    /// Create signal / slots connections.
     void createConnections();
 
     /// Load plugins from the specified folder.
@@ -113,11 +140,16 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
     bool loadPlugins( const std::string& pluginsPath, const QStringList& loadList,
                       const QStringList& ignoreList );
 
+    /// Initialize the scene with basic objects.
     void setupScene();
+
+    /// Initialize the basic rendering shaders.
     void addBasicShaders();
 
-    // Public variables, accessible through the mainApp singleton.
   public:
+    /// \name Public variables
+    /// Accessible through the mainApp singleton.
+    ///@{
     /// Application main window and GUI root class.
     std::unique_ptr<GuiBase::MainWindowInterface> m_mainWindow;
 
@@ -129,9 +161,10 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
 
     /// Number of frames per second to generate.
     uint m_targetFPS;
+    ///@}
 
   protected:
-    /// Plugins that need to be initialized once OpenGL is ready
+    /// Plugins that need to be initialized once OpenGL is ready.
     std::vector<Ra::Plugins::RadiumPluginInterface*> m_openGLPlugins;
 
     /// Pointer to OpenGL Viewer for render call (belongs to MainWindow).
@@ -143,28 +176,42 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
     /// Time since the last frame start.
     Core::Timer::TimePoint m_lastFrameStart;
 
+    /// The total number of frames.
     uint m_frameCounter;
+
+    /// The number of frames used to compute timings stats.
     uint m_frameCountBeforeUpdate;
+
+    /// The number of frames to be processed before closing the application.
+    /// \note A value of 0 means no frame limit.
     uint m_numFrames;
+
+    /// The maximal number of threads allowed for the application.
     uint m_maxThreads;
+
+    /// The timings data for the lattest frame.
     std::vector<FrameTimerData> m_timerData;
 
     /// If true, use the wall clock to advance the engine. If false, use a fixed time step.
     bool m_realFrameRate;
 
-    // Options to control monitoring and outputs
     /// Name of the folder where exported data goes
     std::string m_exportFoldername;
 
-    /// If true, dump each frame to a PNG file.
+    /// Whether to record frames.
     bool m_recordFrames;
-    /// If true, print the detailed timings of each frame
+
+    /// Whether to print timings stat to the standard output.
     bool m_recordTimings;
-    /// If true, print the task graph;
+
+    /// Whether to print the Task dependency graph to the standard ouput.
     bool m_recordGraph;
 
+    /// Whether the application is about to close.
     bool m_isAboutToQuit;
 };
+
 } // namespace GuiBase
 } // namespace Ra
+
 #endif // RADIUMENGINE_BASEAPPLICATION_HPP_

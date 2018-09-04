@@ -4,6 +4,7 @@
 
 namespace Ra {
 namespace Gui {
+
 KeyMappingManager::KeyMappingManager() :
     m_domDocument( "Keymapping QDomDocument" ),
     m_metaEnumAction( QMetaEnum::fromType<KeyMappingAction>() ),
@@ -232,5 +233,6 @@ KeyMappingManager::~KeyMappingManager() {
 }
 
 RA_SINGLETON_IMPLEMENTATION( KeyMappingManager );
+
 } // namespace Gui
 } // namespace Ra

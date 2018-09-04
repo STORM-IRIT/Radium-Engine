@@ -7,10 +7,10 @@
 #include <GuiBase/Viewer/Viewer.hpp>
 
 namespace Ra {
+
 Gui::CameraInterface::CameraInterface( uint width, uint height ) :
     m_cameraSensitivity( 1.0 ),
-    m_light(nullptr),
-    m_hasLightAttached( false ) {
+    m_light( nullptr ) {
     m_camera.reset( new Engine::Camera( Scalar( height ), Scalar( width ) ) );
 
     setCameraFovInDegrees( 60.0 );
@@ -64,11 +64,11 @@ void Gui::CameraInterface::unmapCameraBehaviourToAabb() {
 
 void Gui::CameraInterface::attachLight( Engine::Light* light ) {
     m_light = light;
-    m_hasLightAttached = true;
     m_light->setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
 }
 
 const Engine::Camera& Gui::CameraInterface::getCameraFromViewer( QObject* v ) {
     return *static_cast<Gui::Viewer*>( v )->getCameraInterface()->getCamera();
 }
+
 } // namespace Ra

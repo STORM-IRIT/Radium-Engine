@@ -71,5 +71,6 @@ void SelectionManager::printSelection() const {
     LOG( logDEBUG ) << "Current : "
                     << getEntryName( Ra::Engine::RadiumEngine::getInstance(), currentItem() );
 }
+
 } // namespace GuiBase
 } // namespace Ra

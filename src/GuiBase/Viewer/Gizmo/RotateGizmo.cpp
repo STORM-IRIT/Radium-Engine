@@ -19,6 +19,7 @@
 
 namespace Ra {
 namespace Gui {
+
 RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
                           const Core::Transform& t, Mode mode ) :
     Gizmo( c, worldTo, t, mode ),
@@ -186,5 +187,6 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::V
 void RotateGizmo::setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) {
     m_initialPix = initialXY;
 }
+
 } // namespace Gui
 } // namespace Ra

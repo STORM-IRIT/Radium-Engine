@@ -5,11 +5,9 @@
 #include <QLayout>
 #include <QWidget>
 
-// ============================================================================
 namespace Qt_utils {
-// ============================================================================
 
-/// Recursively hide/show every widget of a QLayout
+/// Recursively hide/show every widget of a QLayout.
 static inline void rec_set_visible( const QLayout& layout, bool visible ) {
     for ( int i = 0; i < layout.count(); ++i )
     {

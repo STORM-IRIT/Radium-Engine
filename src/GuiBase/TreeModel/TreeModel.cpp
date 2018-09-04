@@ -134,5 +134,6 @@ void TreeModel::printModel() const {
     }
 #endif
 }
+
 } // namespace GuiBase
 } // namespace Ra

@@ -6,11 +6,13 @@
 #include <GuiBase/RaGuiBase.hpp>
 namespace Ra {
 namespace GuiBase {
+/// The TransformEditor allows to edit the transform of an object.
 class RA_GUIBASE_API TransformEditor {
   public:
     RA_CORE_ALIGNED_NEW
 
     TransformEditor() : m_transform( Core::Transform::Identity() ) {}
+
     virtual ~TransformEditor();
 
     /// Change the current editable object,
@@ -26,14 +28,18 @@ class RA_GUIBASE_API TransformEditor {
     /// Helper to set the transform to the editable.
     void setTransform( const Ra::Core::Transform& tr );
 
+    /// Return true if the transform is editable.
     bool canEdit() const;
 
+    /// Return the transform in world space.
     Core::Transform getWorldTransform() const;
 
   protected:
-    Core::Transform m_transform;     //! The transform being edited.
-    Engine::ItemEntry m_currentEdit; //! The current item being edited.
+    Core::Transform m_transform;     ///< The transform being edited.
+    Engine::ItemEntry m_currentEdit; ///< The current item being edited.
 };
+
 } // namespace GuiBase
 } // namespace Ra
+
 #endif // RADIUMENGINE_TRANSFORM_EDITOR_HPP_

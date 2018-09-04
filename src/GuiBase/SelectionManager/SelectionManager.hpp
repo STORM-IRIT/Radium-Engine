@@ -27,32 +27,34 @@ class RA_GUIBASE_API SelectionManager : public QItemSelectionModel {
     /// Returns true if the selection contains the given item.
     bool isSelected( const Engine::ItemEntry& ent ) const;
 
-    /// Return the set of selected entries. @see selectedIndexes()
+    /// Return the set of selected entries. @see selectedIndexes().
     std::vector<Engine::ItemEntry> selectedEntries() const;
 
     /// Return the current selected item, or an invalid entry if there is no
-    /// current item. @seeCurrentIndex;
+    /// current item. @see CurrentIndex.
     const Engine::ItemEntry& currentItem() const;
 
-    /// Select an item through an item entry. @see QItemSelectionModel::Select
+    /// Select an item through an item entry. @see QItemSelectionModel::Select.
     virtual void select( const Engine::ItemEntry& ent,
                          QItemSelectionModel::SelectionFlags command );
 
-    /// Set an item as current through an item entry. @see QItemSelectionModel::setCurrent
+    /// Set an item as current through an item entry. @see QItemSelectionModel::setCurrent.
     void setCurrentEntry( const Engine::ItemEntry& ent,
                           QItemSelectionModel::SelectionFlags command );
 
   protected slots:
+    /// Clear the selection when the model is rebuilt.
     void onModelRebuilt();
 
-  protected slots:
+    /// Display stat info  to the Debug output.
     void printSelection() const;
 
   protected:
+    /// Return the ItemModel.
     const ItemModel* itemModel() const { return static_cast<const ItemModel*>( model() ); }
 };
 
 } // namespace GuiBase
 } // namespace Ra
 
-#endif //  RADIUMENGINE_SELECTION_MANAGER_HPP_
+#endif // RADIUMENGINE_SELECTION_MANAGER_HPP_

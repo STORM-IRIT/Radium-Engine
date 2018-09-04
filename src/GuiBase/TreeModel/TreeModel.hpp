@@ -23,15 +23,16 @@ namespace Ra {
 
 namespace GuiBase {
 /// Base classes for element of the tree representation.
-/// It just maintains a tree structure leaving the data
-/// storage to derived classes.
+/// It just maintains a tree structure leaving the data storage to derived classes.
 class RA_GUIBASE_API TreeItem {
   public:
     TreeItem() {}
+
     virtual ~TreeItem() {}
 
     // TreeItems are non-copyable
     TreeItem( const TreeItem& ) = delete;
+
     TreeItem& operator=( const TreeItem& ) = delete;
 
     // Interface
@@ -104,6 +105,7 @@ class RA_GUIBASE_API TreeModel : public QAbstractItemModel {
     void modelRebuilt();
 
   protected:
+    /// Return the Header string.
     virtual std::string getHeaderString() const = 0;
 
     /// Function to build the model from scratch. Call either at initialization or through
@@ -123,6 +125,8 @@ class RA_GUIBASE_API TreeModel : public QAbstractItemModel {
     /// Root of the tree.
     std::unique_ptr<TreeItem> m_rootItem;
 };
+
 } // namespace GuiBase
 } // namespace Ra
+
 #endif // RADIUMENGINE_TREEMODEL_HPP_
