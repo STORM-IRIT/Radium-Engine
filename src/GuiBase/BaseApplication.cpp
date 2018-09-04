@@ -39,6 +39,7 @@
 #include <QTimer>
 
 #include <algorithm>
+#include <fstream>
 
 // Const parameters : TODO : make config / command line options
 
@@ -98,8 +99,11 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     QCommandLineOption fileOpt( QStringList{"f", "file", "scene"}, "Open a scene file at startup.",
                                 "file name", "foo.bar" );
 
-    parser.addOptions(
-        {fpsOpt, pluginOpt, pluginLoadOpt, pluginIgnoreOpt, fileOpt, maxThreadsOpt, numFramesOpt} );
+    QCommandLineOption camOpt( QStringList{"c", "camera", "cam"}, "Open a camera file at startup",
+                               "file name", "foo.bar" );
+
+    parser.addOptions( {fpsOpt, pluginOpt, pluginLoadOpt, pluginIgnoreOpt, fileOpt, camOpt,
+                        maxThreadsOpt, numFramesOpt} );
     parser.process( *this );
 
     if ( parser.isSet( fpsOpt ) )
@@ -238,6 +242,13 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     if ( parser.isSet( fileOpt ) )
     {
         loadFile( parser.value( fileOpt ) );
+    }
+
+    // A camera has been required, load it.
+    if ( parser.isSet( camOpt ) )
+    {
+        std::ifstream file( parser.value( camOpt ).toStdString().c_str() );
+        m_viewer->loadCamera( file );
     }
 
     m_lastFrameStart = Core::Timer::Clock::now();
