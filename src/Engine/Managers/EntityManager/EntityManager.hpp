@@ -41,7 +41,7 @@ class RA_ENGINE_API EntityManager {
     Entity* createEntity( const std::string& name = "" );
 
     /**
-     * @brief Check wether an entity with a given name exists or not.
+     * @brief Check whether an entity with a given name exists or not.
      * @param name The name of the entity to find
      * @return true if the entity exists, false otherwise
      */

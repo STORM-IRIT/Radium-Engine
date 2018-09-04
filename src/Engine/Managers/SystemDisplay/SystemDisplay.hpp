@@ -5,7 +5,7 @@
 
 /// This file's main purpose is to declare a set of macros to allow drawing
 /// primitives from everywhere in the code, for debug purposes.
-/// These macros can be completely disabled by #defining the following constant :
+/// These macros can be completely disabled by \#define-ing the RA_DISABLE_DEBUG_DISPLAY constant.
 
 // define RA_DISABLE_DEBUG_DISPLAY
 
