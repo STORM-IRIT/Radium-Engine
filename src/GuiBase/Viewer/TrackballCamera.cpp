@@ -161,6 +161,60 @@ bool Gui::TrackballCamera::handleKeyReleaseEvent( QKeyEvent* e ) {
     return false;
 }
 
+void Gui::TrackballCamera::save( std::ostream& out ) const {
+    out << "#Radium_trackball_camera_state" << std::endl;
+    out << m_camera->getFrame().matrix() << std::endl;
+    out << std::endl;
+    out << m_camera->getFOV() << " " << m_camera->getZNear() << " " << m_camera->getZFar()
+        << std::endl;
+    out << std::endl;
+    out << m_trackballCenter.transpose();
+}
+
+void Gui::TrackballCamera::load( std::istream& in ) {
+    std::string str;
+    Scalar M[16]; // 4x4 view matrix;
+    Scalar fov, znear, zfar, x, y, z;
+
+    in >> str;
+    bool result = !in.fail();
+    for ( uint i = 0; i < 16; ++i )
+    {
+        in >> M[i];
+        result &= !in.fail();
+    }
+    in >> fov >> znear >> zfar >> x >> y >> z;
+    result &= !in.fail();
+
+    if ( !result )
+    {
+        LOG( logWARNING ) << "Could not load camera file data";
+        return;
+    }
+
+    Core::Matrix4 frame;
+    frame << M[0], M[1], M[2], M[3], M[4], M[5], M[6], M[7], M[8], M[9], M[10], M[11], M[12], M[13],
+        M[14], M[15];
+
+    Core::Transform T( frame );
+    m_camera->setFrame( T );
+    m_camera->setFOV( fov );
+    m_camera->setZNear( znear );
+    m_camera->setZFar( zfar );
+    m_trackballCenter = Core::Vector3( x, y, x );
+
+    updatePhiTheta();
+
+    if ( m_hasLightAttached )
+    {
+        m_light->setPosition( m_camera->getPosition() );
+        m_light->setDirection( m_camera->getDirection() );
+    }
+
+    emit cameraPositionChanged( m_camera->getPosition() );
+    emit cameraTargetChanged( m_trackballCenter );
+}
+
 void Gui::TrackballCamera::setCameraPosition( const Core::Vector3& position ) {
     if ( position == m_trackballCenter )
     {
@@ -202,7 +256,8 @@ void Gui::TrackballCamera::fitScene( const Core::Aabb& aabb ) {
     const Scalar y = r / std::sin( f * a / 2.0 );
     Scalar d = std::max( std::max( x, y ), Scalar( 0.001 ) );
 
-    m_camera->setPosition( Core::Vector3( aabb.center().x(), aabb.center().y(), aabb.center().z()+d ) );
+    m_camera->setPosition(
+        Core::Vector3( aabb.center().x(), aabb.center().y(), aabb.center().z() + d ) );
     m_camera->setDirection( Core::Vector3( 0, 0, -1 ) );
     m_trackballCenter = aabb.center();
 

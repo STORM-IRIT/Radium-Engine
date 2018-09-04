@@ -130,6 +130,8 @@ void MainWindow::createConnections() {
     connect( m_removeEntityButton, &QPushButton::clicked, this, &MainWindow::deleteCurrentItem );
     connect( m_clearSceneButton, &QPushButton::clicked, this, &MainWindow::resetScene );
     connect( m_fitCameraButton, &QPushButton::clicked, this, &MainWindow::fitCamera );
+    connect( m_saveCameraButton, &QPushButton::clicked, this, &MainWindow::saveCamera );
+    connect( m_loadCameraButton, &QPushButton::clicked, this, &MainWindow::loadCamera );
 
     // Renderer stuff
     connect(
@@ -546,6 +548,38 @@ void MainWindow::fitCamera() {
         m_viewer->getCameraInterface()->resetCamera();
     else
         m_viewer->fitCameraToScene( aabb );
+}
+
+void MainWindow::saveCamera() {
+    std::string filename = "camera_" + std::to_string( mainApp->getFrameCount() ) + ".cam";
+    std::ofstream outFile( filename );
+    if ( outFile.is_open() )
+    {
+        m_viewer->saveCamera( outFile );
+        LOG( logINFO ) << "Saved camera state to " << filename;
+    } else
+    { LOG( logWARNING ) << "Could not open file to save the camera."; }
+}
+
+void MainWindow::loadCamera() {
+    QSettings settings;
+    QString path = settings.value( "camera file", QDir::homePath() ).toString();
+    path = QFileDialog::getOpenFileName( this, "Open Camera", path, "" );
+    if ( path.size() > 0 )
+    {
+        settings.setValue( "camera file", path );
+        loadCameraFromFile( path );
+    }
+}
+
+void MainWindow::loadCameraFromFile( const QString path ) {
+    std::ifstream file( path.toStdString().c_str() );
+    if ( file.is_open() )
+    {
+        LOG( logINFO ) << "Loading camera from " << path.toStdString();
+        m_viewer->loadCamera( file );
+    } else
+    { LOG( logWARNING ) << "Could not open camera file " << path.toStdString(); }
 }
 
 void MainWindow::onGLInitialized() {
