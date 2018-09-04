@@ -10,14 +10,11 @@
 namespace Ra {
 namespace IO {
 
-AssimpLightDataLoader::AssimpLightDataLoader( const std::string& filepath,
-                                              const bool VERBOSE_MODE ) :
-    DataLoader<Asset::LightData>( VERBOSE_MODE ),
-    m_filepath( filepath ) {}
+AssimpLightDataLoader::AssimpLightDataLoader( const bool VERBOSE_MODE ) :
+    DataLoader<Asset::LightData>( VERBOSE_MODE ) {}
 
 AssimpLightDataLoader::~AssimpLightDataLoader() {}
 
-/// LOADING
 void AssimpLightDataLoader::loadData( const aiScene* scene,
                                       std::vector<std::unique_ptr<Asset::LightData>>& data ) {
     data.clear();
@@ -70,7 +67,6 @@ void AssimpLightDataLoader::loadLightData( const aiScene* scene, const aiLight& 
     Core::Matrix4 rootMatrix;
     rootMatrix = Core::Matrix4::Identity();
     Core::Matrix4 frame = loadLightFrame( scene, rootMatrix, data );
-    setFrame( frame );
     Core::Color color( light.mColorDiffuse.r, light.mColorDiffuse.g, light.mColorDiffuse.b, 1.0 );
 
     switch ( data.getType() )
@@ -131,7 +127,7 @@ void AssimpLightDataLoader::loadLightData( const aiScene* scene, const aiLight& 
 
 Core::Matrix4 AssimpLightDataLoader::loadLightFrame( const aiScene* scene,
                                                      const Core::Matrix4& parentFrame,
-                                                     Asset::LightData& data ) const {
+                                                     const Asset::LightData& data ) const {
     const aiNode* lightNode = scene->mRootNode->FindNode( data.getName().c_str() );
     Core::Matrix4 transform;
     transform = Core::Matrix4::Identity();
@@ -180,7 +176,7 @@ void AssimpLightDataLoader::fetchType( const aiLight& light, Asset::LightData& d
     case aiLightSource_UNDEFINED:
     default:
     {
-        //                LOG(ERROR) << "Light " << name.C_Str() << " has undefined type.";
+        // LOG(ERROR) << "Light " << name.C_Str() << " has undefined type.";
     }
     break;
     }

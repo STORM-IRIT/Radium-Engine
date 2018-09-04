@@ -3,11 +3,11 @@
 #include <assimp/mesh.h>
 #include <assimp/scene.h>
 
+#include <Core/File/BlinnPhongMaterialData.hpp>
 #include <Core/File/GeometryData.hpp>
 #include <Core/Log/Log.hpp>
 
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
-#include <Core/File/BlinnPhongMaterialData.hpp>
 
 namespace Ra {
 namespace IO {
@@ -44,7 +44,6 @@ AssimpGeometryDataLoader::AssimpGeometryDataLoader( const std::string& filepath,
 
 AssimpGeometryDataLoader::~AssimpGeometryDataLoader() {}
 
-/// LOADING
 void AssimpGeometryDataLoader::loadData( const aiScene* scene,
                                          std::vector<std::unique_ptr<Asset::GeometryData>>& data ) {
     data.clear();
@@ -235,7 +234,6 @@ void AssimpGeometryDataLoader::fetchVertices( const aiMesh& mesh, Asset::Geometr
     duplicateTable.shrink_to_fit();
 }
 
-/// EDGE
 void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, Asset::GeometryData& data ) const {
     const uint size = mesh.mNumFaces;
     auto& edge = data.getEdges();

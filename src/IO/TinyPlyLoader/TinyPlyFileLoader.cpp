@@ -26,7 +26,6 @@ bool TinyPlyFileLoader::handleFileExtension( const std::string& extension ) cons
 }
 
 Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
-
     // Read the file and create a std::istringstream suitable
     // for the lib -- tinyply does not perform any file i/o.
     std::ifstream ss( filename, std::ios::binary );
@@ -133,5 +132,6 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 std::string TinyPlyFileLoader::name() const {
     return "TinyPly";
 }
+
 } // namespace IO
 } // namespace Ra

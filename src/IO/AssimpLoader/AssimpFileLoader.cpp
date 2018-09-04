@@ -94,8 +94,7 @@ Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
     AssimpAnimationDataLoader animationLoader( fileData->isVerbose() );
     animationLoader.loadData( scene, fileData->m_animationData );
 
-    AssimpLightDataLoader lightLoader( Core::StringUtils::getDirName( filename ),
-                                       fileData->isVerbose() );
+    AssimpLightDataLoader lightLoader( fileData->isVerbose() );
     lightLoader.loadData( scene, fileData->m_lightData );
 
     fileData->m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );
@@ -115,5 +114,6 @@ Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
 std::string AssimpFileLoader::name() const {
     return "Assimp";
 }
+
 } // namespace IO
 } // namespace Ra

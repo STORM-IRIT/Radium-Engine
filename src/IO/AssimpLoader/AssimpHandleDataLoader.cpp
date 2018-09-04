@@ -13,14 +13,11 @@
 namespace Ra {
 namespace IO {
 
-/// CONSTRUCTOR
 AssimpHandleDataLoader::AssimpHandleDataLoader( const bool VERBOSE_MODE ) :
     Asset::DataLoader<Asset::HandleData>( VERBOSE_MODE ) {}
 
-/// DESTRUCTOR
 AssimpHandleDataLoader::~AssimpHandleDataLoader() {}
 
-/// LOAD
 void AssimpHandleDataLoader::loadData( const aiScene* scene,
                                        std::vector<std::unique_ptr<Asset::HandleData>>& data ) {
     data.clear();
@@ -51,7 +48,6 @@ void AssimpHandleDataLoader::loadData( const aiScene* scene,
     }
 }
 
-/// QUERY
 bool AssimpHandleDataLoader::sceneHasHandle( const aiScene* scene ) const {
     return ( sceneHandleSize( scene ) != 0 );
 }
@@ -73,7 +69,6 @@ uint AssimpHandleDataLoader::sceneHandleSize( const aiScene* scene ) const {
     return handle_size;
 }
 
-/// LOAD
 void AssimpHandleDataLoader::loadHandleData(
     const aiScene* scene, std::vector<std::unique_ptr<Asset::HandleData>>& data ) const {
     const uint meshSize = scene->mNumMeshes;
@@ -245,7 +240,6 @@ void AssimpHandleDataLoader::loadHandleFrame(
     }
 }
 
-/// NAME
 void AssimpHandleDataLoader::fetchName( const aiMesh& mesh, Asset::HandleData& data,
                                         std::set<std::string>& usedNames ) const {
     std::string name = assimpToCore( mesh.mName );
@@ -258,13 +252,11 @@ void AssimpHandleDataLoader::fetchName( const aiMesh& mesh, Asset::HandleData& d
     data.setName( name );
 }
 
-/// TYPE
 void AssimpHandleDataLoader::fetchType( const aiMesh& mesh, Asset::HandleData& data ) const {
     data.setType( Asset::HandleData::SKELETON );
     // TO DO: is there a way to know the right type of handle?
 }
 
-/// VERTEX SIZE
 void AssimpHandleDataLoader::fetchVertexSize( Asset::HandleData& data ) const {
     const uint componentSize = data.getComponentDataSize();
     uint vertexSize = 0;
@@ -277,5 +269,6 @@ void AssimpHandleDataLoader::fetchVertexSize( Asset::HandleData& data ) const {
     }
     data.setVertexSize( vertexSize );
 }
+
 } // namespace IO
 } // namespace Ra

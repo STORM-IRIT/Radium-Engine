@@ -15,14 +15,11 @@
 namespace Ra {
 namespace IO {
 
-/// CONSTRUCTOR
 AssimpAnimationDataLoader::AssimpAnimationDataLoader( const bool VERBOSE_MODE ) :
     DataLoader<Asset::AnimationData>( VERBOSE_MODE ) {}
 
-/// DESTRUCTOR
 AssimpAnimationDataLoader::~AssimpAnimationDataLoader() {}
 
-/// LOADING
 void AssimpAnimationDataLoader::loadData(
     const aiScene* scene, std::vector<std::unique_ptr<Asset::AnimationData>>& data ) {
     data.clear();
@@ -53,7 +50,6 @@ void AssimpAnimationDataLoader::loadData(
     }
 }
 
-/// QUERY
 bool AssimpAnimationDataLoader::sceneHasAnimation( const aiScene* scene ) const {
     return ( sceneAnimationSize( scene ) != 0 );
 }
@@ -66,13 +62,11 @@ uint AssimpAnimationDataLoader::sceneAnimationSize( const aiScene* scene ) const
     return 0;
 }
 
-/// NAME
 void AssimpAnimationDataLoader::fetchName( const aiAnimation* anim,
                                            Asset::AnimationData* data ) const {
     data->setName( assimpToCore( anim->mName ) );
 }
 
-/// TIME
 void AssimpAnimationDataLoader::fetchTime( const aiAnimation* anim,
                                            Asset::AnimationData* data ) const {
     const Scalar tick = anim->mTicksPerSecond;
@@ -94,7 +88,6 @@ void AssimpAnimationDataLoader::fetchTime( const aiAnimation* anim,
     data->setTimeStep( dt );
 }
 
-/// KEY FRAME
 void AssimpAnimationDataLoader::loadAnimationData(
     const aiScene* scene, std::vector<std::unique_ptr<Asset::AnimationData>>& data ) const {
     const uint size = sceneAnimationSize( scene );

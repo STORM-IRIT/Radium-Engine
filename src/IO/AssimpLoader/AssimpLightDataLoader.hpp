@@ -14,54 +14,47 @@ struct aiNode;
 namespace Ra {
 namespace Engine {
 class Light;
-}
+} // namespace Engine
 
 namespace Asset {
-
 class LightData;
-}
+} // namespace Asset
 } // namespace Ra
 
 namespace Ra {
 namespace IO {
 
+/// The AssimpHandleDataLoader converts light data from the Assimp format
+/// to the Asset::LightData format.
 class RA_IO_API AssimpLightDataLoader : public Asset::DataLoader<Asset::LightData> {
   public:
-    /// CONSTRUCTOR
-    AssimpLightDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
+    AssimpLightDataLoader( const bool VERBOSE_MODE = false );
 
-    /// DESTRUCTOR
     ~AssimpLightDataLoader();
 
-    /// LOADING
+    /// Convert all the light data from \p scene into \p data.
     void loadData( const aiScene* scene,
                    std::vector<std::unique_ptr<Asset::LightData>>& data ) override;
 
   protected:
-    /// QUERY
+    /// Return true if the given scene has light data.
     inline bool sceneHasLight( const aiScene* scene ) const;
 
+    /// Return the number of lights in the given scene.
     uint sceneLightSize( const aiScene* scene ) const;
 
-    /// LOADING
-
+    /// Fill \p data with the LightData from \p light.
     void loadLightData( const aiScene* scene, const aiLight& light, Asset::LightData& data );
 
+    /// Fill \p data with the light name from \p light.
+    void fetchName( const aiLight& light, Asset::LightData& data ) const;
+
+    /// Fill \p data with the light type from \p light.
+    void fetchType( const aiLight& light, Asset::LightData& data ) const;
+
+    /// Return the light transformation, in world space, for \p data from \p the scene.
     Core::Matrix4 loadLightFrame( const aiScene* scene, const Core::Matrix4& parentFrame,
-                                  Asset::LightData& data ) const;
-
-    /// NAME
-    void fetchName( const aiLight& mesh, Asset::LightData& data ) const;
-
-    /// TYPE
-    void fetchType( const aiLight& mesh, Asset::LightData& data ) const;
-
-    /// FRAME
-    inline void setFrame( const Core::Matrix4& frame ) { m_frame = frame; }
-
-  private:
-    std::string m_filepath;
-    Core::Transform m_frame;
+                                  const Asset::LightData& data ) const;
 };
 
 } // namespace IO

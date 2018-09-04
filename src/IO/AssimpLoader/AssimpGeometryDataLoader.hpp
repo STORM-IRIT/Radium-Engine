@@ -15,12 +15,13 @@ struct aiMaterial;
 namespace Ra {
 namespace Asset {
 class GeometryData;
-}
+} // namespace Asset
 } // namespace Ra
 
 namespace Ra {
 namespace IO {
 
+/// A Triplet is a comparison structure for 3D points.
 struct RA_IO_API Triplet {
     Triplet( const Core::Vector3& v = Core::Vector3::Zero() );
 
@@ -31,76 +32,83 @@ struct RA_IO_API Triplet {
     bool operator<( const Triplet& t ) const;
 };
 
+/// The AssimpGeometryDataLoader converts geometry data from the Assimp format
+/// to the Asset::GeometryData format.
 class RA_IO_API AssimpGeometryDataLoader : public Asset::DataLoader<Asset::GeometryData> {
   public:
-    /// CONSTRUCTOR
     AssimpGeometryDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
 
-    /// DESTRUCTOR
     ~AssimpGeometryDataLoader();
 
-    /// LOADING
+    /// Convert all the geometry data from \p scene into \p data.
     void loadData( const aiScene* scene,
                    std::vector<std::unique_ptr<Asset::GeometryData>>& data ) override;
 
   protected:
-    /// QUERY
+    /// Return true if the given scene has geometry data.
     inline bool sceneHasGeometry( const aiScene* scene ) const;
 
+    /// Return the number of AssImp geometry data in the given scene.
     uint sceneGeometrySize( const aiScene* scene ) const;
 
-    /// LOADING
+    /// Fill \p data with all the GeometryData from \p scene.
     void loadGeometryData( const aiScene* scene,
                            std::vector<std::unique_ptr<Asset::GeometryData>>& data );
 
+    /// Fill \p data with the GeometryData from \p mesh.
     void loadMeshData( const aiMesh& mesh, Asset::GeometryData& data,
                        std::set<std::string>& usedNames );
 
+    /// Fill \p data with the Material data from \p material.
+    void loadMaterial( const aiMaterial& material, Asset::GeometryData& data ) const;
+
+    /// Fill \p data with the transformation data from \p node and \p parentFrame.
     void loadMeshFrame( const aiNode* node, const Core::Transform& parentFrame,
                         const std::map<uint, uint>& indexTable,
                         std::vector<std::unique_ptr<Asset::GeometryData>>& data ) const;
 
-    /// NAME
+    /// Fill \p data with the name from \p mesh.
+    /// \note If the name is already in use, then appends as much "_" as needed.
     void fetchName( const aiMesh& mesh, Asset::GeometryData& data,
                     std::set<std::string>& usedNames ) const;
 
-    /// TYPE
+    /// Fill \p data with the GeometryType from \p mesh.
     void fetchType( const aiMesh& mesh, Asset::GeometryData& data ) const;
 
-    /// VERTEX
+    /// Fill \p data with the vertices from \p mesh.
     void fetchVertices( const aiMesh& mesh, Asset::GeometryData& data );
 
-    /// EDGE
+    /// Fill \p data with the lines from \p mesh.
     void fetchEdges( const aiMesh& mesh, Asset::GeometryData& data ) const;
 
-    /// FACE
+    /// Fill \p data with the faces from \p mesh.
     void fetchFaces( const aiMesh& mesh, Asset::GeometryData& data ) const;
 
-    /// POLYHEDRON
+    /// Fill \p data with the polyhedra from \p mesh.
+    // FIXME: Are polyhedral meshes handled by AssImp?
     void fetchPolyhedron( const aiMesh& mesh, Asset::GeometryData& data ) const;
 
-    /// NORMAL
+    /// Fill \p data with the vertex normals from \p mesh.
     void fetchNormals( const aiMesh& mesh, Asset::GeometryData& data ) const;
 
-    /// TANGENT
+    /// Fill \p data with the vertex tangent vectors from \p mesh.
     void fetchTangents( const aiMesh& mesh, Asset::GeometryData& data ) const;
 
-    /// BITANGENT
+    /// Fill \p data with the vertex bitangent vectors from \p mesh.
     void fetchBitangents( const aiMesh& mesh, Asset::GeometryData& data ) const;
 
-    /// TEXTURE COORDINATE
+    /// Fill \p data with the vertex texture coordinates from \p mesh.
     void fetchTextureCoordinates( const aiMesh& mesh, Asset::GeometryData& data ) const;
 
-    /// COLOR
+    /// Fill \p data with the vertex colors from \p mesh.
     void fetchColors( const aiMesh& mesh, Asset::GeometryData& data ) const;
 
-    /// WEIGHTS
+    /// Fill \p data with the vertex skinning weights from \p mesh.
+    // FIXME: done in the HandleLoader, should remove it from here.
     void fetchBoneWeights( const aiMesh& mesh, Asset::GeometryData& data ) const;
 
-    /// MATERIAL
-    void loadMaterial( const aiMaterial& material, Asset::GeometryData& data ) const;
-
   private:
+    /// The loaded file path (used to retrieve material texture files).
     std::string m_filepath;
 };
 
