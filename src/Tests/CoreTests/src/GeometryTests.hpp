@@ -11,7 +11,10 @@ using Ra::Core::DistanceQueries::pointToSegmentSq;
 using Ra::Core::DistanceQueries::PointToTriangleOutput;
 using Ra::Core::DistanceQueries::pointToTriSq;
 using Ra::Core::Math::areApproxEqual;
+
 namespace RaTests {
+/// Tests for distance between primitives.
+// FIXME: what's the goal of DistanceTests.hpp ?
 class GeometryTests : public Test {
     void run() override {
         Vector3 a( 1., 2.3, 4.5 );

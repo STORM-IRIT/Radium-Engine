@@ -4,7 +4,9 @@
 #include <Core/Geometry/Distance/DistanceQueries.hpp>
 
 using Ra::Core::Vector3;
+
 namespace RaTests {
+/// Test for distance between primitives.
 class DistanceTests : public Test {
     void run() override {
         Vector3 a( -2.f, 0.f, 0.f );
@@ -55,6 +57,7 @@ class DistanceTests : public Test {
 };
 
 RA_TEST_CLASS( DistanceTests );
+
 } // namespace RaTests
 
 #endif // RADIUM_DISTANCETESTS_HPP_

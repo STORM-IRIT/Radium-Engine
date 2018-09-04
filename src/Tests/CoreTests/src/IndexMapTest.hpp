@@ -4,23 +4,26 @@
 #include <Core/Index/IndexMap.hpp>
 #include <Tests/Tests.hpp>
 
-namespace RaTests {
 using Ra::Core::Index;
 using Ra::Core::IndexMap;
 
-// Just a standard test structure
+namespace RaTests {
+
+/// Just a standard test structure.
 struct Foo {
     Foo( int x ) : value( x ) {}
     int value;
 };
 
-// A non-copyable move semantics struct
+/// A non-copyable move semantics struct.
 struct NonCopy {
     NonCopy( int x ) : value( x ) {}
+
     NonCopy( NonCopy&& other ) {
         value = other.value;
         other.value = 0;
     }
+
     NonCopy& operator=( NonCopy&& other ) {
         value = other.value;
         other.value = 0;
@@ -34,6 +37,7 @@ struct NonCopy {
     NonCopy& operator=( const NonCopy& ) = delete;
 };
 
+/// Tests for IndexMap.
 class IndexMapTest : public Test {
     void run() override {
         {
@@ -139,6 +143,7 @@ class IndexMapTest : public Test {
         }
     }
 };
+
 RA_TEST_CLASS( IndexMapTest );
 
 } // namespace RaTests

@@ -9,7 +9,7 @@ using Ra::Core::TriangleMesh;
 using Ra::Core::Vector3;
 
 namespace RaTests {
-
+/// Tests for TriangleMesh management.
 class MeshTests : public Test {
 
     void testAttributeManagement() {
@@ -74,7 +74,9 @@ class MeshTests : public Test {
 
     void run() override { testAttributeManagement(); }
 };
+
 RA_TEST_CLASS( MeshTests )
+
 } // namespace RaTests
 
 #endif // RADIUM_CONVERT_TESTS_HPP_

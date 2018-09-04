@@ -18,14 +18,15 @@ using Ra::Core::TopologicalMesh;
 using Ra::Core::TriangleMesh;
 using Ra::Core::Vector3;
 
+using Catmull = OpenMesh::Subdivider::Uniform::CatmullClarkT<Ra::Core::TopologicalMesh>;
+using Loop = OpenMesh::Subdivider::Uniform::LoopT<Ra::Core::TopologicalMesh>;
+
+using Decimater = OpenMesh::Decimater::DecimaterT<Ra::Core::TopologicalMesh>;
+using HModQuadric = OpenMesh::Decimater::ModQuadricT<Ra::Core::TopologicalMesh>::Handle;
+
 namespace RaTests {
-
+/// Test for TopologicalMesh.
 class TopologicalMeshTests : public Test {
-    using Catmull = OpenMesh::Subdivider::Uniform::CatmullClarkT<Ra::Core::TopologicalMesh>;
-    using Loop = OpenMesh::Subdivider::Uniform::LoopT<Ra::Core::TopologicalMesh>;
-
-    using Decimater = OpenMesh::Decimater::DecimaterT<Ra::Core::TopologicalMesh>;
-    using HModQuadric = OpenMesh::Decimater::ModQuadricT<Ra::Core::TopologicalMesh>::Handle;
 
     void testCopyConsistency() {
         TriangleMesh newMesh;
@@ -78,7 +79,6 @@ class TopologicalMeshTests : public Test {
 
     template <typename DecimationModule>
     void testDecimation() {
-
         TriangleMesh mesh;
         TriangleMesh newMesh;
         TopologicalMesh topologicalMesh;
@@ -131,8 +131,7 @@ class TopologicalMeshTests : public Test {
                 if ( it != stackVertices.end() )
                 {
                     stackVertices.erase( it );
-                }
-                else
+                } else
                 { result = false; }
             }
             ++i;
@@ -147,7 +146,9 @@ class TopologicalMeshTests : public Test {
         testDecimation<HModQuadric>();
     }
 };
+
 RA_TEST_CLASS( TopologicalMeshTests );
+
 } // namespace RaTests
 
 #endif // RADIUM_CONVERT_TESTS_HPP_

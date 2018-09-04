@@ -28,8 +28,7 @@ int TestManager::run() {
         {
             printf( "\tTest %i FAILED (%i unit tests failed)\n", numTest, t.m_fails );
             numFailed++;
-        }
-        else
+        } else
         { printf( "\tTest %i PASSED \n", numTest ); }
     }
 
@@ -52,4 +51,5 @@ void TestManager::testFailed( const Test* test ) {
         BREAKPOINT( 0 );
     }
 }
+
 } // namespace RaTests

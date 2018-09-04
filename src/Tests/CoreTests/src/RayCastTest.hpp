@@ -5,7 +5,7 @@
 #include <Tests/Tests.hpp>
 
 namespace RaTests {
-
+/// Tests for ray casting.
 class RayCastAabbTests : public Test {
     void run() override {
         Ra::Core::Aabb ones( -Ra::Core::Vector3::Ones(), Ra::Core::Vector3::Ones() );
@@ -42,8 +42,7 @@ class RayCastAabbTests : public Test {
                                 RA_UNIT_TEST(
                                     Ra::Core::Math::areApproxEqual( r.pointAt( t )[i], sig ),
                                     "Wrong hit point" );
-                            }
-                            else
+                            } else
                             { RA_UNIT_TEST( !result, "The ray should have missed" ); }
                         }
 
@@ -79,7 +78,9 @@ class RayCastAabbTests : public Test {
         }
     }
 };
+
 RA_TEST_CLASS( RayCastAabbTests );
+
 } // namespace RaTests
 
 #endif // RADIUM_RAYCAST_TESTS_HPP_

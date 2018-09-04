@@ -5,6 +5,7 @@
 #include <Tests/Tests.hpp>
 
 namespace RaTests {
+/// Test for LinearAlgebra functions.
 class AlgebraTests : public Test {
     void run() override {
         // Test the custom vector functions.
@@ -39,7 +40,9 @@ class AlgebraTests : public Test {
                       "Swing should be in xy" );
     }
 };
+
 RA_TEST_CLASS( AlgebraTests );
+
 } // namespace RaTests
 
 #endif // RADIUM_ALGEBRATESTS_HPP_

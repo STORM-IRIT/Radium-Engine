@@ -4,14 +4,15 @@
 #include <Core/String/StringUtils.hpp>
 #include <Tests/Tests.hpp>
 
+using Ra::Core::StringUtils::getBaseName;
+using Ra::Core::StringUtils::getDirName;
+using Ra::Core::StringUtils::getFileExt;
+using Ra::Core::StringUtils::stringPrintf;
+
 namespace RaTests {
+/// Test for the Ra::Core::StringUtils.
 class StringTests : public Test {
     void run() override {
-
-        using Ra::Core::StringUtils::getBaseName;
-        using Ra::Core::StringUtils::getDirName;
-        using Ra::Core::StringUtils::getFileExt;
-
         // Test getFileExt
         {
             RA_UNIT_TEST( getFileExt( "aaa.xyz" ) == std::string( "xyz" ), "File extension" );
@@ -66,8 +67,6 @@ class StringTests : public Test {
                       "Path reconstruction" );
 
         // Test string printf
-        using Ra::Core::StringUtils::stringPrintf;
-
         const char* format = "test %u test %p test %f";
         char buffer[100];
         memset( buffer, 0x0, 100 );
@@ -78,7 +77,9 @@ class StringTests : public Test {
         RA_UNIT_TEST( v1 == v2 && str == std::string( buffer ), "String printf" );
     }
 };
+
 RA_TEST_CLASS( StringTests );
+
 } // namespace RaTests
 
 #endif // RADIUM_ALGEBRATESTS_HPP_

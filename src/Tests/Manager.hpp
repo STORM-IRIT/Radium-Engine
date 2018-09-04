@@ -40,8 +40,8 @@ class TestManager {
     void testFailed( const Test* test );
 
   public:
-    Options m_options;              /// Options of the tests.
-    std::vector<TestEntry> m_tests; /// Storage for the test instances.
+    Options m_options;              ///< Options of the tests.
+    std::vector<TestEntry> m_tests; ///< Storage for the test instances.
 };
 
 } // namespace RaTests

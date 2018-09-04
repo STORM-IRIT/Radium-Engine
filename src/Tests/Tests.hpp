@@ -14,6 +14,8 @@ class Test {
         }
         TestManager::getInstance()->add( this );
     }
+
+    /// Run the test.
     virtual void run() = 0;
 
     virtual ~Test(){};
@@ -33,8 +35,7 @@ class Test {
     {                                                                                             \
         fprintf( stderr, "[TEST FAILED] : %s:%i: `%s` : %s \n", __FILE__, __LINE__, #EXP, DESC ); \
         RaTests::TestManager::getInstance()->testFailed( this );                                  \
-    }                                                                                             \
-    else                                                                                          \
+    } else                                                                                        \
     { fprintf( stdout, "[TEST PASSED]\n" ); }                                                     \
     MACRO_END
 
@@ -49,4 +50,5 @@ class DummyTestFail : public Test {
 };
 
 } // namespace RaTests
+
 #endif // RADIUM_TESTS_HPP_

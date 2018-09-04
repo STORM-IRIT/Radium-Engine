@@ -9,6 +9,7 @@
 #include <random>
 
 namespace RaTests {
+/// Test for operations on container iterators.
 class IteratorsTests : public Test {
     void run() override {
         static constexpr int nbSamples = 1000;
@@ -69,6 +70,7 @@ class IteratorsTests : public Test {
 };
 
 RA_TEST_CLASS( IteratorsTests )
+
 } // namespace RaTests
 
 #endif // RADIUM_GEOMETRYTESTS_HPP_

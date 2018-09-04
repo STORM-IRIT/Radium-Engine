@@ -7,6 +7,7 @@
 using Ra::Core::Animation::WeightMatrix;
 
 namespace RaTests {
+/// Tests for Skinning weights matrices.
 class HandleWeightTests : public Test {
     // tests :
     //  - normalizeWeights
@@ -55,6 +56,7 @@ class HandleWeightTests : public Test {
 };
 
 RA_TEST_CLASS( HandleWeightTests )
+
 } // namespace RaTests
 
 #endif // RADIUM_GEOMETRYTESTS_HPP_
