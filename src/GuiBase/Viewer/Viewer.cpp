@@ -436,8 +436,10 @@ void Gui::Viewer::showEvent( QShowEvent* ev ) {
         // https://github.com/STORM-IRIT/Radium-Engine/issues/339
         m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
 
-        // Lights are components. So they must be attached to an entity. Attache headlight to system Entity
-        auto light = new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
+        // Lights are components. So they must be attached to an entity. Attache headlight to system
+        // Entity
+        auto light =
+            new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
         m_camera->attachLight( light );
     }
 }
@@ -565,6 +567,14 @@ void Gui::Viewer::fitCameraToScene( const Core::Aabb& aabb ) {
         m_camera->fitScene( aabb );
     } else
     { LOG( logINFO ) << "Unable to fit the camera to the scene : empty Bbox."; }
+}
+
+void Gui::Viewer::saveCamera( std::ostream& out ) const {
+    m_camera->save( out );
+}
+
+void Gui::Viewer::loadCamera( std::istream& in ) {
+    m_camera->load( in );
 }
 
 std::vector<std::string> Gui::Viewer::getRenderersName() const {

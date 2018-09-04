@@ -26,6 +26,9 @@ class TrackballCamera : public CameraInterface {
     /// @return true if the event has been taken into account, false otherwise
     virtual bool handleKeyReleaseEvent( QKeyEvent* event ) override;
 
+    void save( std::ostream& out ) const override;
+    void load( std::istream& in ) override;
+
     void setCameraRadius( Scalar rad );
     Scalar getCameraRadius();
 
