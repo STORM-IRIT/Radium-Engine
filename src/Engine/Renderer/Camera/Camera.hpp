@@ -6,34 +6,27 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Math/Ray.hpp>
 
+#include <Engine/Component/Component.hpp>
+#include <Engine/RaEngine.hpp>
+
 namespace Ra {
 namespace Engine {
-// The class Camera defines a camera in 3D space with
-class RA_ENGINE_API Camera final {
+
+// FIXME (Hugo) To me this class could totally be renamed LightComponent and get a Light struct
+// embedded. Thoughts are welcome !
+/// A Light is an Engine Component storing a light object.
+class RA_ENGINE_API Camera : public Component {
   public:
     /// Define the projection type.
-    enum class ProjType {
-        ORTHOGRAPHIC,
-        PERSPECTIVE,
-    };
+    enum class ProjType { ORTHOGRAPHIC, PERSPECTIVE };
 
-    ///
-    /// Constructor & Destructor
-    ///
     RA_CORE_ALIGNED_NEW
 
-    /// Default constructor with usual default values.
-    Camera( Scalar height, Scalar width );
+    Camera( Entity* entity, const std::string& name, Scalar height, Scalar width );
 
-    /// Copy constructor
-    Camera( const Camera& cam ) = default;
-
-    /// DESTRUCTOR
     ~Camera();
 
-    //
-    // Getters and setters for view matrix parameters.
-    //
+    void initialize() override {}
 
     /// Return the frame of the camera.
     /// Where Y is the up vector and -Z is the direction vector.
@@ -98,10 +91,10 @@ class RA_ENGINE_API Camera final {
     inline void setZoomFactor( const Scalar& zoomFactor );
 
     /// Return the projection type.
-    inline ProjType getProjType() const;
+    inline ProjType getType() const;
 
     /// Set the projection type to 'projectionType'.
-    inline void setProjType( const ProjType& projectionType );
+    inline void setType( const ProjType& projectionType );
 
     /// Return the dimensions of the viewport.
     inline Scalar getWidth() const;
@@ -153,7 +146,7 @@ class RA_ENGINE_API Camera final {
 
     Scalar m_width;  // Viewport width (in pixels)
     Scalar m_height; // Viewport height (in pixels)
-    Scalar m_aspect;
+    Scalar m_aspect; // FIXME: never used.
 
     ProjType m_projType; // Projection type
 };

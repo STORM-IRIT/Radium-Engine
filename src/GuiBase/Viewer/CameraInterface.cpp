@@ -1,6 +1,8 @@
 #include <GuiBase/Viewer/CameraInterface.hpp>
 
 #include <Core/Math/Math.hpp>
+
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
@@ -9,9 +11,10 @@
 namespace Ra {
 Gui::CameraInterface::CameraInterface( uint width, uint height ) :
     m_cameraSensitivity( 1.0 ),
-    m_light(nullptr),
+    m_light( nullptr ),
     m_hasLightAttached( false ) {
-    m_camera.reset( new Engine::Camera( Scalar( height ), Scalar( width ) ) );
+    m_camera.reset( new Engine::Camera( Engine::SystemEntity::getInstance(), "DefaultCamera",
+                                        Scalar( height ), Scalar( width ) ) );
 
     setCameraFovInDegrees( 60.0 );
     setCameraZNear( 0.1 );
