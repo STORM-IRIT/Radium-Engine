@@ -165,16 +165,18 @@ void Gui::TrackballCamera::save( std::ostream& out ) const {
     out << "#Radium_trackball_camera_state" << std::endl;
     out << m_camera->getFrame().matrix() << std::endl;
     out << std::endl;
-    out << m_camera->getFOV() << " " << m_camera->getZNear() << " " << m_camera->getZFar()
+    out << m_camera->getFOV() << " " << m_camera->getZNear() << " " << m_camera->getZFar() << " "
+        << m_camera->getZoomFactor() << " " << m_cameraRadius << " " << m_distFromCenter
         << std::endl;
     out << std::endl;
     out << m_trackballCenter.transpose();
+    out << std::endl;
 }
 
 void Gui::TrackballCamera::load( std::istream& in ) {
     std::string str;
     Scalar M[16]; // 4x4 view matrix;
-    Scalar fov, znear, zfar, x, y, z;
+    Scalar fov, znear, zfar, Z, r, d, x, y, z;
 
     in >> str;
     bool result = !in.fail();
@@ -183,7 +185,7 @@ void Gui::TrackballCamera::load( std::istream& in ) {
         in >> M[i];
         result &= !in.fail();
     }
-    in >> fov >> znear >> zfar >> x >> y >> z;
+    in >> fov >> znear >> zfar >> Z >> r >> d >> x >> y >> z;
     result &= !in.fail();
 
     if ( !result )
@@ -191,6 +193,8 @@ void Gui::TrackballCamera::load( std::istream& in ) {
         LOG( logWARNING ) << "Could not load camera file data";
         return;
     }
+    m_cameraRadius = r;
+    m_distFromCenter = d;
 
     Core::Matrix4 frame;
     frame << M[0], M[1], M[2], M[3], M[4], M[5], M[6], M[7], M[8], M[9], M[10], M[11], M[12], M[13],
@@ -201,7 +205,8 @@ void Gui::TrackballCamera::load( std::istream& in ) {
     m_camera->setFOV( fov );
     m_camera->setZNear( znear );
     m_camera->setZFar( zfar );
-    m_trackballCenter = Core::Vector3( x, y, x );
+    m_camera->setZoomFactor( Z );
+    m_trackballCenter = Core::Vector3( x, y, z );
 
     updatePhiTheta();
 
@@ -210,6 +215,8 @@ void Gui::TrackballCamera::load( std::istream& in ) {
         m_light->setPosition( m_camera->getPosition() );
         m_light->setDirection( m_camera->getDirection() );
     }
+
+    save( std::cout );
 
     emit cameraPositionChanged( m_camera->getPosition() );
     emit cameraTargetChanged( m_trackballCenter );
