@@ -134,30 +134,38 @@ class AttribManager {
 
     AttribManager() {}
 
-    /// Copy constructor and assignment operator are pure shallow copy of attributes.
-    /// For copy, use the partialCopy or fullCopy methods.
-    AttribManager( const AttribManager& m ) = default;
-    AttribManager& operator=( const AttribManager& m ) = default;
+    /// Copy constructor and assignment operator are forbidden.
+    AttribManager( const AttribManager& m ) = delete;
+    AttribManager& operator=( const AttribManager& m ) = delete;
 
-    // Deep copy of attributes
+    AttribManager( AttribManager&& m ) :
+        m_attribs( std::move( m.m_attribs ) ),
+        m_attribsIndex( std::move( m.m_attribsIndex ) ) {}
+
+    AttribManager& operator=( AttribManager&& m ) {
+        m_attribs = std::move( m.m_attribs );
+        m_attribsIndex = std::move( m.m_attribsIndex );
+        return *this;
+    }
+
     /// Base copy, does nothing.
-    void partialCopy( const AttribManager& m ) {}
+    void copyAttributes( const AttribManager& m ) {}
 
-    /// Deep copy of some attributes.
-    /// Note: if some attrib already exist, it will be replaced but not de-allocated.
+    /// Copy the given attributes from \m.
+    /// \note If some attrib already exist, it will be replaced but not de-allocated.
     template <class T, class... Handle>
-    void partialCopy( const AttribManager& m, const AttribHandle<T>& attr, Handle... attribs ) {
+    void copyAttributes( const AttribManager& m, const AttribHandle<T>& attr, Handle... attribs ) {
         // get attrib to copy
         auto a = m.getAttrib( attr );
         // add new attrib
         auto h = addAttrib<T>( a.getName() );
         getAttrib( h ).data() = a.data();
         // deal with other attribs
-        partialCopy( m, attribs... );
+        copyAttributes( m, attribs... );
     }
 
-    /// Deep copy of all attributes.
-    void fullCopy( const AttribManager& m ) {
+    /// Copy all attributes from \m.
+    void copyAllAttributes( const AttribManager& m ) {
         for ( const auto& attr : m.m_attribs )
         {
             if ( attr->isFloat() )
@@ -236,7 +244,7 @@ class AttribManager {
     }
 
     /// Add attribute by name.
-    /// Note: If an attribute with the same name already exists,
+    /// \warning If an attribute with the same name already exists,
     ///  it will be replaced but not de-allocated.
     template <typename T>
     AttribHandle<T> addAttrib( const std::string& name ) {
@@ -261,7 +269,9 @@ class AttribManager {
         return h;
     }
 
-    /// Remove attribute by name
+    /// Remove attribute by handle, invalidate the handles to this attribute.
+    /// \note: If a new attribute is added, old invalidated handles may lead to
+    ///        the new attribute.
     void removeAttrib( const std::string& name ) {
         auto c = m_attribsIndex.find( name );
         if ( c != m_attribsIndex.end() )
@@ -273,7 +283,9 @@ class AttribManager {
         }
     }
 
-    /// Remove attribute by handle, invalidate all the handles
+    /// Remove attribute by handle, invalidate the handles to this attribute.
+    /// \note: If a new attribute is added, old invalidated handles may lead to
+    ///        the new attribute.
     template <typename T>
     void removeAttrib( AttribHandle<T> h ) {
         const auto& att = getAttrib( h ); // check the attribute exists
@@ -284,11 +296,11 @@ class AttribManager {
     /// const acces to attrib vector
     const Container& attribs() const { return m_attribs; }
 
-    // Map between the attrib's name and its index
-    std::map<std::string, Ra::Core::Index> m_attribsIndex;
-
     // Attrib list
     Container m_attribs;
+
+    // Map between the attrib's name and its index
+    std::map<std::string, Ra::Core::Index> m_attribsIndex;
 
     // Ease wrapper
     friend class TopologicalMesh;

@@ -36,21 +36,31 @@ class TriangleMesh {
     /// Create an empty mesh.
     inline TriangleMesh() { initDefaultAttribs(); }
 
-    /// Copy constructor and assignment operator are pure shallow copy of attributes.
-    /// For deep copy of attributes, use the partialCopy or fullCopy methods.
-    /// Note: Directly using the AttribManager is highly discouraged.
-    TriangleMesh( const TriangleMesh& ) = default;
-    TriangleMesh& operator=( const TriangleMesh& ) = default;
+    /// Copy constructor copy only the mesh topology,
+    /// the list of vertices and vertices normals.
+    /// For attributes copy, use the copyAttributes() or copyAllAttributes() methods.
+    /// \note Directly using the AttribManager is highly discouraged.
+    inline TriangleMesh( const TriangleMesh& other );
+
+    inline TriangleMesh( TriangleMesh&& other );
+
+    /// Assignment operator copy only the mesh topology,
+    /// the list of vertices and vertices normals.
+    /// For attributes copy, use the copyAttributes() or copyAllAttributes() methods.
+    /// \note Directly using the AttribManager is highly discouraged.
+    inline TriangleMesh& operator=( const TriangleMesh& other );
+
+    inline TriangleMesh& operator=( TriangleMesh&& other );
 
     /// Copy only the required attributes (deep copy).
     /// The position and normal attributes are always copied, no need to provide their handles.
-    /// Note: The original handles are not valid for the mesh copy.
+    /// \warning The original handles are not valid for the mesh copy.
     template <typename... Handles>
-    void partialCopy( const TriangleMesh& input, Handles... attribs );
+    void copyAttributes( const TriangleMesh& input, Handles... attribs );
 
     /// Copy all the attributes (deep copy).
-    /// Note: The original handles are also valid for the mesh copy.
-    inline void fullCopy( const TriangleMesh& input );
+    /// \warning The original handles are also valid for the mesh copy.
+    inline void copyAllAttributes( const TriangleMesh& input );
 
     /// Erases all data, making the mesh empty.
     /// Note: invalidates shallow copies.
