@@ -45,14 +45,6 @@ void SkinningComponent::setupSkinning() {
         // copy mesh triangles
         const TriangleMesh& mesh = compMsg->get<TriangleMesh>( getEntity(), m_contentsName );
         m_refData.m_referenceMesh = mesh;
-        // copy mesh positions and normals
-        const auto posAttr =
-            mesh.attribManager().getAttribHandle<TriangleMesh::PointAttribHandle::value_type>(
-                "in_position" );
-        const auto norAttr =
-            mesh.attribManager().getAttribHandle<TriangleMesh::NormalAttribHandle::value_type>(
-                "in_normal" );
-        m_refData.m_referenceMesh.partialCopy( mesh, posAttr, norAttr );
 
         // get other data
         m_refData.m_skeleton = compMsg->get<Skeleton>( getEntity(), m_contentsName );

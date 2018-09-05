@@ -56,22 +56,14 @@ class MeshTests : public Test {
         auto invalid = mesh.attribManager().getAttribHandle<float>( "toto" );
         RA_UNIT_TEST( !invalid.isValid(), "Invalid Attrib Handle cannot be recognized" );
 
-        // Test shallow copy
+        // Test attribute copy
         const auto v0 = mesh.vertices()[0];
         TriangleMesh meshCopy = mesh;
+        meshCopy.copyAllAttributes( mesh );
+        RA_UNIT_TEST( mesh.vertices()[0].isApprox( v0 ), "Cannot copy TriangleMesh" );
         meshCopy.vertices()[0] += Ra::Core::Vector3( 0.5, 0.5, 0.5 );
-        RA_UNIT_TEST( !mesh.vertices()[0].isApprox( v0 ), "Cannot shallow-copy TriangleMesh" );
-
-        // Test deep copy
-        auto attr = mesh.attribManager().getAttribHandle<Ra::Core::Vector3>( "in_position" );
-        meshCopy.partialCopy( mesh, attr );
-        meshCopy.vertices()[0] -= Ra::Core::Vector3( 0.5, 0.5, 0.5 );
-        RA_UNIT_TEST( !mesh.vertices()[0].isApprox( v0 ), "Cannot deep-copy TriangleMesh" );
-
-        // Test full copy
-        meshCopy.fullCopy( mesh );
-        meshCopy.vertices()[0] += Ra::Core::Vector3( 0.5, 0.5, 0.5 );
-        RA_UNIT_TEST( !mesh.vertices()[0].isApprox( v0 ), "Cannot full-copy TriangleMesh" );
+        RA_UNIT_TEST( !meshCopy.vertices()[0].isApprox( v0 ),
+                      "Cannot copy TriangleMesh attributes" );
     }
 
     void run() override { testAttributeManagement(); }
