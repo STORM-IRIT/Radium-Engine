@@ -36,12 +36,13 @@ class TriangleMesh {
     /// Create an empty mesh.
     inline TriangleMesh() { initDefaultAttribs(); }
 
-    /// Copy constructor copy only the mesh topology,
+    /// Copy constructor, copy only the mesh topology,
     /// the list of vertices and vertices normals.
     /// For attributes copy, use the copyAttributes() or copyAllAttributes() methods.
     /// \note Directly using the AttribManager is highly discouraged.
     inline TriangleMesh( const TriangleMesh& other );
 
+    /// Move constructor, copy all the mesh data (topology, geometry, attributes).
     inline TriangleMesh( TriangleMesh&& other );
 
     /// Assignment operator copy only the mesh topology,
@@ -50,6 +51,7 @@ class TriangleMesh {
     /// \note Directly using the AttribManager is highly discouraged.
     inline TriangleMesh& operator=( const TriangleMesh& other );
 
+    /// Move assignment, copy all the mesh data (topology, geometry, attributes).
     inline TriangleMesh& operator=( TriangleMesh&& other );
 
     /// Copy only the required attributes (deep copy).
