@@ -22,17 +22,10 @@ Gui::TrackballCamera::TrackballCamera( uint width, uint height ) :
     m_quickCameraModifier( 1.f ),
     m_wheelSpeedModifier( 0.02f ),
     m_distFromCenter( 1.0f ),
-    m_cameraRadius( 1.0f ),
     m_rotateAround( true ),
     m_cameraRotateMode( false ),
     m_cameraPanMode( false ),
-    m_cameraZoomMode( false ),
-    m_walkingOn( false ),
-    m_strafingOn( false ),
-    m_climbingOn( false ),
-    m_walking( 0 ),
-    m_strafing( 0 ),
-    m_climbing( 0 ) {
+    m_cameraZoomMode( false ) {
     resetCamera();
 }
 
@@ -49,10 +42,10 @@ void Gui::TrackballCamera::resetCamera() {
 }
 
 void Gui::TrackballCamera::setCameraRadius( Scalar rad ) {
-    m_cameraRadius = rad;
+    m_distFromCenter = rad;
 }
 Scalar Gui::TrackballCamera::getCameraRadius() {
-    return m_cameraRadius;
+    return m_distFromCenter;
 }
 
 bool Gui::TrackballCamera::handleMousePressEvent( QMouseEvent* event ) {
@@ -166,8 +159,7 @@ void Gui::TrackballCamera::save( std::ostream& out ) const {
     out << m_camera->getFrame().matrix() << std::endl;
     out << std::endl;
     out << m_camera->getFOV() << " " << m_camera->getZNear() << " " << m_camera->getZFar() << " "
-        << m_camera->getZoomFactor() << " " << m_cameraRadius << " " << m_distFromCenter
-        << std::endl;
+        << m_camera->getZoomFactor() << " " << m_distFromCenter << std::endl;
     out << std::endl;
     out << m_trackballCenter.transpose();
     out << std::endl;
@@ -176,7 +168,7 @@ void Gui::TrackballCamera::save( std::ostream& out ) const {
 void Gui::TrackballCamera::load( std::istream& in ) {
     std::string str;
     Scalar M[16]; // 4x4 view matrix;
-    Scalar fov, znear, zfar, Z, r, d, x, y, z;
+    Scalar fov, znear, zfar, Z, d, x, y, z;
 
     in >> str;
     bool result = !in.fail();
@@ -185,7 +177,7 @@ void Gui::TrackballCamera::load( std::istream& in ) {
         in >> M[i];
         result &= !in.fail();
     }
-    in >> fov >> znear >> zfar >> Z >> r >> d >> x >> y >> z;
+    in >> fov >> znear >> zfar >> Z >> d >> x >> y >> z;
     result &= !in.fail();
 
     if ( !result )
@@ -193,7 +185,6 @@ void Gui::TrackballCamera::load( std::istream& in ) {
         LOG( logWARNING ) << "Could not load camera file data";
         return;
     }
-    m_cameraRadius = r;
     m_distFromCenter = d;
 
     Core::Matrix4 frame;
@@ -271,7 +262,7 @@ void Gui::TrackballCamera::fitScene( const Core::Aabb& aabb ) {
     updatePhiTheta();
 
     m_distFromCenter = d;
-    m_cameraRadius = d;
+    m_distFromCenter = d;
 
     Scalar zfar =
         std::max( Scalar( d + ( aabb.max().z() - aabb.min().z() ) * 2.0 ), m_camera->getZFar() );
@@ -349,7 +340,7 @@ void Gui::TrackballCamera::handleCameraZoom( Scalar dx, Scalar dy ) {
 }
 
 void Gui::TrackballCamera::handleCameraZoom( Scalar z ) {
-    Scalar y = m_cameraRadius * z * m_cameraSensitivity * m_quickCameraModifier;
+    Scalar y = m_distFromCenter * z * m_cameraSensitivity * m_quickCameraModifier;
     Core::Vector3 F = m_camera->getDirection();
 
     Scalar dist = ( m_trackballCenter - m_camera->getPosition() ).norm();

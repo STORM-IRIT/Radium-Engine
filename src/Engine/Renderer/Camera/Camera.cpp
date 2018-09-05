@@ -10,10 +10,8 @@ using Core::Math::PiDiv4;
 
 namespace Engine {
 
-/// -------------------- ///
-/// CONSTRUCTOR
-/// -------------------- ///
-Camera::Camera( Scalar height, Scalar width ) :
+Camera::Camera( Entity* entity, const std::string& name, Scalar height, Scalar width ) :
+    Component( name, entity ),
     m_frame( Core::Transform::Identity() ),
     m_projMatrix( Core::Matrix4::Identity() ),
     m_fov( PiDiv4 ),
@@ -25,14 +23,8 @@ Camera::Camera( Scalar height, Scalar width ) :
     m_aspect( width / height ),
     m_projType( ProjType::PERSPECTIVE ) {}
 
-/// -------------------- ///
-/// DESTRUCTOR
-/// -------------------- ///
 Camera::~Camera() {}
 
-/// -------------------- ///
-/// FRAME
-/// -------------------- ///
 void Camera::applyTransform( const Core::Transform& T ) {
 
     Core::Transform t1 = Core::Transform::Identity();
@@ -43,9 +35,6 @@ void Camera::applyTransform( const Core::Transform& T ) {
     m_frame = t2 * T * t1 * m_frame;
 }
 
-/// -------------------- ///
-/// PROJECTION MATRIX
-/// -------------------- ///
 void Camera::updateProjMatrix() {
 
     switch ( m_projType )
@@ -101,5 +90,6 @@ Core::Ray Camera::getRayFromScreen( const Core::Vector2& pix ) const {
     // Ray starts from the camera's current position.
     return Core::Ray::Through( getPosition(), unProject( pix ) );
 }
+
 } // namespace Engine
 } // namespace Ra

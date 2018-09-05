@@ -60,22 +60,14 @@ class TrackballCamera : public CameraInterface {
     Scalar m_theta;
 
     Scalar m_distFromCenter;
-    Scalar m_cameraRadius;
 
     bool m_rotateAround;
     bool m_cameraRotateMode;
     bool m_cameraPanMode;
     // TODO(Charly): fps mode
     bool m_cameraZoomMode;
-
-    bool m_walkingOn;
-    bool m_strafingOn;
-    bool m_climbingOn;
-
-    Scalar m_walking;
-    Scalar m_strafing;
-    Scalar m_climbing;
 };
+
 } // namespace Gui
 } // namespace Ra
 
