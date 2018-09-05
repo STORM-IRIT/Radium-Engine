@@ -110,11 +110,11 @@ inline Scalar Camera::getAspect() const {
     return m_aspect;
 }
 
-inline Camera::ProjType Camera::getProjType() const {
+inline Camera::ProjType Camera::getType() const {
     return m_projType;
 }
 
-inline void Camera::setProjType( const ProjType& projectionType ) {
+inline void Camera::setType( const ProjType& projectionType ) {
     m_projType = projectionType;
 }
 

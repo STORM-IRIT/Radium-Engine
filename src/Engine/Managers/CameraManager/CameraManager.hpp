@@ -1,7 +1,7 @@
-#ifndef RADIUMENGINE_LIGHTMANAGER_H
-#define RADIUMENGINE_LIGHTMANAGER_H
+#ifndef RADIUMENGINE_CAMERAMANAGER_H
+#define RADIUMENGINE_CAMERAMANAGER_H
 
-#include <Engine/Managers/LightManager/LightStorage.hpp>
+#include <Engine/Managers/CameraManager/CameraStorage.hpp>
 #include <Engine/RaEngine.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
@@ -13,72 +13,72 @@
 namespace Ra {
 namespace Engine {
 class RenderObject;
-}
+} // namespace Engine
 } // namespace Ra
 
 namespace Ra {
 namespace Engine {
 
 /**
- * Interface providing functions to manage a group or type of lights
+ * Interface providing functions to manage a group or type of Cameras
  * in a specific way.
  */
-class RA_ENGINE_API LightManager : public System {
-    // TODO (Mathias) make light manager compatible with range for ...
+class RA_ENGINE_API CameraManager : public System {
+    // TODO (Mathias) make Camera manager compatible with range for ...
   public:
     /// Constructor
-    LightManager();
+    CameraManager();
 
     // Make copies impossible
-    LightManager( const LightManager& ) = delete;
-    LightManager& operator=( const LightManager& ) = delete;
+    CameraManager( const CameraManager& ) = delete;
+    CameraManager& operator=( const CameraManager& ) = delete;
 
     /// Virtual destructor
-    virtual ~LightManager();
+    virtual ~CameraManager();
 
-    /// Get a pointer to the li-th Light.
-    virtual const Light* getLight( size_t li ) const = 0;
+    /// Get a pointer to the cam-th Camera.
+    virtual const Camera* getCamera( size_t cam ) const = 0;
 
-    /// Add a light to the manager ...
-    virtual void addLight( Light* li ) = 0;
+    /// Add a Camera to the manager ...
+    virtual void addCamera( Camera* cam ) = 0;
 
     //
     // Calls for the Renderer
     //
 
     /**
-     * @brief Number of lights.
+     * @brief Number of Cameras.
      * This is still a work in progress. The idea is to make it possible for a
-     * LightManager to tell it has only one Light, for example if it wants to send
+     * CameraManager to tell it has only one Camera, for example if it wants to send
      * a lot of sources at once in a single RenderParams, let's say a texture.
      */
     virtual size_t count() const;
 
     /**
-     * @brief Call before a render, update the general state of the LightManager.
+     * @brief Call before a render, update the general state of the CameraManager.
      */
     virtual void preprocess( const RenderData& renderData ) = 0;
 
     /**
-     * @brief Call before a render, process what is needed for a given Light.
+     * @brief Call before a render, process what is needed for a given Camera.
      */
-    virtual void prerender( unsigned int li ) = 0;
+    virtual void prerender( unsigned int cam ) = 0;
 
     /**
-     * @brief render the object with specific technics for the current light (between prerender and
+     * @brief render the object with specific technics for the current Camera (between prerender and
      * postrender)
      */
     virtual void
-    render( RenderObject*, unsigned int li,
+    render( RenderObject*, unsigned int cam,
             RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE ) = 0;
 
     /**
-     * @brief Call after a render, process what is needed for a given Light.
+     * @brief Call after a render, process what is needed for a given Camera.
      */
-    virtual void postrender( unsigned int li ) = 0;
+    virtual void postrender( unsigned int cam ) = 0;
 
     /**
-     * @brief Call after a render, update the general state of the LightManager.
+     * @brief Call after a render, update the general state of the CameraManager.
      */
     virtual void postprocess() = 0;
 
@@ -87,15 +87,15 @@ class RA_ENGINE_API LightManager : public System {
     //
 
     /// Inherited method marked as final to ensure correct memory management
-    /// even in child classes (e.g. LightStorage).
+    /// even in child classes (e.g. CameraStorage).
     void registerComponent( const Entity* entity, Component* component ) override final;
 
     /// Inherited method marked as final to ensure correct memory management
-    /// even in child classes (e.g. LightStorage).
+    /// even in child classes (e.g. CameraStorage).
     void unregisterComponent( const Entity* entity, Component* component ) override final;
 
     /// Inherited method marked as final to ensure correct memory management
-    /// even in child classes (e.g. LightStorage).
+    /// even in child classes (e.g. CameraStorage).
     void unregisterAllComponents( const Entity* entity ) override final;
 
     void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
@@ -105,15 +105,13 @@ class RA_ENGINE_API LightManager : public System {
   protected:
     /// store the current renderData
     RenderData renderData;
-
-    /// store the current light parameters
+    /// store the current Camera parameters
     RenderParameters params;
-
-    /// Stores the object that stores the lights...
-    std::unique_ptr<LightStorage> m_data;
+    /// Stores the object that stores the Cameras...
+    std::unique_ptr<CameraStorage> m_data;
 };
 
 } // namespace Engine
 } // namespace Ra
 
-#endif // RADIUMENGINE_LIGHTMANAGER_H
+#endif // RADIUMENGINE_CAMERAMANAGER_H

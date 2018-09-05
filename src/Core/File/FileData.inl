@@ -1,5 +1,6 @@
 
 #include <Core/File/AnimationData.hpp>
+#include <Core/File/CameraData.hpp>
 #include <Core/File/GeometryData.hpp>
 #include <Core/File/HandleData.hpp>
 #include <Core/File/LightData.hpp>
@@ -57,6 +58,16 @@ inline std::vector<LightData*> FileData::getLightData() const {
     std::vector<LightData*> list;
     list.reserve( m_lightData.size() );
     for ( const auto& item : m_lightData )
+    {
+        list.push_back( item.get() );
+    }
+    return list;
+}
+
+inline std::vector<CameraData*> FileData::getCameraData() const {
+    std::vector<CameraData*> list;
+    list.reserve( m_cameraData.size() );
+    for ( const auto& item : m_cameraData )
     {
         list.push_back( item.get() );
     }
