@@ -15,6 +15,8 @@ Gui::CameraInterface::CameraInterface( uint width, uint height ) :
     m_hasLightAttached( false ) {
     m_camera.reset( new Engine::Camera( Engine::SystemEntity::getInstance(), "DefaultCamera",
                                         Scalar( height ), Scalar( width ) ) );
+    m_camera->initialize();
+    m_camera->show( false );
 
     setCameraFovInDegrees( 60.0 );
     setCameraZNear( 0.1 );

@@ -25,6 +25,7 @@
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
+#include <IO/CameraLoader/CameraLoader.hpp>
 #ifdef IO_USE_TINYPLY
 #    include <IO/TinyPlyLoader/TinyPlyFileLoader.hpp>
 #endif
@@ -218,6 +219,8 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     }
 
     // Make builtin loaders the fallback if no plugins can load some file format
+    m_engine->registerFileLoader(
+        std::shared_ptr<Asset::FileLoaderInterface>( new IO::CameraFileLoader() ) );
 #ifdef IO_USE_TINYPLY
     // Register before AssimpFileLoader, in order to ease override of such
     // custom loader (first loader able to load is taking the file)
