@@ -152,7 +152,7 @@ class RA_ENGINE_API Camera : public Component {
 
     ProjType m_projType; // Projection type
 
-    RenderObject* m_RO;
+    RenderObject* m_RO; /// Render mesh for the camera.
 };
 
 } // namespace Engine

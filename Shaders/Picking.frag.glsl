@@ -16,7 +16,7 @@ void main()
     float angle = dot( in_eye - in_position, in_normal );
 
     // discard if culled
-    if( angle <= 0 )
+    if( length(in_normal) > 1e-5 && angle <= 0 )
     {
         discard;
     }

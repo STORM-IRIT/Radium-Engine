@@ -154,6 +154,17 @@ bool Gui::TrackballCamera::handleKeyReleaseEvent( QKeyEvent* e ) {
     return false;
 }
 
+void Gui::TrackballCamera::setCamera( Engine::Camera* camera ) {
+    if ( !camera )
+        return;
+    m_camera = camera;
+    m_trackballCenter = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
+    m_distFromCenter = 2.0;
+    updatePhiTheta();
+    m_camera->show( false );
+    save( std::cout );
+}
+
 void Gui::TrackballCamera::save( std::ostream& out ) const {
     out << "#Radium_trackball_camera_state" << std::endl;
     out << m_camera->getFrame().matrix() << std::endl;
