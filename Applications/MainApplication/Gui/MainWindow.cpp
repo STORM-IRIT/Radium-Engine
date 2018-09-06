@@ -6,6 +6,7 @@
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
@@ -129,6 +130,7 @@ void MainWindow::createConnections() {
     connect( m_exportMeshButton, &QPushButton::clicked, this, &MainWindow::exportCurrentMesh );
     connect( m_removeEntityButton, &QPushButton::clicked, this, &MainWindow::deleteCurrentItem );
     connect( m_clearSceneButton, &QPushButton::clicked, this, &MainWindow::resetScene );
+    connect( m_useCameraButton, &QPushButton::clicked, this, &MainWindow::useCamera );
     connect( m_fitCameraButton, &QPushButton::clicked, this, &MainWindow::fitCamera );
     connect( m_saveCameraButton, &QPushButton::clicked, this, &MainWindow::saveCamera );
     connect( m_loadCameraButton, &QPushButton::clicked, this, &MainWindow::loadCamera );
@@ -292,6 +294,7 @@ void MainWindow::handlePicking( const Engine::Renderer::PickingResult& pickingRe
 
 void MainWindow::onSelectionChanged( const QItemSelection& selected,
                                      const QItemSelection& deselected ) {
+    m_useCameraButton->setEnabled( false );
     if ( m_selectionManager->hasSelection() )
     {
         const ItemEntry& ent = m_selectionManager->currentItem();
@@ -317,6 +320,10 @@ void MainWindow::onSelectionChanged( const QItemSelection& selected,
                 m_currentShaderBox->setCurrentText( shaderName.c_str() );
             } else
             { m_currentShaderBox->setCurrentText( shaderName.c_str() ); }
+        }
+        if ( dynamic_cast<Engine::Camera*>( ent.m_component ) )
+        {
+            m_useCameraButton->setEnabled( true );
         }
     } else
     {
@@ -540,6 +547,19 @@ void MainWindow::resetScene() {
     m_selectionManager->clear();
     Engine::RadiumEngine::getInstance()->getEntityManager()->deleteEntities();
     fitCamera();
+}
+
+void MainWindow::useCamera() {
+    if ( m_selectionManager->hasSelection() )
+    {
+        const ItemEntry& ent = m_selectionManager->currentItem();
+        Engine::Camera* camera = dynamic_cast<Engine::Camera*>( ent.m_component );
+        if ( camera )
+        {
+            m_viewer->getCameraInterface()->getCamera()->show( true );
+            m_viewer->getCameraInterface()->setCamera( camera );
+        }
+    }
 }
 
 void MainWindow::fitCamera() {

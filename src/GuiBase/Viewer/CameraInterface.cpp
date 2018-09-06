@@ -13,8 +13,8 @@ Gui::CameraInterface::CameraInterface( uint width, uint height ) :
     m_cameraSensitivity( 1.0 ),
     m_light( nullptr ),
     m_hasLightAttached( false ) {
-    m_camera.reset( new Engine::Camera( Engine::SystemEntity::getInstance(), "DefaultCamera",
-                                        Scalar( height ), Scalar( width ) ) );
+    m_camera = new Engine::Camera( Engine::SystemEntity::getInstance(), "DefaultCamera",
+                                   Scalar( height ), Scalar( width ) );
     m_camera->initialize();
     m_camera->show( false );
 

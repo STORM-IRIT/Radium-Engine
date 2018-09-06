@@ -86,6 +86,8 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     /// Slot for the "visible" button
     void toggleVisisbleRO();
 
+    void useCamera();
+
     /// Reset the camera to see all visible objects
     void fitCamera();
     void postLoadFile() override { fitCamera(); }
