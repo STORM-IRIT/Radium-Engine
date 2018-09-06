@@ -14,13 +14,12 @@ namespace Core {
 /// attributes.
 /// Attributes are unique per vertex, so that same position with different
 /// normals are two vertices.
-/// The VertexAttribManager allows to dynammicaly add VertexAttrib per Vertex
-/// See MeshUtils for geometric functions operating on a mesh.
 /// Points and Normals are always present, accessible with
 /// points() and normals().
-/// Other attribs could be added with attribManager().addAttrib() and
-/// accesssed with attribManager().getAttrib()
-/// Note: attribute names "in_position" and "in_normal" are reserved.
+/// Other attribs could be added with addAttrib() and
+/// accesssed with getAttrib().
+/// \see MeshUtils for geometric functions operating on a mesh.
+/// \note Attribute names "in_position" and "in_normal" are reserved.
 class TriangleMesh {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -54,16 +53,6 @@ class TriangleMesh {
     /// Move assignment, copy all the mesh data (topology, geometry, attributes).
     inline TriangleMesh& operator=( TriangleMesh&& other );
 
-    /// Copy only the required attributes (deep copy).
-    /// The position and normal attributes are always copied, no need to provide their handles.
-    /// \warning The original handles are not valid for the mesh copy.
-    template <typename... Handles>
-    void copyAttributes( const TriangleMesh& input, Handles... attribs );
-
-    /// Copy all the attributes (deep copy).
-    /// \warning The original handles are also valid for the mesh copy.
-    inline void copyAllAttributes( const TriangleMesh& input );
-
     /// Erases all data, making the mesh empty.
     /// Note: invalidates shallow copies.
     inline void clear();
@@ -88,9 +77,52 @@ class TriangleMesh {
         return m_vertexAttribs.getAttrib( m_normalsHandle ).data();
     }
 
-    /// Access the attribute manager
-    const AttribManager& attribManager() const { return m_vertexAttribs; }
-    AttribManager& attribManager() { return m_vertexAttribs; }
+    /// Return the Handle to the attribute with the given name.
+    /// \see AttribManager::getAttribHandle() for more info.
+    template <typename T>
+    inline AttribHandle<T> getAttribHandle( const std::string& name ) const {
+        return m_vertexAttribs.getAttribHandle<T>( name );
+    }
+
+    /// Get attribute by handle.
+    template <typename T>
+    inline Attrib<T>& getAttrib( AttribHandle<T> h ) {
+        return m_vertexAttribs.getAttrib( h );
+    }
+
+    /// Get attribute by handle (const).
+    template <typename T>
+    inline const Attrib<T>& getAttrib( AttribHandle<T> h ) const {
+        return m_vertexAttribs.getAttrib( h );
+    }
+
+    /// Add attribute with the given name.
+    /// \see AttribManager::addAttrib() for more info.
+    /// \note If \p name if a reserved name, then no attribute is added and an
+    ///       invalid Handle is returned.
+    template <typename T>
+    AttribHandle<T> addAttrib( const std::string& name ) {
+        if ( name.compare( "in_position" ) == 0 || name.compare( "in_normal" ) == 0 )
+            return AttribHandle<T>();
+        return m_vertexAttribs.addAttrib<T>( name );
+    }
+
+    /// Remove attribute by handle, invalidate the handles to this attribute.
+    /// \see AttribManager::removeAttrib() for more info.
+    template <typename T>
+    void removeAttrib( AttribHandle<T> h ) {
+        m_vertexAttribs.removeAttrib( h );
+    }
+
+    /// Copy only the required attributes (deep copy).
+    /// The position and normal attributes are always copied, no need to provide their handles.
+    /// \warning The original handles are not valid for the mesh copy.
+    template <typename... Handles>
+    void copyAttributes( const TriangleMesh& input, Handles... attribs );
+
+    /// Copy all the attributes (deep copy).
+    /// \warning The original handles are also valid for the mesh copy.
+    inline void copyAllAttributes( const TriangleMesh& input );
 
   public:
     /// The list of triangles.
@@ -116,6 +148,13 @@ class TriangleMesh {
             m_vertexAttribs.addAttrib<PointAttribHandle::value_type>( "in_position" );
         m_normalsHandle = m_vertexAttribs.addAttrib<NormalAttribHandle::value_type>( "in_normal" );
     }
+
+    /// Access the attribute manager
+    const AttribManager& attribManager() const { return m_vertexAttribs; }
+    AttribManager& attribManager() { return m_vertexAttribs; }
+
+    // Ease wrapper
+    friend class TopologicalMesh;
 };
 
 } // namespace Core
