@@ -105,8 +105,10 @@ class RA_ENGINE_API CameraManager : public System {
   protected:
     /// store the current renderData
     RenderData renderData;
+
     /// store the current Camera parameters
     RenderParameters params;
+
     /// Stores the object that stores the Cameras...
     std::unique_ptr<CameraStorage> m_data;
 };

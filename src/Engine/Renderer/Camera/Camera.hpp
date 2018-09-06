@@ -7,7 +7,6 @@
 #include <Core/Math/Ray.hpp>
 
 #include <Engine/Component/Component.hpp>
-#include <Engine/RaEngine.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -26,7 +25,10 @@ class RA_ENGINE_API Camera : public Component {
 
     ~Camera();
 
-    void initialize() override {}
+    void initialize() override;
+
+    /// Toggle on/off displaying the Camera.
+    void show( bool on );
 
     /// Return the frame of the camera.
     /// Where Y is the up vector and -Z is the direction vector.
@@ -149,6 +151,8 @@ class RA_ENGINE_API Camera : public Component {
     Scalar m_aspect; // FIXME: never used.
 
     ProjType m_projType; // Projection type
+
+    RenderObject* m_RO;
 };
 
 } // namespace Engine

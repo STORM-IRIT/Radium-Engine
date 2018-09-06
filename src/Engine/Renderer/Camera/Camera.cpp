@@ -2,6 +2,9 @@
 
 #include <Core/Math/Math.hpp>
 
+#include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+
 namespace Ra {
 
 using Core::Math::Pi;
@@ -21,18 +24,37 @@ Camera::Camera( Entity* entity, const std::string& name, Scalar height, Scalar w
     m_width( width ),
     m_height( height ),
     m_aspect( width / height ),
-    m_projType( ProjType::PERSPECTIVE ) {}
+    m_projType( ProjType::PERSPECTIVE ),
+    m_RO( nullptr ) {}
 
 Camera::~Camera() {}
 
-void Camera::applyTransform( const Core::Transform& T ) {
+void Camera::initialize() {
+    // Create the render mesh for the camera
+    std::shared_ptr<Mesh> m( new Mesh( m_name + "_mesh", Mesh::RM_LINES ) );
+    Ra::Core::Vector3Array v = {{0, 0, 0},       {-0.5, -0.5, -1}, {-0.5, 0.5, -1}, {0.5, 0.5, -1},
+                                {0.5, -0.5, -1}, {-0.3, 0.5, -1},  {0, 0.7, -1},    {0.3, 0.5, -1}};
+    std::vector<uint> l = {0, 1, 0, 2, 0, 3, 0, 4, 1, 2, 2, 3, 3, 4, 4, 1, 5, 6, 6, 7};
+    m->loadGeometry( v, l );
 
+    // Create the RO
+    m_RO = RenderObject::createRenderObject( m_name + "_RO", this, RenderObjectType::Debug, m );
+    m_RO->setLocalTransform( m_frame );
+    addRenderObject( m_RO );
+}
+
+void Camera::show( bool on ) {
+    m_RO->setVisible( on );
+}
+
+void Camera::applyTransform( const Core::Transform& T ) {
     Core::Transform t1 = Core::Transform::Identity();
     Core::Transform t2 = Core::Transform::Identity();
     t1.translation() = -getPosition();
     t2.translation() = getPosition();
 
     m_frame = t2 * T * t1 * m_frame;
+    m_RO->setLocalTransform( m_frame );
 }
 
 void Camera::updateProjMatrix() {
