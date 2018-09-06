@@ -1,3 +1,4 @@
+#include <Engine/Renderer/Camera/Camera.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -15,7 +16,9 @@ inline Core::Vector3 Camera::getPosition() const {
 }
 
 inline void Camera::setPosition( const Core::Vector3& position ) {
-    m_frame.translation() = position;
+    Core::Transform T = Core::Transform::Identity();
+    T.translation() = position - m_frame.translation();
+    applyTransform( T );
 }
 
 inline Core::Vector3 Camera::getDirection() const {

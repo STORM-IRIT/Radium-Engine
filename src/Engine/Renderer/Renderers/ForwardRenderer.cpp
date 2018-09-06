@@ -3,6 +3,7 @@
 #include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
 
+#include <Engine/Managers/CameraManager/DefaultCameraManager.hpp>
 #include <Engine/Managers/LightManager/DefaultLightManager.hpp>
 #include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
@@ -36,6 +37,10 @@ void ForwardRenderer::initializeInternal() {
     initShaders();
     initBuffers();
 
+    auto cameraManager = new DefaultCameraManager();
+    Ra::Engine::RadiumEngine::getInstance()->registerSystem( "DefaultCameraManager",
+                                                             cameraManager );
+
     auto lightManager = new DefaultLightManager();
     Ra::Engine::RadiumEngine::getInstance()->registerSystem( "DefaultLightManager", lightManager );
     m_lightmanagers.push_back( lightManager );
@@ -48,7 +53,7 @@ void ForwardRenderer::initializeInternal() {
 }
 
 void ForwardRenderer::initShaders() {
-     m_shaderMgr->addShaderProgram( "FinalCompose", "Shaders/Basic2D.vert.glsl",
+    m_shaderMgr->addShaderProgram( "FinalCompose", "Shaders/Basic2D.vert.glsl",
                                    "Shaders/FinalCompose.frag.glsl" );
 #ifndef NO_TRANSPARENCY
     m_shaderMgr->addShaderProgram( "UnlitOIT", "Shaders/Plain.vert.glsl",
