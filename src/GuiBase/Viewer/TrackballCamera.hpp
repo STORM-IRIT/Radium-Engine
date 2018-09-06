@@ -26,6 +26,8 @@ class TrackballCamera : public CameraInterface {
     /// @return true if the event has been taken into account, false otherwise
     virtual bool handleKeyReleaseEvent( QKeyEvent* event ) override;
 
+    void setCamera( Engine::Camera* camera ) override;
+
     void save( std::ostream& out ) const override;
     void load( std::istream& in ) override;
 

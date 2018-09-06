@@ -59,13 +59,18 @@ class CameraInterface : public QObject {
     /// @return true if the event has been taken into account, false otherwise
     virtual bool handleKeyReleaseEvent( QKeyEvent* event ) = 0;
 
-    const Engine::Camera* getCamera() const { return m_camera.get(); }
+    const Engine::Camera* getCamera() const { return m_camera; }
 
-    Engine::Camera* getCamera() { return m_camera.get(); }
+    Engine::Camera* getCamera() { return m_camera; }
 
-    // FIXED (Mathias) Light is a component. Camera doen't have ownership
+    /// Set the Camera used to render the scene.
+    // FIXED (Mathias) Camera is a component. CameraInterface doesn't have ownership
+    virtual void setCamera( Engine::Camera* camera ) = 0;
+
+    // FIXED (Mathias) Light is a component. CameraInterface doesn't have ownership
     void attachLight( Engine::Light* light );
     bool hasLightAttached() const { return m_hasLightAttached; }
+
     /// pointer acces to the attached light, the caller has to check if
     /// hasLightAttached is true, it return a shared_ptr, so the light
     /// could be attached to another camera
@@ -102,12 +107,13 @@ class CameraInterface : public QObject {
     Scalar m_targetedAabbVolume;
     Scalar m_cameraSensitivity;
 
-    std::unique_ptr<Engine::Camera> m_camera;
+    Engine::Camera* m_camera;
     bool m_mapCameraBahaviourToAabb;
 
     Engine::Light* m_light;
     bool m_hasLightAttached;
 };
+
 } // namespace Gui
 } // namespace Ra
 

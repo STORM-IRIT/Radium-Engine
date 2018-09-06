@@ -4,6 +4,7 @@
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
 namespace Ra {
 
@@ -31,14 +32,18 @@ Camera::~Camera() {}
 
 void Camera::initialize() {
     // Create the render mesh for the camera
-    std::shared_ptr<Mesh> m( new Mesh( m_name + "_mesh", Mesh::RM_LINES ) );
+    std::shared_ptr<Mesh> m( new Mesh( m_name + "_mesh" ) );
     Ra::Core::Vector3Array v = {{0, 0, 0},       {-0.5, -0.5, -1}, {-0.5, 0.5, -1}, {0.5, 0.5, -1},
                                 {0.5, -0.5, -1}, {-0.3, 0.5, -1},  {0, 0.7, -1},    {0.3, 0.5, -1}};
-    std::vector<uint> l = {0, 1, 0, 2, 0, 3, 0, 4, 1, 2, 2, 3, 3, 4, 4, 1, 5, 6, 6, 7};
-    m->loadGeometry( v, l );
+    std::vector<uint> t = {0, 1, 2, 0, 2, 3, 0, 3, 4, 0, 4, 1, 1, 2, 3, 1, 3, 4, 5, 6, 7};
+    m->loadGeometry( v, t );
+    Core::Vector4Array c( v.size(), {0.2, 0.2, 0.2, 1.0} );
+    m->addData( Mesh::VERTEX_COLOR, c );
 
     // Create the RO
-    m_RO = RenderObject::createRenderObject( m_name + "_RO", this, RenderObjectType::Debug, m );
+    m_RO = RenderObject::createRenderObject( m_name + "_RO", this, RenderObjectType::Fancy, m );
+    m_RO->getRenderTechnique()->setConfiguration(
+        ShaderConfigurationFactory::getConfiguration( "Plain" ) );
     m_RO->setLocalTransform( m_frame );
     addRenderObject( m_RO );
 }
