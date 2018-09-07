@@ -66,6 +66,10 @@ void Entity::swapTransformBuffers() {
     {
         m_transform = m_doubleBufferedTransform;
         m_transformChanged = false;
+        for ( auto& comp : m_components )
+        {
+            comp->updateTransform();
+        }
     }
 }
 
