@@ -38,7 +38,6 @@ class TriangleMesh {
     /// Copy constructor, copy only the mesh topology,
     /// the list of vertices and vertices normals.
     /// For attributes copy, use the copyAttributes() or copyAllAttributes() methods.
-    /// \note Directly using the AttribManager is highly discouraged.
     inline TriangleMesh( const TriangleMesh& other );
 
     /// Move constructor, copy all the mesh data (topology, geometry, attributes).
@@ -47,18 +46,16 @@ class TriangleMesh {
     /// Assignment operator copy only the mesh topology,
     /// the list of vertices and vertices normals.
     /// For attributes copy, use the copyAttributes() or copyAllAttributes() methods.
-    /// \note Directly using the AttribManager is highly discouraged.
     inline TriangleMesh& operator=( const TriangleMesh& other );
 
     /// Move assignment, copy all the mesh data (topology, geometry, attributes).
     inline TriangleMesh& operator=( TriangleMesh&& other );
 
     /// Erases all data, making the mesh empty.
-    /// Note: invalidates shallow copies.
     inline void clear();
 
     /// Appends another mesh to this one.
-    /// \todo handle attrib here as well !
+    /// \todo handle attribs here as well !
     inline void append( const TriangleMesh& other );
 
     /// Access the vertices positions.
