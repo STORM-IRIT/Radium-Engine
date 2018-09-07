@@ -45,10 +45,11 @@ For instance
         m.m_triangles.push_back( {0, 1, 2} );
 
         auto handle1 = m.addAttrib<Vector3>( "vector3_attrib" );
-        m.getAttrib( handle1 ).data().reserve( 3 );
-        m.getAttrib( handle1 ).data().push_back( {1, 1, 1} );
-        m.getAttrib( handle1 ).data().push_back( {2, 2, 2} );
-        m.getAttrib( handle1 ).data().push_back( {3, 3, 3} );
+        auto& buf = m.getAttrib( handle1 ).data();
+        buf.reserve( 3 );
+        buf.push_back( {1, 1, 1} );
+        buf.push_back( {2, 2, 2} );
+        buf.push_back( {3, 3, 3} );
 
         VertexAttribHandle<float> handle2 =
         m.addAttrib<float>( "float_attrib" );
