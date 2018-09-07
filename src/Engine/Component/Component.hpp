@@ -82,9 +82,6 @@ class RA_ENGINE_API Component {
     /// Set the new transform associated with the RO index key.
     virtual void setTransform( Core::Index roIdx, const Core::Transform& transform ) {}
 
-    /// Update transformation data w.r.t. the transformation of the entity.
-    virtual void updateTransform() {}
-
     void notifyRenderObjectExpired( const Core::Index& idx );
 
   protected:
