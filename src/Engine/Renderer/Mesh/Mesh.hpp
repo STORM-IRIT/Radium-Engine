@@ -28,6 +28,7 @@ namespace Engine
 /// It stores the vertex attributes, indices, and can be rendered
 /// with a specific render mode (e.g. GL_TRIANGLES or GL_LINES).
 /// It maintains the attributes and keeps them in sync with the GPU.
+/// \note Attribute names are used to automatic location binding when using shaders.
 class RA_ENGINE_API Mesh
 {
   public:
