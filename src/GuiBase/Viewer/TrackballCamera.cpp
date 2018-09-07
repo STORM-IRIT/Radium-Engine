@@ -165,29 +165,32 @@ void Gui::TrackballCamera::setCamera( Engine::Camera* camera ) {
 }
 
 void Gui::TrackballCamera::save( std::ostream& out ) const {
-    out << "#Radium_trackball_camera_state" << std::endl;
+    out << "#Radium_camera_state" << std::endl;
+    out << (int)m_camera->getType() << std::endl;
     out << m_camera->getFrame().matrix() << std::endl;
     out << std::endl;
     out << m_camera->getFOV() << " " << m_camera->getZNear() << " " << m_camera->getZFar() << " "
-        << m_camera->getZoomFactor() << " " << m_distFromCenter << std::endl;
+        << m_camera->getZoomFactor() << " " << m_camera->getAspect() << std::endl;
     out << std::endl;
-    out << m_trackballCenter.transpose();
-    out << std::endl;
+    out << m_trackballCenter.transpose() << " " << m_distFromCenter << std::endl;
 }
 
 void Gui::TrackballCamera::load( std::istream& in ) {
     std::string str;
+    int type;
     Scalar M[16]; // 4x4 view matrix;
-    Scalar fov, znear, zfar, Z, d, x, y, z;
+    Scalar fov, znear, zfar, zoom, a, x, y, z, d;
 
     in >> str;
     bool result = !in.fail();
+    in >> type;
+    result = !in.fail();
     for ( uint i = 0; i < 16; ++i )
     {
         in >> M[i];
         result &= !in.fail();
     }
-    in >> fov >> znear >> zfar >> Z >> d >> x >> y >> z;
+    in >> fov >> znear >> zfar >> zoom >> a >> x >> y >> z >> d;
     result &= !in.fail();
 
     if ( !result )
@@ -202,11 +205,12 @@ void Gui::TrackballCamera::load( std::istream& in ) {
         M[14], M[15];
 
     Core::Transform T( frame );
+    m_camera->setType( Engine::Camera::ProjType( type ) );
     m_camera->setFrame( T );
     m_camera->setFOV( fov );
     m_camera->setZNear( znear );
     m_camera->setZFar( zfar );
-    m_camera->setZoomFactor( Z );
+    m_camera->setZoomFactor( zoom );
     m_trackballCenter = Core::Vector3( x, y, z );
 
     updatePhiTheta();
