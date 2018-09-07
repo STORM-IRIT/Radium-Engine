@@ -59,8 +59,10 @@ class RA_ENGINE_API Camera : public Component {
 
     inline Core::Vector3 getRightVector() const;
 
-    /// Apply the transformation 'T' to the camera.
+    /// Apply the local transformation 'T' to the camera.
     void applyTransform( const Core::Transform& T );
+
+    void updateTransform();
 
     //
     // Getters and setters for projection matrix parameters.
