@@ -2,6 +2,7 @@
 
 #include <Core/Math/Math.hpp>
 
+#include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
@@ -35,7 +36,7 @@ void Camera::initialize() {
     std::shared_ptr<Mesh> m( new Mesh( m_name + "_mesh" ) );
     Ra::Core::Vector3Array v = {{0, 0, 0},       {-0.5, -0.5, -1}, {-0.5, 0.5, -1}, {0.5, 0.5, -1},
                                 {0.5, -0.5, -1}, {-0.3, 0.5, -1},  {0, 0.7, -1},    {0.3, 0.5, -1}};
-    std::vector<uint> t = {0, 1, 2, 0, 2, 3, 0, 3, 4, 0, 4, 1, 1, 2, 3, 1, 3, 4, 5, 6, 7};
+    std::vector<uint> t = {0, 1, 2, 0, 2, 3, 0, 3, 4, 0, 4, 1, 5, 6, 7};
     m->loadGeometry( v, t );
     Core::Vector4Array c( v.size(), {0.2, 0.2, 0.2, 1.0} );
     m->addData( Mesh::VERTEX_COLOR, c );
@@ -44,7 +45,7 @@ void Camera::initialize() {
     m_RO = RenderObject::createRenderObject( m_name + "_RO", this, RenderObjectType::Fancy, m );
     m_RO->getRenderTechnique()->setConfiguration(
         ShaderConfigurationFactory::getConfiguration( "Plain" ) );
-    m_RO->setLocalTransform( m_frame );
+    m_RO->setLocalTransform( m_frame * m_entity->getTransform().inverse() );
     addRenderObject( m_RO );
 }
 
@@ -59,7 +60,11 @@ void Camera::applyTransform( const Core::Transform& T ) {
     t2.translation() = getPosition();
 
     m_frame = t2 * T * t1 * m_frame;
-    m_RO->setLocalTransform( m_frame );
+    m_RO->setLocalTransform( m_frame * m_entity->getTransform().inverse() );
+}
+
+void Camera::updateTransform() {
+    m_frame = m_RO->getTransform();
 }
 
 void Camera::updateProjMatrix() {

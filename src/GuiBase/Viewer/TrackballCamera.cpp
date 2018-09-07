@@ -162,7 +162,6 @@ void Gui::TrackballCamera::setCamera( Engine::Camera* camera ) {
     m_distFromCenter = 2.0;
     updatePhiTheta();
     m_camera->show( false );
-    save( std::cout );
 }
 
 void Gui::TrackballCamera::save( std::ostream& out ) const {
