@@ -130,7 +130,7 @@ class AttribHandle {
 class AttribManager {
   public:
     using value_type = AttribBase*;
-    using Container = Ra::Core::IndexMap<value_type>;
+    using Container = std::vector<value_type>;
 
     AttribManager() {}
 
@@ -153,14 +153,18 @@ class AttribManager {
 
     /// Copy the given attributes from \m.
     /// \note If some attrib already exist, it will be replaced but not de-allocated.
+    /// \note Invalid handles are ignored.
     template <class T, class... Handle>
     void copyAttributes( const AttribManager& m, const AttribHandle<T>& attr, Handle... attribs ) {
-        // get attrib to copy
-        auto a = m.getAttrib( attr );
-        // add new attrib
-        auto h = addAttrib<T>( a.getName() );
-        getAttrib( h ).data() = a.data();
-        // deal with other attribs
+        if ( attr.isValid() )
+        {
+            // get attrib to copy
+            auto a = m.getAttrib( attr );
+            // add new attrib
+            auto h = addAttrib<T>( a.getName() );
+            getAttrib( h ).data() = a.data();
+            // deal with other attribs
+        }
         copyAttributes( m, attribs... );
     }
 
@@ -168,6 +172,8 @@ class AttribManager {
     void copyAllAttributes( const AttribManager& m ) {
         for ( const auto& attr : m.m_attribs )
         {
+            if ( attr == nullptr )
+                continue;
             if ( attr->isFloat() )
             {
                 auto h = addAttrib<float>( attr->getName() );
@@ -234,37 +240,50 @@ class AttribManager {
     /// Get attribute by handle
     template <typename T>
     inline Attrib<T>& getAttrib( AttribHandle<T> h ) {
+        CORE_ASSERT( h.isValid(), "Trying to access attribute from an invalid handle." );
         return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ) );
     }
 
     /// Get attribute by handle (const)
     template <typename T>
     inline const Attrib<T>& getAttrib( AttribHandle<T> h ) const {
+        CORE_ASSERT( h.isValid(), "Trying to access attribute from an invalid handle." );
         return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ) );
     }
 
     /// Add attribute by name.
     /// \warning If an attribute with the same name already exists,
-    ///  it will be replaced but not de-allocated.
+    ///          just returns a AttribHandle to it.
     template <typename T>
     AttribHandle<T> addAttrib( const std::string& name ) {
         AttribHandle<T> h;
-        Attrib<T>* attrib = new Attrib<T>;
-        attrib->setName( name );
 
-        auto it = std::find_if( m_attribs.begin(), m_attribs.end(),
-                                [&name]( const auto& a ) { return a->getName() == name; } );
-
+        // does the attrib already exist?
+        auto it = std::find_if( m_attribs.begin(), m_attribs.end(), [&name]( const auto& attr ) {
+            return ( attr != nullptr && attr->getName() == name );
+        } );
         if ( it != m_attribs.end() )
         {
-            LOG( logWARNING ) << "Replacing existing attribute " << name << ".";
+            LOG( logWARNING ) << "Attribute " << name << " already exists.";
+            h.m_idx = std::distance( m_attribs.begin(), it );
+            return h;
+        }
+
+        Attrib<T>* attrib = new Attrib<T>;
+        attrib->setName( name );
+        // look for a free slot
+        it = std::find_if( m_attribs.begin(), m_attribs.end(),
+                           []( const auto& attr ) { return attr == nullptr; } );
+        if ( it != m_attribs.end() )
+        {
             *it = attrib;
-            h.m_idx = m_attribsIndex[name];
+            h.m_idx = std::distance( m_attribs.begin(), it );
         } else
         {
-            h.m_idx = m_attribs.insert( attrib );
-            m_attribsIndex[name] = h.m_idx;
+            m_attribs.push_back( attrib );
+            h.m_idx = m_attribs.size() - 1;
         }
+        m_attribsIndex[name] = h.m_idx;
 
         return h;
     }
@@ -278,7 +297,7 @@ class AttribManager {
         {
             Ra::Core::Index idx = c->second;
             delete m_attribs[idx];
-            m_attribs.remove( idx );
+            m_attribs[idx] = nullptr;
             m_attribsIndex.erase( c );
         }
     }
@@ -294,7 +313,19 @@ class AttribManager {
 
   private:
     /// const acces to attrib vector
-    const Container& attribs() const { return m_attribs; }
+    const Container& attribs() const {
+        Container c;
+        c.reserve( m_attribs.size() );
+        for ( const auto& attr : m_attribs )
+        {
+            if ( attr != nullptr )
+            {
+                c.push_back( attr );
+            }
+        }
+        c.shrink_to_fit();
+        return c;
+    }
 
     // Attrib list
     Container m_attribs;
