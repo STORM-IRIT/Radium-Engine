@@ -1,3 +1,4 @@
+#include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 
 namespace Ra {
@@ -122,7 +123,7 @@ inline void Camera::setType( const ProjType& projectionType ) {
 }
 
 inline Core::Matrix4 Camera::getViewMatrix() const {
-    return m_frame.inverse().matrix();
+    return ( m_entity->getTransform() * m_frame ).inverse().matrix();
 }
 
 inline Core::Matrix4 Camera::getProjMatrix() const {
