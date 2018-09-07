@@ -82,12 +82,14 @@ class TriangleMesh {
     }
 
     /// Get attribute by handle.
+    /// \see AttribManager::getAttrib() for more info.
     template <typename T>
     inline Attrib<T>& getAttrib( AttribHandle<T> h ) {
         return m_vertexAttribs.getAttrib( h );
     }
 
     /// Get attribute by handle (const).
+    /// \see AttribManager::getAttrib() for more info.
     template <typename T>
     inline const Attrib<T>& getAttrib( AttribHandle<T> h ) const {
         return m_vertexAttribs.getAttrib( h );
@@ -114,11 +116,13 @@ class TriangleMesh {
     /// Copy only the required attributes (deep copy).
     /// The position and normal attributes are always copied, no need to provide their handles.
     /// \warning The original handles are not valid for the mesh copy.
+    /// \see AttribManager::copyAttributes() for more info.
     template <typename... Handles>
     void copyAttributes( const TriangleMesh& input, Handles... attribs );
 
     /// Copy all the attributes (deep copy).
     /// \warning The original handles are also valid for the mesh copy.
+    /// \see AttribManager::copyAllAttributes() for more info.
     inline void copyAllAttributes( const TriangleMesh& input );
 
   public:

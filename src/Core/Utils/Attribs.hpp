@@ -12,13 +12,9 @@ namespace Core {
 template <typename T>
 class Attrib;
 
-/// AttribBase is the base class for Attrib.
-/// An Attrib is data linked to Vertices of a mesh.
-/// In the future, it is expected to allow automatic binding between the CPU
-/// and the rendered data on the GPU.
+/// AttribBase is the base class for attributes of all type.
 class AttribBase {
   public:
-    /// attrib name is used to automatic location binding when using shaders.
     virtual ~AttribBase() {}
     std::string getName() const { return m_name; }
     void setName( std::string name ) { m_name = name; }
@@ -48,6 +44,7 @@ class AttribBase {
     std::string m_name;
 };
 
+/// An Attribute is a vector of a given type.
 template <typename T>
 class Attrib : public AttribBase {
   public:
@@ -102,17 +99,17 @@ class AttribHandle {
 };
 
 /*!
- * \brief The VertexAttribManager provides attributes management by handles
+ * \brief The AttribManager provides attributes management by handles
  *
- * The VertexAttribManager stores a container of VertexAttribBase, which can
- * be accessed and deleted (#removeAttrib) using a VertexAttribHandle. Handles
+ * The AttribManager stores a container of AttribBase, which can
+ * be accessed and deleted (#removeAttrib) using a AttribHandle. Handles
  * are created from an attribute name using #addAttrib, and retrieved using
  * #getAttribHandler.
  *
  * Example of typical use case:
  * \code
  * // somewhere: creation
- * VertexAttribManager mng;
+ * AttribManager mng;
  * auto inputfattrib = mng.addAttrib<float>("MyAttrib");
  *
  * ...
@@ -124,7 +121,7 @@ class AttribHandle {
  * }
  * \endcode
  *
- * \warning There is no error check on the handles attribute type
+ * \warning There is no error check on the handles attribute type.
  *
  */
 class AttribManager {
@@ -225,6 +222,7 @@ class AttribManager {
      * }
      * \endcode
      * \warning There is no error check on the attribute type
+     * \note The complexity for accessing an attribute handle is O(log(n)).
      */
     template <typename T>
     inline AttribHandle<T> getAttribHandle( const std::string& name ) const {
@@ -237,14 +235,16 @@ class AttribManager {
         return handle;
     }
 
-    /// Get attribute by handle
+    /// Get attribute by handle.
+    /// \note The complexity for accessing an attribute is O(1).
     template <typename T>
     inline Attrib<T>& getAttrib( AttribHandle<T> h ) {
         CORE_ASSERT( h.isValid(), "Trying to access attribute from an invalid handle." );
         return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ) );
     }
 
-    /// Get attribute by handle (const)
+    /// Get attribute by handle (const).
+    /// \note The complexity for accessing an attribute is O(1).
     template <typename T>
     inline const Attrib<T>& getAttrib( AttribHandle<T> h ) const {
         CORE_ASSERT( h.isValid(), "Trying to access attribute from an invalid handle." );
@@ -254,6 +254,7 @@ class AttribManager {
     /// Add attribute by name.
     /// \warning If an attribute with the same name already exists,
     ///          just returns a AttribHandle to it.
+    /// \note The complexity for adding a new attribute is O(n).
     template <typename T>
     AttribHandle<T> addAttrib( const std::string& name ) {
         AttribHandle<T> h;
@@ -291,6 +292,7 @@ class AttribManager {
     /// Remove attribute by handle, invalidate the handles to this attribute.
     /// \note: If a new attribute is added, old invalidated handles may lead to
     ///        the new attribute.
+    /// \note The complexity for removing an attribute is O(log(n)).
     void removeAttrib( const std::string& name ) {
         auto c = m_attribsIndex.find( name );
         if ( c != m_attribsIndex.end() )
@@ -305,6 +307,7 @@ class AttribManager {
     /// Remove attribute by handle, invalidate the handles to this attribute.
     /// \note: If a new attribute is added, old invalidated handles may lead to
     ///        the new attribute.
+    /// \note The complexity for removing an attribute is O(log(n)).
     template <typename T>
     void removeAttrib( AttribHandle<T> h ) {
         const auto& att = getAttrib( h ); // check the attribute exists
@@ -312,8 +315,9 @@ class AttribManager {
     }
 
   private:
-    /// const acces to attrib vector
-    const Container& attribs() const {
+    /// Access to the list of attributes.
+    /// \note The complexity for acessing the list of attributes is O(n).
+    Container attribs() const {
         Container c;
         c.reserve( m_attribs.size() );
         for ( const auto& attr : m_attribs )
