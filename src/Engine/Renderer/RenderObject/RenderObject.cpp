@@ -248,7 +248,9 @@ void RenderObject::render( const RenderParameters& lightParams, const RenderData
         shader->setUniform( "transform.worldNormal", N );
         lightParams.bind( shader );
 
-        m_renderTechnique->getMaterial()->bind( shader );
+        auto material = m_renderTechnique->getMaterial();
+        if (material != nullptr )
+            material->bind( shader );
 
         // render
         getMesh()->render();

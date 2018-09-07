@@ -96,8 +96,8 @@ Ra::Engine::RenderTechnique RenderTechnique::createDefaultRenderTechnique() {
     }
 
     Ra::Engine::RenderTechnique* rt = new Ra::Engine::RenderTechnique;
-    auto config = ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
-    rt->setConfiguration( config, LIGHTING_OPAQUE );
+    auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
+    builder.second( *rt, false );
     std::shared_ptr<Material> mat( new BlinnPhongMaterial( "DefaultGray" ) );
     rt->setMaterial( mat );
     RadiumDefaultRenderTechnique.reset( rt );
