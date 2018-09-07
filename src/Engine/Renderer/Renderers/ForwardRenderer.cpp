@@ -434,7 +434,9 @@ void ForwardRenderer::debugInternal( const RenderData& renderData ) {
                 shader->setUniform( "transform.view", renderData.viewMatrix );
                 shader->setUniform( "transform.model", M );
 
-                ro->getRenderTechnique()->getMaterial()->bind( shader );
+                auto material = ro->getRenderTechnique()->getMaterial();
+                if (material != nullptr)
+                    material->bind( shader );
 
                 // render
                 ro->getMesh()->render();
@@ -482,7 +484,9 @@ void ForwardRenderer::uiInternal( const RenderData& renderData ) {
             shader->setUniform( "transform.view", renderData.viewMatrix );
             shader->setUniform( "transform.model", M );
 
-            ro->getRenderTechnique()->getMaterial()->bind( shader );
+            auto material = ro->getRenderTechnique()->getMaterial();
+            if (material != nullptr)
+                material->bind( shader );
 
             // render
             ro->getMesh()->render();
