@@ -4,8 +4,8 @@
 #include <Core/Geometry/Normal/Normal.hpp>
 
 #include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
-#include <Core/Animation/Skinning/RotationCenterSkinning.hpp>
 #include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
+#include <Core/Animation/Skinning/RotationCenterSkinning.hpp>
 
 using Ra::Core::DualQuaternion;
 using Ra::Core::Quaternion;
@@ -42,8 +42,12 @@ void SkinningComponent::setupSkinning() {
         m_duplicateTableGetter =
             compMsg->getterCallback<std::vector<Ra::Core::Index>>( getEntity(), m_contentsName );
 
+        // copy mesh triangles
+        const TriangleMesh& mesh = compMsg->get<TriangleMesh>( getEntity(), m_contentsName );
+        m_refData.m_referenceMesh = mesh;
+
+        // get other data
         m_refData.m_skeleton = compMsg->get<Skeleton>( getEntity(), m_contentsName );
-        m_refData.m_referenceMesh = compMsg->get<TriangleMesh>( getEntity(), m_contentsName );
         m_refData.m_refPose = compMsg->get<RefPose>( getEntity(), m_contentsName );
         m_refData.m_weights = compMsg->get<WeightMatrix>( getEntity(), m_contentsName );
 
@@ -110,7 +114,6 @@ void SkinningComponent::skin() {
             case DQS:
             {
                 Ra::Core::AlignedStdVector<DualQuaternion> DQ;
-                // computeDQ( m_frameData.m_prevToCurrentRelPose, m_refData.m_weights, DQ );
                 Ra::Core::Animation::computeDQ( m_frameData.m_refToCurrentRelPose,
                                                 m_refData.m_weights, DQ );
                 Ra::Core::Animation::dualQuaternionSkinning( m_refData.m_referenceMesh.vertices(),
@@ -146,7 +149,6 @@ void SkinningComponent::endSkinning() {
         std::swap( m_frameData.m_previousPos, m_frameData.m_currentPos );
 
         m_frameData.m_doSkinning = false;
-
     } else if ( m_frameData.m_doReset )
     {
         // Reset mesh to its initial state.
@@ -222,12 +224,6 @@ void SkinningComponent::setupSkinningType( SkinningType type ) {
         if ( m_refData.m_CoR.empty() )
         {
             Ra::Core::Animation::computeCoR( m_refData );
-            /*
-                       for ( const auto& v :m_refData.m_CoR )
-                       {
-                           RA_DISPLAY_POINT( v, Ra::Core::Colors::Red(), 0.1f );
-                       }
-            */
         }
     }
     } // end of switch.

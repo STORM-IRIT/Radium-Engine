@@ -39,7 +39,7 @@ bool OFFFileManager::importData( std::istream& file, TriangleMesh& data ) {
     uint f_size;
     uint e_size;
     file >> v_size >> f_size >> e_size;
-    data = TriangleMesh();
+    data.clear();
     data.vertices().resize( v_size );
     data.m_triangles.resize( f_size );
 

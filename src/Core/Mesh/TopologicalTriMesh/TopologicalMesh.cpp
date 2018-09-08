@@ -9,10 +9,8 @@
 #include <utility>
 #include <vector>
 
-namespace Ra
-{
-namespace Core
-{
+namespace Ra {
+namespace Core {
 
 template <typename T>
 using PropPair = std::pair<AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
@@ -20,9 +18,8 @@ using PropPair = std::pair<AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
 template <typename T>
 void addAttribPairToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh,
                           AttribManager::value_type attr, std::vector<PropPair<T>>& vprop,
-                          std::vector<OpenMesh::HPropHandleT<T>>& pph )
-{
-    AttribHandle<T> h = triMesh.attribManager().getAttribHandle<T>( attr->getName() );
+                          std::vector<OpenMesh::HPropHandleT<T>>& pph ) {
+    AttribHandle<T> h = triMesh.getAttribHandle<T>( attr->getName() );
     OpenMesh::HPropHandleT<T> oh;
     topoMesh->add_property( oh, attr->getName() );
     vprop.push_back( std::make_pair( h, oh ) );
@@ -31,21 +28,18 @@ void addAttribPairToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh
 
 template <typename T>
 void addAttribPairToCore( TriangleMesh& triMesh, TopologicalMesh* topoMesh,
-                          OpenMesh::HPropHandleT<T> oh, std::vector<PropPair<T>>& vprop )
-{
-    AttribHandle<T> h{triMesh.attribManager().addAttrib<T>( topoMesh->property( oh ).name() )};
+                          OpenMesh::HPropHandleT<T> oh, std::vector<PropPair<T>>& vprop ) {
+    AttribHandle<T> h{triMesh.addAttrib<T>( topoMesh->property( oh ).name() )};
     vprop.push_back( std::make_pair( h, oh ) );
 }
 
 template <typename T>
 void copyAttribToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh,
                        std::vector<PropPair<T>>& vprop, TopologicalMesh::HalfedgeHandle heh,
-                       unsigned int vindex )
-{
+                       unsigned int vindex ) {
     for ( auto pp : vprop )
     {
-        topoMesh->property( pp.second, heh ) =
-            triMesh.attribManager().getAttrib( pp.first ).data()[vindex];
+        topoMesh->property( pp.second, heh ) = triMesh.getAttrib( pp.first ).data()[vindex];
     }
 }
 
@@ -55,8 +49,8 @@ using HandleAndValueVector = std::vector<std::pair<AttribHandle<T>, T>,
 
 template <typename T>
 void copyAttribToCoreVertex( HandleAndValueVector<T>& data, TopologicalMesh* topoMesh,
-                             std::vector<PropPair<T>>& vprop, TopologicalMesh::HalfedgeHandle heh )
-{
+                             std::vector<PropPair<T>>& vprop,
+                             TopologicalMesh::HalfedgeHandle heh ) {
     for ( auto pp : vprop )
     {
         data.push_back( std::make_pair( pp.first, topoMesh->property( pp.second, heh ) ) );
@@ -64,20 +58,16 @@ void copyAttribToCoreVertex( HandleAndValueVector<T>& data, TopologicalMesh* top
 }
 
 template <typename T>
-void copyAttribToCore( TriangleMesh& triMesh, HandleAndValueVector<T>& data )
-{
+void copyAttribToCore( TriangleMesh& triMesh, HandleAndValueVector<T>& data ) {
     for ( auto pp : data )
     {
-        triMesh.attribManager().getAttrib( pp.first ).data().push_back( pp.second );
+        triMesh.getAttrib( pp.first ).data().push_back( pp.second );
     }
 }
 
-TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh )
-{
-    struct hash_vec
-    {
-        size_t operator()( const Vector3& lvalue ) const
-        {
+TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
+    struct hash_vec {
+        size_t operator()( const Vector3& lvalue ) const {
             return lvalue[0] + lvalue[1] + lvalue[2] + floor( lvalue[0] ) * 1000.f +
                    floor( lvalue[1] ) * 1000.f + floor( lvalue[2] ) * 1000.f;
         }
@@ -135,11 +125,8 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh )
                 vh = this->add_vertex( p );
                 vertexHandles.insert( vtr, VertexMap::value_type( p, vh ) );
                 this->set_normal( vh, TopologicalMesh::Normal( n[0], n[1], n[2] ) );
-            }
-            else
-            {
-                vh = vtr->second;
-            }
+            } else
+            { vh = vtr->second; }
 
             face_vhandles.push_back( vh );
             face_normals.push_back( n );
@@ -167,10 +154,8 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh )
     }
 }
 
-TriangleMesh TopologicalMesh::toTriangleMesh()
-{
-    struct VertexData
-    {
+TriangleMesh TopologicalMesh::toTriangleMesh() {
+    struct VertexData {
         Vector3 _vertex;
         Vector3 _normal;
 
@@ -181,17 +166,14 @@ TriangleMesh TopologicalMesh::toTriangleMesh()
 
         EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-        bool operator==( const VertexData& lhs ) const
-        {
+        bool operator==( const VertexData& lhs ) const {
             return _vertex == lhs._vertex && _normal == lhs._normal && _float == lhs._float &&
                    _vec2 == lhs._vec2 && _vec3 == lhs._vec3 && _vec4 == lhs._vec4;
         }
     };
 
-    struct hash_vec
-    {
-        size_t operator()( const VertexData& lvalue ) const
-        {
+    struct hash_vec {
+        size_t operator()( const VertexData& lvalue ) const {
             return lvalue._vertex[0] + lvalue._vertex[1] + lvalue._vertex[2] +
                    floor( lvalue._vertex[0] ) * 1000.f + floor( lvalue._vertex[1] ) * 1000.f +
                    floor( lvalue._vertex[2] ) * 1000.f;
@@ -264,11 +246,8 @@ TriangleMesh TopologicalMesh::toTriangleMesh()
                 copyAttribToCore( out, v._vec2 );
                 copyAttribToCore( out, v._vec3 );
                 copyAttribToCore( out, v._vec4 );
-            }
-            else
-            {
-                vi = vtr->second;
-            }
+            } else
+            { vi = vtr->second; }
             indices[i] = vi;
             i++;
         }

@@ -21,27 +21,27 @@ Core::TriangleMesh& Mesh::getGeometry() {
 const Core::Vector3Array& Mesh::getData( const Mesh::Vec3Data& type ) const {
     const int index = static_cast<uint>( type );
     CORE_ASSERT( m_v3DataHandle[index].isValid(), "Attrib must be initialized" );
-    return m_mesh.attribManager().getAttrib( m_v3DataHandle[index] ).data();
+    return m_mesh.getAttrib( m_v3DataHandle[index] ).data();
 }
 
 const Core::Vector4Array& Mesh::getData( const Mesh::Vec4Data& type ) const {
     const int index = static_cast<uint>( type );
     if ( !m_v4DataHandle[index].isValid() )
         return m_dummy;
-    return m_mesh.attribManager().getAttrib( m_v4DataHandle[index] ).data();
+    return m_mesh.getAttrib( m_v4DataHandle[index] ).data();
 }
 
 Core::Vector3Array& Mesh::getData( const Mesh::Vec3Data& type ) {
     const int index = static_cast<uint>( type );
     CORE_ASSERT( m_v3DataHandle[index].isValid(), "Attrib must be initialized" );
-    return m_mesh.attribManager().getAttrib( m_v3DataHandle[index] ).data();
+    return m_mesh.getAttrib( m_v3DataHandle[index] ).data();
 }
 
 Core::Vector4Array& Mesh::getData( const Mesh::Vec4Data& type ) {
     const int index = static_cast<uint>( type );
     if ( !m_v4DataHandle[index].isValid() )
         return m_dummy;
-    return m_mesh.attribManager().getAttrib( m_v4DataHandle[index] ).data();
+    return m_mesh.getAttrib( m_v4DataHandle[index] ).data();
 }
 
 void Mesh::setDirty( const Mesh::MeshData& type ) {
