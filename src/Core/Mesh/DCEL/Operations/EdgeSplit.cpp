@@ -115,13 +115,13 @@ void splitEdge( Dcel& dcel, Index edgeIndex, Scalar fraction ) {
     he1->setV( vm );
 
     he2->setV( vm );
+    he3->setV( v2 ); // must be set before setTwin()
     he2->setNext( V2A );
     he2->setPrev( heA2 );
     he2->setTwin( he3 );
     he2->setFE( fe1 );
     he2->setF( f2 );
 
-    he3->setV( v2 );
     he3->setNext( heB3 );
     he3->setPrev( BV2 );
     he3->setTwin( he2 );
@@ -129,13 +129,13 @@ void splitEdge( Dcel& dcel, Index edgeIndex, Scalar fraction ) {
     he3->setF( f1 );
 
     heA0->setV( vm );
+    heA2->setV( A ); // must be set before setTwin()
     heA0->setNext( AV1 );
     heA0->setPrev( he0 );
     heA0->setTwin( heA2 );
     heA0->setFE( feA );
     heA0->setF( f0 );
 
-    heA2->setV( A );
     heA2->setNext( he2 );
     heA2->setPrev( V2A );
     heA2->setTwin( heA0 );
@@ -143,13 +143,13 @@ void splitEdge( Dcel& dcel, Index edgeIndex, Scalar fraction ) {
     heA2->setF( f2 );
 
     heB1->setV( B );
+    heB3->setV( vm ); // must be set before setTwin()
     heB1->setNext( he1 );
     heB1->setPrev( V1B );
     heB1->setTwin( heB3 );
     heB1->setFE( feB );
     heB1->setF( f1 );
 
-    heB3->setV( vm );
     heB3->setNext( BV2 );
     heB3->setPrev( he3 );
     heB3->setTwin( heB1 );

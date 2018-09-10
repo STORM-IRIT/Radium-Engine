@@ -38,8 +38,8 @@ void convert( const TriangleMesh& mesh, Dcel& dcel ) {
     // Create vertices
     for ( unsigned int i = 0; i < mesh.vertices().size(); ++i )
     {
-        Vector3 p = mesh.vertices().at( i );
-        Vector3 n = mesh.normals().at( i );
+        const Vector3& p = mesh.vertices().at( i );
+        const Vector3& n = mesh.normals().at( i );
         Vertex_ptr v = std::shared_ptr<Vertex>( new Vertex( p, n ) );
         CORE_ASSERT( ( v != nullptr ), "Vertex_ptr == nullptr" );
         v->idx = dcel.m_vertex.insert( v );
@@ -118,8 +118,8 @@ void convert( const Dcel& dcel, TriangleMesh& mesh ) {
     for ( uint i = 0; i < v_size; ++i )
     {
         const Vertex_ptr& v = dcel.m_vertex.at( i );
-        const Vector3 p = v->P();
-        const Vector3 n = v->N();
+        const Vector3& p = v->P();
+        const Vector3& n = v->N();
         mesh.vertices()[i] = p;
         mesh.normals()[i] = n;
         v_table[v->idx] = i;

@@ -23,8 +23,6 @@ inline TriangleMesh& TriangleMesh::operator=( const TriangleMesh& other ) {
     m_triangles = other.m_triangles;
     m_faces = other.m_faces;
     m_vertexAttribs.copyAllAttributes( other.m_vertexAttribs );
-    m_verticesHandle = other.m_verticesHandle;
-    m_normalsHandle = other.m_normalsHandle;
     return *this;
 }
 
