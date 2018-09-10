@@ -18,8 +18,8 @@ namespace Core {
 /// points() and normals().
 /// Other attribs could be added with addAttrib() and
 /// accesssed with getAttrib().
-/// \see MeshUtils for geometric functions operating on a mesh.
 /// \note Attribute names "in_position" and "in_normal" are reserved.
+/// \see MeshUtils for geometric functions operating on a mesh.
 class TriangleMesh {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -35,33 +35,34 @@ class TriangleMesh {
     /// Create an empty mesh.
     inline TriangleMesh() { initDefaultAttribs(); }
 
-    /// Copy constructor, copy only the mesh topology,
-    /// the list of vertices and vertices normals.
-    /// For attributes copy, use the copyAttributes() or copyAllAttributes() methods.
+    /// Copy constructor, copy all the mesh data (topology, geometry, attributes).
+    /// \note The original handles are also valid for the mesh copy.
     inline TriangleMesh( const TriangleMesh& other );
 
     /// Move constructor, copy all the mesh data (topology, geometry, attributes).
     inline TriangleMesh( TriangleMesh&& other );
 
-    /// Assignment operator copy only the mesh topology,
-    /// the list of vertices and vertices normals.
-    /// For attributes copy, use the copyAttributes() or copyAllAttributes() methods.
+    /// Assignment operator, copy all the mesh data (topology, geometry, attributes).
+    /// \note The original handles are also valid for the mesh copy.
     inline TriangleMesh& operator=( const TriangleMesh& other );
 
     /// Move assignment, copy all the mesh data (topology, geometry, attributes).
     inline TriangleMesh& operator=( TriangleMesh&& other );
 
+    /// Appends another mesh to this one, but only if they have the same attributes.
+    /// Return True if the mesh has been successfully appended.
+    /// \warning There is no error check on the handles attribute type.
+    inline bool append( const TriangleMesh& other );
+
     /// Erases all data, making the mesh empty.
     inline void clear();
-
-    /// Appends another mesh to this one.
-    /// \todo handle attribs here as well !
-    inline void append( const TriangleMesh& other );
 
     /// Access the vertices positions.
     PointAttribHandle::Container& vertices() {
         return m_vertexAttribs.getAttrib( m_verticesHandle ).data();
     }
+
+    /// Access the vertices positions.
     const PointAttribHandle::Container& vertices() const {
         return m_vertexAttribs.getAttrib( m_verticesHandle ).data();
     }
@@ -70,15 +71,22 @@ class TriangleMesh {
     NormalAttribHandle::Container& normals() {
         return m_vertexAttribs.getAttrib( m_normalsHandle ).data();
     }
+
+    /// Access the vertices normals.
     const NormalAttribHandle::Container& normals() const {
         return m_vertexAttribs.getAttrib( m_normalsHandle ).data();
     }
 
-    /// Return the Handle to the attribute with the given name.
+    /// Return the Handle to the attribute with the given name if it exists, an
+    /// invalid handle otherwise.
     /// \see AttribManager::getAttribHandle() for more info.
+    /// \note Attribute names "in_position" and "in_normal" are reserved and will
+    ///       give an invalid handle.
     template <typename T>
     inline AttribHandle<T> getAttribHandle( const std::string& name ) const {
-        return m_vertexAttribs.getAttribHandle<T>( name );
+        if ( name.compare( "in_position" ) == 0 || name.compare( "in_normal" ) == 0 )
+            return AttribHandle<T>();
+        return m_vertexAttribs.findAttrib<T>( name );
     }
 
     /// Get attribute by handle.
@@ -106,24 +114,34 @@ class TriangleMesh {
         return m_vertexAttribs.addAttrib<T>( name );
     }
 
-    /// Remove attribute by handle, invalidate the handles to this attribute.
+    /// Remove attribute by handle.
     /// \see AttribManager::removeAttrib() for more info.
     template <typename T>
     void removeAttrib( AttribHandle<T> h ) {
         m_vertexAttribs.removeAttrib( h );
     }
 
-    /// Copy only the required attributes (deep copy).
-    /// The position and normal attributes are always copied, no need to provide their handles.
+    /// Erases all attributes, leaving the mesh with the topology and geometry only.
+    inline void clearAttributes();
+
+    /// Copy only the mesh topology and geometry.
+    /// The needed attributes can be copied through copyAttributes().
+    inline void copyBaseGeometry( const TriangleMesh& other );
+
+    /// Copy only the required attributes from \p input, keeping the old ones.
+    /// \return True if the attributes have been sucessfully copied.
+    /// \note *this and \p input must have the same number of vertices.
     /// \warning The original handles are not valid for the mesh copy.
     /// \see AttribManager::copyAttributes() for more info.
     template <typename... Handles>
-    void copyAttributes( const TriangleMesh& input, Handles... attribs );
+    bool copyAttributes( const TriangleMesh& input, Handles... attribs );
 
-    /// Copy all the attributes (deep copy).
-    /// \warning The original handles are also valid for the mesh copy.
+    /// Copy all the attributes from \p input, keeping the old ones.
+    /// \return True if the attributes have been sucessfully copied.
+    /// \note *this and \p input must have the same number of vertices.
+    /// \warning The original handles are not valid for the mesh copy.
     /// \see AttribManager::copyAllAttributes() for more info.
-    inline void copyAllAttributes( const TriangleMesh& input );
+    inline bool copyAllAttributes( const TriangleMesh& input );
 
   public:
     /// The list of triangles.
@@ -150,8 +168,10 @@ class TriangleMesh {
         m_normalsHandle = m_vertexAttribs.addAttrib<NormalAttribHandle::value_type>( "in_normal" );
     }
 
-    /// Access the attribute manager
+    /// Access the attribute manager.
     const AttribManager& attribManager() const { return m_vertexAttribs; }
+
+    /// Access the attribute manager.
     AttribManager& attribManager() { return m_vertexAttribs; }
 
     // Ease wrapper
