@@ -6,7 +6,7 @@ namespace Ra {
 namespace Core {
 
 /// POINT
-inline Vector3 Vertex::P() const {
+inline const Vector3& Vertex::P() const {
     return m_p;
 }
 
@@ -19,7 +19,7 @@ inline void Vertex::setP( const Vector3& p ) {
 }
 
 /// NORMAL
-inline Vector3 Vertex::N() const {
+inline const Vector3& Vertex::N() const {
     return m_n;
 }
 
@@ -32,7 +32,7 @@ inline void Vertex::setN( const Vector3& n ) {
 }
 
 /// HALFEDGE
-inline HalfEdge_ptr Vertex::HE() const {
+inline const HalfEdge_ptr& Vertex::HE() const {
     return m_he;
 }
 

@@ -1,6 +1,5 @@
 #include <Core/Animation/Skinning/RotationCenterSkinning.hpp>
 
-
 #include <Core/Index/IndexMap.hpp>
 #include <Core/Log/Log.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
@@ -57,7 +56,10 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
 
     // First step : subdivide the original mesh until weights are sufficiently close enough.
     Scalar maxWeightDistance = 0.f;
-    TriangleMesh subdividedMesh = dataInOut.m_referenceMesh;
+    TriangleMesh subdividedMesh;
+    subdividedMesh.copyBaseGeometry( dataInOut.m_referenceMesh );
+    std::vector<VertexIdx> dupli;
+    //    MeshUtils::removeDuplicates( subdividedMesh, dupli);
 
     // Store the weights as row major here because we are going to query the per-vertex weights.
     Eigen::SparseMatrix<Scalar, Eigen::RowMajor> subdividedWeights = dataInOut.m_weights;
@@ -134,14 +136,15 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
                  "Weights and vertices don't match" );
 
     dataInOut.m_CoR.clear();
-    dataInOut.m_CoR.reserve( dataInOut.m_referenceMesh.vertices().size() );
+    dataInOut.m_CoR.resize( dataInOut.m_referenceMesh.vertices().size(), Vector3::Zero() );
 
     const uint nVerts = dataInOut.m_referenceMesh.vertices().size();
     // naive implementation : iterate over all the triangles (of the subdivided mesh)
     // for all vertices (of the original mesh).
-    for ( uint i = 0; i < nVerts; ++i )
+    int toto = 0;
+#pragma omp parallel for
+    for ( int i = 0; i < nVerts; ++i )
     {
-
         // Check that the first vertices of the subdivided mesh have not changed.
         ON_ASSERT( const Vector3& p = dataInOut.m_referenceMesh.vertices()[i] );
         CORE_ASSERT( subdividedMesh.vertices()[i] == p, "Inconsistency in the meshes" );
@@ -172,14 +175,13 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
         // Avoid division by 0
         if ( sumweight > 0 )
         {
-            dataInOut.m_CoR.push_back( ( 1.f / sumweight ) * cor );
-        } else
-        { dataInOut.m_CoR.push_back( Vector3::Zero() ); }
+            dataInOut.m_CoR[i] = cor / sumweight;
+        }
 
 #if defined CORE_DEBUG
         if ( i % 100 == 0 )
         {
-            LOG( logDEBUG ) << "CoR:" << i << " / " << nVerts;
+            LOG( logDEBUG ) << "CoR: " << i << " / " << nVerts;
         }
 #endif // CORE_DEBUG
     }

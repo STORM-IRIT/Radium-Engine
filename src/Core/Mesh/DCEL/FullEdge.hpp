@@ -30,19 +30,19 @@ class[[deprecated]] RA_CORE_API FullEdge : public IndexedObject {
     ~FullEdge();
 
     /// VERTEX
-    inline Vertex_ptr V( const uint i ) const; // Return the reference to the vertex
+    inline const Vertex_ptr& V( const uint i ) const; // Return the reference to the vertex
 
     /// HALFEDGE
-    inline HalfEdge_ptr HE( const uint i ) const; // Return the reference to the halfedge
-    inline HalfEdge_ptr& HE( const uint i );      // Return the reference to the halfedge
-    inline void setHE( const HalfEdge_ptr& he );  // Set the HalfEdge reference to he
+    inline const HalfEdge_ptr& HE( const uint i ) const; // Return the reference to the halfedge
+    inline HalfEdge_ptr& HE( const uint i );             // Return the reference to the halfedge
+    inline void setHE( const HalfEdge_ptr& he );         // Set the HalfEdge reference to he
 
     /// FACE
-    inline Face_ptr F( const uint i ) const;
+    inline const Face_ptr& F( const uint i ) const;
 
     /// FULLEDGE
-    inline FullEdge_ptr Head( const uint i ) const;
-    inline FullEdge_ptr Tail( const uint i ) const;
+    inline const FullEdge_ptr& Head( const uint i ) const;
+    inline const FullEdge_ptr& Tail( const uint i ) const;
 
     /// OPERATOR
     inline bool operator==( const FullEdge& e )

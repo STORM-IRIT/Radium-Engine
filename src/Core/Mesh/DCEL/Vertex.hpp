@@ -35,17 +35,17 @@ class[[deprecated]] RA_CORE_API Vertex : public IndexedObject {
     ~Vertex();
 
     /// POINT
-    inline Vector3 P() const;             // Return the position of the vertex in space
+    inline const Vector3& P() const;      // Return the position of the vertex in space
     inline Vector3& P();                  // Return the position of the vertex in space
     inline void setP( const Vector3& p ); // Set the position of the vertex to p
 
     /// NORMAL
-    inline Vector3 N() const;             // Return the normal of the vertex
+    inline const Vector3& N() const;      // Return the normal of the vertex
     inline Vector3& N();                  // Return the normal of the vertex
     inline void setN( const Vector3& n ); // Set the normal of the vertex to n
 
     /// HALFEDGE
-    inline HalfEdge_ptr HE() const;              // Return the reference to the vertex halfedge
+    inline const HalfEdge_ptr& HE() const;       // Return the reference to the vertex halfedge
     inline HalfEdge_ptr& HE();                   // Return the reference to the vertex halfedge
     inline void setHE( const HalfEdge_ptr& he ); // Set the halfedge of the vertex to he
 

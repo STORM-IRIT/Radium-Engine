@@ -8,12 +8,12 @@ namespace Ra {
 namespace Core {
 
 /// VERTEX
-inline Vertex_ptr FullEdge::V( const uint i ) const {
+inline const Vertex_ptr& FullEdge::V( const uint i ) const {
     return HE( i )->V();
 }
 
 /// HALFEDGE
-inline HalfEdge_ptr FullEdge::HE( const uint i ) const {
+inline const HalfEdge_ptr& FullEdge::HE( const uint i ) const {
     CORE_ASSERT( ( i < 2 ), "Index i out of bound" );
     if ( i == 0 )
     {
@@ -36,12 +36,12 @@ inline void FullEdge::setHE( const HalfEdge_ptr& he ) {
 }
 
 /// FACE
-inline Face_ptr FullEdge::F( const uint i ) const {
+inline const Face_ptr& FullEdge::F( const uint i ) const {
     return HE( i )->F();
 }
 
 /// FULLEDGE
-inline FullEdge_ptr FullEdge::Head( const uint i ) const {
+inline const FullEdge_ptr& FullEdge::Head( const uint i ) const {
     CORE_ASSERT( ( i < 2 ), "Index i out of bound" );
     if ( i == 0 )
     {
@@ -50,7 +50,7 @@ inline FullEdge_ptr FullEdge::Head( const uint i ) const {
     return HE( 1 )->Prev()->FE();
 }
 
-inline FullEdge_ptr FullEdge::Tail( const uint i ) const {
+inline const FullEdge_ptr& FullEdge::Tail( const uint i ) const {
     CORE_ASSERT( ( i < 2 ), "Index i out of bound" );
     if ( i == 0 )
     {

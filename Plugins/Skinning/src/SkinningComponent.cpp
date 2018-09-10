@@ -44,7 +44,7 @@ void SkinningComponent::setupSkinning() {
 
         // copy mesh triangles
         const TriangleMesh& mesh = compMsg->get<TriangleMesh>( getEntity(), m_contentsName );
-        m_refData.m_referenceMesh = mesh;
+        m_refData.m_referenceMesh.copyBaseGeometry( mesh );
 
         // get other data
         m_refData.m_skeleton = compMsg->get<Skeleton>( getEntity(), m_contentsName );

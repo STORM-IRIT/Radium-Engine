@@ -34,7 +34,7 @@ class[[deprecated]] RA_CORE_API Face : public IndexedObject {
     ~Face();
 
     /// HALFEDGE
-    inline HalfEdge_ptr HE() const;              // Return the first halfedge of the face
+    inline const HalfEdge_ptr& HE() const;       // Return the first halfedge of the face
     inline HalfEdge_ptr& HE();                   // Return the first halfedge of the face
     inline void setHE( const HalfEdge_ptr& he ); // Set the halfedge of the face to he
 
