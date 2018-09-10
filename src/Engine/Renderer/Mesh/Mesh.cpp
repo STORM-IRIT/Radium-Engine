@@ -99,10 +99,10 @@ void Mesh::loadGeometry( const Core::TriangleMesh& mesh ) {
 
     if ( m_mesh.m_triangles.empty() )
     {
-        m_numElements = mesh.vertices().size();
+        m_numElements = m_mesh.vertices().size();
         m_renderMode = RM_POINTS;
     } else
-        m_numElements = mesh.m_triangles.size() * 3;
+        m_numElements = m_mesh.m_triangles.size() * 3;
 
     for ( uint i = 0; i < MAX_MESH; ++i )
     {
