@@ -322,8 +322,6 @@ void Renderer::renderForPicking(
                 pickingShaders[i]->setUniform( "transform.model", M );
                 pickingShaders[i]->setUniform( "transform.worldNormal", N );
 
-                ro->getRenderTechnique()->getMaterial()->bind( pickingShaders[i] );
-
                 // render
                 ro->getMesh()->render();
             }
@@ -397,8 +395,6 @@ void Renderer::doPicking( const RenderData& renderData ) {
                 m_pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
                 m_pickingShaders[i]->setUniform( "transform.model", M );
                 m_pickingShaders[i]->setUniform( "transform.worldNormal", N );
-
-                ro->getRenderTechnique()->getMaterial()->bind( m_pickingShaders[i] );
 
                 // render
                 ro->getMesh()->render();
