@@ -6,7 +6,7 @@ namespace Ra {
 namespace Core {
 
 /// HALFEDGE
-inline HalfEdge_ptr Face::HE() const {
+inline const HalfEdge_ptr& Face::HE() const {
     return m_he;
 }
 

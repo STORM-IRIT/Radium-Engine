@@ -7,7 +7,7 @@ namespace Ra {
 namespace Core {
 
 /// VERTEX
-inline Vertex_ptr HalfEdge::V() const {
+inline const Vertex_ptr& HalfEdge::V() const {
     return m_v;
 }
 
@@ -20,7 +20,7 @@ inline void HalfEdge::setV( const Vertex_ptr& v ) {
 }
 
 /// NEXT
-inline HalfEdge_ptr HalfEdge::Next() const {
+inline const HalfEdge_ptr& HalfEdge::Next() const {
     return m_next;
 }
 
@@ -33,7 +33,7 @@ inline void HalfEdge::setNext( const HalfEdge_ptr& next ) {
 }
 
 /// PREV
-inline HalfEdge_ptr HalfEdge::Prev() const {
+inline const HalfEdge_ptr& HalfEdge::Prev() const {
     return m_prev;
 }
 
@@ -46,7 +46,7 @@ inline void HalfEdge::setPrev( const HalfEdge_ptr& prev ) {
 }
 
 /// TWIN
-inline HalfEdge_ptr HalfEdge::Twin() const {
+inline const HalfEdge_ptr& HalfEdge::Twin() const {
     return m_twin;
 }
 
@@ -68,7 +68,7 @@ inline void HalfEdge::setNeighborHE( const HalfEdge_ptr& next, const HalfEdge_pt
 }
 
 /// FULLEDGE
-inline FullEdge_ptr HalfEdge::FE() const {
+inline const FullEdge_ptr& HalfEdge::FE() const {
     return m_fe;
 }
 
@@ -81,7 +81,7 @@ inline void HalfEdge::setFE( const FullEdge_ptr& fe ) {
 }
 
 /// FACE
-inline Face_ptr HalfEdge::F() const {
+inline const Face_ptr& HalfEdge::F() const {
     return m_f;
 }
 
