@@ -90,7 +90,7 @@ class AttribHandle {
         return std::is_same<T, U>::value && m_idx == lhs.m_idx;
     }
 
-    Ra::Core::Index idx() { return m_idx; }
+    Ra::Core::Index idx() const { return m_idx; }
 
   private:
     Ra::Core::Index m_idx = Ra::Core::Index::Invalid();
@@ -102,9 +102,9 @@ class AttribHandle {
  * \brief The AttribManager provides attributes management by handles
  *
  * The AttribManager stores a container of AttribBase, which can
- * be accessed and deleted (#removeAttrib) using a AttribHandle. Handles
- * are created from an attribute name using #addAttrib, and retrieved using
- * #getAttribHandler.
+ * be accessed (#getAttrib) and deleted (#removeAttrib) using a AttribHandle.
+ * Handles are created from an attribute name using #addAttrib, and retrieved
+ * using #findAttrib.
  *
  * Example of typical use case:
  * \code
@@ -115,9 +115,14 @@ class AttribHandle {
  * ...
  *
  * // somewhere else: access
- * auto iattribhandler = mng.getAttribHandler<float>("MyAttrib"); //  iattribhandler == inputfattrib
- * if (iattribhandler.isValid()) {
- *    auto &attrib = mng.getAttrib( iattribhandler );
+ * auto iattribhandler = mng.findAttrib<float>("MyAttrib"); //  iattribhandler == inputfattrib
+ * if (iattribhandler.isValid()) { // true
+ *     auto &attrib = mng.getAttrib( iattribhandler );
+ *     ...
+ * }
+ * auto& iattribhandler = mng.findAttrib<float>("InvalidAttrib"); // invalid
+ * if (iattribhandler.isValid()) { // false
+ *    ...
  * }
  * \endcode
  *
@@ -149,7 +154,7 @@ class AttribManager {
     void copyAttributes( const AttribManager& m ) {}
 
     /// Copy the given attributes from \m.
-    /// \note If some attrib already exist, it will be replaced but not de-allocated.
+    /// \note If some attrib already exists, it will be replaced.
     /// \note Invalid handles are ignored.
     template <class T, class... Handle>
     void copyAttributes( const AttribManager& m, const AttribHandle<T>& attr, Handle... attribs ) {
@@ -159,13 +164,15 @@ class AttribManager {
             auto a = m.getAttrib( attr );
             // add new attrib
             auto h = addAttrib<T>( a.getName() );
+            // copy attrib data
             getAttrib( h ).data() = a.data();
-            // deal with other attribs
         }
+        // deal with other attribs
         copyAttributes( m, attribs... );
     }
 
-    /// Copy all attributes from \m.
+    /// Copy all attributes from \m, keeping the old ones.
+    /// \note If some attrib already exists, it will be replaced.
     void copyAllAttributes( const AttribManager& m ) {
         for ( const auto& attr : m.m_attribs )
         {
@@ -194,7 +201,7 @@ class AttribManager {
         }
     }
 
-    /// clear all attribs, invalidate handles and shallow copies.
+    /// clear all attribs, invalidate handles.
     void clear() {
         for ( auto attr : m_attribs )
         {
@@ -205,27 +212,14 @@ class AttribManager {
     }
 
     /*!
-     * \brief getAttrib Grab an attribute handler by name
-     * \param name Name of the attribute
-     * \return Attribute handler
-     * \code
-     * VertexAttribManager mng;
-     * auto inputfattrib = mng.addAttrib<float>("MyAttrib");
-     *
-     * auto iattribhandler = mng.getAttribHandler<float>("MyAttrib"); //  iattribhandler ==
-     * inputfattrib if (iattribhandler.isValid()) { // true auto &attrib = mng.getAttrib(
-     * iattribhandler );
-     * }
-     * auto& iattribhandler = mng.getAttribHandler<float>("InvalidAttrib"); // invalid
-     * if (iattribhandler.isValid()) { // false
-     *    ...
-     * }
-     * \endcode
-     * \warning There is no error check on the attribute type
+     * \brief findAttrib Grab an attribute handler by name.
+     * \param name Name of the attribute.
+     * \return Attribute handler if found, an invalid handler otherwise.
+     * \warning There is no error check on the attribute type.
      * \note The complexity for accessing an attribute handle is O(log(n)).
      */
     template <typename T>
-    inline AttribHandle<T> getAttribHandle( const std::string& name ) const {
+    inline AttribHandle<T> findAttrib( const std::string& name ) const {
         auto c = m_attribsIndex.find( name );
         AttribHandle<T> handle;
         if ( c != m_attribsIndex.end() )
@@ -252,29 +246,23 @@ class AttribManager {
     }
 
     /// Add attribute by name.
-    /// \warning If an attribute with the same name already exists,
-    ///          just returns a AttribHandle to it.
+    /// \note If an attribute with the same name already exists,
+    ///       just returns a AttribHandle to it.
     /// \note The complexity for adding a new attribute is O(n).
     template <typename T>
     AttribHandle<T> addAttrib( const std::string& name ) {
-        AttribHandle<T> h;
-
         // does the attrib already exist?
-        auto it = std::find_if( m_attribs.begin(), m_attribs.end(), [&name]( const auto& attr ) {
-            return ( attr != nullptr && attr->getName() == name );
-        } );
-        if ( it != m_attribs.end() )
-        {
-            LOG( logWARNING ) << "Attribute " << name << " already exists.";
-            h.m_idx = std::distance( m_attribs.begin(), it );
+        AttribHandle<T> h = findAttrib<T>( name );
+        if ( h.isValid() )
             return h;
-        }
 
+        // create the attrib
         Attrib<T>* attrib = new Attrib<T>;
         attrib->setName( name );
+
         // look for a free slot
-        it = std::find_if( m_attribs.begin(), m_attribs.end(),
-                           []( const auto& attr ) { return attr == nullptr; } );
+        auto it = std::find_if( m_attribs.begin(), m_attribs.end(),
+                                []( const auto& attr ) { return attr == nullptr; } );
         if ( it != m_attribs.end() )
         {
             *it = attrib;
@@ -290,8 +278,8 @@ class AttribManager {
     }
 
     /// Remove attribute by handle, invalidate the handles to this attribute.
-    /// \note: If a new attribute is added, old invalidated handles may lead to
-    ///        the new attribute.
+    /// \warning If a new attribute is added, old invalidated handles may lead to
+    ///          the new attribute.
     /// \note The complexity for removing an attribute is O(log(n)).
     void removeAttrib( const std::string& name ) {
         auto c = m_attribsIndex.find( name );
@@ -305,18 +293,18 @@ class AttribManager {
     }
 
     /// Remove attribute by handle, invalidate the handles to this attribute.
-    /// \note: If a new attribute is added, old invalidated handles may lead to
-    ///        the new attribute.
+    /// \warning If a new attribute is added, old invalidated handles may lead to
+    ///          the new attribute.
     /// \note The complexity for removing an attribute is O(log(n)).
     template <typename T>
     void removeAttrib( AttribHandle<T> h ) {
-        const auto& att = getAttrib( h ); // check the attribute exists
+        const auto& att = getAttrib( h );
         removeAttrib( att.getName() );
     }
 
   private:
     /// Access to the list of attributes.
-    /// \note The complexity for acessing the list of attributes is O(n).
+    /// \note The complexity for accessing the list of attributes is O(n).
     Container attribs() const {
         Container c;
         c.reserve( m_attribs.size() );
@@ -331,14 +319,16 @@ class AttribManager {
         return c;
     }
 
-    // Attrib list
+    /// Attrib list, better using attribs() to go through.
     Container m_attribs;
 
-    // Map between the attrib's name and its index
+    // Map between the attrib's name and its index, used to speedup finding the
+    // handle index from the attribute name.
     std::map<std::string, Ra::Core::Index> m_attribsIndex;
 
     // Ease wrapper
     friend class TopologicalMesh;
+    friend class TriangleMesh;
 };
 
 } // namespace Core
