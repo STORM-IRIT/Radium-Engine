@@ -34,10 +34,10 @@ class FunctionTask : public Task {
         m_name( name ) {}
 
     /// Return the provided task name.
-    virtual std::string getName() const override { return m_name; }
+    std::string getName() const override { return m_name; }
 
     /// Call the function.
-    virtual void process() override { m_f(); }
+    void process() override { m_f(); }
 
   protected:
     /// The function to call.

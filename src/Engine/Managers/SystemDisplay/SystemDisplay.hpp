@@ -55,7 +55,7 @@ class RA_ENGINE_API SystemEntity : public Entity {
     virtual ~SystemEntity() {}
 
     /// Ignore raycast queries.
-    virtual void rayCastQuery( const Core::Ray& r ) const override {}
+    void rayCastQuery( const Core::Ray& r ) const override {}
 
 #ifndef RA_DISABLE_DEBUG_DISPLAY
     /// Access the debug component.

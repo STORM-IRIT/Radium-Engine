@@ -41,12 +41,12 @@ class Test {
 
 /// A test that always pass.
 class DummyTestPass : public Test {
-    virtual void run() override { RA_UNIT_TEST( true, "Dummy test pass." ); }
+    void run() override { RA_UNIT_TEST( true, "Dummy test pass." ); }
 };
 
 /// A test that always fails.
 class DummyTestFail : public Test {
-    virtual void run() override { RA_UNIT_TEST( false, "Dummy test fail." ); }
+    void run() override { RA_UNIT_TEST( false, "Dummy test fail." ); }
 };
 
 } // namespace RaTests

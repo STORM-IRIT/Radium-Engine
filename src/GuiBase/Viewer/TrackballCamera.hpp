@@ -39,7 +39,7 @@ class TrackballCamera : public CameraInterface {
 
     void fitScene( const Core::Aabb& aabb ) override;
 
-    virtual void resetCamera() override;
+    void resetCamera() override;
 
   protected:
     /// Rotate the camera according to the given pixel difference.
