@@ -28,6 +28,7 @@ inline TriangleMesh& TriangleMesh::operator=( const TriangleMesh& other ) {
         m_vertexAttribs.getAttribHandle<PointAttribHandle::value_type>( "in_position" );
     m_normalsHandle =
         m_vertexAttribs.getAttribHandle<NormalAttribHandle::value_type>( "in_normal" );
+    return *this;
 }
 
 inline TriangleMesh& TriangleMesh::operator=( TriangleMesh&& other ) {
@@ -36,6 +37,7 @@ inline TriangleMesh& TriangleMesh::operator=( TriangleMesh&& other ) {
     m_vertexAttribs = std::move( other.m_vertexAttribs );
     m_verticesHandle = std::move( other.m_verticesHandle );
     m_normalsHandle = std::move( other.m_normalsHandle );
+    return *this;
 }
 
 inline void TriangleMesh::clear() {
