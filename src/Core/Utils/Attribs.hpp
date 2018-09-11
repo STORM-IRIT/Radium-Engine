@@ -65,9 +65,9 @@ class Attrib : public AttribBase {
     int getStride() override { return sizeof( typename Container::value_type ); }
 
     bool isFloat() const override { return std::is_same<float, T>::value; }
-    bool isVec2() const override { return std::is_same<Core::Vector2, T>::value; }
-    bool isVec3() const override { return std::is_same<Core::Vector3, T>::value; }
-    bool isVec4() const override { return std::is_same<Core::Vector4, T>::value; }
+    bool isVec2() const override { return std::is_same<Vector2, T>::value; }
+    bool isVec3() const override { return std::is_same<Vector3, T>::value; }
+    bool isVec4() const override { return std::is_same<Vector4, T>::value; }
 
   private:
     Container m_data;
@@ -90,18 +90,18 @@ class AttribHandle {
         return std::is_same<T, U>::value && m_idx == lhs.m_idx;
     }
 
-    Ra::Core::Index idx() const { return m_idx; }
+    Index idx() const { return m_idx; }
 
   private:
-    Ra::Core::Index m_idx = Ra::Core::Index::Invalid();
+    Index m_idx = Index::Invalid();
 
     friend class AttribManager;
 };
 
 /*!
- * \brief The AttribManager provides attributes management by handles
+ * \brief The AttribManager provides attributes management by handles.
  *
- * The AttribManager stores a container of AttribBase, which can
+ * The AttribManager stores a container of AttribBase*, which can
  * be accessed (#getAttrib) and deleted (#removeAttrib) using a AttribHandle.
  * Handles are created from an attribute name using #addAttrib, and retrieved
  * using #findAttrib.
@@ -231,17 +231,17 @@ class AttribManager {
 
     /// Get attribute by handle.
     /// \note The complexity for accessing an attribute is O(1).
+    /// \warning There is no check on the handle validity.
     template <typename T>
-    inline Attrib<T>& getAttrib( AttribHandle<T> h ) {
-        CORE_ASSERT( h.isValid(), "Trying to access attribute from an invalid handle." );
+    inline Attrib<T>& getAttrib( const AttribHandle<T>& h ) {
         return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ) );
     }
 
     /// Get attribute by handle (const).
     /// \note The complexity for accessing an attribute is O(1).
+    /// \warning There is no check on the handle validity.
     template <typename T>
-    inline const Attrib<T>& getAttrib( AttribHandle<T> h ) const {
-        CORE_ASSERT( h.isValid(), "Trying to access attribute from an invalid handle." );
+    inline const Attrib<T>& getAttrib( const AttribHandle<T>& h ) const {
         return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ) );
     }
 
@@ -277,29 +277,45 @@ class AttribManager {
         return h;
     }
 
-    /// Remove attribute by handle, invalidate the handles to this attribute.
-    /// \warning If a new attribute is added, old invalidated handles may lead to
-    ///          the new attribute.
-    /// \note The complexity for removing an attribute is O(log(n)).
-    void removeAttrib( const std::string& name ) {
-        auto c = m_attribsIndex.find( name );
-        if ( c != m_attribsIndex.end() )
-        {
-            Ra::Core::Index idx = c->second;
-            delete m_attribs[idx];
-            m_attribs[idx] = nullptr;
-            m_attribsIndex.erase( c );
-        }
-    }
-
-    /// Remove attribute by handle, invalidate the handles to this attribute.
+    /// Remove attribute by handle, invalidates the handle.
     /// \warning If a new attribute is added, old invalidated handles may lead to
     ///          the new attribute.
     /// \note The complexity for removing an attribute is O(log(n)).
     template <typename T>
-    void removeAttrib( AttribHandle<T> h ) {
+    void removeAttrib( AttribHandle<T>& h ) {
         const auto& att = getAttrib( h );
-        removeAttrib( att.getName() );
+        auto c = m_attribsIndex.find( att.getName() );
+        if ( c != m_attribsIndex.end() )
+        {
+            Index idx = c->second;
+            delete m_attribs[idx];
+            m_attribs[idx] = nullptr;
+            m_attribsIndex.erase( c );
+        }
+        h.m_idx = Index::Invalid(); // invalidate whatever!
+    }
+
+    /// Return true if *this and \p other have the same attributes, same amount
+    /// and same names.
+    /// \warning There is no check on the attribute type nor data.
+    bool hasSameAttribs( const AttribManager& other ) {
+        // one way
+        for ( const auto& attr : m_attribsIndex )
+        {
+            if ( other.m_attribsIndex.find( attr.first ) == other.m_attribsIndex.cend() )
+            {
+                return false;
+            }
+        }
+        // the other way
+        for ( const auto& attr : other.m_attribsIndex )
+        {
+            if ( m_attribsIndex.find( attr.first ) == m_attribsIndex.cend() )
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
   private:
@@ -324,7 +340,7 @@ class AttribManager {
 
     // Map between the attrib's name and its index, used to speedup finding the
     // handle index from the attribute name.
-    std::map<std::string, Ra::Core::Index> m_attribsIndex;
+    std::map<std::string, Index> m_attribsIndex;
 
     // Ease wrapper
     friend class TopologicalMesh;

@@ -19,10 +19,12 @@ inline TriangleMesh::TriangleMesh( TriangleMesh&& other ) :
     m_normalsHandle( std::move( other.m_normalsHandle ) ) {}
 
 inline TriangleMesh& TriangleMesh::operator=( const TriangleMesh& other ) {
-    clear();
+    m_vertexAttribs.clear();
     m_triangles = other.m_triangles;
     m_faces = other.m_faces;
     m_vertexAttribs.copyAllAttributes( other.m_vertexAttribs );
+    m_verticesHandle = other.m_verticesHandle;
+    m_normalsHandle = other.m_normalsHandle;
     return *this;
 }
 
@@ -37,30 +39,7 @@ inline TriangleMesh& TriangleMesh::operator=( TriangleMesh&& other ) {
 
 inline bool TriangleMesh::append( const TriangleMesh& other ) {
     // check same attributes through names
-    bool sameAttrib = true;
-    const auto& m_attr = m_vertexAttribs.m_attribsIndex;
-    const auto& o_attr = other.m_vertexAttribs.m_attribsIndex;
-    // one way
-    for ( const auto& attr : m_attr )
-    {
-        if ( o_attr.find( attr.first ) == o_attr.end() )
-        {
-            sameAttrib = false;
-            break;
-        }
-    }
-    if ( !sameAttrib )
-        return false;
-    // the other way
-    for ( const auto& attr : o_attr )
-    {
-        if ( m_attr.find( attr.first ) == m_attr.end() )
-        {
-            sameAttrib = false;
-            break;
-        }
-    }
-    if ( !sameAttrib )
+    if ( !m_vertexAttribs.hasSameAttribs( other.m_vertexAttribs ) )
         return false;
 
     // now we can proceed, topology first
@@ -90,28 +69,19 @@ inline bool TriangleMesh::append( const TriangleMesh& other ) {
     {
         if ( attr->isFloat() )
         {
-            auto h = m_vertexAttribs.findAttrib<float>( attr->getName() );
-            auto& v0 = static_cast<Attrib<float>*>( &( m_vertexAttribs.getAttrib( h ) ) )->data();
-            const auto& v1 = static_cast<Attrib<float>*>( attr )->data();
-            v0.insert( v0.end(), v1.cbegin(), v1.cend() );
-        } else if ( attr->isVec2() )
+            append_attrib<float>( attr );
+        }
+        if ( attr->isVec2() )
         {
-            auto h = m_vertexAttribs.findAttrib<Vector2>( attr->getName() );
-            auto& v0 = static_cast<Attrib<Vector2>*>( &( m_vertexAttribs.getAttrib( h ) ) )->data();
-            const auto& v1 = static_cast<Attrib<Vector2>*>( attr )->data();
-            v0.insert( v0.end(), v1.cbegin(), v1.cend() );
-        } else if ( attr->isVec3() )
+            append_attrib<Vector2>( attr );
+        }
+        if ( attr->isVec3() )
         {
-            auto h = m_vertexAttribs.findAttrib<Vector3>( attr->getName() );
-            auto& v0 = static_cast<Attrib<Vector3>*>( &( m_vertexAttribs.getAttrib( h ) ) )->data();
-            const auto& v1 = static_cast<Attrib<Vector3>*>( attr )->data();
-            v0.insert( v0.end(), v1.cbegin(), v1.cend() );
-        } else if ( attr->isVec4() )
+            append_attrib<Vector3>( attr );
+        }
+        if ( attr->isVec4() )
         {
-            auto h = m_vertexAttribs.findAttrib<Vector4>( attr->getName() );
-            auto& v0 = static_cast<Attrib<Vector4>*>( &( m_vertexAttribs.getAttrib( h ) ) )->data();
-            const auto& v1 = static_cast<Attrib<Vector4>*>( attr )->data();
-            v0.insert( v0.end(), v1.cbegin(), v1.cend() );
+            append_attrib<Vector4>( attr );
         }
     }
 
@@ -127,12 +97,14 @@ inline void TriangleMesh::clear() {
 }
 
 inline void TriangleMesh::clearAttributes() {
-    const auto v = vertices();
-    const auto n = normals();
+    Attrib<Vector3>::Container v;
+    Attrib<Vector3>::Container n;
+    std::exchange( v, vertices() );
+    std::exchange( n, normals() );
     m_vertexAttribs.clear();
     initDefaultAttribs();
-    vertices() = v;
-    normals() = n;
+    std::exchange( vertices(), v );
+    std::exchange( normals(), n );
 }
 
 inline void TriangleMesh::copyBaseGeometry( const TriangleMesh& other ) {
