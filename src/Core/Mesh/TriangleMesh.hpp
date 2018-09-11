@@ -10,14 +10,13 @@
 namespace Ra {
 namespace Core {
 
-/// Simple Mesh structure that handles indexed triangle mesh with vertex
+/// Simple Mesh structure that handles indexed polygonal mesh with vertex
 /// attributes.
 /// Attributes are unique per vertex, so that same position with different
 /// normals are two vertices.
-/// Points and Normals are always present, accessible with
-/// points() and normals().
-/// Other attribs could be added with addAttrib() and
-/// accesssed with getAttrib().
+/// Points and Normals, defining the mesh geometry, are always present.
+/// They can be accessed through points() and normals().
+/// Other attribs could be added with addAttrib() and accesssed with getAttrib().
 /// \note Attribute names "in_position" and "in_normal" are reserved.
 /// \see MeshUtils for geometric functions operating on a mesh.
 class TriangleMesh {
@@ -35,19 +34,19 @@ class TriangleMesh {
     /// Create an empty mesh.
     inline TriangleMesh() { initDefaultAttribs(); }
 
-    /// Copy constructor, copy all the mesh data (topology, geometry, attributes).
+    /// Copy constructor, copy all the mesh data (faces, geometry, attributes).
     /// \note Handles on \p other are not valid for *this.
     inline TriangleMesh( const TriangleMesh& other );
 
-    /// Move constructor, copy all the mesh data (topology, geometry, attributes).
+    /// Move constructor, copy all the mesh data (faces, geometry, attributes).
     /// \note Handles on \p other are also valid for *this.
     inline TriangleMesh( TriangleMesh&& other );
 
-    /// Assignment operator, copy all the mesh data (topology, geometry, attributes).
+    /// Assignment operator, copy all the mesh data (faces, geometry, attributes).
     /// \warning Handles on \p other are not valid for *this.
     inline TriangleMesh& operator=( const TriangleMesh& other );
 
-    /// Move assignment, copy all the mesh data (topology, geometry, attributes).
+    /// Move assignment, copy all the mesh data (faces, geometry, attributes).
     /// \note Handles on \p other are also valid for *this.
     inline TriangleMesh& operator=( TriangleMesh&& other );
 
@@ -129,17 +128,17 @@ class TriangleMesh {
         m_vertexAttribs.removeAttrib( h );
     }
 
-    /// Erases all attributes, leaving the mesh with the topology and geometry only.
+    /// Erases all attributes, leaving the mesh with the faces and geometry only.
     inline void clearAttributes();
 
-    /// Copy only the mesh topology and geometry.
+    /// Copy only the mesh faces and geometry.
     /// The needed attributes can be copied through copyAttributes().
     /// \warning Deletes all attributes of *this.
     inline void copyBaseGeometry( const TriangleMesh& other );
 
     /// Copy only the required attributes from \p input. Existing attributes are
     /// kept untouched, except if overwritten by attributes copied from \p other.
-    /// \return True if the attributes have been sucessfully copied.
+    /// \return True if the attributes have been sucessfully copied, false otherwise.
     /// \note *this and \p input must have the same number of vertices.
     /// \warning The original handles are not valid for the mesh copy.
     template <typename... Handles>
@@ -147,7 +146,7 @@ class TriangleMesh {
 
     /// Copy all the attributes from \p input. Existing attributes are
     /// kept untouched, except if overwritten by attributes copied from \p other.
-    /// \return True if the attributes have been sucessfully copied.
+    /// \return True if the attributes have been sucessfully copied, false otherwise.
     /// \note *this and \p input must have the same number of vertices.
     /// \warning The original handles are not valid for the mesh copy.
     inline bool copyAllAttributes( const TriangleMesh& input );
