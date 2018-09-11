@@ -79,10 +79,6 @@ class AttribHandle {
     typedef T value_type;
     using Container = typename Attrib<T>::Container;
 
-    /// There is no validity check against the corresponding mesh, but just a
-    /// simple test to allow the manipuation of unitialized handles.
-    constexpr bool isValid() const { return m_idx.isValid(); }
-
     /// compare two handle, there are the same if they both represent the same
     /// attrib (type and value).
     template <typename U>
@@ -92,8 +88,11 @@ class AttribHandle {
 
     Index idx() const { return m_idx; }
 
+    std::string attribName() const { return m_name; }
+
   private:
     Index m_idx = Index::Invalid();
+    std::string m_name = "";
 
     friend class AttribManager;
 };
@@ -116,12 +115,12 @@ class AttribHandle {
  *
  * // somewhere else: access
  * auto iattribhandler = mng.findAttrib<float>("MyAttrib"); //  iattribhandler == inputfattrib
- * if (iattribhandler.isValid()) { // true
+ * if ( mng.isValid( iattribhandler ) ) { // true
  *     auto &attrib = mng.getAttrib( iattribhandler );
  *     ...
  * }
  * auto& iattribhandler = mng.findAttrib<float>("InvalidAttrib"); // invalid
- * if (iattribhandler.isValid()) { // false
+ * if ( mng.isValid( iattribhandler ) ) { // false
  *    ...
  * }
  * \endcode
@@ -158,7 +157,7 @@ class AttribManager {
     /// \note Invalid handles are ignored.
     template <class T, class... Handle>
     void copyAttributes( const AttribManager& m, const AttribHandle<T>& attr, Handle... attribs ) {
-        if ( attr.isValid() )
+        if ( m.isValid( attr ) )
         {
             // get attrib to copy
             auto a = m.getAttrib( attr );
@@ -171,7 +170,7 @@ class AttribManager {
         copyAttributes( m, attribs... );
     }
 
-    /// Copy all attributes from \m, keeping the old ones.
+    /// Copy all attributes from \m.
     /// \note If some attrib already exists, it will be replaced.
     void copyAllAttributes( const AttribManager& m ) {
         for ( const auto& attr : m.m_attribs )
@@ -211,6 +210,12 @@ class AttribManager {
         m_attribsIndex.clear();
     }
 
+    /// Return true if \p h correspond to an existing attribute in *this.
+    template <typename T>
+    bool isValid( const AttribHandle<T>& h ) const {
+        return h.m_idx != Index::Invalid() && m_attribsIndex.at( h.attribName() ) == h.m_idx;
+    }
+
     /*!
      * \brief findAttrib Grab an attribute handler by name.
      * \param name Name of the attribute.
@@ -225,6 +230,7 @@ class AttribManager {
         if ( c != m_attribsIndex.end() )
         {
             handle.m_idx = c->second;
+            handle.m_name = c->first;
         }
         return handle;
     }
@@ -253,7 +259,7 @@ class AttribManager {
     AttribHandle<T> addAttrib( const std::string& name ) {
         // does the attrib already exist?
         AttribHandle<T> h = findAttrib<T>( name );
-        if ( h.isValid() )
+        if ( isValid( h ) )
             return h;
 
         // create the attrib
@@ -273,6 +279,7 @@ class AttribManager {
             h.m_idx = m_attribs.size() - 1;
         }
         m_attribsIndex[name] = h.m_idx;
+        h.m_name = name;
 
         return h;
     }
@@ -293,6 +300,7 @@ class AttribManager {
             m_attribsIndex.erase( c );
         }
         h.m_idx = Index::Invalid(); // invalidate whatever!
+        h.m_name = "";              // invalidate whatever!
     }
 
     /// Return true if *this and \p other have the same attributes, same amount

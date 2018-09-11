@@ -36,17 +36,19 @@ class TriangleMesh {
     inline TriangleMesh() { initDefaultAttribs(); }
 
     /// Copy constructor, copy all the mesh data (topology, geometry, attributes).
-    /// \note The original handles are also valid for the mesh copy.
+    /// \note Handles on \p other are not valid for *this.
     inline TriangleMesh( const TriangleMesh& other );
 
     /// Move constructor, copy all the mesh data (topology, geometry, attributes).
+    /// \note Handles on \p other are also valid for *this.
     inline TriangleMesh( TriangleMesh&& other );
 
     /// Assignment operator, copy all the mesh data (topology, geometry, attributes).
-    /// \note The original handles are also valid for the mesh copy.
+    /// \warning Handles on \p other are not valid for *this.
     inline TriangleMesh& operator=( const TriangleMesh& other );
 
     /// Move assignment, copy all the mesh data (topology, geometry, attributes).
+    /// \note Handles on \p other are also valid for *this.
     inline TriangleMesh& operator=( TriangleMesh&& other );
 
     /// Appends another mesh to this one, but only if they have the same attributes.
@@ -89,6 +91,12 @@ class TriangleMesh {
         return m_vertexAttribs.findAttrib<T>( name );
     }
 
+    /// Return true if \p h correspond to an existing attribute in *this.
+    template <typename T>
+    bool isValid( const AttribHandle<T>& h ) const {
+        return m_vertexAttribs.isValid( h );
+    }
+
     /// Get attribute by handle.
     /// \see AttribManager::getAttrib() for more info.
     template <typename T>
@@ -129,19 +137,19 @@ class TriangleMesh {
     /// \warning Deletes all attributes of *this.
     inline void copyBaseGeometry( const TriangleMesh& other );
 
-    /// Copy only the required attributes from \p input.
+    /// Copy only the required attributes from \p input. Existing attributes are
+    /// kept untouched, except if overwritten by attributes copied from \p other.
     /// \return True if the attributes have been sucessfully copied.
     /// \note *this and \p input must have the same number of vertices.
     /// \warning The original handles are not valid for the mesh copy.
-    /// \see AttribManager::copyAttributes() for more info.
     template <typename... Handles>
     bool copyAttributes( const TriangleMesh& input, Handles... attribs );
 
-    /// Copy all the attributes from \p input.
+    /// Copy all the attributes from \p input. Existing attributes are
+    /// kept untouched, except if overwritten by attributes copied from \p other.
     /// \return True if the attributes have been sucessfully copied.
     /// \note *this and \p input must have the same number of vertices.
     /// \warning The original handles are not valid for the mesh copy.
-    /// \see AttribManager::copyAllAttributes() for more info.
     inline bool copyAllAttributes( const TriangleMesh& input );
 
   public:

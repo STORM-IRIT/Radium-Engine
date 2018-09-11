@@ -19,23 +19,23 @@ class MeshTests : public Test {
 
         // cannot add/access "in_position" or "in_normal"
         auto h_pos = mesh.addAttrib<Vector3>( "in_position" );
-        RA_UNIT_TEST( !h_pos.isValid(), "Should be an invalid handle." );
+        RA_UNIT_TEST( !mesh.isValid( h_pos ), "Should be an invalid handle." );
         h_pos = mesh.getAttribHandle<Vector3>( "in_position" );
-        RA_UNIT_TEST( !h_pos.isValid(), "Should be an invalid handle." );
+        RA_UNIT_TEST( !mesh.isValid( h_pos ), "Should be an invalid handle." );
         auto h_nor = mesh.addAttrib<Vector3>( "in_normal" );
-        RA_UNIT_TEST( !h_nor.isValid(), "Should be an invalid handle." );
+        RA_UNIT_TEST( !mesh.isValid( h_nor ), "Should be an invalid handle." );
         h_nor = mesh.getAttribHandle<Vector3>( "in_normal" );
-        RA_UNIT_TEST( !h_nor.isValid(), "Should be an invalid handle." );
+        RA_UNIT_TEST( !mesh.isValid( h_nor ), "Should be an invalid handle." );
 
         // Add/Remove attributes without filling it
         auto handlerEmpty = mesh.addAttrib<Vec3AttribHandle::value_type>( "empty" );
         mesh.removeAttrib( handlerEmpty );
-        RA_UNIT_TEST( !handlerEmpty.isValid(), "Should be an invalid handle." );
+        RA_UNIT_TEST( !mesh.isValid( handlerEmpty ), "Should be an invalid handle." );
         handlerEmpty = mesh.addAttrib<Vec3AttribHandle::value_type>( "empty" );
-        RA_UNIT_TEST( handlerEmpty.isValid(), "Should get a valid handle here !" );
+        RA_UNIT_TEST( mesh.isValid( handlerEmpty ), "Should get a valid handle here !" );
         mesh.removeAttrib( handlerEmpty );
         handlerEmpty = mesh.getAttribHandle<Vec3AttribHandle::value_type>( "empty" );
-        RA_UNIT_TEST( !handlerEmpty.isValid(), "Should be an invalid handle." );
+        RA_UNIT_TEST( !mesh.isValid( handlerEmpty ), "Should be an invalid handle." );
 
         // Test access to the attribute container
         auto handlerFilled = mesh.addAttrib<Vec3AttribHandle::value_type>( "filled" );
@@ -60,7 +60,7 @@ class MeshTests : public Test {
 
         // Test dummy handler
         auto invalid = mesh.getAttribHandle<float>( "toto" );
-        RA_UNIT_TEST( !invalid.isValid(), "Invalid Attrib Handle cannot be recognized" );
+        RA_UNIT_TEST( !mesh.isValid( invalid ), "Invalid Attrib Handle cannot be recognized" );
 
         // Test attribute copy
         const auto v0 = mesh.vertices()[0];

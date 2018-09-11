@@ -141,7 +141,6 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
     const uint nVerts = dataInOut.m_referenceMesh.vertices().size();
     // naive implementation : iterate over all the triangles (of the subdivided mesh)
     // for all vertices (of the original mesh).
-    int toto = 0;
 #pragma omp parallel for
     for ( int i = 0; i < nVerts; ++i )
     {
