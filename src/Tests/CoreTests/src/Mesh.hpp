@@ -15,12 +15,22 @@ class MeshTests : public Test {
     void testAttributeManagement() {
         using Vec3AttribHandle = Ra::Core::AttribHandle<Vector3>;
 
-        TriangleMesh mesh;
+        TriangleMesh mesh = Ra::Core::MeshUtils::makeBox();
+
+        // cannot add/access "in_position" or "in_normal"
+        auto h_pos = mesh.addAttrib<Vector3>( "in_position" );
+        RA_UNIT_TEST( !h_pos.isValid(), "Should be an invalid handle." );
+        h_pos = mesh.getAttribHandle<Vector3>( "in_position" );
+        RA_UNIT_TEST( !h_pos.isValid(), "Should be an invalid handle." );
+        auto h_nor = mesh.addAttrib<Vector3>( "in_normal" );
+        RA_UNIT_TEST( !h_nor.isValid(), "Should be an invalid handle." );
+        h_nor = mesh.getAttribHandle<Vector3>( "in_normal" );
+        RA_UNIT_TEST( !h_nor.isValid(), "Should be an invalid handle." );
 
         // Add/Remove attributes without filling it
-        mesh = Ra::Core::MeshUtils::makeBox();
         auto handlerEmpty = mesh.addAttrib<Vec3AttribHandle::value_type>( "empty" );
         mesh.removeAttrib( handlerEmpty );
+        RA_UNIT_TEST( !handlerEmpty.isValid(), "Should be an invalid handle." );
         handlerEmpty = mesh.addAttrib<Vec3AttribHandle::value_type>( "empty" );
         RA_UNIT_TEST( handlerEmpty.isValid(), "Should get a valid handle here !" );
         mesh.removeAttrib( handlerEmpty );

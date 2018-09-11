@@ -82,7 +82,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
     std::vector<PropPair<Vector4>> vprop_vec4;
 
     // loop over all attribs and build correspondance pair
-    for ( auto attr : triMesh.attribManager().attribs() )
+    for ( auto attr : triMesh.m_vertexAttribs.attribs() )
     {
         // skip builtin attribs
         if ( attr->getName() != std::string( "in_position" ) &&

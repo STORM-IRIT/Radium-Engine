@@ -58,22 +58,22 @@ class TriangleMesh {
     inline void clear();
 
     /// Access the vertices positions.
-    PointAttribHandle::Container& vertices() {
+    inline PointAttribHandle::Container& vertices() {
         return m_vertexAttribs.getAttrib( m_verticesHandle ).data();
     }
 
     /// Access the vertices positions.
-    const PointAttribHandle::Container& vertices() const {
+    inline const PointAttribHandle::Container& vertices() const {
         return m_vertexAttribs.getAttrib( m_verticesHandle ).data();
     }
 
     /// Access the vertices normals.
-    NormalAttribHandle::Container& normals() {
+    inline NormalAttribHandle::Container& normals() {
         return m_vertexAttribs.getAttrib( m_normalsHandle ).data();
     }
 
     /// Access the vertices normals.
-    const NormalAttribHandle::Container& normals() const {
+    inline const NormalAttribHandle::Container& normals() const {
         return m_vertexAttribs.getAttrib( m_normalsHandle ).data();
     }
 
@@ -83,7 +83,7 @@ class TriangleMesh {
     /// \note Attribute names "in_position" and "in_normal" are reserved and will
     ///       give an invalid handle.
     template <typename T>
-    inline AttribHandle<T> getAttribHandle( const std::string& name ) const {
+    AttribHandle<T> getAttribHandle( const std::string& name ) const {
         if ( name.compare( "in_position" ) == 0 || name.compare( "in_normal" ) == 0 )
             return AttribHandle<T>();
         return m_vertexAttribs.findAttrib<T>( name );
@@ -92,14 +92,14 @@ class TriangleMesh {
     /// Get attribute by handle.
     /// \see AttribManager::getAttrib() for more info.
     template <typename T>
-    inline Attrib<T>& getAttrib( AttribHandle<T> h ) {
+    Attrib<T>& getAttrib( const AttribHandle<T>& h ) {
         return m_vertexAttribs.getAttrib( h );
     }
 
     /// Get attribute by handle (const).
     /// \see AttribManager::getAttrib() for more info.
     template <typename T>
-    inline const Attrib<T>& getAttrib( AttribHandle<T> h ) const {
+    const Attrib<T>& getAttrib( const AttribHandle<T>& h ) const {
         return m_vertexAttribs.getAttrib( h );
     }
 
@@ -117,7 +117,7 @@ class TriangleMesh {
     /// Remove attribute by handle.
     /// \see AttribManager::removeAttrib() for more info.
     template <typename T>
-    void removeAttrib( AttribHandle<T> h ) {
+    void removeAttrib( AttribHandle<T>& h ) {
         m_vertexAttribs.removeAttrib( h );
     }
 
@@ -126,9 +126,10 @@ class TriangleMesh {
 
     /// Copy only the mesh topology and geometry.
     /// The needed attributes can be copied through copyAttributes().
+    /// \warning Deletes all attributes of *this.
     inline void copyBaseGeometry( const TriangleMesh& other );
 
-    /// Copy only the required attributes from \p input, keeping the old ones.
+    /// Copy only the required attributes from \p input.
     /// \return True if the attributes have been sucessfully copied.
     /// \note *this and \p input must have the same number of vertices.
     /// \warning The original handles are not valid for the mesh copy.
@@ -136,7 +137,7 @@ class TriangleMesh {
     template <typename... Handles>
     bool copyAttributes( const TriangleMesh& input, Handles... attribs );
 
-    /// Copy all the attributes from \p input, keeping the old ones.
+    /// Copy all the attributes from \p input.
     /// \return True if the attributes have been sucessfully copied.
     /// \note *this and \p input must have the same number of vertices.
     /// \warning The original handles are not valid for the mesh copy.
@@ -168,11 +169,16 @@ class TriangleMesh {
         m_normalsHandle = m_vertexAttribs.addAttrib<NormalAttribHandle::value_type>( "in_normal" );
     }
 
-    /// Access the attribute manager.
-    const AttribManager& attribManager() const { return m_vertexAttribs; }
-
-    /// Access the attribute manager.
-    AttribManager& attribManager() { return m_vertexAttribs; }
+    /// Append the data of \p attr to the attribute with the same name.
+    /// \warning There is no check on the existence of *this's attribute.
+    /// \warning There is no error check on the handles attribute type.
+    template <typename T>
+    void append_attrib( AttribBase* attr ) {
+        auto h = m_vertexAttribs.findAttrib<T>( attr->getName() );
+        auto& v0 = m_vertexAttribs.getAttrib( h ).data();
+        const auto& v1 = attr->cast<T>().data();
+        v0.insert( v0.end(), v1.cbegin(), v1.cend() );
+    }
 
     // Ease wrapper
     friend class TopologicalMesh;
