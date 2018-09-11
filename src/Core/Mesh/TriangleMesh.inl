@@ -65,25 +65,16 @@ inline bool TriangleMesh::append( const TriangleMesh& other ) {
     }
 
     // Deal with all attributes the same way (vertices and normals too)
-    for ( auto& attr : other.m_vertexAttribs.attribs() )
-    {
+    other.m_vertexAttribs.for_each_attrib( [this]( const auto& attr ) {
         if ( attr->isFloat() )
-        {
             append_attrib<float>( attr );
-        }
         if ( attr->isVec2() )
-        {
             append_attrib<Vector2>( attr );
-        }
         if ( attr->isVec3() )
-        {
             append_attrib<Vector3>( attr );
-        }
         if ( attr->isVec4() )
-        {
             append_attrib<Vector4>( attr );
-        }
-    }
+    } );
 
     return true;
 }
