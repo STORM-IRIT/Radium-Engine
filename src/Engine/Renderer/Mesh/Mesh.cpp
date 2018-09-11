@@ -161,14 +161,14 @@ void Mesh::addData( const Vec3Data& type, const Core::Vector3Array& data ) {
     auto& handle = m_v3DataHandle[index];
 
     // if it's the first time this handle is used, add it to m_mesh.
-    if ( data.size() != 0 && !handle.isValid() )
+    if ( data.size() != 0 && !m_mesh.isValid( handle ) )
     {
         handle =
             m_mesh.addAttrib<Core::Vector3>( std::string( "Vec3_attr_" ) + std::to_string( type ) );
     }
 
-    //    if ( data.size() != 0 && handle.isValid() )
-    if ( handle.isValid() )
+    //    if ( data.size() != 0 && m_mesh.isValid( handle ) )
+    if ( m_mesh.isValid( handle ) )
     {
         m_mesh.getAttrib( handle ).data() = data;
 
@@ -183,14 +183,14 @@ void Mesh::addData( const Vec4Data& type, const Core::Vector4Array& data ) {
     auto& handle = m_v4DataHandle[index];
 
     // if it's the first time this handle is used, add it to m_mesh.
-    if ( data.size() != 0 && !handle.isValid() )
+    if ( data.size() != 0 && !m_mesh.isValid( handle ) )
     {
         handle =
             m_mesh.addAttrib<Core::Vector4>( std::string( "Vec4_attr_" ) + std::to_string( type ) );
     }
 
-    //    if ( data.size() != 0 && handle.isValid() )
-    if ( handle.isValid() )
+    //    if ( data.size() != 0 && m_mesh.isValid( handle ) )
+    if ( m_mesh.isValid( handle ) )
     {
         m_mesh.getAttrib( handle ).data() = data;
         m_dataDirty[MAX_MESH + MAX_VEC3 + index] = true;
@@ -245,7 +245,7 @@ void Mesh::updateGL() {
 
         for ( int i = 0; i < MAX_VEC3; i++ )
         {
-            if ( m_v3DataHandle[i].isValid() )
+            if ( m_mesh.isValid( m_v3DataHandle[i] ) )
             {
                 sendGLData( this, m_mesh.getAttrib( m_v3DataHandle[i] ).data(), MAX_MESH + i );
             }
@@ -253,7 +253,7 @@ void Mesh::updateGL() {
 
         for ( int i = 0; i < MAX_VEC4; i++ )
         {
-            if ( m_v4DataHandle[i].isValid() )
+            if ( m_mesh.isValid( m_v4DataHandle[i] ) )
             {
                 sendGLData( this, m_mesh.getAttrib( m_v4DataHandle[i] ).data(),
                             MAX_MESH + MAX_VEC3 + i );
