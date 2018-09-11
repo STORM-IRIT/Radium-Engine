@@ -82,26 +82,26 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
     std::vector<PropPair<Vector4>> vprop_vec4;
 
     // loop over all attribs and build correspondance pair
-    for ( auto attr : triMesh.m_vertexAttribs.attribs() )
-    {
-        // skip builtin attribs
-        if ( attr->getName() != std::string( "in_position" ) &&
-             attr->getName() != std::string( "in_normal" ) )
-        {
-            if ( attr->isFloat() )
-                addAttribPairToTopo( triMesh, this, attr, vprop_float, m_floatPph );
-            else if ( attr->isVec2() )
-                addAttribPairToTopo( triMesh, this, attr, vprop_vec2, m_vec2Pph );
-            else if ( attr->isVec3() )
-                addAttribPairToTopo( triMesh, this, attr, vprop_vec3, m_vec3Pph );
-            else if ( attr->isVec4() )
-                addAttribPairToTopo( triMesh, this, attr, vprop_vec4, m_vec4Pph );
-            else
-                LOG( logWARNING )
-                    << "Warning, mesh attribute " << attr->getName()
-                    << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
-        }
-    }
+    triMesh.m_vertexAttribs.for_each_attrib(
+        [&triMesh, this, &vprop_float, &vprop_vec2, &vprop_vec3, &vprop_vec4]( const auto& attr ) {
+            // skip builtin attribs
+            if ( attr->getName() != std::string( "in_position" ) &&
+                 attr->getName() != std::string( "in_normal" ) )
+            {
+                if ( attr->isFloat() )
+                    addAttribPairToTopo( triMesh, this, attr, vprop_float, m_floatPph );
+                else if ( attr->isVec2() )
+                    addAttribPairToTopo( triMesh, this, attr, vprop_vec2, m_vec2Pph );
+                else if ( attr->isVec3() )
+                    addAttribPairToTopo( triMesh, this, attr, vprop_vec3, m_vec3Pph );
+                else if ( attr->isVec4() )
+                    addAttribPairToTopo( triMesh, this, attr, vprop_vec4, m_vec4Pph );
+                else
+                    LOG( logWARNING )
+                        << "Warning, mesh attribute " << attr->getName()
+                        << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
+            }
+        } );
 
     uint num_triangles = triMesh.m_triangles.size();
 

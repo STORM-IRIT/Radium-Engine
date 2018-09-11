@@ -327,20 +327,22 @@ class AttribManager {
     }
 
   private:
-    /// Access to the list of attributes.
-    /// \note The complexity for accessing the list of attributes is O(n).
-    Container attribs() const {
-        Container c;
-        c.reserve( m_attribs.size() );
+    /// Perform \p fun on each attribute.
+    // This is needed by the user to avoid caring about removed attributes (nullptr)
+    template <typename F>
+    void for_each_attrib( const F& func ) const {
         for ( const auto& attr : m_attribs )
-        {
             if ( attr != nullptr )
-            {
-                c.push_back( attr );
-            }
-        }
-        c.shrink_to_fit();
-        return c;
+                func( attr );
+    }
+
+    /// Perform \p fun on each attribute.
+    // This is needed by the user to avoid caring about removed attributes (nullptr)
+    template <typename F>
+    void for_each_attrib( const F& func ) {
+        for ( auto& attr : m_attribs )
+            if ( attr != nullptr )
+                func( attr );
     }
 
     /// Attrib list, better using attribs() to go through.
