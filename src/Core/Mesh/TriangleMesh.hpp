@@ -15,7 +15,7 @@ namespace Core {
 /// Attributes are unique per vertex, so that same position with different
 /// normals are two vertices.
 /// Points and Normals, defining the mesh geometry, are always present.
-/// They can be accessed through points() and normals().
+/// They can be accessed through vertices() and normals().
 /// Other attribs could be added with addAttrib() and accesssed with getAttrib().
 /// \note Attribute names "in_position" and "in_normal" are reserved.
 /// \see MeshUtils for geometric functions operating on a mesh.
@@ -90,7 +90,7 @@ class TriangleMesh {
         return m_vertexAttribs.findAttrib<T>( name );
     }
 
-    /// Return true if \p h correspond to an existing attribute in *this.
+    /// Return true if \p h referss to an existing attribute in *this.
     template <typename T>
     bool isValid( const AttribHandle<T>& h ) const {
         return m_vertexAttribs.isValid( h );
@@ -128,7 +128,7 @@ class TriangleMesh {
         m_vertexAttribs.removeAttrib( h );
     }
 
-    /// Erases all attributes, leaving the mesh with the faces and geometry only.
+    /// Erases all attributes, leaving the mesh with faces and geometry only.
     inline void clearAttributes();
 
     /// Copy only the mesh faces and geometry.
