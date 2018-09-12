@@ -47,7 +47,7 @@ class RA_CORE_API LightData : public AssetData {
     /// CONSTRUCTOR
     LightData( const std::string& name = "", const LightType& type = UNKNOWN );
 
-    LightData( const LightData& data ) = default;
+    LightData( const LightData& data );
 
     /// DESTRUCTOR
     ~LightData();
@@ -82,7 +82,7 @@ class RA_CORE_API LightData : public AssetData {
     inline void setLight( Core::Color color, Core::Vector3 position, Core::Vector3 direction,
                           Scalar inangle, Scalar outAngle, LightAttenuation attenuation );
     /// construct an area light
-    inline void setLight( Core::Color color, LightAttenuation attenuation );
+    inline void setLight( Core::Color color, Core::Vector3 cog, Core::Matrix3 spatialCov, Core::Matrix3 normalCov, LightAttenuation attenuation );
 
     /// QUERY
     inline bool isPointLight() const;
@@ -120,7 +120,11 @@ class RA_CORE_API LightData : public AssetData {
             LightAttenuation attenuation;
         } m_spotlight;
         struct {
-            // TODO (Mathias) : find how to represent arealight in a generic way
+            // TODO (Mathias) : this representation is usefull but might be improved
+            Core::Vector3 position;
+            // TODO : gives the eigenvalues/eigenvectors for spatial and normal covariance matrices.
+            Core::Matrix3 spatialCovariance;
+            Core::Matrix3 normalCovariance;
             LightAttenuation attenuation;
         } m_arealight;
     };

@@ -71,10 +71,14 @@ inline void LightData::setLight( Core::Color color, Core::Vector3 position, Core
     m_spotlight.outerAngle = outAngle;
     m_spotlight.attenuation = attenuation;
 }
+
 /// construct an area light
-inline void LightData::setLight( Core::Color color, LightAttenuation attenuation ) {
+inline void LightData::setLight( Core::Color color, Core::Vector3 cog, Core::Matrix3 spatialCov, Core::Matrix3 normalCov, LightAttenuation attenuation ) {
     m_type = AREA_LIGHT;
     m_color = color;
+    m_arealight.position = cog;
+    m_arealight.spatialCovariance = spatialCov;
+    m_arealight.normalCovariance = normalCov;
     m_arealight.attenuation = attenuation;
 }
 
