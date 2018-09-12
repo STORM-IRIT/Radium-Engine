@@ -23,11 +23,10 @@ struct HalfEdge {
 };
 
 /// Structure holding the half-edge data of one mesh.
-/// Note on non manifold edges : if the mesh is non-closed, two half edges will be constructed
-/// even on the border edges, however the "outer" half-edge will have invalid
-/// face and prev/next indices.
-/// Edges shared by more than 2 triangles are not supported and will cause an assert during
-/// the call to build().
+/// \note For non manifold edges : if the mesh is non-closed, two half edges will
+/// be constructed even on the border edges, however the "outer" half-edge will
+/// have invalid face and prev/next indices. Edges shared by more than 2 triangles
+/// are not supported and will cause an assert during the call to build().
 class RA_CORE_API HalfEdgeData {
   public:
     /// Build the half edge data from a mesh.
@@ -69,8 +68,8 @@ namespace AdjacencyQueries {
 RA_CORE_API void getVertexFaces( const TriangleMesh& mesh, const HalfEdgeData& heData,
                                  VertexIdx vertex, std::vector<TriangleIdx>& facesOut );
 
-/// Gets the faces adjacent to a given triangle, in order. Note that
-/// the face indices may be invalid (if the triangle is on the border)
+/// Gets the faces adjacent to a given triangle, in order.
+/// \note The face indices may be invalid (if the triangle is on the border).
 RA_CORE_API void getAdjacentFaces( const TriangleMesh& mesh, const HalfEdgeData& heData,
                                    TriangleIdx triangle, std::array<TriangleIdx, 3>& adjOut );
 

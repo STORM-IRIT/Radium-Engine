@@ -18,7 +18,7 @@ namespace Ra {
 namespace Gui {
 /// This class interfaces the gizmos with the ui commands.
 /// It allows to change the gizmo type when editing an editable transform object
-/// Note :  currently the scale gizmo is not implemented so it will just return a null pointer
+/// \note Currently the scale gizmo is not implemented so it will just return a null pointer
 class RA_GUIBASE_API GizmoManager : public QObject, public GuiBase::TransformEditor {
     Q_OBJECT
 

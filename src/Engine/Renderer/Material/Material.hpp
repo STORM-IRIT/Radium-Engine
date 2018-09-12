@@ -55,7 +55,7 @@ class RA_ENGINE_API Material {
     inline const std::string& getName() const;
 
     /** Get the shader file that define the glsl code to evaluate the material.
-     * @note not used yet by the Engine.
+     * @note Not used yet by the Engine.
      * @return the glsl file implementing the GLSL material interface.
      */
     virtual const std::string getShaderInclude() const;

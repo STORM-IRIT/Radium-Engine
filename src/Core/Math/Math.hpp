@@ -61,7 +61,7 @@ template <typename T>
 inline constexpr int sign( const T& val );
 
 /// Returns the sign of any numeric type as on of { -1, 1}.
-/// Note: signNZ(0) returns 1 for any integral type but signNZ(-0.f) will return -1.
+/// \note signNZ(0) returns 1 for any integral type but signNZ(-0.f) will return -1.
 template <typename T>
 inline constexpr T signNZ( const T& val );
 

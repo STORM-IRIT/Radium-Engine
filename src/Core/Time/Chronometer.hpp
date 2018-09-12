@@ -33,7 +33,7 @@ namespace Timer {
  *      }
  * \endcode
  *
- * \note Note that bar( bar_args ...) == bar_time< same_type >.run( bar, bar_args... )
+ * \note bar( bar_args ...) == bar_time< same_type >.run( bar, bar_args... )
  *
  */
 class Chrono {

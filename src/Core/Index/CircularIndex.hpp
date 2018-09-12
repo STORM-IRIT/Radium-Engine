@@ -49,7 +49,7 @@ class CircularIndex {
     inline CircularIndex operator-( const int off );
 
     /// Return true if both *this and \p id have the same index value.
-    /// \note no check is done against the container size.
+    /// \note No check is done against the container size.
     inline bool operator==( const CircularIndex& id ) const;
 
     /// Return true if the value of *this is lower than \p id's.

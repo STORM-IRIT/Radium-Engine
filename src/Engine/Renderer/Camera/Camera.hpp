@@ -64,7 +64,7 @@ class RA_ENGINE_API Camera final {
     void applyTransform( const Core::Transform& T );
 
     /// \name Getters and setters for projection matrix parameters.
-    /// \note : any of these functions will trigger a rebuild of the projection matrix.
+    /// \note Any of these functions will trigger a rebuild of the projection matrix.
     ///@{
 
     /// Return the Field Of View.

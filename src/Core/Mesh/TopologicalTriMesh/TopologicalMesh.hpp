@@ -53,7 +53,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /// This operation merges vertices with same position, but keeps vertex
     /// attributes on halfedges, so that TriangleMesh vertices with the same 3D
     /// position are represented only once in the topological mesh.
-    /// \note this is a costly operation.
+    /// \note This is a costly operation.
     explicit TopologicalMesh( const Ra::Core::TriangleMesh& triMesh );
 
     /// Construct an empty topological mesh.
@@ -61,7 +61,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     /// Obtain a triangleMesh from a topological mesh.
     /// This function is non-const because of the computation of face normals.
-    /// \note this is a costly operation.
+    /// \note This is a costly operation.
     TriangleMesh toTriangleMesh();
 
     // import other version of halfedge_handle method.

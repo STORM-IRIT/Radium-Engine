@@ -27,7 +27,7 @@ class KeyFrame {
     inline AnimationTime getAnimationTime() const { return m_time; }
 
     /// Sets the AnimationTime for the KeyFrame.
-    /// \note no check is done regarding already registered FRAME values.
+    /// \note No check is done regarding already registered FRAME values.
     // Is this useful? Can this create problems?
     inline void setAnimationTime( const AnimationTime& time ) { m_time = time; }
 
@@ -44,7 +44,7 @@ class KeyFrame {
     }
 
     /// Return the FRAME coresponding to time \p t.
-    /// \note if \f$ t \notin AnimationTime \f$, then the default FRAME value is returned.
+    /// \note If \f$ t \notin AnimationTime \f$, then the default FRAME value is returned.
     ///       otherwise, the closest FRAMEs are linearly interpolated.
     inline FRAME at( const Time& t ) const {
         if ( !m_time.contain( t ) )
@@ -66,7 +66,7 @@ class KeyFrame {
     }
 
     /// Register \p frame as the FRAME at instant \p t.
-    /// \note if \f$ t \notin AnimationTime \f$, then the AnimationTime is extended to include \p t.
+    /// \note If \f$ t \notin AnimationTime \f$, then the AnimationTime is extended to include \p t.
     inline void insertKeyFrame( const Time& t, const FRAME& frame ) {
         if ( t < m_time.getStart() )
         {

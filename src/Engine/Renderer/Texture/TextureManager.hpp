@@ -108,7 +108,7 @@ class RA_ENGINE_API TextureManager final {
     ~TextureManager();
 
     /** Load a given filename and return the associated TextureData.
-     * @note : only loads 2D image file for now.
+     * @note Only loads 2D image file for now.
      * @param filename
      * @return
      */

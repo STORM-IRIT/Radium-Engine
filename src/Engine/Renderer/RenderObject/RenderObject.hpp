@@ -162,7 +162,7 @@ class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
     Core::Matrix4 getTransformAsMatrix() const;
 
     /// Return the object's AABB.
-    /// \note takes the object's transform into account.
+    /// \note Takes the object's transform into account.
     Core::Aabb getAabb() const;
 
     /// Return the object's display mesh AABB.

@@ -26,7 +26,7 @@ namespace Core {
 /// pooled threads.
 /// Task are allowed to have dependencies. A task will be executed only when all its dependencies
 /// are satisfied, i.e. all dependant tasks are finished.
-/// Note that most functions are not thread safe and must not be called when the task queue is
+/// \note Most functions are not thread safe and must not be called when the task queue is
 /// running.
 class RA_CORE_API TaskQueue {
   public:

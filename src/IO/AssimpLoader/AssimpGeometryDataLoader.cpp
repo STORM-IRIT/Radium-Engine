@@ -412,9 +412,8 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
     if ( AI_SUCCESS == material.Get( AI_MATKEY_OPACITY, opacity ) )
     {
         blinnPhongMaterial->m_hasOpacity = true;
-        // NOTE(charly): Due to collada way of handling objects that have an alpha map, we must
-        // ensure
-        //               we do not have zeros in here.
+        // NOTE(charly): Due to collada way of handling objects that have an
+        // alpha map, we must ensure we do not have zeros in here.
         blinnPhongMaterial->m_opacity = opacity < 1e-5 ? 1 : opacity;
     }
 

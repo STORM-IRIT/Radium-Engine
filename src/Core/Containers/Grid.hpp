@@ -129,10 +129,11 @@ class Grid {
         //
 
         /// Returns true if both \p this and \p other point to the same grid element.
-        /// \note : comparing iterators of different grid sizes will assert.
+        /// \note comparing iterators of different grid sizes will assert.
         inline bool operator==( const Iterator& other ) const;
-        /// Returns true if \p this points to a grid element stored before the one \p other points
-        /// to. \note : comparing iterators of different grid sizes will assert.
+        /// Returns true if \p this points to a grid element stored before the
+        /// one \p other points to.
+        /// \note comparing iterators of different grid sizes will assert.
         inline bool operator<( const Iterator& other ) const;
 
         //
@@ -166,18 +167,19 @@ class Grid {
         //
 
         /// Returns true if \p this and \p other point to different grid elements.
-        /// \note : comparing iterators of different grid sizes will assert.
+        /// \note Comparing iterators of different grid sizes will assert.
         inline bool operator!=( const Iterator& rhs ) const { return !( *this == rhs ); }
-        /// Returns true if \p this points to a grid element stored after the one \p other points
-        /// to. \note : comparing iterators of different grid sizes will assert.
+        /// Returns true if \p this points to a grid element stored after the
+        /// one \p other points to.
+        /// \note Comparing iterators of different grid sizes will assert.
         inline bool operator>( const Iterator& rhs ) const { return rhs < *this; }
-        /// Returns true if \p this points to a grid element stored before the one \p other points
-        /// to or if they both point to the same element. \note : comparing iterators of different
-        /// grid sizes will assert.
+        /// Returns true if \p this points to a grid element stored before the
+        /// one \p other points to or if they both point to the same element.
+        /// \note Comparing iterators of different grid sizes will assert.
         inline bool operator<=( const Iterator& rhs ) const { return !( *this > rhs ); }
-        /// Returns true if \p this points to a grid element stored after the one \p other points to
-        /// or if they both point to the same element.
-        /// \note : comparing iterators of different grid sizes will assert.
+        /// Returns true if \p this points to a grid element stored after the
+        /// one \p other points to or if they both point to the same element.
+        /// \note Comparing iterators of different grid sizes will assert.
         inline bool operator>=( const Iterator& rhs ) const { return !( *this < rhs ); }
 
       private:
@@ -264,6 +266,7 @@ class Grid {
     /// Storage for the grid data.
     std::vector<T> m_data;
 };
+
 } // namespace Core
 } // namespace Ra
 
