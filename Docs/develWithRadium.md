@@ -6,10 +6,10 @@ There are three main options to work with Radium:
 3. Contribute to Radium libraries: to improve/extend core components of Radium.
 
 ## Radium Plugin
-Tutorial here: https://github.com/AGGA-IRIT/Radium-PluginExample
+Tutorial here: https://github.com/STORM-IRIT/Radium-PluginExample
 
 ## Radium Application
-Tutorial here: https://github.com/AGGA-IRIT/Radium-AppExample
+Tutorial here: https://github.com/STORM-IRIT/Radium-AppExample
 
 ## Radium libraries
 Direct contributions to master are closed.
