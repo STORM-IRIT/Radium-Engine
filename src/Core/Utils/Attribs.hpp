@@ -100,7 +100,7 @@ class AttribHandle {
 /*!
  * \brief The AttribManager provides attributes management by handles.
  *
- * The AttribManager stores a container of AttribBase*, which can
+ * The AttribManager stores a container of AttribBase *, which can
  * be accessed (#getAttrib) and deleted (#removeAttrib) using a AttribHandle.
  * Handles are created from an attribute name using #addAttrib, and retrieved
  * using #findAttrib.
