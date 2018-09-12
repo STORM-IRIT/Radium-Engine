@@ -90,7 +90,7 @@ class TriangleMesh {
         return m_vertexAttribs.findAttrib<T>( name );
     }
 
-    /// Return true if \p h referss to an existing attribute in *this.
+    /// Return true if \p h refers to an existing attribute in *this.
     template <typename T>
     bool isValid( const AttribHandle<T>& h ) const {
         return m_vertexAttribs.isValid( h );
