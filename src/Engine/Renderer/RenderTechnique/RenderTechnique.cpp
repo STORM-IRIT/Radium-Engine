@@ -94,12 +94,14 @@ Ra::Engine::RenderTechnique RenderTechnique::createDefaultRenderTechnique() {
     {
         return *( RadiumDefaultRenderTechnique.get() );
     }
-
-    Ra::Engine::RenderTechnique* rt = new Ra::Engine::RenderTechnique;
-    auto config = ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
-    rt->setConfiguration( config, LIGHTING_OPAQUE );
     std::shared_ptr<Material> mat( new BlinnPhongMaterial( "DefaultGray" ) );
+    Ra::Engine::RenderTechnique* rt = new Ra::Engine::RenderTechnique;
     rt->setMaterial( mat );
+    auto builder = EngineRenderTechniques::getDefaultTechnique("BlinnPhong");
+    if (!builder.first) {
+        LOG( logERROR ) << "Unable to create the default technique : is the Engine initialized ? ";
+    }
+    builder.second(*rt, false);
     RadiumDefaultRenderTechnique.reset( rt );
     return *( RadiumDefaultRenderTechnique.get() );
 }
