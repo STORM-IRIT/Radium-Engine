@@ -23,8 +23,6 @@ void DefaultCameraManager::preprocess( const Ra::Engine::RenderData& rd ) {
     renderData = rd;
 }
 
-void DefaultCameraManager::prerender( unsigned int cam ) {}
-
 void DefaultCameraManager::render( RenderObject* ro, unsigned int cam,
                                    RenderTechnique::PassName passname ) {
     auto camera = getCamera( cam );
@@ -33,16 +31,7 @@ void DefaultCameraManager::render( RenderObject* ro, unsigned int cam,
     ro->render( params, renderData, passname );
 }
 
-void DefaultCameraManager::postrender( unsigned int cam ) {}
-
-void DefaultCameraManager::postprocess() {
-    // Eventually, this would be a good idea to disable GL_BLEND, and
-    // all what was enabled in preprocess().
-}
-
 DefaultCameraStorage::DefaultCameraStorage() {}
-
-void DefaultCameraStorage::upload() const {}
 
 void DefaultCameraStorage::add( Camera* cam ) {
     m_Cameras.emplace( cam->getType(), cam );

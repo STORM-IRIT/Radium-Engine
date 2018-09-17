@@ -5,6 +5,8 @@
 
 namespace Ra {
 namespace Gui {
+
+/// A Trackball manipulator for Cameras.
 class TrackballCamera : public CameraInterface {
     Q_OBJECT
 
@@ -12,34 +14,31 @@ class TrackballCamera : public CameraInterface {
     TrackballCamera( uint width, uint height );
     virtual ~TrackballCamera();
 
-    /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleMousePressEvent( QMouseEvent* event ) override;
-    /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleMouseReleaseEvent( QMouseEvent* event ) override;
-    /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleMouseMoveEvent( QMouseEvent* event ) override;
-    /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleWheelEvent( QWheelEvent* event ) override;
+    bool handleMousePressEvent( QMouseEvent* event ) override;
+    bool handleMouseReleaseEvent( QMouseEvent* event ) override;
+    bool handleMouseMoveEvent( QMouseEvent* event ) override;
+    bool handleWheelEvent( QWheelEvent* event ) override;
 
-    /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleKeyPressEvent( QKeyEvent* event ) override;
-    /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleKeyReleaseEvent( QKeyEvent* event ) override;
+    bool handleKeyPressEvent( QKeyEvent* event ) override;
+    bool handleKeyReleaseEvent( QKeyEvent* event ) override;
 
     void setCamera( Engine::Camera* camera ) override;
 
     void save( std::ostream& out ) const override;
     void load( std::istream& in ) override;
 
+    /// Set the distance from the camera to the target point.
     void setCameraRadius( Scalar rad );
+
+    /// Return the distance from the camera to the target point.
     Scalar getCameraRadius();
 
   public slots:
-    virtual void setCameraPosition( const Core::Vector3& position ) override;
-    virtual void setCameraTarget( const Core::Vector3& target ) override;
-    virtual void fitScene( const Core::Aabb& aabb ) override;
+    void setCameraPosition( const Core::Vector3& position ) override;
+    void setCameraTarget( const Core::Vector3& target ) override;
+    void fitScene( const Core::Aabb& aabb ) override;
 
-    virtual void resetCamera() override;
+    void resetCamera() override;
 
   protected:
     virtual void handleCameraRotate( Scalar dx, Scalar dy );
@@ -47,27 +46,38 @@ class TrackballCamera : public CameraInterface {
     virtual void handleCameraZoom( Scalar dx, Scalar dy );
     virtual void handleCameraZoom( Scalar z );
 
+    /// Update the polar coordinates of the Camera w.r.t. the trackball center.
     void updatePhiTheta();
 
   protected:
+    /// center of the trackball.
     Core::Vector3 m_trackballCenter;
 
+    /// x-position of the mouse on the screen at the manipulation start.
     Scalar m_lastMouseX;
+
+    /// y-position of the mouse on the screen at the manipulation start.
     Scalar m_lastMouseY;
 
+    /// Additional factor for camera sensitivity.
     Scalar m_quickCameraModifier;
+
+    /// Zoom speed on mouse wheel events.
     Scalar m_wheelSpeedModifier;
 
+    /// Polar coordinates of the Camera w.r.t. the trackball center.
     Scalar m_phi;
     Scalar m_theta;
 
+    /// The distance from the camera to the trackball center.
     Scalar m_distFromCenter;
 
+    /// Whether the corresponding camera movement is active or not.
     bool m_rotateAround;
     bool m_cameraRotateMode;
     bool m_cameraPanMode;
-    // TODO(Charly): fps mode
     bool m_cameraZoomMode;
+    // TODO(Charly): fps mode
 };
 
 } // namespace Gui

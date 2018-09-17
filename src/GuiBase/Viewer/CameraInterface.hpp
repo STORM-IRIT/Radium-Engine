@@ -28,21 +28,28 @@ class Light;
 namespace Ra {
 namespace Gui {
 
+/// The CameraInterface class is the generic class for camera manipulators.
 class CameraInterface : public QObject {
     Q_OBJECT
 
   public:
-    // FIXME(Charly): width / height ?
+    /// Initializes the default app Camera from the given size.
     CameraInterface( uint width, uint height );
+
     virtual ~CameraInterface();
 
+    /// Resize the camera viewport.
     void resizeViewport( uint width, uint height );
 
+    /// @return the projection matrix.
     Core::Matrix4 getProjMatrix() const;
+
+    /// @return the view matrix.
     Core::Matrix4 getViewMatrix() const;
 
     /// Serialization methods
     virtual void save( std::ostream& out ) const = 0;
+    /// Serialization methods
     virtual void load( std::istream& in ) = 0;
 
     /// @return true if the event has been taken into account, false otherwise
@@ -59,59 +66,79 @@ class CameraInterface : public QObject {
     /// @return true if the event has been taken into account, false otherwise
     virtual bool handleKeyReleaseEvent( QKeyEvent* event ) = 0;
 
+    /// Pointer access to the camera.
     const Engine::Camera* getCamera() const { return m_camera; }
 
+    /// Pointer access to the camera.
     Engine::Camera* getCamera() { return m_camera; }
 
     /// Set the Camera used to render the scene.
-    // FIXED (Mathias) Camera is a component. CameraInterface doesn't have ownership
+    /// \note CameraInterface doesn't have ownership.
     virtual void setCamera( Engine::Camera* camera ) = 0;
 
-    // FIXED (Mathias) Light is a component. CameraInterface doesn't have ownership
+    /// Set the Light attached to the camera.
+    /// \note CameraInterface doesn't have ownership.
     void attachLight( Engine::Light* light );
-    bool hasLightAttached() const { return m_hasLightAttached; }
 
-    /// pointer acces to the attached light, the caller has to check if
-    /// hasLightAttached is true, it return a shared_ptr, so the light
-    /// could be attached to another camera
+    /// @return true if a Light is attached to the camera, false otherwise.
+    bool hasLightAttached() const { return m_light != nullptr; }
+
+    /// pointer acces to the attached light if it exists, returns nullptr otherwise.
     Engine::Light* getLight() { return m_light; }
-    virtual void update( Scalar dt ) {}
 
+    /// Static method to get the Camera from the given viewer.
+    // FIXME: shouldn't be here!
     static const Engine::Camera& getCameraFromViewer( QObject* v );
 
   public slots:
+    /// \name Camera properties setters
+    ///@{
     void setCameraSensitivity( double sensitivity );
-
     void setCameraFov( double fov );
     void setCameraFovInDegrees( double fov );
     void setCameraZNear( double zNear );
     void setCameraZFar( double zFar );
+    ///@}
 
+    /// Set the AABB to restrain the camera behavior against.
     void mapCameraBehaviourToAabb( const Core::Aabb& aabb );
+
+    /// Free the camera from AABB restriction.
     void unmapCameraBehaviourToAabb();
 
+    /// Setup the Camera according to the AABB of the scene to render.
     virtual void fitScene( const Core::Aabb& aabb ) = 0;
 
+    /// Set the Camera position to \p position.
     virtual void setCameraPosition( const Core::Vector3& position ) = 0;
+
+    /// Set the Camera target to \p target.
     virtual void setCameraTarget( const Core::Vector3& target ) = 0;
 
+    /// Reset the Camera settings to default values.
     virtual void resetCamera() = 0;
 
   signals:
+    /// Emitted when the position of the Camera has changed.
     void cameraPositionChanged( const Core::Vector3& );
+
+    /// Emitted when the target of the Camera has changed.
     void cameraTargetChanged( const Core::Vector3& );
 
+    /// Emitted when both the position and the target of the Camera has changed.
+    /// \note cameraPositionChanged and cameraTargetChanged are not called in such a case.
+    void cameraChanged( const Core::Vector3& position, const Core::Vector3& target );
+
   protected:
-    Core::Aabb m_targetedAabb;
+    Scalar m_cameraSensitivity; ///< the Camera sensitivity to manipulation.
 
-    Scalar m_targetedAabbVolume;
-    Scalar m_cameraSensitivity;
+    Core::Aabb m_targetedAabb;       ///< Camera behavior restriction AABB.
+    Scalar m_targetedAabbVolume;     ///< Volume of the m_targetedAabb
+    bool m_mapCameraBahaviourToAabb; ///< whether the camera is restrained or not
 
-    Engine::Camera* m_camera;
-    bool m_mapCameraBahaviourToAabb;
+    Engine::Camera* m_camera; ///< The Camera.
 
-    Engine::Light* m_light;
-    bool m_hasLightAttached;
+    Engine::Light* m_light; /// The light attached to the Camera.
 };
 
 } // namespace Gui

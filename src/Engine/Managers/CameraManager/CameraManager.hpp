@@ -55,14 +55,9 @@ class RA_ENGINE_API CameraManager : public System {
     virtual size_t count() const;
 
     /**
-     * @brief Call before a render, update the general state of the CameraManager.
+     * @brief Call before a render, registers the RenderData to use for rendering.
      */
     virtual void preprocess( const RenderData& renderData ) = 0;
-
-    /**
-     * @brief Call before a render, process what is needed for a given Camera.
-     */
-    virtual void prerender( unsigned int cam ) = 0;
 
     /**
      * @brief render the object with specific technics for the current Camera (between prerender and
@@ -71,16 +66,6 @@ class RA_ENGINE_API CameraManager : public System {
     virtual void
     render( RenderObject*, unsigned int cam,
             RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE ) = 0;
-
-    /**
-     * @brief Call after a render, process what is needed for a given Camera.
-     */
-    virtual void postrender( unsigned int cam ) = 0;
-
-    /**
-     * @brief Call after a render, update the general state of the CameraManager.
-     */
-    virtual void postprocess() = 0;
 
     //
     // System methods

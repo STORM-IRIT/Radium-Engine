@@ -31,6 +31,8 @@ Camera::Camera( Entity* entity, const std::string& name, Scalar height, Scalar w
 Camera::~Camera() {}
 
 void Camera::initialize() {
+    if ( !m_renderObjects.empty() )
+        return;
     // Create the render mesh for the camera
     std::shared_ptr<Mesh> m( new Mesh( m_name + "_mesh" ) );
     Ra::Core::Vector3Array v = {{0, 0, 0},       {-0.5, -0.5, -1}, {-0.5, 0.5, -1}, {0.5, 0.5, -1},

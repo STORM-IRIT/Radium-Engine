@@ -49,7 +49,7 @@ class RA_IO_API AssimpCameraDataLoader : public Asset::DataLoader<Asset::CameraD
     /// Fill \p data with the camera name from \p camera.
     void fetchName( const aiCamera& camera, Asset::CameraData& data ) const;
 
-    /// Return the light transformation, in world space, for \p data from \p the scene.
+    /// Return the Camera transformation, in world space, for \p data from \p the scene.
     Core::Matrix4 loadCameraFrame( const aiScene* scene, const Core::Matrix4& parentFrame,
                                    Asset::CameraData& data ) const;
 };

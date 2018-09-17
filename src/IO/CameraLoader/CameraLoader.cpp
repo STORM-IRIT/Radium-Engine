@@ -84,7 +84,7 @@ Asset::FileData* CameraFileLoader::loadFile( const std::string& filename ) {
     camera->setZFar( zfar );
     camera->setZoomFactor( zoom );
     camera->setAspect( aspect );
-    fileData->m_cameraData.push_back( std::unique_ptr<Asset::CameraData>( camera ) );
+    fileData->m_cameraData.emplace_back( camera );
     if ( fileData->isVerbose() )
     {
         fileData->displayInfo();

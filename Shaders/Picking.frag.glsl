@@ -12,11 +12,8 @@ uniform int objectId;
 
 void main()
 {
-    // dot product between view and normal
-    float angle = dot( in_eye - in_position, in_normal );
-
     // discard if culled
-    if( length(in_normal) > 1e-5 && angle <= 0 )
+    if( length( in_normal ) > 1e-5 && dot( in_eye - in_position, in_normal ) <= 0 )
     {
         discard;
     }
