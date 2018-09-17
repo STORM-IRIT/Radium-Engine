@@ -158,13 +158,19 @@ if (${RADIUM_FORCE_ASSERTS})
     add_definitions(-DCORE_USE_ASSERT)
 endif()
 
+if (${RADIUM_CAMERA_SUPPORT})
+    add_definitions(-DIO_USE_CAMERA)
+    message(STATUS "${PROJECT_NAME} : Using Camera loader")
+else()
+    message(STATUS "${PROJECT_NAME} : Camera loader disabled")
+endif()
+
 if (${RADIUM_ASSIMP_SUPPORT})
     add_definitions(-DIO_USE_ASSIMP)
     message(STATUS "${PROJECT_NAME} : Using Assimp loader")
 else()
     message(STATUS "${PROJECT_NAME} : Assimp loader disabled")
 endif()
-
 
 if (${RADIUM_TINYPLY_SUPPORT})
     add_definitions(-DIO_USE_TINYPLY)
