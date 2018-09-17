@@ -42,7 +42,6 @@
 #include <QTimer>
 
 #include <algorithm>
-#include <fstream>
 
 // Const parameters : TODO : make config / command line options
 
@@ -254,8 +253,8 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     // A camera has been required, load it.
     if ( parser.isSet( camOpt ) )
     {
-        std::ifstream file( parser.value( camOpt ).toStdString().c_str() );
-        m_viewer->loadCamera( file );
+        loadFile( parser.value( camOpt ) );
+        // todo: change the camera
     }
 
     m_lastFrameStart = Core::Timer::Clock::now();

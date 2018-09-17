@@ -106,41 +106,6 @@
             </item>
             <item>
              <layout class="QGridLayout" name="gridLayout_4">
-              <item row="1" column="1">
-               <widget class="QPushButton" name="m_clearSceneButton">
-                <property name="text">
-                 <string>Clear Scene</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QPushButton" name="m_saveCameraButton">
-                <property name="text">
-                 <string>Save Camera</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QPushButton" name="m_fitCameraButton">
-                <property name="text">
-                 <string>Fit Camera</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="QPushButton" name="m_loadCameraButton">
-                <property name="text">
-                 <string>Load Camera</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QPushButton" name="m_removeEntityButton">
-                <property name="text">
-                 <string>Remove</string>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="0">
                <widget class="QPushButton" name="m_toggleRenderObjectButton">
                 <property name="text">
@@ -166,12 +131,23 @@
                </widget>
               </item>
               <item row="1" column="2">
-               <widget class="QPushButton" name="m_useCameraButton">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
+               <widget class="QPushButton" name="m_fitCameraButton">
                 <property name="text">
-                 <string>Use Camera</string>
+                 <string>Fit Camera</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QPushButton" name="m_removeEntityButton">
+                <property name="text">
+                 <string>Remove</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="m_clearSceneButton">
+                <property name="text">
+                 <string>Clear Scene</string>
                 </property>
                </widget>
               </item>

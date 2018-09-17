@@ -5,7 +5,7 @@ set( CMAKE_BUILD_WITH_INSTALL_RPATH FALSE )
 set( CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib )
 set( CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE )
 
-set( RADIUM_IO_IS_INTERFACE FALSE )
+set( RADIUM_IO_IS_INTERFACE TRUE )
 
 list( FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSysDir )
 if ( "${isSysDir}" STREQUAL "-1" )
@@ -37,12 +37,7 @@ message(STATUS "Compiling Radium with 3rdparty include dirs : ${EIGEN3_INCLUDE_D
 if( RADIUM_ASSIMP_SUPPORT )
     include_directories( ${ASSIMP_INCLUDE_DIR} )
     message(STATUS "Compiling Radium with Assimp's include dir : ${ASSIMP_INCLUDE_DIR}" )
-    set( RADIUM_IO_IS_INTERFACE TRUE )
 endif( RADIUM_ASSIMP_SUPPORT )
-
-if( RADIUM_CAMERA_SUPPORT )
-    set( RADIUM_IO_IS_INTERFACE TRUE )
-endif( RADIUM_CAMERA_SUPPORT )
 
 
 # Build Core
