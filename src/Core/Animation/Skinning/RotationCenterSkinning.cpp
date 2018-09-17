@@ -1,19 +1,16 @@
 #include <Core/Animation/Skinning/RotationCenterSkinning.hpp>
 
-#include <Core/Index/IndexMap.hpp>
-#include <Core/Log/Log.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
-#include <Core/Mesh/Wrapper/Convert.hpp>
-
 #include <array>
+#include <unordered_map>
 
 #include <Core/Animation/Handle/HandleWeight.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
 #include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
-#include <Core/Mesh/DCEL/Dcel.hpp>
-#include <Core/Mesh/DCEL/FullEdge.hpp>
-#include <Core/Mesh/DCEL/Operations/EdgeSplit.hpp>
+#include <Core/Log/Log.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
+#include <Core/Mesh/TopologicalTriMesh/Operations/EdgeSplit.hpp>
+#include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
 
 namespace Ra {
 namespace Core {
@@ -21,7 +18,6 @@ namespace Animation {
 
 Scalar weightSimilarity( const Eigen::SparseVector<Scalar>& v1w,
                          const Eigen::SparseVector<Scalar>& v2w, Scalar sigma ) {
-
     const Scalar sigmaSq = sigma * sigma;
 
     Scalar result = 0;
@@ -54,117 +50,167 @@ Scalar weightSimilarity( const Eigen::SparseVector<Scalar>& v1w,
 void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilon ) {
     LOG( logDEBUG ) << "Precomputing CoRs";
 
+    //
     // First step : subdivide the original mesh until weights are sufficiently close enough.
-    Scalar maxWeightDistance = 0.f;
-    TriangleMesh subdividedMesh;
-    subdividedMesh.copyBaseGeometry( dataInOut.m_referenceMesh );
+    //
 
+    // convert the mesh to TopologicalMesh for easy processing.
+    TriangleMesh triMesh;
+    triMesh.copyBaseGeometry( dataInOut.m_referenceMesh );
+    TopologicalMesh topoMesh( triMesh );
+
+    // hashing function for Vector3
+    struct hash_vec {
+        size_t operator()( const Ra::Core::Vector3& lvalue ) const {
+            size_t hx = std::hash<Scalar>()( lvalue[0] );
+            size_t hy = std::hash<Scalar>()( lvalue[1] );
+            size_t hz = std::hash<Scalar>()( lvalue[2] );
+            return ( hx ^ ( hy << 1 ) ) ^ hz;
+        }
+    };
+
+    // fill map from vertex position to handle index, used to access the weight
+    // matrix from initial mesh vertices
+    std::unordered_map<Ra::Core::Vector3, int, hash_vec> mapV2I;
+    int i = 0;
+    for ( auto vit = topoMesh.vertices_begin(); vit != topoMesh.vertices_end(); ++vit, ++i )
+    {
+        mapV2I[topoMesh.point( *vit )] = vit->idx();
+    }
+
+    // Squash weight matrix to fit TopologicalMesh (access through handle indices)
     // Store the weights as row major here because we are going to query the per-vertex weights.
-    Eigen::SparseMatrix<Scalar, Eigen::RowMajor> subdividedWeights = dataInOut.m_weights;
-
-    // Convert the mesh to DCEL for easy processing.
-    Dcel dcel;
-    convert( subdividedMesh, dcel );
+    Eigen::SparseMatrix<Scalar, Eigen::RowMajor> subdivW;
+    const int numCols = dataInOut.m_weights.cols();
+    subdivW.resize( topoMesh.n_vertices(), numCols );
+    const auto& V = triMesh.vertices();
+    for ( int i = 0; i < V.size(); ++i )
+    {
+        subdivW.row( mapV2I[V[i]] ) = dataInOut.m_weights.row( i );
+    }
 
     // The mesh will be subdivided by repeated edge-split, so that adjacent vertices
     // weights are distant of at most `weightEpsilon`.
     // New vertices created by the edge splitting and their new weights are computed
     // and appended to the existing vertices.
+    const Scalar wEps2 = weightEpsilon * weightEpsilon;
+    Scalar maxWeightDistance = 0;
     do
     {
         maxWeightDistance = 0;
 
         // Stores the edges to split
-        std::vector<Index> edgesToSplit;
+        std::vector<TopologicalMesh::EdgeHandle> edgesToSplit;
 
         // Compute all weights distances for all edges.
-        for ( const auto& edge : dcel.m_fulledge )
+        for ( auto e_it = topoMesh.edges_begin(); e_it != topoMesh.edges_end(); ++e_it )
         {
-            Vertex_ptr v1 = edge->V( 0 );
-            Vertex_ptr v2 = edge->V( 1 );
+            const auto& he0 = topoMesh.halfedge_handle( *e_it, 0 );
+            const auto& he1 = topoMesh.halfedge_handle( *e_it, 1 );
+            int v0 = topoMesh.to_vertex_handle( he0 ).idx();
+            int v1 = topoMesh.to_vertex_handle( he1 ).idx();
 
-            Scalar weightDistance =
-                ( subdividedWeights.row( v1->idx ) - subdividedWeights.row( v2->idx ) ).norm();
+            Scalar weightDistance = ( subdivW.row( v0 ) - subdivW.row( v1 ) ).squaredNorm();
 
             maxWeightDistance = std::max( maxWeightDistance, weightDistance );
-            if ( weightDistance > weightEpsilon )
+            if ( weightDistance > wEps2 )
             {
-                edgesToSplit.push_back( edge->idx );
+                edgesToSplit.push_back( *e_it );
             }
         }
+        LOG( logDEBUG ) << "Max weight distance is " << sqrt( maxWeightDistance );
 
-        LOG( logDEBUG ) << "Max weight distance is " << maxWeightDistance;
+        // sort edges to split according to growing weightDistance to avoid
+        // creating edges larger than weightDistance
+        std::sort(
+            edgesToSplit.begin(), edgesToSplit.end(),
+            [&topoMesh, &subdivW]( const auto& a, const auto& b ) {
+                const auto& a0 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( a, 0 ) );
+                const auto& a1 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( a, 1 ) );
+                Scalar la = ( subdivW.row( a0.idx() ) - subdivW.row( a1.idx() ) ).squaredNorm();
+                const auto& b0 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( b, 0 ) );
+                const auto& b1 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( b, 1 ) );
+                Scalar lb = ( subdivW.row( b0.idx() ) - subdivW.row( b1.idx() ) ).squaredNorm();
+                return ( la > lb );
+            } );
 
         // We found some edges over the limit, so we split them.
         if ( !edgesToSplit.empty() )
         {
             LOG( logDEBUG ) << "Splitting " << edgesToSplit.size() << " edges";
-            int startIndex = subdividedWeights.rows();
-            int numCols = subdividedWeights.cols();
+            int startIndex = subdivW.rows();
 
             Eigen::SparseMatrix<Scalar, Eigen::RowMajor> newWeights(
                 startIndex + edgesToSplit.size(), numCols );
 
-            newWeights.topRows( startIndex ) = subdividedWeights;
-            subdividedWeights = newWeights;
+            newWeights.topRows( startIndex ) = subdivW;
+            subdivW = newWeights;
 
             int i = 0;
-
             // Split ALL the edges !
             for ( const auto& edge : edgesToSplit )
             {
-                int V1Idx = dcel.m_fulledge[edge]->V( 0 )->idx;
-                int V2Idx = dcel.m_fulledge[edge]->V( 1 )->idx;
+                int v0 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( edge, 0 ) ).idx();
+                int v1 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( edge, 1 ) ).idx();
 
-                DcelOperations::splitEdge( dcel, edge, 0.5f );
-                subdividedWeights.row( startIndex + i ) =
-                    0.5f * ( subdividedWeights.row( V1Idx ) + subdividedWeights.row( V2Idx ) );
+                TMOperations::splitEdge( topoMesh, edge, 0.5f );
+
+                subdivW.row( startIndex + i ) = 0.5f * ( subdivW.row( v0 ) + subdivW.row( v1 ) );
                 ++i;
             }
         }
-        edgesToSplit.clear();
+    } while ( maxWeightDistance > wEps2 );
 
-    } while ( maxWeightDistance > weightEpsilon );
+    CORE_ASSERT( topoMesh.n_vertices() == subdivW.rows(), "Weights and vertices don't match" );
 
-    // get the subdivided mesh back into mesh form.
-    convert( dcel, subdividedMesh );
-
+    //
     // Second step : evaluate the integrals over all triangles for all vertices.
-    CORE_ASSERT( subdividedMesh.vertices().size() == subdividedWeights.rows(),
-                 "Weights and vertices don't match" );
+    //
 
-    dataInOut.m_CoR.clear();
-    dataInOut.m_CoR.resize( dataInOut.m_referenceMesh.vertices().size(), Vector3::Zero() );
-
-    const uint nVerts = dataInOut.m_referenceMesh.vertices().size();
     // naive implementation : iterate over all the triangles (of the subdivided mesh)
     // for all vertices (of the original mesh).
+    const uint nVerts = V.size();
+    dataInOut.m_CoR.clear();
+    dataInOut.m_CoR.resize( nVerts, Vector3::Zero() );
+
+    // first precompute triangle data
+    std::map<TopologicalMesh::FaceHandle,
+             std::tuple<Vector3, Scalar, Eigen::SparseVector<Scalar>>> triangleData;
+    for ( auto f_it = topoMesh.faces_begin(); f_it != topoMesh.faces_end(); ++f_it )
+    {
+        // get needed data
+        const auto& he0 = topoMesh.halfedge_handle( *f_it );
+        const auto& he1 = topoMesh.next_halfedge_handle( he0 );
+        const auto& he2 = topoMesh.next_halfedge_handle( he1 );
+        const auto& v0 = topoMesh.to_vertex_handle( he0 );
+        const auto& v1 = topoMesh.to_vertex_handle( he1 );
+        const auto& v2 = topoMesh.to_vertex_handle( he2 );
+        const auto& p0 = topoMesh.point( v0 );
+        const auto& p1 = topoMesh.point( v1 );
+        const auto& p2 = topoMesh.point( v2 );
+        const Vector3 centroid = ( p0 + p1 + p2 ) / 3.f;
+        const Scalar area = Geometry::triangleArea( p0, p1, p2 );
+        const Eigen::SparseVector<Scalar> triWeight =
+            ( 1 / 3.f ) *
+            ( subdivW.row( v0.idx() ) + subdivW.row( v1.idx() ) + subdivW.row( v2.idx() ) );
+        triangleData[ *f_it ] = std::make_tuple( centroid, area, triWeight );
+    }
+
 #pragma omp parallel for
     for ( int i = 0; i < nVerts; ++i )
     {
-        // Check that the first vertices of the subdivided mesh have not changed.
-        ON_ASSERT( const Vector3& p = dataInOut.m_referenceMesh.vertices()[i] );
-        CORE_ASSERT( subdividedMesh.vertices()[i] == p, "Inconsistency in the meshes" );
-
         Vector3 cor( 0, 0, 0 );
         Scalar sumweight = 0;
-        const Eigen::SparseVector<Scalar> Wi = subdividedWeights.row( i );
+        const Eigen::SparseVector<Scalar> Wi = subdivW.row( mapV2I[V[i]] );
 
         // Sum the cor and weights over all triangles of the subdivided mesh.
-        for ( uint t = 0; t < subdividedMesh.m_triangles.size(); ++t )
+        for ( auto f_it = topoMesh.faces_begin(); f_it != topoMesh.faces_end(); ++f_it )
         {
-            const Triangle& tri = subdividedMesh.m_triangles[t];
-            std::array<Vector3, 3> triVerts;
-            MeshUtils::getTriangleVertices( subdividedMesh, t, triVerts );
-
-            const Scalar area = MeshUtils::getTriangleArea( subdividedMesh, t );
-            const Eigen::SparseVector<Scalar> triWeight =
-                ( 1 / 3.f ) * ( subdividedWeights.row( tri[0] ) + subdividedWeights.row( tri[1] ) +
-                                subdividedWeights.row( tri[2] ) );
-            const Vector3 centroid = ( triVerts[0] + triVerts[1] + triVerts[2] ) / 3.f;
-
+            const auto& triData = triangleData[*f_it];
+            const Vector3& centroid = std::get<0>( triData );
+            Scalar area = std::get<1>( triData );
+            const auto& triWeight = std::get<2>( triData );
             const Scalar s = weightSimilarity( Wi, triWeight, sigma );
-
             cor += s * area * centroid;
             sumweight += s * area;
         }
@@ -205,6 +251,7 @@ void corSkinning( const Vector3Array& input, const Animation::Pose& pose,
         output[i] = DQ[i].rotate( input[i] - CoR[i] ) + transformedCoR[i];
     }
 }
+
 } // namespace Animation
 } // namespace Core
 } // namespace Ra

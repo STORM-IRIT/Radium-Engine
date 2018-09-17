@@ -52,6 +52,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Pph;
     std::vector<OpenMesh::HPropHandleT<Vector4>> m_vec4Pph;
 
+    friend class TMOperations;
+
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
