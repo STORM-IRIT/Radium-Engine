@@ -11,9 +11,7 @@
 namespace Ra {
 namespace Engine {
 
-// FIXME (Hugo) To me this class could totally be renamed LightComponent and get a Light struct
-// embedded. Thoughts are welcome !
-/// A Light is an Engine Component storing a light object.
+/// A Camera is an Engine Component storing a Camera object.
 class RA_ENGINE_API Camera : public Component {
   public:
     /// Define the projection type.

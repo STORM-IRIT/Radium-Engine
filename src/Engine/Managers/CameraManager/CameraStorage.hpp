@@ -18,17 +18,12 @@ namespace Engine {
  * an implementation-defined way.
  */
 class RA_ENGINE_API CameraStorage {
-    // TODO (Mathias) make camera storage compatible with range for ...
+    // TODO: make camera storage compatible with range for ...
   public:
     CameraStorage() {}
 
     /// Destructor
     virtual ~CameraStorage() {}
-
-    /**
-     * Upload data to the GPU.
-     */
-    virtual void upload() const = 0;
 
     // Redefine container classic functions.
 
