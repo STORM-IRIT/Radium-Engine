@@ -5,6 +5,8 @@ set( CMAKE_BUILD_WITH_INSTALL_RPATH FALSE )
 set( CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib )
 set( CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE )
 
+set( RADIUM_IO_IS_INTERFACE FALSE )
+
 list( FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSysDir )
 if ( "${isSysDir}" STREQUAL "-1" )
     set( CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib" )
@@ -35,7 +37,13 @@ message(STATUS "Compiling Radium with 3rdparty include dirs : ${EIGEN3_INCLUDE_D
 if( RADIUM_ASSIMP_SUPPORT )
     include_directories( ${ASSIMP_INCLUDE_DIR} )
     message(STATUS "Compiling Radium with Assimp's include dir : ${ASSIMP_INCLUDE_DIR}" )
+    set( RADIUM_IO_IS_INTERFACE TRUE )
 endif( RADIUM_ASSIMP_SUPPORT )
+
+if( RADIUM_CAMERA_SUPPORT )
+    set( RADIUM_IO_IS_INTERFACE TRUE )
+endif( RADIUM_CAMERA_SUPPORT )
+
 
 # Build Core
 set(core_target radiumCore)
@@ -91,10 +99,12 @@ file(GLOB io_inlines IO/*.inl)
 
 set(io_libs radiumCore radiumEngine)
 
-add_subdirectory( IO/CameraLoader )
-set( io_sources ${io_sources} ${cameraloader_sources} )
-set( io_headers ${io_headers} ${cameraloader_headers} )
-set( io_inlines ${io_inlines} ${cameraloader_inlines} )
+if( RADIUM_CAMERA_SUPPORT )
+    add_subdirectory( IO/CameraLoader )
+    set( io_sources ${io_sources} ${cameraloader_sources} )
+    set( io_headers ${io_headers} ${cameraloader_headers} )
+    set( io_inlines ${io_inlines} ${cameraloader_inlines} )
+endif( RADIUM_CAMERA_SUPPORT )
 
 if( RADIUM_ASSIMP_SUPPORT )
     add_subdirectory( IO/AssimpLoader )
@@ -111,19 +121,36 @@ if( RADIUM_TINYPLY_SUPPORT )
     set( io_inlines ${io_inlines} ${tinyply_inlines} )
 endif( RADIUM_TINYPLY_SUPPORT )
 
-add_library(
+if ( RADIUM_IO_IS_INTERFACE )
+    add_library( ${io_target} INTERFACE )
+
+    target_sources(
+        ${io_target} INTERFACE
+        ${io_sources}
+        ${io_headers}
+        ${io_inlines}
+    )
+    target_compile_definitions(${io_target} INTERFACE "-DRA_IO_STATIC")
+
+    target_link_libraries(
+            ${io_target} INTERFACE
+            ${io_libs}
+    )
+else ( RADIUM_IO_IS_INTERFACE )
+    add_library(
         ${io_target} SHARED
         ${io_sources}
         ${io_headers}
         ${io_inlines}
-)
-target_compile_definitions(${io_target} PRIVATE "-DRA_IO_EXPORTS")
+    )
+    target_compile_definitions(${io_target} PRIVATE "-DRA_IO_EXPORTS")
 
-target_link_libraries(
+    target_link_libraries(
         ${io_target}
         ${io_libs}
-)
-set_property( TARGET ${io_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
+    )
+    set_property( TARGET ${io_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
+endif ( RADIUM_IO_IS_INTERFACE )
 
 add_dependencies( ${io_target} ${core_target} ${engine_target} )
 
