@@ -569,14 +569,6 @@ void Gui::Viewer::fitCameraToScene( const Core::Aabb& aabb ) {
     { LOG( logINFO ) << "Unable to fit the camera to the scene : empty Bbox."; }
 }
 
-void Gui::Viewer::saveCamera( std::ostream& out ) const {
-    m_camera->save( out );
-}
-
-void Gui::Viewer::loadCamera( std::istream& in ) {
-    m_camera->load( in );
-}
-
 std::vector<std::string> Gui::Viewer::getRenderersName() const {
     std::vector<std::string> ret;
 

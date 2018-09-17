@@ -24,14 +24,19 @@ class TrackballCamera : public CameraInterface {
 
     void setCamera( Engine::Camera* camera ) override;
 
-    void save( std::ostream& out ) const override;
-    void load( std::istream& in ) override;
-
     /// Set the distance from the camera to the target point.
-    void setCameraRadius( Scalar rad );
+    /// \note doesn't modify the camera.
+    void setTrackballRadius( Scalar rad );
 
     /// Return the distance from the camera to the target point.
-    Scalar getCameraRadius();
+    Scalar getTrackballRadius() const;
+
+    /// Set the trackball center.
+    void setTrackballCenter( const Core::Vector3& c );
+
+    /// Return the trackball center.
+    /// \note doesn't modify the camera.
+    const Core::Vector3& getTrackballCenter() const;
 
   public slots:
     void setCameraPosition( const Core::Vector3& position ) override;
