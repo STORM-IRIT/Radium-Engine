@@ -84,6 +84,7 @@ target_link_libraries(
     ${core_target}
     ${core_libs}
 )
+cotire(${core_target})
 
 # Build IO
 set(io_target radiumIO)
@@ -144,6 +145,7 @@ else( RADIUM_IO_IS_INTERFACE )
             ${io_libs}
     )
     set_property( TARGET ${io_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
+    cotire(${io_target})
 endif( RADIUM_IO_IS_INTERFACE )
 
 add_dependencies( ${io_target} ${core_target} ${engine_target} )
@@ -196,7 +198,6 @@ target_link_libraries(
     ${engine_libs}
 )
 
-
 # Build GuiBase
 set(guibase_target radiumGuiBase)
 
@@ -246,6 +247,7 @@ target_link_libraries(
     ${guibase_libs}
     )
 
+#cotire(${guibase_target})
 
 set(RADIUM_LIBRARIES ${RADIUM_LIBRARIES} "${core_target}" "${engine_target}" "${io_target}" "${guibase_target}" PARENT_SCOPE)
 set_property( TARGET ${core_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
