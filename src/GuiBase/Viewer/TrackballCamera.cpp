@@ -37,14 +37,30 @@ void Gui::TrackballCamera::resetCamera() {
     m_trackballCenter = Core::Vector3::Zero();
     updatePhiTheta();
 
+    if ( m_light != nullptr )
+    {
+        m_light->setPosition( m_camera->getPosition() );
+        m_light->setDirection( m_camera->getDirection() );
+    }
+
     emit cameraChanged( m_camera->getPosition(), m_trackballCenter );
 }
 
-void Gui::TrackballCamera::setCameraRadius( Scalar rad ) {
+void Gui::TrackballCamera::setTrackballRadius( Scalar rad ) {
     m_distFromCenter = rad;
 }
-Scalar Gui::TrackballCamera::getCameraRadius() {
+
+Scalar Gui::TrackballCamera::getTrackballRadius() const {
     return m_distFromCenter;
+}
+
+void Gui::TrackballCamera::setTrackballCenter( const Core::Vector3& c ) {
+    m_trackballCenter = c;
+    updatePhiTheta();
+}
+
+const Core::Vector3& Gui::TrackballCamera::getTrackballCenter() const {
+    return m_trackballCenter;
 }
 
 bool Gui::TrackballCamera::handleMousePressEvent( QMouseEvent* event ) {
@@ -160,66 +176,12 @@ void Gui::TrackballCamera::setCamera( Engine::Camera* camera ) {
     m_distFromCenter = 2.0;
     updatePhiTheta();
     m_camera->show( false );
-}
-
-void Gui::TrackballCamera::save( std::ostream& out ) const {
-    out << "#Radium_camera_state" << std::endl;
-    out << (int)m_camera->getType() << std::endl;
-    out << m_camera->getFrame().matrix() << std::endl;
-    out << std::endl;
-    out << m_camera->getFOV() << " " << m_camera->getZNear() << " " << m_camera->getZFar() << " "
-        << m_camera->getZoomFactor() << " " << m_camera->getAspect() << std::endl;
-    out << std::endl;
-    out << m_trackballCenter.transpose() << " " << m_distFromCenter << std::endl;
-}
-
-void Gui::TrackballCamera::load( std::istream& in ) {
-    std::string str;
-    int type;
-    Scalar M[16]; // 4x4 view matrix;
-    Scalar fov, znear, zfar, zoom, a, x, y, z, d;
-
-    in >> str;
-    bool result = !in.fail();
-    in >> type;
-    result = !in.fail();
-    for ( uint i = 0; i < 16; ++i )
-    {
-        in >> M[i];
-        result &= !in.fail();
-    }
-    in >> fov >> znear >> zfar >> zoom >> a >> x >> y >> z >> d;
-    result &= !in.fail();
-
-    if ( !result )
-    {
-        LOG( logWARNING ) << "Could not load camera file data";
-        return;
-    }
-    m_distFromCenter = d;
-
-    Core::Matrix4 frame;
-    frame << M[0], M[1], M[2], M[3], M[4], M[5], M[6], M[7], M[8], M[9], M[10], M[11], M[12], M[13],
-        M[14], M[15];
-
-    Core::Transform T( frame );
-    m_camera->setType( Engine::Camera::ProjType( type ) );
-    m_camera->setFrame( T );
-    m_camera->setFOV( fov );
-    m_camera->setZNear( znear );
-    m_camera->setZFar( zfar );
-    m_camera->setZoomFactor( zoom );
-    m_trackballCenter = Core::Vector3( x, y, z );
-
-    updatePhiTheta();
 
     if ( m_light != nullptr )
     {
         m_light->setPosition( m_camera->getPosition() );
         m_light->setDirection( m_camera->getDirection() );
     }
-
-    emit cameraChanged( m_camera->getPosition(), m_trackballCenter );
 }
 
 void Gui::TrackballCamera::setCameraPosition( const Core::Vector3& position ) {
@@ -232,6 +194,12 @@ void Gui::TrackballCamera::setCameraPosition( const Core::Vector3& position ) {
     m_camera->setDirection( m_trackballCenter - position );
 
     updatePhiTheta();
+
+    if ( m_light != nullptr )
+    {
+        m_light->setPosition( m_camera->getPosition() );
+        m_light->setDirection( m_camera->getDirection() );
+    }
 
     emit cameraPositionChanged( m_camera->getPosition() );
 }
@@ -246,6 +214,11 @@ void Gui::TrackballCamera::setCameraTarget( const Core::Vector3& target ) {
     m_trackballCenter = target;
     m_camera->setDirection( target - m_camera->getPosition() );
     updatePhiTheta();
+
+    if ( m_light != nullptr )
+    {
+        m_light->setDirection( m_camera->getDirection() );
+    }
 
     emit cameraTargetChanged( m_trackballCenter );
 }
