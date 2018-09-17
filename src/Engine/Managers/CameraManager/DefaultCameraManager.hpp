@@ -19,7 +19,6 @@ class RA_ENGINE_API DefaultCameraStorage : public CameraStorage {
     DefaultCameraStorage();
     void add( Camera* cam ) override;
     void remove( Camera* cam ) override;
-    void upload() const override; ///< Does nothing here.
     size_t size() const override;
     void clear() override;
     Camera* operator[]( unsigned int n ) override;
@@ -30,32 +29,22 @@ class RA_ENGINE_API DefaultCameraStorage : public CameraStorage {
 };
 
 /**
- * @brief DummyCameraManager. A simple Camera Manager with a list of Cameras.
+ * @brief DefaultCameraManager. A simple Camera Manager with a list of Cameras.
  */
 class RA_ENGINE_API DefaultCameraManager : public CameraManager {
   public:
     DefaultCameraManager();
 
-    /// Return the \p cam-th light.
+    /// Return the \p cam-th camera.
     const Camera* getCamera( size_t cam ) const override;
 
     /// Add \p cam for management.
     void addCamera( Camera* cam ) override;
 
-    /// Does nothing here, only register the new RenderData to use.
     void preprocess( const RenderData& ) override;
 
-    /// Does nothing here.
-    void prerender( unsigned int cam ) override;
-
     void render( RenderObject*, unsigned int cam,
-                 RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE );
-
-    /// Does nothing here.
-    void postrender( unsigned int cam ) override;
-
-    /// Does nothing here.
-    void postprocess() override;
+                 RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE ) override;
 };
 
 } // namespace Engine
