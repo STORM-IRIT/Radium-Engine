@@ -28,6 +28,16 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
+        <widget class="QPushButton" name="m_createCamera">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>Create Camera</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="m_useCamera">
          <property name="enabled">
           <bool>false</bool>
@@ -41,16 +51,6 @@
         <widget class="QPushButton" name="m_saveCamera">
          <property name="text">
           <string>Save Camera</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="m_loadCamera">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="text">
-          <string>Load Camera</string>
          </property>
         </widget>
        </item>
