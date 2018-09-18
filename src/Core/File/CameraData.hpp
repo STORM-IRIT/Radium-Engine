@@ -15,6 +15,7 @@ namespace Ra {
 namespace Asset {
 
 /// The CameraData class stores the data related to one of the Cameras of a loaded scene.
+/// \warning Stored data may change soon w.r.t. Engine::Camera.
 class RA_CORE_API CameraData : public AssetData {
 
   public:
