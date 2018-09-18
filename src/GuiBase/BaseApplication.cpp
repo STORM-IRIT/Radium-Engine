@@ -17,12 +17,14 @@
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
+#include <GuiBase/Viewer/CameraInterface.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
 #ifdef IO_USE_CAMERA
@@ -253,8 +255,12 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     // A camera has been required, load it.
     if ( parser.isSet( camOpt ) )
     {
-        loadFile( parser.value( camOpt ) );
-        // todo: change the camera
+        if ( loadFile( parser.value( camOpt ) ) )
+        {
+            auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
+            auto camera = static_cast<Engine::Camera*>( entity->getComponents()[0].get() );
+            m_viewer->getCameraInterface()->setCamera( camera );
+        }
     }
 
     m_lastFrameStart = Core::Timer::Clock::now();
@@ -295,7 +301,7 @@ void BaseApplication::setupScene() {
     }
 }
 
-void BaseApplication::loadFile( QString path ) {
+bool BaseApplication::loadFile( QString path ) {
     std::string pathStr = path.toLocal8Bit().data();
     LOG( logINFO ) << "Loading file " << pathStr << "...";
     bool res = m_engine->loadFile( pathStr );
@@ -304,7 +310,7 @@ void BaseApplication::loadFile( QString path ) {
     {
         LOG( logERROR ) << "Aborting file loading !";
 
-        return;
+        return false;
     }
 
     m_engine->releaseFile();
@@ -312,6 +318,7 @@ void BaseApplication::loadFile( QString path ) {
     m_mainWindow->postLoadFile();
 
     emit loadComplete();
+    return true;
 }
 
 void BaseApplication::framesCountForStatsChanged( uint count ) {
