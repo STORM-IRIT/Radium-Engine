@@ -61,50 +61,6 @@ class RA_ENGINE_API Camera : public Component {
     void applyTransform( const Core::Transform& T );
 
     //
-    // Getters and setters for projection matrix parameters.
-    //
-
-    // Note : any of these functions will trigger a rebuild of the projection matrix
-
-    /// Return the Field Of View.
-    inline Scalar getFOV() const;
-
-    /// Set the Field Of View to 'fov'.
-    inline void setFOV( const Scalar fov );
-
-    /// Return the Z Near plane distance from the camera.
-    inline Scalar getZNear() const;
-
-    /// Set the Z Near plane distance to 'zNear'.
-    inline void setZNear( const Scalar zNear );
-
-    /// Return the Z Far plane distance from the camera.
-    inline Scalar getZFar() const;
-
-    /// Set the Z Far plane distance to 'zFar'.
-    inline void setZFar( const Scalar zFar );
-
-    /// Return the zoom factor.
-    inline Scalar getZoomFactor() const;
-
-    /// Set the zoom factor to 'zoomFactor'.
-    inline void setZoomFactor( const Scalar& zoomFactor );
-
-    /// Return the projection type.
-    inline ProjType getType() const;
-
-    /// Set the projection type to 'projectionType'.
-    inline void setType( const ProjType& projectionType );
-
-    /// Return the dimensions of the viewport.
-    inline Scalar getWidth() const;
-    inline Scalar getHeight() const;
-    inline Scalar getAspect() const;
-
-    /// Change the viewport size.
-    inline void resize( Scalar width, Scalar height );
-
-    //
     // Access to view and projection matrices.
     //
 
@@ -134,23 +90,82 @@ class RA_ENGINE_API Camera : public Component {
     /// Return the point on the screen plane (near plane) represented by screen coordinates pix.
     inline Core::Vector3 unProject( const Core::Vector2& pix ) const;
 
+    //
+    // Getters and setters for projection matrix parameters.
+    //
+
+    /// Return the projection type.
+    inline ProjType getType() const;
+
+    /// Set the projection type to 'projectionType'.
+    inline void setType( const ProjType& projectionType );
+
+    /// Return the Field Of View.
+    /// \note Meaningless for orthogonal projection.
+    inline Scalar getFOV() const;
+
+    /// Set the Field Of View to 'fov'.
+    /// \note Meaningless for orthogonal projection.
+    /// \warning Trigger a rebuild of the projection matrix.
+    inline void setFOV( const Scalar fov );
+
+    /// Return the zoom factor.
+    inline Scalar getZoomFactor() const;
+
+    /// Set the zoom factor to 'zoomFactor'.
+    inline void setZoomFactor( const Scalar& zoomFactor );
+
+    /// \name To be deprecated.
+    /// Currently, only the CameraInterface (i.e. TrackballCamera) calls these
+    /// methods. A rework of the rendering architecture will be done soon.
+    /// Thus these methods might disappear.
+    ///@{
+    /// Return the Z Near plane distance from the camera.
+    inline Scalar getZNear() const;
+
+    /// Set the Z Near plane distance to 'zNear'.
+    inline void setZNear( const Scalar zNear );
+
+    /// Return the Z Far plane distance from the camera.
+    inline Scalar getZFar() const;
+
+    /// Set the Z Far plane distance to 'zFar'.
+    inline void setZFar( const Scalar zFar );
+
+    /// Return the width of the viewport.
+    inline Scalar getWidth() const;
+
+    /// Return the height of the viewport.
+    inline Scalar getHeight() const;
+
+    /// Return the aspect ratio of the viewport.
+    inline Scalar getAspect() const;
+
+    /// Change the viewport size.
+    inline void resize( Scalar width, Scalar height );
+    ///@}
+
   protected:
-    Core::Transform m_frame;    // Camera frame (inverse of the view matrix)
-    Core::Matrix4 m_projMatrix; // Projection matrix
+    Core::Transform m_frame;    ///< Camera frame (inverse of the view matrix)
+    Core::Matrix4 m_projMatrix; ///< Projection matrix
 
-    Scalar m_fov;   // Field of view
-    Scalar m_zNear; // Z Near plane distance
-    Scalar m_zFar;  // Z Far plane distance
+    ProjType m_projType; ///< Projection type
+    Scalar m_zoomFactor; ///< Zoom factor (modifies the field of view)
+    Scalar m_fov;        ///< Field of view
 
-    Scalar m_zoomFactor; // Zoom factor (modifies the field of view)
+    RenderObject* m_RO; ///< Render mesh for the camera.
 
-    Scalar m_width;  // Viewport width (in pixels)
-    Scalar m_height; // Viewport height (in pixels)
-    Scalar m_aspect; // FIXME: never used.
-
-    ProjType m_projType; // Projection type
-
-    RenderObject* m_RO; /// Render mesh for the camera.
+    /// \name To be deprecated
+    /// Currently, only the CameraInterface (i.e. TrackballCamera) accesses these
+    /// attributes. A rework of the rendering architecture will be done soon.
+    /// Thus these attributes might disappear.
+    ///@{
+    Scalar m_zNear;  ///< Z Near plane distance
+    Scalar m_zFar;   ///< Z Far plane distance
+    Scalar m_width;  ///< Viewport width (in pixels)
+    Scalar m_height; ///< Viewport height (in pixels)
+    Scalar m_aspect; ///< Aspect ratio, i.e. width/height. Precomputed for updateProjMatrix.
+    ///@}
 };
 
 } // namespace Engine

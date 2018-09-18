@@ -318,6 +318,13 @@ void Gui::TrackballCamera::handleCameraZoom( Scalar dx, Scalar dy ) {
 }
 
 void Gui::TrackballCamera::handleCameraZoom( Scalar z ) {
+    // tested this way of zooming, not convinced it's better
+#if 0
+    Scalar zoom = m_camera->getZoomFactor() - z * m_cameraSensitivity * m_quickCameraModifier;
+    Scalar epsIn = 0.001;
+    Scalar epsOut = 3.1;
+    m_camera->setZoomFactor( Core::Math::clamp( zoom, epsIn, epsOut ) );
+#else
     Scalar y = m_distFromCenter * z * m_cameraSensitivity * m_quickCameraModifier;
     Core::Vector3 F = m_camera->getDirection();
 
@@ -339,6 +346,7 @@ void Gui::TrackballCamera::handleCameraZoom( Scalar z ) {
     emit cameraPositionChanged( m_camera->getPosition() );
 
     // m_distFromCenter = ( m_trackballCenter - m_camera->getPosition() ).norm();
+#endif
 }
 
 void Gui::TrackballCamera::updatePhiTheta() {

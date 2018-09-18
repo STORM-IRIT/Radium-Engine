@@ -71,7 +71,7 @@ void Camera::updateProjMatrix() {
     case ProjType::ORTHOGRAPHIC:
     {
         const Scalar dx = m_zoomFactor * 0.5f;
-        const Scalar dy = m_height * dx / m_width;
+        const Scalar dy = dx / m_aspect;
         // ------------
         // Compute projection matrix as describe in the doc of gluPerspective()
         const Scalar l = -dx; // left
@@ -97,12 +97,11 @@ void Camera::updateProjMatrix() {
     {
         // Compute projection matrix as describe in the doc of gluPerspective()
         const Scalar f = std::tan( ( PiDiv2 ) - ( m_fov * m_zoomFactor * Scalar( 0.5 ) ) );
-        const Scalar ratio = m_width / m_height;
         const Scalar diff = m_zNear - m_zFar;
 
         m_projMatrix.setZero();
 
-        m_projMatrix.coeffRef( 0, 0 ) = f / ratio;
+        m_projMatrix.coeffRef( 0, 0 ) = f / m_aspect;
         m_projMatrix.coeffRef( 1, 1 ) = f;
         m_projMatrix.coeffRef( 2, 2 ) = ( m_zFar + m_zNear ) / diff;
         m_projMatrix.coeffRef( 2, 3 ) = ( Scalar( 2.0 ) * m_zFar * m_zNear ) / diff;
