@@ -24,9 +24,7 @@ namespace CameraManipPlugin {
 // Due to an ambigous name while compiling with Clang, must differentiate plugin class from plugin
 // namespace
 /// The CameraManipPlugin allows to change the current camera used for display,
-/// save the current camera data to a file, and load a camera file inplace the
-/// currently used camera (same as load from file and use, but without creating
-/// an Entity and so on).
+/// create a copy of the current camera and save the current camera data to a file.
 class CameraManipPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     Q_OBJECT
     Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
@@ -50,12 +48,13 @@ class CameraManipPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
   public slots:
     void useSelectedCamera();
     void saveCamera();
-    void loadCamera();
+    void createCamera();
     void onCurrentChanged( const QModelIndex& current, const QModelIndex& prev );
 
   private:
     CameraManipUI* m_widget;
 
+    Ra::Engine::RadiumEngine* m_engine;
     Ra::GuiBase::SelectionManager* m_selectionManager;
     Ra::Gui::Viewer* m_viewer;
 };
