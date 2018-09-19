@@ -24,7 +24,7 @@ namespace Engine {
  * in a specific way.
  */
 class RA_ENGINE_API CameraManager : public System {
-    // TODO (Mathias) make Camera manager compatible with range for ...
+    // TODO make Camera manager compatible with range for ...
   public:
     /// Constructor
     CameraManager();
