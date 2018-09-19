@@ -94,12 +94,12 @@ file(GLOB io_inlines IO/*.inl)
 
 set(io_libs radiumCore radiumEngine)
 
-if( RADIUM_CAMERA_SUPPORT )
+if( RADIUM_CAMERA_LOADER_SUPPORT )
     add_subdirectory( IO/CameraLoader )
     set( io_sources ${io_sources} ${cameraloader_sources} )
     set( io_headers ${io_headers} ${cameraloader_headers} )
     set( io_inlines ${io_inlines} ${cameraloader_inlines} )
-endif( RADIUM_CAMERA_SUPPORT )
+endif( RADIUM_CAMERA_LOADER_SUPPORT )
 
 if( RADIUM_ASSIMP_SUPPORT )
     add_subdirectory( IO/AssimpLoader )
