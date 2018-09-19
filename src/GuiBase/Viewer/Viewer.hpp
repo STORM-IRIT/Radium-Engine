@@ -85,6 +85,7 @@ class RA_GUIBASE_API Viewer : public QWindow {
     QOpenGLContext* getContext() const { return m_context.get(); }
 
     bool isOpenGlInitialized() const { return m_glInitStatus; }
+
     /// Access to camera interface.
     CameraInterface* getCameraInterface();
 

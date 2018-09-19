@@ -1,17 +1,35 @@
 #include <GuiBase/Viewer/CameraInterface.hpp>
 
 #include <Core/Math/Math.hpp>
+
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
 #include <GuiBase/Viewer/Viewer.hpp>
 
 namespace Ra {
+
 Gui::CameraInterface::CameraInterface( uint width, uint height ) :
     m_cameraSensitivity( 1.0 ),
-    m_light(nullptr),
-    m_hasLightAttached( false ) {
-    m_camera.reset( new Engine::Camera( Scalar( height ), Scalar( width ) ) );
+    m_targetedAabbVolume( 0.0 ),
+    m_mapCameraBahaviourToAabb( false ),
+    m_camera( nullptr ),
+    m_light( nullptr ) {
+    auto it = std::find_if(
+        Engine::SystemEntity::getInstance()->getComponents().cbegin(),
+        Engine::SystemEntity::getInstance()->getComponents().cend(),
+        []( const auto& c ) { return c->getName().compare( "CAMERA_DEFAULT" ) == 0; } );
+    if ( it != Engine::SystemEntity::getInstance()->getComponents().cend() )
+    {
+        m_camera = static_cast<Engine::Camera*>( ( *it ).get() );
+    } else
+    {
+        m_camera = new Engine::Camera( Engine::SystemEntity::getInstance(), "CAMERA_DEFAULT",
+                                       Scalar( height ), Scalar( width ) );
+    }
+    m_camera->initialize();
+    m_camera->show( false );
 
     setCameraFovInDegrees( 60.0 );
     setCameraZNear( 0.1 );
@@ -64,11 +82,11 @@ void Gui::CameraInterface::unmapCameraBehaviourToAabb() {
 
 void Gui::CameraInterface::attachLight( Engine::Light* light ) {
     m_light = light;
-    m_hasLightAttached = true;
     m_light->setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
 }
 
 const Engine::Camera& Gui::CameraInterface::getCameraFromViewer( QObject* v ) {
     return *static_cast<Gui::Viewer*>( v )->getCameraInterface()->getCamera();
 }
+
 } // namespace Ra

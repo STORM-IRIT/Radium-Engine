@@ -105,8 +105,10 @@ class RA_ENGINE_API LightManager : public System {
   protected:
     /// store the current renderData
     RenderData renderData;
+
     /// store the current light parameters
     RenderParameters params;
+
     /// Stores the object that stores the lights...
     std::unique_ptr<LightStorage> m_data;
 };

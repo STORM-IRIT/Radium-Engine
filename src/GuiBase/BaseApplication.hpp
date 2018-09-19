@@ -88,7 +88,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
 
   public slots:
 
-    void loadFile( QString path );
+    bool loadFile( QString path );
     void framesCountForStatsChanged( uint count );
     void appNeedsToQuit();
     void initializeOpenGlPlugins();
