@@ -171,6 +171,7 @@ bool Gui::TrackballCamera::handleKeyReleaseEvent( QKeyEvent* e ) {
 void Gui::TrackballCamera::setCamera( Engine::Camera* camera ) {
     if ( !camera )
         return;
+    camera->resize( m_camera->getWidth(), m_camera->getHeight() );
     m_camera = camera;
     m_trackballCenter = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
     m_distFromCenter = 2.0;

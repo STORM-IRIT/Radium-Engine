@@ -126,6 +126,7 @@ void CameraManipPluginC::createCamera() {
     // Copy Camera data
     auto manip = static_cast<Ra::Gui::TrackballCamera*>( m_viewer->getCameraInterface() );
     auto camera = manip->getCamera();
+    cam->resize( camera->getWidth(), camera->getHeight() );
     cam->setType( camera->getType() );
     cam->setFrame( camera->getFrame() );
     cam->setFOV( camera->getFOV() );
