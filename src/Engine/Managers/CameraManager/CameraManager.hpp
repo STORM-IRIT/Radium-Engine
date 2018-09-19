@@ -2,7 +2,6 @@
 #define RADIUMENGINE_CAMERAMANAGER_H
 
 #include <Engine/Managers/CameraManager/CameraStorage.hpp>
-#include <Engine/RaEngine.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/Renderer.hpp>
@@ -12,6 +11,7 @@
 
 namespace Ra {
 namespace Engine {
+class Camera;
 class RenderObject;
 } // namespace Engine
 } // namespace Ra
@@ -60,8 +60,9 @@ class RA_ENGINE_API CameraManager : public System {
     virtual void preprocess( const RenderData& renderData ) = 0;
 
     /**
-     * @brief render the object with specific technics for the current Camera (between prerender and
-     * postrender)
+     * @brief render the object with specific technics for the current Camera.
+     *
+     * An example use case is a cube map renderer.
      */
     virtual void
     render( RenderObject*, unsigned int cam,
