@@ -3,10 +3,7 @@
 
 #include <Core/CoreMacros.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
-#include <QAction>
-#include <QColor>
 #include <QObject>
-#include <QtPlugin>
 
 #include <UI/CameraManipUI.h>
 

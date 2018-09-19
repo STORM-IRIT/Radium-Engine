@@ -2,7 +2,6 @@
 #define RADIUMENGINE_DUMMYCAMERAMANAGER_HPP
 
 #include <Engine/Managers/CameraManager/CameraManager.hpp>
-#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 
 #include <memory>

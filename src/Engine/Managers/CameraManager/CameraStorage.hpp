@@ -2,10 +2,10 @@
 #define RADIUMENGINE_CAMERASTORAGE_HPP
 
 #include <Engine/RaEngine.hpp>
-#include <Engine/Renderer/Camera/Camera.hpp>
 
 namespace Ra {
 namespace Engine {
+class Camera;
 class RenderParameters;
 } // namespace Engine
 } // namespace Ra

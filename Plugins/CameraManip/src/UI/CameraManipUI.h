@@ -1,7 +1,6 @@
 #ifndef CAMERAMANIPUI_H
 #define CAMERAMANIPUI_H
 
-#include <QColor>
 #include <QFrame>
 
 #include <GuiBase/Utils/PickingManager.hpp>

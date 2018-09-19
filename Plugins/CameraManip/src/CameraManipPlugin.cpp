@@ -4,13 +4,12 @@
 
 #include <QAction>
 #include <QFileDialog>
-#include <QIcon>
 #include <QSettings>
-#include <QToolBar>
 
 #include <Engine/ItemModel/ItemEntry.hpp>
 #include <Engine/Managers/CameraManager/CameraManager.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
 
 #include <GuiBase/SelectionManager/SelectionManager.hpp>
 #include <GuiBase/Viewer/TrackballCamera.hpp>
@@ -75,6 +74,10 @@ void CameraManipPluginC::useSelectedCamera() {
     if ( m_selectionManager->hasSelection() )
     {
         const Ra::Engine::ItemEntry& ent = m_selectionManager->currentItem();
+        if ( ent.m_component == nullptr )
+        {
+            return;
+        }
         if ( ent.m_component->getName().compare( 0, 7, "CAMERA_" ) == 0 )
         {
             Ra::Engine::Camera* camera = static_cast<Ra::Engine::Camera*>( ent.m_component );
@@ -141,6 +144,10 @@ void CameraManipPluginC::onCurrentChanged( const QModelIndex& current, const QMo
     if ( m_selectionManager->hasSelection() )
     {
         const Ra::Engine::ItemEntry& ent = m_selectionManager->currentItem();
+        if ( ent.m_component == nullptr )
+        {
+            return;
+        }
         if ( ent.m_component->getName().compare( 0, 7, "CAMERA_" ) == 0 )
         {
             m_widget->ui->m_useCamera->setEnabled( true );
