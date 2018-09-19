@@ -32,7 +32,7 @@ void CameraManager::handleAssetLoading( Entity* entity, const Asset::FileData* f
     for ( const auto& data : cameraData )
     {
         std::string componentName = "CAMERA_" + entity->getName() + std::to_string( id++ );
-        Engine::Camera* comp = new Camera( entity, data->getName(), 100, 100 );
+        Engine::Camera* comp = new Camera( entity, componentName, 100, 100 );
         switch ( data->getType() )
         {
         case Asset::CameraData::ORTHOGRAPHIC:

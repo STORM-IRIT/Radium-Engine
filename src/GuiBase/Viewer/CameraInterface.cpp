@@ -19,13 +19,13 @@ Gui::CameraInterface::CameraInterface( uint width, uint height ) :
     auto it = std::find_if(
         Engine::SystemEntity::getInstance()->getComponents().cbegin(),
         Engine::SystemEntity::getInstance()->getComponents().cend(),
-        []( const auto& c ) { return c->getName().compare( "DefaultCamera" ) == 0; } );
+        []( const auto& c ) { return c->getName().compare( "Camera_Default" ) == 0; } );
     if ( it != Engine::SystemEntity::getInstance()->getComponents().cend() )
     {
         m_camera = static_cast<Engine::Camera*>( ( *it ).get() );
     } else
     {
-        m_camera = new Engine::Camera( Engine::SystemEntity::getInstance(), "DefaultCamera",
+        m_camera = new Engine::Camera( Engine::SystemEntity::getInstance(), "Camera_Default",
                                        Scalar( height ), Scalar( width ) );
     }
     m_camera->initialize();
