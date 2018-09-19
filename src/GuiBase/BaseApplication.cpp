@@ -122,8 +122,8 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     std::time_t startTime = std::time( nullptr );
     std::tm* startTm = std::localtime( &startTime );
     Ra::Core::StringUtils::stringPrintf( m_exportFoldername, "%4u%02u%02u-%02u%02u",
-                                         1900 + startTm->tm_year, startTm->tm_mon, startTm->tm_mday,
-                                         startTm->tm_hour, startTm->tm_min );
+                                         1900 + startTm->tm_year, startTm->tm_mon + 1,
+                                         startTm->tm_mday, startTm->tm_hour, startTm->tm_min );
 
     QDir().mkdir( m_exportFoldername.c_str() );
 
