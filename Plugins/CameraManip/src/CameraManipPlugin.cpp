@@ -75,9 +75,9 @@ void CameraManipPluginC::useSelectedCamera() {
     if ( m_selectionManager->hasSelection() )
     {
         const Ra::Engine::ItemEntry& ent = m_selectionManager->currentItem();
-        Ra::Engine::Camera* camera = dynamic_cast<Ra::Engine::Camera*>( ent.m_component );
-        if ( camera )
+        if ( ent.m_component->getName().compare( 0, 7, "CAMERA_" ) == 0 )
         {
+            Ra::Engine::Camera* camera = static_cast<Ra::Engine::Camera*>( ent.m_component );
             m_viewer->getCameraInterface()->getCamera()->show( true );
             m_viewer->getCameraInterface()->setCamera( camera );
         }
@@ -141,7 +141,7 @@ void CameraManipPluginC::onCurrentChanged( const QModelIndex& current, const QMo
     if ( m_selectionManager->hasSelection() )
     {
         const Ra::Engine::ItemEntry& ent = m_selectionManager->currentItem();
-        if ( dynamic_cast<Ra::Engine::Camera*>( ent.m_component ) )
+        if ( ent.m_component->getName().compare( 0, 7, "CAMERA_" ) == 0 )
         {
             m_widget->ui->m_useCamera->setEnabled( true );
         }
