@@ -1,52 +1,142 @@
 #ifndef RADIUMENGINE_COUPLING_SYSTEM_HPP
 #define RADIUMENGINE_COUPLING_SYSTEM_HPP
 
-#include <set>
-
-#include <Engine/System/System.hpp>
+#include <Engine/RaEngine.hpp>      // RA_ENGINE_API
+#include <Engine/System/System.hpp> // System methods declaration
+#include <memory>                   // std::unique_ptr
+#include <vector>                   // std::vector
+#include <type_traits>              // std::is_base_of
 
 namespace Ra {
 namespace Engine {
 
-/// Timed Systems are systems which can be disabled or paused, e.g. animation systems.
-class RA_ENGINE_API TimedSystem : public System {
+/// Base class for systems coupling multiple subsystems.
+///
+/// Provides subsystem storage + dispatching methods for inheriting classes.
+/// Also dispatches by default the virtual methods from Ra::Engine::System.
+///
+/// \see CoupledTimedSystem for practical usage
+/// \tparam BaseAbstractSystem Base class defining the subsystems API
+///
+/// \warning When overriding non pure virtual methods from BaseAbstractSystem, remind calling the
+/// default implementation:
+///
+/// \code
+/// void registerComponent( const Entity* entity, Component* component) override
+/// {
+///  // call default implementation
+///  BaseAbstractSystem::registerComponent(entity, component);
+///  dispatch([entity, component](const auto &s) { s->registerComponent(entity, component); });
+/// }
+/// \endcode
+template <typename _BaseAbstractSystem>
+class RA_ENGINE_API BaseCouplingSystem : public _BaseAbstractSystem {
   public:
-    TimedSystem() {}
-    virtual ~TimedSystem() {}
+    using BaseAbstractSystem = _BaseAbstractSystem;
 
-    /// Call this to enable / disable the system according to \p on.
-    virtual void play( bool on ) = 0;
+    BaseCouplingSystem() {
+        static_assert( std::is_base_of<Ra::Engine::System, BaseAbstractSystem>::value,
+                       "BaseAbstractSystem must inherit Ra::Core::System" );
+    };
+    virtual ~BaseCouplingSystem() {}
 
-    /// Call this to enable the system for only one frame.
-    virtual void step() = 0;
-
-    /// Call this to reset the system, and its Components, to their first frame state.
-    virtual void reset() = 0;
-
-    /// Saves all the state data related to the \p frameID -th frame into a cache file.
-    virtual void cacheFrame( int frameID ) const = 0;
-
-    /// Restores the state data related to the \p frameID -th frame from the cache file.
-    /// \returns true if the frame has been successfully restored, false otherwise.
-    virtual bool restoreFrame( int frameID ) = 0;
-};
-
-/// Coupling Systems are responsible for transmitting calls to a bunch of other Systems.
-template <typename CSystem>
-class CouplingSystem : public System {
-  public:
-    CouplingSystem() {}
-    virtual ~CouplingSystem() {}
+    BaseCouplingSystem(const BaseCouplingSystem<BaseAbstractSystem>&) = delete;
+    BaseCouplingSystem<BaseAbstractSystem>& operator=(const BaseCouplingSystem<BaseAbstractSystem>&) = delete;
 
     /// Add management for the given system.
-    void addSystem( CSystem* s ) { m_systems.insert( s ); }
+    /// \warning The property of the pointer is given to *this
+    void addSystem( BaseAbstractSystem* s ) { m_systems.emplace_back( s ); }
 
-    /// Remove management for the given system.
-    void removeSystem( CSystem* s ) { m_systems.erase( s ); }
+    void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override {
+        dispatch( [taskQueue, &frameInfo]( const auto& s ) {
+            s->generateTasks( taskQueue, frameInfo );
+        } );
+    }
+    void registerComponent( const Entity* entity, Component* component ) override {
+        BaseAbstractSystem::registerComponent( entity, component );
+        dispatch(
+            [entity, component]( const auto& s ) { s->registerComponent( entity, component ); } );
+    }
+    void unregisterComponent( const Entity* entity, Component* component ) override {
+        BaseAbstractSystem::unregisterComponent( entity, component );
+        dispatch(
+            [entity, component]( const auto& s ) { s->unregisterComponent( entity, component ); } );
+    }
+    void unregisterAllComponents( const Entity* entity ) override {
+        BaseAbstractSystem::unregisterAllComponents( entity );
+        dispatch( [entity]( const auto& s ) { s->unregisterAllComponents( entity ); } );
+    }
+    void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override {
+        BaseAbstractSystem::handleAssetLoading( entity, data );
+        dispatch( [entity, data]( const auto& s ) { s->handleAssetLoading( entity, data ); } );
+    }
 
   protected:
-    /// Bunch of TimedSystems.
-    std::set<CSystem*> m_systems;
+    /// Call a functor on subsystems
+    /// \see CoupledTimedSystem for practical usage
+    template <typename Functor>
+    void dispatch( Functor f ) {
+        for ( auto& s : m_systems )
+            f( s );
+    }
+
+    /// Call a functor on subsystems (const version)
+    /// \see CoupledTimedSystem for practical usage
+    template <typename Functor>
+    void dispatch( Functor f ) const {
+        for ( const auto& s : m_systems )
+            f( s );
+    }
+
+    /// Call a functor on subsystems, and combine return status. Loop is stopped when combined
+    /// status is `false`.
+    ///
+    /// \tparam Functor Unary function object class calling the method to be dispatched on a system
+    /// \param f input functor
+    /// \param abortWhenInvalid Stop dispatching if a subsystem call returns `false`
+    /// \return `false` when dispatch is aborted
+    ///
+    /// * Example 1: call `foo` until one subsystem fails, and fails if aborted
+    /// \code
+    /// bool foo() override
+    /// { return conditionnaldispatch([](const auto &s) { s->foo(); });}
+    /// \endcode
+    ///
+    /// * Example 2: call `foo` for all functors, and `true` if at least one subsystem worked
+    /// \code
+    /// bool foo() override
+    /// {
+    ///   bool status = false;
+    ///   conditionnaldispatch([&status](const auto &s) { status |= s->foo(); });
+    ///   return status;
+    /// }
+    /// \endcode
+    ///
+    /// \see CoupledTimedSystem for practical usage
+    template <typename Functor>
+    bool conditionnaldispatch( Functor f, bool abortWhenInvalid = true ) {
+        for ( auto& s : m_systems )
+        {
+            if ( !f( s ) && abortWhenInvalid )
+                return false;
+        }
+        return true;
+    }
+
+    /// \see conditionnaldispatch
+    template <typename Functor>
+    bool conditionnaldispatch( Functor f, bool abortWhenInvalid = true ) const {
+        for ( const auto& s : m_systems )
+        {
+            if ( !f( s ) && abortWhenInvalid )
+                return false;
+        }
+        return true;
+    }
+
+  private:
+    /// Buffer of TimedSystems.
+    std::vector<std::unique_ptr<BaseAbstractSystem>> m_systems;
 };
 
 } // namespace Engine
