@@ -1,7 +1,7 @@
 #ifndef ANIMPLUGIN_ANIMATION_SYSTEM_HPP_
 #define ANIMPLUGIN_ANIMATION_SYSTEM_HPP_
 
-#include <Engine/System/CouplingSystem.hpp>
+#include <Engine/System/TimedSystem.hpp>
 
 #include <AnimationPluginMacros.hpp>
 #include <Engine/ItemModel/ItemEntry.hpp>
@@ -12,34 +12,40 @@ namespace AnimationPlugin {
 /// On one hand, it manages the AnimationComponents, i.e. skeleton animation and display.
 /// On the other hand, it is responsible for transmitting calls to animation-related systems,
 /// for example physics systems that must play with the animation.
-class ANIM_PLUGIN_API AnimationSystem : public Ra::Engine::CouplingSystem<Ra::Engine::TimedSystem> {
+class ANIM_PLUGIN_API AnimationSystem : public Ra::Engine::CoupledTimedSystem {
   public:
     /// Create a new animation system
     AnimationSystem();
 
+    AnimationSystem(const AnimationSystem &) = delete;
+    AnimationSystem& operator=(const AnimationSystem&) = delete;
+
     /// Create a task for each animation component to advance the current animation.
-    virtual void generateTasks( Ra::Core::TaskQueue* taskQueue,
-                                const Ra::Engine::FrameInfo& frameInfo ) override;
+    void generateTasks( Ra::Core::TaskQueue* taskQueue,
+                        const Ra::Engine::FrameInfo& frameInfo ) override;
 
     /// Load a skeleton and an animation from a file.
     void handleAssetLoading( Ra::Engine::Entity* entity,
                              const Ra::Asset::FileData* fileData ) override;
 
     /// Toggle on/off playing of animations.
-    void play( bool isPlaying );
+    void play( bool isPlaying ) override;
 
     /// Advance the animation next frame, then pauses.
-    void step();
+    void step() override;
 
     /// Resets the skeleton to its rest pose.
-    void reset();
+    void reset() override;
 
     /// Saves all the state data related to the current frame into a cache file.
-    void cacheFrame() const;
+    void cacheFrame() const { cacheFrame( m_animFrame ); }
+
+    /// Saves all the state data related to the given frame into a cache file.
+    void cacheFrame( uint frameId ) const override;
 
     /// Restores the state data related to the \p frameID -th frame from the cache file.
     /// \returns true if the frame has been successfully restored, false otherwise.
-    bool restoreFrame( uint frame);
+    bool restoreFrame( uint frameId ) override;
 
     /// Set on or off xray bone display.
     void setXray( bool on );

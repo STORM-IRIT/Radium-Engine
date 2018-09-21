@@ -32,7 +32,7 @@ void AnimationSystem::generateTasks( Ra::Core::TaskQueue* taskQueue,
 
     // deal with AnimationComponents
     Scalar currentDelta = playFrame ? frameInfo.m_dt : 0;
-    for ( auto compEntry : this->m_components )
+    for ( auto compEntry : m_components )
     {
         auto animComp = static_cast<AnimationComponent*>( compEntry.second );
         auto animFunc = std::bind( &AnimationComponent::update, animComp, currentDelta );
@@ -40,50 +40,31 @@ void AnimationSystem::generateTasks( Ra::Core::TaskQueue* taskQueue,
         taskQueue->registerTask( animTask );
     }
 
-    // deal with coupled systems
-    for ( auto s : this->m_systems )
-    {
-        s->generateTasks( taskQueue, frameInfo );
-    }
+    CoupledTimedSystem::generateTasks( taskQueue, frameInfo );
 
     m_oneStep = false;
 }
 
 void AnimationSystem::play( bool isPlaying ) {
     m_isPlaying = isPlaying;
-
-    // deal with coupled systems
-    for ( auto s : this->m_systems )
-    {
-        s->play( isPlaying );
-    }
+    CoupledTimedSystem::play( isPlaying );
 }
 
 void AnimationSystem::step() {
     m_oneStep = true;
-
-    // deal with coupled systems
-    for ( auto s : this->m_systems )
-    {
-        s->step();
-    }
+    CoupledTimedSystem::step();
 }
 
 void AnimationSystem::reset() {
     m_animFrame = 0;
 
     // deal with AnimationComponents
-    for ( auto compEntry : this->m_components )
+    for ( auto compEntry : m_components )
     {
         AnimationComponent* component = static_cast<AnimationComponent*>( compEntry.second );
         { component->reset(); }
     }
-
-    // deal with coupled systems
-    for ( auto s : this->m_systems )
-    {
-        s->reset();
-    }
+    CoupledTimedSystem::reset();
 }
 
 bool AnimationSystem::isXrayOn() {
@@ -167,11 +148,7 @@ void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity,
         registerComponent( entity, component );
     }
 
-    // deal with coupled systems
-    for ( auto s : this->m_systems )
-    {
-        s->handleAssetLoading( entity, fileData );
-    }
+    CoupledTimedSystem::handleAssetLoading( entity, fileData );
 }
 
 Scalar AnimationSystem::getTime( const Ra::Engine::ItemEntry& entry ) const {
@@ -203,31 +180,28 @@ Scalar AnimationSystem::getTime( const Ra::Engine::ItemEntry& entry ) const {
     return 0.f;
 }
 
-void AnimationSystem::cacheFrame() const {
+void AnimationSystem::cacheFrame( uint frameId ) const {
     // deal with AnimationComponents
     for ( const auto& comp : m_components )
     {
-        static_cast<AnimationComponent*>( comp.second )->cacheFrame( m_animFrame );
+        static_cast<AnimationComponent*>( comp.second )->cacheFrame( frameId );
     }
-    // deal with coupled systems
-    for ( const auto &s : this->m_systems )
-    {
-        s->cacheFrame( m_animFrame );
-    }
+
+    CoupledTimedSystem::cacheFrame( frameId );
 }
 
-bool AnimationSystem::restoreFrame( uint frame ) {
+bool AnimationSystem::restoreFrame( uint frameId ) {
     static bool restoringCurrent = false;
-    if (!restoringCurrent)
+    if ( !restoringCurrent )
     {
         // first save current, in case restoration fails.
-        cacheFrame();
+        cacheFrame( frameId );
     }
     bool success = true;
     // deal with AnimationComponents
     for ( const auto& comp : m_components )
     {
-        success &= static_cast<AnimationComponent*>( comp.second )->restoreFrame( frame );
+        success &= static_cast<AnimationComponent*>( comp.second )->restoreFrame( frameId );
     }
     // if fail, restore current frame
     if ( !success && !restoringCurrent )
@@ -237,12 +211,10 @@ bool AnimationSystem::restoreFrame( uint frame ) {
         restoringCurrent = false;
         return false;
     }
+
     CORE_ASSERT( success, "Error while trying to restore current frame" );
-    // deal with coupled systems
-    for ( const auto &s : this->m_systems )
-    {
-        success &= s->restoreFrame( frame );
-    }
+    success &= CoupledTimedSystem::restoreFrame( frameId );
+
     // if fail, restore current frame
     if ( !success && !restoringCurrent )
     {
@@ -254,7 +226,7 @@ bool AnimationSystem::restoreFrame( uint frame ) {
     CORE_ASSERT( success, "Error while trying to restore current frame" );
     if ( success )
     {
-        m_animFrame = frame;
+        m_animFrame = frameId;
     }
     return success;
 }
