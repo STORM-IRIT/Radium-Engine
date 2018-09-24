@@ -60,7 +60,7 @@ void SkinningComponent::setupSkinning(){
 
         m_frameData.m_previousPos   = m_refData.m_referenceMesh.vertices();
         m_frameData.m_currentPos    = m_refData.m_referenceMesh.vertices();
-        m_frameData.m_currentNormal = m_refData.m_referenceMesh.normals;
+        m_frameData.m_currentNormal = m_refData.m_referenceMesh.normals();
 
         m_frameData.m_refToCurrentRelPose =
                 Ra::Core::Animation::relativePose( m_frameData.m_currentPose, m_refData.m_refPose );
@@ -104,7 +104,7 @@ void SkinningComponent::skin(){
             case DQS:{
                 Ra::Core::AlignedStdVector< DualQuaternion > DQ;
                 Ra::Core::Animation::computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights, DQ );
-                Ra::Core::Animation::dualQuaternionSkinning( m_refData.m_referenceMesh.m_vertices, DQ, m_frameData.m_currentPos );
+                Ra::Core::Animation::dualQuaternionSkinning( m_refData.m_referenceMesh.vertices(), DQ, m_frameData.m_currentPos );
             }
                 break;
             case COR:
@@ -140,14 +140,14 @@ void SkinningComponent::endSkinning(){
         Ra::Core::Vector3Array& normals =  *(m_normalsWriter());
 
         vertices = m_refData.m_referenceMesh.vertices();
-        normals = m_refData.m_referenceMesh.normals;
+        normals = m_refData.m_referenceMesh.normals();
 
         m_frameData.m_doReset = false;
         m_frameData.m_currentPose   = m_refData.m_refPose;
         m_frameData.m_previousPose  = m_refData.m_refPose;
         m_frameData.m_currentPos    = m_refData.m_referenceMesh.vertices();
         m_frameData.m_previousPos   = m_refData.m_referenceMesh.vertices();
-        m_frameData.m_currentNormal = m_refData.m_referenceMesh.normals;
+        m_frameData.m_currentNormal = m_refData.m_referenceMesh.normals();
     }
 }
 
@@ -203,7 +203,7 @@ void SkinningComponent::setupSkinningType( SkinningType type ){
         }
     break;
     case PBS:
-        m_PBS.compute( skel, m_frameData.m_refToCurrentRelPose, m_frameData.m_currentPos );
+        m_PBS.compute( m_skeletonGetter(), m_frameData.m_refToCurrentRelPose, m_frameData.m_currentPos );
         break;
     }
     Ra::Core::Animation::computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_DQ );
