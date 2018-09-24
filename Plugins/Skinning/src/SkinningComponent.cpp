@@ -19,7 +19,8 @@ using Ra::Core::Animation::Pose;
 using Ra::Core::Animation::RefPose;
 using Ra::Core::Animation::WeightMatrix;
 
-typedef Ra::Core::Animation::Handle::SpaceType SpaceType;
+//typedef Ra::Core::Animation::Handle::SpaceType SpaceType;
+using SpaceType = Ra::Core::Animation::Handle::SpaceType;
 
 using Ra::Core::Skinning::RefData;
 using Ra::Core::Skinning::FrameData;
