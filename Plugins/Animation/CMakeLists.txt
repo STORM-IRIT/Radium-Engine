@@ -68,10 +68,3 @@ target_link_libraries( Animation
                        ${RADIUM_LIBRARIES}
                        ${GLBINDING_LIBRARIES}           # Radium dep
                      )
-
-
-add_custom_target( Anim_data_dirs
-    COMMAND ${CMAKE_COMMAND} -E make_directory "${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin/animFrames"
-    COMMENT "Creating animation data directory in binary dir" VERBATIM
-)
-add_dependencies( Animation Anim_data_dirs )

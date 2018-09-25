@@ -47,6 +47,9 @@ class ANIM_PLUGIN_API AnimationSystem : public Ra::Engine::CoupledTimedSystem {
     /// \returns true if the frame has been successfully restored, false otherwise.
     bool restoreFrame( uint frameId ) override;
 
+    /// Set the directory where to store the animation data.
+    void setDataDir( const std::string dir );
+
     /// Set on or off xray bone display.
     void setXray( bool on );
 
@@ -75,7 +78,13 @@ class ANIM_PLUGIN_API AnimationSystem : public Ra::Engine::CoupledTimedSystem {
     /// @returns the system frame.
     uint getAnimFrame() const { return m_animFrame; }
 
+    /// @returns the system frame.
+    uint getMaxFrame() const;
+
   private:
+    /// The data directory.
+    std::string m_dataDir;
+
     /// Current frame
     uint m_animFrame;
 

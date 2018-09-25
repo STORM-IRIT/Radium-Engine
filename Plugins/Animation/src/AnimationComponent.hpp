@@ -18,10 +18,11 @@ namespace AnimationPlugin {
 
 class SkeletonBoneRenderObject;
 
-/// The AnimationComponent is responsible for the management of the animations of an Entity.
-/// It stores the animation Skeleton and the animation data as well as the animation playing speed.
+/// The AnimationComponent is responsible for the management of character animations.
+/// It stores the animation Skeleton and the animation data and is responsible
+/// for drawing the skeleton.
 class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
-public:
+  public:
     AnimationComponent( const std::string& name, Ra::Engine::Entity* entity );
     virtual ~AnimationComponent();
     AnimationComponent( const AnimationComponent& ) = delete;
@@ -63,13 +64,13 @@ public:
     void reset();
 
     /// Saves all the state data related to the current frame into a cache file.
-    void cacheFrame( int frame ) const;
+    void cacheFrame( const std::string& dir, int frame ) const;
 
     /// Restores the state data related to the \p frameID -th frame from the cache file.
     /// \returns true if the frame has been successfully restored, false otherwise.
     /// Note: the AnimationSystem ensures that in case the frame restoration fails,
     ///       the Component still remains in the current frame state
-    bool restoreFrame( int frame );
+    bool restoreFrame( const std::string& dir, int frame );
 
     /// If \p status is TRUE, then use the animation time step if available;
     /// else, use the application timestep.
@@ -89,6 +90,9 @@ public:
 
     /// @returns the duration of the current animation.
     Scalar getDuration() const;
+
+    /// @returns the duration of the current animation.
+    uint getMaxFrame() const;
 
     // Skeleton display
     /// Turns xray display on/off for the skeleton bones.
@@ -111,7 +115,7 @@ public:
     virtual void setTransform( Ra::Core::Index roIdx,
                                const Ra::Core::Transform& transform ) override;
 
-private:
+  private:
     // Internal function to create the skinning weights.
     void createWeightMatrix( const Ra::Asset::HandleData* data,
                              const std::map<uint, uint>& indexTable,
@@ -149,7 +153,7 @@ private:
     /// Current Animation Time for CC.
     const Scalar* getTimeOutput() const;
 
-private:
+  private:
     /// Entity name for CC.
     std::string m_contentName;
 

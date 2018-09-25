@@ -1,7 +1,9 @@
 #include <AnimationPlugin.hpp>
 
 #include <QAction>
+#include <QFileDialog>
 #include <QIcon>
+#include <QSettings>
 #include <QToolBar>
 
 #include <AnimationSystem.hpp>
@@ -19,7 +21,14 @@ AnimationPluginC::AnimationPluginC() : m_system( nullptr ) {}
 AnimationPluginC::~AnimationPluginC() {}
 
 void AnimationPluginC::registerPlugin( const Ra::PluginContext& context ) {
+    QSettings settings;
+    QString path = settings.value( "AnimDataDir" ).toString();
+    if ( path.isEmpty() )
+    {
+        path = QString( context.m_exportDir.c_str() );
+    }
     m_system = new AnimationSystem;
+    m_system->setDataDir( path.toStdString() );
     context.m_engine->registerSystem( "AnimationSystem", m_system );
     context.m_engine->getSignalManager()->m_frameEndCallbacks.push_back(
         std::bind( &AnimationPluginC::updateAnimTime, this ) );
@@ -44,6 +53,9 @@ QWidget* AnimationPluginC::getWidget() {
     connect( m_widget, &AnimationUI::pause, this, &AnimationPluginC::pause );
     connect( m_widget, &AnimationUI::step, this, &AnimationPluginC::step );
     connect( m_widget, &AnimationUI::stop, this, &AnimationPluginC::reset );
+    connect( m_widget, &AnimationUI::cacheFrame, this, &AnimationPluginC::cacheFrame );
+    connect( m_widget, &AnimationUI::restoreFrame, this, &AnimationPluginC::restoreFrame );
+    connect( m_widget, &AnimationUI::changeDataDir, this, &AnimationPluginC::changeDataDir );
     return m_widget;
 }
 
@@ -124,6 +136,7 @@ void AnimationPluginC::toggleSlowMotion( bool status ) {
 }
 
 void AnimationPluginC::updateAnimTime() {
+    m_widget->setMaxFrame( m_system->getMaxFrame() );
     m_widget->updateTime( m_system->getTime( m_selectionManager->currentItem() ) );
     m_widget->updateFrame( m_system->getAnimFrame() );
 }
@@ -136,6 +149,17 @@ void AnimationPluginC::restoreFrame( int frame ) {
     if ( m_system->restoreFrame( frame ) )
     {
         m_widget->frameLoaded( frame );
+    }
+}
+
+void AnimationPluginC::changeDataDir() {
+    QSettings settings;
+    QString path = settings.value( "AnimDataDir", QDir::homePath() ).toString();
+    path = QFileDialog::getExistingDirectory( nullptr, "Animation Data Dir", path );
+    if ( !path.isEmpty() )
+    {
+        settings.setValue( "AnimDataDir", path );
+        m_system->setDataDir( path.toStdString() );
     }
 }
 

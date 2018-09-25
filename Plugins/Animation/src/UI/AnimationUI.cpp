@@ -102,6 +102,14 @@ void AnimationUI::frameLoaded( int f ) {
     ui->m_currentFrame->setText( QString::number( f ) );
 }
 
+void AnimationUI::setMaxFrame( int f ) {
+    ui->m_loadedFrame->setMaximum( f );
+}
+
+void AnimationUI::on_m_saveDir_clicked() {
+    emit changeDataDir();
+}
+
 void AnimationUI::updateTime( float t ) {
     ui->m_animationTimeDisplay->setText( QString::number( t ) );
 }
