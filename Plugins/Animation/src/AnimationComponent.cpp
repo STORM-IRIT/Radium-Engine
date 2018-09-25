@@ -381,47 +381,54 @@ Scalar AnimationComponent::getTime() const {
 Scalar AnimationComponent::getDuration() const {
     if ( m_animations.empty() )
     {
-        return 0;
+        return Scalar( 0 );
     }
     return m_animations[m_animationID].getDuration();
 }
 
-void AnimationComponent::cacheFrame( int frame ) const {
-    std::ofstream file( "animFrames/"+m_contentName+"_frame"+std::to_string(frame)+".anim",
+uint AnimationComponent::getMaxFrame() const {
+    if ( m_animations.empty() )
+    {
+        return 0;
+    }
+    return uint( std::round( getDuration() / m_dt[m_animationID] ) );
+}
+
+void AnimationComponent::cacheFrame( const std::string& dir, int frame ) const {
+    std::ofstream file( dir + "/" + m_contentName + "_frame" + std::to_string( frame ) + ".anim",
                         std::ios::trunc | std::ios::out | std::ios::binary );
-    if (!file.is_open())
+    if ( !file.is_open() )
     {
         return;
     }
-    file.write( (const char*) &m_animationID, sizeof(uint) );
-    file.write( (const char*) &m_animationTimeStep, sizeof(bool) );
-    file.write( (const char*) &m_animationTime, sizeof(Scalar) );
-    file.write( (const char*) &m_speed, sizeof(Scalar) );
-    file.write( (const char*) &m_slowMo, sizeof(bool) );
+    file.write( (const char*)&m_animationID, sizeof( uint ) );
+    file.write( (const char*)&m_animationTimeStep, sizeof( bool ) );
+    file.write( (const char*)&m_animationTime, sizeof( Scalar ) );
+    file.write( (const char*)&m_speed, sizeof( Scalar ) );
+    file.write( (const char*)&m_slowMo, sizeof( bool ) );
     const auto& pose = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::LOCAL );
-    file.write( (const char*) pose.data(), sizeof(Ra::Core::Transform) * pose.size() );
-    std::cout << "Saving anim data at time: " << m_animationTime << std::endl;
+    file.write( (const char*)pose.data(), sizeof( Ra::Core::Transform ) * pose.size() );
+    LOG( logINFO ) << "Saving anim data at time: " << m_animationTime;
 }
 
-bool AnimationComponent::restoreFrame( int frame )
-{
-    std::ifstream file( "animFrames/"+m_contentName+"_frame"+std::to_string(frame)+".anim",
+bool AnimationComponent::restoreFrame( const std::string& dir, int frame ) {
+    std::ifstream file( dir + "/" + m_contentName + "_frame" + std::to_string( frame ) + ".anim",
                         std::ios::in | std::ios::binary );
-    if (!file.is_open())
+    if ( !file.is_open() )
     {
         return false;
     }
-    file.read( (char*) &m_animationID, sizeof(uint) );
-    file.read( (char*) &m_animationTimeStep, sizeof(bool) );
-    file.read( (char*) &m_animationTime, sizeof(Scalar) );
-    file.read( (char*) &m_speed, sizeof(Scalar) );
-    file.read( (char*) &m_slowMo, sizeof(bool) );
+    file.read( (char*)&m_animationID, sizeof( uint ) );
+    file.read( (char*)&m_animationTimeStep, sizeof( bool ) );
+    file.read( (char*)&m_animationTime, sizeof( Scalar ) );
+    file.read( (char*)&m_speed, sizeof( Scalar ) );
+    file.read( (char*)&m_slowMo, sizeof( bool ) );
     auto pose = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::LOCAL );
-    file.read( (char*) pose.data(), sizeof(Ra::Core::Transform) * pose.size() );
+    file.read( (char*)pose.data(), sizeof( Ra::Core::Transform ) * pose.size() );
     m_skel.setPose( pose, Ra::Core::Animation::Handle::SpaceType::LOCAL );
 
     // update the render objects
-    for (auto& bone : m_boneDrawables)
+    for ( auto& bone : m_boneDrawables )
     {
         bone->update();
     }

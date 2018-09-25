@@ -22,7 +22,7 @@ class SelectionManager;
 namespace Gui {
 class PickingManager;
 class Viewer;
-}
+} // namespace Gui
 
 namespace Engine {
 class Renderer;
@@ -34,10 +34,11 @@ class FileLoaderInterface;
 
 /// Data passed to the plugin constructor.
 struct PluginContext {
-    Engine::RadiumEngine* m_engine=nullptr;
-    GuiBase::SelectionManager* m_selectionManager=nullptr;
-    Gui::PickingManager* m_pickingManager=nullptr;
-    Gui::Viewer* m_viewer=nullptr;
+    Engine::RadiumEngine* m_engine = nullptr;
+    GuiBase::SelectionManager* m_selectionManager = nullptr;
+    Gui::PickingManager* m_pickingManager = nullptr;
+    Gui::Viewer* m_viewer = nullptr;
+    std::string m_exportDir = ".";
 };
 
 namespace Plugins {
@@ -124,16 +125,18 @@ class RadiumPluginInterface {
      * @see https://herbsutter.com/2013/06/05/gotw-91-solution-smart-pointer-parameters/ for the
      * reason a const QOpenGLContext * is given \warning Allocated renderers are given to the
      * application and SHOULD not be destroyed by the plugin
-     * @note Plugins that want to manage OpenGL resources MUST ENSURE at the time they create/acces these resources
-     * that the current openGLContext is the one pass when initializing OpenGL here and stored in the PluginContext ...
-     * @note When this function is called from the application, The active OpenGL Context is the one that will be
-     * used for rendering.
+     * @note Plugins that want to manage OpenGL resources MUST ENSURE at the time they create/acces
+     * these resources that the current openGLContext is the one pass when initializing OpenGL here
+     * and stored in the PluginContext ...
+     * @note When this function is called from the application, The active OpenGL Context is the one
+     * that will be used for rendering.
      * @todo QOpenGLContext the openGLContext as it is redundant with the PluginContext ?
      *
-     * Developers of plugins that need to manage OpenGL resources in a direct way (recomended for plugins that manage
-     * OpenGL resources for rendering or interaction with rendering) must implement this method and memorize the viewer
-     * of the PluginContext. Each time they need to create or destroy an OpenGL resource, they must activate this
-     * context (viewer->makeCurrent()) and realeas it after usage (viewer->doneCurrent())
+     * Developers of plugins that need to manage OpenGL resources in a direct way (recomended for
+     * plugins that manage OpenGL resources for rendering or interaction with rendering) must
+     * implement this method and memorize the viewer of the PluginContext. Each time they need to
+     * create or destroy an OpenGL resource, they must activate this context (viewer->makeCurrent())
+     * and realeas it after usage (viewer->doneCurrent())
      * @see Ra::Gui::Viewer
      */
     virtual void openGlInitialize( const PluginContext& context ) {}
