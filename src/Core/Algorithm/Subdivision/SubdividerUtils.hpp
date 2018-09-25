@@ -104,25 +104,14 @@ void copyProps( const std::vector<OpenMesh::FPropHandleT<T>>& fprops,
 /// Interpolate \p props on edge center (after edge split).
 template <typename T>
 void interpolateProps( const std::vector<OpenMesh::HPropHandleT<T>>& props,
-                       const TopologicalMesh::HalfedgeHandle& old_heh,
-                       const TopologicalMesh::HalfedgeHandle& opp_old_heh,
-                       const TopologicalMesh::HalfedgeHandle& t_heh,
-                       const TopologicalMesh::HalfedgeHandle& new_heh,
-                       const TopologicalMesh::HalfedgeHandle& opp_new_heh, TopologicalMesh& mesh ) {
-    // get handle to first edge vertex
-    TopologicalMesh::HalfedgeHandle old_heh_prev;
-    for ( old_heh_prev = mesh.next_halfedge_handle( old_heh );
-          mesh.next_halfedge_handle( old_heh_prev ) != old_heh;
-          old_heh_prev = mesh.next_halfedge_handle( old_heh_prev ) )
-        ;
+                       const TopologicalMesh::HalfedgeHandle& in_a,
+                       const TopologicalMesh::HalfedgeHandle& in_b,
+                       const TopologicalMesh::HalfedgeHandle& out, Scalar f,
+                       TopologicalMesh& mesh ) {
     // interpolate properties
     for ( const auto& oh : props )
     {
-        mesh.property( oh, new_heh ) = mesh.property( oh, old_heh );
-        mesh.property( oh, old_heh ) =
-            0.5 * ( mesh.property( oh, old_heh ) + mesh.property( oh, old_heh_prev ) );
-        mesh.property( oh, opp_new_heh ) =
-            0.5 * ( mesh.property( oh, opp_old_heh ) + mesh.property( oh, t_heh ) );
+        mesh.property( oh, out ) = f * ( mesh.property( oh, in_a ) + mesh.property( oh, in_b ) );
     }
 }
 
