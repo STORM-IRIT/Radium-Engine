@@ -19,6 +19,7 @@ AnimationSystem::AnimationSystem() {
     m_isPlaying = false;
     m_oneStep = false;
     m_xrayOn = false;
+    m_animFrame = 0;
 }
 
 void AnimationSystem::generateTasks( Ra::Core::TaskQueue* taskQueue,
@@ -132,7 +133,6 @@ void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity,
             }
         }
 
-        // FIXME(Charly): Certainly not the best way to do this
         auto component = new AnimationComponent( "AC_" + skel->getName(), entity );
         std::vector<Ra::Core::Index> dupliTable;
         uint nbMeshVertices = 0;
@@ -180,11 +180,20 @@ Scalar AnimationSystem::getTime( const Ra::Engine::ItemEntry& entry ) const {
     return 0.f;
 }
 
+uint AnimationSystem::getMaxFrame() const {
+    uint m = 0;
+    for ( const auto& comp : m_components )
+    {
+        m = std::max( m, static_cast<AnimationComponent*>( comp.second )->getMaxFrame() );
+    }
+    return m;
+}
+
 void AnimationSystem::cacheFrame( uint frameId ) const {
     // deal with AnimationComponents
     for ( const auto& comp : m_components )
     {
-        static_cast<AnimationComponent*>( comp.second )->cacheFrame( frameId );
+        static_cast<AnimationComponent*>( comp.second )->cacheFrame( m_dataDir, frameId );
     }
 
     CoupledTimedSystem::cacheFrame( frameId );
@@ -195,13 +204,14 @@ bool AnimationSystem::restoreFrame( uint frameId ) {
     if ( !restoringCurrent )
     {
         // first save current, in case restoration fails.
-        cacheFrame( frameId );
+        cacheFrame( m_animFrame );
     }
     bool success = true;
     // deal with AnimationComponents
     for ( const auto& comp : m_components )
     {
-        success &= static_cast<AnimationComponent*>( comp.second )->restoreFrame( frameId );
+        success &=
+            static_cast<AnimationComponent*>( comp.second )->restoreFrame( m_dataDir, frameId );
     }
     // if fail, restore current frame
     if ( !success && !restoringCurrent )
@@ -229,6 +239,10 @@ bool AnimationSystem::restoreFrame( uint frameId ) {
         m_animFrame = frameId;
     }
     return success;
+}
+
+void AnimationSystem::setDataDir( const std::string dir ) {
+    m_dataDir = dir;
 }
 
 } // namespace AnimationPlugin

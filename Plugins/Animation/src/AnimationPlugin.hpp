@@ -54,6 +54,7 @@ class AnimationPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     void updateAnimTime();
     void cacheFrame();
     void restoreFrame( int frame );
+    void changeDataDir();
 
   private:
     class AnimationSystem* m_system;

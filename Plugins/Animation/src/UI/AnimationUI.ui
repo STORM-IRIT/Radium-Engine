@@ -295,8 +295,17 @@ border-image: url(:/Assets/Images/stop_on.png);
          </item>
          <item>
           <widget class="QLabel" name="m_currentFrame">
+           <property name="minimumSize">
+            <size>
+             <width>30</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
@@ -311,6 +320,13 @@ border-image: url(:/Assets/Images/stop_on.png);
           <widget class="QSpinBox" name="m_loadedFrame"/>
          </item>
         </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="m_saveDir">
+         <property name="text">
+          <string>Choose Animation Data Directory</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -495,6 +511,7 @@ border-image: url(:/Assets/Images/stop_on.png);
   </action>
  </widget>
  <resources>
+  <include location="../../../../icons.qrc"/>
   <include location="../../../../icons.qrc"/>
  </resources>
  <connections/>
