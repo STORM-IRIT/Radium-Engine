@@ -270,11 +270,13 @@ void CatmullClarkSubdivider::split_edge( TopologicalMesh& mesh,
     // Re-link mesh entities
     if ( mesh.is_boundary( eh ) )
     {
+        // spin around vh1
         for ( t_heh = heh; mesh.next_halfedge_handle( t_heh ) != opp_heh;
               t_heh = mesh.opposite_halfedge_handle( mesh.next_halfedge_handle( t_heh ) ) )
             ;
     } else
     {
+        // spin inside opp_heh's face
         for ( t_heh = mesh.next_halfedge_handle( opp_heh );
               mesh.next_halfedge_handle( t_heh ) != opp_heh;
               t_heh = mesh.next_halfedge_handle( t_heh ) )
@@ -294,12 +296,29 @@ void CatmullClarkSubdivider::split_edge( TopologicalMesh& mesh,
     {
         mesh.set_face_handle( opp_new_heh, mesh.face_handle( opp_heh ) );
         mesh.set_halfedge_handle( mesh.face_handle( opp_new_heh ), opp_new_heh );
+
+        // deal with custom properties
+        interpolateProps( m_floatProps, t_heh, opp_heh, opp_new_heh, 0.5, mesh );
+        interpolateProps( m_vec2Props, t_heh, opp_heh, opp_new_heh, 0.5, mesh );
+        interpolateProps( m_vec3Props, t_heh, opp_heh, opp_new_heh, 0.5, mesh );
+        interpolateProps( m_vec4Props, t_heh, opp_heh, opp_new_heh, 0.5, mesh );
     }
 
     if ( mesh.face_handle( heh ).is_valid() )
     {
         mesh.set_face_handle( new_heh, mesh.face_handle( heh ) );
         mesh.set_halfedge_handle( mesh.face_handle( heh ), heh );
+
+        // deal with custom properties
+        copyProps( m_floatProps, heh, new_heh, mesh );
+        copyProps( m_vec2Props, heh, new_heh, mesh );
+        copyProps( m_vec3Props, heh, new_heh, mesh );
+        copyProps( m_vec4Props, heh, new_heh, mesh );
+        HeHandle heh_prev = mesh.prev_halfedge_handle( heh );
+        interpolateProps( m_floatProps, heh_prev, new_heh, heh, 0.5, mesh );
+        interpolateProps( m_vec2Props, heh_prev, new_heh, heh, 0.5, mesh );
+        interpolateProps( m_vec3Props, heh_prev, new_heh, heh, 0.5, mesh );
+        interpolateProps( m_vec4Props, heh_prev, new_heh, heh, 0.5, mesh );
     }
 
     mesh.set_halfedge_handle( vh, new_heh );
@@ -308,12 +327,6 @@ void CatmullClarkSubdivider::split_edge( TopologicalMesh& mesh,
     // Never forget this, when playing with the topology
     mesh.adjust_outgoing_halfedge( vh );
     mesh.adjust_outgoing_halfedge( vh1 );
-
-    // deal with custom properties
-    interpolateProps( m_floatProps, heh, opp_heh, t_heh, new_heh, opp_new_heh, mesh );
-    interpolateProps( m_vec2Props, heh, opp_heh, t_heh, new_heh, opp_new_heh, mesh );
-    interpolateProps( m_vec3Props, heh, opp_heh, t_heh, new_heh, opp_new_heh, mesh );
-    interpolateProps( m_vec4Props, heh, opp_heh, t_heh, new_heh, opp_new_heh, mesh );
 }
 
 void CatmullClarkSubdivider::compute_midpoint( TopologicalMesh& mesh,

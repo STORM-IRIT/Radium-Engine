@@ -11,6 +11,7 @@ namespace Core {
 /// This class implements the Loop subdivision algorithm
 ///
 /// This class extends OpenMesh's LoopT subdivider to handle attributes.
+/// \note We here consider that boundary halfedges do not store attributes.
 class RA_CORE_API LoopSubdivider
     : public OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar> {
   public:
