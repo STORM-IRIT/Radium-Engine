@@ -1,3 +1,5 @@
+#include <Engine/Entity/Entity.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -15,7 +17,9 @@ inline Core::Vector3 Camera::getPosition() const {
 }
 
 inline void Camera::setPosition( const Core::Vector3& position ) {
-    m_frame.translation() = position;
+    Core::Transform T = Core::Transform::Identity();
+    T.translation() = position - m_frame.translation();
+    applyTransform( T );
 }
 
 inline Core::Vector3 Camera::getDirection() const {
@@ -110,16 +114,16 @@ inline Scalar Camera::getAspect() const {
     return m_aspect;
 }
 
-inline Camera::ProjType Camera::getProjType() const {
+inline Camera::ProjType Camera::getType() const {
     return m_projType;
 }
 
-inline void Camera::setProjType( const ProjType& projectionType ) {
+inline void Camera::setType( const ProjType& projectionType ) {
     m_projType = projectionType;
 }
 
 inline Core::Matrix4 Camera::getViewMatrix() const {
-    return m_frame.inverse().matrix();
+    return ( m_entity->getTransform() * m_frame ).inverse().matrix();
 }
 
 inline Core::Matrix4 Camera::getProjMatrix() const {

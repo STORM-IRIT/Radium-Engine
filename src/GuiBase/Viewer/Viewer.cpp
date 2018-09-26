@@ -436,8 +436,10 @@ void Gui::Viewer::showEvent( QShowEvent* ev ) {
         // https://github.com/STORM-IRIT/Radium-Engine/issues/339
         m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
 
-        // Lights are components. So they must be attached to an entity. Attache headlight to system Entity
-        auto light = new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
+        // Lights are components. So they must be attached to an entity. Attache headlight to system
+        // Entity
+        auto light =
+            new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
         m_camera->attachLight( light );
     }
 }
@@ -585,22 +587,20 @@ void Gui::Viewer::grabFrame( const std::string& filename ) {
     m_context->makeCurrent( this );
 
     uint w, h;
-    uchar* writtenPixels = m_currentRenderer->grabFrame( w, h );
+    auto writtenPixels = m_currentRenderer->grabFrame( w, h );
 
     std::string ext = Core::StringUtils::getFileExt( filename );
 
     if ( ext == "bmp" )
     {
-        stbi_write_bmp( filename.c_str(), w, h, 4, writtenPixels );
+        stbi_write_bmp( filename.c_str(), w, h, 4, writtenPixels.get() );
     } else if ( ext == "png" )
     {
-        stbi_write_png( filename.c_str(), w, h, 4, writtenPixels, w * 4 * sizeof( uchar ) );
+        stbi_write_png( filename.c_str(), w, h, 4, writtenPixels.get(), w * 4 * sizeof( uchar ) );
     } else
     { LOG( logWARNING ) << "Cannot write frame to " << filename << " : unsupported extension"; }
 
     m_context->doneCurrent();
-
-    delete[] writtenPixels;
 }
 
 void Gui::Viewer::enablePostProcess( int enabled ) {

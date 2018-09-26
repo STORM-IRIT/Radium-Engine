@@ -214,7 +214,7 @@ class RA_ENGINE_API Renderer {
      */
     virtual std::string getRendererName() const = 0;
 
-    virtual uchar* grabFrame( uint& w, uint& h ) const;
+    virtual std::unique_ptr<uchar[]> grabFrame( uint& w, uint& h ) const;
 
   protected:
     /**

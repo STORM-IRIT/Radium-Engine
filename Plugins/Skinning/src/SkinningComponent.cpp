@@ -55,10 +55,17 @@ void SkinningComponent::setupSkinning() {
         m_frameData.m_frameCounter = 0;
         m_frameData.m_doSkinning = false;
         m_frameData.m_doReset = false;
+        m_frameData.m_previousPose = m_refData.m_refPose;
+        m_frameData.m_currentPose  = m_refData.m_refPose;
 
         m_frameData.m_previousPos = m_refData.m_referenceMesh.vertices();
         m_frameData.m_currentPos = m_refData.m_referenceMesh.vertices();
         m_frameData.m_currentNormal = m_refData.m_referenceMesh.normals();
+
+        m_frameData.m_refToCurrentRelPose  = Ra::Core::Animation::relativePose(
+            m_frameData.m_currentPose, m_refData.m_refPose );
+        m_frameData.m_prevToCurrentRelPose = Ra::Core::Animation::relativePose(
+            m_frameData.m_currentPose, m_frameData.m_previousPose );
 
         // Do some debug checks:  Attempt to write to the mesh and check the weights match skeleton
         // and mesh.

@@ -17,14 +17,19 @@
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
+#include <GuiBase/Viewer/CameraInterface.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
+#ifdef IO_USE_CAMERA_LOADER
+#    include <IO/CameraLoader/CameraLoader.hpp>
+#endif
 #ifdef IO_USE_TINYPLY
 #    include <IO/TinyPlyLoader/TinyPlyFileLoader.hpp>
 #endif
@@ -98,8 +103,11 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     QCommandLineOption fileOpt( QStringList{"f", "file", "scene"}, "Open a scene file at startup.",
                                 "file name", "foo.bar" );
 
-    parser.addOptions(
-        {fpsOpt, pluginOpt, pluginLoadOpt, pluginIgnoreOpt, fileOpt, maxThreadsOpt, numFramesOpt} );
+    QCommandLineOption camOpt( QStringList{"c", "camera", "cam"}, "Open a camera file at startup",
+                               "file name", "foo.bar" );
+
+    parser.addOptions( {fpsOpt, pluginOpt, pluginLoadOpt, pluginIgnoreOpt, fileOpt, camOpt,
+                        maxThreadsOpt, numFramesOpt} );
     parser.process( *this );
 
     if ( parser.isSet( fpsOpt ) )
@@ -114,8 +122,8 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     std::time_t startTime = std::time( nullptr );
     std::tm* startTm = std::localtime( &startTime );
     Ra::Core::StringUtils::stringPrintf( m_exportFoldername, "%4u%02u%02u-%02u%02u",
-                                         1900 + startTm->tm_year, startTm->tm_mon, startTm->tm_mday,
-                                         startTm->tm_hour, startTm->tm_min );
+                                         1900 + startTm->tm_year, startTm->tm_mon + 1,
+                                         startTm->tm_mday, startTm->tm_hour, startTm->tm_min );
 
     QDir().mkdir( m_exportFoldername.c_str() );
 
@@ -220,6 +228,10 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     m_engine->registerFileLoader(
         std::shared_ptr<Asset::FileLoaderInterface>( new IO::TinyPlyFileLoader() ) );
 #endif
+#ifdef IO_USE_CAMERA_LOADER
+    m_engine->registerFileLoader(
+        std::shared_ptr<Asset::FileLoaderInterface>( new IO::CameraFileLoader() ) );
+#endif
 #ifdef IO_USE_ASSIMP
     m_engine->registerFileLoader(
         std::shared_ptr<Asset::FileLoaderInterface>( new IO::AssimpFileLoader() ) );
@@ -238,6 +250,17 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     if ( parser.isSet( fileOpt ) )
     {
         loadFile( parser.value( fileOpt ) );
+    }
+
+    // A camera has been required, load it.
+    if ( parser.isSet( camOpt ) )
+    {
+        if ( loadFile( parser.value( camOpt ) ) )
+        {
+            auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
+            auto camera = static_cast<Engine::Camera*>( entity->getComponents()[0].get() );
+            m_viewer->getCameraInterface()->setCamera( camera );
+        }
     }
 
     m_lastFrameStart = Core::Timer::Clock::now();
@@ -278,7 +301,7 @@ void BaseApplication::setupScene() {
     }
 }
 
-void BaseApplication::loadFile( QString path ) {
+bool BaseApplication::loadFile( QString path ) {
     std::string pathStr = path.toLocal8Bit().data();
     LOG( logINFO ) << "Loading file " << pathStr << "...";
     bool res = m_engine->loadFile( pathStr );
@@ -287,7 +310,7 @@ void BaseApplication::loadFile( QString path ) {
     {
         LOG( logERROR ) << "Aborting file loading !";
 
-        return;
+        return false;
     }
 
     m_engine->releaseFile();
@@ -295,6 +318,7 @@ void BaseApplication::loadFile( QString path ) {
     m_mainWindow->postLoadFile();
 
     emit loadComplete();
+    return true;
 }
 
 void BaseApplication::framesCountForStatsChanged( uint count ) {
@@ -488,6 +512,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
     context.m_selectionManager = m_mainWindow->getSelectionManager();
     context.m_pickingManager = m_viewer->getPickingManager();
     context.m_viewer = m_viewer;
+    context.m_exportDir = m_exportFoldername;
 
     for ( const auto& filename : pluginsDir.entryList( QDir::Files ) )
     {

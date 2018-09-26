@@ -35,10 +35,10 @@ include_directories(
 message(STATUS "Compiling Radium with 3rdparty include dirs : ${EIGEN3_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}-- ${OPENMESH_INCLUDE_DIR}" )
 
 if( RADIUM_ASSIMP_SUPPORT )
-        set( RADIUM_IO_IS_INTERFACE FALSE )
     include_directories( ${ASSIMP_INCLUDE_DIR} )
     message(STATUS "Compiling Radium with Assimp's include dir : ${ASSIMP_INCLUDE_DIR}" )
 endif( RADIUM_ASSIMP_SUPPORT )
+
 
 # Build Core
 set(core_target radiumCore)
@@ -96,14 +96,19 @@ file(GLOB io_inlines IO/*.inl)
 
 set(io_libs radiumCore radiumEngine)
 
+if( RADIUM_CAMERA_LOADER_SUPPORT )
+    add_subdirectory( IO/CameraLoader )
+    set( io_sources ${io_sources} ${cameraloader_sources} )
+    set( io_headers ${io_headers} ${cameraloader_headers} )
+    set( io_inlines ${io_inlines} ${cameraloader_inlines} )
+endif( RADIUM_CAMERA_LOADER_SUPPORT )
+
 if( RADIUM_ASSIMP_SUPPORT )
     add_subdirectory( IO/AssimpLoader )
     set( io_sources ${io_sources} ${assimp_sources} )
     set( io_headers ${io_headers} ${assimp_headers} )
     set( io_inlines ${io_inlines} ${assimp_inlines} )
     set( io_libs    ${io_libs}    ${ASSIMP_LIBRARIES} )
-    # RadiumIO is no more an INTERFACE
-    set( RADIUM_IO_IS_INTERFACE FALSE )
 endif( RADIUM_ASSIMP_SUPPORT )
 
 if( RADIUM_TINYPLY_SUPPORT )
@@ -111,20 +116,16 @@ if( RADIUM_TINYPLY_SUPPORT )
     set( io_sources ${io_sources} ${tinyply_sources} )
     set( io_headers ${io_headers} ${tinyply_headers} )
     set( io_inlines ${io_inlines} ${tinyply_inlines} )
-    # RadiumIO is no more an INTERFACE
-    set( RADIUM_IO_IS_INTERFACE FALSE )
 endif( RADIUM_TINYPLY_SUPPORT )
 
-if( RADIUM_IO_IS_INTERFACE )
-    add_library(
-            ${io_target} INTERFACE
-    )
+if ( RADIUM_IO_IS_INTERFACE )
+    add_library( ${io_target} INTERFACE )
 
     target_sources(
-            ${io_target} INTERFACE
-            ${io_sources}
-            ${io_headers}
-            ${io_inlines}
+        ${io_target} INTERFACE
+        ${io_sources}
+        ${io_headers}
+        ${io_inlines}
     )
     target_compile_definitions(${io_target} INTERFACE "-DRA_IO_STATIC")
 
@@ -132,25 +133,26 @@ if( RADIUM_IO_IS_INTERFACE )
             ${io_target} INTERFACE
             ${io_libs}
     )
-else( RADIUM_IO_IS_INTERFACE )
+else ( RADIUM_IO_IS_INTERFACE )
     add_library(
-            ${io_target} SHARED
-            ${io_sources}
-            ${io_headers}
-            ${io_inlines}
+        ${io_target} SHARED
+        ${io_sources}
+        ${io_headers}
+        ${io_inlines}
     )
     target_compile_definitions(${io_target} PRIVATE "-DRA_IO_EXPORTS")
 
     target_link_libraries(
-            ${io_target}
-            ${io_libs}
+        ${io_target}
+        ${io_libs}
     )
     set_property( TARGET ${io_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
 
     if (NOT APPLE)
         cotire(${io_target}) # see https://travis-ci.org/STORM-IRIT/Radium-Engine/jobs/432345198
     endif (NOT APPLE)
-endif( RADIUM_IO_IS_INTERFACE )
+endif ( RADIUM_IO_IS_INTERFACE )
+
 
 add_dependencies( ${io_target} ${core_target} ${engine_target} )
 

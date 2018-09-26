@@ -17,8 +17,8 @@ namespace Engine {
 class RA_ENGINE_API DefaultLightStorage : public LightStorage {
   public:
     DefaultLightStorage();
-    void add(Light *i) override;
-    void remove(Light* li) override;
+    void add( Light* i ) override;
+    void remove( Light* li ) override;
     void upload() const override;
     size_t size() const override;
     void clear() override;
@@ -30,7 +30,7 @@ class RA_ENGINE_API DefaultLightStorage : public LightStorage {
 };
 
 /**
- * @brief DummyLightManager. A simple Light Manager with a list of lights.
+ * @brief DefaultLightManager. A simple Light Manager with a list of lights.
  */
 class RA_ENGINE_API DefaultLightManager : public LightManager {
   public:

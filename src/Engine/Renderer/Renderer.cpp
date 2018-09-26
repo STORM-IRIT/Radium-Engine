@@ -6,20 +6,20 @@
 
 #include <Core/Log/Log.hpp>
 
-#include <Core/Mesh/MeshPrimitives.hpp>
 #include <Core/File/FileData.hpp>
+#include <Core/Mesh/MeshPrimitives.hpp>
 
-#include <Engine/RadiumEngine.hpp>
 #include <Engine/Managers/LightManager/LightManager.hpp>
+#include <Engine/RadiumEngine.hpp>
 
+#include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-#include <Engine/Renderer/Material/Material.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
@@ -584,18 +584,18 @@ void Renderer::reloadShaders() {
     ShaderProgramManager::getInstance()->reloadAllShaderPrograms();
 }
 
-uchar* Renderer::grabFrame( uint& w, uint& h ) const {
+std::unique_ptr<uchar[]> Renderer::grabFrame( uint& w, uint& h ) const {
     Engine::Texture* tex = getDisplayTexture();
     tex->bind();
 
     // Get a buffer to store the pixels of the OpenGL texture (in float format)
-    float* pixels = new float[tex->width() * tex->height() * 4];
+    auto pixels = std::unique_ptr<float[]>( new float[tex->width() * tex->height() * 4] );
 
     // Grab the texture data
-    GL_ASSERT( glGetTexImage( GL_TEXTURE_2D, 0, GL_RGBA, GL_FLOAT, pixels ) );
+    GL_ASSERT( glGetTexImage( GL_TEXTURE_2D, 0, GL_RGBA, GL_FLOAT, pixels.get() ) );
 
     // Now we must convert the floats to RGB while flipping the image updisde down.
-    uchar* writtenPixels = new uchar[tex->width() * tex->height() * 4];
+    auto writtenPixels = std::unique_ptr<uchar[]>( new uchar[tex->width() * tex->height() * 4] );
     for ( uint j = 0; j < tex->height(); ++j )
     {
         for ( uint i = 0; i < tex->width(); ++i )
@@ -610,10 +610,10 @@ uchar* Renderer::grabFrame( uint& w, uint& h ) const {
                 (uchar)Ra::Core::Math::clamp<Scalar>( pixels[in + 1] * 255.f, 0, 255 );
             writtenPixels[ou + 2] =
                 (uchar)Ra::Core::Math::clamp<Scalar>( pixels[in + 2] * 255.f, 0, 255 );
-            writtenPixels[ou + 3] = 0xff;
+            writtenPixels[ou + 3] =
+                (uchar)Ra::Core::Math::clamp<Scalar>( pixels[in + 3] * 255.f, 0, 255 );
         }
     }
-    delete[] pixels;
     w = tex->width();
     h = tex->height();
     return writtenPixels;
