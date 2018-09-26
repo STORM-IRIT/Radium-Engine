@@ -60,6 +60,7 @@ add_custom_command(
     VERBATIM
     )
 add_custom_target(radiumVersionFile DEPENDS ${RADIUM_VERSION_FILE})
+set_target_properties(radiumVersionFile PROPERTIES COTIRE_ENABLE_PRECOMPILED_HEADER FALSE)
 
 file(GLOB_RECURSE core_sources Core/*.cpp)
 file(GLOB_RECURSE core_headers Core/*.h Core/*.hpp)
@@ -145,7 +146,10 @@ else( RADIUM_IO_IS_INTERFACE )
             ${io_libs}
     )
     set_property( TARGET ${io_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
-    cotire(${io_target})
+
+    if (NOT APPLE)
+        cotire(${io_target}) # see https://travis-ci.org/STORM-IRIT/Radium-Engine/jobs/432345198
+    endif (NOT APPLE)
 endif( RADIUM_IO_IS_INTERFACE )
 
 add_dependencies( ${io_target} ${core_target} ${engine_target} )
