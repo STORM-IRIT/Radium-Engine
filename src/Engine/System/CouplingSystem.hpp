@@ -30,11 +30,11 @@ namespace Engine {
 /// }
 /// \endcode
 template <typename _BaseAbstractSystem>
-class RA_ENGINE_API BaseCouplingSystem : public _BaseAbstractSystem {
+class BaseCouplingSystem : public _BaseAbstractSystem {
   public:
     using BaseAbstractSystem = _BaseAbstractSystem;
 
-    BaseCouplingSystem() {
+    inline BaseCouplingSystem() {
         static_assert( std::is_base_of<Ra::Engine::System, BaseAbstractSystem>::value,
                        "BaseAbstractSystem must inherit Ra::Core::System" );
     };
@@ -45,28 +45,28 @@ class RA_ENGINE_API BaseCouplingSystem : public _BaseAbstractSystem {
 
     /// Add management for the given system.
     /// \warning The property of the pointer is given to *this
-    void addSystem( BaseAbstractSystem* s ) { m_systems.emplace_back( s ); }
+    inline void addSystem( BaseAbstractSystem* s ) { m_systems.emplace_back( s ); }
 
-    void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override {
+    inline void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override {
         dispatch( [taskQueue, &frameInfo]( const auto& s ) {
             s->generateTasks( taskQueue, frameInfo );
         } );
     }
-    void registerComponent( const Entity* entity, Component* component ) override {
+    inline void registerComponent( const Entity* entity, Component* component ) override {
         BaseAbstractSystem::registerComponent( entity, component );
         dispatch(
             [entity, component]( const auto& s ) { s->registerComponent( entity, component ); } );
     }
-    void unregisterComponent( const Entity* entity, Component* component ) override {
+    inline void unregisterComponent( const Entity* entity, Component* component ) override {
         BaseAbstractSystem::unregisterComponent( entity, component );
         dispatch(
             [entity, component]( const auto& s ) { s->unregisterComponent( entity, component ); } );
     }
-    void unregisterAllComponents( const Entity* entity ) override {
+    inline void unregisterAllComponents( const Entity* entity ) override {
         BaseAbstractSystem::unregisterAllComponents( entity );
         dispatch( [entity]( const auto& s ) { s->unregisterAllComponents( entity ); } );
     }
-    void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override {
+    inline void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override {
         BaseAbstractSystem::handleAssetLoading( entity, data );
         dispatch( [entity, data]( const auto& s ) { s->handleAssetLoading( entity, data ); } );
     }
@@ -75,7 +75,7 @@ class RA_ENGINE_API BaseCouplingSystem : public _BaseAbstractSystem {
     /// Call a functor on subsystems
     /// \see CoupledTimedSystem for practical usage
     template <typename Functor>
-    void dispatch( Functor f ) {
+    inline void dispatch( Functor f ) {
         for ( auto& s : m_systems )
             f( s );
     }
@@ -83,7 +83,7 @@ class RA_ENGINE_API BaseCouplingSystem : public _BaseAbstractSystem {
     /// Call a functor on subsystems (const version)
     /// \see CoupledTimedSystem for practical usage
     template <typename Functor>
-    void dispatch( Functor f ) const {
+    inline void dispatch( Functor f ) const {
         for ( const auto& s : m_systems )
             f( s );
     }
@@ -114,7 +114,7 @@ class RA_ENGINE_API BaseCouplingSystem : public _BaseAbstractSystem {
     ///
     /// \see CoupledTimedSystem for practical usage
     template <typename Functor>
-    bool conditionnaldispatch( Functor f, bool abortWhenInvalid = true ) {
+    inline bool conditionnaldispatch( Functor f, bool abortWhenInvalid = true ) {
         for ( auto& s : m_systems )
         {
             if ( !f( s ) && abortWhenInvalid )
@@ -125,7 +125,7 @@ class RA_ENGINE_API BaseCouplingSystem : public _BaseAbstractSystem {
 
     /// \see conditionnaldispatch
     template <typename Functor>
-    bool conditionnaldispatch( Functor f, bool abortWhenInvalid = true ) const {
+    inline bool conditionnaldispatch( Functor f, bool abortWhenInvalid = true ) const {
         for ( const auto& s : m_systems )
         {
             if ( !f( s ) && abortWhenInvalid )
