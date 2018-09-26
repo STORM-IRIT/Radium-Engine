@@ -9,7 +9,7 @@ script:
       otool -L ./main-app
     fi;
   - |
-    if [ "$BUILD_DOC" = "On" ]; then
+    if [ "$TRAVIS_PULL_REQUEST" != "false" ] && [ "$TRAVIS_BRANCH" = "master-v1" ] && [ "$BUILD_DOC" = "On" ]; then
       make doc
     fi;
 
