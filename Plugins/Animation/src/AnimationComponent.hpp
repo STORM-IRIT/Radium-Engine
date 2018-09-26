@@ -18,9 +18,9 @@ namespace AnimationPlugin {
 
 class SkeletonBoneRenderObject;
 
-/// The AnimationComponent is responsible for the management of character animations.
-/// It stores the animation Skeleton and the animation data and is responsible
-/// for drawing the skeleton.
+/// The AnimationComponent is responsible for the management of skeleton-based
+/// character animations. It stores the animation Skeleton and the animation
+/// data and is responsible for drawing the skeleton.
 class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
   public:
     AnimationComponent( const std::string& name, Ra::Engine::Entity* entity );
