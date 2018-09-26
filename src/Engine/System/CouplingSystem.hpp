@@ -4,8 +4,8 @@
 #include <Engine/RaEngine.hpp>      // RA_ENGINE_API
 #include <Engine/System/System.hpp> // System methods declaration
 #include <memory>                   // std::unique_ptr
-#include <vector>                   // std::vector
 #include <type_traits>              // std::is_base_of
+#include <vector>                   // std::vector
 
 namespace Ra {
 namespace Engine {
@@ -40,8 +40,8 @@ class BaseCouplingSystem : public _BaseAbstractSystem {
     };
     virtual ~BaseCouplingSystem() {}
 
-    BaseCouplingSystem(const BaseCouplingSystem<BaseAbstractSystem>&) = delete;
-    BaseCouplingSystem<BaseAbstractSystem>& operator=(const BaseCouplingSystem<BaseAbstractSystem>&) = delete;
+    BaseCouplingSystem( const BaseCouplingSystem<BaseAbstractSystem>& ) = delete;
+    BaseCouplingSystem<BaseAbstractSystem>& operator=( const BaseCouplingSystem<BaseAbstractSystem>& ) = delete;
 
     /// Add management for the given system.
     /// \warning The property of the pointer is given to *this
@@ -135,7 +135,7 @@ class BaseCouplingSystem : public _BaseAbstractSystem {
     }
 
   private:
-    /// Buffer of TimedSystems.
+    /// Buffer of BaseAbstractSystem.
     std::vector<std::unique_ptr<BaseAbstractSystem>> m_systems;
 };
 
