@@ -62,7 +62,7 @@ class ANIM_PLUGIN_API AnimationSystem : public Ra::Engine::CoupledTimedSystem {
     /// Set the animation to play.
     void setAnimation( const uint i );
 
-    /// If \p status is TRUE, then use the animation time step if available;
+    /// If \p status is `true`, then use the animation time step if available;
     /// else, use the application timestep.
     void toggleAnimationTimeStep( const bool status );
 
