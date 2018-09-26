@@ -44,44 +44,6 @@ void uniformNormal( const VectorArray<Vector3>& p, const VectorArray<Triangle>& 
     }
 }
 
-void uniformNormal( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
-                    const std::vector<Ra::Core::Index>& duplicateTable,
-                    VectorArray<Vector3>& normal ) {
-    const uint N = p.size();
-    normal.clear();
-    normal.resize( N, Vector3::Zero() );
-
-    for ( const auto& t : T )
-    {
-        const Index i = duplicateTable.at( t( 0 ) );
-        const Index j = duplicateTable.at( t( 1 ) );
-        const Index k = duplicateTable.at( t( 2 ) );
-        const Vector3 triN = triangleNormal( p[i], p[j], p[k] );
-        if ( !triN.allFinite() )
-        {
-            continue;
-        }
-        normal[i] += triN;
-        normal[j] += triN;
-        normal[k] += triN;
-    }
-
-#pragma omp parallel for
-    for ( uint i = 0; i < N; ++i )
-    {
-        if ( !normal[i].isApprox( Vector3::Zero() ) )
-        {
-            normal[i].normalize();
-        }
-    }
-
-#pragma omp parallel for
-    for ( uint i = 0; i < N; ++i )
-    {
-        normal[i] = normal[duplicateTable[i]];
-    }
-}
-
 Vector3 localUniformNormal( const uint i, const VectorArray<Vector3>& p,
                             const VectorArray<Triangle>& T, const TVAdj& adj ) {
     Vector3 normal = Vector3::Zero();
