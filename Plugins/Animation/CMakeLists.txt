@@ -68,5 +68,3 @@ target_link_libraries( Animation
                        ${RADIUM_LIBRARIES}
                        ${GLBINDING_LIBRARIES}           # Radium dep
                      )
-
-

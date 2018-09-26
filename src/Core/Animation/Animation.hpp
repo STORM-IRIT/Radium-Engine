@@ -34,6 +34,9 @@ class RA_CORE_API Animation {
     // Guaranteed to be between 0 and the animation last time
     Scalar getTime( Scalar timestamp ) const;
 
+    // Get the animation last time.
+    Scalar getDuration() const;
+
   private:
     std::vector<KeyPose> m_keys;
 };
