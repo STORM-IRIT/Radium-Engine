@@ -14,35 +14,58 @@
 #include <Drawing/SkeletonBoneDrawable.hpp>
 
 namespace AnimationPlugin {
+
 AnimationSystem::AnimationSystem() {
     m_isPlaying = false;
     m_oneStep = false;
     m_xrayOn = false;
+    m_animFrame = 0;
 }
 
 void AnimationSystem::generateTasks( Ra::Core::TaskQueue* taskQueue,
                                      const Ra::Engine::FrameInfo& frameInfo ) {
     const bool playFrame = m_isPlaying || m_oneStep;
 
-    Scalar currentDelta = playFrame ? frameInfo.m_dt : 0;
-
-    for ( auto compEntry : this->m_components )
+    if ( playFrame )
     {
-        AnimationComponent* component = static_cast<AnimationComponent*>( compEntry.second );
-        Ra::Core::FunctionTask* task = new Ra::Core::FunctionTask(
-            std::bind( &AnimationComponent::update, component, currentDelta ), "AnimatorTask" );
-        taskQueue->registerTask( task );
+        ++m_animFrame;
     }
+
+    // deal with AnimationComponents
+    Scalar currentDelta = playFrame ? frameInfo.m_dt : 0;
+    for ( auto compEntry : m_components )
+    {
+        auto animComp = static_cast<AnimationComponent*>( compEntry.second );
+        auto animFunc = std::bind( &AnimationComponent::update, animComp, currentDelta );
+        auto animTask = new Ra::Core::FunctionTask( animFunc, "AnimatorTask" );
+        taskQueue->registerTask( animTask );
+    }
+
+    CoupledTimedSystem::generateTasks( taskQueue, frameInfo );
 
     m_oneStep = false;
 }
 
+void AnimationSystem::play( bool isPlaying ) {
+    m_isPlaying = isPlaying;
+    CoupledTimedSystem::play( isPlaying );
+}
+
+void AnimationSystem::step() {
+    m_oneStep = true;
+    CoupledTimedSystem::step();
+}
+
 void AnimationSystem::reset() {
-    for ( auto compEntry : this->m_components )
+    m_animFrame = 0;
+
+    // deal with AnimationComponents
+    for ( auto compEntry : m_components )
     {
         AnimationComponent* component = static_cast<AnimationComponent*>( compEntry.second );
         { component->reset(); }
     }
+    CoupledTimedSystem::reset();
 }
 
 bool AnimationSystem::isXrayOn() {
@@ -55,14 +78,6 @@ void AnimationSystem::setXray( bool on ) {
     {
         static_cast<AnimationComponent*>( comp.second )->setXray( on );
     }
-}
-
-void AnimationSystem::step() {
-    m_oneStep = true;
-}
-
-void AnimationSystem::setPlaying( bool isPlaying ) {
-    m_isPlaying = isPlaying;
 }
 
 void AnimationSystem::toggleSkeleton( const bool status ) {
@@ -106,6 +121,7 @@ void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity,
     auto skelData = fileData->getHandleData();
     auto animData = fileData->getAnimationData();
 
+    // deal with AnimationComponents
     for ( const auto& skel : skelData )
     {
         uint geomID = uint( -1 );
@@ -117,8 +133,7 @@ void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity,
             }
         }
 
-        // FIXME(Charly): Certainly not the best way to do this
-        AnimationComponent* component = new AnimationComponent( "AC_" + skel->getName(), entity );
+        auto component = new AnimationComponent( "AC_" + skel->getName(), entity );
         std::vector<Ra::Core::Index> dupliTable;
         uint nbMeshVertices = 0;
         if ( geomID != uint( -1 ) )
@@ -132,6 +147,8 @@ void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity,
         component->setXray( m_xrayOn );
         registerComponent( entity, component );
     }
+
+    CoupledTimedSystem::handleAssetLoading( entity, fileData );
 }
 
 Scalar AnimationSystem::getTime( const Ra::Engine::ItemEntry& entry ) const {
@@ -144,7 +161,7 @@ Scalar AnimationSystem::getTime( const Ra::Engine::ItemEntry& entry ) const {
         {
             if ( ec.first == entry.m_entity )
             {
-                const AnimationComponent* c = static_cast<AnimationComponent*>( ec.second );
+                const auto c = static_cast<AnimationComponent*>( ec.second );
                 // Entry match, return that one
                 if ( ec.second == c )
                 {
@@ -161,6 +178,71 @@ Scalar AnimationSystem::getTime( const Ra::Engine::ItemEntry& entry ) const {
         }
     }
     return 0.f;
+}
+
+uint AnimationSystem::getMaxFrame() const {
+    uint m = 0;
+    for ( const auto& comp : m_components )
+    {
+        m = std::max( m, static_cast<AnimationComponent*>( comp.second )->getMaxFrame() );
+    }
+    return m;
+}
+
+void AnimationSystem::cacheFrame( uint frameId ) const {
+    // deal with AnimationComponents
+    for ( const auto& comp : m_components )
+    {
+        static_cast<AnimationComponent*>( comp.second )->cacheFrame( m_dataDir, frameId );
+    }
+
+    CoupledTimedSystem::cacheFrame( frameId );
+}
+
+bool AnimationSystem::restoreFrame( uint frameId ) {
+    static bool restoringCurrent = false;
+    if ( !restoringCurrent )
+    {
+        // first save current, in case restoration fails.
+        cacheFrame( m_animFrame );
+    }
+    bool success = true;
+    // deal with AnimationComponents
+    for ( const auto& comp : m_components )
+    {
+        success &=
+            static_cast<AnimationComponent*>( comp.second )->restoreFrame( m_dataDir, frameId );
+    }
+    // if fail, restore current frame
+    if ( !success && !restoringCurrent )
+    {
+        restoringCurrent = true;
+        restoreFrame( m_animFrame );
+        restoringCurrent = false;
+        return false;
+    }
+
+    CORE_ASSERT( success, "Error while trying to restore current frame" );
+    success &= CoupledTimedSystem::restoreFrame( frameId );
+
+    // if fail, restore current frame
+    if ( !success && !restoringCurrent )
+    {
+        restoringCurrent = true;
+        restoreFrame( m_animFrame );
+        restoringCurrent = false;
+        return false;
+    }
+    CORE_ASSERT( success, "Error while trying to restore current frame" );
+    if ( success )
+    {
+        m_animFrame = frameId;
+    }
+    return success;
+}
+
+void AnimationSystem::setDataDir( const std::string dir ) {
+    m_dataDir = dir;
 }
 
 } // namespace AnimationPlugin

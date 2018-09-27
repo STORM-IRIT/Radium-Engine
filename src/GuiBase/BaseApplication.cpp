@@ -512,6 +512,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
     context.m_selectionManager = m_mainWindow->getSelectionManager();
     context.m_pickingManager = m_viewer->getPickingManager();
     context.m_viewer = m_viewer;
+    context.m_exportDir = m_exportFoldername;
 
     for ( const auto& filename : pluginsDir.entryList( QDir::Files ) )
     {
