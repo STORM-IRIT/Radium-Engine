@@ -7,10 +7,10 @@ namespace Core {
 bool LoopSubdivider::prepare( TopologicalMesh& mesh ) {
     mesh.add_property( m_vpPos );
     mesh.add_property( m_epPos );
-    addPropsCopy( mesh.m_floatPph, mesh, m_floatProps );
-    addPropsCopy( mesh.m_vec2Pph, mesh, m_vec2Props );
-    addPropsCopy( mesh.m_vec3Pph, mesh, m_vec3Props );
-    addPropsCopy( mesh.m_vec4Pph, mesh, m_vec4Props );
+    addPropsCopy( mesh.getFloatPropsHandles(), mesh, m_floatProps );
+    addPropsCopy( mesh.getVector2PropsHandles(), mesh, m_vec2Props );
+    addPropsCopy( mesh.getVector3PropsHandles(), mesh, m_vec3Props );
+    addPropsCopy( mesh.getVector4PropsHandles(), mesh, m_vec4Props );
     return true;
 }
 
@@ -69,10 +69,10 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
         }
 
         // Commit properties
-        commitProps( m_floatProps, mesh, mesh.m_floatPph );
-        commitProps( m_vec2Props, mesh, mesh.m_vec2Pph );
-        commitProps( m_vec3Props, mesh, mesh.m_vec3Pph );
-        commitProps( m_vec4Props, mesh, mesh.m_vec4Pph );
+        commitProps( m_floatProps, mesh, mesh.getFloatPropsHandles() );
+        commitProps( m_vec2Props, mesh, mesh.getVector2PropsHandles() );
+        commitProps( m_vec3Props, mesh, mesh.getVector3PropsHandles() );
+        commitProps( m_vec4Props, mesh, mesh.getVector4PropsHandles() );
 
         if ( updatePoints )
         {

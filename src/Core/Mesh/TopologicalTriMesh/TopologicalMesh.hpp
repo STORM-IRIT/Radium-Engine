@@ -45,17 +45,14 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Pph;
     std::vector<OpenMesh::HPropHandleT<Vector4>> m_vec4Pph;
 
-    friend class LoopSubdivider;
-    friend class CatmullClarkSubdivider;
-
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /// Construct a topological mesh from a triangle mesh
     /// this is a costly operation.
     /// This operation merge vertex with same position, but keep vertex
-    /// attributes on halfedge, so that triMesh vertex with same 3D position are
-    /// represented only once in the topological mesh.
+    /// attributes on halfedge, so that triMesh vertices with the same 3D position
+    /// are represented only once in the topological mesh.
     explicit TopologicalMesh( const Ra::Core::TriangleMesh& triMesh );
 
     /// Construct an empty topological mesh
@@ -74,7 +71,17 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /// return the normal of the vertex vh, when considering its membership to
     /// the face fh
     inline Normal& normal( VertexHandle vh, FaceHandle fh );
+
+    /// \name Const access to handles of the HalfEdge properties coming from
+    /// the TriangleMesh attributes.
+    ///@{
+    inline const std::vector<OpenMesh::HPropHandleT<float>>& getFloatPropsHandles() const;
+    inline const std::vector<OpenMesh::HPropHandleT<Vector2>>& getVector2PropsHandles() const;
+    inline const std::vector<OpenMesh::HPropHandleT<Vector3>>& getVector3PropsHandles() const;
+    inline const std::vector<OpenMesh::HPropHandleT<Vector4>>& getVector4PropsHandles() const;
+    ///@}
 };
+
 } // namespace Core
 } // namespace Ra
 
