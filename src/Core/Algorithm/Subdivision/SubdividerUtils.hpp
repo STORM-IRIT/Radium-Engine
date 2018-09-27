@@ -61,7 +61,7 @@ void clearProps( std::vector<OpenMesh::FPropHandleT<T>>& props, TopologicalMesh&
 /// Update \p copy properties from input.
 template <typename T>
 void commitProps( const std::vector<OpenMesh::HPropHandleT<T>>& input, TopologicalMesh& mesh,
-                  std::vector<OpenMesh::HPropHandleT<T>>& copy ) {
+                  const std::vector<OpenMesh::HPropHandleT<T>>& copy ) {
     for ( uint i = 0; i < input.size(); ++i )
     {
         auto oh = input[i];
@@ -87,7 +87,7 @@ void copyProps( const std::vector<OpenMesh::HPropHandleT<T>>& props,
     }
 }
 
-/// Copy \p props properties from \p input_heh to \p copy_heh
+/// Copy \p fprops properties from \p input_fh to \p copy_heh
 template <typename T>
 void copyProps( const std::vector<OpenMesh::FPropHandleT<T>>& fprops,
                 const std::vector<OpenMesh::HPropHandleT<T>>& hprops,
@@ -115,7 +115,7 @@ void interpolateProps( const std::vector<OpenMesh::HPropHandleT<T>>& props,
     }
 }
 
-/// Interpolate \p props on face center.
+/// Interpolate \p hprops on face center.
 template <typename T>
 void interpolateProps( const std::vector<OpenMesh::HPropHandleT<T>>& hprops,
                        const std::vector<OpenMesh::FPropHandleT<T>>& fprops,
