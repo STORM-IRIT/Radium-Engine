@@ -271,8 +271,9 @@ void PBS::clearAccelerations(ParticleData &pd)
     {
         if (pd.getMass(i) != 0.0)
         {
-            Vector3 &a = pd.getAcceleration(i);
-            a = m_gravity;
+
+            pd.setAcceleration( i, m_gravity );
+
         }
     }
 }
