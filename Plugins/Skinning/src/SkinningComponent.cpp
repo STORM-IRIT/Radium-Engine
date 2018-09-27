@@ -1,12 +1,12 @@
 #include <SkinningComponent.hpp>
 
-#include <Core/Geometry/Normal/Normal.hpp>
 #include <Core/Animation/Pose/PoseOperation.hpp>
+#include <Core/Geometry/Normal/Normal.hpp>
+
 
 #include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
 #include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
 #include <Core/Animation/Skinning/RotationCenterSkinning.hpp>
-
 #include "PositionBasedSkinning/PBS.hpp"
 
 
@@ -19,13 +19,11 @@ using Ra::Core::Animation::Pose;
 using Ra::Core::Animation::RefPose;
 using Ra::Core::Animation::WeightMatrix;
 
-//typedef Ra::Core::Animation::Handle::SpaceType SpaceType;
-using SpaceType = Ra::Core::Animation::Handle::SpaceType;
-
 using Ra::Core::Skinning::RefData;
 using Ra::Core::Skinning::FrameData;
-
 using Ra::Engine::ComponentMessenger;
+
+using SpaceType = Ra::Core::Animation::Handle::SpaceType;
 
 namespace SkinningPlugin {
 
@@ -206,7 +204,6 @@ void SkinningComponent::setupSkinningType( SkinningType type ){
         m_PBS.compute( m_skeletonGetter(), m_frameData.m_refToCurrentRelPose, m_frameData.m_currentPos );
         break;
     }
-    Ra::Core::Animation::computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights, m_DQ );
-}
+   }
 
 } // End namespace Skinning plugin
