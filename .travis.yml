@@ -27,7 +27,6 @@ env:
 
 before_install:
   - export CHECKOUT_PATH=`pwd`;
-  - eval "${MATRIX_EVAL}"
   - |
     if [ "$TRAVIS_OS_NAME" == "osx" ]; then
         #attempt to fix SSL issue with Qt:
@@ -43,6 +42,7 @@ before_install:
         brew install --with-curl --with-openssl qt
         brew install gnu-which --with-default-names
     fi;
+  - eval "${MATRIX_EVAL}"
   - if [ -n "$GCC_VERSION" ]; then export CXX="g++-${GCC_VERSION}" CC="gcc-${GCC_VERSION}"; fi
   - if [ -n "$CLANG_VERSION" ]; then export CXX="clang++-${CLANG_VERSION}" CC="clang-${CLANG_VERSION}"; fi
   - which $CXX
@@ -78,9 +78,8 @@ matrix:
         - BUILD_TYPE=Release
         - PREFIX_PATH="/usr/local/opt/qt/lib/cmake"
         - BUILD_DOC=Off
-        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="rm /usr/local/include/c++ && brew install gcc && CC=gcc-8 && CXX=g++-8"
       os: osx
-      osx_image: xcode8
 
     # linx clang Release
     - env:
