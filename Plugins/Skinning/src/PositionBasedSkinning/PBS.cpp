@@ -283,7 +283,7 @@ void PBS::positionConstraintProjection()
     unsigned int iter = 0;
 
     SimulationModel::ConstraintVector &constraints = m_model.getConstraints();
-    SimulationModel::ConstraintGroupVector &groups = m_model.getConstraintGroups();
+    SimulationModel::ConstraintGroupVector const &groups = m_model.getConstraintGroups();
 
     while (iter < m_maxIter)
     {
@@ -376,6 +376,7 @@ Scalar PBS::computeDeterminant( const Vector3 &vertex0, const Vector3 &vertex1,
 
                 vertex0[2] * vertex1[0] * vertex2[1] - vertex0[0] * vertex1[2] * vertex2[1] -
                 vertex0[1] * vertex1[0] * vertex2[2] + vertex0[0] * vertex1[1] * vertex2[2];
+
     return det;
 }
 
