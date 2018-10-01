@@ -52,20 +52,6 @@ class BaseCouplingSystem : public _BaseAbstractSystem {
             s->generateTasks( taskQueue, frameInfo );
         } );
     }
-    inline void registerComponent( const Entity* entity, Component* component ) override {
-        BaseAbstractSystem::registerComponent( entity, component );
-        dispatch(
-            [entity, component]( const auto& s ) { s->registerComponent( entity, component ); } );
-    }
-    inline void unregisterComponent( const Entity* entity, Component* component ) override {
-        BaseAbstractSystem::unregisterComponent( entity, component );
-        dispatch(
-            [entity, component]( const auto& s ) { s->unregisterComponent( entity, component ); } );
-    }
-    inline void unregisterAllComponents( const Entity* entity ) override {
-        BaseAbstractSystem::unregisterAllComponents( entity );
-        dispatch( [entity]( const auto& s ) { s->unregisterAllComponents( entity ); } );
-    }
     inline void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override {
         BaseAbstractSystem::handleAssetLoading( entity, data );
         dispatch( [entity, data]( const auto& s ) { s->handleAssetLoading( entity, data ); } );
