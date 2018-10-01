@@ -59,8 +59,8 @@ add_custom_command(
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     VERBATIM
     )
-add_custom_target(radiumVersionFile DEPENDS ${RADIUM_VERSION_FILE})
-set_target_properties(radiumVersionFile PROPERTIES COTIRE_ENABLE_PRECOMPILED_HEADER FALSE)
+#add_custom_target(radiumVersionFile DEPENDS ${RADIUM_VERSION_FILE})
+#set_target_properties(radiumVersionFile PROPERTIES COTIRE_ENABLE_PRECOMPILED_HEADER FALSE)
 
 file(GLOB_RECURSE core_sources Core/*.cpp)
 file(GLOB_RECURSE core_headers Core/*.h Core/*.hpp)
@@ -78,7 +78,7 @@ add_library(
     ${RADIUM_VERSION_FILE} #This file is build-dependant and generated in the Bundle
 )
 
-add_dependencies( ${core_target} eigen3 radiumVersionFile openmesh_lib)
+add_dependencies( ${core_target} eigen3  openmesh_lib)
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
 
 target_link_libraries(
