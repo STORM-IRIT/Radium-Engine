@@ -40,7 +40,7 @@ class BaseCouplingSystem : public _BaseAbstractSystem {
     inline BaseCouplingSystem() {
         static_assert( std::is_base_of<Ra::Engine::System, BaseAbstractSystem>::value,
                        "BaseAbstractSystem must inherit Ra::Core::System" );
-    };
+    }
     virtual ~BaseCouplingSystem() {}
 
     BaseCouplingSystem( const BaseCouplingSystem<BaseAbstractSystem>& ) = delete;
