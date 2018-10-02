@@ -8,7 +8,7 @@
 namespace Ra {
 namespace Core {
 
-/// This class implements the Loop subdivision algorithm
+/// This class implements the Catmull-Clark subdivision algorithm
 ///
 /// This class extends OpenMesh's CatmullClarkT subdivider to handle attributes.
 /// \note We here consider that boundary halfedges do not store attributes.
@@ -25,7 +25,6 @@ class RA_CORE_API CatmullClarkSubdivider
     ~CatmullClarkSubdivider() {}
 
   public:
-    /// must implement
     const char* name( void ) const override { return "CatmullClarkSubdivider"; }
 
   protected:
@@ -38,13 +37,19 @@ class RA_CORE_API CatmullClarkSubdivider
   private:
     // topology helpers
 
+    /// Edge recomposition
     void split_edge( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh );
 
+    /// Face recomposition
     void split_face( TopologicalMesh& mesh, const TopologicalMesh::FaceHandle& fh );
 
+    // geometry helpers
+
+    /// compute edge midpoint
     void compute_midpoint( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh,
                            const bool update_points );
 
+    /// smooth input vertices
     void update_vertex( TopologicalMesh& mesh, const TopologicalMesh::VertexHandle& vh );
 
   private:
@@ -74,4 +79,4 @@ class RA_CORE_API CatmullClarkSubdivider
 } // namespace Core
 } // namespace Ra
 
-#endif // RADIUMENGINE_LOOPSUBDIVIDER_H
+#endif // RADIUMENGINE_CATMULLCLARKSUBDIVIDER_H
