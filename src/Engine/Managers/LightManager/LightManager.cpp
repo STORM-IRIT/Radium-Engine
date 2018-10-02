@@ -143,21 +143,25 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
 }
 
 void LightManager::registerComponent( const Entity* entity, Component* component ) {
-    System::registerComponent(entity, component);
-    m_data->add(reinterpret_cast<Light *>(component));
+    System::registerComponent( entity, component );
+    m_data->add( reinterpret_cast<Light*>( component ) );
 }
 
 void LightManager::unregisterComponent( const Entity* entity, Component* component ) {
-    m_data->remove( reinterpret_cast<Light *>(component) );
-    System::unregisterComponent(entity, component);
-
+    System::unregisterComponent( entity, component );
+    m_data->remove( reinterpret_cast<Light*>( component ) );
 }
 
 void LightManager::unregisterAllComponents( const Entity* entity ) {
-    m_data->clear();
-    System::unregisterAllComponents(entity);
+    for ( const auto& comp : this->m_components )
+    {
+        if ( comp.first == entity )
+        {
+            m_data->remove( reinterpret_cast<Light*>( comp.second ) );
+        }
+    }
+    System::unregisterAllComponents( entity );
 }
 
-
-  } // namespace Engine
+} // namespace Engine
 } // namespace Ra
