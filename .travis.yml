@@ -78,6 +78,7 @@ matrix:
         - BUILD_TYPE=Release
         - PREFIX_PATH="/usr/local/opt/qt/lib/cmake"
         - BUILD_DOC=Off
+	# see https://github.com/Homebrew/brew/issues/1742
         - MATRIX_EVAL="rm /usr/local/include/c++ && brew install gcc && CC=gcc-8 && CXX=g++-8"
       os: osx
 

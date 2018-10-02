@@ -78,6 +78,7 @@ add_library(
 
 add_dependencies( ${core_target} eigen3  openmesh_lib)
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
+target_include_directories(${core_target} PUBLIC ${RADIUM_SRC_DIR})
 
 target_link_libraries(
     ${core_target}
@@ -153,6 +154,7 @@ endif ( RADIUM_IO_IS_INTERFACE )
 
 
 add_dependencies( ${io_target} ${core_target} ${engine_target} )
+target_include_directories(${io_target} PUBLIC ${RADIUM_SRC_DIR})
 
 if( RADIUM_ASSIMP_SUPPORT )
     add_dependencies( ${io_target} assimp_lib )
@@ -192,6 +194,7 @@ add_library(
 target_include_directories( ${engine_target}
     INTERFACE ${STB_INCLUDE_DIR}
 )
+target_include_directories(${engine_target} PUBLIC ${RADIUM_SRC_DIR})
 
 add_dependencies( ${engine_target} ${core_target} glbinding_lib globjects_lib glm_lib stb_lib)
 
@@ -242,6 +245,7 @@ add_library(
 target_include_directories( ${guibase_target}
     INTERFACE ${STB_INCLUDE_DIR}
 )
+target_include_directories(${guibase_target} PUBLIC ${RADIUM_SRC_DIR})
 
 add_dependencies( ${guibase_target} ${engine_target} ${io_target} ${core_target} glbinding_lib globjects_lib stb_lib)
 target_compile_definitions(${guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
