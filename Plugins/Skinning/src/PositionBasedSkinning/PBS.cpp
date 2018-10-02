@@ -359,25 +359,7 @@ void PBS::step(const Animation::Skeleton *skeleton, ParticleData &pd)
 Scalar PBS::computeDeterminant( const Vector3 &vertex0, const Vector3 &vertex1,
                             const Vector3 &vertex2, const Vector3 &vertex3 )
 {
-    Scalar det =  vertex1[2] * vertex2[1] * vertex3[0] - vertex0[2] * vertex2[1] * vertex3[0] -
-                vertex1[1] * vertex2[2] * vertex3[0] + vertex0[1] * vertex2[2] * vertex3[0] +
-
-                vertex0[2] * vertex1[1] * vertex3[0] - vertex0[1] * vertex1[2] * vertex3[0] -
-                vertex1[2] * vertex2[0] * vertex3[1] + vertex0[2] * vertex2[0] * vertex3[1] +
-
-                vertex1[0] * vertex2[2] * vertex3[1] - vertex0[0] * vertex2[2] * vertex3[1] -
-                vertex0[2] * vertex1[0] * vertex3[1] + vertex0[0] * vertex1[2] * vertex3[1] +
-
-                vertex1[1] * vertex2[0] * vertex3[2] - vertex0[1] * vertex2[0] * vertex3[2] -
-                vertex1[0] * vertex2[1] * vertex3[2] + vertex0[0] * vertex2[1] * vertex3[2] +
-
-                vertex0[1] * vertex1[0] * vertex3[2] - vertex0[0] * vertex1[1] * vertex3[2] -
-                vertex0[2] * vertex1[1] * vertex2[0] + vertex0[1] * vertex1[2] * vertex2[0] +
-
-                vertex0[2] * vertex1[0] * vertex2[1] - vertex0[0] * vertex1[2] * vertex2[1] -
-                vertex0[1] * vertex1[0] * vertex2[2] + vertex0[0] * vertex1[1] * vertex2[2];
-
-    return det;
+   return (1.0f / 6.0f) * (vertex3 - vertex0).dot((vertex2 - vertex0).cross(vertex1 - vertex0));
 }
 
 void PBS::getDeterminants ( const Vector3 &tetVertex0, const Vector3 &tetVertex1,
@@ -489,7 +471,7 @@ void PBS::findBarycentricCoordinatesTetrahedron()
 
     for (auto i = 0; i < num_surfaceVertices ; ++i)
     {
-       // findBarycentricCoordinateTetrahedronForVertex(m_surfaceVertices->at(i), tetras, pd);
+        findBarycentricCoordinateTetrahedronForVertex(m_surfaceVertices->at(i), tetras, pd);
     }
 }
 
@@ -518,6 +500,6 @@ void PBS::updateVertices( Ra::Core::Vector3Array &outMesh)
     //#pragma omp parallel for
     for (auto i = 0; i < num_surfaceVertices; ++i)
     {
-   //   outMesh[i] = getPositionByBarycentricCoord(tetras, pd, m_linksTetrahedronSurfaceVertex[i]);
+      outMesh[i] = getPositionByBarycentricCoord(tetras, pd, m_linksTetrahedronSurfaceVertex[i]);
     }
 }
