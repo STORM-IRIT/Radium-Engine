@@ -23,11 +23,11 @@ class RA_ENGINE_API AbstractTimedSystem : public System {
     virtual void reset() = 0;
 
     /// Saves all the state data related to the \p frameID -th frame into a cache file.
-    virtual void cacheFrame( uint frameID ) const = 0;
+    virtual void cacheFrame( const std::string& dir, uint frameID ) const = 0;
 
     /// Restores the state data related to the \p frameID -th frame from the cache file.
     /// \returns true if the frame has been successfully restored, false otherwise.
-    virtual bool restoreFrame( uint frameID ) = 0;
+    virtual bool restoreFrame( const std::string& dir, uint frameID ) = 0;
 };
 
 class RA_ENGINE_API CoupledTimedSystem : public BaseCouplingSystem<AbstractTimedSystem> {
@@ -41,12 +41,12 @@ class RA_ENGINE_API CoupledTimedSystem : public BaseCouplingSystem<AbstractTimed
     void reset() override {
         dispatch( []( const auto& s ) { s->reset(); } );
     }
-    void cacheFrame( uint frameID ) const override {
-        dispatch( [frameID]( const auto& s ) { s->cacheFrame( frameID ); } );
+    void cacheFrame( const std::string& dir, uint frameID ) const override {
+        dispatch( [&dir, frameID]( const auto& s ) { s->cacheFrame( dir, frameID ); } );
     }
-    bool restoreFrame( uint frameID ) override {
+    bool restoreFrame( const std::string& dir, uint frameID ) override {
         return conditionnaldispatch(
-            [frameID]( const auto& s ) { return s->restoreFrame( frameID ); } );
+            [&dir, frameID]( const auto& s ) { return s->restoreFrame( dir, frameID ); } );
     }
 };
 
