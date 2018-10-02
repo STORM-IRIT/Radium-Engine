@@ -59,8 +59,6 @@ add_custom_command(
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     VERBATIM
     )
-#add_custom_target(radiumVersionFile DEPENDS ${RADIUM_VERSION_FILE})
-#set_target_properties(radiumVersionFile PROPERTIES COTIRE_ENABLE_PRECOMPILED_HEADER FALSE)
 
 file(GLOB_RECURSE core_sources Core/*.cpp)
 file(GLOB_RECURSE core_headers Core/*.h Core/*.hpp)
