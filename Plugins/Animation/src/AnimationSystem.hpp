@@ -17,8 +17,8 @@ class ANIM_PLUGIN_API AnimationSystem : public Ra::Engine::CoupledTimedSystem {
     /// Create a new animation system
     AnimationSystem();
 
-    AnimationSystem(const AnimationSystem &) = delete;
-    AnimationSystem& operator=(const AnimationSystem&) = delete;
+    AnimationSystem( const AnimationSystem& ) = delete;
+    AnimationSystem& operator=( const AnimationSystem& ) = delete;
 
     /// Create a task for each animation component to advance the current animation.
     void generateTasks( Ra::Core::TaskQueue* taskQueue,
@@ -38,17 +38,14 @@ class ANIM_PLUGIN_API AnimationSystem : public Ra::Engine::CoupledTimedSystem {
     void reset() override;
 
     /// Saves all the state data related to the current frame into a cache file.
-    void cacheFrame() const { cacheFrame( m_animFrame ); }
+    void cacheFrame( const std::string& dir ) const { cacheFrame( dir, m_animFrame ); }
 
     /// Saves all the state data related to the given frame into a cache file.
-    void cacheFrame( uint frameId ) const override;
+    void cacheFrame( const std::string& dir, uint frameId ) const override;
 
     /// Restores the state data related to the \p frameID -th frame from the cache file.
     /// \returns true if the frame has been successfully restored, false otherwise.
-    bool restoreFrame( uint frameId ) override;
-
-    /// Set the directory where to store the animation data.
-    void setDataDir( const std::string dir );
+    bool restoreFrame( const std::string& dir, uint frameId ) override;
 
     /// Set on or off xray bone display.
     void setXray( bool on );
@@ -82,9 +79,6 @@ class ANIM_PLUGIN_API AnimationSystem : public Ra::Engine::CoupledTimedSystem {
     uint getMaxFrame() const;
 
   private:
-    /// The data directory.
-    std::string m_dataDir;
-
     /// Current frame
     uint m_animFrame;
 
