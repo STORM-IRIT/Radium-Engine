@@ -27,11 +27,10 @@ class RA_CORE_API LoopSubdivider
     ~LoopSubdivider() {}
 
   public:
-    /// must implement
     const char* name( void ) const override { return "LoopSubdivider"; }
 
   protected:
-    /// Pre-compute weights
+    /// Pre-compute weights.
     void init_weights( size_t max_valence = 50 ) {
         m_weights.resize( max_valence );
         std::generate( m_weights.begin(), m_weights.end(), compute_weight() );

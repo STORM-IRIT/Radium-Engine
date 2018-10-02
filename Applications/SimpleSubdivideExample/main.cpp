@@ -1,15 +1,16 @@
+#include <Core/Algorithm/Subdivision/CatmullClarkSubdivider.hpp>
+#include <Core/Algorithm/Subdivision/LoopSubdivider.hpp>
 #include <Core/File/deprecated/OBJFileManager.hpp>
 #include <Core/Mesh/MeshPrimitives.hpp>
 #include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
-#include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh>
-#include <OpenMesh/Tools/Subdivider/Uniform/LoopT.hh>
 #include <memory>
+
 struct args {
     bool valid;
     int iteration;
     std::string outputFilename;
     std::string inputFilename;
-    std::unique_ptr<OpenMesh::Subdivider::Uniform::SubdividerT<Ra::Core::TopologicalMesh>>
+    std::unique_ptr<OpenMesh::Subdivider::Uniform::SubdividerT<Ra::Core::TopologicalMesh, Scalar>>
         subdivider;
 };
 
@@ -55,12 +56,10 @@ args processArgs( int argc, char* argv[] ) {
                 subdividerSet = true;
                 if ( a == std::string( "catmull" ) )
                 {
-                    ret.subdivider = std::make_unique<
-                        OpenMesh::Subdivider::Uniform::CatmullClarkT<Ra::Core::TopologicalMesh>>();
+                    ret.subdivider = std::make_unique<Ra::Core::CatmullClarkSubdivider>();
                 } else if ( a == std::string( "loop" ) )
                 {
-                    ret.subdivider = std::make_unique<
-                        OpenMesh::Subdivider::Uniform::LoopT<Ra::Core::TopologicalMesh>>();
+                    ret.subdivider = std::make_unique<Ra::Core::LoopSubdivider>();
                 } else
                 { subdividerSet = false; }
             }
@@ -85,6 +84,7 @@ int main( int argc, char* argv[] ) {
     {
         Ra::Core::TriangleMesh mesh;
         Ra::Core::OBJFileManager obj;
+
         if ( a.inputFilename.empty() )
         {
             mesh = Ra::Core::MeshUtils::makeBox();
@@ -96,6 +96,7 @@ int main( int argc, char* argv[] ) {
         {
             LOG( logINFO ) << v.transpose();
         }
+
         LOG( logINFO ) << "in Normals";
         for ( auto v : mesh.normals() )
         {
@@ -123,27 +124,18 @@ int main( int argc, char* argv[] ) {
 
         Ra::Core::TopologicalMesh topologicalMesh( mesh );
 
-        /*
-                        a.subdivider->attach( topologicalMesh );
-                        ( *a.subdivider )( a.iteration );
-                        a.subdivider->detach();
-                        topologicalMesh.triangulate();
-        */
+        a.subdivider->attach( topologicalMesh );
+        ( *a.subdivider )( a.iteration );
+        a.subdivider->detach();
+
         mesh = topologicalMesh.toTriangleMesh();
-        /*
-                LOG( logINFO ) << "out Vec4";
-                auto out_handle2 = mesh.attribManager().getAttribHandle<Ra::Core::Vector4>( "test
-           vec4" ); for ( auto v : mesh.attribManager().getAttrib( out_handle2 ).data() )
-                {
-                    LOG( logINFO ) << v;
-                }
-        */
 
         LOG( logINFO ) << "out Mesh";
         for ( auto v : mesh.vertices() )
         {
             LOG( logINFO ) << v.transpose();
         }
+
         LOG( logINFO ) << "out Normals";
         for ( auto v : mesh.normals() )
         {
@@ -151,20 +143,20 @@ int main( int argc, char* argv[] ) {
         }
 
         LOG( logINFO ) << "out Vec3";
-
         auto out_handle = mesh.getAttribHandle<Ra::Core::Vector3>( "test vec3" );
         for ( auto v : mesh.getAttrib( out_handle ).data() )
         {
             LOG( logINFO ) << v.transpose();
         }
 
+        LOG( logINFO ) << "out Vec4";
         auto out_handle2 = mesh.getAttribHandle<Ra::Core::Vector4>( "test vec4" );
         for ( auto v : mesh.getAttrib( out_handle2 ).data() )
         {
             LOG( logINFO ) << v.transpose();
         }
 
-        // obj.save( a.outputFilename, mesh );
+        obj.save( a.outputFilename, mesh );
     }
     return 0;
 }
