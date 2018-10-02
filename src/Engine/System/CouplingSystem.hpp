@@ -13,7 +13,11 @@ namespace Engine {
 /// Base class for systems coupling multiple subsystems.
 ///
 /// Provides subsystem storage + dispatching methods for inheriting classes.
-/// Also dispatches by default the virtual methods from Ra::Engine::System.
+/// Also dispatches by default the generateTasks() and handleAssetLoading()
+/// methods from Ra::Engine::System.
+/// Note that Ra::Engine::Component registration methods from Ra::Engine::System
+/// are not dispatched by default, Ra::Engine::Systems managing only their own 
+/// Ra::Engine::Components.
 ///
 /// \see CoupledTimedSystem for practical usage
 /// \tparam BaseAbstractSystem Base class defining the subsystems API
@@ -22,11 +26,10 @@ namespace Engine {
 /// default implementation:
 ///
 /// \code
-/// void registerComponent( const Entity* entity, Component* component) override
-/// {
-///  // call default implementation
-///  BaseAbstractSystem::registerComponent(entity, component);
-///  dispatch([entity, component](const auto &s) { s->registerComponent(entity, component); });
+/// inline void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override {
+///     dispatch( [taskQueue, &frameInfo]( const auto& s ) {
+///         s->generateTasks( taskQueue, frameInfo );
+///     } );
 /// }
 /// \endcode
 template <typename _BaseAbstractSystem>
