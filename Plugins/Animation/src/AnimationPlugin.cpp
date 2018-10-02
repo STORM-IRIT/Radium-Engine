@@ -28,7 +28,6 @@ void AnimationPluginC::registerPlugin( const Ra::PluginContext& context ) {
         path = QString( context.m_exportDir.c_str() );
     }
     m_system = new AnimationSystem;
-    m_system->setDataDir( path.toStdString() );
     context.m_engine->registerSystem( "AnimationSystem", m_system );
     context.m_engine->getSignalManager()->m_frameEndCallbacks.push_back(
         std::bind( &AnimationPluginC::updateAnimTime, this ) );
@@ -142,11 +141,11 @@ void AnimationPluginC::updateAnimTime() {
 }
 
 void AnimationPluginC::cacheFrame() {
-    m_system->cacheFrame();
+    m_system->cacheFrame( m_dataDir );
 }
 
 void AnimationPluginC::restoreFrame( int frame ) {
-    if ( m_system->restoreFrame( frame ) )
+    if ( m_system->restoreFrame( m_dataDir, frame ) )
     {
         m_widget->frameLoaded( frame );
     }
@@ -159,7 +158,7 @@ void AnimationPluginC::changeDataDir() {
     if ( !path.isEmpty() )
     {
         settings.setValue( "AnimDataDir", path );
-        m_system->setDataDir( path.toStdString() );
+        m_dataDir = path.toStdString();
     }
 }
 

@@ -3,9 +3,8 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <vector>
 #include <memory>
-
+#include <vector>
 
 namespace Ra {
 namespace Core {
@@ -37,6 +36,16 @@ class RA_ENGINE_API System {
     virtual ~System();
 
     /**
+     * Factory method for component creation from file data.
+     * From a given file and the corresponding entity, the system will create the
+     * corresponding components, add them to the entity, and register the component.
+     * @note : Issue #325 - As this method register components and might also manage each component
+     * outside the m_components vectors (e.g in a buffer on the GPU) the methods, the
+     * registerComponent and unregister*Component must be virtual method that could be overriden.
+     */
+    virtual void handleAssetLoading( Entity* entity, const Asset::FileData* data ) {}
+
+    /**
      * @brief Pure virtual method to be overridden by any system.
      * A very basic version of this method could be to iterate on components
      * and just call Component::update() method on them.
@@ -49,7 +58,7 @@ class RA_ENGINE_API System {
 
     /**
      * Registers a component belonging to an entity, making it active within the system.
-     * @note If a system overrides this function, it must call the inherited method first to any specific stuff.
+     * @note If a system overrides this function, it must call the inherited method.
      * @param entity
      * @param component
      */
@@ -57,7 +66,7 @@ class RA_ENGINE_API System {
 
     /**
      * Unregisters a component. The system will not update it.
-     * @note If a system overrides this function, it must call the inherited method first to any specific stuff.
+     * @note If a system overrides this function, it must call the inherited method.
      * @param entity
      * @param component
      */
@@ -65,23 +74,13 @@ class RA_ENGINE_API System {
 
     /**
      * Removes all components belonging to a given entity.
-     * @note If a system overrides this function, it must call the inherited method first to any specific stuff.
+     * @note If a system overrides this function, it must call the inherited method.
      * @param entity
      */
     virtual void unregisterAllComponents( const Entity* entity );
 
     /// Returns the components stored for the given entity.
     std::vector<Component*> getEntityComponents( const Entity* entity );
-
-    /**
-     * Factory method for component creation from file data.
-     * From a given file and the corresponding entity, the system will create the
-     * corresponding components, add them to the entity, and register the component.
-     * @note : Issue #325 - As this method register components and might also manage each component outside the
-     * m_components vectors (e.g in a buffer on the GPU) the methods, the registerComponent and unregister*Component
-     * must be virtual method that could be overriden.
-     */
-    virtual void handleAssetLoading( Entity* entity, const Asset::FileData* data ) {}
 
   protected:
     /// List of active components.
