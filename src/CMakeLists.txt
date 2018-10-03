@@ -59,7 +59,6 @@ add_custom_command(
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     VERBATIM
     )
-add_custom_target(radiumVersionFile DEPENDS ${RADIUM_VERSION_FILE})
 
 file(GLOB_RECURSE core_sources Core/*.cpp)
 file(GLOB_RECURSE core_headers Core/*.h Core/*.hpp)
@@ -77,13 +76,15 @@ add_library(
     ${RADIUM_VERSION_FILE} #This file is build-dependant and generated in the Bundle
 )
 
-add_dependencies( ${core_target} eigen3 radiumVersionFile openmesh_lib)
+add_dependencies( ${core_target} eigen3  openmesh_lib)
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
+target_include_directories(${core_target} PUBLIC ${RADIUM_SRC_DIR})
 
 target_link_libraries(
     ${core_target}
     ${core_libs}
 )
+cotire(${core_target})
 
 # Build IO
 set(io_target radiumIO)
@@ -145,9 +146,15 @@ else ( RADIUM_IO_IS_INTERFACE )
         ${io_libs}
     )
     set_property( TARGET ${io_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
+
+    if (NOT APPLE)
+        cotire(${io_target}) # see https://travis-ci.org/STORM-IRIT/Radium-Engine/jobs/432345198
+    endif (NOT APPLE)
 endif ( RADIUM_IO_IS_INTERFACE )
 
+
 add_dependencies( ${io_target} ${core_target} ${engine_target} )
+target_include_directories(${io_target} PUBLIC ${RADIUM_SRC_DIR})
 
 if( RADIUM_ASSIMP_SUPPORT )
     add_dependencies( ${io_target} assimp_lib )
@@ -187,6 +194,7 @@ add_library(
 target_include_directories( ${engine_target}
     INTERFACE ${STB_INCLUDE_DIR}
 )
+target_include_directories(${engine_target} PUBLIC ${RADIUM_SRC_DIR})
 
 add_dependencies( ${engine_target} ${core_target} glbinding_lib globjects_lib glm_lib stb_lib)
 
@@ -196,7 +204,6 @@ target_link_libraries(
     ${engine_target}
     ${engine_libs}
 )
-
 
 # Build GuiBase
 set(guibase_target radiumGuiBase)
@@ -238,6 +245,7 @@ add_library(
 target_include_directories( ${guibase_target}
     INTERFACE ${STB_INCLUDE_DIR}
 )
+target_include_directories(${guibase_target} PUBLIC ${RADIUM_SRC_DIR})
 
 add_dependencies( ${guibase_target} ${engine_target} ${io_target} ${core_target} glbinding_lib globjects_lib stb_lib)
 target_compile_definitions(${guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
@@ -247,6 +255,7 @@ target_link_libraries(
     ${guibase_libs}
     )
 
+#cotire(${guibase_target})
 
 set(RADIUM_LIBRARIES ${RADIUM_LIBRARIES} "${core_target}" "${engine_target}" "${io_target}" "${guibase_target}" PARENT_SCOPE)
 set_property( TARGET ${core_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
