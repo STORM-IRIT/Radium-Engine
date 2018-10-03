@@ -111,7 +111,7 @@ bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh, size_t n,
         commitProps( m_vec4Props, mesh, mesh.getVector4PropsHandles() );
 
         CORE_ASSERT( OpenMesh::Utils::MeshCheckerT<TopologicalMesh>( mesh ).check(),
-                     "CatmullClarkSubdivision ended with a bad topology." )
+                     "CatmullClarkSubdivision ended with a bad topology." );
     }
 
     // ###########################################################################
