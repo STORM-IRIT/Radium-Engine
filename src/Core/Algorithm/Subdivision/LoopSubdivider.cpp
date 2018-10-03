@@ -87,7 +87,7 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
 
         // Now we have an consistent mesh!
         CORE_ASSERT( OpenMesh::Utils::MeshCheckerT<TopologicalMesh>( mesh ).check(),
-                     "LoopSubdivision ended with a bad topology." )
+                     "LoopSubdivision ended with a bad topology." );
     }
 
     // compute normals
