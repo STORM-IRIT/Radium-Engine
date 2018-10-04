@@ -49,3 +49,5 @@ target_link_libraries( ${app_target} # target
 if (MSVC)
     set_property( TARGET ${app_target} PROPERTY IMPORTED_LOCATION "${RADIUM_BINARY_OUTPUT_PATH}" )
 endif(MSVC)
+
+cotire ( ${app_target} )

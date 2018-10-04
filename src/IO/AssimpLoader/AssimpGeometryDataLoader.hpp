@@ -1,11 +1,12 @@
 #ifndef RADIUMENGINE_ASSIMP_GEOMETRY_DATA_LOADER_HPP
 #define RADIUMENGINE_ASSIMP_GEOMETRY_DATA_LOADER_HPP
 
-#include <set>
-
 #include <Core/File/DataLoader.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <IO/RaIO.hpp>
+
+#include <memory>
+#include <set>
 
 struct aiScene;
 struct aiMesh;

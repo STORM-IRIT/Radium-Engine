@@ -16,15 +16,12 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
-namespace Ra
-{
-namespace Core
-{
+namespace Ra {
+namespace Core {
 
 class TriangleMesh;
 
-struct TopologicalMeshTraits : OpenMesh::DefaultTraits
-{
+struct TopologicalMeshTraits : OpenMesh::DefaultTraits {
     using Point = Ra::Core::Vector3;
     using Normal = Ra::Core::Vector3;
 
@@ -38,8 +35,7 @@ struct TopologicalMeshTraits : OpenMesh::DefaultTraits
 /// vertex graph, using a half-edge representation.
 ///
 /// This integration is inspired by: https://gist.github.com/Unril/03fa353d0461ed6bd41d
-class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>
-{
+class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits> {
   private:
     using base = OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>;
     using base::PolyMesh_ArrayKernelT;
@@ -55,12 +51,12 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /// Construct a topological mesh from a triangle mesh
     /// this is a costly operation.
     /// This operation merge vertex with same position, but keep vertex
-    /// attributes on halfedge, so that triMesh vertex with same 3D position are
-    /// represented only once in the topological mesh.
+    /// attributes on halfedge, so that triMesh vertices with the same 3D position
+    /// are represented only once in the topological mesh.
     explicit TopologicalMesh( const Ra::Core::TriangleMesh& triMesh );
 
     /// Construct an empty topological mesh
-    explicit TopologicalMesh(){};
+    explicit TopologicalMesh() {}
 
     /// Obtain a triangleMesh from a topological mesh.
     /// This is a costly operation.
@@ -75,7 +71,17 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /// return the normal of the vertex vh, when considering its membership to
     /// the face fh
     inline Normal& normal( VertexHandle vh, FaceHandle fh );
+
+    /// \name Const access to handles of the HalfEdge properties coming from
+    /// the TriangleMesh attributes.
+    ///@{
+    inline const std::vector<OpenMesh::HPropHandleT<float>>& getFloatPropsHandles() const;
+    inline const std::vector<OpenMesh::HPropHandleT<Vector2>>& getVector2PropsHandles() const;
+    inline const std::vector<OpenMesh::HPropHandleT<Vector3>>& getVector3PropsHandles() const;
+    inline const std::vector<OpenMesh::HPropHandleT<Vector4>>& getVector4PropsHandles() const;
+    ///@}
 };
+
 } // namespace Core
 } // namespace Ra
 

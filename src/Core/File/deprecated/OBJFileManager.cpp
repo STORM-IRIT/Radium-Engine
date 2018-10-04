@@ -56,10 +56,24 @@ bool OBJFileManager::importData( std::istream& file, TriangleMesh& data ) {
         if ( token == "f" )
         {
             Triangle f;
-            iss >> f[0] >> f[1] >> f[2];
-            f[0] -= 1;
-            f[1] -= 1;
-            f[2] -= 1;
+            std::string ltoken;
+            int count = 0;
+            // skip first space
+            std::getline( iss, ltoken, ' ' );
+            while ( std::getline( iss, ltoken, ' ' ) )
+            {
+                std::istringstream ss( ltoken );
+                if ( count < 3 )
+                {
+                    ss >> f[count];
+                    f[count] -= 1;
+                } else
+                {
+                    addLogErrorEntry( "MESH CONTAINS QUADS." );
+                    return false;
+                }
+                count++;
+            }
             data.m_triangles.push_back( f );
         }
     }
