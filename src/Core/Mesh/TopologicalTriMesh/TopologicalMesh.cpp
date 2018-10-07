@@ -126,7 +126,6 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
             {
                 vh = add_vertex( p );
                 vertexHandles.insert( vtr, VertexMap::value_type( p, vh ) );
-                this->set_normal( vh, TopologicalMesh::Normal( n[0], n[1], n[2] ) );
             } else
             { vh = vtr->second; }
 
@@ -207,10 +206,6 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
     for ( auto oh : m_vec4Pph )
         addAttribPairToCore( out, this, oh, vprop_vec4 );
 
-    request_face_normals();
-    request_vertex_normals();
-    update_vertex_normals();
-
     // iterator over all faces
     unsigned int vertexIndex = 0;
 
@@ -248,6 +243,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
                 vertexHandles.insert( vtr, VertexMap::value_type( v, vi ) );
                 out.vertices().push_back( v._vertex );
                 out.normals().push_back( v._normal );
+
                 copyAttribToCore( out, v._float );
                 copyAttribToCore( out, v._vec2 );
                 copyAttribToCore( out, v._vec3 );
@@ -265,7 +261,6 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
 
     return out;
 }
-
 
 } // namespace Core
 } // namespace Ra
