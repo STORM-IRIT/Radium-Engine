@@ -124,7 +124,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
             TopologicalMesh::VertexHandle vh;
             if ( vtr == vertexHandles.end() )
             {
-                vh = this->add_vertex( p );
+                vh = add_vertex( p );
                 vertexHandles.insert( vtr, VertexMap::value_type( p, vh ) );
                 this->set_normal( vh, TopologicalMesh::Normal( n[0], n[1], n[2] ) );
             } else
@@ -136,13 +136,12 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
         }
 
         // Add the face, then add attribs to vh
-        TopologicalMesh::FaceHandle fh = this->add_face( face_vhandles );
+        TopologicalMesh::FaceHandle fh = add_face( face_vhandles );
 
         for ( int vindex = 0; vindex < face_vhandles.size(); vindex++ )
         {
-            TopologicalMesh::HalfedgeHandle heh =
-                this->halfedge_handle( face_vhandles[vindex], fh );
-            this->property( this->halfedge_normals_pph(), heh ) = face_normals[vindex];
+            TopologicalMesh::HalfedgeHandle heh = halfedge_handle( face_vhandles[vindex], fh );
+            property( halfedge_normals_pph(), heh ) = face_normals[vindex];
 
             copyAttribToTopo( triMesh, this, vprop_float, heh, face_vertexIndex[vindex] );
             copyAttribToTopo( triMesh, this, vprop_vec2, heh, face_vertexIndex[vindex] );
