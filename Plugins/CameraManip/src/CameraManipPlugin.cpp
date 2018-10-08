@@ -137,7 +137,6 @@ void CameraManipPluginC::createCamera() {
     cam->show( true );
     // Register entity and camera in Camera manager
     camMngr->addCamera( cam );
-    camMngr->registerComponent( entity, cam );
 }
 
 void CameraManipPluginC::onCurrentChanged( const QModelIndex& current, const QModelIndex& prev ) {
