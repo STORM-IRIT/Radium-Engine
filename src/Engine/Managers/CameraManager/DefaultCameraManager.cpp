@@ -16,7 +16,7 @@ const Camera* DefaultCameraManager::getCamera( size_t cam ) const {
 }
 
 void DefaultCameraManager::addCamera( Camera* cam ) {
-    m_data->add( cam );
+    registerComponent( cam->getEntity(), cam );
 }
 
 void DefaultCameraManager::preprocess( const Ra::Engine::RenderData& rd ) {

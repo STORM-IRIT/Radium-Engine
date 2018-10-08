@@ -31,6 +31,8 @@ namespace Engine {
 /// At each frame, each system loaded into the engine will be queried for tasks.
 /// The goal of the tasks is to update the active components during the frame.
 class RA_ENGINE_API System {
+    friend class Component;
+
   public:
     System();
     virtual ~System();
@@ -56,6 +58,10 @@ class RA_ENGINE_API System {
     virtual void generateTasks( Core::TaskQueue* taskQueue,
                                 const Engine::FrameInfo& frameInfo ) = 0;
 
+    /// Returns the components stored for the given entity.
+    std::vector<Component*> getEntityComponents( const Entity* entity );
+
+  protected:
     /**
      * Registers a component belonging to an entity, making it active within the system.
      * @note If a system overrides this function, it must call the inherited method.
@@ -78,9 +84,6 @@ class RA_ENGINE_API System {
      * @param entity
      */
     virtual void unregisterAllComponents( const Entity* entity );
-
-    /// Returns the components stored for the given entity.
-    std::vector<Component*> getEntityComponents( const Entity* entity );
 
   protected:
     /// List of active components.
