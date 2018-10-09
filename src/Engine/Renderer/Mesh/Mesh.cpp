@@ -108,6 +108,19 @@ void Mesh::loadGeometry( const Core::TriangleMesh& mesh ) {
     {
         m_dataDirty[i] = true;
     }
+
+    for ( uint i = 0; i < MAX_VEC3; ++i )
+    {
+        m_v3DataHandle[i] = m_mesh.getAttribHandle<Ra::Core::Vector3>( std::string( "Vec3_attr_" ) +
+                                                                       std::to_string( i ) );
+    }
+
+    for ( uint i = 0; i < MAX_VEC4; ++i )
+    {
+        m_v4DataHandle[i] = m_mesh.getAttribHandle<Ra::Core::Vector4>( std::string( "Vec4_attr_" ) +
+                                                                       std::to_string( i ) );
+    }
+
     m_isDirty = true;
 }
 
