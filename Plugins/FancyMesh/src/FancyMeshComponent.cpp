@@ -69,8 +69,6 @@ void FancyMeshComponent::handleMeshLoading( const Ra::Asset::GeometryData* data 
 
     m_contentName = data->getName();
 
-    m_duplicateTable = data->getDuplicateTable();
-
     auto displayMesh =
         Ra::Core::make_shared<Ra::Engine::Mesh>( meshName /*, Ra::Engine::Mesh::RM_POINTS*/ );
 
@@ -104,14 +102,6 @@ void FancyMeshComponent::handleMeshLoading( const Ra::Asset::GeometryData* data 
     }
 
     displayMesh->loadGeometry( mesh );
-
-    // get the actual duplicate table according to the mesh, not to the file data.
-    if ( !data->isLoadingDuplicates() )
-    {
-        m_duplicateTable.resize( data->getVerticesSize() );
-        std::iota( m_duplicateTable.begin(), m_duplicateTable.end(), 0 );
-    } else
-    { Ra::Core::MeshUtils::findDuplicates( mesh, m_duplicateTable ); }
 
     if ( data->hasTangents() )
     {
@@ -201,11 +191,6 @@ void FancyMeshComponent::setupIO( const std::string& id ) {
         std::bind( &FancyMeshComponent::getMeshOutput, this );
     ComponentMessenger::getInstance()->registerOutput<TriangleMesh>( getEntity(), this, id, cbOut );
 
-    ComponentMessenger::CallbackTypes<FancyMeshComponent::DuplicateTable>::Getter dtOut =
-        std::bind( &FancyMeshComponent::getDuplicateTableOutput, this );
-    ComponentMessenger::getInstance()->registerOutput<FancyMeshComponent::DuplicateTable>(
-        getEntity(), this, id, dtOut );
-
     ComponentMessenger::CallbackTypes<TriangleMesh>::ReadWrite cbRw =
         std::bind( &FancyMeshComponent::getMeshRw, this );
     ComponentMessenger::getInstance()->registerReadWrite<TriangleMesh>( getEntity(), this, id,
@@ -250,10 +235,6 @@ Ra::Engine::Mesh& FancyMeshComponent::getDisplayMesh() {
 
 const Ra::Core::TriangleMesh* FancyMeshComponent::getMeshOutput() const {
     return &( getMesh() );
-}
-
-const FancyMeshComponent::DuplicateTable* FancyMeshComponent::getDuplicateTableOutput() const {
-    return &m_duplicateTable;
 }
 
 Ra::Core::TriangleMesh* FancyMeshComponent::getMeshRw() {
