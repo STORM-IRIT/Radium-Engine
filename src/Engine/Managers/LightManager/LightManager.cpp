@@ -81,7 +81,7 @@ void LightManager::generateTasks( Core::TaskQueue* taskQueue, const Engine::Fram
 void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* filedata ) {
     std::vector<Asset::LightData*> lightData = filedata->getLightData();
     uint id = 0;
-    m_data->clear();
+    unregisterAllComponents( entity );
     for ( const auto& data : lightData )
     {
         std::string componentName = "LIGHT_" + entity->getName() + std::to_string( id++ );
