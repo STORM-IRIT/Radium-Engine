@@ -67,4 +67,4 @@ if (MSVC)
     set_property( TARGET ${app_target} PROPERTY IMPORTED_LOCATION "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/bin" )
 endif(MSVC)
 
-cotire ( ${app_target} )
+radium_cotire( ${app_target} )
