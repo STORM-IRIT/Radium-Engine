@@ -35,6 +35,7 @@ option(RADIUM_TINYPLY_SUPPORT       "Enable TinyPly loader" ON)
 option(RADIUM_CAMERA_LOADER_SUPPORT "Enable Camera loader" ON)
 option(RADIUM_BUILD_APPS            "Choose to build or not radium applications" ON)
 option(RADIUM_FAST_MATH             "Enable Fast Math optimizations in Release Mode (ignored with MVSC)" OFF)
+option(RADIUM_USE_COTIRE            "Enable cotire precompiled headers" On)
 
 if ( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Debug )
@@ -73,6 +74,7 @@ endif()
 
 
 # Set the compiler flags.
+include(RadiumFunctions)
 include(CompileFlags)
 
 if ( NOT CMAKE_PREFIX_PATH )
