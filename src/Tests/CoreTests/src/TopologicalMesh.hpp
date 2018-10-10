@@ -49,6 +49,7 @@ class TopologicalMeshTests : public Test {
 
         mesh = Ra::Core::MeshUtils::makeCylinder( Vector3( 0, 0, 0 ), Vector3( 0, 0, 1 ), 1 );
         topologicalMesh = TopologicalMesh( mesh );
+
         newMesh = topologicalMesh.toTriangleMesh();
         RA_UNIT_TEST( isSameMesh( mesh, newMesh ), "Conversion to topological cylinder mesh" );
     }

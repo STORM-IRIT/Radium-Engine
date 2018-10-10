@@ -3,22 +3,37 @@
 namespace Ra {
 namespace Core {
 
-inline TopologicalMesh::Normal& TopologicalMesh::normal( TopologicalMesh::VertexHandle vh,
-                                                         TopologicalMesh::FaceHandle fh ) {
+inline const TopologicalMesh::Normal&
+TopologicalMesh::normal( TopologicalMesh::VertexHandle vh, TopologicalMesh::FaceHandle fh ) const {
     // find halfedge that point to vh and member of fh
-    return property( halfedge_normals_pph(), halfedge_handle( vh, fh ) );
+    return normal( halfedge_handle( vh, fh ) );
+}
+
+inline void TopologicalMesh::set_normal( TopologicalMesh::VertexHandle vh,
+                                         TopologicalMesh::FaceHandle fh,
+                                         const TopologicalMesh::Normal& n ) {
+
+    set_normal( halfedge_handle( vh, fh ), n );
+}
+
+inline void TopologicalMesh::propagate_normal_to_surronding_he( TopologicalMesh::VertexHandle vh ) {
+    for ( VertexIHalfedgeIter vih_it = vih_iter( vh ); vih_it.is_valid(); ++vih_it )
+    {
+        set_normal( *vih_it, normal( vh ) );
+    }
 }
 
 inline TopologicalMesh::HalfedgeHandle
 TopologicalMesh::halfedge_handle( TopologicalMesh::VertexHandle vh,
-                                  TopologicalMesh::FaceHandle fh ) {
-    for ( VertexIHalfedgeIter vih_it = vih_iter( vh ); vih_it.is_valid(); ++vih_it )
+                                  TopologicalMesh::FaceHandle fh ) const {
+    for ( ConstVertexIHalfedgeIter vih_it = cvih_iter( vh ); vih_it.is_valid(); ++vih_it )
     {
         if ( face_handle( *vih_it ) == fh )
         {
             return *vih_it;
         }
     }
+    CORE_ASSERT( false, "vh is not a vertex of face fh" );
     return HalfedgeHandle();
 }
 

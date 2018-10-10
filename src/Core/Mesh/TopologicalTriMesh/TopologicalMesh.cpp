@@ -27,7 +27,7 @@ void addAttribPairToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh
 }
 
 template <typename T>
-void addAttribPairToCore( TriangleMesh& triMesh, TopologicalMesh* topoMesh,
+void addAttribPairToCore( TriangleMesh& triMesh, const TopologicalMesh* topoMesh,
                           OpenMesh::HPropHandleT<T> oh, std::vector<PropPair<T>>& vprop ) {
     AttribHandle<T> h{triMesh.addAttrib<T>( topoMesh->property( oh ).name() )};
     vprop.push_back( std::make_pair( h, oh ) );
@@ -48,7 +48,7 @@ using HandleAndValueVector = std::vector<std::pair<AttribHandle<T>, T>,
                                          Eigen::aligned_allocator<std::pair<AttribHandle<T>, T>>>;
 
 template <typename T>
-void copyAttribToCoreVertex( HandleAndValueVector<T>& data, TopologicalMesh* topoMesh,
+void copyAttribToCoreVertex( HandleAndValueVector<T>& data, const TopologicalMesh* topoMesh,
                              std::vector<PropPair<T>>& vprop,
                              TopologicalMesh::HalfedgeHandle heh ) {
     for ( auto pp : vprop )
@@ -140,7 +140,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
         for ( int vindex = 0; vindex < face_vhandles.size(); vindex++ )
         {
             TopologicalMesh::HalfedgeHandle heh = halfedge_handle( face_vhandles[vindex], fh );
-            property( halfedge_normals_pph(), heh ) = face_normals[vindex];
+            set_normal( heh, face_normals[vindex] );
 
             copyAttribToTopo( triMesh, this, vprop_float, heh, face_vertexIndex[vindex] );
             copyAttribToTopo( triMesh, this, vprop_vec2, heh, face_vertexIndex[vindex] );
@@ -154,7 +154,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
     }
 }
 
-TriangleMesh TopologicalMesh::toTriangleMesh() {
+TriangleMesh TopologicalMesh::toTriangleMesh() const {
     struct VertexData {
         Vector3 _vertex;
         Vector3 _normal;
@@ -220,7 +220,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
         int i = 0;
 
         // iterator over vertex (thru halfedge to get access to halfedge normals)
-        for ( TopologicalMesh::FaceHalfedgeIter fh_it = fh_iter( *f_it ); fh_it.is_valid();
+        for ( TopologicalMesh::ConstFaceHalfedgeIter fh_it = cfh_iter( *f_it ); fh_it.is_valid();
               ++fh_it )
         {
             VertexData v;
