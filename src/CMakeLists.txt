@@ -84,7 +84,7 @@ target_link_libraries(
     ${core_target}
     ${core_libs}
 )
-cotire(${core_target})
+radium_cotire(${core_target})
 
 # Build IO
 set(io_target radiumIO)
@@ -148,7 +148,7 @@ else ( RADIUM_IO_IS_INTERFACE )
     set_property( TARGET ${io_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
 
     if (NOT APPLE)
-        cotire(${io_target}) # see https://travis-ci.org/STORM-IRIT/Radium-Engine/jobs/432345198
+        radium_cotire(${io_target}) # see https://travis-ci.org/STORM-IRIT/Radium-Engine/jobs/432345198
     endif (NOT APPLE)
 endif ( RADIUM_IO_IS_INTERFACE )
 
@@ -255,7 +255,7 @@ target_link_libraries(
     ${guibase_libs}
     )
 
-#cotire(${guibase_target})
+#radium_cotire(${guibase_target})
 
 set(RADIUM_LIBRARIES ${RADIUM_LIBRARIES} "${core_target}" "${engine_target}" "${io_target}" "${guibase_target}" PARENT_SCOPE)
 set_property( TARGET ${core_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
