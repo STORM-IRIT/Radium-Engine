@@ -4,6 +4,105 @@
 namespace Ra {
 namespace Core {
 
+// Deal with normals
+
+/// Copy normal \p input property of mesh.
+inline void addPropCopy( const OpenMesh::HPropHandleT<TopologicalMesh::Normal>& input,
+                         TopologicalMesh& mesh,
+                         OpenMesh::HPropHandleT<TopologicalMesh::Normal>& copy ) {
+    // add the new property
+    mesh.add_property( copy, mesh.property( input ).name() + "_subdiv_copy" );
+    // copy values
+#pragma omp parallel for
+    for ( int i = 0; i < mesh.n_halfedges(); ++i )
+    {
+        auto heh = mesh.halfedge_handle( i );
+        mesh.property( copy, heh ) = mesh.property( input, heh );
+    }
+}
+
+/// Create a new property for \p input property of \p mesh on faces.
+inline void addPropCopyF( const OpenMesh::HPropHandleT<TopologicalMesh::Normal>& input,
+                          TopologicalMesh& mesh,
+                          OpenMesh::FPropHandleT<TopologicalMesh::Normal>& copy ) {
+    // add the new property
+    mesh.add_property( copy, mesh.property( input ).name() + "_subdiv_copy_F" );
+}
+
+/// Remove \p prop from \p mesh.
+inline void clearProp( OpenMesh::HPropHandleT<TopologicalMesh::Normal>& prop,
+                       TopologicalMesh& mesh ) {
+    mesh.remove_property( prop );
+    prop = OpenMesh::HPropHandleT<TopologicalMesh::Normal>();
+}
+
+/// Remove \p props from \p mesh.
+inline void clearProp( OpenMesh::FPropHandleT<TopologicalMesh::Normal>& prop,
+                       TopologicalMesh& mesh ) {
+    mesh.remove_property( prop );
+    prop = OpenMesh::FPropHandleT<TopologicalMesh::Normal>();
+}
+
+/// Update \p copy property from input.
+inline void commitProp( const OpenMesh::HPropHandleT<TopologicalMesh::Normal>& input,
+                        TopologicalMesh& mesh,
+                        const OpenMesh::HPropHandleT<TopologicalMesh::Normal>& copy ) {
+    // copy values
+#pragma omp parallel for
+    for ( int i = 0; i < mesh.n_halfedges(); ++i )
+    {
+        auto heh = mesh.halfedge_handle( i );
+        mesh.property( copy, heh ) = mesh.property( input, heh );
+    }
+}
+
+/// Copy \p props property from \p input_heh to \p copy_heh
+inline void copyProp( const OpenMesh::HPropHandleT<TopologicalMesh::Normal>& prop,
+                      const TopologicalMesh::HalfedgeHandle& input_heh,
+                      const TopologicalMesh::HalfedgeHandle& copy_heh, TopologicalMesh& mesh ) {
+    mesh.property( prop, copy_heh ) = mesh.property( prop, input_heh );
+}
+
+/// Copy \p fprops properties from \p input_fh to \p copy_heh
+inline void copyProp( const OpenMesh::FPropHandleT<TopologicalMesh::Normal>& fprop,
+                      const OpenMesh::HPropHandleT<TopologicalMesh::Normal>& hprop,
+                      const TopologicalMesh::FaceHandle& input_fh,
+                      const TopologicalMesh::HalfedgeHandle& copy_heh, TopologicalMesh& mesh ) {
+    mesh.property( hprop, copy_heh ) = mesh.property( fprop, input_fh );
+}
+
+/// Interpolate \p prop on edge center (after edge split).
+inline void interpolateProp( const OpenMesh::HPropHandleT<TopologicalMesh::Normal>& prop,
+                             const TopologicalMesh::HalfedgeHandle& in_a,
+                             const TopologicalMesh::HalfedgeHandle& in_b,
+                             const TopologicalMesh::HalfedgeHandle& out, Scalar f,
+                             TopologicalMesh& mesh ) {
+    mesh.property( prop, out ) =
+        ( ( 1 - f ) * mesh.property( prop, in_a ) + f * mesh.property( prop, in_b ) ).normalized();
+}
+
+/// Interpolate \p hprop on face center.
+inline void interpolateProp( const OpenMesh::HPropHandleT<TopologicalMesh::Normal>& hprop,
+                             const OpenMesh::FPropHandleT<TopologicalMesh::Normal>& fprop,
+                             const TopologicalMesh::FaceHandle& fh, TopologicalMesh& mesh ) {
+    auto heh = mesh.halfedge_handle( fh );
+    const int valence = mesh.valence( fh );
+
+    // init sum to first
+    mesh.property( fprop, fh ) = mesh.property( hprop, heh );
+    heh = mesh.next_halfedge_handle( heh );
+    // sum others
+    for ( int i = 1; i < valence; ++i )
+    {
+        mesh.property( fprop, fh ) += mesh.property( hprop, heh );
+        heh = mesh.next_halfedge_handle( heh );
+    }
+    // normalize
+    mesh.property( fprop, fh ) = mesh.property( fprop, fh ) / valence;
+}
+
+// Deal with custom properties
+
 /// Copy \p input properties of \p mesh.
 template <typename T>
 void addPropsCopy( const std::vector<OpenMesh::HPropHandleT<T>>& input, TopologicalMesh& mesh,
@@ -25,7 +124,7 @@ void addPropsCopy( const std::vector<OpenMesh::HPropHandleT<T>>& input, Topologi
     }
 }
 
-/// Add a copy of \p input properties of \p mesh on faces.
+/// Create a new property for each \p input properties of \p mesh on faces.
 template <typename T>
 void addPropsCopyF( const std::vector<OpenMesh::HPropHandleT<T>>& input, TopologicalMesh& mesh,
                     std::vector<OpenMesh::FPropHandleT<T>>& copy ) {
@@ -38,7 +137,7 @@ void addPropsCopyF( const std::vector<OpenMesh::HPropHandleT<T>>& input, Topolog
     }
 }
 
-/// Remove \props from \p mesh.
+/// Remove \p props from \p mesh.
 template <typename T>
 void clearProps( std::vector<OpenMesh::HPropHandleT<T>>& props, TopologicalMesh& mesh ) {
     for ( auto& oh : props )
@@ -48,7 +147,7 @@ void clearProps( std::vector<OpenMesh::HPropHandleT<T>>& props, TopologicalMesh&
     props.clear();
 }
 
-/// Remove \props from \p mesh.
+/// Remove \p props from \p mesh.
 template <typename T>
 void clearProps( std::vector<OpenMesh::FPropHandleT<T>>& props, TopologicalMesh& mesh ) {
     for ( auto& oh : props )
@@ -111,7 +210,8 @@ void interpolateProps( const std::vector<OpenMesh::HPropHandleT<T>>& props,
     // interpolate properties
     for ( const auto& oh : props )
     {
-        mesh.property( oh, out ) = f * ( mesh.property( oh, in_a ) + mesh.property( oh, in_b ) );
+        mesh.property( oh, out ) =
+            ( 1 - f ) * mesh.property( oh, in_a ) + f * mesh.property( oh, in_b );
     }
 }
 
