@@ -16,7 +16,7 @@ const Light* DefaultLightManager::getLight( size_t li ) const {
 }
 
 void DefaultLightManager::addLight( Light* li ) {
-    registerComponent( li->getEntity(), li );
+    m_data->add( li );
 }
 
 //
