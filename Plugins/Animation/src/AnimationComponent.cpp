@@ -144,7 +144,6 @@ void AnimationComponent::reset() {
 }
 
 void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* data,
-                                                const std::vector<Ra::Core::Index>& duplicateTable,
                                                 uint nbMeshVertices ) {
     std::string name( m_name );
     name.append( "_" + data->getName() );
@@ -159,7 +158,7 @@ void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* dat
     std::map<uint, uint> indexTable;
     Ra::Asset::createSkeleton( *data, m_skel, indexTable );
 
-    createWeightMatrix( data, indexTable, duplicateTable, nbMeshVertices );
+    createWeightMatrix( data, indexTable, nbMeshVertices );
     m_refPose = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL );
 
     setupSkeletonDisplay();
@@ -215,7 +214,6 @@ void AnimationComponent::handleAnimationLoading(
 
 void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data,
                                              const std::map<uint, uint>& indexTable,
-                                             const std::vector<Ra::Core::Index>& duplicateTable,
                                              uint nbMeshVertices ) {
     m_weights.resize( nbMeshVertices, data->getComponentDataSize() );
 
@@ -226,7 +224,7 @@ void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data,
         const uint size = data->getComponent( idx ).m_weight.size();
         for ( uint i = 0; i < size; ++i )
         {
-            const uint row = duplicateTable.at( data->getComponent( idx ).m_weight[i].first );
+            const uint row = data->getComponent( idx ).m_weight[i].first;
             const Scalar w = data->getComponent( idx ).m_weight[i].second;
             m_weights.coeffRef( row, col ) = w;
         }
