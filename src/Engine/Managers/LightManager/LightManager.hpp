@@ -39,7 +39,11 @@ class RA_ENGINE_API LightManager : public System {
     /// Get a pointer to the li-th Light.
     virtual const Light* getLight( size_t li ) const = 0;
 
-    /// Add a light to the manager ...
+    /** Add a light to the manager ...
+     * Consider the component is already registered. The light manager will not take ownership of the added light,
+     * it will just push the light on the storage ...
+     * @param li The (already registered) light to add.
+     */
     virtual void addLight( Light* li ) = 0;
 
     //
