@@ -344,9 +344,9 @@ inline void GeometryData::displayInfo() const {
     LOG( logINFO ) << " Bitangent ?    : " << ( ( m_bitangent.empty() ) ? "NO" : "YES" );
     LOG( logINFO ) << " Tex.Coord. ?   : " << ( ( m_texCoord.empty() ) ? "NO" : "YES" );
     LOG( logINFO ) << " Color ?        : " << ( ( m_color.empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Material ?     : " << ( ( m_material == nullptr ) ? "NO" : "YES" );
+    LOG( logINFO ) << " Material ?     : " << ( ( !hasMaterial() ) ? "NO" : "YES" );
 
-    if ( m_material != nullptr )
+    if ( hasMaterial() )
     {
         m_material->displayInfo();
     }
