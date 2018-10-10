@@ -85,6 +85,9 @@ class AnimationPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     void changeDataDir();
 
   private:
+    /// The data directory.
+    std::string m_dataDir;
+
     /// The AnimationSystem.
     class AnimationSystem* m_system;
 

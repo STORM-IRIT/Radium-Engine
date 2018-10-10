@@ -13,7 +13,11 @@ namespace Engine {
 /// Base class for systems coupling multiple subsystems.
 ///
 /// Provides subsystem storage + dispatching methods for inheriting classes.
-/// Also dispatches by default the virtual methods from Ra::Engine::System.
+/// Also dispatches by default the generateTasks() and handleAssetLoading()
+/// methods from Ra::Engine::System.
+/// Note that Ra::Engine::Component registration methods from Ra::Engine::System
+/// are not dispatched by default, Ra::Engine::Systems managing only their own 
+/// Ra::Engine::Components.
 ///
 /// \see CoupledTimedSystem for practical usage
 /// \tparam BaseAbstractSystem Base class defining the subsystems API
@@ -22,11 +26,10 @@ namespace Engine {
 /// default implementation:
 ///
 /// \code
-/// void registerComponent( const Entity* entity, Component* component) override
-/// {
-///  // call default implementation
-///  BaseAbstractSystem::registerComponent(entity, component);
-///  dispatch([entity, component](const auto &s) { s->registerComponent(entity, component); });
+/// inline void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override {
+///     dispatch( [taskQueue, &frameInfo]( const auto& s ) {
+///         s->generateTasks( taskQueue, frameInfo );
+///     } );
 /// }
 /// \endcode
 template <typename _BaseAbstractSystem>
@@ -37,7 +40,7 @@ class BaseCouplingSystem : public _BaseAbstractSystem {
     inline BaseCouplingSystem() {
         static_assert( std::is_base_of<Ra::Engine::System, BaseAbstractSystem>::value,
                        "BaseAbstractSystem must inherit Ra::Core::System" );
-    };
+    }
     virtual ~BaseCouplingSystem() {}
 
     BaseCouplingSystem( const BaseCouplingSystem<BaseAbstractSystem>& ) = delete;
@@ -51,20 +54,6 @@ class BaseCouplingSystem : public _BaseAbstractSystem {
         dispatch( [taskQueue, &frameInfo]( const auto& s ) {
             s->generateTasks( taskQueue, frameInfo );
         } );
-    }
-    inline void registerComponent( const Entity* entity, Component* component ) override {
-        BaseAbstractSystem::registerComponent( entity, component );
-        dispatch(
-            [entity, component]( const auto& s ) { s->registerComponent( entity, component ); } );
-    }
-    inline void unregisterComponent( const Entity* entity, Component* component ) override {
-        BaseAbstractSystem::unregisterComponent( entity, component );
-        dispatch(
-            [entity, component]( const auto& s ) { s->unregisterComponent( entity, component ); } );
-    }
-    inline void unregisterAllComponents( const Entity* entity ) override {
-        BaseAbstractSystem::unregisterAllComponents( entity );
-        dispatch( [entity]( const auto& s ) { s->unregisterAllComponents( entity ); } );
     }
     inline void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override {
         BaseAbstractSystem::handleAssetLoading( entity, data );

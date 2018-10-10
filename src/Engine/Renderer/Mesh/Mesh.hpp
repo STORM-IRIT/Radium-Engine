@@ -10,10 +10,8 @@
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 
-namespace Ra
-{
-namespace Engine
-{
+namespace Ra {
+namespace Engine {
 
 // FIXME(Charly): If I want to draw a mesh as lines, points, etc,
 //                should I send lines, ... to the GPU, or handle the way
@@ -29,16 +27,14 @@ namespace Engine
 /// with a specific render mode (e.g. GL_TRIANGLES or GL_LINES).
 /// It maintains the attributes and keeps them in sync with the GPU.
 /// \note Attribute names are used to automatic location binding when using shaders.
-class RA_ENGINE_API Mesh
-{
+class RA_ENGINE_API Mesh {
   public:
     /// List of all possible vertex attributes.
 
     // This is also the layout of the "dirty bit" and "vbo" arrays.
 
     /// Information which is in the mesh geometry
-    enum MeshData : uint
-    {
+    enum MeshData : uint {
         INDEX = 0,       /// Vertex indices
         VERTEX_POSITION, /// Vertex positions
         VERTEX_NORMAL,   /// Vertex normals
@@ -47,8 +43,7 @@ class RA_ENGINE_API Mesh
     };
 
     /// Optional vector 3 data.
-    enum Vec3Data : uint
-    {
+    enum Vec3Data : uint {
         VERTEX_TANGENT = 0, /// Vertex tangent 1
         VERTEX_BITANGENT,   /// Vertex tangent 2
         VERTEX_TEXCOORD,    /// U,V  texture coords (last coordinate not used)
@@ -57,8 +52,7 @@ class RA_ENGINE_API Mesh
     };
 
     /// Optional vector 4 data
-    enum Vec4Data : uint
-    {
+    enum Vec4Data : uint {
         VERTEX_COLOR = 0,  /// RGBA color.
         VERTEX_WEIGHTS,    /// Skinning weights (not used)
         VERTEX_WEIGHT_IDX, /// Associated weight bones
@@ -69,8 +63,7 @@ class RA_ENGINE_API Mesh
     /** Mesh render mode enum.
      * values taken from OpenGL specification
      */
-    enum MeshRenderMode : uint
-    {
+    enum MeshRenderMode : uint {
         RM_POINTS = 0x0000,
         RM_LINES = 0x0001,                    // decimal value: 1
         RM_LINE_LOOP = 0x0002,                // decimal value: 2
@@ -164,9 +157,10 @@ class RA_ENGINE_API Mesh
 
     /// Additionnal vertex vector 3 data handles, stored in Mesh, added
     std::array<Core::TriangleMesh::Vec3AttribHandle, MAX_VEC3> m_v3DataHandle;
+    Core::TriangleMesh::Vec3AttribHandle::Container m_dummy3;
     /// Additionnal vertex vector 4 data handles, stored in Mesh, added
     std::array<Core::TriangleMesh::Vec4AttribHandle, MAX_VEC4> m_v4DataHandle;
-    Core::TriangleMesh::Vec4AttribHandle::Container m_dummy;
+    Core::TriangleMesh::Vec4AttribHandle::Container m_dummy4;
 
     // Combined arrays store the flags in this order Mesh, then Vec3 then Vec4 data.
     // Following the enum declaration above.

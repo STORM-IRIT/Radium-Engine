@@ -68,12 +68,18 @@ void CameraManager::registerComponent( const Entity* entity, Component* componen
 }
 
 void CameraManager::unregisterComponent( const Entity* entity, Component* component ) {
-    m_data->remove( reinterpret_cast<Camera*>( component ) );
     System::unregisterComponent( entity, component );
+    m_data->remove( reinterpret_cast<Camera*>( component ) );
 }
 
 void CameraManager::unregisterAllComponents( const Entity* entity ) {
-    m_data->clear();
+    for ( const auto& comp : this->m_components )
+    {
+        if ( comp.first == entity )
+        {
+            m_data->remove( reinterpret_cast<Camera*>( comp.second ) );
+        }
+    }
     System::unregisterAllComponents( entity );
 }
 
