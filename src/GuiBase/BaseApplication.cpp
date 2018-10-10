@@ -159,16 +159,6 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     LOG( logINFO ) << config.str();
 
     config.str( std::string() );
-    config << "Texture support : ";
-#if defined( RADIUM_WITH_TEXTURES )
-    config << "enabled";
-#else
-    config << "disabled";
-#endif
-
-    LOG( logINFO ) << config.str();
-
-    config.str( std::string() );
     config << "core build: " << Version::compiler << " - " << Version::compileDate << " "
            << Version::compileTime;
     LOG( logINFO ) << config.str();

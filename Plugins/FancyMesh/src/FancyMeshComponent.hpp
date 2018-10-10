@@ -29,8 +29,6 @@ namespace FancyMeshPlugin {
  */
 class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component {
   public:
-    using DuplicateTable = Ra::Asset::GeometryData::DuplicateTable;
-
     FancyMeshComponent( const std::string& name, bool deformable, Ra::Engine::Entity* entity );
     virtual ~FancyMeshComponent();
 
@@ -57,7 +55,6 @@ class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component {
 
     // Fancy mesh accepts to give its mesh and (if deformable) to update it
     const Ra::Core::TriangleMesh* getMeshOutput() const;
-    const DuplicateTable* getDuplicateTableOutput() const;
     Ra::Core::TriangleMesh* getMeshRw();
     void setMeshInput( const Ra::Core::TriangleMesh* mesh );
     Ra::Core::Vector3Array* getVerticesRw();
@@ -67,15 +64,6 @@ class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component {
     const Ra::Core::Index* roIndexRead() const;
 
   private:
-    // The duplicate table for vertices, according to vertices position and normals in the mesh
-    // data. Let M be a mesh with a total of n vertices, of which m are duplicates of others (same
-    // position but different attributes). Then, the duplicate table for M has n entries such that
-    // m_duplicateTable[i] is the index for the duplicated attributes of vertice i in M data
-    // (position, one-ring normal, ...) while i is the index for its non duplicated attributes
-    // (texture coordinates, face normal, tangent vector, ...). Note: if duplicates have NOT been
-    // loaded, then m_duplicateTable[i] == i.
-    DuplicateTable m_duplicateTable;
-
     Ra::Core::Index m_meshIndex;
     Ra::Core::Index m_aabbIndex;
     std::string m_contentName;

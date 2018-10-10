@@ -18,6 +18,8 @@ set(UNIX_DEFAULT_CXX_FLAGS_RELEASE        "-DNDEBUG -O3")
 set(UNIX_DEFAULT_CXX_FLAGS_RELWITHDEBINFO "-g3")
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Compilation flag for each platforms =========================================
 
@@ -130,13 +132,6 @@ endif()
 if (NOT ${RADIUM_WITH_FANCY_GL})
     add_definitions(-DNO_TRANSPARENCY)
     message(STATUS "${PROJECT_NAME} : Fancy OpenGL Effects are disabled")
-endif()
-
-if (${RADIUM_WITH_TEXTURES})
-    message(STATUS "${PROJECT_NAME} : Textures will be loaded")
-    add_definitions(-DRADIUM_WITH_TEXTURES)
-else()
-    message(STATUS "${PROJECT_NAME} : Textures won't be loaded, use RADIUM_WITH_TEXTURES flag to enable them.")
 endif()
 
 if (${RADIUM_WITH_PROFILING})

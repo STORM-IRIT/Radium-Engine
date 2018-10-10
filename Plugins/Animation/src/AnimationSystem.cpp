@@ -134,14 +134,8 @@ void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity,
         }
 
         auto component = new AnimationComponent( "AC_" + skel->getName(), entity );
-        std::vector<Ra::Core::Index> dupliTable;
-        uint nbMeshVertices = 0;
-        if ( geomID != uint( -1 ) )
-        {
-            dupliTable = geomData[geomID]->getDuplicateTable();
-            nbMeshVertices = geomData[geomID]->getVerticesSize();
-        }
-        component->handleSkeletonLoading( skel, dupliTable, nbMeshVertices );
+        uint nbMeshVertices = geomData[geomID]->getVerticesSize();
+        component->handleSkeletonLoading( skel, nbMeshVertices );
         component->handleAnimationLoading( animData );
 
         component->setXray( m_xrayOn );

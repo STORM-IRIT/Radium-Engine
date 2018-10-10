@@ -13,6 +13,7 @@ namespace Core {
 
 /// Functions to operate on a TriangleMesh
 namespace MeshUtils {
+
 //
 // Geometry/Topology  utils
 //
@@ -37,12 +38,6 @@ inline bool containsEdge( const Triangle& t1, uint v1, uint v2 );
 
 /// Automatically compute normals for each vertex by averaging connected triangle normals.
 RA_CORE_API void getAutoNormals( TriangleMesh& mesh, VectorArray<Vector3>& normalsOut );
-
-/// Finds the duplicate vertices in a mesh, returning an array indicating for each vertex where to
-/// find the first occurrence.
-RA_CORE_API bool findDuplicates( const TriangleMesh& mesh, std::vector<VertexIdx>& duplicatesMap );
-
-RA_CORE_API void removeDuplicates( TriangleMesh& mesh, std::vector<VertexIdx>& vertexMap );
 
 /// Returns a list of edges from a given triangle mesh
 RA_CORE_API inline std::vector<Ra::Core::Vector2ui> getEdges( const TriangleMesh& mesh );

@@ -58,8 +58,6 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
     Scalar maxWeightDistance = 0.f;
     TriangleMesh subdividedMesh;
     subdividedMesh.copyBaseGeometry( dataInOut.m_referenceMesh );
-    std::vector<VertexIdx> dupli;
-    //    MeshUtils::removeDuplicates( subdividedMesh, dupli);
 
     // Store the weights as row major here because we are going to query the per-vertex weights.
     Eigen::SparseMatrix<Scalar, Eigen::RowMajor> subdividedWeights = dataInOut.m_weights;

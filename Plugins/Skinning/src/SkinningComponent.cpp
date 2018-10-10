@@ -2,10 +2,12 @@
 
 #include <Core/Animation/Pose/PoseOperation.hpp>
 #include <Core/Geometry/Normal/Normal.hpp>
+#include <Core/Mesh/MeshUtils.hpp>
 
 #include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
 #include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
 #include <Core/Animation/Skinning/RotationCenterSkinning.hpp>
+#include <Core/Geometry/Triangle/TriangleOperation.hpp>
 
 using Ra::Core::DualQuaternion;
 using Ra::Core::Quaternion;
@@ -24,7 +26,54 @@ using Ra::Core::Skinning::RefData;
 using Ra::Engine::ComponentMessenger;
 namespace SkinningPlugin {
 
-void SkinningComponent::setupSkinning() {
+bool findDuplicates( const TriangleMesh& mesh, std::vector<Ra::Core::VertexIdx>& duplicatesMap ) {
+    bool hasDuplicates = false;
+    duplicatesMap.clear();
+    const uint numVerts = mesh.vertices().size();
+    duplicatesMap.resize( numVerts, Ra::Core::VertexIdx( -1 ) );
+
+    Ra::Core::Vector3Array::const_iterator vertPos;
+    Ra::Core::Vector3Array::const_iterator duplicatePos;
+    std::vector<std::pair<Ra::Core::Vector3, Ra::Core::VertexIdx>> vertices;
+
+    for ( uint i = 0; i < numVerts; ++i )
+    {
+        vertices.push_back( std::make_pair( mesh.vertices()[i], Ra::Core::VertexIdx( i ) ) );
+    }
+
+    std::sort( vertices.begin(), vertices.end(),
+               []( std::pair<Ra::Core::Vector3, int> a, std::pair<Ra::Core::Vector3, int> b ) {
+                   if ( a.first.x() == b.first.x() )
+                   {
+                       if ( a.first.y() == b.first.y() )
+                           if ( a.first.z() == b.first.z() )
+                               return a.second < b.second;
+                           else
+                               return a.first.z() < b.first.z();
+                       else
+                           return a.first.y() < b.first.y();
+                   }
+                   return a.first.x() < b.first.x();
+               } );
+    // Here vertices contains vertex pos and idx, with equal
+    // vertices contiguous, sorted by idx, so checking if current
+    // vertex equals the previous one state if its a duplicated
+    // vertex position.
+    duplicatesMap[vertices[0].second] = vertices[0].second;
+    for ( uint i = 1; i < numVerts; ++i )
+    {
+        if ( vertices[i].first == vertices[i - 1].first )
+        {
+            duplicatesMap[vertices[i].second] = duplicatesMap[vertices[i - 1].second];
+            hasDuplicates = true;
+        } else
+        { duplicatesMap[vertices[i].second] = vertices[i].second; }
+    }
+
+    return hasDuplicates;
+}
+
+void SkinningComponent::initialize() {
     auto compMsg = ComponentMessenger::getInstance();
     // get the current animation data.
     bool hasSkel = compMsg->canGet<Skeleton>( getEntity(), m_contentsName );
@@ -39,12 +88,11 @@ void SkinningComponent::setupSkinning() {
             compMsg->rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName + "v" );
         m_normalsWriter =
             compMsg->rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName + "n" );
-        m_duplicateTableGetter =
-            compMsg->getterCallback<std::vector<Ra::Core::Index>>( getEntity(), m_contentsName );
 
-        // copy mesh triangles
+        // copy mesh triangles and find duplicates for normal computation.
         const TriangleMesh& mesh = compMsg->get<TriangleMesh>( getEntity(), m_contentsName );
         m_refData.m_referenceMesh.copyBaseGeometry( mesh );
+        findDuplicates( mesh, m_duplicatesMap );
 
         // get other data
         m_refData.m_skeleton = compMsg->get<Skeleton>( getEntity(), m_contentsName );
@@ -141,6 +189,43 @@ void SkinningComponent::skin() {
     }
 }
 
+void uniformNormal( const Ra::Core::Vector3Array& p, const Ra::Core::VectorArray< Ra::Core::Triangle>& T,
+                    const std::vector<Ra::Core::Index>& duplicateTable, Ra::Core::Vector3Array& normal ) {
+    const uint N = p.size();
+    normal.clear();
+    normal.resize( N, Ra::Core::Vector3::Zero() );
+
+    for ( const auto& t : T )
+    {
+        const Ra::Core::Index i = duplicateTable.at( t( 0 ) );
+        const Ra::Core::Index j = duplicateTable.at( t( 1 ) );
+        const Ra::Core::Index k = duplicateTable.at( t( 2 ) );
+        const Ra::Core::Vector3 triN = Ra::Core::Geometry::triangleNormal( p[i], p[j], p[k] );
+        if ( !triN.allFinite() )
+        {
+            continue;
+        }
+        normal[i] += triN;
+        normal[j] += triN;
+        normal[k] += triN;
+    }
+
+#pragma omp parallel for
+    for ( uint i = 0; i < N; ++i )
+    {
+        if ( !normal[i].isApprox( Ra::Core::Vector3::Zero() ) )
+        {
+            normal[i].normalize();
+        }
+    }
+
+#pragma omp parallel for
+    for ( uint i = 0; i < N; ++i )
+    {
+        normal[i] = normal[duplicateTable[i]];
+    }
+}
+
 void SkinningComponent::endSkinning() {
     if ( m_frameData.m_doSkinning )
     {
@@ -149,8 +234,9 @@ void SkinningComponent::endSkinning() {
 
         vertices = m_frameData.m_currentPos;
 
-        Ra::Core::Geometry::uniformNormal( vertices, m_refData.m_referenceMesh.m_triangles,
-                                           *( m_duplicateTableGetter() ), normals );
+        // FIXME: normals should be computed by the Skinning method!
+        uniformNormal( vertices, m_refData.m_referenceMesh.m_triangles,
+                       m_duplicatesMap, normals );
 
         std::swap( m_frameData.m_previousPose, m_frameData.m_currentPose );
         std::swap( m_frameData.m_previousPos, m_frameData.m_currentPos );
