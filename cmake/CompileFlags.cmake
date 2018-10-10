@@ -132,13 +132,6 @@ if (NOT ${RADIUM_WITH_FANCY_GL})
     message(STATUS "${PROJECT_NAME} : Fancy OpenGL Effects are disabled")
 endif()
 
-if (${RADIUM_WITH_TEXTURES})
-    message(STATUS "${PROJECT_NAME} : Textures will be loaded")
-    add_definitions(-DRADIUM_WITH_TEXTURES)
-else()
-    message(STATUS "${PROJECT_NAME} : Textures won't be loaded, use RADIUM_WITH_TEXTURES flag to enable them.")
-endif()
-
 if (${RADIUM_WITH_PROFILING})
     add_definitions(-DALLOW_PROFILING)
     message(STATUS "${PROJECT_NAME} : Profiling is enabled")
