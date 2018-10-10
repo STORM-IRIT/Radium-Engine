@@ -17,6 +17,7 @@ namespace Asset {
 
 class MaterialData;
 
+/// The GeometryData class stores all the geometry related data of a loaded object.
 class RA_CORE_API GeometryData : public AssetData {
 
   public:
@@ -32,12 +33,10 @@ class RA_CORE_API GeometryData : public AssetData {
     using VertexWeights = std::vector<Weight>;
     using WeightArray = std::vector<VertexWeights>;
 
-    using DuplicateTable = std::vector<Ra::Core::Index>;
-
   public:
     RA_CORE_ALIGNED_NEW
 
-    /// ENUM
+    /// The type of geometry.
     enum GeometryType {
         UNKNOWN = 1 << 0,
         POINT_CLOUD = 1 << 1,
@@ -49,145 +48,260 @@ class RA_CORE_API GeometryData : public AssetData {
         HEX_MESH = 1 << 7
     };
 
-    /// CONSTRUCTOR
     GeometryData( const std::string& name = "", const GeometryType& type = UNKNOWN );
 
     GeometryData( const GeometryData& data ) = default;
 
-    /// DESTRUCTOR
     ~GeometryData();
 
-    /// NAME
+    /// @name Data access
+    ///@{
+    /// Return the name of the object.
     inline void setName( const std::string& name );
 
-    /// TYPE
+    /// Return the type of geometry.
     inline GeometryType getType() const;
+
+    /// Set the type of geometry.
     inline void setType( const GeometryType& type );
 
-    /// FRAME
+    /// Return the Transform of the object.
     inline Core::Transform getFrame() const;
+
+    /// Set the Transform of the object.
     inline void setFrame( const Core::Transform& frame );
 
-    /// DATA
+    /// Return the number of vertices.
     inline uint getVerticesSize() const;
 
+    /// Return the list of vertices.
     inline Vector3Array& getVertices();
+
+    /// Return the list of vertices.
     inline const Vector3Array& getVertices() const;
-    // Copy data from vertexList. In-place setting with getVertices is preferred.
+
+    /// Set the mesh vertices.
+    /// \note In-place setting with getVertices() is preferred.
     template <typename Container>
     inline void setVertices( const Container& vertexList );
 
+    /// Return the list of lines.
+    /// \note For line meshes only.
     inline Vector2uArray& getEdges();
+
+    /// Return the list of lines.
+    /// \note For line meshes only.
     inline const Vector2uArray& getEdges() const;
-    // Copy data from edgeList. In-place setting with getEdges is preferred.
+
+    /// Set the list of lines.
+    /// \note For line meshes only.
+    /// \note In-place setting with getEdges() is preferred.
     template <typename Container>
     inline void setEdges( const Container& edgeList );
 
+    /// Return the list of faces.
+    /// \note For triangle/quadrangle/polygonal meshes only.
     inline VectorNuArray& getFaces();
+
+    /// Return the list of faces.
+    /// \note For triangle/quadrangle/polygonal meshes only.
     inline const VectorNuArray& getFaces() const;
-    // Copy data from edgeList. In-place setting with getEdges is preferred.
+
+    /// Set the list of faces.
+    /// \note For triangle/quadrangle/polygonal meshes only.
+    /// \note In-place setting with getFaces() is preferred.
     template <typename Container>
     inline void setFaces( const Container& faceList );
 
+    /// Return the list of polyhedra.
+    /// \note For tetrahedron/hexahedron meshes only.
     inline VectorNuArray& getPolyhedra();
-    inline const VectorNuArray& getPolyhedra() const;
-    // Copy data from polyList. In-place setting with getPolyhedra is preferred.
-    template <typename Container>
-    inline void setPolyhedron( const Container& polyList );
 
+    /// Return the list of polyhedra.
+    /// \note For tetrahedron/hexahedron meshes only.
+    inline const VectorNuArray& getPolyhedra() const;
+
+    /// Set the list of polyhedra.
+    /// \note For tetrahedron/hexahedron meshes only.
+    /// \note In-place setting with getPolyhedra() is preferred.
+    template <typename Container>
+    inline void setPolyhedra( const Container& polyList );
+
+    /// Return the list of vertex normals
     inline Vector3Array& getNormals();
+
+    /// Return the list of vertex normals.
     inline const Vector3Array& getNormals() const;
-    // Copy data from normalList. In-place setting with getNormals is preferred.
+
+    /// Set the vertex normals.
+    /// \note In-place setting with getNormals() is preferred.
     template <typename Container>
     inline void setNormals( const Container& normalList );
 
+    /// Return the list of vertex tangent vectors.
     inline Vector3Array& getTangents();
+
+    /// Return the list of vertex tangent vectors.
     inline const Vector3Array& getTangents() const;
-    // Copy data from tangentList. In-place setting with getTangents is preferred.
+
+    /// Set the vertex tangent vectors.
+    /// \note In-place setting with getTangents() is preferred.
     template <typename Container>
     inline void setTangents( const Container& tangentList );
 
+    /// Return the list of vertex bitangent vectors.
     inline Vector3Array& getBiTangents();
+
+    /// Return the list of vertex bitangent vectors.
     inline const Vector3Array& getBiTangents() const;
-    // Copy data from bitangentList. In-place setting with getBiTangents is preferred.
+
+    /// Set the vertex bitangent vectors.
+    /// \note In-place setting with getBiTangents() is preferred.
     template <typename Container>
     inline void setBitangents( const Container& bitangentList );
 
+    /// Return the list of vertex texture coordinates.
     inline Vector3Array& getTexCoords();
+
+    /// Return the list of vertex texture coordinates.
     inline const Vector3Array& getTexCoords() const;
-    // Copy data from texCoordList. In-place setting with getTexCoords is preferred.
+
+    /// Set the vertex texture coordinates.
+    /// \note In-place setting with getTexCoords() is preferred.
     template <typename Container>
     inline void setTextureCoordinates( const Container& texCoordList );
 
+    /// Return the list of vertex colors.
     inline ColorArray& getColors();
+
+    /// Return the list of vertex colors.
     inline const ColorArray& getColors() const;
-    // Copy data from colorList. In-place setting with getColors is preferred.
+
+    /// Set the vertex colors.
+    /// \note In-place setting with getColors() is preferred.
     template <typename Container>
     inline void setColors( const Container& colorList );
 
+    /// Return the list of per-vertex skinning weights.
+    /// \note Those weights are related to the animation skeleton stored in the file.
     inline WeightArray& getWeights();
+
+    /// Return the list of per-vertex skinning weights.
+    /// \note Those weights are related to the animation skeleton stored in the file.
     inline const WeightArray& getWeights() const;
-    // Copy data from weightList. In-place setting with getWeights is preferred.
+
+    /// Set per-vertex skinning weights.
+    /// \note Those weights must be related to the animation skeleton stored in the file.
+    /// \note In-place setting with getWeights() is preferred.
     inline void setWeights( const WeightArray& weightList );
 
+    /// Return the MaterialData associated to the objet.
     inline const MaterialData& getMaterial() const;
+
+    /// Set the MaterialData for the object.
     inline void setMaterial( MaterialData* material );
+    ///@}
 
-    /// DUPLICATES
-    inline DuplicateTable& getDuplicateTable();
-    inline const DuplicateTable& getDuplicateTable() const;
-    inline void setDuplicateTable( const DuplicateTable& table );
-    inline void setLoadDuplicates( const bool status );
-
-    /// QUERY
+    /// \name Status queries
+    ///@{
+    /// Return true if the object is a Point Cloud.
     inline bool isPointCloud() const;
-    inline bool isLineMesh() const;
-    inline bool isTriMesh() const;
-    inline bool isQuadMesh() const;
-    inline bool isPolyMesh() const;
-    inline bool isTetraMesh() const;
-    inline bool isHexMesh() const;
-    inline bool hasVertices() const;
-    inline bool hasEdges() const;
-    inline bool hasFaces() const;
-    inline bool hasPolyhedra() const;
-    inline bool hasNormals() const;
-    inline bool hasTangents() const;
-    inline bool hasBiTangents() const;
-    inline bool hasTextureCoordinates() const;
-    inline bool hasColors() const;
-    inline bool hasWeights() const;
-    inline bool hasMaterial() const;
-    inline bool isLoadingDuplicates() const;
 
-    /// DEBUG
+    /// Return true if the object is a Line Mesh.
+    inline bool isLineMesh() const;
+
+    /// Return true if the object is a Triangle Mesh.
+    inline bool isTriMesh() const;
+
+    /// Return true if the object is a Quadrangle Mesh.
+    inline bool isQuadMesh() const;
+
+    /// Return true if the object is a Polygon Mesh.
+    /// \note Return false for Triangle and Quadrangle meshes.
+    inline bool isPolyMesh() const;
+
+    /// Return true if the object is a Tetrahedron Mesh.
+    inline bool isTetraMesh() const;
+
+    /// Return true if the object is a Hexahedron Mesh.
+    inline bool isHexMesh() const;
+
+    /// Return true if the object has vertices.
+    inline bool hasVertices() const;
+
+    /// Return true if the object has lines.
+    inline bool hasEdges() const;
+
+    /// Return true if the object has faces.
+    inline bool hasFaces() const;
+
+    /// Return true if the object has polyhedra.
+    inline bool hasPolyhedra() const;
+
+    /// Return true if the object has vertex normals.
+    inline bool hasNormals() const;
+
+    /// Return true if the object has vertex tangent vectors.
+    inline bool hasTangents() const;
+
+    /// Return true if the object has vertex bitangent vectors.
+    inline bool hasBiTangents() const;
+
+    /// Return true if the object has vertex texture coordinates.
+    inline bool hasTextureCoordinates() const;
+
+    /// Return true if the object has vertex colors.
+    inline bool hasColors() const;
+
+    /// Return true if the object has per-vertex skinning weights.
+    inline bool hasWeights() const;
+
+    /// Return true if the object has MaterialData.
+    inline bool hasMaterial() const;
+    ///@}
+
+    /// Print stast info to the Debug output.
     inline void displayInfo() const;
 
   protected:
-    /// VARIABLE
+    /// The transformation of the object.
     Core::Transform m_frame;
+
+    /// The type of geometry for the object.
     GeometryType m_type;
 
+    /// The list of vertices.
     Vector3Array m_vertex;
+
+    /// The list of lines.
     Vector2uArray m_edge;
+
+    /// The list of faces
     VectorNuArray m_faces;
+
+    /// The list of polyhedra
     VectorNuArray m_polyhedron;
+
+    /// The list of vertex normals.
     Vector3Array m_normal;
+
+    /// The list of vertex tangent vectors.
     Vector3Array m_tangent;
+
+    /// The list of vertex bitangent vectors.
     Vector3Array m_bitangent;
+
+    /// The list of vertex texture coordinates.
     Vector3Array m_texCoord;
+
+    /// The list of vertex colors.
     ColorArray m_color;
+
+    /// The list of per-vertex skinning weights.
     WeightArray m_weights;
 
+    /// The MaterialData for the object.
     std::shared_ptr<MaterialData> m_material;
-    bool m_hasMaterial;
-
-    // the duplicate table for vertices, according to all loaded File Data.
-    // this table is used, when not loading duplicates, to fix vertices indices in edges and faces.
-    // Note: if loading duplicates this table is a 1-1 correspondance, i.e. m_duplicateTable[i] == i
-    // .
-    DuplicateTable m_duplicateTable;
-    bool m_loadDuplicates;
 };
 
 } // namespace Asset
