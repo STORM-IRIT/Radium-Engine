@@ -13,6 +13,9 @@
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/RadiumEngine.hpp>
 
+
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+
 namespace Ra {
 namespace Engine {
 
@@ -81,7 +84,17 @@ void LightManager::generateTasks( Core::TaskQueue* taskQueue, const Engine::Fram
 void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* filedata ) {
     std::vector<Asset::LightData*> lightData = filedata->getLightData();
     uint id = 0;
-    unregisterAllComponents( entity );
+
+    // If thereis some lights already in the manager, just remove from the manager the lights that belong to the system entity (e.g. the headlight)
+    // from the list of managed lights.
+    // Beware to not destroy the headlight component, that do not belong to this system, so that it could be added again
+    for (int i=0; i < m_data->size(); ++i) {
+        auto l = (*m_data)[i];
+        if (l->getEntity() == Ra::Engine::SystemEntity::getInstance()) {
+            m_data->remove(l);
+        }
+    }
+
     for ( const auto& data : lightData )
     {
         std::string componentName = "LIGHT_" + entity->getName() + std::to_string( id++ );
