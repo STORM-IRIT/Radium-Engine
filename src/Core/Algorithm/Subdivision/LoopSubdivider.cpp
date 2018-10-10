@@ -7,6 +7,7 @@ namespace Core {
 bool LoopSubdivider::prepare( TopologicalMesh& mesh ) {
     mesh.add_property( m_vpPos );
     mesh.add_property( m_epPos );
+    addPropCopy( mesh.halfedge_normals_pph(), mesh, m_normalProp );
     addPropsCopy( mesh.getFloatPropsHandles(), mesh, m_floatProps );
     addPropsCopy( mesh.getVector2PropsHandles(), mesh, m_vec2Props );
     addPropsCopy( mesh.getVector3PropsHandles(), mesh, m_vec3Props );
@@ -17,6 +18,7 @@ bool LoopSubdivider::prepare( TopologicalMesh& mesh ) {
 bool LoopSubdivider::cleanup( TopologicalMesh& mesh ) {
     mesh.remove_property( m_vpPos );
     mesh.remove_property( m_epPos );
+    clearProp( m_normalProp, mesh );
     clearProps( m_floatProps, mesh );
     clearProps( m_vec2Props, mesh );
     clearProps( m_vec3Props, mesh );
@@ -69,6 +71,7 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
         }
 
         // Commit properties
+        commitProp( m_normalProp, mesh, mesh.halfedge_normals_pph() );
         commitProps( m_floatProps, mesh, mesh.getFloatPropsHandles() );
         commitProps( m_vec2Props, mesh, mesh.getVector2PropsHandles() );
         commitProps( m_vec3Props, mesh, mesh.getVector3PropsHandles() );
@@ -89,11 +92,6 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
         CORE_ASSERT( OpenMesh::Utils::MeshCheckerT<TopologicalMesh>( mesh ).check(),
                      "LoopSubdivision ended with a bad topology." );
     }
-
-    // compute normals
-    mesh.request_face_normals();
-    mesh.request_vertex_normals();
-    mesh.update_normals();
 
     return true;
 }
@@ -171,6 +169,8 @@ void LoopSubdivider::corner_cutting( TopologicalMesh& mesh,
     mesh.set_halfedge_handle( fh_new, heh1 );
 
     // deal with custom properties
+    copyProp( m_normalProp, heh1, heh4, mesh );
+    copyProp( m_normalProp, heh5, heh3, mesh );
     copyProps( m_floatProps, heh1, heh4, mesh );
     copyProps( m_floatProps, heh5, heh3, mesh );
     copyProps( m_vec2Props, heh1, heh4, mesh );
@@ -230,6 +230,7 @@ void LoopSubdivider::split_edge( TopologicalMesh& mesh, const TopologicalMesh::E
         mesh.set_halfedge_handle( mesh.face_handle( opp_new_heh ), opp_new_heh );
 
         // deal with custom properties
+        interpolateProp( m_normalProp, t_heh, opp_heh, opp_new_heh, 0.5, mesh );
         interpolateProps( m_floatProps, t_heh, opp_heh, opp_new_heh, 0.5, mesh );
         interpolateProps( m_vec2Props, t_heh, opp_heh, opp_new_heh, 0.5, mesh );
         interpolateProps( m_vec3Props, t_heh, opp_heh, opp_new_heh, 0.5, mesh );
@@ -242,11 +243,13 @@ void LoopSubdivider::split_edge( TopologicalMesh& mesh, const TopologicalMesh::E
         mesh.set_halfedge_handle( mesh.face_handle( heh ), heh );
 
         // deal with custom properties
+        copyProp( m_normalProp, heh, new_heh, mesh );
         copyProps( m_floatProps, heh, new_heh, mesh );
         copyProps( m_vec2Props, heh, new_heh, mesh );
         copyProps( m_vec3Props, heh, new_heh, mesh );
         copyProps( m_vec4Props, heh, new_heh, mesh );
         HeHandle heh_prev = mesh.prev_halfedge_handle( heh );
+        interpolateProp( m_normalProp, heh_prev, new_heh, heh, 0.5, mesh );
         interpolateProps( m_floatProps, heh_prev, new_heh, heh, 0.5, mesh );
         interpolateProps( m_vec2Props, heh_prev, new_heh, heh, 0.5, mesh );
         interpolateProps( m_vec3Props, heh_prev, new_heh, heh, 0.5, mesh );

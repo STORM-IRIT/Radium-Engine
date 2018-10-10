@@ -53,19 +53,23 @@ class RA_CORE_API CatmullClarkSubdivider
     void update_vertex( TopologicalMesh& mesh, const TopologicalMesh::VertexHandle& vh );
 
   private:
+    /// crease weights
+    OpenMesh::EPropHandleT<Scalar> m_creaseWeights;
+
     /// old vertex new position
     OpenMesh::VPropHandleT<TopologicalMesh::Point> m_vpPos;
 
     /// new edge midpoint position
     OpenMesh::EPropHandleT<TopologicalMesh::Point> m_epPos;
 
-    /// new face pts
+    /// new face point position
     OpenMesh::FPropHandleT<TopologicalMesh::Point> m_fpPos;
 
-    /// crease weights
-    OpenMesh::EPropHandleT<Scalar> m_creaseWeights;
+    /// deal with normals
+    OpenMesh::HPropHandleT<TopologicalMesh::Normal> m_normalProp;
+    OpenMesh::FPropHandleT<TopologicalMesh::Normal> m_normalPropF;
 
-    /// deal with properties
+    /// deal with custom properties
     std::vector<OpenMesh::HPropHandleT<float>> m_floatProps;
     std::vector<OpenMesh::HPropHandleT<Vector2>> m_vec2Props;
     std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Props;

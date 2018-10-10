@@ -90,7 +90,10 @@ class RA_CORE_API LoopSubdivider
     /// new edge midpoint position
     OpenMesh::EPropHandleT<TopologicalMesh::Point> m_epPos;
 
-    /// deal with properties
+    /// deal with normals
+    OpenMesh::HPropHandleT<TopologicalMesh::Normal> m_normalProp;
+
+    /// deal with custom properties
     std::vector<OpenMesh::HPropHandleT<float>> m_floatProps;
     std::vector<OpenMesh::HPropHandleT<Vector2>> m_vec2Props;
     std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Props;
