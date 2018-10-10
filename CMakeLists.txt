@@ -119,6 +119,9 @@ list(APPEND RADIUM_INCLUDE_DIRS "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${A
 include(ConfigureRPath)
 
 set(RADIUM_LIBRARIES)
+
+include(cotire)
+
 # Radium libraries are set in RADIUM_SRC_DIR
 add_subdirectory(${RADIUM_SRC_DIR})
 #message(INFO " Radium Lib (general) ${RADIUM_LIBRARIES}")

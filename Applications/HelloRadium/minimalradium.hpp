@@ -27,4 +27,5 @@ class MinimalSystem : public Ra::Engine::System {
   public:
     virtual void generateTasks( Ra::Core::TaskQueue* q,
                                 const Ra::Engine::FrameInfo& info ) override;
+    void addComponent( Ra::Engine::Entity* ent, MinimalComponent* comp );
 };

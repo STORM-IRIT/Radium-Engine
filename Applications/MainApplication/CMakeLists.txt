@@ -69,3 +69,5 @@ if (MSVC)
     set_property( DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${app_target})
     set_property( TARGET ${app_target} PROPERTY IMPORTED_LOCATION "${RADIUM_BINARY_OUTPUT_PATH}" )
 endif(MSVC)
+
+cotire ( ${app_target} )

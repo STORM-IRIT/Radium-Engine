@@ -149,6 +149,8 @@ class AttribManager {
         return *this;
     }
 
+    ~AttribManager() { clear(); }
+
     /// Base copy, does nothing.
     void copyAttributes( const AttribManager& m ) {}
 

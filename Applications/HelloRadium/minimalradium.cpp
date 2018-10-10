@@ -52,3 +52,7 @@ void MinimalSystem::generateTasks( Ra::Core::TaskQueue* q, const Ra::Engine::Fra
     q->registerTask(
         new Ra::Core::FunctionTask( std::bind( &MinimalComponent::spin, c ), "spin" ) );
 }
+
+void MinimalSystem::addComponent( Ra::Engine::Entity* ent, MinimalComponent* comp ) {
+    registerComponent( ent, comp );
+}

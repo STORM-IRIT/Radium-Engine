@@ -71,7 +71,11 @@ class RA_ENGINE_API CameraManager : public System {
     //
     // System methods
     //
+    void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
 
+    void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
+
+  protected:
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. CameraStorage).
     void registerComponent( const Entity* entity, Component* component ) override final;
@@ -83,10 +87,6 @@ class RA_ENGINE_API CameraManager : public System {
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. CameraStorage).
     void unregisterAllComponents( const Entity* entity ) override final;
-
-    void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
-
-    void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
 
   protected:
     /// store the current renderData
