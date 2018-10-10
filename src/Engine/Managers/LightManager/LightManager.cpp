@@ -88,10 +88,12 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
     // If thereis some lights already in the manager, just remove from the manager the lights that belong to the system entity (e.g. the headlight)
     // from the list of managed lights.
     // Beware to not destroy the headlight component, that do not belong to this system, so that it could be added again
-    for (int i=0; i < m_data->size(); ++i) {
+    for (int i=0; i < m_data->size(); ) {
         auto l = (*m_data)[i];
         if (l->getEntity() == Ra::Engine::SystemEntity::getInstance()) {
             m_data->remove(l);
+        } else {
+            ++i;
         }
     }
 
