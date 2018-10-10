@@ -50,4 +50,4 @@ if (MSVC)
     set_property( TARGET ${app_target} PROPERTY IMPORTED_LOCATION "${RADIUM_BINARY_OUTPUT_PATH}" )
 endif(MSVC)
 
-cotire ( ${app_target} )
+radium_cotire( ${app_target} )
