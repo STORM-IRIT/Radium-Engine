@@ -64,25 +64,16 @@ class RA_CORE_API LightData : public AssetData {
     inline void setFrame( const Core::Matrix4& frame );
 
     /// DATA
-    /*
-    inline std::shared_ptr<Ra::Engine::Light> getLight() const;
-    inline void setLight( std::shared_ptr<Ra::Engine::Light> light );
-    */
-#if 0
-    /// Acces to the data. The returned component must be attached to an entity after that.
-    // this will add a dependence on the core to the engine. Not a good idea ...
-    Ra::Engine::Light* getLight() const;
-#endif
 
     /// construct a directional light
-    inline void setLight( Core::Color color, Core::Vector3 direction );
+    inline void setLight(const Core::Color &color, const Core::Vector3 &direction);
     /// construct a point light
-    inline void setLight( Core::Color color, Core::Vector3 position, LightAttenuation attenuation );
+    inline void setLight(const Core::Color &color, const Core::Vector3 &position, LightAttenuation attenuation);
     /// construct a spot light
-    inline void setLight( Core::Color color, Core::Vector3 position, Core::Vector3 direction,
-                          Scalar inangle, Scalar outAngle, LightAttenuation attenuation );
+    inline void setLight(const Core::Color &color, const Core::Vector3 &position, const Core::Vector3 &direction,
+                         Scalar inangle, Scalar outAngle, LightAttenuation attenuation);
     /// construct an area light
-    inline void setLight( Core::Color color, Core::Vector3 cog, Core::Matrix3 spatialCov, Core::Matrix3 normalCov, LightAttenuation attenuation );
+    inline void setLight( const Core::Color &color, const Core::Vector3 &cog, const Core::Matrix3 &spatialCov, const Core::Matrix3 &normalCov, LightAttenuation attenuation );
 
     /// QUERY
     inline bool isPointLight() const;
@@ -99,8 +90,8 @@ class RA_CORE_API LightData : public AssetData {
     Core::Matrix4 m_frame;
     LightType m_type;
 
-    // This part is public so that systems handling lights could acces to the data.
-    // TODO (Mathias) : make these protected with getters ? Define independant types ?
+    // This part is public so that systems handling lights could access to the data.
+    // TODO : make these protected with getters ? Define independant types ?
   public:
     Core::Color m_color;
 
@@ -122,7 +113,6 @@ class RA_CORE_API LightData : public AssetData {
         struct {
             // TODO (Mathias) : this representation is usefull but might be improved
             Core::Vector3 position;
-            // TODO : gives the eigenvalues/eigenvectors for spatial and normal covariance matrices.
             Core::Matrix3 spatialCovariance;
             Core::Matrix3 normalCovariance;
             LightAttenuation attenuation;
