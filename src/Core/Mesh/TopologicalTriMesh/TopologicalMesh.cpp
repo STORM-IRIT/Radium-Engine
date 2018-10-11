@@ -19,7 +19,7 @@ template <typename T>
 void addAttribPairToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh,
                           AttribManager::value_type attr, std::vector<PropPair<T>>& vprop,
                           std::vector<OpenMesh::HPropHandleT<T>>& pph ) {
-    AttribHandle<T> h = triMesh.getAttribHandle<T>( attr->getName() );
+    AttribHandle<T> h{triMesh.getAttribHandle<T>( attr->getName() )};
     OpenMesh::HPropHandleT<T> oh;
     topoMesh->add_property( oh, attr->getName() );
     vprop.push_back( std::make_pair( h, oh ) );
@@ -68,9 +68,9 @@ void copyAttribToCore( TriangleMesh& triMesh, HandleAndValueVector<T>& data ) {
 TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
     struct hash_vec {
         size_t operator()( const Vector3& lvalue ) const {
-            size_t hx = std::hash<Scalar>()( lvalue[0] );
-            size_t hy = std::hash<Scalar>()( lvalue[1] );
-            size_t hz = std::hash<Scalar>()( lvalue[2] );
+            size_t hx{std::hash<Scalar>()( lvalue[0] )};
+            size_t hy{std::hash<Scalar>()( lvalue[1] )};
+            size_t hz{std::hash<Scalar>()( lvalue[2] )};
             return ( hx ^ ( hy << 1 ) ) ^ hz;
         }
     };
@@ -105,7 +105,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
             }
         } );
 
-    uint num_triangles = triMesh.m_triangles.size();
+    uint num_triangles{triMesh.m_triangles.size()};
 
     for ( unsigned int i = 0; i < num_triangles; i++ )
     {
