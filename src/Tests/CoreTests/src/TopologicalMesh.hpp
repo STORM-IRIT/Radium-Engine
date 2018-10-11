@@ -65,7 +65,7 @@ class TopologicalMeshTests : public Test {
         for ( TopologicalMesh::VertexIter v_it = topologicalMesh.vertices_begin();
               v_it != topologicalMesh.vertices_end(); ++v_it )
         {
-            topologicalMesh.propagate_normal_to_surronding_he( *v_it );
+            topologicalMesh.propagate_normal_to_halfedges( *v_it );
         }
 
         {
