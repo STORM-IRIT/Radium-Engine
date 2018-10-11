@@ -35,7 +35,7 @@ void addAttribPairToCore( TriangleMesh& triMesh, const TopologicalMesh* topoMesh
 
 template <typename T>
 void copyAttribToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh,
-                       std::vector<PropPair<T>>& vprop, TopologicalMesh::HalfedgeHandle heh,
+                       const std::vector<PropPair<T>>& vprop, TopologicalMesh::HalfedgeHandle heh,
                        unsigned int vindex ) {
     for ( auto pp : vprop )
     {
@@ -49,7 +49,7 @@ using HandleAndValueVector = std::vector<std::pair<AttribHandle<T>, T>,
 
 template <typename T>
 void copyAttribToCoreVertex( HandleAndValueVector<T>& data, const TopologicalMesh* topoMesh,
-                             std::vector<PropPair<T>>& vprop,
+                             const std::vector<PropPair<T>>& vprop,
                              TopologicalMesh::HalfedgeHandle heh ) {
     for ( auto pp : vprop )
     {
@@ -58,7 +58,7 @@ void copyAttribToCoreVertex( HandleAndValueVector<T>& data, const TopologicalMes
 }
 
 template <typename T>
-void copyAttribToCore( TriangleMesh& triMesh, HandleAndValueVector<T>& data ) {
+void copyAttribToCore( TriangleMesh& triMesh, const HandleAndValueVector<T>& data ) {
     for ( auto pp : data )
     {
         triMesh.getAttrib( pp.first ).data().push_back( pp.second );
