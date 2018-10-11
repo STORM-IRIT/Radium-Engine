@@ -16,7 +16,7 @@ inline void TopologicalMesh::set_normal( TopologicalMesh::VertexHandle vh,
     set_normal( halfedge_handle( vh, fh ), n );
 }
 
-inline void TopologicalMesh::propagate_normal_to_surronding_he( TopologicalMesh::VertexHandle vh ) {
+inline void TopologicalMesh::propagate_normal_to_halfedges( TopologicalMesh::VertexHandle vh ) {
     for ( VertexIHalfedgeIter vih_it = vih_iter( vh ); vih_it.is_valid(); ++vih_it )
     {
         set_normal( *vih_it, normal( vh ) );
