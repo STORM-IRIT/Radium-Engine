@@ -55,14 +55,14 @@ class TopologicalMeshTests : public Test {
         mesh = Ra::Core::MeshUtils::makeBox();
         topologicalMesh = TopologicalMesh( mesh );
 
-        for ( TopologicalMesh::VertexIter v_it = topologicalMesh.vertices_begin();
+        for ( TopologicalMesh::ConstVertexIter v_it = topologicalMesh.vertices_begin();
               v_it != topologicalMesh.vertices_end(); ++v_it )
         {
             topologicalMesh.set_normal(
                 *v_it, TopologicalMesh::Normal( Scalar( 1. ), Scalar( 0. ), Scalar( 0. ) ) );
         }
 
-        for ( TopologicalMesh::VertexIter v_it = topologicalMesh.vertices_begin();
+        for ( TopologicalMesh::ConstVertexIter v_it = topologicalMesh.vertices_begin();
               v_it != topologicalMesh.vertices_end(); ++v_it )
         {
             topologicalMesh.propagate_normal_to_halfedges( *v_it );
