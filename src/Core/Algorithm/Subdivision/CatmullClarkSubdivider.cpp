@@ -371,7 +371,7 @@ void CatmullClarkSubdivider::update_vertex( TopologicalMesh& mesh,
     if ( mesh.is_boundary( vh ) )
     {
         pos = mesh.point( vh );
-        for ( auto ve_itr = mesh.ve_iter( vh ); ve_itr.is_valid(); ++ve_itr )
+        for ( auto ve_itr = mesh.cve_iter( vh ); ve_itr.is_valid(); ++ve_itr )
             if ( mesh.is_boundary( *ve_itr ) )
                 pos += mesh.property( m_epPos, *ve_itr );
         pos /= 3.0;
@@ -385,7 +385,7 @@ void CatmullClarkSubdivider::update_vertex( TopologicalMesh& mesh,
            the vertex.
        */
         Scalar valence = 0.0;
-        for ( auto voh_it = mesh.voh_iter( vh ); voh_it.is_valid(); ++voh_it )
+        for ( auto voh_it = mesh.cvoh_iter( vh ); voh_it.is_valid(); ++voh_it )
         {
             pos += mesh.point( mesh.to_vertex_handle( *voh_it ) );
             valence += 1.0;
@@ -394,7 +394,7 @@ void CatmullClarkSubdivider::update_vertex( TopologicalMesh& mesh,
 
         TopologicalMesh::Point Q( 0, 0, 0 );
 
-        for ( auto vf_itr = mesh.vf_iter( vh ); vf_itr.is_valid(); ++vf_itr )
+        for ( auto vf_itr = mesh.cvf_iter( vh ); vf_itr.is_valid(); ++vf_itr )
         {
             Q += mesh.property( m_fpPos, *vf_itr );
         }
