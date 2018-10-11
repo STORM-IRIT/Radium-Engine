@@ -84,10 +84,11 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     using base::set_normal;
     ///@}
 
-    /// Set the normal n to all the halfedges that points to vh.
+    /// Set the normal n to all the halfedges that points to vh  (i.e. incomming
+    /// halfedges) .
     /// If you work with vertex normals, please call this function on all vertex
     /// handle before convertion with toTriangleMesh
-    void propagate_normal_to_surronding_he( TopologicalMesh::VertexHandle vh );
+    void propagate_normal_to_halfedges( TopologicalMesh::VertexHandle vh );
 
     /// \name Const access to handles of the HalfEdge properties coming from
     /// the TriangleMesh attributes.
