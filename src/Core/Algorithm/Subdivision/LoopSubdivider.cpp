@@ -320,7 +320,7 @@ void LoopSubdivider::smooth( TopologicalMesh& mesh, const TopologicalMesh::Verte
         size_t valence( 0 );
 
         // Calculate Valence and sum up neighbour points
-        for ( vvit = mesh.vv_iter( vh ); vvit.is_valid(); ++vvit )
+        for ( vvit = mesh.cvv_iter( vh ); vvit.is_valid(); ++vvit )
         {
             ++valence;
             pos += mesh.point( *vvit );
