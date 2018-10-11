@@ -49,9 +49,44 @@ class TopologicalMeshTests : public Test {
 
         mesh = Ra::Core::MeshUtils::makeCylinder( Vector3( 0, 0, 0 ), Vector3( 0, 0, 1 ), 1 );
         topologicalMesh = TopologicalMesh( mesh );
-
         newMesh = topologicalMesh.toTriangleMesh();
         RA_UNIT_TEST( isSameMesh( mesh, newMesh ), "Conversion to topological cylinder mesh" );
+
+        mesh = Ra::Core::MeshUtils::makeBox();
+        topologicalMesh = TopologicalMesh( mesh );
+
+        for ( TopologicalMesh::VertexIter v_it = topologicalMesh.vertices_begin();
+              v_it != topologicalMesh.vertices_end(); ++v_it )
+        {
+            topologicalMesh.set_normal(
+                *v_it, TopologicalMesh::Normal( Scalar( 1. ), Scalar( 0. ), Scalar( 0. ) ) );
+        }
+
+        for ( TopologicalMesh::VertexIter v_it = topologicalMesh.vertices_begin();
+              v_it != topologicalMesh.vertices_end(); ++v_it )
+        {
+            topologicalMesh.propagate_normal_to_surronding_he( *v_it );
+        }
+
+        {
+            newMesh = topologicalMesh.toTriangleMesh();
+            bool check1 = true;
+            bool check2 = true;
+            for ( auto n : newMesh.normals() )
+            {
+                if ( !areApproxEqual( n.dot( Vector3( Scalar( 1. ), Scalar( 0. ), Scalar( 0. ) ) ),
+                                      Scalar( 1. ) ) )
+                {
+                    check1 = false;
+                }
+                if ( n.dot( Vector3( Scalar( 0.5 ), Scalar( 0. ), Scalar( 0. ) ) ) > Scalar( 0.8 ) )
+                {
+                    check2 = false;
+                }
+            }
+            RA_UNIT_TEST( check1 && check2,
+                          "Set normal to topo vertex and apply them to halfedge" );
+        }
     }
 
     bool isSameMesh( TriangleMesh& meshOne, TriangleMesh& meshTwo ) {
