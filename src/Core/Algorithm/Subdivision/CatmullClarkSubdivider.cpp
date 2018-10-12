@@ -9,16 +9,11 @@ bool CatmullClarkSubdivider::prepare( TopologicalMesh& mesh ) {
     mesh.add_property( m_epPos );
     mesh.add_property( m_fpPos );
     mesh.add_property( m_creaseWeights );
-    addPropCopy( mesh.halfedge_normals_pph(), mesh, m_normalProp );
-    addPropCopyF( mesh.halfedge_normals_pph(), mesh, m_normalPropF );
-    addPropsCopy( mesh.getFloatPropsHandles(), mesh, m_floatProps );
-    addPropsCopy( mesh.getVector2PropsHandles(), mesh, m_vec2Props );
-    addPropsCopy( mesh.getVector3PropsHandles(), mesh, m_vec3Props );
-    addPropsCopy( mesh.getVector4PropsHandles(), mesh, m_vec4Props );
-    addPropsCopyF( mesh.getFloatPropsHandles(), mesh, m_floatPropsF );
-    addPropsCopyF( mesh.getVector2PropsHandles(), mesh, m_vec2PropsF );
-    addPropsCopyF( mesh.getVector3PropsHandles(), mesh, m_vec3PropsF );
-    addPropsCopyF( mesh.getVector4PropsHandles(), mesh, m_vec4PropsF );
+    createNormalPropOnFaces( mesh, m_normalPropF );
+    createPropsOnFaces( mesh.getFloatPropsHandles(), mesh, m_floatPropsF );
+    createPropsOnFaces( mesh.getVector2PropsHandles(), mesh, m_vec2PropsF );
+    createPropsOnFaces( mesh.getVector3PropsHandles(), mesh, m_vec3PropsF );
+    createPropsOnFaces( mesh.getVector4PropsHandles(), mesh, m_vec4PropsF );
 
     // initialize all weights to 0 (= smooth edge)
     for ( auto e_it = mesh.edges_begin(); e_it != mesh.edges_end(); ++e_it )
@@ -32,12 +27,7 @@ bool CatmullClarkSubdivider::cleanup( TopologicalMesh& mesh ) {
     mesh.remove_property( m_epPos );
     mesh.remove_property( m_fpPos );
     mesh.remove_property( m_creaseWeights );
-    clearProp( m_normalProp, mesh );
     clearProp( m_normalPropF, mesh );
-    clearProps( m_floatProps, mesh );
-    clearProps( m_vec2Props, mesh );
-    clearProps( m_vec3Props, mesh );
-    clearProps( m_vec4Props, mesh );
     clearProps( m_floatPropsF, mesh );
     clearProps( m_vec2PropsF, mesh );
     clearProps( m_vec3PropsF, mesh );
@@ -56,11 +46,11 @@ bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh, size_t n,
         {
             const auto& fh = mesh.face_handle( i );
             mesh.property( m_fpPos, fh ) = mesh.calc_face_centroid( fh );
-            interpolateProp( mesh.halfedge_normals_pph(), m_normalPropF, fh, mesh );
-            interpolateProps( mesh.getFloatPropsHandles(), m_floatPropsF, fh, mesh );
-            interpolateProps( mesh.getVector2PropsHandles(), m_vec2PropsF, fh, mesh );
-            interpolateProps( mesh.getVector3PropsHandles(), m_vec3PropsF, fh, mesh );
-            interpolateProps( mesh.getVector4PropsHandles(), m_vec4PropsF, fh, mesh );
+            interpolateNormalOnFaces( m_normalPropF, fh, mesh );
+            interpolatePropsOnFaces( mesh.getFloatPropsHandles(), m_floatPropsF, fh, mesh );
+            interpolatePropsOnFaces( mesh.getVector2PropsHandles(), m_vec2PropsF, fh, mesh );
+            interpolatePropsOnFaces( mesh.getVector3PropsHandles(), m_vec3PropsF, fh, mesh );
+            interpolatePropsOnFaces( mesh.getVector4PropsHandles(), m_vec4PropsF, fh, mesh );
         }
 
         // Compute position for new (edge-) vertices and store them in the edge property
@@ -107,13 +97,6 @@ bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh, size_t n,
             split_face( mesh, *f_itr );
         }
 
-        // Commit properties
-        commitProp( m_normalProp, mesh, mesh.halfedge_normals_pph() );
-        commitProps( m_floatProps, mesh, mesh.getFloatPropsHandles() );
-        commitProps( m_vec2Props, mesh, mesh.getVector2PropsHandles() );
-        commitProps( m_vec3Props, mesh, mesh.getVector3PropsHandles() );
-        commitProps( m_vec4Props, mesh, mesh.getVector4PropsHandles() );
-
         CORE_ASSERT( OpenMesh::Utils::MeshCheckerT<TopologicalMesh>( mesh ).check(),
                      "CatmullClarkSubdivision ended with a bad topology." );
     }
@@ -146,24 +129,17 @@ bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh, size_t n,
         mesh.set_next_halfedge_handle( heh6, heh2 );
 
         // deal with properties
-        copyProp( m_normalProp, heh3, heh5, mesh );
-        copyProp( m_normalProp, heh1, heh6, mesh );
-        copyProps( m_floatProps, heh3, heh5, mesh );
-        copyProps( m_vec2Props, heh3, heh5, mesh );
-        copyProps( m_vec3Props, heh3, heh5, mesh );
-        copyProps( m_vec4Props, heh3, heh5, mesh );
-        copyProps( m_floatProps, heh1, heh6, mesh );
-        copyProps( m_vec2Props, heh1, heh6, mesh );
-        copyProps( m_vec3Props, heh1, heh6, mesh );
-        copyProps( m_vec4Props, heh1, heh6, mesh );
+        copyNormal( heh3, heh5, mesh );
+        copyNormal( heh1, heh6, mesh );
+        copyProps( mesh.getFloatPropsHandles(), heh3, heh5, mesh );
+        copyProps( mesh.getVector2PropsHandles(), heh3, heh5, mesh );
+        copyProps( mesh.getVector3PropsHandles(), heh3, heh5, mesh );
+        copyProps( mesh.getVector4PropsHandles(), heh3, heh5, mesh );
+        copyProps( mesh.getFloatPropsHandles(), heh1, heh6, mesh );
+        copyProps( mesh.getVector2PropsHandles(), heh1, heh6, mesh );
+        copyProps( mesh.getVector3PropsHandles(), heh1, heh6, mesh );
+        copyProps( mesh.getVector4PropsHandles(), heh1, heh6, mesh );
     }
-
-    // Commit properties (again since can still subdivide after all this)
-    commitProp( m_normalProp, mesh, mesh.halfedge_normals_pph() );
-    commitProps( m_floatProps, mesh, mesh.getFloatPropsHandles() );
-    commitProps( m_vec2Props, mesh, mesh.getVector2PropsHandles() );
-    commitProps( m_vec3Props, mesh, mesh.getVector3PropsHandles() );
-    commitProps( m_vec4Props, mesh, mesh.getVector4PropsHandles() );
 
     return true;
 }
@@ -192,21 +168,21 @@ void CatmullClarkSubdivider::split_face( TopologicalMesh& mesh,
     mesh.set_face_handle( hold, fh );
 
     // deal with properties for vh
-    copyProp( m_normalPropF, m_normalProp, fh, hold, mesh );
-    copyProps( m_floatPropsF, m_floatProps, fh, hold, mesh );
-    copyProps( m_vec2PropsF, m_vec2Props, fh, hold, mesh );
-    copyProps( m_vec3PropsF, m_vec3Props, fh, hold, mesh );
-    copyProps( m_vec4PropsF, m_vec4Props, fh, hold, mesh );
+    copyNormal( m_normalPropF, fh, hold, mesh );
+    copyProps( m_floatPropsF, mesh.getFloatPropsHandles(), fh, hold, mesh );
+    copyProps( m_vec2PropsF, mesh.getVector2PropsHandles(), fh, hold, mesh );
+    copyProps( m_vec3PropsF, mesh.getVector3PropsHandles(), fh, hold, mesh );
+    copyProps( m_vec4PropsF, mesh.getVector4PropsHandles(), fh, hold, mesh );
 
     // go around new vertex to build topology
     hold = mesh.opposite_halfedge_handle( hold );
 
     // deal with properties for hold
-    copyProp( m_normalProp, hend, hold, mesh );
-    copyProps( m_floatProps, hend, hold, mesh );
-    copyProps( m_vec2Props, hend, hold, mesh );
-    copyProps( m_vec3Props, hend, hold, mesh );
-    copyProps( m_vec4Props, hend, hold, mesh );
+    copyNormal( hend, hold, mesh );
+    copyProps( mesh.getFloatPropsHandles(), hend, hold, mesh );
+    copyProps( mesh.getVector2PropsHandles(), hend, hold, mesh );
+    copyProps( mesh.getVector3PropsHandles(), hend, hold, mesh );
+    copyProps( mesh.getVector4PropsHandles(), hend, hold, mesh );
 
     for ( size_t i = 1; i < valence; i++ )
     {
@@ -225,11 +201,11 @@ void CatmullClarkSubdivider::split_face( TopologicalMesh& mesh,
         mesh.set_next_halfedge_handle( hold, hh );
 
         // deal with properties for hnew
-        copyProp( m_normalPropF, m_normalProp, fh, hnew, mesh );
-        copyProps( m_floatPropsF, m_floatProps, fh, hnew, mesh );
-        copyProps( m_vec2PropsF, m_vec2Props, fh, hnew, mesh );
-        copyProps( m_vec3PropsF, m_vec3Props, fh, hnew, mesh );
-        copyProps( m_vec4PropsF, m_vec4Props, fh, hnew, mesh );
+        copyNormal( m_normalPropF, fh, hnew, mesh );
+        copyProps( m_floatPropsF, mesh.getFloatPropsHandles(), fh, hnew, mesh );
+        copyProps( m_vec2PropsF, mesh.getVector2PropsHandles(), fh, hnew, mesh );
+        copyProps( m_vec3PropsF, mesh.getVector3PropsHandles(), fh, hnew, mesh );
+        copyProps( m_vec4PropsF, mesh.getVector4PropsHandles(), fh, hnew, mesh );
 
         // prepare for next face
         hh = mesh.next_halfedge_handle( hnext );
@@ -237,11 +213,11 @@ void CatmullClarkSubdivider::split_face( TopologicalMesh& mesh,
         mesh.set_next_halfedge_handle( hnext, hnew ); // this has to be done after hh !
 
         // deal with properties for hold
-        copyProp( m_normalProp, hnext, hold, mesh );
-        copyProps( m_floatProps, hnext, hold, mesh );
-        copyProps( m_vec2Props, hnext, hold, mesh );
-        copyProps( m_vec3Props, hnext, hold, mesh );
-        copyProps( m_vec4Props, hnext, hold, mesh );
+        copyNormal( hnext, hold, mesh );
+        copyProps( mesh.getFloatPropsHandles(), hnext, hold, mesh );
+        copyProps( mesh.getVector2PropsHandles(), hnext, hold, mesh );
+        copyProps( mesh.getVector3PropsHandles(), hnext, hold, mesh );
+        copyProps( mesh.getVector4PropsHandles(), hnext, hold, mesh );
     }
 
     // finish topology
@@ -302,11 +278,11 @@ void CatmullClarkSubdivider::split_edge( TopologicalMesh& mesh,
         mesh.set_halfedge_handle( mesh.face_handle( opp_new_heh ), opp_new_heh );
 
         // deal with custom properties
-        interpolateProp( m_normalProp, t_heh, opp_heh, opp_new_heh, 0.5, mesh );
-        interpolateProps( m_floatProps, t_heh, opp_heh, opp_new_heh, 0.5, mesh );
-        interpolateProps( m_vec2Props, t_heh, opp_heh, opp_new_heh, 0.5, mesh );
-        interpolateProps( m_vec3Props, t_heh, opp_heh, opp_new_heh, 0.5, mesh );
-        interpolateProps( m_vec4Props, t_heh, opp_heh, opp_new_heh, 0.5, mesh );
+        interpolateNormal( t_heh, opp_heh, opp_new_heh, 0.5, mesh );
+        interpolateProps( mesh.getFloatPropsHandles(), t_heh, opp_heh, opp_new_heh, 0.5, mesh );
+        interpolateProps( mesh.getVector2PropsHandles(), t_heh, opp_heh, opp_new_heh, 0.5, mesh );
+        interpolateProps( mesh.getVector3PropsHandles(), t_heh, opp_heh, opp_new_heh, 0.5, mesh );
+        interpolateProps( mesh.getVector4PropsHandles(), t_heh, opp_heh, opp_new_heh, 0.5, mesh );
     }
 
     if ( mesh.face_handle( heh ).is_valid() )
@@ -315,17 +291,17 @@ void CatmullClarkSubdivider::split_edge( TopologicalMesh& mesh,
         mesh.set_halfedge_handle( mesh.face_handle( heh ), heh );
 
         // deal with custom properties
-        copyProp( m_normalProp, heh, new_heh, mesh );
-        copyProps( m_floatProps, heh, new_heh, mesh );
-        copyProps( m_vec2Props, heh, new_heh, mesh );
-        copyProps( m_vec3Props, heh, new_heh, mesh );
-        copyProps( m_vec4Props, heh, new_heh, mesh );
+        copyNormal( heh, new_heh, mesh );
+        copyProps( mesh.getFloatPropsHandles(), heh, new_heh, mesh );
+        copyProps( mesh.getVector2PropsHandles(), heh, new_heh, mesh );
+        copyProps( mesh.getVector3PropsHandles(), heh, new_heh, mesh );
+        copyProps( mesh.getVector4PropsHandles(), heh, new_heh, mesh );
         HeHandle heh_prev = mesh.prev_halfedge_handle( heh );
-        interpolateProp( m_normalProp, heh_prev, new_heh, heh, 0.5, mesh );
-        interpolateProps( m_floatProps, heh_prev, new_heh, heh, 0.5, mesh );
-        interpolateProps( m_vec2Props, heh_prev, new_heh, heh, 0.5, mesh );
-        interpolateProps( m_vec3Props, heh_prev, new_heh, heh, 0.5, mesh );
-        interpolateProps( m_vec4Props, heh_prev, new_heh, heh, 0.5, mesh );
+        interpolateNormal( heh_prev, new_heh, heh, 0.5, mesh );
+        interpolateProps( mesh.getFloatPropsHandles(), heh_prev, new_heh, heh, 0.5, mesh );
+        interpolateProps( mesh.getVector2PropsHandles(), heh_prev, new_heh, heh, 0.5, mesh );
+        interpolateProps( mesh.getVector3PropsHandles(), heh_prev, new_heh, heh, 0.5, mesh );
+        interpolateProps( mesh.getVector4PropsHandles(), heh_prev, new_heh, heh, 0.5, mesh );
     }
 
     mesh.set_halfedge_handle( vh, new_heh );

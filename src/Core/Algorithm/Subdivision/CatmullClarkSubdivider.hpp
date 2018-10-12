@@ -20,7 +20,7 @@ class RA_CORE_API CatmullClarkSubdivider
   public:
     CatmullClarkSubdivider() : base() {}
 
-    CatmullClarkSubdivider( TopologicalMesh& mesh ) : base( mesh ) {}
+    CatmullClarkSubdivider( TopologicalMesh& mesh ) : base() { attach( mesh ); }
 
     ~CatmullClarkSubdivider() {}
 
@@ -65,15 +65,10 @@ class RA_CORE_API CatmullClarkSubdivider
     /// new face point position
     OpenMesh::FPropHandleT<TopologicalMesh::Point> m_fpPos;
 
-    /// deal with normals
-    OpenMesh::HPropHandleT<TopologicalMesh::Normal> m_normalProp;
+    /// deal with normals on faces
     OpenMesh::FPropHandleT<TopologicalMesh::Normal> m_normalPropF;
 
-    /// deal with custom properties
-    std::vector<OpenMesh::HPropHandleT<float>> m_floatProps;
-    std::vector<OpenMesh::HPropHandleT<Vector2>> m_vec2Props;
-    std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Props;
-    std::vector<OpenMesh::HPropHandleT<Vector4>> m_vec4Props;
+    /// deal with custom properties on faces
     std::vector<OpenMesh::FPropHandleT<float>> m_floatPropsF;
     std::vector<OpenMesh::FPropHandleT<Vector2>> m_vec2PropsF;
     std::vector<OpenMesh::FPropHandleT<Vector3>> m_vec3PropsF;
