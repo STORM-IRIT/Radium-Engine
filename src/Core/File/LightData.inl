@@ -51,12 +51,12 @@ inline void LightData::setLight(const Core::Color &color, const Core::Vector3 &p
 
 /// construct a spot light
 inline void LightData::setLight(const Core::Color &color, const Core::Vector3 &position, const Core::Vector3 &direction,
-                                Scalar inangle, Scalar outAngle, LightAttenuation attenuation) {
+                                Scalar inAngle, Scalar outAngle, LightAttenuation attenuation) {
     m_type = SPOT_LIGHT;
     m_color = color;
     m_spotlight.position = position;
     m_spotlight.direction = direction;
-    m_spotlight.innerAngle = inangle;
+    m_spotlight.innerAngle = inAngle;
     m_spotlight.outerAngle = outAngle;
     m_spotlight.attenuation = attenuation;
 }
