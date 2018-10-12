@@ -33,9 +33,8 @@ class Test {
     {                                                                                             \
         fprintf( stderr, "[TEST FAILED] : %s:%i: `%s` : %s \n", __FILE__, __LINE__, #EXP, DESC ); \
         RaTests::TestManager::getInstance()->testFailed( this );                                  \
-    }                                                                                             \
-    else                                                                                          \
-    { fprintf( stdout, "[TEST PASSED]\n" ); }                                                     \
+    } else                                                                                        \
+    { fprintf( stdout, "[TEST PASSED] : %s\n", DESC ); }                                          \
     MACRO_END
 
 /// A test that always pass.

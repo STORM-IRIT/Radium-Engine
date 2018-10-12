@@ -58,19 +58,37 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /// Construct an empty topological mesh
     explicit TopologicalMesh() {}
 
-    /// Obtain a triangleMesh from a topological mesh.
+    /// Return a triangleMesh from the topological mesh.
     /// This is a costly operation.
-    /// This function is non-const because of the computation of face normals.
-    TriangleMesh toTriangleMesh();
+    /// \warning It uses the attributs defined on halfedges.
+    TriangleMesh toTriangleMesh() const;
 
     // import other version of halfedge_handle method
     using base::halfedge_handle;
-    /// Return the half-edge associated with a given vertex and face.
-    inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh );
 
-    /// return the normal of the vertex vh, when considering its membership to
-    /// the face fh
-    inline Normal& normal( VertexHandle vh, FaceHandle fh );
+    /// Return the half-edge associated with a given vertex and face.
+    /// assert if vh is not a member of fh
+    inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) const;
+
+    /// Get normal of the vertex vh, when member of fh
+    /// assert if vh is not a member of fh
+    inline const Normal& normal( VertexHandle vh, FaceHandle fh ) const;
+
+    /// Set normal of the vertex vh, when member of fh
+    /// assert if vh is not a member of fh
+    void set_normal( VertexHandle vh, FaceHandle fh, const Normal& n );
+
+    /// import Base definition of normal and set normal
+    ///@{
+    using base::normal;
+    using base::set_normal;
+    ///@}
+
+    /// Set the normal n to all the halfedges that points to vh  (i.e. incomming
+    /// halfedges) .
+    /// If you work with vertex normals, please call this function on all vertex
+    /// handle before convertion with toTriangleMesh
+    void propagate_normal_to_halfedges( TopologicalMesh::VertexHandle vh );
 
     /// \name Const access to handles of the HalfEdge properties coming from
     /// the TriangleMesh attributes.

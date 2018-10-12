@@ -22,7 +22,10 @@ class RA_CORE_API LoopSubdivider
   public:
     LoopSubdivider() : base() { init_weights(); }
 
-    LoopSubdivider( TopologicalMesh& mesh ) : base( mesh ) { init_weights(); }
+    LoopSubdivider( TopologicalMesh& mesh ) : base() {
+        init_weights();
+        attach( mesh );
+    }
 
     ~LoopSubdivider() {}
 
@@ -89,12 +92,6 @@ class RA_CORE_API LoopSubdivider
 
     /// new edge midpoint position
     OpenMesh::EPropHandleT<TopologicalMesh::Point> m_epPos;
-
-    /// deal with properties
-    std::vector<OpenMesh::HPropHandleT<float>> m_floatProps;
-    std::vector<OpenMesh::HPropHandleT<Vector2>> m_vec2Props;
-    std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Props;
-    std::vector<OpenMesh::HPropHandleT<Vector4>> m_vec4Props;
 
     /// precomputed weights
     Weights m_weights;
