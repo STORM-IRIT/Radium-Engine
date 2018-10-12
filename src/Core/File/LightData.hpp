@@ -60,7 +60,7 @@ class RA_CORE_API LightData : public AssetData {
 
     /**
      * Light constructor.
-     * Must be calle explicitely with a name for the light and its type.
+     * Must be called explicitely with a name for the light and its type.
      */
     explicit LightData( const std::string& name = "", const LightType& type = UNKNOWN );
 
@@ -95,18 +95,23 @@ class RA_CORE_API LightData : public AssetData {
 
 /**
  * \defgroup HelperSetters Helper functions to set the various light parameters.
+ *
  * @{
  */
     /**
      * Construct a directional light.
      * A directional light is only defined by its color and its lighting direction.
      * No attenuation on directional.
+     *  \note The object on which this method is called is unconditionally promoted to ``DIRECTIONAL_LIGHT`` light, whatever
+     *  it was before the call and only the directional light part of the union is consistent after the call
      */
     inline void setLight(const Core::Color &color, const Core::Vector3 &direction);
 
     /**
     * Construct a point light.
     * A point light is defined by its color, its position and its attenuation.
+    *  \note The object on which this method is called is unconditionally promoted to ``POINT_LIGHT`` light, whatever
+    *  it was before the call and only the directional light part of the union is consistent after the call
     */
     inline void setLight(const Core::Color &color, const Core::Vector3 &position, LightAttenuation attenuation);
 
@@ -114,15 +119,18 @@ class RA_CORE_API LightData : public AssetData {
     * Construct a spot light.
     * A spot light is defined by its color, its position, the cone axis and light distribution
     * (constant inside inangle, quadratically deacreasing toward 0 fron inAngle to ouAngle) and its attenuation.
+    *  \note The object on which this method is called is unconditionally promoted to ``SPOT_LIGHT`` light, whatever
+    *  it was before the call and only the directional light part of the union is consistent after the call
     */
     inline void setLight(const Core::Color &color, const Core::Vector3 &position, const Core::Vector3 &direction,
                          Scalar inAngle, Scalar outAngle, LightAttenuation attenuation);
 
-    /// construct an area light
     /**
      * Construct a area light.
      * An area light, (isotropic with constant emision defined by its color) is approximated by its center and
      * the covariance matrices modelling the spatial extent as well as the elliptical distribution of normals.
+     * \note The object on which this method is called is unconditionally promoted to ``AREA_LIGHT`` light, whatever
+     *  it was before the call and only the directional light part of the union is consistent after the call
      */
     inline void setLight( const Core::Color &color, const Core::Vector3 &cog, const Core::Matrix3 &spatialCov,
                           const Core::Matrix3 &normalCov, LightAttenuation attenuation );
