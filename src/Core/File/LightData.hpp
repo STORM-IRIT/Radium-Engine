@@ -85,7 +85,7 @@ class RA_CORE_API LightData : public AssetData {
      * Acces to the local frame of the light.
      * @return the local frame
      */
-    inline Core::Matrix4 getFrame() const;
+    inline const Core::Matrix4& getFrame() const;
 
     /**
      * Set the local frame of the light.

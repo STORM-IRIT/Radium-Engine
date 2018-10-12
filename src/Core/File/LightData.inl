@@ -25,7 +25,7 @@ inline void LightData::setType( const LightType& type ) {
 }
 
 /// FRAME
-inline Core::Matrix4 LightData::getFrame() const {
+inline const Core::Matrix4& LightData::getFrame() const {
     return m_frame;
 }
 
