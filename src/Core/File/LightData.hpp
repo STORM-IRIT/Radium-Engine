@@ -152,7 +152,7 @@ class RA_CORE_API LightData : public AssetData {
     * class could not ensure such an invariant when this method is called.
     * @param type the type to set.
     */
-    inline void setType( const LightType& type );
+    [[deprecated( "Do not change the type of a LightData, use setLight that ensures data coherency." )]] inline void setType( const LightType& type );
 
     /**
      * Returns true if the light is a PointLight
