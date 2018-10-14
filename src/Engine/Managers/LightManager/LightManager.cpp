@@ -140,7 +140,16 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
         case Asset::LightData::AREA_LIGHT:
         {
             // No arealight for now (see pbrplugin)
-            comp = nullptr;
+            // TODO : manage real area light. For the moment, transform them in point light using given position
+            auto thelight = new Engine::PointLight( entity, data->getName() );
+            thelight->setColor( data->m_color );
+            thelight->setPosition( data->m_arealight.position );
+            thelight->setAttenuation( data->m_arealight.attenuation.constant,
+                                      data->m_arealight.attenuation.linear,
+                                      data->m_arealight.attenuation.quadratic );
+            comp = thelight;
+
+            //comp = nullptr;
             break;
         }
         default:
