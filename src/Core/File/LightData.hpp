@@ -20,12 +20,21 @@ class Light;
 
 namespace Asset {
 
+  /**
+   * Asset defining how lights must be passed to the Radium systems from a loader.
+   *
+   * Supported light type are :
+   *    Point light : a local, punctual, isotropic spherical light.
+   *    Spot light : a local, punctual, isotropic conical light.
+   *    Directional light : an infinite, isotropic light.
+   *    Area light : a local isotropic area light.
+   */
 class RA_CORE_API LightData : public AssetData {
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    /// ENUM
+    /// Supported light type
     enum LightType {
         UNKNOWN = 1 << 0,
         POINT_LIGHT = 1 << 1,
@@ -34,6 +43,10 @@ class RA_CORE_API LightData : public AssetData {
         AREA_LIGHT = 1 << 4
     };
 
+    /**
+     * Define the parameters of the attenuation function.
+     * The only supported attenuation function is 1/ (constant + linear*dist + quadradic*dist^2 )
+     */
     struct LightAttenuation {
         Scalar constant;
         Scalar linear;
@@ -43,54 +56,129 @@ class RA_CORE_API LightData : public AssetData {
             linear( l ),
             quadratic( q ) {}
     };
+    // TODO : allow to define other attenuation function such \max\left(0,1-\frac{\left|x\right|^2}{r^2}\right)^2
 
-    /// CONSTRUCTOR
-    LightData( const std::string& name = "", const LightType& type = UNKNOWN );
+    /**
+     * Light constructor.
+     * Must be called explicitely with a name for the light and its type.
+     */
+    explicit LightData( const std::string& name = "", const LightType& type = UNKNOWN );
 
-    LightData( const LightData& data ) = default;
+    /**
+     * Copy constructor.
+     * As a Light a a union like object, no default copy constructor could be generated. This will take care of copying the good members of the union.
+     * @param data
+     */
+    LightData( const LightData& data );
 
-    /// DESTRUCTOR
+    /// Destructor
     ~LightData();
 
-    /// NAME
+    /**
+     * Extension of of the AssetData interface so that we can modify an abcet afeter ts creation.
+     * This has no impact on the coherence of the LightData object and could be used without restriction.
+     */
     inline void setName( const std::string& name );
 
-    /// TYPE
-    inline LightType getType() const;
-    inline void setType( const LightType& type );
 
-    /// FRAME
-    inline Core::Matrix4 getFrame() const;
+    /**
+     * Acces to the local frame of the light.
+     * @return the local frame
+     */
+    inline const Core::Matrix4& getFrame() const;
+
+    /**
+     * Set the local frame of the light.
+     * @param frame the local frame
+     */
     inline void setFrame( const Core::Matrix4& frame );
 
-    /// DATA
-    /*
-    inline std::shared_ptr<Ra::Engine::Light> getLight() const;
-    inline void setLight( std::shared_ptr<Ra::Engine::Light> light );
+/**
+ * \defgroup HelperSetters Helper functions to set the various light parameters.
+ *
+ * @{
+ */
+    /**
+     * Construct a directional light.
+     * A directional light is only defined by its color and its lighting direction.
+     * No attenuation on directional.
+     *  \note The object on which this method is called is unconditionally promoted to ``DIRECTIONAL_LIGHT`` light, whatever
+     *  it was before the call and only the directional light part of the union is consistent after the call
+     */
+    inline void setLight(const Core::Color &color, const Core::Vector3 &direction);
+
+    /**
+    * Construct a point light.
+    * A point light is defined by its color, its position and its attenuation.
+    *  \note The object on which this method is called is unconditionally promoted to ``POINT_LIGHT`` light, whatever
+    *  it was before the call and only the directional light part of the union is consistent after the call
     */
-#if 0
-    /// Acces to the data. The returned component must be attached to an entity after that.
-    // this will add a dependence on the core to the engine. Not a good idea ...
-    Ra::Engine::Light* getLight() const;
-#endif
+    inline void setLight(const Core::Color &color, const Core::Vector3 &position, LightAttenuation attenuation);
 
-    /// construct a directional light
-    inline void setLight( Core::Color color, Core::Vector3 direction );
-    /// construct a point light
-    inline void setLight( Core::Color color, Core::Vector3 position, LightAttenuation attenuation );
-    /// construct a spot light
-    inline void setLight( Core::Color color, Core::Vector3 position, Core::Vector3 direction,
-                          Scalar inangle, Scalar outAngle, LightAttenuation attenuation );
-    /// construct an area light
-    inline void setLight( Core::Color color, LightAttenuation attenuation );
+    /**
+    * Construct a spot light.
+    * A spot light is defined by its color, its position, the cone axis and light distribution
+    * (constant inside inangle, quadratically deacreasing toward 0 fron inAngle to ouAngle) and its attenuation.
+    *  \note The object on which this method is called is unconditionally promoted to ``SPOT_LIGHT`` light, whatever
+    *  it was before the call and only the directional light part of the union is consistent after the call
+    */
+    inline void setLight(const Core::Color &color, const Core::Vector3 &position, const Core::Vector3 &direction,
+                         Scalar inAngle, Scalar outAngle, LightAttenuation attenuation);
 
-    /// QUERY
+    /**
+     * Construct a area light.
+     * An area light, (isotropic with constant emision defined by its color) is approximated by its center and
+     * the covariance matrices modelling the spatial extent as well as the elliptical distribution of normals.
+     * \note The object on which this method is called is unconditionally promoted to ``AREA_LIGHT`` light, whatever
+     *  it was before the call and only the directional light part of the union is consistent after the call
+     */
+    inline void setLight( const Core::Color &color, const Core::Vector3 &cog, const Core::Matrix3 &spatialCov,
+                          const Core::Matrix3 &normalCov, LightAttenuation attenuation );
+/**@}*/
+
+/**
+ * \defgroup TypeOperators Helper functions to manage the type of the light.
+ * @{
+ */
+    /**
+    * Access to the type of the object
+    */
+    inline LightType getType() const;
+
+    /**
+    * Modify the type of a light asset after its creation.
+    * \note Beware of the risk of data inconsistancy when using the operator. As a LightData object is a union like
+    * object, caller of this method must explicitely ensure a consistancy invariant over its object as the LightData
+    * class could not ensure such an invariant when this method is called.
+    * @param type the type to set.
+    */
+    [[deprecated( "Do not change the type of a LightData, use setLight that ensures data coherency." )]] inline void setType( const LightType& type );
+
+    /**
+     * Returns true if the light is a PointLight
+     */
     inline bool isPointLight() const;
+
+    /**
+    * Returns true if the light is a SpotLight
+    */
     inline bool isSpotLight() const;
+
+    /**
+    * Returns true if the light is a DirectionalLight
+    */
     inline bool isDirectionalLight() const;
+
+    /**
+    * Returns true if the light is an AreaLight
+    */
     inline bool isAreaLight() const;
 
-    /// DEBUG
+/**@}*/
+
+    /**
+     * For debugging purpose, prints out the formated content of the LightData object.
+     */
     inline void displayInfo() const;
 
   protected:
@@ -99,8 +187,8 @@ class RA_CORE_API LightData : public AssetData {
     Core::Matrix4 m_frame;
     LightType m_type;
 
-    // This part is public so that systems handling lights could acces to the data.
-    // TODO (Mathias) : make these protected with getters ? Define independant types ?
+    // This part is public so that systems handling lights could access to the data.
+    // TODO : make these protected with getters ? Define independant types ?
   public:
     Core::Color m_color;
 
@@ -120,7 +208,10 @@ class RA_CORE_API LightData : public AssetData {
             LightAttenuation attenuation;
         } m_spotlight;
         struct {
-            // TODO (Mathias) : find how to represent arealight in a generic way
+            // TODO : this representation is usefull but might be improved
+            Core::Vector3 position;
+            Core::Matrix3 spatialCovariance;
+            Core::Matrix3 normalCovariance;
             LightAttenuation attenuation;
         } m_arealight;
     };
