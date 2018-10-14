@@ -27,6 +27,8 @@ NamespaceIndentation: None
 IndentPPDirectives: 'AfterHash'
 AlignEscapedNewlines: 'Left'
 Cpp11BracedListStyle: true
+#not supported yet :
+#SpaceBeforeCpp11BracedList: true
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 BreakConstructorInitializers: AfterColon
 SortUsingDeclarations: true
