@@ -18,7 +18,7 @@ using MeshRenderMode = Ra::Engine::Mesh::MeshRenderMode;
 using PickingMode = Ra::Engine::Renderer::PickingMode;
 
 namespace MeshFeatureTrackingPlugin {
-MeshFeatureTrackingComponent::MeshFeatureTrackingComponent(const std::string& name) :
+MeshFeatureTrackingComponent::MeshFeatureTrackingComponent( const std::string& name ) :
     Component( name, Ra::Engine::SystemEntity::getInstance() ) {
     m_data.m_mode = Ra::Engine::Renderer::PickingMode::RO;
 }
@@ -34,7 +34,7 @@ void MeshFeatureTrackingComponent::initialize() {
     material.reset( bpMaterial );
     bpMaterial->m_kd = Ra::Core::Color( 0.f, 1.f, 0.f, 1.f );
     m_RO = Ra::Engine::RenderObject::createRenderObject(
-        "FeaturePickingManagerSphereRO", this, Ra::Engine::RenderObjectType::Fancy, display,
+        "FeaturePickingManagerSphereRO", this, Ra::Engine::RenderObjectType::Geometry, display,
         Ra::Engine::RenderTechnique::createDefaultRenderTechnique(), material );
     m_RO->setPickable( false );
     m_RO->setVisible( false );
@@ -557,8 +557,7 @@ void MeshFeatureTrackingComponent::setTriangleIdx( int idx ) {
 
 void MeshFeatureTrackingComponent::update() {
     // check supported picking mode
-    if ( m_data.m_mode != PickingMode::RO &&
-         m_data.m_mode <= PickingMode::TRIANGLE &&
+    if ( m_data.m_mode != PickingMode::RO && m_data.m_mode <= PickingMode::TRIANGLE &&
          getRoMgr()->exists( m_pickedRoIdx ) )
     {
         setPosition( getFeaturePosition() );

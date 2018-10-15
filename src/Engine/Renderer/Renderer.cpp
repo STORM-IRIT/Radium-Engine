@@ -215,7 +215,7 @@ void Renderer::feedRenderQueuesInternal( const RenderData& renderData ) {
     m_uiRenderObjects.clear();
     m_xrayRenderObjects.clear();
 
-    m_roMgr->getRenderObjectsByType( m_fancyRenderObjects, RenderObjectType::Fancy );
+    m_roMgr->getRenderObjectsByType( m_fancyRenderObjects, RenderObjectType::Geometry );
     m_roMgr->getRenderObjectsByType( m_debugRenderObjects, RenderObjectType::Debug );
     m_roMgr->getRenderObjectsByType( m_uiRenderObjects, RenderObjectType::UI );
 
@@ -346,7 +346,7 @@ void Renderer::doPicking( const RenderData& renderData ) {
 
     splitRenderQueuesForPicking( renderData );
 
-    // First draw Fancy Objects
+    // First draw Geometry Objects
     GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
     GL_ASSERT( glDepthFunc( GL_LESS ) );
 

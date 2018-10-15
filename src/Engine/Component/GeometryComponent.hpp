@@ -1,14 +1,11 @@
-#ifndef FANCYMESHPLUGIN_FANCYMESHCOMPONENT_HPP
-#define FANCYMESHPLUGIN_FANCYMESHCOMPONENT_HPP
+#ifndef RADIUMENGINE_GEOMETRY_COMPONENT_HPP
+#    define RADIUMENGINE_GEOMETRY_COMPONENT_
 
-#include <FancyMeshPluginMacros.hpp>
+#    include <Core/File/GeometryData.hpp>
+#    include <Core/Mesh/MeshTypes.hpp>
+#    include <Core/Mesh/TriangleMesh.hpp>
 
-#include <Core/Mesh/MeshTypes.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
-
-#include <Core/File/GeometryData.hpp>
-
-#include <Engine/Component/Component.hpp>
+#    include <Engine/Component/Component.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -17,9 +14,10 @@ class Mesh;
 } // namespace Engine
 } // namespace Ra
 
-namespace FancyMeshPlugin {
+namespace Ra {
+namespace Engine {
 /*!
- * \brief The FancyMeshComponent class
+ * \brief Main class to convert Ra::Asset::GeometryData to Ra::Engine::Mesh
  *
  * Exports access to the mesh geometry:
  *  - TriangleMesh: get, rw (set vertices, normals and triangles dirty)
@@ -27,10 +25,10 @@ namespace FancyMeshPlugin {
  *  - normals: rw (if deformable)
  *  - triangles: rw (if deformable)
  */
-class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component {
+class RA_ENGINE_API GeometryComponent : public Component {
   public:
-    FancyMeshComponent( const std::string& name, bool deformable, Ra::Engine::Entity* entity );
-    virtual ~FancyMeshComponent();
+    GeometryComponent( const std::string& name, bool deformable, Entity* entity );
+    virtual ~GeometryComponent();
 
     void initialize() override;
 
@@ -50,10 +48,10 @@ class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component {
     void setDeformable( const bool b );
 
   private:
-    const Ra::Engine::Mesh& getDisplayMesh() const;
-    Ra::Engine::Mesh& getDisplayMesh();
+    const Mesh& getDisplayMesh() const;
+    Mesh& getDisplayMesh();
 
-    // Fancy mesh accepts to give its mesh and (if deformable) to update it
+    // Give access to the mesh and (if deformable) to update it
     const Ra::Core::TriangleMesh* getMeshOutput() const;
     Ra::Core::TriangleMesh* getMeshRw();
     void setMeshInput( const Ra::Core::TriangleMesh* mesh );
@@ -70,6 +68,7 @@ class FM_PLUGIN_API FancyMeshComponent : public Ra::Engine::Component {
     bool m_deformable;
 };
 
-} // namespace FancyMeshPlugin
+} // namespace Engine
+} // namespace Ra
 
-#endif // FANCYMESHPLUGIN_FANCYMESHCOMPONENT_HPP
+#endif // RADIUMENGINE_GEOMETRY_COMPONENT_
