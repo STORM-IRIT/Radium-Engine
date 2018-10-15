@@ -68,6 +68,12 @@ Mesh::Mesh( const std::string& name, MeshRenderMode renderMode ) :
                      m_renderMode == RM_TRIANGLE_FAN || m_renderMode == RM_LINES_ADJACENCY ||
                      m_renderMode == RM_LINE_STRIP_ADJACENCY,
                  "Unsupported render mode" );
+
+    // Mark mesh data as up-to-date.
+    for ( uint i = 0; i < MAX_MESH; ++i )
+    {
+        m_dataDirty[i] = false;
+    }
 }
 
 Mesh::~Mesh() {
