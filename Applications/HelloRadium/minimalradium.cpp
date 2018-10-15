@@ -26,7 +26,7 @@ void MinimalComponent::initialize() {
     std::shared_ptr<Ra::Engine::Mesh> display( new Ra::Engine::Mesh( "Cube" ) );
     display->loadGeometry( Ra::Core::MeshUtils::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
     auto renderObject = Ra::Engine::RenderObject::createRenderObject(
-        "CubeRO", this, Ra::Engine::RenderObjectType::Fancy, display );
+        "CubeRO", this, Ra::Engine::RenderObjectType::Geometry, display );
     addRenderObject( renderObject );
 }
 
