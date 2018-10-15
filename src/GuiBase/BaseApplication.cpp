@@ -23,6 +23,7 @@
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/Renderer.hpp>
+#include <Engine/System/GeometrySystem.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 #include <GuiBase/Viewer/CameraInterface.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
@@ -202,6 +203,9 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     // (thus the viewer should have initialized the OpenGL context..)
     createConnections();
     processEvents();
+
+    // Register the GeometrySystem converting loaded assets to meshes
+    m_engine->registerSystem( "GeometrySystem", new Ra::Engine::GeometrySystem );
 
     Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity( "Test" );
     // Load plugins
