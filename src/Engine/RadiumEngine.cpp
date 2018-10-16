@@ -13,15 +13,14 @@
 #include <Core/File/FileLoaderInterface.hpp>
 
 #include <Engine/FrameInfo.hpp>
-#include <Engine/System/System.hpp>
+#include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
-#include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
+#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
-
+#include <Engine/System/System.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -76,16 +75,21 @@ void RadiumEngine::getTasks( Core::TaskQueue* taskQueue, Scalar dt ) {
     }
 }
 
-void RadiumEngine::registerSystem( const std::string& name, System* system ) {
-    CORE_ASSERT( m_systems.find( name ) == m_systems.end(), "Same system added multiple times." );
+bool RadiumEngine::registerSystem( const std::string& name, System* system, int priority ) {
+    if ( findSystem( name ) != m_systems.end() )
+    {
+        LOG( logWARNING ) << "System " << name.c_str() << " added multiple times.";
+        return false;
+    }
 
-    m_systems[name] = std::shared_ptr<System>( system );
+    m_systems[std::make_pair( priority, name )] = std::shared_ptr<System>( system );
     LOG( logINFO ) << "Loaded : " << name;
+    return true;
 }
 
 System* RadiumEngine::getSystem( const std::string& system ) const {
     System* sys = nullptr;
-    auto it = m_systems.find( system );
+    auto it = findSystem( system );
 
     if ( it != m_systems.end() )
     {
@@ -207,8 +211,19 @@ RadiumEngine::getFileLoaders() const {
 RA_SINGLETON_IMPLEMENTATION( RadiumEngine );
 
 const Asset::FileData& RadiumEngine::getFileData() const {
-    CORE_ASSERT(m_loadingState, "Access to file content is only available at loading time.");
+    CORE_ASSERT( m_loadingState, "Access to file content is only available at loading time." );
     return *( m_loadedFile.get() );
+}
+
+RadiumEngine::SystemContainer::const_iterator
+RadiumEngine::findSystem( const std::string& name ) const {
+    return std::find_if( m_systems.cbegin(), m_systems.cend(),
+                         [&name]( const auto& el ) { return el.first.second == name; } );
+}
+
+RadiumEngine::SystemContainer::iterator RadiumEngine::findSystem( const std::string& name ) {
+    return std::find_if( m_systems.begin(), m_systems.end(),
+                         [&name]( const auto& el ) { return el.first.second == name; } );
 }
 
 } // namespace Engine
