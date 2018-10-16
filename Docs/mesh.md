@@ -11,7 +11,7 @@ This class handles data only, in a way suitable for rendering.
 
 
 ## Mesh creation
-`FancyMesh` is in charge of loading a `GeometryData` and create the corresponding `Mesh`.
+`GeometryComponent` is in charge of loading a `GeometryData` and create the corresponding `Mesh`.
 
 The user can add on the fly new vertex attribs to a `TriangleMesh`.
 An attrib is defined by a unique name (`std::string`) and then represented as a `AttribHandle<T>`.
