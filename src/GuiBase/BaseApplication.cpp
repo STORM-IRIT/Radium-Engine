@@ -205,7 +205,7 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     processEvents();
 
     // Register the GeometrySystem converting loaded assets to meshes
-    m_engine->registerSystem( "GeometrySystem", new Ra::Engine::GeometrySystem );
+    m_engine->registerSystem( "GeometrySystem", new Ra::Engine::GeometrySystem, 1000 );
 
     Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity( "Test" );
     // Load plugins
