@@ -1,5 +1,6 @@
 #ifndef RADIUMENGINE_CAMERAINTERFACE_HPP
 #define RADIUMENGINE_CAMERAINTERFACE_HPP
+#include <GuiBase/RaGuiBase.hpp>
 
 #include <memory>
 
@@ -29,7 +30,7 @@ namespace Ra {
 namespace Gui {
 
 /// The CameraInterface class is the generic class for camera manipulators.
-class CameraInterface : public QObject {
+class RA_GUIBASE_API CameraInterface : public QObject {
     Q_OBJECT
 
   public:
@@ -70,6 +71,15 @@ class CameraInterface : public QObject {
     /// Set the Camera used to render the scene.
     /// \note CameraInterface doesn't have ownership.
     virtual void setCamera( Engine::Camera* camera ) = 0;
+
+    /**
+     * Set the Engine::Camera used to the default one.
+     * This method allow to have a quick fix of issue #378 before switching to Radium v2 development.
+     * \todo have a cleaner camera management and control in the GuiBase Radium library.
+     * GuiBase Camera interface Must define a clean interface between the application and the Engine.
+     * This method is similar to the getCameraFromViewer, it should not be there ...
+     */
+     void resetToDefaultCamera();
 
     /// Set the Light attached to the camera.
     /// \note CameraInterface doesn't have ownership.
