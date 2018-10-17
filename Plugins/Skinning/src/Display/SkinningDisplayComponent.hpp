@@ -139,7 +139,7 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
             std::string name = m_name + "_Partition";
 
             Ra::Engine::RenderObject* renderObject =
-                new Ra::Engine::RenderObject( name, this, Ra::Engine::RenderObjectType::Fancy );
+                new Ra::Engine::RenderObject( name, this, Ra::Engine::RenderObjectType::Geometry );
             renderObject->setVisible( true );
             renderObject->setRenderTechnique( technique );
             std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( name ) );

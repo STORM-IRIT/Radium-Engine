@@ -534,6 +534,8 @@ void MainWindow::deleteCurrentItem() {
 }
 
 void MainWindow::resetScene() {
+    // Fix issue #378 : ask the viewer to switch back to the default camera
+    m_viewer->getCameraInterface()->resetToDefaultCamera();
     // To see why this call is important, please see deleteCurrentItem().
     m_selectionManager->clear();
     Engine::RadiumEngine::getInstance()->getEntityManager()->deleteEntities();

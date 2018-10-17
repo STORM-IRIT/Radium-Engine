@@ -33,9 +33,9 @@ namespace Asset {
  *      Make your loader instantiate the right "Asset" MaterialData class while loading material
  * data from a file.
  *
- *      The active system (FancyMesh is the Radium Default), will then automatically use your new
- * material and technique so that the rendering will be fine. When writing your own system, see
- * FancyMesh implementations as an example.
+ *      The active system (GeometrySystem is the Radium Default), will then automatically use your
+ * new material and technique so that the rendering will be fine. When writing your own system, see
+ * GeometrySystem implementation as an example.
  *
  *  That's all folks.
  */

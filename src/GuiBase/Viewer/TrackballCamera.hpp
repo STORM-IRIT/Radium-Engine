@@ -1,5 +1,6 @@
 #ifndef RADIUMENGINE_TRACKBALLCAMERA_HPP
 #define RADIUMENGINE_TRACKBALLCAMERA_HPP
+#include <GuiBase/RaGuiBase.hpp>
 
 #include <GuiBase/Viewer/CameraInterface.hpp>
 
@@ -7,7 +8,7 @@ namespace Ra {
 namespace Gui {
 
 /// A Trackball manipulator for Cameras.
-class TrackballCamera : public CameraInterface {
+class RA_GUIBASE_API TrackballCamera : public CameraInterface {
     Q_OBJECT
 
   public:

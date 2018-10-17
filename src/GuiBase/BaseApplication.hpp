@@ -20,6 +20,7 @@ class TaskQueue;
 namespace Ra {
 namespace Engine {
 class RadiumEngine;
+class GeometrySystem;
 struct ItemEntry;
 } // namespace Engine
 } // namespace Ra
