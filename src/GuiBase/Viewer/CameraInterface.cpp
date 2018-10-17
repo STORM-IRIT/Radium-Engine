@@ -36,6 +36,23 @@ Gui::CameraInterface::CameraInterface( uint width, uint height ) :
     setCameraZFar( 1000.0 );
 }
 
+void Gui::CameraInterface::resetToDefaultCamera() {
+    // get parameters from the current camera
+    // Thisis awfull and requires that the current camera is still alive ...
+    Scalar w = m_camera->getWidth();
+    Scalar h = m_camera->getHeight();
+    auto it = std::find_if(
+        Engine::SystemEntity::getInstance()->getComponents().cbegin(),
+        Engine::SystemEntity::getInstance()->getComponents().cend(),
+        []( const auto& c ) { return c->getName().compare( "CAMERA_DEFAULT" ) == 0; } );
+    if ( it != Engine::SystemEntity::getInstance()->getComponents().cend() )
+    {
+        m_camera = static_cast<Engine::Camera*>( ( *it ).get() );
+        m_camera->resize(w,h);
+        m_camera->show( false );
+    }
+}
+
 Gui::CameraInterface::~CameraInterface() {}
 
 void Gui::CameraInterface::resizeViewport( uint width, uint height ) {
