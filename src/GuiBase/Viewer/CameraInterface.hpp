@@ -1,5 +1,6 @@
 #ifndef RADIUMENGINE_CAMERAINTERFACE_HPP
 #define RADIUMENGINE_CAMERAINTERFACE_HPP
+#include <GuiBase/RaGuiBase.hpp>
 
 #include <memory>
 
@@ -29,7 +30,7 @@ namespace Ra {
 namespace Gui {
 
 /// The CameraInterface class is the generic class for camera manipulators.
-class CameraInterface : public QObject {
+class RA_GUIBASE_API CameraInterface : public QObject {
     Q_OBJECT
 
   public:
