@@ -53,14 +53,10 @@ void ForwardRenderer::initializeInternal() {
 }
 
 void ForwardRenderer::initShaders() {
-    m_shaderMgr->addShaderProgram( "FinalCompose", "Shaders/Basic2D.vert.glsl",
-                                   "Shaders/FinalCompose.frag.glsl" );
-#ifndef NO_TRANSPARENCY
-    m_shaderMgr->addShaderProgram( "UnlitOIT", "Shaders/Plain.vert.glsl",
-                                   "Shaders/UnlitOIT.frag.glsl" );
-    m_shaderMgr->addShaderProgram( "ComposeOIT", "Shaders/Basic2D.vert.glsl",
-                                   "Shaders/ComposeOIT.frag.glsl" );
-#endif
+
+    m_shaderMgr->addShaderProgram( "Hdr2Ldr", "Shaders/HdrToLdr/Hdr2Ldr.vert.glsl",
+                                   "Shaders/HdrToLdr/Hdr2Ldr.frag.glsl" );
+
 }
 
 void ForwardRenderer::initBuffers() {
@@ -374,53 +370,6 @@ void ForwardRenderer::debugInternal( const RenderData& renderData ) {
 
         DebugRender::getInstance()->render( renderData.viewMatrix, renderData.projMatrix );
 
-        //#ifndef NO_TRANSPARENCY
-#if 0
-                m_postprocessFbo->unbind();
-                m_oitFbo->useAsTarget();
-                
-                Core::Colorf clearZeros(0.0, 0.0, 0.0, 0.0);
-                Core::Colorf clearOnes (1.0, 1.0, 1.0, 1.0);
-                
-                GL_ASSERT(glDrawBuffers(2, buffers));
-                GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearZeros.data()));
-                GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearOnes.data()));
-                
-                GL_ASSERT(glDepthFunc(GL_LESS));
-                GL_ASSERT(glEnable(GL_BLEND));
-                
-                GL_ASSERT(glBlendEquation(GL_FUNC_ADD));
-                GL_ASSERT(glBlendFunci(0, GL_ONE, GL_ONE));
-                GL_ASSERT(glBlendFunci(1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA));
-                
-                shader = m_shaderMgr->getShaderProgram("UnlitOIT");
-                shader->bind();
-                
-                for (size_t i = m_fancyTransparentCount; i < m_transparentRenderObjects.size(); ++i)
-                {
-                    auto ro = m_transparentRenderObjects[i];
-                    ro->render(RenderParameters{}, renderData, shader);
-                }
-                
-                m_oitFbo->unbind();
-                
-                m_postprocessFbo->useAsTarget();
-                GL_ASSERT(glDrawBuffers(1, buffers + 1));
-                
-                GL_ASSERT(glDepthFunc(GL_ALWAYS));
-                GL_ASSERT(glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA));
-                
-                shader = m_shaderMgr->getShaderProgram("ComposeOIT");
-                shader->bind();
-                shader->setUniform("u_OITSumColor", m_textures[TEX_OIT_TEXTURE_ACCUM].get(), 0);
-                shader->setUniform("u_OITSumWeight", m_textures[TEX_OIT_TEXTURE_REVEALAGE].get(), 1);
-                
-                m_quadMesh->render();
-                
-                GL_ASSERT(glDisable(GL_BLEND));
-                GL_ASSERT( glDepthFunc( GL_LESS ) );
-#endif
-
         // Draw X rayed objects always on top of normal objects
         GL_ASSERT( glDepthMask( GL_TRUE ) );
         GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
@@ -507,9 +456,10 @@ void ForwardRenderer::postProcessInternal( const RenderData& renderData ) {
     GL_ASSERT( glDisable( GL_DEPTH_TEST ) );
     GL_ASSERT( glDepthMask( GL_FALSE ) );
 
-    const ShaderProgram* shader = m_shaderMgr->getShaderProgram( "DrawScreen" );
+    const ShaderProgram* shader = m_shaderMgr->getShaderProgram( "Hdr2Ldr" );
     shader->bind();
     shader->setUniform( "screenTexture", m_textures[RendererTextures_HDR].get(), 0 );
+    shader->setUniform( "gamma", 2.2 );
     m_quadMesh->render();
 
     GL_ASSERT( glDepthMask( GL_TRUE ) );
