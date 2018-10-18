@@ -56,7 +56,10 @@ void ForwardRenderer::initShaders() {
 
     m_shaderMgr->addShaderProgram( "Hdr2Ldr", "Shaders/HdrToLdr/Hdr2Ldr.vert.glsl",
                                    "Shaders/HdrToLdr/Hdr2Ldr.frag.glsl" );
-
+#ifndef NO_TRANSPARENCY
+    m_shaderMgr->addShaderProgram( "ComposeOIT", "Shaders/Basic2D.vert.glsl",
+                                   "Shaders/ComposeOIT.frag.glsl" );
+#endif
 }
 
 void ForwardRenderer::initBuffers() {
@@ -163,7 +166,7 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
     {
         ro->render( params, renderData, RenderTechnique::Z_PREPASS );
     }
-
+    // Transparent objects are not rendered in the Z-prepass, they do not influence the z-buffer
     // Light pass
     GL_ASSERT( glDepthFunc( GL_LEQUAL ) );
     GL_ASSERT( glDepthMask( GL_FALSE ) );
@@ -191,86 +194,62 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
         }
     } else
     {
-#if 0
-        // Fixme : could not create a light like this. Lights are components ...
-        // Solution : use the LightManager or the fact that a light is always associated with the
-        // camera so that the renderer could always access to at least the headlight
-        DirectionalLight l;
-        // l.setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
-
-        RenderParameters params;
-        l.getRenderParameters( params );
-
-        for ( const auto& ro : m_fancyRenderObjects )
-        {
-            ro->render( params, renderData, RenderTechnique::LIGHTING_OPAQUE );
-        }
-#endif
+        LOG(logINFO) << "Opaque : no light sources, unable to render";
     }
 
 #ifndef NO_TRANSPARENCY
-    m_fbo->unbind();
-    m_oitFbo->bind();
-
-    GL_ASSERT( glDrawBuffers( 2, buffers ) );
-    GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearZeros.data() ) );
-    GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearOnes.data() ) );
-
-    GL_ASSERT( glDepthFunc( GL_LESS ) );
-    GL_ASSERT( glEnable( GL_BLEND ) );
-
-    GL_ASSERT( glBlendEquation( GL_FUNC_ADD ) );
-    GL_ASSERT( glBlendFunci( 0, GL_ONE, GL_ONE ) );
-    GL_ASSERT( glBlendFunci( 1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA ) );
-
-    if ( m_lightmanagers[0]->count() > 0 )
+    if (m_transparentRenderObjects.size() >0)
     {
-        // for ( const auto& l : m_lights )
-        for ( int i = 0; i < m_lightmanagers[0]->count(); ++i )
-        {
-            auto l = m_lightmanagers[0]->getLight( i );
-            RenderParameters params;
-            l->getRenderParameters( params );
+        m_fbo->unbind();
 
-            for ( const auto& ro : m_transparentRenderObjects )
+        m_oitFbo->bind();
+
+        GL_ASSERT(glDrawBuffers(2, buffers));
+        GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearZeros.data()));
+        GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearOnes.data()));
+
+        GL_ASSERT(glDepthFunc(GL_LESS));
+        GL_ASSERT(glEnable(GL_BLEND));
+
+        GL_ASSERT(glBlendEquation(GL_FUNC_ADD));
+        GL_ASSERT(glBlendFunci(0, GL_ONE, GL_ONE));
+        GL_ASSERT(glBlendFunci(1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA));
+
+        if (m_lightmanagers[0]->count() > 0)
+        {
+            // for ( const auto& l : m_lights )
+            for (int i = 0; i < m_lightmanagers[0]->count(); ++i)
             {
-                ro->render( params, renderData, RenderTechnique::LIGHTING_TRANSPARENT );
+                auto l = m_lightmanagers[0]->getLight(i);
+                RenderParameters params;
+                l->getRenderParameters(params);
+
+                for (const auto &ro : m_transparentRenderObjects)
+                {
+                    ro->render(params, renderData, RenderTechnique::LIGHTING_TRANSPARENT);
+                }
             }
         }
-    } else
-    {
-#    if 0
-        // Fixme : could not create a light like this. Lights are components ...
-        // Solution : use the LightManager or the fact that a light is always associated with the
-        // camera so that the renderer could always access to at least the headlight
-        DirectionalLight l;
-        // l.setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
-
-        RenderParameters params;
-        l.getRenderParameters( params );
-
-        for ( const auto& ro : m_transparentRenderObjects )
+        else
         {
-            ro->render( params, renderData, RenderTechnique::LIGHTING_TRANSPARENT );
+            LOG(logINFO) << "Transparent : no light sources, unable to render";
         }
-#    endif
+
+        m_oitFbo->unbind();
+
+        m_fbo->bind();
+        GL_ASSERT(glDrawBuffers(1, buffers));
+
+        GL_ASSERT(glDepthFunc(GL_ALWAYS));
+        GL_ASSERT(glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA));
+
+        shader = m_shaderMgr->getShaderProgram("ComposeOIT");
+        shader->bind();
+        shader->setUniform("u_OITSumColor", m_textures[RendererTextures_OITAccum].get(), 0);
+        shader->setUniform("u_OITSumWeight", m_textures[RendererTextures_OITRevealage].get(), 1);
+
+        m_quadMesh->render();
     }
-
-    m_oitFbo->unbind();
-
-    m_fbo->bind();
-    GL_ASSERT( glDrawBuffers( 1, buffers ) );
-
-    GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
-    GL_ASSERT( glBlendFunc( GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA ) );
-
-    shader = m_shaderMgr->getShaderProgram( "ComposeOIT" );
-    shader->bind();
-    shader->setUniform( "u_OITSumColor", m_textures[RendererTextures_OITAccum].get(), 0 );
-    shader->setUniform( "u_OITSumWeight", m_textures[RendererTextures_OITRevealage].get(), 1 );
-
-    m_quadMesh->render();
-
 #endif
     if ( m_wireframe )
     {
@@ -313,27 +292,7 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
             }
         } else
         {
-#if 0
-            // Fixme : could not create a light like this. Lights are components ...
-            // Solution : use the LightManager or the fact that a light is always associated with
-            // the camera so that the renderer could always access to at least the headlight
-            DirectionalLight l;
-            // l.setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
-
-            RenderParameters params;
-            l.getRenderParameters( params );
-
-            for ( const auto& ro : m_fancyRenderObjects )
-            {
-                ro->render( params, renderData, RenderTechnique::LIGHTING_OPAQUE );
-            }
-
-            for ( size_t i = 0; i < m_fancyTransparentCount; ++i )
-            {
-                auto& ro = m_transparentRenderObjects[i];
-                ro->render( params, renderData, RenderTechnique::LIGHTING_OPAQUE );
-            }
-#endif
+            LOG(logINFO) << "Wireframe : no light sources, unable to render";
         }
 
         glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
