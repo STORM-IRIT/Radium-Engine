@@ -1,6 +1,5 @@
 #ifndef RADIUMENGINE_CAMERAINTERFACE_HPP
 #define RADIUMENGINE_CAMERAINTERFACE_HPP
-#include <GuiBase/RaGuiBase.hpp>
 
 #include <memory>
 
