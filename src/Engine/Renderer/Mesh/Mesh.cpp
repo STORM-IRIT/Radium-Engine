@@ -121,21 +121,12 @@ void Mesh::loadGeometry( const Core::TriangleMesh& mesh ) {
         m_v4DataHandle[i] = m_mesh.getAttribHandle<Ra::Core::Vector4>( std::string( "Vec4_attr_" ) +
                                                                        std::to_string( i ) );
     }
-  
+
     for ( uint i = 0; i < MAX_DATA; ++i )
     {
         m_dataDirty[i] = true;
     }
 
-    m_isDirty = true;
-}
-
-void Mesh::updateMeshGeometry( MeshData type, const Core::Vector3Array& data ) {
-    if ( type == VERTEX_POSITION )
-        m_mesh.vertices() = data;
-    if ( type == VERTEX_NORMAL )
-        m_mesh.normals() = data;
-    m_dataDirty[static_cast<uint>( type )] = true;
     m_isDirty = true;
 }
 
@@ -165,6 +156,18 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
         // (L00, L01, L10), (L11, L20, L21) etc. We fill the missing by wrapping around indices.
         m_mesh.m_triangles.push_back(
             {indices[i], indices[( i + 1 ) % nIdx], indices[( i + 2 ) % nIdx]} );
+    }
+
+    // clear attributes
+    m_mesh.clearAttributes();
+    for ( uint i = 0; i < MAX_VEC3; ++i )
+    {
+        m_v3DataHandle[i] = Core::TriangleMesh::Vec3AttribHandle();
+    }
+
+    for ( uint i = 0; i < MAX_VEC4; ++i )
+    {
+        m_v4DataHandle[i] = Core::TriangleMesh::Vec4AttribHandle();
     }
 
     // Mark mesh as dirty.
