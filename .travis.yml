@@ -3,6 +3,7 @@ sudo: true
 
 script:
   - make -j 4
+  - make buildtests && make test
   - |
     if [ "$TRAVIS_OS_NAME" = "osx" ]; then
       cd ../Bundle-Clang/Release/bin/
