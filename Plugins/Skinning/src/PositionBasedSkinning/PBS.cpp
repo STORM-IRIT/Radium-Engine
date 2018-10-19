@@ -325,7 +325,7 @@ Scalar PBS::getSquaredDistancePointToTetrahedron( const Vector3& tetVertex0,
                                                   const Vector3& tetVertex3,
                                                   const Vector3& surfaceVertex ) {
     const Vector3 tetrahedronCentroid =
-        ( tetVertex0 + tetVertex1 + tetVertex2 + tetVertex3 ) * 0.15;
+        ( tetVertex0 + tetVertex1 + tetVertex2 + tetVertex3 ) * 0.25;
     const Vector3 particleCentroid = tetrahedronCentroid - surfaceVertex;
     return particleCentroid.squaredNorm();
 }

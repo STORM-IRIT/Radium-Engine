@@ -19,9 +19,9 @@ namespace SkinningPlugin {
 class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
   public:
     enum SkinningType {
-        LBS = 0, // Linear Blend Skinning
-        DQS,     // Dual Quaternion Skinning
-        COR,     // Center of Rotation skinning
+        LBS = 0, ///< Linear Blend Skinning
+        DQS,     ///< Dual Quaternion Skinning
+        COR,     ///< Center of Rotation skinning
         PBS      // Position Based Skinning
     };
 
@@ -70,12 +70,18 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
     Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite
         m_normalsWriter;
 
-    Ra::Core::AlignedStdVector<Ra::Core::DualQuaternion> m_DQ;
-
     PositionBasedSkinning::PBS m_PBS;
 
     SkinningType m_skinningType;
+
+    /// Are all the required data available.
     bool m_isReady;
+
+    /// The list of DualQuaternions used for DQS.
+    Ra::Core::AlignedStdVector<Ra::Core::DualQuaternion> m_DQ;
+
+    /// The duplicate vertices map, used to recompute smooth normals.
+    std::vector<Ra::Core::Index> m_duplicatesMap;
 };
 } // namespace SkinningPlugin
 
