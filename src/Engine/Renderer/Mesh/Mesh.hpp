@@ -102,9 +102,12 @@ class RA_ENGINE_API Mesh {
     /// Use the given geometry as base for a display mesh. Normals are optionnal.
     void loadGeometry( const Core::TriangleMesh& mesh );
 
-    void updateMeshGeometry( MeshData type, const Core::Vector3Array& data );
-
-    // TODO (val) : remove this function (it is used mostly in the display primitives)
+    /// Use the given vertices and indices to build a display mesh according to
+    /// the MeshRenderMode.
+    /// \note This has to be used for non RM_TRIANGLES meshes only.
+    /// \note Also removes all vertex attributes.
+    /// \warning This might disappear when line meshes will be managed.
+    // FIXME: Had to keep this for line meshes and Render Primitives.
     void loadGeometry( const Core::Vector3Array& vertices, const std::vector<uint>& indices );
 
     /// Set additionnal vertex data.
@@ -118,8 +121,6 @@ class RA_ENGINE_API Mesh {
     /// Access the additionnal data arrays by type.
     inline const Core::Vector3Array& getData( const Vec3Data& type ) const;
     inline const Core::Vector4Array& getData( const Vec4Data& type ) const;
-    inline Core::Vector3Array& getData( const Vec3Data& type );
-    inline Core::Vector4Array& getData( const Vec4Data& type );
 
     /// Mark one of the data types as dirty, forcing an update of the openGL buffer.
     inline void setDirty( const MeshData& type );

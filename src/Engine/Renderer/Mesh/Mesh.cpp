@@ -68,6 +68,12 @@ Mesh::Mesh( const std::string& name, MeshRenderMode renderMode ) :
                      m_renderMode == RM_TRIANGLE_FAN || m_renderMode == RM_LINES_ADJACENCY ||
                      m_renderMode == RM_LINE_STRIP_ADJACENCY,
                  "Unsupported render mode" );
+
+    // Mark mesh data as up-to-date.
+    for ( uint i = 0; i < MAX_MESH; ++i )
+    {
+        m_dataDirty[i] = false;
+    }
 }
 
 Mesh::~Mesh() {
@@ -104,11 +110,6 @@ void Mesh::loadGeometry( const Core::TriangleMesh& mesh ) {
     } else
         m_numElements = m_mesh.m_triangles.size() * 3;
 
-    for ( uint i = 0; i < MAX_MESH; ++i )
-    {
-        m_dataDirty[i] = true;
-    }
-
     for ( uint i = 0; i < MAX_VEC3; ++i )
     {
         m_v3DataHandle[i] = m_mesh.getAttribHandle<Ra::Core::Vector3>( std::string( "Vec3_attr_" ) +
@@ -121,15 +122,11 @@ void Mesh::loadGeometry( const Core::TriangleMesh& mesh ) {
                                                                        std::to_string( i ) );
     }
 
-    m_isDirty = true;
-}
+    for ( uint i = 0; i < MAX_DATA; ++i )
+    {
+        m_dataDirty[i] = true;
+    }
 
-void Mesh::updateMeshGeometry( MeshData type, const Core::Vector3Array& data ) {
-    if ( type == VERTEX_POSITION )
-        m_mesh.vertices() = data;
-    if ( type == VERTEX_NORMAL )
-        m_mesh.normals() = data;
-    m_dataDirty[static_cast<uint>( type )] = true;
     m_isDirty = true;
 }
 
@@ -159,6 +156,18 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
         // (L00, L01, L10), (L11, L20, L21) etc. We fill the missing by wrapping around indices.
         m_mesh.m_triangles.push_back(
             {indices[i], indices[( i + 1 ) % nIdx], indices[( i + 2 ) % nIdx]} );
+    }
+
+    // clear attributes
+    m_mesh.clearAttributes();
+    for ( uint i = 0; i < MAX_VEC3; ++i )
+    {
+        m_v3DataHandle[i] = Core::TriangleMesh::Vec3AttribHandle();
+    }
+
+    for ( uint i = 0; i < MAX_VEC4; ++i )
+    {
+        m_v4DataHandle[i] = Core::TriangleMesh::Vec4AttribHandle();
     }
 
     // Mark mesh as dirty.
