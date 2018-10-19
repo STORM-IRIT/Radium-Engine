@@ -98,16 +98,18 @@ vec3 getSpecularColor(Material material, vec2 texC) {
 
 vec3 computeMaterialInternal(Material material, vec2 texC, vec3 L, vec3 V, vec3 N, vec3 X, vec3 Y) {
     vec3 H =  normalize(L + V);
-    // http://www.thetenthplanet.de/archives/255 / VortexEngine BlinnPhong
+    // http://www.thetenthplanet.de/archives/255
     float Ns = getNs(material, texC);
     vec3 Kd = getKd(material, texC) / Pi;
-    float normalization = ((Ns + 2) * (Ns + 4)) / (8 * Pi * (exp2(-Ns * 0.5) + Ns));
+
+    // use the correct normalization factor for Blinn-Phong BRDF;
+    float normalization = (Ns + 1) / (8 * Pi * pow(dot(L, H), 3));
     vec3 Ks = getKs(material, texC) * normalization;
 
-    vec3 diff = max(dot(L,N), 0.0) * Kd;
+    vec3 diff = Kd;
     vec3 spec = pow(max(dot(N, H), 0.0), Ns) * Ks;
 
-    return diff + spec ;
+    return (diff + spec) * max(dot(L,N), 0.0) ;
 }
 
 
