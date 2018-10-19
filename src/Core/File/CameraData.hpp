@@ -40,7 +40,7 @@ class RA_CORE_API CameraData : public AssetData {
     inline void setType( const CameraType& type );
 
     /// Return the transformation of the Camera.
-    inline Core::Matrix4 getFrame() const;
+    inline const Core::Matrix4& getFrame() const;
 
     /// Set the transformation of the Camera.
     inline void setFrame( const Core::Matrix4& frame );

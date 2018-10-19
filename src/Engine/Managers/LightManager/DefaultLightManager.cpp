@@ -16,8 +16,9 @@ const Light* DefaultLightManager::getLight( size_t li ) const {
 }
 
 void DefaultLightManager::addLight( Light* li ) {
-    m_data->add(li);
+    m_data->add( li );
 }
+
 //
 // Pre/Post render operations.
 //
@@ -48,15 +49,17 @@ DefaultLightStorage::DefaultLightStorage() {}
 
 void DefaultLightStorage::upload() const {}
 
-void DefaultLightStorage::add(Light *li) {
+void DefaultLightStorage::add( Light* li ) {
     m_lights.emplace( li->getType(), li );
 }
 
-void DefaultLightStorage::remove(Light* li) {
-    auto range = m_lights.equal_range(li->getType());
-    for (auto i = range.first; i != range.second; ++i) {
-        if (i->second == li) {
-            m_lights.erase(i);
+void DefaultLightStorage::remove( Light* li ) {
+    auto range = m_lights.equal_range( li->getType() );
+    for ( auto i = range.first; i != range.second; ++i )
+    {
+        if ( i->second == li )
+        {
+            m_lights.erase( i );
             break;
         }
     }

@@ -35,13 +35,11 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
     //
 
     /// Create the skeleton from the given data.
-    /// @param data: the skeleton's joint transform hierarchy.
-    /// @param duplicateTable: the map from duplicate to single vertices.
-    /// @param the number of single vertices.
-    // FIXME: the 2 last parameters are needed only for the genereation of
+    /// @param data the skeleton's joint transform hierarchy.
+    /// @param nbMeshVertices the number of single vertices.
+    // FIXME: nbMeshVertices is needed only for the genereation of
     //        the skinning weights matrix.
     void handleSkeletonLoading( const Ra::Asset::HandleData* data,
-                                const std::vector<Ra::Core::Index>& duplicateTable,
                                 uint nbMeshVertices );
 
     /// Create the animations from the given data.
@@ -118,9 +116,7 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
   private:
     // Internal function to create the skinning weights.
     void createWeightMatrix( const Ra::Asset::HandleData* data,
-                             const std::map<uint, uint>& indexTable,
-                             const std::vector<Ra::Core::Index>& duplicateTable,
-                             uint nbMeshVertices );
+                             const std::map<uint, uint>& indexTable, uint nbMeshVertices );
 
     // Internal function to create the bone display objects.
     void setupSkeletonDisplay();

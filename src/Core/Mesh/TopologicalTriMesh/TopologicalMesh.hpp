@@ -16,15 +16,12 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
-namespace Ra
-{
-namespace Core
-{
+namespace Ra {
+namespace Core {
 
 class TriangleMesh;
 
-struct TopologicalMeshTraits : OpenMesh::DefaultTraits
-{
+struct TopologicalMeshTraits : OpenMesh::DefaultTraits {
     using Point = Ra::Core::Vector3;
     using Normal = Ra::Core::Vector3;
 
@@ -38,8 +35,7 @@ struct TopologicalMeshTraits : OpenMesh::DefaultTraits
 /// vertex graph, using a half-edge representation.
 ///
 /// This integration is inspired by: https://gist.github.com/Unril/03fa353d0461ed6bd41d
-class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>
-{
+class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits> {
   private:
     using base = OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>;
     using base::PolyMesh_ArrayKernelT;
@@ -55,27 +51,55 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /// Construct a topological mesh from a triangle mesh
     /// this is a costly operation.
     /// This operation merge vertex with same position, but keep vertex
-    /// attributes on halfedge, so that triMesh vertex with same 3D position are
-    /// represented only once in the topological mesh.
+    /// attributes on halfedge, so that triMesh vertices with the same 3D position
+    /// are represented only once in the topological mesh.
     explicit TopologicalMesh( const Ra::Core::TriangleMesh& triMesh );
 
     /// Construct an empty topological mesh
-    explicit TopologicalMesh(){};
+    explicit TopologicalMesh() {}
 
-    /// Obtain a triangleMesh from a topological mesh.
+    /// Return a triangleMesh from the topological mesh.
     /// This is a costly operation.
-    /// This function is non-const because of the computation of face normals.
-    TriangleMesh toTriangleMesh();
+    /// \warning It uses the attributs defined on halfedges.
+    TriangleMesh toTriangleMesh() const;
 
     // import other version of halfedge_handle method
     using base::halfedge_handle;
-    /// Return the half-edge associated with a given vertex and face.
-    inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh );
 
-    /// return the normal of the vertex vh, when considering its membership to
-    /// the face fh
-    inline Normal& normal( VertexHandle vh, FaceHandle fh );
+    /// Return the half-edge associated with a given vertex and face.
+    /// assert if vh is not a member of fh
+    inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) const;
+
+    /// Get normal of the vertex vh, when member of fh
+    /// assert if vh is not a member of fh
+    inline const Normal& normal( VertexHandle vh, FaceHandle fh ) const;
+
+    /// Set normal of the vertex vh, when member of fh
+    /// assert if vh is not a member of fh
+    void set_normal( VertexHandle vh, FaceHandle fh, const Normal& n );
+
+    /// import Base definition of normal and set normal
+    ///@{
+    using base::normal;
+    using base::set_normal;
+    ///@}
+
+    /// Set the normal n to all the halfedges that points to vh  (i.e. incomming
+    /// halfedges) .
+    /// If you work with vertex normals, please call this function on all vertex
+    /// handle before convertion with toTriangleMesh
+    void propagate_normal_to_halfedges( TopologicalMesh::VertexHandle vh );
+
+    /// \name Const access to handles of the HalfEdge properties coming from
+    /// the TriangleMesh attributes.
+    ///@{
+    inline const std::vector<OpenMesh::HPropHandleT<float>>& getFloatPropsHandles() const;
+    inline const std::vector<OpenMesh::HPropHandleT<Vector2>>& getVector2PropsHandles() const;
+    inline const std::vector<OpenMesh::HPropHandleT<Vector3>>& getVector3PropsHandles() const;
+    inline const std::vector<OpenMesh::HPropHandleT<Vector4>>& getVector4PropsHandles() const;
+    ///@}
 };
+
 } // namespace Core
 } // namespace Ra
 

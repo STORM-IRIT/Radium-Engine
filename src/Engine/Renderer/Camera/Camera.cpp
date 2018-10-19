@@ -43,7 +43,7 @@ void Camera::initialize() {
     m->addData( Mesh::VERTEX_COLOR, c );
 
     // Create the RO
-    m_RO = RenderObject::createRenderObject( m_name + "_RO", this, RenderObjectType::Fancy, m );
+    m_RO = RenderObject::createRenderObject( m_name + "_RO", this, RenderObjectType::Debug, m );
     m_RO->getRenderTechnique()->setConfiguration(
         ShaderConfigurationFactory::getConfiguration( "Plain" ) );
     m_RO->setLocalTransform( m_frame );

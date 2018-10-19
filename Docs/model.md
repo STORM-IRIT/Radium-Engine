@@ -147,8 +147,8 @@ For this automated build to work the plugins are required to follow these requir
 
 ### Default plugins
 
-See the structure of the default plugins (e.g. `FancyMesh`) for an example of a working plugin.
+See the structure of the default plugins for an example of a working plugin.
 So far three default plugin exist:
-* *Fancy Mesh* is simply a display component (it does not have tasks) which can display a mesh with textures.
 * *Animation* handles an animation skeleton and can play keyframed animations.
-* *Skinning* uses a geometric skinning method (like linear blend skinning or dual quaternion) on a fancy mesh.
+* *Skinning* uses a geometric skinning method (like linear blend skinning or dual quaternion).
+See also the Radium-PluginExample project: https://github.com/STORM-IRIT/Radium-PluginExample for ToonShader and LaplacianSmoothing.

@@ -35,13 +35,13 @@ int main( int argc, char* argv[] ) {
     QApplication::processEvents();
 
     // Create one system
-    Ra::Engine::System* sys = new MinimalSystem;
+    MinimalSystem* sys = new MinimalSystem;
     app.m_engine->registerSystem( "Minimal system", sys );
 
     // Create and initialize entity and component
     Ra::Engine::Entity* e = app.m_engine->getEntityManager()->createEntity( "Cube" );
-    Ra::Engine::Component* c = new MinimalComponent( e );
-    sys->registerComponent( e, c );
+    MinimalComponent* c = new MinimalComponent( e );
+    sys->addComponent( e, c );
     c->initialize();
 
     // Start the app.

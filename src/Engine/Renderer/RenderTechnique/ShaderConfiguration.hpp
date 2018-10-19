@@ -42,7 +42,7 @@ enum ShaderType : uint {
 ///     // When you want to reuse created shader configurations, just set it using
 ///     auto config = ShaderConfigurationFactory::getConfiguration("MyConfig");
 ///     // You can then pass it to createRenderObject for example
-///     createRenderObject(name, component, RenderObjectType::Fancy, mesh, config, material);
+///     createRenderObject(name, component, RenderObjectType::Geometry, mesh, config, material);
 class RA_ENGINE_API ShaderConfiguration final {
     friend class ShaderProgram;
 

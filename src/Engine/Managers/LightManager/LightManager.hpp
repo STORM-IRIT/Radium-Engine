@@ -39,7 +39,11 @@ class RA_ENGINE_API LightManager : public System {
     /// Get a pointer to the li-th Light.
     virtual const Light* getLight( size_t li ) const = 0;
 
-    /// Add a light to the manager ...
+    /** Add a light to the manager ...
+     * Consider the component is already registered. The light manager will not take ownership of the added light,
+     * it will just push the light on the storage ...
+     * @param li The (already registered) light to add.
+     */
     virtual void addLight( Light* li ) = 0;
 
     //
@@ -86,6 +90,11 @@ class RA_ENGINE_API LightManager : public System {
     // System methods
     //
 
+    void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
+
+    void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
+
+  protected:
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. LightStorage).
     void registerComponent( const Entity* entity, Component* component ) override final;
@@ -97,10 +106,6 @@ class RA_ENGINE_API LightManager : public System {
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. LightStorage).
     void unregisterAllComponents( const Entity* entity ) override final;
-
-    void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
-
-    void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
 
   protected:
     /// store the current renderData

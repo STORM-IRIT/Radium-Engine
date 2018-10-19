@@ -26,7 +26,7 @@ void MinimalComponent::initialize() {
     std::shared_ptr<Ra::Engine::Mesh> display( new Ra::Engine::Mesh( "Cube" ) );
     display->loadGeometry( Ra::Core::MeshUtils::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
     auto renderObject = Ra::Engine::RenderObject::createRenderObject(
-        "CubeRO", this, Ra::Engine::RenderObjectType::Fancy, display );
+        "CubeRO", this, Ra::Engine::RenderObjectType::Geometry, display );
     addRenderObject( renderObject );
 }
 
@@ -51,4 +51,8 @@ void MinimalSystem::generateTasks( Ra::Core::TaskQueue* q, const Ra::Engine::Fra
     // Create a new task which wil call c->spin() when executed.
     q->registerTask(
         new Ra::Core::FunctionTask( std::bind( &MinimalComponent::spin, c ), "spin" ) );
+}
+
+void MinimalSystem::addComponent( Ra::Engine::Entity* ent, MinimalComponent* comp ) {
+    registerComponent( ent, comp );
 }

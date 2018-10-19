@@ -134,14 +134,8 @@ void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity,
         }
 
         auto component = new AnimationComponent( "AC_" + skel->getName(), entity );
-        std::vector<Ra::Core::Index> dupliTable;
-        uint nbMeshVertices = 0;
-        if ( geomID != uint( -1 ) )
-        {
-            dupliTable = geomData[geomID]->getDuplicateTable();
-            nbMeshVertices = geomData[geomID]->getVerticesSize();
-        }
-        component->handleSkeletonLoading( skel, dupliTable, nbMeshVertices );
+        uint nbMeshVertices = geomData[geomID]->getVerticesSize();
+        component->handleSkeletonLoading( skel, nbMeshVertices );
         component->handleAnimationLoading( animData );
 
         component->setXray( m_xrayOn );
@@ -189,60 +183,53 @@ uint AnimationSystem::getMaxFrame() const {
     return m;
 }
 
-void AnimationSystem::cacheFrame( uint frameId ) const {
+void AnimationSystem::cacheFrame( const std::string& dir, uint frameId ) const {
     // deal with AnimationComponents
     for ( const auto& comp : m_components )
     {
-        static_cast<AnimationComponent*>( comp.second )->cacheFrame( m_dataDir, frameId );
+        static_cast<AnimationComponent*>( comp.second )->cacheFrame( dir, frameId );
     }
 
-    CoupledTimedSystem::cacheFrame( frameId );
+    CoupledTimedSystem::cacheFrame( dir, frameId );
 }
 
-bool AnimationSystem::restoreFrame( uint frameId ) {
+bool AnimationSystem::restoreFrame( const std::string& dir, uint frameId ) {
     static bool restoringCurrent = false;
     if ( !restoringCurrent )
     {
         // first save current, in case restoration fails.
-        cacheFrame( m_animFrame );
+        cacheFrame( dir, m_animFrame );
     }
     bool success = true;
     // deal with AnimationComponents
     for ( const auto& comp : m_components )
     {
-        success &=
-            static_cast<AnimationComponent*>( comp.second )->restoreFrame( m_dataDir, frameId );
+        success &= static_cast<AnimationComponent*>( comp.second )->restoreFrame( dir, frameId );
     }
     // if fail, restore current frame
     if ( !success && !restoringCurrent )
     {
         restoringCurrent = true;
-        restoreFrame( m_animFrame );
+        restoreFrame( dir, m_animFrame );
         restoringCurrent = false;
         return false;
     }
 
-    CORE_ASSERT( success, "Error while trying to restore current frame" );
-    success &= CoupledTimedSystem::restoreFrame( frameId );
-
+    success &= CoupledTimedSystem::restoreFrame( dir, frameId );
     // if fail, restore current frame
     if ( !success && !restoringCurrent )
     {
         restoringCurrent = true;
-        restoreFrame( m_animFrame );
+        restoreFrame( dir, m_animFrame );
         restoringCurrent = false;
         return false;
     }
-    CORE_ASSERT( success, "Error while trying to restore current frame" );
+
     if ( success )
     {
         m_animFrame = frameId;
     }
     return success;
-}
-
-void AnimationSystem::setDataDir( const std::string dir ) {
-    m_dataDir = dir;
 }
 
 } // namespace AnimationPlugin
