@@ -199,7 +199,6 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
     CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
 
-<<<<<<< HEAD
     // Connect the signals and allow all pending events to be processed
     // (thus the viewer should have initialized the OpenGL context..)
     createConnections();
@@ -217,106 +216,20 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     }
 
     // Make builtin loaders the fallback if no plugins can load some file format
-#    ifdef IO_USE_TINYPLY
+#ifdef IO_USE_TINYPLY
     // Register before AssimpFileLoader, in order to ease override of such
     // custom loader (first loader able to load is taking the file)
     m_engine->registerFileLoader(
         std::shared_ptr<Asset::FileLoaderInterface>( new IO::TinyPlyFileLoader() ) );
-#    endif
-#    ifdef IO_USE_CAMERA_LOADER
+#endif
+#ifdef IO_USE_CAMERA_LOADER
     m_engine->registerFileLoader(
         std::shared_ptr<Asset::FileLoaderInterface>( new IO::CameraFileLoader() ) );
-#    endif
-#    ifdef IO_USE_ASSIMP
+#endif
+#ifdef IO_USE_ASSIMP
     m_engine->registerFileLoader(
         std::shared_ptr<Asset::FileLoaderInterface>( new IO::AssimpFileLoader() ) );
-#    endif
-||||||| merged common ancestors
-    // Create engine
-    m_engine.reset( Engine::RadiumEngine::createInstance() );
-    m_engine->initialize();
-    addBasicShaders();
-#    ifdef IO_USE_TINYPLY
-    // Register before AssimpFileLoader, in order to ease override of such
-    // custom loader (first loader able to load is taking the file)
-    m_engine->registerFileLoader(
-        std::shared_ptr<Asset::FileLoaderInterface>( new IO::TinyPlyFileLoader() ) );
-#    endif
-#    ifdef IO_USE_ASSIMP
-    m_engine->registerFileLoader(
-        std::shared_ptr<Asset::FileLoaderInterface>( new IO::AssimpFileLoader() ) );
-#    endif
-    // Create main window.
-    m_mainWindow.reset( factory.createMainWindow() );
-    m_mainWindow->show();
-
-    m_viewer = m_mainWindow->getViewer();
-    CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
-    CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
-    CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
-
-    // Connect the signals and allow all pending events to be processed
-    // (thus the viewer should have initialized the OpenGL context..)
-    createConnections();
-    processEvents();
-
-    Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity( "Test" );
-    // Load plugins
-    if ( !loadPlugins( pluginsPath, parser.values( pluginLoadOpt ),
-                       parser.values( pluginIgnoreOpt ) ) )
-    {
-        LOG( logERROR ) << "An error occurred while trying to load plugins.";
-    }
-
-    // Create task queue with N-1 threads (we keep one for rendering),
-    // unless monothread CPU
-    uint numThreads =
-        std::max( m_maxThreads == 0 ? RA_MAX_THREAD : std::min( m_maxThreads, RA_MAX_THREAD ), 1u );
-    m_taskQueue.reset( new Core::TaskQueue( numThreads ) );
-=======
-    // Create engine
-    m_engine.reset( Engine::RadiumEngine::createInstance() );
-    m_engine->initialize();
-    addBasicShaders();
-    // Create main window.
-    m_mainWindow.reset( factory.createMainWindow() );
-    m_mainWindow->show();
-
-    m_viewer = m_mainWindow->getViewer();
-    CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
-    CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
-    CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
-
-    // Connect the signals and allow all pending events to be processed
-    // (thus the viewer should have initialized the OpenGL context..)
-    createConnections();
-    processEvents();
-
-    Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity( "Test" );
-    // Load plugins
-    if ( !loadPlugins( pluginsPath, parser.values( pluginLoadOpt ),
-                       parser.values( pluginIgnoreOpt ) ) )
-    {
-        LOG( logERROR ) << "An error occurred while trying to load plugins.";
-    }
-    // Make builtin loaders the fallback if no plugins can load some file format
-#    ifdef IO_USE_TINYPLY
-    // Register before AssimpFileLoader, in order to ease override of such
-    // custom loader (first loader able to load is taking the file)
-    m_engine->registerFileLoader(
-        std::shared_ptr<Asset::FileLoaderInterface>( new IO::TinyPlyFileLoader() ) );
-#    endif
-#    ifdef IO_USE_ASSIMP
-    m_engine->registerFileLoader(
-        std::shared_ptr<Asset::FileLoaderInterface>( new IO::AssimpFileLoader() ) );
-#    endif
-
-    // Create task queue with N-1 threads (we keep one for rendering),
-    // unless monothread CPU
-    uint numThreads =
-        std::max( m_maxThreads == 0 ? RA_MAX_THREAD : std::min( m_maxThreads, RA_MAX_THREAD ), 1u );
-    m_taskQueue.reset( new Core::TaskQueue( numThreads ) );
->>>>>>> origin
+#endif
 
     // Create task queue with N-1 threads (we keep one for rendering),
     // unless monothread CPU

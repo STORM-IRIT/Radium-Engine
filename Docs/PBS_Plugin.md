@@ -17,8 +17,3 @@ When you load the Plugin from the skinning list, the system searches for a corre
 
 
 ![Screenshot](https://github.com/NadineAB/Radium-Engine/tree/master/Docs/master/PBS.png)
-
-
-
-
-
