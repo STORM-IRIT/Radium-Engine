@@ -1,4 +1,4 @@
-# Position-based Skinning (PBS) Plugin Manual
+ # Position-based Skinning (PBS) Plugin Manual
 
 ## Usage
 
