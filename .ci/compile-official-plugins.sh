@@ -2,6 +2,7 @@
 
 declare -a repositories=(
     "https://github.com/STORM-IRIT/Radium-PluginExample.git"
+    "https://gitlab.com/Storm-IRIT/radium-official-plugins/postprocesssubdivplugin.git"
 #    "https://github.com/STORM-IRIT/Radium-NanoGUIApp.git"
 #    "https://github.com/STORM-IRIT/Radium-AppExample.git"
     )
