@@ -107,7 +107,7 @@ uint RenderObjectManager::getNumFaces() const {
     uint result = 0;
     for ( const auto& ro : m_renderObjects )
     {
-        if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Fancy )
+        if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
         {
             result += ro->getMesh()->getGeometry().m_triangles.size();
         }
@@ -119,7 +119,7 @@ uint RenderObjectManager::getNumVertices() const {
     uint result = 0;
     for ( const auto& ro : m_renderObjects )
     {
-        if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Fancy )
+        if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
         {
             result += ro->getMesh()->getGeometry().vertices().size();
         }

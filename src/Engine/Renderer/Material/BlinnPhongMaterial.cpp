@@ -1,9 +1,9 @@
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
+#include <Engine/Renderer/Material/MaterialConverters.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
-#include <Engine/Renderer/Material/MaterialConverters.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
 #include <Core/File/BlinnPhongMaterialData.hpp>
 
@@ -106,15 +106,14 @@ bool BlinnPhongMaterial::isTransparent() const {
     return ( m_alpha < 1.0 ) || Material::isTransparent();
 }
 
-
 void BlinnPhongMaterial::registerMaterial() {
     // Defining Converter
     EngineMaterialConverters::registerMaterialConverter( "BlinnPhong",
                                                          BlinnPhongMaterialConverter() );
-    //registering re-usable shaders
-    Ra::Engine::ShaderConfiguration lpconfig(
-        "BlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-        "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
+    // registering re-usable shaders
+    Ra::Engine::ShaderConfiguration lpconfig( "BlinnPhong",
+                                              "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+                                              "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
     // Registering technique
@@ -124,7 +123,8 @@ void BlinnPhongMaterial::registerMaterial() {
         []( Ra::Engine::RenderTechnique& rt, bool isTransparent ) {
             // Configure the technique to render this object using forward Renderer or any
             // compatible one Main pass (Mandatory) : BlinnPhong
-            auto lpconfig = Ra::Engine::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
+            auto lpconfig =
+                Ra::Engine::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
             rt.setConfiguration( lpconfig, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE );
 
             // Z prepass (Recommended) : DepthAmbiantPass
@@ -152,36 +152,34 @@ void BlinnPhongMaterial::unregisterMaterial() {
 
 Material* BlinnPhongMaterialConverter::operator()( const Ra::Asset::MaterialData* toconvert ) {
     Ra::Engine::BlinnPhongMaterial* result =
-      new Ra::Engine::BlinnPhongMaterial( toconvert->getName() );
+        new Ra::Engine::BlinnPhongMaterial( toconvert->getName() );
 
     auto source = static_cast<const Ra::Asset::BlinnPhongMaterialData*>( toconvert );
 
     if ( source->hasDiffuse() )
-      result->m_kd = source->m_diffuse;
+        result->m_kd = source->m_diffuse;
     if ( source->hasSpecular() )
-      result->m_ks = source->m_specular;
+        result->m_ks = source->m_specular;
     if ( source->hasShininess() )
-      result->m_ns = source->m_shininess;
+        result->m_ns = source->m_shininess;
     if ( source->hasOpacity() )
-      result->m_alpha = source->m_opacity;
-
-#ifdef RADIUM_WITH_TEXTURES
+        result->m_alpha = source->m_opacity;
     if ( source->hasDiffuseTexture() )
-      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE,
-                          source->m_texDiffuse );
+        result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE,
+                            source->m_texDiffuse );
     if ( source->hasSpecularTexture() )
-      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_SPECULAR,
-                          source->m_texSpecular );
+        result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_SPECULAR,
+                            source->m_texSpecular );
     if ( source->hasShininessTexture() )
-      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_SHININESS,
-                          source->m_texShininess );
+        result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_SHININESS,
+                            source->m_texShininess );
     if ( source->hasOpacityTexture() )
-      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_ALPHA,
-                          source->m_texOpacity );
+        result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_ALPHA,
+                            source->m_texOpacity );
     if ( source->hasNormalTexture() )
-      result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_NORMAL,
-                          source->m_texNormal );
-#endif
+        result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_NORMAL,
+                            source->m_texNormal );
+
     return result;
 }
 

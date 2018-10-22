@@ -1,10 +1,9 @@
-#ifndef RADIUM_CONVERT_TESTS_HPP_
-#define RADIUM_CONVERT_TESTS_HPP_
+#ifndef RADIUM_TOPOLOGICALMESH_TESTS_HPP_
+#define RADIUM_TOPOLOGICALMESH_TESTS_HPP_
 
 #include <Core/Mesh/MeshPrimitives.hpp>
 #include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
-#include <Core/Mesh/Wrapper/TopologicalMeshConvert.hpp>
 #include <Tests/Tests.hpp>
 
 #include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh>
@@ -13,7 +12,6 @@
 #include <OpenMesh/Tools/Decimater/DecimaterT.hh>
 #include <OpenMesh/Tools/Decimater/ModQuadricT.hh>
 
-using Ra::Core::MeshConverter;
 using Ra::Core::TopologicalMesh;
 using Ra::Core::TriangleMesh;
 using Ra::Core::Vector3;
@@ -34,72 +32,61 @@ class TopologicalMeshTests : public Test {
 
         // Test for close mesh
         mesh = Ra::Core::MeshUtils::makeBox();
-        Ra::Core::MeshConverter::convert( mesh, topologicalMesh );
-        Ra::Core::MeshConverter::convert( topologicalMesh, newMesh );
-        RA_UNIT_TEST( isSameMesh( mesh, newMesh ), "Conversion to topological box mesh failed" );
+        topologicalMesh = TopologicalMesh( mesh );
+        newMesh = topologicalMesh.toTriangleMesh();
+        RA_UNIT_TEST( isSameMesh( mesh, newMesh ), "Conversion to topological box mesh" );
+
+        mesh = Ra::Core::MeshUtils::makeSharpBox();
+        topologicalMesh = TopologicalMesh( mesh );
+        newMesh = topologicalMesh.toTriangleMesh();
+        RA_UNIT_TEST( isSameMesh( mesh, newMesh ), "Conversion to topological sharp box mesh" );
 
         // Test for mesh with boundaries
         mesh = Ra::Core::MeshUtils::makePlaneGrid( 2, 2 );
-        Ra::Core::MeshConverter::convert( mesh, topologicalMesh );
-        Ra::Core::MeshConverter::convert( topologicalMesh, newMesh );
-        RA_UNIT_TEST( isSameMesh( mesh, newMesh ), "Conversion to topological grid mesh failed" );
+        topologicalMesh = TopologicalMesh( mesh );
+        newMesh = topologicalMesh.toTriangleMesh();
+        RA_UNIT_TEST( isSameMesh( mesh, newMesh ), "Conversion to topological grid mesh" );
 
         mesh = Ra::Core::MeshUtils::makeCylinder( Vector3( 0, 0, 0 ), Vector3( 0, 0, 1 ), 1 );
-        Ra::Core::MeshConverter::convert( mesh, topologicalMesh );
-        Ra::Core::MeshConverter::convert( topologicalMesh, newMesh );
-        RA_UNIT_TEST( isSameMesh( mesh, newMesh ),
-                      "Conversion to topological cylinder mesh failed" );
-    }
+        topologicalMesh = TopologicalMesh( mesh );
+        newMesh = topologicalMesh.toTriangleMesh();
+        RA_UNIT_TEST( isSameMesh( mesh, newMesh ), "Conversion to topological cylinder mesh" );
 
-    template <typename SubdividerType>
-    void testSubdivision() {
-        TriangleMesh mesh;
-        TriangleMesh newMesh;
-        TopologicalMesh topologicalMesh;
+        mesh = Ra::Core::MeshUtils::makeBox();
+        topologicalMesh = TopologicalMesh( mesh );
 
-        // Generate input geometry
-        const int nbIter = 2;
-        const int gridSize = 1;
+        for ( TopologicalMesh::ConstVertexIter v_it = topologicalMesh.vertices_begin();
+              v_it != topologicalMesh.vertices_end(); ++v_it )
+        {
+            topologicalMesh.set_normal(
+                *v_it, TopologicalMesh::Normal( Scalar( 1. ), Scalar( 0. ), Scalar( 0. ) ) );
+        }
 
-        mesh = Ra::Core::MeshUtils::makePlaneGrid( gridSize, gridSize );
-        Ra::Core::MeshConverter::convert( mesh, topologicalMesh );
+        for ( TopologicalMesh::ConstVertexIter v_it = topologicalMesh.vertices_begin();
+              v_it != topologicalMesh.vertices_end(); ++v_it )
+        {
+            topologicalMesh.propagate_normal_to_halfedges( *v_it );
+        }
 
-        // Subdivide
-        SubdividerType subdivider;
-        subdivider.attach( topologicalMesh );
-        subdivider( nbIter );
-        subdivider.detach();
-        topologicalMesh.triangulate();
-        Ra::Core::MeshConverter::convert( topologicalMesh, newMesh );
-
-        RA_UNIT_TEST( newMesh.m_triangles.size() > 2 * nbIter * mesh.m_triangles.size(),
-                      "Conversion to topological cylinder mesh failed" );
-    }
-
-    template <typename DecimationModule>
-    void testDecimation() {
-
-        TriangleMesh mesh;
-        TriangleMesh newMesh;
-        TopologicalMesh topologicalMesh;
-
-        // Generate input geometry
-        const int nbIter = 2;
-        const int gridSize = 5;
-
-        mesh = Ra::Core::MeshUtils::makePlaneGrid( gridSize, gridSize );
-        Ra::Core::MeshConverter::convert( mesh, topologicalMesh );
-
-        // Decimate
-        Decimater decimater( topologicalMesh );
-        DecimationModule mod;
-        decimater.add( mod );
-        decimater.initialize();
-        decimater.decimate();
-        Ra::Core::MeshConverter::convert( topologicalMesh, newMesh );
-
-        RA_UNIT_TEST( newMesh.m_triangles.size() < 2 * nbIter * mesh.m_triangles.size(),
-                      "Conversion to topological cylinder mesh failed" );
+        {
+            newMesh = topologicalMesh.toTriangleMesh();
+            bool check1 = true;
+            bool check2 = true;
+            for ( auto n : newMesh.normals() )
+            {
+                if ( !areApproxEqual( n.dot( Vector3( Scalar( 1. ), Scalar( 0. ), Scalar( 0. ) ) ),
+                                      Scalar( 1. ) ) )
+                {
+                    check1 = false;
+                }
+                if ( n.dot( Vector3( Scalar( 0.5 ), Scalar( 0. ), Scalar( 0. ) ) ) > Scalar( 0.8 ) )
+                {
+                    check2 = false;
+                }
+            }
+            RA_UNIT_TEST( check1 && check2,
+                          "Set normal to topo vertex and apply them to halfedge" );
+        }
     }
 
     bool isSameMesh( TriangleMesh& meshOne, TriangleMesh& meshTwo ) {
@@ -115,6 +102,7 @@ class TopologicalMeshTests : public Test {
 
         // Check triangles
         std::vector<Ra::Core::Vector3> stackVertices;
+        std::vector<Ra::Core::Vector3> stackNormals;
 
         i = 0;
         while ( result && i < meshOne.m_triangles.size() )
@@ -124,6 +112,12 @@ class TopologicalMeshTests : public Test {
             stackVertices.push_back( meshOne.vertices()[meshOne.m_triangles[i][0]] );
             stackVertices.push_back( meshOne.vertices()[meshOne.m_triangles[i][1]] );
             stackVertices.push_back( meshOne.vertices()[meshOne.m_triangles[i][2]] );
+
+            stackNormals.clear();
+            stackNormals.push_back( meshOne.normals()[meshOne.m_triangles[i][0]] );
+            stackNormals.push_back( meshOne.normals()[meshOne.m_triangles[i][1]] );
+            stackNormals.push_back( meshOne.normals()[meshOne.m_triangles[i][2]] );
+
             for ( int j = 0; j < 3; ++j )
             {
                 it = find( stackVertices.begin(), stackVertices.end(),
@@ -131,23 +125,30 @@ class TopologicalMeshTests : public Test {
                 if ( it != stackVertices.end() )
                 {
                     stackVertices.erase( it );
-                }
-                else
+                } else
                 { result = false; }
             }
+
+            for ( int j = 0; j < 3; ++j )
+            {
+                it = find( stackNormals.begin(), stackNormals.end(),
+                           meshTwo.normals()[meshTwo.m_triangles[i][j]] );
+                if ( it != stackNormals.end() )
+                {
+                    stackNormals.erase( it );
+                } else
+                { result = false; }
+            }
+
             ++i;
         }
         return result;
     }
 
-    void run() override {
-        testCopyConsistency();
-        testSubdivision<Catmull>();
-        testSubdivision<Loop>();
-        testDecimation<HModQuadric>();
-    }
+    void run() override { testCopyConsistency(); }
 };
 RA_TEST_CLASS( TopologicalMeshTests );
+
 } // namespace RaTests
 
-#endif // RADIUM_CONVERT_TESTS_HPP_
+#endif

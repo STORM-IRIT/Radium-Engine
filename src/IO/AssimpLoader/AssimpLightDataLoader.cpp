@@ -46,7 +46,7 @@ void AssimpLightDataLoader::loadData( const aiScene* scene,
     {
         Asset::LightData* light = new Asset::LightData();
         loadLightData( scene, *( scene->mLights[lightId] ), *light );
-        data.push_back( std::unique_ptr<Asset::LightData>( light ) );
+        data.emplace_back( light  );
     }
 
     if ( m_verbose )

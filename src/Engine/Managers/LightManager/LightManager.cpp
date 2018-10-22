@@ -13,6 +13,9 @@
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/RadiumEngine.hpp>
 
+
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+
 namespace Ra {
 namespace Engine {
 
@@ -81,7 +84,19 @@ void LightManager::generateTasks( Core::TaskQueue* taskQueue, const Engine::Fram
 void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* filedata ) {
     std::vector<Asset::LightData*> lightData = filedata->getLightData();
     uint id = 0;
-    m_data->clear();
+
+    // If thereis some lights already in the manager, just remove from the manager the lights that belong to the system entity (e.g. the headlight)
+    // from the list of managed lights.
+    // Beware to not destroy the headlight component, that do not belong to this system, so that it could be added again
+    for (int i=0; i < m_data->size(); ) {
+        auto l = (*m_data)[i];
+        if (l->getEntity() == Ra::Engine::SystemEntity::getInstance()) {
+            m_data->remove(l);
+        } else {
+            ++i;
+        }
+    }
+
     for ( const auto& data : lightData )
     {
         std::string componentName = "LIGHT_" + entity->getName() + std::to_string( id++ );
@@ -125,7 +140,16 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
         case Asset::LightData::AREA_LIGHT:
         {
             // No arealight for now (see pbrplugin)
-            comp = nullptr;
+            // TODO : manage real area light. For the moment, transform them in point light using given position
+            auto thelight = new Engine::PointLight( entity, data->getName() );
+            thelight->setColor( data->m_color );
+            thelight->setPosition( data->m_arealight.position );
+            thelight->setAttenuation( data->m_arealight.attenuation.constant,
+                                      data->m_arealight.attenuation.linear,
+                                      data->m_arealight.attenuation.quadratic );
+            comp = thelight;
+
+            //comp = nullptr;
             break;
         }
         default:
@@ -143,21 +167,25 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
 }
 
 void LightManager::registerComponent( const Entity* entity, Component* component ) {
-    System::registerComponent(entity, component);
-    m_data->add(reinterpret_cast<Light *>(component));
+    System::registerComponent( entity, component );
+    m_data->add( reinterpret_cast<Light*>( component ) );
 }
 
 void LightManager::unregisterComponent( const Entity* entity, Component* component ) {
-    m_data->remove( reinterpret_cast<Light *>(component) );
-    System::unregisterComponent(entity, component);
-
+    System::unregisterComponent( entity, component );
+    m_data->remove( reinterpret_cast<Light*>( component ) );
 }
 
 void LightManager::unregisterAllComponents( const Entity* entity ) {
-    m_data->clear();
-    System::unregisterAllComponents(entity);
+    for ( const auto& comp : this->m_components )
+    {
+        if ( comp.first == entity )
+        {
+            m_data->remove( reinterpret_cast<Light*>( comp.second ) );
+        }
+    }
+    System::unregisterAllComponents( entity );
 }
 
-
-  } // namespace Engine
+} // namespace Engine
 } // namespace Ra

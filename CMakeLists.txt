@@ -27,7 +27,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 option(RADIUM_WITH_DOUBLE_PRECISION "Use double precision" OFF)
 option(RADIUM_WITH_OMP              "Use OpenMP" OFF)
 option(RADIUM_WITH_FANCY_GL         "Enable Fancy OpenGL effects" ON)
-option(RADIUM_WITH_TEXTURES         "Compile Radium enabling texture loading stuff" ON)
 option(RADIUM_WITH_PROFILING        "Enable functions profiling." OFF)
 option(RADIUM_WARNINGS_AS_ERRORS    "Treat compiler warning as errors" OFF)
 option(RADIUM_FORCE_ASSERTS         "Enable asserts regardless of build type" OFF)
@@ -36,6 +35,7 @@ option(RADIUM_TINYPLY_SUPPORT       "Enable TinyPly loader" ON)
 option(RADIUM_CAMERA_LOADER_SUPPORT "Enable Camera loader" ON)
 option(RADIUM_BUILD_APPS            "Choose to build or not radium applications" ON)
 option(RADIUM_FAST_MATH             "Enable Fast Math optimizations in Release Mode (ignored with MVSC)" OFF)
+option(RADIUM_USE_COTIRE            "Enable cotire precompiled headers" On)
 
 if ( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Debug )
@@ -74,6 +74,7 @@ endif()
 
 
 # Set the compiler flags.
+include(RadiumFunctions)
 include(CompileFlags)
 
 if ( NOT CMAKE_PREFIX_PATH )
@@ -120,6 +121,9 @@ list(APPEND RADIUM_INCLUDE_DIRS "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${A
 include(ConfigureRPath)
 
 set(RADIUM_LIBRARIES)
+
+include(cotire)
+
 # Radium libraries are set in RADIUM_SRC_DIR
 add_subdirectory(${RADIUM_SRC_DIR})
 #message(INFO " Radium Lib (general) ${RADIUM_LIBRARIES}")

@@ -18,7 +18,7 @@ inline void CameraData::setType( const CameraType& type ) {
     m_type = type;
 }
 
-inline Core::Matrix4 CameraData::getFrame() const {
+inline const Core::Matrix4& CameraData::getFrame() const {
     return m_frame;
 }
 

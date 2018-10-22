@@ -45,7 +45,7 @@ class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
     ///     Component* comp;    // Retrieve the component the way you want.
     ///                         // Since this method will often be used in a component,
     ///                         // just use this pointer.
-    ///     RenderObjectType type = RenderObjectType::Fancy; // For example
+    ///     RenderObjectType type = RenderObjectType::Geometry; // For example
     ///     // Retrieve an already created configuration, or create one (see ShaderConfiguration
     ///     docs). ShaderConfiguration config =
     ///     ShaderConfigurationFactory::getConfiguration("MyConfig"); Material* mat = new Material;
