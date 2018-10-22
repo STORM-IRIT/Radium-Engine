@@ -13,7 +13,6 @@
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/RadiumEngine.hpp>
 
-
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
 namespace Ra {
@@ -85,16 +84,18 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
     std::vector<Asset::LightData*> lightData = filedata->getLightData();
     uint id = 0;
 
-    // If thereis some lights already in the manager, just remove from the manager the lights that belong to the system entity (e.g. the headlight)
-    // from the list of managed lights.
-    // Beware to not destroy the headlight component, that do not belong to this system, so that it could be added again
-    for (int i=0; i < m_data->size(); ) {
-        auto l = (*m_data)[i];
-        if (l->getEntity() == Ra::Engine::SystemEntity::getInstance()) {
-            m_data->remove(l);
-        } else {
-            ++i;
-        }
+    // If thereis some lights already in the manager, just remove from the manager the lights that
+    // belong to the system entity (e.g. the headlight) from the list of managed lights. Beware to
+    // not destroy the headlight component, that do not belong to this system, so that it could be
+    // added again
+    for ( int i = 0; i < m_data->size(); )
+    {
+        auto l = ( *m_data )[i];
+        if ( l->getEntity() == Ra::Engine::SystemEntity::getInstance() )
+        {
+            m_data->remove( l );
+        } else
+        { ++i; }
     }
 
     for ( const auto& data : lightData )
@@ -140,7 +141,8 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
         case Asset::LightData::AREA_LIGHT:
         {
             // No arealight for now (see pbrplugin)
-            // TODO : manage real area light. For the moment, transform them in point light using given position
+            // TODO : manage real area light. For the moment, transform them in point light using
+            // given position
             auto thelight = new Engine::PointLight( entity, data->getName() );
             thelight->setColor( data->m_color );
             thelight->setPosition( data->m_arealight.position );
@@ -149,7 +151,7 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
                                       data->m_arealight.attenuation.quadratic );
             comp = thelight;
 
-            //comp = nullptr;
+            // comp = nullptr;
             break;
         }
         default:

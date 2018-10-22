@@ -190,8 +190,10 @@ void SkinningComponent::skin() {
     }
 }
 
-void uniformNormal( const Ra::Core::Vector3Array& p, const Ra::Core::VectorArray< Ra::Core::Triangle>& T,
-                    const std::vector<Ra::Core::Index>& duplicateTable, Ra::Core::Vector3Array& normal ) {
+void uniformNormal( const Ra::Core::Vector3Array& p,
+                    const Ra::Core::VectorArray<Ra::Core::Triangle>& T,
+                    const std::vector<Ra::Core::Index>& duplicateTable,
+                    Ra::Core::Vector3Array& normal ) {
     const uint N = p.size();
     normal.clear();
     normal.resize( N, Ra::Core::Vector3::Zero() );
@@ -236,8 +238,7 @@ void SkinningComponent::endSkinning() {
         vertices = m_frameData.m_currentPos;
 
         // FIXME: normals should be computed by the Skinning method!
-        uniformNormal( vertices, m_refData.m_referenceMesh.m_triangles,
-                       m_duplicatesMap, normals );
+        uniformNormal( vertices, m_refData.m_referenceMesh.m_triangles, m_duplicatesMap, normals );
 
         std::swap( m_frameData.m_previousPose, m_frameData.m_currentPose );
         std::swap( m_frameData.m_previousPos, m_frameData.m_currentPos );

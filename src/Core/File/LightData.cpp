@@ -17,9 +17,14 @@ LightData::LightData( const std::string& name, const LightType& type ) :
     m_frame( Core::Matrix4::Identity() ),
     m_type( type ) {}
 
-LightData::LightData( const LightData& data ) : AssetData(data), m_frame(data.m_frame), m_type(data.m_type), m_color(data.m_color) {
+LightData::LightData( const LightData& data ) :
+    AssetData( data ),
+    m_frame( data.m_frame ),
+    m_type( data.m_type ),
+    m_color( data.m_color ) {
 
-    switch (m_type) {
+    switch ( m_type )
+    {
     case POINT_LIGHT:
         m_pointlight = data.m_pointlight;
         break;
@@ -35,12 +40,10 @@ LightData::LightData( const LightData& data ) : AssetData(data), m_frame(data.m_
     default:
         break;
     }
-
 }
 
 /// DESTRUCTOR
 LightData::~LightData() {}
-
 
 } // namespace Asset
 } // namespace Ra

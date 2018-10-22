@@ -39,8 +39,7 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
     /// @param nbMeshVertices the number of single vertices.
     // FIXME: nbMeshVertices is needed only for the genereation of
     //        the skinning weights matrix.
-    void handleSkeletonLoading( const Ra::Asset::HandleData* data,
-                                uint nbMeshVertices );
+    void handleSkeletonLoading( const Ra::Asset::HandleData* data, uint nbMeshVertices );
 
     /// Create the animations from the given data.
     void handleAnimationLoading( const std::vector<Ra::Asset::AnimationData*> data );

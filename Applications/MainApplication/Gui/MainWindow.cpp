@@ -504,6 +504,7 @@ void MainWindow::exportCurrentMesh() {
         bool result = obj.save( filename, mesh );
         if ( result )
         {
+<<<<<<< HEAD
             LOG( logINFO ) << "Mesh from " << ro->getName() << " successfully exported to "
                            << filename;
         } else
@@ -555,6 +556,52 @@ void MainWindow::onGLInitialized() {
     std::shared_ptr<Engine::Renderer> e( new Engine::ForwardRenderer() );
     addRenderer( "Forward Renderer", e );
 }
+||||||| merged common ancestors
+            Engine::RadiumEngine::getInstance()->getEntityManager()->removeEntity(
+                e.m_entity->idx );
+        }
+    }
+
+    void MainWindow::resetScene() {
+        // To see why this call is important, please see deleteCurrentItem().
+        m_selectionManager->clearSelection();
+        Engine::RadiumEngine::getInstance()->getEntityManager()->deleteEntities();
+        m_viewer->resetCamera();
+    }
+
+    void MainWindow::fitCamera() {
+        m_viewer->fitCameraToScene(
+            Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getSceneAabb() );
+    }
+
+    void MainWindow::onGLInitialized() {
+        // set default renderer once OpenGL is configured
+        std::shared_ptr<Engine::Renderer> e( new Engine::ForwardRenderer() );
+        addRenderer( "Forward Renderer", e );
+    }
+    == == ==
+        = Engine::RadiumEngine::getInstance()->getEntityManager()->removeEntity( e.m_entity->idx );
+}
+}
+
+void MainWindow::resetScene() {
+    // To see why this call is important, please see deleteCurrentItem().
+    m_selectionManager->clear();
+    Engine::RadiumEngine::getInstance()->getEntityManager()->deleteEntities();
+    m_viewer->resetCamera();
+}
+
+void MainWindow::fitCamera() {
+    m_viewer->fitCameraToScene(
+        Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getSceneAabb() );
+}
+
+void MainWindow::onGLInitialized() {
+    // set default renderer once OpenGL is configured
+    std::shared_ptr<Engine::Renderer> e( new Engine::ForwardRenderer() );
+    addRenderer( "Forward Renderer", e );
+}
+>>>>>>> origin
 
 } // namespace Gui
 } // namespace Ra

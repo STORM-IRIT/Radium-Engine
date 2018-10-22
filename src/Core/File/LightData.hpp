@@ -20,15 +20,15 @@ class Light;
 
 namespace Asset {
 
-  /**
-   * Asset defining how lights must be passed to the Radium systems from a loader.
-   *
-   * Supported light type are :
-   *    Point light : a local, punctual, isotropic spherical light.
-   *    Spot light : a local, punctual, isotropic conical light.
-   *    Directional light : an infinite, isotropic light.
-   *    Area light : a local isotropic area light.
-   */
+/**
+ * Asset defining how lights must be passed to the Radium systems from a loader.
+ *
+ * Supported light type are :
+ *    Point light : a local, punctual, isotropic spherical light.
+ *    Spot light : a local, punctual, isotropic conical light.
+ *    Directional light : an infinite, isotropic light.
+ *    Area light : a local isotropic area light.
+ */
 class RA_CORE_API LightData : public AssetData {
 
   public:
@@ -56,7 +56,8 @@ class RA_CORE_API LightData : public AssetData {
             linear( l ),
             quadratic( q ) {}
     };
-    // TODO : allow to define other attenuation function such \max\left(0,1-\frac{\left|x\right|^2}{r^2}\right)^2
+    // TODO : allow to define other attenuation function such
+    // \max\left(0,1-\frac{\left|x\right|^2}{r^2}\right)^2
 
     /**
      * Light constructor.
@@ -66,7 +67,8 @@ class RA_CORE_API LightData : public AssetData {
 
     /**
      * Copy constructor.
-     * As a Light a a union like object, no default copy constructor could be generated. This will take care of copying the good members of the union.
+     * As a Light a a union like object, no default copy constructor could be generated. This will
+     * take care of copying the good members of the union.
      * @param data
      */
     LightData( const LightData& data );
@@ -76,10 +78,10 @@ class RA_CORE_API LightData : public AssetData {
 
     /**
      * Extension of of the AssetData interface so that we can modify an abcet afeter ts creation.
-     * This has no impact on the coherence of the LightData object and could be used without restriction.
+     * This has no impact on the coherence of the LightData object and could be used without
+     * restriction.
      */
     inline void setName( const std::string& name );
-
 
     /**
      * Acces to the local frame of the light.
@@ -93,66 +95,76 @@ class RA_CORE_API LightData : public AssetData {
      */
     inline void setFrame( const Core::Matrix4& frame );
 
-/**
- * \defgroup HelperSetters Helper functions to set the various light parameters.
- *
- * @{
- */
+    /**
+     * \defgroup HelperSetters Helper functions to set the various light parameters.
+     *
+     * @{
+     */
     /**
      * Construct a directional light.
      * A directional light is only defined by its color and its lighting direction.
      * No attenuation on directional.
-     *  \note The object on which this method is called is unconditionally promoted to ``DIRECTIONAL_LIGHT`` light, whatever
-     *  it was before the call and only the directional light part of the union is consistent after the call
+     *  \note The object on which this method is called is unconditionally promoted to
+     * ``DIRECTIONAL_LIGHT`` light, whatever it was before the call and only the directional light
+     * part of the union is consistent after the call
      */
-    inline void setLight(const Core::Color &color, const Core::Vector3 &direction);
+    inline void setLight( const Core::Color& color, const Core::Vector3& direction );
 
     /**
-    * Construct a point light.
-    * A point light is defined by its color, its position and its attenuation.
-    *  \note The object on which this method is called is unconditionally promoted to ``POINT_LIGHT`` light, whatever
-    *  it was before the call and only the directional light part of the union is consistent after the call
-    */
-    inline void setLight(const Core::Color &color, const Core::Vector3 &position, LightAttenuation attenuation);
+     * Construct a point light.
+     * A point light is defined by its color, its position and its attenuation.
+     *  \note The object on which this method is called is unconditionally promoted to
+     * ``POINT_LIGHT`` light, whatever it was before the call and only the directional light part of
+     * the union is consistent after the call
+     */
+    inline void setLight( const Core::Color& color, const Core::Vector3& position,
+                          LightAttenuation attenuation );
 
     /**
-    * Construct a spot light.
-    * A spot light is defined by its color, its position, the cone axis and light distribution
-    * (constant inside inangle, quadratically deacreasing toward 0 fron inAngle to ouAngle) and its attenuation.
-    *  \note The object on which this method is called is unconditionally promoted to ``SPOT_LIGHT`` light, whatever
-    *  it was before the call and only the directional light part of the union is consistent after the call
-    */
-    inline void setLight(const Core::Color &color, const Core::Vector3 &position, const Core::Vector3 &direction,
-                         Scalar inAngle, Scalar outAngle, LightAttenuation attenuation);
+     * Construct a spot light.
+     * A spot light is defined by its color, its position, the cone axis and light distribution
+     * (constant inside inangle, quadratically deacreasing toward 0 fron inAngle to ouAngle) and its
+     * attenuation. \note The object on which this method is called is unconditionally promoted to
+     * ``SPOT_LIGHT`` light, whatever it was before the call and only the directional light part of
+     * the union is consistent after the call
+     */
+    inline void setLight( const Core::Color& color, const Core::Vector3& position,
+                          const Core::Vector3& direction, Scalar inAngle, Scalar outAngle,
+                          LightAttenuation attenuation );
 
     /**
      * Construct a area light.
-     * An area light, (isotropic with constant emision defined by its color) is approximated by its center and
-     * the covariance matrices modelling the spatial extent as well as the elliptical distribution of normals.
-     * \note The object on which this method is called is unconditionally promoted to ``AREA_LIGHT`` light, whatever
-     *  it was before the call and only the directional light part of the union is consistent after the call
+     * An area light, (isotropic with constant emision defined by its color) is approximated by its
+     * center and the covariance matrices modelling the spatial extent as well as the elliptical
+     * distribution of normals. \note The object on which this method is called is unconditionally
+     * promoted to ``AREA_LIGHT`` light, whatever it was before the call and only the directional
+     * light part of the union is consistent after the call
      */
-    inline void setLight( const Core::Color &color, const Core::Vector3 &cog, const Core::Matrix3 &spatialCov,
-                          const Core::Matrix3 &normalCov, LightAttenuation attenuation );
-/**@}*/
+    inline void setLight( const Core::Color& color, const Core::Vector3& cog,
+                          const Core::Matrix3& spatialCov, const Core::Matrix3& normalCov,
+                          LightAttenuation attenuation );
+    /**@}*/
 
-/**
- * \defgroup TypeOperators Helper functions to manage the type of the light.
- * @{
- */
     /**
-    * Access to the type of the object
-    */
+     * \defgroup TypeOperators Helper functions to manage the type of the light.
+     * @{
+     */
+    /**
+     * Access to the type of the object
+     */
     inline LightType getType() const;
 
     /**
-    * Modify the type of a light asset after its creation.
-    * \note Beware of the risk of data inconsistancy when using the operator. As a LightData object is a union like
-    * object, caller of this method must explicitely ensure a consistancy invariant over its object as the LightData
-    * class could not ensure such an invariant when this method is called.
-    * @param type the type to set.
-    */
-    [[deprecated( "Do not change the type of a LightData, use setLight that ensures data coherency." )]] inline void setType( const LightType& type );
+     * Modify the type of a light asset after its creation.
+     * \note Beware of the risk of data inconsistancy when using the operator. As a LightData object
+     * is a union like object, caller of this method must explicitely ensure a consistancy invariant
+     * over its object as the LightData class could not ensure such an invariant when this method is
+     * called.
+     * @param type the type to set.
+     */
+    [[deprecated( "Do not change the type of a LightData, use setLight that ensures data "
+                  "coherency." )]] inline void
+    setType( const LightType& type );
 
     /**
      * Returns true if the light is a PointLight
@@ -160,21 +172,21 @@ class RA_CORE_API LightData : public AssetData {
     inline bool isPointLight() const;
 
     /**
-    * Returns true if the light is a SpotLight
-    */
+     * Returns true if the light is a SpotLight
+     */
     inline bool isSpotLight() const;
 
     /**
-    * Returns true if the light is a DirectionalLight
-    */
+     * Returns true if the light is a DirectionalLight
+     */
     inline bool isDirectionalLight() const;
 
     /**
-    * Returns true if the light is an AreaLight
-    */
+     * Returns true if the light is an AreaLight
+     */
     inline bool isAreaLight() const;
 
-/**@}*/
+    /**@}*/
 
     /**
      * For debugging purpose, prints out the formated content of the LightData object.

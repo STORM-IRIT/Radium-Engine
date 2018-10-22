@@ -66,6 +66,7 @@ std::shared_ptr<RenderObject> RenderObjectManager::getRenderObject( const Core::
     return m_renderObjects.at( index );
 }
 
+<<<<<<< HEAD
 void RenderObjectManager::getRenderObjects(
     std::vector<std::shared_ptr<RenderObject>>& renderObjectsOut ) const {
     // Take the mutex
@@ -75,6 +76,27 @@ void RenderObjectManager::getRenderObjects(
     renderObjectsOut.resize( m_renderObjects.size() );
     std::copy( m_renderObjects.begin(), m_renderObjects.end(), renderObjectsOut.begin() );
 }
+||||||| merged common ancestors
+void RenderObjectManager::getRenderObjects(
+    std::vector<std::shared_ptr<RenderObject>>& renderObjectsOut ) const {
+    // Take the mutex
+    std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
+
+    // Copy each element in m_renderObjects
+    for ( uint i = 0; i < m_renderObjects.size(); ++i )
+    {
+        renderObjectsOut.push_back( m_renderObjects.at( i ) );
+    }
+}
+== == == = void RenderObjectManager::getRenderObjects( std::vector<std::shared_ptr<RenderObject>> &
+                                                       renderObjectsOut ) const {
+    // Take the mutex
+    std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
+    renderObjectsOut.resize( m_renderObjects.size() );
+    // Copy each element in m_renderObjects
+    std::copy( m_renderObjects.begin(), m_renderObjects.end(), renderObjectsOut.begin() );
+}
+>>>>>>> origin
 
 void RenderObjectManager::getRenderObjectsByType(
     std::vector<std::shared_ptr<RenderObject>>& objectsOut, const RenderObjectType& type ) const {

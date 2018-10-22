@@ -48,6 +48,36 @@ before_install:
   - which $CXX
   - which $CC
   - $CXX --version
+<<<<<<< HEAD
+||||||| merged common ancestors
+
+  ############################################################################
+  # Install a recent CMake
+  ############################################################################
+  - |
+    if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
+      # remove existing cmake install
+      sudo apt-get remove -qq cmake cmake-data
+
+      CMAKE_URL="https://www.cmake.org/files/v3.3/cmake-3.3.1-Linux-x86_64.tar.gz"
+      mkdir cmake3.3 && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake3.3
+      export PATH=${PWD}/cmake3.3/bin:${PATH}
+    fi
+=======
+
+  ############################################################################
+  # Install a recent CMake
+  ############################################################################
+  #- |
+  #  if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
+  #    # remove existing cmake install
+  #    sudo apt-get remove -qq cmake cmake-data
+  #
+  #    CMAKE_URL="https://www.cmake.org/files/v3.3/cmake-3.3.1-Linux-x86_64.tar.gz"
+  #    mkdir cmake3.3 && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake3.3
+  #    export PATH=${PWD}/cmake3.3/bin:${PATH}
+  #  fi
+>>>>>>> origin
   - cmake --version
 
   ############################################################################
@@ -55,10 +85,32 @@ before_install:
   ############################################################################
   - |
     if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+<<<<<<< HEAD
       sudo add-apt-repository --yes ppa:beineri/opt-qt-5.10.1-trusty
       sudo apt-get --yes update
       sudo apt-get --yes install qt510-meta-minimal qt510svg
       source /opt/qt510/bin/qt510-env.sh # see https://launchpad.net/~beineri/+archive/ubuntu/opt-qt-5.10.1-trusty
+||||||| merged common ancestors
+      if [ ! -d "~/Qt/5.10.0/gcc_64" ]; then
+        wget http://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run ;
+        chmod a+x ./qt-unified-linux-x64-online.run ;
+        export QT_QPA_PLATFORM=minimal ;
+        travis_wait 60 ./qt-unified-linux-x64-online.run --script .ci/qt-installer-noninteractive.qs --no-force-installations --verbose ;
+      fi;
+=======
+      sudo add-apt-repository --yes ppa:beineri/opt-qt-5.10.1-trusty
+      sudo apt-get --yes update
+      sudo apt-get --yes install qt510-meta-minimal qt510svg
+      source /opt/qt510/bin/qt510-env.sh # see https://launchpad.net/~beineri/+archive/ubuntu/opt-qt-5.10.1-trusty
+
+
+      #if [ ! -d "~/Qt/5.10.1/gcc_64" ]; then
+      #  # wget http://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run ;
+      #  TRAVIS_URL="https://download.qt.io/official_releases/qt/5.10/5.10.1/qt-opensource-linux-x64-5.10.1.run"
+      #  export QT_QPA_PLATFORM=minimal ;
+      #  travis_retry wget ${TRAVIS_URL} &&  chmod a+x ./qt-opensource-linux-x64-5.10.1.run && ./qt-opensource-linux-x64-5.10.1.run --script .ci/qt-installer-noninteractive.qs --no-force-installations --verbose ;
+      #fi;
+>>>>>>> origin
     fi;
 
 
@@ -104,12 +156,17 @@ matrix:
         apt:
           packages:
             - g++-7
+<<<<<<< HEAD
             - cmake3
             - doxygen
             - doxygen-doc
             - doxygen-latex
             - doxygen-gui
             - graphviz
+||||||| merged common ancestors
+=======
+            - cmake3
+>>>>>>> origin
           sources:
             - ubuntu-toolchain-r-test
 

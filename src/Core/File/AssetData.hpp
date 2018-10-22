@@ -19,7 +19,7 @@ class RA_CORE_API AssetData {
     AssetData( const std::string& name ) : m_name( name ) {}
 
     /// Copy constructor. Default here
-    AssetData (const AssetData &other) = default;
+    AssetData( const AssetData& other ) = default;
 
     /// Simple delete operator
     virtual ~AssetData() {}

@@ -74,12 +74,12 @@ class RA_GUIBASE_API CameraInterface : public QObject {
 
     /**
      * Set the Engine::Camera used to the default one.
-     * This method allow to have a quick fix of issue #378 before switching to Radium v2 development.
-     * \todo have a cleaner camera management and control in the GuiBase Radium library.
-     * GuiBase Camera interface Must define a clean interface between the application and the Engine.
-     * This method is similar to the getCameraFromViewer, it should not be there ...
+     * This method allow to have a quick fix of issue #378 before switching to Radium v2
+     * development. \todo have a cleaner camera management and control in the GuiBase Radium
+     * library. GuiBase Camera interface Must define a clean interface between the application and
+     * the Engine. This method is similar to the getCameraFromViewer, it should not be there ...
      */
-     void resetToDefaultCamera();
+    void resetToDefaultCamera();
 
     /// Set the Light attached to the camera.
     /// \note CameraInterface doesn't have ownership.
