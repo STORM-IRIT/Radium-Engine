@@ -1,3 +1,5 @@
+#ifndef RADIUMENGINE_SUBDIVIDERUTILS_H
+#define RADIUMENGINE_SUBDIVIDERUTILS_H
 
 #include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
 
@@ -274,3 +276,5 @@ inline void interpolateAllPropsOnFaces( TopologicalMesh& mesh,
 
 } // namespace Core
 } // namespace Ra
+
+#endif // RADIUMENGINE_SUBDIVIDERUTILS_H
