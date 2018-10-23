@@ -106,7 +106,7 @@ bool VolumeConstraint::initConstraint( SimulationModel& model, const unsigned in
     const Ra::Core::Vector3& p2 = pd.getPosition0( particle3 );
     const Ra::Core::Vector3& p3 = pd.getPosition0( particle4 );
 
-    m_restVolume = fabs( ( 1.0f / 3.0f ) * ( p3 - p0 ).dot( ( p2 - p0 ).cross( p1 - p0 ) ) );
+    m_restVolume = fabs( ( 1.0f / 6.0f ) * ( p3 - p0 ).dot( ( p2 - p0 ).cross( p1 - p0 ) ) );
 
     return true;
 }
