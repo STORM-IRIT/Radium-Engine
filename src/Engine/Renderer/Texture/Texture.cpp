@@ -16,7 +16,7 @@ void Engine::Texture::Generate( uint w, GLenum format, void* data ) {
         m_texture = globjects::Texture::create( m_target );
     }
 
-    m_texture->image1D( 0, internalFormat, w, 0, format, GL_UNSIGNED_BYTE, data );
+    m_texture->image1D( 0, internalFormat, w, 0, format, dataType, data );
 
     updateParameters();
 
