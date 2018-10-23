@@ -50,7 +50,8 @@ void Gui::CameraInterface::resetToDefaultCamera() {
         m_camera = static_cast<Engine::Camera*>( ( *it ).get() );
         m_camera->resize( w, h );
         m_camera->show( false );
-    } else
+
+    else
     {
         LOG( logWARNING )
             << "A living camera is required. The application might now behave unexpectedly.";

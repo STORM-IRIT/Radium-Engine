@@ -32,6 +32,7 @@ TextureData& TextureManager::addTexture( const std::string& name, int width, int
 }
 
 TextureData TextureManager::loadTexture( const std::string& filename ){
+#if 0
     TextureData texData;
     texData.name = filename;
 
@@ -96,7 +97,72 @@ TextureData TextureManager::loadTexture( const std::string& filename ){
     texData.data = data;
     texData.type = GL_UNSIGNED_BYTE;
     return texData;
+#else
+    TextureData texData;
+    texData.name = filename;
 
+    stbi_set_flip_vertically_on_load( true );
+
+    int  n;
+    float* data = stbi_loadf( filename.c_str(), &(texData.width), &(texData.height), &n, 0 );
+
+    if ( !data )
+    {
+        LOG( logERROR ) << "Something went wrong when loading image \"" << filename << "\".";
+        texData.width = texData.height = -1;
+        return texData;
+    }
+
+    switch ( n )
+    {
+    case 1:
+    {
+        texData.format = GL_RED;
+        texData.internalFormat = GL_R8;
+    }
+        break;
+
+    case 2:
+    {
+        texData.format = GL_RG;
+        texData.internalFormat = GL_RG8;
+    }
+        break;
+
+    case 3:
+    {
+        texData.format = GL_RGB;
+        texData.internalFormat = GL_RGB8;
+    }
+        break;
+
+    case 4:
+    {
+        texData.format = GL_RGBA;
+        texData.internalFormat = GL_RGBA8;
+    }
+        break;
+    default:
+    {
+        texData.format = GL_RGBA;
+        texData.internalFormat = GL_RGBA8;
+    }
+        break;
+    }
+
+    if ( m_verbose )
+    {
+        LOG( logINFO ) << "Image stats (" << filename << ") :\n"
+                       << "\tPixels : " << n << std::endl
+                       << "\tFormat : " << texData.format <<  std::endl
+                       << "\tSize   : " << texData.width << ", " << texData.height;
+    }
+
+    CORE_ASSERT( data, "Data is null" );
+    texData.data = data;
+    texData.type = GL_FLOAT;
+    return texData;
+#endif
 }
 
 Texture* TextureManager::getOrLoadTexture( const TextureData& data ) {

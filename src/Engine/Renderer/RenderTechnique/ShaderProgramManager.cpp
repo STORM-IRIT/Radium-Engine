@@ -27,7 +27,7 @@ void ShaderProgramManager::initialize() {
     // Create named strings which correspond to shader files that you want to use in shaders's
     // includes. NOTE: if you want to add a named string to handle a new shader include file, be
     // SURE that the name (first parameter) begin with a "/", otherwise it won't work !
-
+    // FIXME : are these initialization required here ? They will be better in Engine::Initialize ....
     m_files.push_back( globjects::File::create( "Shaders/Helpers.glsl" ) );
     m_files.push_back( globjects::File::create( "Shaders/Structs.glsl" ) );
     m_files.push_back( globjects::File::create( "Shaders/Tonemap.glsl" ) );
