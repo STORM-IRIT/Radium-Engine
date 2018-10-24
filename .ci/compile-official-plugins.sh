@@ -1,13 +1,15 @@
+#!/bin/bash
+
 declare -a repositories=(
-	"https://github.com/STORM-IRIT/Radium-PluginExample.git"
-	)
+    "https://github.com/STORM-IRIT/Radium-PluginExample.git"
+    )
 
 # \param $1 input a repository url
-function getRepositoryName()
+getRepositoryName ()
 {
-	local mails=$(echo $1 | tr "/" "\n")
-	local supername="${mails[-1]}"
-	return "${supername::-4}"
+    local spliturl=($(echo $1 | tr '/' "\n"))
+    local supername="${spliturl[${#spliturl[@]}-1]}"
+    echo ${supername: : -4}
 }
 
 # Stop on error
@@ -21,7 +23,7 @@ cd plugins
  # Loop over plugins and: fetch, compile
 for repoUrl in "${repositories[@]}"
 do
-   local repoName=getRepositoryName $repoUrl
+   repoName=$(getRepositoryName "$repoUrl")
    echo "Processing $repoName"
 
    # fetch repo

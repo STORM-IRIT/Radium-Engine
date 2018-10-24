@@ -4,8 +4,10 @@ sudo: true
 script:
   - make -j 4
 
- - if [ "$TRAVIS_EVENT_TYPE" = "cron" ] ;
-        then ./ci/compile-official-plugins.sh ;
+  - |
+    if [ "$TRAVIS_EVENT_TYPE" = "cron" ] ; then
+        cd $CHECKOUT_PATH
+        .ci/compile-official-plugins.sh
         export BUILD_DOC="Off"
     else
         if [ "$BUILD_DOC" = "On" ]; then
