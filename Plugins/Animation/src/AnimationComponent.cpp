@@ -19,6 +19,7 @@
 #include <Drawing/SkeletonBoneDrawable.hpp>
 
 using Ra::Core::Animation::Animation;
+using Ra::Core::Animation::Handle;
 using Ra::Core::Animation::RefPose;
 using Ra::Core::Animation::Skeleton;
 using Ra::Core::Animation::WeightMatrix;
@@ -41,7 +42,7 @@ AnimationComponent::~AnimationComponent() {}
 
 void AnimationComponent::setSkeleton( const Ra::Core::Animation::Skeleton& skel ) {
     m_skel = skel;
-    m_refPose = skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL );
+    m_refPose = skel.getPose( Handle::SpaceType::MODEL );
     setupSkeletonDisplay();
 }
 
@@ -80,7 +81,7 @@ void AnimationComponent::update( Scalar dt ) {
             m_animations[m_animationID].getPose( m_animationTime );
 
         // update the pose of the skeleton
-        m_skel.setPose( currentPose, Ra::Core::Animation::Handle::SpaceType::LOCAL );
+        m_skel.setPose( currentPose, Handle::SpaceType::LOCAL );
     }
 
     // update the render objects
@@ -135,7 +136,7 @@ void AnimationComponent::printSkeleton( const Ra::Core::Animation::Skeleton& ske
 
 void AnimationComponent::reset() {
     m_animationTime = 0;
-    m_skel.setPose( m_refPose, Ra::Core::Animation::Handle::SpaceType::MODEL );
+    m_skel.setPose( m_refPose, Handle::SpaceType::MODEL );
     for ( auto& bone : m_boneDrawables )
     {
         bone->update();
@@ -159,7 +160,7 @@ void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* dat
     Ra::Asset::createSkeleton( *data, m_skel, indexTable );
 
     createWeightMatrix( data, indexTable, nbMeshVertices );
-    m_refPose = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL );
+    m_refPose = m_skel.getPose( Handle::SpaceType::MODEL );
 
     setupSkeletonDisplay();
     setupIO( m_contentName );
@@ -331,7 +332,7 @@ Ra::Core::Transform AnimationComponent::getTransform( Ra::Core::Index roIdx ) co
         } );
 
     const uint boneIdx = ( *bonePos )->getBoneIndex();
-    return m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::MODEL )[boneIdx];
+    return m_skel.getPose( Handle::SpaceType::MODEL )[boneIdx];
 }
 
 void AnimationComponent::setTransform( Ra::Core::Index roIdx,
@@ -342,14 +343,31 @@ void AnimationComponent::setTransform( Ra::Core::Index roIdx,
             return bone->getRenderObjectIndex() == roIdx;
         } );
 
+    // get bone data
     const uint boneIdx = ( *bonePos )->getBoneIndex();
-    const Ra::Core::Transform& TBoneModel =
-        m_skel.getTransform( boneIdx, Ra::Core::Animation::Handle::SpaceType::MODEL );
-    const Ra::Core::Transform& TBoneLocal =
-        m_skel.getTransform( boneIdx, Ra::Core::Animation::Handle::SpaceType::LOCAL );
-    auto diff = TBoneModel.inverse() * transform;
-    m_skel.setTransform( boneIdx, TBoneLocal * diff,
-                         Ra::Core::Animation::Handle::SpaceType::LOCAL );
+    const auto& TBoneModel = m_skel.getTransform( boneIdx, Handle::SpaceType::MODEL );
+    const auto& TBoneLocal = m_skel.getTransform( boneIdx, Handle::SpaceType::LOCAL );
+
+    // turn bone translation into rotation for parent
+    if ( !m_skel.m_graph.isRoot( boneIdx ) )
+    {
+        const uint pBoneIdx = m_skel.m_graph.m_parent[boneIdx];
+        const auto& pTBoneModel = m_skel.getTransform( pBoneIdx, Handle::SpaceType::MODEL );
+
+        Ra::Core::Vector3 A;
+        Ra::Core::Vector3 B;
+        m_skel.getBonePoints( pBoneIdx, A, B );
+        Ra::Core::Vector3 B_ = transform.translation();
+        auto q = Ra::Core::Quaternion::FromTwoVectors( ( B - A ), ( B_ - A ) );
+        Ra::Core::Transform R( q );
+        R.pretranslate( A );
+        R.translate( -A );
+        m_skel.setTransform( pBoneIdx, R * pTBoneModel, Handle::SpaceType::MODEL );
+    }
+
+    // update bone local transform
+    m_skel.setTransform( boneIdx, TBoneLocal * TBoneModel.inverse() * transform,
+                         Handle::SpaceType::LOCAL );
 }
 
 uint AnimationComponent::getBoneIdx( Ra::Core::Index index ) const {
@@ -404,7 +422,7 @@ void AnimationComponent::cacheFrame( const std::string& dir, int frame ) const {
     file.write( (const char*)&m_animationTime, sizeof( Scalar ) );
     file.write( (const char*)&m_speed, sizeof( Scalar ) );
     file.write( (const char*)&m_slowMo, sizeof( bool ) );
-    const auto& pose = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::LOCAL );
+    const auto& pose = m_skel.getPose( Handle::SpaceType::LOCAL );
     file.write( (const char*)pose.data(), sizeof( Ra::Core::Transform ) * pose.size() );
     LOG( logINFO ) << "Saving anim data at time: " << m_animationTime;
 }
@@ -421,9 +439,9 @@ bool AnimationComponent::restoreFrame( const std::string& dir, int frame ) {
     file.read( (char*)&m_animationTime, sizeof( Scalar ) );
     file.read( (char*)&m_speed, sizeof( Scalar ) );
     file.read( (char*)&m_slowMo, sizeof( bool ) );
-    auto pose = m_skel.getPose( Ra::Core::Animation::Handle::SpaceType::LOCAL );
+    auto pose = m_skel.getPose( Handle::SpaceType::LOCAL );
     file.read( (char*)pose.data(), sizeof( Ra::Core::Transform ) * pose.size() );
-    m_skel.setPose( pose, Ra::Core::Animation::Handle::SpaceType::LOCAL );
+    m_skel.setPose( pose, Handle::SpaceType::LOCAL );
 
     // update the render objects
     for ( auto& bone : m_boneDrawables )
