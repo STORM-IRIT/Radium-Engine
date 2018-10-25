@@ -1,7 +1,11 @@
-project(SkinningPlugin)
+project(PositionBasedSkinning)
 
 cmake_minimum_required(VERSION 2.8.11)
-add_subdirectory(PositionBasedSkinning)
+add_subdirectory(libPBD)
+
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../CMakeModules)
+
+
 if (APPLE)
     cmake_policy(SET CMP0042 NEW)
     # RPATH settings on macOS do not affect install_name.
@@ -43,10 +47,10 @@ file( GLOB_RECURSE inlines src/*.inl )
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 add_definitions( ${Qt5Core_DEFINITIONS} )
-add_definitions( ${Qt5Widges_DEFINITIONS} )
-add_definitions( ${Qt5OpenGL_DEFINITIONS} )
+add_definitions( ${Qt5Widgets_DEFINITIONS} )
 
 include_directories(
     src/
@@ -54,17 +58,22 @@ include_directories(
     ${RADIUM_INCLUDE_DIRS}
     )
 
-add_library( Skinning SHARED ${sources} ${headers} ${inlines} )
-message(INFO " Skinning : dependencies are ${RADIUM_LIBRARIES}")
-add_dependencies( Skinning ${RADIUM_LIBRARIES} )
+# Our library project uses these sources and headers.
+add_library(
+    PositionBasedSkinning MODULE
+    ${sources}
+    ${headers}
+    ${inlines}
+    ${app_uis})
 
-target_compile_definitions( Skinning PRIVATE "-DSkinning_EXPORTS" )
+target_compile_definitions(PositionBasedSkinning PRIVATE "-DPositionBasedSkinning_EXPORTS")
 
-set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets )
-target_link_libraries( Skinning
-                       ${Qt5_LIBRARIES}
-                       ${RADIUM_LIBRARIES}
-                       ${GLBINDING_LIBRARIES}           # Radium dep
-                     )
-
+target_link_libraries(
+                   PositionBasedSkinning
+                   ${RA_CORE_LIB}
+                   ${RA_ENGINE_LIB}
+                   ${RA_GUIBASE_LIB}
+                   ${Qt5Core_LIBRARIES}
+                   ${Qt5Widgets_LIBRARIES}
+                )
 

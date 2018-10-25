@@ -14,7 +14,7 @@
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
-#include "PositionBasedSkinning/PBS.hpp"
+#include "PositionBasedSkinning/src/PBS.hpp"
 
 namespace SkinningPlugin {
 

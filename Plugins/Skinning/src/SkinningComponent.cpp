@@ -4,7 +4,7 @@
 #include <Core/Geometry/Normal/Normal.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 
-#include "PositionBasedSkinning/PBS.hpp"
+#include "../PositionBasedSkinning/src/PBS.hpp"
 #include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
 #include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
 #include <Core/Animation/Skinning/RotationCenterSkinning.hpp>
@@ -181,7 +181,9 @@ void SkinningComponent::skin() {
                     m_refData.m_weights, m_refData.m_CoR, m_frameData.m_currentPos );
                 break;
             case PBS:
-                m_PBS.compute( skel, m_frameData.m_refToCurrentRelPose, m_frameData.m_currentPos );
+                m_PBS.compute( skel, m_refData.m_referenceMesh.vertices(),
+                               m_frameData.m_refToCurrentRelPose, m_refData.m_weights,
+                               m_frameData.m_currentPos );
                 break;
             }
             Ra::Core::Animation::computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights,
@@ -324,7 +326,8 @@ void SkinningComponent::setupSkinningType( SkinningType type ) {
         }
         break;
     case PBS:
-        m_PBS.compute( m_skeletonGetter(), m_frameData.m_refToCurrentRelPose,
+        m_PBS.compute( m_skeletonGetter(), m_refData.m_referenceMesh.vertices(),
+                       m_frameData.m_refToCurrentRelPose, m_refData.m_weights,
                        m_frameData.m_currentPos );
         break;
     }

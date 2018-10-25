@@ -4,8 +4,9 @@
 #endif
 #include "PBS.hpp"
 #include "../src/Engine/Managers/SystemDisplay/SystemDisplay.hpp"
-#include "Constraints.h"
-#include "TimeManager.h"
+#include "libPBD/Constraints.h"
+#include "libPBD/TimeManager.h"
+#include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
 #include <QApplication>
 #include <QMessageBox>
 #include <float.h>
@@ -166,12 +167,22 @@ void PBS::addConstraint_volume() {
     }
 }
 //-----------------------------------------------------------------------------------------------------------
-void PBS::compute( const Animation::Skeleton* skeleton, const Animation::Pose& pose,
-                   Ra::Core::Vector3Array& outMesh ) {
+void PBS::linearBlendSkinning2TetMesh( const Animation::Pose& pose, ParticleData& pd ) {
+    pd.resetCurrentPositions();
+    //  Ra::Core::Animation::linearBlendSkinning( pd.getPosition0(),
+    //                                           pose,
+    //                                           m_weightParticles,
+    //                                           pd. );
+    //
+}
+void PBS::compute( const Animation::Skeleton* skeleton, const Vector3Array& inMesh,
+                   const Animation::Pose& pose, const Animation::WeightMatrix weight,
+                   Vector3Array& outMesh ) {
+
     if ( m_volumetricMeshValid )
     {
         ParticleData& pd = m_model.getParticles();
-        linearBlendSkinning( pose, pd );
+        //   linearBlendSkinning2TetMesh(pose, inMesh, weight, pd );
         step( skeleton, pd );
         updateVertices( outMesh );
         /*for (auto i = 0; i < pd.size(); ++i)
@@ -183,23 +194,6 @@ void PBS::compute( const Animation::Skeleton* skeleton, const Animation::Pose& p
         QMessageBox messageBox;
         messageBox.critical( 0, "Tetrahedral Mesh", " Tetrahedral mesh must be loaded first!" );
         messageBox.setFixedSize( 500, 200 );
-    }
-}
-void PBS::linearBlendSkinning( const Animation::Pose& pose, ParticleData& pd ) {
-    pd.resetCurrentPositions();
-    for ( int k = 0; k < m_weightParticles.outerSize(); ++k )
-    {
-        const int nonZero = m_weightParticles.col( k ).nonZeros();
-        Animation::WeightMatrix::InnerIterator it0( m_weightParticles, k );
-#pragma omp parallel for
-        for ( int nz = 0; nz < nonZero; ++nz )
-        {
-            Animation::WeightMatrix::InnerIterator it = it0 + Eigen::Index( nz );
-            const uint i = it.row();
-            const uint j = it.col();
-            const Scalar w = it.value();
-            pd.getPosition( i ) += w * ( pose[j] * pd.getPosition0( i ) );
-        }
     }
 }
 void PBS::clearAccelerations( ParticleData& pd ) {
