@@ -2,7 +2,8 @@
 
 declare -a repositories=(
     "https://github.com/STORM-IRIT/Radium-PluginExample.git"
-    "https://github.com/STORM-IRIT/Radium-NanoGUIApp.git"
+#    "https://github.com/STORM-IRIT/Radium-NanoGUIApp.git"
+#    "https://github.com/STORM-IRIT/Radium-AppExample.git"
     )
 
 # \param $1 input a repository url
@@ -41,8 +42,8 @@ do
    cd build
 
    # \FIXME the CMAKE_MODULE_PATH needs to be updated once the installation procedure is working
-   #cmake .. -DCMAKE_MODULE_PATH=$CHECKOUT_PATH/Radium-Engine/cmake-DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_PREFIX_PATH=${PREFIX_PATH} 
-   # make -j 4
+   cmake .. -DCMAKE_MODULE_PATH=$CHECKOUT_PATH/cmake -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_PREFIX_PATH=${PREFIX_PATH}
+   make -j 4
 
    echo "Plugin $repoName done"
 done
