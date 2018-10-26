@@ -5,8 +5,7 @@ script:
   - make -j 4
 
   - |
-    # if [ "$TRAVIS_EVENT_TYPE" = "cron" ] ; then
-    if [ "cron" = "cron" ] ; then
+    if [ "$TRAVIS_EVENT_TYPE" = "cron" ] ; then
         cd $CHECKOUT_PATH
         export BUILD_DOC="Off"
         if ! .ci/compile-official-plugins.sh ; then
