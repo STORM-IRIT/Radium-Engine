@@ -2,14 +2,15 @@
 
 declare -a repositories=(
     "https://github.com/STORM-IRIT/Radium-PluginExample.git"
+    "https://github.com/STORM-IRIT/Radium-NanoGUIApp.git"
     )
 
 # \param $1 input a repository url
 getRepositoryName ()
 {
-    local spliturl=($(echo $1 | tr '/' "\n"))
-    local supername="${spliturl[${#spliturl[@]}-1]}"
-    echo ${supername: : -4}
+    local spliturl=($(echo $1 | tr '/' "\n")) # split by /
+    local supername="${spliturl[${#spliturl[@]}-1]}" # get name.git
+    echo ${supername%????} # remove .git
 }
 
 # Stop on error
@@ -40,13 +41,11 @@ do
    cd build
 
    # \FIXME the CMAKE_MODULE_PATH needs to be updated once the installation procedure is working
-   cmake .. -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_PREFIX_PATH=${PREFIX_PATH} -DCMAKE_MODULE_PATH=$CHECKOUT_PATH/Radium-Engine/cmake
-   make -j 4
+   #cmake .. -DCMAKE_MODULE_PATH=$CHECKOUT_PATH/Radium-Engine/cmake-DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_PREFIX_PATH=${PREFIX_PATH} 
+   # make -j 4
 
    echo "Plugin $repoName done"
 done
-
-export SUPPORTED_PLUGINS_BUILD_OK="true"
 
 echo "All plugins have been compiled."
 
