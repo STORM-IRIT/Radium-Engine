@@ -1,7 +1,7 @@
 #ifndef __PARTICLEDATA_H__
 #define __PARTICLEDATA_H__
 
-#include "libutils/Config.h"
+#include "PBDutils/PBDConfig.h"
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <vector>

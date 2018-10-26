@@ -4,8 +4,8 @@
 #endif
 #include "PBS.hpp"
 #include "../src/Engine/Managers/SystemDisplay/SystemDisplay.hpp"
-#include "libPBD/Constraints.h"
-#include "libPBD/TimeManager.h"
+#include "PBD_lib/Constraints.h"
+#include "PBD_lib/TimeManager.h"
 #include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
 #include <QApplication>
 #include <QMessageBox>

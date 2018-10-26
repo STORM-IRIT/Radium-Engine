@@ -1,8 +1,8 @@
 #ifndef _TIMEMANAGER_H
 #define _TIMEMANAGER_H
 
-#include "libutils/Common.h"
-#include "libutils/Config.h"
+#include "PBDutils/PBDCommon.h"
+#include "PBDutils/PBDConfig.h"
 
 namespace PBD {
 class TimeManager {

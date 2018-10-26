@@ -1,8 +1,8 @@
 #ifndef __TETGENLOADER_H__
 #define __TETGENLOADER_H__
 
-#include "Common.h"
-#include "Config.h"
+#include "PBDCommon.h"
+#include "PBDConfig.h"
 #include <string>
 #include <vector>
 

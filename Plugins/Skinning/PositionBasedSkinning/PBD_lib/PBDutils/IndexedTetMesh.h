@@ -1,7 +1,7 @@
 #ifndef __INDEXEDTETMESH_H__
 #define __INDEXEDTETMESH_H__
 
-#include "Common.h"
+#include "PBDCommon.h"
 #include <vector>
 
 namespace PBD {

@@ -1,8 +1,8 @@
 #ifndef _CONSTRAINTS_H
 #define _CONSTRAINTS_H
 
+#include "PBDutils/PBDConfig.h"
 #include "ParticleData.h"
-#include "libutils/Config.h"
 
 namespace PBD {
 class SimulationModel;

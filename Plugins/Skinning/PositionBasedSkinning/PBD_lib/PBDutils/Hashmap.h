@@ -1,7 +1,7 @@
 #ifndef __HASHMAP_H__
 #define __HASHMAP_H__
 
-#include "Config.h"
+#include "PBDConfig.h"
 #include <map>
 #include <stdlib.h>
 

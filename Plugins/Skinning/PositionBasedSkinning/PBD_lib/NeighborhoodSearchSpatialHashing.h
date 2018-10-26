@@ -1,9 +1,9 @@
 #ifndef __NEIGHBORHOODSEARCHSPATIALHASHING_H__
 #define __NEIGHBORHOODSEARCHSPATIALHASHING_H__
 
-#include "libutils/Common.h"
-#include "libutils/Config.h"
-#include "libutils/Hashmap.h"
+#include "PBDutils/Hashmap.h"
+#include "PBDutils/PBDCommon.h"
+#include "PBDutils/PBDConfig.h"
 #include <vector>
 
 namespace PBD {

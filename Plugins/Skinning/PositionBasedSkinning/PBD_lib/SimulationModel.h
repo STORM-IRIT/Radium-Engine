@@ -1,9 +1,9 @@
 #ifndef __SIMULATIONMODEL_H__
 #define __SIMULATIONMODEL_H__
 
+#include "PBDutils/PBDConfig.h"
 #include "ParticleData.h"
 #include "TetModel.h"
-#include "libutils/Config.h"
 
 #include <Core/Animation/Handle/Skeleton.hpp>
 

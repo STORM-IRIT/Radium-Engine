@@ -1,7 +1,7 @@
 #ifndef __INDEXEDFACEMESH_H__
 #define __INDEXEDFACEMESH_H__
 
-#include "Common.h"
+#include "PBDCommon.h"
 #include <iterator>
 #include <vector>
 

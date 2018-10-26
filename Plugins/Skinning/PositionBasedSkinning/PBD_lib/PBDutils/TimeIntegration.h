@@ -1,7 +1,7 @@
 #ifndef TIMEINTEGRATION_H
 #define TIMEINTEGRATION_H
 
-#include "Common.h"
+#include "PBDCommon.h"
 
 // ------------------------------------------------------------------------------------
 namespace PBD {

@@ -1,8 +1,6 @@
-project(PBDlib)
+project(PBD_lib)
 
 cmake_minimum_required(VERSION 2.8.11)
-
-#add_subdirectory(libutils)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../CMakeModules)
 
@@ -47,7 +45,6 @@ file( GLOB_RECURSE inlines *.inl )
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
 
 add_definitions( ${Qt5Core_DEFINITIONS} )
 add_definitions( ${Qt5Widgets_DEFINITIONS} )
@@ -60,7 +57,7 @@ include_directories(
 
 # Our library project uses these sources and headers.
 add_library(
-    PBDlib MODULE
+    PBD_lib MODULE
     ${sources}
     ${headers}
     ${inlines}

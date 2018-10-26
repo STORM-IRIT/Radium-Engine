@@ -1,8 +1,8 @@
 #ifndef __TETMODEL_H__
 #define __TETMODEL_H__
 
+#include "PBDutils/PBDConfig.h"
 #include "ParticleData.h"
-#include "libutils/Config.h"
 
 namespace PBD {
 class TetModel {

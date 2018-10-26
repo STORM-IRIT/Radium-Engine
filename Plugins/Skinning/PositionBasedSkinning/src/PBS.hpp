@@ -1,6 +1,6 @@
 #ifndef RADIUMENGINE_POSITIONBASED_SKINNING_HPP
 #define RADIUMENGINE_POSITIONBASED_SKINNING_HPP
-#include "../libPBD/SimulationModel.h"
+#include "../PBD_lib/SimulationModel.h"
 #include <Core/Animation/Handle/HandleWeight.hpp>
 #include <Core/Animation/Skinning/SkinningData.hpp>
 #include <Core/Math/LinearAlgebra.hpp>

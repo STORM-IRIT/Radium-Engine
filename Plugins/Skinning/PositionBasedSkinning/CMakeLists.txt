@@ -1,10 +1,7 @@
 project(PositionBasedSkinning)
 
 cmake_minimum_required(VERSION 2.8.11)
-add_subdirectory(libPBD)
-
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../CMakeModules)
-
+add_subdirectory(PBD_lib)
 
 if (APPLE)
     cmake_policy(SET CMP0042 NEW)
@@ -47,7 +44,6 @@ file( GLOB_RECURSE inlines src/*.inl )
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
 
 add_definitions( ${Qt5Core_DEFINITIONS} )
 add_definitions( ${Qt5Widgets_DEFINITIONS} )

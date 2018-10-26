@@ -1,6 +1,7 @@
 project(SkinningPlugin)
 
 cmake_minimum_required(VERSION 2.8.11)
+
 add_subdirectory(PositionBasedSkinning)
 if (APPLE)
     cmake_policy(SET CMP0042 NEW)
