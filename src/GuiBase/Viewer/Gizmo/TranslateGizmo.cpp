@@ -19,15 +19,26 @@
 
 namespace Ra {
 namespace Gui {
+
+inline void colorMesh( std::shared_ptr<Engine::Mesh> mesh, const Core::Color& color ) {
+    Core::Vector4Array colors( mesh->getGeometry().vertices().size(), color );
+    mesh->addData( Engine::Mesh::VERTEX_COLOR, colors );
+}
+
 TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& worldTo,
                                 const Core::Transform& t, Mode mode ) :
     Gizmo( c, worldTo, t, mode ),
     m_startPoint( Core::Vector3::Zero() ),
     m_initialPix( Core::Vector2::Zero() ),
-    m_selectedAxis( -1 ) {
+    m_selectedAxis( -1 ),
+    m_selectedPlane( -1 ) {
     constexpr Scalar arrowScale = 0.2f;
     constexpr Scalar axisWidth = 0.05f;
     constexpr Scalar arrowFrac = 0.1f;
+
+    std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
+    rt->setConfiguration( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
+    rt->resetMaterial( new Ra::Engine::BlinnPhongMaterial( "Default material" ) );
 
     // For x,y,z
     for ( uint i = 0; i < 3; ++i )
@@ -46,27 +57,52 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
         // Merge the cylinder and the cone to create the arrow shape.
         cylinder.append( cone );
 
-        Core::Color arrowColor = Core::Color::Zero();
-        arrowColor[i] = 1.f;
-        Core::Vector4Array colors( cylinder.vertices().size(), arrowColor );
-
         std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Arrow" ) );
         mesh->loadGeometry( cylinder );
-        mesh->addData( Engine::Mesh::VERTEX_COLOR, colors );
+        Core::Color arrowColor = Core::Color::Zero();
+        arrowColor[i] = 1.f;
+        colorMesh( mesh, arrowColor );
 
         Engine::RenderObject* arrowDrawable =
             new Engine::RenderObject( "Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
-
-        std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
-        rt->setConfiguration( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
-        rt->resetMaterial( new Ra::Engine::BlinnPhongMaterial( "Default material" ) );
         arrowDrawable->setRenderTechnique( rt );
         arrowDrawable->setMesh( mesh );
 
-        updateTransform( mode, m_worldTo, m_transform );
-
         m_renderObjects.push_back( m_comp->addRenderObject( arrowDrawable ) );
     }
+
+    for ( uint i = 0; i < 3; ++i )
+    {
+        Core::Vector3 axis = Core::Vector3::Zero();
+        axis[( i == 0 ? 1 : ( i == 1 ? 0 : 2 ) )] = 1;
+        Core::Transform T = Core::Transform::Identity();
+        T.rotate( Core::AngleAxis( Core::Math::PiDiv2, axis ) );
+        T.translation()[( i + 1 ) % 3] += arrowScale / 8;
+        T.translation()[( i + 2 ) % 3] += arrowScale / 8;
+
+        Core::TriangleMesh plane = Core::MeshUtils::makePlaneGrid(
+            1, 1, Core::Vector2( arrowScale / 8, arrowScale / 8 ), T );
+        auto& n = plane.normals();
+#pragma omp parallel for
+        for ( int i = 0; i < n.size(); ++i )
+        {
+            n[i] = Core::Vector3::Zero();
+        }
+
+        std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Plane" ) );
+        mesh->loadGeometry( plane );
+        Core::Color planeColor = Core::Color::Zero();
+        planeColor[i] = 1.f;
+        colorMesh( mesh, planeColor );
+
+        Engine::RenderObject* planeDrawable =
+            new Engine::RenderObject( "Gizmo Plane", m_comp, Engine::RenderObjectType::UI );
+        planeDrawable->setRenderTechnique( rt );
+        planeDrawable->setMesh( mesh );
+        m_renderObjects.push_back( m_comp->addRenderObject( planeDrawable ) );
+    }
+
+    updateTransform( mode, m_worldTo, m_transform );
 }
 
 void TranslateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& worldTo,
@@ -91,18 +127,47 @@ void TranslateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& w
 }
 
 void TranslateGizmo::selectConstraint( int drawableIdx ) {
+    auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+    // reColor constraint
+    if ( m_selectedAxis != -1 )
+    {
+        Core::Color color = Core::Color::Zero();
+        color[m_selectedAxis] = 1.f;
+        auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
+        colorMesh( RO->getMesh(), color );
+    } else if ( m_selectedPlane != -1 )
+    {
+        Core::Color color = Core::Color::Zero();
+        color[m_selectedPlane] = 1.f;
+        auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedPlane + 3] );
+        colorMesh( RO->getMesh(), color );
+    }
+    // prepare selection
     int oldAxis = m_selectedAxis;
+    int oldPlane = m_selectedPlane;
     m_selectedAxis = -1;
+    m_selectedPlane = -1;
     if ( drawableIdx >= 0 )
     {
         auto found = std::find( m_renderObjects.cbegin(), m_renderObjects.cend(),
                                 Core::Index( drawableIdx ) );
         if ( found != m_renderObjects.cend() )
         {
-            m_selectedAxis = int( found - m_renderObjects.begin() );
+            int i = found - m_renderObjects.begin();
+            if ( i < 3 )
+            {
+                m_selectedAxis = i;
+                auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
+                colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+            } else
+            {
+                m_selectedPlane = i - 3;
+                auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedPlane + 3] );
+                colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+            }
         }
     }
-    if ( m_selectedAxis != oldAxis )
+    if ( m_selectedAxis != oldAxis || m_selectedPlane != oldPlane )
     {
         m_initialPix = Core::Vector2::Zero();
         m_start = false;
@@ -127,6 +192,22 @@ bool findPointOnAxis( const Engine::Camera& cam, const Ra::Core::Vector3& origin
     if ( hasHit )
     {
         pointOut = origin + ( axis.dot( ray.pointAt( hit[0] ) - origin ) ) * axis;
+    }
+    return hasHit;
+}
+
+bool findPointOnPlane( const Engine::Camera& cam, const Ra::Core::Vector3& origin,
+                       const Ra::Core::Vector3& axis, const Ra::Core::Vector2& pix,
+                       Ra::Core::Vector3& pointOut ) {
+
+    // Taken from Rodolphe's View engine gizmos -- see slide_plane().
+
+    std::vector<Scalar> hit;
+    const Core::Ray ray = cam.getRayFromScreen( pix );
+    bool hasHit = Core::RayCast::vsPlane( ray, origin, axis, hit );
+    if ( hasHit )
+    {
+        pointOut = ray.pointAt( hit[0] );
     }
     return hasHit;
 }
@@ -162,6 +243,35 @@ Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core
             } else
             { m_transform.translation() = m_initialTrans + endPoint - m_startPoint; }
         }
+    } else if ( m_selectedPlane >= 0 )
+    {
+        const Core::Vector3 origin = m_transform.translation();
+        Core::Vector3 translateDir =
+            m_mode == LOCAL
+                ? Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( m_selectedPlane ) )
+                : Core::Vector3::Unit( m_selectedPlane );
+
+        if ( !m_start )
+        {
+            if ( findPointOnPlane( cam, origin, translateDir, m_initialPix + nextXY,
+                                   m_startPoint ) )
+            {
+                m_start = true;
+                m_initialTrans = m_transform.translation();
+            }
+        }
+
+        Ra::Core::Vector3 endPoint;
+        if ( findPointOnPlane( cam, origin, translateDir, m_initialPix + nextXY, endPoint ) )
+        {
+            if ( stepped )
+            {
+                const Ra::Core::Vector3 tr = endPoint - m_startPoint;
+                m_transform.translation() =
+                    m_initialTrans + int( tr.norm() / step ) * step * tr.normalized();
+            } else
+            { m_transform.translation() = m_initialTrans + endPoint - m_startPoint; }
+        }
     }
     return m_transform;
 }
@@ -171,5 +281,6 @@ void TranslateGizmo::setInitialState( const Engine::Camera& cam, const Core::Vec
     const Core::Vector2 orgScreen = cam.project( origin );
     m_initialPix = orgScreen - initialXY;
 }
+
 } // namespace Gui
 } // namespace Ra
