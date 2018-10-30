@@ -64,6 +64,8 @@ class RA_ENGINE_API Texture final {
      *
      * @param data Data contained in the texture. Can be nullptr. <br/>
      * If \b data is not null, the texture will take the ownership of it.
+     *
+     * @param mipmaped (default true) : generate a prefiltered mipmap for the texture.
      */
     void Generate( uint width, GLenum format, void* data = nullptr, bool mipmaped = true );
 
@@ -96,6 +98,8 @@ class RA_ENGINE_API Texture final {
      *
      * @param data Data contained in the texture. Can be nullptr. <br/>
      * If \b data is not null, the texture will take the ownership of it.
+     *
+     * @param mipmaped (default true) : generate a prefiltered mipmap for the texture.
      */
     void Generate( uint width, uint height, GLenum format, void* data = nullptr, bool mipmaped = true );
 
@@ -130,6 +134,8 @@ class RA_ENGINE_API Texture final {
      *
      * @param data Data contained in the texture. Can be nullptr. <br/>
      * If \b data is not null, the texture will take the ownership of it.
+     *
+     * @param mipmaped (default true) : generate a prefiltered mipmap for the texture.
      */
     void Generate( uint width, uint height, uint depth, GLenum format, void* data = nullptr, bool mipmaped = true );
 
@@ -162,6 +168,8 @@ class RA_ENGINE_API Texture final {
      *
      * @param data Data contained in the texture. Can be nullptr. <br/>
      * If \b data is not null, the texture will take the ownership of it.
+     *
+     * @param mipmaped (default true) : generate a prefiltered mipmap for the texture.
      */
     void GenerateCube( uint width, uint height, GLenum format, void** data = nullptr, bool mipmaped = true );
 
