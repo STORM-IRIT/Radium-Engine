@@ -24,14 +24,6 @@ else ()
     message(STATUS "QT ${Qt5Core_VERSION} found." )
 endif()
 
-include_directories(
-    ${EIGEN3_INCLUDE_DIR}
-    ${GLBINDING_INCLUDE_DIR}
-    ${GLOBJECTS_INCLUDE_DIR}
-    ${GLM_INCLUDE_DIR}
-    ${OPENMESH_INCLUDE_DIR}
-)
-
 message(STATUS "Compiling Radium with 3rdparty include dirs : ${EIGEN3_INCLUDE_DIR} -- ${GLBINDING_INCLUDE_DIR} -- ${GLM_INCLUDE_DIR} -- ${GLOBJECTS_INCLUDE_DIR}-- ${OPENMESH_INCLUDE_DIR}" )
 
 if( RADIUM_ASSIMP_SUPPORT )
@@ -78,7 +70,11 @@ add_library(
 
 add_dependencies( ${core_target} eigen3  openmesh_lib)
 target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
-target_include_directories(${core_target} PUBLIC ${RADIUM_SRC_DIR})
+target_include_directories(${core_target}
+    PUBLIC ${RADIUM_SRC_DIR}
+           ${EIGEN3_INCLUDE_DIR}
+           ${OPENMESH_INCLUDE_DIR}
+    )
 
 target_link_libraries(
     ${core_target}
@@ -154,7 +150,9 @@ endif ( RADIUM_IO_IS_INTERFACE )
 
 
 add_dependencies( ${io_target} ${core_target} ${engine_target} )
-target_include_directories(${io_target} PUBLIC ${RADIUM_SRC_DIR})
+target_include_directories(${io_target}
+    PUBLIC ${RADIUM_SRC_DIR}
+    )
 
 if( RADIUM_ASSIMP_SUPPORT )
     add_dependencies( ${io_target} assimp_lib )
@@ -191,10 +189,13 @@ add_library(
     ${engine_shaders}
 )
 
-target_include_directories( ${engine_target}
+target_include_directories(${engine_target}
+    PUBLIC ${RADIUM_SRC_DIR}
+           ${GLBINDING_INCLUDE_DIR}
+           ${GLOBJECTS_INCLUDE_DIR}
+           ${GLM_INCLUDE_DIR}
     INTERFACE ${STB_INCLUDE_DIR}
-)
-target_include_directories(${engine_target} PUBLIC ${RADIUM_SRC_DIR})
+    )
 
 add_dependencies( ${engine_target} ${core_target} glbinding_lib globjects_lib glm_lib stb_lib)
 
@@ -242,9 +243,6 @@ add_library(
     ${guibase_headers}
     ${guibase_inlines})
 
-target_include_directories( ${guibase_target}
-    INTERFACE ${STB_INCLUDE_DIR}
-)
 target_include_directories(${guibase_target} PUBLIC ${RADIUM_SRC_DIR})
 
 add_dependencies( ${guibase_target} ${engine_target} ${io_target} ${core_target} glbinding_lib globjects_lib stb_lib)
@@ -261,9 +259,3 @@ set(RADIUM_LIBRARIES ${RADIUM_LIBRARIES} "${core_target}" "${engine_target}" "${
 set_property( TARGET ${core_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
 set_property( TARGET ${engine_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
 set_property( TARGET ${guibase_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
-
-# Build tests
-include_directories(
-        .
-)
-add_subdirectory(Tests)

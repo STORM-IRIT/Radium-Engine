@@ -3,7 +3,7 @@ sudo: true
 
 script:
   - make -j 4
-
+  - make buildtests && make test
   - |
     if [ "$TRAVIS_EVENT_TYPE" = "cron" ] ; then
         cd $CHECKOUT_PATH
