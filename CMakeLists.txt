@@ -36,6 +36,7 @@ option(RADIUM_CAMERA_LOADER_SUPPORT "Enable Camera loader" ON)
 option(RADIUM_BUILD_APPS            "Choose to build or not radium applications" ON)
 option(RADIUM_FAST_MATH             "Enable Fast Math optimizations in Release Mode (ignored with MVSC)" OFF)
 option(RADIUM_USE_COTIRE            "Enable cotire precompiled headers" On)
+option(RADIUM_COMPILE_TESTS         "Enable tests" ON)
 
 if ( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Debug )
@@ -205,3 +206,12 @@ else()
             )
 endif()
 add_dependencies(radium_configs radiumCore)
+
+
+################################################################################
+# Tests                                                                        #
+################################################################################
+if(RADIUM_COMPILE_TESTS)
+        include(cmake/ConfigureTesting.cmake)
+        add_subdirectory(tests EXCLUDE_FROM_ALL)
+endif(RADIUM_COMPILE_TESTS)
