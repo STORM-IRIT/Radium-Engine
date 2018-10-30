@@ -19,6 +19,12 @@
 
 namespace Ra {
 namespace Gui {
+
+inline void colorMesh( std::shared_ptr<Engine::Mesh> mesh, const Core::Color& color ) {
+    Core::Vector4Array colors( mesh->getGeometry().vertices().size(), color );
+    mesh->addData( Engine::Mesh::VERTEX_COLOR, colors );
+}
+
 RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
                           const Core::Transform& t, Mode mode ) :
     Gizmo( c, worldTo, t, mode ),
@@ -41,13 +47,11 @@ RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
             }
         }
 
-        Core::Color torusColor = Core::Color::Zero();
-        torusColor[i] = 1.f;
-        Core::Vector4Array colors( torus.vertices().size(), torusColor );
-
         std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Arrow" ) );
         mesh->loadGeometry( torus );
-        mesh->addData( Engine::Mesh::VERTEX_COLOR, colors );
+        Core::Color color = Core::Color::Zero();
+        color[i] = 1.f;
+        colorMesh( mesh, color );
 
         Engine::RenderObject* arrowDrawable =
             new Engine::RenderObject( "Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
@@ -86,6 +90,16 @@ void RotateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& worl
 }
 
 void RotateGizmo::selectConstraint( int drawableIdx ) {
+    auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+    // reColor constraint
+    if ( m_selectedAxis != -1 )
+    {
+        Core::Color color = Core::Color::Zero();
+        color[m_selectedAxis] = 1.f;
+        auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
+        colorMesh( RO->getMesh(), color );
+    }
+    // prepare selection
     int oldAxis = m_selectedAxis;
     m_selectedAxis = -1;
     if ( drawableIdx >= 0 )
@@ -95,6 +109,8 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
         if ( found != m_renderObjects.cend() )
         {
             m_selectedAxis = int( found - m_renderObjects.begin() );
+            auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
+            colorMesh( RO->getMesh(), Core::Colors::Yellow() );
         }
     }
     if ( m_selectedAxis != oldAxis )

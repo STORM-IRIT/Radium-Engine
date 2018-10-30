@@ -23,6 +23,7 @@ class TranslateGizmo : public Gizmo {
     Ra::Core::Vector3 m_initialTrans;
     Core::Vector2 m_initialPix;
     int m_selectedAxis;
+    int m_selectedPlane;
     bool m_start;
 };
 } // namespace Gui
