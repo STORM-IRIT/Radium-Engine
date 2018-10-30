@@ -1,7 +1,7 @@
-include_directories(
-        .
-        ${RADIUM_INCLUDE_DIRS}
-)
+# add only support dependant includes
+# ${RADIUM_SRC_DIR} is always added by the parent
+# CameraLoader does not need specific include_directories
+# include_directories( )
 
 file( GLOB_RECURSE cameraloader_sources *.cpp *.c )
 file( GLOB_RECURSE cameraloader_headers *.hpp *.h )

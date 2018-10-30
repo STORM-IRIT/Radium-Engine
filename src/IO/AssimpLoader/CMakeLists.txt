@@ -1,6 +1,8 @@
+# add only support dependant includes
+# ${RADIUM_SRC_DIR} is always added by the parent
+# AssimpLoader need access to ${ASSIMP_INCLUDE_DIR}
 include_directories(
-.
-${RADIUM_INCLUDE_DIRS}
+        ${ASSIMP_INCLUDE_DIR}
 )
 
 file( GLOB_RECURSE assimp_sources *.cpp *.c )
