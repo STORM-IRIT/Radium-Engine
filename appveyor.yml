@@ -1,6 +1,14 @@
 # Specify version format
 version: "{build}"
 
+# Slack updates
+notifications:
+- provider: Slack
+  auth_token:
+    secure: fbjePecExKJ5Gkvv1zfw9TkzX4qPXIaTWxp5ECL2Nrso1AwyDzLz58Z4d5iuBlspD8BR2ck7E8XyMe6/W0ioyMsbg/OvMy9rrZVJZN+0gtQ=
+  channel: '#dev-radium'
+
+
 # Operating system (build VM template)
 os: Visual Studio 2017
 
