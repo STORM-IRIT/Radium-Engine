@@ -9,7 +9,7 @@ Engine::Texture::Texture( std::string name ) :
 
 Engine::Texture::~Texture() {}
 
-void Engine::Texture::Generate( uint w, GLenum format, void* data ) {
+void Engine::Texture::Generate( uint w, GLenum format, void* data, bool mipmaped ) {
     m_target = GL_TEXTURE_1D;
     if ( m_texture == nullptr )
     {
@@ -20,13 +20,16 @@ void Engine::Texture::Generate( uint w, GLenum format, void* data ) {
 
     updateParameters();
 
-    m_texture->generateMipmap();
+    if (mipmaped)
+    {
+        m_texture->generateMipmap();
+    }
 
     m_format = format;
     m_width = w;
 }
 
-void Engine::Texture::Generate( uint w, uint h, GLenum format, void* data ) {
+void Engine::Texture::Generate( uint w, uint h, GLenum format, void* data, bool mipmaped ) {
     m_target = GL_TEXTURE_2D;
     if ( m_texture == nullptr )
     {
@@ -37,14 +40,17 @@ void Engine::Texture::Generate( uint w, uint h, GLenum format, void* data ) {
 
     updateParameters();
 
-    m_texture->generateMipmap();
+    if (mipmaped)
+    {
+        m_texture->generateMipmap();
+    }
 
     m_format = format;
     m_width = w;
     m_height = h;
 }
 
-void Engine::Texture::Generate( uint w, uint h, uint d, GLenum format, void* data ) {
+void Engine::Texture::Generate( uint w, uint h, uint d, GLenum format, void* data, bool mipmaped ) {
     m_target = GL_TEXTURE_3D;
     if ( m_texture == nullptr )
     {
@@ -55,7 +61,10 @@ void Engine::Texture::Generate( uint w, uint h, uint d, GLenum format, void* dat
 
     updateParameters();
 
-    m_texture->generateMipmap();
+    if (mipmaped)
+    {
+        m_texture->generateMipmap();
+    }
 
     m_format = format;
     m_width = w;
@@ -63,7 +72,7 @@ void Engine::Texture::Generate( uint w, uint h, uint d, GLenum format, void* dat
     m_depth = d;
 }
 
-void Engine::Texture::GenerateCube( uint w, uint h, GLenum format, void** data ) {
+void Engine::Texture::GenerateCube( uint w, uint h, GLenum format, void** data, bool mipmaped ) {
     m_target = GL_TEXTURE_CUBE_MAP;
     if ( m_texture == nullptr )
     {
@@ -74,7 +83,10 @@ void Engine::Texture::GenerateCube( uint w, uint h, GLenum format, void** data )
 
     updateParameters();
 
-    m_texture->generateMipmap();
+    if (mipmaped)
+    {
+        m_texture->generateMipmap();
+    }
 
     m_format = format;
     m_width = w;
