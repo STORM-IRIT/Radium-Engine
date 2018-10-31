@@ -103,7 +103,7 @@ vec3 computeMaterialInternal(Material material, vec2 texC, vec3 L, vec3 V, vec3 
     vec3 Kd = getKd(material, texC) / Pi;
 
     // use the correct normalization factor for Blinn-Phong BRDF;
-    float normalization = (Ns + 1) / (8 * Pi * clamp(pow(dot(L, H), 3), 0.000001, 1000000));
+    float normalization = (Ns + 1) / (8 * Pi * clamp(pow(dot(L, H), 3), 0.000001f, 1000000f));
     vec3 Ks = getKs(material, texC) * normalization;
 
     vec3 diff = Kd;
