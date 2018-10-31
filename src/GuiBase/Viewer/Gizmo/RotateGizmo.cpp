@@ -31,7 +31,7 @@ RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
     m_initialPix( Core::Vector2::Zero() ),
     m_selectedAxis( -1 ) {
     constexpr Scalar torusOutRadius = 0.1f;
-    constexpr Scalar torusAspectRatio = 0.1f;
+    constexpr Scalar torusAspectRatio = 0.08f;
     // For x,y,z
     for ( uint i = 0; i < 3; ++i )
     {
@@ -76,7 +76,11 @@ void RotateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& worl
     Core::Transform displayTransform = Core::Transform::Identity();
     if ( m_mode == LOCAL )
     {
-        displayTransform = m_transform;
+        Core::Matrix3 R = m_transform.rotation();
+        R.col( 0 ).normalize();
+        R.col( 1 ).normalize();
+        R.col( 2 ).normalize();
+        displayTransform.rotate( R );
     } else
     { displayTransform.translate( m_transform.translation() ); }
 

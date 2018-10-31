@@ -331,9 +331,8 @@ void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
             m_gizmoManager->handleMouseMoveEvent( event );
         }
         m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
-        if ( ( int( event->buttons() ) | int( event->modifiers() ) ) ==
-             Gui::KeyMappingManager::getInstance()->getKeyFromAction(
-                 Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
+        if ( Gui::KeyMappingManager::getInstance()->actionTriggered(
+                 event, Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
         {
             // Check picking
             Engine::Renderer::PickingQuery query = {
@@ -441,7 +440,7 @@ void Gui::Viewer::showEvent( QShowEvent* ev ) {
         auto light =
             new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
         // Set the default light intensity so that it does not burn the objects
-        light->setColor(Ra::Core::Color(0.5, 0.5, 0.5, 1.0));
+        light->setColor( Ra::Core::Color( 0.5, 0.5, 0.5, 1.0 ) );
         m_camera->attachLight( light );
     }
 }

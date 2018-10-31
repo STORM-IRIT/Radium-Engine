@@ -2,6 +2,7 @@
 #include <GuiBase/Viewer/CameraInterface.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 #include <GuiBase/Viewer/Gizmo/RotateGizmo.hpp>
+#include <GuiBase/Viewer/Gizmo/ScaleGizmo.hpp>
 #include <GuiBase/Viewer/Gizmo/TranslateGizmo.hpp>
 
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
@@ -27,7 +28,8 @@ GizmoManager::GizmoManager( QObject* parent ) :
                                            Ra::Core::Transform::Identity(), m_transform, m_mode ) );
     m_gizmos[1].reset( new RotateGizmo( Engine::SystemEntity::uiCmp(),
                                         Ra::Core::Transform::Identity(), m_transform, m_mode ) );
-    m_gizmos[2].reset( nullptr ); // add scale gizmo when implemented
+    m_gizmos[2].reset( new ScaleGizmo( Engine::SystemEntity::uiCmp(),
+                                       Ra::Core::Transform::Identity(), m_transform, m_mode ) );
     for ( auto& g : m_gizmos )
     {
         if ( g )
@@ -96,9 +98,6 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event ) {
     // If we are there it means that we should have a valid gizmo.
     CORE_ASSERT( currentGizmo(), "Gizmo is not there !" );
 
-    // Access the camera from the viewer. (TODO : a cleaner way to access the camera).
-    // const Engine::Camera& cam =
-    // *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
     const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
     currentGizmo()->setInitialState( cam,
                                      Core::Vector2( Scalar( event->x() ), Scalar( event->y() ) ) );
@@ -107,9 +106,7 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event ) {
 }
 
 bool GizmoManager::handleMouseReleaseEvent( QMouseEvent* event ) {
-    if ( Gui::KeyMappingManager::getInstance()->actionTriggered(
-             event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) &&
-         currentGizmo() )
+    if ( currentGizmo() )
     {
         currentGizmo()->selectConstraint( -1 );
     }
@@ -122,8 +119,6 @@ bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event ) {
          currentGizmo() )
     {
         Core::Vector2 currentXY( event->x(), event->y() );
-        // const Engine::Camera& cam =
-        // *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
         const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
         Core::Transform newTransform = currentGizmo()->mouseMove(
             cam, currentXY, event->modifiers().testFlag( Qt::ControlModifier ) );

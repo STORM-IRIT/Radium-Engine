@@ -1,4 +1,4 @@
-#include <GuiBase/Viewer/Gizmo/TranslateGizmo.hpp>
+#include <GuiBase/Viewer/Gizmo/ScaleGizmo.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Math/ColorPresets.hpp>
@@ -17,6 +17,8 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
+#include <GuiBase/Utils/Keyboard.hpp>
+
 namespace Ra {
 namespace Gui {
 
@@ -25,20 +27,23 @@ inline void colorMesh( std::shared_ptr<Engine::Mesh> mesh, const Core::Color& co
     mesh->addData( Engine::Mesh::VERTEX_COLOR, colors );
 }
 
-TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& worldTo,
-                                const Core::Transform& t, Mode mode ) :
+ScaleGizmo::ScaleGizmo( Engine::Component* c, const Core::Transform& worldTo,
+                        const Core::Transform& t, Mode mode ) :
     Gizmo( c, worldTo, t, mode ),
+    m_prevScale( Core::Vector3::Ones() ),
     m_startPoint( Core::Vector3::Zero() ),
     m_initialPix( Core::Vector2::Zero() ),
     m_selectedAxis( -1 ),
-    m_selectedPlane( -1 ) {
+    m_selectedPlane( -1 ),
+    m_whole( false ) {
     constexpr Scalar arrowScale = 0.1f;
     constexpr Scalar axisWidth = 0.05f;
-    constexpr Scalar arrowFrac = 0.15f;
+    constexpr Scalar arrowFrac = 0.125f;
+    constexpr Scalar radius = arrowScale * axisWidth / 2.f;
 
     std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
-    rt->setConfiguration( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
-    rt->resetMaterial( new Ra::Engine::BlinnPhongMaterial( "Default material" ) );
+    rt->setConfiguration( Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
+    rt->resetMaterial( new Engine::BlinnPhongMaterial( "Default material" ) );
 
     // For x,y,z
     for ( uint i = 0; i < 3; ++i )
@@ -49,10 +54,13 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
         arrowEnd[i] = 1.f;
 
         Core::TriangleMesh cylinder = Core::MeshUtils::makeCylinder(
-            Core::Vector3::Zero(), arrowScale * cylinderEnd, arrowScale * axisWidth / 2.f );
+            Core::Vector3::Zero(), arrowScale * cylinderEnd, radius );
 
-        Core::TriangleMesh cone = Core::MeshUtils::makeCone(
-            arrowScale * cylinderEnd, arrowScale * arrowEnd, arrowScale * arrowFrac / 2.f );
+        Core::Aabb box;
+        box.extend( Core::Vector3( -radius * 2, -radius * 2, -radius * 2 ) );
+        box.extend( Core::Vector3( radius * 2, radius * 2, radius * 2 ) );
+        box.translate( arrowScale * cylinderEnd );
+        Core::TriangleMesh cone = Core::MeshUtils::makeSharpBox( box );
 
         // Merge the cylinder and the cone to create the arrow shape.
         cylinder.append( cone );
@@ -71,17 +79,18 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
         m_renderObjects.push_back( m_comp->addRenderObject( arrowDrawable ) );
     }
 
+    // For xy,yz,zx
     for ( uint i = 0; i < 3; ++i )
     {
         Core::Vector3 axis = Core::Vector3::Zero();
         axis[( i == 0 ? 1 : ( i == 1 ? 0 : 2 ) )] = 1;
         Core::Transform T = Core::Transform::Identity();
         T.rotate( Core::AngleAxis( Core::Math::PiDiv2, axis ) );
-        T.translation()[( i + 1 ) % 3] += arrowScale / 8;
-        T.translation()[( i + 2 ) % 3] += arrowScale / 8;
+        T.translation()[( i + 1 ) % 3] += arrowFrac * arrowScale;
+        T.translation()[( i + 2 ) % 3] += arrowFrac * arrowScale;
 
         Core::TriangleMesh plane = Core::MeshUtils::makePlaneGrid(
-            1, 1, Core::Vector2( arrowScale / 8, arrowScale / 8 ), T );
+            1, 1, Core::Vector2( arrowFrac * arrowScale, arrowFrac * arrowScale ), T );
         auto& n = plane.normals();
 #pragma omp parallel for
         for ( int i = 0; i < n.size(); ++i )
@@ -102,11 +111,12 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
         m_renderObjects.push_back( m_comp->addRenderObject( planeDrawable ) );
     }
 
+    // update all
     updateTransform( mode, m_worldTo, m_transform );
 }
 
-void TranslateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& worldTo,
-                                      const Core::Transform& t ) {
+void ScaleGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& worldTo,
+                                  const Core::Transform& t ) {
     m_mode = mode;
     m_worldTo = worldTo;
     m_transform = t;
@@ -130,8 +140,8 @@ void TranslateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& w
     }
 }
 
-void TranslateGizmo::selectConstraint( int drawableIdx ) {
-    // reColor constraint
+void ScaleGizmo::selectConstraint( int drawableIdx ) {
+    // reColor constraints
     auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
     auto RO = roMgr->getRenderObject( m_renderObjects[0] );
     colorMesh( RO->getMesh(), Core::Colors::Red() );
@@ -150,6 +160,7 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
     int oldPlane = m_selectedPlane;
     m_selectedAxis = -1;
     m_selectedPlane = -1;
+    m_whole = false;
     if ( drawableIdx >= 0 )
     {
         auto found = std::find( m_renderObjects.cbegin(), m_renderObjects.cend(),
@@ -162,14 +173,10 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
                 m_selectedAxis = i;
                 auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
                 colorMesh( RO->getMesh(), Core::Colors::Yellow() );
-            } else
+            } else if ( i < 6 )
             {
                 m_selectedPlane = i - 3;
                 auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedPlane + 3] );
-                colorMesh( RO->getMesh(), Core::Colors::Yellow() );
-                RO = roMgr->getRenderObject( m_renderObjects[( m_selectedPlane + 1 ) % 3] );
-                colorMesh( RO->getMesh(), Core::Colors::Yellow() );
-                RO = roMgr->getRenderObject( m_renderObjects[( m_selectedPlane + 2 ) % 3] );
                 colorMesh( RO->getMesh(), Core::Colors::Yellow() );
             }
         }
@@ -181,9 +188,9 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-inline bool findPointOnAxis( const Engine::Camera& cam, const Ra::Core::Vector3& origin,
-                             const Ra::Core::Vector3& axis, const Ra::Core::Vector2& pix,
-                             Ra::Core::Vector3& pointOut ) {
+inline bool findPointOnAxis( const Engine::Camera& cam, const Core::Vector3& origin,
+                             const Core::Vector3& axis, const Core::Vector2& pix,
+                             Core::Vector3& pointOut ) {
 
     // Taken from Rodolphe's View engine gizmos -- see slide_axis().
 
@@ -203,9 +210,9 @@ inline bool findPointOnAxis( const Engine::Camera& cam, const Ra::Core::Vector3&
     return hasHit;
 }
 
-inline bool findPointOnPlane( const Engine::Camera& cam, const Ra::Core::Vector3& origin,
-                              const Ra::Core::Vector3& axis, const Ra::Core::Vector2& pix,
-                              Ra::Core::Vector3& pointOut ) {
+inline bool findPointOnPlane( const Engine::Camera& cam, const Core::Vector3& origin,
+                              const Core::Vector3& axis, const Core::Vector2& pix,
+                              Core::Vector3& pointOut ) {
 
     // Taken from Rodolphe's View engine gizmos -- see slide_plane().
 
@@ -219,36 +226,130 @@ inline bool findPointOnPlane( const Engine::Camera& cam, const Ra::Core::Vector3
     return hasHit;
 }
 
-Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
-                                           bool stepped ) {
+Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
+                                       bool stepped ) {
     static const float step = 0.2;
-    if ( m_selectedAxis >= 0 )
+
+    m_whole = isKeyPressed( 0x01000020 ); // shift 16777248
+    auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+    if ( m_whole )
+    {
+        auto RO = roMgr->getRenderObject( m_renderObjects[0] );
+        colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+        RO = roMgr->getRenderObject( m_renderObjects[1] );
+        colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+        RO = roMgr->getRenderObject( m_renderObjects[2] );
+        colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+        RO = roMgr->getRenderObject( m_renderObjects[3] );
+        colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+        RO = roMgr->getRenderObject( m_renderObjects[4] );
+        colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+        RO = roMgr->getRenderObject( m_renderObjects[5] );
+        colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+    } else
+    {
+        auto RO = roMgr->getRenderObject( m_renderObjects[0] );
+        colorMesh( RO->getMesh(), Core::Colors::Red() );
+        RO = roMgr->getRenderObject( m_renderObjects[1] );
+        colorMesh( RO->getMesh(), Core::Colors::Green() );
+        RO = roMgr->getRenderObject( m_renderObjects[2] );
+        colorMesh( RO->getMesh(), Core::Colors::Blue() );
+        RO = roMgr->getRenderObject( m_renderObjects[3] );
+        colorMesh( RO->getMesh(), Core::Colors::Red() );
+        RO = roMgr->getRenderObject( m_renderObjects[4] );
+        colorMesh( RO->getMesh(), Core::Colors::Green() );
+        RO = roMgr->getRenderObject( m_renderObjects[5] );
+        colorMesh( RO->getMesh(), Core::Colors::Blue() );
+        if ( m_selectedAxis > 0 )
+        {
+            RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
+            colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+        }
+        if ( m_selectedPlane > 0 )
+        {
+            RO = roMgr->getRenderObject( m_renderObjects[m_selectedPlane + 3] );
+            colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+        }
+    }
+
+    if ( m_selectedAxis == -1 && m_selectedPlane == -1 && !m_whole )
+    {
+        return m_transform;
+    }
+
+    if ( m_whole )
     {
         const Core::Vector3 origin = m_transform.translation();
         Core::Vector3 translateDir =
+            m_mode == LOCAL ? Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( 0 ) )
+                            : Core::Vector3::Unit( 0 );
+
+        if ( !m_start )
+        {
+            if ( findPointOnPlane( cam, origin, translateDir, m_initialPix + nextXY,
+                                   m_startPoint ) )
+            {
+                m_start = true;
+                m_startPos = m_transform.translation();
+                m_prevScale = Core::Vector3::Ones();
+            }
+        }
+
+        Core::Vector3 endPoint;
+        if ( findPointOnPlane( cam, origin, translateDir, m_initialPix + nextXY, endPoint ) )
+        {
+            const Core::Vector3 a = endPoint - m_startPos;
+            if ( a.squaredNorm() < 1e-3 )
+            {
+                return m_transform;
+            }
+            const Core::Vector3 b = m_startPoint - m_startPos;
+            Core::Vector3 scale = a.norm() / b.norm() * Core::Vector3::Ones();
+            m_transform.scale( m_prevScale );
+            if ( stepped )
+            {
+                scale = int( ( a.norm() / b.norm() ) / step + 1 ) * step * Core::Vector3::Ones();
+            }
+            m_prevScale = scale;
+            m_transform.scale( m_prevScale );
+            m_prevScale = m_prevScale.cwiseInverse();
+        }
+    } else if ( m_selectedAxis >= 0 )
+    {
+        const Core::Vector3 origin = m_transform.translation();
+        const Core::Vector3 translateDir =
             m_mode == LOCAL
                 ? Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( m_selectedAxis ) )
                 : Core::Vector3::Unit( m_selectedAxis );
-
         if ( !m_start )
         {
             if ( findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, m_startPoint ) )
             {
                 m_start = true;
-                m_initialTrans = m_transform.translation();
+                m_startPos = m_transform.translation();
+                m_prevScale = Core::Vector3::Ones();
             }
         }
 
-        Ra::Core::Vector3 endPoint;
+        Core::Vector3 endPoint;
         if ( findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, endPoint ) )
         {
+            const Core::Vector3 a = endPoint - m_startPos;
+            if ( a.squaredNorm() < 1e-3 )
+            {
+                return m_transform;
+            }
+            const Core::Vector3 b = m_startPoint - m_startPos;
+            Core::Vector3 scale = Core::Vector3::Ones();
+            m_transform.scale( m_prevScale );
             if ( stepped )
             {
-                const Ra::Core::Vector3 tr = endPoint - m_startPoint;
-                m_transform.translation() =
-                    m_initialTrans + int( tr.norm() / step ) * step * tr.normalized();
+                scale[m_selectedAxis] = int( ( a.norm() / b.norm() ) / step + 1 ) * step;
             } else
-            { m_transform.translation() = m_initialTrans + endPoint - m_startPoint; }
+            { scale[m_selectedAxis] = a.norm() / b.norm(); }
+            m_prevScale = scale;
+            m_transform.scale( m_prevScale );
+            m_prevScale = m_prevScale.cwiseInverse();
         }
     } else if ( m_selectedPlane >= 0 )
     {
@@ -264,26 +365,42 @@ Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core
                                    m_startPoint ) )
             {
                 m_start = true;
-                m_initialTrans = m_transform.translation();
+                m_startPos = m_transform.translation();
+                m_prevScale = Core::Vector3::Ones();
             }
         }
 
-        Ra::Core::Vector3 endPoint;
+        Core::Vector3 endPoint;
         if ( findPointOnPlane( cam, origin, translateDir, m_initialPix + nextXY, endPoint ) )
         {
+            const Core::Vector3 a = endPoint - m_startPos;
+            if ( a.squaredNorm() < 1e-3 )
+            {
+                return m_transform;
+            }
+            const Core::Vector3 b = m_startPoint - m_startPos;
+            Core::Vector3 scale = Core::Vector3::Ones();
+            m_transform.scale( m_prevScale );
             if ( stepped )
             {
-                const Ra::Core::Vector3 tr = endPoint - m_startPoint;
-                m_transform.translation() =
-                    m_initialTrans + int( tr.norm() / step ) * step * tr.normalized();
+                scale[( m_selectedPlane + 1 ) % 3] =
+                    int( ( a.norm() / b.norm() ) / step + 1 ) * step;
+                scale[( m_selectedPlane + 2 ) % 3] =
+                    int( ( a.norm() / b.norm() ) / step + 1 ) * step;
             } else
-            { m_transform.translation() = m_initialTrans + endPoint - m_startPoint; }
+            {
+                scale[( m_selectedPlane + 1 ) % 3] = a.norm() / b.norm();
+                scale[( m_selectedPlane + 2 ) % 3] = a.norm() / b.norm();
+            }
+            m_prevScale = scale;
+            m_transform.scale( m_prevScale );
+            m_prevScale = m_prevScale.cwiseInverse();
         }
     }
     return m_transform;
 }
 
-void TranslateGizmo::setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) {
+void ScaleGizmo::setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) {
     const Core::Vector3 origin = m_transform.translation();
     const Core::Vector2 orgScreen = cam.project( origin );
     m_initialPix = orgScreen - initialXY;
