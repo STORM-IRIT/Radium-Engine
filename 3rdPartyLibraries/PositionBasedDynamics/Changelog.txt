@@ -1,0 +1,88 @@
+	- fixed single precision build
+	- cleanup code
+	- using GenericParameters
+	- Crispin Deul added the implementation of his paper Deul, Kugelstadt, Weiler, Bender, "Direct Position-Based Solver for Stiff Rods", Computer Graphics Forum 2018 and a corresponding demo
+
+1.6.0
+	- added collision detection for arbitrary meshes based on cubic signed distance fields
+	- added DiscreGrid library as external project to generate cubic signed distance fields
+	- added possibility to define motor target sequences in scene files
+	- added implementation of the paper Kugelstadt, Schoemer, "Position and Orientation Based Cosserat Rods", SCA 2016 and a corresponding demo
+	- update to Eigen 3.3.4
+	
+1.5.1
+	- added Timing class
+	- removed Boost dependency
+	- update to Eigen 3.2.9
+	- added support for x86 compilation (thanks to Josef Kohout)
+	- added implementation of "Position-Based Elastic Rods" paper and a corresponding demo
+	- fixed some problems with VS2015
+
+1.5.0
+	- added SceneGenerator.py to generate new scenarios easily by simple Python scripting
+	- added scene loader demo
+	- added scene loader based on json 
+	- added collision demos
+	- added collision detection based on distance functions
+	- added collision handling for rigid and deformable bodies
+	- high resolution visualization mesh can be attached to a deformable body
+	- added support for Mac OS X
+	- added shader support
+	- added automatic computation of inertia tensor for arbitrary triangle meshes
+	- added bunny model to chain demo
+	- added visualization mesh to rigid body
+	- added OBJ file loader
+	- update to Eigen 3.2.7
+	- added target velocity motor slider joint
+	- added target position motor slider joint
+	- added slider joint
+	- extended JointDemo
+
+1.4.0
+	- extended JointDemo
+	- added TargetVelocityMotorHingeJoint
+	- added TargetAngleMotorHingeJoint
+	- made function names consistent
+	- fixed initialization of hinge joint coordinate system
+	- parallelized unified solver using graph coloring
+	- implemented unified solver for rigid bodies and deformable solids 
+	- added documentation for generic constraints
+	- added generic constraint demo
+	- added generic constraint
+	- added coupling demo
+	- added ball joint which links a rigid body and a particle
+	- added universal joint
+	- improved hinge joint
+	- added documentation for position based fluids
+
+1.3.0
+	- added some documentation
+	- cleaned up project 
+	- added new Joint demo
+	- added HingeJoint
+	- added BallOnLineJoint
+	- separated deformable, fluid and rigid body dynamics in different classes
+	- cleaned up interface
+	- added doxygen files
+	- update to Eigen 3.2.5
+	- resolve compiler errors in Visual Studio 2010
+
+1.2.0
+	- added rigid body demo
+	- added balljoint constraint
+	- fixed WIN32 issues
+	- cleanup
+	- Ubuntu fix
+
+1.1.0
+
+ 	- added second order velocity update
+ 	- fixed build for Linux
+	- added AntTweakBar sources
+	- added second order velocity update
+	- added density constraint (position based fluids)
+	- added fluid demo
+
+1.0.0
+
+	- Initial release

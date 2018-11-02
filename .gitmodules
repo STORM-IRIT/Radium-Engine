@@ -24,4 +24,10 @@
 	url = https://github.com/nothings/stb.git
 [submodule "3rdPartyLibraries/PositionBasedDynamics"]
 	path = 3rdPartyLibraries/PositionBasedDynamics
-	url = https://github.com/InteractiveComputerGraphics/PositionBasedDynamics.git
+	url = https://github.com/NadineAB/PositionBasedDynamics.git
+[submodule "3rdPartyLibraries/PositionBasedDynamics/extern/GenericParameters"]
+	path = 3rdPartyLibraries/PositionBasedDynamics/extern/GenericParameters
+	url = https://github.com/InteractiveComputerGraphics/GenericParameters.git
+[submodule "3rdPartyLibraries/PositionBasedDynamics/extern/Discregrid"]
+	path = 3rdPartyLibraries/PositionBasedDynamics/extern/Discregrid
+	url = https://github.com/InteractiveComputerGraphics/Discregrid.git
