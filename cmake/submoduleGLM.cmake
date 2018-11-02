@@ -1,5 +1,3 @@
-
-
 if( MSCV )
     # In order to avoid a bug in glm CMakelist, leading to invalid
         # install path for glmConfig.cmake, we simply copy the glm

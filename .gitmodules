@@ -22,3 +22,6 @@
 [submodule "3rdPartyLibraries/stb"]
 	path = 3rdPartyLibraries/stb
 	url = https://github.com/nothings/stb.git
+[submodule "3rdPartyLibraries/PositionBasedDynamics"]
+	path = 3rdPartyLibraries/PositionBasedDynamics
+	url = https://github.com/InteractiveComputerGraphics/PositionBasedDynamics.git

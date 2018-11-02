@@ -1,7 +1,6 @@
 project(PositionBasedSkinning)
 
 cmake_minimum_required(VERSION 2.8.11)
-add_subdirectory(PBD_lib)
 
 if (APPLE)
     cmake_policy(SET CMP0042 NEW)

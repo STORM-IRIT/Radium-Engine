@@ -41,6 +41,9 @@ endif()
 # OpenMesh
 include(submoduleOpenMesh)
 
+# PBD
+include(submodulePositionBasedDynamics)
+
 # STB
 include(submoduleSTB)
 

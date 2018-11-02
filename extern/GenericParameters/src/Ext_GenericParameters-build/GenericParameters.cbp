@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="GenericParameters"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="clang"/>
+		<Option virtualFolders="CMake Files\;CMake Files\CMake\;CMake Files\GenericParameters\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters/CMake/Common.cmake">
+			<Option virtualFolder="CMake Files\CMake\"/>
+		</Unit>
+		<Unit filename="/home/naburumm/RadiumEngine_PBS/Radium-Engine/extern/GenericParameters/src/Ext_GenericParameters/GenericParameters/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\GenericParameters\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

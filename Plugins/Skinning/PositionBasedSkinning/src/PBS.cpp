@@ -4,8 +4,10 @@
 #endif
 #include "PBS.hpp"
 #include "../src/Engine/Managers/SystemDisplay/SystemDisplay.hpp"
-#include "PBD_lib/Constraints.h"
-#include "PBD_lib/TimeManager.h"
+#include <Simulation/SimulationModel.h>
+#include <Simulation/TetModel.h>
+#include <Simulation/TimeManager.h>
+#include <Simulation/Constraints.h>
 #include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
 #include <QApplication>
 #include <QMessageBox>
@@ -22,15 +24,15 @@ void PBS::init( const Vector3Array* surfaceVertices, const Animation::Skeleton* 
     m_skeleton = skeleton;
 }
 void PBS::setVolumetricMeshPath( const std::string& pathFile ) {
-    m_volumetricMeshValid = m_model.setTetModel( pathFile );
-    if ( m_volumetricMeshValid )
-    {
-        findBarycentricCoordinatesTetrahedron();
-        addConstraint_volume();
-        weightParticlesBindConstraint();
-        addConstraint_stretch();
-        m_model.initConstraintGroups();
-    }
+//    m_volumetricMeshValid = Simulation::getCurrent()->setModel(pathFile);
+//    if ( m_volumetricMeshValid )
+//    {
+//        findBarycentricCoordinatesTetrahedron();
+//        addConstraint_volume();
+//        weightParticlesBindConstraint();
+//        addConstraint_stretch();
+//        m_model.initConstraintGroups();
+//    }
 }
 /* -----------------------------------
   Weight Particles Bind Constraint
@@ -140,35 +142,35 @@ void PBS::weightParticlesBindConstraint() {
         weightParticle( m_skeleton->m_graph, i, particle_position, indexNearestBone, startBone,
                         endBone );
         // Add Bind Constraint
-        m_model.addBindConstraint( i, indexNearestBone, distanceNearestBone );
+       // m_model.addBindConstraint( i, indexNearestBone, distanceNearestBone );
     }
 }
 /* ----------------------
   Add Constraints
  ----------------------- */
 void PBS::addConstraint_stretch() {
-    unsigned int endPoint1, endPoint2;
-    TetModel* tetrahedra = m_model.getTetModel();
-    TetModel::Edges set_edges = tetrahedra->getEdges();
-    // Parallelisme ?
-    for ( auto it_edges = set_edges.cbegin(); it_edges != set_edges.cend(); ++it_edges )
-    {
-        endPoint1 = it_edges->m_vert[0];
-        endPoint2 = it_edges->m_vert[1];
-        m_model.addDistanceConstraint( endPoint1, endPoint2 );
-    }
+//    unsigned int endPoint1, endPoint2;
+//    TetModel* tetrahedra = Simulation::getCurrent()->getModel();
+//    TetModel::Edges set_edges = tetrahedra->getEdges();
+//    // Parallelisme ?
+//    for ( auto it_edges = set_edges.cbegin(); it_edges != set_edges.cend(); ++it_edges )
+//    {
+//        endPoint1 = it_edges->m_vert[0];
+//        endPoint2 = it_edges->m_vert[1];
+//        m_model.addDistanceConstraint( endPoint1, endPoint2 );
+//    }
 }
 void PBS::addConstraint_volume() {
-    TetModel* tetrahedra = m_model.getTetModel();
-    TetModel::Tets tets = tetrahedra->getTets();
-    for ( auto it_tet = tets.cbegin(); it_tet != tets.cend(); it_tet += 4 )
-    {
-        m_model.addVolumeConstraint( *it_tet, *( it_tet + 1 ), *( it_tet + 2 ), *( it_tet + 3 ) );
-    }
+//    TetModel* tetrahedra = m_model.getTetModel();
+//    TetModel::Tets tets = tetrahedra->getTets();
+//    for ( auto it_tet = tets.cbegin(); it_tet != tets.cend(); it_tet += 4 )
+//    {
+//        m_model.addVolumeConstraint( *it_tet, *( it_tet + 1 ), *( it_tet + 2 ), *( it_tet + 3 ) );
+//    }
 }
 //-----------------------------------------------------------------------------------------------------------
 void PBS::linearBlendSkinning2TetMesh( const Animation::Pose& pose, ParticleData& pd ) {
-    pd.resetCurrentPositions();
+    //pd.resetCurrentPositions();
     //  Ra::Core::Animation::linearBlendSkinning( pd.getPosition0(),
     //                                           pose,
     //                                           m_weightParticles,
@@ -221,7 +223,7 @@ void PBS::positionConstraintProjection() {
                 for ( int i = 0; i < groupSize; i++ )
                 {
                     const unsigned int constraintIndex = groups[group][i];
-                    constraints[constraintIndex]->solvePositionConstraint( m_model );
+       //             constraints[constraintIndex]->solvePositionConstraint( m_model );
                 }
             }
         }
@@ -252,15 +254,15 @@ void PBS::velocityUpdateFirstOrder( const Scalar h, ParticleData& pd ) {
 }
 //-----------------------------------------------------------------------------------------------------------
 void PBS::step( const Animation::Skeleton* skeleton, ParticleData& pd ) {
-    TimeManager* tm = TimeManager::getCurrent();
-    const Scalar h = tm->getTimeStepSize();
-    m_model.setSkeleton( skeleton );
-    clearAccelerations( pd );
-    semiImplicitEuler( h, pd );
-    positionConstraintProjection();
-    velocityUpdateFirstOrder( h, pd );
-    // compute new time
-    tm->setTime( tm->getTime() + h );
+//    TimeManager* tm = TimeManager::getCurrent();
+//    const Scalar h = tm->getTimeStepSize();
+//    m_model.setSkeleton( skeleton );
+//    clearAccelerations( pd );
+//    semiImplicitEuler( h, pd );
+//    positionConstraintProjection();
+//    velocityUpdateFirstOrder( h, pd );
+//    // compute new time
+//    tm->setTime( tm->getTime() + h );
 }
 //----------------------------
 // Link to Surface Mesh
@@ -328,77 +330,77 @@ Scalar PBS::getSquaredDistancePointToTetrahedron( const Vector3& tetVertex0,
  * we have to find the tetrahedron whose centroid has the smallest distance to our point P.
  */
 void PBS::findBarycentricCoordinateTetrahedronForVertex( const Vector3& surfaceVertex,
-                                                         const TetModel::Tets& tetras,
+                                                         const TetModel& tetras,
                                                          const ParticleData& pd ) {
-    Scalar determinant0, determinant1, determinant2, determinant3, determinant4;
-    Scalar minDist = __FLT_MAX__;
-    LinkTetrahedron closestTetrahedron;
-    bool foundInsideATetra{false};
-    const unsigned int num_tetras = tetras.size();
-    for ( unsigned int i = 0; i < num_tetras && !foundInsideATetra; i += 4 )
-    {
-        getDeterminants( pd.getPosition( tetras[i] ), pd.getPosition( tetras[i + 1] ),
-                         pd.getPosition( tetras[i + 2] ), pd.getPosition( tetras[i + 3] ),
-                         surfaceVertex, determinant0, determinant1, determinant2, determinant3,
-                         determinant4 );
-        foundInsideATetra = checkPointInTetra( determinant0, determinant1, determinant2,
-                                               determinant3, determinant4 );
-        Vector4 barycentricCoordonates = getBarycentricCoordinate(
-            determinant0, determinant1, determinant2, determinant3, determinant4 );
-        if ( foundInsideATetra )
-        {
-            m_linksTetrahedronSurfaceVertex.push_back( {i, barycentricCoordonates} );
-        } else
-        {
-            Scalar dist = getSquaredDistancePointToTetrahedron(
-                pd.getPosition( tetras[i] ), pd.getPosition( tetras[i + 1] ),
-                pd.getPosition( tetras[i + 2] ), pd.getPosition( tetras[i + 3] ), surfaceVertex );
-            if ( dist < minDist )
-            {
-                minDist = dist;
-                closestTetrahedron.tetrahedronIndex = i;
-                closestTetrahedron.barycentricCoord = barycentricCoordonates;
-            }
-        }
-    }
-    if ( !foundInsideATetra )
-        m_linksTetrahedronSurfaceVertex.push_back( closestTetrahedron );
+//    Scalar determinant0, determinant1, determinant2, determinant3, determinant4;
+//    Scalar minDist = __FLT_MAX__;
+//    LinkTetrahedron closestTetrahedron;
+//    bool foundInsideATetra{false};
+//    const unsigned int num_tetras = tetras.size();
+//    for ( unsigned int i = 0; i < num_tetras && !foundInsideATetra; i += 4 )
+//    {
+//        getDeterminants( pd.getPosition( tetras[i] ), pd.getPosition( tetras[i + 1] ),
+//                         pd.getPosition( tetras[i + 2] ), pd.getPosition( tetras[i + 3] ),
+//                         surfaceVertex, determinant0, determinant1, determinant2, determinant3,
+//                         determinant4 );
+//        foundInsideATetra = checkPointInTetra( determinant0, determinant1, determinant2,
+//                                               determinant3, determinant4 );
+//        Vector4 barycentricCoordonates = getBarycentricCoordinate(
+//            determinant0, determinant1, determinant2, determinant3, determinant4 );
+//        if ( foundInsideATetra )
+//        {
+//            m_linksTetrahedronSurfaceVertex.push_back( {i, barycentricCoordonates} );
+//        } else
+//        {
+//            Scalar dist = getSquaredDistancePointToTetrahedron(
+//                pd.getPosition( tetras[i] ), pd.getPosition( tetras[i + 1] ),
+//                pd.getPosition( tetras[i + 2] ), pd.getPosition( tetras[i + 3] ), surfaceVertex );
+//            if ( dist < minDist )
+//            {
+//                minDist = dist;
+//                closestTetrahedron.tetrahedronIndex = i;
+//                closestTetrahedron.barycentricCoord = barycentricCoordonates;
+//            }
+//        }
+//    }
+//    if ( !foundInsideATetra )
+//        m_linksTetrahedronSurfaceVertex.push_back( closestTetrahedron );
 }
 void PBS::findBarycentricCoordinatesTetrahedron() {
     const unsigned int num_surfaceVertices = m_surfaceVertices->size();
-    ParticleData& pd = m_model.getParticles();
-    TetModel* tetrahedra = m_model.getTetModel();
-    const TetModel::Tets tetras = tetrahedra->getTets();
-    m_linksTetrahedronSurfaceVertex.clear();
-    m_linksTetrahedronSurfaceVertex.reserve( num_surfaceVertices );
-    for ( auto i = 0; i < num_surfaceVertices; ++i )
-    {
-        findBarycentricCoordinateTetrahedronForVertex( m_surfaceVertices->at( i ), tetras, pd );
-    }
+//    ParticleData& pd = m_model.getParticles();
+//    TetModel* tetrahedra = m_model.getTetModel();
+//    const TetModel::Tets tetras = tetrahedra->getTets();
+//    m_linksTetrahedronSurfaceVertex.clear();
+//    m_linksTetrahedronSurfaceVertex.reserve( num_surfaceVertices );
+//    for ( auto i = 0; i < num_surfaceVertices; ++i )
+//    {
+//        findBarycentricCoordinateTetrahedronForVertex( m_surfaceVertices->at( i ), tetras, pd );
+//    }
 }
 //----------------------------
 // Update Surface Mesh
 //---------------------------------
-Vector3 PBS::getPositionByBarycentricCoord( const TetModel::Tets& tetras, const ParticleData& pd,
+Vector3 PBS::getPositionByBarycentricCoord( const TetModel& tetras, const ParticleData& pd,
                                             const LinkTetrahedron& linkTetra ) {
-    Vector3 pos =
-        pd.getPosition( tetras[linkTetra.tetrahedronIndex] ) * linkTetra.barycentricCoord[0];
-    for ( auto i = 1; i < 4; ++i )
-    {
-        const auto tetraIndex = linkTetra.tetrahedronIndex + i;
-        pos += pd.getPosition( tetras[tetraIndex] ) * linkTetra.barycentricCoord[i];
-    }
-    return pos;
+//    Vector3 pos =
+//        pd.getPosition( tetras[linkTetra.tetrahedronIndex] ) * linkTetra.barycentricCoord[0];
+//    for ( auto i = 1; i < 4; ++i )
+//    {
+//        const auto tetraIndex = linkTetra.tetrahedronIndex + i;
+//        pos += pd.getPosition( tetras[tetraIndex] ) * linkTetra.barycentricCoord[i];
+//    }
+//    return pos;
 }
 void PBS::updateVertices( Ra::Core::Vector3Array& outMesh ) {
-    TetModel* tetrahedra = m_model.getTetModel();
-    const TetModel::Tets tetras = tetrahedra->getTets();
-    const ParticleData& pd = m_model.getParticles();
-    const unsigned int num_surfaceVertices = outMesh.size();
-    //#pragma omp parallel for
-    for ( auto i = 0; i < num_surfaceVertices; ++i )
-    {
-        outMesh[i] =
-            getPositionByBarycentricCoord( tetras, pd, m_linksTetrahedronSurfaceVertex[i] );
-    }
+//    TetModel* tetrahedra = m_model.getTetModel();
+//    const TetModel tetras = tetrahedra->getTets();
+//    const ParticleData& pd = m_model.getParticles();
+//    const unsigned int num_surfaceVertices = outMesh.size();
+//    //#pragma omp parallel for
+//    for ( auto i = 0; i < num_surfaceVertices; ++i )
+//    {
+//        outMesh[i] =
+//            getPositionByBarycentricCoord( tetras, pd, m_linksTetrahedronSurfaceVertex[i] );
+//    }
 }

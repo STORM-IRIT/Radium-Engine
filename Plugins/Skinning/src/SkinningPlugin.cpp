@@ -214,25 +214,25 @@ namespace SkinningPlugin{
     void SkinningWidget::onStretchStiffnessSelectValueChanged(double value) {
         PositionBasedSkinning::PBS &pbs = m_current->getPBS();
         PBD::SimulationModel &pbs_model = pbs.getModel();
-        pbs_model.setStretchStiffness(value);
+ //       pbs_model.setStretchStiffness(value);
     }
 
     void SkinningWidget::onCompressionSelectValueChanged(double value) {
         PositionBasedSkinning::PBS &pbs = m_current->getPBS();
         PBD::SimulationModel &pbs_model = pbs.getModel();
-        pbs_model.setCompressionStiffness(value);
+   //     pbs_model.setCompressionStiffness(value);
     }
 
     void SkinningWidget::onNegVolumeSelectValueChanged(double value) {
         PositionBasedSkinning::PBS &pbs = m_current->getPBS();
         PBD::SimulationModel &pbs_model = pbs.getModel();
-        pbs_model.setNegVolumeStiffness(value);
+    //    pbs_model.setNegVolumeStiffness(value);
     }
 
     void SkinningWidget::onPosVolumeStiffnessSelectValueChanged(double value) {
         PositionBasedSkinning::PBS &pbs = m_current->getPBS();
         PBD::SimulationModel &pbs_model = pbs.getModel();
-        pbs_model.setPosVolumeStiffness(value);
+    //    pbs_model.setPosVolumeStiffness(value);
     }
 
     void SkinningWidget::chooseVolumetricMeshPath () {
