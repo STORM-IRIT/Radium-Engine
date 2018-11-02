@@ -1,1 +1,0 @@
-cmd='/usr/bin/cmake;-DCMAKE_BUILD_TYPE=Release;-DCMAKE_INSTALL_PREFIX:PATH=/GenericParameters;-DGENERICPARAMETERS_NO_TESTS:BOOL=1;-GCodeBlocks - Unix Makefiles;<SOURCE_DIR><SOURCE_SUBDIR>'
