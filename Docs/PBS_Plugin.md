@@ -12,8 +12,8 @@ To be able to use this Plugin, a tetrahedral mesh of the surface mesh is require
  and the # of the tetrahedral elements not higher than 9K, otherwise the animation will be slow, and you will observe some artifacts).
 
 When you load the Plugin from the skinning list, the system searches for a corresponding tetrahedral mesh of the already loaded surface mesh:
-**if the tetrahedral mesh is existed in the directory, then skinning can be performed and the user is provided with set of stiffness parameters in which you can tune.
-**if the tetrahedral mesh is not existed in the directory, then you can not simply procedure more, and you receive error required you to load tetrahedral mesh. 
+**if the tetrahedral mesh exists in the directory, then skinning can be performed and the user is provided with a set of stiffness parameters in which you can tune.
+**if the tetrahedral mesh does not existed in the directory, then you can not simply progress more, and you receive error an required you to load tetrahedral mesh. 
 
 
 ![Screenshot](https://github.com/NadineAB/Radium-Engine/tree/master/Docs/master/PBS.png)

@@ -61,7 +61,7 @@ if( MSVC )
         COMMENT "copy PBD dll to bin dir" VERBATIM
         DEPENDS PositionBasedDynamics_prerename_compiled_lib_and_dll
     )
-    add_dependencies(PositionBasedDynamics_lib PositionBasedDynamics_install_compiled_dll )
+
 endif()
 
 if( MINGW )
@@ -70,5 +70,5 @@ if( MINGW )
             COMMENT "copy PositionBasedDynamics dll to bin dir" VERBATIM
             DEPENDS PositionBasedDynamics create_bin_dir
     )
-    add_dependencies(PositionBasedDynamics_lib PositionBasedDynamics_install_compiled_dll)
+
 endif()
