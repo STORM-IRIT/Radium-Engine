@@ -2,6 +2,7 @@
 
 declare -a repositories=(
     "https://github.com/STORM-IRIT/Radium-PluginExample.git"
+    "https://gitlab.com/Storm-IRIT/radium-official-plugins/postprocesssubdivplugin.git"
 #    "https://github.com/STORM-IRIT/Radium-NanoGUIApp.git"
 #    "https://github.com/STORM-IRIT/Radium-AppExample.git"
     )
@@ -23,11 +24,12 @@ NEW_UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 PLUGIN_FOLDER="plugins-$NEW_UUID"
 
 mkdir $PLUGIN_FOLDER
-cd $PLUGIN_FOLDER
 
  # Loop over plugins and: fetch, compile
 for repoUrl in "${repositories[@]}"
 do
+   cd $CHECKOUT_PATH
+   cd $PLUGIN_FOLDER
    repoName=$(getRepositoryName "$repoUrl")
    echo "Processing $repoName"
 

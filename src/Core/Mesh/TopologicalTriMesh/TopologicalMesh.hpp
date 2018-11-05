@@ -40,6 +40,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     using base = OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>;
     using base::PolyMesh_ArrayKernelT;
 
+    OpenMesh::HPropHandleT<Ra::Core::Index> m_inputTriangleMeshIndexPph;
+    OpenMesh::HPropHandleT<Ra::Core::Index> m_outputTriangleMeshIndexPph;
     std::vector<OpenMesh::HPropHandleT<float>> m_floatPph;
     std::vector<OpenMesh::HPropHandleT<Vector2>> m_vec2Pph;
     std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Pph;
@@ -61,7 +63,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /// Return a triangleMesh from the topological mesh.
     /// This is a costly operation.
     /// \warning It uses the attributs defined on halfedges.
-    TriangleMesh toTriangleMesh() const;
+    /// \note Non-const because computes the property storing vertices indices within
+    ///       the output TriangleMesh.
+    TriangleMesh toTriangleMesh();
 
     // import other version of halfedge_handle method
     using base::halfedge_handle;
@@ -89,6 +93,15 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /// If you work with vertex normals, please call this function on all vertex
     /// handle before convertion with toTriangleMesh
     void propagate_normal_to_halfedges( TopologicalMesh::VertexHandle vh );
+
+    /// Return a handle to the halfedge property storing vertices indices within
+    /// the TriangleMesh *this has been built on.
+    inline const OpenMesh::HPropHandleT<Index>& getInputTriangleMeshIndexPropHandle() const;
+
+    /// Return a handle to the halfedge property storing vertices indices within
+    /// the TriangleMesh returned by toTriangleMesh().
+    /// \note This property is valid only after toTriangleMesh() has been called.
+    inline const OpenMesh::HPropHandleT<Index>& getOutputTriangleMeshIndexPropHandle() const;
 
     /// \name Const access to handles of the HalfEdge properties coming from
     /// the TriangleMesh attributes.

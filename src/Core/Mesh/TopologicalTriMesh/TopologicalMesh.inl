@@ -37,6 +37,16 @@ TopologicalMesh::halfedge_handle( TopologicalMesh::VertexHandle vh,
     return HalfedgeHandle();
 }
 
+inline const OpenMesh::HPropHandleT<Index>&
+TopologicalMesh::getInputTriangleMeshIndexPropHandle() const {
+    return m_inputTriangleMeshIndexPph;
+}
+
+inline const OpenMesh::HPropHandleT<Index>&
+TopologicalMesh::getOutputTriangleMeshIndexPropHandle() const {
+    return m_outputTriangleMeshIndexPph;
+}
+
 inline const std::vector<OpenMesh::HPropHandleT<float>>&
 TopologicalMesh::getFloatPropsHandles() const {
     return m_floatPph;
