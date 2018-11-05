@@ -74,6 +74,7 @@ void RotateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& worl
     m_worldTo = worldTo;
     m_transform = t;
     Core::Transform displayTransform = Core::Transform::Identity();
+    displayTransform.translate( m_transform.translation() );
     if ( m_mode == LOCAL )
     {
         Core::Matrix3 R = m_transform.rotation();
@@ -81,8 +82,7 @@ void RotateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& worl
         R.col( 1 ).normalize();
         R.col( 2 ).normalize();
         displayTransform.rotate( R );
-    } else
-    { displayTransform.translate( m_transform.translation() ); }
+    }
 
     for ( auto roIdx : m_renderObjects )
     {

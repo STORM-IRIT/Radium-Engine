@@ -7,6 +7,8 @@ namespace Ra {
 namespace Gui {
 
 /// A ScaleGizmo manipulates the scaling part of a transformation.
+/// \note scaling is always applied in local frame.
+// TODO: find how to apply it in global frame.
 class ScaleGizmo : public Gizmo {
   public:
     // Draw a frame with : 3 RGB cube-shaped arrows and 3 RGB squares

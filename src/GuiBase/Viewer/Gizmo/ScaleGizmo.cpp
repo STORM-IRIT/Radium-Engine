@@ -120,15 +120,15 @@ void ScaleGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& world
     m_worldTo = worldTo;
     m_transform = t;
     Core::Transform displayTransform = Core::Transform::Identity();
-    if ( m_mode == LOCAL )
+    displayTransform.translate( m_transform.translation() );
+    // always scale in LOCAL frame
     {
         Core::Matrix3 R = m_transform.rotation();
         R.col( 0 ).normalize();
         R.col( 1 ).normalize();
         R.col( 2 ).normalize();
         displayTransform.rotate( R );
-    } else
-    { displayTransform.translate( m_transform.translation() ); }
+    }
 
     for ( auto roIdx : m_renderObjects )
     {
@@ -278,14 +278,11 @@ Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Ve
     if ( whole )
     {
         const Core::Vector3 origin = m_transform.translation();
-        Core::Vector3 translateDir =
-            m_mode == LOCAL ? Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( 0 ) )
-                            : Core::Vector3::Unit( 0 );
+        Core::Vector3 scaleDir = Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( 0 ) );
 
         if ( !m_start )
         {
-            if ( findPointOnPlane( cam, origin, translateDir, m_initialPix + nextXY,
-                                   m_startPoint ) )
+            if ( findPointOnPlane( cam, origin, scaleDir, m_initialPix + nextXY, m_startPoint ) )
             {
                 m_start = true;
                 m_startPos = m_transform.translation();
@@ -294,7 +291,7 @@ Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Ve
         }
 
         Core::Vector3 endPoint;
-        if ( findPointOnPlane( cam, origin, translateDir, m_initialPix + nextXY, endPoint ) )
+        if ( findPointOnPlane( cam, origin, scaleDir, m_initialPix + nextXY, endPoint ) )
         {
             const Core::Vector3 a = endPoint - m_startPos;
             if ( a.squaredNorm() < 1e-3 )
@@ -315,13 +312,11 @@ Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Ve
     } else if ( m_selectedAxis >= 0 )
     {
         const Core::Vector3 origin = m_transform.translation();
-        const Core::Vector3 translateDir =
-            m_mode == LOCAL
-                ? Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( m_selectedAxis ) )
-                : Core::Vector3::Unit( m_selectedAxis );
+        const Core::Vector3 scaleDir =
+            Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( m_selectedAxis ) );
         if ( !m_start )
         {
-            if ( findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, m_startPoint ) )
+            if ( findPointOnAxis( cam, origin, scaleDir, m_initialPix + nextXY, m_startPoint ) )
             {
                 m_start = true;
                 m_startPos = m_transform.translation();
@@ -330,7 +325,7 @@ Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Ve
         }
 
         Core::Vector3 endPoint;
-        if ( findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, endPoint ) )
+        if ( findPointOnAxis( cam, origin, scaleDir, m_initialPix + nextXY, endPoint ) )
         {
             const Core::Vector3 a = endPoint - m_startPos;
             if ( a.squaredNorm() < 1e-3 )
@@ -352,15 +347,12 @@ Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Ve
     } else if ( m_selectedPlane >= 0 )
     {
         const Core::Vector3 origin = m_transform.translation();
-        Core::Vector3 translateDir =
-            m_mode == LOCAL
-                ? Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( m_selectedPlane ) )
-                : Core::Vector3::Unit( m_selectedPlane );
+        Core::Vector3 scaleDir =
+            Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( m_selectedPlane ) );
 
         if ( !m_start )
         {
-            if ( findPointOnPlane( cam, origin, translateDir, m_initialPix + nextXY,
-                                   m_startPoint ) )
+            if ( findPointOnPlane( cam, origin, scaleDir, m_initialPix + nextXY, m_startPoint ) )
             {
                 m_start = true;
                 m_startPos = m_transform.translation();
@@ -369,7 +361,7 @@ Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Ve
         }
 
         Core::Vector3 endPoint;
-        if ( findPointOnPlane( cam, origin, translateDir, m_initialPix + nextXY, endPoint ) )
+        if ( findPointOnPlane( cam, origin, scaleDir, m_initialPix + nextXY, endPoint ) )
         {
             const Core::Vector3 a = endPoint - m_startPos;
             if ( a.squaredNorm() < 1e-3 )
