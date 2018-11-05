@@ -19,7 +19,7 @@ namespace Ra {
 namespace Engine {
 class ShaderProgram;
 class ShaderConfiguration;
-}
+} // namespace Engine
 } // namespace Ra
 
 namespace Ra {

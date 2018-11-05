@@ -322,7 +322,7 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
     {
         blinnPhongMaterial->m_hasShininess = true;
         // Assimp gives the Phong exponent, we use the Blinn-Phong exponent
-        blinnPhongMaterial->m_shininess = shininess*4;
+        blinnPhongMaterial->m_shininess = shininess * 4;
     }
 
     if ( AI_SUCCESS == material.Get( AI_MATKEY_OPACITY, opacity ) )

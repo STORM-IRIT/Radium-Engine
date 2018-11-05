@@ -185,11 +185,11 @@ class RA_ENGINE_API Texture final {
 
     /**
      * Update the parameters contained by the texture.
-     * User first modify the public attributes corresponding to the parameter he wants to change the value
-     * (e.g wrap* or *Filter) and call this function to update the OpenGL texture state ...
+     * User first modify the public attributes corresponding to the parameter he wants to change the
+     * value (e.g wrap* or *Filter) and call this function to update the OpenGL texture state ...
      * @return
      */
-     void updateParameters();
+    void updateParameters();
 
     GLenum format() const { return m_format; }
     uint width() const { return m_width; }

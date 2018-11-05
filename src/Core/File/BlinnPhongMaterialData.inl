@@ -82,6 +82,5 @@ inline void BlinnPhongMaterialData::displayInfo() const {
     LOG( logINFO ) << " Alpha Texture  : " << ( hasOpacityTexture() ? m_texOpacity : "NO" );
 }
 
-
 } // namespace Asset
 } // namespace Ra

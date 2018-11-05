@@ -3,76 +3,71 @@
 
 #include <SkinningPluginMacros.hpp>
 
+#include <PluginBase/RadiumPluginInterface.hpp>
+#include <QAction>
+#include <QComboBox>
+#include <QFrame>
 #include <QObject>
 #include <QtPlugin>
-#include <QFrame>
-#include <QComboBox>
-#include <QAction>
-#include <PluginBase/RadiumPluginInterface.hpp>
 
+#include <QDoubleSpinBox>
+#include <QLabel>
 #include <QStackedWidget>
 #include <QTextEdit>
-#include <QLabel>
-#include <QDoubleSpinBox>
 
-namespace Ra
-{
-    namespace Engine
-    {
-        class RadiumEngine;
-        struct ItemEntry;
-    }
-    namespace Guibase
-    {
-        class SelectionManager;
-    }
+namespace Ra {
+namespace Engine {
+class RadiumEngine;
+struct ItemEntry;
+} // namespace Engine
+namespace Guibase {
+class SelectionManager;
 }
+} // namespace Ra
 
-namespace SkinningPlugin
-{
+namespace SkinningPlugin {
 
 class SkinningComponent;
 class SkinningSystem;
 
-class SkinningWidget : public QFrame
-{
+class SkinningWidget : public QFrame {
     Q_OBJECT
 
     friend class SkinningPluginC;
 
-public:
+  public:
     explicit SkinningWidget( QWidget* parent = nullptr );
 
-public slots:
+  public slots:
     void setCurrent( const Ra::Engine::ItemEntry& entry, SkinningComponent* comp );
 
-private slots:
-    void onSkinningChanged( int  newType );
+  private slots:
+    void onSkinningChanged( int newType );
 
     void onLSBActionTriggered();
     void onDQActionTriggered();
     void onCoRActionTriggered();
     void onPBSActionTriggered();
 
-    void onStretchStiffnessSelectValueChanged(double value);
-    void onCompressionSelectValueChanged(double value);
-    void onNegVolumeSelectValueChanged(double value);
-    void onPosVolumeStiffnessSelectValueChanged(double value);
+    void onStretchStiffnessSelectValueChanged( double value );
+    void onCompressionSelectValueChanged( double value );
+    void onNegVolumeSelectValueChanged( double value );
+    void onPosVolumeStiffnessSelectValueChanged( double value );
 
     void chooseVolumetricMeshPath();
 
-private:
+  private:
     SkinningComponent* m_current;
 
-    QStackedWidget *m_stackedWidget;
-    QTextEdit *m_pathVolumetricMesh;
+    QStackedWidget* m_stackedWidget;
+    QTextEdit* m_pathVolumetricMesh;
     QComboBox* m_skinningSelect;
     QLabel* m_pathVolumetricMeshValidIndication;
 
-    QDoubleSpinBox *m_stretchStiffnessSelect;
-    QDoubleSpinBox *m_compressionStiffnessSelect;
-    QDoubleSpinBox *m_negVolumeStiffnessSelect;
-    QDoubleSpinBox *m_posVolumeStiffnessSelect;
+    QDoubleSpinBox* m_stretchStiffnessSelect;
+    QDoubleSpinBox* m_compressionStiffnessSelect;
+    QDoubleSpinBox* m_negVolumeStiffnessSelect;
+    QDoubleSpinBox* m_posVolumeStiffnessSelect;
 
     QAction* m_actionLBS;
     QAction* m_actionDQ;
@@ -81,18 +76,18 @@ private:
 
     // Functions
     void setSkinningWidgetLayout();
-    QWidget * createPBSInterface();
-    void createPBStiffnesses ();
+    QWidget* createPBSInterface();
+    void createPBStiffnesses();
 };
 
-// Du to an ambiguous name while compiling with Clang, must differentiate plugin claas from plugin namespace
-class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
-{
+// Du to an ambiguous name while compiling with Clang, must differentiate plugin claas from plugin
+// namespace
+class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     Q_OBJECT
     Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
     Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
 
-public:
+  public:
     virtual ~SkinningPluginC();
 
     virtual void registerPlugin( const Ra::PluginContext& context ) override;
@@ -106,16 +101,15 @@ public:
     virtual bool doAddAction( int& nb ) override;
     virtual QAction* getAction( int id ) override;
 
-private slots:
-    void onCurrentChanged( const QModelIndex& current , const QModelIndex& prev);
+  private slots:
+    void onCurrentChanged( const QModelIndex& current, const QModelIndex& prev );
 
-private:
+  private:
     SkinningSystem* m_system;
     Ra::GuiBase::SelectionManager* m_selectionManager;
     SkinningWidget* m_widget;
-
 };
 
-} // namespace
+} // namespace SkinningPlugin
 
 #endif // SKINNINGPLUGIN_HPP_

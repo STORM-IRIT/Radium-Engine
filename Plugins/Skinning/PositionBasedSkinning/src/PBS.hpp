@@ -1,9 +1,9 @@
 #ifndef RADIUMENGINE_POSITIONBASED_SKINNING_HPP
 #define RADIUMENGINE_POSITIONBASED_SKINNING_HPP
-#include <Simulation/Simulation.h>
 #include <Core/Animation/Handle/HandleWeight.hpp>
 #include <Core/Animation/Skinning/SkinningData.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Simulation/Simulation.h>
 
 namespace PositionBasedSkinning {
 
@@ -119,7 +119,7 @@ class PBS {
 
     // Find the barycentric coordinate for a single vertex in a list of tetrahedra
     void findBarycentricCoordinateTetrahedronForVertex( const Ra::Core::Vector3& surfaceVertex,
-                                                        const PBD::TetModel & tetras,
+                                                        const PBD::TetModel& tetras,
                                                         const PBD::ParticleData& pd );
 
     // Find the tetrahedral barycentric coordinates for the surface vertices list
@@ -127,7 +127,7 @@ class PBS {
 
     /* Update Surface Mesh */
 
-    Ra::Core::Vector3 getPositionByBarycentricCoord( const PBD::TetModel & tetras,
+    Ra::Core::Vector3 getPositionByBarycentricCoord( const PBD::TetModel& tetras,
                                                      const PBD::ParticleData& pd,
                                                      const LinkTetrahedron& linkTetra );
     void updateVertices( Ra::Core::Vector3Array& outMesh );

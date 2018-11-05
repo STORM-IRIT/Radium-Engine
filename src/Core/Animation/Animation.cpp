@@ -47,8 +47,7 @@ Scalar Animation::getTime( Scalar timestamp ) const {
     return duration - std::abs( std::fmod( timestamp, 2 * duration ) - duration );
 }
 
-Scalar Animation::getDuration() const
-{
+Scalar Animation::getDuration() const {
     return m_keys.back().first;
 }
 

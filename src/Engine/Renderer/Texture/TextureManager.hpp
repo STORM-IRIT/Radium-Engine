@@ -88,14 +88,14 @@ class RA_ENGINE_API TextureManager final {
      * @param texture
      * @param content
      */
-    void updateTextureContent(const std::string &texture, void *content);
+    void updateTextureContent( const std::string& texture, void* content );
 
     /**
      * Update all textures that are pending after a call to updateTextureContent.
      *
-     * The cooperation of updateTextureContent and updatePendingTextures allow applications to manage efficiently
-     * the on line texture generation by separating the content definition (updateTextureContent)
-     * from the OpenGL state modification (updatePendingTextures).
+     * The cooperation of updateTextureContent and updatePendingTextures allow applications to
+     * manage efficiently the on line texture generation by separating the content definition
+     * (updateTextureContent) from the OpenGL state modification (updatePendingTextures).
      */
     void updatePendingTextures();
 
@@ -104,13 +104,13 @@ class RA_ENGINE_API TextureManager final {
     ~TextureManager();
 
     /** Load a given filename and return the associated TextureData.
-    * @note : only loads 2D image file for now.
-    * @param filename
-    * @return
-    */
+     * @note : only loads 2D image file for now.
+     * @param filename
+     * @return
+     */
     TextureData loadTexture( const std::string& filename );
 
-private:
+  private:
     std::map<std::string, Texture*> m_textures;
     std::map<std::string, TextureData> m_pendingTextures;
     std::map<std::string, void*> m_pendingData;

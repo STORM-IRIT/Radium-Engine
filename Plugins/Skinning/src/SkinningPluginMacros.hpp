@@ -11,4 +11,3 @@
 #endif
 
 #endif // SKINNINGPLUGINMACROS_HPP_
-

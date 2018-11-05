@@ -249,7 +249,7 @@ void RenderObject::render( const RenderParameters& lightParams, const RenderData
         lightParams.bind( shader );
 
         auto material = m_renderTechnique->getMaterial();
-        if (material != nullptr)
+        if ( material != nullptr )
             material->bind( shader );
 
         // render

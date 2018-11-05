@@ -101,4 +101,4 @@ class RA_ENGINE_API DebugRender {
 } // namespace Engine
 } // namespace Ra
 
-#endif //RADIUMENGINE_DEBUGRENDERER_HPP
+#endif // RADIUMENGINE_DEBUGRENDERER_HPP

@@ -42,8 +42,7 @@ class RayCastAabbTests : public Test {
                                 RA_UNIT_TEST(
                                     Ra::Core::Math::areApproxEqual( r.pointAt( t )[i], sig ),
                                     "Wrong hit point" );
-                            }
-                            else
+                            } else
                             { RA_UNIT_TEST( !result, "The ray should have missed" ); }
                         }
 

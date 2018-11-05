@@ -3,9 +3,7 @@
 #include <globjects/Texture.h>
 
 namespace Ra {
-Engine::Texture::Texture( std::string name ) :
-    m_name( name ),
-    m_texture( nullptr ) {}
+Engine::Texture::Texture( std::string name ) : m_name( name ), m_texture( nullptr ) {}
 
 Engine::Texture::~Texture() {}
 
