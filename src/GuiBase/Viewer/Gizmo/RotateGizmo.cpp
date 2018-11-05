@@ -126,7 +126,7 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
 
 Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
                                         bool stepped ) {
-    static const float step = Ra::Core::Math::Pi / 10.f;
+    static const Scalar step = Ra::Core::Math::Pi / 10.f;
     if ( m_selectedAxis >= 0 )
     {
         const Core::Vector3 origin = m_transform.translation();
@@ -186,7 +186,7 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::V
                 }
                 if ( !m_stepped )
                 {
-                    float diff = m_totalAngle - int( m_totalAngle / step ) * step;
+                    Scalar diff = m_totalAngle - int( m_totalAngle / step ) * step;
                     angle -= diff;
                 }
             }

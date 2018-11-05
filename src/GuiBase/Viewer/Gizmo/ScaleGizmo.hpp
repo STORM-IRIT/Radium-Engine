@@ -2,32 +2,35 @@
 #define RADIUMENGINE_SCALE_GIZMO_HPP_
 
 #include <GuiBase/Viewer/Gizmo/Gizmo.hpp>
+
 namespace Ra {
 namespace Gui {
+
+/// A ScaleGizmo manipulates the scaling part of a transformation.
 class ScaleGizmo : public Gizmo {
   public:
-    // Draw a frame with : 3 RGB arrows
+    // Draw a frame with : 3 RGB cube-shaped arrows and 3 RGB squares
     ScaleGizmo( Engine::Component* c, const Core::Transform& worldTo, const Core::Transform& t,
                 Mode mode );
 
-    virtual void updateTransform( Gizmo::Mode mode, const Core::Transform& worldTo,
-                                  const Core::Transform& t ) override;
-    virtual void selectConstraint( int drawableIndex ) override;
-    virtual void setInitialState( const Engine::Camera& cam,
-                                  const Core::Vector2& initialXY ) override;
-    virtual Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
-                                       bool stepped = false ) override;
+    void updateTransform( Gizmo::Mode mode, const Core::Transform& worldTo,
+                          const Core::Transform& t ) override;
+    void selectConstraint( int drawableIndex ) override;
+    void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) override;
+    Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
+                               bool stepped = false ) override;
 
   private:
-    Ra::Core::Vector3 m_prevScale;
-    Ra::Core::Vector3 m_startPos;
-    Ra::Core::Vector3 m_startPoint;
-    Core::Vector2 m_initialPix;
-    int m_selectedAxis;
-    int m_selectedPlane;
-    bool m_start;
-    bool m_whole;
+    Ra::Core::Vector3 m_prevScale;  ///< The previously applied scale.
+    Ra::Core::Vector3 m_startPos;   ///< The position of the gizmo when edition starts.
+    Ra::Core::Vector3 m_startPoint; ///< The picked 3D point on the gizmo.
+    Core::Vector2 m_initialPix;     ///< The pixel position when edition starts.
+    int m_selectedAxis;             ///< The axis to scale in.
+    int m_selectedPlane;            ///< The plane to scale in.
+    bool m_start;                   ///< Did the edition start.
 };
+
 } // namespace Gui
 } // namespace Ra
+
 #endif // RADIUMENGINE_SCALE_GIZMO_HPP_

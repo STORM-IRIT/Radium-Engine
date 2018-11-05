@@ -221,7 +221,7 @@ inline bool findPointOnPlane( const Engine::Camera& cam, const Ra::Core::Vector3
 
 Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
                                            bool stepped ) {
-    static const float step = 0.2;
+    static const Scalar step = 0.2;
     if ( m_selectedAxis >= 0 )
     {
         const Core::Vector3 origin = m_transform.translation();

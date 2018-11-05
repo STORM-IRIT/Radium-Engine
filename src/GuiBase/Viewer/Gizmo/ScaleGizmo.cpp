@@ -34,8 +34,7 @@ ScaleGizmo::ScaleGizmo( Engine::Component* c, const Core::Transform& worldTo,
     m_startPoint( Core::Vector3::Zero() ),
     m_initialPix( Core::Vector2::Zero() ),
     m_selectedAxis( -1 ),
-    m_selectedPlane( -1 ),
-    m_whole( false ) {
+    m_selectedPlane( -1 ) {
     constexpr Scalar arrowScale = 0.1f;
     constexpr Scalar axisWidth = 0.05f;
     constexpr Scalar arrowFrac = 0.125f;
@@ -160,7 +159,6 @@ void ScaleGizmo::selectConstraint( int drawableIdx ) {
     int oldPlane = m_selectedPlane;
     m_selectedAxis = -1;
     m_selectedPlane = -1;
-    m_whole = false;
     if ( drawableIdx >= 0 )
     {
         auto found = std::find( m_renderObjects.cbegin(), m_renderObjects.cend(),
@@ -228,11 +226,11 @@ inline bool findPointOnPlane( const Engine::Camera& cam, const Core::Vector3& or
 
 Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
                                        bool stepped ) {
-    static const float step = 0.2;
+    static const Scalar step = 0.2;
 
-    m_whole = isKeyPressed( 0x01000020 ); // shift 16777248
+    bool whole = isKeyPressed( 0x01000020 ); // shift 16777248
     auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
-    if ( m_whole )
+    if ( whole )
     {
         auto RO = roMgr->getRenderObject( m_renderObjects[0] );
         colorMesh( RO->getMesh(), Core::Colors::Yellow() );
@@ -272,12 +270,12 @@ Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Ve
         }
     }
 
-    if ( m_selectedAxis == -1 && m_selectedPlane == -1 && !m_whole )
+    if ( m_selectedAxis == -1 && m_selectedPlane == -1 && !whole )
     {
         return m_transform;
     }
 
-    if ( m_whole )
+    if ( whole )
     {
         const Core::Vector3 origin = m_transform.translation();
         Core::Vector3 translateDir =
