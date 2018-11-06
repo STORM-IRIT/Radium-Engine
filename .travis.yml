@@ -136,4 +136,4 @@ deploy:
   github_token: $GITHUB_API_KEY
   on:
     branch: master-v1
-condition: "$BUILD_DOC = On"
+    condition: "$BUILD_DOC = On"
