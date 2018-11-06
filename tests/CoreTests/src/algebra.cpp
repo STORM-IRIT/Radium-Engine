@@ -24,7 +24,7 @@ void run() {
     Ra::Core::Quaternion qr( 1.f, 2.f, 3.f, 4.f );
     qr.normalize();
     RA_VERIFY( ( 3.14f * qr ).isApprox( qr * 3.14f ),
-                  "Quaternion multiplication does not commute" );
+               "Quaternion multiplication does not commute" );
 
     Ra::Core::Quaternion qt, qs;
 
@@ -32,26 +32,25 @@ void run() {
 
     RA_VERIFY( qr.isApprox( qs * qt ), "Swing decomposition fail." );
     RA_VERIFY( Ra::Core::AngleAxis( qt ).axis().isApprox( Ra::Core::Vector3::UnitZ() ),
-                  "Twist should be around z" );
+               "Twist should be around z" );
     RA_VERIFY( Ra::Core::AngleAxis( qs ).axis().dot( Ra::Core::Vector3::UnitZ() ) == 0,
-                  "Swing should be in xy" );
+               "Swing should be in xy" );
 }
 } // namespace Testing
 } // namespace Ra
 
-
-int main(int argc, const char **argv) {
+int main( int argc, const char** argv ) {
     using namespace Ra;
 
-    if(!Testing::init_testing(1, argv))
+    if ( !Testing::init_testing( 1, argv ) )
     {
         return EXIT_FAILURE;
     }
 
 #pragma omp parallel for
-    for(int i = 0; i < Testing::g_repeat; ++i)
+    for ( int i = 0; i < Testing::g_repeat; ++i )
     {
-        CALL_SUBTEST(( Testing::run() ));
+        CALL_SUBTEST( ( Testing::run() ) );
     }
 
     return EXIT_SUCCESS;
