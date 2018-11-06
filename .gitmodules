@@ -31,6 +31,3 @@
 [submodule "3rdPartyLibraries/PositionBasedDynamics/extern/Discregrid"]
 	path = 3rdPartyLibraries/PositionBasedDynamics/extern/Discregrid
 	url = https://github.com/InteractiveComputerGraphics/Discregrid.git
-[submodule "Bundle-GNU/3rdPartyLibraries/PositionBasedDynamics/extern/Discregrid/src/Ext_Discregrid"]
-	path = Bundle-GNU/3rdPartyLibraries/PositionBasedDynamics/extern/Discregrid/src/Ext_Discregrid
-	url = https://github.com/InteractiveComputerGraphics/Discregrid.git

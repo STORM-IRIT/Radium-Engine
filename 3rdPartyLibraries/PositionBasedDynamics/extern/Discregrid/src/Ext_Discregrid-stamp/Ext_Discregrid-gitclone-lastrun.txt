@@ -1,3 +1,0 @@
-repository='https://github.com/InteractiveComputerGraphics/Discregrid.git'
-module=''
-tag=''
