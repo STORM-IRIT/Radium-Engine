@@ -3,14 +3,19 @@ sudo: true
 
 script:
   - make -j 4
+  - make buildtests && make test
   - |
-    if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-      cd ../Bundle-Clang/Release/bin/
-      otool -L ./main-app
-    fi;
-  - |
-    if [ "$BUILD_DOC" = "On" ]; then
-      make doc
+    if [ "$TRAVIS_EVENT_TYPE" = "cron" ] ; then
+        cd $CHECKOUT_PATH
+        export BUILD_DOC="Off"
+        if ! .ci/compile-official-plugins.sh ; then
+            echo "Plugins compilation have failed. Aborting..."
+            exit 1
+        fi;
+    else
+        if [ "$BUILD_DOC" = "On" ]; then
+          make doc
+        fi;
     fi;
 notifications:
    slack: storm-cg:oxJ5LToK0qfPBkNW0Hus3TQg

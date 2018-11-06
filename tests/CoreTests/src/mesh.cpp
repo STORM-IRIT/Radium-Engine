@@ -5,7 +5,9 @@
 namespace Ra {
 namespace Testing {
 
-void run() {
+
+void run()  {
+
     using Ra::Core::TriangleMesh;
     using Ra::Core::Vector3;
     using Vec3AttribHandle = Ra::Core::AttribHandle<Vector3>;
@@ -63,24 +65,31 @@ void run() {
     meshCopy.copyAllAttributes( mesh );
     RA_VERIFY( mesh.vertices()[0].isApprox( v0 ), "Cannot copy TriangleMesh" );
     meshCopy.vertices()[0] += Ra::Core::Vector3( 0.5, 0.5, 0.5 );
-    RA_VERIFY( !meshCopy.vertices()[0].isApprox( v0 ), "Cannot copy TriangleMesh attributes" );
+
+    RA_VERIFY( !meshCopy.vertices()[0].isApprox( v0 ),
+                  "Cannot copy TriangleMesh attributes" );
 }
 } // namespace Testing
 } // namespace Ra
 
-int main( int argc, const char** argv ) {
+int main(int argc, const char **argv) {
     using namespace Ra;
 
-    if ( !Testing::init_testing( 1, argv ) )
+    if(!Testing::init_testing(1, argv))
+
     {
         return EXIT_FAILURE;
     }
 
 #pragma omp parallel for
-    for ( int i = 0; i < Testing::g_repeat; ++i )
+
+    for(int i = 0; i < Testing::g_repeat; ++i)
     {
-        CALL_SUBTEST( ( Testing::run() ) );
+        CALL_SUBTEST(( Testing::run() ));
+
     }
 
     return EXIT_SUCCESS;
 }
+
+

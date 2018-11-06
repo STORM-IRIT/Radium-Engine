@@ -53,7 +53,8 @@ void run() {
     for ( auto v : Ra::Core::reversed( ccontainer ) )
         reverted4.push_back( v );
 
-    RA_VERIFY( reverted1 == reverted4, "Const qualifier should not change the loop behavior" );
+    RA_VERIFY( reverted1 == reverted4,
+                  "Const qualifier should not change the loop behavior" );
 
     // check we can also write in the containers
     for ( auto& v : Ra::Core::reversed( reverted2 ) )
@@ -66,18 +67,22 @@ void run() {
 } // namespace Testing
 } // namespace Ra
 
-int main( int argc, const char** argv ) {
+
+int main(int argc, const char **argv) {
     using namespace Ra;
 
-    if ( !Testing::init_testing( 1, argv ) )
+    if(!Testing::init_testing(1, argv))
+
     {
         return EXIT_FAILURE;
     }
 
 #pragma omp parallel for
-    for ( int i = 0; i < Testing::g_repeat; ++i )
+
+    for(int i = 0; i < Testing::g_repeat; ++i)
     {
-        CALL_SUBTEST( ( Testing::run() ) );
+        CALL_SUBTEST(( Testing::run() ));
+
     }
 
     return EXIT_SUCCESS;

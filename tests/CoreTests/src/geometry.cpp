@@ -31,27 +31,27 @@ void run() {
 
     // Test line queries.
     RA_VERIFY( areApproxEqual( pointToLineSq( a, a, b - a ), Scalar( 0. ) ),
-               "distance from A to AB" );
+                  "distance from A to AB" );
     RA_VERIFY( areApproxEqual( pointToLineSq( b, a, b - a ), Scalar( 0. ) ),
-               "distance from B to AB" );
+                  "distance from B to AB" );
     RA_VERIFY( areApproxEqual( pointToLineSq( na, a, b - a ), Scalar( 0. ) ),
-               "point on the line." );
+                  "point on the line." );
     RA_VERIFY( areApproxEqual( pointToLineSq( nb, a, b - a ), Scalar( 0. ) ),
-               "point on the line." );
+                  "point on the line." );
     RA_VERIFY( areApproxEqual( pointToLineSq( m + y, a, b - a ), y.squaredNorm() ),
-               "point perpendicular to segment." );
+                  "point perpendicular to segment." );
 
     // Test segment queries
     RA_VERIFY( areApproxEqual( pointToSegmentSq( a, a, b - a ), Scalar( 0. ) ),
-               "Segment extremity" );
+                  "Segment extremity" );
     RA_VERIFY( areApproxEqual( pointToSegmentSq( b, a, b - a ), Scalar( 0. ) ),
-               "Segment extremity" );
+                  "Segment extremity" );
     RA_VERIFY( areApproxEqual( pointToSegmentSq( na, a, b - a ), ( na - a ).squaredNorm() ),
-               "point on the line." );
+                  "point on the line." );
     RA_VERIFY( areApproxEqual( pointToSegmentSq( nb, a, b - a ), ( nb - b ).squaredNorm() ),
-               "point on the line." );
+                  "point on the line." );
     RA_VERIFY( areApproxEqual( pointToSegmentSq( m + y, a, b - a ), y.squaredNorm() ),
-               "point perpendicular to segment." );
+                  "point perpendicular to segment." );
 
     // Test triangle queries
 
@@ -79,19 +79,22 @@ void run() {
 
     auto dmab = pointToTriSq( mab, a, b, c );
     RA_VERIFY( areApproxEqual( dmab.distanceSquared, Scalar( 0. ) ),
-               "Distance from AB midpoint to ABC" );
+
+                  "Distance from AB midpoint to ABC" );
     RA_VERIFY( dmab.meshPoint.isApprox( mab ), "Distance from AB midpoint to ABC" );
     RA_VERIFY( dmab.flags == FlagsInternal::HIT_AB, "Distance from AB midpoint to ABC" );
 
     auto dmac = pointToTriSq( mac, a, b, c );
     RA_VERIFY( areApproxEqual( dmac.distanceSquared, Scalar( 0. ) ),
-               "Distance from AC midpoint to ABC" );
+                  "Distance from AC midpoint to ABC" );
+
     RA_VERIFY( dmac.meshPoint.isApprox( mac ), "Distance from AC midpoint to ABC" );
     RA_VERIFY( dmac.flags == FlagsInternal::HIT_CA, "Distance from AC midpoint to ABC" );
 
     auto dmbc = pointToTriSq( mbc, a, b, c );
     RA_VERIFY( areApproxEqual( dmbc.distanceSquared, Scalar( 0. ) ),
                "Distance from BC midpoint to ABC" );
+
     RA_VERIFY( dmbc.meshPoint.isApprox( mbc ), "Distance from BC midpoint to ACC" );
     RA_VERIFY( dmbc.flags == FlagsInternal::HIT_BC, "Distance from BC midpoint to ACC" );
 
@@ -100,25 +103,29 @@ void run() {
 
     auto dg = pointToTriSq( g, a, b, c );
     RA_VERIFY( areApproxEqual( dg.distanceSquared, Scalar( 0. ) ),
-               "Distance from centroid to ABC" );
+
+                  "Distance from centroid to ABC" );
     RA_VERIFY( dg.meshPoint.isApprox( g ), "Distance from centroid to ABC" );
     RA_VERIFY( dg.flags == FlagsInternal::HIT_FACE, "Distance from centroid to ABC" );
 }
 } // namespace Testing
 } // namespace Ra
 
-int main( int argc, const char** argv ) {
+
+int main(int argc, const char **argv) {
     using namespace Ra;
 
-    if ( !Testing::init_testing( 1, argv ) )
+    if(!Testing::init_testing(1, argv))
+
     {
         return EXIT_FAILURE;
     }
 
 #pragma omp parallel for
-    for ( int i = 0; i < Testing::g_repeat; ++i )
+
+    for(int i = 0; i < Testing::g_repeat; ++i)
     {
-        CALL_SUBTEST( ( Testing::run() ) );
+        CALL_SUBTEST(( Testing::run() ));
     }
 
     return EXIT_SUCCESS;

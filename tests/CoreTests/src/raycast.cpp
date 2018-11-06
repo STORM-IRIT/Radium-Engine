@@ -4,7 +4,10 @@
 namespace Ra {
 namespace Testing {
 
-void run() {
+
+
+void run()  {
+
     Ra::Core::Aabb ones( -Ra::Core::Vector3::Ones(), Ra::Core::Vector3::Ones() );
     // For all directions x, y, z
     for ( int i = 0; i < 3; ++i )
@@ -35,10 +38,13 @@ void run() {
                         {
                             RA_VERIFY( result, "The ray should have hit" );
                             RA_VERIFY( n.dot( sig * Ra::Core::Vector3::Unit( i ) ) == 1.f,
-                                       "Wrong normal" );
-                            RA_VERIFY( Ra::Core::Math::areApproxEqual( r.pointAt( t )[i], sig ),
-                                       "Wrong hit point" );
-                        } else
+                              "Wrong normal" );
+                            RA_VERIFY(
+                                Ra::Core::Math::areApproxEqual( r.pointAt( t )[i], sig ),
+                                "Wrong hit point" );
+                        }
+                        else
+
                         { RA_VERIFY( !result, "The ray should have missed" ); }
                     }
 
@@ -76,18 +82,23 @@ void run() {
 } // namespace Testing
 } // namespace Ra
 
-int main( int argc, const char** argv ) {
+
+
+int main(int argc, const char **argv) {
     using namespace Ra;
 
-    if ( !Testing::init_testing( 1, argv ) )
+    if(!Testing::init_testing(1, argv))
+
     {
         return EXIT_FAILURE;
     }
 
 #pragma omp parallel for
-    for ( int i = 0; i < Testing::g_repeat; ++i )
+
+    for(int i = 0; i < Testing::g_repeat; ++i)
     {
-        CALL_SUBTEST( ( Testing::run() ) );
+        CALL_SUBTEST(( Testing::run() ));
+
     }
 
     return EXIT_SUCCESS;

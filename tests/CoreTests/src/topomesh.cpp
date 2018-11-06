@@ -3,6 +3,7 @@
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Tests.hpp>
 
+
 #include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh>
 #include <OpenMesh/Tools/Subdivider/Uniform/LoopT.hh>
 
@@ -11,7 +12,12 @@
 namespace Ra {
 namespace Testing {
 
-bool isSameMesh( Ra::Core::TriangleMesh& meshOne, Ra::Core::TriangleMesh& meshTwo ) {
+
+
+
+bool isSameMesh( Ra::Core::TriangleMesh& meshOne,
+                 Ra::Core::TriangleMesh& meshTwo ) {
+
 
     using Ra::Core::TopologicalMesh;
     using Ra::Core::TriangleMesh;
@@ -72,7 +78,9 @@ bool isSameMesh( Ra::Core::TriangleMesh& meshOne, Ra::Core::TriangleMesh& meshTw
     return result;
 }
 
-void run() {
+
+void run()  {
+
     using Ra::Core::TopologicalMesh;
     using Ra::Core::TriangleMesh;
     using Ra::Core::Vector3;
@@ -131,8 +139,10 @@ void run() {
         bool check2 = true;
         for ( auto n : newMesh.normals() )
         {
-            if ( !Ra::Core::Math::areApproxEqual(
-                     n.dot( Vector3( Scalar( 1. ), Scalar( 0. ), Scalar( 0. ) ) ), Scalar( 1. ) ) )
+
+            if ( !Ra::Core::Math::areApproxEqual( n.dot( Vector3( Scalar( 1. ), Scalar( 0. ), Scalar( 0. ) ) ),
+                                  Scalar( 1. ) ) )
+
             {
                 check1 = false;
             }
@@ -141,25 +151,34 @@ void run() {
                 check2 = false;
             }
         }
-        RA_VERIFY( check1 && check2, "Set normal to topo vertex and apply them to halfedge" );
+
+        RA_VERIFY( check1 && check2,
+                      "Set normal to topo vertex and apply them to halfedge" );
+
     }
 }
 } // namespace Testing
 } // namespace Ra
 
-int main( int argc, const char** argv ) {
+
+
+int main(int argc, const char **argv) {
     using namespace Ra;
 
-    if ( !Testing::init_testing( 1, argv ) )
+    if(!Testing::init_testing(1, argv))
+
     {
         return EXIT_FAILURE;
     }
 
 #pragma omp parallel for
-    for ( int i = 0; i < Testing::g_repeat; ++i )
+
+    for(int i = 0; i < Testing::g_repeat; ++i)
     {
-        CALL_SUBTEST( ( Testing::run() ) );
+        CALL_SUBTEST(( Testing::run() ));
+
     }
 
     return EXIT_SUCCESS;
 }
+

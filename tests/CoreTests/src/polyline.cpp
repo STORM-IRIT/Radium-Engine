@@ -4,7 +4,9 @@
 namespace Ra {
 namespace Testing {
 
-void run() {
+
+void run()  {
+
     // 2 points polyline
     {
         Ra::Core::Vector3Array v2{{1, 2, 3}, {4, 5, 6}};
@@ -16,7 +18,9 @@ void run() {
         RA_VERIFY( p.f( 1 ) == v2[1], "Parametrization fail" );
         RA_VERIFY( p.f( 0.5f ).isApprox( m ), "Parametrization fail" );
         RA_VERIFY( Ra::Core::Math::areApproxEqual( p.distance( m ), Scalar( 0. ) ),
-                   "Distance fail" );
+
+                      "Distance fail" );
+
     }
     // 4 points polyline
     {
@@ -39,18 +43,23 @@ void run() {
 } // namespace Testing
 } // namespace Ra
 
-int main( int argc, const char** argv ) {
+
+
+int main(int argc, const char **argv) {
     using namespace Ra;
 
-    if ( !Testing::init_testing( 1, argv ) )
+    if(!Testing::init_testing(1, argv))
+
     {
         return EXIT_FAILURE;
     }
 
 #pragma omp parallel for
-    for ( int i = 0; i < Testing::g_repeat; ++i )
+
+    for(int i = 0; i < Testing::g_repeat; ++i)
     {
-        CALL_SUBTEST( ( Testing::run() ) );
+        CALL_SUBTEST(( Testing::run() ));
+
     }
 
     return EXIT_SUCCESS;
