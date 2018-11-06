@@ -1,0 +1,1 @@
+cmd='/usr/bin/cmake;-DCMAKE_INSTALL_PREFIX:PATH=/home/naburumm/RadiumEngine_PBS/Radium-Engine/3rdPartyLibraries/PositionBasedDynamics/extern/install/Discregrid;-DBUILD_CMD_EXECUTABLE:BOOL=0;-DEIGEN3_INCLUDE_DIR:PATH=/home/naburumm/RadiumEngine_PBS/Radium-Engine/3rdPartyLibraries/PositionBasedDynamics/extern/eigen;-GUnix Makefiles;<SOURCE_DIR><SOURCE_SUBDIR>'
