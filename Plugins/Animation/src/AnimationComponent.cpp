@@ -349,9 +349,9 @@ void AnimationComponent::setTransform( Ra::Core::Index roIdx,
     const auto& TBoneLocal = m_skel.getTransform( boneIdx, Handle::SpaceType::LOCAL );
 
     // turn bone translation into rotation for parent
-    if ( !m_skel.m_graph.isRoot( boneIdx ) )
+    const uint pBoneIdx = m_skel.m_graph.m_parent[boneIdx];
+    if ( pBoneIdx != -1 && m_skel.m_graph.m_child[pBoneIdx].size() == 1 )
     {
-        const uint pBoneIdx = m_skel.m_graph.m_parent[boneIdx];
         const auto& pTBoneModel = m_skel.getTransform( pBoneIdx, Handle::SpaceType::MODEL );
 
         Ra::Core::Vector3 A;
