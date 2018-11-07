@@ -77,8 +77,8 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
         axis[( i == 0 ? 1 : ( i == 1 ? 0 : 2 ) )] = 1;
         Core::Transform T = Core::Transform::Identity();
         T.rotate( Core::AngleAxis( Core::Math::PiDiv2, axis ) );
-        T.translation()[( i + 1 ) % 3] += arrowScale / 8;
-        T.translation()[( i + 2 ) % 3] += arrowScale / 8;
+        T.translation()[( i + 1 ) % 3] += arrowScale / 8 * 3;
+        T.translation()[( i + 2 ) % 3] += arrowScale / 8 * 3;
 
         Core::TriangleMesh plane = Core::MeshUtils::makePlaneGrid(
             1, 1, Core::Vector2( arrowScale / 8, arrowScale / 8 ), T );
