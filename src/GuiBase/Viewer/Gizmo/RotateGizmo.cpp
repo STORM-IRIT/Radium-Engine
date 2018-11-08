@@ -160,7 +160,9 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::V
                                             m_worldTo * rotationAxis, hits2 );
 
         Core::Vector2 nextXY_ = nextXY;
-        if ( hit1 && hit2 )
+        Scalar angle;
+        // standard check  +  guard against precision issues
+        if ( hit1 && hit2 && hits1[0] > 0.2 && hits2[0] > 0.2 )
         {
             // Do the calculations relative to the circle center.
             const Core::Vector3 originalHit =
@@ -173,30 +175,45 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::V
             auto c = originalHit.cross( currentHit );
             Scalar d = originalHit.dot( currentHit );
 
-            Scalar angle =
+            angle =
                 Core::Math::sign( c.dot( m_worldTo * rotationAxis ) ) * std::atan2( c.norm(), d );
-
-            // Apply rotation.
-            if ( stepped )
+        } else
+        {
+            // Rotation plane is orthogonal to the image plane
+            Core::Vector2 dir = ( cam.project( m_worldTo * ( origin + rotationAxis ) ) -
+                                  cam.project( m_worldTo * origin ) )
+                                    .normalized();
+            if ( dir( 0 ) < 1e-3 )
             {
-                angle = int( angle / step ) * step;
-                if ( angle == 0 )
-                {
-                    nextXY_ = m_initialPix;
-                }
-                if ( !m_stepped )
-                {
-                    Scalar diff = m_totalAngle - int( m_totalAngle / step ) * step;
-                    angle -= diff;
-                }
-            }
-            m_stepped = stepped;
-            m_totalAngle += angle;
-            if ( angle != 0 )
+                dir << 1, 0;
+            } else if ( dir( 1 ) < 1e-3 )
             {
-                auto newRot = Core::AngleAxis( angle, rotationAxis ) * rotationMat;
-                m_transform.fromPositionOrientationScale( origin, newRot, scaleMat.diagonal() );
+                dir << 0, 1;
+            } else
+            { dir = Core::Vector2( dir( 1 ), -dir( 0 ) ); }
+            Scalar diag = std::min( cam.getWidth(), cam.getHeight() );
+            angle = dir.dot( ( nextXY - m_initialPix ) ) * 8 / diag;
+        }
+        // Apply rotation.
+        if ( stepped )
+        {
+            angle = int( angle / step ) * step;
+            if ( angle == 0 )
+            {
+                nextXY_ = m_initialPix;
             }
+            if ( !m_stepped )
+            {
+                Scalar diff = m_totalAngle - int( m_totalAngle / step ) * step;
+                angle -= diff;
+            }
+        }
+        m_stepped = stepped;
+        m_totalAngle += angle;
+        if ( angle != 0 )
+        {
+            auto newRot = Core::AngleAxis( angle, rotationAxis ) * rotationMat;
+            m_transform.fromPositionOrientationScale( origin, newRot, scaleMat.diagonal() );
         }
         m_initialPix = nextXY_;
     }
