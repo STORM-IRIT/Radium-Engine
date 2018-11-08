@@ -4,6 +4,15 @@
 
 namespace Ra {
 namespace Gui {
+
+//char const* const KeyMappingManager::KeyMappingActionNames[] = {
+const std::string KeyMappingManager::KeyMappingActionNames[] = {
+#define KMA_VALUE(x) std::string(#x),
+      KeyMappingActionEnumValues
+#undef  KMA_VALUE
+      std::string("InvalidKeyMapping")
+};
+
 KeyMappingManager::KeyMappingManager() :
     m_domDocument( "Keymapping QDomDocument" ),
     m_metaEnumAction( QMetaEnum::fromType<KeyMappingAction>() ),

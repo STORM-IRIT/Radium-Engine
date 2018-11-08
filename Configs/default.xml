@@ -13,7 +13,7 @@
                 <information id="type" modifier="NoModifier" type="mouse" value="LeftButton"></information>
                 <information id="action" value="GIZMOMANAGER_MANIPULATION"></information>
         </keymap>
-        <keymap>
+       <keymap>
                 <information id="type" modifier="ControlModifier" type="mouse" value="LeftButton"></information>
                 <information id="action" value="GIZMOMANAGER_STEP"></information>
         </keymap>
