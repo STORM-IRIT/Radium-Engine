@@ -176,16 +176,22 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::V
         // Rotation plane is orthogonal to the image plane
         Core::Vector2 dir =
             ( cam.project( originW + rotationAxisW ) - cam.project( originW ) ).normalized();
-        if ( dir( 0 ) < 1e-3 )
+        if ( std::abs(dir( 0 )) < 1e-3 )
         {
             dir << 1, 0;
-        } else if ( dir( 1 ) < 1e-3 )
+        } else if ( std::abs(dir( 1 )) < 1e-3 )
         {
             dir << 0, 1;
         } else
-        { dir = Core::Vector2( dir( 1 ), -dir( 0 ) ); }
+        {
+            dir = Core::Vector2( dir( 1 ), -dir( 0 ) );
+        }
         Scalar diag = std::min( cam.getWidth(), cam.getHeight() );
         angle = dir.dot( ( nextXY - m_initialPix ) ) * 8 / diag;
+    }
+    if (std::isnan(angle))
+    {
+        angle = Scalar(0);
     }
     // Apply rotation
     Core::Vector2 nextXY_ = nextXY;
