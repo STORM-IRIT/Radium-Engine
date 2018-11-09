@@ -22,11 +22,6 @@
 namespace Ra {
 namespace Gui {
 
-inline void colorMesh( std::shared_ptr<Engine::Mesh> mesh, const Core::Color& color ) {
-    Core::Vector4Array colors( mesh->getGeometry().vertices().size(), color );
-    mesh->addData( Engine::Mesh::VERTEX_COLOR, colors );
-}
-
 ScaleGizmo::ScaleGizmo( Engine::Component* c, const Core::Transform& worldTo,
                         const Core::Transform& t, Mode mode ) :
     Gizmo( c, worldTo, t, mode ),
@@ -68,7 +63,7 @@ ScaleGizmo::ScaleGizmo( Engine::Component* c, const Core::Transform& worldTo,
         mesh->loadGeometry( cylinder );
         Core::Color arrowColor = Core::Color::Zero();
         arrowColor[i] = 1.f;
-        colorMesh( mesh, arrowColor );
+        mesh->colorize( arrowColor );
 
         Engine::RenderObject* arrowDrawable =
             new Engine::RenderObject( "Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
@@ -101,7 +96,7 @@ ScaleGizmo::ScaleGizmo( Engine::Component* c, const Core::Transform& worldTo,
         mesh->loadGeometry( plane );
         Core::Color planeColor = Core::Color::Zero();
         planeColor[i] = 1.f;
-        colorMesh( mesh, planeColor );
+        mesh->colorize( planeColor );
 
         Engine::RenderObject* planeDrawable =
             new Engine::RenderObject( "Gizmo Plane", m_comp, Engine::RenderObjectType::UI );
@@ -143,17 +138,17 @@ void ScaleGizmo::selectConstraint( int drawableIdx ) {
     // reColor constraints
     auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
     auto RO = roMgr->getRenderObject( m_renderObjects[0] );
-    colorMesh( RO->getMesh(), Core::Colors::Red() );
+    RO->getMesh()->colorize( Core::Colors::Red() );
     RO = roMgr->getRenderObject( m_renderObjects[1] );
-    colorMesh( RO->getMesh(), Core::Colors::Green() );
+    RO->getMesh()->colorize( Core::Colors::Green() );
     RO = roMgr->getRenderObject( m_renderObjects[2] );
-    colorMesh( RO->getMesh(), Core::Colors::Blue() );
+    RO->getMesh()->colorize( Core::Colors::Blue() );
     RO = roMgr->getRenderObject( m_renderObjects[3] );
-    colorMesh( RO->getMesh(), Core::Colors::Red() );
+    RO->getMesh()->colorize( Core::Colors::Red() );
     RO = roMgr->getRenderObject( m_renderObjects[4] );
-    colorMesh( RO->getMesh(), Core::Colors::Green() );
+    RO->getMesh()->colorize( Core::Colors::Green() );
     RO = roMgr->getRenderObject( m_renderObjects[5] );
-    colorMesh( RO->getMesh(), Core::Colors::Blue() );
+    RO->getMesh()->colorize( Core::Colors::Blue() );
     // prepare selection
     int oldAxis = m_selectedAxis;
     int oldPlane = m_selectedPlane;
@@ -169,13 +164,17 @@ void ScaleGizmo::selectConstraint( int drawableIdx ) {
             if ( i < 3 )
             {
                 m_selectedAxis = i;
-                auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
-                colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+                RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
+                RO->getMesh()->colorize( Core::Colors::Yellow() );
             } else if ( i < 6 )
             {
                 m_selectedPlane = i - 3;
-                auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedPlane + 3] );
-                colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+                RO = roMgr->getRenderObject( m_renderObjects[( m_selectedPlane + 1 ) % 3] );
+                RO->getMesh()->colorize( Core::Colors::Yellow() );
+                RO = roMgr->getRenderObject( m_renderObjects[( m_selectedPlane + 2 ) % 3] );
+                RO->getMesh()->colorize( Core::Colors::Yellow() );
+                RO = roMgr->getRenderObject( m_renderObjects[m_selectedPlane + 3] );
+                RO->getMesh()->colorize( Core::Colors::Yellow() );
             }
         }
     }
@@ -186,87 +185,54 @@ void ScaleGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-inline bool findPointOnAxis( const Engine::Camera& cam, const Core::Vector3& origin,
-                             const Core::Vector3& axis, const Core::Vector2& pix,
-                             Core::Vector3& pointOut ) {
-
-    // Taken from Rodolphe's View engine gizmos -- see slide_axis().
-
-    // Find a plane containing axis and as parallel as possible to
-    // the camera image plane
-    const Core::Vector3 ortho = cam.getDirection().cross( axis );
-    const Core::Vector3 normal =
-        ( ortho.squaredNorm() > 0 ) ? axis.cross( ortho ) : axis.cross( cam.getUpVector() );
-
-    std::vector<Scalar> hit;
-    const Core::Ray ray = cam.getRayFromScreen( pix );
-    bool hasHit = Core::RayCast::vsPlane( ray, origin, normal, hit );
-    if ( hasHit )
-    {
-        pointOut = origin + ( axis.dot( ray.pointAt( hit[0] ) - origin ) ) * axis;
-    }
-    return hasHit;
-}
-
-inline bool findPointOnPlane( const Engine::Camera& cam, const Core::Vector3& origin,
-                              const Core::Vector3& axis, const Core::Vector2& pix,
-                              Core::Vector3& pointOut ) {
-
-    // Taken from Rodolphe's View engine gizmos -- see slide_plane().
-
-    std::vector<Scalar> hit;
-    const Core::Ray ray = cam.getRayFromScreen( pix );
-    bool hasHit = Core::RayCast::vsPlane( ray, origin, axis, hit );
-    if ( hasHit )
-    {
-        pointOut = ray.pointAt( hit[0] );
-    }
-    return hasHit;
-}
-
 Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
                                        bool stepped ) {
     static const Scalar step = 0.2;
 
+    // Recolor gizmo
     bool whole = isKeyPressed( 0x01000020 ); // shift 16777248
     auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
     if ( whole )
     {
         auto RO = roMgr->getRenderObject( m_renderObjects[0] );
-        colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+        RO->getMesh()->colorize( Core::Colors::Yellow() );
         RO = roMgr->getRenderObject( m_renderObjects[1] );
-        colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+        RO->getMesh()->colorize( Core::Colors::Yellow() );
         RO = roMgr->getRenderObject( m_renderObjects[2] );
-        colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+        RO->getMesh()->colorize( Core::Colors::Yellow() );
         RO = roMgr->getRenderObject( m_renderObjects[3] );
-        colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+        RO->getMesh()->colorize( Core::Colors::Yellow() );
         RO = roMgr->getRenderObject( m_renderObjects[4] );
-        colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+        RO->getMesh()->colorize( Core::Colors::Yellow() );
         RO = roMgr->getRenderObject( m_renderObjects[5] );
-        colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+        RO->getMesh()->colorize( Core::Colors::Yellow() );
     } else
     {
         auto RO = roMgr->getRenderObject( m_renderObjects[0] );
-        colorMesh( RO->getMesh(), Core::Colors::Red() );
+        RO->getMesh()->colorize( Core::Colors::Red() );
         RO = roMgr->getRenderObject( m_renderObjects[1] );
-        colorMesh( RO->getMesh(), Core::Colors::Green() );
+        RO->getMesh()->colorize( Core::Colors::Green() );
         RO = roMgr->getRenderObject( m_renderObjects[2] );
-        colorMesh( RO->getMesh(), Core::Colors::Blue() );
+        RO->getMesh()->colorize( Core::Colors::Blue() );
         RO = roMgr->getRenderObject( m_renderObjects[3] );
-        colorMesh( RO->getMesh(), Core::Colors::Red() );
+        RO->getMesh()->colorize( Core::Colors::Red() );
         RO = roMgr->getRenderObject( m_renderObjects[4] );
-        colorMesh( RO->getMesh(), Core::Colors::Green() );
+        RO->getMesh()->colorize( Core::Colors::Green() );
         RO = roMgr->getRenderObject( m_renderObjects[5] );
-        colorMesh( RO->getMesh(), Core::Colors::Blue() );
-        if ( m_selectedAxis > 0 )
+        RO->getMesh()->colorize( Core::Colors::Blue() );
+        if ( m_selectedAxis > -1 )
         {
             RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
-            colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+            RO->getMesh()->colorize( Core::Colors::Yellow() );
         }
-        if ( m_selectedPlane > 0 )
+        if ( m_selectedPlane > -1 )
         {
+            RO = roMgr->getRenderObject( m_renderObjects[( m_selectedPlane + 1 ) % 3] );
+            RO->getMesh()->colorize( Core::Colors::Yellow() );
+            RO = roMgr->getRenderObject( m_renderObjects[( m_selectedPlane + 2 ) % 3] );
+            RO->getMesh()->colorize( Core::Colors::Yellow() );
             RO = roMgr->getRenderObject( m_renderObjects[m_selectedPlane + 3] );
-            colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+            RO->getMesh()->colorize( Core::Colors::Yellow() );
         }
     }
 
@@ -275,118 +241,71 @@ Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Ve
         return m_transform;
     }
 
+    // Get gizmo center and translation axis / plane normal
+    int dir = whole ? 0 : std::max( m_selectedAxis, m_selectedPlane );
+    const Core::Vector3 origin = m_transform.translation();
+    Core::Vector3 scaleDir = Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( dir ) );
+
+    // Project the clicked points against the axis defined by the scale axis,
+    // or the planes defined by the scale plane.
+    std::vector<Scalar> hits;
+    bool found;
+    Core::Vector3 endPoint;
     if ( whole )
     {
-        const Core::Vector3 origin = m_transform.translation();
-        Core::Vector3 scaleDir = Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( 0 ) );
-
-        if ( !m_start )
-        {
-            if ( findPointOnPlane( cam, origin, scaleDir, m_initialPix + nextXY, m_startPoint ) )
-            {
-                m_start = true;
-                m_startPos = m_transform.translation();
-                m_prevScale = Core::Vector3::Ones();
-            }
-        }
-
-        Core::Vector3 endPoint;
-        if ( findPointOnPlane( cam, origin, scaleDir, m_initialPix + nextXY, endPoint ) )
-        {
-            const Core::Vector3 a = endPoint - m_startPos;
-            if ( a.squaredNorm() < 1e-3 )
-            {
-                return m_transform;
-            }
-            const Core::Vector3 b = m_startPoint - m_startPos;
-            Core::Vector3 scale = a.norm() / b.norm() * Core::Vector3::Ones();
-            m_transform.scale( m_prevScale );
-            if ( stepped )
-            {
-                scale = int( ( a.norm() / b.norm() ) / step + 1 ) * step * Core::Vector3::Ones();
-            }
-            m_prevScale = scale;
-            m_transform.scale( m_prevScale );
-            m_prevScale = m_prevScale.cwiseInverse();
-        }
-    } else if ( m_selectedAxis >= 0 )
+        found = findPointOnPlane( cam, origin, scaleDir, m_initialPix + nextXY, endPoint, hits );
+    } else if ( m_selectedAxis > -1 )
     {
-        const Core::Vector3 origin = m_transform.translation();
-        const Core::Vector3 scaleDir =
-            Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( m_selectedAxis ) );
-        if ( !m_start )
-        {
-            if ( findPointOnAxis( cam, origin, scaleDir, m_initialPix + nextXY, m_startPoint ) )
-            {
-                m_start = true;
-                m_startPos = m_transform.translation();
-                m_prevScale = Core::Vector3::Ones();
-            }
-        }
+        found = findPointOnAxis( cam, origin, scaleDir, m_initialPix + nextXY, endPoint, hits );
+    } else if ( m_selectedPlane >= 0 )
+    { found = findPointOnPlane( cam, origin, scaleDir, m_initialPix + nextXY, endPoint, hits ); }
+    if ( !found )
+    {
+        return m_transform;
+    }
 
-        Core::Vector3 endPoint;
-        if ( findPointOnAxis( cam, origin, scaleDir, m_initialPix + nextXY, endPoint ) )
-        {
-            const Core::Vector3 a = endPoint - m_startPos;
-            if ( a.squaredNorm() < 1e-3 )
-            {
-                return m_transform;
-            }
-            const Core::Vector3 b = m_startPoint - m_startPos;
-            Core::Vector3 scale = Core::Vector3::Ones();
-            m_transform.scale( m_prevScale );
-            if ( stepped )
-            {
-                scale[m_selectedAxis] = int( ( a.norm() / b.norm() ) / step + 1 ) * step;
-            } else
-            { scale[m_selectedAxis] = a.norm() / b.norm(); }
-            m_prevScale = scale;
-            m_transform.scale( m_prevScale );
-            m_prevScale = m_prevScale.cwiseInverse();
-        }
+    // Initialize scale
+    if ( !m_start )
+    {
+        m_start = true;
+        m_startPos = m_transform.translation();
+        m_prevScale = Core::Vector3::Ones();
+        m_startPoint = endPoint;
+    }
+
+    // Prevent scale == 0
+    const Core::Vector3 a = endPoint - m_startPos;
+    if ( a.squaredNorm() < 1e-3 )
+    {
+        return m_transform;
+    }
+
+    // Get scale value
+    const Core::Vector3 b = m_startPoint - m_startPos;
+    Scalar scale = a.norm() / b.norm();
+    if ( stepped )
+    {
+        scale = int( scale / step + 1 ) * step;
+    }
+
+    // Apply scale
+    m_transform.scale( m_prevScale );
+    if ( whole )
+    {
+        m_prevScale = scale * Core::Vector3::Ones();
+    } else if ( m_selectedAxis > -1 )
+    {
+        m_prevScale = Core::Vector3::Ones();
+        m_prevScale[m_selectedAxis] = scale;
     } else if ( m_selectedPlane >= 0 )
     {
-        const Core::Vector3 origin = m_transform.translation();
-        Core::Vector3 scaleDir =
-            Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( m_selectedPlane ) );
-
-        if ( !m_start )
-        {
-            if ( findPointOnPlane( cam, origin, scaleDir, m_initialPix + nextXY, m_startPoint ) )
-            {
-                m_start = true;
-                m_startPos = m_transform.translation();
-                m_prevScale = Core::Vector3::Ones();
-            }
-        }
-
-        Core::Vector3 endPoint;
-        if ( findPointOnPlane( cam, origin, scaleDir, m_initialPix + nextXY, endPoint ) )
-        {
-            const Core::Vector3 a = endPoint - m_startPos;
-            if ( a.squaredNorm() < 1e-3 )
-            {
-                return m_transform;
-            }
-            const Core::Vector3 b = m_startPoint - m_startPos;
-            Core::Vector3 scale = Core::Vector3::Ones();
-            m_transform.scale( m_prevScale );
-            if ( stepped )
-            {
-                scale[( m_selectedPlane + 1 ) % 3] =
-                    int( ( a.norm() / b.norm() ) / step + 1 ) * step;
-                scale[( m_selectedPlane + 2 ) % 3] =
-                    int( ( a.norm() / b.norm() ) / step + 1 ) * step;
-            } else
-            {
-                scale[( m_selectedPlane + 1 ) % 3] = a.norm() / b.norm();
-                scale[( m_selectedPlane + 2 ) % 3] = a.norm() / b.norm();
-            }
-            m_prevScale = scale;
-            m_transform.scale( m_prevScale );
-            m_prevScale = m_prevScale.cwiseInverse();
-        }
+        m_prevScale = Core::Vector3::Ones();
+        m_prevScale[( m_selectedPlane + 1 ) % 3] = scale;
+        m_prevScale[( m_selectedPlane + 2 ) % 3] = scale;
     }
+    m_transform.scale( m_prevScale );
+    m_prevScale = m_prevScale.cwiseInverse();
+
     return m_transform;
 }
 

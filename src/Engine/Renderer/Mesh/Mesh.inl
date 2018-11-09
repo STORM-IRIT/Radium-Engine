@@ -39,13 +39,20 @@ void Mesh::setDirty( const Mesh::MeshData& type ) {
     m_dataDirty[type] = true;
     m_isDirty = true;
 }
+
 void Mesh::setDirty( const Mesh::Vec3Data& type ) {
     m_dataDirty[MAX_MESH + type] = true;
     m_isDirty = true;
 }
+
 void Mesh::setDirty( const Mesh::Vec4Data& type ) {
     m_dataDirty[MAX_MESH + MAX_VEC3 + type] = true;
     m_isDirty = true;
+}
+
+void Mesh::colorize( const Core::Color& color ) {
+    Core::Vector4Array colors( getGeometry().vertices().size(), color );
+    addData( Engine::Mesh::VERTEX_COLOR, colors );
 }
 
 } // namespace Engine

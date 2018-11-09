@@ -20,11 +20,6 @@
 namespace Ra {
 namespace Gui {
 
-inline void colorMesh( std::shared_ptr<Engine::Mesh> mesh, const Core::Color& color ) {
-    Core::Vector4Array colors( mesh->getGeometry().vertices().size(), color );
-    mesh->addData( Engine::Mesh::VERTEX_COLOR, colors );
-}
-
 RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
                           const Core::Transform& t, Mode mode ) :
     Gizmo( c, worldTo, t, mode ),
@@ -51,7 +46,7 @@ RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
         mesh->loadGeometry( torus );
         Core::Color color = Core::Color::Zero();
         color[i] = 1.f;
-        colorMesh( mesh, color );
+        mesh->colorize( color );
 
         Engine::RenderObject* arrowDrawable =
             new Engine::RenderObject( "Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
@@ -101,7 +96,7 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
         Core::Color color = Core::Color::Zero();
         color[m_selectedAxis] = 1.f;
         auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
-        colorMesh( RO->getMesh(), color );
+        RO->getMesh()->colorize( color );
     }
     // prepare selection
     int oldAxis = m_selectedAxis;
@@ -114,7 +109,7 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
         {
             m_selectedAxis = int( found - m_renderObjects.begin() );
             auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
-            colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+            RO->getMesh()->colorize( Core::Colors::Yellow() );
         }
     }
     if ( m_selectedAxis != oldAxis )
@@ -127,101 +122,101 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
 Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
                                         bool stepped ) {
     static const Scalar step = Ra::Core::Math::Pi / 10.f;
-    if ( m_selectedAxis >= 0 )
+
+    if ( m_selectedAxis == -1 )
+        return m_transform;
+
+    // Decompose the current transform's linear part into rotation and scale
+    Core::Matrix3 rotationMat;
+    Core::Matrix3 scaleMat;
+    m_transform.computeRotationScaling( &rotationMat, &scaleMat );
+
+    // Get gizmo center and rotation axis
+    const Core::Vector3 origin = m_transform.translation();
+    Core::Vector3 rotationAxis = Core::Vector3::Unit( m_selectedAxis );
+    if ( m_mode == LOCAL )
     {
-        const Core::Vector3 origin = m_transform.translation();
-        Core::Vector3 rotationAxis = Core::Vector3::Unit( m_selectedAxis );
-
-        // Decompose the current transform's linear part into rotation and scale
-        Core::Matrix3 rotationMat;
-        Core::Matrix3 scaleMat;
-        m_transform.computeRotationScaling( &rotationMat, &scaleMat );
-
-        if ( m_mode == LOCAL )
-        {
-            rotationAxis = rotationMat * rotationAxis;
-        }
-        rotationAxis.normalize();
-
-        if ( !m_start )
-        {
-            m_start = true;
-            m_totalAngle = 0;
-            m_initialRot = rotationMat;
-        }
-
-        // Project the clicked points against the plane defined by the rotation circles.
-        std::vector<Scalar> hits1, hits2;
-        Core::Ray rayToFirstClick = cam.getRayFromScreen( m_initialPix );
-        Core::Ray rayToCurrentClick = cam.getRayFromScreen( nextXY );
-        bool hit1 = Core::RayCast::vsPlane( rayToFirstClick, m_worldTo * origin,
-                                            m_worldTo * rotationAxis, hits1 );
-        bool hit2 = Core::RayCast::vsPlane( rayToCurrentClick, m_worldTo * origin,
-                                            m_worldTo * rotationAxis, hits2 );
-
-        Core::Vector2 nextXY_ = nextXY;
-        Scalar angle;
-        // standard check  +  guard against precision issues
-        if ( hit1 && hit2 && hits1[0] > 0.2 && hits2[0] > 0.2 )
-        {
-            // Do the calculations relative to the circle center.
-            const Core::Vector3 originalHit =
-                rayToFirstClick.pointAt( hits1[0] ) - m_worldTo * origin;
-            const Core::Vector3 currentHit =
-                rayToCurrentClick.pointAt( hits2[0] ) - m_worldTo * origin;
-
-            // Get the angle between the two vectors with the correct sign
-            // (since we already know our current rotation axis).
-            auto c = originalHit.cross( currentHit );
-            Scalar d = originalHit.dot( currentHit );
-
-            angle =
-                Core::Math::sign( c.dot( m_worldTo * rotationAxis ) ) * std::atan2( c.norm(), d );
-        } else
-        {
-            // Rotation plane is orthogonal to the image plane
-            Core::Vector2 dir = ( cam.project( m_worldTo * ( origin + rotationAxis ) ) -
-                                  cam.project( m_worldTo * origin ) )
-                                    .normalized();
-            if ( dir( 0 ) < 1e-3 )
-            {
-                dir << 1, 0;
-            } else if ( dir( 1 ) < 1e-3 )
-            {
-                dir << 0, 1;
-            } else
-            { dir = Core::Vector2( dir( 1 ), -dir( 0 ) ); }
-            Scalar diag = std::min( cam.getWidth(), cam.getHeight() );
-            angle = dir.dot( ( nextXY - m_initialPix ) ) * 8 / diag;
-        }
-        // Apply rotation.
-        if ( stepped )
-        {
-            angle = int( angle / step ) * step;
-            if ( angle == 0 )
-            {
-                nextXY_ = m_initialPix;
-            }
-            if ( !m_stepped )
-            {
-                Scalar diff = m_totalAngle - int( m_totalAngle / step ) * step;
-                angle -= diff;
-            }
-        }
-        m_stepped = stepped;
-        m_totalAngle += angle;
-        if ( angle != 0 )
-        {
-            auto newRot = Core::AngleAxis( angle, rotationAxis ) * rotationMat;
-            m_transform.fromPositionOrientationScale( origin, newRot, scaleMat.diagonal() );
-        }
-        m_initialPix = nextXY_;
+        rotationAxis = rotationMat * rotationAxis;
     }
+    rotationAxis.normalize();
+    const Core::Vector3 originW = m_worldTo * origin;
+    const Core::Vector3 rotationAxisW = m_worldTo * rotationAxis;
+
+    // Initialize rotation
+    if ( !m_start )
+    {
+        m_start = true;
+        m_totalAngle = 0;
+        m_initialRot = rotationMat;
+    }
+
+    // Project the clicked points against the plane defined by the rotation circles.
+    std::vector<Scalar> hits1, hits2;
+    Core::Vector3 originalHit, currentHit;
+    bool hit1 = findPointOnPlane( cam, originW, rotationAxisW, m_initialPix, originalHit, hits1 );
+    bool hit2 = findPointOnPlane( cam, originW, rotationAxisW, nextXY, currentHit, hits2 );
+
+    // Compute the rotation angle
+    Scalar angle;
+    // standard check  +  guard against precision issues
+    if ( hit1 && hit2 && hits1[0] > 0.2 && hits2[0] > 0.2 )
+    {
+        // Do the calculations relative to the circle center.
+        originalHit -= originW;
+        currentHit -= originW;
+
+        // Get the angle between the two vectors with the correct sign
+        // (since we already know our current rotation axis).
+        auto c = originalHit.cross( currentHit );
+        Scalar d = originalHit.dot( currentHit );
+
+        angle = Core::Math::sign( c.dot( rotationAxisW ) ) * std::atan2( c.norm(), d );
+    } else
+    {
+        // Rotation plane is orthogonal to the image plane
+        Core::Vector2 dir =
+            ( cam.project( originW + rotationAxisW ) - cam.project( originW ) ).normalized();
+        if ( dir( 0 ) < 1e-3 )
+        {
+            dir << 1, 0;
+        } else if ( dir( 1 ) < 1e-3 )
+        {
+            dir << 0, 1;
+        } else
+        { dir = Core::Vector2( dir( 1 ), -dir( 0 ) ); }
+        Scalar diag = std::min( cam.getWidth(), cam.getHeight() );
+        angle = dir.dot( ( nextXY - m_initialPix ) ) * 8 / diag;
+    }
+    // Apply rotation
+    Core::Vector2 nextXY_ = nextXY;
+    if ( stepped )
+    {
+        angle = int( angle / step ) * step;
+        if ( angle == 0 )
+        {
+            nextXY_ = m_initialPix;
+        }
+        if ( !m_stepped )
+        {
+            Scalar diff = m_totalAngle - int( m_totalAngle / step ) * step;
+            angle -= diff;
+        }
+    }
+    m_stepped = stepped;
+    m_totalAngle += angle;
+    if ( angle != 0 )
+    {
+        auto newRot = Core::AngleAxis( angle, rotationAxis ) * rotationMat;
+        m_transform.fromPositionOrientationScale( origin, newRot, scaleMat.diagonal() );
+    }
+    m_initialPix = nextXY_;
+
     return m_transform;
 }
 
 void RotateGizmo::setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) {
     m_initialPix = initialXY;
 }
+
 } // namespace Gui
 } // namespace Ra

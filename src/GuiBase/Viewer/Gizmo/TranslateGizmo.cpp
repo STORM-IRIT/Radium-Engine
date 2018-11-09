@@ -20,11 +20,6 @@
 namespace Ra {
 namespace Gui {
 
-inline void colorMesh( std::shared_ptr<Engine::Mesh> mesh, const Core::Color& color ) {
-    Core::Vector4Array colors( mesh->getGeometry().vertices().size(), color );
-    mesh->addData( Engine::Mesh::VERTEX_COLOR, colors );
-}
-
 TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& worldTo,
                                 const Core::Transform& t, Mode mode ) :
     Gizmo( c, worldTo, t, mode ),
@@ -61,7 +56,7 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
         mesh->loadGeometry( cylinder );
         Core::Color arrowColor = Core::Color::Zero();
         arrowColor[i] = 1.f;
-        colorMesh( mesh, arrowColor );
+        mesh->colorize( arrowColor );
 
         Engine::RenderObject* arrowDrawable =
             new Engine::RenderObject( "Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
@@ -93,7 +88,7 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
         mesh->loadGeometry( plane );
         Core::Color planeColor = Core::Color::Zero();
         planeColor[i] = 1.f;
-        colorMesh( mesh, planeColor );
+        mesh->colorize( planeColor );
 
         Engine::RenderObject* planeDrawable =
             new Engine::RenderObject( "Gizmo Plane", m_comp, Engine::RenderObjectType::UI );
@@ -134,17 +129,17 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
     // reColor constraint
     auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
     auto RO = roMgr->getRenderObject( m_renderObjects[0] );
-    colorMesh( RO->getMesh(), Core::Colors::Red() );
+    RO->getMesh()->colorize( Core::Colors::Red() );
     RO = roMgr->getRenderObject( m_renderObjects[1] );
-    colorMesh( RO->getMesh(), Core::Colors::Green() );
+    RO->getMesh()->colorize( Core::Colors::Green() );
     RO = roMgr->getRenderObject( m_renderObjects[2] );
-    colorMesh( RO->getMesh(), Core::Colors::Blue() );
+    RO->getMesh()->colorize( Core::Colors::Blue() );
     RO = roMgr->getRenderObject( m_renderObjects[3] );
-    colorMesh( RO->getMesh(), Core::Colors::Red() );
+    RO->getMesh()->colorize( Core::Colors::Red() );
     RO = roMgr->getRenderObject( m_renderObjects[4] );
-    colorMesh( RO->getMesh(), Core::Colors::Green() );
+    RO->getMesh()->colorize( Core::Colors::Green() );
     RO = roMgr->getRenderObject( m_renderObjects[5] );
-    colorMesh( RO->getMesh(), Core::Colors::Blue() );
+    RO->getMesh()->colorize( Core::Colors::Blue() );
     // prepare selection
     int oldAxis = m_selectedAxis;
     int oldPlane = m_selectedPlane;
@@ -160,17 +155,17 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
             if ( i < 3 )
             {
                 m_selectedAxis = i;
-                auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
-                colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+                RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
+                RO->getMesh()->colorize( Core::Colors::Yellow() );
             } else
             {
                 m_selectedPlane = i - 3;
-                auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedPlane + 3] );
-                colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+                RO = roMgr->getRenderObject( m_renderObjects[m_selectedPlane + 3] );
+                RO->getMesh()->colorize( Core::Colors::Yellow() );
                 RO = roMgr->getRenderObject( m_renderObjects[( m_selectedPlane + 1 ) % 3] );
-                colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+                RO->getMesh()->colorize( Core::Colors::Yellow() );
                 RO = roMgr->getRenderObject( m_renderObjects[( m_selectedPlane + 2 ) % 3] );
-                colorMesh( RO->getMesh(), Core::Colors::Yellow() );
+                RO->getMesh()->colorize( Core::Colors::Yellow() );
             }
         }
     }
@@ -181,105 +176,53 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-inline bool findPointOnAxis( const Engine::Camera& cam, const Ra::Core::Vector3& origin,
-                             const Ra::Core::Vector3& axis, const Ra::Core::Vector2& pix,
-                             Ra::Core::Vector3& pointOut ) {
-
-    // Taken from Rodolphe's View engine gizmos -- see slide_axis().
-
-    // Find a plane containing axis and as parallel as possible to
-    // the camera image plane
-    const Core::Vector3 ortho = cam.getDirection().cross( axis );
-    const Core::Vector3 normal =
-        ( ortho.squaredNorm() > 0 ) ? axis.cross( ortho ) : axis.cross( cam.getUpVector() );
-
-    std::vector<Scalar> hit;
-    const Core::Ray ray = cam.getRayFromScreen( pix );
-    bool hasHit = Core::RayCast::vsPlane( ray, origin, normal, hit );
-    if ( hasHit )
-    {
-        pointOut = origin + ( axis.dot( ray.pointAt( hit[0] ) - origin ) ) * axis;
-    }
-    return hasHit;
-}
-
-inline bool findPointOnPlane( const Engine::Camera& cam, const Ra::Core::Vector3& origin,
-                              const Ra::Core::Vector3& axis, const Ra::Core::Vector2& pix,
-                              Ra::Core::Vector3& pointOut ) {
-
-    // Taken from Rodolphe's View engine gizmos -- see slide_plane().
-
-    std::vector<Scalar> hit;
-    const Core::Ray ray = cam.getRayFromScreen( pix );
-    bool hasHit = Core::RayCast::vsPlane( ray, origin, axis, hit );
-    if ( hasHit )
-    {
-        pointOut = ray.pointAt( hit[0] );
-    }
-    return hasHit;
-}
-
 Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
                                            bool stepped ) {
     static const Scalar step = 0.2;
-    if ( m_selectedAxis >= 0 )
+
+    if ( m_selectedAxis == -1 && m_selectedPlane == -1 )
+        return m_transform;
+
+    // Get gizmo center and translation axis / plane normal
+    std::vector<Scalar> hits;
+    int axis = std::max( m_selectedAxis, m_selectedPlane );
+    const Core::Vector3 origin = m_transform.translation();
+    const Core::Vector3 translateDir =
+        m_mode == LOCAL ? Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( axis ) )
+                        : Core::Vector3::Unit( axis );
+
+    // Project the clicked points against the axis defined by the translation axis,
+    // or the planes defined by the translation plane.
+    Ra::Core::Vector3 endPoint;
+    bool found;
+    if ( m_selectedAxis > -1 )
     {
-        const Core::Vector3 origin = m_transform.translation();
-        Core::Vector3 translateDir =
-            m_mode == LOCAL
-                ? Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( m_selectedAxis ) )
-                : Core::Vector3::Unit( m_selectedAxis );
-
-        if ( !m_start )
-        {
-            if ( findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, m_startPoint ) )
-            {
-                m_start = true;
-                m_initialTrans = m_transform.translation();
-            }
-        }
-
-        Ra::Core::Vector3 endPoint;
-        if ( findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, endPoint ) )
-        {
-            if ( stepped )
-            {
-                const Ra::Core::Vector3 tr = endPoint - m_startPoint;
-                m_transform.translation() =
-                    m_initialTrans + int( tr.norm() / step ) * step * tr.normalized();
-            } else
-            { m_transform.translation() = m_initialTrans + endPoint - m_startPoint; }
-        }
-    } else if ( m_selectedPlane >= 0 )
+        found = findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, endPoint, hits );
+    } else if ( m_selectedPlane > -1 )
     {
-        const Core::Vector3 origin = m_transform.translation();
-        Core::Vector3 translateDir =
-            m_mode == LOCAL
-                ? Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( m_selectedPlane ) )
-                : Core::Vector3::Unit( m_selectedPlane );
-
-        if ( !m_start )
-        {
-            if ( findPointOnPlane( cam, origin, translateDir, m_initialPix + nextXY,
-                                   m_startPoint ) )
-            {
-                m_start = true;
-                m_initialTrans = m_transform.translation();
-            }
-        }
-
-        Ra::Core::Vector3 endPoint;
-        if ( findPointOnPlane( cam, origin, translateDir, m_initialPix + nextXY, endPoint ) )
-        {
-            if ( stepped )
-            {
-                const Ra::Core::Vector3 tr = endPoint - m_startPoint;
-                m_transform.translation() =
-                    m_initialTrans + int( tr.norm() / step ) * step * tr.normalized();
-            } else
-            { m_transform.translation() = m_initialTrans + endPoint - m_startPoint; }
-        }
+        found =
+            findPointOnPlane( cam, origin, translateDir, m_initialPix + nextXY, endPoint, hits );
     }
+
+    if ( found )
+    {
+        // Initialize translation
+        if ( !m_start )
+        {
+            m_start = true;
+            m_startPoint = endPoint;
+            m_initialTrans = origin;
+        }
+
+        // Apply translation
+        Ra::Core::Vector3 tr = endPoint - m_startPoint;
+        if ( stepped )
+        {
+            tr = int( tr.norm() / step ) * step * tr.normalized();
+        }
+        m_transform.translation() = m_initialTrans + tr;
+    }
+
     return m_transform;
 }
 

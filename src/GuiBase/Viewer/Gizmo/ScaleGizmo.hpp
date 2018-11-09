@@ -6,8 +6,11 @@
 namespace Ra {
 namespace Gui {
 
-/// A ScaleGizmo manipulates the scaling part of a transformation.
-/// \note scaling is always applied in local frame.
+/**
+ * A ScaleGizmo manipulates the scaling part of a transformation.
+ * \note Scaling is always applied in local frame.
+ * \note Scaling is always strictly positive.
+ */
 // TODO: find how to apply it in global frame.
 class ScaleGizmo : public Gizmo {
   public:

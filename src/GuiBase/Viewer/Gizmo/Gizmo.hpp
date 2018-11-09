@@ -40,27 +40,12 @@ class Gizmo {
   public:
     RA_CORE_ALIGNED_NEW
     Gizmo( Engine::Component* c, const Core::Transform& worldTo, const Core::Transform& t,
-           Mode mode ) :
-        m_worldTo( worldTo ),
-        m_transform( t ),
-        m_comp( c ),
-        m_mode( mode ) {}
+           Mode mode );
 
-    virtual ~Gizmo() {
-        for ( auto ro : m_renderObjects )
-        {
-            m_comp->removeRenderObject( ro );
-        }
-    }
+    virtual ~Gizmo();
 
     // shows or hides the gizmos drawables.
-    void show( bool on ) {
-        auto roMgr = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager();
-        for ( auto ro : m_renderObjects )
-        {
-            roMgr->getRenderObject( ro )->setVisible( on );
-        }
-    }
+    void show( bool on );
 
     /// Called every time the underlying transform may have changed.
     virtual void updateTransform( Mode mode, const Core::Transform& worldTo,
@@ -79,11 +64,20 @@ class Gizmo {
                                        bool stepped = false ) = 0;
 
   protected:
-    Core::Transform m_worldTo;   //! World to local space where the transform lives.
-    Core::Transform m_transform; //! Transform to be edited.
-    Engine::Component* m_comp;   //! Engine Ui component
-    Mode m_mode;                 //! local or global
-    std::vector<Core::Index> m_renderObjects;
+    static bool findPointOnAxis( const Engine::Camera& cam, const Core::Vector3& origin,
+                                 const Core::Vector3& axis, const Core::Vector2& pix,
+                                 Core::Vector3& pointOut, std::vector<Scalar>& hits );
+
+    static bool findPointOnPlane( const Engine::Camera& cam, const Core::Vector3& origin,
+                                  const Core::Vector3& axis, const Core::Vector2& pix,
+                                  Core::Vector3& pointOut, std::vector<Scalar>& hits );
+
+  protected:
+    Core::Transform m_worldTo;                ///< World to local space where the transform lives.
+    Core::Transform m_transform;              ///< Transform to be edited.
+    Engine::Component* m_comp;                ///< Engine Ui component.
+    Mode m_mode;                              ///< local or global.
+    std::vector<Core::Index> m_renderObjects; ///< ros for the gizmo.
 };
 } // namespace Gui
 } // namespace Ra

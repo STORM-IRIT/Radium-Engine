@@ -22,45 +22,49 @@ namespace Engine {
 //                for the plugin developper (or we can just provide shaders
 //                for this kind of renderings ...)
 
-/// A class representing an openGL general mesh to be displayed.
-/// It stores the vertex attributes, indices, and can be rendered
-/// with a specific render mode (e.g. GL_TRIANGLES or GL_LINES).
-/// It maintains the attributes and keeps them in sync with the GPU.
-/// \note Attribute names are used to automatic location binding when using shaders.
+/**
+ * A class representing an openGL general mesh to be displayed.
+ * It stores the vertex attributes, indices, and can be rendered
+ * with a specific render mode (e.g. GL_TRIANGLES or GL_LINES).
+ * It maintains the attributes and keeps them in sync with the GPU.
+ * \note Attribute names are used to automatic location binding when using shaders.
+ */
 class RA_ENGINE_API Mesh {
   public:
-    /// List of all possible vertex attributes.
-
+    /// \name List of all possible vertex attributes.
+    ///@{
     // This is also the layout of the "dirty bit" and "vbo" arrays.
 
     /// Information which is in the mesh geometry
     enum MeshData : uint {
-        INDEX = 0,       /// Vertex indices
-        VERTEX_POSITION, /// Vertex positions
-        VERTEX_NORMAL,   /// Vertex normals
+        INDEX = 0,       ///< Vertex indices
+        VERTEX_POSITION, ///< Vertex positions
+        VERTEX_NORMAL,   ///< Vertex normals
 
         MAX_MESH
     };
 
     /// Optional vector 3 data.
     enum Vec3Data : uint {
-        VERTEX_TANGENT = 0, /// Vertex tangent 1
-        VERTEX_BITANGENT,   /// Vertex tangent 2
-        VERTEX_TEXCOORD,    /// U,V  texture coords (last coordinate not used)
+        VERTEX_TANGENT = 0, ///< Vertex tangent 1
+        VERTEX_BITANGENT,   ///< Vertex tangent 2
+        VERTEX_TEXCOORD,    ///< U,V  texture coords (last coordinate not used)
 
         MAX_VEC3
     };
 
     /// Optional vector 4 data
     enum Vec4Data : uint {
-        VERTEX_COLOR = 0,  /// RGBA color.
-        VERTEX_WEIGHTS,    /// Skinning weights (not used)
-        VERTEX_WEIGHT_IDX, /// Associated weight bones
+        VERTEX_COLOR = 0,  ///< RGBA color.
+        VERTEX_WEIGHTS,    ///< Skinning weights (not used)
+        VERTEX_WEIGHT_IDX, ///< Associated weight bones
 
         MAX_VEC4
     };
+    ///@}
 
-    /** Mesh render mode enum.
+    /**
+     * Mesh render mode enum.
      * values taken from OpenGL specification
      */
     enum MeshRenderMode : uint {
@@ -102,19 +106,23 @@ class RA_ENGINE_API Mesh {
     /// Use the given geometry as base for a display mesh. Normals are optionnal.
     void loadGeometry( const Core::TriangleMesh& mesh );
 
-    /// Use the given vertices and indices to build a display mesh according to
-    /// the MeshRenderMode.
-    /// \note This has to be used for non RM_TRIANGLES meshes only.
-    /// \note Also removes all vertex attributes.
-    /// \warning This might disappear when line meshes will be managed.
+    /**
+     * Use the given vertices and indices to build a display mesh according to
+     * the MeshRenderMode.
+     * \note This has to be used for non RM_TRIANGLES meshes only.
+     * \note Also removes all vertex attributes.
+     * \warning This might disappear when line meshes will be managed.
+     */
     // FIXME: Had to keep this for line meshes and Render Primitives.
     void loadGeometry( const Core::Vector3Array& vertices, const std::vector<uint>& indices );
 
-    /// Set additionnal vertex data.
-    /// Initialize vertexAttrib if needed,
-    /// data must have the appropriate size (i.e. num vertex) or empty (to
-    /// remove the data)
-    /// Theses functions might disapear to use directly Core::TriangleMesh attribs.
+    /**
+     * Set additionnal vertex data.
+     * Initialize vertexAttrib if needed,
+     * data must have the appropriate size (i.e. num vertex) or empty (to
+     * remove the data)
+     * Theses functions might disapear to use directly Core::TriangleMesh attribs.
+     */
     void addData( const Vec3Data& type, const Core::Vector3Array& data );
     void addData( const Vec4Data& type, const Core::Vector4Array& data );
 
@@ -127,12 +135,17 @@ class RA_ENGINE_API Mesh {
     inline void setDirty( const Vec3Data& type );
     inline void setDirty( const Vec4Data& type );
 
-    /// This function is called at the start of the rendering. It will update the
-    /// necessary openGL buffers.
+    /**
+     * This function is called at the start of the rendering. It will update the
+     * necessary openGL buffers.
+     */
     void updateGL();
 
     /// Draw the mesh.
     void render();
+
+    /// Colorize all mesh vertices with the given color.
+    inline void colorize( const Core::Color& color );
 
   private:
     Mesh( const Mesh& rhs ) = delete;
