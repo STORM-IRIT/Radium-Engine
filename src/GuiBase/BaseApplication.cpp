@@ -345,8 +345,8 @@ void BaseApplication::addBasicShaders() {
     ShaderConfigurationFactory::addConfiguration( lConfig );
 
     ShaderConfiguration gdConfig( "GradientDisplay" );
-    lConfig.addShader( ShaderType_VERTEX, "Shaders/GradientDisplay.vert.glsl" );
-    lConfig.addShader( ShaderType_FRAGMENT, "Shaders/GradientDisplay.frag.glsl" );
+    gdConfig.addShader( ShaderType_VERTEX, "Shaders/GradientDisplay.vert.glsl" );
+    gdConfig.addShader( ShaderType_FRAGMENT, "Shaders/GradientDisplay.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( gdConfig );
 }
 
