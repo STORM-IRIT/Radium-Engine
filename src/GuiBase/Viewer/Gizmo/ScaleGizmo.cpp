@@ -249,7 +249,7 @@ Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Ve
     // Project the clicked points against the axis defined by the scale axis,
     // or the planes defined by the scale plane.
     std::vector<Scalar> hits;
-    bool found;
+    bool found = false;
     Core::Vector3 endPoint;
     if ( whole )
     {
