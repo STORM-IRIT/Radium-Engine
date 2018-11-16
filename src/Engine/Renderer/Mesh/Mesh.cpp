@@ -2,7 +2,6 @@
 
 #include <numeric>
 
-#include <Core/Mesh/HalfEdge.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 

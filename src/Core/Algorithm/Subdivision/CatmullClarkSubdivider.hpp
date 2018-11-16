@@ -8,10 +8,12 @@
 namespace Ra {
 namespace Core {
 
-/// This class implements the Catmull-Clark subdivision algorithm
-///
-/// This class extends OpenMesh's CatmullClarkT subdivider to handle attributes.
-/// \note We here consider that boundary halfedges do not store attributes.
+/**
+ * This class implements the Catmull-Clark subdivision algorithm
+ *
+ * This class extends OpenMesh's CatmullClarkT subdivider to handle attributes.
+ * \note We here consider that boundary halfedges do not store attributes.
+ */
 class RA_CORE_API CatmullClarkSubdivider
     : public OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar> {
 

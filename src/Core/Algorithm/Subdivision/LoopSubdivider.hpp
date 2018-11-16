@@ -8,10 +8,12 @@
 namespace Ra {
 namespace Core {
 
-/// This class implements the Loop subdivision algorithm
-///
-/// This class extends OpenMesh's LoopT subdivider to handle attributes.
-/// \note We here consider that boundary halfedges do not store attributes.
+/**
+ * This class implements the Loop subdivision algorithm
+ *
+ * This class extends OpenMesh's LoopT subdivider to handle attributes.
+ * \note We here consider that boundary halfedges do not store attributes.
+ */
 class RA_CORE_API LoopSubdivider
     : public OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar> {
 
@@ -76,8 +78,7 @@ class RA_CORE_API LoopSubdivider
     bool subdivide( TopologicalMesh& mesh, size_t n, const bool updatePoints = true ) override;
 
   private:
-    /// Helper functor to compute weights for Loop-subdivision
-    /// \internal
+    /// Helper functor to compute weights for Loop-subdivision.
     struct compute_weight {
         compute_weight() : m_valence( -1 ) {}
         Weight operator()( void ) {
