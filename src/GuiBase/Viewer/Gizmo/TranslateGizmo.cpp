@@ -194,7 +194,7 @@ Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core
     // Project the clicked points against the axis defined by the translation axis,
     // or the planes defined by the translation plane.
     Ra::Core::Vector3 endPoint;
-    bool found;
+    bool found = false;
     if ( m_selectedAxis > -1 )
     {
         found = findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, endPoint, hits );
