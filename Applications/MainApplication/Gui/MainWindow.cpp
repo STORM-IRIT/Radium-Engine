@@ -82,6 +82,7 @@ void MainWindow::createConnections() {
     connect( actionGizmoOff, &QAction::triggered, this, &MainWindow::gizmoShowNone );
     connect( actionGizmoTranslate, &QAction::triggered, this, &MainWindow::gizmoShowTranslate );
     connect( actionGizmoRotate, &QAction::triggered, this, &MainWindow::gizmoShowRotate );
+    connect( actionGizmoScale, &QAction::triggered, this, &MainWindow::gizmoShowScale );
 
     connect( actionRecord_Frames, &QAction::toggled, mainApp, &MainApplication::setRecordFrames );
 
@@ -340,6 +341,10 @@ void MainWindow::gizmoShowTranslate() {
 
 void MainWindow::gizmoShowRotate() {
     m_viewer->getGizmoManager()->changeGizmoType( GizmoManager::ROTATION );
+}
+
+void MainWindow::gizmoShowScale() {
+    m_viewer->getGizmoManager()->changeGizmoType( GizmoManager::SCALE );
 }
 
 void MainWindow::reloadConfiguration() {

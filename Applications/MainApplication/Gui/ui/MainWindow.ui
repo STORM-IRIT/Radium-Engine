@@ -574,6 +574,7 @@
    <addaction name="actionGizmoOff"/>
    <addaction name="actionGizmoTranslate"/>
    <addaction name="actionGizmoRotate"/>
+   <addaction name="actionGizmoScale"/>
    <addaction name="separator"/>
    <addaction name="actionRecord_Frames"/>
    <addaction name="separator"/>
@@ -707,6 +708,21 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+O</string>
+   </property>
+  </action>
+  <action name="actionGizmoScale">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../../../icons.qrc">
+     <normaloff>:/Assets/Images/scale.png</normaloff>:/Assets/Images/scale.png</iconset>
+   </property>
+   <property name="text">
+    <string>Scale</string>
+   </property>
+   <property name="toolTip">
+    <string>Scale selected object</string>
    </property>
   </action>
  </widget>
