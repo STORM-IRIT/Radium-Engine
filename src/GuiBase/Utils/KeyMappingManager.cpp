@@ -4,6 +4,13 @@
 
 namespace Ra {
 namespace Gui {
+
+const std::string KeyMappingManager::KeyMappingActionNames[] = {
+#define KMA_VALUE( x ) std::string( #x ),
+    KeyMappingActionEnumValues
+#undef KMA_VALUE
+        std::string( "InvalidKeyMapping" )};
+
 KeyMappingManager::KeyMappingManager() :
     m_domDocument( "Keymapping QDomDocument" ),
     m_metaEnumAction( QMetaEnum::fromType<KeyMappingAction>() ),
@@ -36,7 +43,7 @@ int KeyMappingManager::getKeyFromAction( KeyMappingAction action ) {
 }
 
 bool KeyMappingManager::actionTriggered( QMouseEvent* event, KeyMappingAction action ) {
-    return ( int( event->button() ) | event->modifiers() ) == getKeyFromAction( action );
+    return ( int( event->buttons() ) | event->modifiers() ) == getKeyFromAction( action );
 }
 
 bool KeyMappingManager::actionTriggered( QKeyEvent* event, KeyMappingAction action ) {

@@ -77,7 +77,7 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     void gizmoShowNone();
     void gizmoShowTranslate();
     void gizmoShowRotate();
-    // void gizmoShowScale();
+    void gizmoShowScale();
 
     // Keymapping configuration tool
     void reloadConfiguration();
