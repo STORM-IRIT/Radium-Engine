@@ -331,8 +331,8 @@ void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
             m_gizmoManager->handleMouseMoveEvent( event );
         }
         m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
-        if ( Gui::KeyMappingManager::getInstance()->actionTriggered(
-                 event, Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
+        if ( event->buttons() & Gui::KeyMappingManager::getInstance()
+             ->getKeyFromAction( Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
         {
             // Check picking
             Engine::Renderer::PickingQuery query = {
