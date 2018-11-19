@@ -43,7 +43,7 @@ int KeyMappingManager::getKeyFromAction( KeyMappingAction action ) {
 }
 
 bool KeyMappingManager::actionTriggered( QMouseEvent* event, KeyMappingAction action ) {
-    return ( int( event->button() ) | event->modifiers() ) == getKeyFromAction( action );
+    return ( int( event->buttons() ) | event->modifiers() ) == getKeyFromAction( action );
 }
 
 bool KeyMappingManager::actionTriggered( QKeyEvent* event, KeyMappingAction action ) {
