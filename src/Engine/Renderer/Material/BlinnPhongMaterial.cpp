@@ -31,7 +31,12 @@ void BlinnPhongMaterial::updateGL() {
     TextureManager* texManager = TextureManager::getInstance();
     for ( const auto& tex : m_pendingTextures )
     {
-        addTexture( tex.first, texManager->getOrLoadTexture( tex.second ) );
+        auto texture = texManager->getOrLoadTexture( tex.second );
+        // convert color textures from sRGB to Linear RGB
+        if (tex.first == TextureSemantic::TEX_DIFFUSE || tex.first == TextureSemantic::TEX_SPECULAR) {
+            texture->sRGBToLinearRGB(2.2);
+        }
+        addTexture( tex.first, texture );
     }
 
     m_pendingTextures.clear();

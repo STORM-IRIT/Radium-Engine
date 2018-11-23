@@ -30,7 +30,7 @@ class RA_ENGINE_API Texture final {
      * @param name Name of the texture
      *
      */
-    explicit Texture( std::string name = "" );
+    explicit Texture( const std::string &name = "" );
 
     /**
      * Texture desctructor. Both internal data and OpenGL stuff are deleted.
@@ -204,6 +204,14 @@ class RA_ENGINE_API Texture final {
     uint height() const { return m_height; }
     globjects::Texture* texture() const { return m_texture.get(); }
 
+    /**
+     * Convert a color texture from sRGB to Linear RGB spaces.
+     * This will transform the internal representation of the texture to GL_FLOAT.
+     * Only GL_RGB[8, 16, 16F, 32F] and GL_RGBA[8, 16, 16F, 32F] are managed.
+     * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
+     * @param gamma the gama value to use
+     */
+    void sRGBToLinearRGB(Scalar gamma);
   private:
     Texture( const Texture& ) = delete;
     void operator=( const Texture& ) = delete;
@@ -218,6 +226,9 @@ class RA_ENGINE_API Texture final {
     uint m_depth;
 
     std::unique_ptr<globjects::Texture> m_texture;
+
+    bool m_isMipMaped;
+    bool m_isLinear;
 };
 } // namespace Engine
 } // namespace Ra
