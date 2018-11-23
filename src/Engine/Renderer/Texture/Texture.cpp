@@ -7,7 +7,7 @@
 #include <cmath>
 
 namespace Ra {
-Engine::Texture::Texture( std::string name ) :
+Engine::Texture::Texture( const std::string &name ) :
     m_name {name},
     m_width {1},
     m_height {1},
@@ -166,13 +166,12 @@ void Engine::Texture::sRGBToLinearRGB(Scalar gamma)
 {
     if (! m_isLinear) {
         auto linearize = [gamma](float in)-> float {
-            constexpr float a = 0.055;
-            constexpr float b = 12.92;
+            // Constants are described at https://en.wikipedia.org/wiki/SRGB
             if (in < 0.04045) {
-                return in/b;
+                return in/ 12.92;
             } else
             {
-                return std::pow(((in + a) / (1 + a)), float(gamma));
+                return std::pow(((in + 0.055) / (1 + 0.055)), float(gamma));
             }
         };
         // Only RGB and RGBA texture contains color information

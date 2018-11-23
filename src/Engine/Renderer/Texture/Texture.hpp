@@ -30,7 +30,7 @@ class RA_ENGINE_API Texture final {
      * @param name Name of the texture
      *
      */
-    explicit Texture( std::string name = "" );
+    explicit Texture( const std::string &name = "" );
 
     /**
      * Texture desctructor. Both internal data and OpenGL stuff are deleted.
