@@ -1,11 +1,20 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
+#include <Core/Log/Log.hpp>
 
 #include <globjects/Texture.h>
+#include "Texture.hpp"
+
+#include <cmath>
 
 namespace Ra {
 Engine::Texture::Texture( std::string name ) :
-    m_name( name ),
-    m_texture( nullptr ) {}
+    m_name {name},
+    m_width {1},
+    m_height {1},
+    m_depth {1},
+    m_texture {nullptr},
+    m_isMipMaped {false},
+    m_isLinear{false} {}
 
 Engine::Texture::~Texture() {}
 
@@ -22,6 +31,7 @@ void Engine::Texture::Generate( uint w, GLenum format, void* data, bool mipmaped
 
     if (mipmaped)
     {
+        m_isMipMaped = true;
         m_texture->generateMipmap();
     }
 
@@ -42,6 +52,7 @@ void Engine::Texture::Generate( uint w, uint h, GLenum format, void* data, bool 
 
     if (mipmaped)
     {
+        m_isMipMaped = true;
         m_texture->generateMipmap();
     }
 
@@ -63,6 +74,7 @@ void Engine::Texture::Generate( uint w, uint h, uint d, GLenum format, void* dat
 
     if (mipmaped)
     {
+        m_isMipMaped = true;
         m_texture->generateMipmap();
     }
 
@@ -85,6 +97,7 @@ void Engine::Texture::GenerateCube( uint w, uint h, GLenum format, void** data, 
 
     if (mipmaped)
     {
+        m_isMipMaped = true;
         m_texture->generateMipmap();
     }
 
@@ -123,7 +136,7 @@ void Engine::Texture::updateData( void* data ) {
     }
     break;
     default:
-    { CORE_ASSERT( 0, "Dafuck ?" ); }
+    { CORE_ASSERT( 0, "Unsupported texture type ?" ); }
     break;
     }
 }
@@ -147,5 +160,63 @@ void Engine::Texture::updateParameters() {
     }
     m_texture->setParameter( GL_TEXTURE_MIN_FILTER, minFilter );
     m_texture->setParameter( GL_TEXTURE_MAG_FILTER, magFilter );
+}
+
+void Engine::Texture::sRGBToLinearRGB(Scalar gamma)
+{
+    if (! m_isLinear) {
+        auto linearize = [gamma](float in)-> float {
+            constexpr float a = 0.055;
+            constexpr float b = 12.92;
+            if (in < 0.04045) {
+                return in/b;
+            } else
+            {
+                return std::pow(((in + a) / (1 + a)), float(gamma));
+            }
+        };
+        // Only RGB and RGBA texture contains color information
+        // (others are not really colors and must be managed explicitely by the user)
+        int numcomp = 0;
+        switch (internalFormat) {
+        case GL_RGB :
+        case GL_RGB8 :
+        case GL_RGB16 :
+        case GL_RGB16F :
+        case GL_RGB32F :
+            numcomp = 3;
+            internalFormat = GL_RGB;
+            m_format = GL_RGB;
+            break;
+        case GL_RGBA :
+        case GL_RGBA8 :
+        case GL_RGBA16 :
+        case GL_RGBA16F :
+        case GL_RGBA32F :
+            numcomp = 4;
+            internalFormat = GL_RGBA;
+            m_format = GL_RGBA;
+            break;
+        default :
+            LOG(logERROR) << "Textures with internal format " << internalFormat << " can't be linearized.";
+            return;
+        }
+        dataType = GL_FLOAT;
+        std::vector<float> texPixels;
+        // we will have always an RGBA pixelbubberf
+        texPixels.resize(m_width*m_height*m_depth*numcomp);
+        m_texture->getImage(0, internalFormat, dataType, texPixels.data());
+        // Convert each RGB value while keeping alpha unchanged
+        for (int i=0; i<m_width*m_height*m_depth; ++i) {
+            texPixels[i*numcomp    ] = linearize(texPixels[i*numcomp]);
+            texPixels[i*numcomp + 1] = linearize(texPixels[i*numcomp + 1]);
+            texPixels[i*numcomp + 2] = linearize(texPixels[i*numcomp + 2]);
+        }
+        updateData(texPixels.data());
+        if (m_isMipMaped) {
+            m_texture->generateMipmap();
+        }
+    }
+
 }
 } // namespace Ra
