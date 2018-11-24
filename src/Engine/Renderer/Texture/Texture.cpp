@@ -165,6 +165,7 @@ void Engine::Texture::updateParameters() {
 void Engine::Texture::sRGBToLinearRGB(Scalar gamma)
 {
     if (! m_isLinear) {
+        m_isLinear = true;
         auto linearize = [gamma](float in)-> float {
             // Constants are described at https://en.wikipedia.org/wiki/SRGB
             if (in < 0.04045) {
