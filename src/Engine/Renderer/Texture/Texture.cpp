@@ -48,18 +48,9 @@ void Engine::Texture::Generate(uint w, uint h, GLenum format, void *data, bool l
         m_texture = globjects::Texture::create( m_target );
     }
 
-//    m_texture->image2D( 0, internalFormat, w, h, 0, format, dataType, data );
-
     updateParameters();
     m_isMipMaped = mipmaped;
 
-/*
-    if (mipmaped)
-    {
-        m_isMipMaped = true;
-        m_texture->generateMipmap();
-    }
-*/
     m_format = format;
     m_width = w;
     m_height = h;
