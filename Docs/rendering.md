@@ -45,6 +45,12 @@ to feed an already bound FBO. Since the default renderer uses multiple FBOs, the
 
 *This behaviour cannot be modified.*
 
+### 1. Gather render objects and update them
+This construct the set of objects that must be drawn for the current frame and update their opengl state
+
+### 2. Feed the render queus
+This construct the set of render actions that must be done for the current frame.
+
 ### 3. Do picking if needed
 If there has been some picking requests since the last frame, `doPicking` is called.
 This function just renders all the objects (except *debug* ones) by drawing them in some color given the ID 
@@ -64,20 +70,20 @@ materials properties. See the material chapter of the documentation.
 Here is a summary of all the draw calls
 #### 1. Depth, ambient color and "deferred info" pass
 This pass 
-  * only concerns opaque objects AND opaque fragment on transparent objects. It is used to, mainly to fill in the 
-  Z-buffer, allowing to activate early z-test for next passes since the depth buffer is already filled.
-  * initialize the color buffer by computing e.g. the ambient color for each object.
-  * generate several pictures of the scene allowing to implement compositing effects latter :
-    * saves the world-space normals for each object.
-    * saves the "Diffuse" aspect of the object
-    * saves the "Specular aspect of the object"
+* only concerns opaque objects AND opaque fragment on transparent objects. It is used to, mainly to fill in the 
+Z-buffer, allowing to activate early z-test for next passes since the depth buffer is already filled.
+* initialize the color buffer by computing e.g. the ambient color for each object.
+* generate several pictures of the scene allowing to implement compositing effects later :
+* saves the world-space normals for each object.
+  * saves the "Diffuse" aspect of the object
+  * saves the "Specular" aspect of the object
  
- In this pass, each ``RenderObject``is drawn with the ``RenderTechnique::Z_PREPASS`` argument so that the corresponding
-  shader will be activated before draw call. (``ro->render( params, renderData, RenderTechnique::Z_PREPASS );``)
+In this pass, each ``RenderObject``is drawn with the ``RenderTechnique::Z_PREPASS`` argument so that the corresponding
+shader will be activated before draw call. (``ro->render( params, renderData, RenderTechnique::Z_PREPASS );``)
   
- Note that the  shader associated to  the ``RenderTechnique::Z_PREPASS`` pass must draw only fully opaque fragments. 
- Fully transparent ones (rejected by a masking information such as mask texture) and blendable ones 
- (those with an opacity factor alpha les than one) must be discarded.
+Note that the  shader associated to  the ``RenderTechnique::Z_PREPASS`` pass must draw only fully opaque fragments. 
+Fully transparent ones (rejected by a masking information such as mask texture) and blendable ones 
+(those with an opacity factor alpha les than one) must be discarded.
   
 #### 2. Lighting pass
 This pass is a classic forward lighting pass that accumulates the color of each light source. 
@@ -93,29 +99,27 @@ for each light do
 done
 ```
 
- In this pass, each ``RenderObject``is drawn with the ``RenderTechnique::LIGHTING_OPAQUE`` argument so that the 
- corresponding shader will be activated before draw call. 
- (``ro->render( params, renderData, RenderTechnique::LIGHTING_OPAQUE );``)
+In this pass, each ``RenderObject``is drawn with the ``RenderTechnique::LIGHTING_OPAQUE`` argument so that the 
+corresponding shader will be activated before draw call. 
+(``ro->render( params, renderData, RenderTechnique::LIGHTING_OPAQUE );``)
   
- Note that the  shader associated to  the ``RenderTechnique::LIGHTING_OPAQUE`` pass must lit and draw only fully opaque 
- fragments. 
- Fully transparent ones (rejected by a masking information such as mask texture) and blendable ones 
- (those with an opacity factor alpha les than one) must be discarded.
-
+Note that the  shader associated to  the ``RenderTechnique::LIGHTING_OPAQUE`` pass must lit and draw only fully opaque 
+fragments. 
+Fully transparent ones (rejected by a masking information such as mask texture) and blendable ones 
+(those with an opacity factor alpha les than one) must be discarded.
 
 #### 3. Ordered independent transparency 
 Rendering transparent objects in Radium is done according to the algorithm described in 
--    Weighted Blended Order-Independent Transparency
-    Morgan McGuire, Louis Bavoil - NVIDIA
-    Journal of Computer Graphics Techniques (JCGT), vol. 2, no. 2, 122-141, 2013
-    http://jcgt.org/published/0002/02/09/
+* Weighted Blended Order-Independent Transparency,
+Morgan McGuire, Louis Bavoil - NVIDIA,
+Journal of Computer Graphics Techniques (JCGT), vol. 2, no. 2, 122-141, 2013,
+http://jcgt.org/published/0002/02/09/
 
 This pass contains one scene rendering pass and one compositing pass.
-- The scene rendering pass must compute both the accumulation buffer and the coverage buffer as described in the paper.
-  (see the Material documentaiton for example of shaders.). It is realized the same way than the lighting pass but
-  only fragments that are transparent must be lit and drawn.
-- The compositing pass then adds to the color buffer the resulting blended color.
-
+* The scene rendering pass must compute both the accumulation buffer and the coverage buffer as described in the paper 
+(see the Material documentaiton for example of shaders.). It is realized the same way than the lighting pass but 
+only fragments that are transparents must be lit and drawn.
+* The compositing pass then adds to the color buffer the resulting blended color.
 
 #### 4. Post-process the whole *render pass*
 This pass takes the color buffer, representing colors in linear RGB space) and apply gamma correction to the image
@@ -133,12 +137,12 @@ This method is just responsible for displaying the final stuff on screen or on t
   * Only two methods can be overrided for the renderer, renderInternal (step 4) and postProcessInternal (step 5).
   
 ## TODO
-  * Ambient occlusion
-  * Shadow mapping
-  * Skybox 
-  * Reflection / refraction
-  * Tonemapping (only gamma correction is applied for now)
-  * Bloom
-  * Motion blur
-  * FOV
-  * Physically based rendering
+* Ambient occlusion
+* Shadow mapping
+* Skybox 
+* Reflection / refraction
+* Tonemapping (only gamma correction is applied for now)
+* Bloom
+* Motion blur
+* FOV
+* Physically based rendering
