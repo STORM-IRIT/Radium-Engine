@@ -48,7 +48,7 @@ to feed an already bound FBO. Since the default renderer uses multiple FBOs, the
 ### 1. Gather render objects and update them
 This construct the set of objects that must be drawn for the current frame and update their opengl state
 
-### 2. Feed the render queus
+### 2. Feed the render queue
 This construct the set of render actions that must be done for the current frame.
 
 ### 3. Do picking if needed
@@ -63,15 +63,14 @@ This method does most of the whole rendering work
 and outputs one final *renderpass* texture, ready to be postprocessed.
 
 The main renderer of Radium, implemented in the class ``ForwardRenderer`` implements a Z-prepass forward rendering loop.
-Even if the material association to a renderable object , realized by the so called ``RenderTechnique`` is tightly 
+Even if the material association to a renderable object, realized by the so called ``RenderTechnique`` is tightly 
 coupled with the main rendering loop, Plugins might define new renderers and interact differently with shaders and 
 materials properties. See the material chapter of the documentation.
 
 Here is a summary of all the draw calls
 #### 1. Depth, ambient color and "deferred info" pass
 This pass 
-*   only concerns opaque objects AND opaque fragment on transparent objects. It is used to, mainly to fill in the 
-Z-buffer, allowing to activate early z-test for next passes since the depth buffer is already filled,
+*   only concerns opaque objects AND opaque fragment on transparent objects. It is used to, mainly to fill in the  Z-buffer, allowing to activate early z-test for next passes since the depth buffer is already filled,
 *   initialize the color buffer by computing e.g. the ambient color for each object,
 *   generate several pictures of the scene allowing to implement compositing effects later :
     *   saves the world-space normals for each object,
@@ -116,9 +115,7 @@ Rendering transparent objects in Radium is done according to the algorithm descr
     http://jcgt.org/published/0002/02/09/
 
 This pass contains one scene rendering pass and one compositing pass.
-*   The scene rendering pass must compute both the accumulation buffer and the coverage buffer as described in the paper 
-(see the Material documentaiton for example of shaders.). It is realized the same way than the lighting pass but 
-only fragments that are transparents must be lit and drawn.
+*   The scene rendering pass must compute both the accumulation buffer and the coverage buffer as described in the paper  (see the Material documentaiton for example of shaders.). It is realized the same way than the lighting pass but only fragments that are transparents must be lit and drawn.
 *   The compositing pass then adds to the color buffer the resulting blended color.
 
 #### 4. Post-process the whole _render pass_
