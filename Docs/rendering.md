@@ -70,8 +70,11 @@ materials properties. See the material chapter of the documentation.
 Here is a summary of all the draw calls
 #### 1. Depth, ambient color and "deferred info" pass
 This pass 
-*   only concerns opaque objects AND opaque fragment on transparent objects. It is used to, mainly to fill in the  Z-buffer, allowing to activate early z-test for next passes since the depth buffer is already filled,
+*   only concerns opaque objects AND opaque fragment on transparent objects. It is used to, mainly to fill in the  
+Z-buffer, allowing to activate early z-test for next passes since the depth buffer is already filled,
+
 *   initialize the color buffer by computing e.g. the ambient color for each object,
+
 *   generate several pictures of the scene allowing to implement compositing effects later :
     *   saves the world-space normals for each object,
     *   saves the "Diffuse" aspect of the object,
@@ -112,10 +115,13 @@ Rendering transparent objects in Radium is done according to the algorithm descr
 *   Weighted Blended Order-Independent Transparency,
     Morgan McGuire, Louis Bavoil - NVIDIA,
     Journal of Computer Graphics Techniques (JCGT), vol. 2, no. 2, 122-141, 2013,
-    http://jcgt.org/published/0002/02/09/
-
+    <http://jcgt.org/published/0002/02/09/>
 This pass contains one scene rendering pass and one compositing pass.
-*   The scene rendering pass must compute both the accumulation buffer and the coverage buffer as described in the paper  (see the Material documentaiton for example of shaders.). It is realized the same way than the lighting pass but only fragments that are transparents must be lit and drawn.
+
+*   The scene rendering pass must compute both the accumulation buffer and the coverage buffer as described in the paper  
+(see the Material documentaiton for example of shaders.). It is realized the same way than the lighting pass but only 
+fragments that are transparents must be lit and drawn.
+
 *   The compositing pass then adds to the color buffer the resulting blended color.
 
 #### 4. Post-process the whole _render pass_
