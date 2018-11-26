@@ -40,6 +40,9 @@ struct TextureData {
 
 /**
  * Manage Texture loading and registration.
+ * @todo (for Radium-V2) Allow to share the same texel data between different instances of a texture.
+ * Instances could be differentiated by the sampler parameter and the mip-map availability.
+ *
  */
 class RA_ENGINE_API TextureManager final {
     RA_SINGLETON_INTERFACE( TextureManager );
@@ -56,19 +59,21 @@ class RA_ENGINE_API TextureManager final {
     /**
      * Get or load texture from a file.
      * The name of the texture is the name of its file
-     * @param filename
+     * @param filename : file to load
+     * @param linearize : true if the texture must be converted from sRGB to LinearRGB
      * @return
      */
-    Texture* getOrLoadTexture( const std::string& filename );
+    Texture *getOrLoadTexture(const std::string &filename, bool linearize = false);
 
     /**
      * Get or load a named texture.
      * The name of the texture might be different of the associated file but the data must be
      * loaded in the TextureData before calling this method.
-     * @param filename
+     * @param filename : file to load
+     * @param linearize : true if the texture must be converted from sRGB to LinearRGB
      * @return
      */
-    Texture* getOrLoadTexture( const TextureData& data );
+    Texture *getOrLoadTexture(const TextureData &data, bool linearize = false);
 
     /**
      * Delete a named texture from the manager

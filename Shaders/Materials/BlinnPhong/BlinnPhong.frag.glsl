@@ -14,7 +14,8 @@ layout (location = 4) in vec3 in_viewVector;
 layout (location = 5) in vec3 in_lightVector;
 
 void main() {
-    if ( toDiscard(material, in_texcoord.xy) )
+    // Discard non fully opaque fragments
+    if ( toDiscard(material, in_texcoord.xy) || (material.alpha < 1) )
         discard;
 
 	vec3 binormal = normalize(cross(in_normal, in_tangent));

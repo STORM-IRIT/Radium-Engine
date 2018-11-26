@@ -14,11 +14,13 @@ Engine::Texture::Texture( const std::string &name ) :
     m_depth {1},
     m_texture {nullptr},
     m_isMipMaped {false},
-    m_isLinear{false} {}
+    m_isLinear{false},
+    m_texels {nullptr} {}
 
 Engine::Texture::~Texture() {}
 
-void Engine::Texture::Generate( uint w, GLenum format, void* data, bool mipmaped ) {
+void Engine::Texture::Generate(uint w, GLenum format, void *data, bool linearize, bool mipmaped)
+{
     m_target = GL_TEXTURE_1D;
     if ( m_texture == nullptr )
     {
@@ -39,29 +41,63 @@ void Engine::Texture::Generate( uint w, GLenum format, void* data, bool mipmaped
     m_width = w;
 }
 
-void Engine::Texture::Generate( uint w, uint h, GLenum format, void* data, bool mipmaped ) {
+void Engine::Texture::Generate(uint w, uint h, GLenum format, void *data, bool linearize, bool mipmaped) {
     m_target = GL_TEXTURE_2D;
     if ( m_texture == nullptr )
     {
         m_texture = globjects::Texture::create( m_target );
     }
 
-    m_texture->image2D( 0, internalFormat, w, h, 0, format, dataType, data );
+//    m_texture->image2D( 0, internalFormat, w, h, 0, format, dataType, data );
 
     updateParameters();
+    m_isMipMaped = mipmaped;
 
+/*
     if (mipmaped)
     {
         m_isMipMaped = true;
         m_texture->generateMipmap();
     }
-
+*/
     m_format = format;
     m_width = w;
     m_height = h;
+
+    // Load texels
+    if (linearize) {
+        int numcomp = 0;
+        bool hasAlpha = false;
+        switch (m_format) {
+            // RED texture store a gray scale color. Verify if we need to convert
+        case GL_RED :
+            numcomp = 1;
+            break;
+        case GL_RGB :
+            numcomp = 3;
+            break;
+        case GL_RGBA :
+            numcomp = 4;
+            hasAlpha = true;
+            break;
+        default :
+            LOG(logERROR) << "Textures with format " << m_format << " can't be linearized." << m_name;
+            return;
+        }
+        // This will do the conversion then upload texels on GPU and generates mipmap if needed.
+        sRGBToLinearRGB(reinterpret_cast<uint8_t *>(data), numcomp, hasAlpha);
+    } else {
+        // only upload to the GPU and generate mipmap if needed
+        m_texture->image2D( 0, internalFormat, w, h, 0, format, dataType, data );
+        if (m_isMipMaped)
+        {
+            m_texture->generateMipmap();
+        }
+    }
+
 }
 
-void Engine::Texture::Generate( uint w, uint h, uint d, GLenum format, void* data, bool mipmaped ) {
+void Engine::Texture::Generate(uint w, uint h, uint d, GLenum format, void *data, bool linearize, bool mipmaped) {
     m_target = GL_TEXTURE_3D;
     if ( m_texture == nullptr )
     {
@@ -84,7 +120,7 @@ void Engine::Texture::Generate( uint w, uint h, uint d, GLenum format, void* dat
     m_depth = d;
 }
 
-void Engine::Texture::GenerateCube( uint w, uint h, GLenum format, void** data, bool mipmaped ) {
+void Engine::Texture::GenerateCube(uint w, uint h, GLenum format, void **data, bool linearize, bool mipmaped) {
     m_target = GL_TEXTURE_CUBE_MAP;
     if ( m_texture == nullptr )
     {
@@ -162,61 +198,64 @@ void Engine::Texture::updateParameters() {
     m_texture->setParameter( GL_TEXTURE_MAG_FILTER, magFilter );
 }
 
-void Engine::Texture::sRGBToLinearRGB(Scalar gamma)
-{
-    if (! m_isLinear) {
-        m_isLinear = true;
-        auto linearize = [gamma](float in)-> float {
-            // Constants are described at https://en.wikipedia.org/wiki/SRGB
-            if (in < 0.04045) {
-                return in/ 12.92;
-            } else
-            {
-                return std::pow(((in + 0.055) / (1 + 0.055)), float(gamma));
-            }
-        };
+void Engine::Texture::linearize(Scalar gamma) {
+    if (! m_isLinear)
+    {
         // Only RGB and RGBA texture contains color information
         // (others are not really colors and must be managed explicitely by the user)
         int numcomp = 0;
-        switch (internalFormat) {
+        bool hasAlpha = false;
+        switch (m_format) {
+            // RED texture store a gray scale color. Verify if we need to convert
+        case GL_RED :
+            numcomp = 1;
+            break;
         case GL_RGB :
-        case GL_RGB8 :
-        case GL_RGB16 :
-        case GL_RGB16F :
-        case GL_RGB32F :
             numcomp = 3;
-            internalFormat = GL_RGB;
-            m_format = GL_RGB;
             break;
         case GL_RGBA :
-        case GL_RGBA8 :
-        case GL_RGBA16 :
-        case GL_RGBA16F :
-        case GL_RGBA32F :
             numcomp = 4;
-            internalFormat = GL_RGBA;
-            m_format = GL_RGBA;
+            hasAlpha = true;
             break;
         default :
-            LOG(logERROR) << "Textures with internal format " << internalFormat << " can't be linearized.";
+            LOG(logERROR) << "Textures with format " << m_format << " can't be linearized." << m_name;
             return;
         }
-        dataType = GL_FLOAT;
-        std::vector<float> texPixels;
-        // we will have always an RGBA pixelbubberf
+        std::vector<uint8_t> texPixels;
         texPixels.resize(m_width*m_height*m_depth*numcomp);
-        m_texture->getImage(0, internalFormat, dataType, texPixels.data());
-        // Convert each RGB value while keeping alpha unchanged
+        m_texture->getImage(0, m_format, dataType, texPixels.data());
+        sRGBToLinearRGB(texPixels.data(), numcomp, hasAlpha, gamma);
+    }
+}
+
+void Engine::Texture::sRGBToLinearRGB(uint8_t *texels, int numCommponent, bool hasAlphaChannel, Scalar gamma)
+{
+    if (! m_isLinear) {
+        m_isLinear = true;
+        //auto linearize = [gamma](float in)-> float {
+        auto linearize = [gamma](uint8_t in)-> unsigned char {
+            // Constants are described at https://en.wikipedia.org/wiki/SRGB
+            float c = float(in)/255;
+            if (c < 0.04045) {
+                c = c/ 12.92;
+            } else
+            {
+                c = std::pow(((c + 0.055) / (1 + 0.055)), float(gamma));
+            }
+            return uint8_t(c*255);
+        };
+        int numvalues = hasAlphaChannel ? numCommponent - 1 : numCommponent;
+#pragma omp parallel for
         for (int i=0; i<m_width*m_height*m_depth; ++i) {
-            texPixels[i*numcomp    ] = linearize(texPixels[i*numcomp]);
-            texPixels[i*numcomp + 1] = linearize(texPixels[i*numcomp + 1]);
-            texPixels[i*numcomp + 2] = linearize(texPixels[i*numcomp + 2]);
+            // Convert each R or RGB value while keeping alpha unchanged
+            for (int p=i*numCommponent; p < i*numCommponent + numvalues; ++p) {
+                texels[p] = linearize(texels[p]);
+            }
         }
-        updateData(texPixels.data());
+        updateData(texels);
         if (m_isMipMaped) {
             m_texture->generateMipmap();
         }
     }
-
 }
 } // namespace Ra

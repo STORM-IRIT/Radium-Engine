@@ -31,7 +31,8 @@ TextureData& TextureManager::addTexture( const std::string& name, int width, int
     return m_pendingTextures[name];
 }
 
-TextureData TextureManager::loadTexture( const std::string& filename ){
+TextureData TextureManager::loadTexture(const std::string &filename)
+{
     TextureData texData;
     texData.name = filename;
 
@@ -98,14 +99,16 @@ TextureData TextureManager::loadTexture( const std::string& filename ){
     return texData;
 }
 
-Texture* TextureManager::getOrLoadTexture( const TextureData& data ) {
+Texture * TextureManager::getOrLoadTexture(const TextureData &data, bool linearize)
+{
     m_pendingTextures[data.name] = data;
-    return getOrLoadTexture( data.name );
+    return getOrLoadTexture( data.name, linearize );
 }
 
 /// FIXME : for the moment, Texture name is equivalent to file name if the texture is loaded by the manager.
 /// Must allow to differentiates the two.
-Texture* TextureManager::getOrLoadTexture( const std::string& filename ) {
+  Texture * TextureManager::getOrLoadTexture(const std::string &filename, bool linearize)
+  {
     Texture* ret = nullptr;
     auto it = m_textures.find( filename );
 
@@ -113,7 +116,7 @@ Texture* TextureManager::getOrLoadTexture( const std::string& filename ) {
     {
         ret = it->second;
     } else {
-        auto makeTexture = [](const TextureData &data) -> Texture* {
+        auto makeTexture = [](const TextureData &data, bool linearize) -> Texture* {
             Texture* tex = new Texture( data.name );
             tex->internalFormat = data.internalFormat;
             tex->dataType = data.type;
@@ -121,7 +124,8 @@ Texture* TextureManager::getOrLoadTexture( const std::string& filename ) {
             tex->magFilter = data.magFilter;
             tex->wrapS = data.wrapS;
             tex->wrapT = data.wrapT;
-            tex->Generate( data.width, data.height, data.format, data.data );
+            bool needMipMap = !(data.minFilter == GL_NEAREST || data.minFilter == GL_LINEAR);
+            tex->Generate(data.width, data.height, data.format, data.data, linearize, needMipMap);
             return tex;
         };
 
@@ -144,7 +148,7 @@ Texture* TextureManager::getOrLoadTexture( const std::string& filename ) {
                 freedata = true;
             }
 
-            ret = makeTexture(data);
+            ret = makeTexture(data, linearize);
 
             if (freedata)
                 stbi_image_free( data.data );
@@ -152,7 +156,7 @@ Texture* TextureManager::getOrLoadTexture( const std::string& filename ) {
             m_pendingTextures.erase( filename );
         } else {
             auto data = loadTexture(filename);
-            ret = makeTexture(data);
+            ret = makeTexture(data, linearize);
             stbi_image_free( data.data );
         }
         /// FIXME : should it be data.name ?

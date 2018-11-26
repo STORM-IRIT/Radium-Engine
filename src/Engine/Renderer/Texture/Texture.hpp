@@ -14,15 +14,20 @@ class Texture;
 
 namespace Ra {
 namespace Engine {
+  /** Represent a Texture of the engine
+   * See TextureManager to informations about how unique texture are defined.
+   */
 class RA_ENGINE_API Texture final {
   public:
-    GLenum internalFormat = GL_RGB;
-    GLenum dataType = GL_UNSIGNED_BYTE;
-    GLenum wrapS = GL_REPEAT;
-    GLenum wrapT = GL_REPEAT;
-    GLenum wrapR = GL_REPEAT;
-    GLenum minFilter = GL_LINEAR_MIPMAP_LINEAR;
-    GLenum magFilter = GL_LINEAR;
+
+    // internal format of the OpenGL texture
+    GLenum internalFormat {GL_RGB};
+    GLenum dataType {GL_UNSIGNED_BYTE};
+    GLenum wrapS {GL_REPEAT};
+    GLenum wrapT {GL_REPEAT};
+    GLenum wrapR {GL_REPEAT};
+    GLenum minFilter {GL_LINEAR};
+    GLenum magFilter {GL_LINEAR};
 
     /**
      * Texture constructor. No OpenGL initialization is done there.
@@ -65,9 +70,11 @@ class RA_ENGINE_API Texture final {
      * @param data Data contained in the texture. Can be nullptr. <br/>
      * If \b data is not null, the texture will take the ownership of it.
      *
-     * @param mipmaped (default true) : generate a prefiltered mipmap for the texture.
+     * @param linearize (default false) : convert the texture from sRGB to Linear RGB color space
+     *
+     * @param mipmaped (default false) : generate a prefiltered mipmap for the texture.
      */
-    void Generate( uint width, GLenum format, void* data = nullptr, bool mipmaped = true );
+    void Generate(uint width, GLenum format, void *data = nullptr, bool linearize = false, bool mipmaped = false);
 
     /**
      * @brief Init the texture 2D from OpenGL point of view.
@@ -99,9 +106,11 @@ class RA_ENGINE_API Texture final {
      * @param data Data contained in the texture. Can be nullptr. <br/>
      * If \b data is not null, the texture will take the ownership of it.
      *
-     * @param mipmaped (default true) : generate a prefiltered mipmap for the texture.
+     * @param linearize (default false) : convert the texture from sRGB to Linear RGB color space
+     *
+     * @param mipmaped (default false) : generate a prefiltered mipmap for the texture.
      */
-    void Generate( uint width, uint height, GLenum format, void* data = nullptr, bool mipmaped = true );
+    void Generate(uint width, uint height, GLenum format, void *data = nullptr, bool linearize = false, bool mipmaped = false);
 
     /**
      * @brief Init the texture 3D from OpenGL point of view.
@@ -135,9 +144,17 @@ class RA_ENGINE_API Texture final {
      * @param data Data contained in the texture. Can be nullptr. <br/>
      * If \b data is not null, the texture will take the ownership of it.
      *
-     * @param mipmaped (default true) : generate a prefiltered mipmap for the texture.
-     */
-    void Generate( uint width, uint height, uint depth, GLenum format, void* data = nullptr, bool mipmaped = true );
+     * @param linearize (default false) : convert the texture from sRGB to Linear RGB color space
+     *
+     * @param mipmaped (default false) : generate a prefiltered mipmap for the texture.
+    */
+    void Generate(uint width,
+                  uint height,
+                  uint depth,
+                  GLenum format,
+                  void *data = nullptr,
+                  bool linearize = false,
+                  bool mipmaped = false);
 
     /**
      * @brief Init the textures needed for the cubemap from OpenGL point of view.
@@ -169,9 +186,11 @@ class RA_ENGINE_API Texture final {
      * @param data Data contained in the texture. Can be nullptr. <br/>
      * If \b data is not null, the texture will take the ownership of it.
      *
-     * @param mipmaped (default true) : generate a prefiltered mipmap for the texture.
+     * @param linearize (default false) : convert the texture from sRGB to Linear RGB color space
+     *
+     * @param mipmaped (default false) : generate a prefiltered mipmap for the texture.
      */
-    void GenerateCube( uint width, uint height, GLenum format, void** data = nullptr, bool mipmaped = true );
+    void GenerateCube(uint width, uint height, GLenum format, void **data = nullptr, bool linearize = false, bool mipmaped = false);
 
     /**
      * @brief Bind the texture to enable its use in a shader
@@ -199,36 +218,62 @@ class RA_ENGINE_API Texture final {
      */
      void updateParameters();
 
+    /**
+    * Convert a color texture from sRGB to Linear RGB spaces.
+    * This will transform the internal representation of the texture to GL_FLOAT.
+    * Only GL_RGB[8, 16, 16F, 32F] and GL_RGBA[8, 16, 16F, 32F] are managed.
+    * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
+    * @param gamma the gama value to use (sRGB is 2.4
+    */
+    void linearize(Scalar gamma = Scalar(2.4));
+
     GLenum format() const { return m_format; }
     uint width() const { return m_width; }
     uint height() const { return m_height; }
+    uint depth() const { return m_depth; }
     globjects::Texture* texture() const { return m_texture.get(); }
+
+
+  private:
+    Texture( const Texture& ) = delete;
+    void operator=( const Texture& ) = delete;
 
     /**
      * Convert a color texture from sRGB to Linear RGB spaces.
      * This will transform the internal representation of the texture to GL_FLOAT.
      * Only GL_RGB[8, 16, 16F, 32F] and GL_RGBA[8, 16, 16F, 32F] are managed.
      * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
-     * @param gamma the gama value to use
-     */
-    void sRGBToLinearRGB(Scalar gamma);
-  private:
-    Texture( const Texture& ) = delete;
-    void operator=( const Texture& ) = delete;
+     * @param texels the array of texels to linearize
+     * @param numCommponent number of color channels.
+     * @param bool hasAlphaChannel indicate if the last channel is an alpha channel.
+     * @param gamma the gama value to use (sRGB is 2.4)
+     * @note only 8 bit textures are managed by this operator.
+    */
+    void sRGBToLinearRGB(uint8_t *texels, int numCommponent, bool hasAlphaChannel, Scalar gamma = Scalar(2.4));
 
-  private:
-    GLenum m_target;
+private:
+    /// name of the texture
     std::string m_name;
+
+    /// OpenGLstate associated with the texture
+    GLenum m_target;
     GLenum m_format;
 
+    /// Sizes of the texture
     uint m_width;
     uint m_height;
     uint m_depth;
 
+    /// Link to glObject texture
     std::unique_ptr<globjects::Texture> m_texture;
 
+    /// Is the texture mipmaped ?
     bool m_isMipMaped;
+    /// Is the texture in LinearRGB ?
     bool m_isLinear;
+
+    /// Texels of the texture
+    void *m_texels;
 };
 } // namespace Engine
 } // namespace Ra

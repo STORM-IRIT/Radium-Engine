@@ -94,20 +94,48 @@ To manage the way a Material could be used for rendering, a `RenderTechnique` is
 _shader configurations_ associated to the different way a renderer will compute the final image.
 Based on the `ForwardRenderer` implementation in Radium, the set of configurations, with one configuration per
 rendering _passes_ corresponds to the following :
-1. Depth and ambiant/environment lighting :
+1. Z-prepass : depth and ambiant/environment lighting :
     - Identified by the `Ra::Engine::RenderTechnique::Z_PREPASS` constant.
     - Required for the depth pre-pass of several renderers.
     - Must initialise the color buffer with the computation of ambiant/environment lighting.
-    - Default/Reference : DepthAmbiantPass shaders
+    - Must discard all non fully opaque fragments.
+    - Default/Reference : ``Material/BlinnPhong/DepthAmbientBlinnPhong` shaders
 2. Opaque lighting **(MANDATORY for default ForwardRenderer)**:
     - Identified by the `Ra::Engine::RenderTechnique::LIGHTING_OPAQUE` constant.
     - Main configuration, computes the resulting color according to a lighting configuration.
     - The lighting configuration might contains one or several sources of different types.
+    - Must discard all non fully opaque fragments.
     - Default/Reference : BlinnPhong shaders
 3. Transparent lighting :
     - Identified by the `Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT` constant.
-    - Same as opaque lighting but for transparent objects
-    - Default/Reference LitOIT shaders
+    - Must discard fully transparent and fully opaque fragments, 
+    Others will be lit and blended according to the algorithm described in
+        - Weighted Blended Order-Independent Transparency
+        Morgan McGuire, Louis Bavoil - NVIDIA
+        Journal of Computer Graphics Techniques (JCGT), vol. 2, no. 2, 122-141, 2013
+        http://jcgt.org/published/0002/02/09/
+    - Lighting is computed the same way as for Opaque Lighting
+    - Default/Reference : ``Material/BlinnPhong/LitOITBlinnPhong`` shaders
+    - The transparent color weighting function might be the same as :
+    ``` 
+    float weight(float z, float alpha) {
+    
+         // pow(alpha, colorResistance) : increase colorResistance if foreground transparent are affecting background 
+         //                               transparent color
+         // clamp(adjust / f(z), min, max) :
+         //     adjust : Range adjustment to avoid saturating at the clamp bounds
+         //     clamp bounds : to be tuned to avoid over or underflow of the reveleage texture.
+         // f(z) = 1e-5 + pow(z/depthRange, orederingStrength)
+         //     defRange : Depth range over which significant ordering discrimination is required. 
+         //             Here, 10 image space units.
+         //         Decrease if high-opacity surfaces seem “too transparent”,
+         //         increase if distant transparents are blending together too much.
+         //     orderingStrength : Ordering strength. Increase if background is showing through foreground too much.
+         // 1e-5 + ... : avoid dividing by zero !
+    
+         return pow(alpha, 0.5) * clamp(10 / ( 1e-5 + pow(z/10, 6)  ), 1e-2, 3*1e3);
+     }
+     ```
 
 **Note** that a specific renderer might use the same set of configurations but with a different semantic.
 One can imagine, for instance, that a renderer will only use the _Depth and ambiant/environment_ configuration in order
@@ -347,4 +375,3 @@ Note that, as we will see in the _Extending the material library from a plugin_ 
 material in the Engine, this will require to define a loader capable of generating such data.
 
 Given the description above, one can extend the material library from a plugin or from an application.
-

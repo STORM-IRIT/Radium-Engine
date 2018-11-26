@@ -31,11 +31,9 @@ void BlinnPhongMaterial::updateGL() {
     TextureManager* texManager = TextureManager::getInstance();
     for ( const auto& tex : m_pendingTextures )
     {
-        auto texture = texManager->getOrLoadTexture( tex.second );
-        // convert color textures from sRGB to Linear RGB
-        if (tex.first == TextureSemantic::TEX_DIFFUSE || tex.first == TextureSemantic::TEX_SPECULAR) {
-            texture->sRGBToLinearRGB(2.2);
-        }
+        // ask to convert color textures from sRGB to Linear RGB
+        bool tolinear = (tex.first == TextureSemantic::TEX_DIFFUSE || tex.first == TextureSemantic::TEX_SPECULAR);
+        auto texture = texManager->getOrLoadTexture(tex.second, tolinear);
         addTexture( tex.first, texture );
     }
 
@@ -51,7 +49,8 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     shader->setUniform( "material.kd", m_kd );
     shader->setUniform( "material.ks", m_ks );
     shader->setUniform( "material.ns", m_ns );
-    shader->setUniform( "material.alpha", m_alpha );
+//    shader->setUniform( "material.alpha", m_alpha );
+    shader->setUniform( "material.alpha", std::min( m_alpha, m_kd[3]) );
 
     Texture* tex = nullptr;
     uint texUnit = 0;
@@ -108,7 +107,7 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
 }
 
 bool BlinnPhongMaterial::isTransparent() const {
-    return ( m_alpha < 1.0 ) || Material::isTransparent();
+    return ( m_alpha < 1.0 ) || (m_kd[3] < 1.0) || Material::isTransparent();
 }
 
 void BlinnPhongMaterial::registerMaterial() {

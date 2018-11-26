@@ -166,7 +166,15 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
     {
         ro->render( params, renderData, RenderTechnique::Z_PREPASS );
     }
-    // Transparent objects are not rendered in the Z-prepass, they do not influence the z-buffer
+#ifndef NO_TRANSPARENCY
+    // Transparent objects are rendered in the Z-prepass, but only their fully opaque fragments (if any)
+    // might influence the z-buffer
+    // Rendering transparent objects assuming that they discard all their non-opaque fragments
+    for (const auto &ro : m_transparentRenderObjects)
+    {
+        ro->render(params, renderData, RenderTechnique::Z_PREPASS);
+    }
+#endif
     // Light pass
     GL_ASSERT( glDepthFunc( GL_LEQUAL ) );
     GL_ASSERT( glDepthMask( GL_FALSE ) );
@@ -176,8 +184,8 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
 
     GL_ASSERT( glDrawBuffers( 1, buffers ) ); // Draw color texture
 
-    // LOG(logDEBUG) << "Forward renderer has " << m_lightmanagers[0]->count() << " lights.";
-    // forward renderer only use one light manager
+    // TODO : this render loop might be greatly improved by inverting light and objects loop
+    // Make shaders bounded only once, minimize full stats-changes, ...
     if ( m_lightmanagers[0]->count() > 0 )
     {
         // for ( const auto& l : m_lights )
@@ -191,6 +199,13 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
             {
                 ro->render( params, renderData, RenderTechnique::LIGHTING_OPAQUE );
             }
+#ifndef NO_TRANSPARENCY
+            // Rendering transparent objects assuming that they discard all their non-opaque fragments
+            for (const auto &ro : m_transparentRenderObjects)
+            {
+                ro->render(params, renderData, RenderTechnique::LIGHTING_OPAQUE);
+            }
+#endif
         }
     } else
     {
