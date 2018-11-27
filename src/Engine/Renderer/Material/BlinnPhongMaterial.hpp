@@ -39,7 +39,7 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
      * Destructor.
      * @note The material does not have ownership on its texture. This destructor do not delete the associated textures.
      */
-    ~BlinnPhongMaterial();
+    ~BlinnPhongMaterial() override;
 
     /**
      * Get the basename of the glsl source file to include if one want to build composite shaders that use this material.

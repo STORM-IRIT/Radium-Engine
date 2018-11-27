@@ -29,6 +29,14 @@ class RA_ENGINE_API Texture final {
     GLenum minFilter {GL_LINEAR};
     GLenum magFilter {GL_LINEAR};
 
+    /** Textures are not copyable, delete copy constructor.
+     */
+    Texture( const Texture& ) = delete;
+
+    /** Textures are not copyable, delete operator =.
+     */
+    void operator=( const Texture& ) = delete;
+
     /**
      * Texture constructor. No OpenGL initialization is done there.
      *
@@ -196,7 +204,7 @@ class RA_ENGINE_API Texture final {
      * @brief Bind the texture to enable its use in a shader
      * @param unit Index of the texture to be bound. If -1 only calls glBindTexture.
      */
-    void bind( int unit = -1 );
+    void bind(int unit = -1);
 
     /**
      * @return Name of the texture.
@@ -235,8 +243,6 @@ class RA_ENGINE_API Texture final {
 
 
   private:
-    Texture( const Texture& ) = delete;
-    void operator=( const Texture& ) = delete;
 
     /**
      * Convert a color texture from sRGB to Linear RGB spaces.

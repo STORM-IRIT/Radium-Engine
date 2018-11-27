@@ -143,8 +143,8 @@ static const std::string defaultFragmentShader(
                                                );
 
 #else
-static const std::string defaultVertexShader( "Shaders/Default.vert.glsl" );
-static const std::string defaultFragmentShader( "Shaders/Default.frag.glsl" );
+static const std::string defaultVertexShader{ "Shaders/Default.vert.glsl" };
+static const std::string defaultFragmentShader{ "Shaders/Default.frag.glsl" };
 #endif
 
 namespace Ra {
@@ -202,8 +202,8 @@ void ShaderConfiguration::removeInclude( const std::string& incl, ShaderType typ
 }
 
 bool ShaderConfiguration::isComplete() const {
-    return ( ( m_shaders[ShaderType_VERTEX] != "" ) && ( m_shaders[ShaderType_FRAGMENT] != "" ) ) ||
-           m_shaders[ShaderType_COMPUTE] != "";
+    return ( ( ! m_shaders[ShaderType_VERTEX].empty() ) && ( ! m_shaders[ShaderType_FRAGMENT].empty() ) ) ||
+           !m_shaders[ShaderType_COMPUTE].empty();
 }
 
 bool ShaderConfiguration::operator<( const ShaderConfiguration& o ) const {
@@ -219,11 +219,11 @@ bool ShaderConfiguration::operator<( const ShaderConfiguration& o ) const {
 
     if ( m_properties.size() == o.m_properties.size() )
     {
-        if ( m_properties.size() == 0 )
+        if ( m_properties.empty() )
         {
             if ( m_includes.size() == o.m_includes.size() )
             {
-                if ( m_includes.size() == 0 )
+                if ( m_includes.empty() )
                 {
                     res = false;
                 } else

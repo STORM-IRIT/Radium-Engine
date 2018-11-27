@@ -10,8 +10,8 @@ namespace Engine {
 /// Timed Systems are systems which can be disabled or paused, e.g. animation systems.
 class RA_ENGINE_API AbstractTimedSystem : public System {
   public:
-    AbstractTimedSystem() {}
-    virtual ~AbstractTimedSystem() {}
+    AbstractTimedSystem() = default;
+    ~AbstractTimedSystem() override = default;
 
     /// Call this to enable / disable the system according to \p on.
     virtual void play( bool on ) = 0;

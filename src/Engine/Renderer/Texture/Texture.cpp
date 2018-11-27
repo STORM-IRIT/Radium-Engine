@@ -9,6 +9,8 @@
 namespace Ra {
 Engine::Texture::Texture( const std::string &name ) :
     m_name {name},
+    m_target {GL_TEXTURE_2D},
+    m_format {GL_RGB},
     m_width {1},
     m_height {1},
     m_depth {1},
@@ -17,7 +19,11 @@ Engine::Texture::Texture( const std::string &name ) :
     m_isLinear{false},
     m_texels {nullptr} {}
 
-Engine::Texture::~Texture() {}
+Engine::Texture::~Texture() {
+    if (m_texels != nullptr) {
+        delete m_texels;
+    }
+}
 
 void Engine::Texture::Generate(uint w, GLenum format, void *data, bool linearize, bool mipmaped)
 {
@@ -133,10 +139,10 @@ void Engine::Texture::GenerateCube(uint w, uint h, GLenum format, void **data, b
     m_height = h;
 }
 
-void Engine::Texture::bind( int unit ) {
+void Engine::Texture::bind(int unit) {
     if ( unit >= 0 )
     {
-        m_texture->bindActive( unit );
+        m_texture->bindActive( uint(unit) );
     } else
     { m_texture->bind(); }
 }
@@ -228,10 +234,10 @@ void Engine::Texture::sRGBToLinearRGB(uint8_t *texels, int numCommponent, bool h
             // Constants are described at https://en.wikipedia.org/wiki/SRGB
             float c = float(in)/255;
             if (c < 0.04045) {
-                c = c/ 12.92;
+                c = c / 12.92f;
             } else
             {
-                c = std::pow(((c + 0.055) / (1 + 0.055)), float(gamma));
+                c = std::pow(((c + 0.055f) / (1.f + 0.055f)), float(gamma));
             }
             return uint8_t(c*255);
         };

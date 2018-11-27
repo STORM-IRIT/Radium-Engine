@@ -21,9 +21,9 @@ namespace Engine {
  * Describes the content and parameters of a texture.
  */
 struct TextureData {
-    std::string name;
-    int width = -1;
-    int height = -1;
+    std::string name {};
+    uint width {0};
+    uint height {0};
 
     GLenum format = GL_RGB;
     GLenum internalFormat = GL_RGB;
@@ -35,7 +35,7 @@ struct TextureData {
     GLenum minFilter = GL_LINEAR_MIPMAP_LINEAR;
     GLenum magFilter = GL_LINEAR;
 
-    void* data = nullptr;
+    void* data {nullptr};
 };
 
 /**
@@ -54,7 +54,7 @@ class RA_ENGINE_API TextureManager final {
     /** Add a texture giving its name, dimension and content.
      * Usefull for defining procedural textures
      */
-    TextureData& addTexture( const std::string& name, int width, int height, void* data );
+    TextureData& addTexture(const std::string &name, uint width, uint height, void *data);
 
     /**
      * Get or load texture from a file.

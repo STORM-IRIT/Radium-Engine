@@ -14,10 +14,6 @@
 #include <Core/Time/Timer.hpp>
 
 namespace Ra {
-namespace Core {
-struct MouseEvent;
-struct KeyEvent;
-} // namespace Core
 
 namespace Engine {
 class Camera;
@@ -195,11 +191,11 @@ class RA_ENGINE_API Renderer {
      *
      * @param texIdx The texture to display.
      */
-    // FIXME(Charly): For now the drawn texture takes the whole viewport,
-    //                maybe it could be great if we had a way to switch between
-    //                the current "fullscreen" debug mode, and some kind of
-    //                "windowed" mode (that would show the debugged texture in
-    //                its own viewport, without hiding the final texture.)
+    // TODO:    For now the drawn texture takes the whole viewport,
+    //          maybe it could be great if we had a way to switch between
+    //          the current "fullscreen" debug mode, and some kind of
+    //          "windowed" mode (that would show the debugged texture in
+    //          its own viewport, without hiding the final texture.)
     virtual void displayTexture( const std::string& texName );
 
     /**
@@ -289,7 +285,6 @@ class RA_ENGINE_API Renderer {
     ShaderProgramManager* m_shaderMgr;
     RenderObjectManager* m_roMgr;
 
-    // FIXME(Charly): Should we change "displayedTexture" to "debuggedTexture" ?
     //                It would make more sense if we are able to show the
     //                debugged texture in its own viewport.
     /**

@@ -28,9 +28,9 @@ namespace Ra {
 namespace Engine {
 
 ShaderProgram::ShaderProgram() : m_program( nullptr ) {
-    for ( uint i = 0; i < m_shaderObjects.size(); ++i )
+    for ( auto & s : m_shaderObjects)
     {
-        m_shaderObjects[i] = nullptr;
+        s = nullptr;
     }
 }
 
@@ -38,7 +38,7 @@ ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) : ShaderProgra
     load( config );
 }
 
-ShaderProgram::~ShaderProgram() {}
+//ShaderProgram::~ShaderProgram() {}
 
 void ShaderProgram::loadShader( ShaderType type, const std::string& name,
                                 const std::set<std::string>& props,
@@ -47,7 +47,7 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
 #ifdef OS_MACOS
     if ( type == ShaderType_COMPUTE )
     {
-        LOG( logERROR ) << "No compute shader on OsX <= El Capitan";
+        LOG( logERROR ) << "No compute shader on OsX !";
         return;
     }
 #endif
@@ -57,7 +57,6 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
     // directory).
     globjects::Shader::IncludePaths includePaths{std::string( "/" )};
 
-    // FIXED : use auto instead of the fully qualified type
     auto loadedSource = globjects::Shader::sourceFromFile( name );
 
     // header string that contains #version and pre-declarations ...
@@ -76,7 +75,7 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
     // Add properties at the beginning of the file.
     for ( const auto& prop : props )
     {
-        shaderHeader = shaderHeader + prop + std::string( "\n\n" );
+        shaderHeader += prop + std::string( "\n\n" );
     }
 
     // Add includes, depending on the shader type.
@@ -84,7 +83,7 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
     {
         if ( incl.second == type )
         {
-            shaderHeader = shaderHeader + incl.first + std::string( "\n\n" );
+            shaderHeader += incl.first + std::string( "\n\n" );
         }
     }
 
@@ -173,7 +172,7 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
 
     for ( size_t i = 0; i < ShaderType_COUNT; ++i )
     {
-        if ( m_configuration.m_shaders[i] != "" )
+        if ( ! m_configuration.m_shaders[i].empty() )
         {
             LOG( logDEBUG ) << "Loading shader " << m_configuration.m_shaders[i];
             loadShader( ShaderType( i ), m_configuration.m_shaders[i],
@@ -217,14 +216,14 @@ void ShaderProgram::unbind() const {
 }
 
 void ShaderProgram::reload() {
-    for ( unsigned int i = 0; i < m_shaderObjects.size(); ++i )
+    for ( auto & s : m_shaderObjects )
     {
-        if ( m_shaderObjects[i] != nullptr )
+        if ( s != nullptr )
         {
-            LOG( logDEBUG ) << "Reloading shader " << m_shaderObjects[i]->name();
+            LOG( logDEBUG ) << "Reloading shader " << s->name();
 
-            m_program->detach( m_shaderObjects[i].get() );
-            loadShader( getGLenumAsType( m_shaderObjects[i]->type() ), m_shaderObjects[i]->name(),
+            m_program->detach( s.get() );
+            loadShader( getGLenumAsType( s->type() ), s->name(),
                         m_configuration.getProperties(), m_configuration.getIncludes() );
         }
     }
@@ -254,7 +253,7 @@ void ShaderProgram::setUniform( const char* name, float value ) const {
 }
 
 void ShaderProgram::setUniform( const char* name, double value ) const {
-    float v = static_cast<float>( value );
+    auto v = static_cast<float>( value );
 
     m_program->setUniform( name, v );
 }
@@ -352,7 +351,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
                                                int level, int line ) {
     CORE_ERROR_IF( level < 32, "Shader inclusion depth limit reached." );
 
-    std::string result = "";
+    std::string result {};
     std::vector<std::string> finalStrings;
     auto shaderLines = Core::StringUtils::splitString( shader, '\n' );
     finalStrings.reserve( shaderLines.size() );
@@ -363,7 +362,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
 
     for ( const auto& l : shaderLines )
     {
-        std::string line = l;
+        std::string codeline = l;
         std::smatch match;
         if ( std::regex_search( l, match, reg ) )
         {
@@ -373,7 +372,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
             if ( includeNameString != nullptr )
             {
 
-                line =
+                codeline =
                     preprocessIncludes( match[1].str(), includeNameString->string(), level + 1, 0 );
 
             } else
@@ -402,7 +401,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
              */
         }
 
-        finalStrings.push_back( line );
+        finalStrings.push_back( codeline );
         ++nline;
     }
 

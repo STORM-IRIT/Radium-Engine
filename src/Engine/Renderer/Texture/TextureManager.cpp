@@ -18,8 +18,8 @@ TextureManager::~TextureManager() {
     m_textures.clear();
 }
 
-TextureData& TextureManager::addTexture( const std::string& name, int width, int height,
-                                         void* data ) {
+TextureData& TextureManager::addTexture(const std::string &name, uint width, uint height,
+                                        void *data) {
     TextureData texData;
     texData.name = name;
     texData.width = width;
@@ -39,12 +39,12 @@ TextureData TextureManager::loadTexture(const std::string &filename)
     stbi_set_flip_vertically_on_load( true );
 
     int  n;
-    unsigned char* data = stbi_load( filename.c_str(), &(texData.width), &(texData.height), &n, 0 );
+    unsigned char* data = stbi_load( filename.c_str(), (int*)(&( texData.width )), (int *)(&( texData.height )), &n, 0 );
 
     if ( !data )
     {
         LOG( logERROR ) << "Something went wrong when loading image \"" << filename << "\".";
-        texData.width = texData.height = -1;
+        texData.width = texData.height = 0;
         return texData;
     }
 
@@ -117,7 +117,7 @@ Texture * TextureManager::getOrLoadTexture(const TextureData &data, bool lineari
         ret = it->second;
     } else {
         auto makeTexture = [](const TextureData &data, bool linearize) -> Texture* {
-            Texture* tex = new Texture( data.name );
+            auto tex = new Texture( data.name );
             tex->internalFormat = data.internalFormat;
             tex->dataType = data.type;
             tex->minFilter = data.minFilter;

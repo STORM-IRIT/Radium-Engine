@@ -52,7 +52,7 @@ class RA_ENGINE_API ShaderConfiguration final {
     /// Warning: This does not query the corresponding configuration in the
     /// ShaderConfigurationFactory. The proper way to do this is by calling
     /// ShaderConfigurationFactory::getConfiguration(name);
-    ShaderConfiguration( const std::string& name );
+    explicit ShaderConfiguration( const std::string& name );
 
     /// Initializes a configuration with a name, a vertex and a fragment shader
     /// This does not add the configuration to the factory

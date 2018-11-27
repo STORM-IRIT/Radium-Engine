@@ -31,9 +31,9 @@ RadiumEngine::~RadiumEngine() {}
 
 void RadiumEngine::initialize() {
     LOG( logINFO ) << "*** Radium Engine ***";
-    m_signalManager.reset( new SignalManager );
-    m_entityManager.reset( new EntityManager );
-    m_renderObjectManager.reset( new RenderObjectManager );
+    m_signalManager = std::make_unique<SignalManager>();
+    m_entityManager = std::make_unique<EntityManager>();
+    m_renderObjectManager = std::make_unique<RenderObjectManager>();
     m_loadedFile.reset();
     ComponentMessenger::createInstance();
     // Engine support some built-in materials. Register here
@@ -167,7 +167,7 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
         system.second->handleAssetLoading( entity, m_loadedFile.get() );
     }
 
-    if ( entity->getComponents().size() > 0 )
+    if ( ! entity->getComponents().empty() )
     {
         for ( auto& comp : entity->getComponents() )
         {

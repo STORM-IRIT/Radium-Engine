@@ -34,8 +34,8 @@ class RA_ENGINE_API System {
     friend class Component;
 
   public:
-    System();
-    virtual ~System();
+    System() = default;
+    virtual ~System() = default;
 
     /**
      * Factory method for component creation from file data.

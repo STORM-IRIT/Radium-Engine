@@ -18,7 +18,7 @@ namespace Engine {
 class RA_ENGINE_API ForwardRenderer : public Renderer {
   public:
     ForwardRenderer();
-    ~ForwardRenderer();
+    ~ForwardRenderer() override;
 
     std::string getRendererName() const override { return "Forward Renderer"; }
 

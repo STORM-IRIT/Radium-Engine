@@ -71,7 +71,7 @@ void ShaderProgramManager::updateNamedString() {
         m_files[i]->reload();
         std::string id = m_namedStrings[i]->name();
         m_namedStrings[i].reset( nullptr );
-        m_namedStrings[i].reset( globjects::NamedString::create( id, m_files[i].get() ).release() );
+        m_namedStrings[i] = globjects::NamedString::create( id, m_files[i].get() );
     }
 }
 
@@ -149,14 +149,13 @@ void ShaderProgramManager::reloadAllShaderPrograms() {
 
 void ShaderProgramManager::reloadNotCompiledShaderPrograms() {
     // for each shader in the failed map, try to reload
-    for ( std::vector<ShaderConfiguration>::iterator conf = m_shaderFailedConfs.begin();
-          conf != m_shaderFailedConfs.end(); ++conf )
+    for ( const auto & conf : m_shaderFailedConfs )
     {
-        auto prog = Core::make_shared<ShaderProgram>( *conf );
+        auto prog = Core::make_shared<ShaderProgram>( conf );
 
         if ( prog->getProgramObject()->isValid() )
         {
-            insertShader( *conf, prog );
+            insertShader( conf, prog );
             // m_shaderFailedConfs.erase(conf);
         }
     }

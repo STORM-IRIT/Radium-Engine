@@ -13,8 +13,6 @@
 namespace Ra {
 namespace Core {
 class TaskQueue;
-struct MouseEvent;
-struct KeyEvent;
 } // namespace Core
 
 namespace Engine {

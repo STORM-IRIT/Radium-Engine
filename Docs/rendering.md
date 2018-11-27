@@ -116,6 +116,7 @@ Rendering transparent objects in Radium is done according to the algorithm descr
     Morgan McGuire, Louis Bavoil - NVIDIA,
     Journal of Computer Graphics Techniques (JCGT), vol. 2, no. 2, 122-141, 2013,
     <http://jcgt.org/published/0002/02/09/>
+    
 This pass contains one scene rendering pass and one compositing pass.
 
 *   The scene rendering pass must compute both the accumulation buffer and the coverage buffer as described in the paper  

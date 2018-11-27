@@ -53,7 +53,7 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     shader->setUniform( "material.alpha", std::min( m_alpha, m_kd[3]) );
 
     Texture* tex = nullptr;
-    uint texUnit = 0;
+    uint texUnit {0};
 
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE );
     if ( tex != nullptr )
@@ -101,7 +101,6 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
         tex->bind( texUnit );
         shader->setUniform( "material.tex.alpha", tex, texUnit );
         shader->setUniform( "material.tex.hasAlpha", 1 );
-        ++texUnit;
     } else
     { shader->setUniform( "material.tex.hasAlpha", 0 ); }
 }
@@ -127,24 +126,24 @@ void BlinnPhongMaterial::registerMaterial() {
         []( Ra::Engine::RenderTechnique& rt, bool isTransparent ) {
             // Configure the technique to render this object using forward Renderer or any
             // compatible one Main pass (Mandatory) : BlinnPhong
-            auto lpconfig =
+            auto lightpassconfig =
                 Ra::Engine::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
-            rt.setConfiguration( lpconfig, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE );
+            rt.setConfiguration( lightpassconfig, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE );
 
             // Z prepass (Recommended) : DepthAmbiantPass
-            Ra::Engine::ShaderConfiguration dpconfig(
+            Ra::Engine::ShaderConfiguration zprepassconfig(
                 "DepthAmbiantBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
                 "Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
-            Ra::Engine::ShaderConfigurationFactory::addConfiguration( dpconfig );
-            rt.setConfiguration( dpconfig, Ra::Engine::RenderTechnique::Z_PREPASS );
+            Ra::Engine::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
+            rt.setConfiguration( zprepassconfig, Ra::Engine::RenderTechnique::Z_PREPASS );
             // Transparent pass (0ptional) : If Transparent ... add LitOIT
             if ( isTransparent )
             {
-                Ra::Engine::ShaderConfiguration tpconfig(
+                Ra::Engine::ShaderConfiguration transparentpassconfig(
                     "LitOITBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
                     "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
-                Ra::Engine::ShaderConfigurationFactory::addConfiguration( tpconfig );
-                rt.setConfiguration( tpconfig, Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT );
+                Ra::Engine::ShaderConfigurationFactory::addConfiguration( transparentpassconfig );
+                rt.setConfiguration( transparentpassconfig, Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT );
             }
         } );
 }
@@ -155,9 +154,7 @@ void BlinnPhongMaterial::unregisterMaterial() {
 }
 
 Material* BlinnPhongMaterialConverter::operator()( const Ra::Asset::MaterialData* toconvert ) {
-    Ra::Engine::BlinnPhongMaterial* result =
-        new Ra::Engine::BlinnPhongMaterial( toconvert->getName() );
-
+    auto result = new Ra::Engine::BlinnPhongMaterial( toconvert->getName() );
     auto source = static_cast<const Ra::Asset::BlinnPhongMaterialData*>( toconvert );
 
     if ( source->hasDiffuse() )
