@@ -155,9 +155,6 @@ if(DOXYGEN_FOUND)
 
   add_custom_target(doc
      ${CMAKE_COMMAND} -E make_directory ${RADIUM_DOC_DIRECTORY}
-     COMMAND ${CMAKE_COMMAND} -E copy_directory
-       ${CMAKE_CURRENT_SOURCE_DIR}/Docs/images/
-       ${RADIUM_DOC_DIRECTORY}/html/images
      COMMAND ${CMAKE_COMMAND} -E copy
        ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG
        ${RADIUM_BUNDLE_DIRECTORY}/
