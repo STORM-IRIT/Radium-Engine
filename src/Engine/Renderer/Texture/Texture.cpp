@@ -29,6 +29,7 @@ void Engine::Texture::Generate(uint w, GLenum format, void *data, bool linearize
     m_isMipMaped = mipmaped;
     m_textureParameters.format = format;
     m_textureParameters.width = w;
+    m_textureParameters.texels = data;
 
     updateParameters();
 
@@ -53,15 +54,16 @@ void Engine::Texture::Generate(uint w, GLenum format, void *data, bool linearize
             return;
         }
         // This will do the conversion then upload texels on GPU and generates mipmap if needed.
-        sRGBToLinearRGB(reinterpret_cast<uint8_t *>(data), numcomp, hasAlpha);
+        sRGBToLinearRGB(reinterpret_cast<uint8_t *>(m_textureParameters.texels), numcomp, hasAlpha);
     } else {
         // only upload to the GPU and generate mipmap if needed
-        m_texture->image1D( 0, m_textureParameters.internalFormat, w, 0, format, m_textureParameters.type, data );
+        m_texture->image1D( 0, m_textureParameters.internalFormat, w, 0, format, m_textureParameters.type, m_textureParameters.texels );
         if (m_isMipMaped)
         {
             m_texture->generateMipmap();
         }
     }
+    m_textureParameters.texels = nullptr;
 }
 
 void Engine::Texture::Generate(uint w, uint h, GLenum format, void *data, bool linearize, bool mipmaped) {
@@ -75,6 +77,7 @@ void Engine::Texture::Generate(uint w, uint h, GLenum format, void *data, bool l
     m_textureParameters.format = format;
     m_textureParameters.width = w;
     m_textureParameters.height = h;
+    m_textureParameters.texels = data;
 
     updateParameters();
 
@@ -99,15 +102,17 @@ void Engine::Texture::Generate(uint w, uint h, GLenum format, void *data, bool l
             return;
         }
         // This will do the conversion then upload texels on GPU and generates mipmap if needed.
-        sRGBToLinearRGB(reinterpret_cast<uint8_t *>(data), numcomp, hasAlpha);
+        sRGBToLinearRGB(reinterpret_cast<uint8_t *>(m_textureParameters.texels), numcomp, hasAlpha);
     } else {
         // only upload to the GPU and generate mipmap if needed
-        m_texture->image2D( 0, m_textureParameters.internalFormat, w, h, 0, format, m_textureParameters.type, data );
+        m_texture->image2D( 0, m_textureParameters.internalFormat, w, h, 0, format, m_textureParameters.type, m_textureParameters.texels );
         if (m_isMipMaped)
         {
             m_texture->generateMipmap();
         }
     }
+
+    m_textureParameters.texels = nullptr;
 }
 
 void Engine::Texture::Generate(uint w, uint h, uint d, GLenum format, void *data, bool linearize, bool mipmaped) {
@@ -122,6 +127,7 @@ void Engine::Texture::Generate(uint w, uint h, uint d, GLenum format, void *data
     m_textureParameters.width = w;
     m_textureParameters.height = h;
     m_textureParameters.depth = d;
+    m_textureParameters.texels = data;
 
     updateParameters();
 
@@ -146,15 +152,16 @@ void Engine::Texture::Generate(uint w, uint h, uint d, GLenum format, void *data
             return;
         }
         // This will do the conversion then upload texels on GPU and generates mipmap if needed.
-        sRGBToLinearRGB(reinterpret_cast<uint8_t *>(data), numcomp, hasAlpha);
+        sRGBToLinearRGB(reinterpret_cast<uint8_t *>(m_textureParameters.texels), numcomp, hasAlpha);
     } else {
         // only upload to the GPU and generate mipmap if needed
-        m_texture->image3D( 0, m_textureParameters.internalFormat, w, h, d, 0, format, m_textureParameters.type, data );
+        m_texture->image3D( 0, m_textureParameters.internalFormat, w, h, d, 0, format, m_textureParameters.type, m_textureParameters.texels );
         if (m_isMipMaped)
         {
             m_texture->generateMipmap();
         }
     }
+    m_textureParameters.texels = nullptr;
 }
 
 void Engine::Texture::GenerateCube(uint w, uint h, GLenum format, void **data, bool linearize, bool mipmaped) {
@@ -168,6 +175,7 @@ void Engine::Texture::GenerateCube(uint w, uint h, GLenum format, void **data, b
     m_textureParameters.format = format;
     m_textureParameters.width = w;
     m_textureParameters.height = h;
+    m_textureParameters.texels = data;
 
     updateParameters();
 
@@ -192,15 +200,16 @@ void Engine::Texture::GenerateCube(uint w, uint h, GLenum format, void **data, b
             return;
         }
         // This will do the conversion then upload texels on GPU and generates mipmap if needed.
-        sRGBToLinearRGB(reinterpret_cast<uint8_t *>(data), numcomp, hasAlpha);
+        sRGBToLinearRGB(reinterpret_cast<uint8_t *>(m_textureParameters.texels), numcomp, hasAlpha);
     } else {
         // only upload to the GPU and generate mipmap if needed
-        m_texture->cubeMapImage( 0, m_textureParameters.internalFormat, w, h, 0, format, m_textureParameters.type, data );
+        m_texture->cubeMapImage( 0, m_textureParameters.internalFormat, w, h, 0, format, m_textureParameters.type, m_textureParameters.texels );
         if (m_isMipMaped)
         {
             m_texture->generateMipmap();
         }
     }
+    m_textureParameters.texels = nullptr;
 }
 
 void Engine::Texture::bind(int unit) {

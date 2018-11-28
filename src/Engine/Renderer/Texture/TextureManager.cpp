@@ -18,8 +18,8 @@ TextureManager::~TextureManager() {
     m_textures.clear();
 }
 
-TextureData& TextureManager::addTexture(const std::string &name, uint width, uint height,
-                                        void *data) {
+TextureData& TextureManager::addTexture( const std::string& name, uint width, uint height,
+                                         void* data ) {
     TextureData texData;
     texData.name = name;
     texData.width = width;
@@ -31,15 +31,15 @@ TextureData& TextureManager::addTexture(const std::string &name, uint width, uin
     return m_pendingTextures[name];
 }
 
-TextureData TextureManager::loadTexture(const std::string &filename)
-{
+TextureData TextureManager::loadTexture( const std::string& filename ) {
     TextureData texData;
     texData.name = filename;
 
     stbi_set_flip_vertically_on_load( true );
 
-    int  n;
-    unsigned char* data = stbi_load( filename.c_str(), (int*)(&( texData.width )), (int *)(&( texData.height )), &n, 0 );
+    int n;
+    unsigned char* data = stbi_load( filename.c_str(), (int*)( &( texData.width ) ),
+                                     (int*)( &( texData.height ) ), &n, 0 );
 
     if ( !data )
     {
@@ -55,41 +55,41 @@ TextureData TextureManager::loadTexture(const std::string &filename)
         texData.format = GL_RED;
         texData.internalFormat = GL_R8;
     }
-        break;
+    break;
 
     case 2:
     {
         texData.format = GL_RG;
         texData.internalFormat = GL_RG8;
     }
-        break;
+    break;
 
     case 3:
     {
         texData.format = GL_RGB;
         texData.internalFormat = GL_RGB8;
     }
-        break;
+    break;
 
     case 4:
     {
         texData.format = GL_RGBA;
         texData.internalFormat = GL_RGBA8;
     }
-        break;
+    break;
     default:
     {
         texData.format = GL_RGBA;
         texData.internalFormat = GL_RGBA8;
     }
-        break;
+    break;
     }
 
     if ( m_verbose )
     {
         LOG( logINFO ) << "Image stats (" << filename << ") :\n"
                        << "\tPixels : " << n << std::endl
-                       << "\tFormat : " << texData.format <<  std::endl
+                       << "\tFormat : " << texData.format << std::endl
                        << "\tSize   : " << texData.width << ", " << texData.height;
     }
 
@@ -99,30 +99,29 @@ TextureData TextureManager::loadTexture(const std::string &filename)
     return texData;
 }
 
-Texture * TextureManager::getOrLoadTexture(const TextureData &data, bool linearize)
-{
+Texture* TextureManager::getOrLoadTexture( const TextureData& data, bool linearize ) {
     m_pendingTextures[data.name] = data;
     return getOrLoadTexture( data.name, linearize );
 }
 
-/// FIXME : for the moment, Texture name is equivalent to file name if the texture is loaded by the manager.
-/// Must allow to differentiates the two.
-  Texture * TextureManager::getOrLoadTexture(const std::string &filename, bool linearize)
-  {
+/// FIXME : for the moment, Texture name is equivalent to file name if the texture is loaded by the
+/// manager. Must allow to differentiates the two.
+Texture* TextureManager::getOrLoadTexture( const std::string& filename, bool linearize ) {
     Texture* ret = nullptr;
     auto it = m_textures.find( filename );
 
     if ( it != m_textures.end() )
     {
         ret = it->second;
-    } else {
-        auto makeTexture = [](const TextureData &data, bool linearize) -> Texture* {
+    } else
+    {
+        auto makeTexture = []( const TextureData& data, bool linearize ) -> Texture* {
             auto tex = new Texture( data.name );
             tex->m_textureParameters = data;
-            // for the moment, do not store the texels
-            tex->m_textureParameters.texels = nullptr;
-            bool needMipMap = !(data.minFilter == GL_NEAREST || data.minFilter == GL_LINEAR);
-            tex->Generate(data.width, data.height, data.format, data.texels, linearize, needMipMap);
+            bool needMipMap = !( data.minFilter == GL_NEAREST || data.minFilter == GL_LINEAR );
+            tex->Generate( tex->m_textureParameters.width, tex->m_textureParameters.height,
+                           tex->m_textureParameters.format, tex->m_textureParameters.texels,
+                           linearize, needMipMap );
             return tex;
         };
 
@@ -132,9 +131,10 @@ Texture * TextureManager::getOrLoadTexture(const TextureData &data, bool lineari
             auto data = pending->second;
 
             bool freedata = false;
-            if (data.texels == nullptr) {
-
-                auto stbidata = loadTexture(data.name);
+            if ( data.texels == nullptr )
+            {
+                // Keep sampler configuration from input Texture data
+                auto stbidata = loadTexture( data.name );
                 data.width = stbidata.width;
                 data.height = stbidata.height;
                 data.texels = stbidata.texels;
@@ -145,15 +145,16 @@ Texture * TextureManager::getOrLoadTexture(const TextureData &data, bool lineari
                 freedata = true;
             }
 
-            ret = makeTexture(data, linearize);
+            ret = makeTexture( data, linearize );
 
-            if (freedata)
+            if ( freedata )
                 stbi_image_free( data.texels );
 
             m_pendingTextures.erase( filename );
-        } else {
-            auto data = loadTexture(filename);
-            ret = makeTexture(data, linearize);
+        } else
+        {
+            auto data = loadTexture( filename );
+            ret = makeTexture( data, linearize );
             stbi_image_free( data.texels );
         }
         /// FIXME : should it be data.name ?
@@ -176,7 +177,7 @@ void TextureManager::deleteTexture( Texture* texture ) {
     deleteTexture( texture->getName() );
 }
 
-void TextureManager::updateTextureContent(const std::string &texture, void *content) {
+void TextureManager::updateTextureContent( const std::string& texture, void* content ) {
     CORE_ASSERT( m_textures.find( texture ) != m_textures.end(),
                  "Trying to update non existing texture" );
     m_pendingData[texture] = content;

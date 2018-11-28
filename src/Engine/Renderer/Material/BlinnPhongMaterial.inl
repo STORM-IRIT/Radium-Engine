@@ -14,7 +14,9 @@ inline TextureData& BlinnPhongMaterial::addTexture( const TextureSemantic& seman
     data.name = texture;
     data.wrapS = GL_REPEAT;
     data.wrapT = GL_REPEAT;
-
+    if (semantic != TextureSemantic::TEX_NORMAL) {
+        data.minFilter = GL_LINEAR_MIPMAP_LINEAR;
+    }
     return addTexture( semantic, data );
 }
 
