@@ -16,13 +16,13 @@ namespace Engine {
 
 CameraManager::CameraManager() : m_data( nullptr ) {}
 
-CameraManager::~CameraManager() {}
+//CameraManager::~CameraManager() {}
 
 size_t CameraManager::count() const {
     return m_data->size();
 }
 
-void CameraManager::generateTasks( Core::TaskQueue* taskQueue,
+void CameraManager::generateTasks( Core::TaskQueue* /*taskQueue*/,
                                    const Engine::FrameInfo& frameInfo ) {}
 
 void CameraManager::handleAssetLoading( Entity* entity, const Asset::FileData* filedata ) {
@@ -32,7 +32,7 @@ void CameraManager::handleAssetLoading( Entity* entity, const Asset::FileData* f
     for ( const auto& data : cameraData )
     {
         std::string componentName = "CAMERA_" + entity->getName() + std::to_string( id++ );
-        Engine::Camera* comp = new Camera( entity, componentName, 100, 100 );
+        auto comp = new Camera( entity, componentName, 100, 100 );
         switch ( data->getType() )
         {
         case Asset::CameraData::ORTHOGRAPHIC:

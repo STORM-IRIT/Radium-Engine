@@ -4,12 +4,10 @@
 #    include <Core/File/GeometryData.hpp>
 #    include <Core/Mesh/MeshTypes.hpp>
 #    include <Core/Mesh/TriangleMesh.hpp>
-
 #    include <Engine/Component/Component.hpp>
 
 namespace Ra {
 namespace Engine {
-class RenderTechnique;
 class Mesh;
 } // namespace Engine
 } // namespace Ra

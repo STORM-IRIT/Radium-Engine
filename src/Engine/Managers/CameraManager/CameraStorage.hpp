@@ -20,10 +20,10 @@ namespace Engine {
 class RA_ENGINE_API CameraStorage {
     // TODO: make camera storage compatible with range for ...
   public:
-    CameraStorage() {}
+    CameraStorage() = default;
 
     /// Destructor
-    virtual ~CameraStorage() {}
+    virtual ~CameraStorage() = default;
 
     // Redefine container classic functions.
 

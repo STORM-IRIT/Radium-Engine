@@ -4,10 +4,9 @@
 #include <Engine/RaEngine.hpp>
 
 #include <Core/Index/Index.hpp>
+
 #include <string>
 #include <vector>
-
-#include <GuiBase/Utils/PickingManager.hpp>
 
 namespace Ra {
 namespace Engine {

@@ -12,6 +12,7 @@ namespace Engine {
 
 EntityManager::EntityManager() {
     Entity* ent( SystemEntity::createInstance() );
+    // FIXME : ent is used after it was moved. Might generate malfunctions
     ent->idx = m_entities.emplace( std::move( ent ) );
     CORE_ASSERT( ent == SystemEntity::getInstance(), "Invalid singleton instanciation" );
     m_entitiesName.insert( std::pair<std::string, Core::Index>( ent->getName(), ent->idx ) );

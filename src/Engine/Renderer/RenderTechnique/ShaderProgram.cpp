@@ -38,7 +38,8 @@ ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) : ShaderProgra
     load( config );
 }
 
-//ShaderProgram::~ShaderProgram() {}
+// Can't be defaulted becaus of predeclaration of globject::Program
+ShaderProgram::~ShaderProgram() {}
 
 void ShaderProgram::loadShader( ShaderType type, const std::string& name,
                                 const std::set<std::string>& props,

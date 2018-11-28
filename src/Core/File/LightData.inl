@@ -1,6 +1,4 @@
 #include <Core/File/LightData.hpp>
-
-#include "LightData.hpp"
 #include <Core/Log/Log.hpp>
 
 namespace Ra {

@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_VECTOR_HPP
-#define RADIUMENGINE_VECTOR_HPP
+#ifndef RADIUMENGINE_LINEARALGEBRA_HPP
+#define RADIUMENGINE_LINEARALGEBRA_HPP
 
 /// This file contains definitions of aliases for basic vector classes and functions
 
@@ -261,4 +261,4 @@ inline bool checkInvalidNumbers( Eigen::Ref<const Quaternion_> q,
 
 #include <Core/Math/LinearAlgebra.inl>
 
-#endif // RADIUMENGINE_VECTOR_HPP
+#endif // RADIUMENGINE_LINEARALGEBRA_HPP

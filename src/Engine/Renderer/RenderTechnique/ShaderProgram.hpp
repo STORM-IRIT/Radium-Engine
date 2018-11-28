@@ -27,7 +27,7 @@ class RA_ENGINE_API ShaderProgram final {
   public:
     ShaderProgram();
     explicit ShaderProgram( const ShaderConfiguration& shaderConfig );
-    ~ShaderProgram() = default;
+    ~ShaderProgram();
 
     void load( const ShaderConfiguration& shaderConfig );
     void reload();

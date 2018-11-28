@@ -34,7 +34,7 @@ class RA_ENGINE_API CameraManager : public System {
     CameraManager& operator=( const CameraManager& ) = delete;
 
     /// Virtual destructor
-    virtual ~CameraManager();
+    ~CameraManager() override = default;
 
     /// Get a pointer to the cam-th Camera.
     virtual const Camera* getCamera( size_t cam ) const = 0;
@@ -63,6 +63,11 @@ class RA_ENGINE_API CameraManager : public System {
      * @brief render the object with specific technics for the current Camera.
      *
      * An example use case is a cube map renderer.
+     *
+     * @note default argument of virtual functions is not a good idea as
+     * "The overriders of virtual functions do not acquire the default arguments from the base class declarations,
+     * and when the virtual function call is made, the default arguments are decided based on the static type of the
+     * object " (https://en.cppreference.com/w/cpp/language/default_arguments)
      */
     virtual void
     render( RenderObject*, unsigned int cam,
@@ -78,15 +83,15 @@ class RA_ENGINE_API CameraManager : public System {
   protected:
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. CameraStorage).
-    void registerComponent( const Entity* entity, Component* component ) override final;
+    void registerComponent( const Entity* entity, Component* component ) final;
 
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. CameraStorage).
-    void unregisterComponent( const Entity* entity, Component* component ) override final;
+    void unregisterComponent( const Entity* entity, Component* component ) final;
 
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. CameraStorage).
-    void unregisterAllComponents( const Entity* entity ) override final;
+    void unregisterAllComponents( const Entity* entity ) final;
 
   protected:
     /// store the current renderData

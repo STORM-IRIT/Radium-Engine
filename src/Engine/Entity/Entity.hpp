@@ -32,7 +32,7 @@ class RA_ENGINE_API Entity : public Core::IndexedObject {
     Entity( const Entity& entity ) = delete;
     Entity& operator=( const Entity& ) = delete;
 
-    virtual ~Entity();
+    ~Entity() override;
 
     // Name
     inline const std::string& getName() const;

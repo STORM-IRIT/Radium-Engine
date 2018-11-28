@@ -12,7 +12,7 @@ struct TriangleMesh;
 namespace Ra {
 namespace Engine {
 class Entity;
-struct RenderTechnique;
+//struct RenderTechnique;
 class Component;
 } // namespace Engine
 } // namespace Ra

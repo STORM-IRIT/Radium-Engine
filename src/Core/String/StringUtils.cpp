@@ -2,11 +2,15 @@
 
 #include <Core/CoreMacros.hpp>
 
+/*
+ * NOMINMAX is already defined in CoreMacros.hpp ...
+
 #ifdef COMPILER_MSVC
 #    define NOMINMAX // Avoid C2039 MSVC compiler error
 //#undef vsnprintf
 //#define vsnprintf(buffer, count, format, argptr) vsnprintf_s(buffer, count, count, format, argptr)
 #endif
+*/
 
 #include <algorithm> // std::min std::max
 #include <cstdarg>

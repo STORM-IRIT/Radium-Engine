@@ -1,8 +1,8 @@
 #ifndef RADIUMENGINE_RAY_HPP
 #define RADIUMENGINE_RAY_HPP
 
-#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Eigen/Geometry>
 
 namespace Ra {

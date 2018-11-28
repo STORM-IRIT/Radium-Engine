@@ -316,7 +316,7 @@ void AnimationComponent::setAnimation( const uint i ) {
     }
 }
 
-bool AnimationComponent::canEdit( Ra::Core::Index roIdx ) const {
+bool AnimationComponent::canEdit(const Ra::Core::Index &roIdx) const {
     // returns true if the roIdx is one of our bones.
     return (
         std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto& bone ) {
@@ -324,7 +324,7 @@ bool AnimationComponent::canEdit( Ra::Core::Index roIdx ) const {
         } ) != m_boneDrawables.end() );
 }
 
-Ra::Core::Transform AnimationComponent::getTransform( Ra::Core::Index roIdx ) const {
+Ra::Core::Transform AnimationComponent::getTransform(const Ra::Core::Index &roIdx) const {
     CORE_ASSERT( canEdit( roIdx ), "Transform is not editable" );
     const auto& bonePos =
         std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto& bone ) {
@@ -335,8 +335,8 @@ Ra::Core::Transform AnimationComponent::getTransform( Ra::Core::Index roIdx ) co
     return m_skel.getPose( Handle::SpaceType::MODEL )[boneIdx];
 }
 
-void AnimationComponent::setTransform( Ra::Core::Index roIdx,
-                                       const Ra::Core::Transform& transform ) {
+void AnimationComponent::setTransform(const Ra::Core::Index &roIdx,
+                                      const Ra::Core::Transform &transform) {
     CORE_ASSERT( canEdit( roIdx ), "Transform is not editable" );
     const auto& bonePos =
         std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto& bone ) {

@@ -5,19 +5,12 @@
 #include <string>
 #include <vector>
 
-#include <Core/Containers/VectorArray.hpp>
+#include <Core/RaCore.hpp>
 #include <Core/File/AssetData.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/RaCore.hpp>
-#include <Engine/Entity/Entity.hpp>
+
 
 namespace Ra {
-#if 0
-namespace Engine {
-class Light;
-}
-#endif
-
 namespace Asset {
 
   /**

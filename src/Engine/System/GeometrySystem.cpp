@@ -11,7 +11,7 @@
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+//#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
 namespace Ra {
 namespace Engine {

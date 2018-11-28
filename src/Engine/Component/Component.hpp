@@ -8,6 +8,7 @@
 #include <Core/Math/Ray.hpp>
 
 namespace Ra {
+
 namespace Engine {
 class System;
 class Entity;
@@ -58,10 +59,10 @@ class RA_ENGINE_API Component {
     virtual System* getSystem() const;
 
     /// Add a new render object to the component. This adds the RO to the manager for drawing.
-    virtual Core::Index addRenderObject( RenderObject* renderObject ) final;
+    Core::Index addRenderObject( RenderObject* renderObject );
 
     /// Remove the render object from the component.
-    virtual void removeRenderObject( Core::Index roIdx ) final;
+    void removeRenderObject(const Core::Index &roIdx);
 
     /// Perform a ray cast query.
     virtual void rayCastQuery( const Core::Ray& ray ) const;
@@ -72,15 +73,15 @@ class RA_ENGINE_API Component {
     // queried.
 
     /// Returns true if a transform can be edited with the render object index given as a key.
-    virtual bool canEdit( Core::Index roIdx ) const { return false; }
+    virtual bool canEdit(const Core::Index &roIdx) const { return false; }
 
     /// Get the transform associated with the given RO index key.
-    virtual Core::Transform getTransform( Core::Index roIdx ) const {
+    virtual Core::Transform getTransform(const Core::Index &roIdx) const {
         return Core::Transform::Identity();
     }
 
     /// Set the new transform associated with the RO index key.
-    virtual void setTransform( Core::Index roIdx, const Core::Transform& transform ) {}
+    virtual void setTransform(const Core::Index &roIdx, const Core::Transform &transform) {}
 
     void notifyRenderObjectExpired( const Core::Index& idx );
 

@@ -1,7 +1,7 @@
 #include <Engine/Component/GeometryComponent.hpp>
 
 #include <iostream>
-#include <numeric> // std::iota
+//#include <numeric> // std::iota
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/File/FileData.hpp>
@@ -19,9 +19,11 @@
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
+
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
+
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>

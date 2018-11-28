@@ -12,15 +12,16 @@
 #include <Core/File/FileData.hpp>
 #include <Core/File/FileLoaderInterface.hpp>
 
+#include <Engine/Entity/Entity.hpp>
+#include <Engine/System/System.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-#include <Engine/System/System.hpp>
 
 namespace Ra {
 namespace Engine {
