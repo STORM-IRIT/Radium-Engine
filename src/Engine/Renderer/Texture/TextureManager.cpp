@@ -24,7 +24,7 @@ TextureData& TextureManager::addTexture(const std::string &name, uint width, uin
     texData.name = name;
     texData.width = width;
     texData.height = height;
-    texData.data = data;
+    texData.texels = data;
 
     m_pendingTextures[name] = texData;
 
@@ -94,7 +94,7 @@ TextureData TextureManager::loadTexture(const std::string &filename)
     }
 
     CORE_ASSERT( data, "Data is null" );
-    texData.data = data;
+    texData.texels = data;
     texData.type = GL_UNSIGNED_BYTE;
     return texData;
 }
@@ -118,14 +118,11 @@ Texture * TextureManager::getOrLoadTexture(const TextureData &data, bool lineari
     } else {
         auto makeTexture = [](const TextureData &data, bool linearize) -> Texture* {
             auto tex = new Texture( data.name );
-            tex->internalFormat = data.internalFormat;
-            tex->dataType = data.type;
-            tex->minFilter = data.minFilter;
-            tex->magFilter = data.magFilter;
-            tex->wrapS = data.wrapS;
-            tex->wrapT = data.wrapT;
+            tex->m_textureParameters = data;
+            // for the moment, do not store the texels
+            tex->m_textureParameters.texels = nullptr;
             bool needMipMap = !(data.minFilter == GL_NEAREST || data.minFilter == GL_LINEAR);
-            tex->Generate(data.width, data.height, data.format, data.data, linearize, needMipMap);
+            tex->Generate(data.width, data.height, data.format, data.texels, linearize, needMipMap);
             return tex;
         };
 
@@ -135,12 +132,12 @@ Texture * TextureManager::getOrLoadTexture(const TextureData &data, bool lineari
             auto data = pending->second;
 
             bool freedata = false;
-            if (data.data == nullptr) {
+            if (data.texels == nullptr) {
 
                 auto stbidata = loadTexture(data.name);
                 data.width = stbidata.width;
                 data.height = stbidata.height;
-                data.data = stbidata.data;
+                data.texels = stbidata.texels;
                 data.type = stbidata.type;
                 data.format = stbidata.format;
                 data.internalFormat = stbidata.internalFormat;
@@ -151,13 +148,13 @@ Texture * TextureManager::getOrLoadTexture(const TextureData &data, bool lineari
             ret = makeTexture(data, linearize);
 
             if (freedata)
-                stbi_image_free( data.data );
+                stbi_image_free( data.texels );
 
             m_pendingTextures.erase( filename );
         } else {
             auto data = loadTexture(filename);
             ret = makeTexture(data, linearize);
-            stbi_image_free( data.data );
+            stbi_image_free( data.texels );
         }
         /// FIXME : should it be data.name ?
         m_textures[filename] = ret;

@@ -1,12 +1,13 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
+#include <globjects/base/File.h>
+#include <globjects/base/StaticStringSource.h>
+
 #include <globjects/NamedString.h>
 #include <globjects/Program.h>
 #include <globjects/Shader.h>
 #include <globjects/Texture.h>
 
-#include <globjects/base/File.h>
-#include <globjects/base/StaticStringSource.h>
 
 #include <regex>
 

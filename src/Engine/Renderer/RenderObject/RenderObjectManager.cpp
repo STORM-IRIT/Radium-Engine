@@ -57,7 +57,7 @@ void RenderObjectManager::removeRenderObject( const Core::Index& index ) {
     renderObject.reset();
 }
 
-uint RenderObjectManager::getRenderObjectsCount() {
+size_t RenderObjectManager::getRenderObjectsCount() {
     return m_renderObjects.size();
 }
 
@@ -103,7 +103,7 @@ void RenderObjectManager::renderObjectExpired( const Core::Index& idx ) {
     ro.reset();
 }
 
-uint RenderObjectManager::getNumFaces() const {
+size_t RenderObjectManager::getNumFaces() const {
     uint result = 0;
     for ( const auto& ro : m_renderObjects )
     {
@@ -115,7 +115,7 @@ uint RenderObjectManager::getNumFaces() const {
     return result;
 }
 
-uint RenderObjectManager::getNumVertices() const {
+size_t RenderObjectManager::getNumVertices() const {
     uint result = 0;
     for ( const auto& ro : m_renderObjects )
     {
@@ -139,7 +139,7 @@ Core::Aabb RenderObjectManager::getSceneAabb() const {
     if ( m_renderObjects.size() == nUiRO )
         return aabb;
 
-    for ( auto ro : m_renderObjects )
+    for ( const auto &ro : m_renderObjects )
     {
         auto entity = ro->getComponent()->getEntity();
         if ( ro->isVisible() && ( entity != systemEntity ) )

@@ -30,7 +30,8 @@ const GLenum buffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_A
 ForwardRenderer::ForwardRenderer() : Renderer() {}
 
 ForwardRenderer::~ForwardRenderer() {
-    ShaderProgramManager::destroyInstance();
+    // already done in Renderer::~~enderer ...
+    //ShaderProgramManager::destroyInstance();
 }
 
 void ForwardRenderer::initializeInternal() {
@@ -63,39 +64,40 @@ void ForwardRenderer::initShaders() {
 }
 
 void ForwardRenderer::initBuffers() {
-    m_fbo.reset( new globjects::Framebuffer() );
-    m_oitFbo.reset( new globjects::Framebuffer() );
-    m_postprocessFbo.reset( new globjects::Framebuffer() );
+    m_fbo = std::make_unique<globjects::Framebuffer>();
+    m_oitFbo = std::make_unique<globjects::Framebuffer>();
+    m_postprocessFbo = std::make_unique<globjects::Framebuffer>();
+
 
     // Render pass
-    m_textures[RendererTextures_Depth].reset( new Texture( "Depth" ) );
-    m_textures[RendererTextures_HDR].reset( new Texture( "HDR" ) );
-    m_textures[RendererTextures_Normal].reset( new Texture( "Normal" ) );
-    m_textures[RendererTextures_Diffuse].reset( new Texture( "Diffuse" ) );
-    m_textures[RendererTextures_Specular].reset( new Texture( "Specular" ) );
-    m_textures[RendererTextures_OITAccum].reset( new Texture( "OIT Accum" ) );
-    m_textures[RendererTextures_OITRevealage].reset( new Texture( "OIT Revealage" ) );
+    m_textures[RendererTextures_Depth] = std::make_unique<Texture>( "Depth" );
+    m_textures[RendererTextures_HDR] = std::make_unique<Texture>( "HDR" );
+    m_textures[RendererTextures_Normal] = std::make_unique<Texture>( "Normal" );
+    m_textures[RendererTextures_Diffuse] = std::make_unique<Texture>( "Diffuse" );
+    m_textures[RendererTextures_Specular] = std::make_unique<Texture>( "Specular" );
+    m_textures[RendererTextures_OITAccum] = std::make_unique<Texture>( "OIT Accum" );
+    m_textures[RendererTextures_OITRevealage] = std::make_unique<Texture>( "OIT Revealage" );
 
-    m_textures[RendererTextures_Depth]->internalFormat = GL_DEPTH_COMPONENT24;
-    m_textures[RendererTextures_Depth]->dataType = GL_UNSIGNED_INT;
+    m_textures[RendererTextures_Depth]->m_textureParameters.internalFormat = GL_DEPTH_COMPONENT24;
+    m_textures[RendererTextures_Depth]->m_textureParameters.type = GL_UNSIGNED_INT;
 
-    m_textures[RendererTextures_HDR]->internalFormat = GL_RGBA32F;
-    m_textures[RendererTextures_HDR]->dataType = GL_FLOAT;
+    m_textures[RendererTextures_HDR]->m_textureParameters.internalFormat = GL_RGBA32F;
+    m_textures[RendererTextures_HDR]->m_textureParameters.type = GL_FLOAT;
 
-    m_textures[RendererTextures_Normal]->internalFormat = GL_RGBA32F;
-    m_textures[RendererTextures_Normal]->dataType = GL_FLOAT;
+    m_textures[RendererTextures_Normal]->m_textureParameters.internalFormat = GL_RGBA32F;
+    m_textures[RendererTextures_Normal]->m_textureParameters.type = GL_FLOAT;
 
-    m_textures[RendererTextures_Diffuse]->internalFormat = GL_RGBA32F;
-    m_textures[RendererTextures_Diffuse]->dataType = GL_FLOAT;
+    m_textures[RendererTextures_Diffuse]->m_textureParameters.internalFormat = GL_RGBA32F;
+    m_textures[RendererTextures_Diffuse]->m_textureParameters.type = GL_FLOAT;
 
-    m_textures[RendererTextures_Specular]->internalFormat = GL_RGBA32F;
-    m_textures[RendererTextures_Specular]->dataType = GL_FLOAT;
+    m_textures[RendererTextures_Specular]->m_textureParameters.internalFormat = GL_RGBA32F;
+    m_textures[RendererTextures_Specular]->m_textureParameters.type = GL_FLOAT;
 
-    m_textures[RendererTextures_OITAccum]->internalFormat = GL_RGBA32F;
-    m_textures[RendererTextures_OITAccum]->dataType = GL_FLOAT;
+    m_textures[RendererTextures_OITAccum]->m_textureParameters.internalFormat = GL_RGBA32F;
+    m_textures[RendererTextures_OITAccum]->m_textureParameters.type = GL_FLOAT;
 
-    m_textures[RendererTextures_OITRevealage]->internalFormat = GL_RGBA32F;
-    m_textures[RendererTextures_OITRevealage]->dataType = GL_FLOAT;
+    m_textures[RendererTextures_OITRevealage]->m_textureParameters.internalFormat = GL_RGBA32F;
+    m_textures[RendererTextures_OITRevealage]->m_textureParameters.type = GL_FLOAT;
 
     m_secondaryTextures["Depth Texture"] = m_textures[RendererTextures_Depth].get();
     m_secondaryTextures["HDR Texture"] = m_textures[RendererTextures_HDR].get();
@@ -141,10 +143,10 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
 
     GL_ASSERT( glDrawBuffers( 4, buffers ) );
 
-    const Core::Colorf clearColor = Core::Colors::FromChars<Core::Colorf>( 42, 42, 42, 0 );
-    const Core::Colorf clearZeros = Core::Colors::Black<Core::Colorf>();
-    const Core::Colorf clearOnes = Core::Colors::FromChars<Core::Colorf>( 255, 255, 255, 255 );
-    const float clearDepth( 1.0 );
+    const auto clearColor = Core::Colors::FromChars<Core::Colorf>( 42, 42, 42, 0 );
+    const auto clearZeros = Core::Colors::Black<Core::Colorf>();
+    const auto clearOnes = Core::Colors::FromChars<Core::Colorf>( 255, 255, 255, 255 );
+    const float clearDepth {1.0f};
 
     GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearColor.data() ) ); // Clear color
     GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearZeros.data() ) ); // Clear normals
@@ -157,14 +159,14 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
     GL_ASSERT( glDepthFunc( GL_LESS ) );
     GL_ASSERT( glDisable( GL_BLEND ) );
 
-    GL_ASSERT( glPointSize( 3. ) );
+    GL_ASSERT( glPointSize( 3.f ) );
 
     // Set in RenderParam the configuration about ambiant lighting (instead of hard constant
     // direclty in shaders)
-    RenderParameters params;
+    RenderParameters zprepassParams;
     for ( const auto& ro : m_fancyRenderObjects )
     {
-        ro->render( params, renderData, RenderTechnique::Z_PREPASS );
+        ro->render( zprepassParams, renderData, RenderTechnique::Z_PREPASS );
     }
 #ifndef NO_TRANSPARENCY
     // Transparent objects are rendered in the Z-prepass, but only their fully opaque fragments (if any)
@@ -172,7 +174,7 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
     // Rendering transparent objects assuming that they discard all their non-opaque fragments
     for (const auto &ro : m_transparentRenderObjects)
     {
-        ro->render(params, renderData, RenderTechnique::Z_PREPASS);
+        ro->render(zprepassParams, renderData, RenderTechnique::Z_PREPASS);
     }
 #endif
     // Light pass
@@ -189,21 +191,21 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
     if ( m_lightmanagers[0]->count() > 0 )
     {
         // for ( const auto& l : m_lights )
-        for ( int i = 0; i < m_lightmanagers[0]->count(); ++i )
+        for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i )
         {
-            auto l = m_lightmanagers[0]->getLight( i );
-            RenderParameters params;
-            l->getRenderParameters( params );
+            const auto l = m_lightmanagers[0]->getLight( i );
+            RenderParameters lightingpassParams;
+            l->getRenderParameters( lightingpassParams );
 
             for ( const auto& ro : m_fancyRenderObjects )
             {
-                ro->render( params, renderData, RenderTechnique::LIGHTING_OPAQUE );
+                ro->render( lightingpassParams, renderData, RenderTechnique::LIGHTING_OPAQUE );
             }
 #ifndef NO_TRANSPARENCY
             // Rendering transparent objects assuming that they discard all their non-opaque fragments
-            for (const auto &ro : m_transparentRenderObjects)
+            for (const auto& ro : m_transparentRenderObjects)
             {
-                ro->render(params, renderData, RenderTechnique::LIGHTING_OPAQUE);
+                ro->render( lightingpassParams, renderData, RenderTechnique::LIGHTING_OPAQUE);
             }
 #endif
         }
@@ -213,7 +215,7 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
     }
 
 #ifndef NO_TRANSPARENCY
-    if (m_transparentRenderObjects.size() >0)
+    if (!m_transparentRenderObjects.empty())
     {
         m_fbo->unbind();
 
@@ -233,15 +235,15 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
         if (m_lightmanagers[0]->count() > 0)
         {
             // for ( const auto& l : m_lights )
-            for (int i = 0; i < m_lightmanagers[0]->count(); ++i)
+            for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i)
             {
-                auto l = m_lightmanagers[0]->getLight(i);
-                RenderParameters params;
-                l->getRenderParameters(params);
+                const auto l = m_lightmanagers[0]->getLight(i);
+                RenderParameters trasparencypassParams;
+                l->getRenderParameters(trasparencypassParams);
 
                 for (const auto &ro : m_transparentRenderObjects)
                 {
-                    ro->render(params, renderData, RenderTechnique::LIGHTING_TRANSPARENT);
+                    ro->render(trasparencypassParams, renderData, RenderTechnique::LIGHTING_TRANSPARENT);
                 }
             }
         }
@@ -288,22 +290,23 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
         if ( m_lightmanagers[0]->count() > 0 )
         {
             // for ( const auto& l : m_lights )
-            for ( int i = 0; i < m_lightmanagers[0]->count(); ++i )
+            for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i )
             {
-                auto l = m_lightmanagers[0]->getLight( i );
-                RenderParameters params;
-                l->getRenderParameters( params );
+                const auto l = m_lightmanagers[0]->getLight( i );
+                RenderParameters wireframepassParams;
+                l->getRenderParameters( wireframepassParams );
 
                 for ( const auto& ro : m_fancyRenderObjects )
                 {
-                    ro->render( params, renderData, RenderTechnique::LIGHTING_OPAQUE );
+                    ro->render( wireframepassParams, renderData, RenderTechnique::LIGHTING_OPAQUE );
                 }
-
-                for ( size_t i = 0; i < m_fancyTransparentCount; ++i )
+                // This will not work for the moment . skipping wireframe rendering of transparent objects
+#if 0
+                for ( const auto& ro : m_transparentRenderObjects)
                 {
-                    auto& ro = m_transparentRenderObjects[i];
-                    ro->render( params, renderData, RenderTechnique::LIGHTING_OPAQUE );
+                    ro->render( wireframepassParams, renderData, RenderTechnique::LIGHTING_OPAQUE );
                 }
+#endif
             }
         } else
         {
@@ -443,7 +446,7 @@ void ForwardRenderer::postProcessInternal( const RenderData& renderData ) {
 }
 
 void ForwardRenderer::resizeInternal() {
-    m_pingPongSize = std::pow( 2.0, Scalar( uint( std::log2( std::min( m_width, m_height ) ) ) ) );
+    m_pingPongSize = std::pow( 2,  uint( std::log2( std::min( m_width, m_height ) ) ) );
 
     m_textures[RendererTextures_Depth]->Generate( m_width, m_height, GL_DEPTH_COMPONENT );
     m_textures[RendererTextures_HDR]->Generate( m_width, m_height, GL_RGBA );
@@ -455,14 +458,14 @@ void ForwardRenderer::resizeInternal() {
 
     m_fbo->bind();
     m_fbo->attachTexture( GL_DEPTH_ATTACHMENT,
-                          m_textures[RendererTextures_Depth].get()->texture() );
-    m_fbo->attachTexture( GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_HDR].get()->texture() );
+                          m_textures[RendererTextures_Depth]->texture() );
+    m_fbo->attachTexture( GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_HDR]->texture() );
     m_fbo->attachTexture( GL_COLOR_ATTACHMENT1,
-                          m_textures[RendererTextures_Normal].get()->texture() );
+                          m_textures[RendererTextures_Normal]->texture() );
     m_fbo->attachTexture( GL_COLOR_ATTACHMENT2,
-                          m_textures[RendererTextures_Diffuse].get()->texture() );
+                          m_textures[RendererTextures_Diffuse]->texture() );
     m_fbo->attachTexture( GL_COLOR_ATTACHMENT3,
-                          m_textures[RendererTextures_Specular].get()->texture() );
+                          m_textures[RendererTextures_Specular]->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     {
         LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
@@ -472,11 +475,11 @@ void ForwardRenderer::resizeInternal() {
 #ifndef NO_TRANSPARENCY
     m_oitFbo->bind();
     m_oitFbo->attachTexture( GL_DEPTH_ATTACHMENT,
-                             m_textures[RendererTextures_Depth].get()->texture() );
+                             m_textures[RendererTextures_Depth]->texture() );
     m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT0,
-                             m_textures[RendererTextures_OITAccum].get()->texture() );
+                             m_textures[RendererTextures_OITAccum]->texture() );
     m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT1,
-                             m_textures[RendererTextures_OITRevealage].get()->texture() );
+                             m_textures[RendererTextures_OITRevealage]->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     {
         LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
@@ -486,8 +489,8 @@ void ForwardRenderer::resizeInternal() {
 
     m_postprocessFbo->bind();
     m_postprocessFbo->attachTexture( GL_DEPTH_ATTACHMENT,
-                                     m_textures[RendererTextures_Depth].get()->texture() );
-    m_postprocessFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture.get()->texture() );
+                                     m_textures[RendererTextures_Depth]->texture() );
+    m_postprocessFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     {
         LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();

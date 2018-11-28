@@ -34,7 +34,6 @@ RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
     return ro;
 }
 
-// TODO(Charly): Factor mesh init code
 MeshPtr Point( const Core::Vector3& point, const Core::Color& color, Scalar scale ) {
     Core::Vector3Array vertices = {( point + ( scale * Core::Vector3::UnitX() ) ),
                                    ( point - ( scale * Core::Vector3::UnitX() ) ),
@@ -378,8 +377,8 @@ MeshPtr Grid( const Core::Vector3& center, const Core::Vector3& x, const Core::V
         Scalar xStep = Scalar( i ) - Scalar( res ) * cellSize / 2.f;
         vertices.push_back( center - halfWidth * y + xStep * x );
         vertices.push_back( center + halfWidth * y + xStep * x );
-        indices.push_back( vertices.size() - 2 );
-        indices.push_back( vertices.size() - 1 );
+        indices.push_back( uint(vertices.size()) - 2 );
+        indices.push_back( uint(vertices.size()) - 1 );
     }
 
     for ( uint i = 0; i < res + 1; ++i )
@@ -387,8 +386,8 @@ MeshPtr Grid( const Core::Vector3& center, const Core::Vector3& x, const Core::V
         Scalar yStep = Scalar( i ) - Scalar( res ) * cellSize / 2.f;
         vertices.push_back( center - halfWidth * x + yStep * y );
         vertices.push_back( center + halfWidth * x + yStep * y );
-        indices.push_back( vertices.size() - 2 );
-        indices.push_back( vertices.size() - 1 );
+        indices.push_back( uint(vertices.size()) - 2 );
+        indices.push_back( uint(vertices.size()) - 1 );
     }
 
     Core::Vector4Array colors( vertices.size(), color );
@@ -447,7 +446,7 @@ MeshPtr OBB( const Core::Obb& obb, const Core::Color& color ) {
 }
 
 MeshPtr Spline( const Core::Spline<3, 3>& spline, uint pointCount, const Core::Color& color,
-                Scalar scale ) {
+                Scalar /*scale*/ ) {
     Core::Vector3Array vertices;
     vertices.reserve( pointCount );
 

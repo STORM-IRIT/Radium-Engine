@@ -7,16 +7,15 @@
 #include <string>
 
 #include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/Texture/Texture.hpp>
 
-
-#include <Engine/Renderer/Texture/TextureManager.hpp>
 
 namespace Ra {
 namespace Asset {
 class MaterialData;
 }
 namespace Engine {
-class Texture;
+
 class ShaderProgram;
 
 /**

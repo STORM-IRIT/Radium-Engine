@@ -7,19 +7,22 @@
 namespace Ra {
 namespace Engine {
 
+  /** Directional light for rendering
+   *
+   */
 class RA_ENGINE_API DirectionalLight final : public Light {
   public:
     RA_CORE_ALIGNED_NEW
 
-    DirectionalLight( Entity* entity, const std::string& name = "dirlight" );
-    ~DirectionalLight();
+    explicit DirectionalLight( Entity* entity, const std::string& name = "dirlight" );
+    ~DirectionalLight() override = default;
 
     void getRenderParameters( RenderParameters& params ) const override;
 
     void setDirection( const Core::Vector3& pos ) override;
     inline const Core::Vector3& getDirection() const;
 
-    std::string getShaderInclude() const;
+    std::string getShaderInclude() const override;
 
   private:
     Core::Vector3 m_direction;

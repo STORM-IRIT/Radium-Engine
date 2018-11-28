@@ -13,7 +13,6 @@
 #include <string>
 
 namespace globjects {
-class File;
 class Shader;
 class Program;
 class NamedString;

@@ -28,7 +28,7 @@ Entity* EntityManager::createEntity( const std::string& name ) {
     ent->idx = idx;
 
     std::string entityName = name;
-    if ( name == "" )
+    if ( name.empty() )
     {
         Core::StringUtils::stringPrintf( entityName, "Entity_%u", idx.getValue() );
         ent->rename( entityName );

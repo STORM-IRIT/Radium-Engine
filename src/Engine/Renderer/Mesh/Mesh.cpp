@@ -11,8 +11,8 @@ namespace Engine {
 
 // Template parameter must be a Core::VectorNArray
 template <typename ContainedType>
-inline void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<ContainedType>& arr,
-                        const uint vboIdx ) {
+inline void sendGLData(Ra::Engine::Mesh *mesh, const Ra::Core::VectorArray<ContainedType> &arr,
+                       uint vboIdx) {
     using VecArray = Ra::Core::VectorArray<ContainedType>;
 #ifdef CORE_USE_DOUBLE
     GLenum type = GL_DOUBLE;
@@ -24,7 +24,7 @@ inline void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<Cont
     constexpr GLint64 ptr = 0;
 
     // This vbo has not been created yet
-    if ( mesh->m_vbos[vboIdx] == 0 && arr.size() > 0 )
+    if ( mesh->m_vbos[vboIdx] == 0 && !arr.empty() )
     {
         GL_ASSERT( glGenBuffers( 1, &( mesh->m_vbos[vboIdx] ) ) );
         GL_ASSERT( glBindBuffer( GL_ARRAY_BUFFER, mesh->m_vbos[vboIdx] ) );
@@ -38,14 +38,14 @@ inline void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<Cont
         mesh->m_dataDirty[vboIdx] = true;
     }
 
-    if ( mesh->m_dataDirty[vboIdx] == true && mesh->m_vbos[vboIdx] != 0 )
+    if ( mesh->m_dataDirty[vboIdx] && mesh->m_vbos[vboIdx] != 0 )
     {
         GL_ASSERT( glBindBuffer( GL_ARRAY_BUFFER, mesh->m_vbos[vboIdx] ) );
         GL_ASSERT( glBufferData( GL_ARRAY_BUFFER, arr.size() * sizeof( typename VecArray::Vector ),
                                  arr.data(), GL_DYNAMIC_DRAW ) );
         mesh->m_dataDirty[vboIdx] = false;
 
-        if ( arr.size() > 0 )
+        if ( !arr.empty() )
         {
             GL_ASSERT( glEnableVertexAttribArray( vboIdx - 1 ) );
         } else
@@ -94,8 +94,8 @@ void Mesh::render() {
     if ( m_vao != 0 )
     {
         GL_ASSERT( glBindVertexArray( m_vao ) );
-        GL_ASSERT( glDrawElements( static_cast<GLenum>( m_renderMode ), m_numElements,
-                                   GL_UNSIGNED_INT, (void*)0 ) );
+        GL_ASSERT( glDrawElements( static_cast<GLenum>( m_renderMode ), GLsizei(m_numElements),
+                                   GL_UNSIGNED_INT, nullptr ) );
     }
 }
 
@@ -132,7 +132,7 @@ void Mesh::loadGeometry( const Core::TriangleMesh& mesh ) {
 void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<uint>& indices ) {
     // Do not remove this function to force everyone to use triangle mesh.
     //  ... because we have some line meshes as well...
-    const uint nIdx = indices.size();
+    const size_t nIdx = indices.size();
 
     if ( indices.empty() )
     {
@@ -182,7 +182,7 @@ void Mesh::addData( const Vec3Data& type, const Core::Vector3Array& data ) {
     auto& handle = m_v3DataHandle[index];
 
     // if it's the first time this handle is used, add it to m_mesh.
-    if ( data.size() != 0 && !m_mesh.isValid( handle ) )
+    if ( !data.empty() && !m_mesh.isValid( handle ) )
     {
         handle =
             m_mesh.addAttrib<Core::Vector3>( std::string( "Vec3_attr_" ) + std::to_string( type ) );
@@ -204,7 +204,7 @@ void Mesh::addData( const Vec4Data& type, const Core::Vector4Array& data ) {
     auto& handle = m_v4DataHandle[index];
 
     // if it's the first time this handle is used, add it to m_mesh.
-    if ( data.size() != 0 && !m_mesh.isValid( handle ) )
+    if ( ! data.empty() && !m_mesh.isValid( handle ) )
     {
         handle =
             m_mesh.addAttrib<Core::Vector4>( std::string( "Vec4_attr_" ) + std::to_string( type ) );

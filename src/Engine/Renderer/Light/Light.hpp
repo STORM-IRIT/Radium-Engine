@@ -1,9 +1,9 @@
 #ifndef RADIUMENGINE_LIGHT_HPP
 #define RADIUMENGINE_LIGHT_HPP
 
+#include <Engine/RaEngine.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Component/Component.hpp>
-#include <Engine/RaEngine.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -14,17 +14,25 @@ class RenderParameters;
 namespace Ra {
 namespace Engine {
 
-// FIXME (Hugo) To me this class could totally be renamed LightComponent and get a Light struct
-// embedded. Thoughts are welcome !
+// FIXME : this class could totally be renamed LightComponent and get a Light struct embedded. Thoughts are welcome !
 class RA_ENGINE_API Light : public Component {
   public:
     enum LightType { DIRECTIONAL = 0, POINT, SPOT, POLYGONAL };
 
-  public:
+    struct Attenuation {
+        Scalar constant;
+        Scalar linear;
+        Scalar quadratic;
+
+        Attenuation() : constant( 1.0 ), linear(), quadratic() {}
+    };
+
+
+public:
     RA_CORE_ALIGNED_NEW
 
     Light( Entity* entity, const LightType& type, const std::string& name = "light" );
-    virtual ~Light();
+    ~Light() override = default;
 
     inline const Core::Color& getColor() const;
     inline void setColor( const Core::Color& color );

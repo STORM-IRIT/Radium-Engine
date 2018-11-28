@@ -8,8 +8,6 @@ DirectionalLight::DirectionalLight( Entity* entity, const std::string& name ) :
     Light( entity, Light::DIRECTIONAL, name ),
     m_direction( 0, -1, 0 ) {}
 
-DirectionalLight::~DirectionalLight() {}
-
 void DirectionalLight::getRenderParameters( RenderParameters& params ) const {
     Light::getRenderParameters( params );
 

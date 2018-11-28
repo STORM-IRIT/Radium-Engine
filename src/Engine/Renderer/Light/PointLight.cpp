@@ -10,8 +10,6 @@ PointLight::PointLight( Entity* entity, const std::string& name ) :
     m_position( 0, 0, 0 ),
     m_attenuation() {}
 
-PointLight::~PointLight() {}
-
 void PointLight::getRenderParameters( RenderParameters& params ) const {
     Light::getRenderParameters( params );
 

@@ -4,20 +4,6 @@
 #include <Engine/System/System.hpp>
 
 namespace Ra {
-namespace Core {
-struct TriangleMesh;
-}
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
-class Entity;
-//struct RenderTechnique;
-class Component;
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
 namespace Engine {
 
 class RA_ENGINE_API GeometrySystem : public System {

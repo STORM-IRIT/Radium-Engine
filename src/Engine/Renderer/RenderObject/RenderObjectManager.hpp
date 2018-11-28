@@ -27,7 +27,7 @@ class RA_ENGINE_API RenderObjectManager final {
     Core::Index addRenderObject( RenderObject* renderObject );
     void removeRenderObject( const Core::Index& index );
 
-    uint getRenderObjectsCount();
+    size_t getRenderObjectsCount();
 
     /// Returns the render object corresponding to the given index. Will assert
     /// if the index does not match to an existing render object. See exists()
@@ -48,10 +48,10 @@ class RA_ENGINE_API RenderObjectManager final {
     void renderObjectExpired( const Ra::Core::Index& idx );
 
     /// Return the total number of faces drawn
-    uint getNumFaces() const;
+    size_t getNumFaces() const;
 
     /// Return the total number of vertices drawn
-    uint getNumVertices() const;
+    size_t getNumVertices() const;
 
     /// Return the AABB of all visible render objects
     Core::Aabb getSceneAabb() const;

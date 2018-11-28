@@ -10,8 +10,6 @@ SpotLight::SpotLight( Entity* entity, const std::string& name ) :
     m_direction( 0, -1, 0 ),
     m_attenuation() {}
 
-SpotLight::~SpotLight() {}
-
 void SpotLight::getRenderParameters( RenderParameters& params ) const {
     Light::getRenderParameters( params );
 

@@ -5,12 +5,11 @@
 #include <iostream>
 
 #include <Core/Log/Log.hpp>
-
 #include <Core/File/FileData.hpp>
 #include <Core/Mesh/MeshPrimitives.hpp>
 
-#include <Engine/Managers/LightManager/LightManager.hpp>
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Managers/LightManager/LightManager.hpp>
 
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -95,21 +94,21 @@ void Renderer::initialize( uint width, uint height ) {
     m_pickingShaders[3] = m_shaderMgr->addShaderProgram( pickingTrianglesConfig );
 
     m_depthTexture.reset( new Texture( "Depth" ) );
-    m_depthTexture->internalFormat = GL_DEPTH_COMPONENT24;
-    m_depthTexture->dataType = GL_UNSIGNED_INT;
+    m_depthTexture->m_textureParameters.internalFormat = GL_DEPTH_COMPONENT24;
+    m_depthTexture->m_textureParameters.type = GL_UNSIGNED_INT;
 
     m_pickingFbo.reset( new globjects::Framebuffer() );
 
     m_pickingTexture.reset( new Texture( "Picking" ) );
-    m_pickingTexture->internalFormat = GL_RGBA32I;
-    m_pickingTexture->dataType = GL_INT;
-    m_pickingTexture->minFilter = GL_NEAREST;
-    m_pickingTexture->magFilter = GL_NEAREST;
+    m_pickingTexture->m_textureParameters.internalFormat = GL_RGBA32I;
+    m_pickingTexture->m_textureParameters.type = GL_INT;
+    m_pickingTexture->m_textureParameters.minFilter = GL_NEAREST;
+    m_pickingTexture->m_textureParameters.magFilter = GL_NEAREST;
 
     // Final texture
     m_fancyTexture.reset( new Texture( "Final" ) );
-    m_fancyTexture->internalFormat = GL_RGBA32F;
-    m_fancyTexture->dataType = GL_FLOAT;
+    m_fancyTexture->m_textureParameters.internalFormat = GL_RGBA32F;
+    m_fancyTexture->m_textureParameters.type = GL_FLOAT;
 
     m_displayedTexture = m_fancyTexture.get();
     m_secondaryTextures["Picking Texture"] = m_pickingTexture.get();
@@ -488,8 +487,8 @@ void Renderer::drawScreenInternal() {
 
     GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
 
-    auto shader = ( m_displayedTexture->dataType == GL_INT ||
-                    m_displayedTexture->dataType == GL_UNSIGNED_INT )
+    auto shader = ( m_displayedTexture->m_textureParameters.type == GL_INT ||
+                    m_displayedTexture->m_textureParameters.type == GL_UNSIGNED_INT )
                       ? m_shaderMgr->getShaderProgram( "DrawScreenI" )
                       : m_shaderMgr->getShaderProgram( "DrawScreen" );
     shader->bind();

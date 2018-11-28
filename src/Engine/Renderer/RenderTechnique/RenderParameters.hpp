@@ -24,11 +24,11 @@ class RA_ENGINE_API RenderParameters final {
     class Parameter {
       public:
         Parameter() = default;
-        Parameter( const char* name ) : m_name( name ) {}
+        explicit Parameter( const char* name ) : m_name( name ) {}
         virtual ~Parameter() = default;
         virtual void bind( const ShaderProgram* shader ) const = 0;
 
-        const char* m_name;
+        const char* m_name {nullptr};
     };
 
     template <typename T>
@@ -36,7 +36,7 @@ class RA_ENGINE_API RenderParameters final {
       public:
         TParameter() = default;
         TParameter( const char* name, const T& value ) : Parameter( name ), m_value( value ) {}
-        ~TParameter() = default;
+        ~TParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
 
         T m_value;
@@ -49,11 +49,11 @@ class RA_ENGINE_API RenderParameters final {
             Parameter( name ),
             m_texture( tex ),
             m_texUnit( texUnit ) {}
-        ~TextureParameter() = default;
+        ~TextureParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
 
-        Texture* m_texture;
-        int m_texUnit;
+        Texture* m_texture {nullptr};
+        int m_texUnit {-1};
     };
 
     template <typename T>
@@ -125,7 +125,7 @@ class RA_ENGINE_API RenderParameters final {
     }
 
   private:
-    // FIXME(Charly): Any way to simplify this a bit ?
+    // FIXME: Any way to simplify this a bit ?
     UniformBindableVector<IntParameter> m_intParamsVector;
     UniformBindableVector<UIntParameter> m_uintParamsVector;
     UniformBindableVector<ScalarParameter> m_scalarParamsVector;

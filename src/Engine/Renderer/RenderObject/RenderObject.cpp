@@ -14,7 +14,7 @@
 // component to give this directly ?
 #include <Engine/Entity/Entity.hpp>
 
-// STRANGE : only needed to acces the RenderData struct --> put it in its own header ?
+// STRANGE : only needed to access the RenderData struct --> put it in its own header ?
 #include <Engine/Renderer/Renderer.hpp>
 
 namespace Ra {
@@ -43,7 +43,7 @@ RenderObject* RenderObject::createRenderObject( const std::string& name, Compone
                                                 const std::shared_ptr<Mesh>& mesh,
                                                 const RenderTechnique& techniqueConfig,
                                                 const std::shared_ptr<Material>& material ) {
-    RenderObject* obj = new RenderObject( name, comp, type );
+    auto obj = new RenderObject( name, comp, type );
     obj->setMesh( mesh );
     obj->setVisible( true );
 

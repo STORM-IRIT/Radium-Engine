@@ -3,6 +3,8 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+
+#include <Engine/Renderer/Texture/TextureManager.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 
 #include <Core/File/BlinnPhongMaterialData.hpp>
@@ -49,7 +51,6 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     shader->setUniform( "material.kd", m_kd );
     shader->setUniform( "material.ks", m_ks );
     shader->setUniform( "material.ns", m_ns );
-//    shader->setUniform( "material.alpha", m_alpha );
     shader->setUniform( "material.alpha", std::min( m_alpha, m_kd[3]) );
 
     Texture* tex = nullptr;

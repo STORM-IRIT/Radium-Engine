@@ -13,7 +13,7 @@
 namespace Ra {
 namespace Engine {
 
-// FIXME(Charly): If I want to draw a mesh as lines, points, etc,
+// Question : If I want to draw a mesh as lines, points, etc,
 //                should I send lines, ... to the GPU, or handle the way
 //                I want them displayed in a geometry shader, and always
 //                send adjacent triangles to the GPU ?
@@ -89,7 +89,10 @@ class RA_ENGINE_API Mesh {
     constexpr static uint MAX_DATA = MAX_MESH + MAX_VEC3 + MAX_VEC4;
 
   public:
-    Mesh( const std::string& name, MeshRenderMode renderMode = RM_TRIANGLES );
+    explicit Mesh( const std::string& name, MeshRenderMode renderMode = RM_TRIANGLES );
+    Mesh( const Mesh& rhs ) = delete;
+    void operator=( const Mesh& rhs ) = delete;
+
     ~Mesh();
 
     /// Returns the name of the mesh.
@@ -148,13 +151,11 @@ class RA_ENGINE_API Mesh {
     inline void colorize( const Core::Color& color );
 
   private:
-    Mesh( const Mesh& rhs ) = delete;
-    void operator=( const Mesh& rhs ) = delete;
 
     /// Helper function to send buffer data to openGL.
     template <typename type>
-    friend void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<type>& arr,
-                            const uint vboIdx );
+    friend void sendGLData(Ra::Engine::Mesh *mesh, const Ra::Core::VectorArray<type> &arr,
+                           uint vboIdx);
 
   private:
     std::string m_name; /// Name of the mesh.
@@ -186,7 +187,7 @@ class RA_ENGINE_API Mesh {
     std::array<uint, MAX_DATA> m_vbos = {{0}};          /// Indices of our openGL VBOs.
     std::array<bool, MAX_DATA> m_dataDirty = {{false}}; /// Dirty bits of our vertex data.
 
-    uint m_numElements; /// number of elements to draw. For triangles this is 3*numTriangles but not
+    size_t m_numElements; /// number of elements to draw. For triangles this is 3*numTriangles but not
                         /// for lines.
     // (val) : this is a bit hacky.
 

@@ -8,35 +8,10 @@
 #include <Core/Utils/Singleton.hpp>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
-
+#include <Engine/Renderer/Texture/Texture.hpp>
 namespace Ra {
 namespace Engine {
-class Texture;
-}
-} // namespace Ra
 
-namespace Ra {
-namespace Engine {
-/**
- * Describes the content and parameters of a texture.
- */
-struct TextureData {
-    std::string name {};
-    uint width {0};
-    uint height {0};
-
-    GLenum format = GL_RGB;
-    GLenum internalFormat = GL_RGB;
-    GLenum type = GL_UNSIGNED_BYTE;
-
-    GLenum wrapS = GL_CLAMP_TO_EDGE;
-    GLenum wrapT = GL_CLAMP_TO_EDGE;
-
-    GLenum minFilter = GL_LINEAR_MIPMAP_LINEAR;
-    GLenum magFilter = GL_LINEAR;
-
-    void* data {nullptr};
-};
 
 /**
  * Manage Texture loading and registration.

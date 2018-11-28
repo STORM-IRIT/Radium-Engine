@@ -14,20 +14,50 @@ class Texture;
 
 namespace Ra {
 namespace Engine {
+
+  /**
+ * Describes the content and parameters of a texture.
+ */
+  struct TextureData {
+      /// Name of the texture
+      std::string name {};
+      /// OpenGL target
+      GLenum target { GL_TEXTURE_2D };
+      /// width of the texture (s dimension)
+      size_t width {1};
+      /// height of the texture (t dimension)
+      size_t height {1};
+      /// width of the texture (q dimension)
+      size_t depth {1};
+      /// Format of the external data
+      GLenum format {GL_RGB};
+      /// OpenGL internal format
+      GLenum internalFormat { GL_RGB };
+      /// Type of the components in external data
+      GLenum type { GL_UNSIGNED_BYTE };
+      /// OpenGL wrap mode in the s direction
+      GLenum wrapS { GL_CLAMP_TO_EDGE };
+      /// OpenGL wrap mode in the t direction
+      GLenum wrapT { GL_CLAMP_TO_EDGE };
+      /// OpenGL wrap mode in the q direction
+      GLenum wrapR { GL_CLAMP_TO_EDGE };
+      /// OpenGL minification filter ( GL_LINEAR or GL_NEAREST or GL_XXX_MIPMAP_YYY )
+      GLenum minFilter { GL_LINEAR };
+      /// OpenGL magnification filter ( GL_LINEAR or GL_NEAREST )
+      GLenum magFilter { GL_LINEAR };
+      /// External data (not stored after OpenGL texture creation)
+      void* texels {nullptr};
+  };
+
   /** Represent a Texture of the engine
    * See TextureManager to informations about how unique texture are defined.
    */
 class RA_ENGINE_API Texture final {
   public:
 
-    // internal format of the OpenGL texture
-    GLenum internalFormat {GL_RGB};
-    GLenum dataType {GL_UNSIGNED_BYTE};
-    GLenum wrapS {GL_REPEAT};
-    GLenum wrapT {GL_REPEAT};
-    GLenum wrapR {GL_REPEAT};
-    GLenum minFilter {GL_LINEAR};
-    GLenum magFilter {GL_LINEAR};
+    /** Texture parameters
+     */
+    TextureData m_textureParameters;
 
     /** Textures are not copyable, delete copy constructor.
      */
@@ -209,7 +239,7 @@ class RA_ENGINE_API Texture final {
     /**
      * @return Name of the texture.
      */
-    inline std::string getName() const { return m_name; }
+    inline std::string getName() const { return m_textureParameters.name; }
 
     /**
      * Update the data contained by the texture
@@ -235,14 +265,28 @@ class RA_ENGINE_API Texture final {
     */
     void linearize(Scalar gamma = Scalar(2.4));
 
-    GLenum format() const { return m_format; }
-    uint width() const { return m_width; }
-    uint height() const { return m_height; }
-    uint depth() const { return m_depth; }
+    /**
+     * @return the pixel format of the texture
+     */
+    GLenum format() const { return m_textureParameters.format; }
+    /**
+     * @return the width of the texture
+     */
+    uint width() const { return m_textureParameters.width; }
+    /**
+    * @return the height of the texture
+    */
+    uint height() const { return m_textureParameters.height; }
+    /**
+    * @return the depth of the texture
+    */
+    uint depth() const { return m_textureParameters.depth; }
+    /**
+    * @return the globjects::Texture associated with the texture
+    */
     globjects::Texture* texture() const { return m_texture.get(); }
 
-
-  private:
+private:
 
     /**
      * Convert a color texture from sRGB to Linear RGB spaces.
@@ -257,29 +301,12 @@ class RA_ENGINE_API Texture final {
     */
     void sRGBToLinearRGB(uint8_t *texels, int numCommponent, bool hasAlphaChannel, Scalar gamma = Scalar(2.4));
 
-private:
-    /// name of the texture
-    std::string m_name;
-
-    /// OpenGLstate associated with the texture
-    GLenum m_target;
-    GLenum m_format;
-
-    /// Sizes of the texture
-    uint m_width;
-    uint m_height;
-    uint m_depth;
-
     /// Link to glObject texture
     std::unique_ptr<globjects::Texture> m_texture;
-
     /// Is the texture mipmaped ?
-    bool m_isMipMaped;
+    bool m_isMipMaped { false };
     /// Is the texture in LinearRGB ?
-    bool m_isLinear;
-
-    /// Texels of the texture
-    void *m_texels;
+    bool m_isLinear { false };
 };
 } // namespace Engine
 } // namespace Ra

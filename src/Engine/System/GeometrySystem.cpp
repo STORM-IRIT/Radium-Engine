@@ -2,16 +2,13 @@
 
 #include <Core/File/FileData.hpp>
 #include <Core/File/GeometryData.hpp>
-#include <Core/String/StringUtils.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Component/GeometryComponent.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/FrameInfo.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
-#include <Engine/RadiumEngine.hpp>
-//#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
 namespace Ra {
 namespace Engine {

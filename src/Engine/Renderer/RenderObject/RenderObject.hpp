@@ -37,7 +37,7 @@ class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
     /// any other positive value will be taken into account.
     RenderObject( const std::string& name, Component* comp, const RenderObjectType& type,
                   int lifetime = -1 );
-    ~RenderObject();
+    ~RenderObject() override;
 
     /// Sort of factory method to easily create a render object.
     /// Use case example :

@@ -360,7 +360,9 @@ MACRO_END
     #pragma warning(disable: 4838) // conversion from enum to uint.
     #pragma warning(disable: 4996) // sprintf unsafe
     #pragma warning(disable: 4503) // Truncated decorated name
+    #ifndef NOMINMAX
     #define NOMINMAX
+    #endif
     #include <windows.h>
 #endif
 

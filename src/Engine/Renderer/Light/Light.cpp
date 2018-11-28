@@ -1,6 +1,5 @@
 #include <Engine/Renderer/Light/Light.hpp>
 
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
@@ -12,8 +11,6 @@ Light::Light( Entity* entity, const LightType& type, const std::string& name ) :
     m_color( 1.0, 1.0, 1.0, 1.0 ),
     m_type( type ) {}
 
-Light::~Light() {}
-
 void Light::getRenderParameters( RenderParameters& params ) const {
     params.addParameter( "light.color", m_color );
     params.addParameter( "light.type", m_type );
@@ -24,7 +21,7 @@ void Light::initialize() {
 }
 
 std::string Light::getShaderInclude() const {
-    return "";
+    return {};
 }
 
 } // namespace Engine
