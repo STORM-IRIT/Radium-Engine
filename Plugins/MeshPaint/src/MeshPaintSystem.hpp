@@ -8,14 +8,14 @@
 
 namespace Ra {
 namespace Core {
-struct TriangleMesh;
+class TriangleMesh;
 }
 } // namespace Ra
 
 namespace Ra {
 namespace Engine {
 class Entity;
-struct RenderTechnique;
+class RenderTechnique;
 class Component;
 } // namespace Engine
 } // namespace Ra

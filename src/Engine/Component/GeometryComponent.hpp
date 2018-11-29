@@ -1,10 +1,10 @@
 #ifndef RADIUMENGINE_GEOMETRY_COMPONENT_HPP
-#    define RADIUMENGINE_GEOMETRY_COMPONENT_
+#define RADIUMENGINE_GEOMETRY_COMPONENT_HPP
 
-#    include <Core/File/GeometryData.hpp>
-#    include <Core/Mesh/MeshTypes.hpp>
-#    include <Core/Mesh/TriangleMesh.hpp>
-#    include <Engine/Component/Component.hpp>
+#include <Core/File/GeometryData.hpp>
+#include <Core/Mesh/MeshTypes.hpp>
+#include <Core/Mesh/TriangleMesh.hpp>
+#include <Engine/Component/Component.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -69,4 +69,4 @@ class RA_ENGINE_API GeometryComponent : public Component {
 } // namespace Engine
 } // namespace Ra
 
-#endif // RADIUMENGINE_GEOMETRY_COMPONENT_
+#endif // RADIUMENGINE_GEOMETRY_COMPONENT_HPP
