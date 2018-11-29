@@ -17,7 +17,7 @@ AssimpGeometryDataLoader::AssimpGeometryDataLoader( const std::string& filepath,
     DataLoader<Asset::GeometryData>( VERBOSE_MODE ),
     m_filepath( filepath ) {}
 
-AssimpGeometryDataLoader::~AssimpGeometryDataLoader() {}
+AssimpGeometryDataLoader::~AssimpGeometryDataLoader() = default;
 
 void AssimpGeometryDataLoader::loadData( const aiScene* scene,
                                          std::vector<std::unique_ptr<Asset::GeometryData>>& data ) {
@@ -118,7 +118,7 @@ void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, Asset::Geometry
 }
 
 void AssimpGeometryDataLoader::loadMeshFrame(
-    const aiNode* node, const Core::Transform& parentFrame, const std::map<uint, uint>& indexTable,
+    const aiNode* node, const Core::Transform& parentFrame, const std::map<uint, size_t>& indexTable,
     std::vector<std::unique_ptr<Asset::GeometryData>>& data ) const {
     const uint child_size = node->mNumChildren;
     const uint mesh_size = node->mNumMeshes;
@@ -268,6 +268,7 @@ void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
     for ( uint i = 0; i < size; ++i )
     {
         // FIXME(Charly): Is it safe to only consider texcoords[0] ?
+        // ANSWER : no, it is not but Radium ecosystem only support 1 tex coord channel for now
         texcoord.at( i ) = assimpToCore( mesh.mTextureCoords[0][i] );
     }
 }
@@ -299,8 +300,7 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
      }
      */
 
-    Asset::BlinnPhongMaterialData* blinnPhongMaterial =
-        new Asset::BlinnPhongMaterialData( matName );
+    auto blinnPhongMaterial = new Asset::BlinnPhongMaterialData( matName );
     aiColor4D color;
     float shininess;
     float opacity;
@@ -377,14 +377,14 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
 void AssimpGeometryDataLoader::loadGeometryData(
     const aiScene* scene, std::vector<std::unique_ptr<Asset::GeometryData>>& data ) {
     const uint size = scene->mNumMeshes;
-    std::map<uint, uint> indexTable;
+    std::map<uint, std::size_t> indexTable;
     std::set<std::string> usedNames;
     for ( uint i = 0; i < size; ++i )
     {
         aiMesh* mesh = scene->mMeshes[i];
         if ( mesh->HasPositions() )
         {
-            Asset::GeometryData* geometry = new Asset::GeometryData();
+            auto geometry = new Asset::GeometryData();
             loadMeshData( *mesh, *geometry, usedNames );
             if ( scene->HasMaterials() )
             {

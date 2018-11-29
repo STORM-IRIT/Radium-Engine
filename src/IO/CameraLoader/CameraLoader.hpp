@@ -16,7 +16,7 @@ class RA_IO_API CameraFileLoader : public Asset::FileLoaderInterface {
   public:
     CameraFileLoader();
 
-    virtual ~CameraFileLoader();
+    ~CameraFileLoader() override;
 
     std::vector<std::string> getFileExtensions() const override;
     bool handleFileExtension( const std::string& extension ) const override;

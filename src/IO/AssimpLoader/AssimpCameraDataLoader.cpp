@@ -14,7 +14,7 @@ AssimpCameraDataLoader::AssimpCameraDataLoader( const std::string& filepath,
                                                 const bool VERBOSE_MODE ) :
     DataLoader<Asset::CameraData>( VERBOSE_MODE ) {}
 
-AssimpCameraDataLoader::~AssimpCameraDataLoader() {}
+AssimpCameraDataLoader::~AssimpCameraDataLoader() = default;
 
 void AssimpCameraDataLoader::loadData( const aiScene* scene,
                                        std::vector<std::unique_ptr<Asset::CameraData>>& data ) {

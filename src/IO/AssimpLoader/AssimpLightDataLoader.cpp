@@ -15,7 +15,7 @@ AssimpLightDataLoader::AssimpLightDataLoader( const std::string& filepath,
     DataLoader<Asset::LightData>( VERBOSE_MODE ),
     m_filepath( filepath ) {}
 
-AssimpLightDataLoader::~AssimpLightDataLoader() {}
+AssimpLightDataLoader::~AssimpLightDataLoader() = default;
 
 /// LOADING
 void AssimpLightDataLoader::loadData( const aiScene* scene,
@@ -61,9 +61,11 @@ uint AssimpLightDataLoader::sceneLightSize( const aiScene* scene ) const {
     return scene->mNumLights;
 }
 
-Asset::LightData * AssimpLightDataLoader::loadLightData(const aiScene *scene, const aiLight &light)
+//Asset::LightData * AssimpLightDataLoader::loadLightData(const aiScene *scene, const aiLight &light)
+std::unique_ptr<Asset::LightData> AssimpLightDataLoader::loadLightData(const aiScene *scene, const aiLight &light)
 {
-    auto builtLight = new Asset::LightData(fetchName( light ), fetchType( light) );
+//    auto builtLight = new Asset::LightData(fetchName( light ), fetchType( light) );
+    auto builtLight = std::make_unique<Asset::LightData>(fetchName( light ), fetchType( light) );
     Core::Matrix4 rootMatrix;
     rootMatrix = Core::Matrix4::Identity();
     Core::Matrix4 frame = loadLightFrame( scene, rootMatrix, builtLight->getName() );
@@ -161,25 +163,23 @@ Asset::LightData::LightType AssimpLightDataLoader::fetchType( const aiLight& lig
     {
     case aiLightSource_DIRECTIONAL:
     { return Asset::LightData::DIRECTIONAL_LIGHT; }
-    break;
 
     case aiLightSource_POINT:
     { return Asset::LightData::POINT_LIGHT; }
-    break;
 
     case aiLightSource_SPOT:
     { return  Asset::LightData::SPOT_LIGHT; }
-    break;
+
     case aiLightSource_AREA:
     { return  Asset::LightData::AREA_LIGHT; }
-    break;
+
     case aiLightSource_UNDEFINED:
     default:
     {
         //                LOG(ERROR) << "Light " << name.C_Str() << " has undefined type.";
         return Asset::LightData::UNKNOWN;
     }
-    break;
+
     }
 }
 

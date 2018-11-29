@@ -25,10 +25,10 @@ namespace IO {
 class RA_IO_API AssimpLightDataLoader : public Asset::DataLoader<Asset::LightData> {
   public:
     /// CONSTRUCTOR
-    AssimpLightDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
+    explicit AssimpLightDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
 
     /// DESTRUCTOR
-    ~AssimpLightDataLoader();
+    ~AssimpLightDataLoader() override;
 
     /// LOADING
     void loadData( const aiScene* scene,
@@ -42,7 +42,8 @@ class RA_IO_API AssimpLightDataLoader : public Asset::DataLoader<Asset::LightDat
 
     /// LOADING
 
-    Asset::LightData *loadLightData(const aiScene *scene, const aiLight &light);
+//    Asset::LightData *loadLightData(const aiScene *scene, const aiLight &light);
+    std::unique_ptr<Asset::LightData> loadLightData(const aiScene *scene, const aiLight &light);
 
     Core::Matrix4 loadLightFrame( const aiScene* scene, const Core::Matrix4& parentFrame,
                                   const std::string & lightName ) const;

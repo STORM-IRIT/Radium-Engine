@@ -26,10 +26,10 @@ namespace IO {
 class RA_IO_API AssimpHandleDataLoader : public Asset::DataLoader<Asset::HandleData> {
   public:
     /// CONSTRUCTOR
-    AssimpHandleDataLoader( const bool VERBOSE_MODE = false );
+    explicit AssimpHandleDataLoader( const bool VERBOSE_MODE = false );
 
     /// DESTRUCTOR
-    ~AssimpHandleDataLoader();
+    ~AssimpHandleDataLoader() override;
 
     /// LOAD
     void loadData( const aiScene* scene,

@@ -60,7 +60,7 @@ inline std::string assimpToCore( const aiString& string ) {
     return result.empty() ? "default" : result;
 }
 
-inline Core::VectorNi assimpToCore( uint* index, const uint size ) {
+inline Core::VectorNi assimpToCore( const uint* index, const uint size ) {
     Core::VectorNi v( size );
     for ( uint i = 0; i < size; ++i )
     {

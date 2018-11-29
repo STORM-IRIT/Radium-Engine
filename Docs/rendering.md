@@ -138,7 +138,7 @@ They do not write in the depth map but they have different depth testing behavio
 This method is just responsible for displaying the final stuff on screen or on the saved FBO.
 
 ## General informations
-  * Only two methods can be overrided for the renderer, renderInternal (step 4) and postProcessInternal (step 5).
+*   Only two methods can be overrided for the renderer, renderInternal (step 4) and postProcessInternal (step 5).
   
 ## TODO
 *   Ambient occlusion

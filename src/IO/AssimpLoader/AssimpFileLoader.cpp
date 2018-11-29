@@ -15,9 +15,9 @@
 namespace Ra {
 namespace IO {
 
-AssimpFileLoader::AssimpFileLoader() {}
+AssimpFileLoader::AssimpFileLoader() = default;
 
-AssimpFileLoader::~AssimpFileLoader() {}
+AssimpFileLoader::~AssimpFileLoader() = default;
 
 std::vector<std::string> AssimpFileLoader::getFileExtensions() const {
     std::string extensionsList;
@@ -34,7 +34,7 @@ bool AssimpFileLoader::handleFileExtension( const std::string& extension ) const
 }
 
 Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
-    Asset::FileData* fileData = new Asset::FileData( filename );
+    auto fileData = new Asset::FileData( filename );
 
     if ( !fileData->isInitialized() )
     {
