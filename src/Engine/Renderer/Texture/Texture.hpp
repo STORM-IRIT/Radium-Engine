@@ -97,7 +97,7 @@ class RA_ENGINE_API Texture final {
      * @param mipmaped (default false) : generate a prefiltered mipmap for the texture.
      * @note This will become soon the only way to generate an Radium Engine OpenGL texture.
      */
-    void Generate( bool linearize = false, bool mipmaped = false );
+    void InitializeGL( bool linearize = false, bool mipmaped = false );
 
     /**
      * @brief Init the textures needed for the cubemap from OpenGL point of view.
@@ -169,7 +169,7 @@ class RA_ENGINE_API Texture final {
      * This will transform the internal representation of the texture to GL_FLOAT.
      * Only GL_RGB[8, 16, 16F, 32F] and GL_RGBA[8, 16, 16F, 32F] are managed.
      * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
-     * @param gamma the gama value to use (sRGB is 2.4
+     * @param gamma the gama value to use (sRGB is 2.4)
      */
     void linearize( Scalar gamma = Scalar( 2.4 ) );
 

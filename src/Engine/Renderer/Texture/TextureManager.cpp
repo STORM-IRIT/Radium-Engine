@@ -105,7 +105,7 @@ Texture* TextureManager::getOrLoadTexture( const TextureData& data, bool lineari
         auto tex = new Texture( data );
         bool needMipMap = !( tex->m_textureParameters.minFilter == GL_NEAREST ||
                              tex->m_textureParameters.minFilter == GL_LINEAR );
-        tex->Generate( linearize, needMipMap );
+        tex->InitializeGL( linearize, needMipMap );
         return tex;
     };
     TextureData texParameters = data;

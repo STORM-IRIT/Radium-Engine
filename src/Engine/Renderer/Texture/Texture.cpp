@@ -22,7 +22,7 @@ Engine::Texture::Texture( const TextureData& texParameters ) :
 
 Engine::Texture::~Texture() {}
 
-void Engine::Texture::Generate( bool linearize, bool mipmaped ) {
+void Engine::Texture::InitializeGL( bool linearize, bool mipmaped ) {
     if ( (m_textureParameters.target != GL_TEXTURE_1D) &&
          (m_textureParameters.target != GL_TEXTURE_2D) &&
          (m_textureParameters.target != GL_TEXTURE_3D) )
@@ -68,7 +68,13 @@ void Engine::Texture::Generate( bool linearize, bool mipmaped ) {
         // This will do the conversion then upload texels on GPU and generates mipmap if needed.
         sRGBToLinearRGB( reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numcomp,
                          hasAlpha );
-    } else
+        updateData( m_textureParameters.texels );
+        if ( m_isMipMaped )
+        {
+            m_texture->generateMipmap();
+        }
+    }
+    else
     {
         // only upload to the GPU and generate mipmap if needed
 
@@ -269,35 +275,34 @@ void Engine::Texture::sRGBToLinearRGB( uint8_t* texels, int numCommponent, bool 
     {
         m_isLinear = true;
         // auto linearize = [gamma](float in)-> float {
-        auto linearize = [gamma]( uint8_t in ) -> unsigned char {
+        auto linearize = [gamma](uint8_t in) -> unsigned char
+        {
             // Constants are described at https://en.wikipedia.org/wiki/SRGB
-            float c = float( in ) / 255;
-            if ( c < 0.04045 )
+            float c = float(in) / 255;
+            if (c < 0.04045)
             {
                 c = c / 12.92f;
-            } else
-            { c = std::pow( ( ( c + 0.055f ) / ( 1.f + 0.055f ) ), float( gamma ) ); }
-            return uint8_t( c * 255 );
+            }
+            else
+            {
+                c = std::pow(((c + 0.055f) / (1.f + 0.055f)), float(gamma));
+            }
+            return uint8_t(c * 255);
         };
         int numvalues = hasAlphaChannel ? numCommponent - 1 : numCommponent;
 #pragma omp parallel for
-        for ( int i = 0; i < m_textureParameters.width * m_textureParameters.height *
-                                 m_textureParameters.depth;
-              ++i )
+        for (int i = 0; i < m_textureParameters.width * m_textureParameters.height *
+            m_textureParameters.depth;
+             ++i)
         {
             // Convert each R or RGB value while keeping alpha unchanged
-            for ( int p = i * numCommponent; p < i * numCommponent + numvalues; ++p )
+            for (int p = i * numCommponent; p < i * numCommponent + numvalues; ++p)
             {
-                texels[p] = linearize( texels[p] );
+                texels[p] = linearize(texels[p]);
             }
         }
-        updateData( texels );
-        if ( m_isMipMaped )
-        {
-            m_texture->generateMipmap();
-        }
     }
-}
+ }
 
 void Engine::Texture::resize(size_t w, size_t h, size_t d){
     m_textureParameters.width = w;
@@ -305,7 +310,7 @@ void Engine::Texture::resize(size_t w, size_t h, size_t d){
     m_textureParameters.depth = d;
     if (m_texture == nullptr) {
         // TODO : have to integrate linearize and mipmapped in texparam
-        Generate();
+        InitializeGL();
     } else {
         updateData(m_textureParameters.texels);
     }

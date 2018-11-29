@@ -28,6 +28,14 @@ class RA_ENGINE_API TextureManager final {
   public:
     /** Add a texture giving its name, dimension and content.
      * Usefull for defining procedural textures
+     *
+     * @param name  name of the texture
+     * @param width width of the texture
+     * @param height height of the texture
+     * @param data pointer to the texture content
+     *
+     * @return a texture descriptor that could be furteher specialized (filtering parameters ..) before the
+     * texture is inserted into Radium OpenGL system by getOrLoadTexture
      */
     TextureData& addTexture(const std::string &name, uint width, uint height, void *data);
 
@@ -37,7 +45,7 @@ class RA_ENGINE_API TextureManager final {
      * loaded in the TextureData before calling this method.
      * @param filename : file to load
      * @param linearize : true if the texture must be converted from sRGB to LinearRGB
-     * @return
+     * @return The texture as inserted into the Radium available openGL system
      */
     Texture *getOrLoadTexture(const TextureData &data, bool linearize = false);
 

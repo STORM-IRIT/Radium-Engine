@@ -554,12 +554,6 @@ void Renderer::resize( uint w, uint h ) {
     m_pickingTexture->resize(m_width, m_height);
     m_fancyTexture->resize(m_width, m_height);
 
-    /*
-    m_depthTexture->Generate( m_width, m_height, GL_DEPTH_COMPONENT );
-    m_pickingTexture->Generate( m_width, m_height, GL_RGBA_INTEGER );
-    m_fancyTexture->Generate( m_width, m_height, GL_RGBA );
-    */
-
     m_pickingFbo->bind();
     m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_depthTexture.get()->texture() );
     m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get()->texture() );
