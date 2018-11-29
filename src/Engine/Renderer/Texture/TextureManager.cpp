@@ -31,135 +31,89 @@ TextureData& TextureManager::addTexture( const std::string& name, uint width, ui
     return m_pendingTextures[name];
 }
 
-TextureData TextureManager::loadTexture( const std::string& filename ) {
-    TextureData texData;
-    texData.name = filename;
-
+void TextureManager::loadTexture( TextureData& texParameters ) {
     stbi_set_flip_vertically_on_load( true );
-
     int n;
-    unsigned char* data = stbi_load( filename.c_str(), (int*)( &( texData.width ) ),
-                                     (int*)( &( texData.height ) ), &n, 0 );
+    unsigned char* data = stbi_load( texParameters.name.c_str(), (int*)( &( texParameters.width ) ),
+                                     (int*)( &( texParameters.height ) ), &n, 0 );
 
     if ( !data )
     {
-        LOG( logERROR ) << "Something went wrong when loading image \"" << filename << "\".";
-        texData.width = texData.height = 0;
-        return texData;
+        LOG( logERROR ) << "Something went wrong when loading image \"" << texParameters.name
+                        << "\".";
+        texParameters.width = texParameters.height = 0;
+        return;
     }
 
     switch ( n )
     {
     case 1:
     {
-        texData.format = GL_RED;
-        texData.internalFormat = GL_R8;
+        texParameters.format = GL_RED;
+        texParameters.internalFormat = GL_R8;
     }
     break;
 
     case 2:
     {
-        texData.format = GL_RG;
-        texData.internalFormat = GL_RG8;
+        texParameters.format = GL_RG;
+        texParameters.internalFormat = GL_RG8;
     }
     break;
 
     case 3:
     {
-        texData.format = GL_RGB;
-        texData.internalFormat = GL_RGB8;
+        texParameters.format = GL_RGB;
+        texParameters.internalFormat = GL_RGB8;
     }
     break;
 
     case 4:
     {
-        texData.format = GL_RGBA;
-        texData.internalFormat = GL_RGBA8;
+        texParameters.format = GL_RGBA;
+        texParameters.internalFormat = GL_RGBA8;
     }
     break;
     default:
     {
-        texData.format = GL_RGBA;
-        texData.internalFormat = GL_RGBA8;
+        texParameters.format = GL_RGBA;
+        texParameters.internalFormat = GL_RGBA8;
     }
     break;
     }
 
     if ( m_verbose )
     {
-        LOG( logINFO ) << "Image stats (" << filename << ") :\n"
+        LOG( logINFO ) << "Image stats (" << texParameters.name << ") :\n"
                        << "\tPixels : " << n << std::endl
-                       << "\tFormat : " << texData.format << std::endl
-                       << "\tSize   : " << texData.width << ", " << texData.height;
+                       << "\tFormat : " << texParameters.format << std::endl
+                       << "\tSize   : " << texParameters.width << ", " << texParameters.height;
     }
 
     CORE_ASSERT( data, "Data is null" );
-    texData.texels = data;
-    texData.type = GL_UNSIGNED_BYTE;
-    return texData;
+    texParameters.texels = data;
+    texParameters.type = GL_UNSIGNED_BYTE;
 }
 
 Texture* TextureManager::getOrLoadTexture( const TextureData& data, bool linearize ) {
-    m_pendingTextures[data.name] = data;
-    return getOrLoadTexture( data.name, linearize );
-}
-
-/// FIXME : for the moment, Texture name is equivalent to file name if the texture is loaded by the
-/// manager. Must allow to differentiates the two.
-Texture* TextureManager::getOrLoadTexture( const std::string& filename, bool linearize ) {
-    Texture* ret = nullptr;
-    auto it = m_textures.find( filename );
-
+    auto it = m_textures.find( data.name );
     if ( it != m_textures.end() )
     {
-        ret = it->second;
-    } else
-    {
-        auto makeTexture = []( const TextureData& data, bool linearize ) -> Texture* {
-            auto tex = new Texture( data.name );
-            tex->m_textureParameters = data;
-            bool needMipMap = !( data.minFilter == GL_NEAREST || data.minFilter == GL_LINEAR );
-            tex->Generate( tex->m_textureParameters.width, tex->m_textureParameters.height,
-                           tex->m_textureParameters.format, tex->m_textureParameters.texels,
-                           linearize, needMipMap );
-            return tex;
-        };
-
-        auto pending = m_pendingTextures.find( filename );
-        if ( pending != m_pendingTextures.end() )
-        {
-            auto data = pending->second;
-
-            bool freedata = false;
-            if ( data.texels == nullptr )
-            {
-                // Keep sampler configuration from input Texture data
-                auto stbidata = loadTexture( data.name );
-                data.width = stbidata.width;
-                data.height = stbidata.height;
-                data.texels = stbidata.texels;
-                data.type = stbidata.type;
-                data.format = stbidata.format;
-                data.internalFormat = stbidata.internalFormat;
-
-                freedata = true;
-            }
-
-            ret = makeTexture( data, linearize );
-
-            if ( freedata )
-                stbi_image_free( data.texels );
-
-            m_pendingTextures.erase( filename );
-        } else
-        {
-            auto data = loadTexture( filename );
-            ret = makeTexture( data, linearize );
-            stbi_image_free( data.texels );
-        }
-        /// FIXME : should it be data.name ?
-        m_textures[filename] = ret;
+        return it->second;
     }
+    auto makeTexture = []( TextureData& data, bool linearize ) -> Texture* {
+        auto tex = new Texture( data );
+        bool needMipMap = !( tex->m_textureParameters.minFilter == GL_NEAREST ||
+                             tex->m_textureParameters.minFilter == GL_LINEAR );
+        tex->InitializeGL( linearize, needMipMap );
+        return tex;
+    };
+    TextureData texParameters = data;
+    loadTexture( texParameters );
+    auto ret = makeTexture( texParameters, linearize );
+    stbi_image_free( ret->m_textureParameters.texels );
+    ret->m_textureParameters.texels = nullptr;
+    m_textures[texParameters.name] = ret;
     return ret;
 }
 

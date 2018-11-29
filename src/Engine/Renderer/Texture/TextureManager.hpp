@@ -28,17 +28,16 @@ class RA_ENGINE_API TextureManager final {
   public:
     /** Add a texture giving its name, dimension and content.
      * Usefull for defining procedural textures
+     *
+     * @param name  name of the texture
+     * @param width width of the texture
+     * @param height height of the texture
+     * @param data pointer to the texture content
+     *
+     * @return a texture descriptor that could be furteher specialized (filtering parameters ..) before the
+     * texture is inserted into Radium OpenGL system by getOrLoadTexture
      */
     TextureData& addTexture(const std::string &name, uint width, uint height, void *data);
-
-    /**
-     * Get or load texture from a file.
-     * The name of the texture is the name of its file
-     * @param filename : file to load
-     * @param linearize : true if the texture must be converted from sRGB to LinearRGB
-     * @return
-     */
-    Texture *getOrLoadTexture(const std::string &filename, bool linearize = false);
 
     /**
      * Get or load a named texture.
@@ -46,7 +45,7 @@ class RA_ENGINE_API TextureManager final {
      * loaded in the TextureData before calling this method.
      * @param filename : file to load
      * @param linearize : true if the texture must be converted from sRGB to LinearRGB
-     * @return
+     * @return The texture as inserted into the Radium available openGL system
      */
     Texture *getOrLoadTexture(const TextureData &data, bool linearize = false);
 
@@ -83,12 +82,12 @@ class RA_ENGINE_API TextureManager final {
     TextureManager();
     ~TextureManager();
 
-    /** Load a given filename and return the associated TextureData.
+    /** Load a texture as described by texParameters.
     * @note : only loads 2D image file for now.
-    * @param filename
-    * @return
+    * @param texParameters parameters describing the texture to laod. This paremeters will be updated
+     * (width, height, ...) according to the loaded file properties.
     */
-    TextureData loadTexture( const std::string& filename );
+    void loadTexture( TextureData& texParameters );
 
 private:
     std::map<std::string, Texture*> m_textures;

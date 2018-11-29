@@ -139,15 +139,6 @@ class RA_CORE_API LightData : public AssetData {
     inline LightType getType() const;
 
     /**
-    * Modify the type of a light asset after its creation.
-    * \note Beware of the risk of data inconsistancy when using the operator. As a LightData object is a union like
-    * object, caller of this method must explicitely ensure a consistancy invariant over its object as the LightData
-    * class could not ensure such an invariant when this method is called.
-    * @param type the type to set.
-    */
-    [[deprecated( "Do not change the type of a LightData, use setLight that ensures data coherency." )]] inline void setType( const LightType& type );
-
-    /**
      * Returns true if the light is a PointLight
      */
     inline bool isPointLight() const;

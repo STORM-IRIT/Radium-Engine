@@ -93,22 +93,34 @@ void Renderer::initialize( uint width, uint height ) {
     ShaderConfigurationFactory::addConfiguration( pickingTrianglesConfig );
     m_pickingShaders[3] = m_shaderMgr->addShaderProgram( pickingTrianglesConfig );
 
-    m_depthTexture.reset( new Texture( "Depth" ) );
-    m_depthTexture->m_textureParameters.internalFormat = GL_DEPTH_COMPONENT24;
-    m_depthTexture->m_textureParameters.type = GL_UNSIGNED_INT;
+    TextureData texparams;
+    texparams.width = m_width;
+    texparams.height = m_height;
+    texparams.target = GL_TEXTURE_2D;
+    texparams.minFilter = GL_NEAREST;
+    texparams.magFilter = GL_NEAREST;
+
+    texparams.name = "Depth";
+    texparams.internalFormat = GL_DEPTH_COMPONENT24;
+    texparams.format = GL_DEPTH_COMPONENT;
+    texparams.type = GL_UNSIGNED_INT;
+    m_depthTexture = std::make_unique<Texture>(texparams);
 
     m_pickingFbo.reset( new globjects::Framebuffer() );
 
-    m_pickingTexture.reset( new Texture( "Picking" ) );
-    m_pickingTexture->m_textureParameters.internalFormat = GL_RGBA32I;
-    m_pickingTexture->m_textureParameters.type = GL_INT;
-    m_pickingTexture->m_textureParameters.minFilter = GL_NEAREST;
-    m_pickingTexture->m_textureParameters.magFilter = GL_NEAREST;
+    texparams.name = "Picking";
+    texparams.internalFormat = GL_RGBA32I;
+    texparams.format = GL_RGBA_INTEGER;
+    texparams.type = GL_INT;
+    m_pickingTexture = std::make_unique<Texture>(texparams);
 
     // Final texture
-    m_fancyTexture.reset( new Texture( "Final" ) );
-    m_fancyTexture->m_textureParameters.internalFormat = GL_RGBA32F;
-    m_fancyTexture->m_textureParameters.type = GL_FLOAT;
+    texparams.name = "Final";
+    texparams.internalFormat = GL_RGBA32F;
+    texparams.format = GL_RGBA;
+    texparams.type = GL_FLOAT;
+    m_fancyTexture = std::make_unique<Texture>(texparams);
+
 
     m_displayedTexture = m_fancyTexture.get();
     m_secondaryTextures["Picking Texture"] = m_pickingTexture.get();
@@ -538,27 +550,24 @@ void Renderer::notifyRenderObjectsRenderingInternal() {
 void Renderer::resize( uint w, uint h ) {
     m_width = w;
     m_height = h;
-
-    m_depthTexture->Generate( m_width, m_height, GL_DEPTH_COMPONENT );
-    m_pickingTexture->Generate( m_width, m_height, GL_RGBA_INTEGER );
-    m_fancyTexture->Generate( m_width, m_height, GL_RGBA );
+    m_depthTexture->resize(m_width, m_height);
+    m_pickingTexture->resize(m_width, m_height);
+    m_fancyTexture->resize(m_width, m_height);
 
     m_pickingFbo->bind();
     m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_depthTexture.get()->texture() );
     m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get()->texture() );
     if ( m_pickingFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     {
-        LOG( logERROR ) << "FBO Error : " << m_pickingFbo->checkStatus();
+        LOG( logERROR ) << "File " << __FILE__ << "(" << __LINE__ << ") Picking FBO Error " << m_pickingFbo->checkStatus();
     }
     m_pickingFbo->unbind();
-    GL_CHECK_ERROR;
 
     resizeInternal();
 
     glDrawBuffer( GL_BACK );
     glReadBuffer( GL_BACK );
 
-    GL_CHECK_ERROR;
 }
 
 void Renderer::displayTexture( const std::string& texName ) {

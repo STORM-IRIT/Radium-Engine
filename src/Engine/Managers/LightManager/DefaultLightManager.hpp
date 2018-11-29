@@ -43,7 +43,7 @@ class RA_ENGINE_API DefaultLightManager : public LightManager {
     void preprocess( const RenderData& ) override;
     void prerender( unsigned int li ) override;
     void render( RenderObject*, unsigned int li,
-                 RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE );
+                 RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE ) override;
     void postrender( unsigned int li ) override;
     void postprocess() override;
 };

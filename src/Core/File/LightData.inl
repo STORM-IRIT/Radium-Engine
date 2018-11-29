@@ -18,10 +18,6 @@ inline LightData::LightType LightData::getType() const {
     return m_type;
 }
 
-inline void LightData::setType( const LightType& type ) {
-    m_type = type;
-}
-
 /// FRAME
 inline const Core::Matrix4& LightData::getFrame() const {
     return m_frame;
