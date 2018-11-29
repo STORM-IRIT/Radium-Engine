@@ -68,36 +68,46 @@ void ForwardRenderer::initBuffers() {
     m_oitFbo = std::make_unique<globjects::Framebuffer>();
     m_postprocessFbo = std::make_unique<globjects::Framebuffer>();
 
+    // TODO : remove textures duplication between Renderer and ForwardRenderer (Depth and HDR) !
+    TextureData texparams;
+    texparams.width = m_width;
+    texparams.height = m_height;
+    texparams.target = GL_TEXTURE_2D;
+    texparams.minFilter = GL_NEAREST;
+    texparams.magFilter = GL_NEAREST;
 
-    // Render pass
-    m_textures[RendererTextures_Depth] = std::make_unique<Texture>( "Depth" );
-    m_textures[RendererTextures_HDR] = std::make_unique<Texture>( "HDR" );
-    m_textures[RendererTextures_Normal] = std::make_unique<Texture>( "Normal" );
-    m_textures[RendererTextures_Diffuse] = std::make_unique<Texture>( "Diffuse" );
-    m_textures[RendererTextures_Specular] = std::make_unique<Texture>( "Specular" );
-    m_textures[RendererTextures_OITAccum] = std::make_unique<Texture>( "OIT Accum" );
+    // Depth texture
+    texparams.name = "Depth";
+    texparams.internalFormat = GL_DEPTH_COMPONENT24;
+    texparams.format = GL_DEPTH_COMPONENT;
+    texparams.type = GL_UNSIGNED_INT;
+    m_textures[RendererTextures_Depth] = std::make_unique<Texture>( texparams );
+
+    // Color texture
+    texparams.internalFormat = GL_RGBA32F;
+    texparams.format = GL_RGBA;
+    texparams.type = GL_FLOAT;
+    texparams.minFilter = GL_LINEAR;
+    texparams.magFilter = GL_LINEAR;
+
+    texparams.name = "HDR";
+    m_textures[RendererTextures_HDR] = std::make_unique<Texture>( texparams );
+
+    texparams.name = "Normal";
+    m_textures[RendererTextures_Normal] = std::make_unique<Texture>( texparams );
+
+    texparams.name = "Diffuse";
+    m_textures[RendererTextures_Diffuse] = std::make_unique<Texture>( texparams );
+
+    texparams.name = "Specular";
+    m_textures[RendererTextures_Specular] = std::make_unique<Texture>( texparams );
+
+    texparams.name = "OIT Accum";
+    m_textures[RendererTextures_OITAccum] = std::make_unique<Texture>( texparams );
+
+    texparams.name = "OIT Revealage";
     m_textures[RendererTextures_OITRevealage] = std::make_unique<Texture>( "OIT Revealage" );
 
-    m_textures[RendererTextures_Depth]->m_textureParameters.internalFormat = GL_DEPTH_COMPONENT24;
-    m_textures[RendererTextures_Depth]->m_textureParameters.type = GL_UNSIGNED_INT;
-
-    m_textures[RendererTextures_HDR]->m_textureParameters.internalFormat = GL_RGBA32F;
-    m_textures[RendererTextures_HDR]->m_textureParameters.type = GL_FLOAT;
-
-    m_textures[RendererTextures_Normal]->m_textureParameters.internalFormat = GL_RGBA32F;
-    m_textures[RendererTextures_Normal]->m_textureParameters.type = GL_FLOAT;
-
-    m_textures[RendererTextures_Diffuse]->m_textureParameters.internalFormat = GL_RGBA32F;
-    m_textures[RendererTextures_Diffuse]->m_textureParameters.type = GL_FLOAT;
-
-    m_textures[RendererTextures_Specular]->m_textureParameters.internalFormat = GL_RGBA32F;
-    m_textures[RendererTextures_Specular]->m_textureParameters.type = GL_FLOAT;
-
-    m_textures[RendererTextures_OITAccum]->m_textureParameters.internalFormat = GL_RGBA32F;
-    m_textures[RendererTextures_OITAccum]->m_textureParameters.type = GL_FLOAT;
-
-    m_textures[RendererTextures_OITRevealage]->m_textureParameters.internalFormat = GL_RGBA32F;
-    m_textures[RendererTextures_OITRevealage]->m_textureParameters.type = GL_FLOAT;
 
     m_secondaryTextures["Depth Texture"] = m_textures[RendererTextures_Depth].get();
     m_secondaryTextures["HDR Texture"] = m_textures[RendererTextures_HDR].get();
@@ -448,13 +458,13 @@ void ForwardRenderer::postProcessInternal( const RenderData& renderData ) {
 void ForwardRenderer::resizeInternal() {
     m_pingPongSize = std::pow( 2,  uint( std::log2( std::min( m_width, m_height ) ) ) );
 
-    m_textures[RendererTextures_Depth]->Generate( m_width, m_height, GL_DEPTH_COMPONENT );
-    m_textures[RendererTextures_HDR]->Generate( m_width, m_height, GL_RGBA );
-    m_textures[RendererTextures_Normal]->Generate( m_width, m_height, GL_RGBA );
-    m_textures[RendererTextures_Diffuse]->Generate( m_width, m_height, GL_RGBA );
-    m_textures[RendererTextures_Specular]->Generate( m_width, m_height, GL_RGBA );
-    m_textures[RendererTextures_OITAccum]->Generate( m_width, m_height, GL_RGBA );
-    m_textures[RendererTextures_OITRevealage]->Generate( m_width, m_height, GL_RGBA );
+    m_textures[RendererTextures_Depth]->resize( m_width, m_height );
+    m_textures[RendererTextures_HDR]->resize( m_width, m_height );
+    m_textures[RendererTextures_Normal]->resize( m_width, m_height );
+    m_textures[RendererTextures_Diffuse]->resize( m_width, m_height );
+    m_textures[RendererTextures_Specular]->resize( m_width, m_height );
+    m_textures[RendererTextures_OITAccum]->resize( m_width, m_height );
+    m_textures[RendererTextures_OITRevealage]->resize( m_width, m_height );
 
     m_fbo->bind();
     m_fbo->attachTexture( GL_DEPTH_ATTACHMENT,
@@ -470,7 +480,6 @@ void ForwardRenderer::resizeInternal() {
     {
         LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
     }
-    GL_CHECK_ERROR;
 
 #ifndef NO_TRANSPARENCY
     m_oitFbo->bind();
@@ -484,7 +493,6 @@ void ForwardRenderer::resizeInternal() {
     {
         LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
     }
-    GL_CHECK_ERROR;
 #endif
 
     m_postprocessFbo->bind();
@@ -495,7 +503,6 @@ void ForwardRenderer::resizeInternal() {
     {
         LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
     }
-    GL_CHECK_ERROR;
 
     // finished with fbo, undbind to bind default
     globjects::Framebuffer::unbind();

@@ -3,6 +3,7 @@
 
 #include <Core/File/DataLoader.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/File/LightData.hpp>
 #include <IO/RaIO.hpp>
 
 #include <set>
@@ -16,10 +17,6 @@ namespace Engine {
 class Light;
 }
 
-namespace Asset {
-
-class LightData;
-}
 } // namespace Ra
 
 namespace Ra {
@@ -45,16 +42,16 @@ class RA_IO_API AssimpLightDataLoader : public Asset::DataLoader<Asset::LightDat
 
     /// LOADING
 
-    void loadLightData( const aiScene* scene, const aiLight& light, Asset::LightData& data );
+    Asset::LightData *loadLightData(const aiScene *scene, const aiLight &light);
 
     Core::Matrix4 loadLightFrame( const aiScene* scene, const Core::Matrix4& parentFrame,
-                                  Asset::LightData& data ) const;
+                                  const std::string & lightName ) const;
 
     /// NAME
-    void fetchName( const aiLight& mesh, Asset::LightData& data ) const;
+    std::string fetchName(const aiLight &light) const;
 
     /// TYPE
-    void fetchType( const aiLight& mesh, Asset::LightData& data ) const;
+    Asset::LightData::LightType fetchType( const aiLight& light ) const;
 
     /// FRAME
     inline void setFrame( const Core::Matrix4& frame ) { m_frame = frame; }

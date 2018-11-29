@@ -2,7 +2,7 @@
 
 #include <assimp/scene.h>
 
-#include <Core/File/LightData.hpp>
+
 #include <Core/Log/Log.hpp>
 
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
@@ -44,9 +44,7 @@ void AssimpLightDataLoader::loadData( const aiScene* scene,
     data.reserve( lightSize );
     for ( uint lightId = 0; lightId < lightSize; ++lightId )
     {
-        Asset::LightData* light = new Asset::LightData();
-        loadLightData( scene, *( scene->mLights[lightId] ), *light );
-        data.emplace_back( light  );
+        data.emplace_back( loadLightData(scene, *(scene->mLights[lightId]))  );
     }
 
     if ( m_verbose )
@@ -63,17 +61,16 @@ uint AssimpLightDataLoader::sceneLightSize( const aiScene* scene ) const {
     return scene->mNumLights;
 }
 
-void AssimpLightDataLoader::loadLightData( const aiScene* scene, const aiLight& light,
-                                           Asset::LightData& data ) {
-    fetchName( light, data );
-    fetchType( light, data );
+Asset::LightData * AssimpLightDataLoader::loadLightData(const aiScene *scene, const aiLight &light)
+{
+    auto builtLight = new Asset::LightData(fetchName( light ), fetchType( light) );
     Core::Matrix4 rootMatrix;
     rootMatrix = Core::Matrix4::Identity();
-    Core::Matrix4 frame = loadLightFrame( scene, rootMatrix, data );
+    Core::Matrix4 frame = loadLightFrame( scene, rootMatrix, builtLight->getName() );
     setFrame( frame );
     Core::Color color( light.mColorDiffuse.r, light.mColorDiffuse.g, light.mColorDiffuse.b, 1.0 );
 
-    switch ( data.getType() )
+    switch ( builtLight->getType() )
     {
     case Asset::LightData::DIRECTIONAL_LIGHT:
     {
@@ -83,7 +80,7 @@ void AssimpLightDataLoader::loadLightData( const aiScene* scene, const aiLight& 
         Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
         finalDir = -finalDir;
 
-        data.setLight( color, finalDir );
+        builtLight->setLight( color, finalDir );
     }
     break;
 
@@ -93,7 +90,7 @@ void AssimpLightDataLoader::loadLightData( const aiScene* scene, const aiLight& 
         pos = frame * pos;
         pos /= pos.w();
 
-        data.setLight( color, Core::Vector3( pos.x(), pos.y(), pos.z() ),
+        builtLight->setLight( color, Core::Vector3( pos.x(), pos.y(), pos.z() ),
                        Asset::LightData::LightAttenuation( light.mAttenuationConstant,
                                                            light.mAttenuationLinear,
                                                            light.mAttenuationQuadratic ) );
@@ -112,7 +109,7 @@ void AssimpLightDataLoader::loadLightData( const aiScene* scene, const aiLight& 
         Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
         finalDir = -finalDir;
 
-        data.setLight( color, Core::Vector3( pos.x(), pos.y(), pos.z() ), finalDir,
+        builtLight->setLight( color, Core::Vector3( pos.x(), pos.y(), pos.z() ), finalDir,
                        light.mAngleInnerCone, light.mAngleOuterCone,
                        Asset::LightData::LightAttenuation( light.mAttenuationConstant,
                                                            light.mAttenuationLinear,
@@ -121,18 +118,19 @@ void AssimpLightDataLoader::loadLightData( const aiScene* scene, const aiLight& 
     break;
 
     case Asset::LightData::AREA_LIGHT:
-    { LOG( logWARNING ) << "Light " << data.getName() << " : AREA light are not yet supported."; }
+    { LOG( logWARNING ) << "Light " << builtLight->getName() << " : AREA light are not yet supported."; }
     break;
     default:
-    { LOG( logWARNING ) << "Light " << data.getName() << " : unknown type."; }
+    { LOG( logWARNING ) << "Light " << builtLight->getName() << " : unknown type."; }
     break;
     }
+    return builtLight;
 }
 
 Core::Matrix4 AssimpLightDataLoader::loadLightFrame( const aiScene* scene,
                                                      const Core::Matrix4& parentFrame,
-                                                     Asset::LightData& data ) const {
-    const aiNode* lightNode = scene->mRootNode->FindNode( data.getName().c_str() );
+                                                     const std::string & lightName ) const {
+    const aiNode* lightNode = scene->mRootNode->FindNode( lightName.c_str() );
     Core::Matrix4 transform;
     transform = Core::Matrix4::Identity();
 
@@ -154,33 +152,32 @@ Core::Matrix4 AssimpLightDataLoader::loadLightFrame( const aiScene* scene,
     return parentFrame * transform;
 }
 
-void AssimpLightDataLoader::fetchName( const aiLight& light, Asset::LightData& data ) const {
-    std::string name = assimpToCore( light.mName );
-    data.setName( name );
+std::string AssimpLightDataLoader::fetchName(const aiLight &light) const {
+    return assimpToCore( light.mName );
 }
 
-void AssimpLightDataLoader::fetchType( const aiLight& light, Asset::LightData& data ) const {
-    data.setType( Asset::LightData::UNKNOWN );
+Asset::LightData::LightType AssimpLightDataLoader::fetchType( const aiLight& light ) const {
     switch ( light.mType )
     {
     case aiLightSource_DIRECTIONAL:
-    { data.setType( Asset::LightData::DIRECTIONAL_LIGHT ); }
+    { return Asset::LightData::DIRECTIONAL_LIGHT; }
     break;
 
     case aiLightSource_POINT:
-    { data.setType( Asset::LightData::POINT_LIGHT ); }
+    { return Asset::LightData::POINT_LIGHT; }
     break;
 
     case aiLightSource_SPOT:
-    { data.setType( Asset::LightData::SPOT_LIGHT ); }
+    { return  Asset::LightData::SPOT_LIGHT; }
     break;
     case aiLightSource_AREA:
-    { data.setType( Asset::LightData::AREA_LIGHT ); }
+    { return  Asset::LightData::AREA_LIGHT; }
     break;
     case aiLightSource_UNDEFINED:
     default:
     {
         //                LOG(ERROR) << "Light " << name.C_Str() << " has undefined type.";
+        return Asset::LightData::UNKNOWN;
     }
     break;
     }
