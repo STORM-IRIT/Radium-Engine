@@ -45,7 +45,7 @@ void Engine::Texture::InitializeGL( bool linearize, bool mipmaped ) {
     // Load texels
     if ( linearize )
     {
-        int numcomp = 0;
+        uint numcomp = 0;
         bool hasAlpha = false;
         switch ( m_textureParameters.format )
         {
@@ -81,19 +81,19 @@ void Engine::Texture::InitializeGL( bool linearize, bool mipmaped ) {
         switch ( m_textureParameters.target )
         {
         case GL_TEXTURE_1D:
-            m_texture->image1D( 0, m_textureParameters.internalFormat, m_textureParameters.width, 0,
+            m_texture->image1D( 0, m_textureParameters.internalFormat, GLsizei(m_textureParameters.width), 0,
                                 m_textureParameters.format, m_textureParameters.type,
                                 m_textureParameters.texels );
             break;
         case GL_TEXTURE_2D:
             glBindTexture(GL_TEXTURE_2D, m_texture->id());
-            m_texture->image2D( 0, m_textureParameters.internalFormat, m_textureParameters.width,
-                                m_textureParameters.height, 0, m_textureParameters.format,
+            m_texture->image2D( 0, m_textureParameters.internalFormat, GLsizei(m_textureParameters.width),
+                                GLsizei(m_textureParameters.height), 0, m_textureParameters.format,
                                 m_textureParameters.type, m_textureParameters.texels );
             break;
         case GL_TEXTURE_3D:
-            m_texture->image3D( 0, m_textureParameters.internalFormat, m_textureParameters.width,
-                                m_textureParameters.height, m_textureParameters.depth, 0,
+            m_texture->image3D( 0, m_textureParameters.internalFormat, GLsizei(m_textureParameters.width),
+                                GLsizei(m_textureParameters.height), GLsizei(m_textureParameters.depth), 0,
                                 m_textureParameters.format, m_textureParameters.type,
                                 m_textureParameters.texels );
             break;
@@ -129,7 +129,7 @@ void Engine::Texture::GenerateCube( uint w, uint h, GLenum format, void** data, 
     // Load texels
     if ( linearize )
     {
-        int numcomp = 0;
+        uint numcomp = 0;
         bool hasAlpha = false;
         switch ( m_textureParameters.format )
         {
@@ -177,28 +177,28 @@ void Engine::Texture::updateData( void* data ) {
     {
     case GL_TEXTURE_1D:
     {
-        m_texture->image1D( 0, m_textureParameters.internalFormat, m_textureParameters.width, 0,
+        m_texture->image1D( 0, m_textureParameters.internalFormat, GLsizei(m_textureParameters.width), 0,
                             m_textureParameters.format, m_textureParameters.type, data );
     }
     break;
     case GL_TEXTURE_2D:
     {
-        m_texture->image2D( 0, m_textureParameters.internalFormat, m_textureParameters.width,
-                            m_textureParameters.height, 0, m_textureParameters.format,
+        m_texture->image2D( 0, m_textureParameters.internalFormat, GLsizei(m_textureParameters.width),
+                            GLsizei(m_textureParameters.height), 0, m_textureParameters.format,
                             m_textureParameters.type, data );
     }
     break;
     case GL_TEXTURE_3D:
     {
-        m_texture->image3D( 0, m_textureParameters.internalFormat, m_textureParameters.width,
-                            m_textureParameters.height, m_textureParameters.depth, 0,
+        m_texture->image3D( 0, m_textureParameters.internalFormat, GLsizei(m_textureParameters.width),
+                            GLsizei(m_textureParameters.height), GLsizei(m_textureParameters.depth), 0,
                             m_textureParameters.format, m_textureParameters.type, data );
     }
     break;
     case GL_TEXTURE_CUBE_MAP:
     {
-        m_texture->cubeMapImage( 0, m_textureParameters.internalFormat, m_textureParameters.width,
-                                 m_textureParameters.height, 0, m_textureParameters.format,
+        m_texture->cubeMapImage( 0, m_textureParameters.internalFormat, GLsizei(m_textureParameters.width),
+                                 GLsizei(m_textureParameters.height), 0, m_textureParameters.format,
                                  m_textureParameters.type, data );
     }
     break;
@@ -240,7 +240,7 @@ void Engine::Texture::linearize( Scalar gamma ) {
     {
         // Only RGB and RGBA texture contains color information
         // (others are not really colors and must be managed explicitely by the user)
-        int numcomp = 0;
+        uint numcomp = 0;
         bool hasAlpha = false;
         switch ( m_textureParameters.format )
         {

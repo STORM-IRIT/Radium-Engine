@@ -178,7 +178,7 @@ void GeometryComponent::setDeformable( const bool b ) {
     this->m_deformable = b;
 }
 
-void GeometryComponent::setContentName( const std::string name ) {
+void GeometryComponent::setContentName(const std::string &name) {
     this->m_contentName = name;
 }
 

@@ -25,14 +25,13 @@
 
 #include <Engine/Renderer/Texture/Texture.hpp>
 
+#include <numeric> // for std::accumulate
+
 namespace Ra {
 namespace Engine {
 
 ShaderProgram::ShaderProgram() : m_program( nullptr ) {
-    for ( auto & s : m_shaderObjects)
-    {
-        s = nullptr;
-    }
+    std::fill(m_shaderObjects.begin(), m_shaderObjects.end(), nullptr);
 }
 
 ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) : ShaderProgram() {
@@ -75,19 +74,23 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
     { shaderHeader = std::string( version + "\n\n" ); }
 
     // Add properties at the beginning of the file.
-    for ( const auto& prop : props )
-    {
-        shaderHeader += prop + std::string( "\n\n" );
-    }
+    shaderHeader = std::accumulate(props.begin(), props.end(), shaderHeader,
+                           [](std::string a, const std::string& b) {
+                               return std::move(a) + b + std::string("\n");
+                           }
+                   );
 
     // Add includes, depending on the shader type.
-    for ( const auto& incl : includes )
-    {
-        if ( incl.second == type )
-        {
-            shaderHeader += incl.first + std::string( "\n\n" );
-        }
-    }
+    shaderHeader = std::accumulate(includes.begin(), includes.end(), shaderHeader,
+                                   [type](std::string a, const std::pair<std::string, ShaderType>& b) -> std::string {
+                                        if (b.second == type ) {
+                                            return std::move(a) + b.first + std::string("\n");
+                                        } else {
+                                            return std::move(a);
+                                        }
+                                   }
+    );
+
 
     auto fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
 

@@ -581,10 +581,9 @@ void Renderer::displayTexture( const std::string& texName ) {
 std::vector<std::string> Renderer::getAvailableTextures() const {
     std::vector<std::string> ret;
     ret.push_back( "Fancy Texture" );
-    for ( const auto& tex : m_secondaryTextures )
-    {
-        ret.push_back( tex.first );
-    }
+    std::transform(m_secondaryTextures.begin(), m_secondaryTextures.end(), std::back_inserter(ret),
+        [](const std::pair<std::string, Texture*> tex){return tex.first;}
+        );
     return ret;
 }
 

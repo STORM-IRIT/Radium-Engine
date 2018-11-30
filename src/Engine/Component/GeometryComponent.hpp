@@ -42,7 +42,7 @@ class RA_ENGINE_API GeometryComponent : public Component {
   public:
     // Component communication management
     void setupIO( const std::string& id );
-    void setContentName( const std::string name );
+    void setContentName(const std::string &name);
     void setDeformable( const bool b );
 
   private:

@@ -11,6 +11,7 @@
 
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 
+#include <numeric> // for reduce
 namespace Ra {
 namespace Engine {
 RenderObjectManager::RenderObjectManager() {}
@@ -82,10 +83,10 @@ void RenderObjectManager::getRenderObjectsByType(
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
     //// Copy each element in m_renderObjects
-    for ( const auto& idx : m_renderObjectByType[(int)type] )
-    {
-        objectsOut.push_back( m_renderObjects.at( idx ) );
-    }
+    std::transform(m_renderObjectByType[(int)type].begin(), m_renderObjectByType[(int)type].end(),
+                   std::back_inserter(objectsOut),
+                   [this](const Core::Index& i){ return this->m_renderObjects.at( i ); }
+                   );
 }
 
 void RenderObjectManager::renderObjectExpired( const Core::Index& idx ) {
@@ -104,26 +105,31 @@ void RenderObjectManager::renderObjectExpired( const Core::Index& idx ) {
 }
 
 size_t RenderObjectManager::getNumFaces() const {
-    uint result = 0;
-    for ( const auto& ro : m_renderObjects )
-    {
-        if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
-        {
-            result += ro->getMesh()->getGeometry().m_triangles.size();
-        }
-    }
+    // todo : use reduce instead of accumulate to improve performances (since C++17)
+    size_t result = std::accumulate(m_renderObjects.begin(), m_renderObjects.end(), size_t(0),
+                    [](size_t a, const std::shared_ptr<RenderObject>& ro) -> size_t {
+                        if (ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry) {
+                            return a + ro->getMesh()->getGeometry().m_triangles.size();
+                        } else {
+                            return a;
+                        }
+                    }
+    );
     return result;
+
 }
 
 size_t RenderObjectManager::getNumVertices() const {
-    uint result = 0;
-    for ( const auto& ro : m_renderObjects )
-    {
-        if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
-        {
-            result += ro->getMesh()->getGeometry().vertices().size();
-        }
-    }
+    // todo : use reduce instead of accumulate to improve performances (since C++17)
+    size_t result = std::accumulate(m_renderObjects.begin(), m_renderObjects.end(), size_t(0),
+                         [](size_t a, const std::shared_ptr<RenderObject>& ro) -> size_t {
+                            if (ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry) {
+                                return a + ro->getMesh()->getGeometry().vertices().size();
+                            } else {
+                                return a;
+                            }
+                         }
+                                   );
     return result;
 }
 

@@ -143,7 +143,6 @@ void ForwardRenderer::updateStepInternal( const RenderData& renderData ) {
 }
 
 void ForwardRenderer::renderInternal( const RenderData& renderData ) {
-    const ShaderProgram* shader;
 
     m_fbo->bind();
 
@@ -269,12 +268,12 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
 
         GL_ASSERT(glDepthFunc(GL_ALWAYS));
         GL_ASSERT(glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA));
-
-        shader = m_shaderMgr->getShaderProgram("ComposeOIT");
-        shader->bind();
-        shader->setUniform("u_OITSumColor", m_textures[RendererTextures_OITAccum].get(), 0);
-        shader->setUniform("u_OITSumWeight", m_textures[RendererTextures_OITRevealage].get(), 1);
-
+        {
+            auto shader = m_shaderMgr->getShaderProgram("ComposeOIT");
+            shader->bind();
+            shader->setUniform("u_OITSumColor", m_textures[RendererTextures_OITAccum].get(), 0);
+            shader->setUniform("u_OITSumWeight", m_textures[RendererTextures_OITRevealage].get(), 1);
+        }
         m_quadMesh->render();
     }
 #endif
