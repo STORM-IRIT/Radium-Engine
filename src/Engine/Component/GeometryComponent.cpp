@@ -71,11 +71,11 @@ void GeometryComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
     auto displayMesh = Ra::Core::make_shared<Mesh>( meshName /*, Mesh::RM_POINTS*/ );
 
     Ra::Core::TriangleMesh mesh;
-    Ra::Core::Transform T = data->getFrame();
-    Ra::Core::Transform N;
-    N.matrix() = ( T.matrix() ).inverse().transpose();
+    const auto T = data->getFrame();
+    const Ra::Core::Transform N(( T.matrix() ).inverse().transpose());
 
     mesh.vertices().resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
+
 #pragma omp parallel for
     for ( uint i = 0; i < data->getVerticesSize(); ++i )
     {

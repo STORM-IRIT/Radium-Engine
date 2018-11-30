@@ -70,29 +70,21 @@ std::unique_ptr<Asset::LightData> AssimpLightDataLoader::loadLightData(const aiS
     rootMatrix = Core::Matrix4::Identity();
     Core::Matrix4 frame = loadLightFrame( scene, rootMatrix, builtLight->getName() );
     setFrame( frame );
-    Core::Color color( light.mColorDiffuse.r, light.mColorDiffuse.g, light.mColorDiffuse.b, 1.0 );
+    auto color = Eigen::Map<const Eigen::Matrix<Scalar, 3, 1>>( &(light.mColorDiffuse.r) ).homogeneous();
 
     switch ( builtLight->getType() )
     {
     case Asset::LightData::DIRECTIONAL_LIGHT:
     {
         Core::Vector4 dir( light.mDirection[0], light.mDirection[1], light.mDirection[2], 0.0 );
-        dir = frame.transpose().inverse() * dir;
-
-        Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
-        finalDir = -finalDir;
-
-        builtLight->setLight( color, finalDir );
+        builtLight->setLight( color, - (frame.transpose().inverse() * dir).head<3>() );
     }
     break;
 
     case Asset::LightData::POINT_LIGHT:
     {
-        Core::Vector4 pos( light.mPosition[0], light.mPosition[1], light.mPosition[2], 1.0 );
-        pos = frame * pos;
-        pos /= pos.w();
-
-        builtLight->setLight( color, Core::Vector3( pos.x(), pos.y(), pos.z() ),
+        builtLight->setLight( color,
+                       (frame * Eigen::Map<const Eigen::Matrix<Scalar, 3, 1>>( &(light.mPosition.x) ).homogeneous() ).hnormalized(),
                        Asset::LightData::LightAttenuation( light.mAttenuationConstant,
                                                            light.mAttenuationLinear,
                                                            light.mAttenuationQuadratic ) );
@@ -101,19 +93,13 @@ std::unique_ptr<Asset::LightData> AssimpLightDataLoader::loadLightData(const aiS
 
     case Asset::LightData::SPOT_LIGHT:
     {
-        Core::Vector4 pos( light.mPosition[0], light.mPosition[1], light.mPosition[2], 1.0 );
-        pos = frame * pos;
-        pos /= pos.w();
-
         Core::Vector4 dir( light.mDirection[0], light.mDirection[1], light.mDirection[2], 0.0 );
-        dir = frame.transpose().inverse() * dir;
 
-        Core::Vector3 finalDir( dir.x(), dir.y(), dir.z() );
-        finalDir = -finalDir;
-
-        builtLight->setLight( color, Core::Vector3( pos.x(), pos.y(), pos.z() ), finalDir,
-                       light.mAngleInnerCone, light.mAngleOuterCone,
-                       Asset::LightData::LightAttenuation( light.mAttenuationConstant,
+        builtLight->setLight( color,
+              (frame * Eigen::Map<const Eigen::Matrix<Scalar, 3, 1>>( &(light.mPosition.x) ).homogeneous() ).hnormalized(),
+              - (frame.transpose().inverse() * dir).head<3>(),
+              light.mAngleInnerCone, light.mAngleOuterCone,
+               Asset::LightData::LightAttenuation( light.mAttenuationConstant,
                                                            light.mAttenuationLinear,
                                                            light.mAttenuationQuadratic ) );
     }
@@ -133,25 +119,16 @@ Core::Matrix4 AssimpLightDataLoader::loadLightFrame( const aiScene* scene,
                                                      const Core::Matrix4& parentFrame,
                                                      const std::string & lightName ) const {
     const aiNode* lightNode = scene->mRootNode->FindNode( lightName.c_str() );
-    Core::Matrix4 transform;
-    transform = Core::Matrix4::Identity();
 
     if ( lightNode != nullptr )
     {
-        Core::Matrix4 t0;
-        Core::Matrix4 t1;
 
-        for ( uint i = 0; i < 4; ++i )
-        {
-            for ( uint j = 0; j < 4; ++j )
-            {
-                t0( i, j ) = scene->mRootNode->mTransformation[i][j];
-                t1( i, j ) = lightNode->mTransformation[i][j];
-            }
-        }
-        transform = t0 * t1;
+        auto t0 = Core::Matrix4::NullaryExpr([&scene](int i,int j){ return scene->mRootNode->mTransformation[i][j]; });
+        auto t1 = Core::Matrix4::NullaryExpr([&lightNode](int i,int j){ return lightNode->mTransformation[i][j]; });
+
+        return parentFrame * t0 * t1;
     }
-    return parentFrame * transform;
+    return parentFrame ;
 }
 
 std::string AssimpLightDataLoader::fetchName(const aiLight &light) const {

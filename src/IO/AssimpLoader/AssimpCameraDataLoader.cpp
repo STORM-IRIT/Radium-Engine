@@ -91,26 +91,16 @@ Core::Matrix4 AssimpCameraDataLoader::loadCameraFrame( const aiScene* scene,
                                                        const Core::Matrix4& parentFrame,
                                                        Asset::CameraData& data ) const {
     const aiNode* CameraNode = scene->mRootNode->FindNode( data.getName().c_str() );
-    Core::Matrix4 transform;
-    transform = Core::Matrix4::Identity();
 
     if ( CameraNode != nullptr )
     {
-        Core::Matrix4 t0;
-        Core::Matrix4 t1;
+        auto t0 = Core::Matrix4::NullaryExpr([&scene](int i,int j){ return scene->mRootNode->mTransformation[i][j]; });
+        auto t1 = Core::Matrix4::NullaryExpr([&CameraNode](int i,int j){ return CameraNode->mTransformation[i][j]; });
 
-        for ( uint i = 0; i < 4; ++i )
-        {
-            for ( uint j = 0; j < 4; ++j )
-            {
-                t0( i, j ) = scene->mRootNode->mTransformation[i][j];
-                t1( i, j ) = CameraNode->mTransformation[i][j];
-            }
-        }
-        transform = t0 * t1;
+        return parentFrame * t0 * t1;
+    } else {
+        return parentFrame;
     }
-
-    return parentFrame * transform;
 }
 
 void AssimpCameraDataLoader::fetchName( const aiCamera& camera, Asset::CameraData& data ) const {

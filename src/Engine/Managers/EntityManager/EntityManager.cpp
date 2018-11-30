@@ -11,9 +11,9 @@ namespace Ra {
 namespace Engine {
 
 EntityManager::EntityManager() {
-    Entity* ent( SystemEntity::createInstance() );
-    // FIXME : ent is used after it was moved. Might generate malfunctions
-    ent->idx = m_entities.emplace( std::move( ent ) );
+    Entity* systemEntity( SystemEntity::createInstance() );
+    auto idx = m_entities.emplace( std::move( systemEntity ) );
+    auto& ent = m_entities[idx];
     CORE_ASSERT( ent == SystemEntity::getInstance(), "Invalid singleton instanciation" );
     m_entitiesName.insert( std::pair<std::string, Core::Index>( ent->getName(), ent->idx ) );
     RadiumEngine::getInstance()->getSignalManager()->fireEntityCreated(
@@ -88,7 +88,6 @@ Entity* EntityManager::getEntity( Core::Index idx ) const {
 std::vector<Entity*> EntityManager::getEntities() const {
     std::vector<Entity*> entities;
     entities.resize( m_entities.size() );
-
     std::transform( m_entities.begin(), m_entities.end(), entities.begin(),
                     [](const auto &e){ return e.get(); });
 
@@ -96,12 +95,10 @@ std::vector<Entity*> EntityManager::getEntities() const {
 }
 
 Entity* EntityManager::getEntity( const std::string& name ) const {
-    Entity* ent = nullptr;
     auto idx = m_entitiesName.find( name );
     CORE_ASSERT( idx != m_entitiesName.end(),
                  "Trying to access an invalid entity (named: " + name + ")" );
-    ent = m_entities.at( idx->second ).get();
-    return ent;
+    return  m_entities.at( idx->second ).get();
 }
 
 void EntityManager::swapBuffers() {

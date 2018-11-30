@@ -69,15 +69,11 @@ Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
     // Note that currently, Assimp is ALWAYS creating faces, even when
     // loading point clouds
     // (see 3rdPartyLibraries/Assimp/code/PlyLoader.cpp:260)
-    bool ok = false;
-    for ( const auto& geom : fileData->m_geometryData )
-    {
-        if ( geom->hasFaces() )
-        {
-            ok = true;
-            break;
-        }
-    }
+    bool ok = std::any_of(fileData->m_geometryData.begin(), fileData->m_geometryData.end(),
+                          [](const auto &geom)->bool{
+                            return geom->hasFaces();
+                          }
+                         );
     if ( !ok )
     {
         if ( fileData->isVerbose() )
