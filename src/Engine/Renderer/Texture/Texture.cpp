@@ -20,7 +20,7 @@ Engine::Texture::Texture( const TextureData& texParameters ) :
     m_isMipMaped{false},
     m_isLinear{false} {}
 
-Engine::Texture::~Texture() {}
+Engine::Texture::~Texture() = default;
 
 void Engine::Texture::InitializeGL( bool linearize, bool mipmaped ) {
     if ( (m_textureParameters.target != GL_TEXTURE_1D) &&
@@ -269,13 +269,13 @@ void Engine::Texture::linearize( Scalar gamma ) {
     }
 }
 
-void Engine::Texture::sRGBToLinearRGB( uint8_t* texels, int numCommponent, bool hasAlphaChannel,
+void Engine::Texture::sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel,
                                        Scalar gamma ) {
     if ( !m_isLinear )
     {
         m_isLinear = true;
         // auto linearize = [gamma](float in)-> float {
-        auto linearize = [gamma](uint8_t in) -> unsigned char
+        auto linearize = [gamma](uint8_t in) -> uint8_t
         {
             // Constants are described at https://en.wikipedia.org/wiki/SRGB
             float c = float(in) / 255;
@@ -289,7 +289,7 @@ void Engine::Texture::sRGBToLinearRGB( uint8_t* texels, int numCommponent, bool 
             }
             return uint8_t(c * 255);
         };
-        int numvalues = hasAlphaChannel ? numCommponent - 1 : numCommponent;
+        uint numvalues = hasAlphaChannel ? numCommponent - 1 : numCommponent;
 #pragma omp parallel for
         for (int i = 0; i < m_textureParameters.width * m_textureParameters.height *
             m_textureParameters.depth;

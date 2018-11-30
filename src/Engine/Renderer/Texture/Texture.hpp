@@ -180,15 +180,17 @@ class RA_ENGINE_API Texture final {
     /**
      * @return the width of the texture
      */
-    uint width() const { return m_textureParameters.width; }
+    size_t width() const { return m_textureParameters.width; }
     /**
      * @return the height of the texture
      */
-    uint height() const { return m_textureParameters.height; }
+    size_t height() const { return m_textureParameters.height; }
     /**
      * @return the depth of the texture
      */
-    uint depth() const { return m_textureParameters.depth; }
+    size_t depth() const { return m_textureParameters.depth; }
+
+    void *texels() { return m_textureParameters.texels; }
     /**
      * @return the globjects::Texture associated with the texture
      */
@@ -205,16 +207,16 @@ class RA_ENGINE_API Texture final {
   private:
     /**
      * Convert a color texture from sRGB to Linear RGB spaces.
-     * This will transform the internal representation of the texture to GL_FLOAT.
-     * Only GL_RGB[8, 16, 16F, 32F] and GL_RGBA[8, 16, 16F, 32F] are managed.
+     * The content of the array of texel
+     * designated by the texel pointer is modified by side effect.
      * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
      * @param texels the array of texels to linearize
      * @param numCommponent number of color channels.
      * @param bool hasAlphaChannel indicate if the last channel is an alpha channel.
      * @param gamma the gama value to use (sRGB is 2.4)
-     * @note only 8 bit textures are managed by this operator.
+     * @note only 8 bit (GL_UNSIGNED_BYTE data format) textures are managed by this operator.
      */
-    void sRGBToLinearRGB( uint8_t* texels, int numCommponent, bool hasAlphaChannel,
+    void sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel,
                           Scalar gamma = Scalar( 2.4 ) );
 
     /// Link to glObject texture
