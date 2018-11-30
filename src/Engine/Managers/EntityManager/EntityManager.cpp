@@ -14,7 +14,7 @@ EntityManager::EntityManager() {
     Entity* systemEntity( SystemEntity::createInstance() );
     auto idx = m_entities.emplace( std::move( systemEntity ) );
     auto& ent = m_entities[idx];
-    CORE_ASSERT( ent == SystemEntity::getInstance(), "Invalid singleton instanciation" );
+    CORE_ASSERT( ent.get() == SystemEntity::getInstance(), "Invalid singleton instanciation" );
     m_entitiesName.insert( std::pair<std::string, Core::Index>( ent->getName(), ent->idx ) );
     RadiumEngine::getInstance()->getSignalManager()->fireEntityCreated(
         ItemEntry( SystemEntity::getInstance() ) );
